@@ -24,6 +24,8 @@ let
 
     "x86_64-redox"
 
+    "wasm32-unknown"
+
     "powerpc64le-linux"
 
     "riscv32-linux" "riscv64-linux"
@@ -74,6 +76,7 @@ in {
   redox   = filterDoubles predicates.isRedox;
   windows = filterDoubles predicates.isWindows;
   genode  = filterDoubles predicates.isGenode;
+  wasm    = filterDoubles predicates.isWasm;
 
   embedded = filterDoubles predicates.isNone;
 
