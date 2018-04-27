@@ -1049,3 +1049,16 @@ self: super: {
 in {
   inherit amazonka amazonka-core amazonka-test;
 })
+
+//
+
+# The actual Cabal library gets built while building its `Setup.hs`
+(let
+  inherit (pkgs.lib) filterAttrs mapAttrs hasPrefix;
+  cabals = filterAttrs (n: v: hasPrefix "Cabal_" n) super;
+  fixCabal = n: drv: overrideCabal drv (drv: {
+    coreSetup = false;
+  });
+in
+  mapAttrs fixCabal cabals
+)
