@@ -118,13 +118,14 @@ with lib;
     };
 
     sslCertificate = mkOption {
-      type = types.path;
+      type = types.nullOr types.path;
       example = "/var/host.cert";
+      default = null;
       description = "Path to server SSL certificate.";
     };
 
     sslCertificateKey = mkOption {
-      type = types.path;
+      type = types.nullOr types.path;
       example = "/var/host.key";
       description = "Path to server SSL certificate key.";
     };
