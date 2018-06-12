@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "youtrack-${version}";
-  version = "2018.1.41051";
+  version = "2018.2.42284";
 
   jar = fetchurl {
     url = "https://download.jetbrains.com/charisma/${name}.jar";
-    sha256 = "1sznay3lbyb2i977103hzh61rw1bpkdv0raffbir68apmvv1r0rb";
+    sha256 = "1ys2w5kqyjlba3kgb5w4qr8m55cp8rxipxl9gghbzhis3wqjf497";
   };
 
   buildInputs = [ makeWrapper ];
