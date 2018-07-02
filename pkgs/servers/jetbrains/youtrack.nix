@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, jre }:
+{ stdenv, fetchurl, makeWrapper, jre, gawk }:
 
 stdenv.mkDerivation rec {
   name = "youtrack-${version}";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    makeWrapper ${jre}/bin/java $out/bin/youtrack --add-flags "\$YOUTRACK_JVM_OPTS -jar $jar"
+    makeWrapper ${jre}/bin/java $out/bin/youtrack --add-flags "\$YOUTRACK_JVM_OPTS -jar $jar" --prefix PATH : "${stdenv.lib.makeBinPath [ gawk ]}" --set JRE_HOME ${jre}
     runHook postInstall
   '';
 
