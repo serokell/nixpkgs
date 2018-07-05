@@ -163,8 +163,10 @@ let
         ${orig.preConfigure or ""}
       '';
     });
+in
 
-in package-set { inherit pkgs stdenv callPackage; } self // {
+genAttrs (compiler.passthru.bootPackages or []) (name: compiler."${haskellLib.toOutputName name}") //
+package-set { inherit pkgs stdenv callPackage; } self // {
 
     inherit mkDerivation callPackage haskellSrc2nix hackage2nix;
 
@@ -262,7 +264,7 @@ in package-set { inherit pkgs stdenv callPackage; } self // {
         installPhase = "echo $nativeBuildInputs $buildInputs > $out";
       });
 
-  } // genAttrs (compiler.passthru.bootPackages or []) (name: compiler."${haskellLib.toOutputName name}") // {
+  } // {
     ghc = compiler // {
       withPackages = ghcWithPackages;
       withHoogle = ghcWithHoogle;
