@@ -1,6 +1,6 @@
-{ stdenv, buildGoPackage, fetchFromGitHub }:
+{ stdenv, buildGo19Package, fetchFromGitHub }:
 
-buildGoPackage rec {
+buildGo19Package rec {
   name = "node_exporter-${version}";
   version = "0.16.0";
   rev = "v${version}";
@@ -14,7 +14,7 @@ buildGoPackage rec {
     sha256 = "0rm6ahccgr1djpwvsa3p1kfal3mpy4a6g5w974pra84gk3krli5a";
   };
 
-  # FIXME: tests fail due to read-only nix store
+  # TODO: tests fail due to read-only Nix store
   doCheck = false;
 
   meta = with stdenv.lib; {
