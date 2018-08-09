@@ -45,10 +45,12 @@ in rec {
   prometheus_1 = buildPrometheus {
     version = "1.8.2";
     sha256 = "088flpg3qgnj9afl9vbaa19v2s1d21yxy38nrlv5m7cxwy2pi5pv";
+    doCheck = false;
   };
 
   prometheus_2 = buildPrometheus {
     version = "2.8.1";
     sha256 = "0x8w0qdh4lcf19nmdlhvgzpy08c2a932d3k49cjwhi5npcsf858n";
+    doCheck = false;
   };
 }
