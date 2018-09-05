@@ -280,6 +280,8 @@ with lib;
 
     # BLCR
     (mkRemovedOptionModule [ "environment.blcr.enable" ] "The BLCR module has been removed")
+    # Buildkite Agent
+    (mkRenamedOptionModule [ "services" "buildkite-agent" "meta-data"] [ "services" "buildkite-agent" "tags" ])
 
     # beegfs
     (mkRemovedOptionModule [ "services.beegfsEnable" ] "The BeeGFS module has been removed")
