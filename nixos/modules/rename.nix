@@ -276,6 +276,8 @@ with lib;
 
     # BLCR
     (mkRemovedOptionModule [ "environment.blcr.enable" ] "The BLCR module has been removed")
+    # Buildkite Agent
+    (mkRenamedOptionModule [ "services" "buildkite-agent" "meta-data"] [ "services" "buildkite-agent" "tags" ])
 
     # Redis
     (mkRemovedOptionModule [ "services" "redis" "user" ] "The redis module now is hardcoded to the redis user.")
