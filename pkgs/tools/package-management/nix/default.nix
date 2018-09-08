@@ -3,6 +3,7 @@
 , stateDir ? "/nix/var"
 , confDir ? "/etc"
 , boehmgc
+, fetchpatch
 }:
 
 let
@@ -166,7 +167,7 @@ in rec {
     inherit storeDir stateDir confDir boehmgc;
   };
 
-  nixStable = callPackage common rec {
+  nixStable = (callPackage common rec {
     name = "nix-2.2.2";
     src = fetchurl {
       url = "http://nixos.org/releases/nix/${name}/${name}.tar.xz";
@@ -174,7 +175,15 @@ in rec {
     };
 
     inherit storeDir stateDir confDir boehmgc;
-  };
+  }).overrideAttrs (super: {
+    patches = [
+      # fetchGit rev = "*"
+      (fetchpatch {
+        url = "https://github.com/NixOS/nix/commit/4b279a099f19bd13a98fa2ae519c4aa263bb6b6e.patch";
+        sha256 = "0sisavs3x2p37hrmhnhvhh2rzb0qyjvvd4y0azk25329wylqnw88";
+      })
+    ];
+  });
 
   nixUnstable = lib.lowPrio (callPackage common rec {
     name = "nix-2.3${suffix}";
