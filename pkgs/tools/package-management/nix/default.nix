@@ -82,7 +82,7 @@ let
 
     installFlags = "sysconfdir=$(out)/etc";
 
-    doInstallCheck = true; # not cross
+    doInstallCheck = !stdenv.isDarwin; # not cross
 
     # socket path becomes too long otherwise
     preInstallCheck = lib.optional stdenv.isDarwin ''
