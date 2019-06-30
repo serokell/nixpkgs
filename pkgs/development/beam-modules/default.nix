@@ -44,7 +44,8 @@ let
         elixir = elixir_1_8;
 
         elixir_1_8 = lib.callElixir ../interpreters/elixir/1.8.nix {
-          inherit rebar erlang;
+          inherit rebar;
+          erlang = pkgs.erlangR21;
           debugInfo = true;
         };
 
