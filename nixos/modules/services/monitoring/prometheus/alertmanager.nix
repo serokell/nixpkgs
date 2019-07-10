@@ -18,7 +18,7 @@ let
     in checkedConfig yml;
 
   cmdlineArgs = cfg.extraFlags ++ [
-    "--config.file ${alertmanagerYml}"
+    "--config.file /tmp/alert-manager-substituted.yaml"
     "--web.listen-address ${cfg.listenAddress}:${toString cfg.port}"
     "--log.level ${cfg.logLevel}"
     ] ++ (optional (cfg.webExternalUrl != null)
@@ -118,6 +118,16 @@ in {
           Extra commandline options when launching the Alertmanager.
         '';
       };
+
+      environmentFile = mkOption {
+        type = types.nullOr types.path;
+        default = null;
+        example = "/root/alertmanager.env";
+        description = ''
+          File to load as environment file. Useful to insert secrets
+          into the configuration (via substituteAll).
+        '';
+      };
     };
   };
 
@@ -135,9 +145,14 @@ in {
       systemd.services.alertmanager = {
         wantedBy = [ "multi-user.target" ];
         after    = [ "network.target" ];
+        preStart = ''
+          (source ${pkgs.stdenv}/setup
+           substituteAll "${alertmanagerYml}" /tmp/alert-manager-substituted.yaml)
+        '';
         serviceConfig = {
           Restart  = "always";
           DynamicUser = true;
+          EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
           WorkingDirectory = "/tmp";
           ExecStart = "${cfg.package}/bin/alertmanager" +
             optionalString (length cmdlineArgs != 0) (" \\\n  " +
