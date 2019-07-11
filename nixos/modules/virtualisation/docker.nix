@@ -36,14 +36,14 @@ let
     while read -r net; do
       if [[ ! -z "$net" ]]; then
         echo -n "Removed superfluous Docker network: "
-        ${pkgs.docker}/bin/docker network rm "$net"
+        ${pkgs.docker}/bin/docker network rm "$net" || true
       fi
     done <<< "$nsuperfluous"
 
     while read -r vol; do
       if [[ ! -z "$vol" ]]; then
         echo -n "Removed superfluous Docker volume: "
-        ${pkgs.docker}/bin/docker volume rm "$vol"
+        ${pkgs.docker}/bin/docker volume rm "$vol" || true
       fi
     done <<< "$vsuperfluous"
   '';
