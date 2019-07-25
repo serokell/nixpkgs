@@ -1,55 +1,55 @@
-{ pkgs
-, lib
+{ pkgs, lib
 
 , # The NixOS configuration to be installed onto the disk image.
-  config
+config
 
 , # The size of the disk, in megabytes.
-  diskSize
+diskSize
 
-  # The files and directories to be placed in the target file system.
-  # This is a list of attribute sets {source, target} where `source'
-  # is the file system object (regular file or directory) to be
-  # grafted in the file system at path `target'.
-, contents ? []
+# The files and directories to be placed in the target file system.
+# This is a list of attribute sets {source, target} where `source'
+# is the file system object (regular file or directory) to be
+# grafted in the file system at path `target'.
+, contents ? [ ]
 
 , # Type of partition table to use; either "legacy", "efi", or "none".
-  # For "efi" images, the GPT partition table is used and a mandatory ESP
-  #   partition of reasonable size is created in addition to the root partition.
-  #   If `installBootLoader` is true, GRUB will be installed in EFI mode.
-  # For "legacy", the msdos partition table is used and a single large root
-  #   partition is created. If `installBootLoader` is true, GRUB will be
-  #   installed in legacy mode.
-  # For "none", no partition table is created. Enabling `installBootLoader`
-  #   most likely fails as GRUB will probably refuse to install.
-  partitionTableType ? "legacy"
+# For "efi" images, the GPT partition table is used and a mandatory ESP
+#   partition of reasonable size is created in addition to the root partition.
+#   If `installBootLoader` is true, GRUB will be installed in EFI mode.
+# For "legacy", the msdos partition table is used and a single large root
+#   partition is created. If `installBootLoader` is true, GRUB will be
+#   installed in legacy mode.
+# For "none", no partition table is created. Enabling `installBootLoader`
+#   most likely fails as GRUB will probably refuse to install.
+partitionTableType ? "legacy"
 
 , # The root file system type.
-  fsType ? "ext4"
+fsType ? "ext4"
 
 , # Filesystem label
-  label ? "nixos"
+label ? "nixos"
 
 , # The initial NixOS configuration file to be copied to
-  # /etc/nixos/configuration.nix.
-  configFile ? null
+# /etc/nixos/configuration.nix.
+configFile ? null
 
 , # Shell code executed after the VM has finished.
-  postVM ? ""
+postVM ? ""
 
 , name ? "nixos-disk-image"
 
 , # Disk image format, one of qcow2, qcow2-compressed, vpc, raw.
-  format ? "raw"
-}:
+format ? "raw" }:
 
-assert partitionTableType == "legacy" || partitionTableType == "efi" || partitionTableType == "none";
+assert partitionTableType == "legacy" || partitionTableType == "efi"
+|| partitionTableType == "none";
 # We use -E offset=X below, which is only supported by e2fsprogs
 assert partitionTableType != "none" -> fsType == "ext4";
 
 with lib;
 
-let format' = format; in let
+let format' = format;
+in let
 
   format = if format' == "qcow2-compressed" then "qcow2" else format';
 
@@ -57,8 +57,8 @@ let format' = format; in let
 
   filename = "nixos." + {
     qcow2 = "qcow2";
-    vpc   = "vhd";
-    raw   = "img";
+    vpc = "vhd";
+    raw = "img";
   }.${format};
 
   rootPartition = { # switch-case
@@ -85,7 +85,7 @@ let format' = format; in let
   nixpkgs = cleanSource pkgs.path;
 
   # FIXME: merge with channel.nix / make-channel.nix.
-  channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}" {} ''
+  channelSources = pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
     mkdir -p $out
     cp -prd ${nixpkgs.outPath} $out/nixos
     chmod -R u+w $out/nixos
@@ -96,8 +96,9 @@ let format' = format; in let
     echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
   '';
 
-  binPath = with pkgs; makeBinPath (
-    [ rsync
+  binPath = with pkgs;
+    makeBinPath ([
+      rsync
       utillinux
       parted
       e2fsprogs
@@ -113,7 +114,9 @@ let format' = format; in let
   sources = map (x: x.source) contents;
   targets = map (x: x.target) contents;
 
-  closureInfo = pkgs.closureInfo { rootPaths = [ config.system.build.toplevel channelSources ]; };
+  closureInfo = pkgs.closureInfo {
+    rootPaths = [ config.system.build.toplevel channelSources ];
+  };
 
   prepareImage = ''
     export PATH=${binPath}
@@ -185,63 +188,67 @@ let format' = format; in let
       --system ${config.system.build.toplevel} --channel ${channelSources} --substituters ""
 
     echo "copying staging root to image..."
-    cptofs -p ${optionalString (partitionTableType != "none") "-P ${rootPartition}"} -t ${fsType} -i $diskImage $root/* /
+    cptofs -p ${
+      optionalString (partitionTableType != "none") "-P ${rootPartition}"
+    } -t ${fsType} -i $diskImage $root/* /
   '';
-in pkgs.vmTools.runInLinuxVM (
-  pkgs.runCommand name
-    { preVM = prepareImage;
-      buildInputs = with pkgs; [ utillinux e2fsprogs dosfstools ];
-      postVM = ''
-        ${if format == "raw" then ''
-          mv $diskImage $out/${filename}
-        '' else ''
-          ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
-        ''}
-        diskImage=$out/${filename}
-        ${postVM}
-      '';
-      memSize = 1024;
-    }
-    ''
-      export PATH=${binPath}:$PATH
+in pkgs.vmTools.runInLinuxVM (pkgs.runCommand name {
+  preVM = prepareImage;
+  buildInputs = with pkgs; [ utillinux e2fsprogs dosfstools ];
+  postVM = ''
+    ${if format == "raw" then ''
+      mv $diskImage $out/${filename}
+    '' else ''
+      ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
+    ''}
+    diskImage=$out/${filename}
+    ${postVM}
+  '';
+  memSize = 1024;
+} ''
+  export PATH=${binPath}:$PATH
 
-      rootDisk=${if partitionTableType != "none" then "/dev/vda${rootPartition}" else "/dev/vda"}
+  rootDisk=${
+    if partitionTableType != "none" then
+      "/dev/vda${rootPartition}"
+    else
+      "/dev/vda"
+  }
 
-      # Some tools assume these exist
-      ln -s vda /dev/xvda
-      ln -s vda /dev/sda
+  # Some tools assume these exist
+  ln -s vda /dev/xvda
+  ln -s vda /dev/sda
 
-      mountPoint=/mnt
-      mkdir $mountPoint
-      mount $rootDisk $mountPoint
+  mountPoint=/mnt
+  mkdir $mountPoint
+  mount $rootDisk $mountPoint
 
-      # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
-      # '-E offset=X' option, so we can't do this outside the VM.
-      ${optionalString (partitionTableType == "efi") ''
-        mkdir -p /mnt/boot
-        mkfs.vfat -n ESP /dev/vda1
-        mount /dev/vda1 /mnt/boot
-      ''}
+  # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
+  # '-E offset=X' option, so we can't do this outside the VM.
+  ${optionalString (partitionTableType == "efi") ''
+    mkdir -p /mnt/boot
+    mkfs.vfat -n ESP /dev/vda1
+    mount /dev/vda1 /mnt/boot
+  ''}
 
-      # Install a configuration.nix
-      mkdir -p /mnt/etc/nixos
-      ${optionalString (configFile != null) ''
-        cp ${configFile} /mnt/etc/nixos/configuration.nix
-      ''}
+  # Install a configuration.nix
+  mkdir -p /mnt/etc/nixos
+  ${optionalString (configFile != null) ''
+    cp ${configFile} /mnt/etc/nixos/configuration.nix
+  ''}
 
-      # Set up core system link, GRUB, etc.
-      NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root $mountPoint -- /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+  # Set up core system link, GRUB, etc.
+  NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root $mountPoint -- /nix/var/nix/profiles/system/bin/switch-to-configuration boot
 
-      # The above scripts will generate a random machine-id and we don't want to bake a single ID into all our images
-      rm -f $mountPoint/etc/machine-id
+  # The above scripts will generate a random machine-id and we don't want to bake a single ID into all our images
+  rm -f $mountPoint/etc/machine-id
 
-      umount -R /mnt
+  umount -R /mnt
 
-      # Make sure resize2fs works. Note that resize2fs has stricter criteria for resizing than a normal
-      # mount, so the `-c 0` and `-i 0` don't affect it. Setting it to `now` doesn't produce deterministic
-      # output, of course, but we can fix that when/if we start making images deterministic.
-      ${optionalString (fsType == "ext4") ''
-        tune2fs -T now -c 0 -i 0 $rootDisk
-      ''}
-    ''
-)
+  # Make sure resize2fs works. Note that resize2fs has stricter criteria for resizing than a normal
+  # mount, so the `-c 0` and `-i 0` don't affect it. Setting it to `now` doesn't produce deterministic
+  # output, of course, but we can fix that when/if we start making images deterministic.
+  ${optionalString (fsType == "ext4") ''
+    tune2fs -T now -c 0 -i 0 $rootDisk
+  ''}
+'')

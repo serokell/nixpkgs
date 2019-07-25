@@ -18,8 +18,9 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    homepage = https://github.com/c-cube/printbox/;
-    description = "Allows to print nested boxes, lists, arrays, tables in several formats";
+    homepage = "https://github.com/c-cube/printbox/";
+    description =
+      "Allows to print nested boxes, lists, arrays, tables in several formats";
     license = stdenv.lib.licenses.isc;
     maintainers = [ stdenv.lib.maintainers.romildo ];
   };

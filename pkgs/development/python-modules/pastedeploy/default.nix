@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytestrunner
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytestrunner, pytest }:
 
 buildPythonPackage rec {
   version = "2.0.1";
@@ -24,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Load, configure, and compose WSGI applications and servers";
-    homepage = http://pythonpaste.org/deploy/;
+    homepage = "http://pythonpaste.org/deploy/";
     license = licenses.mit;
   };
 

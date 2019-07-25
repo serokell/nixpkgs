@@ -7,23 +7,25 @@ let
 
   ethtool = "${pkgs.ethtool}/sbin/ethtool";
 
-  passwordParameter = password : if (password == "") then "" else
-    "sopass ${password}";
+  passwordParameter = password:
+    if (password == "") then "" else "sopass ${password}";
 
-  methodParameter = {method, password} :
-    if method == "magicpacket" then "wol g"
-    else if method == "password" then "wol s so ${passwordParameter password}"
-    else throw "Wake-On-Lan method not supported";
+  methodParameter = { method, password }:
+    if method == "magicpacket" then
+      "wol g"
+    else if method == "password" then
+      "wol s so ${passwordParameter password}"
+    else
+      throw "Wake-On-Lan method not supported";
 
   line = { interface, method ? "magicpacket", password ? "" }: ''
-    ${ethtool} -s ${interface} ${methodParameter {inherit method password;}}
+    ${ethtool} -s ${interface} ${methodParameter { inherit method password; }}
   '';
 
   concatStrings = fold (x: y: x + y) "";
   lines = concatStrings (map (l: line l) interfaces);
 
-in
-{
+in {
 
   ###### interface
 
@@ -31,13 +33,11 @@ in
 
     services.wakeonlan.interfaces = mkOption {
       default = [ ];
-      example = [
-        {
-          interface = "eth0";
-          method = "password";
-          password = "00:11:22:33:44:55";
-        }
-      ];
+      example = [{
+        interface = "eth0";
+        method = "password";
+        password = "00:11:22:33:44:55";
+      }];
       description = ''
         Interfaces where to enable Wake-On-LAN, and how. Two methods available:
         "magicpacket" and "password". The password has the shape of six bytes
@@ -47,7 +47,6 @@ in
     };
 
   };
-
 
   ###### implementation
 

@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, pytestcache, pep8 }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcache, pep8 }:
 
 buildPythonPackage rec {
   pname = "pytest-pep8";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     license = licenses.mit;
-    homepage = https://pypi.python.org/pypi/pytest-pep8;
+    homepage = "https://pypi.python.org/pypi/pytest-pep8";
     description = "pytest plugin to check PEP8 requirements";
   };
 }

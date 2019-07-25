@@ -1,10 +1,4 @@
-{ stdenv
-, fetchPypi
-, buildPythonPackage
-, persistent
-, zope_interface
-, transaction
-, zope_testrunner
+{ stdenv, fetchPypi, buildPythonPackage, persistent, zope_interface, transaction, zope_testrunner
 }:
 
 buildPythonPackage rec {
@@ -28,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Scalable persistent components";
-    homepage = http://packages.python.org/BTrees;
+    homepage = "http://packages.python.org/BTrees";
     license = licenses.zpl21;
   };
 }

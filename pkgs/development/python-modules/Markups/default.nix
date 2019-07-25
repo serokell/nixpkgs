@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python-markdown-math
-, markdown
-, docutils
-, pygments
+{ lib, buildPythonPackage, fetchPypi, python-markdown-math, markdown, docutils, pygments
 }:
 
 buildPythonPackage rec {
@@ -21,7 +15,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A wrapper around various text markup languages.";
-    homepage = https://github.com/retext-project/pymarkups;
+    homepage = "https://github.com/retext-project/pymarkups";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ klntsky ];
   };

@@ -4,9 +4,7 @@ with lib;
 
 {
   name = "osquery";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ ma27 ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ma27 ]; };
 
   machine = {
     services.osquery.enable = true;

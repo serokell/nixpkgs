@@ -1,5 +1,5 @@
 { stdenv, fetchurl, opensp, pkgconfig, libxml2, curl }:
-        
+
 stdenv.mkDerivation rec {
   name = "libofx-0.9.14";
 
@@ -12,9 +12,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ opensp libxml2 curl ];
 
-  meta = { 
-    description = "Opensource implementation of the Open Financial eXchange specification";
-    homepage = http://libofx.sourceforge.net/;
+  meta = {
+    description =
+      "Opensource implementation of the Open Financial eXchange specification";
+    homepage = "http://libofx.sourceforge.net/";
     license = "LGPL";
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ ];

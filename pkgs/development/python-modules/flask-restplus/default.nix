@@ -1,19 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, blinker
-, tzlocal
-, mock
-, rednose
-, flask
-, six
-, jsonschema
-, pytz
-, aniso8601
-, flask-restful
-, isPy27
-, enum34
+{ lib, buildPythonPackage, fetchPypi, nose, blinker, tzlocal, mock, rednose, flask, six, jsonschema, pytz, aniso8601, flask-restful, isPy27, enum34
 }:
 
 buildPythonPackage rec {
@@ -27,7 +12,7 @@ buildPythonPackage rec {
 
   checkInputs = [ nose blinker tzlocal mock rednose ];
   propagatedBuildInputs = [ flask six jsonschema pytz aniso8601 flask-restful ]
-   ++ lib.optional isPy27 enum34;
+    ++ lib.optional isPy27 enum34;
 
   # RuntimeError: Working outside of application context.
   doCheck = false;
@@ -37,7 +22,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/noirbizarre/flask-restplus;
+    homepage = "https://github.com/noirbizarre/flask-restplus";
     description = "Fast, easy and documented API development with Flask";
     license = lib.licenses.mit;
   };

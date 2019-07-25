@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "i3wm";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ aszlig ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ aszlig ]; };
 
   machine = { lib, ... }: {
     imports = [ ./common/x11.nix ./common/user-account.nix ];

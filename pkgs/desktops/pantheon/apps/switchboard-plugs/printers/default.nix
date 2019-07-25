@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig
-, vala, libgee, granite, gtk3, cups, switchboard }:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, cups, switchboard
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-printers";
@@ -12,32 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "05pkf3whh51gd9d0h2h4clgf7r3mvzl4ybas7834vhy19dzcbzmc";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
-  buildInputs = [
-    cups
-    granite
-    gtk3
-    libgee
-    switchboard
-  ];
+  buildInputs = [ cups granite gtk3 libgee switchboard ];
 
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
   meta = with stdenv.lib; {
     description = "Switchboard Printers Plug";
-    homepage = https://github.com/elementary/switchboard-plug-printers;
+    homepage = "https://github.com/elementary/switchboard-plug-printers";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

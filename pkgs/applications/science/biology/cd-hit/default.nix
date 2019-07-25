@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "032nva6iiwmw59gjipm1mv0xlcckhxsf45mc2qbnv19lbis0q22i";
   };
 
-  propagatedBuildInputs = [ perl perlPackages.TextNSP perlPackages.PerlMagick perlPackages.Storable ];
+  propagatedBuildInputs =
+    [ perl perlPackages.TextNSP perlPackages.PerlMagick perlPackages.Storable ];
 
   nativeBuildInputs = [ zlib makeWrapper ];
 
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
   meta = with stdenv.lib; {
     description = "Clustering and comparing protein or nucleotide sequences";
-    homepage = http://weizhongli-lab.org/cd-hit/;
+    homepage = "http://weizhongli-lab.org/cd-hit/";
     license = licenses.gpl2;
     maintainers = [ maintainers.bzizou ];
     platforms = platforms.unix;

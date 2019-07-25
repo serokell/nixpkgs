@@ -1,20 +1,25 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''plump-parser'';
-  version = ''plump-20170725-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "plump-parser";
+  version = "plump-20170725-git";
 
-  description = ''Plump's core parser component.'';
+  description = "Plump's core parser component.";
 
-  deps = [ args."array-utils" args."plump-dom" args."plump-lexer" args."trivial-indent" ];
+  deps = [
+    args."array-utils"
+    args."plump-dom"
+    args."plump-lexer"
+    args."trivial-indent"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/plump/2017-07-25/plump-20170725-git.tgz'';
-    sha256 = ''118ashy1sqi666k18fqjkkzzqcak1f1aq93vm2hiadbdvrwn9s72'';
+    url =
+      "http://beta.quicklisp.org/archive/plump/2017-07-25/plump-20170725-git.tgz";
+    sha256 = "118ashy1sqi666k18fqjkkzzqcak1f1aq93vm2hiadbdvrwn9s72";
   };
 
   packageName = "plump-parser";
 
-  asdFilesToKeep = ["plump-parser.asd"];
+  asdFilesToKeep = [ "plump-parser.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM plump-parser DESCRIPTION Plump's core parser component. SHA256
@@ -27,4 +32,5 @@ rec {
      (NAME plump-lexer FILENAME plump-lexer)
      (NAME trivial-indent FILENAME trivial-indent))
     DEPENDENCIES (array-utils plump-dom plump-lexer trivial-indent) VERSION
-    plump-20170725-git SIBLINGS (plump-dom plump-lexer plump) PARASITES NIL) */
+    plump-20170725-git SIBLINGS (plump-dom plump-lexer plump) PARASITES NIL)
+*/

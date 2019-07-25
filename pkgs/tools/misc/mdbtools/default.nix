@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, glib, readline
-, bison, flex, pkgconfig, autoreconfHook
-, txt2man, which }:
+{ stdenv, fetchFromGitHub, glib, readline, bison, flex, pkgconfig, autoreconfHook, txt2man, which
+}:
 
 let version = "0.7.1";
 in stdenv.mkDerivation {
@@ -22,7 +21,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = ".mdb (MS Access) format tools";
-    homepage = http://mdbtools.sourceforge.net;
+    homepage = "http://mdbtools.sourceforge.net";
     platforms = platforms.unix;
     license = with licenses; [ gpl2 lgpl2 ];
   };

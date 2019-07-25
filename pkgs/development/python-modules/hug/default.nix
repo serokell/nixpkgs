@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, falcon
-, requests
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy27, falcon, requests }:
 
 buildPythonPackage rec {
   pname = "hug";
@@ -22,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A Python framework that makes developing APIs as simple as possible, but no simpler";
-    homepage = https://github.com/timothycrosley/hug;
+    description =
+      "A Python framework that makes developing APIs as simple as possible, but no simpler";
+    homepage = "https://github.com/timothycrosley/hug";
     license = licenses.mit;
   };
 

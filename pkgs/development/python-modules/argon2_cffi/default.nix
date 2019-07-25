@@ -1,13 +1,4 @@
-{ cffi
-, six
-, enum34
-, hypothesis
-, pytest
-, wheel
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, lib
+{ cffi, six, enum34, hypothesis, pytest, wheel, buildPythonPackage, fetchPypi, isPy3k, lib
 }:
 
 buildPythonPackage rec {
@@ -27,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Secure Password Hashes for Python";
-    homepage    = https://argon2-cffi.readthedocs.io/;
-    license     = licenses.mit;
+    homepage = "https://argon2-cffi.readthedocs.io/";
+    license = licenses.mit;
   };
 }

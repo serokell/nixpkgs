@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.1.3";
 
   src = fetchurl {
-    url = "http://opti.recherche.enac.fr/facile/distrib/facile-${version}.tar.gz";
+    url =
+      "http://opti.recherche.enac.fr/facile/distrib/facile-${version}.tar.gz";
     sha256 = "1v4apqcw4gm36ph5xwf1wxaaza0ggvihvgsdslnf33fa1pdkvdjw";
   };
 

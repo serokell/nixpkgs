@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, pythonPackages, intltool, gtk3, gobject-introspection, gnome3 }:
+{ stdenv, fetchgit, pythonPackages, intltool, gtk3, gobject-introspection, gnome3
+}:
 
 pythonPackages.buildPythonApplication rec {
   name = "onioncircuits-${version}";
@@ -12,7 +13,11 @@ pythonPackages.buildPythonApplication rec {
 
   nativeBuildInputs = [ intltool ];
   buildInputs = [ intltool gtk3 gobject-introspection ];
-  propagatedBuildInputs =  with pythonPackages; [ stem distutils_extra pygobject3 ];
+  propagatedBuildInputs = with pythonPackages; [
+    stem
+    distutils_extra
+    pygobject3
+  ];
 
   postFixup = ''
     wrapProgram "$out/bin/onioncircuits" \
@@ -21,7 +26,7 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://tails.boum.org;
+    homepage = "https://tails.boum.org";
     description = "GTK application to display Tor circuits and streams";
     license = licenses.gpl3;
     maintainers = [ maintainers.phreedom ];

@@ -1,8 +1,9 @@
-{ stdenv, fetchurl, dpkg, gawk, perl, wget, coreutils, utillinux
-, gnugrep, gnutar, gnused, gzip, makeWrapper }:
+{ stdenv, fetchurl, dpkg, gawk, perl, wget, coreutils, utillinux, gnugrep, gnutar, gnused, gzip, makeWrapper
+}:
 # USAGE like this: debootstrap sid /tmp/target-chroot-directory
 # There is also cdebootstrap now. Is that easier to maintain?
-let binPath = stdenv.lib.makeBinPath [
+let
+  binPath = stdenv.lib.makeBinPath [
     coreutils
     dpkg
     gawk
@@ -59,7 +60,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tool to create a Debian system in a chroot";
-    homepage = https://wiki.debian.org/Debootstrap;
+    homepage = "https://wiki.debian.org/Debootstrap";
     license = licenses.mit;
     maintainers = with maintainers; [ marcweber ];
     platforms = platforms.linux;

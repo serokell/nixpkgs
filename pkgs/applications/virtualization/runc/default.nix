@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildGoPackage, go-md2man
-, pkgconfig, libapparmor, apparmor-parser, libseccomp, which }:
+{ lib, fetchFromGitHub, buildGoPackage, go-md2man, pkgconfig, libapparmor, apparmor-parser, libseccomp, which
+}:
 
 with lib;
 
@@ -17,12 +17,12 @@ buildGoPackage rec {
   goPackagePath = "github.com/opencontainers/runc";
   outputs = [ "bin" "out" "man" ];
 
-  hardeningDisable = ["fortify"];
+  hardeningDisable = [ "fortify" ];
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ go-md2man libseccomp libapparmor apparmor-parser which ];
 
-  makeFlags = ''BUILDTAGS+=seccomp BUILDTAGS+=apparmor'';
+  makeFlags = "BUILDTAGS+=seccomp BUILDTAGS+=apparmor";
 
   buildPhase = ''
     cd go/src/${goPackagePath}
@@ -50,8 +50,9 @@ buildGoPackage rec {
   '';
 
   meta = {
-    homepage = https://runc.io/;
-    description = "A CLI tool for spawning and running containers according to the OCI specification";
+    homepage = "https://runc.io/";
+    description =
+      "A CLI tool for spawning and running containers according to the OCI specification";
     license = licenses.asl20;
     maintainers = with maintainers; [ offline vdemeester ];
     platforms = platforms.linux;

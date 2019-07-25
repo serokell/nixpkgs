@@ -1,9 +1,10 @@
-{ stdenv, fetchFromGitHub, ocamlPackages, writeScript
-, dune, python3, rsync, buck, watchman, sqlite }:
+{ stdenv, fetchFromGitHub, ocamlPackages, writeScript, dune, python3, rsync, buck, watchman, sqlite
+}:
 let
   # Manually set version - the setup script requires
   # hg and git + keeping the .git directory around.
-  pyre-version = "0.0.22";  # also change typeshed revision below with $pyre-src/.typeshed-version
+  pyre-version =
+    "0.0.22"; # also change typeshed revision below with $pyre-src/.typeshed-version
   pyre-src = fetchFromGitHub {
     owner = "facebook";
     repo = "pyre-check";
@@ -24,73 +25,73 @@ let
       Log.info "Build info: %s" (build_info ())
     EOF
   '';
- pyre-bin = stdenv.mkDerivation {
-  name = "pyre-${pyre-version}";
+  pyre-bin = stdenv.mkDerivation {
+    name = "pyre-${pyre-version}";
 
-  src = pyre-src;
+    src = pyre-src;
 
-  buildInputs = with ocamlPackages; [
-    ocaml
-    findlib
-    menhir
-    yojson
-    core
-    sedlex
-    ppx_deriving_yojson
-    ocamlbuild
-    ppxlib
-    dune
-    ounit
-    base64
-    sqlite.dev
-    # python36Packages.python36Full # TODO
-  ];
+    buildInputs = with ocamlPackages; [
+      ocaml
+      findlib
+      menhir
+      yojson
+      core
+      sedlex
+      ppx_deriving_yojson
+      ocamlbuild
+      ppxlib
+      dune
+      ounit
+      base64
+      sqlite.dev
+      # python36Packages.python36Full # TODO
+    ];
 
-  preBuild = ''
-    # build requires HOME to be set
-    export HOME=$TMPDIR
+    preBuild = ''
+      # build requires HOME to be set
+      export HOME=$TMPDIR
 
-    # "external" because https://github.com/facebook/pyre-check/pull/8/files
-    sed "s/%VERSION%/external/" dune.in > dune
+      # "external" because https://github.com/facebook/pyre-check/pull/8/files
+      sed "s/%VERSION%/external/" dune.in > dune
 
-    ln -sf ${versionFile} ./scripts/generate-version-number.sh
+      ln -sf ${versionFile} ./scripts/generate-version-number.sh
 
-    mkdir $(pwd)/build
-    export OCAMLFIND_DESTDIR=$(pwd)/build
-    export OCAMLPATH=$OCAMLPATH:$(pwd)/build
-  '';
+      mkdir $(pwd)/build
+      export OCAMLFIND_DESTDIR=$(pwd)/build
+      export OCAMLPATH=$OCAMLPATH:$(pwd)/build
+    '';
 
-  buildFlags = [ "release" ];
+    buildFlags = [ "release" ];
 
-  doCheck = true;
-  # ./scripts/run-python-tests.sh # TODO: once typeshed and python bits are added
+    doCheck = true;
+    # ./scripts/run-python-tests.sh # TODO: once typeshed and python bits are added
 
-  # Note that we're not installing the typeshed yet.
-  # Improvement for a future version.
-  installPhase = ''
-    install -D ./_build/default/main.exe $out/bin/pyre.bin
-  '';
+    # Note that we're not installing the typeshed yet.
+    # Improvement for a future version.
+    installPhase = ''
+      install -D ./_build/default/main.exe $out/bin/pyre.bin
+    '';
 
-  meta = with stdenv.lib; {
-    description = "A performant type-checker for Python 3";
-    homepage = https://pyre-check.org;
-    license = licenses.mit;
-    platforms = ocamlPackages.ocaml.meta.platforms;
-    maintainers = with maintainers; [ teh ];
+    meta = with stdenv.lib; {
+      description = "A performant type-checker for Python 3";
+      homepage = "https://pyre-check.org";
+      license = licenses.mit;
+      platforms = ocamlPackages.ocaml.meta.platforms;
+      maintainers = with maintainers; [ teh ];
+    };
   };
-};
-typeshed = stdenv.mkDerivation {
-  pname = "typeshed";
-  version = pyre-version;
-  src = fetchFromGitHub {
-    owner = "python";
-    repo = "typeshed";
-    rev = "0b49ce75b478fdf283dda5dd1368759ac342dfe2";
-    sha256 = "1w5aqbbcfk5ki8n9fgdikkyadjb318ipqyi517s9xnwlzi1jv0fh";
+  typeshed = stdenv.mkDerivation {
+    pname = "typeshed";
+    version = pyre-version;
+    src = fetchFromGitHub {
+      owner = "python";
+      repo = "typeshed";
+      rev = "0b49ce75b478fdf283dda5dd1368759ac342dfe2";
+      sha256 = "1w5aqbbcfk5ki8n9fgdikkyadjb318ipqyi517s9xnwlzi1jv0fh";
+    };
+    phases = [ "unpackPhase" "installPhase" ];
+    installPhase = "cp -r $src $out";
   };
-  phases = [ "unpackPhase" "installPhase" ];
-  installPhase = "cp -r $src $out";
-};
 in python3.pkgs.buildPythonApplication rec {
   pname = "pyre-check";
   version = pyre-version;

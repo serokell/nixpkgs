@@ -4,16 +4,14 @@ import ./make-test.nix ({ lib, ... }:
   name = "mailcatcher";
   meta.maintainers = [ lib.maintainers.aanderse ];
 
-  machine =
-    { pkgs, ... }:
-    {
-      services.mailcatcher.enable = true;
+  machine = { pkgs, ... }: {
+    services.mailcatcher.enable = true;
 
-      networking.defaultMailServer.directDelivery = true;
-      networking.defaultMailServer.hostName = "localhost:1025";
+    networking.defaultMailServer.directDelivery = true;
+    networking.defaultMailServer.hostName = "localhost:1025";
 
-      environment.systemPackages = [ pkgs.mailutils ];
-    };
+    environment.systemPackages = [ pkgs.mailutils ];
+  };
 
   testScript = ''
     startAll;

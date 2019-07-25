@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, expat
-, buildsystem
-, libparserutils
-, libwapcaplet
-, libhubbub
+{ stdenv, fetchurl, pkgconfig, expat, buildsystem, libparserutils, libwapcaplet, libhubbub
 }:
 
 stdenv.mkDerivation rec {
@@ -12,25 +8,19 @@ stdenv.mkDerivation rec {
   version = "0.3.0";
 
   src = fetchurl {
-    url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
+    url =
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
     sha256 = "1kk6qbqagx5ypiy9kf0059iqdzyz8fqaw336vzhb5gnrzjw3wv4a";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ expat
-    buildsystem
-    libparserutils
-    libwapcaplet
-    libhubbub
-  ];
+  buildInputs = [ expat buildsystem libparserutils libwapcaplet libhubbub ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.netsurf-browser.org/;
+    homepage = "http://www.netsurf-browser.org/";
     description = "Document Object Model library for netsurf browser";
     license = licenses.gpl2;
     maintainers = [ maintainers.vrthra ];

@@ -5,37 +5,38 @@ with lib;
 {
   options = {
     services.pptpd = {
-      enable = mkEnableOption "pptpd, the Point-to-Point Tunneling Protocol daemon";
+      enable =
+        mkEnableOption "pptpd, the Point-to-Point Tunneling Protocol daemon";
 
       serverIp = mkOption {
-        type        = types.string;
+        type = types.string;
         description = "The server-side IP address.";
-        default     = "10.124.124.1";
+        default = "10.124.124.1";
       };
 
       clientIpRange = mkOption {
-        type        = types.string;
+        type = types.string;
         description = "The range from which client IPs are drawn.";
-        default     = "10.124.124.2-11";
+        default = "10.124.124.2-11";
       };
 
       maxClients = mkOption {
-        type        = types.int;
+        type = types.int;
         description = "The maximum number of simultaneous connections.";
-        default     = 10;
+        default = 10;
       };
 
       extraPptpdOptions = mkOption {
-        type        = types.lines;
+        type = types.lines;
         description = "Adds extra lines to the pptpd configuration file.";
-        default     = "";
+        default = "";
       };
 
       extraPppdOptions = mkOption {
-        type        = types.lines;
+        type = types.lines;
         description = "Adds extra lines to the pppd options file.";
-        default     = "";
-        example     = ''
+        default = "";
+        example = ''
           ms-dns 8.8.8.8
           ms-dns 8.8.4.4
         '';
@@ -54,7 +55,9 @@ with lib;
         pidfile /run/pptpd.pid
         localip ${cfg.serverIp}
         remoteip ${cfg.clientIpRange}
-        connections ${toString cfg.maxClients} # (Will get harmless warning if inconsistent with IP range)
+        connections ${
+          toString cfg.maxClients
+        } # (Will get harmless warning if inconsistent with IP range)
 
         # Extra
         ${cfg.extraPptpdOptions}
@@ -80,9 +83,9 @@ with lib;
       '';
 
       ppp-pptpd-wrapped = pkgs.stdenv.mkDerivation {
-        name         = "ppp-pptpd-wrapped";
-        phases       = [ "installPhase" ];
-        buildInputs  = with pkgs; [ makeWrapper ];
+        name = "ppp-pptpd-wrapped";
+        phases = [ "installPhase" ];
+        buildInputs = with pkgs; [ makeWrapper ];
         installPhase = ''
           mkdir -p $out/bin
           makeWrapper ${pkgs.ppp}/bin/pppd $out/bin/pppd \
@@ -90,35 +93,35 @@ with lib;
             --set NIX_REDIRECTS "/etc/ppp=/etc/ppp-pptpd"
         '';
       };
-    in {
-      description = "pptpd server";
+      in {
+        description = "pptpd server";
 
-      requires = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+        requires = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
 
-      preStart = ''
-        mkdir -p -m 700 /etc/ppp-pptpd
+        preStart = ''
+          mkdir -p -m 700 /etc/ppp-pptpd
 
-        secrets="/etc/ppp-pptpd/chap-secrets"
+          secrets="/etc/ppp-pptpd/chap-secrets"
 
-        [ -f "$secrets" ] || cat > "$secrets" << EOF
-        # From: pptpd-1.4.0/samples/chap-secrets
-        # Secrets for authentication using CHAP
-        # client	server	secret		IP addresses
-        #username	pptpd	password	*
-        EOF
+          [ -f "$secrets" ] || cat > "$secrets" << EOF
+          # From: pptpd-1.4.0/samples/chap-secrets
+          # Secrets for authentication using CHAP
+          # client	server	secret		IP addresses
+          #username	pptpd	password	*
+          EOF
 
-        chown root.root "$secrets"
-        chmod 600 "$secrets"
-      '';
+          chown root.root "$secrets"
+          chmod 600 "$secrets"
+        '';
 
-      serviceConfig = {
-        ExecStart = "${pkgs.pptpd}/bin/pptpd --conf ${pptpd-conf}";
-        KillMode  = "process";
-        Restart   = "on-success";
-        Type      = "forking";
-        PIDFile   = "/run/pptpd.pid";
+        serviceConfig = {
+          ExecStart = "${pkgs.pptpd}/bin/pptpd --conf ${pptpd-conf}";
+          KillMode = "process";
+          Restart = "on-success";
+          Type = "forking";
+          PIDFile = "/run/pptpd.pid";
+        };
       };
-    };
   };
 }

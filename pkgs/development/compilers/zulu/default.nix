@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchurl, unzip, makeWrapper, setJavaClassPath
-, zulu, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL, alsaLib
-, fontconfig, freetype, gnome2, cairo, gdk_pixbuf, atk, xorg, zlib
-, swingSupport ? true }:
+{ stdenv, lib, fetchurl, unzip, makeWrapper, setJavaClassPath, zulu, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL, alsaLib, fontconfig, freetype, gnome2, cairo, gdk_pixbuf, atk, xorg, zlib, swingSupport ?
+  true }:
 
 let
   version = "10.1+11";
@@ -15,12 +13,32 @@ let
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
 
   libraries = [
-    stdenv.cc.libc glib libxml2 libav_0_8 ffmpeg libxslt libGL
-    xorg.libXxf86vm alsaLib fontconfig freetype gnome2.pango
-    gnome2.gtk cairo gdk_pixbuf atk zlib
+    stdenv.cc.libc
+    glib
+    libxml2
+    libav_0_8
+    ffmpeg
+    libxslt
+    libGL
+    xorg.libXxf86vm
+    alsaLib
+    fontconfig
+    freetype
+    gnome2.pango
+    gnome2.gtk
+    cairo
+    gdk_pixbuf
+    atk
+    zlib
   ] ++ (lib.optionals swingSupport (with xorg; [
-    xorg.libX11 xorg.libXext xorg.libXtst xorg.libXi xorg.libXp
-    xorg.libXt xorg.libXrender stdenv.cc.cc
+    xorg.libX11
+    xorg.libXext
+    xorg.libXtst
+    xorg.libXi
+    xorg.libXp
+    xorg.libXt
+    xorg.libXrender
+    stdenv.cc.cc
   ]));
 
 in stdenv.mkDerivation rec {
@@ -29,7 +47,8 @@ in stdenv.mkDerivation rec {
   name = "zulu-${version}";
 
   src = fetchurl {
-    url = "https://cdn.azul.com/zulu/bin/zulu${version}-jdk${openjdk}-${platform}_x64.${extension}";
+    url =
+      "https://cdn.azul.com/zulu/bin/zulu${version}-jdk${openjdk}-${platform}_x64.${extension}";
     sha256 = hash;
   };
 
@@ -61,12 +80,10 @@ in stdenv.mkDerivation rec {
 
   rpath = stdenv.lib.strings.makeLibraryPath libraries;
 
-  passthru = {
-    home = "${zulu}";
-  };
+  passthru = { home = "${zulu}"; };
 
   meta = with stdenv.lib; {
-    homepage = https://www.azul.com/products/zulu/;
+    homepage = "https://www.azul.com/products/zulu/";
     license = licenses.gpl2;
     description = "Certified builds of OpenJDK";
     longDescription = ''

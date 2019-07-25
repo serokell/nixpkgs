@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, python, cunit, dpdk, libaio, libuuid, numactl, openssl }:
+{ stdenv, fetchFromGitHub, python, cunit, dpdk, libaio, libuuid, numactl, openssl
+}:
 
 stdenv.mkDerivation rec {
   name = "spdk-${version}";
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Set of libraries for fast user-mode storage";
     homepage = "https://spdk.io/";
     license = licenses.bsd3;
-    platforms =  [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ orivej ];
   };
 }

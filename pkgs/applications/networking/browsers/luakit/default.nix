@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, wrapGAppsHook
-, help2man, luafilesystem, luajit, sqlite
-, webkitgtk, gtk3, gst_all_1, glib-networking
+{ stdenv, fetchFromGitHub, pkgconfig, wrapGAppsHook, help2man, luafilesystem, luajit, sqlite, webkitgtk, gtk3, gst_all_1, glib-networking
 }:
 
 stdenv.mkDerivation rec {
@@ -14,14 +12,19 @@ stdenv.mkDerivation rec {
     sha256 = "05mm76g72fs48410pbij4mw0s3nqji3r7f3mnr2fvhv02xqj05aa";
   };
 
-  nativeBuildInputs = [
-    pkgconfig help2man wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkgconfig help2man wrapGAppsHook ];
 
   buildInputs = [
-    webkitgtk luafilesystem luajit sqlite gtk3
-    gst_all_1.gstreamer gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good gst_all_1.gst-plugins-bad gst_all_1.gst-plugins-ugly
+    webkitgtk
+    luafilesystem
+    luajit
+    sqlite
+    gtk3
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
     gst_all_1.gst-libav
     glib-networking # TLS support
   ];
@@ -46,18 +49,19 @@ stdenv.mkDerivation rec {
 
   preFixup = let
     luaKitPath = "$out/share/luakit/lib/?/init.lua;$out/share/luakit/lib/?.lua";
-  in ''
-    gappsWrapperArgs+=(
-      --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
-      --prefix LUA_PATH ';' "${luaKitPath};$NIX_LUA_PATH"
-      --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
-    )
-  '';
+    in ''
+      gappsWrapperArgs+=(
+        --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
+        --prefix LUA_PATH ';' "${luaKitPath};$NIX_LUA_PATH"
+        --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
+      )
+    '';
 
   meta = with stdenv.lib; {
-    description = "Fast, small, webkit based browser framework extensible in Lua";
-    homepage    = http://luakit.org;
-    license     = licenses.gpl3;
-    platforms   = platforms.linux; # Only tested linux
+    description =
+      "Fast, small, webkit based browser framework extensible in Lua";
+    homepage = "http://luakit.org";
+    license = licenses.gpl3;
+    platforms = platforms.linux; # Only tested linux
   };
 }

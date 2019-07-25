@@ -2,32 +2,30 @@
 #
 # Contact: stdenv.lib.maintainers.fuuzetsu
 
-{ stdenv, Agda, glibcLocales
-, writeShellScriptBin
-, extension ? (self: super: {})
-}:
+{ stdenv, Agda, glibcLocales, writeShellScriptBin, extension ?
+  (self: super: { }) }:
 
 with stdenv.lib.strings;
 
 let
-  defaults = self : {
+  defaults = self: {
     # There is no Hackage for Agda so we require src.
     inherit (self) src name;
 
     isAgdaPackage = true;
 
     buildInputs = [ Agda ] ++ self.buildDepends;
-    buildDepends = [];
+    buildDepends = [ ];
 
-    buildDependsAgda = stdenv.lib.filter
-      (dep: dep ? isAgdaPackage && dep.isAgdaPackage)
+    buildDependsAgda =
+      stdenv.lib.filter (dep: dep ? isAgdaPackage && dep.isAgdaPackage)
       self.buildDepends;
-    buildDependsAgdaShareAgda = map (x: x + "/share/agda") self.buildDependsAgda;
+    buildDependsAgdaShareAgda =
+      map (x: x + "/share/agda") self.buildDependsAgda;
 
     # Not much choice here ;)
     LANG = "en_US.UTF-8";
-    LOCALE_ARCHIVE = stdenv.lib.optionalString
-      stdenv.isLinux
+    LOCALE_ARCHIVE = stdenv.lib.optionalString stdenv.isLinux
       "${glibcLocales}/lib/locale/locale-archive";
 
     everythingFile = "Everything.agda";
@@ -46,9 +44,8 @@ let
     topSourceDirectories = [ "src" ];
 
     # FIXME: `dirOf self.everythingFile` is what we really want, not hardcoded "./"
-    includeDirs = self.buildDependsAgdaShareAgda
-                  ++ self.sourceDirectories ++ self.topSourceDirectories
-                  ++ [ "." ];
+    includeDirs = self.buildDependsAgdaShareAgda ++ self.sourceDirectories
+      ++ self.topSourceDirectories ++ [ "." ];
     buildFlags = concatStringsSep " " (map (x: "-i " + x) self.includeDirs);
 
     agdaWithArgs = "${Agda}/bin/agda ${self.buildFlags}";
@@ -61,32 +58,34 @@ let
 
     installPhase = let
       srcFiles = self.sourceDirectories
-                 ++ map (x: x + "/*") self.topSourceDirectories;
-    in ''
-      runHook preInstall
-      mkdir -p $out/share/agda
-      cp -pR ${concatStringsSep " " srcFiles} $out/share/agda
-      runHook postInstall
-    '';
+        ++ map (x: x + "/*") self.topSourceDirectories;
+      in ''
+        runHook preInstall
+        mkdir -p $out/share/agda
+        cp -pR ${concatStringsSep " " srcFiles} $out/share/agda
+        runHook postInstall
+      '';
 
     passthru = {
       env = stdenv.mkDerivation {
         name = "interactive-${self.name}";
         inherit (self) LANG LOCALE_ARCHIVE;
-        AGDA_PACKAGE_PATH = concatMapStrings (x: x + ":") self.buildDependsAgdaShareAgda;
+        AGDA_PACKAGE_PATH =
+          concatMapStrings (x: x + ":") self.buildDependsAgdaShareAgda;
         buildInputs = let
           # Makes a wrapper available to the user. Very useful in
           # nix-shell where all dependencies are -i'd.
           agdaWrapper = writeShellScriptBin "agda" ''
             exec ${self.agdaWithArgs} "$@"
           '';
-        in [agdaWrapper] ++ self.buildDepends;
+          in [ agdaWrapper ] ++ self.buildDepends;
       };
     };
   };
-in
-{ mkDerivation = args: let
+in {
+  mkDerivation = args:
+    let
       super = defaults self // args self;
-      self  = super // extension self super;
+      self = super // extension self super;
     in stdenv.mkDerivation self;
 }

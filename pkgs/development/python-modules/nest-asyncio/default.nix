@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonAtLeast
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast }:
 
 buildPythonPackage rec {
   version = "1.0.0";
@@ -15,7 +11,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/erdewit/nest_asyncio;
+    homepage = "https://github.com/erdewit/nest_asyncio";
     description = "Patch asyncio to allow nested event loops";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];

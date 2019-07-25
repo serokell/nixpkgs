@@ -3,7 +3,7 @@
 fetchzip {
   name = "lmodern-2.004.5";
 
-  url = mirror://debian/pool/main/l/lmodern/lmodern_2.004.5.orig.tar.gz;
+  url = "mirror://debian/pool/main/l/lmodern/lmodern_2.004.5.orig.tar.gz";
 
   postFetch = ''
     tar xzvf $downloadedFile
@@ -19,8 +19,6 @@ fetchzip {
 
   sha256 = "11f10qnp8a435lhh19zc2znlf9q4isynmvjmvr63g5n5fhvhc192";
 
-  meta = {
-    description = "Latin Modern font";
-  };
+  meta = { description = "Latin Modern font"; };
 }
 

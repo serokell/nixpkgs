@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, matplotlib
-, pytest
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, matplotlib, pytest }:
 
 buildPythonPackage rec {
   pname = "showit";
@@ -17,14 +11,9 @@ buildPythonPackage rec {
     sha256 = "0xd8isrlwwxlgji90lly1sq4l2a37rqvhsmyhv7bd3aj1dyjmdr6";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    matplotlib
-  ];
+  propagatedBuildInputs = [ numpy matplotlib ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest test
@@ -32,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "simple and sensible display of images";
-    homepage = https://github.com/freeman-lab/showit;
+    homepage = "https://github.com/freeman-lab/showit";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

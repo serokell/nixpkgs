@@ -1,8 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll,
-  isPy3k,
-  geos, gdal, pytz,
-  withGdal ? false
-}:
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, isPy3k, geos, gdal, pytz, withGdal ?
+  false }:
 
 buildPythonPackage rec {
   pname = "Django";
@@ -36,7 +33,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A high-level Python Web framework";
-    homepage = https://www.djangoproject.com/;
+    homepage = "https://www.djangoproject.com/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ georgewhewell ];
   };

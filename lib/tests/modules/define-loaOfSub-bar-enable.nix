@@ -1,3 +1,1 @@
-{
-  loaOfSub.bar.enable = true;
-}
+{ loaOfSub.bar.enable = true; }

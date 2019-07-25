@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, pkgs }:
 
 buildPythonPackage rec {
   pname = "python-pyaudio";

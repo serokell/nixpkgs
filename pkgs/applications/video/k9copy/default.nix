@@ -1,8 +1,4 @@
-{ stdenv, fetchurl
-, cmake
-, dvdauthor, xineLib, libmpeg2, libav, libdvdread, libdvdnav, dvdplusrwtools
-, phonon, qtx11extras
-, extra-cmake-modules, kio, kiconthemes, ki18n, kdesu, kdoctools, solid
+{ stdenv, fetchurl, cmake, dvdauthor, xineLib, libmpeg2, libav, libdvdread, libdvdnav, dvdplusrwtools, phonon, qtx11extras, extra-cmake-modules, kio, kiconthemes, ki18n, kdesu, kdoctools, solid
 }:
 
 stdenv.mkDerivation rec {
@@ -14,19 +10,14 @@ stdenv.mkDerivation rec {
     sha256 = "0dp06rwihks50c57bbv04d6bj2qc88isl91971r4lii2xp0qn7sg";
   };
 
-  patches = [
-    ./gcc6.patch
-  ];
+  patches = [ ./gcc6.patch ];
 
-  cmakeFlags = [
-    "-DQT5_BUILD=ON"
-    "-DCMAKE_MINIMUM_REQUIRED_VERSION=3.0"
-  ];
+  cmakeFlags = [ "-DQT5_BUILD=ON" "-DCMAKE_MINIMUM_REQUIRED_VERSION=3.0" ];
 
   # Hack to disable documentation
   preConfigure = ''
-   substituteInPlace ./CMakeLists.txt \
-     --replace "add_subdirectory(doc)" ""
+    substituteInPlace ./CMakeLists.txt \
+      --replace "add_subdirectory(doc)" ""
   '';
 
   buildInputs = [
@@ -52,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "DVD backup and DVD authoring program";
-    homepage = http://k9copy-reloaded.sourceforge.net/;
+    homepage = "http://k9copy-reloaded.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ flosse ];
     platforms = stdenv.lib.platforms.unix;

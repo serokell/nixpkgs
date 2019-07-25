@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "pdsh-2.33";
 
   src = fetchurl {
-    url = "https://github.com/chaos/pdsh/releases/download/${name}/${name}.tar.gz";
+    url =
+      "https://github.com/chaos/pdsh/releases/download/${name}/${name}.tar.gz";
     sha256 = "0bwlkl9inj66iwvafg00pi3sk9n673phdi0kcc59y9nn55s0hs3k";
   };
 
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/chaos/pdsh;
+    homepage = "https://github.com/chaos/pdsh";
     description = "High-performance, parallel remote shell utility";
     license = stdenv.lib.licenses.gpl2;
 

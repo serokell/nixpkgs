@@ -3,7 +3,8 @@
 stdenv.mkDerivation {
   name = "coq${coq.coq-version}-stdpp-1.1";
   src = fetchzip {
-    url = "https://gitlab.mpi-sws.org/robbertkrebbers/coq-stdpp/-/archive/coq-stdpp-1.1.0/coq-stdpp-coq-stdpp-1.1.0.tar.gz";
+    url =
+      "https://gitlab.mpi-sws.org/robbertkrebbers/coq-stdpp/-/archive/coq-stdpp-1.1.0/coq-stdpp-coq-stdpp-1.1.0.tar.gz";
     sha256 = "0z8zl288x9w32w06sjax01jcpy12wd5i3ygps58dl2hfy7r3lwg0";
   };
 

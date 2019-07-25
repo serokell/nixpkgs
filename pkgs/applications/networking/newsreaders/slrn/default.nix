@@ -1,9 +1,8 @@
-{ stdenv, fetchurl
-, slang, ncurses, openssl }:
+{ stdenv, fetchurl, slang, ncurses, openssl }:
 
-let version = "1.0.2"; in
+let version = "1.0.2";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "slrn-${version}";
 
   src = fetchurl {
@@ -18,16 +17,13 @@ stdenv.mkDerivation {
       -e "s|/bin/rm|rm|"
   '';
 
-  configureFlags = [
-    "--with-slang=${slang.dev}"
-    "--with-ssl=${openssl.dev}"
-  ];
+  configureFlags = [ "--with-slang=${slang.dev}" "--with-ssl=${openssl.dev}" ];
 
   buildInputs = [ slang ncurses openssl ];
 
   meta = with stdenv.lib; {
     description = "The slrn (S-Lang read news) newsreader";
-    homepage = http://slrn.sourceforge.net/index.html;
+    homepage = "http://slrn.sourceforge.net/index.html";
     maintainers = with maintainers; [ ehmry ];
     license = licenses.gpl2;
     platforms = with platforms; linux;

@@ -1,20 +1,27 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''closure-html'';
-  version = ''20180711-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "closure-html";
+  version = "20180711-git";
 
-  description = '''';
+  description = "";
 
-  deps = [ args."alexandria" args."babel" args."closure-common" args."flexi-streams" args."trivial-features" args."trivial-gray-streams" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."closure-common"
+    args."flexi-streams"
+    args."trivial-features"
+    args."trivial-gray-streams"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/closure-html/2018-07-11/closure-html-20180711-git.tgz'';
-    sha256 = ''0ljcrz1wix77h1ywp0bixm3pb5ncmr1vdiwh8m1qzkygwpfjr8aq'';
+    url =
+      "http://beta.quicklisp.org/archive/closure-html/2018-07-11/closure-html-20180711-git.tgz";
+    sha256 = "0ljcrz1wix77h1ywp0bixm3pb5ncmr1vdiwh8m1qzkygwpfjr8aq";
   };
 
   packageName = "closure-html";
 
-  asdFilesToKeep = ["closure-html.asd"];
+  asdFilesToKeep = [ "closure-html.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM closure-html DESCRIPTION NIL SHA256
@@ -30,4 +37,5 @@ rec {
     DEPENDENCIES
     (alexandria babel closure-common flexi-streams trivial-features
      trivial-gray-streams)
-    VERSION 20180711-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20180711-git SIBLINGS NIL PARASITES NIL)
+*/

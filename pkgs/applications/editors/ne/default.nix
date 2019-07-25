@@ -1,6 +1,5 @@
 { stdenv, fetchFromGitHub, ncurses, texinfo, texlive, perl, ghostscript }:
 
-
 stdenv.mkDerivation rec {
   name = "ne-${version}";
   version = "3.1.2";
@@ -10,7 +9,8 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "154grh9gdzydnqn9xxj7zpia9cc5x6a7y1g73vwizr9bkg92l5cc";
   };
-  buildInputs = [ ncurses texlive.combined.scheme-medium texinfo perl ghostscript ];
+  buildInputs =
+    [ ncurses texlive.combined.scheme-medium texinfo perl ghostscript ];
   dontBuild = true;
   installPhase = ''
     substituteInPlace src/makefile --replace "CC=c99" "cc=gcc"
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "The nice editor";
-    homepage = https://github.com/vigna/ne;
+    homepage = "https://github.com/vigna/ne";
     longDescription = ''
       ne is a free (GPL'd) text editor based on the POSIX standard that runs
       (we hope) on almost any UN*X machine.  ne is easy to use for the beginner,

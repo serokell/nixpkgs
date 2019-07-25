@@ -1,8 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, lib }:
+build-idris-package {
   name = "free";
   version = "2017-07-03";
 
@@ -17,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Free Monads and useful constructions to work with them";
-    homepage = https://github.com/idris-hackers/idris-free;
+    homepage = "https://github.com/idris-hackers/idris-free";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.brainrape ];
   };

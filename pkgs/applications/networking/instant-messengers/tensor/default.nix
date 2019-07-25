@@ -8,9 +8,9 @@ stdenv.mkDerivation rec {
   version = "2017-02-21";
 
   src = fetchgit {
-    url             = "https://github.com/davidar/tensor.git";
-    rev             = "f3f3056d770d7fb4a21c610cee7936ee900569f5";
-    sha256          = "19in8c7a2hxsx2c4lj540w5c3pn1882645m21l91mcriynqr67k9";
+    url = "https://github.com/davidar/tensor.git";
+    rev = "f3f3056d770d7fb4a21c610cee7936ee900569f5";
+    sha256 = "19in8c7a2hxsx2c4lj540w5c3pn1882645m21l91mcriynqr67k9";
     fetchSubmodules = true;
   };
 
@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ qmake ];
 
   desktopItem = makeDesktopItem {
-    name        = "tensor";
-    exec        = "@bin@";
-    icon        = "tensor.png";
-    comment     = meta.description;
+    name = "tensor";
+    exec = "@bin@";
+    icon = "tensor.png";
+    comment = meta.description;
     desktopName = "Tensor Matrix Client";
     genericName = meta.description;
-    categories  = "Chat;Utility";
-    mimeType    = "application/x-chat";
+    categories = "Chat;Utility";
+    mimeType = "application/x-chat";
   };
 
   installPhase = ''
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://matrix.org/docs/projects/client/tensor.html;
+    homepage = "https://matrix.org/docs/projects/client/tensor.html";
     description = "Cross-platform Qt5/QML-based Matrix client";
     license = licenses.gpl3;
     maintainers = with maintainers; [ peterhoeg ];

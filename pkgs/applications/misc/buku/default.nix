@@ -1,6 +1,7 @@
 { stdenv, python3, fetchFromGitHub }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   version = "4.2.2";
   pname = "buku";
 
@@ -11,15 +12,8 @@ with python3.pkgs; buildPythonApplication rec {
     sha256 = "1wy5i1av1s98yr56ybiq66kv0vg48zci3fp91zfgj04nh2966w1w";
   };
 
-  checkInputs = [
-    pytestcov
-    hypothesis
-    pytest
-    pylint
-    flake8
-    pyyaml
-    mypy_extensions
-  ];
+  checkInputs =
+    [ pytestcov hypothesis pytest pylint flake8 pyyaml mypy_extensions ];
 
   propagatedBuildInputs = [
     cryptography
@@ -67,7 +61,7 @@ with python3.pkgs; buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Private cmdline bookmark manager";
-    homepage = https://github.com/jarun/Buku;
+    homepage = "https://github.com/jarun/Buku";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ matthiasbeyer infinisil ];

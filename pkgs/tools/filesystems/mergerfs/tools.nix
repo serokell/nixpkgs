@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, coreutils, makeWrapper
-, rsync, python3, pythonPackages }:
+{ stdenv, fetchFromGitHub, coreutils, makeWrapper, rsync, python3, pythonPackages
+}:
 
 stdenv.mkDerivation rec {
   pname = "mergerfs-tools";
@@ -15,15 +15,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ python3 ];
 
-  makeFlags = [
-    "INSTALL=${coreutils}/bin/install"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags =
+    [ "INSTALL=${coreutils}/bin/install" "PREFIX=${placeholder "out"}" ];
 
   postInstall = with stdenv.lib; ''
-    wrapProgram $out/bin/mergerfs.balance --prefix PATH : ${makeBinPath [ rsync ]}
+    wrapProgram $out/bin/mergerfs.balance --prefix PATH : ${
+      makeBinPath [ rsync ]
+    }
     wrapProgram $out/bin/mergerfs.dup --prefix PATH : ${makeBinPath [ rsync ]}
-    wrapProgram $out/bin/mergerfs.mktrash --prefix PATH : ${makeBinPath [ pythonPackages.xattr ]}
+    wrapProgram $out/bin/mergerfs.mktrash --prefix PATH : ${
+      makeBinPath [ pythonPackages.xattr ]
+    }
   '';
 
   meta = with stdenv.lib; {

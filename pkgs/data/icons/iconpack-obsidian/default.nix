@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gtk3 ];
 
   installPhase = ''
-     mkdir -p $out/share/icons
-     mv Obsidian* $out/share/icons
+    mkdir -p $out/share/icons
+    mv Obsidian* $out/share/icons
   '';
 
   postFixup = ''
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Gnome Icon Pack based upon Faenza";
-    homepage = https://github.com/madmaxms/iconpack-obsidian;
+    homepage = "https://github.com/madmaxms/iconpack-obsidian";
     license = licenses.lgpl3;
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;

@@ -18,15 +18,15 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ gmp ];
 
   configureFlags =
-    stdenv.lib.optional stdenv.hostPlatform.isSunOS "--disable-thread-safe" ++
-    stdenv.lib.optional stdenv.hostPlatform.is64bit "--with-pic";
+    stdenv.lib.optional stdenv.hostPlatform.isSunOS "--disable-thread-safe"
+    ++ stdenv.lib.optional stdenv.hostPlatform.is64bit "--with-pic";
 
   doCheck = true; # not cross;
 
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://www.mpfr.org/;
+    homepage = "https://www.mpfr.org/";
     description = "Library for multiple-precision floating-point arithmetic";
 
     longDescription = ''

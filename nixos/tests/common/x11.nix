@@ -1,4 +1,5 @@
-{ services.xserver.enable = true;
+{
+  services.xserver.enable = true;
 
   # Automatically log in.
   services.xserver.displayManager.auto.enable = true;

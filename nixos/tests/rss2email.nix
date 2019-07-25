@@ -13,9 +13,7 @@ import ./make-test.nix {
         to = "alice@localhost";
         interval = "1";
         config.from = "test@example.org";
-        feeds = {
-          nixos = { url = "http://127.0.0.1/news-rss.xml"; };
-        };
+        feeds = { nixos = { url = "http://127.0.0.1/news-rss.xml"; }; };
       };
       services.opensmtpd = {
         enable = true;
@@ -48,7 +46,7 @@ import ./make-test.nix {
             status, msg = imap.fetch(refs[0], 'BODY[TEXT]')
             assert status == 'OK'
         '';
-      in [ pkgs.opensmtpd checkMailLanded ];
+        in [ pkgs.opensmtpd checkMailLanded ];
     };
   };
 

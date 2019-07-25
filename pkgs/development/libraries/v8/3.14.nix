@@ -10,8 +10,7 @@ let
 
   arch = if stdenv.is64bit then "x64" else "ia32";
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "v8-${version}";
   inherit version;
 
@@ -50,12 +49,8 @@ stdenv.mkDerivation rec {
     "-Wno-aggressive-loop-optimizations"
   ];
 
-  buildFlags = [
-    "LINK=g++"
-    "-C out"
-    "builddir=$(CURDIR)/Release"
-    "BUILDTYPE=Release"
-  ];
+  buildFlags =
+    [ "LINK=g++" "-C out" "builddir=$(CURDIR)/Release" "BUILDTYPE=Release" ];
 
   postPatch = stdenv.lib.optionalString (!stdenv.cc.isClang) ''
     sed -i build/standalone.gyp -e 's,-Wno-format-pedantic,,g'
@@ -66,9 +61,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -vD out/Release/d8 "$out/bin/d8"
     ${if stdenv.hostPlatform.system == "x86_64-darwin" then ''
-    install -vD out/Release/lib.target/libv8.dylib "$out/lib/libv8.dylib"
+      install -vD out/Release/lib.target/libv8.dylib "$out/lib/libv8.dylib"
     '' else ''
-    install -vD out/Release/lib.target/libv8.so "$out/lib/libv8.so"
+      install -vD out/Release/lib.target/libv8.so "$out/lib/libv8.so"
     ''}
     cp -vr include "$out/"
   '';
@@ -76,7 +71,8 @@ stdenv.mkDerivation rec {
   postFixup = if stdenv.isDarwin then ''
     install_name_tool -change /usr/local/lib/libv8.dylib $out/lib/libv8.dylib -change /usr/lib/libgcc_s.1.dylib ${stdenv.cc.cc.lib}/lib/libgcc_s.1.dylib $out/bin/d8
     install_name_tool -id $out/lib/libv8.dylib -change /usr/lib/libgcc_s.1.dylib ${stdenv.cc.cc.lib}/lib/libgcc_s.1.dylib $out/lib/libv8.dylib
-  '' else null;
+  '' else
+    null;
 
   meta = with stdenv.lib; {
     description = "Google's open source JavaScript engine";

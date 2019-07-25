@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, openssl, curl, libnotify,
-  libappindicator-gtk3, gst_all_1, gtk3, gnome3, wrapGAppsHook, aria2 ? null
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, openssl, curl, libnotify, libappindicator-gtk3, gst_all_1, gtk3, gnome3, wrapGAppsHook, aria2 ?
+  null }:
 
 stdenv.mkDerivation rec {
   name = "uget-${version}";
@@ -11,11 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hmzk907blgzc1z6wv4zbzqrwad06zfm1rqc3svh5garxw8z7xsw";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    intltool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkgconfig intltool wrapGAppsHook ];
 
   buildInputs = [
     openssl
@@ -24,14 +19,13 @@ stdenv.mkDerivation rec {
     libappindicator-gtk3
     gtk3
     (stdenv.lib.getLib gnome3.dconf)
-  ]
-  ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ])
-  ++ (stdenv.lib.optional (aria2 != null) aria2);
+  ] ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ])
+    ++ (stdenv.lib.optional (aria2 != null) aria2);
 
   enableParallelBuilding = true;
 
   preFixup = stdenv.lib.optionalString (aria2 != null)
-               ''gappsWrapperArgs+=(--suffix PATH : "${aria2}/bin")'';
+    ''gappsWrapperArgs+=(--suffix PATH : "${aria2}/bin")'';
 
   meta = with stdenv.lib; {
     description = "Download manager using gtk+ and libcurl";
@@ -42,7 +36,7 @@ stdenv.mkDerivation rec {
       thinking that it "might be too powerful" because remember power is good
       and lightweight power is uGet!
     '';
-    homepage = http://www.ugetdm.com;
+    homepage = "http://www.ugetdm.com";
     license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = with maintainers; [ romildo ];

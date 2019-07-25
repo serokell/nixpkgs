@@ -1,17 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, cython
-, numpy
-, scipy
-, matplotlib
-, networkx
-, six
-, pillow
-, pywavelets
-, dask
-, cloudpickle
-, pytest
+{ lib, fetchPypi, buildPythonPackage, cython, numpy, scipy, matplotlib, networkx, six, pillow, pywavelets, dask, cloudpickle, pytest
 }:
 
 buildPythonPackage rec {
@@ -25,7 +12,8 @@ buildPythonPackage rec {
 
   buildInputs = [ cython ];
 
-  propagatedBuildInputs = [ numpy scipy matplotlib networkx six pillow pywavelets dask cloudpickle ];
+  propagatedBuildInputs =
+    [ numpy scipy matplotlib networkx six pillow pywavelets dask cloudpickle ];
 
   checkInputs = [ pytest ];
 
@@ -34,7 +22,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Image processing routines for SciPy";
-    homepage = http://scikit-image.org;
+    homepage = "http://scikit-image.org";
     license = lib.licenses.bsd3;
   };
 }

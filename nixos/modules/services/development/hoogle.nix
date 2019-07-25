@@ -25,7 +25,7 @@ in {
     };
 
     packages = mkOption {
-      default = hp: [];
+      default = hp: [ ];
       defaultText = "hp: []";
       example = "hp: with hp; [ text lens ]";
       description = ''
@@ -59,7 +59,9 @@ in {
 
       serviceConfig = {
         Restart = "always";
-        ExecStart = ''${hoogleEnv}/bin/hoogle server --local --port ${toString cfg.port} --home ${cfg.home}'';
+        ExecStart = "${hoogleEnv}/bin/hoogle server --local --port ${
+          toString cfg.port
+          } --home ${cfg.home}";
 
         User = "nobody";
         Group = "nogroup";

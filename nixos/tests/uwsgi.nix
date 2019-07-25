@@ -1,9 +1,6 @@
-import ./make-test.nix ({ pkgs, ... }:
-{
+import ./make-test.nix ({ pkgs, ... }: {
   name = "uwsgi";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ lnl7 ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ lnl7 ]; };
   machine = { pkgs, ... }: {
     services.uwsgi.enable = true;
     services.uwsgi.plugins = [ "python3" ];
@@ -28,11 +25,10 @@ import ./make-test.nix ({ pkgs, ... }:
     };
   };
 
-  testScript =
-    ''
-      $machine->waitForUnit('multi-user.target');
-      $machine->waitForUnit('uwsgi.service');
-      $machine->waitForOpenPort(8000);
-      $machine->succeed('curl -v 127.0.0.1:8000 | grep "Hello World!"');
-    '';
+  testScript = ''
+    $machine->waitForUnit('multi-user.target');
+    $machine->waitForUnit('uwsgi.service');
+    $machine->waitForOpenPort(8000);
+    $machine->succeed('curl -v 127.0.0.1:8000 | grep "Hello World!"');
+  '';
 })

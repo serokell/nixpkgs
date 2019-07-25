@@ -1,16 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, perlPackages, libXft
-, libpng, zlib, popt, boehmgc, libxml2, libxslt, glib, gtkmm2
-, glibmm, libsigcxx, lcms, boost, gettext, makeWrapper
-, gsl, python2, poppler, imagemagick, libwpg, librevenge
-, libvisio, libcdr, libexif, potrace, cmake, hicolor-icon-theme
+{ stdenv, fetchurl, pkgconfig, perlPackages, libXft, libpng, zlib, popt, boehmgc, libxml2, libxslt, glib, gtkmm2, glibmm, libsigcxx, lcms, boost, gettext, makeWrapper, gsl, python2, poppler, imagemagick, libwpg, librevenge, libvisio, libcdr, libexif, potrace, cmake, hicolor-icon-theme
 }:
 
-let
-  python2Env = python2.withPackages(ps: with ps;
-    [ numpy lxml scour ]);
-in
+let python2Env = python2.withPackages (ps: with ps; [ numpy lxml scour ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "inkscape-0.92.4";
 
   src = fetchurl {
@@ -43,12 +36,33 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig cmake makeWrapper python2Env ]
     ++ (with perlPackages; [ perl XMLParser ]);
   buildInputs = [
-    libXft libpng zlib popt boehmgc
-    libxml2 libxslt glib gtkmm2 glibmm libsigcxx lcms boost gettext
-    gsl poppler imagemagick libwpg librevenge
-    libvisio libcdr libexif potrace hicolor-icon-theme
+    libXft
+    libpng
+    zlib
+    popt
+    boehmgc
+    libxml2
+    libxslt
+    glib
+    gtkmm2
+    glibmm
+    libsigcxx
+    lcms
+    boost
+    gettext
+    gsl
+    poppler
+    imagemagick
+    libwpg
+    librevenge
+    libvisio
+    libcdr
+    libexif
+    potrace
+    hicolor-icon-theme
 
-    python2Env perlPackages.perl
+    python2Env
+    perlPackages.perl
   ];
 
   enableParallelBuilding = true;
@@ -64,7 +78,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     license = "GPL";
-    homepage = https://www.inkscape.org;
+    homepage = "https://www.inkscape.org";
     description = "Vector graphics editor";
     platforms = platforms.all;
     longDescription = ''

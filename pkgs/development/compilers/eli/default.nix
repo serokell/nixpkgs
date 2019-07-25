@@ -1,61 +1,35 @@
-{ stdenv
-, fetchurl
-, symlinkJoin
-, makeWrapper
-, tcl
-, fontconfig
-, tk
-, ncurses
-, xorg
-, file
+{ stdenv, fetchurl, symlinkJoin, makeWrapper, tcl, fontconfig, tk, ncurses, xorg, file
 }:
 
 let
   # eli derives the location of the include folder from the location of the lib folder
   tk_combined = symlinkJoin {
     name = "tk_combined";
-    paths = [
-      tk
-      tk.dev
-    ];
+    paths = [ tk tk.dev ];
   };
   curses_combined = symlinkJoin {
     name = "curses_combined";
-    paths = [
-      ncurses
-      ncurses.dev
-    ];
+    paths = [ ncurses ncurses.dev ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "eli-${version}";
   version = "4.8.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/eli-project/Eli/Eli%20${version}/${name}.tar.bz2";
-    sha256="1vran8583hbwrr5dciji4zkhz3f88w4mn8n9sdpr6zw0plpf1whj";
+    url =
+      "mirror://sourceforge/project/eli-project/Eli/Eli%20${version}/${name}.tar.bz2";
+    sha256 = "1vran8583hbwrr5dciji4zkhz3f88w4mn8n9sdpr6zw0plpf1whj";
   };
 
-  buildInputs = [
-    ncurses
-    fontconfig
-  ] ++ (with xorg; [
-    libX11.dev
-    libXt.dev
-    libXaw.dev
-    libXext.dev
-  ]);
+  buildInputs = [ ncurses fontconfig ]
+    ++ (with xorg; [ libX11.dev libXt.dev libXaw.dev libXext.dev ]);
 
-  nativeBuildInputs = [
-    file
-    makeWrapper
-  ];
+  nativeBuildInputs = [ file makeWrapper ];
 
   # skip interactive browser check
   buildFlags = "nobrowsers";
 
-
-  preConfigure=''
+  preConfigure = ''
     configureFlagsArray=(
       --with-tcltk="${tcl} ${tk_combined}"
       --with-curses="${curses_combined}"
@@ -83,7 +57,7 @@ stdenv.mkDerivation rec {
       construction with extensive libraries implementing common tasks, yet handling
       arbitrary special cases. Output is the C subset of C++.
     '';
-    homepage = http://eli-project.sourceforge.net/;
+    homepage = "http://eli-project.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ timokau ];
     platforms = stdenv.lib.platforms.linux;

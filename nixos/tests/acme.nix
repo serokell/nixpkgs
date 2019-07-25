@@ -1,5 +1,4 @@
-let
-  commonConfig = ./common/letsencrypt/common.nix;
+let commonConfig = ./common/letsencrypt/common.nix;
 in import ./make-test.nix {
   name = "acme";
 
@@ -18,7 +17,7 @@ in import ./make-test.nix {
       services.nginx.virtualHosts."example.com" = {
         enableACME = true;
         forceSSL = true;
-        locations."/".root = pkgs.runCommand "docroot" {} ''
+        locations."/".root = pkgs.runCommand "docroot" { } ''
           mkdir -p "$out"
           echo hello world > "$out/index.html"
         '';

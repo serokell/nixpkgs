@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytestrunner
-, future
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestrunner, future }:
 
 buildPythonPackage rec {
   pname = "parsedatetime";

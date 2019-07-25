@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   name = "frostwire-${version}";
 
   src = fetchurl {
-    url = "https://dl.frostwire.com/frostwire/${version}/frostwire-${version}.noarch.tar.gz";
+    url =
+      "https://dl.frostwire.com/frostwire/${version}/frostwire-${version}.noarch.tar.gz";
     sha256 = "03vxg0qas4mz5ggrmi396nkz44x1kgq8bfbhbr9mnal9ay9qmi8m";
   };
 
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.frostwire.com/;
+    homepage = "https://www.frostwire.com/";
     description = "BitTorrent Client and Cloud File Downloader";
     license = licenses.gpl2;
     maintainers = with maintainers; [ gavin ];

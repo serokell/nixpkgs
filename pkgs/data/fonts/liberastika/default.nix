@@ -1,7 +1,6 @@
 { lib, fetchzip }:
 
-let
-  version = "1.1.5";
+let version = "1.1.5";
 in fetchzip rec {
   name = "liberastika-${version}";
 
@@ -17,11 +16,11 @@ in fetchzip rec {
 
   meta = with lib; {
     description = "Liberation Sans fork with improved cyrillic support";
-    homepage = https://sourceforge.net/projects/lib-ka/;
+    homepage = "https://sourceforge.net/projects/lib-ka/";
 
     license = licenses.gpl2;
     platforms = platforms.all;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
     maintainers = [ maintainers.volth ];
   };
 }

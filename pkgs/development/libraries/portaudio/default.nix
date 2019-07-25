@@ -1,23 +1,29 @@
-{ stdenv, fetchurl, alsaLib, pkgconfig, libjack2
-, AudioUnit, AudioToolbox, CoreAudio, CoreServices, Carbon }:
+{ stdenv, fetchurl, alsaLib, pkgconfig, libjack2, AudioUnit, AudioToolbox, CoreAudio, CoreServices, Carbon
+}:
 
 stdenv.mkDerivation rec {
   name = "portaudio-190600-20161030";
 
   src = fetchurl {
-    url = http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz;
+    url = "http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz";
     sha256 = "04qmin6nj144b8qb9kkd9a52xfvm0qdgm8bg8jbl7s3frmyiv8pm";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libjack2 ]
-    ++ stdenv.lib.optional (!stdenv.isDarwin) alsaLib;
+  buildInputs = [ libjack2 ] ++ stdenv.lib.optional (!stdenv.isDarwin) alsaLib;
 
   configureFlags = [ "--disable-mac-universal --enable-cxx" ];
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays";
+  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang
+    "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays";
 
-  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [ AudioUnit AudioToolbox CoreAudio CoreServices Carbon ];
+  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [
+    AudioUnit
+    AudioToolbox
+    CoreAudio
+    CoreServices
+    Carbon
+  ];
 
   patchPhase = stdenv.lib.optionalString stdenv.isDarwin ''
     sed -i '50 i\
@@ -39,14 +45,12 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Portable cross-platform Audio API";
-    homepage    = http://www.portaudio.com/;
+    homepage = "http://www.portaudio.com/";
     # Not exactly a bsd license, but alike
-    license     = licenses.mit;
+    license = licenses.mit;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 
-  passthru = {
-    api_version = 19;
-  };
+  passthru = { api_version = 19; };
 }

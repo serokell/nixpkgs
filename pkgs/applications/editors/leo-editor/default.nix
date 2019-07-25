@@ -25,18 +25,45 @@ stdenv.mkDerivation rec {
     desktopName = "Leo";
     genericName = "Text Editor";
     categories = stdenv.lib.concatStringsSep ";" [
-      "Application" "Development" "IDE" "QT"
+      "Application"
+      "Development"
+      "IDE"
+      "QT"
     ];
     startupNotify = "false";
     mimeType = stdenv.lib.concatStringsSep ";" [
-      "text/plain" "text/asp" "text/x-c" "text/x-script.elisp" "text/x-fortran"
-      "text/html" "application/inf" "text/x-java-source" "application/x-javascript"
-      "application/javascript" "text/ecmascript" "application/x-ksh" "text/x-script.ksh"
-      "application/x-tex" "text/x-script.rexx" "text/x-pascal" "text/x-script.perl"
-      "application/postscript" "text/x-script.scheme" "text/x-script.guile" "text/sgml"
-      "text/x-sgml" "application/x-bsh" "application/x-sh" "application/x-shar"
-      "text/x-script.sh" "application/x-tcl" "text/x-script.tcl" "application/x-texinfo"
-      "application/xml" "text/xml" "text/x-asm"
+      "text/plain"
+      "text/asp"
+      "text/x-c"
+      "text/x-script.elisp"
+      "text/x-fortran"
+      "text/html"
+      "application/inf"
+      "text/x-java-source"
+      "application/x-javascript"
+      "application/javascript"
+      "text/ecmascript"
+      "application/x-ksh"
+      "text/x-script.ksh"
+      "application/x-tex"
+      "text/x-script.rexx"
+      "text/x-pascal"
+      "text/x-script.perl"
+      "application/postscript"
+      "text/x-script.scheme"
+      "text/x-script.guile"
+      "text/sgml"
+      "text/x-sgml"
+      "application/x-bsh"
+      "application/x-sh"
+      "application/x-shar"
+      "text/x-script.sh"
+      "application/x-tcl"
+      "text/x-script.tcl"
+      "application/x-texinfo"
+      "application/xml"
+      "text/xml"
+      "text/x-asm"
     ];
   };
 
@@ -56,9 +83,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://leoeditor.com;
+    homepage = "http://leoeditor.com";
     description = "A powerful folding editor";
-    longDescription = "Leo is a PIM, IDE and outliner that accelerates the work flow of programmers, authors and web designers.";
+    longDescription =
+      "Leo is a PIM, IDE and outliner that accelerates the work flow of programmers, authors and web designers.";
     license = licenses.mit;
     maintainers = with maintainers; [ leonardoce ramkromberg ];
   };

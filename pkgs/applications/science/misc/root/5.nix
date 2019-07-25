@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, cmake, pcre, pkgconfig, python2
-, libX11, libXpm, libXft, libXext, libGLU_combined, zlib, libxml2, lzma, gsl_1
-, Cocoa, OpenGL, noSplash ? false }:
+{ stdenv, fetchurl, fetchpatch, cmake, pcre, pkgconfig, python2, libX11, libXpm, libXft, libXext, libGLU_combined, zlib, libxml2, lzma, gsl_1, Cocoa, OpenGL, noSplash ?
+  false }:
 
 stdenv.mkDerivation rec {
   name = "root-${version}";
@@ -13,16 +12,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ cmake pcre python2 zlib libxml2 lzma gsl_1 ]
-    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU_combined ]
-    ++ stdenv.lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ]
-    ;
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libXpm
+      libXft
+      libXext
+      libGLU_combined
+    ] ++ stdenv.lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ];
 
   patches = [
     ./sw_vers_root5.patch
 
     (fetchpatch {
       name = "enable_new_gcc.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/enable_new_gcc.patch?h=root5&id=91c50876081a0af36f84ec4f0f9dba869107fa4f";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/enable_new_gcc.patch?h=root5&id=91c50876081a0af36f84ec4f0f9dba869107fa4f";
       sha256 = "1rnp0xlw0yqi7mjs4w145njd79i8kkir1qik7zwicdik9axf8ygm";
     })
 
@@ -36,16 +40,18 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     patchShebangs build/unix/
-    ln -s ${stdenv.lib.getDev stdenv.cc.libc}/include/AvailabilityMacros.h cint/cint/include/
+    ln -s ${
+      stdenv.lib.getDev stdenv.cc.libc
+    }/include/AvailabilityMacros.h cint/cint/include/
   ''
-  # Fix CINTSYSDIR for "build" version of rootcint
-  # This is probably a bug that breaks out-of-source builds
-  + ''
-    substituteInPlace cint/cint/src/loadfile.cxx\
-      --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
-  '' + stdenv.lib.optionalString noSplash ''
-    substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
-  '';
+    # Fix CINTSYSDIR for "build" version of rootcint
+    # This is probably a bug that breaks out-of-source builds
+    + ''
+      substituteInPlace cint/cint/src/loadfile.cxx\
+        --replace 'env = "cint";' 'env = "'`pwd`'/cint";'
+    '' + stdenv.lib.optionalString noSplash ''
+      substituteInPlace rootx/src/rootx.cxx --replace "gNoLogo = false" "gNoLogo = true"
+    '';
 
   cmakeFlags = [
     "-Drpath=ON"
@@ -80,15 +86,15 @@ stdenv.mkDerivation rec {
     "-Dssl=OFF"
     "-Dxml=ON"
     "-Dxrootd=OFF"
-  ]
-  ++ stdenv.lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+  ] ++ stdenv.lib.optional stdenv.isDarwin
+    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
 
   enableParallelBuilding = true;
 
   setupHook = ./setup-hook.sh;
 
   meta = with stdenv.lib; {
-    homepage = https://root.cern.ch/;
+    homepage = "https://root.cern.ch/";
     description = "A data analysis framework";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];

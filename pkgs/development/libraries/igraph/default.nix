@@ -1,6 +1,5 @@
-{ stdenv, lib, fetchFromGitHub,
-  pkgconfig, autoreconfHook,
-  flex, yacc, zlib, libxml2 }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, autoreconfHook, flex, yacc, zlib, libxml2
+}:
 
 stdenv.mkDerivation rec {
   pname = "igraph";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "The network analysis package";
-    homepage = https://igraph.org/;
+    homepage = "https://igraph.org/";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.MostAwesomeDude ];
   };

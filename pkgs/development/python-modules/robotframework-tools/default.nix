@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, robotframework
-, moretools
-, pathpy
-, six
-, zetup
-, modeled
-, pytest
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, robotframework, moretools, pathpy, six, zetup, modeled, pytest
 }:
 
 buildPythonPackage rec {
@@ -20,21 +10,11 @@ buildPythonPackage rec {
     sha256 = "0377ikajf6c3zcy3lc0kh4w9zmlqyplk2c2hb0yyc7h3jnfnya96";
   };
 
-  nativeBuildInputs = [
-    zetup
-  ];
+  nativeBuildInputs = [ zetup ];
 
-  propagatedBuildInputs = [
-    robotframework
-    moretools
-    pathpy
-    six
-    modeled
-  ];
+  propagatedBuildInputs = [ robotframework moretools pathpy six modeled ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     # tests require network
@@ -43,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python Tools for Robot Framework and Test Libraries";
-    homepage = https://bitbucket.org/userzimmermann/robotframework-tools;
+    homepage = "https://bitbucket.org/userzimmermann/robotframework-tools";
     license = licenses.gpl3;
     maintainers = [ maintainers.costrouc ];
   };

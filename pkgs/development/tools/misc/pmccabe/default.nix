@@ -5,13 +5,12 @@ stdenv.mkDerivation rec {
   version = "2.6";
 
   src = fetchurl {
-    url = "http://http.debian.net/debian/pool/main/p/pmccabe/pmccabe_${version}.tar.gz";
+    url =
+      "http://http.debian.net/debian/pool/main/p/pmccabe/pmccabe_${version}.tar.gz";
     sha256 = "0a3h1b9fb87c82d5fbql5lc4gp338pa5s9i66dhw7zk8jdygx474";
   };
 
-  patches = [
-    ./getopt_on_darwin.patch
-  ];
+  patches = [ ./getopt_on_darwin.patch ];
 
   configurePhase = ''
     sed -i -r Makefile \
@@ -19,15 +18,16 @@ stdenv.mkDerivation rec {
       -e "s,^DESTDIR =.*$,DESTDIR = $out," \
       -e "s,^INSTALL = install.*$,INSTALL = install," \
       -e "s,^all:.*$,all: \$(PROGS),"
-    '';
+  '';
 
   checkPhase = "make test";
 
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "McCabe-style function complexity and line counting for C and C++";
-    homepage = https://people.debian.org/~bame/pmccabe/;
+    description =
+      "McCabe-style function complexity and line counting for C and C++";
+    homepage = "https://people.debian.org/~bame/pmccabe/";
     license = licenses.gpl2Plus;
 
     longDescription = ''

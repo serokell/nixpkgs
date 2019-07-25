@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, gettext, libgpgerror, enableCapabilities ? false, libcap
-, buildPackages
-}:
+{ stdenv, fetchurl, gettext, libgpgerror, enableCapabilities ?
+  false, libcap, buildPackages }:
 
 assert enableCapabilities -> stdenv.isLinux;
 
@@ -23,8 +22,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [ libgpgerror ]
-    ++ stdenv.lib.optional stdenv.isDarwin gettext
+  buildInputs = [ libgpgerror ] ++ stdenv.lib.optional stdenv.isDarwin gettext
     ++ stdenv.lib.optional enableCapabilities libcap;
 
   configureFlags = [ "--with-libgpg-error-prefix=${libgpgerror.dev}" ];
@@ -47,11 +45,11 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/libgcrypt/;
+    homepage = "https://www.gnu.org/software/libgcrypt/";
     description = "General-purpose cryptographic library";
     license = licenses.lgpl2Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ vrthra ];
-    repositories.git = git://git.gnupg.org/libgcrypt.git;
+    repositories.git = "git://git.gnupg.org/libgcrypt.git";
   };
 }

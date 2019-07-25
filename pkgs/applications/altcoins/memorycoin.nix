@@ -1,9 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, openssl, db48, boost
-, zlib, qt4, qmake4Hook, utillinux, protobuf, qrencode
-, withGui }:
+{ stdenv, fetchurl, pkgconfig, openssl, db48, boost, zlib, qt4, qmake4Hook, utillinux, protobuf, qrencode, withGui
+}:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "memorycoin" + (toString (optional (!withGui) "d")) + "-" + version;
   version = "0.8.5";
@@ -15,21 +14,21 @@ stdenv.mkDerivation rec{
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl db48 boost zlib utillinux protobuf ]
-                  ++ optionals withGui [ qt4 qmake4Hook qrencode ];
+    ++ optionals withGui [ qt4 qmake4Hook qrencode ];
 
-  qmakeFlags = ["USE_UPNP=-"];
-  makeFlags = ["USE_UPNP=-"];
+  qmakeFlags = [ "USE_UPNP=-" ];
+  makeFlags = [ "USE_UPNP=-" ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
-                     ++ optionals withGui [ "--with-gui=qt4" ];
+    ++ optionals withGui [ "--with-gui=qt4" ];
 
   preBuild = "unset AR;"
-             + (toString (optional (!withGui) "cd src; cp makefile.unix Makefile"));
+    + (toString (optional (!withGui) "cd src; cp makefile.unix Makefile"));
 
-  installPhase =
-    if withGui
-    then "install -D bitcoin-qt $out/bin/memorycoin-qt"
-    else "install -D bitcoind $out/bin/memorycoind";
+  installPhase = if withGui then
+    "install -D bitcoin-qt $out/bin/memorycoin-qt"
+  else
+    "install -D bitcoind $out/bin/memorycoind";
 
   # `make build/version.o`:
   # make: *** No rule to make target 'build/build.h', needed by 'build/version.o'.  Stop.
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec{
 
   meta = {
     description = "Peer-to-peer, CPU-based electronic cash system";
-    longDescription= ''
+    longDescription = ''
       Memorycoin is a cryptocurrency that aims to empower the
       economically and financially marginalized. It allows individuals
       to participate in the internet economy even when they live in
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec{
       Memorycoin is based on the Bitcoin code, but with some key
       differences.
     '';
-    homepage = http://www.bitcoin.org/;
+    homepage = "http://www.bitcoin.org/";
     maintainers = with maintainers; [ AndersonTorres ];
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];

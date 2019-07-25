@@ -1,8 +1,4 @@
-{ lib,
-  fetchPypi,
-  requests,
-  buildPythonPackage
-}:
+{ lib, fetchPypi, requests, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "braintree";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python library for integration with Braintree";
-    homepage = https://github.com/braintree/braintree_python;
+    homepage = "https://github.com/braintree/braintree_python";
     license = licenses.mit;
     maintainers = [ maintainers.ivegotasthma ];
   };

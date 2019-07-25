@@ -1,44 +1,32 @@
-{stdenv, composeXcodeWrapper}:
-{ name
-, src
-, sdkVersion ? "12.1"
-, target ? null
-, configuration ? null
-, scheme ? null
-, sdk ? null
-, xcodeFlags ? ""
-, release ? false
-, certificateFile ? null
-, certificatePassword ? null
-, provisioningProfile ? null
-, codeSignIdentity ? null
-, signMethod ? null
-, generateIPA ? false
-, generateXCArchive ? false
-, enableWirelessDistribution ? false
-, installURL ? null
-, bundleId ? null
-, appVersion ? null
-, ...
+{ stdenv, composeXcodeWrapper }:
+{ name, src, sdkVersion ? "12.1", target ? null, configuration ? null, scheme ?
+  null, sdk ? null, xcodeFlags ? "", release ? false, certificateFile ?
+    null, certificatePassword ? null, provisioningProfile ?
+      null, codeSignIdentity ? null, signMethod ? null, generateIPA ?
+        false, generateXCArchive ? false, enableWirelessDistribution ?
+          false, installURL ? null, bundleId ? null, appVersion ? null, ...
 }@args:
 
-assert release -> certificateFile != null && certificatePassword != null && provisioningProfile != null && signMethod != null && codeSignIdentity != null;
-assert enableWirelessDistribution -> installURL != null && bundleId != null && appVersion != null;
+assert release -> certificateFile != null && certificatePassword != null
+&& provisioningProfile != null && signMethod != null && codeSignIdentity
+!= null;
+assert enableWirelessDistribution -> installURL != null && bundleId != null
+&& appVersion != null;
 
 let
   # Set some default values here
 
   _target = if target == null then name else target;
 
-  _configuration = if configuration == null
-    then
-      if release then "Release" else "Debug"
-    else configuration;
+  _configuration = if configuration == null then
+    if release then "Release" else "Debug"
+  else
+    configuration;
 
-  _sdk = if sdk == null
-    then
-      if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion
-    else sdk;
+  _sdk = if sdk == null then
+    if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion
+  else
+    sdk;
 
   # The following is to prevent repetition
   deleteKeychain = ''
@@ -50,15 +38,30 @@ let
   xcodewrapperArgs = builtins.intersectAttrs xcodewrapperFormalArgs args;
   xcodewrapper = composeXcodeWrapper xcodewrapperArgs;
 
-  extraArgs = removeAttrs args ([ "name" "scheme" "xcodeFlags" "release" "certificateFile" "certificatePassword" "provisioningProfile" "signMethod" "generateIPA" "generateXCArchive" "enableWirelessDistribution" "installURL" "bundleId" "version" ] ++ builtins.attrNames xcodewrapperFormalArgs);
-in
-stdenv.mkDerivation ({
-  name = stdenv.lib.replaceChars [" "] [""] name; # iOS app names can contain spaces, but in the Nix store this is not allowed
+  extraArgs = removeAttrs args ([
+    "name"
+    "scheme"
+    "xcodeFlags"
+    "release"
+    "certificateFile"
+    "certificatePassword"
+    "provisioningProfile"
+    "signMethod"
+    "generateIPA"
+    "generateXCArchive"
+    "enableWirelessDistribution"
+    "installURL"
+    "bundleId"
+    "version"
+  ] ++ builtins.attrNames xcodewrapperFormalArgs);
+in stdenv.mkDerivation ({
+  name = stdenv.lib.replaceChars [ " " ] [ "" ]
+    name; # iOS app names can contain spaces, but in the Nix store this is not allowed
   buildPhase = ''
     # Be sure that the Xcode wrapper has priority over everything else.
     # When using buildInputs this does not seem to be the case.
     export PATH=${xcodewrapper}/bin:$PATH
-    
+
     ${stdenv.lib.optionalString release ''
       export HOME=/Users/$(whoami)
       keychainName="$(basename $out)"
@@ -91,7 +94,20 @@ stdenv.mkDerivation ({
     # Do the building
     export LD=/usr/bin/clang # To avoid problem with -isysroot parameter that is unrecognized by the stock ld. Comparison with an impure build shows that it uses clang instead. Ugly, but it works
 
-    xcodebuild -target ${_target} -configuration ${_configuration} ${stdenv.lib.optionalString (scheme != null) "-scheme ${scheme}"} -sdk ${_sdk} TARGETED_DEVICE_FAMILY="1, 2" ONLY_ACTIVE_ARCH=NO CONFIGURATION_TEMP_DIR=$TMPDIR CONFIGURATION_BUILD_DIR=$out ${if generateIPA || generateXCArchive then "-archivePath \"${name}.xcarchive\" archive" else ""} ${if release then '' PROVISIONING_PROFILE=$PROVISIONING_PROFILE OTHER_CODE_SIGN_FLAGS="--keychain $HOME/Library/Keychains/$keychainName-db"'' else ""} ${xcodeFlags}
+    xcodebuild -target ${_target} -configuration ${_configuration} ${
+      stdenv.lib.optionalString (scheme != null) "-scheme ${scheme}"
+    } -sdk ${_sdk} TARGETED_DEVICE_FAMILY="1, 2" ONLY_ACTIVE_ARCH=NO CONFIGURATION_TEMP_DIR=$TMPDIR CONFIGURATION_BUILD_DIR=$out ${
+      if generateIPA || generateXCArchive then
+        ''-archivePath "${name}.xcarchive" archive''
+      else
+        ""
+    } ${
+      if release then
+        ''
+          PROVISIONING_PROFILE=$PROVISIONING_PROFILE OTHER_CODE_SIGN_FLAGS="--keychain $HOME/Library/Keychains/$keychainName-db"''
+      else
+        ""
+    } ${xcodeFlags}
 
     ${stdenv.lib.optionalString release ''
       ${stdenv.lib.optionalString generateIPA ''
@@ -112,10 +128,13 @@ stdenv.mkDerivation ({
             <string>manual</string>
             <key>method</key>
             <string>${signMethod}</string>
-            ${stdenv.lib.optionalString (signMethod == "enterprise" || signMethod == "ad-hoc") ''
-              <key>compileBitcode</key>
-              <false/>
-            ''}
+            ${
+          stdenv.lib.optionalString
+          (signMethod == "enterprise" || signMethod == "ad-hoc") ''
+            <key>compileBitcode</key>
+            <false/>
+          ''
+            }
         </dict>
         </plist>
         EOF
@@ -130,7 +149,9 @@ stdenv.mkDerivation ({
         ${stdenv.lib.optionalString enableWirelessDistribution ''
           # Add another hacky build product that enables wireless adhoc installations
           appname="$(basename "$(echo $out/*.ipa)" .ipa)"
-          sed -e "s|@INSTALL_URL@|${installURL}?bundleId=${bundleId}\&amp;version=${appVersion}\&amp;title=$appname|" ${./install.html.template} > $out/''${appname}.html
+          sed -e "s|@INSTALL_URL@|${installURL}?bundleId=${bundleId}\&amp;version=${appVersion}\&amp;title=$appname|" ${
+            ./install.html.template
+          } > $out/''${appname}.html
           echo "doc install \"$out/''${appname}.html\"" >> $out/nix-support/hydra-build-products
         ''}
       ''}

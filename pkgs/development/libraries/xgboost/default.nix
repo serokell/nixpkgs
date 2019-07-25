@@ -1,8 +1,6 @@
-{ config, stdenv, lib, fetchgit, cmake
-, cudaSupport ? config.cudaSupport or false, cudatoolkit
-, ncclSupport ? false, nccl
-, llvmPackages
-}:
+{ config, stdenv, lib, fetchgit, cmake, cudaSupport ?
+  config.cudaSupport or false, cudatoolkit, ncclSupport ?
+    false, nccl, llvmPackages }:
 
 assert ncclSupport -> cudaSupport;
 
@@ -19,26 +17,30 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
+  nativeBuildInputs = [ cmake ]
+    ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
   buildInputs = lib.optional cudaSupport cudatoolkit
-                ++ lib.optional ncclSupport nccl;
+    ++ lib.optional ncclSupport nccl;
 
-  cmakeFlags = lib.optionals cudaSupport [ "-DUSE_CUDA=ON" "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc" ]
-               ++ lib.optional ncclSupport "-DUSE_NCCL=ON";
+  cmakeFlags = lib.optionals cudaSupport [
+    "-DUSE_CUDA=ON"
+    "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
+  ] ++ lib.optional ncclSupport "-DUSE_NCCL=ON";
 
-  installPhase = let
-    libname = "libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
-  in ''
-    mkdir -p $out
-    cp -r ../include $out
-    install -Dm755 ../lib/${libname} $out/lib/${libname}
-    install -Dm755 ../xgboost $out/bin/xgboost
-  '';
+  installPhase =
+    let libname = "libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
+    in ''
+      mkdir -p $out
+      cp -r ../include $out
+      install -Dm755 ../lib/${libname} $out/lib/${libname}
+      install -Dm755 ../xgboost $out/bin/xgboost
+    '';
 
   meta = with stdenv.lib; {
-    description = "Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library";
-    homepage = https://github.com/dmlc/xgboost;
+    description =
+      "Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library";
+    homepage = "https://github.com/dmlc/xgboost";
     license = licenses.asl20;
     platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
     maintainers = with maintainers; [ abbradar ];

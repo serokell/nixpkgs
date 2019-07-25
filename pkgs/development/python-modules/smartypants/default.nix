@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchhg
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchhg, isPyPy }:
 
 buildPythonPackage rec {
   version = "1.8.6";

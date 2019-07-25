@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, lib }:
+build-idris-package {
   name = "pfds";
   version = "2017-09-25";
 
@@ -18,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Purely functional data structures in Idris";
-    homepage = https://github.com/timjb/idris-pfds;
+    homepage = "https://github.com/timjb/idris-pfds";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.brainrape ];
   };

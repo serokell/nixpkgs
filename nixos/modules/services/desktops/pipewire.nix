@@ -23,14 +23,14 @@ in {
     };
   };
 
-
   ###### implementation
   config = mkIf cfg.enable {
     environment.systemPackages = packages;
 
     systemd.packages = packages;
 
-    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.user.sockets.pipewire.wantedBy =
+      lib.mkIf cfg.socketActivation [ "sockets.target" ];
   };
 
   meta.maintainers = with lib.maintainers; [ jtojnar ];

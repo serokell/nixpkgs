@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, python, isPy3k }:
 
 buildPythonPackage rec {
   version = "3.0.2";
@@ -19,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Microsoft Azure SDK for Python";
-    homepage = https://github.com/Azure/azure-sdk-for-python;
+    homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ olcai mwilsoninsight ];
   };

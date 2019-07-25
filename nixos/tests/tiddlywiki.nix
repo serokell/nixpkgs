@@ -1,9 +1,7 @@
 import ./make-test.nix ({ ... }: {
   name = "tiddlywiki";
   nodes = {
-    default = {
-      services.tiddlywiki.enable = true;
-    };
+    default = { services.tiddlywiki.enable = true; };
     configured = {
       boot.postBootCommands = ''
         echo "username,password
@@ -13,8 +11,8 @@ import ./make-test.nix ({ ... }: {
         enable = true;
         listenOptions = {
           port = 3000;
-          credentials="../wikiusers.csv";
-          readers="(authenticated)";
+          credentials = "../wikiusers.csv";
+          readers = "(authenticated)";
         };
       };
     };

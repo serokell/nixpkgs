@@ -1,9 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig
-, python
-, alsaLib, glew, libGL, libpng
-, libogg, libtheora, libvorbis
-, SDL, SDL_image, SDL_ttf
-, freetype, tcl, zlib
+{ stdenv, fetchFromGitHub, pkgconfig, python, alsaLib, glew, libGL, libpng, libogg, libtheora, libvorbis, SDL, SDL_image, SDL_ttf, freetype, tcl, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +16,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig python ];
 
-  buildInputs = [ alsaLib glew libGL libpng
-    libogg libtheora libvorbis freetype
-    SDL SDL_image SDL_ttf tcl zlib ];
+  buildInputs = [
+    alsaLib
+    glew
+    libGL
+    libpng
+    libogg
+    libtheora
+    libvorbis
+    freetype
+    SDL
+    SDL_image
+    SDL_ttf
+    tcl
+    zlib
+  ];
 
   postPatch = ''
     cp ${./custom-nixos.mk} build/custom.mk
@@ -33,7 +40,7 @@ stdenv.mkDerivation rec {
 
   # Many thanks @mthuurne from OpenMSX project
   # for providing support to Nixpkgs :)
-  TCL_CONFIG="${tcl}/lib/";
+  TCL_CONFIG = "${tcl}/lib/";
 
   meta = with stdenv.lib; {
     description = "A MSX emulator";
@@ -41,7 +48,7 @@ stdenv.mkDerivation rec {
       OpenMSX is an emulator for the MSX home computer system. Its goal is
       to emulate all aspects of the MSX with 100% accuracy.
     '';
-    homepage = https://openmsx.org;
+    homepage = "https://openmsx.org";
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;
   };

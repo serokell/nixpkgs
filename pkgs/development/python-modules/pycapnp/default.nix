@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, capnproto
-, cython
-, isPyPy
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, capnproto, cython, isPyPy, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pycapnp";

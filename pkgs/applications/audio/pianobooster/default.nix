@@ -1,6 +1,6 @@
 { stdenv, fetchurl, alsaLib, cmake, libGLU_combined, makeWrapper, qt4 }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "pianobooster-${version}";
   version = "0.6.4b";
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation  rec {
 
   meta = with stdenv.lib; {
     description = "A MIDI file player that teaches you how to play the piano";
-    homepage = http://pianobooster.sourceforge.net;
+    homepage = "http://pianobooster.sourceforge.net";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.goibhniu ];

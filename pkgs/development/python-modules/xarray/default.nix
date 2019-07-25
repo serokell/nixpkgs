@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, numpy
-, pandas
-, python
-, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, numpy, pandas, python, isPy3k }:
 
 buildPythonPackage rec {
   pname = "xarray";
@@ -18,7 +10,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [numpy pandas];
+  propagatedBuildInputs = [ numpy pandas ];
 
   checkPhase = ''
     pytest $out/${python.sitePackages}
@@ -31,7 +23,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "N-D labeled arrays and datasets in Python";
-    homepage = https://github.com/pydata/xarray;
+    homepage = "https://github.com/pydata/xarray";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ fridh ];
   };

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, boost
-, opencl-headers, ocl-icd, qtbase , zlib }:
+{ stdenv, fetchFromGitHub, cmake, boost, opencl-headers, ocl-icd, qtbase, zlib
+}:
 
 stdenv.mkDerivation rec {
   name = "leela-zero-${version}";
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Go engine modeled after AlphaGo Zero";
-    homepage    = https://github.com/gcp/leela-zero;
-    license     = licenses.gpl3;
+    homepage = "https://github.com/gcp/leela-zero";
+    license = licenses.gpl3;
     maintainers = [ maintainers.averelld maintainers.omnipotententity ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

@@ -4,13 +4,12 @@ let
   # See https://mesonbuild.com/Reference-tables.html#cpu-families
   cpuFamilies = {
     "aarch64" = "aarch64";
-    "armv6l"  = "arm";
-    "armv7l"  = "arm";
-    "i686"    = "x86";
-    "x86_64"  = "x86_64";
+    "armv6l" = "arm";
+    "armv7l" = "arm";
+    "i686" = "x86";
+    "x86_64" = "x86_64";
   };
-in
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   pname = "meson";
   version = "0.50.1";
 
@@ -80,9 +79,16 @@ python3Packages.buildPythonApplication rec {
 
     [host_machine]
     system = '${targetPackages.stdenv.targetPlatform.parsed.kernel.name}'
-    cpu_family = '${cpuFamilies.${targetPackages.stdenv.targetPlatform.parsed.cpu.name}}'
+    cpu_family = '${
+      cpuFamilies.${targetPackages.stdenv.targetPlatform.parsed.cpu.name}
+    }'
     cpu = '${targetPackages.stdenv.targetPlatform.parsed.cpu.name}'
-    endian = ${if targetPackages.stdenv.targetPlatform.isLittleEndian then "'little'" else "'big'"}
+    endian = ${
+      if targetPackages.stdenv.targetPlatform.isLittleEndian then
+        "'little'"
+      else
+        "'big'"
+    }
   '';
 
   # 0.45 update enabled tests but they are failing
@@ -95,8 +101,9 @@ python3Packages.buildPythonApplication rec {
   isCross = stdenv.targetPlatform != stdenv.hostPlatform;
 
   meta = with lib; {
-    homepage = http://mesonbuild.com;
-    description = "SCons-like build system that use python as a front-end language and Ninja as a building backend";
+    homepage = "http://mesonbuild.com";
+    description =
+      "SCons-like build system that use python as a front-end language and Ninja as a building backend";
     license = licenses.asl20;
     maintainers = with maintainers; [ mbe rasendubi ];
     platforms = platforms.all;

@@ -1,7 +1,6 @@
 { lib, fetchzip }:
 
-let
-  version = "3.2.0";
+let version = "3.2.0";
 in fetchzip {
   name = "emacs-all-the-icons-fonts-${version}";
 
@@ -21,12 +20,11 @@ in fetchzip {
       presentation of information in emacs. This package provides
       the fonts needed to make the package work properly.
     '';
-    homepage = https://github.com/domtronn/all-the-icons.el;
+    homepage = "https://github.com/domtronn/all-the-icons.el";
 
-    /*
-    The fonts come under a mixture of licenses - the MIT license,
-    SIL OFL license, and Apache license v2.0. See the GitHub page
-    for further information.
+    /* The fonts come under a mixture of licenses - the MIT license,
+       SIL OFL license, and Apache license v2.0. See the GitHub page
+       for further information.
     */
     license = licenses.free;
     platforms = platforms.all;

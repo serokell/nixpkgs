@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   setupHook = ../generic-setup-hook.sh;
 
   meta = {
-    description = "A simplified interface to the Gnome libxml2 and libxslt libraries for Pure";
-    homepage = http://puredocs.bitbucket.org/pure-xml.html;
+    description =
+      "A simplified interface to the Gnome libxml2 and libxslt libraries for Pure";
+    homepage = "http://puredocs.bitbucket.org/pure-xml.html";
     license = stdenv.lib.licenses.lgpl3Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ asppsa ];

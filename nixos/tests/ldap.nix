@@ -1,4 +1,4 @@
-import ./make-test.nix ({ pkgs, lib, ...} :
+import ./make-test.nix ({ pkgs, lib, ... }:
 
 let
   unlines = lib.concatStringsSep "\n";
@@ -19,8 +19,7 @@ let
   ldapGroupId = 10000;
 
   mkClient = useDaemon:
-    { lib, ... }:
-    {
+    { lib, ... }: {
       virtualisation.memorySize = 256;
       virtualisation.vlans = [ 1 ];
       security.pam.services.su.rootOK = lib.mkForce false;
@@ -39,21 +38,19 @@ let
         passwordFile = "/etc/ldap/bind.password";
       };
       # NOTE: passwords stored in clear in Nix's store, but this is a test.
-      environment.etc."ldap/bind.password".source = pkgs.writeText "password" dbAdminPwd;
-      environment.etc."nslcd.rootpwmodpw".source = pkgs.writeText "rootpwmodpw" dbAdminPwd;
+      environment.etc."ldap/bind.password".source =
+        pkgs.writeText "password" dbAdminPwd;
+      environment.etc."nslcd.rootpwmodpw".source =
+        pkgs.writeText "rootpwmodpw" dbAdminPwd;
     };
-in
 
-{
+in {
   name = "ldap";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ montag451 ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ montag451 ]; };
 
   nodes = {
 
-    server =
-      { pkgs, config, ... }:
+    server = { pkgs, config, ... }:
       let
         inherit (config.services) openldap;
 
@@ -108,11 +105,10 @@ in
           #olcModulePath: /usr/lib/ldap
           olcModuleLoad: back_mdb
 
-          ''
-          + unlinesAttrs (olcSuffix: {conf, ...}:
-              "include: file://" + pkgs.writeText "config.ldif" conf
-            ) slapdDatabases
-          );
+        '' + unlinesAttrs (olcSuffix:
+          { conf, ... }:
+          "include: file://" + pkgs.writeText "config.ldif" conf)
+          slapdDatabases);
 
         slapdDatabases = {
           "${dbSuffix}" = {
@@ -185,26 +181,22 @@ in
               dn: ou=groups,ou=posix,${dbSuffix}
               objectClass: top
               objectClass: organizationalUnit
-            ''
-            + lib.concatMapStrings posixAccount [
-              { uid=ldapUser; uidNumber=ldapUserId; gidNumber=ldapGroupId; userPassword=ldapUserPwdHash; }
-            ]
-            + lib.concatMapStrings posixGroup [
-              { gid=ldapGroup; gidNumber=ldapGroupId; members=[]; }
-            ];
+            '' + lib.concatMapStrings posixAccount [{
+              uid = ldapUser;
+              uidNumber = ldapUserId;
+              gidNumber = ldapGroupId;
+              userPassword = ldapUserPwdHash;
+            }] + lib.concatMapStrings posixGroup [{
+              gid = ldapGroup;
+              gidNumber = ldapGroupId;
+              members = [ ];
+            }];
           };
         };
 
         # NOTE: create a user account using the posixAccount objectClass.
-        posixAccount =
-          { uid
-          , uidNumber ? null
-          , gidNumber ? null
-          , cn ? ""
-          , sn ? ""
-          , userPassword ? ""
-          , loginShell ? "/bin/sh"
-          }: ''
+        posixAccount = { uid, uidNumber ? null, gidNumber ? null, cn ? "", sn ?
+          "", userPassword ? "", loginShell ? "/bin/sh" }: ''
 
             dn: uid=${uid},ou=accounts,ou=posix,${dbSuffix}
             objectClass: person
@@ -212,55 +204,57 @@ in
             objectClass: shadowAccount
             cn: ${cn}
             gecos:
-            ${if gidNumber == null then "#" else "gidNumber: ${toString gidNumber}"}
+            ${if gidNumber == null then
+              "#"
+            else
+              "gidNumber: ${toString gidNumber}"}
             homeDirectory: /home/${uid}
             loginShell: ${loginShell}
             sn: ${sn}
-            ${if uidNumber == null then "#" else "uidNumber: ${toString uidNumber}"}
-            ${if userPassword == "" then "#" else "userPassword: ${userPassword}"}
+            ${if uidNumber == null then
+              "#"
+            else
+              "uidNumber: ${toString uidNumber}"}
+            ${if userPassword == "" then
+              "#"
+            else
+              "userPassword: ${userPassword}"}
           '';
 
         # NOTE: create a group using the posixGroup objectClass.
-        posixGroup =
-          { gid
-          , gidNumber
-          , members
-          }: ''
+        posixGroup = { gid, gidNumber, members }: ''
 
-            dn: cn=${gid},ou=groups,ou=posix,${dbSuffix}
-            objectClass: top
-            objectClass: posixGroup
-            gidNumber: ${toString gidNumber}
-            ${lib.concatMapStrings (member: "memberUid: ${member}\n") members}
-          '';
-      in
-      {
+          dn: cn=${gid},ou=groups,ou=posix,${dbSuffix}
+          objectClass: top
+          objectClass: posixGroup
+          gidNumber: ${toString gidNumber}
+          ${lib.concatMapStrings (member: ''
+            memberUid: ${member}
+          '') members}
+        '';
+      in {
         virtualisation.memorySize = 256;
         virtualisation.vlans = [ 1 ];
         networking.firewall.allowedTCPPorts = [ 389 ];
         services.openldap.enable = true;
         services.openldap.dataDir = "/var/db/openldap";
         services.openldap.configDir = "/var/db/slapd";
-        services.openldap.urlList = [
-          "ldap:///"
-          "ldapi:///"
-        ];
+        services.openldap.urlList = [ "ldap:///" "ldapi:///" ];
         systemd.services.openldap = {
           preStart = ''
-              set -e
-              # NOTE: slapd's config is always re-initialized.
-              rm -rf "${openldap.configDir}"/cn=config \
-                     "${openldap.configDir}"/cn=config.ldif
-              install -D -d -m 0700 -o "${openldap.user}" -g "${openldap.group}" "${openldap.configDir}"
-              # NOTE: olcDbDirectory must be created before adding the config.
-              '' +
-              unlinesAttrs (olcSuffix: {data, ...}: ''
-                # NOTE: database is always re-initialized.
-                rm -rf "${openldap.dataDir}/${olcSuffix}"
-                install -D -d -m 0700 -o "${openldap.user}" -g "${openldap.group}" \
-                 "${openldap.dataDir}/${olcSuffix}"
-                '') slapdDatabases
-              + ''
+            set -e
+            # NOTE: slapd's config is always re-initialized.
+            rm -rf "${openldap.configDir}"/cn=config \
+                   "${openldap.configDir}"/cn=config.ldif
+            install -D -d -m 0700 -o "${openldap.user}" -g "${openldap.group}" "${openldap.configDir}"
+            # NOTE: olcDbDirectory must be created before adding the config.
+          '' + unlinesAttrs (olcSuffix:
+            { data, ... }: ''
+              # NOTE: database is always re-initialized.
+              rm -rf "${openldap.dataDir}/${olcSuffix}"
+              install -D -d -m 0700 -o "${openldap.user}" -g "${openldap.group}" \
+               "${openldap.dataDir}/${olcSuffix}"
+            '') slapdDatabases + ''
               # NOTE: slapd is supposed to be stopped while in preStart,
               #       hence slap* commands can safely be used.
               umask 0077
@@ -271,14 +265,15 @@ in
               # NOTE: slapadd(8): To populate the config database slapd-config(5),
               #                   use -n 0 as it is always the first database.
               #                   It must physically exist on the filesystem prior to this, however.
-            '' +
-            unlinesAttrs (olcSuffix: {data, ...}: ''
+            '' + unlinesAttrs (olcSuffix:
+            { data, ... }:
+            ''
               # NOTE: load database ${olcSuffix}
               # (as root to avoid depending on sudo or chpst)
               ${pkgs.openldap}/bin/slapadd \
                -F "${openldap.configDir}" \
                -l ${pkgs.writeText "data.ldif" data}
-              '' + ''
+            '' + ''
               # NOTE: redundant with default openldap's preStart, but do not harm.
               chown -R "${openldap.user}:${openldap.group}" \
                "${openldap.dataDir}/${olcSuffix}"
@@ -377,13 +372,21 @@ in
     $client2->waitForUnit("default.target");
 
     subtest "NSS", sub {
-        $client1->succeed("test \"\$(id -u '${ldapUser}')\" -eq ${toString ldapUserId}");
+        $client1->succeed("test \"\$(id -u '${ldapUser}')\" -eq ${
+      toString ldapUserId
+        }");
         $client1->succeed("test \"\$(id -u -n '${ldapUser}')\" = '${ldapUser}'");
-        $client1->succeed("test \"\$(id -g '${ldapUser}')\" -eq ${toString ldapGroupId}");
+        $client1->succeed("test \"\$(id -g '${ldapUser}')\" -eq ${
+      toString ldapGroupId
+        }");
         $client1->succeed("test \"\$(id -g -n '${ldapUser}')\" = '${ldapGroup}'");
-        $client2->succeed("test \"\$(id -u '${ldapUser}')\" -eq ${toString ldapUserId}");
+        $client2->succeed("test \"\$(id -u '${ldapUser}')\" -eq ${
+      toString ldapUserId
+        }");
         $client2->succeed("test \"\$(id -u -n '${ldapUser}')\" = '${ldapUser}'");
-        $client2->succeed("test \"\$(id -g '${ldapUser}')\" -eq ${toString ldapGroupId}");
+        $client2->succeed("test \"\$(id -g '${ldapUser}')\" -eq ${
+      toString ldapGroupId
+        }");
         $client2->succeed("test \"\$(id -g -n '${ldapUser}')\" = '${ldapGroup}'");
     };
 

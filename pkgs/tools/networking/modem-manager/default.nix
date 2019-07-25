@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, glib, udev, libgudev, polkit, ppp, gettext, pkgconfig
-, libmbim, libqmi, systemd, vala, gobject-introspection, dbus }:
+{ stdenv, fetchurl, glib, udev, libgudev, polkit, ppp, gettext, pkgconfig, libmbim, libqmi, systemd, vala, gobject-introspection, dbus
+}:
 
 stdenv.mkDerivation rec {
   pname = "modem-manager";
@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
 
   package = "ModemManager";
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/${package}/${package}-${version}.tar.xz";
+    url =
+      "https://www.freedesktop.org/software/${package}/${package}-${version}.tar.xz";
     sha256 = "1qkfnxqvaraz1npahqvm5xc73mbxxic8msnsjmlwkni5c2ckj3zx";
   };
 
@@ -17,9 +18,9 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-polkit"
-    "--with-udev-base-dir=${placeholder ''out''}/lib/udev"
-    "--with-dbus-sys-dir=${placeholder ''out''}/etc/dbus-1/system.d"
-    "--with-systemdsystemunitdir=${placeholder ''out''}/etc/systemd/system"
+    "--with-udev-base-dir=${placeholder "out"}/lib/udev"
+    "--with-dbus-sys-dir=${placeholder "out"}/etc/dbus-1/system.d"
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     "--sysconfdir=/etc"
     "--localstatedir=/var"
     "--with-systemd-suspend-resume"
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "WWAN modem manager, part of NetworkManager";
-    homepage = https://www.freedesktop.org/wiki/Software/ModemManager/;
+    homepage = "https://www.freedesktop.org/wiki/Software/ModemManager/";
     license = licenses.gpl2Plus;
     maintainers = [ ];
     platforms = platforms.linux;

@@ -1,10 +1,8 @@
-{ stdenv, makeWrapper, fetchurl, dpkg
-, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype
-, gdk_pixbuf, glib, gnome2, pango, nspr, nss, gtk3
-, xorg, autoPatchelfHook, systemd, libnotify
+{ stdenv, makeWrapper, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, pango, nspr, nss, gtk3, xorg, autoPatchelfHook, systemd, libnotify
 }:
 
-let deps = [
+let
+  deps = [
     alsaLib
     atk
     cairo
@@ -36,9 +34,7 @@ let deps = [
     systemd
   ];
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mullvad-vpn";
   version = "2019.5";
 
@@ -47,10 +43,7 @@ stdenv.mkDerivation rec {
     sha256 = "542a93521906cd5e97075c9f3e9088c19562b127556a3de151e25bc66b11fe0b";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
   buildInputs = deps;
 
@@ -85,7 +78,8 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     homepage = "https://github.com/mullvad/mullvadvpn-app";
     description = "Client for Mullvad VPN";
-    changelog = "https://github.com/mullvad/mullvadvpn-app/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mullvad/mullvadvpn-app/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];
   };

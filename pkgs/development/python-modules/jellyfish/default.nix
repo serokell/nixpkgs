@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, pytest
-, unicodecsv
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, unicodecsv }:
 
 buildPythonPackage rec {
   pname = "jellyfish";
@@ -20,7 +14,7 @@ buildPythonPackage rec {
   checkInputs = [ pytest unicodecsv ];
 
   meta = {
-    homepage = https://github.com/sunlightlabs/jellyfish;
+    homepage = "https://github.com/sunlightlabs/jellyfish";
     description = "Approximate and phonetic matching of strings";
     maintainers = with lib.maintainers; [ koral ];
   };

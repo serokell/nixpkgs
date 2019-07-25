@@ -1,17 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, Theano
-, pandas
-, patsy
-, joblib
-, tqdm
-, six
-, h5py
-, pytest
-, nose
-, parameterized
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, Theano, pandas, patsy, joblib, tqdm, six, h5py, pytest, nose, parameterized
 }:
 
 buildPythonPackage rec {
@@ -29,21 +16,9 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace ", 'pytest-cov'" ""
   '';
 
-  propagatedBuildInputs = [
-    Theano
-    pandas
-    patsy
-    joblib
-    tqdm
-    six
-    h5py
-  ];
+  propagatedBuildInputs = [ Theano pandas patsy joblib tqdm six h5py ];
 
-  checkInputs = [
-    pytest
-    nose
-    parameterized
-  ];
+  checkInputs = [ pytest nose parameterized ];
 
   # The test suite is computationally intensive and test failures are not
   # indicative for package usability hence tests are disabled by default.
@@ -55,8 +30,9 @@ buildPythonPackage rec {
   postInstall = "rm -rf $HOME";
 
   meta = {
-    description = "Bayesian estimation, particularly using Markov chain Monte Carlo (MCMC)";
-    homepage = https://github.com/pymc-devs/pymc3;
+    description =
+      "Bayesian estimation, particularly using Markov chain Monte Carlo (MCMC)";
+    homepage = "https://github.com/pymc-devs/pymc3";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ ilya-kolpakov ];
   };

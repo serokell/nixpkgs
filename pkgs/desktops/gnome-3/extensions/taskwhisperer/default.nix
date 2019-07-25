@@ -11,19 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "187p6p498dd258avsfqqsm322g58y75pc2wbhb4jpmm9insqm1bj";
   };
 
-  nativeBuildInputs = [
-    gettext
-  ];
+  nativeBuildInputs = [ gettext ];
 
-  buildInputs = [
-    taskwarrior
-  ];
+  buildInputs = [ taskwarrior ];
 
   uuid = "taskwhisperer-extension@infinicode.de";
 
-  makeFlags = [
-    "INSTALLBASE=${placeholder ''out''}/share/gnome-shell/extensions"
-  ];
+  makeFlags =
+    [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
 
   patches = [
     (substituteAll {
@@ -37,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "GNOME Shell TaskWarrior GUI";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jonafato ];
-    homepage = https://github.com/cinatic/taskwhisperer;
+    homepage = "https://github.com/cinatic/taskwhisperer";
   };
 }

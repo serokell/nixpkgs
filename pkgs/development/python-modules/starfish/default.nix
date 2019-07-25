@@ -1,27 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, click
-, dataclasses
-, jsonschema
-, matplotlib
-, numpy
-, pandas
-, regional
-, semantic-version
-, scikitimage
-, scikitlearn
-, scipy
-, showit
-, slicedimage
-, sympy
-, tqdm
-, trackpy
-, validators
-, xarray
-, ipywidgets
-, pytest
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, click, dataclasses, jsonschema, matplotlib, numpy, pandas, regional, semantic-version, scikitimage, scikitlearn, scipy, showit, slicedimage, sympy, tqdm, trackpy, validators, xarray, ipywidgets, pytest, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -52,11 +29,9 @@ buildPythonPackage rec {
     validators
     xarray
     ipywidgets
-    ] ++ lib.optionals (pythonOlder "3.7") [ dataclasses ];
+  ] ++ lib.optionals (pythonOlder "3.7") [ dataclasses ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   postConfigure = ''
     substituteInPlace REQUIREMENTS.txt \
@@ -81,8 +56,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Pipelines and pipeline components for the analysis of image-based transcriptomics data";
-    homepage = https://spacetx-starfish.readthedocs.io/en/latest/;
+    description =
+      "Pipelines and pipeline components for the analysis of image-based transcriptomics data";
+    homepage = "https://spacetx-starfish.readthedocs.io/en/latest/";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

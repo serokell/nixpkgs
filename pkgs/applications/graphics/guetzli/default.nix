@@ -1,8 +1,6 @@
 { stdenv, libpng, fetchFromGitHub, pkgconfig }:
-let
-  version = "1.0.1";
-in
-stdenv.mkDerivation {
+let version = "1.0.1";
+in stdenv.mkDerivation {
   name = "guetzli-${version}";
   src = fetchFromGitHub {
     owner = "google";
@@ -20,8 +18,9 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Perceptual JPEG encoder";
-    longDescription = "Guetzli is a JPEG encoder that aims for excellent compression density at high visual quality.";
-    homepage = https://github.com/google/guetzli;
+    longDescription =
+      "Guetzli is a JPEG encoder that aims for excellent compression density at high visual quality.";
+    homepage = "https://github.com/google/guetzli";
     license = stdenv.lib.licenses.asl20;
     platforms = stdenv.lib.platforms.x86_64;
     maintainers = [ stdenv.lib.maintainers.seppeljordan ];

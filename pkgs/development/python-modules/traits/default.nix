@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, pytest
-, numpy
-, isPy33
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, pytest, numpy, isPy33 }:
 
 buildPythonPackage rec {
   pname = "traits";
@@ -32,7 +25,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Explicitly typed attributes for Python";
-    homepage = https://pypi.python.org/pypi/traits;
+    homepage = "https://pypi.python.org/pypi/traits";
     license = "BSD";
   };
 

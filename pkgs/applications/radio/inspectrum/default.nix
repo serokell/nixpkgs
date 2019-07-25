@@ -1,12 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, pkgconfig
-, cmake
-, boost
-, fftwFloat
-, qt5
-, gnuradio
-, liquid-dsp
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, boost, fftwFloat, qt5, gnuradio, liquid-dsp
 }:
 
 stdenv.mkDerivation rec {
@@ -20,18 +12,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    cmake
-    qt5.qtbase
-    fftwFloat
-    boost
-    gnuradio
-    liquid-dsp
-  ];
+  buildInputs = [ cmake qt5.qtbase fftwFloat boost gnuradio liquid-dsp ];
 
   meta = with stdenv.lib; {
     description = "Tool for analysing captured signals from sdr receivers";
-    homepage = https://github.com/miek/inspectrum;
+    homepage = "https://github.com/miek/inspectrum";
     maintainers = with maintainers; [ mog ];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;

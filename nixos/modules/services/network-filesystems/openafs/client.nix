@@ -9,21 +9,23 @@ let
   cfg = config.services.openafsClient;
 
   cellServDB = pkgs.fetchurl {
-    url = http://dl.central.org/dl/cellservdb/CellServDB.2018-05-14;
+    url = "http://dl.central.org/dl/cellservdb/CellServDB.2018-05-14";
     sha256 = "1wmjn6mmyy2r8p10nlbdzs4nrqxy8a9pjyrdciy5nmppg4053rk2";
   };
 
-  clientServDB = pkgs.writeText "client-cellServDB-${cfg.cellName}" (mkCellServDB cfg.cellName cfg.cellServDB);
+  clientServDB = pkgs.writeText "client-cellServDB-${cfg.cellName}"
+    (mkCellServDB cfg.cellName cfg.cellServDB);
 
   afsConfig = pkgs.runCommand "afsconfig" { preferLocalBuild = true; } ''
     mkdir -p $out
     echo ${cfg.cellName} > $out/ThisCell
     cat ${cellServDB} ${clientServDB} > $out/CellServDB
-    echo "${cfg.mountPoint}:${cfg.cache.directory}:${toString cfg.cache.blocks}" > $out/cacheinfo
+    echo "${cfg.mountPoint}:${cfg.cache.directory}:${
+      toString cfg.cache.blocks
+    }" > $out/cacheinfo
   '';
 
-in
-{
+in {
   ###### interface
 
   options = {
@@ -50,7 +52,7 @@ in
       };
 
       cellServDB = mkOption {
-        default = [];
+        default = [ ];
         type = with types; listOf (submodule { options = cellServDBConfig; });
         description = ''
           This cell's database server records, added to the global
@@ -151,13 +153,15 @@ in
           default = config.boot.kernelPackages.openafs;
           defaultText = "config.boot.kernelPackages.openafs";
           type = types.package;
-          description = "OpenAFS kernel module package. MUST match the userland package!";
+          description =
+            "OpenAFS kernel module package. MUST match the userland package!";
         };
         programs = mkOption {
           default = getBin pkgs.openafs;
           defaultText = "getBin pkgs.openafs";
           type = types.package;
-          description = "OpenAFS programs package. MUST match the kernel module package!";
+          description =
+            "OpenAFS programs package. MUST match the kernel module package!";
         };
       };
 
@@ -180,17 +184,20 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = cfg.afsdb || cfg.cellServDB != [];
-        message = "You should specify all cell-local database servers in config.services.openafsClient.cellServDB or set config.services.openafsClient.afsdb.";
+      {
+        assertion = cfg.afsdb || cfg.cellServDB != [ ];
+        message =
+          "You should specify all cell-local database servers in config.services.openafsClient.cellServDB or set config.services.openafsClient.afsdb.";
       }
-      { assertion = cfg.cellName != "";
-        message = "You must specify the local cell name in config.services.openafsClient.cellName.";
+      {
+        assertion = cfg.cellName != "";
+        message =
+          "You must specify the local cell name in config.services.openafsClient.cellName.";
       }
     ];
 
@@ -216,7 +223,10 @@ in
     systemd.services.afsd = {
       description = "AFS client";
       wantedBy = [ "multi-user.target" ];
-      after = singleton (if cfg.startDisconnected then  "network.target" else "network-online.target");
+      after = singleton (if cfg.startDisconnected then
+        "network.target"
+      else
+        "network-online.target");
       serviceConfig = { RemainAfterExit = true; };
       restartIfChanged = false;
 
@@ -227,7 +237,10 @@ in
         ${openafsBin}/sbin/afsd \
           -mountdir ${cfg.mountPoint} \
           -confdir ${afsConfig} \
-          ${optionalString (!cfg.cache.diskless) "-cachedir ${cfg.cache.directory}"} \
+          ${
+          optionalString (!cfg.cache.diskless)
+          "-cachedir ${cfg.cache.directory}"
+          } \
           -blocks ${toString cfg.cache.blocks} \
           -chunksize ${toString cfg.cache.chunksize} \
           ${optionalString cfg.cache.diskless "-memcache"} \
@@ -236,7 +249,8 @@ in
           ${if cfg.sparse then "-dynroot-sparse" else "-dynroot"} \
           ${optionalString cfg.afsdb "-afsdb"}
         ${openafsBin}/bin/fs setcrypt ${if cfg.crypt then "on" else "off"}
-        ${optionalString cfg.startDisconnected "${openafsBin}/bin/fs discon offline"}
+        ${optionalString cfg.startDisconnected
+        "${openafsBin}/bin/fs discon offline"}
       '';
 
       # Doing this in preStop, because after these commands AFS is basically

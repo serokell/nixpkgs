@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, unittest2
-, nose
-, mock
-, libarchive
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, unittest2, nose, mock, libarchive
 }:
 
 buildPythonPackage rec {
@@ -26,7 +19,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/matejc/tarman;
+    homepage = "https://github.com/matejc/tarman";
     description = "Archive manager with curses interface";
     license = licenses.bsd0;
   };

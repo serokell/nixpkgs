@@ -21,7 +21,7 @@ buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A general-purpose fuzzy selector";
-    homepage = https://github.com/rschmitt/heatseeker;
+    homepage = "https://github.com/rschmitt/heatseeker";
     license = licenses.mit;
     maintainers = [ maintainers.michaelpj ];
     platforms = platforms.unix;

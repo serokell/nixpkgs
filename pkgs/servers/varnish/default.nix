@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, pcre, libxslt, groff, ncurses, pkgconfig, readline, libedit
-, python2, makeWrapper }:
+{ stdenv, fetchurl, pcre, libxslt, groff, ncurses, pkgconfig, readline, libedit, python2, makeWrapper
+}:
 
 let
-  common = { version, sha256, extraBuildInputs ? [] }:
+  common = { version, sha256, extraBuildInputs ? [ ] }:
     stdenv.mkDerivation rec {
       name = "varnish-${version}";
 
@@ -13,31 +13,41 @@ let
 
       nativeBuildInputs = [ pkgconfig ];
       buildInputs = [
-        pcre libxslt groff ncurses readline python2 libedit
-        python2.pkgs.docutils makeWrapper
+        pcre
+        libxslt
+        groff
+        ncurses
+        readline
+        python2
+        libedit
+        python2.pkgs.docutils
+        makeWrapper
       ] ++ extraBuildInputs;
 
       buildFlags = "localstatedir=/var/spool";
 
       postInstall = ''
-        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${stdenv.lib.makeBinPath [ stdenv.cc ]}"
+        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${
+          stdenv.lib.makeBinPath [ stdenv.cc ]
+        }"
       '';
 
       # https://github.com/varnishcache/varnish-cache/issues/1875
-      NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.isi686 "-fexcess-precision=standard";
+      NIX_CFLAGS_COMPILE =
+        stdenv.lib.optionalString stdenv.isi686 "-fexcess-precision=standard";
 
       outputs = [ "out" "dev" "man" ];
 
       meta = with stdenv.lib; {
-        description = "Web application accelerator also known as a caching HTTP reverse proxy";
-        homepage = https://www.varnish-cache.org;
+        description =
+          "Web application accelerator also known as a caching HTTP reverse proxy";
+        homepage = "https://www.varnish-cache.org";
         license = licenses.bsd2;
         maintainers = with maintainers; [ fpletz ];
         platforms = platforms.unix;
       };
     };
-in
-{
+in {
   varnish4 = common {
     version = "4.1.10";
     sha256 = "08kwx0il6cqxsx3897042plh1yxjaanbaqjbspfl0xgvyvxk6j1n";

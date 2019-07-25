@@ -1,28 +1,32 @@
-{ stdenv, fetchurl, makeWrapper
-, fpc, gtk2, glib, pango, atk, gdk_pixbuf
-, libXi, xorgproto, libX11, libXext
+{ stdenv, fetchurl, makeWrapper, fpc, gtk2, glib, pango, atk, gdk_pixbuf, libXi, xorgproto, libX11, libXext
 }:
 stdenv.mkDerivation rec {
   name = "lazarus-${version}";
   version = "1.8.4";
 
   src = fetchurl {
-    url = "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${version}/lazarus-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${version}/lazarus-${version}.tar.gz";
     sha256 = "1s8hdip973fc1lynklddl0mvg2jd2lzkfk8hzb8jlchs6jn0362s";
   };
 
   buildInputs = [
-    fpc gtk2 glib libXi xorgproto
-    libX11 libXext pango atk
-    stdenv.cc makeWrapper gdk_pixbuf
+    fpc
+    gtk2
+    glib
+    libXi
+    xorgproto
+    libX11
+    libXext
+    pango
+    atk
+    stdenv.cc
+    makeWrapper
+    gdk_pixbuf
   ];
 
-  makeFlags = [
-    "FPC=fpc"
-    "PP=fpc"
-    "REQUIRE_PACKAGES+=tachartlazaruspkg"
-    "bigide"
-  ];
+  makeFlags =
+    [ "FPC=fpc" "PP=fpc" "REQUIRE_PACKAGES+=tachartlazaruspkg" "bigide" ];
 
   preBuild = ''
     export makeFlags="$makeFlags LAZARUS_INSTALL_DIR=$out/share/lazarus/ INSTALL_PREFIX=$out/"
@@ -40,8 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Lazarus graphical IDE for FreePascal language";
-    homepage = http://www.lazarus.freepascal.org;
-    license = licenses.gpl2Plus ;
+    homepage = "http://www.lazarus.freepascal.org";
+    license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.raskin ];
   };

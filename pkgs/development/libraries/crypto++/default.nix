@@ -13,15 +13,16 @@ stdenv.mkDerivation rec {
   };
 
   patches = stdenv.lib.concatLists [
-    (stdenv.lib.optional (stdenv.hostPlatform.system != "i686-cygwin") ./dll.patch)
-    (stdenv.lib.optional stdenv.hostPlatform.isDarwin ./GNUmakefile-darwin.patch)
+    (stdenv.lib.optional (stdenv.hostPlatform.system != "i686-cygwin")
+    ./dll.patch)
+    (stdenv.lib.optional stdenv.hostPlatform.isDarwin
+    ./GNUmakefile-darwin.patch)
   ];
 
-
   configurePhase = ''
-      sed -i GNUmakefile \
-        -e 's|-march=native|-fPIC|g' \
-        -e '/^CXXFLAGS =/s|-g ||'
+    sed -i GNUmakefile \
+      -e 's|-march=native|-fPIC|g' \
+      -e '/^CXXFLAGS =/s|-g ||'
   '';
 
   enableParallelBuilding = true;
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Crypto++, a free C++ class library of cryptographic schemes";
-    homepage = http://cryptopp.com/;
+    homepage = "http://cryptopp.com/";
     license = licenses.boost;
     platforms = platforms.all;
     maintainers = [ ];

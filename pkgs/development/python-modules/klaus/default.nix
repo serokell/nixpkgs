@@ -17,12 +17,16 @@ python.pkgs.buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = with python.pkgs; [
-    six flask pygments dulwich httpauth humanize
+    six
+    flask
+    pygments
+    dulwich
+    httpauth
+    humanize
   ];
 
-  checkInputs = with python.pkgs; [
-    pytest requests python-ctags3
-  ] ++ lib.optional (!isPy3k) mock;
+  checkInputs = with python.pkgs;
+    [ pytest requests python-ctags3 ] ++ lib.optional (!isPy3k) mock;
 
   checkPhase = ''
     ./runtests.sh
@@ -33,8 +37,8 @@ python.pkgs.buildPythonPackage rec {
 
   meta = with lib; {
     description = "The first Git web viewer that Just Works";
-    homepage    = https://github.com/jonashaag/klaus;
-    license     = licenses.isc;
+    homepage = "https://github.com/jonashaag/klaus";
+    license = licenses.isc;
     maintainers = with maintainers; [ pSub ];
   };
 }

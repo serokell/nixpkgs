@@ -4,70 +4,67 @@ with lib;
 
 let
 
-  smbToString = x: if builtins.typeOf x == "bool"
-                   then boolToString x
-                   else toString x;
+  smbToString = x:
+    if builtins.typeOf x == "bool" then boolToString x else toString x;
 
   cfg = config.services.samba;
 
   samba = cfg.package;
 
-  setupScript =
-    ''
-      mkdir -p /var/lock/samba /var/log/samba /var/cache/samba /var/lib/samba/private
-    '';
+  setupScript = ''
+    mkdir -p /var/lock/samba /var/log/samba /var/cache/samba /var/lib/samba/private
+  '';
 
   shareConfig = name:
-    let share = getAttr name cfg.shares; in
-    "[${name}]\n " + (smbToString (
-       map
-         (key: "${key} = ${smbToString (getAttr key share)}\n")
-         (attrNames share)
-    ));
+    let share = getAttr name cfg.shares;
+    in ''
+      [${name}]
+       '' + (smbToString (map (key: ''
+        ${key} = ${smbToString (getAttr key share)}
+      '') (attrNames share)));
 
-  configFile = pkgs.writeText "smb.conf"
-    (if cfg.configText != null then cfg.configText else
-    ''
-      [global]
-      security = ${cfg.securityType}
-      passwd program = /run/wrappers/bin/passwd %u
-      pam password change = ${smbToString cfg.syncPasswordsByPam}
-      invalid users = ${smbToString cfg.invalidUsers}
+  configFile = pkgs.writeText "smb.conf" (if cfg.configText != null then
+    cfg.configText
+  else ''
+    [global]
+    security = ${cfg.securityType}
+    passwd program = /run/wrappers/bin/passwd %u
+    pam password change = ${smbToString cfg.syncPasswordsByPam}
+    invalid users = ${smbToString cfg.invalidUsers}
 
-      ${cfg.extraConfig}
+    ${cfg.extraConfig}
 
-      ${smbToString (map shareConfig (attrNames cfg.shares))}
-    '');
+    ${smbToString (map shareConfig (attrNames cfg.shares))}
+  '');
 
   # This may include nss_ldap, needed for samba if it has to use ldap.
   nssModulesPath = config.system.nssModules.path;
 
-  daemonService = appName: args:
-    { description = "Samba Service Daemon ${appName}";
+  daemonService = appName: args: {
+    description = "Samba Service Daemon ${appName}";
 
-      requiredBy = [ "samba.target" ];
-      partOf = [ "samba.target" ];
+    requiredBy = [ "samba.target" ];
+    partOf = [ "samba.target" ];
 
-      environment = {
-        LD_LIBRARY_PATH = nssModulesPath;
-        LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
-      };
-
-      serviceConfig = {
-        ExecStart = "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
-        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        LimitNOFILE = 16384;
-        PIDFile = "/run/${appName}.pid";
-        Type = "notify";
-        NotifyAccess = "all"; #may not do anything...
-      };
-
-      restartTriggers = [ configFile ];
+    environment = {
+      LD_LIBRARY_PATH = nssModulesPath;
+      LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
     };
 
-in
+    serviceConfig = {
+      ExecStart =
+        "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
+      ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      LimitNOFILE = 16384;
+      PIDFile = "/run/${appName}.pid";
+      Type = "notify";
+      NotifyAccess = "all"; # may not do anything...
+    };
 
-{
+    restartTriggers = [ configFile ];
+  };
+
+in {
 
   ###### interface
 
@@ -183,71 +180,73 @@ in
       };
 
       shares = mkOption {
-        default = {};
+        default = { };
         description = ''
           A set describing shared resources.
           See <command>man smb.conf</command> for options.
         '';
         type = types.attrsOf (types.attrsOf types.unspecified);
-        example =
-          { public =
-            { path = "/srv/public";
-              "read only" = true;
-              browseable = "yes";
-              "guest ok" = "yes";
-              comment = "Public samba share.";
-            };
+        example = {
+          public = {
+            path = "/srv/public";
+            "read only" = true;
+            browseable = "yes";
+            "guest ok" = "yes";
+            comment = "Public samba share.";
           };
+        };
       };
 
     };
 
   };
 
-
   ###### implementation
 
-  config = mkMerge
-    [ { assertions =
-          [ { assertion = cfg.nsswins -> cfg.enableWinbindd;
-              message   = "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
-            }
-          ];
-        # Always provide a smb.conf to shut up programs like smbclient and smbspool.
-        environment.etc."samba/smb.conf".source = mkOptionDefault (
-          if cfg.enable then configFile
-          else pkgs.writeText "smb-dummy.conf" "# Samba is disabled."
-        );
-      }
+  config = mkMerge [
+    {
+      assertions = [{
+        assertion = cfg.nsswins -> cfg.enableWinbindd;
+        message =
+          "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
+      }];
+      # Always provide a smb.conf to shut up programs like smbclient and smbspool.
+      environment.etc."samba/smb.conf".source = mkOptionDefault
+        (if cfg.enable then
+          configFile
+        else
+          pkgs.writeText "smb-dummy.conf" "# Samba is disabled.");
+    }
 
-      (mkIf cfg.enable {
+    (mkIf cfg.enable {
 
-        system.nssModules = optional cfg.nsswins samba;
+      system.nssModules = optional cfg.nsswins samba;
 
-        systemd = {
-          targets.samba = {
-            description = "Samba Server";
-            requires = [ "samba-setup.service" ];
-            after = [ "samba-setup.service" "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-          };
-          # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
-          # for correct use with systemd
-          services = {
-            "samba-smbd" = daemonService "smbd" "";
-            "samba-nmbd" = mkIf cfg.enableNmbd (daemonService "nmbd" "");
-            "samba-winbindd" = mkIf cfg.enableWinbindd (daemonService "winbindd" "");
-            "samba-setup" = {
-              description = "Samba Setup Task";
-              script = setupScript;
-              unitConfig.RequiresMountsFor = "/var/lib/samba";
-            };
+      systemd = {
+        targets.samba = {
+          description = "Samba Server";
+          requires = [ "samba-setup.service" ];
+          after = [ "samba-setup.service" "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+        };
+        # Refer to https://github.com/samba-team/samba/tree/master/packaging/systemd
+        # for correct use with systemd
+        services = {
+          "samba-smbd" = daemonService "smbd" "";
+          "samba-nmbd" = mkIf cfg.enableNmbd (daemonService "nmbd" "");
+          "samba-winbindd" =
+            mkIf cfg.enableWinbindd (daemonService "winbindd" "");
+          "samba-setup" = {
+            description = "Samba Setup Task";
+            script = setupScript;
+            unitConfig.RequiresMountsFor = "/var/lib/samba";
           };
         };
+      };
 
-        security.pam.services.samba = {};
+      security.pam.services.samba = { };
 
-      })
-    ];
+    })
+  ];
 
 }

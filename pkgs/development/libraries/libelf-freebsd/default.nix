@@ -5,7 +5,7 @@ stdenv.mkDerivation (rec {
   name = "libelf-freebsd-${version}";
 
   src = fetchsvn {
-    url = svn://svn.code.sf.net/p/elftoolchain/code/trunk;
+    url = "svn://svn.code.sf.net/p/elftoolchain/code/trunk";
     rev = (stdenv.lib.strings.toInt version);
     name = "elftoolchain-${version}";
   };
@@ -25,9 +25,10 @@ stdenv.mkDerivation (rec {
   '';
 
   meta = {
-    description = "Essential compilation tools and libraries for building and analyzing ELF based program images";
+    description =
+      "Essential compilation tools and libraries for building and analyzing ELF based program images";
 
-    homepage = https://sourceforge.net/p/elftoolchain/wiki/Home/;
+    homepage = "https://sourceforge.net/p/elftoolchain/wiki/Home/";
 
     license = stdenv.lib.licenses.bsd2;
 

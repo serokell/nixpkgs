@@ -1,22 +1,20 @@
-{ stdenv, substituteAll, fetchurl
-, pkgconfig, freetype, expat, libxslt, gperf, dejavu_fonts
+{ stdenv, substituteAll, fetchurl, pkgconfig, freetype, expat, libxslt, gperf, dejavu_fonts
 }:
 
-/** Font configuration scheme
- - ./config-compat.patch makes fontconfig try the following root configs, in order:
-    $FONTCONFIG_FILE, /etc/fonts/${configVersion}/fonts.conf, /etc/fonts/fonts.conf
-    This is done not to override config of pre-2.11 versions (which just blow up)
-    and still use *global* font configuration at both NixOS or non-NixOS.
- - NixOS creates /etc/fonts/${configVersion}/fonts.conf link to $out/etc/fonts/fonts.conf,
-    and other modifications should go to /etc/fonts/${configVersion}/conf.d
- - See ./make-fonts-conf.xsl for config details.
-
+/* * Font configuration scheme
+   - ./config-compat.patch makes fontconfig try the following root configs, in order:
+      $FONTCONFIG_FILE, /etc/fonts/${configVersion}/fonts.conf, /etc/fonts/fonts.conf
+      This is done not to override config of pre-2.11 versions (which just blow up)
+      and still use *global* font configuration at both NixOS or non-NixOS.
+   - NixOS creates /etc/fonts/${configVersion}/fonts.conf link to $out/etc/fonts/fonts.conf,
+      and other modifications should go to /etc/fonts/${configVersion}/conf.d
+   - See ./make-fonts-conf.xsl for config details.
 */
 
 let
-  configVersion = "2.11"; # bump whenever fontconfig breaks compatibility with older configurations
-in
-stdenv.mkDerivation rec {
+  configVersion =
+    "2.11"; # bump whenever fontconfig breaks compatibility with older configurations
+in stdenv.mkDerivation rec {
   name = "fontconfig-${version}";
   version = "2.12.6";
 
@@ -44,9 +42,8 @@ stdenv.mkDerivation rec {
     "--disable-docs"
     # just <1MB; this is what you get when loading config fails for some reason
     "--with-default-fonts=${dejavu_fonts.minimal}"
-  ] ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-  ];
+  ] ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}" ];
 
   enableParallelBuilding = true;
 
@@ -65,13 +62,11 @@ stdenv.mkDerivation rec {
     mv fonts.conf.tmp $out/etc/fonts/fonts.conf
   '';
 
-  passthru = {
-    inherit configVersion;
-  };
+  passthru = { inherit configVersion; };
 
   meta = with stdenv.lib; {
     description = "A library for font customization and configuration";
-    homepage = http://fontconfig.org/;
+    homepage = "http://fontconfig.org/";
     license = licenses.bsd2; # custom but very bsd-like
     platforms = platforms.all;
     maintainers = [ maintainers.vcunat ];

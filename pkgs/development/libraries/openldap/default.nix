@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "openldap-2.4.47";
 
   src = fetchurl {
-    url = "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${name}.tgz";
+    url =
+      "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${name}.tgz";
     sha256 = "02sj0p1pq12hqq29b22m3f5zs2rykgvc0q3wlynxjcsjhrvmhk7m";
   };
 
@@ -19,11 +20,11 @@ stdenv.mkDerivation rec {
 
   # Disable install stripping as it breaks cross-compiling.
   # We strip binaries anyway in fixupPhase.
-  makeFlags= [ "STRIP=" ];
+  makeFlags = [ "STRIP=" ];
 
   configureFlags = [
     "--enable-overlays"
-    "--disable-dependency-tracking"   # speeds up one-time build
+    "--disable-dependency-tracking" # speeds up one-time build
     "--enable-modules"
     "--sysconfdir=/etc"
     "--localstatedir=/var"
@@ -58,10 +59,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage    = http://www.openldap.org/;
-    description = "An open source implementation of the Lightweight Directory Access Protocol";
+    homepage = "http://www.openldap.org/";
+    description =
+      "An open source implementation of the Lightweight Directory Access Protocol";
     license = licenses.openldap;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

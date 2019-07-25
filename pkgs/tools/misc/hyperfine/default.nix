@@ -1,15 +1,13 @@
-{ stdenv, fetchFromGitHub, rustPlatform
-, Security
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hyperfine";
   version = "1.6.0";
 
   src = fetchFromGitHub {
-    owner  = "sharkdp";
-    repo   = pname;
-    rev    = "refs/tags/v${version}";
+    owner = "sharkdp";
+    repo = pname;
+    rev = "refs/tags/v${version}";
     sha256 = "0rwmigdnw2zgixzmif3wzw1adlyyk71jzvjfccqmgz840jkpvmcy";
   };
 
@@ -19,9 +17,12 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Command-line benchmarking tool";
-    homepage    = https://github.com/sharkdp/hyperfine;
-    license     = with licenses; [ asl20 /* or */ mit ];
+    homepage = "https://github.com/sharkdp/hyperfine";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = [ maintainers.thoughtpolice ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

@@ -10,19 +10,20 @@ buildPythonPackage rec {
   };
 
   patches = fetchpatch {
-    url = "${meta.homepage}/commit/de3421bf13bf7c3ec11fe0a381f0944e102b1d97.patch";
+    url =
+      "${meta.homepage}/commit/de3421bf13bf7c3ec11fe0a381f0944e102b1d97.patch";
     excludes = [ "dev-requirements.txt" ];
     sha256 = "0rgmkyn7i6y1xs8m75dpl8hq7j2ns2s3dvp7kv9j4zwic93rrlsc";
   };
 
   propagatedBuildInputs = [ sh ];
-  
+
   # Tests requires network connections
   doCheck = false;
-  
+
   meta = with stdenv.lib; {
     description = "An interface for packer.io";
-    homepage = https://github.com/nir0s/python-packer;
+    homepage = "https://github.com/nir0s/python-packer";
     license = licenses.asl20;
     maintainers = with maintainers; [ psyanticy ];
   };

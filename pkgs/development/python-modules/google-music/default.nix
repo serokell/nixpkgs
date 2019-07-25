@@ -1,10 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
-, appdirs
-, audio-metadata
-, google-music-proto
-, protobuf
-, requests_oauthlib
-, tenacity
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, appdirs, audio-metadata, google-music-proto, protobuf, requests_oauthlib, tenacity
 }:
 
 buildPythonPackage rec {
@@ -36,7 +30,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
 
   meta = with lib; {
-    homepage = https://github.com/thebigmunch/google-music;
+    homepage = "https://github.com/thebigmunch/google-music";
     description = "A Google Music API wrapper";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

@@ -9,9 +9,7 @@ let
 
   cfg = config.services.rogue;
 
-in
-
-{
+in {
   ###### interface
 
   options = {
@@ -35,27 +33,26 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     boot.extraTTYs = [ cfg.tty ];
 
-    systemd.services.rogue =
-      { description = "Rogue dungeon crawling game";
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig =
-          { ExecStart = "${pkgs.rogue}/bin/rogue";
-            StandardInput = "tty";
-            StandardOutput = "tty";
-            TTYPath = "/dev/${cfg.tty}";
-            TTYReset = true;
-            TTYVTDisallocate = true;
-            WorkingDirectory = "/tmp";
-            Restart = "always";
-          };
+    systemd.services.rogue = {
+      description = "Rogue dungeon crawling game";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.rogue}/bin/rogue";
+        StandardInput = "tty";
+        StandardOutput = "tty";
+        TTYPath = "/dev/${cfg.tty}";
+        TTYReset = true;
+        TTYVTDisallocate = true;
+        WorkingDirectory = "/tmp";
+        Restart = "always";
       };
+    };
 
   };
 

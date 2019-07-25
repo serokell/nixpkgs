@@ -12,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "15l0pgszmbirlaxj04ishj43kyvigsl1yaf58kxlbdb3lkmcp5f3";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    deepin.setupHook
-  ];
+  nativeBuildInputs = [ cmake pkgconfig deepin.setupHook ];
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
   postPatch = ''
     searchHardCodedPaths  # for debugging
@@ -36,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A daemon that helps to launch applications faster";
-    homepage = https://github.com/linuxdeepin/deepin-turbo;
+    homepage = "https://github.com/linuxdeepin/deepin-turbo";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

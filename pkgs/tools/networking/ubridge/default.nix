@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, libpcap
-}:
+{ stdenv, fetchFromGitHub, libpcap }:
 
 stdenv.mkDerivation rec {
   name = "ubridge-${version}";

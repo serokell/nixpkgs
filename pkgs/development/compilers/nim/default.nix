@@ -1,7 +1,7 @@
 # based on https://github.com/nim-lang/Nim/blob/v0.18.0/.travis.yml
 
-{ stdenv, lib, fetchurl, makeWrapper, nodejs-slim-11_x, openssl, pcre, readline,
-  boehmgc, sfml, tzdata, coreutils, sqlite }:
+{ stdenv, lib, fetchurl, makeWrapper, nodejs-slim-11_x, openssl, pcre, readline, boehmgc, sfml, tzdata, coreutils, sqlite
+}:
 
 stdenv.mkDerivation rec {
   name = "nim-${version}";
@@ -16,30 +16,18 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  NIX_LDFLAGS = [
-    "-lcrypto"
-    "-lpcre"
-    "-lreadline"
-    "-lgc"
-    "-lsqlite3"
-  ];
+  NIX_LDFLAGS = [ "-lcrypto" "-lpcre" "-lreadline" "-lgc" "-lsqlite3" ];
 
   # 1. nodejs is only needed for tests
   # 2. we could create a separate derivation for the "written in c" version of nim
   #    used for bootstrapping, but koch insists on moving the nim compiler around
   #    as part of building it, so it cannot be read-only
 
-  checkInputs = [
-    nodejs-slim-11_x tzdata coreutils
-  ];
+  checkInputs = [ nodejs-slim-11_x tzdata coreutils ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    openssl pcre readline boehmgc sfml sqlite
-  ];
+  buildInputs = [ openssl pcre readline boehmgc sfml sqlite ];
 
   buildPhase = ''
     runHook preBuild
@@ -50,16 +38,18 @@ stdenv.mkDerivation rec {
     ./bin/nim c koch
     ./koch boot  -d:release \
                  -d:useGnuReadline \
-                 ${lib.optionals (stdenv.isDarwin || stdenv.isLinux) "-d:nativeStacktrace"}
+                 ${
+      lib.optionals (stdenv.isDarwin || stdenv.isLinux) "-d:nativeStacktrace"
+                 }
     ./koch tools -d:release
 
     runHook postBuild
   '';
 
-  prePatch =
-    let disableTest = ''sed -i '1i discard \"\"\"\n  disabled: true\n\"\"\"\n\n' '';
-        disableStdLibTest = ''sed -i -e '/^when isMainModule/,/^END$/{s/^/#/}' '';
-        disableCompile = ''sed -i -e 's/^/#/' '';
+  prePatch = let
+    disableTest = ''sed -i '1i discard \"\"\"\n  disabled: true\n\"\"\"\n\n' '';
+    disableStdLibTest = "sed -i -e '/^when isMainModule/,/^END$/{s/^/#/}' ";
+    disableCompile = "sed -i -e 's/^/#/' ";
     in ''
       substituteInPlace ./tests/osproc/tworkingdir.nim --replace "/usr/bin" "${coreutils}/bin"
       substituteInPlace ./tests/stdlib/ttimes.nim --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
@@ -105,7 +95,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Statically typed, imperative programming language";
-    homepage = https://nim-lang.org/;
+    homepage = "https://nim-lang.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ ehmry peterhoeg ];
     platforms = with platforms; linux ++ darwin; # arbitrary

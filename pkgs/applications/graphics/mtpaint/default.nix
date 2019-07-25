@@ -1,10 +1,8 @@
-{ stdenv, fetchFromGitHub
-, pkgconfig
-, freetype, giflib, gtk2, lcms2, libjpeg, libpng, libtiff, openjpeg, gifsicle
+{ stdenv, fetchFromGitHub, pkgconfig, freetype, giflib, gtk2, lcms2, libjpeg, libpng, libtiff, openjpeg, gifsicle
 }:
 
 stdenv.mkDerivation rec {
-  p_name  = "mtPaint";
+  p_name = "mtPaint";
   ver_maj = "3.49";
   ver_min = "12";
   name = "${p_name}-${ver_maj}.${ver_min}";
@@ -17,9 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    freetype giflib gtk2 lcms2 libjpeg libpng libtiff openjpeg gifsicle
-  ];
+  buildInputs =
+    [ freetype giflib gtk2 lcms2 libjpeg libpng libtiff openjpeg gifsicle ];
 
   meta = {
     description = "A simple GTK+1/2 painting program";
@@ -32,7 +29,7 @@ stdenv.mkDerivation rec {
       Due to its simplicity and lack of dependencies it runs well on
       GNU/Linux, Windows and older PC hardware.
     '';
-    homepage = http://mtpaint.sourceforge.net/;
+    homepage = "http://mtpaint.sourceforge.net/";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.vklquevs ];

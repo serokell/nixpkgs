@@ -1,8 +1,7 @@
-with import ../../.. {};
+with import ../../.. { };
 with vmTools;
 
 rec {
-
 
   # Run the PatchELF derivation in a VM.
   buildPatchelfInVM = runInLinuxVM patchelf;
@@ -11,9 +10,7 @@ rec {
 
   buildPanInVM = runInLinuxVM pan;
 
-
   testRPMImage = makeImageTestScript diskImages.fedora16x86_64;
-
 
   buildPatchelfRPM = buildRPM {
     name = "patchelf-rpm";
@@ -21,16 +18,15 @@ rec {
     diskImage = diskImages.fedora16x86_64;
   };
 
-
   testUbuntuImage = makeImageTestScript diskImages.ubuntu810i386;
-
 
   buildInDebian = runInLinuxImage (stdenv.mkDerivation {
     name = "deb-compile";
     src = patchelf.src;
     diskImage = diskImages.ubuntu1204i386;
     memSize = 512;
-    phases = "sysInfoPhase unpackPhase patchPhase configurePhase buildPhase checkPhase installPhase fixupPhase distPhase";
+    phases =
+      "sysInfoPhase unpackPhase patchPhase configurePhase buildPhase checkPhase installPhase fixupPhase distPhase";
     sysInfoPhase = ''
       dpkg-query --list
     '';

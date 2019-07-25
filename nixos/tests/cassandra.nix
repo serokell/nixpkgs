@@ -5,9 +5,14 @@ let
   clusterName = "NixOS Automated-Test Cluster";
 
   testRemoteAuth = lib.versionAtLeast testPackage.version "3.11";
-  jmxRoles = [{ username = "me"; password = "password"; }];
+  jmxRoles = [{
+    username = "me";
+    password = "password";
+  }];
   jmxRolesFile = ./cassandra-jmx-roles;
-  jmxAuthArgs = "-u ${(builtins.elemAt jmxRoles 0).username} -pw ${(builtins.elemAt jmxRoles 0).password}";
+  jmxAuthArgs = "-u ${(builtins.elemAt jmxRoles 0).username} -pw ${
+    (builtins.elemAt jmxRoles 0).password
+  }";
 
   # Would usually be assigned to 512M
   numMaxHeapSize = "400";
@@ -18,36 +23,42 @@ let
     [ 1 -eq "$(echo "$(${getHeapLimitCommand}) < ${numMaxHeapSize}" | ${pkgs.bc}/bin/bc)" ]
   '';
 
-  cassandraCfg = ipAddress:
-    { enable = true;
-      inherit clusterName;
-      listenAddress = ipAddress;
-      rpcAddress = ipAddress;
-      seedAddresses = [ "192.168.1.1" ];
-      package = testPackage;
-      maxHeapSize = "${numMaxHeapSize}M";
-      heapNewSize = "100M";
-    };
-  nodeCfg = ipAddress: extra: {pkgs, config, ...}:
-    { environment.systemPackages = [ testPackage ];
+  cassandraCfg = ipAddress: {
+    enable = true;
+    inherit clusterName;
+    listenAddress = ipAddress;
+    rpcAddress = ipAddress;
+    seedAddresses = [ "192.168.1.1" ];
+    package = testPackage;
+    maxHeapSize = "${numMaxHeapSize}M";
+    heapNewSize = "100M";
+  };
+  nodeCfg = ipAddress: extra:
+    { pkgs, config, ... }: {
+      environment.systemPackages = [ testPackage ];
       networking = {
         firewall.allowedTCPPorts = [ 7000 7199 9042 ];
         useDHCP = false;
-        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          { address = ipAddress; prefixLength = 24; }
-        ];
+        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = ipAddress;
+          prefixLength = 24;
+        }];
       };
       services.cassandra = cassandraCfg ipAddress // extra;
       virtualisation.memorySize = 1024;
     };
-in
-{
+in {
   name = "cassandra-ci";
 
   nodes = {
-    cass0 = nodeCfg "192.168.1.1" {};
-    cass1 = nodeCfg "192.168.1.2" (lib.optionalAttrs testRemoteAuth { inherit jmxRoles; remoteJmx = true; });
-    cass2 = nodeCfg "192.168.1.3" { jvmOpts = [ "-Dcassandra.replace_address=cass1" ]; };
+    cass0 = nodeCfg "192.168.1.1" { };
+    cass1 = nodeCfg "192.168.1.2" (lib.optionalAttrs testRemoteAuth {
+      inherit jmxRoles;
+      remoteJmx = true;
+    });
+    cass2 = nodeCfg "192.168.1.3" {
+      jvmOpts = [ "-Dcassandra.replace_address=cass1" ];
+    };
   };
 
   testScript = ''

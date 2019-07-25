@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxml2Python, libxslt, intltool, gnome3
-, python2Packages }:
+{ stdenv, fetchurl, pkgconfig, libxml2Python, libxslt, intltool, gnome3, python2Packages
+}:
 
 python2Packages.buildPythonApplication rec {
   pname = "gnome-doc-utils";
@@ -8,7 +8,9 @@ python2Packages.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "19n4x25ndzngaciiyd8dd6s2mf9gv6nv3wv27ggns2smm7zkj1nb";
   };
 
@@ -23,11 +25,7 @@ python2Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = [ libxml2Python ];
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     description = "Collection of documentation utilities for the GNOME project";

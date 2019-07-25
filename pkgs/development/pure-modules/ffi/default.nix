@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   setupHook = ../generic-setup-hook.sh;
 
   meta = {
-    description = "Provides an interface to libffi which enables you to call C functions from Pure and vice versa";
-    homepage = http://puredocs.bitbucket.org/pure-ffi.html;
+    description =
+      "Provides an interface to libffi which enables you to call C functions from Pure and vice versa";
+    homepage = "http://puredocs.bitbucket.org/pure-ffi.html";
     license = stdenv.lib.licenses.lgpl3Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ asppsa ];

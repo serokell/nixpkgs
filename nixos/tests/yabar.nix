@@ -4,9 +4,7 @@ with lib;
 
 {
   name = "yabar";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ ma27 ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ma27 ]; };
 
   machine = {
     imports = [ ./common/x11.nix ./common/user-account.nix ];
@@ -14,9 +12,7 @@ with lib;
     services.xserver.displayManager.auto.user = "bob";
 
     programs.yabar.enable = true;
-    programs.yabar.bars = {
-      top.indicators.date.exec = "YABAR_DATE";
-    };
+    programs.yabar.bars = { top.indicators.date.exec = "YABAR_DATE"; };
   };
 
   testScript = ''

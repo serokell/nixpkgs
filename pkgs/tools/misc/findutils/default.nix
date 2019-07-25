@@ -1,6 +1,4 @@
-{ stdenv, fetchurl
-, coreutils
-}:
+{ stdenv, fetchurl, coreutils }:
 
 stdenv.mkDerivation rec {
   name = "findutils-4.6.0";
@@ -22,11 +20,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ coreutils ]; # bin/updatedb script needs to call sort
 
   # Since glibc-2.25 the i686 tests hang reliably right after test-sleep.
-  doCheck
-    =  !stdenv.hostPlatform.isDarwin
+  doCheck = !stdenv.hostPlatform.isDarwin
     && !(stdenv.hostPlatform.libc == "glibc" && stdenv.hostPlatform.isi686)
-    && (stdenv.hostPlatform.libc != "musl")
-    && stdenv.hostPlatform == stdenv.buildPlatform;
+    && (stdenv.hostPlatform.libc != "musl") && stdenv.hostPlatform
+    == stdenv.buildPlatform;
 
   outputs = [ "out" "info" ];
 
@@ -40,8 +37,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://www.gnu.org/software/findutils/;
-    description = "GNU Find Utilities, the basic directory searching utilities of the GNU operating system";
+    homepage = "https://www.gnu.org/software/findutils/";
+    description =
+      "GNU Find Utilities, the basic directory searching utilities of the GNU operating system";
 
     longDescription = ''
       The GNU Find Utilities are the basic directory searching

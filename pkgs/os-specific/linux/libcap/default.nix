@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.27";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/libs/security/linux-privs/libcap2/${name}.tar.xz";
+    url =
+      "mirror://kernel/linux/libs/security/linux-privs/libcap2/${name}.tar.xz";
     sha256 = "0sj8kidl7qgf2qwxcbw1vadnlb30y4zvjzxswsmfdghq04npkhfs";
   };
 
@@ -18,12 +19,8 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ attr ];
 
-  makeFlags = [
-    "lib=lib"
-    "PAM_CAP=yes"
-    "BUILD_CC=$(CC_FOR_BUILD)"
-    "CC:=$(CC)"
-  ];
+  makeFlags =
+    [ "lib=lib" "PAM_CAP=yes" "BUILD_CC=$(CC_FOR_BUILD)" "CC:=$(CC)" ];
 
   prePatch = ''
     # use relative bash path

@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, six
-, requests
-}:
+{ buildPythonPackage, lib, fetchPypi, six, requests }:
 
 buildPythonPackage rec {
   version = "2.3.3";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Azure Cosmos DB API";
-    homepage = https://github.com/Azure/azure-cosmos-python;
+    homepage = "https://github.com/Azure/azure-cosmos-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

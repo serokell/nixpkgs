@@ -14,18 +14,16 @@ let
     targetRoot = "$targetRoot/";
     wgetExtraOptions = "-q";
   };
-in
 
-{
+in {
   imports = [ ../profiles/headless.nix ./ec2-data.nix ./amazon-init.nix ];
 
   config = {
 
-    assertions = [
-      { assertion = cfg.hvm;
-        message = "Paravirtualized EC2 instances are no longer supported.";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.hvm;
+      message = "Paravirtualized EC2 instances are no longer supported.";
+    }];
 
     boot.growPartition = cfg.hvm;
 
@@ -36,9 +34,7 @@ in
     };
 
     boot.extraModulePackages =
-      [ config.boot.kernelPackages.ixgbevf
-        config.boot.kernelPackages.ena
-      ];
+      [ config.boot.kernelPackages.ixgbevf config.boot.kernelPackages.ena ];
     boot.initrd.kernelModules = [ "xen-blkfront" "xen-netfront" ];
     boot.initrd.availableKernelModules = [ "ixgbevf" "ena" "nvme" ];
     boot.kernelParams = mkIf cfg.hvm [ "console=ttyS0" ];
@@ -66,56 +62,54 @@ in
     # more space than the root device.  Similarly, "move" /nix to /disk0
     # by layering a unionfs-fuse mount on top of it so we have a lot more space for
     # Nix operations.
-    boot.initrd.postMountCommands =
-      ''
-        ${metadataFetcher}
+    boot.initrd.postMountCommands = ''
+      ${metadataFetcher}
 
-        diskNr=0
-        diskForUnionfs=
-        for device in /dev/xvd[abcde]*; do
-            if [ "$device" = /dev/xvda -o "$device" = /dev/xvda1 ]; then continue; fi
-            fsType=$(blkid -o value -s TYPE "$device" || true)
-            if [ "$fsType" = swap ]; then
-                echo "activating swap device $device..."
-                swapon "$device" || true
-            elif [ "$fsType" = ext3 ]; then
-                mp="/disk$diskNr"
-                diskNr=$((diskNr + 1))
-                if mountFS "$device" "$mp" "" ext3; then
-                    if [ -z "$diskForUnionfs" ]; then diskForUnionfs="$mp"; fi
-                fi
-            else
-                echo "skipping unknown device type $device"
-            fi
-        done
+      diskNr=0
+      diskForUnionfs=
+      for device in /dev/xvd[abcde]*; do
+          if [ "$device" = /dev/xvda -o "$device" = /dev/xvda1 ]; then continue; fi
+          fsType=$(blkid -o value -s TYPE "$device" || true)
+          if [ "$fsType" = swap ]; then
+              echo "activating swap device $device..."
+              swapon "$device" || true
+          elif [ "$fsType" = ext3 ]; then
+              mp="/disk$diskNr"
+              diskNr=$((diskNr + 1))
+              if mountFS "$device" "$mp" "" ext3; then
+                  if [ -z "$diskForUnionfs" ]; then diskForUnionfs="$mp"; fi
+              fi
+          else
+              echo "skipping unknown device type $device"
+          fi
+      done
 
-        if [ -n "$diskForUnionfs" ]; then
-            mkdir -m 755 -p $targetRoot/$diskForUnionfs/root
+      if [ -n "$diskForUnionfs" ]; then
+          mkdir -m 755 -p $targetRoot/$diskForUnionfs/root
 
-            mkdir -m 1777 -p $targetRoot/$diskForUnionfs/root/tmp $targetRoot/tmp
-            mount --bind $targetRoot/$diskForUnionfs/root/tmp $targetRoot/tmp
+          mkdir -m 1777 -p $targetRoot/$diskForUnionfs/root/tmp $targetRoot/tmp
+          mount --bind $targetRoot/$diskForUnionfs/root/tmp $targetRoot/tmp
 
-            if [ "$(cat "$metaDir/ami-manifest-path")" != "(unknown)" ]; then
-                mkdir -m 755 -p $targetRoot/$diskForUnionfs/root/var $targetRoot/var
-                mount --bind $targetRoot/$diskForUnionfs/root/var $targetRoot/var
+          if [ "$(cat "$metaDir/ami-manifest-path")" != "(unknown)" ]; then
+              mkdir -m 755 -p $targetRoot/$diskForUnionfs/root/var $targetRoot/var
+              mount --bind $targetRoot/$diskForUnionfs/root/var $targetRoot/var
 
-                mkdir -p /unionfs-chroot/ro-nix
-                mount --rbind $targetRoot/nix /unionfs-chroot/ro-nix
+              mkdir -p /unionfs-chroot/ro-nix
+              mount --rbind $targetRoot/nix /unionfs-chroot/ro-nix
 
-                mkdir -m 755 -p $targetRoot/$diskForUnionfs/root/nix
-                mkdir -p /unionfs-chroot/rw-nix
-                mount --rbind $targetRoot/$diskForUnionfs/root/nix /unionfs-chroot/rw-nix
+              mkdir -m 755 -p $targetRoot/$diskForUnionfs/root/nix
+              mkdir -p /unionfs-chroot/rw-nix
+              mount --rbind $targetRoot/$diskForUnionfs/root/nix /unionfs-chroot/rw-nix
 
-                unionfs -o allow_other,cow,nonempty,chroot=/unionfs-chroot,max_files=32768 /rw-nix=RW:/ro-nix=RO $targetRoot/nix
-            fi
-        fi
-      '';
+              unionfs -o allow_other,cow,nonempty,chroot=/unionfs-chroot,max_files=32768 /rw-nix=RW:/ro-nix=RO $targetRoot/nix
+          fi
+      fi
+    '';
 
-    boot.initrd.extraUtilsCommands =
-      ''
-        # We need swapon in the initrd.
-        copy_bin_and_libs ${pkgs.utillinux}/sbin/swapon
-      '';
+    boot.initrd.extraUtilsCommands = ''
+      # We need swapon in the initrd.
+      copy_bin_and_libs ${pkgs.utillinux}/sbin/swapon
+    '';
 
     # Don't put old configurations in the GRUB menu.  The user has no
     # way to select them anyway.

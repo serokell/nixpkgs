@@ -9,7 +9,7 @@ let
   user = "zoneminder";
   group = {
     nginx = config.services.nginx.group;
-    none  = user;
+    none = user;
   }."${cfg.webserver}";
 
   useNginx = cfg.webserver == "nginx";
@@ -26,12 +26,11 @@ let
   dirs = dirList: [ dirName ] ++ map (e: "${dirName}/${e}") dirList;
 
   cacheDirs = [ "swap" ];
-  libDirs   = [ "events" "exports" "images" "sounds" ];
+  libDirs = [ "events" "exports" "images" "sounds" ];
 
   dirStanzas = baseDir:
-    lib.concatStringsSep "\n" (map (e:
-      "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}"
-      ) libDirs);
+    lib.concatStringsSep "\n"
+    (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf
@@ -64,9 +63,10 @@ let
     ${cfg.extraConfig}
   '';
 
-  phpExtensions = with pkgs.phpPackages; [
-    { pkg = apcu; name = "apcu"; }
-  ];
+  phpExtensions = with pkgs.phpPackages; [{
+    pkg = apcu;
+    name = "apcu";
+  }];
 
 in {
   options = {
@@ -190,18 +190,19 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [
-      { assertion = cfg.database.createLocally -> cfg.database.username == user;
-        message = "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.database.createLocally -> cfg.database.username == user;
+      message =
+        "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
+    }];
 
     environment.etc = {
       "zoneminder/60-defaults.conf".source = defaultsFile;
-      "zoneminder/80-nixos.conf".source    = configFile;
+      "zoneminder/80-nixos.conf".source = configFile;
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts =
+      lib.mkIf cfg.openFirewall [ cfg.port ];
 
     services = {
       fcgiwrap = lib.mkIf useNginx {
@@ -226,58 +227,60 @@ in {
           "${cfg.hostname}" = {
             default = true;
             root = "${pkg}/share/zoneminder/www";
-            listen = [ { addr = "0.0.0.0"; inherit (cfg) port; } ];
-            extraConfig = let
-              fcgi = config.services.fcgiwrap;
-            in ''
-              index index.php;
+            listen = [{
+              addr = "0.0.0.0";
+              inherit (cfg) port;
+            }];
+            extraConfig = let fcgi = config.services.fcgiwrap;
+              in ''
+                index index.php;
 
-              location / {
-                try_files $uri $uri/ /index.php?$args =404;
+                location / {
+                  try_files $uri $uri/ /index.php?$args =404;
 
-                rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
+                  rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
 
-                location ~ /api/(css|img|ico) {
-                  rewrite ^/api(.+)$ /api/app/webroot/$1 break;
-                  try_files $uri $uri/ =404;
+                  location ~ /api/(css|img|ico) {
+                    rewrite ^/api(.+)$ /api/app/webroot/$1 break;
+                    try_files $uri $uri/ =404;
+                  }
+
+                  location ~ \.(gif|ico|jpg|jpeg|png)$ {
+                    access_log off;
+                    expires 30d;
+                  }
+
+                  location /api {
+                    rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
+                  }
+
+                  location /cgi-bin {
+                    gzip off;
+
+                    include ${pkgs.nginx}/conf/fastcgi_params;
+                    fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
+                    fastcgi_param HTTP_PROXY "";
+                    fastcgi_intercept_errors on;
+
+                    fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
+                  }
+
+                  location /cache/ {
+                    alias /var/cache/${dirName};
+                  }
+
+                  location ~ \.php$ {
+                    try_files $uri =404;
+                    fastcgi_index index.php;
+
+                    include ${pkgs.nginx}/conf/fastcgi_params;
+                    fastcgi_param SCRIPT_FILENAME $request_filename;
+                    fastcgi_param HTTP_PROXY "";
+
+                    fastcgi_pass unix:${socket};
+                  }
                 }
-
-                location ~ \.(gif|ico|jpg|jpeg|png)$ {
-                  access_log off;
-                  expires 30d;
-                }
-
-                location /api {
-                  rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
-                }
-
-                location /cgi-bin {
-                  gzip off;
-
-                  include ${pkgs.nginx}/conf/fastcgi_params;
-                  fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
-                  fastcgi_param HTTP_PROXY "";
-                  fastcgi_intercept_errors on;
-
-                  fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
-                }
-
-                location /cache/ {
-                  alias /var/cache/${dirName};
-                }
-
-                location ~ \.php$ {
-                  try_files $uri =404;
-                  fastcgi_index index.php;
-
-                  include ${pkgs.nginx}/conf/fastcgi_params;
-                  fastcgi_param SCRIPT_FILENAME $request_filename;
-                  fastcgi_param HTTP_PROXY "";
-
-                  fastcgi_pass unix:${socket};
-                }
-              }
-            '';
+              '';
           };
         };
       };
@@ -288,8 +291,9 @@ in {
           phpOptions = ''
             date.timezone = "${config.time.timeZone}"
 
-            ${lib.concatStringsSep "\n" (map (e:
-            "extension=${e.pkg}/lib/php/extensions/${e.name}.so") phpExtensions)}
+            ${lib.concatStringsSep "\n"
+            (map (e: "extension=${e.pkg}/lib/php/extensions/${e.name}.so")
+            phpExtensions)}
           '';
           extraConfig = ''
             user = ${user}
@@ -316,16 +320,15 @@ in {
       zoneminder = with pkgs; rec {
         inherit (zoneminder.meta) description;
         documentation = [ "https://zoneminder.readthedocs.org/en/latest/" ];
-        path = [
-          coreutils
-          procps
-          psmisc
-        ];
-        after = [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
+        path = [ coreutils procps psmisc ];
+        after = [ "nginx.service" ]
+          ++ lib.optional cfg.database.createLocally "mysql.service";
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [ defaultsFile configFile ];
         preStart = lib.optionalString useCustomDir ''
-          install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${lib.concatStringsSep "," libDirs}}
+          install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
+            lib.concatStringsSep "," libDirs
+          }}
         '' + lib.optionalString cfg.database.createLocally ''
           if ! test -e "/var/lib/${dirName}/db-created"; then
             ${config.services.mysql.package}/bin/mysql < ${pkg}/share/zoneminder/db/zm_create.sql
@@ -336,8 +339,8 @@ in {
           User = user;
           Group = group;
           SupplementaryGroups = [ "video" ];
-          ExecStart  = "${zoneminder}/bin/zmpkg.pl start";
-          ExecStop   = "${zoneminder}/bin/zmpkg.pl stop";
+          ExecStart = "${zoneminder}/bin/zmpkg.pl start";
+          ExecStop = "${zoneminder}/bin/zmpkg.pl stop";
           ExecReload = "${zoneminder}/bin/zmpkg.pl restart";
           PIDFile = "/run/${dirName}/zm.pid";
           Type = "forking";
@@ -346,7 +349,7 @@ in {
           CacheDirectory = dirs cacheDirs;
           RuntimeDirectory = dirName;
           ReadWriteDirectories = lib.mkIf useCustomDir [ cfg.storageDir ];
-          StateDirectory = dirs (if useCustomDir then [] else libDirs);
+          StateDirectory = dirs (if useCustomDir then [ ] else libDirs);
           LogsDirectory = dirName;
           PrivateTmp = true;
           ProtectSystem = "strict";
@@ -357,9 +360,7 @@ in {
       };
     };
 
-    users.groups."${user}" = {
-      gid = config.ids.gids.zoneminder;
-    };
+    users.groups."${user}" = { gid = config.ids.gids.zoneminder; };
 
     users.users."${user}" = {
       uid = config.ids.uids.zoneminder;

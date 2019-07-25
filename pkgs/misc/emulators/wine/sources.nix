@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 ## we default to importing <nixpkgs> here, so that you can use
 ## a simple shell command to insert new sha256's into this file
 ## e.g. with emacs C-u M-x shell-command
@@ -6,10 +6,11 @@
 ##     nix-prefetch-url sources.nix -A {stable{,.mono,.gecko64,.gecko32}, unstable, staging, winetricks}
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
-let fetchurl = args@{url, sha256, ...}:
-  pkgs.fetchurl { inherit url sha256; } // args;
-    fetchFromGitHub = args@{owner, repo, rev, sha256, ...}:
-  pkgs.fetchFromGitHub { inherit owner repo rev sha256; } // args;
+let
+  fetchurl = args@{ url, sha256, ... }:
+    pkgs.fetchurl { inherit url sha256; } // args;
+  fetchFromGitHub = args@{ owner, repo, rev, sha256, ... }:
+    pkgs.fetchFromGitHub { inherit owner repo rev sha256; } // args;
 in rec {
 
   stable = fetchurl rec {
@@ -20,19 +21,22 @@ in rec {
     ## see http://wiki.winehq.org/Gecko
     gecko32 = fetchurl rec {
       version = "2.47";
-      url = "http://dl.winehq.org/wine/wine-gecko/${version}/wine_gecko-${version}-x86.msi";
+      url =
+        "http://dl.winehq.org/wine/wine-gecko/${version}/wine_gecko-${version}-x86.msi";
       sha256 = "0fk4fwb4ym8xn0i5jv5r5y198jbpka24xmxgr8hjv5b3blgkd2iv";
     };
     gecko64 = fetchurl rec {
       version = "2.47";
-      url = "http://dl.winehq.org/wine/wine-gecko/${version}/wine_gecko-${version}-x86_64.msi";
+      url =
+        "http://dl.winehq.org/wine/wine-gecko/${version}/wine_gecko-${version}-x86_64.msi";
       sha256 = "0zaagqsji6zaag92fqwlasjs8v9hwjci5c2agn9m7a8fwljylrf5";
     };
 
     ## see http://wiki.winehq.org/Mono
     mono = fetchurl rec {
       version = "4.8.3";
-      url = "http://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}.msi";
+      url =
+        "http://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}.msi";
       sha256 = "0xhavcjwwr21am3bxp2cxlvykwasw8y4g8p470j5fg7skc0izynn";
     };
   };

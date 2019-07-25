@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_api_core
-, pytest
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-container";
@@ -24,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Google Container Engine API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

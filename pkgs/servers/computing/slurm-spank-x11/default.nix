@@ -1,8 +1,6 @@
-{ stdenv, fetchFromGitHub, slurm } :
-let
-  version = "0.2.5";
-in
-stdenv.mkDerivation {
+{ stdenv, fetchFromGitHub, slurm }:
+let version = "0.2.5";
+in stdenv.mkDerivation {
   name = "slurm-spank-x11-${version}";
   version = version;
 
@@ -14,26 +12,24 @@ stdenv.mkDerivation {
   };
 
   buildPhase = ''
-      gcc -DX11_LIBEXEC_PROG="\"$out/bin/slurm-spank-x11\"" \
-          -g -o slurm-spank-x11 slurm-spank-x11.c
-      gcc -I${slurm.dev}/include -DX11_LIBEXEC_PROG="\"$out/bin/slurm-spank-x11\"" -shared -fPIC \
-          -g -o x11.so slurm-spank-x11-plug.c
-    '';
+    gcc -DX11_LIBEXEC_PROG="\"$out/bin/slurm-spank-x11\"" \
+        -g -o slurm-spank-x11 slurm-spank-x11.c
+    gcc -I${slurm.dev}/include -DX11_LIBEXEC_PROG="\"$out/bin/slurm-spank-x11\"" -shared -fPIC \
+        -g -o x11.so slurm-spank-x11-plug.c
+  '';
 
   installPhase = ''
-      mkdir -p $out/bin $out/lib
-      install -m 755 slurm-spank-x11 $out/bin
-      install -m 755 x11.so $out/lib
-    '';
+    mkdir -p $out/bin $out/lib
+    install -m 755 slurm-spank-x11 $out/bin
+    install -m 755 x11.so $out/lib
+  '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/hautreux/slurm-spank-x11;
+    homepage = "https://github.com/hautreux/slurm-spank-x11";
     description = "Plugin for SLURM to allow for interactive X11 sessions";
     platforms = platforms.linux;
     license = licenses.gpl3;
     maintainers = with maintainers; [ markuskowa ];
   };
 }
-
-
 

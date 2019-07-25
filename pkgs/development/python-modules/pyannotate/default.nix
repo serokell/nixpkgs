@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, six
-, mypy_extensions
-, typing
-, pytest
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six, mypy_extensions, typing, pytest
 }:
 
 buildPythonPackage rec {
@@ -26,7 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dropbox/pyannotate;
+    homepage = "https://github.com/dropbox/pyannotate";
     description = "Auto-generate PEP-484 annotations";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

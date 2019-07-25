@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, isPy3k, fetchFromGitHub, substituteAll
-, python, utillinux, pygit2, gitMinimal, git-annex
+{ stdenv, buildPythonPackage, isPy3k, fetchFromGitHub, substituteAll, python, utillinux, pygit2, gitMinimal, git-annex
 }:
 
 buildPythonPackage rec {
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/alpernebbi/git-annex-adapter;
+    homepage = "https://github.com/alpernebbi/git-annex-adapter";
     description = "Call git-annex commands from Python";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ma27 ];

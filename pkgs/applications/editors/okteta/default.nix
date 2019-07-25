@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, extra-cmake-modules, kdoctools, qtscript, kconfig
-, kinit, karchive, kcrash, kcmutils, kconfigwidgets, knewstuff, kparts
-, qca-qt5, shared-mime-info }:
+{ stdenv, fetchurl, extra-cmake-modules, kdoctools, qtscript, kconfig, kinit, karchive, kcrash, kcmutils, kconfigwidgets, knewstuff, kparts, qca-qt5, shared-mime-info
+}:
 
 stdenv.mkDerivation rec {
   name = "okteta-${version}";

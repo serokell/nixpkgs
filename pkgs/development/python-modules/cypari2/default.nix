@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, python
-, fetchPypi
-, pari
-, gmp
-, cython
-, cysignals
-}:
+{ stdenv, buildPythonPackage, python, fetchPypi, pari, gmp, cython, cysignals }:
 
 buildPythonPackage rec {
   pname = "cypari2";
@@ -29,18 +21,11 @@ buildPythonPackage rec {
     ${python.pythonForBuild.pkgs.bootstrapped-pip}/bin/pip install --no-index --prefix=$out --no-cache --build=tmpdir .
   '';
 
-  nativeBuildInputs = [
-    pari
-  ];
+  nativeBuildInputs = [ pari ];
 
-  buildInputs = [
-    gmp
-  ];
+  buildInputs = [ gmp ];
 
-  propagatedBuildInputs = [
-    cysignals
-    cython
-  ];
+  propagatedBuildInputs = [ cysignals cython ];
 
   checkPhase = ''
     make check
@@ -50,6 +35,6 @@ buildPythonPackage rec {
     description = "Cython bindings for PARI";
     license = licenses.gpl2;
     maintainers = with maintainers; [ timokau ];
-    homepage = https://github.com/defeo/cypari2;
+    homepage = "https://github.com/defeo/cypari2";
   };
 }

@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
   meta = {
     description = "The one, true implementation of AWK";
     longDescription = ''
-       This is the version of awk described in "The AWK Programming
-       Language", by Al Aho, Brian Kernighan, and Peter Weinberger
-       (Addison-Wesley, 1988, ISBN 0-201-07981-X).
+      This is the version of awk described in "The AWK Programming
+      Language", by Al Aho, Brian Kernighan, and Peter Weinberger
+      (Addison-Wesley, 1988, ISBN 0-201-07981-X).
     '';
-    homepage = https://www.cs.princeton.edu/~bwk/btl.mirror/;
+    homepage = "https://www.cs.princeton.edu/~bwk/btl.mirror/";
     license = stdenv.lib.licenses.mit;
     maintainers = [ stdenv.lib.maintainers.konimex ];
     platforms = stdenv.lib.platforms.linux;

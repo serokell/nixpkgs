@@ -6,54 +6,56 @@ let
 
   cfg = config.documentation;
 
-  manualModules = baseModules ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
+  manualModules = baseModules
+    ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
 
   /* For the purpose of generating docs, evaluate options with each derivation
-    in `pkgs` (recursively) replaced by a fake with path "\${pkgs.attribute.path}".
-    It isn't perfect, but it seems to cover a vast majority of use cases.
-    Caveat: even if the package is reached by a different means,
-    the path above will be shown and not e.g. `${config.services.foo.package}`. */
+     in `pkgs` (recursively) replaced by a fake with path "\${pkgs.attribute.path}".
+     It isn't perfect, but it seems to cover a vast majority of use cases.
+     Caveat: even if the package is reached by a different means,
+     the path above will be shown and not e.g. `${config.services.foo.package}`.
+  */
   manual = import ../../doc/manual rec {
     inherit pkgs config;
     version = config.system.nixos.release;
     revision = "release-${version}";
-    options =
-      let
-        scrubbedEval = evalModules {
-          modules = [ { nixpkgs.localSystem = config.nixpkgs.localSystem; } ] ++ manualModules;
-          args = (config._module.args) // { modules = [ ]; };
-          specialArgs = { pkgs = scrubDerivations "pkgs" pkgs; };
-        };
-        scrubDerivations = namePrefix: pkgSet: mapAttrs
-          (name: value:
-            let wholeName = "${namePrefix}.${name}"; in
-            if isAttrs value then
-              scrubDerivations wholeName value
-              // (optionalAttrs (isDerivation value) { outPath = "\${${wholeName}}"; })
-            else value
-          )
-          pkgSet;
+    options = let
+      scrubbedEval = evalModules {
+        modules = [{ nixpkgs.localSystem = config.nixpkgs.localSystem; }]
+          ++ manualModules;
+        args = (config._module.args) // { modules = [ ]; };
+        specialArgs = { pkgs = scrubDerivations "pkgs" pkgs; };
+      };
+      scrubDerivations = namePrefix: pkgSet:
+        mapAttrs (name: value:
+        let wholeName = "${namePrefix}.${name}";
+        in if isAttrs value then
+          scrubDerivations wholeName value
+          // (optionalAttrs (isDerivation value) {
+            outPath = "\${${wholeName}}";
+          })
+        else
+          value) pkgSet;
       in scrubbedEval.options;
   };
 
-  helpScript = pkgs.writeScriptBin "nixos-help"
-    ''
-      #! ${pkgs.runtimeShell} -e
-      # Finds first executable browser in a colon-separated list.
-      # (see how xdg-open defines BROWSER)
-      browser="$(
-        IFS=: ; for b in $BROWSER; do
-          [ -n "$(type -P "$b" || true)" ] && echo "$b" && break
-        done
-      )"
+  helpScript = pkgs.writeScriptBin "nixos-help" ''
+    #! ${pkgs.runtimeShell} -e
+    # Finds first executable browser in a colon-separated list.
+    # (see how xdg-open defines BROWSER)
+    browser="$(
+      IFS=: ; for b in $BROWSER; do
+        [ -n "$(type -P "$b" || true)" ] && echo "$b" && break
+      done
+    )"
+    if [ -z "$browser" ]; then
+      browser="$(type -P xdg-open || true)"
       if [ -z "$browser" ]; then
-        browser="$(type -P xdg-open || true)"
-        if [ -z "$browser" ]; then
-          browser="${pkgs.w3m-nographics}/bin/w3m"
-        fi
+        browser="${pkgs.w3m-nographics}/bin/w3m"
       fi
-      exec "$browser" ${manual.manualHTMLIndex}
-    '';
+    fi
+    exec "$browser" ${manual.manualHTMLIndex}
+  '';
 
   desktopItem = pkgs.makeDesktopItem {
     name = "nixos-manual";
@@ -64,9 +66,7 @@ let
     categories = "System";
   };
 
-in
-
-{
+in {
 
   options = {
 
@@ -164,14 +164,16 @@ in
     (mkIf cfg.man.enable {
       environment.systemPackages = [ pkgs.man-db ];
       environment.pathsToLink = [ "/share/man" ];
-      environment.extraOutputsToInstall = [ "man" ] ++ optional cfg.dev.enable "devman";
+      environment.extraOutputsToInstall = [ "man" ]
+        ++ optional cfg.dev.enable "devman";
       environment.etc."man.conf".source = "${pkgs.man-db}/etc/man_db.conf";
     })
 
     (mkIf cfg.info.enable {
       environment.systemPackages = [ pkgs.texinfoInteractive ];
       environment.pathsToLink = [ "/share/info" ];
-      environment.extraOutputsToInstall = [ "info" ] ++ optional cfg.dev.enable "devinfo";
+      environment.extraOutputsToInstall = [ "info" ]
+        ++ optional cfg.dev.enable "devinfo";
       environment.extraSetup = ''
         if [ -w $out/share/info ]; then
           shopt -s nullglob
@@ -184,22 +186,27 @@ in
 
     (mkIf cfg.doc.enable {
       environment.pathsToLink = [ "/share/doc" ];
-      environment.extraOutputsToInstall = [ "doc" ] ++ optional cfg.dev.enable "devdoc";
+      environment.extraOutputsToInstall = [ "doc" ]
+        ++ optional cfg.dev.enable "devdoc";
     })
 
     (mkIf cfg.nixos.enable {
       system.build.manual = manual;
 
-      environment.systemPackages = []
-        ++ optional cfg.man.enable manual.manpages
-        ++ optionals cfg.doc.enable ([ manual.manualHTML helpScript ]
-           ++ optionals config.services.xserver.enable [ desktopItem pkgs.nixos-icons ]);
+      environment.systemPackages = [ ]
+        ++ optional cfg.man.enable manual.manpages ++ optionals cfg.doc.enable
+        ([ manual.manualHTML helpScript ]
+        ++ optionals config.services.xserver.enable [
+          desktopItem
+          pkgs.nixos-icons
+        ]);
 
-      services.mingetty.helpLine = mkIf cfg.doc.enable (
-          "\nRun `nixos-help` "
-        + optionalString config.services.nixosManual.showManual "or press <Alt-F${toString config.services.nixosManual.ttyNumber}> "
-        + "for the NixOS manual."
-      );
+      services.mingetty.helpLine = mkIf cfg.doc.enable (''
+
+        Run `nixos-help` ''
+        + optionalString config.services.nixosManual.showManual
+        "or press <Alt-F${toString config.services.nixosManual.ttyNumber}> "
+        + "for the NixOS manual.");
     })
 
   ]);

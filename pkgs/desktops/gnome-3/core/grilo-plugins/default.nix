@@ -1,29 +1,4 @@
-{ stdenv
-, fetchurl
-, meson
-, ninja
-, pkgconfig
-, gettext
-, gperf
-, sqlite
-, librest
-, libarchive
-, libsoup
-, gnome3
-, libxml2
-, lua5_3
-, liboauth
-, libgdata
-, libmediaart
-, grilo
-, gnome-online-accounts
-, gmime
-, json-glib
-, avahi
-, tracker
-, dleyna-server
-, itstool
-, totem-pl-parser
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gperf, sqlite, librest, libarchive, libsoup, gnome3, libxml2, lua5_3, liboauth, libgdata, libmediaart, grilo, gnome-online-accounts, gmime, json-glib, avahi, tracker, dleyna-server, itstool, totem-pl-parser
 }:
 
 stdenv.mkDerivation rec {
@@ -31,7 +6,9 @@ stdenv.mkDerivation rec {
   version = "0.3.9";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1hv84b56qjic8vz8iz46ikhrxx31l29ilbr8dm5qcghbd8ikw8j1";
   };
 
@@ -73,7 +50,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/Grilo;
+    homepage = "https://wiki.gnome.org/Projects/Grilo";
     description = "A collection of plugins for the Grilo framework";
     maintainers = gnome3.maintainers;
     license = licenses.lgpl21;

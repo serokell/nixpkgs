@@ -1,17 +1,12 @@
-{ stdenv, lib, fetchurl, cmake, ninja, pkgconfig, libiconv, libintl
-, zlib, curl, cairo, freetype, fontconfig, lcms, libjpeg, openjpeg
-, withData ? true, poppler_data
-, qt5Support ? false, qtbase ? null
-, introspectionSupport ? false, gobject-introspection ? null
-, utils ? false, nss ? null
-, minimal ? false, suffix ? "glib"
-}:
+{ stdenv, lib, fetchurl, cmake, ninja, pkgconfig, libiconv, libintl, zlib, curl, cairo, freetype, fontconfig, lcms, libjpeg, openjpeg, withData ?
+  true, poppler_data, qt5Support ? false, qtbase ? null, introspectionSupport ?
+    false, gobject-introspection ? null, utils ? false, nss ? null, minimal ?
+      false, suffix ? "glib" }:
 
 let # beware: updates often break cups-filters build
   version = "0.74.0";
   mkFlag = optset: flag: "-DENABLE_${flag}=${if optset then "on" else "off"}";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "poppler-${suffix}-${version}";
 
   src = fetchurl {
@@ -26,8 +21,7 @@ stdenv.mkDerivation rec {
   # TODO: reduce propagation to necessary libs
   propagatedBuildInputs = with lib;
     [ zlib freetype fontconfig libjpeg openjpeg ]
-    ++ optionals (!minimal) [ cairo lcms curl ]
-    ++ optional qt5Support qtbase
+    ++ optionals (!minimal) [ cairo lcms curl ] ++ optional qt5Support qtbase
     ++ optional utils nss
     ++ optional introspectionSupport gobject-introspection;
 
@@ -48,7 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    homepage = https://poppler.freedesktop.org/;
+    homepage = "https://poppler.freedesktop.org/";
     description = "A PDF rendering library";
 
     longDescription = ''

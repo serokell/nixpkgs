@@ -25,8 +25,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A chorus algorithm that maintains constant and symmetric detuning depth (in cents), regardless of modulation rate. For jack and lv2";
-    homepage = https://github.com/magnetophon/constant-detune-chorus;
+    description =
+      "A chorus algorithm that maintains constant and symmetric detuning depth (in cents), regardless of modulation rate. For jack and lv2";
+    homepage = "https://github.com/magnetophon/constant-detune-chorus";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
   };

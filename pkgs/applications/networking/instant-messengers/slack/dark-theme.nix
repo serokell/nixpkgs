@@ -9,7 +9,8 @@ in stdenv.mkDerivation {
 
   name = "slack-theme-black";
   src = fetchurl {
-    url = "https://raw.githubusercontent.com/laCour/slack-night-mode/${rev}/css/raw/black.css";
+    url =
+      "https://raw.githubusercontent.com/laCour/slack-night-mode/${rev}/css/raw/black.css";
     inherit sha256;
   };
 

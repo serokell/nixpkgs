@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch
-, cython, pytest, pytestrunner, hypothesis }:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, cython, pytest, pytestrunner, hypothesis
+}:
 
 buildPythonPackage rec {
   pname = "datrie";
@@ -13,7 +13,8 @@ buildPythonPackage rec {
   patches = [
     # fix tests against recent hypothesis
     (fetchpatch {
-      url = "https://github.com/pytries/datrie/commit/9b24b4c02783cdb703ac3f6c6d7d881db93166e0.diff";
+      url =
+        "https://github.com/pytries/datrie/commit/9b24b4c02783cdb703ac3f6c6d7d881db93166e0.diff";
       sha256 = "1ql7jcf57q3x3fcbddl26y9kmnbnj2dv6ga8mwq94l4a3213j2iy";
     })
   ];

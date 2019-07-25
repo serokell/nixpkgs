@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, qtest, ounit }:
 
-let version = "0.5"; in
+let version = "0.5";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "ocaml${ocaml.version}-gen-${version}";
 
   src = fetchFromGitHub {
@@ -14,9 +14,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ ocaml findlib ocamlbuild qtest ounit ];
 
-  configureFlags = [
-    "--enable-tests"
-  ];
+  configureFlags = [ "--enable-tests" ];
 
   doCheck = true;
   checkTarget = "test";
@@ -24,9 +22,9 @@ stdenv.mkDerivation {
   createFindlibDestdir = true;
 
   meta = {
-    homepage = https://github.com/c-cube/gen;
+    homepage = "https://github.com/c-cube/gen";
     description = "Simple, efficient iterators for OCaml";
     license = stdenv.lib.licenses.bsd3;
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
   };
 }

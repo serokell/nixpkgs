@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-, matplotlib
-, pkgs
-, nbconvert
-, markdown
-, isPy3k
+{ stdenv, buildPythonPackage, fetchPypi, mock, matplotlib, pkgs, nbconvert, markdown, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -27,8 +19,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Scientific reports with embedded python computations with reST, LaTeX or markdown";
-    homepage = http://mpastell.com/pweave/ ;
+    description =
+      "Scientific reports with embedded python computations with reST, LaTeX or markdown";
+    homepage = "http://mpastell.com/pweave/";
     license = licenses.bsd3;
   };
 

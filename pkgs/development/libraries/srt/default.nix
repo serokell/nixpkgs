@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, openssl
-}:
+{ stdenv, fetchFromGitHub, cmake, openssl }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Secure, Reliable, Transport";
-    homepage    = https://www.srtalliance.org;
-    license     = licenses.mpl20;
+    homepage = "https://www.srtalliance.org";
+    license = licenses.mpl20;
     maintainers = with maintainers; [ nh2 ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

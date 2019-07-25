@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, Babel, decorator, requests, requests_oauthlib, oauthlib, urllib3, six, click, markdown, pyyaml
-, pytestrunner, coverage, flake8, mock, pytest, pytestcov, tox
+{ lib, buildPythonPackage, fetchPypi, Babel, decorator, requests, requests_oauthlib, oauthlib, urllib3, six, click, markdown, pyyaml, pytestrunner, coverage, flake8, mock, pytest, pytestcov, tox
 }:
 
 buildPythonPackage rec {
@@ -15,16 +13,23 @@ buildPythonPackage rec {
   nativeBuildInputs = [ Babel ];
 
   propagatedBuildInputs = [
-    decorator requests requests_oauthlib oauthlib urllib3 six click markdown pyyaml
+    decorator
+    requests
+    requests_oauthlib
+    oauthlib
+    urllib3
+    six
+    click
+    markdown
+    pyyaml
   ];
 
-  checkInputs = [
-    pytestrunner coverage flake8 mock pytest pytestcov tox
-  ];
+  checkInputs = [ pytestrunner coverage flake8 mock pytest pytestcov tox ];
 
   meta = with lib; {
     homepage = "https://github.com/caronc/apprise";
-    description = "Push Notifications that work with just about every platform!";
+    description =
+      "Push Notifications that work with just about every platform!";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

@@ -1,12 +1,10 @@
-{ stdenv, fetchFromGitHub, fetchsvn, pkgconfig, scons, libGLU_combined, SDL2, SDL2_image
-, libvorbis, bullet, curl, gettext, writeTextFile
+{ stdenv, fetchFromGitHub, fetchsvn, pkgconfig, scons, libGLU_combined, SDL2, SDL2_image, libvorbis, bullet, curl, gettext, writeTextFile
 
 , data ? fetchsvn {
-    url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
-    rev = "1386";
-    sha256 = "0ka6zir9hg0md5p03dl461jkvbk05ywyw233hnc3ka6shz3vazi1";
-  }
-}:
+  url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
+  rev = "1386";
+  sha256 = "0ka6zir9hg0md5p03dl461jkvbk05ywyw233hnc3ka6shz3vazi1";
+} }:
 let
   version = "git";
   bin = stdenv.mkDerivation {
@@ -20,7 +18,8 @@ let
     };
 
     nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [ scons libGLU_combined SDL2 SDL2_image libvorbis bullet curl gettext ];
+    buildInputs =
+      [ scons libGLU_combined SDL2 SDL2_image libvorbis bullet curl gettext ];
 
     patches = [ ./0001-Ignore-missing-data-for-installation.patch ];
 
@@ -33,9 +32,9 @@ let
 
     meta = {
       description = "Car racing game";
-      homepage = http://vdrift.net/;
+      homepage = "http://vdrift.net/";
       license = stdenv.lib.licenses.gpl2Plus;
-      maintainers = with stdenv.lib.maintainers; [viric];
+      maintainers = with stdenv.lib.maintainers; [ viric ];
       platforms = stdenv.lib.platforms.linux;
     };
   };
@@ -52,9 +51,7 @@ in writeTextFile {
     ${stdenv.shell} -n $out/bin/vdrift
   '';
 } // {
-  meta = bin.meta // {
-    hydraPlatforms = [];
-  };
+  meta = bin.meta // { hydraPlatforms = [ ]; };
   unwrapped = bin;
   inherit bin data;
 }

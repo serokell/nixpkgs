@@ -1,9 +1,7 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
-, zlib, bzip2, lzma, lzo, lz4, zstd, xz
-, libgcrypt, e2fsprogs, utillinux, libgpgerror }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, zlib, bzip2, lzma, lzo, lz4, zstd, xz, libgcrypt, e2fsprogs, utillinux, libgpgerror
+}:
 
-let
-  version = "0.8.5";
+let version = "0.8.5";
 
 in stdenv.mkDerivation {
   name = "fsarchiver-${version}";
@@ -15,13 +13,20 @@ in stdenv.mkDerivation {
     sha256 = "1rvwq5v3rl14bqxjm1ibfapyicf0sa44nw7451v10kx39lp56ylp";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkgconfig
-  ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   buildInputs = [
-    zlib bzip2 lzma lzo lz4 zstd xz
-    libgcrypt e2fsprogs utillinux libgpgerror
+    zlib
+    bzip2
+    lzma
+    lzo
+    lz4
+    zstd
+    xz
+    libgcrypt
+    e2fsprogs
+    utillinux
+    libgpgerror
   ];
 
   meta = with stdenv.lib; {
@@ -35,7 +40,7 @@ in stdenv.mkDerivation {
       checksummed in the archive in order to protect the data. If the archive is
       corrupt, you just loose the current file, not the whole archive.
     '';
-    homepage = http://www.fsarchiver.org/;
+    homepage = "http://www.fsarchiver.org/";
     license = licenses.lgpl2;
     maintainers = [ maintainers.etu ];
     platforms = platforms.linux;

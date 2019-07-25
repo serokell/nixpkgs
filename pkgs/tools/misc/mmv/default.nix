@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     # contains a _lot_ of fixes.
     (fetchurl {
       url = "mirror://debian/pool/main/m/mmv/mmv_${version}-15.diff.gz";
-      sha256 = "9ad3e3d47510f816b4a18bae04ea75913588eec92248182f85dd09bc5ad2df13";
+      sha256 =
+        "9ad3e3d47510f816b4a18bae04ea75913588eec92248182f85dd09bc5ad2df13";
     })
   ];
 
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://linux.maruhn.com/sec/mmv.html;
+    homepage = "http://linux.maruhn.com/sec/mmv.html";
     description = "Utility for wildcard renaming, copying, etc";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;

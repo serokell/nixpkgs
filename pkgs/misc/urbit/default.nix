@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, curl, git, gmp, libsigsegv, meson, ncurses, ninja
-, openssl, pkgconfig, re2c, zlib
+{ stdenv, fetchFromGitHub, curl, git, gmp, libsigsegv, meson, ncurses, ninja, openssl, pkgconfig, re2c, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An operating function";
-    homepage = https://urbit.org;
+    homepage = "https://urbit.org";
     license = licenses.mit;
     maintainers = with maintainers; [ mudri ];
     platforms = with platforms; linux;

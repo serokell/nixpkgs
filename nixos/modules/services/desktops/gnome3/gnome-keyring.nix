@@ -26,7 +26,6 @@ with lib;
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.gnome3.gnome-keyring.enable {

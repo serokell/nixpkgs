@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, CommonMark
-, docutils
-, sphinx
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, CommonMark, docutils, sphinx
 }:
 
 buildPythonPackage rec {
@@ -28,7 +22,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A docutils-compatibility bridge to CommonMark";
-    homepage = https://github.com/rtfd/recommonmark;
+    homepage = "https://github.com/rtfd/recommonmark";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fridh ];
   };

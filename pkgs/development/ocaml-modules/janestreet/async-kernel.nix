@@ -1,6 +1,4 @@
-{stdenv, buildOcamlJane, core_kernel,
- bin_prot, fieldslib,
- sexplib, herelib}:
+{ stdenv, buildOcamlJane, core_kernel, bin_prot, fieldslib, sexplib, herelib }:
 
 buildOcamlJane rec {
   name = "async_kernel";
@@ -8,8 +6,9 @@ buildOcamlJane rec {
   propagatedBuildInputs = [ core_kernel bin_prot fieldslib herelib sexplib ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/janestreet/async_kernel;
-    description = "Jane Street Capital's asynchronous execution library (core) ";
+    homepage = "https://github.com/janestreet/async_kernel";
+    description =
+      "Jane Street Capital's asynchronous execution library (core) ";
     license = licenses.asl20;
     maintainers = [ maintainers.maurer maintainers.ericbmerritt ];
   };

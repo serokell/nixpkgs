@@ -15,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Locket implements a lock that can be used by multiple processes provided they use the same path.";
-    homepage = https://github.com/mwilliamson/locket.py;
+    description =
+      "Locket implements a lock that can be used by multiple processes provided they use the same path.";
+    homepage = "https://github.com/mwilliamson/locket.py";
     license = licenses.bsd2;
     maintainers = with maintainers; [ teh ];
   };

@@ -18,7 +18,7 @@ pythonPackages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Easily manage your dotfiles";
-    homepage = https://github.com/jbernard/dotfiles;
+    homepage = "https://github.com/jbernard/dotfiles";
     license = licenses.isc;
   };
 }

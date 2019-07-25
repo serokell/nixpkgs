@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.weechat;
-in
+let cfg = config.services.weechat;
 
-{
+in {
   options.services.weechat = {
     enable = mkEnableOption "weechat";
     root = mkOption {
@@ -30,7 +28,7 @@ in
 
   config = mkIf cfg.enable {
     users = {
-      groups.weechat = {};
+      groups.weechat = { };
       users.weechat = {
         createHome = true;
         group = "weechat";
@@ -46,7 +44,8 @@ in
         Group = "weechat";
         RemainAfterExit = "yes";
       };
-      script = "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary}";
+      script =
+        "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary}";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
     };

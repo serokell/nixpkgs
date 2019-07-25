@@ -1,7 +1,4 @@
-{
-  stdenv
-, python
-}:
+{ stdenv, python }:
 
 python.buildPythonPackage rec {
   pname = "snakemake";
@@ -25,10 +22,11 @@ python.buildPythonPackage rec {
     sha256 = "157323e0e1be34302edbbf399b2acbe25a4291bceffd47a0469963a970c9375f";
   };
 
-  doCheck = false; # Tests depend on Google Cloud credentials at ${HOME}/gcloud-service-key.json
+  doCheck =
+    false; # Tests depend on Google Cloud credentials at ${HOME}/gcloud-service-key.json
 
   meta = with stdenv.lib; {
-    homepage = http://snakemake.bitbucket.io;
+    homepage = "http://snakemake.bitbucket.io";
     license = licenses.mit;
     description = "Python-based execution environment for make-like workflows";
     longDescription = ''

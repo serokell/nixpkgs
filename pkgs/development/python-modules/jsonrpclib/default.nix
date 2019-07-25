@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cjson
-, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, cjson, isPy3k }:
 
 buildPythonPackage rec {
   pname = "jsonrpclib";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "JSON RPC client library";
-    homepage = https://pypi.python.org/pypi/jsonrpclib/;
+    homepage = "https://pypi.python.org/pypi/jsonrpclib/";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.joachifm ];
   };

@@ -1,20 +1,14 @@
-{ stdenv
-, buildPythonPackage
-, pyopenssl
-, pkgs
-, isPy3k
-, python
-}:
+{ stdenv, buildPythonPackage, pyopenssl, pkgs, isPy3k, python }:
 
 buildPythonPackage rec {
   name = "deskcon-0.3";
   disabled = isPy3k;
 
   src = pkgs.fetchFromGitHub {
-    owner= "screenfreeze";
+    owner = "screenfreeze";
     repo = "deskcon-desktop";
     rev = "267804122188fa79c37f2b21f54fe05c898610e6";
-    sha256 ="0i1dd85ls6n14m9q7lkympms1w3x0pqyaxvalq82s4xnjdv585j3";
+    sha256 = "0i1dd85ls6n14m9q7lkympms1w3x0pqyaxvalq82s4xnjdv585j3";
   };
 
   phases = [ "unpackPhase" "installPhase" ];
@@ -34,7 +28,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Integrates an Android device into a desktop";
-    homepage = https://github.com/screenfreeze/deskcon-desktop;
+    homepage = "https://github.com/screenfreeze/deskcon-desktop";
     license = licenses.gpl3;
   };
 

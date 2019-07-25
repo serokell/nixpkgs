@@ -1,6 +1,4 @@
-{ stdenv
-, fetchurl
-}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   version = "20080411";
@@ -17,8 +15,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "PARI database needed to compute Galois group in degrees 8 through 11";
-    homepage = http://pari.math.u-bordeaux.fr/;
+    description =
+      "PARI database needed to compute Galois group in degrees 8 through 11";
+    homepage = "http://pari.math.u-bordeaux.fr/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ timokau ];

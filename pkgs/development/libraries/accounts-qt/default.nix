@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitLab, doxygen, glib, libaccounts-glib, pkgconfig, qtbase, qmake }:
+{ stdenv, fetchFromGitLab, doxygen, glib, libaccounts-glib, pkgconfig, qtbase, qmake
+}:
 
 stdenv.mkDerivation rec {
   name = "accounts-qt-${version}";
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt library for accessing the online accounts database";
-    homepage = https://gitlab.com/accounts-sso;
+    homepage = "https://gitlab.com/accounts-sso";
     license = licenses.lgpl21;
     platforms = with platforms; linux;
   };

@@ -1,7 +1,7 @@
 { fetchcvs, stdenv, emacs, w3m, imagemagick, texinfo, autoreconfHook }:
 
-let date = "2013-03-21"; in
-stdenv.mkDerivation rec {
+let date = "2013-03-21";
+in stdenv.mkDerivation rec {
   name = "emacs-w3m-cvs${date}";
 
   # Get the source from CVS because the previous release (1.4.4) is old and
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl2Plus;
 
-    homepage = http://emacs-w3m.namazu.org/;
+    homepage = "http://emacs-w3m.namazu.org/";
 
     maintainers = [ ];
   };

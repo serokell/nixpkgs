@@ -1,7 +1,4 @@
-{ stdenv, fetchurl
-, pcre, windows ? null
-, variant ? null
-}:
+{ stdenv, fetchurl, pcre, windows ? null, variant ? null }:
 
 with stdenv.lib;
 
@@ -9,9 +6,12 @@ assert elem variant [ null "cpp" "pcre16" "pcre32" ];
 
 let
   version = "8.43";
-  pname = if (variant == null) then "pcre"
-    else  if (variant == "cpp") then "pcre-cpp"
-    else  variant;
+  pname = if (variant == null) then
+    "pcre"
+  else if (variant == "cpp") then
+    "pcre-cpp"
+  else
+    variant;
 
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -23,13 +23,12 @@ in stdenv.mkDerivation rec {
 
   outputs = [ "bin" "dev" "out" "doc" "man" ];
 
-  configureFlags = optional (!stdenv.hostPlatform.isRiscV) "--enable-jit" ++ [
-    "--enable-unicode-properties"
-    "--disable-cpp"
-  ]
+  configureFlags = optional (!stdenv.hostPlatform.isRiscV) "--enable-jit"
+    ++ [ "--enable-unicode-properties" "--disable-cpp" ]
     ++ optional (variant != null) "--enable-${variant}";
 
-  buildInputs = optional (stdenv.hostPlatform.libc == "msvcrt") windows.mingw_w64_pthreads;
+  buildInputs =
+    optional (stdenv.hostPlatform.libc == "msvcrt") windows.mingw_w64_pthreads;
 
   # https://bugs.exim.org/show_bug.cgi?id=2173
   patches = [ ./stacksize-detection.patch ];
@@ -38,19 +37,19 @@ in stdenv.mkDerivation rec {
     patchShebangs RunGrepTest
   '';
 
-  doCheck = !(with stdenv.hostPlatform; isCygwin || isFreeBSD) && stdenv.hostPlatform == stdenv.buildPlatform;
-    # XXX: test failure on Cygwin
-    # we are running out of stack on both freeBSDs on Hydra
+  doCheck = !(with stdenv.hostPlatform; isCygwin || isFreeBSD)
+    && stdenv.hostPlatform == stdenv.buildPlatform;
+  # XXX: test failure on Cygwin
+  # we are running out of stack on both freeBSDs on Hydra
 
   postFixup = ''
     moveToOutput bin/pcre-config "$dev"
-  ''
-    + optionalString (variant != null) ''
+  '' + optionalString (variant != null) ''
     ln -sf -t "$out/lib/" '${pcre.out}'/lib/libpcre{,posix}.{so.*.*.*,*dylib}
   '';
 
   meta = {
-    homepage = http://www.pcre.org/;
+    homepage = "http://www.pcre.org/";
     description = "A library for Perl Compatible Regular Expressions";
     license = stdenv.lib.licenses.bsd3;
 

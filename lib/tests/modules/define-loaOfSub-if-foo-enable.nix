@@ -1,7 +1,5 @@
 { config, lib, ... }:
 
 {
-  loaOfSub = lib.mkIf config.enable {
-    foo.enable = true;
-  };
+  loaOfSub = lib.mkIf config.enable { foo.enable = true; };
 }

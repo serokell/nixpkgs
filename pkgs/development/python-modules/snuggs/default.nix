@@ -1,7 +1,4 @@
-{ buildPythonPackage, lib, fetchFromGitHub
-, click, numpy, pyparsing
-, pytest
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, click, numpy, pyparsing, pytest }:
 
 buildPythonPackage rec {
   pname = "snuggs";
@@ -23,7 +20,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "S-expressions for Numpy";
     license = licenses.mit;
-    homepage = https://github.com/mapbox/snuggs;
+    homepage = "https://github.com/mapbox/snuggs";
     maintainers = with maintainers; [ mredaelli ];
   };
 }

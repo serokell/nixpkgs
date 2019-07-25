@@ -3,20 +3,25 @@
 let
   version = "5.1.0";
   platform = with stdenv;
-    if isDarwin then "macosx"
-    else if isCygwin then "cygwin"
-    else if (isFreeBSD || isOpenBSD) then "bsd"
-    else if isSunOS then "solaris"
-    else "linux"; # Should be a sane default
+    if isDarwin then
+      "macosx"
+    else if isCygwin then
+      "cygwin"
+    else if (isFreeBSD || isOpenBSD) then
+      "bsd"
+    else if isSunOS then
+      "solaris"
+    else
+      "linux"; # Should be a sane default
   lib = stdenv.lib;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "chicken-${version}";
 
   binaryVersion = 9;
 
   src = fetchurl {
-    url = "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
+    url =
+      "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
     sha256 = "0jsbp3kp0134f318j3wpd1n85gf8qzh034fn198gvazsv2l024aw";
   };
 
@@ -25,11 +30,8 @@ stdenv.mkDerivation {
   buildFlags = "PLATFORM=${platform} PREFIX=$(out) VARDIR=$(out)/var/lib";
   installFlags = "PLATFORM=${platform} PREFIX=$(out) VARDIR=$(out)/var/lib";
 
-  buildInputs = [
-    makeWrapper
-  ] ++ (lib.ifEnable (bootstrap-chicken != null) [
-    bootstrap-chicken
-  ]);
+  buildInputs = [ makeWrapper ]
+    ++ (lib.ifEnable (bootstrap-chicken != null) [ bootstrap-chicken ]);
 
   postInstall = ''
     for f in $out/bin/*
@@ -46,7 +48,7 @@ stdenv.mkDerivation {
   # TODO: Assert csi -R files -p '(pathname-file (repository-path))' == binaryVersion
 
   meta = {
-    homepage = http://www.call-cc.org/;
+    homepage = "http://www.call-cc.org/";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ the-kenny ];
     platforms = stdenv.lib.platforms.linux; # Maybe other non-darwin Unix

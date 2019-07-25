@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip, file, licenseFile ? null, optgamsFile ? null}:
+{ stdenv, fetchurl, unzip, file, licenseFile ? null, optgamsFile ? null }:
 
 assert licenseFile != null;
 
@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "25.0.2";
   name = "gams-${version}";
   src = fetchurl {
-    url = "https://d37drm4t2jghv5.cloudfront.net/distributions/${version}/linux/linux_x64_64_sfx.exe";
+    url =
+      "https://d37drm4t2jghv5.cloudfront.net/distributions/${version}/linux/linux_x64_64_sfx.exe";
     sha256 = "4f95389579f33ff7c2586838a2c19021aa0746279555cbb51aa6e0efd09bd297";
   };
   unpackCmd = "unzip $src";
@@ -35,13 +36,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  meta = with stdenv.lib;{
+  meta = with stdenv.lib; {
     description = "General Algebraic Modeling System";
     longDescription = ''
       The General Algebraic Modeling System is a high-level modeling system for mathematical optimization.
       GAMS is designed for modeling and solving linear, nonlinear, and mixed-integer optimization problems.
     '';
-    homepage = https://www.gams.com/;
+    homepage = "https://www.gams.com/";
     license = licenses.unfree;
     maintainers = [ maintainers.Scriptkiddi ];
     platforms = platforms.linux;

@@ -1,34 +1,41 @@
-{ stdenv, fetchurl, makeWrapper, ncurses, ocamlPackages, graphviz
-, ltl2ba, coq, why3, autoconf
+{ stdenv, fetchurl, makeWrapper, ncurses, ocamlPackages, graphviz, ltl2ba, coq, why3, autoconf
 }:
 
 let
   mkocamlpath = p: "${p}/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib";
-  ocamlpath = "${mkocamlpath ocamlPackages.apron}:${mkocamlpath ocamlPackages.mlgmpidl}";
-in
+  ocamlpath =
+    "${mkocamlpath ocamlPackages.apron}:${mkocamlpath ocamlPackages.mlgmpidl}";
 
-stdenv.mkDerivation rec {
-  name    = "frama-c-${version}";
+in stdenv.mkDerivation rec {
+  name = "frama-c-${version}";
   version = "18.0";
-  slang   = "Argon";
+  slang = "Argon";
 
   src = fetchurl {
-    url    = "http://frama-c.com/download/frama-c-${version}-${slang}.tar.gz";
+    url = "http://frama-c.com/download/frama-c-${version}-${slang}.tar.gz";
     sha256 = "0a88k2mhafj7pz3dzgsqkrc9digkxpnvr9jqq9nbzwq8qr02bca2";
   };
 
   why2 = fetchurl {
-    url    = "http://why.lri.fr/download/why-2.40.tar.gz";
+    url = "http://why.lri.fr/download/why-2.40.tar.gz";
     sha256 = "0h1mbpxsgwvf3pbl0qbg22j6f4v1ffka24ap1ajbjk9b1yb3ali8";
   };
 
   nativeBuildInputs = [ autoconf makeWrapper ];
 
   buildInputs = with ocamlPackages; [
-    ncurses ocaml findlib ltl2ba ocamlgraph
-    lablgtk coq graphviz zarith why3 apron
+    ncurses
+    ocaml
+    findlib
+    ltl2ba
+    ocamlgraph
+    lablgtk
+    coq
+    graphviz
+    zarith
+    why3
+    apron
   ];
-
 
   # Experimentally, the build segfaults with high core counts
   enableParallelBuilding = false;
@@ -55,7 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Enter frama-c directory before patching
-  prePatch = ''cd frama*'';
+  prePatch = "cd frama*";
   patches = [ ./dynamic.diff ];
   postPatch = ''
     # strip absolute paths to /usr/bin
@@ -83,10 +90,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "An extensible and collaborative platform dedicated to source-code analysis of C software";
-    homepage    = http://frama-c.com/;
-    license     = stdenv.lib.licenses.lgpl21;
+    description =
+      "An extensible and collaborative platform dedicated to source-code analysis of C software";
+    homepage = "http://frama-c.com/";
+    license = stdenv.lib.licenses.lgpl21;
     maintainers = with stdenv.lib.maintainers; [ thoughtpolice amiddelk ];
-    platforms   = stdenv.lib.platforms.unix;
+    platforms = stdenv.lib.platforms.unix;
   };
 }

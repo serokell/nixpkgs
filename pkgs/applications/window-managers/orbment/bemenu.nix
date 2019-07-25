@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
-, pango, wayland, libxkbcommon }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, pango, wayland, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   name = "bemenu-2017-02-14";

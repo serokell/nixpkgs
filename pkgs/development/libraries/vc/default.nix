@@ -21,8 +21,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Library for multiprecision complex arithmetic with exact rounding";
-    homepage = https://github.com/VcDevel/Vc;
+    description =
+      "Library for multiprecision complex arithmetic with exact rounding";
+    homepage = "https://github.com/VcDevel/Vc";
     license = licenses.bsd3;
     platforms = platforms.all;
     maintainers = with maintainers; [ abbradar ];

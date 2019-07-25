@@ -1,17 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, zope_interface
-, incremental
-, automat
-, constantly
-, hyperlink
-, pyhamcrest
-, attrs
-, pyopenssl
-, service-identity
-, idna
+{ stdenv, buildPythonPackage, fetchPypi, python, zope_interface, incremental, automat, constantly, hyperlink, pyhamcrest, attrs, pyopenssl, service-identity, idna
 }:
 buildPythonPackage rec {
   pname = "Twisted";
@@ -23,7 +10,15 @@ buildPythonPackage rec {
     sha256 = "294be2c6bf84ae776df2fc98e7af7d6537e1c5e60a46d33c3ce2a197677da395";
   };
 
-  propagatedBuildInputs = [ zope_interface incremental automat constantly hyperlink pyhamcrest attrs ];
+  propagatedBuildInputs = [
+    zope_interface
+    incremental
+    automat
+    constantly
+    hyperlink
+    pyhamcrest
+    attrs
+  ];
 
   passthru.extras.tls = [ pyopenssl service-identity idna ];
 
@@ -47,8 +42,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://twistedmatrix.com/;
-    description = "Twisted, an event-driven networking engine written in Python";
+    homepage = "https://twistedmatrix.com/";
+    description =
+      "Twisted, an event-driven networking engine written in Python";
     longDescription = ''
       Twisted is an event-driven networking engine written in Python
       and licensed under the MIT license.

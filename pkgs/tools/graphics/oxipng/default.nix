@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   cargoBuildFlags = [ "--features=cloudflare-zlib/arm-always" ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/shssoichiro/oxipng;
+    homepage = "https://github.com/shssoichiro/oxipng";
     description = "A multithreaded lossless PNG compression optimizer";
     license = licenses.mit;
     maintainers = with maintainers; [ dywedir ];

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchgit, fetchurl, git, cmake, pkgconfig
-, openssl, boost, zlib }:
+{ stdenv, fetchFromGitHub, fetchgit, fetchurl, git, cmake, pkgconfig, openssl, boost, zlib
+}:
 
 let
   sqlite3 = fetchurl {
@@ -110,8 +110,8 @@ in stdenv.mkDerivation rec {
     sha256 = "1lm0zzz0hi2sh2f4iqq3scapzdjbxcjgr700fgham9wqgaj2ash5";
   };
 
-  hardeningDisable = ["format"];
-  cmakeFlags = ["-Dstatic=OFF"];
+  hardeningDisable = [ "format" ];
+  cmakeFlags = [ "-Dstatic=OFF" ];
 
   nativeBuildInputs = [ pkgconfig cmake git ];
   buildInputs = [ openssl openssl.dev boost zlib ];
@@ -141,7 +141,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Ripple P2P payment network reference server";
-    homepage = https://ripple.com;
+    homepage = "https://ripple.com";
     maintainers = with maintainers; [ ehmry offline ];
     license = licenses.isc;
     platforms = [ "x86_64-linux" ];

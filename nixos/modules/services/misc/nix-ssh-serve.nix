@@ -1,11 +1,10 @@
 { config, lib, ... }:
 
 with lib;
-let cfg = config.nix.sshServe;
-    command =
-      if cfg.protocol == "ssh"
-        then "nix-store --serve"
-      else "nix-daemon --stdio";
+let
+  cfg = config.nix.sshServe;
+  command =
+    if cfg.protocol == "ssh" then "nix-store --serve" else "nix-daemon --stdio";
 in {
   options = {
 
@@ -14,14 +13,16 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "Whether to enable serving the Nix store as a remote store via SSH.";
+        description =
+          "Whether to enable serving the Nix store as a remote store via SSH.";
       };
 
       keys = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "ssh-dss AAAAB3NzaC1k... alice@example.org" ];
-        description = "A list of SSH public keys allowed to access the binary cache via SSH.";
+        description =
+          "A list of SSH public keys allowed to access the binary cache via SSH.";
       };
 
       protocol = mkOption {

@@ -1,3 +1,1 @@
-{
-  loaOfSub.foo = {};
-}
+{ loaOfSub.foo = { }; }

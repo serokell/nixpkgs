@@ -1,10 +1,11 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.hadoop;
-  hadoopConf = import ./conf.nix { hadoop = cfg; pkgs = pkgs; };
-in
-with lib;
-{
+  hadoopConf = import ./conf.nix {
+    hadoop = cfg;
+    pkgs = pkgs;
+  };
+in with lib; {
   options.services.hadoop.yarn = {
     resourcemanager.enabled = mkOption {
       type = types.bool;
@@ -23,9 +24,7 @@ with lib;
   };
 
   config = mkMerge [
-    (mkIf (
-        cfg.yarn.resourcemanager.enabled || cfg.yarn.nodemanager.enabled
-    ) {
+    (mkIf (cfg.yarn.resourcemanager.enabled || cfg.yarn.nodemanager.enabled) {
 
       users.users.yarn = {
         description = "Hadoop YARN user";
@@ -39,15 +38,13 @@ with lib;
         description = "Hadoop YARN ResourceManager";
         wantedBy = [ "multi-user.target" ];
 
-        environment = {
-          HADOOP_HOME = "${cfg.package}";
-        };
+        environment = { HADOOP_HOME = "${cfg.package}"; };
 
         serviceConfig = {
           User = "yarn";
           SyslogIdentifier = "yarn-resourcemanager";
-          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} " +
-                      " resourcemanager";
+          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} "
+            + " resourcemanager";
         };
       };
     })
@@ -57,15 +54,13 @@ with lib;
         description = "Hadoop YARN NodeManager";
         wantedBy = [ "multi-user.target" ];
 
-        environment = {
-          HADOOP_HOME = "${cfg.package}";
-        };
+        environment = { HADOOP_HOME = "${cfg.package}"; };
 
         serviceConfig = {
           User = "yarn";
           SyslogIdentifier = "yarn-nodemanager";
-          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} " +
-                      " nodemanager";
+          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} "
+            + " nodemanager";
         };
       };
     })

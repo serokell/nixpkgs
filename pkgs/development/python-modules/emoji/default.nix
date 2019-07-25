@@ -11,11 +11,11 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
 
-  checkPhase = ''nosetests'';
+  checkPhase = "nosetests";
 
   meta = with lib; {
     description = "Emoji for Python";
-    homepage = https://pypi.python.org/pypi/emoji/;
+    homepage = "https://pypi.python.org/pypi/emoji/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ joachifm ];
   };

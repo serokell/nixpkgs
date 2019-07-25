@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll
-, geos, pytest, cython
-, numpy
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, geos, pytest, cython, numpy
 }:
 
 buildPythonPackage rec {
@@ -22,14 +20,16 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy ];
 
   # environment variable used in shapely/_buildcfg.py
-  GEOS_LIBRARY_PATH = "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
+  GEOS_LIBRARY_PATH =
+    "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   patches = [
     (substituteAll {
       src = ./library-paths.patch;
       libgeos_c = GEOS_LIBRARY_PATH;
-      libc = "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}"
-               + stdenv.lib.optionalString (!stdenv.isDarwin) ".6";
+      libc =
+        "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}"
+        + stdenv.lib.optionalString (!stdenv.isDarwin) ".6";
     })
   ];
 

@@ -1,7 +1,5 @@
-{ stdenv, appleDerivation, cpio, xnu, Libc, Libm, libdispatch, cctools, Libinfo
-, dyld, Csu, architecture, libclosure, CarbonHeaders, ncurses, CommonCrypto
-, copyfile, removefile, libresolv, Libnotify, libplatform, libpthread
-, mDNSResponder, launchd, libutil, hfs, darling }:
+{ stdenv, appleDerivation, cpio, xnu, Libc, Libm, libdispatch, cctools, Libinfo, dyld, Csu, architecture, libclosure, CarbonHeaders, ncurses, CommonCrypto, copyfile, removefile, libresolv, Libnotify, libplatform, libpthread, mDNSResponder, launchd, libutil, hfs, darling
+}:
 
 appleDerivation rec {
   dontBuild = true;
@@ -150,9 +148,10 @@ appleDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "The Mac OS libc/libSystem (impure symlinks to binaries with pure headers)";
+    description =
+      "The Mac OS libc/libSystem (impure symlinks to binaries with pure headers)";
     maintainers = with maintainers; [ copumpkin gridaphobe ];
-    platforms   = platforms.darwin;
-    license     = licenses.apsl20;
+    platforms = platforms.darwin;
+    license = licenses.apsl20;
   };
 }

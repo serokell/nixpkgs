@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 
@@ -24,7 +22,10 @@ makeTest {
         ];
       };
       networking.firewall.allowedTCPPorts = [ 8010 8011 9989 ];
-      environment.systemPackages = with pkgs; [ git python3Packages.buildbot-full ];
+      environment.systemPackages = with pkgs; [
+        git
+        python3Packages.buildbot-full
+      ];
     };
 
     bbworker = { pkgs, ... }: {
@@ -32,7 +33,10 @@ makeTest {
         enable = true;
         masterUrl = "bbmaster:9989";
       };
-      environment.systemPackages = with pkgs; [ git python3Packages.buildbot-worker ];
+      environment.systemPackages = with pkgs; [
+        git
+        python3Packages.buildbot-worker
+      ];
     };
 
     gitrepo = { pkgs, ... }: {

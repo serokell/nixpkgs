@@ -2,12 +2,18 @@
 
 let
   tools = [
-    "bsondump" "mongodump" "mongoexport" "mongofiles" "mongoimport"
-    "mongoreplay" "mongorestore" "mongostat" "mongotop"
+    "bsondump"
+    "mongodump"
+    "mongoexport"
+    "mongofiles"
+    "mongoimport"
+    "mongoreplay"
+    "mongorestore"
+    "mongostat"
+    "mongotop"
   ];
-in
 
-with stdenv.lib;
+in with stdenv.lib;
 
 buildGoPackage rec {
   name = "mongo-tools-${version}";
@@ -41,7 +47,7 @@ buildGoPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/mongodb/mongo-tools;
+    homepage = "https://github.com/mongodb/mongo-tools";
     description = "Tools for the MongoDB";
     license = licenses.asl20;
   };

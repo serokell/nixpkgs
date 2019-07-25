@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   setupHook = ../generic-setup-hook.sh;
 
   meta = {
-    description = "A collection of bindings to use the GTK+ GUI toolkit version 2.x with Pure";
-    homepage = http://puredocs.bitbucket.org/pure-gtk.html;
+    description =
+      "A collection of bindings to use the GTK+ GUI toolkit version 2.x with Pure";
+    homepage = "http://puredocs.bitbucket.org/pure-gtk.html";
     license = stdenv.lib.licenses.lgpl3Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ asppsa ];

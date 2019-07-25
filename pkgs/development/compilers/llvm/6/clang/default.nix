@@ -1,7 +1,5 @@
-{ stdenv, fetch, cmake, libxml2, llvm, version, clang-tools-extra_src, python
-, fixDarwinDylibNames
-, enableManpages ? false
-}:
+{ stdenv, fetch, cmake, libxml2, llvm, version, clang-tools-extra_src, python, fixDarwinDylibNames, enableManpages ?
+  false }:
 
 let
   gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
@@ -9,7 +7,9 @@ let
     name = "clang-${version}";
 
     unpackPhase = ''
-      unpackFile ${fetch "cfe" "0rxn4rh7rrnsqbdgp4gzc8ishbkryhpl1kd3mpnxzpxxhla3y93w"}
+      unpackFile ${
+        fetch "cfe" "0rxn4rh7rrnsqbdgp4gzc8ishbkryhpl1kd3mpnxzpxxhla3y93w"
+      }
       mv cfe-${version}* clang
       sourceRoot=$PWD/clang
       unpackFile ${clang-tools-extra_src}
@@ -22,15 +22,14 @@ let
     buildInputs = [ libxml2 llvm ]
       ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-    cmakeFlags = [
-      "-DCMAKE_CXX_FLAGS=-std=c++11"
-    ] ++ stdenv.lib.optionals enableManpages [
-      "-DCLANG_INCLUDE_DOCS=ON"
-      "-DLLVM_ENABLE_SPHINX=ON"
-      "-DSPHINX_OUTPUT_MAN=ON"
-      "-DSPHINX_OUTPUT_HTML=OFF"
-      "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ];
+    cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-std=c++11" ]
+      ++ stdenv.lib.optionals enableManpages [
+        "-DCLANG_INCLUDE_DOCS=ON"
+        "-DLLVM_ENABLE_SPHINX=ON"
+        "-DSPHINX_OUTPUT_MAN=ON"
+        "-DSPHINX_OUTPUT_HTML=OFF"
+        "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
+      ];
 
     patches = [ ./purity.patch ];
 
@@ -79,10 +78,11 @@ let
     };
 
     meta = {
-      description = "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
-      homepage    = http://llvm.org/;
-      license     = stdenv.lib.licenses.ncsa;
-      platforms   = stdenv.lib.platforms.all;
+      description =
+        "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
+      homepage = "http://llvm.org/";
+      license = stdenv.lib.licenses.ncsa;
+      platforms = stdenv.lib.platforms.all;
     };
   } // stdenv.lib.optionalAttrs enableManpages {
     name = "clang-manpages-${version}";

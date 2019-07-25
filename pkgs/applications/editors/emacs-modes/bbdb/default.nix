@@ -1,4 +1,4 @@
-{stdenv, fetchurl, emacs, texinfo, ctags}:
+{ stdenv, fetchurl, emacs, texinfo, ctags }:
 
 stdenv.mkDerivation rec {
   name = "bbdb-2.36";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./install-infodir.patch ];
 
-  buildInputs = [emacs texinfo ctags];
+  buildInputs = [ emacs texinfo ctags ];
   configureFlags = [ "--with-package-dir=$$out/share/emacs/site-lisp" ];
   preInstall = "mkdir -p $out/info";
   installTargets = "install-pkg texinfo";
@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://bbdb.sourceforge.net/;
-    description = "The Insidious Big Brother Database (BBDB), a contact management utility for Emacs";
+    homepage = "http://bbdb.sourceforge.net/";
+    description =
+      "The Insidious Big Brother Database (BBDB), a contact management utility for Emacs";
     license = "GPL";
   };
 }

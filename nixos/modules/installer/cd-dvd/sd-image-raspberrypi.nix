@@ -3,12 +3,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  extlinux-conf-builder =
-    import ../../system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.nix {
+  extlinux-conf-builder = import
+    ../../system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.nix {
       pkgs = pkgs.buildPackages;
     };
-in
-{
+in {
   imports = [
     ../../profiles/base.nix
     ../../profiles/installation-device.nix

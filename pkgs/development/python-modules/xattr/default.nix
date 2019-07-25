@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, cffi
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, cffi }:
 
 buildPythonPackage rec {
   pname = "xattr";
@@ -24,7 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/xattr/xattr;
+    homepage = "https://github.com/xattr/xattr";
     description = "Python wrapper for extended filesystem attributes";
     license = licenses.mit;
   };

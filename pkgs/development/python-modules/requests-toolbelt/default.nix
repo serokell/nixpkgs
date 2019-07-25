@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-, betamax
-, mock
-, pytest
-, pyopenssl
+{ lib, buildPythonPackage, fetchPypi, requests, betamax, mock, pytest, pyopenssl
 }:
 
 buildPythonPackage rec {
@@ -28,8 +21,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "A toolbelt of useful classes and functions to be used with python-requests";
-    homepage = http://toolbelt.rtfd.org;
+    description =
+      "A toolbelt of useful classes and functions to be used with python-requests";
+    homepage = "http://toolbelt.rtfd.org";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ matthiasbeyer ];
   };

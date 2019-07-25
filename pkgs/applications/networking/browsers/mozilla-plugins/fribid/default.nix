@@ -16,9 +16,10 @@ stdenv.mkDerivation rec {
     ./translation-xgettext-to-intltool.patch
     ./plugin-linkfix.patch
     ./ipc-lazytrace.patch
-    ];
+  ];
 
-  postPatch = "substituteInPlace plugin/pluginutil.c --replace strndup strndup_";
+  postPatch =
+    "substituteInPlace plugin/pluginutil.c --replace strndup strndup_";
 
   passthru.mozillaPlugin = "/lib/mozilla/plugins";
 
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
       Linux/BSD distributions that the official software doesn't
       support.
     '';
-    homepage = http://fribid.se;
+    homepage = "http://fribid.se";
     license = with licenses; [ gpl2 mpl10 ];
     maintainers = [ maintainers.edwtjo ];
     platforms = platforms.linux;

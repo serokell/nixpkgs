@@ -13,7 +13,9 @@ let
 
   xserverWrapper = pkgs.writeScript "xserver-wrapper" ''
     #!/bin/sh
-    ${concatMapStrings (n: "export ${n}=\"${getAttr n xEnv}\"\n") (attrNames xEnv)}
+    ${concatMapStrings (n: ''
+      export ${n}="${getAttr n xEnv}"
+    '') (attrNames xEnv)}
     exec systemd-cat ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} "$@"
   '';
 
@@ -33,7 +35,7 @@ let
     HaltCommand=${pkgs.systemd}/bin/systemctl poweroff
     RebootCommand=${pkgs.systemd}/bin/systemctl reboot
     ${optionalString cfg.autoNumlock ''
-    Numlock=on
+      Numlock=on
     ''}
 
     [Theme]
@@ -62,23 +64,21 @@ let
     SessionDir=${dmcfg.session.desktops}/share/wayland-sessions
 
     ${optionalString cfg.autoLogin.enable ''
-    [Autologin]
-    User=${cfg.autoLogin.user}
-    Session=${defaultSessionName}.desktop
-    Relogin=${boolToString cfg.autoLogin.relogin}
+      [Autologin]
+      User=${cfg.autoLogin.user}
+      Session=${defaultSessionName}.desktop
+      Relogin=${boolToString cfg.autoLogin.relogin}
     ''}
 
     ${cfg.extraConfig}
   '';
 
-  defaultSessionName =
-    let
-      dm = xcfg.desktopManager.default;
-      wm = xcfg.windowManager.default;
+  defaultSessionName = let
+    dm = xcfg.desktopManager.default;
+    wm = xcfg.windowManager.default;
     in dm + optionalString (wm != "none") ("+" + wm);
 
-in
-{
+in {
   options = {
 
     services.xserver.displayManager.sddm = {
@@ -153,7 +153,7 @@ in
       };
 
       autoLogin = mkOption {
-        default = {};
+        default = { };
         description = ''
           Configuration for automatic login.
         '';
@@ -195,17 +195,21 @@ in
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = xcfg.enable;
+      {
+        assertion = xcfg.enable;
         message = ''
           SDDM requires services.xserver.enable to be true
         '';
       }
-      { assertion = cfg.autoLogin.enable -> cfg.autoLogin.user != null;
+      {
+        assertion = cfg.autoLogin.enable -> cfg.autoLogin.user != null;
         message = ''
           SDDM auto-login requires services.xserver.displayManager.sddm.autoLogin.user to be set
         '';
       }
-      { assertion = cfg.autoLogin.enable -> elem defaultSessionName dmcfg.session.names;
+      {
+        assertion = cfg.autoLogin.enable
+          -> elem defaultSessionName dmcfg.session.names;
         message = ''
           SDDM auto-login requires that services.xserver.desktopManager.default and
           services.xserver.windowManager.default are set to valid values. The current
@@ -217,8 +221,10 @@ in
     services.xserver.displayManager.job = {
       environment = {
         # Load themes from system environment
-        QT_PLUGIN_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
-        QML2_IMPORT_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
+        QT_PLUGIN_PATH = "/run/current-system/sw/"
+          + pkgs.qt5.qtbase.qtPluginPrefix;
+        QML2_IMPORT_PATH = "/run/current-system/sw/"
+          + pkgs.qt5.qtbase.qtQmlPrefix;
 
         XDG_DATA_DIRS = "/run/current-system/sw/share";
       };
@@ -269,9 +275,7 @@ in
     };
 
     environment.etc."sddm.conf".source = cfgFile;
-    environment.pathsToLink = [
-      "/share/sddm"
-    ];
+    environment.pathsToLink = [ "/share/sddm" ];
 
     users.groups.sddm.gid = config.ids.gids.sddm;
 

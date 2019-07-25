@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   name = "org2blog-0.8.1";
 
   src = fetchgit {
-    url = https://github.com/punchagan/org2blog.git;
+    url = "https://github.com/punchagan/org2blog.git";
     rev = "5f573ff3e4007c16517a5fe28c4f5d8dde3f8a77";
     sha256 = "e83c08ceece92bb507be70046db4a7fa87a4af34ad3f84a727e0bd6a1dd99a33";
   };
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Publish directly from Emacs’ org-mode to WordPress blogs";
-    homepage = https://github.com/punchagan/org2blog;
+    homepage = "https://github.com/punchagan/org2blog";
     license = stdenv.lib.licenses.gpl3Plus;
 
     platforms = stdenv.lib.platforms.all;

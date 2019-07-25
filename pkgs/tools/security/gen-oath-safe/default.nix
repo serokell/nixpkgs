@@ -1,4 +1,5 @@
-{ coreutils, fetchFromGitHub, libcaca, makeWrapper, python, openssl, qrencode, stdenv, yubikey-manager }:
+{ coreutils, fetchFromGitHub, libcaca, makeWrapper, python, openssl, qrencode, stdenv, yubikey-manager
+}:
 
 stdenv.mkDerivation rec {
   name = "gen-oath-safe-${version}";
@@ -14,27 +15,25 @@ stdenv.mkDerivation rec {
 
   buildPhase = ":";
 
-  installPhase =
-    let
-      path = stdenv.lib.makeBinPath [
-        coreutils
-        libcaca.bin
-        openssl.bin
-        python
-        qrencode
-        yubikey-manager
-      ];
-    in
-    ''
+  installPhase = let
+    path = stdenv.lib.makeBinPath [
+      coreutils
+      libcaca.bin
+      openssl.bin
+      python
+      qrencode
+      yubikey-manager
+    ];
+    in ''
       mkdir -p $out/bin
       cp gen-oath-safe $out/bin/
       wrapProgram $out/bin/gen-oath-safe \
         --prefix PATH : ${path}
     '';
   meta = with stdenv.lib; {
-    homepage = https://github.com/mcepl/gen-oath-safe;
+    homepage = "https://github.com/mcepl/gen-oath-safe";
     description = "Script for generating HOTP/TOTP keys (and QR code)";
-    platforms =  platforms.unix;
+    platforms = platforms.unix;
     license = licenses.mit;
     maintainers = [ maintainers.makefu ];
   };

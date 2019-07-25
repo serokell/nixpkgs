@@ -33,14 +33,18 @@ buildGoModule rec {
     export GOTOOLDIR=$out/bin
   '';
 
-  excludedPackages = "\\("
-    + stdenv.lib.concatStringsSep "\\|" ([ "testdata" ] ++ stdenv.lib.optionals (stdenv.lib.versionAtLeast go.meta.branch "1.5") [ "vet" "cover" ])
-    + "\\)";
+  excludedPackages = "\\(" + stdenv.lib.concatStringsSep "\\|" ([ "testdata" ]
+    ++ stdenv.lib.optionals (stdenv.lib.versionAtLeast go.meta.branch "1.5") [
+      "vet"
+      "cover"
+    ]) + "\\)";
 
   # Set GOTOOLDIR for derivations adding this to buildInputs
   postInstall = ''
     mkdir -p $out/nix-support
-    substituteAll ${../../go-modules/tools/setup-hook.sh} $out/nix-support/setup-hook.tmp
+    substituteAll ${
+      ../../go-modules/tools/setup-hook.sh
+    } $out/nix-support/setup-hook.tmp
     cat $out/nix-support/setup-hook.tmp >> $out/nix-support/setup-hook
     rm $out/nix-support/setup-hook.tmp
   '';

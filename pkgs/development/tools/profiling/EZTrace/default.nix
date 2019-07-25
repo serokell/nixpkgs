@@ -1,7 +1,4 @@
-{ stdenv
-, fetchurl, autoconf, gfortran
-, libelf, libiberty, zlib, libbfd, libopcodes
-, buildPackages
+{ stdenv, fetchurl, autoconf, gfortran, libelf, libiberty, zlib, libbfd, libopcodes, buildPackages
 }:
 
 stdenv.mkDerivation rec {
@@ -9,7 +6,8 @@ stdenv.mkDerivation rec {
   name = "EZTrace-${version}";
 
   src = fetchurl {
-    url = "https://gforge.inria.fr/frs/download.php/file/37155/eztrace-${version}.tar.gz";
+    url =
+      "https://gforge.inria.fr/frs/download.php/file/37155/eztrace-${version}.tar.gz";
     sha256 = "0cr2d4fdv4ljvag55dsz3rpha1jan2gc3jhr06ycyk43450pl58p";
   };
 
@@ -24,7 +22,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libelf libiberty zlib libbfd libopcodes ];
 
   meta = {
-    description = "Tool that aims at generating automatically execution trace from HPC programs";
+    description =
+      "Tool that aims at generating automatically execution trace from HPC programs";
     license = stdenv.lib.licenses.cecill-b;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];
   };

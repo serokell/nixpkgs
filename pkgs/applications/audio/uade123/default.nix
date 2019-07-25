@@ -1,7 +1,6 @@
 { stdenv, fetchurl, which, libao, pkgconfig }:
 
-let
-  version = "2.13";
+let version = "2.13";
 in stdenv.mkDerivation rec {
   name = "uade123-${version}";
   src = fetchurl {
@@ -15,8 +14,9 @@ in stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with stdenv.lib; {
-    description = "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API";
-    homepage = http://zakalwe.fi/uade/;
+    description =
+      "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API";
+    homepage = "http://zakalwe.fi/uade/";
     license = licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.gnidorah ];
     platforms = stdenv.lib.platforms.unix;

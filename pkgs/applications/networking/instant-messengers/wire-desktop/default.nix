@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, dpkg, makeDesktopItem, libuuid, gtk3, atk, cairo, pango
-, gdk_pixbuf, glib, freetype, fontconfig, dbus, libnotify, libX11, xorg, libXi
-, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes
-, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev
-, xdg_utils, hunspell, pulseaudio, pciutils, at-spi2-atk
+{ stdenv, fetchurl, dpkg, makeDesktopItem, libuuid, gtk3, atk, cairo, pango, gdk_pixbuf, glib, freetype, fontconfig, dbus, libnotify, libX11, xorg, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev, xdg_utils, hunspell, pulseaudio, pciutils, at-spi2-atk
 }:
 
 let
@@ -45,14 +41,13 @@ let
     xorg.libxcb
   ];
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "wire-desktop";
   version = "3.9.2895";
 
   src = fetchurl {
-    url = "https://wire-app.wire.com/linux/debian/pool/main/Wire-${version}_amd64.deb";
+    url =
+      "https://wire-app.wire.com/linux/debian/pool/main/Wire-${version}_amd64.deb";
     sha256 = "0wrn95m64j4b7ym44h9zawq13kg4m12aixlyyzp56bfyczmjq4a5";
   };
 
@@ -95,7 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A modern, secure messenger";
-    homepage = https://wire.com/;
+    homepage = "https://wire.com/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ worldofpeace ];
     platforms = [ "x86_64-linux" ];

@@ -1,29 +1,25 @@
-{ stdenv, darwin, fetchurl, makeWrapper, pkgconfig
-, harfbuzz, icu
-, fontconfig, lua, libiconv
-, makeFontsConf, gentium, gentium-book-basic, dejavu_fonts
+{ stdenv, darwin, fetchurl, makeWrapper, pkgconfig, harfbuzz, icu, fontconfig, lua, libiconv, makeFontsConf, gentium, gentium-book-basic, dejavu_fonts
 }:
 
 with stdenv.lib;
 
 let
-  luaEnv = lua.withPackages(ps: with ps;[ lpeg luaexpat lua-zlib luafilesystem luasocket luasec]);
+  luaEnv = lua.withPackages
+    (ps: with ps; [ lpeg luaexpat lua-zlib luafilesystem luasocket luasec ]);
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "sile-${version}";
   version = "0.9.5.1";
 
   src = fetchurl {
-    url = "https://github.com/simoncozens/sile/releases/download/v${version}/${name}.tar.bz2";
+    url =
+      "https://github.com/simoncozens/sile/releases/download/v${version}/${name}.tar.bz2";
     sha256 = "0fh0jbpsyqyq0hzq4midn7yw2z11hqdgqb9mmgz766cp152wrkb0";
   };
 
-  nativeBuildInputs = [pkgconfig makeWrapper];
+  nativeBuildInputs = [ pkgconfig makeWrapper ];
   buildInputs = [ harfbuzz icu fontconfig libiconv luaEnv ]
-  ++ optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit
-  ;
+    ++ optional stdenv.isDarwin darwin.apple_sdk.frameworks.AppKit;
 
   preConfigure = optionalString stdenv.isDarwin ''
     sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
@@ -32,16 +28,12 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = optionalString stdenv.isDarwin "-framework AppKit";
 
   FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [
-      gentium
-      gentium-book-basic
-      dejavu_fonts
-    ];
+    fontDirectories = [ gentium gentium-book-basic dejavu_fonts ];
   };
 
   doCheck = stdenv.targetPlatform == stdenv.hostPlatform
-  && ! stdenv.isAarch64 # random seg. faults
-  && ! stdenv.isDarwin; # dy lib not found
+    && !stdenv.isAarch64 # random seg. faults
+    && !stdenv.isDarwin; # dy lib not found
 
   enableParallelBuilding = true;
 
@@ -70,7 +62,7 @@ stdenv.mkDerivation rec {
       technologies and borrowing some ideas from graphical systems
       such as InDesign.
     '';
-    homepage = http://www.sile-typesetter.org;
+    homepage = "http://www.sile-typesetter.org";
     platforms = platforms.unix;
     license = licenses.mit;
   };

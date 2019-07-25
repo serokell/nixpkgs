@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, ruamel_yaml
-, python-dateutil
-}:
+{ buildPythonPackage, lib, fetchPypi, ruamel_yaml, python-dateutil }:
 
 buildPythonPackage rec {
   version = "1.0.1";
@@ -22,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Strict, typed YAML parser";
-    homepage = https://hitchdev.com/strictyaml/;
+    homepage = "https://hitchdev.com/strictyaml/";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

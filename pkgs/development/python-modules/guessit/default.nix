@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestrunner
-, dateutil
-, babelfish
-, rebulk
+{ lib, buildPythonPackage, fetchPypi, pytestrunner, dateutil, babelfish, rebulk
 }:
 
 buildPythonPackage rec {
@@ -19,12 +13,10 @@ buildPythonPackage rec {
   # Tests require more packages.
   doCheck = false;
   buildInputs = [ pytestrunner ];
-  propagatedBuildInputs = [
-    dateutil babelfish rebulk
-  ];
+  propagatedBuildInputs = [ dateutil babelfish rebulk ];
 
   meta = {
-    homepage = https://pypi.python.org/pypi/guessit;
+    homepage = "https://pypi.python.org/pypi/guessit";
     license = lib.licenses.lgpl3;
     description = "A library for guessing information from video files";
   };

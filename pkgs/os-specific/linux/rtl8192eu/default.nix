@@ -2,7 +2,9 @@
 
 with lib;
 
-let modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtl8192eu";
+let
+  modDestDir =
+    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtl8192eu";
 
 in stdenv.mkDerivation rec {
   name = "rtl8192eu-${kernel.version}-${version}";
@@ -31,7 +33,7 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "Realtek rtl8192eu driver";
-    homepage = https://github.com/Mange/rtl8192eu-linux-driver;
+    homepage = "https://github.com/Mange/rtl8192eu-linux-driver";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with maintainers; [ troydm ];

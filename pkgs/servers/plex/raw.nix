@@ -1,7 +1,4 @@
-{ stdenv
-, fetchurl
-, rpmextract
-}:
+{ stdenv, fetchurl, rpmextract }:
 
 # The raw package that fetches and extracts the Plex RPM. Override the source
 # and version of this derivation if you want to use a Plex Pass version of the
@@ -14,7 +11,8 @@ stdenv.mkDerivation rec {
 
   # Fetch the source
   src = fetchurl {
-    url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
+    url =
+      "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
     sha256 = "0h3qw563fa296crbcnarykk3lq7qp1v4znzzylbmy87li1rd77a9";
   };
 
@@ -51,7 +49,7 @@ stdenv.mkDerivation rec {
   dontAutoPatchelf = true;
 
   meta = with stdenv.lib; {
-    homepage = https://plex.tv/;
+    homepage = "https://plex.tv/";
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [

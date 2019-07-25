@@ -3,10 +3,10 @@
 with lib;
 
 let
-  dataDir  = "/var/lib/pdns-recursor";
+  dataDir = "/var/lib/pdns-recursor";
   username = "pdns-recursor";
 
-  cfg   = config.services.pdns-recursor;
+  cfg = config.services.pdns-recursor;
   zones = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
 
   configFile = pkgs.writeText "recursor.conf" ''
@@ -83,21 +83,27 @@ in {
       type = types.bool;
       default = false;
       description = ''
-       Whether to export names and IP addresses defined in /etc/hosts.
+        Whether to export names and IP addresses defined in /etc/hosts.
       '';
     };
 
     forwardZones = mkOption {
       type = types.attrs;
       example = { eth = "127.0.0.1:5353"; };
-      default = {};
+      default = { };
       description = ''
         DNS zones to be forwarded to other servers.
       '';
     };
 
     dnssecValidation = mkOption {
-      type = types.enum ["off" "process-no-validate" "process" "log-fail" "validate"];
+      type = types.enum [
+        "off"
+        "process-no-validate"
+        "process"
+        "log-fail"
+        "validate"
+      ];
       default = "validate";
       description = ''
         Controls the level of DNSSEC processing done by the PowerDNS Recursor.
@@ -139,20 +145,21 @@ in {
       unitConfig.Documentation = "man:pdns_recursor(1) man:rec_control(1)";
       description = "PowerDNS recursive server";
       wantedBy = [ "multi-user.target" ];
-      after    = [ "network.target" ];
+      after = [ "network.target" ];
 
       serviceConfig = {
         User = username;
-        Restart    ="on-failure";
+        Restart = "on-failure";
         RestartSec = "5";
         PrivateTmp = true;
         PrivateDevices = true;
         AmbientCapabilities = "cap_net_bind_service";
-        ExecStart = ''${pkgs.pdns-recursor}/bin/pdns_recursor \
-          --config-dir=${dataDir} \
-          --socket-dir=${dataDir} \
-          --disable-syslog
-        '';
+        ExecStart = ''
+          ${pkgs.pdns-recursor}/bin/pdns_recursor \
+                    --config-dir=${dataDir} \
+                    --socket-dir=${dataDir} \
+                    --disable-syslog
+                  '';
       };
 
       preStart = ''

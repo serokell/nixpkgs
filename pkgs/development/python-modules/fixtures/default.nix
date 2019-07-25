@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pbr
-, testtools
-, mock
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, testtools, mock, python }:
 
 buildPythonPackage rec {
   pname = "fixtures";

@@ -1,4 +1,5 @@
-{ stdenv, requireFile, zlib, libpng, libSM, libICE, fontconfig, xorg, libGLU, libGL, alsaLib, dbus, xkeyboardconfig, bc }:
+{ stdenv, requireFile, zlib, libpng, libSM, libICE, fontconfig, xorg, libGLU, libGL, alsaLib, dbus, xkeyboardconfig, bc
+}:
 
 let
   ld_library_path = builtins.concatStringsSep ":" [
@@ -27,8 +28,7 @@ let
     ])
   ];
   license_dir = "~/.config/houdini";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "17.0.352";
   name = "houdini-runtime-${version}";
   src = requireFile rec {
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     description = "3D animation application software";
-    homepage = https://sidefx.com;
+    homepage = "https://sidefx.com";
     license = stdenv.lib.licenses.unfree;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.canndrew ];

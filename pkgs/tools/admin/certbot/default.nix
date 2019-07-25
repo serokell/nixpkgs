@@ -40,11 +40,13 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  doCheck = !stdenv.isDarwin; # On Hydra Darwin tests fail with "Too many open files".
+  doCheck =
+    !stdenv.isDarwin; # On Hydra Darwin tests fail with "Too many open files".
 
   meta = with stdenv.lib; {
     homepage = src.meta.homepage;
-    description = "ACME client that can obtain certs and extensibly update server configurations";
+    description =
+      "ACME client that can obtain certs and extensibly update server configurations";
     platforms = platforms.unix;
     maintainers = [ maintainers.domenkozar ];
     license = licenses.asl20;

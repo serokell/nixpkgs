@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytest
-, numpy
-, nbconvert
-, pandas
-, mock
-, jinja2
-, branca
-, requests
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytest, numpy, nbconvert, pandas, mock, jinja2, branca, requests
 }:
 
 buildPythonPackage rec {
@@ -35,7 +24,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Make beautiful maps with Leaflet.js & Python";
-    homepage = https://github.com/python-visualization/folium;
+    homepage = "https://github.com/python-visualization/folium";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ fridh ];
   };

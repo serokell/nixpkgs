@@ -1,17 +1,4 @@
-{ stdenv,
-  fetchFromGitHub,
-  desktop-file-utils,
-  fluxbox,
-  numlockx,
-  qmake,
-  qtbase,
-  qtmultimedia,
-  qtsvg,
-  qttools,
-  qtx11extras,
-  xorg,
-  xscreensaver,
-  wrapGAppsHook
+{ stdenv, fetchFromGitHub, desktop-file-utils, fluxbox, numlockx, qmake, qtbase, qtmultimedia, qtsvg, qttools, qtx11extras, xorg, xscreensaver, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -25,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0rj2gzifr98db7i82cg3hg7l5yfik810pjpawg6n54qbzq987z25";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ qmake qttools wrapGAppsHook ];
 
   buildInputs = [
     xorg.libxcb
@@ -47,10 +30,8 @@ stdenv.mkDerivation rec {
     numlockx
   ];
 
-  patches = [
-    ./avoid-absolute-path-on-sessdir.patch
-    ./LuminaOS-NixOS.cpp.patch
-  ];
+  patches =
+    [ ./avoid-absolute-path-on-sessdir.patch ./LuminaOS-NixOS.cpp.patch ];
 
   prePatch = ''
     # Copy Gentoo setup as NixOS setup and then patch it
@@ -81,7 +62,7 @@ stdenv.mkDerivation rec {
       that is designed for use on any Unix-like operating system. It
       is based on QT5.
     '';
-    homepage = https://lumina-desktop.org;
+    homepage = "https://lumina-desktop.org";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

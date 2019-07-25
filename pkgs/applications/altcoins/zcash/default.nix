@@ -1,10 +1,8 @@
-{ stdenv, libsodium, fetchFromGitHub, wget, pkgconfig, autoreconfHook, openssl, db62, boost
-, zlib, gtest, gmock, callPackage, gmp, qt4, utillinux, protobuf, qrencode, libevent
-, withGui }:
+{ stdenv, libsodium, fetchFromGitHub, wget, pkgconfig, autoreconfHook, openssl, db62, boost, zlib, gtest, gmock, callPackage, gmp, qt4, utillinux, protobuf, qrencode, libevent, withGui
+}:
 
-let librustzcash = callPackage ./librustzcash {};
-in
-with stdenv.lib;
+let librustzcash = callPackage ./librustzcash { };
+in with stdenv.lib;
 stdenv.mkDerivation rec {
 
   name = "zcash" + (toString (optional (!withGui) "d")) + "-" + version;
@@ -12,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "zcash";
-    repo  = "zcash";
+    repo = "zcash";
     rev = "v${version}";
     sha256 = "05y7wxs66anxr5akbf05r36mmjfzqpwawn6vyh3jhpva51hzzzyz";
   };
@@ -22,13 +20,24 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ gtest gmock gmp openssl wget db62 boost zlib
-                  protobuf libevent libsodium librustzcash ]
-                  ++ optionals stdenv.isLinux [ utillinux ]
-                  ++ optionals withGui [ qt4 qrencode ];
+  buildInputs = [
+    gtest
+    gmock
+    gmp
+    openssl
+    wget
+    db62
+    boost
+    zlib
+    protobuf
+    libevent
+    libsodium
+    librustzcash
+  ] ++ optionals stdenv.isLinux [ utillinux ]
+    ++ optionals withGui [ qt4 qrencode ];
 
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib"
-                   ] ++ optionals withGui [ "--with-gui=qt4" ];
+  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
+    ++ optionals withGui [ "--with-gui=qt4" ];
 
   patchPhase = ''
     sed -i"" 's,-lboost_system-mt,-lboost_system,' configure.ac
@@ -41,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Peer-to-peer, anonymous electronic cash system";
-    homepage = https://z.cash/;
+    homepage = "https://z.cash/";
     maintainers = with maintainers; [ rht ];
     license = licenses.mit;
     platforms = platforms.linux;

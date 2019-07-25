@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-, pillow
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs, pillow }:
 
 buildPythonPackage rec {
   pname = "pyopengl";
@@ -16,16 +11,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pkgs.libGLU_combined pkgs.freeglut pillow ];
 
-  patchPhase = let
-    ext = stdenv.hostPlatform.extensions.sharedLibrary; in ''
-    substituteInPlace OpenGL/platform/glx.py \
-      --replace "'GL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
-      --replace "'GLU'" "'${pkgs.libGLU}/lib/libGLU${ext}'" \
-      --replace "'glut'" "'${pkgs.freeglut}/lib/libglut${ext}'"
-    substituteInPlace OpenGL/platform/darwin.py \
-      --replace "'OpenGL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
-      --replace "'GLUT'" "'${pkgs.freeglut}/lib/libglut${ext}'"
-  '';
+  patchPhase = let ext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
+      substituteInPlace OpenGL/platform/glx.py \
+        --replace "'GL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
+        --replace "'GLU'" "'${pkgs.libGLU}/lib/libGLU${ext}'" \
+        --replace "'glut'" "'${pkgs.freeglut}/lib/libglut${ext}'"
+      substituteInPlace OpenGL/platform/darwin.py \
+        --replace "'OpenGL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
+        --replace "'GLUT'" "'${pkgs.freeglut}/lib/libglut${ext}'"
+    '';
 
   # Need to fix test runner
   # Tests have many dependencies
@@ -34,7 +29,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://pyopengl.sourceforge.net/;
+    homepage = "http://pyopengl.sourceforge.net/";
     description = "PyOpenGL, the Python OpenGL bindings";
     longDescription = ''
       PyOpenGL is the cross platform Python binding to OpenGL and
@@ -45,6 +40,5 @@ buildPythonPackage rec {
     license = "BSD-style";
     platforms = platforms.mesaPlatforms;
   };
-
 
 }

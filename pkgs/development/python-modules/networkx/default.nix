@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, decorator
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, decorator }:
 
 buildPythonPackage rec {
   pname = "networkx";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://networkx.github.io/";
-    description = "Library for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks";
+    description =
+      "Library for the creation, manipulation, and study of the structure, dynamics, and functions of complex networks";
     license = lib.licenses.bsd3;
   };
 }

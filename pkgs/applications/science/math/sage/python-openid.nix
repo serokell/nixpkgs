@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, django
-, nose
-, twill
-, pycrypto
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, django, nose, twill, pycrypto
 }:
 
 buildPythonPackage rec {
@@ -19,9 +12,7 @@ buildPythonPackage rec {
     sha256 = "1vvhxlghjan01snfdc4k7ykd80vkyjgizwgg9bncnin8rqz1ricj";
   };
 
-  propagatedBuildInputs = [
-    pycrypto
-  ];
+  propagatedBuildInputs = [ pycrypto ];
 
   # Cannot access the djopenid example module.
   # I don't know how to fix that (adding the examples dir to PYTHONPATH doesn't work)
@@ -35,6 +26,6 @@ buildPythonPackage rec {
     description = "OpenID library for Python";
     license = licenses.asl20;
     maintainers = with maintainers; [ timokau ];
-    homepage = https://github.com/openid/python-openid/;
+    homepage = "https://github.com/openid/python-openid/";
   };
 }

@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "du + rust = dust. Like du but more intuitive";
-    homepage = https://github.com/bootandy/dust;
+    homepage = "https://github.com/bootandy/dust";
     license = licenses.asl20;
     maintainers = [ maintainers.infinisil ];
     platforms = platforms.all;

@@ -1,7 +1,4 @@
-{ lib
-, python2
-, fetchFromGitHub
-}:
+{ lib, python2, fetchFromGitHub }:
 
 let
   python = python2.override {
@@ -17,7 +14,7 @@ let
     };
   };
 
-# buildPythonPackage is necessary for syncserver to work with gunicorn or paster scripts
+  # buildPythonPackage is necessary for syncserver to work with gunicorn or paster scripts
 in python.pkgs.buildPythonPackage rec {
   pname = "syncserver";
   version = "1.8.0";
@@ -33,13 +30,21 @@ in python.pkgs.buildPythonPackage rec {
   doCheck = false;
 
   propagatedBuildInputs = with python.pkgs; [
-    cornice gunicorn pyramid requests simplejson sqlalchemy mozsvc tokenserver
-    serversyncstorage configparser
+    cornice
+    gunicorn
+    pyramid
+    requests
+    simplejson
+    sqlalchemy
+    mozsvc
+    tokenserver
+    serversyncstorage
+    configparser
   ];
 
   meta = with lib; {
     description = "Run-Your-Own Firefox Sync Server";
-    homepage = https://github.com/mozilla-services/syncserver;
+    homepage = "https://github.com/mozilla-services/syncserver";
     platforms = platforms.unix;
     license = licenses.mpl20;
     maintainers = with maintainers; [ nadrieril ];

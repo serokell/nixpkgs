@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, grpcio
-}:
+{ stdenv, buildPythonPackage, fetchPypi, grpcio }:
 
 buildPythonPackage rec {
   pname = "grpcio-gcp";
@@ -17,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "gRPC extensions for Google Cloud Platform";
-    homepage = https://grpc.io;
+    homepage = "https://grpc.io";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

@@ -12,11 +12,13 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "1wvqxj2w02d6zhyw3z5v0w4bfmbmldh63ygmvfxa3ngfb36gcacz";
-  buildInputs = stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  buildInputs =
+    stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   meta = with stdenv.lib; {
-    description = "A utility and Cargo subcommand designed to let people expand macros in their Rust source code";
-    homepage = https://github.com/dtolnay/cargo-expand;
+    description =
+      "A utility and Cargo subcommand designed to let people expand macros in their Rust source code";
+    homepage = "https://github.com/dtolnay/cargo-expand";
     license = with licenses; [ mit asl20 ];
     platforms = platforms.all;
     maintainers = with maintainers; [ xrelkd ];

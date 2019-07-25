@@ -3,9 +3,7 @@ let
   cfg = config.services.fourStoreEndpoint;
   endpointUser = "fourstorehttp";
   run = "${pkgs.su}/bin/su -s ${pkgs.runtimeShell} ${endpointUser} -c";
-in
-with lib;
-{
+in with lib; {
 
   ###### interface
 
@@ -20,7 +18,8 @@ with lib;
 
       database = mkOption {
         default = config.services.fourStore.database;
-        description = "RDF database name to expose via the endpoint. Defaults to local 4Store database name.";
+        description =
+          "RDF database name to expose via the endpoint. Defaults to local 4Store database name.";
       };
 
       listenAddress = mkOption {
@@ -42,21 +41,20 @@ with lib;
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = singleton
-      { assertion = cfg.enable -> cfg.database != "";
-        message = "Must specify 4Store database name";
-      };
+    assertions = singleton {
+      assertion = cfg.enable -> cfg.database != "";
+      message = "Must specify 4Store database name";
+    };
 
-    users.users = singleton
-      { name = endpointUser;
-        uid = config.ids.uids.fourstorehttp;
-        description = "4Store SPARQL endpoint user";
-      };
+    users.users = singleton {
+      name = endpointUser;
+      uid = config.ids.uids.fourstorehttp;
+      description = "4Store SPARQL endpoint user";
+    };
 
     services.avahi.enable = true;
 
@@ -65,7 +63,9 @@ with lib;
       wantedBy = [ "multi-user.target" ];
 
       script = ''
-        ${run} '${pkgs.rdf4store}/bin/4s-httpd -D ${cfg.options} ${if cfg.listenAddress!=null then "-H ${cfg.listenAddress}" else "" } -p ${toString cfg.port} ${cfg.database}'
+        ${run} '${pkgs.rdf4store}/bin/4s-httpd -D ${cfg.options} ${
+          if cfg.listenAddress != null then "-H ${cfg.listenAddress}" else ""
+        } -p ${toString cfg.port} ${cfg.database}'
       '';
     };
 

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, gnome3
-, gtk3, glib, gobject-introspection, libarchive
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, glib, gobject-introspection, libarchive
 }:
 
 stdenv.mkDerivation rec {
@@ -7,12 +6,17 @@ stdenv.mkDerivation rec {
   version = "0.2.3";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-autoar/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-autoar/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "02i4zgqqqj56h7bcys6dz7n78m4nj2x4dv1ggjmnrk98n06xpsax";
   };
 
   passthru = {
-    updateScript = gnome3.updateScript { packageName = "gnome-autoar"; attrPath = "gnome3.gnome-autoar"; };
+    updateScript = gnome3.updateScript {
+      packageName = "gnome-autoar";
+      attrPath = "gnome3.gnome-autoar";
+    };
   };
 
   nativeBuildInputs = [ pkgconfig ];

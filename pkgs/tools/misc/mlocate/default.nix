@@ -1,7 +1,8 @@
 { stdenv, fetchurl, config }:
 
 let
-  dbfile = stdenv.lib.attrByPath [ "locate" "dbfile" ] "/var/cache/locatedb" config;
+  dbfile =
+    stdenv.lib.attrByPath [ "locate" "dbfile" ] "/var/cache/locatedb" config;
 in stdenv.mkDerivation rec {
   name = "mlocate-${version}";
   version = "0.26";
@@ -15,8 +16,9 @@ in stdenv.mkDerivation rec {
   makeFlags = [ "dbfile=${dbfile}" ];
 
   meta = with stdenv.lib; {
-    description = "Merging locate is an utility to index and quickly search for files";
-    homepage = https://pagure.io/mlocate;
+    description =
+      "Merging locate is an utility to index and quickly search for files";
+    homepage = "https://pagure.io/mlocate";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

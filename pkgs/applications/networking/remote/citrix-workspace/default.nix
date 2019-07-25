@@ -1,31 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, requireFile
-, makeWrapper
-, libredirect
-, busybox
-, file
-, makeDesktopItem
-, tzdata
-, cacert
-, glib
-, gtk2
-, atk
-, gdk_pixbuf
-, cairo
-, pango
-, gnome3
-, xorg
-, libpng12
-, freetype
-, fontconfig
-, gtk_engines
-, alsaLib
-, libidn
-, zlib
-, version ? "19.3.0"
-}:
+{ stdenv, lib, fetchurl, requireFile, makeWrapper, libredirect, busybox, file, makeDesktopItem, tzdata, cacert, glib, gtk2, atk, gdk_pixbuf, cairo, pango, gnome3, xorg, libpng12, freetype, fontconfig, gtk_engines, alsaLib, libidn, zlib, version ?
+  "19.3.0" }:
 
 let
   # In 56e1bdc7f9c (libidn: 1.34 -> 1.35), libidn.so.11 became libidn.so.12.
@@ -41,43 +15,47 @@ let
   versionInfo = let
     supportedVersions = {
       "19.3.0" = {
-        major     = "19";
-        minor     = "3";
-        patch     = "0";
-        x64hash   = "0mhpp29ca3dw9hx72i0qawdq35wcc7qzgxwzlx4aicwnm1gbil5c";
-        x86hash   = "1hxgj5lk5ghbpssbqjd404qr84gls967vwrh8ww5hg3pn86kyf8w";
+        major = "19";
+        minor = "3";
+        patch = "0";
+        x64hash = "0mhpp29ca3dw9hx72i0qawdq35wcc7qzgxwzlx4aicwnm1gbil5c";
+        x86hash = "1hxgj5lk5ghbpssbqjd404qr84gls967vwrh8ww5hg3pn86kyf8w";
         x64suffix = "5";
         x86suffix = "5";
-        homepage  = https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html;
+        homepage =
+          "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html";
       };
     };
 
     # Copied this file largely from the citrix-receiver package
     # Leaving this here even though there are no deprecations yet
     # for ease of future maintenance
-    deprecatedVersions = let
-      versions = [ ];
-    in
-      lib.listToAttrs
-        (lib.flip map versions
-          (v: lib.nameValuePair v (throw "Unsupported citrix_workspace version: ${v}")));
-  in
-    deprecatedVersions // supportedVersions;
+    deprecatedVersions = let versions = [ ];
+      in lib.listToAttrs (lib.flip map versions (v:
+      lib.nameValuePair v
+      (throw "Unsupported citrix_workspace version: ${v}")));
+    in deprecatedVersions // supportedVersions;
 
-  citrixWorkspaceForVersion = { major, minor, patch, x64hash, x86hash, x64suffix, x86suffix, homepage }:
+  citrixWorkspaceForVersion =
+    { major, minor, patch, x64hash, x86hash, x64suffix, x86suffix, homepage }:
     stdenv.mkDerivation rec {
-      name     = "citrix-workspace-${version}";
-      version  = "${major}.${minor}.${patch}";
+      name = "citrix-workspace-${version}";
+      version = "${major}.${minor}.${patch}";
       inherit homepage;
 
       prefixWithBitness = if stdenv.is64bit then "linuxx64" else "linuxx86";
 
       src = requireFile rec {
-        name    = if stdenv.is64bit then "${prefixWithBitness}-${version}.${x64suffix}.tar.gz" else "${prefixWithBitness}-${version}.${x86suffix}.tar.gz";
-        sha256  = if stdenv.is64bit then x64hash else x86hash;
+        name = if stdenv.is64bit then
+          "${prefixWithBitness}-${version}.${x64suffix}.tar.gz"
+        else
+          "${prefixWithBitness}-${version}.${x86suffix}.tar.gz";
+        sha256 = if stdenv.is64bit then x64hash else x86hash;
         message = ''
           In order to use Citrix Workspace, you need to comply with the Citrix EULA and download
-          the ${if stdenv.is64bit then "64-bit" else "32-bit"} binaries, .tar.gz from:
+          the ${
+            if stdenv.is64bit then "64-bit" else "32-bit"
+          } binaries, .tar.gz from:
 
           ${homepage}
 
@@ -95,13 +73,7 @@ let
 
       sourceRoot = ".";
 
-      buildInputs = [
-        makeWrapper
-        busybox
-        file
-        gtk2
-        gdk_pixbuf
-      ];
+      buildInputs = [ makeWrapper busybox file gtk2 gdk_pixbuf ];
 
       libPath = stdenv.lib.makeLibraryPath [
         glib
@@ -127,14 +99,14 @@ let
       ];
 
       desktopItem = makeDesktopItem {
-        name        = "wfica";
+        name = "wfica";
         desktopName = "Citrix Workspace";
         genericName = "Citrix Workspace";
-        exec        = "wfica";
-        icon        = "wfica";
-        comment     = "Connect to remote Citrix server";
-        categories  = "GTK;GNOME;X-GNOME-NetworkSettings;Network;";
-        mimeType    = "application/x-ica";
+        exec = "wfica";
+        icon = "wfica";
+        comment = "Connect to remote Citrix server";
+        categories = "GTK;GNOME;X-GNOME-NetworkSettings;Network;";
+        mimeType = "application/x-ica";
       };
 
       installPhase = ''
@@ -204,10 +176,10 @@ let
       '';
 
       meta = with stdenv.lib; {
-        license     = stdenv.lib.licenses.unfree;
+        license = stdenv.lib.licenses.unfree;
         inherit homepage;
         description = "Citrix Workspace";
-        platforms   = platforms.linux;
+        platforms = platforms.linux;
       };
     };
 

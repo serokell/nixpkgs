@@ -1,15 +1,12 @@
-{ stdenv, lib, fetchgit, cmake, pkgconfig, git
-, qt5, openal, glew, vulkan-loader, libpng, ffmpeg, libevdev, python27
-, pulseaudioSupport ? true, libpulseaudio
-, waylandSupport ? true, wayland
-, alsaSupport ? true, alsaLib
-}:
+{ stdenv, lib, fetchgit, cmake, pkgconfig, git, qt5, openal, glew, vulkan-loader, libpng, ffmpeg, libevdev, python27, pulseaudioSupport ?
+  true, libpulseaudio, waylandSupport ? true, wayland, alsaSupport ?
+    true, alsaLib }:
 
 let
   majorVersion = "0.0.6";
-  gitVersion = "8187-790962425"; # echo $(git rev-list HEAD --count)-$(git rev-parse --short HEAD)
-in
-stdenv.mkDerivation rec {
+  gitVersion =
+    "8187-790962425"; # echo $(git rev-list HEAD --count)-$(git rev-parse --short HEAD)
+in stdenv.mkDerivation rec {
   name = "rpcs3-${version}";
   version = "${majorVersion}-${gitVersion}";
 
@@ -36,10 +33,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig git ];
 
   buildInputs = [
-    qt5.qtbase qt5.qtquickcontrols openal glew vulkan-loader libpng ffmpeg libevdev python27
+    qt5.qtbase
+    qt5.qtquickcontrols
+    openal
+    glew
+    vulkan-loader
+    libpng
+    ffmpeg
+    libevdev
+    python27
   ] ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional alsaSupport alsaLib
-    ++ lib.optional waylandSupport wayland;
+    ++ lib.optional alsaSupport alsaLib ++ lib.optional waylandSupport wayland;
 
   enableParallelBuilding = true;
 

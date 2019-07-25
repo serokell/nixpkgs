@@ -9,32 +9,24 @@ import ./make-test.nix {
         scrapeConfigs = [
           {
             job_name = "prometheus";
-            static_configs = [
-              {
-                targets = [ "127.0.0.1:9090" ];
-                labels = { instance = "localhost"; };
-              }
-            ];
+            static_configs = [{
+              targets = [ "127.0.0.1:9090" ];
+              labels = { instance = "localhost"; };
+            }];
           }
           {
             job_name = "pushgateway";
             scrape_interval = "1s";
-            static_configs = [
-              {
-                targets = [ "127.0.0.1:9091" ];
-              }
-            ];
+            static_configs = [{ targets = [ "127.0.0.1:9091" ]; }];
           }
         ];
-        rules = [
-          ''
-            groups:
-              - name: test
-                rules:
-                  - record: testrule
-                    expr: count(up{job="prometheus"})
-          ''
-        ];
+        rules = [''
+          groups:
+            - name: test
+              rules:
+                - record: testrule
+                  expr: count(up{job="prometheus"})
+        ''];
       };
       services.prometheus.pushgateway = {
         enable = true;

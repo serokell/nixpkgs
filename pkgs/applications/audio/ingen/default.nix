@@ -1,10 +1,7 @@
-{ stdenv, fetchgit, boost, ganv, glibmm, gtkmm2, libjack2, lilv
-, lv2Unstable, makeWrapper, pkgconfig, python, raul, rdflib, serd, sord, sratom
-, wafHook
-, suil
+{ stdenv, fetchgit, boost, ganv, glibmm, gtkmm2, libjack2, lilv, lv2Unstable, makeWrapper, pkgconfig, python, raul, rdflib, serd, sord, sratom, wafHook, suil
 }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "ingen-unstable-${rev}";
   rev = "2017-07-22";
 
@@ -17,8 +14,20 @@ stdenv.mkDerivation  rec {
 
   nativeBuildInputs = [ pkgconfig wafHook ];
   buildInputs = [
-    boost ganv glibmm gtkmm2 libjack2 lilv lv2Unstable makeWrapper
-    python raul serd sord sratom suil
+    boost
+    ganv
+    glibmm
+    gtkmm2
+    libjack2
+    lilv
+    lv2Unstable
+    makeWrapper
+    python
+    raul
+    serd
+    sord
+    sratom
+    suil
   ];
 
   preConfigure = ''
@@ -36,8 +45,9 @@ stdenv.mkDerivation  rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A modular audio processing system using JACK and LV2 or LADSPA plugins";
-    homepage = http://drobilla.net/software/ingen;
+    description =
+      "A modular audio processing system using JACK and LV2 or LADSPA plugins";
+    homepage = "http://drobilla.net/software/ingen";
     license = licenses.gpl3;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux;

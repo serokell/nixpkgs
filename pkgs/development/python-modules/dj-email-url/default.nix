@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   version = "0.1.0";
@@ -21,8 +17,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/migonzalvar/dj-email-url;
-    description = "Use an URL to configure email backend settings in your Django Application";
+    homepage = "https://github.com/migonzalvar/dj-email-url";
+    description =
+      "Use an URL to configure email backend settings in your Django Application";
     license = licenses.bsd0;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,30 +1,11 @@
-{ stdenv
-, fetchFromGitHub
-, perl
-, python3
-, sqlite
-, gpsbabel
-, gnome3
-, gobject-introspection
-, wrapGAppsHook
-, gtk3
-, xvfb_run
-, webkitgtk
-, glib-networking
-, glibcLocales
-, tzdata
-, substituteAll
+{ stdenv, fetchFromGitHub, perl, python3, sqlite, gpsbabel, gnome3, gobject-introspection, wrapGAppsHook, gtk3, xvfb_run, webkitgtk, glib-networking, glibcLocales, tzdata, substituteAll
 }:
 
 let
   # Pytrainer needs a matplotlib with GTK backend.
-  matplotlibGtk = python3.pkgs.matplotlib.override {
-    enableGtk3 = true;
-  };
+  matplotlibGtk = python3.pkgs.matplotlib.override { enableGtk3 = true; };
 
-in
-
-python3.pkgs.buildPythonApplication rec {
+in python3.pkgs.buildPythonApplication rec {
   pname = "pytrainer";
   version = "2.0.0";
 
@@ -59,11 +40,7 @@ python3.pkgs.buildPythonApplication rec {
     certifi
   ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-    xvfb_run
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook xvfb_run ];
 
   buildInputs = [
     gpsbabel
@@ -84,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pytrainer/pytrainer/wiki;
+    homepage = "https://github.com/pytrainer/pytrainer/wiki";
     description = "Application for logging and graphing sporting excursions";
     maintainers = [ maintainers.rycee ];
     license = licenses.gpl2Plus;

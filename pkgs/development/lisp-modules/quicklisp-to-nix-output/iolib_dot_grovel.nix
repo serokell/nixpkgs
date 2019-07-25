@@ -1,20 +1,30 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''iolib_dot_grovel'';
-  version = ''iolib-v0.8.3'';
+args@{ fetchurl, ... }: rec {
+  baseName = "iolib_dot_grovel";
+  version = "iolib-v0.8.3";
 
-  description = ''The CFFI Groveller'';
+  description = "The CFFI Groveller";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."iolib_dot_asdf" args."iolib_dot_base" args."iolib_dot_common-lisp" args."iolib_dot_conf" args."split-sequence" args."trivial-features" args."uiop" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."iolib_dot_asdf"
+    args."iolib_dot_base"
+    args."iolib_dot_common-lisp"
+    args."iolib_dot_conf"
+    args."split-sequence"
+    args."trivial-features"
+    args."uiop"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/iolib/2018-02-28/iolib-v0.8.3.tgz'';
-    sha256 = ''12gsvsjyxmclwidcjvyrfvd0773ib54a3qzmf33hmgc9knxlli7c'';
+    url = "http://beta.quicklisp.org/archive/iolib/2018-02-28/iolib-v0.8.3.tgz";
+    sha256 = "12gsvsjyxmclwidcjvyrfvd0773ib54a3qzmf33hmgc9knxlli7c";
   };
 
   packageName = "iolib.grovel";
 
-  asdFilesToKeep = ["iolib.grovel.asd"];
+  asdFilesToKeep = [ "iolib.grovel.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM iolib.grovel DESCRIPTION The CFFI Groveller SHA256
@@ -36,4 +46,5 @@ rec {
     VERSION iolib-v0.8.3 SIBLINGS
     (iolib iolib.asdf iolib.base iolib.common-lisp iolib.conf iolib.examples
      iolib.tests)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

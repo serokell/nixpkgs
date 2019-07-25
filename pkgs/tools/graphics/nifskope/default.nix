@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qttools, substituteAll, libGLU, wrapQtAppsHook }:
+{ stdenv, fetchFromGitHub, qmake, qtbase, qttools, substituteAll, libGLU, wrapQtAppsHook
+}:
 
 stdenv.mkDerivation rec {
   name = "nifskope-${version}";
@@ -7,7 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "niftools";
     repo = "nifskope";
-    rev = "47b788d26ae0fa12e60e8e7a4f0fa945a510c7b2"; # `v${version}` doesn't work with submodules
+    rev =
+      "47b788d26ae0fa12e60e8e7a4f0fa945a510c7b2"; # `v${version}` doesn't work with submodules
     sha256 = "1wqpn53rkq28ws3apqghkzyrib4wis91x171ns64g8kp4q6mfczi";
     fetchSubmodules = true;
   };
@@ -55,8 +57,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://niftools.sourceforge.net/wiki/NifSkope;
-    description = "A tool for analyzing and editing NetImmerse/Gamebryo '*.nif' files";
+    homepage = "http://niftools.sourceforge.net/wiki/NifSkope";
+    description =
+      "A tool for analyzing and editing NetImmerse/Gamebryo '*.nif' files";
     maintainers = with maintainers; [ eelco ma27 ];
     platforms = platforms.linux;
     license = licenses.bsd3;

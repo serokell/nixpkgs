@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock }:
 
 buildPythonPackage rec {
   version = "0.5.1";
@@ -19,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python humanize utilities";
-    homepage = https://github.com/jmoiron/humanize;
+    homepage = "https://github.com/jmoiron/humanize";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

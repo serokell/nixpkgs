@@ -1,21 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cython
-, lockfile
-, cachecontrol
-, decorator
-, ipython
-, matplotlib
-, natsort
-, numpy
-, pandas
-, scipy
-, hdmedians
-, scikitlearn
-, coverage
-, python
-, isPy3k
+{ stdenv, buildPythonPackage, fetchPypi, cython, lockfile, cachecontrol, decorator, ipython, matplotlib, natsort, numpy, pandas, scipy, hdmedians, scikitlearn, coverage, python, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -30,7 +13,19 @@ buildPythonPackage rec {
 
   buildInputs = [ cython ];
   checkInputs = [ coverage ];
-  propagatedBuildInputs = [ lockfile cachecontrol decorator ipython matplotlib natsort numpy pandas scipy hdmedians scikitlearn ];
+  propagatedBuildInputs = [
+    lockfile
+    cachecontrol
+    decorator
+    ipython
+    matplotlib
+    natsort
+    numpy
+    pandas
+    scipy
+    hdmedians
+    scikitlearn
+  ];
 
   # remove on when version > 0.5.4
   postPatch = ''
@@ -46,8 +41,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://scikit-bio.org/;
-    description = "Data structures, algorithms and educational resources for bioinformatics";
+    homepage = "http://scikit-bio.org/";
+    description =
+      "Data structures, algorithms and educational resources for bioinformatics";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

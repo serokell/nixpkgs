@@ -1,14 +1,16 @@
-{ stdenv, fetchurl, leptonica, zlib, libwebp, giflib, libjpeg, libpng, libtiff }:
+{ stdenv, fetchurl, leptonica, zlib, libwebp, giflib, libjpeg, libpng, libtiff
+}:
 
 stdenv.mkDerivation {
   name = "jbig2enc-0.28";
 
   src = fetchurl {
-    url = https://github.com/agl/jbig2enc/archive/0.28-dist.tar.gz;
+    url = "https://github.com/agl/jbig2enc/archive/0.28-dist.tar.gz";
     sha256 = "1wc0lmqz4jag3rhhk1xczlqpfv2qqp3fz7wzic2lba3vsbi1rrw3";
   };
 
-  propagatedBuildInputs = [ leptonica zlib libwebp giflib libjpeg libpng libtiff ];
+  propagatedBuildInputs =
+    [ leptonica zlib libwebp giflib libjpeg libpng libtiff ];
 
   patches = [
     # https://github.com/agl/jbig2enc/commit/53ce5fe7e73d7ed95c9e12b52dd4984723f865fa

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake, zlib, freetype, libjpeg, libtiff, fontconfig
-, openssl, libpng, lua5, pkgconfig, libidn, expat, fetchpatch
+{ stdenv, fetchurl, cmake, zlib, freetype, libjpeg, libtiff, fontconfig, openssl, libpng, lua5, pkgconfig, libidn, expat, fetchpatch
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +13,8 @@ stdenv.mkDerivation rec {
   patches = [
     # https://sourceforge.net/p/podofo/tickets/24/
     (fetchpatch {
-      url = "https://sourceforge.net/p/podofo/tickets/24/attachment/podofo-cmake-3.12.patch";
+      url =
+        "https://sourceforge.net/p/podofo/tickets/24/attachment/podofo-cmake-3.12.patch";
       extraPrefix = "";
       sha256 = "087h51x60zrakzx09baan77hwz99cwb5l1j802r5g4wj7pbjz0mb";
     })
@@ -24,8 +24,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs = [ zlib freetype libjpeg libtiff fontconfig openssl libpng
-                  libidn expat lua5 ];
+  buildInputs = [
+    zlib
+    freetype
+    libjpeg
+    libtiff
+    fontconfig
+    openssl
+    libpng
+    libidn
+    expat
+    lua5
+  ];
 
   cmakeFlags = [
     "-DPODOFO_BUILD_SHARED=ON"
@@ -38,7 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://podofo.sourceforge.net;
+    homepage = "http://podofo.sourceforge.net";
     description = "A library to work with the PDF file format";
     platforms = platforms.all;
     license = with licenses; [ gpl2 lgpl2 ];

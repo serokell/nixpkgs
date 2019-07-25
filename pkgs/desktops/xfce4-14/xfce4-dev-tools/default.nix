@@ -1,5 +1,5 @@
-{ mkXfceDerivation, autoreconfHook, autoconf, automake
-, glib, gtk-doc, intltool, libtool }:
+{ mkXfceDerivation, autoreconfHook, autoconf, automake, glib, gtk-doc, intltool, libtool
+}:
 
 mkXfceDerivation rec {
   category = "xfce";
@@ -11,14 +11,7 @@ mkXfceDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  propagatedBuildInputs = [
-    autoconf
-    automake
-    glib
-    gtk-doc
-    intltool
-    libtool
-  ];
+  propagatedBuildInputs = [ autoconf automake glib gtk-doc intltool libtool ];
 
   preAutoreconf = ''
     substitute configure.ac.in configure.ac \

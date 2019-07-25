@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "RhysU";
-    repo  = "yeshup";
+    repo = "yeshup";
     inherit rev;
     sha256 = "1wwbc158y46jsmdi1lp0m3dlbr9kvzvwxfvzj6646cpy9d6h21v9";
   };
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/RhysU/yeshup;
+    homepage = "https://github.com/RhysU/yeshup";
     platforms = platforms.linux;
     license = licenses.cc-by-sa-30; # From Stackoverflow answer
     maintainers = with maintainers; [ obadz ];

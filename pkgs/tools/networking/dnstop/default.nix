@@ -14,9 +14,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/man/man8 $out/bin
   '';
 
-  meta = { 
-    description = "libpcap application that displays DNS traffic on your network";
-    homepage = http://dns.measurement-factory.com/tools/dnstop;
+  meta = {
+    description =
+      "libpcap application that displays DNS traffic on your network";
+    homepage = "http://dns.measurement-factory.com/tools/dnstop";
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.unix;
   };

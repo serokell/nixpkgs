@@ -1,7 +1,6 @@
 { stdenv, fetchgit }:
 
-let
-  version = "2017-03-30";
+let version = "2017-03-30";
 in (fetchgit {
   name = "go-font-${version}";
   url = "https://go.googlesource.com/image";
@@ -18,11 +17,11 @@ in (fetchgit {
   sha256 = "1488426ya2nzmwjas947fx9h5wzxrp9wasn8nkjqf0y0mpd4f1xz";
 }) // {
   meta = with stdenv.lib; {
-    homepage = https://blog.golang.org/go-fonts;
+    homepage = "https://blog.golang.org/go-fonts";
     description = "The Go font family";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sternenseemann ];
     platforms = stdenv.lib.platforms.all;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

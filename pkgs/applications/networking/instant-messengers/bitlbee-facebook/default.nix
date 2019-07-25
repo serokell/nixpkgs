@@ -1,4 +1,5 @@
-{ fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkgconfig, glib, json-glib }:
+{ fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkgconfig, glib, json-glib
+}:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "The Facebook protocol plugin for bitlbee";
 
-    homepage = https://github.com/bitlbee/bitlbee-facebook;
+    homepage = "https://github.com/bitlbee/bitlbee-facebook";
     license = licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
   };

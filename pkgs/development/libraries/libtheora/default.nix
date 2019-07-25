@@ -1,4 +1,4 @@
-{stdenv, fetchurl, libogg, libvorbis, pkgconfig}:
+{ stdenv, fetchurl, libogg, libvorbis, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "libtheora-1.1.1";
@@ -21,8 +21,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.theora.org/;
-    description = "Library for Theora, a free and open video compression format";
+    homepage = "https://www.theora.org/";
+    description =
+      "Library for Theora, a free and open video compression format";
     license = licenses.bsd3;
     maintainers = with maintainers; [ spwhitt ];
     platforms = platforms.unix;

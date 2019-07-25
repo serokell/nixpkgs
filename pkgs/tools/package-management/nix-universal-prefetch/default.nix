@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, ruby
-}:
+{ stdenv, fetchFromGitHub, ruby }:
 
 # No gems used, so mkDerivation is fine.
 stdenv.mkDerivation rec {
@@ -24,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Uses nixpkgs fetchers to figure out hashes";
-    homepage = https://github.com/samueldr/nix-universal-prefetch;
+    homepage = "https://github.com/samueldr/nix-universal-prefetch";
     license = licenses.mit;
     maintainers = with maintainers; [ samueldr ];
     platforms = platforms.linux ++ platforms.darwin;

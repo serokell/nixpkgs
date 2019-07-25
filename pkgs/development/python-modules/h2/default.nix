@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, enum34, hpack, hyperframe }:
+{ stdenv, buildPythonPackage, fetchPypi, enum34, hpack, hyperframe }:
 
 buildPythonPackage rec {
   pname = "h2";

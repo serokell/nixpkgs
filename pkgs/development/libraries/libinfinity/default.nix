@@ -1,9 +1,8 @@
 { gtkWidgets ? false # build GTK widgets for libinfinity
 , avahiSupport ? false # build support for Avahi in libinfinity
-, stdenv, fetchurl, pkgconfig, glib, libxml2, gnutls, gsasl
-, gobject-introspection
-, gtk3 ? null, gtk-doc, docbook_xsl, docbook_xml_dtd_412, avahi ? null, libdaemon, libidn, gss
-, libintl }:
+, stdenv, fetchurl, pkgconfig, glib, libxml2, gnutls, gsasl, gobject-introspection, gtk3 ?
+  null, gtk-doc, docbook_xsl, docbook_xml_dtd_412, avahi ?
+    null, libdaemon, libidn, gss, libintl }:
 
 assert avahiSupport -> avahi != null;
 assert gtkWidgets -> gtk3 != null;
@@ -21,7 +20,13 @@ let
 
     outputs = [ "bin" "out" "dev" "man" "devdoc" ];
 
-    nativeBuildInputs = [ pkgconfig gtk-doc docbook_xsl docbook_xml_dtd_412 gobject-introspection ];
+    nativeBuildInputs = [
+      pkgconfig
+      gtk-doc
+      docbook_xsl
+      docbook_xml_dtd_412
+      gobject-introspection
+    ];
     buildInputs = [ glib libxml2 gsasl libidn gss libintl libdaemon ]
       ++ stdenv.lib.optional gtkWidgets gtk3
       ++ stdenv.lib.optional avahiSupport avahi;
@@ -39,12 +44,14 @@ let
     ];
 
     passthru = {
-      infinoted = "${self.bin}/bin/infinoted-${stdenv.lib.versions.majorMinor version}";
+      infinoted =
+        "${self.bin}/bin/infinoted-${stdenv.lib.versions.majorMinor version}";
     };
 
     meta = {
-      homepage = http://gobby.0x539.de/;
-      description = "An implementation of the Infinote protocol written in GObject-based C";
+      homepage = "http://gobby.0x539.de/";
+      description =
+        "An implementation of the Infinote protocol written in GObject-based C";
       license = stdenv.lib.licenses.lgpl2Plus;
       maintainers = [ stdenv.lib.maintainers.phreedom ];
       platforms = with stdenv.lib.platforms; linux ++ darwin;

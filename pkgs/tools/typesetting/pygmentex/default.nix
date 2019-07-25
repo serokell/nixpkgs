@@ -33,8 +33,9 @@ python2Packages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.ctan.org/pkg/pygmentex;
-    description = "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments";
+    homepage = "https://www.ctan.org/pkg/pygmentex";
+    description =
+      "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments";
     longDescription = ''
       PygmenTeX is a Python-based LaTeX package that can be used for
       typesetting code listings in a LaTeX document using Pygments.

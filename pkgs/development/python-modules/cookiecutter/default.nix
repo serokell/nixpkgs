@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy
-, pytest, pytestcov, pytest-mock, freezegun
-, jinja2, future, binaryornot, click, whichcraft, poyo, jinja2_time, requests }:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, pytest, pytestcov, pytest-mock, freezegun, jinja2, future, binaryornot, click, whichcraft, poyo, jinja2_time, requests
+}:
 
 buildPythonPackage rec {
   pname = "cookiecutter";
@@ -15,10 +14,9 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest pytestcov pytest-mock freezegun ];
-  propagatedBuildInputs = [
-    jinja2 future binaryornot click whichcraft poyo jinja2_time requests
-  ];
-  
+  propagatedBuildInputs =
+    [ jinja2 future binaryornot click whichcraft poyo jinja2_time requests ];
+
   # requires network access for cloning git repos
   doCheck = false;
   checkPhase = ''
@@ -26,8 +24,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/audreyr/cookiecutter;
-    description = "A command-line utility that creates projects from project templates";
+    homepage = "https://github.com/audreyr/cookiecutter";
+    description =
+      "A command-line utility that creates projects from project templates";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kragniz ];
   };

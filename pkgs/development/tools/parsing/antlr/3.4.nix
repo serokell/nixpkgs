@@ -1,10 +1,10 @@
-{stdenv, fetchurl, jre}:
+{ stdenv, fetchurl, jre }:
 
 stdenv.mkDerivation rec {
   name = "antlr-${version}";
   version = "3.4";
   src = fetchurl {
-    url ="https://www.antlr3.org/download/antlr-${version}-complete.jar";
+    url = "https://www.antlr3.org/download/antlr-${version}-complete.jar";
     sha256 = "1xqbam8vf04q5fasb0m2n1pn5dbp2yw763sj492ncq04c5mqcglx";
   };
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       frameworks. From a grammar, ANTLR generates a parser that can build and
       walk parse trees.
     '';
-    homepage = https://www.antlr.org/;
+    homepage = "https://www.antlr.org/";
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
   };

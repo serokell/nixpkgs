@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, astring, cmdliner, cppo, fmt, logs, ocaml-migrate-parsetree, ocaml_lwt, pandoc, re }:
+{ stdenv, fetchFromGitHub, buildDunePackage, astring, cmdliner, cppo, fmt, logs, ocaml-migrate-parsetree, ocaml_lwt, pandoc, re
+}:
 
 buildDunePackage rec {
   pname = "mdx";
@@ -20,7 +21,7 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    homepage = https://github.com/realworldocaml/mdx;
+    homepage = "https://github.com/realworldocaml/mdx";
     description = "Executable OCaml code blocks inside markdown files";
     license = stdenv.lib.licenses.isc;
     maintainers = [ stdenv.lib.maintainers.romildo ];

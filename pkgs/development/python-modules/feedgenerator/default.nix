@@ -11,13 +11,14 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   propagatedBuildInputs = [ six pytz ];
 
   meta = with stdenv.lib; {
-    description = "Standalone version of django.utils.feedgenerator, compatible with Py3k";
-    homepage = https://github.com/dmdm/feedgenerator-py3k.git;
+    description =
+      "Standalone version of django.utils.feedgenerator, compatible with Py3k";
+    homepage = "https://github.com/dmdm/feedgenerator-py3k.git";
     maintainers = with maintainers; [ ];
   };
 }

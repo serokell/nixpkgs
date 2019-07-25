@@ -12,12 +12,15 @@ python3Packages.buildPythonPackage rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    pyserial colorama websocket_client
+    pyserial
+    colorama
+    websocket_client
   ];
 
   meta = with lib; {
-    homepage = https://github.com/wendlers/mpfshell;
-    description = "A simple shell based file explorer for ESP8266 Micropython based devices";
+    homepage = "https://github.com/wendlers/mpfshell";
+    description =
+      "A simple shell based file explorer for ESP8266 Micropython based devices";
     license = licenses.mit;
   };
 }

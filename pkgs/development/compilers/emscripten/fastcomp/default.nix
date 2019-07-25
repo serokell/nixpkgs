@@ -1,9 +1,9 @@
 { newScope, stdenv, binutils, wrapCCWith, symlinkJoin }:
 let
-  callPackage = newScope (self // {inherit stdenv;});
+  callPackage = newScope (self // { inherit stdenv; });
 
   self = {
-    emscriptenfastcomp-unwrapped = callPackage ./emscripten-fastcomp.nix {};
+    emscriptenfastcomp-unwrapped = callPackage ./emscripten-fastcomp.nix { };
     emscriptenfastcomp-wrapped = wrapCCWith {
       cc = self.emscriptenfastcomp-unwrapped;
       # Never want Apple's cctools for WASM target
@@ -15,8 +15,11 @@ let
       '';
     };
     emscriptenfastcomp = symlinkJoin {
-      name = "emscriptenfastcomp-${stdenv.lib.getVersion self.emscriptenfastcomp-unwrapped}";
-      paths = [ self.emscriptenfastcomp-wrapped self.emscriptenfastcomp-unwrapped ];
+      name = "emscriptenfastcomp-${
+        stdenv.lib.getVersion self.emscriptenfastcomp-unwrapped
+      }";
+      paths =
+        [ self.emscriptenfastcomp-wrapped self.emscriptenfastcomp-unwrapped ];
       preferLocalBuild = false;
       allowSubstitutes = true;
       postBuild = ''

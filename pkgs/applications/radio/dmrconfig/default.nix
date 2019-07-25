@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub
-, libusb1, systemd }:
+{ stdenv, fetchFromGitHub, libusb1, systemd }:
 
 stdenv.mkDerivation rec {
   name = "dmrconfig-${version}";
@@ -12,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qwix75z749628w583fwp7m7kxbj0k3g159sxb7vgqxbadqqz1ab";
   };
 
-  buildInputs = [
-    libusb1 systemd
-  ];
+  buildInputs = [ libusb1 systemd ];
 
   preConfigure = ''
     substituteInPlace Makefile \
@@ -34,7 +31,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       DMRconfig is a utility for programming digital radios via USB programming cable.
     '';
-    homepage = https://github.com/sergev/dmrconfig;
+    homepage = "https://github.com/sergev/dmrconfig";
     license = licenses.asl20;
     maintainers = [ maintainers.etu ];
     platforms = platforms.linux;

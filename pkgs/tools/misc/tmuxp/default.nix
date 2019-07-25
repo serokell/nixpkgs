@@ -15,21 +15,16 @@ buildPythonApplication rec {
     sed -i 's/==.*$//' requirements/base.txt requirements/test.txt
   '';
 
-  checkInputs = [
-    pytest
-    pytest-rerunfailures
-  ];
+  checkInputs = [ pytest pytest-rerunfailures ];
 
   # No tests in archive
   doCheck = false;
 
-  propagatedBuildInputs = [
-    click colorama kaptan libtmux
-  ];
+  propagatedBuildInputs = [ click colorama kaptan libtmux ];
 
   meta = with stdenv.lib; {
     description = "Manage tmux workspaces from JSON and YAML";
-    homepage = https://tmuxp.git-pull.com/;
+    homepage = "https://tmuxp.git-pull.com/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

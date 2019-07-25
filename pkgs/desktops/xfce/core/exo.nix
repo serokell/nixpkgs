@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, intltool, URI, glib, gtk, libxfce4ui, libxfce4util
-, hicolor-icon-theme }:
+{ stdenv, fetchurl, pkgconfig, intltool, URI, glib, gtk, libxfce4ui, libxfce4util, hicolor-icon-theme
+}:
 
 stdenv.mkDerivation rec {
-  p_name  = "exo";
+  p_name = "exo";
   ver_maj = "0.10";
   ver_min = "7";
 
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   outputs = [ "out" "dev" "devdoc" ];
-    # lib/xfce4/exo-1/exo-compose-mail-1 is a perl script :-/
+  # lib/xfce4/exo-1/exo-compose-mail-1 is a perl script :-/
 
   nativeBuildInputs = [ pkgconfig intltool ];
   buildInputs = [ URI glib gtk libxfce4ui libxfce4util hicolor-icon-theme ];

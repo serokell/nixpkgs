@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libcap, readline, texinfo, nss, nspr
-, libseccomp, pps-tools }:
+{ stdenv, fetchurl, pkgconfig, libcap, readline, texinfo, nss, nspr, libseccomp, pps-tools
+}:
 
 assert stdenv.isLinux -> libcap != null;
 
@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Sets your computer's clock from time servers on the Net";
-    homepage = https://chrony.tuxfamily.org/;
-    repositories.git = git://git.tuxfamily.org/gitroot/chrony/chrony.git;
+    homepage = "https://chrony.tuxfamily.org/";
+    repositories.git = "git://git.tuxfamily.org/gitroot/chrony/chrony.git";
     license = licenses.gpl2;
     platforms = with platforms; linux ++ freebsd ++ openbsd;
     maintainers = with maintainers; [ rickynils fpletz ];

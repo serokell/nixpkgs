@@ -1,14 +1,14 @@
-{ stdenv, callPackage, lua, CoreFoundation
-, tiles ? true, Cocoa
-, debug ? false
+{ stdenv, callPackage, lua, CoreFoundation, tiles ? true, Cocoa, debug ? false
 }:
 
 let
-  inherit (callPackage ./common.nix { inherit tiles CoreFoundation Cocoa debug; }) common utils;
+  inherit (callPackage ./common.nix {
+    inherit tiles CoreFoundation Cocoa debug;
+  })
+    common utils;
   inherit (utils) fetchFromCleverRaven;
-in
 
-stdenv.mkDerivation (common // rec {
+in stdenv.mkDerivation (common // rec {
   version = "0.D";
   name = "cataclysm-dda-${version}";
 
@@ -25,11 +25,10 @@ stdenv.mkDerivation (common // rec {
     substituteInPlace lua/autoexec.lua --replace "/usr/share" "$out/share"
   '';
 
-  makeFlags = common.makeFlags ++ [
-    "LUA=1"
-  ];
+  makeFlags = common.makeFlags ++ [ "LUA=1" ];
 
-  meta = with stdenv.lib.maintainers; common.meta // {
-    maintainers = common.meta.maintainers ++ [ skeidel ];
-  };
+  meta = with stdenv.lib.maintainers;
+    common.meta // {
+      maintainers = common.meta.maintainers ++ [ skeidel ];
+    };
 })

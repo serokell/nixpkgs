@@ -19,9 +19,7 @@ let
     categories = "Audio;AudioVideo;Music";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
@@ -36,10 +34,9 @@ stdenv.mkDerivation rec {
 
   unpackPhase = ''
     unzip -j $src
-  '';  
+  '';
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/games/lovegames
 
@@ -56,7 +53,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;
     license = licenses.free;
-    downloadPage = http://stabyourself.net/rimshot/;
+    downloadPage = "http://stabyourself.net/rimshot/";
   };
 
 }

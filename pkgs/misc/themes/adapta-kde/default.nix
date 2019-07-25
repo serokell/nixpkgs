@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1lgpkylhzbayk892inql16sjyy9d3v126f9i1v7qgha1203rwcji";
   };
 
-  makeFlags = ["PREFIX=$(out)" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   # Make this a fixed-output derivation
   outputHashMode = "recursive";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A port of the Adapta theme for Plasma";
-    homepage = https://git.io/adapta-kde;
+    homepage = "https://git.io/adapta-kde";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.tadfisher ];
     platforms = stdenv.lib.platforms.all;

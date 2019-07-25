@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, attr, libuuid, libscrypt, libsodium, keyutils
-, liburcu, zlib, libaio, zstd, lz4 }:
+{ stdenv, fetchgit, pkgconfig, attr, libuuid, libscrypt, libsodium, keyutils, liburcu, zlib, libaio, zstd, lz4
+}:
 
 stdenv.mkDerivation rec {
   pname = "bcachefs-tools";
@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ attr libuuid libscrypt libsodium keyutils liburcu zlib libaio zstd lz4 ];
+  buildInputs =
+    [ attr libuuid libscrypt libsodium keyutils liburcu zlib libaio zstd lz4 ];
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   preInstall = ''
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tool for managing bcachefs filesystems";
-    homepage = https://bcachefs.org/;
+    homepage = "https://bcachefs.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ davidak chiiruno ];
     platforms = platforms.linux;

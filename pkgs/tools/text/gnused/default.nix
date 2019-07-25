@@ -15,10 +15,11 @@ stdenv.mkDerivation rec {
   preConfigure = "patchShebangs ./build-aux/help2man";
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
-  PERL = if stdenv.hostPlatform == stdenv.buildPlatform then null else "missing";
+  PERL =
+    if stdenv.hostPlatform == stdenv.buildPlatform then null else "missing";
 
   meta = {
-    homepage = https://www.gnu.org/software/sed/;
+    homepage = "https://www.gnu.org/software/sed/";
     description = "GNU sed, a batch stream editor";
 
     longDescription = ''

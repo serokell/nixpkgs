@@ -19,7 +19,8 @@ with lib;
 
       programs.xss-lock = {
         enable = true;
-        extraOptions = [ "-n" "${pkgs.libnotify}/bin/notify-send 'About to sleep!'"];
+        extraOptions =
+          [ "-n" "${pkgs.libnotify}/bin/notify-send 'About to sleep!'" ];
         lockerCommand = "${pkgs.xlockmore}/bin/xlock -mode ant";
       };
     };
@@ -29,12 +30,15 @@ with lib;
     startAll;
 
     ${concatStringsSep "\n" (mapAttrsToList (name: lockCmd: ''
-      ${"$"+name}->start;
-      ${"$"+name}->waitForX;
-      ${"$"+name}->waitForUnit("xss-lock.service", "alice");
-      ${"$"+name}->fail("pgrep ${lockCmd}");
-      ${"$"+name}->succeed("su -l alice -c 'xset dpms force standby'");
-      ${"$"+name}->waitUntilSucceeds("pgrep ${lockCmd}");
-    '') { simple = "i3lock"; custom_lockcmd = "xlock"; })}
+      ${"$" + name}->start;
+      ${"$" + name}->waitForX;
+      ${"$" + name}->waitForUnit("xss-lock.service", "alice");
+      ${"$" + name}->fail("pgrep ${lockCmd}");
+      ${"$" + name}->succeed("su -l alice -c 'xset dpms force standby'");
+      ${"$" + name}->waitUntilSucceeds("pgrep ${lockCmd}");
+    '') {
+      simple = "i3lock";
+      custom_lockcmd = "xlock";
+    })}
   '';
 })

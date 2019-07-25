@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, libjpeg, libtiff, libpng, freetype
-, fltk, gtk
-, libX11, libXext, libICE
-, dbus
+{ stdenv, fetchurl, pkgconfig, libjpeg, libtiff, libpng, freetype, fltk, gtk, libX11, libXext, libICE, dbus
 }:
 
 stdenv.mkDerivation rec {
@@ -17,11 +13,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libjpeg libtiff libpng freetype fltk gtk libX11 libXext libICE dbus dbus ];
+  buildInputs = [
+    libjpeg
+    libtiff
+    libpng
+    freetype
+    fltk
+    gtk
+    libX11
+    libXext
+    libICE
+    dbus
+    dbus
+  ];
 
   # A strange type of bug: dbus is not immediately found by pkgconfig
   preConfigure = ''
-     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config dbus-1 --cflags)"
+    export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config dbus-1 --cflags)"
   '';
 
   meta = with stdenv.lib; {
@@ -34,7 +42,7 @@ stdenv.mkDerivation rec {
       for flexibility of desktop configuration, improving aestetics,
       and efficient use of system resources.
     '';
-    homepage = http://www.afterstep.org/;
+    homepage = "http://www.afterstep.org/";
     license = licenses.gpl2;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;

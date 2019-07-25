@@ -26,7 +26,7 @@ buildGoPackage rec {
 
   meta = {
     description = "Remote repository management made easy";
-    homepage = https://github.com/motemen/ghq;
+    homepage = "https://github.com/motemen/ghq";
     maintainers = with stdenv.lib.maintainers; [ sigma ];
     license = stdenv.lib.licenses.mit;
   };

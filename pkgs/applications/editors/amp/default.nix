@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, openssl, pkgconfig, python3, xorg, cmake, libgit2 }:
+{ stdenv, fetchFromGitHub, rustPlatform, openssl, pkgconfig, python3, xorg, cmake, libgit2
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "amp";

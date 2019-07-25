@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, libcap
-}:
+{ lib, buildPythonPackage, fetchPypi, libcap }:
 
 buildPythonPackage rec {
   pname = "python-prctl";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python(ic) interface to the linux prctl syscall";
-    homepage = https://github.com/seveas/python-prctl;
+    homepage = "https://github.com/seveas/python-prctl";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ catern ];

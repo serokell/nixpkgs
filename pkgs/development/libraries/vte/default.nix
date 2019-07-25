@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, intltool, pkgconfig
-, gnome3, glib, gtk3, ncurses, gobject-introspection, vala, libxml2, gnutls
-, gperf, pcre2
+{ stdenv, fetchurl, intltool, pkgconfig, gnome3, glib, gtk3, ncurses, gobject-introspection, vala, libxml2, gnutls, gperf, pcre2
 }:
 
 stdenv.mkDerivation rec {
@@ -8,15 +6,16 @@ stdenv.mkDerivation rec {
   version = "0.56.3";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "0j166gic5znssdb9r45qazq4kb4v9fial82czand5wa8i2yd988p";
   };
 
-  passthru = {
-    updateScript = gnome3.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
-  nativeBuildInputs = [ gobject-introspection intltool pkgconfig vala gperf libxml2 ];
+  nativeBuildInputs =
+    [ gobject-introspection intltool pkgconfig vala gperf libxml2 ];
   buildInputs = [ glib gtk3 ncurses ];
 
   propagatedBuildInputs = [
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnome.org/;
+    homepage = "https://www.gnome.org/";
     description = "A library implementing a terminal emulator widget for GTK+";
     longDescription = ''
       VTE is a library (libvte) implementing a terminal emulator widget for

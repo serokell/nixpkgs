@@ -1,15 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cmake, docbook_xsl, libxslt
-, openssl, libuuid, libwebsockets, c-ares, libuv
-, systemd ? null, withSystemd ? stdenv.isLinux }:
+{ stdenv, lib, fetchFromGitHub, cmake, docbook_xsl, libxslt, openssl, libuuid, libwebsockets, c-ares, libuv, systemd ?
+  null, withSystemd ? stdenv.isLinux }:
 
 stdenv.mkDerivation rec {
   name = "mosquitto-${version}";
   version = "1.6.3";
 
   src = fetchFromGitHub {
-    owner  = "eclipse";
-    repo   = "mosquitto";
-    rev    = "v${version}";
+    owner = "eclipse";
+    repo = "mosquitto";
+    rev = "v${version}";
     sha256 = "1xvfcqi6pa5pdnqd88gz9qx6kl2q47xp7l3q5wwgj0l9y9mlxp99";
   };
 
@@ -29,20 +28,17 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  buildInputs = [
-    openssl libuuid libwebsockets c-ares libuv
-  ] ++ lib.optional withSystemd systemd;
+  buildInputs = [ openssl libuuid libwebsockets c-ares libuv ]
+    ++ lib.optional withSystemd systemd;
 
   nativeBuildInputs = [ cmake docbook_xsl libxslt ];
 
-  cmakeFlags = [
-    "-DWITH_THREADING=ON"
-    "-DWITH_WEBSOCKETS=ON"
-  ] ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON";
+  cmakeFlags = [ "-DWITH_THREADING=ON" "-DWITH_WEBSOCKETS=ON" ]
+    ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON";
 
   meta = with stdenv.lib; {
     description = "An open source MQTT v3.1/3.1.1 broker";
-    homepage = http://mosquitto.org/;
+    homepage = "http://mosquitto.org/";
     license = licenses.epl10;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.unix;

@@ -1,15 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, betamax
-, betamax-serializers
-, betamax-matchers
-, mock
-, six
-, pytestrunner
-, prawcore
-, pytest
-, requests-toolbelt
-, update_checker
-, websocket_client
+{ stdenv, buildPythonPackage, fetchFromGitHub, betamax, betamax-serializers, betamax-matchers, mock, six, pytestrunner, prawcore, pytest, requests-toolbelt, update_checker, websocket_client
 }:
 
 buildPythonPackage rec {
@@ -23,16 +12,9 @@ buildPythonPackage rec {
     sha256 = "0by89aw7m803dvjcc33m9390msjm6v5v8g3k8ink9gfm421lw8ky";
   };
 
-  nativeBuildInputs = [
-    pytestrunner
-  ];
+  nativeBuildInputs = [ pytestrunner ];
 
-  propagatedBuildInputs = [
-    mock
-    prawcore
-    update_checker
-    websocket_client
-  ];
+  propagatedBuildInputs = [ mock prawcore update_checker websocket_client ];
 
   checkInputs = [
     betamax

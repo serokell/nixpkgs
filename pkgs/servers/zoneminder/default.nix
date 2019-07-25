@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, cmake, makeWrapper, pkgconfig
-, curl, ffmpeg, glib, libjpeg, libselinux, libsepol, mp4v2, mysql, pcre, perl, perlPackages
-, polkit, utillinuxMinimal, x264, zlib
-, coreutils, procps, psmisc }:
+{ stdenv, lib, fetchFromGitHub, fetchurl, cmake, makeWrapper, pkgconfig, curl, ffmpeg, glib, libjpeg, libselinux, libsepol, mp4v2, mysql, pcre, perl, perlPackages, polkit, utillinuxMinimal, x264, zlib, coreutils, procps, psmisc
+}:
 
 # NOTES:
 #
@@ -62,17 +60,16 @@ let
     }
   ];
 
-  addons = [
-    {
-      path = "scripts/ZoneMinder/lib/ZoneMinder/Control/Xiaomi.pm";
-      src = fetchurl {
-        url = "https://gist.githubusercontent.com/joshstrange/73a2f24dfaf5cd5b470024096ce2680f/raw/e964270c5cdbf95e5b7f214f7f0fc6113791530e/Xiaomi.pm";
-        sha256 = "04n1ap8fx66xfl9q9rypj48pzbgzikq0gisfsfm8wdsmflarz43v";
-      };
-    }
-  ];
+  addons = [{
+    path = "scripts/ZoneMinder/lib/ZoneMinder/Control/Xiaomi.pm";
+    src = fetchurl {
+      url =
+        "https://gist.githubusercontent.com/joshstrange/73a2f24dfaf5cd5b470024096ce2680f/raw/e964270c5cdbf95e5b7f214f7f0fc6113791530e/Xiaomi.pm";
+      sha256 = "04n1ap8fx66xfl9q9rypj48pzbgzikq0gisfsfm8wdsmflarz43v";
+    };
+  }];
 
-  user    = "zoneminder";
+  user = "zoneminder";
   dirName = "zoneminder";
   perlBin = "${perl}/bin/perl";
 
@@ -81,9 +78,9 @@ in stdenv.mkDerivation rec {
   version = "1.32.3";
 
   src = fetchFromGitHub {
-    owner  = "ZoneMinder";
-    repo   = "zoneminder";
-    rev    = version;
+    owner = "ZoneMinder";
+    repo = "zoneminder";
+    rev = version;
     sha256 = "1sx2fn99861zh0gp8g53ynr1q6yfmymxamn82y54jqj6nv475njz";
   };
 
@@ -94,59 +91,88 @@ in stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    ${lib.concatStringsSep "\n" (map (e: ''
-      rm -rf ${e.path}/*
-      cp -r ${e.src}/* ${e.path}/
-    '') modules)}
+     ${
+      lib.concatStringsSep "\n" (map (e: ''
+        rm -rf ${e.path}/*
+        cp -r ${e.src}/* ${e.path}/
+      '') modules)
+     }
 
-    rm -rf web/api/lib/Cake/Test
+     rm -rf web/api/lib/Cake/Test
 
-    ${lib.concatStringsSep "\n" (map (e: ''
-      cp ${e.src} ${e.path}
-    '') addons)}
+     ${
+      lib.concatStringsSep "\n" (map (e: ''
+        cp ${e.src} ${e.path}
+      '') addons)
+     }
 
-    for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
-      substituteInPlace $d/CMakeLists.txt \
-        --replace 'DESTDIR="''${CMAKE_CURRENT_BINARY_DIR}/output"' "PREFIX=$out INSTALLDIRS=site"
-      sed -i '/^install/d' $d/CMakeLists.txt
+     for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
+       substituteInPlace $d/CMakeLists.txt \
+         --replace 'DESTDIR="''${CMAKE_CURRENT_BINARY_DIR}/output"' "PREFIX=$out INSTALLDIRS=site"
+       sed -i '/^install/d' $d/CMakeLists.txt
+     done
+
+     substituteInPlace misc/CMakeLists.txt \
+       --replace '"''${PC_POLKIT_PREFIX}/''${CMAKE_INSTALL_DATAROOTDIR}' "\"$out/share"
+
+     for f in misc/*.policy.in \
+              scripts/*.pl* \
+              scripts/ZoneMinder/lib/ZoneMinder/Memory.pm.in ; do
+       substituteInPlace $f \
+         --replace '/usr/bin/perl' '${perlBin}' \
+         --replace '/bin:/usr/bin' "$out/bin:${
+      lib.makeBinPath [ coreutils procps psmisc ]
+         }"
+     done
+
+     substituteInPlace scripts/zmdbbackup.in \
+       --replace /usr/bin/mysqldump ${mysql}/bin/mysqldump
+
+     for f in scripts/ZoneMinder/lib/ZoneMinder/Config.pm.in \
+              scripts/zmupdate.pl.in \
+              src/zm_config.h.in \
+              web/api/app/Config/bootstrap.php.in \
+              web/includes/config.php.in ; do
+       substituteInPlace $f --replace @ZM_CONFIG_SUBDIR@ /etc/zoneminder
+     done
+
+    for f in includes/Event.php views/image.php skins/classic/views/image-ffmpeg.php ; do
+      substituteInPlace web/$f \
+        --replace "'ffmpeg " "'${ffmpeg}/bin/ffmpeg "
     done
-
-    substituteInPlace misc/CMakeLists.txt \
-      --replace '"''${PC_POLKIT_PREFIX}/''${CMAKE_INSTALL_DATAROOTDIR}' "\"$out/share"
-
-    for f in misc/*.policy.in \
-             scripts/*.pl* \
-             scripts/ZoneMinder/lib/ZoneMinder/Memory.pm.in ; do
-      substituteInPlace $f \
-        --replace '/usr/bin/perl' '${perlBin}' \
-        --replace '/bin:/usr/bin' "$out/bin:${lib.makeBinPath [ coreutils procps psmisc ]}"
-    done
-
-    substituteInPlace scripts/zmdbbackup.in \
-      --replace /usr/bin/mysqldump ${mysql}/bin/mysqldump
-
-    for f in scripts/ZoneMinder/lib/ZoneMinder/Config.pm.in \
-             scripts/zmupdate.pl.in \
-             src/zm_config.h.in \
-             web/api/app/Config/bootstrap.php.in \
-             web/includes/config.php.in ; do
-      substituteInPlace $f --replace @ZM_CONFIG_SUBDIR@ /etc/zoneminder
-    done
-
-   for f in includes/Event.php views/image.php skins/classic/views/image-ffmpeg.php ; do
-     substituteInPlace web/$f \
-       --replace "'ffmpeg " "'${ffmpeg}/bin/ffmpeg "
-   done
   '';
 
   buildInputs = [
-    curl ffmpeg glib libjpeg libselinux libsepol mp4v2 mysql pcre perl polkit x264 zlib
+    curl
+    ffmpeg
+    glib
+    libjpeg
+    libselinux
+    libsepol
+    mp4v2
+    mysql
+    pcre
+    perl
+    polkit
+    x264
+    zlib
     utillinuxMinimal # for libmount
   ] ++ (with perlPackages; [
     # build-time dependencies
-    DateManip DBI DBDmysql LWP SysMmap
+    DateManip
+    DBI
+    DBDmysql
+    LWP
+    SysMmap
     # run-time dependencies not checked at build-time
-    ClassStdFast DataDump JSONMaybeXS LWPProtocolHttps NumberBytesHuman SysCPU SysMemInfo TimeDate
+    ClassStdFast
+    DataDump
+    JSONMaybeXS
+    LWPProtocolHttps
+    NumberBytesHuman
+    SysCPU
+    SysMemInfo
+    TimeDate
   ]);
 
   nativeBuildInputs = [ cmake makeWrapper pkgconfig ];
@@ -186,7 +212,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Video surveillance software system";
-    homepage = https://zoneminder.com;
+    homepage = "https://zoneminder.com";
     license = licenses.gpl3;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.unix;

@@ -1,9 +1,7 @@
 { stdenv, fetchFromGitHub, cmake }:
 
-let
-  version = "2.8.1";
-in
-stdenv.mkDerivation {
+let version = "2.8.1";
+in stdenv.mkDerivation {
   name = "libversion-${version}";
 
   src = fetchFromGitHub {
@@ -20,7 +18,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Advanced version string comparison library";
-    homepage = https://github.com/repology/libversion;
+    homepage = "https://github.com/repology/libversion";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ryantm ];
     platforms = platforms.unix;

@@ -1,4 +1,4 @@
-{stdenv, fetchurl, coq, unzip}:
+{ stdenv, fetchurl, coq, unzip }:
 
 stdenv.mkDerivation rec {
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://plv.mpi-sws.org/paco/;
+    homepage = "http://plv.mpi-sws.org/paco/";
     description = "A Coq library implementing parameterized coinduction";
     maintainers = with maintainers; [ jwiegley ];
     platforms = coq.meta.platforms;

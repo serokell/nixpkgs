@@ -2,13 +2,9 @@
 
 {
   options = {
-    loaOfInt = lib.mkOption {
-      type = lib.types.loaOf lib.types.int;
-    };
+    loaOfInt = lib.mkOption { type = lib.types.loaOf lib.types.int; };
 
-    result = lib.mkOption {
-      type = lib.types.str;
-    };
+    result = lib.mkOption { type = lib.types.str; };
   };
 
   config = {

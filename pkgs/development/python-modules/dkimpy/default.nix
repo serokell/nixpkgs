@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, openssl, buildPythonPackage
-, pytest, dnspython, pynacl, authres, python }:
+{ stdenv, fetchPypi, openssl, buildPythonPackage, pytest, dnspython, pynacl, authres, python
+}:
 
 buildPythonPackage rec {
   pname = "dkimpy";
@@ -8,10 +8,10 @@ buildPythonPackage rec {
   src = fetchPypi {
     inherit pname version;
     sha256 = "83d5ddc1b83304dbccba1dc7b9e0ee37bec4269bb9ad5779480991525c3811d6";
-};
+  };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs =  [ openssl dnspython pynacl authres ];
+  propagatedBuildInputs = [ openssl dnspython pynacl authres ];
 
   patchPhase = ''
     substituteInPlace dkim/dknewkey.py --replace \
@@ -31,7 +31,7 @@ buildPythonPackage rec {
       records. This version also supports the experimental Authenticated
       Received Chain (ARC) protocol.
     '';
-    homepage = https://launchpad.net/dkimpy;
+    homepage = "https://launchpad.net/dkimpy";
     license = licenses.bsd3;
     maintainers = with maintainers; [ leenaars ];
   };

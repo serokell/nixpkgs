@@ -17,8 +17,9 @@ buildGoPackage rec {
   goDeps = ./prom2json_deps.nix;
 
   meta = with stdenv.lib; {
-    description = "Tool to scrape a Prometheus client and dump the result as JSON";
-    homepage = https://github.com/prometheus/prom2json;
+    description =
+      "Tool to scrape a Prometheus client and dump the result as JSON";
+    homepage = "https://github.com/prometheus/prom2json";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley ];
     platforms = platforms.unix;

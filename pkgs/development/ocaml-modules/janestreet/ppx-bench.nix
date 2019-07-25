@@ -1,5 +1,4 @@
-{stdenv, buildOcamlJane,
- ppx_core, ppx_driver, ppx_inline_test, ppx_tools}:
+{ stdenv, buildOcamlJane, ppx_core, ppx_driver, ppx_inline_test, ppx_tools }:
 
 buildOcamlJane rec {
   name = "ppx_bench";
@@ -11,7 +10,8 @@ buildOcamlJane rec {
   propagatedBuildInputs = [ ppx_core ppx_driver ppx_inline_test ppx_tools ];
 
   meta = with stdenv.lib; {
-    description = "Syntax extension for writing in-line benchmarks in ocaml code";
+    description =
+      "Syntax extension for writing in-line benchmarks in ocaml code";
     maintainers = [ maintainers.maurer ];
     license = licenses.asl20;
   };

@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, unzip, libjpeg, libtiff, zlib
-, postgresql, mysql57, libgeotiff, python, pythonPackages, proj, geos, openssl
-, libpng }:
+{ stdenv, fetchurl, unzip, libjpeg, libtiff, zlib, postgresql, mysql57, libgeotiff, python, pythonPackages, proj, geos, openssl, libpng
+}:
 
 stdenv.mkDerivation rec {
   name = "gdal-${version}";
@@ -11,7 +10,17 @@ stdenv.mkDerivation rec {
     sha256 = "0hphxzvy23v3vqxx1y22hhhg4cypihrb8555y12nb4mrhzlw7zfl";
   };
 
-  buildInputs = [ unzip libjpeg libtiff libgeotiff libpng python pythonPackages.numpy proj openssl ];
+  buildInputs = [
+    unzip
+    libjpeg
+    libtiff
+    libgeotiff
+    libpng
+    python
+    pythonPackages.numpy
+    proj
+    openssl
+  ];
 
   patches = [
     # This ensures that the python package is installed into gdal's prefix,
@@ -28,21 +37,19 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-jpeg=${libjpeg.dev}"
     "--with-libtiff=${libtiff.dev}" # optional (without largetiff support)
-    "--with-libpng=${libpng.dev}"   # optional
-    "--with-libz=${zlib.dev}"       # optional
+    "--with-libpng=${libpng.dev}" # optional
+    "--with-libz=${zlib.dev}" # optional
 
     "--with-pg=${postgresql}/bin/pg_config"
     "--with-mysql=${mysql57.connector-c}/bin/mysql_config"
     "--with-geotiff=${libgeotiff.dev}"
-    "--with-python"               # optional
+    "--with-python" # optional
     "--with-static-proj4=${proj}" # optional
-    "--with-geos=${geos}/bin/geos-config"# optional
+    "--with-geos=${geos}/bin/geos-config" # optional
   ];
 
   # Allow use of old proj_api.h
-  NIX_CFLAGS_COMPILE = [
-    "-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H=1"
-  ];
+  NIX_CFLAGS_COMPILE = [ "-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H=1" ];
 
   # Prevent this:
   #
@@ -60,7 +67,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Translator library for raster geospatial data formats";
-    homepage = https://www.gdal.org/;
+    homepage = "https://www.gdal.org/";
     license = stdenv.lib.licenses.mit;
     maintainers = [ stdenv.lib.maintainers.marcweber ];
     platforms = with stdenv.lib.platforms; linux ++ darwin;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl } :
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   version = "4.6";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A full featured terminal-based screen editor";
-    homepage = https://joe-editor.sourceforge.io;
+    homepage = "https://joe-editor.sourceforge.io";
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

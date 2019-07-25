@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, zipp
-, pathlib2
-, contextlib2
-, configparser
-, isPy3k
-, importlib-resources
-, packaging
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, zipp, pathlib2, contextlib2, configparser, isPy3k, importlib-resources, packaging
 }:
 
 buildPythonPackage rec {
@@ -33,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Read metadata from Python packages";
-    homepage = https://importlib-metadata.readthedocs.io/;
+    homepage = "https://importlib-metadata.readthedocs.io/";
     license = licenses.asl20;
   };
 }

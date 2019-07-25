@@ -4,7 +4,8 @@ buildPythonPackage rec {
   pname = "dugong";
   version = "3.7.4";
 
-  disabled = pythonOlder "3.3"; # Library does not support versions older than 3.3
+  disabled =
+    pythonOlder "3.3"; # Library does not support versions older than 3.3
 
   src = fetchPypi {
     inherit pname version;

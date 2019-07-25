@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pytest }:
 
 buildPythonPackage rec {
   version = "2.0.1";
@@ -23,9 +19,9 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Functions for server CLI applications used by humans";
-    homepage = https://github.com/joeyespo/path-and-address;
+    homepage = "https://github.com/joeyespo/path-and-address";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral];
+    maintainers = with maintainers; [ koral ];
   };
 
 }

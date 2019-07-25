@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake, fcitx, pkgconfig, qtbase, extra-cmake-modules
-, fetchpatch
+{ stdenv, fetchurl, cmake, fcitx, pkgconfig, qtbase, extra-cmake-modules, fetchpatch
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +14,8 @@ stdenv.mkDerivation rec {
     # Fix build with Qt 5.11
     # https://github.com/fcitx/fcitx-qt5/issues/34
     (fetchpatch {
-      url = https://github.com/fcitx/fcitx-qt5/commit/af033e3d5305108eecc568adff7f8b2da5831ed6.diff;
+      url =
+        "https://github.com/fcitx/fcitx-qt5/commit/af033e3d5305108eecc568adff7f8b2da5831ed6.diff";
       sha256 = "14vfz1fw2k362wnqpglw766fg3d3mc8cmfgic2p96yyipjh9xx3b";
     })
   ];
@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage    = https://github.com/fcitx/fcitx-qt5;
+    homepage = "https://github.com/fcitx/fcitx-qt5";
     description = "Qt5 IM Module for Fcitx";
-    license     = licenses.gpl2;
-    platforms   = platforms.linux;
+    license = licenses.gpl2;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ ericsagnes ];
   };
 

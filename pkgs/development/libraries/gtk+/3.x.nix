@@ -1,38 +1,36 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, gettext, perl, makeWrapper, shared-mime-info, isocodes
-, expat, glib, cairo, pango, gdk_pixbuf, atk, at-spi2-atk, gobject-introspection, fribidi
-, xorg, epoxy, json-glib, libxkbcommon, gmp, gnome3, autoreconfHook, gsettings-desktop-schemas
-, x11Support ? stdenv.isLinux
-, waylandSupport ? stdenv.isLinux, mesa, wayland, wayland-protocols
-, xineramaSupport ? stdenv.isLinux
-, cupsSupport ? stdenv.isLinux, cups ? null
-, AppKit, Cocoa
+{ stdenv, fetchurl, fetchpatch, pkgconfig, gettext, perl, makeWrapper, shared-mime-info, isocodes, expat, glib, cairo, pango, gdk_pixbuf, atk, at-spi2-atk, gobject-introspection, fribidi, xorg, epoxy, json-glib, libxkbcommon, gmp, gnome3, autoreconfHook, gsettings-desktop-schemas, x11Support ?
+  stdenv.isLinux, waylandSupport ?
+    stdenv.isLinux, mesa, wayland, wayland-protocols, xineramaSupport ?
+      stdenv.isLinux, cupsSupport ? stdenv.isLinux, cups ? null, AppKit, Cocoa
 }:
 
 assert cupsSupport -> cups != null;
 
 with stdenv.lib;
 
-let
-  version = "3.24.8";
-in
-stdenv.mkDerivation rec {
+let version = "3.24.8";
+in stdenv.mkDerivation rec {
   name = "gtk+3-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gtk+/${stdenv.lib.versions.majorMinor version}/gtk+-${version}.tar.xz";
+    url = "mirror://gnome/sources/gtk+/${
+      stdenv.lib.versions.majorMinor version
+    }/gtk+-${version}.tar.xz";
     sha256 = "16f71bbkhwhndcsrpyhjia3b77cb5ksf5c45lyfgws4pkgg64sb6";
   };
 
   outputs = [ "out" "dev" ];
   outputBin = "dev";
 
-  nativeBuildInputs = [ pkgconfig gettext gobject-introspection perl makeWrapper autoreconfHook ];
+  nativeBuildInputs =
+    [ pkgconfig gettext gobject-introspection perl makeWrapper autoreconfHook ];
 
   patches = [
     ./3.0-immodules.cache.patch
     (fetchpatch {
       name = "Xft-setting-fallback-compute-DPI-properly.patch";
-      url = "https://bug757142.bugzilla-attachments.gnome.org/attachment.cgi?id=344123";
+      url =
+        "https://bug757142.bugzilla-attachments.gnome.org/attachment.cgi?id=344123";
       sha256 = "0g6fhqcv8spfy3mfmxpyji93k8d4p4q4fz1v9a1c1cgcwkz41d7p";
     })
   ] ++ optionals stdenv.isDarwin [
@@ -44,13 +42,28 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libxkbcommon epoxy json-glib isocodes ]
     ++ optional stdenv.isDarwin AppKit;
-  propagatedBuildInputs = with xorg; with stdenv.lib;
-    [ expat glib cairo pango gdk_pixbuf atk at-spi2-atk gsettings-desktop-schemas fribidi
-      libXrandr libXrender libXcomposite libXi libXcursor libSM libICE ]
-    ++ optional stdenv.isDarwin Cocoa  # explicitly propagated, always needed
+  propagatedBuildInputs = with xorg;
+    with stdenv.lib;
+    [
+      expat
+      glib
+      cairo
+      pango
+      gdk_pixbuf
+      atk
+      at-spi2-atk
+      gsettings-desktop-schemas
+      fribidi
+      libXrandr
+      libXrender
+      libXcomposite
+      libXi
+      libXcursor
+      libSM
+      libICE
+    ] ++ optional stdenv.isDarwin Cocoa # explicitly propagated, always needed
     ++ optionals waylandSupport [ mesa wayland wayland-protocols ]
-    ++ optional xineramaSupport libXinerama
-    ++ optional cupsSupport cups;
+    ++ optional xineramaSupport libXinerama ++ optional cupsSupport cups;
   #TODO: colord?
 
   ## (2019-06-12) Demos seem to install fine now. Keeping this around in case it fails again.
@@ -63,13 +76,9 @@ stdenv.mkDerivation rec {
     "--disable-debug"
     "--disable-dependency-tracking"
     "--disable-glibtest"
-  ] ++ optional (stdenv.isDarwin && !x11Support)
-    "--enable-quartz-backend"
-    ++ optional x11Support [
-    "--enable-x11-backend"
-  ] ++ optional waylandSupport [
-    "--enable-wayland-backend"
-  ];
+  ] ++ optional (stdenv.isDarwin && !x11Support) "--enable-quartz-backend"
+    ++ optional x11Support [ "--enable-x11-backend" ]
+    ++ optional waylandSupport [ "--enable-wayland-backend" ];
 
   doCheck = false; # needs X11
 
@@ -95,7 +104,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A multi-platform toolkit for creating graphical user interfaces";
+    description =
+      "A multi-platform toolkit for creating graphical user interfaces";
 
     longDescription = ''
       GTK+ is a highly usable, feature rich toolkit for creating
@@ -108,7 +118,7 @@ stdenv.mkDerivation rec {
       royalties.
     '';
 
-    homepage = https://www.gtk.org/;
+    homepage = "https://www.gtk.org/";
 
     license = licenses.lgpl2Plus;
 

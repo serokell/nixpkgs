@@ -1,10 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, nss, nspr, libqb
-, dbus, rdma-core, libstatgrab, net_snmp
-, enableDbus ? false
-, enableInfiniBandRdma ? false
-, enableMonitoring ? false
-, enableSnmp ? false
-}:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, nss, nspr, libqb, dbus, rdma-core, libstatgrab, net_snmp, enableDbus ?
+  false, enableInfiniBandRdma ? false, enableMonitoring ? false, enableSnmp ?
+    false }:
 
 with stdenv.lib;
 
@@ -18,12 +14,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper pkgconfig ];
 
-  buildInputs = [
-    nss nspr libqb
-  ] ++ optional enableDbus dbus
+  buildInputs = [ nss nspr libqb ] ++ optional enableDbus dbus
     ++ optional enableInfiniBandRdma rdma-core
-    ++ optional enableMonitoring libstatgrab
-    ++ optional enableSnmp net_snmp;
+    ++ optional enableMonitoring libstatgrab ++ optional enableSnmp net_snmp;
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -63,8 +56,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://corosync.org/;
-    description = "A Group Communication System with features for implementing high availability within applications";
+    homepage = "http://corosync.org/";
+    description =
+      "A Group Communication System with features for implementing high availability within applications";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ montag451 ];

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cheetah
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, cheetah, nose }:
 
 buildPythonPackage rec {
   pname = "TurboCheetah";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "TurboGears plugin to support use of Cheetah templates";
-    homepage = http://docs.turbogears.org/TurboCheetah;
+    homepage = "http://docs.turbogears.org/TurboCheetah";
     license = lib.licenses.mit;
   };
 }

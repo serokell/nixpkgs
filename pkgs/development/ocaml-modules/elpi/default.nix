@@ -1,5 +1,4 @@
-{ lib, fetchFromGitHub, buildDunePackage, camlp5
-, ppx_tools_versioned, ppx_deriving, re
+{ lib, fetchFromGitHub, buildDunePackage, camlp5, ppx_tools_versioned, ppx_deriving, re
 }:
 
 buildDunePackage rec {

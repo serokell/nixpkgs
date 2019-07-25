@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   name = "ssh-ident-${version}";
   version = "2016-04-21";
-  src = fetchFromGitHub  {
+  src = fetchFromGitHub {
     owner = "ccontavalli";
     repo = "ssh-ident";
     rev = "ebf8282728211dc4448d50f7e16e546ed03c22d2";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/ccontavalli/ssh-ident;
+    homepage = "https://github.com/ccontavalli/ssh-ident";
     description = "Start and use ssh-agent and load identities as necessary";
     license = stdenv.lib.licenses.bsd2;
     maintainers = with stdenv.lib.maintainers; [ telotortium ];

@@ -1,23 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, nose
-, glibcLocales
-, entrypoints
-, bleach
-, mistune
-, jinja2
-, pygments
-, traitlets
-, testpath
-, jupyter_core
-, nbformat
-, ipykernel
-, pandocfilters
-, tornado
-, jupyter_client
-, defusedxml
+{ lib, buildPythonPackage, fetchPypi, pytest, nose, glibcLocales, entrypoints, bleach, mistune, jinja2, pygments, traitlets, testpath, jupyter_core, nbformat, ipykernel, pandocfilters, tornado, jupyter_client, defusedxml
 }:
 
 buildPythonPackage rec {
@@ -32,8 +13,19 @@ buildPythonPackage rec {
   checkInputs = [ nose pytest glibcLocales ];
 
   propagatedBuildInputs = [
-    entrypoints bleach mistune jinja2 pygments traitlets testpath
-    jupyter_core nbformat ipykernel pandocfilters tornado jupyter_client
+    entrypoints
+    bleach
+    mistune
+    jinja2
+    pygments
+    traitlets
+    testpath
+    jupyter_core
+    nbformat
+    ipykernel
+    pandocfilters
+    tornado
+    jupyter_client
     defusedxml
   ];
 
@@ -46,7 +38,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Converting Jupyter Notebooks";
-    homepage = https://jupyter.org/;
+    homepage = "https://jupyter.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh globin ];
   };

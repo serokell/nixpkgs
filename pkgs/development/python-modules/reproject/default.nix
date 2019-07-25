@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, astropy
-, astropy-healpix
-, astropy-helpers
-, scipy
+{ lib, buildPythonPackage, fetchPypi, numpy, astropy, astropy-healpix, astropy-helpers, scipy
 }:
 
 buildPythonPackage rec {
@@ -19,7 +12,8 @@ buildPythonPackage rec {
     sha256 = "dbbb18a8b211292c7ce61121b8538fc279540337be1c05cabc7570c5aca6d734";
   };
 
-  propagatedBuildInputs = [ numpy astropy astropy-healpix astropy-helpers scipy ];
+  propagatedBuildInputs =
+    [ numpy astropy astropy-healpix astropy-helpers scipy ];
 
   # Disable automatic update of the astropy-helper module
   postPatch = ''
@@ -28,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Reproject astronomical images";
-    homepage = https://reproject.readthedocs.io;
+    homepage = "https://reproject.readthedocs.io";
     license = licenses.bsd3;
     maintainers = [ maintainers.smaret ];
   };

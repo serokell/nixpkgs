@@ -1,7 +1,6 @@
-{ stdenv, buildOcaml, fetchurl, ocaml, sexplib_p4, stringext, uri_p4, cstruct, ipaddr_p4
-, asyncSupport ? stdenv.lib.versionAtLeast ocaml.version "4.02"
-, async_p4 ? null, async_ssl_p4 ? null, lwt ? null
-}:
+{ stdenv, buildOcaml, fetchurl, ocaml, sexplib_p4, stringext, uri_p4, cstruct, ipaddr_p4, asyncSupport ?
+  stdenv.lib.versionAtLeast ocaml.version "4.02", async_p4 ?
+    null, async_ssl_p4 ? null, lwt ? null }:
 
 buildOcaml rec {
   name = "conduit";
@@ -14,11 +13,11 @@ buildOcaml rec {
 
   propagatedBuildInputs = [ sexplib_p4 stringext uri_p4 cstruct ipaddr_p4 ];
   buildInputs = stdenv.lib.optional (lwt != null) lwt
-             ++ stdenv.lib.optional (asyncSupport && async_p4 != null) async_p4
-             ++ stdenv.lib.optional (asyncSupport && async_ssl_p4 != null) async_ssl_p4;
+    ++ stdenv.lib.optional (asyncSupport && async_p4 != null) async_p4
+    ++ stdenv.lib.optional (asyncSupport && async_ssl_p4 != null) async_ssl_p4;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mirage/ocaml-conduit;
+    homepage = "https://github.com/mirage/ocaml-conduit";
     description = "Resolve URIs into communication channels for Async or Lwt ";
     license = licenses.mit;
     maintainers = [ maintainers.ericbmerritt ];

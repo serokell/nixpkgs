@@ -3,12 +3,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  extlinux-conf-builder =
-    import ../../system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.nix {
+  extlinux-conf-builder = import
+    ../../system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.nix {
       pkgs = pkgs.buildPackages;
     };
-in
-{
+in {
   imports = [
     ../../profiles/base.nix
     ../../profiles/installation-device.nix
@@ -26,7 +25,14 @@ in
   # - ttyAMA0: for Allwinner (pcDuino3 Nano) and QEMU's -machine virt
   # - ttyO0: for OMAP (BeagleBone Black)
   # - ttySAC2: for Exynos (ODROID-XU3)
-  boot.kernelParams = ["console=ttyS0,115200n8" "console=ttymxc0,115200n8" "console=ttyAMA0,115200n8" "console=ttyO0,115200n8" "console=ttySAC2,115200n8" "console=tty0"];
+  boot.kernelParams = [
+    "console=ttyS0,115200n8"
+    "console=ttymxc0,115200n8"
+    "console=ttyAMA0,115200n8"
+    "console=ttyO0,115200n8"
+    "console=ttySAC2,115200n8"
+    "console=tty0"
+  ];
 
   sdImage = {
     populateFirmwareCommands = let

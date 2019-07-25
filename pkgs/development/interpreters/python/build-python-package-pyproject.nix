@@ -1,22 +1,20 @@
 # This function provides specific bits for building a setuptools-based Python package.
 
-{ lib
-, python
-}:
+{ lib, python }:
 
 {
 # passed to "python setup.py build_ext"
 # https://github.com/pypa/pip/issues/881
 # Rename to `buildOptions` because it is not setuptools specific?
-  setupPyBuildFlags ? []
-# Execute before shell hook
+setupPyBuildFlags ? [ ]
+  # Execute before shell hook
 , preShellHook ? ""
-# Execute after shell hook
-, postShellHook ? ""
-, ... } @ attrs:
+  # Execute after shell hook
+, postShellHook ? "", ... }@attrs:
 
 let
-  options = lib.concatMapStringsSep " " (option: "--global-option ${option}") setupPyBuildFlags;
+  options = lib.concatMapStringsSep " " (option: "--global-option ${option}")
+    setupPyBuildFlags;
 in attrs // {
   buildPhase = attrs.buildPhase or ''
     runHook preBuild

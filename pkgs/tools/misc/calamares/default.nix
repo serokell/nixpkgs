@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore
-, kservice, libatasmart, libxcb, libyamlcpp, parted, polkit-qt, python, qtbase
-, qtquickcontrols, qtsvg, qttools, qtwebengine, utillinux, glibc, tzdata
-, ckbcomp, xkeyboard_config
+{ stdenv, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore, kservice, libatasmart, libxcb, libyamlcpp, parted, polkit-qt, python, qtbase, qtquickcontrols, qtsvg, qttools, qtwebengine, utillinux, glibc, tzdata, ckbcomp, xkeyboard_config
 }:
 
 stdenv.mkDerivation rec {
@@ -11,14 +8,30 @@ stdenv.mkDerivation rec {
 
   # release including submodule
   src = fetchurl {
-    url = "https://github.com/${pname}/${pname}/releases/download/v${version}/${name}.tar.gz";
+    url =
+      "https://github.com/${pname}/${pname}/releases/download/v${version}/${name}.tar.gz";
     sha256 = "1ymyl12fzxc5jjfbw4pfmgzp036w0dai76f7anilw2bnwfzq5g62";
   };
 
   buildInputs = [
-    boost cmake extra-cmake-modules kparts.dev kpmcore.out kservice.dev
-    libatasmart libxcb libyamlcpp parted polkit-qt python qtbase
-    qtquickcontrols qtsvg qttools qtwebengine.dev utillinux
+    boost
+    cmake
+    extra-cmake-modules
+    kparts.dev
+    kpmcore.out
+    kservice.dev
+    libatasmart
+    libxcb
+    libyamlcpp
+    parted
+    polkit-qt
+    python
+    qtbase
+    qtquickcontrols
+    qtsvg
+    qttools
+    qtwebengine.dev
+    utillinux
   ];
 
   enableParallelBuilding = false;

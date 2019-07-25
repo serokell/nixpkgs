@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
-  name    = "par2cmdline-${version}";
+  name = "par2cmdline-${version}";
   version = "0.8.0";
 
   src = fetchFromGitHub {
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Parchive/par2cmdline;
+    homepage = "https://github.com/Parchive/par2cmdline";
     description = "PAR 2.0 compatible file verification and repair tool";
     longDescription = ''
       par2cmdline is a program for creating and using PAR2 files to detect

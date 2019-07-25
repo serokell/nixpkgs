@@ -1,17 +1,11 @@
-{ stdenv, lib, makeWrapper, dev_only_shellcheck ? null,
-fetchFromGitHub,
+{ stdenv, lib, makeWrapper, dev_only_shellcheck ? null, fetchFromGitHub,
 
-fzf, coreutils, libxml2, libxslt, jing, findutils, gnugrep, gnused,
-docbook5
-}:
+fzf, coreutils, libxml2, libxslt, jing, findutils, gnugrep, gnused, docbook5 }:
 stdenv.mkDerivation rec {
   name = "xmloscopy-${version}";
   version = "0.1.2";
 
-  buildInputs = [
-    makeWrapper
-    dev_only_shellcheck
-  ];
+  buildInputs = [ makeWrapper dev_only_shellcheck ];
 
   spath = lib.makeBinPath [
     fzf
@@ -45,7 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "wtf is my docbook broken?";
-    homepage = https://github.com/grahamc/xmloscopy;
+    homepage = "https://github.com/grahamc/xmloscopy";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.all;
   };

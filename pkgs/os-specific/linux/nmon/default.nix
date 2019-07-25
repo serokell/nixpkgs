@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
   dontUnpack = true;
-  buildPhase = "cc -o nmon ${src} -g -O2 -D JFS -D GETUSER -Wall -D LARGEMEM -lncurses -lm -g -D X86";
+  buildPhase =
+    "cc -o nmon ${src} -g -O2 -D JFS -D GETUSER -Wall -D LARGEMEM -lncurses -lm -g -D X86";
   installPhase = ''
     mkdir -p $out/bin
     cp nmon $out/bin

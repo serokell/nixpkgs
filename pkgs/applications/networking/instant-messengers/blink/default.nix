@@ -1,12 +1,12 @@
-{ stdenv, fetchdarcs, pythonPackages, libvncserver, zlib
-, gnutls, libvpx, makeDesktopItem }:
+{ stdenv, fetchdarcs, pythonPackages, libvncserver, zlib, gnutls, libvpx, makeDesktopItem
+}:
 
 pythonPackages.buildPythonApplication rec {
   name = "blink-${version}";
   version = "3.0.3";
 
   src = fetchdarcs {
-    url = http://devel.ag-projects.com/repositories/blink-qt;
+    url = "http://devel.ag-projects.com/repositories/blink-qt";
     rev = "release-${version}";
     sha256 = "1vj6zzfvxygz0fzr8bhymcw6j4v8xmr0kba53d6qg285j7hj1bdi";
   };
@@ -16,7 +16,13 @@ pythonPackages.buildPythonApplication rec {
     sed -i 's|@out@|'"''${out}"'|g' blink/resources.py
   '';
 
-  propagatedBuildInputs = with pythonPackages; [ pyqt5_with_qtwebkit cjson sipsimple twisted google_api_python_client ];
+  propagatedBuildInputs = with pythonPackages; [
+    pyqt5_with_qtwebkit
+    cjson
+    sipsimple
+    twisted
+    google_api_python_client
+  ];
 
   buildInputs = [ pythonPackages.cython zlib libvncserver libvpx ];
 
@@ -40,8 +46,9 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://icanblink.com/;
-    description = "A state of the art, easy to use SIP client for Voice, Video and IM";
+    homepage = "http://icanblink.com/";
+    description =
+      "A state of the art, easy to use SIP client for Voice, Video and IM";
     platforms = platforms.linux;
     license = licenses.gpl3;
     maintainers = with maintainers; [ pSub ];

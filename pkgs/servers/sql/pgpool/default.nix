@@ -13,22 +13,20 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ postgresql openssl pam libmemcached ];
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--with-openssl"
-  ] ++ stdenv.lib.optional (pam != null) "--with-pam"
-    ++ stdenv.lib.optional (libmemcached != null) "--with-memcached=${libmemcached}";
+  configureFlags =
+    [ "--sysconfdir=/etc" "--localstatedir=/var" "--with-openssl" ]
+    ++ stdenv.lib.optional (pam != null) "--with-pam"
+    ++ stdenv.lib.optional (libmemcached != null)
+    "--with-memcached=${libmemcached}";
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://pgpool.net/mediawiki/index.php;
-    description = "A middleware that works between postgresql servers and postgresql clients";
+    homepage = "http://pgpool.net/mediawiki/index.php";
+    description =
+      "A middleware that works between postgresql servers and postgresql clients";
     license = licenses.free;
     platforms = platforms.linux;
   };

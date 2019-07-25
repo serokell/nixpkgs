@@ -1,8 +1,7 @@
-{ stdenv, fetchurl
-, unzip, zlib, SDL, readline, libGLU_combined, libX11 }:
+{ stdenv, fetchurl, unzip, zlib, SDL, readline, libGLU_combined, libX11 }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   name = "atari800-${version}";
   version = "4.0.0";
 
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec{
   preConfigure = "cd src";
 
   meta = {
-    homepage = http://atari800.sourceforge.net/;
+    homepage = "http://atari800.sourceforge.net/";
     description = "An Atari 8-bit emulator";
     longDescription = ''
       Atari800 is the emulator of Atari 8-bit computer systems and

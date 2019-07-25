@@ -11,8 +11,9 @@ stdenv.mkDerivation rec {
   makeFlags = "prefix=$(out)";
 
   meta = with stdenv.lib; {
-    homepage = https://www.nongnu.org/dmidecode/;
-    description = "A tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard";
+    homepage = "https://www.nongnu.org/dmidecode/";
+    description =
+      "A tool that reads information about your system's hardware from the BIOS according to the SMBIOS/DMI standard";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

@@ -1,10 +1,8 @@
 { stdenv, fetchurl, python, pythonPackages, libxslt, libxml2, makeWrapper }:
 
-let
-  rev = "9de21094a8cf565bdfcf75688e121a5ad1f5397b";
-in
+let rev = "9de21094a8cf565bdfcf75688e121a5ad1f5397b";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "venus-${rev}";
 
   src = fetchurl {
@@ -28,8 +26,14 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkPhase = "python runtests.py";
 
-  buildInputs = [ python libxslt
-    libxml2 pythonPackages.genshi pythonPackages.lxml makeWrapper ];
+  buildInputs = [
+    python
+    libxslt
+    libxml2
+    pythonPackages.genshi
+    pythonPackages.lxml
+    makeWrapper
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -47,9 +51,9 @@ stdenv.mkDerivation rec {
       feeds published by web sites and aggregates their content together into a
       single combined feed, latest news first.
     '';
-    homepage = http://intertwingly.net/code/venus/docs/index.html;
+    homepage = "http://intertwingly.net/code/venus/docs/index.html";
     license = stdenv.lib.licenses.psfl;
     platforms = stdenv.lib.platforms.all;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

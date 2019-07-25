@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.fefe.de/libowfat/;
+    homepage = "https://www.fefe.de/libowfat/";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

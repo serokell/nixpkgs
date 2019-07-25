@@ -1,16 +1,15 @@
-{ stdenv, fetchzip, makeDesktopItem, makeWrapper
-, jre
-}:
+{ stdenv, fetchzip, makeDesktopItem, makeWrapper, jre }:
 
 stdenv.mkDerivation rec {
   name = "ganttproject-bin-${version}";
   version = "2.8.10";
 
-  src = let build = "r2364"; in fetchzip {
-    sha256 = "0cclgyqv4f9pjsdlh93cqvgbzrp8ajvrpc2xszs03sknqz2kdh7r";
-    url = "https://dl.ganttproject.biz/ganttproject-${version}/"
+  src = let build = "r2364";
+    in fetchzip {
+      sha256 = "0cclgyqv4f9pjsdlh93cqvgbzrp8ajvrpc2xszs03sknqz2kdh7r";
+      url = "https://dl.ganttproject.biz/ganttproject-${version}/"
         + "ganttproject-${version}-${build}.zip";
-  };
+    };
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ jre ];
@@ -29,28 +28,26 @@ stdenv.mkDerivation rec {
       categories = "Office;Application;";
     };
 
-    javaOptions = [
-      "-Dawt.useSystemAAFontSettings=on"
-    ];
+    javaOptions = [ "-Dawt.useSystemAAFontSettings=on" ];
 
-  in ''
-    mkdir -pv "$out/share/ganttproject"
-    cp -rv *  "$out/share/ganttproject"
+    in ''
+      mkdir -pv "$out/share/ganttproject"
+      cp -rv *  "$out/share/ganttproject"
 
-    mkdir -pv "$out/bin"
-    wrapProgram "$out/share/ganttproject/ganttproject" \
-      --set JAVA_HOME "${jre}" \
-      --set _JAVA_OPTIONS "${builtins.toString javaOptions}"
+      mkdir -pv "$out/bin"
+      wrapProgram "$out/share/ganttproject/ganttproject" \
+        --set JAVA_HOME "${jre}" \
+        --set _JAVA_OPTIONS "${builtins.toString javaOptions}"
 
-    mv -v "$out/share/ganttproject/ganttproject" "$out/bin"
+      mv -v "$out/share/ganttproject/ganttproject" "$out/bin"
 
-    cp -rv "${desktopItem}/share/applications" "$out/share"
-  '';
+      cp -rv "${desktopItem}/share/applications" "$out/share"
+    '';
 
   meta = with stdenv.lib; {
     description = "Project scheduling and management";
-    homepage = https://www.ganttproject.biz/;
-    downloadPage = https://www.ganttproject.biz/download;
+    homepage = "https://www.ganttproject.biz/";
+    downloadPage = "https://www.ganttproject.biz/download";
     # GanttProject itself is GPL3+. All bundled libraries are declared
     # ‘GPL3-compatible’. See ${downloadPage} for detailed information.
     license = licenses.gpl3Plus;

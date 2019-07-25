@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, beautifulsoup4
-, isPy3k
-, backports_functools_lru_cache
+{ lib, buildPythonPackage, fetchPypi, pytest, beautifulsoup4, isPy3k, backports_functools_lru_cache
 }:
 
 buildPythonPackage rec {
@@ -30,7 +24,7 @@ buildPythonPackage rec {
   meta = {
     description = "A CSS4 selector implementation for Beautiful Soup";
     license = lib.licenses.mit;
-    homepage = https://github.com/facelessuser/soupsieve;
+    homepage = "https://github.com/facelessuser/soupsieve";
   };
 
 }

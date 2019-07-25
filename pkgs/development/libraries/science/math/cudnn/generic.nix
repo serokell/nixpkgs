@@ -1,14 +1,6 @@
-{ version
-, srcName
-, sha256
-}:
+{ version, srcName, sha256 }:
 
-{ stdenv
-, lib
-, cudatoolkit
-, fetchurl
-, addOpenGLRunpath
-}:
+{ stdenv, lib, cudatoolkit, fetchurl, addOpenGLRunpath }:
 
 stdenv.mkDerivation rec {
   name = "cudatoolkit-${cudatoolkit.majorVersion}-cudnn-${version}";
@@ -16,7 +8,8 @@ stdenv.mkDerivation rec {
   inherit version;
   src = fetchurl {
     # URL from NVIDIA docker containers: https://gitlab.com/nvidia/cuda/blob/centos7/7.0/runtime/cudnn4/Dockerfile
-    url = "https://developer.download.nvidia.com/compute/redist/cudnn/v${version}/${srcName}";
+    url =
+      "https://developer.download.nvidia.com/compute/redist/cudnn/v${version}/${srcName}";
     inherit sha256;
   };
 
@@ -40,9 +33,7 @@ stdenv.mkDerivation rec {
     addOpenGLRunpath $out/lib/lib*.so
   '';
 
-  propagatedBuildInputs = [
-    cudatoolkit
-  ];
+  propagatedBuildInputs = [ cudatoolkit ];
 
   passthru = {
     inherit cudatoolkit;

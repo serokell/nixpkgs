@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, SDL, SDL_net, SDL_sound, libGLU_combined, libpng, graphicsmagick }:
+{ stdenv, lib, fetchurl, makeDesktopItem, SDL, SDL_net, SDL_sound, libGLU_combined, libpng, graphicsmagick
+}:
 
 stdenv.mkDerivation rec {
   name = "dosbox-0.74-3";
@@ -27,17 +28,17 @@ stdenv.mkDerivation rec {
   };
 
   postInstall = ''
-     mkdir -p $out/share/applications
-     cp ${desktopItem}/share/applications/* $out/share/applications
+    mkdir -p $out/share/applications
+    cp ${desktopItem}/share/applications/* $out/share/applications
 
-     mkdir -p $out/share/icons/hicolor/256x256/apps
-     gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    gm convert src/dosbox.ico $out/share/icons/hicolor/256x256/apps/dosbox.png
   '';
 
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = http://www.dosbox.com/;
+    homepage = "http://www.dosbox.com/";
     description = "A DOS emulator";
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];

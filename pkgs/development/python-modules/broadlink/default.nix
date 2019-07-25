@@ -1,5 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage
-, pyaes, pycrc }:
+{ lib, fetchPypi, buildPythonPackage, pyaes, pycrc }:
 
 buildPythonPackage rec {
   pname = "broadlink";
@@ -13,7 +12,7 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace setup.py \
       --replace pyaes==1.6.0 pyaes
-    '';
+  '';
 
   propagatedBuildInputs = [ pyaes pycrc ];
 
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python API for controlling Broadlink IR controllers";
-    homepage =  https://github.com/mjg59/python-broadlink;
+    homepage = "https://github.com/mjg59/python-broadlink";
     license = licenses.mit;
   };
 }

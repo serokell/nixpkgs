@@ -1,11 +1,12 @@
-{ stdenv, fetchurl, file, findutils, binutils-unwrapped, glibc, coreutils, sysctl }:
+{ stdenv, fetchurl, file, findutils, binutils-unwrapped, glibc, coreutils, sysctl
+}:
 
 stdenv.mkDerivation rec {
   name = "checksec-${version}";
   version = "1.5";
 
   src = fetchurl {
-    url    = "https://www.trapkit.de/tools/checksec.sh";
+    url = "https://www.trapkit.de/tools/checksec.sh";
     sha256 = "0iq9v568mk7g7ksa1939g5f5sx7ffq8s8n2ncvphvlckjgysgf3p";
   };
 
@@ -35,9 +36,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A tool for checking security bits on executables";
-    homepage    = "http://www.trapkit.de/tools/checksec.html";
-    license     = stdenv.lib.licenses.bsd3;
-    platforms   = stdenv.lib.platforms.linux;
+    homepage = "http://www.trapkit.de/tools/checksec.html";
+    license = stdenv.lib.licenses.bsd3;
+    platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

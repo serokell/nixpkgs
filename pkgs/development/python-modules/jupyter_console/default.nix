@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, jupyter_client
-, ipython
-, ipykernel
-, prompt_toolkit
-, pygments
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, nose, jupyter_client, ipython, ipykernel, prompt_toolkit, pygments, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -21,13 +12,8 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ nose ];
-  propagatedBuildInputs = [
-    jupyter_client
-    ipython
-    ipykernel
-    prompt_toolkit
-    pygments
-  ];
+  propagatedBuildInputs =
+    [ jupyter_client ipython ipykernel prompt_toolkit pygments ];
 
   # ValueError: underlying buffer has been detached
   doCheck = false;

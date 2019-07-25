@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
 
   # Building from source would be preferred, but is much more involved.
   src = fetchurl {
-    url = "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}.tar.gz";
+    url =
+      "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}.tar.gz";
     sha256 = "050nizf7v10jlrwr8f4awzi2368qr01pzpvl2qkrwhdk25r505yr";
   };
 
@@ -36,8 +37,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/AsamK/signal-cli;
-    description = "Command-line and dbus interface for communicating with the Signal messaging service";
+    homepage = "https://github.com/AsamK/signal-cli";
+    description =
+      "Command-line and dbus interface for communicating with the Signal messaging service";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ivan ];
     platforms = platforms.all;

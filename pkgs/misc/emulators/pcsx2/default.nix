@@ -1,6 +1,5 @@
-{ alsaLib, cmake, fetchFromGitHub, glib, gtk2, gettext, libaio, libpng
-, makeWrapper, perl, pkgconfig, portaudio, SDL2, soundtouch, stdenv
-, wxGTK30, zlib }:
+{ alsaLib, cmake, fetchFromGitHub, glib, gtk2, gettext, libaio, libpng, makeWrapper, perl, pkgconfig, portaudio, SDL2, soundtouch, stdenv, wxGTK30, zlib
+}:
 
 stdenv.mkDerivation rec {
   name = "pcsx2-${version}";
@@ -13,7 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0s7mxq2cgzwjfsq0vhpz6ljk7wr725nxg48128iyirf85585l691";
   };
 
-  postPatch = "sed '1i#include \"x86intrin.h\"' -i common/src/x86emitter/cpudetect.cpp";
+  postPatch =
+    ''sed '1i#include "x86intrin.h"' -i common/src/x86emitter/cpudetect.cpp'';
 
   configurePhase = ''
     mkdir -p build
@@ -47,22 +47,32 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake perl pkgconfig ];
 
   buildInputs = [
-    alsaLib glib gettext gtk2 libaio libpng makeWrapper portaudio SDL2
-    soundtouch wxGTK30 zlib
+    alsaLib
+    glib
+    gettext
+    gtk2
+    libaio
+    libpng
+    makeWrapper
+    portaudio
+    SDL2
+    soundtouch
+    wxGTK30
+    zlib
   ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "Playstation 2 emulator";
-    longDescription= ''
+    longDescription = ''
       PCSX2 is an open-source PlayStation 2 (AKA PS2) emulator. Its purpose
       is to emulate the PS2 hardware, using a combination of MIPS CPU
       Interpreters, Recompilers and a Virtual Machine which manages hardware
       states and PS2 system memory. This allows you to play PS2 games on your
       PC, with many additional features and benefits.
     '';
-    homepage = https://pcsx2.net;
+    homepage = "https://pcsx2.net";
     maintainers = with maintainers; [ hrdinka ];
 
     # PCSX2's source code is released under LGPLv3+. It However ships

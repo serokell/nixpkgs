@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, zlib, protobuf, ncurses, pkgconfig
-, makeWrapper, perlPackages, openssl, autoreconfHook, openssh, bash-completion
-, libutempter ? null, withUtempter ? stdenv.isLinux }:
+{ lib, stdenv, fetchurl, fetchpatch, zlib, protobuf, ncurses, pkgconfig, makeWrapper, perlPackages, openssl, autoreconfHook, openssh, bash-completion, libutempter ?
+  null, withUtempter ? stdenv.isLinux }:
 
 stdenv.mkDerivation rec {
   name = "mosh-1.3.2";
@@ -20,7 +19,8 @@ stdenv.mkDerivation rec {
     ./utempter_path.patch
     # Fix w/c++17, ::bind vs std::bind
     (fetchpatch {
-      url = "https://github.com/mobile-shell/mosh/commit/e5f8a826ef9ff5da4cfce3bb8151f9526ec19db0.patch";
+      url =
+        "https://github.com/mobile-shell/mosh/commit/e5f8a826ef9ff5da4cfce3bb8151f9526ec19db0.patch";
       sha256 = "15518rb0r5w1zn4s6981bf1sz6ins6gpn2saizfzhmr13hw4gmhm";
     })
   ];
@@ -29,16 +29,17 @@ stdenv.mkDerivation rec {
         --subst-var-by ssh "${openssh}/bin/ssh"
   '';
 
-  configureFlags = [ "--enable-completion" ] ++ lib.optional withUtempter "--with-utempter";
+  configureFlags = [ "--enable-completion" ]
+    ++ lib.optional withUtempter "--with-utempter";
 
   postInstall = ''
-      wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB
+    wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB
   '';
 
   CXXFLAGS = stdenv.lib.optionalString stdenv.cc.isClang "-std=c++11";
 
   meta = {
-    homepage = https://mosh.org/;
+    homepage = "https://mosh.org/";
     description = "Mobile shell (ssh replacement)";
     longDescription = ''
       Remote terminal application that allows roaming, supports intermittent
@@ -49,7 +50,7 @@ stdenv.mkDerivation rec {
       especially over Wi-Fi, cellular, and long-distance links.
     '';
     license = stdenv.lib.licenses.gpl3Plus;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = stdenv.lib.platforms.unix;
   };
 }

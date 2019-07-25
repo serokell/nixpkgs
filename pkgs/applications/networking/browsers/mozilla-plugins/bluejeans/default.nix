@@ -1,20 +1,27 @@
-{ stdenv, fetchurl, xorg, gtk2, glib, gdk_pixbuf, dpkg, libXext, libXfixes
-, libXrender, libuuid, libXrandr, libXcomposite, libpulseaudio
+{ stdenv, fetchurl, xorg, gtk2, glib, gdk_pixbuf, dpkg, libXext, libXfixes, libXrender, libuuid, libXrandr, libXcomposite, libpulseaudio
 }:
 
 with stdenv.lib;
 
 let
 
-  rpathInstaller = makeLibraryPath
-    [gtk2 glib stdenv.cc.cc];
+  rpathInstaller = makeLibraryPath [ gtk2 glib stdenv.cc.cc ];
 
-  rpathPlugin = makeLibraryPath
-    ([ stdenv.cc.cc gtk2 glib xorg.libX11 gdk_pixbuf libXext libXfixes libXrender libXrandr libXcomposite libpulseaudio ] ++ optional (libuuid != null) libuuid);
+  rpathPlugin = makeLibraryPath ([
+    stdenv.cc.cc
+    gtk2
+    glib
+    xorg.libX11
+    gdk_pixbuf
+    libXext
+    libXfixes
+    libXrender
+    libXrandr
+    libXcomposite
+    libpulseaudio
+  ] ++ optional (libuuid != null) libuuid);
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "bluejeans-${version}";
 
   version = "2.180.71.8";
@@ -26,20 +33,19 @@ stdenv.mkDerivation rec {
 
   unpackPhase = "${dpkg}/bin/dpkg-deb -x $src .";
 
-  installPhase =
-    ''
-      mkdir -p $out
-      cp -R usr/lib $out/
+  installPhase = ''
+    mkdir -p $out
+    cp -R usr/lib $out/
 
-      plugins=$out/lib/mozilla/plugins
-      patchelf \
-        --set-rpath "${rpathPlugin}" \
-        $plugins/npbjnplugin_${version}.so
+    plugins=$out/lib/mozilla/plugins
+    patchelf \
+      --set-rpath "${rpathPlugin}" \
+      $plugins/npbjnplugin_${version}.so
 
-      patchelf \
-        --set-rpath "${rpathInstaller}" \
-        $plugins/npbjninstallplugin_${version}.so
-    '';
+    patchelf \
+      --set-rpath "${rpathInstaller}" \
+      $plugins/npbjninstallplugin_${version}.so
+  '';
 
   dontStrip = true;
   dontPatchELF = true;
@@ -47,7 +53,7 @@ stdenv.mkDerivation rec {
   passthru.mozillaPlugin = "/lib/mozilla/plugins";
 
   meta = {
-    homepage = http://bluejeans.com;
+    homepage = "http://bluejeans.com";
     license = stdenv.lib.licenses.unfree;
     maintainers = with maintainers; [ ocharles kamilchm ];
     platforms = stdenv.lib.platforms.linux;

@@ -1,11 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, pytest
-, tornado
-, zeromq
-, py
-, python
-}:
+{ buildPythonPackage, fetchPypi, pytest, tornado, zeromq, py, python }:
 
 buildPythonPackage rec {
   pname = "pyzmq";
@@ -16,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "0k3y6k3l9dmih3qmc4vrw26dpjggdk5c6r6806qhgjgpyq2rhccb";
   };
 
-  checkInputs = [  pytest tornado ];
+  checkInputs = [ pytest tornado ];
   buildInputs = [ zeromq ];
   propagatedBuildInputs = [ py ];
 

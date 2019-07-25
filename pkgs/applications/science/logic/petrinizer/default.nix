@@ -1,5 +1,4 @@
-{ mkDerivation, async, base, bytestring, containers, fetchFromGitLab, mtl
-, parallel-io, parsec, sbv, stdenv, stm, transformers
+{ mkDerivation, async, base, bytestring, containers, fetchFromGitLab, mtl, parallel-io, parsec, sbv, stdenv, stm, transformers
 }:
 mkDerivation rec {
   pname = "petrinizer";
@@ -16,7 +15,15 @@ mkDerivation rec {
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [
-    async base bytestring containers mtl parallel-io parsec sbv stm
+    async
+    base
+    bytestring
+    containers
+    mtl
+    parallel-io
+    parsec
+    sbv
+    stm
     transformers
   ];
   description = "Safety and Liveness Analysis of Petri Nets with SMT solvers";

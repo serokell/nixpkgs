@@ -1,11 +1,13 @@
-{ stdenv, fetchurl, cups, dpkg, ghostscript, a2ps, coreutils, gnused, gawk, file, makeWrapper }:
+{ stdenv, fetchurl, cups, dpkg, ghostscript, a2ps, coreutils, gnused, gawk, file, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "mfcj470dw-cupswrapper-${version}";
   version = "3.0.0-1";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf006843/mfcj470dwlpr-${version}.i386.deb";
+    url =
+      "https://download.brother.com/welcome/dlf006843/mfcj470dwlpr-${version}.i386.deb";
     sha256 = "7202dd895d38d50bb767080f2995ed350eed99bc2b7871452c3c915c8eefc30a";
   };
 
@@ -28,18 +30,21 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/brother/Printers/mfcj470dw/lpd/filtermfcj470dw $out/lib/cups/filter/brother_lpdwrapper_mfcj470dw
 
     wrapProgram $out/opt/brother/Printers/mfcj470dw/lpd/psconvertij2 \
-    --prefix PATH ":" ${ stdenv.lib.makeBinPath [ gnused coreutils gawk ] }
+    --prefix PATH ":" ${stdenv.lib.makeBinPath [ gnused coreutils gawk ]}
 
     wrapProgram $out/opt/brother/Printers/mfcj470dw/lpd/filtermfcj470dw \
-    --prefix PATH ":" ${ stdenv.lib.makeBinPath [ ghostscript a2ps file gnused coreutils ] }
-    '';
+    --prefix PATH ":" ${
+      stdenv.lib.makeBinPath [ ghostscript a2ps file gnused coreutils ]
+    }
+  '';
 
   meta = {
-    homepage = http://www.brother.com/;
+    homepage = "http://www.brother.com/";
     description = "Brother MFC-J470DW LPR driver";
     license = stdenv.lib.licenses.unfree;
     platforms = stdenv.lib.platforms.linux;
-    downloadPage = http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128;
+    downloadPage =
+      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
     maintainers = [ stdenv.lib.maintainers.yochai ];
   };
 }

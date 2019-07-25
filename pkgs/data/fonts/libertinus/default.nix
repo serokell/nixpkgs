@@ -1,13 +1,12 @@
 { lib, fetchFromGitHub }:
 
-let
-  version = "6.9";
+let version = "6.9";
 in fetchFromGitHub rec {
   name = "libertinus-${version}";
 
-  owner  = "alif-type";
-  repo   = "libertinus";
-  rev    = "v${version}";
+  owner = "alif-type";
+  repo = "libertinus";
+  rev = "v${version}";
 
   postFetch = ''
     tar xf $downloadedFile --strip=1
@@ -23,7 +22,7 @@ in fetchFromGitHub rec {
       that started as an OpenType math companion of the Libertine font family,
       but grown as a full fork to address some of the bugs in the fonts.
     '';
-    homepage = https://github.com/alif-type/libertinus;
+    homepage = "https://github.com/alif-type/libertinus";
     license = licenses.ofl;
     maintainers = with maintainers; [ siddharthist ];
     platforms = platforms.all;

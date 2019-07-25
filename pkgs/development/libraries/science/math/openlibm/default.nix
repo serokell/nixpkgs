@@ -11,8 +11,9 @@ stdenv.mkDerivation rec {
   makeFlags = [ "prefix=$(out)" ];
 
   meta = {
-    description = "High quality system independent, portable, open source libm implementation";
-    homepage = https://www.openlibm.org/;
+    description =
+      "High quality system independent, portable, open source libm implementation";
+    homepage = "https://www.openlibm.org/";
     license = stdenv.lib.licenses.mit;
     maintainers = [ stdenv.lib.maintainers.ttuegel ];
     platforms = stdenv.lib.platforms.all;

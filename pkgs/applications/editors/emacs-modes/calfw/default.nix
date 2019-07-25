@@ -14,14 +14,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ emacs ];
 
-  installPhase =
-    ''
-       mkdir -p "$out/share/doc/${name}"
-       cp -v readme.md "$out/share/doc/${name}"
+  installPhase = ''
+    mkdir -p "$out/share/doc/${name}"
+    cp -v readme.md "$out/share/doc/${name}"
 
-       mkdir -p "$out/share/emacs/site-lisp/"
-       cp *.el "$out/share/emacs/site-lisp/"
-    '';
+    mkdir -p "$out/share/emacs/site-lisp/"
+    cp *.el "$out/share/emacs/site-lisp/"
+  '';
 
   meta = {
     description = "A calendar framework for Emacs";

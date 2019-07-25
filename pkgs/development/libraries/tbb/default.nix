@@ -1,6 +1,8 @@
-{ stdenv, fetchFromGitHub, compiler ? if stdenv.cc.isClang then "clang" else null, stdver ? null }:
+{ stdenv, fetchFromGitHub, compiler ?
+  if stdenv.cc.isClang then "clang" else null, stdver ? null }:
 
-with stdenv.lib; stdenv.mkDerivation rec {
+with stdenv.lib;
+stdenv.mkDerivation rec {
   name = "tbb-${version}";
   version = "2019_U8";
 
@@ -11,12 +13,12 @@ with stdenv.lib; stdenv.mkDerivation rec {
     sha256 = "0z0kh1a5g28gckcxlv3x7qqskh5fsl8knf2ypbbvk7z9ln9k3wfq";
   };
 
-  makeFlags = concatStringsSep " " (
-    optional (compiler != null) "compiler=${compiler}" ++
-    optional (stdver != null) "stdver=${stdver}"
-  );
+  makeFlags = concatStringsSep " "
+    (optional (compiler != null) "compiler=${compiler}"
+    ++ optional (stdver != null) "stdver=${stdver}");
 
-  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl ./glibc-struct-mallinfo.patch;
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl
+    ./glibc-struct-mallinfo.patch;
 
   installPhase = ''
     mkdir -p $out/lib

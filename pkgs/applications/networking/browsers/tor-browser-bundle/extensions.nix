@@ -1,17 +1,11 @@
-{ stdenv
-, fetchgit
-, fetchurl
+{ stdenv, fetchgit, fetchurl
 
 # common
 , zip
 
 # HTTPS Everywhere
-, git
-, libxml2 # xmllint
-, python27
-, python27Packages
-, rsync
-}:
+, git, libxml2 # xmllint
+, python27, python27Packages, rsync }:
 
 {
   https-everywhere = stdenv.mkDerivation rec {
@@ -52,7 +46,8 @@
     extid = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
 
     src = fetchurl {
-      url = "https://secure.informaction.com/download/releases/noscript-${version}.xpi";
+      url =
+        "https://secure.informaction.com/download/releases/noscript-${version}.xpi";
       sha256 = "1fzspdiwhjabwz1yxb3gzj7giz9jbc1xxm65i93rvhzcp537cs42";
     };
 

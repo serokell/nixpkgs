@@ -1,6 +1,4 @@
-{ alsaLib, autoPatchelfHook, fetchurl, gtk3, libnotify
-, makeDesktopItem, makeWrapper, nss, stdenv, udev, xdg_utils
-, xorg
+{ alsaLib, autoPatchelfHook, fetchurl, gtk3, libnotify, makeDesktopItem, makeWrapper, nss, stdenv, udev, xdg_utils, xorg
 }:
 
 with stdenv.lib;
@@ -19,12 +17,15 @@ let
     categories = "Network;";
   };
 
-  tarball = "Wavebox_${replaceStrings ["."] ["_"] (toString version)}_linux_${bits}.tar.gz";
+  tarball = "Wavebox_${
+    replaceStrings [ "." ] [ "_" ] (toString version)
+  }_linux_${bits}.tar.gz";
 
 in stdenv.mkDerivation rec {
   name = "wavebox-${version}";
   src = fetchurl {
-    url = "https://github.com/wavebox/waveboxapp/releases/download/v${version}/${tarball}";
+    url =
+      "https://github.com/wavebox/waveboxapp/releases/download/v${version}/${tarball}";
     sha256 = "1yg2lib4h5illz0ss4hvr78s4v1cjbxlczjzaw6bqigyk95smm23";
   };
 
@@ -33,11 +34,8 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
-  buildInputs = with xorg; [
-    libXdmcp libXScrnSaver libXtst
-  ] ++ [
-    alsaLib gtk3 nss
-  ];
+  buildInputs = with xorg;
+    [ libXdmcp libXScrnSaver libXtst ] ++ [ alsaLib gtk3 nss ];
 
   runtimeDependencies = [ udev.lib libnotify ];
 
@@ -58,10 +56,10 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Wavebox messaging application";
-    homepage = https://wavebox.io;
+    homepage = "https://wavebox.io";
     license = licenses.mpl20;
     maintainers = with maintainers; [ rawkode ];
-    platforms = ["x86_64-linux"];
-    hydraPlatforms = [];
+    platforms = [ "x86_64-linux" ];
+    hydraPlatforms = [ ];
   };
 }

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, libxml2, glib, pipewire, fontconfig, flatpak, gsettings-desktop-schemas, acl, dbus, fuse, geoclue2, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, libxml2, glib, pipewire, fontconfig, flatpak, gsettings-desktop-schemas, acl, dbus, fuse, geoclue2, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal";
@@ -22,13 +23,21 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig libxml2 wrapGAppsHook ];
-  buildInputs = [ glib pipewire fontconfig flatpak acl dbus geoclue2 fuse gsettings-desktop-schemas ];
+  buildInputs = [
+    glib
+    pipewire
+    fontconfig
+    flatpak
+    acl
+    dbus
+    geoclue2
+    fuse
+    gsettings-desktop-schemas
+  ];
 
   doCheck = true; # XXX: investigate!
 
-  configureFlags = [
-    "--enable-installed-tests"
-  ];
+  configureFlags = [ "--enable-installed-tests" ];
 
   makeFlags = [
     "installed_testdir=$(installedTests)/libexec/installed-tests/xdg-desktop-portal"

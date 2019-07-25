@@ -1,9 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkgconfig
-, openssl
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl }:
 
 rustPlatform.buildRustPackage rec {
   name = "wasm-pack-${version}";
@@ -28,8 +23,11 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A utility that builds rust-generated WebAssembly package";
-    homepage = https://github.com/rustwasm/wasm-pack;
-    license = with licenses; [ asl20 /* or */ mit ];
+    homepage = "https://github.com/rustwasm/wasm-pack";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = [ maintainers.dhkl ];
     platforms = platforms.all;
   };

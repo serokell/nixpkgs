@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Common Lisp Editing Extensions (for Emacs)";
-    homepage = http://www.foldr.org/~michaelw/emacs/redshank/;
+    homepage = "http://www.foldr.org/~michaelw/emacs/redshank/";
     platforms = stdenv.lib.platforms.all;
   };
 }

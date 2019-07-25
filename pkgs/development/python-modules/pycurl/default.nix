@@ -1,12 +1,4 @@
-{ buildPythonPackage
-, isPyPy
-, fetchPypi
-, curl
-, openssl
-, bottle
-, pytest
-, nose
-, flaky
+{ buildPythonPackage, isPyPy, fetchPypi, curl, openssl, bottle, pytest, nose, flaky
 }:
 
 buildPythonPackage rec {
@@ -40,7 +32,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = http://pycurl.sourceforge.net/;
+    homepage = "http://pycurl.sourceforge.net/";
     description = "Python wrapper for libcurl";
   };
 }

@@ -16,10 +16,7 @@ stdenv.mkDerivation rec {
   # This isn't used by the build and breaks the CMake build on case-insensitive filesystems (e.g., on Darwin)
   preConfigure = "rm BUILD";
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DBUILD_STATIC_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DBUILD_STATIC_LIBS=ON" ];
 
   doCheck = false;
 
@@ -30,7 +27,7 @@ stdenv.mkDerivation rec {
       As such it's a replacement for getopt().
       It was owned by Google. google-gflags project has been renamed to gflags and maintained by new community.
     '';
-    homepage = https://gflags.github.io/gflags/;
+    homepage = "https://gflags.github.io/gflags/";
     license = licenses.bsd3;
     maintainers = [ maintainers.linquize ];
     platforms = platforms.all;

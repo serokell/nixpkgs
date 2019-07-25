@@ -1,6 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, lmdb }:
+{ stdenv, fetchFromGitHub, lmdb }:
 
 stdenv.mkDerivation rec {
   name = "lmdbxx-${version}";
@@ -18,7 +16,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/drycpp/lmdbxx#readme";
-    description = "C++11 wrapper for the LMDB embedded B+ tree database library";
+    description =
+      "C++11 wrapper for the LMDB embedded B+ tree database library";
     license = stdenv.lib.licenses.unlicense;
     maintainers = with stdenv.lib.maintainers; [ fgaz ];
   };

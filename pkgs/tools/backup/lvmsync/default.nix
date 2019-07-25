@@ -12,14 +12,14 @@ in stdenv.mkDerivation rec {
   env = bundlerEnv {
     name = "${pname}-${version}-gems";
     ruby = ruby;
-    gemfile  = ./Gemfile;
+    gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
-    gemset   = ./gemset.nix;
+    gemset = ./gemset.nix;
   };
 
   buildInputs = [ makeWrapper ];
 
-  phases = ["installPhase"];
+  phases = [ "installPhase" ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -30,7 +30,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Optimised synchronisation of LVM snapshots over a network";
-    homepage = http://theshed.hezmatt.org/lvmsync/;
+    homepage = "http://theshed.hezmatt.org/lvmsync/";
     license = licenses.gpl3;
     platforms = platforms.all;
     maintainers = with maintainers; [ jluttine nicknovitski ];

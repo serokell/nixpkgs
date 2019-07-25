@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, quantities
-, numpy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, quantities, numpy }:
 
 buildPythonPackage rec {
   pname = "semantic";
@@ -23,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Common Natural Language Processing Tasks for Python";
-    homepage = https://github.com/crm416/semantic;
+    homepage = "https://github.com/crm416/semantic";
     license = licenses.mit;
   };
 

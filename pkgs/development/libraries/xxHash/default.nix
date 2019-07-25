@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       highly portable, and hashes are identical on all platforms (little / big
       endian).
     '';
-    homepage = https://github.com/Cyan4973/xxHash;
+    homepage = "https://github.com/Cyan4973/xxHash";
     license = with licenses; [ bsd2 gpl2 ];
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.unix;

@@ -1,20 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, botocore
-, click
-, enum-compat
-, jmespath
-, pip
-, setuptools
-, six
-, typing
-, wheel
-, watchdog
-, pytest
-, hypothesis
-, mock
+{ lib, buildPythonPackage, fetchPypi, attrs, botocore, click, enum-compat, jmespath, pip, setuptools, six, typing, wheel, watchdog, pytest, hypothesis, mock
 }:
 
 buildPythonPackage rec {
@@ -57,7 +41,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python Serverless Microframework for AWS";
-    homepage = https://github.com/aws/chalice;
+    homepage = "https://github.com/aws/chalice";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

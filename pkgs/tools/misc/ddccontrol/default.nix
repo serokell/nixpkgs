@@ -1,10 +1,8 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, intltool, libxml2
-, pciutils, pkgconfig, gtk2, ddccontrol-db
-, makeDesktopItem
+{ stdenv, fetchFromGitHub, autoreconfHook, intltool, libxml2, pciutils, pkgconfig, gtk2, ddccontrol-db, makeDesktopItem
 }:
 
-let version = "0.4.4"; in
-stdenv.mkDerivation rec {
+let version = "0.4.4";
+in stdenv.mkDerivation rec {
   name = "ddccontrol-${version}";
 
   src = fetchFromGitHub {
@@ -16,12 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook intltool pkgconfig ];
 
-  buildInputs = [
-    libxml2
-    pciutils
-    gtk2
-    ddccontrol-db
-  ];
+  buildInputs = [ libxml2 pciutils gtk2 ddccontrol-db ];
 
   hardeningDisable = [ "format" "bindnow" ];
 
@@ -56,7 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A program used to control monitor parameters by software";
-    homepage = https://github.com/ddccontrol/ddccontrol;
+    homepage = "https://github.com/ddccontrol/ddccontrol";
     license = licenses.gpl2;
     platforms = [ "i686-linux" "x86_64-linux" ];
     maintainers = [ stdenv.lib.maintainers.pakhfn ];

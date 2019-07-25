@@ -12,8 +12,15 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
   propagatedBuildInputs = [
-    PyChromecast bottle pycaption paste html5lib pygobject3 dbus-python
-    gtk3 gobject-introspection
+    PyChromecast
+    bottle
+    pycaption
+    paste
+    html5lib
+    pygobject3
+    dbus-python
+    gtk3
+    gobject-introspection
   ];
 
   preFixup = ''
@@ -22,7 +29,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = "A native Linux GUI for Chromecasting local files";
-    homepage = https://github.com/keredson/gnomecast;
+    homepage = "https://github.com/keredson/gnomecast";
     license = with licenses; [ gpl3 ];
   };
 }

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "hsaudiotag3k";
@@ -18,8 +14,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A pure Python library that lets one to read metadata from media files";
-    homepage = http://hg.hardcoded.net/hsaudiotag/;
+    description =
+      "A pure Python library that lets one to read metadata from media files";
+    homepage = "http://hg.hardcoded.net/hsaudiotag/";
     license = licenses.bsd3;
   };
 

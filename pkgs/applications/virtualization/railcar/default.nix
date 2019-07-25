@@ -19,9 +19,13 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [ ./cargo-lock.patch ];
 
   meta = with lib; {
-    description = "Rust implementation of the Open Containers Initiative oci-runtime";
-    homepage = https://github.com/oracle/railcar;
-    license = with licenses; [ asl20 /* or */ upl ];
+    description =
+      "Rust implementation of the Open Containers Initiative oci-runtime";
+    homepage = "https://github.com/oracle/railcar";
+    license = with licenses; [
+      asl20 # or
+      upl
+    ];
     maintainers = [ maintainers.spacekookie ];
     platforms = platforms.all;
   };

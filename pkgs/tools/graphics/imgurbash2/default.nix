@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cat <<EOF >$out/bin/imgurbash2
     #!${bash}/bin/bash
-    PATH=${stdenv.lib.makeBinPath [curl xsel]}:\$PATH
+    PATH=${stdenv.lib.makeBinPath [ curl xsel ]}:\$PATH
     EOF
     cat imgurbash2 >> $out/bin/imgurbash2
     chmod +x $out/bin/imgurbash2
@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
-    homepage = https://github.com/ram-on/imgurbash2;
+    homepage = "https://github.com/ram-on/imgurbash2";
   };
 }

@@ -1,10 +1,9 @@
 { stdenv, fetchurl, pkgconfig, glib, autoconf, automake, libtool, intltool }:
 let
-  p_name  = "xfce4-dev-tools";
+  p_name = "xfce4-dev-tools";
   ver_maj = "4.12";
   ver_min = "0";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ autoconf automake libtool intltool ];
 
   meta = {
-    homepage = http://foo-projects.org/~benny/projects/xfce4-dev-tools/;
+    homepage = "http://foo-projects.org/~benny/projects/xfce4-dev-tools/";
     description = "Tools and M4 macros for Xfce4 developers";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;

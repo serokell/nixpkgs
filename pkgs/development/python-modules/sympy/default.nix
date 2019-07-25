@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, glibcLocales
-, mpmath
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, glibcLocales, mpmath }:
 
 buildPythonPackage rec {
   pname = "sympy";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   patches = [
     # to be fixed by https://github.com/sympy/sympy/pull/13476
     (fetchpatch {
-      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/sympy/patches/03_undeffun_sage.patch?id=3277ba76d0ba7174608a31a0c6623e9210c63e3d";
+      url =
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/sympy/patches/03_undeffun_sage.patch?id=3277ba76d0ba7174608a31a0c6623e9210c63e3d";
       sha256 = "0xcp1qafvqnivvvi0byh51mbgqicjhmswwvqvamjz9rxfzm5f7d7";
     })
   ];
@@ -36,8 +31,8 @@ buildPythonPackage rec {
 
   meta = {
     description = "A Python library for symbolic mathematics";
-    homepage    = http://www.sympy.org/;
-    license     = lib.licenses.bsd3;
+    homepage = "http://www.sympy.org/";
+    license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ lovek323 timokau ];
   };
 }

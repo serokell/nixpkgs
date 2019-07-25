@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi,
-  six, pytest, pytestrunner, pytestcov, coverage
+{ stdenv, buildPythonPackage, fetchPypi, six, pytest, pytestrunner, pytestcov, coverage
 }:
 buildPythonPackage rec {
   pname = "libais";
@@ -17,8 +16,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/schwehr/libais;
-    description = "Library for decoding maritime Automatic Identification System messages";
+    homepage = "https://github.com/schwehr/libais";
+    description =
+      "Library for decoding maritime Automatic Identification System messages";
     license = licenses.asl20;
     platforms = platforms.unix;
   };

@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchhg, cmake, pkgconfig, makeWrapper, callPackage
-, soundfont-fluid, SDL, libGL, glew, bzip2, zlib, libjpeg, fluidsynth, openssl, gtk2, python3, libgme
-, serverOnly ? false
-}:
+{ stdenv, lib, fetchhg, cmake, pkgconfig, makeWrapper, callPackage, soundfont-fluid, SDL, libGL, glew, bzip2, zlib, libjpeg, fluidsynth, openssl, gtk2, python3, libgme, serverOnly ?
+  false }:
 
 let
   suffix = lib.optionalString serverOnly "-server";
@@ -24,12 +22,16 @@ in stdenv.mkDerivation {
   # otherwise, the client will fail to connect to servers because the
   # protocol version doesn't match.
 
-  patches = [ ./zan_configure_impurity.patch ./add_gitinfo.patch ./dont_update_gitinfo.patch ];
+  patches = [
+    ./zan_configure_impurity.patch
+    ./add_gitinfo.patch
+    ./dont_update_gitinfo.patch
+  ];
 
   # I have no idea why would SDL and libjpeg be needed for the server part!
   # But they are.
   buildInputs = [ openssl bzip2 zlib SDL libjpeg sqlite libgme ]
-             ++ lib.optionals (!serverOnly) [ libGL glew fmod fluidsynth gtk2 ];
+    ++ lib.optionals (!serverOnly) [ libGL glew fmod fluidsynth gtk2 ];
 
   nativeBuildInputs = [ cmake pkgconfig makeWrapper python3 ];
 
@@ -44,11 +46,10 @@ in stdenv.mkDerivation {
       src/sound/music_fluidsynth_mididevice.cpp
   '';
 
-  cmakeFlags =
-    [ "-DFORCE_INTERNAL_GME=OFF" ]
-    ++ (if serverOnly
-    then [ "-DSERVERONLY=ON" ]
-    else [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]);
+  cmakeFlags = [ "-DFORCE_INTERNAL_GME=OFF" ] ++ (if serverOnly then
+    [ "-DSERVERONLY=ON" ]
+  else
+    [ "-DFMOD_LIBRARY=${fmod}/lib/libfmodex.so" ]);
 
   enableParallelBuilding = true;
 
@@ -69,13 +70,12 @@ in stdenv.mkDerivation {
       $out/lib/zandronum/zandronum
   '';
 
-  passthru = {
-    inherit fmod sqlite;
-  };
+  passthru = { inherit fmod sqlite; };
 
   meta = with stdenv.lib; {
-    homepage = http://zandronum.com/;
-    description = "Multiplayer oriented port, based off Skulltag, for Doom and Doom II by id Software";
+    homepage = "http://zandronum.com/";
+    description =
+      "Multiplayer oriented port, based off Skulltag, for Doom and Doom II by id Software";
     maintainers = with maintainers; [ lassulus MP2E ];
     license = licenses.unfreeRedistributable;
     platforms = platforms.linux;

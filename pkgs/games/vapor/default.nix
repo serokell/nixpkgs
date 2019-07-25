@@ -14,20 +14,18 @@ let
     name = "Vapor";
     exec = "${pname}";
     icon = "${icon}";
-    comment = "LÖVE Distribution Client"; 
+    comment = "LÖVE Distribution Client";
     desktopName = "Vapor";
     genericName = "vapor";
     categories = "Game;";
   };
 
-in 
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
     url =
-    "https://github.com/josefnpat/${pname}/releases/download/${version}/${pname}_${commitid}.love";
+      "https://github.com/josefnpat/${pname}/releases/download/${version}/${pname}_${commitid}.love";
     sha256 = "0w2qkrrkzfy4h4jld18apypmbi8a8r89y2l11axlv808i2rg68fk";
   };
 
@@ -36,8 +34,7 @@ stdenv.mkDerivation rec {
 
   phases = "installPhase";
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share
 
@@ -55,7 +52,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     license = licenses.zlib;
     maintainers = with maintainers; [ leenaars ];
-    downloadPage = http://vapor.love2d.org/;
+    downloadPage = "http://vapor.love2d.org/";
   };
 
 }

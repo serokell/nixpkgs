@@ -14,16 +14,12 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/sslmate --prefix PERL5LIB : \
-      "${with perlPackages; makePerlPath [
-        URI
-        JSONPP
-        TermReadKey
-      ]}" \
+      "${with perlPackages; makePerlPath [ URI JSONPP TermReadKey ]}" \
       --prefix PATH : "${openssl.bin}/bin"
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://sslmate.com;
+    homepage = "https://sslmate.com";
     maintainers = [ maintainers.domenkozar ];
     description = "Easy to buy, deploy, and manage your SSL certs";
     platforms = platforms.unix;

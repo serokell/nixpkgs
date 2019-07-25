@@ -11,14 +11,14 @@ agda.mkDerivation (self: rec {
 
   everythingFile = "sheaves.agda";
   topSourceDirectories = [ "../$sourceRoot" ];
-  sourceDirectories = [];
+  sourceDirectories = [ ];
 
   meta = {
-    homepage = https://github.com/jonsterling/Agda-Sheaves;
+    homepage = "https://github.com/jonsterling/Agda-Sheaves";
     description = "Sheaves in Agda";
     license = stdenv.lib.licenses.cc-by-40;
     platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];
-    broken = true;  # replaced by constructive-sheaf-semantics
+    broken = true; # replaced by constructive-sheaf-semantics
   };
 })

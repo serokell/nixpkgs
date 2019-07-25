@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook, makeWrapper
-, gnugrep, openssl }:
+{ stdenv, fetchurl, autoreconfHook, makeWrapper, gnugrep, openssl }:
 
 stdenv.mkDerivation rec {
   name = "easyrsa-2.2.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Simple shell based CA utility";
-    homepage = https://openvpn.net/;
+    homepage = "https://openvpn.net/";
     license = licenses.gpl2;
     maintainers = [ maintainers.offline ];
     platforms = platforms.linux;

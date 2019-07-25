@@ -96,7 +96,7 @@ in {
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "-v" "-m randr" ];
       description = ''
         Additional command-line arguments to pass to
@@ -106,15 +106,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [ 
-      {
-        assertion = 
-          if cfg.provider == "manual"
-          then (cfg.latitude != null && cfg.longitude != null) 
-          else (cfg.latitude == null && cfg.longitude == null);
-        message = "Latitude and longitude must be provided together, and with provider set to null.";
-      }
-    ];
+    assertions = [{
+      assertion = if cfg.provider == "manual" then
+        (cfg.latitude != null && cfg.longitude != null)
+      else
+        (cfg.latitude == null && cfg.longitude == null);
+      message =
+        "Latitude and longitude must be provided together, and with provider set to null.";
+    }];
 
     # needed so that .desktop files are installed, which geoclue cares about
     environment.systemPackages = [ cfg.package ];
@@ -127,29 +126,31 @@ in {
       };
     };
 
-    systemd.user.services.redshift = 
-    let
-      providerString = 
-        if cfg.provider == "manual"
-        then "${cfg.latitude}:${cfg.longitude}"
-        else cfg.provider;
-    in
-    {
-      description = "Redshift colour temperature adjuster";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = ''
-          ${cfg.package}/bin/redshift \
-            -l ${providerString} \
-            -t ${toString cfg.temperature.day}:${toString cfg.temperature.night} \
-            -b ${toString cfg.brightness.day}:${toString cfg.brightness.night} \
-            ${lib.strings.concatStringsSep " " cfg.extraOptions}
-        '';
-        RestartSec = 3;
-        Restart = "always";
+    systemd.user.services.redshift = let
+      providerString = if cfg.provider == "manual" then
+        "${cfg.latitude}:${cfg.longitude}"
+      else
+        cfg.provider;
+      in {
+        description = "Redshift colour temperature adjuster";
+        wantedBy = [ "graphical-session.target" ];
+        partOf = [ "graphical-session.target" ];
+        serviceConfig = {
+          ExecStart = ''
+            ${cfg.package}/bin/redshift \
+              -l ${providerString} \
+              -t ${toString cfg.temperature.day}:${
+              toString cfg.temperature.night
+              } \
+              -b ${toString cfg.brightness.day}:${
+              toString cfg.brightness.night
+              } \
+              ${lib.strings.concatStringsSep " " cfg.extraOptions}
+          '';
+          RestartSec = 3;
+          Restart = "always";
+        };
       };
-    };
   };
 
 }

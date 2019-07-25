@@ -14,7 +14,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/raphaelm/python-sepaxml/;
+    homepage = "https://github.com/raphaelm/python-sepaxml/";
     description = "SEPA Direct Debit XML generation in python";
     license = licenses.mit;
     maintainers = with maintainers; [ elohmeier ];

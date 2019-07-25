@@ -1,26 +1,7 @@
-{ buildPythonPackage
-, fetchPypi
-, fetchFromGitHub
-, Mako
-, boost
-, numpy
-, pytools
-, pytest
-, decorator
-, appdirs
-, six
-, cudatoolkit
-, python
-, mkDerivation
-, stdenv
-, isPy3k
+{ buildPythonPackage, fetchPypi, fetchFromGitHub, Mako, boost, numpy, pytools, pytest, decorator, appdirs, six, cudatoolkit, python, mkDerivation, stdenv, isPy3k
 }:
-let
-  compyte = import ./compyte.nix {
-    inherit mkDerivation fetchFromGitHub;
-  };
-in
-buildPythonPackage rec {
+let compyte = import ./compyte.nix { inherit mkDerivation fetchFromGitHub; };
+in buildPythonPackage rec {
   pname = "pycuda";
   version = "2018.1.1";
 
@@ -33,7 +14,9 @@ buildPythonPackage rec {
     ${python.interpreter} configure.py --boost-inc-dir=${boost.dev}/include \
                           --boost-lib-dir=${boost}/lib \
                           --no-use-shipped-boost \
-                          --boost-python-libname=boost_python${stdenv.lib.optionalString isPy3k "3"}
+                          --boost-python-libname=boost_python${
+      stdenv.lib.optionalString isPy3k "3"
+                          }
   '';
 
   postInstall = ''
@@ -61,7 +44,7 @@ buildPythonPackage rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/inducer/pycuda/;
+    homepage = "https://github.com/inducer/pycuda/";
     description = "CUDA integration for Python.";
     license = licenses.mit;
     maintainers = with maintainers; [ artuuge ];

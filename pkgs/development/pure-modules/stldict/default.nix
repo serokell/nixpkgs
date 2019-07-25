@@ -22,8 +22,9 @@ stdenv.mkDerivation rec {
   setupHook = ../generic-setup-hook.sh;
 
   meta = {
-    description = "A Pure interface to the C++ dictionary containers map and unordered_map";
-    homepage = http://puredocs.bitbucket.org/pure-stldict.html;
+    description =
+      "A Pure interface to the C++ dictionary containers map and unordered_map";
+    homepage = "http://puredocs.bitbucket.org/pure-stldict.html";
     license = stdenv.lib.licenses.lgpl3Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ asppsa ];

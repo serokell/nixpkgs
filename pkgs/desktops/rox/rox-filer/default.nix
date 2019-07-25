@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxml2, gtk, libSM, shared-mime-info, hicolor-icon-theme }:
+{ stdenv, fetchurl, pkgconfig, libxml2, gtk, libSM, shared-mime-info, hicolor-icon-theme
+}:
 
 let
   version = "2.11";
@@ -15,9 +16,7 @@ in stdenv.mkDerivation {
   buildInputs = [ libxml2 gtk shared-mime-info hicolor-icon-theme libSM ];
   NIX_LDFLAGS = [ "-ldl" "-lm" ];
 
-  patches = [
-    ./rox-filer-2.11-in-source-build.patch
-  ];
+  patches = [ ./rox-filer-2.11-in-source-build.patch ];
 
   # go to the source directory after unpacking the sources
   setSourceRoot = "export sourceRoot=rox-filer-${version}/ROX-Filer/";
@@ -71,7 +70,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Fast, lightweight, gtk2 file manager";
-    homepage = http://rox.sourceforge.net/desktop;
+    homepage = "http://rox.sourceforge.net/desktop";
     license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.linux;
     maintainers = [ maintainers.eleanor ];

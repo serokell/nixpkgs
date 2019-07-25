@@ -1,5 +1,5 @@
-{ buildPythonPackage, wrapPython, python, fetchurl, stdenv, cmake, qt5,
-  shiboken2, pyside2 }:
+{ buildPythonPackage, wrapPython, python, fetchurl, stdenv, cmake, qt5, shiboken2, pyside2
+}:
 
 stdenv.mkDerivation rec {
   pname = "pyside2-tools";
@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ shiboken2 pyside2 ];
   buildInputs = [ python qt5.qtbase ];
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 
   postInstall = ''
     rm $out/bin/pyside_tool.py

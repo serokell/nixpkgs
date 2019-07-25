@@ -19,13 +19,12 @@ let
     categories = "Game;";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
+    url =
+      "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
     sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
   };
 
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
 
   phases = "installPhase";
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/games/lovegames
 
@@ -53,7 +51,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;
     license = licenses.free;
-    downloadPage = http://tangramgames.dk/games/90secondportraits;
+    downloadPage = "http://tangramgames.dk/games/90secondportraits";
   };
 
 }

@@ -55,7 +55,7 @@ let
     '';
 
 in stdenv.mkDerivation rec {
-  name    = "hyperv-daemons-${version}";
+  name = "hyperv-daemons-${version}";
 
   inherit (kernel) version;
 
@@ -71,9 +71,11 @@ in stdenv.mkDerivation rec {
 
     mkdir -p $system
 
-    cp ${service "fcopy" "file copy (FCOPY)" "hv_fcopy" } $system/hv-fcopy.service
-    cp ${service "kvp"   "key-value pair (KVP)"     ""  } $system/hv-kvp.service
-    cp ${service "vss"   "volume shadow copy (VSS)" ""  } $system/hv-vss.service
+    cp ${
+      service "fcopy" "file copy (FCOPY)" "hv_fcopy"
+    } $system/hv-fcopy.service
+    cp ${service "kvp" "key-value pair (KVP)" ""} $system/hv-kvp.service
+    cp ${service "vss" "volume shadow copy (VSS)" ""} $system/hv-vss.service
 
     cat > $system/hyperv-daemons.target <<EOF
     [Unit]
@@ -102,7 +104,7 @@ in stdenv.mkDerivation rec {
       Microsoft calls their guest agents "Integration Services" which is why
       we use that name here.
     '';
-    homepage = https://kernel.org;
+    homepage = "https://kernel.org";
     maintainers = with maintainers; [ peterhoeg ];
     platforms = kernel.meta.platforms;
   };

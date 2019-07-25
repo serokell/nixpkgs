@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  flake8, py, pyflakes, six, tox
-}:
+{ lib, buildPythonPackage, fetchPypi, flake8, py, pyflakes, six, tox }:
 
 buildPythonPackage rec {
   pname = "serpy";
@@ -8,7 +6,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "ridiculously fast object serialization";
-    homepage = https://github.com/clarkduvall/serpy;
+    homepage = "https://github.com/clarkduvall/serpy";
     license = lib.licenses.mit;
   };
 

@@ -16,10 +16,8 @@ buildRustPackage rec {
   cargoSha256 = "1ccipxifnm38315qigaq28hlzam2wr8q2p2dbcq96kar6pq377vf";
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ openssl ]
-  ++ stdenv.lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ openssl ] ++ stdenv.lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk.frameworks.Security ];
 
   outputs = [ "out" "man" ];
   preFixup = ''
@@ -28,8 +26,9 @@ buildRustPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Quickly and easily fetch .gitignore templates from gitignore.io";
-    homepage = https://github.com/sondr3/git-ignore;
+    description =
+      "Quickly and easily fetch .gitignore templates from gitignore.io";
+    homepage = "https://github.com/sondr3/git-ignore";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = [ maintainers.sondr3 ];

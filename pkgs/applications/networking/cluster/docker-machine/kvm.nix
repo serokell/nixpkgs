@@ -9,9 +9,9 @@ buildGoPackage rec {
   goDeps = ./kvm-deps.nix;
 
   src = fetchFromGitHub {
-    rev    = "v${version}";
-    owner  = "dhiltgen";
-    repo   = "docker-machine-kvm";
+    rev = "v${version}";
+    owner = "dhiltgen";
+    repo = "docker-machine-kvm";
     sha256 = "0ch4zwb6h7hnr5l3skj1daypvpyms2i666lbnmakpw1fw3zvjmgy";
   };
 
@@ -19,7 +19,7 @@ buildGoPackage rec {
   buildInputs = [ libvirt ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dhiltgen/docker-machine-kvm;
+    homepage = "https://github.com/dhiltgen/docker-machine-kvm";
     description = "KVM driver for docker-machine.";
     license = licenses.asl20;
     maintainers = with maintainers; [ offline ];

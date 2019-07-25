@@ -18,10 +18,11 @@ with lib;
     synaptics.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    # Graphical text editor
-    kate
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      # Graphical text editor
+      kate
+    ];
 
   system.activationScripts.installerDesktop = let
 
@@ -34,11 +35,11 @@ with lib;
       Icon=text-html
     '';
 
-  in ''
-    mkdir -p /root/Desktop
-    ln -sfT ${manualDesktopFile} /root/Desktop/nixos-manual.desktop
-    ln -sfT ${pkgs.konsole}/share/applications/org.kde.konsole.desktop /root/Desktop/org.kde.konsole.desktop
-    ln -sfT ${pkgs.gparted}/share/applications/gparted.desktop /root/Desktop/gparted.desktop
-  '';
+    in ''
+      mkdir -p /root/Desktop
+      ln -sfT ${manualDesktopFile} /root/Desktop/nixos-manual.desktop
+      ln -sfT ${pkgs.konsole}/share/applications/org.kde.konsole.desktop /root/Desktop/org.kde.konsole.desktop
+      ln -sfT ${pkgs.gparted}/share/applications/gparted.desktop /root/Desktop/gparted.desktop
+    '';
 
 }

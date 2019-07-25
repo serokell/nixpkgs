@@ -1,12 +1,4 @@
-{ stdenv, fetchFromGitHub
-, wrapQtAppsHook, makeDesktopItem
-, qtbase, qmake, qtmultimedia, qttools
-, qtgraphicaleffects, qtdeclarative
-, qtlocation, qtquickcontrols, qtquickcontrols2
-, qtwebchannel, qtwebengine, qtx11extras, qtxmlpatterns
-, monero, unbound, readline, boost, libunwind
-, libsodium, pcsclite, zeromq, cppzmq, pkgconfig
-, hidapi
+{ stdenv, fetchFromGitHub, wrapQtAppsHook, makeDesktopItem, qtbase, qmake, qtmultimedia, qttools, qtgraphicaleffects, qtdeclarative, qtlocation, qtquickcontrols, qtquickcontrols2, qtwebchannel, qtwebengine, qtx11extras, qtxmlpatterns, monero, unbound, readline, boost, libunwind, libsodium, pcsclite, zeromq, cppzmq, pkgconfig, hidapi
 }:
 
 with stdenv.lib;
@@ -15,41 +7,56 @@ let
   qmlPath = qmlLib: "${qmlLib}/${qtbase.qtQmlPrefix}";
 
   qml2ImportPath = concatMapStringsSep ":" qmlPath [
-    qtbase.bin qtmultimedia.bin qtgraphicaleffects
-    qtdeclarative.bin qtlocation.bin
-    qtquickcontrols qtquickcontrols2.bin
-    qtwebchannel.bin qtwebengine.bin qtxmlpatterns
+    qtbase.bin
+    qtmultimedia.bin
+    qtgraphicaleffects
+    qtdeclarative.bin
+    qtlocation.bin
+    qtquickcontrols
+    qtquickcontrols2.bin
+    qtwebchannel.bin
+    qtwebengine.bin
+    qtxmlpatterns
   ];
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "monero-gui-${version}";
   version = "0.14.1.0";
 
   src = fetchFromGitHub {
-    owner  = "monero-project";
-    repo   = "monero-gui";
-    rev    = "v${version}";
+    owner = "monero-project";
+    repo = "monero-gui";
+    rev = "v${version}";
     sha256 = "0ilx47771faygf97wilm64xnqxgxa3b43q0g9v014npk0qj8pc31";
   };
 
   nativeBuildInputs = [ qmake pkgconfig wrapQtAppsHook ];
 
   buildInputs = [
-    qtbase qtmultimedia qtgraphicaleffects
-    qtdeclarative qtlocation
-    qtquickcontrols qtquickcontrols2
-    qtwebchannel qtwebengine qtx11extras
-    qtxmlpatterns monero unbound readline
-    boost libunwind libsodium pcsclite zeromq
-    cppzmq hidapi
+    qtbase
+    qtmultimedia
+    qtgraphicaleffects
+    qtdeclarative
+    qtlocation
+    qtquickcontrols
+    qtquickcontrols2
+    qtwebchannel
+    qtwebengine
+    qtx11extras
+    qtxmlpatterns
+    monero
+    unbound
+    readline
+    boost
+    libunwind
+    libsodium
+    pcsclite
+    zeromq
+    cppzmq
+    hidapi
   ];
 
-  patches = [
-    ./move-log-file.patch
-    ./move-translations-dir.patch
-  ];
+  patches = [ ./move-log-file.patch ./move-translations-dir.patch ];
 
   postPatch = ''
     echo '
@@ -75,7 +82,7 @@ stdenv.mkDerivation rec {
     icon = "monero";
     desktopName = "Monero";
     genericName = "Wallet";
-    categories  = "Application;Network;Utility;";
+    categories = "Application;Network;Utility;";
   };
 
   postInstall = ''
@@ -98,9 +105,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Private, secure, untraceable currency";
-    homepage    = https://getmonero.org/;
-    license     = licenses.bsd3;
-    platforms   = [ "x86_64-linux" ];
+    homepage = "https://getmonero.org/";
+    license = licenses.bsd3;
+    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ rnhmjoj ];
   };
 }

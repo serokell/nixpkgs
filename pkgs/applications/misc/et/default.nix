@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Minimal libnotify-based (egg) timer";
-    homepage = https://github.com/geistesk/et;
+    homepage = "https://github.com/geistesk/et";
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ geistesk ];

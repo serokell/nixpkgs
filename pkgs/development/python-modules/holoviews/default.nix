@@ -1,16 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, lib
-, param
-, numpy
-, pyviz-comms
-, ipython
-, notebook
-, pandas
-, matplotlib
-, bokeh
-, scipy
-, panel
+{ buildPythonPackage, fetchPypi, lib, param, numpy, pyviz-comms, ipython, notebook, pandas, matplotlib, bokeh, scipy, panel
 }:
 
 buildPythonPackage rec {
@@ -40,7 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python data analysis and visualization seamless and simple";
-    homepage = http://www.holoviews.org/;
+    homepage = "http://www.holoviews.org/";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

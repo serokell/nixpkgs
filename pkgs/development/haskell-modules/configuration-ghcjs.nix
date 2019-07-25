@@ -7,30 +7,32 @@
 let
   removeLibraryHaskellDepends = pnames: depends:
     builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends;
-in
 
-with haskellLib;
+in with haskellLib;
 
 self: super:
 
 ## GENERAL SETUP BASE PACKAGES
 
-  let # The stage 1 packages
-      stage1 = pkgs.lib.genAttrs super.ghc.stage1Packages (pkg: null);
-      # The stage 2 packages. Regenerate with ../compilers/ghcjs/gen-stage2.rb
-      stage2 = super.ghc.mkStage2 {
-        inherit (self) callPackage;
-      };
-  in stage1 // stage2 // {
+let # The stage 1 packages
+  stage1 = pkgs.lib.genAttrs super.ghc.stage1Packages (pkg: null);
+  # The stage 2 packages. Regenerate with ../compilers/ghcjs/gen-stage2.rb
+  stage2 = super.ghc.mkStage2 { inherit (self) callPackage; };
+in stage1 // stage2 // {
 
   # GHCJS does not ship with the same core packages as GHC.
   # https://github.com/ghcjs/ghcjs/issues/676
   stm = self.stm_2_5_0_0;
   ghc-compact = self.ghc-compact_0_1_0_0;
 
-  network = addBuildTools super.network (pkgs.lib.optional pkgs.buildPlatform.isDarwin pkgs.buildPackages.darwin.libiconv);
-  zlib = addBuildTools super.zlib (pkgs.lib.optional pkgs.buildPlatform.isDarwin pkgs.buildPackages.darwin.libiconv);
-  unix-compat = addBuildTools super.unix-compat (pkgs.lib.optional pkgs.buildPlatform.isDarwin pkgs.buildPackages.darwin.libiconv);
+  network = addBuildTools super.network
+    (pkgs.lib.optional pkgs.buildPlatform.isDarwin
+    pkgs.buildPackages.darwin.libiconv);
+  zlib = addBuildTools super.zlib (pkgs.lib.optional pkgs.buildPlatform.isDarwin
+    pkgs.buildPackages.darwin.libiconv);
+  unix-compat = addBuildTools super.unix-compat
+    (pkgs.lib.optional pkgs.buildPlatform.isDarwin
+    pkgs.buildPackages.darwin.libiconv);
 
   # LLVM is not supported on this GHC; use the latest one.
   inherit (pkgs) llvmPackages;
@@ -51,7 +53,7 @@ self: super:
   terminfo = self.terminfo_0_4_1_1;
   xhtml = self.xhtml_3000_2_1;
 
-## OTHER PACKAGES
+  ## OTHER PACKAGES
 
   # haddock throws the error: No input file(s).
   fail = dontHaddock super.fail;
@@ -79,26 +81,24 @@ self: super:
   # experimental
   ghcjs-ffiqq = self.callPackage
     ({ mkDerivation, base, template-haskell, ghcjs-base, split, containers, text, ghc-prim
-     }:
-     mkDerivation {
-       pname = "ghcjs-ffiqq";
-       version = "0.1.0.0";
-       src = pkgs.fetchFromGitHub {
-         owner = "ghcjs";
-         repo = "ghcjs-ffiqq";
-         rev = "b52338c2dcd3b0707bc8aff2e171411614d4aedb";
-         sha256 = "08zxfm1i6zb7n8vbz3dywdy67vkixfyw48580rwfp48rl1s2z1c7";
-       };
-       libraryHaskellDepends = [
-         base template-haskell ghcjs-base split containers text ghc-prim
-       ];
-       description = "FFI QuasiQuoter for GHCJS";
-       license = pkgs.stdenv.lib.licenses.mit;
-     }) {};
+    }:
+    mkDerivation {
+      pname = "ghcjs-ffiqq";
+      version = "0.1.0.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "ghcjs";
+        repo = "ghcjs-ffiqq";
+        rev = "b52338c2dcd3b0707bc8aff2e171411614d4aedb";
+        sha256 = "08zxfm1i6zb7n8vbz3dywdy67vkixfyw48580rwfp48rl1s2z1c7";
+      };
+      libraryHaskellDepends =
+        [ base template-haskell ghcjs-base split containers text ghc-prim ];
+      description = "FFI QuasiQuoter for GHCJS";
+      license = pkgs.stdenv.lib.licenses.mit;
+    }) { };
   # experimental
   ghcjs-vdom = self.callPackage
-    ({ mkDerivation, base, ghc-prim, ghcjs-ffiqq, ghcjs-base, ghcjs-prim
-      , containers, split, template-haskell
+    ({ mkDerivation, base, ghc-prim, ghcjs-ffiqq, ghcjs-base, ghcjs-prim, containers, split, template-haskell
     }:
     mkDerivation rec {
       pname = "ghcjs-vdom";
@@ -110,43 +110,71 @@ self: super:
         sha256 = "0c6l1dk2anvz94yy5qblrfh2iv495rjq4qmhlycc24dvd02f7n9m";
       };
       libraryHaskellDepends = [
-        base ghc-prim ghcjs-ffiqq ghcjs-base ghcjs-prim containers split
+        base
+        ghc-prim
+        ghcjs-ffiqq
+        ghcjs-base
+        ghcjs-prim
+        containers
+        split
         template-haskell
       ];
       license = pkgs.stdenv.lib.licenses.mit;
       description = "bindings for https://github.com/Matt-Esch/virtual-dom";
       inherit (src) homepage;
-    }) {};
+    }) { };
 
   ghcjs-dom = overrideCabal super.ghcjs-dom (drv: {
     libraryHaskellDepends = with self; [
-      ghcjs-base ghcjs-dom-jsffi text transformers
+      ghcjs-base
+      ghcjs-dom-jsffi
+      text
+      transformers
     ];
     configureFlags = [ "-fjsffi" "-f-webkit" ];
   });
 
   ghcjs-dom-jsffi = overrideCabal super.ghcjs-dom-jsffi (drv: {
-    libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [ self.ghcjs-base self.text ];
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ])
+      ++ [ self.ghcjs-base self.text ];
     isLibrary = true;
   });
 
-  ghc-paths = overrideCabal super.ghc-paths (drv: {
-    patches = [ ./patches/ghc-paths-nix-ghcjs.patch ];
-  });
+  ghc-paths = overrideCabal super.ghc-paths
+    (drv: { patches = [ ./patches/ghc-paths-nix-ghcjs.patch ]; });
 
-  http2 = addBuildDepends super.http2 [ self.aeson self.aeson-pretty self.hex self.unordered-containers self.vector self.word8 ];
+  http2 = addBuildDepends super.http2 [
+    self.aeson
+    self.aeson-pretty
+    self.hex
+    self.unordered-containers
+    self.vector
+    self.word8
+  ];
   # ghcjsBoot uses async 2.0.1.6, protolude wants 2.1.*
 
   # These are the correct dependencies specified when calling `cabal2nix --compiler ghcjs`
   # By default, the `miso` derivation present in hackage-packages.nix
   # does not contain dependencies suitable for ghcjs
   miso = overrideCabal super.miso (drv: {
-      libraryHaskellDepends = with self; [
-        BoundedChan bytestring containers ghcjs-base aeson base
-        http-api-data http-types network-uri scientific servant text
-        transformers unordered-containers vector
-      ];
-    });
+    libraryHaskellDepends = with self; [
+      BoundedChan
+      bytestring
+      containers
+      ghcjs-base
+      aeson
+      base
+      http-api-data
+      http-types
+      network-uri
+      scientific
+      servant
+      text
+      transformers
+      unordered-containers
+      vector
+    ];
+  });
 
   pqueue = overrideCabal super.pqueue (drv: {
     postPatch = ''
@@ -185,15 +213,18 @@ self: super:
       rev = "639d9ca13c2def075e83344c9afca6eafaf24219";
       sha256 = "0166ihbh3dbfjiym9w561svpgvj0x4i8i8ws70xaafi0cmpsxrar";
     };
-    libraryHaskellDepends =
-      removeLibraryHaskellDepends [
-        "glib" "gtk3" "webkitgtk3" "webkitgtk3-javascriptcore" "raw-strings-qq" "unix"
-      ] drv.libraryHaskellDepends;
+    libraryHaskellDepends = removeLibraryHaskellDepends [
+      "glib"
+      "gtk3"
+      "webkitgtk3"
+      "webkitgtk3-javascriptcore"
+      "raw-strings-qq"
+      "unix"
+    ] drv.libraryHaskellDepends;
   });
 
-  transformers-compat = overrideCabal super.transformers-compat (drv: {
-    configureFlags = [];
-  });
+  transformers-compat =
+    overrideCabal super.transformers-compat (drv: { configureFlags = [ ]; });
 
   # triggers an internal pattern match failure in haddock
   # https://github.com/haskell/haddock/issues/553

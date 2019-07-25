@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, transfig, tex, ghostscript, colm
-, build-manual ? false
-}:
+{ stdenv, fetchurl, transfig, tex, ghostscript, colm, build-manual ? false }:
 
 let
   generic = { version, sha256, license }:
@@ -12,7 +10,8 @@ let
         inherit sha256;
       };
 
-      buildInputs = stdenv.lib.optional build-manual [ transfig ghostscript tex ];
+      buildInputs =
+        stdenv.lib.optional build-manual [ transfig ghostscript tex ];
 
       preConfigure = stdenv.lib.optional build-manual ''
         sed -i "s/build_manual=no/build_manual=yes/g" DIST
@@ -25,7 +24,7 @@ let
       doCheck = true;
 
       meta = with stdenv.lib; {
-        homepage = https://www.colm.net/open-source/ragel/;
+        homepage = "https://www.colm.net/open-source/ragel/";
         description = "State machine compiler";
         inherit license;
         platforms = platforms.unix;
@@ -33,9 +32,7 @@ let
       };
     };
 
-in
-
-{
+in {
   ragelStable = generic {
     version = "6.10";
     sha256 = "0gvcsl62gh6sg73nwaxav4a5ja23zcnyxncdcdnqa2yjcpdnw5az";

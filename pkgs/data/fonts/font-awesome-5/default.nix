@@ -1,7 +1,6 @@
 { lib, fetchFromGitHub }:
 
-let
-  version = "5.9.0";
+let version = "5.9.0";
 in fetchFromGitHub rec {
   name = "font-awesome-${version}";
 
@@ -22,7 +21,7 @@ in fetchFromGitHub rec {
       Font Awesome gives you scalable vector icons that can instantly be customized.
       This package includes only the OTF font. For full CSS etc. see the project website.
     '';
-    homepage = http://fortawesome.github.io/Font-Awesome/;
+    homepage = "http://fortawesome.github.io/Font-Awesome/";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ abaldeau ];

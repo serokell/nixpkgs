@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, unbound, openssl, boost
-, lmdb, miniupnpc, readline }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, unbound, openssl, boost, lmdb, miniupnpc, readline
+}:
 
 stdenv.mkDerivation rec {
   name = "masari-${version}";
@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "scalability-focused, untraceable, secure, and fungible cryptocurrency using the RingCT protocol";
+    description =
+      "scalability-focused, untraceable, secure, and fungible cryptocurrency using the RingCT protocol";
     homepage = "https://www.getmasari.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fpletz ];

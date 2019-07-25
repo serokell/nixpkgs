@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, pkgconfig, cmake, xxd
-, openssl, libwebsockets, json_c, libuv
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, xxd, openssl, libwebsockets, json_c, libuv
 }:
 
 with builtins;
@@ -10,9 +8,9 @@ let
   # junk when a new one happens (eventually)
   revCount = 174;
   src = fetchFromGitHub {
-    owner  = "tsl0922";
-    repo   = "ttyd";
-    rev    = "6df6ac3e03b705ddd46109c2ac43a1cba439c0df";
+    owner = "tsl0922";
+    repo = "ttyd";
+    rev = "6df6ac3e03b705ddd46109c2ac43a1cba439c0df";
     sha256 = "0g5jlfa7k6qd59ysdagczlhwgjfjspb3sfbd8b790hcil933qrxm";
   };
 
@@ -29,9 +27,9 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "Share your terminal over the web";
-    homepage    = https://github.com/tsl0922/ttyd;
-    license     = stdenv.lib.licenses.mit;
+    homepage = "https://github.com/tsl0922/ttyd";
+    license = stdenv.lib.licenses.mit;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
-    platforms   = stdenv.lib.platforms.linux;
+    platforms = stdenv.lib.platforms.linux;
   };
 }

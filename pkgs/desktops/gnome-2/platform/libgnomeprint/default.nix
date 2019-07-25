@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk2, gettext, libxml2, intltool, libart_lgpl
-, libgnomecups, bison2, flex }:
+{ stdenv, fetchurl, pkgconfig, gtk2, gettext, libxml2, intltool, libart_lgpl, libgnomecups, bison2, flex
+}:
 
 stdenv.mkDerivation rec {
   name = "libgnomeprint-2.18.8";
@@ -16,7 +16,5 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libxml2 ];
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
-  };
+  meta = with stdenv.lib; { platforms = platforms.linux; };
 }

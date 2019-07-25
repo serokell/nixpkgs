@@ -15,7 +15,8 @@ buildGoPackage rec {
   };
 
   srcStatic = fetchurl {
-    url = "https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-${version}.linux-amd64.tar.gz";
+    url =
+      "https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-${version}.linux-amd64.tar.gz";
     sha256 = "19zc9x1gkmdr7ijsrhrlln5cib20iyx0vgk0z79d8qyhq69nxfs8";
   };
 
@@ -24,7 +25,8 @@ buildGoPackage rec {
       --replace 'var version = "5.0.0"'  'var version = "${version}"'
   '';
 
-  preBuild = "export GOPATH=$GOPATH:$NIX_BUILD_TOP/go/src/${goPackagePath}/Godeps/_workspace";
+  preBuild =
+    "export GOPATH=$GOPATH:$NIX_BUILD_TOP/go/src/${goPackagePath}/Godeps/_workspace";
 
   postInstall = ''
     tar -xvf $srcStatic
@@ -34,9 +36,10 @@ buildGoPackage rec {
   '';
 
   meta = with lib; {
-    description = "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB";
+    description =
+      "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB";
     license = licenses.asl20;
-    homepage = https://grafana.org/;
+    homepage = "https://grafana.org/";
     maintainers = with maintainers; [ offline fpletz willibutz ];
     platforms = platforms.linux;
   };

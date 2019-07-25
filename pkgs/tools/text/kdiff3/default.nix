@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib, fetchurl,
-  extra-cmake-modules, kdoctools, wrapGAppsHook,
-  kcrash, kconfig, kinit, kparts
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, wrapGAppsHook, kcrash, kconfig, kinit, kparts
 }:
 
 mkDerivation rec {
@@ -18,7 +15,7 @@ mkDerivation rec {
   propagatedBuildInputs = [ kconfig kcrash kinit kparts ];
 
   meta = with lib; {
-    homepage = http://kdiff3.sourceforge.net/;
+    homepage = "http://kdiff3.sourceforge.net/";
     license = licenses.gpl2Plus;
     description = "Compares and merges 2 or 3 files or directories";
     maintainers = with maintainers; [ peterhoeg ];

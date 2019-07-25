@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libusb1, libimobiledevice }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libusb1, libimobiledevice
+}:
 
 stdenv.mkDerivation rec {
   pname = "usbmuxd";
@@ -20,8 +21,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/libimobiledevice/usbmuxd;
-    description = "A socket daemon to multiplex connections from and to iOS devices";
+    homepage = "https://github.com/libimobiledevice/usbmuxd";
+    description =
+      "A socket daemon to multiplex connections from and to iOS devices";
     longDescription = ''
       usbmuxd stands for "USB multiplexing daemon". This daemon is in charge of
       multiplexing connections over USB to an iOS device. To users, it means

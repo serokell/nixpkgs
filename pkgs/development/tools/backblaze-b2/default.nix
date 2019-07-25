@@ -1,5 +1,4 @@
-{ lib, buildPythonApplication, fetchFromGitHub
-, arrow, futures, logfury, requests, six, tqdm
+{ lib, buildPythonApplication, fetchFromGitHub, arrow, futures, logfury, requests, six, tqdm
 }:
 
 buildPythonApplication rec {
@@ -41,8 +40,9 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Command-line tool for accessing the Backblaze B2 storage service";
-    homepage = https://github.com/Backblaze/B2_Command_Line_Tool;
+    description =
+      "Command-line tool for accessing the Backblaze B2 storage service";
+    homepage = "https://github.com/Backblaze/B2_Command_Line_Tool";
     license = licenses.mit;
     maintainers = with maintainers; [ hrdinka kevincox ];
     platforms = platforms.unix;

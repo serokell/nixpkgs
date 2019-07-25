@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, unzip, cairo, xorg, gdk_pixbuf, fontconfig, pango, gnome2, atk, gtk2, glib
-, freetype, dbus, nss, nspr, alsaLib, cups, expat, udev, makeDesktopItem
+{ stdenv, fetchurl, unzip, cairo, xorg, gdk_pixbuf, fontconfig, pango, gnome2, atk, gtk2, glib, freetype, dbus, nss, nspr, alsaLib, cups, expat, udev, makeDesktopItem
 }:
 
 let
@@ -41,7 +40,8 @@ in stdenv.mkDerivation rec {
   version = "0.9.10";
 
   src = fetchurl {
-    url = "https://github.com/jhen0409/react-native-debugger/releases/download/v${version}/rn-debugger-linux-x64.zip";
+    url =
+      "https://github.com/jhen0409/react-native-debugger/releases/download/v${version}/rn-debugger-linux-x64.zip";
     sha256 = "158275sp37smc8lnrcbj56lp7aa6fj9gzb6fzjgz9r980qgzhia6";
   };
 
@@ -75,9 +75,10 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jhen0409/react-native-debugger;
+    homepage = "https://github.com/jhen0409/react-native-debugger";
     license = licenses.mit;
-    description = "The standalone app based on official debugger of React Native, and includes React Inspector / Redux DevTools";
+    description =
+      "The standalone app based on official debugger of React Native, and includes React Inspector / Redux DevTools";
     maintainers = with maintainers; [ ma27 ];
   };
 }

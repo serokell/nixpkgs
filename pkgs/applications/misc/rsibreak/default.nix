@@ -1,7 +1,4 @@
-{
-  mkDerivation, fetchurl, lib,
-  extra-cmake-modules, kdoctools,
-  knotifyconfig, kidletime, kwindowsystem, ktextwidgets, kcrash
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, knotifyconfig, kidletime, kwindowsystem, ktextwidgets, kcrash
 }:
 
 let
@@ -17,12 +14,14 @@ in mkDerivation rec {
   };
 
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs = [ knotifyconfig kidletime kwindowsystem ktextwidgets kcrash ];
+  propagatedBuildInputs =
+    [ knotifyconfig kidletime kwindowsystem ktextwidgets kcrash ];
 
   meta = with lib; {
-    description = "RSIBreak takes care of your health and regularly breaks your work to avoid repetitive strain injury (RSI)";
+    description =
+      "RSIBreak takes care of your health and regularly breaks your work to avoid repetitive strain injury (RSI)";
     license = licenses.gpl2;
-    homepage = https://www.kde.org/applications/utilities/rsibreak/;
+    homepage = "https://www.kde.org/applications/utilities/rsibreak/";
     maintainers = with maintainers; [ vandenoever ];
   };
 }

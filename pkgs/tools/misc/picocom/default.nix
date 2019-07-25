@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vvjydqf0ax47nvdyyl67jafw5b3sfsav00xid6qpgia1gs2r72n";
   };
 
-  buildInputs = [ makeWrapper ]
-    ++ optionals stdenv.isDarwin [ IOKit ];
+  buildInputs = [ makeWrapper ] ++ optionals stdenv.isDarwin [ IOKit ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Minimal dumb-terminal emulation program";
-    homepage = https://github.com/npat-efault/picocom/;
+    homepage = "https://github.com/npat-efault/picocom/";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = platforms.unix;
   };

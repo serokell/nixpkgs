@@ -15,7 +15,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://arthurdejong.org/python-stdnum/;
+    homepage = "https://arthurdejong.org/python-stdnum/";
     description = "Python module to handle standardized numbers and codes";
     maintainers = with lib.maintainers; [ johbo ];
     license = lib.licenses.lgpl2Plus;

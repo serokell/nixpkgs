@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt implementation of freedesktop.org xdg specs";
-    homepage = https://github.com/lxqt/libqtxdg;
+    homepage = "https://github.com/lxqt/libqtxdg";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

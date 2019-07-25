@@ -1,7 +1,6 @@
-{stdenv, git, less, fetchFromGitHub, makeWrapper
+{ stdenv, git, less, fetchFromGitHub, makeWrapper
 # utillinuxMinimal is included because we need the column command
-, utillinux
-}:
+, utillinux }:
 
 stdenv.mkDerivation rec {
   pname = "git-recent";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/paulirish/git-recent;
+    homepage = "https://github.com/paulirish/git-recent";
     description = "See your latest local git branches, formatted real fancy";
     license = licenses.mit;
     platforms = platforms.all;

@@ -1,11 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, cups, poppler, poppler_utils, fontconfig
-, libjpeg, libpng, perl, ijs, qpdf, dbus, avahi
-, makeWrapper, coreutils, gnused, bc, gawk, gnugrep, which, ghostscript
-, mupdf
+{ stdenv, fetchurl, pkgconfig, cups, poppler, poppler_utils, fontconfig, libjpeg, libpng, perl, ijs, qpdf, dbus, avahi, makeWrapper, coreutils, gnused, bc, gawk, gnugrep, which, ghostscript, mupdf
 }:
 
-let
-  binPath = stdenv.lib.makeBinPath [ coreutils gnused bc gawk gnugrep which ];
+let binPath = stdenv.lib.makeBinPath [ coreutils gnused bc gawk gnugrep which ];
 
 in stdenv.mkDerivation rec {
   name = "cups-filters-${version}";
@@ -19,8 +15,19 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig makeWrapper ];
 
   buildInputs = [
-    cups poppler poppler_utils fontconfig libjpeg libpng perl
-    ijs qpdf dbus avahi ghostscript mupdf
+    cups
+    poppler
+    poppler_utils
+    fontconfig
+    libjpeg
+    libpng
+    perl
+    ijs
+    qpdf
+    dbus
+    avahi
+    ghostscript
+    mupdf
   ];
 
   configureFlags = [
@@ -36,35 +43,39 @@ in stdenv.mkDerivation rec {
     "--with-test-font-path=/path-does-not-exist"
   ];
 
-  makeFlags = [ "CUPS_SERVERBIN=$(out)/lib/cups" "CUPS_DATADIR=$(out)/share/cups" "CUPS_SERVERROOT=$(out)/etc/cups" ];
+  makeFlags = [
+    "CUPS_SERVERBIN=$(out)/lib/cups"
+    "CUPS_DATADIR=$(out)/share/cups"
+    "CUPS_SERVERROOT=$(out)/etc/cups"
+  ];
 
-  postConfigure =
-    ''
-      # Ensure that bannertopdf can find the PDF templates in
-      # $out. (By default, it assumes that cups and cups-filters are
-      # installed in the same prefix.)
-      substituteInPlace config.h --replace ${cups.out}/share/cups/data $out/share/cups/data
+  postConfigure = ''
+    # Ensure that bannertopdf can find the PDF templates in
+    # $out. (By default, it assumes that cups and cups-filters are
+    # installed in the same prefix.)
+    substituteInPlace config.h --replace ${cups.out}/share/cups/data $out/share/cups/data
 
-      # Ensure that gstoraster can find gs in $PATH.
-      substituteInPlace filter/gstoraster.c --replace execve execvpe
+    # Ensure that gstoraster can find gs in $PATH.
+    substituteInPlace filter/gstoraster.c --replace execve execvpe
 
-      # Patch shebangs of generated build scripts
-      patchShebangs filter
-    '';
+    # Patch shebangs of generated build scripts
+    patchShebangs filter
+  '';
 
-  postInstall =
-    ''
-      for i in $out/lib/cups/filter/*; do
-        wrapProgram "$i" --prefix PATH ':' ${binPath}
-      done
-    '';
+  postInstall = ''
+    for i in $out/lib/cups/filter/*; do
+      wrapProgram "$i" --prefix PATH ':' ${binPath}
+    done
+  '';
 
   enableParallelBuilding = true;
   doCheck = false; # fails 4 out of 6 tests
 
   meta = {
-    homepage = http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters;
-    description = "Backends, filters, and other software that was once part of the core CUPS distribution but is no longer maintained by Apple Inc";
+    homepage =
+      "http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters";
+    description =
+      "Backends, filters, and other software that was once part of the core CUPS distribution but is no longer maintained by Apple Inc";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
   };

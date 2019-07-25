@@ -1,10 +1,5 @@
-{ fetchurl, stdenv, scons, pkgconfig, dbus, dbus-glib
-, ncurses, libX11, libXt, libXpm, libXaw, libXext
-, libusb1, docbook_xml_dtd_412, docbook_xsl, bc
-, libxslt, xmlto, gpsdUser ? "gpsd", gpsdGroup ? "dialout"
-, pps-tools
-, python2Packages
-}:
+{ fetchurl, stdenv, scons, pkgconfig, dbus, dbus-glib, ncurses, libX11, libXt, libXpm, libXaw, libXext, libusb1, docbook_xml_dtd_412, docbook_xsl, bc, libxslt, xmlto, gpsdUser ?
+  "gpsd", gpsdGroup ? "dialout", pps-tools, python2Packages }:
 
 # TODO: put the X11 deps behind a guiSupport parameter for headless support
 
@@ -12,25 +7,38 @@ stdenv.mkDerivation rec {
   name = "gpsd-3.16";
 
   src = fetchurl {
-    url = "https://download-mirror.savannah.gnu.org/releases/gpsd/${name}.tar.gz";
+    url =
+      "https://download-mirror.savannah.gnu.org/releases/gpsd/${name}.tar.gz";
     sha256 = "0a90ph4qrlz5kkcz2mwkfk3cmwy9fmglp94znz2y0gsd7bqrlmq3";
   };
 
   nativeBuildInputs = [
-    scons pkgconfig docbook_xml_dtd_412 docbook_xsl xmlto bc
+    scons
+    pkgconfig
+    docbook_xml_dtd_412
+    docbook_xsl
+    xmlto
+    bc
     python2Packages.python
     python2Packages.wrapPython
   ];
 
   buildInputs = [
-    python2Packages.python dbus dbus-glib ncurses libX11 libXt libXpm libXaw libXext
-    libxslt libusb1 pps-tools
+    python2Packages.python
+    dbus
+    dbus-glib
+    ncurses
+    libX11
+    libXt
+    libXpm
+    libXaw
+    libXext
+    libxslt
+    libusb1
+    pps-tools
   ];
 
-  pythonPath = [
-    python2Packages.pygobject2
-    python2Packages.pygtk
-  ];
+  pythonPath = [ python2Packages.pygobject2 python2Packages.pygtk ];
 
   patches = [
     ./0001-Import-LD_LIBRARY_PATH-to-allow-running-scons-check-.patch
@@ -93,7 +101,7 @@ stdenv.mkDerivation rec {
       diagnostic monitoring and profiling of receivers and feeding
       location-aware applications GPS/AIS logs for diagnostic purposes.
     '';
-    homepage = http://catb.org/gpsd/;
+    homepage = "http://catb.org/gpsd/";
     license = "BSD-style";
     platforms = platforms.linux;
     maintainers = with maintainers; [ bjornfor rasendubi ];

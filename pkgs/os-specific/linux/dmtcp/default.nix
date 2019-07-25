@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       programs spread across many machines and connected by sockets. It does
       not modify the user's program or the operating system.
     '';
-    homepage = http://dmtcp.sourceforge.net/;
+    homepage = "http://dmtcp.sourceforge.net/";
     license = stdenv.lib.licenses.lgpl3Plus; # most files seem this or LGPL-2.1+
   };
 }

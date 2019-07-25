@@ -11,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0x3r189h5264kjxsm18d34gzb5ih8l4pz7i9qks9slcnzaiw4y0z";
   };
 
-  buildInputs = [
-    glib
-    glib-networking
-    libgtop
-  ];
+  buildInputs = [ glib glib-networking libgtop ];
 
   patches = [
     (substituteAll {
@@ -39,8 +35,10 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Display system informations in gnome shell status bar";
     license = licenses.gpl3Plus;
-    broken = true; # GNOME 3.32 support WIP: https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/pull/510
+    broken =
+      true; # GNOME 3.32 support WIP: https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/pull/510
     maintainers = with maintainers; [ aneeshusa tiramiseb ];
-    homepage = https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet;
+    homepage =
+      "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet";
   };
 }

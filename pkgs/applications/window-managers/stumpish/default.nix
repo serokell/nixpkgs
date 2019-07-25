@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1dxzsnir3158p8y2128s08r9ca0ywr9mcznivmhn1lycw8mg4nfl";
   };
 
-  buildInputs = [
-    gnused xorg.xprop rlwrap ncurses
-  ];
+  buildInputs = [ gnused xorg.xprop rlwrap ncurses ];
 
   patches = [
     (substituteAll {
@@ -35,7 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/stumpwm/stumpwm-contrib;
+    homepage = "https://github.com/stumpwm/stumpwm-contrib";
     description = "STUMPwm Interactive SHell";
     license = licenses.gpl2;
     maintainers = [ maintainers.ebzzry ];

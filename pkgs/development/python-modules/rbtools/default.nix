@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, nose
-, six
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchurl, nose, six, isPy3k }:
 
 buildPythonPackage rec {
   pname = "rbtools";
@@ -12,7 +6,8 @@ buildPythonPackage rec {
   disabled = isPy3k;
 
   src = fetchurl {
-    url = "http://downloads.reviewboard.org/releases/RBTools/0.7/RBTools-0.7.2.tar.gz";
+    url =
+      "http://downloads.reviewboard.org/releases/RBTools/0.7/RBTools-0.7.2.tar.gz";
     sha256 = "1ng8l8cx81cz23ls7fq9wz4ijs0zbbaqh4kj0mj6plzcqcf8na4i";
   };
 
@@ -22,8 +17,9 @@ buildPythonPackage rec {
   checkPhase = "LC_ALL=C nosetests";
 
   meta = with stdenv.lib; {
-    homepage = https://www.reviewboard.org/docs/rbtools/dev/;
-    description = "RBTools is a set of command line tools for working with Review Board and RBCommons";
+    homepage = "https://www.reviewboard.org/docs/rbtools/dev/";
+    description =
+      "RBTools is a set of command line tools for working with Review Board and RBCommons";
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];
   };

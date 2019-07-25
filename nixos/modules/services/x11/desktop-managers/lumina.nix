@@ -7,9 +7,7 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lumina;
 
-in
-
-{
+in {
   options = {
 
     services.xserver.desktopManager.lumina.enable = mkOption {
@@ -20,7 +18,6 @@ in
 
   };
 
-
   config = mkIf cfg.enable {
 
     services.xserver.desktopManager.session = singleton {
@@ -30,9 +27,8 @@ in
       '';
     };
 
-    environment.systemPackages =
-      pkgs.lumina.preRequisitePackages ++
-      pkgs.lumina.corePackages;
+    environment.systemPackages = pkgs.lumina.preRequisitePackages
+      ++ pkgs.lumina.corePackages;
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [

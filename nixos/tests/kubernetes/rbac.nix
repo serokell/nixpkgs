@@ -1,4 +1,5 @@
-{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
+{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; }
+}:
 with import ./base.nix { inherit system; };
 let
 
@@ -38,9 +39,9 @@ let
       namespace = "default";
     };
     rules = [{
-      apiGroups = [""];
-      resources = ["pods"];
-      verbs = ["get" "list" "watch"];
+      apiGroups = [ "" ];
+      resources = [ "pods" ];
+      verbs = [ "get" "list" "watch" ];
     }];
   });
 
@@ -54,7 +55,7 @@ let
     spec.containers = [{
       name = "kubectl";
       image = "kubectl:latest";
-      command = ["/bin/tail" "-f"];
+      command = [ "/bin/tail" "-f" ];
       imagePullPolicy = "Never";
       tty = true;
     }];
@@ -70,16 +71,17 @@ let
     spec.containers = [{
       name = "kubectl-2";
       image = "kubectl:latest";
-      command = ["/bin/tail" "-f"];
+      command = [ "/bin/tail" "-f" ];
       imagePullPolicy = "Never";
       tty = true;
     }];
   });
 
-  kubectl = pkgs.runCommand "copy-kubectl" { buildInputs = [ pkgs.kubernetes ]; } ''
-    mkdir -p $out/bin
-    cp ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl
-  '';
+  kubectl =
+    pkgs.runCommand "copy-kubectl" { buildInputs = [ pkgs.kubernetes ]; } ''
+      mkdir -p $out/bin
+      cp ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl
+    '';
 
   kubectlImage = pkgs.dockerTools.buildImage {
     name = "kubectl";
@@ -88,9 +90,7 @@ let
     config.Entrypoint = "/bin/sh";
   };
 
-  base = {
-    name = "rbac";
-  };
+  base = { name = "rbac"; };
 
   singlenode = base // {
     test = ''

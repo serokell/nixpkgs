@@ -1,20 +1,20 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cl-mysql'';
-  version = ''20171019-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cl-mysql";
+  version = "20171019-git";
 
-  description = ''Common Lisp MySQL library bindings'';
+  description = "Common Lisp MySQL library bindings";
 
   deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-mysql/2017-10-19/cl-mysql-20171019-git.tgz'';
-    sha256 = ''1ga44gkwg6lm225gqpacpqpr6bpswszmw1ba9jhvjpjm09zinyc5'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-mysql/2017-10-19/cl-mysql-20171019-git.tgz";
+    sha256 = "1ga44gkwg6lm225gqpacpqpr6bpswszmw1ba9jhvjpjm09zinyc5";
   };
 
   packageName = "cl-mysql";
 
-  asdFilesToKeep = ["cl-mysql.asd"];
+  asdFilesToKeep = [ "cl-mysql.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-mysql DESCRIPTION Common Lisp MySQL library bindings SHA256
@@ -25,4 +25,5 @@ rec {
      (NAME cffi FILENAME cffi)
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES (alexandria babel cffi trivial-features) VERSION 20171019-git
-    SIBLINGS (cl-mysql-test) PARASITES NIL) */
+    SIBLINGS (cl-mysql-test) PARASITES NIL)
+*/

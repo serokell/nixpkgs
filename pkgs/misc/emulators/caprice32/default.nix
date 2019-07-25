@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ libpng SDL freetype zlib ];
 
   #fix GIT_HASH avoid depend on git 
-  makeFlags = [ "GIT_HASH=${src.rev}" "DESTDIR=$(out)" "prefix=/"];
+  makeFlags = [ "GIT_HASH=${src.rev}" "DESTDIR=$(out)" "prefix=/" ];
 
   meta = with stdenv.lib; {
     description = "A complete emulation of CPC464, CPC664 and CPC6128";
-    homepage = https://github.com/ColinPitrat/caprice32 ;
+    homepage = "https://github.com/ColinPitrat/caprice32";
     license = licenses.gpl2;
     maintainers = [ maintainers.genesis ];
     platforms = platforms.linux;
-  };  
+  };
 }

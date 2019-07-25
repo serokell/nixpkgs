@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_proxy
-, zope_testrunner
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_proxy, zope_testrunner }:
 
 buildPythonPackage rec {
   pname = "zope-deferredimport";
@@ -24,8 +19,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Allows you to perform imports names that will only be resolved when used in the code";
-    homepage = https://github.com/zopefoundation/zope.deferredimport;
+    description =
+      "Allows you to perform imports names that will only be resolved when used in the code";
+    homepage = "https://github.com/zopefoundation/zope.deferredimport";
     license = licenses.zpl21;
   };
 }

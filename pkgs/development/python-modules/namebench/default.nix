@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy3k
-, isPyPy
-, fetchurl
-, tkinter
-}:
+{ stdenv, buildPythonPackage, isPy3k, isPyPy, fetchurl, tkinter }:
 
 buildPythonPackage rec {
   pname = "namebench";
@@ -12,7 +6,8 @@ buildPythonPackage rec {
   disabled = isPy3k || isPyPy;
 
   src = fetchurl {
-    url = "http://namebench.googlecode.com/files/${pname}-${version}-source.tgz";
+    url =
+      "http://namebench.googlecode.com/files/${pname}-${version}-source.tgz";
     sha256 = "09clbcd6wxgk4r6qw7hb78h818mvca7lijigy1mlq5y1f3lgkk1h";
   };
 
@@ -28,7 +23,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://namebench.googlecode.com/;
+    homepage = "http://namebench.googlecode.com/";
     description = "Find fastest DNS servers available";
     license = with licenses; [
       asl20

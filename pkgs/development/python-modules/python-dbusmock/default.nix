@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  nose, dbus, dbus-python, pygobject3,
-  which, pyflakes, pycodestyle, bluez, networkmanager
+{ lib, buildPythonPackage, fetchPypi, nose, dbus, dbus-python, pygobject3, which, pyflakes, pycodestyle, bluez, networkmanager
 }:
 
 buildPythonPackage rec {
@@ -38,8 +36,16 @@ buildPythonPackage rec {
   ];
 
   checkInputs = [
-    nose dbus dbus-python which pycodestyle pyflakes
-    pygobject3 bluez bluez.test networkmanager
+    nose
+    dbus
+    dbus-python
+    which
+    pycodestyle
+    pyflakes
+    pygobject3
+    bluez
+    bluez.test
+    networkmanager
   ];
 
   checkPhase = ''
@@ -51,7 +57,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Mock D-Bus objects for tests";
-    homepage = https://github.com/martinpitt/python-dbusmock;
+    homepage = "https://github.com/martinpitt/python-dbusmock";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ callahad ];
     platforms = platforms.linux;

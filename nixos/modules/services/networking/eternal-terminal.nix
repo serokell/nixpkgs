@@ -6,9 +6,7 @@ let
 
   cfg = config.services.eternal-terminal;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -68,18 +66,21 @@ in
         after = [ "syslog.target" "network.target" ];
         serviceConfig = {
           Type = "forking";
-          ExecStart = "${pkgs.eternal-terminal}/bin/etserver --daemon --cfgfile=${pkgs.writeText "et.cfg" ''
-            ; et.cfg : Config file for Eternal Terminal
-            ;
+          ExecStart =
+            "${pkgs.eternal-terminal}/bin/etserver --daemon --cfgfile=${
+              pkgs.writeText "et.cfg" ''
+                ; et.cfg : Config file for Eternal Terminal
+                ;
 
-            [Networking]
-            port = ${toString cfg.port}
+                [Networking]
+                port = ${toString cfg.port}
 
-            [Debug]
-            verbose = ${toString cfg.verbosity}
-            silent = ${if cfg.silent then "1" else "0"}
-            logsize = ${toString cfg.logSize}
-          ''}";
+                [Debug]
+                verbose = ${toString cfg.verbosity}
+                silent = ${if cfg.silent then "1" else "0"}
+                logsize = ${toString cfg.logSize}
+              ''
+            }";
           Restart = "on-failure";
           KillMode = "process";
         };

@@ -1,18 +1,15 @@
 # This function provides specific bits for building a setuptools-based Python package.
 
-{ lib
-, python
-}:
+{ lib, python }:
 
 {
 # passed to "python setup.py build_ext"
 # https://github.com/pypa/pip/issues/881
-  setupPyBuildFlags ? []
-# Execute before shell hook
+setupPyBuildFlags ? [ ]
+  # Execute before shell hook
 , preShellHook ? ""
-# Execute after shell hook
-, postShellHook ? ""
-, ... } @ attrs:
+  # Execute after shell hook
+, postShellHook ? "", ... }@attrs:
 
 let
   # use setuptools shim (so that setuptools is imported before distutils)
@@ -25,7 +22,10 @@ in attrs // {
   buildPhase = attrs.buildPhase or ''
     runHook preBuild
     cp ${setuppy} nix_run_setup
-    ${python.pythonForBuild.interpreter} nix_run_setup ${lib.optionalString (setupPyBuildFlags != []) ("build_ext " + (lib.concatStringsSep " " setupPyBuildFlags))} bdist_wheel
+    ${python.pythonForBuild.interpreter} nix_run_setup ${
+      lib.optionalString (setupPyBuildFlags != [ ])
+      ("build_ext " + (lib.concatStringsSep " " setupPyBuildFlags))
+    } bdist_wheel
     runHook postBuild
   '';
 

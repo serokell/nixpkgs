@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, perl, perlPackages, wget, autoconf, automake }:
+{ stdenv, fetchFromGitHub, fetchurl, perl, perlPackages, wget, autoconf, automake
+}:
 
 let
   # when upgrade znapzend, check versions of Perl libs here: https://github.com/oetiker/znapzend/blob/master/PERL_MODULES
@@ -22,8 +23,7 @@ let
 
   version = "0.18.0";
   checksum = "1nlvw56viwgafma506slywfg54z6009jmzc9q6wljgr6mqfmmchd";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "znapzend-${version}";
 
   src = fetchFromGitHub {
@@ -33,7 +33,12 @@ stdenv.mkDerivation rec {
     sha256 = checksum;
   };
 
-  buildInputs = [ wget perl MojoIOLoopForkCall-0-17 perlPackages.TAPParserSourceHandlerpgTAP ];
+  buildInputs = [
+    wget
+    perl
+    MojoIOLoopForkCall-0-17
+    perlPackages.TAPParserSourceHandlerpgTAP
+  ];
 
   nativeBuildInputs = [ autoconf automake ];
 
@@ -76,10 +81,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "High performance open source ZFS backup with mbuffer and ssh support";
-    homepage    = http://www.znapzend.org;
-    license     = licenses.gpl3;
+    description =
+      "High performance open source ZFS backup with mbuffer and ssh support";
+    homepage = "http://www.znapzend.org";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ otwieracz ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

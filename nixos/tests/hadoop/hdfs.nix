@@ -1,12 +1,10 @@
-import ../make-test.nix ({...}: {
+import ../make-test.nix ({ ... }: {
   nodes = {
-    namenode = {pkgs, ...}: {
+    namenode = { pkgs, ... }: {
       services.hadoop = {
         package = pkgs.hadoop_3_1;
         hdfs.namenode.enabled = true;
-        coreSite = {
-          "fs.defaultFS" = "hdfs://namenode:8020";
-        };
+        coreSite = { "fs.defaultFS" = "hdfs://namenode:8020"; };
         hdfsSite = {
           "dfs.replication" = 1;
           "dfs.namenode.rpc-bind-host" = "0.0.0.0";
@@ -18,13 +16,11 @@ import ../make-test.nix ({...}: {
         8020 # namenode.rpc-address
       ];
     };
-    datanode = {pkgs, ...}: {
+    datanode = { pkgs, ... }: {
       services.hadoop = {
         package = pkgs.hadoop_3_1;
         hdfs.datanode.enabled = true;
-        coreSite = {
-          "fs.defaultFS" = "hdfs://namenode:8020";
-        };
+        coreSite = { "fs.defaultFS" = "hdfs://namenode:8020"; };
       };
       networking.firewall.allowedTCPPorts = [
         9864 # datanode.http.address

@@ -1,13 +1,21 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, glibcLocales, mock, pytest, botocore,
-  testfixtures, pillow, six, twisted, w3lib, lxml, queuelib, pyopenssl,
-  service-identity, parsel, pydispatcher, cssselect, lib }:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, glibcLocales, mock, pytest, botocore, testfixtures, pillow, six, twisted, w3lib, lxml, queuelib, pyopenssl, service-identity, parsel, pydispatcher, cssselect, lib
+}:
 buildPythonPackage rec {
   version = "1.7.1";
   pname = "Scrapy";
 
   checkInputs = [ glibcLocales mock pytest botocore testfixtures pillow ];
   propagatedBuildInputs = [
-    six twisted w3lib lxml cssselect queuelib pyopenssl service-identity parsel pydispatcher
+    six
+    twisted
+    w3lib
+    lxml
+    cssselect
+    queuelib
+    pyopenssl
+    service-identity
+    parsel
+    pydispatcher
   ];
 
   patches = [
@@ -19,12 +27,13 @@ buildPythonPackage rec {
 
     # Fix configparser import for python2. See: https://github.com/scrapy/scrapy/pull/3887
     (fetchpatch {
-      url = "https://github.com/scrapy/scrapy/commit/21345dc9ec60dcc1cd2e5c0eace5788aa502ce23.patch";
+      url =
+        "https://github.com/scrapy/scrapy/commit/21345dc9ec60dcc1cd2e5c0eace5788aa502ce23.patch";
       sha256 = "09834rcjyggvyj6zignvfga2xbqkknygly5p4a96k2mvz0xn3v6z";
     })
   ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   # Disable doctest plugin—enabled in the shipped pytest.ini—because it causes pytest to hang
   # Ignore proxy tests because requires mitmproxy
@@ -32,7 +41,10 @@ buildPythonPackage rec {
   # Ignore xml encoding test on darwin because lxml can't find encodings https://bugs.launchpad.net/lxml/+bug/707396
   checkPhase = ''
     substituteInPlace pytest.ini --replace "addopts = --doctest-modules" "addopts ="
-    pytest --ignore=tests/test_linkextractors_deprecated.py --ignore=tests/test_proxy_connect.py --deselect tests/test_crawl.py::CrawlTestCase::test_retry_dns_error ${lib.optionalString stdenv.isDarwin "--deselect tests/test_utils_iterators.py::LxmlXmliterTestCase::test_xmliter_encoding"}
+    pytest --ignore=tests/test_linkextractors_deprecated.py --ignore=tests/test_proxy_connect.py --deselect tests/test_crawl.py::CrawlTestCase::test_retry_dns_error ${
+      lib.optionalString stdenv.isDarwin
+      "--deselect tests/test_utils_iterators.py::LxmlXmliterTestCase::test_xmliter_encoding"
+    }
   '';
 
   src = fetchPypi {
@@ -47,8 +59,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages";
-    homepage = https://scrapy.org/;
+    description =
+      "A fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages";
+    homepage = "https://scrapy.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ drewkett marsam ];
     platforms = platforms.unix;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, glib
-, gtk3, libgee, desktop-file-utils, geoclue2, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, glib, gtk3, libgee, desktop-file-utils, geoclue2, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "pantheon-agent-geoclue2";
@@ -12,26 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "1hjnbbzsch09090b200b3i85x8fv95agfqd6nrlc9za3jqjhm2xs";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkgconfig
-    vala
-    wrapGAppsHook
-   ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkgconfig vala wrapGAppsHook ];
 
-  buildInputs = [
-    geoclue2
-    gtk3
-    libgee
-   ];
+  buildInputs = [ geoclue2 gtk3 libgee ];
 
   # This should be provided by a post_install.py script - See -> https://github.com/elementary/pantheon-agent-geoclue2/pull/21
   postInstall = ''
@@ -40,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Pantheon Geoclue2 Agent";
-    homepage = https://github.com/elementary/pantheon-agent-geoclue2;
+    homepage = "https://github.com/elementary/pantheon-agent-geoclue2";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

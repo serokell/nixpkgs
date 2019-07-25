@@ -13,8 +13,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Python implementation of the v3 API for TheMovieDB.org, allowing access to movie and cast information";
-    homepage = https://pypi.python.org/pypi/tmdb3;
+    description =
+      "Python implementation of the v3 API for TheMovieDB.org, allowing access to movie and cast information";
+    homepage = "https://pypi.python.org/pypi/tmdb3";
     license = licenses.bsd3;
   };
 }

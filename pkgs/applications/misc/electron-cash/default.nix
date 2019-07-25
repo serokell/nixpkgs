@@ -5,7 +5,8 @@ python3Packages.buildPythonApplication rec {
   version = "4.0.7";
 
   src = fetchurl {
-    url = "https://electroncash.org/downloads/${version}/win-linux/Electron-Cash-${version}.tar.gz";
+    url =
+      "https://electroncash.org/downloads/${version}/win-linux/Electron-Cash-${version}.tar.gz";
     # Verified using official SHA-1 and signature from
     # https://github.com/fyookball/keys-n-hashes
     sha256 = "d63ef2d52cff0b821b745067d752fd0c7f2902fa23eaf8e9392c54864cae5c77";
@@ -42,9 +43,7 @@ python3Packages.buildPythonApplication rec {
       --replace "(share_dir" "(\"share\""
   '';
 
-  checkInputs = with python3Packages; [
-    pytest
-  ];
+  checkInputs = with python3Packages; [ pytest ];
 
   checkPhase = ''
     unset HOME
@@ -69,7 +68,7 @@ python3Packages.buildPythonApplication rec {
       and the ability to perform transactions without downloading a copy
       of the blockchain.
     '';
-    homepage = https://www.electroncash.org/;
+    homepage = "https://www.electroncash.org/";
     platforms = platforms.linux;
     maintainers = with maintainers; [ lassulus nyanloutre ];
     license = licenses.mit;

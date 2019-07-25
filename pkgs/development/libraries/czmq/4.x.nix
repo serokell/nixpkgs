@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "czmq-${version}";
 
   src = fetchurl {
-    url = "https://github.com/zeromq/czmq/releases/download/v${version}/${name}.tar.gz";
+    url =
+      "https://github.com/zeromq/czmq/releases/download/v${version}/${name}.tar.gz";
     sha256 = "1szciz62sk3fm4ga9qjpxz0n0lazvphm32km95bq92ncng12kayg";
   };
 
@@ -13,7 +14,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ zeromq ];
 
   meta = with stdenv.lib; {
-    homepage = http://czmq.zeromq.org/;
+    homepage = "http://czmq.zeromq.org/";
     description = "High-level C Binding for ZeroMQ";
     license = licenses.mpl20;
     platforms = platforms.all;

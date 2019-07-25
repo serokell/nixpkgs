@@ -9,7 +9,7 @@ buildPythonPackage rec {
     sha256 = "1614vs0iwm9abina70vgvxaabi8xbz83yxgqfqi1syrzrhaalk6m";
   };
 
-  LC_ALL="en_US.utf-8";
+  LC_ALL = "en_US.utf-8";
   buildInputs = [ glibcLocales ];
 
   checkInputs = [ pytest ];
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/pydanny/whichcraft;
+    homepage = "https://github.com/pydanny/whichcraft";
     description = "Cross-platform cross-python shutil.which functionality";
     license = licenses.bsd3;
   };

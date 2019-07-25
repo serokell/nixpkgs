@@ -24,8 +24,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.nongnu.org/icoutils/;
-    description = "Set of programs to deal with Microsoft Windows(R) icon and cursor files";
+    homepage = "https://www.nongnu.org/icoutils/";
+    description =
+      "Set of programs to deal with Microsoft Windows(R) icon and cursor files";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = with stdenv.lib.platforms; linux ++ darwin;
   };

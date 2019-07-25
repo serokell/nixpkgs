@@ -1,31 +1,23 @@
-{ stdenv
-, rtpPath ? "share/vim-plugins"
-, vim
-}:
+{ stdenv, rtpPath ? "share/vim-plugins", vim }:
 
 rec {
   addRtp = path: attrs: derivation:
-    derivation // { rtp = "${derivation}/${path}"; } // {
+    derivation // {
+      rtp = "${derivation}/${path}";
+    } // {
       overrideAttrs = f: buildVimPlugin (attrs // f attrs);
     };
 
-  buildVimPlugin = attrs@{
-    name ? "${attrs.pname}-${attrs.version}",
-    namePrefix ? "vimplugin-",
-    src,
-    unpackPhase ? "",
-    configurePhase ? "",
-    buildPhase ? "",
-    preInstall ? "",
-    postInstall ? "",
-    path ? (builtins.parseDrvName name).name,
-    addonInfo ? null,
-    ...
-  }:
+  buildVimPlugin =
+    attrs@{ name ? "${attrs.pname}-${attrs.version}", namePrefix ?
+      "vimplugin-", src, unpackPhase ? "", configurePhase ? "", buildPhase ?
+        "", preInstall ? "", postInstall ? "", path ?
+          (builtins.parseDrvName name).name, addonInfo ? null, ... }:
     addRtp "${rtpPath}/${path}" attrs (stdenv.mkDerivation (attrs // {
       name = namePrefix + name;
 
-      inherit unpackPhase configurePhase buildPhase addonInfo preInstall postInstall;
+      inherit unpackPhase configurePhase buildPhase addonInfo preInstall
+        postInstall;
 
       installPhase = ''
         runHook preInstall
@@ -53,8 +45,9 @@ rec {
       '';
     }));
 
-  buildVimPluginFrom2Nix = attrs: buildVimPlugin ({
-    buildPhase = ":";
-    configurePhase =":";
-  } // attrs);
+  buildVimPluginFrom2Nix = attrs:
+    buildVimPlugin ({
+      buildPhase = ":";
+      configurePhase = ":";
+    } // attrs);
 }

@@ -24,13 +24,14 @@ pythonPackages.buildPythonApplication rec {
     substituteInPlace dockx_applets/volume-control.py         --replace /usr/share/             $out/share/
   '';
 
-  propagatedBuildInputs = (with pythonPackages; [ pygtk pyxdg dbus-python pillow xlib ])
-    ++ (with gnome2; [ gnome_python gnome_python_desktop ])
-    ++ [ keybinder ];
+  propagatedBuildInputs =
+    (with pythonPackages; [ pygtk pyxdg dbus-python pillow xlib ])
+    ++ (with gnome2; [ gnome_python gnome_python_desktop ]) ++ [ keybinder ];
 
   meta = with stdenv.lib; {
-    homepage = https://launchpad.net/dockbar/;
-    description = "DockBarX is a lightweight taskbar / panel replacement for Linux which works as a stand-alone dock";
+    homepage = "https://launchpad.net/dockbar/";
+    description =
+      "DockBarX is a lightweight taskbar / panel replacement for Linux which works as a stand-alone dock";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.volth ];

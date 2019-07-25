@@ -1,43 +1,4 @@
-{ stdenv
-, cmake
-, ninja
-, intltool
-, fetchurl
-, libxml2
-, webkitgtk
-, highlight
-, pkgconfig
-, gtk3
-, glib
-, libnotify
-, gtkspell3
-, evolution-data-server
-, adwaita-icon-theme
-, gnome-desktop
-, libgdata
-, libgweather
-, glib-networking
-, gsettings-desktop-schemas
-, wrapGAppsHook
-, itstool
-, shared-mime-info
-, libical
-, db
-, gcr
-, sqlite
-, gnome3
-, librsvg
-, gdk_pixbuf
-, libsecret
-, nss
-, nspr
-, icu
-, libcanberra-gtk3
-, bogofilter
-, gst_all_1
-, procps
-, p11-kit
-, openldap
+{ stdenv, cmake, ninja, intltool, fetchurl, libxml2, webkitgtk, highlight, pkgconfig, gtk3, glib, libnotify, gtkspell3, evolution-data-server, adwaita-icon-theme, gnome-desktop, libgdata, libgweather, glib-networking, gsettings-desktop-schemas, wrapGAppsHook, itstool, shared-mime-info, libical, db, gcr, sqlite, gnome3, librsvg, gdk_pixbuf, libsecret, nss, nspr, icu, libcanberra-gtk3, bogofilter, gst_all_1, procps, p11-kit, openldap
 }:
 
 stdenv.mkDerivation rec {
@@ -45,19 +6,14 @@ stdenv.mkDerivation rec {
   version = "3.32.4";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evolution/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/evolution/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "00hmmg4hfns8rq9rcilmy0gi1xkksld27lfbd9zmw2xw37wjmbqh";
   };
 
-  nativeBuildInputs = [
-    cmake
-    intltool
-    itstool
-    libxml2
-    ninja
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ cmake intltool itstool libxml2 ninja pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     adwaita-icon-theme
@@ -93,9 +49,7 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  propagatedUserEnvPkgs = [
-    evolution-data-server
-  ];
+  propagatedUserEnvPkgs = [ evolution-data-server ];
 
   cmakeFlags = [
     "-DENABLE_AUTOAR=OFF"
@@ -104,9 +58,7 @@ stdenv.mkDerivation rec {
     "-DENABLE_YTNEF=OFF"
   ];
 
-  requiredSystemFeatures = [
-    "big-parallel"
-  ];
+  requiredSystemFeatures = [ "big-parallel" ];
 
   doCheck = true;
 
@@ -117,11 +69,13 @@ stdenv.mkDerivation rec {
     };
   };
 
-  PKG_CONFIG_LIBEDATASERVERUI_1_2_UIMODULEDIR = "${placeholder "out"}/lib/evolution-data-server/ui-modules";
+  PKG_CONFIG_LIBEDATASERVERUI_1_2_UIMODULEDIR =
+    "${placeholder "out"}/lib/evolution-data-server/ui-modules";
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Evolution;
-    description = "Personal information management application that provides integrated mail, calendaring and address book functionality";
+    homepage = "https://wiki.gnome.org/Apps/Evolution";
+    description =
+      "Personal information management application that provides integrated mail, calendaring and address book functionality";
     maintainers = gnome3.maintainers;
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

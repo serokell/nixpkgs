@@ -15,13 +15,16 @@ buildGoPackage rec {
   };
 
   preBuild = ''
-    buildFlagsArray+=("-ldflags" "-X main.GitCommit=${builtins.substring 0 7 rev} -X main.Version=0.0.0")
+    buildFlagsArray+=("-ldflags" "-X main.GitCommit=${
+      builtins.substring 0 7 rev
+    } -X main.Version=0.0.0")
   '';
 
   meta = {
-    description = "Assembly tool for the Moby project, an open framework to assemble specialized container systems without reinventing the wheel";
+    description =
+      "Assembly tool for the Moby project, an open framework to assemble specialized container systems without reinventing the wheel";
     license = lib.licenses.asl20;
-    homepage = https://mobyproject.org;
+    homepage = "https://mobyproject.org";
     platforms = lib.platforms.unix;
   };
 }

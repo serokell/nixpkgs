@@ -13,7 +13,12 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ gettext ];
 
-  propagatedBuildInputs = with python3Packages; [ feedparser lxml sqlalchemy youtube-dl ];
+  propagatedBuildInputs = with python3Packages; [
+    feedparser
+    lxml
+    sqlalchemy
+    youtube-dl
+  ];
 
   checkInputs = with python3Packages; [ nose pytest ];
 
@@ -27,7 +32,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = {
-    description = "Command Line tool to keep track of your favourite YouTube channels without signing up for a Google account";
+    description =
+      "Command Line tool to keep track of your favourite YouTube channels without signing up for a Google account";
     homepage = "https://github.com/woefe/ytcc";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ marius851000 ];

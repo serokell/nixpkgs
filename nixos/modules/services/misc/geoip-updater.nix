@@ -175,9 +175,7 @@ let
     exit $all_ret
   '';
 
-in
-
-{
+in {
   options = {
     services.geoip-updater = {
       enable = mkOption {
@@ -236,20 +234,23 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      { assertion = (builtins.filter
-          (x: builtins.match ".*\\.(gz|xz)$" x == null) cfg.databases) == [];
-        message = ''
-          services.geoip-updater.databases supports only .gz and .xz databases.
+    assertions = [{
+      assertion = (builtins.filter (x: builtins.match ".*\\.(gz|xz)$" x == null)
+        cfg.databases) == [ ];
+      message = ''
+        services.geoip-updater.databases supports only .gz and .xz databases.
 
-          Current value:
-          ${toString cfg.databases}
+        Current value:
+        ${toString cfg.databases}
 
-          Offending element(s):
-          ${toString (builtins.filter (x: builtins.match ".*\\.(gz|xz)$" x == null) cfg.databases)};
-        '';
-      }
-    ];
+        Offending element(s):
+        ${
+          toString
+          (builtins.filter (x: builtins.match ".*\\.(gz|xz)$" x == null)
+          cfg.databases)
+        };
+      '';
+    }];
 
     users.users.geoip = {
       group = "root";
@@ -257,14 +258,14 @@ in
       uid = config.ids.uids.geoip;
     };
 
-    systemd.timers.geoip-updater =
-      { description = "GeoIP Updater Timer";
-        partOf = [ "geoip-updater.service" ];
-        wantedBy = [ "timers.target" ];
-        timerConfig.OnCalendar = cfg.interval;
-        timerConfig.Persistent = "true";
-        timerConfig.RandomizedDelaySec = randomizedTimerDelaySec;
-      };
+    systemd.timers.geoip-updater = {
+      description = "GeoIP Updater Timer";
+      partOf = [ "geoip-updater.service" ];
+      wantedBy = [ "timers.target" ];
+      timerConfig.OnCalendar = cfg.interval;
+      timerConfig.Persistent = "true";
+      timerConfig.RandomizedDelaySec = randomizedTimerDelaySec;
+    };
 
     systemd.services.geoip-updater = {
       description = "GeoIP Updater";

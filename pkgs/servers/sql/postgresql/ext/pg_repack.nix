@@ -7,9 +7,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ postgresql openssl zlib readline ];
 
   src = fetchFromGitHub {
-    owner  = "reorg";
-    repo   = "pg_repack";
-    rev    = "refs/tags/ver_${version}";
+    owner = "reorg";
+    repo = "pg_repack";
+    rev = "refs/tags/ver_${version}";
     sha256 = "0ynsmsxfkcp82ccpz2nrgg8wiil8yxqigvw6425lx8v80h5lszbw";
   };
 
@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Reorganize tables in PostgreSQL databases with minimal locks";
+    description =
+      "Reorganize tables in PostgreSQL databases with minimal locks";
     longDescription = ''
       pg_repack is a PostgreSQL extension which lets you remove bloat from tables and indexes, and optionally restore
       the physical order of clustered indexes. Unlike CLUSTER and VACUUM FULL it works online, without holding an

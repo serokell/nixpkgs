@@ -1,19 +1,16 @@
-{ config, stdenv, fetchurl, pkgconfig, libtool
-, zip, libffi, libsigsegv, readline, gmp
-, gnutls, gnome2, cairo, SDL, sqlite
-, emacsSupport ? config.emacsSupport or false, emacs ? null }:
+{ config, stdenv, fetchurl, pkgconfig, libtool, zip, libffi, libsigsegv, readline, gmp, gnutls, gnome2, cairo, SDL, sqlite, emacsSupport ?
+  config.emacsSupport or false, emacs ? null }:
 
 assert emacsSupport -> (emacs != null);
 
 let # The gnu-smalltalk project has a dependency to the libsigsegv library.
-    # The project ships with sources for this library, but deprecated this option.
-    # Using the vanilla libsigsegv library results in error: "cannot relocate [...]"
-    # Adding --enable-static=libsigsegv to the gnu-smalltalk configuration flags
-    # does not help, the error still occurs. The only solution is to build a
-    # shared version of libsigsegv.
-    libsigsegv-shared = stdenv.lib.overrideDerivation libsigsegv (oldAttrs: {
-      configureFlags = [ "--enable-shared" ];
-    });
+  # The project ships with sources for this library, but deprecated this option.
+  # Using the vanilla libsigsegv library results in error: "cannot relocate [...]"
+  # Adding --enable-static=libsigsegv to the gnu-smalltalk configuration flags
+  # does not help, the error still occurs. The only solution is to build a
+  # shared version of libsigsegv.
+  libsigsegv-shared = stdenv.lib.overrideDerivation libsigsegv
+    (oldAttrs: { configureFlags = [ "--enable-shared" ]; });
 
 in stdenv.mkDerivation rec {
 
@@ -29,16 +26,25 @@ in stdenv.mkDerivation rec {
   # http://smalltalk.gnu.org/download
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    libtool zip libffi libsigsegv-shared readline gmp gnutls gnome2.gtk
-    cairo SDL sqlite
-  ]
-  ++ stdenv.lib.optional emacsSupport emacs;
+    libtool
+    zip
+    libffi
+    libsigsegv-shared
+    readline
+    gmp
+    gnutls
+    gnome2.gtk
+    cairo
+    SDL
+    sqlite
+  ] ++ stdenv.lib.optional emacsSupport emacs;
 
   configureFlags = stdenv.lib.optional (!emacsSupport) "--without-emacs";
 
   hardeningDisable = [ "format" ];
 
-  installFlags = stdenv.lib.optional emacsSupport "lispdir=$(out)/share/emacs/site-lisp";
+  installFlags =
+    stdenv.lib.optional emacsSupport "lispdir=$(out)/share/emacs/site-lisp";
 
   # For some reason the tests fail if executated with nix-build, but pass if
   # executed within nix-shell --pure.
@@ -52,7 +58,7 @@ in stdenv.mkDerivation rec {
       course), as well as under Windows. Smalltalk is a dynamic object-oriented
       language, well-versed to scripting tasks.
     '';
-    homepage = http://smalltalk.gnu.org/;
+    homepage = "http://smalltalk.gnu.org/";
     license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ skeidel ];

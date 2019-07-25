@@ -1,12 +1,9 @@
 { stdenv, fetchurl, makeWrapper, makeDesktopItem, autoPatchelfHook, env
 # Dynamic libraries
-, dbus, glib, libGL, libX11, libXfixes, libuuid, libxcb, qtbase, qtdeclarative
-, qtimageformats, qtlocation, qtquickcontrols, qtquickcontrols2, qtscript, qtsvg
-, qttools, qtwayland, qtwebchannel, qtwebengine
+, dbus, glib, libGL, libX11, libXfixes, libuuid, libxcb, qtbase, qtdeclarative, qtimageformats, qtlocation, qtquickcontrols, qtquickcontrols2, qtscript, qtsvg, qttools, qtwayland, qtwebchannel, qtwebengine
 # Runtime
-, coreutils, libjpeg_turbo, pciutils, procps, utillinux, libv4l
-, pulseaudioSupport ? true, libpulseaudio ? null
-}:
+, coreutils, libjpeg_turbo, pciutils, procps, utillinux, libv4l, pulseaudioSupport ?
+  true, libpulseaudio ? null }:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 
@@ -22,8 +19,18 @@ let
   };
 
   qtDeps = [
-    qtbase qtdeclarative qtlocation qtquickcontrols qtquickcontrols2 qtscript
-    qtwebchannel qtwebengine qtimageformats qtsvg qttools qtwayland
+    qtbase
+    qtdeclarative
+    qtlocation
+    qtquickcontrols
+    qtquickcontrols2
+    qtscript
+    qtwebchannel
+    qtwebengine
+    qtimageformats
+    qtsvg
+    qttools
+    qtwayland
   ];
 
   qtEnv = env "zoom-us-qt-${qtbase.version}" qtDeps;
@@ -35,28 +42,27 @@ in stdenv.mkDerivation {
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
-  buildInputs = [
-    dbus glib libGL libX11 libXfixes libuuid libxcb qtEnv libjpeg_turbo
-  ] ++ qtDeps;
+  buildInputs =
+    [ dbus glib libGL libX11 libXfixes libuuid libxcb qtEnv libjpeg_turbo ]
+    ++ qtDeps;
 
   runtimeDependencies = optional pulseaudioSupport libpulseaudio;
 
-  installPhase =
-    let
-      files = concatStringsSep " " [
-        "*.pcm"
-        "*.png"
-        "ZoomLauncher"
-        "config-dump.sh"
-        "timezones"
-        "translations"
-        "version.txt"
-        "zcacert.pem"
-        "zoom"
-        "zoom.sh"
-        "zoomlinux"
-        "zopen"
-      ];
+  installPhase = let
+    files = concatStringsSep " " [
+      "*.pcm"
+      "*.png"
+      "ZoomLauncher"
+      "config-dump.sh"
+      "timezones"
+      "translations"
+      "version.txt"
+      "zcacert.pem"
+      "zoom"
+      "zoom.sh"
+      "zoomlinux"
+      "zopen"
+    ];
     in ''
       runHook preInstall
 
@@ -71,7 +77,9 @@ in stdenv.mkDerivation {
       ln -s ${qtEnv}/bin/qt.conf $packagePath
 
       makeWrapper $packagePath/zoom $out/bin/zoom-us \
-        --prefix PATH : "${makeBinPath [ coreutils glib.dev pciutils procps qttools.dev utillinux ]}" \
+        --prefix PATH : "${
+        makeBinPath [ coreutils glib.dev pciutils procps qttools.dev utillinux ]
+        }" \
         --prefix LD_PRELOAD : "${libv4l}/lib/libv4l/v4l2convert.so" \
         --run "cd $packagePath"
 
@@ -91,7 +99,7 @@ in stdenv.mkDerivation {
   passthru.updateScript = ./update.sh;
 
   meta = {
-    homepage = https://zoom.us/;
+    homepage = "https://zoom.us/";
     description = "zoom.us video conferencing application";
     license = stdenv.lib.licenses.unfree;
     platforms = builtins.attrNames srcs;

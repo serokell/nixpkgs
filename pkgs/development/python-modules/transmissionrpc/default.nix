@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six }:
 
 buildPythonPackage rec {
   pname = "transmissionrpc";
@@ -16,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six ];
 
   meta = with stdenv.lib; {
-    description = "Python implementation of the Transmission bittorent client RPC protocol";
-    homepage = https://pypi.python.org/pypi/transmissionrpc/;
+    description =
+      "Python implementation of the Transmission bittorent client RPC protocol";
+    homepage = "https://pypi.python.org/pypi/transmissionrpc/";
     license = licenses.mit;
   };
 

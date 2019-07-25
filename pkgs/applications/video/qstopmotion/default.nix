@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, qt5, ffmpeg, guvcview, cmake, ninja, libxml2
-, gettext, pkgconfig, libgphoto2, gphoto2, v4l_utils, libv4l, pcre
-, qwt, extra-cmake-modules }:
+{ stdenv, fetchurl, qt5, ffmpeg, guvcview, cmake, ninja, libxml2, gettext, pkgconfig, libgphoto2, gphoto2, v4l_utils, libv4l, pcre, qwt, extra-cmake-modules
+}:
 
 stdenv.mkDerivation rec {
   pname = "qstopmotion";
@@ -8,15 +7,37 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/${pname}/Version_${builtins.replaceStrings ["."] ["_"] version}/${name}-Source.tar.gz";
+    url = "mirror://sourceforge/project/${pname}/Version_${
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }/${name}-Source.tar.gz";
     sha256 = "03r6jxyq0bak2vsy2b78nk27m7fm96hnl8cx11l3l17704j4iglh";
   };
 
-  buildInputs = with qt5; [ v4l_utils libv4l pcre qtbase qtmultimedia ffmpeg guvcview
-                            qwt qtquickcontrols qtimageformats qtxmlpatterns ];
+  buildInputs = with qt5; [
+    v4l_utils
+    libv4l
+    pcre
+    qtbase
+    qtmultimedia
+    ffmpeg
+    guvcview
+    qwt
+    qtquickcontrols
+    qtimageformats
+    qtxmlpatterns
+  ];
 
-  nativeBuildInputs = [ pkgconfig cmake extra-cmake-modules ninja
-                        gettext libgphoto2 gphoto2 libxml2 libv4l ];
+  nativeBuildInputs = [
+    pkgconfig
+    cmake
+    extra-cmake-modules
+    ninja
+    gettext
+    libgphoto2
+    gphoto2
+    libxml2
+    libv4l
+  ];
 
   patchPhase = ''
     substituteInPlace CMakeLists.txt \
@@ -26,7 +47,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.qstopmotion.org;
+    homepage = "http://www.qstopmotion.org";
     description = "Create stopmotion animation with a (web)camera";
     longDescription = ''
       Qstopmotion is a tool to create stopmotion

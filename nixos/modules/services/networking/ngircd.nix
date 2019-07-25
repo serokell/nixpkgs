@@ -46,7 +46,8 @@ in {
 
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig.ExecStart = "${cfg.package}/sbin/ngircd --config ${configFile} --nodaemon";
+      serviceConfig.ExecStart =
+        "${cfg.package}/sbin/ngircd --config ${configFile} --nodaemon";
 
       serviceConfig.User = "ngircd";
     };

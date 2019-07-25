@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy }:
 
 buildPythonPackage rec {
   pname = "biopython";
@@ -25,7 +21,7 @@ buildPythonPackage rec {
       applications which address the needs of current and future work in
       bioinformatics.
     '';
-    homepage = https://biopython.org/wiki/Documentation;
+    homepage = "https://biopython.org/wiki/Documentation";
     maintainers = with lib.maintainers; [ luispedro ];
     license = lib.licenses.bsd3;
   };

@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, glib, flex, bison, meson, ninja, pkgconfig, libffi, python3
-, libintl, cctools, cairo, gnome3, glibcLocales
-, substituteAll, nixStoreDir ? builtins.storeDir
-, x11Support ? true
-}:
+{ stdenv, fetchurl, glib, flex, bison, meson, ninja, pkgconfig, libffi, python3, libintl, cctools, cairo, gnome3, glibcLocales, substituteAll, nixStoreDir ?
+  builtins.storeDir, x11Support ? true }:
 # now that gobject-introspection creates large .gir files (eg gtk3 case)
 # it may be worth thinking about using multiple derivation outputs
 # In that case its about 6MB which could be separated
@@ -10,13 +7,14 @@
 let
   pname = "gobject-introspection";
   version = "1.60.1";
-in
-with stdenv.lib;
+in with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1cr4r3lh5alrks9q2ycs1kn2crnkhrhn2wrmibng6dndkr4x2i6q";
   };
 
@@ -26,13 +24,15 @@ stdenv.mkDerivation rec {
   LC_ALL = "en_US.UTF-8"; # for tests
 
   nativeBuildInputs = [ meson ninja pkgconfig libintl glibcLocales ];
-  buildInputs = [ flex bison python3 setupHook/*move .gir*/ ]
-    ++ stdenv.lib.optional stdenv.isDarwin cctools;
+  buildInputs = [
+    flex
+    bison
+    python3
+    setupHook # move .gir
+  ] ++ stdenv.lib.optional stdenv.isDarwin cctools;
   propagatedBuildInputs = [ libffi glib ];
 
-  mesonFlags = [
-    "--datadir=${placeholder "dev"}/share"
-  ];
+  mesonFlags = [ "--datadir=${placeholder "dev"}/share" ];
 
   # outputs TODO: share/gobject-introspection-1.0/tests is needed during build
   # by pygobject3 (and maybe others), but it's only searched in $out
@@ -48,7 +48,8 @@ stdenv.mkDerivation rec {
       src = ./absolute_shlib_path.patch;
       inherit nixStoreDir;
     })
-  ] ++ stdenv.lib.optional x11Support # https://github.com/NixOS/nixpkgs/issues/34080
+  ] ++ stdenv.lib.optional
+    x11Support # https://github.com/NixOS/nixpkgs/issues/34080
     (substituteAll {
       src = ./absolute_gir_path.patch;
       cairoLib = "${getLib cairo}/lib";
@@ -56,17 +57,14 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isAarch64;
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
-    description = "A middleware layer between C libraries and language bindings";
-    homepage    = http://live.gnome.org/GObjectIntrospection;
+    description =
+      "A middleware layer between C libraries and language bindings";
+    homepage = "http://live.gnome.org/GObjectIntrospection";
     maintainers = with maintainers; [ lovek323 lethalman ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
     license = with licenses; [ gpl2 lgpl2 ];
 
     longDescription = ''

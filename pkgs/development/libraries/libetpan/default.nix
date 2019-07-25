@@ -1,8 +1,8 @@
 { autoconf, automake, fetchgit, libtool, stdenv, openssl }:
 
-let version = "1.8"; in
+let version = "1.8";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "libetpan-${version}";
 
   src = fetchgit {
@@ -16,8 +16,9 @@ stdenv.mkDerivation {
   configureScript = "./autogen.sh";
 
   meta = with stdenv.lib; {
-    description = "An efficient, portable library for different kinds of mail access: IMAP, SMTP, POP, and NNTP";
-    homepage = http://www.etpan.org/libetpan.html;
+    description =
+      "An efficient, portable library for different kinds of mail access: IMAP, SMTP, POP, and NNTP";
+    homepage = "http://www.etpan.org/libetpan.html";
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

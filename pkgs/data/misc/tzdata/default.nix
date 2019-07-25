@@ -4,21 +4,21 @@ stdenv.mkDerivation rec {
   name = "tzdata-${version}";
   version = "2019a";
 
-  srcs =
-    [ (fetchurl {
-        url = "https://data.iana.org/time-zones/releases/tzdata${version}.tar.gz";
-        sha256 = "0wlpqm4asvi0waaz24xj20iq40gqfypmb4nldjhkfgm09bgnsdlh";
-      })
-      (fetchurl {
-        url = "https://data.iana.org/time-zones/releases/tzcode${version}.tar.gz";
-        sha256 = "1x9z8fpgnhzlsnps0hamb54ymaskjab7ys9m4i4gpk9hpiig2fc7";
-      })
-    ];
+  srcs = [
+    (fetchurl {
+      url = "https://data.iana.org/time-zones/releases/tzdata${version}.tar.gz";
+      sha256 = "0wlpqm4asvi0waaz24xj20iq40gqfypmb4nldjhkfgm09bgnsdlh";
+    })
+    (fetchurl {
+      url = "https://data.iana.org/time-zones/releases/tzcode${version}.tar.gz";
+      sha256 = "1x9z8fpgnhzlsnps0hamb54ymaskjab7ys9m4i4gpk9hpiig2fc7";
+    })
+  ];
 
   sourceRoot = ".";
 
   outputs = [ "out" "bin" "man" "dev" ];
-  propagatedBuildOutputs = [];
+  propagatedBuildOutputs = [ ];
 
   makeFlags = [
     "TOPDIR=$(out)"
@@ -42,29 +42,28 @@ stdenv.mkDerivation rec {
   installFlags = [ "ZIC=./zic-native" ];
 
   preInstall = ''
-     mv zic.o zic.o.orig
-     mv zic zic.orig
-     make $makeFlags cc=cc AR=ar zic
-     mv zic zic-native
-     mv zic.o.orig zic.o
-     mv zic.orig zic
+    mv zic.o zic.o.orig
+    mv zic zic.orig
+    make $makeFlags cc=cc AR=ar zic
+    mv zic zic-native
+    mv zic.o.orig zic.o
+    mv zic.orig zic
   '';
 
-  postInstall =
-    ''
-      rm $out/share/zoneinfo-posix
-      mkdir $out/share/zoneinfo/posix
-      ( cd $out/share/zoneinfo/posix; ln -s ../* .; rm posix )
-      mv $out/share/zoneinfo-leaps $out/share/zoneinfo/right
+  postInstall = ''
+    rm $out/share/zoneinfo-posix
+    mkdir $out/share/zoneinfo/posix
+    ( cd $out/share/zoneinfo/posix; ln -s ../* .; rm posix )
+    mv $out/share/zoneinfo-leaps $out/share/zoneinfo/right
 
-      mkdir -p "$dev/include"
-      cp tzfile.h "$dev/include/tzfile.h"
-    '';
+    mkdir -p "$dev/include"
+    cp tzfile.h "$dev/include/tzfile.h"
+  '';
 
   setupHook = ./tzdata-setup-hook.sh;
 
   meta = with stdenv.lib; {
-    homepage = http://www.iana.org/time-zones;
+    homepage = "http://www.iana.org/time-zones";
     description = "Database of current and historical time zones";
     platforms = platforms.all;
     maintainers = with maintainers; [ fpletz ];

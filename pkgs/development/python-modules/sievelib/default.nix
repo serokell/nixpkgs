@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, mock
-, future, six, setuptools_scm }:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, mock, future, six, setuptools_scm
+}:
 
 buildPythonPackage rec {
   pname = "sievelib";
@@ -12,7 +12,8 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/tonioo/sievelib/commit/1deef0e2bf039a0e817ea6f19aaf1947dc9fafbc.patch";
+      url =
+        "https://github.com/tonioo/sievelib/commit/1deef0e2bf039a0e817ea6f19aaf1947dc9fafbc.patch";
       sha256 = "0vaj73mcij9dism8vfaai82irh8j1b2n8gf9jl1a19d2l26jrflk";
     })
   ];
@@ -23,8 +24,8 @@ buildPythonPackage rec {
 
   meta = {
     description = "Client-side Sieve and Managesieve library written in Python";
-    homepage    = https://github.com/tonioo/sievelib;
-    license     = lib.licenses.mit;
+    homepage = "https://github.com/tonioo/sievelib";
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ leenaars ];
     longDescription = ''
       A library written in Python that implements RFC 5228 (Sieve: An Email

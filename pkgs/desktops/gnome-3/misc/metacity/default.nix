@@ -1,18 +1,5 @@
-{ stdenv
-, fetchurl
-, gettext
-, glib
-, gnome3
-, gsettings-desktop-schemas
-, gtk3
-, libcanberra-gtk3
-, libgtop
-, libstartup_notification
-, libxml2
-, pkgconfig
-, substituteAll
-, wrapGAppsHook
-, zenity }:
+{ stdenv, fetchurl, gettext, glib, gnome3, gsettings-desktop-schemas, gtk3, libcanberra-gtk3, libgtop, libstartup_notification, libxml2, pkgconfig, substituteAll, wrapGAppsHook, zenity
+}:
 
 let
   pname = "metacity";
@@ -21,7 +8,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "177dmb1smizfgkddk49n2kr90graj9r6xw5hg3aq0y2qqg6v4rcg";
   };
 
@@ -32,12 +21,7 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-    libxml2
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext libxml2 pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -62,7 +46,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Window manager used in Gnome Flashback";
-    homepage = https://wiki.gnome.org/Projects/Metacity;
+    homepage = "https://wiki.gnome.org/Projects/Metacity";
     license = licenses.gpl2;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

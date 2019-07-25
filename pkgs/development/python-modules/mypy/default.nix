@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, typed-ast, psutil, isPy3k
-,mypy_extensions }:
+{ stdenv, fetchPypi, buildPythonPackage, typed-ast, psutil, isPy3k, mypy_extensions
+}:
 
 buildPythonPackage rec {
   pname = "mypy";
@@ -19,8 +19,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Optional static typing for Python";
-    homepage    = "http://www.mypy-lang.org";
-    license     = licenses.mit;
+    homepage = "http://www.mypy-lang.org";
+    license = licenses.mit;
     maintainers = with maintainers; [ martingms lnl7 ];
   };
 }

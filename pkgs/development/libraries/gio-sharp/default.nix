@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, which, pkgconfig, mono, gtk-sharp-2_0 }:
+{ stdenv, fetchFromGitHub, autoconf, automake, which, pkgconfig, mono, gtk-sharp-2_0
+}:
 
 stdenv.mkDerivation rec {
   name = "gio-sharp-${version}";
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GIO API bindings";
-    homepage = https://github.com/mono/gio-sharp;
+    homepage = "https://github.com/mono/gio-sharp";
     license = licenses.mit;
     platforms = platforms.linux;
   };

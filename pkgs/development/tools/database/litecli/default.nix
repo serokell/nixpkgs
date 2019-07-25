@@ -28,10 +28,7 @@ python3Packages.buildPythonApplication rec {
     sqlparse
   ];
 
-  checkInputs = with python3Packages; [
-    pytest
-    mock
-  ];
+  checkInputs = with python3Packages; [ pytest mock ];
 
   preCheck = ''
     export XDG_CONFIG_HOME=$TMP
@@ -44,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     longDescription = ''
       A command-line client for SQLite databases that has auto-completion and syntax highlighting.
     '';
-    homepage = https://litecli.com;
+    homepage = "https://litecli.com";
     license = licenses.bsd3;
     maintainers = with maintainers; [ Scriptkiddi ];
   };

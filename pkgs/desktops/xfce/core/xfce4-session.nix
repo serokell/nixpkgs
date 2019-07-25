@@ -1,14 +1,11 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk, polkit
-, libxfce4util, libxfce4ui, xfce4-panel, libwnck, dbus-glib, xfconf, libglade, xorg
-, hicolor-icon-theme
+{ stdenv, fetchurl, pkgconfig, intltool, gtk, polkit, libxfce4util, libxfce4ui, xfce4-panel, libwnck, dbus-glib, xfconf, libglade, xorg, hicolor-icon-theme
 }:
 
 let
-  p_name  = "xfce4-session";
+  p_name = "xfce4-session";
   ver_maj = "4.12";
   ver_min = "1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -21,11 +18,22 @@ stdenv.mkDerivation rec {
     ./xfce4-light-locker.patch
   ];
 
-  buildInputs =
-    [ pkgconfig intltool gtk libxfce4util libxfce4ui libwnck dbus-glib
-      xfconf xfce4-panel libglade xorg.iceauth xorg.libSM
-      polkit hicolor-icon-theme
-    ]; #TODO: upower-glib, gconf (assistive?), gnome keyring
+  buildInputs = [
+    pkgconfig
+    intltool
+    gtk
+    libxfce4util
+    libxfce4ui
+    libwnck
+    dbus-glib
+    xfconf
+    xfce4-panel
+    libglade
+    xorg.iceauth
+    xorg.libSM
+    polkit
+    hicolor-icon-theme
+  ]; # TODO: upower-glib, gconf (assistive?), gnome keyring
 
   preBuild = ''
     sed '/^PATH=/d'        -i scripts/xflock4
@@ -35,7 +43,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-xsession-prefix=$(out)" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.xfce.org/projects/xfce4-session;
+    homepage = "https://www.xfce.org/projects/xfce4-session";
     description = "Session manager for Xfce";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -1,13 +1,13 @@
-{ system ? builtins.currentSystem
-, config ? {}
-, networkExpr
-}:
+{ system ? builtins.currentSystem, config ? { }, networkExpr }:
 
-let nodes = import networkExpr; in
+let nodes = import networkExpr;
 
-with import ../../../../lib/testing.nix {
+in with import ../../../../lib/testing.nix {
   inherit system;
   pkgs = import ../../../../.. { inherit system config; };
 };
 
-(makeTest { inherit nodes; testScript = ""; }).driver
+(makeTest {
+  inherit nodes;
+  testScript = "";
+}).driver

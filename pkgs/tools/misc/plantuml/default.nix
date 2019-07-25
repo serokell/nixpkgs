@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "plantuml-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/plantuml/${version}/plantuml.${version}.jar";
+    url =
+      "mirror://sourceforge/project/plantuml/${version}/plantuml.${version}.jar";
     sha256 = "1md8dyjlvwfg4hbvigcvzipj1gf8hb39rqqh825aa2swchs8nvhm";
   };
 
@@ -24,8 +25,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Draw UML diagrams using a simple and human readable text description";
-    homepage = http://plantuml.sourceforge.net/;
+    description =
+      "Draw UML diagrams using a simple and human readable text description";
+    homepage = "http://plantuml.sourceforge.net/";
     # "plantuml -license" says GPLv3 or later
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ bjornfor ];

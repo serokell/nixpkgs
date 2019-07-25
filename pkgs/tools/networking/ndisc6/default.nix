@@ -10,19 +10,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ perl ];
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-    "--disable-suid-install"
-  ];
+  configureFlags =
+    [ "--sysconfdir=/etc" "--localstatedir=/var" "--disable-suid-install" ];
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-    "localstatedir=$(TMPDIR)"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=$(TMPDIR)" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.remlab.net/ndisc6/;
+    homepage = "https://www.remlab.net/ndisc6/";
     description = "A small collection of useful tools for IPv6 networking";
     maintainers = with maintainers; [ eelco ];
     platforms = platforms.linux;

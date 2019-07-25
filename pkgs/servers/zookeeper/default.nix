@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ makeWrapper jre ];
 
-  phases = ["unpackPhase" "installPhase"];
+  phases = [ "unpackPhase" "installPhase" ];
 
   installPhase = ''
     mkdir -p $out
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://zookeeper.apache.org;
+    homepage = "http://zookeeper.apache.org";
     description = "Apache Zookeeper";
     license = licenses.asl20;
     maintainers = with maintainers; [ nathan-gs cstrahan pradeepchhetri ];

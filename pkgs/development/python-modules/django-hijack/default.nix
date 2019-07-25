@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, python,
-  django, django_compat, django_nose
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, django, django_compat, django_nose
 }:
 buildPythonPackage rec {
   pname = "django-hijack";
@@ -31,8 +30,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Allows superusers to hijack (=login as) and work on behalf of another user";
-    homepage = https://github.com/arteria/django-hijack;
+    description =
+      "Allows superusers to hijack (=login as) and work on behalf of another user";
+    homepage = "https://github.com/arteria/django-hijack";
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];
   };

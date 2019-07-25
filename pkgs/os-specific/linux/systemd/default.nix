@@ -1,19 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, intltool, gperf, libcap, kmod
-, xz, pam, acl, libuuid, m4, utillinux, libffi
-, glib, kbd, libxslt, coreutils, libgcrypt, libgpgerror, libidn2, libapparmor
-, audit, lz4, bzip2, libmicrohttpd, pcre2
-, linuxHeaders ? stdenv.cc.libc.linuxHeaders
-, iptables, gnu-efi
-, gettext, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45
-, ninja, meson, python3Packages, glibcLocales
-, patchelf
-, getent
-, buildPackages
-, perl
-, withSelinux ? false, libselinux
-, withLibseccomp ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) libseccomp.meta.platforms, libseccomp
-, withKexectools ? lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms, kexectools
-}:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, intltool, gperf, libcap, kmod, xz, pam, acl, libuuid, m4, utillinux, libffi, glib, kbd, libxslt, coreutils, libgcrypt, libgpgerror, libidn2, libapparmor, audit, lz4, bzip2, libmicrohttpd, pcre2, linuxHeaders ?
+  stdenv.cc.libc.linuxHeaders, iptables, gnu-efi, gettext, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45, ninja, meson, python3Packages, glibcLocales, patchelf, getent, buildPackages, perl, withSelinux ?
+    false, libselinux, withLibseccomp ?
+      lib.any (lib.meta.platformMatch stdenv.hostPlatform)
+      libseccomp.meta.platforms, libseccomp, withKexectools ?
+        lib.any (lib.meta.platformMatch stdenv.hostPlatform)
+        kexectools.meta.platforms, kexectools }:
 
 stdenv.mkDerivation rec {
   version = "242";
@@ -30,25 +21,46 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "lib" "man" "dev" ];
 
-  nativeBuildInputs =
-    [ pkgconfig intltool gperf libxslt gettext docbook_xsl docbook_xml_dtd_42 docbook_xml_dtd_45
-      ninja meson
-      coreutils # meson calls date, stat etc.
-      glibcLocales
-      patchelf getent m4
-      perl # to patch the libsystemd.so and remove dependencies on aarch64
+  nativeBuildInputs = [
+    pkgconfig
+    intltool
+    gperf
+    libxslt
+    gettext
+    docbook_xsl
+    docbook_xml_dtd_42
+    docbook_xml_dtd_45
+    ninja
+    meson
+    coreutils # meson calls date, stat etc.
+    glibcLocales
+    patchelf
+    getent
+    m4
+    perl # to patch the libsystemd.so and remove dependencies on aarch64
 
-      (buildPackages.python3Packages.python.withPackages ( ps: with ps; [ python3Packages.lxml ]))
-    ];
-  buildInputs =
-    [ linuxHeaders libcap kmod xz pam acl
-      /* cryptsetup */ libuuid glib libgcrypt libgpgerror libidn2
-      libmicrohttpd pcre2 ] ++
-      stdenv.lib.optional withKexectools kexectools ++
-      stdenv.lib.optional withLibseccomp libseccomp ++
-    [ libffi audit lz4 bzip2 libapparmor
-      iptables gnu-efi
-    ] ++ stdenv.lib.optional withSelinux libselinux;
+    (buildPackages.python3Packages.python.withPackages
+    (ps: with ps; [ python3Packages.lxml ]))
+  ];
+  buildInputs = [
+    linuxHeaders
+    libcap
+    kmod
+    xz
+    pam
+    acl
+    # cryptsetup
+    libuuid
+    glib
+    libgcrypt
+    libgpgerror
+    libidn2
+    libmicrohttpd
+    pcre2
+  ] ++ stdenv.lib.optional withKexectools kexectools
+    ++ stdenv.lib.optional withLibseccomp libseccomp
+    ++ [ libffi audit lz4 bzip2 libapparmor iptables gnu-efi ]
+    ++ stdenv.lib.optional withSelinux libselinux;
 
   #dontAddPrefix = true;
 
@@ -83,7 +95,7 @@ stdenv.mkDerivation rec {
     "-Dldconfig=false"
     "-Dsmack=true"
     "-Db_pie=true"
-    "-Dsystem-uid-max=499" #TODO: debug why awking around in /etc/login.defs doesn't work
+    "-Dsystem-uid-max=499" # TODO: debug why awking around in /etc/login.defs doesn't work
     "-Dsystem-gid-max=499"
     # "-Dtime-epoch=1"
 
@@ -141,14 +153,19 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE =
     [ # Can't say ${polkit.bin}/bin/pkttyagent here because that would
       # lead to a cyclic dependency.
-      "-UPOLKIT_AGENT_BINARY_PATH" "-DPOLKIT_AGENT_BINARY_PATH=\"/run/current-system/sw/bin/pkttyagent\""
+      "-UPOLKIT_AGENT_BINARY_PATH"
+      ''-DPOLKIT_AGENT_BINARY_PATH="/run/current-system/sw/bin/pkttyagent"''
 
       # Set the release_agent on /sys/fs/cgroup/systemd to the
       # currently running systemd (/run/current-system/systemd) so
       # that we don't use an obsolete/garbage-collected release agent.
-      "-USYSTEMD_CGROUP_AGENT_PATH" "-DSYSTEMD_CGROUP_AGENT_PATH=\"/run/current-system/systemd/lib/systemd/systemd-cgroups-agent\""
+      "-USYSTEMD_CGROUP_AGENT_PATH"
+      ''
+        -DSYSTEMD_CGROUP_AGENT_PATH="/run/current-system/systemd/lib/systemd/systemd-cgroups-agent"''
 
-      "-USYSTEMD_BINARY_PATH" "-DSYSTEMD_BINARY_PATH=\"/run/current-system/systemd/lib/systemd/systemd\""
+      "-USYSTEMD_BINARY_PATH"
+      ''
+        -DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
     ];
 
   doCheck = false; # fails a bunch of tests
@@ -216,7 +233,7 @@ stdenv.mkDerivation rec {
   passthru.interfaceVersion = 3;
 
   meta = with stdenv.lib; {
-    homepage = http://www.freedesktop.org/wiki/Software/systemd;
+    homepage = "http://www.freedesktop.org/wiki/Software/systemd";
     description = "A system and service manager for Linux";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

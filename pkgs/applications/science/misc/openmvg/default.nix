@@ -1,11 +1,6 @@
-{ stdenv, fetchgit, pkgconfig, cmake
-, libjpeg ? null
-, zlib ? null
-, libpng ? null
-, eigen ? null
-, libtiff ? null
-, enableExamples ? false
-, enableDocs ? false }:
+{ stdenv, fetchgit, pkgconfig, cmake, libjpeg ? null, zlib ? null, libpng ?
+  null, eigen ? null, libtiff ? null, enableExamples ? false, enableDocs ? false
+}:
 
 stdenv.mkDerivation rec {
   version = "1.3";
@@ -41,8 +36,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "all" ];
 
   meta = {
-    description = "A library for computer-vision scientists and targeted for the Multiple View Geometry community";
-    homepage = https://openmvg.readthedocs.io/en/latest/;
+    description =
+      "A library for computer-vision scientists and targeted for the Multiple View Geometry community";
+    homepage = "https://openmvg.readthedocs.io/en/latest/";
     license = stdenv.lib.licenses.mpl20;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ mdaiter ];

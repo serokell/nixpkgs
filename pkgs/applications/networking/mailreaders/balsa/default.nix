@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, gtk3, gmime, gnutls,
-  webkitgtk, libesmtp, openssl, libnotify, gtkspell3, gpgme,
-  libcanberra-gtk3, libsecret, gtksourceview, gobject-introspection,
-  hicolor-icon-theme, wrapGAppsHook
+{ stdenv, fetchurl, pkgconfig, intltool, glib, gtk3, gmime, gnutls, webkitgtk, libesmtp, openssl, libnotify, gtkspell3, gpgme, libcanberra-gtk3, libsecret, gtksourceview, gobject-introspection, hicolor-icon-theme, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -53,7 +50,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://pawsa.fedorapeople.org/balsa/;
+    homepage = "http://pawsa.fedorapeople.org/balsa/";
     description = "An e-mail client for GNOME";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

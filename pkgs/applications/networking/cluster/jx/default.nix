@@ -27,14 +27,15 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "JX is a command line tool for installing and using Jenkins X.";
-    homepage = https://jenkins-x.io;
+    description =
+      "JX is a command line tool for installing and using Jenkins X.";
+    homepage = "https://jenkins-x.io";
     longDescription = ''
       Jenkins X provides automated CI+CD for Kubernetes with Preview
       Environments on Pull Requests using Jenkins, Knative Build, Prow,
       Skaffold and Helm.
     '';
-    license = licenses.asl20 ;
+    license = licenses.asl20;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;
   };

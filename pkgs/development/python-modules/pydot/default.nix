@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, graphviz
-, python
-, chardet
-, pyparsing
+{ lib, buildPythonPackage, fetchPypi, substituteAll, graphviz, python, chardet, pyparsing
 }:
 
 buildPythonPackage rec {
@@ -40,8 +33,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/erocarrera/pydot;
-    description = "Allows to easily create both directed and non directed graphs from Python";
+    homepage = "https://github.com/erocarrera/pydot";
+    description =
+      "Allows to easily create both directed and non directed graphs from Python";
     license = lib.licenses.mit;
   };
 }

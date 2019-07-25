@@ -6,7 +6,8 @@ let
 
   cfg = config.services.parsoid;
 
-  parsoid = pkgs.nodePackages."parsoid-git://github.com/abbradar/parsoid#stable";
+  parsoid =
+    pkgs.nodePackages."parsoid-git://github.com/abbradar/parsoid#stable";
 
   confTree = {
     worker_heartbeat_timeout = 300000;
@@ -22,10 +23,10 @@ let
     }];
   };
 
-  confFile = pkgs.writeText "config.yml" (builtins.toJSON (recursiveUpdate confTree cfg.extraConfig));
+  confFile = pkgs.writeText "config.yml"
+    (builtins.toJSON (recursiveUpdate confTree cfg.extraConfig));
 
-in
-{
+in {
   ##### interface
 
   options = {
@@ -75,7 +76,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         description = ''
           Extra configuration to add to parsoid configuration.
         '';
@@ -95,7 +96,10 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         User = "nobody";
-        ExecStart = "${parsoid}/lib/node_modules/parsoid/bin/server.js -c ${confFile} -n ${toString cfg.workers}";
+        ExecStart =
+          "${parsoid}/lib/node_modules/parsoid/bin/server.js -c ${confFile} -n ${
+            toString cfg.workers
+          }";
       };
     };
 

@@ -1,21 +1,13 @@
-{ newScope, config, stdenv, llvmPackages, gcc8Stdenv, llvmPackages_8
-, makeWrapper, ed
-, glib, gtk3, gnome3, gsettings-desktop-schemas
-, libva ? null
+{ newScope, config, stdenv, llvmPackages, gcc8Stdenv, llvmPackages_8, makeWrapper, ed, glib, gtk3, gnome3, gsettings-desktop-schemas, libva ?
+  null
 
-# package customization
-, channel ? "stable"
-, enableNaCl ? false
-, gnomeSupport ? false, gnome ? null
-, gnomeKeyringSupport ? false
-, proprietaryCodecs ? true
-, enablePepperFlash ? false
-, enableWideVine ? false
-, useVaapi ? false # test video on radeon, before enabling this
-, cupsSupport ? true
-, pulseSupport ? config.pulseaudio or stdenv.isLinux
-, commandLineArgs ? ""
-}:
+  # package customization
+, channel ? "stable", enableNaCl ? false, gnomeSupport ? false, gnome ?
+  null, gnomeKeyringSupport ? false, proprietaryCodecs ?
+    true, enablePepperFlash ? false, enableWideVine ? false, useVaapi ?
+      false # test video on radeon, before enabling this
+, cupsSupport ? true, pulseSupport ?
+  config.pulseaudio or stdenv.isLinux, commandLineArgs ? "" }:
 
 let
   stdenv_ = if stdenv.isAarch64 then gcc8Stdenv else llvmPackages_8.stdenv;
@@ -29,20 +21,17 @@ in let
   chromium = {
     inherit stdenv llvmPackages;
 
-    upstream-info = (callPackage ./update.nix {}).getChannel channel;
+    upstream-info = (callPackage ./update.nix { }).getChannel channel;
 
     mkChromiumDerivation = callPackage ./common.nix {
-      inherit enableNaCl gnomeSupport gnome
-              gnomeKeyringSupport proprietaryCodecs cupsSupport pulseSupport
-              useVaapi
-              enableWideVine;
+      inherit enableNaCl gnomeSupport gnome gnomeKeyringSupport
+        proprietaryCodecs cupsSupport pulseSupport useVaapi enableWideVine;
     };
 
     browser = callPackage ./browser.nix { inherit channel; };
 
-    plugins = callPackage ./plugins.nix {
-      inherit enablePepperFlash enableWideVine;
-    };
+    plugins =
+      callPackage ./plugins.nix { inherit enablePepperFlash enableWideVine; };
   };
 
   suffix = if channel != "stable" then "-" + channel else "";
@@ -56,68 +45,71 @@ in stdenv.mkDerivation {
   inherit version;
 
   buildInputs = [
-    makeWrapper ed
+    makeWrapper
+    ed
 
     # needed for GSETTINGS_SCHEMAS_PATH
-    gsettings-desktop-schemas glib gtk3
+    gsettings-desktop-schemas
+    glib
+    gtk3
 
     # needed for XDG_ICON_DIRS
     gnome3.adwaita-icon-theme
   ];
 
-  outputs = ["out" "sandbox"];
+  outputs = [ "out" "sandbox" ];
 
   buildCommand = let
     browserBinary = "${chromium.browser}/libexec/chromium/chromium";
-    getWrapperFlags = plugin: "$(< \"${plugin}/nix-support/wrapper-flags\")";
-    libPath = stdenv.lib.makeLibraryPath ([]
-      ++ stdenv.lib.optional useVaapi libva
-    );
+    getWrapperFlags = plugin: ''$(< "${plugin}/nix-support/wrapper-flags")'';
+    libPath =
+      stdenv.lib.makeLibraryPath ([ ] ++ stdenv.lib.optional useVaapi libva);
 
-  in with stdenv.lib; ''
-    mkdir -p "$out/bin"
+    in with stdenv.lib; ''
+      mkdir -p "$out/bin"
 
-    eval makeWrapper "${browserBinary}" "$out/bin/chromium" \
-      --add-flags ${escapeShellArg (escapeShellArg commandLineArgs)} \
-      ${concatMapStringsSep " " getWrapperFlags chromium.plugins.enabled}
+      eval makeWrapper "${browserBinary}" "$out/bin/chromium" \
+        --add-flags ${escapeShellArg (escapeShellArg commandLineArgs)} \
+        ${concatMapStringsSep " " getWrapperFlags chromium.plugins.enabled}
 
-    ed -v -s "$out/bin/chromium" << EOF
-    2i
+      ed -v -s "$out/bin/chromium" << EOF
+      2i
 
-    if [ -x "/run/wrappers/bin/${sandboxExecutableName}" ]
-    then
-      export CHROME_DEVEL_SANDBOX="/run/wrappers/bin/${sandboxExecutableName}"
-    else
-      export CHROME_DEVEL_SANDBOX="$sandbox/bin/${sandboxExecutableName}"
-    fi
+      if [ -x "/run/wrappers/bin/${sandboxExecutableName}" ]
+      then
+        export CHROME_DEVEL_SANDBOX="/run/wrappers/bin/${sandboxExecutableName}"
+      else
+        export CHROME_DEVEL_SANDBOX="$sandbox/bin/${sandboxExecutableName}"
+      fi
 
-    export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${libPath}"
+      export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${libPath}"
 
-    # libredirect causes chromium to deadlock on startup
-    export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | tr ':' '\n' | grep -v /lib/libredirect\\\\.so$ | tr '\n' ':')"
+      # libredirect causes chromium to deadlock on startup
+      export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | tr ':' '\n' | grep -v /lib/libredirect\\\\.so$ | tr '\n' ':')"
 
-    export XDG_DATA_DIRS=$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH\''${XDG_DATA_DIRS:+:}\$XDG_DATA_DIRS
+      export XDG_DATA_DIRS=$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH\''${XDG_DATA_DIRS:+:}\$XDG_DATA_DIRS
 
-    .
-    w
-    EOF
+      .
+      w
+      EOF
 
-    ln -sv "${chromium.browser.sandbox}" "$sandbox"
+      ln -sv "${chromium.browser.sandbox}" "$sandbox"
 
-    ln -s "$out/bin/chromium" "$out/bin/chromium-browser"
+      ln -s "$out/bin/chromium" "$out/bin/chromium-browser"
 
-    mkdir -p "$out/share"
-    for f in '${chromium.browser}'/share/*; do # hello emacs */
-      ln -s -t "$out/share/" "$f"
-    done
-  '';
+      mkdir -p "$out/share"
+      for f in '${chromium.browser}'/share/*; do # hello emacs */
+        ln -s -t "$out/share/" "$f"
+      done
+    '';
 
   inherit (chromium.browser) packageName;
   meta = chromium.browser.meta // {
     broken = if enableWideVine then
-          builtins.trace "WARNING: WideVine is not functional, please only use for testing"
-             true
-        else false;
+      builtins.trace
+      "WARNING: WideVine is not functional, please only use for testing" true
+    else
+      false;
   };
 
   passthru = {

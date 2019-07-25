@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libetpan, icu, cyrus_sasl, libctemplate
-, libuchardet, pkgconfig, glib, html-tidy, libxml2, libuuid, openssl
+{ stdenv, lib, fetchFromGitHub, cmake, libetpan, icu, cyrus_sasl, libctemplate, libuchardet, pkgconfig, glib, html-tidy, libxml2, libuuid, openssl
 }:
 
 stdenv.mkDerivation rec {
@@ -8,16 +7,25 @@ stdenv.mkDerivation rec {
   version = "0.6.3";
 
   src = fetchFromGitHub {
-    owner  = "MailCore";
-    repo   = "mailcore2";
-    rev    = version;
+    owner = "MailCore";
+    repo = "mailcore2";
+    rev = version;
     sha256 = "0yxynvfmifpw9hdhv499a813hb2ynan74r353lhcdajkkm7w8br5";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    libetpan cmake icu cyrus_sasl libctemplate libuchardet glib
-    html-tidy libxml2 libuuid openssl
+    libetpan
+    cmake
+    icu
+    cyrus_sasl
+    libctemplate
+    libuchardet
+    glib
+    html-tidy
+    libxml2
+    libuuid
+    openssl
   ];
 
   postPatch = ''
@@ -30,9 +38,7 @@ stdenv.mkDerivation rec {
       --replace buffio.h tidybuffio.h
   '';
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
   installPhase = ''
     mkdir $out
@@ -51,9 +57,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A simple and asynchronous API to work with e-mail protocols IMAP, POP and SMTP";
-    homepage    = http://libmailcore.com;
-    license     = licenses.bsd3;
+    description =
+      "A simple and asynchronous API to work with e-mail protocols IMAP, POP and SMTP";
+    homepage = "http://libmailcore.com";
+    license = licenses.bsd3;
     maintainers = with maintainers; [ cstrahan ];
   };
 }

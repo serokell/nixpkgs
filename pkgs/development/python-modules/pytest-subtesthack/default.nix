@@ -15,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Terrible plugin to set up and tear down fixtures within the test function itself";
-    homepage = https://github.com/untitaker/pytest-subtesthack;
+    description =
+      "Terrible plugin to set up and tear down fixtures within the test function itself";
+    homepage = "https://github.com/untitaker/pytest-subtesthack";
     license = licenses.publicDomain;
   };
 }

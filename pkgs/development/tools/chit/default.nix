@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl
-, darwin
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, darwin }:
 
 with rustPlatform;
 
@@ -18,13 +16,16 @@ buildRustPackage rec {
   cargoSha256 = "1jqnnf4jgjpm1i310hda15423nxfw9frgpmc2kbrs66qcsj7avaw";
 
   nativeBuildInputs = stdenv.lib.optionals stdenv.isLinux [ pkgconfig ];
-  buildInputs = []
-  ++ stdenv.lib.optionals stdenv.isLinux [ openssl ]
-  ++ stdenv.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation CoreServices Security ])
-  ;
+  buildInputs = [ ] ++ stdenv.lib.optionals stdenv.isLinux [ openssl ]
+    ++ stdenv.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      CoreFoundation
+      CoreServices
+      Security
+    ]);
 
   meta = with stdenv.lib; {
-    description = "Crate help in terminal: A tool for looking up details about rust crates without going to crates.io";
+    description =
+      "Crate help in terminal: A tool for looking up details about rust crates without going to crates.io";
     longDescription = ''
       Chit helps answer these questions:
 
@@ -36,7 +37,7 @@ buildRustPackage rec {
       * Should i use this crate?
       * How mature is it?
     '';
-    homepage = https://github.com/peterheesterman/chit;
+    homepage = "https://github.com/peterheesterman/chit";
     license = licenses.mit;
     maintainers = [ maintainers.lilyball ];
     platforms = platforms.all;

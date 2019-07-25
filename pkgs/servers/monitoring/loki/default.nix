@@ -17,7 +17,7 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     description = "Like Prometheus, but for logs.";
     license = licenses.asl20;
-    homepage = https://grafana.com/loki;
+    homepage = "https://grafana.com/loki";
     maintainers = with maintainers; [ willibutz ];
     platforms = platforms.linux;
   };

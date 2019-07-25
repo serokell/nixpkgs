@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   options = {
     xdg.icons.enable = mkOption {
       type = types.bool;
@@ -14,14 +13,9 @@ with lib;
   };
 
   config = mkIf config.xdg.icons.enable {
-    environment.pathsToLink = [ 
-      "/share/icons" 
-      "/share/pixmaps" 
-    ];
-    
-    environment.profileRelativeEnvVars = {
-      XCURSOR_PATH = [ "/share/icons" ];
-    };
+    environment.pathsToLink = [ "/share/icons" "/share/pixmaps" ];
+
+    environment.profileRelativeEnvVars = { XCURSOR_PATH = [ "/share/icons" ]; };
   };
 
 }

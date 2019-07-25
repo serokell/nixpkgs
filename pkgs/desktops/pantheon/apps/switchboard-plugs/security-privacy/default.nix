@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja
-, pkgconfig, vala, libgee, granite, gtk3, polkit, zeitgeist
-, switchboard, lightlocker }:
+{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja, pkgconfig, vala, libgee, granite, gtk3, polkit, zeitgeist, switchboard, lightlocker
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-security-privacy";
@@ -13,34 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "0k2bq7l0m7qfpy1mkb3qvsinqd8n4lp0vwz3x64wlgfn2qipm1fn";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig python3 vala ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    polkit
-    switchboard
-    zeitgeist
-  ];
+  buildInputs = [ granite gtk3 libgee polkit switchboard zeitgeist ];
 
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
-  patches = [
-    ./hardcode-gsettings.patch
-  ];
+  patches = [ ./hardcode-gsettings.patch ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -52,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Switchboard Security & Privacy Plug";
-    homepage = https://github.com/elementary/switchboard-plug-security-privacy;
+    homepage =
+      "https://github.com/elementary/switchboard-plug-security-privacy";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

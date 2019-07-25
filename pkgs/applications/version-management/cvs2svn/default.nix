@@ -1,9 +1,6 @@
-{ lib, fetchurl, makeWrapper
-, python2Packages
-, cvs, subversion, git, bazaar
-}:
+{ lib, fetchurl, makeWrapper, python2Packages, cvs, subversion, git, bazaar }:
 
-python2Packages.buildPythonApplication  rec {
+python2Packages.buildPythonApplication rec {
   name = "cvs2svn-${version}";
   version = "2.5.0";
 
@@ -28,8 +25,9 @@ python2Packages.buildPythonApplication  rec {
   '';
 
   meta = with lib; {
-    description = "A tool to convert CVS repositories to Subversion repositories";
-    homepage = http://cvs2svn.tigris.org/;
+    description =
+      "A tool to convert CVS repositories to Subversion repositories";
+    homepage = "http://cvs2svn.tigris.org/";
     maintainers = [ maintainers.makefu ];
     platforms = platforms.unix;
     license = licenses.asl20;

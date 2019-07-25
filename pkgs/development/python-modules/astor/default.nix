@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Library for reading, writing and rewriting python AST";
-    homepage = https://github.com/berkerpeksag/astor;
+    homepage = "https://github.com/berkerpeksag/astor";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nixy ];
   };

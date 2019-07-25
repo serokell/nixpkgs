@@ -11,11 +11,11 @@ stdenv.mkDerivation rec {
 
   preBuild = ''
     makeFlagsArray=(sbindir=$out/sbin manprefix=$out)
-    '';
+  '';
 
   meta = with stdenv.lib; {
     description = "A tool to get/set ATA/SATA drive parameters under Linux";
-    homepage = https://sourceforge.net/projects/hdparm/;
+    homepage = "https://sourceforge.net/projects/hdparm/";
     platforms = platforms.linux;
     license = licenses.bsd2;
     maintainers = [ maintainers.fuuzetsu ];

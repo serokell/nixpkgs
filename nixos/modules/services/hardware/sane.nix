@@ -4,9 +4,10 @@ with lib;
 
 let
 
-  pkg = if config.hardware.sane.snapshot
-    then pkgs.sane-backends-git
-    else pkgs.sane-backends;
+  pkg = if config.hardware.sane.snapshot then
+    pkgs.sane-backends-git
+  else
+    pkgs.sane-backends;
 
   sanedConf = pkgs.writeTextFile {
     name = "saned.conf";
@@ -31,14 +32,13 @@ let
     LD_LIBRARY_PATH = [ "${saneConfig}/lib/sane" ];
   };
 
-  backends = [ pkg netConf ] ++ optional config.services.saned.enable sanedConf ++ config.hardware.sane.extraBackends;
+  backends = [ pkg netConf ] ++ optional config.services.saned.enable sanedConf
+    ++ config.hardware.sane.extraBackends;
   saneConfig = pkgs.mkSaneConfig { paths = backends; };
 
   enabled = config.hardware.sane.enable || config.services.saned.enable;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -64,7 +64,7 @@ in
 
     hardware.sane.extraBackends = mkOption {
       type = types.listOf types.path;
-      default = [];
+      default = [ ];
       description = ''
         Packages providing extra SANE backends to enable.
 
@@ -112,7 +112,6 @@ in
     };
 
   };
-
 
   ###### implementation
 

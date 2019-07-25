@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncompress libX11 ];
 
-  buildPhase = '' ./build '';
+  buildPhase = "./build ";
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -35,11 +35,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.ece.purdue.edu/~qobi/software.html;
+    homepage = "http://www.ece.purdue.edu/~qobi/software.html";
     license = stdenv.lib.licenses.gpl2Plus;
     description = "Stalin, an optimizing Scheme compiler";
 
     maintainers = [ ];
-    platforms = ["i686-linux"];  # doesn't want to work on 64-bit platforms
+    platforms = [ "i686-linux" ]; # doesn't want to work on 64-bit platforms
   };
 }

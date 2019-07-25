@@ -1,9 +1,6 @@
-{ stdenv, fetchPypi, buildPythonPackage, pythonOlder, isPy3k
-, pyperclip, six, pyparsing, vim, wcwidth, colorama, attrs
-, contextlib2 ? null, typing ? null, setuptools_scm
-, pytest, mock ? null, pytest-mock
-, which, glibcLocales
-}:
+{ stdenv, fetchPypi, buildPythonPackage, pythonOlder, isPy3k, pyperclip, six, pyparsing, vim, wcwidth, colorama, attrs, contextlib2 ?
+  null, typing ? null, setuptools_scm, pytest, mock ?
+    null, pytest-mock, which, glibcLocales }:
 buildPythonPackage rec {
   pname = "cmd2";
   version = "0.9.14";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
     sha256 = "0rllwc4h89xdivy85nmgqdi2s0sk1zw31mlvrnlr9gz2902cnq93";
   };
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   postPatch = stdenv.lib.optional stdenv.isDarwin ''
     # Fake the impure dependencies pbpaste and pbcopy
@@ -26,27 +23,16 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  buildInputs = [
-    setuptools_scm
-  ];
+  buildInputs = [ setuptools_scm ];
 
-  propagatedBuildInputs = [
-    colorama
-    pyperclip
-    six
-    pyparsing
-    wcwidth
-    attrs
-  ]
-  ++ stdenv.lib.optionals (pythonOlder "3.5") [contextlib2 typing]
-  ;
-
+  propagatedBuildInputs = [ colorama pyperclip six pyparsing wcwidth attrs ]
+    ++ stdenv.lib.optionals (pythonOlder "3.5") [ contextlib2 typing ];
 
   doCheck = !stdenv.isDarwin;
   # pytest-cov
   # argcomplete  will generate errors
-  checkInputs= [ pytest mock which vim glibcLocales pytest-mock ]
-        ++ stdenv.lib.optional (pythonOlder "3.6") [ mock ];
+  checkInputs = [ pytest mock which vim glibcLocales pytest-mock ]
+    ++ stdenv.lib.optional (pythonOlder "3.6") [ mock ];
   checkPhase = ''
     # test_path_completion_user_expansion might be fixed in the next release
     py.test -k 'not test_path_completion_user_expansion'
@@ -54,7 +40,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Enhancements for standard library's cmd module";
-    homepage = https://github.com/python-cmd2/cmd2;
+    homepage = "https://github.com/python-cmd2/cmd2";
     maintainers = with maintainers; [ teto ];
   };
 }

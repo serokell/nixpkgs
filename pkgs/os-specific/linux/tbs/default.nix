@@ -46,14 +46,14 @@ in stdenv.mkDerivation {
   hardeningDisable = [ "all" ];
 
   nativeBuildInputs = [ patchutils kmod perl perlPackages.ProcProcessTable ]
-  ++ kernel.moduleBuildDependencies;
+    ++ kernel.moduleBuildDependencies;
 
-   postInstall = ''
+  postInstall = ''
     find $out/lib/modules/${kernel.modDirVersion} -name "*.ko" -exec xz {} \;
   '';
 
   meta = with lib; {
-    homepage = https://www.tbsdtv.com/;
+    homepage = "https://www.tbsdtv.com/";
     description = "Linux driver for TBSDTV cards";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ck3d ];

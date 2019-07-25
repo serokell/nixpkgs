@@ -1,12 +1,4 @@
-{ stdenv
-, fetchurl
-, ncurses
-, libuuid
-, libjpeg
-, zlib
-, ntfs3g
-, e2fsprogs
-}:
+{ stdenv, fetchurl, ncurses, libuuid, libjpeg, zlib, ntfs3g, e2fsprogs }:
 
 stdenv.mkDerivation rec {
   name = "testdisk-photorec-${version}";
@@ -27,8 +19,8 @@ stdenv.mkDerivation rec {
     #qt4 # for qphotorec, which does not build in 7.0
   ];
   meta = with stdenv.lib; {
-    homepage = https://www.cgsecurity.org/wiki/Main_Page;
-    downloadPage = https://www.cgsecurity.org/wiki/TestDisk_Download;
+    homepage = "https://www.cgsecurity.org/wiki/Main_Page";
+    downloadPage = "https://www.cgsecurity.org/wiki/TestDisk_Download";
     description = "Data recovery utilities";
     longDescription = ''
       TestDisk is a powerful free data recovery software. It was primarily

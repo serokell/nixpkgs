@@ -1,9 +1,9 @@
 { stdenv, fetchFromGitHub }:
-  
+
 stdenv.mkDerivation rec {
   pname = "frogatto-data";
   version = "unstable-2018-12-18";
-  
+
   src = fetchFromGitHub {
     owner = "frogatto";
     repo = "frogatto";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/frogatto/frogatto;
+    homepage = "https://github.com/frogatto/frogatto";
     description = "Data files to the frogatto game";
     license = with licenses; [ cc-by-30 unfree ];
     maintainers = with maintainers; [ astro ];

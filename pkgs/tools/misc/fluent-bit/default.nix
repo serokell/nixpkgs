@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Log forwarder and processor, part of Fluentd ecosystem";
     homepage = "https://fluentbit.io";
-    maintainers = with maintainers; [
-      samrose
-    ];
+    maintainers = with maintainers; [ samrose ];
     license = licenses.asl20;
     platforms = platforms.unix;
   };

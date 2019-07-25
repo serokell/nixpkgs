@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, glfw, pkgconfig, libXrandr, libXdamage
-, libXext, libXrender, libXinerama, libXcursor, libXxf86vm, libXi
-, libX11, libGLU, python2Packages, ensureNewerSourcesForZipFilesHook
-, Cocoa
+{ stdenv, fetchFromGitHub, glfw, pkgconfig, libXrandr, libXdamage, libXext, libXrender, libXinerama, libXcursor, libXxf86vm, libXi, libX11, libGLU, python2Packages, ensureNewerSourcesForZipFilesHook, Cocoa
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +14,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ensureNewerSourcesForZipFilesHook ];
   buildInputs = [
-    glfw libGLU glfw libXrandr libXdamage
-    libXext libXrender libXinerama libXcursor libXxf86vm
-    libXi libX11
+    glfw
+    libGLU
+    glfw
+    libXrandr
+    libXdamage
+    libXext
+    libXrender
+    libXinerama
+    libXcursor
+    libXxf86vm
+    libXi
+    libX11
   ] ++ (with python2Packages; [ python setuptools wrapPython ])
     ++ stdenv.lib.optional stdenv.isDarwin Cocoa;
   pythonPath = with python2Packages; [ requests ];
@@ -44,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Live GLSL coding renderer";
-    homepage = http://patriciogonzalezvivo.com/2015/glslViewer/;
+    homepage = "http://patriciogonzalezvivo.com/2015/glslViewer/";
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.hodapp ];

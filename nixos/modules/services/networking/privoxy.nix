@@ -13,14 +13,16 @@ let
     confdir ${privoxy}/etc/
     listen-address  ${cfg.listenAddress}
     enable-edit-actions ${if (cfg.enableEditActions == true) then "1" else "0"}
-    ${concatMapStrings (f: "actionsfile ${f}\n") cfg.actionsFiles}
-    ${concatMapStrings (f: "filterfile ${f}\n") cfg.filterFiles}
+    ${concatMapStrings (f: ''
+      actionsfile ${f}
+    '') cfg.actionsFiles}
+    ${concatMapStrings (f: ''
+      filterfile ${f}
+    '') cfg.filterFiles}
     ${cfg.extraConfig}
   '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -46,7 +48,8 @@ in
 
       actionsFiles = mkOption {
         type = types.listOf types.str;
-        example = [ "match-all.action" "default.action" "/etc/privoxy/user.action" ];
+        example =
+          [ "match-all.action" "default.action" "/etc/privoxy/user.action" ];
         default = [ "match-all.action" "default.action" ];
         description = ''
           List of paths to Privoxy action files.
@@ -74,7 +77,7 @@ in
 
       extraConfig = mkOption {
         type = types.lines;
-        default = "" ;
+        default = "";
         description = ''
           Extra configuration. Contents will be added verbatim to the configuration file.
         '';
@@ -93,13 +96,14 @@ in
       group = "privoxy";
     };
 
-    users.groups.privoxy = {};
+    users.groups.privoxy = { };
 
     systemd.services.privoxy = {
       description = "Filtering web proxy";
       after = [ "network.target" "nss-lookup.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${privoxy}/bin/privoxy --no-daemon --user privoxy ${confFile}";
+      serviceConfig.ExecStart =
+        "${privoxy}/bin/privoxy --no-daemon --user privoxy ${confFile}";
 
       serviceConfig.PrivateDevices = true;
       serviceConfig.PrivateTmp = true;

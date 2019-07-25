@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, zope_testing
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_testing }:
 
 buildPythonPackage rec {
   pname = "zope.deprecation";
@@ -16,7 +12,7 @@ buildPythonPackage rec {
   buildInputs = [ zope_testing ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/zopefoundation/zope.deprecation;
+    homepage = "https://github.com/zopefoundation/zope.deprecation";
     description = "Zope Deprecation Infrastructure";
     license = licenses.zpl20;
     maintainers = with maintainers; [ domenkozar ];

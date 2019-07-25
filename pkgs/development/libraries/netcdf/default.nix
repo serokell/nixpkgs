@@ -1,8 +1,4 @@
-{ stdenv
-, fetchurl
-, hdf5
-, m4
-, curl # for DAP
+{ stdenv, fetchurl, hdf5, m4, curl # for DAP
 }:
 
 let
@@ -33,18 +29,17 @@ in stdenv.mkDerivation rec {
     inherit mpi;
   };
 
-  configureFlags = [
-      "--enable-netcdf-4"
-      "--enable-dap"
-      "--enable-shared"
-  ]
-  ++ (stdenv.lib.optionals mpiSupport [ "--enable-parallel-tests" "CC=${mpi}/bin/mpicc" ]);
+  configureFlags = [ "--enable-netcdf-4" "--enable-dap" "--enable-shared" ]
+    ++ (stdenv.lib.optionals mpiSupport [
+      "--enable-parallel-tests"
+      "CC=${mpi}/bin/mpicc"
+    ]);
 
   meta = {
-      platforms = stdenv.lib.platforms.unix;
-      homepage = https://www.unidata.ucar.edu/software/netcdf/;
-      license = {
-        url = https://www.unidata.ucar.edu/software/netcdf/docs/copyright.html;
-      };
+    platforms = stdenv.lib.platforms.unix;
+    homepage = "https://www.unidata.ucar.edu/software/netcdf/";
+    license = {
+      url = "https://www.unidata.ucar.edu/software/netcdf/docs/copyright.html";
+    };
   };
 }

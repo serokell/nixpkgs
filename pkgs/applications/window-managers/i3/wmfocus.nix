@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform,
-  xorg, python3, pkgconfig, cairo, libxkbcommon }:
+{ stdenv, fetchFromGitHub, rustPlatform, xorg, python3, pkgconfig, cairo, libxkbcommon
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wmfocus";
@@ -27,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ synthetica ];
     platforms = platforms.linux;
     license = licenses.mit;
-    homepage = https://github.com/svenstaro/wmfocus;
+    homepage = "https://github.com/svenstaro/wmfocus";
   };
 }

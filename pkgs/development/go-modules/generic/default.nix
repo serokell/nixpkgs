@@ -1,26 +1,22 @@
 { go, cacert, git, lib, removeReferencesTo, stdenv }:
 
-{ name ? "${args'.pname}-${args'.version}"
-, src
-, buildInputs ? []
-, nativeBuildInputs ? []
-, passthru ? {}
-, patches ? []
+{ name ? "${args'.pname}-${args'.version}", src, buildInputs ?
+  [ ], nativeBuildInputs ? [ ], passthru ? { }, patches ? [ ]
 
-# modSha256 is the sha256 of the vendored dependencies
+    # modSha256 is the sha256 of the vendored dependencies
 , modSha256
 
 # We want parallel builds by default
 , enableParallelBuilding ? true
 
-# Disabled flag
+  # Disabled flag
 , disabled ? false
 
-# Do not enable this without good reason
-# IE: programs coupled with the compiler
+  # Do not enable this without good reason
+  # IE: programs coupled with the compiler
 , allowGoReference ? false
 
-, meta ? {}
+, meta ? { }
 
 , ... }@args':
 
@@ -31,7 +27,8 @@ let
 
   removeReferences = [ ] ++ lib.optional (!allowGoReference) go;
 
-  removeExpr = refs: ''remove-references-to ${lib.concatMapStrings (ref: " -t ${ref}") refs}'';
+  removeExpr = refs:
+    "remove-references-to ${lib.concatMapStrings (ref: " -t ${ref}") refs}";
 
   go-modules = go.stdenv.mkDerivation {
     name = "${name}-go-modules";
@@ -41,13 +38,12 @@ let
     inherit (args) src;
     inherit (go) GOOS GOARCH;
 
-    patches = args.patches or [];
+    patches = args.patches or [ ];
 
     GO111MODULE = "on";
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
-      "GIT_PROXY_COMMAND" "SOCKS_SERVER"
-    ];
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars
+      ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
 
     configurePhase = args.modConfigurePhase or ''
       runHook preConfigure
@@ -196,8 +192,7 @@ let
       platforms = go.meta.platforms or lib.platforms.all;
     } // meta // {
       # add an extra maintainer to every package
-      maintainers = (meta.maintainers or []) ++
-                    [ lib.maintainers.kalbasit ];
+      maintainers = (meta.maintainers or [ ]) ++ [ lib.maintainers.kalbasit ];
     };
   });
 in if disabled then

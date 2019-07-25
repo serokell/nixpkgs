@@ -20,8 +20,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "Benchmark to measure the performance of many different types of networking";
-    homepage = http://www.netperf.org/netperf/;
+    description =
+      "Benchmark to measure the performance of many different types of networking";
+    homepage = "http://www.netperf.org/netperf/";
     license = "Hewlett-Packard BSD-like license";
 
     platforms = stdenv.lib.platforms.linux;

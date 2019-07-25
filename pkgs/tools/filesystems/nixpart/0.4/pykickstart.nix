@@ -7,7 +7,7 @@ buildPythonApplication rec {
 
   src = fetchurl rec {
     url = "https://src.fedoraproject.org/repo/pkgs/pykickstart/"
-        + "${name}.tar.gz/${md5_path}/${name}.tar.gz";
+      + "${name}.tar.gz/${md5_path}/${name}.tar.gz";
     sha256 = "e0d0f98ac4c5607e6a48d5c1fba2d50cc804de1081043f9da68cbfc69cad957a";
   };
 
@@ -24,7 +24,7 @@ buildPythonApplication rec {
   '';
 
   meta = {
-    homepage = http://fedoraproject.org/wiki/Pykickstart;
+    homepage = "http://fedoraproject.org/wiki/Pykickstart";
     description = "Read and write Fedora kickstart files";
     license = stdenv.lib.licenses.gpl2Plus;
   };

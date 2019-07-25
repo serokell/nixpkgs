@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, xorg, freetype, fontconfig, openssl, glib, nss, nspr, expat
-, alsaLib, dbus, zlib, libxml2, libxslt, makeWrapper, xkeyboard_config, systemd
-, libGL, xcbutilkeysyms, xdg_utils, libtool }:
+{ stdenv, fetchurl, xorg, freetype, fontconfig, openssl, glib, nss, nspr, expat, alsaLib, dbus, zlib, libxml2, libxslt, makeWrapper, xkeyboard_config, systemd, libGL, xcbutilkeysyms, xdg_utils, libtool
+}:
 
 let
   version = "4.30.5.1682";
@@ -42,7 +41,8 @@ in stdenv.mkDerivation {
   name = "hipchat-${version}";
 
   src = fetchurl {
-    url = "https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client/pool/HipChat4-${version}-Linux.deb";
+    url =
+      "https://atlassian.artifactoryonline.com/atlassian/hipchat-apt-client/pool/HipChat4-${version}-Linux.deb";
     sha256 = "03pz8wskafn848yvciq29kwdvqcgjrk6sjnm8nk9acl89xf0sn96";
   };
 
@@ -79,7 +79,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Desktop client for HipChat services";
-    homepage = http://www.hipchat.com;
+    homepage = "http://www.hipchat.com";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ puffnfresh ];

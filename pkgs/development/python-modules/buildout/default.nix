@@ -10,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://www.buildout.org;
+    homepage = "http://www.buildout.org";
     description = "A software build and configuration system";
     license = licenses.zpl21;
     maintainers = with maintainers; [ ];

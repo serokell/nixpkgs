@@ -1,5 +1,4 @@
-{stdenv, buildOcamlJane,
- ppx_core, ppx_tools, ppx_type_conv, typerep}:
+{ stdenv, buildOcamlJane, ppx_core, ppx_tools, ppx_type_conv, typerep }:
 
 buildOcamlJane rec {
   name = "ppx_typerep_conv";

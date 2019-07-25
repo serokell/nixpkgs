@@ -1,11 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, pcre, perl, flex, bison, gettext, libpcap, libnl, c-ares
-, gnutls, libgcrypt, libgpgerror, geoip, openssl, lua5, python3, libcap, glib
-, libssh, nghttp2, zlib, cmake, extra-cmake-modules, fetchpatch, makeWrapper
-, withQt ? true, qt5 ? null
-, ApplicationServices, SystemConfiguration, gmp
-}:
+{ stdenv, fetchurl, pkgconfig, pcre, perl, flex, bison, gettext, libpcap, libnl, c-ares, gnutls, libgcrypt, libgpgerror, geoip, openssl, lua5, python3, libcap, glib, libssh, nghttp2, zlib, cmake, extra-cmake-modules, fetchpatch, makeWrapper, withQt ?
+  true, qt5 ? null, ApplicationServices, SystemConfiguration, gmp }:
 
-assert withQt  -> qt5  != null;
+assert withQt -> qt5 != null;
 
 with stdenv.lib;
 
@@ -19,32 +15,52 @@ in stdenv.mkDerivation {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://www.wireshark.org/download/src/all-versions/wireshark-${version}.tar.xz";
+    url =
+      "https://www.wireshark.org/download/src/all-versions/wireshark-${version}.tar.xz";
     sha256 = "0711jilp9sbgi46d105m3galw8n4wk5yncawi08031qxg2f754mg";
   };
 
   cmakeFlags = [
     "-DBUILD_wireshark=${if withQt then "ON" else "OFF"}"
-    "-DENABLE_APPLICATION_BUNDLE=${if withQt && stdenv.isDarwin then "ON" else "OFF"}"
+    "-DENABLE_APPLICATION_BUNDLE=${
+      if withQt && stdenv.isDarwin then "ON" else "OFF"
+    }"
   ];
 
-  nativeBuildInputs = [
-    bison cmake extra-cmake-modules flex pkgconfig
-  ] ++ optional withQt qt5.wrapQtAppsHook;
+  nativeBuildInputs = [ bison cmake extra-cmake-modules flex pkgconfig ]
+    ++ optional withQt qt5.wrapQtAppsHook;
 
   buildInputs = [
-    gettext pcre perl libpcap lua5 libssh nghttp2 openssl libgcrypt
-    libgpgerror gnutls geoip c-ares python3 glib zlib makeWrapper
-  ] ++ optionals withQt  (with qt5; [ qtbase qtmultimedia qtsvg qttools ])
-    ++ optionals stdenv.isLinux  [ libcap libnl ]
+    gettext
+    pcre
+    perl
+    libpcap
+    lua5
+    libssh
+    nghttp2
+    openssl
+    libgcrypt
+    libgpgerror
+    gnutls
+    geoip
+    c-ares
+    python3
+    glib
+    zlib
+    makeWrapper
+  ] ++ optionals withQt (with qt5; [ qtbase qtmultimedia qtsvg qttools ])
+    ++ optionals stdenv.isLinux [ libcap libnl ]
     ++ optionals stdenv.isDarwin [ SystemConfiguration ApplicationServices gmp ]
     ++ optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ]);
 
-  patches = [ ./wireshark-lookup-dumpcap-in-path.patch ]
-    # https://code.wireshark.org/review/#/c/23728/
+  patches = [
+    ./wireshark-lookup-dumpcap-in-path.patch
+  ]
+  # https://code.wireshark.org/review/#/c/23728/
     ++ stdenv.lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "fix-timeout.patch";
-      url = "https://code.wireshark.org/review/gitweb?p=wireshark.git;a=commitdiff_plain;h=8b5b843fcbc3e03e0fc45f3caf8cf5fc477e8613;hp=94af9724d140fd132896b650d10c4d060788e4f0";
+      url =
+        "https://code.wireshark.org/review/gitweb?p=wireshark.git;a=commitdiff_plain;h=8b5b843fcbc3e03e0fc45f3caf8cf5fc477e8613;hp=94af9724d140fd132896b650d10c4d060788e4f0";
       sha256 = "1g2dm7lwsnanwp68b9xr9swspx7hfj4v3z44sz3yrfmynygk8zlv";
     });
 
@@ -71,24 +87,25 @@ in stdenv.mkDerivation {
     done
 
     wrapQtApp $out/Applications/Wireshark.app/Contents/MacOS/Wireshark
-  '' else optionalString withQt ''
-    install -Dm644 -t $out/share/applications ../wireshark.desktop
+  '' else
+    optionalString withQt ''
+      install -Dm644 -t $out/share/applications ../wireshark.desktop
 
-    substituteInPlace $out/share/applications/*.desktop \
-        --replace "Exec=wireshark" "Exec=$out/bin/wireshark"
+      substituteInPlace $out/share/applications/*.desktop \
+          --replace "Exec=wireshark" "Exec=$out/bin/wireshark"
 
-    install -Dm644 ../image/wsicon.svg $out/share/icons/wireshark.svg
-    mkdir $dev/include/{epan/{wmem,ftypes,dfilter},wsutil,wiretap} -pv
+      install -Dm644 ../image/wsicon.svg $out/share/icons/wireshark.svg
+      mkdir $dev/include/{epan/{wmem,ftypes,dfilter},wsutil,wiretap} -pv
 
-    cp config.h $dev/include/
-    cp ../ws_*.h $dev/include
-    cp ../epan/*.h $dev/include/epan/
-    cp ../epan/wmem/*.h $dev/include/epan/wmem/
-    cp ../epan/ftypes/*.h $dev/include/epan/ftypes/
-    cp ../epan/dfilter/*.h $dev/include/epan/dfilter/
-    cp ../wsutil/*.h $dev/include/wsutil/
-    cp ../wiretap/*.h $dev/include/wiretap
-  '');
+      cp config.h $dev/include/
+      cp ../ws_*.h $dev/include
+      cp ../epan/*.h $dev/include/epan/
+      cp ../epan/wmem/*.h $dev/include/epan/wmem/
+      cp ../epan/ftypes/*.h $dev/include/epan/ftypes/
+      cp ../epan/dfilter/*.h $dev/include/epan/dfilter/
+      cp ../wsutil/*.h $dev/include/wsutil/
+      cp ../wiretap/*.h $dev/include/wiretap
+    '');
 
   enableParallelBuilding = true;
 
@@ -100,7 +117,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.wireshark.org/;
+    homepage = "https://www.wireshark.org/";
     description = "Powerful network protocol analyzer";
     license = licenses.gpl2;
 

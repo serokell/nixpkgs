@@ -4,9 +4,8 @@ let
   inherit (lib) mkOption mkIf;
   cfg = config.environment.blcr;
   blcrPkg = config.boot.kernelPackages.blcr;
-in
 
-{
+in {
   ###### interface
 
   options = {

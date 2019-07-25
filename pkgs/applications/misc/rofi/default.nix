@@ -1,7 +1,4 @@
-{ stdenv, lib, fetchurl
-, autoreconfHook, pkgconfig, libxkbcommon, pango, which, git
-, cairo, libxcb, xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification
-, bison, flex, librsvg, check
+{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, libxkbcommon, pango, which, git, cairo, libxcb, xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification, bison, flex, librsvg, check
 }:
 
 stdenv.mkDerivation rec {
@@ -9,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.5.4";
 
   src = fetchurl {
-    url = "https://github.com/davatorium/rofi/releases/download/${version}/rofi-${version}.tar.gz";
+    url =
+      "https://github.com/davatorium/rofi/releases/download/${version}/rofi-${version}.tar.gz";
     sha256 = "1g1170zmh5v7slnm1sm2d08jgz6icikf8rm17apm1bjzzyw1lhk7";
   };
 
@@ -20,8 +18,21 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ libxkbcommon pango cairo git bison flex librsvg check
-    libstartup_notification libxcb xcbutil xcbutilwm xcbutilxrm which
+  buildInputs = [
+    libxkbcommon
+    pango
+    cairo
+    git
+    bison
+    flex
+    librsvg
+    check
+    libstartup_notification
+    libxcb
+    xcbutil
+    xcbutilwm
+    xcbutilxrm
+    which
   ];
 
   doCheck = false;

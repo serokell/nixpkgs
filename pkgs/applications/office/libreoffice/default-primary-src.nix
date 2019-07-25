@@ -11,7 +11,8 @@ rec {
   version = "${subdir}${if tweak == "" then "" else "."}${tweak}";
 
   src = fetchurl {
-    url = "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${version}.tar.xz";
+    url =
+      "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${version}.tar.xz";
     sha256 = "1drq59lc6p4s8mil2syz93l97phsbk9dcrd5gikqi2dwlzkli0gz";
   };
 }

@@ -5,8 +5,7 @@ let
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   };
-in
-nodePackages // {
+in nodePackages // {
   aws-azure-login = nodePackages.aws-azure-login.override {
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true";
 
@@ -20,14 +19,14 @@ nodePackages // {
     buildInputs = [ pkgs.makeWrapper ];
     postInstall = ''
       for prog in bower2nix fetch-bower; do
-        wrapProgram "$out/bin/$prog" --prefix PATH : ${stdenv.lib.makeBinPath [ pkgs.git pkgs.nix ]}
+        wrapProgram "$out/bin/$prog" --prefix PATH : ${
+        stdenv.lib.makeBinPath [ pkgs.git pkgs.nix ]
+        }
       done
     '';
   };
 
-  jshint = nodePackages.jshint.override {
-    buildInputs = [ pkgs.phantomjs2 ];
-  };
+  jshint = nodePackages.jshint.override { buildInputs = [ pkgs.phantomjs2 ]; };
 
   dat = nodePackages.dat.override {
     buildInputs = [ nodePackages.node-gyp-build ];
@@ -41,7 +40,8 @@ nodePackages // {
   };
 
   ios-deploy = nodePackages.ios-deploy.override (drv: {
-    nativeBuildInputs = drv.nativeBuildInputs or [] ++ [ pkgs.buildPackages.rsync ];
+    nativeBuildInputs = drv.nativeBuildInputs or [ ]
+      ++ [ pkgs.buildPackages.rsync ];
     preRebuild = ''
       LD=$CC
       tmp=$(mktemp -d)
@@ -66,16 +66,19 @@ nodePackages // {
     buildInputs = [ nodePackages.node-pre-gyp ];
   };
 
-  node2nix =  nodePackages.node2nix.override {
+  node2nix = nodePackages.node2nix.override {
     buildInputs = [ pkgs.makeWrapper ];
     postInstall = ''
-      wrapProgram "$out/bin/node2nix" --prefix PATH : ${stdenv.lib.makeBinPath [ pkgs.nix ]}
+      wrapProgram "$out/bin/node2nix" --prefix PATH : ${
+        stdenv.lib.makeBinPath [ pkgs.nix ]
+      }
     '';
   };
 
-  npm2nix = nodePackages."npm2nix-git://github.com/NixOS/npm2nix.git#5.12.0".override {
-    postInstall = "npm run-script prepublish";
-  };
+  npm2nix =
+    nodePackages."npm2nix-git://github.com/NixOS/npm2nix.git#5.12.0".override {
+      postInstall = "npm run-script prepublish";
+    };
 
   pnpm = nodePackages.pnpm.override {
     nativeBuildInputs = [ pkgs.makeWrapper ];
@@ -85,28 +88,26 @@ nodePackages // {
     '';
 
     postInstall = let
-      pnpmLibPath = stdenv.lib.makeBinPath [
-        nodejs.passthru.python
-        nodejs
-      ];
-    in ''
-      for prog in $out/bin/*; do
-        wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
-      done
-    '';
+      pnpmLibPath = stdenv.lib.makeBinPath [ nodejs.passthru.python nodejs ];
+      in ''
+        for prog in $out/bin/*; do
+          wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
+        done
+      '';
   };
 
   ssb-server = nodePackages.ssb-server.override {
     buildInputs = [ pkgs.automake pkgs.autoconf nodePackages.node-gyp-build ];
   };
 
-  tedicross = nodePackages."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override {
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postInstall = ''
-      makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
-        --add-flags "$out/lib/node_modules/tedicross/main.js"
-    '';
-  };
+  tedicross =
+    nodePackages."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override {
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postInstall = ''
+        makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
+          --add-flags "$out/lib/node_modules/tedicross/main.js"
+      '';
+    };
 
   webtorrent-cli = nodePackages.webtorrent-cli.override {
     buildInputs = [ nodePackages.node-gyp-build ];
@@ -117,10 +118,30 @@ nodePackages // {
     buildInputs = with pkgs; [
       # sharp, dep list:
       # http://sharp.pixelplumbing.com/en/stable/install/
-      cairo expat fontconfig freetype fribidi gettext giflib
-      glib harfbuzz lcms libcroco libexif libffi libgsf
-      libjpeg_turbo libpng librsvg libtiff vips
-      libwebp libxml2 pango pixman zlib
+      cairo
+      expat
+      fontconfig
+      freetype
+      fribidi
+      gettext
+      giflib
+      glib
+      harfbuzz
+      lcms
+      libcroco
+      libexif
+      libffi
+      libgsf
+      libjpeg_turbo
+      libpng
+      librsvg
+      libtiff
+      vips
+      libwebp
+      libxml2
+      pango
+      pixman
+      zlib
 
       nodePackages.node-pre-gyp
     ];

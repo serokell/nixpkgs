@@ -1,16 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, spglib
-, numpy
-, scipy
-, matplotlib
-, ase
-, netcdf4
-, pytest
-, pythonOlder
-, cython
-, cmake
+{ stdenv, buildPythonPackage, fetchPypi, spglib, numpy, scipy, matplotlib, ase, netcdf4, pytest, pythonOlder, cython, cmake
 }:
 
 buildPythonPackage rec {
@@ -35,8 +23,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.boltztrap.org/;
-    description = "Band-structure interpolator and transport coefficient calculator";
+    homepage = "https://www.boltztrap.org/";
+    description =
+      "Band-structure interpolator and transport coefficient calculator";
     license = licenses.gpl3;
     maintainers = [ maintainers.costrouc ];
   };

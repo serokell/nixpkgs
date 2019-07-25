@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPyPy
-, isPy3k
-, cython
-, numpy
-, pkgs
-}:
+{ stdenv, buildPythonPackage, isPyPy, isPy3k, cython, numpy, pkgs }:
 
 buildPythonPackage rec {
   version = "0.7.2";
@@ -34,7 +27,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy pkgs.libdynd ];
 
   meta = with stdenv.lib; {
-    homepage = http://libdynd.org;
+    homepage = "http://libdynd.org";
     license = licenses.bsd2;
     description = "Python exposure of dynd";
     maintainers = with maintainers; [ teh ];

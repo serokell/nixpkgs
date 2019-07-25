@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub
-, qtbase, qtmultimedia, qtquick1, qmake
-, libqtelegram-aseman-edition }:
+{ stdenv, fetchFromGitHub, qtbase, qtmultimedia, qtquick1, qmake, libqtelegram-aseman-edition
+}:
 
 stdenv.mkDerivation rec {
   name = "telegram-qml-${meta.version}";
@@ -12,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "0j8vn845f2virvddk9yjbljy6vkr9ikyn6iy7hpj8nvr2xls3499";
   };
 
-  propagatedBuildInputs = [ qtbase qtmultimedia qtquick1 libqtelegram-aseman-edition ];
+  propagatedBuildInputs =
+    [ qtbase qtmultimedia qtquick1 libqtelegram-aseman-edition ];
   enableParallelBuilding = true;
   nativeBuildInputs = [ qmake ];
 

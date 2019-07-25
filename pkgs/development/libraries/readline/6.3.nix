@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" "man" "doc" "info" ];
 
-  propagatedBuildInputs = [ncurses];
+  propagatedBuildInputs = [ ncurses ];
 
   patchFlags = "-p0";
 
@@ -20,19 +20,15 @@ stdenv.mkDerivation rec {
       "bash_cv_wcwidth_broken=no"
     ];
 
-  patches =
-    [ ./link-against-ncurses.patch
-      ./no-arch_only-6.3.patch
-    ] ++ stdenv.lib.optional stdenv.hostPlatform.useAndroidPrebuilt ./android.patch
-    ++
-    (let
-       patch = nr: sha256:
-         fetchurl {
-           url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
-           inherit sha256;
-         };
-     in
-       import ./readline-6.3-patches.nix patch);
+  patches = [ ./link-against-ncurses.patch ./no-arch_only-6.3.patch ]
+    ++ stdenv.lib.optional stdenv.hostPlatform.useAndroidPrebuilt
+    ./android.patch ++ (let
+      patch = nr: sha256:
+        fetchurl {
+          url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
+          inherit sha256;
+        };
+    in import ./readline-6.3-patches.nix patch);
 
   # Don't run the native `strip' when cross-compiling.
   dontStrip = stdenv.hostPlatform != stdenv.buildPlatform;
@@ -56,7 +52,7 @@ stdenv.mkDerivation rec {
       desire its capabilities.
     '';
 
-    homepage = https://savannah.gnu.org/projects/readline/;
+    homepage = "https://savannah.gnu.org/projects/readline/";
 
     license = licenses.gpl3Plus;
 

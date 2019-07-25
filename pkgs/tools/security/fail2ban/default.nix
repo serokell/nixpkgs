@@ -1,14 +1,14 @@
 { stdenv, fetchFromGitHub, python, pythonPackages, gamin }:
 
-let version = "0.10.4"; in
+let version = "0.10.4";
 
-pythonPackages.buildPythonApplication {
+in pythonPackages.buildPythonApplication {
   name = "fail2ban-${version}";
 
   src = fetchFromGitHub {
-    owner  = "fail2ban";
-    repo   = "fail2ban";
-    rev    = version;
+    owner = "fail2ban";
+    repo = "fail2ban";
+    rev = version;
     sha256 = "07ik6rm856q0ic2r7vbg6j3hsdcdgkv44hh5ck0c2y21fqwrck3l";
   };
 
@@ -32,18 +32,18 @@ pythonPackages.buildPythonApplication {
     ${python}/bin/${python.executable} setup.py install_data --install-dir=$out --root=$out
   '';
 
-  postInstall = let
-    sitePackages = "$out/lib/${python.libPrefix}/site-packages";
-  in ''
-    # see https://github.com/NixOS/nixpkgs/issues/4968
-    rm -rf ${sitePackages}/etc ${sitePackages}/usr ${sitePackages}/var;
-  '';
+  postInstall = let sitePackages = "$out/lib/${python.libPrefix}/site-packages";
+    in ''
+      # see https://github.com/NixOS/nixpkgs/issues/4968
+      rm -rf ${sitePackages}/etc ${sitePackages}/usr ${sitePackages}/var;
+    '';
 
   meta = with stdenv.lib; {
-    homepage    = http://www.fail2ban.org/;
-    description = "A program that scans log files for repeated failing login attempts and bans IP addresses";
-    license     = licenses.gpl2Plus;
+    homepage = "http://www.fail2ban.org/";
+    description =
+      "A program that scans log files for repeated failing login attempts and bans IP addresses";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ eelco lovek323 fpletz ];
-    platforms   = platforms.linux ++ platforms.darwin;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }

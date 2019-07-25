@@ -6,11 +6,10 @@ let
 
   cfg = config.security.pam.usb;
 
-  anyUsbAuth = any (attrByPath ["usbAuth"] false) (attrValues config.security.pam.services);
+  anyUsbAuth = any (attrByPath [ "usbAuth" ] false)
+    (attrValues config.security.pam.services);
 
-in
-
-{
+in {
   options = {
 
     security.pam.usb = {

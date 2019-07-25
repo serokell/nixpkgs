@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, desktop-file-utils
-, gtk3, libaccounts-glib, libexif, libgee, geocode-glib, gexiv2,libgphoto2
-, granite, gst_all_1, libgudev, json-glib, libraw, librest, libsoup, sqlite, python3
-, scour, webkitgtk, libwebp, appstream, libunity, wrapGAppsHook, elementary-icon-theme }:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, desktop-file-utils, gtk3, libaccounts-glib, libexif, libgee, geocode-glib, gexiv2, libgphoto2, granite, gst_all_1, libgudev, json-glib, libraw, librest, libsoup, sqlite, python3, scour, webkitgtk, libwebp, appstream, libunity, wrapGAppsHook, elementary-icon-theme
+}:
 
 stdenv.mkDerivation rec {
   pname = "photos";
@@ -61,18 +59,16 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  mesonFlags = [
-    "-Dplugins=false"
-  ];
+  mesonFlags = [ "-Dplugins=false" ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  meta =  with stdenv.lib; {
+  meta = with stdenv.lib; {
     description = "Photo viewer and organizer designed for elementary OS";
-    homepage = https://github.com/elementary/photos;
+    homepage = "https://github.com/elementary/photos";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

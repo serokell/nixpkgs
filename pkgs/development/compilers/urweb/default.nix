@@ -1,13 +1,12 @@
-{ stdenv, fetchurl, file, openssl, mlton
-, mysql, postgresql, sqlite, gcc, icu
-}:
+{ stdenv, fetchurl, file, openssl, mlton, mysql, postgresql, sqlite, gcc, icu }:
 
 stdenv.mkDerivation rec {
   name = "urweb-${version}";
   version = "20190217";
 
   src = fetchurl {
-    url = "https://github.com/urweb/urweb/releases/download/${version}/${name}.tar.gz";
+    url =
+      "https://github.com/urweb/urweb/releases/download/${version}/${name}.tar.gz";
     sha256 = "1cl0x0sy7w1lazszc8q06q3wx0x0rczxh27vimrsw54s6s9y096s";
   };
 
@@ -37,9 +36,12 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Advanced purely-functional web programming language";
-    homepage    = "http://www.impredicative.com/ur/";
-    license     = stdenv.lib.licenses.bsd3;
-    platforms   = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;
-    maintainers = [ stdenv.lib.maintainers.thoughtpolice stdenv.lib.maintainers.sheganinans ];
+    homepage = "http://www.impredicative.com/ur/";
+    license = stdenv.lib.licenses.bsd3;
+    platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;
+    maintainers = [
+      stdenv.lib.maintainers.thoughtpolice
+      stdenv.lib.maintainers.sheganinans
+    ];
   };
 }

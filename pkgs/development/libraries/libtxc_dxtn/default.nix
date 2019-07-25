@@ -1,8 +1,8 @@
 { stdenv, fetchurl, autoreconfHook, libGLU_combined }:
 
-let version = "1.0.1"; in
+let version = "1.0.1";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "libtxc_dxtn-${version}";
 
   src = fetchurl {
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libGLU_combined ];
 
   meta = with stdenv.lib; {
-    homepage = http://dri.freedesktop.org/wiki/S3TC;
-    repositories.git = git://people.freedesktop.org/~mareko/libtxc_dxtn;
+    homepage = "http://dri.freedesktop.org/wiki/S3TC";
+    repositories.git = "git://people.freedesktop.org/~mareko/libtxc_dxtn";
     license = licenses.mit;
     platforms = platforms.unix;
   };

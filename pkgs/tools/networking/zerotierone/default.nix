@@ -10,19 +10,19 @@ stdenv.mkDerivation rec {
   };
 
   preConfigure = ''
-      substituteInPlace ./osdep/ManagedRoute.cpp \
-        --replace '/usr/sbin/ip' '${iproute}/bin/ip'
+    substituteInPlace ./osdep/ManagedRoute.cpp \
+      --replace '/usr/sbin/ip' '${iproute}/bin/ip'
 
-      substituteInPlace ./osdep/ManagedRoute.cpp \
-        --replace '/sbin/ip' '${iproute}/bin/ip'
+    substituteInPlace ./osdep/ManagedRoute.cpp \
+      --replace '/sbin/ip' '${iproute}/bin/ip'
 
-      substituteInPlace ./osdep/LinuxEthernetTap.cpp \
-        --replace 'execlp("ip",' 'execlp("${iproute}/bin/ip",'
+    substituteInPlace ./osdep/LinuxEthernetTap.cpp \
+      --replace 'execlp("ip",' 'execlp("${iproute}/bin/ip",'
 
-      patchShebangs ./doc/build.sh
-      substituteInPlace ./doc/build.sh \
-        --replace '/usr/bin/ronn' '${ronn}/bin/ronn' \
-        --replace 'ronn -r' '${ronn}/bin/ronn -r'
+    patchShebangs ./doc/build.sh
+    substituteInPlace ./doc/build.sh \
+      --replace '/usr/bin/ronn' '${ronn}/bin/ronn' \
+      --replace 'ronn -r' '${ronn}/bin/ronn -r'
   '';
 
   buildInputs = [ openssl lzo zlib iproute which ronn ];
@@ -41,8 +41,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "man" ];
 
   meta = with stdenv.lib; {
-    description = "Create flat virtual Ethernet networks of almost unlimited size";
-    homepage = https://www.zerotier.com;
+    description =
+      "Create flat virtual Ethernet networks of almost unlimited size";
+    homepage = "https://www.zerotier.com";
     license = licenses.gpl3;
     maintainers = with maintainers; [ sjmackenzie zimbatm ehmry obadz ];
     platforms = platforms.x86_64 ++ platforms.aarch64;

@@ -5,8 +5,7 @@
 # mkdir -p ~/.config/obs-studio/plugins
 # ln -s ~/.nix-profile/share/obs/obs-plugins/obs-linuxbrowser ~/.config/obs-studio/plugins/
 
-{ stdenv, fetchFromGitHub, obs-studio, cmake, libcef
-}:
+{ stdenv, fetchFromGitHub, obs-studio, cmake, libcef }:
 
 stdenv.mkDerivation rec {
   name = "obs-linuxbrowser-${version}";
@@ -39,8 +38,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Browser source plugin for obs-studio based on Chromium Embedded Framework";
-    homepage = https://github.com/bazukas/obs-linuxbrowser;
+    description =
+      "Browser source plugin for obs-studio based on Chromium Embedded Framework";
+    homepage = "https://github.com/bazukas/obs-linuxbrowser";
     maintainers = with maintainers; [ puffnfresh ];
     license = licenses.gpl2;
     platforms = with platforms; linux;

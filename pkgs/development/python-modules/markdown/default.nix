@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, pyyaml
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, pyyaml }:
 
 buildPythonPackage rec {
   pname = "Markdown";
@@ -17,7 +12,8 @@ buildPythonPackage rec {
   checkInputs = [ nose pyyaml ];
 
   meta = {
-    description = "A Python implementation of John Gruber's Markdown with Extension support";
+    description =
+      "A Python implementation of John Gruber's Markdown with Extension support";
     homepage = "https://github.com/Python-Markdown/markdown";
     license = lib.licenses.bsd3;
   };

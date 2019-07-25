@@ -1,12 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, lib
-, nose
-, msgpack
-, greenlet
-, trollius
-, pythonOlder
-, isPyPy
+{ buildPythonPackage, fetchPypi, lib, nose, msgpack, greenlet, trollius, pythonOlder, isPyPy
 }:
 
 buildPythonPackage rec {
@@ -28,8 +20,7 @@ buildPythonPackage rec {
   # which we cannot add because of circular dependency.
   doCheck = false;
 
-  propagatedBuildInputs = [ msgpack ]
-    ++ lib.optional (!isPyPy) greenlet
+  propagatedBuildInputs = [ msgpack ] ++ lib.optional (!isPyPy) greenlet
     ++ lib.optional (pythonOlder "3.4") trollius;
 
   meta = {

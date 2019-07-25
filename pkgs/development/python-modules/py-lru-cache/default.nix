@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "py-lru-cache";
@@ -15,7 +12,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An in-memory LRU cache for python";
-    homepage = https://github.com/stucchio/Python-LRU-cache;
+    homepage = "https://github.com/stucchio/Python-LRU-cache";
     license = licenses.gpl3;
     maintainers = [ maintainers.costrouc ];
   };

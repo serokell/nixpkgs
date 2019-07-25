@@ -1,15 +1,15 @@
-{ config, pkgs ,lib ,... }:
-with lib;
-{
+{ config, pkgs, lib, ... }:
+with lib; {
   options.xdg.portal = {
-    enable =
-      mkEnableOption "<link xlink:href='https://github.com/flatpak/xdg-desktop-portal'>xdg desktop integration</link>"//{
+    enable = mkEnableOption
+      "<link xlink:href='https://github.com/flatpak/xdg-desktop-portal'>xdg desktop integration</link>"
+      // {
         default = config.services.xserver.enable;
       };
 
     extraPortals = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       description = ''
         List of additional portals to add to path. Portals allow interaction
         with system, like choosing files or taking screenshots. At minimum,
@@ -21,18 +21,18 @@ with lib;
     };
   };
 
-  config =
-    let
-      cfg = config.xdg.portal;
-      packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
+  config = let
+    cfg = config.xdg.portal;
+    packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
 
     in mkIf cfg.enable {
 
-      services.dbus.packages  = packages;
+      services.dbus.packages = packages;
       systemd.packages = packages;
       environment.variables = {
         GTK_USE_PORTAL = "1";
-        XDG_DESKTOP_PORTAL_PATH = map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
+        XDG_DESKTOP_PORTAL_PATH =
+          map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
       };
     };
 }

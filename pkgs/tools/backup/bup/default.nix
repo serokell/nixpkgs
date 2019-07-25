@@ -1,13 +1,11 @@
-{ stdenv, fetchFromGitHub, makeWrapper
-, perl, pandoc, python2Packages, git
-, par2cmdline ? null, par2Support ? true
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, perl, pandoc, python2Packages, git, par2cmdline ?
+  null, par2Support ? true }:
 
 assert par2Support -> par2cmdline != null;
 
-let version = "0.29.2"; in
+let version = "0.29.2";
 
-with stdenv.lib;
+in with stdenv.lib;
 
 stdenv.mkDerivation rec {
   name = "bup-${version}";
@@ -21,9 +19,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     git
-    (python2Packages.python.withPackages
-      (p: with p; [ setuptools tornado ]
-        ++ stdenv.lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ]))
+    (python2Packages.python.withPackages (p:
+    with p;
+    [ setuptools tornado ]
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ]))
   ];
   nativeBuildInputs = [ pandoc perl makeWrapper ];
 
@@ -50,8 +49,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/bup/bup;
-    description = "Efficient file backup system based on the git packfile format";
+    homepage = "https://github.com/bup/bup";
+    description =
+      "Efficient file backup system based on the git packfile format";
     license = licenses.gpl2Plus;
 
     longDescription = ''

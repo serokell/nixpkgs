@@ -1,21 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, callPackage
-, isPy27, isPy34
-, cleo
-, requests
-, cachy
-, requests-toolbelt
-, pyrsistent
-, pyparsing
-, cachecontrol
-, pkginfo
-, html5lib
-, shellingham
-, tomlkit
-, typing
-, pathlib2
-, virtualenv
-, functools32
-, pytest
+{ lib, buildPythonPackage, fetchPypi, callPackage, isPy27, isPy34, cleo, requests, cachy, requests-toolbelt, pyrsistent, pyparsing, cachecontrol, pkginfo, html5lib, shellingham, tomlkit, typing, pathlib2, virtualenv, functools32, pytest
 }:
 
 let
@@ -81,7 +64,7 @@ in buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/sdispater/poetry;
+    homepage = "https://github.com/sdispater/poetry";
     description = "Python dependency management and packaging made easy";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

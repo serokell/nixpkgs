@@ -1,5 +1,5 @@
-{stdenv, substituteAll, fetchFromGitHub, libtool, pkgconfig, intltool, glib, gtk3
-, libpulseaudio, mplayer, gnome_mplayer }:
+{ stdenv, substituteAll, fetchFromGitHub, libtool, pkgconfig, intltool, glib, gtk3, libpulseaudio, mplayer, gnome_mplayer
+}:
 
 stdenv.mkDerivation rec {
   name = "gmtk-${version}";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Common functions for gnome-mplayer and gecko-mediaplayer";
-    homepage = https://sites.google.com/site/kdekorte2/gnomemplayer;
+    homepage = "https://sites.google.com/site/kdekorte2/gnomemplayer";
     license = licenses.gpl2;
     maintainers = gnome_mplayer.meta.maintainers;
     platforms = platforms.linux;

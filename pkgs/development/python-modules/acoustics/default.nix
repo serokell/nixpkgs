@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi
-, pytest, numpy, scipy, matplotlib, pandas, tabulate, pythonOlder }:
+{ lib, buildPythonPackage, fetchPypi, pytest, numpy, scipy, matplotlib, pandas, tabulate, pythonOlder
+}:
 
 buildPythonPackage rec {
   pname = "acoustics";
@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "A package for acousticians";
     maintainers = with maintainers; [ fridh ];
     license = with licenses; [ bsd3 ];
-    homepage = https://github.com/python-acoustics/python-acoustics;
+    homepage = "https://github.com/python-acoustics/python-acoustics";
   };
 }

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, zope_event
-, zope_component
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_event, zope_component }:
 
 buildPythonPackage rec {
   pname = "zope.lifecycleevent";
@@ -17,7 +12,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ zope_event zope_component ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/zopefoundation/zope.lifecycleevent;
+    homepage = "https://github.com/zopefoundation/zope.lifecycleevent";
     description = "Object life-cycle events";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];

@@ -1,17 +1,17 @@
-{ stdenv, lib, fetchurl, openssl, perl, libcap ? null, libseccomp ? null, pps-tools }:
+{ stdenv, lib, fetchurl, openssl, perl, libcap ? null, libseccomp ?
+  null, pps-tools }:
 
 assert stdenv.isLinux -> libcap != null;
 assert stdenv.isLinux -> libseccomp != null;
 
-let
-  withSeccomp = stdenv.isLinux && (stdenv.isi686 || stdenv.isx86_64);
-in
+let withSeccomp = stdenv.isLinux && (stdenv.isi686 || stdenv.isx86_64);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ntp-4.2.8p13";
 
   src = fetchurl {
-    url = "https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${name}.tar.gz";
+    url =
+      "https://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${name}.tar.gz";
     sha256 = "0f1a4fya7v5s0426nim8ydvvlcashb8hicgs9xlm76ndrz7751r8";
   };
 
@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   ] ++ stdenv.lib.optional stdenv.isLinux "--enable-linuxcaps"
     ++ stdenv.lib.optional withSeccomp "--enable-libseccomp";
 
-  buildInputs = [ libcap openssl perl ]
-    ++ lib.optional withSeccomp libseccomp
+  buildInputs = [ libcap openssl perl ] ++ lib.optional withSeccomp libseccomp
     ++ lib.optional stdenv.isLinux pps-tools;
 
   hardeningEnable = [ "pie" ];
@@ -40,11 +39,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.ntp.org/;
+    homepage = "http://www.ntp.org/";
     description = "An implementation of the Network Time Protocol";
     license = {
       # very close to isc and bsd2
-      url = https://www.eecis.udel.edu/~mills/ntp/html/copyright.html;
+      url = "https://www.eecis.udel.edu/~mills/ntp/html/copyright.html";
     };
     maintainers = [ maintainers.eelco ];
     platforms = platforms.linux;

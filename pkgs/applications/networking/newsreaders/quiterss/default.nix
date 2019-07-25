@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, qmake, pkgconfig, wrapQtAppsHook
-, qtbase, qttools, qtwebkit, sqlite
+{ stdenv, fetchFromGitHub, qmake, pkgconfig, wrapQtAppsHook, qtbase, qttools, qtwebkit, sqlite
 }:
 
 stdenv.mkDerivation rec {
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
       QuiteRSS is a open-source cross-platform RSS/Atom news feeds reader
       written on Qt/C++
     '';
-    homepage = https://quiterss.org;
+    homepage = "https://quiterss.org";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

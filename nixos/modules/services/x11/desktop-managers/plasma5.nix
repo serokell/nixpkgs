@@ -9,9 +9,7 @@ let
 
   inherit (pkgs) kdeApplications plasma5 libsForQt5 qt5;
 
-in
-
-{
+in {
   options = {
 
     services.xserver.desktopManager.plasma5 = {
@@ -41,7 +39,6 @@ in
 
   };
 
-
   config = mkMerge [
     (mkIf cfg.enable {
       services.xserver.desktopManager.session = singleton {
@@ -51,7 +48,9 @@ in
           # Load PulseAudio module for routing support.
           # See http://colin.guthr.ie/2009/10/so-how-does-the-kde-pulseaudio-support-work-anyway/
           ${optionalString config.hardware.pulseaudio.enable ''
-            ${getBin config.hardware.pulseaudio.package}/bin/pactl load-module module-device-manager "do_routing=1"
+            ${
+              getBin config.hardware.pulseaudio.package
+            }/bin/pactl load-module module-device-manager "do_routing=1"
           ''}
 
           if [ -f "$HOME/.config/kdeglobals" ]
@@ -71,15 +70,21 @@ in
       };
 
       security.wrappers = {
-        kcheckpass.source = "${lib.getBin plasma5.kscreenlocker}/libexec/kcheckpass";
-        "start_kdeinit".source = "${lib.getBin pkgs.kinit}/libexec/kf5/start_kdeinit";
+        kcheckpass.source =
+          "${lib.getBin plasma5.kscreenlocker}/libexec/kcheckpass";
+        "start_kdeinit".source =
+          "${lib.getBin pkgs.kinit}/libexec/kf5/start_kdeinit";
         kwin_wayland = {
           source = "${lib.getBin plasma5.kwin}/bin/kwin_wayland";
           capabilities = "cap_sys_nice+ep";
         };
       };
 
-      environment.systemPackages = with pkgs; with qt5; with libsForQt5; with plasma5; with kdeApplications;
+      environment.systemPackages = with pkgs;
+        with qt5;
+        with libsForQt5;
+        with plasma5;
+        with kdeApplications;
         [
           frameworkintegration
           kactivities
@@ -164,18 +169,23 @@ in
           breeze-icons
           pkgs.hicolor-icon-theme
 
-          kde-gtk-config breeze-gtk
+          kde-gtk-config
+          breeze-gtk
 
           qtvirtualkeyboard
 
           xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
         ]
-        
+
         # Phonon audio backend
-        ++ lib.optional (cfg.phononBackend == "gstreamer") libsForQt5.phonon-backend-gstreamer
-        ++ lib.optional (cfg.phononBackend == "gstreamer" && cfg.enableQt4Support) pkgs.phonon-backend-gstreamer
-        ++ lib.optional (cfg.phononBackend == "vlc") libsForQt5.phonon-backend-vlc
-        ++ lib.optional (cfg.phononBackend == "vlc" && cfg.enableQt4Support) pkgs.phonon-backend-vlc
+        ++ lib.optional (cfg.phononBackend == "gstreamer")
+        libsForQt5.phonon-backend-gstreamer ++ lib.optional
+        (cfg.phononBackend == "gstreamer" && cfg.enableQt4Support)
+        pkgs.phonon-backend-gstreamer
+        ++ lib.optional (cfg.phononBackend == "vlc")
+        libsForQt5.phonon-backend-vlc
+        ++ lib.optional (cfg.phononBackend == "vlc" && cfg.enableQt4Support)
+        pkgs.phonon-backend-vlc
 
         # Optional hardware support features
         ++ lib.optional config.hardware.bluetooth.enable bluedevil
@@ -183,7 +193,10 @@ in
         ++ lib.optional config.hardware.pulseaudio.enable plasma-pa
         ++ lib.optional config.powerManagement.enable powerdevil
         ++ lib.optional config.services.colord.enable colord-kde
-        ++ lib.optionals config.services.samba.enable [ kdenetwork-filesharing pkgs.samba ];
+        ++ lib.optionals config.services.samba.enable [
+          kdenetwork-filesharing
+          pkgs.samba
+        ];
 
       environment.pathsToLink = [
         # FIXME: modules should link subdirs of `/share` rather than relying on this
@@ -205,7 +218,8 @@ in
         serif = [ "Noto Serif" ];
       };
 
-      programs.ssh.askPassword = mkDefault "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
+      programs.ssh.askPassword =
+        mkDefault "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
 
       # Enable helpful DBus services.
       services.udisks2.enable = true;
@@ -214,14 +228,9 @@ in
         mkIf config.services.printing.enable [ pkgs.system-config-printer ];
 
       # Extra UDEV rules used by Solid
-      services.udev.packages = [
-        pkgs.libmtp
-        pkgs.media-player-info
-      ];
+      services.udev.packages = [ pkgs.libmtp pkgs.media-player-info ];
 
-      services.xserver.displayManager.sddm = {
-        theme = mkDefault "breeze";
-      };
+      services.xserver.displayManager.sddm = { theme = mkDefault "breeze"; };
 
       security.pam.services.kde = { allowNullPassword = true; };
 

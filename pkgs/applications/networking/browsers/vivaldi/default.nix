@@ -1,16 +1,6 @@
-{ stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE
-, libXfixes, libXt, libXi, libXcursor, libXScrnSaver, libXcomposite, libXdamage, libXtst, libXrandr
-, alsaLib, dbus, cups, libexif, ffmpeg, systemd
-, freetype, fontconfig, libXft, libXrender, libxcb, expat
-, libuuid
-, gstreamer, gst-plugins-base, libxml2
-, glib, gtk3, pango, gdk_pixbuf, cairo, atk, at-spi2-atk, at-spi2-core, gnome2
-, nss, nspr
-, patchelf, makeWrapper
-, isSnapshot ? false
-, proprietaryCodecs ? false, vivaldi-ffmpeg-codecs ? null
-, enableWidevine ? false, vivaldi-widevine ? null
-}:
+{ stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE, libXfixes, libXt, libXi, libXcursor, libXScrnSaver, libXcomposite, libXdamage, libXtst, libXrandr, alsaLib, dbus, cups, libexif, ffmpeg, systemd, freetype, fontconfig, libXft, libXrender, libxcb, expat, libuuid, gstreamer, gst-plugins-base, libxml2, glib, gtk3, pango, gdk_pixbuf, cairo, atk, at-spi2-atk, at-spi2-core, gnome2, nss, nspr, patchelf, makeWrapper, isSnapshot ?
+  false, proprietaryCodecs ? false, vivaldi-ffmpeg-codecs ?
+    null, enableWidevine ? false, vivaldi-widevine ? null }:
 
 let
   branch = if isSnapshot then "snapshot" else "stable";
@@ -20,7 +10,8 @@ in stdenv.mkDerivation rec {
   version = "2.6.1566.49-1";
 
   src = fetchurl {
-    url = "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}_amd64.deb";
+    url =
+      "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}_amd64.deb";
     sha256 = "1hl7aqq3i6mkkg7sdcax26kn08p8mqwlq4xpg4v05ivdvyh5ac9d";
   };
 
@@ -32,16 +23,54 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ patchelf makeWrapper ];
 
   buildInputs = [
-    stdenv.cc.cc stdenv.cc.libc zlib libX11 libXt libXext libSM libICE libxcb
-    libXi libXft libXcursor libXfixes libXScrnSaver libXcomposite libXdamage libXtst libXrandr
-    atk at-spi2-atk at-spi2-core alsaLib dbus cups gtk3 gdk_pixbuf libexif ffmpeg systemd
-    freetype fontconfig libXrender libuuid expat glib nss nspr
-    gstreamer libxml2 gst-plugins-base pango cairo gnome2.GConf
+    stdenv.cc.cc
+    stdenv.cc.libc
+    zlib
+    libX11
+    libXt
+    libXext
+    libSM
+    libICE
+    libxcb
+    libXi
+    libXft
+    libXcursor
+    libXfixes
+    libXScrnSaver
+    libXcomposite
+    libXdamage
+    libXtst
+    libXrandr
+    atk
+    at-spi2-atk
+    at-spi2-core
+    alsaLib
+    dbus
+    cups
+    gtk3
+    gdk_pixbuf
+    libexif
+    ffmpeg
+    systemd
+    freetype
+    fontconfig
+    libXrender
+    libuuid
+    expat
+    glib
+    nss
+    nspr
+    gstreamer
+    libxml2
+    gst-plugins-base
+    pango
+    cairo
+    gnome2.GConf
   ] ++ stdenv.lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs;
 
   libPath = stdenv.lib.makeLibraryPath buildInputs
     + stdenv.lib.optionalString (stdenv.is64bit)
-      (":" + stdenv.lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    (":" + stdenv.lib.makeSearchPathOutput "lib" "lib64" buildInputs)
     + ":$out/opt/${vivaldiName}/lib";
 
   buildPhase = ''
@@ -58,7 +87,7 @@ in stdenv.mkDerivation rec {
   '';
 
   dontPatchELF = true;
-  dontStrip    = true;
+  dontStrip = true;
 
   installPhase = ''
     mkdir -p "$out"
@@ -80,7 +109,10 @@ in stdenv.mkDerivation rec {
     done
     wrapProgram "$out/bin/vivaldi" \
       --suffix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}/ \
-      ${stdenv.lib.optionalString enableWidevine "--suffix LD_LIBRARY_PATH : ${libPath}"}
+      ${
+      stdenv.lib.optionalString enableWidevine
+      "--suffix LD_LIBRARY_PATH : ${libPath}"
+      }
   '' + stdenv.lib.optionalString enableWidevine ''
     rm $out/opt/${vivaldiName}/libwidevinecdm.so
     ln -s ${vivaldi-widevine}/lib/libwidevinecdm.so $out/opt/${vivaldiName}/libwidevinecdm.so
@@ -88,9 +120,9 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A Browser for our Friends, powerful and personal";
-    homepage    = "https://vivaldi.com";
-    license     = licenses.unfree;
+    homepage = "https://vivaldi.com";
+    license = licenses.unfree;
     maintainers = with maintainers; [ otwieracz nequissimus ];
-    platforms   = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
   };
 }

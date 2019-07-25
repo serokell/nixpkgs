@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "posix_ipc";
@@ -13,9 +10,10 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "POSIX IPC primitives (semaphores, shared memory and message queues)";
+    description =
+      "POSIX IPC primitives (semaphores, shared memory and message queues)";
     license = licenses.bsd3;
-    homepage = http://semanchuk.com/philip/posix_ipc/;
+    homepage = "http://semanchuk.com/philip/posix_ipc/";
   };
 
 }

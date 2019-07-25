@@ -20,9 +20,10 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with stdenv.lib; {
-    description = "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
+    description =
+      "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
     license = licenses.gpl2Plus;
-    homepage = https://www.rutschle.net/tech/sslh/README.html;
+    homepage = "https://www.rutschle.net/tech/sslh/README.html";
     maintainers = with maintainers; [ koral fpletz ];
     platforms = platforms.all;
   };

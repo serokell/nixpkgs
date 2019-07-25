@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, setuptools_scm, pathpy, nbconvert
-, pytest_3 }:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, pathpy, nbconvert, pytest_3
+}:
 
 buildPythonPackage rec {
   pname = "zetup";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     description = ''
       Zimmermann's Extensible Tools for Unified Project setups
     '';
-    homepage = https://github.com/zimmermanncode/zetup;
+    homepage = "https://github.com/zimmermanncode/zetup";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

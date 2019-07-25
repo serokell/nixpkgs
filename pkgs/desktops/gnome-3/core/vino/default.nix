@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, lib, wrapGAppsHook
-, pkgconfig, gnome3, gtk3, glib, intltool, libXtst, libnotify, libsoup
-, telepathySupport ? false, dbus-glib ? null, telepathy-glib ? null
-, libsecret, gnutls, libgcrypt, avahi, zlib, libjpeg, libXdamage, libXfixes, libXext
-, networkmanager }:
+{ stdenv, fetchurl, lib, wrapGAppsHook, pkgconfig, gnome3, gtk3, glib, intltool, libXtst, libnotify, libsoup, telepathySupport ?
+  false, dbus-glib ? null, telepathy-glib ?
+    null, libsecret, gnutls, libgcrypt, avahi, zlib, libjpeg, libXdamage, libXfixes, libXext, networkmanager
+}:
 
 with lib;
 
@@ -11,7 +10,9 @@ stdenv.mkDerivation rec {
   version = "3.22.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/vino/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/vino/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "2911c779b6a2c46e5bc8e5a0c94c2a4d5bd4a1ee7e35f2818702cb13d9d23bab";
   };
 
@@ -20,9 +21,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ intltool wrapGAppsHook pkgconfig ];
 
   buildInputs = [
-    gnome3.adwaita-icon-theme gtk3 glib libXtst libnotify libsoup
-    libsecret gnutls libgcrypt avahi zlib libjpeg
-    libXdamage libXfixes libXext networkmanager
+    gnome3.adwaita-icon-theme
+    gtk3
+    glib
+    libXtst
+    libnotify
+    libsoup
+    libsecret
+    gnutls
+    libgcrypt
+    avahi
+    zlib
+    libjpeg
+    libXdamage
+    libXfixes
+    libXext
+    networkmanager
   ] ++ optionals telepathySupport [ dbus-glib telepathy-glib ];
 
   passthru = {
@@ -33,7 +47,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/Vino;
+    homepage = "https://wiki.gnome.org/Projects/Vino";
     description = "GNOME desktop sharing server";
     maintainers = with maintainers; [ lethalman domenkozar ];
     license = licenses.gpl2;

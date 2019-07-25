@@ -1,14 +1,4 @@
-{
-  bazel
-, bazelTest
-, bazel-examples
-, gccStdenv
-, lib
-, openjdk8
-, runLocal
-, runtimeShell
-, writeScript
-, writeText
+{ bazel, bazelTest, bazel-examples, gccStdenv, lib, openjdk8, runLocal, runtimeShell, writeScript, writeText
 }:
 
 let
@@ -27,11 +17,10 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" {} (''
+  workspaceDir = runLocal "our_workspace" { } (''
     cp -r ${bazel-examples}/java-tutorial $out
     find $out -type d -exec chmod 755 {} \;
-  ''
-  + (lib.optionalString gccStdenv.isDarwin ''
+  '' + (lib.optionalString gccStdenv.isDarwin ''
     mkdir $out/tools
     cp ${toolsBazel} $out/tools/bazel
   ''));

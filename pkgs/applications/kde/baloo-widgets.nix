@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  baloo, kconfig, kdelibs4support, kfilemetadata, ki18n, kio, kservice
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, baloo, kconfig, kdelibs4support, kfilemetadata, ki18n, kio, kservice
 }:
 
 mkDerivation {
@@ -11,8 +8,7 @@ mkDerivation {
     maintainers = [ lib.maintainers.ttuegel ];
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs = [
-    baloo kconfig kdelibs4support kfilemetadata ki18n kio kservice
-  ];
+  propagatedBuildInputs =
+    [ baloo kconfig kdelibs4support kfilemetadata ki18n kio kservice ];
   outputs = [ "out" "dev" ];
 }

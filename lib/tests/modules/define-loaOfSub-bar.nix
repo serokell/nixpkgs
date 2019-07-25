@@ -1,3 +1,1 @@
-{
-  loaOfSub.bar = {};
-}
+{ loaOfSub.bar = { }; }

@@ -1,4 +1,5 @@
-{ mkXfceDerivation, makeWrapper, tzdata, exo, garcon, gtk2, gtk3, gettext, glib-networking, libxfce4ui, libxfce4util, libwnck3, xfconf }:
+{ mkXfceDerivation, makeWrapper, tzdata, exo, garcon, gtk2, gtk3, gettext, glib-networking, libxfce4ui, libxfce4util, libwnck3, xfconf
+}:
 
 mkXfceDerivation rec {
   category = "xfce";
@@ -9,7 +10,8 @@ mkXfceDerivation rec {
   sha256 = "1p0bkbxjh14kgny2lpcjg2q8pm55l8i7qsr5bsvdppw3ab46kz34";
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ exo garcon gtk2 gtk3 libxfce4ui libxfce4util libwnck3 xfconf ];
+  buildInputs =
+    [ exo garcon gtk2 gtk3 libxfce4ui libxfce4util libwnck3 xfconf ];
 
   patches = [ ../../xfce/core/xfce4-panel-datadir.patch ];
   patchFlags = "-p1";
@@ -31,7 +33,5 @@ mkXfceDerivation rec {
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules"
   '';
 
-  meta =  {
-    description = "Xfce's panel";
-  };
+  meta = { description = "Xfce's panel"; };
 }

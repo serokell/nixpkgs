@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
 
   # binary distribution
   src = fetchurl {
-    url = "https://github.com/oracle/opengrok/releases/download/${version}/${name}.tar.gz";
+    url =
+      "https://github.com/oracle/opengrok/releases/download/${version}/${name}.tar.gz";
     sha256 = "0h4rwfh8m41b7ij931gcbmkihri25m48373qf6ig0714s66xwc4i";
   };
 
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Source code search and cross reference engine";
-    homepage = https://opengrok.github.io/OpenGrok/;
+    homepage = "https://opengrok.github.io/OpenGrok/";
     license = licenses.cddl;
     maintainers = [ maintainers.lethalman ];
   };

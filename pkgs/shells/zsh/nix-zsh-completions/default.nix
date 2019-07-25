@@ -1,10 +1,8 @@
 { stdenv, fetchFromGitHub }:
 
-let
-  version = "0.4.3";
-in
+let version = "0.4.3";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "nix-zsh-completions-${version}";
 
   src = fetchFromGitHub {
@@ -21,7 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/spwhitt/nix-zsh-completions;
+    homepage = "https://github.com/spwhitt/nix-zsh-completions";
     description = "ZSH completions for Nix, NixOS, and NixOps";
     license = licenses.bsd3;
     platforms = platforms.all;

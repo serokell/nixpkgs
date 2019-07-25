@@ -25,13 +25,14 @@ stdenv.mkDerivation rec {
   makeFlags = [ "INS_BASE=/" "INS_RBASE=/" "DESTDIR=$(out)" ];
 
   meta = with stdenv.lib; {
-    homepage = https://sourceforge.net/projects/cdrtools/;
-    description = "Highly portable CD/DVD/BluRay command line recording software";
+    homepage = "https://sourceforge.net/projects/cdrtools/";
+    description =
+      "Highly portable CD/DVD/BluRay command line recording software";
     license = with licenses; [ gpl2 lgpl2 cddl ];
     platforms = with platforms; linux ++ darwin;
     # Licensing issues: This package contains code licensed under CDDL, GPL2
     # and LGPL2. There is a debate regarding the legality of distributing this
     # package in binary form.
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

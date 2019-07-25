@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, python-axolotl-curve25519, protobuf }:
+{ lib, buildPythonPackage, fetchPypi, cryptography, python-axolotl-curve25519, protobuf
+}:
 
 buildPythonPackage rec {
   pname = "python-axolotl";
@@ -12,7 +13,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cryptography python-axolotl-curve25519 protobuf ];
 
   meta = with lib; {
-    homepage = https://github.com/tgalal/python-axolotl;
+    homepage = "https://github.com/tgalal/python-axolotl";
     description = "Python port of libaxolotl-android";
     maintainers = with maintainers; [ abbradar ];
     license = licenses.gpl3;

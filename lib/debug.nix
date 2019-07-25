@@ -14,12 +14,10 @@
 */
 { lib }:
 let
-  inherit (builtins) trace isAttrs isList isInt
-          head substring attrNames;
+  inherit (builtins) trace isAttrs isList isInt head substring attrNames;
   inherit (lib) id elem isFunction;
-in
 
-rec {
+in rec {
 
   # -- TRACING --
 
@@ -38,7 +36,8 @@ rec {
     # Message that should be traced
     msg:
     # Value to return
-    x: if pred then trace msg x else x;
+    x:
+    if pred then trace msg x else x;
 
   /* Trace the supplied value after applying a function to it, and
      return the original value.
@@ -54,7 +53,8 @@ rec {
     # Function to apply
     f:
     # Value to trace and return
-    x: trace (f x) x;
+    x:
+    trace (f x) x;
 
   /* Trace the supplied value and return it.
 
@@ -83,7 +83,8 @@ rec {
     # The value to trace
     x:
     # The value to return
-    y: trace (builtins.deepSeq x x) y;
+    y:
+    trace (builtins.deepSeq x x) y;
 
   /* Like `traceSeq`, but only evaluate down to depth n.
      This is very useful because lots of `traceSeq` usages
@@ -93,19 +94,32 @@ rec {
        traceSeqN 2 { a.b.c = 3; } null
        trace: { a = { b = {…}; }; }
        => null
-   */
-  traceSeqN = depth: x: y: with lib;
-    let snip = v: if      isList  v then noQuotes "[…]" v
-                  else if isAttrs v then noQuotes "{…}" v
-                  else v;
-        noQuotes = str: v: { __pretty = const str; val = v; };
-        modify = n: fn: v: if (n == 0) then fn v
-                      else if isList  v then map (modify (n - 1) fn) v
-                      else if isAttrs v then mapAttrs
-                        (const (modify (n - 1) fn)) v
-                      else v;
-    in trace (generators.toPretty { allowPrettyValues = true; }
-               (modify depth snip x)) y;
+  */
+  traceSeqN = depth: x: y:
+    with lib;
+    let
+      snip = v:
+        if isList v then
+          noQuotes "[…]" v
+        else if isAttrs v then
+          noQuotes "{…}" v
+        else
+          v;
+      noQuotes = str: v: {
+        __pretty = const str;
+        val = v;
+      };
+      modify = n: fn: v:
+        if (n == 0) then
+          fn v
+        else if isList v then
+          map (modify (n - 1) fn) v
+        else if isAttrs v then
+          mapAttrs (const (modify (n - 1) fn)) v
+        else
+          v;
+    in trace
+    (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing
@@ -115,23 +129,24 @@ rec {
     # Function to apply
     f:
     # Value to trace
-    v: traceValFn f (builtins.deepSeq v v);
+    v:
+    traceValFn f (builtins.deepSeq v v);
 
-  /* A combination of `traceVal` and `traceSeq`. */
+  # A combination of `traceVal` and `traceSeq`.
   traceValSeq = traceValSeqFn id;
 
   /* A combination of `traceVal` and `traceSeqN` that applies a
-  provided function to the value to be traced. */
+     provided function to the value to be traced.
+  */
   traceValSeqNFn =
     # Function to apply
-    f:
-    depth:
+    f: depth:
     # Value to trace
-    v: traceSeqN depth (f v) v;
+    v:
+    traceSeqN depth (f v) v;
 
-  /* A combination of `traceVal` and `traceSeqN`. */
+  # A combination of `traceVal` and `traceSeqN`.
   traceValSeqN = traceValSeqNFn id;
-
 
   # -- TESTING --
 
@@ -149,22 +164,29 @@ rec {
   */
   runTests =
     # Tests to run
-    tests: lib.concatLists (lib.attrValues (lib.mapAttrs (name: test:
-    let testsToRun = if tests ? tests then tests.tests else [];
-    in if (substring 0 4 name == "test" ||  elem name testsToRun)
-       && ((testsToRun == []) || elem name tests.tests)
-       && (test.expr != test.expected)
+    tests:
+    lib.concatLists (lib.attrValues (lib.mapAttrs (name: test:
+    let testsToRun = if tests ? tests then tests.tests else [ ];
+    in if (substring 0 4 name == "test" || elem name testsToRun)
+    && ((testsToRun == [ ]) || elem name tests.tests)
+    && (test.expr != test.expected)
 
-      then [ { inherit name; expected = test.expected; result = test.expr; } ]
-      else [] ) tests));
+    then [{
+      inherit name;
+      expected = test.expected;
+      result = test.expr;
+    }] else
+      [ ]) tests));
 
   /* Create a test assuming that list elements are `true`.
 
      Example:
        { testX = allTrue [ true ]; }
   */
-  testAllTrue = expr: { inherit expr; expected = map (x: true) expr; };
-
+  testAllTrue = expr: {
+    inherit expr;
+    expected = map (x: true) expr;
+  };
 
   # -- DEPRECATED --
 
@@ -172,60 +194,67 @@ rec {
   traceShowValMarked = str: x: trace (str + showVal x) x;
 
   attrNamesToStr = a:
-    trace ( "Warning: `attrNamesToStr` is deprecated "
-          + "and will be removed in the next release. "
-          + "Please use more specific concatenation "
-          + "for your uses (`lib.concat(Map)StringsSep`)." )
+    trace ("Warning: `attrNamesToStr` is deprecated "
+    + "and will be removed in the next release. "
+    + "Please use more specific concatenation "
+    + "for your uses (`lib.concat(Map)StringsSep`).")
     (lib.concatStringsSep "; " (map (x: "${x}=") (attrNames a)));
 
   showVal = with lib;
-    trace ( "Warning: `showVal` is deprecated "
-          + "and will be removed in the next release, "
-          + "please use `traceSeqN`" )
+    trace ("Warning: `showVal` is deprecated "
+    + "and will be removed in the next release, " + "please use `traceSeqN`")
     (let
       modify = v:
-        let pr = f: { __pretty = f; val = v; };
-        in   if isDerivation v then pr
-          (drv: "<δ:${drv.name}:${concatStringsSep ","
-                                 (attrNames drv)}>")
-        else if [] ==   v then pr (const "[]")
-        else if isList  v then pr (l: "[ ${go (head l)}, … ]")
-        else if isAttrs v then pr
-          (a: "{ ${ concatStringsSep ", " (attrNames a)} }")
-        else v;
-      go = x: generators.toPretty
-        { allowPrettyValues = true; }
-        (modify x);
+        let
+          pr = f: {
+            __pretty = f;
+            val = v;
+          };
+        in if isDerivation v then
+          pr (drv: "<δ:${drv.name}:${concatStringsSep "," (attrNames drv)}>")
+        else if [ ] == v then
+          pr (const "[]")
+        else if isList v then
+          pr (l: "[ ${go (head l)}, … ]")
+        else if isAttrs v then
+          pr (a: "{ ${concatStringsSep ", " (attrNames a)} }")
+        else
+          v;
+      go = x: generators.toPretty { allowPrettyValues = true; } (modify x);
     in go);
 
   traceXMLVal = x:
-    trace ( "Warning: `traceXMLVal` is deprecated "
-          + "and will be removed in the next release. "
-          + "Please use `traceValFn builtins.toXML`." )
-    (trace (builtins.toXML x) x);
+    trace ("Warning: `traceXMLVal` is deprecated "
+    + "and will be removed in the next release. "
+    + "Please use `traceValFn builtins.toXML`.") (trace (builtins.toXML x) x);
   traceXMLValMarked = str: x:
-    trace ( "Warning: `traceXMLValMarked` is deprecated "
-          + "and will be removed in the next release. "
-          + "Please use `traceValFn (x: str + builtins.toXML x)`." )
+    trace ("Warning: `traceXMLValMarked` is deprecated "
+    + "and will be removed in the next release. "
+    + "Please use `traceValFn (x: str + builtins.toXML x)`.")
     (trace (str + builtins.toXML x) x);
 
   # trace the arguments passed to function and its result
   # maybe rewrite these functions in a traceCallXml like style. Then one function is enough
-  traceCall  = n: f: a: let t = n2: x: traceShowValMarked "${n} ${n2}:" x; in t "result" (f (t "arg 1" a));
-  traceCall2 = n: f: a: b: let t = n2: x: traceShowValMarked "${n} ${n2}:" x; in t "result" (f (t "arg 1" a) (t "arg 2" b));
-  traceCall3 = n: f: a: b: c: let t = n2: x: traceShowValMarked "${n} ${n2}:" x; in t "result" (f (t "arg 1" a) (t "arg 2" b) (t "arg 3" c));
+  traceCall = n: f: a:
+    let t = n2: x: traceShowValMarked "${n} ${n2}:" x;
+    in t "result" (f (t "arg 1" a));
+  traceCall2 = n: f: a: b:
+    let t = n2: x: traceShowValMarked "${n} ${n2}:" x;
+    in t "result" (f (t "arg 1" a) (t "arg 2" b));
+  traceCall3 = n: f: a: b: c:
+    let t = n2: x: traceShowValMarked "${n} ${n2}:" x;
+    in t "result" (f (t "arg 1" a) (t "arg 2" b) (t "arg 3" c));
 
   traceValIfNot = c: x:
-    trace ( "Warning: `traceValIfNot` is deprecated "
-          + "and will be removed in the next release. "
-          + "Please use `if/then/else` and `traceValSeq 1`.")
+    trace ("Warning: `traceValIfNot` is deprecated "
+    + "and will be removed in the next release. "
+    + "Please use `if/then/else` and `traceValSeq 1`.")
     (if c x then true else traceSeq (showVal x) false);
 
-
   addErrorContextToAttrs = attrs:
-    trace ( "Warning: `addErrorContextToAttrs` is deprecated "
-          + "and will be removed in the next release. "
-          + "Please use `builtins.addErrorContext` directly." )
+    trace ("Warning: `addErrorContextToAttrs` is deprecated "
+    + "and will be removed in the next release. "
+    + "Please use `builtins.addErrorContext` directly.")
     (lib.mapAttrs (a: v: lib.addErrorContext "while evaluating ${a}" v) attrs);
 
   # example: (traceCallXml "myfun" id 3) will output something like
@@ -234,20 +263,25 @@ rec {
   # note: if result doesn't evaluate you'll get no trace at all (FIXME)
   #       args should be printed in any case
   traceCallXml = a:
-    trace ( "Warning: `traceCallXml` is deprecated "
-          + "and will be removed in the next release. "
-          + "Please complain if you use the function regularly." )
-    (if !isInt a then
-      traceCallXml 1 "calling ${a}\n"
+    trace ("Warning: `traceCallXml` is deprecated "
+    + "and will be removed in the next release. "
+    + "Please complain if you use the function regularly.") (if !isInt a then
+      traceCallXml 1 ''
+        calling ${a}
+      ''
     else
       let nr = a;
       in (str: expr:
-          if isFunction expr then
-            (arg:
-              traceCallXml (builtins.add 1 nr) "${str}\n arg ${builtins.toString nr} is \n ${builtins.toXML (builtins.seq arg arg)}" (expr arg)
-            )
-          else
-            let r = builtins.seq expr expr;
-            in trace "${str}\n result:\n${builtins.toXML r}" r
-      ));
+      if isFunction expr then
+        (arg:
+        traceCallXml (builtins.add 1 nr) ''
+          ${str}
+           arg ${builtins.toString nr} is 
+           ${builtins.toXML (builtins.seq arg arg)}'' (expr arg))
+      else
+        let r = builtins.seq expr expr;
+        in trace ''
+          ${str}
+           result:
+          ${builtins.toXML r}'' r));
 }

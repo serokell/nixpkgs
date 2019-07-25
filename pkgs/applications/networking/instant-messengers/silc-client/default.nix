@@ -1,13 +1,10 @@
-{ stdenv, fetchurl, perl, pkgconfig, glib, ncurses
-, enablePlugin ? false }:
+{ stdenv, fetchurl, perl, pkgconfig, glib, ncurses, enablePlugin ? false }:
 
 # Enabling the plugin and using it with a recent irssi, segafults on join:
 # http://marc.info/?l=silc-devel&m=125610477802211
 
-let
-  basename = "silc-client-1.1.11";
-in
-stdenv.mkDerivation {
+let basename = "silc-client-1.1.11";
+in stdenv.mkDerivation {
   name = basename + stdenv.lib.optionalString enablePlugin "-irssi-plugin";
 
   src = fetchurl {
@@ -31,10 +28,10 @@ stdenv.mkDerivation {
   buildInputs = [ perl glib ncurses ];
 
   meta = {
-    homepage = http://silcnet.org/;
+    homepage = "http://silcnet.org/";
     description = "Secure Internet Live Conferencing server";
     license = stdenv.lib.licenses.gpl2;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

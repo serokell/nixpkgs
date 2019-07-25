@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   pname = "iniparse";
@@ -22,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Accessing and Modifying INI files";
-    homepage = http://code.google.com/p/iniparse/;
+    homepage = "http://code.google.com/p/iniparse/";
     license = licenses.mit;
     maintainers = with maintainers; [ danbst ];
   };

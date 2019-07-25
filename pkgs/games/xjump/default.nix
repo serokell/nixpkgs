@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libX11, libXt, libXpm, libXaw, localStateDir?null }:
+{ stdenv, fetchFromGitHub, autoconf, automake, libX11, libXt, libXpm, libXaw, localStateDir ?
+  null }:
 
 stdenv.mkDerivation rec {
   name = "xjump-${version}";
@@ -12,12 +13,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoconf automake ];
   buildInputs = [ libX11 libXt libXpm libXaw ];
   preConfigure = "autoreconf --install";
-  patches = if stdenv.buildPlatform.isDarwin then [ ./darwin.patch ] else [];
-  configureFlags =
-    if localStateDir != null then
-      ["--localstatedir=${localStateDir}"]
-    else
-      [];
+  patches = if stdenv.buildPlatform.isDarwin then [ ./darwin.patch ] else [ ];
+  configureFlags = if localStateDir != null then
+    [ "--localstatedir=${localStateDir}" ]
+  else
+    [ ];
 
   meta = with stdenv.lib; {
     description = "The falling tower game";

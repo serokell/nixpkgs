@@ -1,18 +1,18 @@
-{ stdenv, lib, fetchurl
-, linuxHeaders ? null
-, useBSDCompatHeaders ? true
-}:
+{ stdenv, lib, fetchurl, linuxHeaders ? null, useBSDCompatHeaders ? true }:
 let
   cdefs_h = fetchurl {
-    url = "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-cdefs.h";
+    url =
+      "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-cdefs.h";
     sha256 = "16l3dqnfq0f20rzbkhc38v74nqcsh9n3f343bpczqq8b1rz6vfrh";
   };
   queue_h = fetchurl {
-    url = "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-queue.h";
+    url =
+      "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-queue.h";
     sha256 = "12qm82id7zys92a1qh2l1qf2wqgq6jr4qlbjmqyfffz3s3nhfd61";
   };
   tree_h = fetchurl {
-    url = "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-tree.h";
+    url =
+      "http://git.alpinelinux.org/cgit/aports/plain/main/libc-dev/sys-tree.h";
     sha256 = "14igk6k00bnpfw660qhswagyhvr0gfqg4q55dxvaaq7ikfkrir71";
   };
 
@@ -22,17 +22,17 @@ let
   # https://git.alpinelinux.org/cgit/aports/commit/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f
   iconv_c = fetchurl {
     name = "iconv.c";
-    url = "https://git.alpinelinux.org/cgit/aports/plain/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f";
+    url =
+      "https://git.alpinelinux.org/cgit/aports/plain/main/musl/iconv.c?id=a3d97e95f766c9c378194ee49361b375f093b26f";
     sha256 = "1mzxnc2ncq8lw9x6n7p00fvfklc9p3wfv28m68j0dfz5l8q2k6pp";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "musl";
   version = "1.1.22";
 
   src = fetchurl {
-    url    = "https://www.musl-libc.org/releases/${pname}-${version}.tar.gz";
+    url = "https://www.musl-libc.org/releases/${pname}-${version}.tar.gz";
     sha256 = "1qr9xqdzziy5bsyyqlh6k8yz056ll55d5yvc0gbhz61ginj422cb";
   };
 
@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Minor touchup to build system making dynamic linker symlink relative
     (fetchurl {
-      url = https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch;
+      url =
+        "https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch";
       sha256 = "0hfadrycb60sm6hb6by4ycgaqc9sgrhh42k39v8xpmcvdzxrsq2n";
     })
   ];
@@ -112,9 +113,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "An efficient, small, quality libc implementation";
-    homepage    = "http://www.musl-libc.org";
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.linux;
+    homepage = "http://www.musl-libc.org";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }

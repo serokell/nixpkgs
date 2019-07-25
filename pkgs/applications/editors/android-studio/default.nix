@@ -1,12 +1,11 @@
 { callPackage, makeFontsConf, gnome2 }:
 
 let
-  mkStudio = opts: callPackage (import ./common.nix opts) {
-    fontsConf = makeFontsConf {
-      fontDirectories = [];
+  mkStudio = opts:
+    callPackage (import ./common.nix opts) {
+      fontsConf = makeFontsConf { fontDirectories = [ ]; };
+      inherit (gnome2) GConf gnome_vfs;
     };
-    inherit (gnome2) GConf gnome_vfs;
-  };
   stableVersion = {
     version = "3.4.2.0"; # "Android Studio 3.4.2"
     build = "183.5692245";

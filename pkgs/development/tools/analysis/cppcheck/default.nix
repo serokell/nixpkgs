@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ pcre ];
   nativeBuildInputs = [ libxslt docbook_xsl docbook_xml_dtd_45 ];
 
-  makeFlags = ''PREFIX=$(out) CFGDIR=$(out)/cfg HAVE_RULES=yes'';
+  makeFlags = "PREFIX=$(out) CFGDIR=$(out)/cfg HAVE_RULES=yes";
 
   outputs = [ "out" "man" ];
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       Check C/C++ code for memory leaks, mismatching allocation-deallocation,
       buffer overruns and more.
     '';
-    homepage = http://cppcheck.sourceforge.net/;
+    homepage = "http://cppcheck.sourceforge.net/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ joachifm ];

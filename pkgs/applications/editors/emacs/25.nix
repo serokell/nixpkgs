@@ -1,30 +1,20 @@
-{ stdenv, lib, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d
-, pkgconfig, gettext, libXft, dbus, libpng, libjpeg, libungif
-, libtiff, librsvg, gconf, libxml2, imagemagick, gnutls, libselinux
-, alsaLib, cairo, acl, gpm, AppKit, GSS, ImageIO
-, withX ? !stdenv.isDarwin
-, withGTK2 ? false, gtk2 ? null
-, withGTK3 ? true, gtk3 ? null, gsettings-desktop-schemas ? null
-, withXwidgets ? false, webkitgtk24x-gtk3 ? null, wrapGAppsHook ? null, glib-networking ? null
-, withCsrc ? true
-, srcRepo ? false, autoconf ? null, automake ? null, texinfo ? null
-}:
+{ stdenv, lib, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d, pkgconfig, gettext, libXft, dbus, libpng, libjpeg, libungif, libtiff, librsvg, gconf, libxml2, imagemagick, gnutls, libselinux, alsaLib, cairo, acl, gpm, AppKit, GSS, ImageIO, withX ?
+  !stdenv.isDarwin, withGTK2 ? false, gtk2 ? null, withGTK3 ? true, gtk3 ?
+    null, gsettings-desktop-schemas ? null, withXwidgets ?
+      false, webkitgtk24x-gtk3 ? null, wrapGAppsHook ? null, glib-networking ?
+        null, withCsrc ? true, srcRepo ? false, autoconf ? null, automake ?
+          null, texinfo ? null }:
 
-assert (libXft != null) -> libpng != null;      # probably a bug
-assert stdenv.isDarwin -> libXaw != null;       # fails to link otherwise
+assert (libXft != null) -> libpng != null; # probably a bug
+assert stdenv.isDarwin -> libXaw != null; # fails to link otherwise
 assert withGTK2 -> withX || stdenv.isDarwin;
 assert withGTK3 -> withX || stdenv.isDarwin;
 assert withGTK2 -> !withGTK3 && gtk2 != null;
 assert withGTK3 -> !withGTK2 && gtk3 != null;
 assert withXwidgets -> withGTK3 && webkitgtk24x-gtk3 != null;
 
-let
-  toolkit =
-    if withGTK2 then "gtk2"
-    else if withGTK3 then "gtk3"
-    else "lucid";
-in
-stdenv.mkDerivation rec {
+let toolkit = if withGTK2 then "gtk2" else if withGTK3 then "gtk3" else "lucid";
+in stdenv.mkDerivation rec {
   name = "emacs-${version}${versionModifier}";
   version = "25.3";
   versionModifier = "";
@@ -43,7 +33,8 @@ stdenv.mkDerivation rec {
     # https://lists.gnu.org/archive/html/bug-gnu-emacs/2017-04/msg00201.html
     # Should be removed when switching to Emacs 26.1
     (fetchurl {
-      url = "https://gist.githubusercontent.com/aaronjensen/f45894ddf431ecbff78b1bcf533d3e6b/raw/6a5cd7f57341aba673234348d8b0d2e776f86719/Emacs-25-OS-X-use-vfork.patch";
+      url =
+        "https://gist.githubusercontent.com/aaronjensen/f45894ddf431ecbff78b1bcf533d3e6b/raw/6a5cd7f57341aba673234348d8b0d2e776f86719/Emacs-25-OS-X-use-vfork.patch";
       sha256 = "1nlsxiaynswqhy99jf4mw9x0sndhwcrwy8713kq1l3xqv9dbrzgj";
     })
   ];
@@ -52,28 +43,44 @@ stdenv.mkDerivation rec {
     ++ lib.optionals srcRepo [ autoconf automake texinfo ]
     ++ lib.optional (withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
-  buildInputs =
-    [ ncurses gconf libxml2 gnutls alsaLib acl gpm gettext ]
-    ++ lib.optionals stdenv.isLinux [ dbus libselinux ]
-    ++ lib.optionals withX
-      [ xlibsWrapper libXaw Xaw3d libXpm libpng libjpeg libungif libtiff librsvg libXft
-        imagemagick gconf ]
-    ++ lib.optional (withX && withGTK2) gtk2
+  buildInputs = [ ncurses gconf libxml2 gnutls alsaLib acl gpm gettext ]
+    ++ lib.optionals stdenv.isLinux [ dbus libselinux ] ++ lib.optionals withX [
+      xlibsWrapper
+      libXaw
+      Xaw3d
+      libXpm
+      libpng
+      libjpeg
+      libungif
+      libtiff
+      librsvg
+      libXft
+      imagemagick
+      gconf
+    ] ++ lib.optional (withX && withGTK2) gtk2
     ++ lib.optionals (withX && withGTK3) [ gtk3 gsettings-desktop-schemas ]
     ++ lib.optional (stdenv.isDarwin && withX) cairo
-    ++ lib.optionals (withX && withXwidgets) [ webkitgtk24x-gtk3 glib-networking ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit GSS ImageIO ];
+    ++ lib.optionals (withX && withXwidgets) [
+      webkitgtk24x-gtk3
+      glib-networking
+    ] ++ lib.optionals stdenv.isDarwin [ AppKit GSS ImageIO ];
 
   hardeningDisable = [ "format" ];
 
-  configureFlags = [ "--with-modules" ] ++
-   (if stdenv.isDarwin
-      then [ "--with-ns" "--disable-ns-self-contained" ]
-    else if withX
-      then [ "--with-x-toolkit=${toolkit}" "--with-xft" ]
-      else [ "--with-x=no" "--with-xpm=no" "--with-jpeg=no" "--with-png=no"
-             "--with-gif=no" "--with-tiff=no" ])
-    ++ lib.optional withXwidgets "--with-xwidgets";
+  configureFlags = [ "--with-modules" ] ++ (if stdenv.isDarwin then [
+    "--with-ns"
+    "--disable-ns-self-contained"
+  ] else if withX then [
+    "--with-x-toolkit=${toolkit}"
+    "--with-xft"
+  ] else [
+    "--with-x=no"
+    "--with-xpm=no"
+    "--with-jpeg=no"
+    "--with-png=no"
+    "--with-gif=no"
+    "--with-tiff=no"
+  ]) ++ lib.optional withXwidgets "--with-xwidgets";
 
   preConfigure = lib.optionalString srcRepo ''
     ./autogen.sh
@@ -110,10 +117,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The extensible, customizable GNU text editor";
-    homepage    = https://www.gnu.org/software/emacs/;
-    license     = licenses.gpl3Plus;
+    homepage = "https://www.gnu.org/software/emacs/";
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ lovek323 peti the-kenny jwiegley ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
 
     longDescription = ''
       GNU Emacs is an extensible, customizable text editor—and more.  At its

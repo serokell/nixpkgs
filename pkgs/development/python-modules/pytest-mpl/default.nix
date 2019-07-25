@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, matplotlib
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, matplotlib, nose }:
 
 buildPythonPackage rec {
   pname = "pytest-mpl";
@@ -15,14 +9,9 @@ buildPythonPackage rec {
     sha256 = "7006e63bf1ca9c50bea3d189c0f862751a16ce40bb373197b218f57af5b837c0";
   };
 
-  propagatedBuildInputs = [
-    matplotlib
-    nose
-  ];
+  propagatedBuildInputs = [ matplotlib nose ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     export HOME=$(mktemp -d)
@@ -33,8 +22,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Pytest plugin to help with testing figures output from Matplotlib";
-    homepage = https://github.com/matplotlib/pytest-mpl;
+    description =
+      "Pytest plugin to help with testing figures output from Matplotlib";
+    homepage = "https://github.com/matplotlib/pytest-mpl";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

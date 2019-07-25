@@ -25,8 +25,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Tool intended to prevent the accidental deletion of important files";
-    homepage = https://launchpad.net/safe-rm;
+    description =
+      "Tool intended to prevent the accidental deletion of important files";
+    homepage = "https://launchpad.net/safe-rm";
     license = licenses.gpl3;
     platforms = platforms.all;
     maintainers = [ maintainers.koral ];

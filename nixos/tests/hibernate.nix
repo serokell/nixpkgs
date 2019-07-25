@@ -4,21 +4,21 @@ import ./make-test.nix (pkgs: {
   name = "hibernate";
 
   nodes = {
-    machine = { config, lib, pkgs, ... }: with lib; {
-      virtualisation.emptyDiskImages = [ config.virtualisation.memorySize ];
+    machine = { config, lib, pkgs, ... }:
+      with lib; {
+        virtualisation.emptyDiskImages = [ config.virtualisation.memorySize ];
 
-      systemd.services.backdoor.conflicts = [ "sleep.target" ];
+        systemd.services.backdoor.conflicts = [ "sleep.target" ];
 
-      swapDevices = mkOverride 0 [ { device = "/dev/vdb"; } ];
+        swapDevices = mkOverride 0 [{ device = "/dev/vdb"; }];
 
-      networking.firewall.allowedTCPPorts = [ 4444 ];
+        networking.firewall.allowedTCPPorts = [ 4444 ];
 
-      systemd.services.listener.serviceConfig.ExecStart = "${pkgs.netcat}/bin/nc -l 4444 -k";
-    };
+        systemd.services.listener.serviceConfig.ExecStart =
+          "${pkgs.netcat}/bin/nc -l 4444 -k";
+      };
 
-    probe = { pkgs, ...}: {
-      environment.systemPackages = [ pkgs.netcat ];
-    };
+    probe = { pkgs, ... }: { environment.systemPackages = [ pkgs.netcat ]; };
   };
 
   # 9P doesn't support reconnection to virtio transport after a hibernation.
@@ -26,18 +26,17 @@ import ./make-test.nix (pkgs: {
   # To work around it we run a daemon which listens to a TCP connection and
   # try to connect to it as a test.
 
-  testScript =
-    ''
-      $machine->waitForUnit("multi-user.target");
-      $machine->succeed("mkswap /dev/vdb");
-      $machine->succeed("swapon -a");
-      $machine->startJob("listener");
-      $machine->waitForOpenPort(4444);
-      $machine->succeed("systemctl hibernate &");
-      $machine->waitForShutdown;
-      $probe->waitForUnit("multi-user.target");
-      $machine->start;
-      $probe->waitUntilSucceeds("echo test | nc machine 4444 -N");
-    '';
+  testScript = ''
+    $machine->waitForUnit("multi-user.target");
+    $machine->succeed("mkswap /dev/vdb");
+    $machine->succeed("swapon -a");
+    $machine->startJob("listener");
+    $machine->waitForOpenPort(4444);
+    $machine->succeed("systemctl hibernate &");
+    $machine->waitForShutdown;
+    $probe->waitForUnit("multi-user.target");
+    $machine->start;
+    $probe->waitUntilSucceeds("echo test | nc machine 4444 -N");
+  '';
 
 })

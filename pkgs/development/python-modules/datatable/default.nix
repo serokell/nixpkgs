@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, llvm
-, typesentry
-, blessed
-, pytest
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, llvm, typesentry, blessed, pytest
 }:
 
 buildPythonPackage rec {

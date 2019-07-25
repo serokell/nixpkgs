@@ -1,4 +1,4 @@
-{stdenv, fetchurl, pam, openssl}:
+{ stdenv, fetchurl, pam, openssl }:
 
 stdenv.mkDerivation {
   name = "uw-imap-2007f";
@@ -8,16 +8,16 @@ stdenv.mkDerivation {
     sha256 = "0a2a00hbakh0640r2wdpnwr8789z59wnk7rfsihh3j0vbhmmmqak";
   };
 
-  makeFlags = if stdenv.isDarwin
-    then "osx"
-    else "lnp" # Linux with PAM modules;
+  makeFlags = if stdenv.isDarwin then
+    "osx"
+  else
+    "lnp" # Linux with PAM modules;
     # -fPIC is required to compile php with imap on x86_64 systems
     + stdenv.lib.optionalString stdenv.isx86_64 " EXTRACFLAGS=-fPIC";
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [ openssl ]
-    ++ stdenv.lib.optional (!stdenv.isDarwin) pam;
+  buildInputs = [ openssl ] ++ stdenv.lib.optional (!stdenv.isDarwin) pam;
 
   patchPhase = ''
     sed -i src/osdep/unix/Makefile -e 's,/usr/local/ssl,${openssl.dev},'
@@ -37,13 +37,12 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = http://www.washington.edu/imap/;
-    description = "UW IMAP toolkit - IMAP-supporting software developed by the UW";
+    homepage = "http://www.washington.edu/imap/";
+    description =
+      "UW IMAP toolkit - IMAP-supporting software developed by the UW";
     license = stdenv.lib.licenses.asl20;
     platforms = with stdenv.lib.platforms; linux;
   };
 
-  passthru = {
-    withSSL = true;
-  };
+  passthru = { withSSL = true; };
 }

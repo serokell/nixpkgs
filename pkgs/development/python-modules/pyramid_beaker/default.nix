@@ -18,7 +18,5 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ beaker pyramid ];
 
-  meta = with stdenv.lib; {
-    maintainers = with maintainers; [ domenkozar ];
-  };
+  meta = with stdenv.lib; { maintainers = with maintainers; [ domenkozar ]; };
 }

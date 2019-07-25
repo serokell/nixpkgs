@@ -1,122 +1,121 @@
 { lib, stdenv, echo_build_heading, noisily, makeDeps }:
-{ crateName,
-  dependencies,
-  crateFeatures, libName, release, libPath,
-  crateType, metadata, crateBin, hasCrateBin,
-  extraRustcOpts, verbose, colors }:
+{ crateName, dependencies, crateFeatures, libName, release, libPath, crateType, metadata, crateBin, hasCrateBin, extraRustcOpts, verbose, colors
+}:
 
-  let
+let
 
-    deps = makeDeps dependencies;
-    rustcOpts =
-      lib.lists.foldl' (opts: opt: opts + " " + opt)
-        (if release then "-C opt-level=3" else "-C debuginfo=2")
-        (["-C codegen-units=$NIX_BUILD_CORES"] ++ extraRustcOpts);
-    rustcMeta = "-C metadata=${metadata} -C extra-filename=-${metadata}";
+  deps = makeDeps dependencies;
+  rustcOpts = lib.lists.foldl' (opts: opt: opts + " " + opt)
+    (if release then "-C opt-level=3" else "-C debuginfo=2")
+    ([ "-C codegen-units=$NIX_BUILD_CORES" ] ++ extraRustcOpts);
+  rustcMeta = "-C metadata=${metadata} -C extra-filename=-${metadata}";
 
-    # Some platforms have different names for rustc.
-    rustPlatform =
-      with stdenv.hostPlatform.parsed;
-      let cpu_ = if cpu.name == "armv7a" then "armv7"
-                 else cpu.name;
-          vendor_ = vendor.name;
-          kernel_ = kernel.name;
-          abi_ = abi.name;
-      in
-      "${cpu_}-${vendor_}-${kernel_}-${abi_}";
-  in ''
-    runHook preBuild
-    norm=""
-    bold=""
-    green=""
-    boldgreen=""
-    if [[ "${colors}" == "always" ]]; then
-      norm="$(printf '\033[0m')" #returns to "normal"
-      bold="$(printf '\033[0;1m')" #set bold
-      green="$(printf '\033[0;32m')" #set green
-      boldgreen="$(printf '\033[0;1;32m')" #set bold, and set green.
+  # Some platforms have different names for rustc.
+  rustPlatform = with stdenv.hostPlatform.parsed;
+    let
+      cpu_ = if cpu.name == "armv7a" then "armv7" else cpu.name;
+      vendor_ = vendor.name;
+      kernel_ = kernel.name;
+      abi_ = abi.name;
+    in "${cpu_}-${vendor_}-${kernel_}-${abi_}";
+in ''
+  runHook preBuild
+  norm=""
+  bold=""
+  green=""
+  boldgreen=""
+  if [[ "${colors}" == "always" ]]; then
+    norm="$(printf '\033[0m')" #returns to "normal"
+    bold="$(printf '\033[0;1m')" #set bold
+    green="$(printf '\033[0;32m')" #set green
+    boldgreen="$(printf '\033[0;1;32m')" #set bold, and set green.
+  fi
+  ${echo_build_heading colors}
+  ${noisily colors verbose}
+
+  build_lib() {
+     lib_src=$1
+     echo_build_heading $lib_src ${libName}
+
+     noisily rustc --crate-name $CRATE_NAME $lib_src \
+       ${lib.strings.concatStrings (map (x: " --crate-type ${x}") crateType)}  \
+       ${rustcOpts} ${rustcMeta} ${crateFeatures} --out-dir target/lib \
+       --emit=dep-info,link -L dependency=target/deps ${deps} --cap-lints allow \
+       $BUILD_OUT_DIR $EXTRA_BUILD $EXTRA_FEATURES --color ${colors}
+
+     EXTRA_LIB=" --extern $CRATE_NAME=target/lib/lib$CRATE_NAME-${metadata}.rlib"
+     if [ -e target/deps/lib$CRATE_NAME-${metadata}${stdenv.hostPlatform.extensions.sharedLibrary} ]; then
+        EXTRA_LIB="$EXTRA_LIB --extern $CRATE_NAME=target/lib/lib$CRATE_NAME-${metadata}${stdenv.hostPlatform.extensions.sharedLibrary}"
+     fi
+  }
+
+  build_bin() {
+    crate_name=$1
+    crate_name_=$(echo $crate_name | sed -e "s/-/_/g")
+    main_file=""
+    if [[ ! -z $2 ]]; then
+      main_file=$2
     fi
-    ${echo_build_heading colors}
-    ${noisily colors verbose}
-
-    build_lib() {
-       lib_src=$1
-       echo_build_heading $lib_src ${libName}
-
-       noisily rustc --crate-name $CRATE_NAME $lib_src \
-         ${lib.strings.concatStrings (map (x: " --crate-type ${x}") crateType)}  \
-         ${rustcOpts} ${rustcMeta} ${crateFeatures} --out-dir target/lib \
-         --emit=dep-info,link -L dependency=target/deps ${deps} --cap-lints allow \
-         $BUILD_OUT_DIR $EXTRA_BUILD $EXTRA_FEATURES --color ${colors}
-
-       EXTRA_LIB=" --extern $CRATE_NAME=target/lib/lib$CRATE_NAME-${metadata}.rlib"
-       if [ -e target/deps/lib$CRATE_NAME-${metadata}${stdenv.hostPlatform.extensions.sharedLibrary} ]; then
-          EXTRA_LIB="$EXTRA_LIB --extern $CRATE_NAME=target/lib/lib$CRATE_NAME-${metadata}${stdenv.hostPlatform.extensions.sharedLibrary}"
-       fi
-    }
-
-    build_bin() {
-      crate_name=$1
-      crate_name_=$(echo $crate_name | sed -e "s/-/_/g")
-      main_file=""
-      if [[ ! -z $2 ]]; then
-        main_file=$2
-      fi
-      echo_build_heading $@
-      noisily rustc --crate-name $crate_name_ $main_file --crate-type bin ${rustcOpts}\
-        ${crateFeatures} --out-dir target/bin --emit=dep-info,link -L dependency=target/deps \
-        $LINK ${deps}$EXTRA_LIB --cap-lints allow \
-        $BUILD_OUT_DIR $EXTRA_BUILD $EXTRA_FEATURES --color ${colors} \
-        ${if stdenv.hostPlatform != stdenv.buildPlatform then "--target ${rustPlatform} -C linker=${stdenv.hostPlatform.config}-gcc" else ""}
-      if [ "$crate_name_" != "$crate_name" ]; then
-        mv target/bin/$crate_name_ target/bin/$crate_name
-      fi
-    }
-
-
-    EXTRA_LIB=""
-    CRATE_NAME=$(echo ${libName} | sed -e "s/-/_/g")
-
-    if [[ -e target/link_ ]]; then
-      EXTRA_BUILD="$(cat target/link_) $EXTRA_BUILD"
+    echo_build_heading $@
+    noisily rustc --crate-name $crate_name_ $main_file --crate-type bin ${rustcOpts}\
+      ${crateFeatures} --out-dir target/bin --emit=dep-info,link -L dependency=target/deps \
+      $LINK ${deps}$EXTRA_LIB --cap-lints allow \
+      $BUILD_OUT_DIR $EXTRA_BUILD $EXTRA_FEATURES --color ${colors} \
+      ${
+    if stdenv.hostPlatform != stdenv.buildPlatform then
+      "--target ${rustPlatform} -C linker=${stdenv.hostPlatform.config}-gcc"
+    else
+      ""
+      }
+    if [ "$crate_name_" != "$crate_name" ]; then
+      mv target/bin/$crate_name_ target/bin/$crate_name
     fi
+  }
 
-    if [[ -e "${libPath}" ]]; then
-       build_lib ${libPath}
-    elif [[ -e src/lib.rs ]]; then
-       build_lib src/lib.rs
-    elif [[ -e src/${libName}.rs ]]; then
-       build_lib src/${libName}.rs
-    fi
 
-    echo "$EXTRA_LINK_SEARCH" | while read i; do
-       if [[ ! -z "$i" ]]; then
-         for lib in $i; do
-           echo "-L $lib" >> target/link
-           L=$(echo $lib | sed -e "s#$(pwd)/target/build#$out/lib#")
-           echo "-L $L" >> target/link.final
-         done
-       fi
-    done
-    echo "$EXTRA_LINK" | while read i; do
-       if [[ ! -z "$i" ]]; then
-         for lib in $i; do
-           echo "-l $lib" >> target/link
-           echo "-l $lib" >> target/link.final
-         done
-       fi
-    done
+  EXTRA_LIB=""
+  CRATE_NAME=$(echo ${libName} | sed -e "s/-/_/g")
 
-    if [[ -e target/link ]]; then
-       sort -u target/link.final > target/link.final.sorted
-       mv target/link.final.sorted target/link.final
-       sort -u target/link > target/link.sorted
-       mv target/link.sorted target/link
+  if [[ -e target/link_ ]]; then
+    EXTRA_BUILD="$(cat target/link_) $EXTRA_BUILD"
+  fi
 
-       tr '\n' ' ' < target/link > target/link_
-       LINK=$(cat target/link_)
-    fi
-    ${lib.optionalString (crateBin != "") ''
+  if [[ -e "${libPath}" ]]; then
+     build_lib ${libPath}
+  elif [[ -e src/lib.rs ]]; then
+     build_lib src/lib.rs
+  elif [[ -e src/${libName}.rs ]]; then
+     build_lib src/${libName}.rs
+  fi
+
+  echo "$EXTRA_LINK_SEARCH" | while read i; do
+     if [[ ! -z "$i" ]]; then
+       for lib in $i; do
+         echo "-L $lib" >> target/link
+         L=$(echo $lib | sed -e "s#$(pwd)/target/build#$out/lib#")
+         echo "-L $L" >> target/link.final
+       done
+     fi
+  done
+  echo "$EXTRA_LINK" | while read i; do
+     if [[ ! -z "$i" ]]; then
+       for lib in $i; do
+         echo "-l $lib" >> target/link
+         echo "-l $lib" >> target/link.final
+       done
+     fi
+  done
+
+  if [[ -e target/link ]]; then
+     sort -u target/link.final > target/link.final.sorted
+     mv target/link.final.sorted target/link.final
+     sort -u target/link > target/link.sorted
+     mv target/link.sorted target/link
+
+     tr '\n' ' ' < target/link > target/link_
+     LINK=$(cat target/link_)
+  fi
+  ${lib.optionalString (crateBin != "") ''
     printf "%s\n" "${crateBin}" | head -n1 | tr -s ',' '\n' | while read -r BIN_NAME BIN_PATH; do
       mkdir -p target/bin
       # filter empty entries / empty "lines"
@@ -154,19 +153,19 @@
       fi
       build_bin "$BIN_NAME" "$BIN_PATH"
     done
-    ''}
+  ''}
 
-    ${lib.optionalString (crateBin == "" && !hasCrateBin) ''
-      if [[ -e src/main.rs ]]; then
-        mkdir -p target/bin
-        build_bin ${crateName} src/main.rs
-      fi
-      for i in src/bin/*.rs; do #*/
-        mkdir -p target/bin
-        build_bin "$(basename $i .rs)" "$i"
-      done
-    ''}
-    # Remove object files to avoid "wrong ELF type"
-    find target -type f -name "*.o" -print0 | xargs -0 rm -f
-    runHook postBuild
-  ''
+  ${lib.optionalString (crateBin == "" && !hasCrateBin) ''
+    if [[ -e src/main.rs ]]; then
+      mkdir -p target/bin
+      build_bin ${crateName} src/main.rs
+    fi
+    for i in src/bin/*.rs; do #*/
+      mkdir -p target/bin
+      build_bin "$(basename $i .rs)" "$i"
+    done
+  ''}
+  # Remove object files to avoid "wrong ELF type"
+  find target -type f -name "*.o" -print0 | xargs -0 rm -f
+  runHook postBuild
+''

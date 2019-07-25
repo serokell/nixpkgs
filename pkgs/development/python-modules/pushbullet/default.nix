@@ -1,6 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi
-, requests, websocket_client, python_magic
-, pytest, mock }:
+{ lib, buildPythonPackage, fetchPypi, requests, websocket_client, python_magic, pytest, mock
+}:
 
 buildPythonPackage rec {
   pname = "pushbullet.py";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A simple python client for pushbullet.com";
-    homepage = https://github.com/randomchars/pushbullet.py;
+    homepage = "https://github.com/randomchars/pushbullet.py";
     license = licenses.mit;
   };
 }

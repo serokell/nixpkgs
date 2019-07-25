@@ -7,14 +7,15 @@ buildGoPackage rec {
   rev = "fe31429012110e6fd70f97971288bd266ba95bed";
 
   goPackagePath = "github.com/GoogleContainerTools/skaffold";
-  subPackages = ["cmd/skaffold"];
+  subPackages = [ "cmd/skaffold" ];
 
-  buildFlagsArray = let t = "${goPackagePath}/pkg/skaffold"; in  ''
-    -ldflags=
-      -X ${t}/version.version=v${version}
-      -X ${t}/version.gitCommit=${rev}
-      -X ${t}/version.buildDate=unknown
-  '';
+  buildFlagsArray = let t = "${goPackagePath}/pkg/skaffold";
+    in ''
+      -ldflags=
+        -X ${t}/version.version=v${version}
+        -X ${t}/version.gitCommit=${rev}
+        -X ${t}/version.buildDate=unknown
+    '';
 
   src = fetchFromGitHub {
     owner = "GoogleContainerTools";
@@ -25,7 +26,7 @@ buildGoPackage rec {
 
   meta = {
     description = "Easy and Repeatable Kubernetes Development";
-    homepage = https://github.com/GoogleContainerTools/skaffold;
+    homepage = "https://github.com/GoogleContainerTools/skaffold";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ vdemeester ];
   };

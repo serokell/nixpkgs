@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, effects
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, effects, lib }:
+build-idris-package {
   name = "eternal";
   version = "2018-07-02";
 
@@ -24,8 +20,9 @@ build-idris-package  {
   '';
 
   meta = {
-    description = "Infix pipe operators and some Nat, Float, String conversions";
-    homepage = https://github.com/Heather/Control.Eternal.Idris;
+    description =
+      "Infix pipe operators and some Nat, Float, String conversions";
+    homepage = "https://github.com/Heather/Control.Eternal.Idris";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, hypothesis
-, pycodestyle
-, pyflakes
-, pytest
-, pkgs
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, hypothesis, pycodestyle, pyflakes, pytest, pkgs
 }:
 
 buildPythonPackage rec {
@@ -20,19 +12,27 @@ buildPythonPackage rec {
 
   # fix tests with updated pycodestyle
   patches = fetchpatch {
-    url = https://github.com/quodlibet/mutagen/commit/0ee86ef9d7e06639a388d0638732810b79998608.patch;
+    url =
+      "https://github.com/quodlibet/mutagen/commit/0ee86ef9d7e06639a388d0638732810b79998608.patch";
     sha256 = "1bj3mpbv7krh5m1mvfl0z18s8wdxb1949zcnkcqxp2xl5fzsi288";
   };
 
   checkInputs = [
-    pkgs.faad2 pkgs.flac pkgs.vorbis-tools pkgs.liboggz
-    pkgs.glibcLocales pycodestyle pyflakes pytest hypothesis
+    pkgs.faad2
+    pkgs.flac
+    pkgs.vorbis-tools
+    pkgs.liboggz
+    pkgs.glibcLocales
+    pycodestyle
+    pyflakes
+    pytest
+    hypothesis
   ];
   LC_ALL = "en_US.UTF-8";
 
   meta = with lib; {
     description = "Python multimedia tagging library";
-    homepage = https://mutagen.readthedocs.io/;
+    homepage = "https://mutagen.readthedocs.io/";
     license = licenses.lgpl2Plus;
   };
 }

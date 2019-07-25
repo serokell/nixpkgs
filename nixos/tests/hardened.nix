@@ -1,14 +1,17 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "hardened";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ joachifm ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ joachifm ]; };
 
-  machine =
-    { lib, pkgs, config, ... }:
-    with lib;
-    { users.users.alice = { isNormalUser = true; extraGroups = [ "proc" ]; };
-      users.users.sybil = { isNormalUser = true; group = "wheel"; };
+  machine = { lib, pkgs, config, ... }:
+    with lib; {
+      users.users.alice = {
+        isNormalUser = true;
+        extraGroups = [ "proc" ];
+      };
+      users.users.sybil = {
+        isNormalUser = true;
+        group = "wheel";
+      };
       imports = [ ../modules/profiles/hardened.nix ];
       nix.useSandbox = false;
       virtualisation.emptyDiskImages = [ 4096 ];
@@ -26,22 +29,20 @@ import ./make-test.nix ({ pkgs, ...} : {
       boot.kernelModules = [ "wireguard" ];
     };
 
-  testScript =
-    let
-      hardened-malloc-tests = pkgs.stdenv.mkDerivation rec {
-        name = "hardened-malloc-tests-${pkgs.graphene-hardened-malloc.version}";
-        src = pkgs.graphene-hardened-malloc.src;
-        buildPhase = ''
-          cd test/simple-memory-corruption
-          make -j4
-        '';
+  testScript = let
+    hardened-malloc-tests = pkgs.stdenv.mkDerivation rec {
+      name = "hardened-malloc-tests-${pkgs.graphene-hardened-malloc.version}";
+      src = pkgs.graphene-hardened-malloc.src;
+      buildPhase = ''
+        cd test/simple-memory-corruption
+        make -j4
+      '';
 
-        installPhase = ''
-          find . -type f -executable -exec install -Dt $out/bin '{}' +
-        '';
-      };
-    in
-    ''
+      installPhase = ''
+        find . -type f -executable -exec install -Dt $out/bin '{}' +
+      '';
+    };
+    in ''
       $machine->waitForUnit("multi-user.target");
 
       subtest "apparmor-loaded", sub {

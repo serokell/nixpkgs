@@ -1,6 +1,6 @@
-{ mkXfceDerivation, automakeAddFlags, exo, garcon, gtk3
-, libnotify ? null, libxfce4ui, libxfce4util, libxklavier ? null
-, upower ? null, xfconf, xf86inputlibinput ? null }:
+{ mkXfceDerivation, automakeAddFlags, exo, garcon, gtk3, libnotify ?
+  null, libxfce4ui, libxfce4util, libxklavier ? null, upower ?
+    null, xfconf, xf86inputlibinput ? null }:
 
 mkXfceDerivation rec {
   category = "xfce";
@@ -32,8 +32,5 @@ mkXfceDerivation rec {
     xf86inputlibinput
   ];
 
-  configureFlags = [
-    "--enable-pluggable-dialogs"
-    "--enable-sound-settings"
-  ];
+  configureFlags = [ "--enable-pluggable-dialogs" "--enable-sound-settings" ];
 }

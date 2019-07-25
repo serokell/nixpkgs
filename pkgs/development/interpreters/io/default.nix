@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, zlib, sqlite, gmp, libffi, cairo,
-  ncurses, freetype, libGLU_combined, libpng, libtiff, libjpeg, readline, libsndfile,
-  libxml2, freeglut, libsamplerate, pcre, libevent, libedit, yajl,
-  python3, openssl, glfw, pkgconfig, libpthreadstubs, libXdmcp, libmemcached
+{ stdenv, fetchFromGitHub, cmake, zlib, sqlite, gmp, libffi, cairo, ncurses, freetype, libGLU_combined, libpng, libtiff, libjpeg, readline, libsndfile, libxml2, freeglut, libsamplerate, pcre, libevent, libedit, yajl, python3, openssl, glfw, pkgconfig, libpthreadstubs, libXdmcp, libmemcached
 }:
 
 stdenv.mkDerivation {
@@ -13,16 +10,36 @@ stdenv.mkDerivation {
     sha256 = "0ll2kd72zy8vf29sy0nnx3awk7nywpwpv21rvninjjaqkygrc0qw";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
-    zlib sqlite gmp libffi cairo ncurses freetype
-    libGLU_combined libpng libtiff libjpeg readline libsndfile libxml2
-    freeglut libsamplerate pcre libevent libedit yajl
-    pkgconfig glfw openssl libpthreadstubs libXdmcp
-    libmemcached python3
+    zlib
+    sqlite
+    gmp
+    libffi
+    cairo
+    ncurses
+    freetype
+    libGLU_combined
+    libpng
+    libtiff
+    libjpeg
+    readline
+    libsndfile
+    libxml2
+    freeglut
+    libsamplerate
+    pcre
+    libevent
+    libedit
+    yajl
+    pkgconfig
+    glfw
+    openssl
+    libpthreadstubs
+    libXdmcp
+    libmemcached
+    python3
   ];
 
   preConfigure = ''
@@ -39,14 +56,10 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Io programming language";
-    homepage = http://iolanguage.org/;
+    homepage = "http://iolanguage.org/";
     license = licenses.bsd3;
 
-    maintainers = with maintainers; [
-      raskin
-      z77z
-      vrthra
-    ];
+    maintainers = with maintainers; [ raskin z77z vrthra ];
     platforms = [ "x86_64-linux" ];
   };
 }

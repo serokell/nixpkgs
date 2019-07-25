@@ -1,6 +1,5 @@
 { fetchurl, stdenv, nss, nspr, pkgconfig }:
 
-
 stdenv.mkDerivation rec {
   name = "liboauth-1.0.3";
 
@@ -22,9 +21,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     platforms = platforms.linux;
-    description = "C library implementing the OAuth secure authentication protocol";
-    homepage = http://liboauth.sourceforge.net/;
-    repositories.git = https://github.com/x42/liboauth.git;
+    description =
+      "C library implementing the OAuth secure authentication protocol";
+    homepage = "http://liboauth.sourceforge.net/";
+    repositories.git = "https://github.com/x42/liboauth.git";
     license = licenses.mit;
   };
 

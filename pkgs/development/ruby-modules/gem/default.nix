@@ -18,82 +18,55 @@
 # Normal gem packages can be used outside of bundler; a binstub is created in
 # $out/bin.
 
-{ lib, fetchurl, fetchgit, makeWrapper, git, darwin
-, ruby, bundler
-} @ defs:
+{ lib, fetchurl, fetchgit, makeWrapper, git, darwin, ruby, bundler }@defs:
 
 lib.makeOverridable (
 
-{ name ? null
-, gemName
-, version ? null
-, type ? "gem"
-, document ? [] # e.g. [ "ri" "rdoc" ]
-, platform ? "ruby"
-, ruby ? defs.ruby
-, stdenv ? ruby.stdenv
-, namePrefix ? (let
-    rubyName = builtins.parseDrvName ruby.name;
-  in "${rubyName.name}${rubyName.version}-")
-, buildInputs ? []
-, meta ? {}
-, patches ? []
-, gemPath ? []
-, dontStrip ? true
-# Assume we don't have to build unless strictly necessary (e.g. the source is a
-# git checkout).
-# If you need to apply patches, make sure to set `dontBuild = false`;
-, dontBuild ? true
-, dontInstallManpages ? false
-, propagatedBuildInputs ? []
-, propagatedUserEnvPkgs ? []
-, buildFlags ? []
-, passthru ? {}
-, ...} @ attrs:
+{ name ? null, gemName, version ? null, type ? "gem", document ?
+  [ ] # e.g. [ "ri" "rdoc" ]
+, platform ? "ruby", ruby ? defs.ruby, stdenv ? ruby.stdenv, namePrefix ?
+  (let rubyName = builtins.parseDrvName ruby.name;
+  in "${rubyName.name}${rubyName.version}-"), buildInputs ? [ ], meta ?
+    { }, patches ? [ ], gemPath ? [ ], dontStrip ? true
+      # Assume we don't have to build unless strictly necessary (e.g. the source is a
+      # git checkout).
+      # If you need to apply patches, make sure to set `dontBuild = false`;
+, dontBuild ? true, dontInstallManpages ? false, propagatedBuildInputs ?
+  [ ], propagatedUserEnvPkgs ? [ ], buildFlags ? [ ], passthru ? { }, ...
+}@attrs:
 
 let
-  src = attrs.src or (
-    if type == "gem" then
-      fetchurl {
-        urls = map (
-          remote: "${remote}/gems/${gemName}-${version}.gem"
-        ) (attrs.source.remotes or [ "https://rubygems.org" ]);
-        inherit (attrs.source) sha256;
-      }
-    else if type == "git" then
-      fetchgit {
-        inherit (attrs.source) url rev sha256 fetchSubmodules;
-      }
-    else if type == "url" then
-      fetchurl attrs.source
-    else
-      throw "buildRubyGem: don't know how to build a gem of type \"${type}\""
-  );
-  documentFlag =
-    if document == []
-    then "-N"
-    else "--document ${lib.concatStringsSep "," document}";
+  src = attrs.src or (if type == "gem" then
+    fetchurl {
+      urls = map (remote: "${remote}/gems/${gemName}-${version}.gem")
+        (attrs.source.remotes or [ "https://rubygems.org" ]);
+      inherit (attrs.source) sha256;
+    }
+  else if type == "git" then
+    fetchgit { inherit (attrs.source) url rev sha256 fetchSubmodules; }
+  else if type == "url" then
+    fetchurl attrs.source
+  else
+    throw ''buildRubyGem: don't know how to build a gem of type "${type}"'');
+  documentFlag = if document == [ ] then
+    "-N"
+  else
+    "--document ${lib.concatStringsSep "," document}";
 
-in
-
-stdenv.mkDerivation ((builtins.removeAttrs attrs ["source"]) // {
+in stdenv.mkDerivation ((builtins.removeAttrs attrs [ "source" ]) // {
   inherit ruby;
   inherit dontBuild;
   inherit dontStrip;
   inherit type;
 
-  buildInputs = [
-    ruby makeWrapper
-  ] ++ lib.optionals (type == "git") [ git ]
+  buildInputs = [ ruby makeWrapper ] ++ lib.optionals (type == "git") [ git ]
     ++ lib.optionals (type != "gem") [ bundler ]
-    ++ lib.optional stdenv.isDarwin darwin.libobjc
-    ++ buildInputs;
+    ++ lib.optional stdenv.isDarwin darwin.libobjc ++ buildInputs;
 
   #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
   name = attrs.name or "${namePrefix}${gemName}-${version}";
 
   inherit src;
-
 
   unpackPhase = attrs.unpackPhase or ''
     runHook preUnpack
@@ -165,60 +138,60 @@ stdenv.mkDerivation ((builtins.removeAttrs attrs ["source"]) // {
 
     echo "buildFlags: $buildFlags"
 
-    ${lib.optionalString (type ==  "url") ''
-    ruby ${./nix-bundle-install.rb} \
-      "path" \
-      '${gemName}' \
-      '${version}' \
-      '${lib.escapeShellArgs buildFlags}'
+    ${lib.optionalString (type == "url") ''
+      ruby ${./nix-bundle-install.rb} \
+        "path" \
+        '${gemName}' \
+        '${version}' \
+        '${lib.escapeShellArgs buildFlags}'
     ''}
     ${lib.optionalString (type == "git") ''
-    ruby ${./nix-bundle-install.rb} \
-      "git" \
-      '${gemName}' \
-      '${version}' \
-      '${lib.escapeShellArgs buildFlags}' \
-      '${attrs.source.url}' \
-      '.' \
-      '${attrs.source.rev}'
+      ruby ${./nix-bundle-install.rb} \
+        "git" \
+        '${gemName}' \
+        '${version}' \
+        '${lib.escapeShellArgs buildFlags}' \
+        '${attrs.source.url}' \
+        '.' \
+        '${attrs.source.rev}'
     ''}
 
     ${lib.optionalString (type == "gem") ''
-    if [[ -z "$gempkg" ]]; then
-      echo "failure: \$gempkg path unspecified" 1>&2
-      exit 1
-    elif [[ ! -f "$gempkg" ]]; then
-      echo "failure: \$gempkg path invalid" 1>&2
-      exit 1
-    fi
+      if [[ -z "$gempkg" ]]; then
+        echo "failure: \$gempkg path unspecified" 1>&2
+        exit 1
+      elif [[ ! -f "$gempkg" ]]; then
+        echo "failure: \$gempkg path invalid" 1>&2
+        exit 1
+      fi
 
-    gem install \
-      --local \
-      --force \
-      --http-proxy 'http://nodtd.invalid' \
-      --ignore-dependencies \
-      --install-dir "$GEM_HOME" \
-      --build-root '/' \
-      --backtrace \
-      --no-env-shebang \
-      ${documentFlag} \
-      $gempkg $gemFlags -- $buildFlags
+      gem install \
+        --local \
+        --force \
+        --http-proxy 'http://nodtd.invalid' \
+        --ignore-dependencies \
+        --install-dir "$GEM_HOME" \
+        --build-root '/' \
+        --backtrace \
+        --no-env-shebang \
+        ${documentFlag} \
+        $gempkg $gemFlags -- $buildFlags
 
-    # looks like useless files which break build repeatability and consume space
-    rm -fv $out/${ruby.gemPath}/doc/*/*/created.rid || true
-    rm -fv $out/${ruby.gemPath}/gems/*/ext/*/mkmf.log || true
+      # looks like useless files which break build repeatability and consume space
+      rm -fv $out/${ruby.gemPath}/doc/*/*/created.rid || true
+      rm -fv $out/${ruby.gemPath}/gems/*/ext/*/mkmf.log || true
 
-    # write out metadata and binstubs
-    spec=$(echo $out/${ruby.gemPath}/specifications/*.gemspec)
-    ruby ${./gem-post-build.rb} "$spec"
+      # write out metadata and binstubs
+      spec=$(echo $out/${ruby.gemPath}/specifications/*.gemspec)
+      ruby ${./gem-post-build.rb} "$spec"
     ''}
 
     ${lib.optionalString (!dontInstallManpages) ''
-    for section in {1..9}; do
-      mandir="$out/share/man/man$section"
-      find $out/lib \( -wholename "*/man/*.$section" -o -wholename "*/man/man$section/*.$section" \) \
-        -execdir mkdir -p $mandir \; -execdir cp '{}' $mandir \;
-    done
+      for section in {1..9}; do
+        mandir="$out/share/man/man$section"
+        find $out/lib \( -wholename "*/man/*.$section" -o -wholename "*/man/man$section/*.$section" \) \
+          -execdir mkdir -p $mandir \; -execdir cp '{}' $mandir \;
+      done
     ''}
 
     runHook postInstall

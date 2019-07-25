@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, libpcap, bison, flex, cyrus_sasl, tcp_wrappers, pkgconfig, perl }:
+{ stdenv, fetchurl, libpcap, bison, flex, cyrus_sasl, tcp_wrappers, pkgconfig, perl
+}:
 
 stdenv.mkDerivation rec {
   pname = "argus-clients";
@@ -15,7 +16,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $file \
         --subst-var-by PERLBIN ${perl}/bin/perl
     done
-    '';
+  '';
 
   configureFlags = [ "--with-perl=${perl}/bin/perl" ];
 
@@ -24,17 +25,18 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Clients for ARGUS";
-    longDescription = ''Clients for Audit Record Generation and
-    Utilization System (ARGUS). The Argus Project is focused on developing all
-    aspects of large scale network situtational awareness derived from
-    network activity audit. Argus, itself, is next-generation network
-    flow technology, processing packets, either on the wire or in
-    captures, into advanced network flow data. The data, its models,
-    formats, and attributes are designed to support Network
-    Operations, Performance and Security Management. If you need to
-    know what is going on in your network, right now or historically,
-    you will find Argus a useful tool. '';
-    homepage = http://qosient.com/argus;
+    longDescription = ''
+      Clients for Audit Record Generation and
+          Utilization System (ARGUS). The Argus Project is focused on developing all
+          aspects of large scale network situtational awareness derived from
+          network activity audit. Argus, itself, is next-generation network
+          flow technology, processing packets, either on the wire or in
+          captures, into advanced network flow data. The data, its models,
+          formats, and attributes are designed to support Network
+          Operations, Performance and Security Management. If you need to
+          know what is going on in your network, right now or historically,
+          you will find Argus a useful tool. '';
+    homepage = "http://qosient.com/argus";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;

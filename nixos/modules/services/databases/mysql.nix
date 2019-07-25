@@ -8,15 +8,11 @@ let
 
   mysql = cfg.package;
 
-  isMariaDB =
-    let
-      pName = _p: (builtins.parseDrvName (_p.name)).name;
+  isMariaDB = let pName = _p: (builtins.parseDrvName (_p.name)).name;
     in pName mysql == pName pkgs.mariadb;
-  isMysqlAtLeast57 =
-    let
-      pName = _p: (builtins.parseDrvName (_p.name)).name;
+  isMysqlAtLeast57 = let pName = _p: (builtins.parseDrvName (_p.name)).name;
     in (pName mysql == pName pkgs.mysql57)
-       && ((builtins.compareVersions mysql.version "5.7") >= 0);
+    && ((builtins.compareVersions mysql.version "5.7") >= 0);
 
   mysqldOptions =
     "--user=${cfg.user} --datadir=${cfg.dataDir} --basedir=${mysql}";
@@ -25,9 +21,7 @@ let
   installOptions =
     "${mysqldOptions} ${lib.optionalString isMysqlAtLeast57 "--insecure"}";
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -44,14 +38,16 @@ in
       package = mkOption {
         type = types.package;
         example = literalExample "pkgs.mysql";
-        description = "Which MySQL derivation to use. MariaDB packages are supported too.";
+        description =
+          "Which MySQL derivation to use. MariaDB packages are supported too.";
       };
 
       bind = mkOption {
         type = types.nullOr types.str;
         default = null;
         example = literalExample "0.0.0.0";
-        description = "Address to bind to. The default is to bind to all addresses";
+        description =
+          "Address to bind to. The default is to bind to all addresses";
       };
 
       port = mkOption {
@@ -108,13 +104,16 @@ in
             };
           };
         });
-        default = [];
+        default = [ ];
         description = ''
           List of database names and their initial schemas that should be used to create databases on the first startup
           of MySQL. The schema attribute is optional: If not specified, an empty database is created.
         '';
         example = [
-          { name = "foodatabase"; schema = literalExample "./foodatabase.sql"; }
+          {
+            name = "foodatabase";
+            schema = literalExample "./foodatabase.sql";
+          }
           { name = "bardatabase"; }
         ];
       };
@@ -122,22 +121,20 @@ in
       initialScript = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database";
+        description =
+          "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database";
       };
 
       ensureDatabases = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           Ensures that the specified databases exist.
           This option will never delete existing databases, especially not when the value of this
           option is changed. This means that databases created once through this option or
           otherwise have to be removed manually.
         '';
-        example = [
-          "nextcloud"
-          "matomo"
-        ];
+        example = [ "nextcloud" "matomo" ];
       };
 
       ensureUsers = mkOption {
@@ -151,7 +148,7 @@ in
             };
             ensurePermissions = mkOption {
               type = types.attrsOf types.str;
-              default = {};
+              default = { };
               description = ''
                 Permissions to ensure for the user, specified as attribute set.
                 The attribute names specify the database and tables to grant the permissions for,
@@ -173,7 +170,7 @@ in
             };
           };
         });
-        default = [];
+        default = [ ];
         description = ''
           Ensures that the specified users exist and have at least the ensured permissions.
           The MySQL users will be identified using Unix socket authentication. This authenticates the Unix user with the
@@ -210,7 +207,8 @@ in
         serverId = mkOption {
           type = types.int;
           default = 1;
-          description = "Id of the MySQL server instance. This number must be unique for each instance";
+          description =
+            "Id of the MySQL server instance. This number must be unique for each instance";
         };
 
         masterHost = mkOption {
@@ -243,14 +241,15 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.mysql.enable {
 
-    services.mysql.dataDir =
-      mkDefault (if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/mysql"
-                 else "/var/mysql");
+    services.mysql.dataDir = mkDefault
+      (if versionAtLeast config.system.stateVersion "17.09" then
+        "/var/lib/mysql"
+      else
+        "/var/mysql");
 
     users.users.mysql = {
       description = "MySQL server user";
@@ -260,30 +259,29 @@ in
 
     users.groups.mysql.gid = config.ids.gids.mysql;
 
-    environment.systemPackages = [mysql];
+    environment.systemPackages = [ mysql ];
 
-    environment.etc."my.cnf".text =
-    ''
+    environment.etc."my.cnf".text = ''
       [mysqld]
       port = ${toString cfg.port}
       datadir = ${cfg.dataDir}
-      ${optionalString (cfg.bind != null) "bind-address = ${cfg.bind}" }
-      ${optionalString (cfg.replication.role == "master" || cfg.replication.role == "slave") "log-bin=mysql-bin"}
-      ${optionalString (cfg.replication.role == "master" || cfg.replication.role == "slave") "server-id = ${toString cfg.replication.serverId}"}
-      ${optionalString (cfg.ensureUsers != [])
-      ''
+      ${optionalString (cfg.bind != null) "bind-address = ${cfg.bind}"}
+      ${optionalString
+      (cfg.replication.role == "master" || cfg.replication.role == "slave")
+      "log-bin=mysql-bin"}
+      ${optionalString
+      (cfg.replication.role == "master" || cfg.replication.role == "slave")
+      "server-id = ${toString cfg.replication.serverId}"}
+      ${optionalString (cfg.ensureUsers != [ ]) ''
         plugin-load-add = auth_socket.so
       ''}
       ${cfg.extraOptions}
     '';
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0700 ${cfg.user} mysql -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} mysql -" ];
 
-    systemd.services.mysql = let
-      hasNotify = (cfg.package == pkgs.mariadb);
-    in {
+    systemd.services.mysql = let hasNotify = (cfg.package == pkgs.mariadb);
+      in {
         description = "MySQL Server";
 
         after = [ "network.target" ];
@@ -312,107 +310,119 @@ in
           RuntimeDirectory = "mysqld";
           RuntimeDirectoryMode = "0755";
           # The last two environment variables are used for starting Galera clusters
-          ExecStart = "${mysql}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} $_WSREP_NEW_CLUSTER $_WSREP_START_POSITION";
-          ExecStartPost =
-            let
-              setupScript = pkgs.writeScript "mysql-setup" ''
-                #!${pkgs.runtimeShell} -e
+          ExecStart =
+            "${mysql}/bin/mysqld --defaults-file=/etc/my.cnf ${mysqldOptions} $_WSREP_NEW_CLUSTER $_WSREP_START_POSITION";
+          ExecStartPost = let
+            setupScript = pkgs.writeScript "mysql-setup" ''
+              #!${pkgs.runtimeShell} -e
 
-                ${optionalString (!hasNotify) ''
-                  # Wait until the MySQL server is available for use
-                  count=0
-                  while [ ! -e /run/mysqld/mysqld.sock ]
-                  do
-                      if [ $count -eq 30 ]
+              ${optionalString (!hasNotify) ''
+                # Wait until the MySQL server is available for use
+                count=0
+                while [ ! -e /run/mysqld/mysqld.sock ]
+                do
+                    if [ $count -eq 30 ]
+                    then
+                        echo "Tried 30 times, giving up..."
+                        exit 1
+                    fi
+
+                    echo "MySQL daemon not yet started. Waiting for 1 second..."
+                    count=$((count++))
+                    sleep 1
+                done
+              ''}
+
+              if [ -f /tmp/mysql_init ]
+              then
+                  ${
+                concatMapStrings (database: ''
+                  # Create initial databases
+                  if ! test -e "${cfg.dataDir}/${database.name}"; then
+                      echo "Creating initial database: ${database.name}"
+                      ( echo 'create database `${database.name}`;'
+
+                        ${
+                    optionalString (database.schema != null) ''
+                      echo 'use `${database.name}`;'
+
+                      # TODO: this silently falls through if database.schema does not exist,
+                      # we should catch this somehow and exit, but can't do it here because we're in a subshell.
+                      if [ -f "${database.schema}" ]
                       then
-                          echo "Tried 30 times, giving up..."
-                          exit 1
+                          cat ${database.schema}
+                      elif [ -d "${database.schema}" ]
+                      then
+                          cat ${database.schema}/mysql-databases/*.sql
                       fi
+                    ''
+                        }
+                      ) | ${mysql}/bin/mysql -u root -N
+                  fi
+                '') cfg.initialDatabases
+                  }
 
-                      echo "MySQL daemon not yet started. Waiting for 1 second..."
-                      count=$((count++))
-                      sleep 1
-                  done
-                ''}
+                  ${
+                optionalString (cfg.replication.role == "master") ''
+                  # Set up the replication master
 
-                if [ -f /tmp/mysql_init ]
-                then
-                    ${concatMapStrings (database: ''
-                      # Create initial databases
-                      if ! test -e "${cfg.dataDir}/${database.name}"; then
-                          echo "Creating initial database: ${database.name}"
-                          ( echo 'create database `${database.name}`;'
-
-                            ${optionalString (database.schema != null) ''
-                            echo 'use `${database.name}`;'
-
-                            # TODO: this silently falls through if database.schema does not exist,
-                            # we should catch this somehow and exit, but can't do it here because we're in a subshell.
-                            if [ -f "${database.schema}" ]
-                            then
-                                cat ${database.schema}
-                            elif [ -d "${database.schema}" ]
-                            then
-                                cat ${database.schema}/mysql-databases/*.sql
-                            fi
-                            ''}
-                          ) | ${mysql}/bin/mysql -u root -N
-                      fi
-                    '') cfg.initialDatabases}
-
-                    ${optionalString (cfg.replication.role == "master")
-                      ''
-                        # Set up the replication master
-
-                        ( echo "use mysql;"
-                          echo "CREATE USER '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' IDENTIFIED WITH mysql_native_password;"
-                          echo "SET PASSWORD FOR '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' = PASSWORD('${cfg.replication.masterPassword}');"
-                          echo "GRANT REPLICATION SLAVE ON *.* TO '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}';"
-                        ) | ${mysql}/bin/mysql -u root -N
-                      ''}
-
-                    ${optionalString (cfg.replication.role == "slave")
-                      ''
-                        # Set up the replication slave
-
-                        ( echo "stop slave;"
-                          echo "change master to master_host='${cfg.replication.masterHost}', master_user='${cfg.replication.masterUser}', master_password='${cfg.replication.masterPassword}';"
-                          echo "start slave;"
-                        ) | ${mysql}/bin/mysql -u root -N
-                      ''}
-
-                    ${optionalString (cfg.initialScript != null)
-                      ''
-                        # Execute initial script
-                        # using toString to avoid copying the file to nix store if given as path instead of string,
-                        # as it might contain credentials
-                        cat ${toString cfg.initialScript} | ${mysql}/bin/mysql -u root -N
-                      ''}
-
-                    rm /tmp/mysql_init
-                fi
-
-                ${optionalString (cfg.ensureDatabases != []) ''
-                  (
-                  ${concatMapStrings (database: ''
-                    echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
-                  '') cfg.ensureDatabases}
+                  ( echo "use mysql;"
+                    echo "CREATE USER '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' IDENTIFIED WITH mysql_native_password;"
+                    echo "SET PASSWORD FOR '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}' = PASSWORD('${cfg.replication.masterPassword}');"
+                    echo "GRANT REPLICATION SLAVE ON *.* TO '${cfg.replication.masterUser}'@'${cfg.replication.slaveHost}';"
                   ) | ${mysql}/bin/mysql -u root -N
-                ''}
+                ''
+                  }
 
-                ${concatMapStrings (user:
-                  ''
-                    ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${if isMariaDB then "unix_socket" else "auth_socket"};"
-                      ${concatStringsSep "\n" (mapAttrsToList (database: permission: ''
-                        echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                      '') user.ensurePermissions)}
-                    ) | ${mysql}/bin/mysql -u root -N
-                  '') cfg.ensureUsers}
-              '';
-            in
-              # ensureDatbases & ensureUsers depends on this script being run as root
-              # when the user has secured their mysql install
-              "+${setupScript}";
+                  ${
+                optionalString (cfg.replication.role == "slave") ''
+                  # Set up the replication slave
+
+                  ( echo "stop slave;"
+                    echo "change master to master_host='${cfg.replication.masterHost}', master_user='${cfg.replication.masterUser}', master_password='${cfg.replication.masterPassword}';"
+                    echo "start slave;"
+                  ) | ${mysql}/bin/mysql -u root -N
+                ''
+                  }
+
+                  ${
+                optionalString (cfg.initialScript != null) ''
+                  # Execute initial script
+                  # using toString to avoid copying the file to nix store if given as path instead of string,
+                  # as it might contain credentials
+                  cat ${
+                    toString cfg.initialScript
+                  } | ${mysql}/bin/mysql -u root -N
+                ''
+                  }
+
+                  rm /tmp/mysql_init
+              fi
+
+              ${optionalString (cfg.ensureDatabases != [ ]) ''
+                (
+                ${concatMapStrings (database: ''
+                  echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
+                '') cfg.ensureDatabases}
+                ) | ${mysql}/bin/mysql -u root -N
+              ''}
+
+              ${concatMapStrings (user: ''
+                ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
+                  if isMariaDB then "unix_socket" else "auth_socket"
+                };"
+                  ${
+                  concatStringsSep "\n" (mapAttrsToList
+                  (database: permission: ''
+                    echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+                  '') user.ensurePermissions)
+                  }
+                ) | ${mysql}/bin/mysql -u root -N
+              '') cfg.ensureUsers}
+            '';
+            # ensureDatbases & ensureUsers depends on this script being run as root
+            # when the user has secured their mysql install
+            in "+${setupScript}";
         };
       };
 

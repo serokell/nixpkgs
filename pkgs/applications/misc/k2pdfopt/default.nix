@@ -1,13 +1,9 @@
-{ stdenv, fetchzip, fetchurl, fetchpatch, cmake, pkgconfig
-, zlib, libpng
-, enableGSL ? true, gsl
-, enableGhostScript ? true, ghostscript
-, enableMuPDF ? true, mupdf
-, enableJPEG2K ? true, jasper
-, enableDJVU ? true, djvulibre
-, enableGOCR ? false, gocr # Disabled by default due to crashes
-, enableTesseract ? true, leptonica, tesseract4
-}:
+{ stdenv, fetchzip, fetchurl, fetchpatch, cmake, pkgconfig, zlib, libpng, enableGSL ?
+  true, gsl, enableGhostScript ? true, ghostscript, enableMuPDF ?
+    true, mupdf, enableJPEG2K ? true, jasper, enableDJVU ?
+      true, djvulibre, enableGOCR ?
+        false, gocr # Disabled by default due to crashes
+, enableTesseract ? true, leptonica, tesseract4 }:
 
 with stdenv.lib;
 
@@ -34,8 +30,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs =
-  let
+  buildInputs = let
     mupdf_modded = mupdf.overrideAttrs (attrs: {
       # Excluded the pdf-*.c files, since they mostly just broke the #includes
       prePatch = ''
@@ -63,19 +58,19 @@ stdenv.mkDerivation rec {
         (fetchpatch {
           # CVE-2018-7186
           url = "https://github.com/DanBloomberg/leptonica/commit/"
-              + "ee301cb2029db8a6289c5295daa42bba7715e99a.patch";
+            + "ee301cb2029db8a6289c5295daa42bba7715e99a.patch";
           sha256 = "0cgb7mvz2px1rg5i80wk1wxxjvzjga617d8q6j7qygkp7jm6495d";
         })
         (fetchpatch {
           # CVE-2018-7247
           url = "https://github.com/DanBloomberg/leptonica/commit/"
-              + "c1079bb8e77cdd426759e466729917ca37a3ed9f.patch";
+            + "c1079bb8e77cdd426759e466729917ca37a3ed9f.patch";
           sha256 = "1z4iac5gwqggh7aa8cvyp6nl9fwd1v7wif26caxc9y5qr3jj34qf";
         })
         (fetchpatch {
           # CVE-2018-7440
           url = "https://github.com/DanBloomberg/leptonica/commit/"
-              + "49ecb6c2dfd6ed5078c62f4a8eeff03e3beced3b.patch";
+            + "49ecb6c2dfd6ed5078c62f4a8eeff03e3beced3b.patch";
           sha256 = "1hjmva98iaw9xj7prg7aimykyayikcwnk4hk0380007hqb35lqmy";
         })
       ];
@@ -99,31 +94,26 @@ stdenv.mkDerivation rec {
         patches = [ ./tesseract.patch ];
       });
     };
-  in
-    [ zlib libpng ] ++
-    optional enableGSL gsl ++
-    optional enableGhostScript ghostscript ++
-    optional enableMuPDF mupdf_modded ++
-    optional enableJPEG2K jasper ++
-    optional enableDJVU djvulibre ++
-    optional enableGOCR gocr ++
-    optionals enableTesseract [ leptonica_modded tesseract_modded ];
+    in [ zlib libpng ] ++ optional enableGSL gsl
+    ++ optional enableGhostScript ghostscript
+    ++ optional enableMuPDF mupdf_modded ++ optional enableJPEG2K jasper
+    ++ optional enableDJVU djvulibre ++ optional enableGOCR gocr
+    ++ optionals enableTesseract [ leptonica_modded tesseract_modded ];
 
   dontUseCmakeBuildDir = true;
 
   cmakeFlags = [ "-DCMAKE_C_FLAGS=-I${src}/include_mod" ];
 
-  NIX_LDFLAGS = [
-    "-lpthread"
-  ];
+  NIX_LDFLAGS = [ "-lpthread" ];
 
   installPhase = ''
     install -D -m 755 k2pdfopt $out/bin/k2pdfopt
   '';
 
   meta = with stdenv.lib; {
-    description = "Optimizes PDF/DJVU files for mobile e-readers (e.g. the Kindle) and smartphones";
-    homepage = http://www.willus.com/k2pdfopt;
+    description =
+      "Optimizes PDF/DJVU files for mobile e-readers (e.g. the Kindle) and smartphones";
+    homepage = "http://www.willus.com/k2pdfopt";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ bosu danielfullmer ];

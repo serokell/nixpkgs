@@ -1,9 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake
-, airspy, soapysdr
-} :
+{ stdenv, fetchFromGitHub, cmake, airspy, soapysdr }:
 
-let
-  version = "0.1.2";
+let version = "0.1.2";
 
 in stdenv.mkDerivation {
   name = "soapyairspy-${version}";
@@ -21,7 +18,7 @@ in stdenv.mkDerivation {
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pothosware/SoapyAirspy;
+    homepage = "https://github.com/pothosware/SoapyAirspy";
     description = "SoapySDR plugin for Airspy devices";
     license = licenses.mit;
     maintainers = with maintainers; [ markuskowa ];

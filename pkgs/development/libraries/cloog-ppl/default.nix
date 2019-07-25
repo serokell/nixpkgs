@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     '';
 
     # CLooG-PPL is actually a port of GLooG from PolyLib to PPL.
-    homepage = http://www.cloog.org/;
+    homepage = "http://www.cloog.org/";
 
     license = stdenv.lib.licenses.gpl2Plus;
 
@@ -63,7 +63,6 @@ stdenv.mkDerivation rec {
        with preprocessed source if appropriate.
        See <URL:http://cygwin.com/problems.html> for instructions.
        make[3]: *** [Box.lo] Error 1
-
     */
     platforms = stdenv.lib.platforms.unix; # Once had cygwin problems
   };

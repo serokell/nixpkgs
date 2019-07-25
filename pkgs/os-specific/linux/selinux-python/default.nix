@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, python3
-, libselinux, libsemanage, libsepol, setools }:
+{ stdenv, fetchurl, python3, libselinux, libsemanage, libsepol, setools }:
 
 # this is python3 only because setools only supports python3
 
@@ -10,7 +9,8 @@ stdenv.mkDerivation rec {
   name = "selinux-python-${version}";
   version = "2.7";
   se_release = "20170804";
-  se_url = "https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases";
+  se_url =
+    "https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases";
 
   src = fetchurl {
     url = "${se_url}/${se_release}/selinux-python-${version}.tar.gz";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "SELinux policy core utilities written in Python";
     license = licenses.gpl2;
-    homepage = https://selinuxproject.org;
+    homepage = "https://selinuxproject.org";
     platforms = platforms.linux;
   };
 }

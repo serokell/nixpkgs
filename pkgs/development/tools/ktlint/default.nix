@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.34.0";
 
   src = fetchurl {
-    url = "https://github.com/shyiko/ktlint/releases/download/${version}/ktlint";
+    url =
+      "https://github.com/shyiko/ktlint/releases/download/${version}/ktlint";
     sha256 = "1mry999aqmbljp2ybkgf9hps8z4aa254b1bsivi559gzsvdkmqh7";
   };
 
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An anti-bikeshedding Kotlin linter with built-in formatter";
-    homepage = https://ktlint.github.io/;
+    homepage = "https://ktlint.github.io/";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ tadfisher ];

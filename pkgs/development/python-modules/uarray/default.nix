@@ -1,17 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, matchpy
-, numpy
-, astunparse
-, typing-extensions
-, black
-, pytest
-, pytestcov
-, numba
-, nbval
-, python
-, isPy37
+{ lib, buildPythonPackage, fetchPypi, matchpy, numpy, astunparse, typing-extensions, black, pytest, pytestcov, numba, nbval, python, isPy37
 }:
 
 buildPythonPackage rec {
@@ -37,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Universal array library";
-    homepage = https://github.com/Quansight-Labs/uarray;
+    homepage = "https://github.com/Quansight-Labs/uarray";
     license = licenses.bsd0;
     maintainers = [ maintainers.costrouc ];
   };

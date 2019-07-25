@@ -6,35 +6,31 @@ with stdenv.lib;
 assert versionAtLeast kernel.version "3.2.0";
 
 let
-  bits =
-  if stdenv.is64bit then "64"
-  else "32";
+  bits = if stdenv.is64bit then "64" else "32";
 
   libpath = makeLibraryPath [ stdenv.cc.cc stdenv.glibc alsaLib ];
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "mwprocapture-1.2.${version}-${kernel.version}";
   version = "4054";
 
   src = fetchurl {
-    url = "http://www.magewell.com/files/drivers/ProCaptureForLinux_${version}.tar.gz";
+    url =
+      "http://www.magewell.com/files/drivers/ProCaptureForLinux_${version}.tar.gz";
     sha256 = "0ylx75jcwlqds8w6lm11nxdlzxvy7xlz4rka2k5d6gmqa5fv19c2";
   };
 
   nativeBuildInputs = [ kernel.moduleBuildDependencies ];
 
-  preConfigure =
-  ''
+  preConfigure = ''
     cd ./src
     export INSTALL_MOD_PATH="$out"
   '';
 
   hardeningDisable = [ "pic" "format" ];
 
-  makeFlags = [
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   postInstall = ''
     cd ../
@@ -58,7 +54,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.magewell.com/;
+    homepage = "http://www.magewell.com/";
     description = "Linux driver for the Magewell Pro Capture family";
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ MP2E ];

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, gnome3, gtk3, gobject-introspection, desktop-file-utils, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, gnome3, gtk3, gobject-introspection, desktop-file-utils, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "hashit";
@@ -22,12 +23,8 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    pantheon.elementary-icon-theme
-    gnome3.libgee
-    pantheon.granite
-    gtk3
-  ];
+  buildInputs =
+    [ pantheon.elementary-icon-theme gnome3.libgee pantheon.granite gtk3 ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -36,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A simple app for checking usual checksums";
-    homepage = https://github.com/artemanufrij/hashit;
+    homepage = "https://github.com/artemanufrij/hashit";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ worldofpeace ];
     platforms = platforms.linux;

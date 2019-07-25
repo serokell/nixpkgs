@@ -1,6 +1,4 @@
-{ stdenv, fetchurl
-, pkgconfig, libtool
-, libX11, libXt, libXpm }:
+{ stdenv, fetchurl, pkgconfig, libtool, libX11, libXt, libXpm }:
 
 stdenv.mkDerivation rec {
   name = "rxvt-${version}";
@@ -19,8 +17,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://rxvt.sourceforge.net/;
-    description = "Colour vt102 terminal emulator with less features and lower memory consumption";
+    homepage = "http://rxvt.sourceforge.net/";
+    description =
+      "Colour vt102 terminal emulator with less features and lower memory consumption";
     longDescription = ''
       rxvt (acronym for our extended virtual terminal) is a terminal
       emulator for the X Window System, originally written by Rob Nation

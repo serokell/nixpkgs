@@ -17,7 +17,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "PostgreSQL database adapter for the Python programming language";
+    description =
+      "PostgreSQL database adapter for the Python programming language";
     license = with licenses; [ gpl2 zpl20 ];
   };
 }

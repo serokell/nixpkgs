@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, py, pytest }:
+{ stdenv, buildPythonPackage, fetchPypi, py, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-raisesregexp";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Simple pytest plugin to look for regex in Exceptions";
-    homepage = https://github.com/Walkman/pytest_raisesregexp;
+    homepage = "https://github.com/Walkman/pytest_raisesregexp";
     license = with licenses; [ mit ];
   };
 }

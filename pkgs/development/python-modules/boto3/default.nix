@@ -1,18 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, botocore
-, jmespath
-, s3transfer
-, futures
-, docutils
-, nose
-, mock
-, isPy3k
+{ lib, buildPythonPackage, fetchPypi, botocore, jmespath, s3transfer, futures, docutils, nose, mock, isPy3k
 }:
 
 buildPythonPackage rec {
-  pname =  "boto3";
+  pname = "boto3";
   version = "1.9.160"; # N.B: if you change this, change botocore too
 
   src = fetchPypi {
@@ -20,7 +10,8 @@ buildPythonPackage rec {
     sha256 = "1qxhdmv58k2ipk47fbnpdg6jmbp7dca86s6c6gdm3d79aw17391f";
   };
 
-  propagatedBuildInputs = [ botocore jmespath s3transfer ] ++ lib.optionals (!isPy3k) [ futures ];
+  propagatedBuildInputs = [ botocore jmespath s3transfer ]
+    ++ lib.optionals (!isPy3k) [ futures ];
   checkInputs = [ docutils nose mock ];
 
   checkPhase = ''
@@ -36,7 +27,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = https://github.com/boto/boto3;
+    homepage = "https://github.com/boto/boto3";
     license = lib.licenses.asl20;
     description = "AWS SDK for Python";
     longDescription = ''

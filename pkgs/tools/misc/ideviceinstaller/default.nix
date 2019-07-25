@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, usbmuxd, libzip, libimobiledevice }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, usbmuxd, libzip, libimobiledevice
+}:
 
 stdenv.mkDerivation rec {
   pname = "ideviceinstaller";
@@ -13,10 +14,11 @@ stdenv.mkDerivation rec {
     sha256 = "1biwhbldvgdhn8ygp7w79ca0rivzdjpykr76pyhy7r2fa56mrwq8";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig usbmuxd libimobiledevice libzip ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig usbmuxd libimobiledevice libzip ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/libimobiledevice/ideviceinstaller;
+    homepage = "https://github.com/libimobiledevice/ideviceinstaller";
     description = "List/modify installed apps of iOS devices";
     longDescription = ''
       ideviceinstaller is a tool to interact with the installation_proxy

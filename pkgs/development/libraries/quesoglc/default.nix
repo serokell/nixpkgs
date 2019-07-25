@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, libGLU_combined, glew, freetype, fontconfig, fribidi, libX11 }:
+{ stdenv, fetchurl, libGLU_combined, glew, freetype, fontconfig, fribidi, libX11
+}:
 stdenv.mkDerivation rec {
   pname = "quesoglc";
   version = "0.7.2";
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
       provides Unicode support and is designed to be easily ported to any
       platform that supports both FreeType and the OpenGL API.
     '';
-    homepage = http://quesoglc.sourceforge.net/;
+    homepage = "http://quesoglc.sourceforge.net/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ astsmtl ];
     platforms = platforms.linux;

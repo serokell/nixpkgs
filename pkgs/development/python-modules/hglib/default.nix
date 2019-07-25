@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll, python, nose, mercurial }:
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, python, nose, mercurial
+}:
 
 buildPythonPackage rec {
   pname = "python-hglib";

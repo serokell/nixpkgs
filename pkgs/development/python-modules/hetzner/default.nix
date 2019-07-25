@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "hetzner";

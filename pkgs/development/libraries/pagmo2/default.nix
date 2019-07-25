@@ -1,21 +1,14 @@
-{ fetchFromGitHub
-, stdenv
-, cmake
-, eigen
-, nlopt
-, ipopt
-, boost
-}:
+{ fetchFromGitHub, stdenv, cmake, eigen, nlopt, ipopt, boost }:
 
 stdenv.mkDerivation rec {
   name = "pagmo2-${version}";
   version = "2.9";
 
   src = fetchFromGitHub {
-     owner = "esa";
-     repo = "pagmo2";
-     rev = "v${version}";
-     sha256 = "0al2i59m5qr83wz5n5408zvys0b3mc40rszf0l5b9a0gp1axj400";
+    owner = "esa";
+    repo = "pagmo2";
+    rev = "v${version}";
+    sha256 = "0al2i59m5qr83wz5n5408zvys0b3mc40rszf0l5b9a0gp1axj400";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -34,7 +27,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://esa.github.io/pagmo2/;
+    homepage = "https://esa.github.io/pagmo2/";
     description = "Scientific library for massively parallel optimization";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.costrouc ];

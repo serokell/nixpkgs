@@ -1,11 +1,11 @@
 { lib, fetchzip }:
 
-let
-  version = "1.1";
+let version = "1.1";
 in fetchzip rec {
   name = "quattrocento-${version}";
 
-  url = "http://web.archive.org/web/20170707001804/http://www.impallari.com/media/releases/quattrocento-v${version}.zip";
+  url =
+    "http://web.archive.org/web/20170707001804/http://www.impallari.com/media/releases/quattrocento-v${version}.zip";
 
   postFetch = ''
     mkdir -p $out/share/{fonts,doc}
@@ -16,10 +16,10 @@ in fetchzip rec {
   sha256 = "0f8l19y61y20sszn8ni8h9kgl0zy1gyzychg22z5k93ip4h7kfd0";
 
   meta = with lib; {
-    homepage = http://www.impallari.com/quattrocento/;
+    homepage = "http://www.impallari.com/quattrocento/";
     description = "A classic, elegant, sober and strong serif typeface";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [maintainers.rycee];
+    maintainers = [ maintainers.rycee ];
   };
 }

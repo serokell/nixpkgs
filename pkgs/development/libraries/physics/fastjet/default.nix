@@ -11,18 +11,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python2 ];
 
-  configureFlags = [
-    "--enable-allcxxplugins"
-    "--enable-pyext"
-    ];
+  configureFlags = [ "--enable-allcxxplugins" "--enable-pyext" ];
 
   enableParallelBuilding = true;
 
   meta = {
-    description = "A software package for jet finding in pp and e+e− collisions";
-    license     = stdenv.lib.licenses.gpl2Plus;
-    homepage    = http://fastjet.fr/;
-    platforms   = stdenv.lib.platforms.unix;
+    description =
+      "A software package for jet finding in pp and e+e− collisions";
+    license = stdenv.lib.licenses.gpl2Plus;
+    homepage = "http://fastjet.fr/";
+    platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ veprbl ];
   };
 }

@@ -1,7 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "hiredis-vip";
@@ -18,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A C client library for the Redis database";
-    homepage = https://github.com/vipshop/hiredis-vip;
+    homepage = "https://github.com/vipshop/hiredis-vip";
     license = lib.licenses.bsd3;
   };
 

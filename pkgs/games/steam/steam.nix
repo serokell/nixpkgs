@@ -1,4 +1,4 @@
-{stdenv, fetchurl, runtimeShell, traceDeps ? false}:
+{ stdenv, fetchurl, runtimeShell, traceDeps ? false }:
 
 let
   traceLog = "/tmp/steam-trace-dependencies.log";
@@ -8,7 +8,8 @@ in stdenv.mkDerivation rec {
   name = "steam-original-${version}";
 
   src = fetchurl {
-    url = "http://repo.steampowered.com/steam/pool/steam/s/steam/steam_${version}.tar.gz";
+    url =
+      "http://repo.steampowered.com/steam/pool/steam/s/steam/steam_${version}.tar.gz";
     sha256 = "17yrziy2bmzcppp5v3ycdjll250k4idak4rjakmw8gvr96whs255";
   };
 
@@ -31,7 +32,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A digital distribution platform";
-    homepage = http://store.steampowered.com/;
+    homepage = "http://store.steampowered.com/";
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ jagajaga ];
   };

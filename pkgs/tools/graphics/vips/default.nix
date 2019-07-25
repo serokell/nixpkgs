@@ -1,12 +1,5 @@
-{ stdenv, pkgconfig, glib, libxml2, expat,
-  fftw, orc, lcms, imagemagick, openexr, libtiff, libjpeg, libgsf, libexif,
-  ApplicationServices,
-  python27, libpng ? null,
-  fetchFromGitHub,
-  autoreconfHook,
-  gtk-doc,
-  gobject-introspection,
-}:
+{ stdenv, pkgconfig, glib, libxml2, expat, fftw, orc, lcms, imagemagick, openexr, libtiff, libjpeg, libgsf, libexif, ApplicationServices, python27, libpng ?
+  null, fetchFromGitHub, autoreconfHook, gtk-doc, gobject-introspection, }:
 
 stdenv.mkDerivation rec {
   name = "vips-${version}";
@@ -24,11 +17,24 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs = [ pkgconfig autoreconfHook gtk-doc gobject-introspection ];
-  buildInputs = [ glib libxml2 fftw orc lcms
-    imagemagick openexr libtiff libjpeg
-    libgsf libexif python27 libpng expat ]
-    ++ stdenv.lib.optional stdenv.isDarwin ApplicationServices;
+  nativeBuildInputs =
+    [ pkgconfig autoreconfHook gtk-doc gobject-introspection ];
+  buildInputs = [
+    glib
+    libxml2
+    fftw
+    orc
+    lcms
+    imagemagick
+    openexr
+    libtiff
+    libjpeg
+    libgsf
+    libexif
+    python27
+    libpng
+    expat
+  ] ++ stdenv.lib.optional stdenv.isDarwin ApplicationServices;
 
   autoreconfPhase = ''
     ./autogen.sh

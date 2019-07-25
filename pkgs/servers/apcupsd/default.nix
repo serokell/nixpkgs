@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, systemd, utillinux, coreutils, wall, hostname, man
-, enableCgiScripts ? true, gd
-}:
+{ stdenv, fetchurl, pkgconfig, systemd, utillinux, coreutils, wall, hostname, man, enableCgiScripts ?
+  true, gd }:
 
 assert enableCgiScripts -> gd != null;
 
@@ -40,7 +39,10 @@ stdenv.mkDerivation rec {
         --with-lock-dir=/run/lock \
         --with-pid-dir=/run \
         --enable-usb \
-        ${stdenv.lib.optionalString enableCgiScripts "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"}
+        ${
+      stdenv.lib.optionalString enableCgiScripts
+      "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"
+        }
         "
   '';
 
@@ -54,7 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Daemon for controlling APC UPSes";
-    homepage = http://www.apcupsd.com/;
+    homepage = "http://www.apcupsd.com/";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

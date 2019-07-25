@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "Syllo";
-    repo  = "nvtop";
+    repo = "nvtop";
     rev = version;
     sha256 = "1b6yz54xddip1r0k8cbqg41dpyhds18fj29bj3yf40xvysklb0f4";
   };
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A (h)top like like task monitor for NVIDIA GPUs";
-    homepage = https://github.com/Syllo/nvtop;
+    homepage = "https://github.com/Syllo/nvtop";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ willibutz ];

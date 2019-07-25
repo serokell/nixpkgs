@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.192";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/c/console-setup/bdf2psf_${version}_all.deb";
+    url =
+      "mirror://debian/pool/main/c/console-setup/bdf2psf_${version}_all.deb";
     sha256 = "0yjylbj88p2a7qi1wicicl1ivrhp52pnzy44mc1yg6l3n7zifcwn";
   };
 
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "BDF to PSF converter";
-    homepage = https://packages.debian.org/sid/bdf2psf;
+    homepage = "https://packages.debian.org/sid/bdf2psf";
     longDescription = ''
       Font converter to generate console fonts from BDF source fonts
     '';

@@ -2,15 +2,13 @@
 
 # SHA of ${version} for the tool's help output
 let rev = "7ad367535a6710802085d41e0dbb53df359b9882";
-in
-buildGoPackage rec {
+in buildGoPackage rec {
   pname = "sonobuoy";
   version = "0.15.0";
 
   goPackagePath = "github.com/heptio/sonobuoy";
 
-  buildFlagsArray =
-    let t = "${goPackagePath}";
+  buildFlagsArray = let t = "${goPackagePath}";
     in ''
       -ldflags=
         -s -X ${t}/pkg/buildinfo.Version=${version}

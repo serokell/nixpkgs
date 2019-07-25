@@ -1,13 +1,4 @@
-{ stdenv
-, fetchgit
-, pkgconfig
-, glib
-, icu
-, gobject-introspection
-, dbus-glib
-, vala
-, python3
-, autoreconfHook
+{ stdenv, fetchgit, pkgconfig, glib, icu, gobject-introspection, dbus-glib, vala, python3, autoreconfHook
 }:
 
 stdenv.mkDerivation rec {
@@ -28,28 +19,22 @@ stdenv.mkDerivation rec {
     "${src}/debian/patches/icu-pkg-config.patch"
   ];
 
-  nativeBuildInputs = [
-    pkgconfig
-    vala
-    autoreconfHook
-    gobject-introspection
-    python3
-  ];
+  nativeBuildInputs =
+    [ pkgconfig vala autoreconfHook gobject-introspection python3 ];
 
-  buildInputs = [
-    glib
-    icu
-    dbus-glib
-  ];
+  buildInputs = [ glib icu dbus-glib ];
 
   configureFlags = [
     "--disable-gtk-doc"
-    "--with-pygi-overrides-dir=${placeholder ''py''}/${python3.sitePackages}/gi/overrides"
+    "--with-pygi-overrides-dir=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides"
   ];
 
   meta = with stdenv.lib; {
-    description = "A library that uses DBus to provide objects allowing you to create Model-View-Controller type programs across DBus";
-    homepage = https://launchpad.net/dee;
+    description =
+      "A library that uses DBus to provide objects allowing you to create Model-View-Controller type programs across DBus";
+    homepage = "https://launchpad.net/dee";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar worldofpeace ];

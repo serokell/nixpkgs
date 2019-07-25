@@ -1,10 +1,9 @@
 { stdenv, fetchurl, pkgconfig, intltool, glib, libxfce4util, dbus-glib }:
 let
-  p_name  = "xfconf";
+  p_name = "xfconf";
   ver_maj = "4.12";
   ver_min = "1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -22,8 +21,9 @@ stdenv.mkDerivation rec {
   doCheck = false; # requires dbus daemon
 
   meta = with stdenv.lib; {
-    homepage = http://docs.xfce.org/xfce/xfconf/start;
-    description = "Simple client-server configuration storage and query system for Xfce";
+    homepage = "http://docs.xfce.org/xfce/xfconf/start";
+    description =
+      "Simple client-server configuration storage and query system for Xfce";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

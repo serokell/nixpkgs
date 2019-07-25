@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, lvm2, json_c
-, openssl, libuuid, pkgconfig, popt
-, enablePython ? false, python2 ? null }:
+{ stdenv, fetchurl, lvm2, json_c, openssl, libuuid, pkgconfig, popt, enablePython ?
+  false, python2 ? null }:
 
 assert enablePython -> python2 != null;
 
@@ -31,10 +30,9 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lgcc_s";
 
-  configureFlags = [
-    "--enable-cryptsetup-reencrypt"
-    "--with-crypto_backend=openssl"
-  ] ++ stdenv.lib.optional enablePython "--enable-python";
+  configureFlags =
+    [ "--enable-cryptsetup-reencrypt" "--with-crypto_backend=openssl" ]
+    ++ stdenv.lib.optional enablePython "--enable-python";
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ lvm2 json_c openssl libuuid popt ]
@@ -43,7 +41,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = {
-    homepage = https://gitlab.com/cryptsetup/cryptsetup/;
+    homepage = "https://gitlab.com/cryptsetup/cryptsetup/";
     description = "LUKS for dm-crypt";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ ];

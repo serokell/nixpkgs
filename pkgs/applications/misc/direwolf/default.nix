@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, espeak, alsaLib, perl
-, python }:
+{ stdenv, fetchFromGitHub, espeak, alsaLib, perl, python }:
 
 with stdenv.lib;
 
@@ -15,9 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "033sffjs2dz48077hc58jr4lxxs8md1fyfh4lig6ib7pyigiv1y0";
   };
 
-  buildInputs = [
-    espeak perl python
-  ] ++ (optional stdenv.isLinux alsaLib);
+  buildInputs = [ espeak perl python ] ++ (optional stdenv.isLinux alsaLib);
 
   postPatch = ''
     for i in Makefile.*; do
@@ -35,8 +31,9 @@ stdenv.mkDerivation rec {
   installFlags = [ "INSTALLDIR=$(out)" ];
 
   meta = {
-    description = "A Soundcard Packet TNC, APRS Digipeater, IGate, APRStt gateway";
-    homepage = https://github.com/wb2osz/direwolf/;
+    description =
+      "A Soundcard Packet TNC, APRS Digipeater, IGate, APRStt gateway";
+    homepage = "https://github.com/wb2osz/direwolf/";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = [ maintainers.the-kenny ];

@@ -9,9 +9,7 @@ let
     gemset = ./gemset.nix;
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "frab-2016-12-28";
 
   src = fetchFromGitHub {
@@ -40,13 +38,11 @@ stdenv.mkDerivation rec {
     ln -sf /tmp $out/share/frab/tmp
   '';
 
-  passthru = {
-    inherit env ruby;
-  };
+  passthru = { inherit env ruby; };
 
   meta = with stdenv.lib; {
     description = "Web-based conference planning and management system";
-    homepage = https://github.com/frab/frab;
+    homepage = "https://github.com/frab/frab";
     license = licenses.mit;
     broken = true; # 2018-09-08; no successful hydra build since 2018-02-14
   };

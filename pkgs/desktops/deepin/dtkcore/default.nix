@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, gsettings-qt, pythonPackages, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, gsettings-qt, pythonPackages, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -12,16 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "0yc6zx8rhzg9mj2brggcsr1jy1pzfvgqy1h305y2dwnx5haazd04";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    qmake
-    pythonPackages.wrapPython
-    deepin.setupHook
-  ];
+  nativeBuildInputs =
+    [ pkgconfig qmake pythonPackages.wrapPython deepin.setupHook ];
 
-  buildInputs = [
-    gsettings-qt
-  ];
+  buildInputs = [ gsettings-qt ];
 
   postPatch = ''
     searchHardCodedPaths  # debugging
@@ -47,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin tool kit core modules";
-    homepage = https://github.com/linuxdeepin/dtkcore;
+    homepage = "https://github.com/linuxdeepin/dtkcore";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

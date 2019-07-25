@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, nose }:
 
 buildPythonPackage rec {
   pname = "munkres";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
   checkPhase = "nosetests";
 
   meta = with stdenv.lib; {
-    homepage = http://bmc.github.com/munkres/;
+    homepage = "http://bmc.github.com/munkres/";
     description = "Munkres algorithm for the Assignment Problem";
     license = licenses.bsd3;
     maintainers = with maintainers; [ domenkozar ];

@@ -22,8 +22,10 @@ let
     user                "${cfg.user}"
     group               "${cfg.group}"
 
-    ${optionalString (cfg.network.listenAddress != "any") ''bind_to_address "${cfg.network.listenAddress}"''}
-    ${optionalString (cfg.network.port != 6600)  ''port "${toString cfg.network.port}"''}
+    ${optionalString (cfg.network.listenAddress != "any")
+    ''bind_to_address "${cfg.network.listenAddress}"''}
+    ${optionalString (cfg.network.port != 6600)
+    ''port "${toString cfg.network.port}"''}
 
     ${cfg.extraConfig}
   '';
@@ -55,9 +57,10 @@ in {
       };
 
       musicDirectory = mkOption {
-        type = with types; either path (strMatching "(http|https|nfs|smb)://.+");
+        type = with types;
+          either path (strMatching "(http|https|nfs|smb)://.+");
         default = "${cfg.dataDir}/music";
-        defaultText = ''''${dataDir}/music'';
+        defaultText = "\${dataDir}/music";
         description = ''
           The directory or NFS/SMB network share where mpd reads music from.
         '';
@@ -66,7 +69,7 @@ in {
       playlistDirectory = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/playlists";
-        defaultText = ''''${dataDir}/playlists'';
+        defaultText = "\${dataDir}/playlists";
         description = ''
           The directory where mpd stores playlists.
         '';
@@ -130,7 +133,7 @@ in {
       dbFile = mkOption {
         type = types.nullOr types.str;
         default = "${cfg.dataDir}/tag_cache";
-        defaultText = ''''${dataDir}/tag_cache'';
+        defaultText = "\${dataDir}/tag_cache";
         description = ''
           The path to MPD's database. If set to <literal>null</literal> the
           parameter is omitted from the configuration.
@@ -140,7 +143,6 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -149,7 +151,10 @@ in {
       description = "Music Player Daemon Socket";
       wantedBy = [ "sockets.target" ];
       listenStreams = [
-        "${optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"}${toString cfg.network.port}"
+        "${
+          optionalString (cfg.network.listenAddress != "any")
+          "${cfg.network.listenAddress}:"
+        }${toString cfg.network.port}"
       ];
       socketConfig = {
         Backlog = 5;

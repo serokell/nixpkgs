@@ -4,12 +4,12 @@ with lib;
 
 let
 
-  autologinArg = optionalString (config.services.mingetty.autologinUser != null) "--autologin ${config.services.mingetty.autologinUser}";
-  gettyCmd = extraArgs: "@${pkgs.utillinux}/sbin/agetty agetty --login-program ${pkgs.shadow}/bin/login ${autologinArg} ${extraArgs}";
+  autologinArg = optionalString (config.services.mingetty.autologinUser != null)
+    "--autologin ${config.services.mingetty.autologinUser}";
+  gettyCmd = extraArgs:
+    "@${pkgs.utillinux}/sbin/agetty agetty --login-program ${pkgs.shadow}/bin/login ${autologinArg} ${extraArgs}";
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -49,9 +49,9 @@ in
         default = [ 115200 57600 38400 9600 ];
         example = [ 38400 9600 ];
         description = ''
-            Bitrates to allow for agetty's listening on serial ports. Listing more
-            bitrates gives more interoperability but at the cost of long delays
-            for getting a sync on the line.
+          Bitrates to allow for agetty's listening on serial ports. Listing more
+          bitrates gives more interoperability but at the cost of long delays
+          for getting a sync on the line.
         '';
       };
 
@@ -59,59 +59,60 @@ in
 
   };
 
-
   ###### implementation
 
   config = {
     # Note: this is set here rather than up there so that changing
     # nixos.label would not rebuild manual pages
-    services.mingetty.greetingLine = mkDefault ''<<< Welcome to NixOS ${config.system.nixos.label} (\m) - \l >>>'';
+    services.mingetty.greetingLine = mkDefault
+      "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>";
 
-    systemd.services."getty@" =
-      { serviceConfig.ExecStart = [
-          "" # override upstream default with an empty ExecStart
-          (gettyCmd "--noclear --keep-baud %I 115200,38400,9600 $TERM")
-        ];
-        restartIfChanged = false;
-      };
+    systemd.services."getty@" = {
+      serviceConfig.ExecStart = [
+        "" # override upstream default with an empty ExecStart
+        (gettyCmd "--noclear --keep-baud %I 115200,38400,9600 $TERM")
+      ];
+      restartIfChanged = false;
+    };
 
-    systemd.services."serial-getty@" =
-      let speeds = concatStringsSep "," (map toString config.services.mingetty.serialSpeed); in
-      { serviceConfig.ExecStart = [
+    systemd.services."serial-getty@" = let
+      speeds = concatStringsSep ","
+        (map toString config.services.mingetty.serialSpeed);
+      in {
+        serviceConfig.ExecStart = [
           "" # override upstream default with an empty ExecStart
           (gettyCmd "%I ${speeds} $TERM")
         ];
         restartIfChanged = false;
       };
 
-    systemd.services."container-getty@" =
-      { serviceConfig.ExecStart = [
-          "" # override upstream default with an empty ExecStart
-          (gettyCmd "--noclear --keep-baud pts/%I 115200,38400,9600 $TERM")
-        ];
-        restartIfChanged = false;
-      };
+    systemd.services."container-getty@" = {
+      serviceConfig.ExecStart = [
+        "" # override upstream default with an empty ExecStart
+        (gettyCmd "--noclear --keep-baud pts/%I 115200,38400,9600 $TERM")
+      ];
+      restartIfChanged = false;
+    };
 
-    systemd.services."console-getty" =
-      { serviceConfig.ExecStart = [
-          "" # override upstream default with an empty ExecStart
-          (gettyCmd "--noclear --keep-baud console 115200,38400,9600 $TERM")
-        ];
-        serviceConfig.Restart = "always";
-        restartIfChanged = false;
-        enable = mkDefault config.boot.isContainer;
-      };
+    systemd.services."console-getty" = {
+      serviceConfig.ExecStart = [
+        "" # override upstream default with an empty ExecStart
+        (gettyCmd "--noclear --keep-baud console 115200,38400,9600 $TERM")
+      ];
+      serviceConfig.Restart = "always";
+      restartIfChanged = false;
+      enable = mkDefault config.boot.isContainer;
+    };
 
-    environment.etc = singleton
-      { # Friendly greeting on the virtual consoles.
-        source = pkgs.writeText "issue" ''
+    environment.etc = singleton { # Friendly greeting on the virtual consoles.
+      source = pkgs.writeText "issue" ''
 
-          [1;32m${config.services.mingetty.greetingLine}[0m
-          ${config.services.mingetty.helpLine}
+        [1;32m${config.services.mingetty.greetingLine}[0m
+        ${config.services.mingetty.helpLine}
 
-        '';
-        target = "issue";
-      };
+      '';
+      target = "issue";
+    };
 
   };
 

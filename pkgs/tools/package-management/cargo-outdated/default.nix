@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, libiconv, curl, darwin }:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, libiconv, curl, darwin
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-outdated";
@@ -14,17 +15,20 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1xqii2z0asgkwn1ny9n19w7d4sjz12a6i55x2pf4cfrciapdpvdl";
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ openssl ]
-  ++ stdenv.lib.optionals stdenv.isDarwin [
+  buildInputs = [ openssl ] ++ stdenv.lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.Security
     libiconv
     curl
   ];
 
   meta = with stdenv.lib; {
-    description = "A cargo subcommand for displaying when Rust dependencies are out of date";
-    homepage = https://github.com/kbknapp/cargo-outdated;
-    license = with licenses; [ asl20 /* or */ mit ];
+    description =
+      "A cargo subcommand for displaying when Rust dependencies are out of date";
+    homepage = "https://github.com/kbknapp/cargo-outdated";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     platforms = platforms.all;
     maintainers = [ maintainers.sondr3 ];
   };

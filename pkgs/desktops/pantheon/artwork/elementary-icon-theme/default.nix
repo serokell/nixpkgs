@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, python3,ninja, hicolor-icon-theme, gtk3 }:
+{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja, hicolor-icon-theme, gtk3
+}:
 
 stdenv.mkDerivation rec {
   pname = "icons";
@@ -20,11 +21,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    python3
-  ];
+  nativeBuildInputs = [ meson ninja python3 ];
 
   buildInputs = [ gtk3 ];
 
@@ -47,7 +44,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       An original set of vector icons designed specifically for elementary OS and its desktop environment: Pantheon.
     '';
-    homepage = https://github.com/elementary/icons;
+    homepage = "https://github.com/elementary/icons";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

@@ -13,16 +13,16 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  installPhase =
-    ''
-      mkdir -p $out/bin
-      cp $src $out/bin/woof
-      chmod +x $out/bin/woof
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    cp $src $out/bin/woof
+    chmod +x $out/bin/woof
+  '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.home.unix-ag.org/simon/woof.html;
-    description = "Web Offer One File - Command-line utility to easily exchange files over a local network";
+    homepage = "http://www.home.unix-ag.org/simon/woof.html";
+    description =
+      "Web Offer One File - Command-line utility to easily exchange files over a local network";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.unix;
     maintainers = with maintainers; [ lschuermann ];

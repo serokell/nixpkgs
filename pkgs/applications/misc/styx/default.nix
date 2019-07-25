@@ -1,15 +1,14 @@
-{ stdenv, fetchFromGitHub, caddy, asciidoctor
-, file, lessc, sass, multimarkdown, linkchecker
-, perlPackages, python27 }:
+{ stdenv, fetchFromGitHub, caddy, asciidoctor, file, lessc, sass, multimarkdown, linkchecker, perlPackages, python27
+}:
 
 stdenv.mkDerivation rec {
-  name    = "styx-${version}";
+  name = "styx-${version}";
   version = "0.7.1";
 
   src = fetchFromGitHub {
-    owner  = "styx-static";
-    repo   = "styx";
-    rev    = "v${version}";
+    owner = "styx-static";
+    repo = "styx";
+    rev = "v${version}";
     sha256 = "01lklz7l9klqmmsncikwjnk3glzyz15c30118s82yd1chwpwhpfl";
   };
 
@@ -61,11 +60,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description  = "Nix based static site generator";
-    maintainers  = with maintainers; [ ericsagnes ];
-    homepage     = https://styx-static.github.io/styx-site/;
-    downloadPage = https://github.com/styx-static/styx/;
-    platforms    = platforms.all;
-    license      = licenses.mit;
+    description = "Nix based static site generator";
+    maintainers = with maintainers; [ ericsagnes ];
+    homepage = "https://styx-static.github.io/styx-site/";
+    downloadPage = "https://github.com/styx-static/styx/";
+    platforms = platforms.all;
+    license = licenses.mit;
   };
 }

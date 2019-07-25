@@ -1,5 +1,5 @@
-{stdenv, fetchurl, libGLU_combined, freeglut, glew, libXmu, libXext, libX11
-, qmake, GLUT, fixDarwinDylibNames }:
+{ stdenv, fetchurl, libGLU_combined, freeglut, glew, libXmu, libXext, libX11, qmake, GLUT, fixDarwinDylibNames
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";
@@ -12,9 +12,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ qmake ]
     ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  buildInputs = [ glew ]
-    ++ stdenv.lib.optionals stdenv.isLinux [ libGLU_combined freeglut libXmu libXext libX11 ]
-    ++ stdenv.lib.optional stdenv.isDarwin GLUT;
+  buildInputs = [ glew ] ++ stdenv.lib.optionals stdenv.isLinux [
+    libGLU_combined
+    freeglut
+    libXmu
+    libXext
+    libX11
+  ] ++ stdenv.lib.optional stdenv.isDarwin GLUT;
 
   doCheck = false;
 
@@ -43,7 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Constructive Solid Geometry library";
-    homepage = http://www.opencsg.org/;
+    homepage = "http://www.opencsg.org/";
     platforms = platforms.unix;
     maintainers = [ maintainers.raskin ];
     license = licenses.gpl2;

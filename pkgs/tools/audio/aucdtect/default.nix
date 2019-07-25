@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Verify authenticity of lossless audio files";
-    homepage = http://tausoft.org;
+    homepage = "http://tausoft.org";
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.linux;

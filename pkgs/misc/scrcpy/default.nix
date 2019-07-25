@@ -1,21 +1,15 @@
-{ stdenv, fetchurl, fetchFromGitHub, makeWrapper
-, meson
-, ninja
-, pkgconfig
+{ stdenv, fetchurl, fetchFromGitHub, makeWrapper, meson, ninja, pkgconfig
 
-, platform-tools
-, ffmpeg
-, SDL2
-}:
+, platform-tools, ffmpeg, SDL2 }:
 
 let
   version = "1.8";
   prebuilt_server = fetchurl {
-    url = "https://github.com/Genymobile/scrcpy/releases/download/v${version}/scrcpy-server-v${version}.jar";
+    url =
+      "https://github.com/Genymobile/scrcpy/releases/download/v${version}/scrcpy-server-v${version}.jar";
     sha256 = "1h755k5xpchlm7wq2yk5mlwjnh7y4yhviffixacby0srj3pmb443";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "scrcpy";
   inherit version;
 
@@ -44,7 +38,7 @@ stdenv.mkDerivation rec {
     echo -n > server/meson.build
   '';
 
-  mesonFlags = ["-Doverride_server_path=${prebuilt_server}"];
+  mesonFlags = [ "-Doverride_server_path=${prebuilt_server}" ];
   postInstall = ''
     mkdir -p "$out/share/scrcpy"
     ln -s "${prebuilt_server}" "$out/share/scrcpy/scrcpy-server.jar"
@@ -55,7 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Display and control Android devices over USB or TCP/IP";
-    homepage = https://github.com/Genymobile/scrcpy;
+    homepage = "https://github.com/Genymobile/scrcpy";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ deltaevo lukeadams ];

@@ -10,30 +10,36 @@
 # Basic things like pkgsStatic.hello should work out of the box. More
 # complicated things will need to be fixed with overrides.
 
-self: super: let
-  inherit (super.stdenvAdapters) makeStaticBinaries
-                                 makeStaticLibraries;
+self: super:
+let
+  inherit (super.stdenvAdapters) makeStaticBinaries makeStaticLibraries;
   inherit (super.lib) foldl optional flip id composeExtensions;
   inherit (super) makeSetupHook;
 
   # Best effort static binaries. Will still be linked to libSystem,
   # but more portable than Nix store binaries.
-  makeStaticDarwin = stdenv: stdenv // {
-    mkDerivation = args: stdenv.mkDerivation (args // {
-      NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "")
-                      + " -static-libgcc";
-      nativeBuildInputs = (args.nativeBuildInputs or []) ++ [ (makeSetupHook {
-        substitutions = {
-          libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
-        };
-      } ../stdenv/darwin/portable-libsystem.sh) ];
-    });
-  };
+  makeStaticDarwin = stdenv:
+    stdenv // {
+      mkDerivation = args:
+        stdenv.mkDerivation (args // {
+          NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "")
+            + " -static-libgcc";
+          nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+            (makeSetupHook {
+              substitutions = {
+                libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
+              };
+            } ../stdenv/darwin/portable-libsystem.sh)
+          ];
+        });
+    };
 
-  staticAdapters = [ makeStaticLibraries ]
+  staticAdapters = [
+    makeStaticLibraries
+  ]
 
-    # Apple does not provide a static version of libSystem or crt0.o
-    # So we can’t build static binaries without extensive hacks.
+  # Apple does not provide a static version of libSystem or crt0.o
+  # So we can’t build static binaries without extensive hacks.
     ++ optional (!super.stdenv.hostPlatform.isDarwin) makeStaticBinaries
 
     ++ optional super.stdenv.hostPlatform.isDarwin makeStaticDarwin
@@ -44,25 +50,24 @@ self: super: let
 
   # Force everything to link statically.
   haskellStaticAdapter = self: super: {
-    mkDerivation = attrs: super.mkDerivation (attrs // {
-      enableSharedLibraries = false;
-      enableSharedExecutables = false;
-      enableStaticLibraries = true;
-    });
+    mkDerivation = attrs:
+      super.mkDerivation (attrs // {
+        enableSharedLibraries = false;
+        enableSharedExecutables = false;
+        enableStaticLibraries = true;
+      });
   };
 
 in {
   stdenv = foldl (flip id) super.stdenv staticAdapters;
 
   haskell = super.haskell // {
-    packageOverrides = composeExtensions
-      (super.haskell.packageOverrides or (_: _: {}))
+    packageOverrides =
+      composeExtensions (super.haskell.packageOverrides or (_: _: { }))
       haskellStaticAdapter;
   };
 
-  ncurses = super.ncurses.override {
-    enableStatic = true;
-  };
+  ncurses = super.ncurses.override { enableStatic = true; };
   libxml2 = super.libxml2.override {
     enableShared = false;
     enableStatic = true;
@@ -75,31 +80,17 @@ in {
     # it doesn’t like the --disable-shared flag
     stdenv = super.stdenv;
   };
-  xz = super.xz.override {
-    enableStatic = true;
-  };
-  busybox = super.busybox.override {
-    enableStatic = true;
-  };
-  libiberty = super.libiberty.override {
-    staticBuild = true;
-  };
-  ipmitool = super.ipmitool.override {
-    static = true;
-  };
+  xz = super.xz.override { enableStatic = true; };
+  busybox = super.busybox.override { enableStatic = true; };
+  libiberty = super.libiberty.override { staticBuild = true; };
+  ipmitool = super.ipmitool.override { static = true; };
   neon = super.neon.override {
     static = true;
     shared = false;
   };
-  gifsicle = super.gifsicle.override {
-    static = true;
-  };
-  bzip2 = super.bzip2.override {
-    linkStatic = true;
-  };
-  optipng = super.optipng.override {
-    static = true;
-  };
+  gifsicle = super.gifsicle.override { static = true; };
+  bzip2 = super.bzip2.override { linkStatic = true; };
+  optipng = super.optipng.override { static = true; };
   openblas = super.openblas.override { enableStatic = true; };
   openssl = super.openssl.override {
     static = true;
@@ -112,18 +103,10 @@ in {
     enableStatic = true;
     enableShared = false;
   };
-  gmp = super.gmp.override {
-    withStatic = true;
-  };
-  cdo = super.cdo.override {
-    enable_all_static = true;
-  };
-  gsm = super.gsm.override {
-    staticSupport = true;
-  };
-  parted = super.parted.override {
-    enableStatic = true;
-  };
+  gmp = super.gmp.override { withStatic = true; };
+  cdo = super.cdo.override { enable_all_static = true; };
+  gsm = super.gsm.override { staticSupport = true; };
+  parted = super.parted.override { enableStatic = true; };
   libiconvReal = super.libiconvReal.override {
     enableShared = false;
     enableStatic = true;

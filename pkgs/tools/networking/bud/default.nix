@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "08yr6l4lc2m6rng06253fcaznf6sq0v053wfr8bbym42c32z0xdh";
   };
 
-  buildInputs = [
-    python gyp
-  ] ++ lib.optional stdenv.isLinux utillinux;
+  buildInputs = [ python gyp ] ++ lib.optional stdenv.isLinux utillinux;
 
   buildPhase = ''
     python ./gyp_bud -f make
@@ -27,8 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A TLS terminating proxy";
-    license     = licenses.mit;
-    platforms   = platforms.linux;
+    license = licenses.mit;
+    platforms = platforms.linux;
     # Does not build on aarch64-linux.
     badPlatforms = [ "aarch64-linux" ];
     maintainers = with maintainers; [ cstrahan ];

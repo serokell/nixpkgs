@@ -40,14 +40,14 @@ let
     };
   };
   cfg = options.${stdenv.hostPlatform.system};
-in
-assert builtins.hasAttr stdenv.hostPlatform.system options;
+in assert builtins.hasAttr stdenv.hostPlatform.system options;
 stdenv.mkDerivation rec {
-  name    = "sbcl-bootstrap-${version}";
+  name = "sbcl-bootstrap-${version}";
   version = cfg.version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-${cfg.system}-binary.tar.bz2";
+    url =
+      "mirror://sourceforge/project/sbcl/sbcl/${version}/sbcl-${version}-${cfg.system}-binary.tar.bz2";
     sha256 = cfg.sha256;
   };
 
@@ -71,9 +71,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Lisp compiler";
-    homepage = http://www.sbcl.org;
+    homepage = "http://www.sbcl.org";
     license = licenses.publicDomain; # and FreeBSD
-    maintainers = [maintainers.raskin maintainers.tohl];
+    maintainers = [ maintainers.raskin maintainers.tohl ];
     platforms = attrNames options;
   };
 }

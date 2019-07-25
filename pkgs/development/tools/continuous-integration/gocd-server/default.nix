@@ -6,13 +6,15 @@ stdenv.mkDerivation rec {
   rev = "4001";
 
   src = fetchurl {
-    url = "https://download.go.cd/binaries/${version}-${rev}/generic/go-server-${version}-${rev}.zip";
+    url =
+      "https://download.go.cd/binaries/${version}-${rev}/generic/go-server-${version}-${rev}.zip";
     sha256 = "0x5pmjbhrka6p27drkrca7872vgsjxaa5j0cbxsa2ds02wrn57a7";
   };
 
   meta = with stdenv.lib; {
-    description = "A continuous delivery server specializing in advanced workflow modeling and visualization";
-    homepage = http://www.go.cd;
+    description =
+      "A continuous delivery server specializing in advanced workflow modeling and visualization";
+    homepage = "http://www.go.cd";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ grahamc swarren83 ];

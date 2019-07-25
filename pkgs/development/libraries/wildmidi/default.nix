@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ alsaLib stdenv.cc.libc/*couldn't find libm*/ ];
+  buildInputs = [
+    alsaLib
+    stdenv.cc.libc # couldn't find libm
+  ];
 
   preConfigure = ''
     substituteInPlace CMakeLists.txt \
@@ -29,7 +32,7 @@ stdenv.mkDerivation rec {
       WildMIDI is a simple software midi player which has a core softsynth
       library that can be use with other applications.
     '';
-    homepage = http://wildmidi.sourceforge.net/;
+    homepage = "http://wildmidi.sourceforge.net/";
     # The library is LGPLv3, the wildmidi executable is GPLv3
     license = licenses.lgpl3;
     platforms = platforms.linux;

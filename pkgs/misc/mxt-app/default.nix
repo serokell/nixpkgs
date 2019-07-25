@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, autoreconfHook, libtool }:
 
-stdenv.mkDerivation rec{
-  version="1.28";
+stdenv.mkDerivation rec {
+  version = "1.28";
   name = "mxt-app-${version}";
 
   src = fetchFromGitHub {
@@ -13,12 +13,12 @@ stdenv.mkDerivation rec{
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libtool ];
- 
+
   hardeningDisable = [ "fortify" ];
 
   meta = with stdenv.lib; {
     description = "Command line utility for Atmel maXTouch devices";
-    homepage = https://github.com/atmel-maxtouch/mxt-app;
+    homepage = "https://github.com/atmel-maxtouch/mxt-app";
     license = licenses.bsd2;
     maintainers = [ maintainers.colemickens ];
     platforms = platforms.linux;

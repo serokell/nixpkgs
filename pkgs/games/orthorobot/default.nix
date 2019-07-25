@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, zip, love, lua, makeWrapper, makeDesktopItem }:
+{ stdenv, fetchurl, fetchFromGitHub, zip, love, lua, makeWrapper, makeDesktopItem
+}:
 
 let
   pname = "orthorobot";
@@ -19,9 +20,7 @@ let
     categories = "Game;";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
@@ -36,8 +35,7 @@ stdenv.mkDerivation rec {
 
   phases = [ "unpackPhase" "installPhase" ];
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin $out/share/games/lovegames $out/share/applications
     zip -9 -r ${pname}.love ./*
     mv ${pname}.love $out/share/games/lovegames/${pname}.love
@@ -51,7 +49,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;
     license = licenses.free;
-    downloadPage = http://stabyourself.net/orthorobot/;
+    downloadPage = "http://stabyourself.net/orthorobot/";
   };
 
 }

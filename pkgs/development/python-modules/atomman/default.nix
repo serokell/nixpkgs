@@ -1,15 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, xmltodict
-, datamodeldict
-, numpy
-, matplotlib
-, scipy
-, pandas
-, cython
-, numericalunits
-, pytest
+{ stdenv, buildPythonPackage, fetchPypi, xmltodict, datamodeldict, numpy, matplotlib, scipy, pandas, cython, numericalunits, pytest
 }:
 
 buildPythonPackage rec {
@@ -22,7 +11,16 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [ xmltodict datamodeldict numpy matplotlib scipy pandas cython numericalunits ];
+  propagatedBuildInputs = [
+    xmltodict
+    datamodeldict
+    numpy
+    matplotlib
+    scipy
+    pandas
+    cython
+    numericalunits
+  ];
 
   # tests not included with Pypi release
   doCheck = false;
@@ -32,7 +30,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/usnistgov/atomman/;
+    homepage = "https://github.com/usnistgov/atomman/";
     description = "Atomistic Manipulation Toolkit";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

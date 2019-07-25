@@ -1,7 +1,4 @@
-{ lib
-, pythonPackages
-, salt
-}:
+{ lib, pythonPackages, salt }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "salt-pepper";
@@ -13,12 +10,18 @@ pythonPackages.buildPythonApplication rec {
 
   buildInputs = with pythonPackages; [ setuptools setuptools_scm salt ];
   checkInputs = with pythonPackages; [
-    pytest mock pyzmq pytest-rerunfailures pytestcov cherrypy tornado_4
+    pytest
+    mock
+    pyzmq
+    pytest-rerunfailures
+    pytestcov
+    cherrypy
+    tornado_4
   ];
 
   meta = with lib; {
     description = "A CLI front-end to a running salt-api system";
-    homepage = https://github.com/saltstack/pepper;
+    homepage = "https://github.com/saltstack/pepper";
     maintainers = [ maintainers.pierrer ];
     license = licenses.asl20;
   };

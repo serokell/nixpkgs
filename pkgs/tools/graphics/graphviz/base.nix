@@ -1,8 +1,7 @@
 { rev, sha256, version }:
 
-{ stdenv, fetchFromGitLab, autoreconfHook, pkgconfig, cairo, expat, flex
-, fontconfig, gd, gettext, gts, libdevil, libjpeg, libpng, libtool, pango
-, yacc, fetchpatch, xorg ? null, ApplicationServices ? null }:
+{ stdenv, fetchFromGitLab, autoreconfHook, pkgconfig, cairo, expat, flex, fontconfig, gd, gettext, gts, libdevil, libjpeg, libpng, libtool, pango, yacc, fetchpatch, xorg ?
+  null, ApplicationServices ? null }:
 
 assert stdenv.isDarwin -> ApplicationServices != null;
 
@@ -12,19 +11,21 @@ let
     # https://gitlab.com/graphviz/graphviz/issues/1367 CVE-2018-10196
     fetchpatch {
       name = "CVE-2018-10196.patch";
-      url = https://gitlab.com/graphviz/graphviz/uploads/30f8f0b00e357c112ac35fb20241604a/p.diff;
+      url =
+        "https://gitlab.com/graphviz/graphviz/uploads/30f8f0b00e357c112ac35fb20241604a/p.diff";
       sha256 = "074qx6ch9blrnlilmz7p96fkiz2va84x2fbqdza5k4808rngirc7";
-      excludes = ["tests/*"]; # we don't run them and they don't apply
+      excludes = [ "tests/*" ]; # we don't run them and they don't apply
     };
   # the patch needs a small adaption for older versions
-  patch = if stdenv.lib.versionAtLeast version "2.37" then raw_patch else
-  stdenv.mkDerivation {
-    inherit (raw_patch) name;
-    buildCommand = "sed s/dot_root/agroot/g ${raw_patch} > $out";
-  };
-in
+  patch = if stdenv.lib.versionAtLeast version "2.37" then
+    raw_patch
+  else
+    stdenv.mkDerivation {
+      inherit (raw_patch) name;
+      buildCommand = "sed s/dot_root/agroot/g ${raw_patch} > $out";
+    };
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "graphviz-${version}";
 
   src = fetchFromGitLab {
@@ -36,7 +37,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   buildInputs = [
-    libpng libjpeg expat yacc libtool fontconfig gd gts libdevil flex pango
+    libpng
+    libjpeg
+    expat
+    yacc
+    libtool
+    fontconfig
+    gd
+    gts
+    libdevil
+    flex
+    pango
     gettext
   ] ++ optionals (xorg != null) (with xorg; [ libXrender libXaw libXpm ])
     ++ optionals (stdenv.isDarwin) [ ApplicationServices ];
@@ -51,9 +62,7 @@ stdenv.mkDerivation rec {
     "--with-ltdl-include=${libtool}/include"
   ] ++ stdenv.lib.optional (xorg == null) [ "--without-x" ];
 
-  patches = [
-    patch
-  ];
+  patches = [ patch ];
 
   postPatch = ''
     for f in $(find . -name Makefile.in); do
@@ -66,7 +75,8 @@ stdenv.mkDerivation rec {
   #     --replace "/bin/ksh" "${mksh}/bin/mksh"
   # '';
 
-  doCheck = false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs
+  doCheck =
+    false; # fails with "Graphviz test suite requires ksh93" which is not in nixpkgs
 
   preAutoreconf = "./autogen.sh";
 
@@ -79,7 +89,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://graphviz.org;
+    homepage = "https://graphviz.org";
     description = "Graph visualization tools";
     license = licenses.epl10;
     platforms = platforms.unix;

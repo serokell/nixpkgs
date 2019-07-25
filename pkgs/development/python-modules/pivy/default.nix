@@ -11,15 +11,20 @@ buildPythonPackage rec {
     sha256 = "1w03jaha36bjyfaz8hchnv8yrkm5715w15crhd3qrlagz8fs38hm";
   };
 
-  nativeBuildInputs = with pkgs; [
-    swig qt5.qmake cmake
-  ];
+  nativeBuildInputs = with pkgs; [ swig qt5.qmake cmake ];
 
-  buildInputs = with pkgs; with xorg; [
-    coin3d soqt qt5.qtbase
-    libGLU_combined
-    libXi libXext libSM libICE libX11
-  ];
+  buildInputs = with pkgs;
+    with xorg; [
+      coin3d
+      soqt
+      qt5.qtbase
+      libGLU_combined
+      libXi
+      libXext
+      libSM
+      libICE
+      libX11
+    ];
 
   NIX_CFLAGS_COMPILE = [
     "-I${pkgs.qt5.qtbase.dev}/include/QtCore"
@@ -36,7 +41,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://pivy.coin3d.org/;
+    homepage = "http://pivy.coin3d.org/";
     description = "A Python binding for Coin";
     license = licenses.bsd0;
   };

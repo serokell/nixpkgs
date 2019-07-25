@@ -7,21 +7,18 @@ let
   sysctlOption = mkOptionType {
     name = "sysctl option value";
     check = val:
-      let
-        checkType = x: isBool x || isString x || isInt x || x == null;
-      in
-        checkType val || (val._type or "" == "override" && checkType val.content);
+      let checkType = x: isBool x || isString x || isInt x || x == null;
+      in checkType val
+      || (val._type or "" == "override" && checkType val.content);
     merge = loc: defs: mergeOneOption loc (filterOverrides defs);
   };
 
-in
-
-{
+in {
 
   options = {
 
     boot.kernel.sysctl = mkOption {
-      default = {};
+      default = { };
       example = literalExample ''
         { "net.ipv4.tcp_syncookies" = false; "vm.swappiness" = 60; }
       '';
@@ -42,15 +39,16 @@ in
 
   config = {
 
-    environment.etc."sysctl.d/nixos.conf".text =
-      concatStrings (mapAttrsToList (n: v:
-        optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n"
-      ) config.boot.kernel.sysctl);
+    environment.etc."sysctl.d/nixos.conf".text = concatStrings (mapAttrsToList
+      (n: v:
+      optionalString (v != null) ''
+        ${n}=${if v == false then "0" else toString v}
+      '') config.boot.kernel.sysctl);
 
-    systemd.services.systemd-sysctl =
-      { wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ config.environment.etc."sysctl.d/nixos.conf".source ];
-      };
+    systemd.services.systemd-sysctl = {
+      wantedBy = [ "multi-user.target" ];
+      restartTriggers = [ config.environment.etc."sysctl.d/nixos.conf".source ];
+    };
 
     # Enable hardlink and symlink restrictions.  See
     # https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=800179c9b8a1e796e441674776d11cd4c05d61d7

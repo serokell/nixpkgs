@@ -1,6 +1,4 @@
-{ stdenv, fetchurl
-, openssl, qt5, libGLU_combined, zlib, pkgconfig, libav
-}:
+{ stdenv, fetchurl, openssl, qt5, libGLU_combined, zlib, pkgconfig, libav }:
 
 stdenv.mkDerivation rec {
   name = "makemkv-${ver}";
@@ -25,10 +23,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [openssl qt5.qtbase libGLU_combined zlib libav];
+  buildInputs = [ openssl qt5.qtbase libGLU_combined zlib libav ];
 
-  libPath = stdenv.lib.makeLibraryPath [stdenv.cc.cc openssl libGLU_combined qt5.qtbase zlib ]
-          + ":" + stdenv.cc.cc + "/lib64";
+  libPath = stdenv.lib.makeLibraryPath [
+    stdenv.cc.cc
+    openssl
+    libGLU_combined
+    qt5.qtbase
+    zlib
+  ] + ":" + stdenv.cc.cc + "/lib64";
 
   meta = with stdenv.lib; {
     description = "Convert blu-ray and dvd to mkv";
@@ -42,7 +45,7 @@ stdenv.mkDerivation rec {
       expiration date.
     '';
     license = licenses.unfree;
-    homepage = http://makemkv.com;
+    homepage = "http://makemkv.com";
     platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.titanous ];
   };

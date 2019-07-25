@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python2Packages,
-  asciidoc, cacert, libxml2, libxslt, docbook_xsl }:
+{ stdenv, fetchFromGitHub, python2Packages, asciidoc, cacert, libxml2, libxslt, docbook_xsl
+}:
 
 python2Packages.buildPythonApplication rec {
   version = "7.2.4";
@@ -32,9 +32,10 @@ python2Packages.buildPythonApplication rec {
   '';
 
   meta = {
-    description = "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers";
-    homepage = http://offlineimap.org;
+    description =
+      "Synchronize emails between two repositories, so that you can read the same mailbox from multiple computers";
+    homepage = "http://offlineimap.org";
     license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

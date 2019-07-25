@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, lib }:
+build-idris-package {
   name = "heyting-algebra";
   version = "2017-08-18";
 
@@ -17,8 +13,9 @@ build-idris-package  {
   };
 
   meta = {
-    description = "Interfaces for heyting algebras and verified bounded join and meet semilattices";
-    homepage = https://github.com/Risto-Stevcev/idris-heyting-algebra;
+    description =
+      "Interfaces for heyting algebras and verified bounded join and meet semilattices";
+    homepage = "https://github.com/Risto-Stevcev/idris-heyting-algebra";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.brainrape ];
   };

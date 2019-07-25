@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "deluge";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ flokli ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ flokli ]; };
 
   nodes = {
     simple = {
@@ -15,32 +13,31 @@ import ./make-test.nix ({ pkgs, ...} : {
       };
     };
 
-    declarative =
-      { ... }:
+    declarative = { ... }:
 
-      {
-        services.deluge = {
-          enable = true;
-          openFirewall = true;
-          declarative = true;
-          config = {
-            allow_remote = true;
-            download_location = "/var/lib/deluge/my-download";
-            daemon_port = 58846;
-            listen_ports = [ 6881 6889 ];
-          };
-          web = {
-            enable = true;
-            port =  3142;
-          };
-          authFile = pkgs.writeText "deluge-auth" ''
-            localclient:a7bef72a890:10
-            andrew:password:10
-            user3:anotherpass:5
-          '';
+    {
+      services.deluge = {
+        enable = true;
+        openFirewall = true;
+        declarative = true;
+        config = {
+          allow_remote = true;
+          download_location = "/var/lib/deluge/my-download";
+          daemon_port = 58846;
+          listen_ports = [ 6881 6889 ];
         };
-        environment.systemPackages = [ pkgs.deluge ];
+        web = {
+          enable = true;
+          port = 3142;
+        };
+        authFile = pkgs.writeText "deluge-auth" ''
+          localclient:a7bef72a890:10
+          andrew:password:10
+          user3:anotherpass:5
+        '';
       };
+      environment.systemPackages = [ pkgs.deluge ];
+    };
 
   };
 

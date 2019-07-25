@@ -1,9 +1,13 @@
-{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; } }:
+{ system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; }
+}:
 with import ./base.nix { inherit system; };
 let
   domain = "my.zyx";
 
-  certs = import ./certs.nix { externalDomain = domain; kubelets = [ "machine1" "machine2" ]; };
+  certs = import ./certs.nix {
+    externalDomain = domain;
+    kubelets = [ "machine1" "machine2" ];
+  };
 
   redisPod = pkgs.writeText "redis-pod.json" (builtins.toJSON {
     kind = "Pod";
@@ -13,7 +17,7 @@ let
     spec.containers = [{
       name = "redis";
       image = "redis";
-      args = ["--bind" "0.0.0.0"];
+      args = [ "--bind" "0.0.0.0" ];
       imagePullPolicy = "Never";
       ports = [{
         name = "redis-server";
@@ -27,8 +31,11 @@ let
     apiVersion = "v1";
     metadata.name = "redis";
     spec = {
-      ports = [{port = 6379; targetPort = 6379;}];
-      selector = {name = "redis";};
+      ports = [{
+        port = 6379;
+        targetPort = 6379;
+      }];
+      selector = { name = "redis"; };
     };
   });
 

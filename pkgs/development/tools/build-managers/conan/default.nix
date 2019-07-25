@@ -1,51 +1,54 @@
 { lib, python3, git }:
 
-let newPython = python3.override {
-  packageOverrides = self: super: {
-    distro = super.distro.overridePythonAttrs (oldAttrs: rec {
-      version = "1.1.0";
-      src = oldAttrs.src.override {
-        inherit version;
-        sha256 = "1vn1db2akw98ybnpns92qi11v94hydwp130s8753k6ikby95883j";
-      };
-    });
-    node-semver = super.node-semver.overridePythonAttrs (oldAttrs: rec {
-      version = "0.6.1";
-      src = oldAttrs.src.override {
-        inherit version;
-        sha256 = "1dv6mjsm67l1razcgmq66riqmsb36wns17mnipqr610v0z0zf5j0";
-      };
-    });
-    future = super.future.overridePythonAttrs (oldAttrs: rec {
-      version = "0.16.0";
-      src = oldAttrs.src.override {
-        inherit version;
-        sha256 = "1nzy1k4m9966sikp0qka7lirh8sqrsyainyf8rk97db7nwdfv773";
-      };
-    });
-    tqdm = super.tqdm.overridePythonAttrs (oldAttrs: rec {
-      version = "4.28.1";
-      src = oldAttrs.src.override {
-        inherit version;
-        sha256 = "1fyybgbmlr8ms32j7h76hz5g9xc6nf0644mwhc40a0s5k14makav";
-      };
-    });
-    pluginbase = super.pluginbase.overridePythonAttrs (oldAttrs: rec {
-      version = "0.7";
-      src = oldAttrs.src.override {
-        inherit version;
-        sha256 = "c0abe3218b86533cca287e7057a37481883c07acef7814b70583406938214cc8";
-      };
-    });
-    pyyaml = super.pyyaml.overridePythonAttrs (oldAttrs: rec {
-      version = "3.13";
-      src = oldAttrs.src.override {
-        inherit version;
-        sha256 = "3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf";
-      };
-    });
+let
+  newPython = python3.override {
+    packageOverrides = self: super: {
+      distro = super.distro.overridePythonAttrs (oldAttrs: rec {
+        version = "1.1.0";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "1vn1db2akw98ybnpns92qi11v94hydwp130s8753k6ikby95883j";
+        };
+      });
+      node-semver = super.node-semver.overridePythonAttrs (oldAttrs: rec {
+        version = "0.6.1";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "1dv6mjsm67l1razcgmq66riqmsb36wns17mnipqr610v0z0zf5j0";
+        };
+      });
+      future = super.future.overridePythonAttrs (oldAttrs: rec {
+        version = "0.16.0";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "1nzy1k4m9966sikp0qka7lirh8sqrsyainyf8rk97db7nwdfv773";
+        };
+      });
+      tqdm = super.tqdm.overridePythonAttrs (oldAttrs: rec {
+        version = "4.28.1";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "1fyybgbmlr8ms32j7h76hz5g9xc6nf0644mwhc40a0s5k14makav";
+        };
+      });
+      pluginbase = super.pluginbase.overridePythonAttrs (oldAttrs: rec {
+        version = "0.7";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 =
+            "c0abe3218b86533cca287e7057a37481883c07acef7814b70583406938214cc8";
+        };
+      });
+      pyyaml = super.pyyaml.overridePythonAttrs (oldAttrs: rec {
+        version = "3.13";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 =
+            "3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf";
+        };
+      });
+    };
   };
-};
 
 in newPython.pkgs.buildPythonApplication rec {
   version = "1.12.0";
@@ -55,9 +58,7 @@ in newPython.pkgs.buildPythonApplication rec {
     inherit pname version;
     sha256 = "0hgy3wfy96likdchz42h9mawfjw4dxx7k2iinrrlhph7128kji1j";
   };
-  checkInputs = [
-    git
-  ] ++ (with newPython.pkgs; [
+  checkInputs = [ git ] ++ (with newPython.pkgs; [
     codecov
     mock
     node-semver
@@ -67,9 +68,22 @@ in newPython.pkgs.buildPythonApplication rec {
   ]);
 
   propagatedBuildInputs = with newPython.pkgs; [
-    colorama deprecation distro fasteners bottle
-    future node-semver patch pygments pluginbase
-    pyjwt pylint pyyaml requests six tqdm
+    colorama
+    deprecation
+    distro
+    fasteners
+    bottle
+    future
+    node-semver
+    patch
+    pygments
+    pluginbase
+    pyjwt
+    pylint
+    pyyaml
+    requests
+    six
+    tqdm
   ];
 
   checkPhase = ''
@@ -83,7 +97,7 @@ in newPython.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    homepage = https://conan.io;
+    homepage = "https://conan.io";
     description = "Decentralized and portable C/C++ package manager";
     license = licenses.mit;
     maintainers = with maintainers; [ HaoZeke ];

@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.minio;
-in
-{
+let cfg = config.services.minio;
+in {
   meta.maintainers = [ maintainers.bachp ];
 
   options.services.minio = {
@@ -26,7 +24,8 @@ in
     configDir = mkOption {
       default = "/var/lib/minio/config";
       type = types.path;
-      description = "The config directory, for the access keys and other settings.";
+      description =
+        "The config directory, for the access keys and other settings.";
     };
 
     accessKey = mkOption {
@@ -82,7 +81,8 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/minio server --json --address ${cfg.listenAddress} --config-dir=${cfg.configDir} ${cfg.dataDir}";
+        ExecStart =
+          "${cfg.package}/bin/minio server --json --address ${cfg.listenAddress} --config-dir=${cfg.configDir} ${cfg.dataDir}";
         Type = "simple";
         User = "minio";
         Group = "minio";

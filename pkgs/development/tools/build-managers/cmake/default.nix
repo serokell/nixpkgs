@@ -1,28 +1,22 @@
-{ stdenv, lib, fetchurl, pkgconfig
-, bzip2, curl, expat, libarchive, xz, zlib, libuv, rhash
-, buildPackages
+{ stdenv, lib, fetchurl, pkgconfig, bzip2, curl, expat, libarchive, xz, zlib, libuv, rhash, buildPackages
 # darwin attributes
-, ps
-, isBootstrap ? false
-, useSharedLibraries ? (!isBootstrap && !stdenv.isCygwin)
-, useNcurses ? false, ncurses
-, useQt4 ? false, qt4
-, withQt5 ? false, qtbase
-}:
+, ps, isBootstrap ? false, useSharedLibraries ?
+  (!isBootstrap && !stdenv.isCygwin), useNcurses ? false, ncurses, useQt4 ?
+    false, qt4, withQt5 ? false, qtbase }:
 
 assert withQt5 -> useQt4 == false;
 assert useQt4 -> withQt5 == false;
 
 stdenv.mkDerivation rec {
-  pname = "cmake"
-          + lib.optionalString isBootstrap "-boot"
-          + lib.optionalString useNcurses "-cursesUI"
-          + lib.optionalString withQt5 "-qt5UI"
-          + lib.optionalString useQt4 "-qt4UI";
+  pname = "cmake" + lib.optionalString isBootstrap "-boot"
+    + lib.optionalString useNcurses "-cursesUI"
+    + lib.optionalString withQt5 "-qt5UI" + lib.optionalString useQt4 "-qt4UI";
   version = "3.14.5";
 
   src = fetchurl {
-    url = "${meta.homepage}files/v${lib.versions.majorMinor version}/cmake-${version}.tar.gz";
+    url = "${meta.homepage}files/v${
+      lib.versions.majorMinor version
+      }/cmake-${version}.tar.gz";
     # compare with https://cmake.org/files/v${lib.versions.majorMinor version}/cmake-${version}-SHA-256.txt
     sha256 = "505ae49ebe3c63c595fa5f814975d8b72848447ee13b6613b0f8b96ebda18c06";
   };
@@ -43,11 +37,16 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  buildInputs =
-    [ setupHook pkgconfig ]
-    ++ lib.optionals useSharedLibraries [ bzip2 curl expat libarchive xz zlib libuv rhash ]
-    ++ lib.optional useNcurses ncurses
-    ++ lib.optional useQt4 qt4
+  buildInputs = [ setupHook pkgconfig ] ++ lib.optionals useSharedLibraries [
+    bzip2
+    curl
+    expat
+    libarchive
+    xz
+    zlib
+    libuv
+    rhash
+  ] ++ lib.optional useNcurses ncurses ++ lib.optional useQt4 qt4
     ++ lib.optional withQt5 qtbase;
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -66,24 +65,32 @@ stdenv.mkDerivation rec {
     configureFlags="--parallel=''${NIX_BUILD_CORES:-1} CC=$BUILD_CC CXX=$BUILD_CXX $configureFlags"
   '';
 
-  configureFlags = [
-    "--docdir=share/doc/${pname}${version}"
-  ] ++ (if useSharedLibraries then [ "--no-system-jsoncpp" "--system-libs" ] else [ "--no-system-libs" ]) # FIXME: cleanup
-    ++ lib.optional (useQt4 || withQt5) "--qt-gui"
-    ++ [
-    "--"
-    # We should set the proper `CMAKE_SYSTEM_NAME`.
-    # http://www.cmake.org/Wiki/CMake_Cross_Compiling
-    #
-    # Unfortunately cmake seems to expect absolute paths for ar, ranlib, and
-    # strip. Otherwise they are taken to be relative to the source root of the
-    # package being built.
-    "-DCMAKE_CXX_COMPILER=${stdenv.cc.targetPrefix}c++"
-    "-DCMAKE_C_COMPILER=${stdenv.cc.targetPrefix}cc"
-    "-DCMAKE_AR=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
-    "-DCMAKE_RANLIB=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ranlib"
-    "-DCMAKE_STRIP=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}strip"
-  ]
+  configureFlags = [ "--docdir=share/doc/${pname}${version}" ]
+    ++ (if useSharedLibraries then [
+      "--no-system-jsoncpp"
+      "--system-libs"
+    ] else
+      [ "--no-system-libs" ]) # FIXME: cleanup
+    ++ lib.optional (useQt4 || withQt5) "--qt-gui" ++ [
+      "--"
+      # We should set the proper `CMAKE_SYSTEM_NAME`.
+      # http://www.cmake.org/Wiki/CMake_Cross_Compiling
+      #
+      # Unfortunately cmake seems to expect absolute paths for ar, ranlib, and
+      # strip. Otherwise they are taken to be relative to the source root of the
+      # package being built.
+      "-DCMAKE_CXX_COMPILER=${stdenv.cc.targetPrefix}c++"
+      "-DCMAKE_C_COMPILER=${stdenv.cc.targetPrefix}cc"
+      "-DCMAKE_AR=${
+        lib.getBin stdenv.cc.bintools.bintools
+      }/bin/${stdenv.cc.targetPrefix}ar"
+      "-DCMAKE_RANLIB=${
+        lib.getBin stdenv.cc.bintools.bintools
+      }/bin/${stdenv.cc.targetPrefix}ranlib"
+      "-DCMAKE_STRIP=${
+        lib.getBin stdenv.cc.bintools.bintools
+      }/bin/${stdenv.cc.targetPrefix}strip"
+    ]
     # Avoid depending on frameworks.
     ++ lib.optional (!useNcurses) "-DBUILD_CursesDialog=OFF";
 
@@ -102,7 +109,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails
 
   meta = with lib; {
-    homepage = http://www.cmake.org/;
+    homepage = "http://www.cmake.org/";
     description = "Cross-Platform Makefile Generator";
     platforms = if useQt4 then qt4.meta.platforms else platforms.all;
     maintainers = with maintainers; [ ttuegel lnl7 ];

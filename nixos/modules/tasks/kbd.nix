@@ -5,8 +5,9 @@ with lib;
 let
 
   makeColor = n: value: "COLOR_${toString n}=${value}";
-  makeColorCS =
-    let positions = [ "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F" ];
+  makeColorCS = let
+    positions =
+      [ "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "A" "B" "C" "D" "E" "F" ];
     in n: value: "\\033]P${elemAt positions (n - 1)}${value}";
   colors = concatImapStringsSep "\n" makeColor config.i18n.consoleColors;
 
@@ -17,7 +18,9 @@ let
     LOADKEYS_KEYMAP_PATH = "${kbdEnv}/share/keymaps/**";
     preferLocalBuild = true;
   } ''
-    loadkeys -b ${optionalString isUnicode "-u"} "${config.i18n.consoleKeyMap}" > $out
+    loadkeys -b ${
+      optionalString isUnicode "-u"
+    } "${config.i18n.consoleKeyMap}" > $out
   '';
 
   # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
@@ -30,13 +33,17 @@ let
   kbdEnv = pkgs.buildEnv {
     name = "kbd-env";
     paths = [ pkgs.kbd ] ++ config.i18n.consolePackages;
-    pathsToLink = [ "/share/consolefonts" "/share/consoletrans" "/share/keymaps" "/share/unimaps" ];
+    pathsToLink = [
+      "/share/consolefonts"
+      "/share/consoletrans"
+      "/share/keymaps"
+      "/share/unimaps"
+    ];
   };
 
   setVconsole = !config.boot.isContainer;
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -45,9 +52,9 @@ in
 
     # FIXME: still needed?
     boot.extraTTYs = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
-      example = ["tty8" "tty9"];
+      example = [ "tty8" "tty9" ];
       description = ''
         Tty (virtual console) devices, in addition to the consoles on
         which mingetty and syslogd run, that must be initialised.
@@ -68,7 +75,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkMerge [
@@ -77,7 +83,8 @@ in
     })
 
     (mkIf setVconsole (mkMerge [
-      { environment.systemPackages = [ pkgs.kbd ];
+      {
+        environment.systemPackages = [ pkgs.kbd ];
 
         # Let systemd-vconsole-setup.service do the work of setting up the
         # virtual consoles.
@@ -99,11 +106,11 @@ in
           '') config.i18n.consoleColors}
         '';
 
-        systemd.services."systemd-vconsole-setup" =
-          { before = [ "display-manager.service" ];
-            after = [ "systemd-udev-settle.service" ];
-            restartTriggers = [ vconsoleConf kbdEnv ];
-          };
+        systemd.services."systemd-vconsole-setup" = {
+          before = [ "display-manager.service" ];
+          after = [ "systemd-udev-settle.service" ];
+          restartTriggers = [ vconsoleConf kbdEnv ];
+        };
       }
 
       (mkIf config.boot.earlyVconsoleSetup {

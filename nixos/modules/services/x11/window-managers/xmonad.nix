@@ -1,4 +1,4 @@
-{pkgs, lib, config, ...}:
+{ pkgs, lib, config, ... }:
 
 with lib;
 let
@@ -6,20 +6,21 @@ let
   cfg = config.services.xserver.windowManager.xmonad;
   xmonad = pkgs.xmonad-with-packages.override {
     ghcWithPackages = cfg.haskellPackages.ghcWithPackages;
-    packages = self: cfg.extraPackages self ++
-                     optionals cfg.enableContribAndExtras
-                     [ self.xmonad-contrib self.xmonad-extras ];
+    packages = self:
+      cfg.extraPackages self ++ optionals cfg.enableContribAndExtras [
+        self.xmonad-contrib
+        self.xmonad-extras
+      ];
   };
   xmonadBin = pkgs.writers.writeHaskell "xmonad" {
     ghc = cfg.haskellPackages.ghc;
-    libraries = [ cfg.haskellPackages.xmonad ] ++
-                cfg.extraPackages cfg.haskellPackages ++
-                optionals cfg.enableContribAndExtras
-                (with cfg.haskellPackages; [ xmonad-contrib xmonad-extras ]);
+    libraries = [ cfg.haskellPackages.xmonad ]
+      ++ cfg.extraPackages cfg.haskellPackages
+      ++ optionals cfg.enableContribAndExtras
+      (with cfg.haskellPackages; [ xmonad-contrib xmonad-extras ]);
   } cfg.config;
 
-in
-{
+in {
   options = {
     services.xserver.windowManager.xmonad = {
       enable = mkEnableOption "xmonad";
@@ -36,7 +37,7 @@ in
       };
 
       extraPackages = mkOption {
-        default = self: [];
+        default = self: [ ];
         defaultText = "self: []";
         example = literalExample ''
           haskellPackages: [

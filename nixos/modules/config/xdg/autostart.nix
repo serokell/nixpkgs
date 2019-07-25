@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   options = {
     xdg.autostart.enable = mkOption {
       type = types.bool;
@@ -14,9 +13,7 @@ with lib;
   };
 
   config = mkIf config.xdg.autostart.enable {
-    environment.pathsToLink = [ 
-      "/etc/xdg/autostart"
-    ];
+    environment.pathsToLink = [ "/etc/xdg/autostart" ];
   };
 
 }

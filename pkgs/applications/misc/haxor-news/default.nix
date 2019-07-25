@@ -13,18 +13,13 @@ buildPythonApplication rec {
 
   # allow newer click version
   patches = fetchpatch {
-    url = "${meta.homepage}/commit/5b0d3ef1775756ca15b6d83fba1fb751846b5427.patch";
+    url =
+      "${meta.homepage}/commit/5b0d3ef1775756ca15b6d83fba1fb751846b5427.patch";
     sha256 = "1551knh2f7yarqzcpip16ijmbx8kzdna8cihxlxx49ww55f5sg67";
   };
 
-  propagatedBuildInputs = [
-    click
-    colorama
-    requests
-    pygments
-    prompt_toolkit
-    six
-  ];
+  propagatedBuildInputs =
+    [ click colorama requests pygments prompt_toolkit six ];
 
   doCheck = false;
 
@@ -35,7 +30,7 @@ buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/donnemartin/haxor-news;
+    homepage = "https://github.com/donnemartin/haxor-news";
     description = "Browse Hacker News like a haxor";
     license = licenses.asl20;
     maintainers = with maintainers; [ matthiasbeyer ];

@@ -1,6 +1,6 @@
 { stdenv, fetchurl, libX11, libXinerama }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "libfakeXinerama-${version}";
   version = "0.1.0";
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation  rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://xpra.org/;
+    homepage = "http://xpra.org/";
     description = "fakeXinerama for Xpra";
     platforms = platforms.linux;
     maintainers = [ maintainers.tstrobel ];

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gdk_pixbuf, gobject-introspection, gnome3 }:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gdk_pixbuf, gobject-introspection, gnome3
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmediaart";
@@ -7,11 +8,22 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "a57be017257e4815389afe4f58fdacb6a50e74fd185452b23a652ee56b04813d";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig vala gtk-doc docbook_xsl docbook_xml_dtd_412 gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkgconfig
+    vala
+    gtk-doc
+    docbook_xsl
+    docbook_xml_dtd_412
+    gobject-introspection
+  ];
   buildInputs = [ glib gdk_pixbuf ];
 
   # FIXME: Turn on again when https://github.com/NixOS/nixpkgs/issues/53701
@@ -26,7 +38,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Library tasked with managing, extracting and handling media art caches";
+    description =
+      "Library tasked with managing, extracting and handling media art caches";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2;
     platforms = platforms.linux;

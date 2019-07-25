@@ -1,10 +1,8 @@
-import ./make-test.nix ({ pkgs, ... } : let
+import ./make-test.nix ({ pkgs, ... }:
+let
 
-
-  runWithOpenSSL = file: cmd: pkgs.runCommand file {
-    buildInputs = [ pkgs.openssl ];
-  } cmd;
-
+  runWithOpenSSL = file: cmd:
+    pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
 
   ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
   ca_pem = runWithOpenSSL "ca.pem" ''
@@ -29,9 +27,7 @@ import ./make-test.nix ({ pkgs, ... } : let
 in {
 
   name = "matrix-synapse";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ corngood ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ corngood ]; };
 
   nodes = {
     # Since 0.33.0, matrix-synapse doesn't allow underscores in server names

@@ -11,7 +11,8 @@ rec {
   */
   id =
     # The value to return
-    x: x;
+    x:
+    x;
 
   /* The constant function
 
@@ -27,8 +28,8 @@ rec {
     # Value to return
     x:
     # Value to ignore
-    y: x;
-
+    y:
+    x;
 
   ## Named versions corresponding to some builtin operators.
 
@@ -42,28 +43,25 @@ rec {
   */
   concat = x: y: x ++ y;
 
-  /* boolean “or” */
+  # boolean “or”
   or = x: y: x || y;
 
-  /* boolean “and” */
+  # boolean “and”
   and = x: y: x && y;
 
-  /* bitwise “and” */
-  bitAnd = builtins.bitAnd
-    or (import ./zip-int-bits.nix
-        (a: b: if a==1 && b==1 then 1 else 0));
+  # bitwise “and”
+  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix
+    (a: b: if a == 1 && b == 1 then 1 else 0));
 
-  /* bitwise “or” */
-  bitOr = builtins.bitOr
-    or (import ./zip-int-bits.nix
-        (a: b: if a==1 || b==1 then 1 else 0));
+  # bitwise “or”
+  bitOr = builtins.bitOr or (import ./zip-int-bits.nix
+    (a: b: if a == 1 || b == 1 then 1 else 0));
 
-  /* bitwise “xor” */
-  bitXor = builtins.bitXor
-    or (import ./zip-int-bits.nix
-        (a: b: if a!=b then 1 else 0));
+  # bitwise “xor”
+  bitXor = builtins.bitXor or (import ./zip-int-bits.nix
+    (a: b: if a != b then 1 else 0));
 
-  /* bitwise “not” */
+  # bitwise “not”
   bitNot = builtins.sub (-1);
 
   /* Convert a boolean to a string.
@@ -88,7 +86,8 @@ rec {
     # Left attribute set
     x:
     # Right attribute set (higher precedence for equal keys)
-    y: x // y;
+    y:
+    x // y;
 
   /* Flip the order of the arguments of a binary function.
 
@@ -112,21 +111,20 @@ rec {
     # Function to call
     f:
     # Argument to check for null before passing it to `f`
-    a: if a == null then a else f a;
+    a:
+    if a == null then a else f a;
 
   # Pull in some builtins not included elsewhere.
   inherit (builtins)
-    pathExists readFile isBool
-    isInt isFloat add sub lessThan
-    seq deepSeq genericClosure;
-
+    pathExists readFile isBool isInt isFloat add sub lessThan seq deepSeq
+    genericClosure;
 
   ## nixpks version strings
 
-  /* Returns the current full nixpkgs version number. */
+  # Returns the current full nixpkgs version number.
   version = release + versionSuffix;
 
-  /* Returns the current nixpkgs release number as string. */
+  # Returns the current nixpkgs release number as string.
   release = lib.strings.fileContents ../.version;
 
   /* Returns the current nixpkgs release code name.
@@ -136,12 +134,12 @@ rec {
   */
   codeName = "Loris";
 
-  /* Returns the current nixpkgs version suffix as string. */
-  versionSuffix =
-    let suffixFile = ../.version-suffix;
-    in if pathExists suffixFile
-    then lib.strings.fileContents suffixFile
-    else "pre-git";
+  # Returns the current nixpkgs version suffix as string.
+  versionSuffix = let suffixFile = ../.version-suffix;
+    in if pathExists suffixFile then
+      lib.strings.fileContents suffixFile
+    else
+      "pre-git";
 
   /* Attempts to return the the current revision of nixpkgs and
      returns the supplied default value otherwise.
@@ -153,13 +151,16 @@ rec {
     default:
     let
       revisionFile = "${toString ./..}/.git-revision";
-      gitRepo      = "${toString ./..}/.git";
-    in if lib.pathIsDirectory gitRepo
-       then lib.commitIdFromGitRepo gitRepo
-       else if lib.pathExists revisionFile then lib.fileContents revisionFile
-       else default;
+      gitRepo = "${toString ./..}/.git";
+    in if lib.pathIsDirectory gitRepo then
+      lib.commitIdFromGitRepo gitRepo
+    else if lib.pathExists revisionFile then
+      lib.fileContents revisionFile
+    else
+      default;
 
-  nixpkgsVersion = builtins.trace "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
+  nixpkgsVersion = builtins.trace
+    "`lib.nixpkgsVersion` is deprecated, use `lib.version` instead!" version;
 
   /* Determine whether the function is being called from inside a Nix
      shell.
@@ -168,13 +169,12 @@ rec {
   */
   inNixShell = builtins.getEnv "IN_NIX_SHELL" != "";
 
-
   ## Integer operations
 
-  /* Return minimum of two numbers. */
+  # Return minimum of two numbers.
   min = x: y: if x < y then x else y;
 
-  /* Return maximum of two numbers. */
+  # Return maximum of two numbers.
   max = x: y: if x > y then x else y;
 
   /* Integer modulus
@@ -187,7 +187,6 @@ rec {
   */
   mod = base: int: base - (int * (builtins.div base int));
 
-
   ## Comparisons
 
   /* C-style comparisons
@@ -196,12 +195,7 @@ rec {
      a == b, compare a b => 0
      a > b,  compare a b => 1
   */
-  compare = a: b:
-    if a < b
-    then -1
-    else if a > b
-         then 1
-         else 0;
+  compare = a: b: if a < b then -1 else if a > b then 1 else 0;
 
   /* Split type into two subtypes by predicate `p`, take all elements
      of the first subtype to be less than all the elements of the
@@ -232,18 +226,13 @@ rec {
     a:
     # Second value to compare
     b:
-    if p a
-    then if p b then yes a b else -1
-    else if p b then 1 else no a b;
-
+    if p a then if p b then yes a b else -1 else if p b then 1 else no a b;
 
   /* Reads a JSON file.
 
      Type :: path -> any
   */
-  importJSON = path:
-    builtins.fromJSON (builtins.readFile path);
-
+  importJSON = path: builtins.fromJSON (builtins.readFile path);
 
   ## Warnings
 
@@ -276,8 +265,8 @@ rec {
      function of the { a, b ? foo, ... }: format, but some facilities
      like callPackage expect to be able to query expected arguments.
   */
-  setFunctionArgs = f: args:
-    { # TODO: Should we add call-time "type" checking like built in?
+  setFunctionArgs =
+    f: args: { # TODO: Should we add call-time "type" checking like built in?
       __functor = self: f;
       __functionArgs = args;
     };
@@ -293,6 +282,6 @@ rec {
   /* Check whether something is a function or something
      annotated with function args.
   */
-  isFunction = f: builtins.isFunction f ||
-    (f ? __functor && isFunction (f.__functor f));
+  isFunction = f:
+    builtins.isFunction f || (f ? __functor && isFunction (f.__functor f));
 }

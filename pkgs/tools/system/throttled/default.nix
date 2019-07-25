@@ -13,14 +13,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3Packages.wrapPython ];
 
-  pythonPath = with python3Packages; [ 
-    configparser
-    dbus-python
-    pygobject3
-  ];
+  pythonPath = with python3Packages; [ configparser dbus-python pygobject3 ];
 
   # The upstream unit both assumes the install location, and tries to run in a virtualenv 
-  postPatch = ''sed -e 's|ExecStart=.*|ExecStart=${placeholder "out"}/bin/lenovo_fix.py|' -i systemd/lenovo_fix.service'';
+  postPatch = "sed -e 's|ExecStart=.*|ExecStart=${
+    placeholder "out"
+  }/bin/lenovo_fix.py|' -i systemd/lenovo_fix.service";
 
   installPhase = ''
     runHook preInstall
@@ -31,11 +29,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup = ''wrapPythonPrograms'';
+  postFixup = "wrapPythonPrograms";
 
   meta = with stdenv.lib; {
     description = "Fix for Intel CPU throttling issues";
-    homepage = https://github.com/erpalma/throttled;
+    homepage = "https://github.com/erpalma/throttled";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ michaelpj ];

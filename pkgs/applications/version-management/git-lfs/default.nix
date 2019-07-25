@@ -25,8 +25,8 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "Git extension for versioning large files";
-    homepage    = https://git-lfs.github.com/;
-    license     = [ licenses.mit ];
+    homepage = "https://git-lfs.github.com/";
+    license = [ licenses.mit ];
     maintainers = [ maintainers.twey ];
   };
 }

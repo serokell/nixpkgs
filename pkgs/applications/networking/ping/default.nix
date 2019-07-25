@@ -1,18 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkgconfig
-, pantheon
-, python3
-, glib
-, gtk3
-, gtksourceview
-, hicolor-icon-theme
-, json-glib
-, libsoup
-, libgee
-, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, glib, gtk3, gtksourceview, hicolor-icon-theme, json-glib, libsoup, libgee, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "ping";
@@ -25,14 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1h9cdy2jxa2ffykjg89j21hazls32z9yyv3g0x07x3vizzl5xcij";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pantheon.vala
-    pkgconfig
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ meson ninja pantheon.vala pkgconfig python3 wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -51,8 +32,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A helpful tool that lets you debug what part of your API is causing you issues";
-    homepage = https://github.com/jeremyvaartjes/ping;
+    description =
+      "A helpful tool that lets you debug what part of your API is causing you issues";
+    homepage = "https://github.com/jeremyvaartjes/ping";
     maintainers = with maintainers; [ kjuvi ] ++ pantheon.maintainers;
     platforms = platforms.linux;
     license = licenses.gpl3;

@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, pillow
-, pymaging_png
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, pillow, pymaging_png, mock }:
 
 buildPythonPackage rec {
   pname = "qrcode";

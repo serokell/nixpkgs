@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "robin-map";
@@ -17,8 +14,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Tessil/robin-map;
-    description = "C++ implementation of a fast hash map and hash set using robin hood hashing";
+    homepage = "https://github.com/Tessil/robin-map";
+    description =
+      "C++ implementation of a fast hash map and hash set using robin hood hashing";
     license = licenses.mit;
     maintainers = with maintainers; [ goibhniu jtojnar ];
     platforms = platforms.unix;

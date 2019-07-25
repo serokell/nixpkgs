@@ -5,13 +5,12 @@ stdenv.mkDerivation rec {
   version = "1.3.0";
 
   src = fetchurl {
-    url = "https://github.com/EliverLara/Ant/releases/download/v${version}/Ant.tar";
+    url =
+      "https://github.com/EliverLara/Ant/releases/download/v${version}/Ant.tar";
     sha256 = "1r795v96ywzcb4dq08q2fdbmfia32g36cc512mhy41s8fb1a47dz";
   };
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   dontBuild = true;
 
@@ -29,11 +28,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A flat and light theme with a modern look";
-    homepage = https://github.com/EliverLara/Ant;
+    homepage = "https://github.com/EliverLara/Ant";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = [
-      maintainers.pbogdan
-    ];
+    maintainers = [ maintainers.pbogdan ];
   };
 }

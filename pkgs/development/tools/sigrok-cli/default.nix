@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib libsigrok libsigrokdecode ];
 
   meta = with stdenv.lib; {
-    description = "Command-line frontend for the sigrok signal analysis software suite";
-    homepage = https://sigrok.org/;
+    description =
+      "Command-line frontend for the sigrok signal analysis software suite";
+    homepage = "https://sigrok.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.bjornfor ];

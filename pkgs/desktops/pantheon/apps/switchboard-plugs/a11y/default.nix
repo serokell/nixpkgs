@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig
-, vala, libgee, granite, gtk3, switchboard }:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, switchboard
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-a11y";
@@ -12,31 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "1wh46lrsliii5bbvfc4xnzgnii2v7sqxnbn43ylmyqppfv9mk1wd";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    switchboard
-  ];
+  buildInputs = [ granite gtk3 libgee switchboard ];
 
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
   meta = with stdenv.lib; {
     description = "Switchboard Universal Access Plug";
-    homepage = https://github.com/elementary/switchboard-plug-a11y;
+    homepage = "https://github.com/elementary/switchboard-plug-a11y";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

@@ -1,7 +1,6 @@
 { lib, fetchzip }:
 
-let
-  version = "2.1.48";
+let version = "2.1.48";
 
 in fetchzip {
   name = "mailcap-${version}";
@@ -19,7 +18,8 @@ in fetchzip {
   '';
 
   meta = with lib; {
-    description = "Helper application and MIME type associations for file types";
+    description =
+      "Helper application and MIME type associations for file types";
     homepage = "https://pagure.io/mailcap";
     license = licenses.mit;
     maintainers = with maintainers; [ c0bw3b ];

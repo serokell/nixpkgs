@@ -1,15 +1,12 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, sphinx
-}:
+{ stdenv, buildPythonPackage, fetchurl, sphinx }:
 
 buildPythonPackage rec {
   pname = "tracing";
   version = "0.8";
 
   src = fetchurl {
-    url = "http://code.liw.fi/debian/pool/main/p/python-tracing/python-tracing_${version}.orig.tar.gz";
+    url =
+      "http://code.liw.fi/debian/pool/main/p/python-tracing/python-tracing_${version}.orig.tar.gz";
     sha256 = "1l4ybj5rvrrcxf8csyq7qx52izybd502pmx70zxp46gxqm60d2l0";
   };
 
@@ -19,7 +16,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://liw.fi/tracing/;
+    homepage = "http://liw.fi/tracing/";
     description = "Python debug logging helper";
     license = licenses.gpl3;
     maintainers = with maintainers; [ rickynils ];

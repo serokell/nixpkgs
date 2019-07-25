@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, makeWrapper
-, xorg, imlib2, libjpeg, libpng
-, curl, libexif, perlPackages }:
+{ stdenv, fetchurl, makeWrapper, xorg, imlib2, libjpeg, libpng, curl, libexif, perlPackages
+}:
 
 with stdenv.lib;
 
@@ -17,11 +16,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper xorg.libXt ];
 
-  buildInputs = [ xorg.libX11 xorg.libXinerama imlib2 libjpeg libpng curl libexif ];
+  buildInputs =
+    [ xorg.libX11 xorg.libXinerama imlib2 libjpeg libpng curl libexif ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}" "exif=1"
-  ] ++ optional stdenv.isDarwin "verscmp=0";
+  makeFlags = [ "PREFIX=${placeholder "out"}" "exif=1" ]
+    ++ optional stdenv.isDarwin "verscmp=0";
 
   installTargets = [ "install" ];
   postInstall = ''

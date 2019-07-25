@@ -1,8 +1,8 @@
-{stdenv, fetchFromGitHub, torch, loadcaffe, fetchurl, bash}:
+{ stdenv, fetchFromGitHub, torch, loadcaffe, fetchurl, bash }:
 stdenv.mkDerivation rec {
   name = "neural-style-${version}";
   version = "0.0pre2016.08.15";
-  buildInputs = [torch loadcaffe];
+  buildInputs = [ torch loadcaffe ];
   src = fetchFromGitHub {
     owner = "jcjohnson";
     repo = "neural-style";
@@ -11,15 +11,18 @@ stdenv.mkDerivation rec {
   };
   models = [
     (fetchurl {
-      url = "https://gist.githubusercontent.com/ksimonyan/3785162f95cd2d5fee77/raw/bb2b4fe0a9bb0669211cf3d0bc949dfdda173e9e/VGG_ILSVRC_19_layers_deploy.prototxt";
+      url =
+        "https://gist.githubusercontent.com/ksimonyan/3785162f95cd2d5fee77/raw/bb2b4fe0a9bb0669211cf3d0bc949dfdda173e9e/VGG_ILSVRC_19_layers_deploy.prototxt";
       sha256 = "09cpz7pyvc8sypg2q5j2i8yqwj1sjdbnmd6skl293p9pv13dmjg7";
     })
     (fetchurl {
-      url = "https://bethgelab.org/media/uploads/deeptextures/vgg_normalised.caffemodel";
+      url =
+        "https://bethgelab.org/media/uploads/deeptextures/vgg_normalised.caffemodel";
       sha256 = "11qckdvlck7wwl3pan0nawgxm8l2ccddi272i5l8rs9qzm7b23rf";
     })
     (fetchurl {
-      url = "http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_19_layers.caffemodel";
+      url =
+        "http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_19_layers.caffemodel";
       sha256 = "0m399x7pl4lnhy435ycsyz8xpzapqmx9n1sz698y2vhcqhkwdd1i";
     })
   ];
@@ -49,10 +52,11 @@ stdenv.mkDerivation rec {
   inherit torch bash loadcaffe;
   meta = {
     inherit version;
-    description = ''A torch implementation of the paper A Neural Algorithm of Artistic Style'';
-    license = stdenv.lib.licenses.mit ;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    description =
+      "A torch implementation of the paper A Neural Algorithm of Artistic Style";
+    license = stdenv.lib.licenses.mit;
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     # Eats a lot of RAM
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

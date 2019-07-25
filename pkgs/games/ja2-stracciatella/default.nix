@@ -25,17 +25,14 @@ let
     cargoSha256 = "0a1pc8wyvgmna0a5cbpv3mh0h4nzjxlm887ymcq00cy1ciq5nmj4";
     doCheck = false;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ja2-stracciatella-${version}";
   inherit src;
   inherit version;
 
   buildInputs = [ cmake SDL2 fltk boost ];
 
-  patches = [
-    ./remove-rust-buildstep.patch
-  ];
+  patches = [ ./remove-rust-buildstep.patch ];
   preConfigure = ''
     sed -i -e 's|rust-stracciatella|${libstracciatella}/lib/libstracciatella.so|g' CMakeLists.txt
     cmakeFlagsArray+=("-DEXTRA_DATA_DIR=$out/share/ja2")
@@ -45,6 +42,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Jagged Alliance 2, with community fixes";
     license = "SFI Source Code license agreement";
-    homepage = https://ja2-stracciatella.github.io/;
+    homepage = "https://ja2-stracciatella.github.io/";
   };
 }

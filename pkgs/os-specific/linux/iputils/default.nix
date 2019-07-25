@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch
-, meson, ninja, pkgconfig, gettext, libxslt, docbook_xsl_ns
-, libcap, nettle, libidn2, openssl, systemd
+{ stdenv, fetchFromGitHub, fetchpatch, meson, ninja, pkgconfig, gettext, libxslt, docbook_xsl_ns, libcap, nettle, libidn2, openssl, systemd
 }:
 
 with stdenv.lib;
@@ -25,36 +23,38 @@ in stdenv.mkDerivation {
   };
 
   # ninfod cannot be build with nettle yet:
-  patches =
-    [ ./build-ninfod-with-openssl.patch
-      (fetchpatch { # build-sys/doc: Fix the dependency on xsltproc
-        url = "https://github.com/iputils/iputils/commit/3b013f271931c3fe771e5a2c591f35d617de90f3.patch";
-        sha256 = "0ilhlgiqdflry7km3ik8i4h1yymm5f5zmwyl5r029q7x1p8kinfw";
-      })
-      (fetchpatch { # build-sys: Make setcap really optional
-        url = "https://github.com/iputils/iputils/commit/473be6467f995865244e7e68b2fa587a4ee79551.patch";
-        sha256 = "0781147qaf0jwa177jbmh474r8hqs0jwgi5vgx9csb43jzdm8hqf";
-      })
-    ];
+  patches = [
+    ./build-ninfod-with-openssl.patch
+    (fetchpatch { # build-sys/doc: Fix the dependency on xsltproc
+      url =
+        "https://github.com/iputils/iputils/commit/3b013f271931c3fe771e5a2c591f35d617de90f3.patch";
+      sha256 = "0ilhlgiqdflry7km3ik8i4h1yymm5f5zmwyl5r029q7x1p8kinfw";
+    })
+    (fetchpatch { # build-sys: Make setcap really optional
+      url =
+        "https://github.com/iputils/iputils/commit/473be6467f995865244e7e68b2fa587a4ee79551.patch";
+      sha256 = "0781147qaf0jwa177jbmh474r8hqs0jwgi5vgx9csb43jzdm8hqf";
+    })
+  ];
 
-  mesonFlags =
-    [ "-DUSE_CRYPTO=nettle"
-      "-DBUILD_RARPD=true"
-      "-DBUILD_TRACEROUTE6=true"
-      "-DNO_SETCAP_OR_SUID=true"
-      "-Dsystemdunitdir=etc/systemd/system"
-    ]
-    ++ optional (!withNinfod) "-DBUILD_NINFOD=false"
+  mesonFlags = [
+    "-DUSE_CRYPTO=nettle"
+    "-DBUILD_RARPD=true"
+    "-DBUILD_TRACEROUTE6=true"
+    "-DNO_SETCAP_OR_SUID=true"
+    "-Dsystemdunitdir=etc/systemd/system"
+  ] ++ optional (!withNinfod) "-DBUILD_NINFOD=false"
     # Disable idn usage w/musl (https://github.com/iputils/iputils/pull/111):
     ++ optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false";
 
-  nativeBuildInputs = [ meson ninja pkgconfig gettext libxslt.bin docbook_xsl_ns ];
+  nativeBuildInputs =
+    [ meson ninja pkgconfig gettext libxslt.bin docbook_xsl_ns ];
   buildInputs = [ libcap nettle systemd ]
     ++ optional (!stdenv.hostPlatform.isMusl) libidn2
     ++ optional withNinfod openssl; # TODO: Build with nettle
 
   meta = {
-    homepage = https://github.com/iputils/iputils;
+    homepage = "https://github.com/iputils/iputils";
     description = "A set of small useful utilities for Linux networking";
     license = with licenses; [ gpl2Plus bsd3 sunAsIsLicense ];
     platforms = platforms.linux;

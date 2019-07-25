@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "pdf2djvu-${version}";
 
   src = fetchurl {
-    url = "https://github.com/jwilk/pdf2djvu/releases/download/${version}/${name}.tar.xz";
+    url =
+      "https://github.com/jwilk/pdf2djvu/releases/download/${version}/${name}.tar.xz";
     sha256 = "0qscmfii1pvnb8g7kbl1rdiqyic6ybfiw4kwvy35qqi967c1daz0";
   };
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Creates djvu files from PDF files";
-    homepage = https://jwilk.net/software/pdf2djvu;
+    homepage = "https://jwilk.net/software/pdf2djvu";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pSub ];
     inherit version;

@@ -1,22 +1,23 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python2Packages, makeWrapper
-, fetchpatch
-, bash, libsamplerate, libsndfile, readline, eigen, celt
-, wafHook
+{ stdenv, fetchFromGitHub, pkgconfig, python2Packages, makeWrapper, fetchpatch, bash, libsamplerate, libsndfile, readline, eigen, celt, wafHook
 # Darwin Dependencies
 , aften, AudioUnit, CoreAudio, libobjc, Accelerate
 
 # Optional Dependencies
-, dbus ? null, libffado ? null, alsaLib ? null
-, libopus ? null
+, dbus ? null, libffado ? null, alsaLib ? null, libopus ? null
 
-# Extra options
-, prefix ? ""
-}:
+  # Extra options
+, prefix ? "" }:
 
 with stdenv.lib;
 let
   inherit (python2Packages) python dbus-python;
-  shouldUsePkg = pkg: if pkg != null && stdenv.lib.any (stdenv.lib.meta.platformMatch stdenv.hostPlatform) pkg.meta.platforms then pkg else null;
+  shouldUsePkg = pkg:
+    if pkg != null
+    && stdenv.lib.any (stdenv.lib.meta.platformMatch stdenv.hostPlatform)
+    pkg.meta.platforms then
+      pkg
+    else
+      null;
 
   libOnly = prefix == "lib";
 
@@ -25,8 +26,7 @@ let
   optLibffado = if libOnly then null else shouldUsePkg libffado;
   optAlsaLib = if libOnly then null else shouldUsePkg alsaLib;
   optLibopus = shouldUsePkg libopus;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${prefix}jack2-${version}";
   version = "1.9.12";
 
@@ -38,10 +38,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig python makeWrapper wafHook ];
-  buildInputs = [ libsamplerate libsndfile readline eigen celt
-    optDbus optPythonDBus optLibffado optAlsaLib optLibopus
+  buildInputs = [
+    libsamplerate
+    libsndfile
+    readline
+    eigen
+    celt
+    optDbus
+    optPythonDBus
+    optLibffado
+    optAlsaLib
+    optLibopus
   ] ++ optionals stdenv.isDarwin [
-    aften AudioUnit CoreAudio Accelerate libobjc
+    aften
+    AudioUnit
+    CoreAudio
+    Accelerate
+    libobjc
   ];
 
   prePatch = ''
@@ -49,10 +62,13 @@ stdenv.mkDerivation rec {
         --replace /bin/bash ${bash}/bin/bash
   '';
 
-  patches = [ (fetchpatch {
-    url = "https://github.com/jackaudio/jack2/commit/d851fada460d42508a6f82b19867f63853062583.patch";
-    sha256 = "1iwwxjzvgrj7dz3s8alzlhcgmcarjcbkrgvsmy6kafw21pyyw7hp";
-  }) ];
+  patches = [
+    (fetchpatch {
+      url =
+        "https://github.com/jackaudio/jack2/commit/d851fada460d42508a6f82b19867f63853062583.patch";
+      sha256 = "1iwwxjzvgrj7dz3s8alzlhcgmcarjcbkrgvsmy6kafw21pyyw7hp";
+    })
+  ];
 
   wafConfigureFlags = [
     "--classic"
@@ -70,7 +86,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "JACK audio connection kit, version 2 with jackdbus";
-    homepage = http://jackaudio.org;
+    homepage = "http://jackaudio.org";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ goibhniu ];

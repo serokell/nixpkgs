@@ -4,9 +4,8 @@ let
   inherit (lib) mkIf mkOption singleton types;
   inherit (pkgs) coreutils;
   cfg = config.services.exim;
-in
 
-{
+in {
 
   ###### interface
 
@@ -71,7 +70,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -106,8 +104,8 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."exim.conf".source ];
       serviceConfig = {
-        ExecStart   = "${cfg.package}/bin/exim -bdf -q30m";
-        ExecReload  = "${coreutils}/bin/kill -HUP $MAINPID";
+        ExecStart = "${cfg.package}/bin/exim -bdf -q30m";
+        ExecReload = "${coreutils}/bin/kill -HUP $MAINPID";
       };
       preStart = ''
         if ! test -d ${cfg.spoolDir}; then

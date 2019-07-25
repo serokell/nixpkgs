@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, libotr, automake, autoconf, libtool, glib, pkgconfig, irssi }:
+{ stdenv, fetchFromGitHub, libotr, automake, autoconf, libtool, glib, pkgconfig, irssi
+}:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -17,10 +18,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libotr automake autoconf libtool glib irssi ];
 
-  NIX_CFLAGS_COMPILE="-I ${irssi}/include/irssi -I ${irssi}/include/irssi/src/core -I ${irssi}/include/irssi/src/";
+  NIX_CFLAGS_COMPILE =
+    "-I ${irssi}/include/irssi -I ${irssi}/include/irssi/src/core -I ${irssi}/include/irssi/src/";
 
   meta = {
-    homepage = https://github.com/cryptodotis/irssi-otr;
+    homepage = "https://github.com/cryptodotis/irssi-otr";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
   };

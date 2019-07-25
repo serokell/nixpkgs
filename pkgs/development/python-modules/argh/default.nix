@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, py
-, mock
-, glibcLocales
-, iocapture
+{ stdenv, buildPythonPackage, fetchPypi, pytest, py, mock, glibcLocales, iocapture
 }:
 
 buildPythonPackage rec {
@@ -25,7 +18,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/neithere/argh/;
+    homepage = "https://github.com/neithere/argh/";
     description = "An unobtrusive argparse wrapper with natural syntax";
     license = licenses.lgpl2;
     maintainers = with maintainers; [ domenkozar ];

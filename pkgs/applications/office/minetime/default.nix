@@ -3,11 +3,11 @@
 let
   pname = "minetime";
   version = "1.5.1";
-in
-appimageTools.wrapType2 rec {
+in appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
   src = fetchurl {
-    url = "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}-x86_64.AppImage";
+    url =
+      "https://github.com/marcoancona/MineTime/releases/download/v${version}/${name}-x86_64.AppImage";
     sha256 = "0099cq4p7j01bzs7q79y9xi7g6ji17v9g7cykfjggwsgqfmvd0hz";
   };
 
@@ -22,7 +22,7 @@ appimageTools.wrapType2 rec {
 
   meta = with lib; {
     description = "Modern, intuitive and smart calendar application";
-    homepage = https://minetime.ai;
+    homepage = "https://minetime.ai";
     license = licenses.unfree;
     # Should be cross-platform, but for now we just grab the appimage
     platforms = [ "x86_64-linux" ];

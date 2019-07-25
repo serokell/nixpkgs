@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.postfix;
-in
-{
+let cfg = config.services.prometheus.exporters.postfix;
+in {
   port = 9154;
   extraOpts = {
     telemetryPath = mkOption {
@@ -67,14 +65,18 @@ in
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
           --web.telemetry-path ${cfg.telemetryPath} \
           --postfix.showq_path ${cfg.showqPath} \
-          ${concatStringsSep " \\\n  " (cfg.extraFlags
+          ${
+          concatStringsSep " \\\n  " (cfg.extraFlags
           ++ optional cfg.systemd.enable "--systemd.enable"
-          ++ optional cfg.systemd.enable (if cfg.systemd.slice != null
-                                          then "--systemd.slice ${cfg.systemd.slice}"
-                                          else "--systemd.unit ${cfg.systemd.unit}")
+          ++ optional cfg.systemd.enable (if cfg.systemd.slice != null then
+            "--systemd.slice ${cfg.systemd.slice}"
+          else
+            "--systemd.unit ${cfg.systemd.unit}")
           ++ optional (cfg.systemd.enable && (cfg.systemd.journalPath != null))
-                       "--systemd.jounal_path ${cfg.systemd.journalPath}"
-          ++ optional (!cfg.systemd.enable) "--postfix.logfile_path ${cfg.logfilePath}")}
+          "--systemd.jounal_path ${cfg.systemd.journalPath}"
+          ++ optional (!cfg.systemd.enable)
+          "--postfix.logfile_path ${cfg.logfilePath}")
+          }
       '';
     };
   };

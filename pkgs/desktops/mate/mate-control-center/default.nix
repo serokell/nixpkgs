@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, libxml2, dbus-glib,
-  libxklavier, libcanberra-gtk3, librsvg, libappindicator-gtk3,
-  desktop-file-utils, gnome3, gtk3, mate, hicolor-icon-theme, wrapGAppsHook
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, libxml2, dbus-glib, libxklavier, libcanberra-gtk3, librsvg, libappindicator-gtk3, desktop-file-utils, gnome3, gtk3, mate, hicolor-icon-theme, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -8,17 +6,14 @@ stdenv.mkDerivation rec {
   version = "1.22.1";
 
   src = fetchurl {
-    url = "http://pub.mate-desktop.org/releases/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "http://pub.mate-desktop.org/releases/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0w9w3wkxksbhzyd96y1x6yxb0q5lkp16y8i42564b6njvwqch5a0";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    intltool
-    itstool
-    desktop-file-utils
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ pkgconfig intltool itstool desktop-file-utils wrapGAppsHook ];
 
   buildInputs = [
     libxml2
@@ -55,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Utilities to configure the MATE desktop";
-    homepage = https://github.com/mate-desktop/mate-control-center;
+    homepage = "https://github.com/mate-desktop/mate-control-center";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

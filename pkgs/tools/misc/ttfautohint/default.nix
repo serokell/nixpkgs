@@ -1,8 +1,5 @@
-{
-  stdenv, lib, fetchurl, pkgconfig, autoreconfHook
-, freetype, harfbuzz, libiconv, qtbase
-, enableGUI ? true
-}:
+{ stdenv, lib, fetchurl, pkgconfig, autoreconfHook, freetype, harfbuzz, libiconv, qtbase, enableGUI ?
+  true }:
 
 stdenv.mkDerivation rec {
   version = "1.8.3";
@@ -21,7 +18,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ freetype harfbuzz libiconv ] ++ lib.optional enableGUI qtbase;
 
-  configureFlags = [ ''--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}'' ];
+  configureFlags =
+    [ "--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}" ];
 
   enableParallelBuilding = true;
 
@@ -33,8 +31,9 @@ stdenv.mkDerivation rec {
       new font where all glyphs are bytecode hinted using the
       information given by FreeType’s auto-hinting module.
     '';
-    homepage = https://www.freetype.org/ttfautohint;
-    license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
+    homepage = "https://www.freetype.org/ttfautohint";
+    license =
+      licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
     maintainers = with maintainers; [ goibhniu ndowens ];
     platforms = platforms.unix;
   };

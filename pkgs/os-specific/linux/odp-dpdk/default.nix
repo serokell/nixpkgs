@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig
-, dpdk, libconfig, libpcap, numactl, openssl
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, dpdk, libconfig, libpcap, numactl, openssl
 }:
 
 stdenv.mkDerivation rec {
@@ -19,16 +18,13 @@ stdenv.mkDerivation rec {
 
   dontDisableStatic = true;
 
-  configureFlags = [
-    "--disable-shared"
-    "--with-dpdk-path=${dpdk}"
-  ];
+  configureFlags = [ "--disable-shared" "--with-dpdk-path=${dpdk}" ];
 
   meta = with stdenv.lib; {
     description = "Open Data Plane optimized for DPDK";
-    homepage = https://www.opendataplane.org;
+    homepage = "https://www.opendataplane.org";
     license = licenses.bsd3;
-    platforms =  [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.abuibrahim ];
   };
 }

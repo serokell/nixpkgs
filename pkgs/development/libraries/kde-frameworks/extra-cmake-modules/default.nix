@@ -5,7 +5,7 @@ mkDerivation {
 
   patches = copyPathsToStore (lib.readPathsFromFile ./. ./series);
 
-  outputs = [ "out" ];  # this package has no runtime components
+  outputs = [ "out" ]; # this package has no runtime components
 
   propagatedBuildInputs = [ cmake pkgconfig ];
 
@@ -13,7 +13,7 @@ mkDerivation {
 
   meta = with lib; {
     platforms = platforms.linux ++ platforms.darwin;
-    homepage = http://www.kde.org;
+    homepage = "http://www.kde.org";
     license = licenses.bsd2;
     maintainers = [ maintainers.ttuegel ];
   };

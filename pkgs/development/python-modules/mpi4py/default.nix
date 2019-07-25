@@ -9,9 +9,7 @@ buildPythonPackage rec {
     sha256 = "1q28xl36difma1wq0acq111cqxjya32kn3lxp6fbidz3wg8jkmpq";
   };
 
-  passthru = {
-    inherit mpi;
-  };
+  passthru = { inherit mpi; };
 
   postPatch = ''
     substituteInPlace test/test_spawn.py --replace \
@@ -39,14 +37,13 @@ buildPythonPackage rec {
     export OMPI_MCA_rmaps_base_oversubscribe=yes
   '';
 
-  setupPyBuildFlags = ["--mpicc=${mpi}/bin/mpicc"];
+  setupPyBuildFlags = [ "--mpicc=${mpi}/bin/mpicc" ];
 
   nativeBuildInputs = [ mpi openssh ];
 
   meta = {
-    description =
-      "Python bindings for the Message Passing Interface standard";
-    homepage = http://code.google.com/p/mpi4py/;
+    description = "Python bindings for the Message Passing Interface standard";
+    homepage = "http://code.google.com/p/mpi4py/";
     license = stdenv.lib.licenses.bsd3;
   };
 }

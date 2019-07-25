@@ -1,13 +1,12 @@
-{ stdenv, fetchurl
-, gfortran, mpi
-}:
+{ stdenv, fetchurl, gfortran, mpi }:
 
 stdenv.mkDerivation rec {
   version = "1.10";
   name = "DL_POLY_Classic-${version}";
 
   src = fetchurl {
-    url = "https://ccpforge.cse.rl.ac.uk/gf/download/frsrelease/574/8924/dl_class_1.10.tar.gz";
+    url =
+      "https://ccpforge.cse.rl.ac.uk/gf/download/frsrelease/574/8924/dl_class_1.10.tar.gz";
     sha256 = "1r76zvln3bwycxlmqday0sqzv5j260y7mdh66as2aqny6jzd5ld7";
   };
 
@@ -28,8 +27,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.ccp5.ac.uk/DL_POLY_C;
-    description = "DL_POLY Classic is a general purpose molecular dynamics simulation package";
+    homepage = "https://www.ccp5.ac.uk/DL_POLY_C";
+    description =
+      "DL_POLY Classic is a general purpose molecular dynamics simulation package";
     license = licenses.bsdOriginal;
     platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.costrouc ];

@@ -38,11 +38,12 @@ in {
         StateDirectory = name;
       };
     };
-    
+
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPortRanges = [
-        { from = 9100; to = 9200; }
-      ];
+      allowedTCPPortRanges = [{
+        from = 9100;
+        to = 9200;
+      }];
       allowedUDPPorts = [ 9003 ];
     };
   };

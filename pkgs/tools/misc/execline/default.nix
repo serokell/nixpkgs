@@ -7,7 +7,8 @@ buildPackage {
   version = "2.5.1.0";
   sha256 = "0xr6yb50wm6amj1wc7jmxyv7hvlx2ypbnww1vc288j275625d9xi";
 
-  description = "A small scripting language, to be used in place of a shell in non-interactive scripts";
+  description =
+    "A small scripting language, to be used in place of a shell in non-interactive scripts";
 
   outputs = [ "bin" "lib" "dev" "doc" "out" ];
 

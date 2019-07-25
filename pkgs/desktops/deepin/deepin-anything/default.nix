@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qtbase, udisks2-qt5, utillinux,
-  dtkcore, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qtbase, udisks2-qt5, utillinux, dtkcore, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,24 +15,13 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "modsrc" ];
 
-  nativeBuildInputs = [
-    pkgconfig
-    deepin.setupHook
-  ];
+  nativeBuildInputs = [ pkgconfig deepin.setupHook ];
 
-  buildInputs = [
-    dtkcore
-    qtbase
-    udisks2-qt5
-    utillinux
-  ];
+  buildInputs = [ dtkcore qtbase udisks2-qt5 utillinux ];
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "DEB_HOST_MULTIARCH="
-    "PREFIX=${placeholder ''out''}"
-  ];
+  makeFlags = [ "DEB_HOST_MULTIARCH=" "PREFIX=${placeholder "out"}" ];
 
   postPatch = ''
     searchHardCodedPaths  # for debugging
@@ -56,7 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin file search tool";
-    homepage = https://github.com/linuxdeepin/deepin-anything;
+    homepage = "https://github.com/linuxdeepin/deepin-anything";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

@@ -9,8 +9,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://opensource.yubico.com/yubico-c/;
-    description = "C library for manipulating Yubico YubiKey One-Time Passwords (OTPs)";
+    homepage = "http://opensource.yubico.com/yubico-c/";
+    description =
+      "C library for manipulating Yubico YubiKey One-Time Passwords (OTPs)";
     license = licenses.bsd2;
     platforms = platforms.unix;
   };

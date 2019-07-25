@@ -1,7 +1,4 @@
-{ buildGoPackage
-, lib
-, fetchFromGitHub
-}:
+{ buildGoPackage, lib, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "reftools-unstable-${version}";
@@ -21,7 +18,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     description = "reftools - refactoring tools for Go";
-    homepage = https://github.com/davidrjenni/reftools;
+    homepage = "https://github.com/davidrjenni/reftools";
     license = licenses.bsd2;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

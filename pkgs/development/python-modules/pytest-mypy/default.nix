@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, mypy
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, mypy }:
 
 buildPythonPackage rec {
   pname = "pytest-mypy";
@@ -18,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Mypy static type checker plugin for Pytest";
-    homepage = https://github.com/dbader/pytest-mypy;
+    homepage = "https://github.com/dbader/pytest-mypy";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

@@ -19,8 +19,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    description = "Library to send/receive data according to the Modbus protocol";
-    homepage = https://libmodbus.org/;
+    description =
+      "Library to send/receive data according to the Modbus protocol";
+    homepage = "https://libmodbus.org/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

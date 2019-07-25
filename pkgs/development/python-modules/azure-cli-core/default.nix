@@ -1,34 +1,4 @@
-{ stdenv
-, lib
-, python
-, buildPythonPackage
-, fetchPypi
-, adal
-, antlr4-python3-runtime
-, argcomplete
-, azure-cli-telemetry
-, colorama
-, jmespath
-, humanfriendly
-, knack
-, msrest
-, msrestazure
-, paramiko
-, pygments
-, pyjwt
-, pyopenssl
-, pyyaml
-, requests
-, six
-, tabulate
-, azure-mgmt-resource
-, pyperclip
-, psutil
-, enum34
-, futures
-, antlr4-python2-runtime
-, ndg-httpsclient
-, isPy3k
+{ stdenv, lib, python, buildPythonPackage, fetchPypi, adal, antlr4-python3-runtime, argcomplete, azure-cli-telemetry, colorama, jmespath, humanfriendly, knack, msrest, msrestazure, paramiko, pygments, pyjwt, pyopenssl, pyyaml, requests, six, tabulate, azure-mgmt-resource, pyperclip, psutil, enum34, futures, antlr4-python2-runtime, ndg-httpsclient, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -61,9 +31,13 @@ buildPythonPackage rec {
     azure-mgmt-resource
     pyperclip
     psutil
-  ]
-  ++ lib.optionals isPy3k [ antlr4-python3-runtime ]
-  ++ lib.optionals (!isPy3k) [ enum34 futures antlr4-python2-runtime ndg-httpsclient ];
+  ] ++ lib.optionals isPy3k [ antlr4-python3-runtime ]
+    ++ lib.optionals (!isPy3k) [
+      enum34
+      futures
+      antlr4-python2-runtime
+      ndg-httpsclient
+    ];
 
   # Remove overly restrictive version contraints and obsolete namespace setup
   prePatch = ''
@@ -84,8 +58,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    homepage = https://github.com/Azure/azure-cli;
-    description = "Next generation multi-platform command line experience for Azure";
+    homepage = "https://github.com/Azure/azure-cli";
+    description =
+      "Next generation multi-platform command line experience for Azure";
     platforms = platforms.all;
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

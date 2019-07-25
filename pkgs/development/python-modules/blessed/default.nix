@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, wcwidth, pytest, mock
-, glibcLocales }:
+{ stdenv, buildPythonPackage, fetchPypi, six, wcwidth, pytest, mock, glibcLocales
+}:
 
 buildPythonPackage rec {
   pname = "blessed";
@@ -19,8 +19,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ wcwidth six ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jquast/blessed;
-    description = "A thin, practical wrapper around terminal capabilities in Python.";
+    homepage = "https://github.com/jquast/blessed";
+    description =
+      "A thin, practical wrapper around terminal capabilities in Python.";
     maintainers = with maintainers; [ eqyiel ];
     license = licenses.mit;
   };

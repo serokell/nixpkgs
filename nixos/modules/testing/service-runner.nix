@@ -4,8 +4,8 @@ with lib;
 
 let
 
-  makeScript = name: service: pkgs.writeScript "${name}-runner"
-    ''
+  makeScript = name: service:
+    pkgs.writeScript "${name}-runner" ''
       #! ${pkgs.perl}/bin/perl -w -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix}
 
       use File::Slurp;
@@ -94,22 +94,19 @@ let
 
   opts = { config, name, ... }: {
     options.runner = mkOption {
-    internal = true;
-    description = ''
+      internal = true;
+      description = ''
         A script that runs the service outside of systemd,
         useful for testing or for using NixOS services outside
         of NixOS.
-    '';
+      '';
     };
     config.runner = makeScript name config;
   };
 
-in
-
-{
+in {
   options = {
-    systemd.services = mkOption {
-      type = with types; attrsOf (submodule opts);
-    };
+    systemd.services =
+      mkOption { type = with types; attrsOf (submodule opts); };
   };
 }

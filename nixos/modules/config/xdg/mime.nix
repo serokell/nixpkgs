@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-{
+with lib; {
   options = {
     xdg.mime.enable = mkOption {
       type = types.bool;

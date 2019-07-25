@@ -26,10 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "An RDF visualizer";
-    maintainers = with stdenv.lib.maintainers; [
-      raskin
-    ];
-    hydraPlatforms = [];
+    maintainers = with stdenv.lib.maintainers; [ raskin ];
+    hydraPlatforms = [ ];
     license = stdenv.lib.licenses.free;
     platforms = with stdenv.lib.platforms; unix;
   };

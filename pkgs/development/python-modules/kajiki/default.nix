@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, Babel
-, pytz
-, nine
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, Babel, pytz, nine, nose }:
 
 buildPythonPackage rec {
   pname = "Kajiki";

@@ -9,16 +9,14 @@ let
 
   spamdEnv = pkgs.buildEnv {
     name = "spamd-env";
-    paths = [];
+    paths = [ ];
     postBuild = ''
       ln -sf ${spamassassin-init-pre} $out/init.pre
       ln -sf ${spamassassin-local-cf} $out/local.cf
     '';
   };
 
-in
-
-{
+in {
   options = {
 
     services.spamassassin = {
@@ -67,8 +65,7 @@ in
       initPreConf = mkOption {
         type = types.str;
         description = "The SpamAssassin init.pre config.";
-        default =
-        ''
+        default = ''
           #
           # to update this list, run this command in the rules directory:
           # grep 'loadplugin.*Mail::SpamAssassin::Plugin::.*' -o -h * | sort | uniq
@@ -124,7 +121,10 @@ in
     # Allow users to run 'spamc'.
 
     environment = {
-      etc = singleton { source = spamdEnv; target = "spamassassin"; };
+      etc = singleton {
+        source = spamdEnv;
+        target = "spamassassin";
+      };
       systemPackages = [ pkgs.spamassassin ];
     };
 
@@ -159,8 +159,8 @@ in
 
     systemd.timers.sa-update = {
       description = "sa-update-service";
-      partOf      = [ "sa-update.service" ];
-      wantedBy    = [ "timers.target" ];
+      partOf = [ "sa-update.service" ];
+      wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = "1:*";
         Persistent = true;
@@ -174,7 +174,9 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.spamassassin}/bin/spamd ${optionalString cfg.debug "-D"} --username=spamd --groupname=spamd --siteconfigpath=${spamdEnv} --virtual-config-dir=/var/lib/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid";
+        ExecStart = "${pkgs.spamassassin}/bin/spamd ${
+          optionalString cfg.debug "-D"
+          } --username=spamd --groupname=spamd --siteconfigpath=${spamdEnv} --virtual-config-dir=/var/lib/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
 

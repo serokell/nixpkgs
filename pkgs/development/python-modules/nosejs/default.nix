@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose }:
 
 buildPythonPackage rec {
   pname = "NoseJS";
@@ -20,8 +16,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://pypi.org/project/NoseJS/;
-    description = "A Nose plugin for integrating JavaScript tests into a Python test suite";
+    homepage = "https://pypi.org/project/NoseJS/";
+    description =
+      "A Nose plugin for integrating JavaScript tests into a Python test suite";
     license = licenses.free;
   };
 

@@ -1,17 +1,4 @@
-{ stdenv
-, fetchgit
-, autoreconfHook
-, help2man
-, pkgconfig
-, libsndfile
-, fftwFloat
-, libjack2
-, libxml2
-, qt4
-, boost
-, ecasound
-, glibcLocales
-, libGLU_combined # Needed because help2man basically does a ./ssr-binaural  --help and ssr-binaural needs libGL
+{ stdenv, fetchgit, autoreconfHook, help2man, pkgconfig, libsndfile, fftwFloat, libjack2, libxml2, qt4, boost, ecasound, glibcLocales, libGLU_combined # Needed because help2man basically does a ./ssr-binaural  --help and ssr-binaural needs libGL
 }:
 
 stdenv.mkDerivation rec {
@@ -20,20 +7,32 @@ stdenv.mkDerivation rec {
   version = "2016-11-03";
 
   src = fetchgit {
-    url = https://github.com/SoundScapeRenderer/ssr;
+    url = "https://github.com/SoundScapeRenderer/ssr";
     rev = "0dd0136dd24e47b63d8a4e05de467f5c7b047ec9";
     sha256 = "095x2spv9bmg6pi71mpajnghbqj58ziflg16f9854awx0qp9d8x7";
   };
 
   # Without it doesn't find all of the boost libraries.
-  BOOST_LIB_DIR="${boost}/lib";
+  BOOST_LIB_DIR = "${boost}/lib";
   # uses the deprecated get_generic_category() in boost_system
-  NIX_CFLAGS_COMPILE="-DBOOST_SYSTEM_ENABLE_DEPRECATED=1";
+  NIX_CFLAGS_COMPILE = "-DBOOST_SYSTEM_ENABLE_DEPRECATED=1";
 
   LC_ALL = "en_US.UTF-8";
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ boost boost.dev ecasound libGLU_combined help2man libsndfile fftwFloat libjack2 libxml2 qt4 glibcLocales ];
+  buildInputs = [
+    boost
+    boost.dev
+    ecasound
+    libGLU_combined
+    help2man
+    libsndfile
+    fftwFloat
+    libjack2
+    libxml2
+    qt4
+    glibcLocales
+  ];
 
   # 1) Fix detecting version. https://github.com/SoundScapeRenderer/ssr/pull/53
   # 2) Make it find ecasound headers
@@ -45,8 +44,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://spatialaudio.net/ssr/;
-    description = "The SoundScape Renderer (SSR) is a tool for real-time spatial audio reproduction";
+    homepage = "http://spatialaudio.net/ssr/";
+    description =
+      "The SoundScape Renderer (SSR) is a tool for real-time spatial audio reproduction";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.fridh ];
   };

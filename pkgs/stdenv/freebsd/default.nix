@@ -1,14 +1,11 @@
-{ lib
-, localSystem, crossSystem, config, overlays
-}:
+{ lib, localSystem, crossSystem, config, overlays }:
 
 assert crossSystem == localSystem;
-let inherit (localSystem) system; in
+let inherit (localSystem) system;
 
+in [
 
-[
-
-  ({}: {
+  ({ }: {
     __raw = true;
 
     bootstrapTools = derivation {
@@ -44,8 +41,7 @@ let inherit (localSystem) system; in
       shell = "${bootstrapTools}/bin/bash";
       fetchurlBoot = null;
       cc = null;
-      overrides = self: super: {
-      };
+      overrides = self: super: { };
     };
   })
 
@@ -57,8 +53,7 @@ let inherit (localSystem) system; in
       inherit config;
       initialPath = [ prevStage.bootstrapTools ];
       inherit (prevStage.stdenv)
-        buildPlatform hostPlatform targetPlatform
-        shell;
+        buildPlatform hostPlatform targetPlatform shell;
       fetchurlBoot = prevStage.fetchurl;
       cc = null;
     };
@@ -71,23 +66,23 @@ let inherit (localSystem) system; in
       inherit config;
 
       inherit (prevStage.stdenv)
-        buildPlatform hostPlatform targetPlatform
-        initialPath shell fetchurlBoot;
+        buildPlatform hostPlatform targetPlatform initialPath shell
+        fetchurlBoot;
 
       cc = import ../../build-support/cc-wrapper {
-        nativeTools  = true;
+        nativeTools = true;
         nativePrefix = "/usr";
-        nativeLibc   = true;
+        nativeLibc = true;
         stdenvNoCC = prevStage.stdenv;
-        cc           = {
-          name    = "clang-9.9.9";
-          cc      = "/usr";
+        cc = {
+          name = "clang-9.9.9";
+          cc = "/usr";
           outPath = "/usr";
         };
-        isClang      = true;
+        isClang = true;
       };
 
-      preHook = ''export NIX_NO_SELF_RPATH=1'';
+      preHook = "export NIX_NO_SELF_RPATH=1";
     };
   })
 

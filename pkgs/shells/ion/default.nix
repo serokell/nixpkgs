@@ -17,7 +17,7 @@ buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Modern system shell with simple (and powerful) syntax";
-    homepage = https://github.com/redox-os/ion;
+    homepage = "https://github.com/redox-os/ion";
     license = licenses.mit;
     maintainers = with maintainers; [ dywedir ];
     platforms = platforms.all;

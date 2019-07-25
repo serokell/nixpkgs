@@ -1,11 +1,8 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "ptest";
-  version =  "1.7.4";
+  version = "1.7.4";
 
   src = fetchFromGitHub {
     owner = "KarlGong";
@@ -15,8 +12,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Test classes and test cases using decorators, execute test cases by command line, and get clear reports";
-    homepage = https://pypi.python.org/pypi/ptest;
+    description =
+      "Test classes and test cases using decorators, execute test cases by command line, and get clear reports";
+    homepage = "https://pypi.python.org/pypi/ptest";
     license = licenses.asl20;
   };
 

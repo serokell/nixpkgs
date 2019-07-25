@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, dulwich
-, isPy3k
-, fetchpatch
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dulwich, isPy3k, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "hg-git";
@@ -20,15 +14,15 @@ buildPythonPackage rec {
 
   # Needs patch to work with Mercurial 4.8
   # https://bitbucket.org/durin42/hg-git/issues/264/unexpected-keyword-argument-createopts-hg
-  patches =
-    fetchpatch {
-      url = "https://bitbucket.org/rsalmaso/hg-git/commits/a778506fd4be0bf1afa75755f6ee9260fa234a0f/raw";
-      sha256 = "12r4qzbc5xcqwv0kvf8g4wjji7n45421zkbf6i75vyi4nl6n4j15";
-    };
+  patches = fetchpatch {
+    url =
+      "https://bitbucket.org/rsalmaso/hg-git/commits/a778506fd4be0bf1afa75755f6ee9260fa234a0f/raw";
+    sha256 = "12r4qzbc5xcqwv0kvf8g4wjji7n45421zkbf6i75vyi4nl6n4j15";
+  };
 
   meta = with stdenv.lib; {
     description = "Push and pull from a Git server using Mercurial";
-    homepage = http://hg-git.github.com/;
+    homepage = "http://hg-git.github.com/";
     maintainers = with maintainers; [ koral ];
     license = stdenv.lib.licenses.gpl2;
   };

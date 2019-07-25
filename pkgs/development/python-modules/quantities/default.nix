@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, python }:
 
 buildPythonPackage rec {
   pname = "quantities";
@@ -22,7 +17,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Quantities is designed to handle arithmetic and";
-    homepage = http://python-quantities.readthedocs.io/;
+    homepage = "http://python-quantities.readthedocs.io/";
     license = lib.licenses.bsd2;
   };
 }

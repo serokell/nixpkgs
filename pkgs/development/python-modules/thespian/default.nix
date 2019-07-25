@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python Actor concurrency library";
-    homepage = http://thespianpy.com/;
+    homepage = "http://thespianpy.com/";
     license = licenses.mit;
     maintainers = [ maintainers.kquick ];
   };

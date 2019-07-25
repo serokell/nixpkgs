@@ -15,8 +15,9 @@ buildPythonPackage rec {
   buildInputs = [ nose ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/oubiwann/metaphone;
-    description = "A Python implementation of the metaphone and double metaphone algorithms";
+    homepage = "https://github.com/oubiwann/metaphone";
+    description =
+      "A Python implementation of the metaphone and double metaphone algorithms";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ris ];
   };

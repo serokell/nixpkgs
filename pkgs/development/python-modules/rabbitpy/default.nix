@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, nose
-, pamqp
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, mock, nose, pamqp }:
 
 buildPythonPackage rec {
   version = "1.0.0";
@@ -35,8 +29,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A pure python, thread-safe, minimalistic and pythonic RabbitMQ client library";
-    homepage = https://pypi.python.org/pypi/rabbitpy;
+    description =
+      "A pure python, thread-safe, minimalistic and pythonic RabbitMQ client library";
+    homepage = "https://pypi.python.org/pypi/rabbitpy";
     license = licenses.bsd3;
   };
 

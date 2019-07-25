@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, iana-etc, libredirect
-, case, pytest, boto3, moto, kombu, billiard, pytz, anyjson, amqp, eventlet
+{ stdenv, buildPythonPackage, fetchPypi, iana-etc, libredirect, case, pytest, boto3, moto, kombu, billiard, pytz, anyjson, amqp, eventlet
 }:
 
 buildPythonPackage rec {
@@ -30,7 +29,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ kombu billiard pytz anyjson amqp eventlet ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/celery/celery/;
+    homepage = "https://github.com/celery/celery/";
     description = "Distributed task queue";
     license = licenses.bsd3;
   };

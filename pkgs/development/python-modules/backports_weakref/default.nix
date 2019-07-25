@@ -1,10 +1,6 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm
 # , backports
-, python
-}:
+, python }:
 
 buildPythonPackage rec {
   pname = "backports.weakref";
@@ -15,7 +11,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools_scm ];
-#   checkInputs = [ backports ];
+  #   checkInputs = [ backports ];
 
   # Requires backports package
   doCheck = false;

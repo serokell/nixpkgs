@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
     interpreter=${stdenv.glibc}/lib/ld-linux-x86-64.so.2
     patchelf --set-interpreter "$interpreter" $pgm
 
-    wrapProgram $pgm --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ openssl stdenv.cc.cc ]} 
+    wrapProgram $pgm --prefix LD_LIBRARY_PATH : ${
+      stdenv.lib.makeLibraryPath [ openssl stdenv.cc.cc ]
+    } 
 
     rm $out/usr/bin/minergate-cli
     mkdir -p $out/bin
@@ -28,9 +30,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Minergate CPU/GPU console client mining software";
-    homepage = https://www.minergate.com/;
+    homepage = "https://www.minergate.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [ bfortz ];
     platforms = [ "x86_64-linux" ];
-};
+  };
 }

@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, zlib, libpng, libxml2, libjpeg }:
+{ stdenv, fetchFromGitHub, zlib, libpng, libxml2, libjpeg }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Cosmic recursive fractal flames";
-    homepage = https://flam3.com/;
+    homepage = "https://flam3.com/";
     maintainers = [ maintainers.nand0p ];
     platforms = platforms.linux;
     license = licenses.cc-by-nc-sa-20;

@@ -13,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Essential Gravatar support for Django";
-    homepage = https://github.com/twaddington/django-gravatar;
+    homepage = "https://github.com/twaddington/django-gravatar";
     license = licenses.mit;
   };
 }

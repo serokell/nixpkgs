@@ -6,9 +6,7 @@ let
 
   cfg = config.programs.gnupg;
 
-in
-
-{
+in {
 
   options.programs.gnupg = {
     package = mkOption {
@@ -64,25 +62,19 @@ in
   };
 
   config = mkIf cfg.agent.enable {
-    systemd.user.sockets.gpg-agent = {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.gpg-agent = { wantedBy = [ "sockets.target" ]; };
 
-    systemd.user.sockets.gpg-agent-ssh = mkIf cfg.agent.enableSSHSupport {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.gpg-agent-ssh =
+      mkIf cfg.agent.enableSSHSupport { wantedBy = [ "sockets.target" ]; };
 
-    systemd.user.sockets.gpg-agent-extra = mkIf cfg.agent.enableExtraSocket {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.gpg-agent-extra =
+      mkIf cfg.agent.enableExtraSocket { wantedBy = [ "sockets.target" ]; };
 
-    systemd.user.sockets.gpg-agent-browser = mkIf cfg.agent.enableBrowserSocket {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.gpg-agent-browser =
+      mkIf cfg.agent.enableBrowserSocket { wantedBy = [ "sockets.target" ]; };
 
-    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.dirmngr =
+      mkIf cfg.dirmngr.enable { wantedBy = [ "sockets.target" ]; };
 
     systemd.packages = [ cfg.package ];
 
@@ -102,11 +94,11 @@ in
       fi
     '';
 
-    assertions = [
-      { assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
-        message = "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.agent.enableSSHSupport -> !config.programs.ssh.startAgent;
+      message =
+        "You can't use ssh-agent and GnuPG agent with SSH support enabled at the same time!";
+    }];
   };
 
 }

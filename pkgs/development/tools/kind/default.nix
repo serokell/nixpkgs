@@ -7,9 +7,9 @@ buildGoPackage rec {
   version = "0.3.0";
 
   src = fetchFromGitHub {
-    rev    = "v${version}";
-    owner  = "kubernetes-sigs";
-    repo   = "kind";
+    rev = "v${version}";
+    owner = "kubernetes-sigs";
+    repo = "kind";
     sha256 = "1azl5knw1n7g42xp92r9k7y4rzwp9xx0spcldszrpry2v4lmc5sb";
   };
 
@@ -21,10 +21,11 @@ buildGoPackage rec {
   excludedPackages = "images/base/entrypoint";
 
   meta = {
-    description = "Kubernetes IN Docker - local clusters for testing Kubernetes";
-    homepage    = https://github.com/kubernetes-sigs/kind;
+    description =
+      "Kubernetes IN Docker - local clusters for testing Kubernetes";
+    homepage = "https://github.com/kubernetes-sigs/kind";
     maintainers = with maintainers; [ offline rawkode ];
-    license     = stdenv.lib.licenses.asl20;
-    platforms   = platforms.unix;
+    license = stdenv.lib.licenses.asl20;
+    platforms = platforms.unix;
   };
 }

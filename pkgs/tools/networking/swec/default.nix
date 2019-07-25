@@ -8,7 +8,13 @@ stdenv.mkDerivation rec {
     sha256 = "1m3971z4z1wr0paggprfz0n8ng8vsnkc9m6s3bdplgyz7qjk6jwx";
   };
 
-  buildInputs = [ makeWrapper perlPackages.perl perlPackages.LWP perlPackages.URI perlPackages.HTMLParser ];
+  buildInputs = [
+    makeWrapper
+    perlPackages.perl
+    perlPackages.LWP
+    perlPackages.URI
+    perlPackages.HTMLParser
+  ];
   checkInputs = [ perlPackages.HTTPServerSimple perlPackages.Parent ];
 
   configurePhase = ''
@@ -28,41 +34,44 @@ stdenv.mkDerivation rec {
     sed -i "$out/bin/swec" -e"s|realpath(\$0)|'$out/share/${name}/swec'|g"
 
     wrapProgram "$out/bin/swec" \
-      --prefix PERL5LIB : ${with perlPackages; makePerlPath [ LWP URI HTMLParser ]}
+      --prefix PERL5LIB : ${
+      with perlPackages;
+      makePerlPath [ LWP URI HTMLParser ]
+      }
   '';
 
   doCheck = true;
   checkPhase = "make test";
 
   meta = {
-    homepage = https://random.zerodogg.org/swec/;
+    homepage = "https://random.zerodogg.org/swec/";
 
     description = "Simple Web Error Checker (SWEC)";
 
-    longDescription =
-      '' SWEC (Simple Web Error Checker) is a program that automates testing
-         of dynamic websites.  It parses each HTML file it finds for links,
-         and if those links are within the site specified (ie. local, not
-         external), it will check that page as well.  In this respect it
-         works a lot like a crawler, in that it'll click on any link it finds
-         (more notes about this later).
+    longDescription = ''
+      SWEC (Simple Web Error Checker) is a program that automates testing
+              of dynamic websites.  It parses each HTML file it finds for links,
+              and if those links are within the site specified (ie. local, not
+              external), it will check that page as well.  In this respect it
+              works a lot like a crawler, in that it'll click on any link it finds
+              (more notes about this later).
 
-         In addition to parsing and locating links, it will also parse the
-         pages looking for known errors and report those (such as Mason or
-         PHP errors), and will report if a page can not be read (by either
-         returning a 404, 500 or similar).
+              In addition to parsing and locating links, it will also parse the
+              pages looking for known errors and report those (such as Mason or
+              PHP errors), and will report if a page can not be read (by either
+              returning a 404, 500 or similar).
 
-         Since you may often want SWEC to be logged in on your site, you have
-         to be careful.  When logged in, SWEC will still click on all links
-         it finds, including things like 'join group' or 'delete account'
-         (though it has some magic trying to avoid the latter).  Therefore it
-         is highly recommended that when you run SWEC as a logged-in user on
-         a site, use a test server, not the live one.
+              Since you may often want SWEC to be logged in on your site, you have
+              to be careful.  When logged in, SWEC will still click on all links
+              it finds, including things like 'join group' or 'delete account'
+              (though it has some magic trying to avoid the latter).  Therefore it
+              is highly recommended that when you run SWEC as a logged-in user on
+              a site, use a test server, not the live one.
 
-         Running SWEC on a live site without being logged in as a user is
-         perfectly fine, it won't do anything a normal crawler wouldn't do
-         (well, not exactly true, SWEC will ignore robots.txt).
-      '';
+              Running SWEC on a live site without being logged in as a user is
+              perfectly fine, it won't do anything a normal crawler wouldn't do
+              (well, not exactly true, SWEC will ignore robots.txt).
+           '';
 
     license = stdenv.lib.licenses.gpl3Plus;
 

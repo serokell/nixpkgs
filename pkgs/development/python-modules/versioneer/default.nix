@@ -1,6 +1,5 @@
 { stdenv, buildPythonPackage, fetchPypi }:
 
-
 buildPythonPackage rec {
 
   pname = "versioneer";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Version-string management for VCS-controlled trees";
-    homepage = https://github.com/warner/python-versioneer;
+    homepage = "https://github.com/warner/python-versioneer";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ jluttine ];
   };

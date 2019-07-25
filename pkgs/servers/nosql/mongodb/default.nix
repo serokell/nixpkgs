@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, scons, boost, gperftools, pcre-cpp, snappy
-, zlib, libyamlcpp, sasl, openssl, libpcap, Security
+{ stdenv, fetchurl, fetchpatch, scons, boost, gperftools, pcre-cpp, snappy, zlib, libyamlcpp, sasl, openssl, libpcap, Security
 }:
 
 # Note:
@@ -7,18 +6,19 @@
 
 with stdenv.lib;
 
-let version = "3.4.10";
-    system-libraries = [
-      "pcre"
-      #"asio" -- XXX use package?
-      #"wiredtiger"
-      "boost"
-      "snappy"
-      "zlib"
-      #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
-      #"stemmer"  -- not nice to package yet (no versioning, no makefile, no shared libs).
-      "yaml"
-    ] ++ optionals stdenv.isLinux [ "tcmalloc" ];
+let
+  version = "3.4.10";
+  system-libraries = [
+    "pcre"
+    #"asio" -- XXX use package?
+    #"wiredtiger"
+    "boost"
+    "snappy"
+    "zlib"
+    #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
+    #"stemmer"  -- not nice to package yet (no versioning, no makefile, no shared libs).
+    "yaml"
+  ] ++ optionals stdenv.isLinux [ "tcmalloc" ];
 
 in stdenv.mkDerivation rec {
   name = "mongodb-${version}";
@@ -30,22 +30,31 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ scons ];
   buildInputs = [
-    sasl boost gperftools pcre-cpp snappy
-    zlib libyamlcpp sasl openssl.dev openssl.out libpcap
+    sasl
+    boost
+    gperftools
+    pcre-cpp
+    snappy
+    zlib
+    libyamlcpp
+    sasl
+    openssl.dev
+    openssl.out
+    libpcap
   ] ++ stdenv.lib.optionals stdenv.isDarwin [ Security ];
 
-  patches =
-    [
-      # MongoDB keeps track of its build parameters, which tricks nix into
-      # keeping dependencies to build inputs in the final output.
-      # We remove the build flags from buildInfo data.
-      ./forget-build-dependencies.patch
-      (fetchpatch {
-        url = https://projects.archlinux.org/svntogit/community.git/plain/trunk/boost160.patch?h=packages/mongodb;
-        name = "boost160.patch";
-        sha256 = "0bvsf3499zj55pzamwjmsssr6x63w434944w76273fr5rxwzcmh8";
-      })
-    ];
+  patches = [
+    # MongoDB keeps track of its build parameters, which tricks nix into
+    # keeping dependencies to build inputs in the final output.
+    # We remove the build flags from buildInfo data.
+    ./forget-build-dependencies.patch
+    (fetchpatch {
+      url =
+        "https://projects.archlinux.org/svntogit/community.git/plain/trunk/boost160.patch?h=packages/mongodb";
+      name = "boost160.patch";
+      sha256 = "0bvsf3499zj55pzamwjmsssr6x63w434944w76273fr5rxwzcmh8";
+    })
+  ];
 
   postPatch = ''
     # fix environment variable reading
@@ -65,7 +74,8 @@ in stdenv.mkDerivation rec {
       --replace 'engine("wiredTiger")' 'engine("mmapv1")'
   '';
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optional stdenv.cc.isClang "-Wno-unused-command-line-argument";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optional stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
   sconsFlags = [
     "--release"
@@ -94,7 +104,7 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "A scalable, high-performance, open source NoSQL database";
-    homepage = http://www.mongodb.org;
+    homepage = "http://www.mongodb.org";
     license = licenses.agpl3;
 
     maintainers = with maintainers; [ bluescreen303 offline cstrahan ];

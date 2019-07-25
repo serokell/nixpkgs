@@ -11,8 +11,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with stdenv.lib; {
-    description = "A program that can validate your HTML, as well as modify it to be more clean and standard";
-    homepage = http://tidyp.com/;
+    description =
+      "A program that can validate your HTML, as well as modify it to be more clean and standard";
+    homepage = "http://tidyp.com/";
     platforms = platforms.linux;
     maintainers = with maintainers; [ pSub ];
     license = licenses.bsd3;

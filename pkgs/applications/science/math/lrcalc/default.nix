@@ -1,8 +1,4 @@
-{ stdenv
-, fetchFromBitbucket
-, fetchpatch
-, autoreconfHook
-}:
+{ stdenv, fetchFromBitbucket, fetchpatch, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   version = "1.2";
@@ -18,9 +14,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   patches = [
     # Fix include syntax:
@@ -33,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Littlewood-Richardson calculator";
-    homepage = http://math.rutgers.edu/~asbuch/lrcalc/;
+    homepage = "http://math.rutgers.edu/~asbuch/lrcalc/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ timokau ];
     platforms = platforms.linux;

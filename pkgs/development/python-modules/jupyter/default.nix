@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, notebook
-, qtconsole
-, jupyter_console
-, nbconvert
-, ipykernel
-, ipywidgets
+{ stdenv, buildPythonPackage, fetchPypi, notebook, qtconsole, jupyter_console, nbconvert, ipykernel, ipywidgets
 }:
 
 buildPythonPackage rec {
@@ -18,7 +10,8 @@ buildPythonPackage rec {
     sha256 = "d9dc4b3318f310e34c82951ea5d6683f67bed7def4b259fafbfe4f1beb1d8e5f";
   };
 
-  propagatedBuildInputs = [ notebook qtconsole jupyter_console nbconvert ipykernel ipywidgets ];
+  propagatedBuildInputs =
+    [ notebook qtconsole jupyter_console nbconvert ipykernel ipywidgets ];
 
   # Meta-package, no tests
   doCheck = false;

@@ -1,12 +1,8 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules,
-  ilmbase, karchive, openexr, qtbase
-}:
+{ mkDerivation, lib, extra-cmake-modules, ilmbase, karchive, openexr, qtbase }:
 
-let inherit (lib) getDev; in
+let inherit (lib) getDev;
 
-mkDerivation {
+in mkDerivation {
   name = "kimageformats";
   meta = { maintainers = [ lib.maintainers.ttuegel ]; };
   nativeBuildInputs = [ extra-cmake-modules ];

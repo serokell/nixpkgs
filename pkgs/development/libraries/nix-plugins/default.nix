@@ -1,6 +1,6 @@
 { stdenv, fetchFromGitHub, nix, cmake, pkgconfig, boost }:
-let version = "6.0.0"; in
-stdenv.mkDerivation {
+let version = "6.0.0";
+in stdenv.mkDerivation {
   name = "nix-plugins-${version}";
 
   src = fetchFromGitHub {
@@ -15,8 +15,9 @@ stdenv.mkDerivation {
   buildInputs = [ nix boost ];
 
   meta = {
-    description = "Collection of miscellaneous plugins for the nix expression language";
-    homepage = https://github.com/shlevy/nix-plugins;
+    description =
+      "Collection of miscellaneous plugins for the nix expression language";
+    homepage = "https://github.com/shlevy/nix-plugins";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.all;
   };

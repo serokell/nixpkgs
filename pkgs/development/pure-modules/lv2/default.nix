@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   setupHook = ../generic-setup-hook.sh;
 
   meta = {
-    description = "A generic LV2 plugin wrapper for Pure which can be linked with batch-compiled Pure scripts to obtain LV2 plugin modules";
-    homepage = http://puredocs.bitbucket.org/pure-lv2.html;
+    description =
+      "A generic LV2 plugin wrapper for Pure which can be linked with batch-compiled Pure scripts to obtain LV2 plugin modules";
+    homepage = "http://puredocs.bitbucket.org/pure-lv2.html";
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ asppsa ];

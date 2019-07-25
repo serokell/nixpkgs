@@ -1,5 +1,4 @@
-{ lib, fetchzip, makeWrapper, makeDesktopItem, stdenv
-, jre, swt, gtk, libXtst, glib
+{ lib, fetchzip, makeWrapper, makeDesktopItem, stdenv, jre, swt, gtk, libXtst, glib
 }:
 
 let
@@ -19,15 +18,15 @@ let
     '';
   };
 
-
 in stdenv.mkDerivation {
   name = "tla-toolbox-${version}";
   src = fetchzip {
-    url = "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.${arch}.zip";
+    url =
+      "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.${arch}.zip";
     sha256 = "0lg9sizpw5mkcnwwvmgqigkizjyz2lf1wrg48h7mg7wcv3macy4q";
   };
 
-  buildInputs = [ makeWrapper  ];
+  buildInputs = [ makeWrapper ];
 
   phases = [ "installPhase" ];
 
@@ -44,7 +43,9 @@ in stdenv.mkDerivation {
       --run "set -x; cd $out/toolbox" \
       --add-flags "-data ~/.tla-toolbox" \
       --prefix PATH : "${jre}/bin" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ swt gtk libXtst glib ]}"
+      --prefix LD_LIBRARY_PATH : "${
+      lib.makeLibraryPath [ swt gtk libXtst glib ]
+      }"
 
     echo -e "\nCreating TLA Toolbox icons..."
     pushd "$src"
@@ -62,7 +63,8 @@ in stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = http://research.microsoft.com/en-us/um/people/lamport/tla/toolbox.html;
+    homepage =
+      "http://research.microsoft.com/en-us/um/people/lamport/tla/toolbox.html";
     description = "IDE for the TLA+ tools";
     longDescription = ''
       Integrated development environment for the TLA+ tools, based on Eclipse. You can use it

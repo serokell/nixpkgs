@@ -1,16 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, six
-, eventlet
-, mock
-, iana-etc
-, libredirect
-, aiohttp
-, websockets
-, websocket_client
-, requests
-, tornado
+{ stdenv, buildPythonPackage, fetchFromGitHub, six, eventlet, mock, iana-etc, libredirect, aiohttp, websockets, websocket_client, requests, tornado
 }:
 
 buildPythonPackage rec {
@@ -24,19 +12,10 @@ buildPythonPackage rec {
     sha256 = "0wk81rqigw47z087f5kc7b9iwqggypxc62q8q818qyzqwb93ysxf";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  checkInputs = [
-    eventlet
-    mock
-    aiohttp
-    websockets
-    websocket_client
-    tornado
-    requests
-  ];
+  checkInputs =
+    [ eventlet mock aiohttp websockets websocket_client tornado requests ];
 
   # make /etc/protocols accessible to fix socket.getprotobyname('tcp') in sandbox
   preCheck = stdenv.lib.optionalString stdenv.isLinux ''
@@ -47,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Engine.IO server";
-    homepage = https://github.com/miguelgrinberg/python-engineio/;
+    homepage = "https://github.com/miguelgrinberg/python-engineio/";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = [ maintainers.mic92 ];

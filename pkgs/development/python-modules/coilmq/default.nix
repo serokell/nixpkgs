@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, stompclient, python-daemon, redis, pid, pytest, six, click, coverage
-, sqlalchemy }:
+{ stdenv, buildPythonPackage, fetchPypi, stompclient, python-daemon, redis, pid, pytest, six, click, coverage, sqlalchemy
+}:
 
 buildPythonPackage rec {
   pname = "CoilMQ";
@@ -18,8 +17,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Simple, lightweight, and easily extensible STOMP message broker";
-    homepage = http://code.google.com/p/coilmq/;
+    description =
+      "Simple, lightweight, and easily extensible STOMP message broker";
+    homepage = "http://code.google.com/p/coilmq/";
     license = licenses.asl20;
   };
 }

@@ -1,18 +1,31 @@
-{ stdenv, fetchurl, pkgconfig, ptlib, srtp, libtheora, speex, gnome3
-, ffmpeg, x264, cyrus_sasl, openldap, openssl, expat, unixODBC }:
+{ stdenv, fetchurl, pkgconfig, ptlib, srtp, libtheora, speex, gnome3, ffmpeg, x264, cyrus_sasl, openldap, openssl, expat, unixODBC
+}:
 
 stdenv.mkDerivation rec {
   pname = "opal";
   version = "3.10.10";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "f208985003461b2743575eccac13ad890b3e5baac35b68ddef17162460aff864";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ ptlib srtp libtheora speex
-                  ffmpeg x264 cyrus_sasl openldap openssl expat unixODBC ];
+  buildInputs = [
+    ptlib
+    srtp
+    libtheora
+    speex
+    ffmpeg
+    x264
+    cyrus_sasl
+    openldap
+    openssl
+    expat
+    unixODBC
+  ];
   propagatedBuildInputs = [ speex ];
 
   configureFlags = [ "--enable-h323" ];
@@ -35,9 +48,7 @@ stdenv.mkDerivation rec {
     updateInfo = {
       downloadPage = "http://ftp.gnome.org/pub/GNOME/sources/opal";
     };
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome3.updateScript { packageName = pname; };
   };
 }
 

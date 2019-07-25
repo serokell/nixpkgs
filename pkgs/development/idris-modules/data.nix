@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, lib }:
+build-idris-package {
   name = "data";
   version = "2018-03-19";
 
@@ -18,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Functional data structures in Idris";
-    homepage = https://github.com/jdevuyst/idris-data;
+    homepage = "https://github.com/jdevuyst/idris-data";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

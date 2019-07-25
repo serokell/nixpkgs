@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-, psutil
-, pyopenssl
-, pysendfile
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, psutil, pyopenssl, pysendfile }:
 
 buildPythonPackage rec {
   version = "1.5.5";
@@ -24,7 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/giampaolo/pyftpdlib/;
+    homepage = "https://github.com/giampaolo/pyftpdlib/";
     description = "Very fast asynchronous FTP server library";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

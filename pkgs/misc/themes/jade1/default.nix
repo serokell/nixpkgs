@@ -19,8 +19,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A fork of the original Linux Mint theme with dark menus, more intensive green and some other modifications";
-    homepage = https://github.com/madmaxms/theme-jade-1;
+    description =
+      "A fork of the original Linux Mint theme with dark menus, more intensive green and some other modifications";
+    homepage = "https://github.com/madmaxms/theme-jade-1";
     license = with licenses; [ gpl3 ];
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

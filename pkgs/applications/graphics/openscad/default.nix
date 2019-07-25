@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, qt5, libsForQt5
-, bison, flex, eigen, boost, libGLU_combined, glew, opencsg, cgal
-, mpfr, gmp, glib, pkgconfig, harfbuzz, gettext, freetype, fontconfig
-, double-conversion, lib3mf, libzip
+{ stdenv, fetchFromGitHub, qt5, libsForQt5, bison, flex, eigen, boost, libGLU_combined, glew, opencsg, cgal, mpfr, gmp, glib, pkgconfig, harfbuzz, gettext, freetype, fontconfig, double-conversion, lib3mf, libzip
 }:
 
 stdenv.mkDerivation rec {
@@ -18,12 +15,23 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ bison flex pkgconfig gettext qt5.qmake ];
 
   buildInputs = [
-    eigen boost glew opencsg cgal mpfr gmp glib
-    harfbuzz lib3mf libzip double-conversion freetype fontconfig
-  ] ++ stdenv.lib.optional stdenv.isLinux libGLU_combined
-    ++ (with qt5; [qtbase qtmultimedia] ++ stdenv.lib.optional stdenv.isDarwin qtmacextras)
-    ++ (with libsForQt5; [qscintilla])
-  ;
+    eigen
+    boost
+    glew
+    opencsg
+    cgal
+    mpfr
+    gmp
+    glib
+    harfbuzz
+    lib3mf
+    libzip
+    double-conversion
+    freetype
+    fontconfig
+  ] ++ stdenv.lib.optional stdenv.isLinux libGLU_combined ++ (with qt5;
+    [ qtbase qtmultimedia ] ++ stdenv.lib.optional stdenv.isDarwin qtmacextras)
+    ++ (with libsForQt5; [ qscintilla ]);
 
   qmakeFlags = [ "VERSION=${version}" ];
 
@@ -54,10 +62,14 @@ stdenv.mkDerivation rec {
       machine parts but pretty sure is not what you are looking for when you are more
       interested in creating computer-animated movies.
     '';
-    homepage = http://openscad.org/;
+    homepage = "http://openscad.org/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;
-    maintainers = with stdenv.lib.maintainers;
-      [ bjornfor raskin the-kenny gebner ];
+    maintainers = with stdenv.lib.maintainers; [
+      bjornfor
+      raskin
+      the-kenny
+      gebner
+    ];
   };
 }

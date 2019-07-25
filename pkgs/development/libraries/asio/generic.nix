@@ -1,6 +1,4 @@
-{stdenv, fetchurl, boost, openssl
-, version, sha256, ...
-}:
+{ stdenv, fetchurl, boost, openssl, version, sha256, ... }:
 
 with stdenv.lib;
 
@@ -17,10 +15,11 @@ stdenv.mkDerivation {
   buildInputs = [ openssl ];
 
   meta = {
-    homepage = http://asio.sourceforge.net/;
-    description = "Cross-platform C++ library for network and low-level I/O programming";
+    homepage = "http://asio.sourceforge.net/";
+    description =
+      "Cross-platform C++ library for network and low-level I/O programming";
     license = licenses.boost;
-    broken = stdenv.isDarwin;  # test when updating to >=1.12.1
+    broken = stdenv.isDarwin; # test when updating to >=1.12.1
     platforms = platforms.unix;
   };
 }

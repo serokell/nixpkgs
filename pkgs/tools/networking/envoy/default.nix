@@ -1,16 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, bazel, c-ares, backward-cpp
-, libevent, gtest, gperftools, http-parser, lightstep-tracer-cpp
-, nghttp2, protobuf, tclap, rapidjson, spdlog, boringssl, buildEnv
+{ stdenv, lib, fetchFromGitHub, pkgconfig, bazel, c-ares, backward-cpp, libevent, gtest, gperftools, http-parser, lightstep-tracer-cpp, nghttp2, protobuf, tclap, rapidjson, spdlog, boringssl, buildEnv
 }:
 
 let
-  protobuf_bzl =
-    fetchFromGitHub {
-      owner = "htuch";
-      repo = "protobuf";
-      rev = "d490587268931da78c942a6372ef57bb53db80da";
-      sha256 = "100494s66xclw88bdnpb6d386vgw0gwz90sni37q7fqmi9w99z6v";
-    };
+  protobuf_bzl = fetchFromGitHub {
+    owner = "htuch";
+    repo = "protobuf";
+    rev = "d490587268931da78c942a6372ef57bb53db80da";
+    sha256 = "100494s66xclw88bdnpb6d386vgw0gwz90sni37q7fqmi9w99z6v";
+  };
 
   # Based on ci/prebuilt/BUILD
   #
@@ -72,7 +69,8 @@ let
     lightstep = {
       pkg = lightstep-tracer-cpp;
       srcs = ''["lib/liblightstep_core_cxx11.a"]'';
-      hdrs = ''glob([ "include/lightstep/**/*.h", "include/mapbox_variant/**/*.hpp" ]) + [ "include/collector.pb.h", "include/lightstep_carrier.pb.h" ]'';
+      hdrs = ''
+        glob([ "include/lightstep/**/*.h", "include/mapbox_variant/**/*.hpp" ]) + [ "include/collector.pb.h", "include/lightstep_carrier.pb.h" ]'';
       includes = ''["include"]'';
       deps = ''[":protobuf"]'';
     };
@@ -125,37 +123,28 @@ let
   };
 
   # Generate the BUILD file.
-  buildFile =
-    let field = name: attrs:
+  buildFile = let
+    field = name: attrs:
       if attrs ? "${name}" then "    ${name} = ${attrs.${name}},\n" else "";
-    in
+    in ''
+      licenses(["notice"])  # Apache 2
+
+      package(default_visibility = ["//visibility:public"])
+
+    '' + lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: value:
     ''
-    licenses(["notice"])  # Apache 2
+      cc_library(
+    '' + "    name = \"${name}\",\n" + field "srcs" value + field "hdrs" value
+    + field "deps" value + field "includes" value
+    + field "strip_include_prefix" value + ")") ccTargets) + ''
 
-    package(default_visibility = ["//visibility:public"])
-
-    '' +
-    lib.concatStringsSep "\n\n" (
-      lib.mapAttrsToList (name: value:
-          "cc_library(\n"
-        + "    name = \"${name}\",\n"
-        + field "srcs" value
-        + field "hdrs" value
-        + field "deps" value
-        + field "includes" value
-        + field "strip_include_prefix" value
-        + ")"
-      ) ccTargets
-    ) + ''
-
-    filegroup(
-        name = "protoc",
-        srcs = ["bin/protoc"],
-    )
+      filegroup(
+          name = "protoc",
+          srcs = ["bin/protoc"],
+      )
     '';
 
-  workspaceFile = 
-    ''
+  workspaceFile = ''
     workspace(name = "nix")
 
     load("//bazel:repositories.bzl", "envoy_dependencies")
@@ -180,14 +169,13 @@ let
     )
 
     cc_configure()
-    '';
+  '';
 
   # The tree we'll use for our new_local_repository in our generated WORKSPACE.
   repoEnv = buildEnv {
     name = "repo-env";
-    paths = lib.concatMap (p:
-      lib.unique [(lib.getBin p) (lib.getLib p) (lib.getDev p)]
-    ) allDeps;
+    paths = lib.concatMap
+      (p: lib.unique [ (lib.getBin p) (lib.getLib p) (lib.getDev p) ]) allDeps;
   };
 
   rpath = stdenv.lib.makeLibraryPath (allDeps ++ [ stdenv.cc.cc ]);
@@ -212,9 +200,7 @@ let
   # so we really can't avoid putting some sort of sha here.
   rev = "3afc7712a04907ffd25ed497626639febfe65735";
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "envoy-${version}";
   version = "1.3.0";
 
@@ -225,9 +211,7 @@ stdenv.mkDerivation rec {
     sha256 = "0j1c9lyvncyhiq3kyhx91ckcjd2h68x56js7xb6ni6bzxinv6zb6";
   };
 
-  nativeBuildInputs = [
-    pkgconfig bazel
-  ];
+  nativeBuildInputs = [ pkgconfig bazel ];
 
   buildInputs = allDeps;
 
@@ -294,7 +278,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "L7 proxy and communication bus designed for large modern service oriented architectures";
+    description =
+      "L7 proxy and communication bus designed for large modern service oriented architectures";
     homepage = "https://lyft.github.io/envoy/";
     license = licenses.asl20;
     platforms = platforms.linux;

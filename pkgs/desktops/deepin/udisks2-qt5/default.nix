@@ -12,14 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "1gk4jmq7mrzk181r6man2rz1iyzkfasz7053a30h4nn24mq8ikig";
   };
 
-  nativeBuildInputs = [
-    deepin.setupHook
-    qmake
-  ];
+  nativeBuildInputs = [ deepin.setupHook qmake ];
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
   postPatch = ''
     searchHardCodedPaths
@@ -33,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "UDisks2 D-Bus interfaces binding for Qt5";
-    homepage = https://github.com/linuxdeepin/udisks2-qt5;
+    homepage = "https://github.com/linuxdeepin/udisks2-qt5";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

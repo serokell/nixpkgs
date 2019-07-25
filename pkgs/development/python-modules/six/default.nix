@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "six";
@@ -24,7 +20,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A Python 2 and 3 compatibility library";
-    homepage = https://pypi.python.org/pypi/six/;
+    homepage = "https://pypi.python.org/pypi/six/";
     license = lib.licenses.mit;
   };
 }

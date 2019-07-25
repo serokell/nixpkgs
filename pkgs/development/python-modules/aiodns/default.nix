@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder
-, isPy27, isPyPy, python, pycares, typing, trollius }:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, isPy27, isPyPy, python, pycares, typing, trollius
+}:
 
 buildPythonPackage rec {
   pname = "aiodns";
@@ -10,8 +10,8 @@ buildPythonPackage rec {
     sha256 = "815fdef4607474295d68da46978a54481dd1e7be153c7d60f9e72773cd38d77d";
   };
 
-  propagatedBuildInputs = with stdenv.lib; [ pycares ]
-    ++ optional (pythonOlder "3.7") typing
+  propagatedBuildInputs = with stdenv.lib;
+    [ pycares ] ++ optional (pythonOlder "3.7") typing
     ++ optional (isPy27 || isPyPy) trollius;
 
   checkPhase = ''
@@ -22,7 +22,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/saghul/aiodns;
+    homepage = "https://github.com/saghul/aiodns";
     license = licenses.mit;
     description = "Simple DNS resolver for asyncio";
   };

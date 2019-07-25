@@ -2,12 +2,14 @@
 
 let
   src_usbdk_x86 = fetchurl {
-    url = "https://www.spice-space.org/download/windows/usbdk/UsbDk_1.0.4_x86.msi";
+    url =
+      "https://www.spice-space.org/download/windows/usbdk/UsbDk_1.0.4_x86.msi";
     sha256 = "17hv8034wk1xqnanm5jxs4741nl7asps1fdz6lhnrpp6gvj6yg9y";
   };
 
   src_usbdk_amd64 = fetchurl {
-    url = "https://www.spice-space.org/download/windows/usbdk/UsbDk_1.0.4_x64.msi";
+    url =
+      "https://www.spice-space.org/download/windows/usbdk/UsbDk_1.0.4_x64.msi";
     sha256 = "0alcqsivp33pm8sy0lmkvq7m5yh6mmcmxdl39zjxjra67kw8r2sd";
   };
 
@@ -17,17 +19,18 @@ let
   };
 
   src_vdagent_x86 = fetchurl {
-    url = "https://www.spice-space.org/download/windows/vdagent/vdagent-win-0.7.3/vdagent_0_7_3_x86.zip";
+    url =
+      "https://www.spice-space.org/download/windows/vdagent/vdagent-win-0.7.3/vdagent_0_7_3_x86.zip";
     sha256 = "0d928g49rf4dl79jmvnqh6g864hp1flw1f0384sfp82himm3bxjs";
   };
 
   src_vdagent_amd64 = fetchurl {
-    url = "https://www.spice-space.org/download/windows/vdagent/vdagent-win-0.7.3/vdagent_0_7_3_x64.zip";
+    url =
+      "https://www.spice-space.org/download/windows/vdagent/vdagent-win-0.7.3/vdagent_0_7_3_x64.zip";
     sha256 = "0djmvm66jcmcyhhbjppccbai45nqpva7vyvry6w8nyc0fwi1vm9l";
   };
-in
 
-stdenv.mkDerivation  {
+in stdenv.mkDerivation {
   # use version number of qxlwddm as qxlwddm is the most important component
   name = "win-spice-0.11";
   version = "0.11";
@@ -45,24 +48,32 @@ stdenv.mkDerivation  {
 
     mkdir -p qxlwddm
     (cd qxlwddm; ${p7zip}/bin/7z x ${src_qxlwddm}; mv Win8 w8.1; cd w8.1; mv x64 amd64)
-    '';
+  '';
 
-  installPhase =
-    let
-      copy_qxl = arch: version: "mkdir -p $out/${arch}/qxl; cp qxlwddm/${version}/${arch}/* $out/${arch}/qxl/. \n";
-      copy_usbdk = arch: "mkdir -p $out/${arch}/usbdk; cp usbdk/${arch}/* $out/${arch}/usbdk/. \n";
-      copy_vdagent = arch: "mkdir -p $out/${arch}/vdagent; cp vdagent/${arch}/* $out/${arch}/vdagent/. \n";
-      # SPICE needs vioserial
-      # TODO: Link windows version in win-spice (here) to version used in win-virtio.
-      #       That way it would never matter whether vioserial is installed from win-virtio or win-spice.
-      copy_vioserial = arch: "mkdir -p $out/${arch}/vioserial; cp ${win-virtio}/${arch}/vioserial/* $out/${arch}/vioserial/. \n";
-      copy = arch: version: (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch) + (copy_vioserial arch);
-    in
-      (copy "amd64" "w8.1") + (copy "x86" "w8.1");
+  installPhase = let
+    copy_qxl = arch: version: ''
+      mkdir -p $out/${arch}/qxl; cp qxlwddm/${version}/${arch}/* $out/${arch}/qxl/. 
+    '';
+    copy_usbdk = arch: ''
+      mkdir -p $out/${arch}/usbdk; cp usbdk/${arch}/* $out/${arch}/usbdk/. 
+    '';
+    copy_vdagent = arch: ''
+      mkdir -p $out/${arch}/vdagent; cp vdagent/${arch}/* $out/${arch}/vdagent/. 
+    '';
+    # SPICE needs vioserial
+    # TODO: Link windows version in win-spice (here) to version used in win-virtio.
+    #       That way it would never matter whether vioserial is installed from win-virtio or win-spice.
+    copy_vioserial = arch: ''
+      mkdir -p $out/${arch}/vioserial; cp ${win-virtio}/${arch}/vioserial/* $out/${arch}/vioserial/. 
+    '';
+    copy = arch: version:
+      (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch)
+      + (copy_vioserial arch);
+    in (copy "amd64" "w8.1") + (copy "x86" "w8.1");
 
   meta = with stdenv.lib; {
     description = "Windows SPICE Drivers";
-    homepage = https://www.spice-space.org/;
+    homepage = "https://www.spice-space.org/";
     license = [ licenses.asl20 ]; # See https://github.com/vrozenfe/qxl-dod
     maintainers = [ maintainers.tstrobel ];
     platforms = platforms.linux;

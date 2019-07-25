@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, slicerator
-, scikitimage
-, six
-, numpy
-, tifffile
-, nose
+{ stdenv, buildPythonPackage, fetchPypi, slicerator, scikitimage, six, numpy, tifffile, nose
 }:
 
 buildPythonPackage rec {
@@ -25,8 +17,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/soft-matter/pims;
-    description = "Python Image Sequence: Load video and sequential images in many formats with a simple, consistent interface";
+    homepage = "https://github.com/soft-matter/pims";
+    description =
+      "Python Image Sequence: Load video and sequential images in many formats with a simple, consistent interface";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];
   };

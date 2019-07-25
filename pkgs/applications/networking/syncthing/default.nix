@@ -7,9 +7,9 @@ let
       name = "${stname}-${version}";
 
       src = fetchFromGitHub {
-        owner  = "syncthing";
-        repo   = "syncthing";
-        rev    = "v${version}";
+        owner = "syncthing";
+        repo = "syncthing";
+        rev = "v${version}";
         sha256 = "0a19l1kp4cwyzcd53v9yzv3ms69gn78gajkyfawafr7ls0i8x82f";
       };
 
@@ -17,11 +17,9 @@ let
 
       goDeps = ./deps.nix;
 
-      patches = [
-        ./add-stcli-target.patch
-      ];
-      BUILD_USER="nix";
-      BUILD_HOST="nix";
+      patches = [ ./add-stcli-target.patch ];
+      BUILD_USER = "nix";
+      BUILD_HOST = "nix";
 
       buildPhase = ''
         runHook preBuild
@@ -42,7 +40,7 @@ let
       inherit postInstall;
 
       meta = with lib; {
-        homepage = https://www.syncthing.net/;
+        homepage = "https://www.syncthing.net/";
         description = "Open Source Continuous File Synchronization";
         license = licenses.mpl20;
         maintainers = with maintainers; [ pshendry joko peterhoeg andrew-d ];

@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "GNU Accounting Utilities, login and process accounting utilities";
+    description =
+      "GNU Accounting Utilities, login and process accounting utilities";
 
     longDescription = ''
       The GNU Accounting Utilities provide login and process accounting
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3Plus;
 
-    homepage = https://www.gnu.org/software/acct/;
+    homepage = "https://www.gnu.org/software/acct/";
 
     maintainers = with maintainers; [ pSub ];
     platforms = platforms.linux;

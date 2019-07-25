@@ -1,35 +1,15 @@
-{ stdenv
-, fetchurl
-, makeDesktopItem
+{ stdenv, fetchurl, makeDesktopItem
 
 # Common run-time dependencies
 , zlib
 
 # libxul run-time dependencies
-, atk
-, cairo
-, dbus
-, dbus-glib
-, fontconfig
-, freetype
-, gdk_pixbuf
-, glib
-, gtk3
-, libxcb
-, libX11
-, libXext
-, libXrender
-, libXt
-, pango
+, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk_pixbuf, glib, gtk3, libxcb, libX11, libXext, libXrender, libXt, pango
 
-, audioSupport ? mediaSupport
-, pulseaudioSupport ? false
-, libpulseaudio
-, apulse
+, audioSupport ? mediaSupport, pulseaudioSupport ? false, libpulseaudio, apulse
 
 # Media support (implies audio support)
-, mediaSupport ? false
-, ffmpeg
+, mediaSupport ? false, ffmpeg
 
 , gmp
 
@@ -37,23 +17,17 @@
 , python27
 
 # Wrapper runtime
-, coreutils
-, glibcLocales
-, gnome3
-, runtimeShell
-, shared-mime-info
-, gsettings-desktop-schemas
+, coreutils, glibcLocales, gnome3, runtimeShell, shared-mime-info, gsettings-desktop-schemas
 
 # Whether to disable multiprocess support to work around crashing tabs
 # TODO: fix the underlying problem instead of this terrible work-around
 , disableContentSandbox ? true
 
-# Extra preferences
+  # Extra preferences
 , extraPrefs ? ""
 
-# For meta
-, tor-browser-bundle
-}:
+  # For meta
+, tor-browser-bundle }:
 
 with stdenv.lib;
 
@@ -79,11 +53,8 @@ let
     stdenv.cc.cc
     stdenv.cc.libc
     zlib
-  ]
-  ++ optionals pulseaudioSupport [ libpulseaudio ]
-  ++ optionals mediaSupport [
-    ffmpeg
-  ];
+  ] ++ optionals pulseaudioSupport [ libpulseaudio ]
+    ++ optionals mediaSupport [ ffmpeg ];
 
   # Library search path for the fte transport
   fteLibPath = makeLibraryPath [ stdenv.cc.cc gmp ];
@@ -110,13 +81,13 @@ let
       sha256 = "1b34skl3hwvpy0r4l5ykgnnwhbz7cvly2gi9ib4h7lijjfafiys1";
     };
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "tor-browser-bundle-bin-${version}";
   inherit version;
 
-  src = srcs."${stdenv.hostPlatform.system}" or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs."${stdenv.hostPlatform.system}" or (throw
+    "unsupported system: ${stdenv.hostPlatform.system}");
 
   preferLocalBuild = true;
   allowSubstitutes = false;
@@ -217,7 +188,9 @@ stdenv.mkDerivation rec {
 
     // Optionally disable multiprocess support.  We always set this to ensure that
     // toggling the pref takes effect.
-    lockPref("browser.tabs.remote.autostart.2", ${if disableContentSandbox then "false" else "true"});
+    lockPref("browser.tabs.remote.autostart.2", ${
+      if disableContentSandbox then "false" else "true"
+    });
 
     // Allow sandbox access to sound devices if using ALSA directly
     ${if (audioSupport && !pulseaudioSupport) then ''
@@ -251,15 +224,19 @@ stdenv.mkDerivation rec {
     GeoIPv6File $TBB_IN_STORE/TorBrowser/Data/Tor/geoip6
     EOF
 
-    WRAPPER_XDG_DATA_DIRS=${concatMapStringsSep ":" (x: "${x}/share") [
-      gnome3.adwaita-icon-theme
-      shared-mime-info
-    ]}
-    WRAPPER_XDG_DATA_DIRS+=":"${concatMapStringsSep ":" (x: "${x}/share/gsettings-schemas/${x.name}") [
-      glib
-      gsettings-desktop-schemas
-      gtk3
-    ]};
+    WRAPPER_XDG_DATA_DIRS=${
+      concatMapStringsSep ":" (x: "${x}/share") [
+        gnome3.adwaita-icon-theme
+        shared-mime-info
+      ]
+    }
+    WRAPPER_XDG_DATA_DIRS+=":"${
+      concatMapStringsSep ":" (x: "${x}/share/gsettings-schemas/${x.name}") [
+        glib
+        gsettings-desktop-schemas
+        gtk3
+      ]
+    };
 
     # Generate wrapper
     mkdir -p $out/bin
@@ -391,8 +368,14 @@ stdenv.mkDerivation rec {
     longDescription = tor-browser-bundle.meta.longDescription;
     homepage = "https://www.torproject.org/";
     platforms = attrNames srcs;
-    maintainers = with maintainers; [ offline matejc doublec thoughtpolice joachifm ];
-    hydraPlatforms = [];
+    maintainers = with maintainers; [
+      offline
+      matejc
+      doublec
+      thoughtpolice
+      joachifm
+    ];
+    hydraPlatforms = [ ];
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain
     # restrictions on redistribution), it's free enough for our purposes.

@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchpatch, fetchFromGitHub,
-  python, cmake, git, swig, boost, udev,
-  setuptools, enum34, wrapt, future }:
+{ stdenv, buildPythonPackage, fetchpatch, fetchFromGitHub, python, cmake, git, swig, boost, udev, setuptools, enum34, wrapt, future
+}:
 
 buildPythonPackage rec {
   pname = "pc-ble-driver-py";
@@ -22,7 +21,8 @@ buildPythonPackage rec {
   patches = [
     # build system expects case-insensitive file system
     (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/NordicSemiconductor/pc-ble-driver-py/pull/84.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/NordicSemiconductor/pc-ble-driver-py/pull/84.patch";
       sha256 = "0ibx5g2bndr5h9sfnx51bk9b62q4jvpdwhxadbnj3da8kvcz13cy";
     })
   ];

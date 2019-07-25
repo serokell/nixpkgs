@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   name = "blcr_${kernel.version}-0.8.6pre4";
 
   src = fetchurl {
-    url = https://upc-bugs.lbl.gov/blcr-dist/blcr-0.8.6_b4.tar.gz;
+    url = "https://upc-bugs.lbl.gov/blcr-dist/blcr-0.8.6_b4.tar.gz";
     sha256 = "1a3gdhdnmk592jc652szxgfz8rjd8dax5jwxfsypiqx5lgkj3m21";
   };
 
@@ -33,11 +33,9 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Berkeley Lab Checkpoint/Restart for Linux (BLCR)";
-    homepage = https://ftg.lbl.gov/projects/CheckpointRestart/;
+    homepage = "https://ftg.lbl.gov/projects/CheckpointRestart/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [
-      z77z
-    ];
+    maintainers = with stdenv.lib.maintainers; [ z77z ];
   };
 }

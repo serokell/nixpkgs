@@ -1,11 +1,13 @@
-{ stdenv, lib, fetchurl, fpc, lazarus, atk, cairo, gdk_pixbuf, glib, gtk2, libX11, pango }:
+{ stdenv, lib, fetchurl, fpc, lazarus, atk, cairo, gdk_pixbuf, glib, gtk2, libX11, pango
+}:
 
 stdenv.mkDerivation rec {
   name = "ddrescueview-0.4alpha3";
 
   src = fetchurl {
     name = "${name}.tar.xz";
-    url = "mirror://sourceforge/ddrescueview/ddrescueview-source-0.4%7Ealpha3.tar.xz";
+    url =
+      "mirror://sourceforge/ddrescueview/ddrescueview-source-0.4%7Ealpha3.tar.xz";
     sha256 = "0603jisxkswfyh93s3i20f8ns4yf83dmgmy0lg5001rvaw9mkw9j";
   };
 
@@ -31,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A tool to graphically examine ddrescue mapfiles";
-    homepage = https://sourceforge.net/projects/ddrescueview/;
+    homepage = "https://sourceforge.net/projects/ddrescueview/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ orivej ];

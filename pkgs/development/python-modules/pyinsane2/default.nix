@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, pillow
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, pillow, pkgs }:
 
 buildPythonPackage rec {
   pname = "pyinsane2";

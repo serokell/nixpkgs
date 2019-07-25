@@ -14,8 +14,9 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "Enrich `go test` outputs with text decorations.";
-    homepage = https://github.com/kyoh86/richgo;
-    license = licenses.unlicense; # NOTE: The project switched to MIT in https://git.io/fA1ik
+    homepage = "https://github.com/kyoh86/richgo";
+    license =
+      licenses.unlicense; # NOTE: The project switched to MIT in https://git.io/fA1ik
     maintainers = with maintainers; [ rvolosatovs ];
   };
 }

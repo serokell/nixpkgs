@@ -28,14 +28,16 @@ let
     };
   };
 
-  mkVariant = variant: {displayName, version, sha256, outputHash}:
-    let dotless_version = builtins.replaceStrings ["."] [""] version; in
-    stdenv.mkDerivation rec {
+  mkVariant = variant:
+    { displayName, version, sha256, outputHash }:
+    let dotless_version = builtins.replaceStrings [ "." ] [ "" ] version;
+    in stdenv.mkDerivation rec {
       name = "tex-gyre-${variant}-math-${version}";
       inherit version;
 
       src = fetchzip {
-        url = "http://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyre${variant}-math-${dotless_version}.zip";
+        url =
+          "http://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyre${variant}-math-${dotless_version}.zip";
         inherit sha256;
       };
 
@@ -54,7 +56,7 @@ let
           ${displayName} family of fonts (see
           http://www.gust.org.pl/projects/e-foundry/tex-gyre/) in the OpenType format.
         '';
-        homepage = http://www.gust.org.pl/projects/e-foundry/tg-math;
+        homepage = "http://www.gust.org.pl/projects/e-foundry/tg-math";
         # "The TeX Gyre Math fonts are licensed under the GUST Font License (GFL),
         # which is a free license, legally equivalent to the LaTeX Project Public
         # License (LPPL), version 1.3c or later." - GUST website
@@ -63,5 +65,4 @@ let
         platforms = platforms.all;
       };
     };
-in
-  stdenv.lib.mapAttrs mkVariant variants
+in stdenv.lib.mapAttrs mkVariant variants

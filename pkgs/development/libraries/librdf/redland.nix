@@ -1,10 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, openssl, libxslt, perl
-, curl, pcre, libxml2, librdf_rasqal, gmp
-, mysql, withMysql ? false
-, postgresql, withPostgresql ? false
-, sqlite, withSqlite ? true
-, db, withBdb ? false
-}:
+{ stdenv, fetchurl, pkgconfig, openssl, libxslt, perl, curl, pcre, libxml2, librdf_rasqal, gmp, mysql, withMysql ?
+  false, postgresql, withPostgresql ? false, sqlite, withSqlite ?
+    true, db, withBdb ? false }:
 
 stdenv.mkDerivation rec {
   name = "redland-1.0.17";
@@ -26,12 +22,10 @@ stdenv.mkDerivation rec {
 
   postInstall = "rm -rvf $out/share/gtk-doc";
 
-  configureFlags =
-    [ "--with-threads" ]
-    ++ stdenv.lib.optionals withBdb [
-      "--with-bdb-include=${db.dev}/include"
-      "--with-bdb-lib=${db.out}/lib"
-    ];
+  configureFlags = [ "--with-threads" ] ++ stdenv.lib.optionals withBdb [
+    "--with-bdb-include=${db.dev}/include"
+    "--with-bdb-lib=${db.out}/lib"
+  ];
 
   # Fix broken DT_NEEDED in lib/redland/librdf_storage_sqlite.so.
   NIX_CFLAGS_LINK = "-lraptor2";
@@ -39,8 +33,9 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails 1 out of 17 tests with a segmentation fault
 
   meta = with stdenv.lib; {
-    description = "C libraries that provide support for the Resource Description Framework (RDF)";
-    homepage = http://librdf.org/;
+    description =
+      "C libraries that provide support for the Resource Description Framework (RDF)";
+    homepage = "http://librdf.org/";
     platforms = platforms.unix;
     license = licenses.asl20;
   };

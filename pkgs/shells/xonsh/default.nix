@@ -6,9 +6,9 @@ python3Packages.buildPythonApplication rec {
 
   # fetch from github because the pypi package ships incomplete tests
   src = fetchFromGitHub {
-    owner  = "scopatz";
-    repo   = "xonsh";
-    rev    = "refs/tags/${version}";
+    owner = "scopatz";
+    repo = "xonsh";
+    rev = "refs/tags/${version}";
     sha256 = "0lnvx1kdk1nwv988wrxyvbzb25xawz517amvi4pwzs22bymcdhws";
   };
 
@@ -31,19 +31,22 @@ python3Packages.buildPythonApplication rec {
     HOME=$TMPDIR pytest -k 'test_ptk_highlight'
   '';
 
-  checkInputs = [ python3Packages.pytest python3Packages.pytest-rerunfailures glibcLocales git ];
+  checkInputs = [
+    python3Packages.pytest
+    python3Packages.pytest-rerunfailures
+    glibcLocales
+    git
+  ];
 
   propagatedBuildInputs = with python3Packages; [ ply prompt_toolkit pygments ];
 
   meta = with stdenv.lib; {
     description = "A Python-ish, BASHwards-compatible shell";
-    homepage = http://xon.sh/;
+    homepage = "http://xon.sh/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ spwhitt vrthra ];
     platforms = platforms.all;
   };
 
-  passthru = {
-    shellPath = "/bin/xonsh";
-  };
+  passthru = { shellPath = "/bin/xonsh"; };
 }

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtheora, xvidcore, libGLU_combined, SDL, SDL_ttf, SDL_mixer
-, curl, libjpeg, libpng, gettext, cunit, enableEditor?false }:
+{ stdenv, fetchurl, libtheora, xvidcore, libGLU_combined, SDL, SDL_ttf, SDL_mixer, curl, libjpeg, libpng, gettext, cunit, enableEditor ?
+  false }:
 
 stdenv.mkDerivation rec {
   name = "ufoai-2.4";
@@ -19,18 +19,29 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional enableEditor "--enable-uforadiant";
 
   buildInputs = [
-    libtheora xvidcore libGLU_combined SDL SDL_ttf SDL_mixer
-    curl libjpeg libpng gettext cunit
+    libtheora
+    xvidcore
+    libGLU_combined
+    SDL
+    SDL_ttf
+    SDL_mixer
+    curl
+    libjpeg
+    libpng
+    gettext
+    cunit
   ];
 
-  NIX_CFLAGS_LINK = "-lgcc_s"; # to avoid occasional runtime error in finding libgcc_s.so.1
+  NIX_CFLAGS_LINK =
+    "-lgcc_s"; # to avoid occasional runtime error in finding libgcc_s.so.1
 
   meta = {
-    homepage = http://ufoai.org;
-    description = "A squad-based tactical strategy game in the tradition of X-Com";
+    homepage = "http://ufoai.org";
+    description =
+      "A squad-based tactical strategy game in the tradition of X-Com";
     license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = stdenv.lib.platforms.linux;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

@@ -1,8 +1,7 @@
-{ stdenv, fetchzip, atk, cairo, dmd, gdk_pixbuf, gnome3, gst_all_1, librsvg
-, glib, gtk3, gtksourceview, libgda, libpeas, pango, pkgconfig, which, vte }:
+{ stdenv, fetchzip, atk, cairo, dmd, gdk_pixbuf, gnome3, gst_all_1, librsvg, glib, gtk3, gtksourceview, libgda, libpeas, pango, pkgconfig, which, vte
+}:
 
-let
-  inherit (gst_all_1) gstreamer gst-plugins-base;
+let inherit (gst_all_1) gstreamer gst-plugins-base;
 in stdenv.mkDerivation rec {
   name = "gtkd-${version}";
   version = "3.8.5";
@@ -15,8 +14,19 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ dmd pkgconfig which ];
   propagatedBuildInputs = [
-    atk cairo gdk_pixbuf glib gstreamer gst-plugins-base gtk3 gtksourceview
-    libgda libpeas librsvg pango vte
+    atk
+    cairo
+    gdk_pixbuf
+    glib
+    gstreamer
+    gst-plugins-base
+    gtk3
+    gtksourceview
+    libgda
+    libpeas
+    librsvg
+    pango
+    vte
   ];
 
   prePatch = ''
@@ -88,7 +98,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "D binding and OO wrapper for GTK+";
-    homepage = https://gtkd.org;
+    homepage = "https://gtkd.org";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
   };

@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "14f1k7v6i1yaxg4xcaaf5i4aqn0yabba857zjnbg9wiymy82qf7c";
   };
 
-  hardeningDisable = [ "format" ];  # fix compile error
+  hardeningDisable = [ "format" ]; # fix compile error
 
   buildCommand = ''
     $CC "$src" -o devmem2
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Simple program to read/write from/to any location in memory";
-    homepage = http://lartmaker.nl/lartware/port/;
+    homepage = "http://lartmaker.nl/lartware/port/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ bjornfor ];

@@ -1,10 +1,9 @@
-{ stdenv, fetchurl, autoreconfHook, automake, fftw, ladspaH, libxml2, pkgconfig
-, perlPackages }:
+{ stdenv, fetchurl, autoreconfHook, automake, fftw, ladspaH, libxml2, pkgconfig, perlPackages
+}:
 
 stdenv.mkDerivation rec {
   name = "swh-plugins-${version}";
   version = "0.4.17";
-
 
   src = fetchurl {
     url = "https://github.com/swh/ladspa/archive/v${version}.tar.gz";
@@ -12,7 +11,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ fftw ladspaH libxml2 perlPackages.perl  perlPackages.XMLParser ];
+  buildInputs =
+    [ fftw ladspaH libxml2 perlPackages.perl perlPackages.XMLParser ];
 
   patchPhase = ''
     patchShebangs .
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://plugin.org.uk/;
+    homepage = "http://plugin.org.uk/";
     description = "LADSPA format audio plugins";
     license = licenses.gpl2;
     maintainers = [ maintainers.magnetophon ];

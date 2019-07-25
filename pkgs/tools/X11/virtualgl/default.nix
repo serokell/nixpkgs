@@ -1,7 +1,4 @@
-{ stdenv, lib
-, virtualglLib
-, virtualglLib_i686 ? null
-}:
+{ stdenv, lib, virtualglLib, virtualglLib_i686 ? null }:
 
 stdenv.mkDerivation {
   name = "virtualgl-${lib.getVersion virtualglLib}";

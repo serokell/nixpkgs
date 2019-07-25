@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "globalplatform-${version}";
-  version  = "6.0.0";
+  version = "6.0.0";
 
   src = fetchurl {
     url = "mirror://sourceforge/globalplatform/${name}.tar.gz";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib openssl pcsclite ];
 
   meta = with stdenv.lib; {
-    homepage = https://sourceforge.net/p/globalplatform/wiki/Home/;
+    homepage = "https://sourceforge.net/p/globalplatform/wiki/Home/";
     description = "Library for interacting with smart card devices";
     license = licenses.gpl3;
     platforms = platforms.linux;

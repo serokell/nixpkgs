@@ -9,35 +9,34 @@ let
     gemdir = ./.;
     groups = [ "ldap" "openid" ];
   };
-in
-  stdenv.mkDerivation rec {
-    name = "redmine-${version}";
+in stdenv.mkDerivation rec {
+  name = "redmine-${version}";
 
-    src = fetchurl {
-      url = "https://www.redmine.org/releases/${name}.tar.gz";
-      sha256 = "14987sd9ff2n3982qlfwd4m0g1m10w8jyv791nica3wppvnrxh0r";
-    };
+  src = fetchurl {
+    url = "https://www.redmine.org/releases/${name}.tar.gz";
+    sha256 = "14987sd9ff2n3982qlfwd4m0g1m10w8jyv791nica3wppvnrxh0r";
+  };
 
-    buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
+  buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
 
-    buildPhase = ''
-      mv config config.dist
-      mv public/themes public/themes.dist
-    '';
+  buildPhase = ''
+    mv config config.dist
+    mv public/themes public/themes.dist
+  '';
 
-    installPhase = ''
-      mkdir -p $out/share
-      cp -r . $out/share/redmine
-      for i in config files log plugins public/plugin_assets public/themes tmp; do
-        rm -rf $out/share/redmine/$i
-        ln -fs /run/redmine/$i $out/share/redmine/$i
-      done
-    '';
+  installPhase = ''
+    mkdir -p $out/share
+    cp -r . $out/share/redmine
+    for i in config files log plugins public/plugin_assets public/themes tmp; do
+      rm -rf $out/share/redmine/$i
+      ln -fs /run/redmine/$i $out/share/redmine/$i
+    done
+  '';
 
-    meta = with stdenv.lib; {
-      homepage = http://www.redmine.org/;
-      platforms = platforms.linux;
-      maintainers = [ maintainers.aanderse ];
-      license = licenses.gpl2;
-    };
-  }
+  meta = with stdenv.lib; {
+    homepage = "http://www.redmine.org/";
+    platforms = platforms.linux;
+    maintainers = [ maintainers.aanderse ];
+    license = licenses.gpl2;
+  };
+}

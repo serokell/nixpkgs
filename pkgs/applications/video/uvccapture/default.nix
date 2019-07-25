@@ -2,13 +2,12 @@
 
 let
   debianPatches = fetchurl {
-    url = "mirror://debian/pool/main/u/uvccapture/uvccapture_0.5-3.debian.tar.gz";
+    url =
+      "mirror://debian/pool/main/u/uvccapture/uvccapture_0.5-3.debian.tar.gz";
     sha256 = "0m29by13nw1r8sch366qzdxg5rsd1k766kqg1nj2pdb8f7pwjh9r";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "uvccapture-0.5";
 
   src = fetchurl {

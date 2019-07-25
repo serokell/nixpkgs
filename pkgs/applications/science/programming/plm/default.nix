@@ -1,4 +1,4 @@
-{stdenv, fetchurl, makeWrapper, jre, gcc, valgrind}:
+{ stdenv, fetchurl, makeWrapper, jre, gcc, valgrind }:
 # gcc and valgrind are not strict dependencies, they could be made
 # optional. They are here because plm can only help you learn C if you
 # have them installed.
@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   name = "plm-${version}";
 
   src = fetchurl {
-    url = "http://webloria.loria.fr/~quinson/Teaching/PLM/plm-${major}_${minor}.jar";
+    url =
+      "http://webloria.loria.fr/~quinson/Teaching/PLM/plm-${major}_${minor}.jar";
     sha256 = "0m17cxa3nxi2cbswqvlfzp0mlfi3wrkw8ry2xhkxy6aqzm2mlgcc";
     name = "${name}.jar";
   };

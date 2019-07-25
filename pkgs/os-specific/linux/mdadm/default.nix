@@ -15,12 +15,14 @@ stdenv.mkDerivation rec {
   patches = [ ./no-self-references.patch ];
 
   makeFlags = [
-    "NIXOS=1" "INSTALL=install" "INSTALL_BINDIR=$(out)/sbin"
-    "MANDIR=$(out)/share/man" "RUN_DIR=/dev/.mdadm"
+    "NIXOS=1"
+    "INSTALL=install"
+    "INSTALL_BINDIR=$(out)/sbin"
+    "MANDIR=$(out)/share/man"
+    "RUN_DIR=/dev/.mdadm"
     "STRIP="
-  ] ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+  ] ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   nativeBuildInputs = [ groff ];
 
@@ -32,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Programs for managing RAID arrays under Linux";
-    homepage = http://neil.brown.name/blog/mdadm;
+    homepage = "http://neil.brown.name/blog/mdadm";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ekleog ];
     platforms = platforms.linux;

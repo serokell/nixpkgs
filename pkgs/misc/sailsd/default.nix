@@ -7,8 +7,7 @@ let
     rev = "c24cddb717f81cd432868b8d41e04486c0a440fd";
     sha256 = "0mna0c9n8lvfdf4y1iigjy3dlks70hq6jik52zkik2yxvkqv949f";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "0.2.0";
   name = "sailsd-${version}";
   src = fetchFromGitHub {
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Simulator daemon for autonomous sailing boats";
-    homepage = https://github.com/sails-simulator/sailsd;
+    homepage = "https://github.com/sails-simulator/sailsd";
     license = licenses.gpl3;
     longDescription = ''
       Sails is a simulator designed to test the AI of autonomous sailing

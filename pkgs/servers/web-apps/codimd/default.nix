@@ -1,83 +1,87 @@
-{ stdenv, pkgs, buildEnv, fetchFromGitHub, makeWrapper
-, fetchpatch, nodejs-8_x, phantomjs2, runtimeShell }:
+{ stdenv, pkgs, buildEnv, fetchFromGitHub, makeWrapper, fetchpatch, nodejs-8_x, phantomjs2, runtimeShell
+}:
 let
   nodePackages = let
     # Some packages fail to install with ENOTCACHED due to a mistakenly added
     # package-lock.json that bundles optional dependencies not resolved with `node2nix.
     # See also https://github.com/svanderburg/node2nix/issues/134
     dontInstall = n: v:
-      if builtins.match ".*babel.*" n == null
-      then v
-      else v.override { dontNpmInstall = true; };
+      if builtins.match ".*babel.*" n == null then
+        v
+      else
+        v.override { dontNpmInstall = true; };
 
-    packages = stdenv.lib.mapAttrs (dontInstall) (
-      import ./node.nix {
-        inherit pkgs;
-        system = stdenv.system;
-      }
-    );
-  in packages // {
-    "js-url-^2.3.0" = packages."js-url-^2.3.0".overrideAttrs (_: {
-      # Don't download chromium (this isn't needed anyway for our case).
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "1";
+    packages = stdenv.lib.mapAttrs (dontInstall) (import ./node.nix {
+      inherit pkgs;
+      system = stdenv.system;
     });
-  };
+    in packages // {
+      "js-url-^2.3.0" = packages."js-url-^2.3.0".overrideAttrs (_: {
+        # Don't download chromium (this isn't needed anyway for our case).
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "1";
+      });
+    };
 
   addPhantomjs = (pkgs:
-    map (pkg: pkg.override ( oldAttrs: {
-      buildInputs = oldAttrs.buildInputs or [] ++ [ phantomjs2 ];
+    map (pkg:
+    pkg.override (oldAttrs: {
+      buildInputs = oldAttrs.buildInputs or [ ] ++ [ phantomjs2 ];
     })) pkgs);
 
   drvName = drv: (builtins.parseDrvName drv).name;
 
   linkNodeDeps = ({ pkg, deps, name ? "" }:
-    let
-      targetModule = if name != "" then name else drvName pkg;
+    let targetModule = if name != "" then name else drvName pkg;
     in nodePackages.${pkg}.override (oldAttrs: {
       postInstall = ''
         mkdir -p $out/lib/node_modules/${targetModule}/node_modules
         ${stdenv.lib.concatStringsSep "\n" (map (dep: ''
           ln -s ${nodePackages.${dep}}/lib/node_modules/${drvName dep} \
             $out/lib/node_modules/${targetModule}/node_modules/${drvName dep}
-        '') deps
-        )}
+        '') deps)}
       '';
-    })
-  );
+    }));
 
   filterNodePackagesToList = (filterPkgs: allPkgs:
-    stdenv.lib.mapAttrsToList (_: v: v) (
-      stdenv.lib.filterAttrs (n: _:
-        ! builtins.elem (drvName n) filterPkgs
-      ) allPkgs)
-  );
+    stdenv.lib.mapAttrsToList (_: v: v)
+    (stdenv.lib.filterAttrs (n: _: !builtins.elem (drvName n) filterPkgs)
+    allPkgs));
 
   # add phantomjs to buildInputs
-  pkgsWithPhantomjs = (addPhantomjs (map (
-    p: nodePackages.${p}
-  ) [
-    "js-url-^2.3.0"
-    "markdown-pdf-^8.0.0"
-  ]));
+  pkgsWithPhantomjs = (addPhantomjs
+    (map (p: nodePackages.${p}) [ "js-url-^2.3.0" "markdown-pdf-^8.0.0" ]));
 
   # link extra dependencies to lib/node_modules
-  pkgsWithExtraDeps = map (args:
-    linkNodeDeps args ) [
-    { pkg = "select2-^3.5.2-browserify";
-      deps = [ "url-loader-^0.5.7" ]; }
-    { pkg = "ionicons-~2.0.1";
-      deps = [ "url-loader-^0.5.7" "file-loader-^0.9.0" ]; }
-    { pkg = "font-awesome-^4.7.0";
-      deps = [ "url-loader-^0.5.7" "file-loader-^0.9.0" ]; }
-    { pkg = "bootstrap-^3.3.7";
-      deps = [ "url-loader-^0.5.7" "file-loader-^0.9.0" ]; }
-    { pkg = "markdown-it-^8.2.2";
-      deps = [ "json-loader-^0.5.4" ]; }
-    { pkg = "markdown-it-emoji-^1.3.0";
-      deps = [ "json-loader-^0.5.4" ]; }
-    { pkg = "raphael-git+https://github.com/dmitrybaranovskiy/raphael";
+  pkgsWithExtraDeps = map (args: linkNodeDeps args) [
+    {
+      pkg = "select2-^3.5.2-browserify";
+      deps = [ "url-loader-^0.5.7" ];
+    }
+    {
+      pkg = "ionicons-~2.0.1";
+      deps = [ "url-loader-^0.5.7" "file-loader-^0.9.0" ];
+    }
+    {
+      pkg = "font-awesome-^4.7.0";
+      deps = [ "url-loader-^0.5.7" "file-loader-^0.9.0" ];
+    }
+    {
+      pkg = "bootstrap-^3.3.7";
+      deps = [ "url-loader-^0.5.7" "file-loader-^0.9.0" ];
+    }
+    {
+      pkg = "markdown-it-^8.2.2";
+      deps = [ "json-loader-^0.5.4" ];
+    }
+    {
+      pkg = "markdown-it-emoji-^1.3.0";
+      deps = [ "json-loader-^0.5.4" ];
+    }
+    {
+      pkg = "raphael-git+https://github.com/dmitrybaranovskiy/raphael";
       deps = [ "eve-^0.5.4" ];
-      name = "raphael"; }
+      name = "raphael";
+    }
   ];
 
   codemirror = pkgs.callPackage ./CodeMirror { };
@@ -102,19 +106,19 @@ let
           eve = nodePackages."eve-^0.5.4";
         };
       })
-   ] ++ filterNodePackagesToList [
-     "bootstrap"
-     "codemirror-git+https://github.com/hackmdio/CodeMirror.git"
-     "font-awesome"
-     "ionicons"
-     "js-url"
-     "markdown-it"
-     "markdown-pdf"
-     "node-uuid"
-     "raphael-git+https://github.com/dmitrybaranovskiy/raphael"
-     "select2-browserify"
-     "url-loader"
-   ] nodePackages;
+    ] ++ filterNodePackagesToList [
+      "bootstrap"
+      "codemirror-git+https://github.com/hackmdio/CodeMirror.git"
+      "font-awesome"
+      "ionicons"
+      "js-url"
+      "markdown-it"
+      "markdown-pdf"
+      "node-uuid"
+      "raphael-git+https://github.com/dmitrybaranovskiy/raphael"
+      "select2-browserify"
+      "url-loader"
+    ] nodePackages;
   };
 
   name = "codimd-${version}";
@@ -138,8 +142,7 @@ let
       cp -R . $out
     '';
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit name version src;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -149,7 +152,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch { # fixes for configurable paths
-      url = "https://patch-diff.githubusercontent.com/raw/hackmdio/codimd/pull/940.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/hackmdio/codimd/pull/940.patch";
       sha256 = "0w1cvnp3k1n8690gzlrfijisn182i0v8psjs3df394rfx2347xyp";
     })
   ];
@@ -191,7 +195,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Realtime collaborative markdown notes on all platforms";
     license = licenses.agpl3;
-    homepage = https://github.com/hackmdio/codimd;
+    homepage = "https://github.com/hackmdio/codimd";
     maintainers = with maintainers; [ willibutz ma27 ];
     platforms = platforms.linux;
   };

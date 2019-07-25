@@ -1,10 +1,4 @@
-{ lib
-, fetchPypi
-, django
-, pyjwt
-, djangorestframework
-, buildPythonPackage
-}:
+{ lib, fetchPypi, django, pyjwt, djangorestframework, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "djangorestframework-jwt";
@@ -22,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "JSON Web Token Authentication support for Django REST Framework";
-    homepage = https://github.com/GetBlimp/django-rest-framework-jwt;
+    description =
+      "JSON Web Token Authentication support for Django REST Framework";
+    homepage = "https://github.com/GetBlimp/django-rest-framework-jwt";
     license = licenses.mit;
     maintainers = [ maintainers.ivegotasthma ];
   };

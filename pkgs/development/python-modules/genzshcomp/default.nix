@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "genzshcomp";
@@ -16,8 +12,9 @@ buildPythonPackage rec {
   buildInputs = [ setuptools ];
 
   meta = with stdenv.lib; {
-    description = "Automatically generated zsh completion function for Python's option parser modules";
-    homepage = https://bitbucket.org/hhatto/genzshcomp/;
+    description =
+      "Automatically generated zsh completion function for Python's option parser modules";
+    homepage = "https://bitbucket.org/hhatto/genzshcomp/";
     license = licenses.bsd0;
   };
 

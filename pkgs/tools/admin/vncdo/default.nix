@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, pythonPackages
-}:
+{ stdenv, fetchFromGitHub, pythonPackages }:
 pythonPackages.buildPythonPackage rec {
   pname = "vncdo";
   version = "0.11.2";
@@ -22,7 +20,7 @@ pythonPackages.buildPythonPackage rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/sibson/vncdotool;
+    homepage = "https://github.com/sibson/vncdotool";
     description = "A command line VNC client and python library";
     license = licenses.mit;
     maintainers = with maintainers; [ elitak ];

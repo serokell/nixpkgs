@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_resumable_media
-, google_api_core
-, google_cloud_core
-, pandas
-, pyarrow
-, pytest
-, mock
-, ipython
+{ stdenv, buildPythonPackage, fetchPypi, google_resumable_media, google_api_core, google_cloud_core, pandas, pyarrow, pytest, mock, ipython
 }:
 
 buildPythonPackage rec {
@@ -21,7 +11,8 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest mock ipython ];
-  propagatedBuildInputs = [ google_resumable_media google_api_core google_cloud_core pandas pyarrow ];
+  propagatedBuildInputs =
+    [ google_resumable_media google_api_core google_cloud_core pandas pyarrow ];
 
   checkPhase = ''
     pytest tests/unit
@@ -29,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Google BigQuery API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

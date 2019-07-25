@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, php }: with lib; stdenv.mkDerivation rec {
+{ stdenv, lib, fetchFromGitHub, makeWrapper, php }:
+with lib;
+stdenv.mkDerivation rec {
   name = "icingaweb2-${version}";
   version = "2.6.3";
 

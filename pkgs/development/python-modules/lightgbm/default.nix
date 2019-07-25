@@ -1,12 +1,5 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cmake
-, numpy
-, scipy
-, scikitlearn
-, llvmPackages ? null
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cmake, numpy, scipy, scikitlearn, llvmPackages ?
+  null }:
 
 buildPythonPackage rec {
   pname = "lightgbm";
@@ -17,9 +10,7 @@ buildPythonPackage rec {
     sha256 = "40354d21da6bfa73c7ada4d01b2e0b22eaae00f93e90bdaf3fc423020c273890";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   # we never actually explicitly call the install command so this is the only way
   # to inject these options to it - however, openmp-library doesn't appear to have
@@ -34,11 +25,7 @@ buildPythonPackage rec {
     EOF
   '';
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    scikitlearn
-  ];
+  propagatedBuildInputs = [ numpy scipy scikitlearn ];
 
   postConfigure = ''
     export HOME=$(mktemp -d)
@@ -52,8 +39,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";
-    homepage = https://github.com/Microsoft/LightGBM;
+    description =
+      "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";
+    homepage = "https://github.com/Microsoft/LightGBM";
     license = licenses.mit;
     maintainers = with maintainers; [ teh costrouc ];
   };

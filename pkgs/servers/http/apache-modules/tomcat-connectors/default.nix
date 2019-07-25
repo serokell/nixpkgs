@@ -8,10 +8,8 @@ stdenv.mkDerivation rec {
     sha256 = "1sfbcsmshjkj4wc969ngjcxhjyp4mbkjprbs111d1b0x3l7547by";
   };
 
-  configureFlags = [
-    "--with-apxs=${apacheHttpd.dev}/bin/apxs"
-    "--with-java-home=${jdk}"
-  ];
+  configureFlags =
+    [ "--with-apxs=${apacheHttpd.dev}/bin/apxs" "--with-java-home=${jdk}" ];
 
   setSourceRoot = ''
     sourceRoot=$(echo */native)
@@ -25,8 +23,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ apacheHttpd jdk ];
 
   meta = with stdenv.lib; {
-    description = "Provides web server plugins to connect web servers with Tomcat";
-    homepage = https://tomcat.apache.org/download-connectors.cgi;
+    description =
+      "Provides web server plugins to connect web servers with Tomcat";
+    homepage = "https://tomcat.apache.org/download-connectors.cgi";
     license = licenses.asl20;
     platforms = platforms.unix;
   };

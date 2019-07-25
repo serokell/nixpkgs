@@ -1,6 +1,4 @@
-{stdenv, fetchurl,
-zlib, libpng, libjpeg, perl, expat, qt3,
-libX11, libXext, libSM, libICE,
+{ stdenv, fetchurl, zlib, libpng, libjpeg, perl, expat, qt3, libX11, libXext, libSM, libICE,
 }:
 
 stdenv.mkDerivation rec {
@@ -10,9 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "14gkxa2vwfih5z7fffbavps7m44z5bq950qndigw2icam5ks83jl";
   };
 
-  buildInputs =
-    [zlib libpng libX11 libXext libSM libICE perl expat libjpeg]
-    ;
+  buildInputs = [ zlib libpng libX11 libXext libSM libICE perl expat libjpeg ];
 
   patches = [ ./timezone-glibc.patch ];
 
@@ -45,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    "--without-arts" "--disable-docs"
+    "--without-arts"
+    "--disable-docs"
     "--x-includes=${libX11.dev}/include"
     "--x-libraries=${libX11.out}/lib"
     "--with-qt-dir=${qt3}"
@@ -61,7 +58,7 @@ stdenv.mkDerivation rec {
     "kde_locale=\${out}/share/locale";
 
   meta = {
-    homepage = http://www.taskjuggler.org;
+    homepage = "http://www.taskjuggler.org";
     license = stdenv.lib.licenses.gpl2;
     description = "Project management tool";
     longDescription = ''

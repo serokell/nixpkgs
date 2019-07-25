@@ -9,14 +9,11 @@ stdenv.mkDerivation rec {
     sha256 = "1gwqp1kjwhcmwhynilakhzpzgc0c6kk8c9vkpi30gwwrwpz3cf00";
   };
 
-  buildInputs = [openssl perl];
+  buildInputs = [ openssl perl ];
 
   NIX_LDFLAGS = "-lgcc_s";
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -24,8 +21,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Space-efficient incremental backups of large files or block devices";
-    homepage = http://chunksync.florz.de/;
+    description =
+      "Space-efficient incremental backups of large files or block devices";
+    homepage = "http://chunksync.florz.de/";
     license = stdenv.lib.licenses.gpl2;
     platforms = with stdenv.lib.platforms; linux;
   };

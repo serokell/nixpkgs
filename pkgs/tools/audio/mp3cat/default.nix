@@ -11,13 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "0n6hjg2wgd06m561zc3ib5w2m3pwpf74njv2b2w4sqqh5md2ymfr";
   };
 
-  makeFlags = [
-    "PREFIX=${placeholder ''out''}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  installTargets = [
-    "install_bin"
-  ];
+  installTargets = [ "install_bin" ];
 
   meta = with stdenv.lib; {
     description = "A command line program which concatenates MP3 files";
@@ -26,7 +22,7 @@ stdenv.mkDerivation rec {
       only outputs MP3 frames with valid headers, even if there is extra garbage
       in its input stream
     '';
-    homepage = https://github.com/tomclegg/mp3cat;
+    homepage = "https://github.com/tomclegg/mp3cat";
     license = licenses.gpl2;
     maintainers = [ maintainers.omnipotententity ];
     platforms = platforms.all;

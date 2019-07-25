@@ -3,9 +3,8 @@
 let
   clang = llvmPackages.clang-unwrapped;
   version = stdenv.lib.getVersion clang;
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "clang-tools-${version}";
   dontUnpack = true;
   installPhase = ''

@@ -14,10 +14,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = stdenv.lib.optional tls gnutls;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ] ++ stdenv.lib.optional tls "--enable-tls";
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ]
+    ++ stdenv.lib.optional tls "--enable-tls";
 
   installFlags = [ "DESTDIR=$(out)" ];
 
@@ -39,13 +37,13 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://untroubled.org/nullmailer/;
+    homepage = "http://untroubled.org/nullmailer/";
     description = ''
       A sendmail/qmail/etc replacement MTA for hosts which relay to a fixed set of smart relays.
       It is designed to be simple to configure, secure, and easily extendable.
     '';
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers ; [ sargon ];
+    maintainers = with lib.maintainers; [ sargon ];
   };
 }

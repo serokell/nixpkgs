@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-}:
+{ stdenv, buildPythonPackage, fetchurl }:
 
 buildPythonPackage rec {
   pname = "pynac";
@@ -13,8 +10,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/se-esss-litterbox/Pynac;
-    description = "A Python wrapper around the Dynac charged particle simulator";
+    homepage = "https://github.com/se-esss-litterbox/Pynac";
+    description =
+      "A Python wrapper around the Dynac charged particle simulator";
     license = licenses.gpl3;
   };
 

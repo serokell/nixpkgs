@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.vnstat;
+let cfg = config.services.vnstat;
 in {
   options.services.vnstat = {
     enable = mkOption {
@@ -28,11 +27,7 @@ in {
       path = [ pkgs.coreutils ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      documentation = [
-        "man:vnstatd(1)"
-        "man:vnstat(1)"
-        "man:vnstat.conf(5)"
-      ];
+      documentation = [ "man:vnstatd(1)" "man:vnstat(1)" "man:vnstat.conf(5)" ];
       preStart = "chmod 755 /var/lib/vnstat";
       serviceConfig = {
         ExecStart = "${pkgs.vnstat}/bin/vnstatd -n";

@@ -13,14 +13,14 @@ stdenv.mkDerivation rec {
     sha256 = "0v1dqg9hvycdkcvklg2njff97xwr8rah0nyldv4xm39r77f4yfvq";
   };
 
-  installPhase= ''
+  installPhase = ''
     install -D powerlevel9k.zsh-theme --target-directory=$out/share/zsh-powerlevel9k
     install -D functions/* --target-directory=$out/share/zsh-powerlevel9k/functions
   '';
 
   meta = {
     description = "A beautiful theme for zsh";
-    homepage = https://github.com/bhilburn/powerlevel9k;
+    homepage = "https://github.com/bhilburn/powerlevel9k";
     license = stdenv.lib.licenses.mit;
 
     platforms = stdenv.lib.platforms.unix;

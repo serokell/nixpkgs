@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, autoPatchelfHook
-, qtbase, libvirt, cutelyst, grantlee }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, autoPatchelfHook, qtbase, libvirt, cutelyst, grantlee
+}:
 
 stdenv.mkDerivation rec {
   name = "virtlyst-${version}";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Web interface to manage virtual machines with libvirt";
-    homepage = https://github.com/cutelyst/Virtlyst;
+    homepage = "https://github.com/cutelyst/Virtlyst";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ fpletz ];
   };

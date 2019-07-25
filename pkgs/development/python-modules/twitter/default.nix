@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "twitter";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Twitter API library";
-    license     = licenses.mit;
+    license = licenses.mit;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 

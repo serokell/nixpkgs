@@ -1,62 +1,54 @@
-{ stdenv, lib, fetchurl, bash, cpio, pkgconfig, file, which, unzip, zip, cups, freetype
-, alsaLib, bootjdk, cacert, perl, liberation_ttf, fontconfig, zlib, lndir
-, libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama, libXcursor, libXrandr
-, libjpeg, giflib
-, setJavaClassPath
-, minimal ? false
-, enableInfinality ? true # font rendering patch
-, enableGnome2 ? true, gtk2, gnome_vfs, glib, GConf
-}:
+{ stdenv, lib, fetchurl, bash, cpio, pkgconfig, file, which, unzip, zip, cups, freetype, alsaLib, bootjdk, cacert, perl, liberation_ttf, fontconfig, zlib, lndir, libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama, libXcursor, libXrandr, libjpeg, giflib, setJavaClassPath, minimal ?
+  false, enableInfinality ? true # font rendering patch
+, enableGnome2 ? true, gtk2, gnome_vfs, glib, GConf }:
 
 let
 
-  /**
-   * The JRE libraries are in directories that depend on the CPU.
-   */
-  architecture =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      "i386"
-    else if stdenv.hostPlatform.system == "x86_64-linux" then
-      "amd64"
-    else
-      throw "openjdk requires i686-linux or x86_64 linux";
+  #
+  # The JRE libraries are in directories that depend on the CPU.
+  architecture = if stdenv.hostPlatform.system == "i686-linux" then
+    "i386"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "amd64"
+  else
+    throw "openjdk requires i686-linux or x86_64 linux";
 
   update = "212";
   build = "ga";
   baseurl = "http://hg.openjdk.java.net/jdk8u/jdk8u";
   repover = "jdk8u${update}-${build}";
   jdk8 = fetchurl {
-             url = "${baseurl}/archive/${repover}.tar.gz";
-             sha256 = "00rl33h4cl4b4p3hcid765h38x2jdkb14ylh8k1zhnd0ka76crgg";
-          };
+    url = "${baseurl}/archive/${repover}.tar.gz";
+    sha256 = "00rl33h4cl4b4p3hcid765h38x2jdkb14ylh8k1zhnd0ka76crgg";
+  };
   langtools = fetchurl {
-             url = "${baseurl}/langtools/archive/${repover}.tar.gz";
-             sha256 = "0va6g2dccf1ph6mpwxswbks5axp7zz258cl89qq9r8jn4ni04agw";
-          };
+    url = "${baseurl}/langtools/archive/${repover}.tar.gz";
+    sha256 = "0va6g2dccf1ph6mpwxswbks5axp7zz258cl89qq9r8jn4ni04agw";
+  };
   hotspot = fetchurl {
-             url = "${baseurl}/hotspot/archive/${repover}.tar.gz";
-             sha256 = "0sgr9df10hs49pjld6c6kr374v4zwd9s52pc3drz68zrlk71ja4s";
-          };
+    url = "${baseurl}/hotspot/archive/${repover}.tar.gz";
+    sha256 = "0sgr9df10hs49pjld6c6kr374v4zwd9s52pc3drz68zrlk71ja4s";
+  };
   corba = fetchurl {
-             url = "${baseurl}/corba/archive/${repover}.tar.gz";
-             sha256 = "1hq0sr4k4k4iv815kg72i9lvd7n7mn5pmw96ckk9p1rnyagn9z03";
-          };
+    url = "${baseurl}/corba/archive/${repover}.tar.gz";
+    sha256 = "1hq0sr4k4k4iv815kg72i9lvd7n7mn5pmw96ckk9p1rnyagn9z03";
+  };
   jdk = fetchurl {
-             url = "${baseurl}/jdk/archive/${repover}.tar.gz";
-             sha256 = "1fc59jrbfq8l067mggzy5dnrvni7lwaqd7hahs4nqv87kyrfg545";
-          };
+    url = "${baseurl}/jdk/archive/${repover}.tar.gz";
+    sha256 = "1fc59jrbfq8l067mggzy5dnrvni7lwaqd7hahs4nqv87kyrfg545";
+  };
   jaxws = fetchurl {
-             url = "${baseurl}/jaxws/archive/${repover}.tar.gz";
-             sha256 = "1ka2fvyxdmpfhk814s314gx53yvdr19vpsqygx283v9nbq90l1yg";
-          };
+    url = "${baseurl}/jaxws/archive/${repover}.tar.gz";
+    sha256 = "1ka2fvyxdmpfhk814s314gx53yvdr19vpsqygx283v9nbq90l1yg";
+  };
   jaxp = fetchurl {
-             url = "${baseurl}/jaxp/archive/${repover}.tar.gz";
-             sha256 = "15vlgs5v2ax8sqwh7bg50fnlrwlpnkp0myzrvpqs1mcza8pyasp8";
-          };
+    url = "${baseurl}/jaxp/archive/${repover}.tar.gz";
+    sha256 = "15vlgs5v2ax8sqwh7bg50fnlrwlpnkp0myzrvpqs1mcza8pyasp8";
+  };
   nashorn = fetchurl {
-             url = "${baseurl}/nashorn/archive/${repover}.tar.gz";
-             sha256 = "1jzn0yi0v6lda5y8ib07g1p6zymnbcx9yy6iz8niggpm7205y93h";
-          };
+    url = "${baseurl}/nashorn/archive/${repover}.tar.gz";
+    sha256 = "1jzn0yi0v6lda5y8ib07g1p6zymnbcx9yy6iz8niggpm7205y93h";
+  };
   openjdk8 = stdenv.mkDerivation {
     name = "openjdk-8u${update}-${build}";
 
@@ -67,12 +59,33 @@ let
 
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [
-      cpio file which unzip zip perl bootjdk zlib cups freetype alsaLib
-      libjpeg giflib libX11 libICE libXext libXrender libXtst libXt libXtst
-      libXi libXinerama libXcursor libXrandr lndir fontconfig
-    ] ++ lib.optionals (!minimal && enableGnome2) [
-      gtk2 gnome_vfs GConf glib
-    ];
+      cpio
+      file
+      which
+      unzip
+      zip
+      perl
+      bootjdk
+      zlib
+      cups
+      freetype
+      alsaLib
+      libjpeg
+      giflib
+      libX11
+      libICE
+      libXext
+      libXrender
+      libXtst
+      libXt
+      libXtst
+      libXi
+      libXinerama
+      libXcursor
+      libXrandr
+      lndir
+      fontconfig
+    ] ++ lib.optionals (!minimal && enableGnome2) [ gtk2 gnome_vfs GConf glib ];
 
     #move the seven other source dirs under the main jdk8u directory,
     #with version suffixes removed, as the remainder of the build will expect
@@ -91,9 +104,8 @@ let
     ] ++ lib.optionals (!minimal && enableInfinality) [
       ./004_add-fontconfig.patch
       ./005_enable-infinality.patch
-    ] ++ lib.optionals (!minimal && enableGnome2) [
-      ./swing-use-gtk-jdk8.patch
-    ];
+    ] ++ lib.optionals (!minimal && enableGnome2)
+      [ ./swing-use-gtk-jdk8.patch ];
 
     # Hotspot cares about the host(!) version otherwise
     DISABLE_HOTSPOT_OS_VERSION_CHECK = "ok";
@@ -104,11 +116,11 @@ let
       substituteInPlace hotspot/make/linux/adlc_updater --replace /bin/sh "${stdenv.shell}"
       substituteInPlace hotspot/make/linux/makefiles/dtrace.make --replace /usr/include/sys/sdt.h "/no-such-path"
     ''
-    # https://bugzilla.redhat.com/show_bug.cgi?id=1306558
-    # https://github.com/JetBrains/jdk8u/commit/eaa5e0711a43d64874111254d74893fa299d5716
-    + stdenv.lib.optionalString stdenv.cc.isGNU ''
-      NIX_CFLAGS_COMPILE+=" -fno-lifetime-dse -fno-delete-null-pointer-checks -std=gnu++98 -Wno-error"
-    '';
+      # https://bugzilla.redhat.com/show_bug.cgi?id=1306558
+      # https://github.com/JetBrains/jdk8u/commit/eaa5e0711a43d64874111254d74893fa299d5716
+      + stdenv.lib.optionalString stdenv.cc.isGNU ''
+        NIX_CFLAGS_COMPILE+=" -fno-lifetime-dse -fno-delete-null-pointer-checks -std=gnu++98 -Wno-error"
+      '';
 
     configureFlags = [
       "--with-boot-jdk=${bootjdk.home}"
@@ -124,13 +136,20 @@ let
 
       # glibc 2.24 deprecated readdir_r so we need this
       # See https://www.mail-archive.com/openembedded-devel@lists.openembedded.org/msg49006.html
-      "--with-extra-cflags=\"-Wno-error=deprecated-declarations\""
+      ''--with-extra-cflags="-Wno-error=deprecated-declarations"''
     ] ++ lib.optional minimal "--disable-headful";
 
-    NIX_LDFLAGS= lib.optionals (!minimal) [
-      "-lfontconfig" "-lcups" "-lXinerama" "-lXrandr" "-lmagic"
+    NIX_LDFLAGS = lib.optionals (!minimal) [
+      "-lfontconfig"
+      "-lcups"
+      "-lXinerama"
+      "-lXrandr"
+      "-lmagic"
     ] ++ lib.optionals (!minimal && enableGnome2) [
-      "-lgtk-x11-2.0" "-lgio-2.0" "-lgnomevfs-2" "-lgconf-2"
+      "-lgtk-x11-2.0"
+      "-lgio-2.0"
+      "-lgnomevfs-2"
+      "-lgconf-2"
     ];
 
     buildFlags = [ "all" ];
@@ -190,7 +209,9 @@ let
       (
         cd $jre/lib/openjdk/jre/lib/security
         rm cacerts
-        perl ${./generate-cacerts.pl} $jre/lib/openjdk/jre/bin/keytool ${cacert}/etc/ssl/certs/ca-bundle.crt
+        perl ${
+        ./generate-cacerts.pl
+        } $jre/lib/openjdk/jre/bin/keytool ${cacert}/etc/ssl/certs/ca-bundle.crt
       )
 
       ln -s $out/lib/openjdk/bin $out/bin
@@ -244,7 +265,7 @@ let
     '';
 
     meta = with stdenv.lib; {
-      homepage = http://openjdk.java.net/;
+      homepage = "http://openjdk.java.net/";
       license = licenses.gpl2;
       description = "The open-source Java Development Kit";
       maintainers = with maintainers; [ edwtjo nequissimus ];

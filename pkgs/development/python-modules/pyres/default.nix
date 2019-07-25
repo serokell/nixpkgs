@@ -1,4 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, fetchFromGitHub, simplejson, redis, setproctitle, nose, pkgs }:
+{ stdenv, fetchPypi, buildPythonPackage, fetchFromGitHub, simplejson, redis, setproctitle, nose, pkgs
+}:
 
 let
 
@@ -13,9 +14,7 @@ let
     };
   });
 
-in
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pyres";
   version = "1.5";
 
@@ -38,7 +37,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python resque clone";
-    homepage = https://github.com/binarydud/pyres;
+    homepage = "https://github.com/binarydud/pyres";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];
   };

@@ -1,20 +1,82 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''pgloader'';
-  version = ''v3.4.1'';
+args@{ fetchurl, ... }: rec {
+  baseName = "pgloader";
+  version = "v3.4.1";
 
-  description = ''Load data into PostgreSQL'';
+  description = "Load data into PostgreSQL";
 
-  deps = [ args."abnf" args."alexandria" args."anaphora" args."asdf-finalizers" args."asdf-system-connections" args."babel" args."bordeaux-threads" args."cffi" args."chipz" args."chunga" args."cl_plus_ssl" args."cl-base64" args."cl-containers" args."cl-csv" args."cl-fad" args."cl-interpol" args."cl-log" args."cl-markdown" args."cl-postgres" args."cl-ppcre" args."cl-unicode" args."cl-utilities" args."closer-mop" args."command-line-arguments" args."db3" args."drakma" args."dynamic-classes" args."esrap" args."flexi-streams" args."garbage-pools" args."ieee-floats" args."ironclad" args."iterate" args."ixf" args."list-of" args."local-time" args."lparallel" args."md5" args."metabang-bind" args."metatilities-base" args."mssql" args."nibbles" args."parse-number" args."postmodern" args."puri" args."py-configparser" args."qmynd" args."quri" args."s-sql" args."salza2" args."simple-date" args."split-sequence" args."sqlite" args."trivial-backtrace" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."trivial-utf-8" args."uiop" args."usocket" args."uuid" ];
+  deps = [
+    args."abnf"
+    args."alexandria"
+    args."anaphora"
+    args."asdf-finalizers"
+    args."asdf-system-connections"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."chipz"
+    args."chunga"
+    args."cl_plus_ssl"
+    args."cl-base64"
+    args."cl-containers"
+    args."cl-csv"
+    args."cl-fad"
+    args."cl-interpol"
+    args."cl-log"
+    args."cl-markdown"
+    args."cl-postgres"
+    args."cl-ppcre"
+    args."cl-unicode"
+    args."cl-utilities"
+    args."closer-mop"
+    args."command-line-arguments"
+    args."db3"
+    args."drakma"
+    args."dynamic-classes"
+    args."esrap"
+    args."flexi-streams"
+    args."garbage-pools"
+    args."ieee-floats"
+    args."ironclad"
+    args."iterate"
+    args."ixf"
+    args."list-of"
+    args."local-time"
+    args."lparallel"
+    args."md5"
+    args."metabang-bind"
+    args."metatilities-base"
+    args."mssql"
+    args."nibbles"
+    args."parse-number"
+    args."postmodern"
+    args."puri"
+    args."py-configparser"
+    args."qmynd"
+    args."quri"
+    args."s-sql"
+    args."salza2"
+    args."simple-date"
+    args."split-sequence"
+    args."sqlite"
+    args."trivial-backtrace"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."trivial-utf-8"
+    args."uiop"
+    args."usocket"
+    args."uuid"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/pgloader/2017-08-30/pgloader-v3.4.1.tgz'';
-    sha256 = ''1z6p7dz1ir9cg4gl1vkvbc1f7pv1yfv1jgwjkw29v57fdg4faz9v'';
+    url =
+      "http://beta.quicklisp.org/archive/pgloader/2017-08-30/pgloader-v3.4.1.tgz";
+    sha256 = "1z6p7dz1ir9cg4gl1vkvbc1f7pv1yfv1jgwjkw29v57fdg4faz9v";
   };
 
   packageName = "pgloader";
 
-  asdFilesToKeep = ["pgloader.asd"];
+  asdFilesToKeep = [ "pgloader.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM pgloader DESCRIPTION Load data into PostgreSQL SHA256
@@ -73,4 +135,5 @@ rec {
      parse-number postmodern puri py-configparser qmynd quri s-sql salza2
      simple-date split-sequence sqlite trivial-backtrace trivial-features
      trivial-garbage trivial-gray-streams trivial-utf-8 uiop usocket uuid)
-    VERSION v3.4.1 SIBLINGS NIL PARASITES NIL) */
+    VERSION v3.4.1 SIBLINGS NIL PARASITES NIL)
+*/

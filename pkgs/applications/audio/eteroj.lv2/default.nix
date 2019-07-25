@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
-    owner  = "OpenMusicKontrollers";
-    repo   = pname;
-    rev    = version;
+    owner = "OpenMusicKontrollers";
+    repo = pname;
+    rev = version;
     sha256 = "0lzdk7hlz3vqgshrfpj0izjad1fmsnzk2vxqrry70xgz8xglvnmn";
   };
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OSC injection/ejection from/to UDP/TCP/Serial for LV2";
-    homepage = https://open-music-kontrollers.ch/lv2/eteroj;
+    homepage = "https://open-music-kontrollers.ch/lv2/eteroj";
     license = licenses.artistic2;
     maintainers = with maintainers; [ magnetophon ];
   };

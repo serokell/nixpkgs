@@ -16,10 +16,9 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "19373fyb0g7irrdzb1vsjmyv5xj84qwbcfb6lm076px7wfyn0w1c";
+    outputHash = "19373fyb0g7irrdzb1vsjmyv5xj84qwbcfb6lm076px7wfyn0w1c";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${baseName}-${version}";
 
   # Fetched from https://github.com/scalacenter/bloop/releases/download/v${version}/install.py
@@ -30,12 +29,14 @@ stdenv.mkDerivation rec {
   phases = [ "installPhase" ];
 
   client = fetchurl {
-    url = "https://raw.githubusercontent.com/scalacenter/nailgun/${nailgunCommit}/pynailgun/ng.py";
+    url =
+      "https://raw.githubusercontent.com/scalacenter/nailgun/${nailgunCommit}/pynailgun/ng.py";
     sha256 = "0qjw4nsyb4cxg96jj1yv5c0ivcxvmscxxqfzll5w9p1pjb30bq0n";
   };
 
   zshCompletion = fetchurl {
-    url = "https://raw.githubusercontent.com/scalacenter/bloop/v${version}/etc/zsh/_bloop";
+    url =
+      "https://raw.githubusercontent.com/scalacenter/bloop/v${version}/etc/zsh/_bloop";
     sha256 = "1id6f1fgy2rk0q5aad6ffivhbxa94fallzsc04l9n0y1s2xdhqpm";
   };
 
@@ -55,9 +56,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://scalacenter.github.io/bloop/;
+    homepage = "https://scalacenter.github.io/bloop/";
     license = licenses.asl20;
-    description = "Bloop is a Scala build server and command-line tool to make the compile and test developer workflows fast and productive in a build-tool-agnostic way.";
+    description =
+      "Bloop is a Scala build server and command-line tool to make the compile and test developer workflows fast and productive in a build-tool-agnostic way.";
     maintainers = with maintainers; [ tomahna ];
   };
 }

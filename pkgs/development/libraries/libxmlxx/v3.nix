@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "3.0.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libxml++/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libxml++/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "19kik79fmg61nv0by0a5f9wchrcfjwzvih4v2waw01hqflhqvp0r";
   };
 
@@ -23,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://libxmlplusplus.sourceforge.net/;
+    homepage = "http://libxmlplusplus.sourceforge.net/";
     description = "C++ wrapper for the libxml2 XML parser library, version 3";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;

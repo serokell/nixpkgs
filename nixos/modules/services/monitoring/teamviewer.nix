@@ -6,16 +6,14 @@ let
 
   cfg = config.services.teamviewer;
 
-in
-
-{
+in {
 
   ###### interface
 
   options = {
 
     services.teamviewer.enable = mkEnableOption "TeamViewer daemon";
-      
+
   };
 
   ###### implementation

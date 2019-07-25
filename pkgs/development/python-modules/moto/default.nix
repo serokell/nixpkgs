@@ -1,6 +1,5 @@
-{ buildPythonPackage, fetchPypi, jinja2, werkzeug, flask, cfn-lint
-, requests, pytz, backports_tempfile, cookies, jsondiff, botocore, aws-xray-sdk, docker, responses
-, six, boto, httpretty, xmltodict, nose, sure, boto3, freezegun, dateutil, mock, pyaml, python-jose }:
+{ buildPythonPackage, fetchPypi, jinja2, werkzeug, flask, cfn-lint, requests, pytz, backports_tempfile, cookies, jsondiff, botocore, aws-xray-sdk, docker, responses, six, boto, httpretty, xmltodict, nose, sure, boto3, freezegun, dateutil, mock, pyaml, python-jose
+}:
 
 buildPythonPackage rec {
   pname = "moto";

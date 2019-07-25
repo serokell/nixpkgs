@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, unittest2
-, funcsigs
-, six
-, pbr
-, python
+{ stdenv, buildPythonPackage, fetchPypi, unittest2, funcsigs, six, pbr, python
 }:
 
 buildPythonPackage rec {
@@ -32,7 +25,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Mock objects for Python";
-    homepage = http://python-mock.sourceforge.net/;
+    homepage = "http://python-mock.sourceforge.net/";
     license = stdenv.lib.licenses.bsd2;
   };
 

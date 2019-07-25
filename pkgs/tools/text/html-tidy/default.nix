@@ -11,9 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "0w175c5d1babq0w1zzdzw9gl6iqbgyq58v8587s7srp05y3hwy9k";
   };
 
-  nativeBuildInputs = [ cmake libxslt/*manpage*/ ];
+  nativeBuildInputs = [
+    cmake
+    libxslt # manpage
+  ];
 
-  cmakeFlags = [];
+  cmakeFlags = [ ];
 
   # ATM bin/tidy is statically linked, as upstream provides no other option yet.
   # https://github.com/htacg/tidy-html5/issues/326#issuecomment-160322107
@@ -25,7 +28,7 @@ stdenv.mkDerivation rec {
       used to validate and fix HTML data.
     '';
     license = licenses.libpng; # very close to it - the 3 clauses are identical
-    homepage = http://html-tidy.org;
+    homepage = "http://html-tidy.org";
     platforms = platforms.all;
     maintainers = with maintainers; [ edwtjo ];
   };

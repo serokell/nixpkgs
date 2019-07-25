@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, openssl
-}:
+{ stdenv, buildPythonPackage, fetchPypi, openssl }:
 
 buildPythonPackage rec {
   pname = "scrypt";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Bindings for scrypt key derivation function library";
-    homepage = https://pypi.python.org/pypi/scrypt;
+    homepage = "https://pypi.python.org/pypi/scrypt";
     maintainers = with maintainers; [ asymmetric ];
     license = licenses.bsd2;
   };

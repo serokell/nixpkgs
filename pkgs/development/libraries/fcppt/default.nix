@@ -14,7 +14,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ boost catch2 ];
 
-  cmakeFlags = [ "-DENABLE_EXAMPLES=false" "-DENABLE_CATCH=true" "-DENABLE_TEST=true" "-DBrigand_INCLUDE_DIR=${brigand}/include" ];
+  cmakeFlags = [
+    "-DENABLE_EXAMPLES=false"
+    "-DENABLE_CATCH=true"
+    "-DENABLE_TEST=true"
+    "-DBrigand_INCLUDE_DIR=${brigand}/include"
+  ];
 
   enableParallelBuilding = true;
 
@@ -27,7 +32,7 @@ stdenv.mkDerivation rec {
       programming (which is both efficient and syntactically affordable in
       C++11).
     '';
-    homepage = https://fcppt.org;
+    homepage = "https://fcppt.org";
     license = licenses.boost;
     maintainers = with maintainers; [ pmiddend ];
     platforms = platforms.linux;

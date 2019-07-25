@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig
-, freetype, glib, imagemagick, libjpeg, libpng, libxml2, zlib
+{ stdenv, fetchFromGitHub, pkgconfig, freetype, glib, imagemagick, libjpeg, libpng, libxml2, zlib
 }:
 
 stdenv.mkDerivation rec {

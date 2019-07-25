@@ -1,10 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, buildGoPackage, which, go-bindata, rsync, utillinux
-, coreutils, kerberos, clang
-, components ? [
+{ stdenv, lib, fetchFromGitHub, buildGoPackage, which, go-bindata, rsync, utillinux, coreutils, kerberos, clang, components ? [
   "cmd/oc"
   "cmd/openshift"
-  ]
-}:
+] }:
 
 with lib;
 
@@ -77,10 +74,11 @@ in buildGoPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Build, deploy, and manage your applications with Docker and Kubernetes";
+    description =
+      "Build, deploy, and manage your applications with Docker and Kubernetes";
     license = licenses.asl20;
-    homepage = http://www.openshift.org;
-    maintainers = with maintainers; [offline bachp moretea];
+    homepage = "http://www.openshift.org";
+    maintainers = with maintainers; [ offline bachp moretea ];
     platforms = platforms.unix;
   };
 }

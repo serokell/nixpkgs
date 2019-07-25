@@ -1,8 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, runtimeShell
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, runtimeShell }:
 
 # This file is responsible for fetching the sage source and adding necessary patches.
 # It does not actually build anything, it just copies the patched sources to $out.
@@ -26,7 +22,8 @@ stdenv.mkDerivation rec {
     # https://trac.sagemath.org/ticket/25358
     (fetchpatch {
       name = "safe-directory-test-without-patch.patch";
-      url = "https://git.sagemath.org/sage.git/patch?id2=8bdc326ba57d1bb9664f63cf165a9e9920cc1afc&id=dc673c17555efca611f68398d5013b66e9825463";
+      url =
+        "https://git.sagemath.org/sage.git/patch?id2=8bdc326ba57d1bb9664f63cf165a9e9920cc1afc&id=dc673c17555efca611f68398d5013b66e9825463";
       sha256 = "1hhannz7xzprijakn2w2d0rhd5zv2zikik9p51i87bas3nc658f7";
     })
 
@@ -48,7 +45,6 @@ stdenv.mkDerivation rec {
     # Not necessary since library location is set explicitly
     # https://trac.sagemath.org/ticket/27660#ticket
     ./patches/do-not-test-find-library.patch
-
 
     # https://trac.sagemath.org/ticket/28007
     ./patches/threejs-offline.patch
@@ -73,34 +69,35 @@ stdenv.mkDerivation rec {
     # Fetch a diff between `base` and `rev` on sage's git server.
     # Used to fetch trac tickets by setting the `base` to the last release and the
     # `rev` to the last commit of the ticket.
-    fetchSageDiff = { base, rev, name ? "sage-diff-${base}-${rev}.patch", ...}@args: (
-      fetchpatch ({
+    fetchSageDiff =
+      { base, rev, name ? "sage-diff-${base}-${rev}.patch", ... }@args:
+      (fetchpatch ({
         inherit name;
         url = "https://git.sagemath.org/sage.git/patch?id2=${base}&id=${rev}";
         # We don't care about sage's own build system (which builds all its dependencies).
         # Exclude build system changes to avoid conflicts.
         excludes = [ "build/*" ];
-      } // builtins.removeAttrs args [ "rev" "base" ])
-    );
-  in [
-    # New glpk version has new warnings, filter those out until upstream sage has found a solution
-    # Should be fixed with glpk > 4.65.
-    # https://trac.sagemath.org/ticket/24824
-    ./patches/pari-stackwarn.patch # not actually necessary since the pari upgrade, but necessary for the glpk patch to apply
-    (fetchpatch {
-      url = "https://salsa.debian.org/science-team/sagemath/raw/58bbba93a807ca2933ca317501d093a1bb4b84db/debian/patches/dt-version-glpk-4.65-ignore-warnings.patch";
-      sha256 = "0b9293v73wb4x13wv5zwyjgclc01zn16msccfzzi6znswklgvddp";
-      stripLen = 1;
-    })
+      } // builtins.removeAttrs args [ "rev" "base" ]));
+    in [
+      # New glpk version has new warnings, filter those out until upstream sage has found a solution
+      # Should be fixed with glpk > 4.65.
+      # https://trac.sagemath.org/ticket/24824
+      ./patches/pari-stackwarn.patch # not actually necessary since the pari upgrade, but necessary for the glpk patch to apply
+      (fetchpatch {
+        url =
+          "https://salsa.debian.org/science-team/sagemath/raw/58bbba93a807ca2933ca317501d093a1bb4b84db/debian/patches/dt-version-glpk-4.65-ignore-warnings.patch";
+        sha256 = "0b9293v73wb4x13wv5zwyjgclc01zn16msccfzzi6znswklgvddp";
+        stripLen = 1;
+      })
 
-    # https://trac.sagemath.org/ticket/26932
-    (fetchSageDiff {
-      name = "givaro-4.1.0_fflas-ffpack-2.4.0_linbox-1.6.0.patch";
-      base = "8.8.beta4";
-      rev = "c11d9cfa23ff9f77681a8f12742f68143eed4504";
-      sha256 = "0xzra7mbgqvahk9v45bjwir2mqz73hrhhy314jq5nxrb35ysdxyi";
-    })
-  ];
+      # https://trac.sagemath.org/ticket/26932
+      (fetchSageDiff {
+        name = "givaro-4.1.0_fflas-ffpack-2.4.0_linbox-1.6.0.patch";
+        base = "8.8.beta4";
+        rev = "c11d9cfa23ff9f77681a8f12742f68143eed4504";
+        sha256 = "0xzra7mbgqvahk9v45bjwir2mqz73hrhhy314jq5nxrb35ysdxyi";
+      })
+    ];
 
   patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;
 

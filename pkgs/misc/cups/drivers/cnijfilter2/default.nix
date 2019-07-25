@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchzip, autoconf, automake, cups, glib, libxml2, libusb, libtool
-, withDebug ? false }:
+{ stdenv, lib, fetchzip, autoconf, automake, cups, glib, libxml2, libusb, libtool, withDebug ?
+  false }:
 
 stdenv.mkDerivation rec {
   name = "cnijfilter2-${version}";
@@ -7,13 +7,12 @@ stdenv.mkDerivation rec {
   version = "5.30";
 
   src = fetchzip {
-    url = "http://gdlp01.c-wss.com/gds/9/0100007129/01/cnijfilter2-source-5.30-1.tar.gz";
+    url =
+      "http://gdlp01.c-wss.com/gds/9/0100007129/01/cnijfilter2-source-5.30-1.tar.gz";
     sha256 = "0gnl9arwmkblljsczspcgggx85a19vcmhmbjfyv1bq236yqixv5c";
   };
 
-  buildInputs = [
-    cups automake autoconf glib libxml2 libusb libtool
-  ];
+  buildInputs = [ cups automake autoconf glib libxml2 libusb libtool ];
 
   # lgmon3's --enable-libdir flag is used soley for specifying in which
   # directory the cnnnet.ini cache file should reside.
@@ -114,8 +113,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Canon InkJet printer drivers for the MG7500, MG6700, MG6600, MG5600, MG2900, MB2000, MB2300, iB4000, MB5000, MB5300, iP110, E450, MX490, E480, MG7700, MG6900, MG6800, MG5700, MG3600, and G3000 series.";
-    homepage = http://support-th.canon-asia.com/contents/TH/EN/0100712901.html;
+    description =
+      "Canon InkJet printer drivers for the MG7500, MG6700, MG6600, MG5600, MG2900, MB2000, MB2300, iB4000, MB5000, MB5300, iP110, E450, MX490, E480, MG7700, MG6900, MG6800, MG5700, MG3600, and G3000 series.";
+    homepage =
+      "http://support-th.canon-asia.com/contents/TH/EN/0100712901.html";
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ];

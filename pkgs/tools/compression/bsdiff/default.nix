@@ -1,11 +1,11 @@
 { stdenv, fetchurl, bzip2 }:
 
 stdenv.mkDerivation rec {
-  name    = "bsdiff-${version}";
+  name = "bsdiff-${version}";
   version = "4.3";
 
   src = fetchurl {
-    url    = "https://www.daemonology.net/bsdiff/${name}.tar.gz";
+    url = "https://www.daemonology.net/bsdiff/${name}.tar.gz";
     sha256 = "0j2zm3z271x5aw63mwhr3vymzn45p2vvrlrpm9cz2nywna41b0hq";
   };
 
@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "An efficient binary diff/patch tool";
-    homepage    = "http://www.daemonology.net/bsdiff";
-    license     = stdenv.lib.licenses.bsd2;
-    platforms   = stdenv.lib.platforms.unix;
+    homepage = "http://www.daemonology.net/bsdiff";
+    license = stdenv.lib.licenses.bsd2;
+    platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

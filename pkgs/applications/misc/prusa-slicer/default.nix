@@ -1,36 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig
-, boost, curl, expat, glew, libpng, tbb, wxGTK30
-, gtest, nlopt, xorg, makeDesktopItem
+{ stdenv, lib, fetchFromGitHub, makeWrapper, cmake, pkgconfig, boost, curl, expat, glew, libpng, tbb, wxGTK30, gtest, nlopt, xorg, makeDesktopItem
 }:
 let
-  nloptVersion = if lib.hasAttr "version" nlopt
-                 then lib.getAttr "version" nlopt
-                 else "2.4";
-in
-stdenv.mkDerivation rec {
+  nloptVersion =
+    if lib.hasAttr "version" nlopt then lib.getAttr "version" nlopt else "2.4";
+in stdenv.mkDerivation rec {
   name = "prusa-slicer-${version}";
   version = "2.0.0";
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkgconfig
-  ];
+  nativeBuildInputs = [ cmake makeWrapper pkgconfig ];
 
   # We could add Eigen, but it doesn't currently compile with the version in
   # nixpkgs.
-  buildInputs = [
-    boost
-    curl
-    expat
-    glew
-    libpng
-    tbb
-    wxGTK30
-    xorg.libX11
-  ] ++ checkInputs;
+  buildInputs = [ boost curl expat glew libpng tbb wxGTK30 xorg.libX11 ]
+    ++ checkInputs;
 
   checkInputs = [ gtest ];
 
@@ -60,7 +44,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DSLIC3R_FHS=1"
-    "-DSLIC3R_WX_STABLE=1"  # necessary when compiling against wxGTK 3.0
+    "-DSLIC3R_WX_STABLE=1" # necessary when compiling against wxGTK 3.0
   ];
 
   postInstall = ''
@@ -82,7 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "G-code generator for 3D printer";
-    homepage = https://github.com/prusa3d/PrusaSlicer;
+    homepage = "https://github.com/prusa3d/PrusaSlicer";
     license = licenses.agpl3;
     maintainers = with maintainers; [ tweber ];
   };

@@ -5,9 +5,8 @@ with lib;
 let
   cfg = config.services.beanstalkd;
   pkg = pkgs.beanstalkd;
-in
 
-{
+in {
   # interface
 
   options = {
@@ -17,7 +16,8 @@ in
       listen = {
         port = mkOption {
           type = types.int;
-          description = "TCP port that will be used to accept client connections.";
+          description =
+            "TCP port that will be used to accept client connections.";
           default = 11300;
         };
 
@@ -44,7 +44,9 @@ in
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
-        ExecStart = "${pkg}/bin/beanstalkd -l ${cfg.listen.address} -p ${toString cfg.listen.port}";
+        ExecStart = "${pkg}/bin/beanstalkd -l ${cfg.listen.address} -p ${
+          toString cfg.listen.port
+          }";
       };
     };
 

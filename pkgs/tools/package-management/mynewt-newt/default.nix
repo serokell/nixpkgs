@@ -10,12 +10,12 @@ buildGoPackage rec {
   src = fetchFromGitHub {
     owner = "apache";
     repo = "incubator-mynewt-newt";
-    rev = "mynewt_${builtins.replaceStrings ["."] ["_"] version}_tag";
+    rev = "mynewt_${builtins.replaceStrings [ "." ] [ "_" ] version}_tag";
     sha256 = "0ia6q1wf3ki2yw8ngw5gnbdrb7268qwi078j05f8gs1sppb3g563";
   };
 
   meta = with stdenv.lib; {
-    homepage = https://mynewt.apache.org/;
+    homepage = "https://mynewt.apache.org/";
     description = "Build and package management tool for embedded development.";
     longDescription = ''
       Apache Newt is a smart build and package management tool,

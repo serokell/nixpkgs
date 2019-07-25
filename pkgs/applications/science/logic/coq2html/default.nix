@@ -1,10 +1,8 @@
 { stdenv, fetchgit, ocaml }:
 
-let 
-  version = "20170720";
-in
+let version = "20170720";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "coq2html-${version}";
 
   src = fetchgit {
@@ -21,7 +19,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "coq2html is an HTML documentation generator for Coq source files";
+    description =
+      "coq2html is an HTML documentation generator for Coq source files";
     longDescription = ''
       coq2html is an HTML documentation generator for Coq source files. It is
       an alternative to the standard coqdoc documentation generator
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
       initially hidden, but can be revealed one by one by clicking on the
       "Proof" keyword.
     '';
-    homepage = https://github.com/xavierleroy/coq2html;
+    homepage = "https://github.com/xavierleroy/coq2html";
     license = licenses.gpl2;
     maintainers = with maintainers; [ jwiegley ];
     platforms = platforms.unix;

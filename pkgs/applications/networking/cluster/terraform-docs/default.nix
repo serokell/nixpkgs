@@ -7,9 +7,9 @@ buildGoPackage rec {
   goPackagePath = "github.com/segmentio/${pname}";
 
   src = fetchFromGitHub {
-    owner  = "segmentio";
-    repo   = pname;
-    rev    = "v${version}";
+    owner = "segmentio";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "1p6prhjf82qnhf1zwl9h92j4ds5g383a6g9pwwnqbc3wdwy5zx7d";
   };
 
@@ -18,7 +18,8 @@ buildGoPackage rec {
   '';
 
   meta = with lib; {
-    description = "A utility to generate documentation from Terraform modules in various output formats";
+    description =
+      "A utility to generate documentation from Terraform modules in various output formats";
     homepage = "https://github.com/segmentio/terraform-docs/";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];

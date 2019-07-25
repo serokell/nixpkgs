@@ -9,8 +9,7 @@ let
 
   iodinedUser = "iodined";
 
-in
-{
+in {
 
   ### configuration
 
@@ -18,7 +17,7 @@ in
 
     services.iodine = {
       clients = mkOption {
-        default = {};
+        default = { };
         description = ''
           Each attribute of this option defines a systemd service that
           runs iodine. Many or none may be defined.
@@ -28,16 +27,15 @@ in
           corresponding attribute name.
         '';
         example = literalExample ''
-        {
-          foo = {
-            server = "tunnel.mdomain.com";
-            relay = "8.8.8.8";
-            extraConfig = "-v";
+          {
+            foo = {
+              server = "tunnel.mdomain.com";
+              relay = "8.8.8.8";
+              extraConfig = "-v";
+            }
           }
-        }
         '';
-        type = types.attrsOf (types.submodule (
-        {
+        type = types.attrsOf (types.submodule ({
           options = {
             server = mkOption {
               type = types.str;
@@ -49,7 +47,8 @@ in
             relay = mkOption {
               type = types.str;
               default = "";
-              description = "DNS server to use as a intermediate relay to the iodined server";
+              description =
+                "DNS server to use as a intermediate relay to the iodined server";
               example = "8.8.8.8";
             };
 
@@ -109,36 +108,38 @@ in
 
   ### implementation
 
-  config = mkIf (cfg.server.enable || cfg.clients != {}) {
+  config = mkIf (cfg.server.enable || cfg.clients != { }) {
     environment.systemPackages = [ pkgs.iodine ];
     boot.kernelModules = [ "tun" ];
 
-    systemd.services =
-    let
-      createIodineClientService = name: cfg:
-      {
+    systemd.services = let
+      createIodineClientService = name: cfg: {
         description = "iodine client - ${name}";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
-        script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${optionalString (cfg.passwordFile != "") "< \"${cfg.passwordFile}\""} ${cfg.relay} ${cfg.server}";
+        script =
+          "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
+            optionalString (cfg.passwordFile != "") ''< "${cfg.passwordFile}"''
+          } ${cfg.relay} ${cfg.server}";
         serviceConfig = {
           RestartSec = "30s";
           Restart = "always";
         };
       };
-    in
-    listToAttrs (
-      mapAttrsToList
-        (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value))
-        cfg.clients
-    ) // {
-      iodined = mkIf (cfg.server.enable) {
-        description = "iodine, ip over dns server daemon";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        script = "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${optionalString (cfg.server.passwordFile != "") "< \"${cfg.server.passwordFile}\""} ${cfg.server.ip} ${cfg.server.domain}";
+      in listToAttrs (mapAttrsToList (name: value:
+      nameValuePair "iodine-${name}" (createIodineClientService name value))
+      cfg.clients) // {
+        iodined = mkIf (cfg.server.enable) {
+          description = "iodine, ip over dns server daemon";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+          script =
+            "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
+              optionalString (cfg.server.passwordFile != "")
+              ''< "${cfg.server.passwordFile}"''
+            } ${cfg.server.ip} ${cfg.server.domain}";
+        };
       };
-    };
 
     users.users = singleton {
       name = iodinedUser;

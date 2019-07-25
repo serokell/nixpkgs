@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, clang, llvmPackages, rustfmt, writeScriptBin,
-  runtimeShell }:
+{ stdenv, fetchFromGitHub, rustPlatform, clang, llvmPackages, rustfmt, writeScriptBin, runtimeShell
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-bindgen";
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1311d0wjjj99m59zd2n6r4aq6lwbbpyj54ha2z9g4yd1hn344r91";
 
-  libclang = llvmPackages.libclang.lib; #for substituteAll
+  libclang = llvmPackages.libclang.lib; # for substituteAll
 
   buildInputs = [ libclang ];
 
@@ -31,18 +31,18 @@ rustPlatform.buildRustPackage rec {
   '';
 
   doCheck = true;
-  checkInputs =
-    let fakeRustup = writeScriptBin "rustup" ''
+  checkInputs = let
+    fakeRustup = writeScriptBin "rustup" ''
       #!${runtimeShell}
       shift
       shift
       exec "$@"
     '';
-  in [
-    rustfmt
-    fakeRustup # the test suite insists in calling `rustup run nightly rustfmt`
-    clang
-  ];
+    in [
+      rustfmt
+      fakeRustup # the test suite insists in calling `rustup run nightly rustfmt`
+      clang
+    ];
   preCheck = ''
     # for the ci folder, notably
     patchShebangs .
@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       As with most compiler related software, this will only work
       inside a nix-shell with the required libraries as buildInputs.
     '';
-    homepage = https://github.com/rust-lang/rust-bindgen;
+    homepage = "https://github.com/rust-lang/rust-bindgen";
     license = with licenses; [ bsd3 ];
     platforms = platforms.unix;
     maintainers = [ maintainers.ralith ];

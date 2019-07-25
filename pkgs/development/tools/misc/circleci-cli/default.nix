@@ -4,12 +4,11 @@ let
   owner = "CircleCI-Public";
   pname = "circleci-cli";
   version = "0.1.2569";
-in
-buildGoPackage rec {
+in buildGoPackage rec {
   name = "${pname}-${version}";
   inherit version;
 
-  src =  fetchFromGitHub {
+  src = fetchFromGitHub {
     inherit owner;
     repo = pname;
     rev = "v${version}";
@@ -27,6 +26,6 @@ buildGoPackage rec {
     maintainers = with maintainers; [ synthetica ];
     platforms = platforms.unix;
     license = licenses.mit;
-    homepage = https://circleci.com/;
+    homepage = "https://circleci.com/";
   };
 }

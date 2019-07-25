@@ -1,4 +1,4 @@
-{stdenv, fetchpatch, autoconf, automake, fetchFromGitHub, pkgconfig}:
+{ stdenv, fetchpatch, autoconf, automake, fetchFromGitHub, pkgconfig }:
 
 let
   pname = "mypaint-brushes";
@@ -18,7 +18,8 @@ in stdenv.mkDerivation rec {
   patches = [
     # build with automake 1.16
     (fetchpatch {
-      url = https://github.com/Jehan/mypaint-brushes/commit/1e9109dde3bffd416ed351c3f30ecd6ffd0ca2cd.patch;
+      url =
+        "https://github.com/Jehan/mypaint-brushes/commit/1e9109dde3bffd416ed351c3f30ecd6ffd0ca2cd.patch";
       sha256 = "0mi8rwbirl0ib22f2hz7kdlgi4hw8s3ab29b003dsshdyzn5iha9";
     })
   ];
@@ -26,8 +27,9 @@ in stdenv.mkDerivation rec {
   preConfigure = "./autogen.sh";
 
   meta = with stdenv.lib; {
-    homepage = http://mypaint.org/;
-    description = "Brushes used by MyPaint and other software using libmypaint.";
+    homepage = "http://mypaint.org/";
+    description =
+      "Brushes used by MyPaint and other software using libmypaint.";
     license = licenses.cc0;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.unix;

@@ -1,7 +1,4 @@
-{ stdenv, fetchurl
-, pkgconfig
-, bison, flex
-, makeWrapper }:
+{ stdenv, fetchurl, pkgconfig, bison, flex, makeWrapper }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -14,8 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "058ppvvgz9r5603ia9jkknbrciypgg4hjbczrv9v1d9w3ak652xk";
   };
 
-  buildInputs =
-  [ pkgconfig bison flex makeWrapper ];
+  buildInputs = [ pkgconfig bison flex makeWrapper ];
 
   # Intercal invokes gcc, so we need an explicit PATH
   postInstall = ''
@@ -33,7 +29,7 @@ stdenv.mkDerivation rec {
       languages. The language largely succeeds in this goal, apart
       from its use of an assignment statement.
     '';
-    homepage = http://www.catb.org/~esr/intercal/;
+    homepage = "http://www.catb.org/~esr/intercal/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;

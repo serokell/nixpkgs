@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, jre, makeWrapper, bash, coreutils, gnugrep, gnused,
-  majorVersion ? "1.0" }:
+{ stdenv, fetchurl, jre, makeWrapper, bash, coreutils, gnugrep, gnused, majorVersion ?
+  "1.0" }:
 
 let
   versionMap = {
@@ -44,9 +44,8 @@ let
       sha256 = "1svdnhdzq9a6jsig513i0ahaysfgar5i385bq9fz7laga6a4z3qv";
     };
   };
-in
 
-with versionMap.${majorVersion};
+in with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   version = "${scalaVersion}-${kafkaVersion}";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://kafka.apache.org;
+    homepage = "http://kafka.apache.org";
     description = "A high-throughput distributed messaging system";
     license = licenses.asl20;
     maintainers = [ maintainers.ragge ];

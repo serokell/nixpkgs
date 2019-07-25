@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, pidgin, libnotify, gdk_pixbuf, glib, dbus
-, dbus-glib }:
+{ stdenv, fetchurl, pkgconfig, pidgin, libnotify, gdk_pixbuf, glib, dbus, dbus-glib
+}:
 
 stdenv.mkDerivation rec {
   name = "skype4pidgin-novas0x2a-20120411-6c53f7c48f";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     pkg-config --cflags glib-2.0 gdk-pixbuf-2.0 libnotify
   '';
 
-  buildPhase  = "make libskype.so libskype_dbus.so";
+  buildPhase = "make libskype.so libskype_dbus.so";
 
   installPhase = ''
     mkdir -p $out/pixmaps/pidgin/protocols/{16,22,48} $out/bin $out/lib/pidgin
@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     cp libskype.so libskype_dbus.so $out/lib/pidgin
   '';
 
-  postInstall = "ln -s \$out/lib/pidgin \$out/share/pidgin-otr";
+  postInstall = "ln -s $out/lib/pidgin $out/share/pidgin-otr";
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ pidgin libnotify gdk_pixbuf glib dbus dbus-glib ];
 
   meta = {
-    homepage = https://github.com/novas0x2a/skype4pidgin;
+    homepage = "https://github.com/novas0x2a/skype4pidgin";
     license = stdenv.lib.licenses.gpl3Plus;
     description = "Plugin to use a running skype account through pidgin";
     platforms = stdenv.lib.platforms.linux;

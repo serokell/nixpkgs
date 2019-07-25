@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, which, autoconf, automake, flex, yacc
-, glibc, perl, kerberos, libxslt, docbook_xsl, docbook_xml_dtd_43
-, ncurses # Extra ncurses utilities. Only needed for debugging.
+{ stdenv, fetchurl, which, autoconf, automake, flex, yacc, glibc, perl, kerberos, libxslt, docbook_xsl, docbook_xml_dtd_43, ncurses # Extra ncurses utilities. Only needed for debugging.
 , tsmbac ? null # Tivoli Storage Manager Backup Client from IBM
 }:
 
@@ -36,7 +34,7 @@ stdenv.mkDerivation rec {
     ./regen.sh
 
     ${stdenv.lib.optionalString (kerberos != null)
-      "export KRB5_CONFIG=${kerberos.dev}/bin/krb5-config"}
+    "export KRB5_CONFIG=${kerberos.dev}/bin/krb5-config"}
 
     export AFS_SYSKVERS=26
 
@@ -81,7 +79,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     outputsToInstall = [ "out" "doc" "man" ];
     description = "Open AFS client";
-    homepage = https://www.openafs.org;
+    homepage = "https://www.openafs.org";
     license = licenses.ipl10;
     platforms = platforms.linux;
     maintainers = [ maintainers.z77z maintainers.spacefrogg ];

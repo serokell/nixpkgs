@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, cmake, python2, boost, libuuid, ruby, buildEnv, buildPythonPackage, qpid-python }:
+{ stdenv, fetchurl, cmake, python2, boost, libuuid, ruby, buildEnv, buildPythonPackage, qpid-python
+}:
 
 let
   name = "qpid-cpp-${version}";
@@ -10,9 +11,9 @@ let
   };
 
   meta = with stdenv.lib; {
-    homepage = http://qpid.apache.org;
-    repositories.git = git://git.apache.org/qpid.git;
-    repositories.svn = http://svn.apache.org/repos/asf/qpid;
+    homepage = "http://qpid.apache.org";
+    repositories.git = "git://git.apache.org/qpid.git";
+    repositories.svn = "http://svn.apache.org/repos/asf/qpid";
     description = "An AMQP message broker and a C++ messaging API";
     license = licenses.asl20;
     platforms = platforms.linux;

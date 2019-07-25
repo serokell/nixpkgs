@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, psutil
-, pexpect
-, python-daemon
-, pyyaml
-, six
-, ansible
-, pytest
-, mock
+{ lib, buildPythonPackage, fetchPypi, psutil, pexpect, python-daemon, pyyaml, six, ansible, pytest, mock
 }:
 
 buildPythonPackage rec {
@@ -21,14 +11,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest mock ];
-  propagatedBuildInputs = [
-    ansible
-    psutil
-    pexpect
-    python-daemon
-    pyyaml
-    six
-  ];
+  propagatedBuildInputs = [ ansible psutil pexpect python-daemon pyyaml six ];
 
   checkPhase = ''
     HOME=$(mktemp -d) pytest --ignore test/unit/test_runner.py -k "not test_prepare"
@@ -36,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Helps when interfacing with Ansible";
-    homepage = https://github.com/ansible/ansible-runner;
+    homepage = "https://github.com/ansible/ansible-runner";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

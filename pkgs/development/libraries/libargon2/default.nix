@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A key derivation function that was selected as the winner of the Password Hashing Competition in July 2015";
+    description =
+      "A key derivation function that was selected as the winner of the Password Hashing Competition in July 2015";
     longDescription = ''
       A password-hashing function created by by Alex Biryukov, Daniel Dinu, and
       Dmitry Khovratovich. Argon2 was declared the winner of the Password

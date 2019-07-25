@@ -1,14 +1,4 @@
-{ lib
-, fetchPypi
-, fetchNuGet
-, buildPythonPackage
-, python
-, pytest
-, pycparser
-, pkgconfig
-, dotnetbuildhelpers
-, clang
-, mono
+{ lib, fetchPypi, fetchNuGet, buildPythonPackage, python, pytest, pycparser, pkgconfig, dotnetbuildhelpers, clang, mono
 }:
 
 let
@@ -27,9 +17,7 @@ let
     outputFiles = [ "*" ];
   };
 
-in
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pythonnet";
   version = "2.3.0";
 
@@ -59,9 +47,7 @@ buildPythonPackage rec {
     UnmanagedExports127
   ];
 
-  buildInputs = [
-    mono
-  ];
+  buildInputs = [ mono ];
 
   preBuild = ''
     rm -rf packages
@@ -77,7 +63,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = ".Net and Mono integration for Python";
-    homepage = https://pythonnet.github.io;
+    homepage = "https://pythonnet.github.io";
     license = licenses.mit;
     maintainers = with maintainers; [ jraygauthier ];
   };

@@ -1,9 +1,6 @@
-{ stdenv, fetchFromGitHub, alsaLib, file, fluidsynth, ffmpeg, jack2,
-  liblo, libpulseaudio, libsndfile, pkgconfig, python3Packages,
-  which, withFrontend ? true,
-  withQt ? true, qtbase ? null, wrapQtAppsHook ? null,
-  withGtk2 ? true, gtk2 ? null,
-  withGtk3 ? true, gtk3 ? null }:
+{ stdenv, fetchFromGitHub, alsaLib, file, fluidsynth, ffmpeg, jack2, liblo, libpulseaudio, libsndfile, pkgconfig, python3Packages, which, withFrontend ?
+  true, withQt ? true, qtbase ? null, wrapQtAppsHook ? null, withGtk2 ?
+    true, gtk2 ? null, withGtk3 ? true, gtk3 ? null }:
 
 with stdenv.lib;
 
@@ -24,19 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "0fqgncqlr86n38yy7pa118mswfacmfczj7w9xx6c6k0jav3wk29k";
   };
 
-  nativeBuildInputs = [
-    python3Packages.wrapPython pkgconfig which wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [ python3Packages.wrapPython pkgconfig which wrapQtAppsHook ];
 
-  pythonPath = with python3Packages; [
-    rdflib pyliblo
-  ] ++ optional withFrontend pyqt5;
+  pythonPath = with python3Packages;
+    [ rdflib pyliblo ] ++ optional withFrontend pyqt5;
 
-  buildInputs = [
-    file liblo alsaLib fluidsynth ffmpeg jack2 libpulseaudio libsndfile
-  ] ++ pythonPath
-    ++ optional withQt qtbase
-    ++ optional withGtk2 gtk2
+  buildInputs =
+    [ file liblo alsaLib fluidsynth ffmpeg jack2 libpulseaudio libsndfile ]
+    ++ pythonPath ++ optional withQt qtbase ++ optional withGtk2 gtk2
     ++ optional withGtk3 gtk3;
 
   installFlags = [ "PREFIX=$(out)" ];
@@ -59,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://kxstudio.sf.net/carla;
+    homepage = "http://kxstudio.sf.net/carla";
     description = "An audio plugin host";
     longDescription = ''
       It currently supports LADSPA (including LRDF), DSSI, LV2, VST2/3

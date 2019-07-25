@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, libsndfile, libtool, pkgconfig, libuuid }:
+{ stdenv, fetchurl, autoconf, automake, libsndfile, libtool, pkgconfig, libuuid
+}:
 
 stdenv.mkDerivation rec {
   name = "libgig-${version}";
@@ -18,7 +19,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://www.linuxsampler.org;
+    homepage = "http://www.linuxsampler.org";
     description = "Gigasampler file access library";
     license = licenses.gpl2;
     maintainers = [ maintainers.goibhniu ];

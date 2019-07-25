@@ -1,4 +1,5 @@
-{ stdenv, makeWrapper, fetchFromGitHub, cmake, alsaLib, mesa_glu, libXcursor, libXinerama, libXrandr, xorgserver }:
+{ stdenv, makeWrapper, fetchFromGitHub, cmake, alsaLib, mesa_glu, libXcursor, libXinerama, libXrandr, xorgserver
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -12,7 +13,16 @@ stdenv.mkDerivation rec {
     sha256 = "12mdfjvbhdqz1585772rj4cap8m4ijfci6ib62jysxjf747k41fg";
   };
 
-  buildInputs = [ cmake makeWrapper alsaLib mesa_glu libXcursor libXinerama libXrandr xorgserver ];
+  buildInputs = [
+    cmake
+    makeWrapper
+    alsaLib
+    mesa_glu
+    libXcursor
+    libXinerama
+    libXrandr
+    xorgserver
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/Bonzomatic --prefix LD_LIBRARY_PATH : "${alsaLib}/lib"

@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.jenkins;
+let cfg = config.services.jenkins;
 in {
   options = {
     services.jenkins = {
@@ -86,8 +85,15 @@ in {
       };
 
       packages = mkOption {
-        default = [ pkgs.stdenv pkgs.git pkgs.jdk config.programs.ssh.package pkgs.nix ];
-        defaultText = "[ pkgs.stdenv pkgs.git pkgs.jdk config.programs.ssh.package pkgs.nix ]";
+        default = [
+          pkgs.stdenv
+          pkgs.git
+          pkgs.jdk
+          config.programs.ssh.package
+          pkgs.nix
+        ];
+        defaultText =
+          "[ pkgs.stdenv pkgs.git pkgs.jdk config.programs.ssh.package pkgs.nix ]";
         type = types.listOf types.package;
         description = ''
           Packages to add to PATH for the jenkins process.
@@ -146,9 +152,7 @@ in {
 
   config = mkIf cfg.enable {
     # server references the dejavu fonts
-    environment.systemPackages = [
-      pkgs.dejavu_fonts
-    ];
+    environment.systemPackages = [ pkgs.dejavu_fonts ];
 
     users.groups = optional (cfg.group == "jenkins") {
       name = "jenkins";
@@ -171,35 +175,31 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      environment =
-        let
-          selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
-              config.environment.sessionVariables;
-        in
-          selectedSessionVars //
-          { JENKINS_HOME = cfg.home;
-            NIX_REMOTE = "daemon";
-          } //
-          cfg.environment;
+      environment = let
+        selectedSessionVars =
+          lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+          config.environment.sessionVariables;
+        in selectedSessionVars // {
+          JENKINS_HOME = cfg.home;
+          NIX_REMOTE = "daemon";
+        } // cfg.environment;
 
       path = cfg.packages;
 
       # Force .war (re)extraction, or else we might run stale Jenkins.
 
-      preStart =
-        let replacePlugins =
-              if cfg.plugins == null
-              then ""
-              else
-                let pluginCmds = lib.attrsets.mapAttrsToList
-                      (n: v: "cp ${v} ${cfg.home}/plugins/${n}.hpi")
-                      cfg.plugins;
-                in ''
-                  rm -r ${cfg.home}/plugins || true
-                  mkdir -p ${cfg.home}/plugins
-                  ${lib.strings.concatStringsSep "\n" pluginCmds}
-                '';
+      preStart = let
+        replacePlugins = if cfg.plugins == null then
+          ""
+        else
+          let
+            pluginCmds = lib.attrsets.mapAttrsToList
+              (n: v: "cp ${v} ${cfg.home}/plugins/${n}.hpi") cfg.plugins;
+          in ''
+            rm -r ${cfg.home}/plugins || true
+            mkdir -p ${cfg.home}/plugins
+            ${lib.strings.concatStringsSep "\n" pluginCmds}
+          '';
         in ''
           rm -rf ${cfg.home}/war
           ${replacePlugins}
@@ -207,22 +207,28 @@ in {
 
       # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''
-        ${pkgs.jdk}/bin/java ${concatStringsSep " " cfg.extraJavaOptions} -jar ${cfg.package}/webapps/jenkins.war --httpListenAddress=${cfg.listenAddress} \
-                                                  --httpPort=${toString cfg.port} \
+        ${pkgs.jdk}/bin/java ${
+          concatStringsSep " " cfg.extraJavaOptions
+        } -jar ${cfg.package}/webapps/jenkins.war --httpListenAddress=${cfg.listenAddress} \
+                                                  --httpPort=${
+          toString cfg.port
+                                                  } \
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
-                                                  ${concatStringsSep " " cfg.extraOptions}
+                                                  ${
+          concatStringsSep " " cfg.extraOptions
+                                                  }
       '';
 
       postStart = ''
-        until [[ $(${pkgs.curl.bin}/bin/curl -L -s --head -w '\n%{http_code}' http://${cfg.listenAddress}:${toString cfg.port}${cfg.prefix} | tail -n1) =~ ^(200|403)$ ]]; do
+        until [[ $(${pkgs.curl.bin}/bin/curl -L -s --head -w '\n%{http_code}' http://${cfg.listenAddress}:${
+          toString cfg.port
+        }${cfg.prefix} | tail -n1) =~ ^(200|403)$ ]]; do
           sleep 1
         done
       '';
 
-      serviceConfig = {
-        User = cfg.user;
-      };
+      serviceConfig = { User = cfg.user; };
     };
   };
 }

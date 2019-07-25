@@ -1,15 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, isPyPy
-}:
-
+{ lib, buildPythonPackage, fetchPypi, six, isPyPy }:
 
 buildPythonPackage rec {
   pname = "greenlet";
   version = "0.4.15";
-  disabled = isPyPy;  # builtin for pypy
+  disabled = isPyPy; # builtin for pypy
 
   src = fetchPypi {
     inherit pname version;
@@ -24,7 +18,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://pypi.python.org/pypi/greenlet;
+    homepage = "https://pypi.python.org/pypi/greenlet";
     description = "Module for lightweight in-process concurrent programming";
     license = lib.licenses.lgpl2;
   };

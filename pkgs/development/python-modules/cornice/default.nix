@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyramid
-, simplejson
-, six
-, venusian
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyramid, simplejson, six, venusian }:
 
 buildPythonPackage rec {
   pname = "cornice";
@@ -22,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mozilla-services/cornice;
+    homepage = "https://github.com/mozilla-services/cornice";
     description = "Build Web Services with Pyramid";
     license = licenses.mpl20;
     maintainers = [ maintainers.costrouc ];

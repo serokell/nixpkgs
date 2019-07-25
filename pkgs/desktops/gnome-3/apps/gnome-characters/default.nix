@@ -1,12 +1,14 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gnome3, glib, gtk3, pango, wrapGAppsHook, python3
-, gobject-introspection, gjs, libunistring, gsettings-desktop-schemas, adwaita-icon-theme, gnome-desktop }:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gnome3, glib, gtk3, pango, wrapGAppsHook, python3, gobject-introspection, gjs, libunistring, gsettings-desktop-schemas, adwaita-icon-theme, gnome-desktop
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-characters-${version}";
   version = "3.32.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-characters/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-characters/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1mpg125x9k879ryg8xgbm9w1amx6b3iq9sqv7xfii7kzaanjb4js";
   };
 
@@ -22,21 +24,34 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig gettext wrapGAppsHook python3 gobject-introspection ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkgconfig
+    gettext
+    wrapGAppsHook
+    python3
+    gobject-introspection
+  ];
   buildInputs = [
-    glib gtk3 gjs pango gsettings-desktop-schemas
-    adwaita-icon-theme libunistring
+    glib
+    gtk3
+    gjs
+    pango
+    gsettings-desktop-schemas
+    adwaita-icon-theme
+    libunistring
     # typelib
     gnome-desktop
   ];
 
-  mesonFlags = [
-    "-Ddbus_service_dir=${placeholder "out"}/share/dbus-1/services"
-  ];
+  mesonFlags =
+    [ "-Ddbus_service_dir=${placeholder "out"}/share/dbus-1/services" ];
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Design/Apps/CharacterMap;
-    description = "Simple utility application to find and insert unusual characters";
+    homepage = "https://wiki.gnome.org/Design/Apps/CharacterMap";
+    description =
+      "Simple utility application to find and insert unusual characters";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2;
     platforms = platforms.linux;

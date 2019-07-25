@@ -2,13 +2,12 @@ import ./make-test.nix {
   name = "riak";
 
   nodes = {
-    master =
-      { pkgs, ... }:
+    master = { pkgs, ... }:
 
-      {
-        services.riak.enable = true;
-        services.riak.package = pkgs.riak;
-      };
+    {
+      services.riak.enable = true;
+      services.riak.package = pkgs.riak;
+    };
   };
 
   testScript = ''

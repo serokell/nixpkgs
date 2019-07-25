@@ -8,9 +8,7 @@ let
 
   cfg = config.services.gnome3.gnome-settings-daemon;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -30,7 +28,6 @@ in
     };
 
   };
-
 
   ###### implementation
 

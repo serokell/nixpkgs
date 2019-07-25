@@ -1,17 +1,11 @@
-{ stdenv, fetchurl, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan
-, file, which, ncurses
-, texinfo
-, buildPackages
-, qtbase ? null
-, pythonSupport ? false, swig2 ? null, python ? null
-}:
+{ stdenv, fetchurl, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan, file, which, ncurses, texinfo, buildPackages, qtbase ?
+  null, pythonSupport ? false, swig2 ? null, python ? null }:
 
 let
   inherit (stdenv) lib;
   inherit (stdenv.hostPlatform) system;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gpgme-${version}";
   version = "1.13.1";
 
@@ -23,16 +17,15 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "info" ];
   outputBin = "dev"; # gpgme-config; not so sure about gpgme-tool
 
-  propagatedBuildInputs =
-    [ libgpgerror glib libassuan pth ]
+  propagatedBuildInputs = [ libgpgerror glib libassuan pth ]
     ++ lib.optional (qtbase != null) qtbase;
 
   nativeBuildInputs = [ file pkgconfig gnupg texinfo ]
-  ++ lib.optionals pythonSupport [ python swig2 which ncurses ];
+    ++ lib.optionals pythonSupport [ python swig2 which ncurses ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  postPatch =''
+  postPatch = ''
     substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file
   '';
 
@@ -41,10 +34,10 @@ stdenv.mkDerivation rec {
     "--with-libgpg-error-prefix=${libgpgerror.dev}"
     "--with-libassuan-prefix=${libassuan.dev}"
   ] ++ lib.optional pythonSupport "--enable-languages=python"
-  # Tests will try to communicate with gpg-agent instance via a UNIX socket
-  # which has a path length limit. Nix on darwin is using a build directory
-  # that already has quite a long path and the resulting socket path doesn't
-  # fit in the limit. https://github.com/NixOS/nix/pull/1085
+    # Tests will try to communicate with gpg-agent instance via a UNIX socket
+    # which has a path length limit. Nix on darwin is using a build directory
+    # that already has quite a long path and the resulting socket path doesn't
+    # fit in the limit. https://github.com/NixOS/nix/pull/1085
     ++ lib.optionals stdenv.isDarwin [ "--disable-gpg-test" ];
 
   NIX_CFLAGS_COMPILE =
@@ -59,7 +52,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://gnupg.org/software/gpgme/index.html;
+    homepage = "https://gnupg.org/software/gpgme/index.html";
     description = "Library for making GnuPG easier to use";
     longDescription = ''
       GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG

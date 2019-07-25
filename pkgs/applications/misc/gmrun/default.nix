@@ -1,10 +1,8 @@
 { stdenv, fetchurl, glib, gtk2, pkgconfig, popt }:
 
-let
-  version = "0.9.2";
-in
+let version = "0.9.2";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gmrun-${version}";
 
   src = fetchurl {
@@ -20,10 +18,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   patches = [
-      ./gcc43.patch
-      ./find-config-file-in-system-etc-dir.patch
-      ./gmrun-0.9.2-xdg.patch
-    ];
+    ./gcc43.patch
+    ./find-config-file-in-system-etc-dir.patch
+    ./gmrun-0.9.2-xdg.patch
+  ];
 
   meta = {
     description = "Gnome Completion-Run Utility";
@@ -33,9 +31,9 @@ stdenv.mkDerivation rec {
       Also, supports CTRL-R / CTRL-S / "!" for searching through history.
       Running commands in a terminal with CTRL-Enter. URL handlers.
     '';
-    homepage = https://sourceforge.net/projects/gmrun/;
+    homepage = "https://sourceforge.net/projects/gmrun/";
     license = "GPL";
-    maintainers = [];
+    maintainers = [ ];
     platforms = stdenv.lib.platforms.all;
   };
 }

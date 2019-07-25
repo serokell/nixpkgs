@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   options = {
     appstream.enable = mkOption {
       type = types.bool;
@@ -14,11 +13,11 @@ with lib;
   };
 
   config = mkIf config.appstream.enable {
-    environment.pathsToLink = [ 
+    environment.pathsToLink = [
       # per component metadata
-      "/share/metainfo" 
+      "/share/metainfo"
       # legacy path for above
-      "/share/appdata" 
+      "/share/appdata"
     ];
   };
 

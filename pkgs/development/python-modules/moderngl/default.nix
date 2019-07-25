@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, libGL
-, libX11
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, libGL, libX11 }:
 
 buildPythonPackage rec {
   pname = "moderngl";
@@ -23,7 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    homepage = https://github.com/cprogrammer1994/ModernGL;
+    homepage = "https://github.com/cprogrammer1994/ModernGL";
     description = "High performance rendering for Python 3";
     license = licenses.mit;
     platforms = platforms.linux; # should be mesaPlatforms, darwin build breaks.

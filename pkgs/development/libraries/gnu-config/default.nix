@@ -5,15 +5,16 @@ let
 
   # Don't use fetchgit as this is needed during Aarch64 bootstrapping
   configGuess = fetchurl {
-    url = "https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=${rev}";
+    url =
+      "https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=${rev}";
     sha256 = "0qbq49gr2cmf4gzrjvrmpwxxgzl3vap1xm902xa8pkcqdvriq0qw";
   };
   configSub = fetchurl {
-    url = "https://git.savannah.gnu.org/cgit/config.git/plain/config.sub?id=${rev}";
+    url =
+      "https://git.savannah.gnu.org/cgit/config.git/plain/config.sub?id=${rev}";
     sha256 = "0i699axqfkxk9mgv1hlms5r44pf0s642yz75ajjjpwzhw4d5pnv4";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gnu-config-${version}";
   version = "2019-04-15";
 
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Attempt to guess a canonical system name";
-    homepage = https://savannah.gnu.org/projects/config;
+    homepage = "https://savannah.gnu.org/projects/config";
     license = licenses.gpl3;
     # In addition to GPLv3:
     #   As a special exception to the GNU General Public License, if you

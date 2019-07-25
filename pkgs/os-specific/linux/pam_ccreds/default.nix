@@ -1,4 +1,4 @@
-{stdenv, fetchurl, pam, openssl, db}:
+{ stdenv, fetchurl, pam, openssl, db }:
 
 stdenv.mkDerivation {
   name = "pam_ccreds-10";
@@ -14,8 +14,9 @@ stdenv.mkDerivation {
   buildInputs = [ pam openssl db ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.padl.com/OSS/pam_ccreds.html;
-    description = "PAM module to locally authenticate using an enterprise identity when the network is unavailable";
+    homepage = "http://www.padl.com/OSS/pam_ccreds.html";
+    description =
+      "PAM module to locally authenticate using an enterprise identity when the network is unavailable";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

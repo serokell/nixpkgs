@@ -10,11 +10,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ emacs gmp pcre expat ];
 
-  configureFlags = [
-    "CPPFLAGS=-DNDEBUG"
-    "CFLAGS=-O3"
-    "CXXFLAGS=-O3"
-  ];
+  configureFlags = [ "CPPFLAGS=-DNDEBUG" "CFLAGS=-O3" "CXXFLAGS=-O3" ];
 
   doCheck = true;
 
@@ -24,8 +20,9 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   meta = {
-    homepage = https://ledger-cli.org/;
-    description = "A double-entry accounting system with a command-line reporting interface";
+    homepage = "https://ledger-cli.org/";
+    description =
+      "A double-entry accounting system with a command-line reporting interface";
     license = "BSD";
 
     longDescription = ''

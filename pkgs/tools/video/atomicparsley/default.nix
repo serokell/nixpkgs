@@ -11,14 +11,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ zlib ]
-    ++ stdenv.lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [ zlib ] ++ stdenv.lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  configureFlags = stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # AC_FUNC_MALLOC is broken on cross builds.
-    "ac_cv_func_malloc_0_nonnull=yes"
-    "ac_cv_func_realloc_0_nonnull=yes"
-  ];
+  configureFlags =
+    stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      # AC_FUNC_MALLOC is broken on cross builds.
+      "ac_cv_func_malloc_0_nonnull=yes"
+      "ac_cv_func_realloc_0_nonnull=yes"
+    ];
 
   installPhase = "install -D AtomicParsley $out/bin/AtomicParsley";
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       This is a maintained fork of the original AtomicParsley.
     '';
 
-    homepage = https://bitbucket.org/wez/atomicparsley;
+    homepage = "https://bitbucket.org/wez/atomicparsley";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = with maintainers; [ pjones ];

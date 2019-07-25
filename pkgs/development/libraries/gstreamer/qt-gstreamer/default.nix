@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, gst_all_1, boost, glib, qt4, cmake
-, automoc4, flex, bison, pkgconfig }:
+{ stdenv, fetchurl, fetchpatch, gst_all_1, boost, glib, qt4, cmake, automoc4, flex, bison, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-1.2.0";
@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://cgit.freedesktop.org/gstreamer/qt-gstreamer/patch/?id=e2ca8094aa8d0eac1c3a98df66fe94ce0c754088";
+      url =
+        "https://cgit.freedesktop.org/gstreamer/qt-gstreamer/patch/?id=e2ca8094aa8d0eac1c3a98df66fe94ce0c754088";
       sha256 = "1qps0nlc26d74wk8h96xl5s3d9qrdx6c0ph0zpl1dnc691lgyf6s";
     })
   ];

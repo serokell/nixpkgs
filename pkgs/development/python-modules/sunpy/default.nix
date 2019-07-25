@@ -1,27 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, matplotlib
-, pandas
-, astropy
-, parfive
-, pythonOlder
-, sqlalchemy
-, scikitimage
-, glymur
-, beautifulsoup4
-, drms
-, python-dateutil
-, zeep
-, tqdm
-, asdf
-, astropy-helpers
-, hypothesis
-, pytest-astropy
-, pytestcov
-, pytest-mock
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, matplotlib, pandas, astropy, parfive, pythonOlder, sqlalchemy, scikitimage, glymur, beautifulsoup4, drms, python-dateutil, zeep, tqdm, asdf, astropy-helpers, hypothesis, pytest-astropy, pytestcov, pytest-mock
 }:
 
 buildPythonPackage rec {
@@ -55,12 +32,7 @@ buildPythonPackage rec {
     asdf
   ];
 
-  checkInputs = [
-    hypothesis
-    pytest-astropy
-    pytestcov
-    pytest-mock
-  ];
+  checkInputs = [ hypothesis pytest-astropy pytestcov pytest-mock ];
 
   preBuild = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
@@ -73,7 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "SunPy: Python for Solar Physics";
-    homepage = https://sunpy.org;
+    homepage = "https://sunpy.org";
     license = licenses.bsd2;
     maintainers = [ maintainers.costrouc ];
   };

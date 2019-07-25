@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, glib-networking, gtk2, libsoup, libX11, perl,
-  pkgconfig, webkitgtk, gsettings-desktop-schemas }:
+{ stdenv, fetchurl, makeWrapper, glib-networking, gtk2, libsoup, libX11, perl, pkgconfig, webkitgtk, gsettings-desktop-schemas
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";
@@ -10,7 +10,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ makeWrapper gtk2 libsoup libX11 perl webkitgtk gsettings-desktop-schemas ];
+  buildInputs = [
+    makeWrapper
+    gtk2
+    libsoup
+    libX11
+    perl
+    webkitgtk
+    gsettings-desktop-schemas
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -35,7 +43,7 @@ stdenv.mkDerivation rec {
       featureset might be considered "minimalistic", but not as minimalistic as
       being completely featureless.
     '';
-    homepage = https://sourceforge.net/apps/trac/vimprobable;
+    homepage = "https://sourceforge.net/apps/trac/vimprobable";
     license = stdenv.lib.licenses.mit;
     maintainers = [ stdenv.lib.maintainers.aforemny ];
     platforms = with stdenv.lib.platforms; linux;

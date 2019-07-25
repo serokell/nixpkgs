@@ -1,11 +1,5 @@
-
-{ stdenv, fetchurl, cmake,
-  singlePrec ? true,
-  mpiEnabled ? false,
-  fftw,
-  openmpi
+{ stdenv, fetchurl, cmake, singlePrec ? true, mpiEnabled ? false, fftw, openmpi
 }:
-
 
 stdenv.mkDerivation {
   name = "gromacs-2019.3";
@@ -15,21 +9,24 @@ stdenv.mkDerivation {
     sha256 = "0wvm6lj4hbasl2qkjcpicqjh7abxji4196dd2hmwlyivpycaa4a2";
   };
 
-  buildInputs = [cmake fftw]
-  ++ (stdenv.lib.optionals mpiEnabled [ openmpi ]);
+  buildInputs = [ cmake fftw ] ++ (stdenv.lib.optionals mpiEnabled [ openmpi ]);
 
   cmakeFlags = ''
-    ${if singlePrec then "-DGMX_DOUBLE=OFF" else "-DGMX_DOUBLE=ON -DGMX_DEFAULT_SUFFIX=OFF"}
-    ${if mpiEnabled then "-DGMX_MPI:BOOL=TRUE 
-                          -DGMX_CPU_ACCELERATION:STRING=SSE4.1 
-                          -DGMX_OPENMP:BOOL=TRUE
-                          -DGMX_THREAD_MPI:BOOL=FALSE"
-                     else "-DGMX_MPI:BOOL=FALSE" }
+    ${if singlePrec then
+      "-DGMX_DOUBLE=OFF"
+    else
+      "-DGMX_DOUBLE=ON -DGMX_DEFAULT_SUFFIX=OFF"}
+    ${if mpiEnabled then ''
+      -DGMX_MPI:BOOL=TRUE 
+                                -DGMX_CPU_ACCELERATION:STRING=SSE4.1 
+                                -DGMX_OPENMP:BOOL=TRUE
+                                -DGMX_THREAD_MPI:BOOL=FALSE'' else
+        "-DGMX_MPI:BOOL=FALSE"}
   '';
 
   meta = with stdenv.lib; {
-    homepage    = "http://www.gromacs.org";
-    license     = licenses.gpl2;
+    homepage = "http://www.gromacs.org";
+    license = licenses.gpl2;
     description = "Molecular dynamics software package";
     longDescription = ''
       GROMACS is a versatile package to perform molecular dynamics,

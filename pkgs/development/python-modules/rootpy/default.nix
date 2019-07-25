@@ -1,4 +1,5 @@
-{ lib, fetchPypi, isPy3k, buildPythonPackage, numpy, matplotlib, root, root_numpy, tables, pytest }:
+{ lib, fetchPypi, isPy3k, buildPythonPackage, numpy, matplotlib, root, root_numpy, tables, pytest
+}:
 
 buildPythonPackage rec {
   pname = "rootpy";
@@ -22,7 +23,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = http://www.rootpy.org;
+    homepage = "http://www.rootpy.org";
     license = licenses.bsd3;
     description = "Pythonic interface to the ROOT framework";
     maintainers = with maintainers; [ veprbl ];

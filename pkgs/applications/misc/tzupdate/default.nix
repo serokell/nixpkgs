@@ -1,9 +1,7 @@
 { stdenv, python }:
 
-let
-  inherit (python.pkgs) buildPythonApplication fetchPypi requests;
-in
-buildPythonApplication rec {
+let inherit (python.pkgs) buildPythonApplication fetchPypi requests;
+in buildPythonApplication rec {
   pname = "tzupdate";
   version = "1.4.0";
 
@@ -16,7 +14,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Update timezone information based on geoip.";
-    homepage = https://github.com/cdown/tzupdate;
+    homepage = "https://github.com/cdown/tzupdate";
     maintainers = [ maintainers.michaelpj ];
     license = licenses.unlicense;
   };

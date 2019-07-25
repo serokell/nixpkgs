@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qtbase, qtquick1, qmltermwidget
-, qtquickcontrols, qtgraphicaleffects, qmake }:
+{ stdenv, fetchFromGitHub, qtbase, qtquick1, qmltermwidget, qtquickcontrols, qtgraphicaleffects, qmake
+}:
 
 stdenv.mkDerivation rec {
   version = "1.1.1";
@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     sed -i -e '/qmltermwidget/d' cool-retro-term.pro
   '';
 
-  buildInputs = [ qtbase qtquick1 qmltermwidget qtquickcontrols qtgraphicaleffects ];
+  buildInputs =
+    [ qtbase qtquick1 qmltermwidget qtquickcontrols qtgraphicaleffects ];
   nativeBuildInputs = [ qmake ];
 
   installFlags = [ "INSTALL_ROOT=$(out)" ];
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
       feel of the old cathode tube screens. It has been designed to be
       eye-candy, customizable, and reasonably lightweight.
     '';
-    homepage = https://github.com/Swordfish90/cool-retro-term;
+    homepage = "https://github.com/Swordfish90/cool-retro-term";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = with stdenv.lib.platforms; linux ++ darwin;
     maintainers = with stdenv.lib.maintainers; [ skeidel ];

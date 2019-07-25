@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub
-, meson, ninja, pkgconfig, python3, libgee, gsettings-desktop-schemas
-, gnome3, pantheon, gobject-introspection, wrapGAppsHook
-, gtk3, json-glib, glib, glib-networking, hicolor-icon-theme
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, python3, libgee, gsettings-desktop-schemas, gnome3, pantheon, gobject-introspection, wrapGAppsHook, gtk3, json-glib, glib, glib-networking, hicolor-icon-theme
 }:
 
 let
@@ -27,8 +24,15 @@ in stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
   buildInputs = [
-    gtk3 pantheon.granite json-glib glib glib-networking hicolor-icon-theme
-    libgee gnome3.libsoup gsettings-desktop-schemas
+    gtk3
+    pantheon.granite
+    json-glib
+    glib
+    glib-networking
+    hicolor-icon-theme
+    libgee
+    gnome3.libsoup
+    gsettings-desktop-schemas
   ];
 
   postPatch = ''
@@ -38,8 +42,8 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Simple Mastodon client designed for elementary OS";
-    homepage    = https://github.com/bleakgrey/tootle;
-    license     = licenses.gpl3;
+    homepage = "https://github.com/bleakgrey/tootle";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];
   };
 }

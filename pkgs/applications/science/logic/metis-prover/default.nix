@@ -23,8 +23,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Automatic theorem prover for first-order logic with equality";
-    homepage = http://www.gilith.com/research/metis/;
+    description =
+      "Automatic theorem prover for first-order logic with equality";
+    homepage = "http://www.gilith.com/research/metis/";
     license = licenses.mit;
     maintainers = with maintainers; [ gebner ];
     platforms = platforms.unix;

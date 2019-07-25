@@ -1,9 +1,6 @@
-{ coreutils, db, fetchurl, openssl, pcre, perl, pkgconfig, stdenv
-, enableLDAP ? false, openldap
-, enableMySQL ? false, mysql, zlib
-, enableAuthDovecot ? false, dovecot
-, enablePAM ? false, pam
-}:
+{ coreutils, db, fetchurl, openssl, pcre, perl, pkgconfig, stdenv, enableLDAP ?
+  false, openldap, enableMySQL ? false, mysql, zlib, enableAuthDovecot ?
+    false, dovecot, enablePAM ? false, pam }:
 
 stdenv.mkDerivation rec {
   name = "exim-4.92";
@@ -21,7 +18,8 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional enablePAM pam;
 
   preBuild = ''
-    ${stdenv.lib.optionalString enableMySQL "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${mysql}/share/mysql/pkgconfig/"}
+    ${stdenv.lib.optionalString enableMySQL
+    "PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${mysql}/share/mysql/pkgconfig/"}
     sed '
       s:^\(BIN_DIRECTORY\)=.*:\1='"$out"'/bin:
       s:^\(CONFIGURE_FILE\)=.*:\1=/etc/exim.conf:
@@ -44,27 +42,35 @@ stdenv.mkDerivation rec {
       s:^# \(RM_COMMAND\)=.*:\1=${coreutils}/bin/rm:
       s:^# \(TOUCH_COMMAND\)=.*:\1=${coreutils}/bin/touch:
       s:^# \(PERL_COMMAND\)=.*:\1=${perl}/bin/perl:
-      ${stdenv.lib.optionalString enableLDAP ''
+      ${
+      stdenv.lib.optionalString enableLDAP ''
         s:^# \(LDAP_LIB_TYPE=OPENLDAP2\)$:\1:
         s:^# \(LOOKUP_LDAP=yes\)$:\1:
         s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lldap -llber:
         s:^# \(LOOKUP_LIBS\)=.*:\1=-lldap -llber:
-      ''}
-      ${stdenv.lib.optionalString enableMySQL ''
+      ''
+      }
+      ${
+      stdenv.lib.optionalString enableMySQL ''
         s:^# \(LOOKUP_MYSQL=yes\)$:\1:
         s:^# \(LOOKUP_MYSQL_PC=mariadb\)$:\1:
         s:^\(LOOKUP_LIBS\)=\(.*\):\1=\2 -lmysqlclient:
         s:^# \(LOOKUP_LIBS\)=.*:\1=-lmysqlclient:
         s:^# \(LOOKUP_INCLUDE\)=.*:\1=-I${mysql}/include/mysql/:
-      ''}
-      ${stdenv.lib.optionalString enableAuthDovecot ''
+      ''
+      }
+      ${
+      stdenv.lib.optionalString enableAuthDovecot ''
         s:^# \(AUTH_DOVECOT\)=.*:\1=yes:
-      ''}
-      ${stdenv.lib.optionalString enablePAM ''
+      ''
+      }
+      ${
+      stdenv.lib.optionalString enablePAM ''
         s:^# \(SUPPORT_PAM\)=.*:\1=yes:
         s:^\(EXTRALIBS_EXIM\)=\(.*\):\1=\2 -lpam:
         s:^# \(EXTRALIBS_EXIM\)=.*:\1=-lpam:
-      ''}
+      ''
+      }
       #/^\s*#.*/d
       #/^\s*$/d
     ' < src/EDITME > Local/Makefile
@@ -87,7 +93,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://exim.org/;
+    homepage = "http://exim.org/";
     description = "A mail transfer agent (MTA)";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;

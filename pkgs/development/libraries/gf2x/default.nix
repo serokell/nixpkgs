@@ -1,7 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, optimize ? false # impure hardware optimizations
+{ stdenv, lib, fetchurl, optimize ? false # impure hardware optimizations
 }:
 stdenv.mkDerivation rec {
   name = "gf2x-${version}";
@@ -11,7 +8,8 @@ stdenv.mkDerivation rec {
     # find link to latest version (with file id) here: https://gforge.inria.fr/projects/gf2x/
     # Requested a predictable link:
     # https://gforge.inria.fr/tracker/index.php?func=detail&aid=21704&group_id=1874&atid=6982
-    url = "https://gforge.inria.fr/frs/download.php/file/36934/gf2x-${version}.tar.gz";
+    url =
+      "https://gforge.inria.fr/frs/download.php/file/36934/gf2x-${version}.tar.gz";
     sha256 = "0d6vh1mxskvv3bxl6byp7gxxw3zzpkldrxnyajhnl05m0gx7yhk1";
   };
 
@@ -19,13 +17,12 @@ stdenv.mkDerivation rec {
   # for an indirect test, run ntl's test suite
   doCheck = true;
 
-  configureFlags = lib.optionals (!optimize) [
-    "--disable-hardware-specific-code"
-  ];
+  configureFlags =
+    lib.optionals (!optimize) [ "--disable-hardware-specific-code" ];
 
   meta = with lib; {
-    description = ''Routines for fast arithmetic in GF(2)[x]'';
-    homepage = http://gf2x.gforge.inria.fr;
+    description = "Routines for fast arithmetic in GF(2)[x]";
+    homepage = "http://gf2x.gforge.inria.fr";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ raskin timokau ];
     platforms = platforms.unix;

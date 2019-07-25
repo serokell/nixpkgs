@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, doxygen, perl, pam, nspr, nss, openldap
-, db, cyrus_sasl, svrcore, icu, net_snmp, kerberos, pcre, perlPackages, libevent, openssl, python
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, doxygen, perl, pam, nspr, nss, openldap, db, cyrus_sasl, svrcore, icu, net_snmp, kerberos, pcre, perlPackages, libevent, openssl, python
 }:
 
 stdenv.mkDerivation rec {
@@ -13,14 +12,28 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkgconfig doxygen ];
   buildInputs = [
-    perl pam nspr nss openldap db cyrus_sasl svrcore icu
-    net_snmp kerberos pcre libevent openssl python
+    perl
+    pam
+    nspr
+    nss
+    openldap
+    db
+    cyrus_sasl
+    svrcore
+    icu
+    net_snmp
+    kerberos
+    pcre
+    libevent
+    openssl
+    python
   ] ++ (with perlPackages; [ MozillaLdap NetAddrIP DBFile ]);
 
   patches = [
     (fetchpatch {
       name = "389-ds-nss.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/nss.patch?h=389-ds-base&id=b80ed52cc65ff9b1d72f8ebc54dbd462b12f6be9";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/nss.patch?h=389-ds-base&id=b80ed52cc65ff9b1d72f8ebc54dbd462b12f6be9";
       sha256 = "07z7jl9z4gzhk3k6qyfn558xl76js8041llyr5n99h20ckkbwagk";
     })
   ];

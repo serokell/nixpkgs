@@ -52,9 +52,23 @@ pythonPackages.buildPythonApplication rec {
 
   # The `backup' command requires `sqlite3'.
   propagatedBuildInputs = with pythonPackages; [
-    twisted foolscap nevow simplejson zfec pycryptopp darcsver
-    setuptoolsTrial setuptoolsDarcs pycrypto pyasn1 zope_interface
-    service-identity pyyaml magic-wormhole treq characteristic
+    twisted
+    foolscap
+    nevow
+    simplejson
+    zfec
+    pycryptopp
+    darcsver
+    setuptoolsTrial
+    setuptoolsDarcs
+    pycrypto
+    pyasn1
+    zope_interface
+    service-identity
+    pyyaml
+    magic-wormhole
+    treq
+    characteristic
   ];
 
   checkInputs = with pythonPackages; [ mock hypothesis twisted ];
@@ -79,15 +93,19 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = {
-    description = "Tahoe-LAFS, a decentralized, fault-tolerant, distributed storage system";
+    description =
+      "Tahoe-LAFS, a decentralized, fault-tolerant, distributed storage system";
     longDescription = ''
       Tahoe-LAFS is a secure, decentralized, fault-tolerant filesystem.
       This filesystem is encrypted and spread over multiple peers in
       such a way that it remains available even when some of the peers
       are unavailable, malfunctioning, or malicious.
     '';
-    homepage = http://tahoe-lafs.org/;
-    license = [ lib.licenses.gpl2Plus /* or */ "TGPPLv1+" ];
+    homepage = "http://tahoe-lafs.org/";
+    license = [
+      lib.licenses.gpl2Plus # or
+      "TGPPLv1+"
+    ];
     maintainers = with lib.maintainers; [ MostAwesomeDude ];
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
   };

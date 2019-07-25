@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.06";
 
   src = fetchurl {
-    url = "https://github.com/google/google-authenticator-libpam/archive/${version}.tar.gz";
+    url =
+      "https://github.com/google/google-authenticator-libpam/archive/${version}.tar.gz";
     sha256 = "01kb1ppsc2fz1i3crdwi6ic8gyphjv89f5li6ypv3pp88v3kxw2j";
   };
 
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/google/google-authenticator-libpam;
+    homepage = "https://github.com/google/google-authenticator-libpam";
     description = "Two-step verification, with pam module";
     license = licenses.asl20;
     maintainers = with maintainers; [ aneeshusa ];

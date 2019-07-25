@@ -16,15 +16,13 @@ stdenv.mkDerivation rec {
   installFlags = "PREFIX=$(out)";
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    pango cairo libGLU lv2
-  ];
+  buildInputs = [ pango cairo libGLU lv2 ];
 
   meta = with stdenv.lib; {
     description = "Dedicated AVLDrumkits LV2 Plugin";
-    homepage    = http://x42-plugins.com/x42/x42-avldrums;
-    license     = licenses.gpl2;
+    homepage = "http://x42-plugins.com/x42/x42-avldrums";
+    license = licenses.gpl2;
     maintainers = [ maintainers.magnetophon ];
-    platforms   = [ "i686-linux" "x86_64-linux" ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

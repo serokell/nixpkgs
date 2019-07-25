@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "archimedes-2.0.1";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "GNU package for semiconductor device simulations";
-    homepage = https://www.gnu.org/software/archimedes;
+    homepage = "https://www.gnu.org/software/archimedes";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = with stdenv.lib.platforms; linux;
   };

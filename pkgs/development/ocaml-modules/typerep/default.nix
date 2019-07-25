@@ -1,4 +1,4 @@
-{stdenv, buildOcaml, fetchurl, type_conv}:
+{ stdenv, buildOcaml, fetchurl, type_conv }:
 
 buildOcaml rec {
   name = "typerep";
@@ -14,7 +14,7 @@ buildOcaml rec {
   propagatedBuildInputs = [ type_conv ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/janestreet/typerep;
+    homepage = "https://github.com/janestreet/typerep";
     description = "Runtime types for OCaml (beta version)";
     license = licenses.asl20;
     maintainers = [ maintainers.ericbmerritt ];

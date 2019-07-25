@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  django, jinja2, pytz, tox
- }:
+{ lib, buildPythonPackage, fetchPypi, django, jinja2, pytz, tox }:
 
 buildPythonPackage rec {
   pname = "django-jinja";
@@ -8,7 +6,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Simple and nonobstructive jinja2 integration with Django";
-    homepage = https://github.com/niwinz/django-jinja;
+    homepage = "https://github.com/niwinz/django-jinja";
     license = lib.licenses.bsd3;
   };
 

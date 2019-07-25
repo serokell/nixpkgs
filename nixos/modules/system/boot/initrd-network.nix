@@ -6,40 +6,38 @@ let
 
   cfg = config.boot.initrd.network;
 
-  dhcpinterfaces = lib.attrNames (lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or {}));
+  dhcpinterfaces = lib.attrNames (lib.filterAttrs (iface: v: v.useDHCP == true)
+    (config.networking.interfaces or { }));
 
-  udhcpcScript = pkgs.writeScript "udhcp-script"
-    ''
-      #! /bin/sh
-      if [ "$1" = bound ]; then
-        ip address add "$ip/$mask" dev "$interface"
-        if [ -n "$mtu" ]; then
-          ip link set mtu "$mtu" dev "$interface"
-        fi
-        if [ -n "$staticroutes" ]; then
-          echo "$staticroutes" \
-            | sed -r "s@(\S+) (\S+)@ ip route add \"\1\" via \"\2\" dev \"$interface\" ; @g" \
-            | sed -r "s@ via \"0\.0\.0\.0\"@@g" \
-            | /bin/sh
-        fi
-        if [ -n "$router" ]; then
-          ip route add "$router" dev "$interface" # just in case if "$router" is not within "$ip/$mask" (e.g. Hetzner Cloud)
-          ip route add default via "$router" dev "$interface"
-        fi
-        if [ -n "$dns" ]; then
-          rm -f /etc/resolv.conf
-          for i in $dns; do
-            echo "nameserver $dns" >> /etc/resolv.conf
-          done
-        fi
+  udhcpcScript = pkgs.writeScript "udhcp-script" ''
+    #! /bin/sh
+    if [ "$1" = bound ]; then
+      ip address add "$ip/$mask" dev "$interface"
+      if [ -n "$mtu" ]; then
+        ip link set mtu "$mtu" dev "$interface"
       fi
-    '';
+      if [ -n "$staticroutes" ]; then
+        echo "$staticroutes" \
+          | sed -r "s@(\S+) (\S+)@ ip route add \"\1\" via \"\2\" dev \"$interface\" ; @g" \
+          | sed -r "s@ via \"0\.0\.0\.0\"@@g" \
+          | /bin/sh
+      fi
+      if [ -n "$router" ]; then
+        ip route add "$router" dev "$interface" # just in case if "$router" is not within "$ip/$mask" (e.g. Hetzner Cloud)
+        ip route add default via "$router" dev "$interface"
+      fi
+      if [ -n "$dns" ]; then
+        rm -f /etc/resolv.conf
+        for i in $dns; do
+          echo "nameserver $dns" >> /etc/resolv.conf
+        done
+      fi
+    fi
+  '';
 
   udhcpcArgs = toString cfg.udhcpc.extraArgs;
 
-in
-
-{
+in {
 
   options = {
 
@@ -63,7 +61,7 @@ in
     };
 
     boot.initrd.network.udhcpc.extraArgs = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
       description = ''
         Additional command-line arguments passed verbatim to udhcpc if
@@ -80,7 +78,6 @@ in
         boot has initialised the network.
       '';
     };
-
 
   };
 
@@ -105,7 +102,7 @@ in
       ''
 
       # Otherwise, use DHCP.
-      + optionalString (config.networking.useDHCP || dhcpinterfaces != []) ''
+      + optionalString (config.networking.useDHCP || dhcpinterfaces != [ ]) ''
         if [ -z "$hasNetwork" ]; then
 
           # Bring up all interfaces.
@@ -115,11 +112,12 @@ in
           done
 
           # Acquire DHCP leases.
-          for iface in ${ if config.networking.useDHCP then
-                            "$(ls /sys/class/net/ | grep -v ^lo$)"
-                          else
-                            lib.concatMapStringsSep " " lib.escapeShellArg dhcpinterfaces
-                        }; do
+          for iface in ${
+          if config.networking.useDHCP then
+            "$(ls /sys/class/net/ | grep -v ^lo$)"
+          else
+            lib.concatMapStringsSep " " lib.escapeShellArg dhcpinterfaces
+          }; do
             echo "acquiring IP address via DHCP on $iface..."
             udhcpc --quit --now -i $iface -O staticroutes --script ${udhcpcScript} ${udhcpcArgs} && hasNetwork=1
           done

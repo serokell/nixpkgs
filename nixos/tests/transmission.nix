@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "transmission";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ coconnor ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ coconnor ]; };
 
   machine = { ... }: {
     imports = [ ../modules/profiles/minimal.nix ];
@@ -12,10 +10,9 @@ import ./make-test.nix ({ pkgs, ...} : {
     services.transmission.enable = true;
   };
 
-  testScript =
-    ''
-      startAll;
-      $machine->waitForUnit("transmission");
-      $machine->shutdown;
-    '';
+  testScript = ''
+    startAll;
+    $machine->waitForUnit("transmission");
+    $machine->shutdown;
+  '';
 })

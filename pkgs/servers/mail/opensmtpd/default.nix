@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, bison
-, libasr, libevent, zlib, libressl, db, pam, nixosTests
+{ stdenv, fetchurl, autoconf, automake, libtool, bison, libasr, libevent, zlib, libressl, db, pam, nixosTests
 }:
 
 stdenv.mkDerivation rec {
@@ -46,13 +45,10 @@ stdenv.mkDerivation rec {
   # See https://github.com/OpenSMTPD/OpenSMTPD/pull/884
   makeFlags = [ "CFLAGS=-ffunction-sections" "LDFLAGS=-Wl,--gc-sections" ];
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-    "localstatedir=\${TMPDIR}"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.opensmtpd.org/;
+    homepage = "https://www.opensmtpd.org/";
     description = ''
       A free implementation of the server-side SMTP protocol as defined by
       RFC 5321, with some additional standard extensions

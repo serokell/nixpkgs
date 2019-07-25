@@ -1,52 +1,39 @@
-{ pname, ffversion, meta, updateScript ? null
-, src, unpackPhase ? null, patches ? []
-, extraNativeBuildInputs ? [], extraConfigureFlags ? [], extraMakeFlags ? []
-, isIceCatLike ? false, icversion ? null
-, isTorBrowserLike ? false, tbversion ? null }:
+{ pname, ffversion, meta, updateScript ? null, src, unpackPhase ?
+  null, patches ? [ ], extraNativeBuildInputs ? [ ], extraConfigureFlags ?
+    [ ], extraMakeFlags ? [ ], isIceCatLike ? false, icversion ?
+      null, isTorBrowserLike ? false, tbversion ? null }:
 
-{ lib, stdenv, pkgconfig, pango, perl, python2, python3, zip, libIDL
-, libjpeg, zlib, dbus, dbus-glib, bzip2, xorg
-, freetype, fontconfig, file, nspr, nss, libnotify
-, yasm, libGLU_combined, sqlite, unzip, makeWrapper
-, hunspell, libXdamage, libevent, libstartup_notification, libvpx
-, icu, libpng, jemalloc, glib
-, autoconf213, which, gnused, cargo, rustc, llvmPackages
-, rust-cbindgen, nodejs, nasm, fetchpatch
-, debugBuild ? false
+{ lib, stdenv, pkgconfig, pango, perl, python2, python3, zip, libIDL, libjpeg, zlib, dbus, dbus-glib, bzip2, xorg, freetype, fontconfig, file, nspr, nss, libnotify, yasm, libGLU_combined, sqlite, unzip, makeWrapper, hunspell, libXdamage, libevent, libstartup_notification, libvpx, icu, libpng, jemalloc, glib, autoconf213, which, gnused, cargo, rustc, llvmPackages, rust-cbindgen, nodejs, nasm, fetchpatch, debugBuild ?
+  false
 
-### optionals
+  ### optionals
 
-## optional libraries
+  ## optional libraries
 
-, alsaSupport ? stdenv.isLinux, alsaLib
-, pulseaudioSupport ? stdenv.isLinux, libpulseaudio
-, ffmpegSupport ? true
-, gtk3Support ? true, gtk2, gtk3, wrapGAppsHook
-, waylandSupport ? true, libxkbcommon
-, gssSupport ? true, kerberos
+, alsaSupport ? stdenv.isLinux, alsaLib, pulseaudioSupport ?
+  stdenv.isLinux, libpulseaudio, ffmpegSupport ? true, gtk3Support ?
+    true, gtk2, gtk3, wrapGAppsHook, waylandSupport ?
+      true, libxkbcommon, gssSupport ? true, kerberos
 
 ## privacy-related options
 
 , privacySupport ? isTorBrowserLike || isIceCatLike
 
-# WARNING: NEVER set any of the options below to `true` by default.
-# Set to `!privacySupport` or `false`.
+  # WARNING: NEVER set any of the options below to `true` by default.
+  # Set to `!privacySupport` or `false`.
 
-# webrtcSupport breaks the aarch64 build on version >= 60, fixed in 63.
-# https://bugzilla.mozilla.org/show_bug.cgi?id=1434589
-, webrtcSupport ? !privacySupport && (!stdenv.isAarch64 || !(
-    lib.versionAtLeast ffversion "60" && lib.versionOlder ffversion "63"
-  ))
-, geolocationSupport ? !privacySupport
-, googleAPISupport ? geolocationSupport
-, crashreporterSupport ? false
+  # webrtcSupport breaks the aarch64 build on version >= 60, fixed in 63.
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1434589
+, webrtcSupport ? !privacySupport && (!stdenv.isAarch64
+  || !(lib.versionAtLeast ffversion "60"
+  && lib.versionOlder ffversion "63")), geolocationSupport ?
+    !privacySupport, googleAPISupport ?
+      geolocationSupport, crashreporterSupport ? false
 
-, safeBrowsingSupport ? false
-, drmSupport ? false
+, safeBrowsingSupport ? false, drmSupport ? false
 
-# macOS dependencies
-, xcbuild, CoreMedia, ExceptionHandling, Kerberos, AVFoundation, MediaToolbox
-, CoreLocation, Foundation, AddressBook, libobjc, cups, rsync
+  # macOS dependencies
+, xcbuild, CoreMedia, ExceptionHandling, Kerberos, AVFoundation, MediaToolbox, CoreLocation, Foundation, AddressBook, libobjc, cups, rsync
 
 ## other
 
@@ -68,53 +55,63 @@
 # > Therefor, as long as you keep the patch queue sane and you don't alter
 # > the experience of Firefox users, you won't have any issues using the
 # > official branding.
-, enableOfficialBranding ? true
-}:
+, enableOfficialBranding ? true }:
 
 assert stdenv.cc.libc or null != null;
 
 let
-  flag = tf: x: [(if tf then "--enable-${x}" else "--disable-${x}")];
+  flag = tf: x: [ (if tf then "--enable-${x}" else "--disable-${x}") ];
 
-  default-toolkit = if stdenv.isDarwin then "cairo-cocoa"
-                    else "cairo-gtk${if gtk3Support then "3${lib.optionalString waylandSupport "-wayland"}" else "2"}";
+  default-toolkit = if stdenv.isDarwin then
+    "cairo-cocoa"
+  else
+    "cairo-gtk${
+      if gtk3Support then
+        "3${lib.optionalString waylandSupport "-wayland"}"
+      else
+        "2"
+    }";
 
   binaryName = if isIceCatLike then "icecat" else "firefox";
-  binaryNameCapitalized = lib.toUpper (lib.substring 0 1 binaryName) + lib.substring 1 (-1) binaryName;
+  binaryNameCapitalized = lib.toUpper (lib.substring 0 1 binaryName)
+    + lib.substring 1 (-1) binaryName;
 
   browserName = if stdenv.isDarwin then binaryNameCapitalized else binaryName;
 
-  execdir = if stdenv.isDarwin
-            then "/Applications/${binaryNameCapitalized}.app/Contents/MacOS"
-            else "/bin";
+  execdir = if stdenv.isDarwin then
+    "/Applications/${binaryNameCapitalized}.app/Contents/MacOS"
+  else
+    "/bin";
 
-  browserVersion = if isIceCatLike then icversion
-                   else if isTorBrowserLike then tbversion
-                   else ffversion;
+  browserVersion = if isIceCatLike then
+    icversion
+  else if isTorBrowserLike then
+    tbversion
+  else
+    ffversion;
 
-  browserPatches = [
-    ./env_var_for_system_dir.patch
-  ]
-  ++ lib.optional (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "69")
+  browserPatches = [ ./env_var_for_system_dir.patch ] ++ lib.optional
+    (lib.versionAtLeast ffversion "63" && lib.versionOlder ffversion "69")
     (fetchpatch { # https://bugzilla.mozilla.org/show_bug.cgi?id=1500436#c29
       name = "write_error-parallel_make.diff";
-      url = "https://hg.mozilla.org/mozilla-central/raw-diff/562655fe/python/mozbuild/mozbuild/action/node.py";
+      url =
+        "https://hg.mozilla.org/mozilla-central/raw-diff/562655fe/python/mozbuild/mozbuild/action/node.py";
       sha256 = "11d7rgzinb4mwl7yzhidjkajynmxgmffr4l9isgskfapyax9p88y";
-    })
-  ++ lib.optionals (stdenv.isAarch64 && lib.versionAtLeast ffversion "66" && lib.versionOlder ffversion "67") [
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/arm.patch";
-      sha256 = "1vbpih23imhv5r3g21m3m541z08n9n9j1nvmqax76bmyhn7mxp32";
-    })
-    (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/build-arm-libopus.patch";
-      sha256 = "1zg56v3lc346fkzcjjx21vjip2s9hb2xw4pvza1dsfdnhsnzppfp";
-    })
-  ] ++ patches;
+    }) ++ lib.optionals (stdenv.isAarch64 && lib.versionAtLeast ffversion "66"
+    && lib.versionOlder ffversion "67") [
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/arm.patch";
+        sha256 = "1vbpih23imhv5r3g21m3m541z08n9n9j1nvmqax76bmyhn7mxp32";
+      })
+      (fetchpatch {
+        url =
+          "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/build-arm-libopus.patch";
+        sha256 = "1zg56v3lc346fkzcjjx21vjip2s9hb2xw4pvza1dsfdnhsnzppfp";
+      })
+    ] ++ patches;
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-unwrapped-${version}";
   version = browserVersion;
 
@@ -128,53 +125,88 @@ stdenv.mkDerivation rec {
   patchFlags = [ "-p1" "-l" ];
 
   buildInputs = [
-    gtk2 perl zip libIDL libjpeg zlib bzip2
-    dbus dbus-glib pango freetype fontconfig xorg.libXi xorg.libXcursor
-    xorg.libX11 xorg.libXrender xorg.libXft xorg.libXt file
-    libnotify xorg.pixman yasm libGLU_combined
-    xorg.libXScrnSaver xorg.xorgproto
-    xorg.libXext sqlite unzip makeWrapper
-    libevent libstartup_notification libvpx /* cairo */
-    icu libpng jemalloc glib
-  ]
-  ++ lib.optionals (!isTorBrowserLike) [ nspr nss ]
-  ++ lib.optional (lib.versionOlder ffversion "53") libXdamage
-  ++ lib.optional (lib.versionOlder ffversion "61") hunspell
+    gtk2
+    perl
+    zip
+    libIDL
+    libjpeg
+    zlib
+    bzip2
+    dbus
+    dbus-glib
+    pango
+    freetype
+    fontconfig
+    xorg.libXi
+    xorg.libXcursor
+    xorg.libX11
+    xorg.libXrender
+    xorg.libXft
+    xorg.libXt
+    file
+    libnotify
+    xorg.pixman
+    yasm
+    libGLU_combined
+    xorg.libXScrnSaver
+    xorg.xorgproto
+    xorg.libXext
+    sqlite
+    unzip
+    makeWrapper
+    libevent
+    libstartup_notification
+    libvpx # cairo
+    icu
+    libpng
+    jemalloc
+    glib
+  ] ++ lib.optionals (!isTorBrowserLike) [ nspr nss ]
+    ++ lib.optional (lib.versionOlder ffversion "53") libXdamage
+    ++ lib.optional (lib.versionOlder ffversion "61") hunspell
 
-  # >= 66 requires nasm for the AV1 lib dav1d
-  # yasm can potentially be removed in future versions
-  # https://bugzilla.mozilla.org/show_bug.cgi?id=1501796
-  # https://groups.google.com/forum/#!msg/mozilla.dev.platform/o-8levmLU80/SM_zQvfzCQAJ
-  ++ lib.optional (lib.versionAtLeast ffversion "66") nasm
-  ++ lib.optional  alsaSupport alsaLib
-  ++ lib.optional  pulseaudioSupport libpulseaudio # only headers are needed
-  ++ lib.optional  gtk3Support gtk3
-  ++ lib.optional  gssSupport kerberos
-  ++ lib.optional  waylandSupport libxkbcommon
-  ++ lib.optionals stdenv.isDarwin [ CoreMedia ExceptionHandling Kerberos
-                                     AVFoundation MediaToolbox CoreLocation
-                                     Foundation libobjc AddressBook cups ];
+    # >= 66 requires nasm for the AV1 lib dav1d
+    # yasm can potentially be removed in future versions
+    # https://bugzilla.mozilla.org/show_bug.cgi?id=1501796
+    # https://groups.google.com/forum/#!msg/mozilla.dev.platform/o-8levmLU80/SM_zQvfzCQAJ
+    ++ lib.optional (lib.versionAtLeast ffversion "66") nasm
+    ++ lib.optional alsaSupport alsaLib
+    ++ lib.optional pulseaudioSupport libpulseaudio # only headers are needed
+    ++ lib.optional gtk3Support gtk3 ++ lib.optional gssSupport kerberos
+    ++ lib.optional waylandSupport libxkbcommon
+    ++ lib.optionals stdenv.isDarwin [
+      CoreMedia
+      ExceptionHandling
+      Kerberos
+      AVFoundation
+      MediaToolbox
+      CoreLocation
+      Foundation
+      libobjc
+      AddressBook
+      cups
+    ];
 
-  NIX_CFLAGS_COMPILE = [
-    "-I${glib.dev}/include/gio-unix-2.0"
-  ]
-  ++ lib.optionals (!isTorBrowserLike) [
-    "-I${nss.dev}/include/nss"
-  ];
+  NIX_CFLAGS_COMPILE = [ "-I${glib.dev}/include/gio-unix-2.0" ]
+    ++ lib.optionals (!isTorBrowserLike) [ "-I${nss.dev}/include/nss" ];
 
-  postPatch = lib.optionalString (lib.versionAtLeast ffversion "63.0" && !isTorBrowserLike) ''
-    substituteInPlace third_party/prio/prio/rand.c --replace 'nspr/prinit.h' 'prinit.h'
-  '' + lib.optionalString (lib.versionAtLeast ffversion "68") ''
-    rm -rf obj-x86_64-pc-linux-gnu
-  '';
+  postPatch = lib.optionalString
+    (lib.versionAtLeast ffversion "63.0" && !isTorBrowserLike) ''
+      substituteInPlace third_party/prio/prio/rand.c --replace 'nspr/prinit.h' 'prinit.h'
+    '' + lib.optionalString (lib.versionAtLeast ffversion "68") ''
+      rm -rf obj-x86_64-pc-linux-gnu
+    '';
 
   nativeBuildInputs =
     [ autoconf213 which gnused pkgconfig perl python2 cargo rustc ]
     ++ lib.optional gtk3Support wrapGAppsHook
     ++ lib.optionals stdenv.isDarwin [ xcbuild rsync ]
-    ++ lib.optional  (lib.versionAtLeast ffversion "61.0") [ python3 ]
-    ++ lib.optionals (lib.versionAtLeast ffversion "63.0") [ rust-cbindgen nodejs ]
-    ++ lib.optionals (lib.versionAtLeast ffversion "67.0") [ llvmPackages.llvm ] # llvm-objdump is required in version >=67.0
+    ++ lib.optional (lib.versionAtLeast ffversion "61.0") [ python3 ]
+    ++ lib.optionals (lib.versionAtLeast ffversion "63.0") [
+      rust-cbindgen
+      nodejs
+    ] ++ lib.optionals (lib.versionAtLeast ffversion "67.0")
+    [ llvmPackages.llvm ] # llvm-objdump is required in version >=67.0
     ++ extraNativeBuildInputs;
 
   preConfigure = ''
@@ -201,8 +233,20 @@ stdenv.mkDerivation rec {
     BINDGEN_CFLAGS="$(< ${stdenv.cc}/nix-support/libc-cflags) \
       $(< ${stdenv.cc}/nix-support/cc-cflags) \
       ${stdenv.cc.default_cxx_stdlib_compile} \
-      ${lib.optionalString stdenv.cc.isClang "-idirafter ${stdenv.cc.cc}/lib/clang/${lib.getVersion stdenv.cc.cc}/include"} \
-      ${lib.optionalString stdenv.cc.isGNU "-isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc} -isystem ${stdenv.cc.cc}/include/c++/${lib.getVersion stdenv.cc.cc}/$(cc -dumpmachine)"} \
+      ${
+      lib.optionalString stdenv.cc.isClang
+      "-idirafter ${stdenv.cc.cc}/lib/clang/${
+        lib.getVersion stdenv.cc.cc
+      }/include"
+      } \
+      ${
+      lib.optionalString stdenv.cc.isGNU
+      "-isystem ${stdenv.cc.cc}/include/c++/${
+        lib.getVersion stdenv.cc.cc
+      } -isystem ${stdenv.cc.cc}/include/c++/${
+        lib.getVersion stdenv.cc.cc
+      }/$(cc -dumpmachine)"
+      } \
       $NIX_CFLAGS_COMPILE"
 
     echo "ac_add_options BINDGEN_CFLAGS='$BINDGEN_CFLAGS'" >> $MOZCONFIG
@@ -212,7 +256,9 @@ stdenv.mkDerivation rec {
     # please get your own set of keys.
     echo "AIzaSyDGi15Zwl11UNe6Y-5XW_upsfyw31qwZPI" > $TMPDIR/ga
     # 60.5+ & 66+ did split the google API key arguments: https://bugzilla.mozilla.org/show_bug.cgi?id=1531176
-    ${if (lib.versionAtLeast ffversion "60.6" && lib.versionOlder ffversion "61") || (lib.versionAtLeast ffversion "66") then ''
+    ${if (lib.versionAtLeast ffversion "60.6"
+    && lib.versionOlder ffversion "61")
+    || (lib.versionAtLeast ffversion "66") then ''
       configureFlagsArray+=("--with-google-location-service-api-keyfile=$TMPDIR/ga")
       configureFlagsArray+=("--with-google-safebrowsing-api-keyfile=$TMPDIR/ga")
     '' else ''
@@ -221,10 +267,10 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString (lib.versionOlder ffversion "58") ''
     cd obj-*
   ''
-  # AS=as in the environment causes build failure https://bugzilla.mozilla.org/show_bug.cgi?id=1497286
-  + lib.optionalString (lib.versionAtLeast ffversion "64") ''
-    unset AS
-  '';
+    # AS=as in the environment causes build failure https://bugzilla.mozilla.org/show_bug.cgi?id=1497286
+    + lib.optionalString (lib.versionAtLeast ffversion "64") ''
+      unset AS
+    '';
 
   configureFlags = [
     "--enable-application=browser"
@@ -247,52 +293,52 @@ stdenv.mkDerivation rec {
     "--enable-jemalloc"
     "--disable-gconf"
     "--enable-default-toolkit=${default-toolkit}"
-  ]
-  ++ lib.optional (lib.versionOlder ffversion "64") "--disable-maintenance-service"
-  ++ lib.optional (stdenv.isDarwin && lib.versionAtLeast ffversion "61") "--disable-xcode-checks"
-  ++ lib.optional (lib.versionOlder ffversion "61") "--enable-system-hunspell"
-  ++ lib.optionals (lib.versionAtLeast ffversion "56") [
-    "--with-libclang-path=${llvmPackages.libclang}/lib"
-    "--with-clang-path=${llvmPackages.clang}/bin/clang"
-  ]
-  ++ lib.optionals (lib.versionAtLeast ffversion "57") [
-    "--enable-webrender=build"
-  ]
+  ] ++ lib.optional (lib.versionOlder ffversion "64")
+    "--disable-maintenance-service"
+    ++ lib.optional (stdenv.isDarwin && lib.versionAtLeast ffversion "61")
+    "--disable-xcode-checks"
+    ++ lib.optional (lib.versionOlder ffversion "61") "--enable-system-hunspell"
+    ++ lib.optionals (lib.versionAtLeast ffversion "56") [
+      "--with-libclang-path=${llvmPackages.libclang}/lib"
+      "--with-clang-path=${llvmPackages.clang}/bin/clang"
+    ] ++ lib.optionals (lib.versionAtLeast ffversion "57") [
+      "--enable-webrender=build"
+    ]
 
-  # TorBrowser patches these
-  ++ lib.optionals (!isTorBrowserLike) [
-    "--with-system-nspr"
-    "--with-system-nss"
-  ]
+    # TorBrowser patches these
+    ++ lib.optionals (!isTorBrowserLike) [
+      "--with-system-nspr"
+      "--with-system-nss"
+    ]
 
-  # and wants these
-  ++ lib.optionals isTorBrowserLike ([
-    "--with-tor-browser-version=${tbversion}"
-    "--with-distribution-id=org.torproject"
-    "--enable-signmar"
-    "--enable-verify-mar"
-    "--enable-bundled-fonts"
-  ])
+    # and wants these
+    ++ lib.optionals isTorBrowserLike ([
+      "--with-tor-browser-version=${tbversion}"
+      "--with-distribution-id=org.torproject"
+      "--enable-signmar"
+      "--enable-verify-mar"
+      "--enable-bundled-fonts"
+    ])
 
-  ++ flag alsaSupport "alsa"
-  ++ flag pulseaudioSupport "pulseaudio"
-  ++ flag ffmpegSupport "ffmpeg"
-  ++ flag gssSupport "negotiateauth"
-  ++ flag webrtcSupport "webrtc"
-  ++ flag crashreporterSupport "crashreporter"
-  ++ lib.optional drmSupport "--enable-eme=widevine"
+    ++ flag alsaSupport "alsa" ++ flag pulseaudioSupport "pulseaudio"
+    ++ flag ffmpegSupport "ffmpeg" ++ flag gssSupport "negotiateauth"
+    ++ flag webrtcSupport "webrtc" ++ flag crashreporterSupport "crashreporter"
+    ++ lib.optional drmSupport "--enable-eme=widevine"
 
-  ++ lib.optionals (lib.versionOlder ffversion "60") ([]
+    ++ lib.optionals (lib.versionOlder ffversion "60") ([ ]
     ++ flag geolocationSupport "mozril-geoloc"
-    ++ flag safeBrowsingSupport "safe-browsing"
-  )
+    ++ flag safeBrowsingSupport "safe-browsing")
 
-  ++ (if debugBuild then [ "--enable-debug" "--enable-profiling" ]
-                    else [ "--disable-debug" "--enable-release"
-                           "--enable-optimize"
-                           "--enable-strip" ])
-  ++ lib.optional enableOfficialBranding "--enable-official-branding"
-  ++ extraConfigureFlags;
+    ++ (if debugBuild then [
+      "--enable-debug"
+      "--enable-profiling"
+    ] else [
+      "--disable-debug"
+      "--enable-release"
+      "--enable-optimize"
+      "--enable-strip"
+    ]) ++ lib.optional enableOfficialBranding "--enable-official-branding"
+    ++ extraConfigureFlags;
 
   # Before 58 we have to run `make -f client.mk configure-files` at
   # the top level, and then run `./configure` in the obj-* dir (see
@@ -311,8 +357,7 @@ stdenv.mkDerivation rec {
   makeFlags = lib.optionals enableOfficialBranding [
     "MOZILLA_OFFICIAL=1"
     "BUILD_OFFICIAL=1"
-  ]
-  ++ extraMakeFlags;
+  ] ++ extraMakeFlags;
 
   enableParallelBuilding = true;
   doCheck = false; # "--disable-tests" above
@@ -320,7 +365,8 @@ stdenv.mkDerivation rec {
   installPhase = if stdenv.isDarwin then ''
     mkdir -p $out/Applications
     cp -LR dist/${binaryNameCapitalized}.app $out/Applications
-  '' else null;
+  '' else
+    null;
 
   postInstall = lib.optionalString stdenv.isLinux ''
     # Remove SDK cruft. FIXME: move to a separate output?
@@ -332,8 +378,9 @@ stdenv.mkDerivation rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     # Fix notifications. LibXUL uses dlopen for this, unfortunately; see #18712.
-    patchelf --set-rpath "${lib.getLib libnotify
-      }/lib:$(patchelf --print-rpath "$out"/lib/${binaryName}*/libxul.so)" \
+    patchelf --set-rpath "${
+      lib.getLib libnotify
+    }/lib:$(patchelf --print-rpath "$out"/lib/${binaryName}*/libxul.so)" \
         "$out"/lib/${binaryName}*/libxul.so
   '';
 

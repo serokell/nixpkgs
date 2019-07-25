@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, mock, jinja2, click, terminaltables
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, jinja2, click, terminaltables }:
 
 buildPythonPackage rec {
   pname = "envs";
@@ -15,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Easy access to environment variables from Python";
-    homepage = https://github.com/capless/envs;
+    homepage = "https://github.com/capless/envs";
     license = licenses.asl20;
     maintainers = with maintainers; [ peterhoeg ];
   };

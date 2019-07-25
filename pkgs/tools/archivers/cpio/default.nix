@@ -27,12 +27,13 @@ in stdenv.mkDerivation {
 
   preConfigure = if stdenv.isCygwin then ''
     sed -i gnu/fpending.h -e 's,include <stdio_ext.h>,,'
-  '' else null;
+  '' else
+    null;
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/cpio/;
+    homepage = "https://www.gnu.org/software/cpio/";
     description = "A program to create or extract from cpio archives";
     license = licenses.gpl3;
     platforms = platforms.all;

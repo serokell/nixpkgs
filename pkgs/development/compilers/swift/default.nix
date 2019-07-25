@@ -1,35 +1,4 @@
-{ stdenv
-, cmake
-, coreutils
-, glibc
-, which
-, perl
-, libedit
-, ninja
-, pkgconfig
-, sqlite
-, swig
-, bash
-, libxml2
-, clang
-, python
-, ncurses
-, libuuid
-, libbsd
-, icu
-, autoconf
-, libtool
-, automake
-, libblocksruntime
-, curl
-, rsync
-, git
-, libgit2
-, fetchFromGitHub
-, findutils
-, makeWrapper
-, gnumake
-, file
+{ stdenv, cmake, coreutils, glibc, which, perl, libedit, ninja, pkgconfig, sqlite, swig, bash, libxml2, clang, python, ncurses, libuuid, libbsd, icu, autoconf, libtool, automake, libblocksruntime, curl, rsync, git, libgit2, fetchFromGitHub, findutils, makeWrapper, gnumake, file
 }:
 
 let
@@ -112,7 +81,9 @@ let
 
   cmakeFlags = [
     "-DGLIBC_INCLUDE_PATH=${stdenv.cc.libc.dev}/include"
-    "-DC_INCLUDE_DIRS=${stdenv.lib.makeSearchPathOutput "dev" "include" devInputs}:${libxml2.dev}/include/libxml2"
+    "-DC_INCLUDE_DIRS=${
+      stdenv.lib.makeSearchPathOutput "dev" "include" devInputs
+    }:${libxml2.dev}/include/libxml2"
     "-DGCC_INSTALL_PREFIX=${clang.cc.gcc}"
   ];
 
@@ -130,8 +101,7 @@ let
       install_destdir=$SWIFT_INSTALL_DIR \
       extra_cmake_options="${stdenv.lib.concatStringsSep "," cmakeFlags}"'';
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "swift-${version_friendly}";
 
   nativeBuildInputs = [
@@ -151,15 +121,10 @@ stdenv.mkDerivation rec {
     rsync
     which
   ];
-  buildInputs = devInputs ++ [
-    clang
-  ];
+  buildInputs = devInputs ++ [ clang ];
 
   # TODO: Revisit what's propagated and how
-  propagatedBuildInputs = [
-    libgit2
-    python
-  ];
+  propagatedBuildInputs = [ libgit2 python ];
   propagatedUserEnvPkgs = [ git pkgconfig ];
 
   hardeningDisable = [ "format" ]; # for LLDB
@@ -219,10 +184,18 @@ stdenv.mkDerivation rec {
     substituteInPlace swift/utils/build-script-impl \
       --replace '/usr/include/c++' "${clang.cc.gcc}/include/c++"
     patch -p1 -d swift -i ${./patches/glibc-arch-headers.patch}
-    patch -p1 -d swift -i ${./patches/0001-build-presets-linux-don-t-require-using-Ninja.patch}
-    patch -p1 -d swift -i ${./patches/0002-build-presets-linux-allow-custom-install-prefix.patch}
-    patch -p1 -d swift -i ${./patches/0003-build-presets-linux-don-t-build-extra-libs.patch}
-    patch -p1 -d swift -i ${./patches/0004-build-presets-linux-plumb-extra-cmake-options.patch}
+    patch -p1 -d swift -i ${
+      ./patches/0001-build-presets-linux-don-t-require-using-Ninja.patch
+    }
+    patch -p1 -d swift -i ${
+      ./patches/0002-build-presets-linux-allow-custom-install-prefix.patch
+    }
+    patch -p1 -d swift -i ${
+      ./patches/0003-build-presets-linux-don-t-build-extra-libs.patch
+    }
+    patch -p1 -d swift -i ${
+      ./patches/0004-build-presets-linux-plumb-extra-cmake-options.patch
+    }
 
     sed -i swift/utils/build-presets.ini \
       -e 's/^test-installable-package$/# \0/' \
@@ -235,7 +208,9 @@ stdenv.mkDerivation rec {
       -e 's/^swift-install-components=autolink.*$/\0;editor-integration/'
 
     # https://bugs.swift.org/browse/SR-10559
-    patch -p1 -d swift-corelibs-libdispatch -i ${./patches/libdispatch-fortify-fix.patch}
+    patch -p1 -d swift-corelibs-libdispatch -i ${
+      ./patches/libdispatch-fortify-fix.patch
+    }
 
     substituteInPlace clang/lib/Driver/ToolChains/Linux.cpp \
       --replace 'SysRoot + "/usr/lib' '"${glibc}/lib" "'
@@ -286,7 +261,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The Swift Programming Language";
-    homepage = https://github.com/apple/swift;
+    homepage = "https://github.com/apple/swift";
     maintainers = with maintainers; [ dtzWill ];
     license = licenses.asl20;
     # Swift doesn't support 32bit Linux, unknown on other platforms.

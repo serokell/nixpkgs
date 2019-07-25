@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, wrapQtAppsHook
-, qtbase, libuuid, libcap, uwsgi, grantlee, pcre
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, wrapQtAppsHook, qtbase, libuuid, libcap, uwsgi, grantlee, pcre
 }:
 
 stdenv.mkDerivation rec {
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "C++ Web Framework built on top of Qt";
-    homepage = https://cutelyst.org/;
+    homepage = "https://cutelyst.org/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ fpletz ];
   };

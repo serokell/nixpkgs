@@ -1,8 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, pytest
-}:
+{ buildPythonPackage, lib, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "webencodings";
@@ -21,7 +17,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Character encoding aliases for legacy web content";
-    homepage = https://github.com/SimonSapin/python-webencodings;
+    homepage = "https://github.com/SimonSapin/python-webencodings";
     license = lib.licenses.bsd3;
   };
 }

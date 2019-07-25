@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, six, requests, websocket_client, docker_pycreds }:
+{ lib, buildPythonPackage, fetchPypi, six, requests, websocket_client, docker_pycreds
+}:
 
 buildPythonPackage rec {
   version = "1.10.6";
@@ -12,16 +13,11 @@ buildPythonPackage rec {
   # The tests access the network.
   doCheck = false;
 
-  propagatedBuildInputs = [
-    six
-    requests
-    websocket_client
-    docker_pycreds
-  ];
+  propagatedBuildInputs = [ six requests websocket_client docker_pycreds ];
 
   meta = {
     description = "Python library for the Docker Remote API";
-    homepage = https://github.com/docker/docker-py/;
+    homepage = "https://github.com/docker/docker-py/";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.pmiddend ];
   };

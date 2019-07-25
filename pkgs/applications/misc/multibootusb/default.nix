@@ -1,4 +1,5 @@
-{ stdenv, python36Packages, fetchFromGitHub, libxcb, mtools, p7zip, parted, procps, utillinux, qt5, runtimeShell }:
+{ stdenv, python36Packages, fetchFromGitHub, libxcb, mtools, p7zip, parted, procps, utillinux, qt5, runtimeShell
+}:
 python36Packages.buildPythonApplication rec {
   pname = "multibootusb";
   name = "${pname}-${version}";
@@ -52,7 +53,7 @@ python36Packages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Multiboot USB creator for Linux live disks";
-    homepage = http://multibootusb.org/;
+    homepage = "http://multibootusb.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ jD91mZM2 ];
   };

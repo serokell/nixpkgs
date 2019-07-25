@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six
-, pytest, backports_unittest-mock, keyring, setuptools_scm
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six, pytest, backports_unittest-mock, keyring, setuptools_scm
 }:
 
 buildPythonPackage rec {
@@ -19,7 +18,8 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools_scm ];
   propagatedBuildInputs = [ six ];
 
-  checkInputs = [ pytest keyring ] ++ stdenv.lib.optional (pythonOlder "3.3") backports_unittest-mock;
+  checkInputs = [ pytest keyring ]
+    ++ stdenv.lib.optional (pythonOlder "3.3") backports_unittest-mock;
 
   checkPhase = ''
     py.test
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     license = licenses.mit;
     description = "Alternate keyring implementations";
-    homepage = https://github.com/jaraco/keyrings.alt;
+    homepage = "https://github.com/jaraco/keyrings.alt";
     maintainers = with maintainers; [ nyarly ];
   };
 }

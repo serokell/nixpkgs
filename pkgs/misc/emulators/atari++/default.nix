@@ -1,7 +1,8 @@
-{ stdenv, fetchurl, libSM, libX11, libICE, SDL, alsaLib, gcc-unwrapped, libXext }:
+{ stdenv, fetchurl, libSM, libX11, libICE, SDL, alsaLib, gcc-unwrapped, libXext
+}:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   name = "atari++-${version}";
   version = "1.81";
 
@@ -13,11 +14,13 @@ stdenv.mkDerivation rec{
   buildInputs = [ libSM libX11 SDL libICE alsaLib gcc-unwrapped libXext ];
 
   postFixup = ''
-    patchelf --set-rpath ${stdenv.lib.makeLibraryPath buildInputs} "$out/bin/atari++"
+    patchelf --set-rpath ${
+      stdenv.lib.makeLibraryPath buildInputs
+    } "$out/bin/atari++"
   '';
 
   meta = {
-    homepage = http://www.xl-project.com/;
+    homepage = "http://www.xl-project.com/";
     description = "An enhanced, cycle-accurated Atari emulator";
     longDescription = ''
       The Atari++ Emulator is a Unix based emulator of the Atari eight

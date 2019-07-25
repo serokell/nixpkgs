@@ -1,15 +1,13 @@
-{ stdenv, fetchFromGitHub
-, autoconf, libndctl, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, autoconf, libndctl, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "pmdk-${version}";
   version = "1.6";
 
   src = fetchFromGitHub {
-    owner  = "pmem";
-    repo   = "pmdk";
-    rev    = "refs/tags/${version}";
+    owner = "pmem";
+    repo = "pmdk";
+    rev = "refs/tags/${version}";
     sha256 = "11h9h5ifgaa5f6v9y77s5lmsj7k61qg52992s1361cmvl0ndgl9k";
   };
 
@@ -32,9 +30,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Persistent Memory Development Kit";
-    homepage    = https://github.com/pmem/pmdk;
-    license     = licenses.lgpl21;
+    homepage = "https://github.com/pmem/pmdk";
+    license = licenses.lgpl21;
     maintainers = with maintainers; [ thoughtpolice ];
-    platforms   = [ "x86_64-linux" ]; # aarch64 is experimental
+    platforms = [ "x86_64-linux" ]; # aarch64 is experimental
   };
 }

@@ -1,35 +1,11 @@
-{ stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
+{ stdenv, lib, fetchFromGitHub, rustPlatform,
 
-  cmake,
-  gzip,
-  makeWrapper,
-  ncurses,
-  pkgconfig,
-  python3,
+cmake, gzip, makeWrapper, ncurses, pkgconfig, python3,
 
-  expat,
-  fontconfig,
-  freetype,
-  libGL,
-  libX11,
-  libXcursor,
-  libXi,
-  libXrandr,
-  libXxf86vm,
-  libxcb,
-  libxkbcommon,
-  wayland,
+expat, fontconfig, freetype, libGL, libX11, libXcursor, libXi, libXrandr, libXxf86vm, libxcb, libxkbcommon, wayland,
 
-  # Darwin Frameworks
-  AppKit,
-  CoreGraphics,
-  CoreServices,
-  CoreText,
-  Foundation,
-  OpenGL }:
+# Darwin Frameworks
+AppKit, CoreGraphics, CoreServices, CoreText, Foundation, OpenGL }:
 
 with rustPlatform;
 
@@ -45,10 +21,7 @@ let
     libXrandr
     libXxf86vm
     libxcb
-  ] ++ lib.optionals stdenv.isLinux [
-    libxkbcommon
-    wayland
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libxkbcommon wayland ];
 in buildRustPackage rec {
   pname = "alacritty";
   version = "0.3.3";
@@ -62,17 +35,16 @@ in buildRustPackage rec {
 
   cargoSha256 = "1rxb5ljgvn881jkxm8772kf815mmp08ci7sqmn2x1jwdcrphhxr1";
 
-  nativeBuildInputs = [
-    cmake
-    gzip
-    makeWrapper
-    ncurses
-    pkgconfig
-    python3
-  ];
+  nativeBuildInputs = [ cmake gzip makeWrapper ncurses pkgconfig python3 ];
 
-  buildInputs = rpathLibs
-    ++ lib.optionals stdenv.isDarwin [ AppKit CoreGraphics CoreServices CoreText Foundation OpenGL ];
+  buildInputs = rpathLibs ++ lib.optionals stdenv.isDarwin [
+    AppKit
+    CoreGraphics
+    CoreServices
+    CoreText
+    Foundation
+    OpenGL
+  ];
 
   outputs = [ "out" "terminfo" ];
 
@@ -89,7 +61,9 @@ in buildRustPackage rec {
   '' else ''
     install -D extra/linux/alacritty.desktop -t $out/share/applications/
     install -D extra/logo/alacritty-term.svg $out/share/icons/hicolor/scalable/apps/Alacritty.svg
-    patchelf --set-rpath "${stdenv.lib.makeLibraryPath rpathLibs}" $out/bin/alacritty
+    patchelf --set-rpath "${
+      stdenv.lib.makeLibraryPath rpathLibs
+    }" $out/bin/alacritty
   '') + ''
 
     install -D extra/completions/_alacritty -t "$out/share/zsh/site-functions/"
@@ -111,7 +85,7 @@ in buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "GPU-accelerated terminal emulator";
-    homepage = https://github.com/jwilm/alacritty;
+    homepage = "https://github.com/jwilm/alacritty";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ mic92 ];
     platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" "aarch64-linux" ];

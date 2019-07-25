@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, mock, pytestcov, coverage }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, pytestcov, coverage }:
 
 buildPythonPackage rec {
   pname = "gunicorn";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://pypi.python.org/pypi/gunicorn;
+    homepage = "https://pypi.python.org/pypi/gunicorn";
     description = "WSGI HTTP Server for UNIX";
     license = licenses.mit;
   };

@@ -6,9 +6,7 @@ let
 
   cfg = config.hardware.nitrokey;
 
-in
-
-{
+in {
   options.hardware.nitrokey = {
     enable = mkOption {
       type = types.bool;
@@ -31,11 +29,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [
-      (pkgs.nitrokey-udev-rules.override (attrs:
-        { inherit (cfg) group; }
-      ))
-    ];
-    users.groups."${cfg.group}" = {};
+    services.udev.packages =
+      [ (pkgs.nitrokey-udev-rules.override (attrs: { inherit (cfg) group; })) ];
+    users.groups."${cfg.group}" = { };
   };
 }

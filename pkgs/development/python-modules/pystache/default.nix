@@ -22,8 +22,9 @@ buildPythonPackage rec {
   doCheck = !isPy3k;
 
   meta = with stdenv.lib; {
-    description = "A framework-agnostic, logic-free templating system inspired by ctemplate and et";
-    homepage = https://github.com/defunkt/pystache;
+    description =
+      "A framework-agnostic, logic-free templating system inspired by ctemplate and et";
+    homepage = "https://github.com/defunkt/pystache";
     license = licenses.mit;
   };
 }

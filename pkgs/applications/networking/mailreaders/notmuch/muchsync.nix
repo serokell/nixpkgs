@@ -1,12 +1,8 @@
-{ stdenv, fetchurl
-, notmuch, openssl, pkgconfig, sqlite, xapian, zlib
-}:
+{ stdenv, fetchurl, notmuch, openssl, pkgconfig, sqlite, xapian, zlib }:
 stdenv.mkDerivation rec {
   version = "5";
   name = "muchsync-${version}";
-  passthru = {
-    inherit version;
-  };
+  passthru = { inherit version; };
   src = fetchurl {
     url = "http://www.muchsync.org/src/${name}.tar.gz";
     sha256 = "1k2m44pj5i6vfhp9icdqs42chsp208llanc666p3d9nww8ngq2lb";

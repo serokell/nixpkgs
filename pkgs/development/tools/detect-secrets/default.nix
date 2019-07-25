@@ -1,4 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, isPy27, pyyaml, unidiff, configparser, enum34, future, functools32, mock, pytest }:
+{ lib, buildPythonApplication, fetchFromGitHub, isPy27, pyyaml, unidiff, configparser, enum34, future, functools32, mock, pytest
+}:
 
 buildPythonApplication rec {
   pname = "detect-secrets";
@@ -26,8 +27,9 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "An enterprise friendly way of detecting and preventing secrets in code";
-    homepage = https://github.com/Yelp/detect-secrets;
+    description =
+      "An enterprise friendly way of detecting and preventing secrets in code";
+    homepage = "https://github.com/Yelp/detect-secrets";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];
   };

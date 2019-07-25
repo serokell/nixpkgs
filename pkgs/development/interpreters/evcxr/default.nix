@@ -1,4 +1,5 @@
-{ cargo, fetchFromGitHub, makeWrapper, pkgconfig, rustPlatform, stdenv, gcc, Security }:
+{ cargo, fetchFromGitHub, makeWrapper, pkgconfig, rustPlatform, stdenv, gcc, Security
+}:
 
 rustPlatform.buildRustPackage rec {
   name = "evcxr-${version}";
@@ -17,7 +18,9 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkgconfig makeWrapper ];
   buildInputs = [ cargo ] ++ stdenv.lib.optional stdenv.isDarwin Security;
   postInstall = ''
-    wrapProgram $out/bin/evcxr --prefix PATH : ${stdenv.lib.makeBinPath [ cargo gcc ]}
+    wrapProgram $out/bin/evcxr --prefix PATH : ${
+      stdenv.lib.makeBinPath [ cargo gcc ]
+    }
     rm $out/bin/testing_runtime
   '';
 

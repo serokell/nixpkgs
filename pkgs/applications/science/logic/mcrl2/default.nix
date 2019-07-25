@@ -1,4 +1,4 @@
-{stdenv, fetchurl, cmake, libGLU_combined, qt5, boost}:
+{ stdenv, fetchurl, cmake, libGLU_combined, qt5, boost }:
 
 stdenv.mkDerivation rec {
   version = "201707";
@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   name = "mcrl2-${version}";
 
   src = fetchurl {
-    url = "https://www.mcrl2.org/download/release/mcrl2-${version}.${build_nr}.tar.gz";
+    url =
+      "https://www.mcrl2.org/download/release/mcrl2-${version}.${build_nr}.tar.gz";
     sha256 = "1c8h94ja7271ph61zrcgnjgblxppld6v22f7f900prjgzbcfy14m";
   };
 
@@ -15,13 +16,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "A toolset for model-checking concurrent systems and protocols";
+    description =
+      "A toolset for model-checking concurrent systems and protocols";
     longDescription = ''
       A formal specification language with an associated toolset,
       that can be used for modelling, validation and verification of
       concurrent systems and protocols
     '';
-    homepage = https://www.mcrl2.org/;
+    homepage = "https://www.mcrl2.org/";
     license = licenses.boost;
     maintainers = with maintainers; [ moretea ];
     platforms = platforms.unix;

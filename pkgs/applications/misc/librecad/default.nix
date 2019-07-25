@@ -33,10 +33,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A 2D CAD package based upon Qt";
-    homepage = https://librecad.org;
-    repositories.git = git://github.com/LibreCAD/LibreCAD.git;
+    homepage = "https://librecad.org";
+    repositories.git = "git://github.com/LibreCAD/LibreCAD.git";
     license = stdenv.lib.licenses.gpl2;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

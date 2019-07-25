@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "libewf-${version}";
 
   src = fetchurl {
-    url = "https://github.com/libyal/libewf/releases/download/${version}/libewf-experimental-${version}.tar.gz";
+    url =
+      "https://github.com/libyal/libewf/releases/download/${version}/libewf-experimental-${version}.tar.gz";
     sha256 = "0h7036gpj5cryvh17aq6i2cpnbpwg5yswmfydxbbwvd9yfxd6dng";
   };
 
@@ -13,10 +14,11 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib openssl libuuid ];
 
   meta = {
-    description = "Library for support of the Expert Witness Compression Format";
-    homepage = https://sourceforge.net/projects/libewf/;
+    description =
+      "Library for support of the Expert Witness Compression Format";
+    homepage = "https://sourceforge.net/projects/libewf/";
     license = stdenv.lib.licenses.lgpl3;
-    maintainers = [ stdenv.lib.maintainers.raskin ] ;
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.unix;
     inherit version;
   };

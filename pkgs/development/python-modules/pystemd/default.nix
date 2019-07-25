@@ -16,8 +16,9 @@ python.pkgs.buildPythonPackage rec {
   checkPhase = "pytest tests";
 
   meta = with stdenv.lib; {
-    description = "A thin Cython-based wrapper on top of libsystemd, focused on exposing the dbus API via sd-bus in an automated and easy to consume way.";
-    homepage = https://github.com/facebookincubator/pystemd/;
+    description =
+      "A thin Cython-based wrapper on top of libsystemd, focused on exposing the dbus API via sd-bus in an automated and easy to consume way.";
+    homepage = "https://github.com/facebookincubator/pystemd/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ flokli ];
   };

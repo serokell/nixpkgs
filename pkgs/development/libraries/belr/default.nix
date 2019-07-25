@@ -15,9 +15,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ bctoolbox ];
   nativeBuildInputs = [ cmake ];
 
-  meta = with stdenv.lib;{
-    description = "Belr is Belledonne Communications' language recognition library";
-    homepage = https://github.com/BelledonneCommunications/belr;
+  meta = with stdenv.lib; {
+    description =
+      "Belr is Belledonne Communications' language recognition library";
+    homepage = "https://github.com/BelledonneCommunications/belr";
     license = licenses.lgpl21;
     platforms = platforms.all;
   };

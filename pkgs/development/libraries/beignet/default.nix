@@ -1,20 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, pkgconfig
-, clang-unwrapped
-, llvm
-, libdrm
-, libX11
-, libpthreadstubs
-, libXdmcp
-, libXdamage
-, libXext
-, python3
-, ocl-icd
-, libGL
-, makeWrapper
-, beignet
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, clang-unwrapped, llvm, libdrm, libX11, libpthreadstubs, libXdmcp, libXdamage, libXext, python3, ocl-icd, libGL, makeWrapper, beignet
 }:
 
 stdenv.mkDerivation rec {
@@ -22,9 +6,9 @@ stdenv.mkDerivation rec {
   version = "unstable-2018.08.20";
 
   src = fetchFromGitHub {
-    owner  = "intel";
-    repo   = "beignet";
-    rev    = "fc5f430cb7b7a8f694d86acbb038bd5b38ec389c";
+    owner = "intel";
+    repo = "beignet";
+    rev = "fc5f430cb7b7a8f694d86acbb038bd5b38ec389c";
     sha256 = "1z64v69w7f52jrskh1jfyh1x46mzfhjrqxj9hhgzh3xxv9yla32h";
   };
 
@@ -52,11 +36,7 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    python3
-  ];
+  nativeBuildInputs = [ cmake pkgconfig python3 ];
 
   passthru.utests = stdenv.mkDerivation rec {
     name = "beignet-utests-${version}";
@@ -68,16 +48,9 @@ stdenv.mkDerivation rec {
 
     enableParallelBuilding = true;
 
-    nativeBuildInputs = [
-      cmake
-      python3
-      pkgconfig
-      makeWrapper
-    ];
+    nativeBuildInputs = [ cmake python3 pkgconfig makeWrapper ];
 
-    buildInputs = [
-      ocl-icd
-    ];
+    buildInputs = [ ocl-icd ];
 
     installPhase = ''
       wrapBin() {
@@ -101,7 +74,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://cgit.freedesktop.org/beignet/;
+    homepage = "https://cgit.freedesktop.org/beignet/";
     description = "OpenCL Library for Intel Ivy Bridge and newer GPUs";
     longDescription = ''
       The package provides an open source implementation of the OpenCL specification for Intel GPUs.

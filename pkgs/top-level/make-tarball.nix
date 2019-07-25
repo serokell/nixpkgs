@@ -1,13 +1,10 @@
 /* Hydra job to build a tarball for Nixpkgs from a Git checkout.  It
    also builds the documentation and tests whether the Nix expressions
-   evaluate correctly. */
+   evaluate correctly.
+*/
 
-{ nixpkgs
-, officialRelease
-, pkgs ? import nixpkgs.outPath {}
-, nix ? pkgs.nix
-, lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; }
-}:
+{ nixpkgs, officialRelease, pkgs ? import nixpkgs.outPath { }, nix ?
+  pkgs.nix, lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; } }:
 
 with pkgs;
 
@@ -107,7 +104,5 @@ releaseTools.sourceTarball rec {
     (cd .. && tar cfa $out/tarballs/$releaseName.tar.xz $releaseName) || false
   '';
 
-  meta = {
-    maintainers = [ lib.maintainers.all ];
-  };
+  meta = { maintainers = [ lib.maintainers.all ]; };
 }

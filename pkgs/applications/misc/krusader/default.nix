@@ -1,7 +1,4 @@
-{
-  mkDerivation, fetchurl, lib,
-  extra-cmake-modules, kdoctools, wrapGAppsHook,
-  karchive, kconfig, kcrash, kguiaddons, kinit, kparts, kwindowsystem
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, karchive, kconfig, kcrash, kguiaddons, kinit, kparts, kwindowsystem
 }:
 
 let
@@ -18,10 +15,11 @@ in mkDerivation rec {
   meta = with lib; {
     description = "Norton/Total Commander clone for KDE";
     license = licenses.gpl2;
-    homepage = http://www.krusader.org;
+    homepage = "http://www.krusader.org";
     maintainers = with maintainers; [ sander ];
   };
 
   nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
-  propagatedBuildInputs = [ karchive kconfig kcrash kguiaddons kinit kparts kwindowsystem ];
+  propagatedBuildInputs =
+    [ karchive kconfig kcrash kguiaddons kinit kparts kwindowsystem ];
 }

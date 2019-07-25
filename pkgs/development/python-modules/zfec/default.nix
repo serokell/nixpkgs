@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptoolsDarcs
-, pyutil
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptoolsDarcs, pyutil }:
 
 buildPythonPackage rec {
   pname = "zfec";
@@ -23,8 +18,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://allmydata.org/trac/zfec;
-    description = "Zfec, a fast erasure codec which can be used with the command-line, C, Python, or Haskell";
+    homepage = "http://allmydata.org/trac/zfec";
+    description =
+      "Zfec, a fast erasure codec which can be used with the command-line, C, Python, or Haskell";
     longDescription = ''
       Fast, portable, programmable erasure coding a.k.a. "forward
       error correction": the generation of redundant blocks of

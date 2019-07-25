@@ -1,10 +1,7 @@
-{
-  fetchurl, fetchpatch, stdenv, pkgconfig,
-  acl, attr, bzip2, e2fsprogs, libxml2, lzo, openssl, sharutils, xz, zlib,
+{ fetchurl, fetchpatch, stdenv, pkgconfig, acl, attr, bzip2, e2fsprogs, libxml2, lzo, openssl, sharutils, xz, zlib,
 
-  # Optional but increases closure only negligibly.
-  xarSupport ? true,
-}:
+# Optional but increases closure only negligibly.
+xarSupport ? true, }:
 
 assert xarSupport -> libxml2 != null;
 
@@ -46,7 +43,8 @@ stdenv.mkDerivation rec {
 
   preBuild = if stdenv.isCygwin then ''
     echo "#include <windows.h>" >> config.h
-  '' else null;
+  '' else
+    null;
 
   doCheck = false; # fails
 
@@ -65,7 +63,7 @@ stdenv.mkDerivation rec {
       compressions formats including (but not limited to) tar, shar, cpio, zip, and
       compressed with gzip, bzip2, lzma, xz, ...
     '';
-    homepage = http://libarchive.org;
+    homepage = "http://libarchive.org";
     license = stdenv.lib.licenses.bsd3;
     platforms = with stdenv.lib.platforms; all;
     maintainers = with stdenv.lib.maintainers; [ jcumming ];

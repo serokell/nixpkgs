@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
 
   meta = with stdenv.lib; {
-    description = "Open-source SIP User-Agent library, compliant with the IETF RFC3261 specification";
-    homepage = http://sofia-sip.sourceforge.net/;
+    description =
+      "Open-source SIP User-Agent library, compliant with the IETF RFC3261 specification";
+    homepage = "http://sofia-sip.sourceforge.net/";
     platforms = platforms.linux;
     license = licenses.lgpl2;
   };

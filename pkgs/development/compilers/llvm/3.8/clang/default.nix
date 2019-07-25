@@ -6,7 +6,9 @@ let
     name = "clang-${version}";
 
     unpackPhase = ''
-      unpackFile ${fetch "cfe" "1prc72xmkgx8wrzmrr337776676nhsp1qd3mw2bvb22bzdnq7lsc"}
+      unpackFile ${
+        fetch "cfe" "1prc72xmkgx8wrzmrr337776676nhsp1qd3mw2bvb22bzdnq7lsc"
+      }
       mv cfe-${version}.src clang
       sourceRoot=$PWD/clang
       unpackFile ${clang-tools-extra_src}
@@ -16,12 +18,11 @@ let
     nativeBuildInputs = [ cmake ];
     buildInputs = [ libxml2 llvm python ];
 
-    cmakeFlags = [
-      "-DCMAKE_CXX_FLAGS=-std=c++11"
-    ] ++
-    # Maybe with compiler-rt this won't be needed?
-    (stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}") ++
-    (stdenv.lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include");
+    cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-std=c++11" ] ++
+      # Maybe with compiler-rt this won't be needed?
+      (stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}")
+      ++ (stdenv.lib.optional (stdenv.cc.libc != null)
+      "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include");
 
     patches = [ ./purity.patch ];
 
@@ -64,15 +65,14 @@ let
     passthru = {
       isClang = true;
       inherit llvm;
-    } // stdenv.lib.optionalAttrs stdenv.isLinux {
-      inherit gcc;
-    };
+    } // stdenv.lib.optionalAttrs stdenv.isLinux { inherit gcc; };
 
     meta = {
-      description = "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
-      homepage    = http://llvm.org/;
-      license     = stdenv.lib.licenses.ncsa;
-      platforms   = stdenv.lib.platforms.all;
+      description =
+        "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
+      homepage = "http://llvm.org/";
+      license = stdenv.lib.licenses.ncsa;
+      platforms = stdenv.lib.platforms.all;
     };
   };
 in self

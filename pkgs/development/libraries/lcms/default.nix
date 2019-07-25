@@ -1,10 +1,10 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation {
   name = "lcms-1.19";
 
   src = fetchurl {
-    url = http://www.littlecms.com/lcms-1.19.tar.gz;
+    url = "http://www.littlecms.com/lcms-1.19.tar.gz";
     sha256 = "1abkf8iphwyfs3z305z3qczm3z1i9idc1lz4gvfg92jnkz5k5bl0";
   };
 
@@ -12,11 +12,12 @@ stdenv.mkDerivation {
 
   outputs = [ "bin" "dev" "out" "man" ];
 
-  doCheck = false; # fails with "Error in Linear interpolation (2p): Must be i=8000, But is n=8001"
+  doCheck =
+    false; # fails with "Error in Linear interpolation (2p): Must be i=8000, But is n=8001"
 
   meta = {
     description = "Color management engine";
-    homepage = http://www.littlecms.com/;
+    homepage = "http://www.littlecms.com/";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.unix;
   };

@@ -1,25 +1,9 @@
-{ config, stdenv, fetchFromGitHub
-, fetchpatch, pkgconfig, perl, python, which
-, libX11, libxcb, libGLU_combined
-, qtbase, qtdeclarative, qtquickcontrols, qttools, qtx11extras, qmake, makeWrapper
-, libchardet
-, ffmpeg
+{ config, stdenv, fetchFromGitHub, fetchpatch, pkgconfig, perl, python, which, libX11, libxcb, libGLU_combined, qtbase, qtdeclarative, qtquickcontrols, qttools, qtx11extras, qmake, makeWrapper, libchardet, ffmpeg
 
-, mpg123
-, libass
-, libdvdread
-, libdvdnav
-, icu
-, libquvi
-, alsaLib
-, libvdpau, libva
-, libbluray
-, jackSupport ? false, jack ? null
-, portaudioSupport ? false, portaudio ? null
-, pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
-, cddaSupport ? false, libcdda ? null
-, youtubeSupport ? true, youtube-dl ? null
-}:
+, mpg123, libass, libdvdread, libdvdnav, icu, libquvi, alsaLib, libvdpau, libva, libbluray, jackSupport ?
+  false, jack ? null, portaudioSupport ? false, portaudio ? null, pulseSupport ?
+    config.pulseaudio or stdenv.isLinux, libpulseaudio ? null, cddaSupport ?
+      false, libcdda ? null, youtubeSupport ? true, youtube-dl ? null }:
 
 with stdenv.lib;
 
@@ -43,43 +27,43 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch rec {
       name = "bomi-compilation-fix.patch";
-      url = "https://svnweb.mageia.org/packages/cauldron/bomi/current/SOURCES/${name}?revision=995725&view=co&pathrev=995725";
+      url =
+        "https://svnweb.mageia.org/packages/cauldron/bomi/current/SOURCES/${name}?revision=995725&view=co&pathrev=995725";
       sha256 = "1dwryya5ljx35dbx6ag9d3rjjazni2mfn3vwirjdijdy6yz22jm6";
     })
     (fetchpatch rec {
-      name = "bomi-fix-expected-unqualified-id-before-numeric-constant-unix.patch";
-      url = "https://svnweb.mageia.org/packages/cauldron/bomi/current/SOURCES/${name}?revision=995725&view=co&pathrev=995725";
+      name =
+        "bomi-fix-expected-unqualified-id-before-numeric-constant-unix.patch";
+      url =
+        "https://svnweb.mageia.org/packages/cauldron/bomi/current/SOURCES/${name}?revision=995725&view=co&pathrev=995725";
       sha256 = "0n3xsrdrggimzw30gxlnrr088ndbdjqlqr46dzmfv8zan79lv5ri";
     })
   ];
 
   buildInputs = with stdenv.lib;
-                [ libX11
-                  libxcb
-                  libGLU_combined
-                  qtbase
-                  qtx11extras
-                  qtdeclarative
-                  qtquickcontrols
-                  ffmpeg
-                  libchardet
+    [
+      libX11
+      libxcb
+      libGLU_combined
+      qtbase
+      qtx11extras
+      qtdeclarative
+      qtquickcontrols
+      ffmpeg
+      libchardet
 
-                  mpg123
-                  libass
-                  libdvdread
-                  libdvdnav
-                  icu
-                  libquvi
-                  alsaLib
-                  libvdpau
-                  libva
-                  libbluray
-                ]
-                ++ optional jackSupport jack
-                ++ optional portaudioSupport portaudio
-                ++ optional pulseSupport libpulseaudio
-                ++ optional cddaSupport libcdda
-                ;
+      mpg123
+      libass
+      libdvdread
+      libdvdnav
+      icu
+      libquvi
+      alsaLib
+      libvdpau
+      libva
+      libbluray
+    ] ++ optional jackSupport jack ++ optional portaudioSupport portaudio
+    ++ optional pulseSupport libpulseaudio ++ optional cddaSupport libcdda;
 
   preConfigure = ''
     patchShebangs configure
@@ -98,18 +82,16 @@ stdenv.mkDerivation rec {
   dontUseQmakeConfigure = true;
 
   configureFlags = with stdenv.lib;
-                   [ "--qmake=qmake" ]
-                   ++ optional jackSupport "--enable-jack"
-                   ++ optional portaudioSupport "--enable-portaudio"
-                   ++ optional pulseSupport "--enable-pulseaudio"
-                   ++ optional cddaSupport "--enable-cdda"
-                   ;
+    [ "--qmake=qmake" ] ++ optional jackSupport "--enable-jack"
+    ++ optional portaudioSupport "--enable-portaudio"
+    ++ optional pulseSupport "--enable-pulseaudio"
+    ++ optional cddaSupport "--enable-cdda";
 
   nativeBuildInputs = [ makeWrapper pkgconfig perl python which qttools qmake ];
 
   meta = with stdenv.lib; {
     description = "Powerful and easy-to-use multimedia player";
-    homepage = https://bomi-player.github.io/;
+    homepage = "https://bomi-player.github.io/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.abbradar ];
     platforms = platforms.linux;

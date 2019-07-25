@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, gtk2, alsaLib
-, fftw, gsl
-}:
+{ stdenv, fetchurl, pkgconfig, gtk2, alsaLib, fftw, gsl }:
 
 stdenv.mkDerivation rec {
   name = "snd-19.4";
@@ -13,18 +10,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [
-    gtk2 alsaLib
-    fftw gsl
-  ];
+  buildInputs = [ gtk2 alsaLib fftw gsl ];
 
   meta = {
     description = "Sound editor";
-    homepage = http://ccrma.stanford.edu/software/snd;
+    homepage = "http://ccrma.stanford.edu/software/snd";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.free;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];
   };
-
 
 }

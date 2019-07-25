@@ -1,6 +1,5 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi
-, webencodings
-, pytest, pytestrunner, pytestcov, pytest-flake8, pytest-isort }:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, webencodings, pytest, pytestrunner, pytestcov, pytest-flake8, pytest-isort
+}:
 
 buildPythonPackage rec {
   pname = "tinycss2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Low-level CSS parser for Python";
-    homepage = https://github.com/Kozea/tinycss2;
+    homepage = "https://github.com/Kozea/tinycss2";
     license = licenses.bsd3;
   };
 }

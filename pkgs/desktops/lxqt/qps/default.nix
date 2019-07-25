@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, qtbase, qtx11extras, qttools,
-  lxqt-build-tools }:
+{ stdenv, fetchFromGitHub, cmake, qtbase, qtx11extras, qttools, lxqt-build-tools
+}:
 
 stdenv.mkDerivation rec {
   pname = "qps";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The Qt process manager";
-    homepage = https://github.com/lxqt/qps;
+    homepage = "https://github.com/lxqt/qps";
     license = licenses.gpl2;
     maintainers = with maintainers; [ romildo ];
     platforms = with platforms; unix;

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_gfx
-, pkgconfig, intltool, fontconfig, libzip, zip, zlib }:
+{ stdenv, fetchurl, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_gfx, pkgconfig, intltool, fontconfig, libzip, zip, zlib
+}:
 
 let
   version = "1.08.20121209";
@@ -24,8 +24,17 @@ in stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    SDL SDL_mixer SDL_image SDL_ttf SDL_gfx
-    pkgconfig intltool fontconfig libzip zip zlib
+    SDL
+    SDL_mixer
+    SDL_image
+    SDL_ttf
+    SDL_gfx
+    pkgconfig
+    intltool
+    fontconfig
+    libzip
+    zip
+    zlib
   ];
 
   preConfigure = ''
@@ -41,7 +50,8 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "A free, portable and enhanced version of the Dink Smallwood game engine";
+    description =
+      "A free, portable and enhanced version of the Dink Smallwood game engine";
 
     longDescription = ''
       GNU FreeDink is a new and portable version of the Dink Smallwood
@@ -49,11 +59,12 @@ in stdenv.mkDerivation rec {
       with close compatibility, under multiple platforms.
     '';
 
-    homepage = http://www.freedink.org/;
+    homepage = "http://www.freedink.org/";
     license = stdenv.lib.licenses.gpl3Plus;
 
     maintainers = [ stdenv.lib.maintainers.bjg ];
     platforms = stdenv.lib.platforms.all;
-    hydraPlatforms = stdenv.lib.platforms.linux; # sdl-config times out on darwin
+    hydraPlatforms =
+      stdenv.lib.platforms.linux; # sdl-config times out on darwin
   };
 }

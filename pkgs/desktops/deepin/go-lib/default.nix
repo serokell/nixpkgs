@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, glib, xorg, gdk_pixbuf, pulseaudio,
-  mobile-broadband-provider-info, deepin }:
+{ stdenv, fetchFromGitHub, glib, xorg, gdk_pixbuf, pulseaudio, mobile-broadband-provider-info, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -13,13 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "05z7ayl23cm8mbn4vkn3isy5kgwxljc26ifmzrhmnqm5yibd6lsf";
   };
 
-  buildInputs = [
-    glib
-    xorg.libX11
-    gdk_pixbuf
-    pulseaudio
-    mobile-broadband-provider-info
-  ];
+  buildInputs =
+    [ glib xorg.libX11 gdk_pixbuf pulseaudio mobile-broadband-provider-info ];
 
   installPhase = ''
     mkdir -p $out/share/go/src/pkg.deepin.io/lib
@@ -32,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Go bindings for Deepin Desktop Environment development";
-    homepage = https://github.com/linuxdeepin/go-lib;
+    homepage = "https://github.com/linuxdeepin/go-lib";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

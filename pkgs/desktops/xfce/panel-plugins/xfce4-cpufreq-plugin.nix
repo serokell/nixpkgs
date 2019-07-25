@@ -1,13 +1,15 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, xfce4-panel, libxfce4ui, libxfcegui4, xfconf, gtk, hicolor-icon-theme }:
+{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, xfce4-panel, libxfce4ui, libxfcegui4, xfconf, gtk, hicolor-icon-theme
+}:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
-  p_name  = "xfce4-cpufreq-plugin";
+  p_name = "xfce4-cpufreq-plugin";
   ver_maj = "1.1";
   ver_min = "3";
 
   src = fetchurl {
-    url = "mirror://xfce/src/panel-plugins/${p_name}/${ver_maj}/${name}.tar.bz2";
+    url =
+      "mirror://xfce/src/panel-plugins/${p_name}/${ver_maj}/${name}.tar.bz2";
     sha256 = "0crd21l5cw0xgm6w7s049xa36k203yx7l56ssnah9nq1w73n58bl";
   };
 
@@ -15,7 +17,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig intltool ];
 
-  buildInputs = [ libxfce4util libxfce4ui xfce4-panel libxfcegui4 xfconf gtk hicolor-icon-theme ];
+  buildInputs = [
+    libxfce4util
+    libxfce4ui
+    xfce4-panel
+    libxfcegui4
+    xfconf
+    gtk
+    hicolor-icon-theme
+  ];
 
   enableParallelBuilding = true;
 

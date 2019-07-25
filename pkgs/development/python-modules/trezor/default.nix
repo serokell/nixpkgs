@@ -1,15 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, isPy3k, python, pytest
-, typing-extensions
-, protobuf
-, hidapi
-, ecdsa
-, mnemonic
-, requests
-, pyblake2
-, click
-, construct
-, libusb1
-, rlp
+{ lib, fetchPypi, buildPythonPackage, isPy3k, python, pytest, typing-extensions, protobuf, hidapi, ecdsa, mnemonic, requests, pyblake2, click, construct, libusb1, rlp
 }:
 
 buildPythonPackage rec {
@@ -23,14 +12,24 @@ buildPythonPackage rec {
     sha256 = "c79a500e90d003073c8060d319dceb042caaba9472f13990c77ed37d04a82108";
   };
 
-  propagatedBuildInputs = [ typing-extensions protobuf hidapi ecdsa mnemonic requests pyblake2 click construct libusb1 rlp ];
+  propagatedBuildInputs = [
+    typing-extensions
+    protobuf
+    hidapi
+    ecdsa
+    mnemonic
+    requests
+    pyblake2
+    click
+    construct
+    libusb1
+    rlp
+  ];
 
   # build requires UTF-8 locale
   LANG = "en_US.UTF-8";
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   # disable test_tx_api.py as it requires being online
   checkPhase = ''
@@ -40,8 +39,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "Python library for communicating with TREZOR Bitcoin Hardware Wallet";
-    homepage = https://github.com/trezor/python-trezor;
+    description =
+      "Python library for communicating with TREZOR Bitcoin Hardware Wallet";
+    homepage = "https://github.com/trezor/python-trezor";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ np prusnak mmahut ];
   };

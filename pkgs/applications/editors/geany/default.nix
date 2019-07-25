@@ -1,12 +1,11 @@
-{ stdenv, fetchurl, gtk2, which, pkgconfig, intltool, file, libintl, hicolor-icon-theme }:
+{ stdenv, fetchurl, gtk2, which, pkgconfig, intltool, file, libintl, hicolor-icon-theme
+}:
 
 with stdenv.lib;
 
-let
-  version = "1.35";
-in
+let version = "1.35";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "geany-${version}";
 
   src = fetchurl {
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
       - Simple project management
       - Plugin interface
     '';
-    homepage = https://www.geany.org/;
+    homepage = "https://www.geany.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ frlan ];
     platforms = platforms.all;

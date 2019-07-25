@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, unzip, cmake, /*jdk,*/ alsaLib }:
+{ stdenv, fetchurl, unzip, cmake, # jdk,
+alsaLib }:
 
 stdenv.mkDerivation rec {
   name = "portmidi-${version}";
@@ -11,21 +12,21 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = let
     #base = "${jdk}/jre/lib/${jdk.architecture}";
-  in [
-    "-DPORTMIDI_ENABLE_JAVA=0"
-    /* TODO: Fix Java support.
-    "-DJAVA_AWT_LIBRARY=${base}/libawt.so"
-    "-DJAVA_JVM_LIBRARY=${base}/server/libjvm.so"
-    */
-    "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release"
-    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release"
-    "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release"
-  ];
+    in [
+      "-DPORTMIDI_ENABLE_JAVA=0"
+      /* TODO: Fix Java support.
+         "-DJAVA_AWT_LIBRARY=${base}/libawt.so"
+         "-DJAVA_JVM_LIBRARY=${base}/server/libjvm.so"
+      */
+      "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release"
+      "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release"
+      "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release"
+    ];
 
   # XXX: This is to deactivate Java support.
   patches = stdenv.lib.singleton (fetchurl rec {
     url = "https://raw.github.com/Rogentos/argent-gentoo/master/media-libs/"
-        + "portmidi/files/portmidi-217-cmake-libdir-java-opts.patch";
+      + "portmidi/files/portmidi-217-cmake-libdir-java-opts.patch";
     sha256 = "1jbjwan61iqq9fqfpq2a4fd30k3clg7a6j0gfgsw87r8c76kqf6h";
   });
 
@@ -44,12 +45,16 @@ stdenv.mkDerivation rec {
     ln -s libportmidi.so "$out/lib/libporttime.so"
   '';
 
-  buildInputs = [ unzip cmake /*jdk*/ alsaLib ];
+  buildInputs = [
+    unzip
+    cmake # jdk
+    alsaLib
+  ];
 
   hardeningDisable = [ "format" ];
 
   meta = {
-    homepage = http://portmedia.sourceforge.net/portmidi/;
+    homepage = "http://portmedia.sourceforge.net/portmidi/";
     description = "Platform independent library for MIDI I/O";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.linux;

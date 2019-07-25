@@ -22,7 +22,7 @@ pythonPackages.buildPythonApplication rec {
 
   meta = {
     description = "A comic strip downloader and archiver";
-    homepage = https://dosage.rocks/;
+    homepage = "https://dosage.rocks/";
     license = stdenv.lib.licenses.mit;
   };
 }

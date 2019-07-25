@@ -38,9 +38,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Set of text-mode partitioning tools for Globally Unique Identifier (GUID) Partition Table (GPT) disks";
+    description =
+      "Set of text-mode partitioning tools for Globally Unique Identifier (GUID) Partition Table (GPT) disks";
     license = licenses.gpl2;
-    homepage = https://www.rodsbooks.com/gdisk/;
+    homepage = "https://www.rodsbooks.com/gdisk/";
     platforms = platforms.all;
   };
 }

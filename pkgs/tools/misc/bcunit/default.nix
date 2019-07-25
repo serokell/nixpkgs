@@ -1,9 +1,9 @@
-{stdenv, fetchFromGitHub, cmake}:
+{ stdenv, fetchFromGitHub, cmake }:
 stdenv.mkDerivation rec {
   name = "${baseName}-${version}";
   baseName = "bcunit";
   version = "3.0.2";
-  buildInputs = [cmake];
+  buildInputs = [ cmake ];
   src = fetchFromGitHub {
     owner = "BelledonneCommunications";
     repo = "${baseName}";
@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     inherit version;
-    description = ''A fork of CUnit test framework'';
+    description = "A fork of CUnit test framework";
     license = stdenv.lib.licenses.lgpl2Plus;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

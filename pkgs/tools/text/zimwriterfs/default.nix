@@ -1,19 +1,8 @@
-{ stdenv
-, fetchFromGitHub
+{ stdenv, fetchFromGitHub
 
-, autoconf
-, automake
-, libtool
-, pkgconfig
+, autoconf, automake, libtool, pkgconfig
 
-, file
-, icu
-, gumbo
-, lzma
-, xapian
-, zimlib
-, zlib
-}:
+, file, icu, gumbo, lzma, xapian, zimlib, zlib }:
 
 stdenv.mkDerivation rec {
   name = "zimwriterfs-${version}";
@@ -35,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A console tool to create ZIM files";
-    homepage = http://git.wikimedia.org/log/openzim;
+    homepage = "http://git.wikimedia.org/log/openzim";
     maintainers = with stdenv.lib.maintainers; [ robbinch ];
     license = stdenv.lib.licenses.gpl3;
     platforms = with stdenv.lib.platforms; [ linux ];

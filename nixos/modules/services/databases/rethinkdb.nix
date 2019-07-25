@@ -5,9 +5,8 @@ with lib;
 let
   cfg = config.services.rethinkdb;
   rethinkdb = cfg.package;
-in
 
-{
+in {
 
   ###### interface
 
@@ -37,7 +36,8 @@ in
 
       dbpath = mkOption {
         default = "/var/db/rethinkdb";
-        description = "Location where RethinkDB stores its data, 1 data directory per instance.";
+        description =
+          "Location where RethinkDB stores its data, 1 data directory per instance.";
       };
 
       pidpath = mkOption {
@@ -96,14 +96,13 @@ in
       '';
     };
 
-    users.users.rethinkdb = mkIf (cfg.user == "rethinkdb")
-      { name = "rethinkdb";
-        description = "RethinkDB server user";
-      };
+    users.users.rethinkdb = mkIf (cfg.user == "rethinkdb") {
+      name = "rethinkdb";
+      description = "RethinkDB server user";
+    };
 
-    users.groups = optionalAttrs (cfg.group == "rethinkdb") (singleton
-      { name = "rethinkdb";
-      });
+    users.groups = optionalAttrs (cfg.group == "rethinkdb")
+      (singleton { name = "rethinkdb"; });
 
   };
 

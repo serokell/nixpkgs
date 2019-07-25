@@ -1,20 +1,4 @@
-{ lib
-, glibcLocales
-, buildPythonPackage
-, fetchPypi
-, six
-, nose
-, appdirs
-, scandir
-, backports_os
-, typing
-, pytz
-, enum34
-, pyftpdlib
-, psutil
-, mock
-, pythonAtLeast
-, isPy3k
+{ lib, glibcLocales, buildPythonPackage, fetchPypi, six, nose, appdirs, scandir, backports_os, typing, pytz, enum34, pyftpdlib, psutil, mock, pythonAtLeast, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -34,7 +18,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!pythonAtLeast "3.5") [ scandir ]
     ++ lib.optionals (!pythonAtLeast "3.5") [ enum34 ];
 
-  LC_ALL="en_US.utf-8";
+  LC_ALL = "en_US.utf-8";
 
   checkPhase = ''
     HOME=$(mktemp -d) nosetests tests []
@@ -42,10 +26,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Filesystem abstraction";
-    homepage    = https://github.com/PyFilesystem/pyfilesystem2;
-    license     = licenses.bsd3;
+    homepage = "https://github.com/PyFilesystem/pyfilesystem2";
+    license = licenses.bsd3;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 
 }

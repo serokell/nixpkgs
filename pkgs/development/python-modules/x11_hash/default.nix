@@ -1,9 +1,6 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
-buildPythonPackage rec{
+buildPythonPackage rec {
   version = "1.4";
   pname = "x11_hash";
 
@@ -14,7 +11,7 @@ buildPythonPackage rec{
 
   meta = with stdenv.lib; {
     description = "Binding for X11 proof of work hashing";
-    homepage = https://github.com/mazaclub/x11_hash;
+    homepage = "https://github.com/mazaclub/x11_hash";
     license = licenses.mit;
     maintainers = with maintainers; [ np ];
   };

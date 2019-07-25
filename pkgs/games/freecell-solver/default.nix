@@ -1,9 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, cmake
-, perl, gmp, libtap, gperf
-, perlPackages, python3 }:
+{ stdenv, fetchurl, pkgconfig, cmake, perl, gmp, libtap, gperf, perlPackages, python3
+}:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "freecell-solver-${version}";
   version = "4.18.0";
@@ -13,16 +12,15 @@ stdenv.mkDerivation rec{
     sha256 = "1cmaib69pijmcpvgjvrdry8j4xys8l906l80b8z21vvyhdwrfdnn";
   };
 
-  nativeBuildInputs = [
-    cmake perl pkgconfig
-  ] ++ (with perlPackages; TaskFreecellSolverTesting.buildInputs ++ [
-    GamesSolitaireVerify StringShellQuote TaskFreecellSolverTesting TemplateToolkit
-  ]);
+  nativeBuildInputs = [ cmake perl pkgconfig ] ++ (with perlPackages;
+    TaskFreecellSolverTesting.buildInputs ++ [
+      GamesSolitaireVerify
+      StringShellQuote
+      TaskFreecellSolverTesting
+      TemplateToolkit
+    ]);
 
-  buildInputs = [
-    gmp libtap gperf
-    python3 python3.pkgs.random2
-  ];
+  buildInputs = [ gmp libtap gperf python3 python3.pkgs.random2 ];
 
   # "ninja t/CMakeFiles/delta-states-test.t.exe.dir/__/delta_states.c.o" fails
   # to depend on the generated "is_king.h".
@@ -36,7 +34,7 @@ stdenv.mkDerivation rec{
       Off, Forecell, and Seahaven Towers, as well as Simple Simon
       boards.
     '';
-    homepage = https://fc-solve.shlomifish.org/;
+    homepage = "https://fc-solve.shlomifish.org/";
     license = licenses.mit;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.unix;

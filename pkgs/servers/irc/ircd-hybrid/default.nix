@@ -16,11 +16,12 @@ stdenv.mkDerivation rec {
     "--enable-openssl=${openssl.dev}"
   ];
 
-  postInstall = "echo postinstall; mkdir -p \${out}/ ; rm -rf \${out}/logs ; ln -s /home/ircd \${out}/logs;";
+  postInstall =
+    "echo postinstall; mkdir -p \${out}/ ; rm -rf \${out}/logs ; ln -s /home/ircd \${out}/logs;";
 
   meta = {
     description = "An IPv6-capable IRC server";
     platforms = stdenv.lib.platforms.unix;
-    homepage = http://www.ircd-hybrid.org/;
+    homepage = "http://www.ircd-hybrid.org/";
   };
 }

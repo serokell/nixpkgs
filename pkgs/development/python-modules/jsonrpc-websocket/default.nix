@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, aiohttp, jsonrpc-base }:
+{ stdenv, buildPythonPackage, fetchPypi, aiohttp, jsonrpc-base }:
 
 buildPythonPackage rec {
   pname = "jsonrpc-websocket";
@@ -14,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A JSON-RPC websocket client library for asyncio";
-    homepage = https://github.com/armills/jsonrpc-websocket;
+    homepage = "https://github.com/armills/jsonrpc-websocket";
     license = licenses.bsd3;
     maintainers = with maintainers; [ peterhoeg ];
   };

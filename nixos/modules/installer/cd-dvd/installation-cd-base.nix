@@ -6,17 +6,18 @@
 with lib;
 
 {
-  imports =
-    [ ./iso-image.nix
+  imports = [
+    ./iso-image.nix
 
-      # Profiles of this basic installation CD.
-      ../../profiles/all-hardware.nix
-      ../../profiles/base.nix
-      ../../profiles/installation-device.nix
-    ];
+    # Profiles of this basic installation CD.
+    ../../profiles/all-hardware.nix
+    ../../profiles/base.nix
+    ../../profiles/installation-device.nix
+  ];
 
   # ISO naming.
-  isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+  isoImage.isoName =
+    "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
 
   isoImage.volumeID = substring 0 11 "NIXOS_ISO";
 

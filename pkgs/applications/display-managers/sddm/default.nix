@@ -1,10 +1,7 @@
-{ mkDerivation, lib, fetchFromGitHub
-, cmake, extra-cmake-modules, pkgconfig, libxcb, libpthreadstubs
-, libXdmcp, libXau, qtbase, qtdeclarative, qttools, pam, systemd
+{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, pkgconfig, libxcb, libpthreadstubs, libXdmcp, libXau, qtbase, qtdeclarative, qttools, pam, systemd
 }:
 
-let
-  version = "0.18.1";
+let version = "0.18.1";
 
 in mkDerivation rec {
   name = "sddm-${version}";
@@ -16,9 +13,7 @@ in mkDerivation rec {
     sha256 = "0an1zafz0yhxd9jgd3gzdwmaw5f9vs4c924q56lp2yxxddbmzjcq";
   };
 
-  patches = [
-    ./sddm-ignore-config-mtime.patch
-  ];
+  patches = [ ./sddm-ignore-config-mtime.patch ];
 
   postPatch =
     # Fix missing include for gettimeofday()
@@ -28,9 +23,8 @@ in mkDerivation rec {
 
   nativeBuildInputs = [ cmake extra-cmake-modules pkgconfig qttools ];
 
-  buildInputs = [
-    libxcb libpthreadstubs libXdmcp libXau pam qtbase qtdeclarative systemd
-  ];
+  buildInputs =
+    [ libxcb libpthreadstubs libXdmcp libXau pam qtbase qtdeclarative systemd ];
 
   cmakeFlags = [
     "-DCONFIG_FILE=/etc/sddm.conf"
@@ -58,9 +52,9 @@ in mkDerivation rec {
 
   meta = with lib; {
     description = "QML based X11 display manager";
-    homepage    = https://github.com/sddm/sddm;
+    homepage = "https://github.com/sddm/sddm";
     maintainers = with maintainers; [ abbradar ttuegel ];
-    platforms   = platforms.linux;
-    license     = licenses.gpl2Plus;
+    platforms = platforms.linux;
+    license = licenses.gpl2Plus;
   };
 }

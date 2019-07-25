@@ -7,17 +7,14 @@ stdenv.mkDerivation rec {
   version = "2018.09.09";
 
   src = fetchFromGitHub {
-    owner  = "yosyshq";
-    repo   = "arachne-pnr";
-    rev    = "840bdfdeb38809f9f6af4d89dd7b22959b176fdd";
+    owner = "yosyshq";
+    repo = "arachne-pnr";
+    rev = "840bdfdeb38809f9f6af4d89dd7b22959b176fdd";
     sha256 = "1dqvjvgvsridybishv4pnigw9gypxh7r7nrqp9z9qq92v7c5rxzl";
   };
 
   enableParallelBuilding = true;
-  makeFlags =
-    [ "PREFIX=$(out)"
-      "ICEBOX=${icestorm}/share/icebox"
-    ];
+  makeFlags = [ "PREFIX=$(out)" "ICEBOX=${icestorm}/share/icebox" ];
 
   patchPhase = ''
     substituteInPlace ./Makefile \
@@ -36,7 +33,7 @@ stdenv.mkDerivation rec {
       is a textual bitstream representation for assembly by
       the IceStorm [2] icepack command.
     '';
-    homepage = https://github.com/cseed/arachne-pnr;
+    homepage = "https://github.com/cseed/arachne-pnr";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ shell thoughtpolice ];
     platforms = stdenv.lib.platforms.linux;

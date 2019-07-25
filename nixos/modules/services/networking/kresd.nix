@@ -8,10 +8,11 @@ let
   package = pkgs.knot-resolver;
 
   configFile = pkgs.writeText "kresd.conf" cfg.extraConfig;
-in
 
-{
-  meta.maintainers = [ maintainers.vcunat /* upstream developer */ ];
+in {
+  meta.maintainers = [
+    maintainers.vcunat # upstream developer
+  ];
 
   ###### interface
   options.services.kresd = {
@@ -48,7 +49,7 @@ in
     };
     listenTLS = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       example = [ "198.51.100.1:853" "[2001:db8::1]:853" "853" ];
       description = ''
         Addresses on which kresd should provide DNS over TLS (see RFC 7858).
@@ -62,24 +63,27 @@ in
   config = mkIf cfg.enable {
     environment.etc."kresd.conf".source = configFile; # not required
 
-    users.users = singleton
-      { name = "kresd";
-        uid = config.ids.uids.kresd;
-        group = "kresd";
-        description = "Knot-resolver daemon user";
-      };
-    users.groups = singleton
-      { name = "kresd";
-        gid = config.ids.gids.kresd;
-      };
+    users.users = singleton {
+      name = "kresd";
+      uid = config.ids.uids.kresd;
+      group = "kresd";
+      description = "Knot-resolver daemon user";
+    };
+    users.groups = singleton {
+      name = "kresd";
+      gid = config.ids.gids.kresd;
+    };
 
     systemd.sockets.kresd = rec {
       wantedBy = [ "sockets.target" ];
       before = wantedBy;
       listenStreams = map
         # Syntax depends on being IPv6 or IPv4.
-        (iface: if elem ":" (stringToCharacters iface) then "[${iface}]:53" else "${iface}:53")
-        cfg.interfaces;
+        (iface:
+        if elem ":" (stringToCharacters iface) then
+          "[${iface}]:53"
+        else
+          "${iface}:53") cfg.interfaces;
       socketConfig = {
         ListenDatagram = listenStreams;
         FreeBind = true;
@@ -87,7 +91,7 @@ in
       };
     };
 
-    systemd.sockets.kresd-tls = mkIf (cfg.listenTLS != []) rec {
+    systemd.sockets.kresd-tls = mkIf (cfg.listenTLS != [ ]) rec {
       wantedBy = [ "sockets.target" ];
       before = wantedBy;
       partOf = [ "kresd.socket" ];
@@ -107,7 +111,8 @@ in
       socketConfig = {
         FileDescriptorName = "control";
         Service = "kresd.service";
-        SocketMode = "0660"; # only root user/group may connect and control kresd
+        SocketMode =
+          "0660"; # only root user/group may connect and control kresd
       };
     };
 
@@ -122,7 +127,7 @@ in
         WorkingDirectory = cfg.cacheDir;
         Restart = "on-failure";
         Sockets = [ "kresd.socket" "kresd-control.socket" ]
-          ++ optional (cfg.listenTLS != []) "kresd-tls.socket";
+          ++ optional (cfg.listenTLS != [ ]) "kresd-tls.socket";
       };
 
       # Trust anchor goes from dns-root-data by default.

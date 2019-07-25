@@ -1,13 +1,4 @@
-{ stdenv
-, fetchFromGitLab
-, pkgconfig
-, intltool
-, automake111x
-, autoconf
-, libtool
-, gnome2
-, libxslt
-, python2
+{ stdenv, fetchFromGitLab, pkgconfig, intltool, automake111x, autoconf, libtool, gnome2, libxslt, python2
 }:
 
 let version = "unstable-2019-02-13";
@@ -44,16 +35,13 @@ in stdenv.mkDerivation {
     python2.pkgs.pygtk
   ];
 
-  preConfigure = ''./autogen.sh'';
-  configureFlags = [
-    "--enable-python"
-    "--enable-python-plugin"
-    ];
+  preConfigure = "./autogen.sh";
+  configureFlags = [ "--enable-python" "--enable-python-plugin" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Planner;
+    homepage = "https://wiki.gnome.org/Apps/Planner";
     description = "Project management application for GNOME";
     longDescription = ''
       Planner is the GNOME project management tool.

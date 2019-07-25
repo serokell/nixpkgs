@@ -1,25 +1,5 @@
-{ stdenv
-, fetchurl
-, autoreconfHook
-, dconf
-, evolution-data-server
-, gdm
-, gettext
-, glib
-, gnome-desktop
-, gnome-flashback
-, gnome-menus
-, gnome3
-, gtk3
-, itstool
-, libgweather
-, libsoup
-, libwnck3
-, libxml2
-, pkgconfig
-, polkit
-, systemd
-, wrapGAppsHook }:
+{ stdenv, fetchurl, autoreconfHook, dconf, evolution-data-server, gdm, gettext, glib, gnome-desktop, gnome-flashback, gnome-menus, gnome3, gtk3, itstool, libgweather, libsoup, libwnck3, libxml2, pkgconfig, polkit, systemd, wrapGAppsHook
+}:
 
 let
   pname = "gnome-panel";
@@ -30,7 +10,9 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "man" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0a9zi1jb0b42zd6wx3251cnns9v1w0cbwasmrx9hsj1dsb9pjq3a";
   };
 
@@ -51,14 +33,8 @@ in stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    itstool
-    libxml2
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook gettext itstool libxml2 pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     dconf
@@ -75,9 +51,7 @@ in stdenv.mkDerivation rec {
     systemd
   ];
 
-  configureFlags = [
-    "--enable-eds"
-  ];
+  configureFlags = [ "--enable-eds" ];
 
   enableParallelBuilding = true;
 
@@ -91,8 +65,9 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Component of Gnome Flashback that provides panels and default applets for the desktop";
-    homepage = https://wiki.gnome.org/Projects/GnomePanel;
+    description =
+      "Component of Gnome Flashback that provides panels and default applets for the desktop";
+    homepage = "https://wiki.gnome.org/Projects/GnomePanel";
     license = licenses.gpl2Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

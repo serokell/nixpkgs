@@ -1,11 +1,6 @@
-{ stdenv, fetchurl, bzip2, gfortran, libX11, libXmu, libXt, libjpeg, libpng
-, libtiff, ncurses, pango, pcre, perl, readline, tcl, texLive, tk, xz, zlib
-, less, texinfo, graphviz, icu, pkgconfig, bison, imake, which, jdk, openblas
-, curl, Cocoa, Foundation, libobjc, libcxx, tzdata, fetchpatch
-, withRecommendedPackages ? true
-, enableStrictBarrier ? false
-, javaSupport ? (!stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64)
-}:
+{ stdenv, fetchurl, bzip2, gfortran, libX11, libXmu, libXt, libjpeg, libpng, libtiff, ncurses, pango, pcre, perl, readline, tcl, texLive, tk, xz, zlib, less, texinfo, graphviz, icu, pkgconfig, bison, imake, which, jdk, openblas, curl, Cocoa, Foundation, libobjc, libcxx, tzdata, fetchpatch, withRecommendedPackages ?
+  true, enableStrictBarrier ? false, javaSupport ?
+    (!stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64) }:
 
 stdenv.mkDerivation rec {
   name = "R-3.6.1";
@@ -18,16 +13,38 @@ stdenv.mkDerivation rec {
   dontUseImakeConfigure = true;
 
   buildInputs = [
-    bzip2 gfortran libX11 libXmu libXt libXt libjpeg libpng libtiff ncurses
-    pango pcre perl readline texLive xz zlib less texinfo graphviz icu
-    pkgconfig bison imake which openblas curl
+    bzip2
+    gfortran
+    libX11
+    libXmu
+    libXt
+    libXt
+    libjpeg
+    libpng
+    libtiff
+    ncurses
+    pango
+    pcre
+    perl
+    readline
+    texLive
+    xz
+    zlib
+    less
+    texinfo
+    graphviz
+    icu
+    pkgconfig
+    bison
+    imake
+    which
+    openblas
+    curl
   ] ++ stdenv.lib.optionals (!stdenv.isDarwin) [ tcl tk ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ Cocoa Foundation libobjc libcxx ]
     ++ stdenv.lib.optional javaSupport jdk;
 
-  patches = [
-    ./no-usr-local-search-paths.patch
-  ];
+  patches = [ ./no-usr-local-search-paths.patch ];
 
   prePatch = stdenv.lib.optionalString stdenv.isDarwin ''
     substituteInPlace configure --replace "-install_name libR.dylib" "-install_name $out/lib/R/lib/libR.dylib"
@@ -36,7 +53,9 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     configureFlagsArray=(
       --disable-lto
-      --with${stdenv.lib.optionalString (!withRecommendedPackages) "out"}-recommended-packages
+      --with${
+      stdenv.lib.optionalString (!withRecommendedPackages) "out"
+      }-recommended-packages
       --with-blas="-L${openblas}/lib -lopenblas"
       --with-lapack="-L${openblas}/lib -lopenblas"
       --with-readline
@@ -53,16 +72,16 @@ stdenv.mkDerivation rec {
       CC=$(type -p cc)
       CXX=$(type -p c++)
       FC="${gfortran}/bin/gfortran" F77="${gfortran}/bin/gfortran"
-      ${stdenv.lib.optionalString javaSupport "JAVA_HOME=\"${jdk}\""}
+      ${stdenv.lib.optionalString javaSupport ''JAVA_HOME="${jdk}"''}
       RANLIB=$(type -p ranlib)
       R_SHELL="${stdenv.shell}"
   '' + stdenv.lib.optionalString stdenv.isDarwin ''
-      --without-tcltk
-      --without-aqua
-      --disable-R-framework
-      OBJC="clang"
-      CPPFLAGS="-isystem ${libcxx}/include/c++/v1"
-      LDFLAGS="-L${libcxx}/lib"
+    --without-tcltk
+    --without-aqua
+    --disable-R-framework
+    OBJC="clang"
+    CPPFLAGS="-isystem ${libcxx}/include/c++/v1"
+    LDFLAGS="-L${libcxx}/lib"
   '' + ''
     )
     echo >>etc/Renviron.in "TCLLIBPATH=${tk}/lib"
@@ -74,7 +93,8 @@ stdenv.mkDerivation rec {
   # The store path to "which" is baked into src/library/base/R/unix/system.unix.R,
   # but Nix cannot detect it as a run-time dependency because the installed file
   # is compiled and compressed, which hides the store path.
-  postFixup = "echo ${which} > $out/nix-support/undetected-runtime-dependencies";
+  postFixup =
+    "echo ${which} > $out/nix-support/undetected-runtime-dependencies";
 
   doCheck = true;
   preCheck = "export TZ=CET; bin/Rscript -e 'sessionInfo()'";
@@ -84,8 +104,9 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = with stdenv.lib; {
-    homepage = http://www.r-project.org/;
-    description = "Free software environment for statistical computing and graphics";
+    homepage = "http://www.r-project.org/";
+    description =
+      "Free software environment for statistical computing and graphics";
     license = licenses.gpl2Plus;
 
     longDescription = ''

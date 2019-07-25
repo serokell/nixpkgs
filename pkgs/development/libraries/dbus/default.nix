@@ -1,15 +1,13 @@
-{ stdenv, lib, fetchurl, pkgconfig, expat, systemd
-, libX11 ? null, libICE ? null, libSM ? null, x11Support ? (stdenv.isLinux || stdenv.isDarwin) }:
+{ stdenv, lib, fetchurl, pkgconfig, expat, systemd, libX11 ? null, libICE ?
+  null, libSM ? null, x11Support ? (stdenv.isLinux || stdenv.isDarwin) }:
 
-assert x11Support -> libX11 != null
-                  && libICE != null
-                  && libSM != null;
+assert x11Support -> libX11 != null && libICE != null && libSM != null;
 
 let
   version = "1.12.16";
   sha256 = "107ckxaff1cv4q6kmfdi2fb1nlsv03312a7kf6lb4biglhpjv8jl";
 
-self = stdenv.mkDerivation {
+  self = stdenv.mkDerivation {
     name = "dbus-${version}";
     inherit version;
 
@@ -26,12 +24,13 @@ self = stdenv.mkDerivation {
         --replace 'installcheck-local:' 'disabled:'
       substituteInPlace bus/Makefile.in \
         --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/run/dbus' ':'
-    '' + /* cleanup of runtime references */ ''
-      substituteInPlace ./dbus/dbus-sysdeps-unix.c \
-        --replace 'DBUS_BINDIR "/dbus-launch"' "\"$lib/bin/dbus-launch\""
-      substituteInPlace ./tools/dbus-launch.c \
-        --replace 'DBUS_DAEMONDIR"/dbus-daemon"' '"/run/current-system/sw/bin/dbus-daemon"'
-    '';
+    '' + # cleanup of runtime references
+      ''
+        substituteInPlace ./dbus/dbus-sysdeps-unix.c \
+          --replace 'DBUS_BINDIR "/dbus-launch"' "\"$lib/bin/dbus-launch\""
+        substituteInPlace ./tools/dbus-launch.c \
+          --replace 'DBUS_DAEMONDIR"/dbus-daemon"' '"/run/current-system/sw/bin/dbus-daemon"'
+      '';
 
     outputs = [ "out" "dev" "lib" "doc" ];
 
@@ -57,7 +56,8 @@ self = stdenv.mkDerivation {
     # Enable X11 autolaunch support in libdbus. This doesn't actually depend on X11
     # (it just execs dbus-launch in dbus.tools), contrary to what the configure script demands.
     # problems building without x11Support so disabled in that case for now
-    NIX_CFLAGS_COMPILE = lib.optionalString x11Support "-DDBUS_ENABLE_X11_AUTOLAUNCH=1";
+    NIX_CFLAGS_COMPILE =
+      lib.optionalString x11Support "-DDBUS_ENABLE_X11_AUTOLAUNCH=1";
     NIX_CFLAGS_LINK = lib.optionalString (!stdenv.isDarwin) "-Wl,--as-needed";
 
     enableParallelBuilding = true;
@@ -84,7 +84,7 @@ self = stdenv.mkDerivation {
 
     meta = with stdenv.lib; {
       description = "Simple interprocess messaging system";
-      homepage = http://www.freedesktop.org/wiki/Software/dbus/;
+      homepage = "http://www.freedesktop.org/wiki/Software/dbus/";
       license = licenses.gpl2Plus; # most is also under AFL-2.1
       platforms = platforms.unix;
     };

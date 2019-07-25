@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "zita-convolver-${version}";
   version = "4.0.3";
   src = fetchurl {
-    url = "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/${name}.tar.bz2";
+    url =
+      "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/${name}.tar.bz2";
     sha256 = "0prji66p86z2bzminywkwchr5bfgxcg2i8y803pydd1hzf2198cs";
   };
 
@@ -15,20 +16,20 @@ stdenv.mkDerivation rec {
     sed -e "s@ldconfig@@" -i Makefile
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "SUFFIX="
-  ];
+  makeFlags = [ "PREFIX=$(out)" "SUFFIX=" ];
 
   postInstall = ''
     # create lib link for building apps
-    ln -s $out/lib/libzita-convolver.so.${version} $out/lib/libzita-convolver.so.${stdenv.lib.versions.major version}
+    ln -s $out/lib/libzita-convolver.so.${version} $out/lib/libzita-convolver.so.${
+      stdenv.lib.versions.major version
+    }
   '';
 
   meta = {
     description = "Convolution library by Fons Adriaensen";
     version = "${version}";
-    homepage = http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html;
+    homepage =
+      "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

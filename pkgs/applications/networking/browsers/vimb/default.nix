@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libsoup, webkitgtk, gtk3, glib-networking
-, gsettings-desktop-schemas, wrapGAppsHook
+{ stdenv, fetchFromGitHub, pkgconfig, libsoup, webkitgtk, gtk3, glib-networking, gsettings-desktop-schemas, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ wrapGAppsHook pkgconfig ];
-  buildInputs = [ gtk3 libsoup webkitgtk glib-networking gsettings-desktop-schemas ];
+  buildInputs =
+    [ gtk3 libsoup webkitgtk glib-networking gsettings-desktop-schemas ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       editor and also easily configurable during runtime. Vimb is mostly
       keyboard driven and does not detract you from your daily work.
     '';
-    homepage = https://fanglingsu.github.io/vimb/;
+    homepage = "https://fanglingsu.github.io/vimb/";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.rickynils ];
     platforms = with stdenv.lib.platforms; linux;

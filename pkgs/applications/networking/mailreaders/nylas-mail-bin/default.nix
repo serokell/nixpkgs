@@ -1,29 +1,4 @@
-{ dpkg, fetchurl, lib, pkgs, stdenv
-, alsaLib
-, atk
-, cairo
-, coreutils
-, cups
-, dbus
-, desktop-file-utils
-, expat
-, fontconfig
-, freetype
-, gcc-unwrapped
-, gdk_pixbuf
-, glib
-, gnome2
-, libgnome-keyring
-, libnotify
-, makeWrapper
-, nodejs
-, nspr
-, nss
-, pango
-, python2
-, udev
-, wget
-, xorg
+{ dpkg, fetchurl, lib, pkgs, stdenv, alsaLib, atk, cairo, coreutils, cups, dbus, desktop-file-utils, expat, fontconfig, freetype, gcc-unwrapped, gdk_pixbuf, glib, gnome2, libgnome-keyring, libnotify, makeWrapper, nodejs, nspr, nss, pango, python2, udev, wget, xorg
 }:
 
 stdenv.mkDerivation rec {
@@ -32,14 +7,15 @@ stdenv.mkDerivation rec {
   version = "2.0.32";
   subVersion = "fec7941";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://edgehill.s3.amazonaws.com/${version}-${subVersion}/linux-deb/x64/NylasMail.deb";
-        sha256 = "40060aa1dc3b5187b8ed4a07b9de3427e3c5a291df98c2c82395647fa2aa4ada";
-      }
-    else
-      throw "NylasMail is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://edgehill.s3.amazonaws.com/${version}-${subVersion}/linux-deb/x64/NylasMail.deb";
+      sha256 =
+        "40060aa1dc3b5187b8ed4a07b9de3427e3c5a291df98c2c82395647fa2aa4ada";
+    }
+  else
+    throw "NylasMail is not supported on ${stdenv.hostPlatform.system}";
 
   propagatedBuildInputs = [
     alsaLib
@@ -80,7 +56,6 @@ stdenv.mkDerivation rec {
     xorg.libxkbfile
   ];
 
-
   nativeBuildInputs = [ makeWrapper ];
 
   buildCommand = ''
@@ -95,17 +70,23 @@ stdenv.mkDerivation rec {
 
     # Patch librariess
     noderp=$(patchelf --print-rpath $out/share/nylas-mail/libnode.so)
-    patchelf --set-rpath $noderp:$out/lib:${stdenv.cc.cc.lib}/lib:${xorg.libxkbfile.out}/lib:${lib.makeLibraryPath propagatedBuildInputs } \
+    patchelf --set-rpath $noderp:$out/lib:${stdenv.cc.cc.lib}/lib:${xorg.libxkbfile.out}/lib:${
+      lib.makeLibraryPath propagatedBuildInputs
+    } \
       $out/share/nylas-mail/libnode.so
 
     ffrp=$(patchelf --print-rpath $out/share/nylas-mail/libffmpeg.so)
-    patchelf --set-rpath $ffrp:$out/lib:${stdenv.cc.cc.lib}/lib:${lib.makeLibraryPath propagatedBuildInputs } \
+    patchelf --set-rpath $ffrp:$out/lib:${stdenv.cc.cc.lib}/lib:${
+      lib.makeLibraryPath propagatedBuildInputs
+    } \
       $out/share/nylas-mail/libffmpeg.so
 
     # Patch binaries
     binrp=$(patchelf --print-rpath $out/share/nylas-mail/nylas)
     patchelf --interpreter $(cat "$NIX_CC"/nix-support/dynamic-linker) \
-      --set-rpath $binrp:$out/lib:${stdenv.cc.cc.lib}/lib:${lib.makeLibraryPath propagatedBuildInputs } \
+      --set-rpath $binrp:$out/lib:${stdenv.cc.cc.lib}/lib:${
+      lib.makeLibraryPath propagatedBuildInputs
+      } \
       $out/share/nylas-mail/nylas
 
     wrapProgram $out/share/nylas-mail/nylas --set LD_LIBRARY_PATH "${xorg.libxkbfile}/lib:${pkgs.gnome3.libgnome-keyring}/lib";
@@ -121,13 +102,14 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Open-source mail client built on the modern web with Electron, React, and Flux";
+    description =
+      "Open-source mail client built on the modern web with Electron, React, and Flux";
     longDescription = ''
       Nylas Mail is an open-source mail client built on the modern web with Electron, React, and Flux. It is designed to be extensible, so it's easy to create new experiences and workflows around email. Nylas Mail can be enabled with it's requirements by enabling 'services.nylas-mail.enable=true'. Alternatively, make sure to have services.gnome3.gnome-keyring.enable = true; in your configuration.nix before running nylas-mail. If you happen to miss this step, you should remove ~/.nylas-mail and "~/.config/Nylas Mail" for a blank setup".
     '';
     license = licenses.gpl3;
     maintainers = with maintainers; [ johnramsden ];
-    homepage = https://nylas.com;
+    homepage = "https://nylas.com";
     platforms = [ "x86_64-linux" ];
   };
 }

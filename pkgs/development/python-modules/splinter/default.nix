@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, selenium
-, flask
-, coverage
-}:
+{ lib, buildPythonPackage, fetchPypi, selenium, flask, coverage }:
 
 buildPythonPackage rec {
   pname = "splinter";
@@ -24,7 +18,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Browser abstraction for web acceptance testing";
-    homepage = https://github.com/cobrateam/splinter;
+    homepage = "https://github.com/cobrateam/splinter";
     license = lib.licenses.bsd3;
   };
 }

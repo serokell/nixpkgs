@@ -1,28 +1,29 @@
-{ stdenv, fetchurl
-, libX11, glib, xorg, fontconfig, freetype
-, zlib, libpng12, libICE, libXrender, cups }:
+{ stdenv, fetchurl, libX11, glib, xorg, fontconfig, freetype, zlib, libpng12, libICE, libXrender, cups
+}:
 
 let
-  bits = if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64"
-         else "x86";
+  bits =
+    if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "x86";
 
   version = "10.1.0.5672";
-in stdenv.mkDerivation rec{
+in stdenv.mkDerivation rec {
   name = "wpsoffice-${version}";
 
   src = fetchurl {
     name = "${name}.tar.xz";
-    url = "http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_${version}~a21_${bits}.tar.xz";
+    url =
+      "http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_${version}~a21_${bits}.tar.xz";
     sha256 = if bits == "x86_64" then
-      "0mi3n9kplf82gd0g2m0np957agy53p4g1qh81pbban49r4n0ajcz" else
+      "0mi3n9kplf82gd0g2m0np957agy53p4g1qh81pbban49r4n0ajcz"
+    else
       "1dk400ap5qwdhjvn8lnk602f5akayr391fkljxdkrpn5xac01m97";
   };
 
   meta = {
     description = "Office program originally named Kingsoft Office";
-    homepage = http://wps-community.org/;
+    homepage = "http://wps-community.org/";
     platforms = [ "i686-linux" "x86_64-linux" ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
     license = stdenv.lib.licenses.unfreeRedistributable;
   };
 

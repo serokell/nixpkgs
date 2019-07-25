@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pythonPackages} :
+{ stdenv, fetchFromGitHub, pythonPackages }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "git-review";
@@ -21,7 +21,7 @@ pythonPackages.buildPythonApplication rec {
   doCheck = false;
 
   meta = {
-    homepage = https://github.com/openstack-infra/git-review;
+    homepage = "https://github.com/openstack-infra/git-review";
     description = "Tool to submit code to Gerrit";
     license = stdenv.lib.licenses.asl20;
   };

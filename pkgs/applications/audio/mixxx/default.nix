@@ -1,9 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, chromaprint
-, fftw, flac, faad2, glibcLocales, mp4v2
-, libid3tag, libmad, libopus, libshout, libsndfile, libusb1, libvorbis
-, libGLU, libxcb, lilv, lv2, opusfile
-, pkgconfig, portaudio, portmidi, protobuf, qtbase, qtscript, qtsvg
-, qtx11extras, rubberband, scons, sqlite, taglib, upower, vampSDK
+{ stdenv, fetchFromGitHub, makeWrapper, chromaprint, fftw, flac, faad2, glibcLocales, mp4v2, libid3tag, libmad, libopus, libshout, libsndfile, libusb1, libvorbis, libGLU, libxcb, lilv, lv2, opusfile, pkgconfig, portaudio, portmidi, protobuf, qtbase, qtscript, qtsvg, qtx11extras, rubberband, scons, sqlite, taglib, upower, vampSDK
 }:
 
 stdenv.mkDerivation rec {
@@ -20,19 +15,43 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [
-    chromaprint fftw flac faad2 glibcLocales mp4v2 libid3tag libmad libopus libshout libsndfile
-    libusb1 libvorbis libxcb libGLU lilv lv2 opusfile pkgconfig portaudio portmidi protobuf qtbase qtscript qtsvg
-    qtx11extras rubberband scons sqlite taglib upower vampSDK
+    chromaprint
+    fftw
+    flac
+    faad2
+    glibcLocales
+    mp4v2
+    libid3tag
+    libmad
+    libopus
+    libshout
+    libsndfile
+    libusb1
+    libvorbis
+    libxcb
+    libGLU
+    lilv
+    lv2
+    opusfile
+    pkgconfig
+    portaudio
+    portmidi
+    protobuf
+    qtbase
+    qtscript
+    qtsvg
+    qtx11extras
+    rubberband
+    scons
+    sqlite
+    taglib
+    upower
+    vampSDK
   ];
 
   enableParallelBuilding = true;
 
-  sconsFlags = [
-    "build=release"
-    "qtdir=${qtbase}"
-    "faad=1"
-    "opus=1"
-  ];
+  sconsFlags = [ "build=release" "qtdir=${qtbase}" "faad=1" "opus=1" ];
 
   fixupPhase = ''
     wrapProgram $out/bin/mixxx \
@@ -40,10 +59,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://mixxx.org;
+    homepage = "https://mixxx.org";
     description = "Digital DJ mixing software";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.aszlig maintainers.goibhniu maintainers.bfortz ];
+    maintainers =
+      [ maintainers.aszlig maintainers.goibhniu maintainers.bfortz ];
     platforms = platforms.linux;
   };
 }

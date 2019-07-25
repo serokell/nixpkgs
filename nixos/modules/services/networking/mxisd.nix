@@ -5,16 +5,15 @@ with lib;
 let
   cfg = config.services.mxisd;
 
-  server = optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; }
-        // optionalAttrs (cfg.server.port != null) { inherit (cfg.server) port; };
+  server =
+    optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; }
+    // optionalAttrs (cfg.server.port != null) { inherit (cfg.server) port; };
 
   baseConfig = {
     matrix.domain = cfg.matrix.domain;
     key.path = "${cfg.dataDir}/signing.key";
-    storage = {
-      provider.sqlite.database = "${cfg.dataDir}/mxisd.db";
-    };
-  } // optionalAttrs (server != {}) { inherit server; };
+    storage = { provider.sqlite.database = "${cfg.dataDir}/mxisd.db"; };
+  } // optionalAttrs (server != { }) { inherit server; };
 
   # merges baseConfig and extraConfig into a single file
   fullConfig = recursiveUpdate baseConfig cfg.extraConfig;
@@ -41,7 +40,7 @@ in {
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         description = "Extra options merged into the mxisd configuration";
       };
 
@@ -80,23 +79,19 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.users = [
-      {
-        name = "mxisd";
-        group = "mxisd";
-        home = cfg.dataDir;
-        createHome = true;
-        shell = "${pkgs.bash}/bin/bash";
-        uid = config.ids.uids.mxisd;
-      }
-    ];
+    users.users = [{
+      name = "mxisd";
+      group = "mxisd";
+      home = cfg.dataDir;
+      createHome = true;
+      shell = "${pkgs.bash}/bin/bash";
+      uid = config.ids.uids.mxisd;
+    }];
 
-    users.groups = [
-      {
-        name = "mxisd";
-        gid = config.ids.gids.mxisd;
-      }
-    ];
+    users.groups = [{
+      name = "mxisd";
+      gid = config.ids.gids.mxisd;
+    }];
 
     systemd.services.mxisd = {
       description = "a federated identity server for the matrix ecosystem";

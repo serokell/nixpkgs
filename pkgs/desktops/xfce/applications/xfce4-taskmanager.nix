@@ -1,7 +1,7 @@
 { stdenv, fetchurl, intltool, pkgconfig, gtk, libwnck }:
 
 stdenv.mkDerivation rec {
-  p_name  = "xfce4-taskmanager";
+  p_name = "xfce4-taskmanager";
   ver_maj = "1.1";
   ver_min = "0";
 

@@ -8,12 +8,11 @@ stdenv.mkDerivation rec {
     sha256 = "1hmai3422iaqnp34kkzxdnywl7n7pvlxp11vrw66ybxn9wxg90c1";
   };
 
-  preConfigure =
-    ''
-       # Fix for building on Glibc 2.16.  Won't be needed once the
-       # gnulib in idutils is updated.
-       sed -i '/gets is a security hole/d' lib/stdio.in.h
-    '';
+  preConfigure = ''
+    # Fix for building on Glibc 2.16.  Won't be needed once the
+    # gnulib in idutils is updated.
+    sed -i '/gets is a security hole/d' lib/stdio.in.h
+  '';
 
   buildInputs = stdenv.lib.optional stdenv.isLinux emacs;
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
       contents of certain character strings.
     '';
 
-    homepage = https://www.gnu.org/software/idutils/;
+    homepage = "https://www.gnu.org/software/idutils/";
     license = stdenv.lib.licenses.gpl3Plus;
 
     maintainers = [ ];

@@ -4,9 +4,9 @@ stdenv.mkDerivation rec {
   pkgname = "conkeror";
   version = "1.0.4";
   name = "${pkgname}-${version}";
- 
+
   src = fetchgit {
-    url = git://repo.or.cz/conkeror.git;
+    url = "git://repo.or.cz/conkeror.git";
     rev = "refs/tags/${version}";
     sha256 = "10c57wqybp9kcjpkb01wxq0h3vafcdb1g5kb4k8sb2zajg59afv8";
   };
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       and interact with content in powerful and novel ways. It is
       self-documenting, featuring a powerful interactive help system.
     '';
-    homepage = http://conkeror.org/;
+    homepage = "http://conkeror.org/";
     license = with licenses; [ mpl11 gpl2 lgpl21 ];
     maintainers = with maintainers; [ astsmtl ];
     platforms = platforms.linux;

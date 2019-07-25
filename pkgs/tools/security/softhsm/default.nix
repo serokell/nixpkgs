@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     "--with-botan=${botan}"
     "--sysconfdir=$out/etc"
     "--localstatedir=$out/var"
-    ];
+  ];
 
   propagatedBuildInputs =
     stdenv.lib.optionals stdenv.isDarwin [ libobjc Security ];
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   postInstall = "rm -rf $out/var";
 
   meta = with stdenv.lib; {
-    homepage = https://www.opendnssec.org/softhsm;
+    homepage = "https://www.opendnssec.org/softhsm";
     description = "Cryptographic store accessible through a PKCS #11 interface";
     license = licenses.bsd2;
     maintainers = [ maintainers.leenaars ];

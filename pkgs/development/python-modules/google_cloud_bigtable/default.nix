@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, grpc_google_iam_v1
-, google_api_core
-, google_cloud_core
-, pytest
-, mock
+{ stdenv, buildPythonPackage, fetchPypi, grpc_google_iam_v1, google_api_core, google_cloud_core, pytest, mock
 }:
 
 buildPythonPackage rec {
@@ -18,7 +11,8 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest mock ];
-  propagatedBuildInputs = [ grpc_google_iam_v1 google_api_core google_cloud_core ];
+  propagatedBuildInputs =
+    [ grpc_google_iam_v1 google_api_core google_cloud_core ];
 
   checkPhase = ''
     pytest tests/unit
@@ -26,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Google Cloud Bigtable API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

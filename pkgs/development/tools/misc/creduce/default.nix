@@ -1,9 +1,4 @@
-{ stdenv, fetchurl, cmake, makeWrapper
-, llvm, clang-unwrapped
-, flex
-, zlib
-, perlPackages
-, utillinux
+{ stdenv, fetchurl, cmake, makeWrapper, llvm, clang-unwrapped, flex, zlib, perlPackages, utillinux
 }:
 
 stdenv.mkDerivation rec {
@@ -20,9 +15,18 @@ stdenv.mkDerivation rec {
     # Ensure stdenv's CC is on PATH before clang-unwrapped
     stdenv.cc
     # Actual deps:
-    llvm clang-unwrapped
-    flex zlib
-  ] ++ (with perlPackages; [ perl ExporterLite FileWhich GetoptTabular RegexpCommon TermReadKey ]);
+    llvm
+    clang-unwrapped
+    flex
+    zlib
+  ] ++ (with perlPackages; [
+    perl
+    ExporterLite
+    FileWhich
+    GetoptTabular
+    RegexpCommon
+    TermReadKey
+  ]);
 
   # On Linux, c-reduce's preferred way to reason about
   # the cpu architecture/topology is to use 'lscpu',
@@ -32,7 +36,6 @@ stdenv.mkDerivation rec {
       lscpu ${utillinux}/bin/lscpu
   '';
 
-
   enableParallelBuilding = true;
 
   postInstall = ''
@@ -41,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A C program reducer";
-    homepage = https://embed.cs.utah.edu/creduce;
+    homepage = "https://embed.cs.utah.edu/creduce";
     # Officially, the license is: https://github.com/csmith-project/creduce/blob/master/COPYING
     license = licenses.ncsa;
     longDescription = ''

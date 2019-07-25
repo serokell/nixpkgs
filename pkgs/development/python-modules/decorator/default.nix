@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "decorator";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    homepage = https://pypi.python.org/pypi/decorator;
+    homepage = "https://pypi.python.org/pypi/decorator";
     description = "Better living through Python with decorators";
     license = lib.licenses.mit;
     maintainers = [ maintainers.costrouc ];

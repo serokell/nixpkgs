@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, samba, pkgconfig
-, setuptools }:
+{ stdenv, buildPythonPackage, fetchPypi, samba, pkgconfig, setuptools }:
 
 buildPythonPackage rec {
   version = "1.0.16";
@@ -17,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "libsmbclient binding for Python";
-    homepage = https://github.com/hamano/pysmbc;
+    homepage = "https://github.com/hamano/pysmbc";
     license = licenses.gpl2Plus;
   };
 }

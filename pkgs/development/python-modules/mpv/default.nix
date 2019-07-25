@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "mpv";
@@ -14,7 +10,8 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pkgs.mpv ];
-  patchPhase = "substituteInPlace mpv.py --replace libmpv.so ${pkgs.mpv}/lib/libmpv.so";
+  patchPhase =
+    "substituteInPlace mpv.py --replace libmpv.so ${pkgs.mpv}/lib/libmpv.so";
 
   meta = with stdenv.lib; {
     description = "A python interface to the mpv media player";

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, coreutils, gnugrep, gnused, makeWrapper, git
-}:
+{ stdenv, fetchFromGitHub, coreutils, gnugrep, gnused, makeWrapper, git }:
 
 stdenv.mkDerivation rec {
   name = "git-sync-${version}";
@@ -21,12 +20,7 @@ stdenv.mkDerivation rec {
     cp -a git-sync $out/bin/git-sync
   '';
 
-  wrapperPath = with stdenv.lib; makeBinPath [
-    coreutils
-    git
-    gnugrep
-    gnused
-  ];
+  wrapperPath = with stdenv.lib; makeBinPath [ coreutils git gnugrep gnused ];
 
   fixupPhase = ''
     patchShebangs $out/bin
@@ -37,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A script to automatically synchronize a git repository";
-    homepage = https://github.com/simonthum/git-sync;
+    homepage = "https://github.com/simonthum/git-sync";
     maintainers = with stdenv.lib.maintainers; [ imalison ];
     license = stdenv.lib.licenses.cc0;
     platforms = with stdenv.lib.platforms; unix;

@@ -1,20 +1,18 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, python, zlib, clang
-, ncurses, pytest, docutils, pygments, numpy, scipy, scikitlearn }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, python, zlib, clang, ncurses, pytest, docutils, pygments, numpy, scipy, scikitlearn
+}:
 
 buildPythonPackage rec {
   pname = "vowpalwabbit";
   version = "8.5.0";
 
-  src = fetchPypi{
+  src = fetchPypi {
     inherit pname version;
     sha256 = "0b517371fc64f1c728a0af42a31fa93def27306e9b4d25d6e5fd01bcff1b7304";
   };
 
   # Should be fixed in next Python release after 8.5.0:
   # https://github.com/JohnLangford/vowpal_wabbit/pull/1533
-  patches = [
-    ./vowpal-wabbit-find-boost.diff
-  ];
+  patches = [ ./vowpal-wabbit-find-boost.diff ];
 
   # vw tries to write some explicit things to home
   # python installed: The directory '/homeless-shelter/.cache/pip/http'
@@ -38,10 +36,11 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Vowpal Wabbit is a fast machine learning library for online learning, and this is the python wrapper for the project.";
-    homepage    = https://github.com/JohnLangford/vowpal_wabbit;
-    license     = licenses.bsd3;
-    broken      = stdenv.isAarch64;
+    description =
+      "Vowpal Wabbit is a fast machine learning library for online learning, and this is the python wrapper for the project.";
+    homepage = "https://github.com/JohnLangford/vowpal_wabbit";
+    license = licenses.bsd3;
+    broken = stdenv.isAarch64;
     maintainers = with maintainers; [ teh ];
   };
 }

@@ -1,5 +1,5 @@
 { fetchurl, stdenv, libconfuse, yajl, alsaLib, libpulseaudio, libnl, pkgconfig
-  }:
+}:
 
 stdenv.mkDerivation rec {
   name = "i3status-2.12";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A tiling window manager";
-    homepage = https://i3wm.org;
+    homepage = "https://i3wm.org";
     maintainers = [ ];
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.all;

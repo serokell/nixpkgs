@@ -9,9 +9,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ qtbase qtcharts libXrandr libdrm ];
 
   src = (fetchFromGitHub {
-    owner  = "marazmista";
-    repo   = "radeon-profile";
-    rev    = version;
+    owner = "marazmista";
+    repo = "radeon-profile";
+    rev = version;
     sha256 = "08fv824iq00zbl9xk9zsfs8gkk8rsy6jlxbmszrjfx7ji28hansd";
   }) + "/radeon-profile";
 
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Application to read current clocks of AMD Radeon cards";
-    homepage    = https://github.com/marazmista/radeon-profile;
-    license     = licenses.gpl2Plus;
-    platforms   = platforms.linux;
+    homepage = "https://github.com/marazmista/radeon-profile";
+    license = licenses.gpl2Plus;
+    platforms = platforms.linux;
   };
 
 }

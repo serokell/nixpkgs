@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  kcoreaddons, ki18n, kio, kwidgetsaddons, samba
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcoreaddons, ki18n, kio, kwidgetsaddons, samba
 }:
 
 mkDerivation {

@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, unzip, which
-, libuuid, attr, xfsprogs, cppunit, rdma-core
-, zlib, openssl, sqlite, jre, openjdk, ant
-, openssh, perl, gfortran, influxdb, curl
-} :
+{ stdenv, fetchurl, pkgconfig, unzip, which, libuuid, attr, xfsprogs, cppunit, rdma-core, zlib, openssl, sqlite, jre, openjdk, ant, openssh, perl, gfortran, influxdb, curl
+}:
 
 let
   version = "7.0";
@@ -30,7 +27,8 @@ in stdenv.mkDerivation rec {
   name = "beegfs-${version}";
 
   src = fetchurl {
-    url = "https://git.beegfs.com/pub/v7/repository/archive.tar.bz2?ref=${version}";
+    url =
+      "https://git.beegfs.com/pub/v7/repository/archive.tar.bz2?ref=${version}";
     sha256 = "1wsljd5ybyhl94aqrdfvcs8a0l8w4pr0bs1vhjrf4y7ldhw35m3k";
   };
 

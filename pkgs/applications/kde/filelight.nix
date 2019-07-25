@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  kio, kparts, kxmlgui, qtscript, solid
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, kparts, kxmlgui, qtscript, solid
 }:
 
 mkDerivation {
@@ -11,8 +8,6 @@ mkDerivation {
     maintainers = with lib.maintainers; [ fridh vcunat ];
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs = [
-    kio kparts kxmlgui qtscript solid
-  ];
+  propagatedBuildInputs = [ kio kparts kxmlgui qtscript solid ];
   outputs = [ "out" "dev" ];
 }

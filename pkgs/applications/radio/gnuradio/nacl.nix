@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, gnuradio, uhd
-, makeWrapper, libsodium, cppunit
-, pythonSupport ? true, python, swig
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, gnuradio, uhd, makeWrapper, libsodium, cppunit, pythonSupport ?
+  true, python, swig }:
 
 assert pythonSupport -> python != null && swig != null;
 
@@ -17,9 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    cmake boost gnuradio uhd makeWrapper libsodium cppunit
-  ] ++ stdenv.lib.optionals pythonSupport [ python swig ];
+  buildInputs = [ cmake boost gnuradio uhd makeWrapper libsodium cppunit ]
+    ++ stdenv.lib.optionals pythonSupport [ python swig ];
 
   postInstall = ''
     for prog in "$out"/bin/*; do
@@ -31,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Gnuradio block for encryption";
-    homepage = https://github.com/stwunsch/gr-nacl;
+    homepage = "https://github.com/stwunsch/gr-nacl";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ mog ];

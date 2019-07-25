@@ -7,9 +7,8 @@ assert elem precision [ "single" "double" "long-double" "quad-precision" ];
 let
   version = "3.3.8";
   withDoc = stdenv.cc.isGNU;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "fftw-${precision}-${version}";
 
   src = fetchurl {
@@ -24,15 +23,14 @@ stdenv.mkDerivation rec {
     ++ optional withDoc "info"; # it's dev-doc only
   outputBin = "dev"; # fftw-wisdom
 
-  configureFlags =
-    [ "--enable-shared" "--disable-static"
-      "--enable-threads"
-    ]
+  configureFlags = [ "--enable-shared" "--disable-static" "--enable-threads" ]
     ++ optional (precision != "double") "--enable-${precision}"
     # all x86_64 have sse2
     # however, not all float sizes fit
-    ++ optional (stdenv.isx86_64 && (precision == "single" || precision == "double") )  "--enable-sse2"
-    ++ optional (stdenv.cc.isGNU && !stdenv.hostPlatform.isMusl) "--enable-openmp"
+    ++ optional
+    (stdenv.isx86_64 && (precision == "single" || precision == "double"))
+    "--enable-sse2" ++ optional (stdenv.cc.isGNU && !stdenv.hostPlatform.isMusl)
+    "--enable-openmp"
     # doc generation causes Fortran wrapper generation which hard-codes gcc
     ++ optional (!withDoc) "--disable-doc";
 
@@ -42,7 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Fastest Fourier Transform in the West library";
-    homepage = http://www.fftw.org/;
+    homepage = "http://www.fftw.org/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.spwhitt ];
     platforms = platforms.unix;

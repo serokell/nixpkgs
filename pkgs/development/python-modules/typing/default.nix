@@ -1,7 +1,6 @@
 { lib, buildPythonPackage, fetchPypi, pythonOlder, isPy3k, isPyPy, python }:
 
-let
-  testDir = if isPy3k then "src" else "python2";
+let testDir = if isPy3k then "src" else "python2";
 
 in buildPythonPackage rec {
   pname = "typing";
@@ -24,7 +23,7 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     description = "Backport of typing module to Python versions older than 3.5";
-    homepage = https://docs.python.org/3/library/typing.html;
+    homepage = "https://docs.python.org/3/library/typing.html";
     license = licenses.psfl;
   };
 }

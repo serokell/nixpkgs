@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, isPy3k
-, gipc
-, greenlet
-, httplib2
-, six
-, dateutil
-, fusepy
-, google_api_python_client
+{ stdenv, buildPythonPackage, fetchurl, isPy3k, gipc, greenlet, httplib2, six, dateutil, fusepy, google_api_python_client
 }:
 
 buildPythonPackage rec {
@@ -40,7 +30,7 @@ buildPythonPackage rec {
         (Google Doc files do not have a particular format).
       - Allow for the same file at multiple paths.
     '';
-    homepage = https://github.com/dsoprea/GDriveFS;
+    homepage = "https://github.com/dsoprea/GDriveFS";
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

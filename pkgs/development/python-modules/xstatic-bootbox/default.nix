@@ -1,7 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-}:
+{ buildPythonPackage, lib, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "XStatic-Bootbox";
@@ -15,8 +12,8 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  meta = with lib;{
-    homepage = http://bootboxjs.com;
+  meta = with lib; {
+    homepage = "http://bootboxjs.com";
     description = "Bootboxjs packaged static files for python";
     license = licenses.mit;
     maintainers = with maintainers; [ makefu ];

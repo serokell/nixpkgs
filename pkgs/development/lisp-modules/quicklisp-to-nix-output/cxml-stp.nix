@@ -1,22 +1,36 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cxml-stp'';
-  version = ''20181018-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cxml-stp";
+  version = "20181018-git";
 
   parasites = [ "cxml-stp-test" ];
 
-  description = '''';
+  description = "";
 
-  deps = [ args."alexandria" args."babel" args."cl-ppcre" args."closure-common" args."cxml" args."parse-number" args."puri" args."rt" args."trivial-features" args."trivial-gray-streams" args."xpath" args."xpath_slash_test" args."yacc" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cl-ppcre"
+    args."closure-common"
+    args."cxml"
+    args."parse-number"
+    args."puri"
+    args."rt"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."xpath"
+    args."xpath_slash_test"
+    args."yacc"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cxml-stp/2018-10-18/cxml-stp-20181018-git.tgz'';
-    sha256 = ''0xv6drasndp802mgww53n6hpf0qjh2r7d48rld1qibf20y80bz77'';
+    url =
+      "http://beta.quicklisp.org/archive/cxml-stp/2018-10-18/cxml-stp-20181018-git.tgz";
+    sha256 = "0xv6drasndp802mgww53n6hpf0qjh2r7d48rld1qibf20y80bz77";
   };
 
   packageName = "cxml-stp";
 
-  asdFilesToKeep = ["cxml-stp.asd"];
+  asdFilesToKeep = [ "cxml-stp.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cxml-stp DESCRIPTION NIL SHA256
@@ -34,4 +48,5 @@ rec {
     DEPENDENCIES
     (alexandria babel cl-ppcre closure-common cxml parse-number puri rt
      trivial-features trivial-gray-streams xpath xpath/test yacc)
-    VERSION 20181018-git SIBLINGS NIL PARASITES (cxml-stp-test)) */
+    VERSION 20181018-git SIBLINGS NIL PARASITES (cxml-stp-test))
+*/

@@ -1,23 +1,24 @@
-{ stdenv, fetchurl, gfortran, readline, ncurses, perl, flex, texinfo, qhull
-, libsndfile, portaudio, libX11, graphicsmagick, pcre, pkgconfig, libGLU_combined, fltk
-, fftw, fftwSinglePrec, zlib, curl, qrupdate, openblas, arpack, libwebp
-, qt ? null, qscintilla ? null, ghostscript ? null, llvm ? null, hdf5 ? null,glpk ? null
-, suitesparse ? null, gnuplot ? null, jdk ? null, python ? null, overridePlatforms ? null
-}:
+{ stdenv, fetchurl, gfortran, readline, ncurses, perl, flex, texinfo, qhull, libsndfile, portaudio, libX11, graphicsmagick, pcre, pkgconfig, libGLU_combined, fltk, fftw, fftwSinglePrec, zlib, curl, qrupdate, openblas, arpack, libwebp, qt ?
+  null, qscintilla ? null, ghostscript ? null, llvm ? null, hdf5 ? null, glpk ?
+    null, suitesparse ? null, gnuplot ? null, jdk ? null, python ?
+      null, overridePlatforms ? null }:
 
 let
   suitesparseOrig = suitesparse;
   qrupdateOrig = qrupdate;
-in
-# integer width is determined by openblas, so all dependencies must be built
-# with exactly the same openblas
-let
-  suitesparse =
-    if suitesparseOrig != null then suitesparseOrig.override { inherit openblas; } else null;
-  qrupdate = if qrupdateOrig != null then qrupdateOrig.override { inherit openblas; } else null;
-in
+  # integer width is determined by openblas, so all dependencies must be built
+  # with exactly the same openblas
+in let
+  suitesparse = if suitesparseOrig != null then
+    suitesparseOrig.override { inherit openblas; }
+  else
+    null;
+  qrupdate = if qrupdateOrig != null then
+    qrupdateOrig.override { inherit openblas; }
+  else
+    null;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "5.1.0";
   name = "octave-${version}";
   src = fetchurl {
@@ -25,10 +26,29 @@ stdenv.mkDerivation rec {
     sha256 = "15blrldzwyxma16rnd4n01gnsrriii0dwmyca6m7qz62r8j12sz3";
   };
 
-  buildInputs = [ gfortran readline ncurses perl flex texinfo qhull
-    graphicsmagick pcre pkgconfig fltk zlib curl openblas libsndfile fftw
-    fftwSinglePrec portaudio qrupdate arpack libwebp ]
-    ++ (stdenv.lib.optional (qt != null) qt)
+  buildInputs = [
+    gfortran
+    readline
+    ncurses
+    perl
+    flex
+    texinfo
+    qhull
+    graphicsmagick
+    pcre
+    pkgconfig
+    fltk
+    zlib
+    curl
+    openblas
+    libsndfile
+    fftw
+    fftwSinglePrec
+    portaudio
+    qrupdate
+    arpack
+    libwebp
+  ] ++ (stdenv.lib.optional (qt != null) qt)
     ++ (stdenv.lib.optional (qscintilla != null) qscintilla)
     ++ (stdenv.lib.optional (ghostscript != null) ghostscript)
     ++ (stdenv.lib.optional (llvm != null) llvm)
@@ -38,8 +58,7 @@ stdenv.mkDerivation rec {
     ++ (stdenv.lib.optional (jdk != null) jdk)
     ++ (stdenv.lib.optional (gnuplot != null) gnuplot)
     ++ (stdenv.lib.optional (python != null) python)
-    ++ (stdenv.lib.optionals (!stdenv.isDarwin) [ libGLU_combined libX11 ])
-    ;
+    ++ (stdenv.lib.optionals (!stdenv.isDarwin) [ libGLU_combined libX11 ]);
 
   # makeinfo is required by Octave at runtime to display help
   prePatch = ''
@@ -55,15 +74,13 @@ stdenv.mkDerivation rec {
   # See https://savannah.gnu.org/bugs/?50339
   F77_INTEGER_8_FLAG = if openblas.blas64 then "-fdefault-integer-8" else "";
 
-  configureFlags =
-    [ "--enable-readline"
-      "--enable-dl"
-      "--with-blas=openblas"
-      "--with-lapack=openblas"
-    ]
-    ++ stdenv.lib.optional openblas.blas64 "--enable-64"
-    ++ stdenv.lib.optionals stdenv.isDarwin ["--with-x=no"]
-    ;
+  configureFlags = [
+    "--enable-readline"
+    "--enable-dl"
+    "--with-blas=openblas"
+    "--with-lapack=openblas"
+  ] ++ stdenv.lib.optional openblas.blas64 "--enable-64"
+    ++ stdenv.lib.optionals stdenv.isDarwin [ "--with-x=no" ];
 
   # Keep a copy of the octave tests detailed results in the output
   # derivation, because someone may care
@@ -77,12 +94,13 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    homepage = http://octave.org/;
+    homepage = "http://octave.org/";
     license = stdenv.lib.licenses.gpl3Plus;
-    maintainers = with stdenv.lib.maintainers; [raskin];
+    maintainers = with stdenv.lib.maintainers; [ raskin ];
     description = "Scientific Pragramming Language";
     platforms = if overridePlatforms == null then
       (with stdenv.lib.platforms; linux ++ darwin)
-    else overridePlatforms;
+    else
+      overridePlatforms;
   };
 }

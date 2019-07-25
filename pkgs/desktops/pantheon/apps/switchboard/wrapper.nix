@@ -1,9 +1,7 @@
 { makeWrapper, symlinkJoin, switchboard, switchboardPlugs, plugs }:
 
-let
-  selectedPlugs = if plugs == null then switchboardPlugs else plugs;
-in
-symlinkJoin {
+let selectedPlugs = if plugs == null then switchboardPlugs else plugs;
+in symlinkJoin {
   name = "${switchboard.name}-with-plugs";
 
   paths = [ switchboard ] ++ selectedPlugs;

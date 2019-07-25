@@ -16,8 +16,9 @@ buildPythonApplication rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/myint/autoflake;
-    description = "A simple program which removes unused imports and unused variables as reported by pyflakes";
+    homepage = "https://github.com/myint/autoflake";
+    description =
+      "A simple program which removes unused imports and unused variables as reported by pyflakes";
     license = licenses.mit;
     maintainers = with maintainers; [ yuriaisaka ];
   };

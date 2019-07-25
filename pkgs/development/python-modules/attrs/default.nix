@@ -1,5 +1,5 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pytest, hypothesis, zope_interface
-, pympler, coverage, six, clang }:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pytest, hypothesis, zope_interface, pympler, coverage, six, clang
+}:
 
 buildPythonPackage rec {
   pname = "attrs";
@@ -11,9 +11,8 @@ buildPythonPackage rec {
   };
 
   # macOS needs clang for testing
-  checkInputs = [
-    pytest hypothesis zope_interface pympler coverage six
-  ] ++ lib.optionals (stdenv.isDarwin) [ clang ];
+  checkInputs = [ pytest hypothesis zope_interface pympler coverage six ]
+    ++ lib.optionals (stdenv.isDarwin) [ clang ];
 
   checkPhase = ''
     py.test
@@ -24,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python attributes without boilerplate";
-    homepage = https://github.com/hynek/attrs;
+    homepage = "https://github.com/hynek/attrs";
     license = licenses.mit;
   };
 }

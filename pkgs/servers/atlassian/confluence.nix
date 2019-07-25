@@ -1,14 +1,12 @@
-{ stdenv, lib, fetchurl
-, enableSSO ? false
-, crowdProperties ? null
-}:
+{ stdenv, lib, fetchurl, enableSSO ? false, crowdProperties ? null }:
 
 stdenv.mkDerivation rec {
   name = "atlassian-confluence-${version}";
   version = "6.15.6";
 
   src = fetchurl {
-    url = "https://product-downloads.atlassian.com/software/confluence/downloads/${name}.tar.gz";
+    url =
+      "https://product-downloads.atlassian.com/software/confluence/downloads/${name}.tar.gz";
     sha256 = "0bb404d5i8jdry1jw8qdrcpgp9lvdkyxry58331pwpw16mlh0r2m";
   };
 
@@ -36,8 +34,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Team collaboration software written in Java and mainly used in corporate environments";
-    homepage = https://www.atlassian.com/software/confluence;
+    description =
+      "Team collaboration software written in Java and mainly used in corporate environments";
+    homepage = "https://www.atlassian.com/software/confluence";
     license = licenses.unfree;
     maintainers = with maintainers; [ fpletz globin ];
   };

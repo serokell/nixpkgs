@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python }:
 buildPythonPackage rec {
   pname = "plac";
   version = "1.0.0";
@@ -13,14 +9,14 @@ buildPythonPackage rec {
   };
 
   checkPhase = ''
-      cd doc
-      ${python.interpreter} -m unittest discover -p "*test_plac*"
-    '';
-  
+    cd doc
+    ${python.interpreter} -m unittest discover -p "*test_plac*"
+  '';
+
   meta = with stdenv.lib; {
     description = "Parsing the Command Line the Easy Way";
-    homepage = https://github.com/micheles/plac;
+    homepage = "https://github.com/micheles/plac";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ sdll ];
-    };
+  };
 }

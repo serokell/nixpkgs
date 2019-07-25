@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL2, libGL, libpng, libjpeg, SDL2_ttf, libvorbis, gettext
-, physfs }:
+{ stdenv, fetchurl, SDL2, libGL, libpng, libjpeg, SDL2_ttf, libvorbis, gettext, physfs
+}:
 
 stdenv.mkDerivation rec {
   name = "neverball-1.6.0";
@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://neverball.org/;
+    homepage = "https://neverball.org/";
     description = "Tilt the floor to roll a ball";
     license = "GPL";
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

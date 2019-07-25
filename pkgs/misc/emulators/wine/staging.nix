@@ -1,14 +1,16 @@
 { stdenv, callPackage, wineUnstable, libtxc_dxtn_Name }:
 
-with callPackage ./util.nix {};
+with callPackage ./util.nix { };
 
-let patch = (callPackage ./sources.nix {}).staging;
-    build-inputs = pkgNames: extra:
-      (mkBuildInputs wineUnstable.pkgArches pkgNames) ++ extra;
+let
+  patch = (callPackage ./sources.nix { }).staging;
+  build-inputs = pkgNames: extra:
+    (mkBuildInputs wineUnstable.pkgArches pkgNames) ++ extra;
 in assert (builtins.parseDrvName wineUnstable.name).version == patch.version;
 
 stdenv.lib.overrideDerivation wineUnstable (self: {
-  buildInputs = build-inputs [ "perl" "utillinux" "autoconf" libtxc_dxtn_Name ] self.buildInputs;
+  buildInputs = build-inputs [ "perl" "utillinux" "autoconf" libtxc_dxtn_Name ]
+    self.buildInputs;
 
   name = "${self.name}-staging";
 

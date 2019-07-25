@@ -1,10 +1,8 @@
-{ llvmPackages, stdenv, fetchFromGitHub
-, python36Packages, which, pkgconfig, curl, git, gettext, jansson
+{ llvmPackages, stdenv, fetchFromGitHub, python36Packages, which, pkgconfig, curl, git, gettext, jansson
 
 # Optional overrides
 , maxFileSize ? 64 # in MB
-, provider ? "https://ptpb.pw/"
-}:
+, provider ? "https://ptpb.pw/" }:
 
 llvmPackages.stdenv.mkDerivation rec {
   version = "unstable-2018-01-11";
@@ -17,14 +15,8 @@ llvmPackages.stdenv.mkDerivation rec {
     sha256 = "0dwhmw1dg4hg75nlvk5kmvv3slz2n3b9x65q4ig16agwqfsp4mdm";
   };
 
-  nativeBuildInputs = [
-    python36Packages.sphinx
-    which
-    pkgconfig
-    curl
-    git
-    gettext
-  ];
+  nativeBuildInputs =
+    [ python36Packages.sphinx which pkgconfig curl git gettext ];
   buildInputs = [ curl jansson ];
 
   patchPhase = ''

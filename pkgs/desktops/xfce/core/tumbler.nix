@@ -1,11 +1,10 @@
-{ stdenv, fetchurl, pkgconfig, intltool, dbus-glib, gdk_pixbuf, curl, freetype
-, libgsf, poppler, bzip2 }:
+{ stdenv, fetchurl, pkgconfig, intltool, dbus-glib, gdk_pixbuf, curl, freetype, libgsf, poppler, bzip2
+}:
 let
-  p_name  = "tumbler";
+  p_name = "tumbler";
   ver_maj = "0.1";
   ver_min = "31";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -16,10 +15,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    intltool dbus-glib gdk_pixbuf curl freetype
-    poppler libgsf bzip2
-  ];
+  buildInputs =
+    [ intltool dbus-glib gdk_pixbuf curl freetype poppler libgsf bzip2 ];
 
   configureFlags = [
     # Needs gst-tag
@@ -33,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = http://git.xfce.org/xfce/tumbler/;
+    homepage = "http://git.xfce.org/xfce/tumbler/";
     description = "A D-Bus thumbnailer service";
     platforms = platforms.linux;
     license = licenses.gpl2;

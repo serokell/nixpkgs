@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, mozversion
-, mozrunner
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, mozversion, mozrunner }:
 
 buildPythonPackage rec {
   pname = "marionette_driver";
@@ -16,11 +10,11 @@ buildPythonPackage rec {
     sha256 = "15c77ba548847dc05ce1b663a22c3324623f217dce5a859c3aaced31fd16707b";
   };
 
-  propagatedBuildInputs = [ mozversion mozrunner ]; 
+  propagatedBuildInputs = [ mozversion mozrunner ];
 
   meta = {
     description = "Mozilla Marionette driver";
-    homepage = https://wiki.mozilla.org/Auto-tools/Projects/Marionette;
+    homepage = "https://wiki.mozilla.org/Auto-tools/Projects/Marionette";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ raskin ];
   };

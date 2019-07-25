@@ -4,165 +4,166 @@ with lib;
 let
   cfg = config.docker-containers;
 
-  dockerContainer =
-    { ... }: {
+  dockerContainer = { ... }: {
 
-      options = {
+    options = {
 
-        image = mkOption {
-          type = types.str;
-          description = "Docker image to run.";
-          example = "library/hello-world";
-        };
+      image = mkOption {
+        type = types.str;
+        description = "Docker image to run.";
+        example = "library/hello-world";
+      };
 
-        cmd = mkOption {
-          type =  with types; listOf str;
-          default = [];
-          description = "Commandline arguments to pass to the image's entrypoint.";
-          example = literalExample ''
-            ["--port=9000"]
-          '';
-        };
-
-        entrypoint = mkOption {
-          type = with types; nullOr str;
-          description = "Overwrite the default entrypoint of the image.";
-          default = null;
-          example = "/bin/my-app";
-        };
-
-        environment = mkOption {
-          type = with types; attrsOf str;
-          default = {};
-          description = "Environment variables to set for this container.";
-          example = literalExample ''
-            {
-              DATABASE_HOST = "db.example.com";
-              DATABASE_PORT = "3306";
-            }
+      cmd = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+        description =
+          "Commandline arguments to pass to the image's entrypoint.";
+        example = literalExample ''
+          ["--port=9000"]
         '';
-        };
+      };
 
-        log-driver = mkOption {
-          type = types.str;
-          default = "none";
-          description = ''
-            Logging driver for the container.  The default of
-            <literal>"none"</literal> means that the container's logs will be
-            handled as part of the systemd unit.  Setting this to
-            <literal>"journald"</literal> will result in duplicate logging, but
-            the container's logs will be visible to the <command>docker
-            logs</command> command.
+      entrypoint = mkOption {
+        type = with types; nullOr str;
+        description = "Overwrite the default entrypoint of the image.";
+        default = null;
+        example = "/bin/my-app";
+      };
 
-            For more details and a full list of logging drivers, refer to the
-            <link xlink:href="https://docs.docker.com/engine/reference/run/#logging-drivers---log-driver">
-            Docker engine documentation</link>
-          '';
-        };
+      environment = mkOption {
+        type = with types; attrsOf str;
+        default = { };
+        description = "Environment variables to set for this container.";
+        example = literalExample ''
+          {
+            DATABASE_HOST = "db.example.com";
+            DATABASE_PORT = "3306";
+          }
+        '';
+      };
 
-        ports = mkOption {
-          type = with types; listOf str;
-          default = [];
-          description = ''
-            Network ports to publish from the container to the outer host.
+      log-driver = mkOption {
+        type = types.str;
+        default = "none";
+        description = ''
+          Logging driver for the container.  The default of
+          <literal>"none"</literal> means that the container's logs will be
+          handled as part of the systemd unit.  Setting this to
+          <literal>"journald"</literal> will result in duplicate logging, but
+          the container's logs will be visible to the <command>docker
+          logs</command> command.
 
-            Valid formats:
+          For more details and a full list of logging drivers, refer to the
+          <link xlink:href="https://docs.docker.com/engine/reference/run/#logging-drivers---log-driver">
+          Docker engine documentation</link>
+        '';
+      };
 
-            <itemizedlist>
-              <listitem>
-                <para>
-                  <literal>&lt;ip&gt;:&lt;hostPort&gt;:&lt;containerPort&gt;</literal>
-                </para>
-              </listitem>
-              <listitem>
-                <para>
-                  <literal>&lt;ip&gt;::&lt;containerPort&gt;</literal>
-                </para>
-              </listitem>
-              <listitem>
-                <para>
-                  <literal>&lt;hostPort&gt;:&lt;containerPort&gt;</literal>
-                </para>
-              </listitem>
-              <listitem>
-                <para>
-                  <literal>&lt;containerPort&gt;</literal>
-                </para>
-              </listitem>
-            </itemizedlist>
+      ports = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+        description = ''
+          Network ports to publish from the container to the outer host.
 
-            Both <literal>hostPort</literal> and
-            <literal>containerPort</literal> can be specified as a range of
-            ports.  When specifying ranges for both, the number of container
-            ports in the range must match the number of host ports in the
-            range.  Example: <literal>1234-1236:1234-1236/tcp</literal>
+          Valid formats:
 
-            When specifying a range for <literal>hostPort</literal> only, the
-            <literal>containerPort</literal> must <emphasis>not</emphasis> be a
-            range.  In this case, the container port is published somewhere
-            within the specified <literal>hostPort</literal> range.  Example:
-            <literal>1234-1236:1234/tcp</literal>
+          <itemizedlist>
+            <listitem>
+              <para>
+                <literal>&lt;ip&gt;:&lt;hostPort&gt;:&lt;containerPort&gt;</literal>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <literal>&lt;ip&gt;::&lt;containerPort&gt;</literal>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <literal>&lt;hostPort&gt;:&lt;containerPort&gt;</literal>
+              </para>
+            </listitem>
+            <listitem>
+              <para>
+                <literal>&lt;containerPort&gt;</literal>
+              </para>
+            </listitem>
+          </itemizedlist>
 
-            Refer to the
-            <link xlink:href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports">
-            Docker engine documentation</link> for full details.
-          '';
-          example = literalExample ''
-            [
-              "8080:9000"
-            ]
-          '';
-        };
+          Both <literal>hostPort</literal> and
+          <literal>containerPort</literal> can be specified as a range of
+          ports.  When specifying ranges for both, the number of container
+          ports in the range must match the number of host ports in the
+          range.  Example: <literal>1234-1236:1234-1236/tcp</literal>
 
-        user = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = ''
-            Override the username or UID (and optionally groupname or GID) used
-            in the container.
-          '';
-          example = "nobody:nogroup";
-        };
+          When specifying a range for <literal>hostPort</literal> only, the
+          <literal>containerPort</literal> must <emphasis>not</emphasis> be a
+          range.  In this case, the container port is published somewhere
+          within the specified <literal>hostPort</literal> range.  Example:
+          <literal>1234-1236:1234/tcp</literal>
 
-        volumes = mkOption {
-          type = with types; listOf str;
-          default = [];
-          description = ''
-            List of volumes to attach to this container.
+          Refer to the
+          <link xlink:href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports">
+          Docker engine documentation</link> for full details.
+        '';
+        example = literalExample ''
+          [
+            "8080:9000"
+          ]
+        '';
+      };
 
-            Note that this is a list of <literal>"src:dst"</literal> strings to
-            allow for <literal>src</literal> to refer to
-            <literal>/nix/store</literal> paths, which would difficult with an
-            attribute set.  There are also a variety of mount options available
-            as a third field; please refer to the
-            <link xlink:href="https://docs.docker.com/engine/reference/run/#volume-shared-filesystems">
-            docker engine documentation</link> for details.
-          '';
-          example = literalExample ''
-            [
-              "volume_name:/path/inside/container"
-              "/path/on/host:/path/inside/container"
-            ]
-          '';
-        };
+      user = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = ''
+          Override the username or UID (and optionally groupname or GID) used
+          in the container.
+        '';
+        example = "nobody:nogroup";
+      };
 
-        workdir = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = "Override the default working directory for the container.";
-          example = "/var/lib/hello_world";
-        };
+      volumes = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+        description = ''
+          List of volumes to attach to this container.
 
-        extraDockerOptions = mkOption {
-          type = with types; listOf str;
-          default = [];
-          description = "Extra options for <command>docker run</command>.";
-          example = literalExample ''
-            ["--network=host"]
-          '';
-        };
+          Note that this is a list of <literal>"src:dst"</literal> strings to
+          allow for <literal>src</literal> to refer to
+          <literal>/nix/store</literal> paths, which would difficult with an
+          attribute set.  There are also a variety of mount options available
+          as a third field; please refer to the
+          <link xlink:href="https://docs.docker.com/engine/reference/run/#volume-shared-filesystems">
+          docker engine documentation</link> for details.
+        '';
+        example = literalExample ''
+          [
+            "volume_name:/path/inside/container"
+            "/path/on/host:/path/inside/container"
+          ]
+        '';
+      };
+
+      workdir = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description =
+          "Override the default working directory for the container.";
+        example = "/var/lib/hello_world";
+      };
+
+      extraDockerOptions = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+        description = "Extra options for <command>docker run</command>.";
+        example = literalExample ''
+          ["--network=host"]
+        '';
       };
     };
+  };
 
   mkService = name: container: {
     wantedBy = [ "multi-user.target" ];
@@ -176,15 +177,16 @@ let
         "--log-driver=${container.log-driver}"
       ] ++ optional (container.entrypoint != null)
         "--entrypoint=${escapeShellArg container.entrypoint}"
-        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}") container.environment)
+        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
+        container.environment)
         ++ map (p: "-p ${escapeShellArg p}") container.ports
-        ++ optional (container.user != null) "-u ${escapeShellArg container.user}"
+        ++ optional (container.user != null)
+        "-u ${escapeShellArg container.user}"
         ++ map (v: "-v ${escapeShellArg v}") container.volumes
-        ++ optional (container.workdir != null) "-w ${escapeShellArg container.workdir}"
+        ++ optional (container.workdir != null)
+        "-w ${escapeShellArg container.workdir}"
         ++ map escapeShellArg container.extraDockerOptions
-        ++ [container.image]
-        ++ map escapeShellArg container.cmd
-      );
+        ++ [ container.image ] ++ map escapeShellArg container.cmd);
       ExecStartPre = "-${pkgs.docker}/bin/docker rm -f %n";
       ExecStop = "${pkgs.docker}/bin/docker stop %n";
       ExecStopPost = "-${pkgs.docker}/bin/docker rm -f %n";
@@ -214,14 +216,15 @@ let
 in {
 
   options.docker-containers = mkOption {
-    default = {};
+    default = { };
     type = types.attrsOf (types.submodule dockerContainer);
     description = "Docker containers to run as systemd services.";
   };
 
-  config = mkIf (cfg != {}) {
+  config = mkIf (cfg != { }) {
 
-    systemd.services = mapAttrs' (n: v: nameValuePair "docker-${n}" (mkService n v)) cfg;
+    systemd.services =
+      mapAttrs' (n: v: nameValuePair "docker-${n}" (mkService n v)) cfg;
 
     virtualisation.docker.enable = true;
 

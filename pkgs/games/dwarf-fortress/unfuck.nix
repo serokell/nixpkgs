@@ -1,7 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake
-, libGL, libSM, SDL, SDL_image, SDL_ttf, glew, openalSoft
-, ncurses, glib, gtk2, libsndfile, zlib
-, dfVersion
+{ stdenv, lib, fetchFromGitHub, cmake, libGL, libSM, SDL, SDL_image, SDL_ttf, glew, openalSoft, ncurses, glib, gtk2, libsndfile, zlib, dfVersion
 }:
 
 with lib;
@@ -34,12 +31,12 @@ let
     };
   };
 
-  release = if hasAttr dfVersion unfuck-releases
-            then getAttr dfVersion unfuck-releases
-            else throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
-in
+  release = if hasAttr dfVersion unfuck-releases then
+    getAttr dfVersion unfuck-releases
+  else
+    throw "[unfuck] Unknown Dwarf Fortress version: ${dfVersion}";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "dwarf_fortress_unfuck-${release.unfuckRelease}";
 
   src = fetchFromGitHub {
@@ -56,8 +53,17 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [
-    libSM SDL SDL_image SDL_ttf glew openalSoft
-    ncurses gtk2 libsndfile zlib libGL
+    libSM
+    SDL
+    SDL_image
+    SDL_ttf
+    glew
+    openalSoft
+    ncurses
+    gtk2
+    libsndfile
+    zlib
+    libGL
   ];
 
   # Don't strip unused symbols; dfhack hooks into some of them.
@@ -76,7 +82,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Unfucked multimedia layer for Dwarf Fortress";
-    homepage = https://github.com/svenstaro/dwarf_fortress_unfuck;
+    homepage = "https://github.com/svenstaro/dwarf_fortress_unfuck";
     license = licenses.free;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar numinit ];

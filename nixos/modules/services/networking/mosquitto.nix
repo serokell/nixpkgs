@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -28,17 +28,16 @@ let
   '';
 
   userAcl = (concatStringsSep "\n\n" (mapAttrsToList (n: c:
-    "user ${n}\n" + (concatStringsSep "\n" c.acl)) cfg.users
-  ));
+    ''
+      user ${n}
+    '' + (concatStringsSep "\n" c.acl)) cfg.users));
 
   aclFile = pkgs.writeText "mosquitto.acl" ''
     ${cfg.aclExtraConf}
     ${userAcl}
   '';
 
-in
-
-{
+in {
 
   ###### Interface
 
@@ -143,7 +142,12 @@ in
             };
           };
         });
-        example = { john = { password = "123456"; acl = [ "topic readwrite john/#" ]; }; };
+        example = {
+          john = {
+            password = "123456";
+            acl = [ "topic readwrite john/#" ];
+          };
+        };
         description = ''
           A set of users and their passwords and ACLs.
         '';
@@ -185,7 +189,6 @@ in
     };
   };
 
-
   ###### Implementation
 
   config = mkIf cfg.enable {
@@ -208,13 +211,13 @@ in
       preStart = ''
         rm -f ${cfg.dataDir}/passwd
         touch ${cfg.dataDir}/passwd
-      '' + concatStringsSep "\n" (
-        mapAttrsToList (n: c:
-          if c.hashedPassword != null then
-            "echo '${n}:${c.hashedPassword}' >> ${cfg.dataDir}/passwd"
-          else optionalString (c.password != null)
-            "${pkgs.mosquitto}/bin/mosquitto_passwd -b ${cfg.dataDir}/passwd ${n} '${c.password}'"
-        ) cfg.users);
+      '' + concatStringsSep "\n" (mapAttrsToList (n: c:
+        if c.hashedPassword != null then
+          "echo '${n}:${c.hashedPassword}' >> ${cfg.dataDir}/passwd"
+        else
+          optionalString (c.password != null)
+          "${pkgs.mosquitto}/bin/mosquitto_passwd -b ${cfg.dataDir}/passwd ${n} '${c.password}'")
+        cfg.users);
     };
 
     users.users.mosquitto = {

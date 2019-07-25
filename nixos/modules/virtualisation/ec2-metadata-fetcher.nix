@@ -1,5 +1,4 @@
-{ targetRoot, wgetExtraOptions }:
-''
+{ targetRoot, wgetExtraOptions }: ''
   metaDir=${targetRoot}etc/ec2-metadata
   mkdir -m 0755 -p "$metaDir"
 

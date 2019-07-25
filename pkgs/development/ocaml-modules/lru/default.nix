@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.2.0";
 
   src = fetchurl {
-    url = "https://github.com/pqwy/lru/releases/download/v${version}/lru-${version}.tbz";
+    url =
+      "https://github.com/pqwy/lru/releases/download/v${version}/lru-${version}.tbz";
     sha256 = "0bd7js9rrma1fjjjjc3fgr9l5fjbhgihx2nsaf96g2b35iiaimd0";
   };
 

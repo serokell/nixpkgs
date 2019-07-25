@@ -13,8 +13,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Tool for controlling the special features of a 'U3 smart drive' USB Flash disk";
-    homepage = https://sourceforge.net/projects/u3-tool/ ;
+    description =
+      "Tool for controlling the special features of a 'U3 smart drive' USB Flash disk";
+    homepage = "https://sourceforge.net/projects/u3-tool/";
     license = licenses.gpl2;
     platforms = with platforms; linux;
     maintainers = with maintainers; [ makefu ];

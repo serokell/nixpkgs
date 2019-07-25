@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, buildRubyGem, bundlerEnv, ruby, libarchive
-, libguestfs, qemu, writeText, withLibvirt ? stdenv.isLinux }:
+{ stdenv, lib, fetchurl, buildRubyGem, bundlerEnv, ruby, libarchive, libguestfs, qemu, writeText, withLibvirt ?
+  stdenv.isLinux }:
 
 let
   # NOTE: bumping the version and updating the hash is insufficient;
@@ -52,28 +52,23 @@ in buildRubyGem rec {
   # withLibvirt only:
   #   - libguestfs: Make 'virt-sysprep' available for 'vagrant package'
   #   - qemu: Make 'qemu-img' available for 'vagrant package'
-  postInstall =
-    let
-      pathAdditions = lib.makeSearchPath "bin"
-        (map (x: "${lib.getBin x}") ([
-          libarchive
-        ] ++ lib.optionals withLibvirt [
-          libguestfs
-          qemu
-        ]));
+  postInstall = let
+    pathAdditions = lib.makeSearchPath "bin" (map (x: "${lib.getBin x}")
+      ([ libarchive ] ++ lib.optionals withLibvirt [ libguestfs qemu ]));
     in ''
-    wrapProgram "$out/bin/vagrant" \
-      --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \
-      --prefix PATH ':' ${pathAdditions}
+      wrapProgram "$out/bin/vagrant" \
+        --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \
+        --prefix PATH ':' ${pathAdditions}
 
-    mkdir -p "$out/vagrant-plugins/plugins.d"
-    echo '{}' > "$out/vagrant-plugins/plugins.json"
-  '' +
-  lib.optionalString withLibvirt ''
-    substitute ${./vagrant-libvirt.json.in} $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
-      --subst-var-by ruby_version ${ruby.version} \
-      --subst-var-by vagrant_version ${version}
-  '';
+      mkdir -p "$out/vagrant-plugins/plugins.d"
+      echo '{}' > "$out/vagrant-plugins/plugins.json"
+    '' + lib.optionalString withLibvirt ''
+      substitute ${
+        ./vagrant-libvirt.json.in
+      } $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
+        --subst-var-by ruby_version ${ruby.version} \
+        --subst-var-by vagrant_version ${version}
+    '';
 
   installCheckPhase = ''
     if [[ "$("$out/bin/vagrant" --version)" == "Vagrant ${version}" ]]; then
@@ -91,13 +86,11 @@ in buildRubyGem rec {
       $out/lib/ruby/gems/*/gems/vagrant-*/plugins/provisioners/salt/bootstrap-salt.sh
   '';
 
-  passthru = {
-    inherit ruby deps;
-  };
+  passthru = { inherit ruby deps; };
 
   meta = with lib; {
     description = "A tool for building complete development environments";
-    homepage = https://www.vagrantup.com/;
+    homepage = "https://www.vagrantup.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ aneeshusa ];
     platforms = with platforms; linux ++ darwin;

@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, scipy
-, numpy
-, numba
-, scikitlearn
-, pytest
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, scipy, numpy, numba, scikitlearn, pytest, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -21,16 +13,9 @@ buildPythonPackage rec {
     sha256 = "1qg2md86d0z5aa6jn8kj3rxsippsqsccx1dbraspdsdkycncvww3";
   };
 
-  propagatedBuildInputs = [
-    scipy
-    numpy
-    numba
-    scikitlearn
-  ];
+  propagatedBuildInputs = [ scipy numpy numba scikitlearn ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     # numerical rounding error in test
@@ -39,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Experimental Gradient Boosting Machines in Python";
-    homepage = https://github.com/ogrisel/pygbm;
+    homepage = "https://github.com/ogrisel/pygbm";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

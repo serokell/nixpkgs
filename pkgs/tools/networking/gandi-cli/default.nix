@@ -15,11 +15,11 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ click ipy pyyaml requests ];
 
-  doCheck = false;    # Tests try to contact the actual remote API
+  doCheck = false; # Tests try to contact the actual remote API
 
   meta = with stdenv.lib; {
     description = "Command-line interface to the public Gandi.net API";
-    homepage = https://cli.gandi.net/;
+    homepage = "https://cli.gandi.net/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ckampka ];
   };

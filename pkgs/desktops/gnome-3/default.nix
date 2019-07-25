@@ -1,6 +1,8 @@
 { config, pkgs, lib }:
 
-lib.makeScope pkgs.newScope (self: with self; {
+lib.makeScope pkgs.newScope (self:
+with self;
+{
   updateScript = callPackage ./update.nix { };
 
   /* Remove packages of packagesToRemove from packages, based on their names
@@ -16,39 +18,98 @@ lib.makeScope pkgs.newScope (self: with self; {
     let
       pkgName = drv: (builtins.parseDrvName drv.name).name;
       namesToRemove = map pkgName packagesToRemove;
-    in
-      lib.filter (x: !(builtins.elem (pkgName x) namesToRemove)) packages;
+    in lib.filter (x: !(builtins.elem (pkgName x) namesToRemove)) packages;
 
-  maintainers = with pkgs.lib.maintainers; [ lethalman jtojnar hedning worldofpeace ];
+  maintainers = with pkgs.lib.maintainers; [
+    lethalman
+    jtojnar
+    hedning
+    worldofpeace
+  ];
 
   corePackages = with gnome3; [
     pkgs.desktop-file-utils
     pkgs.shared-mime-info # for update-mime-database
     pkgs.glib # for gsettings
     pkgs.gtk3.out # for gtk-update-icon-cache
-    glib-networking gvfs dconf gnome-backgrounds gnome-control-center
-    pkgs.gnome-menus gnome-settings-daemon gnome-shell
-    gnome-themes-extra adwaita-icon-theme gnome-shell-extensions
+    glib-networking
+    gvfs
+    dconf
+    gnome-backgrounds
+    gnome-control-center
+    pkgs.gnome-menus
+    gnome-settings-daemon
+    gnome-shell
+    gnome-themes-extra
+    adwaita-icon-theme
+    gnome-shell-extensions
     pkgs.hicolor-icon-theme
   ];
 
-  optionalPackages = with gnome3; [ baobab eog epiphany evince
-    gucharmap nautilus totem vino yelp gnome-bluetooth
-    gnome-calculator gnome-contacts gnome-font-viewer gnome-screenshot
-    gnome-system-monitor simple-scan
-    gnome-terminal gnome-user-docs evolution file-roller gedit
-    gnome-clocks gnome-music gnome-tweaks gnome-photos
-    nautilus-sendto dconf-editor vinagre gnome-weather gnome-logs
-    gnome-maps gnome-characters gnome-calendar accerciser gnome-nettool
-    gnome-getting-started-docs gnome-packagekit gnome-software
-    gnome-power-manager gnome-todo pkgs.gnome-usage
+  optionalPackages = with gnome3; [
+    baobab
+    eog
+    epiphany
+    evince
+    gucharmap
+    nautilus
+    totem
+    vino
+    yelp
+    gnome-bluetooth
+    gnome-calculator
+    gnome-contacts
+    gnome-font-viewer
+    gnome-screenshot
+    gnome-system-monitor
+    simple-scan
+    gnome-terminal
+    gnome-user-docs
+    evolution
+    file-roller
+    gedit
+    gnome-clocks
+    gnome-music
+    gnome-tweaks
+    gnome-photos
+    nautilus-sendto
+    dconf-editor
+    vinagre
+    gnome-weather
+    gnome-logs
+    gnome-maps
+    gnome-characters
+    gnome-calendar
+    accerciser
+    gnome-nettool
+    gnome-getting-started-docs
+    gnome-packagekit
+    gnome-software
+    gnome-power-manager
+    gnome-todo
+    pkgs.gnome-usage
   ];
 
-  gamesPackages = with gnome3; [ swell-foop lightsoff iagno
-    tali quadrapassel gnome-sudoku atomix aisleriot five-or-more
-    four-in-a-row gnome-chess gnome-klotski gnome-mahjongg
-    gnome-mines gnome-nibbles gnome-robots gnome-tetravex
-    hitori gnome-taquin
+  gamesPackages = with gnome3; [
+    swell-foop
+    lightsoff
+    iagno
+    tali
+    quadrapassel
+    gnome-sudoku
+    atomix
+    aisleriot
+    five-or-more
+    four-in-a-row
+    gnome-chess
+    gnome-klotski
+    gnome-mahjongg
+    gnome-mines
+    gnome-nibbles
+    gnome-robots
+    gnome-tetravex
+    hitori
+    gnome-taquin
   ];
 
   libsoup = pkgs.libsoup.override { gnomeSupport = true; };
@@ -57,10 +118,10 @@ lib.makeScope pkgs.newScope (self: with self; {
   vala = pkgs.vala_0_44;
   gegl_0_4 = pkgs.gegl_0_4.override { gtk = pkgs.gtk3; };
 
-# ISO installer
-# installerIso = callPackage ./installer.nix {};
+  # ISO installer
+  # installerIso = callPackage ./installer.nix {};
 
-#### Core (http://ftp.acc.umu.se/pub/GNOME/core/)
+  #### Core (http://ftp.acc.umu.se/pub/GNOME/core/)
 
   adwaita-icon-theme = callPackage ./core/adwaita-icon-theme { };
 
@@ -75,7 +136,8 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   epiphany = callPackage ./core/epiphany { };
 
-  evince = callPackage ./core/evince { }; # ToDo: dbus would prevent compilation, enable tests
+  evince = callPackage ./core/evince
+    { }; # ToDo: dbus would prevent compilation, enable tests
 
   evolution-data-server = callPackage ./core/evolution-data-server { };
 
@@ -83,9 +145,8 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gjs = callPackage ./core/gjs { };
 
-  glib-networking = pkgs.glib-networking.override {
-    inherit (pkgs) gsettings-desktop-schemas;
-  };
+  glib-networking =
+    pkgs.glib-networking.override { inherit (pkgs) gsettings-desktop-schemas; };
 
   gnome-backgrounds = callPackage ./core/gnome-backgrounds { };
 
@@ -147,7 +208,10 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gucharmap = callPackage ./core/gucharmap { };
 
-  gvfs = pkgs.gvfs.override { gnome = gnome3; gnomeSupport = true; };
+  gvfs = pkgs.gvfs.override {
+    gnome = gnome3;
+    gnomeSupport = true;
+  };
 
   eog = callPackage ./core/eog { };
 
@@ -160,33 +224,24 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   nautilus = callPackage ./core/nautilus { };
 
-  networkmanager-openvpn = pkgs.networkmanager-openvpn.override {
-    withGnome = true;
-  };
+  networkmanager-openvpn =
+    pkgs.networkmanager-openvpn.override { withGnome = true; };
 
-  networkmanager-vpnc = pkgs.networkmanager-vpnc.override {
-    withGnome = true;
-  };
+  networkmanager-vpnc = pkgs.networkmanager-vpnc.override { withGnome = true; };
 
-  networkmanager-openconnect = pkgs.networkmanager-openconnect.override {
-    withGnome = true;
-  };
+  networkmanager-openconnect =
+    pkgs.networkmanager-openconnect.override { withGnome = true; };
 
-  networkmanager-fortisslvpn = pkgs.networkmanager-fortisslvpn.override {
-    withGnome = true;
-  };
+  networkmanager-fortisslvpn =
+    pkgs.networkmanager-fortisslvpn.override { withGnome = true; };
 
-  networkmanager-l2tp = pkgs.networkmanager-l2tp.override {
-    withGnome = true;
-  };
+  networkmanager-l2tp = pkgs.networkmanager-l2tp.override { withGnome = true; };
 
-  networkmanager-iodine = pkgs.networkmanager-iodine.override {
-    withGnome = true;
-  };
+  networkmanager-iodine =
+    pkgs.networkmanager-iodine.override { withGnome = true; };
 
-  networkmanagerapplet = pkgs.networkmanagerapplet.override {
-    withGnome = true;
-  };
+  networkmanagerapplet =
+    pkgs.networkmanagerapplet.override { withGnome = true; };
 
   rygel = callPackage ./core/rygel { };
 
@@ -210,8 +265,7 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   zenity = callPackage ./core/zenity { };
 
-
-#### Apps (http://ftp.acc.umu.se/pub/GNOME/apps/)
+  #### Apps (http://ftp.acc.umu.se/pub/GNOME/apps/)
 
   accerciser = callPackage ./apps/accerciser { };
 
@@ -239,7 +293,8 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gnome-documents = callPackage ./apps/gnome-documents { };
 
-  gnome-getting-started-docs = callPackage ./apps/gnome-getting-started-docs { };
+  gnome-getting-started-docs =
+    callPackage ./apps/gnome-getting-started-docs { };
 
   gnome-logs = callPackage ./apps/gnome-logs { };
 
@@ -251,15 +306,13 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gnome-notes = callPackage ./apps/gnome-notes { };
 
-  gnome-photos = callPackage ./apps/gnome-photos {
-    gegl = gegl_0_4;
-  };
+  gnome-photos = callPackage ./apps/gnome-photos { gegl = gegl_0_4; };
 
   gnome-power-manager = callPackage ./apps/gnome-power-manager { };
 
   gnome-sound-recorder = callPackage ./apps/gnome-sound-recorder { };
 
-  gnome-todo = callPackage ./apps/gnome-todo {};
+  gnome-todo = callPackage ./apps/gnome-todo { };
 
   gnome-weather = callPackage ./apps/gnome-weather { };
 
@@ -271,7 +324,7 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   vinagre = callPackage ./apps/vinagre { };
 
-#### Dev http://ftp.gnome.org/pub/GNOME/devtools/
+  #### Dev http://ftp.gnome.org/pub/GNOME/devtools/
 
   anjuta = callPackage ./devtools/anjuta { };
 
@@ -281,7 +334,7 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   nemiver = callPackage ./devtools/nemiver { };
 
-#### Games
+  #### Games
 
   aisleriot = callPackage ./games/aisleriot { };
 
@@ -321,7 +374,7 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   quadrapassel = callPackage ./games/quadrapassel { };
 
-#### Misc -- other packages on http://ftp.gnome.org/pub/GNOME/sources/
+  #### Misc -- other packages on http://ftp.gnome.org/pub/GNOME/sources/
 
   geary = callPackage ./misc/geary { };
 
@@ -357,7 +410,7 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gnome-packagekit = callPackage ./misc/gnome-packagekit { };
 } // lib.optionalAttrs (config.allowAliases or true) {
-#### Legacy aliases
+  #### Legacy aliases
 
   bijiben = gnome-notes; # added 2018-09-26
   evolution_data_server = evolution-data-server; # added 2018-02-25
@@ -389,10 +442,14 @@ lib.makeScope pkgs.newScope (self: with self; {
   yelp_tools = yelp-tools; # added 2018-02-25
 
   # added 2019-02-08
-  inherit (pkgs) atk glib gobject-introspection gspell webkitgtk gtk3 gtkmm3
-      libgtop libgudev libhttpseverywhere librsvg libsecret gdk_pixbuf gtksourceview gtksourceviewmm gtksourceview4
-      easytag meld orca rhythmbox shotwell gnome-usage
-      clutter clutter-gst clutter-gtk cogl gtk-vnc libdazzle libgda libgit2-glib libgxps libgdata libgepub libcroco libpeas libgee geocode-glib libgweather librest libzapojit libmediaart gfbgraph gexiv2 folks totem-pl-parser gcr gsound libgnomekbd vte vte_290 vte-ng gnome-menus gdl;
+  inherit (pkgs)
+    atk glib gobject-introspection gspell webkitgtk gtk3 gtkmm3 libgtop libgudev
+    libhttpseverywhere librsvg libsecret gdk_pixbuf gtksourceview
+    gtksourceviewmm gtksourceview4 easytag meld orca rhythmbox shotwell
+    gnome-usage clutter clutter-gst clutter-gtk cogl gtk-vnc libdazzle libgda
+    libgit2-glib libgxps libgdata libgepub libcroco libpeas libgee geocode-glib
+    libgweather librest libzapojit libmediaart gfbgraph gexiv2 folks
+    totem-pl-parser gcr gsound libgnomekbd vte vte_290 vte-ng gnome-menus gdl;
   inherit (pkgs) gsettings-desktop-schemas; # added 2019-04-16
   defaultIconTheme = adwaita-icon-theme;
   gtk = gtk3;

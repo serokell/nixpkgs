@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, pkgs
-, requests
-, numpy
-, graphviz
-, python
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, pkgs, requests, numpy, graphviz, python, isPy3k }:
 
 buildPythonPackage rec {
   inherit (pkgs.mxnet) name version src meta;

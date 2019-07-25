@@ -14,14 +14,15 @@ buildPythonPackage rec {
     sha256 = "15mkhm3b5ka42h8qph0mhh8izfc1200v7651c62k7ldcs50ib9j6";
   };
 
-  disabled = ! python36Packages.pythonOlder "3.7";
+  disabled = !python36Packages.pythonOlder "3.7";
 
   checkInputs = [ mock pytest coverage tox ];
   propagatedBuildInputs = [ urwid tweepy future ];
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
+      url =
+        "https://github.com/louipc/turses/commit/be0961b51f502d49fd9e2e5253ac130e543a31c7.patch";
       sha256 = "17s1n0275mcj03vkf3n39dmc09niwv4y7ssrfk7k3vqx22kppzg3";
     })
   ];
@@ -42,7 +43,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/louipc/turses;
+    homepage = "https://github.com/louipc/turses";
     description = "A Twitter client for the console";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];

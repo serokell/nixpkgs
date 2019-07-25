@@ -1,15 +1,14 @@
-import ../make-test.nix ({ pkgs, ...}: let
+import ../make-test.nix ({ pkgs, ... }:
+let
   adminpass = "hunter2";
   adminuser = "custom-admin-username";
 in {
   name = "nextcloud-with-postgresql-and-redis";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ eqyiel ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ eqyiel ]; };
 
   nodes = {
     # The only thing the client needs to do is download a file.
-    client = { ... }: {};
+    client = { ... }: { };
 
     nextcloud = { config, pkgs, ... }: {
       networking.firewall.allowedTCPPorts = [ 80 ];
@@ -51,12 +50,9 @@ in {
         serviceConfig.PermissionsStartOnly = true;
       };
 
-      systemd.services."nextcloud-setup"= {
-        requires = ["postgresql.service"];
-        after = [
-          "postgresql.service"
-          "chown-redis-socket.service"
-        ];
+      systemd.services."nextcloud-setup" = {
+        requires = [ "postgresql.service" ];
+        after = [ "postgresql.service" "chown-redis-socket.service" ];
       };
 
       # At the time of writing, redis creates its socket with the "nobody"
@@ -74,19 +70,16 @@ in {
         after = [ "redis.service" ];
         requires = [ "redis.service" ];
         wantedBy = [ "redis.service" ];
-        serviceConfig = {
-          Type = "oneshot";
-        };
+        serviceConfig = { Type = "oneshot"; };
       };
 
       services.postgresql = {
         enable = true;
         ensureDatabases = [ "nextcloud" ];
-        ensureUsers = [
-          { name = "nextcloud";
-            ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
-          }
-        ];
+        ensureUsers = [{
+          name = "nextcloud";
+          ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+        }];
       };
     };
   };
@@ -117,13 +110,13 @@ in {
       #!${pkgs.stdenv.shell}
       diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
     '';
-  in ''
-    startAll();
-    $nextcloud->waitForUnit("multi-user.target");
-    $nextcloud->succeed("${configureRedis}");
-    $nextcloud->succeed("curl -sSf http://nextcloud/login");
-    $nextcloud->succeed("${withRcloneEnv} ${copySharedFile}");
-    $client->waitForUnit("multi-user.target");
-    $client->succeed("${withRcloneEnv} ${diffSharedFile}");
-  '';
+    in ''
+      startAll();
+      $nextcloud->waitForUnit("multi-user.target");
+      $nextcloud->succeed("${configureRedis}");
+      $nextcloud->succeed("curl -sSf http://nextcloud/login");
+      $nextcloud->succeed("${withRcloneEnv} ${copySharedFile}");
+      $client->waitForUnit("multi-user.target");
+      $client->succeed("${withRcloneEnv} ${diffSharedFile}");
+    '';
 })

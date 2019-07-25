@@ -19,11 +19,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OCaml library for syntax highlighting";
-    homepage = https://zoggy.github.io/higlo/;
+    homepage = "https://zoggy.github.io/higlo/";
     license = licenses.lgpl3;
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
     maintainers = with maintainers; [ regnat ];
   };
 }
-
 

@@ -1,8 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "async-timeout";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Timeout context manager for asyncio programs";
-    homepage = https://github.com/aio-libs/async_timeout/;
+    homepage = "https://github.com/aio-libs/async_timeout/";
     license = lib.licenses.asl20;
   };
 }

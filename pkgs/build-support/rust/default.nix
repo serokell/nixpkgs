@@ -1,49 +1,40 @@
 { stdenv, cacert, git, cargo, rustc, fetchcargo, buildPackages }:
 
-{ name ? "${args.pname}-${args.version}"
-, cargoSha256 ? "unset"
-, src ? null
-, srcs ? null
-, cargoPatches ? []
-, patches ? []
-, sourceRoot ? null
-, logLevel ? ""
-, buildInputs ? []
-, nativeBuildInputs ? []
-, cargoUpdateHook ? ""
-, cargoDepsHook ? ""
-, cargoBuildFlags ? []
-, buildType ? "release"
+{ name ? "${args.pname}-${args.version}", cargoSha256 ? "unset", src ?
+  null, srcs ? null, cargoPatches ? [ ], patches ? [ ], sourceRoot ?
+    null, logLevel ? "", buildInputs ? [ ], nativeBuildInputs ?
+      [ ], cargoUpdateHook ? "", cargoDepsHook ? "", cargoBuildFlags ?
+        [ ], buildType ? "release"
 
-, cargoVendorDir ? null
-, ... } @ args:
+, cargoVendorDir ? null, ... }@args:
 
 assert cargoVendorDir == null -> cargoSha256 != "unset";
 assert buildType == "release" || buildType == "debug";
 
 let
-  cargoDeps = if cargoVendorDir == null
-    then fetchcargo {
-        inherit name src srcs sourceRoot cargoUpdateHook;
-        patches = cargoPatches;
-        sha256 = cargoSha256;
-      }
-    else null;
+  cargoDeps = if cargoVendorDir == null then
+    fetchcargo {
+      inherit name src srcs sourceRoot cargoUpdateHook;
+      patches = cargoPatches;
+      sha256 = cargoSha256;
+    }
+  else
+    null;
 
-  setupVendorDir = if cargoVendorDir == null
-    then ''
-      unpackFile "$cargoDeps"
-      cargoDepsCopy=$(stripHash $(basename $cargoDeps))
-      chmod -R +w "$cargoDepsCopy"
-    ''
-    else ''
-      cargoDepsCopy="$sourceRoot/${cargoVendorDir}"
-    '';
+  setupVendorDir = if cargoVendorDir == null then ''
+    unpackFile "$cargoDeps"
+    cargoDepsCopy=$(stripHash $(basename $cargoDeps))
+    chmod -R +w "$cargoDepsCopy"
+  '' else ''
+    cargoDepsCopy="$sourceRoot/${cargoVendorDir}"
+  '';
 
-  ccForBuild="${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
-  cxxForBuild="${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
-  ccForHost="${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
-  cxxForHost="${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
+  ccForBuild =
+    "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+  cxxForBuild =
+    "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+  ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+  cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
   releaseDir = "target/${stdenv.hostPlatform.config}/${buildType}";
 
 in stdenv.mkDerivation (args // {
@@ -83,40 +74,42 @@ in stdenv.mkDerivation (args // {
     cat >> .cargo/config <<'EOF'
     [target."${stdenv.buildPlatform.config}"]
     "linker" = "${ccForBuild}"
-    ${stdenv.lib.optionalString (stdenv.buildPlatform.config != stdenv.hostPlatform.config) ''
-    [target."${stdenv.hostPlatform.config}"]
-    "linker" = "${ccForHost}"
+    ${stdenv.lib.optionalString
+    (stdenv.buildPlatform.config != stdenv.hostPlatform.config) ''
+      [target."${stdenv.hostPlatform.config}"]
+      "linker" = "${ccForHost}"
     ''}
     EOF
     cat .cargo/config
     runHook postConfigure
   '';
 
-  buildPhase = with builtins; args.buildPhase or ''
-    runHook preBuild
+  buildPhase = with builtins;
+    args.buildPhase or ''
+      runHook preBuild
 
-    (
-    set -x
-    env \
-      "CC_${stdenv.buildPlatform.config}"="${ccForBuild}" \
-      "CXX_${stdenv.buildPlatform.config}"="${cxxForBuild}" \
-      "CC_${stdenv.hostPlatform.config}"="${ccForHost}" \
-      "CXX_${stdenv.hostPlatform.config}"="${cxxForHost}" \
-      cargo build \
-        --${buildType} \
-        --target ${stdenv.hostPlatform.config} \
-        --frozen ${concatStringsSep " " cargoBuildFlags}
-    )
+      (
+      set -x
+      env \
+        "CC_${stdenv.buildPlatform.config}"="${ccForBuild}" \
+        "CXX_${stdenv.buildPlatform.config}"="${cxxForBuild}" \
+        "CC_${stdenv.hostPlatform.config}"="${ccForHost}" \
+        "CXX_${stdenv.hostPlatform.config}"="${cxxForHost}" \
+        cargo build \
+          --${buildType} \
+          --target ${stdenv.hostPlatform.config} \
+          --frozen ${concatStringsSep " " cargoBuildFlags}
+      )
 
-    # rename the output dir to a architecture independent one
-    mapfile -t targets < <(find "$NIX_BUILD_TOP" -type d | grep '${releaseDir}$')
-    for target in "''${targets[@]}"; do
-      rm -rf "$target/../../${buildType}"
-      ln -srf "$target" "$target/../../"
-    done
+      # rename the output dir to a architecture independent one
+      mapfile -t targets < <(find "$NIX_BUILD_TOP" -type d | grep '${releaseDir}$')
+      for target in "''${targets[@]}"; do
+        rm -rf "$target/../../${buildType}"
+        ln -srf "$target" "$target/../../"
+      done
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
   checkPhase = args.checkPhase or ''
     runHook preCheck
@@ -146,5 +139,5 @@ in stdenv.mkDerivation (args // {
     runHook postInstall
   '';
 
-  passthru = { inherit cargoDeps; } // (args.passthru or {});
+  passthru = { inherit cargoDeps; } // (args.passthru or { });
 })

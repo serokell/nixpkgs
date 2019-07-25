@@ -1,8 +1,7 @@
-{ stdenv, buildEnv, runCommand, makeWrapper, lndir, thunar-bare
-, thunarPlugins ? []
-}:
+{ stdenv, buildEnv, runCommand, makeWrapper, lndir, thunar-bare, thunarPlugins ?
+  [ ] }:
 
-with stdenv.lib; 
+with stdenv.lib;
 
 let
 
@@ -15,7 +14,9 @@ let
     mkdir -p "$exeDir"
     lndir "$oriDir" "$exeDir"
 
-    exeList="${concatStrings (intersperse " " (map (x: "${exeDir}/${x}") exeNameList))}"
+    exeList="${
+      concatStrings (intersperse " " (map (x: "${exeDir}/${x}") exeNameList))
+    }"
 
     for exe in $exeList; do
       oriExe=`realpath -e "$exe"`
@@ -29,16 +30,16 @@ let
   meta = {
     inherit (build.meta) homepage license platforms;
 
-    description = build.meta.description + optionalString
-      (0 != length thunarPlugins)
-      " (with plugins: ${concatStrings (intersperse ", " (map (x: x.name) thunarPlugins))})";
-    maintainers = build.meta.maintainers /*++ [ jraygauthier ]*/;
+    description = build.meta.description
+      + optionalString (0 != length thunarPlugins) " (with plugins: ${
+        concatStrings (intersperse ", " (map (x: x.name) thunarPlugins))
+       })";
+    maintainers = build.meta.maintainers # ++ [ jraygauthier ]
+    ;
   };
 
-in
-
-# TODO: To be replaced with `buildEnv` awaiting missing features.
-runCommand name {
+  # TODO: To be replaced with `buildEnv` awaiting missing features.
+in runCommand name {
   inherit build;
   inherit meta;
 
@@ -47,8 +48,7 @@ runCommand name {
   dontPatchELF = true;
   dontStrip = true;
 
-} 
-(let
+} (let
   buildWithPlugins = buildEnv {
     name = "thunar-bare-with-plugins";
     paths = [ build ] ++ thunarPlugins;
@@ -62,7 +62,6 @@ in ''
   done
   popd > /dev/null
 
-  ${replaceLnExeListWithWrapped "$out/bin" [ "thunar" "thunar-settings" ] [
-    "--set THUNARX_MODULE_DIR \"${buildWithPlugins}/lib/thunarx-2\""
-  ]}
+  ${replaceLnExeListWithWrapped "$out/bin" [ "thunar" "thunar-settings" ]
+  [ ''--set THUNARX_MODULE_DIR "${buildWithPlugins}/lib/thunarx-2"'' ]}
 '')

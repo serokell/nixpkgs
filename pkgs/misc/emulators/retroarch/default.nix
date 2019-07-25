@@ -1,19 +1,8 @@
-{ stdenv, fetchFromGitHub, which, pkgconfig, makeWrapper
-, ffmpeg, libGLU_combined, freetype, libxml2, python3
-, libobjc, AppKit, Foundation
-, alsaLib ? null
-, libpulseaudio ? null
-, libv4l ? null
-, libX11 ? null
-, libXdmcp ? null
-, libXext ? null
-, libXxf86vm ? null
-, SDL2 ? null
-, udev ? null
-, enableNvidiaCgToolkit ? false, nvidia_cg_toolkit ? null
-, withVulkan ? stdenv.isLinux, vulkan-loader ? null
-, fetchurl
-}:
+{ stdenv, fetchFromGitHub, which, pkgconfig, makeWrapper, ffmpeg, libGLU_combined, freetype, libxml2, python3, libobjc, AppKit, Foundation, alsaLib ?
+  null, libpulseaudio ? null, libv4l ? null, libX11 ? null, libXdmcp ?
+    null, libXext ? null, libXxf86vm ? null, SDL2 ? null, udev ?
+      null, enableNvidiaCgToolkit ? false, nvidia_cg_toolkit ?
+        null, withVulkan ? stdenv.isLinux, vulkan-loader ? null, fetchurl }:
 
 with stdenv.lib;
 
@@ -21,7 +10,8 @@ let
 
   # ibtool is closed source so we have to download the blob
   osx-MainMenu = fetchurl {
-    url = "https://github.com/matthewbauer/RetroArch/raw/b146a9ac6b2b516652a7bf05a9db5a804eab323d/pkg/apple/OSX/en.lproj/MainMenu.nib";
+    url =
+      "https://github.com/matthewbauer/RetroArch/raw/b146a9ac6b2b516652a7bf05a9db5a804eab323d/pkg/apple/OSX/en.lproj/MainMenu.nib";
     sha256 = "13k1l628wy0rp6wxrpwr4g1m9c997d0q8ks50f8zhmh40l5j2sp8";
   };
 
@@ -36,15 +26,22 @@ in stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  nativeBuildInputs = [ pkgconfig ]
-                      ++ optional withVulkan [ makeWrapper ];
+  nativeBuildInputs = [ pkgconfig ] ++ optional withVulkan [ makeWrapper ];
 
   buildInputs = [ ffmpeg freetype libxml2 libGLU_combined python3 SDL2 which ]
-                ++ optional enableNvidiaCgToolkit nvidia_cg_toolkit
-                ++ optional withVulkan [ vulkan-loader ]
-                ++ optionals stdenv.isDarwin [ libobjc AppKit Foundation ]
-                ++ optionals stdenv.isLinux [ alsaLib libpulseaudio libv4l libX11
-                                              libXdmcp libXext libXxf86vm udev ];
+    ++ optional enableNvidiaCgToolkit nvidia_cg_toolkit
+    ++ optional withVulkan [ vulkan-loader ]
+    ++ optionals stdenv.isDarwin [ libobjc AppKit Foundation ]
+    ++ optionals stdenv.isLinux [
+      alsaLib
+      libpulseaudio
+      libv4l
+      libX11
+      libXdmcp
+      libXext
+      libXxf86vm
+      udev
+    ];
 
   enableParallelBuilding = true;
 
@@ -78,7 +75,7 @@ in stdenv.mkDerivation rec {
   preFixup = "rm $out/bin/retroarch-cg2glsl";
 
   meta = {
-    homepage = https://libretro.com;
+    homepage = "https://libretro.com";
     description = "Multi-platform emulator frontend for libretro cores";
     license = licenses.gpl3;
     platforms = platforms.all;

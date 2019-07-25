@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, gobject-introspection
-, pkgconfig, glib, systemd, libgudev, vala }:
+{ stdenv, fetchFromGitHub, autoreconfHook, gobject-introspection, pkgconfig, glib, systemd, libgudev, vala
+}:
 
 stdenv.mkDerivation rec {
   name = "umockdev-${version}";
@@ -8,9 +8,9 @@ stdenv.mkDerivation rec {
   outputs = [ "bin" "out" "dev" "doc" ];
 
   src = fetchFromGitHub {
-    owner  = "martinpitt";
-    repo   = "umockdev";
-    rev    = version;
+    owner = "martinpitt";
+    repo = "umockdev";
+    rev = version;
     sha256 = "0wnmz4jh04mvqzjnqvxrah969gg4x4v8d6ip61zc7jpbwnqb2fpg";
   };
 

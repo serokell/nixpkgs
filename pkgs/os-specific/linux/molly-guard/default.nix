@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.6.3";
 
   src = fetchurl {
-    url = "https://launchpad.net/ubuntu/+source/molly-guard/${version}/+build/8892607/+files/molly-guard_${version}_all.deb";
+    url =
+      "https://launchpad.net/ubuntu/+source/molly-guard/${version}/+build/8892607/+files/molly-guard_${version}_all.deb";
     sha256 = "1d1x60m6kh9wfh9lc22g5s0j40aivwgsczykk27ymwl1pvk58dxn";
   };
 
@@ -31,11 +32,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Attempts to prevent you from accidentally shutting down or rebooting machines";
-    homepage    = https://anonscm.debian.org/git/collab-maint/molly-guard.git/;
-    license     = licenses.artistic2;
-    platforms   = platforms.linux;
+    description =
+      "Attempts to prevent you from accidentally shutting down or rebooting machines";
+    homepage = "https://anonscm.debian.org/git/collab-maint/molly-guard.git/";
+    license = licenses.artistic2;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ DerTim1 ];
-    priority    = -10;
+    priority = -10;
   };
 }

@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, utillinux
-, cdparanoia, cdrdao, dvdplusrwtools, flac, lame, mpg123, normalize
-, vorbis-tools, xorriso }:
+{ stdenv, fetchurl, utillinux, cdparanoia, cdrdao, dvdplusrwtools, flac, lame, mpg123, normalize, vorbis-tools, xorriso
+}:
 
 stdenv.mkDerivation rec {
   name = "bashburn-${version}";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
       - manipulate ISO-files
       - and probably more...
     '';
-    homepage = http://bashburn.dose.se/;
+    homepage = "http://bashburn.dose.se/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   version = "551.1";
-  name    = "objc4-${version}";
+  name = "objc4-${version}";
 
   src = fetchapplesource {
     inherit version;
-    name   = "objc4";
+    name = "objc4";
     sha256 = "1jrdb6yyb5jwwj27c1r0nr2y2ihqjln8ynj61mpkvp144c1cm5bg";
   };
 

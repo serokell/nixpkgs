@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   PREFIX = builtins.placeholder "out";
   meta = with stdenv.lib; {
     homepage = "https://github.com/arzzen/git-quick-stats";
-    description = "A simple and efficient way to access various statistics in git repository";
+    description =
+      "A simple and efficient way to access various statistics in git repository";
     platforms = platforms.all;
     maintainers = [ maintainers.kmein ];
     license = licenses.mit;

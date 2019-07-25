@@ -1,15 +1,14 @@
-{ stdenv, rustPlatform, fetchFromGitHub, cmake, pkgconfig, zlib
-, Security, libiconv
+{ stdenv, rustPlatform, fetchFromGitHub, cmake, pkgconfig, zlib, Security, libiconv
 }:
 
 rustPlatform.buildRustPackage rec {
-  pname   = "bat";
+  pname = "bat";
   version = "0.11.0";
 
   src = fetchFromGitHub {
-    owner  = "sharkdp";
-    repo   = pname;
-    rev    = "v${version}";
+    owner = "sharkdp";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "0yyvlplskjvxb2cspqsvfsnahd5m0s83psrp777ng0wc0kr1adbw";
     fetchSubmodules = true;
   };
@@ -27,9 +26,12 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A cat(1) clone with syntax highlighting and Git integration";
-    homepage    = https://github.com/sharkdp/bat;
-    license     = with licenses; [ asl20 /* or */ mit ];
+    homepage = "https://github.com/sharkdp/bat";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ dywedir lilyball ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, intltool, gettext, makeWrapper
-, parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme
-, gpart, hdparm, procps, utillinux
+{ stdenv, fetchurl, intltool, gettext, makeWrapper, parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme, gpart, hdparm, procps, utillinux
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
       partitions. GParted enables you to change the partition organization
       while preserving the partition contents.
     '';
-    homepage = https://gparted.org;
+    homepage = "https://gparted.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

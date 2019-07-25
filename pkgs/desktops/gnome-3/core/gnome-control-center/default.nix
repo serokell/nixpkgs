@@ -1,39 +1,71 @@
-{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, ibus, gettext, upower, wrapGAppsHook
-, libcanberra-gtk3, accountsservice, libpwquality, libpulseaudio
-, gdk_pixbuf, librsvg, libgudev, libsecret, gnome-color-manager
-, libxml2, polkit, libxslt, libgtop, libsoup, colord, colord-gtk
-, libkrb5, networkmanagerapplet, networkmanager, glibc
-, libwacom, samba, shared-mime-info, tzdata, libgnomekbd
-, docbook_xsl, modemmanager, clutter, clutter-gtk, cheese, gnome-session
-, fontconfig, sound-theme-freedesktop, grilo, python3
-, gtk3, glib, glib-networking, gsettings-desktop-schemas
-, gnome-desktop, gnome-settings-daemon, gnome-online-accounts
-, vino, gnome-bluetooth, tracker, adwaita-icon-theme
-, udisks2, gsound, libhandy, cups, mutter }:
+{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, ibus, gettext, upower, wrapGAppsHook, libcanberra-gtk3, accountsservice, libpwquality, libpulseaudio, gdk_pixbuf, librsvg, libgudev, libsecret, gnome-color-manager, libxml2, polkit, libxslt, libgtop, libsoup, colord, colord-gtk, libkrb5, networkmanagerapplet, networkmanager, glibc, libwacom, samba, shared-mime-info, tzdata, libgnomekbd, docbook_xsl, modemmanager, clutter, clutter-gtk, cheese, gnome-session, fontconfig, sound-theme-freedesktop, grilo, python3, gtk3, glib, glib-networking, gsettings-desktop-schemas, gnome-desktop, gnome-settings-daemon, gnome-online-accounts, vino, gnome-bluetooth, tracker, adwaita-icon-theme, udisks2, gsound, libhandy, cups, mutter
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-control-center";
   version = "3.32.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "03np0mhfl9kkdw4cb711pda0cli9zgh2bq2gqn2zwbdi3qnhk9gs";
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext wrapGAppsHook libxslt docbook_xsl
-    shared-mime-info python3
+    meson
+    ninja
+    pkgconfig
+    gettext
+    wrapGAppsHook
+    libxslt
+    docbook_xsl
+    shared-mime-info
+    python3
   ];
 
   buildInputs = [
-    ibus gtk3 glib glib-networking upower gsettings-desktop-schemas
-    libxml2 gnome-desktop gnome-settings-daemon polkit libgtop
-    gnome-online-accounts libsoup colord libpulseaudio fontconfig colord-gtk
-    accountsservice libkrb5 networkmanagerapplet libwacom samba
-    grilo libpwquality vino libcanberra-gtk3 libgudev libsecret
-    gdk_pixbuf adwaita-icon-theme librsvg clutter clutter-gtk cheese
-    networkmanager modemmanager gnome-bluetooth tracker
-    udisks2 gsound libhandy
+    ibus
+    gtk3
+    glib
+    glib-networking
+    upower
+    gsettings-desktop-schemas
+    libxml2
+    gnome-desktop
+    gnome-settings-daemon
+    polkit
+    libgtop
+    gnome-online-accounts
+    libsoup
+    colord
+    libpulseaudio
+    fontconfig
+    colord-gtk
+    accountsservice
+    libkrb5
+    networkmanagerapplet
+    libwacom
+    samba
+    grilo
+    libpwquality
+    vino
+    libcanberra-gtk3
+    libgudev
+    libsecret
+    gdk_pixbuf
+    adwaita-icon-theme
+    librsvg
+    clutter
+    clutter-gtk
+    cheese
+    networkmanager
+    modemmanager
+    gnome-bluetooth
+    tracker
+    udisks2
+    gsound
+    libhandy
     mutter # schemas for the keybindings
   ];
 
@@ -52,9 +84,7 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/meson_post_install.py
   '';
 
-  mesonFlags = [
-    "-Dgnome_session_libexecdir=${gnome-session}/libexec"
-  ];
+  mesonFlags = [ "-Dgnome_session_libexecdir=${gnome-session}/libexec" ];
 
   preFixup = ''
     gappsWrapperArgs+=(

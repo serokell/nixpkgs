@@ -12,13 +12,13 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     substituteInPlace ./configure \
        --replace /bin/bash $shell
-    '';
+  '';
 
   buildInputs = [ wxGTK30 openssl curl ];
 
   meta = {
     description = "Manga downloader";
-    homepage = https://sourceforge.net/projects/hakuneko/;
+    homepage = "https://sourceforge.net/projects/hakuneko/";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.linux;
 

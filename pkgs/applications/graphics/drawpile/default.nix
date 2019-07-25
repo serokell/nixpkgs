@@ -1,42 +1,28 @@
-{ stdenv
-, fetchurl
-, cmake
-, extra-cmake-modules
+{ stdenv, fetchurl, cmake, extra-cmake-modules
 
 # common deps
 , karchive
 
 # client deps
-, qtbase
-, qtmultimedia
-, qtsvg
-, qttools
+, qtbase, qtmultimedia, qtsvg, qttools
 
 # optional client deps
-, giflib
-, kdnssd
-, libvpx
-, miniupnpc
-, qtx11extras # kis
+, giflib, kdnssd, libvpx, miniupnpc, qtx11extras # kis
 
 # optional server deps
-, libmicrohttpd
-, libsodium
+, libmicrohttpd, libsodium
 
 # options
-, buildClient ? true
-, buildServer ? true
-, buildServerGui ? true # if false builds a headless server
-, buildExtraTools ? false
-, enableKisTablet ? false # enable improved graphics tablet support
+, buildClient ? true, buildServer ? true, buildServerGui ?
+  true # if false builds a headless server
+, buildExtraTools ? false, enableKisTablet ?
+  false # enable improved graphics tablet support
 }:
 
 with stdenv.lib;
 
 let
-  commonDeps = [
-    karchive
-  ];
+  commonDeps = [ karchive ];
   clientDeps = [
     qtbase
     qtmultimedia
@@ -53,9 +39,7 @@ let
     libmicrohttpd # HTTP admin api
     libsodium # ext-auth support
   ];
-  kisDeps = [
-    qtx11extras
-  ];
+  kisDeps = [ qtx11extras ];
 
 in stdenv.mkDerivation rec {
   name = "drawpile-${version}";
@@ -66,27 +50,21 @@ in stdenv.mkDerivation rec {
     sha256 = "00r5vzracvjk369rri2jxzgfaa1ll4qj5gdmzgflvidz8420bcvm";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
-  buildInputs =
-    commonDeps ++
-    optionals buildClient      clientDeps ++
-    optionals buildServer      serverDeps ++
-    optionals enableKisTablet  kisDeps    ;
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
+  buildInputs = commonDeps ++ optionals buildClient clientDeps
+    ++ optionals buildServer serverDeps ++ optionals enableKisTablet kisDeps;
 
-  cmakeFlags =
-    optional (!buildClient    )  "-DCLIENT=off" ++
-    optional (!buildServer    )  "-DSERVER=off" ++
-    optional (!buildServerGui )  "-DSERVERGUI=off" ++
-    optional ( buildExtraTools)  "-DTOOLS=on" ++
-    optional ( enableKisTablet)  "-DKIS_TABLET=on";
+  cmakeFlags = optional (!buildClient) "-DCLIENT=off"
+    ++ optional (!buildServer) "-DSERVER=off"
+    ++ optional (!buildServerGui) "-DSERVERGUI=off"
+    ++ optional (buildExtraTools) "-DTOOLS=on"
+    ++ optional (enableKisTablet) "-DKIS_TABLET=on";
 
   meta = {
-    description = "A collaborative drawing program that allows multiple users to sketch on the same canvas simultaneously";
-    homepage = https://drawpile.net/;
-    downloadPage = https://drawpile.net/download/;
+    description =
+      "A collaborative drawing program that allows multiple users to sketch on the same canvas simultaneously";
+    homepage = "https://drawpile.net/";
+    downloadPage = "https://drawpile.net/download/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.unix;

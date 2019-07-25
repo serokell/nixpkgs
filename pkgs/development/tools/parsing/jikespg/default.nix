@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "jikespg-1.3";
@@ -10,14 +10,13 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "jikespg/src";
 
-  installPhase =
-    ''
-      mkdir -p $out/bin
-      cp jikespg $out/bin
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    cp jikespg $out/bin
+  '';
 
   meta = with stdenv.lib; {
-    homepage = http://jikes.sourceforge.net/;
+    homepage = "http://jikes.sourceforge.net/";
     description = "The Jikes Parser Generator";
     platforms = platforms.linux;
     license = licenses.ipl10;

@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "023qdnsb6i18yrrawlhckm47q8x0sl7chpvvw3gssfyw3j2pv5cj";
   };
 
-  patches =
-    [ ./darwin.patch ]
+  patches = [ ./darwin.patch ]
     ++ stdenv.lib.optionals stdenv.cc.isClang [ ./clang.diff ];
 
   buildInputs = [ zlib ];
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ gebner raskin ];
     platforms = platforms.unix;
     license = licenses.mit;
-    homepage = http://minisat.se/;
+    homepage = "http://minisat.se/";
   };
 }

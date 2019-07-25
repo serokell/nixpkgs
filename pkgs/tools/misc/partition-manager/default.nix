@@ -1,11 +1,7 @@
-{ mkDerivation, fetchurl, lib
-, extra-cmake-modules, kdoctools, wrapGAppsHook, wrapQtAppsHook
-, kconfig, kcrash, kinit, kpmcore
-, eject, libatasmart , utillinux, qtbase
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, wrapQtAppsHook, kconfig, kcrash, kinit, kpmcore, eject, libatasmart, utillinux, qtbase
 }:
 
-let
-  pname = "partitionmanager";
+let pname = "partitionmanager";
 in mkDerivation rec {
   name = "${pname}-${version}";
   version = "3.3.1";
@@ -17,7 +13,8 @@ in mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook wrapQtAppsHook ];
+  nativeBuildInputs =
+    [ extra-cmake-modules kdoctools wrapGAppsHook wrapQtAppsHook ];
 
   # refer to kpmcore for the use of eject
   buildInputs = [ eject libatasmart utillinux ];
@@ -26,7 +23,7 @@ in mkDerivation rec {
   meta = with lib; {
     description = "KDE Partition Manager";
     license = licenses.gpl2;
-    homepage = https://www.kde.org/applications/system/kdepartitionmanager/;
+    homepage = "https://www.kde.org/applications/system/kdepartitionmanager/";
     maintainers = with maintainers; [ peterhoeg ma27 ];
   };
 }

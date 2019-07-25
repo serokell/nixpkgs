@@ -1,8 +1,8 @@
 { stdenv, fetchurl }:
 
-let version = "0.8"; in
+let version = "0.8";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "buildtorrent-${version}";
 
   src = fetchurl {
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A simple commandline torrent creator";
-    homepage = http://mathr.co.uk/blog/torrent.html;
+    homepage = "http://mathr.co.uk/blog/torrent.html";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.all;
   };

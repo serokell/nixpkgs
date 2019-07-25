@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, python
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, cython, python }:
 buildPythonPackage rec {
   pname = "cymem";
   version = "2.0.2";
@@ -16,9 +11,7 @@ buildPythonPackage rec {
     sha256 = "109i67vwgql9za8mfvgbrd6rgraz4djkvpzb4gqvzl13214s6ava";
   };
 
-  propagatedBuildInputs = [
-   cython
-  ];
+  propagatedBuildInputs = [ cython ];
 
   prePatch = ''
     substituteInPlace setup.py \
@@ -32,8 +25,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Cython memory pool for RAII-style memory management";
-    homepage = https://github.com/explosion/cymem;
+    homepage = "https://github.com/explosion/cymem";
     license = licenses.mit;
     maintainers = with maintainers; [ sdll ];
-    };
+  };
 }

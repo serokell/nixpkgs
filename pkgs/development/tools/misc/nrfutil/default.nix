@@ -1,6 +1,7 @@
 { stdenv, python2Packages, fetchFromGitHub }:
 
-with python2Packages; buildPythonApplication rec {
+with python2Packages;
+buildPythonApplication rec {
   pname = "nrfutil";
   version = "5.2.0";
 
@@ -11,8 +12,23 @@ with python2Packages; buildPythonApplication rec {
     sha256 = "1hajjgz8r4fjbwqr22p5dvb6k83dpxf8k7mhx20gkbrrx9ivqh79";
   };
 
-  propagatedBuildInputs = [ pc-ble-driver-py six pyserial enum34 click ecdsa
-    protobuf tqdm piccata pyspinel intelhex pyyaml crcmod libusb1 ipaddress ];
+  propagatedBuildInputs = [
+    pc-ble-driver-py
+    six
+    pyserial
+    enum34
+    click
+    ecdsa
+    protobuf
+    tqdm
+    piccata
+    pyspinel
+    intelhex
+    pyyaml
+    crcmod
+    libusb1
+    ipaddress
+  ];
 
   checkInputs = [ nose behave ];
 

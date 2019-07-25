@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, html5lib
-, wcwidth
-, pytest
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchPypi, html5lib, wcwidth, pytest }:
 
 buildPythonPackage rec {
   pname = "ftfy";
@@ -23,14 +16,9 @@ buildPythonPackage rec {
     sha256 = "1ci6xrj4g01a97nymxpv9nj820nlmgzc4ybaz9k46i6bnxzpax7s";
   };
 
-  propagatedBuildInputs = [
-    html5lib
-    wcwidth
-  ];
+  propagatedBuildInputs = [ html5lib wcwidth ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   # We suffix PATH like this because the tests want the ftfy executable
   checkPhase = ''
@@ -38,8 +26,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Given Unicode text, make its representation consistent and possibly less broken";
-    homepage = https://github.com/LuminosoInsight/python-ftfy;
+    description =
+      "Given Unicode text, make its representation consistent and possibly less broken";
+    homepage = "https://github.com/LuminosoInsight/python-ftfy";
     license = licenses.mit;
     maintainers = with maintainers; [ sdll aborsu ];
   };

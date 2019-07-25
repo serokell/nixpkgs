@@ -9,14 +9,15 @@ stdenv.mkDerivation rec {
     sha256 = "15ah05gharrzcxs8q5pm9mli5dp5lw19nd95apzzmyqnqa4zq1vh";
   };
 
-  nativeBuildInputs = [ m4 perl ] ++ stdenv.lib.optional stdenv.isSunOS help2man;
+  nativeBuildInputs = [ m4 perl ]
+    ++ stdenv.lib.optional stdenv.isSunOS help2man;
   propagatedBuildInputs = [ m4 ];
 
   doCheck = false; # fails
   doInstallCheck = false; # fails
 
   meta = {
-    homepage = https://www.gnu.org/software/bison/;
+    homepage = "https://www.gnu.org/software/bison/";
     description = "Yacc-compatible parser generator";
     license = stdenv.lib.licenses.gpl3Plus;
 

@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "smbnetfs-${version}";
   version = "0.6.1";
   src = fetchurl {
-    url = "mirror://sourceforge/project/smbnetfs/smbnetfs/SMBNetFS-${version}/${name}.tar.bz2";
+    url =
+      "mirror://sourceforge/project/smbnetfs/smbnetfs/SMBNetFS-${version}/${name}.tar.bz2";
     sha256 = "02iqjnm6pdwc1q38z56akiwdbp0xisr6qwrmxs1lrk5mq7j8x2w4";
   };
 
@@ -23,6 +24,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://sourceforge.net/projects/smbnetfs/files/smbnetfs";
     updateWalker = true;
     inherit version;
-    homepage = https://sourceforge.net/projects/smbnetfs/;
+    homepage = "https://sourceforge.net/projects/smbnetfs/";
   };
 }

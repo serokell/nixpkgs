@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pillow
-, nose_progressive
-, nose
-, mock
-, blessings
+{ stdenv, buildPythonPackage, fetchPypi, pillow, nose_progressive, nose, mock, blessings
 }:
 
 buildPythonPackage rec {
@@ -27,8 +20,9 @@ buildPythonPackage rec {
   buildInputs = [ pillow nose_progressive nose mock blessings ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/matthewwithanm/pilkit/;
-    description = "A collection of utilities and processors for the Python Imaging Libary";
+    homepage = "https://github.com/matthewwithanm/pilkit/";
+    description =
+      "A collection of utilities and processors for the Python Imaging Libary";
     license = licenses.bsd0;
     maintainers = with maintainers; [ domenkozar ];
   };

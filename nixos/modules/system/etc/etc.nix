@@ -16,24 +16,22 @@ let
     preferLocalBuild = true;
     allowSubstitutes = false;
 
-    /* !!! Use toXML. */
+    # !!! Use toXML.
     sources = map (x: x.source) etc';
     targets = map (x: x.target) etc';
     modes = map (x: x.mode) etc';
-    users  = map (x: x.user) etc';
-    groups  = map (x: x.group) etc';
+    users = map (x: x.user) etc';
+    groups = map (x: x.group) etc';
   };
 
-in
-
-{
+in {
 
   ###### interface
 
   options = {
 
     environment.etc = mkOption {
-      default = {};
+      default = { };
       example = literalExample ''
         { example-configuration-file =
             { source = "/nix/store/.../etc/dir/file.conf.example";
@@ -46,9 +44,9 @@ in
         Set of files that have to be linked in <filename>/etc</filename>.
       '';
 
-      type = with types; loaOf (submodule (
-        { name, config, ... }:
-        { options = {
+      type = with types;
+        loaOf (submodule ({ name, config, ... }: {
+          options = {
 
             enable = mkOption {
               type = types.bool;
@@ -96,7 +94,7 @@ in
               description = ''
                 UID of created file. Only takes affect when the file is
                 copied (that is, the mode is not 'symlink').
-                '';
+              '';
             };
 
             gid = mkOption {
@@ -132,8 +130,8 @@ in
 
           config = {
             target = mkDefault name;
-            source = mkIf (config.text != null) (
-              let name' = "etc-" + baseNameOf name;
+            source = mkIf (config.text != null)
+              (let name' = "etc-" + baseNameOf name;
               in mkDefault (pkgs.writeText name' config.text));
           };
 
@@ -143,19 +141,19 @@ in
 
   };
 
-
   ###### implementation
 
   config = {
 
     system.build.etc = etc;
 
-    system.activationScripts.etc = stringAfter [ "users" "groups" ]
-      ''
-        # Set up the statically computed bits of /etc.
-        echo "setting up /etc..."
-        ${pkgs.perl}/bin/perl -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix} ${./setup-etc.pl} ${etc}/etc
-      '';
+    system.activationScripts.etc = stringAfter [ "users" "groups" ] ''
+      # Set up the statically computed bits of /etc.
+      echo "setting up /etc..."
+      ${pkgs.perl}/bin/perl -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix} ${
+        ./setup-etc.pl
+      } ${etc}/etc
+    '';
 
   };
 

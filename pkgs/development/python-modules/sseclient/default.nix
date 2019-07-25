@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, requests, six
-, backports_unittest-mock, pytest, pytestrunner }:
+{ stdenv, buildPythonPackage, fetchPypi, requests, six, backports_unittest-mock, pytest, pytestrunner
+}:
 
 buildPythonPackage rec {
   pname = "sseclient";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Client library for reading Server Sent Event streams";
-    homepage = https://github.com/btubbs/sseclient;
+    homepage = "https://github.com/btubbs/sseclient";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };

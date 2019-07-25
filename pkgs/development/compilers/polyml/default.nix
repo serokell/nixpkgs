@@ -12,11 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin autoreconfHook;
 
-  configureFlags = [
-    "--enable-shared"
-    "--with-system-libffi"
-    "--with-gmp"
-  ];
+  configureFlags = [ "--enable-shared" "--with-system-libffi" "--with-gmp" ];
 
   src = fetchFromGitHub {
     owner = "polyml";
@@ -30,7 +26,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       Poly/ML is a full implementation of Standard ML.
     '';
-    homepage = https://www.polyml.org/;
+    homepage = "https://www.polyml.org/";
     license = licenses.lgpl21;
     platforms = with platforms; (linux ++ darwin);
     maintainers = with maintainers; [ z77z yurrriq ];

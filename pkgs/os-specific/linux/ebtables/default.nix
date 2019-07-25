@@ -9,16 +9,19 @@ stdenv.mkDerivation rec {
     sha256 = "0pa5ljlk970yfyhpf3iqwfpbc30j8mgn90fapw9cfz909x47nvyw";
   };
 
-  makeFlags =
-    [ "LIBDIR=$(out)/lib" "BINDIR=$(out)/sbin" "MANDIR=$(out)/share/man"
-      "ETCDIR=$(out)/etc" "INITDIR=$(TMPDIR)" "SYSCONFIGDIR=$(out)/etc/sysconfig"
-      "LOCALSTATEDIR=/var"
-    ];
+  makeFlags = [
+    "LIBDIR=$(out)/lib"
+    "BINDIR=$(out)/sbin"
+    "MANDIR=$(out)/share/man"
+    "ETCDIR=$(out)/etc"
+    "INITDIR=$(TMPDIR)"
+    "SYSCONFIGDIR=$(out)/etc/sysconfig"
+    "LOCALSTATEDIR=/var"
+  ];
 
-  preBuild =
-    ''
-      substituteInPlace Makefile --replace '-o root -g root' ""
-    '';
+  preBuild = ''
+    substituteInPlace Makefile --replace '-o root -g root' ""
+  '';
 
   NIX_CFLAGS_COMPILE = "-Wno-error";
 
@@ -26,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A filtering tool for Linux-based bridging firewalls";
-    homepage = http://ebtables.sourceforge.net/;
+    homepage = "http://ebtables.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

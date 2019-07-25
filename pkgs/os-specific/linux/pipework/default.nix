@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper
-, bridge-utils, iproute, lxc, openvswitch, docker, busybox, dhcpcd, dhcp
+{ stdenv, lib, fetchFromGitHub, makeWrapper, bridge-utils, iproute, lxc, openvswitch, docker, busybox, dhcpcd, dhcp
 }:
 
 stdenv.mkDerivation rec {
@@ -15,11 +14,22 @@ stdenv.mkDerivation rec {
   installPhase = ''
     install -D pipework $out/bin/pipework
     wrapProgram $out/bin/pipework --prefix PATH : \
-      ${lib.makeBinPath [ bridge-utils iproute lxc openvswitch docker busybox dhcpcd dhcp ]};
+      ${
+      lib.makeBinPath [
+        bridge-utils
+        iproute
+        lxc
+        openvswitch
+        docker
+        busybox
+        dhcpcd
+        dhcp
+      ]
+      };
   '';
   meta = with lib; {
     description = "Software-Defined Networking tools for LXC";
-    homepage = https://github.com/jpetazzo/pipework;
+    homepage = "https://github.com/jpetazzo/pipework";
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ];

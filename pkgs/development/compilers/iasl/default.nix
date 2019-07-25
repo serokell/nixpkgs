@@ -1,4 +1,4 @@
-{stdenv, fetchurl, bison, flex}:
+{ stdenv, fetchurl, bison, flex }:
 
 stdenv.mkDerivation rec {
   name = "iasl-${version}";
@@ -15,15 +15,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ bison flex ];
 
-  installPhase =
-    ''
-      install -d $out/bin
-      install generate/unix/bin*/iasl $out/bin
-    '';
+  installPhase = ''
+    install -d $out/bin
+    install generate/unix/bin*/iasl $out/bin
+  '';
 
   meta = {
     description = "Intel ACPI Compiler";
-    homepage = http://www.acpica.org/;
+    homepage = "http://www.acpica.org/";
     license = stdenv.lib.licenses.iasl;
     platforms = stdenv.lib.platforms.unix;
   };

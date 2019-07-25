@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, makeWrapper
-, gstreamer, gst-plugins-base, gst-plugins-good, gst-plugins-bad, gst-plugins-ugly, gst-libav, libupnp }:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, makeWrapper, gstreamer, gst-plugins-base, gst-plugins-good, gst-plugins-bad, gst-plugins-ugly, gst-libav, libupnp
+}:
 
-let version = "4f221e6b85abf85957b547436e982d7a501a1718"; in
+let version = "4f221e6b85abf85957b547436e982d7a501a1718";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "gmrender-resurrect-${version}";
 
   src = fetchFromGitHub {
@@ -17,7 +17,15 @@ stdenv.mkDerivation {
 
   autoconfPhase = "./autogen.sh";
 
-  buildInputs = [ gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav libupnp ];
+  buildInputs = [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+    gst-libav
+    libupnp
+  ];
   nativeBuildInputs = [ autoconf automake pkgconfig makeWrapper ];
 
   postInstall = ''
@@ -27,8 +35,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "Resource efficient UPnP/DLNA renderer, optimal for Raspberry Pi, CuBox or a general MediaServer";
-    homepage = https://github.com/hzeller/gmrender-resurrect;
+    description =
+      "Resource efficient UPnP/DLNA renderer, optimal for Raspberry Pi, CuBox or a general MediaServer";
+    homepage = "https://github.com/hzeller/gmrender-resurrect";
     license = licenses.gpl2;
     platforms = platforms.linux;
     broken = true;

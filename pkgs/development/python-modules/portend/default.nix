@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, setuptools_scm, tempora }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, setuptools_scm, tempora }:
 
 buildPythonPackage rec {
   pname = "portend";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Monitor TCP ports for bound or unbound states";
-    homepage = https://github.com/jaraco/portend;
+    homepage = "https://github.com/jaraco/portend";
     license = licenses.bsd3;
   };
 }

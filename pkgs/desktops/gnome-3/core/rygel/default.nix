@@ -1,29 +1,4 @@
-{ stdenv
-, fetchurl
-, meson
-, ninja
-, pkgconfig
-, vala
-, gettext
-, libxml2
-, gobject-introspection
-, wrapGAppsHook
-, python3
-, glib
-, gssdp
-, gupnp
-, gupnp-av
-, gupnp-dlna
-, gst_all_1
-, libgee
-, libsoup
-, gtk3
-, libmediaart
-, sqlite
-, systemd
-, tracker
-, shared-mime-info
-, gnome3
+{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gettext, libxml2, gobject-introspection, wrapGAppsHook, python3, glib, gssdp, gupnp, gupnp-av, gupnp-dlna, gst_all_1, libgee, libsoup, gtk3, libmediaart, sqlite, systemd, tracker, shared-mime-info, gnome3
 }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +9,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1w8bi2rw91qyfny1zxhy32k4qn62hdjl2m38f75cp7wv6494d7w0";
   };
 
@@ -81,9 +58,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  patches = [
-    ./add-option-for-installation-sysconfdir.patch
-  ];
+  patches = [ ./add-option-for-installation-sysconfdir.patch ];
 
   postPatch = ''
     patchShebangs data/xml/process-xml.py
@@ -97,8 +72,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";
-    homepage = https://wiki.gnome.org/Projects/Rygel;
+    description =
+      "A home media solution (UPnP AV MediaServer) that allows you to easily share audio, video and pictures to other devices";
+    homepage = "https://wiki.gnome.org/Projects/Rygel";
     license = licenses.lgpl21Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

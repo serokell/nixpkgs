@@ -1,5 +1,5 @@
 # Options that can be used for creating a jupyter kernel.
-{lib }:
+{ lib }:
 
 with lib;
 
@@ -9,10 +9,7 @@ with lib;
     displayName = mkOption {
       type = types.str;
       default = "";
-      example = [
-        "Python 3"
-        "Python 3 for Data Science"
-      ];
+      example = [ "Python 3" "Python 3 for Data Science" ];
       description = ''
         Name that will be shown to the user.
       '';

@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, spark_parser
-, xdis
-, nose
-, pytest
-, hypothesis
-, six
+{ stdenv, buildPythonPackage, fetchPypi, spark_parser, xdis, nose, pytest, hypothesis, six
 }:
 
 buildPythonPackage rec {
@@ -30,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python cross-version byte-code deparser";
-    homepage = https://github.com/rocky/python-uncompyle6/;
+    homepage = "https://github.com/rocky/python-uncompyle6/";
     license = licenses.gpl3;
   };
 

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook
-, boost, secp256k1 }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, boost, secp256k1 }:
 
 let
   pname = "libbitcoin";
@@ -29,7 +28,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "C++ library for building bitcoin applications";
-    homepage = https://libbitcoin.org/;
+    homepage = "https://libbitcoin.org/";
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ chris-martin ];
 

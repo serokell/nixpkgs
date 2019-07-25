@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, qtx11extras, poppler }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, qtx11extras, poppler
+}:
 
 stdenv.mkDerivation rec {
   name = "qcomicbook-${version}";
@@ -11,13 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "1b769lp6gfwds4jb2g7ymhdm9c06zg57zpyz3zpdb40w07zfsjzv";
   };
 
-  nativeBuildInputs = [
-    cmake pkgconfig
-  ];
+  nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs = [
-    qtbase qttools qtx11extras poppler
-  ];
+  buildInputs = [ qtbase qttools qtx11extras poppler ];
 
   postInstall = ''
     substituteInPlace $out/share/applications/*.desktop \
@@ -25,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/stolowski/QComicBook;
+    homepage = "https://github.com/stolowski/QComicBook";
     description = "Comic book reader in Qt5";
     license = licenses.gpl2;
 

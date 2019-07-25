@@ -1,7 +1,6 @@
 { stdenv, pass, fetchFromGitHub, pythonPackages, makeWrapper }:
 
-let
-  pythonEnv = pythonPackages.python.withPackages (p: [ p.defusedxml ]);
+let pythonEnv = pythonPackages.python.withPackages (p: [ p.defusedxml ]);
 
 in stdenv.mkDerivation rec {
   name = "pass-import-${version}";
@@ -33,8 +32,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Pass extension for importing data from existing password managers";
-    homepage = https://github.com/roddhjav/pass-import;
+    description =
+      "Pass extension for importing data from existing password managers";
+    homepage = "https://github.com/roddhjav/pass-import";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ lovek323 the-kenny fpletz tadfisher ];
     platforms = platforms.unix;

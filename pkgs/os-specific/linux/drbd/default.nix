@@ -19,24 +19,25 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
   ];
 
-  preConfigure =
-    ''
-      export PATH=${systemd}/sbin:$PATH
-      substituteInPlace user/Makefile.in \
-        --replace /sbin '$(sbindir)'
-      substituteInPlace user/legacy/Makefile.in \
-        --replace '$(DESTDIR)/lib/drbd' '$(DESTDIR)$(LIBDIR)'
-      substituteInPlace user/drbdadm_usage_cnt.c --replace /lib/drbd $out/lib/drbd
-      substituteInPlace scripts/drbd.rules --replace /usr/sbin/drbdadm $out/sbin/drbdadm
-    '';
+  preConfigure = ''
+    export PATH=${systemd}/sbin:$PATH
+    substituteInPlace user/Makefile.in \
+      --replace /sbin '$(sbindir)'
+    substituteInPlace user/legacy/Makefile.in \
+      --replace '$(DESTDIR)/lib/drbd' '$(DESTDIR)$(LIBDIR)'
+    substituteInPlace user/drbdadm_usage_cnt.c --replace /lib/drbd $out/lib/drbd
+    substituteInPlace scripts/drbd.rules --replace /usr/sbin/drbdadm $out/sbin/drbdadm
+  '';
 
   makeFlags = "SHELL=${stdenv.shell}";
 
-  installFlags = "localstatedir=$(TMPDIR)/var sysconfdir=$(out)/etc INITDIR=$(out)/etc/init.d";
+  installFlags =
+    "localstatedir=$(TMPDIR)/var sysconfdir=$(out)/etc INITDIR=$(out)/etc/init.d";
 
   meta = with stdenv.lib; {
-    homepage = http://www.drbd.org/;
-    description = "Distributed Replicated Block Device, a distributed storage system for Linux";
+    homepage = "http://www.drbd.org/";
+    description =
+      "Distributed Replicated Block Device, a distributed storage system for Linux";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -1,8 +1,8 @@
 { lib, stdenv, fetchurl, cmake, libcxxabi, fixDarwinDylibNames }:
 
-let version = "3.5.2"; in
+let version = "3.5.2";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "libc++-${version}";
 
   src = fetchurl {
@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
     ./xlocale-glibc-2.26.patch
   ];
 
-  buildInputs = [ cmake libcxxabi ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  buildInputs = [ cmake libcxxabi ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   cmakeFlags = [
     "-DLIBCXX_LIBCXXABI_INCLUDE_PATHS=${libcxxabi}/include"
@@ -39,14 +40,13 @@ stdenv.mkDerivation rec {
 
   linkCxxAbi = stdenv.isLinux;
 
-  setupHooks = [
-    ../../../../../build-support/setup-hooks/role.bash
-    ./setup-hook.sh
-  ];
+  setupHooks =
+    [ ../../../../../build-support/setup-hooks/role.bash ./setup-hook.sh ];
 
   meta = {
-    homepage = http://libcxx.llvm.org/;
-    description = "A new implementation of the C++ standard library, targeting C++11";
+    homepage = "http://libcxx.llvm.org/";
+    description =
+      "A new implementation of the C++ standard library, targeting C++11";
     license = with stdenv.lib.licenses; [ ncsa mit ];
     platforms = stdenv.lib.platforms.unix;
   };

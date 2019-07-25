@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig
-, python, pythonPackages, orc, libusb1, boost }:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, python, pythonPackages, orc, libusb1, boost
+}:
 
 # You need these udev rules to not have to run as root (copied from
 # ${uhd}/share/uhd/utils/uhd-usrp.rules):
@@ -16,7 +16,8 @@ let
 
   # Firmware images are downloaded (pre-built) from the respective release on Github
   uhdImagesSrc = fetchurl {
-    url = "https://github.com/EttusResearch/uhd/releases/download/${uhdVer}/uhd-images_${version}.tar.xz";
+    url =
+      "https://github.com/EttusResearch/uhd/releases/download/${uhdVer}/uhd-images_${version}.tar.xz";
     sha256 = "1fp37wgqkbr14cxg9l7ghfd4r92y2bxwgb7cfjzs96hbpd9s6al0";
   };
 
@@ -35,8 +36,11 @@ in stdenv.mkDerivation {
   # ABI differences GCC 7.1
   # /nix/store/wd6r25miqbk9ia53pp669gn4wrg9n9cj-gcc-7.3.0/include/c++/7.3.0/bits/vector.tcc:394:7: note: parameter passing for argument of type 'std::vector<uhd::range_t>::iterator {aka __gnu_cxx::__normal_iterator<uhd::range_t*, std::vector<uhd::range_t> >}' changed in GCC 7.1
 
-  cmakeFlags = [ "-DLIBUSB_INCLUDE_DIRS=${libusb1.dev}/include/libusb-1.0"] ++
-               [ (stdenv.lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi") ];
+  cmakeFlags = [ "-DLIBUSB_INCLUDE_DIRS=${libusb1.dev}/include/libusb-1.0" ]
+    ++ [
+      (stdenv.lib.optionalString stdenv.isAarch32
+      "-DCMAKE_CXX_FLAGS=-Wno-psabi")
+    ];
 
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ python pythonPackages.pyramid_mako orc libusb1 boost ];
@@ -62,7 +66,7 @@ in stdenv.mkDerivation {
       USRP devices are designed and sold by Ettus Research, LLC and its parent
       company, National Instruments.
     '';
-    homepage = https://uhd.ettus.com/;
+    homepage = "https://uhd.ettus.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ bjornfor fpletz tomberek ];

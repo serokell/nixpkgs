@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.arbtt;
+let cfg = config.services.arbtt;
 in {
   options = {
     services.arbtt = {
@@ -53,7 +52,10 @@ in {
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/arbtt-capture --logfile=${cfg.logFile} --sample-rate=${toString cfg.sampleRate}";
+        ExecStart =
+          "${cfg.package}/bin/arbtt-capture --logfile=${cfg.logFile} --sample-rate=${
+            toString cfg.sampleRate
+          }";
         Restart = "always";
       };
     };

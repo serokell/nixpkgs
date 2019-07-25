@@ -1,10 +1,4 @@
-{ elk6Version
-, enableUnfree ? true
-, stdenv
-, fetchurl
-, makeWrapper
-, jre
-}:
+{ elk6Version, enableUnfree ? true, stdenv, fetchurl, makeWrapper, jre }:
 
 with stdenv.lib;
 
@@ -14,20 +8,18 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://artifacts.elastic.co/downloads/logstash/${name}.tar.gz";
-    sha256 =
-      if enableUnfree
-      then "178shgxwc9kw9w9vwsvwxp8m8r6lssaw1i32vvmx9na01b4w5m4p"
-      else "0gyq97qsg7fys9cc5yj4kpcf3xxvdd5qgzal368yg9swps37g5yj";
+    sha256 = if enableUnfree then
+      "178shgxwc9kw9w9vwsvwxp8m8r6lssaw1i32vvmx9na01b4w5m4p"
+    else
+      "0gyq97qsg7fys9cc5yj4kpcf3xxvdd5qgzal368yg9swps37g5yj";
   };
 
-  dontBuild         = true;
-  dontPatchELF      = true;
-  dontStrip         = true;
+  dontBuild = true;
+  dontPatchELF = true;
+  dontStrip = true;
   dontPatchShebangs = true;
 
-  buildInputs = [
-    makeWrapper jre
-  ];
+  buildInputs = [ makeWrapper jre ];
 
   installPhase = ''
     mkdir -p $out
@@ -44,10 +36,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Logstash is a data pipeline that helps you process logs and other event data from a variety of systems";
-    homepage    = https://www.elastic.co/products/logstash;
-    license     = if enableUnfree then licenses.elastic else licenses.asl20;
-    platforms   = platforms.unix;
+    description =
+      "Logstash is a data pipeline that helps you process logs and other event data from a variety of systems";
+    homepage = "https://www.elastic.co/products/logstash";
+    license = if enableUnfree then licenses.elastic else licenses.asl20;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ wjlroe offline basvandijk ];
   };
 }

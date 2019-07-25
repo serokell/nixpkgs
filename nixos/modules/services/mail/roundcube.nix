@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.roundcube;
-in
-{
+let cfg = config.services.roundcube;
+in {
   options.services.roundcube = {
     enable = mkOption {
       type = types.bool;
@@ -68,7 +66,7 @@ in
 
     plugins = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = ''
         List of roundcube plugins to enable. Currently, only those directly shipped with Roundcube are supported.
       '';
@@ -89,7 +87,9 @@ in
       $config['db_dsnw'] = 'pgsql://${cfg.database.username}:${cfg.database.password}@${cfg.database.host}/${cfg.database.dbname}';
       $config['log_driver'] = 'syslog';
       $config['max_message_size'] = '25M';
-      $config['plugins'] = [${concatMapStringsSep "," (p: "'${p}'") cfg.plugins}];
+      $config['plugins'] = [${
+        concatMapStringsSep "," (p: "'${p}'") cfg.plugins
+      }];
       ${cfg.extraConfig}
     '';
 
@@ -115,9 +115,8 @@ in
       };
     };
 
-    services.postgresql = mkIf (cfg.database.host == "localhost") {
-      enable = true;
-    };
+    services.postgresql =
+      mkIf (cfg.database.host == "localhost") { enable = true; };
 
     services.phpfpm.poolConfigs.roundcube = ''
       listen = /run/phpfpm/roundcube
@@ -139,33 +138,33 @@ in
     '';
     systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
 
-    systemd.services.roundcube-setup = let
-      pgSuperUser = config.services.postgresql.superUser;
-    in mkMerge [
-      (mkIf (cfg.database.host == "localhost") {
-        requires = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
-        path = [ config.services.postgresql.package ];
-      })
-      {
-        wantedBy = [ "multi-user.target" ];
-        script = ''
-          mkdir -p /var/lib/roundcube
-          if [ ! -f /var/lib/roundcube/db-created ]; then
-            if [ "${cfg.database.host}" = "localhost" ]; then
-              ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create role ${cfg.database.username} with login password '${cfg.database.password}'";
-              ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create database ${cfg.database.dbname} with owner ${cfg.database.username}";
+    systemd.services.roundcube-setup =
+      let pgSuperUser = config.services.postgresql.superUser;
+      in mkMerge [
+        (mkIf (cfg.database.host == "localhost") {
+          requires = [ "postgresql.service" ];
+          after = [ "postgresql.service" ];
+          path = [ config.services.postgresql.package ];
+        })
+        {
+          wantedBy = [ "multi-user.target" ];
+          script = ''
+            mkdir -p /var/lib/roundcube
+            if [ ! -f /var/lib/roundcube/db-created ]; then
+              if [ "${cfg.database.host}" = "localhost" ]; then
+                ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create role ${cfg.database.username} with login password '${cfg.database.password}'";
+                ${pkgs.sudo}/bin/sudo -u ${pgSuperUser} psql postgres -c "create database ${cfg.database.dbname} with owner ${cfg.database.username}";
+              fi
+              PGPASSWORD=${cfg.database.password} ${pkgs.postgresql}/bin/psql -U ${cfg.database.username} \
+                -f ${cfg.package}/SQL/postgres.initial.sql \
+                -h ${cfg.database.host} ${cfg.database.dbname}
+              touch /var/lib/roundcube/db-created
             fi
-            PGPASSWORD=${cfg.database.password} ${pkgs.postgresql}/bin/psql -U ${cfg.database.username} \
-              -f ${cfg.package}/SQL/postgres.initial.sql \
-              -h ${cfg.database.host} ${cfg.database.dbname}
-            touch /var/lib/roundcube/db-created
-          fi
 
-          ${pkgs.php}/bin/php ${cfg.package}/bin/update.sh
-        '';
-        serviceConfig.Type = "oneshot";
-      }
-    ];
+            ${pkgs.php}/bin/php ${cfg.package}/bin/update.sh
+          '';
+          serviceConfig.Type = "oneshot";
+        }
+      ];
   };
 }

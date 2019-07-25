@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mozinfo
-}:
+{ lib, buildPythonPackage, fetchPypi, mozinfo }:
 
 buildPythonPackage rec {
   pname = "mozprocess";
@@ -17,7 +13,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Mozilla-authored process handling";
-    homepage = https://wiki.mozilla.org/Auto-tools/Projects/Mozbase;
+    homepage = "https://wiki.mozilla.org/Auto-tools/Projects/Mozbase";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ raskin ];
   };

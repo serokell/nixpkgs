@@ -105,7 +105,7 @@ in {
     };
 
     onShutdown = mkOption {
-      type = types.enum ["shutdown" "suspend" ];
+      type = types.enum [ "shutdown" "suspend" ];
       default = "suspend";
       description = ''
         When shutting down / restarting the host what method should
@@ -125,15 +125,14 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     environment = {
       # this file is expected in /etc/qemu and not sysconfdir (/var/lib)
-      etc."qemu/bridge.conf".text = lib.concatMapStringsSep "\n" (e:
-        "allow ${e}") cfg.allowedBridges;
+      etc."qemu/bridge.conf".text =
+        lib.concatMapStringsSep "\n" (e: "allow ${e}") cfg.allowedBridges;
       systemPackages = with pkgs; [ libvirt libressl.nc cfg.qemuPackage ];
     };
 
@@ -201,12 +200,14 @@ in {
       wantedBy = [ "multi-user.target" ];
       requires = [ "libvirtd-config.service" ];
       after = [ "systemd-udev-settle.service" "libvirtd-config.service" ]
-              ++ optional vswitch.enable "vswitchd.service";
+        ++ optional vswitch.enable "vswitchd.service";
 
-      environment.LIBVIRTD_ARGS = ''--config "${configFile}" ${concatStringsSep " " cfg.extraOptions}'';
+      environment.LIBVIRTD_ARGS =
+        ''--config "${configFile}" ${concatStringsSep " " cfg.extraOptions}'';
 
-      path = [ cfg.qemuPackage ] # libvirtd requires qemu-img to manage disk images
-             ++ optional vswitch.enable vswitch.package;
+      path =
+        [ cfg.qemuPackage ] # libvirtd requires qemu-img to manage disk images
+        ++ optional vswitch.enable vswitch.package;
 
       serviceConfig = {
         Type = "notify";

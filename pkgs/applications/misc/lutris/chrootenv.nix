@@ -1,110 +1,239 @@
-{ lib, buildFHSUserEnv, lutris-unwrapped
-, steamSupport ? true
-}:
+{ lib, buildFHSUserEnv, lutris-unwrapped, steamSupport ? true }:
 
 let
 
   qt5Deps = pkgs: with pkgs.qt5; [ qtbase qtmultimedia ];
-  gnome3Deps = pkgs: with pkgs.gnome3; [ zenity gtksourceview gnome-desktop libgnome-keyring webkitgtk ];
-  xorgDeps = pkgs: with pkgs.xorg; [
-    libX11 libXrender libXrandr libxcb libXmu libpthreadstubs libXext libXdmcp
-    libXxf86vm libXinerama libSM libXv libXaw libXi libXcursor libXcomposite
-  ];
+  gnome3Deps = pkgs:
+    with pkgs.gnome3; [
+      zenity
+      gtksourceview
+      gnome-desktop
+      libgnome-keyring
+      webkitgtk
+    ];
+  xorgDeps = pkgs:
+    with pkgs.xorg; [
+      libX11
+      libXrender
+      libXrandr
+      libxcb
+      libXmu
+      libpthreadstubs
+      libXext
+      libXdmcp
+      libXxf86vm
+      libXinerama
+      libSM
+      libXv
+      libXaw
+      libXi
+      libXcursor
+      libXcomposite
+    ];
 
 in buildFHSUserEnv {
   name = "lutris";
 
   runScript = "lutris";
 
-  targetPkgs = pkgs: with pkgs; [
-    lutris-unwrapped
+  targetPkgs = pkgs:
+    with pkgs;
+    [
+      lutris-unwrapped
 
-    # Adventure Game Studio
-    allegro dumb
+      # Adventure Game Studio
+      allegro
+      dumb
 
-    # Desmume
-    lua agg soundtouch openal desktop-file-utils pangox_compat atk
+      # Desmume
+      lua
+      agg
+      soundtouch
+      openal
+      desktop-file-utils
+      pangox_compat
+      atk
 
-    # DGen // TODO: libarchive is broken
+      # DGen // TODO: libarchive is broken
 
-    # Dolphin
-    bluez ffmpeg gettext portaudio wxGTK30 miniupnpc mbedtls lzo sfml gsm
-    wavpack gnutls-kdh orc nettle gmp pcre vulkan-loader
+      # Dolphin
+      bluez
+      ffmpeg
+      gettext
+      portaudio
+      wxGTK30
+      miniupnpc
+      mbedtls
+      lzo
+      sfml
+      gsm
+      wavpack
+      gnutls-kdh
+      orc
+      nettle
+      gmp
+      pcre
+      vulkan-loader
 
-    # DOSBox
-    SDL_net SDL_sound
+      # DOSBox
+      SDL_net
+      SDL_sound
 
-    # GOG
-    glib-networking
+      # GOG
+      glib-networking
 
-    # Higan // TODO: "higan is not available for the x86_64 architecture"
+      # Higan // TODO: "higan is not available for the x86_64 architecture"
 
-    # Libretro
-    fluidsynth hidapi mesa libdrm
+      # Libretro
+      fluidsynth
+      hidapi
+      mesa
+      libdrm
 
-    # MAME
-    qt48 fontconfig SDL2_ttf
+      # MAME
+      qt48
+      fontconfig
+      SDL2_ttf
 
-    # Mednafen
-    freeglut mesa_glu
+      # Mednafen
+      freeglut
+      mesa_glu
 
-    # MESS
-    expat
+      # MESS
+      expat
 
-    # Minecraft
-    nss
+      # Minecraft
+      nss
 
-    # Mupen64Plus
-    boost dash
+      # Mupen64Plus
+      boost
+      dash
 
-    # Osmose
-    qt4
+      # Osmose
+      qt4
 
-    # PPSSPP
-    glew snappy
+      # PPSSPP
+      glew
+      snappy
 
-    # Redream // "redream is not available for the x86_64 architecture"
+      # Redream // "redream is not available for the x86_64 architecture"
 
-    # ResidualVM
-    flac
+      # ResidualVM
+      flac
 
-    # rpcs3 // TODO: "error while loading shared libraries: libz.so.1..."
-    llvm_4
+      # rpcs3 // TODO: "error while loading shared libraries: libz.so.1..."
+      llvm_4
 
-    # ScummVM
-    nasm sndio
+      # ScummVM
+      nasm
+      sndio
 
-    # Snes9x
-    epoxy minizip
+      # Snes9x
+      epoxy
+      minizip
 
-    # Vice
-    bison flex
+      # Vice
+      bison
+      flex
 
-    # WINE
-    xorg.xrandr perl which p7zip gnused gnugrep psmisc opencl-headers
+      # WINE
+      xorg.xrandr
+      perl
+      which
+      p7zip
+      gnused
+      gnugrep
+      psmisc
+      opencl-headers
 
-    # ZDOOM
-    soundfont-fluid bzip2 game-music-emu
-  ] ++ qt5Deps pkgs
-    ++ gnome3Deps pkgs
+      # ZDOOM
+      soundfont-fluid
+      bzip2
+      game-music-emu
+    ] ++ qt5Deps pkgs ++ gnome3Deps pkgs
     ++ lib.optional steamSupport pkgs.steam;
 
-  multiPkgs = pkgs: with pkgs; [
-    # Common
-    libsndfile libtheora libogg libvorbis libopus libGLU libpcap libpulseaudio
-    libao libusb libevdev libudev libgcrypt libxml2 libusb libpng libmpeg2 libv4l
-    libjpeg libxkbcommon libass libcdio libjack2 libsamplerate libzip libmad libaio
-    libcap libtiff libva libgphoto2 libxslt libtxc_dxtn libsndfile giflib zlib glib
-    alsaLib zziplib bash dbus keyutils zip cabextract freetype unzip coreutils
-    readline gcc SDL SDL2 curl graphite2 gtk2 gtk3 udev ncurses wayland libglvnd
-    vulkan-loader xdg_utils sqlite
+  multiPkgs = pkgs:
+    with pkgs;
+    [
+      # Common
+      libsndfile
+      libtheora
+      libogg
+      libvorbis
+      libopus
+      libGLU
+      libpcap
+      libpulseaudio
+      libao
+      libusb
+      libevdev
+      libudev
+      libgcrypt
+      libxml2
+      libusb
+      libpng
+      libmpeg2
+      libv4l
+      libjpeg
+      libxkbcommon
+      libass
+      libcdio
+      libjack2
+      libsamplerate
+      libzip
+      libmad
+      libaio
+      libcap
+      libtiff
+      libva
+      libgphoto2
+      libxslt
+      libtxc_dxtn
+      libsndfile
+      giflib
+      zlib
+      glib
+      alsaLib
+      zziplib
+      bash
+      dbus
+      keyutils
+      zip
+      cabextract
+      freetype
+      unzip
+      coreutils
+      readline
+      gcc
+      SDL
+      SDL2
+      curl
+      graphite2
+      gtk2
+      gtk3
+      udev
+      ncurses
+      wayland
+      libglvnd
+      vulkan-loader
+      xdg_utils
+      sqlite
 
-    # PCSX2 // TODO: "libgobject-2.0.so.0: wrong ELF class: ELFCLASS64"
+      # PCSX2 // TODO: "libgobject-2.0.so.0: wrong ELF class: ELFCLASS64"
 
-    # WINE
-    cups lcms2 mpg123 cairo unixODBC samba4 sane-backends openldap
-    ocl-icd utillinux
-  ] ++ xorgDeps pkgs;
+      # WINE
+      cups
+      lcms2
+      mpg123
+      cairo
+      unixODBC
+      samba4
+      sane-backends
+      openldap
+      ocl-icd
+      utillinux
+    ] ++ xorgDeps pkgs;
 
   extraInstallCommands = ''
     mkdir -p $out/share

@@ -1,4 +1,4 @@
-{stdenv, git, xdg_utils, gnugrep, fetchFromGitHub, makeWrapper}:
+{ stdenv, git, xdg_utils, gnugrep, fetchFromGitHub, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "git-open-${version}";
@@ -23,8 +23,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/paulirish/git-open;
-    description = "Open the GitHub page or website for a repository in your browser";
+    homepage = "https://github.com/paulirish/git-open";
+    description =
+      "Open the GitHub page or website for a repository in your browser";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ maintainers.jlesquembre ];

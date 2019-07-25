@@ -1,12 +1,8 @@
-{ buildPythonPackage, fetchFromGitHub, lib, isPyPy, isPy3k, pythonOlder
-, pycrypto, ecdsa # TODO
-, enum34, mock
-, withOptionalDeps ? true, tcpdump, ipython
-, withCryptography ? true, cryptography
-, withVoipSupport ? true, sox
-, withPlottingSupport ? true, matplotlib
-, withGraphicsSupport ? false, pyx, texlive, graphviz, imagemagick
-, withManufDb ? false, wireshark
+{ buildPythonPackage, fetchFromGitHub, lib, isPyPy, isPy3k, pythonOlder, pycrypto, ecdsa # TODO
+, enum34, mock, withOptionalDeps ? true, tcpdump, ipython, withCryptography ?
+  true, cryptography, withVoipSupport ? true, sox, withPlottingSupport ?
+    true, matplotlib, withGraphicsSupport ?
+      false, pyx, texlive, graphviz, imagemagick, withManufDb ? false, wireshark
 # 2D/3D graphics and graphs TODO: VPython
 # TODO: nmap, numpy
 }:
@@ -39,8 +35,12 @@ buildPythonPackage rec {
     ++ lib.optional withCryptography [ cryptography ]
     ++ lib.optional withVoipSupport [ sox ]
     ++ lib.optional withPlottingSupport [ matplotlib ]
-    ++ lib.optional withGraphicsSupport [ pyx texlive.combined.scheme-minimal graphviz imagemagick ]
-    ++ lib.optional (isPy3k && pythonOlder "3.4") [ enum34 ]
+    ++ lib.optional withGraphicsSupport [
+      pyx
+      texlive.combined.scheme-minimal
+      graphviz
+      imagemagick
+    ] ++ lib.optional (isPy3k && pythonOlder "3.4") [ enum34 ]
     ++ lib.optional doCheck [ mock ];
 
   # Tests fail with Python 3.6 (seems to be an upstream bug, I'll investigate)
@@ -48,7 +48,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Powerful interactive network packet manipulation program";
-    homepage = https://scapy.net/;
+    homepage = "https://scapy.net/";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos bjornfor ];

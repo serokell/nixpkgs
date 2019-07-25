@@ -1,9 +1,8 @@
-{ stdenv, fetchgit, pkgconfig, pidgin, json-glib, glib, http-parser, sqlite, olm, libgcrypt } :
+{ stdenv, fetchgit, pkgconfig, pidgin, json-glib, glib, http-parser, sqlite, olm, libgcrypt
+}:
 
-let
-  version = "2018-08-03";
-in
-stdenv.mkDerivation rec {
+let version = "2018-08-03";
+in stdenv.mkDerivation rec {
   name = "purple-matrix-unstable-${version}";
 
   src = fetchgit {
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/matrix-org/purple-matrix;
+    homepage = "https://github.com/matrix-org/purple-matrix";
     description = "Matrix support for Pidgin / libpurple";
     license = licenses.gpl2;
     maintainers = with maintainers; [ symphorien ];

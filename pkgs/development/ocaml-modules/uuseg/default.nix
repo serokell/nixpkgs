@@ -1,11 +1,11 @@
-{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, uucp, uutf, cmdliner }:
+{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, uucp, uutf, cmdliner
+}:
 
 let
   pname = "uuseg";
   webpage = "https://erratique.ch/software/${pname}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   name = "ocaml${ocaml.version}-${pname}-${version}";
   version = "11.0.0";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "An OCaml library for segmenting Unicode text";
     homepage = "${webpage}";
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
     license = licenses.bsd3;
     maintainers = [ maintainers.vbgl ];
   };

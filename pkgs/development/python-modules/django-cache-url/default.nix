@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   version = "3.0.0";
@@ -23,7 +19,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/ghickman/django-cache-url;
+    homepage = "https://github.com/ghickman/django-cache-url";
     description = "Use Cache URLs in your Django application";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

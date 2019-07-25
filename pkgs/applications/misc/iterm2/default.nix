@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sed -i -e 's/CODE_SIGN_IDENTITY = "Developer ID Application"/CODE_SIGN_IDENTITY = ""/g' ./iTerm2.xcodeproj/project.pbxproj
   '';
   preConfigure = "LD=$CC";
-  makeFlagsArray = ["Deployment"];
+  makeFlagsArray = [ "Deployment" ];
   installPhase = ''
     mkdir -p "$out/Applications"
     mv "build/Deployment/iTerm2.app" "$out/Applications/iTerm.app"
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A replacement for Terminal and the successor to iTerm";
-    homepage = https://www.iterm2.com/;
+    homepage = "https://www.iterm2.com/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.darwin;
   };

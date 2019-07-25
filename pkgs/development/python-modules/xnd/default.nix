@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, ndtypes
-, libndtypes
-, libxnd
-, isPy27
-}:
+{ buildPythonPackage, ndtypes, libndtypes, libxnd, isPy27 }:
 
 buildPythonPackage {
   pname = "xnd";

@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, cloudpickle
-, numpy
-, toolz
-, dill
-, pandas
-, partd
+{ lib, buildPythonPackage, fetchPypi, pytest, cloudpickle, numpy, toolz, dill, pandas, partd
 }:
 
 buildPythonPackage rec {
@@ -20,7 +11,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [ cloudpickle  numpy toolz dill pandas partd ];
+  propagatedBuildInputs = [ cloudpickle numpy toolz dill pandas partd ];
 
   checkPhase = ''
     py.test dask
@@ -31,7 +22,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Minimal task scheduling abstraction";
-    homepage = https://github.com/ContinuumIO/dask/;
+    homepage = "https://github.com/ContinuumIO/dask/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };

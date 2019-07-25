@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, supportCompressedPackets ? true, zlib, bzip2
-}:
+{ stdenv, fetchFromGitHub, supportCompressedPackets ? true, zlib, bzip2 }:
 
 stdenv.mkDerivation rec {
   name = "pgpdump-${version}";
@@ -21,7 +19,7 @@ stdenv.mkDerivation rec {
       pgpdump is a PGP packet visualizer which displays the packet format of
       OpenPGP (RFC 4880) and PGP version 2 (RFC 1991).
     '';
-    homepage = http://www.mew.org/~kazu/proj/pgpdump/en/;
+    homepage = "http://www.mew.org/~kazu/proj/pgpdump/en/";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];

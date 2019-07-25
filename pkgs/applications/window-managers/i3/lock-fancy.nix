@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, coreutils, scrot, imagemagick, gawk
-, i3lock-color, getopt, fontconfig
+{ stdenv, fetchFromGitHub, coreutils, scrot, imagemagick, gawk, i3lock-color, getopt, fontconfig
 }:
 
 stdenv.mkDerivation rec {
@@ -32,8 +31,9 @@ stdenv.mkDerivation rec {
     cp icons/lock*.png $out/share/i3lock-fancy/icons
   '';
   meta = with stdenv.lib; {
-    description = "i3lock is a bash script that takes a screenshot of the desktop, blurs the background and adds a lock icon and text.";
-    homepage = https://github.com/meskarune/i3lock-fancy;
+    description =
+      "i3lock is a bash script that takes a screenshot of the desktop, blurs the background and adds a lock icon and text.";
+    homepage = "https://github.com/meskarune/i3lock-fancy";
     maintainers = with maintainers; [ ];
     license = licenses.mit;
     platforms = platforms.linux;

@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, karchive, kio, libkexiv2, libkdcraw
-}:
+{ mkDerivation, lib, extra-cmake-modules, karchive, kio, libkexiv2, libkdcraw }:
 
 mkDerivation {
   name = "kdegraphics-thumbnailers";

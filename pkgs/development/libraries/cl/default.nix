@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, rebar, erlang, opencl-headers, ocl-icd }:
+{ stdenv, fetchFromGitHub, rebar, erlang, opencl-headers, ocl-icd }:
 
 stdenv.mkDerivation rec {
   version = "1.2.4";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ erlang rebar opencl-headers ocl-icd ];
-  
+
   buildPhase = ''
     rebar compile
   '';
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/tonyrog/cl;
+    homepage = "https://github.com/tonyrog/cl";
     description = "OpenCL binding for Erlang";
     license = licenses.mit;
     platforms = platforms.linux;

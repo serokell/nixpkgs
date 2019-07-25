@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, six
-, dateutil
-, ipaddress
-, mock
+{ stdenv, buildPythonPackage, fetchPypi, python, six, dateutil, ipaddress, mock
 }:
 
 buildPythonPackage rec {
@@ -28,10 +21,10 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python package that generates fake data for you";
-    homepage    = https://pypi.python.org/pypi/fake-factory;
-    license     = licenses.mit;
+    homepage = "https://pypi.python.org/pypi/fake-factory";
+    license = licenses.mit;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 
 }

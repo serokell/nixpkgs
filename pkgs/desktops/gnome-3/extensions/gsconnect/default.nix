@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, substituteAll, python3, openssl, folks, gsound
-, meson, ninja, libxml2, pkgconfig, gobject-introspection, wrapGAppsHook
-, glib, gtk3, at-spi2-core, upower, openssh, gnome3 }:
+{ stdenv, fetchFromGitHub, substituteAll, python3, openssl, folks, gsound, meson, ninja, libxml2, pkgconfig, gobject-introspection, wrapGAppsHook, glib, gtk3, at-spi2-core, upower, openssh, gnome3
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-shell-gsconnect-${version}";
@@ -18,12 +17,15 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./fix-paths.patch;
       gapplication = "${glib.bin}/bin/gapplication";
-      mutter_gsettings_path = "${gnome3.mutter}/share/gsettings-schemas/${gnome3.mutter.name}/glib-2.0/schemas";
+      mutter_gsettings_path =
+        "${gnome3.mutter}/share/gsettings-schemas/${gnome3.mutter.name}/glib-2.0/schemas";
     })
   ];
 
   nativeBuildInputs = [
-    meson ninja pkgconfig
+    meson
+    ninja
+    pkgconfig
     gobject-introspection # for locating typelibs
     wrapGAppsHook # for wrapping daemons
     libxml2 # xmllint
@@ -46,7 +48,9 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dgnome_shell_libdir=${gnome3.gnome-shell}/lib"
-    "-Dgsettings_schemadir=${placeholder "out"}/share/gsettings-schemas/${name}/glib-2.0/schemas"
+    "-Dgsettings_schemadir=${
+      placeholder "out"
+    }/share/gsettings-schemas/${name}/glib-2.0/schemas"
     "-Dchrome_nmhdir=${placeholder "out"}/etc/opt/chrome/native-messaging-hosts"
     "-Dchromium_nmhdir=${placeholder "out"}/etc/chromium/native-messaging-hosts"
     "-Dopenssl_path=${openssl}/bin/openssl"
@@ -70,7 +74,9 @@ stdenv.mkDerivation rec {
   preFixup = ''
     # TODO: figure out why folks GIR does not contain shared-library attribute
     # https://github.com/NixOS/nixpkgs/issues/47226
-    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ folks ]}")
+    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "${
+      stdenv.lib.makeLibraryPath [ folks ]
+    }")
   '';
 
   postFixup = ''
@@ -83,7 +89,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "KDE Connect implementation for Gnome Shell";
-    homepage = https://github.com/andyholmes/gnome-shell-extension-gsconnect/wiki;
+    homepage =
+      "https://github.com/andyholmes/gnome-shell-extension-gsconnect/wiki";
     license = licenses.gpl2;
     maintainers = with maintainers; [ etu ];
     platforms = platforms.linux;

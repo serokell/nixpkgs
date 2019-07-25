@@ -1,13 +1,7 @@
-{ stdenv, fetchurl, openssl, pkgconfig
-, withPerl ? false, perl
-, withPython ? false, python3
-, withTcl ? false, tcl
-, withCyrus ? true, cyrus_sasl
-, withUnicode ? true, icu
-, withZlib ? true, zlib
-, withIPv6 ? true
-, withDebug ? false
-}:
+{ stdenv, fetchurl, openssl, pkgconfig, withPerl ? false, perl, withPython ?
+  false, python3, withTcl ? false, tcl, withCyrus ?
+    true, cyrus_sasl, withUnicode ? true, icu, withZlib ? true, zlib, withIPv6 ?
+      true, withDebug ? false }:
 
 with stdenv.lib;
 
@@ -22,12 +16,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [ openssl ]
-    ++ optional withPerl perl
-    ++ optional withPython python3
-    ++ optional withTcl tcl
-    ++ optional withCyrus cyrus_sasl
-    ++ optional withUnicode icu
+  buildInputs = [ openssl ] ++ optional withPerl perl
+    ++ optional withPython python3 ++ optional withTcl tcl
+    ++ optional withCyrus cyrus_sasl ++ optional withUnicode icu
     ++ optional withZlib zlib;
 
   configureFlags = [
@@ -41,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Advanced IRC bouncer";
-    homepage = https://wiki.znc.in/ZNC;
+    homepage = "https://wiki.znc.in/ZNC";
     maintainers = with maintainers; [ schneefux lnl7 ];
     license = licenses.asl20;
     platforms = platforms.unix;

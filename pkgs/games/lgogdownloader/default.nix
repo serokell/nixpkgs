@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, curl, boost, liboauth, jsoncpp
-, htmlcxx, rhash, tinyxml-2, help2man }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, curl, boost, liboauth, jsoncpp, htmlcxx, rhash, tinyxml-2, help2man
+}:
 
 stdenv.mkDerivation rec {
   name = "lgogdownloader-${version}";
@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ curl boost liboauth jsoncpp htmlcxx rhash tinyxml-2 ];
 
   meta = {
-    homepage = https://github.com/Sude-/lgogdownloader;
-    description = "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader";
+    homepage = "https://github.com/Sude-/lgogdownloader";
+    description =
+      "Unofficial downloader to GOG.com for Linux users. It uses the same API as the official GOGDownloader";
     license = stdenv.lib.licenses.wtfpl;
     platforms = stdenv.lib.platforms.linux;
   };

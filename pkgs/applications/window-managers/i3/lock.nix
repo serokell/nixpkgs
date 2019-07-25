@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, which, pkgconfig, libxcb, xcbutilkeysyms, xcbutilimage,
-  pam, libX11, libev, cairo, libxkbcommon, libxkbfile }:
+{ fetchurl, stdenv, which, pkgconfig, libxcb, xcbutilkeysyms, xcbutilimage, pam, libX11, libev, cairo, libxkbcommon, libxkbfile
+}:
 
 stdenv.mkDerivation rec {
   name = "i3lock-${version}";
@@ -11,8 +11,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ which libxcb xcbutilkeysyms xcbutilimage pam libX11
-    libev cairo libxkbcommon libxkbfile ];
+  buildInputs = [
+    which
+    libxcb
+    xcbutilkeysyms
+    xcbutilimage
+    pam
+    libX11
+    libev
+    cairo
+    libxkbcommon
+    libxkbfile
+  ];
 
   makeFlags = "all";
   installFlags = "PREFIX=\${out} SYSCONFDIR=\${out}/etc";
@@ -28,7 +38,7 @@ stdenv.mkDerivation rec {
       a configurable image is shown, and a ring-shaped unlock-indicator gives feedback
       for every keystroke. After entering your password, the screen is unlocked again.
     '';
-    homepage = https://i3wm.org/i3lock/;
+    homepage = "https://i3wm.org/i3lock/";
     maintainers = with maintainers; [ malyn domenkozar ];
     license = licenses.bsd3;
     platforms = platforms.all;

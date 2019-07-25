@@ -1,4 +1,4 @@
-{stdenv, fetchurl, unzip}:
+{ stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation rec {
   name = "ent-1.1";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Pseudorandom Number Sequence Test Program";
-    homepage = http://www.fourmilab.ch/random/;
+    homepage = "http://www.fourmilab.ch/random/";
     platforms = platforms.all;
     license = licenses.publicDomain;
   };

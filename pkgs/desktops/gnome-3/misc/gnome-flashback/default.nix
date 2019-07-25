@@ -1,38 +1,18 @@
-{ stdenv
-, autoreconfHook
-, fetchurl
-, gettext
-, glib
-, gnome-bluetooth
-, gnome-desktop
-, gnome-panel
-, gnome-session
-, gnome3
-, gsettings-desktop-schemas
-, gtk3
-, ibus
-, libcanberra-gtk3
-, libpulseaudio
-, libxkbfile
-, libxml2
-, pkgconfig
-, polkit
-, upower
-, wrapGAppsHook
-, writeTextFile
-, writeShellScriptBin
-, xkeyboard_config
+{ stdenv, autoreconfHook, fetchurl, gettext, glib, gnome-bluetooth, gnome-desktop, gnome-panel, gnome-session, gnome3, gsettings-desktop-schemas, gtk3, ibus, libcanberra-gtk3, libpulseaudio, libxkbfile, libxml2, pkgconfig, polkit, upower, wrapGAppsHook, writeTextFile, writeShellScriptBin, xkeyboard_config
 }:
 
 let
   pname = "gnome-flashback";
   version = "3.32.0";
-  requiredComponents = wmName: "RequiredComponents=${wmName};gnome-flashback-init;gnome-flashback;gnome-panel;org.gnome.SettingsDaemon.A11ySettings;org.gnome.SettingsDaemon.Clipboard;org.gnome.SettingsDaemon.Color;org.gnome.SettingsDaemon.Datetime;org.gnome.SettingsDaemon.Housekeeping;org.gnome.SettingsDaemon.Keyboard;org.gnome.SettingsDaemon.MediaKeys;org.gnome.SettingsDaemon.Mouse;org.gnome.SettingsDaemon.Power;org.gnome.SettingsDaemon.PrintNotifications;org.gnome.SettingsDaemon.Rfkill;org.gnome.SettingsDaemon.ScreensaverProxy;org.gnome.SettingsDaemon.Sharing;org.gnome.SettingsDaemon.Smartcard;org.gnome.SettingsDaemon.Sound;org.gnome.SettingsDaemon.Wacom;org.gnome.SettingsDaemon.XSettings;";
+  requiredComponents = wmName:
+    "RequiredComponents=${wmName};gnome-flashback-init;gnome-flashback;gnome-panel;org.gnome.SettingsDaemon.A11ySettings;org.gnome.SettingsDaemon.Clipboard;org.gnome.SettingsDaemon.Color;org.gnome.SettingsDaemon.Datetime;org.gnome.SettingsDaemon.Housekeeping;org.gnome.SettingsDaemon.Keyboard;org.gnome.SettingsDaemon.MediaKeys;org.gnome.SettingsDaemon.Mouse;org.gnome.SettingsDaemon.Power;org.gnome.SettingsDaemon.PrintNotifications;org.gnome.SettingsDaemon.Rfkill;org.gnome.SettingsDaemon.ScreensaverProxy;org.gnome.SettingsDaemon.Sharing;org.gnome.SettingsDaemon.Smartcard;org.gnome.SettingsDaemon.Sound;org.gnome.SettingsDaemon.Wacom;org.gnome.SettingsDaemon.XSettings;";
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+      url = "mirror://gnome/sources/${pname}/${
+        stdenv.lib.versions.majorMinor version
+      }/${name}.tar.xz";
       sha256 = "0jfzr7vdmnxpxqqa38ni1p3c508xhlnxqpmmqshk3rvrf0afqn62";
     };
 
@@ -53,20 +33,17 @@ let
     postInstall = ''
       # Check that our expected RequiredComponents match the stock session files, but then don't install them.
       # They can be installed using mkSessionForWm.
-      grep '${requiredComponents "metacity"}' $out/share/gnome-session/sessions/gnome-flashback-metacity.session || (echo "RequiredComponents have changed, please update gnome-flashback/default.nix."; false)
+      grep '${
+        requiredComponents "metacity"
+      }' $out/share/gnome-session/sessions/gnome-flashback-metacity.session || (echo "RequiredComponents have changed, please update gnome-flashback/default.nix."; false)
 
       rm -r $out/share/gnome-session
       rm -r $out/share/xsessions
       rm -r $out/libexec
     '';
 
-    nativeBuildInputs = [
-      autoreconfHook
-      gettext
-      libxml2
-      pkgconfig
-      wrapGAppsHook
-    ];
+    nativeBuildInputs =
+      [ autoreconfHook gettext libxml2 pkgconfig wrapGAppsHook ];
 
     buildInputs = [
       glib
@@ -112,47 +89,48 @@ let
             '';
           };
 
-        gnomeSession = writeTextFile {
-          name = "gnome-flashback-${wmName}-gnome-session";
-          destination = "/share/gnome-session/sessions/gnome-flashback-${wmName}.session";
+          gnomeSession = writeTextFile {
+            name = "gnome-flashback-${wmName}-gnome-session";
+            destination =
+              "/share/gnome-session/sessions/gnome-flashback-${wmName}.session";
+            text = ''
+              [GNOME Session]
+              Name=GNOME Flashback (${wmLabel})
+              ${requiredComponents wmName}
+            '';
+          };
+
+          executable = writeShellScriptBin "gnome-flashback-${wmName}" ''
+            if [ -z $XDG_CURRENT_DESKTOP ]; then
+              export XDG_CURRENT_DESKTOP="GNOME-Flashback:GNOME"
+            fi
+
+            export XDG_DATA_DIRS=${wmApplication}/share:${gnomeSession}/share:${gnome-flashback}/share:${gnome-panel}/share:$XDG_DATA_DIRS
+
+            exec ${gnome-session}/bin/gnome-session --session=gnome-flashback-${wmName} "$@"
+          '';
+
+        in writeTextFile {
+          name = "gnome-flashback-${wmName}-xsession";
+          destination = "/share/xsessions/gnome-flashback-${wmName}.desktop";
           text = ''
-            [GNOME Session]
+            [Desktop Entry]
             Name=GNOME Flashback (${wmLabel})
-            ${requiredComponents wmName}
+            Comment=This session logs you into GNOME Flashback with ${wmLabel}
+            Exec=${executable}/bin/gnome-flashback-${wmName}
+            TryExec=${wmCommand}
+            Type=Application
+            DesktopNames=GNOME-Flashback;GNOME;
           '';
         };
-
-        executable = writeShellScriptBin "gnome-flashback-${wmName}" ''
-          if [ -z $XDG_CURRENT_DESKTOP ]; then
-            export XDG_CURRENT_DESKTOP="GNOME-Flashback:GNOME"
-          fi
-
-          export XDG_DATA_DIRS=${wmApplication}/share:${gnomeSession}/share:${gnome-flashback}/share:${gnome-panel}/share:$XDG_DATA_DIRS
-
-          exec ${gnome-session}/bin/gnome-session --session=gnome-flashback-${wmName} "$@"
-        '';
-
-      in writeTextFile {
-        name = "gnome-flashback-${wmName}-xsession";
-        destination = "/share/xsessions/gnome-flashback-${wmName}.desktop";
-        text = ''
-          [Desktop Entry]
-          Name=GNOME Flashback (${wmLabel})
-          Comment=This session logs you into GNOME Flashback with ${wmLabel}
-          Exec=${executable}/bin/gnome-flashback-${wmName}
-          TryExec=${wmCommand}
-          Type=Application
-          DesktopNames=GNOME-Flashback;GNOME;
-        '';
-      };
     };
 
     meta = with stdenv.lib; {
       description = "GNOME 2.x-like session for GNOME 3";
-      homepage = https://wiki.gnome.org/Projects/GnomeFlashback;
+      homepage = "https://wiki.gnome.org/Projects/GnomeFlashback";
       license = licenses.gpl2;
       maintainers = gnome3.maintainers;
       platforms = platforms.linux;
     };
   };
-  in gnome-flashback
+in gnome-flashback

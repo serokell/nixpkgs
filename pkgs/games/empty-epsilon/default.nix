@@ -23,18 +23,16 @@ let
     buildInputs = [ sfml libX11 ];
 
     meta = with lib; {
-      description = "C++ game engine coded on top of SFML used for EmptyEpsilon";
-      homepage = https://github.com/daid/SeriousProton;
+      description =
+        "C++ game engine coded on top of SFML used for EmptyEpsilon";
+      homepage = "https://github.com/daid/SeriousProton";
       license = licenses.mit;
       maintainers = with maintainers; [ fpletz ];
       platforms = platforms.linux;
     };
   };
 
-in
-
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "empty-epsilon-${version}";
   inherit version;
 
@@ -58,7 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Open source bridge simulator based on Artemis";
-    homepage = https://daid.github.io/EmptyEpsilon/;
+    homepage = "https://daid.github.io/EmptyEpsilon/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ fpletz ];
     platforms = platforms.linux;

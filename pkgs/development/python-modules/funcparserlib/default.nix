@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, isPy3k }:
 
 buildPythonPackage rec {
   pname = "funcparserlib";
@@ -22,8 +17,9 @@ buildPythonPackage rec {
   doCheck = !(isPy3k);
 
   meta = with stdenv.lib; {
-    description = "Recursive descent parsing library based on functional combinators";
-    homepage = https://code.google.com/p/funcparserlib/;
+    description =
+      "Recursive descent parsing library based on functional combinators";
+    homepage = "https://code.google.com/p/funcparserlib/";
     license = licenses.mit;
     platforms = platforms.unix;
   };

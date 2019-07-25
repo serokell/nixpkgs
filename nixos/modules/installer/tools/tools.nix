@@ -6,10 +6,11 @@
 with lib;
 
 let
-  makeProg = args: pkgs.substituteAll (args // {
-    dir = "bin";
-    isExecutable = true;
-  });
+  makeProg = args:
+    pkgs.substituteAll (args // {
+      dir = "bin";
+      isExecutable = true;
+    });
 
   nixos-build-vms = makeProg {
     name = "nixos-build-vms";
@@ -23,9 +24,8 @@ let
     path = makeBinPath [ nixos-enter ];
   };
 
-  nixos-rebuild =
-    let fallback = import ./nix-fallback-paths.nix; in
-    makeProg {
+  nixos-rebuild = let fallback = import ./nix-fallback-paths.nix;
+    in makeProg {
       name = "nixos-rebuild";
       src = ./nixos-rebuild.sh;
       nix = config.nix.package.out;
@@ -36,8 +36,10 @@ let
   nixos-generate-config = makeProg {
     name = "nixos-generate-config";
     src = ./nixos-generate-config.pl;
-    path = lib.optionals (lib.elem "btrfs" config.boot.supportedFilesystems) [ pkgs.btrfs-progs ];
-    perl = "${pkgs.perl}/bin/perl -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix}";
+    path = lib.optionals (lib.elem "btrfs" config.boot.supportedFilesystems)
+      [ pkgs.btrfs-progs ];
+    perl =
+      "${pkgs.perl}/bin/perl -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix}";
     inherit (config.system.nixos) release;
   };
 
@@ -57,24 +59,23 @@ let
     src = ./nixos-enter.sh;
   };
 
-in
-
-{
+in {
 
   config = {
 
-    environment.systemPackages =
-      [ nixos-build-vms
-        nixos-install
-        nixos-rebuild
-        nixos-generate-config
-        nixos-option
-        nixos-version
-        nixos-enter
-      ];
+    environment.systemPackages = [
+      nixos-build-vms
+      nixos-install
+      nixos-rebuild
+      nixos-generate-config
+      nixos-option
+      nixos-version
+      nixos-enter
+    ];
 
     system.build = {
-      inherit nixos-install nixos-generate-config nixos-option nixos-rebuild nixos-enter;
+      inherit nixos-install nixos-generate-config nixos-option nixos-rebuild
+        nixos-enter;
     };
 
   };

@@ -1,20 +1,50 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''wookie'';
-  version = ''20181018-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "wookie";
+  version = "20181018-git";
 
-  description = ''An evented webserver for Common Lisp.'';
+  description = "An evented webserver for Common Lisp.";
 
-  deps = [ args."alexandria" args."babel" args."blackbird" args."bordeaux-threads" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."chunga" args."cl-async" args."cl-async-base" args."cl-async-ssl" args."cl-async-util" args."cl-fad" args."cl-libuv" args."cl-ppcre" args."cl-utilities" args."do-urlencode" args."fast-http" args."fast-io" args."flexi-streams" args."proc-parse" args."quri" args."smart-buffer" args."split-sequence" args."static-vectors" args."trivial-features" args."trivial-gray-streams" args."vom" args."xsubseq" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."blackbird"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."chunga"
+    args."cl-async"
+    args."cl-async-base"
+    args."cl-async-ssl"
+    args."cl-async-util"
+    args."cl-fad"
+    args."cl-libuv"
+    args."cl-ppcre"
+    args."cl-utilities"
+    args."do-urlencode"
+    args."fast-http"
+    args."fast-io"
+    args."flexi-streams"
+    args."proc-parse"
+    args."quri"
+    args."smart-buffer"
+    args."split-sequence"
+    args."static-vectors"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."vom"
+    args."xsubseq"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/wookie/2018-10-18/wookie-20181018-git.tgz'';
-    sha256 = ''0z7v7fg9dm6g4kdvfi588vnfh0dv2knb0z3rf5a9fw8yrvckifdq'';
+    url =
+      "http://beta.quicklisp.org/archive/wookie/2018-10-18/wookie-20181018-git.tgz";
+    sha256 = "0z7v7fg9dm6g4kdvfi588vnfh0dv2knb0z3rf5a9fw8yrvckifdq";
   };
 
   packageName = "wookie";
 
-  asdFilesToKeep = ["wookie.asd"];
+  asdFilesToKeep = [ "wookie.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM wookie DESCRIPTION An evented webserver for Common Lisp. SHA256
@@ -48,4 +78,5 @@ rec {
      cl-fad cl-libuv cl-ppcre cl-utilities do-urlencode fast-http fast-io
      flexi-streams proc-parse quri smart-buffer split-sequence static-vectors
      trivial-features trivial-gray-streams vom xsubseq)
-    VERSION 20181018-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20181018-git SIBLINGS NIL PARASITES NIL)
+*/

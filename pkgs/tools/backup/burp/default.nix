@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
-, acl, librsync, ncurses, openssl, zlib, uthash }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, acl, librsync, ncurses, openssl, zlib, uthash
+}:
 
 stdenv.mkDerivation rec {
   name = "burp-${version}";
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "BURP - BackUp and Restore Program";
-    homepage    = https://burp.grke.org;
-    license     = licenses.agpl3;
+    homepage = "https://burp.grke.org";
+    license = licenses.agpl3;
     maintainers = with maintainers; [ tokudan ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

@@ -1,19 +1,18 @@
-{stdenv, fetchurl, unzip, autoreconfHook, libtool, makeWrapper, cups, ghostscript, pkgsi686Linux }:
+{ stdenv, fetchurl, unzip, autoreconfHook, libtool, makeWrapper, cups, ghostscript, pkgsi686Linux
+}:
 
 let
 
-  i686_NIX_GCC = pkgsi686Linux.callPackage ({gcc}: gcc) {};
-  i686_libxml2 = pkgsi686Linux.callPackage ({libxml2}: libxml2) {};
+  i686_NIX_GCC = pkgsi686Linux.callPackage ({ gcc }: gcc) { };
+  i686_libxml2 = pkgsi686Linux.callPackage ({ libxml2 }: libxml2) { };
 
   src_canon = fetchurl {
-    url = "https://files.canon-europe.com/files/soft45378/software/o147jen_linuxufrII_0290.zip";
+    url =
+      "https://files.canon-europe.com/files/soft45378/software/o147jen_linuxufrII_0290.zip";
     sha256 = "1qpdmaaw42gm5fi21rp4lf05skffkq42ka5c8xkw8rckzb13sy9j";
   };
 
-in
-
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "canon-cups-ufr2-2.90";
   src = src_canon;
 
@@ -115,7 +114,9 @@ stdenv.mkDerivation rec {
     # into $out.
     mkdir -p $out/libexec
     preload32=$out/libexec/libpreload32.so
-    ${i686_NIX_GCC}/bin/gcc -shared ${./preload.c} -o $preload32 -ldl -DOUT=\"$out\" -fPIC
+    ${i686_NIX_GCC}/bin/gcc -shared ${
+      ./preload.c
+    } -o $preload32 -ldl -DOUT=\"$out\" -fPIC
     wrapProgram "$out/bin/c3pldrv" \
       --set PRELOAD_DEBUG 1 \
       --set LD_PRELOAD $preload32 \
@@ -209,11 +210,11 @@ stdenv.mkDerivation rec {
     makeWrapper "${ghostscript}/bin/gs" "$out/bin/gs" \
       --prefix LD_LIBRARY_PATH ":" "$out/lib" \
       --prefix PATH ":" "$out/bin"
-    '';
+  '';
 
   meta = {
     description = "CUPS Linux drivers for Canon printers";
-    homepage = http://www.canon.com/;
+    homepage = "http://www.canon.com/";
     license = stdenv.lib.licenses.unfree;
   };
 }

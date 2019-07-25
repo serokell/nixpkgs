@@ -22,8 +22,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Enhance the standard unittest package with features for testing asyncio libraries";
-    homepage = https://github.com/Martiusweb/asynctest;
+    description =
+      "Enhance the standard unittest package with features for testing asyncio libraries";
+    homepage = "https://github.com/Martiusweb/asynctest";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_api_core
-, pandas
-, pytest
-, mock
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, pandas, pytest, mock
 }:
 
 buildPythonPackage rec {
@@ -25,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Stackdriver Monitoring API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

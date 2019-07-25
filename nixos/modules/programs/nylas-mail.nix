@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.nylas-mail;
+let cfg = config.services.nylas-mail;
 in {
   ###### interface
   options = {
@@ -21,16 +20,13 @@ in {
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     environment.systemPackages = [ pkgs.nylas-mail-bin ];
 
-    services.gnome3.gnome-keyring = mkIf cfg.gnome3-keyring {
-      enable = true;
-    };
+    services.gnome3.gnome-keyring = mkIf cfg.gnome3-keyring { enable = true; };
 
   };
 }

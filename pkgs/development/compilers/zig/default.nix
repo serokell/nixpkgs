@@ -15,8 +15,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ llvmPackages.clang-unwrapped llvmPackages.llvm libxml2 zlib ];
 
   meta = with stdenv.lib; {
-    description = "Programming languaged designed for robustness, optimality, and clarity";
-    homepage = https://ziglang.org/;
+    description =
+      "Programming languaged designed for robustness, optimality, and clarity";
+    homepage = "https://ziglang.org/";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.andrewrk ];

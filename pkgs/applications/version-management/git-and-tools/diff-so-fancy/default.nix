@@ -1,4 +1,4 @@
-{stdenv, git, perl, ncurses, coreutils, fetchFromGitHub, makeWrapper, ...}:
+{ stdenv, git, perl, ncurses, coreutils, fetchFromGitHub, makeWrapper, ... }:
 
 stdenv.mkDerivation rec {
   name = "diff-so-fancy-${version}";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/so-fancy/diff-so-fancy;
+    homepage = "https://github.com/so-fancy/diff-so-fancy";
     description = "Good-looking diffs filter for git";
     license = licenses.mit;
     platforms = platforms.all;

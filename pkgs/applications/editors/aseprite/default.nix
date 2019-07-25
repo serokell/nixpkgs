@@ -1,9 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, pkgconfig
-, curl, freetype, giflib, harfbuzz, libjpeg, libpng, libwebp, pixman, tinyxml, zlib
-, libX11, libXext, libXcursor, libXxf86vm
-, unfree ? false
-, cmark
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, pkgconfig, curl, freetype, giflib, harfbuzz, libjpeg, libpng, libwebp, pixman, tinyxml, zlib, libX11, libXext, libXcursor, libXxf86vm, unfree ?
+  false, cmark }:
 
 # Unfree version is not redistributable:
 # https://dev.aseprite.org/2016/09/01/new-source-code-license/
@@ -18,25 +14,40 @@ stdenv.mkDerivation rec {
     repo = "aseprite";
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = if unfree
-      then "0a9xk163j0984n8nn6pqf27n83gr6w7g25wkiv591zx88pa6cpbd"
-      else "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
+    sha256 = if unfree then
+      "0a9xk163j0984n8nn6pqf27n83gr6w7g25wkiv591zx88pa6cpbd"
+    else
+      "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
-    curl freetype giflib harfbuzz libjpeg libpng libwebp pixman tinyxml zlib
-    libX11 libXext libXcursor libXxf86vm
+    curl
+    freetype
+    giflib
+    harfbuzz
+    libjpeg
+    libpng
+    libwebp
+    pixman
+    tinyxml
+    zlib
+    libX11
+    libXext
+    libXcursor
+    libXxf86vm
   ] ++ lib.optionals unfree [ cmark harfbuzz ];
 
   patches = lib.optionals unfree [
     (fetchpatch {
-      url = "https://github.com/aseprite/aseprite/commit/cfb4dac6feef1f39e161c23c886055a8f9acfd0d.patch";
+      url =
+        "https://github.com/aseprite/aseprite/commit/cfb4dac6feef1f39e161c23c886055a8f9acfd0d.patch";
       sha256 = "1qhjfpngg8b1vvb9w26lhjjfamfx57ih0p31km3r5l96nm85l7f9";
     })
     (fetchpatch {
-      url = "https://github.com/orivej/aseprite/commit/ea87e65b357ad0bd65467af5529183b5a48a8c17.patch";
+      url =
+        "https://github.com/orivej/aseprite/commit/ea87e65b357ad0bd65467af5529183b5a48a8c17.patch";
       sha256 = "1vwn8ivap1pzdh444sdvvkndp55iz146nhmd80xbm8cyzn3qmg91";
     })
   ];
@@ -84,7 +95,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = https://www.aseprite.org/;
+    homepage = "https://www.aseprite.org/";
     description = "Animated sprite editor & pixel art tool";
     license = if unfree then licenses.unfree else licenses.gpl2;
     maintainers = with maintainers; [ orivej ];

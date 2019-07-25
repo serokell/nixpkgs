@@ -1,24 +1,22 @@
-{ stdenv, fetchurl, qtbase, qmake, makeDesktopItem, openjpeg, pkgconfig, fftw,
-  libpulseaudio, alsaLib, hamlib, libv4l, fftwFloat }:
+{ stdenv, fetchurl, qtbase, qmake, makeDesktopItem, openjpeg, pkgconfig, fftw, libpulseaudio, alsaLib, hamlib, libv4l, fftwFloat
+}:
 
 stdenv.mkDerivation rec {
   version = "9.2.6";
   name = "qsstv-${version}";
 
   src = fetchurl {
-    url = "http://users.telenet.be/on4qz/qsstv/downloads/qsstv_${version}.tar.gz";
+    url =
+      "http://users.telenet.be/on4qz/qsstv/downloads/qsstv_${version}.tar.gz";
     sha256 = "0sx70yk389fq5djvjwnam6ics5knmg9b5x608bk2sjbfxkila108";
   };
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    qmake
-    pkgconfig
-  ];
+  nativeBuildInputs = [ qmake pkgconfig ];
 
-  buildInputs = [ qtbase openjpeg fftw libpulseaudio alsaLib hamlib libv4l
-                  fftwFloat ];
+  buildInputs =
+    [ qtbase openjpeg fftw libpulseaudio alsaLib hamlib libv4l fftwFloat ];
 
   desktopItem = makeDesktopItem {
     name = "QSSTV";
@@ -45,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt-based slow-scan TV and fax";
-    homepage = http://users.telenet.be/on4qz/;
+    homepage = "http://users.telenet.be/on4qz/";
     platforms = platforms.linux;
     license = stdenv.lib.licenses.gpl3;
     maintainers = with stdenv.lib.maintainers; [ hax404 ];

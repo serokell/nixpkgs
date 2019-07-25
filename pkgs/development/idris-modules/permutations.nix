@@ -1,8 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, lib }:
+build-idris-package {
   name = "permutations";
   version = "2018-01-19";
 
@@ -15,7 +12,7 @@ build-idris-package  {
 
   meta = {
     description = "Type-safe way of working with permutations in Idris";
-    homepage = https://github.com/vmchale/permutations;
+    homepage = "https://github.com/vmchale/permutations";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

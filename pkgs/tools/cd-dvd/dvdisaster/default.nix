@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gettext, which
-, glib, gtk2
-, enableSoftening ? true
-}:
+{ stdenv, fetchurl, pkgconfig, gettext, which, glib, gtk2, enableSoftening ?
+  true }:
 
 stdenv.mkDerivation rec {
   name = "dvdisaster-${version}";
@@ -15,10 +13,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gettext pkgconfig which ];
   buildInputs = [ glib gtk2 ];
 
-  patches = stdenv.lib.optional enableSoftening [
-    ./encryption.patch
-    ./dvdrom.patch
-  ];
+  patches =
+    stdenv.lib.optional enableSoftening [ ./encryption.patch ./dvdrom.patch ];
 
   postPatch = ''
     patchShebangs ./
@@ -73,7 +69,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://dvdisaster.net/;
+    homepage = "http://dvdisaster.net/";
     description = "Data loss/scratch/aging protection for CD/DVD media";
     longDescription = ''
       Dvdisaster provides a margin of safety against data loss on CD and

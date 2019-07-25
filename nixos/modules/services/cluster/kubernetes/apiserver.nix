@@ -1,4 +1,4 @@
-  { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -8,11 +8,10 @@ let
 
   isRBACEnabled = elem "RBAC" cfg.authorizationMode;
 
-  apiserverServiceIP = (concatStringsSep "." (
-    take 3 (splitString "." cfg.serviceClusterIpRange
-  )) + ".1");
-in
-{
+  apiserverServiceIP =
+    (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange))
+    + ".1");
+in {
   ###### interface
   options.services.kubernetes.apiserver = with lib.types; {
 
@@ -37,8 +36,12 @@ in
         Kubernetes apiserver authorization mode (AlwaysAllow/AlwaysDeny/ABAC/Webhook/RBAC/Node). See
         <link xlink:href="https://kubernetes.io/docs/reference/access-authn-authz/authorization/"/>
       '';
-      default = ["RBAC" "Node"]; # Enabling RBAC by default, although kubernetes default is AllowAllow
-      type = listOf (enum ["AlwaysAllow" "AlwaysDeny" "ABAC" "Webhook" "RBAC" "Node"]);
+      default = [
+        "RBAC"
+        "Node"
+      ]; # Enabling RBAC by default, although kubernetes default is AllowAllow
+      type = listOf
+        (enum [ "AlwaysAllow" "AlwaysDeny" "ABAC" "Webhook" "RBAC" "Node" ]);
     };
 
     authorizationPolicy = mkOption {
@@ -46,7 +49,7 @@ in
         Kubernetes apiserver authorization policy file. See
         <link xlink:href="https://kubernetes.io/docs/reference/access-authn-authz/authorization/"/>
       '';
-      default = [];
+      default = [ ];
       type = listOf attrs;
     };
 
@@ -80,7 +83,7 @@ in
         Kubernetes admission control plugins to disable. See
         <link xlink:href="https://kubernetes.io/docs/admin/admission-controllers/"/>
       '';
-      default = [];
+      default = [ ];
       type = listOf str;
     };
 
@@ -92,14 +95,24 @@ in
         <link xlink:href="https://kubernetes.io/docs/admin/admission-controllers/"/>
       '';
       default = [
-        "NamespaceLifecycle" "LimitRanger" "ServiceAccount"
-        "ResourceQuota" "DefaultStorageClass" "DefaultTolerationSeconds"
+        "NamespaceLifecycle"
+        "LimitRanger"
+        "ServiceAccount"
+        "ResourceQuota"
+        "DefaultStorageClass"
+        "DefaultTolerationSeconds"
         "NodeRestriction"
       ];
       example = [
-        "NamespaceLifecycle" "NamespaceExists" "LimitRanger"
-        "SecurityContextDeny" "ServiceAccount" "ResourceQuota"
-        "PodSecurityPolicy" "NodeRestriction" "DefaultStorageClass"
+        "NamespaceLifecycle"
+        "NamespaceExists"
+        "LimitRanger"
+        "SecurityContextDeny"
+        "ServiceAccount"
+        "ResourceQuota"
+        "PodSecurityPolicy"
+        "NodeRestriction"
+        "DefaultStorageClass"
       ];
       type = listOf str;
     };
@@ -107,7 +120,7 @@ in
     etcd = {
       servers = mkOption {
         description = "List of etcd servers.";
-        default = ["http://127.0.0.1:2379"];
+        default = [ "http://127.0.0.1:2379" ];
         type = types.listOf types.str;
       };
 
@@ -137,8 +150,9 @@ in
     };
 
     extraSANs = mkOption {
-      description = "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
-      default = [];
+      description =
+        "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
+      default = [ ];
       type = listOf str;
     };
 
@@ -155,7 +169,8 @@ in
     };
 
     insecurePort = mkOption {
-      description = "Kubernetes apiserver insecure listening port. (0 = disabled)";
+      description =
+        "Kubernetes apiserver insecure listening port. (0 = disabled)";
       default = 0;
       type = int;
     };
@@ -185,7 +200,8 @@ in
     };
 
     preferredAddressTypes = mkOption {
-      description = "List of the preferred NodeAddressTypes to use for kubelet connections.";
+      description =
+        "List of the preferred NodeAddressTypes to use for kubelet connections.";
       type = nullOr str;
       default = null;
     };
@@ -217,7 +233,7 @@ in
         Kubernetes apiserver storage backend.
       '';
       default = "etcd3";
-      type = enum ["etcd2" "etcd3"];
+      type = enum [ "etcd2" "etcd3" ];
     };
 
     securePort = mkOption {
@@ -286,7 +302,6 @@ in
 
   };
 
-
   ###### implementation
   config = mkMerge [
 
@@ -311,148 +326,201 @@ in
       ];
 
     in mkIf cfg.enable {
-        systemd.services.kube-apiserver = {
-          description = "Kubernetes APIServer Service";
-          wantedBy = [ "kube-control-plane-online.target" ];
-          after = [ "certmgr.service" ];
-          before = [ "kube-control-plane-online.target" ];
-          serviceConfig = {
-            Slice = "kubernetes.slice";
-            ExecStart = ''${top.package}/bin/kube-apiserver \
-              --allow-privileged=${boolToString cfg.allowPrivileged} \
-              --authorization-mode=${concatStringsSep "," cfg.authorizationMode} \
-                ${optionalString (elem "ABAC" cfg.authorizationMode)
-                  "--authorization-policy-file=${
-                    pkgs.writeText "kube-auth-policy.jsonl"
-                    (concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy)
-                  }"
-                } \
-                ${optionalString (elem "Webhook" cfg.authorizationMode)
-                  "--authorization-webhook-config-file=${cfg.webhookConfig}"
-                } \
-              --bind-address=${cfg.bindAddress} \
-              ${optionalString (cfg.advertiseAddress != null)
-                "--advertise-address=${cfg.advertiseAddress}"} \
-              ${optionalString (cfg.clientCaFile != null)
-                "--client-ca-file=${cfg.clientCaFile}"} \
-              --disable-admission-plugins=${concatStringsSep "," cfg.disableAdmissionPlugins} \
-              --enable-admission-plugins=${concatStringsSep "," cfg.enableAdmissionPlugins} \
-              --etcd-servers=${concatStringsSep "," cfg.etcd.servers} \
-              ${optionalString (cfg.etcd.caFile != null)
-                "--etcd-cafile=${cfg.etcd.caFile}"} \
-              ${optionalString (cfg.etcd.certFile != null)
-                "--etcd-certfile=${cfg.etcd.certFile}"} \
-              ${optionalString (cfg.etcd.keyFile != null)
-                "--etcd-keyfile=${cfg.etcd.keyFile}"} \
-              ${optionalString (cfg.featureGates != [])
-                "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
-              ${optionalString (cfg.basicAuthFile != null)
-                "--basic-auth-file=${cfg.basicAuthFile}"} \
-              --kubelet-https=${boolToString cfg.kubeletHttps} \
-              ${optionalString (cfg.kubeletClientCaFile != null)
-                "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"} \
-              ${optionalString (cfg.kubeletClientCertFile != null)
-                "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"} \
-              ${optionalString (cfg.kubeletClientKeyFile != null)
-                "--kubelet-client-key=${cfg.kubeletClientKeyFile}"} \
-              ${optionalString (cfg.preferredAddressTypes != null)
-                "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"} \
-              ${optionalString (cfg.proxyClientCertFile != null)
-                "--proxy-client-cert-file=${cfg.proxyClientCertFile}"} \
-              ${optionalString (cfg.proxyClientKeyFile != null)
-                "--proxy-client-key-file=${cfg.proxyClientKeyFile}"} \
-              --insecure-bind-address=${cfg.insecureBindAddress} \
-              --insecure-port=${toString cfg.insecurePort} \
-              ${optionalString (cfg.runtimeConfig != "")
-                "--runtime-config=${cfg.runtimeConfig}"} \
-              --secure-port=${toString cfg.securePort} \
-              ${optionalString (cfg.serviceAccountKeyFile!=null)
-                "--service-account-key-file=${cfg.serviceAccountKeyFile}"} \
-              --service-cluster-ip-range=${cfg.serviceClusterIpRange} \
-              --storage-backend=${cfg.storageBackend} \
-              ${optionalString (cfg.tlsCertFile != null)
-                "--tls-cert-file=${cfg.tlsCertFile}"} \
-              ${optionalString (cfg.tlsKeyFile != null)
-                "--tls-private-key-file=${cfg.tlsKeyFile}"} \
-              ${optionalString (cfg.tokenAuthFile != null)
-                "--token-auth-file=${cfg.tokenAuthFile}"} \
-              ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
-              ${cfg.extraOpts}
-            '';
-            WorkingDirectory = top.dataDir;
-            User = "kubernetes";
-            Group = "kubernetes";
-            AmbientCapabilities = "cap_net_bind_service";
-            Restart = "on-failure";
-            RestartSec = 5;
+      systemd.services.kube-apiserver = {
+        description = "Kubernetes APIServer Service";
+        wantedBy = [ "kube-control-plane-online.target" ];
+        after = [ "certmgr.service" ];
+        before = [ "kube-control-plane-online.target" ];
+        serviceConfig = {
+          Slice = "kubernetes.slice";
+          ExecStart = ''
+            ${top.package}/bin/kube-apiserver \
+                          --allow-privileged=${
+              boolToString cfg.allowPrivileged
+                          } \
+                          --authorization-mode=${
+              concatStringsSep "," cfg.authorizationMode
+                          } \
+                            ${
+              optionalString (elem "ABAC" cfg.authorizationMode)
+              "--authorization-policy-file=${
+                pkgs.writeText "kube-auth-policy.jsonl"
+                (concatMapStringsSep "\n" (l: builtins.toJSON l)
+                cfg.authorizationPolicy)
+              }"
+                            } \
+                            ${
+              optionalString (elem "Webhook" cfg.authorizationMode)
+              "--authorization-webhook-config-file=${cfg.webhookConfig}"
+                            } \
+                          --bind-address=${cfg.bindAddress} \
+                          ${
+              optionalString (cfg.advertiseAddress != null)
+              "--advertise-address=${cfg.advertiseAddress}"
+                          } \
+                          ${
+              optionalString (cfg.clientCaFile != null)
+              "--client-ca-file=${cfg.clientCaFile}"
+                          } \
+                          --disable-admission-plugins=${
+              concatStringsSep "," cfg.disableAdmissionPlugins
+                          } \
+                          --enable-admission-plugins=${
+              concatStringsSep "," cfg.enableAdmissionPlugins
+                          } \
+                          --etcd-servers=${
+              concatStringsSep "," cfg.etcd.servers
+                          } \
+                          ${
+              optionalString (cfg.etcd.caFile != null)
+              "--etcd-cafile=${cfg.etcd.caFile}"
+                          } \
+                          ${
+              optionalString (cfg.etcd.certFile != null)
+              "--etcd-certfile=${cfg.etcd.certFile}"
+                          } \
+                          ${
+              optionalString (cfg.etcd.keyFile != null)
+              "--etcd-keyfile=${cfg.etcd.keyFile}"
+                          } \
+                          ${
+              optionalString (cfg.featureGates != [ ]) "--feature-gates=${
+                concatMapStringsSep "," (feature: "${feature}=true")
+                cfg.featureGates
+              }"
+                          } \
+                          ${
+              optionalString (cfg.basicAuthFile != null)
+              "--basic-auth-file=${cfg.basicAuthFile}"
+                          } \
+                          --kubelet-https=${boolToString cfg.kubeletHttps} \
+                          ${
+              optionalString (cfg.kubeletClientCaFile != null)
+              "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
+                          } \
+                          ${
+              optionalString (cfg.kubeletClientCertFile != null)
+              "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
+                          } \
+                          ${
+              optionalString (cfg.kubeletClientKeyFile != null)
+              "--kubelet-client-key=${cfg.kubeletClientKeyFile}"
+                          } \
+                          ${
+              optionalString (cfg.preferredAddressTypes != null)
+              "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
+                          } \
+                          ${
+              optionalString (cfg.proxyClientCertFile != null)
+              "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
+                          } \
+                          ${
+              optionalString (cfg.proxyClientKeyFile != null)
+              "--proxy-client-key-file=${cfg.proxyClientKeyFile}"
+                          } \
+                          --insecure-bind-address=${cfg.insecureBindAddress} \
+                          --insecure-port=${toString cfg.insecurePort} \
+                          ${
+              optionalString (cfg.runtimeConfig != "")
+              "--runtime-config=${cfg.runtimeConfig}"
+                          } \
+                          --secure-port=${toString cfg.securePort} \
+                          ${
+              optionalString (cfg.serviceAccountKeyFile != null)
+              "--service-account-key-file=${cfg.serviceAccountKeyFile}"
+                          } \
+                          --service-cluster-ip-range=${cfg.serviceClusterIpRange} \
+                          --storage-backend=${cfg.storageBackend} \
+                          ${
+              optionalString (cfg.tlsCertFile != null)
+              "--tls-cert-file=${cfg.tlsCertFile}"
+                          } \
+                          ${
+              optionalString (cfg.tlsKeyFile != null)
+              "--tls-private-key-file=${cfg.tlsKeyFile}"
+                          } \
+                          ${
+              optionalString (cfg.tokenAuthFile != null)
+              "--token-auth-file=${cfg.tokenAuthFile}"
+                          } \
+                          ${
+              optionalString (cfg.verbosity != null)
+              "--v=${toString cfg.verbosity}"
+                          } \
+                          ${cfg.extraOpts}
+                        '';
+          WorkingDirectory = top.dataDir;
+          User = "kubernetes";
+          Group = "kubernetes";
+          AmbientCapabilities = "cap_net_bind_service";
+          Restart = "on-failure";
+          RestartSec = 5;
+        };
+        unitConfig.ConditionPathExists = apiserverPaths;
+      };
+
+      systemd.paths.kube-apiserver = mkIf top.apiserver.enable {
+        wantedBy = [ "kube-apiserver.service" ];
+        pathConfig = {
+          PathExists = apiserverPaths;
+          PathChanged = apiserverPaths;
+        };
+      };
+
+      services.etcd = {
+        clientCertAuth = mkDefault true;
+        peerClientCertAuth = mkDefault true;
+        listenClientUrls = mkDefault [ "https://0.0.0.0:2379" ];
+        listenPeerUrls = mkDefault [ "https://0.0.0.0:2380" ];
+        advertiseClientUrls = mkDefault [ "https://${top.masterAddress}:2379" ];
+        initialCluster = mkDefault
+          [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
+        name = mkDefault top.masterAddress;
+        initialAdvertisePeerUrls =
+          mkDefault [ "https://${top.masterAddress}:2380" ];
+      };
+
+      systemd.services.etcd = { unitConfig.ConditionPathExists = etcdPaths; };
+
+      systemd.paths.etcd = {
+        wantedBy = [ "etcd.service" ];
+        pathConfig = {
+          PathExists = etcdPaths;
+          PathChanged = etcdPaths;
+        };
+      };
+
+      services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled {
+
+        apiserver-kubelet-api-admin-crb = {
+          apiVersion = "rbac.authorization.k8s.io/v1";
+          kind = "ClusterRoleBinding";
+          metadata = { name = "system:kube-apiserver:kubelet-api-admin"; };
+          roleRef = {
+            apiGroup = "rbac.authorization.k8s.io";
+            kind = "ClusterRole";
+            name = "system:kubelet-api-admin";
           };
-          unitConfig.ConditionPathExists = apiserverPaths;
+          subjects = [{
+            kind = "User";
+            name = "system:kube-apiserver";
+          }];
         };
 
-        systemd.paths.kube-apiserver = mkIf top.apiserver.enable {
-          wantedBy = [ "kube-apiserver.service" ];
-          pathConfig = {
-            PathExists = apiserverPaths;
-            PathChanged = apiserverPaths;
-          };
-        };
-
-        services.etcd = {
-          clientCertAuth = mkDefault true;
-          peerClientCertAuth = mkDefault true;
-          listenClientUrls = mkDefault ["https://0.0.0.0:2379"];
-          listenPeerUrls = mkDefault ["https://0.0.0.0:2380"];
-          advertiseClientUrls = mkDefault ["https://${top.masterAddress}:2379"];
-          initialCluster = mkDefault ["${top.masterAddress}=https://${top.masterAddress}:2380"];
-          name = mkDefault top.masterAddress;
-          initialAdvertisePeerUrls = mkDefault ["https://${top.masterAddress}:2380"];
-        };
-
-        systemd.services.etcd = {
-          unitConfig.ConditionPathExists = etcdPaths;
-        };
-
-        systemd.paths.etcd = {
-          wantedBy = [ "etcd.service" ];
-          pathConfig = {
-            PathExists = etcdPaths;
-            PathChanged = etcdPaths;
-          };
-        };
-
-        services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled {
-
-          apiserver-kubelet-api-admin-crb = {
-            apiVersion = "rbac.authorization.k8s.io/v1";
-            kind = "ClusterRoleBinding";
-            metadata = {
-              name = "system:kube-apiserver:kubelet-api-admin";
-            };
-            roleRef = {
-              apiGroup = "rbac.authorization.k8s.io";
-              kind = "ClusterRole";
-              name = "system:kubelet-api-admin";
-            };
-            subjects = [{
-              kind = "User";
-              name = "system:kube-apiserver";
-            }];
-          };
-
-        };
+      };
 
       services.kubernetes.pki.certs = with top.lib; {
         apiServer = mkCert {
           name = "kube-apiserver";
           CN = "kubernetes";
           hosts = [
-                    "kubernetes.default.svc"
-                    "kubernetes.default.svc.${top.addons.dns.clusterDomain}"
-                    cfg.advertiseAddress
-                    top.masterAddress
-                    apiserverServiceIP
-                    "127.0.0.1"
-                  ] ++ cfg.extraSANs;
+            "kubernetes.default.svc"
+            "kubernetes.default.svc.${top.addons.dns.clusterDomain}"
+            cfg.advertiseAddress
+            top.masterAddress
+            apiserverServiceIP
+            "127.0.0.1"
+          ] ++ cfg.extraSANs;
           action = "systemctl restart kube-apiserver.service";
         };
         apiserverProxyClient = mkCert {
@@ -473,20 +541,18 @@ in
         clusterAdmin = mkCert {
           name = "cluster-admin";
           CN = "cluster-admin";
-          fields = {
-            O = "system:masters";
-          };
+          fields = { O = "system:masters"; };
           privateKeyOwner = "root";
         };
         etcd = mkCert {
           name = "etcd";
           CN = top.masterAddress;
           hosts = [
-                    "etcd.local"
-                    "etcd.${top.addons.dns.clusterDomain}"
-                    top.masterAddress
-                    cfg.advertiseAddress
-                  ];
+            "etcd.local"
+            "etcd.${top.addons.dns.clusterDomain}"
+            top.masterAddress
+            cfg.advertiseAddress
+          ];
           privateKeyOwner = "etcd";
           action = "systemctl restart etcd.service";
         };

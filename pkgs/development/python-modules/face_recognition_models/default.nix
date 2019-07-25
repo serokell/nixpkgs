@@ -13,7 +13,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/ageitgey/face_recognition_models;
+    homepage = "https://github.com/ageitgey/face_recognition_models";
     license = licenses.cc0;
     maintainers = with maintainers; [ ma27 ];
     description = "Trained models for the face_recognition python library";

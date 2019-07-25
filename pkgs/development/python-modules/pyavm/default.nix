@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, astropy
-, astropy-helpers
-, pillow
+{ lib, buildPythonPackage, fetchPypi, pytest, astropy, astropy-helpers, pillow
 }:
 
 buildPythonPackage rec {
@@ -30,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Simple pure-python AVM meta-data handling";
-    homepage = http://astrofrog.github.io/pyavm/;
+    homepage = "http://astrofrog.github.io/pyavm/";
     license = licenses.mit;
     maintainers = [ maintainers.smaret ];
   };

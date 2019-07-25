@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, curl, boost, eigen
-, freeimage, freetype, libGLU_combined, SDL2, alsaLib, libarchive }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, curl, boost, eigen, freeimage, freetype, libGLU_combined, SDL2, alsaLib, libarchive
+}:
 
 stdenv.mkDerivation rec {
   name = "emulationstation-${version}";
@@ -13,7 +13,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ cmake alsaLib boost curl eigen freeimage freetype libarchive libGLU_combined SDL2 ];
+  buildInputs = [
+    cmake
+    alsaLib
+    boost
+    curl
+    eigen
+    freeimage
+    freetype
+    libarchive
+    libGLU_combined
+    SDL2
+  ];
 
   buildPhase = "cmake . && make";
   installPhase = ''
@@ -21,8 +32,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A flexible emulator front-end supporting keyboardless navigation and custom system themes";
-    homepage = https://emulationstation.org;
+    description =
+      "A flexible emulator front-end supporting keyboardless navigation and custom system themes";
+    homepage = "https://emulationstation.org";
     maintainers = [ stdenv.lib.maintainers.edwtjo ];
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.linux;

@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.hardware.u2f;
+let cfg = config.hardware.u2f;
 in {
   options = {
     hardware.u2f = {
@@ -16,8 +15,6 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.libu2f-host ];
-  };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.libu2f-host ]; };
 }
 

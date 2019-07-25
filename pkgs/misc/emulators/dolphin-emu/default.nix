@@ -1,17 +1,14 @@
-{ stdenv, pkgconfig, cmake, bluez, ffmpeg, libao, gtk2, glib, libGLU_combined
-, gettext, libpthreadstubs, libXrandr, libXext, readline, openal
-, libXdmcp, portaudio, fetchFromGitHub, libusb, libevdev
-, wxGTK30, soundtouch, miniupnpc, mbedtls, curl, lzo, sfml
-, libpulseaudio ? null }:
+{ stdenv, pkgconfig, cmake, bluez, ffmpeg, libao, gtk2, glib, libGLU_combined, gettext, libpthreadstubs, libXrandr, libXext, readline, openal, libXdmcp, portaudio, fetchFromGitHub, libusb, libevdev, wxGTK30, soundtouch, miniupnpc, mbedtls, curl, lzo, sfml, libpulseaudio ?
+  null }:
 
 stdenv.mkDerivation rec {
   name = "dolphin-emu-${version}";
   version = "5.0";
 
   src = fetchFromGitHub {
-    owner  = "dolphin-emu";
-    repo   = "dolphin";
-    rev    = version;
+    owner = "dolphin-emu";
+    repo = "dolphin";
+    rev = version;
     sha256 = "07mlfnh0hwvk6xarcg315x7z2j0qbg9g7cm040df9c8psiahc3g6";
   };
 
@@ -30,14 +27,41 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ cmake bluez ffmpeg libao libGLU_combined gtk2 glib
-                  gettext libpthreadstubs libXrandr libXext readline openal
-                  libevdev libXdmcp portaudio libusb libpulseaudio
-                  libevdev libXdmcp portaudio libusb libpulseaudio
-                  wxGTK30 soundtouch miniupnpc mbedtls curl lzo sfml ];
+  buildInputs = [
+    cmake
+    bluez
+    ffmpeg
+    libao
+    libGLU_combined
+    gtk2
+    glib
+    gettext
+    libpthreadstubs
+    libXrandr
+    libXext
+    readline
+    openal
+    libevdev
+    libXdmcp
+    portaudio
+    libusb
+    libpulseaudio
+    libevdev
+    libXdmcp
+    portaudio
+    libusb
+    libpulseaudio
+    wxGTK30
+    soundtouch
+    miniupnpc
+    mbedtls
+    curl
+    lzo
+    sfml
+  ];
 
   meta = {
-    homepage = https://dolphin-emu.org/;
+    homepage = "https://dolphin-emu.org/";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = with stdenv.lib.maintainers; [ MP2E ];

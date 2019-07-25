@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, dejagnu, gettext, pkgconfig
-, gdbm, pam, readline, ncurses, gnutls, guile, texinfo, gnum4, sasl, fribidi, nettools
-, python, gss, mysql, system-sendmail }:
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, dejagnu, gettext, pkgconfig, gdbm, pam, readline, ncurses, gnutls, guile, texinfo, gnum4, sasl, fribidi, nettools, python, gss, mysql, system-sendmail
+}:
 
 stdenv.mkDerivation rec {
   name = "${project}-${version}";
@@ -23,18 +22,29 @@ stdenv.mkDerivation rec {
       sql/mysql.c
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook gettext pkgconfig
-  ];
+  nativeBuildInputs = [ autoreconfHook gettext pkgconfig ];
 
   buildInputs = [
-    gdbm pam readline ncurses gnutls guile texinfo gnum4 sasl fribidi nettools
-    gss mysql.connector-c python
+    gdbm
+    pam
+    readline
+    ncurses
+    gnutls
+    guile
+    texinfo
+    gnum4
+    sasl
+    fribidi
+    nettools
+    gss
+    mysql.connector-c
+    python
   ];
 
   patches = [
     (fetchpatch {
-      url = "https://git.savannah.gnu.org/cgit/mailutils.git/patch/?id=afbb33cf9ff";
+      url =
+        "https://git.savannah.gnu.org/cgit/mailutils.git/patch/?id=afbb33cf9ff";
       excludes = [ "NEWS" ];
       sha256 = "0yzkfx3j1zkkb43fhchjqphw4xznbclj39bjzjggv32gppy6d1db";
     })
@@ -54,15 +64,29 @@ stdenv.mkDerivation rec {
   ];
 
   readmsg-tests = let
-    p = "https://raw.githubusercontent.com/gentoo/gentoo/9c921e89d51876fd876f250324893fd90c019326/net-mail/mailutils/files";
-  in [
-    (fetchurl { url = "${p}/hdr.at"; sha256 = "0phpkqyhs26chn63wjns6ydx9468ng3ssbjbfhcvza8h78jlsd98"; })
-    (fetchurl { url = "${p}/nohdr.at"; sha256 = "1vkbkfkbqj6ml62s1am8i286hxwnpsmbhbnq0i2i0j1i7iwkk4b7"; })
-    (fetchurl { url = "${p}/twomsg.at"; sha256 = "15m29rg2xxa17xhx6jp4s2vwa9d4khw8092vpygqbwlhw68alk9g"; })
-    (fetchurl { url = "${p}/weed.at"; sha256 = "1101xakhc99f5gb9cs3mmydn43ayli7b270pzbvh7f9rbvh0d0nh"; })
-  ];
+    p =
+      "https://raw.githubusercontent.com/gentoo/gentoo/9c921e89d51876fd876f250324893fd90c019326/net-mail/mailutils/files";
+    in [
+      (fetchurl {
+        url = "${p}/hdr.at";
+        sha256 = "0phpkqyhs26chn63wjns6ydx9468ng3ssbjbfhcvza8h78jlsd98";
+      })
+      (fetchurl {
+        url = "${p}/nohdr.at";
+        sha256 = "1vkbkfkbqj6ml62s1am8i286hxwnpsmbhbnq0i2i0j1i7iwkk4b7";
+      })
+      (fetchurl {
+        url = "${p}/twomsg.at";
+        sha256 = "15m29rg2xxa17xhx6jp4s2vwa9d4khw8092vpygqbwlhw68alk9g";
+      })
+      (fetchurl {
+        url = "${p}/weed.at";
+        sha256 = "1101xakhc99f5gb9cs3mmydn43ayli7b270pzbvh7f9rbvh0d0nh";
+      })
+    ];
 
-  NIX_CFLAGS_COMPILE = "-L${mysql.connector-c}/lib/mysql -I${mysql.connector-c}/include/mysql";
+  NIX_CFLAGS_COMPILE =
+    "-L${mysql.connector-c}/lib/mysql -I${mysql.connector-c}/include/mysql";
 
   checkInputs = [ dejagnu ];
   doCheck = false; # fails 1 out of a bunch of tests, looks like a bug
@@ -112,13 +136,13 @@ stdenv.mkDerivation rec {
     '';
 
     license = with licenses; [
-      lgpl3Plus /* libraries */
-      gpl3Plus /* tools */
+      lgpl3Plus # libraries
+      gpl3Plus # tools
     ];
 
     maintainers = with maintainers; [ orivej vrthra ];
 
-    homepage = https://www.gnu.org/software/mailutils/;
+    homepage = "https://www.gnu.org/software/mailutils/";
 
     # Some of the dependencies fail to build on {cyg,dar}win.
     platforms = platforms.gnu ++ platforms.linux;

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "lua-filesystem-${version}";
   isLibrary = true;
   src = fetchurl {
-    url = "https://github.com/keplerproject/luafilesystem/archive/v1_6_2.tar.gz";
+    url =
+      "https://github.com/keplerproject/luafilesystem/archive/v1_6_2.tar.gz";
     sha256 = "1n8qdwa20ypbrny99vhkmx8q04zd2jjycdb5196xdhgvqzk10abz";
   };
 
@@ -19,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/keplerproject/luafilesystem;
+    homepage = "https://github.com/keplerproject/luafilesystem";
     hydraPlatforms = stdenv.lib.platforms.linux;
     maintainers = [ ];
   };

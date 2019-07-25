@@ -1,10 +1,10 @@
-{stdenv, fetchurl, fetchgit}:
+{ stdenv, fetchurl, fetchgit }:
 
 # All this file is made for the Marvell Sheevaplug
-   
+
 stdenv.mkDerivation {
   name = "uboot-qb-2010.06";
-   
+
   src = fetchurl {
     url = "ftp://ftp.denx.de/pub/u-boot/u-boot-2010.06.tar.bz2";
     sha256 = "1j0bl8x5i5m1pn62z450gbw30pbrj7sgs3fjp2l2giczv49cn33r";
@@ -27,9 +27,7 @@ stdenv.mkDerivation {
     sed -i -e 's/0x200000;bootm/0x400000;bootm/' include/configs/qi_lb60.h
   '';
 
-  makeFlags = [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+  makeFlags = [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   # Add reiserfs support
   configurePhase = ''
@@ -37,7 +35,7 @@ stdenv.mkDerivation {
     make qi_lb60_config
   '';
 
-  preBuild= ''
+  preBuild = ''
     # A variable named 'src' used to affect the build in some uboot...
     unset -v src
   '';
@@ -53,7 +51,5 @@ stdenv.mkDerivation {
     cp tools/{envcrc,mkimage} $out/bin
   '';
 
-  meta = {
-    platforms = stdenv.lib.platforms.mips;
-  };
+  meta = { platforms = stdenv.lib.platforms.mips; };
 }

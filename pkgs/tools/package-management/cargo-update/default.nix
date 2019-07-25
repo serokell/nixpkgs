@@ -1,6 +1,7 @@
-{ stdenv, callPackage, defaultCrateOverrides, fetchFromGitHub, cmake, curl, libssh2, libgit2, openssl, zlib }:
+{ stdenv, callPackage, defaultCrateOverrides, fetchFromGitHub, cmake, curl, libssh2, libgit2, openssl, zlib
+}:
 
-((callPackage ./cargo-update.nix {}).cargo_update {}).override {
+((callPackage ./cargo-update.nix { }).cargo_update { }).override {
   crateOverrides = defaultCrateOverrides // {
     cargo-update = attrs: rec {
       name = "cargo-update-${version}";
@@ -18,8 +19,9 @@
         ++ stdenv.lib.optional stdenv.isDarwin curl;
 
       meta = with stdenv.lib; {
-        description = "A cargo subcommand for checking and applying updates to installed executables";
-        homepage = https://github.com/nabijaczleweli/cargo-update;
+        description =
+          "A cargo subcommand for checking and applying updates to installed executables";
+        homepage = "https://github.com/nabijaczleweli/cargo-update";
         license = with licenses; [ mit ];
         maintainers = with maintainers; [ gerschtli ];
         platforms = platforms.all;

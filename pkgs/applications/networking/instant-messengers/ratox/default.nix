@@ -1,10 +1,9 @@
-{ stdenv, fetchgit, libtoxcore
-, conf ? null }:
+{ stdenv, fetchgit, libtoxcore, conf ? null }:
 
 with stdenv.lib;
 
 let
-  configFile = optionalString (conf!=null) (builtins.toFile "config.h" conf);
+  configFile = optionalString (conf != null) (builtins.toFile "config.h" conf);
 
 in stdenv.mkDerivation rec {
   name = "ratox-0.4.20180303";
@@ -21,14 +20,14 @@ in stdenv.mkDerivation rec {
     substituteInPlace config.mk \
       --replace '-lsodium -lopus -lvpx ' ""
 
-    ${optionalString (conf!=null) "cp ${configFile} config.def.h"}
+    ${optionalString (conf != null) "cp ${configFile} config.def.h"}
   '';
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = {
     description = "FIFO based tox client";
-    homepage = http://ratox.2f30.org/;
+    homepage = "http://ratox.2f30.org/";
     license = licenses.isc;
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.linux;

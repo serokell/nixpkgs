@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, curl }: 
+{ stdenv, fetchFromGitHub, cmake, curl }:
 
 stdenv.mkDerivation rec {
   name = "curlcpp-${version}";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ cmake curl ];
 
   meta = with stdenv.lib; {
-    homepage = https://josephp91.github.io/curlcpp/;
+    homepage = "https://josephp91.github.io/curlcpp/";
     description = "Object oriented C++ wrapper for CURL";
     platforms = platforms.unix;
     license = licenses.mit;

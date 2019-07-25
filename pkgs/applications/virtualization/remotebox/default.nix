@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.6";
 
   src = fetchurl {
-    url = "http://remotebox.knobgoblin.org.uk/downloads/RemoteBox-${version}.tar.bz2";
+    url =
+      "http://remotebox.knobgoblin.org.uk/downloads/RemoteBox-${version}.tar.bz2";
     sha256 = "1bbdnf13vp35ddfmk4pn167vfxgmdw0fd8bqg51wd8dd4cj8y3wp";
   };
 
@@ -27,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "VirtualBox client with remote management";
-    homepage = http://remotebox.knobgoblin.org.uk/;
+    homepage = "http://remotebox.knobgoblin.org.uk/";
     license = licenses.gpl2Plus;
     longDescription = ''
       VirtualBox is traditionally considered to be a virtualization solution

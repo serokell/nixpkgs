@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, libcdio, pkgconfig,
-  libiconv, IOKit, DiskArbitration}:
+{ stdenv, fetchFromGitHub, autoreconfHook, libcdio, pkgconfig, libiconv, IOKit, DiskArbitration
+}:
 
 stdenv.mkDerivation {
   name = "libcdio-paranoia-0.94+2";
@@ -12,14 +12,13 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ libcdio ] ++
-    stdenv.lib.optionals stdenv.isDarwin [ libiconv IOKit DiskArbitration ];
+  buildInputs = [ libcdio ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [ libiconv IOKit DiskArbitration ];
 
   propagatedBuildInputs = stdenv.lib.optional stdenv.isDarwin DiskArbitration;
 
-  configureFlags = stdenv.lib.optionals stdenv.isDarwin [
-    "--disable-ld-version-script"
-  ];
+  configureFlags =
+    stdenv.lib.optionals stdenv.isDarwin [ "--disable-ld-version-script" ];
 
   meta = with stdenv.lib; {
     description = "CD paranoia on top of libcdio";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
       access. By doing this, cdparanoia runs on platforms other than GNU/Linux.
     '';
     license = licenses.gpl3;
-    homepage = https://github.com/rocky/libcdio-paranoia;
+    homepage = "https://github.com/rocky/libcdio-paranoia";
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.pbogdan ];
   };

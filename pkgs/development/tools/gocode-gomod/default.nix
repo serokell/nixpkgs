@@ -12,7 +12,7 @@ buildGoPackage rec {
   # standard packages.
   allowGoReference = true;
 
-  excludedPackages = ''internal/suggest/testdata'';
+  excludedPackages = "internal/suggest/testdata";
 
   src = fetchFromGitHub {
     inherit rev;
@@ -42,7 +42,7 @@ buildGoPackage rec {
       Typical autocompletion time with warm cache is 30ms, which is barely
       noticeable.
     '';
-    homepage = https://github.com/stamblerre/gocode;
+    homepage = "https://github.com/stamblerre/gocode";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ kalbasit rvolosatovs ];

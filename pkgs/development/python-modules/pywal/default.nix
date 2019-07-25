@@ -14,10 +14,7 @@ buildPythonPackage rec {
     HOME=$PWD/tmp
   '';
 
-  patches = [
-    ./convert.patch
-    ./feh.patch
-  ];
+  patches = [ ./convert.patch ./feh.patch ];
 
   # Invalid syntax
   disabled = !isPy3k;
@@ -28,8 +25,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Generate and change colorschemes on the fly. A 'wal' rewrite in Python 3.";
-    homepage = https://github.com/dylanaraps/pywal;
+    description =
+      "Generate and change colorschemes on the fly. A 'wal' rewrite in Python 3.";
+    homepage = "https://github.com/dylanaraps/pywal";
     license = licenses.mit;
     maintainers = with maintainers; [ Fresheyeball ];
   };

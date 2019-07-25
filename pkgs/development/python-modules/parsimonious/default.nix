@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, six }:
 
 buildPythonPackage rec {
   version = "0.8.1";

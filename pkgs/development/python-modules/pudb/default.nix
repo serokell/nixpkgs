@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pygments
-, urwid
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pygments, urwid, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pudb";

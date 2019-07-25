@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
 
-  pname   = "rmount";
+  pname = "rmount";
   version = "1.0.1";
 
   src = fetchFromGitHub rec {
@@ -19,11 +19,13 @@ stdenv.mkDerivation rec {
     install -D ${src}/rmount.bash $out/bin/rmount
     install -D ${src}/config.json $out/share/config.json
 
-    wrapProgram $out/bin/rmount --prefix PATH : ${stdenv.lib.makeBinPath [ nmap jq cifs-utils sshfs ]}
+    wrapProgram $out/bin/rmount --prefix PATH : ${
+      stdenv.lib.makeBinPath [ nmap jq cifs-utils sshfs ]
+    }
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Luis-Hebendanz/rmount;
+    homepage = "https://github.com/Luis-Hebendanz/rmount";
     description = "Remote mount utility which parses a json file";
     license = licenses.mit;
     maintainers = [ maintainers.luis ];

@@ -1,8 +1,4 @@
-{ buildGoPackage
-, lib
-, fetchFromGitHub
-, fetchpatch
-}:
+{ buildGoPackage, lib, fetchFromGitHub, fetchpatch }:
 
 buildGoPackage rec {
   name = "asmfmt-${version}";
@@ -19,8 +15,9 @@ buildGoPackage rec {
 
   patches = [
     (fetchpatch {
-      excludes = ["README.md"];
-      url = "https://github.com/klauspost/asmfmt/commit/39a37c8aed8095e0fdfb07f78fc8acbd465d9627.patch";
+      excludes = [ "README.md" ];
+      url =
+        "https://github.com/klauspost/asmfmt/commit/39a37c8aed8095e0fdfb07f78fc8acbd465d9627.patch";
       sha256 = "18bc77l87mf0yvqc3adlakxz6wflyqfsc2wrmh9q0nlqghlmnw5k";
     })
   ];
@@ -29,7 +26,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     description = "Go Assembler Formatter";
-    homepage = https://github.com/klauspost/asmfmt;
+    homepage = "https://github.com/klauspost/asmfmt";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

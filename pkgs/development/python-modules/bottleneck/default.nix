@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, nose
-, pytest
-, numpy
-, python
-}:
+{ buildPythonPackage, fetchPypi, nose, pytest, numpy, python }:
 
 buildPythonPackage rec {
   pname = "Bottleneck";

@@ -1,17 +1,12 @@
-{ stdenv, lib, fetchurl, cmake, ninja, pkgconfig, libiconv, libintl
-, zlib, curl, cairo, freetype, fontconfig, lcms, libjpeg, openjpeg, fetchpatch
-, withData ? true, poppler_data
-, qt5Support ? false, qtbase ? null
-, introspectionSupport ? false, gobject-introspection ? null
-, utils ? false
-, minimal ? false, suffix ? "glib"
-}:
+{ stdenv, lib, fetchurl, cmake, ninja, pkgconfig, libiconv, libintl, zlib, curl, cairo, freetype, fontconfig, lcms, libjpeg, openjpeg, fetchpatch, withData ?
+  true, poppler_data, qt5Support ? false, qtbase ? null, introspectionSupport ?
+    false, gobject-introspection ? null, utils ? false, minimal ?
+      false, suffix ? "glib" }:
 
 let
   version = "0.61.0";
   mkFlag = optset: flag: "-DENABLE_${flag}=${if optset then "on" else "off"}";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "poppler-${suffix}-${version}";
 
   src = fetchurl {
@@ -24,7 +19,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "CVE-2018-13988";
-      url = "https://cgit.freedesktop.org/poppler/poppler/patch/?id=004e3c10df0abda214f0c293f9e269fdd979c5ee";
+      url =
+        "https://cgit.freedesktop.org/poppler/poppler/patch/?id=004e3c10df0abda214f0c293f9e269fdd979c5ee";
       sha256 = "1l8713s57xc6g81bldw934rsfm140fqc7ggd50ha5mxdl1b3app2";
     })
   ];
@@ -34,8 +30,7 @@ stdenv.mkDerivation rec {
   # TODO: reduce propagation to necessary libs
   propagatedBuildInputs = with lib;
     [ zlib freetype fontconfig libjpeg openjpeg ]
-    ++ optionals (!minimal) [ cairo lcms curl ]
-    ++ optional qt5Support qtbase
+    ++ optionals (!minimal) [ cairo lcms curl ] ++ optional qt5Support qtbase
     ++ optional introspectionSupport gobject-introspection;
 
   nativeBuildInputs = [ cmake ninja pkgconfig ];
@@ -53,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    homepage = https://poppler.freedesktop.org/;
+    homepage = "https://poppler.freedesktop.org/";
     description = "A PDF rendering library";
 
     longDescription = ''

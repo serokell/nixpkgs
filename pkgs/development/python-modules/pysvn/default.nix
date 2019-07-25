@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, pkgs
-, isPy3k
-, python
-}:
+{ stdenv, buildPythonPackage, fetchurl, pkgs, isPy3k, python }:
 
 buildPythonPackage rec {
   pname = "pysvn";
@@ -13,15 +7,17 @@ buildPythonPackage rec {
   format = "other";
 
   src = fetchurl {
-    url = "http://pysvn.barrys-emacs.org/source_kits/${pname}-${version}.tar.gz";
+    url =
+      "http://pysvn.barrys-emacs.org/source_kits/${pname}-${version}.tar.gz";
     sha256 = "0srjr2qgxfs69p65d9vvdib2lc142x10w8afbbdrqs7dhi46yn9r";
   };
 
-  buildInputs = [ pkgs.subversion pkgs.apr pkgs.aprutil pkgs.expat pkgs.neon pkgs.openssl ]
-    ++ (if stdenv.isLinux then [pkgs.e2fsprogs] else []);
+  buildInputs =
+    [ pkgs.subversion pkgs.apr pkgs.aprutil pkgs.expat pkgs.neon pkgs.openssl ]
+    ++ (if stdenv.isLinux then [ pkgs.e2fsprogs ] else [ ]);
 
   # There seems to be no way to pass that path to configure.
-  NIX_CFLAGS_COMPILE="-I${pkgs.aprutil.dev}/include/apr-1";
+  NIX_CFLAGS_COMPILE = "-I${pkgs.aprutil.dev}/include/apr-1";
 
   preConfigure = ''
     cd Source
@@ -33,7 +29,9 @@ buildPythonPackage rec {
       --svn-lib-dir=${pkgs.subversion.out}/lib \
       --svn-bin-dir=${pkgs.subversion.out}/bin \
       --svn-root-dir=${pkgs.subversion.dev}
-  '' + (if !stdenv.isDarwin then "" else ''
+  '' + (if !stdenv.isDarwin then
+    ""
+  else ''
     sed -i -e 's|libpython2.7.dylib|lib/libpython2.7.dylib|' Makefile
   '');
 
@@ -51,7 +49,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python bindings for Subversion";
-    homepage = http://pysvn.tigris.org/;
+    homepage = "http://pysvn.tigris.org/";
     license = licenses.asl20;
   };
 

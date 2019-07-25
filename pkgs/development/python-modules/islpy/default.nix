@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isl
-, pytest
-, cffi
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, isl, pytest, cffi, six }:
 
 buildPythonPackage rec {
   pname = "islpy";
@@ -23,10 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ isl ];
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [
-    cffi
-    six
-  ];
+  propagatedBuildInputs = [ cffi six ];
 
   checkPhase = ''
     pytest test
@@ -34,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python wrapper around isl, an integer set library";
-    homepage = https://github.com/inducer/islpy;
+    homepage = "https://github.com/inducer/islpy";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

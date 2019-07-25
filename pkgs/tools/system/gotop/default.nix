@@ -14,8 +14,9 @@ buildGoPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A terminal based graphical activity monitor inspired by gtop and vtop";
-    homepage = https://github.com/cjbassi/gotop;
+    description =
+      "A terminal based graphical activity monitor inspired by gtop and vtop";
+    homepage = "https://github.com/cjbassi/gotop";
     license = licenses.agpl3;
     maintainers = [ maintainers.magnetophon ];
     platforms = platforms.unix;

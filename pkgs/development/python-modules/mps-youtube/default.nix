@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, pafy
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy3k, pafy }:
 
 buildPythonPackage rec {
   name = "mps-youtube-${version}";
@@ -31,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Terminal based YouTube player and downloader";
-    homepage = https://github.com/np1/mps-youtube;
+    homepage = "https://github.com/np1/mps-youtube";
     license = licenses.gpl3;
     maintainers = with maintainers; [ odi ];
   };

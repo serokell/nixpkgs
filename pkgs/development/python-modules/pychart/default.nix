@@ -4,7 +4,7 @@ buildPythonPackage rec {
   pname = "pychart";
   version = "1.39";
 
-  disabled = ! isPy27;
+  disabled = !isPy27;
 
   src = fetchPypi {
     inherit pname version;
@@ -12,8 +12,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Library for creating high quality encapsulated Postscript, PDF, PNG, or SVG charts";
-    homepage = https://pypi.python.org/pypi/PyChart;
+    description =
+      "Library for creating high quality encapsulated Postscript, PDF, PNG, or SVG charts";
+    homepage = "https://pypi.python.org/pypi/PyChart";
     license = licenses.gpl2;
   };
 }

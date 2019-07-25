@@ -1,18 +1,9 @@
-{ stdenv, lib, buildEnv, substituteAll, runCommand
-, dwarf-fortress
-, dwarf-therapist
-, enableDFHack ? false, dfhack
-, enableSoundSense ? false, soundSense, jdk
-, enableStoneSense ? false
-, enableTWBT ? false, twbt
-, themes ? {}
-, theme ? null
-# General config options:
-, enableIntro ? true
-, enableTruetype ? true
-, enableFPS ? false
-, enableTextMode ? false
-}:
+{ stdenv, lib, buildEnv, substituteAll, runCommand, dwarf-fortress, dwarf-therapist, enableDFHack ?
+  false, dfhack, enableSoundSense ? false, soundSense, jdk, enableStoneSense ?
+    false, enableTWBT ? false, twbt, themes ? { }, theme ? null
+      # General config options:
+, enableIntro ? true, enableTruetype ? true, enableFPS ? false, enableTextMode ?
+  false }:
 
 let
   dfhack_ = dfhack.override {
@@ -21,20 +12,17 @@ let
   };
 
   ptheme =
-    if builtins.isString theme
-    then builtins.getAttr theme themes
-    else theme;
+    if builtins.isString theme then builtins.getAttr theme themes else theme;
 
   unBool = b: if b then "YES" else "NO";
 
   # These are in inverse order for first packages to override the next ones.
   themePkg = lib.optional (theme != null) ptheme;
   pkgs = lib.optional enableDFHack dfhack_
-         ++ lib.optional enableSoundSense soundSense
-         ++ lib.optional enableTWBT twbt.art
-         ++ [ dwarf-fortress ];
+    ++ lib.optional enableSoundSense soundSense
+    ++ lib.optional enableTWBT twbt.art ++ [ dwarf-fortress ];
 
-  fixup = lib.singleton (runCommand "fixup" {} (''
+  fixup = lib.singleton (runCommand "fixup" { } (''
     mkdir -p $out/data/init
   '' + (if (theme != null) then ''
     cp ${lib.head themePkg}/data/init/init.txt $out/data/init/init.txt
@@ -59,8 +47,7 @@ let
   '' + lib.optionalString enableTWBT ''
     substituteInPlace $out/data/init/init.txt \
       --replace '[PRINT_MODE:2D]' '[PRINT_MODE:TWBT]'
-  '' + 
- lib.optionalString enableTextMode ''
+  '' + lib.optionalString enableTextMode ''
     substituteInPlace $out/data/init/init.txt \
       --replace '[PRINT_MODE:2D]' '[PRINT_MODE:TEXT]'
   '' + ''
@@ -78,17 +65,15 @@ let
 
     ignoreCollisions = true;
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "dwarf-fortress-${dwarf-fortress.dfVersion}";
 
   dfInit = substituteAll {
     name = "dwarf-fortress-init";
     src = ./dwarf-fortress-init.in;
     inherit env;
-    exe = if stdenv.isLinux then "libs/Dwarf_Fortress"
-                            else "dwarfort.exe";
+    exe = if stdenv.isLinux then "libs/Dwarf_Fortress" else "dwarfort.exe";
   };
 
   runDF = ./dwarf-fortress.in;

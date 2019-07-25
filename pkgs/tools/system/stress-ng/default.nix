@@ -1,5 +1,4 @@
-{ stdenv, fetchurl
-, attr, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
+{ stdenv, fetchurl, attr, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -7,14 +6,20 @@ stdenv.mkDerivation rec {
   version = "0.10.00";
 
   src = fetchurl {
-    url = "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://kernel.ubuntu.com/~cking/tarballs/${pname}/${pname}-${version}.tar.xz";
     sha256 = "0x602d9alilxxx2v59ryyg6s81l9nf8bxyavk5wf8jd5mshx57fh";
   };
 
   # All platforms inputs then Linux-only ones
   buildInputs = [ libbsd libgcrypt zlib ]
     ++ stdenv.lib.optionals stdenv.hostPlatform.isLinux [
-      attr keyutils libaio libapparmor libcap lksctp-tools
+      attr
+      keyutils
+      libaio
+      libapparmor
+      libcap
+      lksctp-tools
     ];
 
   postPatch = ''
@@ -57,7 +62,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://kernel.ubuntu.com/~cking/stress-ng/";
     downloadPage = "https://kernel.ubuntu.com/~cking/tarballs/stress-ng/";
-    changelog = "https://kernel.ubuntu.com/git/cking/stress-ng.git/plain/debian/changelog?h=V${version}";
+    changelog =
+      "https://kernel.ubuntu.com/git/cking/stress-ng.git/plain/debian/changelog?h=V${version}";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ c0bw3b ];
     platforms = platforms.unix;

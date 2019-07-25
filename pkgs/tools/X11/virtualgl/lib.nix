@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, cmake, libGL, libGLU, libX11, libXv, libXtst, libjpeg_turbo, fltk }:
+{ stdenv, fetchurl, cmake, libGL, libGLU, libX11, libXv, libXtst, libjpeg_turbo, fltk
+}:
 
 stdenv.mkDerivation rec {
   name = "virtualgl-lib-${version}";
@@ -9,7 +10,10 @@ stdenv.mkDerivation rec {
     sha256 = "0ngqwsm9bml6lis0igq3bn92amh04rccd6jhjibj3418hrbzipvr";
   };
 
-  cmakeFlags = [ "-DVGL_SYSTEMFLTK=1" "-DTJPEG_LIBRARY=${libjpeg_turbo.out}/lib/libturbojpeg.so" ];
+  cmakeFlags = [
+    "-DVGL_SYSTEMFLTK=1"
+    "-DTJPEG_LIBRARY=${libjpeg_turbo.out}/lib/libturbojpeg.so"
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
@@ -20,8 +24,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://www.virtualgl.org/;
-    description = "X11 GL rendering in a remote computer with full 3D hw acceleration";
+    homepage = "http://www.virtualgl.org/";
+    description =
+      "X11 GL rendering in a remote computer with full 3D hw acceleration";
     license = licenses.wxWindows;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

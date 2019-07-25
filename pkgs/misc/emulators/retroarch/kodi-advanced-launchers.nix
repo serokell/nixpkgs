@@ -1,6 +1,6 @@
 { stdenv, pkgs, cores, runtimeShell }:
 
-assert cores != [];
+assert cores != [ ];
 
 with pkgs.lib;
 
@@ -12,12 +12,13 @@ let
     # https://forum.kodi.tv/showthread.php?tid=185074&pid=1622750#pid1622750
     nohup sh -c "sleep 10 && ${exec} '$@' -f;pkill -SIGCONT kodi"
   '';
-  scriptSh = exec: pkgs.writeScript ("kodi-"+exec.name) (script exec.path);
-  execs = map (core: rec { name = core.core; path = core+"/bin/retroarch-"+name;}) cores;
+  scriptSh = exec: pkgs.writeScript ("kodi-" + exec.name) (script exec.path);
+  execs = map (core: rec {
+    name = core.core;
+    path = core + "/bin/retroarch-" + name;
+  }) cores;
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "kodi-retroarch-advanced-launchers-${version}";
   version = "0.2";
 
@@ -25,7 +26,8 @@ stdenv.mkDerivation rec {
 
   buildCommand = ''
     mkdir -p $out/bin
-    ${stdenv.lib.concatMapStrings (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};") execs}
+    ${stdenv.lib.concatMapStrings
+    (exec: "ln -s ${scriptSh exec} $out/bin/kodi-${exec.name};") execs}
   '';
 
   meta = {

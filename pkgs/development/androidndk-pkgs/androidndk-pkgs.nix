@@ -1,7 +1,4 @@
-{ stdenv
-, makeWrapper
-, runCommand, wrapBintoolsWith, wrapCCWith
-, buildAndroidndk, androidndk, targetAndroidndkPkgs
+{ stdenv, makeWrapper, runCommand, wrapBintoolsWith, wrapCCWith, buildAndroidndk, androidndk, targetAndroidndkPkgs
 }:
 
 let
@@ -11,13 +8,10 @@ let
   # N.B. The Android NDK uses slightly different LLVM-style platform triples
   # than we do. We don't just use theirs because ours are less ambiguous and
   # some builds need that clarity.
-  ndkInfoFun = { config, ... }: {
-    "x86_64-apple-darwin" = {
-      double = "darwin-x86_64";
-    };
-    "x86_64-unknown-linux-gnu" = {
-      double = "linux-x86_64";
-    };
+  ndkInfoFun = { config, ... }:
+  {
+    "x86_64-apple-darwin" = { double = "darwin-x86_64"; };
+    "x86_64-unknown-linux-gnu" = { double = "linux-x86_64"; };
     "i686-unknown-linux-android" = {
       triple = "i686-linux-android";
       arch = "x86";
@@ -42,16 +36,17 @@ let
       toolchain = "aarch64-linux-android";
       gccVer = "4.9";
     };
-  }.${config} or
-    (throw "Android NDK doesn't support ${config}, as far as we know");
+  }.${config} or (throw
+    "Android NDK doesn't support ${config}, as far as we know");
 
   hostInfo = ndkInfoFun stdenv.hostPlatform;
   targetInfo = ndkInfoFun stdenv.targetPlatform;
 
-  prefix = stdenv.lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (stdenv.targetPlatform.config + "-");
-in
+  prefix =
+    stdenv.lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+    (stdenv.targetPlatform.config + "-");
 
-rec {
+in rec {
   # Misc tools
   binaries = runCommand "ndk-gcc-binutils" {
     isClang = true; # clang based cc, but bintools ld
@@ -98,7 +93,7 @@ rec {
   # We use androidndk from the previous stage, else we waste time or get cycles
   # cross-compiling packages to wrap incorrectly wrap binaries we don't include
   # anyways.
-  libraries = runCommand "bionic-prebuilt" {} ''
+  libraries = runCommand "bionic-prebuilt" { } ''
     mkdir -p $out
     cp -r ${buildAndroidndk}/libexec/android-sdk/ndk-bundle/sysroot/usr/include $out/include
     chmod +w $out/include

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, dateutil
-, pytz
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools, dateutil, pytz }:
 
 buildPythonPackage rec {
   version = "4.0.3";

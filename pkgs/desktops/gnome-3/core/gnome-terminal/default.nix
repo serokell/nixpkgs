@@ -1,25 +1,36 @@
-{ stdenv, fetchurl, pkgconfig, libxml2, gnome3, dconf, nautilus
-, gtk3, gsettings-desktop-schemas, vte, intltool, which, libuuid, vala
-, desktop-file-utils, itstool, wrapGAppsHook, hicolor-icon-theme }:
+{ stdenv, fetchurl, pkgconfig, libxml2, gnome3, dconf, nautilus, gtk3, gsettings-desktop-schemas, vte, intltool, which, libuuid, vala, desktop-file-utils, itstool, wrapGAppsHook, hicolor-icon-theme
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-terminal-${version}";
   version = "3.32.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-terminal/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-terminal/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0shhpnagasyp1kxgjczfrivcxbgrrl3y8lzvp1z101m67h4jp6km";
   };
 
   buildInputs = [
-    gtk3 gsettings-desktop-schemas vte libuuid dconf
+    gtk3
+    gsettings-desktop-schemas
+    vte
+    libuuid
+    dconf
     # For extension
     nautilus
   ];
 
   nativeBuildInputs = [
-    pkgconfig intltool itstool which libxml2
-    vala desktop-file-utils wrapGAppsHook
+    pkgconfig
+    intltool
+    itstool
+    which
+    libxml2
+    vala
+    desktop-file-utils
+    wrapGAppsHook
     hicolor-icon-theme # for setup-hook
   ];
 
@@ -43,7 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The GNOME Terminal Emulator";
-    homepage = https://wiki.gnome.org/Apps/Terminal;
+    homepage = "https://wiki.gnome.org/Apps/Terminal";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     maintainers = gnome3.maintainers;

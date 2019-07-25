@@ -1,15 +1,13 @@
 { stdenv, fetchFromGitHub, pkgconfig, glib, notmuch }:
 
-let
-  version = "9";
-in
-stdenv.mkDerivation rec {
+let version = "9";
+in stdenv.mkDerivation rec {
   name = "notmuch-addrlookup-${version}";
 
   src = fetchFromGitHub {
     owner = "aperezdc";
     repo = "notmuch-addrlookup-c";
-    rev ="v${version}";
+    rev = "v${version}";
     sha256 = "1j3zdx161i1x4w0nic14ix5i8hd501rb31daf8api0k8855sx4rc";
   };
 
@@ -20,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Address lookup tool for Notmuch in C";
-    homepage = https://github.com/aperezdc/notmuch-addrlookup-c;
+    homepage = "https://github.com/aperezdc/notmuch-addrlookup-c";
     maintainers = with maintainers; [ mog ];
     platforms = platforms.unix;
     license = licenses.mit;

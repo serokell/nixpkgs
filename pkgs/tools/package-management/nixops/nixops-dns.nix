@@ -1,6 +1,4 @@
-{ lib
-, buildGoPackage
-, fetchFromGitHub }:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "nixops-dns-${version}";
@@ -17,7 +15,7 @@ buildGoPackage rec {
   };
 
   meta = with lib; {
-    homepage = https://github.com/kamilchm/nixops-dns/;
+    homepage = "https://github.com/kamilchm/nixops-dns/";
     description = "DNS server for resolving NixOps machines";
     license = licenses.mit;
     maintainers = with maintainers; [ kamilchm sorki ];

@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, autoreconfHook, ncurses, libpcap }:
+{ stdenv, fetchFromGitHub, autoreconfHook, ncurses, libpcap }:
 
 stdenv.mkDerivation rec {
   version = "3.5.1";
@@ -18,21 +18,19 @@ stdenv.mkDerivation rec {
     echo "#define SIPP_VERSION \"v${version}\"" > include/version.h
   '';
 
-  configureFlags = [
-    "--with-pcap"
-  ];
+  configureFlags = [ "--with-pcap" ];
 
   postInstall = ''
     mkdir -pv $out/share/pcap
     cp pcap/* $out/share/pcap
   '';
 
-  buildInputs = [ncurses libpcap];
+  buildInputs = [ ncurses libpcap ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with stdenv.lib; {
-    homepage = http://sipp.sf.net;
+    homepage = "http://sipp.sf.net";
     description = "The SIPp testing tool";
     license = licenses.gpl3;
     platforms = platforms.unix;

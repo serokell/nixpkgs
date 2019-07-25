@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, runtimeShell
-, SDL2, freealut, SDL2_image, openal, physfs, zlib, libGLU_combined, glew }:
+{ fetchurl, stdenv, runtimeShell, SDL2, freealut, SDL2_image, openal, physfs, zlib, libGLU_combined, glew
+}:
 
 stdenv.mkDerivation rec {
   name = "trigger-rally-0.6.6";
@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "08qa2f2s8zyn42ff6jb1gsi64d916020ixkzvl16kbb88rabqra8";
   };
 
-  buildInputs = [ SDL2 freealut SDL2_image openal physfs zlib libGLU_combined glew ];
+  buildInputs =
+    [ SDL2 freealut SDL2_image openal physfs zlib libGLU_combined glew ];
 
   preConfigure = ''
     sed s,/usr/local,$out, -i bin/*defs
@@ -32,9 +33,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Rally";
-    homepage = http://trigger-rally.sourceforge.net/;
+    homepage = "http://trigger-rally.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       Numerical optimization package for solving large-scale convex cone problems
     '';
-    homepage = https://github.com/cvxgrp/scs;
+    homepage = "https://github.com/cvxgrp/scs";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ maintainers.bhipple ];

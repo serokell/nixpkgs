@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dmd, gnome3, dbus
-, gsettings-desktop-schemas, desktop-file-utils, gettext, gtkd, libsecret
-, glib, perlPackages, wrapGAppsHook, xdg_utils }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dmd, gnome3, dbus, gsettings-desktop-schemas, desktop-file-utils, gettext, gtkd, libsecret, glib, perlPackages, wrapGAppsHook, xdg_utils
+}:
 
 stdenv.mkDerivation rec {
   pname = "tilix";
@@ -14,11 +13,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoreconfHook dmd desktop-file-utils perlPackages.Po4a pkgconfig xdg_utils
+    autoreconfHook
+    dmd
+    desktop-file-utils
+    perlPackages.Po4a
+    pkgconfig
+    xdg_utils
     wrapGAppsHook
   ];
 
-  buildInputs = [ gnome3.dconf gettext gsettings-desktop-schemas gtkd dbus libsecret ];
+  buildInputs =
+    [ gnome3.dconf gettext gsettings-desktop-schemas gtkd dbus libsecret ];
 
   preBuild = ''
     makeFlagsArray=(
@@ -42,8 +47,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Tiling terminal emulator following the Gnome Human Interface Guidelines";
-    homepage = https://gnunn1.github.io/tilix-web;
+    description =
+      "Tiling terminal emulator following the Gnome Human Interface Guidelines";
+    homepage = "https://gnunn1.github.io/tilix-web";
     license = licenses.mpl20;
     maintainers = with maintainers; [ midchildan ];
     platforms = platforms.linux;

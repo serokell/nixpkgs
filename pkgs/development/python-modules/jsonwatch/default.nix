@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, six
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchurl, six, isPyPy }:
 
 buildPythonPackage rec {
   pname = "jsonwatch";

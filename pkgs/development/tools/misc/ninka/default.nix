@@ -13,9 +13,17 @@ perlPackages.buildPerlPackage rec {
     sha256 = "1grlis1kycbcjvjgqvn7aw81q1qx49ahvxg2k7cgyr79mvgpgi9m";
   };
 
-  buildInputs = with perlPackages; [ perl TestOutput DBDSQLite DBI TestPod TestPodCoverage SpreadsheetParseExcel ];
+  buildInputs = with perlPackages; [
+    perl
+    TestOutput
+    DBDSQLite
+    DBI
+    TestPod
+    TestPodCoverage
+    SpreadsheetParseExcel
+  ];
 
-  doCheck = false;    # hangs
+  doCheck = false; # hangs
 
   preConfigure = ''
     sed -i.bak -e 's;#!/usr/bin/perl;#!${perl}/bin/perl;g' \
@@ -28,7 +36,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = with stdenv.lib; {
     description = "A sentence based license detector";
-    homepage = http://ninka.turingmachine.org/;
+    homepage = "http://ninka.turingmachine.org/";
     license = licenses.gpl2;
     maintainers = [ maintainers.vrthra ];
     platforms = platforms.all;

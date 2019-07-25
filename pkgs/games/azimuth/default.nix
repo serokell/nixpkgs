@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   version = "1.0.3";
 
   src = fetchFromGitHub {
-    owner  = "mdsteele";
-    repo   = "azimuth";
-    rev    = "v${version}";
+    owner = "mdsteele";
+    repo = "azimuth";
+    rev = "v${version}";
     sha256 = "1znfvpmqiixd977jv748glk5zc4cmhw5813zp81waj07r9b0828r";
   };
 
@@ -17,9 +17,7 @@ stdenv.mkDerivation rec {
       --replace "Version=%AZ_VERSION_NUMBER" "Version=${version}"
   '';
 
-  makeFlags = [
-    "BUILDTYPE=release"
-  ];
+  makeFlags = [ "BUILDTYPE=release" ];
 
   buildInputs = [ SDL ];
 
@@ -56,7 +54,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = stdenv.lib.licenses.gpl3Plus;
-    homepage = https://mdsteele.games/azimuth/index.html;
+    homepage = "https://mdsteele.games/azimuth/index.html";
     maintainers = with stdenv.lib.maintainers; [ marius851000 ];
     platforms = stdenv.lib.platforms.linux;
   };

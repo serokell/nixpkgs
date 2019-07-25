@@ -73,7 +73,8 @@ in {
             }
           }
         '';
-        description = "Unit configuration in JSON format. More details here https://unit.nginx.org/configuration";
+        description =
+          "Unit configuration in JSON format. More details here https://unit.nginx.org/configuration";
       };
     };
   };
@@ -85,7 +86,7 @@ in {
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
       "d '${cfg.logDir}' 0750 ${cfg.user} ${cfg.group} - -"
-     ];
+    ];
 
     systemd.services.unit = {
       description = "Unit App Server";
@@ -118,8 +119,7 @@ in {
       group = cfg.group;
     });
 
-    users.groups = optionalAttrs (cfg.group == "unit") (singleton {
-      name = "unit";
-    });
+    users.groups =
+      optionalAttrs (cfg.group == "unit") (singleton { name = "unit"; });
   };
 }

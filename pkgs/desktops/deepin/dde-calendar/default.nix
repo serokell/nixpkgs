@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, qttools,
-  deepin-gettext-tools, dtkcore, dtkwidget, deepin
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, qttools, deepin-gettext-tools, dtkcore, dtkwidget, deepin
 }:
 
 stdenv.mkDerivation rec {
@@ -14,18 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "00aqx24jccf88vvkpb9svyjz8knrqyjgd0152psf9dxc9q13f61h";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    qttools
-    deepin-gettext-tools
-    deepin.setupHook
-  ];
+  nativeBuildInputs =
+    [ cmake pkgconfig qttools deepin-gettext-tools deepin.setupHook ];
 
-  buildInputs = [
-    dtkcore
-    dtkwidget
-  ];
+  buildInputs = [ dtkcore dtkwidget ];
 
   postPatch = ''
     searchHardCodedPaths
@@ -42,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Calendar for Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/dde-calendar;
+    homepage = "https://github.com/linuxdeepin/dde-calendar";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

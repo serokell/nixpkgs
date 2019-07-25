@@ -1,13 +1,8 @@
-{ stdenv, fetchFromGitHub, autoreconfHook
-, lzmaSupport ? true, xz ? null
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, lzmaSupport ? true, xz ? null }:
 
 assert lzmaSupport -> xz != null;
 
-let
-  mkWith = flag: name: if flag
-    then "--with-${name}"
-    else "--without-${name}";
+let mkWith = flag: name: if flag then "--with-${name}" else "--without-${name}";
 in stdenv.mkDerivation rec {
   name = "xdelta-${version}";
   version = "3.0.11";
@@ -20,16 +15,13 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = []
-    ++ stdenv.lib.optionals lzmaSupport [ xz ];
+  buildInputs = [ ] ++ stdenv.lib.optionals lzmaSupport [ xz ];
 
   postPatch = ''
     cd xdelta3
   '';
 
-  configureFlags = [
-    (mkWith lzmaSupport "liblzma")
-  ];
+  configureFlags = [ (mkWith lzmaSupport "liblzma") ];
 
   enableParallelBuilding = true;
 
@@ -54,7 +46,7 @@ in stdenv.mkDerivation rec {
       file differences. This is similar to diff and patch, but it is targeted
       for binary files and does not generate human readable output.
     '';
-    homepage = http://xdelta.org/;
+    homepage = "http://xdelta.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

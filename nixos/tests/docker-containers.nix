@@ -2,22 +2,20 @@
 
 import ./make-test.nix ({ pkgs, lib, ... }: {
   name = "docker-containers";
-  meta = {
-    maintainers = with lib.maintainers; [ benley ];
-  };
+  meta = { maintainers = with lib.maintainers; [ benley ]; };
 
   nodes = {
-    docker = { pkgs, ... }:
-      {
-        virtualisation.docker.enable = true;
+    docker = { pkgs, ... }: {
+      virtualisation.docker.enable = true;
 
-        virtualisation.dockerPreloader.images = [ pkgs.dockerTools.examples.nginx ];
+      virtualisation.dockerPreloader.images =
+        [ pkgs.dockerTools.examples.nginx ];
 
-        docker-containers.nginx = {
-          image = "nginx-container";
-          ports = ["8181:80"];
-        };
+      docker-containers.nginx = {
+        image = "nginx-container";
+        ports = [ "8181:80" ];
       };
+    };
   };
 
   testScript = ''

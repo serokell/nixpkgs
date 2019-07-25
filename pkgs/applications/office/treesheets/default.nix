@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub, wxGTK, makeWrapper }:
 
 stdenv.mkDerivation rec {
-  name    = "treesheets-${version}";
+  name = "treesheets-${version}";
   version = "1.0.1";
 
   src = fetchFromGitHub {
-    owner  = "aardappel";
-    repo   = "treesheets";
-    rev    = "v${version}";
+    owner = "aardappel";
+    repo = "treesheets";
+    rev = "v${version}";
     sha256 = "0krsj7i5yr76imf83krz2lmlmpbsvpwqg2d4r0jwxiydjfyj4qr4";
   };
 
@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
       planning, requirements gathering, presentation of information, etc.
     '';
 
-    homepage    = http://strlen.com/treesheets/;
+    homepage = "http://strlen.com/treesheets/";
     maintainers = with maintainers; [ obadz avery ];
-    platforms   = platforms.linux;
-    license     = licenses.zlib;
+    platforms = platforms.linux;
+    license = licenses.zlib;
   };
 }

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake, pkgconfig
-, qtbase, gsl, getdata, netcdf, muparser, matio
+{ stdenv, fetchurl, cmake, pkgconfig, qtbase, gsl, getdata, netcdf, muparser, matio
 }:
 stdenv.mkDerivation rec {
   name = "Kst-2.0.8";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Real-time large-dataset viewing and plotting tool";
-    homepage = https://kst-plot.kde.org/;
+    homepage = "https://kst-plot.kde.org/";
     license = licenses.gpl2;
     platforms = platforms.all;
     maintainers = [ maintainers.vbgl ];

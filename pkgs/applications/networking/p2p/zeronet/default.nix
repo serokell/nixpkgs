@@ -27,7 +27,8 @@ python2Packages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Decentralized websites using Bitcoin crypto and BitTorrent network";
+    description =
+      "Decentralized websites using Bitcoin crypto and BitTorrent network";
     homepage = "https://zeronet.io/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ fgaz ];

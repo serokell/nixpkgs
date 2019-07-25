@@ -1,11 +1,12 @@
-{stdenv, fetchurl, jre, makeWrapper}:
+{ stdenv, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "picard-tools-${version}";
   version = "2.20.3";
 
   src = fetchurl {
-    url = "https://github.com/broadinstitute/picard/releases/download/${version}/picard.jar";
+    url =
+      "https://github.com/broadinstitute/picard/releases/download/${version}/picard.jar";
     sha256 = "0qgj062c983w6qlgfkj6in5cl5rmvpak7rdwmjg2gv972kcfs7lp";
   };
 
@@ -22,9 +23,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Tools for high-throughput sequencing (HTS) data and formats such as SAM/BAM/CRAM and VCF";
+    description =
+      "Tools for high-throughput sequencing (HTS) data and formats such as SAM/BAM/CRAM and VCF";
     license = licenses.mit;
-    homepage = https://broadinstitute.github.io/picard/;
+    homepage = "https://broadinstitute.github.io/picard/";
     maintainers = with maintainers; [ jbedo ];
     platforms = platforms.all;
   };

@@ -22,8 +22,9 @@ rustPlatform.buildRustPackage rec {
   LIBCLANG_PATH = "${llvmPackages.libclang}/lib";
 
   meta = with lib; {
-    description = "Standalone JIT-style runtime for WebAsssembly, using Cranelift";
-    homepage = https://github.com/CraneStation/wasmtime;
+    description =
+      "Standalone JIT-style runtime for WebAsssembly, using Cranelift";
+    homepage = "https://github.com/CraneStation/wasmtime";
     license = licenses.asl20;
     maintainers = [ maintainers.matthewbauer ];
     platforms = platforms.unix;

@@ -1,13 +1,9 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
-let
-    version = "0.2-4";
-in
-stdenv.mkDerivation
-{
+let version = "0.2-4";
+in stdenv.mkDerivation {
   name = "rudel-${version}";
-  src = fetchurl
-  {
+  src = fetchurl {
     url = "mirror://sourceforge/rudel/rudel-${version}.tar.gz";
     sha256 = "68247bfb702d929877f6d098932e8b0ca45c573a3510187e1ccc43e5ea194f25";
   };
@@ -21,7 +17,7 @@ stdenv.mkDerivation
   '';
 
   meta = {
-    homepage = http://rudel.sourceforge.net/;
+    homepage = "http://rudel.sourceforge.net/";
     description = "A collaborative editing environment for GNU Emacs";
     license = "GPL";
   };

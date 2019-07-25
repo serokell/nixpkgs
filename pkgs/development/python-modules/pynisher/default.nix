@@ -15,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "The pynisher is a little module intended to limit a functions resources.";
-    homepage = https://github.com/sfalkner/pynisher;
+    description =
+      "The pynisher is a little module intended to limit a functions resources.";
+    homepage = "https://github.com/sfalkner/pynisher";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];
   };

@@ -6,9 +6,7 @@ rec {
   name = "lidarr";
   meta.maintainers = with maintainers; [ etu ];
 
-  nodes.machine =
-    { pkgs, ... }:
-    { services.lidarr.enable = true; };
+  nodes.machine = { pkgs, ... }: { services.lidarr.enable = true; };
 
   testScript = ''
     $machine->waitForUnit('lidarr.service');

@@ -10,12 +10,18 @@ let
 
   keyFile = "${cfg.keyPath}/${cfg.selector}.private";
 
-  args = [ "-f" "-l"
-           "-p" cfg.socket
-           "-d" cfg.domains
-           "-k" keyFile
-           "-s" cfg.selector
-         ] ++ optionals (cfg.configFile != null) [ "-x" cfg.configFile ];
+  args = [
+    "-f"
+    "-l"
+    "-p"
+    cfg.socket
+    "-d"
+    cfg.domains
+    "-k"
+    keyFile
+    "-s"
+    cfg.selector
+  ] ++ optionals (cfg.configFile != null) [ "-x" cfg.configFile ];
 
 in {
 
@@ -28,7 +34,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "Whether to enable the OpenDKIM sender authentication system.";
+        description =
+          "Whether to enable the OpenDKIM sender authentication system.";
       };
 
       socket = mkOption {
@@ -83,27 +90,25 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    users.users = optionalAttrs (cfg.user == "opendkim") (singleton
-      { name = "opendkim";
-        group = cfg.group;
-        uid = config.ids.uids.opendkim;
-      });
+    users.users = optionalAttrs (cfg.user == "opendkim") (singleton {
+      name = "opendkim";
+      group = cfg.group;
+      uid = config.ids.uids.opendkim;
+    });
 
-    users.groups = optionalAttrs (cfg.group == "opendkim") (singleton
-      { name = "opendkim";
-        gid = config.ids.gids.opendkim;
-      });
+    users.groups = optionalAttrs (cfg.group == "opendkim") (singleton {
+      name = "opendkim";
+      gid = config.ids.gids.opendkim;
+    });
 
     environment.systemPackages = [ pkgs.opendkim ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";

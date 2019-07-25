@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, fetchurl, trousers, leveldb, unzip, scons, pkgconfig
-, glib, dbus_cplusplus, dbus, protobuf, openssl, snappy, pam }:
+{ stdenv, fetchgit, fetchurl, trousers, leveldb, unzip, scons, pkgconfig, glib, dbus_cplusplus, dbus, protobuf, openssl, snappy, pam
+}:
 
 let
   src_chromebase = fetchgit {
@@ -19,9 +19,7 @@ let
     sha256 = "15n1bsv6r7cny7arx0hdb223xzzbk7vkxg2r7xajhl4nsj39adjh";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "chaps-0.42-6812";
   version = "0.42-6812";
 
@@ -34,22 +32,28 @@ stdenv.mkDerivation rec {
   # readdir_r(3) is deprecated in glibc >= 2.24
   NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
-  patches = [ ./fix_absolute_path.patch  ./fix_environment_variables.patch  ./fix_scons.patch  ./insert_prefetches.patch ];
+  patches = [
+    ./fix_absolute_path.patch
+    ./fix_environment_variables.patch
+    ./fix_scons.patch
+    ./insert_prefetches.patch
+  ];
 
   postPatch = ''
     substituteInPlace makefile --replace @@NIXOS_SRC_CHROMEBASE@@ ${src_chromebase}
     substituteInPlace makefile --replace @@NIXOS_SRC_GMOCK@@ ${src_gmock}
     substituteInPlace makefile --replace @@NIXOS_SRC_PLATFORM2@@ ${src_platform2}
     substituteInPlace makefile --replace @@NIXOS_LEVELDB@@ ${leveldb}
-    '';
+  '';
 
   nativeBuildInputs = [ unzip scons pkgconfig ];
 
-  buildInputs = [ trousers glib dbus_cplusplus dbus protobuf openssl snappy leveldb pam ];
+  buildInputs =
+    [ trousers glib dbus_cplusplus dbus protobuf openssl snappy leveldb pam ];
 
   buildPhase = ''
     make build
-    '';
+  '';
 
   installPhase = ''
     mkdir -p $out/bin
@@ -72,11 +76,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out/usr/share/pam-configs/chaps
     mkdir -p $out/usr/share/man/man8
     cp ${name}/man/* $out/usr/share/man/man8/.
-    '';
+  '';
 
   meta = with stdenv.lib; {
-    description = "PKCS #11 implementation based on trusted platform module (TPM)";
-    homepage = https://www.chromium.org/developers/design-documents/chaps-technical-design;
+    description =
+      "PKCS #11 implementation based on trusted platform module (TPM)";
+    homepage =
+      "https://www.chromium.org/developers/design-documents/chaps-technical-design";
     maintainers = [ maintainers.tstrobel ];
     platforms = [ "x86_64-linux" ];
     license = licenses.bsd3;

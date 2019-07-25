@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, babl, libpng, cairo, libjpeg, which
-, librsvg, pango, gtk, bzip2, json-glib, intltool, autoreconfHook, libraw
-, libwebp, gnome3, libintl }:
+{ stdenv, fetchurl, pkgconfig, glib, babl, libpng, cairo, libjpeg, which, librsvg, pango, gtk, bzip2, json-glib, intltool, autoreconfHook, libraw, libwebp, gnome3, libintl
+}:
 
 stdenv.mkDerivation rec {
   name = "gegl-0.3.34";
@@ -20,8 +19,16 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   buildInputs = [
-    libpng cairo libjpeg librsvg pango gtk bzip2
-    libraw libwebp gnome3.gexiv2
+    libpng
+    cairo
+    libjpeg
+    librsvg
+    pango
+    gtk
+    bzip2
+    libraw
+    libwebp
+    gnome3.gexiv2
   ];
 
   propagatedBuildInputs = [ glib json-glib babl ]; # for gegl-3.0.pc
@@ -30,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Graph-based image processing framework";
-    homepage = http://www.gegl.org;
+    homepage = "http://www.gegl.org";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.unix;

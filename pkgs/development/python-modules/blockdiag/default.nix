@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, buildPythonPackage, pep8, nose, unittest2, docutils
-, pillow, webcolors, funcparserlib
+{ stdenv, fetchurl, buildPythonPackage, pep8, nose, unittest2, docutils, pillow, webcolors, funcparserlib
 }:
 
 buildPythonPackage rec {
@@ -22,8 +21,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Generate block-diagram image from spec-text file (similar to Graphviz)";
-    homepage = http://blockdiag.com/;
+    description =
+      "Generate block-diagram image from spec-text file (similar to Graphviz)";
+    homepage = "http://blockdiag.com/";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ bjornfor ];

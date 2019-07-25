@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, jre
-, fetchFromGitHub, cmake, ninja, pkgconfig, libuuid, darwin }:
+{ stdenv, fetchurl, jre, fetchFromGitHub, cmake, ninja, pkgconfig, libuuid, darwin
+}:
 
 let
   version = "4.7.1";
@@ -19,7 +19,8 @@ let
 
       nativeBuildInputs = [ cmake ninja pkgconfig ];
       buildInputs = stdenv.lib.optional stdenv.isLinux libuuid
-        ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.CoreFoundation;
+        ++ stdenv.lib.optional stdenv.isDarwin
+        darwin.apple_sdk.frameworks.CoreFoundation;
 
       postUnpack = ''
         export sourceRoot=$sourceRoot/runtime/Cpp
@@ -27,7 +28,7 @@ let
 
       meta = with stdenv.lib; {
         description = "C++ target for ANTLR 4";
-        homepage = https://www.antlr.org/;
+        homepage = "https://www.antlr.org/";
         license = licenses.bsd3;
         platforms = platforms.unix;
       };
@@ -37,7 +38,7 @@ let
   antlr = stdenv.mkDerivation {
     name = "antlr-${version}";
     src = fetchurl {
-      url ="https://www.antlr.org/download/antlr-${version}-complete.jar";
+      url = "https://www.antlr.org/download/antlr-${version}-complete.jar";
       sha256 = "1236gwnzchama92apb2swmklnypj01m7bdwwfvwvl8ym85scw7gl";
     };
 
@@ -73,7 +74,7 @@ let
         frameworks. From a grammar, ANTLR generates a parser that can build and
         walk parse trees.
       '';
-      homepage = https://www.antlr.org/;
+      homepage = "https://www.antlr.org/";
       license = licenses.bsd3;
       platforms = platforms.unix;
     };

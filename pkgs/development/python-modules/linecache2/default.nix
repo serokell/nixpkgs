@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pbr
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pbr }:
 
 buildPythonPackage rec {
   pname = "linecache2";

@@ -11,11 +11,11 @@ let
     buildCommand = ''
       mkdir -p $out/bin
       ${lib.concatStringsSep "\n" (lib.mapAttrsToList (command: binary: ''
-      cat <<_EOF >$out/bin/${command}
-      #!${pkgs.stdenv.shell} -e
-      /run/wrappers/bin/firejail ${binary} "\$@"
-      _EOF
-      chmod 0755 $out/bin/${command}
+        cat <<_EOF >$out/bin/${command}
+        #!${pkgs.stdenv.shell} -e
+        /run/wrappers/bin/firejail ${binary} "\$@"
+        _EOF
+        chmod 0755 $out/bin/${command}
       '') cfg.wrappedBinaries)}
     '';
   };
@@ -26,7 +26,7 @@ in {
 
     wrappedBinaries = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Wrap the binaries in firejail and place them in the global path.
         </para>
@@ -39,7 +39,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    security.wrappers.firejail.source = "${lib.getBin pkgs.firejail}/bin/firejail";
+    security.wrappers.firejail.source =
+      "${lib.getBin pkgs.firejail}/bin/firejail";
 
     environment.systemPackages = [ wrappedBins ];
   };

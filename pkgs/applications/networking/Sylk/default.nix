@@ -3,13 +3,13 @@
 let
   pname = "Sylk";
   version = "2.1.0";
-in
 
-appimageTools.wrapType2 rec {
+in appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "http://download.ag-projects.com/Sylk/Sylk-${version}-x86_64.AppImage";
+    url =
+      "http://download.ag-projects.com/Sylk/Sylk-${version}-x86_64.AppImage";
     sha256 = "1ifi8qr6f84dcssxhv5ar1s48nsqxiv2j1blc82248hmq5is24mf";
   };
 

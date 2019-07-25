@@ -1,4 +1,5 @@
-{ stdenv, buildGoPackage, fetchgit, makeWrapper, pkgconfig, qtbase, qtdeclarative, qtwebengine }:
+{ stdenv, buildGoPackage, fetchgit, makeWrapper, pkgconfig, qtbase, qtdeclarative, qtwebengine
+}:
 
 buildGoPackage rec {
   name = "gopherclient-${version}";
@@ -35,7 +36,7 @@ buildGoPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/prologic/gopherclient;
+    homepage = "https://github.com/prologic/gopherclient";
     description = "Gopher Qt GUI client";
     license = licenses.mit;
     maintainers = with maintainers; [ orivej ];

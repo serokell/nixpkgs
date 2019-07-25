@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, future, pyusb, ipython, pygreat }:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, future, pyusb, ipython, pygreat
+}:
 
 buildPythonPackage rec {
   pname = "GreatFET";
@@ -24,11 +25,10 @@ buildPythonPackage rec {
 
   meta = {
     description = "Hardware hacking with the greatfet";
-    homepage = https://greatscottgadgets.com/greatfet;
+    homepage = "https://greatscottgadgets.com/greatfet";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ mog ];
   };
 }
-
 

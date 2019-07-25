@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
     cat >> "$out/bin/avrdudess" << __EOF__
     #!${runtimeShell}
-    export LD_LIBRARY_PATH="${stdenv.lib.makeLibraryPath [gtk2 mono]}"
+    export LD_LIBRARY_PATH="${stdenv.lib.makeLibraryPath [ gtk2 mono ]}"
     # We need PATH from user env for xdg-open to find its tools, which
     # typically depend on the currently running desktop environment.
     export PATH="${stdenv.lib.makeBinPath [ avrdude xdg_utils ]}:\$PATH"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GUI for AVRDUDE (AVR microcontroller programmer)";
-    homepage = https://github.com/zkemble/AVRDUDESS;
+    homepage = "https://github.com/zkemble/AVRDUDESS";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

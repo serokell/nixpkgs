@@ -1,14 +1,8 @@
 { config, lib, pkgs, ... }:
 with lib;
-let
-  gce = pkgs.google-compute-engine;
-in
-{
-  imports = [
-    ../profiles/headless.nix
-    ../profiles/qemu-guest.nix
-  ];
-
+let gce = pkgs.google-compute-engine;
+in {
+  imports = [ ../profiles/headless.nix ../profiles/qemu-guest.nix ];
 
   fileSystems."/" = {
     fsType = "ext4";
@@ -74,8 +68,8 @@ in
       "google-instance-setup.service"
       "google-network-setup.service"
     ];
-    requires = ["network.target"];
-    wantedBy = ["multi-user.target"];
+    requires = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Type = "simple";
       ExecStart = "${gce}/bin/google_clock_skew_daemon --debug";
@@ -84,9 +78,14 @@ in
 
   systemd.services.google-instance-setup = {
     description = "Google Compute Engine Instance Setup";
-    after = ["local-fs.target" "network-online.target" "network.target" "rsyslog.service"];
-    before = ["sshd.service"];
-    wants = ["local-fs.target" "network-online.target" "network.target"];
+    after = [
+      "local-fs.target"
+      "network-online.target"
+      "network.target"
+      "rsyslog.service"
+    ];
+    before = [ "sshd.service" ];
+    wants = [ "local-fs.target" "network-online.target" "network.target" ];
     wantedBy = [ "sshd.service" "multi-user.target" ];
     path = with pkgs; [ ethtool openssh ];
     serviceConfig = {
@@ -97,15 +96,19 @@ in
 
   systemd.services.google-network-daemon = {
     description = "Google Compute Engine Network Daemon";
-    after = ["local-fs.target" "network-online.target" "network.target" "rsyslog.service" "google-instance-setup.service"];
-    wants = ["local-fs.target" "network-online.target" "network.target"];
-    requires = ["network.target"];
-    partOf = ["network.target"];
+    after = [
+      "local-fs.target"
+      "network-online.target"
+      "network.target"
+      "rsyslog.service"
+      "google-instance-setup.service"
+    ];
+    wants = [ "local-fs.target" "network-online.target" "network.target" ];
+    requires = [ "network.target" ];
+    partOf = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     path = with pkgs; [ iproute ];
-    serviceConfig = {
-      ExecStart = "${gce}/bin/google_network_daemon --debug";
-    };
+    serviceConfig = { ExecStart = "${gce}/bin/google_network_daemon --debug"; };
   };
 
   systemd.services.google-shutdown-scripts = {
@@ -119,11 +122,12 @@ in
       "google-instance-setup.service"
       "google-network-daemon.service"
     ];
-    wants = [ "local-fs.target" "network-online.target" "network.target"];
+    wants = [ "local-fs.target" "network-online.target" "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.coreutils}/bin/true";
-      ExecStop = "${gce}/bin/google_metadata_script_runner --debug --script-type shutdown";
+      ExecStop =
+        "${gce}/bin/google_metadata_script_runner --debug --script-type shutdown";
       Type = "oneshot";
       RemainAfterExit = true;
       TimeoutStopSec = "infinity";
@@ -140,15 +144,15 @@ in
       "google-instance-setup.service"
       "google-network-daemon.service"
     ];
-    wants = ["local-fs.target" "network-online.target" "network.target"];
+    wants = [ "local-fs.target" "network-online.target" "network.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-      ExecStart = "${gce}/bin/google_metadata_script_runner --debug --script-type startup";
+      ExecStart =
+        "${gce}/bin/google_metadata_script_runner --debug --script-type startup";
       KillMode = "process";
       Type = "oneshot";
     };
   };
-
 
   # Settings taken from https://github.com/GoogleCloudPlatform/compute-image-packages/blob/master/google_config/sysctl/11-gce-network-security.conf
   boot.kernel.sysctl = {

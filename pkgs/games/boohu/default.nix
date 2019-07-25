@@ -1,4 +1,4 @@
-{stdenv, fetchurl, buildGoPackage}:
+{ stdenv, fetchurl, buildGoPackage }:
 
 buildGoPackage rec {
 
@@ -8,7 +8,8 @@ buildGoPackage rec {
   goPackagePath = "git.tuxfamily.org/boohu/boohu.git";
 
   src = fetchurl {
-    url = "https://download.tuxfamily.org/boohu/downloads/${pname}-${version}.tar.gz";
+    url =
+      "https://download.tuxfamily.org/boohu/downloads/${pname}-${version}.tar.gz";
     sha256 = "0nf3xj3lda8279cqvjv5c3vpsb7d2kynwwna5yrsy7gq8c9n4rh8";
   };
 
@@ -27,6 +28,6 @@ buildGoPackage rec {
     homepage = "https://download.tuxfamily.org/boohu/index.html";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [freepotion];
+    maintainers = with maintainers; [ freepotion ];
   };
 }

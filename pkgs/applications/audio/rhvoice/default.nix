@@ -1,8 +1,7 @@
-{ stdenv, lib, pkgconfig, fetchFromGitHub, scons
-, python, glibmm, libpulseaudio, libao }:
+{ stdenv, lib, pkgconfig, fetchFromGitHub, scons, python, glibmm, libpulseaudio, libao
+}:
 
-let
-  version = "unstable-2018-02-10";
+let version = "unstable-2018-02-10";
 in stdenv.mkDerivation rec {
   name = "rhvoice-${version}";
 
@@ -13,13 +12,9 @@ in stdenv.mkDerivation rec {
     sha256 = "1gkrlmv7msh9qlm0gkjqpl9gswghpclfdwszr1p85v8vk6m63v0b";
   };
 
-  nativeBuildInputs = [
-    scons pkgconfig
-  ];
+  nativeBuildInputs = [ scons pkgconfig ];
 
-  buildInputs = [
-    python glibmm libpulseaudio libao
-  ];
+  buildInputs = [ python glibmm libpulseaudio libao ];
 
   # SConstruct patch
   #     Scons creates an independent environment that assumes standard POSIX paths.
@@ -31,8 +26,9 @@ in stdenv.mkDerivation rec {
   patches = [ ./honor_nix_environment.patch ];
 
   meta = {
-    description = "A free and open source speech synthesizer for Russian language and others";
-    homepage = https://github.com/Olga-Yakovleva/RHVoice/wiki;
+    description =
+      "A free and open source speech synthesizer for Russian language and others";
+    homepage = "https://github.com/Olga-Yakovleva/RHVoice/wiki";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ berce ];
     platforms = with lib.platforms; all;

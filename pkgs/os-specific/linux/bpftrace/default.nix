@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, cmake, pkgconfig, flex, bison
-, llvmPackages, kernel, elfutils, libelf, bcc
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, flex, bison, llvmPackages, kernel, elfutils, libelf, bcc
 }:
 
 stdenv.mkDerivation rec {
@@ -8,21 +6,30 @@ stdenv.mkDerivation rec {
   version = "0.9.1";
 
   src = fetchFromGitHub {
-    owner  = "iovisor";
-    repo   = "bpftrace";
-    rev    = "refs/tags/v${version}";
+    owner = "iovisor";
+    repo = "bpftrace";
+    rev = "refs/tags/v${version}";
     sha256 = "17qf1c3h99iyxkc0xzix4jnxwqvxbg9ki23zm7l04qw73lj01g1m";
   };
 
   enableParallelBuilding = true;
 
-  buildInputs = with llvmPackages;
-    [ llvm clang-unwrapped
-      kernel elfutils libelf bcc
-    ];
+  buildInputs = with llvmPackages; [
+    llvm
+    clang-unwrapped
+    kernel
+    elfutils
+    libelf
+    bcc
+  ];
 
-  nativeBuildInputs = [ cmake pkgconfig flex bison ]
-    # libelf is incompatible with elfutils-libelf
+  nativeBuildInputs = [
+    cmake
+    pkgconfig
+    flex
+    bison
+  ]
+  # libelf is incompatible with elfutils-libelf
     ++ stdenv.lib.filter (x: x != libelf) kernel.moduleBuildDependencies;
 
   # patch the source, *then* substitute on @NIX_KERNEL_SRC@ in the result. we could
@@ -40,9 +47,7 @@ stdenv.mkDerivation rec {
   #     https://github.com/iovisor/bpftrace/pull/363
   #
   cmakeFlags =
-    [ "-DBUILD_TESTING=FALSE"
-      "-DLIBBCC_INCLUDE_DIRS=${bcc}/include/bcc"
-    ];
+    [ "-DBUILD_TESTING=FALSE" "-DLIBBCC_INCLUDE_DIRS=${bcc}/include/bcc" ];
 
   # nuke the example/reference output .txt files, for the included tools,
   # stuffed inside $out. we don't need them at all.
@@ -54,8 +59,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "High-level tracing language for Linux eBPF";
-    homepage    = https://github.com/iovisor/bpftrace;
-    license     = licenses.asl20;
+    homepage = "https://github.com/iovisor/bpftrace";
+    license = licenses.asl20;
     maintainers = with maintainers; [ rvl thoughtpolice ];
   };
 }

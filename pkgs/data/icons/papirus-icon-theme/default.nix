@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gtk3 ];
 
   installPhase = ''
-     mkdir -p $out/share/icons
-     mv {,e}Papirus* $out/share/icons
+    mkdir -p $out/share/icons
+    mv {,e}Papirus* $out/share/icons
   '';
 
   postFixup = ''
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Papirus icon theme";
-    homepage = https://github.com/PapirusDevelopmentTeam/papirus-icon-theme;
+    homepage = "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme";
     license = licenses.lgpl3;
     # darwin gives hash mismatch in source, probably because of file names differing only in case
     platforms = platforms.linux;

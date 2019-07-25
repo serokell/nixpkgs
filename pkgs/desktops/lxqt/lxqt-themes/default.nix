@@ -11,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "09dkcgnf3lmfly8v90p6wjlj5rin83pbailvvpx2jr8a48a8zb9f";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -25,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Themes, graphics and icons for LXQt";
-    homepage = https://github.com/lxqt/lxqt-themes;
+    homepage = "https://github.com/lxqt/lxqt-themes";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

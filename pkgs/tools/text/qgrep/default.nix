@@ -12,13 +12,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  installPhase = '' 
+  installPhase = ''
     install -Dm755 qgrep $out/bin/qgrep
   '';
 
   meta = with stdenv.lib; {
-    description = "Fast regular expression grep for source code with incremental index updates";
-    homepage = https://github.com/zeux/qgrep;
+    description =
+      "Fast regular expression grep for source code with incremental index updates";
+    homepage = "https://github.com/zeux/qgrep";
     license = licenses.mit;
     maintainers = [ maintainers.yrashk ];
     platforms = platforms.all;

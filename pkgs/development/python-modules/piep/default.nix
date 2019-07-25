@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, pygments
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, pygments }:
 
 buildPythonPackage rec {
   version = "0.9.2";
@@ -19,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Bringing the power of python to stream editing";
-    homepage = https://github.com/timbertson/piep;
+    homepage = "https://github.com/timbertson/piep";
     maintainers = with maintainers; [ timbertson ];
     license = licenses.gpl3;
   };

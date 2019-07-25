@@ -1,8 +1,4 @@
-{ fetchFromGitHub
-, buildPythonPackage
-, stdenv
-, isPy27
-}:
+{ fetchFromGitHub, buildPythonPackage, stdenv, isPy27 }:
 
 buildPythonPackage rec {
   pname = "nitpick";
@@ -11,7 +7,7 @@ buildPythonPackage rec {
 
   format = "other";
   disabled = !isPy27;
-  
+
   src = fetchFromGitHub {
     owner = "travisb-ca";
     repo = pname;
@@ -22,7 +18,7 @@ buildPythonPackage rec {
   installPhase = ''
     mkdir -p $out/share/src
     install -m 755 -t $out/share/src nitpick.py
-  
+
     mkdir -p $out/bin
     ln -s $out/share/src/nitpick.py $out/bin/nitpick
   '';
@@ -34,8 +30,8 @@ buildPythonPackage rec {
       should pick. It's intended to be used with source code such that the issues can
       follow the code via whatever VCS or distribution mechanism.
     '';
-    homepage = http://travisbrown.ca/projects/nitpick/docs/nitpick.html;
+    homepage = "http://travisbrown.ca/projects/nitpick/docs/nitpick.html";
     license = with stdenv.lib.licenses; gpl2;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

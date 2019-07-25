@@ -15,13 +15,14 @@ stdenv.mkDerivation rec {
   buildInputs = [ zeromq3 jdk ];
 
   preConfigure = ''
-    ${if stdenv.hostPlatform.system == "x86_64-darwin" then
-      '' sed -i -e 's~/Headers~/include~' -e 's~_JNI_INC_SUBDIRS=\".*\"~_JNI_INC_SUBDIRS=\"darwin\"~' configure
-      '' else ""}
+    ${if stdenv.hostPlatform.system == "x86_64-darwin" then ''
+      sed -i -e 's~/Headers~/include~' -e 's~_JNI_INC_SUBDIRS=\".*\"~_JNI_INC_SUBDIRS=\"darwin\"~' configure
+           '' else
+        ""}
   '';
 
   meta = {
-    homepage = http://www.zeromq.org;
+    homepage = "http://www.zeromq.org";
     description = "Java bindings for ZeroMQ";
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.lgpl3;

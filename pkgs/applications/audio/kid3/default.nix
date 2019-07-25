@@ -1,9 +1,4 @@
-{ stdenv, fetchurl
-, pkgconfig, cmake, python, ffmpeg, phonon, automoc4
-, chromaprint, docbook_xml_dtd_45, docbook_xsl, libxslt
-, id3lib, taglib, mp4v2, flac, libogg, libvorbis
-, zlib, readline , qtbase, qttools, qtmultimedia, qtquickcontrols
-, wrapQtAppsHook
+{ stdenv, fetchurl, pkgconfig, cmake, python, ffmpeg, phonon, automoc4, chromaprint, docbook_xml_dtd_45, docbook_xsl, libxslt, id3lib, taglib, mp4v2, flac, libogg, libvorbis, zlib, readline, qtbase, qttools, qtmultimedia, qtquickcontrols, wrapQtAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -17,11 +12,30 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ wrapQtAppsHook ];
-  buildInputs = with stdenv.lib;
-  [ pkgconfig cmake python ffmpeg phonon automoc4
-    chromaprint docbook_xml_dtd_45 docbook_xsl libxslt
-    id3lib taglib mp4v2 flac libogg libvorbis zlib readline
-    qtbase qttools qtmultimedia qtquickcontrols ];
+  buildInputs = with stdenv.lib; [
+    pkgconfig
+    cmake
+    python
+    ffmpeg
+    phonon
+    automoc4
+    chromaprint
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxslt
+    id3lib
+    taglib
+    mp4v2
+    flac
+    libogg
+    libvorbis
+    zlib
+    readline
+    qtbase
+    qttools
+    qtmultimedia
+    qtquickcontrols
+  ];
 
   cmakeFlags = [ "-DWITH_APPS=Qt;CLI" ];
   NIX_LDFLAGS = "-lm -lpthread";
@@ -64,7 +78,7 @@ stdenv.mkDerivation rec {
       - Edit synchronized lyrics and event timing codes, import and
         export LRC files
     '';
-    homepage = http://kid3.sourceforge.net/;
+    homepage = "http://kid3.sourceforge.net/";
     license = licenses.lgpl2Plus;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;

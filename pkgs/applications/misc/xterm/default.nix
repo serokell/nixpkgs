@@ -1,29 +1,39 @@
-{ stdenv, fetchurl, fetchpatch, xorg, ncurses, freetype, fontconfig, pkgconfig, makeWrapper
-, enableDecLocator ? true
-}:
+{ stdenv, fetchurl, fetchpatch, xorg, ncurses, freetype, fontconfig, pkgconfig, makeWrapper, enableDecLocator ?
+  true }:
 
 stdenv.mkDerivation rec {
   name = "xterm-347";
 
   src = fetchurl {
     urls = [
-     "ftp://ftp.invisible-island.net/xterm/${name}.tgz"
-     "https://invisible-mirror.net/archives/xterm/${name}.tgz"
-   ];
+      "ftp://ftp.invisible-island.net/xterm/${name}.tgz"
+      "https://invisible-mirror.net/archives/xterm/${name}.tgz"
+    ];
     sha256 = "025r22vi5s0328ybhcj0g9js64vabr98hlw8ngy6vyby4zhp63s0";
   };
 
-  buildInputs =
-    [ xorg.libXaw xorg.xorgproto xorg.libXt xorg.libXext xorg.libX11 xorg.libSM xorg.libICE
-      ncurses freetype fontconfig pkgconfig xorg.libXft xorg.luit makeWrapper
-    ];
+  buildInputs = [
+    xorg.libXaw
+    xorg.xorgproto
+    xorg.libXt
+    xorg.libXext
+    xorg.libX11
+    xorg.libSM
+    xorg.libICE
+    ncurses
+    freetype
+    fontconfig
+    pkgconfig
+    xorg.libXft
+    xorg.luit
+    makeWrapper
+  ];
 
-  patches = [
-    ./sixel-256.support.patch
-  ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl
-    (fetchpatch {
+  patches = [ ./sixel-256.support.patch ]
+    ++ stdenv.lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
       name = "posix-ptys.patch";
-      url = "https://git.alpinelinux.org/cgit/aports/plain/community/xterm/posix-ptys.patch?id=3aa532e77875fa1db18c7fcb938b16647031bcc1";
+      url =
+        "https://git.alpinelinux.org/cgit/aports/plain/community/xterm/posix-ptys.patch?id=3aa532e77875fa1db18c7fcb938b16647031bcc1";
       sha256 = "0czgnsxkkmkrk1idw69qxbprh0jb4sw3c24zpnqq2v76jkl7zvlr";
     });
 
@@ -63,9 +73,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://invisible-island.net/xterm;
+    homepage = "https://invisible-island.net/xterm";
     license = with stdenv.lib.licenses; [ mit ];
-    maintainers = with stdenv.lib.maintainers; [vrthra];
+    maintainers = with stdenv.lib.maintainers; [ vrthra ];
     platforms = with stdenv.lib.platforms; linux ++ darwin;
   };
 }

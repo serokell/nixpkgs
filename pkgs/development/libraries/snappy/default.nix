@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://google.github.io/snappy/;
+    homepage = "https://google.github.io/snappy/";
     license = licenses.bsd3;
     description = "Compression/decompression library for very high speeds";
     platforms = platforms.unix;

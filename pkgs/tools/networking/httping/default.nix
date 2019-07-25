@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, gettext, libintl, ncurses, openssl
-, fftw ? null }:
+{ stdenv, fetchurl, gettext, libintl, ncurses, openssl, fftw ? null }:
 
 stdenv.mkDerivation rec {
   name = "httping-${version}";
@@ -13,13 +12,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ fftw libintl ncurses openssl ];
   nativeBuildInputs = [ gettext ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   meta = with stdenv.lib; {
-    homepage = https://vanheusden.com/httping;
+    homepage = "https://vanheusden.com/httping";
     description = "ping with HTTP requests";
     longDescription = ''
       Give httping an url, and it'll show you how long it takes to connect,

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, pyparsing
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools, pyparsing, pytest }:
 
 buildPythonPackage rec {
   pname = "svgwrite";
@@ -26,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python library to create SVG drawings";
-    homepage = https://github.com/mozman/svgwrite;
+    homepage = "https://github.com/mozman/svgwrite";
     license = licenses.mit;
   };
 

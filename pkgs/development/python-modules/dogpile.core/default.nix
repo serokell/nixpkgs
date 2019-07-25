@@ -12,8 +12,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A 'dogpile' lock, typically used as a component of a larger caching solution";
-    homepage = https://bitbucket.org/zzzeek/dogpile.core;
+    description =
+      "A 'dogpile' lock, typically used as a component of a larger caching solution";
+    homepage = "https://bitbucket.org/zzzeek/dogpile.core";
     license = licenses.bsd3;
   };
 }

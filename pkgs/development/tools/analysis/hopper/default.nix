@@ -1,24 +1,36 @@
 { stdenv, fetchurl, pkgs, lib }:
 
 stdenv.mkDerivation rec {
-  pname    = "hopper";
+  pname = "hopper";
   version = "4.5.7";
   rev = "v${lib.versions.major version}";
 
   src = fetchurl {
-    url = "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux.pkg.tar.xz";
+    url =
+      "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux.pkg.tar.xz";
     sha256 = "1ce7a0f13126a940398aa8da4a74e250dff0401074f30446a8840ac3dbb902c0";
   };
 
   sourceRoot = ".";
 
-  ldLibraryPath = with pkgs; stdenv.lib.makeLibraryPath  [
-libbsd.out libffi.out gmpxx.out python27Full.out python27Packages.libxml2 qt5.qtbase zlib  xlibs.libX11.out xorg_sys_opengl.out xlibs.libXrender.out gcc-unwrapped.lib
-  ];
+  ldLibraryPath = with pkgs;
+    stdenv.lib.makeLibraryPath [
+      libbsd.out
+      libffi.out
+      gmpxx.out
+      python27Full.out
+      python27Packages.libxml2
+      qt5.qtbase
+      zlib
+      xlibs.libX11.out
+      xorg_sys_opengl.out
+      xlibs.libXrender.out
+      gcc-unwrapped.lib
+    ];
 
   nativeBuildInputs = [ pkgs.qt5.wrapQtAppsHook ];
 
-  qtWrapperArgs = [ ''--suffix LD_LIBRARY_PATH : ${ldLibraryPath}'' ];
+  qtWrapperArgs = [ "--suffix LD_LIBRARY_PATH : ${ldLibraryPath}" ];
 
   installPhase = ''
     mkdir -p $out/bin

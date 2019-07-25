@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook
-, mono, gtk-sharp-3_0, dbus-sharp-1_0, dbus-sharp-glib-1_0 }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, mono, gtk-sharp-3_0, dbus-sharp-1_0, dbus-sharp-glib-1_0
+}:
 
 stdenv.mkDerivation rec {
   name = "notify-sharp-${version}";
@@ -13,14 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "1vm7mnmxdwrgy4mr07lfva8sa6a32f2ah5x7w8yzcmahaks3sj5m";
   };
 
-  nativeBuildInputs = [
-    pkgconfig autoreconfHook
-  ];
+  nativeBuildInputs = [ pkgconfig autoreconfHook ];
 
-  buildInputs = [
-    mono gtk-sharp-3_0
-    dbus-sharp-1_0 dbus-sharp-glib-1_0
-  ];
+  buildInputs = [ mono gtk-sharp-3_0 dbus-sharp-1_0 dbus-sharp-glib-1_0 ];
 
   dontStrip = true;
 

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, gettext, libtool, pandoc, which, attr, libiconv }:
+{ stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, gettext, libtool, pandoc, which, attr, libiconv
+}:
 
 stdenv.mkDerivation rec {
   pname = "mergerfs";
@@ -11,9 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "18yc80ccpqf785gah5xw6jg5524wfra8bf3pcjr7idzdz4ca7nvf";
   };
 
-  nativeBuildInputs = [
-    automake autoconf pkgconfig gettext libtool pandoc which
-  ];
+  nativeBuildInputs =
+    [ automake autoconf pkgconfig gettext libtool pandoc which ];
   buildInputs = [ attr libiconv ];
 
   preConfigure = ''

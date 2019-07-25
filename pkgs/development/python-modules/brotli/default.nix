@@ -19,7 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/google/brotli;
+    homepage = "https://github.com/google/brotli";
     description = "Generic-purpose lossless compression algorithm";
     license = lib.licenses.mit;
   };

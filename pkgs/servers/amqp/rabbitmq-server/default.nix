@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, erlang, elixir, python, libxml2, libxslt, xmlto
-, docbook_xml_dtd_45, docbook_xsl, zip, unzip, rsync, getconf, socat
-, AppKit, Carbon, Cocoa
+{ stdenv, fetchurl, erlang, elixir, python, libxml2, libxslt, xmlto, docbook_xml_dtd_45, docbook_xsl, zip, unzip, rsync, getconf, socat, AppKit, Carbon, Cocoa
 }:
 
 stdenv.mkDerivation rec {
@@ -10,20 +8,31 @@ stdenv.mkDerivation rec {
 
   # when updating, consider bumping elixir version in all-packages.nix
   src = fetchurl {
-    url = "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${version}/${name}.tar.xz";
+    url =
+      "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${version}/${name}.tar.xz";
     sha256 = "12s1s4zz3fxvb5ah5v6gmaq1kgd41pv9nahsdswa7svbgdc8lykz";
   };
 
-  buildInputs =
-    [ erlang elixir python libxml2 libxslt xmlto docbook_xml_dtd_45 docbook_xsl zip unzip rsync ]
-    ++ stdenv.lib.optionals stdenv.isDarwin [ AppKit Carbon Cocoa ];
+  buildInputs = [
+    erlang
+    elixir
+    python
+    libxml2
+    libxslt
+    xmlto
+    docbook_xml_dtd_45
+    docbook_xsl
+    zip
+    unzip
+    rsync
+  ] ++ stdenv.lib.optionals stdenv.isDarwin [ AppKit Carbon Cocoa ];
 
   outputs = [ "out" "man" "doc" ];
 
   installFlags = "PREFIX=$(out) RMQ_ERLAPP_DIR=$(out)";
   installTargets = "install install-man";
 
-  runtimePath = stdenv.lib.makeBinPath [getconf erlang socat];
+  runtimePath = stdenv.lib.makeBinPath [ getconf erlang socat ];
   postInstall = ''
     echo 'PATH=${runtimePath}:''${PATH:+:}$PATH' >> $out/sbin/rabbitmq-env
 
@@ -42,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.rabbitmq.com/;
+    homepage = "http://www.rabbitmq.com/";
     description = "An implementation of the AMQP messaging protocol";
     license = stdenv.lib.licenses.mpl11;
     platforms = stdenv.lib.platforms.unix;

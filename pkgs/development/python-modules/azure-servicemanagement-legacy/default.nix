@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, azure-common
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, azure-common, requests }:
 
 buildPythonPackage rec {
   version = "0.20.7";
@@ -20,17 +15,16 @@ buildPythonPackage rec {
     cd ./azure-servicemanagement-legacy
   '';
 
-  propagatedBuildInputs = [
-    azure-common
-    requests
-  ];
+  propagatedBuildInputs = [ azure-common requests ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Service Management Legacy Client Library";
-    homepage = https://github.com/Azure/azure-sdk-for-python/tree/master/azure-servicemanagement-legacy;
+    description =
+      "This is the Microsoft Azure Service Management Legacy Client Library";
+    homepage =
+      "https://github.com/Azure/azure-sdk-for-python/tree/master/azure-servicemanagement-legacy";
     license = licenses.mit;
     maintainers = with maintainers; [ olcai mwilsoninsight ];
   };

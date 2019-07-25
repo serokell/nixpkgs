@@ -5,14 +5,14 @@ buildPerlPackage rec {
   version = "4.050";
 
   src = fetchurl {
-    url = mirror://cpan/authors/id/D/DV/DVEEDEN/DBD-mysql-4.050.tar.gz;
+    url = "mirror://cpan/authors/id/D/DV/DVEEDEN/DBD-mysql-4.050.tar.gz";
     sha256 = "0y4djb048i09dk19av7mzfb3khr72vw11p3ayw2p82jsy4gm8j2g";
   };
 
-  buildInputs = [ mysql.connector-c DevelChecklib ] ;
+  buildInputs = [ mysql.connector-c DevelChecklib ];
   propagatedBuildInputs = [ DBI ];
 
   doCheck = false;
 
-#  makeMakerFlags = "MYSQL_HOME=${mysql}";
+  #  makeMakerFlags = "MYSQL_HOME=${mysql}";
 }

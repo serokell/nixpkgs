@@ -1,5 +1,5 @@
-{ stdenv, python, fetchFromGitHub, cmake, swig, ninja,
-  opencascade, smesh, freetype, libGL, libGLU, libX11 }:
+{ stdenv, python, fetchFromGitHub, cmake, swig, ninja, opencascade, smesh, freetype, libGL, libGLU, libX11
+}:
 
 stdenv.mkDerivation rec {
   pname = "pythonocc-core";
@@ -13,14 +13,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake swig ninja ];
-  buildInputs = [
-    python opencascade smesh
-    freetype libGL libGLU libX11
-  ];
+  buildInputs = [ python opencascade smesh freetype libGL libGLU libX11 ];
 
   cmakeFlags = [
     "-Wno-dev"
-    "-DPYTHONOCC_INSTALL_DIRECTORY=${placeholder "out"}/${python.sitePackages}/OCC"
+    "-DPYTHONOCC_INSTALL_DIRECTORY=${
+      placeholder "out"
+    }/${python.sitePackages}/OCC"
 
     "-DSMESH_INCLUDE_PATH=${smesh}/include/smesh"
     "-DSMESH_LIB_PATH=${smesh}/lib"

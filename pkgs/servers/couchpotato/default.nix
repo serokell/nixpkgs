@@ -8,7 +8,8 @@ buildPythonApplication rec {
   disabled = isPy3k;
 
   src = fetchurl {
-    url = "https://github.com/CouchPotato/CouchPotatoServer/archive/build/${version}.tar.gz";
+    url =
+      "https://github.com/CouchPotato/CouchPotatoServer/archive/build/${version}.tar.gz";
     sha256 = "1xwjis3ijh1rff32mpdsphmsclf0lkpd3phpgxkccrigq1m9r3zh";
   };
 
@@ -35,8 +36,8 @@ buildPythonApplication rec {
 
   meta = {
     description = "Automatic movie downloading via NZBs and torrents";
-    license     = lib.licenses.gpl3;
-    homepage    = https://couchpota.to/;
+    license = lib.licenses.gpl3;
+    homepage = "https://couchpota.to/";
     maintainers = with lib.maintainers; [ fadenb ];
   };
 }

@@ -7,13 +7,12 @@ stdenv.mkDerivation rec {
     url = "https://www.codon.org.uk/~mjg59/libx86/downloads/${name}.tar.gz";
     sha256 = "0j6h6bc02c6qi0q7c1ncraz4d1hkm5936r35rfsp4x1jrc233wav";
   };
-  patches = [./constants.patch ./non-x86.patch ];
+  patches = [ ./constants.patch ./non-x86.patch ];
 
   # using BACKEND=x86emu on 64bit systems fixes:
   #  http://www.mail-archive.com/suspend-devel@lists.sourceforge.net/msg02355.html
-  makeFlags = [
-    "DESTDIR=$(out)"
-  ] ++ stdenv.lib.optional (!stdenv.isi686) "BACKEND=x86emu";
+  makeFlags = [ "DESTDIR=$(out)" ]
+    ++ stdenv.lib.optional (!stdenv.isi686) "BACKEND=x86emu";
 
   preBuild = ''
     sed -i lrmi.c -e 's@defined(__i386__)@(defined(__i386__) || defined(__x86_64__))@'

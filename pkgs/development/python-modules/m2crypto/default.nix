@@ -1,12 +1,4 @@
-{ stdenv
-, fetchpatch
-, buildPythonPackage
-, fetchPypi
-, swig2
-, openssl
-, typing
-}:
-
+{ stdenv, fetchpatch, buildPythonPackage, fetchPypi, swig2, openssl, typing }:
 
 buildPythonPackage rec {
   version = "0.35.2";
@@ -19,7 +11,8 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/void-linux/void-packages/raw/7946d12eb3d815e5ecd4578f1a6133d948694370/srcpkgs/python-M2Crypto/patches/libressl.patch";
+      url =
+        "https://github.com/void-linux/void-packages/raw/7946d12eb3d815e5ecd4578f1a6133d948694370/srcpkgs/python-M2Crypto/patches/libressl.patch";
       sha256 = "0z5qnkndg6ma5f5qqrid5m95i9kybsr000v3fdy1ab562kf65a27";
     })
   ];
@@ -38,7 +31,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python crypto and SSL toolkit";
-    homepage = https://gitlab.com/m2crypto/m2crypto;
+    homepage = "https://gitlab.com/m2crypto/m2crypto";
     license = licenses.mit;
     maintainers = with maintainers; [ andrew-d ];
   };

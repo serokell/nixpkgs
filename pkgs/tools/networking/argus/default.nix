@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libpcap, bison, flex, cyrus_sasl, tcp_wrappers,
-  pkgconfig, procps, which, wget, lsof, net_snmp, perl }:
+{ stdenv, fetchurl, libpcap, bison, flex, cyrus_sasl, tcp_wrappers, pkgconfig, procps, which, wget, lsof, net_snmp, perl
+}:
 
 stdenv.mkDerivation rec {
   pname = "argus";
@@ -30,16 +30,17 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Audit Record Generation and Utilization System for networks";
-    longDescription = ''The Argus Project is focused on developing all
-    aspects of large scale network situtational awareness derived from
-    network activity audit. Argus, itself, is next-generation network
-    flow technology, processing packets, either on the wire or in
-    captures, into advanced network flow data. The data, its models,
-    formats, and attributes are designed to support Network
-    Operations, Performance and Security Management. If you need to
-    know what is going on in your network, right now or historically,
-    you will find Argus a useful tool. '';
-    homepage = http://qosient.com/argus;
+    longDescription = ''
+      The Argus Project is focused on developing all
+          aspects of large scale network situtational awareness derived from
+          network activity audit. Argus, itself, is next-generation network
+          flow technology, processing packets, either on the wire or in
+          captures, into advanced network flow data. The data, its models,
+          formats, and attributes are designed to support Network
+          Operations, Performance and Security Management. If you need to
+          know what is going on in your network, right now or historically,
+          you will find Argus a useful tool. '';
+    homepage = "http://qosient.com/argus";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;

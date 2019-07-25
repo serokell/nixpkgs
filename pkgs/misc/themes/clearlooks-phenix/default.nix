@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "clearlooks-phenix-${version}";
 
   src = fetchurl {
-    url = "https://github.com/jpfleury/clearlooks-phenix/archive/${version}.tar.gz";
+    url =
+      "https://github.com/jpfleury/clearlooks-phenix/archive/${version}.tar.gz";
     sha256 = "1x2psfbhxc3bk3q795bafxv6p890yfsankfw64p44q4r1x0236ra";
   };
 
@@ -27,8 +28,8 @@ stdenv.mkDerivation rec {
       You should install this theme into your user profile and then set
       GTK_DATA_PREFIX to `~/.nix-profile`.
     '';
-    homepage = https://github.com/jpfleury/clearlooks-phenix;
-    downloadPage = https://github.com/jpfleury/clearlooks-phenix/releases;
+    homepage = "https://github.com/jpfleury/clearlooks-phenix";
+    downloadPage = "https://github.com/jpfleury/clearlooks-phenix/releases";
     license = licenses.gpl3;
     maintainers = [ maintainers.prikhi ];
     platforms = platforms.linux;

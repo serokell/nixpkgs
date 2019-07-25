@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, llvm, makeWrapper, pcre2, coreutils, which, libressl,
-  cc ? stdenv.cc, lto ? !stdenv.isDarwin }:
+{ stdenv, fetchFromGitHub, llvm, makeWrapper, pcre2, coreutils, which, libressl, cc ?
+  stdenv.cc, lto ? !stdenv.isDarwin }:
 
-stdenv.mkDerivation ( rec {
+stdenv.mkDerivation (rec {
   pname = "ponyc";
   version = "0.28.1";
 
@@ -31,7 +31,9 @@ stdenv.mkDerivation ( rec {
         --replace "/opt/local/lib" ""
 
     for file in `grep -irl '/usr/local/opt/libressl/lib' ./*`; do
-      substituteInPlace $file  --replace '/usr/local/opt/libressl/lib' "${stdenv.lib.getLib libressl}/lib"
+      substituteInPlace $file  --replace '/usr/local/opt/libressl/lib' "${
+      stdenv.lib.getLib libressl
+      }/lib"
     done
 
     export LLVM_CONFIG=${llvm}/bin/llvm-config
@@ -41,8 +43,9 @@ stdenv.mkDerivation ( rec {
     export LTO_PLUGIN=`find ${cc.cc}/ -name LLVMgold.so`
   '';
 
-  makeFlags = [ "config=release" ] ++ stdenv.lib.optionals stdenv.isDarwin [ "bits=64" ]
-              ++ stdenv.lib.optionals (stdenv.isDarwin && (!lto)) [ "lto=no" ];
+  makeFlags = [ "config=release" ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [ "bits=64" ]
+    ++ stdenv.lib.optionals (stdenv.isDarwin && (!lto)) [ "lto=no" ];
 
   enableParallelBuilding = true;
 
@@ -54,24 +57,26 @@ stdenv.mkDerivation ( rec {
     export PONYPATH="$out/lib:${stdenv.lib.makeLibraryPath [ pcre2 libressl ]}"
   '';
 
-  installPhase = ''
-    make config=release prefix=$out ''
-    + stdenv.lib.optionalString stdenv.isDarwin '' bits=64 ''
-    + stdenv.lib.optionalString (stdenv.isDarwin && (!lto)) '' lto=no ''
-    + '' install
+  installPhase = "make config=release prefix=$out "
+    + stdenv.lib.optionalString stdenv.isDarwin "bits=64 "
+    + stdenv.lib.optionalString (stdenv.isDarwin && (!lto)) "lto=no " + ''
+      install
 
-    wrapProgram $out/bin/ponyc \
-      --prefix PATH ":" "${stdenv.cc}/bin" \
-      --set-default CC "$CC" \
-      --prefix PONYPATH : "${stdenv.lib.makeLibraryPath [ pcre2 libressl (placeholder "out") ]}"
-  '';
+         wrapProgram $out/bin/ponyc \
+           --prefix PATH ":" "${stdenv.cc}/bin" \
+           --set-default CC "$CC" \
+           --prefix PONYPATH : "${
+        stdenv.lib.makeLibraryPath [ pcre2 libressl (placeholder "out") ]
+           }"
+       '';
 
   # Stripping breaks linking for ponyc
   dontStrip = true;
 
   meta = with stdenv.lib; {
-    description = "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
-    homepage = https://www.ponylang.org;
+    description =
+      "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
+    homepage = "https://www.ponylang.org";
     license = licenses.bsd2;
     maintainers = with maintainers; [ doublec kamilchm patternspandemic ];
     platforms = [ "x86_64-linux" "x86_64-darwin" ];

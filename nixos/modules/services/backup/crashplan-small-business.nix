@@ -3,9 +3,8 @@
 let
   cfg = config.services.crashplansb;
   crashplansb = pkgs.crashplansb.override { maxRam = cfg.maxRam; };
-in
 
-with lib;
+in with lib;
 
 {
   options = {
@@ -30,7 +29,7 @@ with lib;
         default = true;
         type = types.bool;
       };
-      ports =  mkOption {
+      ports = mkOption {
         # https://support.code42.com/Administrator/6/Planning_and_installing/TCP_and_UDP_ports_used_by_the_Code42_platform
         # used ports can also be checked in the desktop app console using the command connection.info
         description = "which ports to open.";
@@ -48,7 +47,7 @@ with lib;
       description = "CrashPlan Backup Engine";
 
       wantedBy = [ "multi-user.target" ];
-      after    = [ "network.target" "local-fs.target" ];
+      after = [ "network.target" "local-fs.target" ];
 
       preStart = ''
         install -d -m 755 ${crashplansb.vardir}

@@ -1,27 +1,24 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, makeWrapper, isPy3k,
-  python, twisted, jinja2, zope_interface, future, sqlalchemy,
-  sqlalchemy_migrate, dateutil, txaio, autobahn, pyjwt, pyyaml, treq,
-  txrequests, pyjade, boto3, moto, mock, python-lz4, setuptoolsTrial,
-  isort, pylint, flake8, buildbot-worker, buildbot-pkg, parameterized,
-  glibcLocales }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, makeWrapper, isPy3k, python, twisted, jinja2, zope_interface, future, sqlalchemy, sqlalchemy_migrate, dateutil, txaio, autobahn, pyjwt, pyyaml, treq, txrequests, pyjade, boto3, moto, mock, python-lz4, setuptoolsTrial, isort, pylint, flake8, buildbot-worker, buildbot-pkg, parameterized, glibcLocales
+}:
 
 let
-  withPlugins = plugins: buildPythonPackage {
-    name = "${package.name}-with-plugins";
-    phases = [ "installPhase" "fixupPhase" ];
-    buildInputs = [ makeWrapper ];
-    propagatedBuildInputs = plugins ++ package.propagatedBuildInputs;
+  withPlugins = plugins:
+    buildPythonPackage {
+      name = "${package.name}-with-plugins";
+      phases = [ "installPhase" "fixupPhase" ];
+      buildInputs = [ makeWrapper ];
+      propagatedBuildInputs = plugins ++ package.propagatedBuildInputs;
 
-    installPhase = ''
-      makeWrapper ${package}/bin/buildbot $out/bin/buildbot \
-        --prefix PYTHONPATH : "${package}/${python.sitePackages}:$PYTHONPATH"
-      ln -sfv ${package}/lib $out/lib
-    '';
+      installPhase = ''
+        makeWrapper ${package}/bin/buildbot $out/bin/buildbot \
+          --prefix PYTHONPATH : "${package}/${python.sitePackages}:$PYTHONPATH"
+        ln -sfv ${package}/lib $out/lib
+      '';
 
-    passthru = package.passthru // {
-      withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
+      passthru = package.passthru // {
+        withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
+      };
     };
-  };
 
   package = buildPythonPackage rec {
     pname = "buildbot";
@@ -88,13 +85,12 @@ let
 
     disabled = !isPy3k;
 
-    passthru = {
-      inherit withPlugins;
-    };
+    passthru = { inherit withPlugins; };
 
     meta = with lib; {
-      homepage = http://buildbot.net/;
-      description = "Buildbot is an open-source continuous integration framework for automating software build, test, and release processes";
+      homepage = "http://buildbot.net/";
+      description =
+        "Buildbot is an open-source continuous integration framework for automating software build, test, and release processes";
       maintainers = with maintainers; [ nand0p ryansydnor ];
       license = licenses.gpl2;
     };

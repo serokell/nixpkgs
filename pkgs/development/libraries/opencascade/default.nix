@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, libGL, libGLU, libXmu, cmake, ninja,
-  pkgconfig, fontconfig, freetype, expat, freeimage, vtk }:
+{ stdenv, fetchFromGitHub, fetchpatch, libGL, libGLU, libXmu, cmake, ninja, pkgconfig, fontconfig, freetype, expat, freeimage, vtk
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencascade-oce";
@@ -25,12 +25,14 @@ stdenv.mkDerivation rec {
     # Use fontconfig instead of hardcoded directory list
     # https://github.com/tpaviot/oce/pull/714
     (fetchpatch {
-      url = "https://github.com/tpaviot/oce/commit/9643432b27fec8974ca0ee15c3c372f5fe8fc069.patch";
+      url =
+        "https://github.com/tpaviot/oce/commit/9643432b27fec8974ca0ee15c3c372f5fe8fc069.patch";
       sha256 = "1wd940rszmh5apcpk5fv6126h8mcjcy4rjifrql5d4ac90v06v4c";
     })
     # Fix for glibc 2.26
     (fetchpatch {
-      url = "https://github.com/tpaviot/oce/commit/3b44656e93270d782009b06ec4be84d2a13f8126.patch";
+      url =
+        "https://github.com/tpaviot/oce/commit/3b44656e93270d782009b06ec4be84d2a13f8126.patch";
       sha256 = "1ccakkcwy5g0184m23x0mnh22i0lk45xm8kgiv5z3pl7nh35dh8k";
     })
   ];
@@ -42,7 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Open CASCADE Technology, libraries for 3D modeling and numerical simulation";
+    description =
+      "Open CASCADE Technology, libraries for 3D modeling and numerical simulation";
     homepage = "https://github.com/tpaviot/oce";
     maintainers = [ maintainers.viric ];
     platforms = platforms.linux;

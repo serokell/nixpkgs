@@ -18,7 +18,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/sdispater/pastel;
+    homepage = "https://github.com/sdispater/pastel";
     description = "Bring colors to your terminal";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

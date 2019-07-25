@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
       The Clipper library performs line & polygon clipping - intersection, union, difference & exclusive-or,
       and line & polygon offsetting. The library is based on Vatti's clipping algorithm.
     '';
-    homepage = https://sourceforge.net/projects/polyclipping;
+    homepage = "https://sourceforge.net/projects/polyclipping";
     license = licenses.boost;
     maintainers = with maintainers; [ mpickering ];
     platforms = with platforms; unix;

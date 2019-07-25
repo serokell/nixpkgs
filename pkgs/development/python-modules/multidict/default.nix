@@ -1,9 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pytest, pytestrunner, pytestcov
-, isPy3k
-}:
+{ lib, fetchPypi, buildPythonPackage, pytest, pytestrunner, pytestcov, isPy3k }:
 
 buildPythonPackage rec {
   pname = "multidict";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Multidict implementation";
-    homepage = https://github.com/aio-libs/multidict/;
+    homepage = "https://github.com/aio-libs/multidict/";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
   };

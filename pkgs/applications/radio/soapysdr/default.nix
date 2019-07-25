@@ -1,14 +1,11 @@
-{ stdenv, lib, lndir, makeWrapper
-, fetchFromGitHub, cmake
-, libusb, pkgconfig
-, python, swig2, numpy, ncurses
-, extraPackages ? []
-} :
+{ stdenv, lib, lndir, makeWrapper, fetchFromGitHub, cmake, libusb, pkgconfig, python, swig2, numpy, ncurses, extraPackages ?
+  [ ] }:
 
 let
 
   version = "0.7.1";
-  modulesVersion = with lib; versions.major version + "." + versions.minor version;
+  modulesVersion = with lib;
+    versions.major version + "." + versions.minor version;
   modulesPath = "lib/SoapySDR/modules" + modulesVersion;
   extraPackagesSearchPath = lib.makeSearchPath modulesPath extraPackages;
 
@@ -25,10 +22,7 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ cmake makeWrapper pkgconfig ];
   buildInputs = [ libusb ncurses numpy python swig2 ];
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DUSE_PYTHON_CONFIG=ON"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DUSE_PYTHON_CONFIG=ON" ];
 
   postFixup = lib.optionalString (lib.length extraPackages != 0) ''
     # Join all plugins via symlinking
@@ -42,7 +36,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pothosware/SoapySDR;
+    homepage = "https://github.com/pothosware/SoapySDR";
     description = "Vendor and platform neutral SDR support library";
     license = licenses.boost;
     maintainers = with maintainers; [ markuskowa ];

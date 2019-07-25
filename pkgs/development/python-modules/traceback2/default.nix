@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pbr
-, linecache2
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pbr, linecache2 }:
 
 buildPythonPackage rec {
   version = "1.4.0";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A backport of traceback to older supported Pythons";
-    homepage = https://pypi.python.org/pypi/traceback2/;
+    homepage = "https://pypi.python.org/pypi/traceback2/";
     license = licenses.psfl;
   };
 

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, sphinx
-, plantuml
-}:
+{ stdenv, buildPythonPackage, fetchPypi, sphinx, plantuml }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-plantuml";
@@ -20,7 +15,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ sphinx plantuml ];
 
   meta = with stdenv.lib; {
-    description = "Provides a Sphinx domain for embedding UML diagram with PlantUML";
+    description =
+      "Provides a Sphinx domain for embedding UML diagram with PlantUML";
     homepage = "https://github.com/sphinx-contrib/plantuml/";
     license = with licenses; [ bsd2 ];
   };

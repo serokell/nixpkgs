@@ -10,11 +10,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 ];
 
-  preConfigure = [ ''sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk'' ];
+  preConfigure =
+    [ ''sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk'' ];
 
   meta = {
-    description = "Prints or set the window manager name property of the root window";
-    homepage = https://tools.suckless.org/wmname;
+    description =
+      "Prints or set the window manager name property of the root window";
+    homepage = "https://tools.suckless.org/wmname";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.unix;
   };

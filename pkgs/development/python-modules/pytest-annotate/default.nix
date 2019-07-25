@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyannotate
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyannotate, pytest }:
 
 buildPythonPackage rec {
   version = "1.0.2";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/kensho-technologies/pytest-annotate;
+    homepage = "https://github.com/kensho-technologies/pytest-annotate";
     description = "Generate PyAnnotate annotations from your pytest tests";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];

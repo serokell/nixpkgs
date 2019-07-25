@@ -1,17 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, dateutil
-, ipython_genutils
-, decorator
-, pyzmq
-, ipython
-, jupyter_client
-, ipykernel
-, tornado
-, isPy3k
-, futures
+{ lib, buildPythonPackage, fetchPypi, nose, dateutil, ipython_genutils, decorator, pyzmq, ipython, jupyter_client, ipykernel, tornado, isPy3k, futures
 }:
 
 buildPythonPackage rec {
@@ -25,7 +12,15 @@ buildPythonPackage rec {
 
   buildInputs = [ nose ];
 
-  propagatedBuildInputs = [ dateutil ipython_genutils decorator pyzmq ipython jupyter_client ipykernel tornado
+  propagatedBuildInputs = [
+    dateutil
+    ipython_genutils
+    decorator
+    pyzmq
+    ipython
+    jupyter_client
+    ipykernel
+    tornado
   ] ++ lib.optionals (!isPy3k) [ futures ];
 
   # Requires access to cluster
@@ -33,7 +28,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Interactive Parallel Computing with IPython";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };

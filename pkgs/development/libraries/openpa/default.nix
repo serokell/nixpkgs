@@ -6,17 +6,19 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://trac.mpich.org/projects/${pname}/raw-attachment/wiki/Downloads/${name}.tar.gz";
+    url =
+      "https://trac.mpich.org/projects/${pname}/raw-attachment/wiki/Downloads/${name}.tar.gz";
     sha256 = "0flyi596hm6fv7xyw2iykx3s65p748s62bf15624xcnwpfrh8ncy";
   };
 
-  prePatch = ''substituteInPlace configure --replace /usr/bin/file ${file}/bin/file'';
+  prePatch =
+    "substituteInPlace configure --replace /usr/bin/file ${file}/bin/file";
 
   doCheck = true;
 
   meta = {
     description = "Atomic primitives for high performance, concurrent software";
-    homepage = https://trac.mpich.org/projects/openpa;
+    homepage = "https://trac.mpich.org/projects/openpa";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ leenaars ];
     platforms = with stdenv.lib.platforms; linux;
@@ -30,5 +32,5 @@ stdenv.mkDerivation rec {
       learning new assembly dialects in order improve or maintain application
       portability.
     '';
-   };
+  };
 }

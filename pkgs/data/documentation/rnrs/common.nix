@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   builder = ./builder.sh;
 
   meta = {
-    description = "Revised^${toString revision} Report on the Algorithmic Language Scheme";
+    description =
+      "Revised^${toString revision} Report on the Algorithmic Language Scheme";
 
     longDescription = ''
       This package contains the GNU Info version of the
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
       Algorithmic Language Scheme.
     '';
 
-    homepage = http://swiss.csail.mit.edu/~jaffer/Scheme;
+    homepage = "http://swiss.csail.mit.edu/~jaffer/Scheme";
 
     broken = true;
   };

@@ -1,34 +1,19 @@
 { lib, stdenv, echo_build_heading, noisily, makeDeps }:
-{ build
-, buildDependencies
-, colors
-, completeBuildDeps
-, completeDeps
-, crateAuthors
-, crateDescription
-, crateHomepage
-, crateFeatures
-, crateName
-, crateVersion
-, extraLinkFlags
-, extraRustcOpts
-, libName
-, libPath
-, release
-, target_os
-, verbose
-, workspace_member }:
-let version_ = lib.splitString "-" crateVersion;
-    versionPre = if lib.tail version_ == [] then "" else builtins.elemAt version_ 1;
-    version = lib.splitString "." (lib.head version_);
-    rustcOpts = lib.lists.foldl' (opts: opt: opts + " " + opt)
-        (if release then "-C opt-level=3" else "-C debuginfo=2")
-        (["-C codegen-units=$NIX_BUILD_CORES"] ++ extraRustcOpts);
-    buildDeps = makeDeps buildDependencies;
-    authors = lib.concatStringsSep ":" crateAuthors;
-    optLevel = if release then 3 else 0;
-    completeDepsDir = lib.concatStringsSep " " completeDeps;
-    completeBuildDepsDir = lib.concatStringsSep " " completeBuildDeps;
+{ build, buildDependencies, colors, completeBuildDeps, completeDeps, crateAuthors, crateDescription, crateHomepage, crateFeatures, crateName, crateVersion, extraLinkFlags, extraRustcOpts, libName, libPath, release, target_os, verbose, workspace_member
+}:
+let
+  version_ = lib.splitString "-" crateVersion;
+  versionPre =
+    if lib.tail version_ == [ ] then "" else builtins.elemAt version_ 1;
+  version = lib.splitString "." (lib.head version_);
+  rustcOpts = lib.lists.foldl' (opts: opt: opts + " " + opt)
+    (if release then "-C opt-level=3" else "-C debuginfo=2")
+    ([ "-C codegen-units=$NIX_BUILD_CORES" ] ++ extraRustcOpts);
+  buildDeps = makeDeps buildDependencies;
+  authors = lib.concatStringsSep ":" crateAuthors;
+  optLevel = if release then 3 else 0;
+  completeDepsDir = lib.concatStringsSep " " completeDeps;
+  completeBuildDepsDir = lib.concatStringsSep " " completeBuildDeps;
 in ''
   cd ${workspace_member}
   runHook preConfigure
@@ -78,8 +63,16 @@ in ''
   export CARGO_CFG_TARGET_FAMILY="unix"
   export CARGO_CFG_UNIX=1
   export CARGO_CFG_TARGET_ENV="gnu"
-  export CARGO_CFG_TARGET_ENDIAN=${if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big"}
-  export CARGO_CFG_TARGET_POINTER_WIDTH=${toString stdenv.hostPlatform.parsed.cpu.bits}
+  export CARGO_CFG_TARGET_ENDIAN=${
+    if stdenv.hostPlatform.parsed.cpu.significantByte.name
+    == "littleEndian" then
+      "little"
+    else
+      "big"
+  }
+  export CARGO_CFG_TARGET_POINTER_WIDTH=${
+    toString stdenv.hostPlatform.parsed.cpu.bits
+  }
   export CARGO_CFG_TARGET_VENDOR=${stdenv.hostPlatform.parsed.vendor.name}
 
   export CARGO_MANIFEST_DIR=$(pwd)

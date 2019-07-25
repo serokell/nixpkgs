@@ -18,7 +18,7 @@
 { stdenv, dhall-nix }:
 
 let
-  dhallToNix = code :
+  dhallToNix = code:
     let
       file = builtins.toFile "dhall-expression" code;
 
@@ -32,7 +32,5 @@ let
         buildInputs = [ dhall-nix ];
       };
 
-    in
-      import "${drv}";
-in
-  dhallToNix
+    in import "${drv}";
+in dhallToNix

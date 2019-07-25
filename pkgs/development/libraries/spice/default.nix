@@ -1,27 +1,4 @@
-{ stdenv
-, fetchurl
-, meson
-, ninja
-, pkgconfig
-, pixman
-, alsaLib
-, openssl
-, libXrandr
-, libXfixes
-, libXext
-, libXrender
-, libXinerama
-, libjpeg
-, zlib
-, spice-protocol
-, python3
-, glib
-, cyrus_sasl
-, libcacard
-, lz4
-, libopus
-, gst_all_1
-, orc
+{ stdenv, fetchurl, meson, ninja, pkgconfig, pixman, alsaLib, openssl, libXrandr, libXfixes, libXext, libXrender, libXinerama, libjpeg, zlib, spice-protocol, python3, glib, cyrus_sasl, libcacard, lz4, libopus, gst_all_1, orc
 }:
 
 stdenv.mkDerivation rec {
@@ -29,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.14.2";
 
   src = fetchurl {
-    url = "https://www.spice-space.org/download/releases/${pname}-${version}.tar.bz2";
+    url =
+      "https://www.spice-space.org/download/releases/${pname}-${version}.tar.bz2";
     sha256 = "19r999py9v9c7md2bb8ysj809ag1hh6djl1ik8jcgx065s4b60xj";
   };
 
@@ -41,7 +19,6 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs build-aux
   '';
-
 
   nativeBuildInputs = [
     meson
@@ -76,17 +53,15 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = "-fno-stack-protector";
 
-  mesonFlags = [
-    "-Dgstreamer=1.0"
-    "-Dcelt051=disabled"
-  ];
+  mesonFlags = [ "-Dgstreamer=1.0" "-Dcelt051=disabled" ];
 
   postInstall = ''
     ln -s spice-server $out/include/spice
   '';
 
   meta = with stdenv.lib; {
-    description = "Complete open source solution for interaction with virtualized desktop devices";
+    description =
+      "Complete open source solution for interaction with virtualized desktop devices";
     longDescription = ''
       The Spice project aims to provide a complete open source solution for interaction
       with virtualized desktop devices.The Spice project deals with both the virtualized
@@ -94,7 +69,7 @@ stdenv.mkDerivation rec {
       VD-Interfaces. The VD-Interfaces (VDI) enable both ends of the solution to be easily
       utilized by a third-party component.
     '';
-    homepage = https://www.spice-space.org/;
+    homepage = "https://www.spice-space.org/";
     license = licenses.lgpl21;
 
     maintainers = [ maintainers.bluescreen303 ];

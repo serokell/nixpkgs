@@ -1,29 +1,43 @@
-{ fetchFromGitHub, stdenv, lib, gettext, gtk2, makeWrapper, perlPackages, gnome2 }:
+{ fetchFromGitHub, stdenv, lib, gettext, gtk2, makeWrapper, perlPackages, gnome2
+}:
 
 let
   perlDeps = with perlPackages; [
-    Glib Gtk2 Gnome2 Pango Cairo Gnome2Canvas Gnome2VFS Gtk2GladeXML Gtk2TrayIcon
-    XMLLibXML XMLSAXBase XMLParser XMLRSS
+    Glib
+    Gtk2
+    Gnome2
+    Pango
+    Cairo
+    Gnome2Canvas
+    Gnome2VFS
+    Gtk2GladeXML
+    Gtk2TrayIcon
+    XMLLibXML
+    XMLSAXBase
+    XMLParser
+    XMLRSS
     HTMLParser
-    DateTime DateTimeFormatMail DateTimeFormatW3CDTF DateTimeLocale DateTimeTimeZone
+    DateTime
+    DateTimeFormatMail
+    DateTimeFormatW3CDTF
+    DateTimeLocale
+    DateTimeTimeZone
     ParamsValidate
-    ModuleImplementation ModuleRuntime
+    ModuleImplementation
+    ModuleRuntime
     TryTiny
     ClassSingleton
     URI
-    AnyEvent AnyEventHTTP
+    AnyEvent
+    AnyEventHTTP
     commonsense
     FileSlurp
     JSON
     Guard
     LocaleGettext
   ];
-  libs = [
-    stdenv.cc.cc.lib
-    gtk2
-  ];
-in
-stdenv.mkDerivation rec {
+  libs = [ stdenv.cc.cc.lib gtk2 ];
+in stdenv.mkDerivation rec {
   version = "git-2017-12-01";
   name = "yarssr-${version}";
 
@@ -35,7 +49,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ perlPackages.perl gettext makeWrapper ];
-  buildInputs = perlDeps ++ [gnome2.libglade];
+  buildInputs = perlDeps ++ [ gnome2.libglade ];
   propagatedBuildInputs = libs ++ perlDeps;
 
   installPhase = ''
@@ -55,8 +69,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/tsyrogit/zxcvbn-c;
-    description = "A fork of Yarssr (a RSS reader for the GNOME Tray) from http://yarssr.sf.net with various fixes.";
+    homepage = "https://github.com/tsyrogit/zxcvbn-c";
+    description =
+      "A fork of Yarssr (a RSS reader for the GNOME Tray) from http://yarssr.sf.net with various fixes.";
     license = licenses.gpl1;
     platforms = platforms.linux;
     maintainers = with maintainers; [ xurei ];

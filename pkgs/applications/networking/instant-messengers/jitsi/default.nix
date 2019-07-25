@@ -1,7 +1,6 @@
 { stdenv, lib, fetchurl, makeDesktopItem, unzip, ant, jdk
 # Optional, Jitsi still runs without, but you may pass null:
-, alsaLib, dbus, gtk2, libpulseaudio, openssl, xorg
-}:
+, alsaLib, dbus, gtk2, libpulseaudio, openssl, xorg }:
 
 stdenv.mkDerivation rec {
   name = "jitsi-${version}";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
   };
 
   libPath = lib.makeLibraryPath ([
-    stdenv.cc.cc  # For libstdc++.
+    stdenv.cc.cc # For libstdc++.
     alsaLib
     dbus
     gtk2
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
   buildInputs = [ ant jdk ];
 
-  buildPhase = ''ant make'';
+  buildPhase = "ant make";
 
   installPhase = ''
     mkdir -p $out
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://jitsi.org/;
+    homepage = "https://jitsi.org/";
     description = "Open Source Video Calls and Chat";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

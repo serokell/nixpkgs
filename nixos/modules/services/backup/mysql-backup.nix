@@ -20,7 +20,9 @@ let
   '';
   backupDatabaseScript = db: ''
     dest="${cfg.location}/${db}.gz"
-    if ${mysql}/bin/mysqldump ${if cfg.singleTransaction then "--single-transaction" else ""} ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
+    if ${mysql}/bin/mysqldump ${
+      if cfg.singleTransaction then "--single-transaction" else ""
+    } ${db} | ${gzip}/bin/gzip -c > $dest.tmp; then
       mv $dest.tmp $dest
       echo "Backed up to $dest"
     else
@@ -30,9 +32,7 @@ let
     fi
   '';
 
-in
-
-{
+in {
   options = {
 
     services.mysqlBackup = {
@@ -60,7 +60,7 @@ in
       };
 
       databases = mkOption {
-        default = [];
+        default = [ ];
         description = ''
           List of database names to dump.
         '';
@@ -84,13 +84,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.users = optionalAttrs (cfg.user == defaultUser) (singleton
-      { name = defaultUser;
-        isSystemUser = true;
-        createHome = false;
-        home = cfg.location;
-        group = "nogroup";
-      });
+    users.users = optionalAttrs (cfg.user == defaultUser) (singleton {
+      name = defaultUser;
+      isSystemUser = true;
+      createHome = false;
+      home = cfg.location;
+      group = "nogroup";
+    });
 
     services.mysql.ensureUsers = [{
       name = cfg.user;
@@ -98,8 +98,7 @@ in
         let
           privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
           grant = db: nameValuePair "${db}.*" privs;
-        in
-          listToAttrs (map grant cfg.databases);
+        in listToAttrs (map grant cfg.databases);
     }];
 
     systemd = {
@@ -115,14 +114,10 @@ in
       services."mysql-backup" = {
         description = "Mysql backup service";
         enable = true;
-        serviceConfig = {
-          User = cfg.user;
-        };
+        serviceConfig = { User = cfg.user; };
         script = backupScript;
       };
-      tmpfiles.rules = [
-        "d ${cfg.location} 0700 ${cfg.user} - - -"
-      ];
+      tmpfiles.rules = [ "d ${cfg.location} 0700 ${cfg.user} - - -" ];
     };
   };
 

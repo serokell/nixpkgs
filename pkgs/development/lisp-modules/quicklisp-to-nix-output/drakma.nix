@@ -1,20 +1,37 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''drakma'';
-  version = ''v2.0.4'';
+args@{ fetchurl, ... }: rec {
+  baseName = "drakma";
+  version = "v2.0.4";
 
-  description = ''Full-featured http/https client based on usocket'';
+  description = "Full-featured http/https client based on usocket";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."chipz" args."chunga" args."cl_plus_ssl" args."cl-base64" args."cl-ppcre" args."flexi-streams" args."puri" args."split-sequence" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."chipz"
+    args."chunga"
+    args."cl_plus_ssl"
+    args."cl-base64"
+    args."cl-ppcre"
+    args."flexi-streams"
+    args."puri"
+    args."split-sequence"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."usocket"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/drakma/2017-08-30/drakma-v2.0.4.tgz'';
-    sha256 = ''0i0dmw1b245yc0f8f8ww8cnhsji7vsnr7868p62c953ccwlcj5ga'';
+    url =
+      "http://beta.quicklisp.org/archive/drakma/2017-08-30/drakma-v2.0.4.tgz";
+    sha256 = "0i0dmw1b245yc0f8f8ww8cnhsji7vsnr7868p62c953ccwlcj5ga";
   };
 
   packageName = "drakma";
 
-  asdFilesToKeep = ["drakma.asd"];
+  asdFilesToKeep = [ "drakma.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM drakma DESCRIPTION Full-featured http/https client based on usocket
@@ -36,4 +53,5 @@ rec {
     (alexandria babel bordeaux-threads cffi chipz chunga cl+ssl cl-base64
      cl-ppcre flexi-streams puri split-sequence trivial-features
      trivial-garbage trivial-gray-streams usocket)
-    VERSION v2.0.4 SIBLINGS (drakma-test) PARASITES NIL) */
+    VERSION v2.0.4 SIBLINGS (drakma-test) PARASITES NIL)
+*/

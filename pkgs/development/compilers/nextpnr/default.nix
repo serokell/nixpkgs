@@ -1,16 +1,15 @@
-{ stdenv, fetchFromGitHub, cmake
-, boost, python3, eigen
-, icestorm, trellis
+{ stdenv, fetchFromGitHub, cmake, boost, python3, eigen, icestorm, trellis
 
 # TODO(thoughtpolice) Currently the GUI build seems broken at runtime on my
 # laptop (and over a remote X server on my server...), so mark it broken for
 # now, with intent to fix later.
-, enableGui ? false
-, qtbase, wrapQtAppsHook
-}:
+, enableGui ? false, qtbase, wrapQtAppsHook }:
 
 let
-  boostPython = boost.override { python = python3; enablePython = true; };
+  boostPython = boost.override {
+    python = python3;
+    enablePython = true;
+  };
 
   # This is a massive hack. For now, Trellis doesn't really support
   # installation through an already-built package; you have to build it once to
@@ -24,32 +23,29 @@ let
       cd ../../.. && cp -R trellis database $out/
     '';
   });
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "nextpnr-${version}";
   version = "2019.04.19";
 
   src = fetchFromGitHub {
-    owner  = "yosyshq";
-    repo   = "nextpnr";
-    rev    = "5344bc3b65f4e06f983db781e9a82d30b3f1512b";
+    owner = "yosyshq";
+    repo = "nextpnr";
+    rev = "5344bc3b65f4e06f983db781e9a82d30b3f1512b";
     sha256 = "1y14jpa948cwk0i19bsfqh7yxsxkgskm4xym4z179sjcvcdvrn3a";
   };
 
-  nativeBuildInputs
-     = [ cmake ]
+  nativeBuildInputs = [ cmake ]
     ++ (stdenv.lib.optional enableGui wrapQtAppsHook);
-  buildInputs
-     = [ boostPython python3 eigen ]
+  buildInputs = [ boostPython python3 eigen ]
     ++ (stdenv.lib.optional enableGui qtbase);
 
   enableParallelBuilding = true;
-  cmakeFlags =
-    [ "-DARCH=generic;ice40;ecp5"
-      "-DICEBOX_ROOT=${icestorm}/share/icebox"
-      "-DTRELLIS_ROOT=${trellisRoot}/trellis"
-      "-DUSE_OPENMP=ON"
-    ] ++ (stdenv.lib.optional (!enableGui) "-DBUILD_GUI=OFF");
+  cmakeFlags = [
+    "-DARCH=generic;ice40;ecp5"
+    "-DICEBOX_ROOT=${icestorm}/share/icebox"
+    "-DTRELLIS_ROOT=${trellisRoot}/trellis"
+    "-DUSE_OPENMP=ON"
+  ] ++ (stdenv.lib.optional (!enableGui) "-DBUILD_GUI=OFF");
 
   # Fix the version number. This is a bit stupid (and fragile) in practice
   # but works ok. We should probably make this overrideable upstream.
@@ -60,9 +56,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Place and route tool for FPGAs";
-    homepage    = https://github.com/yosyshq/nextpnr;
-    license     = licenses.isc;
-    platforms   = platforms.linux;
+    homepage = "https://github.com/yosyshq/nextpnr";
+    license = licenses.isc;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ thoughtpolice ];
 
     broken = enableGui;

@@ -1,7 +1,7 @@
 { stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
-  p_name  = "xfwm4-themes";
+  p_name = "xfwm4-themes";
   ver_maj = "4.10";
   ver_min = "0";
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   meta = with stdenv.lib; {
-    homepage = https://www.xfce.org/;
+    homepage = "https://www.xfce.org/";
     description = "Themes for Xfce";
     license = licenses.gpl3;
     platforms = platforms.linux;

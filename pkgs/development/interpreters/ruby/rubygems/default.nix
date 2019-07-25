@@ -23,8 +23,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Package management framework for Ruby";
-    homepage = https://rubygems.org/;
-    license = with licenses; [ mit /* or */ ruby ];
+    homepage = "https://rubygems.org/";
+    license = with licenses; [
+      mit # or
+      ruby
+    ];
     maintainers = with maintainers; [ qyliss zimbatm ];
   };
 }

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cmake, perl, pkgconfig, zlib
-, darwin, libiconv
+{ stdenv, fetchFromGitHub, rustPlatform, cmake, perl, pkgconfig, zlib, darwin, libiconv
 }:
 
 with rustPlatform;
@@ -18,10 +17,10 @@ buildRustPackage rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig perl ];
-  buildInputs = [ zlib ]
-  ++ stdenv.lib.optionals stdenv.isDarwin [
-    libiconv darwin.apple_sdk.frameworks.Security ]
-  ;
+  buildInputs = [ zlib ] ++ stdenv.lib.optionals stdenv.isDarwin [
+    libiconv
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   postInstall = ''
     mkdir -p $out/share/man/man1
@@ -50,7 +49,7 @@ buildRustPackage rec {
       for a directory, or recursing into directories with a tree view. exa is
       written in Rust, so it’s small, fast, and portable.
     '';
-    homepage = https://the.exa.website;
+    homepage = "https://the.exa.website";
     license = licenses.mit;
     maintainers = with maintainers; [ ehegnes lilyball ];
   };

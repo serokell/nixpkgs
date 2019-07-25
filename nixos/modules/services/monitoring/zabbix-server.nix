@@ -6,7 +6,9 @@ let
   mysql = config.services.mysql;
 
   inherit (lib) mkDefault mkEnableOption mkIf mkOption;
-  inherit (lib) attrValues concatMapStringsSep literalExample optional optionalAttrs optionalString types;
+  inherit (lib)
+    attrValues concatMapStringsSep literalExample optional optionalAttrs
+    optionalString types;
 
   user = "zabbix";
   group = "zabbix";
@@ -24,25 +26,29 @@ let
     ListenIP = ${cfg.listen.ip}
     ListenPort = ${toString cfg.listen.port}
     # TODO: set to cfg.database.socket if database type is pgsql?
-    DBHost = ${optionalString (cfg.database.createLocally != true) cfg.database.host}
-    ${optionalString (cfg.database.createLocally != true) "DBPort = ${cfg.database.port}"}
+    DBHost = ${
+      optionalString (cfg.database.createLocally != true) cfg.database.host
+    }
+    ${optionalString (cfg.database.createLocally != true)
+    "DBPort = ${cfg.database.port}"}
     DBName = ${cfg.database.name}
     DBUser = ${cfg.database.user}
-    ${optionalString (cfg.database.passwordFile != null) "Include ${passwordFile}"}
-    ${optionalString (mysqlLocal && cfg.database.socket != null) "DBSocket = ${cfg.database.socket}"}
+    ${optionalString (cfg.database.passwordFile != null)
+    "Include ${passwordFile}"}
+    ${optionalString (mysqlLocal && cfg.database.socket != null)
+    "DBSocket = ${cfg.database.socket}"}
     SocketDir = ${runtimeDir}
     FpingLocation = /run/wrappers/bin/fping
-    ${optionalString (cfg.modules != {}) "LoadModulePath = ${moduleEnv}/lib"}
-    ${concatMapStringsSep "\n" (name: "LoadModule = ${name}") (builtins.attrNames cfg.modules)}
+    ${optionalString (cfg.modules != { }) "LoadModulePath = ${moduleEnv}/lib"}
+    ${concatMapStringsSep "\n" (name: "LoadModule = ${name}")
+    (builtins.attrNames cfg.modules)}
     ${cfg.extraConfig}
   '';
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
-in
-
-{
+in {
   # interface
 
   options = {
@@ -52,7 +58,10 @@ in
 
       package = mkOption {
         type = types.package;
-        default = if cfg.database.type == "mysql" then pkgs.zabbix.server-mysql else pkgs.zabbix.server-pgsql;
+        default = if cfg.database.type == "mysql" then
+          pkgs.zabbix.server-mysql
+        else
+          pkgs.zabbix.server-pgsql;
         defaultText = "pkgs.zabbix.server-pgsql";
         description = "The Zabbix package to use.";
       };
@@ -70,7 +79,7 @@ in
       modules = mkOption {
         type = types.attrsOf types.package;
         description = "A set of modules to load.";
-        default = {};
+        default = { };
         example = literalExample ''
           {
             "dummy.so" = pkgs.stdenv.mkDerivation {
@@ -103,7 +112,8 @@ in
 
         port = mkOption {
           type = types.int;
-          default = if cfg.database.type == "mysql" then mysql.port else pgsql.port;
+          default =
+            if cfg.database.type == "mysql" then mysql.port else pgsql.port;
           description = "Database host port.";
         };
 
@@ -133,7 +143,8 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description = "Path to the unix socket file to use for authentication.";
+          description =
+            "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -190,37 +201,41 @@ in
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message = "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true";
+      {
+        assertion = cfg.database.createLocally -> cfg.database.user == user;
+        message =
+          "services.zabbixServer.database.user must be set to ${user} if services.zabbixServer.database.createLocally is set true";
       }
-      { assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message = "a password cannot be specified if services.zabbixServer.database.createLocally is set to true";
+      {
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile
+          == null;
+        message =
+          "a password cannot be specified if services.zabbixServer.database.createLocally is set to true";
       }
     ];
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
 
     services.mysql = optionalAttrs mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        { name = cfg.database.user;
-          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-        }
-      ];
+      ensureUsers = [{
+        name = cfg.database.user;
+        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+      }];
     };
 
     services.postgresql = optionalAttrs pgsqlLocal {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        { name = cfg.database.user;
-          ensurePermissions = { "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES"; };
-        }
-      ];
+      ensureUsers = [{
+        name = cfg.database.user;
+        ensurePermissions = {
+          "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+        };
+      }];
     };
 
     users.users.${user} = {
@@ -229,19 +244,16 @@ in
       inherit group;
     };
 
-    users.groups.${group} = {
-      gid = config.ids.gids.zabbix;
-    };
+    users.groups.${group} = { gid = config.ids.gids.zabbix; };
 
-    security.wrappers = {
-      fping.source = "${pkgs.fping}/bin/fping";
-    };
+    security.wrappers = { fping.source = "${pkgs.fping}/bin/fping"; };
 
     systemd.services."zabbix-server" = {
       description = "Zabbix Server";
 
       wantedBy = [ "multi-user.target" ];
-      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after = optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
 
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
       preStart = ''
@@ -272,7 +284,8 @@ in
       '';
 
       serviceConfig = {
-        ExecStart = "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}";
+        ExecStart =
+          "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}";
         Restart = "always";
         RestartSec = 2;
 
@@ -285,8 +298,9 @@ in
     };
 
     systemd.services.httpd.after =
-      optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service" ++
-      optional (config.services.zabbixWeb.enable && pgsqlLocal) "postgresql.service";
+      optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
+      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
+      "postgresql.service";
 
   };
 

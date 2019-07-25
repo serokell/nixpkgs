@@ -1,8 +1,4 @@
-{ lib
-, iputils
-, python3
-, python3Packages
-}:
+{ lib, iputils, python3, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gping";
@@ -12,7 +8,7 @@ python3Packages.buildPythonApplication rec {
 
   src = python3Packages.fetchPypi {
     inherit version;
-    pname  = "pinggraph";
+    pname = "pinggraph";
     sha256 = "0q5ma98457zb6vxsnhmrr3p38j1vg0gl155y0adzfg67wlniac92";
   };
 
@@ -25,7 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Ping, but with a graph";
-    homepage = https://github.com/orf/gping;
+    homepage = "https://github.com/orf/gping";
     license = licenses.gpl2;
     maintainers = with maintainers; [ andrew-d ];
   };

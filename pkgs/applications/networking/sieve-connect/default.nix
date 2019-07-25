@@ -22,7 +22,11 @@ stdenv.mkDerivation rec {
     echo "$(date +%Y-%m-%d)" > datefile
   '';
 
-  buildFlags = [ "PERL5LIB=${perlPackages.makePerlPath [ perlPackages.FileSlurp ]}" "bin" "man" ];
+  buildFlags = [
+    "PERL5LIB=${perlPackages.makePerlPath [ perlPackages.FileSlurp ]}"
+    "bin"
+    "man"
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/man/man1
@@ -30,9 +34,19 @@ stdenv.mkDerivation rec {
     gzip -c sieve-connect.1 > $out/share/man/man1/sieve-connect.1.gz
 
     wrapProgram $out/bin/sieve-connect \
-      --prefix PERL5LIB : "${with perlPackages; makePerlPath [
-        AuthenSASL Socket6 IOSocketInet6 IOSocketSSL NetSSLeay NetDNS
-        TermReadKey TermReadLineGnu ]}"
+      --prefix PERL5LIB : "${
+      with perlPackages;
+      makePerlPath [
+        AuthenSASL
+        Socket6
+        IOSocketInet6
+        IOSocketSSL
+        NetSSLeay
+        NetDNS
+        TermReadKey
+        TermReadLineGnu
+      ]
+      }"
   '';
 
   meta = with stdenv.lib; {
@@ -42,7 +56,7 @@ stdenv.mkDerivation rec {
       as specifed in RFC 5804. Historically, this was MANAGESIEVE as
       implemented by timsieved in Cyrus IMAP.
     '';
-    homepage = https://github.com/philpennock/sieve-connect;
+    homepage = "https://github.com/philpennock/sieve-connect";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ das_j ];

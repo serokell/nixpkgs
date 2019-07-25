@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, requests
-, audioread
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, requests, audioread, pkgs }:
 
 buildPythonPackage rec {
   pname = "pyacoustid";

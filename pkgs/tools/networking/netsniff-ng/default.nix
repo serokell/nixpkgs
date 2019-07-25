@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, bison, flex, geoip, geolite-legacy
-, libcli, libnet, libnetfilter_conntrack, libnl, libpcap, libsodium
-, liburcu, ncurses, pkgconfig, zlib }:
+{ stdenv, fetchFromGitHub, makeWrapper, bison, flex, geoip, geolite-legacy, libcli, libnet, libnetfilter_conntrack, libnl, libpcap, libsodium, liburcu, ncurses, pkgconfig, zlib
+}:
 
 stdenv.mkDerivation rec {
   pname = "netsniff-ng";
@@ -16,8 +15,17 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig makeWrapper bison flex ];
   buildInputs = [
-    geoip geolite-legacy libcli libnet libnl
-    libnetfilter_conntrack libpcap libsodium liburcu ncurses zlib
+    geoip
+    geolite-legacy
+    libcli
+    libnet
+    libnl
+    libnetfilter_conntrack
+    libpcap
+    libsodium
+    liburcu
+    ncurses
+    zlib
   ];
 
   # ./configure is not autoGNU but some home-brewn magic
@@ -55,7 +63,7 @@ stdenv.mkDerivation rec {
       to user space and vice versa. The toolkit can be used for network
       development and analysis, debugging, auditing or network reconnaissance.
     '';
-    homepage = http://netsniff-ng.org/;
+    homepage = "http://netsniff-ng.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

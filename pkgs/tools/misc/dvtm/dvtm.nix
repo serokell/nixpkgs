@@ -1,4 +1,4 @@
-{ stdenv, ncurses, customConfig ? null, name, src, patches ? [] }:
+{ stdenv, ncurses, customConfig ? null, name, src, patches ? [ ] }:
 stdenv.mkDerivation rec {
 
   inherit name src patches;
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Dynamic virtual terminal manager";
-    homepage = http://www.brain-dump.org/projects/dvtm;
+    homepage = "http://www.brain-dump.org/projects/dvtm";
     license = licenses.mit;
     maintainers = [ maintainers.vrthra ];
     platforms = platforms.unix;

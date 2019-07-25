@@ -1,7 +1,6 @@
-{ stdenv, ghcWithPackages, makeWrapper, packages ? (pkgSet: []) }:
+{ stdenv, ghcWithPackages, makeWrapper, packages ? (pkgSet: [ ]) }:
 
-let
-  termonadEnv = ghcWithPackages (self: [ self.termonad ] ++ packages self);
+let termonadEnv = ghcWithPackages (self: [ self.termonad ] ++ packages self);
 in stdenv.mkDerivation {
   name = "termonad-with-packages-${termonadEnv.version}";
 

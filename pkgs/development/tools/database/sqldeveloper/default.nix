@@ -12,15 +12,15 @@ let
     comment = "Oracle's Oracle DB GUI client";
     categories = "Application;Development;";
   };
-in
-  stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   inherit version;
   name = "sqldeveloper-${version}";
 
   src = requireFile rec {
     name = "sqldeveloper-${version}-no-jre.zip";
-    url = "http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/";
+    url =
+      "http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/";
     message = ''
       This Nix expression requires that ${name} already be part of the store. To
       obtain it you need to
@@ -76,7 +76,8 @@ in
       a reports interface, a complete data modeling solution, and a migration
       platform for moving your 3rd party databases to Oracle.
     '';
-    homepage = http://www.oracle.com/technetwork/developer-tools/sql-developer/overview/;
+    homepage =
+      "http://www.oracle.com/technetwork/developer-tools/sql-developer/overview/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = with maintainers; [ ardumont flokli ];

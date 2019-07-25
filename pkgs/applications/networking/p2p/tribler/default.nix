@@ -1,21 +1,18 @@
-{ stdenv, fetchurl, pythonPackages, makeWrapper, imagemagick
-, enablePlayer ? true, vlc ? null, qt5 }:
+{ stdenv, fetchurl, pythonPackages, makeWrapper, imagemagick, enablePlayer ?
+  true, vlc ? null, qt5 }:
 
 stdenv.mkDerivation rec {
   name = "tribler-${version}";
   version = "7.1.2";
 
   src = fetchurl {
-    url = "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.gz";
+    url =
+      "https://github.com/Tribler/tribler/releases/download/v${version}/Tribler-v${version}.tar.gz";
     sha256 = "1ayzqx4358qlx56hsnsn5s8xl6mzdb6nw4kwsalmp86dw6vmmis8";
   };
 
-  buildInputs = [
-    pythonPackages.python
-    pythonPackages.wrapPython
-    makeWrapper
-    imagemagick
-  ];
+  buildInputs =
+    [ pythonPackages.python pythonPackages.wrapPython makeWrapper imagemagick ];
 
   pythonPath = [
     pythonPackages.libtorrentRasterbar
@@ -66,15 +63,18 @@ stdenv.mkDerivation rec {
         --set NO_AT_BRIDGE 1 \
         --run 'cd $_TRIBLERPATH' \
         --add-flags "-O $out/run_tribler.py" \
-        ${stdenv.lib.optionalString enablePlayer ''
-          --prefix LD_LIBRARY_PATH : ${vlc}/lib
-        ''}
+        ${
+      stdenv.lib.optionalString enablePlayer ''
+        --prefix LD_LIBRARY_PATH : ${vlc}/lib
+      ''
+        }
   '';
 
   meta = with stdenv.lib; {
     maintainers = with maintainers; [ xvapx ];
-    homepage = https://www.tribler.org/;
-    description = "A completely decentralised P2P filesharing client based on the Bittorrent protocol";
+    homepage = "https://www.tribler.org/";
+    description =
+      "A completely decentralised P2P filesharing client based on the Bittorrent protocol";
     license = licenses.lgpl21;
     platforms = platforms.linux;
   };

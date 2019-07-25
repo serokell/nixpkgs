@@ -1,9 +1,7 @@
 { stdenv, fetchurl, ruby, makeWrapper, git }:
 
-let
-  version = "2.4.0";
-in
-stdenv.mkDerivation {
+let version = "2.4.0";
+in stdenv.mkDerivation {
   name = "svn2git-${version}";
 
   src = fetchurl {
@@ -30,7 +28,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://github.com/nirvdrum/svn2git;
+    homepage = "https://github.com/nirvdrum/svn2git";
     description = "Tool for importing Subversion repositories into git";
     license = stdenv.lib.licenses.mit;
 

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
-}:
+{ stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "nlohmann_json";
@@ -16,15 +15,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [
-    "-DBuildTests=${if doCheck then "ON" else "OFF"}"
-  ];
+  cmakeFlags = [ "-DBuildTests=${if doCheck then "ON" else "OFF"}" ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
 
   meta = with stdenv.lib; {
     description = "Header only C++ library for the JSON file format";
-    homepage = https://github.com/nlohmann/json;
+    homepage = "https://github.com/nlohmann/json";
     license = licenses.mit;
     platforms = platforms.all;
   };

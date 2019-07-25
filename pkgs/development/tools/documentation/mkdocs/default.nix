@@ -13,9 +13,7 @@ buildPythonApplication rec {
     sha256 = "1x35vgiskgz4wwrvi4m1mri5wlphf15p90fr3rxsy5bf19v3s9hs";
   };
 
-  checkInputs = [
-    nose nose-exclude mock
-  ];
+  checkInputs = [ nose nose-exclude mock ];
 
   NOSE_EXCLUDE_TESTS = lib.concatStringsSep ";" [
     "mkdocs.tests.gh_deploy_tests.TestGitHubDeploy"
@@ -25,18 +23,11 @@ buildPythonApplication rec {
 
   checkPhase = "nosetests mkdocs";
 
-  propagatedBuildInputs = [
-    tornado
-    livereload
-    click
-    pyyaml
-    markdown
-    jinja2
-    backports_tempfile
-  ];
+  propagatedBuildInputs =
+    [ tornado livereload click pyyaml markdown jinja2 backports_tempfile ];
 
   meta = {
-    homepage = http://mkdocs.org/;
+    homepage = "http://mkdocs.org/";
     description = "Project documentation with Markdown";
     license = lib.licenses.bsd2;
   };

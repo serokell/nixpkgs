@@ -1,16 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, libevent, openssl, zlib, torsocks
-, libseccomp, systemd, libcap, lzma, zstd, scrypt
+{ stdenv, fetchurl, pkgconfig, libevent, openssl, zlib, torsocks, libseccomp, systemd, libcap, lzma, zstd, scrypt
 
 # for update.nix
-, writeScript
-, common-updater-scripts
-, bash
-, coreutils
-, curl
-, gnugrep
-, gnupg
-, gnused
-, nix
+, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg, gnused, nix
 }:
 
 stdenv.mkDerivation rec {
@@ -25,8 +16,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "geoip" ];
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libevent openssl zlib lzma zstd scrypt ] ++
-    stdenv.lib.optionals stdenv.isLinux [ libseccomp systemd libcap ];
+  buildInputs = [ libevent openssl zlib lzma zstd scrypt ]
+    ++ stdenv.lib.optionals stdenv.isLinux [ libseccomp systemd libcap ];
 
   NIX_CFLAGS_LINK = stdenv.lib.optionalString stdenv.cc.isGNU "-lgcc_s";
 
@@ -49,22 +40,13 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = import ./update.nix {
     inherit (stdenv) lib;
-    inherit
-      writeScript
-      common-updater-scripts
-      bash
-      coreutils
-      curl
-      gnupg
-      gnugrep
-      gnused
-      nix
-    ;
+    inherit writeScript common-updater-scripts bash coreutils curl gnupg gnugrep
+      gnused nix;
   };
 
   meta = with stdenv.lib; {
-    homepage = https://www.torproject.org/;
-    repositories.git = https://git.torproject.org/git/tor;
+    homepage = "https://www.torproject.org/";
+    repositories.git = "https://git.torproject.org/git/tor";
     description = "Anonymizing overlay network";
 
     longDescription = ''
@@ -79,8 +61,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.bsd3;
 
-    maintainers = with maintainers;
-      [ phreedom doublec thoughtpolice joachifm ];
+    maintainers = with maintainers; [ phreedom doublec thoughtpolice joachifm ];
     platforms = platforms.unix;
   };
 }

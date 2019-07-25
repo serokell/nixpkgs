@@ -1,39 +1,39 @@
 { stdenv, fetchFromGitHub, postgresql, zeromq, openssl }:
 
-if stdenv.lib.versionOlder postgresql.version "10"
-then throw "PipelineDB not supported for PostgreSQL ${postgresql.version}"
+if stdenv.lib.versionOlder postgresql.version "10" then
+  throw "PipelineDB not supported for PostgreSQL ${postgresql.version}"
 else
-stdenv.mkDerivation rec {
-  pname = "pipelinedb";
-  version = "1.0.0-13";
+  stdenv.mkDerivation rec {
+    pname = "pipelinedb";
+    version = "1.0.0-13";
 
-  src = fetchFromGitHub {
-    owner = "pipelinedb";
-    repo = pname;
-    rev = version;
-    sha256 = "1mnqpvx6g1r2n4kjrrx01vbdx7kvndfsbmm7zbzizjnjlyixz75f";
-  };
+    src = fetchFromGitHub {
+      owner = "pipelinedb";
+      repo = pname;
+      rev = version;
+      sha256 = "1mnqpvx6g1r2n4kjrrx01vbdx7kvndfsbmm7zbzizjnjlyixz75f";
+    };
 
-  buildInputs = [ postgresql openssl zeromq ];
+    buildInputs = [ postgresql openssl zeromq ];
 
-  makeFlags = [ "USE_PGXS=1" ];
+    makeFlags = [ "USE_PGXS=1" ];
 
-  preConfigure = ''
-    substituteInPlace Makefile \
-      --replace "/usr/lib/libzmq.a" "${zeromq}/lib/libzmq.a"
-  '';
+    preConfigure = ''
+      substituteInPlace Makefile \
+        --replace "/usr/lib/libzmq.a" "${zeromq}/lib/libzmq.a"
+    '';
 
-  installPhase = ''
-    mkdir -p $out/bin
-    install -D -t $out/lib/ pipelinedb.so
-    install -D -t $out/share/postgresql/extension {pipelinedb-*.sql,pipelinedb.control}
-  '';
+    installPhase = ''
+      mkdir -p $out/bin
+      install -D -t $out/lib/ pipelinedb.so
+      install -D -t $out/share/postgresql/extension {pipelinedb-*.sql,pipelinedb.control}
+    '';
 
-  meta = with stdenv.lib; {
-    description = "High-performance time-series aggregation for PostgreSQL";
-    homepage = https://www.pipelinedb.com/;
-    license = licenses.asl20;
-    platforms = postgresql.meta.platforms;
-    maintainers = [ maintainers.marsam ];
-  };
-}
+    meta = with stdenv.lib; {
+      description = "High-performance time-series aggregation for PostgreSQL";
+      homepage = "https://www.pipelinedb.com/";
+      license = licenses.asl20;
+      platforms = postgresql.meta.platforms;
+      maintainers = [ maintainers.marsam ];
+    };
+  }

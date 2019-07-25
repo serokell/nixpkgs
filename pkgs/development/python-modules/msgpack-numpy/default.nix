@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cython
-, msgpack
-, numpy
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cython, msgpack, numpy, python }:
 
 buildPythonPackage rec {
   pname = "msgpack-numpy";
@@ -16,14 +9,9 @@ buildPythonPackage rec {
     sha256 = "a02c0069fb580c6a2dda9b98d40d34fda3840863112a5465ba9b54fa2ee005a5";
   };
 
-  buildInputs = [
-    cython
-  ];
+  buildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-   msgpack
-   numpy
-  ];
+  propagatedBuildInputs = [ msgpack numpy ];
 
   checkPhase = ''
     ${python.interpreter} msgpack_numpy.py
@@ -31,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Practical Machine Learning for NLP in Python";
-    homepage = https://github.com/lebedov/msgpack-numpy;
+    homepage = "https://github.com/lebedov/msgpack-numpy";
     license = licenses.bsd3;
     maintainers = with maintainers; [ aborsu ];
   };

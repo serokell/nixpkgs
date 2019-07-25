@@ -1,4 +1,4 @@
-{ callPackage, ... } @ args:
+{ callPackage, ... }@args:
 
 callPackage ./generic.nix (args // rec {
   version = "${branch}.14";

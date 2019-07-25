@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub
-, cmake, extra-cmake-modules, qtquickcontrols, kconfigwidgets, kdeclarative, kdecoration }:
+{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, qtquickcontrols, kconfigwidgets, kdeclarative, kdecoration
+}:
 
 stdenv.mkDerivation rec {
   name = "kdecoration-viewer-2018-07-24";
@@ -20,7 +20,8 @@ stdenv.mkDerivation rec {
       kdecoration-viewer allows to preview a KDecoration plugin. Put your plugins under
       $QT_PLUGIN_PATH/org.kde.kdecoration2 to preview.
     '';
-    homepage = https://blog.martin-graesslin.com/blog/2014/07/kdecoration2-the-road-ahead/;
+    homepage =
+      "https://blog.martin-graesslin.com/blog/2014/07/kdecoration2-the-road-ahead/";
     license = licenses.gpl2;
     maintainers = [ maintainers.gnidorah ];
     platforms = platforms.linux;

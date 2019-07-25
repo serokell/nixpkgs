@@ -15,14 +15,14 @@ let
 
   fullConfig = recursiveUpdate cfg.extraConfig baseConfig;
 
-  cfgUpdate = pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
+  cfgUpdate =
+    pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
 
   pluginsEnv = pkgs.python.buildEnv.override {
     extraLibs = cfg.plugins pkgs.octoprint-plugins;
   };
 
-in
-{
+in {
   ##### interface
 
   options = {
@@ -66,7 +66,7 @@ in
       };
 
       plugins = mkOption {
-        default = plugins: [];
+        default = plugins: [ ];
         defaultText = "plugins: []";
         example = literalExample "plugins: [ m3d-fio ]";
         description = "Additional plugins.";
@@ -74,8 +74,9 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = {};
-        description = "Extra options which are added to OctoPrint's YAML configuration file.";
+        default = { };
+        description =
+          "Extra options which are added to OctoPrint's YAML configuration file.";
       };
 
     };
@@ -86,27 +87,27 @@ in
 
   config = mkIf cfg.enable {
 
-    users.users = optionalAttrs (cfg.user == "octoprint") (singleton
-      { name = "octoprint";
-        group = cfg.group;
-        uid = config.ids.uids.octoprint;
-      });
+    users.users = optionalAttrs (cfg.user == "octoprint") (singleton {
+      name = "octoprint";
+      group = cfg.group;
+      uid = config.ids.uids.octoprint;
+    });
 
-    users.groups = optionalAttrs (cfg.group == "octoprint") (singleton
-      { name = "octoprint";
-        gid = config.ids.gids.octoprint;
-      });
+    users.groups = optionalAttrs (cfg.group == "octoprint") (singleton {
+      name = "octoprint";
+      gid = config.ids.gids.octoprint;
+    });
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.octoprint = {
       description = "OctoPrint, web interface for 3D printers";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path = [ pluginsEnv ];
-      environment.PYTHONPATH = makeSearchPathOutput "lib" pkgs.python.sitePackages [ pluginsEnv ];
+      environment.PYTHONPATH =
+        makeSearchPathOutput "lib" pkgs.python.sitePackages [ pluginsEnv ];
 
       preStart = ''
         if [ -e "${cfg.stateDir}/config.yaml" ]; then

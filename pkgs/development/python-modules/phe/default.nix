@@ -1,15 +1,14 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, isPy3k, click, gmpy2, numpy } :
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, isPy3k, click, gmpy2, numpy }:
 
 let
   pname = "phe";
   version = "1.4.0";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
 
   # https://github.com/n1analytics/python-paillier/issues/51
-  disabled = isPyPy || ! isPy3k;
+  disabled = isPyPy || !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
@@ -23,7 +22,7 @@ buildPythonPackage {
 
   meta = with stdenv.lib; {
     description = "A library for Partially Homomorphic Encryption in Python";
-    homepage = https://github.com/n1analytics/python-paillier;
+    homepage = "https://github.com/n1analytics/python-paillier";
     license = licenses.gpl3;
   };
 }

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pbr
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pbr, isPy3k }:
 
 buildPythonPackage rec {
   pname = "sandboxlib";
@@ -19,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Sandboxing Library for Python";
-    homepage = https://pypi.python.org/pypi/sandboxlib/0.3.1;
+    homepage = "https://pypi.python.org/pypi/sandboxlib/0.3.1";
     license = licenses.gpl2;
   };
 

@@ -6,22 +6,22 @@ with builtins;
 let
   cfg = config.virtualisation;
 
-  sanitizeImageName = image: replaceStrings ["/"] ["-"] image.imageName;
+  sanitizeImageName = image: replaceStrings [ "/" ] [ "-" ] image.imageName;
   hash = drv: head (split "-" (baseNameOf drv.outPath));
   # The label of an ext4 FS is limited to 16 bytes
   labelFromImage = image: substring 0 16 (hash image);
 
   # The Docker image is loaded and some files from /var/lib/docker/
   # are written into a qcow image.
-  preload = image: pkgs.vmTools.runInLinuxVM (
-    pkgs.runCommand "docker-preload-image-${sanitizeImageName image}" {
+  preload = image:
+    pkgs.vmTools.runInLinuxVM
+    (pkgs.runCommand "docker-preload-image-${sanitizeImageName image}" {
       buildInputs = with pkgs; [ docker e2fsprogs utillinux curl kmod ];
       preVM = pkgs.vmTools.createEmptyImage {
         size = cfg.dockerPreloader.qcowSize;
         fullName = "docker-deamon-image.qcow2";
       };
-    }
-    ''
+    } ''
       mkfs.ext4 /dev/vda
       e2label /dev/vda ${labelFromImage image}
       mkdir -p /var/lib/docker
@@ -56,55 +56,53 @@ let
 
   preloadedImages = map preload cfg.dockerPreloader.images;
 
-in
-
-{
+in {
   options.virtualisation.dockerPreloader = {
     images = mkOption {
       default = [ ];
       type = types.listOf types.package;
-      description =
-      ''
+      description = ''
         A list of Docker images to preload (in the /var/lib/docker directory).
       '';
     };
     qcowSize = mkOption {
       default = 1024;
       type = types.int;
-      description =
-      ''
+      description = ''
         The size (MB) of qcow files.
       '';
     };
   };
 
-  config = mkIf (cfg.dockerPreloader.images != []) {
+  config = mkIf (cfg.dockerPreloader.images != [ ]) {
     assertions = [{
       # If docker.storageDriver is null, Docker choose the storage
       # driver. So, in this case, we cannot be sure overlay2 is used.
       assertion = cfg.docker.storageDriver == "overlay2"
-        || cfg.docker.storageDriver == "overlay"
-        || cfg.docker.storageDriver == null;
-      message = "The Docker image Preloader only works with overlay2 storage driver!";
+        || cfg.docker.storageDriver == "overlay" || cfg.docker.storageDriver
+        == null;
+      message =
+        "The Docker image Preloader only works with overlay2 storage driver!";
     }];
 
-    virtualisation.qemu.options =
-      map (path: "-drive if=virtio,file=${path}/disk-image.qcow2,readonly,media=cdrom,format=qcow2")
+    virtualisation.qemu.options = map (path:
+      "-drive if=virtio,file=${path}/disk-image.qcow2,readonly,media=cdrom,format=qcow2")
       preloadedImages;
-
 
     # All attached QCOW files are mounted and their contents are linked
     # to /var/lib/docker/ in order to make image available.
     systemd.services.docker-preloader = {
       description = "Preloaded Docker images";
-      wantedBy = ["docker.service"];
-      after = ["network.target"];
+      wantedBy = [ "docker.service" ];
+      after = [ "network.target" ];
       path = with pkgs; [ mount rsync jq ];
       script = ''
         mkdir -p /var/lib/docker/overlay2/l /var/lib/docker/image/overlay2
         echo '{}' > /tmp/repositories.json
 
-        for i in ${concatStringsSep " " (map labelFromImage cfg.dockerPreloader.images)}; do
+        for i in ${
+          concatStringsSep " " (map labelFromImage cfg.dockerPreloader.images)
+        }; do
           mkdir -p /mnt/docker-images/$i
 
           # The ext4 label is limited to 16 bytes
@@ -126,9 +124,7 @@ in
 
         mv /tmp/repositories.json /var/lib/docker/image/overlay2/repositories.json
       '';
-      serviceConfig = {
-        Type = "oneshot";
-      };
+      serviceConfig = { Type = "oneshot"; };
     };
   };
 }

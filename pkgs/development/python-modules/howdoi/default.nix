@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, requests-cache
-, pygments
-, pyquery
-}:
+{ lib, buildPythonPackage, fetchPypi, six, requests-cache, pygments, pyquery }:
 
 buildPythonPackage rec {
   pname = "howdoi";
@@ -24,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Instant coding answers via the command line";
-    homepage = https://pypi.python.org/pypi/howdoi;
+    homepage = "https://pypi.python.org/pypi/howdoi";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

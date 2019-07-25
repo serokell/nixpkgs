@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, httplib2
-, mock
-, coverage
-}:
+{ stdenv, buildPythonPackage, fetchPypi, httplib2, mock, coverage }:
 
 buildPythonPackage rec {
   pname = "oauth2";

@@ -1,4 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, python, pyyaml, fonttools, fontforge }:
+{ lib, buildPythonApplication, fetchFromGitHub, python, pyyaml, fonttools, fontforge
+}:
 
 buildPythonApplication rec {
   name = "scfbuild-${version}";
@@ -23,7 +24,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = "SVGinOT color font builder";
-    homepage = https://github.com/eosrei/scfbuild;
+    homepage = "https://github.com/eosrei/scfbuild";
     license = licenses.gpl3;
     maintainers = with maintainers; [ abbradar ];
   };

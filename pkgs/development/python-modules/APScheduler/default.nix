@@ -1,21 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, pytest
-, pytestcov
-, sqlalchemy
-, tornado
-, twisted
-, mock
-, trollius
-, gevent
-, six
-, pytz
-, tzlocal
-, funcsigs
-, futures
-, isPy3k
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytestcov, sqlalchemy, tornado, twisted, mock, trollius, gevent, six, pytz, tzlocal, funcsigs, futures, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -27,27 +10,13 @@ buildPythonPackage rec {
     sha256 = "0q22lgp001hkk4z4xs2b2hlix84ka15i576p33fmgp69zn4bhmlg";
   };
 
-  buildInputs = [
-    setuptools_scm
-  ];
+  buildInputs = [ setuptools_scm ];
 
-  checkInputs = [
-    pytest
-    pytestcov
-    sqlalchemy
-    tornado
-    twisted
-    mock
-    trollius
-    gevent
-  ];
+  checkInputs =
+    [ pytest pytestcov sqlalchemy tornado twisted mock trollius gevent ];
 
-  propagatedBuildInputs = [
-    six
-    pytz
-    tzlocal
-    funcsigs
-  ] ++ lib.optional (!isPy3k) futures;
+  propagatedBuildInputs = [ six pytz tzlocal funcsigs ]
+    ++ lib.optional (!isPy3k) futures;
 
   checkPhase = ''
     py.test
@@ -57,8 +26,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A Python library that lets you schedule your Python code to be executed";
-    homepage = https://pypi.python.org/pypi/APScheduler/;
+    description =
+      "A Python library that lets you schedule your Python code to be executed";
+    homepage = "https://pypi.python.org/pypi/APScheduler/";
     license = licenses.mit;
   };
 }

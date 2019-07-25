@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Collection of wallpapers for elementary";
-    homepage = https://github.com/elementary/wallpapers;
+    homepage = "https://github.com/elementary/wallpapers";
     license = licenses.publicDomain;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

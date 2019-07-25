@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, autoPatchelfHook, makeWrapper
-, alsaLib, xorg
-, gtk3, pango, gdk_pixbuf, cairo, glib, freetype
-, libpulseaudio, xdg_utils
+{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, alsaLib, xorg, gtk3, pango, gdk_pixbuf, cairo, glib, freetype, libpulseaudio, xdg_utils
 }:
 
 stdenv.mkDerivation rec {
@@ -9,7 +6,11 @@ stdenv.mkDerivation rec {
   version = "5.980";
 
   src = fetchurl {
-    url = "https://www.reaper.fm/files/${stdenv.lib.versions.major version}.x/reaper${builtins.replaceStrings ["."] [""] version}_linux_x86_64.tar.xz";
+    url = "https://www.reaper.fm/files/${
+      stdenv.lib.versions.major version
+    }.x/reaper${
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }_linux_x86_64.tar.xz";
     sha256 = "0ij5cx43gf05q0d57p4slsp7wkq2cdb3ymh2n5iqgqjl9rf26h1q";
   };
 
@@ -30,9 +31,7 @@ stdenv.mkDerivation rec {
     xdg_utils
   ];
 
-  runtimeDependencies = [
-    gtk3
-  ];
+  runtimeDependencies = [ gtk3 ];
 
   dontBuild = true;
 
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Digital audio workstation";
-    homepage = https://www.reaper.fm/;
+    homepage = "https://www.reaper.fm/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ jfrankenau ];

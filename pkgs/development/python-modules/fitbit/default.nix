@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, coverage
-, dateutil
-, freezegun
-, mock
-, requests-mock
-, requests_oauthlib
-, sphinx
+{ lib, buildPythonPackage, fetchFromGitHub, coverage, dateutil, freezegun, mock, requests-mock, requests_oauthlib, sphinx
 }:
 
 buildPythonPackage rec {
@@ -35,7 +26,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fitbit API Python Client Implementation";
     license = licenses.asl20;
-    homepage = https://github.com/orcasgit/python-fitbit;
+    homepage = "https://github.com/orcasgit/python-fitbit";
     maintainers = with maintainers; [ delroth ];
   };
 }

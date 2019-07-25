@@ -1,8 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig
-, iproute, lzo, openssl, pam
-, useSystemd ? stdenv.isLinux, systemd ? null, utillinux ? null
-, pkcs11Support ? false, pkcs11helper ? null,
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, iproute, lzo, openssl, pam, useSystemd ?
+  stdenv.isLinux, systemd ? null, utillinux ? null, pkcs11Support ?
+    false, pkcs11helper ? null, }:
 
 assert useSystemd -> (systemd != null);
 assert pkcs11Support -> (pkcs11helper != null);
@@ -13,7 +11,8 @@ let
   # There is some fairly brittle string substitutions going on to replace paths,
   # so please verify this script in case you are upgrading it
   update-resolved = fetchurl {
-    url = "https://raw.githubusercontent.com/jonathanio/update-systemd-resolved/v1.2.7/update-systemd-resolved";
+    url =
+      "https://raw.githubusercontent.com/jonathanio/update-systemd-resolved/v1.2.7/update-systemd-resolved";
     sha256 = "12zfzh42apwbj7ks5kfxf3far7kaghlby4yapbhn00q8pbdlw7pq";
   };
 
@@ -28,22 +27,21 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [ lzo openssl ]
-                  ++ optionals stdenv.isLinux [ pam iproute ]
-                  ++ optional useSystemd systemd
-                  ++ optional pkcs11Support pkcs11helper;
+  buildInputs = [ lzo openssl ] ++ optionals stdenv.isLinux [ pam iproute ]
+    ++ optional useSystemd systemd ++ optional pkcs11Support pkcs11helper;
 
   patches = [
-    ( fetchpatch {
-      url = "https://sources.debian.org/data/main/o/openvpn/2.4.7-1/debian/patches/fix-pkcs11-helper-hang.patch";
+    (fetchpatch {
+      url =
+        "https://sources.debian.org/data/main/o/openvpn/2.4.7-1/debian/patches/fix-pkcs11-helper-hang.patch";
       sha256 = "0c8jzbfsmb0mm9f7kkjxac1hk8q6igm267s687vx3mdqs1wys6bm";
     })
   ];
 
   configureFlags = optionals stdenv.isLinux [
     "--enable-iproute2"
-    "IPROUTE=${iproute}/sbin/ip" ]
-    ++ optional useSystemd "--enable-systemd"
+    "IPROUTE=${iproute}/sbin/ip"
+  ] ++ optional useSystemd "--enable-systemd"
     ++ optional pkcs11Support "--enable-pkcs11"
     ++ optional stdenv.isDarwin "--disable-plugin-auth-pam";
 
@@ -69,7 +67,7 @@ in stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "A robust and highly flexible tunneling application";
     downloadPage = "https://openvpn.net/index.php/open-source/downloads.html";
-    homepage = https://openvpn.net/;
+    homepage = "https://openvpn.net/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ viric ];
     platforms = platforms.unix;

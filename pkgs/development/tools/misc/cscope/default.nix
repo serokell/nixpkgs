@@ -1,6 +1,4 @@
-{ fetchurl, stdenv, ncurses
-, emacsSupport ? true, emacs
-}:
+{ fetchurl, stdenv, ncurses, emacsSupport ? true, emacs }:
 
 stdenv.mkDerivation rec {
   name = "cscope-15.9";
@@ -44,9 +42,9 @@ stdenv.mkDerivation rec {
 
     license = "BSD-style";
 
-    homepage = http://cscope.sourceforge.net/;
+    homepage = "http://cscope.sourceforge.net/";
 
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
 
     platforms = stdenv.lib.platforms.unix;
   };

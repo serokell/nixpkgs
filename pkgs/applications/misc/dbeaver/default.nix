@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, makeDesktopItem, makeWrapper
-, fontconfig, freetype, glib, gtk3
-, jdk, libX11, libXrender, libXtst, zlib }:
+{ stdenv, fetchurl, makeDesktopItem, makeWrapper, fontconfig, freetype, glib, gtk3, jdk, libX11, libXrender, libXtst, zlib
+}:
 
 # The build process is almost like eclipse's.
 # See `pkgs/applications/editors/eclipse/*.nix`
@@ -19,17 +18,14 @@ stdenv.mkDerivation rec {
     categories = "Application;Development;";
   };
 
-  buildInputs = [
-    fontconfig freetype glib gtk3
-    jdk libX11 libXrender libXtst zlib
-  ];
+  buildInputs =
+    [ fontconfig freetype glib gtk3 jdk libX11 libXrender libXtst zlib ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   src = fetchurl {
-    url = "https://dbeaver.io/files/${version}/dbeaver-ce-${version}-linux.gtk.x86_64.tar.gz";
+    url =
+      "https://dbeaver.io/files/${version}/dbeaver-ce-${version}-linux.gtk.x86_64.tar.gz";
     sha256 = "0ngfv5pcj8hs7zcddwk0jw0l7hnm768wp76yrfyk38wkijk9f412";
   };
 
@@ -43,7 +39,9 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/dbeaver/dbeaver $out/bin/dbeaver \
       --prefix PATH : ${jdk}/bin \
-      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath ([ glib gtk3 libXtst ])} \
+      --prefix LD_LIBRARY_PATH : ${
+      stdenv.lib.makeLibraryPath ([ glib gtk3 libXtst ])
+      } \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
 
     # Create desktop item.
@@ -55,8 +53,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://dbeaver.io/;
-    description = "Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more";
+    homepage = "https://dbeaver.io/";
+    description =
+      "Universal SQL Client for developers, DBA and analysts. Supports MySQL, PostgreSQL, MariaDB, SQLite, and more";
     longDescription = ''
       Free multi-platform database tool for developers, SQL programmers, database
       administrators and analysts. Supports all popular databases: MySQL,

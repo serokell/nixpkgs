@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, cffi
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, cffi }:
 
 buildPythonPackage rec {
   pname = "lmdb";

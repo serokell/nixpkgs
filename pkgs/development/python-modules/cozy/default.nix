@@ -1,13 +1,12 @@
-{ buildPythonPackage, isPy3k, fetchFromGitHub, lib,
-  z3, ply, python-igraph, oset, ordered-set, dictionaries }:
+{ buildPythonPackage, isPy3k, fetchFromGitHub, lib, z3, ply, python-igraph, oset, ordered-set, dictionaries
+}:
 
 buildPythonPackage {
   pname = "cozy";
   version = "2.0a1";
 
-  propagatedBuildInputs = [
-    z3 ply python-igraph oset ordered-set dictionaries
-  ];
+  propagatedBuildInputs =
+    [ z3 ply python-igraph oset ordered-set dictionaries ];
 
   src = fetchFromGitHub {
     owner = "CozySynthesizer";
@@ -33,7 +32,7 @@ buildPythonPackage {
 
   meta = {
     description = "The collection synthesizer";
-    homepage = https://cozy.uwplse.org/;
+    homepage = "https://cozy.uwplse.org/";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.MostAwesomeDude ];
   };

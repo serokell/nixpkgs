@@ -24,8 +24,9 @@ pythonPackages.buildPythonPackage rec {
   disabled = pythonPackages.isPy3k;
 
   meta = {
-    description = "Noto fonts support tools and scripts plus web site generation";
+    description =
+      "Noto fonts support tools and scripts plus web site generation";
     license = lib.licenses.asl20;
-    homepage = https://github.com/googlei18n/nototools;
+    homepage = "https://github.com/googlei18n/nototools";
   };
 }

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, ipaddress
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, ipaddress, python }:
 
 buildPythonPackage rec {
   version = "0.1.6";
@@ -17,12 +12,13 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ ipaddress ];
 
   checkPhase = ''
-   ${python.interpreter} -m unittest discover
+    ${python.interpreter} -m unittest discover
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pydron/ifaddr;
-    description = "Enumerates all IP addresses on all network adapters of the system";
+    homepage = "https://github.com/pydron/ifaddr";
+    description =
+      "Enumerates all IP addresses on all network adapters of the system";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

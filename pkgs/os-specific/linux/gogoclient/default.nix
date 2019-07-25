@@ -1,24 +1,25 @@
-{stdenv, fetchurl, openssl, nettools, iproute, sysctl}:
+{ stdenv, fetchurl, openssl, nettools, iproute, sysctl }:
 
-let baseName = "gogoclient";
-    version  = "1.2";
-in
+let
+  baseName = "gogoclient";
+  version = "1.2";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${baseName}-${version}";
 
   src = fetchurl {
     #url = http://gogo6.com/downloads/gogoc-1_2-RELEASE.tar.gz;
-    url = https://src.fedoraproject.org/repo/pkgs/gogoc/gogoc-1_2-RELEASE.tar.gz/41177ed683cf511cc206c7782c37baa9/gogoc-1_2-RELEASE.tar.gz;
+    url =
+      "https://src.fedoraproject.org/repo/pkgs/gogoc/gogoc-1_2-RELEASE.tar.gz/41177ed683cf511cc206c7782c37baa9/gogoc-1_2-RELEASE.tar.gz";
     sha256 = "a0ef45c0bd1fc9964dc8ac059b7d78c12674bf67ef641740554e166fa99a2f49";
   };
-  patches = [./gcc46-include-fix.patch ./config-paths.patch ];
-  makeFlags = ["target=linux"];
-  installFlags = ["installdir=$(out)"];
+  patches = [ ./gcc46-include-fix.patch ./config-paths.patch ];
+  makeFlags = [ "target=linux" ];
+  installFlags = [ "installdir=$(out)" ];
 
   hardeningDisable = [ "format" ];
 
-  buildInputs = [openssl];
+  buildInputs = [ openssl ];
 
   preFixup = ''
     mkdir -p $out/share/${name}
@@ -35,8 +36,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://ipv6.ernet.in/Tunnel_broker;
-    description = "Client to connect to the Freenet6 IPv6 tunnel broker service";
+    homepage = "https://ipv6.ernet.in/Tunnel_broker";
+    description =
+      "Client to connect to the Freenet6 IPv6 tunnel broker service";
     maintainers = [ maintainers.bluescreen303 ];
     license = licenses.bsd3;
     platforms = platforms.linux;

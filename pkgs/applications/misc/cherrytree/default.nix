@@ -11,11 +11,16 @@ stdenv.mkDerivation rec {
     sha256 = "1ns87xl2sgrf3nha4xkhp0xcxlycqszlp6xdrn95lg6vzm0fa8dg";
   };
 
-  buildInputs = with pythonPackages;
-  [ python gettext wrapPython pygtk dbus-python pygtksourceview ];
+  buildInputs = with pythonPackages; [
+    python
+    gettext
+    wrapPython
+    pygtk
+    dbus-python
+    pygtksourceview
+  ];
 
-  pythonPath = with pythonPackages;
-  [ pygtk dbus-python pygtksourceview ];
+  pythonPath = with pythonPackages; [ pygtk dbus-python pygtksourceview ];
 
   patches = [ ./subprocess.patch ];
 
@@ -42,7 +47,7 @@ stdenv.mkDerivation rec {
       around your hard drive can be conveniently placed into a
       Cherrytree document where you can easily find it.
     '';
-    homepage = http://www.giuspen.com/cherrytree;
+    homepage = "http://www.giuspen.com/cherrytree";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.AndersonTorres ];

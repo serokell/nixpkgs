@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, isPy27
-, six
-, requests
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, six, requests }:
 
 buildPythonPackage rec {
   pname = "ipfsapi";

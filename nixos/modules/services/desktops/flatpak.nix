@@ -3,8 +3,7 @@
 
 with lib;
 
-let
-  cfg = config.services.flatpak;
+let cfg = config.services.flatpak;
 in {
   meta = {
     doc = ./flatpak.xml;
@@ -12,12 +11,7 @@ in {
   };
 
   ###### interface
-  options = {
-    services.flatpak = {
-      enable = mkEnableOption "flatpak";
-    };
-  };
-
+  options = { services.flatpak = { enable = mkEnableOption "flatpak"; }; };
 
   ###### implementation
   config = mkIf cfg.enable {
@@ -28,9 +22,7 @@ in {
 
     systemd.packages = [ pkgs.flatpak ];
 
-    environment.profiles = [
-      "$HOME/.local/share/flatpak/exports"
-      "/var/lib/flatpak/exports"
-    ];
+    environment.profiles =
+      [ "$HOME/.local/share/flatpak/exports" "/var/lib/flatpak/exports" ];
   };
 }

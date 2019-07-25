@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-}:
+{ stdenv, buildPythonPackage, fetchurl }:
 
 buildPythonPackage rec {
   pname = "mox";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://code.google.com/p/pymox/;
+    homepage = "http://code.google.com/p/pymox/";
     description = "A mock object framework for Python";
     license = licenses.asl20;
   };

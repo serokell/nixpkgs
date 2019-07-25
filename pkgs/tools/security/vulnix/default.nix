@@ -19,17 +19,8 @@ pythonPackages.buildPythonApplication rec {
     pytest-flake8
   ];
 
-  propagatedBuildInputs = [
-    nix
-  ] ++ (with pythonPackages; [
-    click
-    colorama
-    lxml
-    pyyaml
-    requests
-    toml
-    zodb
-  ]);
+  propagatedBuildInputs = [ nix ]
+    ++ (with pythonPackages; [ click colorama lxml pyyaml requests toml zodb ]);
 
   postBuild = "make -C doc";
 
@@ -46,7 +37,7 @@ pythonPackages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "NixOS vulnerability scanner";
-    homepage = https://github.com/flyingcircusio/vulnix;
+    homepage = "https://github.com/flyingcircusio/vulnix";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ckauhaus plumps ];
   };

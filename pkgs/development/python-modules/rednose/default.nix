@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy27, nose, six, colorama, termstyle }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy27, nose, six, colorama, termstyle
+}:
 
 buildPythonPackage rec {
   pname = "rednose";
@@ -22,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A python nose plugin adding color to console results";
-    homepage = https://github.com/JBKahn/rednose;
+    homepage = "https://github.com/JBKahn/rednose";
     license = licenses.mit;
   };
 }

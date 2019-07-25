@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2
-, desktop-file-utils, python3, wrapGAppsHook , gtk3, gnome3, gnome-autoar
-, glib-networking, shared-mime-info, libnotify, libexif, libseccomp , exempi
-, librsvg, tracker, tracker-miners, gexiv2, libselinux, gdk_pixbuf
-, substituteAll, bubblewrap, gst_all_1, gsettings-desktop-schemas
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2, desktop-file-utils, python3, wrapGAppsHook, gtk3, gnome3, gnome-autoar, glib-networking, shared-mime-info, libnotify, libexif, libseccomp, exempi, librsvg, tracker, tracker-miners, gexiv2, libselinux, gdk_pixbuf, substituteAll, bubblewrap, gst_all_1, gsettings-desktop-schemas
 }:
 
 let
@@ -12,19 +8,39 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0vmrvimv4183l3ij4kv0ir2c9rfzk7gh3xc2pa4wkqq9kn7h6m7s";
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig libxml2 gettext python3 wrapGAppsHook
+    meson
+    ninja
+    pkgconfig
+    libxml2
+    gettext
+    python3
+    wrapGAppsHook
     desktop-file-utils
   ];
 
   buildInputs = [
-    glib-networking shared-mime-info libexif gtk3 exempi libnotify libselinux
-    tracker tracker-miners gexiv2 libseccomp bubblewrap gst_all_1.gst-plugins-base
-    gnome3.adwaita-icon-theme gsettings-desktop-schemas
+    glib-networking
+    shared-mime-info
+    libexif
+    gtk3
+    exempi
+    libnotify
+    libselinux
+    tracker
+    tracker-miners
+    gexiv2
+    libseccomp
+    bubblewrap
+    gst_all_1.gst-plugins-base
+    gnome3.adwaita-icon-theme
+    gsettings-desktop-schemas
   ];
 
   propagatedBuildInputs = [ gnome-autoar ];
@@ -62,7 +78,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The file manager for GNOME";
-    homepage = https://wiki.gnome.org/Apps/Files;
+    homepage = "https://wiki.gnome.org/Apps/Files";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = gnome3.maintainers;

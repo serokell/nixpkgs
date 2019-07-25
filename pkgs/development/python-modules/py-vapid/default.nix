@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, flake8, mock, nose, pytest
-, cryptography
+{ lib, buildPythonPackage, fetchPypi, flake8, mock, nose, pytest, cryptography
 }:
 
 buildPythonPackage rec {
@@ -17,8 +15,9 @@ buildPythonPackage rec {
   checkInputs = [ flake8 mock nose pytest ];
 
   meta = with lib; {
-    description = "VAPID is a voluntary standard for WebPush subscription providers";
-    homepage = https://github.com/mozilla-services/vapid;
+    description =
+      "VAPID is a voluntary standard for WebPush subscription providers";
+    homepage = "https://github.com/mozilla-services/vapid";
     license = licenses.mpl20;
   };
 }

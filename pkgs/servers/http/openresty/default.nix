@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, zlib, pcre, postgresql, libxml2, libxslt,
-gd, geoip, perl }:
+{ stdenv, fetchurl, openssl, zlib, pcre, postgresql, libxml2, libxslt, gd, geoip, perl
+}:
 
 with stdenv.lib;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ openssl zlib pcre libxml2 libxslt gd geoip postgresql ];
   nativeBuildInputs = [ perl ];
 
-  NIX_CFLAGS_COMPILE = ["-I${libxml2.dev}/include/libxml2"];
+  NIX_CFLAGS_COMPILE = [ "-I${libxml2.dev}/include/libxml2" ];
 
   preConfigure = ''
     patchShebangs .
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A fast web application server built on Nginx";
-    homepage    = http://openresty.org;
-    license     = licenses.bsd2;
-    platforms   = platforms.all;
+    homepage = "http://openresty.org";
+    license = licenses.bsd2;
+    platforms = platforms.all;
     maintainers = with maintainers; [ thoughtpolice lblasc ];
   };
 }

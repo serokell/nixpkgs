@@ -12,7 +12,5 @@ let
   };
 in {
   stable = mkTelegram stableVersion;
-  preview = mkTelegram (stableVersion // {
-    stable = false;
-  });
+  preview = mkTelegram (stableVersion // { stable = false; });
 }

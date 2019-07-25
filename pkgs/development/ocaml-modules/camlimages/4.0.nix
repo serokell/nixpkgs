@@ -1,11 +1,11 @@
-{ stdenv, fetchurl, omake, ocaml, libtiff, libjpeg, libpng, giflib, findlib, libXpm, freetype, graphicsmagick, ghostscript }:
+{ stdenv, fetchurl, omake, ocaml, libtiff, libjpeg, libpng, giflib, findlib, libXpm, freetype, graphicsmagick, ghostscript
+}:
 
 let
   pname = "camlimages";
   version = "4.0.1";
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   src = fetchurl {
@@ -15,7 +15,7 @@ stdenv.mkDerivation {
 
   buildInputs = [ ocaml omake findlib graphicsmagick ghostscript ];
 
-  propagatedBuildInputs = [libtiff libjpeg libpng giflib freetype libXpm ];
+  propagatedBuildInputs = [ libtiff libjpeg libpng giflib freetype libXpm ];
 
   createFindlibDestdir = true;
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     branch = "4.0";
-    homepage = https://bitbucket.org/camlspotter/camlimages;
+    homepage = "https://bitbucket.org/camlspotter/camlimages";
     description = "OCaml image processing library";
     license = licenses.lgpl2;
     maintainers = [ maintainers.vbgl ];

@@ -6,25 +6,22 @@ let
 
   cfg = config.services.postgresql;
 
-  postgresql =
-    if cfg.extraPlugins == []
-      then cfg.package
-      else cfg.package.withPackages (_: cfg.extraPlugins);
+  postgresql = if cfg.extraPlugins == [ ] then
+    cfg.package
+  else
+    cfg.package.withPackages (_: cfg.extraPlugins);
 
   # The main PostgreSQL configuration file.
-  configFile = pkgs.writeText "postgresql.conf"
-    ''
-      hba_file = '${pkgs.writeText "pg_hba.conf" cfg.authentication}'
-      ident_file = '${pkgs.writeText "pg_ident.conf" cfg.identMap}'
-      log_destination = 'stderr'
-      listen_addresses = '${if cfg.enableTCPIP then "*" else "localhost"}'
-      port = ${toString cfg.port}
-      ${cfg.extraConfig}
-    '';
+  configFile = pkgs.writeText "postgresql.conf" ''
+    hba_file = '${pkgs.writeText "pg_hba.conf" cfg.authentication}'
+    ident_file = '${pkgs.writeText "pg_ident.conf" cfg.identMap}'
+    log_destination = 'stderr'
+    listen_addresses = '${if cfg.enableTCPIP then "*" else "localhost"}'
+    port = ${toString cfg.port}
+    ${cfg.extraConfig}
+  '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -94,17 +91,14 @@ in
 
       ensureDatabases = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           Ensures that the specified databases exist.
           This option will never delete existing databases, especially not when the value of this
           option is changed. This means that databases created once through this option or
           otherwise have to be removed manually.
         '';
-        example = [
-          "gitea"
-          "nextcloud"
-        ];
+        example = [ "gitea" "nextcloud" ];
       };
 
       ensureUsers = mkOption {
@@ -118,7 +112,7 @@ in
             };
             ensurePermissions = mkOption {
               type = types.attrsOf types.str;
-              default = {};
+              default = { };
               description = ''
                 Permissions to ensure for the user, specified as an attribute set.
                 The attribute names specify the database and tables to grant the permissions for.
@@ -139,7 +133,7 @@ in
             };
           };
         });
-        default = [];
+        default = [ ];
         description = ''
           Ensures that the specified users exist and have at least the ensured permissions.
           The PostgreSQL users will be identified using peer authentication. This authenticates the Unix user with the
@@ -178,8 +172,9 @@ in
 
       extraPlugins = mkOption {
         type = types.listOf types.path;
-        default = [];
-        example = literalExample "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
+        default = [ ];
+        example =
+          literalExample "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
         description = ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
           match version for <literal>services.postgresql.package</literal> value.
@@ -189,7 +184,8 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description = "Additional text to be appended to <filename>postgresql.conf</filename>.";
+        description =
+          "Additional text to be appended to <filename>postgresql.conf</filename>.";
       };
 
       recoveryConfig = mkOption {
@@ -201,18 +197,20 @@ in
       };
       superUser = mkOption {
         type = types.str;
-        default= if versionAtLeast config.system.stateVersion "17.09" then "postgres" else "root";
+        default = if versionAtLeast config.system.stateVersion "17.09" then
+          "postgres"
+        else
+          "root";
         internal = true;
         description = ''
           NixOS traditionally used 'root' as superuser, most other distros use 'postgres'.
           From 17.09 we also try to follow this standard. Internal since changing this value
           would lead to breakage while setting up databases.
         '';
-        };
+      };
     };
 
   };
-
 
   ###### implementation
 
@@ -222,123 +220,129 @@ in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
-      mkDefault (if versionAtLeast config.system.stateVersion "17.09" then pkgs.postgresql_9_6
-            else if versionAtLeast config.system.stateVersion "16.03" then pkgs.postgresql_9_5
-            else pkgs.postgresql_9_4);
+      mkDefault (if versionAtLeast config.system.stateVersion "17.09" then
+        pkgs.postgresql_9_6
+      else if versionAtLeast config.system.stateVersion "16.03" then
+        pkgs.postgresql_9_5
+      else
+        pkgs.postgresql_9_4);
 
-    services.postgresql.dataDir =
-      mkDefault (if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/postgresql/${config.services.postgresql.package.psqlSchema}"
-                 else "/var/db/postgresql");
+    services.postgresql.dataDir = mkDefault
+      (if versionAtLeast config.system.stateVersion "17.09" then
+        "/var/lib/postgresql/${config.services.postgresql.package.psqlSchema}"
+      else
+        "/var/db/postgresql");
 
-    services.postgresql.authentication = mkAfter
-      ''
-        # Generated file; do not edit!
-        local all all              ident
-        host  all all 127.0.0.1/32 md5
-        host  all all ::1/128      md5
-      '';
+    services.postgresql.authentication = mkAfter ''
+      # Generated file; do not edit!
+      local all all              ident
+      host  all all 127.0.0.1/32 md5
+      host  all all ::1/128      md5
+    '';
 
-    users.users.postgres =
-      { name = "postgres";
-        uid = config.ids.uids.postgres;
-        group = "postgres";
-        description = "PostgreSQL server user";
-        home = "${cfg.dataDir}";
-        useDefaultShell = true;
-      };
+    users.users.postgres = {
+      name = "postgres";
+      uid = config.ids.uids.postgres;
+      group = "postgres";
+      description = "PostgreSQL server user";
+      home = "${cfg.dataDir}";
+      useDefaultShell = true;
+    };
 
     users.groups.postgres.gid = config.ids.gids.postgres;
 
     environment.systemPackages = [ postgresql ];
 
-    systemd.services.postgresql =
-      { description = "PostgreSQL Server";
+    systemd.services.postgresql = {
+      description = "PostgreSQL Server";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
 
-        environment.PGDATA = cfg.dataDir;
+      environment.PGDATA = cfg.dataDir;
 
-        path = [ postgresql ];
+      path = [ postgresql ];
 
-        preStart =
-          ''
-            # Create data directory.
-            if ! test -e ${cfg.dataDir}/PG_VERSION; then
-              mkdir -m 0700 -p ${cfg.dataDir}
-              rm -f ${cfg.dataDir}/*.conf
-              chown -R postgres:postgres ${cfg.dataDir}
-            fi
-          ''; # */
+      preStart = ''
+        # Create data directory.
+        if ! test -e ${cfg.dataDir}/PG_VERSION; then
+          mkdir -m 0700 -p ${cfg.dataDir}
+          rm -f ${cfg.dataDir}/*.conf
+          chown -R postgres:postgres ${cfg.dataDir}
+        fi
+      ''; # */
 
-        script =
-          ''
-            # Initialise the database.
-            if ! test -e ${cfg.dataDir}/PG_VERSION; then
-              initdb -U ${cfg.superUser}
-              # See postStart!
-              touch "${cfg.dataDir}/.first_startup"
-            fi
-            ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
-            ${optionalString (cfg.recoveryConfig != null) ''
-              ln -sfn "${pkgs.writeText "recovery.conf" cfg.recoveryConfig}" \
-                "${cfg.dataDir}/recovery.conf"
-            ''}
+      script = ''
+        # Initialise the database.
+        if ! test -e ${cfg.dataDir}/PG_VERSION; then
+          initdb -U ${cfg.superUser}
+          # See postStart!
+          touch "${cfg.dataDir}/.first_startup"
+        fi
+        ln -sfn "${configFile}" "${cfg.dataDir}/postgresql.conf"
+        ${optionalString (cfg.recoveryConfig != null) ''
+          ln -sfn "${pkgs.writeText "recovery.conf" cfg.recoveryConfig}" \
+            "${cfg.dataDir}/recovery.conf"
+        ''}
 
-             exec postgres
-          '';
+         exec postgres
+      '';
 
-        serviceConfig =
-          { ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-            User = "postgres";
-            Group = "postgres";
-            PermissionsStartOnly = true;
-            RuntimeDirectory = "postgresql";
-            Type = if lib.versionAtLeast cfg.package.version "9.6"
-                   then "notify"
-                   else "simple";
+      serviceConfig = {
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        User = "postgres";
+        Group = "postgres";
+        PermissionsStartOnly = true;
+        RuntimeDirectory = "postgresql";
+        Type = if lib.versionAtLeast cfg.package.version "9.6" then
+          "notify"
+        else
+          "simple";
 
-            # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
-            # http://www.postgresql.org/docs/current/static/server-shutdown.html
-            KillSignal = "SIGINT";
-            KillMode = "mixed";
+        # Shut down Postgres using SIGINT ("Fast Shutdown mode").  See
+        # http://www.postgresql.org/docs/current/static/server-shutdown.html
+        KillSignal = "SIGINT";
+        KillMode = "mixed";
 
-            # Give Postgres a decent amount of time to clean up after
-            # receiving systemd's SIGINT.
-            TimeoutSec = 120;
-          };
-
-        # Wait for PostgreSQL to be ready to accept connections.
-        postStart =
-          ''
-            PSQL="${pkgs.sudo}/bin/sudo -u ${cfg.superUser} psql --port=${toString cfg.port}"
-
-            while ! $PSQL -d postgres -c "" 2> /dev/null; do
-                if ! kill -0 "$MAINPID"; then exit 1; fi
-                sleep 0.1
-            done
-
-            if test -e "${cfg.dataDir}/.first_startup"; then
-              ${optionalString (cfg.initialScript != null) ''
-                $PSQL -f "${cfg.initialScript}" -d postgres
-              ''}
-              rm -f "${cfg.dataDir}/.first_startup"
-            fi
-          '' + optionalString (cfg.ensureDatabases != []) ''
-            ${concatMapStrings (database: ''
-              $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc "CREATE DATABASE ${database}"
-            '') cfg.ensureDatabases}
-          '' + ''
-            ${concatMapStrings (user: ''
-              $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc "CREATE USER ${user.name}"
-              ${concatStringsSep "\n" (mapAttrsToList (database: permission: ''
-                $PSQL -tAc "GRANT ${permission} ON ${database} TO ${user.name}"
-              '') user.ensurePermissions)}
-            '') cfg.ensureUsers}
-          '';
-
-        unitConfig.RequiresMountsFor = "${cfg.dataDir}";
+        # Give Postgres a decent amount of time to clean up after
+        # receiving systemd's SIGINT.
+        TimeoutSec = 120;
       };
+
+      # Wait for PostgreSQL to be ready to accept connections.
+      postStart = ''
+        PSQL="${pkgs.sudo}/bin/sudo -u ${cfg.superUser} psql --port=${
+          toString cfg.port
+        }"
+
+        while ! $PSQL -d postgres -c "" 2> /dev/null; do
+            if ! kill -0 "$MAINPID"; then exit 1; fi
+            sleep 0.1
+        done
+
+        if test -e "${cfg.dataDir}/.first_startup"; then
+          ${
+          optionalString (cfg.initialScript != null) ''
+            $PSQL -f "${cfg.initialScript}" -d postgres
+          ''
+          }
+          rm -f "${cfg.dataDir}/.first_startup"
+        fi
+      '' + optionalString (cfg.ensureDatabases != [ ]) ''
+        ${concatMapStrings (database: ''
+          $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc "CREATE DATABASE ${database}"
+        '') cfg.ensureDatabases}
+      '' + ''
+        ${concatMapStrings (user: ''
+          $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc "CREATE USER ${user.name}"
+          ${concatStringsSep "\n" (mapAttrsToList (database: permission: ''
+            $PSQL -tAc "GRANT ${permission} ON ${database} TO ${user.name}"
+          '') user.ensurePermissions)}
+        '') cfg.ensureUsers}
+      '';
+
+      unitConfig.RequiresMountsFor = "${cfg.dataDir}";
+    };
 
   };
 

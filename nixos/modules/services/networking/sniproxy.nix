@@ -12,8 +12,7 @@ let
     ${cfg.config}
   '';
 
-in
-{
+in {
   options = {
     services.sniproxy = {
       enable = mkEnableOption "sniproxy server";
@@ -33,21 +32,22 @@ in
       config = mkOption {
         type = types.lines;
         default = "";
-        description = "sniproxy.conf configuration excluding the daemon username and pid file.";
+        description =
+          "sniproxy.conf configuration excluding the daemon username and pid file.";
         example = literalExample ''
-          error_log {
-            filename /var/log/sniproxy/error.log
+            error_log {
+              filename /var/log/sniproxy/error.log
+            }
+            access_log {
+              filename /var/log/sniproxy/access.log
+            }
+            listen 443 {
+              proto tls
+            }
+            table {
+              example.com 192.0.2.10
+              example.net 192.0.2.20
           }
-          access_log {
-            filename /var/log/sniproxy/access.log
-          }
-          listen 443 {
-            proto tls
-          }
-          table {
-            example.com 192.0.2.10
-            example.net 192.0.2.20
-        }
         '';
       };
 
@@ -90,9 +90,7 @@ in
     };
 
     users.groups = mkIf (cfg.group == "sniproxy") {
-      sniproxy = {
-        gid = config.ids.gids.sniproxy;
-      };
+      sniproxy = { gid = config.ids.gids.sniproxy; };
     };
 
   };

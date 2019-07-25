@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, urllib3, certifi
-, gevent, geventhttpclient, mock, fastimport
-, git, glibcLocales }:
+{ stdenv, buildPythonPackage, fetchPypi, urllib3, certifi, gevent, geventhttpclient, mock, fastimport, git, glibcLocales
+}:
 
 buildPythonPackage rec {
   version = "0.19.11";
@@ -22,8 +20,9 @@ buildPythonPackage rec {
   doCheck = !stdenv.isDarwin;
 
   meta = with stdenv.lib; {
-    description = "Simple Python implementation of the Git file formats and protocols";
-    homepage = https://samba.org/~jelmer/dulwich/;
+    description =
+      "Simple Python implementation of the Git file formats and protocols";
+    homepage = "https://samba.org/~jelmer/dulwich/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ koral ];
   };

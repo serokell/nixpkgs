@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lvm2, libuuid, gettext, readline
-, utillinux, check, enableStatic ? false }:
+{ stdenv, fetchurl, lvm2, libuuid, gettext, readline, utillinux, check, enableStatic ?
+  false }:
 
 stdenv.mkDerivation rec {
   name = "parted-3.1";
@@ -9,15 +9,14 @@ stdenv.mkDerivation rec {
     sha256 = "05fa4m1bky9d13hqv91jlnngzlyn7y4rnnyq6d86w0dg3vww372y";
   };
 
-  buildInputs = [ libuuid ]
-    ++ stdenv.lib.optional (readline != null) readline
+  buildInputs = [ libuuid ] ++ stdenv.lib.optional (readline != null) readline
     ++ stdenv.lib.optional (gettext != null) gettext
     ++ stdenv.lib.optional (lvm2 != null) lvm2;
 
-  configureFlags =
-       (if (readline != null)
-        then [ "--with-readline" ]
-        else [ "--without-readline" ])
+  configureFlags = (if (readline != null) then
+    [ "--with-readline" ]
+  else
+    [ "--without-readline" ])
     ++ stdenv.lib.optional (lvm2 == null) "--disable-device-mapper"
     ++ stdenv.lib.optional enableStatic "--enable-static";
 
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
       which also serves as a sample implementation and script backend.
     '';
 
-    homepage = https://www.gnu.org/software/parted/;
+    homepage = "https://www.gnu.org/software/parted/";
     license = stdenv.lib.licenses.gpl3Plus;
 
     maintainers = [

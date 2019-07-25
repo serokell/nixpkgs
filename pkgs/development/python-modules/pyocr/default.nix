@@ -1,5 +1,4 @@
-{ lib, fetchFromGitLab, buildPythonPackage, pillow, six
-, tesseract, cuneiform, isPy3k, substituteAll, pytest, tox
+{ lib, fetchFromGitLab, buildPythonPackage, pillow, six, tesseract, cuneiform, isPy3k, substituteAll, pytest, tox
 }:
 
 buildPythonPackage rec {
@@ -18,10 +17,11 @@ buildPythonPackage rec {
     sha256 = "1nihf0qmbpg3yj3yp11jp6hp5z5dqf39nz6j9lqbvgi1nqbs7x15";
   };
 
-  patches = [ (substituteAll {
-    src = ./paths.patch;
-    inherit cuneiform tesseract;
-  })
+  patches = [
+    (substituteAll {
+      src = ./paths.patch;
+      inherit cuneiform tesseract;
+    })
   ];
 
   postPatch = ''

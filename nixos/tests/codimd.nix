@@ -1,10 +1,7 @@
-import ./make-test.nix ({ pkgs, lib, ... }:
-{
+import ./make-test.nix ({ pkgs, lib, ... }: {
   name = "codimd";
 
-  meta = with lib.maintainers; {
-    maintainers = [ willibutz ];
-  };
+  meta = with lib.maintainers; { maintainers = [ willibutz ]; };
 
   nodes = {
     codimdSqlite = { ... }: {
@@ -21,7 +18,8 @@ import ./make-test.nix ({ pkgs, lib, ... }:
       services = {
         codimd = {
           enable = true;
-          configuration.dbURL = "postgres://codimd:snakeoilpassword@localhost:5432/codimddb";
+          configuration.dbURL =
+            "postgres://codimd:snakeoilpassword@localhost:5432/codimddb";
         };
         postgresql = {
           enable = true;

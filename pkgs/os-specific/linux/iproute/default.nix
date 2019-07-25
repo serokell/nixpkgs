@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace " netem " " "
   '';
 
-  outputs = [ "out" "dev"];
+  outputs = [ "out" "dev" ];
 
   makeFlags = [
     "DESTDIR="
@@ -28,13 +28,9 @@ stdenv.mkDerivation rec {
     "HDRDIR=$(dev)/include/iproute2"
   ];
 
-  buildFlags = [
-    "CONFDIR=/etc/iproute2"
-  ];
+  buildFlags = [ "CONFDIR=/etc/iproute2" ];
 
-  installFlags = [
-    "CONFDIR=$(out)/etc/iproute2"
-  ];
+  installFlags = [ "CONFDIR=$(out)/etc/iproute2" ];
 
   buildInputs = [ db iptables libelf ];
   nativeBuildInputs = [ bison flex pkgconfig ];
@@ -46,8 +42,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.linuxfoundation.org/networking/iproute2;
-    description = "A collection of utilities for controlling TCP/IP networking and traffic control in Linux";
+    homepage = "https://wiki.linuxfoundation.org/networking/iproute2";
+    description =
+      "A collection of utilities for controlling TCP/IP networking and traffic control in Linux";
     platforms = platforms.linux;
     license = licenses.gpl2;
     maintainers = with maintainers; [ primeos eelco fpletz ];

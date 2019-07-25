@@ -1,10 +1,9 @@
 { stdenv, fetchurl, pkgconfig, intltool, glib, libxfce4util, libxfce4ui, gtk }:
 let
-  p_name  = "garcon";
+  p_name = "garcon";
   ver_maj = "0.4";
   ver_min = "0";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ intltool glib libxfce4util gtk libxfce4ui ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.xfce.org/;
+    homepage = "https://www.xfce.org/";
     description = "Xfce menu support library";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, glibcLocales
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "ipython_genutils";
@@ -22,7 +17,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Vestigial utilities from IPython";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };

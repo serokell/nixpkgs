@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, yacc, xkeyboard_config, libxcb, libX11, doxygen }:
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, yacc, xkeyboard_config, libxcb, libX11, doxygen
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxkbcommon";
@@ -24,13 +25,14 @@ stdenv.mkDerivation rec {
   postPatch = if stdenv.isDarwin then ''
     substituteInPlace meson.build \
       --replace "executable('rmlvo-to-keymap', 'test/rmlvo-to-keymap.c', dependencies: test_dep)" ""
-  '' else null;
+  '' else
+    null;
 
   doCheck = false; # fails, needs unicode locale
 
   meta = with stdenv.lib; {
     description = "A library to handle keyboard descriptions";
-    homepage = https://xkbcommon.org;
+    homepage = "https://xkbcommon.org";
     license = licenses.mit;
     maintainers = with maintainers; [ ttuegel ];
     platforms = with platforms; unix;

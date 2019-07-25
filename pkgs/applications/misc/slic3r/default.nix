@@ -1,5 +1,4 @@
-{ stdenv, fetchgit, perl, makeWrapper, makeDesktopItem
-, which, perlPackages, boost
+{ stdenv, fetchgit, perl, makeWrapper, makeDesktopItem, which, perlPackages, boost
 }:
 
 stdenv.mkDerivation rec {
@@ -12,15 +11,34 @@ stdenv.mkDerivation rec {
     sha256 = "1pg4jxzb7f58ls5s8mygza8kqdap2c50kwlsdkf28bz1xi611zbi";
   };
 
-  buildInputs =
-  [boost] ++
-  (with perlPackages; [ perl makeWrapper which
-    EncodeLocale MathClipper ExtUtilsXSpp
-    MathConvexHullMonotoneChain MathGeometryVoronoi MathPlanePath Moo
-    IOStringy ClassXSAccessor Wx GrowlGNTP NetDBus ImportInto XMLSAX
-    ExtUtilsMakeMaker OpenGL WxGLCanvas ModuleBuild LWP
-    ExtUtilsCppGuess ModuleBuildWithXSpp ExtUtilsTypemapsDefault
-    DevelChecklib locallib
+  buildInputs = [ boost ] ++ (with perlPackages; [
+    perl
+    makeWrapper
+    which
+    EncodeLocale
+    MathClipper
+    ExtUtilsXSpp
+    MathConvexHullMonotoneChain
+    MathGeometryVoronoi
+    MathPlanePath
+    Moo
+    IOStringy
+    ClassXSAccessor
+    Wx
+    GrowlGNTP
+    NetDBus
+    ImportInto
+    XMLSAX
+    ExtUtilsMakeMaker
+    OpenGL
+    WxGLCanvas
+    ModuleBuild
+    LWP
+    ExtUtilsCppGuess
+    ModuleBuildWithXSpp
+    ExtUtilsTypemapsDefault
+    DevelChecklib
+    locallib
   ]);
 
   desktopItem = makeDesktopItem {
@@ -77,7 +95,7 @@ stdenv.mkDerivation rec {
       instructions for your 3D printer. It cuts the model into horizontal
       slices (layers), generates toolpaths to fill them and calculates the
       amount of material to be extruded.'';
-    homepage = http://slic3r.org/;
+    homepage = "http://slic3r.org/";
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ bjornfor the-kenny ];

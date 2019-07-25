@@ -1,13 +1,15 @@
-{ stdenv, cmake, fetch, libcxx, libunwind, llvm, version
-, enableShared ? true }:
+{ stdenv, cmake, fetch, libcxx, libunwind, llvm, version, enableShared ? true }:
 
 stdenv.mkDerivation {
   name = "libc++abi-${version}";
 
-  src = fetch "libcxxabi" "1k875f977ybdkpdnr9105wa6hccy9qvpd9xd42n75h7p56bdxmn2";
+  src =
+    fetch "libcxxabi" "1k875f977ybdkpdnr9105wa6hccy9qvpd9xd42n75h7p56bdxmn2";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = stdenv.lib.optional (!stdenv.isDarwin && !stdenv.isFreeBSD && !stdenv.hostPlatform.isWasm) libunwind;
+  buildInputs = stdenv.lib.optional
+    (!stdenv.isDarwin && !stdenv.isFreeBSD && !stdenv.hostPlatform.isWasm)
+    libunwind;
 
   cmakeFlags = stdenv.lib.optionals (stdenv.hostPlatform.useLLVM or false) [
     "-DLLVM_ENABLE_LIBCXX=ON"
@@ -15,9 +17,7 @@ stdenv.mkDerivation {
   ] ++ stdenv.lib.optionals stdenv.hostPlatform.isWasm [
     "-DLIBCXXABI_ENABLE_THREADS=OFF"
     "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
-  ] ++ stdenv.lib.optionals (!enableShared) [
-    "-DLIBCXXABI_ENABLE_SHARED=OFF"
-  ];
+  ] ++ stdenv.lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
 
   patches = [ ./libcxxabi-no-threads.patch ];
 
@@ -33,20 +33,19 @@ stdenv.mkDerivation {
     patch -p1 -d $(ls -d llvm-*) -i ${./libcxxabi-wasm.patch}
   '';
 
-  installPhase = if stdenv.isDarwin
-    then ''
-      for file in lib/*.dylib; do
-        # this should be done in CMake, but having trouble figuring out
-        # the magic combination of necessary CMake variables
-        # if you fancy a try, take a look at
-        # http://www.cmake.org/Wiki/CMake_RPATH_handling
-        install_name_tool -id $out/$file $file
-      done
-      make install
-      install -d 755 $out/include
-      install -m 644 ../include/*.h $out/include
+  installPhase = if stdenv.isDarwin then ''
+    for file in lib/*.dylib; do
+      # this should be done in CMake, but having trouble figuring out
+      # the magic combination of necessary CMake variables
+      # if you fancy a try, take a look at
+      # http://www.cmake.org/Wiki/CMake_RPATH_handling
+      install_name_tool -id $out/$file $file
+    done
+    make install
+    install -d 755 $out/include
+    install -m 644 ../include/*.h $out/include
+  '' else
     ''
-    else ''
       install -d -m 755 $out/include $out/lib
       install -m 644 lib/libc++abi.a $out/lib
       install -m 644 ../include/cxxabi.h $out/include
@@ -57,8 +56,9 @@ stdenv.mkDerivation {
     '';
 
   meta = {
-    homepage = http://libcxxabi.llvm.org/;
-    description = "A new implementation of low level support for a standard C++ library";
+    homepage = "http://libcxxabi.llvm.org/";
+    description =
+      "A new implementation of low level support for a standard C++ library";
     license = with stdenv.lib.licenses; [ ncsa mit ];
     maintainers = with stdenv.lib.maintainers; [ vlstill ];
     platforms = stdenv.lib.platforms.all;

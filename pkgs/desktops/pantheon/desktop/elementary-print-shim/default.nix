@@ -20,18 +20,13 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
   buildInputs = [ gtk3 ];
 
   meta = with stdenv.lib; {
     description = "Simple shim for printing support via Contractor";
-    homepage = https://github.com/elementary/print;
+    homepage = "https://github.com/elementary/print";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

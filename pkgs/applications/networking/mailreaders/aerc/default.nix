@@ -1,7 +1,4 @@
-{ stdenv, buildGoModule, fetchurl
-, go, scdoc
-, python3, perl, w3m, dante
-}:
+{ stdenv, buildGoModule, fetchurl, go, scdoc, python3, perl, w3m, dante }:
 
 buildGoModule rec {
   pname = "aerc";
@@ -12,15 +9,9 @@ buildGoModule rec {
     sha256 = "0vlqgcjbq6yp7ffrfs3zwa9hrm4vyx9245v9pkqdn328xlff3h55";
   };
 
-  nativeBuildInputs = [
-    go
-    scdoc
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ go scdoc python3.pkgs.wrapPython ];
 
-  pythonPath = [
-    python3.pkgs.colorama
-  ];
+  pythonPath = [ python3.pkgs.colorama ];
 
   buildInputs = [ python3 perl ];
 
@@ -47,7 +38,7 @@ buildGoModule rec {
 
   meta = with stdenv.lib; {
     description = "aerc is an email client for your terminal";
-    homepage = https://aerc-mail.org/;
+    homepage = "https://aerc-mail.org/";
     maintainers = with maintainers; [ tadeokondrak ];
     license = licenses.mit;
     platforms = platforms.unix;

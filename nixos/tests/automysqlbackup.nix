@@ -4,15 +4,16 @@ import ./make-test.nix ({ pkgs, lib, ... }:
   name = "automysqlbackup";
   meta.maintainers = [ lib.maintainers.aanderse ];
 
-  machine =
-    { pkgs, ... }:
-    {
-      services.mysql.enable = true;
-      services.mysql.package = pkgs.mysql;
-      services.mysql.initialDatabases = [ { name = "testdb"; schema = ./testdb.sql; } ];
+  machine = { pkgs, ... }: {
+    services.mysql.enable = true;
+    services.mysql.package = pkgs.mysql;
+    services.mysql.initialDatabases = [{
+      name = "testdb";
+      schema = ./testdb.sql;
+    }];
 
-      services.automysqlbackup.enable = true;
-    };
+    services.automysqlbackup.enable = true;
+  };
 
   testScript = ''
     startAll;
@@ -30,5 +31,5 @@ import ./make-test.nix ({ pkgs, lib, ... }:
     # wait for backup file and check that data appears in backup
     $machine->waitForFile("/var/backup/mysql/daily/testdb");
     $machine->succeed("${pkgs.gzip}/bin/zcat /var/backup/mysql/daily/testdb/daily_testdb_*.sql.gz | grep hello");
-    '';
+  '';
 })

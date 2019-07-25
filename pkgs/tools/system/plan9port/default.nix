@@ -1,8 +1,5 @@
-{ stdenv, fetchFromGitHub, which, libX11, libXt, fontconfig, freetype
-, xorgproto ? null
-, libXext ? null
-, zlib ? null
-, perl ? null  # For building web manuals
+{ stdenv, fetchFromGitHub, which, libX11, libXt, fontconfig, freetype, xorgproto ?
+  null, libXext ? null, zlib ? null, perl ? null # For building web manuals
 }:
 
 stdenv.mkDerivation rec {
@@ -10,7 +7,7 @@ stdenv.mkDerivation rec {
   version = "2019-02-25";
   name = "${pname}-${version}";
 
-  src =  fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "9fans";
     repo = "plan9port";
     rev = "047fd921744f39a82a86d9370e03f7af511e6e84";
@@ -35,7 +32,13 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-    which perl libX11 fontconfig xorgproto libXt libXext
+    which
+    perl
+    libX11
+    fontconfig
+    xorgproto
+    libXt
+    libXext
     freetype # fontsrv wants ft2build.h provides system fonts for acme and sam.
   ];
 
@@ -57,7 +60,7 @@ stdenv.mkDerivation rec {
 
   fontconfig_lib = fontconfig.lib;
 
-  NIX_LDFLAGS="-lgcc_s";
+  NIX_LDFLAGS = "-lgcc_s";
   enableParallelBuilding = true;
 
   doInstallCheck = true;
@@ -82,15 +85,19 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://9fans.github.io/plan9port/;
+    homepage = "https://9fans.github.io/plan9port/";
     description = "Plan 9 from User Space";
     longDescription = ''
       Plan 9 from User Space (aka plan9port) is a port of many Plan 9 programs
       from their native Plan 9 environment to Unix-like operating systems.
     '';
     license = licenses.lpl-102;
-    maintainers = with maintainers; [ AndersonTorres bbarker
-                                      ftrvxmtrx kovirobi ];
+    maintainers = with maintainers; [
+      AndersonTorres
+      bbarker
+      ftrvxmtrx
+      kovirobi
+    ];
     platforms = platforms.unix;
   };
 }

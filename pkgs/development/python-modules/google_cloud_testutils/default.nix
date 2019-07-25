@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, six
-, google_auth
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, six, google_auth }:
 
 buildPythonPackage rec {
   pname = "google-cloud-testutils";
@@ -28,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "System test utilities for google-cloud-python";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

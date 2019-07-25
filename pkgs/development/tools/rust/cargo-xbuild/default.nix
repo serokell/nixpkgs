@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1r9i79lymfwpbcx2lp509v435qpkl9bqly1ya369p41n5yprrcjv";
 
   meta = with stdenv.lib; {
-    description = "Automatically cross-compiles the sysroot crates core, compiler_builtins, and alloc";
+    description =
+      "Automatically cross-compiles the sysroot crates core, compiler_builtins, and alloc";
     homepage = "https://github.com/rust-osdev/cargo-xbuild";
     license = with licenses; [ mit asl20 ];
     maintainers = with maintainers; [ xrelkd ];

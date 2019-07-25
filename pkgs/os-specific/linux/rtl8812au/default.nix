@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Driver for Realtek 802.11ac, rtl8812au, provides the 8812au mod";
-    homepage = https://github.com/zebulon2/rtl8812au-driver-5.2.20;
+    description =
+      "Driver for Realtek 802.11ac, rtl8812au, provides the 8812au mod";
+    homepage = "https://github.com/zebulon2/rtl8812au-driver-5.2.20";
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = with maintainers; [ danielfullmer ];

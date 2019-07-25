@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Intel 82599 Virtual Function Driver";
-    homepage = https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/;
+    homepage = "https://sourceforge.net/projects/e1000/files/ixgbevf%20stable/";
     license = stdenv.lib.licenses.gpl2;
     priority = 20;
     broken = (stdenv.lib.versionOlder kernel.version "4.9");

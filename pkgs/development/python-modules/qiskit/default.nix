@@ -1,22 +1,4 @@
-{ stdenv
-, isPy3k
-, buildPythonPackage
-, fetchPypi
-, numpy
-, scipy
-, sympy
-, matplotlib
-, networkx
-, ply
-, pillow
-, cffi
-, requests
-, requests_ntlm
-, IBMQuantumExperience
-, jsonschema
-, psutil
-, cmake
-, llvmPackages 
+{ stdenv, isPy3k, buildPythonPackage, fetchPypi, numpy, scipy, sympy, matplotlib, networkx, ply, pillow, cffi, requests, requests_ntlm, IBMQuantumExperience, jsonschema, psutil, cmake, llvmPackages
 }:
 
 buildPythonPackage rec {
@@ -53,11 +35,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Quantum Software Development Kit for writing quantum computing experiments, programs, and applications";
-    homepage    = https://github.com/QISKit/qiskit-terra;
-    license     = stdenv.lib.licenses.asl20;
-    maintainers = with stdenv.lib.maintainers; [
-      pandaman
-    ];
+    description =
+      "Quantum Software Development Kit for writing quantum computing experiments, programs, and applications";
+    homepage = "https://github.com/QISKit/qiskit-terra";
+    license = stdenv.lib.licenses.asl20;
+    maintainers = with stdenv.lib.maintainers; [ pandaman ];
   };
 }

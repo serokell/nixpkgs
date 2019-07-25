@@ -1,21 +1,33 @@
-{ stdenv, fetchurl, meson, ninja, vala, gobject-introspection, pkgconfig, gnome3, gtk3, wrapGAppsHook
-, librsvg, gettext, itstool, python3, libxml2, libgnome-games-support, libgee, desktop-file-utils }:
+{ stdenv, fetchurl, meson, ninja, vala, gobject-introspection, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg, gettext, itstool, python3, libxml2, libgnome-games-support, libgee, desktop-file-utils
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-mines-${version}";
   version = "3.32.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-mines/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-mines/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1nv966wkp2rqxzcdb76bwlbzpjqadcaqzrnkxpzwnvjjr167yx8g";
   };
 
   # gobject-introspection for finding vapi files
   nativeBuildInputs = [
-    meson ninja vala gobject-introspection pkgconfig gettext itstool python3
-    libxml2 wrapGAppsHook desktop-file-utils
+    meson
+    ninja
+    vala
+    gobject-introspection
+    pkgconfig
+    gettext
+    itstool
+    python3
+    libxml2
+    wrapGAppsHook
+    desktop-file-utils
   ];
-  buildInputs = [ gtk3 librsvg gnome3.adwaita-icon-theme libgnome-games-support libgee ];
+  buildInputs =
+    [ gtk3 librsvg gnome3.adwaita-icon-theme libgnome-games-support libgee ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py
@@ -30,7 +42,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Mines;
+    homepage = "https://wiki.gnome.org/Apps/Mines";
     description = "Clear hidden mines from a minefield";
     maintainers = gnome3.maintainers;
     license = licenses.gpl3;

@@ -1,38 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkgconfig
-, itstool
-, python3
-, libxml2
-, desktop-file-utils
-, wrapGAppsHook
-, gst_all_1
-, pulseaudio
-, gtk3
-, glib
-, glibmm
-, gtkmm3
-, lilv
-, lv2
-, serd
-, sord
-, sratom
-, libbs2b
-, libsamplerate
-, libsndfile
-, libebur128
-, boost
-, dbus
-, fftwFloat
-, calf
-, zita-convolver
-, zam-plugins
-, rubberband
-, mda_lv2
-, lsp-plugins
-, hicolor-icon-theme
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, itstool, python3, libxml2, desktop-file-utils, wrapGAppsHook, gst_all_1, pulseaudio, gtk3, glib, glibmm, gtkmm3, lilv, lv2, serd, sord, sratom, libbs2b, libsamplerate, libsndfile, libebur128, boost, dbus, fftwFloat, calf, zita-convolver, zam-plugins, rubberband, mda_lv2, lsp-plugins, hicolor-icon-theme
 }:
 
 let
@@ -77,7 +43,11 @@ in stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-base # gst-fft
     gst_all_1.gst-plugins-good # pulsesrc
     gst_all_1.gst-plugins-bad
-    lilv lv2 serd sord sratom
+    lilv
+    lv2
+    serd
+    sord
+    sratom
     libbs2b
     libebur128
     libsamplerate
@@ -97,13 +67,16 @@ in stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --set LV2_PATH "${stdenv.lib.makeSearchPath "lib/lv2" lv2Plugins}"
-      --set LADSPA_PATH "${stdenv.lib.makeSearchPath "lib/ladspa" ladspaPlugins}"
+      --set LADSPA_PATH "${
+      stdenv.lib.makeSearchPath "lib/ladspa" ladspaPlugins
+      }"
     )
   '';
 
   meta = with stdenv.lib; {
-    description = "Limiter, compressor, reverberation, equalizer and auto volume effects for Pulseaudio applications";
-    homepage = https://github.com/wwmm/pulseeffects;
+    description =
+      "Limiter, compressor, reverberation, equalizer and auto volume effects for Pulseaudio applications";
+    homepage = "https://github.com/wwmm/pulseeffects";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.linux;

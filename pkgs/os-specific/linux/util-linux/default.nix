@@ -1,9 +1,9 @@
-{ lib, stdenv, fetchurl, pkgconfig, zlib, shadow
-, ncurses ? null, perl ? null, pam, systemd ? null, minimal ? false }:
+{ lib, stdenv, fetchurl, pkgconfig, zlib, shadow, ncurses ? null, perl ?
+  null, pam, systemd ? null, minimal ? false }:
 
 let
-  version = lib.concatStringsSep "." ([ majorVersion ]
-    ++ lib.optional (patchVersion != "") patchVersion);
+  version = lib.concatStringsSep "."
+    ([ majorVersion ] ++ lib.optional (patchVersion != "") patchVersion);
   majorVersion = "2.33";
   patchVersion = "2";
 
@@ -11,13 +11,12 @@ in stdenv.mkDerivation rec {
   name = "util-linux-${version}";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/util-linux/v${majorVersion}/${name}.tar.xz";
+    url =
+      "mirror://kernel/linux/utils/util-linux/v${majorVersion}/${name}.tar.xz";
     sha256 = "15yf2dh4jd1kg6066hydlgdhhs2j3na13qld8yx30qngqvmfh6v3";
   };
 
-  patches = [
-    ./rtcwake-search-PATH-for-shutdown.patch
-  ];
+  patches = [ ./rtcwake-search-PATH-for-shutdown.patch ];
 
   outputs = [ "bin" "dev" "out" "man" ];
 
@@ -40,15 +39,15 @@ in stdenv.mkDerivation rec {
     "--enable-mesg"
     "--disable-use-tty-group"
     "--enable-fs-paths-default=/run/wrappers/bin:/run/current-system/sw/bin:/sbin"
-    "--disable-makeinstall-setuid" "--disable-makeinstall-chown"
+    "--disable-makeinstall-setuid"
+    "--disable-makeinstall-chown"
     "--disable-su" # provided by shadow
     (lib.withFeature (ncurses != null) "ncursesw")
     (lib.withFeature (systemd != null) "systemd")
-    (lib.withFeatureAs (systemd != null)
-       "systemdsystemunitdir" "${placeholder "bin"}/lib/systemd/system/")
+    (lib.withFeatureAs (systemd != null) "systemdsystemunitdir"
+    "${placeholder "bin"}/lib/systemd/system/")
   ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-       "scanf_cv_type_modifier=ms"
-  ;
+    "scanf_cv_type_modifier=ms";
 
   makeFlags = [
     "usrbin_execdir=${placeholder "bin"}/bin"
@@ -56,11 +55,11 @@ in stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs =
-    [ zlib pam ]
+  buildInputs = [ zlib pam ]
     ++ lib.filter (p: p != null) [ ncurses systemd perl ];
 
-  doCheck = false; # "For development purpose only. Don't execute on production system!"
+  doCheck =
+    false; # "For development purpose only. Don't execute on production system!"
 
   postInstall = lib.optionalString minimal ''
     rm -rf $out/share/{locale,doc,bash-completion}
@@ -69,10 +68,12 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = https://www.kernel.org/pub/linux/utils/util-linux/;
+    homepage = "https://www.kernel.org/pub/linux/utils/util-linux/";
     description = "A set of system utilities for Linux";
-    license = licenses.gpl2; # also contains parts under more permissive licenses
+    license =
+      licenses.gpl2; # also contains parts under more permissive licenses
     platforms = platforms.linux;
-    priority = 6; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
+    priority =
+      6; # lower priority than coreutils ("kill") and shadow ("login" etc.) packages
   };
 }

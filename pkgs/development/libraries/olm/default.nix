@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Implements double cryptographic ratchet and Megolm ratchet";
     license = stdenv.lib.licenses.asl20;
-    homepage = https://matrix.org/git/olm/about;
+    homepage = "https://matrix.org/git/olm/about";
     platforms = with stdenv.lib.platforms; darwin ++ linux;
   };
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   # requires optimisation but memory operations are compiled with -O0
-  hardeningDisable = ["fortify"];
+  hardeningDisable = [ "fortify" ];
 
   makeFlags = if stdenv.cc.isClang then [ "CC=cc" ] else null;
 

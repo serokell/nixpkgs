@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, python,
-  django_hijack, django_nose }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, django_hijack, django_nose
+}:
 buildPythonPackage rec {
   pname = "django-hijack-admin";
   version = "2.1.10";
@@ -31,7 +31,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Admin integration for django-hijack";
-    homepage = https://github.com/arteria/django-hijack-admin;
+    homepage = "https://github.com/arteria/django-hijack-admin";
     license = licenses.mit;
     maintainers = with maintainers; [ lsix ];
   };

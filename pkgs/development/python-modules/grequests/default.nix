@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, requests
-, gevent
-}:
+{ stdenv, buildPythonPackage, fetchPypi, requests, gevent }:
 
 buildPythonPackage rec {
   pname = "grequests";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Asynchronous HTTP requests";
-    homepage = https://github.com/kennethreitz/grequests;
+    homepage = "https://github.com/kennethreitz/grequests";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ matejc ];
   };

@@ -1,4 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, six, twisted,isPy37 }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, six, twisted, isPy37 }:
 
 buildPythonPackage rec {
   pname = "txaio";
@@ -21,9 +21,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Utilities to support code that runs unmodified on Twisted and asyncio.";
-    homepage    = "https://github.com/crossbario/txaio";
-    license     = licenses.mit;
+    description =
+      "Utilities to support code that runs unmodified on Twisted and asyncio.";
+    homepage = "https://github.com/crossbario/txaio";
+    license = licenses.mit;
     maintainers = with maintainers; [ nand0p ];
   };
 }

@@ -1,5 +1,5 @@
-{ stdenv, which, autoconf, automake, fetchFromGitHub,
-  libtool, freeimage, mesa }:
+{ stdenv, which, autoconf, automake, fetchFromGitHub, libtool, freeimage, mesa
+}:
 stdenv.mkDerivation rec {
   version = "v1.0.2";
   name = "gamecube-tools-${version}";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "devkitPro";
-    repo  = "gamecube-tools";
+    repo = "gamecube-tools";
     rev = version;
     sha256 = "0zvpkzqvl8iv4ndzhkjkmrzpampyzgb91spv0h2x2arl8zy4z7ca";
   };

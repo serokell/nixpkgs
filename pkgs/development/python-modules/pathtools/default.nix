@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pathtools";
@@ -13,8 +10,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Pattern matching and various utilities for file systems paths";
-    homepage = https://github.com/gorakhargosh/pathtools;
+    description =
+      "Pattern matching and various utilities for file systems paths";
+    homepage = "https://github.com/gorakhargosh/pathtools";
     license = licenses.mit;
     maintainers = with maintainers; [ goibhniu ];
   };

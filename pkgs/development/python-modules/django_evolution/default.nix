@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, django
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, django }:
 
 buildPythonPackage rec {
   pname = "django_evolution";
@@ -18,8 +13,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ django ];
 
   meta = with stdenv.lib; {
-    description = "A database schema evolution tool for the Django web framework";
-    homepage = http://code.google.com/p/django-evolution/;
+    description =
+      "A database schema evolution tool for the Django web framework";
+    homepage = "http://code.google.com/p/django-evolution/";
     license = licenses.bsd0;
   };
 

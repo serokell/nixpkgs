@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.clfswm;
-in
+let cfg = config.services.xserver.windowManager.clfswm;
 
-{
+in {
   options = {
     services.xserver.windowManager.clfswm.enable = mkEnableOption "clfswm";
   };

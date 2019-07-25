@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0503b7lmydrbblfvf9b56pv5hpmykzgyc6v8y99rckg58h2jhs69";
   };
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
   installPhase = ''
     cp -r ${uuid} $out
@@ -25,6 +23,6 @@ stdenv.mkDerivation rec {
     description = "Arranges workspaces in a configurable grid";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ aneeshusa ];
-    homepage = https://github.com/zakkak/workspace-grid-gnome-shell-extension;
+    homepage = "https://github.com/zakkak/workspace-grid-gnome-shell-extension";
   };
 }

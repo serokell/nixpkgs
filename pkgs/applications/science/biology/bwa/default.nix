@@ -1,7 +1,7 @@
 { stdenv, fetchurl, zlib }:
 
 stdenv.mkDerivation rec {
-  name    = "bwa-${version}";
+  name = "bwa-${version}";
   version = "0.7.17";
 
   src = fetchurl {
@@ -16,9 +16,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
-    license     = licenses.gpl3;
-    homepage    = http://bio-bwa.sourceforge.net/;
+    description =
+      "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
+    license = licenses.gpl3;
+    homepage = "http://bio-bwa.sourceforge.net/";
     maintainers = with maintainers; [ luispedro ];
     platforms = [ "x86_64-linux" ];
   };

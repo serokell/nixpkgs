@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, python2, pkgconfig, libgnome, GConf, glib, gtk2, gnome_vfs }:
+{ stdenv, fetchurl, python2, pkgconfig, libgnome, GConf, glib, gtk2, gnome_vfs
+}:
 
 with stdenv.lib;
 
-let
-  inherit (python2.pkgs) python pygobject2 pygtk dbus-python;
+let inherit (python2.pkgs) python pygobject2 pygtk dbus-python;
 in stdenv.mkDerivation rec {
   version = "2.28";
   name = "gnome-python-${version}.1";
@@ -24,7 +24,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://pygtk.org/;
+    homepage = "http://pygtk.org/";
     description = "Python wrapper for GNOME libraries";
     platforms = platforms.linux;
     license = licenses.lgpl2;

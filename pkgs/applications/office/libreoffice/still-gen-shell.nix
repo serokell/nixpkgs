@@ -1,14 +1,12 @@
-{ pkgs ? (import <nixpkgs> {}) }:
+{ pkgs ? (import <nixpkgs> { }) }:
 
 with pkgs;
 
 let
 
-  primary-src = callPackage ./still-primary-src.nix {};
+  primary-src = callPackage ./still-primary-src.nix { };
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "generate-libreoffice-srcs-shell";
 
   buildCommand = "exit 1";

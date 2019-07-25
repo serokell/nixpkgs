@@ -1,15 +1,14 @@
-import ../make-test.nix ({ pkgs, ...}: let
+import ../make-test.nix ({ pkgs, ... }:
+let
   adminpass = "hunter2";
   adminuser = "root";
 in {
   name = "nextcloud-with-mysql-and-memcached";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ eqyiel ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ eqyiel ]; };
 
   nodes = {
     # The only thing the client needs to do is download a file.
-    client = { ... }: {};
+    client = { ... }: { };
 
     nextcloud = { config, pkgs, ... }: {
       networking.firewall.allowedTCPPorts = [ 80 ];
@@ -50,9 +49,9 @@ in {
         '';
       };
 
-      systemd.services."nextcloud-setup"= {
-        requires = ["mysql.service"];
-        after = ["mysql.service"];
+      systemd.services."nextcloud-setup" = {
+        requires = [ "mysql.service" ];
+        after = [ "mysql.service" ];
       };
 
       services.memcached.enable = true;
@@ -84,14 +83,14 @@ in {
       #!${pkgs.stdenv.shell}
       diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
     '';
-  in ''
-    startAll();
-    $nextcloud->waitForUnit("multi-user.target");
-    $nextcloud->succeed("${configureMemcached}");
-    $nextcloud->succeed("curl -sSf http://nextcloud/login");
-    $nextcloud->succeed("${withRcloneEnv} ${copySharedFile}");
-    $client->waitForUnit("multi-user.target");
-    $client->succeed("${withRcloneEnv} ${diffSharedFile}");
+    in ''
+      startAll();
+      $nextcloud->waitForUnit("multi-user.target");
+      $nextcloud->succeed("${configureMemcached}");
+      $nextcloud->succeed("curl -sSf http://nextcloud/login");
+      $nextcloud->succeed("${withRcloneEnv} ${copySharedFile}");
+      $client->waitForUnit("multi-user.target");
+      $client->succeed("${withRcloneEnv} ${diffSharedFile}");
 
-  '';
+    '';
 })

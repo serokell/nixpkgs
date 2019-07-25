@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, logilab_common
-}:
+{ stdenv, buildPythonPackage, fetchurl, logilab_common }:
 
 buildPythonPackage rec {
   pname = "logilab-astng";
@@ -16,7 +12,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ logilab_common ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.logilab.org/project/logilab-astng;
+    homepage = "https://www.logilab.org/project/logilab-astng";
     description = "Python Abstract Syntax Tree New Generation";
     license = licenses.lgpl2;
   };

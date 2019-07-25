@@ -1,7 +1,4 @@
-{ stdenv, fetchPypi
-, buildPythonPackage, pythonOlder
-, pytest, pytestrunner
-, parse, six, enum34
+{ stdenv, fetchPypi, buildPythonPackage, pythonOlder, pytest, pytestrunner, parse, six, enum34
 }:
 
 buildPythonPackage rec {
@@ -14,14 +11,15 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest pytestrunner ];
-  propagatedBuildInputs = [ parse six ] ++ stdenv.lib.optional (pythonOlder "3.4") enum34;
+  propagatedBuildInputs = [ parse six ]
+    ++ stdenv.lib.optional (pythonOlder "3.4") enum34;
 
   checkPhase = ''
     py.test tests
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jenisys/parse_type;
+    homepage = "https://github.com/jenisys/parse_type";
     description = "Simplifies to build parse types based on the parse module";
     license = licenses.bsd3;
     maintainers = with maintainers; [ alunduil ];

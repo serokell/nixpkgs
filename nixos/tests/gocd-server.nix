@@ -2,22 +2,18 @@
 #   1. GoCD server starts
 #   2. GoCD server responds
 
-import ./make-test.nix ({ pkgs, ...} :
+import ./make-test.nix ({ pkgs, ... }:
 
 {
   name = "gocd-server";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ swarren83 ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ swarren83 ]; };
 
-nodes = {
-  gocd_server =
-    { ... }:
-    {
+  nodes = {
+    gocd_server = { ... }: {
       virtualisation.memorySize = 2046;
       services.gocd-server.enable = true;
     };
-};
+  };
 
   testScript = ''
     $gocd_server->start;

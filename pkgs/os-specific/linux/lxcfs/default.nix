@@ -1,5 +1,5 @@
-{ config, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, help2man, fuse
-, enableDebugBuild ? config.lxcfs.enableDebugBuild or false }:
+{ config, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, help2man, fuse, enableDebugBuild ?
+  config.lxcfs.enableDebugBuild or false }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -19,11 +19,8 @@ stdenv.mkDerivation rec {
     sed -i 's,#AM_CFLAGS += -DDEBUG,AM_CFLAGS += -DDEBUG,' Makefile.am
   '';
 
-  configureFlags = [
-    "--with-init-script=systemd"
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ];
+  configureFlags =
+    [ "--with-init-script=systemd" "--sysconfdir=/etc" "--localstatedir=/var" ];
 
   installFlags = [ "SYSTEMD_UNIT_DIR=\${out}/lib/systemd" ];
 
@@ -33,7 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://linuxcontainers.org/lxcfs;
+    homepage = "https://linuxcontainers.org/lxcfs";
     description = "FUSE filesystem for LXC";
     license = licenses.asl20;
     platforms = platforms.linux;

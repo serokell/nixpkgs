@@ -1,20 +1,30 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''fast-http'';
-  version = ''20180831-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "fast-http";
+  version = "20180831-git";
 
-  description = ''A fast HTTP protocol parser in Common Lisp'';
+  description = "A fast HTTP protocol parser in Common Lisp";
 
-  deps = [ args."alexandria" args."babel" args."cl-utilities" args."flexi-streams" args."proc-parse" args."smart-buffer" args."trivial-features" args."trivial-gray-streams" args."xsubseq" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cl-utilities"
+    args."flexi-streams"
+    args."proc-parse"
+    args."smart-buffer"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."xsubseq"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/fast-http/2018-08-31/fast-http-20180831-git.tgz'';
-    sha256 = ''1827ra8nkjh5ghg2hn96w3zs8n1lvqzbf8wmzrcs8yky3l0m4qrm'';
+    url =
+      "http://beta.quicklisp.org/archive/fast-http/2018-08-31/fast-http-20180831-git.tgz";
+    sha256 = "1827ra8nkjh5ghg2hn96w3zs8n1lvqzbf8wmzrcs8yky3l0m4qrm";
   };
 
   packageName = "fast-http";
 
-  asdFilesToKeep = ["fast-http.asd"];
+  asdFilesToKeep = [ "fast-http.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM fast-http DESCRIPTION A fast HTTP protocol parser in Common Lisp
@@ -32,4 +42,5 @@ rec {
     DEPENDENCIES
     (alexandria babel cl-utilities flexi-streams proc-parse smart-buffer
      trivial-features trivial-gray-streams xsubseq)
-    VERSION 20180831-git SIBLINGS (fast-http-test) PARASITES NIL) */
+    VERSION 20180831-git SIBLINGS (fast-http-test) PARASITES NIL)
+*/

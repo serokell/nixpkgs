@@ -13,14 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "0xn8bianmdj15k11mnw52by9vxkmvpqr2s304kl3dbjj1l7v4cd7";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
   postPatch = ''
     # Fix plugin dir
@@ -29,8 +24,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A style to bend Qt applications to look like they belong into GNOME Shell";
-    homepage = https://github.com/FedoraQt/adwaita-qt;
+    description =
+      "A style to bend Qt applications to look like they belong into GNOME Shell";
+    homepage = "https://github.com/FedoraQt/adwaita-qt";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ worldofpeace ];
     platforms = platforms.linux;

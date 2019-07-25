@@ -5,7 +5,8 @@ assert zlib != null;
 let
   patchVersion = "1.6.37";
   patch_src = fetchurl {
-    url = "mirror://sourceforge/libpng-apng/libpng-${patchVersion}-apng.patch.gz";
+    url =
+      "mirror://sourceforge/libpng-apng/libpng-${patchVersion}-apng.patch.gz";
     sha256 = "1dh0250mw9b2hx7cdmnb2blk7ddl49n6vx8zz7jdmiwxy38v4fw2";
   };
   whenPatched = stdenv.lib.optionalString apngSupport;
@@ -30,8 +31,10 @@ in stdenv.mkDerivation rec {
   passthru = { inherit zlib; };
 
   meta = with stdenv.lib; {
-    description = "The official reference implementation for the PNG file format" + whenPatched " with animation patch";
-    homepage = http://www.libpng.org/pub/png/libpng.html;
+    description =
+      "The official reference implementation for the PNG file format"
+      + whenPatched " with animation patch";
+    homepage = "http://www.libpng.org/pub/png/libpng.html";
     license = licenses.libpng2;
     platforms = platforms.all;
     maintainers = [ maintainers.vcunat maintainers.fuuzetsu ];

@@ -1,6 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libusb, pkgconfig, freeglut, libGLU_combined, libXi, libXmu
-, GLUT, Cocoa
- }:
+{ stdenv, lib, fetchFromGitHub, cmake, libusb, pkgconfig, freeglut, libGLU_combined, libXi, libXmu, GLUT, Cocoa
+}:
 
 stdenv.mkDerivation rec {
   name = "freenect-${version}";
@@ -19,11 +18,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   meta = {
-    description = "Drivers and libraries for the Xbox Kinect device on Windows, Linux, and macOS";
+    description =
+      "Drivers and libraries for the Xbox Kinect device on Windows, Linux, and macOS";
     inherit version;
-    homepage = http://openkinect.org;
+    homepage = "http://openkinect.org";
     license = with lib.licenses; [ gpl2 asl20 ];
     maintainers = with lib.maintainers; [ bennofs ];
-    platforms = with lib.platforms; linux ++ darwin ;
+    platforms = with lib.platforms; linux ++ darwin;
   };
 }

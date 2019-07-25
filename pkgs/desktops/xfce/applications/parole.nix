@@ -1,11 +1,8 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, intltool, gst_all_1
-, gtk, dbus-glib, libxfce4ui, libxfce4util, xfconf
-, taglib, libnotify, hicolor-icon-theme
-, withGstPlugins ? true
-}:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, intltool, gst_all_1, gtk, dbus-glib, libxfce4ui, libxfce4util, xfconf, taglib, libnotify, hicolor-icon-theme, withGstPlugins ?
+  true }:
 
 stdenv.mkDerivation rec {
-  p_name  = "parole";
+  p_name = "parole";
   ver_maj = "0.5";
   ver_min = "4";
 
@@ -18,10 +15,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig intltool ];
 
   buildInputs = [
-    makeWrapper hicolor-icon-theme
-    gtk dbus-glib libxfce4ui libxfce4util xfconf
-    taglib libnotify
-  ] ++ (with gst_all_1; [ gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav]);
+    makeWrapper
+    hicolor-icon-theme
+    gtk
+    dbus-glib
+    libxfce4ui
+    libxfce4util
+    xfconf
+    taglib
+    libnotify
+  ] ++ (with gst_all_1; [
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+    gst-libav
+  ]);
 
   configureFlags = [ "--with-gstreamer=1.0" ];
 

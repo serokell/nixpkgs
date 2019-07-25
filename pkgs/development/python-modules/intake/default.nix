@@ -1,21 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, appdirs
-, dask
-, holoviews
-, jinja2
-, msgpack-numpy
-, msgpack-python
-, numpy
-, pandas
-, python-snappy
-, requests
-, ruamel_yaml
-, six
-, tornado
-, pytest
-, isPy27
+{ lib, buildPythonPackage, fetchPypi, appdirs, dask, holoviews, jinja2, msgpack-numpy, msgpack-python, numpy, pandas, python-snappy, requests, ruamel_yaml, six, tornado, pytest, isPy27
 }:
 
 buildPythonPackage rec {
@@ -53,7 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Data load and catalog system";
-    homepage = https://github.com/ContinuumIO/intake;
+    homepage = "https://github.com/ContinuumIO/intake";
     license = licenses.bsd2;
     maintainers = [ maintainers.costrouc ];
   };

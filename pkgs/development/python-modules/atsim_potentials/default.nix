@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, future
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, future }:
 
 buildPythonPackage rec {
   version = "0.2.1";
@@ -25,8 +20,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://bitbucket.org/mjdr/atsim_potentials;
-    description = "Provides tools for working with pair and embedded atom method potential models including tabulation routines for DL_POLY and LAMMPS";
+    homepage = "https://bitbucket.org/mjdr/atsim_potentials";
+    description =
+      "Provides tools for working with pair and embedded atom method potential models including tabulation routines for DL_POLY and LAMMPS";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Open-Source, Automated Benchmarking";
-    homepage = https://www.phoronix-test-suite.com/;
+    homepage = "https://www.phoronix-test-suite.com/";
     maintainers = with maintainers; [ davidak ];
     license = licenses.gpl3;
     platforms = with platforms; unix;

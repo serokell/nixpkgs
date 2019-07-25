@@ -1,11 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkgconfig
-, flint
-, gmp
-, python2
-, singular
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, flint, gmp, python2, singular
 }:
 
 stdenv.mkDerivation rec {
@@ -19,18 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0nnifvg6kzx0lq6gz7znind8g30v3d2pjfwgsdiks3vv9kv9nbj3";
   };
 
-  buildInputs = [
-    flint
-    gmp
-    singular
-    singular
-    python2
-  ];
+  buildInputs = [ flint gmp singular singular python2 ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkgconfig
-  ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   meta = with stdenv.lib; {
     description = "Python is Not a CAS -- modified version of Ginac";
@@ -40,9 +24,9 @@ stdenv.mkDerivation rec {
       It is a lite version of GiNaC as well, not implementing all the features
       of the full GiNaC, and it is *only* meant to be used as a Python library.
     '';
-    homepage    = http://pynac.org;
+    homepage = "http://pynac.org";
     license = licenses.gpl3;
     maintainers = with maintainers; [ timokau ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

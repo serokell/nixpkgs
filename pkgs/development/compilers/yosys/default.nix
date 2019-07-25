@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub
-, pkgconfig, bison, flex
-, tcl, readline, libffi, python3
-, protobuf
+{ stdenv, fetchFromGitHub, pkgconfig, bison, flex, tcl, readline, libffi, python3, protobuf
 }:
 
 with builtins;
@@ -12,22 +9,22 @@ stdenv.mkDerivation rec {
 
   srcs = [
     (fetchFromGitHub {
-      owner  = "yosyshq";
-      repo   = "yosys";
-      rev    = "d9daf09cf3aab202b6da058c5e959f6375a4541e";
+      owner = "yosyshq";
+      repo = "yosys";
+      rev = "d9daf09cf3aab202b6da058c5e959f6375a4541e";
       sha256 = "0l27r9l3fvkqhmbqqpjz1f3ny4wdh5mdc7jlnbgy6nxx6vqcmkh0";
-      name   = "yosys";
+      name = "yosys";
     })
 
     # NOTE: the version of abc used here is synchronized with
     # the one in the yosys Makefile of the version above;
     # keep them the same for quality purposes.
     (fetchFromGitHub {
-      owner  = "berkeley-abc";
-      repo   = "abc";
-      rev    = "3709744c60696c5e3f4cc123939921ce8107fe04";
+      owner = "berkeley-abc";
+      repo = "abc";
+      rev = "3709744c60696c5e3f4cc123939921ce8107fe04";
       sha256 = "18a9cjng3qfalq8m9az5ck1y5h4l2pf9ycrvkzs9hn82b1j7vrax";
-      name   = "yosys-abc";
+      name = "yosys-abc";
     })
   ];
   sourceRoot = "yosys";
@@ -69,9 +66,9 @@ stdenv.mkDerivation rec {
       adding additional passes as needed by extending the yosys C++
       code base.
     '';
-    homepage    = http://www.clifford.at/yosys/;
-    license     = stdenv.lib.licenses.isc;
+    homepage = "http://www.clifford.at/yosys/";
+    license = stdenv.lib.licenses.isc;
     maintainers = with stdenv.lib.maintainers; [ shell thoughtpolice ];
-    platforms   = stdenv.lib.platforms.unix;
+    platforms = stdenv.lib.platforms.unix;
   };
 }

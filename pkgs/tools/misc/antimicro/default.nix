@@ -1,4 +1,5 @@
-{ mkDerivation, lib, cmake, pkgconfig, SDL2, qtbase, qttools, xorg, fetchFromGitHub }:
+{ mkDerivation, lib, cmake, pkgconfig, SDL2, qtbase, qttools, xorg, fetchFromGitHub
+}:
 
 mkDerivation rec {
   name = "antimicro-${version}";
@@ -12,9 +13,7 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
-  buildInputs = [
-    SDL2 qtbase qttools xorg.libXtst
-  ];
+  buildInputs = [ SDL2 qtbase qttools xorg.libXtst ];
 
   meta = with lib; {
     description = "GUI for mapping keyboard and mouse controls to a gamepad";

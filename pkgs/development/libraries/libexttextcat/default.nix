@@ -9,8 +9,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "An N-Gram-Based Text Categorization library primarily intended for language guessing";
-    homepage = https://wiki.documentfoundation.org/Libexttextcat;
+    description =
+      "An N-Gram-Based Text Categorization library primarily intended for language guessing";
+    homepage = "https://wiki.documentfoundation.org/Libexttextcat";
     platforms = platforms.all;
     license = licenses.bsd3;
   };

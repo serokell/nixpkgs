@@ -1,15 +1,38 @@
-{ stdenv, fetchurl, zlib, glib, alsaLib, makeDesktopItem
-, dbus, gtk2, atk, pango, freetype, fontconfig, libgnome-keyring3, gdk_pixbuf
-, cairo, cups, expat, libgpgerror, nspr, gnome2, nss, xorg, systemd, libnotify
+{ stdenv, fetchurl, zlib, glib, alsaLib, makeDesktopItem, dbus, gtk2, atk, pango, freetype, fontconfig, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror, nspr, gnome2, nss, xorg, systemd, libnotify
 }:
 
 let
   libPath = stdenv.lib.makeLibraryPath [
-      stdenv.cc.cc zlib glib dbus gtk2 atk pango freetype libgnome-keyring3 nss
-      fontconfig gdk_pixbuf cairo cups expat libgpgerror alsaLib nspr gnome2.GConf
-      xorg.libXrender xorg.libX11 xorg.libXext xorg.libXdamage xorg.libXtst
-      xorg.libXcomposite xorg.libXi xorg.libXfixes libnotify xorg.libXrandr
-      xorg.libXcursor
+    stdenv.cc.cc
+    zlib
+    glib
+    dbus
+    gtk2
+    atk
+    pango
+    freetype
+    libgnome-keyring3
+    nss
+    fontconfig
+    gdk_pixbuf
+    cairo
+    cups
+    expat
+    libgpgerror
+    alsaLib
+    nspr
+    gnome2.GConf
+    xorg.libXrender
+    xorg.libX11
+    xorg.libXext
+    xorg.libXdamage
+    xorg.libXtst
+    xorg.libXcomposite
+    xorg.libXi
+    xorg.libXfixes
+    libnotify
+    xorg.libXrandr
+    xorg.libXcursor
   ];
   desktopItem = makeDesktopItem {
     name = "LightTable";
@@ -18,18 +41,17 @@ let
     desktopName = "LightTable";
     genericName = "the next generation code editor";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "lighttable-${version}";
   version = "0.8.1";
 
-  src =
-      fetchurl {
-        name = "LightTableLinux64.tar.gz";
-        url = "https://github.com/LightTable/LightTable/releases/download/${version}/${name}-linux.tar.gz";
-        sha256 = "06fj725xfhf3fwrf7dya7ijmxq3v76kfmd4lr2067a92zhlwr5pv";
-      };
+  src = fetchurl {
+    name = "LightTableLinux64.tar.gz";
+    url =
+      "https://github.com/LightTable/LightTable/releases/download/${version}/${name}-linux.tar.gz";
+    sha256 = "06fj725xfhf3fwrf7dya7ijmxq3v76kfmd4lr2067a92zhlwr5pv";
+  };
 
   phases = [ "installPhase" ];
 
@@ -57,7 +79,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The next generation code editor";
-    homepage = http://www.lighttable.com/;
+    homepage = "http://www.lighttable.com/";
     license = licenses.gpl3;
     maintainers = [ maintainers.matejc ];
     platforms = [ "x86_64-linux" ];

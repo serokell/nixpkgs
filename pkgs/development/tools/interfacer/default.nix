@@ -1,7 +1,4 @@
-{ buildGoPackage
-, lib
-, fetchFromGitHub
-}:
+{ buildGoPackage, lib, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "interfacer-unstable-${version}";
@@ -9,7 +6,7 @@ buildGoPackage rec {
   rev = "c20040233aedb03da82d460eca6130fcd91c629a";
 
   goPackagePath = "mvdan.cc/interfacer";
-  excludedPackages = ''check/testdata'';
+  excludedPackages = "check/testdata";
 
   src = fetchFromGitHub {
     inherit rev;
@@ -23,7 +20,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     description = "A linter that suggests interface types.";
-    homepage = https://github.com/mvdan/interfacer;
+    homepage = "https://github.com/mvdan/interfacer";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

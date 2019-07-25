@@ -1,19 +1,7 @@
-{ stdenv, fetchurl, autoreconfHook
-, libarchive, perl, xorg, libdvdnav, libbluray
-, zlib, a52dec, libmad, faad2, ffmpeg, alsaLib
-, pkgconfig, dbus, fribidi, freefont_ttf, libebml, libmatroska
-, libvorbis, libtheora, speex, lua5, libgcrypt, libgpgerror, libupnp
-, libcaca, libpulseaudio, flac, schroedinger, libxml2, librsvg
-, mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL, SDL_image
-, libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, liboggz
-, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus
-, libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
-, onlyLibVLC ? false
-, withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ? null
-, jackSupport ? false
-, removeReferencesTo
-, chromecastSupport ? true, protobuf, libmicrodns
-}:
+{ stdenv, fetchurl, autoreconfHook, libarchive, perl, xorg, libdvdnav, libbluray, zlib, a52dec, libmad, faad2, ffmpeg, alsaLib, pkgconfig, dbus, fribidi, freefont_ttf, libebml, libmatroska, libvorbis, libtheora, speex, lua5, libgcrypt, libgpgerror, libupnp, libcaca, libpulseaudio, flac, schroedinger, libxml2, librsvg, mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL, SDL_image, libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, liboggz, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols, onlyLibVLC ?
+  false, withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ?
+    null, jackSupport ? false, removeReferencesTo, chromecastSupport ?
+      true, protobuf, libmicrodns }:
 
 # chromecastSupport requires TCP port 8010 to be open for it to work.
 # If your firewall is enabled, make sure to have something like:
@@ -36,16 +24,66 @@ stdenv.mkDerivation rec {
   # which are not included here for no other reason that nobody has mentioned
   # needing them
   buildInputs = [
-    zlib a52dec libmad faad2 ffmpeg alsaLib libdvdnav libdvdnav.libdvdread
-    libbluray dbus fribidi libvorbis libtheora speex lua5 libgcrypt libgpgerror
-    libupnp libcaca libpulseaudio flac schroedinger libxml2 librsvg mpeg2dec
-    systemd gnutls avahi libcddb SDL SDL_image libmtp unzip taglib libarchive
-    libkate libtiger libv4l samba liboggz libass libdvbpsi libva
-    xorg.xlibsWrapper xorg.libXv xorg.libXvMC xorg.libXpm xorg.xcbutilkeysyms
-    libdc1394 libraw1394 libopus libebml libmatroska libvdpau libsamplerate
-    fluidsynth wayland wayland-protocols
+    zlib
+    a52dec
+    libmad
+    faad2
+    ffmpeg
+    alsaLib
+    libdvdnav
+    libdvdnav.libdvdread
+    libbluray
+    dbus
+    fribidi
+    libvorbis
+    libtheora
+    speex
+    lua5
+    libgcrypt
+    libgpgerror
+    libupnp
+    libcaca
+    libpulseaudio
+    flac
+    schroedinger
+    libxml2
+    librsvg
+    mpeg2dec
+    systemd
+    gnutls
+    avahi
+    libcddb
+    SDL
+    SDL_image
+    libmtp
+    unzip
+    taglib
+    libarchive
+    libkate
+    libtiger
+    libv4l
+    samba
+    liboggz
+    libass
+    libdvbpsi
+    libva
+    xorg.xlibsWrapper
+    xorg.libXv
+    xorg.libXvMC
+    xorg.libXpm
+    xorg.xcbutilkeysyms
+    libdc1394
+    libraw1394
+    libopus
+    libebml
+    libmatroska
+    libvdpau
+    libsamplerate
+    fluidsynth
+    wayland
+    wayland-protocols
   ] ++ optional (!stdenv.hostPlatform.isAarch64) live555
-    ++ optionals withQt5    [ qtbase qtsvg qtx11extras ]
+    ++ optionals withQt5 [ qtbase qtsvg qtx11extras ]
     ++ optional jackSupport libjack2
     ++ optionals chromecastSupport [ protobuf libmicrodns ];
 
@@ -79,14 +117,12 @@ stdenv.mkDerivation rec {
 
   # Most of the libraries are auto-detected so we don't need to set a bunch of
   # "--enable-foo" flags here
-  configureFlags = [
-    "--with-kde-solid=$out/share/apps/solid/actions"
-  ] ++ optional onlyLibVLC "--disable-vlc"
-    ++ optionals chromecastSupport [
-    "--enable-sout"
-    "--enable-chromecast"
-    "--enable-microdns"
-  ];
+  configureFlags = [ "--with-kde-solid=$out/share/apps/solid/actions" ]
+    ++ optional onlyLibVLC "--disable-vlc" ++ optionals chromecastSupport [
+      "--enable-sout"
+      "--enable-chromecast"
+      "--enable-microdns"
+    ];
 
   # Remove runtime dependencies on libraries
   postConfigure = ''
@@ -95,7 +131,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Cross-platform media player and streaming server";
-    homepage = http://www.videolan.org/vlc/;
+    homepage = "http://www.videolan.org/vlc/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

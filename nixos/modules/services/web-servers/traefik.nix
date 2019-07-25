@@ -4,17 +4,17 @@ with lib;
 
 let
   cfg = config.services.traefik;
-  configFile =
-    if cfg.configFile == null then
-      pkgs.runCommand "config.toml" {
-        buildInputs = [ pkgs.remarshal ];
-        preferLocalBuild = true;
-      } ''
-        remarshal -if json -of toml \
-          < ${pkgs.writeText "config.json" (builtins.toJSON cfg.configOptions)} \
-          > $out
-      ''
-    else cfg.configFile;
+  configFile = if cfg.configFile == null then
+    pkgs.runCommand "config.toml" {
+      buildInputs = [ pkgs.remarshal ];
+      preferLocalBuild = true;
+    } ''
+      remarshal -if json -of toml \
+        < ${pkgs.writeText "config.json" (builtins.toJSON cfg.configOptions)} \
+        > $out
+    ''
+  else
+    cfg.configFile;
 
 in {
   options.services.traefik = {
@@ -36,7 +36,7 @@ in {
       '';
       type = types.attrs;
       default = {
-        defaultEntryPoints = ["http"];
+        defaultEntryPoints = [ "http" ];
         entryPoints.http.address = ":80";
       };
       example = {
@@ -44,16 +44,14 @@ in {
         web.address = ":8080";
         entryPoints.http.address = ":80";
 
-        file = {};
+        file = { };
         frontends = {
           frontend1 = {
             backend = "backend1";
             routes.test_1.rule = "Host:localhost";
           };
         };
-        backends.backend1 = {
-          servers.server1.url = "http://localhost:8000";
-        };
+        backends.backend1 = { servers.server1.url = "http://localhost:8000"; };
       };
     };
 
@@ -61,7 +59,7 @@ in {
       default = "/var/lib/traefik";
       type = types.path;
       description = ''
-      Location for any persistent data traefik creates, ie. acme
+        Location for any persistent data traefik creates, ie. acme
       '';
     };
 
@@ -84,16 +82,14 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0700 traefik traefik - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 traefik traefik - -" ];
 
     systemd.services.traefik = {
       description = "Traefik web server";
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = ''${cfg.package.bin}/bin/traefik --configfile=${configFile}'';
+        ExecStart = "${cfg.package.bin}/bin/traefik --configfile=${configFile}";
         Type = "simple";
         User = "traefik";
         Group = cfg.group;
@@ -119,6 +115,6 @@ in {
       createHome = true;
     };
 
-    users.groups.traefik = {};
+    users.groups.traefik = { };
   };
 }

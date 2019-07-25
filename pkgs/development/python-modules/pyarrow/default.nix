@@ -1,10 +1,9 @@
-{ lib, buildPythonPackage, python, isPy3k, arrow-cpp, cmake, cython, futures, hypothesis, numpy, pandas, pytest, pkgconfig, setuptools_scm, six }:
+{ lib, buildPythonPackage, python, isPy3k, arrow-cpp, cmake, cython, futures, hypothesis, numpy, pandas, pytest, pkgconfig, setuptools_scm, six
+}:
 
-let
-  _arrow-cpp = arrow-cpp.override { inherit python; };
-in
+let _arrow-cpp = arrow-cpp.override { inherit python; };
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pyarrow";
 
   inherit (_arrow-cpp) version src;
@@ -67,7 +66,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A cross-language development platform for in-memory data";
-    homepage = https://arrow.apache.org/;
+    homepage = "https://arrow.apache.org/";
     license = lib.licenses.asl20;
     platforms = platforms.unix;
     maintainers = with lib.maintainers; [ veprbl ];

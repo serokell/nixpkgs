@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cython
-, isPy3k
-, simplejson
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cython, isPy3k, simplejson }:
 
 buildPythonPackage rec {
   pname = "meliae";
@@ -34,7 +28,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python Memory Usage Analyzer";
-    homepage = https://launchpad.net/meliae;
+    homepage = "https://launchpad.net/meliae";
     license = licenses.gpl3;
     maintainers = with maintainers; [ xvapx ];
   };

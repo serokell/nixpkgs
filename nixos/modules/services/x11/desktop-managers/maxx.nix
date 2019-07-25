@@ -19,8 +19,8 @@ in {
       ln -sfn ${pkgs.maxx}/opt/MaXX /opt
     '';
 
-    services.xserver.desktopManager.session = [
-    { name = "MaXX";
+    services.xserver.desktopManager.session = [{
+      name = "MaXX";
       start = ''
         exec ${pkgs.maxx}/opt/MaXX/etc/skel/Xsession.dt
       '';

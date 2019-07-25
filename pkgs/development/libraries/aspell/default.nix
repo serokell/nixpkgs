@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, fetchzip, perl
-, searchNixProfiles ? true
-}:
+{ stdenv, fetchurl, fetchpatch, fetchzip, perl, searchNixProfiles ? true }:
 
 let
 
@@ -12,9 +10,7 @@ let
     sha256 = "1v8cdl8x2j1d4vbvsq1xrqys69bbccd6mi03fywrhkrrljviyri1";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "aspell-0.60.6.1";
 
   src = fetchurl {
@@ -28,7 +24,8 @@ stdenv.mkDerivation rec {
       url = "https://github.com/GNUAspell/aspell/commit/8089fa02122fed0a.diff";
       sha256 = "1b3p1zy2lqr2fknddckm58hyk95hw4scf6hzjny1v9iaic2p37ix";
     })
-  ] ++ stdenv.lib.optional searchNixProfiles ./data-dirs-from-nix-profiles.patch;
+  ] ++ stdenv.lib.optional searchNixProfiles
+    ./data-dirs-from-nix-profiles.patch;
 
   postPatch = ''
     patch interfaces/cc/aspell.h < ${./clang.patch}
@@ -54,7 +51,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Spell checker for many languages";
-    homepage = http://aspell.net/;
+    homepage = "http://aspell.net/";
     license = stdenv.lib.licenses.lgpl2Plus;
     maintainers = [ ];
     platforms = with stdenv.lib.platforms; all;

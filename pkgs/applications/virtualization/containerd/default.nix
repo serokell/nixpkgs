@@ -21,8 +21,7 @@ buildGoPackage rec {
   buildInputs = [ btrfs-progs go-md2man utillinux ];
   buildFlags = "VERSION=v${version}";
 
-  BUILDTAGS = []
-    ++ optional (btrfs-progs == null) "no_btrfs";
+  BUILDTAGS = [ ] ++ optional (btrfs-progs == null) "no_btrfs";
 
   buildPhase = ''
     cd go/src/${goPackagePath}
@@ -47,7 +46,7 @@ buildGoPackage rec {
   '';
 
   meta = {
-    homepage = https://containerd.io/;
+    homepage = "https://containerd.io/";
     description = "A daemon to control runC";
     license = licenses.asl20;
     maintainers = with maintainers; [ offline vdemeester ];

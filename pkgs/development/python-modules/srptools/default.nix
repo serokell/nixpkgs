@@ -14,8 +14,9 @@ buildPythonPackage rec {
   checkInputs = [ pytest pytestrunner ];
 
   meta = with stdenv.lib; {
-    description = "Python-Tools to implement Secure Remote Password (SRP) authentication";
-    homepage = https://github.com/idlesign/srptools;
+    description =
+      "Python-Tools to implement Secure Remote Password (SRP) authentication";
+    homepage = "https://github.com/idlesign/srptools";
     license = licenses.bsd3;
     maintainers = with maintainers; [ elseym ];
   };

@@ -1,4 +1,4 @@
-{stdenv, buildOcaml, fetchurl, sexplib_p4}:
+{ stdenv, buildOcaml, fetchurl, sexplib_p4 }:
 
 buildOcaml rec {
   name = "ipaddr";
@@ -12,20 +12,21 @@ buildOcaml rec {
   propagatedBuildInputs = [ sexplib_p4 ];
 
   configurePhase = ''
-   ocaml setup.ml -configure --prefix $out
+    ocaml setup.ml -configure --prefix $out
   '';
 
-  buildPhase =  ''
-  make build
+  buildPhase = ''
+    make build
   '';
 
-  installPhase =  ''
-  make install
+  installPhase = ''
+    make install
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mirage/ocaml-ipaddr;
-    description = "A library for manipulation of IP (and MAC) address representations ";
+    homepage = "https://github.com/mirage/ocaml-ipaddr";
+    description =
+      "A library for manipulation of IP (and MAC) address representations ";
     license = licenses.mit;
     maintainers = [ maintainers.ericbmerritt ];
   };

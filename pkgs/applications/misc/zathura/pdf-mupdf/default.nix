@@ -1,5 +1,5 @@
-{ stdenv, lib, meson, ninja, fetchFromGitHub
-, pkgconfig, zathura_core, cairo , gtk-mac-integration, girara, mupdf }:
+{ stdenv, lib, meson, ninja, fetchFromGitHub, pkgconfig, zathura_core, cairo, gtk-mac-integration, girara, mupdf
+}:
 
 stdenv.mkDerivation rec {
   version = "0.3.4";
@@ -19,14 +19,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
 
-  buildInputs = [
-    zathura_core girara mupdf cairo
-  ] ++ lib.optional stdenv.isDarwin gtk-mac-integration;
+  buildInputs = [ zathura_core girara mupdf cairo ]
+    ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
-  PKG_CONFIG_ZATHURA_PLUGINDIR= "lib/zathura";
+  PKG_CONFIG_ZATHURA_PLUGINDIR = "lib/zathura";
 
   meta = with lib; {
-    homepage = https://pwmt.org/projects/zathura-pdf-mupdf/;
+    homepage = "https://pwmt.org/projects/zathura-pdf-mupdf/";
     description = "A zathura PDF plugin (mupdf)";
     longDescription = ''
       The zathura-pdf-mupdf plugin adds PDF support to zathura by

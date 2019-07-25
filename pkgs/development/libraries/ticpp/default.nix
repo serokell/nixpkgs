@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation {
   pname = "ticpp";
@@ -29,7 +26,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Interface to TinyXML";
     license = stdenv.lib.licenses.mit;
-    homepage = https://github.com/wxFormBuilder/ticpp;
+    homepage = "https://github.com/wxFormBuilder/ticpp";
   };
 
 }

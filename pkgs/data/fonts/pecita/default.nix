@@ -1,10 +1,8 @@
 { lib, fetchurl }:
 
-let
-  version = "5.4";
-in
+let version = "5.4";
 
-fetchurl rec {
+in fetchurl rec {
   name = "pecita-${version}";
 
   url = "http://pecita.eu/b/Pecita.otf";
@@ -20,10 +18,10 @@ fetchurl rec {
   sha256 = "0pwm20f38lcbfkdqkpa2ydpc9kvmdg0ifc4h2dmipsnwbcb5rfwm";
 
   meta = with lib; {
-    homepage = http://pecita.eu/police-en.php;
+    homepage = "http://pecita.eu/police-en.php";
     description = "Handwritten font with connected glyphs";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [maintainers.rycee];
+    maintainers = [ maintainers.rycee ];
   };
 }

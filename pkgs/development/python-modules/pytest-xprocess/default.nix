@@ -1,7 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, psutil
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-xprocess";

@@ -34,9 +34,7 @@ rec {
     config = {
       Cmd = [ "/bin/redis-server" ];
       WorkingDir = "/data";
-      Volumes = {
-        "/data" = {};
-      };
+      Volumes = { "/data" = { }; };
     };
   };
 
@@ -63,31 +61,29 @@ rec {
     nginxWebRoot = pkgs.writeTextDir "index.html" ''
       <html><body><h1>Hello from NGINX</h1></body></html>
     '';
-  in
-  buildImage {
-    name = "nginx-container";
-    tag = "latest";
-    contents = pkgs.nginx;
+    in buildImage {
+      name = "nginx-container";
+      tag = "latest";
+      contents = pkgs.nginx;
 
-    runAsRoot = ''
-      #!${pkgs.stdenv.shell}
-      ${shadowSetup}
-      groupadd --system nginx
-      useradd --system --gid nginx nginx
-    '';
+      runAsRoot = ''
+        #!${pkgs.stdenv.shell}
+        ${shadowSetup}
+        groupadd --system nginx
+        useradd --system --gid nginx nginx
+      '';
 
-    config = {
-      Cmd = [ "nginx" "-c" nginxConf ];
-      ExposedPorts = {
-        "${nginxPort}/tcp" = {};
+      config = {
+        Cmd = [ "nginx" "-c" nginxConf ];
+        ExposedPorts = { "${nginxPort}/tcp" = { }; };
       };
     };
-  };
 
   # 4. example of pulling an image. could be used as a base for other images
   nixFromDockerHub = pullImage {
     imageName = "nixos/nix";
-    imageDigest = "sha256:85299d86263a3059cf19f419f9d286cc9f06d3c13146a8ebbb21b3437f598357";
+    imageDigest =
+      "sha256:85299d86263a3059cf19f419f9d286cc9f06d3c13146a8ebbb21b3437f598357";
     sha256 = "07q9y9r7fsd18sy95ybrvclpkhlal12d30ybnf089hq7v1hgxbi7";
     finalImageTag = "2.2.1";
     finalImageName = "nix";
@@ -96,13 +92,7 @@ rec {
   # 5. example of multiple contents, emacs and vi happily coexisting
   editors = buildImage {
     name = "editors";
-    contents = [
-      pkgs.coreutils
-      pkgs.bash
-      pkgs.emacs
-      pkgs.vim
-      pkgs.nano
-    ];
+    contents = [ pkgs.coreutils pkgs.bash pkgs.emacs pkgs.vim pkgs.nano ];
   };
 
   # 6. nix example to play with the container nix store
@@ -116,9 +106,7 @@ rec {
       pkgs.coreutils
       pkgs.nix
     ];
-    config = {
-      Env = [ "NIX_PAGER=cat" ];
-    };
+    config = { Env = [ "NIX_PAGER=cat" ]; };
   };
 
   # 7. example of adding something on top of an image pull by our
@@ -173,9 +161,7 @@ rec {
     config = {
       Env = [ "PATH=${pkgs.coreutils}/bin/" ];
       WorkingDir = "/example-output";
-      Cmd = [
-        "${pkgs.bash}/bin/bash" "-c" "echo hello > foo; cat foo"
-      ];
+      Cmd = [ "${pkgs.bash}/bin/bash" "-c" "echo hello > foo; cat foo" ];
     };
   };
 
@@ -215,16 +201,16 @@ rec {
         echo layer2 > tmp/layer3
       '';
     };
-  in pkgs.dockerTools.buildImage {
-    name = "l3";
-    fromImage = l2;
-    tag = "latest";
-    contents = [ pkgs.coreutils ];
-    extraCommands = ''
-      mkdir -p tmp
-      echo layer3 > tmp/layer3
-    '';
-  };
+    in pkgs.dockerTools.buildImage {
+      name = "l3";
+      fromImage = l2;
+      tag = "latest";
+      contents = [ pkgs.coreutils ];
+      extraCommands = ''
+        mkdir -p tmp
+        echo layer3 > tmp/layer3
+      '';
+    };
 
   # 14. Create another layered image, for comparing layers with image 10.
   another-layered-image = pkgs.dockerTools.buildLayeredImage {

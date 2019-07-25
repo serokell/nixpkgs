@@ -1,7 +1,5 @@
-{ stdenv, acl, attr, autoconf, automake, bash, bc, coreutils, e2fsprogs
-, fetchgit, fio, gawk, keyutils, killall, lib, libaio, libcap, libtool
-, libuuid, libxfs, lvm2, openssl, perl, procps, quota
-, time, utillinux, which, writeScript, xfsprogs, runtimeShell }:
+{ stdenv, acl, attr, autoconf, automake, bash, bc, coreutils, e2fsprogs, fetchgit, fio, gawk, keyutils, killall, lib, libaio, libcap, libtool, libuuid, libxfs, lvm2, openssl, perl, procps, quota, time, utillinux, which, writeScript, xfsprogs, runtimeShell
+}:
 
 stdenv.mkDerivation {
   name = "xfstests-2018-04-11";
@@ -12,12 +10,8 @@ stdenv.mkDerivation {
     sha256 = "16j1kcmj0xq6s2qw4hll5r5cz7q4vbbsy2nh1g5aaq7xsl3h8mhb";
   };
 
-  nativeBuildInputs = [
-    autoconf automake libtool
-  ];
-  buildInputs = [
-    acl attr gawk libaio libuuid libxfs openssl perl
-  ];
+  nativeBuildInputs = [ autoconf automake libtool ];
+  buildInputs = [ acl attr gawk libaio libuuid libxfs openssl perl ];
 
   hardeningDisable = [ "format" ];
   enableParallelBuilding = true;
@@ -91,15 +85,32 @@ stdenv.mkDerivation {
       ln -s @out@/lib/xfstests/$f $f
     done
 
-    export PATH=${lib.makeBinPath [acl attr bc e2fsprogs fio gawk keyutils
-                                   libcap lvm2 perl procps killall quota
-                                   utillinux which xfsprogs]}:$PATH
+    export PATH=${
+      lib.makeBinPath [
+        acl
+        attr
+        bc
+        e2fsprogs
+        fio
+        gawk
+        keyutils
+        libcap
+        lvm2
+        perl
+        procps
+        killall
+        quota
+        utillinux
+        which
+        xfsprogs
+      ]
+    }:$PATH
     exec ./check "$@"
   '';
 
   meta = with stdenv.lib; {
     description = "Torture test suite for filesystems";
-    homepage = https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/;
+    homepage = "https://git.kernel.org/pub/scm/fs/xfs/xfstests-dev.git/";
     license = licenses.gpl2;
     maintainers = [ maintainers.dezgeg ];
     platforms = platforms.linux;

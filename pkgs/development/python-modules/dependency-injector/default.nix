@@ -1,13 +1,8 @@
 { stdenv, buildPythonPackage, fetchPypi, isPy3k, six, unittest2 }:
 
-let
-  testPath =
-    if isPy3k
-    then "test_*_py3.py"
-    else "test_*_py2_py3.py";
-in
+let testPath = if isPy3k then "test_*_py3.py" else "test_*_py2_py3.py";
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "dependency-injector";
   version = "3.14.6";
 
@@ -25,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Dependency injection microframework for Python";
-    homepage = https://github.com/ets-labs/python-dependency-injector;
+    homepage = "https://github.com/ets-labs/python-dependency-injector";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gerschtli ];
   };

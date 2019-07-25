@@ -1,4 +1,4 @@
-{stdenv, lib, fetchFromGitHub, libX11, autoreconfHook }:
+{ stdenv, lib, fetchFromGitHub, libX11, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "xsel-unstable-${version}";
@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ libX11 ];
 
   meta = with lib; {
-    description = "Command-line program for getting and setting the contents of the X selection";
-    homepage = http://www.kfish.org/software/xsel;
+    description =
+      "Command-line program for getting and setting the contents of the X selection";
+    homepage = "http://www.kfish.org/software/xsel";
     license = licenses.mit;
     maintainers = [ maintainers.cstrahan ];
     platforms = lib.platforms.unix;

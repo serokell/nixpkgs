@@ -12,7 +12,7 @@ let
       This package includes DejaVu Sans, DejaVu Serif, DejaVu Sans Mono, and
       the TeX Gyre DejaVu Math font.
     '';
-    homepage = http://dejavu-fonts.org/wiki/Main_Page;
+    homepage = "http://dejavu-fonts.org/wiki/Main_Page";
 
     # Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.
     # Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.
@@ -25,12 +25,13 @@ let
 
   full-ttf = stdenv.mkDerivation {
     name = "dejavu-fonts-full-${version}";
-    nativeBuildInputs = [fontforge perl perlPackages.IOString perlPackages.FontTTF];
+    nativeBuildInputs =
+      [ fontforge perl perlPackages.IOString perlPackages.FontTTF ];
 
     src = fetchFromGitHub {
       owner = "dejavu-fonts";
       repo = "dejavu-fonts";
-      rev = "version_${stdenv.lib.replaceStrings ["."] ["_"] version}";
+      rev = "version_${stdenv.lib.replaceStrings [ "." ] [ "_" ] version}";
       sha256 = "1xknlg2h287dx34v2n5r33bpcl4biqf0cv7nak657rjki7s0k4bk";
     };
 

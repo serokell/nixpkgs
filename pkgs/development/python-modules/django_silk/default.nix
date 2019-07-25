@@ -1,24 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, python
-, fetchFromGitHub
-, django
-, pygments
-, simplejson
-, dateutil
-, requests
-, sqlparse
-, jinja2
-, autopep8
-, pytz
-, pillow
-, mock
-, gprof2dot
-, freezegun
-, contextlib2
-, networkx
-, pydot
-, factory_boy
+{ stdenv, buildPythonPackage, python, fetchFromGitHub, django, pygments, simplejson, dateutil, requests, sqlparse, jinja2, autopep8, pytz, pillow, mock, gprof2dot, freezegun, contextlib2, networkx, pydot, factory_boy
 }:
 
 buildPythonPackage rec {
@@ -42,8 +22,17 @@ buildPythonPackage rec {
 
   buildInputs = [ mock ];
   propagatedBuildInputs = [
-    django pygments simplejson dateutil requests
-    sqlparse jinja2 autopep8 pytz pillow gprof2dot
+    django
+    pygments
+    simplejson
+    dateutil
+    requests
+    sqlparse
+    jinja2
+    autopep8
+    pytz
+    pillow
+    gprof2dot
   ];
 
   checkInputs = [ freezegun contextlib2 networkx pydot factory_boy ];
@@ -54,7 +43,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Silky smooth profiling for the Django Framework";
-    homepage = https://github.com/mtford90/silk;
+    homepage = "https://github.com/mtford90/silk";
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];
   };

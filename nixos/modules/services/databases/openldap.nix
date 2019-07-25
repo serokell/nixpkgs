@@ -8,29 +8,29 @@ let
   openldap = pkgs.openldap;
 
   dataFile = pkgs.writeText "ldap-contents.ldif" cfg.declarativeContents;
-  configFile = pkgs.writeText "slapd.conf" ((optionalString cfg.defaultSchemas ''
-    include ${pkgs.openldap.out}/etc/schema/core.schema
-    include ${pkgs.openldap.out}/etc/schema/cosine.schema
-    include ${pkgs.openldap.out}/etc/schema/inetorgperson.schema
-    include ${pkgs.openldap.out}/etc/schema/nis.schema
-  '') + ''
-    ${cfg.extraConfig}
-    database ${cfg.database}
-    suffix ${cfg.suffix}
-    rootdn ${cfg.rootdn}
-    ${if (cfg.rootpw != null) then ''
-      rootpw ${cfg.rootpw}
-    '' else ''
-      include ${cfg.rootpwFile}
-    ''}
-    directory ${cfg.dataDir}
-    ${cfg.extraDatabaseConfig}
-  '');
-  configOpts = if cfg.configDir == null then "-f ${configFile}"
-               else "-F ${cfg.configDir}";
-in
+  configFile = pkgs.writeText "slapd.conf"
+    ((optionalString cfg.defaultSchemas ''
+      include ${pkgs.openldap.out}/etc/schema/core.schema
+      include ${pkgs.openldap.out}/etc/schema/cosine.schema
+      include ${pkgs.openldap.out}/etc/schema/inetorgperson.schema
+      include ${pkgs.openldap.out}/etc/schema/nis.schema
+    '') + ''
+      ${cfg.extraConfig}
+      database ${cfg.database}
+      suffix ${cfg.suffix}
+      rootdn ${cfg.rootdn}
+      ${if (cfg.rootpw != null) then ''
+        rootpw ${cfg.rootpw}
+      '' else ''
+        include ${cfg.rootpwFile}
+      ''}
+      directory ${cfg.dataDir}
+      ${cfg.extraDatabaseConfig}
+    '');
+  configOpts =
+    if cfg.configDir == null then "-f ${configFile}" else "-F ${cfg.configDir}";
 
-{
+in {
 
   ###### interface
 
@@ -138,7 +138,8 @@ in
       configDir = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description = "Use this optional config directory instead of using slapd.conf";
+        description =
+          "Use this optional config directory instead of using slapd.conf";
         example = "/var/db/slapd.d";
       };
 
@@ -147,20 +148,20 @@ in
         default = "";
         description = "slapd.conf configuration";
         example = literalExample ''
-            '''
-            include ${pkgs.openldap.out}/etc/schema/core.schema
-            include ${pkgs.openldap.out}/etc/schema/cosine.schema
-            include ${pkgs.openldap.out}/etc/schema/inetorgperson.schema
-            include ${pkgs.openldap.out}/etc/schema/nis.schema
+          '''
+          include ${pkgs.openldap.out}/etc/schema/core.schema
+          include ${pkgs.openldap.out}/etc/schema/cosine.schema
+          include ${pkgs.openldap.out}/etc/schema/inetorgperson.schema
+          include ${pkgs.openldap.out}/etc/schema/nis.schema
 
-            database bdb
-            suffix dc=example,dc=org
-            rootdn cn=admin,dc=example,dc=org
-            # NOTE: change after first start
-            rootpw secret
-            directory /var/db/openldap
-            '''
-          '';
+          database bdb
+          suffix dc=example,dc=org
+          rootdn cn=admin,dc=example,dc=org
+          # NOTE: change after first start
+          rootpw secret
+          directory /var/db/openldap
+          '''
+        '';
       };
 
       declarativeContents = mkOption {
@@ -227,16 +228,15 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.configDir != null || cfg.rootpwFile != null || cfg.rootpw != null;
-        message = "services.openldap: Unless configDir is set, either rootpw or rootpwFile must be set";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.configDir != null || cfg.rootpwFile != null || cfg.rootpw
+        != null;
+      message =
+        "services.openldap: Unless configDir is set, either rootpw or rootpwFile must be set";
+    }];
 
     environment.systemPackages = [ openldap ];
 
@@ -257,22 +257,21 @@ in
         chown -R "${cfg.user}:${cfg.group}" "${cfg.dataDir}"
       '';
       serviceConfig.ExecStart =
-        "${openldap.out}/libexec/slapd -d '${cfg.logLevel}' " +
-          "-u '${cfg.user}' -g '${cfg.group}' " +
-          "-h '${concatStringsSep " " cfg.urlList}' " +
-          "${configOpts}";
+        "${openldap.out}/libexec/slapd -d '${cfg.logLevel}' "
+        + "-u '${cfg.user}' -g '${cfg.group}' "
+        + "-h '${concatStringsSep " " cfg.urlList}' " + "${configOpts}";
     };
 
-    users.users.openldap =
-      { name = cfg.user;
-        group = cfg.group;
-        uid = config.ids.uids.openldap;
-      };
+    users.users.openldap = {
+      name = cfg.user;
+      group = cfg.group;
+      uid = config.ids.uids.openldap;
+    };
 
-    users.groups.openldap =
-      { name = cfg.group;
-        gid = config.ids.gids.openldap;
-      };
+    users.groups.openldap = {
+      name = cfg.group;
+      gid = config.ids.gids.openldap;
+    };
 
   };
 }

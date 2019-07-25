@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, asciidoc-full, gettext
-, gobject-introspection, gtk3, hicolor-icon-theme, libappindicator-gtk3, libnotify, librsvg
-, udisks2, wrapGAppsHook
-, python3Packages
+{ stdenv, fetchFromGitHub, asciidoc-full, gettext, gobject-introspection, gtk3, hicolor-icon-theme, libappindicator-gtk3, libnotify, librsvg, udisks2, wrapGAppsHook, python3Packages
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -17,14 +14,14 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [
     gettext
-    asciidoc-full        # For building man page.
+    asciidoc-full # For building man page.
     gobject-introspection
     wrapGAppsHook
   ];
 
   buildInputs = [
     hicolor-icon-theme
-    librsvg              # required for loading svg icons (udiskie uses svg icons)
+    librsvg # required for loading svg icons (udiskie uses svg icons)
     gobject-introspection
     libnotify
     gtk3
@@ -32,11 +29,7 @@ python3Packages.buildPythonApplication rec {
     libappindicator-gtk3
   ];
 
-  propagatedBuildInputs = with python3Packages; [
-    docopt
-    pygobject3
-    pyyaml
-  ];
+  propagatedBuildInputs = with python3Packages; [ docopt pygobject3 pyyaml ];
 
   postBuild = "make -C doc";
 
@@ -45,10 +38,7 @@ python3Packages.buildPythonApplication rec {
     cp -v doc/udiskie.8 $out/share/man/man8/
   '';
 
-  checkInputs = with python3Packages; [
-    nose
-    keyutils
-  ];
+  checkInputs = with python3Packages; [ nose keyutils ];
 
   checkPhase = ''
     nosetests
@@ -57,7 +47,7 @@ python3Packages.buildPythonApplication rec {
   meta = with stdenv.lib; {
     description = "Removable disk automounter for udisks";
     license = licenses.mit;
-    homepage = https://github.com/coldfix/udiskie;
+    homepage = "https://github.com/coldfix/udiskie";
     maintainers = with maintainers; [ AndersonTorres ];
   };
 }

@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiofiles";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "File support for asyncio";
-    homepage = https://github.com/Tinche/aiofiles;
+    homepage = "https://github.com/Tinche/aiofiles";
     license = with lib.licenses; [ asl20 ];
     maintainers = with lib.maintainers; [ fridh ];
   };

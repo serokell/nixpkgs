@@ -1,16 +1,17 @@
-{ fetchurl, stdenv, pkgconfig, gnome3, glib, gtk3, clutter, dbus, python3, libxml2
-, libxklavier, libXtst, gtk2, intltool, libxslt, at-spi2-core, autoreconfHook
-, wrapGAppsHook, libgee }:
+{ fetchurl, stdenv, pkgconfig, gnome3, glib, gtk3, clutter, dbus, python3, libxml2, libxklavier, libXtst, gtk2, intltool, libxslt, at-spi2-core, autoreconfHook, wrapGAppsHook, libgee
+}:
 
 let
   pname = "caribou";
   version = "0.4.21";
-  pythonEnv = python3.withPackages ( ps: with ps; [ pygobject3 ] );
+  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0mfychh1q3dx0b96pjz9a9y112bm9yqyim40yykzxx1hppsdjhww";
   };
 
@@ -18,16 +19,24 @@ in stdenv.mkDerivation rec {
     # Fix crash in GNOME Flashback
     # https://bugzilla.gnome.org/show_bug.cgi?id=791001
     (fetchurl {
-      url = https://bugzilla.gnome.org/attachment.cgi?id=364774;
+      url = "https://bugzilla.gnome.org/attachment.cgi?id=364774";
       sha256 = "15k1455grf6knlrxqbjnk7sals1730b0whj30451scp46wyvykvd";
     })
   ];
 
-  nativeBuildInputs = [ pkgconfig intltool libxslt libxml2 autoreconfHook wrapGAppsHook ];
+  nativeBuildInputs =
+    [ pkgconfig intltool libxslt libxml2 autoreconfHook wrapGAppsHook ];
 
   buildInputs = [
-    glib gtk3 clutter at-spi2-core dbus pythonEnv python3.pkgs.pygobject3
-    libXtst gtk2
+    glib
+    gtk3
+    clutter
+    at-spi2-core
+    dbus
+    pythonEnv
+    python3.pkgs.pygobject3
+    libXtst
+    gtk2
   ];
 
   propagatedBuildInputs = [ libgee libxklavier ];
@@ -45,8 +54,9 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "An input assistive technology intended for switch and pointer users";
-    homepage = https://wiki.gnome.org/Projects/Caribou;
+    description =
+      "An input assistive technology intended for switch and pointer users";
+    homepage = "https://wiki.gnome.org/Projects/Caribou";
     license = licenses.lgpl21;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

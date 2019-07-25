@@ -1,9 +1,7 @@
-{stdenv, fetchurl, cmake}:
+{ stdenv, fetchurl, cmake }:
 
-let
-  v = "2.0.17";
-in
-stdenv.mkDerivation {
+let v = "2.0.17";
+in stdenv.mkDerivation {
   name = "eigen-${v}";
 
   src = fetchurl {
@@ -15,9 +13,10 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "C++ template library for linear algebra: vectors, matrices, and related algorithms";
+    description =
+      "C++ template library for linear algebra: vectors, matrices, and related algorithms";
     license = licenses.lgpl3Plus;
-    homepage = http://eigen.tuxfamily.org ;
+    homepage = "http://eigen.tuxfamily.org";
     maintainers = with stdenv.lib.maintainers; [ sander raskin ];
     branch = "2";
     platforms = with stdenv.lib.platforms; unix;

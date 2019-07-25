@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, fetchFromBitbucket
-, isPy3k
-, pkgs
-, python
+{ stdenv, buildPythonPackage, fetchPypi, fetchFromBitbucket, isPy3k, pkgs, python
 }:
 
 buildPythonPackage rec {
@@ -51,8 +45,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A simple wrapper on the main classes of the HepMC event simulation representation, making it possible to create, read and manipulate HepMC events from Python code";
-    license     = licenses.gpl2;
+    description =
+      "A simple wrapper on the main classes of the HepMC event simulation representation, making it possible to create, read and manipulate HepMC events from Python code";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ veprbl ];
   };
 

@@ -7,7 +7,7 @@ buildGoPackage rec {
   revision = "v${version}";
   goPackagePath = "github.com/drone/drone-cli";
 
-  goDeps= ./deps.nix;
+  goDeps = ./deps.nix;
 
   src = fetchFromGitHub {
     owner = "drone";
@@ -19,6 +19,7 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     maintainers = with maintainers; [ bricewge ];
     license = licenses.asl20;
-    description = "Command line client for the Drone continuous integration server.";
+    description =
+      "Command line client for the Drone continuous integration server.";
   };
 }

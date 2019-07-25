@@ -1,6 +1,5 @@
-{ stdenv, lib, isPyPy, buildPythonPackage, fetchPypi
-, pytest, cmdline, pytestcov, coverage, setuptools-git, mock, pathpy, execnet
-, contextlib2, termcolor }:
+{ stdenv, lib, isPyPy, buildPythonPackage, fetchPypi, pytest, cmdline, pytestcov, coverage, setuptools-git, mock, pathpy, execnet, contextlib2, termcolor
+}:
 
 buildPythonPackage rec {
   pname = "pytest-shutil";
@@ -12,16 +11,28 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ cmdline pytest ];
-  propagatedBuildInputs = [ pytestcov coverage setuptools-git mock pathpy execnet contextlib2 termcolor ];
+  propagatedBuildInputs = [
+    pytestcov
+    coverage
+    setuptools-git
+    mock
+    pathpy
+    execnet
+    contextlib2
+    termcolor
+  ];
   nativeBuildInputs = [ pytest ];
 
   checkPhase = ''
-    py.test ${lib.optionalString isPyPy "-k'not (test_run or test_run_integration)'"}
+    py.test ${
+      lib.optionalString isPyPy "-k'not (test_run or test_run_integration)'"
+    }
   '';
 
   meta = with stdenv.lib; {
-    description = "A goodie-bag of unix shell and environment tools for py.test";
-    homepage = https://github.com/manahl/pytest-plugins;
+    description =
+      "A goodie-bag of unix shell and environment tools for py.test";
+    homepage = "https://github.com/manahl/pytest-plugins";
     maintainers = with maintainers; [ ryansydnor ];
     license = licenses.mit;
   };

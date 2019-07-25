@@ -1,14 +1,10 @@
-{
-  mkDerivation, fetchurl, lib,
-  extra-cmake-modules, kdoctools, wrapGAppsHook,
-  kconfig, kcrash, kinit
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, kconfig, kcrash, kinit
 }:
 
 let
   pname = "kronometer";
   version = "2.2.2";
-in
-mkDerivation rec {
+in mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {

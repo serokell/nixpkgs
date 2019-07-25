@@ -1,18 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, makeWrapper
-, gdb
-, future
-, isort
-, psutil
-, pycparser
-, pyelftools
-, python-ptrace
-, ROPGadget
-, six
-, unicorn
-, pygments
-, }:
+{ stdenv, fetchFromGitHub, makeWrapper, gdb, future, isort, psutil, pycparser, pyelftools, python-ptrace, ROPGadget, six, unicorn, pygments,
+}:
 
 stdenv.mkDerivation rec {
   name = "pwndbg-${version}";
@@ -53,8 +40,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Exploit Development and Reverse Engineering with GDB Made Easy";
-    homepage = http://pwndbg.com;
+    description =
+      "Exploit Development and Reverse Engineering with GDB Made Easy";
+    homepage = "http://pwndbg.com";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ mic92 ];

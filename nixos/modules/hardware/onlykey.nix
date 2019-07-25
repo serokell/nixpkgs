@@ -29,5 +29,4 @@ with lib;
     services.udev.extraRules = builtin.readFile ./onlykey.udev;
   };
 
-
 }

@@ -1,8 +1,10 @@
 { config, stdenv, pkgs, lib }:
 
-lib.makeScope pkgs.newScope (self: with self; {
+lib.makeScope pkgs.newScope (self:
+with self;
+{
 
-#### PLATFORM
+  #### PLATFORM
 
   libIDL = callPackage ./platform/libIDL {
     gettext = if stdenv.isDarwin then pkgs.gettext else null;
@@ -49,11 +51,12 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   gtkhtml = callPackage ./platform/gtkhtml { enchant = pkgs.enchant1; };
 
-  gtkhtml4 = callPackage ./platform/gtkhtml/4.x.nix { enchant = pkgs.enchant1; };
+  gtkhtml4 =
+    callPackage ./platform/gtkhtml/4.x.nix { enchant = pkgs.enchant1; };
 
   gtkglext = callPackage ./platform/gtkglext { };
 
-#### DESKTOP
+  #### DESKTOP
 
   gvfs = pkgs.gvfs.override { gnome = self; };
 
@@ -66,13 +69,13 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   vte = callPackage ./desktop/vte { };
 
-#### BINDINGS
+  #### BINDINGS
 
   libglademm = callPackage ./bindings/libglademm { };
 
 } // lib.optionalAttrs (config.allowAliases or true) {
   inherit (pkgs)
-    # GTK Libs
+  # GTK Libs
     glib glibmm atk atkmm cairo pango pangomm gdk_pixbuf gtkmm2 libcanberra-gtk2
 
     # Included for backwards compatibility

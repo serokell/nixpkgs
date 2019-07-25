@@ -1,12 +1,8 @@
-{ stdenv, fetchurl, cmake, extra-cmake-modules, pkgconfig
-, gtk2, qtbase, qtsvg, qtx11extras # Toolkit dependencies
-, karchive, kconfig, kconfigwidgets, kio, frameworkintegration
-, kguiaddons, ki18n, kwindowsystem, kdelibs4support, kiconthemes
-, libpthreadstubs, pcre, libXdmcp, libX11, libXau # X11 dependencies
+{ stdenv, fetchurl, cmake, extra-cmake-modules, pkgconfig, gtk2, qtbase, qtsvg, qtx11extras # Toolkit dependencies
+, karchive, kconfig, kconfigwidgets, kio, frameworkintegration, kguiaddons, ki18n, kwindowsystem, kdelibs4support, kiconthemes, libpthreadstubs, pcre, libXdmcp, libX11, libXau # X11 dependencies
 }:
 
-let
-  version = "1.9";
+let version = "1.9";
 in stdenv.mkDerivation {
   name = "qtcurve-${version}";
   src = fetchurl {
@@ -20,12 +16,24 @@ in stdenv.mkDerivation {
 
   buildInputs = [
     gtk2
-    qtbase qtsvg qtx11extras
-    karchive kconfig kconfigwidgets kio kiconthemes kguiaddons ki18n
-    kwindowsystem kdelibs4support frameworkintegration
+    qtbase
+    qtsvg
+    qtx11extras
+    karchive
+    kconfig
+    kconfigwidgets
+    kio
+    kiconthemes
+    kguiaddons
+    ki18n
+    kwindowsystem
+    kdelibs4support
+    frameworkintegration
     libpthreadstubs
     pcre
-    libXdmcp libX11 libXau
+    libXdmcp
+    libX11
+    libXau
   ];
 
   preConfigure = ''
@@ -42,7 +50,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/QtCurve/qtcurve;
+    homepage = "https://github.com/QtCurve/qtcurve";
     description = "Widget styles for Qt5/Plasma 5 and gtk2";
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;

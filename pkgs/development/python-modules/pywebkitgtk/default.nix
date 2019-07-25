@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, pkgs
-, pygtk
-}:
+{ stdenv, buildPythonPackage, fetchurl, pkgs, pygtk }:
 
 buildPythonPackage rec {
   pname = "pywebkitgtk";
@@ -16,7 +11,15 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pkgs.pkgconfig ];
-  buildInputs = [ pygtk pkgs.gtk2 pkgs.libxml2 pkgs.libxslt pkgs.libsoup pkgs.webkitgtk24x-gtk2 pkgs.icu ];
+  buildInputs = [
+    pygtk
+    pkgs.gtk2
+    pkgs.libxml2
+    pkgs.libxslt
+    pkgs.libsoup
+    pkgs.webkitgtk24x-gtk2
+    pkgs.icu
+  ];
 
   meta = with stdenv.lib; {
     homepage = "https://code.google.com/p/pywebkitgtk/";

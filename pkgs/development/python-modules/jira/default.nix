@@ -1,7 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, pytest, pytestrunner, pbr, glibcLocales , pytestcov
-, requests, requests_oauthlib, requests_toolbelt, defusedxml
-, ipython
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, pytestrunner, pbr, glibcLocales, pytestcov, requests, requests_oauthlib, requests_toolbelt, defusedxml, ipython
 }:
 
 buildPythonPackage rec {
@@ -16,7 +13,8 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ glibcLocales pytest pytestcov pytestrunner pbr ];
-  propagatedBuildInputs = [ requests requests_oauthlib requests_toolbelt defusedxml pbr ipython ];
+  propagatedBuildInputs =
+    [ requests requests_oauthlib requests_toolbelt defusedxml pbr ipython ];
 
   # impure tests because of connectivity attempts to jira servers
   doCheck = false;
@@ -28,7 +26,8 @@ buildPythonPackage rec {
   disabled = !isPy3k;
 
   meta = with lib; {
-    description = "This library eases the use of the JIRA REST API from Python.";
+    description =
+      "This library eases the use of the JIRA REST API from Python.";
     license = licenses.bsd2;
     maintainers = with maintainers; [ globin ma27 ];
   };

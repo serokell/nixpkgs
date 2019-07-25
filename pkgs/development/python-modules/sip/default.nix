@@ -23,9 +23,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Creates C++ bindings for Python modules";
-    homepage    = "http://www.riverbankcomputing.co.uk/";
-    license     = licenses.gpl2Plus;
+    homepage = "http://www.riverbankcomputing.co.uk/";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ lovek323 sander ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

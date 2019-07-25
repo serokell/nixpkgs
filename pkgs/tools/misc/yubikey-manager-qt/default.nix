@@ -1,29 +1,15 @@
-{ stdenv
-, fetchurl
-, wrapQtAppsHook
-, pcsclite
-, pyotherside
-, pythonPackages
-, python3
-, qmake
-, qtbase
-, qtgraphicaleffects
-, qtquickcontrols
-, qtquickcontrols2
-, qtdeclarative
-, qtsvg
-, yubikey-manager
-, yubikey-personalization
+{ stdenv, fetchurl, wrapQtAppsHook, pcsclite, pyotherside, pythonPackages, python3, qmake, qtbase, qtgraphicaleffects, qtquickcontrols, qtquickcontrols2, qtdeclarative, qtsvg, yubikey-manager, yubikey-personalization
 }:
 
-let inherit (stdenv) lib; in
+let inherit (stdenv) lib;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "yubikey-manager-qt";
   version = "1.1.2";
 
   src = fetchurl {
-    url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
+    url =
+      "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
     sha256 = "01ax8zjrahs2sjbgsys2ahh57sdcap0ij3y1r1bbvsgzr7xxm2q8";
   };
 
@@ -33,7 +19,14 @@ stdenv.mkDerivation rec {
     substituteInPlace ykman-gui/deployment.pri --replace '/usr/bin' "$out/bin"
   '';
 
-  buildInputs = [ pythonPackages.python qtbase qtgraphicaleffects qtquickcontrols qtquickcontrols2 pyotherside ];
+  buildInputs = [
+    pythonPackages.python
+    qtbase
+    qtgraphicaleffects
+    qtquickcontrols
+    qtquickcontrols2
+    pyotherside
+  ];
 
   enableParallelBuilding = true;
 
@@ -44,7 +37,9 @@ stdenv.mkDerivation rec {
     buildPythonPath "$pythonPath"
 
     wrapQtApp $out/bin/ykman-gui \
-      --prefix LD_LIBRARY_PATH : "${stdenv.lib.getLib pcsclite}/lib:${yubikey-personalization}/lib" \
+      --prefix LD_LIBRARY_PATH : "${
+      stdenv.lib.getLib pcsclite
+      }/lib:${yubikey-personalization}/lib" \
       --prefix PYTHONPATH : "$program_PYTHONPATH"
 
     mkdir -p $out/share/applications
@@ -57,8 +52,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     inherit version;
-    description = "Cross-platform application for configuring any YubiKey over all USB interfaces.";
-    homepage = https://developers.yubico.com/yubikey-manager-qt/;
+    description =
+      "Cross-platform application for configuring any YubiKey over all USB interfaces.";
+    homepage = "https://developers.yubico.com/yubikey-manager-qt/";
     license = licenses.bsd2;
     maintainers = [ maintainers.cbley ];
     platforms = platforms.linux;

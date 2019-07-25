@@ -12,7 +12,6 @@ stdenv.mkDerivation {
 
   buildInputs = [ cmake boost NSPlist pugixml ];
 
-
   meta = with stdenv.lib; {
     maintainers = with maintainers; [ matthewbauer ];
     description = "CPP bindings for Plist";

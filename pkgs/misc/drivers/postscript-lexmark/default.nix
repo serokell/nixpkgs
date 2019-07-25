@@ -1,18 +1,17 @@
 { stdenv, fetchurl, rpmextract }:
-let
-  version = "20160218";
-in
-stdenv.mkDerivation {
+let version = "20160218";
+in stdenv.mkDerivation {
   name = "postscript-lexmark-${version}";
 
   src = fetchurl {
-    url = "https://www.openprinting.org/download/printdriver/components/lsb3.2/main/RPMS/noarch/openprinting-ppds-postscript-lexmark-${version}-1lsb3.2.noarch.rpm";
+    url =
+      "https://www.openprinting.org/download/printdriver/components/lsb3.2/main/RPMS/noarch/openprinting-ppds-postscript-lexmark-${version}-1lsb3.2.noarch.rpm";
     sha256 = "0wbhvypdr96a5ddg6kj41dn9sbl49n7pfi2vs762ij82hm2gvwcm";
   };
 
   nativeBuildInputs = [ rpmextract ];
 
-  phases = [ "unpackPhase" "installPhase"];
+  phases = [ "unpackPhase" "installPhase" ];
 
   sourceRoot = ".";
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.openprinting.org/driver/Postscript-Lexmark/;
+    homepage = "http://www.openprinting.org/driver/Postscript-Lexmark/";
     description = "Lexmark Postscript Drivers";
     platforms = platforms.linux;
   };

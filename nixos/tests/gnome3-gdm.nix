@@ -1,27 +1,25 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "gnome3-gdm";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ lethalman ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ lethalman ]; };
 
-  machine =
-    { ... }:
+  machine = { ... }:
 
-    { imports = [ ./common/user-account.nix ];
+  {
+    imports = [ ./common/user-account.nix ];
 
-      services.xserver.enable = true;
+    services.xserver.enable = true;
 
-      services.xserver.displayManager.gdm = {
+    services.xserver.displayManager.gdm = {
+      enable = true;
+      autoLogin = {
         enable = true;
-        autoLogin = {
-          enable = true;
-          user = "alice";
-        };
+        user = "alice";
       };
-      services.xserver.desktopManager.gnome3.enable = true;
-
-      virtualisation.memorySize = 1024;
     };
+    services.xserver.desktopManager.gnome3.enable = true;
+
+    virtualisation.memorySize = 1024;
+  };
 
   testScript = let
     # Keep line widths somewhat managable
@@ -30,12 +28,13 @@ import ./make-test.nix ({ pkgs, ...} : {
     # Call javascript in gnome shell, returns a tuple (success, output), where
     # `success` is true if the dbus call was successful and output is what the
     # javascript evaluates to.
-    eval = "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
+    eval =
+      "call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval";
     # False when startup is done
     startingUp = "${gdbus} ${eval} Main.layoutManager._startingUp";
     # Hopefully gnome-terminal's wm class
     wmClass = "${gdbus} ${eval} global.display.focus_window.wm_class";
-  in ''
+    in ''
       # wait for gdm to start
       $machine->waitForUnit("display-manager.service");
 

@@ -1,20 +1,30 @@
-{ stdenv, fetchFromGitHub, makeWrapper
-, shntool, cuetools
-, flac, faac, mp4v2, wavpack, mac
-, imagemagick, libiconv, enca, lame, pythonPackages, vorbis-tools
-, aacgain, mp3gain, vorbisgain
+{ stdenv, fetchFromGitHub, makeWrapper, shntool, cuetools, flac, faac, mp4v2, wavpack, mac, imagemagick, libiconv, enca, lame, pythonPackages, vorbis-tools, aacgain, mp3gain, vorbisgain
 }:
 
 let
-  wrapSplit2flac =  format: ''
+  wrapSplit2flac = format: ''
     makeWrapper $out/bin/.split2flac-wrapped $out/bin/split2${format} \
       --set SPLIT2FLAC_FORMAT ${format} \
-      --prefix PATH : ${stdenv.lib.makeBinPath [
-        shntool cuetools
-        flac faac mp4v2 wavpack mac
-        imagemagick libiconv enca lame pythonPackages.mutagen vorbis-tools
-        aacgain mp3gain vorbisgain
-      ]}
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath [
+        shntool
+        cuetools
+        flac
+        faac
+        mp4v2
+        wavpack
+        mac
+        imagemagick
+        libiconv
+        enca
+        lame
+        pythonPackages.mutagen
+        vorbis-tools
+        aacgain
+        mp3gain
+        vorbisgain
+      ]
+      }
   '';
 
 in stdenv.mkDerivation rec {
@@ -54,7 +64,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Split flac/ape/wv/wav + cue sheet into separate tracks";
-    homepage = https://github.com/ftrvxmtrx/split2flac;
+    homepage = "https://github.com/ftrvxmtrx/split2flac";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ jfrankenau ];

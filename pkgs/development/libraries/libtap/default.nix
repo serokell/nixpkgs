@@ -1,7 +1,7 @@
 { stdenv, fetchurl, pkgconfig, cmake, perl }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "libtap-${version}";
   version = "1.12.0";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec{
       C originally created by Nik Clayton. This is a maintenance
       branch by Shlomi Fish.
     '';
-    homepage = https://www.shlomifish.org/open-source/projects/libtap/;
+    homepage = "https://www.shlomifish.org/open-source/projects/libtap/";
     license = licenses.bsd3;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.unix;

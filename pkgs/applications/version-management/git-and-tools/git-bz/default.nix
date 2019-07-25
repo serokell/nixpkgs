@@ -1,6 +1,5 @@
-{ stdenv, fetchgit
-, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxslt, makeWrapper, xmlto
-, pythonPackages }:
+{ stdenv, fetchgit, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxslt, makeWrapper, xmlto, pythonPackages
+}:
 
 stdenv.mkDerivation rec {
   name = "git-bz-${version}";
@@ -12,11 +11,9 @@ stdenv.mkDerivation rec {
     url = "git://git.fishsoup.net/git-bz";
   };
 
-  nativeBuildInputs = [
-    asciidoc docbook_xml_dtd_45 docbook_xsl libxslt makeWrapper xmlto
-  ];
-  buildInputs = []
-    ++ (with pythonPackages; [ python pysqlite ]);
+  nativeBuildInputs =
+    [ asciidoc docbook_xml_dtd_45 docbook_xsl libxslt makeWrapper xmlto ];
+  buildInputs = [ ] ++ (with pythonPackages; [ python pysqlite ]);
 
   postPatch = ''
     patchShebangs configure
@@ -47,7 +44,7 @@ stdenv.mkDerivation rec {
       Chromium on Linux.
     '';
     license = licenses.gpl2Plus;
-    homepage = http://git.fishsoup.net/cgit/git-bz/;
+    homepage = "http://git.fishsoup.net/cgit/git-bz/";
 
     platforms = platforms.linux;
   };

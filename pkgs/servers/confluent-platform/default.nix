@@ -1,14 +1,14 @@
 { stdenv, lib, fetchurl, jre, makeWrapper, bash, gnused }:
 
-let 
-  scalaVersion = "2.12"; 
-in
-stdenv.mkDerivation rec {
+let scalaVersion = "2.12";
+in stdenv.mkDerivation rec {
   name = "confluent-platform-${version}";
   version = "5.2.1";
 
   src = fetchurl {
-    url = "http://packages.confluent.io/archive/${lib.versions.majorMinor version}/confluent-${version}-${scalaVersion}.tar.gz";
+    url = "http://packages.confluent.io/archive/${
+      lib.versions.majorMinor version
+    }/confluent-${version}-${scalaVersion}.tar.gz";
     sha256 = "11fdcc557aca782e87352ed6e655c37c71fb7b3a003796ee956970b01dedbbb1";
   };
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.confluent.io/;
+    homepage = "https://www.confluent.io/";
     description = "Confluent event streaming platform based on Apache Kafka";
     license = licenses.asl20;
     maintainers = [ maintainers.offline ];

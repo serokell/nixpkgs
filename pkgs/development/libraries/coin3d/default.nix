@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://bitbucket.org/Coin3D/coin/wiki/Home";
     license = stdenv.lib.licenses.gpl2Plus;
-    description = "High-level, retained-mode toolkit for effective 3D graphics development";
+    description =
+      "High-level, retained-mode toolkit for effective 3D graphics development";
     maintainers = [ stdenv.lib.maintainers.viric ];
     platforms = stdenv.lib.platforms.linux;
   };

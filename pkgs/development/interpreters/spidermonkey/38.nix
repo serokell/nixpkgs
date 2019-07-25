@@ -1,17 +1,18 @@
-{ stdenv, fetchurl, pkgconfig, gnused_422, perl, python2, zip, libffi, readline, icu, zlib, nspr
-, libobjc }:
+{ stdenv, fetchurl, pkgconfig, gnused_422, perl, python2, zip, libffi, readline, icu, zlib, nspr, libobjc
+}:
 
 stdenv.mkDerivation rec {
   version = "38.8.0";
   name = "spidermonkey-${version}";
 
   src = fetchurl {
-    url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.bz2";
+    url =
+      "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.bz2";
     sha256 = "10lrync6cxnjlnadc0j3vg8r2dq9b3wwanw8qj1h6ncxwb7asxcl";
   };
 
   buildInputs = [ libffi readline icu zlib nspr ]
-               ++ stdenv.lib.optional stdenv.isDarwin libobjc;
+    ++ stdenv.lib.optional stdenv.isDarwin libobjc;
   nativeBuildInputs = [ pkgconfig perl python2 zip gnused_422 ];
 
   postUnpack = "sourceRoot=\${sourceRoot}/js/src";
@@ -51,7 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Mozilla's JavaScript engine written in C/C++";
-    homepage = https://developer.mozilla.org/en/SpiderMonkey;
+    homepage = "https://developer.mozilla.org/en/SpiderMonkey";
     # TODO: MPL/GPL/LGPL tri-license.
 
     maintainers = [ maintainers.abbradar ];

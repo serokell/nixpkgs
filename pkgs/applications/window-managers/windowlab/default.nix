@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, pkgconfig
-, libX11, libXext, libXft }:
+{ stdenv, fetchurl, pkgconfig, libX11, libXext, libXft }:
 
-let version = "1.40"; in
-stdenv.mkDerivation {
+let version = "1.40";
+in stdenv.mkDerivation {
   name = "windowlab-${version}";
 
   src = fetchurl {
@@ -13,23 +12,22 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libX11 libXext libXft ];
 
-  postPatch =
-    ''
-      mv Makefile Makefile.orig
-      echo \
-         "
-          DEFINES += -DXFT
-          EXTRA_INC += $(pkg-config --cflags xft)
-          EXTRA_LIBS += $(pkg-config --libs xft)
-         " > Makefile
-      sed "s|/usr/local|$out|g" Makefile.orig >> Makefile
-    '';
+  postPatch = ''
+    mv Makefile Makefile.orig
+    echo \
+       "
+        DEFINES += -DXFT
+        EXTRA_INC += $(pkg-config --cflags xft)
+        EXTRA_LIBS += $(pkg-config --libs xft)
+       " > Makefile
+    sed "s|/usr/local|$out|g" Makefile.orig >> Makefile
+  '';
 
-  meta = with stdenv.lib;
-    { description = "Small and simple stacking window manager";
-      homepage    = "http://nickgravgaard.com/windowlab/";
-      license     = licenses.gpl2;
-      maintainers = with maintainers; [ ehmry ];
-      platforms   = platforms.linux;
-    };
+  meta = with stdenv.lib; {
+    description = "Small and simple stacking window manager";
+    homepage = "http://nickgravgaard.com/windowlab/";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ ehmry ];
+    platforms = platforms.linux;
+  };
 }

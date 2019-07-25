@@ -1,14 +1,12 @@
-{ stdenv, fetchurl, which
-, kmod, kernel
-} :
+{ stdenv, fetchurl, which, kmod, kernel }:
 
-let
-  version = "7.0";
+let version = "7.0";
 in stdenv.mkDerivation {
   name = "beegfs-module-${version}-${kernel.version}";
 
   src = fetchurl {
-    url = "https://git.beegfs.com/pub/v7/repository/archive.tar.bz2?ref=${version}";
+    url =
+      "https://git.beegfs.com/pub/v7/repository/archive.tar.bz2?ref=${version}";
     sha256 = "1wsljd5ybyhl94aqrdfvcs8a0l8w4pr0bs1vhjrf4y7ldhw35m3k";
   };
 
@@ -18,7 +16,8 @@ in stdenv.mkDerivation {
 
   buildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build/" ];
+  makeFlags =
+    [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build/" ];
 
   postPatch = ''
     patchShebangs ./

@@ -2,15 +2,11 @@
 
 with lib;
 
-let
-  cfg = config.services.couchpotato;
+let cfg = config.services.couchpotato;
 
-in
-{
+in {
   options = {
-    services.couchpotato = {
-      enable = mkEnableOption "CouchPotato Server";
-    };
+    services.couchpotato = { enable = mkEnableOption "CouchPotato Server"; };
   };
 
   config = mkIf cfg.enable {
@@ -29,17 +25,17 @@ in
       };
     };
 
-    users.users = singleton
-      { name = "couchpotato";
-        group = "couchpotato";
-        home = "/var/lib/couchpotato/";
-        description = "CouchPotato daemon user";
-        uid = config.ids.uids.couchpotato;
-      };
+    users.users = singleton {
+      name = "couchpotato";
+      group = "couchpotato";
+      home = "/var/lib/couchpotato/";
+      description = "CouchPotato daemon user";
+      uid = config.ids.uids.couchpotato;
+    };
 
-    users.groups = singleton
-      { name = "couchpotato";
-        gid = config.ids.gids.couchpotato;
-      };
+    users.groups = singleton {
+      name = "couchpotato";
+      gid = config.ids.gids.couchpotato;
+    };
   };
 }

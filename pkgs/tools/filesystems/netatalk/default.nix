@@ -1,9 +1,7 @@
-{ fetchurl, stdenv, autoreconfHook, pkgconfig, perl, python
-, db, libgcrypt, avahi, libiconv, pam, openssl, acl
-, ed, glibc
+{ fetchurl, stdenv, autoreconfHook, pkgconfig, perl, python, db, libgcrypt, avahi, libiconv, pam, openssl, acl, ed, glibc
 }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   name = "netatalk-3.1.12";
 
   src = fetchurl {
@@ -11,12 +9,10 @@ stdenv.mkDerivation rec{
     sha256 = "1ld5mnz88ixic21m6f0xcgf8v6qm08j6xabh1dzfj6x47lxghq0m";
   };
 
-  patches = [
-    ./no-suid.patch
-    ./omitLocalstatedirCreation.patch
-  ];
+  patches = [ ./no-suid.patch ./omitLocalstatedirCreation.patch ];
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig perl python python.pkgs.wrapPython ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig perl python python.pkgs.wrapPython ];
 
   buildInputs = [ db libgcrypt avahi libiconv pam openssl acl ];
 
@@ -52,7 +48,7 @@ stdenv.mkDerivation rec{
 
   meta = {
     description = "Apple Filing Protocol Server";
-    homepage = http://netatalk.sourceforge.net/;
+    homepage = "http://netatalk.sourceforge.net/";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ jcumming ];

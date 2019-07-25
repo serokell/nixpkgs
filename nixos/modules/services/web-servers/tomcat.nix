@@ -6,13 +6,10 @@ let
 
   cfg = config.services.tomcat;
   tomcat = cfg.package;
-in
 
-{
+in {
 
-  meta = {
-    maintainers = with maintainers; [ danbst ];
-  };
+  meta = { maintainers = with maintainers; [ danbst ]; };
 
   ###### interface
 
@@ -54,26 +51,27 @@ in
       };
 
       logDirs = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.path;
         description = "Directories to create in baseDir/logs/";
       };
 
       extraConfigFiles = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.path;
-        description = "Extra configuration files to pull into the tomcat conf directory";
+        description =
+          "Extra configuration files to pull into the tomcat conf directory";
       };
 
       extraEnvironment = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "ENVIRONMENT=production" ];
         description = "Environment Variables to pass to the tomcat service";
       };
 
       extraGroups = mkOption {
-        default = [];
+        default = [ ];
         example = [ "users" ];
         description = "Defines extra groups to which the tomcat user belongs.";
       };
@@ -93,19 +91,22 @@ in
       javaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
-        description = "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
+        description =
+          "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
       };
 
       catalinaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
-        description = "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
+        description =
+          "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
       };
 
       sharedLibs = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
+        default = [ ];
+        description =
+          "List containing JAR files or directories with JAR files which are libraries shared by the web applications";
       };
 
       serverXml = mkOption {
@@ -119,15 +120,17 @@ in
 
       commonLibs = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
+        default = [ ];
+        description =
+          "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
       };
 
       webapps = mkOption {
         type = types.listOf types.path;
         default = [ tomcat.webapps ];
         defaultText = "[ pkgs.tomcat85.webapps ]";
-        description = "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
+        description =
+          "List containing WAR files or directories with WAR files which are web applications to be deployed on Tomcat";
       };
 
       virtualHosts = mkOption {
@@ -140,7 +143,7 @@ in
             aliases = mkOption {
               type = types.listOf types.str;
               description = "aliases of the virtualhost";
-              default = [];
+              default = [ ];
             };
             webapps = mkOption {
               type = types.listOf types.path;
@@ -148,12 +151,13 @@ in
                 List containing web application WAR files and/or directories containing
                 web applications and configuration files for the virtual host.
               '';
-              default = [];
+              default = [ ];
             };
           };
         });
-        default = [];
-        description = "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
+        default = [ ];
+        description =
+          "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
       };
 
       logPerVirtualHost = mkOption {
@@ -178,9 +182,10 @@ in
         };
 
         services = mkOption {
-          default = [];
+          default = [ ];
           type = types.listOf types.str;
-          description = "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
+          description =
+            "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
         };
 
       };
@@ -189,23 +194,22 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.tomcat.enable {
 
-    users.groups = singleton
-      { name = "tomcat";
-        gid = config.ids.gids.tomcat;
-      };
+    users.groups = singleton {
+      name = "tomcat";
+      gid = config.ids.gids.tomcat;
+    };
 
-    users.users = singleton
-      { name = "tomcat";
-        uid = config.ids.uids.tomcat;
-        description = "Tomcat user";
-        home = "/homeless-shelter";
-        extraGroups = cfg.extraGroups;
-      };
+    users.users = singleton {
+      name = "tomcat";
+      uid = config.ids.uids.tomcat;
+      description = "Tomcat user";
+      home = "/homeless-shelter";
+      extraGroups = cfg.extraGroups;
+    };
 
     systemd.services.tomcat = {
       description = "Apache Tomcat server";
@@ -236,11 +240,12 @@ in
           ln -sfn ${tomcat}/conf/$i ${cfg.baseDir}/conf/`basename $i`
         done
 
-        ${if cfg.extraConfigFiles != [] then ''
+        ${if cfg.extraConfigFiles != [ ] then ''
           for i in ${toString cfg.extraConfigFiles}; do
             ln -sfn $i ${cfg.baseDir}/conf/`basename $i`
           done
-        '' else ""}
+        '' else
+          ""}
 
         # Create a modified catalina.properties file
         # Change all references from CATALINA_HOME to CATALINA_BASE and add support for shared libraries
@@ -249,32 +254,39 @@ in
           ${tomcat}/conf/catalina.properties > ${cfg.baseDir}/conf/catalina.properties
 
         ${if cfg.serverXml != "" then ''
-          cp -f ${pkgs.writeTextDir "server.xml" cfg.serverXml}/* ${cfg.baseDir}/conf/
+          cp -f ${
+            pkgs.writeTextDir "server.xml" cfg.serverXml
+          }/* ${cfg.baseDir}/conf/
         '' else
           let
-            hostElementForVirtualHost = virtualHost: ''
-              <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
-                    unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
-            '' + concatStrings (innerElementsForVirtualHost virtualHost) + ''
-              </Host>
-            '';
+            hostElementForVirtualHost = virtualHost:
+              ''
+                <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
+                      unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
+              '' + concatStrings (innerElementsForVirtualHost virtualHost) + ''
+                </Host>
+              '';
             innerElementsForVirtualHost = virtualHost:
               (map (alias: ''
                 <Alias>${alias}</Alias>
-              '') virtualHost.aliases)
-              ++ (optional cfg.logPerVirtualHost ''
+              '') virtualHost.aliases) ++ (optional cfg.logPerVirtualHost ''
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '');
-            hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
-            hostElementsSedString = replaceStrings ["\n"] ["\\\n"] hostElementsString;
+            hostElementsString =
+              concatMapStringsSep "\n" hostElementForVirtualHost
+              cfg.virtualHosts;
+            hostElementsSedString = replaceStrings [ "\n" ] [''
+              \
+            ''] hostElementsString;
           in ''
             # Create a modified server.xml which also includes all virtual hosts
-            sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${escapeShellArg hostElementsSedString} \
+            sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${
+              escapeShellArg hostElementsSedString
+            } \
                   ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
-          ''
-        }
-        ${optionalString (cfg.logDirs != []) ''
+          ''}
+        ${optionalString (cfg.logDirs != [ ]) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i
             chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/$i
@@ -347,7 +359,9 @@ in
 
           # Symlink all the given web applications files or paths into the webapps/ directory
           # of this virtual host
-          for i in "${if virtualHost ? webapps then toString virtualHost.webapps else ""}"; do
+          for i in "${
+            if virtualHost ? webapps then toString virtualHost.webapps else ""
+          }"; do
             if [ -f $i ]; then
               # If the given web application is a file, symlink it into the webapps/ directory
               ln -sfn $i ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $i`
@@ -407,10 +421,10 @@ in
       serviceConfig = {
         Type = "forking";
         PermissionsStartOnly = true;
-        PIDFile="/run/tomcat/tomcat.pid";
+        PIDFile = "/run/tomcat/tomcat.pid";
         RuntimeDirectory = "tomcat";
         User = cfg.user;
-        Environment=[
+        Environment = [
           "CATALINA_BASE=${cfg.baseDir}"
           "CATALINA_PID=/run/tomcat/tomcat.pid"
           "JAVA_HOME='${cfg.jdk}'"

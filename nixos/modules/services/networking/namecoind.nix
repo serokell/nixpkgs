@@ -1,16 +1,17 @@
-
 { config, lib, pkgs, ... }:
 
 with lib;
 
 let
-  cfg     = config.services.namecoind;
+  cfg = config.services.namecoind;
   dataDir = "/var/lib/namecoind";
-  useSSL  = (cfg.rpc.certificate != null) && (cfg.rpc.key != null);
-  useRPC  = (cfg.rpc.user != null) && (cfg.rpc.password != null);
+  useSSL = (cfg.rpc.certificate != null) && (cfg.rpc.key != null);
+  useRPC = (cfg.rpc.user != null) && (cfg.rpc.password != null);
 
   listToConf = option: list:
-    concatMapStrings (value :"${option}=${value}\n") list;
+    concatMapStrings (value: ''
+      ${option}=${value}
+    '') list;
 
   configFile = pkgs.writeText "namecoin.conf" (''
     server=1
@@ -34,9 +35,7 @@ let
     rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
   '');
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -130,7 +129,6 @@ in
         '';
       };
 
-
       rpc.allowFrom = mkOption {
         type = types.listOf types.str;
         default = [ "127.0.0.1" ];
@@ -144,7 +142,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -156,7 +153,7 @@ in
 
     users.users = singleton {
       name = "namecoin";
-      uid  = config.ids.uids.namecoin;
+      uid = config.ids.uids.namecoin;
       description = "Namecoin daemon user";
       home = dataDir;
       createHome = true;
@@ -164,33 +161,38 @@ in
 
     users.groups = singleton {
       name = "namecoin";
-      gid  = config.ids.gids.namecoin;
+      gid = config.ids.gids.namecoin;
     };
 
     systemd.services.namecoind = {
       description = "Namecoind daemon";
-      after    = [ "network.target" ];
+      after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        User  = "namecoin";
+        User = "namecoin";
         Group = "namecoin";
-        ExecStart  = "${pkgs.altcoins.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole";
-        ExecStop   = "${pkgs.coreutils}/bin/kill -KILL $MAINPID";
+        ExecStart =
+          "${pkgs.altcoins.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole";
+        ExecStop = "${pkgs.coreutils}/bin/kill -KILL $MAINPID";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Nice = "10";
         PrivateTmp = true;
-        TimeoutStopSec     = "60s";
-        TimeoutStartSec    = "2s";
-        Restart            = "always";
+        TimeoutStopSec = "60s";
+        TimeoutStartSec = "2s";
+        Restart = "always";
         StartLimitInterval = "120s";
-        StartLimitBurst    = "5";
+        StartLimitBurst = "5";
       };
 
-      preStart = optionalString (cfg.wallet != "${dataDir}/wallet.dat")  ''
+      preStart = optionalString (cfg.wallet != "${dataDir}/wallet.dat") ''
         # check wallet file permissions
-        if [ "$(stat --printf '%u' ${cfg.wallet})" != "${toString config.ids.uids.namecoin}" \
-           -o "$(stat --printf '%g' ${cfg.wallet})" != "${toString config.ids.gids.namecoin}" \
+        if [ "$(stat --printf '%u' ${cfg.wallet})" != "${
+          toString config.ids.uids.namecoin
+        }" \
+           -o "$(stat --printf '%g' ${cfg.wallet})" != "${
+          toString config.ids.gids.namecoin
+           }" \
            -o "$(stat --printf '%a' ${cfg.wallet})" != "640" ]; then
            echo "ERROR: bad ownership or rights on ${cfg.wallet}" >&2
            exit 1

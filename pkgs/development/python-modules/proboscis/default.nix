@@ -13,8 +13,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A Python test framework that extends Python's built-in unittest module and Nose with features from TestNG";
-    homepage = https://pypi.python.org/pypi/proboscis;
+    description =
+      "A Python test framework that extends Python's built-in unittest module and Nose with features from TestNG";
+    homepage = "https://pypi.python.org/pypi/proboscis";
     license = licenses.asl20;
   };
 }

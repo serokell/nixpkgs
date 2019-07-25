@@ -1,8 +1,6 @@
 { stdenv, fetchFromGitHub, cmake, qtbase, qtsvg, gnuradio, boost, gr-osmosdr
 # drivers (optional):
-, rtl-sdr, hackrf
-, pulseaudioSupport ? true, libpulseaudio
-}:
+, rtl-sdr, hackrf, pulseaudioSupport ? true, libpulseaudio }:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 
@@ -18,9 +16,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    qtbase qtsvg gnuradio boost gr-osmosdr rtl-sdr hackrf
-  ] ++ stdenv.lib.optionals pulseaudioSupport [ libpulseaudio ];
+  buildInputs = [ qtbase qtsvg gnuradio boost gr-osmosdr rtl-sdr hackrf ]
+    ++ stdenv.lib.optionals pulseaudioSupport [ libpulseaudio ];
 
   enableParallelBuilding = true;
 
@@ -37,11 +34,11 @@ stdenv.mkDerivation rec {
       including Funcube Dongle Pro/Pro+, rtl-sdr, HackRF, and Universal
       Software Radio Peripheral (USRP) devices.
     '';
-    homepage = http://gqrx.dk/;
+    homepage = "http://gqrx.dk/";
     # Some of the code comes from the Cutesdr project, with a BSD license, but
     # it's currently unknown which version of the BSD license that is.
     license = licenses.gpl3Plus;
-    platforms = platforms.linux;  # should work on Darwin / macOS too
+    platforms = platforms.linux; # should work on Darwin / macOS too
     maintainers = with maintainers; [ bjornfor the-kenny fpletz ];
   };
 }

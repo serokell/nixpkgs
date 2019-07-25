@@ -17,7 +17,7 @@ buildGoPackage rec {
   goDeps = ./deps.nix;
 
   meta = with stdenv.lib; {
-    description = ''Convert YAML <=> TOML <=> JSON <=> HCL'';
+    description = "Convert YAML <=> TOML <=> JSON <=> HCL";
     license = licenses.asl20;
     maintainers = with maintainers; [ Profpatsch ];
     platforms = platforms.all;

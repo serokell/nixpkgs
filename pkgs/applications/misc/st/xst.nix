@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libX11, ncurses, libXext, libXft, fontconfig }:
+{ stdenv, fetchFromGitHub, pkgconfig, libX11, ncurses, libXext, libXft, fontconfig
+}:
 
 with stdenv.lib;
 
@@ -23,7 +24,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://github.com/neeasade/xst;
+    homepage = "https://github.com/neeasade/xst";
     description = "Simple terminal fork that can load config from Xresources";
     license = licenses.mit;
     maintainers = [ maintainers.vyp ];

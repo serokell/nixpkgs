@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, gpm, file, e2fsprogs
-, libX11, libICE, perl, zip, unzip, gettext, slang, libssh2, openssl}:
+{ stdenv, fetchurl, pkgconfig, glib, gpm, file, e2fsprogs, libX11, libICE, perl, zip, unzip, gettext, slang, libssh2, openssl
+}:
 
 stdenv.mkDerivation rec {
   name = "mc-${version}";
@@ -12,9 +12,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [
-    perl glib slang zip unzip file gettext libX11 libICE libssh2 openssl
-  ] ++ stdenv.lib.optionals (!stdenv.isDarwin) [ e2fsprogs gpm ];
+  buildInputs =
+    [ perl glib slang zip unzip file gettext libX11 libICE libssh2 openssl ]
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ e2fsprogs gpm ];
 
   enableParallelBuilding = true;
 
@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "File Manager and User Shell for the GNU Project";
-    homepage = http://www.midnight-commander.org;
+    homepage = "http://www.midnight-commander.org";
     downloadPage = "http://www.midnight-commander.org/downloads/";
-    repositories.git = git://github.com/MidnightCommander/mc.git;
+    repositories.git = "git://github.com/MidnightCommander/mc.git";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [ stdenv.lib.maintainers.sander ];
     platforms = with stdenv.lib.platforms; linux ++ darwin;

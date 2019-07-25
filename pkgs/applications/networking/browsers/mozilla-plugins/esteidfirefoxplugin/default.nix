@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "esteidfirefoxplugin-${version}";
 
   src = fetchurl {
-    url = "https://installer.id.ee/media/ubuntu/pool/main/e/esteidfirefoxplugin/esteidfirefoxplugin_3.12.1.1142.orig.tar.xz";
+    url =
+      "https://installer.id.ee/media/ubuntu/pool/main/e/esteidfirefoxplugin/esteidfirefoxplugin_3.12.1.1142.orig.tar.xz";
     sha256 = "0y7759x1xr00p5r3c5wpllcqqnnxh2zi74cmy4m9m690z3ywn0fx";
   };
 
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Firefox ID card signing plugin";
-    homepage = http://www.id.ee/;
+    homepage = "http://www.id.ee/";
     license = licenses.lgpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.jagajaga ];

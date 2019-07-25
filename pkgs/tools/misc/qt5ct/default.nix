@@ -1,8 +1,8 @@
 { stdenv, fetchurl, qtbase, qttools, qmake }:
 
-let inherit (stdenv.lib) getDev; in
+let inherit (stdenv.lib) getDev;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "qt5ct";
   version = "0.39";
 
@@ -15,9 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qtbase ];
 
-  qmakeFlags = [
-    "LRELEASE_EXECUTABLE=${getDev qttools}/bin/lrelease"
-  ];
+  qmakeFlags = [ "LRELEASE_EXECUTABLE=${getDev qttools}/bin/lrelease" ];
 
   preConfigure = ''
     qmakeFlags+=" PLUGINDIR=$out/$qtPluginPrefix"
@@ -27,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt5 Configuration Tool";
-    homepage = https://www.opendesktop.org/content/show.php?content=168066;
+    homepage = "https://www.opendesktop.org/content/show.php?content=168066";
     platforms = platforms.linux;
     license = licenses.bsd2;
     maintainers = with maintainers; [ ralith ];

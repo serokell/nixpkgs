@@ -17,11 +17,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  disabled = isPy34;  # see http://bugs.python.org/issue21121
+  disabled = isPy34; # see http://bugs.python.org/issue21121
 
   meta = with lib; {
-    description = "Provides bindings to the generic input event interface in Linux";
-    homepage = https://pythonhosted.org/evdev;
+    description =
+      "Provides bindings to the generic input event interface in Linux";
+    homepage = "https://pythonhosted.org/evdev";
     license = licenses.bsd3;
     maintainers = with maintainers; [ goibhniu ];
     platforms = platforms.linux;

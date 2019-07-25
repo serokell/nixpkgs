@@ -1,11 +1,12 @@
 { stdenv, lib, fetchurl, alsaLib, libpulseaudio, undmg }:
 
 let
-  bits = stdenv.lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "64";
+  bits =
+    stdenv.lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
+    "64";
   libPath = lib.makeLibraryPath [ stdenv.cc.cc alsaLib libpulseaudio ];
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "fmod-${version}";
   version = "4.44.64";
   shortVersion = builtins.replaceStrings [ "." ] [ "" ] version;
@@ -14,7 +15,8 @@ stdenv.mkDerivation rec {
     url = "https://zdoom.org/files/fmod/fmodapi${shortVersion}linux.tar.gz";
     sha256 = "047hk92xapwwqj281f4zwl0ih821rrliya70gfj82sdfjh9lz8i1";
   } else {
-    url = "https://zdoom.org/files/fmod/fmodapi${shortVersion}mac-installer.dmg";
+    url =
+      "https://zdoom.org/files/fmod/fmodapi${shortVersion}mac-installer.dmg";
     sha256 = "1m1y4cpcwpkl8x31d3s68xzp107f343ma09w2437i2adn5y7m8ii";
   });
 
@@ -36,10 +38,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Programming library and toolkit for the creation and playback of interactive audio";
-    homepage    = http://www.fmod.org/;
-    license     = licenses.unfreeRedistributable;
-    platforms   = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
+    description =
+      "Programming library and toolkit for the creation and playback of interactive audio";
+    homepage = "http://www.fmod.org/";
+    license = licenses.unfreeRedistributable;
+    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
     maintainers = [ maintainers.lassulus ];
   };
 }

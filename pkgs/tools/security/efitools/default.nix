@@ -1,20 +1,12 @@
-{ stdenv, gnu-efi, openssl, sbsigntool, perl, perlPackages,
-help2man, fetchgit }:
+{ stdenv, gnu-efi, openssl, sbsigntool, perl, perlPackages, help2man, fetchgit
+}:
 stdenv.mkDerivation rec {
   name = "efitools-${version}";
   version = "1.9.2";
 
-  buildInputs = [
-    gnu-efi
-    openssl
-    sbsigntool
-  ];
+  buildInputs = [ gnu-efi openssl sbsigntool ];
 
-  nativeBuildInputs = [
-    perl
-    perlPackages.FileSlurp
-    help2man
-  ];
+  nativeBuildInputs = [ perl perlPackages.FileSlurp help2man ];
 
   src = fetchgit {
     url = "git://git.kernel.org/pub/scm/linux/kernel/git/jejb/efitools.git";

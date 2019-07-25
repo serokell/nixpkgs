@@ -10,9 +10,8 @@ let
     };
   };
   param = params."${coq.coq-version}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "1.1";
   name = "coq${coq.coq-version}-coqhammer-${version}";
 
@@ -30,9 +29,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.coq.local --replace 'g++' 'c++' --replace 'gcc' 'cc'
   '';
 
-  buildInputs = [ coq ] ++ (with coq.ocamlPackages; [
-    ocaml findlib camlp5
-  ]);
+  buildInputs = [ coq ] ++ (with coq.ocamlPackages; [ ocaml findlib camlp5 ]);
 
   preInstall = ''
     mkdir -p $out/bin
@@ -48,8 +45,6 @@ stdenv.mkDerivation rec {
     maintainers = [ stdenv.lib.maintainers.vbgl ];
   };
 
-  passthru = {
-    compatibleCoqVersions = v: builtins.hasAttr v params;
-  };
+  passthru = { compatibleCoqVersions = v: builtins.hasAttr v params; };
 
 }

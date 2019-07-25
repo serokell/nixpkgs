@@ -1,20 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, pylibmc
-, memcached
-, redis
-, pymongo
-, mock
-, webtest
-, sqlalchemy
-, pycrypto
-, cryptography
-, isPy27
-, isPy3k
-, funcsigs
-, pycryptopp
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pylibmc, memcached, redis, pymongo, mock, webtest, sqlalchemy, pycrypto, cryptography, isPy27, isPy3k, funcsigs, pycryptopp
 }:
 
 buildPythonPackage rec {
@@ -29,31 +13,16 @@ buildPythonPackage rec {
     sha256 = "0xrvg503xmi28w0hllr4s7fkap0p09fgw2wax3p1s2r6b3xjvbz7";
   };
 
-  propagatedBuildInputs = [
-    sqlalchemy
-    pycrypto
-    cryptography
-  ] ++ lib.optionals (isPy27) [
-    funcsigs
-    pycryptopp
-  ];
+  propagatedBuildInputs = [ sqlalchemy pycrypto cryptography ]
+    ++ lib.optionals (isPy27) [ funcsigs pycryptopp ];
 
-  checkInputs = [
-    nose
-    mock
-    webtest
-    pylibmc
-    memcached
-    redis
-    pymongo
-  ];
-
+  checkInputs = [ nose mock webtest pylibmc memcached redis pymongo ];
 
   # Can not run memcached tests because it immediately tries to connect
   postPatch = lib.optionalString isPy3k ''
     substituteInPlace setup.py \
       --replace "python-memcached" "python3-memcached"
-    '' + ''
+  '' + ''
 
     rm tests/test_memcached.py
   '';

@@ -24,9 +24,13 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A generator for LS_COLORS with support for multiple color themes";
-    homepage = https://github.com/sharkdp/vivid;
-    license = with licenses; [ asl20 /* or */ mit ];
+    description =
+      "A generator for LS_COLORS with support for multiple color themes";
+    homepage = "https://github.com/sharkdp/vivid";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = [ maintainers.dtzWill ];
     platforms = platforms.unix;
   };

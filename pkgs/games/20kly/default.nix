@@ -1,6 +1,4 @@
-{ stdenv
-, fetchurl
-, python }:
+{ stdenv, fetchurl, python }:
 
 python.pkgs.buildPythonApplication rec {
   pname = "20kly";
@@ -31,8 +29,9 @@ python.pkgs.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A steampunk-themed strategy game where you have to manage a steam supply network";
-    homepage = http://jwhitham.org.uk/20kly/;
+    description =
+      "A steampunk-themed strategy game where you have to manage a steam supply network";
+    homepage = "http://jwhitham.org.uk/20kly/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ fgaz ];
   };

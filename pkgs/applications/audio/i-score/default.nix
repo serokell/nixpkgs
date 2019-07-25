@@ -1,28 +1,4 @@
-{
-  alsaLib,
-  boost,
-  cln,
-  cmake,
-  fetchFromGitHub,
-  gcc,
-  ginac,
-  jamomacore,
-  kdnssd,
-  libsndfile,
-  ninja,
-  portaudio,
-  portmidi,
-  qtbase,
-  qtdeclarative,
-  qtimageformats,
-  qtmultimedia,
-  qtquickcontrols2,
-  qtserialport,
-  qtsvg,
-  qttools,
-  qtwebsockets,
-  rtaudio,
-  stdenv
+{ alsaLib, boost, cln, cmake, fetchFromGitHub, gcc, ginac, jamomacore, kdnssd, libsndfile, ninja, portaudio, portmidi, qtbase, qtdeclarative, qtimageformats, qtmultimedia, qtquickcontrols2, qtserialport, qtsvg, qttools, qtwebsockets, rtaudio, stdenv
 }:
 
 stdenv.mkDerivation rec {
@@ -73,11 +49,11 @@ stdenv.mkDerivation rec {
     export CMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH:$(echo "${jamomacore}/jamoma/share/cmake/Jamoma")"
   '';
 
-  postInstall = ''rm $out/bin/i-score.sh'';
+  postInstall = "rm $out/bin/i-score.sh";
 
   meta = {
     description = "An interactive sequencer for the intermedia arts";
-    homepage = http://i-score.org/;
+    homepage = "http://i-score.org/";
     license = stdenv.lib.licenses.cecill20;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

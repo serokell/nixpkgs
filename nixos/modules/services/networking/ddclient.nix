@@ -15,7 +15,7 @@ let
     protocol=${cfg.protocol}
     ${lib.optionalString (cfg.script != "") "script=${cfg.script}"}
     ${lib.optionalString (cfg.server != "") "server=${cfg.server}"}
-    ${lib.optionalString (cfg.zone != "")   "zone=${cfg.zone}"}
+    ${lib.optionalString (cfg.zone != "") "zone=${cfg.zone}"}
     ssl=${boolToStr cfg.ssl}
     wildcard=YES
     quiet=${boolToStr cfg.quiet}
@@ -24,9 +24,7 @@ let
     ${lib.concatStringsSep "," cfg.domains}
   '';
 
-in
-
-with lib;
+in with lib;
 
 {
 
@@ -112,7 +110,6 @@ with lib;
         '';
       };
 
-
       quiet = mkOption {
         default = false;
         type = bool;
@@ -130,7 +127,8 @@ with lib;
       };
 
       use = mkOption {
-        default = "web, web=checkip.dyndns.com/, web-skip='Current IP Address: '";
+        default =
+          "web, web=checkip.dyndns.com/, web-skip='Current IP Address: '";
         type = str;
         description = ''
           Method to determine the IP address to send to the dynamic DNS provider.
@@ -163,7 +161,6 @@ with lib;
     };
   };
 
-
   ###### implementation
 
   config = mkIf config.services.ddclient.enable {
@@ -184,8 +181,12 @@ with lib;
         RuntimeDirectory = StateDirectory;
         StateDirectory = builtins.baseNameOf dataDir;
         Type = "oneshot";
-        ExecStartPre = "!${lib.getBin pkgs.coreutils}/bin/install -m666 ${cfg.configFile} /run/${RuntimeDirectory}/ddclient.conf";
-        ExecStart = "${lib.getBin pkgs.ddclient}/bin/ddclient -file /run/${RuntimeDirectory}/ddclient.conf";
+        ExecStartPre = "!${
+          lib.getBin pkgs.coreutils
+        }/bin/install -m666 ${cfg.configFile} /run/${RuntimeDirectory}/ddclient.conf";
+        ExecStart = "${
+          lib.getBin pkgs.ddclient
+          }/bin/ddclient -file /run/${RuntimeDirectory}/ddclient.conf";
       };
     };
 

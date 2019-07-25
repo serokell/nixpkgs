@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, boto
-, boto3
-, bz2file
-, mock
-, moto
-, requests
-, responses
+{ lib, buildPythonPackage, fetchPypi, boto, boto3, bz2file, mock, moto, requests, responses
 }:
 
 buildPythonPackage rec {
@@ -34,7 +25,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ boto boto3 bz2file requests ];
   meta = {
     license = lib.licenses.mit;
-    description = "smart_open is a Python 2 & Python 3 library for efficient streaming of very large file";
+    description =
+      "smart_open is a Python 2 & Python 3 library for efficient streaming of very large file";
     maintainers = with lib.maintainers; [ jyp ];
   };
 }

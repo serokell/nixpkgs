@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, google_api_core, pytest, mock }:
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-speech";
@@ -18,8 +17,10 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Cloud Speech API enables integration of Google speech recognition into applications.";
-    homepage = "https://googlecloudplatform.github.io/google-cloud-python/latest/speech/";
+    description =
+      "Cloud Speech API enables integration of Google speech recognition into applications.";
+    homepage =
+      "https://googlecloudplatform.github.io/google-cloud-python/latest/speech/";
     license = licenses.asl20;
     maintainers = with maintainers; [ vanschelven ];
   };

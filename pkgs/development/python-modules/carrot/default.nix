@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, nose, amqplib, anyjson }:
+{ stdenv, buildPythonPackage, fetchPypi, nose, amqplib, anyjson }:
 
 buildPythonPackage rec {
   pname = "carrot";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false; # depends on the network
 
   meta = with stdenv.lib; {
-    homepage = https://pypi.python.org/pypi/carrot;
+    homepage = "https://pypi.python.org/pypi/carrot";
     description = "AMQP Messaging Framework for Python";
   };
 }

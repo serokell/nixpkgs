@@ -1,12 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, setuptools_scm
-, sphinx
-, hypothesis
-, py
-, pytest
-, pytest-benchmark
-, sortedcollections
-, sortedcontainers
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, sphinx, hypothesis, py, pytest, pytest-benchmark, sortedcollections, sortedcontainers
 }:
 
 buildPythonPackage rec {
@@ -34,8 +26,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/jab/bidict;
-    description = "Efficient, Pythonic bidirectional map data structures and related functionality";
+    homepage = "https://github.com/jab/bidict";
+    description =
+      "Efficient, Pythonic bidirectional map data structures and related functionality";
     license = licenses.mpl20;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

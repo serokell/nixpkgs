@@ -12,20 +12,21 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-  	mkdir -p $out/bin
-    substitute gtk-mac-bundler.in $out/bin/gtk-mac-bundler \
-      --subst-var-by PATH $out/share
-    chmod a+x $out/bin/gtk-mac-bundler
+    	mkdir -p $out/bin
+      substitute gtk-mac-bundler.in $out/bin/gtk-mac-bundler \
+        --subst-var-by PATH $out/share
+      chmod a+x $out/bin/gtk-mac-bundler
 
-    mkdir -p $out/share
-    cp -r bundler $out/share
+      mkdir -p $out/share
+      cp -r bundler $out/share
   '';
 
   meta = with lib; {
-    description = "a helper script that creates application bundles form GTK+ executables for macOS";
+    description =
+      "a helper script that creates application bundles form GTK+ executables for macOS";
     maintainers = [ maintainers.matthewbauer ];
     platforms = platforms.darwin;
-    homepage = https://wiki.gnome.org/Projects/GTK+/OSX/Bundling;
+    homepage = "https://wiki.gnome.org/Projects/GTK+/OSX/Bundling";
     license = licenses.gpl2;
   };
 }

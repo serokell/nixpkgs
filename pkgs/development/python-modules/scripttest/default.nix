@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   version = "1.3";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A library for testing interactive command-line applications";
-    homepage = https://pypi.python.org/pypi/ScriptTest/;
+    homepage = "https://pypi.python.org/pypi/ScriptTest/";
     license = licenses.mit;
   };
 

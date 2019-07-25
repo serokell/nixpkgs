@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, substituteAll, udev
-, pkgconfig, qtbase, cmake, zlib, kmod }:
+{ stdenv, fetchFromGitHub, substituteAll, udev, pkgconfig, qtbase, cmake, zlib, kmod
+}:
 
 stdenv.mkDerivation rec {
   version = "0.3.2";
@@ -12,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0ri5n7r1vhsgk6s64abvqcdrs5fmlwprw0rxiwfy0j8a9qcic1dr";
   };
 
-  buildInputs = [
-    udev
-    qtbase
-    zlib
-  ];
+  buildInputs = [ udev qtbase zlib ];
 
-  nativeBuildInputs = [
-    pkgconfig
-    cmake
-  ];
+  nativeBuildInputs = [ pkgconfig cmake ];
 
   patches = [
     ./install-dirs.patch
@@ -34,8 +27,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    description = "Driver and configuration tool for Corsair keyboards and mice";
-    homepage = https://github.com/ckb-next/ckb-next;
+    description =
+      "Driver and configuration tool for Corsair keyboards and mice";
+    homepage = "https://github.com/ckb-next/ckb-next";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ kierdavis ];

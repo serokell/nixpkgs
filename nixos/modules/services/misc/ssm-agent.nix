@@ -30,7 +30,7 @@ in {
   config = mkIf cfg.enable {
     systemd.services.ssm-agent = {
       inherit (cfg.package.meta) description;
-      after    = [ "network.target" ];
+      after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
       path = [ fake-lsb-release ];

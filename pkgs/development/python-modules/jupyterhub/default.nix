@@ -1,55 +1,31 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchzip
-, alembic
-, ipython
-, jinja2
-, python-oauth2
-, prometheus_client
-, async_generator
-, pamela
-, sqlalchemy
-, tornado
-, traitlets
-, requests
-, notebook
-, pythonOlder
-, nodePackages
+{ lib, buildPythonPackage, fetchPypi, fetchzip, alembic, ipython, jinja2, python-oauth2, prometheus_client, async_generator, pamela, sqlalchemy, tornado, traitlets, requests, notebook, pythonOlder, nodePackages
 }:
 
 let
   # js/css assets that setup.py tries to fetch via `npm install` when building
   # from source.
-  bootstrap =
-    fetchzip {
-      url = "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz";
-      sha256 = "0r7s54bbf68ri1na9bbabyf12mcpb6zk5ja2q6z82aw1fa4xi3yd";
-    };
-  font-awesome =
-    fetchzip {
-      url = "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz";
-      sha256 = "1xnxbdlfdd60z5ix152m8r2kk9dkwlqwpypky1mm3dv64ajnzdbk";
-    };
-  jquery =
-    fetchzip {
-      url = "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz";
-      sha256 = "1j6y18miwzafdj8kfpwbmbn9qvgnbnpc7l4arqrhqj33m04xrlgi";
-    };
-  moment =
-    fetchzip {
-      url = "https://registry.npmjs.org/moment/-/moment-2.22.2.tgz";
-      sha256 = "12gb3p0rz5wyjwykv9g0pix7dd352lx1z7rzdjsf2brhwc4ffyip";
-    };
-  requirejs =
-    fetchzip {
-      url = "https://registry.npmjs.org/requirejs/-/requirejs-2.3.4.tgz";
-      sha256 = "0q6mkj0iv341kks06dya6lfs2kdw0n6vc7n4a7aa3ia530fk9vja";
-    };
+  bootstrap = fetchzip {
+    url = "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz";
+    sha256 = "0r7s54bbf68ri1na9bbabyf12mcpb6zk5ja2q6z82aw1fa4xi3yd";
+  };
+  font-awesome = fetchzip {
+    url = "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz";
+    sha256 = "1xnxbdlfdd60z5ix152m8r2kk9dkwlqwpypky1mm3dv64ajnzdbk";
+  };
+  jquery = fetchzip {
+    url = "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz";
+    sha256 = "1j6y18miwzafdj8kfpwbmbn9qvgnbnpc7l4arqrhqj33m04xrlgi";
+  };
+  moment = fetchzip {
+    url = "https://registry.npmjs.org/moment/-/moment-2.22.2.tgz";
+    sha256 = "12gb3p0rz5wyjwykv9g0pix7dd352lx1z7rzdjsf2brhwc4ffyip";
+  };
+  requirejs = fetchzip {
+    url = "https://registry.npmjs.org/requirejs/-/requirejs-2.3.4.tgz";
+    sha256 = "0q6mkj0iv341kks06dya6lfs2kdw0n6vc7n4a7aa3ia530fk9vja";
+  };
 
-in
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "jupyterhub";
   version = "0.9.4";
   disabled = pythonOlder "3.5";
@@ -106,17 +82,26 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    alembic ipython jinja2 pamela python-oauth2 requests sqlalchemy tornado
-    traitlets prometheus_client async_generator notebook
+    alembic
+    ipython
+    jinja2
+    pamela
+    python-oauth2
+    requests
+    sqlalchemy
+    tornado
+    traitlets
+    prometheus_client
+    async_generator
+    notebook
   ];
 
   # Disable tests because they take an excessive amount of time to complete.
   doCheck = false;
 
-
   meta = with lib; {
     description = "Serves multiple Jupyter notebook instances";
-    homepage = https://jupyter.org/;
+    homepage = "https://jupyter.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ixxie cstrahan ];
   };

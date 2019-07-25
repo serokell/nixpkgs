@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, makeWrapper
-, freeglut, freealut, libGLU_combined, libICE, libjpeg, openal, openscenegraph, plib
-, libSM, libunwind, libX11, xorgproto, libXext, libXi
-, libXmu, libXt, simgear, zlib, boost, cmake, libpng, udev, fltk13, apr
-, makeDesktopItem, qtbase, qtdeclarative, glew
+{ stdenv, fetchurl, makeWrapper, freeglut, freealut, libGLU_combined, libICE, libjpeg, openal, openscenegraph, plib, libSM, libunwind, libX11, xorgproto, libXext, libXi, libXmu, libXt, simgear, zlib, boost, cmake, libpng, udev, fltk13, apr, makeDesktopItem, qtbase, qtdeclarative, glew
 }:
 
 let
@@ -12,7 +8,8 @@ let
     name = "flightgear-base-${version}";
 
     src = fetchurl {
-      url = "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.tar.bz2";
+      url =
+        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.tar.bz2";
       sha256 = "1h69ifj84l4k0f497ybk51xj3bprzw4xvwrwzzj708zhkjk78fmh";
     };
 
@@ -23,14 +20,14 @@ let
       tar xf "${src}" -C "$out/share/FlightGear/" --strip-components=1
     '';
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "flightgear-${version}";
-   # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
+  # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
   inherit version data;
 
   src = fetchurl {
-    url = "mirror://sourceforge/flightgear/release-${shortVersion}/${name}.tar.bz2";
+    url =
+      "mirror://sourceforge/flightgear/release-${shortVersion}/${name}.tar.bz2";
     sha256 = "0h56npn00b6fd38cf5cha82nnglxmhd12b7h2rn3gjymwhviyjix";
   };
 
@@ -53,10 +50,33 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     makeWrapper
-    freeglut freealut libGLU_combined libICE libjpeg openal openscenegraph plib
-    libSM libunwind libX11 xorgproto libXext libXi
-    libXmu libXt simgear zlib boost cmake libpng udev fltk13 apr qtbase
-    glew qtdeclarative
+    freeglut
+    freealut
+    libGLU_combined
+    libICE
+    libjpeg
+    openal
+    openscenegraph
+    plib
+    libSM
+    libunwind
+    libX11
+    xorgproto
+    libXext
+    libXi
+    libXmu
+    libXt
+    simgear
+    zlib
+    boost
+    cmake
+    libpng
+    udev
+    fltk13
+    apr
+    qtbase
+    glew
+    qtdeclarative
   ];
 
   postInstall = ''
@@ -64,9 +84,7 @@ stdenv.mkDerivation rec {
     cp "${desktopItem}"/share/applications/* "$out/share/applications/" #*/
   '';
 
-  qtWrapperArgs = [
-    ''--set FG_ROOT "${data}/share/FlightGear"''
-  ];
+  qtWrapperArgs = [ ''--set FG_ROOT "${data}/share/FlightGear"'' ];
 
   enableParallelBuilding = true;
 
@@ -74,7 +92,7 @@ stdenv.mkDerivation rec {
     description = "Flight simulator";
     maintainers = with maintainers; [ raskin the-kenny ];
     platforms = platforms.linux;
-    hydraPlatforms = []; # disabled from hydra because it's so big
+    hydraPlatforms = [ ]; # disabled from hydra because it's so big
     license = licenses.gpl2;
   };
 }

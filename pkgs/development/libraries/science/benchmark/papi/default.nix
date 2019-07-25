@@ -1,6 +1,4 @@
-{ stdenv
-, fetchurl
-}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   version = "5.6.0";
@@ -21,8 +19,9 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = with stdenv.lib; {
-    homepage = https://icl.utk.edu/papi/;
-    description = "PAPI provides the tool designer and application engineer with a consistent interface and methodology for use of the performance counter hardware found in most major microprocessors";
+    homepage = "https://icl.utk.edu/papi/";
+    description =
+      "PAPI provides the tool designer and application engineer with a consistent interface and methodology for use of the performance counter hardware found in most major microprocessors";
     license = licenses.bsdOriginal;
     platforms = platforms.linux;
     maintainers = [ maintainers.costrouc ];

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, ... }: stdenv.mkDerivation rec {
+{ stdenv, fetchFromGitHub, ... }:
+stdenv.mkDerivation rec {
   name = "tt-rss-plugin-tumblr-gdpr-${version}";
   version = "2.1";
 
@@ -23,7 +24,7 @@
       The name of the plugin in TT-RSS is 'tumblr_gdpr'.
     '';
     license = licenses.gpl3;
-    homepage = https://github.com/GregThib/ttrss-tumblr-gdpr;
+    homepage = "https://github.com/GregThib/ttrss-tumblr-gdpr";
     maintainers = with maintainers; [ das_j ];
     platforms = platforms.all;
   };

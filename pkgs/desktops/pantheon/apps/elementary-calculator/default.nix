@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig
-, meson, ninja, vala, desktop-file-utils, libxml2
-, gtk3, python3, granite, libgee, elementary-icon-theme
-, appstream, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, desktop-file-utils, libxml2, gtk3, python3, granite, libgee, elementary-icon-theme, appstream, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "calculator";
@@ -35,12 +33,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    elementary-icon-theme
-    granite
-    gtk3
-    libgee
-  ];
+  buildInputs = [ elementary-icon-theme granite gtk3 libgee ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -48,7 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/elementary/calculator;
+    homepage = "https://github.com/elementary/calculator";
     description = "Calculator app designed for elementary OS";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

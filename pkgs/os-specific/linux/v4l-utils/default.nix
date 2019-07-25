@@ -1,8 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, perl
-, libjpeg, udev
-, withUtils ? true
-, withGUI ? true, alsaLib, libX11, qtbase, libGLU
-}:
+{ stdenv, lib, fetchurl, pkgconfig, perl, libjpeg, udev, withUtils ?
+  true, withGUI ? true, alsaLib, libX11, qtbase, libGLU }:
 
 # See libv4l in all-packages.nix for the libs only (overrides alsa, libX11 & QT)
 
@@ -17,12 +14,10 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  configureFlags =
-    if withUtils then [
-      "--with-udevdir=${placeholder "out"}/lib/udev"
-    ] else [
-      "--disable-v4l-utils"
-    ];
+  configureFlags = if withUtils then
+    [ "--with-udevdir=${placeholder "out"}/lib/udev" ]
+  else
+    [ "--disable-v4l-utils" ];
 
   postFixup = ''
     # Create symlink for V4l1 compatibility
@@ -31,7 +26,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig perl ];
 
-  buildInputs = [ udev ] ++ lib.optionals (withUtils && withGUI) [ alsaLib libX11 qtbase libGLU ];
+  buildInputs = [ udev ]
+    ++ lib.optionals (withUtils && withGUI) [ alsaLib libX11 qtbase libGLU ];
 
   propagatedBuildInputs = [ libjpeg ];
 
@@ -42,8 +38,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "V4L utils and libv4l, provide common image formats regardless of the v4l device";
-    homepage = https://linuxtv.org/projects.php;
+    description =
+      "V4L utils and libv4l, provide common image formats regardless of the v4l device";
+    homepage = "https://linuxtv.org/projects.php";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ codyopel ];
     platforms = platforms.linux;

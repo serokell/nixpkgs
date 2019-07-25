@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, perlPackages, makeWrapper}:
+{ stdenv, fetchFromGitHub, perlPackages, makeWrapper }:
 
 perlPackages.buildPerlPackage rec {
   pname = "linode-cli";
@@ -35,7 +35,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = with stdenv.lib; {
     description = "Command-line interface to the Linode platform";
-    homepage = https://github.com/linode/cli;
+    homepage = "https://github.com/linode/cli";
     license = with licenses; [ artistic2 gpl2 ];
     maintainers = with maintainers; [ nixy ];
   };

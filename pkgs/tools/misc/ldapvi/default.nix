@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, openldap, openssl, popt, glib, ncurses, readline, pkgconfig, cyrus_sasl, autoconf, automake }:
+{ stdenv, fetchgit, openldap, openssl, popt, glib, ncurses, readline, pkgconfig, cyrus_sasl, autoconf, automake
+}:
 
 stdenv.mkDerivation rec {
   name = "ldapvi-${version}";
@@ -11,7 +12,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ openldap openssl popt glib ncurses readline cyrus_sasl autoconf automake ];
+  buildInputs = [
+    openldap
+    openssl
+    popt
+    glib
+    ncurses
+    readline
+    cyrus_sasl
+    autoconf
+    automake
+  ];
 
   preConfigure = ''
     cd ldapvi
@@ -24,7 +35,7 @@ stdenv.mkDerivation rec {
       ldapvi is an interactive LDAP client for Unix terminals. Using it, you
       can update LDAP entries with a text editor.
     '';
-    homepage = http://www.lichteblau.com/ldapvi/;
+    homepage = "http://www.lichteblau.com/ldapvi/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ domenkozar ];
     platforms = stdenv.lib.platforms.linux;

@@ -7,9 +7,7 @@ let
   cfg = config.security.googleOsLogin;
   package = pkgs.google-compute-engine-oslogin;
 
-in
-
-{
+in {
 
   options = {
 

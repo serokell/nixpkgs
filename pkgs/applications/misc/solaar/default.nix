@@ -14,7 +14,12 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0xg181xcwzzs8pdqvjrkjyaaga7ir93hzjvd17j9g3ns8xfj2mvr";
   };
 
-  propagatedBuildInputs = with python3Packages; [ gobject-introspection gtk3 pygobject3 pyudev ];
+  propagatedBuildInputs = with python3Packages; [
+    gobject-introspection
+    gtk3
+    pygobject3
+    pyudev
+  ];
 
   postInstall = ''
     wrapProgram "$out/bin/solaar" \
@@ -43,7 +48,7 @@ python3Packages.buildPythonApplication rec {
       To be able to use it, make sure you have access to /dev/hidraw* files.
     '';
     license = licenses.gpl2;
-    homepage = https://pwr.github.io/Solaar/;
+    homepage = "https://pwr.github.io/Solaar/";
     platforms = platforms.linux;
     maintainers = with maintainers; [ spinus ysndr ];
   };

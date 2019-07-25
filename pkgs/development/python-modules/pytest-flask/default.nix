@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, flask, werkzeug, setuptools_scm }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, flask, werkzeug, setuptools_scm
+}:
 
 buildPythonPackage rec {
   pname = "pytest-flask";
@@ -11,14 +12,9 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  buildInputs = [
-     pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    flask
-    werkzeug
-  ];
+  propagatedBuildInputs = [ flask werkzeug ];
 
   nativeBuildInputs = [ setuptools_scm ];
 

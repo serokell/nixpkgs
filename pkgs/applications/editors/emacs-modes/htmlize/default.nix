@@ -12,11 +12,9 @@ stdenv.mkDerivation {
   };
 
   installPhase = ''
-     mkdir -p $out/share/emacs/site-lisp
-     cp htmlize.el $out/share/emacs/site-lisp/
+    mkdir -p $out/share/emacs/site-lisp
+    cp htmlize.el $out/share/emacs/site-lisp/
   '';
 
-  meta = {
-    description = "Convert buffer text and decorations to HTML";
-  };
+  meta = { description = "Convert buffer text and decorations to HTML"; };
 }

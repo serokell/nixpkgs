@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, asciidoc, libxcb, xcbutil, xcbutilkeysyms
-, xcbutilwm
+{ stdenv, fetchFromGitHub, asciidoc, libxcb, xcbutil, xcbutilkeysyms, xcbutilwm
 }:
 
 stdenv.mkDerivation rec {

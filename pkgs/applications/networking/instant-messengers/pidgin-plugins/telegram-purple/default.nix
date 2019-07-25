@@ -1,9 +1,7 @@
-{ stdenv, fetchgit, pkgconfig, pidgin, libwebp, libgcrypt, gettext } :
+{ stdenv, fetchgit, pkgconfig, pidgin, libwebp, libgcrypt, gettext }:
 
-let
-  version = "1.3.0";
-in
-stdenv.mkDerivation rec {
+let version = "1.3.0";
+in stdenv.mkDerivation rec {
   name = "telegram-purple-${version}";
 
   src = fetchgit {
@@ -31,7 +29,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/majn/telegram-purple;
+    homepage = "https://github.com/majn/telegram-purple";
     description = "Telegram for Pidgin / libpurple";
     license = licenses.gpl2;
     maintainers = [ maintainers.jagajaga ];

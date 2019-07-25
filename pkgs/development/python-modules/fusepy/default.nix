@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "fusepy";
@@ -29,7 +25,7 @@ buildPythonPackage rec {
       Python module that provides a simple interface to FUSE and MacFUSE.
       It's just one file and is implemented using ctypes.
     '';
-    homepage = https://github.com/terencehonles/fusepy;
+    homepage = "https://github.com/terencehonles/fusepy";
     license = licenses.isc;
     platforms = platforms.unix;
   };

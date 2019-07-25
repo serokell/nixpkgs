@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, patricia
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, patricia, lib }:
+build-idris-package {
   name = "semidirect";
   version = "2018-07-02";
 
@@ -19,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Semidirect products in Idris";
-    homepage = https://github.com/clayrat/idris-semidirect;
+    homepage = "https://github.com/clayrat/idris-semidirect";
     maintainers = [ lib.maintainers.brainrape ];
   };
 }

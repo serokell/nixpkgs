@@ -1,4 +1,5 @@
-{ fetchurl, stdenv, meson, ninja, gettext, pkgconfig, pulseaudioFull, gtkmm3, dbus-glib, wrapGAppsHook }:
+{ fetchurl, stdenv, meson, ninja, gettext, pkgconfig, pulseaudioFull, gtkmm3, dbus-glib, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   name = "paprefs-1.1";
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
       dialog for the PulseAudio sound server.
     '';
 
-    homepage = http://freedesktop.org/software/pulseaudio/paprefs/;
+    homepage = "http://freedesktop.org/software/pulseaudio/paprefs/";
 
     license = licenses.gpl2Plus;
 

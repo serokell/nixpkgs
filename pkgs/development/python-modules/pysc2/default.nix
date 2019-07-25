@@ -1,19 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitHub
-, absl-py
-, enum34
-, future
-, mock
-, mpyq
-, numpy
-, portpicker
-, protobuf
-, pygame
-, s2clientprotocol
-, six
-, websocket_client
-, sc2-headless
+{ buildPythonPackage, lib, fetchFromGitHub, absl-py, enum34, future, mock, mpyq, numpy, portpicker, protobuf, pygame, s2clientprotocol, six, websocket_client, sc2-headless
 }:
 
 buildPythonPackage rec {
@@ -27,10 +12,8 @@ buildPythonPackage rec {
     sha256 = "0dfbc2krd2rys1ji75ng2nl0ki8nhnylxljcp287bfb8qyz2m25p";
   };
 
-  patches = [
-    ./fix-setup-for-py3.patch
-    ./parameterize-runconfig-sc2path.patch
-  ];
+  patches =
+    [ ./fix-setup-for-py3.patch ./parameterize-runconfig-sc2path.patch ];
 
   postPatch = ''
     substituteInPlace "./pysc2/run_configs/platforms.py" \

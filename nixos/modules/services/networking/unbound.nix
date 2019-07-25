@@ -8,21 +8,21 @@ let
 
   stateDir = "/var/lib/unbound";
 
-  access = concatMapStringsSep "\n  " (x: "access-control: ${x} allow") cfg.allowedAccess;
+  access = concatMapStringsSep "\n  " (x: "access-control: ${x} allow")
+    cfg.allowedAccess;
 
   interfaces = concatMapStringsSep "\n  " (x: "interface: ${x}") cfg.interfaces;
 
-  isLocalAddress = x: substring 0 3 x == "::1" || substring 0 9 x == "127.0.0.1";
+  isLocalAddress = x:
+    substring 0 3 x == "::1" || substring 0 9 x == "127.0.0.1";
 
-  forward =
-    optionalString (any isLocalAddress cfg.forwardAddresses) ''
-      do-not-query-localhost: no
-    '' +
-    optionalString (cfg.forwardAddresses != []) ''
-      forward-zone:
-        name: .
-    '' +
-    concatMapStringsSep "\n" (x: "    forward-addr: ${x}") cfg.forwardAddresses;
+  forward = optionalString (any isLocalAddress cfg.forwardAddresses) ''
+    do-not-query-localhost: no
+  '' + optionalString (cfg.forwardAddresses != [ ]) ''
+    forward-zone:
+      name: .
+  '' + concatMapStringsSep "\n" (x: "    forward-addr: ${x}")
+    cfg.forwardAddresses;
 
   rootTrustAnchorFile = "${stateDir}/root.key";
 
@@ -42,9 +42,7 @@ let
     ${forward}
   '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -60,7 +58,8 @@ in
       };
 
       interfaces = mkOption {
-        default = [ "127.0.0.1" ] ++ optional config.networking.enableIPv6 "::1";
+        default = [ "127.0.0.1" ]
+          ++ optional config.networking.enableIPv6 "::1";
         type = types.listOf types.str;
         description = "What addresses the server should listen on.";
       };
@@ -122,8 +121,9 @@ in
       '';
 
       serviceConfig = {
-        ExecStart = "${pkgs.unbound}/bin/unbound -d -c ${stateDir}/unbound.conf";
-        ExecStopPost="${pkgs.utillinux}/bin/umount ${stateDir}/dev/random";
+        ExecStart =
+          "${pkgs.unbound}/bin/unbound -d -c ${stateDir}/unbound.conf";
+        ExecStopPost = "${pkgs.utillinux}/bin/umount ${stateDir}/dev/random";
 
         ProtectSystem = true;
         ProtectHome = true;

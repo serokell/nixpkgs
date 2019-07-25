@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson
-, ninja, vala, python3, desktop-file-utils, gtk3, granite, libgee
-, libcanberra, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, python3, desktop-file-utils, gtk3, granite, libgee, libcanberra, elementary-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
-  pname = "screenshot-tool"; # This will be renamed to "screenshot" soon. See -> https://github.com/elementary/screenshot/pull/93
+  pname =
+    "screenshot-tool"; # This will be renamed to "screenshot" soon. See -> https://github.com/elementary/screenshot/pull/93
   version = "1.6.2";
 
   name = "elementary-${pname}-${version}";
@@ -22,23 +22,10 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkgconfig python3 vala wrapGAppsHook ];
 
-  buildInputs = [
-    elementary-icon-theme
-    granite
-    gtk3
-    libcanberra
-    libgee
-  ];
+  buildInputs = [ elementary-icon-theme granite gtk3 libcanberra libgee ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -47,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Screenshot tool designed for elementary OS";
-    homepage = https://github.com/elementary/screenshot;
+    homepage = "https://github.com/elementary/screenshot";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

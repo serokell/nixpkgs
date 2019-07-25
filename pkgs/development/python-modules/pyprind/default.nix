@@ -1,6 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage
-, psutil
-, pytest }:
+{ stdenv, fetchPypi, buildPythonPackage, psutil, pytest }:
 
 buildPythonPackage rec {
   pname = "PyPrind";
@@ -21,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python Progress Bar and Percent Indicator Utility";
-    homepage = https://github.com/rasbt/pyprind;
+    homepage = "https://github.com/rasbt/pyprind";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jfrankenau ];
   };

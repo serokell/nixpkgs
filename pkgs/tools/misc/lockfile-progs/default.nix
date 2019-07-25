@@ -1,9 +1,9 @@
 { stdenv, fetchurl, liblockfile }:
 
 stdenv.mkDerivation rec {
-  _name   = "lockfile-progs";
+  _name = "lockfile-progs";
   version = "0.1.18";
-  name    = "${_name}-${version}";
+  name = "${_name}-${version}";
 
   src = fetchurl {
     url = "mirror://debian/pool/main/l/${_name}/${_name}_${version}.tar.gz";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Programs for locking and unlocking files and mailboxes";
-    homepage = http://packages.debian.org/sid/lockfile-progs;
+    homepage = "http://packages.debian.org/sid/lockfile-progs";
     license = stdenv.lib.licenses.gpl2;
 
     maintainers = [ stdenv.lib.maintainers.bluescreen303 ];

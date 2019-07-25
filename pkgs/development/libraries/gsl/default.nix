@@ -12,11 +12,12 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = stdenv.lib.optional stdenv.isx86_64 "-mno-fma";
 
   # https://lists.gnu.org/archive/html/bug-gsl/2015-11/msg00012.html
-  doCheck = stdenv.hostPlatform.system != "i686-linux" && stdenv.hostPlatform.system != "aarch64-linux";
+  doCheck = stdenv.hostPlatform.system != "i686-linux"
+    && stdenv.hostPlatform.system != "aarch64-linux";
 
   meta = {
     description = "The GNU Scientific Library, a large numerical library";
-    homepage = https://www.gnu.org/software/gsl/;
+    homepage = "https://www.gnu.org/software/gsl/";
     license = stdenv.lib.licenses.gpl3Plus;
 
     longDescription = ''

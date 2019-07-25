@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, scikitlearn
-, pyaml
-, pytest
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, scikitlearn, pyaml, pytest
 }:
 
 buildPythonPackage rec {
@@ -19,16 +12,9 @@ buildPythonPackage rec {
     sha256 = "1srbb20k8ddhpcfxwdflapfh6xfyrd3dnclcg3bsfq1byrcmv0d4";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    scikitlearn
-    pyaml
-  ];
+  propagatedBuildInputs = [ numpy scipy scikitlearn pyaml ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   # remove --ignore at next release > 0.6
   checkPhase = ''
@@ -37,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Sequential model-based optimization toolbox";
-    homepage = https://scikit-optimize.github.io/;
+    homepage = "https://scikit-optimize.github.io/";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

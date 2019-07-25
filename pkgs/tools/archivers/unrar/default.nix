@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "unrar-${version}";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Utility for RAR archives";
-    homepage = http://www.rarlab.com/;
+    homepage = "http://www.rarlab.com/";
     license = licenses.unfreeRedistributable;
     maintainers = [ maintainers.ehmry ];
     platforms = platforms.all;

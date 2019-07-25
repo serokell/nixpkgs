@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, python3}:
+{ stdenv, fetchFromGitHub, python3 }:
 
 stdenv.mkDerivation rec {
   version = "1.6";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jarun/ddgr;
+    homepage = "https://github.com/jarun/ddgr";
     description = "Search DuckDuckGo from the terminal";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ceedubs markus1189 ];

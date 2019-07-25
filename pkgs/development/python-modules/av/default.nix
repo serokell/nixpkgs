@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, ffmpeg_4
-, pkgconfig
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, ffmpeg_4, pkgconfig }:
 
 buildPythonPackage rec {
   pname = "av";
@@ -25,7 +19,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Pythonic bindings for FFmpeg/Libav";
-    homepage = https://github.com/mikeboers/PyAV/;
+    homepage = "https://github.com/mikeboers/PyAV/";
     license = lib.licenses.bsd2;
   };
 }

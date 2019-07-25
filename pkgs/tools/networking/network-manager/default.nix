@@ -1,10 +1,5 @@
-{ stdenv, fetchurl, substituteAll, intltool, pkgconfig, dbus, dbus-glib
-, gnome3, systemd, libuuid, polkit, gnutls, ppp, dhcp, iptables, python3, vala
-, libgcrypt, dnsmasq, bluez5, readline, libselinux, audit
-, gobject-introspection, modemmanager, openresolv, libndp, newt, libsoup
-, ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt
-, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
-, openconnect, curl, meson, ninja, libpsl }:
+{ stdenv, fetchurl, substituteAll, intltool, pkgconfig, dbus, dbus-glib, gnome3, systemd, libuuid, polkit, gnutls, ppp, dhcp, iptables, python3, vala, libgcrypt, dnsmasq, bluez5, readline, libselinux, audit, gobject-introspection, modemmanager, openresolv, libndp, newt, libsoup, ethtool, gnused, iputils, kmod, jansson, gtk-doc, libxslt, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43, openconnect, curl, meson, ninja, libpsl
+}:
 
 let
   pname = "NetworkManager";
@@ -14,7 +9,9 @@ in stdenv.mkDerivation rec {
   version = "1.18.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "07vg2ryyjaxs5h8kmkwqhk4ki750c4di98g0i7h7zglfs16psiqd";
   };
 
@@ -64,22 +61,46 @@ in stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    systemd libselinux audit libpsl libuuid polkit ppp libndp curl
-    bluez5 dnsmasq gobject-introspection modemmanager readline newt libsoup jansson
+    systemd
+    libselinux
+    audit
+    libpsl
+    libuuid
+    polkit
+    ppp
+    libndp
+    curl
+    bluez5
+    dnsmasq
+    gobject-introspection
+    modemmanager
+    readline
+    newt
+    libsoup
+    jansson
   ];
 
   propagatedBuildInputs = [ dbus-glib gnutls libgcrypt ];
 
   nativeBuildInputs = [
-    meson ninja intltool pkgconfig
-    vala gobject-introspection
+    meson
+    ninja
+    intltool
+    pkgconfig
+    vala
+    gobject-introspection
     dbus-glib # for dbus-binding-tool
     # Docs
-    gtk-doc libxslt docbook_xsl docbook_xml_dtd_412 docbook_xml_dtd_42 docbook_xml_dtd_43 pythonForDocs
+    gtk-doc
+    libxslt
+    docbook_xsl
+    docbook_xml_dtd_412
+    docbook_xml_dtd_42
+    docbook_xml_dtd_43
+    pythonForDocs
   ];
 
   doCheck = false; # requires /sys, the net
-
 
   postPatch = ''
     patchShebangs ./tools
@@ -115,7 +136,7 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/NetworkManager;
+    homepage = "https://wiki.gnome.org/Projects/NetworkManager";
     description = "Network configuration and management tool";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ phreedom rickynils domenkozar obadz ];

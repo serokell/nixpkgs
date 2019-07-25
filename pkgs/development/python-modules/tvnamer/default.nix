@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, tvdb_api
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, tvdb_api }:
 
 buildPythonPackage rec {
   pname = "tvnamer";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Automatic TV episode file renamer, uses data from thetvdb.com via tvdb_api.";
+    description =
+      "Automatic TV episode file renamer, uses data from thetvdb.com via tvdb_api.";
     homepage = "https://github.com/dbr/tvnamer";
     license = licenses.unlicense;
     maintainers = with maintainers; [ peterhoeg ];

@@ -9,9 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "07l189881q0hybzmlpjyp7r5fwz23iafkm957bwy4gnmn9lg6rad";
   };
 
-  patches = [
-    ./no-date-in-gzip-man-page.patch
-  ];
+  patches = [ ./no-date-in-gzip-man-page.patch ];
 
   postPatch = ''
     patchShebangs test src
@@ -27,7 +25,8 @@ stdenv.mkDerivation rec {
   checkInputs = [ perl ];
 
   meta = with stdenv.lib; {
-    description = "Report faked system time to programs without having to change the system-wide time";
+    description =
+      "Report faked system time to programs without having to change the system-wide time";
     homepage = "https://github.com/wolfcw/libfaketime/";
     license = licenses.gpl2;
     platforms = platforms.all;

@@ -6,9 +6,7 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lxqt;
 
-in
-
-{
+in {
   options = {
 
     services.xserver.desktopManager.lxqt.enable = mkOption {
@@ -18,10 +16,11 @@ in
     };
 
     environment.lxqt.excludePackages = mkOption {
-      default = [];
+      default = [ ];
       example = literalExample "[ pkgs.lxqt.qterminal ]";
       type = types.listOf types.package;
-      description = "Which LXQt packages to exclude from the default environment";
+      description =
+        "Which LXQt packages to exclude from the default environment";
     };
 
   };
@@ -48,17 +47,16 @@ in
       '';
     };
 
-    environment.systemPackages =
-      pkgs.lxqt.preRequisitePackages ++
-      pkgs.lxqt.corePackages ++
-      (pkgs.gnome3.removePackagesByName
-        pkgs.lxqt.optionalPackages
-        config.environment.lxqt.excludePackages);
+    environment.systemPackages = pkgs.lxqt.preRequisitePackages
+      ++ pkgs.lxqt.corePackages
+      ++ (pkgs.gnome3.removePackagesByName pkgs.lxqt.optionalPackages
+      config.environment.lxqt.excludePackages);
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [ "/share" ];
 
-    environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];
+    environment.variables.GIO_EXTRA_MODULES =
+      [ "${pkgs.gvfs}/lib/gio/modules" ];
 
     services.upower.enable = config.powerManagement.enable;
   };

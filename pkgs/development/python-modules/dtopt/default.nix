@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "dtopt";
@@ -17,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Add options to doctest examples while they are running";
-    homepage = https://pypi.python.org/pypi/dtopt;
+    homepage = "https://pypi.python.org/pypi/dtopt";
     license = licenses.mit;
   };
 

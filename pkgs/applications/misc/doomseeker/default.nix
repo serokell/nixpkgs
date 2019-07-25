@@ -1,4 +1,5 @@
-{ stdenv, cmake, fetchFromBitbucket, pkgconfig, qtbase, qttools, qtmultimedia, zlib, bzip2, xxd }:
+{ stdenv, cmake, fetchFromBitbucket, pkgconfig, qtbase, qttools, qtmultimedia, zlib, bzip2, xxd
+}:
 
 stdenv.mkDerivation rec {
   name = "doomseeker-${version}";
@@ -19,10 +20,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optional stdenv.cc.isClang "-Wno-error=format-security";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optional stdenv.cc.isClang "-Wno-error=format-security";
 
   meta = with stdenv.lib; {
-    homepage = http://doomseeker.drdteam.org/;
+    homepage = "http://doomseeker.drdteam.org/";
     description = "Multiplayer server browser for many Doom source ports";
     license = licenses.gpl2;
     platforms = platforms.unix;

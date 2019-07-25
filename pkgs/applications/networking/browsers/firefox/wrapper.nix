@@ -1,16 +1,8 @@
 { stdenv, lib, makeDesktopItem, makeWrapper, lndir, config
 
 ## various stuff that can be plugged in
-, flashplayer, hal-flash
-, MPlayerPlugin, ffmpeg, xorg, libpulseaudio, libcanberra-gtk2, libglvnd
-, jrePlugin, icedtea_web
-, bluejeans, djview4, adobe-reader
-, google_talk_plugin, fribid, gnome3/*.gnome-shell*/
-, esteidfirefoxplugin
-, browserpass, chrome-gnome-shell, uget-integrator, plasma-browser-integration, bukubrow
-, tridactyl-native
-, udev
-, kerberos
+, flashplayer, hal-flash, MPlayerPlugin, ffmpeg, xorg, libpulseaudio, libcanberra-gtk2, libglvnd, jrePlugin, icedtea_web, bluejeans, djview4, adobe-reader, google_talk_plugin, fribid, gnome3 # .gnome-shell
+, esteidfirefoxplugin, browserpass, chrome-gnome-shell, uget-integrator, plasma-browser-integration, bukubrow, tridactyl-native, udev, kerberos
 }:
 
 ## configurability of the wrapper itself
@@ -18,20 +10,17 @@
 browser:
 
 let
-  wrapper =
-    { browserName ? browser.browserName or (builtins.parseDrvName browser.name).name
-    , name ? (browserName + "-" + (builtins.parseDrvName browser.name).version)
-    , desktopName ? # browserName with first letter capitalized
-      (lib.toUpper (lib.substring 0 1 browserName) + lib.substring 1 (-1) browserName)
-    , nameSuffix ? ""
-    , icon ? browserName
-    , extraPlugins ? []
-    , extraNativeMessagingHosts ? []
-    , gdkWayland ? false
-    , cfg ? config.${browserName} or {}
-    }:
+  wrapper = { browserName ?
+    browser.browserName or (builtins.parseDrvName browser.name).name, name ?
+      (browserName + "-" + (builtins.parseDrvName
+      browser.name).version), desktopName ? # browserName with first letter capitalized
+        (lib.toUpper (lib.substring 0 1 browserName)
+        + lib.substring 1 (-1) browserName), nameSuffix ? "", icon ?
+          browserName, extraPlugins ? [ ], extraNativeMessagingHosts ?
+            [ ], gdkWayland ? false, cfg ? config.${browserName} or { } }:
 
-    assert gdkWayland -> (browser ? gtk3); # Can only use the wayland backend if gtk3 is being used
+    assert gdkWayland -> (browser
+    ? gtk3); # Can only use the wayland backend if gtk3 is being used
 
     let
       enableAdobeFlash = cfg.enableAdobeFlash or false;
@@ -39,49 +28,54 @@ let
       gssSupport = browser.gssSupport or false;
       jre = cfg.jre or false;
       icedtea = cfg.icedtea or false;
-      supportsJDK =
-        stdenv.hostPlatform.system == "i686-linux" ||
-        stdenv.hostPlatform.system == "x86_64-linux" ||
-        stdenv.hostPlatform.system == "armv7l-linux" ||
-        stdenv.hostPlatform.system == "aarch64-linux";
+      supportsJDK = stdenv.hostPlatform.system == "i686-linux"
+        || stdenv.hostPlatform.system == "x86_64-linux"
+        || stdenv.hostPlatform.system == "armv7l-linux"
+        || stdenv.hostPlatform.system == "aarch64-linux";
 
-      plugins =
-        assert !(jre && icedtea);
-        if builtins.hasAttr "enableVLC" cfg
-        then throw "The option \"${browserName}.enableVLC\" has been removed since Firefox no longer supports npapi plugins"
+      plugins = assert !(jre && icedtea);
+        if builtins.hasAttr "enableVLC" cfg then
+          throw ''
+            The option "${browserName}.enableVLC" has been removed since Firefox no longer supports npapi plugins''
         else
-        ([ ]
-          ++ lib.optional enableAdobeFlash flashplayer
+          ([ ] ++ lib.optional enableAdobeFlash flashplayer
           ++ lib.optional (cfg.enableDjvu or false) (djview4)
           ++ lib.optional (cfg.enableMPlayer or false) (MPlayerPlugin browser)
-          ++ lib.optional (supportsJDK && jre && jrePlugin ? mozillaPlugin) jrePlugin
-          ++ lib.optional icedtea icedtea_web
-          ++ lib.optional (cfg.enableGoogleTalkPlugin or false) google_talk_plugin
+          ++ lib.optional (supportsJDK && jre && jrePlugin ? mozillaPlugin)
+          jrePlugin ++ lib.optional icedtea icedtea_web
+          ++ lib.optional (cfg.enableGoogleTalkPlugin or false)
+          google_talk_plugin
           ++ lib.optional (cfg.enableFriBIDPlugin or false) fribid
-          ++ lib.optional (cfg.enableGnomeExtensions or false) gnome3.gnome-shell
+          ++ lib.optional (cfg.enableGnomeExtensions or false)
+          gnome3.gnome-shell
           ++ lib.optional (cfg.enableBluejeans or false) bluejeans
           ++ lib.optional (cfg.enableAdobeReader or false) adobe-reader
           ++ lib.optional (cfg.enableEsteid or false) esteidfirefoxplugin
-          ++ extraPlugins
-        );
-      nativeMessagingHosts =
-        ([ ]
-          ++ lib.optional (cfg.enableBrowserpass or false) (lib.getBin browserpass)
-          ++ lib.optional (cfg.enableBukubrow or false) bukubrow
-          ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
-          ++ lib.optional (cfg.enableGnomeExtensions or false) chrome-gnome-shell
-          ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
-          ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false) plasma-browser-integration
-          ++ extraNativeMessagingHosts
-        );
-      libs =   lib.optional stdenv.isLinux udev
-            ++ lib.optional ffmpegSupport ffmpeg
-            ++ lib.optional gssSupport kerberos
-            ++ lib.optional gdkWayland libglvnd
-            ++ lib.optionals (cfg.enableQuakeLive or false)
-            (with xorg; [ stdenv.cc libX11 libXxf86dga libXxf86vm libXext libXt alsaLib zlib ])
-            ++ lib.optional (enableAdobeFlash && (cfg.enableAdobeFlashDRM or false)) hal-flash
-            ++ lib.optional (config.pulseaudio or true) libpulseaudio;
+          ++ extraPlugins);
+      nativeMessagingHosts = ([ ]
+        ++ lib.optional (cfg.enableBrowserpass or false)
+        (lib.getBin browserpass)
+        ++ lib.optional (cfg.enableBukubrow or false) bukubrow
+        ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
+        ++ lib.optional (cfg.enableGnomeExtensions or false) chrome-gnome-shell
+        ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
+        ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false)
+        plasma-browser-integration ++ extraNativeMessagingHosts);
+      libs = lib.optional stdenv.isLinux udev
+        ++ lib.optional ffmpegSupport ffmpeg ++ lib.optional gssSupport kerberos
+        ++ lib.optional gdkWayland libglvnd
+        ++ lib.optionals (cfg.enableQuakeLive or false) (with xorg; [
+          stdenv.cc
+          libX11
+          libXxf86dga
+          libXxf86vm
+          libXext
+          libXt
+          alsaLib
+          zlib
+        ])
+        ++ lib.optional (enableAdobeFlash && (cfg.enableAdobeFlashDRM or false))
+        hal-flash ++ lib.optional (config.pulseaudio or true) libpulseaudio;
       gtk_modules = [ libcanberra-gtk2 ];
 
     in stdenv.mkDerivation {
@@ -92,7 +86,9 @@ let
         exec = "${browserName}${nameSuffix} %U";
         inherit icon;
         comment = "";
-        desktopName = "${desktopName}${nameSuffix}${lib.optionalString gdkWayland " (Wayland)"}";
+        desktopName = "${desktopName}${nameSuffix}${
+          lib.optionalString gdkWayland " (Wayland)"
+          }";
         genericName = "Web Browser";
         categories = "Application;Network;WebBrowser;";
         mimeType = stdenv.lib.concatStringsSep ";" [
@@ -116,11 +112,15 @@ let
       '' + ''
         if [ ! -x "${browser}${browser.execdir or "/bin"}/${browserName}" ]
         then
-            echo "cannot find executable file \`${browser}${browser.execdir or "/bin"}/${browserName}'"
+            echo "cannot find executable file \`${browser}${
+          browser.execdir or "/bin"
+            }/${browserName}'"
             exit 1
         fi
 
-        makeWrapper "$(readlink -v --canonicalize-existing "${browser}${browser.execdir or "/bin"}/${browserName}")" \
+        makeWrapper "$(readlink -v --canonicalize-existing "${browser}${
+          browser.execdir or "/bin"
+        }/${browserName}")" \
           "$out${browser.execdir or "/bin"}/${browserName}${nameSuffix}" \
             --suffix-each MOZ_PLUGIN_PATH ':' "$plugins" \
             --suffix LD_LIBRARY_PATH ':' "$libs" \
@@ -131,12 +131,15 @@ let
             --set MOZ_APP_LAUNCHER "${browserName}${nameSuffix}" \
             --set MOZ_SYSTEM_DIR "$out/lib/mozilla" \
             --set SNAP_NAME "firefox" \
-            ${lib.optionalString gdkWayland ''
-              --set GDK_BACKEND "wayland" \
-            ''}${lib.optionalString (browser ? gtk3)
-                ''--prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
-                  --suffix XDG_DATA_DIRS : '${gnome3.adwaita-icon-theme}/share'
-                ''
+            ${
+          lib.optionalString gdkWayland ''
+            --set GDK_BACKEND "wayland" \
+          ''
+            }${
+              lib.optionalString (browser ? gtk3) ''
+                --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
+                                  --suffix XDG_DATA_DIRS : '${gnome3.adwaita-icon-theme}/share'
+                                ''
             }
 
         if [ -e "${browser}/share/icons" ]; then
@@ -169,7 +172,8 @@ let
       # Let each plugin tell us (through its `mozillaPlugin') attribute
       # where to find the plugin in its tree.
       plugins = map (x: x + x.mozillaPlugin) plugins;
-      libs = lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
+      libs = lib.makeLibraryPath libs + ":"
+        + lib.makeSearchPathOutput "lib" "lib64" libs;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
       passthru = { unwrapped = browser; };
@@ -177,14 +181,12 @@ let
       disallowedRequisites = [ stdenv.cc ];
 
       meta = browser.meta // {
-        description =
-          browser.meta.description
-          + " (with plugins: "
+        description = browser.meta.description + " (with plugins: "
           + lib.concatStrings (lib.intersperse ", " (map (x: x.name) plugins))
           + ")";
-        hydraPlatforms = [];
-        priority = (browser.meta.priority or 0) - 1; # prefer wrapper over the package
+        hydraPlatforms = [ ];
+        priority = (browser.meta.priority or 0)
+          - 1; # prefer wrapper over the package
       };
     };
-in
-  lib.makeOverridable wrapper
+in lib.makeOverridable wrapper

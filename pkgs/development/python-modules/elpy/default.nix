@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, rope
-, flake8
-, autopep8
-, jedi
-, importmagic
-, isPy27
+{ stdenv, buildPythonPackage, fetchPypi, rope, flake8, autopep8, jedi, importmagic, isPy27
 }:
 
 buildPythonPackage rec {

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "8.4.0";
 
   src = fetchurl {
-    url = "ftp://ftp.freedesktop.org/pub/mesa/demos/mesa-demos-${version}.tar.bz2";
+    url =
+      "ftp://ftp.freedesktop.org/pub/mesa/demos/mesa-demos-${version}.tar.bz2";
     sha256 = "0zgzbz55a14hz83gbmm0n9gpjnf5zadzi2kjjvkn6khql2a9rs81";
   };
 
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Test utilities for OpenGL";
-    homepage = https://www.mesa3d.org/;
+    homepage = "https://www.mesa3d.org/";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

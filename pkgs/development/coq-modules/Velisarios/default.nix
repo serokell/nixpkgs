@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, coq }:
 
-let params =
-  {
+let
+  params = {
     "8.6" = {
       version = "20180221";
       rev = "e1eee1f10d5d46331a560bd8565ac101229d0d6b";
@@ -21,9 +21,8 @@ let params =
     };
   };
   param = params."${coq.coq-version}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "coq${coq.coq-version}-Velisarios-${param.version}";
 
   src = fetchFromGitHub {
@@ -32,9 +31,7 @@ stdenv.mkDerivation rec {
     inherit (param) rev sha256;
   };
 
-  buildInputs = [
-    coq coq.ocaml coq.camlp5 coq.findlib
-  ];
+  buildInputs = [ coq coq.ocaml coq.camlp5 coq.findlib ];
   enableParallelBuilding = true;
 
   buildPhase = "make -j$NIX_BUILD_CORES";
@@ -46,5 +43,5 @@ stdenv.mkDerivation rec {
 
   passthru = {
     compatibleCoqVersions = v: builtins.elem v [ "8.6" "8.7" "8.8" ];
- };
+  };
 }

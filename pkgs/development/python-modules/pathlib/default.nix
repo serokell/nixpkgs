@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, pythonAtLeast
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "pathlib";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Object-oriented filesystem paths";
-    homepage = https://pathlib.readthedocs.org/;
+    homepage = "https://pathlib.readthedocs.org/";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ costrouc ];
   };

@@ -19,13 +19,14 @@ stdenv.mkDerivation rec {
   patches = [ ./ignore_wrapper.patch ./cmakepaths.patch ];
 
   meta = with stdenv.lib; {
-    description = "Tool that generates a compilation database for clang tooling";
+    description =
+      "Tool that generates a compilation database for clang tooling";
     longDescription = ''
       Note: the bear command is very useful to generate compilation commands
       e.g. for YouCompleteMe.  You just enter your development nix-shell
       and run `bear make`.  It's not perfect, but it gets a long way.
     '';
-    homepage = https://github.com/rizsotto/Bear;
+    homepage = "https://github.com/rizsotto/Bear";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.babariviere ];

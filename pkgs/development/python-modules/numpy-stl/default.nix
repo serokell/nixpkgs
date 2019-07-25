@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, cython, numpy, nine, pytest, pytestrunner, python-utils, enum34 }:
+{ lib, buildPythonPackage, fetchPypi, cython, numpy, nine, pytest, pytestrunner, python-utils, enum34
+}:
 
 buildPythonPackage rec {
   pname = "numpy-stl";
@@ -16,7 +17,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cython numpy nine python-utils enum34 ];
 
   meta = with lib; {
-    description = "Library to make reading, writing and modifying both binary and ascii STL files easy";
+    description =
+      "Library to make reading, writing and modifying both binary and ascii STL files easy";
     homepage = "https://github.com/WoLpH/numpy-stl/";
     license = licenses.bsd3;
   };

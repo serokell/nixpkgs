@@ -3,8 +3,7 @@
 let
   name = "cccc";
   version = "3.1.4";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${name}-${version}";
 
   src = fetchurl {
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
       on various metrics of the code. Metrics supported include lines of code, McCabe's
       complexity and metrics proposed by Chidamber&Kemerer and Henry&Kafura.
     '';
-    homepage = http://cccc.sourceforge.net/;
+    homepage = "http://cccc.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.linquize ];

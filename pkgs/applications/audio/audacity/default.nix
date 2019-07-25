@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, wxGTK30, pkgconfig, file, gettext, gtk2,
-  libvorbis, libmad, libjack2, lv2, lilv, serd, sord, sratom, suil, alsaLib, libsndfile, soxr, flac, lame,
-  expat, libid3tag, ffmpeg, soundtouch, /*, portaudio - given up fighting their portaudio.patch */
-  autoconf, automake, libtool
-  }:
+{ stdenv, fetchurl, wxGTK30, pkgconfig, file, gettext, gtk2, libvorbis, libmad, libjack2, lv2, lilv, serd, sord, sratom, suil, alsaLib, libsndfile, soxr, flac, lame, expat, libid3tag, ffmpeg, soundtouch, # , portaudio - given up fighting their portaudio.patch
+autoconf, automake, libtool }:
 
 with stdenv.lib;
 
@@ -11,21 +8,21 @@ stdenv.mkDerivation rec {
   name = "audacity-${version}";
 
   src = fetchurl {
-    url = "https://github.com/audacity/audacity/archive/Audacity-${version}.tar.gz";
+    url =
+      "https://github.com/audacity/audacity/archive/Audacity-${version}.tar.gz";
     sha256 = "0cf7fr1qhyyylj8g9ax1rq5sb887bcv5b8d7hwlcfwamzxqpliyc";
   };
 
-  preConfigure = /* we prefer system-wide libs */ ''
-    autoreconf -vi # use system libraries
+  preConfigure = # we prefer system-wide libs
+    ''
+      autoreconf -vi # use system libraries
 
-    # we will get a (possibly harmless) warning during configure without this
-    substituteInPlace configure \
-      --replace /usr/bin/file ${file}/bin/file
-  '';
+      # we will get a (possibly harmless) warning during configure without this
+      substituteInPlace configure \
+        --replace /usr/bin/file ${file}/bin/file
+    '';
 
-  configureFlags = [
-    "--with-libsamplerate"
-  ];
+  configureFlags = [ "--with-libsamplerate" ];
 
   # audacity only looks for lame and ffmpeg at runtime, so we need to link them in manually
   NIX_LDFLAGS = [
@@ -45,11 +42,32 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    file gettext wxGTK30 expat alsaLib
-    libsndfile soxr libid3tag libjack2 lv2 lilv serd sord sratom suil gtk2
-    ffmpeg libmad lame libvorbis flac soundtouch
-    autoconf automake libtool # for the preConfigure phase
-  ]; #ToDo: detach sbsms
+    file
+    gettext
+    wxGTK30
+    expat
+    alsaLib
+    libsndfile
+    soxr
+    libid3tag
+    libjack2
+    lv2
+    lilv
+    serd
+    sord
+    sratom
+    suil
+    gtk2
+    ffmpeg
+    libmad
+    lame
+    libvorbis
+    flac
+    soundtouch
+    autoconf
+    automake
+    libtool # for the preConfigure phase
+  ]; # ToDo: detach sbsms
 
   enableParallelBuilding = true;
 
@@ -58,7 +76,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Sound editor with graphical UI";
-    homepage = http://audacityteam.org/;
+    homepage = "http://audacityteam.org/";
     license = licenses.gpl2Plus;
     platforms = with platforms; linux;
     maintainers = with maintainers; [ the-kenny ];

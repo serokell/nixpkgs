@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, fetchurl, cmake, darkhttpd, gettext, makeWrapper, pkgconfig
-, libdigidocpp, opensc, openldap, openssl, pcsclite, qtbase, qttranslations, qtsvg }:
+{ stdenv, fetchgit, fetchurl, cmake, darkhttpd, gettext, makeWrapper, pkgconfig, libdigidocpp, opensc, openldap, openssl, pcsclite, qtbase, qttranslations, qtsvg
+}:
 
 stdenv.mkDerivation rec {
   name = "qdigidoc-${version}";
@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   tsl = fetchurl {
-    url = "https://ec.europa.eu/information_society/policy/esignature/trusted-list/tl-mp.xml";
+    url =
+      "https://ec.europa.eu/information_society/policy/esignature/trusted-list/tl-mp.xml";
     sha256 = "0llr2fj8vd097hcr1d0xmzdy4jydv0b5j5qlksbjffs22rqgal14";
   };
 
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt-based UI for signing and verifying DigiDoc documents";
-    homepage = https://www.id.ee/;
+    homepage = "https://www.id.ee/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ yegortimoshenko ];

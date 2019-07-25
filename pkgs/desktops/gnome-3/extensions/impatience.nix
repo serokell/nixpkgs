@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0kvdhlz41fjyqdgcfw6mrr9nali6wg2qwji3dvykzfi0aypljzpx";
   };
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
   buildPhase = ''
     make schemas
@@ -30,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Speed up builtin gnome-shell animations";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ aneeshusa timbertson tiramiseb ];
-    homepage = http://gfxmonk.net/dist/0install/gnome-shell-impatience.xml;
+    homepage = "http://gfxmonk.net/dist/0install/gnome-shell-impatience.xml";
   };
 }

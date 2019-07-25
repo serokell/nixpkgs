@@ -11,14 +11,13 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [
     # For building documentation:
-    sphinx guzzle_sphinx_theme
+    sphinx
+    guzzle_sphinx_theme
   ];
-  buildInputs = [
-    libb2 lz4 zstd openssl python3.pkgs.setuptools_scm
-  ] ++ stdenv.lib.optionals stdenv.isLinux [ acl ];
-  propagatedBuildInputs = with python3.pkgs; [
-    cython
-  ] ++ stdenv.lib.optionals (!stdenv.isDarwin) [ llfuse ];
+  buildInputs = [ libb2 lz4 zstd openssl python3.pkgs.setuptools_scm ]
+    ++ stdenv.lib.optionals stdenv.isLinux [ acl ];
+  propagatedBuildInputs = with python3.pkgs;
+    [ cython ] ++ stdenv.lib.optionals (!stdenv.isDarwin) [ llfuse ];
 
   preConfigure = ''
     export BORG_OPENSSL_PREFIX="${openssl.dev}"
@@ -27,9 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     export BORG_LIBZSTD_PREFIX="${zstd}"
   '';
 
-  makeWrapperArgs = [
-    ''--prefix PATH ':' "${openssh}/bin"''
-  ];
+  makeWrapperArgs = [ ''--prefix PATH ':' "${openssh}/bin"'' ];
 
   postInstall = ''
     make -C docs singlehtml
@@ -50,9 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     cp scripts/shell_completions/zsh/_borg $out/share/zsh/site-functions/
   '';
 
-  checkInputs = with python3.pkgs; [
-    pytest
-  ];
+  checkInputs = with python3.pkgs; [ pytest ];
 
   checkPhase = ''
     HOME=$(mktemp -d) py.test --pyargs borg.testsuite
@@ -63,7 +58,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "A deduplicating backup program (attic fork)";
-    homepage = https://www.borgbackup.org;
+    homepage = "https://www.borgbackup.org";
     license = licenses.bsd3;
     platforms = platforms.unix; # Darwin and FreeBSD mentioned on homepage
     maintainers = with maintainers; [ flokli dotlambda ];

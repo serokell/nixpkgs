@@ -4,9 +4,7 @@ import ./make-test.nix ({ pkgs, ... }:
 {
   name = "graphene";
 
-  meta = {
-    maintainers = pkgs.graphene.meta.maintainers;
-  };
+  meta = { maintainers = pkgs.graphene.meta.maintainers; };
 
   machine = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [ gnome-desktop-testing ];

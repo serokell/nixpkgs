@@ -20,12 +20,11 @@ stdenv.mkDerivation rec {
       --replace -mmacosx-version-min=10.4 -mmacosx-version-min=10.5
   '';
 
-  buildPhase =
-    if stdenv.isDarwin then ''
-       make -f Bootstrap.mak osx
-    '' else ''
-       make -f Bootstrap.mak linux
-    '';
+  buildPhase = if stdenv.isDarwin then ''
+    make -f Bootstrap.mak osx
+  '' else ''
+    make -f Bootstrap.mak linux
+  '';
 
   installPhase = ''
     install -Dm755 bin/release/premake5 $out/bin/premake5
@@ -35,8 +34,9 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = {
-    homepage = https://premake.github.io;
-    description = "A simple build configuration and project generation tool using lua";
+    homepage = "https://premake.github.io";
+    description =
+      "A simple build configuration and project generation tool using lua";
     license = stdenv.lib.licenses.bsd3;
     platforms = platforms.darwin ++ platforms.linux;
   };

@@ -1,5 +1,4 @@
-{ fetchurl, stdenv
-, IOKit ? null }:
+{ fetchurl, stdenv, IOKit ? null }:
 
 stdenv.mkDerivation rec {
   name = "cd-discid-${version}";
@@ -12,15 +11,15 @@ stdenv.mkDerivation rec {
 
   installFlags = "PREFIX=$(out) INSTALL=install";
 
-  buildInputs = []
-    ++ stdenv.lib.optional stdenv.isDarwin IOKit;
+  buildInputs = [ ] ++ stdenv.lib.optional stdenv.isDarwin IOKit;
 
   meta = with stdenv.lib; {
-    homepage = http://linukz.org/cd-discid.shtml;
+    homepage = "http://linukz.org/cd-discid.shtml";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.rycee ];
     platforms = platforms.unix;
-    description = "Command-line utility to get CDDB discid information from a CD-ROM disc";
+    description =
+      "Command-line utility to get CDDB discid information from a CD-ROM disc";
 
     longDescription = ''
       cd-discid is a backend utility to get CDDB discid information

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, python, pythonOlder, fetchFromGitHub
-, django, django-crispy-forms, djangorestframework, mock, pytz }:
+{ lib, buildPythonPackage, python, pythonOlder, fetchFromGitHub, django, django-crispy-forms, djangorestframework, mock, pytz
+}:
 
 buildPythonPackage rec {
   pname = "django-filter";
@@ -18,8 +18,9 @@ buildPythonPackage rec {
   checkPhase = "${python.interpreter} runtests.py";
 
   meta = with lib; {
-    description = "A reusable Django application for allowing users to filter querysets dynamically.";
-    homepage = https://github.com/carltongibson/django-filter;
+    description =
+      "A reusable Django application for allowing users to filter querysets dynamically.";
+    homepage = "https://github.com/carltongibson/django-filter";
     license = licenses.bsd3;
     maintainers = with maintainers; [ earvstedt ];
   };

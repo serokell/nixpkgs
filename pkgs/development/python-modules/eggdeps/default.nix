@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, zope_interface
-, zope_testing
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_interface, zope_testing }:
 
 buildPythonPackage rec {
   pname = "eggdeps";
@@ -20,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A tool which computes a dependency graph between active Python eggs";
-    homepage = http://thomas-lotze.de/en/software/eggdeps/;
+    description =
+      "A tool which computes a dependency graph between active Python eggs";
+    homepage = "http://thomas-lotze.de/en/software/eggdeps/";
     license = licenses.zpl20;
   };
 

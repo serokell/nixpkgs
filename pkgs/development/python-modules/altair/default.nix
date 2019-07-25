@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, jinja2, sphinx, vega_datasets, ipython, glibcLocales
-, entrypoints, jsonschema, numpy, pandas, six, toolz, typing
-, pythonOlder, recommonmark }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, jinja2, sphinx, vega_datasets, ipython, glibcLocales, entrypoints, jsonschema, numpy, pandas, six, toolz, typing, pythonOlder, recommonmark
+}:
 
 buildPythonPackage rec {
   pname = "altair";
@@ -17,7 +15,8 @@ buildPythonPackage rec {
     rm altair/examples/boxplot_max_min.py altair/examples/line_percent.py
   '';
 
-  checkInputs = [ pytest jinja2 sphinx vega_datasets ipython glibcLocales recommonmark ];
+  checkInputs =
+    [ pytest jinja2 sphinx vega_datasets ipython glibcLocales recommonmark ];
 
   propagatedBuildInputs = [ entrypoints jsonschema numpy pandas six toolz ]
     ++ stdenv.lib.optionals (pythonOlder "3.5") [ typing ];
@@ -29,7 +28,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A declarative statistical visualization library for Python.";
-    homepage = https://github.com/altair-viz/altair;
+    homepage = "https://github.com/altair-viz/altair";
     license = licenses.bsd3;
     maintainers = with maintainers; [ teh ];
     platforms = platforms.unix;

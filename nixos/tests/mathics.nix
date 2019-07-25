@@ -1,8 +1,6 @@
 import ./make-test.nix ({ pkgs, ... }: {
   name = "mathics";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ benley ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ benley ]; };
 
   nodes = {
     machine = { ... }: {

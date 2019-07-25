@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
-, beautifulsoup4, bottle, chardet, dateutil
-, google_api_python_client, lxml, ply, python_magic
-, pytest, requests }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, beautifulsoup4, bottle, chardet, dateutil, google_api_python_client, lxml, ply, python_magic, pytest, requests
+}:
 
 buildPythonPackage rec {
   version = "2.2.1";
@@ -33,12 +31,12 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    homepage = http://furius.ca/beancount/;
+    homepage = "http://furius.ca/beancount/";
     description = "Double-entry bookkeeping computer language";
     longDescription = ''
-        A double-entry bookkeeping computer language that lets you define
-        financial transaction records in a text file, read them in memory,
-        generate a variety of reports from them, and provides a web interface.
+      A double-entry bookkeeping computer language that lets you define
+      financial transaction records in a text file, read them in memory,
+      generate a variety of reports from them, and provides a web interface.
     '';
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ ];

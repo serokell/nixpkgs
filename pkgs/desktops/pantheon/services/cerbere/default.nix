@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, glib, libgee, vala, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, glib, libgee, vala, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "cerbere";
@@ -11,25 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "0f9jr6q5z6nir5b77f96wm9rx6r6s9i0sr1yrymg3n7jyjgrvdwp";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig python3 vala wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    libgee
-  ];
+  buildInputs = [ glib libgee ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -38,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A simple service to ensure uptime of essential processes";
-    homepage = https://github.com/elementary/cerbere;
+    homepage = "https://github.com/elementary/cerbere";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

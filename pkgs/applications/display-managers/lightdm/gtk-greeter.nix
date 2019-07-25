@@ -1,8 +1,6 @@
-{ stdenv, fetchurl, lightdm, pkgconfig, intltool
-, hicolor-icon-theme, makeWrapper
-, useGTK2 ? false, gtk2, gtk3 # gtk3 seems better supported
-, exo, at-spi2-core
-}:
+{ stdenv, fetchurl, lightdm, pkgconfig, intltool, hicolor-icon-theme, makeWrapper, useGTK2 ?
+  false, gtk2, gtk3 # gtk3 seems better supported
+, exo, at-spi2-core }:
 
 #ToDo: bad icons with gtk2;
 #  avatar icon is missing in standard hicolor theme, I don't know where gtk3 takes it from
@@ -10,8 +8,7 @@
 let
   ver_branch = "2.0";
   version = "2.0.6";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "lightdm-gtk-greeter-${version}";
 
   src = fetchurl {
@@ -35,10 +32,8 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
 
-  installFlags = [
-    "localstatedir=\${TMPDIR}"
-    "sysconfdir=${placeholder "out"}/etc"
-  ];
+  installFlags =
+    [ "localstatedir=\${TMPDIR}" "sysconfdir=${placeholder "out"}/etc" ];
 
   postInstall = ''
     substituteInPlace "$out/share/xgreeters/lightdm-gtk-greeter.desktop" \
@@ -48,7 +43,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://launchpad.net/lightdm-gtk-greeter;
+    homepage = "https://launchpad.net/lightdm-gtk-greeter";
     platforms = platforms.linux;
     license = licenses.gpl3;
     maintainers = with maintainers; [ ocharles ];

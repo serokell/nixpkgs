@@ -1,16 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, isPy27
-, awkward
-, backports_lzma
-, cachetools
-, lz4
-, pytestrunner
-, pytest
-, pkgconfig
-, mock
-, numpy
-, requests
-, uproot-methods
-, xxhash
+{ lib, fetchPypi, buildPythonPackage, isPy27, awkward, backports_lzma, cachetools, lz4, pytestrunner, pytest, pkgconfig, mock, numpy, requests, uproot-methods, xxhash
 }:
 
 buildPythonPackage rec {
@@ -24,21 +12,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pytestrunner ];
 
-  checkInputs = [
-    lz4
-    mock
-    pkgconfig
-    pytest
-    requests
-    xxhash
-  ] ++ lib.optional isPy27 backports_lzma;
+  checkInputs = [ lz4 mock pkgconfig pytest requests xxhash ]
+    ++ lib.optional isPy27 backports_lzma;
 
-  propagatedBuildInputs = [
-    numpy
-    cachetools
-    uproot-methods
-    awkward
-  ];
+  propagatedBuildInputs = [ numpy cachetools uproot-methods awkward ];
 
   # skip tests which do network calls
   checkPhase = ''
@@ -46,7 +23,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/scikit-hep/uproot;
+    homepage = "https://github.com/scikit-hep/uproot";
     description = "ROOT I/O in pure Python and Numpy";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ktf ];

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, bash, perl, diffstat, diffutils, patch, findutils }:
+{ stdenv, fetchurl, makeWrapper, bash, perl, diffstat, diffutils, patch, findutils
+}:
 
 stdenv.mkDerivation rec {
 
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://savannah.nongnu.org/projects/quilt;
+    homepage = "https://savannah.nongnu.org/projects/quilt";
     description = "Easily manage large numbers of patches";
 
     longDescription = ''

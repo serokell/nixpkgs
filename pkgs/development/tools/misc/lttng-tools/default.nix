@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, popt, libuuid, liburcu, lttng-ust, kmod, libxml2 }:
+{ stdenv, fetchurl, pkgconfig, popt, libuuid, liburcu, lttng-ust, kmod, libxml2
+}:
 
 stdenv.mkDerivation rec {
   name = "lttng-tools-${version}";
@@ -14,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tracing tools (kernel + user space) for Linux";
-    homepage = https://lttng.org/;
+    homepage = "https://lttng.org/";
     license = licenses.lgpl21;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

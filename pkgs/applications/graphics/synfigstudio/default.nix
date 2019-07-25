@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, boost, cairo, gettext, glibmm, gtk3, gtkmm3
-, libjack2, libsigcxx, libxmlxx, makeWrapper, mlt-qt5, pango, pkgconfig
-, imagemagick, intltool, autoreconfHook, which, gnome3
+{ stdenv, fetchFromGitHub, boost, cairo, gettext, glibmm, gtk3, gtkmm3, libjack2, libsigcxx, libxmlxx, makeWrapper, mlt-qt5, pango, pkgconfig, imagemagick, intltool, autoreconfHook, which, gnome3
 }:
 
 let
@@ -10,10 +8,10 @@ let
     name = "ETL-0.04.19";
 
     src = fetchFromGitHub {
-       repo   = "synfig";
-       owner  = "synfig";
-       rev    = version;
-       sha256 = "09ldkvzczqvb1yvlibd62y56dkyprxlr0w3rk38rcs7jnrhj2cqc";
+      repo = "synfig";
+      owner = "synfig";
+      rev = version;
+      sha256 = "09ldkvzczqvb1yvlibd62y56dkyprxlr0w3rk38rcs7jnrhj2cqc";
     };
 
     postUnpack = "sourceRoot=\${sourceRoot}/ETL/";
@@ -25,35 +23,30 @@ let
     name = "synfig-${version}";
 
     src = fetchFromGitHub {
-       repo   = "synfig";
-       owner  = "synfig";
-       rev    = version;
-       sha256 = "09ldkvzczqvb1yvlibd62y56dkyprxlr0w3rk38rcs7jnrhj2cqc";
+      repo = "synfig";
+      owner = "synfig";
+      rev = version;
+      sha256 = "09ldkvzczqvb1yvlibd62y56dkyprxlr0w3rk38rcs7jnrhj2cqc";
     };
 
     postUnpack = "sourceRoot=\${sourceRoot}/synfig-core/";
 
-    configureFlags = [
-      "--with-boost=${boost.dev}"
-      "--with-boost-libdir=${boost.out}/lib"
-    ];
+    configureFlags =
+      [ "--with-boost=${boost.dev}" "--with-boost-libdir=${boost.out}/lib" ];
 
     nativeBuildInputs = [ pkgconfig autoreconfHook gettext ];
-    buildInputs = [
-      ETL boost cairo glibmm mlt-qt5 libsigcxx libxmlxx pango
-    ];
+    buildInputs = [ ETL boost cairo glibmm mlt-qt5 libsigcxx libxmlxx pango ];
 
     meta.broken = true;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "synfigstudio-${version}";
 
   src = fetchFromGitHub {
-     repo   = "synfig";
-     owner  = "synfig";
-     rev    = version;
-     sha256 = "09ldkvzczqvb1yvlibd62y56dkyprxlr0w3rk38rcs7jnrhj2cqc";
+    repo = "synfig";
+    owner = "synfig";
+    rev = version;
+    sha256 = "09ldkvzczqvb1yvlibd62y56dkyprxlr0w3rk38rcs7jnrhj2cqc";
   };
 
   postUnpack = "sourceRoot=\${sourceRoot}/synfig-studio/";
@@ -103,9 +96,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig autoreconfHook gettext ];
   buildInputs = [
-    ETL boost cairo glibmm gtk3 gtkmm3 imagemagick intltool
-    libjack2 libsigcxx libxmlxx makeWrapper mlt-qt5
-    synfig which gnome3.adwaita-icon-theme
+    ETL
+    boost
+    cairo
+    glibmm
+    gtk3
+    gtkmm3
+    imagemagick
+    intltool
+    libjack2
+    libsigcxx
+    libxmlxx
+    makeWrapper
+    mlt-qt5
+    synfig
+    which
+    gnome3.adwaita-icon-theme
   ];
 
   postInstall = ''
@@ -117,7 +123,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A 2D animation program";
-    homepage = http://www.synfig.org;
+    homepage = "http://www.synfig.org";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux;

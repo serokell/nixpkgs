@@ -1,4 +1,4 @@
-{stdenv, fetchurl, emacs}:
+{ stdenv, fetchurl, emacs }:
 
 let version = "1.3.13";
 

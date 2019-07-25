@@ -1,4 +1,5 @@
-{ stdenv, fetchgit , boost, libX11, libGLU_combined, liblo, libjack2, ladspaH, lv2, pkgconfig, rubberband, libsndfile, fftwFloat, libsamplerate }:
+{ stdenv, fetchgit, boost, libX11, libGLU_combined, liblo, libjack2, ladspaH, lv2, pkgconfig, rubberband, libsndfile, fftwFloat, libsamplerate
+}:
 
 stdenv.mkDerivation rec {
   name = "zam-plugins-${version}";
@@ -12,19 +13,30 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ boost libX11 libGLU_combined liblo libjack2 ladspaH lv2 rubberband libsndfile fftwFloat libsamplerate ];
+  buildInputs = [
+    boost
+    libX11
+    libGLU_combined
+    liblo
+    libjack2
+    ladspaH
+    lv2
+    rubberband
+    libsndfile
+    fftwFloat
+    libsamplerate
+  ];
 
   patchPhase = ''
     patchShebangs ./dpf/utils/generate-ttl.sh
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.zamaudio.com/?p=976;
-    description = "A collection of LV2/LADSPA/VST/JACK audio plugins by ZamAudio";
+    homepage = "http://www.zamaudio.com/?p=976";
+    description =
+      "A collection of LV2/LADSPA/VST/JACK audio plugins by ZamAudio";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.magnetophon ];
     platforms = platforms.linux;

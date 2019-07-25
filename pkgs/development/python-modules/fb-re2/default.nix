@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, re2
-}:
+{ lib, buildPythonPackage, fetchPypi, re2 }:
 
 buildPythonPackage rec {
   pname = "fb-re2";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python wrapper for Google's RE2";
-    homepage = https://github.com/facebook/pyre2;
+    homepage = "https://github.com/facebook/pyre2";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ ivan ];
   };

@@ -18,7 +18,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Minifiers for web formats";
     license = licenses.mit;
-    homepage = https://go.tacodewolff.nl/minify;
+    homepage = "https://go.tacodewolff.nl/minify";
     platforms = platforms.all;
   };
 }

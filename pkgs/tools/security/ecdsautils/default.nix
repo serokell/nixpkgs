@@ -12,11 +12,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = with pkgs; [ cmake pkgconfig doxygen ];
-  buildInputs = with pkgs; [ libuecc  ];
+  buildInputs = with pkgs; [ libuecc ];
 
   meta = with stdenv.lib; {
-    description = "Tiny collection of programs used for ECDSA (keygen, sign, verify)";
-    homepage = https://github.com/tcatm/ecdsautils/;
+    description =
+      "Tiny collection of programs used for ECDSA (keygen, sign, verify)";
+    homepage = "https://github.com/tcatm/ecdsautils/";
     license = with licenses; [ mit bsd2 ];
     maintainers = with maintainers; [ andir ];
     platforms = platforms.unix;

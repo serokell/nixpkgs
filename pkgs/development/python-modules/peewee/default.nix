@@ -1,11 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub
-, sqlite
-, cython
-, apsw
-, flask
-, withPostgres ? false, psycopg2
-, withMysql ? false, mysql-connector
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, sqlite, cython, apsw, flask, withPostgres ?
+  false, psycopg2, withMysql ? false, mysql-connector }:
 
 buildPythonPackage rec {
 
@@ -19,7 +13,6 @@ buildPythonPackage rec {
     rev = version;
     sha256 = "1pgmsd7v73d0gqxsa4wnm9s3lyffw46wvvkqn25xgh4v8z869fg2";
   };
-
 
   checkInputs = [ flask ];
 
@@ -38,9 +31,9 @@ buildPythonPackage rec {
   ] ++ (lib.optional withPostgres psycopg2)
     ++ (lib.optional withMysql mysql-connector);
 
-  meta = with stdenv.lib;{
+  meta = with stdenv.lib; {
     description = "a small, expressive orm";
-    homepage    = http://peewee-orm.com;
-    license     = licenses.mit;
+    homepage = "http://peewee-orm.com";
+    license = licenses.mit;
   };
 }

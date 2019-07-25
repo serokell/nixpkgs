@@ -1,7 +1,5 @@
-{ fetchgit, stdenv, zlib, bzip2, docbook2x, pcre, curl, libxml2, libevent, perl
-, pkgconfig, protobuf, tokyocabinet, tokyotyrant, opencv, autoconf, automake
-, libtool, seeks_confDir ? ""
-}:
+{ fetchgit, stdenv, zlib, bzip2, docbook2x, pcre, curl, libxml2, libevent, perl, pkgconfig, protobuf, tokyocabinet, tokyotyrant, opencv, autoconf, automake, libtool, seeks_confDir ?
+  "" }:
 
 stdenv.mkDerivation {
   name = "seeks-0.4.1";
@@ -12,10 +10,24 @@ stdenv.mkDerivation {
     sha256 = "18s2pxal9a2aayv63hc19vnkx5a5y9rhbipdpvkinbni5283iiar";
   };
 
-  buildInputs =
-    [ zlib bzip2 docbook2x pcre curl libxml2 libevent perl pkgconfig
-      protobuf tokyocabinet tokyotyrant opencv autoconf automake libtool
-    ];
+  buildInputs = [
+    zlib
+    bzip2
+    docbook2x
+    pcre
+    curl
+    libxml2
+    libevent
+    perl
+    pkgconfig
+    protobuf
+    tokyocabinet
+    tokyotyrant
+    opencv
+    autoconf
+    automake
+    libtool
+  ];
 
   configureFlags =
     [ # Enable the built-in web server providing a web search interface.
@@ -45,25 +57,24 @@ stdenv.mkDerivation {
   meta = {
     description = "Seeks, a social web search engine";
 
-    longDescription =
-      '' Seeks is a free and open technical design and application for
-         enabling social websearch.  Its specific purpose is to regroup users
-         whose queries are similar so they can share both the query results
-         and their experience on these results.  On this basis, Seeks allows
-         for true real-time, decentralized, websearch to emerge.
+    longDescription = ''
+      Seeks is a free and open technical design and application for
+              enabling social websearch.  Its specific purpose is to regroup users
+              whose queries are similar so they can share both the query results
+              and their experience on these results.  On this basis, Seeks allows
+              for true real-time, decentralized, websearch to emerge.
 
-         In the long term, there is no need for web crawlers and third-party
-         web indexes as users can push content directly to search groups.
-      '';
+              In the long term, there is no need for web crawlers and third-party
+              web indexes as users can push content directly to search groups.
+           '';
 
     license = stdenv.lib.licenses.agpl3Plus;
 
-    homepage = http://www.seeks-project.info/;
+    homepage = "http://www.seeks-project.info/";
 
-    maintainers = [
-      stdenv.lib.maintainers.matejc
-    ];
-    platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux;  # arbitrary choice
+    maintainers = [ stdenv.lib.maintainers.matejc ];
+    platforms = stdenv.lib.platforms.gnu
+      ++ stdenv.lib.platforms.linux; # arbitrary choice
     broken = true; # 2018-04-11
   };
 }

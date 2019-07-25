@@ -17,14 +17,16 @@ stdenv.mkDerivation rec {
   installFlags = "COQLIB=$(out)/lib/coq/${coq.coq-version}/";
 
   meta = with stdenv.lib; {
-    homepage = https://math-classes.github.io;
-    description = "A library of abstract interfaces for mathematical structures in Coq.";
+    homepage = "https://math-classes.github.io";
+    description =
+      "A library of abstract interfaces for mathematical structures in Coq.";
     maintainers = with maintainers; [ siddharthist jwiegley ];
     platforms = coq.meta.platforms;
   };
 
   passthru = {
-    compatibleCoqVersions = v: builtins.elem v [ "8.6" "8.7" "8.8" "8.9" "8.10" ];
+    compatibleCoqVersions = v:
+      builtins.elem v [ "8.6" "8.7" "8.8" "8.9" "8.10" ];
   };
 
 }

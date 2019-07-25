@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, cups}:
+{ stdenv, fetchFromGitHub, cups }:
 
 stdenv.mkDerivation rec {
   pname = "cups-zj-58";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "CUPS filter for thermal printer Zjiang ZJ-58";
-    homepage = https://github.com/klirichek/zj-58;
+    homepage = "https://github.com/klirichek/zj-58";
     platforms = platforms.linux;
     maintainers = with maintainers; [ makefu ];
     license = licenses.bsd2;

@@ -1,6 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, astroid, six, isort,
-  mccabe, configparser, backports_functools_lru_cache, singledispatch,
-  pytest, pytestrunner, pyenchant }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, astroid, six, isort, mccabe, configparser, backports_functools_lru_cache, singledispatch, pytest, pytestrunner, pyenchant
+}:
 
 buildPythonPackage rec {
   pname = "pylint";
@@ -13,7 +12,15 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest pytestrunner pyenchant ];
 
-  propagatedBuildInputs = [ astroid six isort mccabe configparser backports_functools_lru_cache singledispatch ];
+  propagatedBuildInputs = [
+    astroid
+    six
+    isort
+    mccabe
+    configparser
+    backports_functools_lru_cache
+    singledispatch
+  ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     # Remove broken darwin test
@@ -21,17 +28,18 @@ buildPythonPackage rec {
   '';
 
   checkPhase = ''
-    pytest pylint/test -k "not ${lib.concatStringsSep " and not " (
-      [ # Broken test
+    pytest pylint/test -k "not ${
+      lib.concatStringsSep " and not " ([ # Broken test
         "test_good_comprehension_checks"
         # See PyCQA/pylint#2535
-        "test_libmodule" ] ++
+        "test_libmodule"
+      ] ++
       # Disable broken darwin tests
       lib.optionals stdenv.isDarwin [
         "test_parallel_execution"
         "test_py3k_jobs_option"
-      ]
-    )}"
+      ])
+    }"
   '';
 
   postInstall = ''
@@ -40,7 +48,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/PyCQA/pylint;
+    homepage = "https://github.com/PyCQA/pylint";
     description = "A bug and style checker for Python";
     platforms = platforms.all;
     license = licenses.gpl1Plus;

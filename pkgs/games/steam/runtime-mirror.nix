@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 let
   inherit (pkgs) lib;
@@ -8,7 +8,7 @@ let
     file = x.source;
   };
   files = builtins.map convRt (lib.concatLists (lib.attrValues rt));
-  
+
 in pkgs.stdenv.mkDerivation {
   name = "steam-runtime-mirror";
   buildCommand = ''

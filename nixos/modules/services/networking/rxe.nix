@@ -6,7 +6,8 @@ let
   cfg = config.networking.rxe;
 
   runRxeCmd = cmd: ifcs:
-    concatStrings ( map (x: "${pkgs.rdma-core}/bin/rxe_cfg -n ${cmd} ${x};") ifcs);
+    concatStrings
+    (map (x: "${pkgs.rdma-core}/bin/rxe_cfg -n ${cmd} ${x};") ifcs);
 
   startScript = pkgs.writeShellScriptBin "rxe-start" ''
     ${pkgs.rdma-core}/bin/rxe_cfg -n start
@@ -15,7 +16,7 @@ let
   '';
 
   stopScript = pkgs.writeShellScriptBin "rxe-stop" ''
-    ${runRxeCmd "remove" cfg.interfaces }
+    ${runRxeCmd "remove" cfg.interfaces}
     ${pkgs.rdma-core}/bin/rxe_cfg -n stop
   '';
 

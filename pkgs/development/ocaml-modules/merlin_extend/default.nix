@@ -18,7 +18,7 @@ buildOcaml rec {
   createFindlibDestdir = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/let-def/merlin-extend;
+    homepage = "https://github.com/let-def/merlin-extend";
     description = "SDK to extend Merlin";
     license = licenses.mit;
     maintainers = [ maintainers.volth ];

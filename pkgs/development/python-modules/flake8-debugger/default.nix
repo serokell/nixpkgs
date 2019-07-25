@@ -1,4 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, flake8, pycodestyle, pytestrunner, pytest }:
+{ lib, fetchPypi, buildPythonPackage, flake8, pycodestyle, pytestrunner, pytest
+}:
 
 buildPythonPackage rec {
   pname = "flake8-debugger";
@@ -20,7 +21,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = https://github.com/jbkahn/flake8-debugger;
+    homepage = "https://github.com/jbkahn/flake8-debugger";
     description = "ipdb/pdb statement checker plugin for flake8";
     maintainers = with lib.maintainers; [ johbo ];
     license = lib.licenses.mit;

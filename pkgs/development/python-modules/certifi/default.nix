@@ -1,7 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-}:
+{ lib, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "certifi";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    homepage = http://certifi.io/;
+    homepage = "http://certifi.io/";
     description = "Python package for providing Mozilla's CA Bundle";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ koral ];

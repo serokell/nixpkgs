@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, pytest }:
 
 buildPythonPackage rec {
   pname = "flaky";
@@ -20,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/box/flaky;
-    description = "Plugin for nose or py.test that automatically reruns flaky tests";
+    homepage = "https://github.com/box/flaky";
+    description =
+      "Plugin for nose or py.test that automatically reruns flaky tests";
     license = licenses.asl20;
   };
 

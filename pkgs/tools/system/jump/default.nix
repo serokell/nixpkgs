@@ -13,7 +13,7 @@ buildGoModule rec {
 
   modSha256 = "1fzsm85c31vkdw80kijxmjhk8jyhjz8b21npgks2qrnizhm6iaf8";
 
-  outputs = [ "out" "man"];
+  outputs = [ "out" "man" ];
   postInstall = ''
     install -D --mode=444 man/j.1 man/jump.1 -t $man/man/man1/
 
@@ -32,7 +32,7 @@ buildGoModule rec {
       navigational habits by keeping track of the directories you visit. It
       strives to give you the best directory for the shortest search term.
     '';
-    homepage = https://github.com/gsamokovarov/jump;
+    homepage = "https://github.com/gsamokovarov/jump";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ sondr3 ];

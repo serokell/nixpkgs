@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isodate
-, html5lib
-, SPARQLWrapper
-, networkx
-, nose
-, python
+{ lib, buildPythonPackage, fetchPypi, isodate, html5lib, SPARQLWrapper, networkx, nose, python
 }:
 
 buildPythonPackage rec {
@@ -31,8 +23,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A temporary convenience package for changes waiting to be merged into the primary rdflib repo";
-    homepage = https://pypi.org/project/neurdflib;
+    description =
+      "A temporary convenience package for changes waiting to be merged into the primary rdflib repo";
+    homepage = "https://pypi.org/project/neurdflib";
     license = licenses.bsd3;
   };
 }

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchgit
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchgit, isPy3k }:
 
 buildPythonPackage rec {
   version = "asynkdev";
@@ -27,7 +23,7 @@ buildPythonPackage rec {
       that package.
     '';
 
-    homepage = https://github.com/skarra/CalDAVClientLibrary/tree/asynkdev/;
+    homepage = "https://github.com/skarra/CalDAVClientLibrary/tree/asynkdev/";
     maintainers = with maintainers; [ pjones ];
     broken = true; # 2018-04-11
   };

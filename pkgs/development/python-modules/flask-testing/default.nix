@@ -1,5 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, pythonOlder
-, flask, blinker, twill }:
+{ stdenv, fetchPypi, buildPythonPackage, pythonOlder, flask, blinker, twill }:
 
 with stdenv.lib;
 
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Flask unittest integration.";
-    homepage = https://pythonhosted.org/Flask-Testing/;
+    homepage = "https://pythonhosted.org/Flask-Testing/";
     license = licenses.bsd3;
     maintainers = [ maintainers.mic92 ];
   };

@@ -2,14 +2,15 @@
 
 with lib;
 
-let cfg = config.services.xserver.multitouch;
-    disabledTapConfig = ''
-      Option "MaxTapTime" "0"
-      Option "MaxTapMove" "0"
-      Option "TapButton1" "0"
-      Option "TapButton2" "0"
-      Option "TapButton3" "0"
-    '';
+let
+  cfg = config.services.xserver.multitouch;
+  disabledTapConfig = ''
+    Option "MaxTapTime" "0"
+    Option "MaxTapMove" "0"
+    Option "TapButton1" "0"
+    Option "TapButton2" "0"
+    Option "TapButton3" "0"
+  '';
 in {
 
   options = {
@@ -30,7 +31,8 @@ in {
       ignorePalm = mkOption {
         default = false;
         type = types.bool;
-        description = "Whether to ignore touches detected as being the palm (i.e when typing)";
+        description =
+          "Whether to ignore touches detected as being the palm (i.e when typing)";
       };
 
       tapButtons = mkOption {
@@ -41,8 +43,8 @@ in {
 
       buttonsMap = mkOption {
         type = types.listOf types.int;
-        default = [3 2 0];
-        example = [1 3 2];
+        default = [ 3 2 0 ];
+        example = [ 1 3 2 ];
         description = "Remap touchpad buttons.";
         apply = map toString;
       };
@@ -67,27 +69,28 @@ in {
 
     services.xserver.modules = [ pkgs.xf86_input_mtrack ];
 
-    services.xserver.config =
-      ''
-        # Automatically enable the multitouch driver
-        Section "InputClass"
-          MatchIsTouchpad "on"
-          Identifier "Touchpads"
-          Driver "mtrack"
-          Option "IgnorePalm" "${boolToString cfg.ignorePalm}"
-          Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
-          Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
-          Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
-          ${optionalString (!cfg.tapButtons) disabledTapConfig}
-          ${optionalString cfg.invertScroll ''
-            Option "ScrollUpButton" "5"
-            Option "ScrollDownButton" "4"
-            Option "ScrollLeftButton" "7"
-            Option "ScrollRightButton" "6"
-          ''}
-          ${cfg.additionalOptions}
-        EndSection
-      '';
+    services.xserver.config = ''
+      # Automatically enable the multitouch driver
+      Section "InputClass"
+        MatchIsTouchpad "on"
+        Identifier "Touchpads"
+        Driver "mtrack"
+        Option "IgnorePalm" "${boolToString cfg.ignorePalm}"
+        Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
+        Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
+        Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
+        ${optionalString (!cfg.tapButtons) disabledTapConfig}
+        ${
+        optionalString cfg.invertScroll ''
+          Option "ScrollUpButton" "5"
+          Option "ScrollDownButton" "4"
+          Option "ScrollLeftButton" "7"
+          Option "ScrollRightButton" "6"
+        ''
+        }
+        ${cfg.additionalOptions}
+      EndSection
+    '';
 
   };
 

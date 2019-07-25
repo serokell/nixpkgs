@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1p6f4ny97096nb054lrgyjwikmvg0qlbcnsjag7m5dfbclfnvzkg";
   };
 
-  makeFlags = ["PREFIX=$(out)" ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   # Make this a fixed-output derivation
   outputHashMode = "recursive";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A port of the arc theme for Plasma";
-    homepage = https://git.io/arc-kde;
+    homepage = "https://git.io/arc-kde";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.nixy ];
     platforms = stdenv.lib.platforms.all;

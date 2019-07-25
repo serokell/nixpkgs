@@ -1,11 +1,10 @@
-{ buildPythonPackage, fetchurl, isPyPy, gmp } :
+{ buildPythonPackage, fetchurl, isPyPy, gmp }:
 
 let
   pname = "gmpy";
   version = "1.17";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
 
   disabled = isPyPy;
@@ -19,6 +18,6 @@ buildPythonPackage {
 
   meta = {
     description = "GMP or MPIR interface to Python 2.4+ and 3.x";
-    homepage = https://github.com/aleaxit/gmpy/;
+    homepage = "https://github.com/aleaxit/gmpy/";
   };
 }

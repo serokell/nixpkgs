@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, pruviloj
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, pruviloj, lib }:
+build-idris-package {
   name = "bi";
   version = "2018-06-25";
 
@@ -19,8 +14,9 @@ build-idris-package  {
   };
 
   meta = {
-    description = "Idris Binary Integer Arithmetic, porting PArith, NArith, and ZArith from Coq";
-    homepage = https://github.com/sbp/idris-bi;
+    description =
+      "Idris Binary Integer Arithmetic, porting PArith, NArith, and ZArith from Coq";
+    homepage = "https://github.com/sbp/idris-bi";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

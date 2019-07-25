@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, dask
-, distributed
-, docrep
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dask, distributed, docrep, pytest }:
 
 buildPythonPackage rec {
   version = "0.4.1";
@@ -25,7 +18,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dask/dask-jobqueue;
+    homepage = "https://github.com/dask/dask-jobqueue";
     description = "Deploy Dask on job schedulers like PBS, SLURM, and SGE";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

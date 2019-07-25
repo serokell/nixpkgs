@@ -1,4 +1,5 @@
-{ stdenv, lib, writeScript, coreutils, curl, gnugrep, gnused, jq, common-updater-scripts, nix }:
+{ stdenv, lib, writeScript, coreutils, curl, gnugrep, gnused, jq, common-updater-scripts, nix
+}:
 { name, ignored-versions ? "^2014(\\.|rc)|^v[0-9]+" }:
 
 let
@@ -6,15 +7,16 @@ let
   packageVersion = nameAndVersion.version;
   packageName = nameAndVersion.name;
   attrPath = "deepin.${packageName}";
-in
 
-writeScript "update-${packageName}" ''
+in writeScript "update-${packageName}" ''
   #!${stdenv.shell}
   set -o errexit
   set -x
 
   # search for the latest version of the package on github
-  PATH=${lib.makeBinPath [ common-updater-scripts coreutils curl gnugrep gnused jq ]}
+  PATH=${
+    lib.makeBinPath [ common-updater-scripts coreutils curl gnugrep gnused jq ]
+  }
   tags=$(curl -s https://api.github.com/repos/linuxdeepin/${packageName}/tags)
   tags=$(echo "$tags" | jq -r '.[] | .name')
   echo "# ${name}" >> git-commits.txt

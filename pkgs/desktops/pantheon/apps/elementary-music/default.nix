@@ -1,9 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson
-, ninja, vala, desktop-file-utils, gtk3, granite
-, python3, libgee, clutter-gtk, json-glib, libgda, libgpod
-, libnotify, libpeas, libsoup, zeitgeist, gst_all_1, taglib
-, libdbusmenu, libsignon-glib, libaccounts-glib
-, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, desktop-file-utils, gtk3, granite, python3, libgee, clutter-gtk, json-glib, libgda, libgpod, libnotify, libpeas, libsoup, zeitgeist, gst_all_1, taglib, libdbusmenu, libsignon-glib, libaccounts-glib, elementary-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "music";
@@ -25,15 +21,8 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkgconfig python3 vala wrapGAppsHook ];
 
   buildInputs = with gst_all_1; [
     clutter-gtk
@@ -59,9 +48,7 @@ stdenv.mkDerivation rec {
     zeitgeist
   ];
 
-  mesonFlags = [
-    "-Dplugins=lastfm,audioplayer,cdrom,ipod"
-  ];
+  mesonFlags = [ "-Dplugins=lastfm,audioplayer,cdrom,ipod" ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -70,7 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Music player and library designed for elementary OS";
-    homepage = https://github.com/elementary/music;
+    homepage = "https://github.com/elementary/music";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

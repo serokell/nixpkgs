@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "gperf-3.1";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl3Plus;
 
-    homepage = https://www.gnu.org/software/gperf/;
+    homepage = "https://www.gnu.org/software/gperf/";
     platforms = stdenv.lib.platforms.unix;
   };
 }

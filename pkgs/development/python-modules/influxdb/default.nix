@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, requests
-, dateutil
-, pytz
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, requests, dateutil, pytz, six }:
 
 buildPythonPackage rec {
   pname = "influxdb";
@@ -22,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python client for InfluxDB";
-    homepage = https://github.com/influxdb/influxdb-python;
+    homepage = "https://github.com/influxdb/influxdb-python";
     license = licenses.mit;
   };
 

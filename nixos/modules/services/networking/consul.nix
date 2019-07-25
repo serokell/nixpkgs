@@ -17,8 +17,7 @@ let
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
   systemdDevices = flip map devices
     (i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device");
-in
-{
+in {
   options = {
 
     services.consul = {
@@ -39,7 +38,6 @@ in
           The package used for the Consul agent and CLI.
         '';
       };
-
 
       webUi = mkOption {
         type = types.bool;
@@ -153,8 +151,8 @@ in
 
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [{
+  config = mkIf cfg.enable (mkMerge [
+    {
 
       users.users."consul" = {
         description = "Consul agent daemon user";
@@ -176,10 +174,11 @@ in
         bindsTo = systemdDevices;
         restartTriggers = [ config.environment.etc."consul.json".source ]
           ++ mapAttrsToList (_: d: d.source)
-            (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc);
+          (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc);
 
         serviceConfig = {
-          ExecStart = "@${cfg.package.bin}/bin/consul consul agent -config-dir /etc/consul.d"
+          ExecStart =
+            "@${cfg.package.bin}/bin/consul consul agent -config-dir /etc/consul.d"
             + concatMapStrings (n: " -config-file ${n}") configFiles;
           ExecReload = "${cfg.package.bin}/bin/consul reload";
           PermissionsStartOnly = true;
@@ -217,15 +216,13 @@ in
           }
           echo "{" > /etc/consul-addrs.json
           delim=" "
-        ''
-        + concatStrings (flip mapAttrsToList cfg.interface (name: i:
+        '' + concatStrings (flip mapAttrsToList cfg.interface (name: i:
           optionalString (i != null) ''
             echo "$delim \"${name}_addr\": \"$(getAddr "${i}")\"" >> /etc/consul-addrs.json
             delim=","
-          ''))
-        + ''
-          echo "}" >> /etc/consul-addrs.json
-        '';
+          '')) + ''
+            echo "}" >> /etc/consul-addrs.json
+          '';
       };
     }
 

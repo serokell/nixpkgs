@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, glibcLocales
-, libarchive
-, mock
+{ stdenv, buildPythonPackage, fetchPypi, pytest, glibcLocales, libarchive, mock
 }:
 
 buildPythonPackage rec {
@@ -18,7 +12,7 @@ buildPythonPackage rec {
 
   checkInputs = [ mock pytest glibcLocales ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   postPatch = ''
     substituteInPlace libarchive/ffi.py --replace \
@@ -30,7 +24,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Changaco/python-libarchive-c;
+    homepage = "https://github.com/Changaco/python-libarchive-c";
     description = "Python interface to libarchive";
     license = licenses.cc0;
   };

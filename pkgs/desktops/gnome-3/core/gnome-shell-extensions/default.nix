@@ -1,12 +1,14 @@
-{ stdenv, fetchurl, meson, ninja, gettext, pkgconfig, spidermonkey_52, glib
-, gnome3, gnome-menus, substituteAll }:
+{ stdenv, fetchurl, meson, ninja, gettext, pkgconfig, spidermonkey_52, glib, gnome3, gnome-menus, substituteAll
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-shell-extensions-${version}";
   version = "3.32.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-shell-extensions/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-shell-extensions/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "07libf6z24n42hpdsq163w0j8xyrav0lxqrwxrvq5kbz8zxv5ch2";
   };
 
@@ -56,7 +58,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/GnomeShell/Extensions;
+    homepage = "https://wiki.gnome.org/Projects/GnomeShell/Extensions";
     description = "Modify and extend GNOME Shell functionality and behavior";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2;

@@ -1,21 +1,27 @@
-{ gdk_pixbuf, glib, gobject-introspection, gtk3, lib, libnotify,
-  pythonPackages, wrapGAppsHook
+{ gdk_pixbuf, glib, gobject-introspection, gtk3, lib, libnotify, pythonPackages, wrapGAppsHook
 }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "caffeine-ng";
   version = "3.4.2";
 
-  src = pythonPackages.fetchPypi{
+  src = pythonPackages.fetchPypi {
     inherit pname version;
-    sha256="05k8smjlfjcccgmp8qi04l7106k46fs4p8fl5bdqqjwv6pwl7y4w";
+    sha256 = "05k8smjlfjcccgmp8qi04l7106k46fs4p8fl5bdqqjwv6pwl7y4w";
   };
 
   nativeBuildInputs = [ wrapGAppsHook glib ];
   buildInputs = [ gdk_pixbuf gobject-introspection libnotify gtk3 ];
   pythonPath = with pythonPackages; [
-    dbus-python docopt ewmh pygobject3 pyxdg
-    setproctitle setuptools setuptools_scm wheel
+    dbus-python
+    docopt
+    ewmh
+    pygobject3
+    pyxdg
+    setproctitle
+    setuptools
+    setuptools_scm
+    wheel
   ];
 
   postBuild = ''
@@ -26,7 +32,8 @@ pythonPackages.buildPythonApplication rec {
 
   meta = with lib; {
     maintainers = with maintainers; [ marzipankaiser ];
-    description = "Status bar application to temporarily inhibit screensaver and sleep mode";
+    description =
+      "Status bar application to temporarily inhibit screensaver and sleep mode";
     homepage = "https://github.com/caffeine-ng/caffeine-ng";
     license = licenses.gpl3;
     platforms = platforms.linux;

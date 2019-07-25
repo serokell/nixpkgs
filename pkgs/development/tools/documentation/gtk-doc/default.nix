@@ -1,17 +1,5 @@
-{ stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkgconfig
-, python3
-, libxml2Python
-, docbook_xml_dtd_43
-, docbook_xsl
-, libxslt
-, gettext
-, gnome3
-, withDblatex ? false, dblatex
-}:
+{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, python3, libxml2Python, docbook_xml_dtd_43, docbook_xsl, libxslt, gettext, gnome3, withDblatex ?
+  false, dblatex }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-doc";
@@ -21,7 +9,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = pname;
-    rev = "GTK_DOC_${stdenv.lib.replaceStrings ["."] ["_"] version }";
+    rev = "GTK_DOC_${stdenv.lib.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "05lr6apj3pd3s59a7k6p45k9ywwrp577ra4pvkhxvb5p7v90c2fi";
   };
 
@@ -33,27 +21,13 @@ stdenv.mkDerivation rec {
 
   outputDevdoc = "out";
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ gettext meson ninja ];
 
-  buildInputs = [
-    docbook_xml_dtd_43
-    docbook_xsl
-    libxslt
-    pkgconfig
-    python3
-    libxml2Python
-  ]
-  ++ stdenv.lib.optional withDblatex dblatex
-  ;
+  buildInputs =
+    [ docbook_xml_dtd_43 docbook_xsl libxslt pkgconfig python3 libxml2Python ]
+    ++ stdenv.lib.optional withDblatex dblatex;
 
-  mesonFlags = [
-    "-Dtests=false"
-    "-Dyelp_manual=false"
-  ];
+  mesonFlags = [ "-Dtests=false" "-Dyelp_manual=false" ];
 
   # Make pygments available for binaries, python.withPackages creates a wrapper
   # but scripts are not allowed in shebangs so we link it into sys.path.
@@ -74,7 +48,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Tools to extract documentation embedded in GTK+ and GNOME source code";
+    description =
+      "Tools to extract documentation embedded in GTK+ and GNOME source code";
     homepage = "https://www.gtk.org/gtk-doc";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pSub ];

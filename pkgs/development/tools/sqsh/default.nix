@@ -1,14 +1,13 @@
 { stdenv, fetchurl, autoreconfHook, freetds, readline, libiconv }:
 
-let
-  mainVersion = "2.5";
+let mainVersion = "2.5";
 
 in stdenv.mkDerivation rec {
   name = "sqsh-${version}";
   version = "${mainVersion}.16.1";
 
   src = fetchurl {
-    url    = "mirror://sourceforge/sqsh/sqsh/sqsh-${mainVersion}/${name}.tgz";
+    url = "mirror://sourceforge/sqsh/sqsh/sqsh-${mainVersion}/${name}.tgz";
     sha256 = "1wi0hdmhk7l8nrz4j3kaa177mmxyklmzhj7sq1gj4q6fb8v1yr6n";
   };
 
@@ -35,7 +34,7 @@ in stdenv.mkDerivation rec {
       by Sybase.
     '';
     license = licenses.gpl2;
-    homepage = https://sourceforge.net/projects/sqsh/;
+    homepage = "https://sourceforge.net/projects/sqsh/";
     platforms = platforms.all;
   };
 }

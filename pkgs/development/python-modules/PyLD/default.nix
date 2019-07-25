@@ -16,9 +16,7 @@ let
     sha256 = "125q5rllfm8vg9mz8hn7bhvhv2vqpd86kx2kxlk84smh33l8kbyl";
   };
 
-in
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "PyLD";
   version = "0.7.2";
 
@@ -48,7 +46,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python implementation of the JSON-LD API";
-    homepage = https://github.com/digitalbazaar/pyld;
+    homepage = "https://github.com/digitalbazaar/pyld";
     license = licenses.bsd3;
     maintainers = with maintainers; [ apeschar ];
   };

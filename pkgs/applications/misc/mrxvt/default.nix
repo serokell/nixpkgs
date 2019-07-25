@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, libXft, libXi, xorgproto, libSM, libICE
-, freetype, pkgconfig, which }:
+{ stdenv, fetchurl, libX11, libXft, libXi, xorgproto, libSM, libICE, freetype, pkgconfig, which
+}:
 
 stdenv.mkDerivation {
   name = "mrxvt-0.5.4";
@@ -23,17 +23,17 @@ stdenv.mkDerivation {
   '';
 
   src = fetchurl {
-    url = mirror://sourceforge/materm/mrxvt-0.5.4.tar.gz;
+    url = "mirror://sourceforge/materm/mrxvt-0.5.4.tar.gz";
     sha256 = "1mqhmnlz32lvld9rc6c1hyz7gjw4anwf39yhbsjkikcgj1das0zl";
   };
 
-  meta = { 
+  meta = {
     description = "Lightweight multitabbed feature-rich X11 terminal emulator";
     longDescription = ''
       Multitabbed lightweight terminal emulator based on rxvt. 
       Supports transparency, backgroundimages, freetype fonts, ...
     '';
-    homepage = https://sourceforge.net/projects/materm;
+    homepage = "https://sourceforge.net/projects/materm";
     license = "GPL";
     platforms = stdenv.lib.platforms.linux;
   };

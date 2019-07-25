@@ -16,13 +16,14 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "stackprotector" ];
 
   # GDB is needed to provide a sane default for `--db-command'.
-  buildInputs = [ gdb ]  ++ stdenv.lib.optionals (stdenv.isDarwin) [ bootstrap_cmds xnu ];
+  buildInputs = [ gdb ]
+    ++ stdenv.lib.optionals (stdenv.isDarwin) [ bootstrap_cmds xnu ];
 
   enableParallelBuilding = true;
   separateDebugInfo = stdenv.isLinux;
 
-  preConfigure = stdenv.lib.optionalString stdenv.isDarwin (
-    let OSRELEASE = ''
+  preConfigure = stdenv.lib.optionalString stdenv.isDarwin (let
+    OSRELEASE = ''
       $(awk -F '"' '/#define OSRELEASE/{ print $2 }' \
       <${xnu}/Library/Frameworks/Kernel.framework/Headers/libkern/version.h)'';
     in ''
@@ -52,8 +53,9 @@ stdenv.mkDerivation rec {
   # To prevent rebuild on linux when moving darwin's postPatch fixes to preConfigure
   postPatch = "";
 
-  configureFlags =
-    stdenv.lib.optional (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "x86_64-darwin") "--enable-only64bit";
+  configureFlags = stdenv.lib.optional (stdenv.hostPlatform.system
+    == "x86_64-linux" || stdenv.hostPlatform.system == "x86_64-darwin")
+    "--enable-only64bit";
 
   doCheck = false; # fails
 
@@ -67,7 +69,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.valgrind.org/;
+    homepage = "http://www.valgrind.org/";
     description = "Debugging and profiling tool suite";
 
     longDescription = ''
@@ -83,9 +85,13 @@ stdenv.mkDerivation rec {
     maintainers = [ stdenv.lib.maintainers.eelco ];
     platforms = stdenv.lib.platforms.unix;
     badPlatforms = [
-      "armv5tel-linux" "armv6l-linux" "armv6m-linux"
-      "sparc-linux" "sparc64-linux"
-      "riscv32-linux" "riscv64-linux"
+      "armv5tel-linux"
+      "armv6l-linux"
+      "armv6m-linux"
+      "sparc-linux"
+      "sparc64-linux"
+      "riscv32-linux"
+      "riscv64-linux"
       "alpha-linux"
     ];
   };

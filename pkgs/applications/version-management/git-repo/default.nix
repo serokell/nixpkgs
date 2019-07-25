@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper
-, python, git, gnupg, less, cacert
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, python, git, gnupg, less, cacert }:
 
 stdenv.mkDerivation rec {
   name = "git-repo-${version}";
@@ -41,7 +39,7 @@ stdenv.mkDerivation rec {
       parts of the development workflow. Repo is not meant to replace Git, only
       to make it easier to work with Git.
     '';
-    homepage = https://android.googlesource.com/tools/repo;
+    homepage = "https://android.googlesource.com/tools/repo";
     license = licenses.asl20;
     maintainers = [ maintainers.primeos ];
     platforms = platforms.unix;

@@ -2,11 +2,9 @@
 
 , isPy3k, isPyPy
 
-, pyenchant, simplebayes, pillow, pycountry, whoosh, termcolor
-, python-Levenshtein, pyinsane2, pygobject3, pyocr, natsort
+, pyenchant, simplebayes, pillow, pycountry, whoosh, termcolor, python-Levenshtein, pyinsane2, pygobject3, pyocr, natsort
 
-, pkgs
-}:
+, pkgs }:
 
 buildPythonPackage rec {
   pname = "paperwork-backend";
@@ -30,17 +28,27 @@ buildPythonPackage rec {
     echo 'version = "${version}"' > paperwork_backend/_version.py
   '';
 
-  preCheck = "\"$out/bin/paperwork-shell\" chkdeps paperwork_backend";
+  preCheck = ''"$out/bin/paperwork-shell" chkdeps paperwork_backend'';
 
   propagatedBuildInputs = [
-    pyenchant simplebayes pillow pycountry whoosh termcolor
-    python-Levenshtein pyinsane2 pygobject3 pyocr natsort
-    pkgs.poppler_gi pkgs.gtk3
+    pyenchant
+    simplebayes
+    pillow
+    pycountry
+    whoosh
+    termcolor
+    python-Levenshtein
+    pyinsane2
+    pygobject3
+    pyocr
+    natsort
+    pkgs.poppler_gi
+    pkgs.gtk3
   ];
 
   meta = {
     description = "Backend part of Paperwork (Python API, no UI)";
-    homepage = https://openpaper.work/;
+    homepage = "https://openpaper.work/";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.aszlig ];
   };

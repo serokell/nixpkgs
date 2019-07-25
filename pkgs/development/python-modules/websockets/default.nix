@@ -1,8 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "websockets";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "WebSocket implementation in Python 3";
-    homepage = https://github.com/aaugustin/websockets;
+    homepage = "https://github.com/aaugustin/websockets";
     license = lib.licenses.bsd3;
   };
 }

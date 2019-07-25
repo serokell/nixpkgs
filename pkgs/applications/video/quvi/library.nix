@@ -1,8 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, lua5, curl, quvi_scripts, libproxy, libgcrypt, glib }:
+{ stdenv, fetchurl, pkgconfig, lua5, curl, quvi_scripts, libproxy, libgcrypt, glib
+}:
 
 stdenv.mkDerivation rec {
   name = "libquvi-${version}";
-  version="0.9.4";
+  version = "0.9.4";
 
   src = fetchurl {
     url = "mirror://sourceforge/quvi/libquvi-${version}.tar.xz";
@@ -14,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Web video downloader";
-    homepage = http://quvi.sf.net;
+    homepage = "http://quvi.sf.net";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ ];

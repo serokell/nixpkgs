@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyutilib
-, appdirs
-, ply
-, six
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, pyutilib, appdirs, ply, six, nose }:
 
 buildPythonPackage rec {
   pname = "pyomo";
@@ -19,12 +11,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ nose ];
-  propagatedBuildInputs = [
-    pyutilib
-    appdirs
-    ply
-    six
-  ];
+  propagatedBuildInputs = [ pyutilib appdirs ply six ];
 
   checkPhase = ''
     rm pyomo/bilevel/tests/test_blp.py \
@@ -34,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Pyomo: Python Optimization Modeling Objects";
-    homepage = http://pyomo.org;
+    homepage = "http://pyomo.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

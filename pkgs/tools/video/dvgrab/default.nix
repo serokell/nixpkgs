@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, libunwind, libraw1394, libjpeg, libiec61883, libdv
-, libavc1394, pkgconfig, autoreconfHook }:
+{ fetchFromGitHub, stdenv, libunwind, libraw1394, libjpeg, libiec61883, libdv, libavc1394, pkgconfig, autoreconfHook
+}:
 
 stdenv.mkDerivation rec {
   name = "dvgrab-2016-05-16";
@@ -12,13 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "17qy76fjpzrbxm4pj0ljx5lbimxryv24fvr13jwkh24j85dxailn";
   };
 
-  buildInputs = [
-    libunwind libraw1394 libjpeg libiec61883 libdv libavc1394
-  ];
+  buildInputs = [ libunwind libraw1394 libjpeg libiec61883 libdv libavc1394 ];
 
-  nativeBuildInputs = [
-    autoreconfHook pkgconfig
-  ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
   meta = with stdenv.lib; {
     description = "Receive and store audio & video over IEEE1394";
@@ -31,7 +27,7 @@ stdenv.mkDerivation rec {
       AVI type 2, Quicktime DV, a series of JPEG stills or MPEG2-TS.
     '';
 
-    homepage = http://kinodv.org/;
+    homepage = "http://kinodv.org/";
 
     license = licenses.gpl2Plus;
     platforms = platforms.gnu ++ platforms.linux;

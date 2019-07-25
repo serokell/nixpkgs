@@ -8,7 +8,8 @@ stdenv.mkDerivation rec {
   version = "1.23";
 
   src = fetchurl {
-    url = "https://launchpad.net/${pname}/trunk/${version}/+download/VeraCrypt_${version}_Source.tar.bz2";
+    url =
+      "https://launchpad.net/${pname}/trunk/${version}/+download/VeraCrypt_${version}_Source.tar.bz2";
     sha256 = "009lqi43n2w272sxv7y7dz9sqx15qkx6lszkswr8mwmkpgkm0px1";
   };
 
@@ -31,8 +32,11 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Free Open-Source filesystem on-the-fly encryption";
-    homepage = https://www.veracrypt.fr/;
-    license = [ licenses.asl20 /* or */ "TrueCrypt License version 3.0" ];
+    homepage = "https://www.veracrypt.fr/";
+    license = [
+      licenses.asl20 # or
+      "TrueCrypt License version 3.0"
+    ];
     maintainers = with maintainers; [ dsferruzza ];
     platforms = platforms.linux;
   };

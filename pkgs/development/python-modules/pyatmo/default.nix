@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pyatmo";
@@ -18,7 +15,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple API to access Netatmo weather station data";
     license = licenses.mit;
-    homepage = https://github.com/jabesq/netatmo-api-python;
+    homepage = "https://github.com/jabesq/netatmo-api-python";
     maintainers = with maintainers; [ delroth ];
   };
 }

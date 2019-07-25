@@ -15,16 +15,16 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     make -C util/intelmetool
-    '';
+  '';
 
   installPhase = ''
     mkdir -p $out/bin
     cp util/intelmetool/intelmetool $out/bin
-    '';
+  '';
 
   meta = with stdenv.lib; {
     description = "Dump interesting things about Management Engine";
-    homepage = https://www.coreboot.org/Nvramtool;
+    homepage = "https://www.coreboot.org/Nvramtool";
     license = licenses.gpl2;
     maintainers = [ maintainers.gnidorah ];
     platforms = platforms.linux;

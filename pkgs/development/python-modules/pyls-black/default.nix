@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-, black, toml, pytest, python-language-server, isPy3k
+{ lib, buildPythonPackage, fetchFromGitHub, black, toml, pytest, python-language-server, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -24,7 +23,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ black toml python-language-server ];
 
   meta = with lib; {
-    homepage = https://github.com/rupert/pyls-black;
+    homepage = "https://github.com/rupert/pyls-black";
     description = "Black plugin for the Python Language Server";
     license = licenses.mit;
     maintainers = [ maintainers.mic92 ];

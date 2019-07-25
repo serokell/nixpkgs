@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, repoze_lru
-, six
-, webob
-, coverage
-, webtest
+{ stdenv, buildPythonPackage, fetchPypi, repoze_lru, six, webob, coverage, webtest
 }:
 
 buildPythonPackage rec {
@@ -21,8 +14,9 @@ buildPythonPackage rec {
   checkInputs = [ coverage webtest ];
 
   meta = with stdenv.lib; {
-    description = "A Python re-implementation of the Rails routes system for mapping URLs to application actions";
-    homepage = http://routes.groovie.org/;
+    description =
+      "A Python re-implementation of the Rails routes system for mapping URLs to application actions";
+    homepage = "http://routes.groovie.org/";
     license = licenses.mit;
   };
 

@@ -16,14 +16,16 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   # added to fix build w/gcc7 and clang5
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isGNU "-Wno-error=pointer-compare"
-    + stdenv.lib.optionalString stdenv.cc.isClang " -Wno-error=unknown-warning-option";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionalString stdenv.cc.isGNU "-Wno-error=pointer-compare"
+    + stdenv.lib.optionalString stdenv.cc.isClang
+    " -Wno-error=unknown-warning-option";
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "An easy to use web application framework for C";
-    homepage = https://kore.io;
+    homepage = "https://kore.io";
     license = licenses.isc;
     platforms = platforms.all;
     maintainers = with maintainers; [ johnmh ];

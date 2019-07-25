@@ -1,16 +1,12 @@
-{ stdenv
-, fetchurl
-, blas
-, gfortran
-, liblapack
-, python }:
+{ stdenv, fetchurl, blas, gfortran, liblapack, python }:
 
 stdenv.mkDerivation rec {
   name = "petsc-${version}";
   version = "3.8.4";
 
   src = fetchurl {
-    url = "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz";
+    url =
+      "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz";
     sha256 = "1iy49gagxncx09d88kxnwkj876p35683mpfk33x37165si6xqy4z";
   };
 
@@ -42,8 +38,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Library of linear algebra algorithms for solving partial differential equations";
-    homepage = https://www.mcs.anl.gov/petsc/index.html;
+    description =
+      "Library of linear algebra algorithms for solving partial differential equations";
+    homepage = "https://www.mcs.anl.gov/petsc/index.html";
     platforms = stdenv.lib.platforms.all;
     license = stdenv.lib.licenses.bsd2;
   };

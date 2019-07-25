@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, dpkg
-, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib
-, gnome2, libnotify, libxcb, nspr, nss, systemd, xorg }:
+{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib, gnome2, libnotify, libxcb, nspr, nss, systemd, xorg
+}:
 
 let
 
@@ -42,14 +41,14 @@ let
     xorg.libXScrnSaver
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
-        sha256 = "0x23jshnr0rafm5sn2vhq2y2gryg8mksahzyv5fszblgaxay234p";
-      }
-    else
-      throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
+      sha256 = "0x23jshnr0rafm5sn2vhq2y2gryg8mksahzyv5fszblgaxay234p";
+    }
+  else
+    throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
 
 in stdenv.mkDerivation {
   name = "mongodb-compass-${version}";
@@ -79,7 +78,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "The GUI for MongoDB";
-    homepage = https://www.mongodb.com/products/compass;
+    homepage = "https://www.mongodb.com/products/compass";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
   };

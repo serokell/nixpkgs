@@ -19,13 +19,12 @@ with lib;
           are redistributable, but only verbatim, among other restrictions.
           See <link xlink:href="http://corefonts.sourceforge.net/eula.htm"/>
           for details.
-       '';
+        '';
       };
 
     };
 
   };
-
 
   config = mkIf config.fonts.enableCoreFonts {
 

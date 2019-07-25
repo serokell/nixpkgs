@@ -1,12 +1,12 @@
 import ./make-test.nix ({ pkgs, ... }: {
   name = "ejabberd";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ ajs124 ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ajs124 ]; };
   nodes = {
     client = { nodes, pkgs, ... }: {
       environment.systemPackages = [
-        (pkgs.callPackage ./xmpp-sendmessage.nix { connectTo = nodes.server.config.networking.primaryIPAddress; })
+        (pkgs.callPackage ./xmpp-sendmessage.nix {
+          connectTo = nodes.server.config.networking.primaryIPAddress;
+        })
       ];
     };
     server = { config, pkgs, ... }: {

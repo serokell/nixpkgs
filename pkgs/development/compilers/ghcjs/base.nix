@@ -1,50 +1,14 @@
-{ mkDerivation
-, lib
-, broken ? false
-, test-framework
-, test-framework-hunit
-, data-default
-, ghc-paths
-, haskell-src-exts
-, haskell-src-meta
-, optparse-applicative
-, system-fileio
-, system-filepath
-, text-binary
-, unordered-containers
-, cabal-install
-, wl-pprint-text
-, base16-bytestring
-, executable-path
-, transformers-compat
-, haddock-api
-, regex-posix
+{ mkDerivation, lib, broken ?
+  false, test-framework, test-framework-hunit, data-default, ghc-paths, haskell-src-exts, haskell-src-meta, optparse-applicative, system-fileio, system-filepath, text-binary, unordered-containers, cabal-install, wl-pprint-text, base16-bytestring, executable-path, transformers-compat, haddock-api, regex-posix
 
 , bootPkgs, gmp
 
-, runCommand
-, nodejs, stdenv, filepath, HTTP, HUnit, mtl, network, QuickCheck, random, stm
-, time
-, zlib, aeson, attoparsec, bzlib, hashable
-, lens
-, parallel, safe, shelly, split, stringsearch, syb
-, tar, terminfo
-, vector, yaml
-, alex, happy, git, gnumake, autoconf, patch
-, automake, libtool
-, cryptohash
-, haddock, hspec, xhtml, pkgs
-, coreutils
-, libiconv
+, runCommand, nodejs, stdenv, filepath, HTTP, HUnit, mtl, network, QuickCheck, random, stm, time, zlib, aeson, attoparsec, bzlib, hashable, lens, parallel, safe, shelly, split, stringsearch, syb, tar, terminfo, vector, yaml, alex, happy, git, gnumake, autoconf, patch, automake, libtool, cryptohash, haddock, hspec, xhtml, pkgs, coreutils, libiconv
 
-, version
-, ghcjsSrc
-, ghcjsBootSrc
-, ghcjsBoot ? import ./ghcjs-boot.nix {
-    inherit runCommand;
-    src = ghcjsBootSrc;
-  }
-, shims
+, version, ghcjsSrc, ghcjsBootSrc, ghcjsBoot ? import ./ghcjs-boot.nix {
+  inherit runCommand;
+  src = ghcjsBootSrc;
+}, shims
 
 # This is the list of the Stage 1 packages that are built into a booted ghcjs installation
 # It can be generated with the command:
@@ -56,10 +20,8 @@
 , patches
 
 # used for resolving compiler plugins
-, ghcLibdir ? null
-}:
-let
-  inherit (bootPkgs) ghc;
+, ghcLibdir ? null }:
+let inherit (bootPkgs) ghc;
 
 in mkDerivation (rec {
   pname = "ghcjs";
@@ -71,20 +33,62 @@ in mkDerivation (rec {
   doHaddock = false;
   doCheck = false;
   buildDepends = [
-    filepath HTTP mtl network random stm time zlib aeson attoparsec
-    bzlib data-default ghc-paths hashable haskell-src-exts haskell-src-meta
-    lens optparse-applicative parallel safe shelly split
-    stringsearch syb system-fileio system-filepath tar terminfo text-binary
-    unordered-containers vector wl-pprint-text yaml
-    alex happy git gnumake autoconf automake libtool patch gmp
-    base16-bytestring cryptohash executable-path haddock-api
-    transformers-compat QuickCheck haddock hspec xhtml
-    regex-posix libiconv
+    filepath
+    HTTP
+    mtl
+    network
+    random
+    stm
+    time
+    zlib
+    aeson
+    attoparsec
+    bzlib
+    data-default
+    ghc-paths
+    hashable
+    haskell-src-exts
+    haskell-src-meta
+    lens
+    optparse-applicative
+    parallel
+    safe
+    shelly
+    split
+    stringsearch
+    syb
+    system-fileio
+    system-filepath
+    tar
+    terminfo
+    text-binary
+    unordered-containers
+    vector
+    wl-pprint-text
+    yaml
+    alex
+    happy
+    git
+    gnumake
+    autoconf
+    automake
+    libtool
+    patch
+    gmp
+    base16-bytestring
+    cryptohash
+    executable-path
+    haddock-api
+    transformers-compat
+    QuickCheck
+    haddock
+    hspec
+    xhtml
+    regex-posix
+    libiconv
   ];
   buildTools = [ nodejs git ];
-  testDepends = [
-    HUnit test-framework test-framework-hunit
-  ];
+  testDepends = [ HUnit test-framework test-framework-hunit ];
   inherit patches;
   postPatch = ''
     substituteInPlace Setup.hs \
@@ -146,16 +150,19 @@ in mkDerivation (rec {
     enableShared = true;
 
     inherit stage1Packages;
-    mkStage2 = stage2 {
-      inherit ghcjsBoot;
-    };
+    mkStage2 = stage2 { inherit ghcjsBoot; };
   };
 
-  homepage = https://github.com/ghcjs/ghcjs;
+  homepage = "https://github.com/ghcjs/ghcjs";
   description = "A Haskell to JavaScript compiler that uses the GHC API";
   license = stdenv.lib.licenses.bsd3;
   platforms = ghc.meta.platforms;
-  maintainers = with stdenv.lib.maintainers; [ jwiegley cstrahan dmjio elvishjerricco ];
-  hydraPlatforms = if broken then [] else ghc.meta.platforms;
+  maintainers = with stdenv.lib.maintainers; [
+    jwiegley
+    cstrahan
+    dmjio
+    elvishjerricco
+  ];
+  hydraPlatforms = if broken then [ ] else ghc.meta.platforms;
   inherit broken;
 })

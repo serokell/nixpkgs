@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libgcrypt
-, pkgconfig, glib, linuxHeaders ? stdenv.cc.libc.linuxHeaders, sqlite }:
+{ stdenv, fetchFromGitHub, libgcrypt, pkgconfig, glib, linuxHeaders ?
+  stdenv.cc.libc.linuxHeaders, sqlite }:
 
 stdenv.mkDerivation rec {
   name = "duperemove-${version}";
@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with stdenv.lib; {
-    description = "A simple tool for finding duplicated extents and submitting them for deduplication";
-    homepage = https://github.com/markfasheh/duperemove;
+    description =
+      "A simple tool for finding duplicated extents and submitting them for deduplication";
+    homepage = "https://github.com/markfasheh/duperemove";
     license = licenses.gpl2;
     maintainers = with maintainers; [ bluescreen303 thoughtpolice ];
     platforms = platforms.linux;

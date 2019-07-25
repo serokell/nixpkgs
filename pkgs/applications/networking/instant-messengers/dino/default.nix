@@ -1,18 +1,5 @@
-{ stdenv, fetchFromGitHub
-, vala, cmake, ninja, wrapGAppsHook, pkgconfig, gettext
-, gobject-introspection, gnome3, glib, gdk_pixbuf, gtk3, glib-networking
-, xorg, libXdmcp, libxkbcommon
-, libnotify, libsoup, libgee
-, libgcrypt
-, epoxy
-, at-spi2-core
-, sqlite
-, dbus
-, gpgme
-, pcre
-, qrencode
-, icu
- }:
+{ stdenv, fetchFromGitHub, vala, cmake, ninja, wrapGAppsHook, pkgconfig, gettext, gobject-introspection, gnome3, glib, gdk_pixbuf, gtk3, glib-networking, xorg, libXdmcp, libxkbcommon, libnotify, libsoup, libgee, libgcrypt, epoxy, at-spi2-core, sqlite, dbus, gpgme, pcre, qrencode, icu
+}:
 
 stdenv.mkDerivation rec {
   name = "dino-unstable-2019-03-07";
@@ -25,14 +12,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    vala
-    cmake
-    ninja
-    pkgconfig
-    wrapGAppsHook
-    gettext
-  ];
+  nativeBuildInputs = [ vala cmake ninja pkgconfig wrapGAppsHook gettext ];
 
   buildInputs = [
     qrencode
@@ -63,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Modern Jabber/XMPP Client using GTK+/Vala";
-    homepage = https://github.com/dino/dino;
+    homepage = "https://github.com/dino/dino";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.mic92 ];

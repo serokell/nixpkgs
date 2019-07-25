@@ -1,18 +1,6 @@
-{ stdenv
-, fetchPypi
-, buildPythonPackage
+{ stdenv, fetchPypi, buildPythonPackage
 # Python deps
-, singledispatch
-, logutils
-, webtest
-, Mako
-, genshi
-, Kajiki
-, sqlalchemy
-, gunicorn
-, jinja2
-, virtualenv
-, mock
+, singledispatch, logutils, webtest, Mako, genshi, Kajiki, sqlalchemy, gunicorn, jinja2, virtualenv, mock
 }:
 
 buildPythonPackage rec {
@@ -25,9 +13,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ singledispatch logutils ];
-  buildInputs = [
-    webtest Mako genshi Kajiki sqlalchemy gunicorn jinja2 virtualenv
-  ];
+  buildInputs =
+    [ webtest Mako genshi Kajiki sqlalchemy gunicorn jinja2 virtualenv ];
 
   checkInputs = [ mock ];
 

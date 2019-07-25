@@ -9,69 +9,66 @@ let
   libDir = "/var/lib/bacula";
 
   fd_cfg = config.services.bacula-fd;
-  fd_conf = pkgs.writeText "bacula-fd.conf"
-    ''
-      Client {
-        Name = "${fd_cfg.name}";
-        FDPort = ${toString fd_cfg.port};
-        WorkingDirectory = "${libDir}";
-        Pid Directory = "/run";
-        ${fd_cfg.extraClientConfig}
-      }
-     
-      ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
+  fd_conf = pkgs.writeText "bacula-fd.conf" ''
+    Client {
+      Name = "${fd_cfg.name}";
+      FDPort = ${toString fd_cfg.port};
+      WorkingDirectory = "${libDir}";
+      Pid Directory = "/run";
+      ${fd_cfg.extraClientConfig}
+    }
+
+    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
       Director {
         Name = "${name}";
         Password = "${value.password}";
         Monitor = "${value.monitor}";
       }
-      '') fd_cfg.director)}
-     
-      Messages {
-        Name = Standard;
-        syslog = all, !skipped, !restored
-        ${fd_cfg.extraMessagesConfig}
-      }
-    '';
+    '') fd_cfg.director)}
+
+    Messages {
+      Name = Standard;
+      syslog = all, !skipped, !restored
+      ${fd_cfg.extraMessagesConfig}
+    }
+  '';
 
   sd_cfg = config.services.bacula-sd;
-  sd_conf = pkgs.writeText "bacula-sd.conf" 
-    ''
-      Storage {
-        Name = "${sd_cfg.name}";
-        SDPort = ${toString sd_cfg.port};
-        WorkingDirectory = "${libDir}";
-        Pid Directory = "/run";
-        ${sd_cfg.extraStorageConfig}
-      }
- 
-      ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
+  sd_conf = pkgs.writeText "bacula-sd.conf" ''
+    Storage {
+      Name = "${sd_cfg.name}";
+      SDPort = ${toString sd_cfg.port};
+      WorkingDirectory = "${libDir}";
+      Pid Directory = "/run";
+      ${sd_cfg.extraStorageConfig}
+    }
+
+    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
       Device {
         Name = "${name}";
         Archive Device = "${value.archiveDevice}";
         Media Type = "${value.mediaType}";
         ${value.extraDeviceConfig}
       }
-      '') sd_cfg.device)}
+    '') sd_cfg.device)}
 
-      ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
+    ${concatStringsSep "\n" (mapAttrsToList (name: value: ''
       Director {
         Name = "${name}";
         Password = "${value.password}";
         Monitor = "${value.monitor}";
       }
-      '') sd_cfg.director)}
+    '') sd_cfg.director)}
 
-      Messages {
-        Name = Standard;
-        syslog = all, !skipped, !restored
-        ${sd_cfg.extraMessagesConfig}
-      }
-    '';
+    Messages {
+      Name = Standard;
+      syslog = all, !skipped, !restored
+      ${sd_cfg.extraMessagesConfig}
+    }
+  '';
 
   dir_cfg = config.services.bacula-dir;
-  dir_conf = pkgs.writeText "bacula-dir.conf" 
-    ''
+  dir_conf = pkgs.writeText "bacula-dir.conf" ''
     Director {
       Name = "${dir_cfg.name}";
       Password = "${dir_cfg.password}";
@@ -95,30 +92,28 @@ let
     }
 
     ${dir_cfg.extraConfig}
-    '';
+  '';
 
-  directorOptions = {...}:
-  {
+  directorOptions = { ... }: {
     options = {
       password = mkOption {
         # TODO: required?
         description = ''
-           Specifies the password that must be supplied for a Director to b
+          Specifies the password that must be supplied for a Director to b
         '';
       };
-      
+
       monitor = mkOption {
         default = "no";
         example = "yes";
         description = ''
-           If Monitor is set to no (default), this director will have full 
+          If Monitor is set to no (default), this director will have full 
         '';
       };
     };
   };
 
-  deviceOptions = {...}:
-  {
+  deviceOptions = { ... }: {
     options = {
       archiveDevice = mkOption {
         # TODO: required?
@@ -161,7 +156,7 @@ in {
           Whether to enable the Bacula File Daemon.
         '';
       };
- 
+
       name = mkOption {
         default = "${config.networking.hostName}-fd";
         description = ''
@@ -171,7 +166,7 @@ in {
           Clients. This directive is required.
         '';
       };
- 
+
       port = mkOption {
         default = 9102;
         type = types.int;
@@ -181,9 +176,9 @@ in {
           the Client resource of the Director's configuration file.
         '';
       };
- 
+
       director = mkOption {
-        default = {};
+        default = { };
         description = ''
           This option defines director resources in Bacula File Daemon.
         '';
@@ -220,14 +215,14 @@ in {
           Whether to enable Bacula Storage Daemon.
         '';
       };
- 
+
       name = mkOption {
         default = "${config.networking.hostName}-sd";
         description = ''
           Specifies the Name of the Storage daemon.
         '';
       };
- 
+
       port = mkOption {
         default = 9103;
         type = types.int;
@@ -237,7 +232,7 @@ in {
       };
 
       director = mkOption {
-        default = {};
+        default = { };
         description = ''
           This option defines Director resources in Bacula Storage Daemon.
         '';
@@ -245,13 +240,13 @@ in {
       };
 
       device = mkOption {
-        default = {};
+        default = { };
         description = ''
           This option defines Device resources in Bacula Storage Daemon.
         '';
         type = with types; attrsOf (submodule deviceOptions);
       };
- 
+
       extraStorageConfig = mkOption {
         default = "";
         description = ''
@@ -272,7 +267,7 @@ in {
           console = all
         '';
       };
- 
+
     };
 
     services.bacula-dir = {
@@ -290,7 +285,7 @@ in {
           The director name used by the system administrator. This directive is required.
         '';
       };
- 
+
       port = mkOption {
         default = 9101;
         type = types.int;
@@ -298,11 +293,11 @@ in {
           Specify the port (a positive integer) on which the Director daemon will listen for Bacula Console connections. This same port number must be specified in the Director resource of the Console configuration file. The default is 9101, so normally this directive need not be specified. This directive should not be used if you specify DirAddresses (N.B plural) directive.
         '';
       };
- 
+
       password = mkOption {
         # TODO: required?
         description = ''
-           Specifies the password that must be supplied for a Director.
+          Specifies the password that must be supplied for a Director.
         '';
       };
 
@@ -347,7 +342,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];
       serviceConfig = {
-        ExecStart = "${pkgs.bacula}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
+        ExecStart =
+          "${pkgs.bacula}/sbin/bacula-fd -f -u root -g bacula -c ${fd_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";
@@ -360,7 +356,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];
       serviceConfig = {
-        ExecStart = "${pkgs.bacula}/sbin/bacula-sd -f -u bacula -g bacula -c ${sd_conf}";
+        ExecStart =
+          "${pkgs.bacula}/sbin/bacula-sd -f -u bacula -g bacula -c ${sd_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";
@@ -375,7 +372,8 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = [ pkgs.bacula ];
       serviceConfig = {
-        ExecStart = "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
+        ExecStart =
+          "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";

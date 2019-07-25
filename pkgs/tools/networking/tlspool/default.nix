@@ -1,15 +1,11 @@
-{ stdenv, fetchFromGitHub
-, cmake, pkgconfig, arpa2cm
-, openldap, p11-kit, unbound, libtasn1, db, openssl, quickder, libkrb5, ldns, gnutls-kdh
-, softhsm
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, arpa2cm, openldap, p11-kit, unbound, libtasn1, db, openssl, quickder, libkrb5, ldns, gnutls-kdh, softhsm
 }:
 
 let
   pname = "tlspool";
   version = "20180227";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "arpa2";
@@ -18,12 +14,19 @@ stdenv.mkDerivation rec {
     sha256 = "0x78f2bdsiglwicwn3injm5ysfjlfa0yzdpnc0r3iw4z0n89rj2r";
   };
 
-  nativeBuildInputs = [
-    cmake pkgconfig arpa2cm
-  ];
+  nativeBuildInputs = [ cmake pkgconfig arpa2cm ];
 
   buildInputs = [
-    openldap p11-kit unbound libtasn1 db openssl quickder libkrb5 ldns gnutls-kdh
+    openldap
+    p11-kit
+    unbound
+    libtasn1
+    db
+    openssl
+    quickder
+    libkrb5
+    ldns
+    gnutls-kdh
   ];
 
   postPatch = ''
@@ -44,9 +47,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A supercharged TLS daemon that allows for easy, strong and consistent deployment";
+    description =
+      "A supercharged TLS daemon that allows for easy, strong and consistent deployment";
     license = licenses.gpl3;
-    homepage = http://www.tlspool.org;
+    homepage = "http://www.tlspool.org";
     maintainers = with maintainers; [ leenaars qknight ];
   };
 }

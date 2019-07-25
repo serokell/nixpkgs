@@ -12,10 +12,10 @@ buildPythonPackage rec {
 
   buildInputs = [ libev ];
 
-  libEvSharedLibrary =
-    if !stdenv.isDarwin
-    then "${libev}/lib/libev.so.4"
-    else "${libev}/lib/libev.4.dylib";
+  libEvSharedLibrary = if !stdenv.isDarwin then
+    "${libev}/lib/libev.so.4"
+  else
+    "${libev}/lib/libev.4.dylib";
 
   postPatch = ''
     test -f "${libEvSharedLibrary}" || { echo "ERROR: File ${libEvSharedLibrary} does not exist, please fix nix expression for pyev"; exit 1; }
@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python bindings for libev";
-    homepage = https://code.google.com/p/pyev/;
+    homepage = "https://code.google.com/p/pyev/";
     license = licenses.gpl3;
     maintainers = [ maintainers.bjornfor ];
   };

@@ -1,11 +1,4 @@
-{ pkgs
-, buildPythonPackage
-, fetchPypi
-, dateutil
-, futures
-, pyopenssl
-, requests
-, isPy3k
+{ pkgs, buildPythonPackage, fetchPypi, dateutil, futures, pyopenssl, requests, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -19,10 +12,12 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ dateutil pyopenssl requests ]
-                            ++ pkgs.lib.optionals (!isPy3k) [ futures ];
+    ++ pkgs.lib.optionals (!isPy3k) [ futures ];
 
   # depends on futures for python 3 (not necissary)
-  patchPhase = if (!isPy3k) then "" else ''
+  patchPhase = if (!isPy3k) then
+    ""
+  else ''
     sed -i -e "s/'futures'//" setup.py
   '';
 

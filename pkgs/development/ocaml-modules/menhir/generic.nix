@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://pauillac.inria.fr/~fpottier/menhir/;
+    homepage = "http://pauillac.inria.fr/~fpottier/menhir/";
     description = "A LR(1) parser generator for OCaml";
     longDescription = ''
       Menhir is a LR(1) parser generator for the Objective Caml programming
@@ -33,10 +33,10 @@ stdenv.mkDerivation {
       and Yann Régis-Gianas.
     '';
     license = with licenses; [
-      (if versionAtLeast version "20170418" then gpl2 else qpl) /* generator */
-      lgpl2 /* library */
+      (if versionAtLeast version "20170418" then gpl2 else qpl) # generator
+      lgpl2 # library
     ];
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
     maintainers = with maintainers; [ z77z ];
   };
 }

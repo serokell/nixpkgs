@@ -7,19 +7,19 @@ let
         version = "5.1";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "436bc774ecf7c103814098159fbb84c2715d25980175292c648f2da143909f95";
+          sha256 =
+            "436bc774ecf7c103814098159fbb84c2715d25980175292c648f2da143909f95";
         };
       });
       tornado = super.tornado.overridePythonAttrs (oldAttrs: rec {
         version = "5.1.1";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "4e5158d97583502a7e2739951553cbd88a72076f152b4b11b64b9a10c4c49409";
+          sha256 =
+            "4e5158d97583502a7e2739951553cbd88a72076f152b4b11b64b9a10c4c49409";
         };
       });
-      protobuf = super.protobuf.override {
-        protobuf = protobuf3_7;
-      };
+      protobuf = super.protobuf.override { protobuf = protobuf3_7; };
     };
   };
 
@@ -35,8 +35,15 @@ in python.pkgs.buildPythonApplication rec {
   ESPHOME_USE_SUBPROCESS = "";
 
   propagatedBuildInputs = with python.pkgs; [
-    voluptuous pyyaml paho-mqtt colorlog
-    tornado protobuf tzlocal pyserial ifaddr
+    voluptuous
+    pyyaml
+    paho-mqtt
+    colorlog
+    tornado
+    protobuf
+    tzlocal
+    pyserial
+    ifaddr
   ];
 
   makeWrapperArgs = [
@@ -52,7 +59,7 @@ in python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Make creating custom firmwares for ESP32/ESP8266 super easy";
-    homepage = https://esphome.io/;
+    homepage = "https://esphome.io/";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

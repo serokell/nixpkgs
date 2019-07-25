@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, docopt, netifaces }:
+{ stdenv, buildPythonPackage, fetchPypi, docopt, netifaces }:
 
 buildPythonPackage rec {
   pname = "onkyo-eiscp";
@@ -14,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Control Onkyo receivers over ethernet";
-    homepage = https://github.com/miracle2k/onkyo-eiscp;
+    homepage = "https://github.com/miracle2k/onkyo-eiscp";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };

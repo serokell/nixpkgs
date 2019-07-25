@@ -1,7 +1,5 @@
-{ fetchurl, stdenv, gnutls, glib, pkgconfig, check, libotr, python
-, enableLibPurple ? false, pidgin ? null
-, enablePam ? false, pam ? null
-}:
+{ fetchurl, stdenv, gnutls, glib, pkgconfig, check, libotr, python, enableLibPurple ?
+  false, pidgin ? null, enablePam ? false, pam ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -14,16 +12,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ] ++ optional doCheck check;
 
-  buildInputs = [ gnutls glib libotr python ]
-    ++ optional enableLibPurple pidgin
+  buildInputs = [ gnutls glib libotr python ] ++ optional enableLibPurple pidgin
     ++ optional enablePam pam;
 
-  configureFlags = [
-    "--otr=1"
-    "--ssl=gnutls"
-    "--pidfile=/var/lib/bitlbee/bitlbee.pid"
-  ] ++ optional enableLibPurple "--purple=1"
-    ++ optional enablePam "--pam=1";
+  configureFlags =
+    [ "--otr=1" "--ssl=gnutls" "--pidfile=/var/lib/bitlbee/bitlbee.pid" ]
+    ++ optional enableLibPurple "--purple=1" ++ optional enablePam "--pam=1";
 
   installTargets = [ "install" "install-dev" ];
 
@@ -49,10 +43,10 @@ stdenv.mkDerivation rec {
       Messenger, AIM and ICQ.
     '';
 
-    homepage = https://www.bitlbee.org/;
+    homepage = "https://www.bitlbee.org/";
     license = licenses.gpl2Plus;
 
     maintainers = with maintainers; [ pSub ];
-    platforms = platforms.gnu ++ platforms.linux;  # arbitrary choice
+    platforms = platforms.gnu ++ platforms.linux; # arbitrary choice
   };
 }

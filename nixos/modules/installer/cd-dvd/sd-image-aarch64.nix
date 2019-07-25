@@ -3,12 +3,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  extlinux-conf-builder =
-    import ../../system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.nix {
+  extlinux-conf-builder = import
+    ../../system/boot/loader/generic-extlinux-compatible/extlinux-conf-builder.nix {
       pkgs = pkgs.buildPackages;
     };
-in
-{
+in {
   imports = [
     ../../profiles/base.nix
     ../../profiles/installation-device.nix
@@ -24,13 +23,22 @@ in
   # - ttyS0: for Tegra (Jetson TX1)
   # - ttyAMA0: for QEMU's -machine virt
   # Also increase the amount of CMA to ensure the virtual console on the RPi3 works.
-  boot.kernelParams = ["cma=32M" "console=ttyS0,115200n8" "console=ttyAMA0,115200n8" "console=tty0"];
+  boot.kernelParams = [
+    "cma=32M"
+    "console=ttyS0,115200n8"
+    "console=ttyAMA0,115200n8"
+    "console=tty0"
+  ];
 
   boot.initrd.availableKernelModules = [
     # Allows early (earlier) modesetting for the Raspberry Pi
-    "vc4" "bcm2835_dma" "i2c_bcm2835"
+    "vc4"
+    "bcm2835_dma"
+    "i2c_bcm2835"
     # Allows early (earlier) modesetting for Allwinner SoCs
-    "sun4i_drm" "sun8i_drm_hdmi" "sun8i_mixer"
+    "sun4i_drm"
+    "sun8i_drm_hdmi"
+    "sun8i_mixer"
   ];
 
   sdImage = {

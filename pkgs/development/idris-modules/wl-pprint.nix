@@ -1,7 +1,4 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
+{ build-idris-package, fetchFromGitHub, lib }:
 build-idris-package {
   name = "wl-pprint";
   version = "2017-03-13";
@@ -15,7 +12,7 @@ build-idris-package {
 
   meta = {
     description = "Wadler-Leijen pretty-printing library";
-    homepage = https://github.com/shayan-najd/wl-pprint;
+    homepage = "https://github.com/shayan-najd/wl-pprint";
     license = lib.licenses.bsd2;
   };
 }

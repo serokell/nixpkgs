@@ -1,7 +1,6 @@
 { callPackage }:
 
-let
-  mkScons = args: callPackage (import ./common.nix args) { };
+let mkScons = args: callPackage (import ./common.nix args) { };
 in {
   scons_3_0_1 = mkScons {
     version = "3.0.1";

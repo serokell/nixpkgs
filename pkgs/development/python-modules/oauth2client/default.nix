@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, six, httplib2, pyasn1-modules, rsa }:
+{ lib, buildPythonPackage, fetchPypi, six, httplib2, pyasn1-modules, rsa }:
 
 buildPythonPackage rec {
   pname = "oauth2client";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A client library for OAuth 2.0";
-    homepage = https://github.com/google/oauth2client/;
+    homepage = "https://github.com/google/oauth2client/";
     license = licenses.bsd2;
   };
 }

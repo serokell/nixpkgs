@@ -4,12 +4,19 @@ stdenv.mkDerivation rec {
   name = "bacula-9.4.4";
 
   src = fetchurl {
-    url    = "mirror://sourceforge/bacula/${name}.tar.gz";
+    url = "mirror://sourceforge/bacula/${name}.tar.gz";
     sha256 = "1gi0zkkzh6a87xk4sm051hwz5bv4qc4kbl6hk40752knr817mqqg";
   };
 
-  buildInputs = [ postgresql sqlite zlib ncurses openssl readline ]
-    # acl relies on attr, which I can't get to build on darwin
+  buildInputs = [
+    postgresql
+    sqlite
+    zlib
+    ncurses
+    openssl
+    readline
+  ]
+  # acl relies on attr, which I can't get to build on darwin
     ++ stdenv.lib.optional (!stdenv.isDarwin) acl;
 
   configureFlags = [
@@ -20,10 +27,7 @@ stdenv.mkDerivation rec {
     "--mandir=\${out}/share/man"
   ];
 
-  installFlags = [
-    "logdir=\${out}/logdir"
-    "working_dir=\${out}/workdir"
-  ];
+  installFlags = [ "logdir=\${out}/logdir" "working_dir=\${out}/workdir" ];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -32,9 +36,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Enterprise ready, Network Backup Tool";
-    homepage    = http://bacula.org/;
-    license     = licenses.gpl2;
+    homepage = "http://bacula.org/";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ domenkozar lovek323 eleanor ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

@@ -1,7 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, wheel, setuptools, packaging
-, cmake, ninja, cython, codecov, coverage, six, virtualenv, pathpy
-, pytest, pytestcov, pytest-virtualenv, pytest-mock, pytestrunner
-, requests, flake8 }:
+{ lib, buildPythonPackage, fetchPypi, wheel, setuptools, packaging, cmake, ninja, cython, codecov, coverage, six, virtualenv, pathpy, pytest, pytestcov, pytest-virtualenv, pytest-mock, pytestrunner, requests, flake8
+}:
 
 buildPythonPackage rec {
   pname = "scikit-build";
@@ -16,10 +14,21 @@ buildPythonPackage rec {
   patches = [ ./fix_pytestrunner_req.patch ];
 
   propagatedBuildInputs = [ wheel setuptools packaging ];
-  checkInputs = [ 
-    cmake ninja cython codecov coverage six pathpy
-    pytest pytestcov pytest-mock pytest-virtualenv pytestrunner
-    requests flake8
+  checkInputs = [
+    cmake
+    ninja
+    cython
+    codecov
+    coverage
+    six
+    pathpy
+    pytest
+    pytestcov
+    pytest-mock
+    pytest-virtualenv
+    pytestrunner
+    requests
+    flake8
   ];
 
   disabledTests = lib.concatMapStringsSep " and " (s: "not " + s) ([
@@ -36,8 +45,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = http://scikit-build.org/;
-    description = "Improved build system generator for CPython C/C++/Fortran/Cython extensions";
+    homepage = "http://scikit-build.org/";
+    description =
+      "Improved build system generator for CPython C/C++/Fortran/Cython extensions";
     license = with licenses; [ mit bsd2 ]; # BSD due to reuses of PyNE code
     maintainers = [ maintainers.FlorianFranzen ];
   };

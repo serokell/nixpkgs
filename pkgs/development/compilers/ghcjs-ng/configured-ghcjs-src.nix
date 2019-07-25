@@ -1,33 +1,14 @@
-{ perl
-, autoconf
-, automake
-, python3
-, gcc
-, cabal-install
-, runCommand
-, lib
-, stdenv
+{ perl, autoconf, automake, python3, gcc, cabal-install, runCommand, lib, stdenv
 
-, ghc
-, happy
-, alex
+, ghc, happy, alex
 
-, ghcjsSrc
-}:
+, ghcjsSrc }:
 
 runCommand "configured-ghcjs-src" {
-  buildInputs = [
-    perl
-    autoconf
-    automake
-    python3
-    ghc
-    happy
-    alex
-    cabal-install
-  ] ++ lib.optionals stdenv.isDarwin [
-    gcc # https://github.com/ghcjs/ghcjs/issues/663
-  ];
+  buildInputs = [ perl autoconf automake python3 ghc happy alex cabal-install ]
+    ++ lib.optionals stdenv.isDarwin [
+      gcc # https://github.com/ghcjs/ghcjs/issues/663
+    ];
   inherit ghcjsSrc;
 } ''
   export HOME=$(pwd)

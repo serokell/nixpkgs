@@ -6,9 +6,9 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/Masterminds/glide";
 
-   buildFlagsArray = ''
-   -ldflags=
-      -X main.version=${version}
+  buildFlagsArray = ''
+    -ldflags=
+       -X main.version=${version}
   '';
 
   src = fetchFromGitHub {
@@ -19,7 +19,7 @@ buildGoPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://glide.sh;
+    homepage = "https://glide.sh";
     description = "Package management for Go";
     license = licenses.mit;
     maintainers = [ maintainers.rushmorem ];

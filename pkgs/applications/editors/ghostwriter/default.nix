@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ qtwebengine hunspell ];
 
   meta = with stdenv.lib; {
-    description = "A cross-platform, aesthetic, distraction-free Markdown editor";
+    description =
+      "A cross-platform, aesthetic, distraction-free Markdown editor";
     homepage = src.meta.homepage;
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

@@ -1,4 +1,5 @@
-{ stdenv, wayland, wayland-protocols, xorgserver, xkbcomp, xkeyboard_config, epoxy, libxslt, libunwind, makeWrapper }:
+{ stdenv, wayland, wayland-protocols, xorgserver, xkbcomp, xkeyboard_config, epoxy, libxslt, libunwind, makeWrapper
+}:
 
 with stdenv.lib;
 
@@ -6,7 +7,7 @@ xorgserver.overrideAttrs (oldAttrs: {
 
   name = "xwayland-${xorgserver.version}";
   propagatedBuildInputs = oldAttrs.propagatedBuildInputs
-    ++ [wayland wayland-protocols epoxy libxslt makeWrapper libunwind];
+    ++ [ wayland wayland-protocols epoxy libxslt makeWrapper libunwind ];
   configureFlags = [
     "--disable-docs"
     "--disable-devel-docs"
@@ -28,8 +29,9 @@ xorgserver.overrideAttrs (oldAttrs: {
   '';
 
   meta = {
-    description = "An X server for interfacing X11 apps with the Wayland protocol";
-    homepage = https://wayland.freedesktop.org/xserver.html;
+    description =
+      "An X server for interfacing X11 apps with the Wayland protocol";
+    homepage = "https://wayland.freedesktop.org/xserver.html";
     license = licenses.mit;
     platforms = platforms.linux;
   };

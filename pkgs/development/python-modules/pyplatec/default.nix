@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "PyPlatec";
@@ -14,8 +11,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Library to simulate plate tectonics with Python bindings";
-    homepage    = https://github.com/Mindwerks/plate-tectonics;
-    license     = licenses.lgpl3;
+    homepage = "https://github.com/Mindwerks/plate-tectonics";
+    license = licenses.lgpl3;
   };
 
 }

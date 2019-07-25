@@ -1,11 +1,10 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, gtk, libxfce4util
-, libxfce4ui, garcon, xfconf }:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, gtk, libxfce4util, libxfce4ui, garcon, xfconf
+}:
 let
-  p_name  = "xfce4-appfinder";
+  p_name = "xfce4-appfinder";
   ver_maj = "4.12";
   ver_min = "0";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -19,8 +18,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://docs.xfce.org/xfce/xfce4-appfinder/;
-    description = "Xfce application finder, a tool to locate and launch programs on your system";
+    homepage = "http://docs.xfce.org/xfce/xfce4-appfinder/";
+    description =
+      "Xfce application finder, a tool to locate and launch programs on your system";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.eelco ];

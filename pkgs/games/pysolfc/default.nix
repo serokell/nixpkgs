@@ -11,13 +11,9 @@ buildPythonApplication rec {
     sha256 = "0v0v8iflw55f5mghglkw80j8b7lv1hffjassfhqc4y84dmz8xjyv";
   };
 
-  patches = [
-    ./pysolfc-datadir.patch
-  ];
+  patches = [ ./pysolfc-datadir.patch ];
 
-  propagatedBuildInputs = [
-    tkinter
-  ];
+  propagatedBuildInputs = [ tkinter ];
 
   # No tests in archive
   doCheck = false;
@@ -32,7 +28,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "A collection of more than 1000 solitaire card games";
-    homepage = http://pysolfc.sourceforge.net/;
+    homepage = "http://pysolfc.sourceforge.net/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ kierdavis ];
   };

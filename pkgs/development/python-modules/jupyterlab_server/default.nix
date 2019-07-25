@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, notebook
-, jsonschema
-, pythonOlder
-, requests
-, pytest
+{ stdenv, buildPythonPackage, fetchPypi, notebook, jsonschema, pythonOlder, requests, pytest
 }:
 
 buildPythonPackage rec {
@@ -31,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "JupyterLab Server";
-    homepage = https://jupyter.org;
+    homepage = "https://jupyter.org";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,10 +1,10 @@
 { stdenv, fetchurl, ocaml, findlib, ocamlbuild, dune, benchmark }:
 
-let param =
-  if stdenv.lib.versionAtLeast ocaml.version "4.03"
-  then {
+let
+  param = if stdenv.lib.versionAtLeast ocaml.version "4.03" then {
     version = "0.6.1";
-    url = " https://github.com/Chris00/ocaml-rope/releases/download/0.6.1/rope-0.6.1.tbz";
+    url =
+      " https://github.com/Chris00/ocaml-rope/releases/download/0.6.1/rope-0.6.1.tbz";
     sha256 = "1zqh28jz1zjb0l354wi1046qpkwmk582ssz0gsqh6d44wpspdxk2";
     buildInputs = [ dune ];
     extra = {
@@ -18,20 +18,17 @@ let param =
     buildInputs = [ ocamlbuild ];
     extra = { createFindlibDestdir = true; };
   };
-in
 
-stdenv.mkDerivation ({
+in stdenv.mkDerivation ({
   name = "ocaml${ocaml.version}-rope-${param.version}";
 
-  src = fetchurl {
-    inherit (param) url sha256;
-  };
+  src = fetchurl { inherit (param) url sha256; };
 
   buildInputs = [ ocaml findlib benchmark ] ++ param.buildInputs;
 
   meta = {
-    homepage = http://rope.forge.ocamlcore.org/;
-    platforms = ocaml.meta.platforms or [];
+    homepage = "http://rope.forge.ocamlcore.org/";
+    platforms = ocaml.meta.platforms or [ ];
     description = ''Ropes ("heavyweight strings") in OCaml'';
     license = stdenv.lib.licenses.lgpl21;
     maintainers = with stdenv.lib.maintainers; [ volth ];

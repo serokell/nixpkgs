@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchFromGitHub
-, cmake, cmark, lmdb, qt5, qtmacextras, mtxclient
-, boost, spdlog, olm, pkgconfig, nlohmann_json
+{ lib, stdenv, fetchFromGitHub, cmake, cmark, lmdb, qt5, qtmacextras, mtxclient, boost, spdlog, olm, pkgconfig, nlohmann_json
 }:
 
 # These hashes and revisions are based on those from here:
@@ -19,8 +17,7 @@ let
     rev = "0b43ca87d8cfabba392dfe884eb1edb83874de02";
     sha256 = "1whsc5cybf9rmgyaj6qjji03fv5jbgcgygp956s3835b9f9cjg1n";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "nheko-${version}";
   version = "0.6.4";
 
@@ -62,15 +59,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
-    mtxclient olm boost lmdb spdlog cmark
-    qt5.qtbase qt5.qtmultimedia qt5.qttools
+    mtxclient
+    olm
+    boost
+    lmdb
+    spdlog
+    cmark
+    qt5.qtbase
+    qt5.qtmultimedia
+    qt5.qttools
   ] ++ lib.optional stdenv.isDarwin qtmacextras;
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "Desktop client for the Matrix protocol";
-    homepage = https://github.com/Nheko-Reborn/nheko;
+    homepage = "https://github.com/Nheko-Reborn/nheko";
     maintainers = with maintainers; [ ekleog fpletz ];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;

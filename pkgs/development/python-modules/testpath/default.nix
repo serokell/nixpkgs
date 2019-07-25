@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "testpath";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "Test utilities for code working with files and commands";
     license = licenses.mit;
-    homepage = https://github.com/jupyter/testpath;
+    homepage = "https://github.com/jupyter/testpath";
   };
 
 }

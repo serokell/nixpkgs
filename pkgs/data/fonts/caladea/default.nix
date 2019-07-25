@@ -1,11 +1,11 @@
 { lib, fetchzip }:
 
-let
-  version = "20130214";
+let version = "20130214";
 in fetchzip rec {
   name = "caladea-${version}";
 
-  url = "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-${version}.tar.gz";
+  url =
+    "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-${version}.tar.gz";
   postFetch = ''
     tar -xzvf $downloadedFile --strip-components=1
     mkdir -p $out/etc/fonts/conf.d
@@ -18,7 +18,7 @@ in fetchzip rec {
   meta = with lib; {
     # This font doesn't appear to have any official web site but this
     # one provides some good information and samples.
-    homepage = http://openfontlibrary.org/en/font/caladea;
+    homepage = "http://openfontlibrary.org/en/font/caladea";
     description = "A serif font metric-compatible with Microsoft Cambria";
     longDescription = ''
       Caladea is a free font that is metric-compatible with the
@@ -27,7 +27,7 @@ in fetchzip rec {
     '';
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [maintainers.rycee];
+    maintainers = [ maintainers.rycee ];
 
     # Reduce the priority of this package. The intent is that if you
     # also install the `vista-fonts` package, then you probably will

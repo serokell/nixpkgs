@@ -1,7 +1,6 @@
 { lib, fetchzip }:
 
-let
-  version = "2.0.10";
+let version = "2.0.10";
 in fetchzip {
   name = "weather-icons-${version}";
 
@@ -21,7 +20,7 @@ in fetchzip {
       ready to be dropped right into Bootstrap, or any project that needs high
       quality weather, maritime, and meteorological based icons!
     '';
-    homepage = https://erikflowers.github.io/weather-icons/;
+    homepage = "https://erikflowers.github.io/weather-icons/";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ pnelson ];

@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "zope.dottedname";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://pypi.python.org/pypi/zope.dottedname;
+    homepage = "http://pypi.python.org/pypi/zope.dottedname";
     description = "Resolver for Python dotted names";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];

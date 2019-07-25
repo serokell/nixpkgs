@@ -13,8 +13,8 @@ stdenv.mkDerivation {
 
   prefixKey = "-prefix ";
 
-  preConfigure = "configureFlagsArray=(--strict" +
-                  " --libdir $out/lib/ocaml/${ocaml.version}/site-lib)";
+  preConfigure = "configureFlagsArray=(--strict"
+    + " --libdir $out/lib/ocaml/${ocaml.version}/site-lib)";
 
   buildFlags = "world.opt";
 
@@ -26,11 +26,9 @@ stdenv.mkDerivation {
       Camlp5 is a preprocessor and pretty-printer for OCaml programs.
       It also provides parsing and printing tools.
     '';
-    homepage = https://camlp5.github.io/;
+    homepage = "https://camlp5.github.io/";
     license = licenses.bsd3;
-    platforms = ocaml.meta.platforms or [];
-    maintainers = with maintainers; [
-      z77z vbgl
-    ];
+    platforms = ocaml.meta.platforms or [ ];
+    maintainers = with maintainers; [ z77z vbgl ];
   };
 }

@@ -1,13 +1,14 @@
 { stdenv, fetchurl, pkgconfig, cmake, libuuid }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "biblesync-${version}";
   version = "1.1.2";
 
-  src = fetchurl{
-    url = "mirror://sourceforge/project/gnomesword/BibleSync/1.1.2/${name}.tar.gz";
+  src = fetchurl {
+    url =
+      "mirror://sourceforge/project/gnomesword/BibleSync/1.1.2/${name}.tar.gz";
     sha256 = "0190q2da0ppif2242lahl8xfz01n9sijy60aq1a0545qcp0ilvl8";
   };
 
@@ -15,7 +16,7 @@ stdenv.mkDerivation rec{
   buildInputs = [ cmake libuuid ];
 
   meta = {
-    homepage = http://www.crosswire.org/wiki/BibleSync;
+    homepage = "http://www.crosswire.org/wiki/BibleSync";
     description = "A multicast protocol to Bible software shared conavigation";
     longDescription = ''
       BibleSync is a multicast protocol to support Bible software
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec{
       navigation, and handling of incoming packets.
     '';
     license = licenses.publicDomain;
-    maintainers = [ maintainers.AndersonTorres ]; 
+    maintainers = [ maintainers.AndersonTorres ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

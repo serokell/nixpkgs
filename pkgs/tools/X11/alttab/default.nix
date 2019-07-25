@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, ronn, libpng, uthash
-, xorg }:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, ronn, libpng, uthash, xorg
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.0";
@@ -13,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "028ifp54yl3xq5mj2ww9baga8p56nmrx4ypvj8k35akcaxdpyga9";
   };
 
-  nativeBuildInputs = [ 
-    autoconf
-    automake
-    pkgconfig
-    ronn
-  ];
+  nativeBuildInputs = [ autoconf automake pkgconfig ronn ];
 
   preConfigure = "./bootstrap.sh";
 
@@ -36,8 +31,9 @@ stdenv.mkDerivation rec {
   enableParallelBuild = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/sagb/alttab;
-    description = "X11 window switcher designed for minimalistic window managers or standalone X11 session";
+    homepage = "https://github.com/sagb/alttab";
+    description =
+      "X11 window switcher designed for minimalistic window managers or standalone X11 session";
     license = licenses.gpl3;
     platforms = platforms.all;
     maintainers = [ maintainers.sgraf ];

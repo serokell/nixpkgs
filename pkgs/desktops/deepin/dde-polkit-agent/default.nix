@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, polkit-qt,
-  dtkcore, dtkwidget, dde-qt-dbus-factory, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, polkit-qt, dtkcore, dtkwidget, dde-qt-dbus-factory, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -13,19 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "0syg121slpd6d9xpifgcf85lg9ca0k96cl1g3rjvsmczs2d2ffgf";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    qmake
-    qttools
-    deepin.setupHook
-  ];
+  nativeBuildInputs = [ pkgconfig qmake qttools deepin.setupHook ];
 
-  buildInputs = [
-    dde-qt-dbus-factory
-    dtkcore
-    dtkwidget
-    polkit-qt
-  ];
+  buildInputs = [ dde-qt-dbus-factory dtkcore dtkwidget polkit-qt ];
 
   postPatch = ''
     searchHardCodedPaths
@@ -43,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "PolicyKit agent for Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/dde-polkit-agent;
+    homepage = "https://github.com/linuxdeepin/dde-polkit-agent";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

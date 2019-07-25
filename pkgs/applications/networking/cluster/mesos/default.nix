@@ -1,12 +1,5 @@
-{ stdenv, lib, makeWrapper, fetchurl, curl, sasl, openssh
-, unzip, gnutar, jdk, python, wrapPython
-, setuptools, boto, pythonProtobuf, apr, subversion, gzip
-, leveldb, glog, perf, utillinux, libnl, iproute, openssl, libevent
-, ethtool, coreutils, which, iptables, maven
-, bash, autoreconfHook
-, utf8proc, lz4
-, withJava ? !stdenv.isDarwin
-}:
+{ stdenv, lib, makeWrapper, fetchurl, curl, sasl, openssh, unzip, gnutar, jdk, python, wrapPython, setuptools, boto, pythonProtobuf, apr, subversion, gzip, leveldb, glog, perf, utillinux, libnl, iproute, openssl, libevent, ethtool, coreutils, which, iptables, maven, bash, autoreconfHook, utf8proc, lz4, withJava ?
+  !stdenv.isDarwin }:
 
 let
   mavenRepo = import ./mesos-deps.nix { inherit stdenv curl; };
@@ -18,7 +11,7 @@ let
   tarWithGzip = lib.overrideDerivation gnutar (oldAttrs: {
     # Original builder is bash 4.3.42 from bootstrap tools, too old for makeWrapper.
     builder = "${bash}/bin/bash";
-    buildInputs = (oldAttrs.buildInputs or []) ++ [ makeWrapper ];
+    buildInputs = (oldAttrs.buildInputs or [ ]) ++ [ makeWrapper ];
     postInstall = (oldAttrs.postInstall or "") + ''
       wrapProgram $out/bin/tar --prefix PATH ":" "${gzip}/bin"
     '';
@@ -44,23 +37,27 @@ in stdenv.mkDerivation rec {
     # see https://github.com/cstrahan/mesos/tree/nixos-${version}
     ./nixos.patch
   ];
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [
-    makeWrapper curl sasl
-    python wrapPython boto setuptools leveldb
-    subversion apr glog openssl libevent
-    utf8proc lz4
-  ] ++ lib.optionals stdenv.isLinux [
-    libnl
-  ] ++ lib.optionals withJava [
-    jdk maven
-  ];
+    makeWrapper
+    curl
+    sasl
+    python
+    wrapPython
+    boto
+    setuptools
+    leveldb
+    subversion
+    apr
+    glog
+    openssl
+    libevent
+    utf8proc
+    lz4
+  ] ++ lib.optionals stdenv.isLinux [ libnl ]
+    ++ lib.optionals withJava [ jdk maven ];
 
-  propagatedBuildInputs = [
-    pythonProtobuf
-  ];
+  propagatedBuildInputs = [ pythonProtobuf ];
   preConfigure = ''
     # https://issues.apache.org/jira/browse/MESOS-6616
     configureFlagsArray+=(
@@ -250,10 +247,11 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage    = "http://mesos.apache.org";
-    license     = licenses.asl20;
-    description = "A cluster manager that provides efficient resource isolation and sharing across distributed applications, or frameworks";
+    homepage = "http://mesos.apache.org";
+    license = licenses.asl20;
+    description =
+      "A cluster manager that provides efficient resource isolation and sharing across distributed applications, or frameworks";
     maintainers = with maintainers; [ cstrahan kevincox offline ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

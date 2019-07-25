@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  kiconthemes, kparts, kwindowsystem, kxmlgui
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kiconthemes, kparts, kwindowsystem, kxmlgui
 }:
 
 mkDerivation {
@@ -11,7 +8,5 @@ mkDerivation {
     maintainers = kdepimTeam;
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [
-    kiconthemes kparts kwindowsystem kxmlgui
-  ];
+  buildInputs = [ kiconthemes kparts kwindowsystem kxmlgui ];
 }

@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "gperftools-2.6.3";
 
   src = fetchurl {
-    url = "https://github.com/gperftools/gperftools/releases/download/${name}/${name}.tar.gz";
+    url =
+      "https://github.com/gperftools/gperftools/releases/download/${name}/${name}.tar.gz";
     sha256 = "17zfivp6n00rlqbrx6q6h71y2f815nvlzysff1ihgk4mxpv2yjri";
   };
 
@@ -17,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   NIX_CFLAGS_COMPILE = stdenv.lib.optionals stdenv.isDarwin [
-    "-D_XOPEN_SOURCE" "-Wno-aligned-allocation-unavailable"
+    "-D_XOPEN_SOURCE"
+    "-Wno-aligned-allocation-unavailable"
   ];
 
   # some packages want to link to the static tcmalloc_minimal
@@ -27,8 +29,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/gperftools/gperftools;
-    description = "Fast, multi-threaded malloc() and nifty performance analysis tools";
+    homepage = "https://github.com/gperftools/gperftools";
+    description =
+      "Fast, multi-threaded malloc() and nifty performance analysis tools";
     platforms = with platforms; linux ++ darwin;
     license = licenses.bsd3;
     maintainers = with maintainers; [ vcunat ];

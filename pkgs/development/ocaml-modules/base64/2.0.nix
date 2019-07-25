@@ -1,8 +1,8 @@
 { stdenv, fetchzip, ocaml, findlib, ocamlbuild }:
 
-let version = "2.0.0"; in
+let version = "2.0.0";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "ocaml-base64-${version}";
 
   src = fetchzip {
@@ -15,8 +15,8 @@ stdenv.mkDerivation {
   createFindlibDestdir = true;
 
   meta = {
-    homepage = https://github.com/mirage/ocaml-base64;
-    platforms = ocaml.meta.platforms or [];
+    homepage = "https://github.com/mirage/ocaml-base64";
+    platforms = ocaml.meta.platforms or [ ];
     description = "Base64 encoding and decoding in OCaml";
     license = stdenv.lib.licenses.isc;
     maintainers = with stdenv.lib.maintainers; [ vbgl ];

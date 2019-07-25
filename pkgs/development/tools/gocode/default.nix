@@ -6,7 +6,7 @@ buildGoPackage rec {
   rev = "0af7a86943a6e0237c90f8aeb74a882e1862c898";
 
   goPackagePath = "github.com/mdempsky/gocode";
-  excludedPackages = ''internal/suggest/testdata'';
+  excludedPackages = "internal/suggest/testdata";
 
   # we must allow references to the original `go` package,
   # because `gocode` needs to dig into $GOROOT to provide completions for the
@@ -37,7 +37,7 @@ buildGoPackage rec {
       Typical autocompletion time with warm cache is 30ms, which is barely
       noticeable.
     '';
-    homepage = https://github.com/mdempsky/gocode;
+    homepage = "https://github.com/mdempsky/gocode";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ kalbasit ];

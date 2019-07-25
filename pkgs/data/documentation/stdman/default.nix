@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       generates groff-formatted manual pages for Unix-based systems. The goal is
       to provide excellent formatting for easy readability.
     '';
-    homepage = https://github.com/jeaye/stdman;
+    homepage = "https://github.com/jeaye/stdman";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.twey ];

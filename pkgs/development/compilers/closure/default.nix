@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A tool for making JavaScript download and run faster";
-    homepage = https://developers.google.com/closure/compiler/;
+    homepage = "https://developers.google.com/closure/compiler/";
     license = licenses.asl20;
     platforms = platforms.all;
   };

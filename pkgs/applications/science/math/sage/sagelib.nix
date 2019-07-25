@@ -1,55 +1,4 @@
-{ sage-src
-, env-locations
-, perl
-, buildPythonPackage
-, arb
-, openblasCompat
-, brial
-, cliquer
-, cypari2
-, cysignals
-, cython
-, ecl
-, eclib
-, ecm
-, flint
-, gd
-, givaro
-, glpk
-, gsl
-, iml
-, jinja2
-, lcalc
-, lrcalc
-, gap
-, linbox
-, m4ri
-, m4rie
-, libmpc
-, mpfi
-, ntl
-, numpy
-, pari
-, pkgconfig
-, pkg-config
-, planarity
-, ppl
-, pynac
-, python
-, ratpoints
-, readline
-, rankwidth
-, symmetrica
-, zn_poly
-, fflas-ffpack
-, boost
-, singular
-, pip
-, jupyter_core
-, libhomfly
-, libbraiding
-, gmpy2
-, pplpy
+{ sage-src, env-locations, perl, buildPythonPackage, arb, openblasCompat, brial, cliquer, cypari2, cysignals, cython, ecl, eclib, ecm, flint, gd, givaro, glpk, gsl, iml, jinja2, lcalc, lrcalc, gap, linbox, m4ri, m4rie, libmpc, mpfi, ntl, numpy, pari, pkgconfig, pkg-config, planarity, ppl, pynac, python, ratpoints, readline, rankwidth, symmetrica, zn_poly, fflas-ffpack, boost, singular, pip, jupyter_core, libhomfly, libbraiding, gmpy2, pplpy
 }:
 
 # This is the core sage python package. Everything else is just wrappers gluing
@@ -71,11 +20,7 @@ buildPythonPackage rec {
     pip # needed to query installed packages
   ];
 
-  buildInputs = [
-    gd
-    readline
-    iml
-  ];
+  buildInputs = [ gd readline iml ];
 
   propagatedBuildInputs = [
     cypari2

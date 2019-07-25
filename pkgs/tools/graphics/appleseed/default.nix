@@ -1,46 +1,67 @@
-{ stdenv, fetchFromGitHub, cmake, boost165, pkgconfig, guile,
-eigen, libpng, python, libGLU, qt4, openexr, openimageio,
-opencolorio, xercesc, ilmbase, osl, seexpr, makeWrapper
+{ stdenv, fetchFromGitHub, cmake, boost165, pkgconfig, guile, eigen, libpng, python, libGLU, qt4, openexr, openimageio, opencolorio, xercesc, ilmbase, osl, seexpr, makeWrapper
 }:
 
-let boost_static = boost165.override {
-  enableStatic = true;
-  enablePython = true;
-};
+let
+  boost_static = boost165.override {
+    enableStatic = true;
+    enablePython = true;
+  };
 in stdenv.mkDerivation rec {
 
   name = "appleseed-${version}";
   version = "2.0.5-beta";
 
   src = fetchFromGitHub {
-    owner  = "appleseedhq";
-    repo   = "appleseed";
-    rev    = version;
+    owner = "appleseedhq";
+    repo = "appleseed";
+    rev = version;
     sha256 = "1sq9s0rzjksdn8ayp1g17gdqhp7fqks8v1ddd3i5rsl96b04fqx5";
   };
   buildInputs = [
-    cmake pkgconfig boost_static guile eigen libpng python
-    libGLU qt4 openexr openimageio opencolorio xercesc
-    osl seexpr makeWrapper
+    cmake
+    pkgconfig
+    boost_static
+    guile
+    eigen
+    libpng
+    python
+    libGLU
+    qt4
+    openexr
+    openimageio
+    opencolorio
+    xercesc
+    osl
+    seexpr
+    makeWrapper
   ];
 
-  NIX_CFLAGS_COMPILE = "-I${openexr.dev}/include/OpenEXR -I${ilmbase.dev}/include/OpenEXR -I${openimageio.dev}/include/OpenImageIO -Wno-unused-but-set-variable";
+  NIX_CFLAGS_COMPILE =
+    "-I${openexr.dev}/include/OpenEXR -I${ilmbase.dev}/include/OpenEXR -I${openimageio.dev}/include/OpenImageIO -Wno-unused-but-set-variable";
 
   cmakeFlags = [
-      "-DUSE_EXTERNAL_XERCES=ON" "-DUSE_EXTERNAL_OCIO=ON" "-DUSE_EXTERNAL_OIIO=ON"
-      "-DUSE_EXTERNAL_OSL=ON" "-DWITH_CLI=ON" "-DWITH_STUDIO=ON" "-DWITH_TOOLS=ON"
-      "-DUSE_EXTERNAL_PNG=ON" "-DUSE_EXTERNAL_ZLIB=ON"
-      "-DUSE_EXTERNAL_EXR=ON" "-DUSE_EXTERNAL_SEEXPR=ON"
-      "-DWITH_PYTHON=ON"
-      "-DWITH_DISNEY_MATERIAL=ON"
-      "-DUSE_SSE=ON"
-      "-DUSE_SSE42=ON"
+    "-DUSE_EXTERNAL_XERCES=ON"
+    "-DUSE_EXTERNAL_OCIO=ON"
+    "-DUSE_EXTERNAL_OIIO=ON"
+    "-DUSE_EXTERNAL_OSL=ON"
+    "-DWITH_CLI=ON"
+    "-DWITH_STUDIO=ON"
+    "-DWITH_TOOLS=ON"
+    "-DUSE_EXTERNAL_PNG=ON"
+    "-DUSE_EXTERNAL_ZLIB=ON"
+    "-DUSE_EXTERNAL_EXR=ON"
+    "-DUSE_EXTERNAL_SEEXPR=ON"
+    "-DWITH_PYTHON=ON"
+    "-DWITH_DISNEY_MATERIAL=ON"
+    "-DUSE_SSE=ON"
+    "-DUSE_SSE42=ON"
   ];
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "Open source, physically-based global illumination rendering engine";
-    homepage = https://appleseedhq.net/;
+    description =
+      "Open source, physically-based global illumination rendering engine";
+    homepage = "https://appleseedhq.net/";
     maintainers = with maintainers; [ hodapp ];
     license = licenses.mit;
     platforms = platforms.linux;

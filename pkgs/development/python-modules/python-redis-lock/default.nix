@@ -1,12 +1,5 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, redis
-, pytest
-, process-tests
-, pkgs
-, withDjango ? false, django_redis
-}:
+{ stdenv, buildPythonPackage, fetchPypi, redis, pytest, process-tests, pkgs, withDjango ?
+  false, django_redis }:
 
 buildPythonPackage rec {
   pname = "python-redis-lock";
@@ -24,8 +17,7 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [ redis ]
-  ++ stdenv.lib.optional withDjango django_redis;
-
+    ++ stdenv.lib.optional withDjango django_redis;
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/ionelmc/python-redis-lock";

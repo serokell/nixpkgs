@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, awscli
-, prompt_toolkit
-, boto3
-, configobj
-, pygments
+{ stdenv, buildPythonPackage, fetchPypi, awscli, prompt_toolkit, boto3, configobj, pygments
 }:
 
 buildPythonPackage rec {
@@ -18,13 +11,7 @@ buildPythonPackage rec {
   };
 
   # Why does it propagate packages that are used for testing?
-  propagatedBuildInputs = [
-    awscli
-    prompt_toolkit
-    boto3
-    configobj
-    pygments
-  ];
+  propagatedBuildInputs = [ awscli prompt_toolkit boto3 configobj pygments ];
 
   #Checks are failing due to missing TTY, which won't exist.
   doCheck = false;
@@ -34,7 +21,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/awslabs/aws-shell;
+    homepage = "https://github.com/awslabs/aws-shell";
     description = "An integrated shell for working with the AWS CLI";
     license = licenses.asl20;
     maintainers = [ ];

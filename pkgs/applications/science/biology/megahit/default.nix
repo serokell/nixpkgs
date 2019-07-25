@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, zlib }:
 
 stdenv.mkDerivation rec {
-  pname    = "megahit";
+  pname = "megahit";
   version = "1.1.4";
 
   src = fetchFromGitHub {
@@ -20,9 +20,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
-    license     = licenses.gpl3;
-    homepage    = https://github.com/voutcn/megahit;
+    description =
+      "An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph";
+    license = licenses.gpl3;
+    homepage = "https://github.com/voutcn/megahit";
     maintainers = with maintainers; [ luispedro ];
     platforms = [ "x86_64-linux" ];
   };

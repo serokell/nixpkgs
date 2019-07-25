@@ -1,14 +1,16 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.varnish;
 
-  commandLine = "-f ${pkgs.writeText "default.vcl" cfg.config}" +
-      optionalString (cfg.extraModules != []) " -p vmod_path='${makeSearchPathOutput "lib" "lib/varnish/vmods" ([cfg.package] ++ cfg.extraModules)}' -r vmod_path";
-in
-{
+  commandLine = "-f ${pkgs.writeText "default.vcl" cfg.config}"
+    + optionalString (cfg.extraModules != [ ]) " -p vmod_path='${
+      makeSearchPathOutput "lib" "lib/varnish/vmods"
+      ([ cfg.package ] ++ cfg.extraModules)
+     }' -r vmod_path";
+in {
   options = {
     services.varnish = {
       enable = mkEnableOption "Varnish Server";
@@ -47,7 +49,7 @@ in
 
       extraModules = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         example = literalExample "[ pkgs.varnish5Packages.geoip ]";
         description = ''
           Varnish modules (except 'std').
@@ -82,7 +84,8 @@ in
       serviceConfig = {
         Type = "simple";
         PermissionsStartOnly = true;
-        ExecStart = "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
+        ExecStart =
+          "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
         Restart = "always";
         RestartSec = "5s";
         User = "varnish";
@@ -99,7 +102,8 @@ in
     system.extraDependencies = [
       (pkgs.stdenv.mkDerivation {
         name = "check-varnish-syntax";
-        buildCommand = "${cfg.package}/sbin/varnishd -C ${commandLine} 2> $out || (cat $out; exit 1)";
+        buildCommand =
+          "${cfg.package}/sbin/varnishd -C ${commandLine} 2> $out || (cat $out; exit 1)";
       })
     ];
 

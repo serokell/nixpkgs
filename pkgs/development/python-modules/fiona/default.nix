@@ -1,7 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, pythonOlder
-, attrs, click, cligj, click-plugins, six, munch, enum34
-, pytest, boto3, mock
-, gdal_2 # can't bump to 3 yet, https://github.com/Toblerity/Fiona/issues/745
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, pythonOlder, attrs, click, cligj, click-plugins, six, munch, enum34, pytest, boto3, mock, gdal_2 # can't bump to 3 yet, https://github.com/Toblerity/Fiona/issues/745
 }:
 
 buildPythonPackage rec {
@@ -19,23 +16,13 @@ buildPythonPackage rec {
     gdal_2 # for gdal-config
   ];
 
-  buildInputs = [
-    gdal_2
-  ];
+  buildInputs = [ gdal_2 ];
 
-  propagatedBuildInputs = [
-    attrs
-    click
-    cligj
-    click-plugins
-    six
-    munch
-  ] ++ stdenv.lib.optional (!isPy3k) enum34;
+  propagatedBuildInputs = [ attrs click cligj click-plugins six munch ]
+    ++ stdenv.lib.optional (!isPy3k) enum34;
 
-  checkInputs = [
-    pytest
-    boto3
-  ] ++ stdenv.lib.optional (pythonOlder "3.4") mock;
+  checkInputs = [ pytest boto3 ]
+    ++ stdenv.lib.optional (pythonOlder "3.4") mock;
 
   checkPhase = ''
     rm -r fiona # prevent importing local fiona
@@ -47,7 +34,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "OGR's neat, nimble, no-nonsense API for Python";
-    homepage = http://toblerity.org/fiona/;
+    homepage = "http://toblerity.org/fiona/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ knedlsepp ];
   };

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, python, pkgconfig, readline, gettext, libxslt
-, docbook_xsl, docbook_xml_dtd_42
+{ stdenv, fetchurl, python, pkgconfig, readline, gettext, libxslt, docbook_xsl, docbook_xml_dtd_42
 }:
 
 stdenv.mkDerivation rec {
@@ -11,22 +10,19 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    python readline gettext libxslt docbook_xsl docbook_xml_dtd_42
-  ];
+  buildInputs =
+    [ python readline gettext libxslt docbook_xsl docbook_xml_dtd_42 ];
 
   preConfigure = ''
     patchShebangs buildtools/bin/waf
   '';
 
-  configureFlags = [
-    "--bundled-libraries=NONE"
-    "--builtin-libraries=replace,ccan"
-  ];
+  configureFlags =
+    [ "--bundled-libraries=NONE" "--builtin-libraries=replace,ccan" ];
 
   meta = with stdenv.lib; {
     description = "The not-so trivial database";
-    homepage = https://tdb.samba.org/;
+    homepage = "https://tdb.samba.org/";
     license = licenses.lgpl3Plus;
     platforms = platforms.all;
   };

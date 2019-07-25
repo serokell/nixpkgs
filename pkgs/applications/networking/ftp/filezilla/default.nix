@@ -1,19 +1,6 @@
-{ stdenv
-, fetchurl
+{ stdenv, fetchurl
 
-, dbus
-, gettext
-, gnutls
-, gtk2
-, libfilezilla
-, libidn
-, nettle
-, pkgconfig
-, pugixml
-, sqlite
-, tinyxml
-, wxGTK30
-, xdg_utils
+, dbus, gettext, gnutls, gtk2, libfilezilla, libidn, nettle, pkgconfig, pugixml, sqlite, tinyxml, wxGTK30, xdg_utils
 }:
 
 stdenv.mkDerivation rec {
@@ -21,14 +8,13 @@ stdenv.mkDerivation rec {
   version = "3.43.0";
 
   src = fetchurl {
-    url = "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
+    url =
+      "https://download.filezilla-project.org/client/FileZilla_${version}_src.tar.bz2";
     sha256 = "13i505y34b6lg7knzznf8812d9nwpnbf3hidpq58cbv8c31m5rkg";
   };
 
-  configureFlags = [
-    "--disable-manualupdatecheck"
-    "--disable-autoupdatecheck"
-  ];
+  configureFlags =
+    [ "--disable-manualupdatecheck" "--disable-autoupdatecheck" ];
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [

@@ -11,8 +11,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ fuse ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/edolstra/aefs;
-    description = "A cryptographic filesystem implemented in userspace using FUSE";
+    homepage = "https://github.com/edolstra/aefs";
+    description =
+      "A cryptographic filesystem implemented in userspace using FUSE";
     platforms = platforms.linux;
     maintainers = [ maintainers.eelco ];
     license = licenses.gpl2;

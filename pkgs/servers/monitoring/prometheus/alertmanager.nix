@@ -14,15 +14,17 @@ buildGoPackage rec {
     sha256 = "0zjyr9964qxv5fsb17qhmxa1v4z0c7va60n05p9w6j2ah4dmcd8q";
   };
 
-  buildFlagsArray = let t = "${goPackagePath}/vendor/github.com/prometheus/common/version"; in ''
-    -ldflags=
-       -X ${t}.Version=${version}
-       -X ${t}.Revision=${src.rev}
-       -X ${t}.Branch=unknown
-       -X ${t}.BuildUser=nix@nixpkgs
-       -X ${t}.BuildDate=unknown
-       -X ${t}.GoVersion=${stdenv.lib.getVersion go}
-  '';
+  buildFlagsArray =
+    let t = "${goPackagePath}/vendor/github.com/prometheus/common/version";
+    in ''
+      -ldflags=
+         -X ${t}.Version=${version}
+         -X ${t}.Revision=${src.rev}
+         -X ${t}.Branch=unknown
+         -X ${t}.BuildUser=nix@nixpkgs
+         -X ${t}.BuildDate=unknown
+         -X ${t}.GoVersion=${stdenv.lib.getVersion go}
+    '';
 
   postInstall = ''
     mkdir -p $bin/etc/bash_completion.d
@@ -31,7 +33,7 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "Alert dispatcher for the Prometheus monitoring system";
-    homepage = https://github.com/prometheus/alertmanager;
+    homepage = "https://github.com/prometheus/alertmanager";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley fpletz ];
     platforms = platforms.unix;

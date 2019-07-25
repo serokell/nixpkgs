@@ -12,7 +12,14 @@ python3Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python3Packages; [
-    click ludios_wpull manhole lmdb autobahn fb-re2 websockets cchardet
+    click
+    ludios_wpull
+    manhole
+    lmdb
+    autobahn
+    fb-re2
+    websockets
+    cchardet
   ];
 
   checkPhase = ''
@@ -22,7 +29,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Crawler for web archiving with WARC output";
-    homepage = https://github.com/ArchiveTeam/grab-site;
+    homepage = "https://github.com/ArchiveTeam/grab-site";
     license = licenses.mit;
     maintainers = with maintainers; [ ivan ];
     platforms = platforms.all;

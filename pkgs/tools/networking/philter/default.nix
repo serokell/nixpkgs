@@ -18,15 +18,13 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Mail sorter for Maildirs";
-    homepage = http://philter.sourceforge.net;
+    homepage = "http://philter.sourceforge.net";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };
 
   passthru = {
-    updateInfo = {
-      downloadPage = "http://philter.sourceforge.net/";
-    };
+    updateInfo = { downloadPage = "http://philter.sourceforge.net/"; };
   };
 }

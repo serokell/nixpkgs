@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitLab, nose, pillow
-, isPy3k, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchFromGitLab, nose, pillow, isPy3k, isPyPy }:
 buildPythonPackage rec {
   name = "pypillowfight-${version}";
   version = "0.2.4";

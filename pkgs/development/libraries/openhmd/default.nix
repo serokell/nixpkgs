@@ -1,12 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, cmake, hidapi
-, withExamples ? true, SDL2 ? null, libGL ? null, glew ? null
-}:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, cmake, hidapi, withExamples ?
+  true, SDL2 ? null, libGL ? null, glew ? null }:
 
 with lib;
 
-let onoff = if withExamples then "ON" else "OFF"; in
+let onoff = if withExamples then "ON" else "OFF";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "openhmd";
   version = "0.3.0-rc1-20181218";
 
@@ -19,11 +18,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgconfig cmake ];
 
-  buildInputs = [
-    hidapi
-  ] ++ optionals withExamples [
-    SDL2 libGL glew
-  ];
+  buildInputs = [ hidapi ] ++ optionals withExamples [ SDL2 libGL glew ];
 
   cmakeFlags = [
     "-DBUILD_BOTH_STATIC_SHARED_LIBS=ON"

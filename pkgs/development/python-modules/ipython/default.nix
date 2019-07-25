@@ -1,23 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder
 # Build dependencies
 , glibcLocales
 # Test dependencies
-, nose
-, pygments
+, nose, pygments
 # Runtime dependencies
-, jedi
-, decorator
-, pickleshare
-, traitlets
-, prompt_toolkit
-, pexpect
-, appnope
-, backcall
-, fetchpatch
+, jedi, decorator, pickleshare, traitlets, prompt_toolkit, pexpect, appnope, backcall, fetchpatch
 }:
 
 buildPythonPackage rec {
@@ -36,7 +23,8 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/ipython/ipython/commit/e1b53e9ef91a43b9e275bb9e48b4253218375d87.patch";
+      url =
+        "https://github.com/ipython/ipython/commit/e1b53e9ef91a43b9e275bb9e48b4253218375d87.patch";
       sha256 = "sha256:0q7zsgalwxss6aikhakbdkvvz0g4ac4sa3ncrklm74ksqh56rsgb";
     })
   ];
@@ -54,9 +42,9 @@ buildPythonPackage rec {
     pygments
     pexpect
     backcall
-  ] ++ lib.optionals stdenv.isDarwin [appnope];
+  ] ++ lib.optionals stdenv.isDarwin [ appnope ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   doCheck = false; # Circular dependency with ipykernel
 
@@ -66,7 +54,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "IPython: Productive Interactive Computing";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ bjornfor fridh ];
   };

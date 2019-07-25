@@ -10,12 +10,11 @@ let
     DefaultSearchProviderSearchURL = cfg.defaultSearchProviderSearchURL;
     DefaultSearchProviderSuggestURL = cfg.defaultSearchProviderSuggestURL;
     ExtensionInstallForcelist = map (extension:
-      "${extension};https://clients2.google.com/service/update2/crx"
-    ) cfg.extensions;
+      "${extension};https://clients2.google.com/service/update2/crx")
+      cfg.extensions;
   };
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -30,7 +29,7 @@ in
           <link xlink:href="https://chrome.google.com/webstore/category/extensions">chrome web store</link>
           page.
         '';
-        default = [];
+        default = [ ];
         example = literalExample ''
           [
             "chlffgpmiacpedhhbkiomidkjlcfhogd" # pushbullet
@@ -71,7 +70,7 @@ in
           <link xlink:href="https://www.chromium.org/administrators/policy-list-3">https://www.chromium.org/administrators/policy-list-3</link>
           for a list of avalible options
         '';
-        default = {};
+        default = { };
       };
     };
   };
@@ -80,10 +79,14 @@ in
 
   config = lib.mkIf cfg.enable {
     # for chromium
-    environment.etc."chromium/policies/managed/default.json".text = builtins.toJSON defaultProfile;
-    environment.etc."chromium/policies/managed/extra.json".text = builtins.toJSON cfg.extraOpts;
+    environment.etc."chromium/policies/managed/default.json".text =
+      builtins.toJSON defaultProfile;
+    environment.etc."chromium/policies/managed/extra.json".text =
+      builtins.toJSON cfg.extraOpts;
     # for google-chrome https://www.chromium.org/administrators/linux-quick-start
-    environment.etc."opt/chrome/policies/managed/default.json".text = builtins.toJSON defaultProfile;
-    environment.etc."opt/chrome/policies/managed/extra.json".text = builtins.toJSON cfg.extraOpts;
+    environment.etc."opt/chrome/policies/managed/default.json".text =
+      builtins.toJSON defaultProfile;
+    environment.etc."opt/chrome/policies/managed/extra.json".text =
+      builtins.toJSON cfg.extraOpts;
   };
 }

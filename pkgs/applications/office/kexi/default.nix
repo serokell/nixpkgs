@@ -1,10 +1,4 @@
-{
-  mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools,
-  boost, qttools, qtwebkit,
-  breeze-icons, karchive, kcodecs, kcompletion, kconfig, kconfigwidgets, kcoreaddons,
-  kcrash, kguiaddons, ki18n, kiconthemes, kitemviews, kio, ktexteditor, ktextwidgets,
-  kwidgetsaddons, kxmlgui,
-  kdb, kproperty, kreport, lcms2, mysql, marble, postgresql
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, boost, qttools, qtwebkit, breeze-icons, karchive, kcodecs, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kcrash, kguiaddons, ki18n, kiconthemes, kitemviews, kio, ktexteditor, ktextwidgets, kwidgetsaddons, kxmlgui, kdb, kproperty, kreport, lcms2, mysql, marble, postgresql
 }:
 
 mkDerivation rec {
@@ -20,17 +14,40 @@ mkDerivation rec {
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
 
   buildInputs = [
-    boost qttools qtwebkit
-    breeze-icons karchive kcodecs kcompletion kconfig kconfigwidgets kcoreaddons
-    kcrash kguiaddons ki18n kiconthemes kitemviews kio ktexteditor ktextwidgets
-    kwidgetsaddons kxmlgui
-    kdb kproperty kreport lcms2 mysql.connector-c marble postgresql
+    boost
+    qttools
+    qtwebkit
+    breeze-icons
+    karchive
+    kcodecs
+    kcompletion
+    kconfig
+    kconfigwidgets
+    kcoreaddons
+    kcrash
+    kguiaddons
+    ki18n
+    kiconthemes
+    kitemviews
+    kio
+    ktexteditor
+    ktextwidgets
+    kwidgetsaddons
+    kxmlgui
+    kdb
+    kproperty
+    kreport
+    lcms2
+    mysql.connector-c
+    marble
+    postgresql
   ];
 
   propagatedUserEnvPkgs = [ kproperty ];
 
   meta = with lib; {
-    description = "A open source visual database applications creator, a long-awaited competitor for programs like MS Access or Filemaker";
+    description =
+      "A open source visual database applications creator, a long-awaited competitor for programs like MS Access or Filemaker";
     longDescription = ''
       Kexi is a visual database applications creator.
       It can be used for creating database schemas,
@@ -39,7 +56,7 @@ mkDerivation rec {
       All database objects - tables, queries and forms - are stored in the database,
       making it easy to share data and design.
     '';
-    homepage = http://kexi-project.org/;
+    homepage = "http://kexi-project.org/";
     maintainers = with maintainers; [ zraexy ];
     platforms = platforms.linux;
     license = with licenses; [ gpl2 lgpl2 ];

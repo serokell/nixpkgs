@@ -15,8 +15,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl ];
 
   meta = with stdenv.lib; {
-    description = "A C Library for parsing, editing, and creating BSON documents";
-    homepage = https://github.com/mongodb/libbson;
+    description =
+      "A C Library for parsing, editing, and creating BSON documents";
+    homepage = "https://github.com/mongodb/libbson";
     license = licenses.asl20;
     platforms = platforms.all;
   };

@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, intltool, libxfce4util, libxfcegui4
-, xfce4-panel, gtk, exo, garcon }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, intltool, libxfce4util, libxfcegui4, xfce4-panel, gtk, exo, garcon
+}:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
-  p_name  = "xfce4-whiskermenu-plugin";
+  p_name = "xfce4-whiskermenu-plugin";
   version = "1.7.2";
 
   name = "${p_name}-${version}";

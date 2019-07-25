@@ -1,9 +1,7 @@
-{ lib, python3Packages, fetchFromGitHub, imagemagick, librsvg, gtk3, jhead
-, hicolor-icon-theme, gnome3
+{ lib, python3Packages, fetchFromGitHub, imagemagick, librsvg, gtk3, jhead, hicolor-icon-theme, gnome3
 
 # Test requirements
-, dbus, xvfb_run, xdotool
-}:
+, dbus, xvfb_run, xdotool }:
 
 python3Packages.buildPythonApplication rec {
   pname = "vimiv";
@@ -42,9 +40,9 @@ python3Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python3Packages; [ pillow pygobject3 gtk3 ];
 
   makeWrapperArgs = [
-    "--prefix GI_TYPELIB_PATH : \"$GI_TYPELIB_PATH\""
-    "--suffix XDG_DATA_DIRS : \"$XDG_ICON_DIRS:$out/share\""
-    "--set GDK_PIXBUF_MODULE_FILE \"$GDK_PIXBUF_MODULE_FILE\""
+    ''--prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH"''
+    ''--suffix XDG_DATA_DIRS : "$XDG_ICON_DIRS:$out/share"''
+    ''--set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"''
   ];
 
   postCheck = ''
@@ -61,10 +59,10 @@ python3Packages.buildPythonApplication rec {
       ./run-tests -c 'python tests/main_test.py && nosetests -vx'
   '';
 
-  postInstall = "make DESTDIR=\"$out\" install";
+  postInstall = ''make DESTDIR="$out" install'';
 
   meta = {
-    homepage = https://github.com/karlch/vimiv;
+    homepage = "https://github.com/karlch/vimiv";
     description = "An image viewer with Vim-like keybindings";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, substituteAll, meson, ninja
-, pkgconfig, vala, libgee, granite, gtk3, switchboard, pciutils }:
+{ stdenv, fetchFromGitHub, pantheon, substituteAll, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, switchboard, pciutils
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-about";
@@ -12,25 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "11diwz2aj45yqkxdija8ny0sgm0wl2905gl3799cdl12ss9ffndp";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    switchboard
-  ];
+  buildInputs = [ granite gtk3 libgee switchboard ];
 
   patches = [
     (substituteAll {
@@ -40,11 +26,11 @@ stdenv.mkDerivation rec {
     ./remove-update-button.patch
   ];
 
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
   meta = with stdenv.lib; {
     description = "Switchboard About Plug";
-    homepage = https://github.com/elementary/witchboard-plug-about;
+    homepage = "https://github.com/elementary/witchboard-plug-about";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

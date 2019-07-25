@@ -1,5 +1,4 @@
-{ stdenv, antlr3_4, libantlr3c, jre, polarssl, fetchFromGitHub
-  , cmake, zlib, bctoolbox
+{ stdenv, antlr3_4, libantlr3c, jre, polarssl, fetchFromGitHub, cmake, zlib, bctoolbox
 }:
 
 stdenv.mkDerivation rec {
@@ -22,14 +21,12 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ antlr3_4 libantlr3c polarssl bctoolbox ];
 
-  configureFlags = [
-    "--with-polarssl=${polarssl}"
-  ];
+  configureFlags = [ "--with-polarssl=${polarssl}" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://www.linphone.org/index.php/eng;
+    homepage = "http://www.linphone.org/index.php/eng";
     description = "A Voice-over-IP phone";
     license = licenses.gpl2;
     platforms = platforms.all;

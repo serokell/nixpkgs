@@ -1,10 +1,8 @@
-{ stdenv, fetchurl, libxml2, gnutls, libxslt, pkgconfig, libgcrypt, libtool
-, openssl, nss, makeWrapper }:
+{ stdenv, fetchurl, libxml2, gnutls, libxslt, pkgconfig, libgcrypt, libtool, openssl, nss, makeWrapper
+}:
 
-let
-  version = "1.2.28";
-in
-stdenv.mkDerivation rec {
+let version = "1.2.28";
+in stdenv.mkDerivation rec {
   name = "xmlsec-${version}";
 
   src = fetchurl {
@@ -38,8 +36,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.aleksey.com/xmlsec;
-    downloadPage = https://www.aleksey.com/xmlsec/download.html;
+    homepage = "http://www.aleksey.com/xmlsec";
+    downloadPage = "https://www.aleksey.com/xmlsec/download.html";
     description = "XML Security Library in C based on libxml2";
     license = stdenv.lib.licenses.mit;
     platforms = with stdenv.lib.platforms; linux ++ darwin;

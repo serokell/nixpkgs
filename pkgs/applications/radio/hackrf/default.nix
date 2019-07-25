@@ -12,11 +12,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    cmake libusb fftwSinglePrec
-  ];
+  buildInputs = [ cmake libusb fftwSinglePrec ];
 
-  cmakeFlags = [ "-DUDEV_RULES_GROUP=plugdev" "-DUDEV_RULES_PATH=lib/udev/rules.d" ];
+  cmakeFlags =
+    [ "-DUDEV_RULES_GROUP=plugdev" "-DUDEV_RULES_PATH=lib/udev/rules.d" ];
 
   preConfigure = ''
     cd host
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An open source SDR platform";
-    homepage = http://greatscottgadgets.com/hackrf/;
+    homepage = "http://greatscottgadgets.com/hackrf/";
     license = licenses.gpl2;
     platforms = platforms.all;
     maintainers = with maintainers; [ sjmackenzie the-kenny ];

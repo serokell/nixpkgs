@@ -2,9 +2,8 @@
 let
   # Update spirv-headers rev in lockstep according to DEPs file
   version = "2019.1";
-in
 
-assert version == spirv-headers.version;
+in assert version == spirv-headers.version;
 stdenv.mkDerivation rec {
   name = "spirv-tools-${version}";
   inherit version;
@@ -23,7 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     inherit (src.meta) homepage;
-    description = "The SPIR-V Tools project provides an API and commands for processing SPIR-V modules";
+    description =
+      "The SPIR-V Tools project provides an API and commands for processing SPIR-V modules";
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = [ maintainers.ralith ];

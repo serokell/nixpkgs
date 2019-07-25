@@ -1,4 +1,4 @@
-{stdenv, fetchurl, help2man}:
+{ stdenv, fetchurl, help2man }:
 
 stdenv.mkDerivation rec {
   version = "1.5.0.456";
@@ -14,8 +14,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ help2man ];
 
   meta = with stdenv.lib; {
-    homepage = http://fatsort.sourceforge.net/;
-    description = "Sorts FAT partition table, for devices that don't do sorting of files";
+    homepage = "http://fatsort.sourceforge.net/";
+    description =
+      "Sorts FAT partition table, for devices that don't do sorting of files";
     maintainers = [ maintainers.kovirobi ];
     license = licenses.gpl2;
     inherit version;

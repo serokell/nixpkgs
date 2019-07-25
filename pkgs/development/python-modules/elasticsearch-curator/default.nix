@@ -1,22 +1,8 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, boto3
-, click
-, certifi
-, requests-aws4auth
-, voluptuous
-, pyyaml
-, elasticsearch
-, nosexcover
-, coverage
-, nose
-, mock
-, funcsigs
-} :
+{ stdenv, buildPythonPackage, fetchPypi, boto3, click, certifi, requests-aws4auth, voluptuous, pyyaml, elasticsearch, nosexcover, coverage, nose, mock, funcsigs
+}:
 
 buildPythonPackage rec {
-  pname   = "elasticsearch-curator";
+  pname = "elasticsearch-curator";
   version = "5.7.6";
 
   src = fetchPypi {
@@ -27,26 +13,13 @@ buildPythonPackage rec {
   # The test hangs so we disable it.
   doCheck = false;
 
-  propagatedBuildInputs = [
-    click
-    certifi
-    requests-aws4auth
-    voluptuous
-    pyyaml
-    elasticsearch
-    boto3
-  ];
+  propagatedBuildInputs =
+    [ click certifi requests-aws4auth voluptuous pyyaml elasticsearch boto3 ];
 
-  checkInputs = [
-    nosexcover
-    coverage
-    nose
-    mock
-    funcsigs
-  ];
+  checkInputs = [ nosexcover coverage nose mock funcsigs ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/elastic/curator;
+    homepage = "https://github.com/elastic/curator";
     description = "Curate, or manage, your Elasticsearch indices and snapshots";
     license = licenses.asl20;
     longDescription = ''

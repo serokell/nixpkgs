@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fastjet, ghostscript, gsl, hepmc, imagemagick, less, python2, texlive, yoda, which, makeWrapper }:
+{ stdenv, fetchurl, fastjet, ghostscript, gsl, hepmc, imagemagick, less, python2, texlive, yoda, which, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "rivet-${version}";
@@ -13,21 +14,11 @@ stdenv.mkDerivation rec {
     ./darwin.patch # configure relies on impure sw_vers to -Dunix
   ];
 
-  latex = texlive.combine { inherit (texlive)
-    scheme-basic
-    collection-pstricks
-    collection-fontsrecommended
-    l3kernel
-    l3packages
-    mathastext
-    pgf
-    relsize
-    sfmath
-    siunitx
-    xcolor
-    xkeyval
-    xstring
-    ;};
+  latex = texlive.combine {
+    inherit (texlive)
+      scheme-basic collection-pstricks collection-fontsrecommended l3kernel
+      l3packages mathastext pgf relsize sfmath siunitx xcolor xkeyval xstring;
+  };
   buildInputs = [ hepmc imagemagick python2 latex makeWrapper ];
   propagatedBuildInputs = [ fastjet ghostscript gsl yoda ];
 
@@ -36,7 +27,9 @@ stdenv.mkDerivation rec {
       --replace "!(tmp)" ""
     substituteInPlace bin/rivet-buildplugin.in \
       --replace 'which' '"${which}/bin/which"' \
-      --replace 'mycxx=' 'mycxx=${stdenv.cc}/bin/${if stdenv.cc.isClang or false then "clang++" else "g++"}  #' \
+      --replace 'mycxx=' 'mycxx=${stdenv.cc}/bin/${
+      if stdenv.cc.isClang or false then "clang++" else "g++"
+      }  #' \
       --replace 'mycxxflags="' "mycxxflags=\"-std=c++11 $NIX_CFLAGS_COMPILE $NIX_CXXSTDLIB_COMPILE $NIX_CFLAGS_LINK "
   '';
 
@@ -71,10 +64,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A framework for comparison of experimental measurements from high-energy particle colliders to theory predictions";
-    license     = stdenv.lib.licenses.gpl2;
-    homepage    = https://rivet.hepforge.org;
-    platforms   = stdenv.lib.platforms.unix;
+    description =
+      "A framework for comparison of experimental measurements from high-energy particle colliders to theory predictions";
+    license = stdenv.lib.licenses.gpl2;
+    homepage = "https://rivet.hepforge.org";
+    platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ veprbl ];
   };
 }

@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
   buildInputs = [ pythonPackages.pygtk pythonPackages.psutil ];
 
   pythonPath = [ pythonPackages.pygtk pythonPackages.psutil ];
-  
+
   patchPhase = ''
     substituteInPlace install.sh --replace "/usr/local" "$out"
   '';
-    
+
   installPhase = ''
     mkdir -p $out/bin $out/share/applications
     ./install.sh
@@ -31,8 +31,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://gitlab.com/o9000/phwmon;
-    description = "Hardware monitor (CPU, memory, network and disk I/O) for the system tray";
+    homepage = "https://gitlab.com/o9000/phwmon";
+    description =
+      "Hardware monitor (CPU, memory, network and disk I/O) for the system tray";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.romildo ];

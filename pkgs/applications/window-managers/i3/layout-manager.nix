@@ -1,10 +1,11 @@
-{ stdenv, fetchFromGitHub, vim, makeWrapper, jq, rofi, xrandr, xdotool, i3, gawk, libnotify }:
+{ stdenv, fetchFromGitHub, vim, makeWrapper, jq, rofi, xrandr, xdotool, i3, gawk, libnotify
+}:
 
 let
-  path = stdenv.lib.makeBinPath [ vim jq rofi xrandr xdotool i3 gawk libnotify ];
-in
+  path =
+    stdenv.lib.makeBinPath [ vim jq rofi xrandr xdotool i3 gawk libnotify ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "i3-layout-manager";
   version = "unstable-2019-06-19";
 
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/klaxalk/i3-layout-manager;
+    homepage = "https://github.com/klaxalk/i3-layout-manager";
     description = "Saving, loading and managing layouts for i3wm.";
     license = licenses.mit;
     platforms = platforms.linux;

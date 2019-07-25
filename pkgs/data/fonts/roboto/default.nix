@@ -1,11 +1,11 @@
 { lib, fetchzip }:
 
-let
-  version = "2.138";
+let version = "2.138";
 in fetchzip rec {
   name = "roboto-${version}";
 
-  url = "https://github.com/google/roboto/releases/download/v${version}/roboto-unhinted.zip";
+  url =
+    "https://github.com/google/roboto/releases/download/v${version}/roboto-unhinted.zip";
 
   postFetch = ''
     mkdir -p $out/share/fonts
@@ -15,7 +15,7 @@ in fetchzip rec {
   sha256 = "1s3c48wwvvwd3p4w3hfkri5v2c54j2bdxmd3bjv54klc5mrlh6z3";
 
   meta = {
-    homepage = https://github.com/google/roboto;
+    homepage = "https://github.com/google/roboto";
     description = "The Roboto family of fonts";
     longDescription = ''
       Google’s signature family of fonts, the default font on Android and

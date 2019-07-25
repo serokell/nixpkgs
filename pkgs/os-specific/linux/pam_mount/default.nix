@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, pkgconfig, libtool, pam, libHX, libxml2, pcre, perl, openssl, cryptsetup, utillinux }:
+{ stdenv, fetchurl, autoconf, automake, pkgconfig, libtool, pam, libHX, libxml2, pcre, perl, openssl, cryptsetup, utillinux
+}:
 
 stdenv.mkDerivation rec {
   name = "pam_mount-2.16";
@@ -9,14 +10,26 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ autoconf automake libtool pam libHX utillinux libxml2 pcre perl openssl cryptsetup ];
+  buildInputs = [
+    autoconf
+    automake
+    libtool
+    pam
+    libHX
+    utillinux
+    libxml2
+    pcre
+    perl
+    openssl
+    cryptsetup
+  ];
 
   patches = [ ./insert_utillinux_path_hooks.patch ];
 
   preConfigure = ''
     substituteInPlace src/mtcrypt.c --replace @@NIX_UTILLINUX@@ ${utillinux}/bin
     sh autogen.sh --prefix=$out
-    '';
+  '';
 
   makeFlags = "DESTDIR=$(out)";
 
@@ -25,10 +38,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     cp -r $out/$out/* $out
     rm -r $out/nix
-    '';
+  '';
 
   meta = with stdenv.lib; {
-    homepage = http://pam-mount.sourceforge.net/;
+    homepage = "http://pam-mount.sourceforge.net/";
     description = "PAM module to mount volumes for a user session";
     maintainers = [ maintainers.tstrobel ];
     license = with licenses; [ gpl2 gpl3 lgpl21 lgpl3 ];

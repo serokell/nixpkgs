@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
   # Plain upstream tarball doesn't build, get patches from Debian
   patches = [
     (fetchurl {
-      url = "http://ftp.de.debian.org/debian/pool/main/u/ucspi-tcp/ucspi-tcp_0.88-3.diff.gz";
+      url =
+        "http://ftp.de.debian.org/debian/pool/main/u/ucspi-tcp/ucspi-tcp_0.88-3.diff.gz";
       sha256 = "0mzmhz8hjkrs0khmkzs5i0s1kgmgaqz07h493bd5jj5fm5njxln6";
     })
     ./remove-setuid.patch
@@ -50,7 +51,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Command-line tools for building TCP client-server applications";
+    description =
+      "Command-line tools for building TCP client-server applications";
     longDescription = ''
       tcpserver waits for incoming connections and, for each connection, runs a
       program of your choice. Your program receives environment variables
@@ -78,7 +80,7 @@ stdenv.mkDerivation rec {
       Interface, using the TCP protocol. UCSPI tools are available for several
       different networks.
     '';
-    homepage = http://cr.yp.to/ucspi-tcp.html;
+    homepage = "http://cr.yp.to/ucspi-tcp.html";
     license = licenses.publicDomain;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

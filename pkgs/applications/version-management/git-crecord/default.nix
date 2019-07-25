@@ -14,8 +14,9 @@ pythonPackages.buildPythonApplication rec {
   propagatedBuildInputs = with pythonPackages; [ docutils ];
 
   meta = {
-    homepage = https://github.com/andrewshadura/git-crecord;
-    description = "Git subcommand to interactively select changes to commit or stage";
+    homepage = "https://github.com/andrewshadura/git-crecord";
+    description =
+      "Git subcommand to interactively select changes to commit or stage";
     license = stdenv.lib.licenses.gpl2Plus;
   };
 }

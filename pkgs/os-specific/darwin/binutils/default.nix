@@ -7,13 +7,21 @@ assert binutils-unwrapped.targetPrefix == cctools.targetPrefix;
 let
   inherit (binutils-unwrapped) targetPrefix;
   cmds = [
-    "ar" "ranlib" "as" "install_name_tool"
-    "ld" "strip" "otool" "lipo" "nm" "strings" "size"
+    "ar"
+    "ranlib"
+    "as"
+    "install_name_tool"
+    "ld"
+    "strip"
+    "otool"
+    "lipo"
+    "nm"
+    "strings"
+    "size"
   ];
-in
 
-# TODO: loop over targetPrefixed binaries too
-stdenv.mkDerivation {
+  # TODO: loop over targetPrefixed binaries too
+in stdenv.mkDerivation {
   name = "${targetPrefix}cctools-binutils-darwin";
   outputs = [ "out" "info" "man" ];
   buildCommand = ''
@@ -31,7 +39,9 @@ stdenv.mkDerivation {
     # - strip: the binutils one seems to break mach-o files
     # - lipo: gcc build assumes it exists
     # - nm: the gnu one doesn't understand many new load commands
-    for i in ${stdenv.lib.concatStringsSep " " (builtins.map (e: targetPrefix + e) cmds)}; do
+    for i in ${
+      stdenv.lib.concatStringsSep " " (builtins.map (e: targetPrefix + e) cmds)
+    }; do
       ln -sf "${cctools}/bin/$i" "$out/bin/$i"
     done
 
@@ -49,9 +59,7 @@ stdenv.mkDerivation {
       >> $man/nix-support/propagated-build-inputs
   '';
 
-  passthru = {
-    inherit targetPrefix;
-  };
+  passthru = { inherit targetPrefix; };
 
   meta = {
     maintainers = with stdenv.lib.maintainers; [ matthewbauer ];

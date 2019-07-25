@@ -1,17 +1,23 @@
-{ stdenv, lib, fetchFromGitHub, perl, makeWrapper, file, systemd, iw, rfkill
-, hdparm, ethtool, inetutils , kmod, pciutils, smartmontools
-, x86_energy_perf_policy, gawk, gnugrep, coreutils, utillinux
-, checkbashisms, shellcheck
-, enableRDW ? false, networkmanager
-}:
+{ stdenv, lib, fetchFromGitHub, perl, makeWrapper, file, systemd, iw, rfkill, hdparm, ethtool, inetutils, kmod, pciutils, smartmontools, x86_energy_perf_policy, gawk, gnugrep, coreutils, utillinux, checkbashisms, shellcheck, enableRDW ?
+  false, networkmanager }:
 
 let
-  paths = lib.makeBinPath
-          ([ iw rfkill hdparm ethtool inetutils systemd kmod pciutils smartmontools
-             x86_energy_perf_policy gawk gnugrep coreutils utillinux
-           ]
-           ++ lib.optional enableRDW networkmanager
-          );
+  paths = lib.makeBinPath ([
+    iw
+    rfkill
+    hdparm
+    ethtool
+    inetutils
+    systemd
+    kmod
+    pciutils
+    smartmontools
+    x86_energy_perf_policy
+    gawk
+    gnugrep
+    coreutils
+    utillinux
+  ] ++ lib.optional enableRDW networkmanager);
 
 in stdenv.mkDerivation rec {
   name = "tlp-${version}";
@@ -45,12 +51,10 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ perl ];
 
-  installTargets = [ "install-tlp" "install-man" ] ++ stdenv.lib.optional enableRDW "install-rdw";
+  installTargets = [ "install-tlp" "install-man" ]
+    ++ stdenv.lib.optional enableRDW "install-rdw";
 
-  checkInputs = [
-    checkbashisms
-    shellcheck
-  ];
+  checkInputs = [ checkbashisms shellcheck ];
 
   doCheck = true;
   checkTarget = [ "checkall" ];
@@ -59,7 +63,9 @@ in stdenv.mkDerivation rec {
     cp -r $out/$out/* $out
     rm -rf $out/$(echo "$NIX_STORE" | cut -d "/" -f2)
 
-    for i in $out/bin/* $out/lib/udev/tlp-* ${lib.optionalString enableRDW "$out/etc/NetworkManager/dispatcher.d/*"}; do
+    for i in $out/bin/* $out/lib/udev/tlp-* ${
+      lib.optionalString enableRDW "$out/etc/NetworkManager/dispatcher.d/*"
+    }; do
       if file "$i" | grep -q Perl; then
         # Perl script; use wrapProgram
         wrapProgram "$i" \
@@ -73,7 +79,8 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Advanced Power Management for Linux";
-    homepage = https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html;
+    homepage =
+      "https://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html";
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
     license = licenses.gpl2Plus;

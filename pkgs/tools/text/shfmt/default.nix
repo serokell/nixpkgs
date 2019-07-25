@@ -5,7 +5,7 @@ buildGoPackage rec {
   version = "2.6.4";
 
   goPackagePath = "mvdan.cc/sh";
-  subPackages = ["cmd/shfmt"];
+  subPackages = [ "cmd/shfmt" ];
 
   src = fetchFromGitHub {
     owner = "mvdan";
@@ -15,7 +15,7 @@ buildGoPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mvdan/sh;
+    homepage = "https://github.com/mvdan/sh";
     description = "A shell parser and formatter";
     longDescription = ''
       shfmt formats shell programs. It can use tabs or any number of spaces to indent.

@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
     sha256 = "12g0a9i0xxqxxcvmimm5w2wgmrdhq80p8bsp52d6yldz4lrnbm7p";
   };
 
-  propagatedBuildInputs = [ jre ] ;
-  buildInputs = [ makeWrapper ] ;
+  propagatedBuildInputs = [ jre ];
+  buildInputs = [ makeWrapper ];
 
   installPhase = ''
     mkdir -p $out
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       Code sizes are typically reduced by a factor of two to three when
       compared to an equivalent Java application.
     '';
-    homepage = https://www.scala-lang.org/;
+    homepage = "https://www.scala-lang.org/";
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.all;
   };

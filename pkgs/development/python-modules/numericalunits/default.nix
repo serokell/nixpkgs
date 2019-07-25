@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "1.23";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://pypi.python.org/pypi/numericalunits;
+    homepage = "http://pypi.python.org/pypi/numericalunits";
     description = "A package that lets you define quantities with unit";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, mock
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, nose, mock, isPy3k }:
 
 buildPythonPackage rec {
   pname = "simplebayes";

@@ -1,19 +1,17 @@
-{ stdenv, fetchurl, gfortran, openblas, cmake, fixDarwinDylibNames
-, gnum4
-, enableCuda  ? false, cudatoolkit
-}:
+{ stdenv, fetchurl, gfortran, openblas, cmake, fixDarwinDylibNames, gnum4, enableCuda ?
+  false, cudatoolkit }:
 
 let
   version = "5.4.0";
   name = "suitesparse-${version}";
 
   SHLIB_EXT = stdenv.hostPlatform.extensions.sharedLibrary;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit name;
 
   src = fetchurl {
-    url = "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
+    url =
+      "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
     sha256 = "1lfvjj787yqyhk25w7brlrkrl7dnnn5dq4ijxws3wrbcd4vd2k9p";
   };
 
@@ -28,12 +26,10 @@ stdenv.mkDerivation rec {
         -e 's/METIS .*$/METIS =/' \
         -e 's/METIS_PATH .*$/METIS_PATH =/' \
         -e '/CHOLMOD_CONFIG/ s/$/-DNPARTITION/'
-  ''
-  + stdenv.lib.optionalString stdenv.isDarwin ''
+  '' + stdenv.lib.optionalString stdenv.isDarwin ''
     sed -i "SuiteSparse_config/SuiteSparse_config.mk" \
         -e 's/^[[:space:]]*\(LIB = -lm\) -lrt/\1/'
-  ''
-  + stdenv.lib.optionalString enableCuda ''
+  '' + stdenv.lib.optionalString enableCuda ''
     sed -i "SuiteSparse_config/SuiteSparse_config.mk" \
         -e 's|^[[:space:]]*\(CUDA_ROOT     =\)|CUDA_ROOT = ${cudatoolkit}|' \
         -e 's|^[[:space:]]*\(GPU_BLAS_PATH =\)|GPU_BLAS_PATH = $(CUDA_ROOT)|' \
@@ -71,9 +67,16 @@ stdenv.mkDerivation rec {
           ar -x $i
         done
     )
-    ${if enableCuda then "${cudatoolkit}/bin/nvcc" else "${stdenv.cc.outPath}/bin/cc"} \
+    ${
+      if enableCuda then
+        "${cudatoolkit}/bin/nvcc"
+      else
+        "${stdenv.cc.outPath}/bin/cc"
+    } \
         static/*.o                                                                     \
-        ${if stdenv.isDarwin then "-dynamiclib" else "--shared"}                       \
+        ${
+      if stdenv.isDarwin then "-dynamiclib" else "--shared"
+        }                       \
         -o "lib/libsuitesparse${SHLIB_EXT}"                                            \
         -lopenblas                                                                     \
         ${stdenv.lib.optionalString enableCuda "-lcublas"}
@@ -88,8 +91,7 @@ stdenv.mkDerivation rec {
     cp -r lib $out/
     cp -r include $out/
     cp -r share $out/
-    ''
-    + stdenv.lib.optionalString stdenv.isDarwin ''
+  '' + stdenv.lib.optionalString stdenv.isDarwin ''
     # The fixDarwinDylibNames in nixpkgs can't seem to fix all the libraries.
     # We manually fix them up here.
     fixDarwinDylibNames() {
@@ -108,28 +110,25 @@ stdenv.mkDerivation rec {
     }
 
     fixDarwinDylibNames $(find "$out" -name "*.dylib")
-    ''
-    + stdenv.lib.optionalString (!stdenv.isDarwin) ''
+  '' + stdenv.lib.optionalString (!stdenv.isDarwin) ''
     # Fix rpaths
     cd $out
     find -name \*.so\* -type f -exec \
-      patchelf --set-rpath "$out/lib:${stdenv.lib.makeLibraryPath buildInputs}" {} \;
-    ''
-    +
-    ''
+      patchelf --set-rpath "$out/lib:${
+      stdenv.lib.makeLibraryPath buildInputs
+      }" {} \;
+  '' + ''
     runHook postInstall
-    '';
+  '';
 
-  nativeBuildInputs = [
-    cmake
-    gnum4
-  ] ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [ cmake gnum4 ]
+    ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ openblas gfortran.cc.lib ]
     ++ stdenv.lib.optional enableCuda cudatoolkit;
 
   meta = with stdenv.lib; {
-    homepage = http://faculty.cse.tamu.edu/davis/suitesparse.html;
+    homepage = "http://faculty.cse.tamu.edu/davis/suitesparse.html";
     description = "A suite of sparse matrix algorithms";
     license = with licenses; [ bsd2 gpl2Plus lgpl21Plus ];
     maintainers = with maintainers; [ ttuegel ];

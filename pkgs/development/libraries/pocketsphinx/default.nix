@@ -1,8 +1,4 @@
-{ stdenv
-, fetchurl
-, sphinxbase
-, pkgconfig
-, python27 # >= 2.6
+{ stdenv, fetchurl, sphinxbase, pkgconfig, python27 # >= 2.6
 , swig2 # 2.0
 }:
 
@@ -21,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Voice recognition library written in C";
-    homepage = http://cmusphinx.sourceforge.net;
+    homepage = "http://cmusphinx.sourceforge.net";
     license = stdenv.lib.licenses.free;
     platforms = stdenv.lib.platforms.linux;
   };
@@ -29,19 +25,17 @@ stdenv.mkDerivation rec {
 
 /* Example usage:
 
+   1.
 
-1.
+   $ cat << EOF > vocabulary.txt
+   oh mighty computer /1e-40/
+   hello world /1e-30/
+   EOF
 
-$ cat << EOF > vocabulary.txt
-oh mighty computer /1e-40/
-hello world /1e-30/
-EOF
+   2.
 
-2.
-
-$ pocketsphinx_continuous -inmic yes -kws vocabulary.txt 2> /dev/null
-# after you say "hello world":
-hello world
-...
-
+   $ pocketsphinx_continuous -inmic yes -kws vocabulary.txt 2> /dev/null
+   # after you say "hello world":
+   hello world
+   ...
 */

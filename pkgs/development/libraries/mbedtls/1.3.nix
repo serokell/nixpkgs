@@ -14,18 +14,14 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  makeFlags = [
-    "SHARED=1"
-  ];
+  makeFlags = [ "SHARED=1" ];
 
-  installFlags = [
-    "DESTDIR=\${out}"
-  ];
+  installFlags = [ "DESTDIR=\${out}" ];
 
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://tls.mbed.org/;
+    homepage = "https://tls.mbed.org/";
     description = "Portable cryptographic and SSL/TLS library, aka polarssl";
     license = licenses.gpl3;
     platforms = platforms.all;

@@ -1,7 +1,6 @@
-{ stdenv, lib, fetchurl, cmake, libGLU_combined, pkgconfig, libpulseaudio
-, qt4 ? null, extra-cmake-modules ? null, qtbase ? null, qttools ? null
-, withQt5 ? false
-, debug ? false }:
+{ stdenv, lib, fetchurl, cmake, libGLU_combined, pkgconfig, libpulseaudio, qt4 ?
+  null, extra-cmake-modules ? null, qtbase ? null, qttools ? null, withQt5 ?
+    false, debug ? false }:
 
 with lib;
 
@@ -10,16 +9,15 @@ let
 
   soname = if withQt5 then "phonon4qt5" else "phonon";
   buildsystemdir = "share/cmake/${soname}";
-in
 
-assert withQt5 -> qtbase != null;
+in assert withQt5 -> qtbase != null;
 assert withQt5 -> qttools != null;
 
 stdenv.mkDerivation rec {
   name = "phonon-${if withQt5 then "qt5" else "qt4"}-${v}";
 
   meta = {
-    homepage = https://phonon.kde.org/;
+    homepage = "https://phonon.kde.org/";
     description = "Multimedia API for Qt";
     license = stdenv.lib.licenses.lgpl2;
     platforms = stdenv.lib.platforms.linux;
@@ -31,20 +29,17 @@ stdenv.mkDerivation rec {
     sha256 = "02c8fyyvg5qb0lxwxmnxc5grkg6p3halakjf02vmwmvqaycb3v9l";
   };
 
-  buildInputs =
-    [ libGLU_combined libpulseaudio ]
+  buildInputs = [ libGLU_combined libpulseaudio ]
     ++ (if withQt5 then [ qtbase qttools ] else [ qt4 ]);
 
-  nativeBuildInputs =
-    [ cmake pkgconfig ]
+  nativeBuildInputs = [ cmake pkgconfig ]
     ++ optional withQt5 extra-cmake-modules;
 
   outputs = [ "out" "dev" ];
 
   NIX_CFLAGS_COMPILE = "-fPIC";
 
-  cmakeFlags =
-    [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ]
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ]
     ++ optional withQt5 "-DPHONON_BUILD_PHONON4QT5=ON";
 
   preConfigure = ''
@@ -64,8 +59,8 @@ stdenv.mkDerivation rec {
         -e "/set(INCLUDE_INSTALL_DIR/ c set(INCLUDE_INSTALL_DIR \"''${!outputDev}/include\")"
 
     ${optionalString withQt5 ''
-    sed -i cmake/FindPhononInternal.cmake \
-        -e "/set(PLUGIN_INSTALL_DIR/ c set(PLUGIN_INSTALL_DIR \"$qtPluginPrefix/..\")"
+      sed -i cmake/FindPhononInternal.cmake \
+          -e "/set(PLUGIN_INSTALL_DIR/ c set(PLUGIN_INSTALL_DIR \"$qtPluginPrefix/..\")"
     ''}
 
     sed -i CMakeLists.txt \

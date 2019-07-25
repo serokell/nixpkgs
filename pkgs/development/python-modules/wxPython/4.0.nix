@@ -1,16 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pkgconfig
-, gtk3
-, libjpeg
-, libtiff
-, SDL
-, gst-plugins-base
-, libnotify
-, freeglut
-, xorg
-, which
+{ lib, buildPythonPackage, fetchPypi, pkgconfig, gtk3, libjpeg, libtiff, SDL, gst-plugins-base, libnotify, freeglut, xorg, which
 }:
 
 buildPythonPackage rec {
@@ -22,19 +10,23 @@ buildPythonPackage rec {
     sha256 = "35cc8ae9dd5246e2c9861bb796026bbcb9fb083e4d49650f776622171ecdab37";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-  ];
+  nativeBuildInputs = [ pkgconfig ];
 
   buildInputs = [
-    gtk3 libjpeg libtiff SDL gst-plugins-base libnotify freeglut xorg.libSM
+    gtk3
+    libjpeg
+    libtiff
+    SDL
+    gst-plugins-base
+    libnotify
+    freeglut
+    xorg.libSM
     which
   ];
 
-
   meta = {
     description = "Cross platform GUI toolkit for Python, Phoenix version";
-    homepage = http://wxpython.org/;
+    homepage = "http://wxpython.org/";
     license = lib.licenses.wxWindows;
   };
 

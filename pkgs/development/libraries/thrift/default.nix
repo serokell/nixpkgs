@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, boost, zlib, libevent, openssl, python, pkgconfig, bison
-, flex, twisted
+{ stdenv, fetchurl, boost, zlib, libevent, openssl, python, pkgconfig, bison, flex, twisted
 }:
 
 stdenv.mkDerivation rec {
@@ -15,12 +14,10 @@ stdenv.mkDerivation rec {
 
   # Workaround to make the python wrapper not drop this package:
   # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
-  pythonPath = [];
+  pythonPath = [ ];
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    boost zlib libevent openssl python bison flex twisted
-  ];
+  buildInputs = [ boost zlib libevent openssl python bison flex twisted ];
 
   preConfigure = "export PY_PREFIX=$out";
 
@@ -31,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Library for scalable cross-language services";
-    homepage = http://thrift.apache.org/;
+    homepage = "http://thrift.apache.org/";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.bjornfor ];

@@ -1,7 +1,6 @@
 { lib, fetchFromGitHub }:
 
-let
-  version = "2016-08-30";
+let version = "2016-08-30";
 in fetchFromGitHub {
   name = "raleway-${version}";
 
@@ -34,7 +33,7 @@ in fetchFromGitHub {
       It also has a sister display family, Raleway Dots.
     '';
 
-    homepage = https://github.com/impallari/Raleway;
+    homepage = "https://github.com/impallari/Raleway";
     license = lib.licenses.ofl;
 
     maintainers = with lib.maintainers; [ Profpatsch ];

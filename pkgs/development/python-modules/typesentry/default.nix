@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, colorama
-, pytest
-, pytestcov
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, colorama, pytest, pytestcov }:
 
 buildPythonPackage rec {
   pname = "typesentry";

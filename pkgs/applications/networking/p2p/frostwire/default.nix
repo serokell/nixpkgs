@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, gradle, perl, jre, makeWrapper, makeDesktopItem, mplayer }:
+{ stdenv, fetchFromGitHub, gradle, perl, jre, makeWrapper, makeDesktopItem, mplayer
+}:
 
 let
   version = "6.6.7-build-529";
@@ -72,11 +73,15 @@ in stdenv.mkDerivation {
 
     cp desktop/build/libs/frostwire.jar $out/share/java/frostwire.jar
 
-    cp ${ { x86_64-darwin = "desktop/lib/native/*.dylib";
-            x86_64-linux  = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}.so";
-            i686-linux    = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
-          }.${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
-        } $out/lib
+    cp ${
+      {
+        x86_64-darwin = "desktop/lib/native/*.dylib";
+        x86_64-linux = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}.so";
+        i686-linux =
+          "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
+      }.${stdenv.hostPlatform.system} or (throw
+      "unsupported system ${stdenv.hostPlatform.system}")
+    } $out/lib
 
     cp -dpR ${desktopItem}/share $out
 
@@ -85,7 +90,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.frostwire.com/;
+    homepage = "https://www.frostwire.com/";
     description = "BitTorrent Client and Cloud File Downloader";
     license = licenses.gpl2;
     maintainers = with maintainers; [ gavin ];

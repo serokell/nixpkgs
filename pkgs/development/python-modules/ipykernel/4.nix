@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, isPy27
-, mock
-, ipython
-, jupyter_client
-, pexpect
-, traitlets
-, tornado
+{ lib, buildPythonPackage, fetchPypi, nose, isPy27, mock, ipython, jupyter_client, pexpect, traitlets, tornado
 }:
 
 buildPythonPackage rec {
@@ -21,13 +11,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ nose ] ++ lib.optional isPy27 mock;
-  propagatedBuildInputs = [
-    ipython
-    jupyter_client
-    pexpect
-    traitlets
-    tornado
-  ];
+  propagatedBuildInputs = [ ipython jupyter_client pexpect traitlets tornado ];
 
   # Tests require backends.
   # I don't want to add all supported backends as propagatedBuildInputs
@@ -35,7 +19,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "IPython Kernel for Jupyter";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
   };
 }

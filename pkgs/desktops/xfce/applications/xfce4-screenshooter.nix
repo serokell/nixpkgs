@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, intltool, xfce4-panel, libxfce4util, gtk, libsoup
-, glib-networking, exo, hicolor-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchurl, pkgconfig, intltool, xfce4-panel, libxfce4util, gtk, libsoup, glib-networking, exo, hicolor-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
-  p_name  = "xfce4-screenshooter";
+  p_name = "xfce4-screenshooter";
   ver_maj = "1.8";
   ver_min = "2";
 
@@ -12,16 +12,21 @@ stdenv.mkDerivation rec {
   };
   name = "${p_name}-${ver_maj}.${ver_min}";
 
-  nativeBuildInputs = [
-    pkgconfig intltool wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkgconfig intltool wrapGAppsHook ];
 
   buildInputs = [
-    xfce4-panel libxfce4util gtk libsoup exo hicolor-icon-theme glib-networking
+    xfce4-panel
+    libxfce4util
+    gtk
+    libsoup
+    exo
+    hicolor-icon-theme
+    glib-networking
   ];
 
   meta = {
-    homepage = https://goodies.xfce.org/projects/applications/xfce4-screenshooter;
+    homepage =
+      "https://goodies.xfce.org/projects/applications/xfce4-screenshooter";
     description = "Xfce screenshooter";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;

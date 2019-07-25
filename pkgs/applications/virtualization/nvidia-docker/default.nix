@@ -1,18 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, callPackage, makeWrapper
-, buildGoPackage, runc, glibc }:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, callPackage, makeWrapper, buildGoPackage, runc, glibc
+}:
 
-with lib; let
+with lib;
+let
 
   glibc-ldconf = glibc.overrideAttrs (oldAttrs: {
     # ldconfig needs help reading libraries that have been patchelf-ed, as the
     # .dynstr section is no longer in the first LOAD segment. See also
     # https://sourceware.org/bugzilla/show_bug.cgi?id=23964 and
     # https://github.com/NixOS/patchelf/issues/44
-    patches = oldAttrs.patches ++ [ (fetchpatch {
-      name = "ldconfig-patchelf.patch";
-      url = "https://sourceware.org/bugzilla/attachment.cgi?id=11444";
-      sha256 = "0nzzmq7pli37iyjrgcmvcy92piiwjybpw245ds7q43pbgdm7lc3s";
-    })];
+    patches = oldAttrs.patches ++ [
+      (fetchpatch {
+        name = "ldconfig-patchelf.patch";
+        url = "https://sourceware.org/bugzilla/attachment.cgi?id=11444";
+        sha256 = "0nzzmq7pli37iyjrgcmvcy92piiwjybpw245ds7q43pbgdm7lc3s";
+      })
+    ];
   });
 
   libnvidia-container = callPackage ./libnvc.nix { };
@@ -42,7 +45,9 @@ with lib; let
       rev = "v${version}";
       sha256 = "1jwacb8xnmx5fr86gximhbl9dlbdwj3rpf27hav9q1si86w5pb1j";
     };
-    patches = [ "${nvidia-container-runtime}/runtime/runc/3f2f8b84a77f73d38244dd690525642a72156c64/0001-Add-prestart-hook-nvidia-container-runtime-hook-to-t.patch" ];
+    patches = [
+      "${nvidia-container-runtime}/runtime/runc/3f2f8b84a77f73d38244dd690525642a72156c64/0001-Add-prestart-hook-nvidia-container-runtime-hook-to-t.patch"
+    ];
   });
 
 in stdenv.mkDerivation rec {
@@ -72,11 +77,13 @@ in stdenv.mkDerivation rec {
     wrapProgram $out/bin/nvidia-container-cli \
       --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:/run/opengl-driver-32/lib
     cp ${./config.toml} $out/etc/config.toml
-    substituteInPlace $out/etc/config.toml --subst-var-by glibcbin ${lib.getBin glibc-ldconf}
+    substituteInPlace $out/etc/config.toml --subst-var-by glibcbin ${
+      lib.getBin glibc-ldconf
+    }
   '';
 
   meta = {
-    homepage = https://github.com/NVIDIA/nvidia-docker;
+    homepage = "https://github.com/NVIDIA/nvidia-docker";
     description = "NVIDIA container runtime for Docker";
     license = licenses.bsd3;
     platforms = platforms.linux;

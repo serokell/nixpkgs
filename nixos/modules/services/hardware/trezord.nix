@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.trezord;
+let cfg = config.services.trezord;
 in {
-  
+
   ### interface
 
   options = {
@@ -18,7 +17,7 @@ in {
       };
     };
   };
-  
+
   ### implementation
 
   config = mkIf cfg.enable {
@@ -41,7 +40,7 @@ in {
       description = "TREZOR Bridge";
       after = [ "systemd-udev-settle.service" "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [];
+      path = [ ];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.trezord}/bin/trezord-go";
@@ -54,7 +53,7 @@ in {
       description = "Trezor bridge daemon user";
     };
 
-    users.groups.trezord = {};
+    users.groups.trezord = { };
   };
 }
 

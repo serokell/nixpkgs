@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-, nose
-, pep8
-, pylint
-, mccabe
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, nose, pep8, pylint, mccabe }:
 
 buildPythonPackage rec {
   version = "2.3.0";
@@ -21,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "RabbitMQ Focused AMQP low-level library";
-    homepage = https://pypi.python.org/pypi/pamqp;
+    homepage = "https://pypi.python.org/pypi/pamqp";
     license = licenses.bsd3;
   };
 

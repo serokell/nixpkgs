@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zetup
-, six
-, moretools
-, pathpy
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, zetup, six, moretools, pathpy, pytest }:
 
 buildPythonPackage rec {
   pname = "modeled";
@@ -18,19 +10,11 @@ buildPythonPackage rec {
     sha256 = "64934c68cfcdb75ed4a1ccadcfd5d2a46bf1b8e8e81dde89ef0f042c401e94f1";
   };
 
-  buildInputs = [
-    zetup
-  ];
+  buildInputs = [ zetup ];
 
-  propagatedBuildInputs = [
-    six
-    moretools
-    pathpy
-  ];
+  propagatedBuildInputs = [ six moretools pathpy ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest test
@@ -38,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Universal data modeling for Python";
-    homepage = https://bitbucket.org/userzimmermann/python-modeled;
+    homepage = "https://bitbucket.org/userzimmermann/python-modeled";
     license = licenses.lgpl3;
     maintainers = [ maintainers.costrouc ];
   };

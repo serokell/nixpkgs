@@ -15,8 +15,7 @@ let
     inherit (cfg) dataDir ocrLanguages;
     paperlessPkg = cfg.package;
   };
-in
-{
+in {
   options.services.paperless = {
     enable = mkOption {
       type = lib.types.bool;
@@ -74,7 +73,7 @@ in
 
     extraConfig = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Extra paperless config options.
 
@@ -122,13 +121,13 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.user} - -"
-    ] ++ (optional cfg.consumptionDirIsPublic
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.user} - -" ]
+      ++ (optional cfg.consumptionDirIsPublic
       "d '${cfg.consumptionDir}' 777 ${cfg.user} ${cfg.user} - -"
       # If the consumption dir is not created here, it's automatically created by
       # 'manage' with the default permissions.
-    );
+      );
 
     systemd.services.paperless-consumer = {
       description = "Paperless document consumer";
@@ -158,7 +157,8 @@ in
       description = "Paperless document server";
       serviceConfig = {
         User = cfg.user;
-        ExecStart = "${manage} runserver --noreload ${cfg.address}:${toString cfg.port}";
+        ExecStart =
+          "${manage} runserver --noreload ${cfg.address}:${toString cfg.port}";
         Restart = "always";
       };
       # Bind to `paperless-consumer` so that the server never runs

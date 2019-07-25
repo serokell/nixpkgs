@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, curl, fribidi, rlwrap, gawk, groff, ncurses }:
+{ stdenv, fetchFromGitHub, makeWrapper, curl, fribidi, rlwrap, gawk, groff, ncurses
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -18,19 +19,15 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/trans \
-      --prefix PATH : ${stdenv.lib.makeBinPath [
-        gawk
-        curl
-        ncurses
-        rlwrap
-        groff
-        fribidi
-      ]}
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath [ gawk curl ncurses rlwrap groff fribidi ]
+      }
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.soimort.org/translate-shell;
-    description = "Command-line translator using Google Translate, Bing Translator, Yandex.Translate, and Apertium";
+    homepage = "https://www.soimort.org/translate-shell";
+    description =
+      "Command-line translator using Google Translate, Bing Translator, Yandex.Translate, and Apertium";
     license = licenses.unlicense;
     maintainers = with maintainers; [ ebzzry infinisil ];
     platforms = platforms.unix;

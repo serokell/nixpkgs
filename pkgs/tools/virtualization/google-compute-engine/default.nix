@@ -1,13 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, bash
-, bashInteractive
-, systemd
-, utillinux
-, boto
-, setuptools
-, distro
+{ lib, fetchFromGitHub, buildPythonApplication, bash, bashInteractive, systemd, utillinux, boto, setuptools, distro
 }:
 
 buildPythonApplication rec {

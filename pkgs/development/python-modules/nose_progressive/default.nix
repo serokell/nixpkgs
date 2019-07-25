@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, pillow
-, blessings
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, pillow, blessings, isPy3k }:
 
 buildPythonPackage rec {
   pname = "nose-progressive";
@@ -23,7 +16,7 @@ buildPythonPackage rec {
   doCheck = !isPy3k;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/erikrose/nose-progressive;
+    homepage = "https://github.com/erikrose/nose-progressive";
     description = "A testrunner with a progress bar and smarter tracebacks";
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];

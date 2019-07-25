@@ -13,9 +13,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://www.kotnet.org/~skimo/isl/;
+    homepage = "https://www.kotnet.org/~skimo/isl/";
     license = stdenv.lib.licenses.lgpl21;
-    description = "A library for manipulating sets and relations of integer points bounded by linear constraints";
+    description =
+      "A library for manipulating sets and relations of integer points bounded by linear constraints";
     platforms = stdenv.lib.platforms.all;
   };
 }

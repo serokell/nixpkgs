@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, python2Packages
-, withSFTP ? true
- }:
+{ stdenv, fetchurl, python2Packages, withSFTP ? true }:
 
 python2Packages.buildPythonApplication rec {
   version = "2.7";
@@ -8,14 +6,15 @@ python2Packages.buildPythonApplication rec {
   name = "bazaar-${version}${release}";
 
   src = fetchurl {
-    url = "https://launchpad.net/bzr/${version}/${version}${release}/+download/bzr-${version}${release}.tar.gz";
+    url =
+      "https://launchpad.net/bzr/${version}/${version}${release}/+download/bzr-${version}${release}.tar.gz";
     sha256 = "1cysix5k3wa6y7jjck3ckq3abls4gvz570s0v0hxv805nwki4i8d";
   };
 
   doCheck = false;
 
-  propagatedBuildInputs = []
-  ++ stdenv.lib.optionals withSFTP [ python2Packages.paramiko ];
+  propagatedBuildInputs = [ ]
+    ++ stdenv.lib.optionals withSFTP [ python2Packages.paramiko ];
 
   patches = [
     # Bazaar can't find the certificates alone
@@ -28,7 +27,7 @@ python2Packages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://bazaar-vcs.org/;
+    homepage = "http://bazaar-vcs.org/";
     description = "A distributed version control system that Just Works";
     platforms = platforms.unix;
     license = licenses.gpl2Plus;

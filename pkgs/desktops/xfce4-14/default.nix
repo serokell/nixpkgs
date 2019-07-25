@@ -1,10 +1,9 @@
 { lib, makeSetupHook, newScope, gnome3, gst_all_1 }:
 
-let
-  inherit (lib) makeScope;
-in
+let inherit (lib) makeScope;
 
-makeScope newScope (self: with self; {
+in makeScope newScope (self:
+with self; {
   mkXfceDerivation = callPackage ./mkXfceDerivation.nix { };
 
   automakeAddFlags = makeSetupHook { } ./automakeAddFlags.sh;
@@ -51,9 +50,7 @@ makeScope newScope (self: with self; {
   xfce4-clipman-plugin = callPackage ./xfce4-clipman-plugin { };
 
   xfce4-dev-tools = callPackage ./xfce4-dev-tools {
-    mkXfceDerivation = mkXfceDerivation.override {
-      xfce4-dev-tools = null;
-    };
+    mkXfceDerivation = mkXfceDerivation.override { xfce4-dev-tools = null; };
   };
 
   xfce4-dict = callPackage ./xfce4-dict { };
@@ -70,9 +67,8 @@ makeScope newScope (self: with self; {
 
   xfce4-pulseaudio-plugin = callPackage ./xfce4-pulseaudio-plugin { };
 
-  xfce4-screenshooter = callPackage ./xfce4-screenshooter {
-    inherit (gnome3) libsoup;
-  };
+  xfce4-screenshooter =
+    callPackage ./xfce4-screenshooter { inherit (gnome3) libsoup; };
 
   xfce4-session = callPackage ./xfce4-session { };
   xinitrc = "${xfce4-session}/etc/xdg/xfce4/xinitrc";
@@ -93,21 +89,27 @@ makeScope newScope (self: with self; {
 
   ## COMMON PARTS WITH XFCE 4.12
 
-  gtk-xfce-engine = callPackage ../xfce/core/gtk-xfce-engine.nix { withGtk3 = false; };
+  gtk-xfce-engine =
+    callPackage ../xfce/core/gtk-xfce-engine.nix { withGtk3 = false; };
 
   xfce4-icon-theme = callPackage ../xfce/art/xfce4-icon-theme.nix { };
 
   xfwm4-themes = callPackage ../xfce/art/xfwm4-themes.nix { };
 
-  xfce4-embed-plugin = callPackage ../xfce/panel-plugins/xfce4-embed-plugin.nix { };
+  xfce4-embed-plugin =
+    callPackage ../xfce/panel-plugins/xfce4-embed-plugin.nix { };
 
-  xfce4-hardware-monitor-plugin = callPackage ../xfce/panel-plugins/xfce4-hardware-monitor-plugin.nix { };
+  xfce4-hardware-monitor-plugin =
+    callPackage ../xfce/panel-plugins/xfce4-hardware-monitor-plugin.nix { };
 
   ## THIRD PARTY PLIGINS
 
-  xfce4-dockbarx-plugin = callPackage ../xfce/panel-plugins/xfce4-dockbarx-plugin.nix { };
+  xfce4-dockbarx-plugin =
+    callPackage ../xfce/panel-plugins/xfce4-dockbarx-plugin.nix { };
 
-  xfce4-namebar-plugin = callPackage ../xfce/panel-plugins/xfce4-namebar-plugin.nix { };
+  xfce4-namebar-plugin =
+    callPackage ../xfce/panel-plugins/xfce4-namebar-plugin.nix { };
 
-  xfce4-windowck-plugin = callPackage ../xfce/panel-plugins/xfce4-windowck-plugin.nix { };
+  xfce4-windowck-plugin =
+    callPackage ../xfce/panel-plugins/xfce4-windowck-plugin.nix { };
 })

@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, curl, xorg, avahi, qtbase, mkDerivation,
-  avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; }
-}:
+{ stdenv, fetchFromGitHub, cmake, curl, xorg, avahi, qtbase, mkDerivation, avahiWithLibdnssdCompat ?
+  avahi.override { withLibdnssdCompat = true; } }:
 
 mkDerivation rec {
   pname = "barrier";
@@ -13,7 +12,15 @@ mkDerivation rec {
     sha256 = "1fy7xjwqyisapf8wv50gwpbgbv5b4ldf7766w453h5iw10d18kh0";
   };
 
-  buildInputs = [ cmake curl xorg.libX11 xorg.libXext xorg.libXtst avahiWithLibdnssdCompat qtbase ];
+  buildInputs = [
+    cmake
+    curl
+    xorg.libX11
+    xorg.libXext
+    xorg.libXtst
+    avahiWithLibdnssdCompat
+    qtbase
+  ];
 
   postFixup = ''
     substituteInPlace "$out/share/applications/barrier.desktop" --replace "Exec=barrier" "Exec=$out/bin/barrier"
@@ -26,8 +33,8 @@ mkDerivation rec {
       Synergy was a commercialized reimplementation of the original
       CosmoSynergy written by Chris Schoeneman.
     '';
-    homepage = https://github.com/debauchee/barrier;
-    downloadPage = https://github.com/debauchee/barrier/releases;
+    homepage = "https://github.com/debauchee/barrier";
+    downloadPage = "https://github.com/debauchee/barrier/releases";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.phryneas ];
     platforms = stdenv.lib.platforms.linux;

@@ -1,20 +1,17 @@
-{ stdenv, config, fetchurl, pkgconfig
-, libGLSupported ? stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
-, openglSupport ? libGLSupported, libGL
-, alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, alsaLib
-, x11Support ? !stdenv.isCygwin && !stdenv.hostPlatform.isAndroid
-, libX11, xorgproto, libICE, libXi, libXScrnSaver, libXcursor
-, libXinerama, libXext, libXxf86vm, libXrandr
-, waylandSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, wayland, wayland-protocols, libxkbcommon
-, dbusSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, dbus
-, udevSupport ? false, udev
-, ibusSupport ? false, ibus
-, fcitxSupport ? false, fcitx
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid
-, libpulseaudio
-, AudioUnit, Cocoa, CoreAudio, CoreServices, ForceFeedback, OpenGL
-, audiofile, libiconv
+{ stdenv, config, fetchurl, pkgconfig, libGLSupported ?
+  stdenv.lib.elem stdenv.hostPlatform.system
+  stdenv.lib.platforms.mesaPlatforms, openglSupport ?
+    libGLSupported, libGL, alsaSupport ? stdenv.isLinux
+      && !stdenv.hostPlatform.isAndroid, alsaLib, x11Support ? !stdenv.isCygwin
+        && !stdenv.hostPlatform.isAndroid, libX11, xorgproto, libICE, libXi, libXScrnSaver, libXcursor, libXinerama, libXext, libXxf86vm, libXrandr, waylandSupport ?
+          stdenv.isLinux
+          && !stdenv.hostPlatform.isAndroid, wayland, wayland-protocols, libxkbcommon, dbusSupport ?
+            stdenv.isLinux
+            && !stdenv.hostPlatform.isAndroid, dbus, udevSupport ?
+              false, udev, ibusSupport ? false, ibus, fcitxSupport ?
+                false, fcitx, pulseaudioSupport ?
+                  config.pulseaudio or stdenv.isLinux
+                  && !stdenv.hostPlatform.isAndroid, libpulseaudio, AudioUnit, Cocoa, CoreAudio, CoreServices, ForceFeedback, OpenGL, audiofile, libiconv
 }:
 
 # NOTE: When editing this expression see if the same change applies to
@@ -46,25 +43,34 @@ stdenv.mkDerivation rec {
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
     ++ optionals x11Support [ libX11 xorgproto ];
 
-  dlopenBuildInputs = [ ]
-    ++ optionals  alsaSupport [ alsaLib audiofile ]
-    ++ optional  dbusSupport dbus
-    ++ optional  pulseaudioSupport libpulseaudio
-    ++ optional  udevSupport udev
+  dlopenBuildInputs = [ ] ++ optionals alsaSupport [ alsaLib audiofile ]
+    ++ optional dbusSupport dbus ++ optional pulseaudioSupport libpulseaudio
+    ++ optional udevSupport udev
     ++ optionals waylandSupport [ wayland wayland-protocols libxkbcommon ]
-    ++ optionals x11Support [ libICE libXi libXScrnSaver libXcursor libXinerama libXext libXrandr libXxf86vm ];
+    ++ optionals x11Support [
+      libICE
+      libXi
+      libXScrnSaver
+      libXcursor
+      libXinerama
+      libXext
+      libXrandr
+      libXxf86vm
+    ];
 
-  buildInputs = [ libiconv ]
-    ++ dlopenBuildInputs
-    ++ optional  ibusSupport ibus
-    ++ optional  fcitxSupport fcitx
-    ++ optionals stdenv.isDarwin [ AudioUnit Cocoa CoreAudio CoreServices ForceFeedback OpenGL ];
+  buildInputs = [ libiconv ] ++ dlopenBuildInputs ++ optional ibusSupport ibus
+    ++ optional fcitxSupport fcitx ++ optionals stdenv.isDarwin [
+      AudioUnit
+      Cocoa
+      CoreAudio
+      CoreServices
+      ForceFeedback
+      OpenGL
+    ];
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--disable-oss"
-  ] ++ optional (!x11Support) "--without-x"
+  configureFlags = [ "--disable-oss" ] ++ optional (!x11Support) "--without-x"
     ++ optional alsaSupport "--with-alsa-prefix=${alsaLib.out}/lib"
     ++ optional stdenv.isDarwin "--disable-sdltest";
 
@@ -89,13 +95,13 @@ stdenv.mkDerivation rec {
   # list the symbols used in this way.
   postFixup = let
     rpath = makeLibraryPath (dlopenPropagatedBuildInputs ++ dlopenBuildInputs);
-  in optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
-    for lib in $out/lib/*.so* ; do
-      if ! [[ -L "$lib" ]]; then
-        patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
-      fi
-    done
-  '';
+    in optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
+      for lib in $out/lib/*.so* ; do
+        if ! [[ -L "$lib" ]]; then
+          patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
+        fi
+      done
+    '';
 
   setupHook = ./setup-hook.sh;
 
@@ -103,7 +109,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A cross-platform multimedia library";
-    homepage = http://www.libsdl.org/;
+    homepage = "http://www.libsdl.org/";
     license = licenses.zlib;
     platforms = platforms.all;
     maintainers = with maintainers; [ cpages ];

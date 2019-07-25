@@ -1,14 +1,10 @@
-{ config, stdenv, fetchurl, gettext, meson, ninja, pkgconfig, perl, python3, glibcLocales
-, libiconv, zlib, libffi, pcre, libelf, gnome3, libselinux, bash, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45
+{ config, stdenv, fetchurl, gettext, meson, ninja, pkgconfig, perl, python3, glibcLocales, libiconv, zlib, libffi, pcre, libelf, gnome3, libselinux, bash, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45
 # use utillinuxMinimal to avoid circular dependency (utillinux, systemd, glib)
-, utillinuxMinimal ? null
-, buildPackages
+, utillinuxMinimal ? null, buildPackages
 
 # this is just for tests (not in the closure of any regular package)
-, doCheck ? config.doCheckByDefault or false
-, coreutils, dbus, libxml2, tzdata
-, desktop-file-utils, shared-mime-info
-, darwin
+, doCheck ?
+  config.doCheckByDefault or false, coreutils, dbus, libxml2, tzdata, desktop-file-utils, shared-mime-info, darwin
 }:
 
 with stdenv.lib;
@@ -24,12 +20,11 @@ assert stdenv.isLinux -> utillinuxMinimal != null;
 #     Possible solution: disable compilation of this example somehow
 #     Reminder: add 'sed -e 's@python2\.[0-9]@python@' -i
 #       $out/bin/gtester-report' to postInstall if this is solved
-/*
-  * Use --enable-installed-tests for GNOME-related packages,
-      and use them as a separately installed tests runned by Hydra
-      (they should test an already installed package)
-      https://wiki.gnome.org/GnomeGoals/InstalledTests
-  * Support org.freedesktop.Application, including D-Bus activation from desktop files
+/* * Use --enable-installed-tests for GNOME-related packages,
+       and use them as a separately installed tests runned by Hydra
+       (they should test an already installed package)
+       https://wiki.gnome.org/GnomeGoals/InstalledTests
+   * Support org.freedesktop.Application, including D-Bus activation from desktop files
 */
 let
   # Some packages don't get "Cflags" from pkgconfig correctly
@@ -45,15 +40,17 @@ let
     ln -sr -t "''${!outputInclude}/include/" "''${!outputInclude}"/lib/*/include/* 2>/dev/null || true
   '';
 
-  binPrograms = optional (!stdenv.isDarwin) "gapplication" ++ [ "gdbus" "gio" "gsettings" ];
+  binPrograms = optional (!stdenv.isDarwin) "gapplication"
+    ++ [ "gdbus" "gio" "gsettings" ];
   version = "2.60.3";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "glib-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/glib/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/glib/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1fb0nx9fcmic8rsh0fbp79lqpasfjxljvnshbw2hsya51mb0vaq4";
   };
 
@@ -74,17 +71,34 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   buildInputs = [
-    libelf setupHook pcre
-    bash gnum4 # install glib-gettextize and m4 macros for other apps to use
+    libelf
+    setupHook
+    pcre
+    bash
+    gnum4 # install glib-gettextize and m4 macros for other apps to use
   ] ++ optionals stdenv.isLinux [
     libselinux
     utillinuxMinimal # for libmount
   ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    AppKit Carbon Cocoa CoreFoundation CoreServices Foundation
+    AppKit
+    Carbon
+    Cocoa
+    CoreFoundation
+    CoreServices
+    Foundation
   ]);
 
   nativeBuildInputs = [
-    meson ninja pkgconfig perl python3 gettext gtk-doc docbook_xsl docbook_xml_dtd_45 glibcLocales
+    meson
+    ninja
+    pkgconfig
+    perl
+    python3
+    gettext
+    gtk-doc
+    docbook_xsl
+    docbook_xml_dtd_45
+    glibcLocales
   ];
 
   propagatedBuildInputs = [ zlib libffi gettext libiconv ];
@@ -92,7 +106,9 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     # Avoid the need for gobject introspection binaries in PATH in cross-compiling case.
     # Instead we just copy them over from the native output.
-    "-Dgtk_doc=${if stdenv.hostPlatform == stdenv.buildPlatform then "true" else "false"}"
+    "-Dgtk_doc=${
+      if stdenv.hostPlatform == stdenv.buildPlatform then "true" else "false"
+    }"
     "-Dnls=enabled"
   ];
 
@@ -177,10 +193,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "C library of programming buildings blocks";
-    homepage    = https://www.gtk.org/;
-    license     = licenses.lgpl21Plus;
+    homepage = "https://www.gtk.org/";
+    license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ lovek323 raskin ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
 
     longDescription = ''
       GLib provides the core application building blocks for libraries

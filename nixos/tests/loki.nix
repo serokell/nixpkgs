@@ -3,9 +3,7 @@ import ./make-test.nix ({ lib, pkgs, ... }:
 {
   name = "loki";
 
-  meta = with lib.maintainers; {
-    maintainers = [ willibutz ];
-  };
+  meta = with lib.maintainers; { maintainers = [ willibutz ]; };
 
   machine = { ... }: {
     services.loki = {

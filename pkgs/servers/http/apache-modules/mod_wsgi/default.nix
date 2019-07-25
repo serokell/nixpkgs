@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "4.6.7";
 
   src = fetchurl {
-    url = "https://github.com/GrahamDumpleton/mod_wsgi/archive/${version}.tar.gz";
+    url =
+      "https://github.com/GrahamDumpleton/mod_wsgi/archive/${version}.tar.gz";
     sha256 = "1j8pqn0xhd502ardlmkqx8y85s1npmk9nifqps60wjh29nny03f2";
   };
 
@@ -18,8 +19,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/GrahamDumpleton/mod_wsgi;
-    description = "Host Python applications in Apache through the WSGI interface";
+    homepage = "https://github.com/GrahamDumpleton/mod_wsgi";
+    description =
+      "Host Python applications in Apache through the WSGI interface";
     license = stdenv.lib.licenses.asl20;
     platforms = stdenv.lib.platforms.linux;
   };

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "ib-controller-${version}";
 
   src = fetchurl {
-    url = "https://github.com/ib-controller/ib-controller/archive/${version}.tar.gz";
+    url =
+      "https://github.com/ib-controller/ib-controller/archive/${version}.tar.gz";
     sha256 = "17a8bcgg9z3b4y38k035hm2lgvhmf8srlz59c7n2q3fdw2i95i68";
   };
 
@@ -149,12 +150,12 @@ stdenv.mkDerivation rec {
     fi
     EOF
     chmod u+x $out/bin/ib-gw-c
-    '';
-
+  '';
 
   meta = with stdenv.lib; {
-    description = "Automation Controller for the Trader Work Station of Interactive Brokers";
-    homepage = https://github.com/ib-controller/ib-controller;
+    description =
+      "Automation Controller for the Trader Work Station of Interactive Brokers";
+    homepage = "https://github.com/ib-controller/ib-controller";
     license = licenses.gpl3;
     maintainers = [ maintainers.tstrobel ];
     platforms = platforms.linux;

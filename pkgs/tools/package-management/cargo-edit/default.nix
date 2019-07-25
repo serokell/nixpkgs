@@ -1,6 +1,4 @@
-{ stdenv, lib, darwin
-, rustPlatform, fetchFromGitHub
-, openssl, pkgconfig }:
+{ stdenv, lib, darwin, rustPlatform, fetchFromGitHub, openssl, pkgconfig }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-edit";
@@ -17,11 +15,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optional (!stdenv.isDarwin) pkgconfig;
   buildInputs = lib.optional (!stdenv.isDarwin) openssl;
-  propagatedBuildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  propagatedBuildInputs =
+    lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   meta = with lib; {
-    description = "A utility for managing cargo dependencies from the command line";
-    homepage = https://github.com/killercup/cargo-edit;
+    description =
+      "A utility for managing cargo dependencies from the command line";
+    homepage = "https://github.com/killercup/cargo-edit";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ gerschtli jb55 ];
     platforms = platforms.all;

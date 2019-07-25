@@ -8,9 +8,10 @@ appleDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "Impure primitive symlinks to the Mac OS native dyld, along with headers";
+    description =
+      "Impure primitive symlinks to the Mac OS native dyld, along with headers";
     maintainers = with maintainers; [ copumpkin ];
-    platforms   = platforms.darwin;
-    license     = licenses.apsl20;
+    platforms = platforms.darwin;
+    license = licenses.apsl20;
   };
 }

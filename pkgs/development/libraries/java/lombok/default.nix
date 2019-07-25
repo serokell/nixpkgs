@@ -14,10 +14,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A library that can write a lot of boilerplate for your Java project";
+    description =
+      "A library that can write a lot of boilerplate for your Java project";
     platforms = stdenv.lib.platforms.all;
     license = stdenv.lib.licenses.mit;
-    homepage = https://projectlombok.org/;
+    homepage = "https://projectlombok.org/";
     maintainers = [ stdenv.lib.maintainers.CrystalGamma ];
   };
 }

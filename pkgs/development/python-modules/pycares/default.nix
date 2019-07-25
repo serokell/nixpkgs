@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, c-ares
-, cffi
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, c-ares, cffi }:
 
 buildPythonPackage rec {
   pname = "pycares";
@@ -27,7 +21,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/saghul/pycares;
+    homepage = "https://github.com/saghul/pycares";
     description = "Interface for c-ares";
     license = licenses.mit;
   };

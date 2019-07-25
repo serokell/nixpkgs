@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   patches = [ ./nix.patch ];
   enableParallelBuilding = true;
   meta = {
-    description = "Quick, precise tests for entire TCP/UDP/IPv4/IPv6 network stacks";
-    homepage = https://github.com/google/packetdrill;
+    description =
+      "Quick, precise tests for entire TCP/UDP/IPv4/IPv6 network stacks";
+    homepage = "https://github.com/google/packetdrill";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ dmjio cleverca22 ];

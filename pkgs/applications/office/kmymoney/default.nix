@@ -1,9 +1,6 @@
-{ stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools
-, wrapQtAppsHook
+{ stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools, wrapQtAppsHook
 
-, akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive
-, kcmutils, kcontacts, kdewebkit, kdiagram, kholidays, kidentitymanagement
-, kitemmodels, libical, libofx, qgpgme
+, akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive, kcmutils, kcontacts, kdewebkit, kdiagram, kholidays, kidentitymanagement, kitemmodels, libical, libofx, qgpgme
 
 , sqlcipher
 
@@ -11,8 +8,7 @@
 , qtbase, xvfb_run
 
 # For weboob, which only supports Python 2.x:
-, python2Packages
-}:
+, python2Packages }:
 
 stdenv.mkDerivation rec {
   name = "kmymoney-${version}";
@@ -29,14 +25,32 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [
-    doxygen extra-cmake-modules graphviz kdoctools python2Packages.wrapPython
+    doxygen
+    extra-cmake-modules
+    graphviz
+    kdoctools
+    python2Packages.wrapPython
     wrapQtAppsHook
   ];
 
   buildInputs = [
-    akonadi alkimia aqbanking gmp gwenhywfar kactivities karchive kcmutils
-    kcontacts kdewebkit kdiagram kholidays kidentitymanagement kitemmodels
-    libical libofx qgpgme
+    akonadi
+    alkimia
+    aqbanking
+    gmp
+    gwenhywfar
+    kactivities
+    karchive
+    kcmutils
+    kcontacts
+    kdewebkit
+    kdiagram
+    kholidays
+    kidentitymanagement
+    kitemmodels
+    libical
+    libofx
+    qgpgme
     sqlcipher
 
     # Put it into buildInputs so that CMake can find it, even though we patch
@@ -59,15 +73,14 @@ stdenv.mkDerivation rec {
 
   doInstallCheck = stdenv.hostPlatform == stdenv.buildPlatform;
   installCheckInputs = [ xvfb_run ];
-  installCheckPhase =
-    lib.optionalString doInstallCheck ''
-      xvfb-run -s '-screen 0 1024x768x24' make test \
-        ARGS="-E '(reports-chart-test)'" # Test fails, so exclude it for now.
-    '';
+  installCheckPhase = lib.optionalString doInstallCheck ''
+    xvfb-run -s '-screen 0 1024x768x24' make test \
+      ARGS="-E '(reports-chart-test)'" # Test fails, so exclude it for now.
+  '';
 
   meta = {
     description = "Personal finance manager for KDE";
-    homepage = https://kmymoney.org/;
+    homepage = "https://kmymoney.org/";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

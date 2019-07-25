@@ -1,14 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, gmp
-, mpfr
-, libmpc
-, ppl
-, cython
-, cysignals
-, gmpy2
-, sphinx
+{ lib, fetchPypi, buildPythonPackage, gmp, mpfr, libmpc, ppl, cython, cysignals, gmpy2, sphinx
 }:
 
 buildPythonPackage rec {
@@ -20,22 +10,13 @@ buildPythonPackage rec {
     sha256 = "0dk8l5r3f2jbkkasddvxwvhlq35pjsiirh801lrapv8lb16r2qmr";
   };
 
-  buildInputs = [
-    gmp
-    mpfr
-    libmpc
-    ppl
-  ];
+  buildInputs = [ gmp mpfr libmpc ppl ];
 
   nativeBuildInputs = [
     sphinx # docbuild, called by make
   ];
 
-  propagatedBuildInputs = [
-    cython
-    cysignals
-    gmpy2
-  ];
+  propagatedBuildInputs = [ cython cysignals gmpy2 ];
 
   outputs = [ "out" "doc" ];
 
@@ -55,7 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A Python wrapper for ppl";
-    homepage = https://gitlab.com/videlec/pplpy;
+    homepage = "https://gitlab.com/videlec/pplpy";
     maintainers = with maintainers; [ timokau ];
     license = licenses.gpl3;
   };

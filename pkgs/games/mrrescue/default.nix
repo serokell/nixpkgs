@@ -13,19 +13,18 @@ let
     name = "mrrescue";
     exec = "${pname}";
     icon = "${icon}";
-    comment = "Arcade-style fire fighting game"; 
+    comment = "Arcade-style fire fighting game";
     desktopName = "Mr. Rescue";
     genericName = "mrrescue";
     categories = "Game;";
   };
 
-in 
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-${version}.love";
+    url =
+      "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-${version}.love";
     sha256 = "0kzahxrgpb4vsk9yavy7f8nc34d62d1jqjrpsxslmy9ywax4yfpi";
   };
 
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
 
   phases = "installPhase";
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/games/lovegames
 
@@ -53,7 +51,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;
     license = licenses.zlib;
-    downloadPage = http://tangramgames.dk/games/mrrescue;
+    downloadPage = "http://tangramgames.dk/games/mrrescue";
   };
 
 }

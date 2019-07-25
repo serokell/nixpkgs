@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
-, scipy, numpy, matplotlib, tables, pyaml, urllib3, rpy2, mpi4py }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, scipy, numpy, matplotlib, tables, pyaml, urllib3, rpy2, mpi4py
+}:
 
 buildPythonPackage rec {
   pname = "NeuroTools";
@@ -15,20 +15,12 @@ buildPythonPackage rec {
   # Many tests fail (using py.test), and some need R
   doCheck = false;
 
-  propagatedBuildInputs = [
-    scipy
-    numpy
-    matplotlib
-    tables
-    pyaml
-    urllib3
-    rpy2
-    mpi4py
-  ];
+  propagatedBuildInputs =
+    [ scipy numpy matplotlib tables pyaml urllib3 rpy2 mpi4py ];
 
   meta = with stdenv.lib; {
     description = "Collection of tools to support analysis of neural activity";
-    homepage = https://pypi.python.org/pypi/NeuroTools;
+    homepage = "https://pypi.python.org/pypi/NeuroTools";
     license = licenses.gpl2;
     maintainers = with maintainers; [ nico202 ];
   };

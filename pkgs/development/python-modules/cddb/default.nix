@@ -1,14 +1,11 @@
-{ stdenv
-, buildPythonPackage
-, pkgs
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, pkgs, isPy3k }:
 
 buildPythonPackage rec {
   name = "CDDB-1.4";
   disabled = isPy3k;
 
-  buildInputs = stdenv.lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.IOKit ];
+  buildInputs = stdenv.lib.optionals stdenv.isDarwin
+    [ pkgs.darwin.apple_sdk.frameworks.IOKit ];
 
   src = pkgs.fetchurl {
     url = "http://cddb-py.sourceforge.net/${name}.tar.gz";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://cddb-py.sourceforge.net/;
+    homepage = "http://cddb-py.sourceforge.net/";
     description = "CDDB and FreeDB audio CD track info access";
     license = licenses.gpl2Plus;
   };

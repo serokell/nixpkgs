@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.programs.vim;
+let cfg = config.programs.vim;
 in {
   options.programs.vim = {
     defaultEditor = mkOption {
@@ -17,7 +16,7 @@ in {
   };
 
   config = mkIf cfg.defaultEditor {
-        environment.systemPackages = [ pkgs.vim ];
-        environment.variables = { EDITOR = mkOverride 900 "vim"; };
+    environment.systemPackages = [ pkgs.vim ];
+    environment.variables = { EDITOR = mkOverride 900 "vim"; };
   };
 }

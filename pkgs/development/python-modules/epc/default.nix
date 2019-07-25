@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, sexpdata
-}:
+{ stdenv, buildPythonPackage, fetchPypi, sexpdata }:
 
 buildPythonPackage rec {
   pname = "epc";

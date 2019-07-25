@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja
-, pkgconfig, vala, libgee, granite, gtk3, switchboard }:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, switchboard
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-applications";
@@ -12,31 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "1c4agff456625kycacpsww7c9jsnsg1rqps96r7cvn9zq371b5ir";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    switchboard
-  ];
+  buildInputs = [ granite gtk3 libgee switchboard ];
 
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
   meta = with stdenv.lib; {
     description = "Switchboard Applications Plug";
-    homepage = https://github.com/elementary/switchboard-plug-applications;
+    homepage = "https://github.com/elementary/switchboard-plug-applications";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

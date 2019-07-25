@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtx11extras, qtsvg, kwindowsystem, liblxqt, libqtxdg, sudo }:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtx11extras, qtsvg, kwindowsystem, liblxqt, libqtxdg, sudo
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-sudo";
@@ -11,21 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "1my0wpic20493rdlabp9ghag1g3nhwafk2yklkgczlajmarakgpc";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
-  buildInputs = [
-    qtbase
-    qttools
-    qtx11extras
-    qtsvg
-    kwindowsystem
-    liblxqt
-    libqtxdg
-    sudo
-  ];
+  buildInputs =
+    [ qtbase qttools qtx11extras qtsvg kwindowsystem liblxqt libqtxdg sudo ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -34,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GUI frontend for sudo/su";
-    homepage = https://github.com/lxqt/lxqt-sudo;
+    homepage = "https://github.com/lxqt/lxqt-sudo";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

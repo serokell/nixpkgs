@@ -18,14 +18,13 @@ let
   spawnBar = ''
     util.program.spawn_at_startup("lemonbar");
   '';
-in
-{
+in {
   options.programs.way-cooler = {
     enable = mkEnableOption "way-cooler";
 
     extraSessionCommands = mkOption {
-      default     = "";
-      type        = types.lines;
+      default = "";
+      type = types.lines;
       example = ''
         export XKB_DEFAULT_LAYOUT=us,de
         export XKB_DEFAULT_VARIANT=,nodeadkeys
@@ -38,9 +37,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [
-        westonLite xwayland dmenu
-      ];
+      default = with pkgs; [ westonLite xwayland dmenu ];
       example = literalExample ''
         with pkgs; [
           westonLite xwayland dmenu
@@ -63,7 +60,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ wcJoined ] ++ cfg.extraPackages;
 
-    security.pam.services.wc-lock = {};
+    security.pam.services.wc-lock = { };
     environment.etc."way-cooler/init.lua".text = ''
       ${configFile}
       ${optionalString cfg.enableBar spawnBar}

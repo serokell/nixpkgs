@@ -11,10 +11,10 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    homepage = https://grothoff.org/christian/doodle/;
+    homepage = "https://grothoff.org/christian/doodle/";
     description = "Tool to quickly index and search documents on a computer";
     license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

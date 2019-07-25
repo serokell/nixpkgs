@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, dnspython
-,  chardet, lmtpd, python-daemon, six, jinja2, mock }:
+{ stdenv, buildPythonPackage, fetchPypi, nose, dnspython, chardet, lmtpd, python-daemon, six, jinja2, mock
+}:
 
 buildPythonPackage rec {
   pname = "salmon-mail";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://salmon-mail.readthedocs.org/;
+    homepage = "https://salmon-mail.readthedocs.org/";
     description = "Pythonic mail application server";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jluttine ];

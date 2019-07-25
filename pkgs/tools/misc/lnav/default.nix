@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pcre-cpp, sqlite, ncurses
-, readline, zlib, bzip2, autoconf, automake, curl }:
+{ stdenv, fetchFromGitHub, pcre-cpp, sqlite, ncurses, readline, zlib, bzip2, autoconf, automake, curl
+}:
 
 stdenv.mkDerivation rec {
 
@@ -13,24 +13,15 @@ stdenv.mkDerivation rec {
     inherit name;
   };
 
-  buildInputs = [
-    autoconf
-    automake
-    zlib
-    bzip2
-    ncurses
-    pcre-cpp
-    readline
-    sqlite
-    curl
-  ];
+  buildInputs =
+    [ autoconf automake zlib bzip2 ncurses pcre-cpp readline sqlite curl ];
 
   preConfigure = ''
     ./autogen.sh
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/tstack/lnav;
+    homepage = "https://github.com/tstack/lnav";
     description = "The Logfile Navigator";
     longDescription = ''
       The log file navigator, lnav, is an enhanced log file viewer that takes

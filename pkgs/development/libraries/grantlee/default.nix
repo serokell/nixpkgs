@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   name = "grantlee-0.5.1";
 
-# Upstream download server has country code firewall, so I made a mirror.
+  # Upstream download server has country code firewall, so I made a mirror.
   src = fetchurl {
     urls = [
       "http://downloads.grantlee.org/${name}.tar.gz"
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       The syntax is intended to follow the syntax of the Django template system,
       and the design of Django is reused in Grantlee.'';
 
-    homepage = http://gitorious.org/grantlee;
+    homepage = "http://gitorious.org/grantlee";
     license = stdenv.lib.licenses.lgpl21;
     inherit (qt4.meta) platforms;
   };

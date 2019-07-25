@@ -1,13 +1,11 @@
-{ stdenv, lib, fetchurl, zip, unzip
-, jzmq, jdk, python
-, confFile ? "", extraLibraryPaths ? [], extraJars ? [] }:
+{ stdenv, lib, fetchurl, zip, unzip, jzmq, jdk, python, confFile ?
+  "", extraLibraryPaths ? [ ], extraJars ? [ ] }:
 
 stdenv.mkDerivation rec {
   name = "apache-storm-" + version;
   version = "1.2.1";
   src = fetchurl {
-    url =
-    "mirror://apache/storm/${name}/${name}.tar.gz";
+    url = "mirror://apache/storm/${name}/${name}.tar.gz";
     sha256 = "177dqgbviagrpvalg8h67mwiwwgmiqsg0hh97hcqqcjg71ypnjkv";
   };
 
@@ -41,22 +39,26 @@ stdenv.mkDerivation rec {
     unzip  $out/lib/storm-core-${version}.jar defaults.yaml;
     zip -d $out/lib/storm-core-${version}.jar defaults.yaml;
     sed -i \
-       -e 's|java.library.path: .*|java.library.path: "${jzmq}/lib:${lib.concatStringsSep ":" extraLibraryPaths}"|' \
+       -e 's|java.library.path: .*|java.library.path: "${jzmq}/lib:${
+      lib.concatStringsSep ":" extraLibraryPaths
+       }"|' \
        -e 's|storm.log4j2.conf.dir: .*|storm.log4j2.conf.dir: "conf/log4j2"|' \
       defaults.yaml
-    ${if confFile != "" then ''cat ${confFile} >> defaults.yaml'' else ""}
+    ${if confFile != "" then "cat ${confFile} >> defaults.yaml" else ""}
     mv defaults.yaml $out/conf;
 
     # Link to jzmq jar and extra jars
     cd $out/lib;
     ln -s ${jzmq}/share/java/*.jar;
-    ${lib.concatMapStrings (jar: "ln -s ${jar};\n") extraJars}
+    ${lib.concatMapStrings (jar: ''
+      ln -s ${jar};
+    '') extraJars}
   '';
 
   dontStrip = true;
 
   meta = with stdenv.lib; {
-    homepage = http://storm.apache.org;
+    homepage = "http://storm.apache.org";
     description = "Distributed realtime computation system";
     license = licenses.asl20;
     maintainers = with maintainers; [ edwtjo vizanto ];

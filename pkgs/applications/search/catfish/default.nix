@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, file, which, intltool, gobject-introspection,
-  findutils, xdg_utils, gnome3, gtk3, pythonPackages, hicolor-icon-theme,
-  wrapGAppsHook
+{ stdenv, fetchurl, file, which, intltool, gobject-introspection, findutils, xdg_utils, gnome3, gtk3, pythonPackages, hicolor-icon-theme, wrapGAppsHook
 }:
 
 pythonPackages.buildPythonApplication rec {
@@ -10,7 +8,8 @@ pythonPackages.buildPythonApplication rec {
   pname = "catfish";
 
   src = fetchurl {
-    url = "https://archive.xfce.org/src/apps/${pname}/${majorver}/${pname}-${version}.tar.bz2";
+    url =
+      "https://archive.xfce.org/src/apps/${pname}/${majorver}/${pname}-${version}.tar.bz2";
     sha256 = "1s97jb1r07ff40jnz8zianpn1f0c67hssn8ywdi2g7njfb4amjj8";
   };
 
@@ -32,12 +31,8 @@ pythonPackages.buildPythonApplication rec {
     hicolor-icon-theme
   ];
 
-  propagatedBuildInputs = [
-    pythonPackages.pygobject3
-    pythonPackages.pexpect
-    xdg_utils
-    findutils
-  ];
+  propagatedBuildInputs =
+    [ pythonPackages.pygobject3 pythonPackages.pexpect xdg_utils findutils ];
 
   # Explicitly set the prefix dir in "setup.py" because setuptools is
   # not using "$out" as the prefix when installing catfish data. In
@@ -52,7 +47,7 @@ pythonPackages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://docs.xfce.org/apps/catfish/start;
+    homepage = "https://docs.xfce.org/apps/catfish/start";
     description = "A handy file search tool";
     longDescription = ''
       Catfish is a handy file searching tool. The interface is

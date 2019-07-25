@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub
-, makeWrapper, which
-, taskwarrior, ncurses, perlPackages }:
+{ stdenv, fetchFromGitHub, makeWrapper, which, taskwarrior, ncurses, perlPackages
+}:
 
 stdenv.mkDerivation rec {
   pname = "vit";

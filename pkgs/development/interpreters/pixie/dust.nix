@@ -16,10 +16,10 @@ stdenv.mkDerivation rec {
       substituteAll dust.in dust
     chmod +x dust
   '';
-# FIXME: AOT for dust
-#  buildPhase = ''
-#    find . -name "*.pxi" -exec pixie-vm -c {} \;
-#  '';
+  # FIXME: AOT for dust
+  #  buildPhase = ''
+  #    find . -name "*.pxi" -exec pixie-vm -c {} \;
+  #  '';
   installPhase = ''
     mkdir -p $out/bin $out/share/dust
     cp -a src/ run.pxi $out/share/dust
@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Provides tooling around pixie, e.g. a nicer repl, running tests and fetching dependencies";
+    description =
+      "Provides tooling around pixie, e.g. a nicer repl, running tests and fetching dependencies";
     homepage = src.meta.homepage;
     license = stdenv.lib.licenses.lgpl3;
     platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;

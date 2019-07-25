@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pagerduty";
@@ -15,7 +11,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/samuel/python-pagerduty;
+    homepage = "https://github.com/samuel/python-pagerduty";
     description = "Library for the PagerDuty service API";
     license = licenses.bsd0;
   };

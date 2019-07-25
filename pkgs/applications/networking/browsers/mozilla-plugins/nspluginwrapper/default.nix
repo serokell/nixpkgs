@@ -1,18 +1,17 @@
-{stdenv, fetchurl, which, pkgconfig, file, glib, gtk2, gtk3, curl, libXt}:
+{ stdenv, fetchurl, which, pkgconfig, file, glib, gtk2, gtk3, curl, libXt }:
 let
-  srcData = # Generated upstream information 
+  srcData = # Generated upstream information
   rec {
-    baseName="nspluginwrapper";
-    version="1.4.4";
-    name="${baseName}-${version}";
-    hash="1fxjz9ifhw0drm12havlsl4jpsq1nv930gqa005kgddv5pa99vgj";
-    url="http://nspluginwrapper.org/download/nspluginwrapper-1.4.4.tar.gz";
+    baseName = "nspluginwrapper";
+    version = "1.4.4";
+    name = "${baseName}-${version}";
+    hash = "1fxjz9ifhw0drm12havlsl4jpsq1nv930gqa005kgddv5pa99vgj";
+    url = "http://nspluginwrapper.org/download/nspluginwrapper-1.4.4.tar.gz";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit (srcData) name version;
 
-  src = fetchurl{
+  src = fetchurl {
     inherit (srcData) url;
     sha256 = srcData.hash;
   };
@@ -25,13 +24,13 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [which file glib gtk2 gtk3 curl libXt];
+  buildInputs = [ which file glib gtk2 gtk3 curl libXt ];
 
   preferLocalBuild = true;
 
   meta = {
-    description = ''A wrapper to run browser plugins out-of-process'';
-    homepage = http://nspluginwrapper.org/;
+    description = "A wrapper to run browser plugins out-of-process";
+    homepage = "http://nspluginwrapper.org/";
     license = stdenv.lib.licenses.gpl2;
     platforms = [ "x64_64-linux" "i686-linux" ];
     maintainers = [ stdenv.lib.maintainers.raskin ];

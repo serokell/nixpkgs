@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, six
-, enum34
-, pathlib
-, ordereddict
-, pythonOlder
+{ stdenv, buildPythonPackage, fetchFromGitHub, pytest, six, enum34, pathlib, ordereddict, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -32,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Scss compiler for Python";
-    homepage = https://pyscss.readthedocs.org/en/latest/;
+    homepage = "https://pyscss.readthedocs.org/en/latest/";
     license = licenses.mit;
   };
 

@@ -4,9 +4,8 @@ assert mountPath != "";
 
 let
   version = "0.5";
-  git = https://github.com/LemonBoy/ldm.git;
-in
-stdenv.mkDerivation rec {
+  git = "https://github.com/LemonBoy/ldm.git";
+in stdenv.mkDerivation rec {
   name = "ldm-${version}";
 
   # There is a stable release, but we'll use the lvm branch, which
@@ -33,7 +32,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A lightweight device mounter, with libudev as only dependency";
+    description =
+      "A lightweight device mounter, with libudev as only dependency";
     license = stdenv.lib.licenses.mit;
 
     platforms = stdenv.lib.platforms.linux;

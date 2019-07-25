@@ -1,9 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, curl
-, json_c
-, pam
-}:
+{ stdenv, fetchFromGitHub, curl, json_c, pam }:
 
 stdenv.mkDerivation rec {
   name = "google-compute-engine-oslogin-${version}";
@@ -26,8 +21,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ curl.dev pam ];
 
-  NIX_CFLAGS_COMPILE="-I${json_c.dev}/include/json-c";
-  NIX_CFLAGS_LINK="-L${json_c}/lib";
+  NIX_CFLAGS_COMPILE = "-I${json_c.dev}/include/json-c";
+  NIX_CFLAGS_LINK = "-L${json_c}/lib";
 
   installPhase = ''
     mkdir -p $out/{bin,lib}
@@ -40,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/GoogleCloudPlatform/compute-image-packages;
+    homepage = "https://github.com/GoogleCloudPlatform/compute-image-packages";
     description = "OS Login Guest Environment for Google Compute Engine";
     license = licenses.asl20;
     maintainers = with maintainers; [ adisbladis flokli ];

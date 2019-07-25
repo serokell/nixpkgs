@@ -1,8 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gtk2, lua, perl, python2
-, libtool, pciutils, dbus-glib, libcanberra-gtk2, libproxy
-, libsexy, enchant1, libnotify, openssl, intltool
-, desktop-file-utils, hicolor-icon-theme
-, autoconf, automake, autoconf-archive
+{ stdenv, fetchFromGitHub, pkgconfig, gtk2, lua, perl, python2, libtool, pciutils, dbus-glib, libcanberra-gtk2, libproxy, libsexy, enchant1, libnotify, openssl, intltool, desktop-file-utils, hicolor-icon-theme, autoconf, automake, autoconf-archive
 }:
 
 stdenv.mkDerivation rec {
@@ -16,14 +12,23 @@ stdenv.mkDerivation rec {
     sha256 = "1z8v7jg1mc2277k3jihnq4rixw1q27305aw6b6rpb1x7vpiy2zr3";
   };
 
-  nativeBuildInputs = [
-    pkgconfig libtool intltool
-    autoconf autoconf-archive automake
-  ];
+  nativeBuildInputs =
+    [ pkgconfig libtool intltool autoconf autoconf-archive automake ];
 
   buildInputs = [
-    gtk2 lua perl python2 pciutils dbus-glib libcanberra-gtk2 libproxy
-    libsexy libnotify openssl desktop-file-utils hicolor-icon-theme
+    gtk2
+    lua
+    perl
+    python2
+    pciutils
+    dbus-glib
+    libcanberra-gtk2
+    libproxy
+    libsexy
+    libnotify
+    openssl
+    desktop-file-utils
+    hicolor-icon-theme
   ];
 
   enableParallelBuilding = true;
@@ -41,7 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A popular and easy to use graphical IRC (chat) client";
-    homepage = https://hexchat.github.io/;
+    homepage = "https://hexchat.github.io/";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

@@ -1,4 +1,5 @@
-{ stdenv, buildPythonApplication, buildPythonPackage, isPy3k, fetchurl, rpkg, offtrac, urlgrabber, pyopenssl, python_fedora }:
+{ stdenv, buildPythonApplication, buildPythonPackage, isPy3k, fetchurl, rpkg, offtrac, urlgrabber, pyopenssl, python_fedora
+}:
 
 let
   fedora_cert = buildPythonPackage rec {
@@ -7,7 +8,8 @@ let
     format = "other";
 
     src = fetchurl {
-      url = "https://releases.pagure.org/fedora-packager/fedora-packager-${version}.tar.bz2";
+      url =
+        "https://releases.pagure.org/fedora-packager/fedora-packager-${version}.tar.bz2";
       sha256 = "02f22072wx1zg3rhyfw6gbxryzcbh66s92nb98mb9kdhxixv6p0z";
     };
     propagatedBuildInputs = [ python_fedora pyopenssl ];
@@ -28,7 +30,7 @@ in buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Subclass of the rpkg project for dealing with rpm packaging";
-    homepage = https://pagure.io/fedpkg;
+    homepage = "https://pagure.io/fedpkg";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];
   };

@@ -1,4 +1,5 @@
-{ docbook_xml_dtd_412, fetchurl, stdenv, perl, python2, zip, xmlto, zlib, fetchpatch }:
+{ docbook_xml_dtd_412, fetchurl, stdenv, perl, python2, zip, xmlto, zlib, fetchpatch
+}:
 
 stdenv.mkDerivation rec {
   name = "zziplib-${version}";
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
 
     license = with licenses; [ lgpl2Plus mpl11 ];
 
-    homepage = http://zziplib.sourceforge.net/;
+    homepage = "http://zziplib.sourceforge.net/";
 
     maintainers = [ ];
     platforms = python2.meta.platforms;

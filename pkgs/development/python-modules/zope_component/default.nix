@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, zope-deferredimport
-, zope_deprecation
-, zope_event
-, zope-hookable
-, zope_interface
-, zope_configuration
-, zope_i18nmessageid
+{ stdenv, buildPythonPackage, fetchPypi, zope-deferredimport, zope_deprecation, zope_event, zope-hookable, zope_interface, zope_configuration, zope_i18nmessageid
 }:
 
 buildPythonPackage rec {
@@ -20,15 +11,20 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    zope-deferredimport zope_deprecation zope_event zope-hookable zope_interface
-    zope_configuration zope_i18nmessageid
+    zope-deferredimport
+    zope_deprecation
+    zope_event
+    zope-hookable
+    zope_interface
+    zope_configuration
+    zope_i18nmessageid
   ];
 
   # ignore tests because of a circular dependency on zope_security
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/zopefoundation/zope.component;
+    homepage = "https://github.com/zopefoundation/zope.component";
     description = "Zope Component Architecture";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];

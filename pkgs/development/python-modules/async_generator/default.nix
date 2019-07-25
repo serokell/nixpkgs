@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, isPy35, pytest, pytest-asyncio }:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, isPy35, pytest, pytest-asyncio
+}:
 
 buildPythonPackage rec {
   pname = "async_generator";
@@ -22,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Async generators and context managers for Python 3.5+";
-    homepage = https://github.com/python-trio/async_generator;
+    homepage = "https://github.com/python-trio/async_generator";
     license = with licenses; [ mit asl20 ];
   };
 }

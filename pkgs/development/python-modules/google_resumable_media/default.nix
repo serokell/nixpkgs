@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, requests
-, pytest
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, requests, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-resumable-media";
@@ -25,7 +18,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Utilities for Google Media Downloads and Resumable Uploads";
-    homepage = https://github.com/GoogleCloudPlatform/google-resumable-media-python;
+    homepage =
+      "https://github.com/GoogleCloudPlatform/google-resumable-media-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

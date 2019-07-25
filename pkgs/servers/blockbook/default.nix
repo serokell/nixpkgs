@@ -1,14 +1,4 @@
-{ buildGoPackage
-, lib
-, fetchFromGitHub
-, rocksdb
-, bzip2
-, zlib
-, packr
-, snappy
-, pkg-config
-, zeromq
-, lz4
+{ buildGoPackage, lib, fetchFromGitHub, rocksdb, bzip2, zlib, packr, snappy, pkg-config, zeromq, lz4
 }:
 
 buildGoPackage rec {

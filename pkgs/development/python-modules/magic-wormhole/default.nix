@@ -1,23 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, spake2
-, pynacl
-, six
-, attrs
-, twisted
-, autobahn
-, automat
-, hkdf
-, tqdm
-, click
-, humanize
-, txtorcon
-, nettools
-, glibcLocales
-, mock
-, magic-wormhole-transit-relay
-, magic-wormhole-mailbox-server
+{ stdenv, buildPythonPackage, fetchPypi, spake2, pynacl, six, attrs, twisted, autobahn, automat, hkdf, tqdm, click, humanize, txtorcon, nettools, glibcLocales, mock, magic-wormhole-transit-relay, magic-wormhole-mailbox-server
 }:
 
 buildPythonPackage rec {
@@ -30,8 +11,22 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ glibcLocales ];
-  propagatedBuildInputs = [ spake2 pynacl six attrs twisted autobahn automat hkdf tqdm click humanize txtorcon ];
-  checkInputs = [ mock magic-wormhole-transit-relay magic-wormhole-mailbox-server ];
+  propagatedBuildInputs = [
+    spake2
+    pynacl
+    six
+    attrs
+    twisted
+    autobahn
+    automat
+    hkdf
+    tqdm
+    click
+    humanize
+    txtorcon
+  ];
+  checkInputs =
+    [ mock magic-wormhole-transit-relay magic-wormhole-mailbox-server ];
 
   postPatch = ''
     sed -i -e "s|'ifconfig'|'${nettools}/bin/ifconfig'|" src/wormhole/ipaddrs.py
@@ -53,7 +48,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Securely transfer data between computers";
-    homepage = https://github.com/warner/magic-wormhole;
+    homepage = "https://github.com/warner/magic-wormhole";
     license = licenses.mit;
     maintainers = with maintainers; [ asymmetric ];
   };

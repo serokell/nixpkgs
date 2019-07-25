@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, makeWrapper, jre
-, version ? "1.6" }:
+{ stdenv, fetchurl, makeWrapper, jre, version ? "1.6" }:
 
 let
   versionMap = {
@@ -12,9 +11,8 @@ let
       sha256 = "1ynxlkdxvrgww9hh7rlkhybrp5vl2slj3pqg2qzc8khpcgqx1h2g";
     };
   };
-in
 
-with versionMap.${version};
+in with versionMap.${version};
 
 stdenv.mkDerivation rec {
   name = "flink-${flinkVersion}";
@@ -44,11 +42,11 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A distributed stream processing framework";
-    homepage = https://flink.apache.org;
-    downloadPage = https://flink.apache.org/downloads.html;
+    homepage = "https://flink.apache.org";
+    downloadPage = "https://flink.apache.org/downloads.html";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ mbode ];
-    repositories.git = git://git.apache.org/flink.git;
+    repositories.git = "git://git.apache.org/flink.git";
   };
 }

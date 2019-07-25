@@ -8,21 +8,22 @@ with lib;
       enable = mkEnableOption "toxvpn running on startup";
 
       localip = mkOption {
-        type        = types.string;
-        default     = "10.123.123.1";
+        type = types.string;
+        default = "10.123.123.1";
         description = "your ip on the vpn";
       };
 
       port = mkOption {
-        type        = types.int;
-        default     = 33445;
-        description = "udp port for toxcore, port-forward to help with connectivity if you run many nodes behind one NAT";
+        type = types.int;
+        default = 33445;
+        description =
+          "udp port for toxcore, port-forward to help with connectivity if you run many nodes behind one NAT";
       };
 
       auto_add_peers = mkOption {
-        type        = types.listOf types.string;
-        default     = [];
-        example     = ''[ "toxid1" "toxid2" ]'';
+        type = types.listOf types.string;
+        default = [ ];
+        example = ''[ "toxid1" "toxid2" ]'';
         description = "peers to automacally connect to on startup";
       };
     };
@@ -43,13 +44,18 @@ with lib;
       path = [ pkgs.toxvpn ];
 
       script = ''
-        exec toxvpn -i ${config.services.toxvpn.localip} -l /run/toxvpn/control -u toxvpn -p ${toString config.services.toxvpn.port} ${lib.concatMapStringsSep " " (x: "-a ${x}") config.services.toxvpn.auto_add_peers}
+        exec toxvpn -i ${config.services.toxvpn.localip} -l /run/toxvpn/control -u toxvpn -p ${
+          toString config.services.toxvpn.port
+        } ${
+          lib.concatMapStringsSep " " (x: "-a ${x}")
+          config.services.toxvpn.auto_add_peers
+        }
       '';
 
       serviceConfig = {
-        KillMode  = "process";
-        Restart   = "on-success";
-        Type      = "notify";
+        KillMode = "process";
+        Restart = "on-success";
+        Type = "notify";
       };
 
       restartIfChanged = false; # Likely to be used for remote admin
@@ -59,8 +65,8 @@ with lib;
 
     users.users = {
       toxvpn = {
-        uid        = config.ids.uids.toxvpn;
-        home       = "/var/lib/toxvpn";
+        uid = config.ids.uids.toxvpn;
+        home = "/var/lib/toxvpn";
         createHome = true;
       };
     };

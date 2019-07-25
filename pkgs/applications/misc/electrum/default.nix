@@ -1,30 +1,24 @@
-{ stdenv, fetchurl, fetchFromGitHub, python3, python3Packages, zbar, secp256k1
-, enableQt ? !stdenv.isDarwin
+{ stdenv, fetchurl, fetchFromGitHub, python3, python3Packages, zbar, secp256k1, enableQt ?
+  !stdenv.isDarwin
 
-
-# for updater.nix
-, writeScript
-, common-updater-scripts
-, bash
-, coreutils
-, curl
-, gnugrep
-, gnupg
-, gnused
-, nix
+  # for updater.nix
+, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg, gnused, nix
 }:
 
 let
   version = "3.3.8";
 
-  libsecp256k1_name =
-    if stdenv.isLinux then "libsecp256k1.so.0"
-    else if stdenv.isDarwin then "libsecp256k1.0.dylib"
-    else "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libsecp256k1_name = if stdenv.isLinux then
+    "libsecp256k1.so.0"
+  else if stdenv.isDarwin then
+    "libsecp256k1.0.dylib"
+  else
+    "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-  libzbar_name =
-    if stdenv.isLinux then "libzbar.so.0"
-    else "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libzbar_name = if stdenv.isLinux then
+    "libzbar.so.0"
+  else
+    "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
@@ -38,9 +32,8 @@ let
       mv ./all/electrum/tests $out
     '';
   };
-in
 
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   pname = "electrum";
   inherit version;
 
@@ -54,31 +47,32 @@ python3Packages.buildPythonApplication rec {
     cp -ar ${tests} $sourceRoot/electrum/tests
   '';
 
-  propagatedBuildInputs = with python3Packages; [
-    aiorpcx
-    aiohttp
-    aiohttp-socks
-    dnspython
-    ecdsa
-    jsonrpclib-pelix
-    matplotlib
-    pbkdf2
-    protobuf
-    pyaes
-    pycryptodomex
-    pysocks
-    qrcode
-    requests
-    tlslite-ng
+  propagatedBuildInputs = with python3Packages;
+    [
+      aiorpcx
+      aiohttp
+      aiohttp-socks
+      dnspython
+      ecdsa
+      jsonrpclib-pelix
+      matplotlib
+      pbkdf2
+      protobuf
+      pyaes
+      pycryptodomex
+      pysocks
+      qrcode
+      requests
+      tlslite-ng
 
-    # plugins
-    keepkey
-    trezor
-    btchip
+      # plugins
+      keepkey
+      trezor
+      btchip
 
-    # TODO plugins
-    # amodem
-  ] ++ stdenv.lib.optionals enableQt [ pyqt5 qdarkstyle ];
+      # TODO plugins
+      # amodem
+    ] ++ stdenv.lib.optionals enableQt [ pyqt5 qdarkstyle ];
 
   preBuild = ''
     sed -i 's,usr_share = .*,usr_share = "'$out'/share",g' setup.py
@@ -113,17 +107,8 @@ python3Packages.buildPythonApplication rec {
 
   passthru.updateScript = import ./update.nix {
     inherit (stdenv) lib;
-    inherit
-      writeScript
-      common-updater-scripts
-      bash
-      coreutils
-      curl
-      gnupg
-      gnugrep
-      gnused
-      nix
-    ;
+    inherit writeScript common-updater-scripts bash coreutils curl gnupg gnugrep
+      gnused nix;
   };
 
   meta = with stdenv.lib; {
@@ -134,7 +119,7 @@ python3Packages.buildPythonApplication rec {
       and the ability to perform transactions without downloading a copy
       of the blockchain.
     '';
-    homepage = https://electrum.org/;
+    homepage = "https://electrum.org/";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ ehmry joachifm np ];

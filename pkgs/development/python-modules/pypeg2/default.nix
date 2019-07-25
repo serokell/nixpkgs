@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   version = "2.15.2";
@@ -23,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "PEG parser interpreter in Python";
-    homepage = http://fdik.org/pyPEG;
+    homepage = "http://fdik.org/pyPEG";
     license = licenses.gpl2;
   };
 

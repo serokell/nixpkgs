@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.10.1";
 
   src = fetchurl {
-    url = "https://github.com/dani-garcia/bw_web_builds/releases/download/v${version}/bw_web_v${version}.tar.gz";
+    url =
+      "https://github.com/dani-garcia/bw_web_builds/releases/download/v${version}/bw_web_v${version}.tar.gz";
     sha256 = "1avgxlsxi7mb8zpqai3j1qb43qq09ya5ngb7l4q7mj0d89lxrzhb";
   };
 
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Integrates the web vault into bitwarden_rs";
-    homepage = https://github.com/dani-garcia/bw_web_builds;
+    homepage = "https://github.com/dani-garcia/bw_web_builds";
     platforms = platforms.all;
     license = licenses.gpl3;
     maintainers = with maintainers; [ msteen ];

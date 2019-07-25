@@ -1,6 +1,4 @@
-{ stdenv, nitrokey-app
-, group ? "nitrokey"
-}:
+{ stdenv, nitrokey-app, group ? "nitrokey" }:
 
 stdenv.mkDerivation {
   name = "nitrokey-udev-rules-${stdenv.lib.getVersion nitrokey-app}";

@@ -2,15 +2,14 @@
 
 let
   shortName = "libui";
-  version   = "3.1a";
-  backend   = if stdenv.isDarwin then "darwin" else "unix";
-in
+  version = "3.1a";
+  backend = if stdenv.isDarwin then "darwin" else "unix";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${shortName}-${version}";
-  src  = fetchgit {
-    url    = "https://github.com/andlabs/libui.git";
-    rev    = "6ebdc96b93273c3cedf81159e7843025caa83058";
+  src = fetchgit {
+    url = "https://github.com/andlabs/libui.git";
+    rev = "6ebdc96b93273c3cedf81159e7843025caa83058";
     sha256 = "1lpbfa298c61aarlzgp7vghrmxg1274pzxh1j9isv8x758gk6mfn";
   };
 
@@ -45,9 +44,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage    = https://github.com/andlabs/libui;
-    description = "Simple and portable (but not inflexible) GUI library in C that uses the native GUI technologies of each platform it supports.";
-    license     = licenses.mit;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/andlabs/libui";
+    description =
+      "Simple and portable (but not inflexible) GUI library in C that uses the native GUI technologies of each platform it supports.";
+    license = licenses.mit;
+    platforms = platforms.unix;
   };
 }

@@ -1,7 +1,6 @@
 { lib, fetchzip }:
 
-let
-  version = "3.0.3";
+let version = "3.0.3";
 in fetchzip rec {
   name = "overpass-${version}";
 
@@ -15,7 +14,7 @@ in fetchzip rec {
   sha256 = "1m6p7rrlyqikjvypp4698sn0lp3a4z0z5al4swblfhg8qaxzv5pg";
 
   meta = with lib; {
-    homepage = http://overpassfont.org/;
+    homepage = "http://overpassfont.org/";
     description = "Font heavily inspired by Highway Gothic";
     license = licenses.ofl;
     platforms = platforms.all;

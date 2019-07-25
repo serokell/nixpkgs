@@ -1,8 +1,6 @@
-{ lib, runCommand, buildEnv, vscode, makeWrapper
-, vscodeExtensions ? [] }:
+{ lib, runCommand, buildEnv, vscode, makeWrapper, vscodeExtensions ? [ ] }:
 
-/*
-  `vscodeExtensions`
+/* `vscodeExtensions`
    :  A set of vscode extensions to be installed alongside the editor. Here's a an
       example:
 
@@ -52,11 +50,9 @@ let
     paths = vscodeExtensions;
   };
 
-in
-
-# When no extensions are requested, we simply redirect to the original
-# non-wrapped vscode executable.
-runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
+  # When no extensions are requested, we simply redirect to the original
+  # non-wrapped vscode executable.
+in runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
   buildInputs = [ vscode makeWrapper ];
   dontPatchELF = true;
   dontStrip = true;
@@ -69,7 +65,9 @@ runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
   ln -sT "${vscode}/share/pixmaps/code.png" "$out/share/pixmaps/code.png"
   ln -sT "${vscode}/share/applications/${executableName}.desktop" "$out/share/applications/${executableName}.desktop"
   ln -sT "${vscode}/share/applications/${executableName}-url-handler.desktop" "$out/share/applications/${executableName}-url-handler.desktop"
-  makeWrapper "${vscode}/bin/${executableName}" "$out/bin/${executableName}" ${lib.optionalString (vscodeExtensions != []) ''
-    --add-flags "--extensions-dir ${combinedExtensionsDrv}/share/${wrappedPkgName}/extensions"
-  ''}
+  makeWrapper "${vscode}/bin/${executableName}" "$out/bin/${executableName}" ${
+    lib.optionalString (vscodeExtensions != [ ]) ''
+      --add-flags "--extensions-dir ${combinedExtensionsDrv}/share/${wrappedPkgName}/extensions"
+    ''
+  }
 ''

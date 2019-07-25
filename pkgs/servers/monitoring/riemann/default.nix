@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.3.3";
 
   src = fetchurl {
-    url = "https://github.com/riemann/riemann/releases/download/${version}/${name}.tar.bz2";
+    url =
+      "https://github.com/riemann/riemann/releases/download/${version}/${name}.tar.bz2";
     sha256 = "11xcmmp5k78vr5ch42zwx9ym84y6kf81z9zwawqybvx7wmlbpdiq";
   };
 
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://riemann.io/;
+    homepage = "http://riemann.io/";
     description = "A network monitoring system";
     license = licenses.epl10;
     platforms = platforms.all;

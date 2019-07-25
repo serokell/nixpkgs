@@ -1,4 +1,5 @@
-{stdenv, fetchurl, unzip, makeDesktopItem, nwjs, wrapGAppsHook, gsettings-desktop-schemas, gtk3 }:
+{ stdenv, fetchurl, unzip, makeDesktopItem, nwjs, wrapGAppsHook, gsettings-desktop-schemas, gtk3
+}:
 
 let
   strippedName = "betaflight-configurator";
@@ -10,19 +11,19 @@ let
     desktopName = "Betaflight Configurator";
     genericName = "Flight controller configuration tool";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${strippedName}-${version}";
   version = "10.5.1";
   src = fetchurl {
-    url = "https://github.com/betaflight/betaflight-configurator/releases/download/${version}/${strippedName}_${version}_linux64.zip";
+    url =
+      "https://github.com/betaflight/betaflight-configurator/releases/download/${version}/${strippedName}_${version}_linux64.zip";
     sha256 = "1l4blqgaqfrnydk05q6pwdqdhcly2f8nwzrv0749cqmfiinh8ygc";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
-  
+
   buildInputs = [ unzip gsettings-desktop-schemas gtk3 ];
-  
+
   installPhase = ''
     mkdir -p $out/bin \
              $out/opt/${strippedName} \
@@ -42,9 +43,9 @@ stdenv.mkDerivation rec {
       Various types of aircraft are supported by the tool and by Betaflight, e.g. 
       quadcopters, hexacopters, octocopters and fixed-wing aircraft.
     '';
-    homepage    = https://github.com/betaflight/betaflight/wiki;
-    license     = licenses.gpl3;
+    homepage = "https://github.com/betaflight/betaflight/wiki";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ wucke13 ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

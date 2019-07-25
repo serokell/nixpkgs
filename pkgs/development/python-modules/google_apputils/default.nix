@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytz
-, gflags
-, dateutil
-, mox
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytz, gflags, dateutil, mox, python }:
 
 buildPythonPackage rec {
   pname = "google-apputils";
@@ -32,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Google Application Utilities for Python";
-    homepage = http://code.google.com/p/google-apputils-python;
+    homepage = "http://code.google.com/p/google-apputils-python";
     license = licenses.asl20;
   };
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, sconsPackages, pkgconfig
-, libsamplerate, libsndfile, liblo, libjack2, boost }:
+{ stdenv, fetchurl, sconsPackages, pkgconfig, libsamplerate, libsndfile, liblo, libjack2, boost
+}:
 
 stdenv.mkDerivation rec {
   name = "klick-${version}";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-fpermissive";
 
   meta = {
-    homepage = http://das.nasophon.de/klick/;
+    homepage = "http://das.nasophon.de/klick/";
     description = "Advanced command-line metronome for JACK";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;

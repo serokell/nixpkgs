@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, openssl, attr, keyutils, asciidoc, libxslt, docbook_xsl }:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, openssl, attr, keyutils, asciidoc, libxslt, docbook_xsl
+}:
 
 stdenv.mkDerivation rec {
   name = "ima-evm-utils-${version}";
@@ -15,11 +16,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./xattr.patch ];
 
-  buildPhase = "make prefix=$out MANPAGE_DOCBOOK_XSL=${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
+  buildPhase =
+    "make prefix=$out MANPAGE_DOCBOOK_XSL=${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
 
   meta = {
-    description = "evmctl utility to manage digital signatures of the Linux kernel integrity subsystem (IMA/EVM)";
-    homepage = https://sourceforge.net/projects/linux-ima/;
+    description =
+      "evmctl utility to manage digital signatures of the Linux kernel integrity subsystem (IMA/EVM)";
+    homepage = "https://sourceforge.net/projects/linux-ima/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ tstrobel ];

@@ -1,12 +1,10 @@
-{ stdenv, fetchurl, gcc
-, libGLU, libX11, libXext, libXcursor, libpulseaudio
-}:
+{ stdenv, fetchurl, gcc, libGLU, libX11, libXext, libXcursor, libpulseaudio }:
 stdenv.mkDerivation {
   name = "scrolls-2015-10-13";
 
   meta = {
     description = "A strategy collectible card game";
-    homepage = https://scrolls.com/;
+    homepage = "https://scrolls.com/";
     # http://www.reddit.com/r/Scrolls/comments/2j3pxw/linux_client_experimental/
 
     platforms = [ "x86_64-linux" ];

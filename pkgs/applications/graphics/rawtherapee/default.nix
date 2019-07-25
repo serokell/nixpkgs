@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, pixman, libpthreadstubs, gtkmm3, libXau
-, libXdmcp, lcms2, libiptcdata, libcanberra-gtk3, fftw, expat, pcre, libsigcxx, wrapGAppsHook
-, lensfun
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, pixman, libpthreadstubs, gtkmm3, libXau, libXdmcp, lcms2, libiptcdata, libcanberra-gtk3, fftw, expat, pcre, libsigcxx, wrapGAppsHook, lensfun
 }:
 
 stdenv.mkDerivation rec {
@@ -17,16 +15,25 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig wrapGAppsHook ];
 
   buildInputs = [
-    pixman libpthreadstubs gtkmm3 libXau libXdmcp
-    lcms2 libiptcdata libcanberra-gtk3 fftw expat pcre libsigcxx lensfun
+    pixman
+    libpthreadstubs
+    gtkmm3
+    libXau
+    libXdmcp
+    lcms2
+    libiptcdata
+    libcanberra-gtk3
+    fftw
+    expat
+    pcre
+    libsigcxx
+    lensfun
   ];
 
-  cmakeFlags = [
-    "-DPROC_TARGET_NUMBER=2"
-    "-DCACHE_NAME_SUFFIX=\"\""
-  ];
+  cmakeFlags = [ "-DPROC_TARGET_NUMBER=2" ''-DCACHE_NAME_SUFFIX=""'' ];
 
-  CMAKE_CXX_FLAGS = "-std=c++11 -Wno-deprecated-declarations -Wno-unused-result";
+  CMAKE_CXX_FLAGS =
+    "-std=c++11 -Wno-deprecated-declarations -Wno-unused-result";
 
   postUnpack = ''
     echo "set(HG_VERSION $version)" > $sourceRoot/ReleaseInfo.cmake
@@ -36,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "RAW converter and digital photo processing software";
-    homepage = http://www.rawtherapee.com/;
+    homepage = "http://www.rawtherapee.com/";
     license = stdenv.lib.licenses.gpl3Plus;
     maintainers = with stdenv.lib.maintainers; [ jcumming mahe the-kenny ];
     platforms = with stdenv.lib.platforms; linux;

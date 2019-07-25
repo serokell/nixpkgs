@@ -20,14 +20,14 @@ with lib;
     environment.systemPackages = with pkgs;
       # TODO: Adjust `requiredPackages' from `system-path.nix'.
       # TODO: Add Inetutils once it has the new `ifconfig'.
-      [ parted
+      [
+        parted
         #fdisk  # XXX: GNU fdisk currently fails to build and it's redundant
-                # with the `parted' command.
-        nano zile
+        # with the `parted' command.
+        nano
+        zile
         texinfo # for the stand-alone Info reader
-      ]
-      ++ stdenv.lib.optional (!stdenv.isAarch32) grub2;
-
+      ] ++ stdenv.lib.optional (!stdenv.isAarch32) grub2;
 
     # GNU GRUB, where available.
     boot.loader.grub.enable = !pkgs.stdenv.isAarch32;

@@ -6,7 +6,7 @@ buildGoPackage rec {
   revision = "10.0.1";
   goPackagePath = "github.com/Azure/azure-storage-azcopy";
 
-  goDeps= ./deps.nix;
+  goDeps = ./deps.nix;
 
   src = fetchFromGitHub {
     owner = "Azure";

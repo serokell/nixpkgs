@@ -1,11 +1,10 @@
-{ stdenv, fetchFromGitHub, python37Packages, glib, cairo, pango, pkgconfig, libxcb, xcbutilcursor }:
+{ stdenv, fetchFromGitHub, python37Packages, glib, cairo, pango, pkgconfig, libxcb, xcbutilcursor
+}:
 
-let cairocffi-xcffib = python37Packages.cairocffi.override {
-    withXcffib = true;
-  };
-in
+let
+  cairocffi-xcffib = python37Packages.cairocffi.override { withXcffib = true; };
 
-python37Packages.buildPythonApplication rec {
+in python37Packages.buildPythonApplication rec {
   name = "qtile-${version}";
   version = "0.13.0";
 
@@ -44,9 +43,10 @@ python37Packages.buildPythonApplication rec {
   doCheck = false; # Requires X server.
 
   meta = with stdenv.lib; {
-    homepage = http://www.qtile.org/;
+    homepage = "http://www.qtile.org/";
     license = licenses.mit;
-    description = "A small, flexible, scriptable tiling window manager written in Python";
+    description =
+      "A small, flexible, scriptable tiling window manager written in Python";
     platforms = platforms.linux;
     maintainers = with maintainers; [ kamilchm ];
   };

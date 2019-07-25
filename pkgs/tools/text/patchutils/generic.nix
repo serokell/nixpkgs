@@ -1,13 +1,11 @@
-{ stdenv, fetchurl
-, version, sha256, patches ? []
-, ...
-}:
+{ stdenv, fetchurl, version, sha256, patches ? [ ], ... }:
 stdenv.mkDerivation rec {
   pname = "patchutils";
   inherit version patches;
 
   src = fetchurl {
-    url = "http://cyberelk.net/tim/data/patchutils/stable/${pname}-${version}.tar.xz";
+    url =
+      "http://cyberelk.net/tim/data/patchutils/stable/${pname}-${version}.tar.xz";
     inherit sha256;
   };
 
@@ -17,11 +15,24 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tools to manipulate patch files";
-    homepage = http://cyberelk.net/tim/software/patchutils;
+    homepage = "http://cyberelk.net/tim/software/patchutils";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    executables = [ "combinediff" "dehtmldiff" "editdiff" "espdiff"
-      "filterdiff" "fixcvsdiff" "flipdiff" "grepdiff" "interdiff" "lsdiff"
-      "recountdiff" "rediff" "splitdiff" "unwrapdiff" ];
+    executables = [
+      "combinediff"
+      "dehtmldiff"
+      "editdiff"
+      "espdiff"
+      "filterdiff"
+      "fixcvsdiff"
+      "flipdiff"
+      "grepdiff"
+      "interdiff"
+      "lsdiff"
+      "recountdiff"
+      "rediff"
+      "splitdiff"
+      "unwrapdiff"
+    ];
   };
 }

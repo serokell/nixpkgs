@@ -6,43 +6,39 @@ with pkgs;
 
   # Common passthru for all Python interpreters.
   passthruFun =
-    { implementation
-    , libPrefix
-    , executable
-    , sourceVersion
-    , pythonVersion
-    , packageOverrides
-    , sitePackages
-    , hasDistutilsCxxPatch
-    , pythonForBuild
-    , self
-    }: let
+    { implementation, libPrefix, executable, sourceVersion, pythonVersion, packageOverrides, sitePackages, hasDistutilsCxxPatch, pythonForBuild, self
+    }:
+    let
       pythonPackages = callPackage ../../../top-level/python-packages.nix {
         python = self;
         overrides = packageOverrides;
       };
     in rec {
-        isPy27 = pythonVersion == "2.7";
-        isPy33 = pythonVersion == "3.3"; # TODO: remove
-        isPy34 = pythonVersion == "3.4"; # TODO: remove
-        isPy35 = pythonVersion == "3.5";
-        isPy36 = pythonVersion == "3.6";
-        isPy37 = pythonVersion == "3.7";
-        isPy2 = lib.strings.substring 0 1 pythonVersion == "2";
-        isPy3 = lib.strings.substring 0 1 pythonVersion == "3";
-        isPy3k = isPy3;
-        isPyPy = lib.hasInfix "pypy" interpreter;
+      isPy27 = pythonVersion == "2.7";
+      isPy33 = pythonVersion == "3.3"; # TODO: remove
+      isPy34 = pythonVersion == "3.4"; # TODO: remove
+      isPy35 = pythonVersion == "3.5";
+      isPy36 = pythonVersion == "3.6";
+      isPy37 = pythonVersion == "3.7";
+      isPy2 = lib.strings.substring 0 1 pythonVersion == "2";
+      isPy3 = lib.strings.substring 0 1 pythonVersion == "3";
+      isPy3k = isPy3;
+      isPyPy = lib.hasInfix "pypy" interpreter;
 
-        buildEnv = callPackage ./wrapper.nix { python = self; inherit (pythonPackages) requiredPythonModules; };
-        withPackages = import ./with-packages.nix { inherit buildEnv pythonPackages;};
-        pkgs = pythonPackages;
-        interpreter = "${self}/bin/${executable}";
-        inherit executable implementation libPrefix pythonVersion sitePackages;
-        inherit sourceVersion;
-        pythonAtLeast = lib.versionAtLeast pythonVersion;
-        pythonOlder = lib.versionOlder pythonVersion;
-        inherit hasDistutilsCxxPatch pythonForBuild;
-  };
+      buildEnv = callPackage ./wrapper.nix {
+        python = self;
+        inherit (pythonPackages) requiredPythonModules;
+      };
+      withPackages =
+        import ./with-packages.nix { inherit buildEnv pythonPackages; };
+      pkgs = pythonPackages;
+      interpreter = "${self}/bin/${executable}";
+      inherit executable implementation libPrefix pythonVersion sitePackages;
+      inherit sourceVersion;
+      pythonAtLeast = lib.versionAtLeast pythonVersion;
+      pythonOlder = lib.versionOlder pythonVersion;
+      inherit hasDistutilsCxxPatch pythonForBuild;
+    };
 
 in {
 
@@ -154,7 +150,7 @@ in {
   };
 
   pypy35_prebuilt = callPackage ./pypy/prebuilt.nix {
-  # Not included at top-level
+    # Not included at top-level
     self = pythonInterpreters.pypy35_prebuilt;
     sourceVersion = {
       major = "6";

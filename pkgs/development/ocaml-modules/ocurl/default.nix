@@ -15,6 +15,6 @@ stdenv.mkDerivation rec {
     license = stdenv.lib.licenses.mit;
     homepage = "http://ygrek.org.ua/p/ocurl/";
     maintainers = with stdenv.lib.maintainers; [ bennofs ];
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
   };
 }

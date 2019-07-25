@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, openssl, ncurses, pkgconfig, glib, loudmouth, libotr
-, gpgme
+{ stdenv, fetchurl, openssl, ncurses, pkgconfig, glib, loudmouth, libotr, gpgme
 }:
 
 stdenv.mkDerivation rec {
@@ -14,16 +13,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ openssl ncurses glib loudmouth libotr gpgme ];
 
-  configureFlags = [
-    "--with-openssl=${openssl.dev}"
-    "--enable-modules"
-    "--enable-otr"
-  ];
+  configureFlags =
+    [ "--with-openssl=${openssl.dev}" "--enable-modules" "--enable-otr" ];
 
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = http://mcabber.com/;
+    homepage = "http://mcabber.com/";
     description = "Small Jabber console client";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pSub ];

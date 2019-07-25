@@ -1,8 +1,8 @@
-{stdenv, fetchFromGitHub, cmake, libGLU_combined, zlib, openssl, libyamlcpp, boost
-, SDL, SDL_image, SDL_mixer, SDL_gfx }:
+{ stdenv, fetchFromGitHub, cmake, libGLU_combined, zlib, openssl, libyamlcpp, boost, SDL, SDL_image, SDL_mixer, SDL_gfx
+}:
 
-let version = "1.0.0.2018.10.08"; in
-stdenv.mkDerivation {
+let version = "1.0.0.2018.10.08";
+in stdenv.mkDerivation {
   name = "openxcom-${version}";
   src = fetchFromGitHub {
     owner = "SupSuper";
@@ -12,12 +12,22 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost libyamlcpp libGLU_combined openssl zlib ];
+  buildInputs = [
+    SDL
+    SDL_gfx
+    SDL_image
+    SDL_mixer
+    boost
+    libyamlcpp
+    libGLU_combined
+    openssl
+    zlib
+  ];
 
   meta = {
     description = "Open source clone of UFO: Enemy Unknown";
-    homepage = https://openxcom.org;
-    repositories.git = https://github.com/SupSuper/OpenXcom.git;
+    homepage = "https://openxcom.org";
+    repositories.git = "https://github.com/SupSuper/OpenXcom.git";
     maintainers = [ stdenv.lib.maintainers.cpages ];
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl3;

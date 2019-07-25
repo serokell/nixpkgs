@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, pkgconfig, mono, autoreconfHook }:
+{ stdenv, fetchFromGitHub, pkgconfig, mono, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "dbus-sharp-${version}";

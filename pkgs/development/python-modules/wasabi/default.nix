@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "wasabi";
@@ -13,9 +9,7 @@ buildPythonPackage rec {
     sha256 = "0xxjc9bvvcaz1qq1jyhcxyl2v39jz8d8dz4zhpfbc7dz53kq6b7r";
   };
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest wasabi/tests
@@ -23,8 +17,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A lightweight console printing and formatting toolkit";
-    homepage = https://github.com/ines/wasabi;
+    homepage = "https://github.com/ines/wasabi";
     license = licenses.mit;
     maintainers = with maintainers; [ danieldk ];
-    };
+  };
 }

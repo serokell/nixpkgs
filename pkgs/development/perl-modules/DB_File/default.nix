@@ -1,4 +1,4 @@
-{fetchurl, buildPerlPackage, db}:
+{ fetchurl, buildPerlPackage, db }:
 
 buildPerlPackage {
   pname = "DB_File";

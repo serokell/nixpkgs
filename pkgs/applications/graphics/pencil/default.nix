@@ -1,8 +1,6 @@
 { stdenv, fetchurl, lib, makeWrapper,
-  # build dependencies
-  alsaLib, atk, cairo, cups, dbus, expat, fontconfig,
-  freetype, gdk_pixbuf, glib, gnome2, nspr, nss, xorg,
-  glibc, systemd
+# build dependencies
+alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, nspr, nss, xorg, glibc, systemd
 }:
 
 stdenv.mkDerivation rec {
@@ -10,7 +8,7 @@ stdenv.mkDerivation rec {
   name = "pencil-${version}";
 
   src = fetchurl {
-    url    = "http://pencil.evolus.vn/dl/V${version}/Pencil_${version}_amd64.deb";
+    url = "http://pencil.evolus.vn/dl/V${version}/Pencil_${version}_amd64.deb";
     sha256 = "58e2b794c615ea8715d8374f177e19c87f7071e359826ec34a59836d537a62fd";
   };
 
@@ -36,7 +34,6 @@ stdenv.mkDerivation rec {
     # symlink the binary to bin/
     ln -s $out/opt/Pencil/pencil $out/bin/pencil
   '';
-
 
   preFixup = let
     packages = [
@@ -73,32 +70,32 @@ stdenv.mkDerivation rec {
     libPathNative = lib.makeLibraryPath packages;
     libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
     libPath = "${libPathNative}:${libPath64}";
-  in ''
-    # patch executable
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}:$out/opt/Pencil" \
-      $out/opt/Pencil/pencil
+    in ''
+      # patch executable
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}:$out/opt/Pencil" \
+        $out/opt/Pencil/pencil
 
-    # patch libnode
-    patchelf \
-      --set-rpath "${libPath}" \
-      $out/opt/Pencil/libnode.so
+      # patch libnode
+      patchelf \
+        --set-rpath "${libPath}" \
+        $out/opt/Pencil/libnode.so
 
-    # libffmpeg is for some reason  not executable
-    chmod a+x $out/opt/Pencil/libffmpeg.so
+      # libffmpeg is for some reason  not executable
+      chmod a+x $out/opt/Pencil/libffmpeg.so
 
-    # fix missing libudev
-    ln -s ${systemd.lib}/lib/libudev.so.1 $out/opt/Pencil/libudev.so.1
-    wrapProgram $out/opt/Pencil/pencil \
-      --prefix LD_LIBRARY_PATH : $out/opt/Pencil
-  '';
+      # fix missing libudev
+      ln -s ${systemd.lib}/lib/libudev.so.1 $out/opt/Pencil/libudev.so.1
+      wrapProgram $out/opt/Pencil/pencil \
+        --prefix LD_LIBRARY_PATH : $out/opt/Pencil
+    '';
 
   meta = with stdenv.lib; {
     description = "GUI prototyping/mockup tool";
-    homepage    = "https://pencil.evolus.vn/";
-    license     = licenses.gpl2; # Commercial license is also available
+    homepage = "https://pencil.evolus.vn/";
+    license = licenses.gpl2; # Commercial license is also available
     maintainers = with maintainers; [ bjornfor prikhi mrVanDalo ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

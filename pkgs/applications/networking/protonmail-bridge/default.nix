@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtsvg, qtdeclarative, qttools, full
-, libsecret, libGL, libpulseaudio, glib, wrapQtAppsHook, makeDesktopItem }:
+{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtsvg, qtdeclarative, qttools, full, libsecret, libGL, libpulseaudio, glib, wrapQtAppsHook, makeDesktopItem
+}:
 
 let
   version = "1.1.5-1";
@@ -15,7 +15,7 @@ let
     name = "protonmail-bridge";
     exec = "protonmail-bridge";
     icon = "protonmail-bridge";
-    comment = stdenv.lib.replaceStrings ["\n"] [" "] description;
+    comment = stdenv.lib.replaceStrings [ "\n" ] [ " " ] description;
     desktopName = "ProtonMail Bridge";
     genericName = "ProtonMail Bridge for Linux";
     categories = "Utility;Security;Network;Email";
@@ -24,7 +24,8 @@ in stdenv.mkDerivation rec {
   name = "protonmail-bridge-${version}";
 
   src = fetchurl {
-    url = "https://protonmail.com/download/protonmail-bridge_${version}_amd64.deb";
+    url =
+      "https://protonmail.com/download/protonmail-bridge_${version}_amd64.deb";
     sha256 = "1y5mphrs60zd6km9z64vskk70q9zzw4g6js7qvgl572wv81w2l75";
   };
 
@@ -60,12 +61,12 @@ in stdenv.mkDerivation rec {
       libpulseaudio
       glib
     ];
-  in ''
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${rpath}" \
-      $out/lib/protonmail-bridge
-  '';
+    in ''
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${rpath}" \
+        $out/lib/protonmail-bridge
+    '';
 
   meta = with stdenv.lib; {
     homepage = "https://www.protonmail.com/bridge";

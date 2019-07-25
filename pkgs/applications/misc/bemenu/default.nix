@@ -1,9 +1,6 @@
-{ stdenv, fetchFromGitHub, cairo, cmake, libxkbcommon
-, pango, fribidi, harfbuzz, pcre, pkgconfig
-, ncursesSupport ? true, ncurses ? null
-, waylandSupport ? true, wayland ? null
-, x11Support ? true, xlibs ? null, xorg ? null
-}:
+{ stdenv, fetchFromGitHub, cairo, cmake, libxkbcommon, pango, fribidi, harfbuzz, pcre, pkgconfig, ncursesSupport ?
+  true, ncurses ? null, waylandSupport ? true, wayland ? null, x11Support ?
+    true, xlibs ? null, xorg ? null }:
 
 assert ncursesSupport -> ncurses != null;
 assert waylandSupport -> wayland != null;
@@ -22,17 +19,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig pcre ];
 
-  buildInputs = with stdenv.lib; [
-    cairo
-    fribidi
-    harfbuzz
-    libxkbcommon
-    pango
-  ] ++ optionals ncursesSupport [ ncurses ]
-    ++ optionals waylandSupport [ wayland ]
-    ++ optionals x11Support [
-      xlibs.libX11 xlibs.libXinerama xlibs.libXft
-      xorg.libXdmcp xorg.libpthreadstubs xorg.libxcb
+  buildInputs = with stdenv.lib;
+    [ cairo fribidi harfbuzz libxkbcommon pango ]
+    ++ optionals ncursesSupport [ ncurses ]
+    ++ optionals waylandSupport [ wayland ] ++ optionals x11Support [
+      xlibs.libX11
+      xlibs.libXinerama
+      xlibs.libXft
+      xorg.libXdmcp
+      xorg.libpthreadstubs
+      xorg.libxcb
     ];
 
   meta = with stdenv.lib; {

@@ -17,7 +17,7 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "Database migration tool";
-    homepage = https://dbmate.readthedocs.io;
+    homepage = "https://dbmate.readthedocs.io";
     license = licenses.mit;
     maintainers = [ maintainers.manveru ];
     platforms = platforms.unix;

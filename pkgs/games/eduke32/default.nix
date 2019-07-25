@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, nasm, makeDesktopItem
-, flac, gtk2, libvorbis, libvpx, libGLU_combined
-, SDL2, SDL2_mixer }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, nasm, makeDesktopItem, flac, gtk2, libvorbis, libvpx, libGLU_combined, SDL2, SDL2_mixer
+}:
 
 let
   version = "20190330";
@@ -21,7 +20,8 @@ in stdenv.mkDerivation {
   name = "eduke32-${version}";
 
   src = fetchurl {
-    url = "http://dukeworld.duke4.net/eduke32/synthesis/latest/eduke32_src_${version}-${rev}.tar.xz";
+    url =
+      "http://dukeworld.duke4.net/eduke32/synthesis/latest/eduke32_src_${version}-${rev}.tar.xz";
     sha256 = "09a7l23i6sygicc82w1in9hjw0jvivlf7q0vw8kcx9j98lm23mkn";
   };
 
@@ -40,14 +40,10 @@ in stdenv.mkDerivation {
     done
   '';
 
-  NIX_CFLAGS_COMPILE = [
-    "-I${SDL2.dev}/include/SDL2"
-    "-I${SDL2_mixer}/include/SDL2"
-  ];
+  NIX_CFLAGS_COMPILE =
+    [ "-I${SDL2.dev}/include/SDL2" "-I${SDL2_mixer}/include/SDL2" ];
 
-  makeFlags = [
-    "SDLCONFIG=${SDL2}/bin/sdl2-config"
-  ];
+  makeFlags = [ "SDLCONFIG=${SDL2}/bin/sdl2-config" ];
 
   enableParallelBuilding = true;
 
@@ -69,7 +65,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Enhanched port of Duke Nukem 3D for various platforms";
-    homepage = http://eduke32.com;
+    homepage = "http://eduke32.com";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ sander ];
     # Darwin is untested (supported by upstream)

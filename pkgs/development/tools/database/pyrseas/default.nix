@@ -12,14 +12,10 @@ let
     };
     # The tests are impure (they try to access a PostgreSQL server)
     doCheck = false;
-    propagatedBuildInputs = [
-      pythonPackages.psycopg2
-      pythonPackages.pytest
-    ];
+    propagatedBuildInputs = [ pythonPackages.psycopg2 pythonPackages.pytest ];
   };
-in
 
-pythonPackages.buildPythonApplication rec {
+in pythonPackages.buildPythonApplication rec {
   pname = "pyrseas";
   version = "0.8.0";
   src = fetchFromGitHub {
@@ -38,7 +34,7 @@ pythonPackages.buildPythonApplication rec {
   ];
   meta = {
     description = "A declarative language to describe PostgreSQL databases";
-    homepage = https://perseas.github.io/;
+    homepage = "https://perseas.github.io/";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ pmeunier ];
   };

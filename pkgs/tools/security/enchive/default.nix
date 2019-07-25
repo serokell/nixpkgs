@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ssxbnsjx4mvaqimp5nzfixpxinhmi12z8lxdd8cj2361wbb54yk";
   };
 
-  makeFlags = ["PREFIX=$(out)"];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp/
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Encrypted personal archives";
-    homepage = https://github.com/skeeto/enchive;
+    homepage = "https://github.com/skeeto/enchive";
     license = stdenv.lib.licenses.unlicense;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.nico202 ];

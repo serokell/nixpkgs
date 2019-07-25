@@ -1,11 +1,4 @@
-{ buildPythonPackage
-, numba
-, ndtypes
-, xnd
-, libndtypes
-, libxnd
-, libgumath
-, isPy27
+{ buildPythonPackage, numba, ndtypes, xnd, libndtypes, libxnd, libgumath, isPy27
 }:
 
 buildPythonPackage {

@@ -19,7 +19,6 @@ with lib;
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.gnome3.evince.enable {

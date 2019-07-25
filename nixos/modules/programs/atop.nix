@@ -6,8 +6,7 @@ with lib;
 
 let cfg = config.programs.atop;
 
-in
-{
+in {
   ###### interface
 
   options = {
@@ -16,7 +15,7 @@ in
 
       settings = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         example = {
           flags = "a1f";
           interval = 5;
@@ -29,8 +28,9 @@ in
     };
   };
 
-  config = mkIf (cfg.settings != {}) {
-    environment.etc."atoprc".text =
-      concatStrings (mapAttrsToList (n: v: "${n} ${toString v}\n") cfg.settings);
+  config = mkIf (cfg.settings != { }) {
+    environment.etc."atoprc".text = concatStrings (mapAttrsToList (n: v: ''
+      ${n} ${toString v}
+    '') cfg.settings);
   };
 }

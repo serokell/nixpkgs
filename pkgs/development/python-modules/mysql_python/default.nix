@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, nose
-, pkgs
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchPypi, nose, pkgs }:
 
 buildPythonPackage rec {
   pname = "MySQL-python";
@@ -26,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "MySQL database binding for Python";
-    homepage = https://sourceforge.net/projects/mysql-python;
+    homepage = "https://sourceforge.net/projects/mysql-python";
     license = licenses.gpl3;
   };
 

@@ -1,10 +1,8 @@
 # This function provides specific bits for building a flit-based Python package.
 
-{ python
-, flit
-}:
+{ python, flit }:
 
-{ ... } @ attrs:
+{ ... }@attrs:
 
 attrs // {
   nativeBuildInputs = [ flit ];

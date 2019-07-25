@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, meson, ninja, vala, python3, gtk-doc, docbook_xsl, docbook_xml_dtd_43, docbook_xml_dtd_412, glib, check, gobject-introspection }:
+{ stdenv, fetchgit, pkgconfig, meson, ninja, vala, python3, gtk-doc, docbook_xsl, docbook_xml_dtd_43, docbook_xml_dtd_412, glib, check, gobject-introspection
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsignon-glib";
@@ -27,14 +28,13 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    glib
-    python3.pkgs.pygobject3
-  ];
+  buildInputs = [ glib python3.pkgs.pygobject3 ];
 
   mesonFlags = [
     "-Dintrospection=true"
-    "-Dpy-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
+    "-Dpy-overrides-dir=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides"
   ];
 
   postPatch = ''
@@ -43,8 +43,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A library for managing single signon credentials which can be used from GLib applications";
-    homepage = https://gitlab.com/accounts-sso/libsignon-glib;
+    description =
+      "A library for managing single signon credentials which can be used from GLib applications";
+    homepage = "https://gitlab.com/accounts-sso/libsignon-glib";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ worldofpeace ];
     platforms = platforms.linux;

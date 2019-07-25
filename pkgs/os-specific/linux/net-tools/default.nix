@@ -9,10 +9,9 @@ stdenv.mkDerivation rec {
     sha256 = "08r4r2a24g5bm8jwgfa998gs1fld7fgbdf7pilrpsw1m974xn04a";
   };
 
-  preBuild =
-    ''
-      cp ${./config.h} config.h
-    '';
+  preBuild = ''
+    cp ${./config.h} config.h
+  '';
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -27,8 +26,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    homepage = http://net-tools.sourceforge.net/;
-    description = "A set of tools for controlling the network subsystem in Linux";
+    homepage = "http://net-tools.sourceforge.net/";
+    description =
+      "A set of tools for controlling the network subsystem in Linux";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
   };

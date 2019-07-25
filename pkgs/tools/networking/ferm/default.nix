@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://ferm.foo-projects.org/;
+    homepage = "http://ferm.foo-projects.org/";
     description = "Tool to maintain complex firewalls";
     longDescription = ''
       ferm is a tool to maintain complex firewalls, without having the trouble to
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       language, which can contain levels and lists.
     '';
     license = stdenv.lib.licenses.gpl2;
-    maintainers = with stdenv.lib.maintainers; [mic92];
+    maintainers = with stdenv.lib.maintainers; [ mic92 ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

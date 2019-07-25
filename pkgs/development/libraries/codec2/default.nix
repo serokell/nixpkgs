@@ -1,7 +1,6 @@
-{ stdenv, fetchsvn, cmake } :
+{ stdenv, fetchsvn, cmake }:
 
-let
-  version = "0.8";
+let version = "0.8";
 
 in stdenv.mkDerivation {
   name = "codec2-${version}";
@@ -16,8 +15,9 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "Speech codec designed for communications quality speech at low data rates";
-    homepage = http://www.rowetel.com/blog/?page_id=452;
+    description =
+      "Speech codec designed for communications quality speech at low data rates";
+    homepage = "http://www.rowetel.com/blog/?page_id=452";
     license = licenses.lgpl21;
     platforms = platforms.linux;
     maintainers = with maintainers; [ markuskowa ];

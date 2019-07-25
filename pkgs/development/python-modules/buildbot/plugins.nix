@@ -15,7 +15,7 @@
     };
 
     meta = with lib; {
-      homepage = http://buildbot.net/;
+      homepage = "http://buildbot.net/";
       description = "Buildbot UI";
       maintainers = with maintainers; [ nand0p ryansydnor ];
       license = licenses.gpl2;
@@ -35,7 +35,7 @@
     checkInputs = [ buildbot ];
 
     meta = with lib; {
-      homepage = http://buildbot.net/;
+      homepage = "http://buildbot.net/";
       description = "Buildbot Console View Plugin";
       maintainers = with maintainers; [ nand0p ryansydnor ];
       license = licenses.gpl2;
@@ -55,7 +55,7 @@
     checkInputs = [ buildbot ];
 
     meta = with lib; {
-      homepage = http://buildbot.net/;
+      homepage = "http://buildbot.net/";
       description = "Buildbot Waterfall View Plugin";
       maintainers = with maintainers; [ nand0p ryansydnor ];
       license = licenses.gpl2;
@@ -75,7 +75,7 @@
     checkInputs = [ buildbot ];
 
     meta = with lib; {
-      homepage = http://buildbot.net/;
+      homepage = "http://buildbot.net/";
       description = "Buildbot Grid View Plugin";
       maintainers = with maintainers; [ nand0p ];
       license = licenses.gpl2;
@@ -95,7 +95,7 @@
     checkInputs = [ buildbot ];
 
     meta = with lib; {
-      homepage = http://buildbot.net/;
+      homepage = "http://buildbot.net/";
       description = "Buildbot WSGI dashboards Plugin";
       maintainers = with maintainers; [ ];
       license = licenses.gpl2;

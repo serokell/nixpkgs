@@ -1,11 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, hexdump, openssl, db48
-, boost, zlib, miniupnpc, qt4, protobuf, qrencode, libevent
-, AppKit
-, withGui ? !stdenv.isDarwin
-}:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, hexdump, openssl, db48, boost, zlib, miniupnpc, qt4, protobuf, qrencode, libevent, AppKit, withGui ?
+  !stdenv.isDarwin }:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   name = "bit1" + (toString (optional (!withGui) "d")) + "-" + version;
   version = "1.15.1";
 
@@ -16,15 +13,14 @@ stdenv.mkDerivation rec{
 
   nativeBuildInputs = [ pkgconfig autoreconfHook hexdump ];
   buildInputs = [ openssl db48 boost zlib miniupnpc protobuf libevent ]
-    ++ optionals withGui [ qt4 qrencode ]
-    ++ optional stdenv.isDarwin AppKit;
+    ++ optionals withGui [ qt4 qrencode ] ++ optional stdenv.isDarwin AppKit;
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
-                     ++ optionals withGui [ "--with-gui=qt4" ];
+    ++ optionals withGui [ "--with-gui=qt4" ];
 
   meta = {
     description = "Peer-to-peer electronic cash system (btc1 client)";
-    longDescription= ''
+    longDescription = ''
       Bitcoin is a free open source peer-to-peer electronic cash system that is
       completely decentralized, without the need for a central server or trusted
       parties. Users hold the crypto keys to their own money and transact directly

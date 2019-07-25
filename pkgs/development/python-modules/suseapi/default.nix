@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, suds-jurko
-, ldap
-, mechanize
-, beautifulsoup4
-, pyxdg
-, dateutil
-, requests
-, httpretty
+{ lib, buildPythonPackage, fetchFromGitHub, django, suds-jurko, ldap, mechanize, beautifulsoup4, pyxdg, dateutil, requests, httpretty
 }:
 
 buildPythonPackage rec {
@@ -23,9 +12,8 @@ buildPythonPackage rec {
     sha256 = "0hyzq0h1w8gp0zfvhqh7qsgcg1wp05a14371m6bn5a7gss93rbv4";
   };
 
-  propagatedBuildInputs = [
-    django suds-jurko ldap mechanize beautifulsoup4 pyxdg dateutil requests
-  ];
+  propagatedBuildInputs =
+    [ django suds-jurko ldap mechanize beautifulsoup4 pyxdg dateutil requests ];
 
   buildInputs = [ httpretty ];
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qtbase, openscenegraph, mygui, bullet, ffmpeg
-, boost, cmake, SDL2, unshield, openal, libXt, pkgconfig }:
+{ stdenv, fetchFromGitHub, qtbase, openscenegraph, mygui, bullet, ffmpeg, boost, cmake, SDL2, unshield, openal, libXt, pkgconfig
+}:
 
 let
   openscenegraph_ = openscenegraph.overrideDerivation (self: {
@@ -24,15 +24,26 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ cmake boost ffmpeg bullet mygui openscenegraph_ SDL2 unshield openal libXt qtbase ];
-
-  cmakeFlags = [
-    "-DDESIRED_QT_VERSION:INT=5"
+  buildInputs = [
+    cmake
+    boost
+    ffmpeg
+    bullet
+    mygui
+    openscenegraph_
+    SDL2
+    unshield
+    openal
+    libXt
+    qtbase
   ];
 
+  cmakeFlags = [ "-DDESIRED_QT_VERSION:INT=5" ];
+
   meta = with stdenv.lib; {
-    description = "An unofficial open source engine reimplementation of the game Morrowind";
-    homepage = http://openmw.org;
+    description =
+      "An unofficial open source engine reimplementation of the game Morrowind";
+    homepage = "http://openmw.org";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

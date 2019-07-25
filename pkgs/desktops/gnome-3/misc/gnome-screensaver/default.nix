@@ -1,17 +1,4 @@
-{ stdenv
-, fetchgit
-, autoreconfHook
-, dbus-glib
-, glib
-, gnome-common
-, gnome-desktop
-, gnome3
-, gtk3
-, pkgconfig
-, intltool
-, pam
-, systemd
-, wrapGAppsHook
+{ stdenv, fetchgit, autoreconfHook, dbus-glib, glib, gnome-common, gnome-desktop, gnome3, gtk3, pkgconfig, intltool, pam, systemd, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -21,7 +8,7 @@ stdenv.mkDerivation rec {
   # the original package is deprecated and the Ubuntu version has a number of useful patches
   src = fetchgit {
     url = "https://git.launchpad.net/ubuntu/+source/gnome-screensaver";
-    rev =  "4f7b666131dec060a5aac9117f395ac522a627b4";
+    rev = "4f7b666131dec060a5aac9117f395ac522a627b4";
     sha256 = "15xqgcpm825cy3rm8pj00qlblq66svmh06lcw8qi74a3g0xcir87";
   };
 
@@ -54,22 +41,10 @@ stdenv.mkDerivation rec {
     "33_budgie_support.patch"
   ] ++ [ ./fix-dbus-service-dir.patch ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    intltool
-    wrapGAppsHook
-    gnome-common
-    pkgconfig
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook intltool wrapGAppsHook gnome-common pkgconfig ];
 
-  buildInputs = [
-    glib
-    gtk3
-    gnome-desktop
-    dbus-glib
-    pam
-    systemd
-  ];
+  buildInputs = [ glib gtk3 gnome-desktop dbus-glib pam systemd ];
 
   configureFlags = [ "--enable-locking" "--with-systemd=yes" ];
 
@@ -86,7 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Component of Gnome Flashback that provides screen locking";
-    homepage = https://wiki.gnome.org/Projects/GnomeScreensaver;
+    homepage = "https://wiki.gnome.org/Projects/GnomeScreensaver";
     license = licenses.gpl2Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

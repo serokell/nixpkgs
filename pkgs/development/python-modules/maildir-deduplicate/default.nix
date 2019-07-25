@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, click
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy27, click }:
 
 buildPythonPackage rec {
   pname = "maildir-deduplicate";
@@ -18,7 +13,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ click ];
 
   meta = with stdenv.lib; {
-    description = "Command-line tool to deduplicate mails from a set of maildir folders";
+    description =
+      "Command-line tool to deduplicate mails from a set of maildir folders";
     homepage = "https://github.com/kdeldycke/maildir-deduplicate";
     license = licenses.gpl2;
   };

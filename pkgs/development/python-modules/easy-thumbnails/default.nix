@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  django, pillow
-}:
+{ lib, buildPythonPackage, fetchPypi, django, pillow }:
 
 buildPythonPackage rec {
   pname = "easy-thumbnails";
@@ -8,7 +6,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Easy thumbnails for Django";
-    homepage = https://github.com/SmileyChris/easy-thumbnails;
+    homepage = "https://github.com/SmileyChris/easy-thumbnails";
     license = lib.licenses.bsd3;
   };
 

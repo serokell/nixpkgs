@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPyPy
-, pkgs
-, python
-}:
+{ stdenv, buildPythonPackage, isPyPy, pkgs, python }:
 
 buildPythonPackage rec {
   name = "pyparted-${version}";

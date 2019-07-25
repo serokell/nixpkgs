@@ -6,7 +6,8 @@ let
 
 in fetchzip {
   name = "${pname}-${version}";
-  url = "https://github.com/naver/${pname}/releases/download/VER${version}/D2Coding-Ver${version}-20180524.zip";
+  url =
+    "https://github.com/naver/${pname}/releases/download/VER${version}/D2Coding-Ver${version}-20180524.zip";
 
   postFetch = ''
     mkdir -p $out/share/fonts
@@ -24,7 +25,7 @@ in fetchzip {
       Since verion 1.3, D2Coding font is officially supported by the font
       creator, with symbols for Powerline.
     '';
-    homepage = https://github.com/naver/d2codingfont;
+    homepage = "https://github.com/naver/d2codingfont";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ dtzWill ];

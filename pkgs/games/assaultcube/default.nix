@@ -1,6 +1,5 @@
-{ fetchFromGitHub, stdenv, makeDesktopItem, openal, pkgconfig, libogg,
-  libvorbis, SDL, SDL_image, makeWrapper, zlib, file,
-  client ? true, server ? true }:
+{ fetchFromGitHub, stdenv, makeDesktopItem, openal, pkgconfig, libogg, libvorbis, SDL, SDL_image, makeWrapper, zlib, file, client ?
+  true, server ? true }:
 
 with stdenv.lib;
 
@@ -12,22 +11,25 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "assaultcube";
-    repo  = "AC";
+    repo = "AC";
     rev = "f58ea22b46b5013a520520670434b3c235212371";
     sha256 = "1vfn3d55vmmipdykrcfvgk6dddi9y95vlclsliirm7jdp20f15hd";
   };
 
   nativeBuildInputs = [ makeWrapper pkgconfig ];
 
-  buildInputs = [ file zlib ] ++ optionals client [ openal SDL SDL_image libogg libvorbis ];
+  buildInputs = [ file zlib ]
+    ++ optionals client [ openal SDL SDL_image libogg libvorbis ];
 
-  targets = (optionalString server "server") + (optionalString client " client");
+  targets = (optionalString server "server")
+    + (optionalString client " client");
   makeFlags = [ "-C source/src" "CXX=c++" "${targets}" ];
 
   desktop = makeDesktopItem {
     name = "AssaultCube";
     desktopName = "AssaultCube";
-    comment = "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay.";
+    comment =
+      "A multiplayer, first-person shooter game, based on the CUBE engine. Fast, arcade gameplay.";
     genericName = "First-person shooter";
     categories = "Application;Game;ActionGame;Shooter";
     icon = "assaultcube.png";
@@ -60,11 +62,11 @@ stdenv.mkDerivation rec {
       makeWrapper $out/bin/ac_server $out/bin/${pname}-server \
         --run "cd $out/$gamedatadir" --add-flags "-Cconfig/servercmdline.txt"
     fi
-    '';
+  '';
 
   meta = {
     description = "Fast and fun first-person-shooter based on the Cube fps";
-    homepage = https://assault.cubers.net;
+    homepage = "https://assault.cubers.net";
     maintainers = [ maintainers.genesis ];
     platforms = platforms.linux; # should work on darwin with a little effort.
     license = stdenv.lib.licenses.zlib;

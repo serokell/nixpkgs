@@ -1,19 +1,24 @@
-{ stdenv, fetchurl, makeWrapper,
-  pkgconfig, systemd, gmp, unbound, bison, flex, pam, libevent, libcap_ng, curl, nspr,
-  bash, iproute, iptables, procps, coreutils, gnused, gawk, nss, which, python,
-  docs ? false, xmlto
-  }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, systemd, gmp, unbound, bison, flex, pam, libevent, libcap_ng, curl, nspr, bash, iproute, iptables, procps, coreutils, gnused, gawk, nss, which, python, docs ?
+  false, xmlto }:
 
 let
   optional = stdenv.lib.optional;
   version = "3.18";
   name = "libreswan-${version}";
   binPath = stdenv.lib.makeBinPath [
-    bash iproute iptables procps coreutils gnused gawk nss.tools which python
+    bash
+    iproute
+    iptables
+    procps
+    coreutils
+    gnused
+    gawk
+    nss.tools
+    which
+    python
   ];
-in
 
-assert docs -> xmlto != null;
+in assert docs -> xmlto != null;
 
 stdenv.mkDerivation {
   inherit name;
@@ -25,7 +30,9 @@ stdenv.mkDerivation {
   };
 
   # These flags were added to compile v3.18. Try to lift them when updating.
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=redundant-decls" "-Wno-error=format-nonliteral"
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=redundant-decls"
+    "-Wno-error=format-nonliteral"
     # these flags were added to build with gcc7
     "-Wno-error=implicit-fallthrough"
     "-Wno-error=format-truncation"
@@ -33,9 +40,26 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs = [ makeWrapper pkgconfig ];
-  buildInputs = [ bash iproute iptables systemd coreutils gnused gawk gmp unbound bison flex pam libevent
-                  libcap_ng curl nspr nss python ]
-                ++ optional docs xmlto;
+  buildInputs = [
+    bash
+    iproute
+    iptables
+    systemd
+    coreutils
+    gnused
+    gawk
+    gmp
+    unbound
+    bison
+    flex
+    pam
+    libevent
+    libcap_ng
+    curl
+    nspr
+    nss
+    python
+  ] ++ optional docs xmlto;
 
   prePatch = ''
     # Correct bash path
@@ -56,17 +80,11 @@ stdenv.mkDerivation {
   # Set appropriate paths for build
   preBuild = "export INC_USRLOCAL=\${out}";
 
-  makeFlags = [
-    "INITSYSTEM=systemd"
-    (if docs then "all" else "base")
-  ];
+  makeFlags = [ "INITSYSTEM=systemd" (if docs then "all" else "base") ];
 
   installTargets = [ (if docs then "install" else "install-base") ];
   # Hack to make install work
-  installFlags = [
-    "FINALVARDIR=\${out}/var"
-    "FINALSYSCONFDIR=\${out}/etc"
-  ];
+  installFlags = [ "FINALVARDIR=\${out}/var" "FINALSYSCONFDIR=\${out}/etc" ];
 
   postInstall = ''
     for i in $out/bin/* $out/libexec/ipsec/*; do
@@ -77,8 +95,9 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://libreswan.org;
-    description = "A free software implementation of the VPN protocol based on IPSec and the Internet Key Exchange";
+    homepage = "https://libreswan.org";
+    description =
+      "A free software implementation of the VPN protocol based on IPSec and the Internet Key Exchange";
     platforms = platforms.linux ++ platforms.darwin ++ platforms.freebsd;
     license = licenses.gpl2;
     maintainers = [ maintainers.afranchuk ];

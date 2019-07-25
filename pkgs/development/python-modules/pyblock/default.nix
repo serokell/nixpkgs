@@ -1,8 +1,4 @@
-{ stdenv
-, python
-, pkgs
-, isPy3k
-}:
+{ stdenv, python, pkgs, isPy3k }:
 
 stdenv.mkDerivation rec {
   name = "pyblock-${version}";
@@ -11,7 +7,7 @@ stdenv.mkDerivation rec {
 
   src = pkgs.fetchurl rec {
     url = "https://src.fedoraproject.org/repo/pkgs/python-pyblock/"
-        + "${name}.tar.bz2/${md5_path}/${name}.tar.bz2";
+      + "${name}.tar.bz2/${md5_path}/${name}.tar.bz2";
     sha256 = "f6cef88969300a6564498557eeea1d8da58acceae238077852ff261a2cb1d815";
   };
 
@@ -22,13 +18,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python pkgs.lvm2 pkgs.dmraid ];
 
-  makeFlags = [
-    "USESELINUX=0"
-    "SITELIB=$(out)/${python.sitePackages}"
-  ];
+  makeFlags = [ "USESELINUX=0" "SITELIB=$(out)/${python.sitePackages}" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.centos.org/docs/5/html/5.4/Technical_Notes/python-pyblock.html;
+    homepage =
+      "https://www.centos.org/docs/5/html/5.4/Technical_Notes/python-pyblock.html";
     description = "Interface for working with block devices";
     license = licenses.gpl2Plus;
     broken = isPy3k; # doesn't build on python 3, 2018-04-11

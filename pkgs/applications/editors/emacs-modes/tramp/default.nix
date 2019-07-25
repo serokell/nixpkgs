@@ -8,8 +8,9 @@ stdenv.mkDerivation rec {
   };
   buildInputs = [ emacs texinfo ];
   meta = {
-    description = "Transparently access remote files from Emacs. Newer versions than built-in.";
-    homepage = https://www.gnu.org/software/tramp;
+    description =
+      "Transparently access remote files from Emacs. Newer versions than built-in.";
+    homepage = "https://www.gnu.org/software/tramp";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.all;
   };

@@ -1,4 +1,4 @@
-{stdenv, fetchurl, pciutils, python}:
+{ stdenv, fetchurl, pciutils, python }:
 
 stdenv.mkDerivation rec {
   version = "1.30";
@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Identification utility for the x86 series of processors";
-    longDescription =
-    ''
+    longDescription = ''
       x86info will identify all Intel/AMD/Centaur/Cyrix/VIA CPUs. It leverages
       the cpuid kernel module where possible.  it supports parsing model specific
       registers (MSRs) via the msr kernel module.  it will approximate processor
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     platforms = [ "i686-linux" "x86_64-linux" ];
     license = stdenv.lib.licenses.gpl2;
-    homepage = http://codemonkey.org.uk/projects/x86info/;
-    maintainers = with stdenv.lib.maintainers; [jcumming];
+    homepage = "http://codemonkey.org.uk/projects/x86info/";
+    maintainers = with stdenv.lib.maintainers; [ jcumming ];
   };
 }

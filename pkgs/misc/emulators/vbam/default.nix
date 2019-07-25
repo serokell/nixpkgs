@@ -1,16 +1,4 @@
-{ stdenv
-, cairo
-, cmake
-, fetchFromGitHub
-, ffmpeg
-, gettext
-, libGLU_combined
-, openal
-, pkgconfig
-, SDL2
-, sfml
-, zip
-, zlib
+{ stdenv, cairo, cmake, fetchFromGitHub, ffmpeg, gettext, libGLU_combined, openal, pkgconfig, SDL2, sfml, zip, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -25,17 +13,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig ];
 
-  buildInputs = [
-    cairo
-    ffmpeg
-    gettext
-    libGLU_combined
-    openal
-    SDL2
-    sfml
-    zip
-    zlib
-  ];
+  buildInputs =
+    [ cairo ffmpeg gettext libGLU_combined openal SDL2 sfml zip zlib ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE='Release'"
@@ -50,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "A merge of the original Visual Boy Advance forks";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.lassulus ];
-    homepage = http://vba-m.com/;
+    homepage = "http://vba-m.com/";
     platforms = stdenv.lib.platforms.linux;
   };
 }

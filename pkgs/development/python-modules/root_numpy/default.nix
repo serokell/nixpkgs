@@ -19,7 +19,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy root ];
 
   meta = with lib; {
-    homepage = http://scikit-hep.org/root_numpy;
+    homepage = "http://scikit-hep.org/root_numpy";
     license = licenses.bsd3;
     description = "The interface between ROOT and NumPy";
     maintainers = with maintainers; [ veprbl ];

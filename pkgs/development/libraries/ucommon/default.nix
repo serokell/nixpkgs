@@ -1,12 +1,8 @@
-{ stdenv, fetchurl, pkgconfig
-, openssl ? null, zlib ? null, gnutls ? null
-}:
+{ stdenv, fetchurl, pkgconfig, openssl ? null, zlib ? null, gnutls ? null }:
 
-let
-  xor = a: b: (a || b) && (!(a && b));
-in
+let xor = a: b: (a || b) && (!(a && b));
 
-assert xor (openssl != null) (gnutls != null);
+in assert xor (openssl != null) (gnutls != null);
 assert !(xor (openssl != null) (zlib != null));
 
 stdenv.mkDerivation rec {
@@ -32,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "C++ library to facilitate using C++ design patterns";
-    homepage = https://www.gnu.org/software/commoncpp/;
+    homepage = "https://www.gnu.org/software/commoncpp/";
     license = stdenv.lib.licenses.lgpl3Plus;
 
     maintainers = with stdenv.lib.maintainers; [ ];

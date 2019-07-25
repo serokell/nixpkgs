@@ -1,11 +1,8 @@
-{ stdenv, lib, fetchurl, makeWrapper, perl
-, unzip, gzip, file
+{ stdenv, lib, fetchurl, makeWrapper, perl, unzip, gzip, file
 # extractors which are added to unp’s PATH
-, extraBackends ? []
-}:
+, extraBackends ? [ ] }:
 
-let
-  runtime_bins =  [ file unzip gzip ] ++ extraBackends;
+let runtime_bins = [ file unzip gzip ] ++ extraBackends;
 
 in stdenv.mkDerivation rec {
   name = "unp-${version}";
@@ -22,21 +19,21 @@ in stdenv.mkDerivation rec {
   dontConfigure = true;
   buildPhase = "true";
   installPhase = ''
-  mkdir -p $out/bin
-  mkdir -p $out/share/man/man1
-  install ./unp $out/bin/unp
-  install ./ucat $out/bin/ucat
-  cp debian/unp.1 $out/share/man/man1
+    mkdir -p $out/bin
+    mkdir -p $out/share/man/man1
+    install ./unp $out/bin/unp
+    install ./ucat $out/bin/ucat
+    cp debian/unp.1 $out/share/man/man1
 
-  wrapProgram $out/bin/unp \
-    --prefix PATH : ${lib.makeBinPath runtime_bins}
-  wrapProgram $out/bin/ucat \
-    --prefix PATH : ${lib.makeBinPath runtime_bins}
+    wrapProgram $out/bin/unp \
+      --prefix PATH : ${lib.makeBinPath runtime_bins}
+    wrapProgram $out/bin/ucat \
+      --prefix PATH : ${lib.makeBinPath runtime_bins}
   '';
 
   meta = with stdenv.lib; {
     description = "Command line tool for unpacking archives easily";
-    homepage = https://packages.qa.debian.org/u/unp.html;
+    homepage = "https://packages.qa.debian.org/u/unp.html";
     license = with licenses; [ gpl2 ];
     maintainers = [ maintainers.timor ];
     platforms = platforms.all;

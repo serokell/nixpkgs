@@ -4,17 +4,17 @@
 , geant4
 
 # Python (obviously) and boost::python for wrapping.
-, python
-, boost
-}:
+, python, boost }:
 
 let
   # g4py does not support MT and will fail to build against MT geant
   geant4_nomt = geant4.override { enableMultiThreading = false; };
-  boost_python = boost.override { enablePython = true; inherit python; };
-in
+  boost_python = boost.override {
+    enablePython = true;
+    inherit python;
+  };
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit (geant4_nomt) version src;
   name = "g4py-${version}";
 
@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     # Fix for boost 1.67+
     substituteInPlace CMakeLists.txt \
-    --replace "find_package(Boost)" "find_package(Boost 1.40 REQUIRED COMPONENTS python${builtins.replaceStrings ["."] [""] python.pythonVersion})"
+    --replace "find_package(Boost)" "find_package(Boost 1.40 REQUIRED COMPONENTS python${
+      builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion
+    })"
     for f in `find . -name CMakeLists.txt`; do
       substituteInPlace "$f" \
         --replace "boost_python" "\''${Boost_LIBRARIES}"
@@ -55,7 +57,7 @@ stdenv.mkDerivation rec {
       506 (2003) 250-303, and IEEE Transactions on Nuclear Science 53 No. 1
       (2006) 270-278.
     '';
-    homepage = http://www.geant4.org;
+    homepage = "http://www.geant4.org";
     license = stdenv.lib.licenses.g4sl;
     maintainers = [ ];
     platforms = stdenv.lib.platforms.all;

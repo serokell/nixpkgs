@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.thermald;
+let cfg = config.services.thermald;
 in {
   ###### interface
   options = {
@@ -43,7 +42,10 @@ in {
           ${pkgs.thermald}/sbin/thermald \
             --no-daemon \
             ${optionalString cfg.debug "--loglevel=debug"} \
-            ${optionalString (cfg.configFile != null) "--config-file ${cfg.configFile}"} \
+            ${
+            optionalString (cfg.configFile != null)
+            "--config-file ${cfg.configFile}"
+            } \
             --dbus-enable
         '';
       };

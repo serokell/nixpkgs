@@ -1,12 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, ansible
-, pyyaml
-, six
-, nose
-, setuptools_scm
-, ruamel_yaml
+{ lib, fetchPypi, buildPythonPackage, ansible, pyyaml, six, nose, setuptools_scm, ruamel_yaml
 }:
 
 buildPythonPackage rec {

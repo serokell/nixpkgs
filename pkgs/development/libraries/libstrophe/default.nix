@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, openssl, expat, pkgconfig, check }:
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, openssl, expat, pkgconfig, check
+}:
 
 stdenv.mkDerivation rec {
   name = "libstrophe-${version}";
@@ -27,9 +28,9 @@ stdenv.mkDerivation rec {
       minimal dependencies and is configurable for various environments. It
       runs well on both Linux, Unix, and Windows based platforms.
     '';
-    homepage = http://strophe.im/libstrophe/;
-    license = with stdenv.lib.licenses; [gpl3 mit];
+    homepage = "http://strophe.im/libstrophe/";
+    license = with stdenv.lib.licenses; [ gpl3 mit ];
     platforms = stdenv.lib.platforms.linux;
-    maintainers = with stdenv.lib.maintainers; [devhell flosse];
+    maintainers = with stdenv.lib.maintainers; [ devhell flosse ];
   };
 }

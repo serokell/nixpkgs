@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "time-${version}";
@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "Tool that runs programs and summarizes the system resources they use";
+    description =
+      "Tool that runs programs and summarizes the system resources they use";
 
     longDescription = ''
       The `time' command runs another program, then displays
@@ -27,7 +28,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = stdenv.lib.licenses.gpl3Plus;
-    homepage = https://www.gnu.org/software/time/;
+    homepage = "https://www.gnu.org/software/time/";
     platforms = stdenv.lib.platforms.unix;
   };
 }

@@ -1,30 +1,29 @@
-{ stdenv, lib, fetchurl, pkgconfig, libGLU_combined
-, SDL, SDL_image, libpng, libvorbis, libogg, libmikmod
+{ stdenv, lib, fetchurl, pkgconfig, libGLU_combined, SDL, SDL_image, libpng, libvorbis, libogg, libmikmod
 
-, use3DOVideos ? false, requireFile ? null, writeText ? null
-, haskellPackages ? null
+, use3DOVideos ? false, requireFile ? null, writeText ? null, haskellPackages ?
+  null
 
-, useRemixPacks ? false
-}:
+, useRemixPacks ? false }:
 
 assert use3DOVideos -> requireFile != null && writeText != null
-                    && haskellPackages != null;
+&& haskellPackages != null;
 
 let
   videos = import ./3dovideo.nix {
     inherit stdenv requireFile writeText fetchurl haskellPackages;
   };
 
-  remixPacks = lib.imap1 (num: sha256: fetchurl rec {
-    name = "uqm-remix-disc${toString num}.uqm";
-    url = "mirror://sourceforge/sc2/${name}";
-    inherit sha256;
-  }) [
-    "1s470i6hm53l214f2rkrbp111q4jyvnxbzdziqg32ffr8m3nk5xn"
-    "1pmsq65k8gk4jcbyk3qjgi9yqlm0dlaimc2r8hz2fc9f2124gfvz"
-    "07g966ylvw9k5q9jdzqdczp7c5qv4s91xjlg4z5z27fgcs7rzn76"
-    "1l46k9aqlcp7d3fjkjb3n05cjfkxx8rjlypgqy0jmdx529vikj54"
-  ];
+  remixPacks = lib.imap1 (num: sha256:
+    fetchurl rec {
+      name = "uqm-remix-disc${toString num}.uqm";
+      url = "mirror://sourceforge/sc2/${name}";
+      inherit sha256;
+    }) [
+      "1s470i6hm53l214f2rkrbp111q4jyvnxbzdziqg32ffr8m3nk5xn"
+      "1pmsq65k8gk4jcbyk3qjgi9yqlm0dlaimc2r8hz2fc9f2124gfvz"
+      "07g966ylvw9k5q9jdzqdczp7c5qv4s91xjlg4z5z27fgcs7rzn76"
+      "1l46k9aqlcp7d3fjkjb3n05cjfkxx8rjlypgqy0jmdx529vikj54"
+    ];
 
 in stdenv.mkDerivation rec {
   name = "uqm-${version}";
@@ -51,7 +50,8 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ SDL SDL_image libpng libvorbis libogg libmikmod libGLU_combined ];
+  buildInputs =
+    [ SDL SDL_image libpng libvorbis libogg libmikmod libGLU_combined ];
 
   postUnpack = ''
     mkdir -p uqm-${version}/content/packages
@@ -99,7 +99,7 @@ in stdenv.mkDerivation rec {
         - to adapt the code so that people can more easily make their own
           spin-offs, thereby making zillions more people happy!
     '';
-    homepage = http://sc2.sourceforge.net/;
+    homepage = "http://sc2.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ jcumming aszlig ];
     platforms = with lib.platforms; linux;

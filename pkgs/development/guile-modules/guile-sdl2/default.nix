@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, guile, libtool, pkgconfig
-, SDL2, SDL2_image, SDL2_ttf, SDL2_mixer
+{ stdenv, fetchurl, guile, libtool, pkgconfig, SDL2, SDL2_image, SDL2_ttf, SDL2_mixer
 }:
 
 let
@@ -15,9 +14,7 @@ in stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ libtool pkgconfig ];
-  buildInputs = [
-    guile SDL2 SDL2_image SDL2_ttf SDL2_mixer
-  ];
+  buildInputs = [ guile SDL2 SDL2_image SDL2_ttf SDL2_mixer ];
 
   configureFlags = [
     "--with-libsdl2-prefix=${SDL2}"

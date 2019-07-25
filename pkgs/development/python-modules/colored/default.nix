@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "colored";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://gitlab.com/dslackw/colored;
+    homepage = "https://gitlab.com/dslackw/colored";
     description = "Simple library for color and formatting to terminal";
     license = licenses.mit;
   };

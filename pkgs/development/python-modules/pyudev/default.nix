@@ -1,5 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage
-, six, systemd, pytest, mock, hypothesis, docutils
+{ lib, fetchPypi, buildPythonPackage, six, systemd, pytest, mock, hypothesis, docutils
 }:
 
 buildPythonPackage rec {
@@ -14,7 +13,7 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace src/pyudev/_ctypeslib/utils.py \
       --replace "find_library(name)" "'${systemd.lib}/lib/libudev.so'"
-    '';
+  '';
 
   checkInputs = [ pytest mock hypothesis docutils ];
   propagatedBuildInputs = [ systemd six ];
@@ -28,7 +27,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = https://pyudev.readthedocs.org/;
+    homepage = "https://pyudev.readthedocs.org/";
     description = "Pure Python libudev binding";
     license = lib.licenses.lgpl21Plus;
   };

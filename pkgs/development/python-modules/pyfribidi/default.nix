@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, isPyPy }:
 
 buildPythonPackage rec {
   version = "0.11.0";
@@ -18,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A simple wrapper around fribidi";
-    homepage = https://github.com/pediapress/pyfribidi;
+    homepage = "https://github.com/pediapress/pyfribidi";
     license = stdenv.lib.licenses.gpl2;
   };
 

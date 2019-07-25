@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, perlPackages, wrapGAppsHook,
-  librsvg, sane-backends, sane-frontends,
-  imagemagick, libtiff, djvulibre, poppler_utils, ghostscript, unpaper,
-  xvfb_run, hicolor-icon-theme, liberation_ttf, file, pdftk }:
+{ stdenv, fetchurl, perlPackages, wrapGAppsHook, librsvg, sane-backends, sane-frontends, imagemagick, libtiff, djvulibre, poppler_utils, ghostscript, unpaper, xvfb_run, hicolor-icon-theme, liberation_ttf, file, pdftk
+}:
 
 with stdenv.lib;
 
@@ -10,15 +8,15 @@ perlPackages.buildPerlPackage rec {
   version = "2.3.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gscan2pdf/${version}/${pname}-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/gscan2pdf/${version}/${pname}-${version}.tar.xz";
     sha256 = "0mcsmly0j9pmyzh6py8r6sfa30hc6gv300hqq3dxj4hv653vhkk9";
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs =
-    [ librsvg sane-backends sane-frontends ] ++
-    (with perlPackages; [
+  buildInputs = [ librsvg sane-backends sane-frontends ]
+    ++ (with perlPackages; [
       Gtk3
       Gtk3SimpleList
       Cairo
@@ -45,15 +43,16 @@ perlPackages.buildPerlPackage rec {
     ]);
 
   postPatch = let
-    fontSubstitute = "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
-  in ''
-    # Required for the program to properly load its SVG assets
-    substituteInPlace bin/gscan2pdf \
-      --replace "/usr/share" "$out/share"
+    fontSubstitute =
+      "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
+    in ''
+      # Required for the program to properly load its SVG assets
+      substituteInPlace bin/gscan2pdf \
+        --replace "/usr/share" "$out/share"
 
-    # Substitute the non-free Helvetica font in the tests
-    sed -i 's|-pointsize|-font ${fontSubstitute} -pointsize|g' t/*.t
-  '';
+      # Substitute the non-free Helvetica font in the tests
+      sed -i 's|-pointsize|-font ${fontSubstitute} -pointsize|g' t/*.t
+    '';
 
   postInstall = ''
     # Remove impurity
@@ -95,7 +94,7 @@ perlPackages.buildPerlPackage rec {
 
   meta = {
     description = "A GUI to produce PDFs or DjVus from scanned documents";
-    homepage = http://gscan2pdf.sourceforge.net/;
+    homepage = "http://gscan2pdf.sourceforge.net/";
     license = licenses.gpl3;
     maintainers = [ maintainers.pacien ];
   };

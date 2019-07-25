@@ -1,49 +1,4 @@
-{ stdenv
-, lib
-, writeTextFile
-, python
-, sagelib
-, env-locations
-, gfortran
-, bash
-, coreutils
-, gnused
-, gnugrep
-, binutils
-, pythonEnv
-, python3
-, pkg-config
-, pari
-, gap
-, ecl
-, maxima-ecl
-, singular
-, giac
-, palp
-, rWrapper
-, gfan
-, cddlib
-, jmol
-, tachyon
-, glpk
-, eclib
-, sympow
-, nauty
-, sqlite
-, ppl
-, ecm
-, lcalc
-, rubiks
-, flintqs
-, openblasCompat
-, flint
-, gmp
-, mpfr
-, pynac
-, zlib
-, gsl
-, ntl
-, jdk
+{ stdenv, lib, writeTextFile, python, sagelib, env-locations, gfortran, bash, coreutils, gnused, gnugrep, binutils, pythonEnv, python3, pkg-config, pari, gap, ecl, maxima-ecl, singular, giac, palp, rWrapper, gfan, cddlib, jmol, tachyon, glpk, eclib, sympow, nauty, sqlite, ppl, ecm, lcalc, rubiks, flintqs, openblasCompat, flint, gmp, mpfr, pynac, zlib, gsl, ntl, jdk
 }:
 
 # This generates a `sage-env` shell file that will be sourced by sage on startup.
@@ -92,14 +47,13 @@ let
     rubiks
     flintqs
     jdk # only needed for `jmol` which may be replaced in the future
-  ]
-  ));
-in
-writeTextFile rec {
+  ]));
+in writeTextFile rec {
   name = "sage-env";
   destination = "/${name}";
   text = ''
-    export PKG_CONFIG_PATH='${lib.concatStringsSep ":" (map (pkg: "${pkg}/lib/pkgconfig") [
+      export PKG_CONFIG_PATH='${
+      lib.concatStringsSep ":" (map (pkg: "${pkg}/lib/pkgconfig") [
         # This is only needed in the src/sage/misc/cython.py test and I'm not
         # sure if there's really a usecase for it outside of the tests. However
         # since singular and openblas are runtime dependencies anyways, it doesn't
@@ -107,28 +61,28 @@ writeTextFile rec {
         singular
         openblasCompat
       ])
-    }'
-    export SAGE_ROOT='${sagelib.src}'
-    export SAGE_LOCAL='@sage-local@'
-    export SAGE_SHARE='${sagelib}/share'
-    orig_path="$PATH"
-    export PATH='${runtimepath}'
+      }'
+      export SAGE_ROOT='${sagelib.src}'
+      export SAGE_LOCAL='@sage-local@'
+      export SAGE_SHARE='${sagelib}/share'
+      orig_path="$PATH"
+      export PATH='${runtimepath}'
 
-    # set dependent vars, like JUPYTER_CONFIG_DIR
-    source "${sagelib.src}/src/bin/sage-env"
-    export PATH="$RUNTIMEPATH_PREFIX:${runtimepath}:$orig_path" # sage-env messes with PATH
+      # set dependent vars, like JUPYTER_CONFIG_DIR
+      source "${sagelib.src}/src/bin/sage-env"
+      export PATH="$RUNTIMEPATH_PREFIX:${runtimepath}:$orig_path" # sage-env messes with PATH
 
-    export SAGE_LOGS="$TMPDIR/sage-logs"
-    export SAGE_DOC="''${SAGE_DOC_OVERRIDE:-doc-placeholder}"
-    export SAGE_DOC_SRC="''${SAGE_DOC_SRC_OVERRIDE:-${sagelib.src}/src/doc}"
+      export SAGE_LOGS="$TMPDIR/sage-logs"
+      export SAGE_DOC="''${SAGE_DOC_OVERRIDE:-doc-placeholder}"
+      export SAGE_DOC_SRC="''${SAGE_DOC_SRC_OVERRIDE:-${sagelib.src}/src/doc}"
 
-    # set locations of dependencies
-    . ${env-locations}/sage-env-locations
+      # set locations of dependencies
+      . ${env-locations}/sage-env-locations
 
-    # needed for cython
-    export CC='${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc'
-    # cython needs to find these libraries, otherwise will fail with `ld: cannot find -lflint` or similar
-    export LDFLAGS='${
+      # needed for cython
+      export CC='${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc'
+      # cython needs to find these libraries, otherwise will fail with `ld: cannot find -lflint` or similar
+      export LDFLAGS='${
       lib.concatStringsSep " " (map (pkg: "-L${pkg}/lib") [
         flint
         gap
@@ -144,8 +98,8 @@ writeTextFile rec {
         jmol
         sympow
       ])
-    }'
-    export CFLAGS='${
+      }'
+      export CFLAGS='${
       lib.concatStringsSep " " (map (pkg: "-isystem ${pkg}/include") [
         singular
         gmp.dev
@@ -155,15 +109,18 @@ writeTextFile rec {
         pynac
         mpfr.dev
       ])
-    }'
+      }'
 
-    export SAGE_LIB='${sagelib}/${python.sitePackages}'
+      export SAGE_LIB='${sagelib}/${python.sitePackages}'
 
-    export SAGE_EXTCODE='${sagelib.src}/src/ext'
+      export SAGE_EXTCODE='${sagelib.src}/src/ext'
 
-  # for find_library
-    export DYLD_LIBRARY_PATH="${lib.makeLibraryPath [stdenv.cc.libc singular]}:$DYLD_LIBRARY_PATH"
+    # for find_library
+      export DYLD_LIBRARY_PATH="${
+      lib.makeLibraryPath [ stdenv.cc.libc singular ]
+      }:$DYLD_LIBRARY_PATH"
   '';
 } // {
-  lib = sagelib; # equivalent of `passthru`, which `writeTextFile` doesn't support
+  lib =
+    sagelib; # equivalent of `passthru`, which `writeTextFile` doesn't support
 }

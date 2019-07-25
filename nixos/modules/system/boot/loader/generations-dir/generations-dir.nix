@@ -8,16 +8,14 @@ let
     src = ./generations-dir-builder.sh;
     isExecutable = true;
     inherit (pkgs) bash;
-    path = [pkgs.coreutils pkgs.gnused pkgs.gnugrep];
+    path = [ pkgs.coreutils pkgs.gnused pkgs.gnugrep ];
     inherit (config.boot.loader.generationsDir) copyKernels;
   };
 
   # Temporary check, for nixos to cope both with nixpkgs stdenv-updates and trunk
   inherit (pkgs.stdenv.hostPlatform) platform;
 
-in
-
-{
+in {
   options = {
 
     boot.loader.generationsDir = {
@@ -53,7 +51,6 @@ in
     };
 
   };
-
 
   config = mkIf config.boot.loader.generationsDir.enable {
 

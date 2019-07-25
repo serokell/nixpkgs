@@ -1,8 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, gnome3, gtk3,
-  xorg, libcanberra-gtk3, upower, xkeyboard_config, libxkbcommon,
-  libstartup_notification, libinput, libgudev, cogl, clutter, systemd,
-  gsettings-desktop-schemas, deepin-desktop-schemas, wrapGAppsHook,
-  deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, gnome3, gtk3, xorg, libcanberra-gtk3, upower, xkeyboard_config, libxkbcommon, libstartup_notification, libinput, libgudev, cogl, clutter, systemd, gsettings-desktop-schemas, deepin-desktop-schemas, wrapGAppsHook, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -44,19 +41,15 @@ stdenv.mkDerivation rec {
     xorg.libxkbfile
   ];
 
-  patches = [
-    ./deepin-mutter.plugins-dir.patch
-  ];
+  patches = [ ./deepin-mutter.plugins-dir.patch ];
 
   postPatch = ''
     searchHardCodedPaths  # debugging
     sed -i -e "s,Exec=deepin-mutter,Exec=$out/bin/deepin-mutter," data/mutter.desktop.in
   '';
 
-  configureFlags = [
-    "--enable-native-backend"
-    "--enable-compile-warnings=minimum"
-  ];
+  configureFlags =
+    [ "--enable-native-backend" "--enable-compile-warnings=minimum" ];
 
   preConfigure = ''
     NOCONFIGURE=1 ./autogen.sh
@@ -72,7 +65,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Base window manager for deepin, fork of gnome mutter";
-    homepage = https://github.com/linuxdeepin/deepin-mutter;
+    homepage = "https://github.com/linuxdeepin/deepin-mutter";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

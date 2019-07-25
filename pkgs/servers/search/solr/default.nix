@@ -25,11 +25,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://lucene.apache.org/solr/;
-    description = "Open source enterprise search platform from the Apache Lucene project";
+    homepage = "https://lucene.apache.org/solr/";
+    description =
+      "Open source enterprise search platform from the Apache Lucene project";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ maintainers.rickynils maintainers.domenkozar maintainers.aanderse ];
+    maintainers =
+      [ maintainers.rickynils maintainers.domenkozar maintainers.aanderse ];
   };
 
 }

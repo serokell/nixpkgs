@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gstreamer, gst-plugins-base, boost155, glib, qt4, cmake
-, automoc4, flex, bison, pkgconfig }:
+{ stdenv, fetchurl, gstreamer, gst-plugins-base, boost155, glib, qt4, cmake, automoc4, flex, bison, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-0.10.3";

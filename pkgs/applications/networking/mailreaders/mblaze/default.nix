@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/leahneukirchen/mblaze/commit/53151f4f890f302291eb8d3375dec4f8ecb66ed7.patch";
+      url =
+        "https://github.com/leahneukirchen/mblaze/commit/53151f4f890f302291eb8d3375dec4f8ecb66ed7.patch";
       sha256 = "1mcyrh053iiyzdhgm09g5h3a77np496whnc7jr4agpk1nkbcpfxc";
     })
   ];
@@ -27,7 +28,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/chneukirchen/mblaze;
+    homepage = "https://github.com/chneukirchen/mblaze";
     description = "Unix utilities to deal with Maildir";
     license = licenses.cc0;
     platforms = platforms.all;

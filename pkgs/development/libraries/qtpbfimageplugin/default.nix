@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       displaying raster MBTiles maps or raster XYZ online maps to also display PBF
       vector tiles without (almost) any application modifications.
     '';
-    homepage = https://github.com/tumic0/QtPBFImagePlugin;
+    homepage = "https://github.com/tumic0/QtPBFImagePlugin";
     license = licenses.lgpl3;
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;

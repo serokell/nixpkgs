@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   version = "2.0.1";
 
   src = fetchFromGitHub {
-    owner   = "mruby";
-    repo    = "mruby";
-    rev     = version;
-    sha256  = "1zm2d5kj9fnfx8ifj8ysrrr838ipwmvz35byzjhprakrg64911p9";
+    owner = "mruby";
+    repo = "mruby";
+    rev = version;
+    sha256 = "1zm2d5kj9fnfx8ifj8ysrrr838ipwmvz35byzjhprakrg64911p9";
   };
 
   nativeBuildInputs = [ ruby bison ];
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An embeddable implementation of the Ruby language";
-    homepage = https://mruby.org;
+    homepage = "https://mruby.org";
     maintainers = [ maintainers.nicknovitski ];
     license = licenses.mit;
     platforms = platforms.unix;

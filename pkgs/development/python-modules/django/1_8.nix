@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-}:
+{ stdenv, buildPythonPackage, fetchurl }:
 
 buildPythonPackage rec {
   name = "Django-${version}";
@@ -22,15 +19,15 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A high-level Python Web framework";
-    homepage = https://www.djangoproject.com/;
+    homepage = "https://www.djangoproject.com/";
     license = licenses.bsd0;
     knownVulnerabilities = [
       # The patches were not backported due to Django 1.8 having reached EOL
-      https://www.djangoproject.com/weblog/2018/aug/01/security-releases/
-      https://www.djangoproject.com/weblog/2019/jan/04/security-releases/
-      https://www.djangoproject.com/weblog/2019/feb/11/security-releases/
-      https://www.djangoproject.com/weblog/2019/jun/03/security-releases/
-      https://www.djangoproject.com/weblog/2019/jul/01/security-releases/
+      "https://www.djangoproject.com/weblog/2018/aug/01/security-releases/"
+      "https://www.djangoproject.com/weblog/2019/jan/04/security-releases/"
+      "https://www.djangoproject.com/weblog/2019/feb/11/security-releases/"
+      "https://www.djangoproject.com/weblog/2019/jun/03/security-releases/"
+      "https://www.djangoproject.com/weblog/2019/jul/01/security-releases/"
     ];
   };
 

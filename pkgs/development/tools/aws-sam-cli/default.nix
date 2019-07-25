@@ -1,6 +1,4 @@
-{ lib
-, python
-}:
+{ lib, python }:
 
 let
   py = python.override {
@@ -9,23 +7,24 @@ let
         version = "6.7";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b";
+          sha256 =
+            "f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b";
         };
       });
 
-      aws-sam-translator = super.aws-sam-translator.overridePythonAttrs (oldAttrs: rec {
-        version = "1.10.0";
-        src = oldAttrs.src.override {
-          inherit version;
-          sha256 = "0e1fa094c6791b233f5e73f2f0803ec6e0622f2320ec5a969f0986855221b92b";
-        };
-      });
+      aws-sam-translator = super.aws-sam-translator.overridePythonAttrs
+        (oldAttrs: rec {
+          version = "1.10.0";
+          src = oldAttrs.src.override {
+            inherit version;
+            sha256 =
+              "0e1fa094c6791b233f5e73f2f0803ec6e0622f2320ec5a969f0986855221b92b";
+          };
+        });
     };
   };
 
-in
-
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "aws-sam-cli";
@@ -62,8 +61,9 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/awslabs/aws-sam-cli;
-    description = "CLI tool for local development and testing of Serverless applications";
+    homepage = "https://github.com/awslabs/aws-sam-cli";
+    description =
+      "CLI tool for local development and testing of Serverless applications";
     license = licenses.asl20;
     maintainers = with maintainers; [ andreabedini dhkl ];
   };

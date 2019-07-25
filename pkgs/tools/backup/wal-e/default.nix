@@ -14,17 +14,13 @@ pythonPackages.buildPythonApplication rec {
   # needs tox
   doCheck = false;
 
-  propagatedBuildInputs = [
-    pythonPackages.boto
-    pythonPackages.gevent
-    postgresql
-    lzop
-    pv
-  ];
+  propagatedBuildInputs =
+    [ pythonPackages.boto pythonPackages.gevent postgresql lzop pv ];
 
   meta = {
-    description = "A Postgres WAL-shipping disaster recovery and replication toolkit";
-    homepage = https://github.com/wal-e/wal-e;
+    description =
+      "A Postgres WAL-shipping disaster recovery and replication toolkit";
+    homepage = "https://github.com/wal-e/wal-e";
     maintainers = [ stdenv.lib.maintainers.rickynils ];
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.linux;

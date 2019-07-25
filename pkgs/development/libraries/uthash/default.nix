@@ -1,9 +1,7 @@
 { stdenv, fetchurl, perl }:
 
-let
-  version = "2.1.0";
-in
-stdenv.mkDerivation rec {
+let version = "2.1.0";
+in stdenv.mkDerivation rec {
   name = "uthash-${version}";
 
   src = fetchurl {
@@ -24,8 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A hash table for C structures";
-    homepage    = http://troydhanson.github.io/uthash;
-    license     = licenses.bsd2; # it's one-clause, actually, as it's source-only
-    platforms   = platforms.all;
+    homepage = "http://troydhanson.github.io/uthash";
+    license = licenses.bsd2; # it's one-clause, actually, as it's source-only
+    platforms = platforms.all;
   };
 }

@@ -1,17 +1,14 @@
-{ stdenv, fetchurl, cmake, pkgconfig
-, qt4, libjack2
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, qt4, libjack2 }:
 
-let
-  version = "0.5.1";
+let version = "0.5.1";
 in stdenv.mkDerivation rec {
   name = "vmpk-${version}";
 
   meta = with stdenv.lib; {
     description = "Virtual MIDI Piano Keyboard";
-    homepage    = "http://vmpk.sourceforge.net/";
-    license     = licenses.gpl3Plus;
-    platforms   = platforms.linux;
+    homepage = "http://vmpk.sourceforge.net/";
+    license = licenses.gpl3Plus;
+    platforms = platforms.linux;
   };
 
   src = fetchurl {

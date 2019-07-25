@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "ecdsa";

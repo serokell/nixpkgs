@@ -1,10 +1,7 @@
-{ stdenv, lib, fetchurl, extra-cmake-modules
-, qtbase, kdeFrameworks
-, libatasmart, parted
-, utillinux }:
+{ stdenv, lib, fetchurl, extra-cmake-modules, qtbase, kdeFrameworks, libatasmart, parted, utillinux
+}:
 
-let
-  pname = "kpmcore";
+let pname = "kpmcore";
 
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -28,6 +25,6 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-   maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [ peterhoeg ];
   };
 }

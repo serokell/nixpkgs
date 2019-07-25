@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   options = {
     ec2 = {
       hvm = lib.mkOption {

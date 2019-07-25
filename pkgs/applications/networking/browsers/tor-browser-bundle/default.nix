@@ -1,43 +1,28 @@
-{ stdenv
-, fetchgit
-, fetchurl
-, symlinkJoin
+{ stdenv, fetchgit, fetchurl, symlinkJoin
 
-, tor
-, tor-browser-unwrapped
+, tor, tor-browser-unwrapped
 
 # Wrapper runtime
-, coreutils
-, hicolor-icon-theme
-, shared-mime-info
-, noto-fonts
-, noto-fonts-emoji
+, coreutils, hicolor-icon-theme, shared-mime-info, noto-fonts, noto-fonts-emoji
 
 # Audio support
-, audioSupport ? mediaSupport
-, apulse
+, audioSupport ? mediaSupport, apulse
 
 # Media support (implies audio support)
-, mediaSupport ? false
-, ffmpeg
+, mediaSupport ? false, ffmpeg
 
 # Extensions, common
 , zip
 
 # HTTPS Everywhere
-, git
-, libxml2 # xmllint
-, python27
-, python27Packages
-, rsync
+, git, libxml2 # xmllint
+, python27, python27Packages, rsync
 
 # Pluggable transports
 , obfs4
 
 # Customization
-, extraPrefs ? ""
-, extraExtensions ? [ ]
-}:
+, extraPrefs ? "", extraExtensions ? [ ] }:
 
 with stdenv.lib;
 
@@ -49,16 +34,12 @@ let
   };
 
   firefoxExtensions = import ./extensions.nix {
-    inherit stdenv fetchurl fetchgit zip
-      git libxml2 python27 python27Packages rsync;
+    inherit stdenv fetchurl fetchgit zip git libxml2 python27 python27Packages
+      rsync;
   };
 
-  bundledExtensions = with firefoxExtensions; [
-    https-everywhere
-    noscript
-    torbutton
-    tor-launcher
-  ] ++ extraExtensions;
+  bundledExtensions = with firefoxExtensions;
+    [ https-everywhere noscript torbutton tor-launcher ] ++ extraExtensions;
 
   fontsEnv = symlinkJoin {
     name = "tor-browser-fonts";
@@ -67,11 +48,8 @@ let
 
   fontsDir = "${fontsEnv}/share/fonts";
 
-  mediaLibPath = makeLibraryPath [
-    ffmpeg
-  ];
-in
-stdenv.mkDerivation rec {
+  mediaLibPath = makeLibraryPath [ ffmpeg ];
+in stdenv.mkDerivation rec {
   name = "tor-browser-bundle-${version}";
   version = tor-browser-unwrapped.version;
 
@@ -140,7 +118,9 @@ stdenv.mkDerivation rec {
     EOF
 
     # Preload extensions
-    find ${toString bundledExtensions} -name '*.xpi' -exec ln -s -t browser/extensions '{}' '+'
+    find ${
+      toString bundledExtensions
+    } -name '*.xpi' -exec ln -s -t browser/extensions '{}' '+'
 
     # Copy bundle data
     bundlePlatform=linux
@@ -180,10 +160,12 @@ stdenv.mkDerivation rec {
 
     # Generate a suitable wrapper
     wrapper_PATH=${makeBinPath [ coreutils ]}
-    wrapper_XDG_DATA_DIRS=${concatMapStringsSep ":" (x: "${x}/share") [
-      hicolor-icon-theme
-      shared-mime-info
-    ]}
+    wrapper_XDG_DATA_DIRS=${
+      concatMapStringsSep ":" (x: "${x}/share") [
+        hicolor-icon-theme
+        shared-mime-info
+      ]
+    }
 
     ${optionalString audioSupport ''
       # apulse uses a non-standard library path ...
@@ -315,7 +297,8 @@ stdenv.mkDerivation rec {
 
   passthru.execdir = "/bin";
   meta = with stdenv.lib; {
-    description = "An unofficial version of the Tor Browser Bundle, built from source";
+    description =
+      "An unofficial version of the Tor Browser Bundle, built from source";
     longDescription = ''
       Tor Browser Bundle is a bundle of the Tor daemon, Tor Browser (heavily patched version of
       Firefox), several essential extensions for Tor Browser, and some tools that glue those

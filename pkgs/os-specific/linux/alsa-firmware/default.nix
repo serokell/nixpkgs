@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "alsa-firmware-1.0.29";
@@ -8,9 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gfcyj5anckjn030wcxx5v2xk2s219nyf99s9m833275b5wz2piw";
   };
 
-  configureFlags = [
-    "--with-hotplug-dir=$(out)/lib/firmware"
-  ];
+  configureFlags = [ "--with-hotplug-dir=$(out)/lib/firmware" ];
 
   dontStrip = true;
 
@@ -25,7 +23,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.alsa-project.org/;
+    homepage = "http://www.alsa-project.org/";
     description = "Soundcard firmwares from the alsa project";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;

@@ -39,9 +39,7 @@ in {
   ###### implementation
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' - peerflix - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - peerflix - - -" ];
 
     systemd.services.peerflix = {
       description = "Peerflix Daemon";

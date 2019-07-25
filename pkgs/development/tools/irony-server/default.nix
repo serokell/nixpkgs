@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "server";
 
-  cmakeFlags = [
-    "-DCMAKE_PREFIX_PATH=${llvmPackages.clang-unwrapped}"
-  ];
+  cmakeFlags = [ "-DCMAKE_PREFIX_PATH=${llvmPackages.clang-unwrapped}" ];
 
   src = irony.src;
 

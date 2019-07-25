@@ -1,6 +1,4 @@
-{ lib, stdenv, python3, openssl
-, enableSystemd ? stdenv.isLinux
-}:
+{ lib, stdenv, python3, openssl, enableSystemd ? stdenv.isLinux }:
 
 with python3.pkgs;
 
@@ -79,7 +77,7 @@ in buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://matrix.org;
+    homepage = "https://matrix.org";
     description = "Matrix reference homeserver";
     license = licenses.asl20;
     maintainers = with maintainers; [ ralith roblabla ekleog pacien ];

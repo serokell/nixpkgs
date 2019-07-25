@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, pkgconfig
-, libX11, libXext, libXft, libXmu, libXinerama, libXrandr, libXpm
-, imagemagick, libpng, libjpeg, libexif, libtiff, libungif, libwebp }:
+{ stdenv, fetchurl, pkgconfig, libX11, libXext, libXft, libXmu, libXinerama, libXrandr, libXpm, imagemagick, libpng, libjpeg, libexif, libtiff, libungif, libwebp
+}:
 
 stdenv.mkDerivation rec {
   name = "windowmaker-${version}";
@@ -14,18 +13,28 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [ libX11 libXext libXft libXmu libXinerama libXrandr libXpm
-                  imagemagick libpng libjpeg libexif libtiff libungif libwebp ];
-
-  configureFlags = [
-    "--with-x"
-    "--enable-modelock"
-    "--enable-randr"
-    "--enable-magick"
+  buildInputs = [
+    libX11
+    libXext
+    libXft
+    libXmu
+    libXinerama
+    libXrandr
+    libXpm
+    imagemagick
+    libpng
+    libjpeg
+    libexif
+    libtiff
+    libungif
+    libwebp
   ];
 
+  configureFlags =
+    [ "--with-x" "--enable-modelock" "--enable-randr" "--enable-magick" ];
+
   meta = with stdenv.lib; {
-    homepage = http://windowmaker.org/;
+    homepage = "http://windowmaker.org/";
     description = "NeXTSTEP-like window manager";
     longDescription = ''
       Window Maker is an X11 window manager originally designed to

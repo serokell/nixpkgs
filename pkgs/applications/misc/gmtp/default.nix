@@ -1,10 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, libmtp, libid3tag, flac, libvorbis, gtk3
-, gsettings-desktop-schemas, wrapGAppsHook
+{ stdenv, fetchurl, pkgconfig, libmtp, libid3tag, flac, libvorbis, gtk3, gsettings-desktop-schemas, wrapGAppsHook
 }:
 
-let version = "1.3.11"; in
+let version = "1.3.11";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "gmtp-${version}";
 
   src = fetchurl {
@@ -13,7 +12,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
-  buildInputs = [ libmtp libid3tag flac libvorbis gtk3 gsettings-desktop-schemas ];
+  buildInputs =
+    [ libmtp libid3tag flac libvorbis gtk3 gsettings-desktop-schemas ];
 
   enableParallelBuilding = true;
 
@@ -22,8 +22,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "A simple MP3 and Media player client for UNIX and UNIX like systems.";
-    homepage = https://gmtp.sourceforge.io;
+    description =
+      "A simple MP3 and Media player client for UNIX and UNIX like systems.";
+    homepage = "https://gmtp.sourceforge.io";
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.pbogdan ];
     license = stdenv.lib.licenses.bsd3;

@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, setuptools_scm
-, importlib-metadata
-}:
+{ buildPythonPackage, lib, fetchPypi, setuptools_scm, importlib-metadata }:
 
 buildPythonPackage rec {
   pname = "pluggy";

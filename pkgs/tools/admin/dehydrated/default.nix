@@ -1,9 +1,9 @@
-{ stdenv, coreutils, curl, diffutils, gawk, gnugrep, gnused, openssl, makeWrapper, fetchFromGitHub }:
+{ stdenv, coreutils, curl, diffutils, gawk, gnugrep, gnused, openssl, makeWrapper, fetchFromGitHub
+}:
 let
   pkgName = "dehydrated";
   version = "0.6.5";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = pkgName + "-" + version;
 
   src = fetchFromGitHub {
@@ -18,8 +18,18 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     cp -a dehydrated $out/bin
-    wrapProgram "$out/bin/dehydrated" --prefix PATH : "${stdenv.lib.makeBinPath [ openssl coreutils gnused gnugrep diffutils curl gawk ]}"
-    '';
+    wrapProgram "$out/bin/dehydrated" --prefix PATH : "${
+      stdenv.lib.makeBinPath [
+        openssl
+        coreutils
+        gnused
+        gnugrep
+        diffutils
+        curl
+        gawk
+      ]
+    }"
+  '';
 
   meta = with stdenv.lib; {
     inherit (src.meta) homepage;

@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, enum34
-, grpc_google_iam_v1
-, google_api_core
-, pytest
-, mock
+{ stdenv, buildPythonPackage, fetchPypi, enum34, grpc_google_iam_v1, google_api_core, pytest, mock
 }:
 
 buildPythonPackage rec {
@@ -26,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Cloud Asset API API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

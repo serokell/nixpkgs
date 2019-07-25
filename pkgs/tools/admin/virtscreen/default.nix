@@ -24,15 +24,16 @@ python3Packages.buildPythonApplication rec {
     xrandr
   ];
 
-  postPatch = let
-    ext = stdenv.hostPlatform.extensions.sharedLibrary; in ''
-    substituteInPlace virtscreen/__main__.py \
-      --replace "'GL'" "'${libGL}/lib/libGL${ext}'" \
-  '';
+  postPatch = let ext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
+      substituteInPlace virtscreen/__main__.py \
+        --replace "'GL'" "'${libGL}/lib/libGL${ext}'" \
+    '';
 
   meta = with stdenv.lib; {
-    description = "Make your iPad/tablet/computer as a secondary monitor on Linux";
-    homepage = https://github.com/kbumsik/VirtScreen;
+    description =
+      "Make your iPad/tablet/computer as a secondary monitor on Linux";
+    homepage = "https://github.com/kbumsik/VirtScreen";
     license = licenses.gpl3;
     maintainers = with maintainers; [ borisbabic ];
   };

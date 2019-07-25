@@ -12,9 +12,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake doxygen ];
 
-  cmakeFlags = [
-    "-DUri_BUILD_TESTS=OFF" "-DUri_BUILD_DOCS=ON" "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags =
+    [ "-DUri_BUILD_TESTS=OFF" "-DUri_BUILD_DOCS=ON" "-DBUILD_SHARED_LIBS=ON" ];
 
   postBuild = "make doc";
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "C++ URI library";
-    homepage = https://cpp-netlib.org;
+    homepage = "https://cpp-netlib.org";
     license = stdenv.lib.licenses.boost;
     platforms = stdenv.lib.platforms.all;
   };

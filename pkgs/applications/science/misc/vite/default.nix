@@ -8,8 +8,7 @@ let
     sha256 = "1a422n3dp72v4visq5b1i21cf8sj12903sgg5v2hah3sgk02dnyz";
     inherit rev;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "vite-1.2pre${rev}";
 
   src = fetchsvn {
@@ -28,7 +27,8 @@ stdenv.mkDerivation {
   NIX_LDFLAGS = "-lGLU";
 
   meta = {
-    description = "Visual Trace Explorer (ViTE), a tool to visualize execution traces";
+    description =
+      "Visual Trace Explorer (ViTE), a tool to visualize execution traces";
 
     longDescription = ''
       ViTE is a trace explorer. It is a tool to visualize execution
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
       parallel or distributed applications.
     '';
 
-    homepage = http://vite.gforge.inria.fr/;
+    homepage = "http://vite.gforge.inria.fr/";
     license = stdenv.lib.licenses.cecill20;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];
     platforms = stdenv.lib.platforms.linux;

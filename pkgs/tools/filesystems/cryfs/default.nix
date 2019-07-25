@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, cmake, pkgconfig, coreutils
-, boost, cryptopp, curl, fuse, openssl, python, spdlog
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, coreutils, boost, cryptopp, curl, fuse, openssl, python, spdlog
 }:
 
 stdenv.mkDerivation rec {
@@ -8,9 +6,9 @@ stdenv.mkDerivation rec {
   version = "0.9.10";
 
   src = fetchFromGitHub {
-    owner  = "cryfs";
-    repo   = "cryfs";
-    rev    = "${version}";
+    owner = "cryfs";
+    repo = "cryfs";
+    rev = "${version}";
     sha256 = "04yqpad8x0hiiwpykcn3swi0py6sg9xid6g15ny2qs4j3llin5ry";
   };
 
@@ -36,7 +34,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ boost cryptopp curl fuse openssl python spdlog ];
 
   patches = [
-    ./test-no-network.patch  # Disable tests using external networking
+    ./test-no-network.patch # Disable tests using external networking
     ./skip-failing-test-large-malloc.patch
   ];
 
@@ -70,9 +68,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Cryptographic filesystem for the cloud";
-    homepage    = https://www.cryfs.org;
-    license     = licenses.lgpl3;
+    homepage = "https://www.cryfs.org";
+    license = licenses.lgpl3;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms   = with platforms; linux;
+    platforms = with platforms; linux;
   };
 }

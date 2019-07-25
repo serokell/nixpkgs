@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, qtmultimedia,
-  qtsvg, qtx11extras, librsvg, libstartup_notification, gsettings-qt,
-  dde-qt-dbus-factory, dtkcore, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, qtmultimedia, qtsvg, qtx11extras, librsvg, libstartup_notification, gsettings-qt, dde-qt-dbus-factory, dtkcore, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -14,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "11ws0rl7rhlgwbqd4nqpqxhngf4lcyfrrdq33wzxwdlk33d69i1h";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ pkgconfig qmake qttools ];
 
   buildInputs = [
     qtmultimedia
@@ -44,7 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin graphical user interface library";
-    homepage = https://github.com/linuxdeepin/dtkwidget;
+    homepage = "https://github.com/linuxdeepin/dtkwidget";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

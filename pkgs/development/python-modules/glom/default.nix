@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, boltons
-, attrs
-, face
-, pytest
-, pyyaml
-, isPy37
+{ stdenv, buildPythonPackage, fetchPypi, boltons, attrs, face, pytest, pyyaml, isPy37
 }:
 
 buildPythonPackage rec {
@@ -26,7 +18,7 @@ buildPythonPackage rec {
   doCheck = !isPy37; # https://github.com/mahmoud/glom/issues/72
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mahmoud/glom;
+    homepage = "https://github.com/mahmoud/glom";
     description = "Restructuring data, the Python way";
     longDescription = ''
       glom helps pull together objects from other objects in a

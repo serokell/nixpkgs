@@ -11,10 +11,10 @@ stdenv.mkDerivation rec {
   # TODO: a lazy work-around for linux build failure ...
   makeFlags = [ "STATIC=" ];
 
-   postPatch = ''
+  postPatch = ''
     substituteInPlace chkrootkit \
       --replace " ./" " $out/bin/"
-   '';
+  '';
 
   installPhase = ''
     mkdir -p $out/sbin
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Locally checks for signs of a rootkit";
-    homepage = http://www.chkrootkit.org/;
+    homepage = "http://www.chkrootkit.org/";
     license = licenses.bsd2;
     platforms = with platforms; linux;
   };

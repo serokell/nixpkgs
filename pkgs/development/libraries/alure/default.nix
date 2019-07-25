@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ cmake openal ];
 
   meta = with stdenv.lib; {
-    description = "A utility library to help manage common tasks with OpenAL applications";
-    homepage = https://kcat.strangesoft.net/alure.html;
+    description =
+      "A utility library to help manage common tasks with OpenAL applications";
+    homepage = "https://kcat.strangesoft.net/alure.html";
     license = licenses.mit;
     platforms = platforms.linux;
   };

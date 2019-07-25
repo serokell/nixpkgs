@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1h9dm2hhld2079dnx4x5nzkn3ivk6g5ijhv49jxnc200mx4mr1s5";
 
   meta = with lib; {
-    description = "A command-line application to view images from the terminal written in Rust";
+    description =
+      "A command-line application to view images from the terminal written in Rust";
     homepage = "https://github.com/atanunq/viu";
     license = licenses.mit;
     maintainers = with maintainers; [ petabyteboy ];

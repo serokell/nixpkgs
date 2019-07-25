@@ -8,9 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "1navkcnmn0qz8kzsyqmk32d929zl72l0b580w1ica7z5559j2a8m";
   };
 
-  buildInputs = [
-    qt4
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [ AGL ];
+  buildInputs = [ qt4 ] ++ stdenv.lib.optionals stdenv.isDarwin [ AGL ];
 
   nativeBuildInputs = [ qmake4Hook ];
 
@@ -21,17 +19,16 @@ stdenv.mkDerivation rec {
   '';
 
   # qwt.framework output includes a relative reference to itself, which breaks dependents
-  preFixup =
-    stdenv.lib.optionalString stdenv.isDarwin ''
-      echo "Attempting to repair qwt"
-      install_name_tool -id "$out/lib/qwt.framework/Versions/6/qwt" "$out/lib/qwt.framework/Versions/6/qwt"
-    '';
+  preFixup = stdenv.lib.optionalString stdenv.isDarwin ''
+    echo "Attempting to repair qwt"
+    install_name_tool -id "$out/lib/qwt.framework/Versions/6/qwt" "$out/lib/qwt.framework/Versions/6/qwt"
+  '';
 
   qmakeFlags = [ "-after doc.path=$out/share/doc/${name}" ];
 
   meta = with stdenv.lib; {
     description = "Qt widgets for technical applications";
-    homepage = http://qwt.sourceforge.net/;
+    homepage = "http://qwt.sourceforge.net/";
     # LGPL 2.1 plus a few exceptions (more liberal)
     license = stdenv.lib.licenses.qwt;
     platforms = platforms.linux ++ platforms.darwin;

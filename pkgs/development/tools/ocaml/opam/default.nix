@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchurl, makeWrapper, getconf,
-  ocaml, unzip, ncurses, curl, aspcud, bubblewrap
+{ stdenv, lib, fetchurl, makeWrapper, getconf, ocaml, unzip, ncurses, curl, aspcud, bubblewrap
 }:
 
 assert lib.versionAtLeast ocaml.version "4.02.3";
@@ -19,11 +18,13 @@ let
       sha256 = "0771lwljqwwn3cryl0plny5a5dyyrj4z6bw66ha5n8yfbpcy8clr";
     };
     dose3 = fetchurl {
-      url = "https://gforge.inria.fr/frs/download.php/file/36063/dose3-5.0.1.tar.gz";
+      url =
+        "https://gforge.inria.fr/frs/download.php/file/36063/dose3-5.0.1.tar.gz";
       sha256 = "00yvyfm4j423zqndvgc1ycnmiffaa2l9ab40cyg23pf51qmzk2jm";
     };
     dune-local = fetchurl {
-      url = "https://github.com/ocaml/dune/releases/download/1.6.3/dune-1.6.3.tbz";
+      url =
+        "https://github.com/ocaml/dune/releases/download/1.6.3/dune-1.6.3.tbz";
       sha256 = "0dmf0wbfmgdy5plz1bjiisc2hjgblvxsnrqjmw2c8y45v1h23mdz";
     };
     extlib = fetchurl {
@@ -43,11 +44,13 @@ let
       sha256 = "0cjw69r7iilidi7b6arr92kjnjspchvwnmwr1b1gyaxqxpr2s98m";
     };
     re = fetchurl {
-      url = "https://github.com/ocaml/ocaml-re/releases/download/1.8.0/re-1.8.0.tbz";
+      url =
+        "https://github.com/ocaml/ocaml-re/releases/download/1.8.0/re-1.8.0.tbz";
       sha256 = "0qkv42a4hpqpxvqa4kdkkcbhbg7aym9kv4mqgm3m51vxbd0pq0lv";
     };
     result = fetchurl {
-      url = "https://github.com/janestreet/result/releases/download/1.3/result-1.3.tbz";
+      url =
+        "https://github.com/janestreet/result/releases/download/1.3/result-1.3.tbz";
       sha256 = "1lrnbxdq80gbhnp85mqp1kfk0bkh6q1c93sfz2qgnq2qyz60w4sk";
     };
     seq = fetchurl {
@@ -63,7 +66,8 @@ in stdenv.mkDerivation rec {
   name = "opam-${version}";
   version = "2.0.5";
 
-  buildInputs = [ unzip curl ncurses ocaml makeWrapper getconf ] ++ lib.optional stdenv.isLinux bubblewrap;
+  buildInputs = [ unzip curl ncurses ocaml makeWrapper getconf ]
+    ++ lib.optional stdenv.isLinux bubblewrap;
 
   src = srcs.opam;
 
@@ -92,7 +96,7 @@ in stdenv.mkDerivation rec {
   postConfigure = "make lib-ext";
 
   # Dirty, but apparently ocp-build requires a TERM
-  makeFlags = ["TERM=screen"];
+  makeFlags = [ "TERM=screen" ];
 
   outputs = [ "out" "installer" ];
   setOutputFlags = false;
@@ -103,7 +107,9 @@ in stdenv.mkDerivation rec {
     mv $out/bin/opam $out/bin/.opam-wrapped
     makeWrapper $out/bin/.opam-wrapped $out/bin/opam \
       --argv0 "opam" \
-      --suffix PATH : ${aspcud}/bin:${unzip}/bin:${curl}/bin:${lib.optionalString stdenv.isLinux "${bubblewrap}/bin:"}${getconf}/bin \
+      --suffix PATH : ${aspcud}/bin:${unzip}/bin:${curl}/bin:${
+      lib.optionalString stdenv.isLinux "${bubblewrap}/bin:"
+      }${getconf}/bin \
       --set OPAM_USER_PATH_RO /run/current-system/sw/bin:/nix/
     $out/bin/opam-installer --prefix=$installer opam-installer.install
   '';
@@ -112,7 +118,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A package manager for OCaml";
-    homepage = http://opam.ocamlpro.com/;
+    homepage = "http://opam.ocamlpro.com/";
     maintainers = [ maintainers.henrytill ];
     platforms = platforms.all;
   };

@@ -1,6 +1,7 @@
 { stdenv, pkgs, python3 }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "khal";
   version = "0.10.1";
 
@@ -40,7 +41,7 @@ with python3.pkgs; buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://lostpackets.de/khal/;
+    homepage = "http://lostpackets.de/khal/";
     description = "CLI calendar application";
     license = licenses.mit;
     maintainers = with maintainers; [ gebner ];

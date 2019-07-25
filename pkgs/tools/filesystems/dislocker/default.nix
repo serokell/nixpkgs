@@ -1,12 +1,7 @@
-{ stdenv, fetchFromGitHub
-, cmake
-, polarssl , fuse
-}:
+{ stdenv, fetchFromGitHub, cmake, polarssl, fuse }:
 with stdenv.lib;
-let
-  version = "0.7.1";
-in
-stdenv.mkDerivation rec {
+let version = "0.7.1";
+in stdenv.mkDerivation rec {
   name = "dislocker-${version}";
 
   src = fetchFromGitHub {
@@ -20,9 +15,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Read BitLocker encrypted partitions in Linux";
-    homepage    = https://github.com/aorimn/dislocker;
-    license     = licenses.gpl2;
+    homepage = "https://github.com/aorimn/dislocker";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ elitak ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

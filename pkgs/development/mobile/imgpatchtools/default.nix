@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.3";
 
   src = fetchzip {
-    url = "https://github.com/erfanoabdi/imgpatchtools/archive/${version}.tar.gz";
+    url =
+      "https://github.com/erfanoabdi/imgpatchtools/archive/${version}.tar.gz";
     sha256 = "1cwp1hfhip252dz0mbkhrsrkws6m15k359n4amw2vfnglnls8czd";
   };
 
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
       utility. It also includes other, related, but arguably more advanced tools
       for OTA manipulation.
     '';
-    homepage = https://github.com/erfanoabdi/imgpatchtools;
+    homepage = "https://github.com/erfanoabdi/imgpatchtools";
     license = licenses.gpl3;
     maintainers = with maintainers; [ yegortimoshenko ];
     platforms = platforms.linux;

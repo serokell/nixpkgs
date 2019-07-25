@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://furius.ca/xxdiff/;
+    homepage = "http://furius.ca/xxdiff/";
     description = "Graphical file and directories comparator and merge tool";
     license = licenses.gpl2;
     platforms = platforms.linux;

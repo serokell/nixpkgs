@@ -1,21 +1,23 @@
-{ stdenv, lib, fetchurl, gyp, readline, python, which, icu, utillinux, cctools }:
+{ stdenv, lib, fetchurl, gyp, readline, python, which, icu, utillinux, cctools
+}:
 
 assert readline != null;
 
 let
-  arch = if stdenv.isAarch32
-    then (if stdenv.is64bit then "arm64" else "arm")
-    else (if stdenv.is64bit then "x64" else "ia32");
-  armHardFloat = stdenv.isAarch32 && (stdenv.hostPlatform.platform.gcc.float or null) == "hard";
-in
+  arch = if stdenv.isAarch32 then
+    (if stdenv.is64bit then "arm64" else "arm")
+  else
+    (if stdenv.is64bit then "x64" else "ia32");
+  armHardFloat = stdenv.isAarch32
+    && (stdenv.hostPlatform.platform.gcc.float or null) == "hard";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "v8-${version}";
   version = "3.16.14.11";
 
   src = fetchurl {
     url = "https://commondatastorage.googleapis.com/chromium-browser-official/"
-        + "${name}.tar.bz2";
+      + "${name}.tar.bz2";
     sha256 = "1gpf2xvhxfs5ll3m2jlslsx9jfjbmrbz55iq362plflrvf8mbxhj";
   };
 
@@ -44,26 +46,21 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ which ];
-  buildInputs = [ readline python icu ]
-                  ++ lib.optional stdenv.isLinux utillinux
-                  ++ lib.optional stdenv.isDarwin cctools;
+  buildInputs = [ readline python icu ] ++ lib.optional stdenv.isLinux utillinux
+    ++ lib.optional stdenv.isDarwin cctools;
 
   NIX_CFLAGS_COMPILE = "-Wno-error -w";
 
-  buildFlags = [
-    "-C out"
-    "builddir=$(CURDIR)/Release"
-    "BUILDTYPE=Release"
-  ];
+  buildFlags = [ "-C out" "builddir=$(CURDIR)/Release" "BUILDTYPE=Release" ];
 
   enableParallelBuilding = true;
 
   installPhase = ''
     install -vD out/Release/d8 "$out/bin/d8"
     ${if stdenv.isDarwin then ''
-    install -vD out/Release/libv8.dylib "$out/lib/libv8.dylib"
+      install -vD out/Release/libv8.dylib "$out/lib/libv8.dylib"
     '' else ''
-    install -vD out/Release/lib.target/libv8.so "$out/lib/libv8.so"
+      install -vD out/Release/lib.target/libv8.so "$out/lib/libv8.so"
     ''}
     cp -vr include "$out/"
   '';
@@ -71,7 +68,8 @@ stdenv.mkDerivation rec {
   postFixup = if stdenv.isDarwin then ''
     install_name_tool -change /usr/local/lib/libv8.dylib $out/lib/libv8.dylib $out/bin/d8
     install_name_tool -id $out/lib/libv8.dylib $out/lib/libv8.dylib
-  '' else null;
+  '' else
+    null;
 
   meta = with stdenv.lib; {
     description = "V8 is Google's open source JavaScript engine";

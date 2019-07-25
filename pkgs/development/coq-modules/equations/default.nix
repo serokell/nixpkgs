@@ -27,9 +27,8 @@ let
     };
   };
   param = params."${coq.coq-version}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   name = "coq${coq.coq-version}-equations-${version}";
   version = "${param.version}";
@@ -48,14 +47,12 @@ stdenv.mkDerivation rec {
   installFlags = "COQLIB=$(out)/lib/coq/${coq.coq-version}/";
 
   meta = with stdenv.lib; {
-    homepage = https://mattam82.github.io/Coq-Equations/;
+    homepage = "https://mattam82.github.io/Coq-Equations/";
     description = "A plugin for Coq to add dependent pattern-matching";
     maintainers = with maintainers; [ jwiegley ];
     platforms = coq.meta.platforms;
   };
 
-  passthru = {
-    compatibleCoqVersions = v: builtins.hasAttr v params;
-  };
+  passthru = { compatibleCoqVersions = v: builtins.hasAttr v params; };
 
 }

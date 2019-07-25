@@ -8,28 +8,28 @@ with lib;
       enable = mkEnableOption "xl2tpd, the Layer 2 Tunnelling Protocol Daemon";
 
       serverIp = mkOption {
-        type        = types.string;
+        type = types.string;
         description = "The server-side IP address.";
-        default     = "10.125.125.1";
+        default = "10.125.125.1";
       };
 
       clientIpRange = mkOption {
-        type        = types.string;
+        type = types.string;
         description = "The range from which client IPs are drawn.";
-        default     = "10.125.125.2-11";
+        default = "10.125.125.2-11";
       };
 
       extraXl2tpOptions = mkOption {
-        type        = types.lines;
+        type = types.lines;
         description = "Adds extra lines to the xl2tpd configuration file.";
-        default     = "";
+        default = "";
       };
 
       extraPppdOptions = mkOption {
-        type        = types.lines;
+        type = types.lines;
         description = "Adds extra lines to the pppd options file.";
-        default     = "";
-        example     = ''
+        default = "";
+        example = ''
           ms-dns 8.8.8.8
           ms-dns 8.8.4.4
         '';
@@ -82,9 +82,9 @@ with lib;
       '';
 
       xl2tpd-ppp-wrapped = pkgs.stdenv.mkDerivation {
-        name         = "xl2tpd-ppp-wrapped";
-        phases       = [ "installPhase" ];
-        buildInputs  = with pkgs; [ makeWrapper ];
+        name = "xl2tpd-ppp-wrapped";
+        phases = [ "installPhase" ];
+        buildInputs = with pkgs; [ makeWrapper ];
         installPhase = ''
           mkdir -p $out/bin
 
@@ -97,47 +97,48 @@ with lib;
             --set NIX_REDIRECTS "${pkgs.ppp}/sbin/pppd=$out/bin/pppd"
         '';
       };
-    in {
-      description = "xl2tpd server";
+      in {
+        description = "xl2tpd server";
 
-      requires = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+        requires = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
 
-      preStart = ''
-        mkdir -p -m 700 /etc/xl2tpd
+        preStart = ''
+          mkdir -p -m 700 /etc/xl2tpd
 
-        pushd /etc/xl2tpd > /dev/null
+          pushd /etc/xl2tpd > /dev/null
 
-        mkdir -p -m 700 ppp
+          mkdir -p -m 700 ppp
 
-        [ -f ppp/chap-secrets ] || cat > ppp/chap-secrets << EOF
-        # Secrets for authentication using CHAP
-        # client	server	secret		IP addresses
-        #username	xl2tpd	password	*
-        EOF
+          [ -f ppp/chap-secrets ] || cat > ppp/chap-secrets << EOF
+          # Secrets for authentication using CHAP
+          # client	server	secret		IP addresses
+          #username	xl2tpd	password	*
+          EOF
 
-        chown root.root ppp/chap-secrets
-        chmod 600 ppp/chap-secrets
+          chown root.root ppp/chap-secrets
+          chmod 600 ppp/chap-secrets
 
-        # The documentation says this file should be present but doesn't explain why and things work even if not there:
-        [ -f l2tp-secrets ] || (echo -n "* * "; ${pkgs.apg}/bin/apg -n 1 -m 32 -x 32 -a 1 -M LCN) > l2tp-secrets
-        chown root.root l2tp-secrets
-        chmod 600 l2tp-secrets
+          # The documentation says this file should be present but doesn't explain why and things work even if not there:
+          [ -f l2tp-secrets ] || (echo -n "* * "; ${pkgs.apg}/bin/apg -n 1 -m 32 -x 32 -a 1 -M LCN) > l2tp-secrets
+          chown root.root l2tp-secrets
+          chmod 600 l2tp-secrets
 
-        popd > /dev/null
+          popd > /dev/null
 
-        mkdir -p /run/xl2tpd
-        chown root.root /run/xl2tpd
-        chmod 700       /run/xl2tpd
-      '';
+          mkdir -p /run/xl2tpd
+          chown root.root /run/xl2tpd
+          chmod 700       /run/xl2tpd
+        '';
 
-      serviceConfig = {
-        ExecStart = "${xl2tpd-ppp-wrapped}/bin/xl2tpd -D -c ${xl2tpd-conf} -s /etc/xl2tpd/l2tp-secrets -p /run/xl2tpd/pid -C /run/xl2tpd/control";
-        KillMode  = "process";
-        Restart   = "on-success";
-        Type      = "simple";
-        PIDFile   = "/run/xl2tpd/pid";
+        serviceConfig = {
+          ExecStart =
+            "${xl2tpd-ppp-wrapped}/bin/xl2tpd -D -c ${xl2tpd-conf} -s /etc/xl2tpd/l2tp-secrets -p /run/xl2tpd/pid -C /run/xl2tpd/control";
+          KillMode = "process";
+          Restart = "on-success";
+          Type = "simple";
+          PIDFile = "/run/xl2tpd/pid";
+        };
       };
-    };
   };
 }

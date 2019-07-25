@@ -1,7 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "archiver";
@@ -17,7 +14,8 @@ buildGoModule rec {
   modSha256 = "13vwgqpw7ypq6mrvwmnl8n38x0h89ymryrrzkf7ya478fp00vclj";
 
   meta = with lib; {
-    description = "Easily create & extract archives, and compress & decompress files of various formats";
+    description =
+      "Easily create & extract archives, and compress & decompress files of various formats";
     homepage = "https://github.com/mholt/archiver";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];

@@ -26,8 +26,9 @@ pythonPackages.buildPythonApplication rec {
   checkPhase = "LANG=en_US.UTF-8 nosetests";
 
   meta = {
-    description = "Beets plugin to move non-music files during the import process";
-    homepage = https://github.com/sbarakat/beets-copyartifacts;
+    description =
+      "Beets plugin to move non-music files during the import process";
+    homepage = "https://github.com/sbarakat/beets-copyartifacts";
     license = stdenv.lib.licenses.mit;
   };
 }

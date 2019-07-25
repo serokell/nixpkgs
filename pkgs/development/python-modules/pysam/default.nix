@@ -1,19 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bzip2
-, bcftools
-, curl
-, cython
-, htslib
-, lzma
-, pytest
-, samtools
-, zlib
+{ lib, buildPythonPackage, fetchFromGitHub, bzip2, bcftools, curl, cython, htslib, lzma, pytest, samtools, zlib
 }:
 
 buildPythonPackage rec {
-  pname   = "pysam";
+  pname = "pysam";
   version = "0.15.2";
 
   # Fetching from GitHub instead of PyPi cause the 0.13 src release on PyPi is
@@ -39,8 +28,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = http://pysam.readthedocs.io/;
-    description = "A python module for reading, manipulating and writing genome data sets";
+    homepage = "http://pysam.readthedocs.io/";
+    description =
+      "A python module for reading, manipulating and writing genome data sets";
     maintainers = with lib.maintainers; [ unode ];
     license = lib.licenses.mit;
     platforms = [ "i686-linux" "x86_64-linux" ];

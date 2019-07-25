@@ -1,16 +1,9 @@
-{ buildPythonPackage
-, fetchPypi
-, six
-, numpy
-, pillow
-, pytorch
-, lib
-}:
+{ buildPythonPackage, fetchPypi, six, numpy, pillow, pytorch, lib }:
 
 buildPythonPackage rec {
   version = "0.2.1";
-  pname   = "torchvision";
-  name    = "${pname}-${version}";
+  pname = "torchvision";
+  name = "${pname}-${version}";
 
   format = "wheel";
 
@@ -24,8 +17,8 @@ buildPythonPackage rec {
 
   meta = {
     description = "PyTorch vision library";
-    homepage    = https://pytorch.org/;
-    license     = lib.licenses.bsd3;
+    homepage = "https://pytorch.org/";
+    license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ ericsagnes ];
   };
 }

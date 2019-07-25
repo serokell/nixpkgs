@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "libsepol-${version}";
   version = "2.7";
   se_release = "20170804";
-  se_url = "https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases";
+  se_url =
+    "https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases";
 
   outputs = [ "bin" "out" "dev" "man" ];
 
@@ -31,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "SELinux binary policy manipulation library";
-    homepage = http://userspace.selinuxproject.org;
+    homepage = "http://userspace.selinuxproject.org";
     platforms = platforms.linux;
     maintainers = [ maintainers.phreedom ];
     license = stdenv.lib.licenses.gpl2;

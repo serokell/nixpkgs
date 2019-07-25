@@ -1,12 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, withVoice ? true, libopus
-, aiohttp
-, websockets
-, pynacl
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, withVoice ?
+  true, libopus, aiohttp, websockets, pynacl }:
 
 buildPythonPackage rec {
   pname = "discord.py";
@@ -33,8 +26,8 @@ buildPythonPackage rec {
 
   meta = {
     description = "A python wrapper for the Discord API";
-    homepage    = "https://discordpy.rtfd.org/";
-    license     = lib.licenses.mit;
+    homepage = "https://discordpy.rtfd.org/";
+    license = lib.licenses.mit;
 
     # discord.py requires websockets<4.0
     # See https://github.com/Rapptz/discord.py/issues/973

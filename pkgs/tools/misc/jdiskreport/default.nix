@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   builder = ./builder.sh;
 
   src = fetchurl {
-    url = http://www.jgoodies.com/download/jdiskreport/jdiskreport-1_4_1.zip;
+    url = "http://www.jgoodies.com/download/jdiskreport/jdiskreport-1_4_1.zip";
     sha256 = "0d5mzkwsbh9s9b1vyvpaawqc09b0q41l2a7pmwf7386b1fsx6d58";
   };
 
@@ -15,8 +15,9 @@ stdenv.mkDerivation rec {
   inherit jre;
 
   meta = {
-    homepage = http://www.jgoodies.com/freeware/jdiskreport/;
+    homepage = "http://www.jgoodies.com/freeware/jdiskreport/";
     description = "A graphical utility to visualize disk usage";
-    license = stdenv.lib.licenses.unfreeRedistributable; #TODO freedist, libs under BSD-3
+    license =
+      stdenv.lib.licenses.unfreeRedistributable; # TODO freedist, libs under BSD-3
   };
 }

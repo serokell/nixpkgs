@@ -11,18 +11,17 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ makeWrapper ];
 
-  installPhase =
-    let
-      h2ToolScript = ''
-        #!/usr/bin/env bash
-        dir=$(dirname "$0")
+  installPhase = let
+    h2ToolScript = ''
+      #!/usr/bin/env bash
+      dir=$(dirname "$0")
 
-        if [ -n "$1" ]; then
-          ${jre}/bin/java -cp "$dir/h2-${version}.jar:$H2DRIVERS:$CLASSPATH" $1 "''${@:2}"
-        else
-          echo "You have to provide the full java class path for the h2 tool you want to run. E.g. 'org.h2.tools.Server'"
-        fi
-      '';
+      if [ -n "$1" ]; then
+        ${jre}/bin/java -cp "$dir/h2-${version}.jar:$H2DRIVERS:$CLASSPATH" $1 "''${@:2}"
+      else
+        echo "You have to provide the full java class path for the h2 tool you want to run. E.g. 'org.h2.tools.Server'"
+      fi
+    '';
     in ''
       mkdir -p $out
       cp -R * $out
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The Java SQL database";
-    homepage = http://www.h2database.com/html/main.html;
+    homepage = "http://www.h2database.com/html/main.html";
     license = licenses.mpl20;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with maintainers; [ mahe ];

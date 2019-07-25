@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchdarcs
-, isPy3k
-, eventlib
-, application
-}:
+{ stdenv, buildPythonPackage, fetchdarcs, isPy3k, eventlib, application }:
 
 buildPythonPackage rec {
   pname = "python-xcaplib";
@@ -20,7 +14,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ eventlib application ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/AGProjects/python-xcaplib;
+    homepage = "https://github.com/AGProjects/python-xcaplib";
     description = "XCAP (RFC4825) client library";
     license = licenses.gpl2;
   };

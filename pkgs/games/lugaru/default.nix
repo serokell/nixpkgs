@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, cmake, openal, pkgconfig, libogg,
-  libvorbis, SDL2, makeWrapper, libpng, libjpeg_turbo, libGLU }:
+{ stdenv, fetchFromGitLab, cmake, openal, pkgconfig, libogg, libvorbis, SDL2, makeWrapper, libpng, libjpeg_turbo, libGLU
+}:
 
 with stdenv.lib;
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Lugaru HD: Third person ninja rabbit fighting game";
-    homepage = https://osslugaru.gitlab.io;
+    homepage = "https://osslugaru.gitlab.io";
     maintainers = [ maintainers.genesis ];
     platforms = platforms.linux;
     license = stdenv.lib.licenses.gpl2Plus;

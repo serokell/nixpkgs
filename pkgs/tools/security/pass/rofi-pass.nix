@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pass, rofi, coreutils, utillinux, xdotool, gnugrep
-, libnotify, pwgen, findutils, gawk, gnused, xclip, makeWrapper
+{ stdenv, fetchFromGitHub, pass, rofi, coreutils, utillinux, xdotool, gnugrep, libnotify, pwgen, findutils, gawk, gnused, xclip, makeWrapper
 }:
 
 stdenv.mkDerivation rec {
@@ -25,20 +24,21 @@ stdenv.mkDerivation rec {
     cp -a config.example $out/share/doc/rofi-pass/config.example
   '';
 
-  wrapperPath = with stdenv.lib; makeBinPath [
-    coreutils
-    findutils
-    gawk
-    gnugrep
-    gnused
-    libnotify
-    (pass.withExtensions (ext: [ ext.pass-otp ]))
-    pwgen
-    rofi
-    utillinux
-    xclip
-    xdotool
-  ];
+  wrapperPath = with stdenv.lib;
+    makeBinPath [
+      coreutils
+      findutils
+      gawk
+      gnugrep
+      gnused
+      libnotify
+      (pass.withExtensions (ext: [ ext.pass-otp ]))
+      pwgen
+      rofi
+      utillinux
+      xclip
+      xdotool
+    ];
 
   fixupPhase = ''
     patchShebangs $out/bin
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A script to make rofi work with password-store";
-    homepage = https://github.com/carnager/rofi-pass;
+    homepage = "https://github.com/carnager/rofi-pass";
     maintainers = with stdenv.lib.maintainers; [ the-kenny ];
     license = stdenv.lib.licenses.gpl3;
     platforms = with stdenv.lib.platforms; linux;

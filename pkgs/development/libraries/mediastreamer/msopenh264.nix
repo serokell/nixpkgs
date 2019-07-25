@@ -1,6 +1,4 @@
-{ stdenv, autoreconfHook, pkgconfig, mediastreamer, openh264
-, fetchgit, cmake
-}:
+{ stdenv, autoreconfHook, pkgconfig, mediastreamer, openh264, fetchgit, cmake }:
 
 stdenv.mkDerivation rec {
   name = "mediastreamer-openh264-${version}";
@@ -17,7 +15,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "H.264 encoder/decoder plugin for mediastreamer2";
-    homepage = http://www.linphone.org/technical-corner/mediastreamer2/overview;
+    homepage =
+      "http://www.linphone.org/technical-corner/mediastreamer2/overview";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -1,24 +1,20 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "smokeping";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ cransom ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ cransom ]; };
 
   nodes = {
-    sm =
-      { ... }:
-      {
-        services.smokeping = {
-          enable = true;
-          port = 8081;
-          mailHost = "127.0.0.2";
-          probeConfig = ''
-            + FPing
-            binary = /run/wrappers/bin/fping
-            offset = 0%
-          '';
-        };
+    sm = { ... }: {
+      services.smokeping = {
+        enable = true;
+        port = 8081;
+        mailHost = "127.0.0.2";
+        probeConfig = ''
+          + FPing
+          binary = /run/wrappers/bin/fping
+          offset = 0%
+        '';
       };
+    };
   };
 
   testScript = ''

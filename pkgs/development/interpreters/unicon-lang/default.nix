@@ -34,11 +34,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = ''A very high level, goal-directed, object-oriented, general purpose applications language'';
+    description =
+      "A very high level, goal-directed, object-oriented, general purpose applications language";
     maintainers = with maintainers; [ vrthra ];
     platforms = platforms.linux;
     license = licenses.gpl2;
-    homepage = http://unicon.org;
+    homepage = "http://unicon.org";
   };
 }
 

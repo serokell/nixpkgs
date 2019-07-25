@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub
-, autoreconfHook, pkgconfig, docbook_xsl, libxslt, docbook_xml_dtd_45
-, acl, attr, boost, btrfs-progs, dbus, diffutils, e2fsprogs, libxml2
-, lvm2, pam, python, utillinux }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, docbook_xsl, libxslt, docbook_xml_dtd_45, acl, attr, boost, btrfs-progs, dbus, diffutils, e2fsprogs, libxml2, lvm2, pam, python, utillinux
+}:
 
 stdenv.mkDerivation rec {
   name = "snapper-${version}";
@@ -14,13 +12,21 @@ stdenv.mkDerivation rec {
     sha256 = "0f3nsqk8820jh08qdh23n01vxbigsfcn9s5qvgqz6jf4pwin6j0x";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkgconfig
-    docbook_xsl libxslt docbook_xml_dtd_45
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig docbook_xsl libxslt docbook_xml_dtd_45 ];
   buildInputs = [
-    acl attr boost btrfs-progs dbus diffutils e2fsprogs libxml2
-    lvm2 pam python utillinux
+    acl
+    attr
+    boost
+    btrfs-progs
+    dbus
+    diffutils
+    e2fsprogs
+    libxml2
+    lvm2
+    pam
+    python
+    utillinux
   ];
 
   postPatch = ''
@@ -36,14 +42,12 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    "--disable-ext4"	# requires patched kernel & e2fsprogs
+    "--disable-ext4" # requires patched kernel & e2fsprogs
   ];
 
   enableParallelBuilding = true;
 
-  NIX_CFLAGS_COMPILE = [
-    "-I${libxml2.dev}/include/libxml2"
-  ];
+  NIX_CFLAGS_COMPILE = [ "-I${libxml2.dev}/include/libxml2" ];
 
   postInstall = ''
     rm -r $out/etc/cron.*
@@ -59,7 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tool for Linux filesystem snapshot management";
-    homepage = http://snapper.io;
+    homepage = "http://snapper.io";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ tstrobel markuskowa ];

@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, itsdangerous, hypothesis
-, pytest, requests }:
+{ stdenv, buildPythonPackage, fetchPypi, itsdangerous, hypothesis, pytest, requests
+}:
 
 buildPythonPackage rec {
   pname = "Werkzeug";
@@ -15,7 +14,9 @@ buildPythonPackage rec {
   checkInputs = [ pytest requests hypothesis ];
 
   checkPhase = ''
-    pytest ${stdenv.lib.optionalString stdenv.isDarwin "-k 'not test_get_machine_id'"}
+    pytest ${
+      stdenv.lib.optionalString stdenv.isDarwin "-k 'not test_get_machine_id'"
+    }
   '';
 
   meta = with stdenv.lib; {

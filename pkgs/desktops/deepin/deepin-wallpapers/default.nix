@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     cp -a deepin/* deepin-community/* deepin-private/* $out/share/wallpapers/deepin
     mkdir -p $out/var/cache
     cp -a image-blur $out/var/cache
-    
+
     # Suggested by upstream
     mkdir -p $out/share/backgrounds/deepin
     ln -s ../../wallpapers/deepin/Hummingbird_by_Shu_Le.jpg $out/share/backgrounds/deepin/desktop.jpg
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Wallpapers for Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/deepin-wallpapers;
+    homepage = "https://github.com/linuxdeepin/deepin-wallpapers";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

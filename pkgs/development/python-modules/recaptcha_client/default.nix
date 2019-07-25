@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonAtLeast
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "recaptcha-client";
@@ -16,7 +12,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A CAPTCHA for Python using the reCAPTCHA service";
-    homepage = http://recaptcha.net/;
+    homepage = "http://recaptcha.net/";
     license = licenses.mit;
   };
 

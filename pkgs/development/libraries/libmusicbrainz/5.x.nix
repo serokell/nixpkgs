@@ -8,16 +8,16 @@ stdenv.mkDerivation rec {
   buildInputs = [ cmake neon libdiscid libxml2 ];
 
   src = fetchFromGitHub {
-    owner  = "metabrainz";
-    repo   = "libmusicbrainz";
+    owner = "metabrainz";
+    repo = "libmusicbrainz";
     sha256 = "0ah9kaf3g3iv1cps2vs1hs33nfbjfx1xscpjgxr1cg28p4ri6jhq";
-    rev    = "release-${version}";
+    rev = "release-${version}";
   };
 
-  dontUseCmakeBuildDir=true;
+  dontUseCmakeBuildDir = true;
 
   meta = with stdenv.lib; {
-    homepage = http://musicbrainz.org/doc/libmusicbrainz;
+    homepage = "http://musicbrainz.org/doc/libmusicbrainz";
     description = "MusicBrainz Client Library (5.x version)";
     longDescription = ''
       The libmusicbrainz (also known as mb_client or MusicBrainz Client

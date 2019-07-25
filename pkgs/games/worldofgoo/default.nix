@@ -1,17 +1,15 @@
-{ stdenv, requireFile
-, libX11, libXext, libXau, libxcb, libXdmcp , SDL, SDL_mixer, libvorbis, libGLU_combined
-, runtimeShell
-, demo ? false }:
+{ stdenv, requireFile, libX11, libXext, libXau, libxcb, libXdmcp, SDL, SDL_mixer, libvorbis, libGLU_combined, runtimeShell, demo ?
+  false }:
 
 # TODO: add i686 support
 
 stdenv.mkDerivation rec {
-  name = if demo
-    then "WorldOfGooDemo-1.41"
-    else "WorldofGoo-1.41";
+  name = if demo then "WorldOfGooDemo-1.41" else "WorldofGoo-1.41";
 
-  arch = if stdenv.hostPlatform.system == "x86_64-linux" then "supported"
-    else throw "Sorry. World of Goo only is only supported on x86_64 now.";
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "supported"
+  else
+    throw "Sorry. World of Goo only is only supported on x86_64 now.";
 
   goBuyItNow = ''
     We cannot download the full version automatically, as you require a license.
@@ -29,26 +27,34 @@ stdenv.mkDerivation rec {
     directory where you saved it.
   '';
 
-  src = if demo
-    then
-      requireFile {
-         message = getTheDemo;
-         name = "WorldOfGooDemo.1.41.tar.gz";
-         sha256 = "0ndcix1ckvcj47sgndncr3hxjcg402cbd8r16rhq4cc43ibbaxri";
-       }
-    else
-      requireFile {
-        message = goBuyItNow;
-        name = "WorldOfGooSetup.1.41.tar.gz";
-        sha256 = "0rj5asx4a2x41ncwdby26762my1lk1gaqar2rl8dijfnpq8qlnk7";
-      };
+  src = if demo then
+    requireFile {
+      message = getTheDemo;
+      name = "WorldOfGooDemo.1.41.tar.gz";
+      sha256 = "0ndcix1ckvcj47sgndncr3hxjcg402cbd8r16rhq4cc43ibbaxri";
+    }
+  else
+    requireFile {
+      message = goBuyItNow;
+      name = "WorldOfGooSetup.1.41.tar.gz";
+      sha256 = "0rj5asx4a2x41ncwdby26762my1lk1gaqar2rl8dijfnpq8qlnk7";
+    };
 
   phases = "unpackPhase installPhase";
 
   # XXX: stdenv.lib.makeLibraryPath doesn't pick up /lib64
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc ]
-    + ":" + stdenv.lib.makeLibraryPath [libX11 libXext libXau libxcb libXdmcp SDL SDL_mixer libvorbis libGLU_combined ]
-    + ":" + stdenv.cc.cc + "/lib64";
+  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc ] + ":"
+    + stdenv.lib.makeLibraryPath [
+      libX11
+      libXext
+      libXau
+      libxcb
+      libXdmcp
+      SDL
+      SDL_mixer
+      libvorbis
+      libGLU_combined
+    ] + ":" + stdenv.cc.cc + "/lib64";
 
   installPhase = ''
     mkdir -p $out/libexec/2dboy/WorldOfGoo/
@@ -75,7 +81,7 @@ stdenv.mkDerivation rec {
       Balls who live in the beautiful World of Goo don't know that they are in a
       game, or that they are extremely delicious.
     '';
-    homepage = http://worldofgoo.com;
+    homepage = "http://worldofgoo.com";
     license = licenses.unfree;
     maintainers = with maintainers; [ jcumming ];
   };

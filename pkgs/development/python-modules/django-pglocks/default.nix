@@ -5,8 +5,9 @@ buildPythonPackage rec {
   version = "1.0.2";
 
   meta = {
-    description = "PostgreSQL locking context managers and functions for Django.";
-    homepage = https://github.com/Xof/django-pglocks;
+    description =
+      "PostgreSQL locking context managers and functions for Django.";
+    homepage = "https://github.com/Xof/django-pglocks";
     license = lib.licenses.mit;
   };
 

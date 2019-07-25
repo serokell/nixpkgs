@@ -1,7 +1,6 @@
 { stdenv, fetchsvn, pkgconfig, mono, dotnetPackages }:
 
-let
-  newtonsoft-json = dotnetPackages.NewtonsoftJson;
+let newtonsoft-json = dotnetPackages.NewtonsoftJson;
 in stdenv.mkDerivation rec {
   name = "gdata-sharp-${version}";
   version = "2.2.0.0";
@@ -27,7 +26,7 @@ in stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with stdenv.lib; {
-    homepage = https://code.google.com/archive/p/google-gdata/;
+    homepage = "https://code.google.com/archive/p/google-gdata/";
 
     description = "The Google Data APIs";
     longDescription = ''

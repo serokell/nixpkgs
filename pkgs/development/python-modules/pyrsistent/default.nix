@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, pytest
-, hypothesis
-, pytestrunner
+{ stdenv, buildPythonPackage, fetchPypi, six, pytest, hypothesis, pytestrunner
 }:
 
 buildPythonPackage rec {
@@ -21,7 +15,7 @@ buildPythonPackage rec {
   checkInputs = [ pytestrunner pytest hypothesis ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/tobgu/pyrsistent/;
+    homepage = "https://github.com/tobgu/pyrsistent/";
     description = "Persistent/Functional/Immutable data structures";
     license = licenses.mit;
     maintainers = with maintainers; [ desiderius ];

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, libvorbis, libtheora, speex }:
+{ stdenv, fetchurl, pkgconfig, libvorbis, libtheora, speex }:
 
 # need pkgconfig so that libshout installs ${out}/lib/pkgconfig/shout.pc
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       bad data from getting to the icecast server.
     '';
 
-    homepage = http://www.icecast.org;
+    homepage = "http://www.icecast.org";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ jcumming ];
     platforms = with stdenv.lib.platforms; unix;

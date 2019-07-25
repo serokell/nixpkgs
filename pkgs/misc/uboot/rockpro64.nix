@@ -1,4 +1,5 @@
-{ lib, buildUBoot, fetchFromGitHub }: let
+{ lib, buildUBoot, fetchFromGitHub }:
+let
   rkbin = fetchFromGitHub {
     owner = "ayufan-rock64";
     repo = "rkbin";
@@ -18,7 +19,8 @@ in buildUBoot rec {
   extraPatches = [ ./rock64-fdt-dtc-compatibility.patch ];
 
   # Upstream ATF hangs in SPL
-  extraMakeFlags = [ "BL31=${rkbin}/rk33/rk3399_bl31_v1.25.elf" "u-boot.itb" "all" ];
+  extraMakeFlags =
+    [ "BL31=${rkbin}/rk33/rk3399_bl31_v1.25.elf" "u-boot.itb" "all" ];
 
   postBuild = ''
     ./tools/mkimage -n rk3399 -T rksd -d ${rkbin}/rk33/rk3399_ddr_933MHz_v1.19.bin idbloader.img
@@ -27,11 +29,11 @@ in buildUBoot rec {
   '';
 
   defconfig = "rockpro64-rk3399_defconfig";
-  filesToInstall = [ "spl/u-boot-spl.bin" "u-boot.itb" "idbloader.img"];
+  filesToInstall = [ "spl/u-boot-spl.bin" "u-boot.itb" "idbloader.img" ];
 
   extraMeta = with lib; {
     maintainers = [ maintainers.lopsided98 ];
-    platforms = ["aarch64-linux"];
+    platforms = [ "aarch64-linux" ];
     # Because of the TPL and ATF (BL31) blobs
     license = licenses.unfreeRedistributableFirmware;
   };

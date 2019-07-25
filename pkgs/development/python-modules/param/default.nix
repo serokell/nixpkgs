@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flake8
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, flake8, nose }:
 
 buildPythonPackage rec {
   pname = "param";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Declarative Python programming using Parameters";
-    homepage = https://github.com/pyviz/param;
+    homepage = "https://github.com/pyviz/param";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

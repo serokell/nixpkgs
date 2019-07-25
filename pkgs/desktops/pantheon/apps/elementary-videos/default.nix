@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, python3
-, desktop-file-utils, gtk3, granite, libgee, clutter-gst, clutter-gtk, gst_all_1
-, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, python3, desktop-file-utils, gtk3, granite, libgee, clutter-gst, clutter-gtk, gst_all_1, elementary-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "videos";
@@ -22,15 +21,8 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkgconfig python3 vala wrapGAppsHook ];
 
   buildInputs = with gst_all_1; [
     clutter-gst
@@ -54,7 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Video player and library app designed for elementary OS";
-    homepage = https://github.com/elementary/videos;
+    homepage = "https://github.com/elementary/videos";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

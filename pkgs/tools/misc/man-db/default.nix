@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages }:
+{ stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages
+}:
 
 stdenv.mkDerivation rec {
   name = "man-db-2.7.5";
@@ -13,8 +14,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig makeWrapper groff ]
     ++ stdenv.lib.optionals doCheck checkInputs;
-  buildInputs = [ libpipeline db groff ]; # (Yes, 'groff' is both native and build input)
-  checkInputs = [ libiconv /* for 'iconv' binary */ ];
+  buildInputs =
+    [ libpipeline db groff ]; # (Yes, 'groff' is both native and build input)
+  checkInputs = [
+    libiconv # for 'iconv' binary
+  ];
 
   postPatch = ''
     substituteInPlace src/man_db.conf.in \
@@ -57,11 +61,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  doCheck = !stdenv.hostPlatform.isMusl; /* iconv binary */
+  doCheck = !stdenv.hostPlatform.isMusl; # iconv binary
 
   meta = with stdenv.lib; {
-    homepage = http://man-db.nongnu.org;
-    description = "An implementation of the standard Unix documentation system accessed using the man command";
+    homepage = "http://man-db.nongnu.org";
+    description =
+      "An implementation of the standard Unix documentation system accessed using the man command";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

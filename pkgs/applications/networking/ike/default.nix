@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, openssl, libedit, flex, bison, qt4, makeWrapper
-, gcc, nettools, iproute, linuxHeaders }:
+{ stdenv, fetchurl, cmake, openssl, libedit, flex, bison, qt4, makeWrapper, gcc, nettools, iproute, linuxHeaders
+}:
 
 # NOTE: use $out/etc/iked.conf as sample configuration and also set: dhcp_file "/etc/iked.dhcp";
 # launch with "iked -f /etc/iked.conf"
@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "0fhyr2psd93b0zf7yfb72q3nqnh65mymgq5jpjcsj9jv5kfr6l8y";
   };
 
-  buildInputs = [ cmake openssl libedit flex bison qt4 makeWrapper nettools iproute ];
+  buildInputs =
+    [ cmake openssl libedit flex bison qt4 makeWrapper nettools iproute ];
 
   configurePhase = ''
     mkdir -p $out/{bin,sbin,lib}
@@ -31,13 +32,16 @@ stdenv.mkDerivation rec {
   installPhase = ''
     make install
     for file in "$out"/bin/* "$out"/sbin/*; do
-        wrapProgram $file --prefix LD_LIBRARY_PATH ":" "$out/lib:${stdenv.lib.makeLibraryPath [ openssl gcc.cc stdenv.cc.libc libedit qt4 ]}"
+        wrapProgram $file --prefix LD_LIBRARY_PATH ":" "$out/lib:${
+      stdenv.lib.makeLibraryPath [ openssl gcc.cc stdenv.cc.libc libedit qt4 ]
+        }"
     done
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.shrew.net/software;
-    description = "IPsec Client for FreeBSD, NetBSD and many Linux based operating systems";
+    homepage = "https://www.shrew.net/software";
+    description =
+      "IPsec Client for FreeBSD, NetBSD and many Linux based operating systems";
     platforms = platforms.unix;
     maintainers = [ maintainers.domenkozar ];
     license = licenses.sleepycat;

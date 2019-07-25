@@ -1,7 +1,4 @@
-{ buildPythonPackage, lib, fetchFromGitHub, isPy3k
-, cython
-, numpy, affine, attrs, cligj, click-plugins, snuggs, gdal
-, pytest, pytestcov, packaging, hypothesis, boto3, mock
+{ buildPythonPackage, lib, fetchFromGitHub, isPy3k, cython, numpy, affine, attrs, cligj, click-plugins, snuggs, gdal, pytest, pytestcov, packaging, hypothesis, boto3, mock
 }:
 
 buildPythonPackage rec {
@@ -16,14 +13,16 @@ buildPythonPackage rec {
     sha256 = "0k5y4h0c4cjn1xl5fayh3a001kl42vvrhjyhp5r2fwn22z56a02p";
   };
 
-  checkInputs = [ boto3 pytest pytestcov packaging hypothesis ] ++ lib.optional (!isPy3k) mock;
+  checkInputs = [ boto3 pytest pytestcov packaging hypothesis ]
+    ++ lib.optional (!isPy3k) mock;
   nativeBuildInputs = [ cython gdal ];
-  propagatedBuildInputs = [ gdal numpy attrs affine cligj click-plugins snuggs ];
+  propagatedBuildInputs =
+    [ gdal numpy attrs affine cligj click-plugins snuggs ];
 
   meta = with lib; {
     description = "Python package to read and write geospatial raster data";
     license = licenses.bsd3;
-    homepage = https://rasterio.readthedocs.io/en/latest/;
+    homepage = "https://rasterio.readthedocs.io/en/latest/";
     maintainers = with maintainers; [ mredaelli ];
   };
 }

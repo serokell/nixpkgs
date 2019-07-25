@@ -1,12 +1,8 @@
-{ stdenv, lib, buildPackages
-, fetchurl, zlib, autoreconfHook, gettext
+{ stdenv, lib, buildPackages, fetchurl, zlib, autoreconfHook, gettext
 # Enabling all targets increases output size to a multiple.
-, withAllTargets ? false, libbfd, libopcodes
-, enableShared ? true
-, noSysDirs
-, gold ? !stdenv.buildPlatform.isDarwin || stdenv.hostPlatform == stdenv.targetPlatform
-, bison ? null
-}:
+, withAllTargets ? false, libbfd, libopcodes, enableShared ?
+  true, noSysDirs, gold ? !stdenv.buildPlatform.isDarwin || stdenv.hostPlatform
+    == stdenv.targetPlatform, bison ? null }:
 
 let
   reuseLibs = enableShared && withAllTargets;
@@ -18,11 +14,11 @@ let
   basename = "binutils-${version}";
   # The targetPrefix prepended to binary names to allow multiple binuntils on the
   # PATH to both be usable.
-  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-                  "${stdenv.targetPlatform.config}-";
-in
+  targetPrefix =
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+    "${stdenv.targetPlatform.config}-";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = targetPrefix + basename;
 
   # HACK to ensure that we preserve source from bootstrap binutils to not rebuild LLVM
@@ -67,11 +63,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "info" "man" ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    bison
-  ] ++ lib.optionals stdenv.targetPlatform.isiOS [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ bison ]
+    ++ lib.optionals stdenv.targetPlatform.isiOS [ autoreconfHook ];
   buildInputs = [ zlib gettext ];
 
   inherit noSysDirs;
@@ -91,20 +84,24 @@ stdenv.mkDerivation rec {
 
   # As binutils takes part in the stdenv building, we don't want references
   # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
-  NIX_CFLAGS_COMPILE = if stdenv.hostPlatform.isDarwin
-    then "-Wno-string-plus-int -Wno-deprecated-declarations"
-    else "-static-libgcc";
+  NIX_CFLAGS_COMPILE = if stdenv.hostPlatform.isDarwin then
+    "-Wno-string-plus-int -Wno-deprecated-declarations"
+  else
+    "-static-libgcc";
 
   hardeningDisable = [ "format" "pie" ];
 
   # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
-  configurePlatforms = [ "build" "host" ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
+  configurePlatforms = [ "build" "host" ]
+    ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
 
-  configureFlags =
-    (if enableShared then [ "--enable-shared" "--disable-static" ]
-                     else [ "--disable-shared" "--enable-static" ])
-  ++ lib.optional withAllTargets "--enable-targets=all"
-  ++ [
+  configureFlags = (if enableShared then [
+    "--enable-shared"
+    "--disable-static"
+  ] else [
+    "--disable-shared"
+    "--enable-static"
+  ]) ++ lib.optional withAllTargets "--enable-targets=all" ++ [
     "--enable-64-bit-bfd"
     "--with-system-zlib"
 
@@ -127,13 +124,12 @@ stdenv.mkDerivation rec {
   '';
 
   # else fails with "./sanity.sh: line 36: $out/bin/size: not found"
-  doInstallCheck = stdenv.buildPlatform == stdenv.hostPlatform && stdenv.hostPlatform == stdenv.targetPlatform;
+  doInstallCheck = stdenv.buildPlatform == stdenv.hostPlatform
+    && stdenv.hostPlatform == stdenv.targetPlatform;
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit targetPrefix version;
-  };
+  passthru = { inherit targetPrefix version; };
 
   meta = with lib; {
     description = "Tools for manipulating binaries (linker, assembler, etc.)";
@@ -143,13 +139,14 @@ stdenv.mkDerivation rec {
       They also include the BFD (Binary File Descriptor) library,
       `gprof', `nm', `strip', etc.
     '';
-    homepage = https://www.gnu.org/software/binutils/;
+    homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ericson2314 ];
     platforms = platforms.unix;
 
     /* Give binutils a lower priority than gcc-wrapper to prevent a
-       collision due to the ld/as wrappers/symlinks in the latter. */
+       collision due to the ld/as wrappers/symlinks in the latter.
+    */
     priority = 10;
   };
 }

@@ -1,36 +1,68 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, intltool, babl, gegl, gtk2, glib, gdk_pixbuf, isocodes
-, pango, cairo, freetype, fontconfig, lcms, libpng, libjpeg, poppler, poppler_data, libtiff
-, libmng, librsvg, libwmf, zlib, libzip, ghostscript, aalib, shared-mime-info
-, python2Packages, libexif, gettext, xorg, glib-networking, libmypaint, gexiv2
-, harfbuzz, mypaint-brushes, libwebp, libheif, libgudev, openexr
-, AppKit, Cocoa, gtk-mac-integration-gtk2 }:
+{ stdenv, fetchurl, substituteAll, pkgconfig, intltool, babl, gegl, gtk2, glib, gdk_pixbuf, isocodes, pango, cairo, freetype, fontconfig, lcms, libpng, libjpeg, poppler, poppler_data, libtiff, libmng, librsvg, libwmf, zlib, libzip, ghostscript, aalib, shared-mime-info, python2Packages, libexif, gettext, xorg, glib-networking, libmypaint, gexiv2, harfbuzz, mypaint-brushes, libwebp, libheif, libgudev, openexr, AppKit, Cocoa, gtk-mac-integration-gtk2
+}:
 
-let
-  inherit (python2Packages) pygtk wrapPython python;
+let inherit (python2Packages) pygtk wrapPython python;
 in stdenv.mkDerivation rec {
   pname = "gimp";
   version = "2.10.12";
 
   src = fetchurl {
-    url = "http://download.gimp.org/pub/gimp/v${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
+    url = "http://download.gimp.org/pub/gimp/v${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.bz2";
     sha256 = "0wdcr8d2ink4swn5r4v13bsiya6s3xm4ya97sdbhs4l40y7bb03x";
   };
 
   nativeBuildInputs = [ pkgconfig intltool gettext wrapPython ];
   propagatedBuildInputs = [ gegl ]; # needed by gimp-2.0.pc
   buildInputs = [
-    babl gegl gtk2 glib gdk_pixbuf pango cairo gexiv2 harfbuzz isocodes
-    freetype fontconfig lcms libpng libjpeg poppler poppler_data libtiff openexr
-    libmng librsvg libwmf zlib libzip ghostscript aalib shared-mime-info libwebp libheif
-    python pygtk libexif xorg.libXpm glib-networking libmypaint mypaint-brushes
+    babl
+    gegl
+    gtk2
+    glib
+    gdk_pixbuf
+    pango
+    cairo
+    gexiv2
+    harfbuzz
+    isocodes
+    freetype
+    fontconfig
+    lcms
+    libpng
+    libjpeg
+    poppler
+    poppler_data
+    libtiff
+    openexr
+    libmng
+    librsvg
+    libwmf
+    zlib
+    libzip
+    ghostscript
+    aalib
+    shared-mime-info
+    libwebp
+    libheif
+    python
+    pygtk
+    libexif
+    xorg.libXpm
+    glib-networking
+    libmypaint
+    mypaint-brushes
   ] ++ stdenv.lib.optionals stdenv.isDarwin [
-    AppKit Cocoa gtk-mac-integration-gtk2
+    AppKit
+    Cocoa
+    gtk-mac-integration-gtk2
   ] ++ stdenv.lib.optionals stdenv.isLinux [ libgudev ];
 
   pythonPath = [ pygtk ];
 
   # Check if librsvg was built with --disable-pixbuf-loader.
-  PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${librsvg}/${gdk_pixbuf.moduleDir}";
+  PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR =
+    "${librsvg}/${gdk_pixbuf.moduleDir}";
 
   preConfigure = ''
     # The check runs before glib-networking is registered
@@ -78,7 +110,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The GNU Image Manipulation Program";
-    homepage = https://www.gimp.org/;
+    homepage = "https://www.gimp.org/";
     maintainers = with maintainers; [ jtojnar ];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

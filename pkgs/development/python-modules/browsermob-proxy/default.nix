@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "browsermob-proxy";
@@ -17,7 +13,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A library for interacting with Browsermob Proxy";
-    homepage = http://oss.theautomatedtester.co.uk/browsermob-proxy-py;
+    homepage = "http://oss.theautomatedtester.co.uk/browsermob-proxy-py";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ raskin ];
   };

@@ -1,20 +1,86 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''caveman'';
-  version = ''20181210-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "caveman";
+  version = "20181210-git";
 
-  description = ''Web Application Framework for Common Lisp'';
+  description = "Web Application Framework for Common Lisp";
 
-  deps = [ args."alexandria" args."anaphora" args."babel" args."bordeaux-threads" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."chipz" args."chunga" args."circular-streams" args."cl_plus_ssl" args."cl-annot" args."cl-ansi-text" args."cl-base64" args."cl-colors" args."cl-cookie" args."cl-emb" args."cl-fad" args."cl-ppcre" args."cl-project" args."cl-reexport" args."cl-syntax" args."cl-syntax-annot" args."cl-utilities" args."clack" args."clack-handler-hunchentoot" args."clack-socket" args."clack-test" args."clack-v1-compat" args."dexador" args."do-urlencode" args."fast-http" args."fast-io" args."flexi-streams" args."http-body" args."hunchentoot" args."ironclad" args."jonathan" args."lack" args."lack-component" args."lack-middleware-backtrace" args."lack-util" args."let-plus" args."local-time" args."map-set" args."marshal" args."md5" args."myway" args."named-readtables" args."nibbles" args."proc-parse" args."prove" args."quri" args."rfc2388" args."smart-buffer" args."split-sequence" args."static-vectors" args."trivial-backtrace" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."trivial-mimes" args."trivial-types" args."usocket" args."xsubseq" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."chipz"
+    args."chunga"
+    args."circular-streams"
+    args."cl_plus_ssl"
+    args."cl-annot"
+    args."cl-ansi-text"
+    args."cl-base64"
+    args."cl-colors"
+    args."cl-cookie"
+    args."cl-emb"
+    args."cl-fad"
+    args."cl-ppcre"
+    args."cl-project"
+    args."cl-reexport"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."cl-utilities"
+    args."clack"
+    args."clack-handler-hunchentoot"
+    args."clack-socket"
+    args."clack-test"
+    args."clack-v1-compat"
+    args."dexador"
+    args."do-urlencode"
+    args."fast-http"
+    args."fast-io"
+    args."flexi-streams"
+    args."http-body"
+    args."hunchentoot"
+    args."ironclad"
+    args."jonathan"
+    args."lack"
+    args."lack-component"
+    args."lack-middleware-backtrace"
+    args."lack-util"
+    args."let-plus"
+    args."local-time"
+    args."map-set"
+    args."marshal"
+    args."md5"
+    args."myway"
+    args."named-readtables"
+    args."nibbles"
+    args."proc-parse"
+    args."prove"
+    args."quri"
+    args."rfc2388"
+    args."smart-buffer"
+    args."split-sequence"
+    args."static-vectors"
+    args."trivial-backtrace"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."trivial-mimes"
+    args."trivial-types"
+    args."usocket"
+    args."xsubseq"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/caveman/2018-12-10/caveman-20181210-git.tgz'';
-    sha256 = ''04b5dhmdwcwpdcjk4bk25fmqx786k7g3iqsk1xc35kvsxi9ykldf'';
+    url =
+      "http://beta.quicklisp.org/archive/caveman/2018-12-10/caveman-20181210-git.tgz";
+    sha256 = "04b5dhmdwcwpdcjk4bk25fmqx786k7g3iqsk1xc35kvsxi9ykldf";
   };
 
   packageName = "caveman";
 
-  asdFilesToKeep = ["caveman.asd"];
+  asdFilesToKeep = [ "caveman.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM caveman DESCRIPTION Web Application Framework for Common Lisp SHA256
@@ -82,4 +148,5 @@ rec {
     VERSION 20181210-git SIBLINGS
     (caveman-middleware-dbimanager caveman-test caveman2-db caveman2-test
      caveman2)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

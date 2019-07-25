@@ -13,8 +13,9 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ acl ];
 
   meta = with stdenv.lib; {
-    homepage = http://libburnia-project.org/;
-    description = "Enables creation and expansion of ISO-9660 filesystems on CD/DVD/BD ";
+    homepage = "http://libburnia-project.org/";
+    description =
+      "Enables creation and expansion of ISO-9660 filesystems on CD/DVD/BD ";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ vrthra ];
     platforms = with platforms; linux;

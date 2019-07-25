@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, autoreconfHook
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libyaml";
@@ -17,7 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with stdenv.lib; {
-    homepage = https://pyyaml.org/;
+    homepage = "https://pyyaml.org/";
     description = "A YAML 1.1 parser and emitter written in C";
     license = licenses.mit;
     platforms = platforms.all;

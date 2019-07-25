@@ -1,20 +1,38 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''jonathan'';
-  version = ''20181210-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "jonathan";
+  version = "20181210-git";
 
-  description = ''High performance JSON encoder and decoder. Currently support: SBCL, CCL.'';
+  description =
+    "High performance JSON encoder and decoder. Currently support: SBCL, CCL.";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."cl-annot" args."cl-ppcre" args."cl-syntax" args."cl-syntax-annot" args."fast-io" args."named-readtables" args."proc-parse" args."static-vectors" args."trivial-features" args."trivial-gray-streams" args."trivial-types" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."cl-annot"
+    args."cl-ppcre"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."fast-io"
+    args."named-readtables"
+    args."proc-parse"
+    args."static-vectors"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."trivial-types"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/jonathan/2018-12-10/jonathan-20181210-git.tgz'';
-    sha256 = ''1m0cz8r48zvwbsywrgj9zdlfy48iycxb4h9l8wg04gmb5xv82rxh'';
+    url =
+      "http://beta.quicklisp.org/archive/jonathan/2018-12-10/jonathan-20181210-git.tgz";
+    sha256 = "1m0cz8r48zvwbsywrgj9zdlfy48iycxb4h9l8wg04gmb5xv82rxh";
   };
 
   packageName = "jonathan";
 
-  asdFilesToKeep = ["jonathan.asd"];
+  asdFilesToKeep = [ "jonathan.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM jonathan DESCRIPTION
@@ -39,4 +57,5 @@ rec {
     (alexandria babel cffi cffi-grovel cffi-toolchain cl-annot cl-ppcre
      cl-syntax cl-syntax-annot fast-io named-readtables proc-parse
      static-vectors trivial-features trivial-gray-streams trivial-types)
-    VERSION 20181210-git SIBLINGS (jonathan-test) PARASITES NIL) */
+    VERSION 20181210-git SIBLINGS (jonathan-test) PARASITES NIL)
+*/

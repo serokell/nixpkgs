@@ -20,8 +20,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "High-level FTP client library (virtual file system and more)";
-    homepage    = http://ftputil.sschwarzer.net/;
-    license     = licenses.bsd2; # "Modified BSD license, says pypi"
+    description =
+      "High-level FTP client library (virtual file system and more)";
+    homepage = "http://ftputil.sschwarzer.net/";
+    license = licenses.bsd2; # "Modified BSD license, says pypi"
   };
 }

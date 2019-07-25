@@ -3,9 +3,8 @@
 let
   llvm = llvmPackages.llvm;
   clang = llvmPackages.clang;
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "libclc-2017-11-29";
 
   src = fetchFromGitHub {
@@ -28,8 +27,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://libclc.llvm.org/;
-    description = "Implementation of the library requirements of the OpenCL C programming language";
+    homepage = "http://libclc.llvm.org/";
+    description =
+      "Implementation of the library requirements of the OpenCL C programming language";
     license = licenses.mit;
     platforms = platforms.all;
   };

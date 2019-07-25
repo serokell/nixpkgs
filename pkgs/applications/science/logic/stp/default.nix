@@ -1,4 +1,5 @@
-{ stdenv, cmake, boost, bison, flex, fetchFromGitHub, perl, python3, python3Packages, zlib, minisatUnstable, cryptominisat }:
+{ stdenv, cmake, boost, bison, flex, fetchFromGitHub, perl, python3, python3Packages, zlib, minisatUnstable, cryptominisat
+}:
 
 stdenv.mkDerivation rec {
   version = "2.2.0";
@@ -7,7 +8,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "stp";
     repo = "stp";
-    rev    = "stp-${version}";
+    rev = "stp-${version}";
     sha256 = "1jh23wjm62nnqfx447g2y53bbangq04hjrvqc35v9xxpcjgj3i49";
   };
 

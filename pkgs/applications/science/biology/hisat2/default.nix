@@ -1,11 +1,12 @@
-{stdenv, fetchurl, unzip, which, python, perl}:
+{ stdenv, fetchurl, unzip, which, python, perl }:
 
 stdenv.mkDerivation rec {
   name = "hisat2-${version}";
   version = "2.1.0";
 
   src = fetchurl {
-    url = "ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-${version}-source.zip";
+    url =
+      "ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-${version}-source.zip";
     sha256 = "10g73sdf6vqqfhhd92hliw7bbpkb8v4pp5012r5l21zws7p7d8l9";
   };
 
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Graph based aligner";
     license = licenses.gpl3;
-    homepage = https://ccb.jhu.edu/software/hisat2/index.shtml;
+    homepage = "https://ccb.jhu.edu/software/hisat2/index.shtml";
     maintainers = with maintainers; [ jbedo ];
     platforms = [ "x86_64-linux" "i686-linux" ];
   };

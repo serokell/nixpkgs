@@ -1,10 +1,4 @@
-{ lib
-, mkDerivation
-, extra-cmake-modules
-, kdoctools
-, kdelibs4support
-, libkdegames
-, qtquickcontrols
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdelibs4support, libkdegames, qtquickcontrols
 }:
 
 mkDerivation {

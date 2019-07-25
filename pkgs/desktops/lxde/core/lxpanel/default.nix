@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gettext, m4, intltool, libxmlxx, keybinder
-, gtk2, libX11, libfm, libwnck, libXmu, libXpm, cairo, gdk_pixbuf
-, menu-cache, lxmenu-data, wirelesstools
-, supportAlsa ? false, alsaLib
-}:
+{ stdenv, fetchurl, pkgconfig, gettext, m4, intltool, libxmlxx, keybinder, gtk2, libX11, libfm, libwnck, libXmu, libXpm, cairo, gdk_pixbuf, menu-cache, lxmenu-data, wirelesstools, supportAlsa ?
+  false, alsaLib }:
 
 stdenv.mkDerivation rec {
   name = "lxpanel-0.9.3";
@@ -14,13 +11,24 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig gettext m4 intltool libxmlxx ];
   buildInputs = [
-    keybinder gtk2 libX11 libfm libwnck libXmu libXpm cairo gdk_pixbuf
-    menu-cache lxmenu-data m4 wirelesstools
+    keybinder
+    gtk2
+    libX11
+    libfm
+    libwnck
+    libXmu
+    libXpm
+    cairo
+    gdk_pixbuf
+    menu-cache
+    lxmenu-data
+    m4
+    wirelesstools
   ] ++ stdenv.lib.optional supportAlsa alsaLib;
 
   meta = {
     description = "Lightweight X11 desktop panel for LXDE";
-    homepage = https://lxde.org/;
+    homepage = "https://lxde.org/";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.ryneeverett ];
     platforms = stdenv.lib.platforms.linux;

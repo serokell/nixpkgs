@@ -5,15 +5,13 @@ let
 
   parentWrapperDir = dirOf wrapperDir;
 
-  programs =
-    (lib.mapAttrsToList
-      (n: v: (if v ? "program" then v else v // {program=n;}))
-      wrappers);
+  programs = (lib.mapAttrsToList
+    (n: v: (if v ? "program" then v else v // { program = n; })) wrappers);
 
   securityWrapper = pkgs.stdenv.mkDerivation {
-    name            = "security-wrapper";
-    phases          = [ "installPhase" "fixupPhase" ];
-    buildInputs     = [ pkgs.libcap pkgs.libcap_ng pkgs.linuxHeaders ];
+    name = "security-wrapper";
+    phases = [ "installPhase" "fixupPhase" ];
+    buildInputs = [ pkgs.libcap pkgs.libcap_ng pkgs.linuxHeaders ];
     hardeningEnable = [ "pie" ];
     installPhase = ''
       mkdir -p $out/bin
@@ -23,16 +21,10 @@ let
   };
 
   ###### Activation script for the setcap wrappers
-  mkSetcapProgram =
-    { program
-    , capabilities
-    , source
-    , owner  ? "nobody"
-    , group  ? "nogroup"
-    , permissions ? "u+rx,g+x,o+x"
-    , ...
-    }:
-    assert (lib.versionAtLeast (lib.getVersion config.boot.kernelPackages.kernel) "4.3");
+  mkSetcapProgram = { program, capabilities, source, owner ? "nobody", group ?
+    "nogroup", permissions ? "u+rx,g+x,o+x", ... }:
+    assert (lib.versionAtLeast
+    (lib.getVersion config.boot.kernelPackages.kernel) "4.3");
     ''
       cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
       echo -n "${source}" > $wrapperDir/${program}.real
@@ -52,66 +44,55 @@ let
 
   ###### Activation script for the setuid wrappers
   mkSetuidProgram =
-    { program
-    , source
-    , owner  ? "nobody"
-    , group  ? "nogroup"
-    , setuid ? false
-    , setgid ? false
-    , permissions ? "u+rx,g+x,o+x"
-    , ...
-    }:
-    ''
-      cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
-      echo -n "${source}" > $wrapperDir/${program}.real
+    { program, source, owner ? "nobody", group ? "nogroup", setuid ?
+      false, setgid ? false, permissions ? "u+rx,g+x,o+x", ... }: ''
+        cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
+        echo -n "${source}" > $wrapperDir/${program}.real
 
-      # Prevent races
-      chmod 0000 $wrapperDir/${program}
-      chown ${owner}.${group} $wrapperDir/${program}
+        # Prevent races
+        chmod 0000 $wrapperDir/${program}
+        chown ${owner}.${group} $wrapperDir/${program}
 
-      chmod "u${if setuid then "+" else "-"}s,g${if setgid then "+" else "-"}s,${permissions}" $wrapperDir/${program}
-    '';
+        chmod "u${if setuid then "+" else "-"}s,g${
+          if setgid then "+" else "-"
+        }s,${permissions}" $wrapperDir/${program}
+      '';
 
-  mkWrappedPrograms =
-    builtins.map
-      (s: if (s ? "capabilities")
-          then mkSetcapProgram
-                 ({ owner = "root";
-                    group = "root";
-                  } // s)
-          else if
-             (s ? "setuid" && s.setuid) ||
-             (s ? "setgid" && s.setgid) ||
-             (s ? "permissions")
-          then mkSetuidProgram s
-          else mkSetuidProgram
-                 ({ owner  = "root";
-                    group  = "root";
-                    setuid = true;
-                    setgid = false;
-                    permissions = "u+rx,g+x,o+x";
-                  } // s)
-      ) programs;
-in
-{
+  mkWrappedPrograms = builtins.map (s:
+    if (s ? "capabilities") then
+      mkSetcapProgram ({
+        owner = "root";
+        group = "root";
+      } // s)
+    else if (s ? "setuid" && s.setuid) || (s ? "setgid" && s.setgid)
+    || (s ? "permissions") then
+      mkSetuidProgram s
+    else
+      mkSetuidProgram ({
+        owner = "root";
+        group = "root";
+        setuid = true;
+        setgid = false;
+        permissions = "u+rx,g+x,o+x";
+      } // s)) programs;
+in {
 
   ###### interface
 
   options = {
     security.wrappers = lib.mkOption {
       type = lib.types.attrs;
-      default = {};
-      example = lib.literalExample
-        ''
-          { sendmail.source = "/nix/store/.../bin/sendmail";
-            ping = {
-              source  = "${pkgs.iputils.out}/bin/ping";
-              owner   = "nobody";
-              group   = "nogroup";
-              capabilities = "cap_net_raw+ep";
-            };
-          }
-        '';
+      default = { };
+      example = lib.literalExample ''
+        { sendmail.source = "/nix/store/.../bin/sendmail";
+          ping = {
+            source  = "${pkgs.iputils.out}/bin/ping";
+            owner   = "nobody";
+            group   = "nogroup";
+            capabilities = "cap_net_raw+ep";
+          };
+        }
+      '';
       description = ''
         This option allows the ownership and permissions on the setuid
         wrappers for specific programs to be overridden from the
@@ -142,9 +123,9 @@ in
     };
 
     security.wrapperDir = lib.mkOption {
-      type        = lib.types.path;
-      default     = "/run/wrappers/bin";
-      internal    = true;
+      type = lib.types.path;
+      default = "/run/wrappers/bin";
+      internal = true;
       description = ''
         This option defines the path to the wrapper programs. It
         should not be overriden.
@@ -174,29 +155,28 @@ in
 
     ###### setcap activation script
     system.activationScripts.wrappers =
-      lib.stringAfter [ "specialfs" "users" ]
-        ''
-          # Look in the system path and in the default profile for
-          # programs to be wrapped.
-          WRAPPER_PATH=${config.system.path}/bin:${config.system.path}/sbin
+      lib.stringAfter [ "specialfs" "users" ] ''
+        # Look in the system path and in the default profile for
+        # programs to be wrapped.
+        WRAPPER_PATH=${config.system.path}/bin:${config.system.path}/sbin
 
-          # We want to place the tmpdirs for the wrappers to the parent dir.
-          wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
-          chmod a+rx $wrapperDir
+        # We want to place the tmpdirs for the wrappers to the parent dir.
+        wrapperDir=$(mktemp --directory --tmpdir="${parentWrapperDir}" wrappers.XXXXXXXXXX)
+        chmod a+rx $wrapperDir
 
-          ${lib.concatStringsSep "\n" mkWrappedPrograms}
+        ${lib.concatStringsSep "\n" mkWrappedPrograms}
 
-          if [ -L ${wrapperDir} ]; then
-            # Atomically replace the symlink
-            # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
-            old=$(readlink -f ${wrapperDir})
-            ln --symbolic --force --no-dereference $wrapperDir ${wrapperDir}-tmp
-            mv --no-target-directory ${wrapperDir}-tmp ${wrapperDir}
-            rm --force --recursive $old
-          else
-            # For initial setup
-            ln --symbolic $wrapperDir ${wrapperDir}
-          fi
-        '';
+        if [ -L ${wrapperDir} ]; then
+          # Atomically replace the symlink
+          # See https://axialcorps.com/2013/07/03/atomically-replacing-files-and-directories/
+          old=$(readlink -f ${wrapperDir})
+          ln --symbolic --force --no-dereference $wrapperDir ${wrapperDir}-tmp
+          mv --no-target-directory ${wrapperDir}-tmp ${wrapperDir}
+          rm --force --recursive $old
+        else
+          # For initial setup
+          ln --symbolic $wrapperDir ${wrapperDir}
+        fi
+      '';
   };
 }

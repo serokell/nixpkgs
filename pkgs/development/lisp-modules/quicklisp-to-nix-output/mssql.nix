@@ -1,20 +1,28 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''mssql'';
-  version = ''cl-20180228-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "mssql";
+  version = "cl-20180228-git";
 
-  description = '''';
+  description = "";
 
-  deps = [ args."alexandria" args."babel" args."cffi" args."garbage-pools" args."iterate" args."parse-number" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cffi"
+    args."garbage-pools"
+    args."iterate"
+    args."parse-number"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-mssql/2018-02-28/cl-mssql-20180228-git.tgz'';
-    sha256 = ''1f9vq78xx4vv1898cigkf09mzimknc6ry6qrkys3xj167vyqhwm0'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-mssql/2018-02-28/cl-mssql-20180228-git.tgz";
+    sha256 = "1f9vq78xx4vv1898cigkf09mzimknc6ry6qrkys3xj167vyqhwm0";
   };
 
   packageName = "mssql";
 
-  asdFilesToKeep = ["mssql.asd"];
+  asdFilesToKeep = [ "mssql.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM mssql DESCRIPTION NIL SHA256
@@ -27,4 +35,5 @@ rec {
      (NAME trivial-features FILENAME trivial-features))
     DEPENDENCIES
     (alexandria babel cffi garbage-pools iterate parse-number trivial-features)
-    VERSION cl-20180228-git SIBLINGS NIL PARASITES NIL) */
+    VERSION cl-20180228-git SIBLINGS NIL PARASITES NIL)
+*/

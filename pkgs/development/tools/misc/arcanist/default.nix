@@ -13,9 +13,8 @@ let
     rev = "2650e8627a20e1bfe334a4a2b787f44ef5d6ebc5";
     sha256 = "0x0xxiar202ypbgxh19swzjil546bbp8li4k5yrpvab55y8ymkd4";
   };
-in
-stdenv.mkDerivation rec {
-  name    = "arcanist-${version}";
+in stdenv.mkDerivation rec {
+  name = "arcanist-${version}";
   version = "20180916";
 
   src = [ arcanist libphutil ];
@@ -50,9 +49,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Command line interface to Phabricator";
-    homepage    = "http://phabricator.org";
-    license     = stdenv.lib.licenses.asl20;
-    platforms   = stdenv.lib.platforms.unix;
+    homepage = "http://phabricator.org";
+    license = stdenv.lib.licenses.asl20;
+    platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

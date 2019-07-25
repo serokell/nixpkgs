@@ -4,11 +4,7 @@
 
 with lib;
 
-{ pname
-, version
-, src
-, ...
-}@args:
+{ pname, version, src, ... }@args:
 
 import ./generic.nix { inherit lib stdenv emacs texinfo; } ({
 
@@ -25,6 +21,4 @@ import ./generic.nix { inherit lib stdenv emacs texinfo; } ({
   '';
 }
 
-// removeAttrs args [ "files" "fileSpecs"
-                      "meta"
-                    ])
+// removeAttrs args [ "files" "fileSpecs" "meta" ])

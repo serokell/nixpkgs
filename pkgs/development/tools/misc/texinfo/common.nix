@@ -3,8 +3,7 @@
 { stdenv, buildPackages, fetchurl, perl, xz
 
 # we are a dependency of gcc, this simplifies bootstraping
-, interactive ? false, ncurses, procps
-}:
+, interactive ? false, ncurses, procps }:
 
 with stdenv.lib;
 
@@ -23,8 +22,7 @@ stdenv.mkDerivation rec {
   # when cross-compiling.
   depsBuildBuild = [ buildPackages.stdenv.cc perl ];
 
-  buildInputs = [ xz.bin ]
-    ++ optionals stdenv.isSunOS [ libiconv gawk ]
+  buildInputs = [ xz.bin ] ++ optionals stdenv.isSunOS [ libiconv gawk ]
     ++ optional interactive ncurses;
 
   configureFlags = [ "PERL=${buildPackages.perl}/bin/perl" ]
@@ -37,12 +35,10 @@ stdenv.mkDerivation rec {
 
   checkInputs = [ procps ];
 
-  doCheck = interactive
-    && !stdenv.isDarwin
-    && !stdenv.isSunOS; # flaky
+  doCheck = interactive && !stdenv.isDarwin && !stdenv.isSunOS; # flaky
 
   meta = {
-    homepage = https://www.gnu.org/software/texinfo/;
+    homepage = "https://www.gnu.org/software/texinfo/";
     description = "The GNU documentation system";
     license = licenses.gpl3Plus;
     platforms = platforms.all;

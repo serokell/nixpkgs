@@ -1,15 +1,13 @@
 { stdenv, fetchurl, perl, rsync }:
 
-let
-  base = import ./base.nix { inherit stdenv fetchurl; };
-in
-stdenv.mkDerivation rec {
+let base = import ./base.nix { inherit stdenv fetchurl; };
+in stdenv.mkDerivation rec {
   name = "rrsync-${base.version}";
 
   src = base.src;
 
   buildInputs = [ rsync ];
-  nativeBuildInputs = [perl];
+  nativeBuildInputs = [ perl ];
 
   # Skip configure and build phases.
   # We just want something from the support directory

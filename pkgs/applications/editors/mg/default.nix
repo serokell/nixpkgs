@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libbsd ncurses ];
 
   meta = with stdenv.lib; {
-    description = "Micro GNU/emacs, a portable version of the mg maintained by the OpenBSD team";
+    description =
+      "Micro GNU/emacs, a portable version of the mg maintained by the OpenBSD team";
     homepage = "https://homepage.boetes.org/software/mg";
     license = licenses.publicDomain;
     platforms = platforms.all;

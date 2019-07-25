@@ -1,18 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, attrs
-, bitstruct
-, future
-, pathlib2
-, typing
-, lxml
-, xlwt
-, xlrd
-, XlsxWriter
-, pyyaml
-, pytest
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, attrs, bitstruct, future, pathlib2, typing, lxml, xlwt, xlrd, XlsxWriter, pyyaml, pytest
 }:
 
 buildPythonPackage rec {
@@ -41,17 +27,16 @@ buildPythonPackage rec {
     pyyaml
   ] ++ lib.optional (pythonOlder "3.5") typing;
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest -s src/canmatrix
   '';
 
   meta = with lib; {
-    homepage = https://github.com/ebroecker/canmatrix;
-    description = "Support and convert several CAN (Controller Area Network) database formats .arxml .dbc .dbf .kcd .sym fibex xls(x)";
+    homepage = "https://github.com/ebroecker/canmatrix";
+    description =
+      "Support and convert several CAN (Controller Area Network) database formats .arxml .dbc .dbf .kcd .sym fibex xls(x)";
     license = licenses.bsd2;
     maintainers = with maintainers; [ sorki ];
   };

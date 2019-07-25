@@ -1,15 +1,14 @@
 { stdenv, lib, fetchurl, jdk, zip, unzip, bash, makeWrapper, which, coreutils
 # Always assume all markers valid (don't redownload dependencies).
 # Also, don't clean up environment variables.
-, enableNixHacks ? false
-}:
+, enableNixHacks ? false }:
 
 stdenv.mkDerivation rec {
 
   version = "0.4.5";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/bazelbuild/bazel/;
+    homepage = "https://github.com/bazelbuild/bazel/";
     description = "Build tool that builds code quickly and reliably";
     license = licenses.asl20;
     maintainers = with maintainers; [ cstrahan philandstuff ];
@@ -20,7 +19,8 @@ stdenv.mkDerivation rec {
   name = "bazel-${version}";
 
   src = fetchurl {
-    url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
+    url =
+      "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
     sha256 = "0asmq3kxnl4326zhgh13mvcrc8jvmiswjj4ymrq0943q4vj7nwrb";
   };
 
@@ -50,20 +50,12 @@ stdenv.mkDerivation rec {
     sed -i 's/"xcrun", "clang"/"clang"/g' tools/osx/xcode_configure.bzl
   '';
 
-  buildInputs = [
-    jdk
-    zip
-    unzip
-    makeWrapper
-    which
-  ];
+  buildInputs = [ jdk zip unzip makeWrapper which ];
 
   # These must be propagated since the dependency is hidden in a compressed
   # archive.
 
-  propagatedBuildInputs = [
-    bash
-  ];
+  propagatedBuildInputs = [ bash ];
 
   buildPhase = ''
     export TMPDIR=/tmp/.bazel-$UID

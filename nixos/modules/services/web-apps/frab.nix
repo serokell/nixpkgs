@@ -26,18 +26,21 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${package.env}/bin/bundle $out/bin/frab-bundle \
-          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") frabEnv)} \
-          --set PATH '${lib.makeBinPath (with pkgs; [ nodejs file imagemagick ])}:$PATH' \
+          ${
+        concatStrings
+        (mapAttrsToList (name: value: "--set ${name} '${value}' ") frabEnv)
+          } \
+          --set PATH '${
+        lib.makeBinPath (with pkgs; [ nodejs file imagemagick ])
+          }:$PATH' \
           --set RAKEOPT '-f ${package}/share/frab/Rakefile' \
           --run 'cd ${package}/share/frab'
       makeWrapper $out/bin/frab-bundle $out/bin/frab-rake \
           --add-flags "exec rake"
-     '';
+    '';
   };
 
-in
-
-{
+in {
   options = {
     services.frab = {
       enable = mkOption {
@@ -149,7 +152,7 @@ in
 
       extraEnvironment = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         example = {
           FRAB_CURRENCY_UNIT = "€";
           FRAB_CURRENCY_FORMAT = "%n%u";
@@ -173,14 +176,13 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ frab-rake ];
 
-    users.users = [
-      { name = cfg.user;
-        group = cfg.group;
-        home = "${cfg.statePath}";
-      }
-    ];
+    users.users = [{
+      name = cfg.user;
+      group = cfg.group;
+      home = "${cfg.statePath}";
+    }];
 
-    users.groups = [ { name = cfg.group; } ];
+    users.groups = [{ name = cfg.group; }];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.statePath}/system/attachments' - ${cfg.user} ${cfg.group} - -"
@@ -192,7 +194,9 @@ in
       environment = frabEnv;
 
       preStart = ''
-        ln -sf ${pkgs.writeText "frab-database.yml" databaseConfig} /run/frab/database.yml
+        ln -sf ${
+          pkgs.writeText "frab-database.yml" databaseConfig
+        } /run/frab/database.yml
         ln -sf ${cfg.statePath}/system /run/frab/system
 
         if ! test -e "${cfg.statePath}/db-setup-done"; then
@@ -214,8 +218,8 @@ in
         RestartSec = "10s";
         RuntimeDirectory = "frab";
         WorkingDirectory = "${package}/share/frab";
-        ExecStart = "${frab-rake}/bin/frab-bundle exec rails server " +
-          "--binding=${cfg.listenAddress} --port=${toString cfg.listenPort}";
+        ExecStart = "${frab-rake}/bin/frab-bundle exec rails server "
+          + "--binding=${cfg.listenAddress} --port=${toString cfg.listenPort}";
       };
     };
 

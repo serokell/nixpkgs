@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, ansible
-, pytest
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, ansible, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "pytest-ansible";
@@ -21,7 +15,7 @@ buildPythonPackage rec {
 
   # requires pandoc < 2.0
   # buildInputs = [ setuptools-markdown ];
-  checkInputs =  [ mock ];
+  checkInputs = [ mock ];
   propagatedBuildInputs = [ ansible pytest ];
 
   # tests not included with release
@@ -32,8 +26,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jlaska/pytest-ansible;
-    description = "Plugin for py.test to simplify calling ansible modules from tests or fixtures";
+    homepage = "https://github.com/jlaska/pytest-ansible";
+    description =
+      "Plugin for py.test to simplify calling ansible modules from tests or fixtures";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

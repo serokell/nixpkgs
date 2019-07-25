@@ -1,21 +1,30 @@
-{ stdenv, fetchFromGitHub, qt5, fontconfig, freetype, libpng, zlib, libjpeg
-, openssl, libX11, libXext, libXrender }:
+{ stdenv, fetchFromGitHub, qt5, fontconfig, freetype, libpng, zlib, libjpeg, openssl, libX11, libXext, libXrender
+}:
 
 stdenv.mkDerivation rec {
   version = "0.12.5";
   name = "wkhtmltopdf-${version}";
 
   src = fetchFromGitHub {
-    owner  = "wkhtmltopdf";
-    repo   = "wkhtmltopdf";
-    rev    = version;
+    owner = "wkhtmltopdf";
+    repo = "wkhtmltopdf";
+    rev = version;
     sha256 = "0i6b6z3f4szspbbi23qr3hv22j9bhmcj7c1jizr7y0ra43mrgws1";
   };
 
   buildInputs = [
-    fontconfig freetype libpng zlib libjpeg openssl
-    libX11 libXext libXrender
-    qt5.qtwebkit qt5.qtsvg qt5.qtxmlpatterns
+    fontconfig
+    freetype
+    libpng
+    zlib
+    libjpeg
+    openssl
+    libX11
+    libXext
+    libXrender
+    qt5.qtwebkit
+    qt5.qtsvg
+    qt5.qtxmlpatterns
   ];
 
   prePatch = ''
@@ -29,7 +38,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://wkhtmltopdf.org/;
+    homepage = "https://wkhtmltopdf.org/";
     description = "Tools for rendering web pages to PDF or images";
     longDescription = ''
       wkhtmltopdf and wkhtmltoimage are open source (LGPL) command line tools

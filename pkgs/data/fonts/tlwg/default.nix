@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
   preAutoreconf = "echo ${version} > VERSION";
 
   meta = with stdenv.lib; {
-    description = "A collection of Thai scalable fonts available under free licenses";
-    homepage = https://linux.thai.net/projects/fonts-tlwg;
+    description =
+      "A collection of Thai scalable fonts available under free licenses";
+    homepage = "https://linux.thai.net/projects/fonts-tlwg";
     license = with licenses; [ gpl2 publicDomain lppl13c free ];
     maintainers = [ maintainers.yrashk ];
   };

@@ -1,13 +1,9 @@
-{ fetchurl, fetchpatch, stdenv, pkgconfig, libgcrypt, libassuan, libksba
-, libgpgerror, libiconv, npth, gettext, texinfo, pcsclite, sqlite
-, buildPackages
+{ fetchurl, fetchpatch, stdenv, pkgconfig, libgcrypt, libassuan, libksba, libgpgerror, libiconv, npth, gettext, texinfo, pcsclite, sqlite, buildPackages
 
 # Each of the dependencies below are optional.
 # Gnupg can be built without them at the cost of reduced functionality.
-, pinentry ? null, guiSupport ? true
-, adns ? null, gnutls ? null, libusb ? null, openldap ? null
-, readline ? null, zlib ? null, bzip2 ? null
-}:
+, pinentry ? null, guiSupport ? true, adns ? null, gnutls ? null, libusb ?
+  null, openldap ? null, readline ? null, zlib ? null, bzip2 ? null }:
 
 with stdenv.lib;
 
@@ -26,8 +22,21 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    libgcrypt libassuan libksba libiconv npth gettext texinfo
-    readline libusb gnutls adns openldap zlib bzip2 sqlite
+    libgcrypt
+    libassuan
+    libksba
+    libiconv
+    npth
+    gettext
+    texinfo
+    readline
+    libusb
+    gnutls
+    adns
+    openldap
+    zlib
+    bzip2
+    sqlite
   ];
 
   patches = [
@@ -38,8 +47,10 @@ stdenv.mkDerivation rec {
     sed -i 's,hkps://hkps.pool.sks-keyservers.net,hkps://keys.openpgp.org,g' \
         configure doc/dirmngr.texi doc/gnupg.info-1
   '' + stdenv.lib.optionalString stdenv.isLinux ''
-    sed -i 's,"libpcsclite\.so[^"]*","${stdenv.lib.getLib pcsclite}/lib/libpcsclite.so",g' scd/scdaemon.c
-  ''; #" fix Emacs syntax highlighting :-(
+    sed -i 's,"libpcsclite\.so[^"]*","${
+      stdenv.lib.getLib pcsclite
+    }/lib/libpcsclite.so",g' scd/scdaemon.c
+  ''; # " fix Emacs syntax highlighting :-(
 
   pinentryBinaryPath = pinentry.binaryPath or "bin/pinentry";
   configureFlags = [
@@ -48,7 +59,8 @@ stdenv.mkDerivation rec {
     "--with-libassuan-prefix=${libassuan.dev}"
     "--with-ksba-prefix=${libksba.dev}"
     "--with-npth-prefix=${npth}"
-  ] ++ optional guiSupport "--with-pinentry-pgm=${pinentry}/${pinentryBinaryPath}";
+  ] ++ optional guiSupport
+    "--with-pinentry-pgm=${pinentry}/${pinentryBinaryPath}";
 
   postInstall = ''
     mkdir -p $out/lib/systemd/user
@@ -62,8 +74,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://gnupg.org;
-    description = "Modern (2.1) release of the GNU Privacy Guard, a GPL OpenPGP implementation";
+    homepage = "https://gnupg.org";
+    description =
+      "Modern (2.1) release of the GNU Privacy Guard, a GPL OpenPGP implementation";
     license = licenses.gpl3Plus;
     longDescription = ''
       The GNU Privacy Guard is the GNU project's complete and free

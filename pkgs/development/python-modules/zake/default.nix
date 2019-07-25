@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, kazoo
-, six
-, testtools
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, kazoo, six, testtools, python }:
 
 buildPythonPackage rec {
   pname = "zake";
@@ -24,7 +17,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/yahoo/Zake";
-    description = "A python package that works to provide a nice set of testing utilities for the kazoo library";
+    description =
+      "A python package that works to provide a nice set of testing utilities for the kazoo library";
     license = licenses.asl20;
   };
 

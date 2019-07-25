@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.1.0";
 
   src = fetchurl {
-    url = "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
+    url =
+      "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
     sha256 = "1bbyagqzfdbg37k1n08nsqzdf44z8zsnjjinqbsyj7rxg246qilh";
   };
 
@@ -27,7 +28,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.libtom.net/LibTomMath/;
+    homepage = "https://www.libtom.net/LibTomMath/";
     description = "A library for integer-based number-theoretic applications";
     license = with licenses; [ publicDomain wtfpl ];
     platforms = platforms.unix;

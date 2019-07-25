@@ -1,7 +1,7 @@
 { lib, fetchPypi, buildPythonPackage, requests, six }:
 
 buildPythonPackage rec {
-  pname   = "requests-file";
+  pname = "requests-file";
   version = "1.4.3";
 
   src = fetchPypi {
@@ -12,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests six ];
 
   meta = {
-    homepage = https://github.com/dashea/requests-file;
-    description = "Transport adapter for fetching file:// URLs with the requests python library";
+    homepage = "https://github.com/dashea/requests-file";
+    description =
+      "Transport adapter for fetching file:// URLs with the requests python library";
     license = lib.licenses.asl20;
   };
 

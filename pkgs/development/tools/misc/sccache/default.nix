@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cargo, rustc, rustPlatform, pkgconfig, glib, openssl, darwin }:
+{ stdenv, fetchFromGitHub, cargo, rustc, rustPlatform, pkgconfig, glib, openssl, darwin
+}:
 
 rustPlatform.buildRustPackage rec {
   version = "0.2.9";
@@ -16,19 +17,16 @@ rustPlatform.buildRustPackage rec {
   postPatch = ''
     sed -i 's/\(version = "0.2.9\)-alpha.0"/\1"/g' Cargo.lock
   '';
-  nativeBuildInputs = [
-    pkgconfig cargo rustc
-  ];
-  buildInputs = [
-    openssl
-  ] ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  nativeBuildInputs = [ pkgconfig cargo rustc ];
+  buildInputs = [ openssl ]
+    ++ stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
   # Tests fail because of client server setup which is not possible inside the pure environment,
   # see https://github.com/mozilla/sccache/issues/460
   checkPhase = null;
 
   meta = with stdenv.lib; {
     description = "Ccache with Cloud Storage";
-    homepage = https://github.com/mozilla/sccache;
+    homepage = "https://github.com/mozilla/sccache";
     maintainers = with maintainers; [ doronbehar ];
     license = licenses.asl20;
     platforms = platforms.unix;

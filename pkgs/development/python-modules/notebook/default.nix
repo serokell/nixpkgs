@@ -1,26 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, nose_warnings_filters
-, glibcLocales
-, isPy3k
-, mock
-, jinja2
-, tornado
-, ipython_genutils
-, traitlets
-, jupyter_core
-, jupyter_client
-, nbformat
-, nbconvert
-, ipykernel
-, terminado
-, requests
-, send2trash
-, pexpect
-, prometheus_client
+{ stdenv, lib, buildPythonPackage, fetchPypi, nose, nose_warnings_filters, glibcLocales, isPy3k, mock, jinja2, tornado, ipython_genutils, traitlets, jupyter_core, jupyter_client, nbformat, nbconvert, ipykernel, terminado, requests, send2trash, pexpect, prometheus_client
 }:
 
 buildPythonPackage rec {
@@ -38,8 +16,19 @@ buildPythonPackage rec {
     ++ (if isPy3k then [ nose_warnings_filters ] else [ mock ]);
 
   propagatedBuildInputs = [
-    jinja2 tornado ipython_genutils traitlets jupyter_core send2trash
-    jupyter_client nbformat nbconvert ipykernel terminado requests pexpect
+    jinja2
+    tornado
+    ipython_genutils
+    traitlets
+    jupyter_core
+    send2trash
+    jupyter_client
+    nbformat
+    nbconvert
+    ipykernel
+    terminado
+    requests
+    pexpect
     prometheus_client
   ];
 
@@ -57,16 +46,19 @@ buildPythonPackage rec {
   checkPhase = ''
     runHook preCheck
     mkdir tmp
-    HOME=tmp nosetests -v ${if (stdenv.isDarwin) then ''
-      --exclude test_delete \
-      --exclude test_checkpoints_follow_file
-    ''
-    else ""}
+    HOME=tmp nosetests -v ${
+      if (stdenv.isDarwin) then ''
+        --exclude test_delete \
+        --exclude test_checkpoints_follow_file
+      '' else
+        ""
+    }
   '';
 
   meta = {
-    description = "The Jupyter HTML notebook is a web-based notebook environment for interactive computing";
-    homepage = https://jupyter.org/;
+    description =
+      "The Jupyter HTML notebook is a web-based notebook environment for interactive computing";
+    homepage = "https://jupyter.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh globin ];
   };

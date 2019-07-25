@@ -1,11 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, lightyear
-, bytes
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, lightyear, bytes, lib }:
+build-idris-package {
   name = "http";
   version = "2018-02-25";
 
@@ -20,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "An HTTP library for idris";
-    homepage = https://github.com/uwap/idris-http;
+    homepage = "https://github.com/uwap/idris-http";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.brainrape ];
   };

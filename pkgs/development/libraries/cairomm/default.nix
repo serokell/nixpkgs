@@ -14,15 +14,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   propagatedBuildInputs = [ cairo libsigcxx ];
-  buildInputs = [ fontconfig freetype ]
-  ++ stdenv.lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    ApplicationServices
-  ]);
+  buildInputs = [ fontconfig freetype ] ++ stdenv.lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
 
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "A 2D graphics library with support for multiple output devices";
+    description =
+      "A 2D graphics library with support for multiple output devices";
 
     longDescription = ''
       Cairo is a 2D graphics library with support for multiple output

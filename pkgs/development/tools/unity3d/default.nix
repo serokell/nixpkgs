@@ -1,20 +1,45 @@
-{ stdenv, lib, fetchurl, makeWrapper, file, getopt
-, gtk2, gtk3, gdk_pixbuf, glib, libGL, libGLU, nss, nspr, udev, tbb
-, alsaLib, GConf, cups, libcap, fontconfig, freetype, pango
-, cairo, dbus, expat, zlib, libpng12, nodejs, gnutar, gcc, gcc_32bit
-, libX11, libXcursor, libXdamage, libXfixes, libXrender, libXi
-, libXcomposite, libXext, libXrandr, libXtst, libSM, libICE, libxcb, chromium
-, libpqxx
+{ stdenv, lib, fetchurl, makeWrapper, file, getopt, gtk2, gtk3, gdk_pixbuf, glib, libGL, libGLU, nss, nspr, udev, tbb, alsaLib, GConf, cups, libcap, fontconfig, freetype, pango, cairo, dbus, expat, zlib, libpng12, nodejs, gnutar, gcc, gcc_32bit, libX11, libXcursor, libXdamage, libXfixes, libXrender, libXi, libXcomposite, libXext, libXrandr, libXtst, libSM, libICE, libxcb, chromium, libpqxx
 }:
 
 let
   libPath64 = lib.makeLibraryPath [
-    gcc.cc gtk2 gdk_pixbuf glib libGL libGLU nss nspr
-    alsaLib GConf cups libcap fontconfig freetype pango
-    cairo dbus expat zlib libpng12 udev tbb
-    libX11 libXcursor libXdamage libXfixes libXrender libXi
-    libXcomposite libXext libXrandr libXtst libSM libICE libxcb
-    libpqxx gtk3 
+    gcc.cc
+    gtk2
+    gdk_pixbuf
+    glib
+    libGL
+    libGLU
+    nss
+    nspr
+    alsaLib
+    GConf
+    cups
+    libcap
+    fontconfig
+    freetype
+    pango
+    cairo
+    dbus
+    expat
+    zlib
+    libpng12
+    udev
+    tbb
+    libX11
+    libXcursor
+    libXdamage
+    libXfixes
+    libXrender
+    libXi
+    libXcomposite
+    libXext
+    libXrandr
+    libXtst
+    libSM
+    libICE
+    libxcb
+    libpqxx
+    gtk3
   ];
   libPath32 = lib.makeLibraryPath [ gcc_32bit.cc ];
   binPath = lib.makeBinPath [ nodejs gnutar ];
@@ -27,7 +52,8 @@ in stdenv.mkDerivation rec {
   version = "${ver}x${build}";
 
   src = fetchurl {
-  	url = "https://beta.unity3d.com/download/6e9a27477296/LinuxEditorInstaller/Unity.tar.xz";
+    url =
+      "https://beta.unity3d.com/download/6e9a27477296/LinuxEditorInstaller/Unity.tar.xz";
     sha1 = "083imikkrgha5w9sihjvv1m74naxm5yv";
   };
 
@@ -82,7 +108,7 @@ in stdenv.mkDerivation rec {
     }
 
     upm_linux=$unitydir/Data/Resources/PackageManager/Server/UnityPackageManager
-    
+
 
     orig_size=$(stat --printf=%s $upm_linux)
 
@@ -127,7 +153,7 @@ in stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   meta = with stdenv.lib; {
-    homepage = https://unity3d.com/;
+    homepage = "https://unity3d.com/";
     description = "Game development tool";
     longDescription = ''
       Popular development platform for creating 2D and 3D multiplatform games

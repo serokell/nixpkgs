@@ -10,14 +10,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ unzip ];
 
-  installPhase =
-    ''
-      mkdir -p "$out/js"
-      cp -rv . "$out/js"
-    '';
+  installPhase = ''
+    mkdir -p "$out/js"
+    cp -rv . "$out/js"
+  '';
 
   meta = {
-    homepage = http://jqueryui.com/;
+    homepage = "http://jqueryui.com/";
     description = "A library of JavaScript widgets and effects";
     platforms = stdenv.lib.platforms.all;
   };

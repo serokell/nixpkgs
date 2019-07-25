@@ -5,9 +5,7 @@
 # option should remove the prefix and give us a working jemalloc.
 # Causes segfaults with some software (ex. rustc), but defaults to true for backward
 # compatibility.
-, stripPrefix ? stdenv.hostPlatform.isDarwin
-, disableInitExecTls ? false
-}:
+, stripPrefix ? stdenv.hostPlatform.isDarwin, disableInitExecTls ? false }:
 
 with stdenv.lib;
 
@@ -16,22 +14,21 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url = "https://github.com/jemalloc/jemalloc/releases/download/${version}/${name}.tar.bz2";
+    url =
+      "https://github.com/jemalloc/jemalloc/releases/download/${version}/${name}.tar.bz2";
     inherit sha256;
   };
 
   # see the comment on stripPrefix
-  configureFlags = []
-    ++ optional stripPrefix "--with-jemalloc-prefix="
-    ++ optional disableInitExecTls "--disable-initial-exec-tls"
-  ;
+  configureFlags = [ ] ++ optional stripPrefix "--with-jemalloc-prefix="
+    ++ optional disableInitExecTls "--disable-initial-exec-tls";
 
   doCheck = true;
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://jemalloc.net;
+    homepage = "http://jemalloc.net";
     description = "General purpose malloc(3) implementation";
     longDescription = ''
       malloc(3)-compatible memory allocator that emphasizes fragmentation

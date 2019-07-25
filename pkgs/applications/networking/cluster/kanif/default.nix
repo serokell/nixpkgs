@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, perl , taktuk}:
+{ stdenv, fetchurl, perl, taktuk }:
 
 stdenv.mkDerivation rec {
   version = "1.2.2";
@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   };
 
   preBuild = ''
-      substituteInPlace ./kanif --replace "/usr/bin/perl" "${perl}/bin/perl"
-      substituteInPlace ./kanif --replace '$taktuk_command = "taktuk";' '$taktuk_command = "${taktuk}/bin/taktuk";'
+    substituteInPlace ./kanif --replace "/usr/bin/perl" "${perl}/bin/perl"
+    substituteInPlace ./kanif --replace '$taktuk_command = "taktuk";' '$taktuk_command = "${taktuk}/bin/taktuk";'
   '';
 
   meta = {
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       directories to several nodes ('kaput' command), and to gather several
       remote files or directories locally ('kaget' command). It relies on TakTuk
       for efficiency and scalability.'';
-    homepage = http://taktuk.gforge.inria.fr/kanif;
+    homepage = "http://taktuk.gforge.inria.fr/kanif";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.bzizou ];
     platforms = stdenv.lib.platforms.linux;

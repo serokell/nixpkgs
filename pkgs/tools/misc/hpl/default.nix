@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, openblasCompat, mpi } :
+{ stdenv, fetchurl, openblasCompat, mpi }:
 
 stdenv.mkDerivation rec {
   name = "hpl-${version}";
@@ -21,8 +21,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ openblasCompat mpi ];
 
   meta = with stdenv.lib; {
-    description = "Portable Implementation of the Linpack Benchmark for Distributed-Memory Computers";
-    homepage = http://www.netlib.org/benchmark/hpl/;
+    description =
+      "Portable Implementation of the Linpack Benchmark for Distributed-Memory Computers";
+    homepage = "http://www.netlib.org/benchmark/hpl/";
     platforms = platforms.unix;
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.markuskowa ];

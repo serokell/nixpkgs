@@ -1,13 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, gtk3, gtk-vnc, gmp
-, libgcrypt, gnupg, cyrus_sasl, shared-mime-info, libvirt, yajl, xen
-, gsettings-desktop-schemas, wrapGAppsHook, libvirt-glib, libcap_ng, numactl
-, libapparmor, gst_all_1
-, spiceSupport ? true
-, spice-gtk ? null, spice-protocol ? null, libcap ? null, gdbm ? null
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, gtk3, gtk-vnc, gmp, libgcrypt, gnupg, cyrus_sasl, shared-mime-info, libvirt, yajl, xen, gsettings-desktop-schemas, wrapGAppsHook, libvirt-glib, libcap_ng, numactl, libapparmor, gst_all_1, spiceSupport ?
+  true, spice-gtk ? null, spice-protocol ? null, libcap ? null, gdbm ? null }:
 
-assert spiceSupport ->
-  spice-gtk != null && spice-protocol != null && libcap != null && gdbm != null;
+assert spiceSupport -> spice-gtk != null && spice-protocol != null && libcap
+!= null && gdbm != null;
 
 with stdenv.lib;
 
@@ -23,14 +18,24 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig intltool wrapGAppsHook ];
   buildInputs = [
-    glib libxml2 gtk3 gtk-vnc gmp libgcrypt gnupg cyrus_sasl shared-mime-info
-    libvirt yajl gsettings-desktop-schemas libvirt-glib
-    libcap_ng numactl libapparmor
-  ] ++ optionals stdenv.isx86_64 [
-    xen
-  ] ++ optionals spiceSupport [
-    spice-gtk spice-protocol libcap gdbm
-  ];
+    glib
+    libxml2
+    gtk3
+    gtk-vnc
+    gmp
+    libgcrypt
+    gnupg
+    cyrus_sasl
+    shared-mime-info
+    libvirt
+    yajl
+    gsettings-desktop-schemas
+    libvirt-glib
+    libcap_ng
+    numactl
+    libapparmor
+  ] ++ optionals stdenv.isx86_64 [ xen ]
+    ++ optionals spiceSupport [ spice-gtk spice-protocol libcap gdbm ];
 
   # Required for USB redirection PolicyKit rules file
   propagatedUserEnvPkgs = optional spiceSupport spice-gtk;
@@ -42,8 +47,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
   };
   passthru = {
-    updateInfo = {
-      downloadPage = "http://virt-manager.org/download.html";
-    };
+    updateInfo = { downloadPage = "http://virt-manager.org/download.html"; };
   };
 }

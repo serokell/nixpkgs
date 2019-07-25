@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, fuse, curl, glib-networking
-, asciidoc, libxml2, docbook_xsl, docbook_xml_dtd_45, libxslt, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, fuse, curl, glib-networking, asciidoc, libxml2, docbook_xsl, docbook_xml_dtd_45, libxslt, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   name = "megatools-${version}";
@@ -13,8 +13,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    autoreconfHook pkgconfig wrapGAppsHook asciidoc libxml2
-    docbook_xsl docbook_xml_dtd_45 libxslt
+    autoreconfHook
+    pkgconfig
+    wrapGAppsHook
+    asciidoc
+    libxml2
+    docbook_xsl
+    docbook_xml_dtd_45
+    libxslt
   ];
   buildInputs = [ glib glib-networking fuse curl ];
 
@@ -22,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Command line client for Mega.co.nz";
-    homepage = https://megatools.megous.com/;
+    homepage = "https://megatools.megous.com/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.viric maintainers.AndersonTorres ];
     platforms = platforms.linux;

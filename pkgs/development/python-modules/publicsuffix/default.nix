@@ -9,7 +9,6 @@ buildPythonPackage rec {
     sha256 = "1adx520249z2cy7ykwjr1k190mn2888wqn9jf8qm27ly4qymjxxf";
   };
 
-
   # fix the ASCII-mode LICENSE file read
   # disable test_fetch and the doctests (which also invoke fetch)
   patchPhase = stdenv.lib.optionalString isPy3k ''

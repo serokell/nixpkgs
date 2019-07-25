@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.blackbox;
-in
-{
+let cfg = config.services.prometheus.exporters.blackbox;
+in {
   port = 9115;
   extraOpts = {
     configFile = mkOption {

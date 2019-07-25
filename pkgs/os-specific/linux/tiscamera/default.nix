@@ -1,16 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkgconfig
-, pcre
-, tinyxml
-, libusb1
-, libzip
-, glib
-, gobject-introspection
-, gst_all_1
-, libwebcam
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, pcre, tinyxml, libusb1, libzip, glib, gobject-introspection, gst_all_1, libwebcam
 }:
 
 stdenv.mkDerivation rec {
@@ -25,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "143yp6bpzj3rqfnrcnlrcwggay37fg6rkphh4w9y9v7v4wllzf87";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-  ];
+  nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
     pcre
@@ -42,7 +27,6 @@ stdenv.mkDerivation rec {
     libwebcam
   ];
 
-
   cmakeFlags = [
     "-DBUILD_ARAVIS=OFF" # For GigE support. Won't need it as our camera is usb.
     "-DBUILD_GST_1_0=ON"
@@ -50,7 +34,6 @@ stdenv.mkDerivation rec {
     "-DBUILD_V4L2=ON"
     "-DBUILD_LIBUSB=ON"
   ];
-
 
   patches = [
     ./allow-pipeline-stop-in-trigger-mode.patch # To be removed next release.
@@ -80,7 +63,6 @@ stdenv.mkDerivation rec {
     )
   '';
 
-
   # There are gobject introspection commands launched as part of the build. Those have a runtime
   # dependency on `libtcam` (which itself is built as part of this build). In order to allow
   # that, we set the dynamic linker's path to point on the build time location of the library.
@@ -89,8 +71,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The Linux sources and UVC firmwares for The Imaging Source cameras";
-    homepage = https://github.com/TheImagingSource/tiscamera;
+    description =
+      "The Linux sources and UVC firmwares for The Imaging Source cameras";
+    homepage = "https://github.com/TheImagingSource/tiscamera";
     license = with licenses; [ asl20 ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ jraygauthier ];

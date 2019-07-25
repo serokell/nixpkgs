@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, vpnc, openssl ? null, gnutls ? null, gmp, libxml2, stoken, zlib } :
+{ stdenv, fetchurl, pkgconfig, vpnc, openssl ? null, gnutls ?
+  null, gmp, libxml2, stoken, zlib }:
 
 assert (openssl != null) == (gnutls == null);
 
@@ -7,9 +8,8 @@ stdenv.mkDerivation rec {
   version = "8.03";
 
   src = fetchurl {
-    urls = [
-      "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz"
-    ];
+    urls =
+      [ "ftp://ftp.infradead.org/pub/openconnect/${pname}-${version}.tar.gz" ];
     sha256 = "1wlypi68kqqg2mdck8wvf6aanhrmf9i7z6lngyxvcrp23jdzz34h";
   };
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "VPN Client for Cisco's AnyConnect SSL VPN";
-    homepage = http://www.infradead.org/openconnect/;
+    homepage = "http://www.infradead.org/openconnect/";
     license = stdenv.lib.licenses.lgpl21;
     maintainers = with stdenv.lib.maintainers; [ pradeepchhetri ];
     platforms = stdenv.lib.platforms.linux;

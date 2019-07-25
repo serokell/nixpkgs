@@ -3,7 +3,7 @@
 fetchzip {
   name = "MPH-2B-Damase-2";
 
-  url = http://www.wazu.jp/downloads/damase_v.2.zip;
+  url = "http://www.wazu.jp/downloads/damase_v.2.zip";
 
   postFetch = ''
     mkdir -p $out/share/fonts
@@ -12,6 +12,5 @@ fetchzip {
 
   sha256 = "0yzf12z6fpbgycqwiz88f39iawdhjabadfa14wxar3nhl9n434ql";
 
-  meta = {
-  };
+  meta = { };
 }

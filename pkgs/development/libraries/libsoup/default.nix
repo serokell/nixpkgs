@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, glib, libxml2, meson, ninja, pkgconfig, gnome3
-, gnomeSupport ? true, sqlite, glib-networking, gobject-introspection, vala
-, libpsl, python3 }:
+{ stdenv, fetchurl, glib, libxml2, meson, ninja, pkgconfig, gnome3, gnomeSupport ?
+  true, sqlite, glib-networking, gobject-introspection, vala, libpsl, python3 }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -8,7 +7,9 @@ stdenv.mkDerivation rec {
   version = "2.66.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0amfw1yvy1kjrg41rfh2vvrw5gkwnyckqbw1fab50hm6xc1acbmx";
   };
 
@@ -29,18 +30,17 @@ stdenv.mkDerivation rec {
     "-Dgnome=${if gnomeSupport then "true" else "false"}"
   ];
 
-  doCheck = false; # ERROR:../tests/socket-test.c:37:do_unconnected_socket_test: assertion failed (res == SOUP_STATUS_OK): (2 == 200)
+  doCheck =
+    false; # ERROR:../tests/socket-test.c:37:do_unconnected_socket_test: assertion failed (res == SOUP_STATUS_OK): (2 == 200)
 
   passthru = {
     propagatedUserEnvPackages = [ glib-networking.out ];
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
+    updateScript = gnome3.updateScript { packageName = pname; };
   };
 
   meta = {
     description = "HTTP client/server library for GNOME";
-    homepage = https://wiki.gnome.org/Projects/libsoup;
+    homepage = "https://wiki.gnome.org/Projects/libsoup";
     license = stdenv.lib.licenses.gpl2;
     inherit (glib.meta) maintainers platforms;
   };

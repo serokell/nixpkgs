@@ -14,8 +14,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ gtk2.dev ];
 
   meta = {
-    homepage = http://keldon.net/rftg/;
-    description = "Implementation of the card game Race for the Galaxy, including an AI";
+    homepage = "http://keldon.net/rftg/";
+    description =
+      "Implementation of the card game Race for the Galaxy, including an AI";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.falsifian ];
   };

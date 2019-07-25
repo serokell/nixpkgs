@@ -1,8 +1,6 @@
 { stdenv, lib, fetchurl }:
-let
-  version = "0.6.0";
-in
-stdenv.mkDerivation {
+let version = "0.6.0";
+in stdenv.mkDerivation {
   name = "oil-${version}";
 
   src = fetchurl {
@@ -22,7 +20,7 @@ stdenv.mkDerivation {
   dontStrip = true;
 
   meta = {
-    homepage = https://www.oilshell.org/;
+    homepage = "https://www.oilshell.org/";
 
     description = "A new unix shell, still in its early stages";
 

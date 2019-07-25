@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, enchant, qt4, zlib, sox, libX11, xorgproto, libSM
-, libICE, qca2, pkgconfig, which, glib
-, libXScrnSaver
+{ stdenv, fetchurl, enchant, qt4, zlib, sox, libX11, xorgproto, libSM, libICE, qca2, pkgconfig, which, glib, libXScrnSaver
 }:
 
 stdenv.mkDerivation rec {
@@ -11,14 +9,25 @@ stdenv.mkDerivation rec {
     sha256 = "593b5ddd7934af69c245afb0e7290047fd7dedcfd8765baca5a3a024c569c7e6";
   };
 
-  buildInputs =
-    [ enchant qt4 zlib sox libX11 xorgproto libSM libICE
-      qca2 pkgconfig which glib libXScrnSaver
-    ];
+  buildInputs = [
+    enchant
+    qt4
+    zlib
+    sox
+    libX11
+    xorgproto
+    libSM
+    libICE
+    qca2
+    pkgconfig
+    which
+    glib
+    libXScrnSaver
+  ];
 
-  NIX_CFLAGS_COMPILE="-I${qca2}/include/QtCrypto";
+  NIX_CFLAGS_COMPILE = "-I${qca2}/include/QtCrypto";
 
-  NIX_LDFLAGS="-lqca";
+  NIX_LDFLAGS = "-lqca";
 
   enableParallelBuilding = true;
 

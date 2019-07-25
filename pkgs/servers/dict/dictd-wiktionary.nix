@@ -1,15 +1,16 @@
-{stdenv, fetchurl, python, dict, glibcLocales, writeScript}:
+{ stdenv, fetchurl, python, dict, glibcLocales, writeScript }:
 
 stdenv.mkDerivation rec {
   version = "20161001";
   name = "dict-db-wiktionary-${version}";
   data = fetchurl {
-    url = "http://dumps.wikimedia.org/enwiktionary/${version}/enwiktionary-${version}-pages-articles.xml.bz2";
+    url =
+      "http://dumps.wikimedia.org/enwiktionary/${version}/enwiktionary-${version}-pages-articles.xml.bz2";
     sha256 = "0g3k7kxp2nzg0v56i4cz253af3aqvhn1lwkys2fnam51cn3yqm7m";
   };
 
   convert = ./wiktionary2dict.py;
-  buildInputs = [python dict glibcLocales];
+  buildInputs = [ python dict glibcLocales ];
 
   builder = writeScript "wiktionary-builder.sh" ''
     source $stdenv/setup
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "DICT version of English Wiktionary";
-    homepage = http://en.wiktionary.org/;
+    homepage = "http://en.wiktionary.org/";
     maintainers = [ ];
     platforms = stdenv.lib.platforms.all;
   };

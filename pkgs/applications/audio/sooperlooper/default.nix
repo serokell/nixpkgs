@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, liblo, libxml2, libjack2, libsndfile, wxGTK, libsigcxx
-, libsamplerate, rubberband, pkgconfig, libtool, gettext, ncurses, which
-, autoreconfHook
+{ stdenv, fetchFromGitHub, liblo, libxml2, libjack2, libsndfile, wxGTK, libsigcxx, libsamplerate, rubberband, pkgconfig, libtool, gettext, ncurses, which, autoreconfHook
 }:
 
 stdenv.mkDerivation rec {
@@ -22,12 +20,21 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig which libtool ];
 
   buildInputs = [
-    liblo libxml2 libjack2 libsndfile wxGTK libsigcxx
-    libsamplerate rubberband gettext ncurses
+    liblo
+    libxml2
+    libjack2
+    libsndfile
+    wxGTK
+    libsigcxx
+    libsamplerate
+    rubberband
+    gettext
+    ncurses
   ];
 
   meta = {
-    description = "A live looping sampler capable of immediate loop recording, overdubbing, multiplying, reversing and more";
+    description =
+      "A live looping sampler capable of immediate loop recording, overdubbing, multiplying, reversing and more";
     longDescription = ''
       It allows for multiple simultaneous multi-channel loops limited only by your computer's available memory.
       The application is a standalone JACK client with an engine controllable via OSC and MIDI.
@@ -37,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
 
     version = "${version}";
-    homepage = http://essej.net/sooperlooper/index.html;
+    homepage = "http://essej.net/sooperlooper/index.html";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

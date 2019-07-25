@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A dark stylesheet for Python and Qt applications";
-    homepage = https://github.com/ColinDuquesnoy/QDarkStyleSheet;
+    homepage = "https://github.com/ColinDuquesnoy/QDarkStyleSheet";
     license = licenses.mit;
     maintainers = with maintainers; [ nyanloutre ];
   };

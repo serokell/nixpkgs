@@ -1,51 +1,18 @@
-{ gcc8Stdenv
-, ctags
-, appstream-glib
-, desktop-file-utils
-, docbook_xsl
-, docbook_xml_dtd_43
-, fetchurl
-, flatpak
-, gnome3
-, libgit2-glib
-, gobject-introspection
-, gspell
-, gtk-doc
-, gtk3
-, gtksourceview4
-, hicolor-icon-theme
-, json-glib
-, jsonrpc-glib
-, libdazzle
-, libpeas
-, libxml2
-, meson
-, ninja
-, ostree
-, pcre
-, pkgconfig
-, python3
-, sysprof
-, template-glib
-, vala
-, vte
-, webkitgtk
-, wrapGAppsHook
-, dbus
-, xvfb_run
+{ gcc8Stdenv, ctags, appstream-glib, desktop-file-utils, docbook_xsl, docbook_xml_dtd_43, fetchurl, flatpak, gnome3, libgit2-glib, gobject-introspection, gspell, gtk-doc, gtk3, gtksourceview4, hicolor-icon-theme, json-glib, jsonrpc-glib, libdazzle, libpeas, libxml2, meson, ninja, ostree, pcre, pkgconfig, python3, sysprof, template-glib, vala, vte, webkitgtk, wrapGAppsHook, dbus, xvfb_run
 }:
 
 let
   # Does not build with GCC 7
   # https://gitlab.gnome.org/GNOME/gnome-builder/issues/868
   stdenv = gcc8Stdenv;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gnome-builder";
   version = "3.32.3";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1vlr69sgiv3kg2qa3n7aw3913bmvlcpyhy3w8lls13wjrgif4wny";
   };
 
@@ -89,10 +56,7 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  checkInputs = [
-    dbus
-    xvfb_run
-  ];
+  checkInputs = [ dbus xvfb_run ];
 
   outputs = [ "out" "devdoc" ];
 
@@ -151,7 +115,7 @@ stdenv.mkDerivation rec {
       currently recommend running gnome-builder inside a nix-shell with
       appropriate dependencies loaded.
     '';
-    homepage = https://wiki.gnome.org/Apps/Builder;
+    homepage = "https://wiki.gnome.org/Apps/Builder";
     license = licenses.gpl3Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

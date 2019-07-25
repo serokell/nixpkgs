@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, mock
-, blessings
-, nose
-, nose_progressive
-, pillow
-, args
-, pkgs
+{ stdenv, buildPythonPackage, fetchPypi, python, mock, blessings, nose, nose_progressive, pillow, args, pkgs
 }:
 
 buildPythonPackage rec {
@@ -20,7 +10,7 @@ buildPythonPackage rec {
     sha256 = "1an5lkkqk1zha47198p42ji3m94xmzx1a03dn7866m87n4r4q8h5";
   };
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   checkPhase = ''
     ${python.interpreter} test_clint.py
@@ -30,7 +20,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pillow blessings args ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/kennethreitz/clint;
+    homepage = "https://github.com/kennethreitz/clint";
     description = "Python Command Line Interface Tools";
     license = licenses.isc;
     maintainers = with maintainers; [ domenkozar ];

@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.virtualisation.hypervGuest;
+let cfg = config.virtualisation.hypervGuest;
 
 in {
   options = {
@@ -27,16 +26,14 @@ in {
 
   config = mkIf cfg.enable {
     boot = {
-      initrd.kernelModules = [
-        "hv_balloon" "hv_netvsc" "hv_storvsc" "hv_utils" "hv_vmbus"
-      ];
+      initrd.kernelModules =
+        [ "hv_balloon" "hv_netvsc" "hv_storvsc" "hv_utils" "hv_vmbus" ];
 
-      kernelParams = [
-        "video=hyperv_fb:${cfg.videoMode}"
-      ];
+      kernelParams = [ "video=hyperv_fb:${cfg.videoMode}" ];
     };
 
-    environment.systemPackages = [ config.boot.kernelPackages.hyperv-daemons.bin ];
+    environment.systemPackages =
+      [ config.boot.kernelPackages.hyperv-daemons.bin ];
 
     security.rngd.enable = false;
 
@@ -56,9 +53,7 @@ in {
     systemd = {
       packages = [ config.boot.kernelPackages.hyperv-daemons.lib ];
 
-      targets.hyperv-daemons = {
-        wantedBy = [ "multi-user.target" ];
-      };
+      targets.hyperv-daemons = { wantedBy = [ "multi-user.target" ]; };
     };
   };
 }

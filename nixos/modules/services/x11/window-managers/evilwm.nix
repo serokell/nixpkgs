@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.evilwm;
-in
-{
+let cfg = config.services.xserver.windowManager.evilwm;
+in {
   ###### interface
   options = {
     services.xserver.windowManager.evilwm.enable = mkEnableOption "evilwm";
@@ -16,8 +14,8 @@ in
     services.xserver.windowManager.session = singleton {
       name = "evilwm";
       start = ''
-	${pkgs.evilwm}/bin/evilwm &
-	waitPID=$!
+        ${pkgs.evilwm}/bin/evilwm &
+        waitPID=$!
       '';
     };
     environment.systemPackages = [ pkgs.evilwm ];

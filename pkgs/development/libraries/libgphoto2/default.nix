@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libusb1, libtool, libexif, libjpeg, gettext, autoreconfHook }:
+{ stdenv, fetchFromGitHub, pkgconfig, libusb1, libtool, libexif, libjpeg, gettext, autoreconfHook
+}:
 
 stdenv.mkDerivation rec {
   name = "libgphoto2-${meta.version}";
@@ -10,10 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "0pbfg89817qkb35mmajsw2iz6j9nhkkj67m419f8x8yxpqkaa0wb";
   };
 
-  patches = [];
+  patches = [ ];
 
   nativeBuildInputs = [ pkgconfig gettext autoreconfHook ];
-  buildInputs = [ libtool libjpeg libusb1  ];
+  buildInputs = [ libtool libjpeg libusb1 ];
 
   # These are mentioned in the Requires line of libgphoto's pkg-config file.
   propagatedBuildInputs = [ libexif ];
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.gphoto.org/proj/libgphoto2/;
+    homepage = "http://www.gphoto.org/proj/libgphoto2/";
     description = "A library for accessing digital cameras";
     longDescription = ''
       This is the library backend for gphoto2. It contains the code for PTP,

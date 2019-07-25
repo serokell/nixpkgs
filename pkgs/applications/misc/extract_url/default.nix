@@ -1,11 +1,8 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, perlPackages
-, cursesSupport ? true
-, uriFindSupport ? true
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, perlPackages, cursesSupport ?
+  true, uriFindSupport ? true }:
 
 let
-  perlDeps =
-    [ perlPackages.MIMEtools perlPackages.HTMLParser ]
+  perlDeps = [ perlPackages.MIMEtools perlPackages.HTMLParser ]
     ++ lib.optional cursesSupport perlPackages.CursesUI
     ++ lib.optional uriFindSupport perlPackages.URIFind;
 
@@ -32,7 +29,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = https://www.memoryhole.net/~kyle/extract_url/;
+    homepage = "https://www.memoryhole.net/~kyle/extract_url/";
     description = "Extracts URLs from MIME messages or plain text";
     license = licenses.bsd2;
     maintainers = [ maintainers.qyliss ];

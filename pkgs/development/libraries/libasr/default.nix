@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   name = "libasr-${version}";
-  version=  "1.0.2";
+  version = "1.0.2";
 
   src = fetchurl {
     url = "https://www.opensmtpd.org/archives/${name}.tar.gz";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libevent openssl ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/OpenSMTPD/libasr;
+    homepage = "https://github.com/OpenSMTPD/libasr";
     description = "Free, simple and portable asynchronous resolver library";
     license = licenses.isc;
     maintainers = [ maintainers.koral ];

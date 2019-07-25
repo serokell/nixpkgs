@@ -1,10 +1,8 @@
-{ stdenv, fetchFromGitHub, buildDotnetPackage, dotnetPackages, gtksharp,
-  gettext }:
+{ stdenv, fetchFromGitHub, buildDotnetPackage, dotnetPackages, gtksharp, gettext
+}:
 
-let
-  mono-addins = dotnetPackages.MonoAddins;
-in
-buildDotnetPackage rec {
+let mono-addins = dotnetPackages.MonoAddins;
+in buildDotnetPackage rec {
   name = "pinta-1.6";
 
   baseName = "Pinta";
@@ -21,33 +19,35 @@ buildDotnetPackage rec {
   };
 
   # Remove version information from nodes <Reference Include="... Version=... ">
-  postPatch = with stdenv.lib; let
-    csprojFiles = [
-      "Pinta/Pinta.csproj"
-      "Pinta.Core/Pinta.Core.csproj"
-      "Pinta.Effects/Pinta.Effects.csproj"
-      "Pinta.Gui.Widgets/Pinta.Gui.Widgets.csproj"
-      "Pinta.Resources/Pinta.Resources.csproj"
-      "Pinta.Tools/Pinta.Tools.csproj"
-    ];
-    versionedNames = [
-      "Mono\\.Addins"
-      "Mono\\.Posix"
-      "Mono\\.Addins\\.Gui"
-      "Mono\\.Addins\\.Setup"
-    ];
+  postPatch = with stdenv.lib;
+    let
+      csprojFiles = [
+        "Pinta/Pinta.csproj"
+        "Pinta.Core/Pinta.Core.csproj"
+        "Pinta.Effects/Pinta.Effects.csproj"
+        "Pinta.Gui.Widgets/Pinta.Gui.Widgets.csproj"
+        "Pinta.Resources/Pinta.Resources.csproj"
+        "Pinta.Tools/Pinta.Tools.csproj"
+      ];
+      versionedNames = [
+        "Mono\\.Addins"
+        "Mono\\.Posix"
+        "Mono\\.Addins\\.Gui"
+        "Mono\\.Addins\\.Setup"
+      ];
 
-    stripVersion = name: file: let
-        match = ''<Reference Include="${name}([ ,][^"]*)?"'';
-        replace = ''<Reference Include="${name}"'';
-      in "sed -i -re 's/${match}/${replace}/g' ${file}\n";
+      stripVersion = name: file:
+        let
+          match = ''<Reference Include="${name}([ ,][^"]*)?"'';
+          replace = ''<Reference Include="${name}"'';
+        in ''
+          sed -i -re 's/${match}/${replace}/g' ${file}
+        '';
 
-    # Map all possible pairs of two lists
-    map2 = f: listA: listB: concatMap (a: map (f a) listB) listA;
-    concatMap2Strings = f: listA: listB: concatStrings (map2 f listA listB);
-  in
-    concatMap2Strings stripVersion versionedNames csprojFiles
-    + ''
+      # Map all possible pairs of two lists
+      map2 = f: listA: listB: concatMap (a: map (f a) listB) listA;
+      concatMap2Strings = f: listA: listB: concatStrings (map2 f listA listB);
+    in concatMap2Strings stripVersion versionedNames csprojFiles + ''
       # For some reason there is no Microsoft.Common.tasks file
       # in ''${mono}/lib/mono/3.5 .
       substituteInPlace Pinta.Install.proj \
@@ -56,9 +56,9 @@ buildDotnetPackage rec {
     '';
 
   makeWrapperArgs = [
-    ''--prefix MONO_GAC_PREFIX : ${gtksharp}''
-    ''--prefix LD_LIBRARY_PATH : ${gtksharp}/lib''
-    ''--prefix LD_LIBRARY_PATH : ${gtksharp.gtk.out}/lib''
+    "--prefix MONO_GAC_PREFIX : ${gtksharp}"
+    "--prefix LD_LIBRARY_PATH : ${gtksharp}/lib"
+    "--prefix LD_LIBRARY_PATH : ${gtksharp.gtk.out}/lib"
   ];
 
   postInstall = ''
@@ -74,7 +74,7 @@ buildDotnetPackage rec {
   '';
 
   meta = {
-    homepage = http://www.pinta-project.com/;
+    homepage = "http://www.pinta-project.com/";
     description = "Drawing/editing program modeled after Paint.NET";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ ];

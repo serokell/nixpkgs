@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.hardware.logitech;
+let cfg = config.hardware.logitech;
 
 in {
   options.hardware.logitech = {
@@ -17,9 +16,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.ltunify
-    ] ++ lib.optional cfg.enableGraphical pkgs.solaar;
+    environment.systemPackages = [ pkgs.ltunify ]
+      ++ lib.optional cfg.enableGraphical pkgs.solaar;
 
     # ltunifi and solaar both provide udev rules but the most up-to-date have been split
     # out into a dedicated derivation

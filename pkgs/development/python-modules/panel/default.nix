@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, bokeh
-, param
-, pyviz-comms
-, markdown
-, pyct
-, testpath
+{ lib, buildPythonPackage, fetchPypi, bokeh, param, pyviz-comms, markdown, pyct, testpath
 }:
 
 buildPythonPackage rec {
@@ -23,21 +15,15 @@ buildPythonPackage rec {
       --replace "testpath<0.4" "testpath"
   '';
 
-  propagatedBuildInputs = [
-    bokeh
-    param
-    pyviz-comms
-    markdown
-    pyct
-    testpath
-  ];
+  propagatedBuildInputs = [ bokeh param pyviz-comms markdown pyct testpath ];
 
   # infinite recursion in test dependencies (hvplot)
   doCheck = false;
 
   meta = with lib; {
-    description = "A high level dashboarding library for python visualization libraries";
-    homepage = http://pyviz.org;
+    description =
+      "A high level dashboarding library for python visualization libraries";
+    homepage = "http://pyviz.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, varnish, python, docutils }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, varnish, python, docutils
+}:
 
 stdenv.mkDerivation rec {
   version = "0.3";
@@ -7,7 +8,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "nigoroll";
     repo = "libvmod-dynamic";
-    rev = "475be183fddbd727c3d2523f0518effa9aa881f8"; # 5.2 branch for Varnish-5.2 https://github.com/nigoroll/libvmod-dynamic/commits/5.2
+    rev =
+      "475be183fddbd727c3d2523f0518effa9aa881f8"; # 5.2 branch for Varnish-5.2 https://github.com/nigoroll/libvmod-dynamic/commits/5.2
     sha256 = "12a42lbv0vf6fn3qnvngw893kmbd006f8pgab4ir7irc8855xjgf";
   };
 
@@ -20,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Dynamic director similar to the DNS director from Varnish 3";
-    homepage = https://github.com/nigoroll/libvmod-dynamic;
+    homepage = "https://github.com/nigoroll/libvmod-dynamic";
     inherit (varnish.meta) license platforms maintainers;
   };
 }

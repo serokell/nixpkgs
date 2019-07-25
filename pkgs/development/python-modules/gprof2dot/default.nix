@@ -14,8 +14,9 @@ buildPythonApplication {
   checkPhase = "${python.interpreter} tests/test.py";
 
   meta = with lib; {
-    homepage = https://github.com/jrfonseca/gprof2dot;
-    description = "Python script to convert the output from many profilers into a dot graph";
+    homepage = "https://github.com/jrfonseca/gprof2dot";
+    description =
+      "Python script to convert the output from many profilers into a dot graph";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.pmiddend ];
   };

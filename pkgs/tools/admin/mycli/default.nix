@@ -1,7 +1,4 @@
-{ lib
-, python3
-, glibcLocales
-}:
+{ lib, python3, glibcLocales }:
 
 with python3.pkgs;
 
@@ -17,7 +14,14 @@ buildPythonApplication rec {
   patches = [ ./fix-tests.patch ];
 
   propagatedBuildInputs = [
-    pymysql configobj sqlparse prompt_toolkit pygments click pycrypto cli-helpers
+    pymysql
+    configobj
+    sqlparse
+    prompt_toolkit
+    pygments
+    click
+    pycrypto
+    cli-helpers
   ];
 
   checkInputs = [ pytest mock glibcLocales ];
@@ -36,7 +40,7 @@ buildPythonApplication rec {
       Rich command-line interface for MySQL with auto-completion and
       syntax highlighting.
     '';
-    homepage = http://mycli.net;
+    homepage = "http://mycli.net";
     license = lib.licenses.bsd3;
   };
 }

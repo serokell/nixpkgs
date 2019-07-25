@@ -1,11 +1,14 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, glibmm, cairomm, pangomm, atkmm, epoxy, gnome3 }:
+{ stdenv, fetchurl, pkgconfig, gtk3, glibmm, cairomm, pangomm, atkmm, epoxy, gnome3
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtkmm";
   version = "3.24.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1zfj89spr8ianib5y10wcw63ybdmyjy58a15vqs0m8jq4knl5znx";
   };
 
@@ -41,7 +44,7 @@ stdenv.mkDerivation rec {
       tutorial.
     '';
 
-    homepage = https://gtkmm.org/;
+    homepage = "https://gtkmm.org/";
 
     license = licenses.lgpl2Plus;
 

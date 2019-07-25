@@ -6,7 +6,7 @@ agda.mkDerivation (self: rec {
 
   src = fetchFromGitHub {
     owner = "cedille";
-    repo  = "ial";
+    repo = "ial";
     rev = "v${version}";
     sha256 = "1gwxpybxwdj5ipbb3gapm7r5hfl3g6sj9kp13954pdmx8d5b0gma";
   };
@@ -18,7 +18,7 @@ agda.mkDerivation (self: rec {
   '';
 
   meta = {
-    homepage = https://svn.divms.uiowa.edu/repos/clc/projects/agda/lib/;
+    homepage = "https://svn.divms.uiowa.edu/repos/clc/projects/agda/lib/";
     description = "Agda standard library developed at Iowa";
     license = stdenv.lib.licenses.free;
     platforms = stdenv.lib.platforms.unix;

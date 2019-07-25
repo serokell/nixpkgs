@@ -1,18 +1,5 @@
-{ flavor ? ""
-, ldflags ? ""
-, stdenv
-, btrfs-progs
-, buildGoPackage
-, fetchFromGitHub
-, glibc
-, gpgme
-, libapparmor
-, libassuan
-, libgpgerror
-, libseccomp
-, libselinux
-, lvm2
-, pkgconfig
+{ flavor ? "", ldflags ?
+  "", stdenv, btrfs-progs, buildGoPackage, fetchFromGitHub, glibc, gpgme, libapparmor, libassuan, libgpgerror, libseccomp, libselinux, lvm2, pkgconfig
 }:
 
 buildGoPackage rec {
@@ -31,12 +18,20 @@ buildGoPackage rec {
 
   outputs = [ "bin" "out" ];
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ btrfs-progs gpgme libapparmor libassuan libgpgerror
-                 libseccomp libselinux lvm2 ]
-                ++ stdenv.lib.optionals (glibc != null) [ glibc glibc.static ];
+  buildInputs = [
+    btrfs-progs
+    gpgme
+    libapparmor
+    libassuan
+    libgpgerror
+    libseccomp
+    libselinux
+    lvm2
+  ] ++ stdenv.lib.optionals (glibc != null) [ glibc glibc.static ];
 
-  makeFlags = ''BUILDTAGS="apparmor seccomp selinux
-    containers_image_ostree_stub"'';
+  makeFlags = ''
+    BUILDTAGS="apparmor seccomp selinux
+        containers_image_ostree_stub"'';
 
   buildPhase = ''
     pushd go/src/${goPackagePath}
@@ -59,9 +54,10 @@ buildGoPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://cri-o.io;
-    description = ''Open Container Initiative-based implementation of the
-                    Kubernetes Container Runtime Interface'';
+    homepage = "https://cri-o.io";
+    description = ''
+      Open Container Initiative-based implementation of the
+                          Kubernetes Container Runtime Interface'';
     license = licenses.asl20;
     maintainers = with maintainers; [ saschagrunert ];
     platforms = platforms.linux;

@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "rabbitmq-java-client-3.3.4";
 
   src = fetchurl {
-    url = "https://www.rabbitmq.com/releases/rabbitmq-java-client/v3.3.4/rabbitmq-java-client-3.3.4.tar.gz";
+    url =
+      "https://www.rabbitmq.com/releases/rabbitmq-java-client/v3.3.4/rabbitmq-java-client-3.3.4.tar.gz";
     sha256 = "03kspkgzzjsbq6f8yl2zj5m30qwgxv3l58hrbf6gcgxb5rpfk6sh";
   };
 
@@ -22,8 +23,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "RabbitMQ Java client library which allows Java code to interface to AMQP servers";
-    homepage = http://www.rabbitmq.com/java-client.html;
+    description =
+      "RabbitMQ Java client library which allows Java code to interface to AMQP servers";
+    homepage = "http://www.rabbitmq.com/java-client.html";
     license = with licenses; [ mpl11 gpl2 ];
     platforms = platforms.linux;
   };

@@ -17,7 +17,7 @@ buildPythonPackage rec {
       --replace "'argparse'," ""
   '';
 
-  propagatedBuildInputs =  [ mock boto ];
+  propagatedBuildInputs = [ mock boto ];
 
   checkInputs = [ pytest ];
 
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Amazon Kinesis Client Library for Python";
-    homepage = https://github.com/awslabs/amazon-kinesis-client-python;
+    homepage = "https://github.com/awslabs/amazon-kinesis-client-python";
     license = licenses.amazonsl;
     maintainers = with maintainers; [ psyanticy ];
   };

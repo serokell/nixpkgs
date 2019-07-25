@@ -1,45 +1,34 @@
 /* Build configuration used to build glibc, Info files, and locale
-   information.
+    information.
 
-   Note that this derivation has multiple outputs and does not respect the
-   standard convention of putting the executables into the first output. The
-   first output is `lib` so that the libraries provided by this derivation
-   can be accessed directly, e.g.
+    Note that this derivation has multiple outputs and does not respect the
+    standard convention of putting the executables into the first output. The
+    first output is `lib` so that the libraries provided by this derivation
+    can be accessed directly, e.g.
 
-     "${pkgs.glibc}/lib/ld-linux-x86_64.so.2"
+      "${pkgs.glibc}/lib/ld-linux-x86_64.so.2"
 
-   The executables are put into `bin` output and need to be referenced via
-   the `bin` attribute of the main package, e.g.
+    The executables are put into `bin` output and need to be referenced via
+    the `bin` attribute of the main package, e.g.
 
-     "${pkgs.glibc.bin}/bin/ldd".
+      "${pkgs.glibc.bin}/bin/ldd".
 
-  The executables provided by glibc typically include `ldd`, `locale`, `iconv`
-  but the exact set depends on the library version and the configuration.
+   The executables provided by glibc typically include `ldd`, `locale`, `iconv`
+   but the exact set depends on the library version and the configuration.
 */
 
-{ stdenv, lib
-, buildPackages
-, fetchurl ? null
-, linuxHeaders ? null
-, gd ? null, libpng ? null
-, bison
-}:
+{ stdenv, lib, buildPackages, fetchurl ? null, linuxHeaders ? null, gd ?
+  null, libpng ? null, bison }:
 
-{ name
-, withLinuxHeaders ? false
-, profilingLibraries ? false
-, withGd ? false
-, meta
-, ...
-} @ args:
+{ name, withLinuxHeaders ? false, profilingLibraries ? false, withGd ?
+  false, meta, ... }@args:
 
 let
   version = "2.27";
   patchSuffix = "";
   sha256 = "0wpwq7gsm7sd6ysidv0z575ckqdg13cr2njyfgrbgh4f65adwwji";
-in
 
-assert withLinuxHeaders -> linuxHeaders != null;
+in assert withLinuxHeaders -> linuxHeaders != null;
 assert withGd -> gd != null && libpng != null;
 
 stdenv.mkDerivation ({
@@ -50,80 +39,82 @@ stdenv.mkDerivation ({
 
   enableParallelBuilding = true;
 
-  patches =
-    [
-      /* Have rpcgen(1) look for cpp(1) in $PATH.  */
-      ./rpcgen-path.patch
+  patches = [
+    # Have rpcgen(1) look for cpp(1) in $PATH.
+    ./rpcgen-path.patch
 
-      /* Allow NixOS and Nix to handle the locale-archive. */
-      ./nix-locale-archive.patch
+    # Allow NixOS and Nix to handle the locale-archive.
+    ./nix-locale-archive.patch
 
-      /* Don't use /etc/ld.so.cache, for non-NixOS systems.  */
-      ./dont-use-system-ld-so-cache.patch
+    # Don't use /etc/ld.so.cache, for non-NixOS systems.
+    ./dont-use-system-ld-so-cache.patch
 
-      /* Don't use /etc/ld.so.preload, but /etc/ld-nix.so.preload.  */
-      ./dont-use-system-ld-so-preload.patch
+    # Don't use /etc/ld.so.preload, but /etc/ld-nix.so.preload.
+    ./dont-use-system-ld-so-preload.patch
 
-      /* The command "getconf CS_PATH" returns the default search path
-         "/bin:/usr/bin", which is inappropriate on NixOS machines. This
-         patch extends the search path by "/run/current-system/sw/bin". */
-      ./fix_path_attribute_in_getconf.patch
+    /* The command "getconf CS_PATH" returns the default search path
+       "/bin:/usr/bin", which is inappropriate on NixOS machines. This
+       patch extends the search path by "/run/current-system/sw/bin".
+    */
+    ./fix_path_attribute_in_getconf.patch
 
-      /* Allow running with RHEL 6 -like kernels.  The patch adds an exception
-        for glibc to accept 2.6.32 and to tag the ELFs as 2.6.32-compatible
-        (otherwise the loader would refuse libc).
-        Note that glibc will fully work only on their heavily patched kernels
-        and we lose early mismatch detection on 2.6.32.
+    /* Allow running with RHEL 6 -like kernels.  The patch adds an exception
+       for glibc to accept 2.6.32 and to tag the ELFs as 2.6.32-compatible
+       (otherwise the loader would refuse libc).
+       Note that glibc will fully work only on their heavily patched kernels
+       and we lose early mismatch detection on 2.6.32.
 
-        On major glibc updates we should check that the patched kernel supports
-        all the required features.  ATM it's verified up to glibc-2.26-131.
-        # HOWTO: check glibc sources for changes in kernel requirements
-        git log -p glibc-2.25.. sysdeps/unix/sysv/linux/x86_64/kernel-features.h sysdeps/unix/sysv/linux/kernel-features.h
-        # get kernel sources (update the URL)
-        mkdir tmp && cd tmp
-        curl http://vault.centos.org/6.9/os/Source/SPackages/kernel-2.6.32-696.el6.src.rpm | rpm2cpio - | cpio -idmv
-        tar xf linux-*.bz2
-        # check syscall presence, for example
-        less linux-*?/arch/x86/kernel/syscall_table_32.S
-       */
-      ./allow-kernel-2.6.32.patch
-      /* Provide utf-8 locales by default, so we can use it in stdenv without depending on our large locale-archive. */
-      (fetchurl {
-        url = "https://salsa.debian.org/glibc-team/glibc/raw/49767c9f7de4828220b691b29de0baf60d8a54ec/debian/patches/localedata/locale-C.diff";
-        sha256 = "0irj60hs2i91ilwg5w7sqrxb695c93xg0ik7yhhq9irprd7fidn4";
-      })
-    ]
-    ++ lib.optional stdenv.isx86_64 ./fix-x64-abi.patch
-    ++ lib.optional stdenv.hostPlatform.isMusl ./fix-rpc-types-musl-conflicts.patch
+       On major glibc updates we should check that the patched kernel supports
+       all the required features.  ATM it's verified up to glibc-2.26-131.
+       # HOWTO: check glibc sources for changes in kernel requirements
+       git log -p glibc-2.25.. sysdeps/unix/sysv/linux/x86_64/kernel-features.h sysdeps/unix/sysv/linux/kernel-features.h
+       # get kernel sources (update the URL)
+       mkdir tmp && cd tmp
+       curl http://vault.centos.org/6.9/os/Source/SPackages/kernel-2.6.32-696.el6.src.rpm | rpm2cpio - | cpio -idmv
+       tar xf linux-*.bz2
+       # check syscall presence, for example
+       less linux-*?/arch/x86/kernel/syscall_table_32.S
+    */
+    ./allow-kernel-2.6.32.patch
+    # Provide utf-8 locales by default, so we can use it in stdenv without depending on our large locale-archive.
+    (fetchurl {
+      url =
+        "https://salsa.debian.org/glibc-team/glibc/raw/49767c9f7de4828220b691b29de0baf60d8a54ec/debian/patches/localedata/locale-C.diff";
+      sha256 = "0irj60hs2i91ilwg5w7sqrxb695c93xg0ik7yhhq9irprd7fidn4";
+    })
+  ] ++ lib.optional stdenv.isx86_64 ./fix-x64-abi.patch
+    ++ lib.optional stdenv.hostPlatform.isMusl
+    ./fix-rpc-types-musl-conflicts.patch
     ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch;
 
-  postPatch =
-    ''
-      # Needed for glibc to build with the gnumake 3.82
-      # http://comments.gmane.org/gmane.linux.lfs.support/31227
-      sed -i 's/ot \$/ot:\n\ttouch $@\n$/' manual/Makefile
+  postPatch = ''
+    # Needed for glibc to build with the gnumake 3.82
+    # http://comments.gmane.org/gmane.linux.lfs.support/31227
+    sed -i 's/ot \$/ot:\n\ttouch $@\n$/' manual/Makefile
 
-      # nscd needs libgcc, and we don't want it dynamically linked
-      # because we don't want it to depend on bootstrap-tools libs.
-      echo "LDFLAGS-nscd += -static-libgcc" >> nscd/Makefile
-    '';
+    # nscd needs libgcc, and we don't want it dynamically linked
+    # because we don't want it to depend on bootstrap-tools libs.
+    echo "LDFLAGS-nscd += -static-libgcc" >> nscd/Makefile
+  '';
 
-  configureFlags =
-    [ "-C"
-      "--enable-add-ons"
-      "--enable-obsolete-nsl"
-      "--enable-obsolete-rpc"
-      "--sysconfdir=/etc"
-      "--enable-stackguard-randomization"
-      (lib.withFeatureAs withLinuxHeaders "headers" "${linuxHeaders}/include")
-      (lib.enableFeature profilingLibraries "profile")
-    ] ++ lib.optionals withLinuxHeaders [
-      "--enable-kernel=3.2.0" # can't get below with glibc >= 2.26
-    ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      (lib.flip lib.withFeature "fp"
-         (stdenv.hostPlatform.platform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"))
-      "--with-__thread"
-    ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32) [
+  configureFlags = [
+    "-C"
+    "--enable-add-ons"
+    "--enable-obsolete-nsl"
+    "--enable-obsolete-rpc"
+    "--sysconfdir=/etc"
+    "--enable-stackguard-randomization"
+    (lib.withFeatureAs withLinuxHeaders "headers" "${linuxHeaders}/include")
+    (lib.enableFeature profilingLibraries "profile")
+  ] ++ lib.optionals withLinuxHeaders [
+    "--enable-kernel=3.2.0" # can't get below with glibc >= 2.26
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    (lib.flip lib.withFeature "fp"
+    (stdenv.hostPlatform.platform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
+    == "soft"))
+    "--with-__thread"
+  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform
+    && stdenv.hostPlatform.isAarch32) [
       "--host=arm-linux-gnueabi"
       "--build=arm-linux-gnueabi"
 
@@ -173,8 +164,7 @@ stdenv.mkDerivation ({
     configureScript="`pwd`/../$sourceRoot/configure"
 
     ${lib.optionalString (stdenv.cc.libc != null)
-      ''makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib"''
-    }
+    ''makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib"''}
 
 
   '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
@@ -192,17 +182,17 @@ stdenv.mkDerivation ({
   doCheck = false; # fails
 
   meta = {
-    homepage = https://www.gnu.org/software/libc/;
+    homepage = "https://www.gnu.org/software/libc/";
     description = "The GNU C Library";
 
-    longDescription =
-      '' Any Unix-like operating system needs a C library: the library which
-         defines the "system calls" and other basic facilities such as
-         open, malloc, printf, exit...
+    longDescription = ''
+      Any Unix-like operating system needs a C library: the library which
+              defines the "system calls" and other basic facilities such as
+              open, malloc, printf, exit...
 
-         The GNU C library is used as the C library in the GNU system and
-         most systems with the Linux kernel.
-      '';
+              The GNU C library is used as the C library in the GNU system and
+              most systems with the Linux kernel.
+           '';
 
     license = lib.licenses.lgpl2Plus;
 

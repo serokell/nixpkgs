@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, python, fetchFromGitHub
-, cmake, sip, protobuf, pythonOlder }:
+{ stdenv, buildPythonPackage, python, fetchFromGitHub, cmake, sip, protobuf, pythonOlder
+}:
 
 buildPythonPackage rec {
   pname = "libarcus";
@@ -20,12 +20,15 @@ buildPythonPackage rec {
   buildInputs = [ protobuf ];
 
   postPatch = ''
-    sed -i 's#''${Python3_SITELIB}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake
+    sed -i 's#''${Python3_SITELIB}#${
+      placeholder "out"
+    }/${python.sitePackages}#' cmake/SIPMacros.cmake
   '';
 
   meta = with stdenv.lib; {
-    description = "Communication library between internal components for Ultimaker software";
-    homepage = https://github.com/Ultimaker/libArcus;
+    description =
+      "Communication library between internal components for Ultimaker software";
+    homepage = "https://github.com/Ultimaker/libArcus";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pandas
-, pyarrow
-, pytestrunner
-, pytest
-, h5py
+{ lib, buildPythonPackage, fetchPypi, numpy, pandas, pyarrow, pytestrunner, pytest, h5py
 }:
 
 buildPythonPackage rec {
@@ -27,8 +19,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Manipulate jagged, chunky, and/or bitmasked arrays as easily as Numpy";
-    homepage = https://github.com/scikit-hep/awkward-array;
+    description =
+      "Manipulate jagged, chunky, and/or bitmasked arrays as easily as Numpy";
+    homepage = "https://github.com/scikit-hep/awkward-array";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

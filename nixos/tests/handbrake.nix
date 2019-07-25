@@ -2,15 +2,14 @@ import ./make-test.nix ({ pkgs, ... }:
 let
   # Download Big Buck Bunny example, licensed under CC Attribution 3.0.
   testMkv = pkgs.fetchurl {
-    url = "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
+    url =
+      "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
     sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
   };
 in {
   name = "handbrake";
 
-  meta = {
-    maintainers = with pkgs.stdenv.lib.maintainers; [ danieldk ];
-  };
+  meta = { maintainers = with pkgs.stdenv.lib.maintainers; [ danieldk ]; };
 
   machine = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [ handbrake ];

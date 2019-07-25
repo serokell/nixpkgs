@@ -1,10 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, libvirt, glib, libxml2, intltool, libtool, yajl
-, nettle, libgcrypt, pythonPackages, gobject-introspection, libcap_ng, numactl
-, xen, libapparmor, vala
+{ stdenv, fetchurl, pkgconfig, libvirt, glib, libxml2, intltool, libtool, yajl, nettle, libgcrypt, pythonPackages, gobject-introspection, libcap_ng, numactl, xen, libapparmor, vala
 }:
 
-let
-  inherit (pythonPackages) python pygobject2;
+let inherit (pythonPackages) python pygobject2;
 in stdenv.mkDerivation rec {
   name = "libvirt-glib-2.0.0";
 
@@ -17,11 +14,21 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig vala ];
   buildInputs = [
-    libvirt glib libxml2 intltool libtool yajl nettle libgcrypt
-    python pygobject2 gobject-introspection libcap_ng numactl libapparmor
-  ] ++ stdenv.lib.optionals stdenv.isx86_64 [
-    xen
-  ];
+    libvirt
+    glib
+    libxml2
+    intltool
+    libtool
+    yajl
+    nettle
+    libgcrypt
+    python
+    pygobject2
+    gobject-introspection
+    libcap_ng
+    numactl
+    libapparmor
+  ] ++ stdenv.lib.optionals stdenv.isx86_64 [ xen ];
 
   enableParallelBuilding = true;
 
@@ -35,7 +42,7 @@ in stdenv.mkDerivation rec {
       - libvirt-gconfig - GObjects for manipulating libvirt XML documents
       - libvirt-gobject - GObjects for managing libvirt objects
     '';
-    homepage = http://libvirt.org/;
+    homepage = "http://libvirt.org/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
   };

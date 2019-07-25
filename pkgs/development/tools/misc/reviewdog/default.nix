@@ -15,10 +15,13 @@ buildGoModule rec {
 
   subPackages = [ "cmd/reviewdog" ];
 
-  buildFlagsArray = [ "-ldflags=-X github.com/reviewdog/reviewdog/commands.Version=${version}" ];
+  buildFlagsArray = [
+    "-ldflags=-X github.com/reviewdog/reviewdog/commands.Version=${version}"
+  ];
 
   meta = with lib; {
-    description = "Automated code review tool integrated with any code analysis tools regardless of programming language";
+    description =
+      "Automated code review tool integrated with any code analysis tools regardless of programming language";
     homepage = "https://github.com/reviewdog/reviewdog";
     maintainers = [ maintainers.marsam ];
     license = licenses.mit;

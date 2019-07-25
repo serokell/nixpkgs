@@ -1,20 +1,30 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''dbi'';
-  version = ''cl-20190107-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "dbi";
+  version = "cl-20190107-git";
 
-  description = ''Database independent interface for Common Lisp'';
+  description = "Database independent interface for Common Lisp";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."cl-annot" args."cl-syntax" args."cl-syntax-annot" args."closer-mop" args."named-readtables" args."split-sequence" args."trivial-types" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."cl-annot"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."closer-mop"
+    args."named-readtables"
+    args."split-sequence"
+    args."trivial-types"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz'';
-    sha256 = ''02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz";
+    sha256 = "02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2";
   };
 
   packageName = "dbi";
 
-  asdFilesToKeep = ["dbi.asd"];
+  asdFilesToKeep = [ "dbi.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM dbi DESCRIPTION Database independent interface for Common Lisp
@@ -33,4 +43,5 @@ rec {
     (alexandria bordeaux-threads cl-annot cl-syntax cl-syntax-annot closer-mop
      named-readtables split-sequence trivial-types)
     VERSION cl-20190107-git SIBLINGS
-    (cl-dbi dbd-mysql dbd-postgres dbd-sqlite3 dbi-test) PARASITES NIL) */
+    (cl-dbi dbd-mysql dbd-postgres dbd-sqlite3 dbi-test) PARASITES NIL)
+*/

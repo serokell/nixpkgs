@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, html5lib
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, html5lib, isPy3k }:
 
 buildPythonPackage rec {
   pname = "mechanize";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Stateful programmatic web browsing in Python";
-    homepage = http://wwwsearch.sourceforge.net/;
+    homepage = "http://wwwsearch.sourceforge.net/";
     license = "BSD-style";
   };
 

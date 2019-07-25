@@ -1,14 +1,18 @@
-{ stdenv, lib, fetchurl, dpkg, patchelf, qt5, libXtst, libXext, libX11, makeWrapper, libXScrnSaver }:
+{ stdenv, lib, fetchurl, dpkg, patchelf, qt5, libXtst, libXext, libX11, makeWrapper, libXScrnSaver
+}:
 
 let
-  src =
-    if stdenv.hostPlatform.system == "i686-linux" then fetchurl {
+  src = if stdenv.hostPlatform.system == "i686-linux" then
+    fetchurl {
       name = "rescuetime-installer.deb";
       url = "https://www.rescuetime.com/installers/rescuetime_current_i386.deb";
       sha256 = "03bky9vja7fijz45n44b6gawd6q8yd30nx6nya9lqdlxd1bkqmji";
-    } else fetchurl {
+    }
+  else
+    fetchurl {
       name = "rescuetime-installer.deb";
-      url = "https://www.rescuetime.com/installers/rescuetime_current_amd64.deb";
+      url =
+        "https://www.rescuetime.com/installers/rescuetime_current_amd64.deb";
       sha256 = "03bky9vja7fijz45n44b6gawd6q8yd30nx6nya9lqdlxd1bkqmji";
     };
 in stdenv.mkDerivation {
@@ -29,14 +33,17 @@ in stdenv.mkDerivation {
 
     ${patchelf}/bin/patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${lib.makeLibraryPath [ qt5.qtbase libXtst libXext libX11 libXScrnSaver ]}" \
+      --set-rpath "${
+      lib.makeLibraryPath [ qt5.qtbase libXtst libXext libX11 libXScrnSaver ]
+      }" \
       $out/bin/rescuetime
   '';
   meta = with lib; {
-    description = "Helps you understand your daily habits so you can focus and be more productive";
-    homepage    = "https://www.rescuetime.com";
+    description =
+      "Helps you understand your daily habits so you can focus and be more productive";
+    homepage = "https://www.rescuetime.com";
     maintainers = with maintainers; [ cstrahan ];
-    license     = licenses.unfree;
-    platforms   = [ "i686-linux" "x86_64-linux" ];
+    license = licenses.unfree;
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

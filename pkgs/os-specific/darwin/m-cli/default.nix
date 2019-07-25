@@ -8,7 +8,8 @@ stdenv.mkDerivation rec {
     owner = "rgcr";
     repo = "m-cli";
     rev = "v${version}";
-    sha512 = "0mkcx7jq91pbfs8327qc8434gj73fvjgdfdsrza0lyd9wns6jhsqsf0585klzl68aqscvksgzi2asdnim4va35cdkp2fdzl0g3sm4kd";
+    sha512 =
+      "0mkcx7jq91pbfs8327qc8434gj73fvjgdfdsrza0lyd9wns6jhsqsf0585klzl68aqscvksgzi2asdnim4va35cdkp2fdzl0g3sm4kd";
   };
 
   dontBuild = true;
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Swiss Army Knife for macOS";
     inherit (src.meta) homepage;
-    repositories.git = git://github.com/rgcr/m-cli.git;
+    repositories.git = "git://github.com/rgcr/m-cli.git";
 
     license = licenses.mit;
 

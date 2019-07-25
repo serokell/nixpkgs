@@ -1,7 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "packr";
@@ -17,7 +14,8 @@ buildGoModule rec {
   modSha256 = "086gydrl3i35hawb5m7rsb4a0llcpdpgid1xfw2z9n6jkwkclw4n";
 
   meta = with lib; {
-    description = "The simple and easy way to embed static files into Go binaries";
+    description =
+      "The simple and easy way to embed static files into Go binaries";
     homepage = "https://github.com/gobuffalo/packr";
     license = licenses.mit;
     maintainers = with maintainers; [ mmahut ];

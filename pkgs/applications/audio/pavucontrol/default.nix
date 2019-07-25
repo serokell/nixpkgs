@@ -1,12 +1,13 @@
-{ fetchurl, stdenv, pkgconfig, intltool, libpulseaudio, gtkmm3
-, libcanberra-gtk3, makeWrapper, gnome3 }:
+{ fetchurl, stdenv, pkgconfig, intltool, libpulseaudio, gtkmm3, libcanberra-gtk3, makeWrapper, gnome3
+}:
 
 stdenv.mkDerivation rec {
   pname = "pavucontrol";
   version = "4.0";
 
   src = fetchurl {
-    url = "https://freedesktop.org/software/pulseaudio/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://freedesktop.org/software/pulseaudio/${pname}/${pname}-${version}.tar.xz";
     sha256 = "1qhlkl3g8d7h72xjskii3g1l7la2cavwp69909pzmbi2jyn5pi4g";
   };
 
@@ -16,8 +17,13 @@ stdenv.mkDerivation rec {
      --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS"
   '';
 
-  buildInputs = [ libpulseaudio gtkmm3 libcanberra-gtk3 makeWrapper
-                  gnome3.adwaita-icon-theme ];
+  buildInputs = [
+    libpulseaudio
+    gtkmm3
+    libcanberra-gtk3
+    makeWrapper
+    gnome3.adwaita-icon-theme
+  ];
 
   nativeBuildInputs = [ pkgconfig intltool ];
 
@@ -32,7 +38,7 @@ stdenv.mkDerivation rec {
       easily control the volume of all clients, sinks, etc.
     '';
 
-    homepage = http://freedesktop.org/software/pulseaudio/pavucontrol/;
+    homepage = "http://freedesktop.org/software/pulseaudio/pavucontrol/";
 
     license = stdenv.lib.licenses.gpl2Plus;
 

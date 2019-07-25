@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, six
-, pytest }:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, six, pytest }:
 
 buildPythonPackage rec {
   version = "0.1.4";
@@ -25,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python package for writing Value Change Dump (VCD) files";
-    homepage = https://github.com/SanDisk-Open-Source/pyvcd;
+    homepage = "https://github.com/SanDisk-Open-Source/pyvcd";
     license = licenses.mit;
     maintainers = [ maintainers.sb0 ];
   };

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, jinja2
-, pyyaml
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, jinja2, pyyaml }:
 
 buildPythonPackage rec {
   pname = "j2cli";

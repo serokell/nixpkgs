@@ -3,40 +3,35 @@
 # TODO: use a real proxy node and put this test into networking.nix
 # TODO: test whether nix tools work as expected behind a proxy
 
-let default-config = {
-        imports = [ ./common/user-account.nix ];
+let
+  default-config = {
+    imports = [ ./common/user-account.nix ];
 
-        services.xserver.enable = false;
+    services.xserver.enable = false;
 
-        virtualisation.memorySize = 128;
-      };
-in import ./make-test.nix ({ pkgs, ...} : {
-  name = "networking-proxy";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [  ];
+    virtualisation.memorySize = 128;
   };
+in import ./make-test.nix ({ pkgs, ... }: {
+  name = "networking-proxy";
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ]; };
 
   nodes = {
     # no proxy
-    machine =
-      { ... }:
+    machine = { ... }:
 
       default-config;
 
     # proxy default
-    machine2 =
-      { ... }:
+    machine2 = { ... }:
 
       default-config // {
         networking.proxy.default = "http://user:pass@host:port";
       };
 
     # specific proxy options
-    machine3 =
-      { ... }:
+    machine3 = { ... }:
 
-      default-config //
-      {
+      default-config // {
         networking.proxy = {
           # useless because overriden by the next options
           default = "http://user:pass@host:port";
@@ -50,8 +45,7 @@ in import ./make-test.nix ({ pkgs, ...} : {
       };
 
     # mix default + proxy options
-    machine4 =
-      { ... }:
+    machine4 = { ... }:
 
       default-config // {
         networking.proxy = {
@@ -62,50 +56,49 @@ in import ./make-test.nix ({ pkgs, ...} : {
           noProxy = "131415-127.0.0.1,localhost,.localdomain";
         };
       };
-    };
+  };
 
-  testScript =
-    ''
-      startAll;
+  testScript = ''
+    startAll;
 
-      # no proxy at all
-      print $machine->execute("env | grep -i proxy");
-      print $machine->execute("su - alice -c 'env | grep -i proxy'");
-      $machine->mustFail("env | grep -i proxy");
-      $machine->mustFail("su - alice -c 'env | grep -i proxy'");
+    # no proxy at all
+    print $machine->execute("env | grep -i proxy");
+    print $machine->execute("su - alice -c 'env | grep -i proxy'");
+    $machine->mustFail("env | grep -i proxy");
+    $machine->mustFail("su - alice -c 'env | grep -i proxy'");
 
-      # Use a default proxy option
-      print $machine2->execute("env | grep -i proxy");
-      print $machine2->execute("su - alice -c 'env | grep -i proxy'");
-      $machine2->mustSucceed("env | grep -i proxy");
-      $machine2->mustSucceed("su - alice -c 'env | grep -i proxy'");
+    # Use a default proxy option
+    print $machine2->execute("env | grep -i proxy");
+    print $machine2->execute("su - alice -c 'env | grep -i proxy'");
+    $machine2->mustSucceed("env | grep -i proxy");
+    $machine2->mustSucceed("su - alice -c 'env | grep -i proxy'");
 
-      # explicitly set each proxy option
-      print $machine3->execute("env | grep -i proxy");
-      print $machine3->execute("su - alice -c 'env | grep -i proxy'");
-      $machine3->mustSucceed("env | grep -i http_proxy | grep 123");
-      $machine3->mustSucceed("env | grep -i https_proxy | grep 456");
-      $machine3->mustSucceed("env | grep -i rsync_proxy | grep 789");
-      $machine3->mustSucceed("env | grep -i ftp_proxy | grep 101112");
-      $machine3->mustSucceed("env | grep -i no_proxy | grep 131415");
-      $machine3->mustSucceed("su - alice -c 'env | grep -i http_proxy | grep 123'");
-      $machine3->mustSucceed("su - alice -c 'env | grep -i https_proxy | grep 456'");
-      $machine3->mustSucceed("su - alice -c 'env | grep -i rsync_proxy | grep 789'");
-      $machine3->mustSucceed("su - alice -c 'env | grep -i ftp_proxy | grep 101112'");
-      $machine3->mustSucceed("su - alice -c 'env | grep -i no_proxy | grep 131415'");
+    # explicitly set each proxy option
+    print $machine3->execute("env | grep -i proxy");
+    print $machine3->execute("su - alice -c 'env | grep -i proxy'");
+    $machine3->mustSucceed("env | grep -i http_proxy | grep 123");
+    $machine3->mustSucceed("env | grep -i https_proxy | grep 456");
+    $machine3->mustSucceed("env | grep -i rsync_proxy | grep 789");
+    $machine3->mustSucceed("env | grep -i ftp_proxy | grep 101112");
+    $machine3->mustSucceed("env | grep -i no_proxy | grep 131415");
+    $machine3->mustSucceed("su - alice -c 'env | grep -i http_proxy | grep 123'");
+    $machine3->mustSucceed("su - alice -c 'env | grep -i https_proxy | grep 456'");
+    $machine3->mustSucceed("su - alice -c 'env | grep -i rsync_proxy | grep 789'");
+    $machine3->mustSucceed("su - alice -c 'env | grep -i ftp_proxy | grep 101112'");
+    $machine3->mustSucceed("su - alice -c 'env | grep -i no_proxy | grep 131415'");
 
-      # set default proxy option + some other specifics
-      print $machine4->execute("env | grep -i proxy");
-      print $machine4->execute("su - alice -c 'env | grep -i proxy'");
-      $machine4->mustSucceed("env | grep -i http_proxy | grep 000");
-      $machine4->mustSucceed("env | grep -i https_proxy | grep 000");
-      $machine4->mustSucceed("env | grep -i rsync_proxy | grep 123");
-      $machine4->mustSucceed("env | grep -i ftp_proxy | grep 000");
-      $machine4->mustSucceed("env | grep -i no_proxy | grep 131415");
-      $machine4->mustSucceed("su - alice -c 'env | grep -i http_proxy | grep 000'");
-      $machine4->mustSucceed("su - alice -c 'env | grep -i https_proxy | grep 000'");
-      $machine4->mustSucceed("su - alice -c 'env | grep -i rsync_proxy | grep 123'");
-      $machine4->mustSucceed("su - alice -c 'env | grep -i ftp_proxy | grep 000'");
-      $machine4->mustSucceed("su - alice -c 'env | grep -i no_proxy | grep 131415'");
-    '';
+    # set default proxy option + some other specifics
+    print $machine4->execute("env | grep -i proxy");
+    print $machine4->execute("su - alice -c 'env | grep -i proxy'");
+    $machine4->mustSucceed("env | grep -i http_proxy | grep 000");
+    $machine4->mustSucceed("env | grep -i https_proxy | grep 000");
+    $machine4->mustSucceed("env | grep -i rsync_proxy | grep 123");
+    $machine4->mustSucceed("env | grep -i ftp_proxy | grep 000");
+    $machine4->mustSucceed("env | grep -i no_proxy | grep 131415");
+    $machine4->mustSucceed("su - alice -c 'env | grep -i http_proxy | grep 000'");
+    $machine4->mustSucceed("su - alice -c 'env | grep -i https_proxy | grep 000'");
+    $machine4->mustSucceed("su - alice -c 'env | grep -i rsync_proxy | grep 123'");
+    $machine4->mustSucceed("su - alice -c 'env | grep -i ftp_proxy | grep 000'");
+    $machine4->mustSucceed("su - alice -c 'env | grep -i no_proxy | grep 131415'");
+  '';
 })

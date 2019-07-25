@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
-, qtbase, qtx11extras, qtsvg, makeWrapper
-, vulkan-loader, xorg
-, python3, bison, pcre, automake, autoconf
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtx11extras, qtsvg, makeWrapper, vulkan-loader, xorg, python3, bison, pcre, automake, autoconf
 }:
 let
   custom_swig = fetchFromGitHub {
@@ -10,8 +7,7 @@ let
     rev = "renderdoc-modified-6";
     sha256 = "00ykqlzx1k9iwqjlc54kfch7cnzsj53hxn7ql70dj3rxqzrnadc0";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "1.4";
   name = "renderdoc-${version}";
 
@@ -23,10 +19,17 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    qtbase qtsvg xorg.libpthreadstubs xorg.libXdmcp qtx11extras vulkan-loader python3
+    qtbase
+    qtsvg
+    xorg.libpthreadstubs
+    xorg.libXdmcp
+    qtx11extras
+    vulkan-loader
+    python3
   ];
 
-  nativeBuildInputs = [ cmake makeWrapper pkgconfig bison pcre automake autoconf ];
+  nativeBuildInputs =
+    [ cmake makeWrapper pkgconfig bison pcre automake autoconf ];
 
   postUnpack = ''
     cp -r ${custom_swig} swig
@@ -59,7 +62,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A single-frame graphics debugger";
-    homepage = https://renderdoc.org/;
+    homepage = "https://renderdoc.org/";
     license = licenses.mit;
     longDescription = ''
       RenderDoc is a free MIT licensed stand-alone graphics debugger that
@@ -67,7 +70,7 @@ stdenv.mkDerivation rec {
       of any application using Vulkan, D3D11, OpenGL or D3D12 across
       Windows 7 - 10, Linux or Android.
     '';
-    maintainers = [maintainers.jansol];
-    platforms = ["i686-linux" "x86_64-linux"];
+    maintainers = [ maintainers.jansol ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

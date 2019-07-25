@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
 
   src = fetchurl {
-    url = "https://archive.hadrons.org/software/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://archive.hadrons.org/software/${pname}/${pname}-${version}.tar.xz";
     sha256 = "0waclg2d5qin3r26gy5jvy4584ik60njc8pqbzwk0lzq3j9ynkp1";
   };
 

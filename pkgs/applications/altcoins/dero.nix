@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, unbound, openssl, boost
-, lmdb, miniupnpc, readline }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, unbound, openssl, boost, lmdb, miniupnpc, readline
+}:
 
 stdenv.mkDerivation rec {
   name = "dero-${version}";
@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "Secure, private blockchain with smart contracts based on Monero";
+    description =
+      "Secure, private blockchain with smart contracts based on Monero";
     homepage = "https://dero.io/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fpletz ];

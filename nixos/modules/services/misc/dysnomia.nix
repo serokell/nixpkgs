@@ -1,4 +1,4 @@
-{pkgs, lib, config, ...}:
+{ pkgs, lib, config, ... }:
 
 with lib;
 
@@ -7,12 +7,15 @@ let
 
   printProperties = properties:
     concatMapStrings (propertyName:
-      let
-        property = properties."${propertyName}";
-      in
-      if isList property then "${propertyName}=(${lib.concatMapStrings (elem: "\"${toString elem}\" ") (properties."${propertyName}")})\n"
-      else "${propertyName}=\"${toString property}\"\n"
-    ) (builtins.attrNames properties);
+    let property = properties."${propertyName}";
+    in if isList property then ''
+      ${propertyName}=(${
+        lib.concatMapStrings (elem: ''"${toString elem}" '')
+        (properties."${propertyName}")
+      })
+    '' else ''
+      ${propertyName}="${toString property}"
+    '') (builtins.attrNames properties);
 
   properties = pkgs.stdenv.mkDerivation {
     name = "dysnomia-properties";
@@ -30,30 +33,25 @@ let
       cd $out
 
       ${concatMapStrings (containerName:
-        let
-          containerProperties = cfg.containers."${containerName}";
-        in
-        ''
-          cat > ${containerName} <<EOF
-          ${printProperties containerProperties}
-          type=${containerName}
-          EOF
-        ''
-      ) (builtins.attrNames cfg.containers)}
+      let containerProperties = cfg.containers."${containerName}";
+      in ''
+        cat > ${containerName} <<EOF
+        ${printProperties containerProperties}
+        type=${containerName}
+        EOF
+      '') (builtins.attrNames cfg.containers)}
     '';
   };
 
-  linkMutableComponents = {containerName}:
-    ''
-      mkdir ${containerName}
+  linkMutableComponents = { containerName }: ''
+    mkdir ${containerName}
 
-      ${concatMapStrings (componentName:
-        let
-          component = cfg.components."${containerName}"."${componentName}";
-        in
-        "ln -s ${component} ${containerName}/${componentName}\n"
-      ) (builtins.attrNames (cfg.components."${containerName}" or {}))}
-    '';
+    ${concatMapStrings (componentName:
+    let component = cfg.components."${containerName}"."${componentName}";
+    in ''
+      ln -s ${component} ${containerName}/${componentName}
+    '') (builtins.attrNames (cfg.components."${containerName}" or { }))}
+  '';
 
   componentsDir = pkgs.stdenv.mkDerivation {
     name = "dysnomia-components";
@@ -61,13 +59,12 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings (containerName:
-        linkMutableComponents { inherit containerName; }
-      ) (builtins.attrNames cfg.components)}
+      ${concatMapStrings
+      (containerName: linkMutableComponents { inherit containerName; })
+      (builtins.attrNames cfg.components)}
     '';
   };
-in
-{
+in {
   options = {
     dysnomia = {
 
@@ -80,7 +77,8 @@ in
       enableAuthentication = mkOption {
         type = types.bool;
         default = false;
-        description = "Whether to publish privacy-sensitive authentication credentials";
+        description =
+          "Whether to publish privacy-sensitive authentication credentials";
       };
 
       package = mkOption {
@@ -89,33 +87,39 @@ in
       };
 
       properties = mkOption {
-        description = "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
-        default = {};
+        description =
+          "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
+        default = { };
       };
 
       containers = mkOption {
-        description = "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
-        default = {};
+        description =
+          "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
+        default = { };
       };
 
       components = mkOption {
-        description = "An atttribute set in which each key represents a container and each value an attribute set in which each key represents a component and each value a derivation constructing its initial state";
-        default = {};
+        description =
+          "An atttribute set in which each key represents a container and each value an attribute set in which each key represents a component and each value a derivation constructing its initial state";
+        default = { };
       };
 
       extraContainerProperties = mkOption {
-        description = "An attribute set providing additional container settings in addition to the default properties";
-        default = {};
+        description =
+          "An attribute set providing additional container settings in addition to the default properties";
+        default = { };
       };
 
       extraContainerPaths = mkOption {
-        description = "A list of paths containing additional container configurations that are added to the search folders";
-        default = [];
+        description =
+          "A list of paths containing additional container configurations that are added to the search folders";
+        default = [ ];
       };
 
       extraModulePaths = mkOption {
-        description = "A list of paths containing additional modules that are added to the search folders";
-        default = [];
+        description =
+          "A list of paths containing additional modules that are added to the search folders";
+        default = [ ];
       };
     };
   };
@@ -123,21 +127,20 @@ in
   config = mkIf cfg.enable {
 
     environment.etc = {
-      "dysnomia/containers" = {
-        source = containersDir;
-      };
-      "dysnomia/components" = {
-        source = componentsDir;
-      };
-      "dysnomia/properties" = {
-        source = properties;
-      };
+      "dysnomia/containers" = { source = containersDir; };
+      "dysnomia/components" = { source = componentsDir; };
+      "dysnomia/properties" = { source = properties; };
     };
 
     environment.variables = {
       DYSNOMIA_STATEDIR = "/var/state/dysnomia-nixos";
-      DYSNOMIA_CONTAINERS_PATH = "${lib.concatMapStrings (containerPath: "${containerPath}:") cfg.extraContainerPaths}/etc/dysnomia/containers";
-      DYSNOMIA_MODULES_PATH = "${lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths}/etc/dysnomia/modules";
+      DYSNOMIA_CONTAINERS_PATH = "${
+        lib.concatMapStrings (containerPath: "${containerPath}:")
+        cfg.extraContainerPaths
+        }/etc/dysnomia/containers";
+      DYSNOMIA_MODULES_PATH = "${
+        lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths
+        }/etc/dysnomia/modules";
     };
 
     environment.systemPackages = [ cfg.package ];
@@ -172,35 +175,37 @@ in
     };
 
     dysnomia.containers = lib.recursiveUpdate ({
-      process = {};
-      wrapper = {};
-    }
-    // lib.optionalAttrs (config.services.httpd.enable) { apache-webapplication = {
-      documentRoot = config.services.httpd.documentRoot;
-    }; }
-    // lib.optionalAttrs (config.services.tomcat.axis2.enable) { axis2-webservice = {}; }
-    // lib.optionalAttrs (config.services.ejabberd.enable) { ejabberd-dump = {
-      ejabberdUser = config.services.ejabberd.user;
-    }; }
-    // lib.optionalAttrs (config.services.mysql.enable) { mysql-database = {
+      process = { };
+      wrapper = { };
+    } // lib.optionalAttrs (config.services.httpd.enable) {
+      apache-webapplication = {
+        documentRoot = config.services.httpd.documentRoot;
+      };
+    } // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
+      axis2-webservice = { };
+    } // lib.optionalAttrs (config.services.ejabberd.enable) {
+      ejabberd-dump = { ejabberdUser = config.services.ejabberd.user; };
+    } // lib.optionalAttrs (config.services.mysql.enable) {
+      mysql-database = {
         mysqlPort = config.services.mysql.port;
       } // lib.optionalAttrs cfg.enableAuthentication {
         mysqlUsername = "root";
         mysqlPassword = builtins.readFile (config.services.mysql.rootPassword);
       };
-    }
-    // lib.optionalAttrs (config.services.postgresql.enable) { postgresql-database = {
-      } // lib.optionalAttrs (cfg.enableAuthentication) {
-        postgresqlUsername = "postgres";
+    } // lib.optionalAttrs (config.services.postgresql.enable) {
+      postgresql-database = { }
+        // lib.optionalAttrs (cfg.enableAuthentication) {
+          postgresqlUsername = "postgres";
+        };
+    } // lib.optionalAttrs (config.services.tomcat.enable) {
+      tomcat-webapplication = { tomcatPort = 8080; };
+    } // lib.optionalAttrs (config.services.mongodb.enable) {
+      mongo-database = { };
+    } // lib.optionalAttrs (config.services.svnserve.enable) {
+      subversion-repository = {
+        svnBaseDir = config.services.svnserve.svnBaseDir;
       };
-    }
-    // lib.optionalAttrs (config.services.tomcat.enable) { tomcat-webapplication = {
-      tomcatPort = 8080;
-    }; }
-    // lib.optionalAttrs (config.services.mongodb.enable) { mongo-database = {}; }
-    // lib.optionalAttrs (config.services.svnserve.enable) { subversion-repository = {
-      svnBaseDir = config.services.svnserve.svnBaseDir;
-    }; }) cfg.extraContainerProperties;
+    }) cfg.extraContainerProperties;
 
     system.activationScripts.dysnomia = ''
       mkdir -p /etc/systemd-mutable/system

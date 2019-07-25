@@ -2,21 +2,17 @@
 # Optional requirements
 # Lua 5.3 needed and not available now
 #, luaSupport ? false, lua5
-, fortranSupport ? false, gfortran
-, buildDocumentation ? false, transfig, ghostscript, doxygen
-, buildJavaBindings ? false, openjdk
-, modelCheckingSupport ? false, libunwind, libevent, elfutils # Inside elfutils: libelf and libdw
-, debug ? false
-, moreTests ? false
-}:
+, fortranSupport ? false, gfortran, buildDocumentation ?
+  false, transfig, ghostscript, doxygen, buildJavaBindings ?
+    false, openjdk, modelCheckingSupport ?
+      false, libunwind, libevent, elfutils # Inside elfutils: libelf and libdw
+, debug ? false, moreTests ? false }:
 
 with stdenv.lib;
 
-let
-  optionOnOff = option: "${if option then "on" else "off"}";
-in
+let optionOnOff = option: "${if option then "on" else "off"}";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "simgrid";
   version = "3.23";
 
@@ -29,10 +25,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake perl python3 boost valgrind ]
-      ++ optionals fortranSupport [ gfortran ]
-      ++ optionals buildJavaBindings [ openjdk ]
-      ++ optionals buildDocumentation [ transfig ghostscript doxygen ]
-      ++ optionals modelCheckingSupport [ libunwind libevent elfutils ];
+    ++ optionals fortranSupport [ gfortran ]
+    ++ optionals buildJavaBindings [ openjdk ]
+    ++ optionals buildDocumentation [ transfig ghostscript doxygen ]
+    ++ optionals modelCheckingSupport [ libunwind libevent elfutils ];
 
   #buildInputs = optional luaSupport lua5;
 
@@ -54,7 +50,7 @@ stdenv.mkDerivation rec {
   #
   # For more information see:
   # https://simgrid.org/doc/3.22/Installing_SimGrid.html#simgrid-compilation-options)
-  cmakeFlags= ''
+  cmakeFlags = ''
     -Denable_documentation=${optionOnOff buildDocumentation}
     -Denable_java=${optionOnOff buildJavaBindings}
     -Denable_fortran=${optionOnOff fortranSupport}
@@ -104,9 +100,9 @@ stdenv.mkDerivation rec {
       scheduling on distributed computing platforms ranging from simple
       network of workstations to Computational Grids.
     '';
-    homepage = https://simgrid.org/;
+    homepage = "https://simgrid.org/";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ mickours mpoquet ];
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

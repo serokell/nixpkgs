@@ -1,14 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, makeWrapper
-, openssl
-, which
-, gnugrep
-, gnused
-, gawk
-, mktemp
-, coreutils
-, findutils
+{ stdenv, fetchFromGitHub, makeWrapper, openssl, which, gnugrep, gnused, gawk, mktemp, coreutils, findutils
 }:
 
 stdenv.mkDerivation rec {
@@ -25,16 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    openssl
-    which
-    gnugrep
-    mktemp
-    gawk
-    gnused
-    coreutils
-    findutils
-  ];
+  buildInputs =
+    [ openssl which gnugrep mktemp gawk gnused coreutils findutils ];
 
   prePatch = ''
     substituteInPlace $pname --replace PATH= NOT_PATH=
@@ -48,8 +30,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "a Bourne shell script that can be used to report on expiring SSL certificates";
-    homepage = https://github.com/Matty9191/ssl-cert-check;
+    description =
+      "a Bourne shell script that can be used to report on expiring SSL certificates";
+    homepage = "https://github.com/Matty9191/ssl-cert-check";
     license = licenses.gpl2;
     maintainers = [ maintainers.ryantm ];
     platforms = platforms.linux;

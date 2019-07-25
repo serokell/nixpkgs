@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     "prefix=$(out)"
     "CC=${stdenv.cc.targetPrefix}cc"
     "AR=${stdenv.cc.targetPrefix}ar"
-  ]
-    ++ stdenv.lib.optional stdenv.isDarwin "LDFLAGS=-Wl,-install_name,$(out)/lib/liblmdb.so";
+  ] ++ stdenv.lib.optional stdenv.isDarwin
+    "LDFLAGS=-Wl,-install_name,$(out)/lib/liblmdb.so";
 
   doCheck = true;
   checkPhase = "make test";
@@ -33,16 +33,16 @@ stdenv.mkDerivation rec {
   ''
     # add lmdb.pc (dynamic only)
     + ''
-    mkdir -p "$dev/lib/pkgconfig"
-    cat > "$dev/lib/pkgconfig/lmdb.pc" <<EOF
-    Name: lmdb
-    Description: ${meta.description}
-    Version: ${version}
+      mkdir -p "$dev/lib/pkgconfig"
+      cat > "$dev/lib/pkgconfig/lmdb.pc" <<EOF
+      Name: lmdb
+      Description: ${meta.description}
+      Version: ${version}
 
-    Cflags: -I$dev/include
-    Libs: -L$out/lib -llmdb
-    EOF
-  '';
+      Cflags: -I$dev/include
+      Libs: -L$out/lib -llmdb
+      EOF
+    '';
 
   meta = with stdenv.lib; {
     description = "Lightning memory-mapped database";
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       offering the persistence of standard disk-based databases, and is only
       limited to the size of the virtual address space.
     '';
-    homepage = http://symas.com/mdb/;
+    homepage = "http://symas.com/mdb/";
     maintainers = with maintainers; [ jb55 vcunat ];
     license = licenses.openldap;
     platforms = platforms.all;

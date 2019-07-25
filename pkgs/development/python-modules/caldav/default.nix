@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, tzlocal, requests, vobject, lxml }:
+{ lib, buildPythonPackage, fetchPypi, tzlocal, requests, vobject, lxml }:
 
 buildPythonPackage rec {
   pname = "caldav";
@@ -13,7 +12,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "This project is a CalDAV (RFC4791) client library for Python.";
+    description =
+      "This project is a CalDAV (RFC4791) client library for Python.";
     homepage = "https://pythonhosted.org/caldav/";
     license = licenses.asl20;
     maintainers = with maintainers; [ marenz ];

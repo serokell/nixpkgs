@@ -7,11 +7,13 @@ python2.pkgs.buildPythonApplication rec {
 
   srcs = [
     (fetchurl {
-      url = "http://www.emhsoft.com/singularity/singularity-${version}-src.tar.gz";
+      url =
+        "http://www.emhsoft.com/singularity/singularity-${version}-src.tar.gz";
       sha256 = "13zjhf67gmla67nkfpxb01rxs8j9n4hs0s4n9lnnq4zgb709yxgl";
     })
     (fetchurl {
-      url = "http://www.emhsoft.com/singularity/endgame-singularity-music-007.zip";
+      url =
+        "http://www.emhsoft.com/singularity/endgame-singularity-music-007.zip";
       sha256 = "0vf2qaf66jh56728pq1zbnw50yckjz6pf6c6qw6dl7vk60kkqnpb";
     })
   ];
@@ -44,7 +46,7 @@ python2.pkgs.buildPythonApplication rec {
   '';
 
   meta = {
-    homepage = http://www.emhsoft.com/singularity/;
+    homepage = "http://www.emhsoft.com/singularity/";
     description = "A simulation game about strong AI";
     longDescription = ''
       A simulation of a true AI. Go from computer to computer, pursued by the

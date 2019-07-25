@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, repeated_test
-, sphinx
-, mock
-, coverage
-, unittest2
-, funcsigs
-, six
+{ stdenv, buildPythonPackage, fetchPypi, repeated_test, sphinx, mock, coverage, unittest2, funcsigs, six
 }:
 
 buildPythonPackage rec {
@@ -22,7 +13,8 @@ buildPythonPackage rec {
   buildInputs = [ repeated_test sphinx mock coverage unittest2 ];
   propagatedBuildInputs = [ funcsigs six ];
 
-  patchPhase = ''sed -i s/test_suite="'"sigtools.tests"'"/test_suite="'"unittest2.collector"'"/ setup.py'';
+  patchPhase = ''
+    sed -i s/test_suite="'"sigtools.tests"'"/test_suite="'"unittest2.collector"'"/ setup.py'';
 
   meta = with stdenv.lib; {
     description = "Utilities for working with 3.3's inspect.Signature objects.";

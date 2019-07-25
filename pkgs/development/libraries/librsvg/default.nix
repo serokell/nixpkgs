@@ -1,17 +1,16 @@
-{ lib, stdenv, fetchurl, pkgconfig, glib, gdk_pixbuf, pango, cairo, libxml2, libgsf
-, bzip2, libcroco, libintl, darwin, rustc, cargo, gnome3
-, withGTK ? false, gtk3 ? null
-, vala, gobject-introspection }:
+{ lib, stdenv, fetchurl, pkgconfig, glib, gdk_pixbuf, pango, cairo, libxml2, libgsf, bzip2, libcroco, libintl, darwin, rustc, cargo, gnome3, withGTK ?
+  false, gtk3 ? null, vala, gobject-introspection }:
 
 let
   pname = "librsvg";
   version = "2.44.14";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "00z3qimpk909pcqq0jlsis5sskc6kn7cqia20smd9k9rhs3ag1ba";
   };
 
@@ -19,12 +18,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libxml2 libgsf bzip2 libcroco pango libintl ];
 
-  propagatedBuildInputs = [ glib gdk_pixbuf cairo ] ++ lib.optional withGTK gtk3;
+  propagatedBuildInputs = [ glib gdk_pixbuf cairo ]
+    ++ lib.optional withGTK gtk3;
 
   nativeBuildInputs = [ pkgconfig rustc cargo vala gobject-introspection ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-      ApplicationServices
-    ]);
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
 
   configureFlags = [
     "--enable-introspection"
@@ -38,8 +37,8 @@ stdenv.mkDerivation rec {
     "installed_testdir=$(installedTests)/libexec/installed-tests/RSVG"
   ];
 
-  NIX_CFLAGS_COMPILE
-    = stdenv.lib.optionalString stdenv.isDarwin "-I${cairo.dev}/include/cairo";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionalString stdenv.isDarwin "-I${cairo.dev}/include/cairo";
 
   # It wants to add loaders and update the loaders.cache in gdk-pixbuf
   # Patching the Makefiles to it creates rsvg specific loaders and the
@@ -70,15 +69,11 @@ stdenv.mkDerivation rec {
     rm $GDK_PIXBUF/loaders.cache.tmp
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     description = "A small library to render SVG images to Cairo surfaces";
-    homepage = https://wiki.gnome.org/Projects/LibRsvg;
+    homepage = "https://wiki.gnome.org/Projects/LibRsvg";
     license = licenses.lgpl2Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.unix;

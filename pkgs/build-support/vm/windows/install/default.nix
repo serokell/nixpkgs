@@ -1,13 +1,10 @@
-{ stdenv, runCommand, openssh, qemu, controller, mkCygwinImage
-, writeText, dosfstools, mtools
+{ stdenv, runCommand, openssh, qemu, controller, mkCygwinImage, writeText, dosfstools, mtools
 }:
 
-{ isoFile
-, productKey
-}:
+{ isoFile, productKey }:
 
 let
-  bootstrapAfterLogin = runCommand "bootstrap.sh" {} ''
+  bootstrapAfterLogin = runCommand "bootstrap.sh" { } ''
     cat > "$out" <<EOF
     mkdir -p ~/.ssh
     cat > ~/.ssh/authorized_keys <<PUBKEY
@@ -68,7 +65,5 @@ in stdenv.mkDerivation {
     mkdir -p "$out"
     cp winvm.img "$out/disk.img"
   '';
-  passthru = {
-    inherit sshKey;
-  };
+  passthru = { inherit sshKey; };
 }

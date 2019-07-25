@@ -17,9 +17,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ gettext ] ++
     # We don't have Emacs/GTK/etc. on {Dar,Cyg}win.
     stdenv.lib.optional
-      (! (stdenv.lib.lists.any (x: stdenv.hostPlatform.system == x)
-              [ "i686-cygwin" ]))
-      emacs;
+    (!(stdenv.lib.lists.any (x: stdenv.hostPlatform.system == x)
+    [ "i686-cygwin" ])) emacs;
 
   doCheck = true;
 
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3Plus;
 
-    homepage = https://www.gnu.org/software/cflow/;
+    homepage = "https://www.gnu.org/software/cflow/";
 
     maintainers = [ maintainers.vrthra ];
 
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
          "_argp_program_version", referenced from:
              _argp_program_version$non_lazy_ptr in libcflow.a(argp-parse.o)
        ld: symbol(s) not found
-     */
+    */
     platforms = platforms.linux;
   };
 }

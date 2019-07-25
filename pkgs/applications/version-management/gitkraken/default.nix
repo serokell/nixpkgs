@@ -1,16 +1,14 @@
-{ stdenv, libXcomposite, libgnome-keyring, makeWrapper, udev, curl, alsaLib
-, libXfixes, atk, gtk3, libXrender, pango, gnome2, gnome3, cairo, freetype, fontconfig
-, libX11, libXi, libxcb, libXext, libXcursor, glib, libXScrnSaver, libxkbfile, libXtst
-, nss, nspr, cups, fetchurl, expat, gdk_pixbuf, libXdamage, libXrandr, dbus
-, dpkg, makeDesktopItem, openssl, wrapGAppsHook, hicolor-icon-theme, at-spi2-atk, libuuid
+{ stdenv, libXcomposite, libgnome-keyring, makeWrapper, udev, curl, alsaLib, libXfixes, atk, gtk3, libXrender, pango, gnome2, gnome3, cairo, freetype, fontconfig, libX11, libXi, libxcb, libXext, libXcursor, glib, libXScrnSaver, libxkbfile, libXtst, nss, nspr, cups, fetchurl, expat, gdk_pixbuf, libXdamage, libXrandr, dbus, dpkg, makeDesktopItem, openssl, wrapGAppsHook, hicolor-icon-theme, at-spi2-atk, libuuid
 }:
 
 with stdenv.lib;
 
 let
-  curlWithGnuTls = curl.override { gnutlsSupport = true; sslSupport = false; };
-in
-stdenv.mkDerivation rec {
+  curlWithGnuTls = curl.override {
+    gnutlsSupport = true;
+    sslSupport = false;
+  };
+in stdenv.mkDerivation rec {
   name = "gitkraken-${version}";
   version = "6.0.0";
 
@@ -100,8 +98,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.gitkraken.com/;
-    description = "The downright luxurious and most popular Git client for Windows, Mac & Linux";
+    homepage = "https://www.gitkraken.com/";
+    description =
+      "The downright luxurious and most popular Git client for Windows, Mac & Linux";
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ xnwdd ];

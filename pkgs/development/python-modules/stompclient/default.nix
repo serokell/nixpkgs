@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, mock
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, mock, nose }:
 
 buildPythonPackage rec {
   pname = "stompclient";
@@ -22,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Lightweight and extensible STOMP messaging client";
-    homepage = https://bitbucket.org/hozn/stompclient;
+    homepage = "https://bitbucket.org/hozn/stompclient";
     license = licenses.asl20;
   };
 

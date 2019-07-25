@@ -1,4 +1,4 @@
-{stdenv, fetchurl, jre} :
+{ stdenv, fetchurl, jre }:
 
 stdenv.mkDerivation rec {
   name = "jflex-1.7.0";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.jflex.de/;
+    homepage = "https://www.jflex.de/";
     description = "Lexical analyzer generator for Java, written in Java";
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.unix;

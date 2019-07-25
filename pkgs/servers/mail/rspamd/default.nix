@@ -1,18 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, perl
-, file, glib, libevent, luajit, openssl, pcre, pkgconfig, sqlite, ragel, icu
-, hyperscan, libfann, gd, jemalloc, openblas
-, withFann ? true
-, withGd ? false
-, withBlas ? true
-, withHyperscan ? stdenv.isx86_64
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, perl, file, glib, libevent, luajit, openssl, pcre, pkgconfig, sqlite, ragel, icu, hyperscan, libfann, gd, jemalloc, openblas, withFann ?
+  true, withGd ? false, withBlas ? true, withHyperscan ? stdenv.isx86_64 }:
 
 assert withHyperscan -> stdenv.isx86_64;
 
-let libmagic = file;  # libmagic provided by file package ATM
-in
+let libmagic = file; # libmagic provided by file package ATM
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "rspamd-${version}";
   version = "1.9.4";
 
@@ -24,11 +17,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig perl ];
-  buildInputs = [ glib libevent libmagic luajit openssl pcre sqlite ragel icu jemalloc ]
-    ++ lib.optional withFann libfann
-    ++ lib.optional withGd gd
-    ++ lib.optional withHyperscan hyperscan
-    ++ lib.optional withBlas openblas;
+  buildInputs =
+    [ glib libevent libmagic luajit openssl pcre sqlite ragel icu jemalloc ]
+    ++ lib.optional withFann libfann ++ lib.optional withGd gd
+    ++ lib.optional withHyperscan hyperscan ++ lib.optional withBlas openblas;
 
   cmakeFlags = [
     "-DDEBIAN_BUILD=ON"
@@ -42,7 +34,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withGd "-DENABLE_GD=ON";
 
   meta = with stdenv.lib; {
-    homepage = https://rspamd.com;
+    homepage = "https://rspamd.com";
     license = licenses.asl20;
     description = "Advanced spam filtering system";
     maintainers = with maintainers; [ avnik fpletz ];

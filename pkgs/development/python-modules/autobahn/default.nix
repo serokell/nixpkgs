@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k,
-  six, txaio, twisted, zope_interface, cffi, trollius, futures,
-  mock, pytest
+{ lib, buildPythonPackage, fetchPypi, isPy3k, six, txaio, twisted, zope_interface, cffi, trollius, futures, mock, pytest
 }:
 buildPythonPackage rec {
   pname = "autobahn";
@@ -11,8 +9,8 @@ buildPythonPackage rec {
     sha256 = "aebbadb700c13792a2967c79002855d1153b9ec8f2949d169e908388699596ff";
   };
 
-  propagatedBuildInputs = [ six txaio twisted zope_interface cffi ] ++
-    (lib.optionals (!isPy3k) [ trollius futures ]);
+  propagatedBuildInputs = [ six txaio twisted zope_interface cffi ]
+    ++ (lib.optionals (!isPy3k) [ trollius futures ]);
 
   checkInputs = [ mock pytest ];
   checkPhase = ''
@@ -23,8 +21,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "WebSocket and WAMP in Python for Twisted and asyncio.";
-    homepage    = "https://crossbar.io/autobahn";
-    license     = licenses.mit;
+    homepage = "https://crossbar.io/autobahn";
+    license = licenses.mit;
     maintainers = with maintainers; [ nand0p ];
   };
 }

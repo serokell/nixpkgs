@@ -14,14 +14,14 @@ stdenv.mkDerivation rec {
   };
 
   postUnpack = ''
-      patchShebangs .
+    patchShebangs .
   '';
 
   # Can be removed with https://github.com/dlang/dub/pull/1368
   dubvar = "\\$DUB";
   postPatch = ''
-      substituteInPlace test/fetchzip.sh \
-          --replace "dub remove" "\"${dubvar}\" remove"
+    substituteInPlace test/fetchzip.sh \
+        --replace "dub remove" "\"${dubvar}\" remove"
   '';
 
   nativeBuildInputs = [ dmd libevent rsync ];
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Package and build manager for D applications and libraries";
-    homepage = http://code.dlang.org/;
+    homepage = "http://code.dlang.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ ThomasMader ];
     platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];

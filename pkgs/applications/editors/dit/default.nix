@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "05vhr1gl3bb5fg49v84xhmjaqdjw6djampvylw10ydvbpnpvjvjc";
   };
 
-  buildInputs = [ ncurses lua ]
-    ++ lib.optional stdenv.isDarwin libiconv;
+  buildInputs = [ ncurses lua ] ++ lib.optional stdenv.isDarwin libiconv;
 
   # fix paths
   prePatch = ''
@@ -19,8 +18,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A console text editor for Unix that you already know how to use";
-    homepage = https://hisham.hm/dit/;
+    description =
+      "A console text editor for Unix that you already know how to use";
+    homepage = "https://hisham.hm/dit/";
     license = licenses.gpl2;
     platforms = with platforms; linux;
     maintainers = with maintainers; [ davidak ];

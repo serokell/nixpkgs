@@ -1,10 +1,6 @@
-{ 
-  stdenv, fetchFromGitHub,
-  openssl
-}:
+{ stdenv, fetchFromGitHub, openssl }:
 
-let 
-  version = "0.0.3";
+let version = "0.0.3";
 in stdenv.mkDerivation {
   name = "shallot-${version}";
 
@@ -23,10 +19,11 @@ in stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Shallot allows you to create customized .onion addresses for your hidden service";
+    description =
+      "Shallot allows you to create customized .onion addresses for your hidden service";
 
     license = stdenv.lib.licenses.mit;
-    homepage = https://github.com/katmagic/Shallot;
+    homepage = "https://github.com/katmagic/Shallot";
     platforms = stdenv.lib.platforms.linux;
   };
 }

@@ -7,9 +7,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ postgresql ];
 
   src = fetchFromGitHub {
-    owner  = "citusdata";
-    repo   = "postgresql-hll";
-    rev    = "refs/tags/v${version}";
+    owner = "citusdata";
+    repo = "postgresql-hll";
+    rev = "refs/tags/v${version}";
     sha256 = "1jdc9gjqc3dkjxv855q1p594j0awhrrymrcqnl5vw5vx2ny3bpgn";
   };
 
@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "HyperLogLog for PostgreSQL";
-    homepage    = https://www.citusdata.com/;
+    homepage = "https://www.citusdata.com/";
     maintainers = with maintainers; [ thoughtpolice ];
-    platforms   = postgresql.meta.platforms;
-    license     = licenses.asl20;
+    platforms = postgresql.meta.platforms;
+    license = licenses.asl20;
   };
 }

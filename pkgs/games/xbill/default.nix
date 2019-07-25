@@ -8,10 +8,7 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_LINK = [ "-lXpm" ];
 
-  configureFlags = [
-    "--with-x"
-    "--enable-motif"
-  ];
+  configureFlags = [ "--with-x" "--enable-motif" ];
 
   src = fetchurl {
     url = "http://www.xbill.org/download/${pname}-${version}.tar.gz";

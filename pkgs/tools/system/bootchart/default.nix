@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, pkgconfig, glib, gtk2, python2Packages }:
+{ stdenv, fetchFromGitHub, pkgconfig, glib, gtk2, python2Packages }:
 
 stdenv.mkDerivation rec {
   version = "0.14.8";
@@ -12,7 +12,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ glib gtk2 python2Packages.python python2Packages.wrapPython python2Packages.pygtk ];
+  buildInputs = [
+    glib
+    gtk2
+    python2Packages.python
+    python2Packages.wrapPython
+    python2Packages.pygtk
+  ];
   pythonPath = with python2Packages; [ pygtk pycairo ];
 
   installPhase = ''
@@ -22,8 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.bootchart.org/;
-    description = "Performance analysis and visualization of the GNU/Linux boot process";
+    homepage = "http://www.bootchart.org/";
+    description =
+      "Performance analysis and visualization of the GNU/Linux boot process";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

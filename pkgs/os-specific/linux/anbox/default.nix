@@ -1,24 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchurl
-, cmake, pkgconfig, dbus, makeWrapper
-, gtest
-, boost
-, libcap
-, systemd
-, mesa
-, libGL
-, libglvnd
-, glib
-, git
-, SDL2
-, SDL2_image
-, properties-cpp
-, protobuf
-, protobufc
-, python
-, lxc
-, writeText
-, writeScript
-, runtimeShell
+{ stdenv, fetchFromGitHub, fetchurl, cmake, pkgconfig, dbus, makeWrapper, gtest, boost, libcap, systemd, mesa, libGL, libglvnd, glib, git, SDL2, SDL2_image, properties-cpp, protobuf, protobufc, python, lxc, writeText, writeScript, runtimeShell
 }:
 
 let
@@ -41,9 +21,7 @@ let
     @out@/bin/anbox launch --package=org.anbox.appmgr --component=org.anbox.appmgr.AppViewActivity
   '';
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "anbox";
   version = "unstable-2019-05-03";
 
@@ -54,13 +32,25 @@ stdenv.mkDerivation rec {
     sha256 = "00x772nbrbx7ma0scr24m65g50pmi4v6d6q3cwbbi55r8qiy2yz7";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [
-    cmake pkgconfig dbus boost libcap gtest systemd mesa glib
-    SDL2 SDL2_image protobuf protobufc properties-cpp lxc python
+    cmake
+    pkgconfig
+    dbus
+    boost
+    libcap
+    gtest
+    systemd
+    mesa
+    glib
+    SDL2
+    SDL2_image
+    protobuf
+    protobufc
+    properties-cpp
+    lxc
+    python
     libGL
   ];
 
@@ -94,7 +84,9 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/anbox \
-      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [libGL libglvnd]} \
+      --prefix LD_LIBRARY_PATH : ${
+      stdenv.lib.makeLibraryPath [ libGL libglvnd ]
+      } \
       --prefix PATH : ${git}/bin
 
     mkdir -p $out/share/dbus-1/services
@@ -109,10 +101,8 @@ stdenv.mkDerivation rec {
       --subst-var out
   '';
 
-  passthru.image = let
-    imgroot = "https://build.anbox.io/android-images";
-  in
-    {
+  passthru.image = let imgroot = "https://build.anbox.io/android-images";
+    in {
       armv7l-linux = fetchurl {
         url = imgroot + "/2017/06/12/android_1_armhf.img";
         sha256 = "1za4q6vnj8wgphcqpvyq1r8jg6khz7v6b7h6ws1qkd5ljangf1w5";
@@ -128,7 +118,7 @@ stdenv.mkDerivation rec {
     }.${stdenv.system} or null;
 
   meta = with stdenv.lib; {
-    homepage = https://anbox.io;
+    homepage = "https://anbox.io";
     description = "Android in a box";
     license = licenses.gpl2;
     maintainers = with maintainers; [ edwtjo ];

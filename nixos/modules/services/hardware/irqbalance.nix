@@ -1,4 +1,3 @@
-#
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -7,8 +6,7 @@ let
 
   cfg = config.services.irqbalance;
 
-in
-{
+in {
   options.services.irqbalance.enable = mkEnableOption "irqbalance daemon";
 
   config = mkIf cfg.enable {
@@ -17,8 +15,9 @@ in
       irqbalance = {
         description = "irqbalance daemon";
         path = [ pkgs.irqbalance ];
-        serviceConfig =
-          { ExecStart = "${pkgs.irqbalance}/bin/irqbalance --foreground"; };
+        serviceConfig = {
+          ExecStart = "${pkgs.irqbalance}/bin/irqbalance --foreground";
+        };
         wantedBy = [ "multi-user.target" ];
       };
     };

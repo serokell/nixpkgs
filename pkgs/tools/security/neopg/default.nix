@@ -1,14 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, sqlite
-, botan2
-, boost
-, curl
-, gettext
-, pkgconfig
-, libusb
-, gnutls }:
+{ stdenv, fetchFromGitHub, cmake, sqlite, botan2, boost, curl, gettext, pkgconfig, libusb, gnutls
+}:
 
 stdenv.mkDerivation rec {
   name = "neopg-${version}";
@@ -35,7 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://neopg.io/;
+    homepage = "https://neopg.io/";
     description = "Modern replacement for GnuPG 2";
     license = licenses.gpl3;
     longDescription = ''

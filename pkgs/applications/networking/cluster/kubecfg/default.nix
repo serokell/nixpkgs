@@ -1,8 +1,8 @@
 { lib, buildGoPackage, fetchFromGitHub, ... }:
 
-let version = "0.12.0"; in
+let version = "0.12.0";
 
-buildGoPackage {
+in buildGoPackage {
   name = "kubecfg-${version}";
 
   src = fetchFromGitHub {
@@ -16,7 +16,7 @@ buildGoPackage {
 
   meta = {
     description = "A tool for managing Kubernetes resources as code";
-    homepage = https://github.com/bitnami/kubecfg;
+    homepage = "https://github.com/bitnami/kubecfg";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ benley ];
     platforms = lib.platforms.unix;

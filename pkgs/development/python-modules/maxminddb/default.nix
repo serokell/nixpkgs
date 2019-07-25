@@ -1,8 +1,4 @@
-{ buildPythonPackage, lib, fetchPypi
-, ipaddress
-, mock
-, nose
-}:
+{ buildPythonPackage, lib, fetchPypi, ipaddress, mock, nose }:
 
 buildPythonPackage rec {
   version = "1.4.1";

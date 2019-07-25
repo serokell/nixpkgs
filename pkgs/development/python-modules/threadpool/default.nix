@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "threadpool";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://chrisarndt.de/projects/threadpool/;
+    homepage = "http://chrisarndt.de/projects/threadpool/";
     description = "Easy to use object-oriented thread pool framework";
     license = licenses.mit;
   };

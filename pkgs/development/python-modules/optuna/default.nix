@@ -1,29 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, mock
-, bokeh
-, plotly
-, chainer
-, xgboost
-, mpi4py
-, lightgbm
-, Keras
-, mxnet
-, scikit-optimize
-, tensorflow
-, sqlalchemy
-, numpy
-, scipy
-, six
-, cliff
-, colorlog
-, pandas
-, alembic
-, typing
-, pythonOlder
-, isPy27
+{ lib, buildPythonPackage, fetchPypi, pytest, mock, bokeh, plotly, chainer, xgboost, mpi4py, lightgbm, Keras, mxnet, scikit-optimize, tensorflow, sqlalchemy, numpy, scipy, six, cliff, colorlog, pandas, alembic, typing, pythonOlder, isPy27
 }:
 
 buildPythonPackage rec {
@@ -51,21 +26,15 @@ buildPythonPackage rec {
     tensorflow
   ];
 
-  propagatedBuildInputs = [
-    sqlalchemy
-    numpy
-    scipy
-    six
-    cliff
-    colorlog
-    pandas
-    alembic
-  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs =
+    [ sqlalchemy numpy scipy six cliff colorlog pandas alembic ]
+    ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
   configurePhase = if !(pythonOlder "3.5") then ''
     substituteInPlace setup.py \
       --replace "'typing'" ""
-  '' else "";
+  '' else
+    "";
 
   checkPhase = ''
     pytest --ignore tests/test_cli.py \
@@ -74,7 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A hyperparameter optimization framework";
-    homepage = https://optuna.org/;
+    homepage = "https://optuna.org/";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

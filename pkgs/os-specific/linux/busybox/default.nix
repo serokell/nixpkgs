@@ -1,9 +1,5 @@
-{ stdenv, lib, buildPackages, fetchurl
-, enableStatic ? false
-, enableMinimal ? false
-, useMusl ? stdenv.hostPlatform.libc == "musl", musl
-, extraConfig ? ""
-}:
+{ stdenv, lib, buildPackages, fetchurl, enableStatic ? false, enableMinimal ?
+  false, useMusl ? stdenv.hostPlatform.libc == "musl", musl, extraConfig ? "" }:
 
 assert stdenv.hostPlatform.libc == "musl" -> useMusl;
 
@@ -29,9 +25,8 @@ let
     CONFIG_FEATURE_UTMP n
     CONFIG_FEATURE_WTMP n
   '';
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "busybox-1.30.1";
 
   # Note to whoever is updating busybox: please verify that:
@@ -45,9 +40,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" "pie" ]
     ++ lib.optionals enableStatic [ "fortify" ];
 
-  patches = [
-    ./busybox-in-store.patch
-  ] ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.targetPlatform) ./clang-cross.patch;
+  patches = [ ./busybox-in-store.patch ]
+    ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.targetPlatform)
+    ./clang-cross.patch;
 
   postPatch = "patchShebangs .";
 
@@ -94,15 +89,20 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static) [ stdenv.cc.libc stdenv.cc.libc.static ];
+  buildInputs =
+    lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static) [
+      stdenv.cc.libc
+      stdenv.cc.libc.static
+    ];
 
   enableParallelBuilding = true;
 
   doCheck = false; # tries to access the net
 
   meta = with stdenv.lib; {
-    description = "Tiny versions of common UNIX utilities in a single small executable";
-    homepage = https://busybox.net/;
+    description =
+      "Tiny versions of common UNIX utilities in a single small executable";
+    homepage = "https://busybox.net/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;

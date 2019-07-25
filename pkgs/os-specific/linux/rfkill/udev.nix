@@ -25,12 +25,11 @@
 # in the rfkill package.
 
 let
-  rfkillHook =
-    substituteAll {
-      inherit (stdenv) shell;
-      isExecutable = true;
-      src = ./rfkill-hook.sh;
-    };
+  rfkillHook = substituteAll {
+    inherit (stdenv) shell;
+    isExecutable = true;
+    src = ./rfkill-hook.sh;
+  };
 in stdenv.mkDerivation {
   name = "rfkill-udev";
 
@@ -48,7 +47,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = http://wireless.kernel.org/en/users/Documentation/rfkill;
+    homepage = "http://wireless.kernel.org/en/users/Documentation/rfkill";
     description = "Rules+hook for udev to catch rfkill state changes";
     platforms = stdenv.lib.platforms.linux;
   };

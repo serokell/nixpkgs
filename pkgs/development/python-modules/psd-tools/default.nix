@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  docopt, pillow
-}:
+{ lib, buildPythonPackage, fetchPypi, docopt, pillow }:
 
 buildPythonPackage rec {
   pname = "psd-tools";
@@ -8,7 +6,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python package for reading Adobe Photoshop PSD files";
-    homepage = https://github.com/kmike/psd-tools;
+    homepage = "https://github.com/kmike/psd-tools";
     license = lib.licenses.mit;
   };
 

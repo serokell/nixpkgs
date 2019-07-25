@@ -1,11 +1,11 @@
-{ stdenv, fetchurl, meson, ninja, glib, pkgconfig, gnome3, appstream-glib, gettext }:
+{ stdenv, fetchurl, meson, ninja, glib, pkgconfig, gnome3, appstream-glib, gettext
+}:
 
 let
   pname = "nautilus-sendto";
   version = "3.8.6";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
-
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/3.8/${name}.tar.xz";
@@ -23,7 +23,8 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Integrates Evolution and Pidgin into the Nautilus file manager";
+    description =
+      "Integrates Evolution and Pidgin into the Nautilus file manager";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2;
     platforms = platforms.linux;

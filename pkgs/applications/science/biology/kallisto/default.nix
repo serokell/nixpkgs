@@ -12,12 +12,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  
+
   buildInputs = [ hdf5 zlib ];
 
   meta = with stdenv.lib; {
-    description = "kallisto is a program for quantifying abundances of transcripts from RNA-Seq data";
-    homepage = https://pachterlab.github.io/kallisto;
+    description =
+      "kallisto is a program for quantifying abundances of transcripts from RNA-Seq data";
+    homepage = "https://pachterlab.github.io/kallisto";
     license = licenses.bsd2;
     platforms = platforms.linux;
     maintainers = [ maintainers.arcadio ];

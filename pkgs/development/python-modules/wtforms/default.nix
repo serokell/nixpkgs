@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, Babel
-}:
+{ stdenv, buildPythonPackage, fetchPypi, Babel }:
 
 buildPythonPackage rec {
   version = "2.1";
@@ -21,8 +17,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ Babel ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/wtforms/wtforms;
-    description = "A flexible forms validation and rendering library for Python";
+    homepage = "https://github.com/wtforms/wtforms";
+    description =
+      "A flexible forms validation and rendering library for Python";
     license = licenses.bsd3;
   };
 

@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, routes
-, markupsafe
-, webob
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, routes, markupsafe, webob, nose }:
 
 buildPythonPackage rec {
   pname = "WebHelpers";
@@ -22,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://webhelpers.readthedocs.org/en/latest/;
+    homepage = "https://webhelpers.readthedocs.org/en/latest/";
     description = "Web Helpers";
     license = licenses.free;
     maintainers = with maintainers; [ domenkozar ];

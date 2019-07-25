@@ -1,20 +1,38 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''qmynd'';
-  version = ''20180131-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "qmynd";
+  version = "20180131-git";
 
-  description = ''MySQL Native Driver'';
+  description = "MySQL Native Driver";
 
-  deps = [ args."alexandria" args."asdf-finalizers" args."babel" args."bordeaux-threads" args."cffi" args."chipz" args."cl_plus_ssl" args."flexi-streams" args."ironclad" args."list-of" args."nibbles" args."salza2" args."split-sequence" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."asdf-finalizers"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."chipz"
+    args."cl_plus_ssl"
+    args."flexi-streams"
+    args."ironclad"
+    args."list-of"
+    args."nibbles"
+    args."salza2"
+    args."split-sequence"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."usocket"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/qmynd/2018-01-31/qmynd-20180131-git.tgz'';
-    sha256 = ''1ripapyrpzp36wsb2xf8w63nf0cjc13xh6xx296p8wgi01jwm61c'';
+    url =
+      "http://beta.quicklisp.org/archive/qmynd/2018-01-31/qmynd-20180131-git.tgz";
+    sha256 = "1ripapyrpzp36wsb2xf8w63nf0cjc13xh6xx296p8wgi01jwm61c";
   };
 
   packageName = "qmynd";
 
-  asdFilesToKeep = ["qmynd.asd"];
+  asdFilesToKeep = [ "qmynd.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM qmynd DESCRIPTION MySQL Native Driver SHA256
@@ -39,4 +57,5 @@ rec {
     (alexandria asdf-finalizers babel bordeaux-threads cffi chipz cl+ssl
      flexi-streams ironclad list-of nibbles salza2 split-sequence
      trivial-features trivial-garbage trivial-gray-streams usocket)
-    VERSION 20180131-git SIBLINGS (qmynd-test) PARASITES NIL) */
+    VERSION 20180131-git SIBLINGS (qmynd-test) PARASITES NIL)
+*/

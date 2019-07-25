@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder
-, cryptography
-, bcrypt, gssapi, libnacl, libsodium, nettle, pyopenssl
-, openssl, openssh }:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, cryptography, bcrypt, gssapi, libnacl, libsodium, nettle, pyopenssl, openssl, openssh
+}:
 
 buildPythonPackage rec {
   pname = "asyncssh";
@@ -23,20 +21,10 @@ buildPythonPackage rec {
     ./fix-sftp-chmod-test-nixos.patch
   ];
 
-  propagatedBuildInputs = [
-    bcrypt
-    cryptography
-    gssapi
-    libnacl
-    libsodium
-    nettle
-    pyopenssl
-  ];
+  propagatedBuildInputs =
+    [ bcrypt cryptography gssapi libnacl libsodium nettle pyopenssl ];
 
-  checkInputs = [
-    openssh
-    openssl
-  ];
+  checkInputs = [ openssh openssl ];
 
   # Disables windows specific test (specifically the GSSAPI wrapper for Windows)
   postPatch = ''
@@ -44,8 +32,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Provides an asynchronous client and server implementation of the SSHv2 protocol on top of the Python asyncio framework";
-    homepage = https://asyncssh.readthedocs.io/en/latest;
+    description =
+      "Provides an asynchronous client and server implementation of the SSHv2 protocol on top of the Python asyncio framework";
+    homepage = "https://asyncssh.readthedocs.io/en/latest";
     license = licenses.epl20;
     maintainers = with maintainers; [ worldofpeace ];
   };

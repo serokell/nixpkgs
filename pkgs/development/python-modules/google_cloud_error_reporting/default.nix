@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_cloud_logging
-, pytest
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, google_cloud_logging, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-error-reporting";
@@ -24,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Stackdriver Error Reporting API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

@@ -26,8 +26,9 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "An interactive command-line HTTP client featuring autocomplete and syntax highlighting";
-    homepage = https://github.com/eliangcs/http-prompt;
+    description =
+      "An interactive command-line HTTP client featuring autocomplete and syntax highlighting";
+    homepage = "https://github.com/eliangcs/http-prompt";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer ];
     platforms = platforms.linux; # can only test on linux

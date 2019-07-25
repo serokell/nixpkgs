@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, zope_interface
-, zope_exceptions
-, zope_location
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, zope_interface, zope_exceptions, zope_location
 }:
 
 buildPythonPackage rec {
@@ -22,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Zope testing helpers";
-    homepage =  http://pypi.python.org/pypi/zope.testing;
+    homepage = "http://pypi.python.org/pypi/zope.testing";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };

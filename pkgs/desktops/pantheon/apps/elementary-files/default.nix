@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, gettext, vala
-, python3, desktop-file-utils, libcanberra, gtk3, libgee, granite, libnotify
-, libunity, pango, plank, bamf, sqlite, libdbusmenu-gtk3, zeitgeist, glib-networking
-, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, gettext, vala, python3, desktop-file-utils, libcanberra, gtk3, libgee, granite, libnotify, libunity, pango, plank, bamf, sqlite, libdbusmenu-gtk3, zeitgeist, glib-networking, elementary-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "files";
@@ -62,7 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "File browser designed for elementary OS";
-    homepage = https://github.com/elementary/files;
+    homepage = "https://github.com/elementary/files";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

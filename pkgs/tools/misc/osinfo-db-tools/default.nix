@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2
-, libxslt, libarchive, bzip2, lzma, json-glib
+{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, libxslt, libarchive, bzip2, lzma, json-glib
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tools for managing the osinfo database";
-    homepage = https://libosinfo.org/;
+    homepage = "https://libosinfo.org/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

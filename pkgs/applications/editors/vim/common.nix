@@ -1,5 +1,4 @@
-{ lib, fetchFromGitHub }:
-rec {
+{ lib, fetchFromGitHub }: rec {
   version = "8.1.1432";
 
   src = fetchFromGitHub {
@@ -22,9 +21,9 @@ rec {
 
   meta = with lib; {
     description = "The most popular clone of the VI editor";
-    homepage    = http://www.vim.org;
-    license     = licenses.vim;
+    homepage = "http://www.vim.org";
+    license = licenses.vim;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

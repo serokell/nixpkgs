@@ -1,8 +1,6 @@
 { stdenv, callPackage, fetchpatch
 # Darwin frameworks
-, Cocoa, CoreMedia
-, ...
-}@args:
+, Cocoa, CoreMedia, ... }@args:
 
 callPackage ./generic.nix (args // rec {
   version = "${branch}";

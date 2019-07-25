@@ -1,11 +1,7 @@
-{ fetchFromGitHub, stdenv, pythonPackages
-, mp3Support ? true, lame ? null
-, opusSupport ? true, opusTools ? null
-, faacSupport ? false, faac ? null
-, flacSupport ? true, flac ? null
-, soxSupport ? true, sox ? null
-, vorbisSupport ? true, vorbisTools ? null
-}:
+{ fetchFromGitHub, stdenv, pythonPackages, mp3Support ? true, lame ?
+  null, opusSupport ? true, opusTools ? null, faacSupport ? false, faac ?
+    null, flacSupport ? true, flac ? null, soxSupport ? true, sox ?
+      null, vorbisSupport ? true, vorbisTools ? null }:
 
 assert mp3Support -> lame != null;
 assert opusSupport -> opusTools != null;
@@ -14,8 +10,7 @@ assert flacSupport -> flac != null;
 assert soxSupport -> sox != null;
 assert vorbisSupport -> vorbisTools != null;
 
-let
-  zeroconf = pythonPackages.callPackage ./zeroconf.nix { };
+let zeroconf = pythonPackages.callPackage ./zeroconf.nix { };
 
 in pythonPackages.buildPythonApplication rec {
   pname = "pulseaudio-dlna";
@@ -31,11 +26,22 @@ in pythonPackages.buildPythonApplication rec {
   # pulseaudio-dlna has no tests
   doCheck = false;
 
-  propagatedBuildInputs = with pythonPackages; [
-    dbus-python docopt requests setproctitle protobuf psutil futures
-    chardet notify2 netifaces pyroute2 pygobject2 lxml ]
-    ++ [ zeroconf ]
-    ++ stdenv.lib.optional mp3Support lame
+  propagatedBuildInputs = with pythonPackages;
+    [
+      dbus-python
+      docopt
+      requests
+      setproctitle
+      protobuf
+      psutil
+      futures
+      chardet
+      notify2
+      netifaces
+      pyroute2
+      pygobject2
+      lxml
+    ] ++ [ zeroconf ] ++ stdenv.lib.optional mp3Support lame
     ++ stdenv.lib.optional opusSupport opusTools
     ++ stdenv.lib.optional faacSupport faac
     ++ stdenv.lib.optional flacSupport flac
@@ -43,8 +49,9 @@ in pythonPackages.buildPythonApplication rec {
     ++ stdenv.lib.optional vorbisSupport vorbisTools;
 
   meta = with stdenv.lib; {
-    description = "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux";
-    homepage = https://github.com/masmu/pulseaudio-dlna;
+    description =
+      "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux";
+    homepage = "https://github.com/masmu/pulseaudio-dlna";
 
     license = licenses.gpl3Plus;
 

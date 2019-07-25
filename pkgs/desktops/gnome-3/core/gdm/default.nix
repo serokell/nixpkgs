@@ -1,14 +1,14 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, glib, itstool, libxml2, xorg
-, accountsservice, libX11, gnome3, systemd, autoreconfHook
-, gtk3, libcanberra-gtk3, pam, libtool, gobject-introspection, plymouth
-, librsvg, coreutils, xwayland }:
+{ stdenv, fetchurl, substituteAll, pkgconfig, glib, itstool, libxml2, xorg, accountsservice, libX11, gnome3, systemd, autoreconfHook, gtk3, libcanberra-gtk3, pam, libtool, gobject-introspection, plymouth, librsvg, coreutils, xwayland
+}:
 
 stdenv.mkDerivation rec {
   name = "gdm-${version}";
   version = "3.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gdm/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gdm/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "12ypdz9i24hwbl1d1wnnxb8zlvfa4f49n9ac5cl9d6h8qp4b0gb4";
   };
 
@@ -27,11 +27,19 @@ stdenv.mkDerivation rec {
     "--with-udevdir=$(out)/lib/udev"
   ];
 
-  nativeBuildInputs = [ pkgconfig libxml2 itstool autoreconfHook libtool gnome3.dconf ];
+  nativeBuildInputs =
+    [ pkgconfig libxml2 itstool autoreconfHook libtool gnome3.dconf ];
   buildInputs = [
-    glib accountsservice systemd
-    gobject-introspection libX11 gtk3
-    libcanberra-gtk3 pam plymouth librsvg
+    glib
+    accountsservice
+    systemd
+    gobject-introspection
+    libX11
+    gtk3
+    libcanberra-gtk3
+    pam
+    plymouth
+    librsvg
   ];
 
   enableParallelBuilding = true;
@@ -60,10 +68,8 @@ stdenv.mkDerivation rec {
     ./reset-environment.patch
   ];
 
-  installFlags = [
-    "sysconfdir=$(out)/etc"
-    "dbusconfdir=$(out)/etc/dbus-1/system.d"
-  ];
+  installFlags =
+    [ "sysconfdir=$(out)/etc" "dbusconfdir=$(out)/etc/dbus-1/system.d" ];
 
   passthru = {
     updateScript = gnome3.updateScript {
@@ -73,8 +79,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A program that manages graphical display servers and handles graphical user logins";
-    homepage = https://wiki.gnome.org/Projects/GDM;
+    description =
+      "A program that manages graphical display servers and handles graphical user logins";
+    homepage = "https://wiki.gnome.org/Projects/GDM";
     license = licenses.gpl2Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

@@ -1,8 +1,7 @@
 { stdenv, fetchurl
 
 # Build runit-init as a static binary
-, static ? false
-}:
+, static ? false }:
 
 stdenv.mkDerivation rec {
   name = "runit-${version}";
@@ -13,9 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "065s8w62r6chjjs6m9hapcagy33m75nlnxb69vg0f4ngn061dl3g";
   };
 
-  patches = [
-    ./fix-ar-ranlib.patch
-  ];
+  patches = [ ./fix-ar-ranlib.patch ];
 
   outputs = [ "out" "man" ];
 
@@ -23,7 +20,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs = stdenv.lib.optionals static [ stdenv.cc.libc stdenv.cc.libc.static ];
+  buildInputs =
+    stdenv.lib.optionals static [ stdenv.cc.libc stdenv.cc.libc.static ];
 
   postPatch = ''
     sed -i "s,\(#define RUNIT\) .*,\1 \"$out/bin/runit\"," src/runit.h
@@ -53,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "UNIX init scheme with service supervision";
     license = licenses.bsd3;
-    homepage = http://smarden.org/runit;
+    homepage = "http://smarden.org/runit";
     maintainers = with maintainers; [ rickynils joachifm ];
     platforms = platforms.linux;
   };

@@ -1,11 +1,5 @@
-{ stdenv
-, apple_sdk ? null
-, cacert
-, defaultCaFile ? "${cacert}/etc/ssl/certs/ca-bundle.crt"
-, fetchurl
-, libbsd
-, libressl
-, pkgconfig
+{ stdenv, apple_sdk ? null, cacert, defaultCaFile ?
+  "${cacert}/etc/ssl/certs/ca-bundle.crt", fetchurl, libbsd, libressl, pkgconfig
 }:
 
 with stdenv.lib;
@@ -15,7 +9,8 @@ stdenv.mkDerivation rec {
   version = "0.1.16";
 
   src = fetchurl {
-    url = "https://kristaps.bsd.lv/acme-client/snapshots/acme-client-portable-${version}.tgz";
+    url =
+      "https://kristaps.bsd.lv/acme-client/snapshots/acme-client-portable-${version}.tgz";
     sha256 = "00q05b3b1dfnfp7sr1nbd212n0mqrycl3cr9lbs51m7ncaihbrz9";
   };
 
@@ -29,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://kristaps.bsd.lv/acme-client/;
+    homepage = "https://kristaps.bsd.lv/acme-client/";
     description = "Secure ACME/Let's Encrypt client";
     platforms = platforms.unix;
     license = licenses.isc;

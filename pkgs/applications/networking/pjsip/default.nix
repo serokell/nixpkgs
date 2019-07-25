@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.9";
 
   src = fetchurl {
-    url = "https://www.pjsip.org/release/${version}/pjproject-${version}.tar.bz2";
+    url =
+      "https://www.pjsip.org/release/${version}/pjproject-${version}.tar.bz2";
     sha256 = "0dm6l8fypkimmzvld35zyykbg957cm5zb4ny3lchgv68amwfz1fi";
   };
 
@@ -28,10 +29,11 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   meta = {
-    description = "A multimedia communication library written in C, implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE";
-    homepage = https://pjsip.org/;
+    description =
+      "A multimedia communication library written in C, implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE";
+    homepage = "https://pjsip.org/";
     license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = with stdenv.lib.maintainers; [olynch];
+    maintainers = with stdenv.lib.maintainers; [ olynch ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

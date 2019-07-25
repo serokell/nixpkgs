@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, alsaLib, freetype, xorg, curl, libGL, libjack2, gnome3
-, pkgconfig, makeWrapper
+{ stdenv, fetchFromGitHub, alsaLib, freetype, xorg, curl, libGL, libjack2, gnome3, pkgconfig, makeWrapper
 }:
 
 stdenv.mkDerivation rec {
@@ -16,8 +14,18 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    alsaLib freetype xorg.libX11 xorg.libXext xorg.libXinerama xorg.libXrandr
-    xorg.libXcursor xorg.libXcomposite curl libGL libjack2 gnome3.zenity
+    alsaLib
+    freetype
+    xorg.libX11
+    xorg.libXext
+    xorg.libXinerama
+    xorg.libXrandr
+    xorg.libXcursor
+    xorg.libXcomposite
+    curl
+    libGL
+    libjack2
+    gnome3.zenity
   ];
 
   nativeBuildInputs = [ pkgconfig makeWrapper ];
@@ -37,8 +45,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "One music sequencer for all major platforms, both desktop and mobile";
-    homepage = https://helio.fm/;
+    description =
+      "One music sequencer for all major platforms, both desktop and mobile";
+    homepage = "https://helio.fm/";
     license = licenses.gpl3;
     maintainers = [ maintainers.suhr ];
     platforms = [ "x86_64-linux" ];

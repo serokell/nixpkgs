@@ -9,14 +9,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "16nmyw7j2igx5dxflwiwblf421g69rxb879n1553wv6hxi4x27in";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    requests
-    pyquery
-  ];
+  propagatedBuildInputs = with python3Packages; [ requests pyquery ];
 
   meta = with lib; {
     description = "A commandline access to addic7ed subtitles";
-    homepage = https://github.com/BenoitZugmeyer/addic7ed-cli;
+    homepage = "https://github.com/BenoitZugmeyer/addic7ed-cli";
     license = licenses.mit;
     maintainers = with maintainers; [ aethelz ];
     platforms = platforms.unix;

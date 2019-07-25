@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  kmime, qtbase, kcodecs
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kmime, qtbase, kcodecs
 }:
 
 mkDerivation {

@@ -10,17 +10,17 @@ let
   inherit (stdenv.lib) makeLibraryPath;
   libDir = "lib64";
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "arena-1.1";
 
   src = fetchurl {
-    url = http://www.playwitharena.de/downloads/arenalinux_64bit_1.1.tar.gz;
+    url = "http://www.playwitharena.de/downloads/arenalinux_64bit_1.1.tar.gz";
     sha256 = "1sh71v5ymzwflq8ycx9j9kl0jhqllgs6z24h4h8j5z8pwdh528v6";
   };
 
   # stdenv.cc.cc.lib is in that list to pick up libstdc++.so. Is there a better way?
-  buildInputs = [gtk2-x11 glib pango cairo atk gdk_pixbuf libX11 stdenv.cc.cc.lib];
+  buildInputs =
+    [ gtk2-x11 glib pango cairo atk gdk_pixbuf libX11 stdenv.cc.cc.lib ];
 
   unpackPhase = ''
     # This is is a tar bomb, i.e. it extract a dozen files and directories to
@@ -45,7 +45,9 @@ stdenv.mkDerivation rec {
       echo Fixing interpreter and rpath paths in $i ...
       patchelf                                                                                   \
         --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)"                                \
-        --set-rpath ${makeLibraryPath buildInputs}:$(cat $NIX_CC/nix-support/orig-cc)/${libDir}  \
+        --set-rpath ${
+      makeLibraryPath buildInputs
+        }:$(cat $NIX_CC/nix-support/orig-cc)/${libDir}  \
         $i
     done
   '';
@@ -58,7 +60,8 @@ stdenv.mkDerivation rec {
   dontStrip = true;
 
   meta = {
-    description = "Chess GUI for analyzing with and playing against various engines";
+    description =
+      "Chess GUI for analyzing with and playing against various engines";
     longDescription = ''
       A free Graphical User Interface (GUI) for chess. Arena assists you in
       analyzing and playing games as well as in testing chess engines. It runs
@@ -67,7 +70,7 @@ stdenv.mkDerivation rec {
       chess board & DGT clocks and much more.
     '';
     license = stdenv.lib.licenses.unfree;
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
     hydraPlatforms = stdenv.lib.platforms.none;
   };
 

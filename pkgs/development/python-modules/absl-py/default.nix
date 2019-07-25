@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, lib
-, pythonOlder
-, fetchPypi
-, six
-, enum34
-}:
+{ buildPythonPackage, lib, pythonOlder, fetchPypi, six, enum34 }:
 
 buildPythonPackage rec {
   pname = "absl-py";
@@ -15,11 +9,8 @@ buildPythonPackage rec {
     sha256 = "b943d1c567743ed0455878fcd60bc28ac9fae38d129d1ccfad58079da00b8951";
   };
 
-  propagatedBuildInputs = [
-    six
-  ] ++ lib.optionals (pythonOlder "3.4") [
-    enum34
-  ];
+  propagatedBuildInputs = [ six ]
+    ++ lib.optionals (pythonOlder "3.4") [ enum34 ];
 
   # checks use bazel; should be revisited
   doCheck = false;

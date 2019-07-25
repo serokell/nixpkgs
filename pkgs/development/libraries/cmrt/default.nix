@@ -14,9 +14,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ libdrm libva ];
 
   meta = with stdenv.lib; {
-    homepage = https://01.org/linuxmedia;
+    homepage = "https://01.org/linuxmedia";
     description = "Intel C for Media Runtime";
-    longDescription = "Media GPU kernel manager for Intel G45 & HD Graphics family";
+    longDescription =
+      "Media GPU kernel manager for Intel G45 & HD Graphics family";
     license = licenses.mit;
     maintainers = with maintainers; [ tadfisher ];
     platforms = platforms.linux;

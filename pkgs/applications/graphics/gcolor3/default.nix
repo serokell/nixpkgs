@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitLab, meson, ninja, gettext, pkgconfig, libxml2, gtk3, hicolor-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitLab, meson, ninja, gettext, pkgconfig, libxml2, gtk3, hicolor-icon-theme, wrapGAppsHook
+}:
 
-let
-  version = "2.3.1";
+let version = "2.3.1";
 in stdenv.mkDerivation {
   name = "gcolor3-${version}";
 
@@ -24,7 +24,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "A simple color chooser written in GTK3";
-    homepage = https://www.hjdskes.nl/projects/gcolor3/;
+    homepage = "https://www.hjdskes.nl/projects/gcolor3/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.unix;

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub
-, inkscape, xcursorgen }:
+{ stdenv, fetchFromGitHub, inkscape, xcursorgen }:
 
 stdenv.mkDerivation rec {
   pname = "capitaine-cursors";
@@ -16,10 +15,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  buildInputs  =[
-    inkscape
-    xcursorgen
-  ];
+  buildInputs = [ inkscape xcursorgen ];
 
   buildPhase = ''
     # https://github.com/NixOS/nixpkgs/blob/master/pkgs/data/fonts/emojione/default.nix#L16
@@ -36,11 +32,9 @@ stdenv.mkDerivation rec {
     description = ''
       An x-cursor theme inspired by macOS and based on KDE Breeze
     '';
-    homepage = https://github.com/keeferrourke/capitaine-cursors;
+    homepage = "https://github.com/keeferrourke/capitaine-cursors";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      eadwu
-    ];
+    maintainers = with maintainers; [ eadwu ];
   };
 }

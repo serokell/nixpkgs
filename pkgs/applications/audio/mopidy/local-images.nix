@@ -13,19 +13,15 @@ pythonPackages.buildPythonApplication rec {
 
   buildInputs = [ gobject-introspection ];
 
-  checkInputs = [
-    pythonPackages.mock
-  ];
+  checkInputs = [ pythonPackages.mock ];
 
-  propagatedBuildInputs = [
-    mopidy
-    pythonPackages.pykka
-    pythonPackages.uritools
-  ];
+  propagatedBuildInputs =
+    [ mopidy pythonPackages.pykka pythonPackages.uritools ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mopidy/mopidy-local-images;
-    description = "Mopidy local library proxy extension for handling embedded album art";
+    homepage = "https://github.com/mopidy/mopidy-local-images";
+    description =
+      "Mopidy local library proxy extension for handling embedded album art";
     license = licenses.asl20;
     maintainers = [ maintainers.rvolosatovs ];
   };

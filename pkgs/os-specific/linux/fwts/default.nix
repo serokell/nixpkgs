@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, autoreconfHook, pkgconfig, glib, libtool, pcre
-, json_c, flex, bison, dtc, pciutils, dmidecode, iasl, libbsd }:
+{ stdenv, fetchzip, autoreconfHook, pkgconfig, glib, libtool, pcre, json_c, flex, bison, dtc, pciutils, dmidecode, iasl, libbsd
+}:
 
 stdenv.mkDerivation rec {
   name = "fwts-${version}";
@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig libtool ];
-  buildInputs = [ glib pcre json_c flex bison dtc pciutils dmidecode iasl libbsd ];
+  buildInputs =
+    [ glib pcre json_c flex bison dtc pciutils dmidecode iasl libbsd ];
 
   postPatch = ''
     substituteInPlace src/lib/include/fwts_binpaths.h --replace "/usr/bin/lspci"      "${pciutils}/bin/lspci"

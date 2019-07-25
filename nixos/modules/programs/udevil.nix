@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.programs.udevil;
+let cfg = config.programs.udevil;
 
 in {
   options.programs.udevil.enable = mkEnableOption "udevil";

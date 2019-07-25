@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, python, pkgconfig, readline, libxslt
-, docbook_xsl, docbook_xml_dtd_42, fixDarwinDylibNames
-, wafHook
+{ stdenv, fetchurl, python, pkgconfig, readline, libxslt, docbook_xsl, docbook_xml_dtd_42, fixDarwinDylibNames, wafHook
 }:
 
 stdenv.mkDerivation rec {
@@ -11,8 +9,14 @@ stdenv.mkDerivation rec {
     sha256 = "1kk76dyav41ip7ddbbf04yfydb4jvywzi2ps0z2vla56aqkn11di";
   };
 
-  nativeBuildInputs = [ pkgconfig fixDarwinDylibNames python wafHook
-                        docbook_xsl docbook_xml_dtd_42 ];
+  nativeBuildInputs = [
+    pkgconfig
+    fixDarwinDylibNames
+    python
+    wafHook
+    docbook_xsl
+    docbook_xml_dtd_42
+  ];
   buildInputs = [ readline libxslt ];
 
   wafPath = "buildtools/bin/waf";
@@ -34,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Hierarchical pool based memory allocator with destructors";
-    homepage = https://tdb.samba.org/;
+    homepage = "https://tdb.samba.org/";
     license = licenses.gpl3;
     platforms = platforms.all;
   };

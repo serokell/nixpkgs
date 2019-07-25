@@ -1,48 +1,45 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "mysql";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ eelco shlevy ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ eelco shlevy ]; };
 
   nodes = {
-    mysql =
-      { pkgs, ... }:
+    mysql = { pkgs, ... }:
 
-      {
-        services.mysql.enable = true;
-        services.mysql.initialDatabases = [
-          { name = "testdb"; schema = ./testdb.sql; }
-          { name = "empty_testdb"; }
-        ];
-        # note that using pkgs.writeText here is generally not a good idea,
-        # as it will store the password in world-readable /nix/store ;)
-        services.mysql.initialScript = pkgs.writeText "mysql-init.sql" ''
-          CREATE USER 'passworduser'@'localhost' IDENTIFIED BY 'password123';
-        '';
-        services.mysql.package = pkgs.mysql;
-      };
+    {
+      services.mysql.enable = true;
+      services.mysql.initialDatabases = [
+        {
+          name = "testdb";
+          schema = ./testdb.sql;
+        }
+        { name = "empty_testdb"; }
+      ];
+      # note that using pkgs.writeText here is generally not a good idea,
+      # as it will store the password in world-readable /nix/store ;)
+      services.mysql.initialScript = pkgs.writeText "mysql-init.sql" ''
+        CREATE USER 'passworduser'@'localhost' IDENTIFIED BY 'password123';
+      '';
+      services.mysql.package = pkgs.mysql;
+    };
 
-    mariadb =
-      { pkgs, ... }:
+    mariadb = { pkgs, ... }:
 
-      {
-        users.users.testuser = { };
-        services.mysql.enable = true;
-        services.mysql.initialScript = pkgs.writeText "mariadb-init.sql" ''
-          ALTER USER root@localhost IDENTIFIED WITH unix_socket;
-          DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
-          DELETE FROM mysql.user WHERE user = ''';
-          FLUSH PRIVILEGES;
-        '';
-        services.mysql.ensureDatabases = [ "testdb" ];
-        services.mysql.ensureUsers = [{
-          name = "testuser";
-          ensurePermissions = {
-            "testdb.*" = "ALL PRIVILEGES";
-          };
-        }];
-        services.mysql.package = pkgs.mariadb;
-      };
+    {
+      users.users.testuser = { };
+      services.mysql.enable = true;
+      services.mysql.initialScript = pkgs.writeText "mariadb-init.sql" ''
+        ALTER USER root@localhost IDENTIFIED WITH unix_socket;
+        DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
+        DELETE FROM mysql.user WHERE user = ''';
+        FLUSH PRIVILEGES;
+      '';
+      services.mysql.ensureDatabases = [ "testdb" ];
+      services.mysql.ensureUsers = [{
+        name = "testuser";
+        ensurePermissions = { "testdb.*" = "ALL PRIVILEGES"; };
+      }];
+      services.mysql.package = pkgs.mariadb;
+    };
 
   };
 

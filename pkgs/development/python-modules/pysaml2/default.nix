@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, substituteAll
-, xmlsec
-, cryptography, defusedxml, future, pyopenssl, dateutil, pytz, requests, six
-, mock, pyasn1, pymongo, pytest, responses
+{ stdenv, buildPythonPackage, fetchFromGitHub, substituteAll, xmlsec, cryptography, defusedxml, future, pyopenssl, dateutil, pytz, requests, six, mock, pyasn1, pymongo, pytest, responses
 }:
 
 buildPythonPackage rec {
@@ -26,7 +20,8 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ cryptography defusedxml future pyopenssl dateutil pytz requests six ];
+  propagatedBuildInputs =
+    [ cryptography defusedxml future pyopenssl dateutil pytz requests six ];
 
   checkInputs = [ mock pyasn1 pymongo pytest responses ];
 

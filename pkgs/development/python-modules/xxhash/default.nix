@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "1.3.0";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/ifduyue/python-xxhash;
+    homepage = "https://github.com/ifduyue/python-xxhash";
     description = "Python Binding for xxHash https://pypi.org/project/xxhash/";
     license = licenses.bsd2;
     maintainers = [ maintainers.teh ];

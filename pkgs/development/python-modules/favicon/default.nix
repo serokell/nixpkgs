@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, requests, beautifulsoup4, pytest, requests-mock,
-  pytestrunner }:
+{ lib, buildPythonPackage, fetchPypi, requests, beautifulsoup4, pytest, requests-mock, pytestrunner
+}:
 
 buildPythonPackage rec {
   pname = "favicon";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Find a website's favicon";
-    homepage = https://github.com/scottwernervt/favicon;
+    homepage = "https://github.com/scottwernervt/favicon";
     license = licenses.mit;
     maintainers = with maintainers; [ elohmeier ];
   };

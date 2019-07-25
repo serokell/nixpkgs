@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, boost, libxml2, pkgconfig, docbook2x, curl, autoreconfHook, cppunit }:
+{ stdenv, fetchFromGitHub, boost, libxml2, pkgconfig, docbook2x, curl, autoreconfHook, cppunit
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcmis";
@@ -14,10 +15,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig docbook2x ];
   buildInputs = [ boost libxml2 curl cppunit ];
 
-  configureFlags = [
-    "--disable-werror"
-    "DOCBOOK2MAN=${docbook2x}/bin/docbook2man"
-  ];
+  configureFlags =
+    [ "--disable-werror" "DOCBOOK2MAN=${docbook2x}/bin/docbook2man" ];
 
   doCheck = true;
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "C++ client library for the CMIS interface";
-    homepage = https://sourceforge.net/projects/libcmis/;
+    homepage = "https://sourceforge.net/projects/libcmis/";
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

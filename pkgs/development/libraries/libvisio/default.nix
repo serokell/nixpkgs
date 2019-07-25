@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, boost, libwpd, libwpg, pkgconfig, zlib, gperf
-, librevenge, libxml2, icu, perl, cppunit, doxygen
+{ stdenv, fetchurl, boost, libwpd, libwpg, pkgconfig, zlib, gperf, librevenge, libxml2, icu, perl, cppunit, doxygen
 }:
 
 stdenv.mkDerivation rec {
@@ -16,15 +15,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig cppunit doxygen ];
   buildInputs = [ boost libwpd libwpg zlib gperf librevenge libxml2 icu perl ];
 
-  configureFlags = [
-    "--disable-werror"
-  ];
+  configureFlags = [ "--disable-werror" ];
 
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "A library providing ability to interpret and import visio diagrams into various applications";
-    homepage = https://wiki.documentfoundation.org/DLP/Libraries/libvisio;
+    description =
+      "A library providing ability to interpret and import visio diagrams into various applications";
+    homepage = "https://wiki.documentfoundation.org/DLP/Libraries/libvisio";
     license = licenses.mpl20;
     platforms = platforms.unix;
   };

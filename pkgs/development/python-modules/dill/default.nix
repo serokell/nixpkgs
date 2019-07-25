@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   pname = "dill";
@@ -25,7 +21,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Serialize all of python (almost)";
-    homepage = http://www.cacr.caltech.edu/~mmckerns/dill.htm;
+    homepage = "http://www.cacr.caltech.edu/~mmckerns/dill.htm";
     license = lib.licenses.bsd3;
   };
 }

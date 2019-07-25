@@ -24,10 +24,10 @@ buildGoPackage rec {
     inherit version;
     description = "aws-vault like tool for Okta authentication";
     license = licenses.mit;
-    maintainers = [maintainers.imalsogreg];
-    broken = stdenv.isDarwin;  # test with CoreFoundation 10.11
+    maintainers = [ maintainers.imalsogreg ];
+    broken = stdenv.isDarwin; # test with CoreFoundation 10.11
     platforms = platforms.all;
-    homepage = https://github.com/segmentio/aws-okta;
+    homepage = "https://github.com/segmentio/aws-okta";
     downloadPage = "https://github.com/segmentio/aws-okta";
   };
 }

@@ -1,22 +1,11 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, flask
-, pyquery
-, pytest
-, pytestrunner
-, cairosvg
-, tinycss
-, cssselect
-, lxml
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, flask, pyquery, pytest, pytestrunner, cairosvg, tinycss, cssselect, lxml
 }:
 
 buildPythonPackage rec {
   pname = "pygal";
   version = "2.4.0";
 
-  doCheck = !isPyPy;  # one check fails with pypy
+  doCheck = !isPyPy; # one check fails with pypy
 
   src = fetchPypi {
     inherit pname version;
@@ -32,9 +21,7 @@ buildPythonPackage rec {
     pytestrunner
   ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   preCheck = ''
     # necessary on darwin to pass the testsuite
@@ -50,7 +37,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Sexy and simple python charting";
-    homepage = http://www.pygal.org;
+    homepage = "http://www.pygal.org";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ sjourdois ];
   };

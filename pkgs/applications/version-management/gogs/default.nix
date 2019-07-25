@@ -1,8 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper
-, git, bash, gzip, openssh, pam
-, sqliteSupport ? true
-, pamSupport ? true
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, git, bash, gzip, openssh, pam, sqliteSupport ?
+  true, pamSupport ? true }:
 
 with stdenv.lib;
 
@@ -24,14 +21,12 @@ buildGoPackage rec {
     substituteInPlace pkg/setting/setting.go --subst-var data
   '';
 
-  nativeBuildInputs = [ makeWrapper ]
-    ++ optional pamSupport pam;
+  nativeBuildInputs = [ makeWrapper ] ++ optional pamSupport pam;
 
   buildFlags = "-tags";
 
   buildFlagsArray =
-    (  optional sqliteSupport "sqlite"
-    ++ optional pamSupport "pam");
+    (optional sqliteSupport "sqlite" ++ optional pamSupport "pam");
 
   outputs = [ "bin" "out" "data" ];
 
@@ -47,7 +42,7 @@ buildGoPackage rec {
 
   meta = {
     description = "A painless self-hosted Git service";
-    homepage = https://gogs.io;
+    homepage = "https://gogs.io";
     license = licenses.mit;
     maintainers = [ maintainers.schneefux ];
   };

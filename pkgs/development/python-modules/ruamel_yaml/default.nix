@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, ruamel_base
-, ruamel_ordereddict
-, isPy3k
+{ stdenv, buildPythonPackage, fetchPypi, ruamel_base, ruamel_ordereddict, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -22,8 +17,9 @@ buildPythonPackage rec {
     ++ stdenv.lib.optional (!isPy3k) ruamel_ordereddict;
 
   meta = with stdenv.lib; {
-    description = "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order";
-    homepage = https://bitbucket.org/ruamel/yaml;
+    description =
+      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order";
+    homepage = "https://bitbucket.org/ruamel/yaml";
     license = licenses.mit;
   };
 

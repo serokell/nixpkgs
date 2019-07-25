@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, jsoncpp, argtable, curl, libmicrohttpd
-, doxygen, catch, pkgconfig
+{ stdenv, fetchFromGitHub, cmake, jsoncpp, argtable, curl, libmicrohttpd, doxygen, catch, pkgconfig
 }:
 
 stdenv.mkDerivation rec {
@@ -39,7 +38,9 @@ stdenv.mkDerivation rec {
 
     function fixRunPath {
       p=$(patchelf --print-rpath $1)
-      q="$p:${stdenv.lib.makeLibraryPath [ jsoncpp argtable libmicrohttpd curl ]}:$out/lib"
+      q="$p:${
+      stdenv.lib.makeLibraryPath [ jsoncpp argtable libmicrohttpd curl ]
+      }:$out/lib"
       patchelf --set-rpath $q $1
     }
 
@@ -60,7 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "C++ framework for json-rpc (json remote procedure call)";
-    homepage = https://github.com/cinemast/libjson-rpc-cpp;
+    homepage = "https://github.com/cinemast/libjson-rpc-cpp";
     license = licenses.mit;
     platforms = platforms.linux;
   };

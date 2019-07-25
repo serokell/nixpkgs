@@ -18,8 +18,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = http://www.sqlite.org/;
-    description = "A single C code file, named sqlite3.c, that contains all C code for the core SQLite library and the FTS3 and RTREE extensions";
+    homepage = "http://www.sqlite.org/";
+    description =
+      "A single C code file, named sqlite3.c, that contains all C code for the core SQLite library and the FTS3 and RTREE extensions";
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ lib.maintainers.lassulus ];
   };

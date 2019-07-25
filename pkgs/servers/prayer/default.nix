@@ -1,10 +1,9 @@
-{ stdenv, fetchurl, perl, openssl, db, zlib, uwimap, html-tidy, pam}:
+{ stdenv, fetchurl, perl, openssl, db, zlib, uwimap, html-tidy, pam }:
 
 let
   ssl = stdenv.lib.optionals uwimap.withSSL
     "-e 's/CCLIENT_SSL_ENABLE.*= false/CCLIENT_SSL_ENABLE=true/'";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "prayer-1.3.5";
 
   src = fetchurl {
@@ -22,10 +21,11 @@ stdenv.mkDerivation rec {
       Config
     sed -i -e s,/usr/bin/perl,${perl}/bin/perl, \
       templates/src/*.pl
-  '' + /* html-tidy updates */ ''
-    substituteInPlace ./session/html_secure_tidy.c \
-      --replace buffio.h tidybuffio.h
-  '';
+  '' + # html-tidy updates
+    ''
+      substituteInPlace ./session/html_secure_tidy.c \
+        --replace buffio.h tidybuffio.h
+    '';
 
   buildInputs = [ openssl db zlib uwimap html-tidy pam ];
   nativeBuildInputs = [ perl ];
@@ -33,8 +33,9 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = "-lpam";
 
   meta = {
-    homepage = http://www-uxsup.csx.cam.ac.uk/~dpc22/prayer/;
-    description = "Yet another Webmail interface for IMAP servers on Unix systems written in C";
+    homepage = "http://www-uxsup.csx.cam.ac.uk/~dpc22/prayer/";
+    description =
+      "Yet another Webmail interface for IMAP servers on Unix systems written in C";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
   };

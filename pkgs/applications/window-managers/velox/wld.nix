@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig
-, wayland, fontconfig, pixman, freetype, libdrm
+{ lib, stdenv, fetchFromGitHub, pkgconfig, wayland, fontconfig, pixman, freetype, libdrm
 }:
 
 stdenv.mkDerivation rec {
@@ -24,9 +23,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A primitive drawing library targeted at Wayland";
-    homepage    = src.meta.homepage;
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.linux;
+    homepage = src.meta.homepage;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ ];
   };
 }

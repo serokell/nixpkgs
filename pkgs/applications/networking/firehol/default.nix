@@ -1,10 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, pkgs
-, autoconf, automake, curl, iprange, iproute, ipset, iptables, iputils
-, kmod, nettools, procps, tcpdump, traceroute, utillinux, whois
+{ stdenv, lib, fetchFromGitHub, pkgs, autoconf, automake, curl, iprange, iproute, ipset, iptables, iputils, kmod, nettools, procps, tcpdump, traceroute, utillinux, whois
 
 # If true, just install FireQOS without FireHOL
-, onlyQOS ? false
-}:
+, onlyQOS ? false }:
 
 stdenv.mkDerivation rec {
   name = "firehol-${version}";
@@ -20,8 +17,7 @@ stdenv.mkDerivation rec {
   patches = [
     # configure tries to determine if `ping6` or the newer, combined
     # `ping` is installed by using `ping -6` which would fail.
-    (pkgs.writeText "firehol-ping6.patch"
-      ''
+    (pkgs.writeText "firehol-ping6.patch" ''
       --- a/m4/ax_check_ping_ipv6.m4
       +++ b/m4/ax_check_ping_ipv6.m4
       @@ -42,16 +42,16 @@ AC_DEFUN([AX_CHECK_PING_IPV6],
@@ -51,24 +47,22 @@ stdenv.mkDerivation rec {
            ])
 
            AS_IF([test "x$ac_cv_ping_6_opt" = "xyes"],[
-      '')
+    '')
 
     # put firehol config files in /etc/firehol (not $out/etc/firehol)
     # to avoid error on startup, see #35114
-    (pkgs.writeText "firehol-sysconfdir.patch"
-      ''
+    (pkgs.writeText "firehol-sysconfdir.patch" ''
       --- a/sbin/install.config.in.in
       +++ b/sbin/install.config.in.in
       @@ -4 +4 @@
       -SYSCONFDIR="@sysconfdir_POST@"
       +SYSCONFDIR="/etc"
-      '')
+    '')
 
     # we must quote "$UNAME_CMD", or the dash in /nix/store/...-coreutils-.../bin/uname
     # will be interpreted as IFS -> error. this might be considered an upstream bug
     # but only appears when there are dashes in the command path
-    (pkgs.writeText "firehol-uname-command.patch"
-      ''
+    (pkgs.writeText "firehol-uname-command.patch" ''
       --- a/sbin/firehol
       +++ b/sbin/firehol
       @@ -10295,7 +10295,7 @@
@@ -80,19 +74,29 @@ stdenv.mkDerivation rec {
        	eval $kmaj=\$1 $kmin=\$2
        }
        kernel_maj_min KERNELMAJ KERNELMIN
-      '')
+    '')
   ];
-  
+
   nativeBuildInputs = [ autoconf automake ];
   buildInputs = [
-    curl iprange iproute ipset iptables iputils kmod
-    nettools procps tcpdump traceroute utillinux whois
+    curl
+    iprange
+    iproute
+    ipset
+    iptables
+    iputils
+    kmod
+    nettools
+    procps
+    tcpdump
+    traceroute
+    utillinux
+    whois
   ];
 
   preConfigure = "./autogen.sh";
-  configureFlags = [ "--localstatedir=/var"
-                     "--disable-doc" "--disable-man" ] ++
-                   lib.optional onlyQOS [ "--disable-firehol" ];
+  configureFlags = [ "--localstatedir=/var" "--disable-doc" "--disable-man" ]
+    ++ lib.optional onlyQOS [ "--disable-firehol" ];
 
   meta = with stdenv.lib; {
     description = "A firewall for humans";
@@ -100,7 +104,7 @@ stdenv.mkDerivation rec {
       FireHOL, an iptables stateful packet filtering firewall for humans!
       FireQOS, a TC based bandwidth shaper for humans!
     '';
-    homepage = https://firehol.org/;
+    homepage = "https://firehol.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ geistesk ];
     platforms = platforms.linux;

@@ -2,17 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.owamp;
-in
-{
+let cfg = config.services.owamp;
+in {
 
   ###### interface
 
-  options = {
-    services.owamp.enable = mkEnableOption ''Enable OWAMP server'';
-  };
-
+  options = { services.owamp.enable = mkEnableOption "Enable OWAMP server"; };
 
   ###### implementation
 
@@ -23,19 +18,18 @@ in
       description = "Owamp daemon";
     };
 
-    users.groups = singleton {
-      name = "owamp";
-    };
+    users.groups = singleton { name = "owamp"; };
 
     systemd.services.owamp = {
       description = "Owamp server";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart="${pkgs.owamp}/bin/owampd -R /run/owamp -d /run/owamp -v -Z ";
+        ExecStart =
+          "${pkgs.owamp}/bin/owampd -R /run/owamp -d /run/owamp -v -Z ";
         PrivateTmp = true;
         Restart = "always";
-        Type="simple";
+        Type = "simple";
         User = "owamp";
         Group = "owamp";
         RuntimeDirectory = "owamp";

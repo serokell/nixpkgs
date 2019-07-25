@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, eigen
-, nlopt
-, ipopt
-, boost
-, pagmo2
-, numpy
-, cloudpickle
-, ipyparallel
-, numba
-, python
+{ lib, buildPythonPackage, eigen, nlopt, ipopt, boost, pagmo2, numpy, cloudpickle, ipyparallel, numba, python
 }:
 
 let
@@ -45,7 +34,7 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     description = "Parallel optimisation for Python";
-    homepage = https://esa.github.io/pagmo2/;
+    homepage = "https://esa.github.io/pagmo2/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, openssl, botan2, log4cplus
-, boost, python3, postgresql, mysql, gmp, bzip2 }:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, openssl, botan2, log4cplus, boost, python3, postgresql, mysql, gmp, bzip2
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -25,15 +25,13 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [
-    openssl log4cplus boost python3 mysql.connector-c
-    botan2 gmp bzip2
-  ];
+  buildInputs =
+    [ openssl log4cplus boost python3 mysql.connector-c botan2 gmp bzip2 ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://kea.isc.org/;
+    homepage = "https://kea.isc.org/";
     description = "High-performance, extensible DHCP server by ISC";
     longDescription = ''
       KEA is a new open source DHCPv4/DHCPv6 server being developed by

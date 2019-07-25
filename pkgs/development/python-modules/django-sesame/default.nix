@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, django }:
+{ lib, buildPythonPackage, fetchPypi, django }:
 
 buildPythonPackage rec {
   pname = "django-sesame";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "URLs with authentication tokens for automatic login";
-    homepage = https://github.com/aaugustin/django-sesame;
+    homepage = "https://github.com/aaugustin/django-sesame";
     license = licenses.bsd3;
     maintainers = with maintainers; [ elohmeier ];
   };

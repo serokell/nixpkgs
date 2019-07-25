@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, lib } : 
+{ stdenv, fetchFromGitHub, lib }:
 
 stdenv.mkDerivation rec {
   name = "pgpkeyserver-lite-${version}";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/mattrude/pgpkeyserver-lite;
+    homepage = "https://github.com/mattrude/pgpkeyserver-lite";
     description = "A lightweight static front-end for a sks keyserver.";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.calbrecht ];

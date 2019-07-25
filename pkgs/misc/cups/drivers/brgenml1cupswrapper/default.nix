@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, makeWrapper, cups, perl, coreutils, gnused, gnugrep
-, brgenml1lpr, debugLvl ? "0"}:
+{ stdenv, fetchurl, makeWrapper, cups, perl, coreutils, gnused, gnugrep, brgenml1lpr, debugLvl ?
+  "0" }:
 
-/*
-    [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
+/* [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
 
     URI example
      ~  `lpd://BRW0080927AFBCE/binary_p1`
@@ -89,7 +88,6 @@ stdenv.mkDerivation rec {
       --replace "/etc/cups/ppd" "$out/share/cups/model"
   '';
 
-
   installPhase = ''
     CUPSFILTER_DIR=$out/lib/cups/filter
     CUPSPPD_DIR=$out/share/cups/model
@@ -116,7 +114,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Brother BrGenML1 CUPS wrapper driver";
-    homepage = http://www.brother.com;
+    homepage = "http://www.brother.com";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = with stdenv.lib.maintainers; [ jraygauthier ];

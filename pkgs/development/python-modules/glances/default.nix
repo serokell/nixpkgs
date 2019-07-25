@@ -1,11 +1,8 @@
-{ buildPythonPackage, fetchFromGitHub, isPyPy, lib
-, psutil, setuptools, bottle, batinfo, pysnmp
-, hddtemp, future
+{ buildPythonPackage, fetchFromGitHub, isPyPy, lib, psutil, setuptools, bottle, batinfo, pysnmp, hddtemp, future
 # Optional dependencies:
 , netifaces # IP module
 # Tests:
-, unittest2
-}:
+, unittest2 }:
 
 buildPythonPackage rec {
   name = "glances-${version}";
@@ -25,16 +22,15 @@ buildPythonPackage rec {
   doCheck = true;
   checkInputs = [ unittest2 ];
 
-  propagatedBuildInputs = [ psutil setuptools bottle batinfo pysnmp hddtemp future
-    netifaces
-  ];
+  propagatedBuildInputs =
+    [ psutil setuptools bottle batinfo pysnmp hddtemp future netifaces ];
 
   preConfigure = ''
     sed -i 's/data_files\.append((conf_path/data_files.append(("etc\/glances"/' setup.py;
   '';
 
   meta = with lib; {
-    homepage = https://nicolargo.github.io/glances/;
+    homepage = "https://nicolargo.github.io/glances/";
     description = "Cross-platform curses-based monitoring tool";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ primeos koral ];

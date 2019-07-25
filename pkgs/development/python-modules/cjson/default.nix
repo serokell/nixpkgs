@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A very fast JSON encoder/decoder for Python";
-    homepage = http://ag-projects.com/;
+    homepage = "http://ag-projects.com/";
     license = licenses.lgpl2;
   };
 }

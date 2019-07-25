@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
-, libsodium, mbedtls, libev, c-ares, pcre
-, asciidoc, xmlto, docbook_xml_dtd_45, docbook_xsl, libxslt
+{ stdenv, fetchFromGitHub, cmake, libsodium, mbedtls, libev, c-ares, pcre, asciidoc, xmlto, docbook_xml_dtd_45, docbook_xsl, libxslt
 }:
 
 stdenv.mkDerivation rec {
@@ -17,10 +15,10 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ libsodium mbedtls libev c-ares pcre ];
-  nativeBuildInputs = [ cmake asciidoc xmlto docbook_xml_dtd_45
-                        docbook_xsl libxslt ];
+  nativeBuildInputs =
+    [ cmake asciidoc xmlto docbook_xml_dtd_45 docbook_xsl libxslt ];
 
-  cmakeFlags = [ "-DWITH_STATIC=OFF"  "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
+  cmakeFlags = [ "-DWITH_STATIC=OFF" "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
 
   postInstall = ''
     cp lib/* $out/lib
@@ -32,7 +30,7 @@ stdenv.mkDerivation rec {
       Shadowsocks-libev is a lightweight secured SOCKS5 proxy for embedded devices and low-end boxes.
       It is a port of Shadowsocks created by @clowwindy, which is maintained by @madeye and @linusyang.
     '';
-    homepage = https://github.com/shadowsocks/shadowsocks-libev;
+    homepage = "https://github.com/shadowsocks/shadowsocks-libev";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.nfjinjing ];
     platforms = platforms.all;

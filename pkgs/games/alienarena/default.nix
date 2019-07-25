@@ -1,17 +1,27 @@
-{ stdenv, fetchurl, pkgconfig, libjpeg, libX11, libXxf86vm, curl, libogg
-, libvorbis, freetype, openal, libGLU_combined }:
+{ stdenv, fetchurl, pkgconfig, libjpeg, libX11, libXxf86vm, curl, libogg, libvorbis, freetype, openal, libGLU_combined
+}:
 
 stdenv.mkDerivation rec {
   name = "alienarena-7.65";
 
   src = fetchurl {
-    url = "https://icculus.org/alienarena/Files/alienarena-7.65-linux20130207.tar.gz";
+    url =
+      "https://icculus.org/alienarena/Files/alienarena-7.65-linux20130207.tar.gz";
     sha256 = "03nnv4m2xmswr0020hssajncdb8sy95jp5yccsm53sgxga4r8igg";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libjpeg libX11 curl libogg libvorbis
-                  freetype openal libGLU_combined libXxf86vm ];
+  buildInputs = [
+    libjpeg
+    libX11
+    curl
+    libogg
+    libvorbis
+    freetype
+    openal
+    libGLU_combined
+    libXxf86vm
+  ];
 
   patchPhase = ''
     substituteInPlace ./configure \
@@ -30,11 +40,11 @@ stdenv.mkDerivation rec {
       with a retro alien theme, while adding tons of original ideas to
       make the game quite unique.
     '';
-    homepage = http://red.planetarena.org;
+    homepage = "http://red.planetarena.org";
     # Engine is under GPLv2, everything else is under
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ astsmtl ];
     platforms = platforms.linux;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

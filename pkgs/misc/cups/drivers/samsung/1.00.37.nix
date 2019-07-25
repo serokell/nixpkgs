@@ -2,9 +2,8 @@
 
 let
 
-    arch = if stdenv.hostPlatform.system == "x86_64-linux"
-      then "x86_64"
-      else "i386";
+  arch =
+    if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "i386";
 
 in stdenv.mkDerivation rec {
   name = "samsung-unified-linux-driver-${version}";
@@ -12,14 +11,11 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     sha256 = "0r66l9zp0p1qgakh4j08hynwsr4lsgq5yrpxyr0x4ldvl0z2b1bb";
-    url = "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
+    url =
+      "http://www.bchemnet.com/suldr/driver/UnifiedLinuxDriver-${version}.tar.gz";
   };
 
-  buildInputs = [
-    cups
-    libusb
-    libxml2
-  ];
+  buildInputs = [ cups libusb libxml2 ];
 
   installPhase = ''
 
@@ -73,7 +69,9 @@ in stdenv.mkDerivation rec {
       patchelf --set-rpath "$out/lib:${stdenv.lib.getLib cups}/lib" "$bin"
     done
 
-    patchelf --set-rpath "$out/lib:${stdenv.lib.getLib cups}/lib" "$out/lib/libscmssc.so"
+    patchelf --set-rpath "$out/lib:${
+      stdenv.lib.getLib cups
+    }/lib" "$out/lib/libscmssc.so"
     patchelf --set-rpath "$out/lib:${libxml2.out}/lib:${libusb.out}/lib" "$out/lib/sane/libsane-smfp.so.1.0.1"
 
     ln -s ${stdenv.cc.cc.lib}/lib/libstdc++.so.6 $out/lib/
@@ -87,8 +85,8 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Unified Linux Driver for Samsung printers and scanners";
-    homepage = http://www.bchemnet.com/suldr;
-    downloadPage = http://www.bchemnet.com/suldr/driver/;
+    homepage = "http://www.bchemnet.com/suldr";
+    downloadPage = "http://www.bchemnet.com/suldr/driver/";
     license = licenses.unfree;
 
     # Tested on linux-x86_64. Might work on linux-i386.

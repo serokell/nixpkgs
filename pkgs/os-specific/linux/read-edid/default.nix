@@ -12,7 +12,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optional (stdenv.isi686 || stdenv.isx86_64) libx86;
 
-  cmakeFlags = [ "-DCLASSICBUILD=${if stdenv.isi686 || stdenv.isx86_64 then "ON" else "OFF"}" ];
+  cmakeFlags = [
+    "-DCLASSICBUILD=${if stdenv.isi686 || stdenv.isx86_64 then "ON" else "OFF"}"
+  ];
 
   patchPhase = ''
     substituteInPlace CMakeLists.txt --replace 'COPYING' 'LICENSE'
@@ -20,8 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tool for reading and parsing EDID data from monitors";
-    homepage = http://www.polypux.org/projects/read-edid/;
-    license = licenses.bsd2; # Quoted: "This is an unofficial license. Let's call it BSD-like."
+    homepage = "http://www.polypux.org/projects/read-edid/";
+    license =
+      licenses.bsd2; # Quoted: "This is an unofficial license. Let's call it BSD-like."
     maintainers = [ maintainers.dezgeg ];
     platforms = platforms.linux;
   };

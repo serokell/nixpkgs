@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, cmake, ninja, pkgconfig
-, opencv, openexr, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng
-, withGimpPlugin ? true, gimp ? null}:
+{ stdenv, fetchurl, cmake, ninja, pkgconfig, opencv, openexr, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng, withGimpPlugin ?
+  true, gimp ? null }:
 
 assert withGimpPlugin -> gimp != null;
 
@@ -15,7 +14,8 @@ let
 in stdenv.mkDerivation rec {
   name = "gmic-${version}";
 
-  outputs = [ "out" "lib" "dev" "man" ] ++ stdenv.lib.optional withGimpPlugin "gimpPlugin";
+  outputs = [ "out" "lib" "dev" "man" ]
+    ++ stdenv.lib.optional withGimpPlugin "gimpPlugin";
 
   src = fetchurl {
     url = "https://gmic.eu/files/source/gmic_${version}.tar.gz";
@@ -24,23 +24,26 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ninja pkgconfig ];
 
-  buildInputs = [
-    fftw zlib libjpeg libtiff libpng opencv openexr graphicsmagick
-  ] ++ stdenv.lib.optionals withGimpPlugin [ gimp gimp.gtk ];
+  buildInputs =
+    [ fftw zlib libjpeg libtiff libpng opencv openexr graphicsmagick ]
+    ++ stdenv.lib.optionals withGimpPlugin [ gimp gimp.gtk ];
 
   cmakeFlags = [
     "-DBUILD_LIB_STATIC=OFF"
     "-DBUILD_PLUGIN=${if withGimpPlugin then "ON" else "OFF"}"
     "-DENABLE_DYNAMIC_LINKING=ON"
-  ] ++ stdenv.lib.optional withGimpPlugin "-DPLUGIN_INSTALL_PREFIX=${placeholder "gimpPlugin"}/${gimp.targetPluginDir}";
+  ] ++ stdenv.lib.optional withGimpPlugin "-DPLUGIN_INSTALL_PREFIX=${
+    placeholder "gimpPlugin"
+  }/${gimp.targetPluginDir}";
 
   postPatch = ''
     cp ${CMakeLists} CMakeLists.txt
   '';
 
   meta = with stdenv.lib; {
-    description = "G'MIC is an open and full-featured framework for image processing";
-    homepage = http://gmic.eu/;
+    description =
+      "G'MIC is an open and full-featured framework for image processing";
+    homepage = "http://gmic.eu/";
     license = licenses.cecill20;
     platforms = platforms.unix;
   };

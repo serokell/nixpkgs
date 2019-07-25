@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation rec {
   name = "libaacs-${version}";
-  version  = "0.9.0";
+  version = "0.9.0";
 
   src = fetchurl {
     url = "http://get.videolan.org/libaacs/${version}/${name}.tar.bz2";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ yacc flex ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.videolan.org/developers/libaacs.html;
+    homepage = "https://www.videolan.org/developers/libaacs.html";
     description = "Library to access AACS protected Blu-Ray disks";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ abbradar ];

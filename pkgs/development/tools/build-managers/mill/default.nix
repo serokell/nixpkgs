@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.4.1";
 
   src = fetchurl {
-    url = "https://github.com/lihaoyi/mill/releases/download/${version}/${version}";
+    url =
+      "https://github.com/lihaoyi/mill/releases/download/${version}/${version}";
     sha256 = "17im60ckbd5hbpkl4pb3nr3mg5crln4sphd7d0dgzsrs3p9h194x";
   };
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.lihaoyi.com/mill;
+    homepage = "https://www.lihaoyi.com/mill";
     license = licenses.mit;
     description = "A build tool for Scala, Java and more";
     longDescription = ''

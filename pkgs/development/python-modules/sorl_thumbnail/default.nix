@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "sorl-thumbnail";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://sorl-thumbnail.readthedocs.org/en/latest/;
+    homepage = "https://sorl-thumbnail.readthedocs.org/en/latest/";
     description = "Thumbnails for Django";
     license = licenses.bsd3;
   };

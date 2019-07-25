@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, mock, tornado, pyopenssl, cryptography
-, idna, certifi, ipaddress, pysocks }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, tornado, pyopenssl, cryptography, idna, certifi, ipaddress, pysocks
+}:
 
 buildPythonPackage rec {
   pname = "urllib3";
@@ -12,8 +11,12 @@ buildPythonPackage rec {
   };
 
   NOSE_EXCLUDE = stdenv.lib.concatStringsSep "," [
-    "test_headers" "test_headerdict" "test_can_validate_ip_san" "test_delayed_body_read_timeout"
-    "test_timeout_errors_cause_retries" "test_select_multiple_interrupts_with_event"
+    "test_headers"
+    "test_headerdict"
+    "test_can_validate_ip_san"
+    "test_delayed_body_read_timeout"
+    "test_timeout_errors_cause_retries"
+    "test_select_multiple_interrupts_with_event"
   ];
 
   checkPhase = ''
@@ -23,11 +26,12 @@ buildPythonPackage rec {
   doCheck = false;
 
   checkInputs = [ pytest mock tornado ];
-  propagatedBuildInputs = [ pyopenssl cryptography idna certifi ipaddress pysocks ];
+  propagatedBuildInputs =
+    [ pyopenssl cryptography idna certifi ipaddress pysocks ];
 
   meta = with stdenv.lib; {
     description = "Powerful, sanity-friendly HTTP client for Python";
-    homepage = https://github.com/shazow/urllib3;
+    homepage = "https://github.com/shazow/urllib3";
     license = licenses.mit;
   };
 }

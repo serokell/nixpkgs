@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, scons, pkgconfig, which, makeWrapper, python3
-, libraw1394, libconfig, libavc1394, libiec61883, libxmlxx3
-, glibmm
-, dbus, dbus_cplusplus
+{ stdenv, fetchurl, scons, pkgconfig, which, makeWrapper, python3, libraw1394, libconfig, libavc1394, libiec61883, libxmlxx3, glibmm, dbus, dbus_cplusplus
 }:
 
 let
@@ -55,11 +52,13 @@ in stdenv.mkDerivation rec {
 
   postInstall = ''
     # prevent build tools from leaking into closure
-    echo 'See `nix-store --query --tree ${placeholder "out"}`.' > $out/lib/libffado/static_info.txt
+    echo 'See `nix-store --query --tree ${
+      placeholder "out"
+    }`.' > $out/lib/libffado/static_info.txt
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.ffado.org;
+    homepage = "http://www.ffado.org";
     description = "FireWire audio drivers";
     license = licenses.gpl3;
     maintainers = with maintainers; [ goibhniu ];

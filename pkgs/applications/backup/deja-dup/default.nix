@@ -1,8 +1,4 @@
-{ stdenv, fetchFromGitLab, substituteAll, meson, ninja, pkgconfig, vala_0_40, gettext
-, gnome3, libnotify, itstool, glib, gtk3, libxml2
-, coreutils, libpeas, libsecret, pcre, libxkbcommon, wrapGAppsHook
-, libpthreadstubs, libXdmcp, epoxy, at-spi2-core, dbus, libgpgerror
-, appstream-glib, desktop-file-utils, duplicity
+{ stdenv, fetchFromGitLab, substituteAll, meson, ninja, pkgconfig, vala_0_40, gettext, gnome3, libnotify, itstool, glib, gtk3, libxml2, coreutils, libpeas, libsecret, pcre, libxkbcommon, wrapGAppsHook, libpthreadstubs, libXdmcp, epoxy, at-spi2-core, dbus, libgpgerror, appstream-glib, desktop-file-utils, duplicity
 }:
 
 stdenv.mkDerivation rec {
@@ -30,19 +26,40 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    meson ninja pkgconfig vala_0_40 gettext itstool
-    appstream-glib desktop-file-utils libxml2 wrapGAppsHook
+    meson
+    ninja
+    pkgconfig
+    vala_0_40
+    gettext
+    itstool
+    appstream-glib
+    desktop-file-utils
+    libxml2
+    wrapGAppsHook
   ];
 
   buildInputs = [
-   libnotify libpeas glib gtk3 libsecret
-   pcre libxkbcommon libpthreadstubs libXdmcp epoxy gnome3.nautilus
-   at-spi2-core dbus gnome3.gnome-online-accounts libgpgerror
+    libnotify
+    libpeas
+    glib
+    gtk3
+    libsecret
+    pcre
+    libxkbcommon
+    libpthreadstubs
+    libXdmcp
+    epoxy
+    gnome3.nautilus
+    at-spi2-core
+    dbus
+    gnome3.gnome-online-accounts
+    libgpgerror
   ];
 
   propagatedUserEnvPkgs = [ duplicity ];
 
-  PKG_CONFIG_LIBNAUTILUS_EXTENSION_EXTENSIONDIR = "${placeholder "out"}/lib/nautilus/extensions-3.0";
+  PKG_CONFIG_LIBNAUTILUS_EXTENSION_EXTENSIONDIR =
+    "${placeholder "out"}/lib/nautilus/extensions-3.0";
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas
@@ -60,7 +77,7 @@ stdenv.mkDerivation rec {
       of backing up the Right Way (encrypted, off-site, and regular) \
       and uses duplicity as the backend.
     '';
-    homepage = https://wiki.gnome.org/Apps/DejaDup;
+    homepage = "https://wiki.gnome.org/Apps/DejaDup";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jtojnar joncojonathan ];
     platforms = platforms.linux;

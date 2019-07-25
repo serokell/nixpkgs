@@ -1,6 +1,5 @@
-{ lib, fetchFromGitHub, buildDunePackage
-, core, lwt ? ocaml_lwt, ocaml_lwt, ocamlgraph, rresult, tyxml
-}:
+{ lib, fetchFromGitHub, buildDunePackage, core, lwt ?
+  ocaml_lwt, ocaml_lwt, ocamlgraph, rresult, tyxml }:
 
 buildDunePackage rec {
   pname = "bistro";

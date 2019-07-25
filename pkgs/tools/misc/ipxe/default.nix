@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchgit, perl, cdrkit, syslinux, xz, openssl, gnu-efi, mtools
-, embedScript ? null
-, additionalTargets ? {}
-}:
+{ stdenv, lib, fetchgit, perl, cdrkit, syslinux, xz, openssl, gnu-efi, mtools, embedScript ?
+  null, additionalTargets ? { } }:
 
 let
   date = "20190318";
@@ -17,15 +15,14 @@ let
     "bin/ipxe.lkrn" = null;
     "bin/undionly.kpxe" = null;
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "ipxe-${date}-${builtins.substring 0 7 rev}";
 
   nativeBuildInputs = [ perl cdrkit syslinux xz openssl gnu-efi mtools ];
 
   src = fetchgit {
-    url = https://git.ipxe.org/ipxe.git;
+    url = "https://git.ipxe.org/ipxe.git";
     sha256 = "0if3m8h1nfxy4n37cwlfbc5kand52290v80m4zvjppc81im3nr5g";
     inherit rev;
   };
@@ -35,12 +32,12 @@ stdenv.mkDerivation {
 
   NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  makeFlags =
-    [ "ECHO_E_BIN_ECHO=echo" "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
-      "ISOLINUX_BIN_LIST=${syslinux}/share/syslinux/isolinux.bin"
-      "LDLINUX_C32=${syslinux}/share/syslinux/ldlinux.c32"
-    ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}";
-
+  makeFlags = [
+    "ECHO_E_BIN_ECHO=echo"
+    "ECHO_E_BIN_ECHO_E=echo" # No /bin/echo here.
+    "ISOLINUX_BIN_LIST=${syslinux}/share/syslinux/isolinux.bin"
+    "LDLINUX_C32=${syslinux}/share/syslinux/ldlinux.c32"
+  ] ++ lib.optional (embedScript != null) "EMBED=${embedScript}";
 
   enabledOptions = [
     "PING_CMD"
@@ -64,9 +61,8 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (from: to:
-      if to == null
-      then "cp -v ${from} $out"
-      else "cp -v ${from} $out/${to}") targets)}
+    if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}")
+    targets)}
 
     # Some PXE constellations especially with dnsmasq are looking for the file with .0 ending
     # let's provide it as a symlink to be compatible in this case.
@@ -75,11 +71,11 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  meta = with stdenv.lib;
-    { description = "Network boot firmware";
-      homepage = http://ipxe.org/;
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ ehmry ];
-      platforms = [ "x86_64-linux" "i686-linux" ];
-    };
+  meta = with stdenv.lib; {
+    description = "Network boot firmware";
+    homepage = "http://ipxe.org/";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ ehmry ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
+  };
 }

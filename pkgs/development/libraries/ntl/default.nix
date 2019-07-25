@@ -1,13 +1,8 @@
-{ stdenv
-, lib
-, fetchurl
-, perl
-, gmp
-, gf2x ? null
-# I asked the ntl maintainer weather or not to include gf2x by default:
-# > If I remember correctly, gf2x is now thread safe, so there's no reason not to use it.
-, withGf2x ? true
-, tune ? false # tune for current system; non reproducible and time consuming
+{ stdenv, lib, fetchurl, perl, gmp, gf2x ? null
+  # I asked the ntl maintainer weather or not to include gf2x by default:
+  # > If I remember correctly, gf2x is now thread safe, so there's no reason not to use it.
+, withGf2x ? true, tune ?
+  false # tune for current system; non reproducible and time consuming
 }:
 
 assert withGf2x -> gf2x != null;
@@ -21,9 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "17bfsvn72zjqfibnxscyf4hbk3inndh4r89jd2zg7mgqmd2k3fl4";
   };
 
-  buildInputs = [
-    gmp
-  ];
+  buildInputs = [ gmp ];
 
   nativeBuildInputs = [
     perl # needed for ./configure
@@ -49,10 +42,7 @@ stdenv.mkDerivation rec {
         "generic" # "chooses options that should be OK for most platforms"
     }"
     "CXX=c++"
-  ] ++ lib.optionals withGf2x [
-    "NTL_GF2X_LIB=on"
-    "GF2X_PREFIX=${gf2x}"
-  ];
+  ] ++ lib.optionals withGf2x [ "NTL_GF2X_LIB=on" "GF2X_PREFIX=${gf2x}" ];
 
   doCheck = true; # takes some time
 
@@ -66,7 +56,7 @@ stdenv.mkDerivation rec {
     '';
     # Upstream contact: maintainer is victorshoup on GitHub. Alternatively the
     # email listed on the homepage.
-    homepage = http://www.shoup.net/ntl/;
+    homepage = "http://www.shoup.net/ntl/";
     maintainers = with maintainers; [ timokau ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;

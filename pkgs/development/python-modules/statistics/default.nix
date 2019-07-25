@@ -1,8 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, docutils
-}:
+{ lib, fetchPypi, buildPythonPackage, docutils }:
 
 buildPythonPackage rec {
   pname = "statistics";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A Python 2.* port of 3.4 Statistics Module";
-    homepage = https://github.com/digitalemagine/py-statistics;
+    homepage = "https://github.com/digitalemagine/py-statistics";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ costrouc ];
   };

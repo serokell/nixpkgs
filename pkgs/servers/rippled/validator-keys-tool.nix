@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl boost zlib rippled ];
 
-  hardeningDisable = ["format"];
+  hardeningDisable = [ "format" ];
 
   preConfigure = ''
     export CXX="$(command -v $CXX)"
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Generate master and ephemeral rippled validator keys";
-    homepage = https://github.com/ripple/validator-keys-tool;
+    homepage = "https://github.com/ripple/validator-keys-tool";
     maintainers = with maintainers; [ offline ];
     license = licenses.isc;
     platforms = [ "x86_64-linux" ];

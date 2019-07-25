@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, fixDarwinDylibNames, autoconf, boost, brotli, cmake, double-conversion, flatbuffers, gflags, glog, gtest, lz4, perl, python, rapidjson, snappy, thrift, uriparser, which, zlib, zstd }:
+{ stdenv, fetchurl, fetchFromGitHub, fixDarwinDylibNames, autoconf, boost, brotli, cmake, double-conversion, flatbuffers, gflags, glog, gtest, lz4, perl, python, rapidjson, snappy, thrift, uriparser, which, zlib, zstd
+}:
 
 let
   parquet-testing = fetchFromGitHub {
@@ -11,17 +12,18 @@ let
   # Enable non-bundled uriparser
   # Introduced in https://github.com/apache/arrow/pull/4092
   Finduriparser_cmake = fetchurl {
-    url = https://raw.githubusercontent.com/apache/arrow/af4f52961209a5f1b43a19483536285c957e3bed/cpp/cmake_modules/Finduriparser.cmake;
+    url =
+      "https://raw.githubusercontent.com/apache/arrow/af4f52961209a5f1b43a19483536285c957e3bed/cpp/cmake_modules/Finduriparser.cmake";
     sha256 = "1cylrw00n2nkc2c49xk9j3rrza351rpravxgpw047vimcw0sk93s";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "arrow-cpp-${version}";
   version = "0.13.0";
 
   src = fetchurl {
-    url = "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
+    url =
+      "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
     sha256 = "06irh5zx6lc7jjf6hpz1vzk0pvbdx08lcirc8cp8ksb8j7fpfamc";
   };
 
@@ -30,13 +32,29 @@ stdenv.mkDerivation rec {
   patches = [
     # patch to fix python-test
     ./darwin.patch
-    ];
+  ];
 
-  nativeBuildInputs = [ cmake autoconf /* for vendored jemalloc */ ]
-    ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+    autoconf # for vendored jemalloc
+  ] ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = [
-    boost brotli double-conversion flatbuffers gflags glog gtest lz4 rapidjson
-    snappy thrift uriparser zlib zstd python.pkgs.python python.pkgs.numpy
+    boost
+    brotli
+    double-conversion
+    flatbuffers
+    gflags
+    glog
+    gtest
+    lz4
+    rapidjson
+    snappy
+    thrift
+    uriparser
+    zlib
+    zstd
+    python.pkgs.python
+    python.pkgs.numpy
   ];
 
   preConfigure = ''
@@ -61,7 +79,8 @@ stdenv.mkDerivation rec {
   ] ++ stdenv.lib.optional (!stdenv.isx86_64) "-DARROW_USE_SIMD=OFF";
 
   doInstallCheck = true;
-  PARQUET_TEST_DATA = if doInstallCheck then "${parquet-testing}/data" else null;
+  PARQUET_TEST_DATA =
+    if doInstallCheck then "${parquet-testing}/data" else null;
   installCheckInputs = [ perl which ];
   installCheckPhase = (stdenv.lib.optionalString stdenv.isDarwin ''
     for f in release/*-test; do
@@ -73,7 +92,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A  cross-language development platform for in-memory data";
-    homepage = https://arrow.apache.org/;
+    homepage = "https://arrow.apache.org/";
     license = stdenv.lib.licenses.asl20;
     platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ veprbl ];

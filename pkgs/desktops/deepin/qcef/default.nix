@@ -1,12 +1,9 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools,
-  qtwebchannel, qtx11extras,
-  gnome2, nss, nspr, alsaLib, atk, cairo, cups, dbus,
-  expat, fontconfig, gdk_pixbuf, glib, gtk2,
-  libxcb, pango, pulseaudio, xorg, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, qtwebchannel, qtx11extras, gnome2, nss, nspr, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, gdk_pixbuf, glib, gtk2, libxcb, pango, pulseaudio, xorg, deepin
+}:
 
 let
   rpahtLibraries = [
-    stdenv.cc.cc.lib  # libstdc++.so.6
+    stdenv.cc.cc.lib # libstdc++.so.6
     alsaLib
     atk
     cairo
@@ -36,9 +33,8 @@ let
     xorg.libXtst
   ];
   libPath = stdenv.lib.makeLibraryPath rpahtLibraries;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "qcef";
   version = "1.1.6";
@@ -62,18 +58,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = pname;
 
-  nativeBuildInputs = [
-    pkgconfig
-    cmake
-    qttools
-    deepin.setupHook
-  ];
+  nativeBuildInputs = [ pkgconfig cmake qttools deepin.setupHook ];
 
-  buildInputs = [
-    qtbase
-    qtwebchannel
-    qtx11extras
-  ] ++ rpahtLibraries;
+  buildInputs = [ qtbase qtwebchannel qtx11extras ] ++ rpahtLibraries;
 
   postUnpack = ''
     rmdir ${pname}/cef
@@ -95,10 +82,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt5 binding of Chromium Embedded Framework";
-    homepage = https://github.com/linuxdeepin/qcef;
+    homepage = "https://github.com/linuxdeepin/qcef";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    badPlatforms = [ "aarch64-linux" ];  # the cef-binary is not available
+    badPlatforms = [ "aarch64-linux" ]; # the cef-binary is not available
     maintainers = with maintainers; [ romildo ];
   };
 }

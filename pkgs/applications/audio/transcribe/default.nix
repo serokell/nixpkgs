@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, wrapGAppsHook, alsaLib, atk, cairo, gdk_pixbuf
-, glib, gst_all_1,  gtk3, libSM, libX11, libpng12, pango, zlib }:
+{ stdenv, fetchzip, wrapGAppsHook, alsaLib, atk, cairo, gdk_pixbuf, glib, gst_all_1, gtk3, libSM, libX11, libpng12, pango, zlib
+}:
 
 stdenv.mkDerivation rec {
   name = "transcribe-${version}";
@@ -12,22 +12,41 @@ stdenv.mkDerivation rec {
     }
   else if stdenv.hostPlatform.system == "x86_64-linux" then
     fetchzip {
-      url = "https://www.seventhstring.com/xscribe/downlinux64/xsc64setup.tar.gz";
+      url =
+        "https://www.seventhstring.com/xscribe/downlinux64/xsc64setup.tar.gz";
       sha256 = "1rpd3ppnx5i5yrnfbjrx7h7dk48kwl99i9lnpa75ap7nxvbiznm0";
     }
-  else throw "Platform not supported";
+  else
+    throw "Platform not supported";
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = with gst_all_1; [ gst-plugins-base gst-plugins-good
-    gst-plugins-bad gst-plugins-ugly ];
+  buildInputs = with gst_all_1; [
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+  ];
 
   dontPatchELF = true;
 
-  libPath = with gst_all_1; stdenv.lib.makeLibraryPath [
-    stdenv.cc.cc glib gtk3 atk pango cairo gdk_pixbuf alsaLib
-    libX11 libSM libpng12 gstreamer gst-plugins-base zlib
-  ];
+  libPath = with gst_all_1;
+    stdenv.lib.makeLibraryPath [
+      stdenv.cc.cc
+      glib
+      gtk3
+      atk
+      pango
+      cairo
+      gdk_pixbuf
+      alsaLib
+      libX11
+      libSM
+      libpng12
+      gstreamer
+      gst-plugins-base
+      zlib
+    ];
 
   installPhase = ''
     mkdir -p $out/bin $out/libexec $out/share/doc
@@ -64,7 +83,7 @@ stdenv.mkDerivation rec {
       has many transcription-specific features not found on
       conventional music players.
     '';
-    homepage = https://www.seventhstring.com/xscribe/;
+    homepage = "https://www.seventhstring.com/xscribe/";
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ michalrus ];

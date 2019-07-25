@@ -1,8 +1,8 @@
 { lib, fetchzip, buildDunePackage, alcotest, bos }:
 
-let version = "3.2.0"; in
+let version = "3.2.0";
 
-buildDunePackage {
+in buildDunePackage {
   pname = "base64";
   inherit version;
 
@@ -18,7 +18,7 @@ buildDunePackage {
   doCheck = true;
 
   meta = {
-    homepage = https://github.com/mirage/ocaml-base64;
+    homepage = "https://github.com/mirage/ocaml-base64";
     description = "Base64 encoding and decoding in OCaml";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ vbgl ];

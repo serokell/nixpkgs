@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, pkgs }:
 
 buildPythonPackage rec {
   pname = "pysqlite";
@@ -26,12 +21,14 @@ buildPythonPackage rec {
     substituteInPlace "setup.cfg"                                     \
             --replace "/usr/local/include" "${pkgs.sqlite.dev}/include"   \
             --replace "/usr/local/lib" "${pkgs.sqlite.out}/lib"
-    ${stdenv.lib.optionalString (!stdenv.isDarwin) ''export LDSHARED="$CC -pthread -shared"''}
+    ${stdenv.lib.optionalString (!stdenv.isDarwin)
+    ''export LDSHARED="$CC -pthread -shared"''}
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://pysqlite.org/;
-    description = "Python bindings for the SQLite embedded relational database engine";
+    homepage = "http://pysqlite.org/";
+    description =
+      "Python bindings for the SQLite embedded relational database engine";
     longDescription = ''
       pysqlite is a DB-API 2.0-compliant database interface for SQLite.
 

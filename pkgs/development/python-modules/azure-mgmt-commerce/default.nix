@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, msrestazure
-, azure-common
-, azure-mgmt-nspkg
-, python
-, isPy3k
+{ lib, buildPythonPackage, fetchFromGitHub, msrestazure, azure-common, azure-mgmt-nspkg, python, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -23,18 +16,16 @@ buildPythonPackage rec {
     cd ./azure-mgmt-commerce
   '';
 
-  propagatedBuildInputs = [
-    msrestazure
-    azure-common
-    azure-mgmt-nspkg
-  ];
+  propagatedBuildInputs = [ msrestazure azure-common azure-mgmt-nspkg ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Commerce Management Client Library";
-    homepage = https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-commerce;
+    description =
+      "This is the Microsoft Azure Commerce Management Client Library";
+    homepage =
+      "https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-commerce";
     license = licenses.mit;
     maintainers = with maintainers; [ mwilsoninsight ];
   };

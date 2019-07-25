@@ -23,8 +23,16 @@ perlPackages.buildPerlPackage rec {
     sed -i '/p2_mp4h\/doc/d' Makefile.in
   '';
 
-  buildInputs = with perlPackages;
-    [ perl TermReadKey GD BitVector ncurses lynx makeWrapper ImageSize ];
+  buildInputs = with perlPackages; [
+    perl
+    TermReadKey
+    GD
+    BitVector
+    ncurses
+    lynx
+    makeWrapper
+    ImageSize
+  ];
 
   patches = [ ./redhat-with-thr.patch ./dynaloader.patch ./no_bitvector.patch ];
 
@@ -46,9 +54,10 @@ perlPackages.buildPerlPackage rec {
 
   preFixup = ''
     wrapProgram $out/bin/wml \
-      --set PERL5LIB ${with perlPackages; makePerlPath [
-        BitVector TermReadKey ImageSize
-      ]}
+      --set PERL5LIB ${
+      with perlPackages;
+      makePerlPath [ BitVector TermReadKey ImageSize ]
+      }
   '';
 
   enableParallelBuilding = false;
@@ -56,7 +65,7 @@ perlPackages.buildPerlPackage rec {
   installTargets = "install";
 
   meta = with stdenv.lib; {
-    homepage = http://thewml.org/;
+    homepage = "http://thewml.org/";
     description = "Off-line HTML generation toolkit for Unix";
     license = licenses.gpl2;
     platforms = platforms.linux;

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, amoeba-data, alsaLib, expat, freetype, gtk2, libvorbis, libGLU, pkgconfig }:
+{ stdenv, fetchurl, amoeba-data, alsaLib, expat, freetype, gtk2, libvorbis, libGLU, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "amoeba-${version}-${debver}";
@@ -7,11 +8,13 @@ stdenv.mkDerivation rec {
 
   srcs = [
     (fetchurl {
-      url = "http://http.debian.net/debian/pool/contrib/a/amoeba/amoeba_${version}.orig.tar.gz";
+      url =
+        "http://http.debian.net/debian/pool/contrib/a/amoeba/amoeba_${version}.orig.tar.gz";
       sha256 = "1hyycw4r36ryka2gab9vzkgs8gq4gqhk08vn29cwak95w0rahgim";
     })
     (fetchurl {
-      url = "http://http.debian.net/debian/pool/contrib/a/amoeba/amoeba_${version}-${debver}.debian.tar.xz";
+      url =
+        "http://http.debian.net/debian/pool/contrib/a/amoeba/amoeba_${version}-${debver}.debian.tar.xz";
       sha256 = "1xgi2sqzq97w6hd3dcyq6cka8xmp6nr25qymzhk52cwqh7qb75p3";
     })
   ];
@@ -37,8 +40,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Fast-paced, polished OpenGL demonstration by Excess";
-    homepage = https://packages.qa.debian.org/a/amoeba.html;
-    license = licenses.gpl2; # Engine is GPLv2, data files in amoeba-data nonfree
+    homepage = "https://packages.qa.debian.org/a/amoeba.html";
+    license =
+      licenses.gpl2; # Engine is GPLv2, data files in amoeba-data nonfree
     maintainers = [ maintainers.dezgeg ];
     platforms = platforms.linux;
   };

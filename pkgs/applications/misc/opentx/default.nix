@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub
-, cmake, gcc-arm-embedded, binutils-arm-embedded, python
-, qt5, SDL, gtest
-, dfu-util, avrdude
+{ stdenv, fetchFromGitHub, cmake, gcc-arm-embedded, binutils-arm-embedded, python, qt5, SDL, gtest, dfu-util, avrdude
 }:
 
 let
@@ -21,14 +18,14 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    cmake
-    gcc-arm-embedded binutils-arm-embedded
-  ];
+  nativeBuildInputs = [ cmake gcc-arm-embedded binutils-arm-embedded ];
 
   buildInputs = with qt5; [
-    python python.pkgs.pyqt4
-    qtbase qtmultimedia qttranslations
+    python
+    python.pkgs.pyqt4
+    qtbase
+    qtmultimedia
+    qttranslations
     SDL
   ];
 
@@ -53,7 +50,7 @@ in stdenv.mkDerivation {
       firmware to the radio, backing up model settings, editing settings and
       running radio simulators.
     '';
-    homepage = https://open-tx.org/;
+    homepage = "https://open-tx.org/";
     license = stdenv.lib.licenses.gpl2;
     platforms = [ "i686-linux" "x86_64-linux" ];
     maintainers = with maintainers; [ elitak ];

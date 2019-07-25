@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jupyterlab_server
-, notebook
-, pythonOlder
-, fetchpatch
+{ lib, buildPythonPackage, fetchPypi, jupyterlab_server, notebook, pythonOlder, fetchpatch
 }:
 
 buildPythonPackage rec {
@@ -19,14 +13,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jupyterlab_server notebook ];
 
-  makeWrapperArgs = [
-    "--set" "JUPYTERLAB_DIR" "$out/share/jupyter/lab"
-  ];
+  makeWrapperArgs = [ "--set" "JUPYTERLAB_DIR" "$out/share/jupyter/lab" ];
 
   patches = [
     (fetchpatch {
       name = "bump-jupyterlab_server-version";
-      url = https://github.com/jupyterlab/jupyterlab/commit/3b8d451e6f9a4c609e60cde5fbb3cc84aae79951.patch;
+      url =
+        "https://github.com/jupyterlab/jupyterlab/commit/3b8d451e6f9a4c609e60cde5fbb3cc84aae79951.patch";
       sha256 = "08vv6rp1k5fbmvj4v9x1d9zb6ymm9pv8ml80j7p45r9fay34rndf";
     })
   ];

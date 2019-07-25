@@ -1,26 +1,19 @@
-{ stdenv, fetchurl,
-  bison, re2c, scons,
-  libcxx
-}:
+{ stdenv, fetchurl, bison, re2c, scons, libcxx }:
 
-let
-  version = "4.5.4";
-in
+let version = "4.5.4";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gringo-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/potassco/gringo/${version}/gringo-${version}-source.tar.gz";
+    url =
+      "mirror://sourceforge/project/potassco/gringo/${version}/gringo-${version}-source.tar.gz";
     sha256 = "16k4pkwyr2mh5w8j91vhxh9aff7f4y31npwf09w6f8q63fxvpy41";
   };
 
   buildInputs = [ bison re2c scons ];
 
-  patches = [
-    ./gringo-4.5.4-cmath.patch
-    ./gringo-4.5.4-to_string.patch
-  ];
+  patches = [ ./gringo-4.5.4-cmath.patch ./gringo-4.5.4-to_string.patch ];
 
   postPatch = stdenv.lib.optionalString stdenv.isDarwin ''
     substituteInPlace ./SConstruct \
@@ -49,8 +42,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Converts input programs with first-order variables to equivalent ground programs";
-    homepage = http://potassco.sourceforge.net/;
+    description =
+      "Converts input programs with first-order variables to equivalent ground programs";
+    homepage = "http://potassco.sourceforge.net/";
     platforms = platforms.all;
     maintainers = [ maintainers.hakuch ];
     license = licenses.gpl3Plus;

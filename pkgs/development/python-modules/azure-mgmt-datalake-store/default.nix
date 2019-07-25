@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrestazure
-, azure-common
-, azure-mgmt-datalake-nspkg
+{ lib, buildPythonPackage, fetchPypi, msrestazure, azure-common, azure-mgmt-datalake-nspkg
 }:
 
 buildPythonPackage rec {
@@ -16,18 +11,17 @@ buildPythonPackage rec {
     sha256 = "9376d35495661d19f8acc5604f67b0bc59493b1835bbc480f9a1952f90017a4c";
   };
 
-  propagatedBuildInputs = [
-    msrestazure
-    azure-common
-    azure-mgmt-datalake-nspkg
-  ];
+  propagatedBuildInputs =
+    [ msrestazure azure-common azure-mgmt-datalake-nspkg ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Data Lake Store Management Client Library";
-    homepage = https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-datalake-store;
+    description =
+      "This is the Microsoft Azure Data Lake Store Management Client Library";
+    homepage =
+      "https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-datalake-store";
     license = licenses.mit;
     maintainers = with maintainers; [ mwilsoninsight ];
   };

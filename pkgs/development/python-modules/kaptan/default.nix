@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyyaml
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyyaml, pytest }:
 
 buildPythonPackage rec {
   pname = "kaptan";
@@ -24,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Configuration manager for python applications";
-    homepage = https://kaptan.readthedocs.io/;
+    homepage = "https://kaptan.readthedocs.io/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

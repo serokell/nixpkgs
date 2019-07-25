@@ -1,7 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, which, qtbase, qtsvg, qttools, qtwebkit}:
+{ stdenv, fetchFromGitHub, pkgconfig, which, qtbase, qtsvg, qttools, qtwebkit }:
 
-let
-  version = "1.4.8";
+let version = "1.4.8";
 in stdenv.mkDerivation {
   name = "notepadqq-${version}";
   src = fetchFromGitHub {
@@ -12,13 +11,9 @@ in stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    pkgconfig which qttools
-  ];
+  nativeBuildInputs = [ pkgconfig which qttools ];
 
-  buildInputs = [
-    qtbase qtsvg qtwebkit
-  ];
+  buildInputs = [ qtbase qtsvg qtwebkit ];
 
   preConfigure = ''
     export LRELEASE="lrelease"
@@ -27,7 +22,7 @@ in stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://notepadqq.com/;
+    homepage = "https://notepadqq.com/";
     description = "Notepad++-like editor for the Linux desktop";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;

@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, sphinx
-, six
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, sphinx, six, python }:
 
 buildPythonPackage rec {
   pname = "sphinx-testing";
@@ -27,7 +20,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = https://github.com/sphinx-doc/sphinx-testing;
+    homepage = "https://github.com/sphinx-doc/sphinx-testing";
     license = lib.licenses.bsd2;
     description = "Testing utility classes and functions for Sphinx extensions";
   };

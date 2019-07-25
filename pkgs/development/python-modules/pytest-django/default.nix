@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, django
-, setuptools_scm
-, django-configurations
-, pytest_xdist
-, six
+{ stdenv, buildPythonPackage, fetchPypi, pytest, django, setuptools_scm, django-configurations, pytest_xdist, six
 }:
 buildPythonPackage rec {
   pname = "pytest-django";
@@ -26,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "py.test plugin for testing of Django applications";
-    homepage = https://pytest-django.readthedocs.org/en/latest/;
+    homepage = "https://pytest-django.readthedocs.org/en/latest/";
     license = licenses.bsd3;
   };
 }

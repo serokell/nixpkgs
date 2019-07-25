@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, param
-, pyyaml
-, requests
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, param, pyyaml, requests, pytest }:
 
 buildPythonPackage rec {
   pname = "pyct";
@@ -17,11 +10,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [
-    param
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ param pyyaml requests ];
 
   checkPhase = ''
     pytest
@@ -29,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Cli for python common tasks for users";
-    homepage = https://github.com/pyviz/pyct;
+    homepage = "https://github.com/pyviz/pyct";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

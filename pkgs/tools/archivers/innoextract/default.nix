@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, cmake, makeWrapper, python
-, boost, lzma
-, withGog ? false, unar ? null }:
+{ stdenv, fetchurl, cmake, makeWrapper, python, boost, lzma, withGog ?
+  false, unar ? null }:
 
 stdenv.mkDerivation rec {
   name = "innoextract-1.7";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A tool to unpack installers created by Inno Setup";
-    homepage = http://constexpr.org/innoextract/;
+    homepage = "http://constexpr.org/innoextract/";
     license = licenses.zlib;
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.linux;

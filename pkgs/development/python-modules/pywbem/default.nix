@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, libxml2
-, m2crypto, ply, pyyaml, six, pbr, pythonOlder, isPy37
-, httpretty, lxml, mock, pytest, requests, decorator, unittest2
+{ lib, buildPythonPackage, fetchPypi, libxml2, m2crypto, ply, pyyaml, six, pbr, pythonOlder, isPy37, httpretty, lxml, mock, pytest, requests, decorator, unittest2
 }:
 
 buildPythonPackage rec {
@@ -15,23 +13,10 @@ buildPythonPackage rec {
     sha256 = "1dc6b745rrys600n05apdf6lb2vv5arlcwv7aiz9whgkbcd9qhki";
   };
 
-  propagatedBuildInputs = [
-    mock
-    pbr
-    ply
-    pyyaml
-    six
-  ] ++ lib.optionals (pythonOlder "3.0") [ m2crypto ];
+  propagatedBuildInputs = [ mock pbr ply pyyaml six ]
+    ++ lib.optionals (pythonOlder "3.0") [ m2crypto ];
 
-  checkInputs = [
-    decorator
-    httpretty
-    libxml2
-    lxml
-    pytest
-    requests
-    unittest2
-  ];
+  checkInputs = [ decorator httpretty libxml2 lxml pytest requests unittest2 ];
 
   postPatch = ''
     # Uses deprecated library yamlordereddictloader
@@ -39,7 +24,7 @@ buildPythonPackage rec {
 
     # Wants `wbemcli` in PATH
     rm testsuite/test_wbemcli.py
-    
+
     # Disables tests that use testfixtures which is currently broken by nonbuilding zope_component
     rm testsuite/{test_logging,test_recorder,test_wbemconnection_mock}.*
   '';
@@ -50,7 +35,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Support for the WBEM standard for systems management";
-    homepage = https://pywbem.github.io;
+    homepage = "https://pywbem.github.io";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ peterhoeg ];
   };

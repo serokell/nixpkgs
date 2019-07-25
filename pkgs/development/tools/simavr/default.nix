@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, libelf, which, pkgconfig, freeglut
-, avrgcc, avrlibc
-, libGLU_combined
-, GLUT }:
+{ stdenv, fetchFromGitHub, libelf, which, pkgconfig, freeglut, avrgcc, avrlibc, libGLU_combined, GLUT
+}:
 
 stdenv.mkDerivation rec {
   name = "simavr-${version}";
@@ -34,9 +32,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A lean and mean Atmel AVR simulator";
-    homepage    = https://github.com/buserror/simavr;
-    license     = licenses.gpl3;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/buserror/simavr";
+    license = licenses.gpl3;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ goodrone ];
   };
 

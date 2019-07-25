@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, afl, python2, zlib, pkgconfig, glib, perl
-, texinfo, libuuid, flex, bison, pixman, autoconf
+{ stdenv, fetchurl, afl, python2, zlib, pkgconfig, glib, perl, texinfo, libuuid, flex, bison, pixman, autoconf
 }:
 
 with stdenv.lib;
@@ -7,11 +6,13 @@ with stdenv.lib;
 let
   qemuName = "qemu-2.10.0";
   aflName = afl.name;
-  cpuTarget = if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64-linux-user"
-    else if stdenv.hostPlatform.system == "i686-linux" then "i386-linux-user"
-    else throw "afl: no support for ${stdenv.hostPlatform.system}!";
-in
-stdenv.mkDerivation rec {
+  cpuTarget = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x86_64-linux-user"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "i386-linux-user"
+  else
+    throw "afl: no support for ${stdenv.hostPlatform.system}!";
+in stdenv.mkDerivation rec {
   name = "afl-${qemuName}";
 
   srcs = [
@@ -34,13 +35,9 @@ stdenv.mkDerivation rec {
       --replace "../patches/afl-qemu-cpu-inl.h" "afl-qemu-cpu-inl.h"
   '';
 
-  nativeBuildInputs = [
-    python2 perl pkgconfig flex bison autoconf texinfo
-  ];
+  nativeBuildInputs = [ python2 perl pkgconfig flex bison autoconf texinfo ];
 
-  buildInputs = [
-    zlib glib pixman libuuid
-  ];
+  buildInputs = [ zlib glib pixman libuuid ];
 
   enableParallelBuilding = true;
 
@@ -54,21 +51,21 @@ stdenv.mkDerivation rec {
     ./qemu-patches/qemu-2.10.0-glibc-2.27.patch
   ];
 
-  configureFlags =
-    [ "--disable-system"
-      "--enable-linux-user"
-      "--disable-gtk"
-      "--disable-sdl"
-      "--disable-vnc"
-      "--disable-kvm"
-      "--target-list=${cpuTarget}"
-      "--enable-pie"
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-    ];
+  configureFlags = [
+    "--disable-system"
+    "--enable-linux-user"
+    "--disable-gtk"
+    "--disable-sdl"
+    "--disable-vnc"
+    "--disable-kvm"
+    "--target-list=${cpuTarget}"
+    "--enable-pie"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+  ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.qemu.org/;
+    homepage = "http://www.qemu.org/";
     description = "Fork of QEMU with AFL instrumentation support";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ thoughtpolice ];

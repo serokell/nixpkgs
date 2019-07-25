@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, lib }:
+build-idris-package {
   name = "snippets";
   version = "2018-03-17";
 
@@ -19,7 +15,7 @@ build-idris-package  {
 
   meta = {
     description = "Collection of Idris snippets";
-    homepage = https://github.com/palladin/idris-snippets;
+    homepage = "https://github.com/palladin/idris-snippets";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.brainrape ];
   };

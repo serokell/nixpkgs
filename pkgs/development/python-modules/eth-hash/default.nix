@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytest, pysha3, pycrypto,
-  pycryptodome }:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytest, pysha3, pycrypto, pycryptodome
+}:
 
 buildPythonPackage rec {
   pname = "eth-hash";
@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "The Ethereum hashing function keccak256";
-    homepage = https://github.com/ethereum/eth-hash;
+    homepage = "https://github.com/ethereum/eth-hash";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jluttine ];
   };

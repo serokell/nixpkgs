@@ -12,8 +12,9 @@ stdenv.mkDerivation {
     cp with $out/bin/with
   '';
   meta = {
-    homepage = https://github.com/mchav/With;
-    description = "Command prefixing for continuous workflow using a single tool";
+    homepage = "https://github.com/mchav/With";
+    description =
+      "Command prefixing for continuous workflow using a single tool";
     license = stdenv.lib.licenses.asl20;
     platforms = stdenv.lib.platforms.unix;
   };

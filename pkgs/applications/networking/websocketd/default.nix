@@ -14,7 +14,8 @@ buildGoModule rec {
   modSha256 = "18hamj557ln8k3vmvcrpvnydjr1dy7zi9490iacwdldw5vp870xs";
 
   meta = with lib; {
-    description = "Turn any program that uses STDIN/STDOUT into a WebSocket server";
+    description =
+      "Turn any program that uses STDIN/STDOUT into a WebSocket server";
     homepage = "http://websocketd.com/";
     maintainers = [ maintainers.bjornfor ];
     license = licenses.bsd2;

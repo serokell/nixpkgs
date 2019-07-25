@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Library for communicating with a RabbitMQ server";
-    homepage = https://github.com/CopernicaMarketingSoftware/AMQP-CPP;
+    homepage = "https://github.com/CopernicaMarketingSoftware/AMQP-CPP";
     license = licenses.asl20;
     maintainers = [ maintainers.mjp ];
     platforms = platforms.all;

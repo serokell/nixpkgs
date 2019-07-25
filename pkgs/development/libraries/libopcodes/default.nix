@@ -1,6 +1,4 @@
-{ stdenv, buildPackages
-, autoreconfHook, bison, binutils-unwrapped
-, libiberty, libbfd
+{ stdenv, buildPackages, autoreconfHook, bison, binutils-unwrapped, libiberty, libbfd
 }:
 
 stdenv.mkDerivation rec {
@@ -9,9 +7,8 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  patches = binutils-unwrapped.patches ++ [
-    ../../tools/misc/binutils/build-components-separately.patch
-  ];
+  patches = binutils-unwrapped.patches
+    ++ [ ../../tools/misc/binutils/build-components-separately.patch ];
 
   # We just want to build libopcodes
   postPatch = ''
@@ -27,7 +24,8 @@ stdenv.mkDerivation rec {
 
   configurePlatforms = [ "build" "host" ];
   configureFlags = [
-    "--enable-targets=all" "--enable-64-bit-bfd"
+    "--enable-targets=all"
+    "--enable-64-bit-bfd"
     "--enable-install-libbfd"
     "--enable-shared"
   ];
@@ -36,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A library from binutils for manipulating machine code";
-    homepage = https://www.gnu.org/software/binutils/;
+    homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ericson2314 ];
     platforms = platforms.unix;

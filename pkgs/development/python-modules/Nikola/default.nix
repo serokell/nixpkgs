@@ -1,36 +1,4 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, doit
-, glibcLocales
-, pytest
-, pytestcov
-, mock
-, pygments
-, pillow
-, dateutil
-, docutils
-, Mako
-, unidecode
-, lxml
-, Yapsy
-, PyRSS2Gen
-, Logbook
-, blinker
-, natsort
-, requests
-, piexif
-, markdown
-, phpserialize
-, jinja2
-, Babel
-, freezegun
-, toml
-, notebook
-, ruamel_yaml
-, aiohttp
-, watchdog
+{ lib, buildPythonPackage, isPy3k, fetchPypi, doit, glibcLocales, pytest, pytestcov, mock, pygments, pillow, dateutil, docutils, Mako, unidecode, lxml, Yapsy, PyRSS2Gen, Logbook, blinker, natsort, requests, piexif, markdown, phpserialize, jinja2, Babel, freezegun, toml, notebook, ruamel_yaml, aiohttp, watchdog
 }:
 
 buildPythonPackage rec {
@@ -46,10 +14,31 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     # requirements.txt
-    doit pygments pillow dateutil docutils Mako markdown unidecode
-    lxml Yapsy PyRSS2Gen Logbook blinker natsort requests piexif Babel
+    doit
+    pygments
+    pillow
+    dateutil
+    docutils
+    Mako
+    markdown
+    unidecode
+    lxml
+    Yapsy
+    PyRSS2Gen
+    Logbook
+    blinker
+    natsort
+    requests
+    piexif
+    Babel
     # requirements-extras.txt
-    phpserialize jinja2 toml notebook ruamel_yaml aiohttp watchdog
+    phpserialize
+    jinja2
+    toml
+    notebook
+    ruamel_yaml
+    aiohttp
+    watchdog
   ];
 
   src = fetchPypi {
@@ -68,7 +57,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://getnikola.com/;
+    homepage = "https://getnikola.com/";
     description = "A modular, fast, simple, static website and blog generator";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jluttine ];

@@ -13,13 +13,11 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  configureFlags = [
-    "--enable-chooser"
-  ];
+  configureFlags = [ "--enable-chooser" ];
 
   meta = with stdenv.lib; {
     description = "A notepad clone for GTK+ 2.0";
-    homepage = http://tarot.freeshell.org/leafpad;
+    homepage = "http://tarot.freeshell.org/leafpad";
     platforms = platforms.linux;
     maintainers = [ maintainers.flosse ];
     license = licenses.gpl3;

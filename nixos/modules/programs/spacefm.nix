@@ -6,8 +6,7 @@ with lib;
 
 let cfg = config.programs.spacefm;
 
-in
-{
+in {
   ###### interface
 
   options = {
@@ -29,11 +28,12 @@ in
           terminal_su = "${pkgs.sudo}/bin/sudo";
           graphical_su = "${pkgs.gksu}/bin/gksu";
         };
-        example = literalExample ''{
-          tmp_dir = "/tmp";
-          terminal_su = "''${pkgs.sudo}/bin/sudo";
-          graphical_su = "''${pkgs.gksu}/bin/gksu";
-        }'';
+        example = literalExample ''
+          {
+                    tmp_dir = "/tmp";
+                    terminal_su = "''${pkgs.sudo}/bin/sudo";
+                    graphical_su = "''${pkgs.gksu}/bin/gksu";
+                  }'';
         description = ''
           The system-wide spacefm configuration.
           Parameters to be written to <filename>/etc/spacefm/spacefm.conf</filename>.
@@ -49,7 +49,9 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.spaceFM ];
 
-    environment.etc."spacefm/spacefm.conf".text =
-      concatStrings (mapAttrsToList (n: v: "${n}=${toString v}\n") cfg.settings);
+    environment.etc."spacefm/spacefm.conf".text = concatStrings (mapAttrsToList
+      (n: v: ''
+        ${n}=${toString v}
+      '') cfg.settings);
   };
 }

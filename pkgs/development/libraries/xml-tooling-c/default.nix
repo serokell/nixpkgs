@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, boost, curl, openssl, log4shib, xercesc, xml-security-c }:
+{ stdenv, fetchgit, autoreconfHook, boost, curl, openssl, log4shib, xercesc, xml-security-c
+}:
 
 stdenv.mkDerivation rec {
   name = "xml-tooling-c-${version}";
@@ -16,9 +17,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "A low-level library that provides a high level interface to XML processing for OpenSAML 2";
-    platforms   = platforms.unix;
-    license     = licenses.asl20;
+    description =
+      "A low-level library that provides a high level interface to XML processing for OpenSAML 2";
+    platforms = platforms.unix;
+    license = licenses.asl20;
     maintainers = [ maintainers.jammerful ];
   };
 }

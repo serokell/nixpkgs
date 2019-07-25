@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig
-, dpdk, libpcap, numactl, utillinux
-, gtk2, withGtk ? false
-}:
+{ stdenv, lib, fetchurl, pkgconfig, dpdk, libpcap, numactl, utillinux, gtk2, withGtk ?
+  false }:
 
 let
 
@@ -20,15 +18,15 @@ in stdenv.mkDerivation rec {
   version = "3.5.0";
 
   src = fetchurl {
-    url = "http://dpdk.org/browse/apps/pktgen-dpdk/snapshot/pktgen-${version}.tar.xz";
+    url =
+      "http://dpdk.org/browse/apps/pktgen-dpdk/snapshot/pktgen-${version}.tar.xz";
     sha256 = "1gy99jr9dbwzi9pd3w5k673h3pfnbkz6rbzmrkwcyis72pnphy5z";
   };
 
   nativeBuildInputs = stdenv.lib.optionals withGtk [ pkgconfig ];
 
-  buildInputs =
-    [ dpdk libpcap numactl ]
-    ++ stdenv.lib.optionals withGtk [gtk2];
+  buildInputs = [ dpdk libpcap numactl ]
+    ++ stdenv.lib.optionals withGtk [ gtk2 ];
 
   RTE_SDK = "${dpdk}/share/dpdk";
   RTE_TARGET = "x86_64-native-linuxapp-gcc";
@@ -36,14 +34,15 @@ in stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-msse3" ];
 
-  postPatch = let dpdkMajor = lib.versions.major dpdk.version; in ''
-    substituteInPlace app/Makefile --replace 'yy :=' 'yy := ${dpdkMajor} #'
-    substituteInPlace lib/common/lscpu.h --replace /usr/bin/lscpu ${utillinux}/bin/lscpu
+  postPatch = let dpdkMajor = lib.versions.major dpdk.version;
+    in ''
+      substituteInPlace app/Makefile --replace 'yy :=' 'yy := ${dpdkMajor} #'
+      substituteInPlace lib/common/lscpu.h --replace /usr/bin/lscpu ${utillinux}/bin/lscpu
 
-    ln -s ${lua.src} lib/lua/${lua.basename}
-    make -C lib/lua get_tarball # unpack and patch
-    substituteInPlace lib/lua/${lua.name}/src/luaconf.h --replace /usr/local $out
-  '';
+      ln -s ${lua.src} lib/lua/${lua.basename}
+      make -C lib/lua get_tarball # unpack and patch
+      substituteInPlace lib/lua/${lua.name}/src/luaconf.h --replace /usr/local $out
+    '';
 
   installPhase = ''
     install -d $out/bin
@@ -56,9 +55,9 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Traffic generator powered by DPDK";
-    homepage = http://dpdk.org/;
+    homepage = "http://dpdk.org/";
     license = licenses.bsdOriginal;
-    platforms =  [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.abuibrahim ];
   };
 }

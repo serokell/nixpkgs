@@ -1,4 +1,4 @@
-{stdenv, lib, fetchurl, ocaml, findlib, ounit}:
+{ stdenv, lib, fetchurl, ocaml, findlib, ounit }:
 
 # https://github.com/bmeurer/ocamlnat/issues/3
 assert lib.versionOlder ocaml.version "4";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dyvy0j6f47laxhnadvm71z1py9hz9zd49hamf6bij99cggb2ij1";
   };
 
-  buildInputs = [ocaml findlib ounit];
+  buildInputs = [ ocaml findlib ounit ];
 
   prefixKey = "--prefix ";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "OCaml native toplevel";
-    homepage = http://benediktmeurer.de/ocamlnat/;
+    homepage = "http://benediktmeurer.de/ocamlnat/";
     license = stdenv.lib.licenses.qpl;
     longDescription = ''
       The ocamlnat project provides a new native code OCaml toplevel
@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
       x86 or x86-64 processors. Support for additional architectures and
       operating systems is planned, but not yet available.
     '';
-    platforms = ocaml.meta.platforms or [];
-    maintainers = [
-      stdenv.lib.maintainers.z77z
-    ];
+    platforms = ocaml.meta.platforms or [ ];
+    maintainers = [ stdenv.lib.maintainers.z77z ];
   };
 }

@@ -1,4 +1,5 @@
-{ stdenv, runCommand, fetchFromGitHub, bash, btrfs-progs, coreutils, pythonPackages, utillinux }:
+{ stdenv, runCommand, fetchFromGitHub, bash, btrfs-progs, coreutils, pythonPackages, utillinux
+}:
 
 let
 
@@ -17,12 +18,12 @@ let
     };
 
     buildInputs = [
-      btrfs-progs               # for btrfs/ioctl.h
-      utillinux                 # for uuid.h
+      btrfs-progs # for btrfs/ioctl.h
+      utillinux # for uuid.h
     ];
 
     nativeBuildInputs = [
-      pythonPackages.markdown   # documentation build
+      pythonPackages.markdown # documentation build
     ];
 
     preBuild = ''
@@ -34,9 +35,7 @@ let
       unset -f git
     '';
 
-    buildFlags = [
-      "ETC_PREFIX=/var/run/bees/configs"
-    ];
+    buildFlags = [ "ETC_PREFIX=/var/run/bees/configs" ];
 
     makeFlags = [
       "SHELL=bash"
@@ -52,13 +51,12 @@ let
       license = licenses.gpl3;
       platforms = platforms.linux;
       maintainers = with maintainers; [ chaduffy ];
-      longDescription = "Best-Effort Extent-Same: bees finds not just identical files, but also identical extents within files that differ";
+      longDescription =
+        "Best-Effort Extent-Same: bees finds not just identical files, but also identical extents within files that differ";
     };
   };
 
-in
-
-runCommand "bees-service-${version}" {
+in runCommand "bees-service-${version}" {
   inherit bash bees coreutils utillinux;
   btrfsProgs = btrfs-progs; # needs to be a valid shell variable name
 } ''

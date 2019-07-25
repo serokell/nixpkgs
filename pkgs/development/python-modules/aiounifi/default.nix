@@ -1,11 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, aiohttp }:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, aiohttp }:
 
 buildPythonPackage rec {
   pname = "aiounifi";
   version = "4";
 
-  disabled = ! isPy3k;
+  disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
@@ -18,9 +17,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "An asynchronous Python library for communicating with Unifi Controller API";
-    homepage    = https://pypi.python.org/pypi/aiounifi/;
-    license     = licenses.mit;
+    description =
+      "An asynchronous Python library for communicating with Unifi Controller API";
+    homepage = "https://pypi.python.org/pypi/aiounifi/";
+    license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };
 }

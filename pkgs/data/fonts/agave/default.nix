@@ -5,7 +5,8 @@ let
   version = "10";
 in fetchurl {
   name = "${pname}-${version}";
-  url = "https://github.com/agarick/agave/releases/download/v${version}/agave-r.ttf";
+  url =
+    "https://github.com/agarick/agave/releases/download/v${version}/agave-r.ttf";
 
   downloadToTemp = true;
   recursiveHash = true;
@@ -17,7 +18,7 @@ in fetchurl {
 
   meta = with lib; {
     description = "truetype monospaced typeface designed for X environments";
-    homepage = https://b.agaric.net/page/agave;
+    homepage = "https://b.agaric.net/page/agave";
     license = licenses.mit;
     maintainers = with maintainers; [ dtzWill ];
     platforms = platforms.all;

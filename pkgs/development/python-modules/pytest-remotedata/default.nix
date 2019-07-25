@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, six, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-remotedata";
@@ -14,14 +9,9 @@ buildPythonPackage rec {
     sha256 = "15b75a38431da96a4da5e48b20a18e4dcc40d191abc199b17cb969f818530481";
   };
 
-  propagatedBuildInputs = [
-    six
-    pytest
-  ];
+  propagatedBuildInputs = [ six pytest ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     # these tests require a network connection
@@ -30,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Pytest plugin for controlling remote data access";
-    homepage = https://astropy.org;
+    homepage = "https://astropy.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

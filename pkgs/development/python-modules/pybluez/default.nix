@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pkgs }:
 
 buildPythonPackage rec {
   version = "unstable-20160819";

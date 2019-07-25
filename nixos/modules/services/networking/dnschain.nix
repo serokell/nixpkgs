@@ -4,9 +4,9 @@ with lib;
 
 let
   cfgs = config.services;
-  cfg  = cfgs.dnschain;
+  cfg = cfgs.dnschain;
 
-  dataDir  = "/var/lib/dnschain";
+  dataDir = "/var/lib/dnschain";
   username = "dnschain";
 
   configFile = pkgs.writeText "dnschain.conf" ''
@@ -27,9 +27,7 @@ let
     ${cfg.extraConfig}
   '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -56,9 +54,9 @@ in
         type = types.str;
         default = cfg.dns.address;
         description = ''
-           The IP address used by clients to reach the resolver and the value of
-           the <literal>namecoin.dns</literal> record. Set this in case the bind address
-           is not the actual IP address (e.g. the machine is behind a NAT).
+          The IP address used by clients to reach the resolver and the value of
+          the <literal>namecoin.dns</literal> record. Set this in case the bind address
+          is not the actual IP address (e.g. the machine is behind a NAT).
         '';
       };
 
@@ -126,18 +124,18 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    services.dnsmasq.servers = optionals cfgs.dnsmasq.resolveDNSChainQueries
-      [ "/.bit/127.0.0.1#${toString cfg.dns.port}"
-        "/.dns/127.0.0.1#${toString cfg.dns.port}"
-      ];
+    services.dnsmasq.servers = optionals cfgs.dnsmasq.resolveDNSChainQueries [
+      "/.bit/127.0.0.1#${toString cfg.dns.port}"
+      "/.dns/127.0.0.1#${toString cfg.dns.port}"
+    ];
 
-    services.pdns-recursor.forwardZones = mkIf cfgs.pdns-recursor.resolveDNSChainQueries
-      { bit = "127.0.0.1:${toString cfg.dns.port}";
+    services.pdns-recursor.forwardZones =
+      mkIf cfgs.pdns-recursor.resolveDNSChainQueries {
+        bit = "127.0.0.1:${toString cfg.dns.port}";
         dns = "127.0.0.1:${toString cfg.dns.port}";
       };
 
@@ -152,7 +150,7 @@ in
 
     systemd.services.dnschain = {
       description = "DNSChain daemon";
-      after    = optional cfgs.namecoind.enable "namecoind.target";
+      after = optional cfgs.namecoind.enable "namecoind.target";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

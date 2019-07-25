@@ -1,22 +1,23 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''fiasco'';
-  version = ''20181210-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "fiasco";
+  version = "20181210-git";
 
   parasites = [ "fiasco-self-tests" ];
 
-  description = ''A Common Lisp test framework that treasures your failures, logical continuation of Stefil.'';
+  description =
+    "A Common Lisp test framework that treasures your failures, logical continuation of Stefil.";
 
   deps = [ args."alexandria" args."trivial-gray-streams" ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/fiasco/2018-12-10/fiasco-20181210-git.tgz'';
-    sha256 = ''0l4wjik8iwipy67lbdrjhcvz7zldv85nykbxasis4zmmh001777y'';
+    url =
+      "http://beta.quicklisp.org/archive/fiasco/2018-12-10/fiasco-20181210-git.tgz";
+    sha256 = "0l4wjik8iwipy67lbdrjhcvz7zldv85nykbxasis4zmmh001777y";
   };
 
   packageName = "fiasco";
 
-  asdFilesToKeep = ["fiasco.asd"];
+  asdFilesToKeep = [ "fiasco.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM fiasco DESCRIPTION
@@ -27,4 +28,5 @@ rec {
     ((NAME alexandria FILENAME alexandria)
      (NAME trivial-gray-streams FILENAME trivial-gray-streams))
     DEPENDENCIES (alexandria trivial-gray-streams) VERSION 20181210-git
-    SIBLINGS NIL PARASITES (fiasco-self-tests)) */
+    SIBLINGS NIL PARASITES (fiasco-self-tests))
+*/

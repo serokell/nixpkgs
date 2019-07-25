@@ -1,13 +1,12 @@
 { stdenv, fetchurl, cmake }:
 
-let
-  version = "2.6.0";
-in
-stdenv.mkDerivation rec {
+let version = "2.6.0";
+in stdenv.mkDerivation rec {
   name = "ign-math2-${version}";
 
   src = fetchurl {
-    url = "http://gazebosim.org/distributions/ign-math/releases/ignition-math2-${version}.tar.bz2";
+    url =
+      "http://gazebosim.org/distributions/ign-math/releases/ignition-math2-${version}.tar.bz2";
     sha256 = "1d4naq0zp704c7ckj2wwmhplxmwkvcs1jib8bklnnd09lhg9j92j";
   };
 
@@ -17,8 +16,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://ignitionrobotics.org/libraries/math;
-    description = "Math library by Ingition Robotics, created for the Gazebo project";
+    homepage = "https://ignitionrobotics.org/libraries/math";
+    description =
+      "Math library by Ingition Robotics, created for the Gazebo project";
     license = licenses.asl20;
     maintainers = with maintainers; [ pxc ];
     platforms = platforms.all;

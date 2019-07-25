@@ -13,17 +13,15 @@ stdenv.mkDerivation {
 
   buildInputs = [ cmake ncurses zlib python ];
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-std=c++11"
-    "-DLLD_PATH_TO_LLVM_BUILD=${llvm}"
-  ];
+  cmakeFlags =
+    [ "-DCMAKE_CXX_FLAGS=-std=c++11" "-DLLD_PATH_TO_LLVM_BUILD=${llvm}" ];
 
   enableParallelBuilding = true;
 
   meta = {
     description = "A set of modular code for creating linker tools";
-    homepage    = http://llvm.org/;
-    license     = stdenv.lib.licenses.ncsa;
-    platforms   = stdenv.lib.platforms.all;
+    homepage = "http://llvm.org/";
+    license = stdenv.lib.licenses.ncsa;
+    platforms = stdenv.lib.platforms.all;
   };
 }

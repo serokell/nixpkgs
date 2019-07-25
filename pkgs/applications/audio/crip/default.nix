@@ -1,19 +1,8 @@
-{ stdenv
-, fetchurl
-, makeWrapper
+{ stdenv, fetchurl, makeWrapper
 
 , perlPackages
 
-, cdparanoia
-, coreutils
-, eject
-, flac
-, gnugrep
-, nano
-, sox
-, vorbis-tools
-, vorbisgain
-, which
+, cdparanoia, coreutils, eject, flac, gnugrep, nano, sox, vorbis-tools, vorbisgain, which
 }:
 
 with stdenv.lib;
@@ -52,14 +41,17 @@ stdenv.mkDerivation rec {
         --replace '$editor = "vim";' '$editor = "${nano}/bin/nano";'
 
       wrapProgram $out/bin/$script \
-        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.CDDB_get ]}" \
+        --set PERL5LIB "${
+      perlPackages.makePerlPath [ perlPackages.CDDB_get ]
+        }" \
         --set PATH "${toolDeps}"
     done
   '';
 
   meta = {
-    homepage = http://bach.dynet.com/crip/;
-    description = "Terminal-based ripper/encoder/tagger tool for creating Ogg Vorbis/FLAC files";
+    homepage = "http://bach.dynet.com/crip/";
+    description =
+      "Terminal-based ripper/encoder/tagger tool for creating Ogg Vorbis/FLAC files";
     license = stdenv.lib.licenses.gpl1;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ maintainers.endgame ];

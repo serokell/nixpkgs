@@ -6,9 +6,7 @@
 
 import ./make-test.nix ({ pkgs, ... }: {
   name = "nginx";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ mbbx6spp ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ mbbx6spp ]; };
 
   nodes = let
     commonConfig = { pkgs, ... }: {
@@ -33,53 +31,54 @@ import ./make-test.nix ({ pkgs, ... }: {
         '';
       };
       services.nginx.virtualHosts.localhost = {
-        root = pkgs.runCommand "testdir" {} ''
+        root = pkgs.runCommand "testdir" { } ''
           mkdir "$out"
           echo hello world > "$out/index.html"
         '';
       };
     };
-  in {
-    webserver = commonConfig;
+    in {
+      webserver = commonConfig;
 
-    newwebserver = { pkgs, lib, ... }: {
-      imports = [ commonConfig ];
-      services.nginx.virtualHosts.localhost = {
-        root = lib.mkForce (pkgs.runCommand "testdir2" {} ''
-          mkdir "$out"
-          echo hello world > "$out/index.html"
-        '');
+      newwebserver = { pkgs, lib, ... }: {
+        imports = [ commonConfig ];
+        services.nginx.virtualHosts.localhost = {
+          root = lib.mkForce (pkgs.runCommand "testdir2" { } ''
+            mkdir "$out"
+            echo hello world > "$out/index.html"
+          '');
+        };
       };
     };
-  };
 
-  testScript = { nodes, ... }: let
-    newServerSystem = nodes.newwebserver.config.system.build.toplevel;
-    switch = "${newServerSystem}/bin/switch-to-configuration test";
-  in ''
-    my $url = 'http://localhost/index.html';
+  testScript = { nodes, ... }:
+    let
+      newServerSystem = nodes.newwebserver.config.system.build.toplevel;
+      switch = "${newServerSystem}/bin/switch-to-configuration test";
+    in ''
+      my $url = 'http://localhost/index.html';
 
-    sub checkEtag {
-      my $etag = $webserver->succeed(
-        'curl -v '.$url.' 2>&1 | sed -n -e "s/^< [Ee][Tt][Aa][Gg]: *//p"'
-      );
-      $etag =~ s/\r?\n$//;
-      my $httpCode = $webserver->succeed(
-        'curl -w "%{http_code}" -X HEAD -H \'If-None-Match: '.$etag.'\' '.$url
-      );
-      chomp $httpCode;
-      die "HTTP code is not 304" unless $httpCode == 304;
-      return $etag;
-    }
+      sub checkEtag {
+        my $etag = $webserver->succeed(
+          'curl -v '.$url.' 2>&1 | sed -n -e "s/^< [Ee][Tt][Aa][Gg]: *//p"'
+        );
+        $etag =~ s/\r?\n$//;
+        my $httpCode = $webserver->succeed(
+          'curl -w "%{http_code}" -X HEAD -H \'If-None-Match: '.$etag.'\' '.$url
+        );
+        chomp $httpCode;
+        die "HTTP code is not 304" unless $httpCode == 304;
+        return $etag;
+      }
 
-    $webserver->waitForUnit("nginx");
-    $webserver->waitForOpenPort("80");
+      $webserver->waitForUnit("nginx");
+      $webserver->waitForOpenPort("80");
 
-    subtest "check ETag if serving Nix store paths", sub {
-      my $oldEtag = checkEtag;
-      $webserver->succeed('${switch}');
-      my $newEtag = checkEtag;
-      die "Old ETag $oldEtag is the same as $newEtag" if $oldEtag eq $newEtag;
-    };
-  '';
+      subtest "check ETag if serving Nix store paths", sub {
+        my $oldEtag = checkEtag;
+        $webserver->succeed('${switch}');
+        my $newEtag = checkEtag;
+        die "Old ETag $oldEtag is the same as $newEtag" if $oldEtag eq $newEtag;
+      };
+    '';
 })

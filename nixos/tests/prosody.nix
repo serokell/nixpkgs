@@ -14,9 +14,8 @@ import ./make-test.nix {
         enabled = true;
       };
     };
-    environment.systemPackages = [
-      (pkgs.callPackage ./xmpp-sendmessage.nix {})
-    ];
+    environment.systemPackages =
+      [ (pkgs.callPackage ./xmpp-sendmessage.nix { }) ];
   };
 
   testScript = ''

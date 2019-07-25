@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, flask
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, flask }:
 
 buildPythonPackage rec {
   pname = "Flask-Silk";
@@ -17,14 +13,13 @@ buildPythonPackage rec {
     sha256 = "0mplziqw52jfspas6vsm210lmxqqzgj0dxm8y0i3gpbyyykwcmh0";
   };
 
-  propagatedBuildInputs = [
-    flask
-  ];
+  propagatedBuildInputs = [ flask ];
 
   meta = with stdenv.lib; {
-    description = "Adds silk icons to your Flask application or module, or extension";
+    description =
+      "Adds silk icons to your Flask application or module, or extension";
     license = licenses.bsd3;
     maintainers = with maintainers; [ timokau ];
-    homepage = https://github.com/sublee/flask-silk;
+    homepage = "https://github.com/sublee/flask-silk";
   };
 }

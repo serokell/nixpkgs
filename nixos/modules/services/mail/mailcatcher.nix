@@ -4,8 +4,7 @@ let
   cfg = config.services.mailcatcher;
 
   inherit (lib) mkEnableOption mkIf mkOption types;
-in
-{
+in {
   # interface
 
   options = {
@@ -53,7 +52,10 @@ in
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
-        ExecStart = "${pkgs.mailcatcher}/bin/mailcatcher --foreground --no-quit --http-ip ${cfg.http.ip} --http-port ${toString cfg.http.port} --smtp-ip ${cfg.smtp.ip} --smtp-port ${toString cfg.smtp.port}";
+        ExecStart =
+          "${pkgs.mailcatcher}/bin/mailcatcher --foreground --no-quit --http-ip ${cfg.http.ip} --http-port ${
+            toString cfg.http.port
+          } --smtp-ip ${cfg.smtp.ip} --smtp-port ${toString cfg.smtp.port}";
       };
     };
   };

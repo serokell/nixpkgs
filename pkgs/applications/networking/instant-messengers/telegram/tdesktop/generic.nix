@@ -1,9 +1,6 @@
 { stable, version, sha256Hash, archPatchesRevision, archPatchesHash }:
 
-{ mkDerivation, lib, fetchFromGitHub, fetchsvn
-, pkgconfig, pythonPackages, cmake, wrapGAppsHook, wrapQtAppsHook, gcc8
-, qtbase, qtimageformats, gtk3, libappindicator-gtk3, libnotify, xdg_utils
-, dee, ffmpeg, openalSoft, minizip, libopus, alsaLib, libpulseaudio, range-v3
+{ mkDerivation, lib, fetchFromGitHub, fetchsvn, pkgconfig, pythonPackages, cmake, wrapGAppsHook, wrapQtAppsHook, gcc8, qtbase, qtimageformats, gtk3, libappindicator-gtk3, libnotify, xdg_utils, dee, ffmpeg, openalSoft, minizip, libopus, alsaLib, libpulseaudio, range-v3
 }:
 
 with lib;
@@ -43,14 +40,25 @@ mkDerivation rec {
       --replace '"notify"' '"${libnotify}/lib/libnotify.so"'
   '';
 
-  nativeBuildInputs = [ pkgconfig pythonPackages.gyp cmake wrapGAppsHook wrapQtAppsHook gcc8 ];
+  nativeBuildInputs =
+    [ pkgconfig pythonPackages.gyp cmake wrapGAppsHook wrapQtAppsHook gcc8 ];
 
   # We want to run wrapProgram manually (with additional parameters)
   dontWrapGApps = true;
 
   buildInputs = [
-    qtbase qtimageformats gtk3 libappindicator-gtk3
-    dee ffmpeg openalSoft minizip libopus alsaLib libpulseaudio range-v3
+    qtbase
+    qtimageformats
+    gtk3
+    libappindicator-gtk3
+    dee
+    ffmpeg
+    openalSoft
+    minizip
+    libopus
+    alsaLib
+    libpulseaudio
+    range-v3
   ];
 
   enableParallelBuilding = true;
@@ -75,7 +83,7 @@ mkDerivation rec {
     "-I${getDev libopus}/include/opus"
     "-I${getDev alsaLib}/include/alsa"
     "-I${getDev libpulseaudio}/include/pulse"
-    ]) [ "QtCore" "QtGui" "QtDBus" ];
+  ]) [ "QtCore" "QtGui" "QtDBus" ];
   CPPFLAGS = NIX_CFLAGS_COMPILE;
 
   preConfigure = ''
@@ -155,7 +163,7 @@ mkDerivation rec {
       + (if stable then "(stable version)" else "(pre-release)");
     license = licenses.gpl3;
     platforms = platforms.linux;
-    homepage = https://desktop.telegram.org/;
+    homepage = "https://desktop.telegram.org/";
     maintainers = with maintainers; [ primeos abbradar ];
   };
 }

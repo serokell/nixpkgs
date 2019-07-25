@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, ocaml, findlib }:
 
-let version = "1.2"; in
+let version = "1.2";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "ocaml${ocaml.version}-result-${version}";
 
   src = fetchFromGitHub {
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
   createFindlibDestdir = true;
 
   meta = {
-    homepage = https://github.com/janestreet/result;
+    homepage = "https://github.com/janestreet/result";
     description = "Compatibility Result module";
     longDescription = ''
       Projects that want to use the new result type defined in OCaml >= 4.03
@@ -25,6 +25,6 @@ stdenv.mkDerivation {
       Result module defined in this library.
     '';
     license = stdenv.lib.licenses.bsd3;
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
   };
 }

@@ -1,9 +1,9 @@
-{ stdenv, unzip, src, name, postInstall ? "true", meta ? {}, findXMLCatalogs }:
+{ stdenv, unzip, src, name, postInstall ? "true", meta ? { }, findXMLCatalogs }:
 
 stdenv.mkDerivation {
   inherit src name postInstall;
 
-  nativeBuildInputs = [unzip];
+  nativeBuildInputs = [ unzip ];
   propagatedNativeBuildInputs = [ findXMLCatalogs ];
 
   unpackPhase = ''
@@ -17,7 +17,5 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = meta // {
-    platforms = stdenv.lib.platforms.unix;
-  };
+  meta = meta // { platforms = stdenv.lib.platforms.unix; };
 }

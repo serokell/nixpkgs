@@ -1,10 +1,9 @@
-{ stdenv, fetchurl, alsaLib, boost, cairo, cmake, fftwSinglePrec, fltk, pcre
-, libjack2, libsndfile, libXdmcp, readline, lv2, libGLU_combined, minixml, pkgconfig, zlib, xorg
+{ stdenv, fetchurl, alsaLib, boost, cairo, cmake, fftwSinglePrec, fltk, pcre, libjack2, libsndfile, libXdmcp, readline, lv2, libGLU_combined, minixml, pkgconfig, zlib, xorg
 }:
 
 assert stdenv ? glibc;
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "yoshimi-${version}";
   version = "1.5.11.3";
 
@@ -14,8 +13,21 @@ stdenv.mkDerivation  rec {
   };
 
   buildInputs = [
-    alsaLib boost cairo fftwSinglePrec fltk libjack2 libsndfile libXdmcp readline lv2 libGLU_combined
-    minixml zlib xorg.libpthreadstubs pcre
+    alsaLib
+    boost
+    cairo
+    fftwSinglePrec
+    fltk
+    libjack2
+    libsndfile
+    libXdmcp
+    readline
+    lv2
+    libGLU_combined
+    minixml
+    zlib
+    xorg.libpthreadstubs
+    pcre
   ];
 
   nativeBuildInputs = [ cmake pkgconfig ];
@@ -36,7 +48,7 @@ stdenv.mkDerivation  rec {
       ZynAddSubFX along with very good Jack and Alsa midi/audio
       functionality on Linux
     '';
-    homepage = http://yoshimi.sourceforge.net;
+    homepage = "http://yoshimi.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.goibhniu ];

@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "nginx config file formatter";
     maintainers = with maintainers; [ Baughn ];
     license = licenses.asl20;
-    homepage = https://github.com/1connect/nginx-config-formatter;
+    homepage = "https://github.com/1connect/nginx-config-formatter";
   };
 }

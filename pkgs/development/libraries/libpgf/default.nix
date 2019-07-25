@@ -2,10 +2,8 @@
 
 with stdenv.lib;
 
-let
-  version = "6.14.12";
-in
-stdenv.mkDerivation {
+let version = "6.14.12";
+in stdenv.mkDerivation {
   name = "libpgf-${version}";
 
   src = fetchurl {
@@ -17,10 +15,10 @@ stdenv.mkDerivation {
 
   preConfigure = "dos2unix configure.ac; sh autogen.sh";
 
-# configureFlags = optional static "--enable-static --disable-shared";
+  # configureFlags = optional static "--enable-static --disable-shared";
 
   meta = {
-    homepage = http://www.libpgf.org/;
+    homepage = "http://www.libpgf.org/";
     description = "Progressive Graphics Format";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.unix;

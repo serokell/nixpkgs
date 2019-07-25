@@ -2,11 +2,10 @@
 
 let
   debPatch = fetchzip {
-    url = mirror://debian/pool/main/s/scrot/scrot_0.8-18.debian.tar.xz;
+    url = "mirror://debian/pool/main/s/scrot/scrot_0.8-18.debian.tar.xz";
     sha256 = "1m8m8ad0idf3nzw0k57f6rfbw8n7dza69a7iikriqgbrpyvxqybx";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "scrot-0.8-18";
 
   src = fetchurl {
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ giblib xlibsWrapper ];
 
   meta = with stdenv.lib; {
-    homepage = http://linuxbrit.co.uk/scrot/;
+    homepage = "http://linuxbrit.co.uk/scrot/";
     description = "A command-line screen capture utility";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

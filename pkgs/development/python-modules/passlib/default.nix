@@ -1,14 +1,9 @@
-{ buildPythonPackage
-, fetchPypi
-, nose
-, bcrypt
-, argon2_cffi
-}:
+{ buildPythonPackage, fetchPypi, nose, bcrypt, argon2_cffi }:
 
 buildPythonPackage rec {
   pname = "passlib";
   version = "1.7.1";
-  name    = "${pname}-${version}";
+  name = "${pname}-${version}";
 
   src = fetchPypi {
     inherit pname version;
@@ -20,6 +15,6 @@ buildPythonPackage rec {
 
   meta = {
     description = "A password hashing library for Python";
-    homepage    = https://code.google.com/p/passlib/;
+    homepage = "https://code.google.com/p/passlib/";
   };
 }

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, qtbase
-, qtdeclarative, cmake, texlive, ninja }:
+{ stdenv, fetchFromGitHub, qtbase, qtdeclarative, cmake, texlive, ninja }:
 
 stdenv.mkDerivation rec {
   name = "dwarf-therapist-${version}";
@@ -18,13 +17,14 @@ stdenv.mkDerivation rec {
   installPhase = if stdenv.isDarwin then ''
     mkdir -p $out/Applications
     cp -r DwarfTherapist.app $out/Applications
-  '' else null;
+  '' else
+    null;
 
   meta = with stdenv.lib; {
     description = "Tool to manage dwarves in a running game of Dwarf Fortress";
     maintainers = with maintainers; [ the-kenny abbradar bendlas numinit ];
     license = licenses.mit;
     platforms = platforms.unix;
-    homepage = https://github.com/Dwarf-Therapist/Dwarf-Therapist;
+    homepage = "https://github.com/Dwarf-Therapist/Dwarf-Therapist";
   };
 }

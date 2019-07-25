@@ -23,8 +23,9 @@ stdenv.mkDerivation rec {
   patches = [ ./install.patch ];
 
   meta = {
-    homepage = http://sebastien.godard.pagesperso-orange.fr/;
-    description = "A collection of performance monitoring tools for Linux (such as sar, iostat and pidstat)";
+    homepage = "http://sebastien.godard.pagesperso-orange.fr/";
+    description =
+      "A collection of performance monitoring tools for Linux (such as sar, iostat and pidstat)";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.eelco ];

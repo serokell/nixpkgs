@@ -1,7 +1,4 @@
-{ docker
-, fetchFromGitLab
-, python
-, lib }:
+{ docker, fetchFromGitLab, python, lib }:
 
 python.pkgs.buildPythonApplication rec {
   version = "1.1.1";
@@ -49,8 +46,9 @@ python.pkgs.buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    homepage = https://f-droid.org;
-    description = "Server and tools for F-Droid, the Free Software repository system for Android";
+    homepage = "https://f-droid.org";
+    description =
+      "Server and tools for F-Droid, the Free Software repository system for Android";
     license = licenses.agpl3;
     maintainers = [ lib.maintainers.pmiddend ];
   };

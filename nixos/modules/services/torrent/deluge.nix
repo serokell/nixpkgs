@@ -9,7 +9,10 @@ let
   openFilesLimit = 4096;
   listenPortsDefault = [ 6881 6889 ];
 
-  listToRange = x: { from = elemAt x 0; to = elemAt x 1; };
+  listToRange = x: {
+    from = elemAt x 0;
+    to = elemAt x 1;
+  };
 
   configDir = "${cfg.dataDir}/.config/deluge";
   configFile = pkgs.writeText "core.conf" (builtins.toJSON cfg.config);
@@ -47,7 +50,7 @@ in {
 
         config = mkOption {
           type = types.attrs;
-          default = {};
+          default = { };
           example = literalExample ''
             {
               download_location = "/srv/torrents/";
@@ -137,7 +140,7 @@ in {
 
         extraPackages = mkOption {
           type = types.listOf types.package;
-          default = [];
+          default = [ ];
           description = ''
             Extra packages available at runtime to enable Deluge's plugins. For example,
             extraction utilities are required for the built-in "Extractor" plugin.
@@ -173,12 +176,13 @@ in {
     # Provide a default set of `extraPackages`.
     services.deluge.extraPackages = with pkgs; [ unzip gnutar xz p7zip bzip2 ];
 
-    systemd.tmpfiles.rules = [ "d '${configDir}' 0770 ${cfg.user} ${cfg.group}" ]
-    ++ optional (cfg.config ? "download_location")
+    systemd.tmpfiles.rules =
+      [ "d '${configDir}' 0770 ${cfg.user} ${cfg.group}" ]
+      ++ optional (cfg.config ? "download_location")
       "d '${cfg.config.download_location}' 0770 ${cfg.user} ${cfg.group}"
-    ++ optional (cfg.config ? "torrentfiles_location")
+      ++ optional (cfg.config ? "torrentfiles_location")
       "d '${cfg.config.torrentfiles_location}' 0770 ${cfg.user} ${cfg.group}"
-    ++ optional (cfg.config ? "move_completed_path")
+      ++ optional (cfg.config ? "move_completed_path")
       "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}";
 
     systemd.services.deluged = {
@@ -204,7 +208,7 @@ in {
     };
 
     systemd.services.delugeweb = mkIf cfg_web.enable {
-      after = [ "network.target" "deluged.service"];
+      after = [ "network.target" "deluged.service" ];
       requires = [ "deluged.service" ];
       description = "Deluge BitTorrent WebUI";
       wantedBy = [ "multi-user.target" ];
@@ -221,13 +225,14 @@ in {
     };
 
     networking.firewall = mkMerge [
-      (mkIf (cfg.declarative && cfg.openFirewall && !(cfg.config.random_port or true)) {
-        allowedTCPPortRanges = singleton (listToRange (cfg.config.listen_ports or listenPortsDefault));
-        allowedUDPPortRanges = singleton (listToRange (cfg.config.listen_ports or listenPortsDefault));
+      (mkIf (cfg.declarative && cfg.openFirewall
+      && !(cfg.config.random_port or true)) {
+        allowedTCPPortRanges = singleton
+          (listToRange (cfg.config.listen_ports or listenPortsDefault));
+        allowedUDPPortRanges = singleton
+          (listToRange (cfg.config.listen_ports or listenPortsDefault));
       })
-      (mkIf (cfg.web.openFirewall) {
-        allowedTCPPorts = [ cfg.web.port ];
-      })
+      (mkIf (cfg.web.openFirewall) { allowedTCPPorts = [ cfg.web.port ]; })
     ];
 
     environment.systemPackages = [ pkgs.deluge ];
@@ -243,9 +248,7 @@ in {
     };
 
     users.groups = mkIf (cfg.group == "deluge") {
-      deluge = {
-        gid = config.ids.gids.deluge;
-      };
+      deluge = { gid = config.ids.gids.deluge; };
     };
   };
 }

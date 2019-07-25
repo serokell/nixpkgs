@@ -13,8 +13,8 @@ buildGoPackage rec {
     sha256 = "09rmgazdrmnh1lqaayzfbn0ld7mbj9whihs9ijv5gf6si9p0ml9y";
   };
 
-  buildInputs = [go-bindata];
-  subPackages = ["cmd/kops"];
+  buildInputs = [ go-bindata ];
+  subPackages = [ "cmd/kops" ];
 
   buildFlagsArray = ''
     -ldflags=
@@ -36,9 +36,9 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "Easiest way to get a production Kubernetes up and running";
-    homepage = https://github.com/kubernetes/kops;
+    homepage = "https://github.com/kubernetes/kops";
     license = licenses.asl20;
-    maintainers = with maintainers; [offline zimbatm];
+    maintainers = with maintainers; [ offline zimbatm ];
     platforms = platforms.unix;
   };
 }

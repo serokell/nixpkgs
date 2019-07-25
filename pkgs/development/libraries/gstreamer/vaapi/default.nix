@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gst-plugins-base, bzip2, libva, wayland
-, libdrm, udev, xorg, libGLU_combined, gstreamer, gst-plugins-bad, nasm
-, libvpx, python
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gst-plugins-base, bzip2, libva, wayland, libdrm, udev, xorg, libGLU_combined, gstreamer, gst-plugins-bad, nasm, libvpx, python
 }:
 
 stdenv.mkDerivation rec {
@@ -8,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.16.0";
 
   src = fetchurl {
-    url = "${meta.homepage}/src/gstreamer-vaapi/gstreamer-vaapi-${version}.tar.xz";
+    url =
+      "${meta.homepage}/src/gstreamer-vaapi/gstreamer-vaapi-${version}.tar.xz";
     sha256 = "07qpynamiz0lniqajcaijh3n7ixs4lfk9a5mfk50sng0dricwzsf";
   };
 
@@ -17,9 +16,23 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig bzip2 ];
 
   buildInputs = [
-    gstreamer gst-plugins-base gst-plugins-bad libva wayland libdrm udev
-    xorg.libX11 xorg.libXext xorg.libXv xorg.libXrandr xorg.libSM
-    xorg.libICE libGLU_combined nasm libvpx python
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    libva
+    wayland
+    libdrm
+    udev
+    xorg.libX11
+    xorg.libXext
+    xorg.libXv
+    xorg.libXrandr
+    xorg.libSM
+    xorg.libICE
+    libGLU_combined
+    nasm
+    libvpx
+    python
   ];
 
   preConfigure = ''
@@ -34,7 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    homepage = https://gstreamer.freedesktop.org;
+    homepage = "https://gstreamer.freedesktop.org";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ tstrobel ];

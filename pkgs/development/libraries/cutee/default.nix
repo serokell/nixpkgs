@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url    = "http://www.codesink.org/download/${pname}-${version}.tar.gz";
+    url = "http://www.codesink.org/download/${pname}-${version}.tar.gz";
     sha256 = "18bzvhzx8k24mpcim5669n3wg9hd0sfsxj8zjpbr24hywrlppgc2";
   };
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "C++ Unit Testing Easy Environment";
-    homepage    = http://www.codesink.org/cutee_unit_testing.html;
-    license     = licenses.gpl2Plus;
-    maintainers = with maintainers; [ leenaars];
+    homepage = "http://www.codesink.org/cutee_unit_testing.html";
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;
   };
 }

@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, icmake
-, libmilter, libX11, openssl, readline
-, utillinux, yodl }:
+{ stdenv, fetchFromGitHub, icmake, libmilter, libX11, openssl, readline, utillinux, yodl
+}:
 
 stdenv.mkDerivation rec {
   name = "bobcat-${version}";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Brokken's Own Base Classes And Templates";
-    homepage = https://fbb-git.github.io/bobcat/;
+    homepage = "https://fbb-git.github.io/bobcat/";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

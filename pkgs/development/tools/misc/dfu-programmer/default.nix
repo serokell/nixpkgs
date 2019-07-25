@@ -1,9 +1,7 @@
 { stdenv, fetchurl, libusb }:
-let
-  version = "0.7.2";
-in
-stdenv.mkDerivation rec {
-  name="dfu-programmer-${version}";
+let version = "0.7.2";
+in stdenv.mkDerivation rec {
+  name = "dfu-programmer-${version}";
 
   buildInputs = [ libusb ];
 
@@ -16,8 +14,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     license = licenses.gpl2;
-    description = "A Device Firmware Update based USB programmer for Atmel chips with a USB bootloader";
-    homepage = http://dfu-programmer.sourceforge.net/;
+    description =
+      "A Device Firmware Update based USB programmer for Atmel chips with a USB bootloader";
+    homepage = "http://dfu-programmer.sourceforge.net/";
     maintainers = [ maintainers.the-kenny ];
     platforms = platforms.unix;
   };

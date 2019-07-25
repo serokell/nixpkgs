@@ -1,10 +1,8 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost
-, zlib, miniupnpc, qt4, utillinux, protobuf, qrencode, curl, libevent
-, withGui
-, Foundation, ApplicationServices, AppKit }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost, zlib, miniupnpc, qt4, utillinux, protobuf, qrencode, curl, libevent, withGui, Foundation, ApplicationServices, AppKit
+}:
 
 with stdenv.lib;
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "bitcoin" + (toString (optional (!withGui) "d")) + "-xt-" + version;
   version = "0.11H";
@@ -17,10 +15,10 @@ stdenv.mkDerivation rec{
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
-  buildInputs = [ openssl db48 boost zlib libevent
-                  miniupnpc utillinux protobuf curl ]
-                  ++ optionals withGui [ qt4 qrencode ]
-                  ++ optionals stdenv.isDarwin [ Foundation ApplicationServices AppKit ];
+  buildInputs =
+    [ openssl db48 boost zlib libevent miniupnpc utillinux protobuf curl ]
+    ++ optionals withGui [ qt4 qrencode ]
+    ++ optionals stdenv.isDarwin [ Foundation ApplicationServices AppKit ];
 
   configureFlags = [
     "--with-boost-libdir=${boost.out}/lib"
@@ -31,7 +29,7 @@ stdenv.mkDerivation rec{
 
   meta = {
     description = "Peer-to-peer electronic cash system (XT client)";
-    longDescription= ''
+    longDescription = ''
       Bitcoin is a free open source peer-to-peer electronic cash system that is
       completely decentralized, without the need for a central server or trusted
       parties. Users hold the crypto keys to their own money and transact directly
@@ -42,7 +40,7 @@ stdenv.mkDerivation rec{
       Core release, applying a series of patches, and then doing deterministic
       builds so anyone can check the downloads correspond to the source code.
     '';
-    homepage = https://bitcoinxt.software/;
+    homepage = "https://bitcoinxt.software/";
     maintainers = with maintainers; [ jefdaj ];
     license = licenses.mit;
     broken = stdenv.isDarwin;

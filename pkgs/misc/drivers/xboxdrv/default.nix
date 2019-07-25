@@ -1,8 +1,6 @@
-{ stdenv, fetchurl, scons, libX11, pkgconfig
-, libusb1, boost, glib, dbus-glib }:
+{ stdenv, fetchurl, scons, libX11, pkgconfig, libusb1, boost, glib, dbus-glib }:
 
-let
-  version = "0.8.8";
+let version = "0.8.8";
 in stdenv.mkDerivation {
   name = "xboxdrv-${version}";
 
@@ -17,8 +15,9 @@ in stdenv.mkDerivation {
   dontUseSconsInstall = true;
 
   meta = with stdenv.lib; {
-    homepage = https://pingus.seul.org/~grumbel/xboxdrv/;
-    description = "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
+    homepage = "https://pingus.seul.org/~grumbel/xboxdrv/";
+    description =
+      "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.fuuzetsu ];
     platforms = platforms.linux;

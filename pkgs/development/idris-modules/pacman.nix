@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, sdl2
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, sdl2, lib }:
+build-idris-package {
   name = "pacman";
   version = "2017-11-10";
 
@@ -23,7 +18,7 @@ build-idris-package  {
 
   meta = {
     description = "Proof that Idris is pacman complete";
-    homepage = https://github.com/jdublu10/pacman;
+    homepage = "https://github.com/jdublu10/pacman";
     maintainers = [ lib.maintainers.brainrape ];
   };
 }

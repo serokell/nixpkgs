@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, pytestrunner
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytestrunner, pytest }:
 
 buildPythonPackage rec {
   pname = "multiset";
@@ -20,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An implementation of a multiset";
-    homepage = https://github.com/wheerd/multiset;
+    homepage = "https://github.com/wheerd/multiset";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pep8, coverage, logilab_common, requests }:
+{ stdenv, buildPythonPackage, fetchPypi, pep8, coverage, logilab_common, requests
+}:
 
 buildPythonPackage rec {
   pname = "bugzilla";
@@ -20,7 +20,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/python-bugzilla/python-bugzilla;
+    homepage = "https://github.com/python-bugzilla/python-bugzilla";
     description = "Bugzilla XMLRPC access module";
     license = licenses.gpl2;
     platforms = platforms.all;

@@ -1,8 +1,7 @@
-{  stdenv, fetchFromGitHub, libX11, unzip, cmake, ois, freetype, libuuid,
-   boost, pkgconfig, withOgre ? false, ogre ? null, libGLU_combined ? null } :
+{ stdenv, fetchFromGitHub, libX11, unzip, cmake, ois, freetype, libuuid, boost, pkgconfig, withOgre ?
+  false, ogre ? null, libGLU_combined ? null }:
 
-let
-  renderSystem = if withOgre then "3" else "4";
+let renderSystem = if withOgre then "3" else "4";
 in stdenv.mkDerivation rec {
   name = "mygui-${version}";
   version = "3.2.2";
@@ -17,13 +16,26 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libX11 unzip cmake ois freetype libuuid boost (if withOgre then ogre else libGLU_combined) ];
+  buildInputs = [
+    libX11
+    unzip
+    cmake
+    ois
+    freetype
+    libuuid
+    boost
+    (if withOgre then ogre else libGLU_combined)
+  ];
 
   # Tools are disabled due to compilation failures.
-  cmakeFlags = [ "-DMYGUI_BUILD_TOOLS=OFF" "-DMYGUI_BUILD_DEMOS=OFF" "-DMYGUI_RENDERSYSTEM=${renderSystem}" ];
+  cmakeFlags = [
+    "-DMYGUI_BUILD_TOOLS=OFF"
+    "-DMYGUI_BUILD_DEMOS=OFF"
+    "-DMYGUI_RENDERSYSTEM=${renderSystem}"
+  ];
 
   meta = with stdenv.lib; {
-    homepage = http://mygui.info/;
+    homepage = "http://mygui.info/";
     description = "Library for creating GUIs for games and 3D applications";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;

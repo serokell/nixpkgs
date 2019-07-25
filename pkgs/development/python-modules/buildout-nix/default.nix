@@ -14,7 +14,7 @@ buildPythonPackage rec {
   postInstall = "mv $out/bin/buildout{,-nix}";
 
   meta = {
-    homepage = http://www.buildout.org;
+    homepage = "http://www.buildout.org";
     description = "A software build and configuration system";
     license = stdenv.lib.licenses.zpl21;
     maintainers = [ stdenv.lib.maintainers.goibhniu ];

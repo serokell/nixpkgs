@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, six
-, docutils
-, pygments
-, bleach
-, html5lib
+{ stdenv, buildPythonPackage, fetchPypi, pytest, six, docutils, pygments, bleach, html5lib
 }:
 
 buildPythonPackage rec {
@@ -29,7 +21,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Readme is a library for rendering readme descriptions for Warehouse";
+    description =
+      "Readme is a library for rendering readme descriptions for Warehouse";
     homepage = "https://github.com/pypa/readme";
     license = licenses.asl20;
   };

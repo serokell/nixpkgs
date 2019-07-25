@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pythonPackages, gocr, unrar, rhino, spidermonkey }:
+{ stdenv, fetchFromGitHub, fetchpatch, pythonPackages, gocr, unrar, rhino, spidermonkey
+}:
 
 let
-  beautifulsoup = pythonPackages.callPackage ./beautifulsoup.nix {
-    inherit pythonPackages;
-  };
+  beautifulsoup =
+    pythonPackages.callPackage ./beautifulsoup.nix { inherit pythonPackages; };
 
 in pythonPackages.buildPythonApplication rec {
   version = "0.4.9-next";
@@ -16,26 +16,33 @@ in pythonPackages.buildPythonApplication rec {
     sha256 = "1ad4r9slx1wgvd2fs4plfbpzi4i2l2bk0lybzsb2ncgh59m87h54";
   };
 
-  patches =
-    let
-      # gets merged in next release version of pyload
-      configParserPatch = fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/pyload/pyload/pull/2625.diff";
-        sha256 = "1bisgx78kcr5c0x0i3h0ch5mykns5wx5wx7gvjj0pc71lfzlxzb9";
-      };
-      setupPyPatch = fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/pyload/pyload/pull/2638.diff";
-        sha256 = "006g4qbl582262ariflbyfrszcx8ck2ac1cpry1f82f76p4cgf6z";
-      };
+  patches = let
+    # gets merged in next release version of pyload
+    configParserPatch = fetchpatch {
+      url =
+        "https://patch-diff.githubusercontent.com/raw/pyload/pyload/pull/2625.diff";
+      sha256 = "1bisgx78kcr5c0x0i3h0ch5mykns5wx5wx7gvjj0pc71lfzlxzb9";
+    };
+    setupPyPatch = fetchpatch {
+      url =
+        "https://patch-diff.githubusercontent.com/raw/pyload/pyload/pull/2638.diff";
+      sha256 = "006g4qbl582262ariflbyfrszcx8ck2ac1cpry1f82f76p4cgf6z";
+    };
     in [ configParserPatch setupPyPatch ];
 
-  buildInputs = [
-    unrar rhino spidermonkey gocr pythonPackages.paver
-  ];
+  buildInputs = [ unrar rhino spidermonkey gocr pythonPackages.paver ];
 
   propagatedBuildInputs = with pythonPackages; [
-    pycurl jinja2 beaker thrift simplejson pycrypto feedparser tkinter
-    beautifulsoup send2trash
+    pycurl
+    jinja2
+    beaker
+    thrift
+    simplejson
+    pycrypto
+    feedparser
+    tkinter
+    beautifulsoup
+    send2trash
   ];
 
   #remove this once the PR patches above are merged. Needed because githubs diff endpoint
@@ -52,7 +59,7 @@ in pythonPackages.buildPythonApplication rec {
 
   meta = {
     description = "Free and open source downloader for 1-click-hosting sites";
-    homepage = https://github.com/pyload/pyload;
+    homepage = "https://github.com/pyload/pyload";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.mahe ];
     platforms = stdenv.lib.platforms.all;

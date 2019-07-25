@@ -6,9 +6,7 @@ let
 
   cfg = config.services.riak;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -151,11 +149,8 @@ in
         LimitNOFILE = 65536;
       };
 
-      unitConfig.RequiresMountsFor = [
-        "${cfg.dataDir}"
-        "${cfg.logDir}"
-        "/etc/riak"
-      ];
+      unitConfig.RequiresMountsFor =
+        [ "${cfg.dataDir}" "${cfg.logDir}" "/etc/riak" ];
     };
 
   };

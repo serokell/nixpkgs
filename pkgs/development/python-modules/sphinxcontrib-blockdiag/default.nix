@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, mock
-, sphinx-testing
-, sphinx
-, blockdiag
+{ stdenv, buildPythonPackage, fetchPypi, python, mock, sphinx-testing, sphinx, blockdiag
 }:
 
 buildPythonPackage rec {

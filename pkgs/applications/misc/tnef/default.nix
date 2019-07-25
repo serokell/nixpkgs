@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   name = "tnef-${version}";
 
   src = fetchFromGitHub {
-    owner  = "verdammelt";
-    repo   = "tnef";
-    rev    = version;
+    owner = "verdammelt";
+    repo = "tnef";
+    rev = version;
     sha256 = "0cq2xh5wd74qn6k2nnw5rayxgqhjl3jbzf4zlc4babcwxrv32ldh";
   };
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
       The TNEF program allows one to unpack the attachments which were encapsulated into the TNEF attachment. Thus alleviating the need to use Microsoft Outlook to view the attachment.
     '';
-    homepage = https://github.com/verdammelt/tnef;
+    homepage = "https://github.com/verdammelt/tnef";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.all;

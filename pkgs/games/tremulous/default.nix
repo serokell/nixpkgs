@@ -8,11 +8,13 @@ stdenv.mkDerivation rec {
   };
   # http://tremulous.net/wiki/Client_versions
   src2 = fetchurl {
-    url = "http://releases.mercenariesguild.net/client/mgclient_source_Release_1.011.tar.gz";
+    url =
+      "http://releases.mercenariesguild.net/client/mgclient_source_Release_1.011.tar.gz";
     sha256 = "1vrsi7va7hdp8k824663s1pyw9zpsd4bwwr50j7i1nn72b0v9a26";
   };
   src3 = fetchurl {
-    url = "http://releases.mercenariesguild.net/tremded/mg_tremded_source_1.01.tar.gz";
+    url =
+      "http://releases.mercenariesguild.net/tremded/mg_tremded_source_1.01.tar.gz";
     sha256 = "1njrqlhzjvy9myddzkagszwdcf3m4h08wip888w2rmbshs6kz6ql";
   };
   buildInputs = [ unzip libGLU_combined libX11 SDL openal ];
@@ -69,10 +71,10 @@ stdenv.mkDerivation rec {
       after death. Other structures provide automated base defense (to some
       degree), healing functions and much more...
     '';
-    homepage = http://www.tremulous.net;
+    homepage = "http://www.tremulous.net";
     license = with licenses; [
       gpl2
-      cc-by-sa-25 /* media */
+      cc-by-sa-25 # media
     ];
     maintainers = with maintainers; [ astsmtl ];
     platforms = platforms.linux;

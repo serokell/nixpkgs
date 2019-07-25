@@ -7,9 +7,9 @@ buildGoModule rec {
   goPackagePath = "github.com/gohugoio/hugo";
 
   src = fetchFromGitHub {
-    owner  = "gohugoio";
-    repo   = "hugo";
-    rev    = "v${version}";
+    owner = "gohugoio";
+    repo = "hugo";
+    rev = "v${version}";
     sha256 = "0hbkl8dhhdic0admrkvlp1h1bmfrrwfnvipx27clyk0f88jcvb7y";
   };
 
@@ -21,7 +21,7 @@ buildGoModule rec {
 
   meta = with stdenv.lib; {
     description = "A fast and modern static website engine.";
-    homepage = https://gohugo.io;
+    homepage = "https://gohugo.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ schneefux ];
   };

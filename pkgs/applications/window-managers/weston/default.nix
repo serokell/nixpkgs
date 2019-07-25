@@ -1,9 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig
-, wayland, libGL, mesa, libxkbcommon, cairo, libxcb
-, libXcursor, xlibsWrapper, udev, libdrm, mtdev, libjpeg, pam, dbus, libinput, libevdev
-, colord, lcms2
-, pango ? null, libunwind ? null, freerdp ? null, vaapi ? null, libva ? null
-, libwebp ? null, xwayland ? null, wayland-protocols
+{ stdenv, fetchurl, meson, ninja, pkgconfig, wayland, libGL, mesa, libxkbcommon, cairo, libxcb, libXcursor, xlibsWrapper, udev, libdrm, mtdev, libjpeg, pam, dbus, libinput, libevdev, colord, lcms2, pango ?
+  null, libunwind ? null, freerdp ? null, vaapi ? null, libva ? null, libwebp ?
+    null, xwayland ? null, wayland-protocols
 # beware of null defaults, as the parameters *are* supplied by callPackage by default
 }:
 
@@ -19,13 +16,34 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ meson ninja pkgconfig ];
   buildInputs = [
-    wayland libGL mesa libxkbcommon cairo libxcb libXcursor xlibsWrapper udev libdrm
-    mtdev libjpeg pam dbus libinput libevdev pango libunwind freerdp vaapi libva
-    libwebp wayland-protocols
-    colord lcms2
+    wayland
+    libGL
+    mesa
+    libxkbcommon
+    cairo
+    libxcb
+    libXcursor
+    xlibsWrapper
+    udev
+    libdrm
+    mtdev
+    libjpeg
+    pam
+    dbus
+    libinput
+    libevdev
+    pango
+    libunwind
+    freerdp
+    vaapi
+    libva
+    libwebp
+    wayland-protocols
+    colord
+    lcms2
   ];
 
-  mesonFlags= [
+  mesonFlags = [
     "-Dbackend-drm-screencast-vaapi=${boolToString (vaapi != null)}"
     "-Dbackend-rdp=${boolToString (freerdp != null)}"
     "-Dxwayland=${boolToString (xwayland != null)}" # Default is true!
@@ -38,13 +56,12 @@ stdenv.mkDerivation rec {
     # TODO:
     #"--enable-clients"
     #"--disable-setuid-install" # prevent install target to chown root weston-launch, which fails
-  ] ++ optionals (xwayland != null) [
-    "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
-  ];
+  ] ++ optionals (xwayland != null)
+    [ "-Dxwayland-path=${xwayland.out}/bin/Xwayland" ];
 
   meta = {
     description = "Reference implementation of a Wayland compositor";
-    homepage = https://wayland.freedesktop.org/;
+    homepage = "https://wayland.freedesktop.org/";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

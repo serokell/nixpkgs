@@ -48,16 +48,17 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Dynamic mathematics software with graphics, algebra and spreadsheets";
+    description =
+      "Dynamic mathematics software with graphics, algebra and spreadsheets";
     longDescription = ''
       Dynamic mathematics software for all levels of education that brings
       together geometry, algebra, spreadsheets, graphing, statistics and
       calculus in one easy-to-use package.
     '';
-    homepage = https://www.geogebra.org/;
+    homepage = "https://www.geogebra.org/";
     maintainers = with maintainers; [ ma27 ];
     license = with licenses; [ gpl3 cc-by-nc-sa-30 geogebra ];
     platforms = platforms.all;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

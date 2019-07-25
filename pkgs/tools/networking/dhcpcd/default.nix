@@ -22,10 +22,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs ./configure";
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
 
   makeFlags = "PREFIX=\${out}";
 
@@ -34,11 +31,12 @@ stdenv.mkDerivation rec {
   installFlags = "DBDIR=\${TMPDIR}/db SYSCONFDIR=$(out)/etc";
 
   # Check that the udev plugin got built.
-  postInstall = stdenv.lib.optional (udev != null) "[ -e $out/lib/dhcpcd/dev/udev.so ]";
+  postInstall =
+    stdenv.lib.optional (udev != null) "[ -e $out/lib/dhcpcd/dev/udev.so ]";
 
   meta = with stdenv.lib; {
     description = "A client for the Dynamic Host Configuration Protocol (DHCP)";
-    homepage = https://roy.marples.name/projects/dhcpcd;
+    homepage = "https://roy.marples.name/projects/dhcpcd";
     platforms = platforms.linux;
     license = licenses.bsd2;
     maintainers = with maintainers; [ eelco fpletz ];

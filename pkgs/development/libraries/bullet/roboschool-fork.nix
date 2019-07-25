@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, libGLU_combined, freeglut
-, Cocoa,  OpenGL
-}:
+{ stdenv, fetchFromGitHub, cmake, libGLU_combined, freeglut, Cocoa, OpenGL }:
 
 stdenv.mkDerivation rec {
   name = "bullet-${version}";
@@ -50,7 +48,7 @@ stdenv.mkDerivation rec {
       Bullet 3D Game Multiphysics Library provides state of the art collision
       detection, soft body and rigid body dynamics.
     '';
-    homepage = http://bulletphysics.org;
+    homepage = "http://bulletphysics.org";
     license = licenses.zlib;
     platforms = platforms.unix;
   };

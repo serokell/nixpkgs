@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ inkscape imagemagick potrace svgo scfbuild ];
   # silence inkscape errors about non-writable home
-  preBuild = "export HOME=\"$NIX_BUILD_ROOT\"";
+  preBuild = ''export HOME="$NIX_BUILD_ROOT"'';
   makeFlags = [ "SCFBUILD=${scfbuild}/bin/scfbuild" ];
   enableParallelBuilding = true;
 
@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Color emoji SVGinOT font using Twitter Unicode 10 emoji with diversity and country flags";
+    description =
+      "Color emoji SVGinOT font using Twitter Unicode 10 emoji with diversity and country flags";
     longDescription = ''
       A color and B&W emoji SVGinOT font built from the Twitter Emoji for
       Everyone artwork with support for ZWJ, skin tone diversity and country

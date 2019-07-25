@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Emacs major mode for Idris";
-    homepage = https://github.com/idris-hackers/idris-mode;
+    homepage = "https://github.com/idris-hackers/idris-mode";
     license = stdenv.lib.licenses.gpl3;
 
     platforms = stdenv.lib.platforms.all;

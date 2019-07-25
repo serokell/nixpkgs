@@ -12,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests ];
 
   meta = with stdenv.lib; {
-    description = "Python package for controlling Neato pybotvac Connected vacuum robot";
-    homepage = https://github.com/stianaske/pybotvac;
+    description =
+      "Python package for controlling Neato pybotvac Connected vacuum robot";
+    homepage = "https://github.com/stianaske/pybotvac";
     license = licenses.mit;
     maintainers = with maintainers; [ elseym ];
   };

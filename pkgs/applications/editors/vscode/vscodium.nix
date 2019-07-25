@@ -14,39 +14,39 @@ let
     "x86_64-linux" = "1ay4zvkbln2wf2j1d71mn13b6p2fqvzgz45mzrgaqwsszhbg4xzp";
     "x86_64-darwin" = "17r9krb1qd92ybx078hkw9zlyym6kbnmbl91vjdilsq77bkf9jmw";
   }.${system};
-in
-  callPackage ./generic.nix rec {
+in callPackage ./generic.nix rec {
 
-    version = "1.36.1";
-    pname = "vscodium";
+  version = "1.36.1";
+  pname = "vscodium";
 
-    executableName = "codium";
-    longName = "VSCodium";
-    shortName = "Codium";
+  executableName = "codium";
+  longName = "VSCodium";
+  shortName = "Codium";
 
-    src = fetchurl {
-      url = "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-${plat}-${version}.${archive_fmt}";
-      inherit sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-${plat}-${version}.${archive_fmt}";
+    inherit sha256;
+  };
 
-    sourceRoot = ".";
+  sourceRoot = ".";
 
-    meta = with stdenv.lib; {
-      description = ''
-        Open source source code editor developed by Microsoft for Windows,
-        Linux and macOS (VS Code without MS branding/telemetry/licensing)
-      '';
-      longDescription = ''
-        Open source source code editor developed by Microsoft for Windows,
-        Linux and macOS. It includes support for debugging, embedded Git
-        control, syntax highlighting, intelligent code completion, snippets,
-        and code refactoring. It is also customizable, so users can change the
-        editor's theme, keyboard shortcuts, and preferences
-      '';
-      homepage = https://github.com/VSCodium/vscodium;
-      downloadPage = https://github.com/VSCodium/vscodium/releases;
-      license = licenses.mit;
-      maintainers = with maintainers; [];
-      platforms = [ "x86_64-linux" "x86_64-darwin" ];
-    };
-  }
+  meta = with stdenv.lib; {
+    description = ''
+      Open source source code editor developed by Microsoft for Windows,
+      Linux and macOS (VS Code without MS branding/telemetry/licensing)
+    '';
+    longDescription = ''
+      Open source source code editor developed by Microsoft for Windows,
+      Linux and macOS. It includes support for debugging, embedded Git
+      control, syntax highlighting, intelligent code completion, snippets,
+      and code refactoring. It is also customizable, so users can change the
+      editor's theme, keyboard shortcuts, and preferences
+    '';
+    homepage = "https://github.com/VSCodium/vscodium";
+    downloadPage = "https://github.com/VSCodium/vscodium/releases";
+    license = licenses.mit;
+    maintainers = with maintainers; [ ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+  };
+}

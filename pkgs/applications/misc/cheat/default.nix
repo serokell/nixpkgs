@@ -24,14 +24,13 @@ buildPythonApplication rec {
     rm -r $out/${python3.sitePackages}/usr
   '';
 
-  makeWrapperArgs = [
-    "--suffix" "CHEAT_PATH" ":" "$out/share/cheat"
-  ];
+  makeWrapperArgs = [ "--suffix" "CHEAT_PATH" ":" "$out/share/cheat" ];
 
   meta = with stdenv.lib; {
-    description = "cheat allows you to create and view interactive cheatsheets on the command-line";
+    description =
+      "cheat allows you to create and view interactive cheatsheets on the command-line";
     maintainers = with maintainers; [ mic92 ];
     license = with licenses; [ gpl3 mit ];
-    homepage = https://github.com/chrisallenlane/cheat;
+    homepage = "https://github.com/chrisallenlane/cheat";
   };
 }

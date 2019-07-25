@@ -30,18 +30,18 @@ stdenv.mkDerivation rec {
       categories = "Office;Application;";
     };
 
-  in ''
-    install -v -m 755    -d $out/share/java/swingsane/
-    install -v -m 644 *.jar $out/share/java/swingsane/
+    in ''
+      install -v -m 755    -d $out/share/java/swingsane/
+      install -v -m 644 *.jar $out/share/java/swingsane/
 
-    echo "${execWrapper}" > swingsane
-    install -v -D -m 755 swingsane $out/bin/swingsane
+      echo "${execWrapper}" > swingsane
+      install -v -D -m 755 swingsane $out/bin/swingsane
 
-    unzip -j swingsane-${version}.jar "com/swingsane/images/*.png"
-    install -v -D -m 644 swingsane_512x512.png $out/share/pixmaps/swingsane.png
+      unzip -j swingsane-${version}.jar "com/swingsane/images/*.png"
+      install -v -D -m 644 swingsane_512x512.png $out/share/pixmaps/swingsane.png
 
-    cp -v -r ${desktopItem}/share/applications $out/share
-  '';
+      cp -v -r ${desktopItem}/share/applications $out/share
+    '';
 
   meta = with stdenv.lib; {
     description = "Java GUI for SANE scanner servers (saned)";
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       simultaneous scan jobs, image transformation jobs (deskew, binarize,
       crop, etc), PDF and PNG output.
     '';
-    homepage = http://swingsane.com/;
+    homepage = "http://swingsane.com/";
     license = licenses.asl20;
     platforms = platforms.all;
   };

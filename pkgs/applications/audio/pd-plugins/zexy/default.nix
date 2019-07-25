@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.2.4";
 
   src = fetchurl {
-    url = "https://puredata.info/downloads/zexy/releases/${version}/${name}.tar.gz";
+    url =
+      "https://puredata.info/downloads/zexy/releases/${version}/${name}.tar.gz";
     sha256 = "1xpgl82c2lc6zfswjsa7z10yhv5jb7a4znzh3nc7ffrzm1z8vylp";
   };
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "The swiss army knife for puredata";
-    homepage = http://puredata.info/downloads/zexy;
+    homepage = "http://puredata.info/downloads/zexy";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

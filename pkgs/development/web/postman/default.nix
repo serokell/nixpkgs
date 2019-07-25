@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-  buildPhase = ":";   # nothing to build
+  buildPhase = ":"; # nothing to build
 
   desktopItem = makeDesktopItem {
     name = "postman";
@@ -76,19 +76,19 @@ stdenv.mkDerivation rec {
       xorg.libXtst
       xorg.libXScrnSaver
     ];
-  in ''
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}:$out/share/postman" \
-      $out/share/postman/Postman
-    patchelf --set-rpath "${libPath}" $out/share/postman/libnode.so
-    patchelf --set-rpath "${libPath}" $out/share/postman/libffmpeg.so
+    in ''
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}:$out/share/postman" \
+        $out/share/postman/Postman
+      patchelf --set-rpath "${libPath}" $out/share/postman/libnode.so
+      patchelf --set-rpath "${libPath}" $out/share/postman/libffmpeg.so
 
-    wrapProgram $out/share/postman/Postman --prefix LD_LIBRARY_PATH : ${libPath}
-  '';
+      wrapProgram $out/share/postman/Postman --prefix LD_LIBRARY_PATH : ${libPath}
+    '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.getpostman.com;
+    homepage = "https://www.getpostman.com";
     description = "API Development Environment";
     license = stdenv.lib.licenses.postman;
     platforms = [ "x86_64-linux" ];

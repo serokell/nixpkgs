@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, coq, ssreflect, coq-ext-lib, simple-io }:
 
-let params =
-  {
+let
+  params = {
     "8.5" = {
       version = "20170512";
       rev = "31eb050ae5ce57ab402db9726fb7cd945a0b4d03";
@@ -27,11 +27,10 @@ let params =
     };
   };
   param = params."${coq.coq-version}";
-in
 
-let recent = stdenv.lib.versionAtLeast coq.coq-version "8.8"; in
+in let recent = stdenv.lib.versionAtLeast coq.coq-version "8.8";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   name = "coq${coq.coq-version}-QuickChick-${param.version}";
 
@@ -44,13 +43,10 @@ stdenv.mkDerivation rec {
   preConfigure = stdenv.lib.optionalString recent
     "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native";
 
-  buildInputs = [ coq ]
-  ++ (with coq.ocamlPackages; [ ocaml camlp5 findlib ])
-  ++ stdenv.lib.optionals recent
-     (with coq.ocamlPackages; [ ocamlbuild num ])
-  ;
+  buildInputs = [ coq ] ++ (with coq.ocamlPackages; [ ocaml camlp5 findlib ])
+    ++ stdenv.lib.optionals recent (with coq.ocamlPackages; [ ocamlbuild num ]);
   propagatedBuildInputs = [ ssreflect ]
-  ++ stdenv.lib.optionals recent [ coq-ext-lib simple-io ];
+    ++ stdenv.lib.optionals recent [ coq-ext-lib simple-io ];
 
   enableParallelBuilding = false;
 
@@ -59,14 +55,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/QuickChick/QuickChick;
-    description = "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck";
+    homepage = "https://github.com/QuickChick/QuickChick";
+    description =
+      "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck";
     maintainers = with maintainers; [ jwiegley ];
     platforms = coq.meta.platforms;
   };
 
-  passthru = {
-    compatibleCoqVersions = v: builtins.hasAttr v params;
-  };
+  passthru = { compatibleCoqVersions = v: builtins.hasAttr v params; };
 
 }

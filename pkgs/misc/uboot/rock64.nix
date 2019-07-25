@@ -1,4 +1,5 @@
-{ lib, buildUBoot, fetchFromGitHub, armTrustedFirmwareRK3328 }: let
+{ lib, buildUBoot, fetchFromGitHub, armTrustedFirmwareRK3328 }:
+let
   rkbin = fetchFromGitHub {
     owner = "ayufan-rock64";
     repo = "rkbin";
@@ -17,7 +18,8 @@ in buildUBoot rec {
 
   extraPatches = [ ./rock64-fdt-dtc-compatibility.patch ];
 
-  extraMakeFlags = [ "BL31=${armTrustedFirmwareRK3328}/bl31.elf" "u-boot.itb" "all" ];
+  extraMakeFlags =
+    [ "BL31=${armTrustedFirmwareRK3328}/bl31.elf" "u-boot.itb" "all" ];
 
   # Close to being blob free, but the U-Boot TPL causes the kernel to hang after a few minutes
   postBuild = ''
@@ -27,11 +29,12 @@ in buildUBoot rec {
   '';
 
   defconfig = "rock64-rk3328_defconfig";
-  filesToInstall = [ "spl/u-boot-spl.bin" "tpl/u-boot-tpl.bin" "u-boot.itb" "idbloader.img"];
+  filesToInstall =
+    [ "spl/u-boot-spl.bin" "tpl/u-boot-tpl.bin" "u-boot.itb" "idbloader.img" ];
 
   extraMeta = with lib; {
     maintainers = [ maintainers.lopsided98 ];
-    platforms = ["aarch64-linux"];
+    platforms = [ "aarch64-linux" ];
     # Because of the TPL blob
     license = licenses.unfreeRedistributableFirmware;
   };

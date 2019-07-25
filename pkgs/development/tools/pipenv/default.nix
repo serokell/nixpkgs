@@ -1,13 +1,4 @@
-{ lib
-, buildPythonApplication
-, flake8
-, invoke
-, parver
-, pip
-, requests
-, virtualenv
-, fetchPypi
-, virtualenv-clone
+{ lib, buildPythonApplication, flake8, invoke, parver, pip, requests, virtualenv, fetchPypi, virtualenv-clone
 }:
 
 buildPythonApplication rec {
@@ -21,22 +12,13 @@ buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [
-    flake8
-    invoke
-    parver
-    pip
-    requests
-    virtualenv
-    virtualenv-clone
-  ];
+  propagatedBuildInputs =
+    [ flake8 invoke parver pip requests virtualenv virtualenv-clone ];
 
   doCheck = false;
 
-  makeWrapperArgs = [
-    "--set PYTHONPATH \".:$PYTHONPATH\""
-    "--set PIP_IGNORE_INSTALLED 1"
-  ];
+  makeWrapperArgs =
+    [ ''--set PYTHONPATH ".:$PYTHONPATH"'' "--set PIP_IGNORE_INSTALLED 1" ];
 
   meta = with lib; {
     description = "Python Development Workflow for Humans";

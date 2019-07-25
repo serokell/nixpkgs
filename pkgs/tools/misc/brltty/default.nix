@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, python3, bluez
-, alsaSupport ? stdenv.isLinux, alsaLib ? null
-, systemdSupport ? stdenv.isLinux, systemd ? null }:
+{ stdenv, fetchurl, pkgconfig, python3, bluez, alsaSupport ?
+  stdenv.isLinux, alsaLib ? null, systemdSupport ? stdenv.isLinux, systemd ?
+    null }:
 
 assert alsaSupport -> alsaLib != null;
 assert systemdSupport -> systemd != null;
@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig python3.pkgs.cython ];
-  buildInputs = [ bluez ]
-    ++ stdenv.lib.optional alsaSupport alsaLib
+  buildInputs = [ bluez ] ++ stdenv.lib.optional alsaSupport alsaLib
     ++ stdenv.lib.optional systemdSupport systemd;
 
   meta = {
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
       It drives the braille display, and provides complete screen review functionality.
       Some speech capability has also been incorporated.
     '';
-    homepage = http://www.brltty.com/;
+    homepage = "http://www.brltty.com/";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.bramd ];
     platforms = stdenv.lib.platforms.all;

@@ -39,13 +39,14 @@ with lib;
     services.mingetty.autologinUser = "root";
 
     # Some more help text.
-    services.mingetty.helpLine =
-      ''
+    services.mingetty.helpLine = ''
 
-        The "root" account has an empty password.  ${
-          optionalString config.services.xserver.enable
-            "Type `systemctl start display-manager' to\nstart the graphical user interface."}
-      '';
+      The "root" account has an empty password.  ${
+        optionalString config.services.xserver.enable ''
+          Type `systemctl start display-manager' to
+          start the graphical user interface.''
+      }
+    '';
 
     # Allow sshd to be started manually through "systemctl start sshd".
     services.openssh = {
@@ -54,11 +55,11 @@ with lib;
       # It is safe as root doesn't have a password by default and SSH is disabled by default
       permitRootLogin = "yes";
     };
-    systemd.services.sshd.wantedBy = mkOverride 50 [];
+    systemd.services.sshd.wantedBy = mkOverride 50 [ ];
 
     # Enable wpa_supplicant, but don't start it by default.
     networking.wireless.enable = mkDefault true;
-    systemd.services.wpa_supplicant.wantedBy = mkOverride 50 [];
+    systemd.services.wpa_supplicant.wantedBy = mkOverride 50 [ ];
 
     # Tell the Nix evaluator to garbage collect more aggressively.
     # This is desirable in memory-constrained environments that don't
@@ -74,13 +75,12 @@ with lib;
 
     # To speed up installation a little bit, include the complete
     # stdenv in the Nix store on the CD.
-    system.extraDependencies = with pkgs;
-      [
-        stdenv
-        stdenvNoCC # for runCommand
-        busybox
-        jq # for closureInfo
-      ];
+    system.extraDependencies = with pkgs; [
+      stdenv
+      stdenvNoCC # for runCommand
+      busybox
+      jq # for closureInfo
+    ];
 
     # Show all debug messages from the kernel but don't log refused packets
     # because we have the firewall enabled. This makes installs from the

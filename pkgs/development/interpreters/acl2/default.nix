@@ -1,15 +1,16 @@
 { stdenv, fetchFromGitHub,
-  # perl, which, nettools,
-  sbcl }:
+# perl, which, nettools,
+sbcl }:
 
-let hashes = {
-  "8.0" = "1x1giy2c1y6krg3kf8pf9wrmvk981shv0pxcwi483yjqm90xng4r";
-  "8.2" = "1x33kv6w9cbqzvyrihn61pzmqlvnk3drm8ksd5v0arg38i95awi3";
-};
-revs = {
-  "8.0" = "8.0";
-  "8.2" = "8.2";
-};
+let
+  hashes = {
+    "8.0" = "1x1giy2c1y6krg3kf8pf9wrmvk981shv0pxcwi483yjqm90xng4r";
+    "8.2" = "1x33kv6w9cbqzvyrihn61pzmqlvnk3drm8ksd5v0arg38i95awi3";
+  };
+  revs = {
+    "8.0" = "8.0";
+    "8.2" = "8.2";
+  };
 in stdenv.mkDerivation rec {
   name = "acl2-${version}";
   version = "8.2";
@@ -21,7 +22,8 @@ in stdenv.mkDerivation rec {
     sha256 = hashes."${version}";
   };
 
-  buildInputs = [ sbcl
+  buildInputs = [
+    sbcl
     # which perl nettools
   ];
 
@@ -62,8 +64,8 @@ in stdenv.mkDerivation rec {
       ACL2 have been removed because it is not currently possible to
       build them with Nix.
     '';
-    homepage = http://www.cs.utexas.edu/users/moore/acl2/;
-    downloadPage = https://github.com/acl2-devel/acl2-devel/releases;
+    homepage = "http://www.cs.utexas.edu/users/moore/acl2/";
+    downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
     # There are a bunch of licenses in the community books, but since
     # they currently get deleted during the build, we don't mention
     # their licenses here.  ACL2 proper is released under a BSD

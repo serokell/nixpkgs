@@ -25,14 +25,11 @@ stdenv.mkDerivation rec {
     cp -r doc $out/share/doc/ncftp
   '';
 
-  configureFlags = [
-    "--enable-ssp"
-    "--mandir=$(out)/share/man/"
-  ];
+  configureFlags = [ "--enable-ssp" "--mandir=$(out)/share/man/" ];
 
   meta = with stdenv.lib; {
     description = "Command line FTP (File Transfer Protocol) client";
-    homepage = https://www.ncftp.com/ncftp/;
+    homepage = "https://www.ncftp.com/ncftp/";
     maintainers = with maintainers; [ bjornfor ];
     platforms = platforms.unix;
     license = licenses.clArtistic;

@@ -1,19 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, isPy3k
-, stdenv
-, numpy
-, wxPython
-, matplotlib
-, pycairo
-, python-gnupg
-, xlrd
-, xlwt
-, jedi
-, pyenchant
-, basemap
-, pygtk
-, makeDesktopItem
+{ buildPythonPackage, fetchPypi, isPy3k, stdenv, numpy, wxPython, matplotlib, pycairo, python-gnupg, xlrd, xlwt, jedi, pyenchant, basemap, pygtk, makeDesktopItem
 }:
 
 buildPythonPackage rec {
@@ -25,7 +10,19 @@ buildPythonPackage rec {
     sha256 = "6e5d0eb49750eed7734852e15727e190270880c75dcc5f6c8fb1bfdaa59c48fc";
   };
 
-  propagatedBuildInputs = [ numpy wxPython matplotlib pycairo python-gnupg xlrd xlwt jedi pyenchant basemap pygtk ];
+  propagatedBuildInputs = [
+    numpy
+    wxPython
+    matplotlib
+    pycairo
+    python-gnupg
+    xlrd
+    xlwt
+    jedi
+    pyenchant
+    basemap
+    pygtk
+  ];
   # Could also (optionally) add pyrsvg and python bindings for libvlc
 
   # Tests try to access X Display
@@ -49,8 +46,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Pyspread is a non-traditional spreadsheet application that is based on and written in the programming language Python";
-    homepage = https://manns.github.io/pyspread/;
+    description =
+      "Pyspread is a non-traditional spreadsheet application that is based on and written in the programming language Python";
+    homepage = "https://manns.github.io/pyspread/";
     license = licenses.gpl3;
   };
 }

@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchurl, pkgconfig, removeReferencesTo
-, libevent, readline, net_snmp, openssl
+{ stdenv, lib, fetchurl, pkgconfig, removeReferencesTo, libevent, readline, net_snmp, openssl
 }:
 
 stdenv.mkDerivation rec {
@@ -30,8 +29,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "802.1ab implementation (LLDP) to help you locate neighbors of all your equipments";
-    homepage = https://vincentbernat.github.io/lldpd/;
+    description =
+      "802.1ab implementation (LLDP) to help you locate neighbors of all your equipments";
+    homepage = "https://vincentbernat.github.io/lldpd/";
     license = licenses.isc;
     maintainers = with maintainers; [ fpletz ];
     platforms = platforms.linux;

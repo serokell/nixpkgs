@@ -1,5 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, python, pkg-config, libX11
-, SDL, SDL_image, SDL_mixer, SDL_ttf, libpng, libjpeg, portmidi, freetype
+{ lib, fetchPypi, buildPythonPackage, python, pkg-config, libX11, SDL, SDL_image, SDL_mixer, SDL_ttf, libpng, libjpeg, portmidi, freetype
 }:
 
 buildPythonPackage rec {
@@ -11,14 +10,10 @@ buildPythonPackage rec {
     sha256 = "301c6428c0880ecd4a9e3951b80e539c33863b6ff356a443db1758de4f297957";
   };
 
-  nativeBuildInputs = [
-    pkg-config SDL
-  ];
+  nativeBuildInputs = [ pkg-config SDL ];
 
-  buildInputs = [
-    SDL SDL_image SDL_mixer SDL_ttf libpng libjpeg
-    portmidi libX11 freetype
-  ];
+  buildInputs =
+    [ SDL SDL_image SDL_mixer SDL_ttf libpng libjpeg portmidi libX11 freetype ];
 
   # Tests fail because of no audio device and display.
   doCheck = false;
@@ -32,17 +27,18 @@ buildPythonPackage rec {
       -i buildconfig/config_unix.py
     ${lib.concatMapStrings (dep: ''
       sed \
-        -e "/origincdirs =/a\        origincdirs += ['${lib.getDev dep}/include']" \
+        -e "/origincdirs =/a\        origincdirs += ['${
+        lib.getDev dep
+        }/include']" \
         -e "/origlibdirs =/a\        origlibdirs += ['${lib.getLib dep}/lib']" \
         -i buildconfig/config_unix.py
-      '') buildInputs
-    }
+    '') buildInputs}
     LOCALBASE=/ ${python.interpreter} buildconfig/config.py
   '';
 
   meta = with lib; {
     description = "Python library for games";
-    homepage = http://www.pygame.org/;
+    homepage = "http://www.pygame.org/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

@@ -1,10 +1,5 @@
-{ stdenv, gettext, fetchurl, libxml2, libgdata
-, pkgconfig, gtk3, glib, tracker, tracker-miners
-, itstool, gegl, babl, libdazzle, gfbgraph, grilo-plugins
-, grilo, gnome-online-accounts
-, desktop-file-utils, wrapGAppsHook
-, gnome3, gdk_pixbuf, gexiv2, geocode-glib
-, dleyna-renderer, dbus, meson, ninja, python3, gsettings-desktop-schemas }:
+{ stdenv, gettext, fetchurl, libxml2, libgdata, pkgconfig, gtk3, glib, tracker, tracker-miners, itstool, gegl, babl, libdazzle, gfbgraph, grilo-plugins, grilo, gnome-online-accounts, desktop-file-utils, wrapGAppsHook, gnome3, gdk_pixbuf, gexiv2, geocode-glib, dleyna-renderer, dbus, meson, ninja, python3, gsettings-desktop-schemas
+}:
 
 let
   pname = "gnome-photos";
@@ -13,23 +8,43 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "160vqmcqvyzby27wd2lzwzgbfl6jxxk7phhnqh9498r3clr73haj";
   };
 
   # doCheck = true;
 
   nativeBuildInputs = [
-    pkgconfig gettext itstool meson ninja libxml2
-    desktop-file-utils wrapGAppsHook python3
+    pkgconfig
+    gettext
+    itstool
+    meson
+    ninja
+    libxml2
+    desktop-file-utils
+    wrapGAppsHook
+    python3
   ];
   buildInputs = [
-    gtk3 glib gegl babl libgdata libdazzle
+    gtk3
+    glib
+    gegl
+    babl
+    libgdata
+    libdazzle
     gsettings-desktop-schemas
-    gdk_pixbuf gnome3.adwaita-icon-theme
-    gfbgraph grilo-plugins grilo
-    gnome-online-accounts tracker
-    gexiv2 geocode-glib dleyna-renderer
+    gdk_pixbuf
+    gnome3.adwaita-icon-theme
+    gfbgraph
+    grilo-plugins
+    grilo
+    gnome-online-accounts
+    tracker
+    gexiv2
+    geocode-glib
+    dleyna-renderer
     tracker-miners # For 'org.freedesktop.Tracker.Miner.Files' GSettings schema
     dbus
   ];
@@ -47,7 +62,7 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Photos;
+    homepage = "https://wiki.gnome.org/Apps/Photos";
     description = "Access, organize and share your photos";
     maintainers = gnome3.maintainers;
     license = licenses.gpl3Plus;

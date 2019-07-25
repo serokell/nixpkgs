@@ -1,27 +1,11 @@
-{
-  stdenv
-, fetchurl
-, utilmacros
-, pkgconfig
-, mtdev
-, xorgserver
-, xorgproto
-, pixman
-, autoreconfHook
+{ stdenv, fetchurl, utilmacros, pkgconfig, mtdev, xorgserver, xorgproto, pixman, autoreconfHook
 }:
 
 stdenv.mkDerivation {
   name = "xf86-input-mtrack-0.3.0";
 
-  buildInputs = [
-    utilmacros
-    pkgconfig
-    mtdev
-    xorgserver
-    xorgproto
-    pixman
-    autoreconfHook
-  ];
+  buildInputs =
+    [ utilmacros pkgconfig mtdev xorgserver xorgproto pixman autoreconfHook ];
 
   CFLAGS = "-I${pixman}/include/pixman-1";
 
@@ -32,7 +16,7 @@ stdenv.mkDerivation {
   };
 
   meta = {
-    homepage = https://github.com/BlueDragonX/xf86-input-mtrack;
+    homepage = "https://github.com/BlueDragonX/xf86-input-mtrack";
 
     description = "An Xorg driver for multitouch trackpads";
 

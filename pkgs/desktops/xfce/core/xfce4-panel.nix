@@ -1,15 +1,11 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk, libxfce4util, libxfce4ui
-, libxfce4ui_gtk3, libwnck, exo, garcon, xfconf, libstartup_notification
-, makeWrapper, xfce4-mixer, hicolor-icon-theme, tzdata
-, withGtk3 ? false, gtk3, gettext, glib-networking
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk, libxfce4util, libxfce4ui, libxfce4ui_gtk3, libwnck, exo, garcon, xfconf, libstartup_notification, makeWrapper, xfce4-mixer, hicolor-icon-theme, tzdata, withGtk3 ?
+  false, gtk3, gettext, glib-networking }:
 let
   inherit (stdenv.lib) optional;
-  p_name  = "xfce4-panel";
+  p_name = "xfce4-panel";
   ver_maj = "4.12";
   ver_min = "2";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -31,13 +27,22 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" "devdoc" ];
 
-  buildInputs =
-    [ pkgconfig intltool gtk libxfce4util exo libwnck
-      garcon xfconf libstartup_notification makeWrapper hicolor-icon-theme
-    ] ++ xfce4-mixer.gst_plugins
-      ++ optional withGtk3 gtk3;
+  buildInputs = [
+    pkgconfig
+    intltool
+    gtk
+    libxfce4util
+    exo
+    libwnck
+    garcon
+    xfconf
+    libstartup_notification
+    makeWrapper
+    hicolor-icon-theme
+  ] ++ xfce4-mixer.gst_plugins ++ optional withGtk3 gtk3;
 
-  propagatedBuildInputs = [ (if withGtk3 then libxfce4ui_gtk3 else libxfce4ui) ];
+  propagatedBuildInputs =
+    [ (if withGtk3 then libxfce4ui_gtk3 else libxfce4ui) ];
 
   configureFlags = optional withGtk3 "--enable-gtk3";
 
@@ -50,7 +55,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.xfce.org/projects/xfce4-panel;
+    homepage = "https://www.xfce.org/projects/xfce4-panel";
     description = "Xfce panel";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

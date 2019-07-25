@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools
-, seafile-shared, ccnet, makeWrapper
-, withShibboleth ? true, qtwebengine }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, seafile-shared, ccnet, makeWrapper, withShibboleth ?
+  true, qtwebengine }:
 
 with stdenv.lib;
 
@@ -28,8 +27,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/haiwen/seafile-client;
-    description = "Desktop client for Seafile, the Next-generation Open Source Cloud Storage";
+    homepage = "https://github.com/haiwen/seafile-client";
+    description =
+      "Desktop client for Seafile, the Next-generation Open Source Cloud Storage";
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

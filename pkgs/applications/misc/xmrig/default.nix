@@ -1,6 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl
-, donateLevel ? 0
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl, donateLevel ?
+  0 }:
 
 stdenv.mkDerivation rec {
   name = "xmrig-${version}";
@@ -18,8 +17,12 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/donate.h \
-      --replace "kDefaultDonateLevel = 5;" "kDefaultDonateLevel = ${toString donateLevel};" \
-      --replace "kMinimumDonateLevel = 1;" "kMinimumDonateLevel = ${toString donateLevel};"
+      --replace "kDefaultDonateLevel = 5;" "kDefaultDonateLevel = ${
+      toString donateLevel
+      };" \
+      --replace "kMinimumDonateLevel = 1;" "kMinimumDonateLevel = ${
+      toString donateLevel
+      };"
   '';
 
   installPhase = ''
@@ -30,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Monero (XMR) CPU miner";
     homepage = "https://github.com/xmrig/xmrig";
     license = licenses.gpl3Plus;
-    platforms   = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = with maintainers; [ fpletz ];
   };
 }

@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm
-, inflect, more-itertools, six, pytest
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, inflect, more-itertools, six, pytest
 }:
 
 buildPythonPackage rec {
@@ -23,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Tools for working with iterables";
-    homepage = https://github.com/jaraco/jaraco.itertools;
+    homepage = "https://github.com/jaraco/jaraco.itertools";
     license = licenses.mit;
   };
 }

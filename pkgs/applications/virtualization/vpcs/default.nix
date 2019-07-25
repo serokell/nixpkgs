@@ -15,10 +15,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glibc.static ];
 
-  buildPhase = ''(
-    cd src
-    ./mk.sh ${stdenv.buildPlatform.platform.kernelArch}
-  )'';
+  buildPhase = ''
+    (
+        cd src
+        ./mk.sh ${stdenv.buildPlatform.platform.kernelArch}
+      )'';
 
   installPhase = ''
     install -D -m555 src/vpcs $out/bin/vpcs;

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "220";
 
   src = fetchurl {
-    url = "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2";
+    url =
+      "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2";
     sha256 = "00jg1zhsqhi146xrh0bfb2czfgfw9i2xbpqwk3yh0n766wcm4ryd";
   };
 
@@ -35,7 +36,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Programming language for convenient data munging";
     license = licenses.bsd2;
-    homepage = http://nongnu.org/txr;
+    homepage = "http://nongnu.org/txr";
     maintainers = with stdenv.lib.maintainers; [ dtzWill ];
     platforms = platforms.linux; # Darwin fails although it should work AFAIK
   };

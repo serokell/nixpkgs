@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, nose
-, pkgs
-, isPy27
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools, nose, pkgs, isPy27 }:
 
 buildPythonPackage rec {
   pname = "pycdio";
@@ -35,7 +28,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/libcdio/;
+    homepage = "https://www.gnu.org/software/libcdio/";
     description = "Wrapper around libcdio (CD Input and Control library)";
     maintainers = with maintainers; [ rycee ];
     license = licenses.gpl3Plus;

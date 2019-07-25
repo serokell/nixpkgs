@@ -1,4 +1,5 @@
-{stdenv, fetchFromGitHub, cmake, pkgconfig, zlib, curl, elfutils, python, libiberty, libopcodes}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, zlib, curl, elfutils, python, libiberty, libopcodes
+}:
 
 stdenv.mkDerivation rec {
   name = "kcov-${version}";
@@ -19,7 +20,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "Code coverage tester for compiled programs, Python scripts and shell scripts";
+    description =
+      "Code coverage tester for compiled programs, Python scripts and shell scripts";
 
     longDescription = ''
       Kcov is a code coverage tester for compiled programs, Python
@@ -29,7 +31,7 @@ stdenv.mkDerivation rec {
       applications.
     '';
 
-    homepage = http://simonkagstrom.github.io/kcov/index.html;
+    homepage = "http://simonkagstrom.github.io/kcov/index.html";
     license = licenses.gpl2;
 
     maintainers = with maintainers; [ gal_bolle ekleog ];

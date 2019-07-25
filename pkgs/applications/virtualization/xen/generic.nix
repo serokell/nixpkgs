@@ -2,9 +2,7 @@ config:
 { stdenv, cmake, pkgconfig, which
 
 # Xen
-, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib
-, iasl, libaio, libiconv, libuuid, ncurses, openssl, perl
-, python2Packages
+, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib, iasl, libaio, libiconv, libuuid, ncurses, openssl, perl, python2Packages
 # python2Packages.python
 , xz, yajl, zlib
 
@@ -12,39 +10,51 @@ config:
 , ocamlPackages
 
 # Scripts
-, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools
-, iproute, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd
-, lvm2, utillinux, procps, systemd
+, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools, iproute, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd, lvm2, utillinux, procps, systemd
 
 # Documentation
 # python2Packages.markdown
 , transfig, ghostscript, texinfo, pandoc
 
-, ...} @ args:
+, ... }@args:
 
 with stdenv.lib;
 
 let
   #TODO: fix paths instead
   scriptEnvPath = concatMapStringsSep ":" (x: "${x}/bin") [
-    which perl
-    coreutils gawk gnused gnugrep diffutils utillinux multipath-tools
-    iproute inetutils iptables bridge-utils openvswitch nbd drbd
+    which
+    perl
+    coreutils
+    gawk
+    gnused
+    gnugrep
+    diffutils
+    utillinux
+    multipath-tools
+    iproute
+    inetutils
+    iptables
+    bridge-utils
+    openvswitch
+    nbd
+    drbd
   ];
 
   withXenfiles = f: concatStringsSep "\n" (mapAttrsToList f config.xenfiles);
 
-  withTools = a: f: withXenfiles (name: x: optionalString (hasAttr a x) ''
-    echo "processing ${name}"
-    __do() {
-      cd "tools/${name}"
-      ${f name x}
-    }
-    ( __do )
-  '');
-in
+  withTools = a: f:
+    withXenfiles (name: x:
+    optionalString (hasAttr a x) ''
+      echo "processing ${name}"
+      __do() {
+        cd "tools/${name}"
+        ${f name x}
+      }
+      ( __do )
+    '');
 
-stdenv.mkDerivation (rec {
+in stdenv.mkDerivation (rec {
   inherit (config) version;
 
   name = "xen-${version}";
@@ -55,24 +65,48 @@ stdenv.mkDerivation (rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    cmake which
+    cmake
+    which
 
     # Xen
-    bison bzip2 checkpolicy dev86 figlet flex gettext glib iasl libaio
-    libiconv libuuid ncurses openssl perl python2Packages.python xz yajl zlib
+    bison
+    bzip2
+    checkpolicy
+    dev86
+    figlet
+    flex
+    gettext
+    glib
+    iasl
+    libaio
+    libiconv
+    libuuid
+    ncurses
+    openssl
+    perl
+    python2Packages.python
+    xz
+    yajl
+    zlib
 
     # oxenstored
-    ocamlPackages.findlib ocamlPackages.ocaml systemd
+    ocamlPackages.findlib
+    ocamlPackages.ocaml
+    systemd
 
     # Python fixes
     python2Packages.wrapPython
 
     # Documentation
-    python2Packages.markdown transfig ghostscript texinfo pandoc
+    python2Packages.markdown
+    transfig
+    ghostscript
+    texinfo
+    pandoc
 
     # Others
-  ] ++ (concatMap (x: x.buildInputs or []) (attrValues config.xenfiles))
-    ++ (config.buildInputs or []);
+  ] ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
+    ++ (config.buildInputs or [ ]);
 
   prePatch = ''
     ### Generic fixes
@@ -119,10 +153,11 @@ stdenv.mkDerivation (rec {
     '')}
   '';
 
-  patches = [ ./0000-fix-ipxe-src.patch
-              ./0000-fix-install-python.patch
-              ./acpica-utils-20180427.patch]
-         ++ (config.patches or []);
+  patches = [
+    ./0000-fix-ipxe-src.patch
+    ./0000-fix-install-python.patch
+    ./acpica-utils-20180427.patch
+  ] ++ (config.patches or [ ]);
 
   postPatch = ''
     ### Hacks
@@ -188,8 +223,9 @@ stdenv.mkDerivation (rec {
 
   # TODO: Flask needs more testing before enabling it by default.
   #makeFlags = "XSM_ENABLE=y FLASK_ENABLE=y PREFIX=$(out) CONFIG_DIR=/etc XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files ";
-  makeFlags = [ "PREFIX=$(out) CONFIG_DIR=/etc" "XEN_SCRIPT_DIR=/etc/xen/scripts" ]
-           ++ (config.makeFlags or []);
+  makeFlags =
+    [ "PREFIX=$(out) CONFIG_DIR=/etc" "XEN_SCRIPT_DIR=/etc/xen/scripts" ]
+    ++ (config.makeFlags or [ ]);
 
   buildFlags = "xen tools";
 
@@ -226,15 +262,18 @@ stdenv.mkDerivation (rec {
 
   # TODO(@oxij): Stop referencing args here
   meta = {
-    homepage = http://www.xen.org/;
+    homepage = "http://www.xen.org/";
     description = "Xen hypervisor and related components"
-                + optionalString (args ? meta && args.meta ? description)
-                                 " (${args.meta.description})";
-    longDescription = (args.meta.longDescription or "")
-                    + "\nIncludes:\n"
-                    + withXenfiles (name: x: ''* ${name}: ${x.meta.description or "(No description)"}.'');
+      + optionalString (args ? meta && args.meta ? description)
+      " (${args.meta.description})";
+    longDescription = (args.meta.longDescription or "") + ''
+
+      Includes:
+    '' + withXenfiles
+      (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
     platforms = [ "x86_64-linux" ];
     maintainers = with stdenv.lib.maintainers; [ eelco tstrobel oxij ];
     license = stdenv.lib.licenses.gpl2;
-  } // (config.meta or {});
-} // removeAttrs config [ "xenfiles" "buildInputs" "patches" "postPatch" "meta" ])
+  } // (config.meta or { });
+}
+// removeAttrs config [ "xenfiles" "buildInputs" "patches" "postPatch" "meta" ])

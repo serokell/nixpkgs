@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-ccache" ];
 
-
   meta = with stdenv.lib; {
-    description = "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
-    homepage = http://swig.org/;
+    description =
+      "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
+    homepage = "http://swig.org/";
     # Different types of licenses available: http://www.swig.org/Release/LICENSE .
     license = licenses.gpl3Plus;
     platforms = with platforms; linux ++ darwin;

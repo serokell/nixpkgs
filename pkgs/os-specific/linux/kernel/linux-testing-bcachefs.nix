@@ -1,4 +1,4 @@
-{ stdenv, buildPackages, fetchgit, fetchpatch, perl, buildLinux, ... } @ args:
+{ stdenv, buildPackages, fetchgit, fetchpatch, perl, buildLinux, ... }@args:
 
 buildLinux (args // rec {
   version = "5.1.2019.07.13";
@@ -14,9 +14,9 @@ buildLinux (args // rec {
 
   extraMeta = {
     branch = "master";
-    hydraPlatforms = []; # Should the testing kernels ever be built on Hydra?
+    hydraPlatforms = [ ]; # Should the testing kernels ever be built on Hydra?
     maintainers = with stdenv.lib.maintainers; [ davidak chiiruno ];
     platforms = [ "x86_64-linux" ];
   };
 
-} // (args.argsOverride or {}))
+} // (args.argsOverride or { }))

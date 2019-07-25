@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrest
-, msrestazure
-, azure-common
-, azure-mgmt-nspkg
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common, azure-mgmt-nspkg
 }:
 
 buildPythonPackage rec {
@@ -17,19 +11,16 @@ buildPythonPackage rec {
     sha256 = "10w53ida2nlx73vd1pczh4mkpg0lag1h19yyklx3yvgsyvahj25h";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-    azure-mgmt-nspkg
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-nspkg ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Notification Hubs Management Client Library";
-    homepage = https://docs.microsoft.com/en-us/python/api/overview/azure/notification-hubs?view=azure-python;
+    description =
+      "This is the Microsoft Azure Notification Hubs Management Client Library";
+    homepage =
+      "https://docs.microsoft.com/en-us/python/api/overview/azure/notification-hubs?view=azure-python";
     license = licenses.mit;
     maintainers = with maintainers; [ mwilsoninsight ];
   };

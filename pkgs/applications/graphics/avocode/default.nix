@@ -1,6 +1,4 @@
-{ stdenv, makeDesktopItem, fetchurl, unzip
-, gdk_pixbuf, glib, gtk3, atk, at-spi2-atk, pango, cairo, freetype, fontconfig, dbus, nss, nspr, alsaLib, cups, expat, udev, gnome3
-, xorg, mozjpeg, makeWrapper, wrapGAppsHook, hicolor-icon-theme, libuuid
+{ stdenv, makeDesktopItem, fetchurl, unzip, gdk_pixbuf, glib, gtk3, atk, at-spi2-atk, pango, cairo, freetype, fontconfig, dbus, nss, nspr, alsaLib, cups, expat, udev, gnome3, xorg, mozjpeg, makeWrapper, wrapGAppsHook, hicolor-icon-theme, libuuid
 }:
 
 stdenv.mkDerivation rec {
@@ -8,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "3.8.1";
 
   src = fetchurl {
-    url = "https://media.avocode.com/download/avocode-app/${version}/avocode-${version}-linux.zip";
+    url =
+      "https://media.avocode.com/download/avocode-app/${version}/avocode-${version}-linux.zip";
     sha256 = "1akrrnv0ajzvbhflbpmh4ckcqfqrgdjqfp6d4jqvspqi56zmsr83";
   };
 
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     comment = "The bridge between designers and developers";
   };
 
-  nativeBuildInputs = [makeWrapper wrapGAppsHook];
+  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
   buildInputs = [ unzip gtk3 gnome3.adwaita-icon-theme hicolor-icon-theme ];
 
   # src is producing multiple folder on unzip so we must
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://avocode.com/;
+    homepage = "https://avocode.com/";
     description = "The bridge between designers and developers";
     license = licenses.unfree;
     platforms = platforms.linux;

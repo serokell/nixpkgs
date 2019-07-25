@@ -39,14 +39,13 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Project management tool for Emacs";
-    longDescription =
-      ''
-        Cask is a project management tool for Emacs that helps automate the
-        package development cycle; development, dependencies, testing,
-        building, packaging and more. Cask can also be used to manage
-        dependencies for your local Emacs configuration.
-      '';
-    homepage = https://github.com/cask/cask;
+    longDescription = ''
+      Cask is a project management tool for Emacs that helps automate the
+      package development cycle; development, dependencies, testing,
+      building, packaging and more. Cask can also be used to manage
+      dependencies for your local Emacs configuration.
+    '';
+    homepage = "https://github.com/cask/cask";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = [ ];

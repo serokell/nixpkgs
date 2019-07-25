@@ -1,6 +1,4 @@
-{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite
-, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, qtwebengine, libsecret
-, libcloudproviders
+{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, qtwebengine, libsecret, libcloudproviders
 }:
 
 stdenv.mkDerivation rec {
@@ -16,11 +14,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig cmake wrapQtAppsHook ];
 
-  buildInputs = [ qtbase qtwebkit qtkeychain qttools qtwebengine sqlite openssl_1_1.out pcre inotify-tools libcloudproviders ];
+  buildInputs = [
+    qtbase
+    qtwebkit
+    qtkeychain
+    qttools
+    qtwebengine
+    sqlite
+    openssl_1_1.out
+    pcre
+    inotify-tools
+    libcloudproviders
+  ];
 
   enableParallelBuilding = true;
 
-  NIX_LDFLAGS = "${openssl_1_1.out}/lib/libssl.so ${openssl_1_1.out}/lib/libcrypto.so";
+  NIX_LDFLAGS =
+    "${openssl_1_1.out}/lib/libssl.so ${openssl_1_1.out}/lib/libcrypto.so";
 
   cmakeFlags = [
     "-UCMAKE_INSTALL_LIBDIR"
@@ -32,7 +42,7 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-    ''--prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret ]}''
+    "--prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ libsecret ]}"
   ];
 
   postInstall = ''
@@ -42,7 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Nextcloud themed desktop client";
-    homepage = https://nextcloud.com;
+    homepage = "https://nextcloud.com";
     license = licenses.gpl2;
     maintainers = with maintainers; [ caugner ma27 ];
     platforms = platforms.linux;

@@ -9,8 +9,7 @@ let
   cfg = config.services.sickbeard;
   sickbeard = cfg.package;
 
-in
-{
+in {
 
   ###### interface
 
@@ -25,7 +24,7 @@ in
         type = types.package;
         default = pkgs.sickbeard;
         example = literalExample "pkgs.sickrage";
-        description =''
+        description = ''
           Enable <literal>pkgs.sickrage</literal> or <literal>pkgs.sickgear</literal>
           as an alternative to SickBeard
         '';
@@ -58,7 +57,6 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -79,13 +77,16 @@ in
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";
-      wantedBy    = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${sickbeard}/SickBeard.py --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${toString cfg.port}";
+        ExecStart =
+          "${sickbeard}/SickBeard.py --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
+            toString cfg.port
+          }";
       };
     };
   };

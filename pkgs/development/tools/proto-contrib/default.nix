@@ -14,8 +14,9 @@ buildGoModule rec {
   modSha256 = "19cqz13jd95d5vibd10420gg69ldgf6afc51mkglhafgmmif56b0";
 
   meta = with lib; {
-    description = "Contributed tools and other packages on top of the Go proto package";
-    homepage = https://github.com/emicklei/proto-contrib;
+    description =
+      "Contributed tools and other packages on top of the Go proto package";
+    homepage = "https://github.com/emicklei/proto-contrib";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

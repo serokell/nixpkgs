@@ -1,6 +1,4 @@
-{ mkDerivation, aeson, async, base, binary, bytestring, containers
-, directory, filepath, hpack, optparse-applicative, safe-exceptions
-, stdenv, text, fetchgit
+{ mkDerivation, aeson, async, base, binary, bytestring, containers, directory, filepath, hpack, optparse-applicative, safe-exceptions, stdenv, text, fetchgit
 }:
 mkDerivation {
   pname = "elmi-to-json";
@@ -13,8 +11,17 @@ mkDerivation {
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [
-    aeson async base binary bytestring containers directory filepath
-    optparse-applicative safe-exceptions text
+    aeson
+    async
+    base
+    binary
+    bytestring
+    containers
+    directory
+    filepath
+    optparse-applicative
+    safe-exceptions
+    text
   ];
   libraryToolDepends = [ hpack ];
   executableHaskellDepends = [ base ];

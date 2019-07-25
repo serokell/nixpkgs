@@ -1,6 +1,5 @@
-{ buildPythonPackage, fetchFromGitHub, pytest, six, clint, pyyaml, docopt
-, requests, jsonpatch, args, schema, responses, backports_csv, isPy3k
-, lib, glibcLocales }:
+{ buildPythonPackage, fetchFromGitHub, pytest, six, clint, pyyaml, docopt, requests, jsonpatch, args, schema, responses, backports_csv, isPy3k, lib, glibcLocales
+}:
 
 buildPythonPackage rec {
   pname = "internetarchive";
@@ -14,16 +13,9 @@ buildPythonPackage rec {
     sha256 = "1fdb0kr9hzgyh0l8d02khcjpsgyd63nbablhc49ncdsav3dhhr3f";
   };
 
-  propagatedBuildInputs = [
-    six
-    clint
-    pyyaml
-    docopt
-    requests
-    jsonpatch
-    args
-    schema
-  ] ++ lib.optional (!isPy3k) backports_csv;
+  propagatedBuildInputs =
+    [ six clint pyyaml docopt requests jsonpatch args schema ]
+    ++ lib.optional (!isPy3k) backports_csv;
 
   checkInputs = [ pytest responses glibcLocales ];
 
@@ -36,7 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A python wrapper for the various Internet Archive APIs";
-    homepage = https://github.com/jjjake/internetarchive;
+    homepage = "https://github.com/jjjake/internetarchive";
     license = licenses.agpl3;
   };
 }

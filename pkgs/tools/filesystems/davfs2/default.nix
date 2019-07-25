@@ -14,10 +14,10 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--sysconfdir=/etc" ];
 
-  makeFlags = ["sbindir=$(out)/sbin" "ssbindir=$(out)/sbin"];
+  makeFlags = [ "sbindir=$(out)/sbin" "ssbindir=$(out)/sbin" ];
 
   meta = {
-    homepage = https://savannah.nongnu.org/projects/davfs2;
+    homepage = "https://savannah.nongnu.org/projects/davfs2";
     description = "Mount WebDAV shares like a typical filesystem";
     license = stdenv.lib.licenses.gpl3Plus;
 

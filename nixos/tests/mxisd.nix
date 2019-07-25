@@ -1,12 +1,10 @@
-import ./make-test.nix ({ pkgs, ... } : {
+import ./make-test.nix ({ pkgs, ... }: {
 
   name = "mxisd";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ mguentner ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ mguentner ]; };
 
   nodes = {
-    server_mxisd = args : {
+    server_mxisd = args: {
       services.mxisd.enable = true;
       services.mxisd.matrix.domain = "example.org";
     };

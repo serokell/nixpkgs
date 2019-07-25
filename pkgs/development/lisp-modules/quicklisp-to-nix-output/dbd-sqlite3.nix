@@ -1,20 +1,37 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''dbd-sqlite3'';
-  version = ''cl-dbi-20190107-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "dbd-sqlite3";
+  version = "cl-dbi-20190107-git";
 
-  description = ''Database driver for SQLite3.'';
+  description = "Database driver for SQLite3.";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."cl-annot" args."cl-syntax" args."cl-syntax-annot" args."closer-mop" args."dbi" args."iterate" args."named-readtables" args."split-sequence" args."sqlite" args."trivial-features" args."trivial-types" args."uiop" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cl-annot"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."closer-mop"
+    args."dbi"
+    args."iterate"
+    args."named-readtables"
+    args."split-sequence"
+    args."sqlite"
+    args."trivial-features"
+    args."trivial-types"
+    args."uiop"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz'';
-    sha256 = ''02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz";
+    sha256 = "02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2";
   };
 
   packageName = "dbd-sqlite3";
 
-  asdFilesToKeep = ["dbd-sqlite3.asd"];
+  asdFilesToKeep = [ "dbd-sqlite3.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM dbd-sqlite3 DESCRIPTION Database driver for SQLite3. SHA256
@@ -39,4 +56,5 @@ rec {
      closer-mop dbi iterate named-readtables split-sequence sqlite
      trivial-features trivial-types uiop)
     VERSION cl-dbi-20190107-git SIBLINGS
-    (cl-dbi dbd-mysql dbd-postgres dbi-test dbi) PARASITES NIL) */
+    (cl-dbi dbd-mysql dbd-postgres dbi-test dbi) PARASITES NIL)
+*/

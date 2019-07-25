@@ -1,25 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, tensorflow
-, annoy
-, pillow
-, matplotlib
-, numpy
-, pandas
-, pygame
-, pyopengl
-, scipy
-, scikitimage
-, gym
-, bokeh
-, kubernetes
-, redis
-, minio
-, pytest
-, psutil
+{ stdenv, lib, buildPythonPackage, pythonOlder, fetchPypi, tensorflow, annoy, pillow, matplotlib, numpy, pandas, pygame, pyopengl, scipy, scikitimage, gym, bokeh, kubernetes, redis, minio, pytest, psutil
 }:
 
 buildPythonPackage rec {
@@ -50,9 +29,7 @@ buildPythonPackage rec {
     psutil
   ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   # run only some tests that do not need any optional dependencies
   # available tests: https://github.com/NervanaSystems/coach/tree/master/rl_coach/tests
@@ -69,10 +46,9 @@ buildPythonPackage rec {
     fullTestPaths = map (testfile: "rl_coach/tests/${testfile}") testsToRun;
     escapedPaths = map lib.escapeShellArg fullTestPaths;
     pytestArgs = builtins.concatStringsSep " " escapedPaths;
-  in
-  ''
-    pytest ${pytestArgs}
-  '';
+    in ''
+      pytest ${pytestArgs}
+    '';
 
   postPatch = ''
     # pinned to 8.0.1 for unknown reason, at least basic functionallity seems to work without it
@@ -90,7 +66,8 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.5"; # minimum required version
 
   meta = with stdenv.lib; {
-    description = "Enables easy experimentation with state of the art Reinforcement Learning algorithms";
+    description =
+      "Enables easy experimentation with state of the art Reinforcement Learning algorithms";
     homepage = "https://nervanasystems.github.io/coach/";
     license = licenses.asl20;
     maintainers = with maintainers; [ timokau ];

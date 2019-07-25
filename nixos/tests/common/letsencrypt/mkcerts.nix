@@ -1,8 +1,6 @@
-{ pkgs ? import <nixpkgs> {}
-, lib ? pkgs.lib
+{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib
 
-, domains ? [ "acme-v01.api.letsencrypt.org" "letsencrypt.org" ]
-}:
+, domains ? [ "acme-v01.api.letsencrypt.org" "letsencrypt.org" ] }:
 
 pkgs.runCommand "letsencrypt-snakeoil-ca" {
   nativeBuildInputs = [ pkgs.openssl ];
@@ -42,7 +40,8 @@ pkgs.runCommand "letsencrypt-snakeoil-ca" {
   addpem ca.key ca key
   addpem ca.pem ca cert
 
-  ${lib.concatMapStrings (fqdn: let
+  ${lib.concatMapStrings (fqdn:
+  let
     opensslConfig = pkgs.writeText "snakeoil.cnf" ''
       [req]
       default_bits = 4096

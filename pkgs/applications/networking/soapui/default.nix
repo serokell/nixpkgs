@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "5.5.0";
 
   src = fetchurl {
-    url = "https://s3.amazonaws.com/downloads.eviware/soapuios/${version}/SoapUI-${version}-linux-bin.tar.gz";
+    url =
+      "https://s3.amazonaws.com/downloads.eviware/soapuios/${version}/SoapUI-${version}-linux-bin.tar.gz";
     sha256 = "0v1wiy61jgvlxjk8qdvcnyn1gh2ysxf266zln7r4wpzwd5gc3dpw";
   };
 
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The Most Advanced REST & SOAP Testing Tool in the World";
-    homepage = https://www.soapui.org/;
+    homepage = "https://www.soapui.org/";
     license = "SoapUI End User License Agreement";
     maintainers = with maintainers; [ gerschtli ];
     platforms = platforms.all;

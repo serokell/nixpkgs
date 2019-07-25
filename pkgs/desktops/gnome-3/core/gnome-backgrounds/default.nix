@@ -5,12 +5,17 @@ stdenv.mkDerivation rec {
   version = "3.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-backgrounds/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-backgrounds/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1s5krdmd3md44p1fgr2lqm5ifxb8s1vzx6hm11sb4cgzr4dw6lrz";
   };
 
   passthru = {
-    updateScript = gnome3.updateScript { packageName = "gnome-backgrounds"; attrPath = "gnome3.gnome-backgrounds"; };
+    updateScript = gnome3.updateScript {
+      packageName = "gnome-backgrounds";
+      attrPath = "gnome3.gnome-backgrounds";
+    };
   };
 
   nativeBuildInputs = [ meson ninja pkgconfig gettext ];

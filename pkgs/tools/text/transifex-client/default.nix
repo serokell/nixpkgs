@@ -1,13 +1,11 @@
-{ stdenv, buildPythonApplication, fetchPypi
-, python-slugify, requests, urllib3, six }:
+{ stdenv, buildPythonApplication, fetchPypi, python-slugify, requests, urllib3, six
+}:
 
 buildPythonApplication rec {
   pname = "transifex-client";
   version = "0.13.6";
 
-  propagatedBuildInputs = [
-    urllib3 requests python-slugify six
-  ];
+  propagatedBuildInputs = [ urllib3 requests python-slugify six ];
 
   src = fetchPypi {
     inherit pname version;
@@ -24,7 +22,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://www.transifex.com/;
+    homepage = "https://www.transifex.com/";
     license = licenses.gpl2;
     description = "Transifex translation service client";
     maintainers = [ maintainers.etu ];

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, astropy
-, astropy-helpers
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, astropy, astropy-helpers }:
 
 buildPythonPackage rec {
   pname = "astropy-healpix";
@@ -26,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "BSD-licensed HEALPix for Astropy";
-    homepage = https://github.com/astropy/astropy-healpix;
+    homepage = "https://github.com/astropy/astropy-healpix";
     license = licenses.bsd3;
     maintainers = [ maintainers.smaret ];
   };

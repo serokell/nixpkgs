@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, boost, cmake, chromaprint, gettext, gst_all_1, liblastfm
-, taglib, fftw, glew, qjson, sqlite, libgpod, libplist, usbmuxd, libmtp
-, libpulseaudio, gvfs, libcdio, libechonest, libspotify, pcre, projectm, protobuf
-, qca2, pkgconfig, sparsehash, config, makeWrapper, gst_plugins }:
+{ stdenv, fetchFromGitHub, fetchpatch, boost, cmake, chromaprint, gettext, gst_all_1, liblastfm, taglib, fftw, glew, qjson, sqlite, libgpod, libplist, usbmuxd, libmtp, libpulseaudio, gvfs, libcdio, libechonest, libspotify, pcre, projectm, protobuf, qca2, pkgconfig, sparsehash, config, makeWrapper, gst_plugins
+}:
 
 let
   withIpod = config.clementine.ipod or false;
@@ -51,11 +49,10 @@ let
     qjson
     sqlite
     taglib
-  ]
-  ++ stdenv.lib.optionals (withIpod) [libgpod libplist usbmuxd]
-  ++ stdenv.lib.optionals (withMTP) [libmtp]
-  ++ stdenv.lib.optionals (withCD) [libcdio]
-  ++ stdenv.lib.optionals (withCloud) [sparsehash];
+  ] ++ stdenv.lib.optionals (withIpod) [ libgpod libplist usbmuxd ]
+    ++ stdenv.lib.optionals (withMTP) [ libmtp ]
+    ++ stdenv.lib.optionals (withCD) [ libcdio ]
+    ++ stdenv.lib.optionals (withCloud) [ sparsehash ];
 
   postPatch = ''
     sed -i src/CMakeLists.txt \
@@ -85,7 +82,7 @@ let
     '';
 
     meta = with stdenv.lib; {
-      homepage = http://www.clementine-player.org;
+      homepage = "http://www.clementine-player.org";
       description = "A multiplatform music player";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
@@ -99,9 +96,7 @@ let
     # Use the same patches and sources as Clementine
     inherit src nativeBuildInputs postPatch;
 
-    patches = [
-      ./clementine-spotify-blob.patch
-    ];
+    patches = [ ./clementine-spotify-blob.patch ];
 
     buildInputs = buildInputs ++ [ libspotify makeWrapper ];
     # Only build and install the Spotify blob
@@ -123,7 +118,7 @@ let
     '';
     enableParallelBuilding = true;
     meta = with stdenv.lib; {
-      homepage = http://www.clementine-player.org;
+      homepage = "http://www.clementine-player.org";
       description = "Spotify integration for Clementine";
       # The blob itself is Apache-licensed, although libspotify is unfree.
       license = licenses.asl20;

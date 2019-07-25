@@ -1,6 +1,4 @@
-{ pkgs
-, withDoc ? false
-}:
+{ pkgs, withDoc ? false }:
 
 # Here sage and its dependencies are put together. Some dependencies may be pinned
 # as a last resort. Patching sage for compatibility with newer dependency versions
@@ -20,22 +18,22 @@ let
       # The dependency on the sage notebook (and therefore these packages) will be
       # removed in the future:
       # https://trac.sagemath.org/ticket/25837
-      flask-oldsessions = self.callPackage ./flask-oldsessions.nix {};
-      flask-openid = self.callPackage ./flask-openid.nix {};
-      python-openid = self.callPackage ./python-openid.nix {};
-      sagenb = self.callPackage ./sagenb.nix {
-        mathjax = nodePackages.mathjax;
-      };
+      flask-oldsessions = self.callPackage ./flask-oldsessions.nix { };
+      flask-openid = self.callPackage ./flask-openid.nix { };
+      python-openid = self.callPackage ./python-openid.nix { };
+      sagenb =
+        self.callPackage ./sagenb.nix { mathjax = nodePackages.mathjax; };
 
       # Package with a cyclic dependency with sage
-      pybrial = self.callPackage ./pybrial.nix {};
+      pybrial = self.callPackage ./pybrial.nix { };
 
       # `sagelib`, i.e. all of sage except some wrappers and runtime dependencies
       sagelib = self.callPackage ./sagelib.nix {
         inherit flint ecl arb;
         inherit sage-src env-locations pynac singular;
         linbox = pkgs.linbox.override { withSage = true; };
-        pkg-config = pkgs.pkgconfig; # not to confuse with pythonPackages.pkgconfig
+        pkg-config =
+          pkgs.pkgconfig; # not to confuse with pythonPackages.pkgconfig
       };
     };
   };
@@ -94,11 +92,9 @@ let
   # separate derivation to make it possible to re-run the tests without
   # rebuilding sagelib (which takes ~30 minutes).
   # Running the tests should take something in the order of 1h.
-  sage-tests = callPackage ./sage-tests.nix {
-    inherit sage-with-env;
-  };
+  sage-tests = callPackage ./sage-tests.nix { inherit sage-with-env; };
 
-  sage-src = callPackage ./sage-src.nix {};
+  sage-src = callPackage ./sage-src.nix { };
 
   pythonRuntimeDeps = with python.pkgs; [
     sagelib
@@ -123,7 +119,9 @@ let
   pythonEnv = python.buildEnv.override {
     extraLibs = pythonRuntimeDeps;
     ignoreCollisions = true;
-  } // { extraLibs = pythonRuntimeDeps; }; # make the libs accessible
+  } // {
+    extraLibs = pythonRuntimeDeps;
+  }; # make the libs accessible
 
   arb = pkgs.arb.override { inherit flint; };
 
@@ -146,27 +144,35 @@ let
   palp = symlinkJoin {
     name = "palp-${pkgs.palp.version}";
     paths = [
-      (pkgs.palp.override { dimensions = 4; doSymlink = false; })
-      (pkgs.palp.override { dimensions = 5; doSymlink = false; })
-      (pkgs.palp.override { dimensions = 6; doSymlink = true; })
-      (pkgs.palp.override { dimensions = 11; doSymlink = false; })
+      (pkgs.palp.override {
+        dimensions = 4;
+        doSymlink = false;
+      })
+      (pkgs.palp.override {
+        dimensions = 5;
+        doSymlink = false;
+      })
+      (pkgs.palp.override {
+        dimensions = 6;
+        doSymlink = true;
+      })
+      (pkgs.palp.override {
+        dimensions = 11;
+        doSymlink = false;
+      })
     ];
   };
 
   # Sage expects those in the same directory.
   pari_data = symlinkJoin {
     name = "pari_data";
-    paths = with pkgs; [
-      pari-galdata
-      pari-seadata-small
-    ];
+    paths = with pkgs; [ pari-galdata pari-seadata-small ];
   };
 
   # https://trac.sagemath.org/ticket/22191
   ecl = pkgs.ecl_16_1_2;
-in
-# A wrapper around sage that makes sure sage finds its docs (if they were build).
-callPackage ./sage.nix {
+  # A wrapper around sage that makes sure sage finds its docs (if they were build).
+in callPackage ./sage.nix {
   inherit sage-tests sage-with-env sagedoc jupyter-kernel-definition;
   inherit withDoc;
 }

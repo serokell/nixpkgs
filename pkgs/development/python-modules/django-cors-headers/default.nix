@@ -1,8 +1,4 @@
-{ lib,
-  fetchPypi,
-  django,
-  buildPythonPackage
-}:
+{ lib, fetchPypi, django, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "django-cors-headers";
@@ -19,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Django app for handling server Cross-Origin Resource Sharing (CORS) headers";
-    homepage = https://github.com/OttoYiu/django-cors-headers;
+    description =
+      "Django app for handling server Cross-Origin Resource Sharing (CORS) headers";
+    homepage = "https://github.com/OttoYiu/django-cors-headers";
     license = licenses.mit;
     maintainers = [ maintainers.ivegotasthma ];
   };

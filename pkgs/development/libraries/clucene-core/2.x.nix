@@ -1,4 +1,4 @@
-{stdenv, fetchurl, cmake, boost, zlib}:
+{ stdenv, fetchurl, cmake, boost, zlib }:
 
 stdenv.mkDerivation rec {
   name = "clucene-core-2.3.3.4";
@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   patches = # From debian
-    [ ./Fix-pkgconfig-file-by-adding-clucene-shared-library.patch
+    [
+      ./Fix-pkgconfig-file-by-adding-clucene-shared-library.patch
       ./Fixing_ZLIB_configuration_in_shared_CMakeLists.patch
       ./Install-contribs-lib.patch
     ] ++ stdenv.lib.optionals stdenv.isDarwin [ ./fix-darwin.patch ];
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec {
   # /build/clucene-core-2.3.3.4/build/bin/cl_test"
   doCheck = false;
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
 
   meta = with stdenv.lib; {
     description = "Core library for full-featured text search engine";
@@ -50,7 +52,7 @@ stdenv.mkDerivation rec {
 
       CLucene is a port of the very popular Java Lucene text search engine API.
     '';
-    homepage = http://clucene.sourceforge.net;
+    homepage = "http://clucene.sourceforge.net";
     platforms = platforms.unix;
     license = with licenses; [ asl20 lgpl2 ];
   };

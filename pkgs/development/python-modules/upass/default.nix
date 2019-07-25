@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, pyperclip
-, urwid
-}:
+{ stdenv, buildPythonPackage, fetchurl, pyperclip, urwid }:
 
 buildPythonPackage rec {
   version = "0.1.4";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Console UI for pass";
-    homepage = https://github.com/Kwpolska/upass;
+    homepage = "https://github.com/Kwpolska/upass";
     license = licenses.bsd3;
   };
 

@@ -1,11 +1,11 @@
-{ stdenv, config, fetchurl, fetchpatch, pkgconfig, audiofile, libcap, libiconv
-, libGLSupported ? stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
-, openglSupport ? libGLSupported, libGL, libGLU
-, alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, alsaLib
-, x11Support ? !stdenv.isCygwin && !stdenv.hostPlatform.isAndroid
-, libXext, libICE, libXrandr
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid, libpulseaudio
-, OpenGL, CoreAudio, CoreServices, AudioUnit, Kernel, Cocoa
+{ stdenv, config, fetchurl, fetchpatch, pkgconfig, audiofile, libcap, libiconv, libGLSupported ?
+  stdenv.lib.elem stdenv.hostPlatform.system
+  stdenv.lib.platforms.mesaPlatforms, openglSupport ?
+    libGLSupported, libGL, libGLU, alsaSupport ? stdenv.isLinux
+      && !stdenv.hostPlatform.isAndroid, alsaLib, x11Support ? !stdenv.isCygwin
+        && !stdenv.hostPlatform.isAndroid, libXext, libICE, libXrandr, pulseaudioSupport ?
+          config.pulseaudio or stdenv.isLinux
+          && !stdenv.hostPlatform.isAndroid, libpulseaudio, OpenGL, CoreAudio, CoreServices, AudioUnit, Kernel, Cocoa
 }:
 
 # NOTE: When editing this expression see if the same change applies to
@@ -14,11 +14,11 @@
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name    = "SDL-${version}";
+  name = "SDL-${version}";
   version = "1.2.15";
 
   src = fetchurl {
-    url    = "https://www.libsdl.org/release/${name}.tar.gz";
+    url = "https://www.libsdl.org/release/${name}.tar.gz";
     sha256 = "005d993xcac8236fpvd1iawkz4wqjybkpn8dbwaliqz5jfkidlyn";
   };
 
@@ -28,30 +28,34 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
   outputBin = "dev"; # sdl-config
 
-  nativeBuildInputs = [ pkgconfig ]
-    ++ optional stdenv.isLinux libcap;
+  nativeBuildInputs = [ pkgconfig ] ++ optional stdenv.isLinux libcap;
 
   propagatedBuildInputs = [ libiconv ]
     ++ optionals x11Support [ libXext libICE libXrandr ]
-    ++ optionals openglSupport [ libGL libGLU ]
-    ++ optional alsaSupport alsaLib
+    ++ optionals openglSupport [ libGL libGLU ] ++ optional alsaSupport alsaLib
     ++ optional pulseaudioSupport libpulseaudio
     ++ optional stdenv.isDarwin Cocoa;
 
   buildInputs = [ ]
     ++ optional (!stdenv.hostPlatform.isMinGW && alsaSupport) audiofile
-    ++ optionals stdenv.isDarwin [ AudioUnit CoreAudio CoreServices Kernel OpenGL ];
+    ++ optionals stdenv.isDarwin [
+      AudioUnit
+      CoreAudio
+      CoreServices
+      Kernel
+      OpenGL
+    ];
 
   configureFlags = [
     "--disable-oss"
     "--disable-video-x11-xme"
     "--enable-rpath"
-  # Building without this fails on Darwin with
-  #
-  #   ./src/video/x11/SDL_x11sym.h:168:17: error: conflicting types for '_XData32'
-  #   SDL_X11_SYM(int,_XData32,(Display *dpy,register long *data,unsigned len),(dpy,data,len),return)
-  #
-  # Please try revert the change that introduced this comment when updating SDL.
+    # Building without this fails on Darwin with
+    #
+    #   ./src/video/x11/SDL_x11sym.h:168:17: error: conflicting types for '_XData32'
+    #   SDL_X11_SYM(int,_XData32,(Display *dpy,register long *data,unsigned len),(dpy,data,len),return)
+    #
+    # Please try revert the change that introduced this comment when updating SDL.
   ] ++ optional stdenv.isDarwin "--disable-x11-shared"
     ++ optional (!x11Support) "--without-x"
     ++ optional alsaSupport "--with-alsa-prefix=${alsaLib.out}/lib";
@@ -63,7 +67,8 @@ stdenv.mkDerivation rec {
     # Ticket: http://bugzilla.libsdl.org/show_bug.cgi?id=1430
     (fetchpatch {
       name = "fix_window_resizing.diff";
-      url = "https://bugs.debian.org/cgi-bin/bugreport.cgi?msg=10;filename=fix_window_resizing.diff;att=2;bug=665779";
+      url =
+        "https://bugs.debian.org/cgi-bin/bugreport.cgi?msg=10;filename=fix_window_resizing.diff;att=2;bug=665779";
       sha256 = "1z35azc73vvi19pzi6byck31132a8w1vzrghp1x3hy4a4f9z4gc6";
     })
     # Fix drops of keyboard events for SDL_EnableUNICODE
@@ -85,7 +90,8 @@ stdenv.mkDerivation rec {
     # Ticket: https://bugs.freedesktop.org/show_bug.cgi?id=27222
     (fetchpatch {
       name = "SDL_SetGamma.patch";
-      url = "https://src.fedoraproject.org/cgit/rpms/SDL.git/plain/SDL-1.2.15-x11-Bypass-SetGammaRamp-when-changing-gamma.patch?id=04a3a7b1bd88c2d5502292fad27e0e02d084698d";
+      url =
+        "https://src.fedoraproject.org/cgit/rpms/SDL.git/plain/SDL-1.2.15-x11-Bypass-SetGammaRamp-when-changing-gamma.patch?id=04a3a7b1bd88c2d5502292fad27e0e02d084698d";
       sha256 = "0x52s4328kilyq43i7psqkqg7chsfwh0aawr50j566nzd7j51dlv";
     })
     # Fix a build failure on OS X Mavericks
@@ -108,7 +114,9 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for lib in $out/lib/*.so* ; do
       if [[ -L "$lib" ]]; then
-        patchelf --set-rpath "$(patchelf --print-rpath $lib):${makeLibraryPath propagatedBuildInputs}" "$lib"
+        patchelf --set-rpath "$(patchelf --print-rpath $lib):${
+      makeLibraryPath propagatedBuildInputs
+        }" "$lib"
       fi
     done
   '';
@@ -121,9 +129,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A cross-platform multimedia library";
-    homepage    = "http://www.libsdl.org/";
+    homepage = "http://www.libsdl.org/";
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
-    license     = licenses.lgpl21;
+    platforms = platforms.unix;
+    license = licenses.lgpl21;
   };
 }

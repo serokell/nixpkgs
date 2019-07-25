@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub }: with lib; stdenv.mkDerivation rec {
+{ stdenv, lib, fetchFromGitHub }:
+with lib;
+stdenv.mkDerivation rec {
   name = "icingaweb2-theme-particles";
   version = "1.0.0";
 
@@ -15,7 +17,8 @@
   '';
 
   meta = {
-    description = "This theme adds a nice particle effect to the login screen of Icingaweb 2";
+    description =
+      "This theme adds a nice particle effect to the login screen of Icingaweb 2";
     homepage = "https://github.com/Mikesch-mp/icingaweb2-theme-particles";
     license = licenses.publicDomain;
     platforms = platforms.all;

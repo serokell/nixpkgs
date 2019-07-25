@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -7,8 +7,10 @@ let
 
   stateDirectory = "/var/lib/duplicity";
 
-  localTarget = if hasPrefix "file://" cfg.targetUrl
-    then removePrefix "file://" cfg.targetUrl else null;
+  localTarget = if hasPrefix "file://" cfg.targetUrl then
+    removePrefix "file://" cfg.targetUrl
+  else
+    null;
 
 in {
   options.services.duplicity = {
@@ -24,7 +26,7 @@ in {
 
     include = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "/home" ];
       description = ''
         List of paths to include into the backups. See the FILE SELECTION
@@ -35,7 +37,7 @@ in {
 
     exclude = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = ''
         List of paths to exclude from backups. See the FILE SELECTION section in
         <citerefentry><refentrytitle>duplicity</refentrytitle>
@@ -82,7 +84,7 @@ in {
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "--full-if-older-than" "1M" ];
       description = ''
         Extra command-line flags passed to duplicity. See
@@ -101,15 +103,12 @@ in {
 
         serviceConfig = {
           ExecStart = ''
-            ${pkgs.duplicity}/bin/duplicity ${escapeShellArgs (
-              [
-                cfg.root
-                cfg.targetUrl
-                "--archive-dir" stateDirectory
-              ]
+            ${pkgs.duplicity}/bin/duplicity ${
+              escapeShellArgs
+              ([ cfg.root cfg.targetUrl "--archive-dir" stateDirectory ]
               ++ concatMap (p: [ "--include" p ]) cfg.include
-              ++ concatMap (p: [ "--exclude" p ]) cfg.exclude
-              ++ cfg.extraFlags)}
+              ++ concatMap (p: [ "--exclude" p ]) cfg.exclude ++ cfg.extraFlags)
+            }
           '';
           PrivateTmp = true;
           ProtectSystem = "strict";
@@ -120,17 +119,17 @@ in {
         } // optionalAttrs (cfg.secretFile != null) {
           EnvironmentFile = cfg.secretFile;
         };
-      } // optionalAttrs (cfg.frequency != null) {
-        startAt = cfg.frequency;
-      };
+      } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
 
-      tmpfiles.rules = optional (localTarget != null) "d ${localTarget} 0700 root root -";
+      tmpfiles.rules =
+        optional (localTarget != null) "d ${localTarget} 0700 root root -";
     };
 
     assertions = singleton {
       # Duplicity will fail if the last file selection option is an include. It
       # is not always possible to detect but this simple case can be caught.
-      assertion = cfg.include != [] -> cfg.exclude != [] || cfg.extraFlags != [];
+      assertion = cfg.include != [ ] -> cfg.exclude != [ ] || cfg.extraFlags
+        != [ ];
       message = ''
         Duplicity will fail if you only specify included paths ("Because the
         default is to include all files, the expression is redundant. Exiting

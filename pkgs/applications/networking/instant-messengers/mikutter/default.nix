@@ -1,6 +1,4 @@
-{ stdenv, fetchurl
-, bundlerEnv, ruby
-, alsaUtils, libnotify, which, wrapGAppsHook, gtk2, atk, gobject-introspection
+{ stdenv, fetchurl, bundlerEnv, ruby, alsaUtils, libnotify, which, wrapGAppsHook, gtk2, atk, gobject-introspection
 }:
 
 # how to update:
@@ -33,7 +31,8 @@ stdenv.mkDerivation rec {
     inherit ruby;
   };
 
-  buildInputs = [ alsaUtils libnotify which gtk2 ruby atk gobject-introspection ];
+  buildInputs =
+    [ alsaUtils libnotify which gtk2 ruby atk gobject-introspection ];
   nativeBuildInputs = [ wrapGAppsHook ];
 
   postUnpack = ''
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An extensible Twitter client";
-    homepage = https://mikutter.hachune.net;
+    homepage = "https://mikutter.hachune.net";
     platforms = ruby.meta.platforms;
     license = licenses.mit;
   };

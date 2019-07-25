@@ -1,20 +1,19 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cffi-toolchain'';
-  version = ''cffi_0.20.0'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cffi-toolchain";
+  version = "cffi_0.20.0";
 
-  description = ''The CFFI toolchain'';
+  description = "The CFFI toolchain";
 
   deps = [ args."alexandria" args."babel" args."cffi" args."trivial-features" ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cffi/2018-12-10/cffi_0.20.0.tgz'';
-    sha256 = ''1jal7r0dqp0sc5wj8a97xjlvfvayymdp1w3172hdxfppddnhhm8z'';
+    url = "http://beta.quicklisp.org/archive/cffi/2018-12-10/cffi_0.20.0.tgz";
+    sha256 = "1jal7r0dqp0sc5wj8a97xjlvfvayymdp1w3172hdxfppddnhhm8z";
   };
 
   packageName = "cffi-toolchain";
 
-  asdFilesToKeep = ["cffi-toolchain.asd"];
+  asdFilesToKeep = [ "cffi-toolchain.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cffi-toolchain DESCRIPTION The CFFI toolchain SHA256
@@ -28,4 +27,5 @@ rec {
     DEPENDENCIES (alexandria babel cffi trivial-features) VERSION cffi_0.20.0
     SIBLINGS
     (cffi-examples cffi-grovel cffi-libffi cffi-tests cffi-uffi-compat cffi)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

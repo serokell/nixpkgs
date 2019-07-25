@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.11.457";
 
   src = fetchurl {
-    url = "https://github.com/Jackett/Jackett/releases/download/v${version}/Jackett.Binaries.Mono.tar.gz";
+    url =
+      "https://github.com/Jackett/Jackett/releases/download/v${version}/Jackett.Binaries.Mono.tar.gz";
     sha256 = "139ga5qra6jrn3mkp08a5p495alxq78a8imfj4k8ywv1s05kw7dw";
   };
 
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "API Support for your favorite torrent trackers.";
-    homepage = https://github.com/Jackett/Jackett/;
+    homepage = "https://github.com/Jackett/Jackett/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ edwtjo ];
     platforms = platforms.all;

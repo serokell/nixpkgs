@@ -1,7 +1,6 @@
 { stdenv, fetchurl, qmake, qtsvg, makeWrapper, xdg_utils }:
 
-let
-  version = "1.44.55";
+let version = "1.44.55";
 in stdenv.mkDerivation rec {
   name = "mytetra-${version}";
   src = fetchurl {
@@ -30,7 +29,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Smart manager for information collecting";
-    homepage = https://webhamster.ru/site/page/index/articles/projectcode/138;
+    homepage = "https://webhamster.ru/site/page/index/articles/projectcode/138";
     license = licenses.gpl3;
     maintainers = [ maintainers.gnidorah ];
     platforms = platforms.linux;

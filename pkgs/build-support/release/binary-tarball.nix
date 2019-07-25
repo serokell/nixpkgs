@@ -10,74 +10,66 @@
    directory, so the Makefile of the package should support DESTDIR.
 */
 
-{ src, stdenv
-, name ? "binary-tarball"
-, ... } @ args:
+{ src, stdenv, name ? "binary-tarball", ... }@args:
 
 stdenv.mkDerivation (
 
-  {
-    # Also run a `make check'.
-    doCheck = true;
+{
+  # Also run a `make check'.
+  doCheck = true;
 
-    showBuildStats = true;
+  showBuildStats = true;
 
-    prefix = "/usr/local";
+  prefix = "/usr/local";
 
-    postPhases = "finalPhase";
-  }
+  postPhases = "finalPhase";
+}
 
-  // args //
+// args //
 
-  {
-    name = name + (if src ? version then "-" + src.version else "");
+{
+  name = name + (if src ? version then "-" + src.version else "");
 
-    postHook = ''
-      mkdir -p $out/nix-support
-      echo "$system" > $out/nix-support/system
-      . ${./functions.sh}
+  postHook = ''
+    mkdir -p $out/nix-support
+    echo "$system" > $out/nix-support/system
+    . ${./functions.sh}
 
-      origSrc=$src
-      src=$(findTarball $src)
+    origSrc=$src
+    src=$(findTarball $src)
 
-      if test -e $origSrc/nix-support/hydra-release-name; then
-          releaseName=$(cat $origSrc/nix-support/hydra-release-name)
-      fi
+    if test -e $origSrc/nix-support/hydra-release-name; then
+        releaseName=$(cat $origSrc/nix-support/hydra-release-name)
+    fi
 
-      installFlagsArray=(DESTDIR=$TMPDIR/inst)
+    installFlagsArray=(DESTDIR=$TMPDIR/inst)
 
-      # Prefix hackery because of a bug in stdenv (it tries to `mkdir
-      # $prefix', which doesn't work due to the DESTDIR).
-      configureFlags="--prefix=$prefix $configureFlags"
-      dontAddPrefix=1
-      prefix=$TMPDIR/inst$prefix
-    ''; # */
+    # Prefix hackery because of a bug in stdenv (it tries to `mkdir
+    # $prefix', which doesn't work due to the DESTDIR).
+    configureFlags="--prefix=$prefix $configureFlags"
+    dontAddPrefix=1
+    prefix=$TMPDIR/inst$prefix
+  ''; # */
 
+  doDist = true;
 
-    doDist = true;
+  distPhase = ''
+    mkdir -p $out/tarballs
+    tar cvfj $out/tarballs/''${releaseName:-binary-dist}.tar.bz2 -C $TMPDIR/inst .
+  '';
 
-    distPhase =
-      ''
-        mkdir -p $out/tarballs
-        tar cvfj $out/tarballs/''${releaseName:-binary-dist}.tar.bz2 -C $TMPDIR/inst .
-      '';
+  finalPhase = ''
+    for i in $out/tarballs/*; do
+        echo "file binary-dist $i" >> $out/nix-support/hydra-build-products
+    done
 
+    # Propagate the release name of the source tarball.  This is
+    # to get nice package names in channels.
+    test -n "$releaseName" && (echo "$releaseName" >> $out/nix-support/hydra-release-name)
+  '';
 
-    finalPhase =
-      ''
-        for i in $out/tarballs/*; do
-            echo "file binary-dist $i" >> $out/nix-support/hydra-build-products
-        done
+  meta = (if args ? meta then args.meta else { }) // {
+    description = "Build of a generic binary distribution";
+  };
 
-        # Propagate the release name of the source tarball.  This is
-        # to get nice package names in channels.
-        test -n "$releaseName" && (echo "$releaseName" >> $out/nix-support/hydra-release-name)
-      '';
-
-
-    meta = (if args ? meta then args.meta else {}) // {
-      description = "Build of a generic binary distribution";
-    };
-
-  }
-)
+})

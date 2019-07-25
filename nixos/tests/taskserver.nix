@@ -1,4 +1,5 @@
-import ./make-test.nix ({ pkgs, ... }: let
+import ./make-test.nix ({ pkgs, ... }:
+let
   snakeOil = pkgs.runCommand "snakeoil-certs" {
     outputs = [ "out" "cacert" "cert" "key" "crl" ];
     buildInputs = [ pkgs.gnutls.bin ];
@@ -82,7 +83,8 @@ in {
       # This is to avoid assigning a different network address to the new
       # generation.
       networking = lib.mapAttrs (lib.const lib.mkForce) {
-        interfaces.eth1.ipv4 = nodes.server.config.networking.interfaces.eth1.ipv4;
+        interfaces.eth1.ipv4 =
+          nodes.server.config.networking.interfaces.eth1.ipv4;
         inherit (nodes.server.config.networking)
           hostName primaryIPAddress extraHosts;
       };
@@ -99,192 +101,193 @@ in {
     client2 = client1;
   };
 
-  testScript = { nodes, ... }: let
-    cfg = nodes.server.config.services.taskserver;
-    portStr = toString cfg.listenPort;
-    newServerSystem = nodes.newServer.config.system.build.toplevel;
-    switchToNewServer = "${newServerSystem}/bin/switch-to-configuration test";
-  in ''
-    sub su ($$) {
-      my ($user, $cmd) = @_;
-      my $esc = $cmd =~ s/'/'\\${"'"}'/gr;
-      return "su - $user -c '$esc'";
-    }
+  testScript = { nodes, ... }:
+    let
+      cfg = nodes.server.config.services.taskserver;
+      portStr = toString cfg.listenPort;
+      newServerSystem = nodes.newServer.config.system.build.toplevel;
+      switchToNewServer = "${newServerSystem}/bin/switch-to-configuration test";
+    in ''
+      sub su ($$) {
+        my ($user, $cmd) = @_;
+        my $esc = $cmd =~ s/'/'\\${"'"}'/gr;
+        return "su - $user -c '$esc'";
+      }
 
-    sub setupClientsFor ($$;$) {
-      my ($org, $user, $extraInit) = @_;
+      sub setupClientsFor ($$;$) {
+        my ($org, $user, $extraInit) = @_;
 
-      for my $client ($client1, $client2) {
-        $client->nest("initialize client for user $user", sub {
-          $client->succeed(
-            (su $user, "rm -rf /home/$user/.task"),
-            (su $user, "task rc.confirmation=no config confirmation no")
-          );
+        for my $client ($client1, $client2) {
+          $client->nest("initialize client for user $user", sub {
+            $client->succeed(
+              (su $user, "rm -rf /home/$user/.task"),
+              (su $user, "task rc.confirmation=no config confirmation no")
+            );
 
-          my $exportinfo = $server->succeed(
-            "nixos-taskserver user export $org $user"
-          );
+            my $exportinfo = $server->succeed(
+              "nixos-taskserver user export $org $user"
+            );
 
-          $exportinfo =~ s/'/'\\'''/g;
+            $exportinfo =~ s/'/'\\'''/g;
 
-          $client->nest("importing taskwarrior configuration", sub {
-            my $cmd = su $user, "eval '$exportinfo' >&2";
-            my ($status, $out) = $client->execute_($cmd);
-            if ($status != 0) {
-              $client->log("output: $out");
-              die "command `$cmd' did not succeed (exit code $status)\n";
-            }
+            $client->nest("importing taskwarrior configuration", sub {
+              my $cmd = su $user, "eval '$exportinfo' >&2";
+              my ($status, $out) = $client->execute_($cmd);
+              if ($status != 0) {
+                $client->log("output: $out");
+                die "command `$cmd' did not succeed (exit code $status)\n";
+              }
+            });
+
+            eval { &$extraInit($client, $org, $user) };
+
+            $client->succeed(su $user,
+              "task config taskd.server server:${portStr} >&2"
+            );
+
+            $client->succeed(su $user, "task sync init >&2");
           });
+        }
+      }
 
-          eval { &$extraInit($client, $org, $user) };
+      sub restartServer {
+        $server->succeed("systemctl restart taskserver.service");
+        $server->waitForOpenPort(${portStr});
+      }
 
-          $client->succeed(su $user,
-            "task config taskd.server server:${portStr} >&2"
+      sub readdImperativeUser {
+        $server->nest("(re-)add imperative user bar", sub {
+          $server->execute("nixos-taskserver org remove imperativeOrg");
+          $server->succeed(
+            "nixos-taskserver org add imperativeOrg",
+            "nixos-taskserver user add imperativeOrg bar"
           );
-
-          $client->succeed(su $user, "task sync init >&2");
+          setupClientsFor "imperativeOrg", "bar";
         });
       }
-    }
 
-    sub restartServer {
-      $server->succeed("systemctl restart taskserver.service");
-      $server->waitForOpenPort(${portStr});
-    }
+      sub testSync ($) {
+        my $user = $_[0];
+        subtest "sync for user $user", sub {
+          $client1->succeed(su $user, "task add foo >&2");
+          $client1->succeed(su $user, "task sync >&2");
+          $client2->fail(su $user, "task list >&2");
+          $client2->succeed(su $user, "task sync >&2");
+          $client2->succeed(su $user, "task list >&2");
+        };
+      }
 
-    sub readdImperativeUser {
-      $server->nest("(re-)add imperative user bar", sub {
-        $server->execute("nixos-taskserver org remove imperativeOrg");
-        $server->succeed(
-          "nixos-taskserver org add imperativeOrg",
-          "nixos-taskserver user add imperativeOrg bar"
-        );
-        setupClientsFor "imperativeOrg", "bar";
-      });
-    }
+      sub checkClientCert ($) {
+        my $user = $_[0];
+        my $cmd = "gnutls-cli".
+          " --x509cafile=/home/$user/.task/keys/ca.cert".
+          " --x509keyfile=/home/$user/.task/keys/private.key".
+          " --x509certfile=/home/$user/.task/keys/public.cert".
+          " --port=${portStr} server < /dev/null";
+        return su $user, $cmd;
+      }
 
-    sub testSync ($) {
-      my $user = $_[0];
-      subtest "sync for user $user", sub {
-        $client1->succeed(su $user, "task add foo >&2");
-        $client1->succeed(su $user, "task sync >&2");
-        $client2->fail(su $user, "task list >&2");
-        $client2->succeed(su $user, "task sync >&2");
-        $client2->succeed(su $user, "task list >&2");
-      };
-    }
+      # Explicitly start the VMs so that we don't accidentally start newServer
+      $server->start;
+      $client1->start;
+      $client2->start;
 
-    sub checkClientCert ($) {
-      my $user = $_[0];
-      my $cmd = "gnutls-cli".
-        " --x509cafile=/home/$user/.task/keys/ca.cert".
-        " --x509keyfile=/home/$user/.task/keys/private.key".
-        " --x509certfile=/home/$user/.task/keys/public.cert".
-        " --port=${portStr} server < /dev/null";
-      return su $user, $cmd;
-    }
-
-    # Explicitly start the VMs so that we don't accidentally start newServer
-    $server->start;
-    $client1->start;
-    $client2->start;
-
-    $server->waitForUnit("taskserver.service");
-
-    $server->succeed(
-      "nixos-taskserver user list testOrganisation | grep -qxF alice",
-      "nixos-taskserver user list testOrganisation | grep -qxF foo",
-      "nixos-taskserver user list anotherOrganisation | grep -qxF bob"
-    );
-
-    $server->waitForOpenPort(${portStr});
-
-    $client1->waitForUnit("multi-user.target");
-    $client2->waitForUnit("multi-user.target");
-
-    setupClientsFor "testOrganisation", "alice";
-    setupClientsFor "testOrganisation", "foo";
-    setupClientsFor "anotherOrganisation", "bob";
-
-    testSync $_ for ("alice", "bob", "foo");
-
-    $server->fail("nixos-taskserver user add imperativeOrg bar");
-    readdImperativeUser;
-
-    testSync "bar";
-
-    subtest "checking certificate revocation of user bar", sub {
-      $client1->succeed(checkClientCert "bar");
-
-      $server->succeed("nixos-taskserver user remove imperativeOrg bar");
-      restartServer;
-
-      $client1->fail(checkClientCert "bar");
-
-      $client1->succeed(su "bar", "task add destroy everything >&2");
-      $client1->fail(su "bar", "task sync >&2");
-    };
-
-    readdImperativeUser;
-
-    subtest "checking certificate revocation of org imperativeOrg", sub {
-      $client1->succeed(checkClientCert "bar");
-
-      $server->succeed("nixos-taskserver org remove imperativeOrg");
-      restartServer;
-
-      $client1->fail(checkClientCert "bar");
-
-      $client1->succeed(su "bar", "task add destroy even more >&2");
-      $client1->fail(su "bar", "task sync >&2");
-    };
-
-    readdImperativeUser;
-
-    subtest "check whether declarative config overrides user bar", sub {
-      restartServer;
-      testSync "bar";
-    };
-
-    subtest "check manual configuration", sub {
-      # Remove the keys from automatic CA creation, to make sure the new
-      # generation doesn't use keys from before.
-      $server->succeed('rm -rf ${cfg.dataDir}/keys/* >&2');
-
-      $server->succeed('${switchToNewServer} >&2');
       $server->waitForUnit("taskserver.service");
-      $server->waitForOpenPort(${portStr});
 
       $server->succeed(
-        "nixos-taskserver org add manualOrg",
-        "nixos-taskserver user add manualOrg alice"
+        "nixos-taskserver user list testOrganisation | grep -qxF alice",
+        "nixos-taskserver user list testOrganisation | grep -qxF foo",
+        "nixos-taskserver user list anotherOrganisation | grep -qxF bob"
       );
 
-      setupClientsFor "manualOrg", "alice", sub {
-        my ($client, $org, $user) = @_;
-        my $cfgpath = "/home/$user/.task";
+      $server->waitForOpenPort(${portStr});
 
-        $client->copyFileFromHost("${snakeOil.cacert}", "$cfgpath/ca.cert");
-        for my $file ('alice.key', 'alice.cert') {
-          $client->copyFileFromHost("${snakeOil}/$file", "$cfgpath/$file");
-        }
+      $client1->waitForUnit("multi-user.target");
+      $client2->waitForUnit("multi-user.target");
 
-        for my $file ("$user.key", "$user.cert") {
-          $client->copyFileFromHost(
-            "${snakeOil}/$file", "$cfgpath/$file"
-          );
-        }
-        $client->copyFileFromHost(
-          "${snakeOil.cacert}", "$cfgpath/ca.cert"
-        );
-        $client->succeed(
-          (su "alice", "task config taskd.ca $cfgpath/ca.cert"),
-          (su "alice", "task config taskd.key $cfgpath/$user.key"),
-          (su $user, "task config taskd.certificate $cfgpath/$user.cert")
-        );
+      setupClientsFor "testOrganisation", "alice";
+      setupClientsFor "testOrganisation", "foo";
+      setupClientsFor "anotherOrganisation", "bob";
+
+      testSync $_ for ("alice", "bob", "foo");
+
+      $server->fail("nixos-taskserver user add imperativeOrg bar");
+      readdImperativeUser;
+
+      testSync "bar";
+
+      subtest "checking certificate revocation of user bar", sub {
+        $client1->succeed(checkClientCert "bar");
+
+        $server->succeed("nixos-taskserver user remove imperativeOrg bar");
+        restartServer;
+
+        $client1->fail(checkClientCert "bar");
+
+        $client1->succeed(su "bar", "task add destroy everything >&2");
+        $client1->fail(su "bar", "task sync >&2");
       };
 
-      testSync "alice";
-    };
-  '';
+      readdImperativeUser;
+
+      subtest "checking certificate revocation of org imperativeOrg", sub {
+        $client1->succeed(checkClientCert "bar");
+
+        $server->succeed("nixos-taskserver org remove imperativeOrg");
+        restartServer;
+
+        $client1->fail(checkClientCert "bar");
+
+        $client1->succeed(su "bar", "task add destroy even more >&2");
+        $client1->fail(su "bar", "task sync >&2");
+      };
+
+      readdImperativeUser;
+
+      subtest "check whether declarative config overrides user bar", sub {
+        restartServer;
+        testSync "bar";
+      };
+
+      subtest "check manual configuration", sub {
+        # Remove the keys from automatic CA creation, to make sure the new
+        # generation doesn't use keys from before.
+        $server->succeed('rm -rf ${cfg.dataDir}/keys/* >&2');
+
+        $server->succeed('${switchToNewServer} >&2');
+        $server->waitForUnit("taskserver.service");
+        $server->waitForOpenPort(${portStr});
+
+        $server->succeed(
+          "nixos-taskserver org add manualOrg",
+          "nixos-taskserver user add manualOrg alice"
+        );
+
+        setupClientsFor "manualOrg", "alice", sub {
+          my ($client, $org, $user) = @_;
+          my $cfgpath = "/home/$user/.task";
+
+          $client->copyFileFromHost("${snakeOil.cacert}", "$cfgpath/ca.cert");
+          for my $file ('alice.key', 'alice.cert') {
+            $client->copyFileFromHost("${snakeOil}/$file", "$cfgpath/$file");
+          }
+
+          for my $file ("$user.key", "$user.cert") {
+            $client->copyFileFromHost(
+              "${snakeOil}/$file", "$cfgpath/$file"
+            );
+          }
+          $client->copyFileFromHost(
+            "${snakeOil.cacert}", "$cfgpath/ca.cert"
+          );
+          $client->succeed(
+            (su "alice", "task config taskd.ca $cfgpath/ca.cert"),
+            (su "alice", "task config taskd.key $cfgpath/$user.key"),
+            (su $user, "task config taskd.certificate $cfgpath/$user.cert")
+          );
+        };
+
+        testSync "alice";
+      };
+    '';
 })

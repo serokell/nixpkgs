@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Texture packer and resource bundler";
     platforms = platforms.unix;
-    homepage = https://github.com/andrewrk/rucksack;
+    homepage = "https://github.com/andrewrk/rucksack";
     license = licenses.mit;
     maintainers = [ maintainers.andrewrk ];
   };

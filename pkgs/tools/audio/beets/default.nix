@@ -1,48 +1,34 @@
-{ stdenv, fetchFromGitHub, writeScript, glibcLocales, diffPlugins
-, pythonPackages, imagemagick, gobject-introspection, gst_all_1
-, runtimeShell
-, fetchpatch
+{ stdenv, fetchFromGitHub, writeScript, glibcLocales, diffPlugins, pythonPackages, imagemagick, gobject-introspection, gst_all_1, runtimeShell, fetchpatch
 
 # Attributes needed for tests of the external plugins
 , callPackage, beets
 
-, enableAcousticbrainz ? true
-, enableAcoustid       ? true
-, enableBadfiles       ? true, flac ? null, mp3val ? null
-, enableConvert        ? true, ffmpeg ? null
-, enableDiscogs        ? true
-, enableEmbyupdate     ? true
-, enableFetchart       ? true
-, enableGmusic         ? true
-, enableKeyfinder      ? true, keyfinder-cli ? null
-, enableKodiupdate     ? true
-, enableLastfm         ? true
-, enableMpd            ? true
-, enableReplaygain     ? true, bs1770gain ? null
-, enableSonosUpdate    ? true
-, enableThumbnails     ? true
-, enableWeb            ? true
+, enableAcousticbrainz ? true, enableAcoustid ? true, enableBadfiles ?
+  true, flac ? null, mp3val ? null, enableConvert ? true, ffmpeg ?
+    null, enableDiscogs ? true, enableEmbyupdate ? true, enableFetchart ?
+      true, enableGmusic ? true, enableKeyfinder ? true, keyfinder-cli ?
+        null, enableKodiupdate ? true, enableLastfm ? true, enableMpd ?
+          true, enableReplaygain ? true, bs1770gain ? null, enableSonosUpdate ?
+            true, enableThumbnails ? true, enableWeb ? true
 
-# External plugins
-, enableAlternatives   ? false
-, enableCopyArtifacts  ? false
+              # External plugins
+, enableAlternatives ? false, enableCopyArtifacts ? false
 
-, bashInteractive, bash-completion
-}:
+, bashInteractive, bash-completion }:
 
-assert enableAcoustid    -> pythonPackages.pyacoustid     != null;
-assert enableBadfiles    -> flac != null && mp3val != null;
-assert enableConvert     -> ffmpeg != null;
-assert enableDiscogs     -> pythonPackages.discogs_client != null;
-assert enableFetchart    -> pythonPackages.responses      != null;
-assert enableGmusic      -> pythonPackages.gmusicapi      != null;
-assert enableKeyfinder   -> keyfinder-cli != null;
-assert enableLastfm      -> pythonPackages.pylast         != null;
-assert enableMpd         -> pythonPackages.mpd2           != null;
-assert enableReplaygain  -> bs1770gain                    != null;
-assert enableSonosUpdate -> pythonPackages.soco           != null;
-assert enableThumbnails  -> pythonPackages.pyxdg          != null;
-assert enableWeb         -> pythonPackages.flask          != null;
+assert enableAcoustid -> pythonPackages.pyacoustid != null;
+assert enableBadfiles -> flac != null && mp3val != null;
+assert enableConvert -> ffmpeg != null;
+assert enableDiscogs -> pythonPackages.discogs_client != null;
+assert enableFetchart -> pythonPackages.responses != null;
+assert enableGmusic -> pythonPackages.gmusicapi != null;
+assert enableKeyfinder -> keyfinder-cli != null;
+assert enableLastfm -> pythonPackages.pylast != null;
+assert enableMpd -> pythonPackages.mpd2 != null;
+assert enableReplaygain -> bs1770gain != null;
+assert enableSonosUpdate -> pythonPackages.soco != null;
+assert enableThumbnails -> pythonPackages.pyxdg != null;
+assert enableWeb -> pythonPackages.flask != null;
 
 with stdenv.lib;
 
@@ -69,12 +55,46 @@ let
   };
 
   pluginsWithoutDeps = [
-    "absubmit" "beatport" "bench" "bpd" "bpm" "bucket" "cue" "duplicates"
-    "edit" "embedart" "export" "filefilter" "freedesktop" "fromfilename"
-    "ftintitle" "fuzzy" "hook" "ihate" "importadded" "importfeeds" "info"
-    "inline" "ipfs" "lyrics" "mbcollection" "mbsubmit" "mbsync" "metasync"
-    "missing" "permissions" "play" "plexupdate" "random" "rewrite" "scrub"
-    "smartplaylist" "spotify" "the" "types" "zero"
+    "absubmit"
+    "beatport"
+    "bench"
+    "bpd"
+    "bpm"
+    "bucket"
+    "cue"
+    "duplicates"
+    "edit"
+    "embedart"
+    "export"
+    "filefilter"
+    "freedesktop"
+    "fromfilename"
+    "ftintitle"
+    "fuzzy"
+    "hook"
+    "ihate"
+    "importadded"
+    "importfeeds"
+    "info"
+    "inline"
+    "ipfs"
+    "lyrics"
+    "mbcollection"
+    "mbsubmit"
+    "mbsync"
+    "metasync"
+    "missing"
+    "permissions"
+    "play"
+    "plexupdate"
+    "random"
+    "rewrite"
+    "scrub"
+    "smartplaylist"
+    "spotify"
+    "the"
+    "types"
+    "zero"
   ];
 
   enabledOptionalPlugins = attrNames (filterAttrs (_: id) optionalPlugins);
@@ -89,9 +109,7 @@ let
   externalTestArgs.beets = (beets.override {
     enableAlternatives = false;
     enableCopyArtifacts = false;
-  }).overrideAttrs (stdenv.lib.const {
-    doInstallCheck = false;
-  });
+  }).overrideAttrs (stdenv.lib.const { doInstallCheck = false; });
 
   pluginArgs = externalTestArgs // { inherit pythonPackages; };
 
@@ -123,31 +141,23 @@ in pythonPackages.buildPythonApplication rec {
     pythonPackages.gst-python
     pythonPackages.pygobject3
     gobject-introspection
-  ] ++ optional enableAcoustid      pythonPackages.pyacoustid
-    ++ optional (enableFetchart
-              || enableEmbyupdate
-              || enableKodiupdate
-              || enableAcousticbrainz)
-                                    pythonPackages.requests
-    ++ optional enableConvert       ffmpeg
-    ++ optional enableDiscogs       pythonPackages.discogs_client
-    ++ optional enableGmusic        pythonPackages.gmusicapi
-    ++ optional enableKeyfinder     keyfinder-cli
-    ++ optional enableLastfm        pythonPackages.pylast
-    ++ optional enableMpd           pythonPackages.mpd2
-    ++ optional enableSonosUpdate   pythonPackages.soco
-    ++ optional enableThumbnails    pythonPackages.pyxdg
-    ++ optional enableWeb           pythonPackages.flask
-    ++ optional enableAlternatives  plugins.alternatives
+  ] ++ optional enableAcoustid pythonPackages.pyacoustid ++ optional
+    (enableFetchart || enableEmbyupdate || enableKodiupdate
+    || enableAcousticbrainz) pythonPackages.requests
+    ++ optional enableConvert ffmpeg
+    ++ optional enableDiscogs pythonPackages.discogs_client
+    ++ optional enableGmusic pythonPackages.gmusicapi
+    ++ optional enableKeyfinder keyfinder-cli
+    ++ optional enableLastfm pythonPackages.pylast
+    ++ optional enableMpd pythonPackages.mpd2
+    ++ optional enableSonosUpdate pythonPackages.soco
+    ++ optional enableThumbnails pythonPackages.pyxdg
+    ++ optional enableWeb pythonPackages.flask
+    ++ optional enableAlternatives plugins.alternatives
     ++ optional enableCopyArtifacts plugins.copyartifacts;
 
-  buildInputs = [
-    imagemagick
-  ] ++ (with gst_all_1; [
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-ugly
-  ]);
+  buildInputs = [ imagemagick ]
+    ++ (with gst_all_1; [ gst-plugins-base gst-plugins-good gst-plugins-ugly ]);
 
   checkInputs = with pythonPackages; [
     beautifulsoup4
@@ -164,7 +174,7 @@ in pythonPackages.buildPythonApplication rec {
     # Fix Python 3.7 compatibility
     (fetchpatch {
       url = "https://github.com/beetbox/beets/commit/"
-          + "15d44f02a391764da1ce1f239caef819f08beed8.patch";
+        + "15d44f02a391764da1ce1f239caef819f08beed8.patch";
       sha256 = "12rjb4959nvnrm3fvvki7chxjkipa0cy8i0yi132xrcn8141dnpm";
       excludes = [ "docs/changelog.rst" ];
     })
@@ -213,7 +223,10 @@ in pythonPackages.buildPythonApplication rec {
     runHook preCheck
 
     LANG=en_US.UTF-8 \
-    LOCALE_ARCHIVE=${assert stdenv.isLinux; glibcLocales}/lib/locale/locale-archive \
+    LOCALE_ARCHIVE=${
+      assert stdenv.isLinux;
+      glibcLocales
+    }/lib/locale/locale-archive \
     BEETS_TEST_SHELL="${testShell}" \
     BASH_COMPLETION_SCRIPT="${completion}" \
     HOME="$(mktemp -d)" nosetests -v
@@ -228,22 +241,27 @@ in pythonPackages.buildPythonApplication rec {
 
     tmphome="$(mktemp -d)"
 
-    EDITOR="${writeScript "beetconfig.sh" ''
-      #!${runtimeShell}
-      cat > "$1" <<CFG
-      plugins: ${concatStringsSep " " allEnabledPlugins}
-      CFG
-    ''}" HOME="$tmphome" "$out/bin/beet" config -e
+    EDITOR="${
+      writeScript "beetconfig.sh" ''
+        #!${runtimeShell}
+        cat > "$1" <<CFG
+        plugins: ${concatStringsSep " " allEnabledPlugins}
+        CFG
+      ''
+    }" HOME="$tmphome" "$out/bin/beet" config -e
     EDITOR=true HOME="$tmphome" "$out/bin/beet" config -e
 
     runHook postInstallCheck
   '';
 
-  makeWrapperArgs = [ "--set GI_TYPELIB_PATH \"$GI_TYPELIB_PATH\"" "--set GST_PLUGIN_SYSTEM_PATH_1_0 \"$GST_PLUGIN_SYSTEM_PATH_1_0\"" ];
+  makeWrapperArgs = [
+    ''--set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"''
+    ''--set GST_PLUGIN_SYSTEM_PATH_1_0 "$GST_PLUGIN_SYSTEM_PATH_1_0"''
+  ];
 
   meta = {
     description = "Music tagger and library organizer";
-    homepage = http://beets.io;
+    homepage = "http://beets.io";
     license = licenses.mit;
     maintainers = with maintainers; [ aszlig domenkozar pjones ];
     platforms = platforms.linux;

@@ -1,56 +1,55 @@
-import ./make-test.nix ({ pkgs, ...} :
+import ./make-test.nix ({ pkgs, ... }:
 
 let
   replicateUser = "replicate";
   replicatePassword = "secret";
-in
 
-{
+in {
   name = "mysql-replication";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ eelco shlevy ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ eelco shlevy ]; };
 
   nodes = {
-    master =
-      { pkgs, ... }:
+    master = { pkgs, ... }:
 
-      {
-        services.mysql.enable = true;
-        services.mysql.package = pkgs.mysql;
-        services.mysql.replication.role = "master";
-        services.mysql.replication.slaveHost = "%";
-        services.mysql.replication.masterUser = replicateUser;
-        services.mysql.replication.masterPassword = replicatePassword;
-        services.mysql.initialDatabases = [ { name = "testdb"; schema = ./testdb.sql; } ];
-        networking.firewall.allowedTCPPorts = [ 3306 ];
-      };
+    {
+      services.mysql.enable = true;
+      services.mysql.package = pkgs.mysql;
+      services.mysql.replication.role = "master";
+      services.mysql.replication.slaveHost = "%";
+      services.mysql.replication.masterUser = replicateUser;
+      services.mysql.replication.masterPassword = replicatePassword;
+      services.mysql.initialDatabases = [{
+        name = "testdb";
+        schema = ./testdb.sql;
+      }];
+      networking.firewall.allowedTCPPorts = [ 3306 ];
+    };
 
-    slave1 =
-      { pkgs, nodes, ... }:
+    slave1 = { pkgs, nodes, ... }:
 
-      {
-        services.mysql.enable = true;
-        services.mysql.package = pkgs.mysql;
-        services.mysql.replication.role = "slave";
-        services.mysql.replication.serverId = 2;
-        services.mysql.replication.masterHost = nodes.master.config.networking.hostName;
-        services.mysql.replication.masterUser = replicateUser;
-        services.mysql.replication.masterPassword = replicatePassword;
-      };
+    {
+      services.mysql.enable = true;
+      services.mysql.package = pkgs.mysql;
+      services.mysql.replication.role = "slave";
+      services.mysql.replication.serverId = 2;
+      services.mysql.replication.masterHost =
+        nodes.master.config.networking.hostName;
+      services.mysql.replication.masterUser = replicateUser;
+      services.mysql.replication.masterPassword = replicatePassword;
+    };
 
-    slave2 =
-      { pkgs, nodes, ... }:
+    slave2 = { pkgs, nodes, ... }:
 
-      {
-        services.mysql.enable = true;
-        services.mysql.package = pkgs.mysql;
-        services.mysql.replication.role = "slave";
-        services.mysql.replication.serverId = 3;
-        services.mysql.replication.masterHost = nodes.master.config.networking.hostName;
-        services.mysql.replication.masterUser = replicateUser;
-        services.mysql.replication.masterPassword = replicatePassword;
-      };
+    {
+      services.mysql.enable = true;
+      services.mysql.package = pkgs.mysql;
+      services.mysql.replication.role = "slave";
+      services.mysql.replication.serverId = 3;
+      services.mysql.replication.masterHost =
+        nodes.master.config.networking.hostName;
+      services.mysql.replication.masterUser = replicateUser;
+      services.mysql.replication.masterPassword = replicatePassword;
+    };
   };
 
   testScript = ''

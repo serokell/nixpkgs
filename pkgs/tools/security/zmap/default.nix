@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, libjson, json_c, gengetopt, flex, byacc, gmp
-, libpcap
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libjson, json_c, gengetopt, flex, byacc, gmp, libpcap
 }:
 
 stdenv.mkDerivation rec {
@@ -22,9 +21,10 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "man" ];
 
   meta = with stdenv.lib; {
-    homepage = https://zmap.io/;
+    homepage = "https://zmap.io/";
     license = licenses.asl20;
-    description = "Fast single packet network scanner designed for Internet-wide network surveys";
+    description =
+      "Fast single packet network scanner designed for Internet-wide network surveys";
     maintainers = with maintainers; [ ma27 ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;

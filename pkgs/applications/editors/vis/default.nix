@@ -1,11 +1,9 @@
-{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, makeDesktopItem
-, ncurses, libtermkey, lpeg, lua
-, acl ? null, libselinux ? null
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, makeDesktopItem, ncurses, libtermkey, lpeg, lua, acl ?
+  null, libselinux ? null }:
 
 stdenv.mkDerivation rec {
   name = "vis-${version}";
-  version  = "0.5";
+  version = "0.5";
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -16,22 +14,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig makeWrapper ];
 
-  buildInputs = [
-    ncurses
-    libtermkey
-    lua
-    lpeg
-  ] ++ stdenv.lib.optionals stdenv.isLinux [
-    acl
-    libselinux
-  ];
+  buildInputs = [ ncurses libtermkey lua lpeg ]
+    ++ stdenv.lib.optionals stdenv.isLinux [ acl libselinux ];
 
   postPatch = ''
     patchShebangs ./configure
   '';
 
-  LUA_CPATH="${lpeg}/lib/lua/${lua.luaversion}/?.so;";
-  LUA_PATH="${lpeg}/share/lua/${lua.luaversion}/?.lua";
+  LUA_CPATH = "${lpeg}/lib/lua/${lua.luaversion}/?.so;";
+  LUA_PATH = "${lpeg}/share/lua/${lua.luaversion}/?.lua";
 
   postInstall = ''
     mkdir -p "$out/share/applications"
@@ -51,11 +42,11 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     desktopName = "vis";
     genericName = "Text editor";
-    categories = stdenv.lib.concatStringsSep ";" [
-      "Application" "Development" "IDE"
-    ];
+    categories =
+      stdenv.lib.concatStringsSep ";" [ "Application" "Development" "IDE" ];
     mimeType = stdenv.lib.concatStringsSep ";" [
-      "text/plain" "application/octet-stream"
+      "text/plain"
+      "application/octet-stream"
     ];
     startupNotify = "false";
     terminal = "true";
@@ -63,7 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A vim like editor";
-    homepage = https://github.com/martanne/vis;
+    homepage = "https://github.com/martanne/vis";
     license = licenses.isc;
     maintainers = with maintainers; [ vrthra ramkromberg ];
     platforms = platforms.unix;

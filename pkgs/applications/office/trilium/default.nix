@@ -1,7 +1,9 @@
-{ stdenv, fetchurl, autoPatchelfHook, atomEnv, makeWrapper, makeDesktopItem, gtk3, wrapGAppsHook }:
+{ stdenv, fetchurl, autoPatchelfHook, atomEnv, makeWrapper, makeDesktopItem, gtk3, wrapGAppsHook
+}:
 
 let
-  description = "Trilium Notes is a hierarchical note taking application with focus on building large personal knowledge bases.";
+  description =
+    "Trilium Notes is a hierarchical note taking application with focus on building large personal knowledge bases.";
   desktopItem = makeDesktopItem {
     name = "Trilium";
     exec = "trilium";
@@ -16,7 +18,8 @@ in stdenv.mkDerivation rec {
   version = "0.33.6";
 
   src = fetchurl {
-    url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
+    url =
+      "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
     sha256 = "1sg6iqhpgyr8zr6w6dgs0ha0indb9vyp8vh2clj2fds5ahhlvf91";
   };
 
@@ -24,16 +27,12 @@ in stdenv.mkDerivation rec {
   # (they did special-case icon.png but we want the scalable svg)
   # Use the version here to ensure we get any changes.
   trilium_svg = fetchurl {
-    url = "https://raw.githubusercontent.com/zadam/trilium/v${version}/src/public/images/trilium.svg";
+    url =
+      "https://raw.githubusercontent.com/zadam/trilium/v${version}/src/public/images/trilium.svg";
     sha256 = "1rgj7pza20yndfp8n12k93jyprym02hqah36fkk2b3if3kcmwnfg";
   };
 
-
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper wrapGAppsHook ];
 
   buildInputs = [ atomEnv.packages gtk3 ];
 
@@ -58,7 +57,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     inherit description;
-    homepage = https://github.com/zadam/trilium;
+    homepage = "https://github.com/zadam/trilium";
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ emmanuelrosa dtzWill ];

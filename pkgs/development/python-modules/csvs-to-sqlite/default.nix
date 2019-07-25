@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestrunner
-, click
-, dateparser
-, pandas
-, py-lru-cache
-, six
-, pytest
+{ lib, buildPythonPackage, fetchFromGitHub, pytestrunner, click, dateparser, pandas, py-lru-cache, six, pytest
 }:
 
 buildPythonPackage rec {
@@ -23,17 +14,9 @@ buildPythonPackage rec {
 
   buildInputs = [ pytestrunner ];
 
-  propagatedBuildInputs = [
-    click
-    dateparser
-    pandas
-    py-lru-cache
-    six
-  ];
+  propagatedBuildInputs = [ click dateparser pandas py-lru-cache six ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest
@@ -41,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Convert CSV files into a SQLite database";
-    homepage = https://github.com/simonw/csvs-to-sqlite;
+    homepage = "https://github.com/simonw/csvs-to-sqlite";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

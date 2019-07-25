@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, unzip, makeWrapper , flex, bison, ncurses, buddy, tecla
-, libsigsegv, gmpxx, cln
+{ stdenv, fetchurl, unzip, makeWrapper, flex, bison, ncurses, buddy, tecla, libsigsegv, gmpxx, cln
 }:
 
 let
@@ -7,13 +6,12 @@ let
   version = "2.7.1";
 
   fullMaude = fetchurl {
-    url = "http://maude.cs.illinois.edu/w/images/c/ca/Full-Maude-${version}.zip";
+    url =
+      "http://maude.cs.illinois.edu/w/images/c/ca/Full-Maude-${version}.zip";
     sha256 = "0y4gn7n8vh24r24vckhpkd46hb5hqsbrm4w9zr6dz4paafq12fjc";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "maude-${version}";
 
   src = fetchurl {
@@ -21,12 +19,11 @@ stdenv.mkDerivation rec {
     sha256 = "0jskn5dm8vvbd3mlryjxdb6wfpkvyx174wk7ci9a31aylxzpr25i";
   };
 
-  buildInputs = [
-    flex bison ncurses buddy tecla gmpxx libsigsegv makeWrapper unzip cln
-  ];
+  buildInputs =
+    [ flex bison ncurses buddy tecla gmpxx libsigsegv makeWrapper unzip cln ];
 
-  hardeningDisable = [ "stackprotector" ] ++
-    stdenv.lib.optionals stdenv.isi686 [ "pic" "fortify" ];
+  hardeningDisable = [ "stackprotector" ]
+    ++ stdenv.lib.optionals stdenv.isi686 [ "pic" "fortify" ];
 
   preConfigure = ''
     configureFlagsArray=(
@@ -52,7 +49,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   meta = {
-    homepage = http://maude.cs.illinois.edu/;
+    homepage = "http://maude.cs.illinois.edu/";
     description = "High-level specification language";
     license = stdenv.lib.licenses.gpl2;
 

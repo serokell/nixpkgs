@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cairocffi
-, cairosvg
-, cffi
-, qiskit
-, svgwrite
-, colorama
-, python
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, cairocffi, cairosvg, cffi, qiskit, svgwrite, colorama, python, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -24,29 +14,19 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5";
 
-  propagatedBuildInputs = [
-    cairocffi
-    cairosvg
-    cffi
-    qiskit
-    svgwrite
-  ];
+  propagatedBuildInputs = [ cairocffi cairosvg cffi qiskit svgwrite ];
 
-  checkInputs = [
-    colorama
-  ];
+  checkInputs = [ colorama ];
   checkPhase = ''
     ${python.interpreter} tests/launch_tests.py
   '';
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   meta = {
     description = "A Python module to visualise quantum circuit";
-    homepage    = https://github.com/nelimeee/qasm2image;
-    license     = lib.licenses.cecill-b;
-    maintainers = with lib.maintainers; [
-      pandaman
-    ];
+    homepage = "https://github.com/nelimeee/qasm2image";
+    license = lib.licenses.cecill-b;
+    maintainers = with lib.maintainers; [ pandaman ];
   };
 }

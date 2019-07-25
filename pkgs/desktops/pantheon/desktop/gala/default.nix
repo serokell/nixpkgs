@@ -1,11 +1,10 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala
-, desktop-file-utils, gettext, libxml2, gtk3, granite, libgee, bamf, libcanberra
-, libcanberra-gtk3, gnome-desktop, mutter, clutter, plank, elementary-icon-theme
-, elementary-settings-daemon, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala, desktop-file-utils, gettext, libxml2, gtk3, granite, libgee, bamf, libcanberra, libcanberra-gtk3, gnome-desktop, mutter, clutter, plank, elementary-icon-theme, elementary-settings-daemon, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "gala";
-  version = "unstable-2019-07-21"; # Is tracking https://github.com/elementary/gala/commits/stable/juno
+  version =
+    "unstable-2019-07-21"; # Is tracking https://github.com/elementary/gala/commits/stable/juno
 
   src = fetchFromGitHub {
     owner = "elementary";
@@ -55,9 +54,10 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/post_install.py
   '';
 
-  meta =  with stdenv.lib; {
-    description = "A window & compositing manager based on mutter and designed by elementary for use with Pantheon";
-    homepage = https://github.com/elementary/gala;
+  meta = with stdenv.lib; {
+    description =
+      "A window & compositing manager based on mutter and designed by elementary for use with Pantheon";
+    homepage = "https://github.com/elementary/gala";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

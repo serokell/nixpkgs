@@ -1,11 +1,5 @@
-{ stdenv, fetchurl, substituteAll
-, pkgconfig
-, cups, libjpeg, libusb1, pythonPackages, sane-backends, dbus, usbutils
-, net_snmp, openssl, nettools
-, bash, coreutils, utillinux
-, qtSupport ? true
-, withPlugin ? false
-}:
+{ stdenv, fetchurl, substituteAll, pkgconfig, cups, libjpeg, libusb1, pythonPackages, sane-backends, dbus, usbutils, net_snmp, openssl, nettools, bash, coreutils, utillinux, qtSupport ?
+  true, withPlugin ? false }:
 
 let
 
@@ -18,7 +12,8 @@ let
   };
 
   plugin = fetchurl {
-    url = "http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/${name}-plugin.run";
+    url =
+      "http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/${name}-plugin.run";
     sha256 = "1y3wdax2wb6kdd8bi40wl7v9s8ffyjz95bz42sjcpzzddmlhcaxg";
   };
 
@@ -28,50 +23,32 @@ let
   };
 
   hplipPlatforms = {
-    "i686-linux"    = "x86_32";
-    "x86_64-linux"  = "x86_64";
-    "armv6l-linux"  = "arm32";
-    "armv7l-linux"  = "arm32";
+    "i686-linux" = "x86_32";
+    "x86_64-linux" = "x86_64";
+    "armv6l-linux" = "arm32";
+    "armv7l-linux" = "arm32";
     "aarch64-linux" = "arm64";
   };
 
-  hplipArch = hplipPlatforms."${stdenv.hostPlatform.system}"
-    or (throw "HPLIP not supported on ${stdenv.hostPlatform.system}");
+  hplipArch = hplipPlatforms."${stdenv.hostPlatform.system}" or (throw
+    "HPLIP not supported on ${stdenv.hostPlatform.system}");
 
   pluginArches = [ "x86_32" "x86_64" "arm32" "arm64" ];
 
-in
-
-assert withPlugin -> builtins.elem hplipArch pluginArches
-  || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
+in assert withPlugin -> builtins.elem hplipArch pluginArches
+|| throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 pythonPackages.buildPythonApplication {
   inherit name src;
   format = "other";
 
-  buildInputs = [
-    libjpeg
-    cups
-    libusb1
-    sane-backends
-    dbus
-    net_snmp
-    openssl
-  ];
+  buildInputs = [ libjpeg cups libusb1 sane-backends dbus net_snmp openssl ];
 
-  nativeBuildInputs = [
-    pkgconfig
-  ];
+  nativeBuildInputs = [ pkgconfig ];
 
-  pythonPath = with pythonPackages; [
-    dbus
-    pillow
-    pygobject2
-    reportlab
-    usbutils
-  ] ++ stdenv.lib.optionals qtSupport [
-    pyqt4
-  ];
+  pythonPath = with pythonPackages;
+    [ dbus pillow pygobject2 reportlab usbutils ]
+    ++ stdenv.lib.optionals qtSupport [ pyqt4 ];
 
   makeWrapperArgs = [ "--prefix" "PATH" ":" "${nettools}/bin" ];
 
@@ -181,12 +158,19 @@ pythonPackages.buildPythonApplication {
 
   meta = with stdenv.lib; {
     description = "Print, scan and fax HP drivers for Linux";
-    homepage = http://hplipopensource.com/;
-    downloadPage = https://sourceforge.net/projects/hplip/files/hplip/;
-    license = if withPlugin
-      then licenses.unfree
-      else with licenses; [ mit bsd2 gpl2Plus ];
-    platforms = [ "i686-linux" "x86_64-linux" "armv6l-linux" "armv7l-linux" "aarch64-linux" ];
+    homepage = "http://hplipopensource.com/";
+    downloadPage = "https://sourceforge.net/projects/hplip/files/hplip/";
+    license = if withPlugin then
+      licenses.unfree
+    else
+      with licenses; [ mit bsd2 gpl2Plus ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+      "armv6l-linux"
+      "armv7l-linux"
+      "aarch64-linux"
+    ];
     maintainers = with maintainers; [ ttuegel ];
   };
 }

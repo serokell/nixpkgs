@@ -5,7 +5,8 @@ let
   version = "1.0.5";
 in fetchurl rec {
   name = "${pname}-${version}";
-  url = "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
+  url =
+    "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
 
   downloadToTemp = true;
   recursiveHash = true;
@@ -21,7 +22,7 @@ in fetchurl rec {
 
   meta = with lib; {
     description = "Monospaced bitmap fonts";
-    homepage = https://www.cambus.net/spleen-monospaced-bitmap-fonts;
+    homepage = "https://www.cambus.net/spleen-monospaced-bitmap-fonts";
     license = licenses.bsd2;
     maintainers = with maintainers; [ dtzWill ];
   };

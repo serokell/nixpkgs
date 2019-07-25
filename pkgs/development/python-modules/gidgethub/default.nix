@@ -1,16 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools
-, pytestrunner
-, pytest
-, pytest-asyncio
-, twisted
-, treq
-, tornado
-, aiohttp
-, uritemplate
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, pytestrunner, pytest, pytest-asyncio, twisted, treq, tornado, aiohttp, uritemplate
 }:
 
 buildPythonPackage rec {
@@ -38,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An async GitHub API library";
-    homepage = https://github.com/brettcannon/gidgethub;
+    homepage = "https://github.com/brettcannon/gidgethub";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

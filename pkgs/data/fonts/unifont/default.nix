@@ -18,15 +18,14 @@ stdenv.mkDerivation rec {
 
   phases = "installPhase";
 
-  installPhase =
-    ''
-      mkdir -p $out/share/fonts $out/share/fonts/truetype
-      cp -v ${pcf} $out/share/fonts/unifont.pcf.gz
-      cp -v ${ttf} $out/share/fonts/truetype/unifont.ttf
-      cd $out/share/fonts
-      mkfontdir
-      mkfontscale
-    '';
+  installPhase = ''
+    mkdir -p $out/share/fonts $out/share/fonts/truetype
+    cp -v ${pcf} $out/share/fonts/unifont.pcf.gz
+    cp -v ${ttf} $out/share/fonts/truetype/unifont.ttf
+    cd $out/share/fonts
+    mkfontdir
+    mkfontscale
+  '';
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
@@ -34,10 +33,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Unicode font for Base Multilingual Plane";
-    homepage = http://unifoundry.com/unifont.html;
+    homepage = "http://unifoundry.com/unifont.html";
 
     # Basically GPL2+ with font exception.
-    license = http://unifoundry.com/LICENSE.txt;
+    license = "http://unifoundry.com/LICENSE.txt";
     maintainers = [ maintainers.rycee maintainers.vrthra ];
     platforms = platforms.all;
   };

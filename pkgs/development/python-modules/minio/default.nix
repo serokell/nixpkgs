@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, isPy3k, fetchPypi
-, urllib3, python-dateutil , pytz, faker, mock, nose }:
+{ lib, buildPythonPackage, isPy3k, fetchPypi, urllib3, python-dateutil, pytz, faker, mock, nose
+}:
 
 buildPythonPackage rec {
   pname = "minio";
@@ -16,8 +16,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ urllib3 python-dateutil pytz ];
 
   meta = with lib; {
-    description = "Simple APIs to access any Amazon S3 compatible object storage server";
-    homepage = https://github.com/minio/minio-py;
+    description =
+      "Simple APIs to access any Amazon S3 compatible object storage server";
+    homepage = "https://github.com/minio/minio-py";
     maintainers = with maintainers; [ peterromfeldhk ];
     license = licenses.asl20;
   };

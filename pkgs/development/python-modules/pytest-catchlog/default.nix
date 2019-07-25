@@ -18,7 +18,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     license = licenses.mit;
-    homepage = https://pypi.python.org/pypi/pytest-catchlog/;
-    description = "py.test plugin to catch log messages. This is a fork of pytest-capturelog.";
+    homepage = "https://pypi.python.org/pypi/pytest-catchlog/";
+    description =
+      "py.test plugin to catch log messages. This is a fork of pytest-capturelog.";
   };
 }

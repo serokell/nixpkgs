@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -11,11 +9,10 @@ with pkgs.lib;
     name = "rsyslogd-test1";
     meta.maintainers = [ maintainers.aanderse ];
 
-    machine =
-      { config, pkgs, ... }:
-      { services.rsyslogd.enable = true;
-        services.journald.forwardToSyslog = false;
-      };
+    machine = { config, pkgs, ... }: {
+      services.rsyslogd.enable = true;
+      services.journald.forwardToSyslog = false;
+    };
 
     # ensure rsyslogd isn't receiving messages from journald if explicitly disabled
     testScript = ''
@@ -28,10 +25,7 @@ with pkgs.lib;
     name = "rsyslogd-test2";
     meta.maintainers = [ maintainers.aanderse ];
 
-    machine =
-      { config, pkgs, ... }:
-      { services.rsyslogd.enable = true;
-      };
+    machine = { config, pkgs, ... }: { services.rsyslogd.enable = true; };
 
     # ensure rsyslogd is receiving messages from journald
     testScript = ''

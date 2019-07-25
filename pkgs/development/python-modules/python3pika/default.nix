@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, nose
-, mock
-, pyyaml
-, unittest2
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, nose, mock, pyyaml, unittest2
 }:
 
 buildPythonPackage rec {
@@ -25,7 +18,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ unittest2 ];
 
   meta = with stdenv.lib; {
-    homepage = https://pika.readthedocs.org/;
+    homepage = "https://pika.readthedocs.org/";
     description = "Pika Python AMQP Client Library";
     license = licenses.gpl2;
   };

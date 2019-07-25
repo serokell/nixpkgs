@@ -15,7 +15,7 @@ buildGoModule rec {
 
   meta = with stdenv.lib; {
     description = "TUI Client for Docker";
-    homepage = https://github.com/skanehira/docui;
+    homepage = "https://github.com/skanehira/docui";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
   };

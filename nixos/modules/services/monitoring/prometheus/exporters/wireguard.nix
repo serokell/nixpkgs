@@ -2,12 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.wireguard;
+let cfg = config.services.prometheus.exporters.wireguard;
 in {
   port = 9586;
   extraOpts = {
-    verbose = mkEnableOption "Verbose logging mode for prometheus-wireguard-exporter";
+    verbose =
+      mkEnableOption "Verbose logging mode for prometheus-wireguard-exporter";
 
     wireguardConfig = mkOption {
       type = with types; nullOr (either path str);
@@ -41,7 +41,9 @@ in {
         -p ${toString cfg.port} \
         ${optionalString cfg.verbose "-v"} \
         ${optionalString cfg.singleSubnetPerField "-s"} \
-        ${optionalString (cfg.wireguardConfig != null) "-n ${cfg.wireguardConfig}"}
+        ${
+        optionalString (cfg.wireguardConfig != null) "-n ${cfg.wireguardConfig}"
+        }
     '';
 
     path = [ pkgs.wireguard-tools ];

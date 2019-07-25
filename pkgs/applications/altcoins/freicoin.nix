@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false;
 
-  qmakeFlags = ["USE_UPNP=-"];
+  qmakeFlags = [ "USE_UPNP=-" ];
 
   # I think that openssl and zlib are required, but come through other
   # packages
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Peer-to-peer currency with demurrage fee";
-    homepage = http://freicoi.in/;
+    homepage = "http://freicoi.in/";
     license = licenses.mit;
     maintainers = [ maintainers.viric ];
     platforms = platforms.linux;

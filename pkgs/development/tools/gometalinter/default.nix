@@ -1,21 +1,4 @@
-{ buildGoPackage
-, deadcode
-, errcheck
-, fetchFromGitHub
-, go
-, go-check
-, go-tools
-, goconst
-, gocyclo
-, golint
-, gosec
-, gotools
-, ineffassign
-, maligned
-, interfacer
-, lib
-, makeWrapper
-, unconvert
+{ buildGoPackage, deadcode, errcheck, fetchFromGitHub, go, go-check, go-tools, goconst, gocyclo, golint, gosec, gotools, ineffassign, maligned, interfacer, lib, makeWrapper, unconvert
 }:
 
 with lib;
@@ -53,7 +36,9 @@ in buildGoPackage rec {
   };
 
   postInstall = ''
-    wrapProgram $bin/bin/gometalinter --prefix PATH : "${makeBinPath runtimeDeps}"
+    wrapProgram $bin/bin/gometalinter --prefix PATH : "${
+      makeBinPath runtimeDeps
+    }"
   '';
 
   buildInputs = [ makeWrapper ];
@@ -62,7 +47,7 @@ in buildGoPackage rec {
 
   meta = with lib; {
     description = "Concurrently run Go lint tools and normalise their output";
-    homepage = https://github.com/alecthomas/gometalinter;
+    homepage = "https://github.com/alecthomas/gometalinter";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit rvolosatovs ];
     platforms = platforms.linux ++ platforms.darwin;

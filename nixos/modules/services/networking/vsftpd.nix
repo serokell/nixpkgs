@@ -6,14 +6,13 @@ let
 
   /* minimal secure setup:
 
-   enable = true;
-   forceLocalLoginsSSL = true;
-   forceLocalDataSSL = true;
-   userlistDeny = false;
-   localUsers = true;
-   userlist = ["non-root-user" "other-non-root-user"];
-   rsaCertFile = "/var/vsftpd/vsftpd.pem";
-
+     enable = true;
+     forceLocalLoginsSSL = true;
+     forceLocalDataSSL = true;
+     userlistDeny = false;
+     localUsers = true;
+     userlist = ["non-root-user" "other-non-root-user"];
+     rsaCertFile = "/var/vsftpd/vsftpd.pem";
   */
 
   cfg = config.services.vsftpd;
@@ -76,42 +75,41 @@ let
       outgoing data connections can only connect to the client. Only enable if you
       know what you are doing!
     '')
-    (yesNoOption "ssl_tlsv1" "ssl_tlsv1" true  '' '')
-    (yesNoOption "ssl_sslv2" "ssl_sslv2" false '' '')
-    (yesNoOption "ssl_sslv3" "ssl_sslv3" false '' '')
+    (yesNoOption "ssl_tlsv1" "ssl_tlsv1" true "")
+    (yesNoOption "ssl_sslv2" "ssl_sslv2" false "")
+    (yesNoOption "ssl_sslv3" "ssl_sslv3" false "")
   ];
 
-  configFile = pkgs.writeText "vsftpd.conf"
-    ''
-      ${concatMapStrings (x: "${x.cfgText}\n") optionDescription}
-      ${optionalString (cfg.rsaCertFile != null) ''
-        ssl_enable=YES
-        rsa_cert_file=${cfg.rsaCertFile}
-      ''}
-      ${optionalString (cfg.rsaKeyFile != null) ''
-        rsa_private_key_file=${cfg.rsaKeyFile}
-      ''}
-      ${optionalString (cfg.userlistFile != null) ''
-        userlist_file=${cfg.userlistFile}
-      ''}
-      background=YES
-      listen=YES
-      nopriv_user=vsftpd
-      secure_chroot_dir=/var/empty
-      syslog_enable=YES
-      ${optionalString (pkgs.stdenv.hostPlatform.system == "x86_64-linux") ''
-        seccomp_sandbox=NO
-      ''}
-      anon_umask=${cfg.anonymousUmask}
-      ${optionalString cfg.anonymousUser ''
-        anon_root=${cfg.anonymousUserHome}
-      ''}
-      ${cfg.extraConfig}
-    '';
+  configFile = pkgs.writeText "vsftpd.conf" ''
+    ${concatMapStrings (x: ''
+      ${x.cfgText}
+    '') optionDescription}
+    ${optionalString (cfg.rsaCertFile != null) ''
+      ssl_enable=YES
+      rsa_cert_file=${cfg.rsaCertFile}
+    ''}
+    ${optionalString (cfg.rsaKeyFile != null) ''
+      rsa_private_key_file=${cfg.rsaKeyFile}
+    ''}
+    ${optionalString (cfg.userlistFile != null) ''
+      userlist_file=${cfg.userlistFile}
+    ''}
+    background=YES
+    listen=YES
+    nopriv_user=vsftpd
+    secure_chroot_dir=/var/empty
+    syslog_enable=YES
+    ${optionalString (pkgs.stdenv.hostPlatform.system == "x86_64-linux") ''
+      seccomp_sandbox=NO
+    ''}
+    anon_umask=${cfg.anonymousUmask}
+    ${optionalString cfg.anonymousUser ''
+      anon_root=${cfg.anonymousUserHome}
+    ''}
+    ${cfg.extraConfig}
+  '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -125,14 +123,18 @@ in
       };
 
       userlist = mkOption {
-        default = [];
+        default = [ ];
         description = "See <option>userlistFile</option>.";
       };
 
       userlistFile = mkOption {
         type = types.path;
-        default = pkgs.writeText "userlist" (concatMapStrings (x: "${x}\n") cfg.userlist);
-        defaultText = "pkgs.writeText \"userlist\" (concatMapStrings (x: \"\${x}\n\") cfg.userlist)";
+        default = pkgs.writeText "userlist" (concatMapStrings (x: ''
+          ${x}
+        '') cfg.userlist);
+        defaultText = ''
+          pkgs.writeText "userlist" (concatMapStrings (x: "''${x}
+          ") cfg.userlist)'';
         description = ''
           Newline separated list of names to be allowed/denied if <option>userlistEnable</option>
           is <literal>true</literal>. Meaning see <option>userlistDeny</option>.
@@ -174,61 +176,58 @@ in
         type = types.lines;
         default = "";
         example = "ftpd_banner=Hello";
-        description = "Extra configuration to add at the bottom of the generated configuration file.";
+        description =
+          "Extra configuration to add at the bottom of the generated configuration file.";
       };
 
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = singleton
-      { assertion =
-              (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
-          &&  (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
-        message = "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
-      };
+    assertions = singleton {
+      assertion = (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
+        && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
+      message =
+        "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
+    };
 
-    users.users =
-      [ { name = "vsftpd";
-          uid = config.ids.uids.vsftpd;
-          description = "VSFTPD user";
-          home = "/homeless-shelter";
-        }
-      ] ++ optional cfg.anonymousUser
-        { name = "ftp";
-          uid = config.ids.uids.ftp;
-          group = "ftp";
-          description = "Anonymous FTP user";
-          home = cfg.anonymousUserHome;
-        };
+    users.users = [{
+      name = "vsftpd";
+      uid = config.ids.uids.vsftpd;
+      description = "VSFTPD user";
+      home = "/homeless-shelter";
+    }] ++ optional cfg.anonymousUser {
+      name = "ftp";
+      uid = config.ids.uids.ftp;
+      group = "ftp";
+      description = "Anonymous FTP user";
+      home = cfg.anonymousUserHome;
+    };
 
     users.groups.ftp.gid = config.ids.gids.ftp;
 
     # If you really have to access root via FTP use mkOverride or userlistDeny
     # = false and whitelist root
-    services.vsftpd.userlist = if cfg.userlistDeny then ["root"] else [];
+    services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
 
-    systemd.services.vsftpd =
-      { description = "Vsftpd Server";
+    systemd.services.vsftpd = {
+      description = "Vsftpd Server";
 
-        wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-        preStart =
-          optionalString cfg.anonymousUser
-            ''
-              mkdir -p -m 555 ${cfg.anonymousUserHome}
-              chown -R ftp:ftp ${cfg.anonymousUserHome}
-            '';
+      preStart = optionalString cfg.anonymousUser ''
+        mkdir -p -m 555 ${cfg.anonymousUserHome}
+        chown -R ftp:ftp ${cfg.anonymousUserHome}
+      '';
 
-        serviceConfig.ExecStart = "@${vsftpd}/sbin/vsftpd vsftpd ${configFile}";
-        serviceConfig.Restart = "always";
-        serviceConfig.Type = "forking";
-      };
+      serviceConfig.ExecStart = "@${vsftpd}/sbin/vsftpd vsftpd ${configFile}";
+      serviceConfig.Restart = "always";
+      serviceConfig.Type = "forking";
+    };
 
   };
 

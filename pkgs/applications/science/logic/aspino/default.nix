@@ -2,12 +2,12 @@
 
 let
   glucose' = fetchurl {
-    url = "http://www.labri.fr/perso/lsimon/downloads/softwares/glucose-syrup.tgz";
+    url =
+      "http://www.labri.fr/perso/lsimon/downloads/softwares/glucose-syrup.tgz";
     sha256 = "0bq5l2jabhdfhng002qfk0mcj4pfi1v5853x3c7igwfrgx0jmfld";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "aspino-unstable-2017-03-09";
 
   src = fetchFromGitHub {
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ gebner ma27 ];
     platforms = platforms.unix;
     license = licenses.asl20;
-    homepage = http://alviano.net/software/maxino/;
+    homepage = "http://alviano.net/software/maxino/";
     # See pkgs/applications/science/logic/glucose/default.nix
     badPlatforms = [ "aarch64-linux" ];
   };

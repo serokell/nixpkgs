@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, python3, wrapGAppsHook
-, glib, pipewire, systemd, libvncserver, libsecret, libnotify, gdk_pixbuf, gnome3 }:
+{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, python3, wrapGAppsHook, glib, pipewire, systemd, libvncserver, libsecret, libnotify, gdk_pixbuf, gnome3
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-remote-desktop";
@@ -16,7 +16,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig python3 wrapGAppsHook ];
 
   buildInputs = [
-    glib pipewire systemd libvncserver libsecret libnotify
+    glib
+    pipewire
+    systemd
+    libvncserver
+    libsecret
+    libnotify
     gdk_pixbuf # For libnotify
   ];
 
@@ -25,12 +30,11 @@ stdenv.mkDerivation rec {
     patchShebangs meson_post_install.py
   '';
 
-  mesonFlags = [
-    "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user"
-  ];
+  mesonFlags =
+    [ "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user" ];
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/Mutter/RemoteDesktop;
+    homepage = "https://wiki.gnome.org/Projects/Mutter/RemoteDesktop";
     description = "GNOME Remote Desktop server";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2Plus;

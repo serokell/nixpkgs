@@ -1,8 +1,5 @@
-{ stdenv, fetchurl
-, pkgconfig, intltool
-, glib, dbus, gtk3, libappindicator-gtk3, gst_all_1
-, librsvg, wrapGAppsHook
-, pulseaudioSupport ? true, libpulseaudio ? null }:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, dbus, gtk3, libappindicator-gtk3, gst_all_1, librsvg, wrapGAppsHook, pulseaudioSupport ?
+  true, libpulseaudio ? null }:
 
 stdenv.mkDerivation rec {
   name = "audio-recorder-${version}";
@@ -10,7 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "${name}.tar.gz";
-    url = "${meta.homepage}/+archive/ubuntu/ppa/+files/audio-recorder_${version}%7Ebionic.tar.gz";
+    url =
+      "${meta.homepage}/+archive/ubuntu/ppa/+files/audio-recorder_${version}%7Ebionic.tar.gz";
     sha256 = "160pnmnmc9zwzyclsci3w1qwlgxkfx1y3x5ck6i587w78570an1r";
   };
 
@@ -19,11 +17,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig intltool wrapGAppsHook ];
 
-  buildInputs = [
-    glib dbus gtk3 librsvg libappindicator-gtk3
-  ] ++ (with gst_all_1; [
-    gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
-  ]) ++ stdenv.lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs = [ glib dbus gtk3 librsvg libappindicator-gtk3 ]
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ]) ++ stdenv.lib.optional pulseaudioSupport libpulseaudio;
 
   meta = with stdenv.lib; {
     description = "Audio recorder for GNOME and Unity Desktops";
@@ -36,7 +38,7 @@ stdenv.mkDerivation rec {
       automatically record your Skype calls. It supports several audio (output)
       formats such as OGG audio, Flac, MP3 and WAV.
     '';
-    homepage = https://launchpad.net/~audio-recorder;
+    homepage = "https://launchpad.net/~audio-recorder";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.msteen ];

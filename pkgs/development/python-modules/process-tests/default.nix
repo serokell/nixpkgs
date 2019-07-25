@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "process-tests";
@@ -18,7 +15,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "Tools for testing processes";
     license = licenses.bsd2;
-    homepage = https://github.com/ionelmc/python-process-tests;
+    homepage = "https://github.com/ionelmc/python-process-tests";
   };
 
 }

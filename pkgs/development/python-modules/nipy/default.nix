@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, nose
-, matplotlib
-, nibabel
-, numpy
-, scipy
-, sympy
-, python
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, nose, matplotlib, nibabel, numpy, scipy, sympy, python
 }:
 
 buildPythonPackage rec {
@@ -24,7 +14,8 @@ buildPythonPackage rec {
   buildInputs = stdenv.lib.optional doCheck [ nose ];
   propagatedBuildInputs = [ matplotlib nibabel numpy scipy sympy ];
 
-  checkPhase = ''    # wants to be run in a different directory
+  checkPhase = ''
+    # wants to be run in a different directory
     mkdir nosetests
     cd nosetests
     ${python.interpreter} -c "import nipy; nipy.test()"
@@ -41,8 +32,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://nipy.org/nipy/;
-    description = "Software for structural and functional neuroimaging analysis";
+    homepage = "https://nipy.org/nipy/";
+    description =
+      "Software for structural and functional neuroimaging analysis";
     license = licenses.bsd3;
   };
 

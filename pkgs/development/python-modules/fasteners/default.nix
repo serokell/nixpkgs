@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, monotonic
-, testtools
-, isPy3k
-, nose
-, futures
+{ stdenv, buildPythonPackage, fetchPypi, six, monotonic, testtools, isPy3k, nose, futures
 }:
 
 buildPythonPackage rec {
@@ -20,7 +12,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six monotonic ];
 
-  checkInputs = [ testtools nose ] ++ stdenv.lib.optionals (!isPy3k) [ futures ];
+  checkInputs = [ testtools nose ]
+    ++ stdenv.lib.optionals (!isPy3k) [ futures ];
 
   checkPhase = ''
     nosetests
@@ -28,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A python package that provides useful locks";
-    homepage = https://github.com/harlowja/fasteners;
+    homepage = "https://github.com/harlowja/fasteners";
     license = licenses.asl20;
   };
 

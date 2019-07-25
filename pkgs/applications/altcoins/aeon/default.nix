@@ -1,12 +1,8 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, git, doxygen, graphviz
-, boost, miniupnpc, openssl, unbound, cppzmq
-, zeromq, pcsclite, readline, libsodium
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, git, doxygen, graphviz, boost, miniupnpc, openssl, unbound, cppzmq, zeromq, pcsclite, readline, libsodium
 }:
 
-let
-  version = "0.12.9.0";
-in
-stdenv.mkDerivation {
+let version = "0.12.9.0";
+in stdenv.mkDerivation {
   name = "aeon-${version}";
 
   src = fetchFromGitHub {
@@ -20,8 +16,15 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake pkgconfig git doxygen graphviz ];
 
   buildInputs = [
-    boost miniupnpc openssl unbound
-    cppzmq zeromq pcsclite readline libsodium
+    boost
+    miniupnpc
+    openssl
+    unbound
+    cppzmq
+    zeromq
+    pcsclite
+    readline
+    libsodium
   ];
 
   cmakeFlags = [
@@ -34,7 +37,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Private, secure, untraceable currency";
-    homepage = http://www.aeon.cash/;
+    homepage = "http://www.aeon.cash/";
     license = licenses.bsd3;
     maintainers = [ maintainers.aij ];
     platforms = [ "x86_64-linux" ];

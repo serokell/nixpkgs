@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, xmltodict
-}:
+{ stdenv, buildPythonPackage, fetchPypi, xmltodict }:
 
 buildPythonPackage rec {
   version = "0.9.5";
@@ -19,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/usnistgov/DataModelDict/;
-    description = "Class allowing for data models equivalently represented as Python dictionaries, JSON, and XML";
+    homepage = "https://github.com/usnistgov/DataModelDict/";
+    description =
+      "Class allowing for data models equivalently represented as Python dictionaries, JSON, and XML";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,4 +1,4 @@
-{stdenv, fetchurl, emacs}:
+{ stdenv, fetchurl, emacs }:
 
 stdenv.mkDerivation {
   name = "maude-mode-0.2";
@@ -8,7 +8,7 @@ stdenv.mkDerivation {
     sha256 = "19jdd7la0bxxxnnq4ryckf63jykg0r3v92z126x6djaigi3xn1yx";
   };
 
-  buildInputs = [emacs];
+  buildInputs = [ emacs ];
   configureFlags = [ "--with-lispdir=$$out/share/emacs/site-lisp" ];
 
   meta = {

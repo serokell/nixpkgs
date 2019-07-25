@@ -16,14 +16,12 @@ stdenv.mkDerivation rec {
     cp -R *.tcl lang images "$out/lib/${passthru.libPrefix}"
   '';
 
-  passthru = {
-    libPrefix = "bwidget${version}";
-  };
+  passthru = { libPrefix = "bwidget${version}"; };
 
   buildInputs = [ tcl ];
 
   meta = {
-    homepage = https://sourceforge.net/projects/tcllib;
+    homepage = "https://sourceforge.net/projects/tcllib";
     description = "High-level widget set for Tcl/Tk";
     license = stdenv.lib.licenses.tcltk;
     platforms = stdenv.lib.platforms.linux;

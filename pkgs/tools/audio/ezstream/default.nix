@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "A command line source client for Icecast media streaming servers";
+    description =
+      "A command line source client for Icecast media streaming servers";
     longDescription = ''
       Ezstream is a command line source client for Icecast media
       streaming servers. It began as the successor of the old "shout"
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
       from standard input without reencoding and thus requires only
       very little CPU resources.
     '';
-    homepage = http://icecast.org/ezstream/;
+    homepage = "http://icecast.org/ezstream/";
     license = licenses.gpl2;
     maintainers = [ maintainers.barrucadu ];
     platforms = platforms.all;

@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, scripttest
-, virtualenv
-, pretend
-, pytest
+{ lib, buildPythonPackage, fetchPypi, mock, scripttest, virtualenv, pretend, pytest
 }:
 
 buildPythonPackage rec {
@@ -28,7 +21,7 @@ buildPythonPackage rec {
   meta = {
     description = "The PyPA recommended tool for installing Python packages";
     license = lib.licenses.mit;
-    homepage = https://pip.pypa.io/;
+    homepage = "https://pip.pypa.io/";
     priority = 10;
   };
 }

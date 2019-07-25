@@ -1,9 +1,10 @@
-{ stdenv, fetchurl, intltool, pkgconfig, glib, gtk3, ncurses, gobject-introspection }:
+{ stdenv, fetchurl, intltool, pkgconfig, glib, gtk3, ncurses, gobject-introspection
+}:
 
 stdenv.mkDerivation rec {
   versionMajor = "0.36";
   versionMinor = "3";
-  moduleName   = "vte";
+  moduleName = "vte";
 
   name = "${moduleName}-${versionMajor}.${versionMinor}";
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnome.org/;
+    homepage = "https://www.gnome.org/";
     description = "A library implementing a terminal emulator widget for GTK+";
     longDescription = ''
       VTE is a library (libvte) implementing a terminal emulator widget for

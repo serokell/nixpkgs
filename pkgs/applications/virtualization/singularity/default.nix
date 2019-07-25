@@ -1,15 +1,5 @@
-{stdenv
-, removeReferencesTo
-, lib
-, fetchFromGitHub
-, utillinux
-, openssl
-, coreutils
-, go
-, which
-, makeWrapper
-, squashfsTools
-, buildGoPackage}:
+{ stdenv, removeReferencesTo, lib, fetchFromGitHub, utillinux, openssl, coreutils, go, which, makeWrapper, squashfsTools, buildGoPackage
+}:
 
 with lib;
 
@@ -35,7 +25,9 @@ buildGoPackage rec {
     cd go/src/github.com/sylabs/singularity
 
     patchShebangs .
-    sed -i 's|defaultPath := "[^"]*"|defaultPath := "${stdenv.lib.makeBinPath propagatedBuildInputs}"|' cmd/internal/cli/actions.go
+    sed -i 's|defaultPath := "[^"]*"|defaultPath := "${
+      stdenv.lib.makeBinPath propagatedBuildInputs
+    }"|' cmd/internal/cli/actions.go
 
     ./mconfig -V ${version} -p $bin --localstatedir=/var
 
@@ -51,7 +43,9 @@ buildGoPackage rec {
   installPhase = ''
     make -C builddir install LOCALSTATEDIR=$bin/var
     chmod 755 $bin/libexec/singularity/bin/starter-suid
-    wrapProgram $bin/bin/singularity --prefix PATH : ${stdenv.lib.makeBinPath propagatedBuildInputs}
+    wrapProgram $bin/bin/singularity --prefix PATH : ${
+      stdenv.lib.makeBinPath propagatedBuildInputs
+    }
   '';
 
   postFixup = ''
@@ -62,7 +56,7 @@ buildGoPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.sylabs.io/;
+    homepage = "http://www.sylabs.io/";
     description = "Application containers for linux";
     license = licenses.bsd3;
     platforms = platforms.linux;

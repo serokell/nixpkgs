@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, substituteAll, meson, ninja, pkgconfig
-, vala, libgee, granite, gtk3, libxml2, libgnomekbd, libxklavier, xorg, switchboard }:
+{ stdenv, fetchFromGitHub, pantheon, substituteAll, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, libxml2, libgnomekbd, libxklavier, xorg, switchboard
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-keyboard";
@@ -12,28 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "17iijb7imxw5zv7vkrbc1vsp87k900yqgyv7ycz1gw37xb4klsyp";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    libxml2
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ libxml2 meson ninja pkgconfig vala ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    libgnomekbd
-    libxklavier
-    switchboard
-  ];
+  buildInputs = [ granite gtk3 libgee libgnomekbd libxklavier switchboard ];
 
   patches = [
     (substituteAll {
@@ -42,11 +25,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
   meta = with stdenv.lib; {
     description = "Switchboard Keyboard Plug";
-    homepage = https://github.com/elementary/switchboard-plug-keyboard;
+    homepage = "https://github.com/elementary/switchboard-plug-keyboard";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

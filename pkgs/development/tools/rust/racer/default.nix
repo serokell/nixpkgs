@@ -28,8 +28,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "A utility intended to provide Rust code completion for editors and IDEs";
-    homepage = https://github.com/racer-rust/racer;
+    description =
+      "A utility intended to provide Rust code completion for editors and IDEs";
+    homepage = "https://github.com/racer-rust/racer";
     license = licenses.mit;
     maintainers = with maintainers; [ jagajaga globin ];
     platforms = platforms.all;

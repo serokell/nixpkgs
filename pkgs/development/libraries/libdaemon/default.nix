@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "libdaemon-0.14";
@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
     ];
 
   meta = {
-    description = "Lightweight C library that eases the writing of UNIX daemons";
-    homepage = http://0pointer.de/lennart/projects/libdaemon/;
+    description =
+      "Lightweight C library that eases the writing of UNIX daemons";
+    homepage = "http://0pointer.de/lennart/projects/libdaemon/";
     license = stdenv.lib.licenses.lgpl2Plus;
     platforms = stdenv.lib.platforms.unix;
   };

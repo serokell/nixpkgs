@@ -18,7 +18,7 @@ buildRustPackage rec {
   meta = with stdenv.lib; {
     broken = true;
     description = "Rust IDEs.  parse-analysis";
-    homepage = https://github.com/RustDT/Rainicorn;
+    homepage = "https://github.com/RustDT/Rainicorn";
     license = with licenses; [ mit asl20 ];
     platforms = platforms.all;
   };

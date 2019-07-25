@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pybind11
-, numpy
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, pybind11, numpy, pytest }:
 
 buildPythonPackage rec {
   pname = "pyfma";
@@ -15,14 +9,9 @@ buildPythonPackage rec {
     sha256 = "79514717f8e632a0fb165e3d61222ed61202bea7b0e082f7b41c91e738f1fbc9";
   };
 
-  buildInputs = [
-    pybind11
-  ];
+  buildInputs = [ pybind11 ];
 
-  checkInputs = [
-    numpy
-    pytest
-  ];
+  checkInputs = [ numpy pytest ];
 
   preBuild = ''
     export HOME=$(mktemp -d)
@@ -34,8 +23,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Fused multiply-add for Python";
-    homepage = https://github.com/nschloe/pyfma;
+    homepage = "https://github.com/nschloe/pyfma";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc];
+    maintainers = [ maintainers.costrouc ];
   };
 }

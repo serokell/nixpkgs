@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, cmake, makedepend, perl, pkgconfig, qttools
-, dssi, fftwSinglePrec, ladspaH, ladspaPlugins, libjack2
-, liblo, liblrdf, libsamplerate, libsndfile, lirc ? null, qtbase }:
+{ stdenv, fetchurl, cmake, makedepend, perl, pkgconfig, qttools, dssi, fftwSinglePrec, ladspaH, ladspaPlugins, libjack2, liblo, liblrdf, libsamplerate, libsndfile, lirc ?
+  null, qtbase }:
 
 stdenv.mkDerivation (rec {
   version = "19.06";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.rosegardenmusic.com/;
+    homepage = "https://www.rosegardenmusic.com/";
     description = "Music composition and editing environment";
     longDescription = ''
       Rosegarden is a music composition and editing environment based around

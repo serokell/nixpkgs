@@ -78,7 +78,8 @@ in with lib; {
     assumeReverseProxy = mkOption {
       type = types.bool;
       default = false;
-      description = "Assume the server is behind a reverse proxy, when resolving client IPs.";
+      description =
+        "Assume the server is behind a reverse proxy, when resolving client IPs.";
     };
 
     httpsOnly = mkOption {
@@ -89,7 +90,7 @@ in with lib; {
 
     videoPaths = mkOption {
       type = types.listOf types.path;
-      default = [];
+      default = [ ];
       example = [ "/home/okina/Videos/tehe_pero.webm" ];
       description = "Videos that will be symlinked into www/videos.";
     };
@@ -99,9 +100,12 @@ in with lib; {
     security.sudo.enable = cfg.enable;
     services.postgresql.enable = cfg.enable;
     services.postgresql.package = pkgs.postgresql_11;
-    services.meguca.passwordFile = mkDefault (pkgs.writeText "meguca-password-file" cfg.password);
-    services.meguca.postgresArgsFile = mkDefault (pkgs.writeText "meguca-postgres-args" cfg.postgresArgs);
-    services.meguca.postgresArgs = mkDefault "user=meguca password=${cfg.password} dbname=meguca sslmode=disable";
+    services.meguca.passwordFile =
+      mkDefault (pkgs.writeText "meguca-password-file" cfg.password);
+    services.meguca.postgresArgsFile =
+      mkDefault (pkgs.writeText "meguca-postgres-args" cfg.postgresArgs);
+    services.meguca.postgresArgs = mkDefault
+      "user=meguca password=${cfg.password} dbname=meguca sslmode=disable";
 
     systemd.services.meguca = {
       description = "meguca";
@@ -112,7 +116,9 @@ in with lib; {
         # Ensure folder exists or create it and links and permissions are correct
         mkdir -p ${escapeShellArg cfg.dataDir}/www
         rm -rf ${escapeShellArg cfg.dataDir}/www/videos
-        ln -sf ${pkgs.meguca}/share/meguca/www/* ${escapeShellArg cfg.dataDir}/www
+        ln -sf ${pkgs.meguca}/share/meguca/www/* ${
+          escapeShellArg cfg.dataDir
+        }/www
         unlink ${escapeShellArg cfg.dataDir}/www/videos
         mkdir -p ${escapeShellArg cfg.dataDir}/www/videos
 
@@ -129,20 +135,25 @@ in with lib; {
         ${pkgs.sudo}/bin/sudo -u ${postgres.superUser} ${postgres.package}/bin/createdb \
           -T template0 -E UTF8 -O meguca meguca || true
         ${pkgs.sudo}/bin/sudo -u meguca ${postgres.package}/bin/psql \
-          -c "ALTER ROLE meguca WITH PASSWORD '$(cat ${escapeShellArg cfg.passwordFile})';" || true
+          -c "ALTER ROLE meguca WITH PASSWORD '$(cat ${
+          escapeShellArg cfg.passwordFile
+          })';" || true
       '';
 
-    script = ''
-      cd ${escapeShellArg cfg.dataDir}
+      script = ''
+        cd ${escapeShellArg cfg.dataDir}
 
-      ${pkgs.meguca}/bin/meguca -d "$(cat ${escapeShellArg cfg.postgresArgsFile})"''
-      + optionalString (cfg.reverseProxy != null) " -R ${cfg.reverseProxy}"
-      + optionalString (cfg.sslCertificate != null) " -S ${cfg.sslCertificate}"
-      + optionalString (cfg.listenAddress != null) " -a ${cfg.listenAddress}"
-      + optionalString (cfg.cacheSize != null) " -c ${toString cfg.cacheSize}"
-      + optionalString (cfg.compressTraffic) " -g"
-      + optionalString (cfg.assumeReverseProxy) " -r"
-      + optionalString (cfg.httpsOnly) " -s" + " start";
+        ${pkgs.meguca}/bin/meguca -d "$(cat ${
+          escapeShellArg cfg.postgresArgsFile
+        })"''
+        + optionalString (cfg.reverseProxy != null) " -R ${cfg.reverseProxy}"
+        + optionalString (cfg.sslCertificate != null)
+        " -S ${cfg.sslCertificate}"
+        + optionalString (cfg.listenAddress != null) " -a ${cfg.listenAddress}"
+        + optionalString (cfg.cacheSize != null) " -c ${toString cfg.cacheSize}"
+        + optionalString (cfg.compressTraffic) " -g"
+        + optionalString (cfg.assumeReverseProxy) " -r"
+        + optionalString (cfg.httpsOnly) " -s" + " start";
 
       serviceConfig = {
         PermissionsStartOnly = true;
@@ -167,7 +178,11 @@ in with lib; {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "meguca" "baseDir" ] [ "services" "meguca" "dataDir" ])
+    (mkRenamedOptionModule [ "services" "meguca" "baseDir" ] [
+      "services"
+      "meguca"
+      "dataDir"
+    ])
   ];
 
   meta.maintainers = with maintainers; [ chiiruno ];

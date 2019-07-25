@@ -6,23 +6,25 @@ let
 
   cfg = config.services.mattermost;
 
-  defaultConfig = builtins.fromJSON (readFile "${pkgs.mattermost}/config/config.json");
+  defaultConfig =
+    builtins.fromJSON (readFile "${pkgs.mattermost}/config/config.json");
 
-  mattermostConf = foldl recursiveUpdate defaultConfig
-    [ { ServiceSettings.SiteURL = cfg.siteUrl;
-        ServiceSettings.ListenAddress = cfg.listenAddress;
-        TeamSettings.SiteName = cfg.siteName;
-        SqlSettings.DriverName = "postgres";
-        SqlSettings.DataSource = "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
-      }
-      cfg.extraConfig
-    ];
+  mattermostConf = foldl recursiveUpdate defaultConfig [
+    {
+      ServiceSettings.SiteURL = cfg.siteUrl;
+      ServiceSettings.ListenAddress = cfg.listenAddress;
+      TeamSettings.SiteName = cfg.siteName;
+      SqlSettings.DriverName = "postgres";
+      SqlSettings.DataSource =
+        "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
+    }
+    cfg.extraConfig
+  ];
 
-  mattermostConfJSON = pkgs.writeText "mattermost-config-raw.json" (builtins.toJSON mattermostConf);
+  mattermostConfJSON = pkgs.writeText "mattermost-config-raw.json"
+    (builtins.toJSON mattermostConf);
 
-in
-
-{
+in {
   options = {
     services.mattermost = {
       enable = mkEnableOption "Mattermost chat server";
@@ -207,7 +209,8 @@ in
           RestartSec = "10";
           LimitNOFILE = "49152";
         };
-        unitConfig.JoinsNamespaceOf = mkIf cfg.localDatabaseCreate "postgresql.service";
+        unitConfig.JoinsNamespaceOf =
+          mkIf cfg.localDatabaseCreate "postgresql.service";
       };
     })
     (mkIf cfg.matterircd.enable {
@@ -217,7 +220,9 @@ in
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";
-          ExecStart = "${pkgs.matterircd.bin}/bin/matterircd ${concatStringsSep " " cfg.matterircd.parameters}";
+          ExecStart = "${pkgs.matterircd.bin}/bin/matterircd ${
+            concatStringsSep " " cfg.matterircd.parameters
+            }";
           WorkingDirectory = "/tmp";
           PrivateTmp = true;
           Restart = "always";

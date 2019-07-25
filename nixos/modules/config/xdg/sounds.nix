@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
-with lib;
-{
+with lib; {
   options = {
     xdg.sounds.enable = mkOption {
       type = types.bool;
@@ -14,9 +13,7 @@ with lib;
   };
 
   config = mkIf config.xdg.sounds.enable {
-    environment.pathsToLink = [
-      "/share/sounds"
-    ];
+    environment.pathsToLink = [ "/share/sounds" ];
   };
 
 }

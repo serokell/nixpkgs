@@ -1,13 +1,9 @@
 { stdenvNoCC, runCommand, awscli }:
 
-{ s3url
-, name ? builtins.baseNameOf s3url
-, sha256
-, region ? "us-east-1"
-, credentials ? null # Default to looking at local EC2 metadata service
-, recursiveHash ? false
-, postFetch ? null
-}:
+{ s3url, name ? builtins.baseNameOf s3url, sha256, region ?
+  "us-east-1", credentials ?
+    null # Default to looking at local EC2 metadata service
+, recursiveHash ? false, postFetch ? null }:
 
 let
   mkCredentials = { access_key_id, secret_access_key, session_token ? null }: {
@@ -16,7 +12,8 @@ let
     AWS_SESSION_TOKEN = session_token;
   };
 
-  credentialAttrs = stdenvNoCC.lib.optionalAttrs (credentials != null) (mkCredentials credentials);
+  credentialAttrs = stdenvNoCC.lib.optionalAttrs (credentials != null)
+    (mkCredentials credentials);
 in runCommand name ({
   nativeBuildInputs = [ awscli ];
 
@@ -31,6 +28,6 @@ in runCommand name ({
   downloadedFile="$(mktemp)"
   aws s3 cp ${s3url} $downloadedFile
   ${postFetch}
-'' else  ''
+'' else ''
   aws s3 cp ${s3url} $out
 '')

@@ -6,9 +6,8 @@ let
     url = "http://luajit.org/download/${luajitArchive}";
     sha256 = "0yg9q4q6v028bgh85317ykc9whgxgysp76qzaqgq55y6jy11yjw7";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "terra-git-${version}";
   version = "1.0.0-beta1";
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A low-level counterpart to Lua";
-    homepage = http://terralang.org/;
+    homepage = "http://terralang.org/";
     platforms = platforms.x86_64;
     maintainers = with maintainers; [ jb55 ];
     license = licenses.mit;

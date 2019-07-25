@@ -16,14 +16,13 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs = [ polkit glib qt4 ];
 
-  postFixup =
-    ''
-      for i in $dev/lib/cmake/*/*.cmake; do
-        echo "fixing $i"
-        substituteInPlace $i \
-          --replace "\''${PACKAGE_PREFIX_DIR}/lib" $out/lib
-      done
-    '';
+  postFixup = ''
+    for i in $dev/lib/cmake/*/*.cmake; do
+      echo "fixing $i"
+      substituteInPlace $i \
+        --replace "\''${PACKAGE_PREFIX_DIR}/lib" $out/lib
+    done
+  '';
 
   meta = with stdenv.lib; {
     description = "A Qt wrapper around PolKit";

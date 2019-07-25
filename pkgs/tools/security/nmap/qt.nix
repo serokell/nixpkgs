@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, makeWrapper
-, dnsutils, nmap
-, qtbase, qtscript, qtwebengine }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, makeWrapper, dnsutils, nmap, qtbase, qtscript, qtwebengine
+}:
 
 stdenv.mkDerivation rec {
   name = "nmapsi4-${version}";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Qt frontend for nmap";
-    license     = licenses.gpl2;
+    license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
     inherit (src.meta) homepage;
   };

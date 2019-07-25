@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.jellyfin;
-in
-{
+let cfg = config.services.jellyfin;
+in {
   options = {
     services.jellyfin = {
       enable = mkEnableOption "Jellyfin Media Server";
@@ -35,18 +33,15 @@ in
         Group = cfg.group;
         StateDirectory = "jellyfin";
         CacheDirectory = "jellyfin";
-        ExecStart = "${pkgs.jellyfin}/bin/jellyfin --datadir '/var/lib/${StateDirectory}' --cachedir '/var/cache/${CacheDirectory}'";
+        ExecStart =
+          "${pkgs.jellyfin}/bin/jellyfin --datadir '/var/lib/${StateDirectory}' --cachedir '/var/cache/${CacheDirectory}'";
         Restart = "on-failure";
       };
     };
 
-    users.users = mkIf (cfg.user == "jellyfin") {
-      jellyfin.group = cfg.group;
-    };
+    users.users = mkIf (cfg.user == "jellyfin") { jellyfin.group = cfg.group; };
 
-    users.groups = mkIf (cfg.group == "jellyfin") {
-      jellyfin = {};
-    };
+    users.groups = mkIf (cfg.group == "jellyfin") { jellyfin = { }; };
 
   };
 

@@ -1,11 +1,10 @@
 { stdenv, fetchurl, python, buildPythonApplication
 # Propagated to blivet
 , useNixUdev ? true
-# Needed by NixOps
+  # Needed by NixOps
 , udevSoMajor ? null
-# Propagated dependencies
-, pkgs, urlgrabber
-}:
+  # Propagated dependencies
+, pkgs, urlgrabber }:
 
 let
   blivet = import ./blivet.nix {
@@ -21,9 +20,7 @@ let
     inherit (pkgs) pkgconfig libgcrypt libuuid popt lvm2;
   };
 
-  dmraid = import ./dmraid.nix {
-    inherit stdenv fetchurl lvm2;
-  };
+  dmraid = import ./dmraid.nix { inherit stdenv fetchurl lvm2; };
 
   lvm2 = import ./lvm2.nix {
     inherit stdenv fetchurl;
@@ -40,9 +37,8 @@ let
     inherit (pkgs) utillinux readline libuuid gettext check lvm2;
   };
 
-  pyblock = import ./pyblock.nix {
-    inherit stdenv fetchurl python lvm2 dmraid;
-  };
+  pyblock =
+    import ./pyblock.nix { inherit stdenv fetchurl python lvm2 dmraid; };
 
   pykickstart = import ./pykickstart.nix {
     inherit stdenv fetchurl python buildPythonApplication urlgrabber;

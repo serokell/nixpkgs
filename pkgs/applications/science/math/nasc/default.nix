@@ -1,16 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, pkgconfig
-, gtk3
-, glib
-, pantheon
-, libsoup
-, gtksourceview
-, libgee
-, cmake
-, libqalculate
-, cln
-, wrapGAppsHook
+{ stdenv, fetchFromGitHub, pkgconfig, gtk3, glib, pantheon, libsoup, gtksourceview, libgee, cmake, libqalculate, cln, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -24,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "036v3dx8yasp19j88lflibqnpfi5d0nk7qkcnr80zn1lvawf4wgn";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pantheon.vala
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pantheon.vala pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     cln
@@ -52,7 +35,7 @@ stdenv.mkDerivation rec {
       answers in to future equations and if that answer changes, so does
       the equations it’s used in.
     '';
-    homepage = https://github.com/parnold-x/nasc;
+    homepage = "https://github.com/parnold-x/nasc";
     maintainers = with maintainers; [ samdroid-apps ];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;

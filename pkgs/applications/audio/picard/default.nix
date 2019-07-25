@@ -1,7 +1,6 @@
 { stdenv, python3Packages, fetchFromGitHub, gettext, chromaprint }:
 
-let
-  pythonPackages = python3Packages;
+let pythonPackages = python3Packages;
 in pythonPackages.buildPythonApplication rec {
   pname = "picard";
   version = "2.1.3";
@@ -32,7 +31,7 @@ in pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://musicbrainz.org/doc/MusicBrainz_Picard;
+    homepage = "http://musicbrainz.org/doc/MusicBrainz_Picard";
     description = "The official MusicBrainz tagger";
     maintainers = with maintainers; [ ehmry ];
     license = licenses.gpl2;

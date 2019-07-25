@@ -28,8 +28,7 @@ let
 
     DatabaseMirror database.clamav.net
   '';
-in
-{
+in {
   options = {
     services.clamav = {
       daemon = {

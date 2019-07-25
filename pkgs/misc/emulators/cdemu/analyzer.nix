@@ -1,14 +1,27 @@
-{ callPackage, makeWrapper, gobject-introspection, cmake
-, python3Packages, gtk3, glib, libxml2, gnuplot, gnome3, gdk_pixbuf, librsvg, intltool, libmirage }:
-let pkg = import ./base.nix {
-  version = "3.2.2";
-  pkgName = "image-analyzer";
-  pkgSha256 = "0by3nd5c413cvk3jmv3md6q0axbiidy061g9dhf37qzwgcakcx8j";
-};
+{ callPackage, makeWrapper, gobject-introspection, cmake, python3Packages, gtk3, glib, libxml2, gnuplot, gnome3, gdk_pixbuf, librsvg, intltool, libmirage
+}:
+let
+  pkg = import ./base.nix {
+    version = "3.2.2";
+    pkgName = "image-analyzer";
+    pkgSha256 = "0by3nd5c413cvk3jmv3md6q0axbiidy061g9dhf37qzwgcakcx8j";
+  };
 in callPackage pkg {
-  buildInputs = [ glib gtk3 libxml2 gnuplot libmirage makeWrapper
-                  gnome3.adwaita-icon-theme gdk_pixbuf librsvg intltool
-                  python3Packages.python python3Packages.pygobject3 python3Packages.matplotlib ];
+  buildInputs = [
+    glib
+    gtk3
+    libxml2
+    gnuplot
+    libmirage
+    makeWrapper
+    gnome3.adwaita-icon-theme
+    gdk_pixbuf
+    librsvg
+    intltool
+    python3Packages.python
+    python3Packages.pygobject3
+    python3Packages.matplotlib
+  ];
   drvParams = {
     nativeBuildInputs = [ gobject-introspection cmake ];
     postFixup = ''

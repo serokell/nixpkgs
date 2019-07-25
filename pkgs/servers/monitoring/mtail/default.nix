@@ -17,7 +17,6 @@ buildGoPackage rec {
   patches = [ ./fix-gopath.patch ];
   preBuild = "go generate -x ./go/src/github.com/google/mtail/vm/";
 
-
   meta = with lib; {
     license = licenses.asl20;
     homepage = "https://github.com/google/mtail";

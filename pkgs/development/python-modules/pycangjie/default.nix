@@ -1,9 +1,7 @@
-{ stdenv, fetchurl, bash, autoconf, automake, libtool, pkgconfig, libcangjie
-, sqlite, buildPythonPackage, cython
+{ stdenv, fetchurl, bash, autoconf, automake, libtool, pkgconfig, libcangjie, sqlite, buildPythonPackage, cython
 }:
 
-let
-  rev = "361bb413203fd43bab624d98edf6f7d20ce6bfd3";
+let rev = "361bb413203fd43bab624d98edf6f7d20ce6bfd3";
 in buildPythonPackage rec {
   pname = "pycangjie";
   version = "1.3_rev_${rev}";
@@ -15,9 +13,7 @@ in buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    autoconf automake libtool libcangjie sqlite cython
-  ];
+  buildInputs = [ autoconf automake libtool libcangjie sqlite cython ];
 
   preConfigure = ''
     find . -name '*.sh' -exec sed -e 's@#!/bin/bash@${bash}/bin/bash@' -i '{}' ';'
@@ -30,7 +26,7 @@ in buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python wrapper to libcangjie";
-    homepage = http://cangjians.github.io/projects/pycangjie/;
+    homepage = "http://cangjians.github.io/projects/pycangjie/";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.linquize ];
     platforms = platforms.all;

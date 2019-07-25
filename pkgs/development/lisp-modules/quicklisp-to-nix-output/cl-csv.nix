@@ -1,22 +1,31 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cl-csv'';
-  version = ''20180831-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cl-csv";
+  version = "20180831-git";
 
   parasites = [ "cl-csv/speed-test" "cl-csv/test" ];
 
-  description = ''Facilities for reading and writing CSV format files'';
+  description = "Facilities for reading and writing CSV format files";
 
-  deps = [ args."alexandria" args."cl-interpol" args."cl-ppcre" args."cl-unicode" args."flexi-streams" args."iterate" args."lisp-unit2" args."named-readtables" ];
+  deps = [
+    args."alexandria"
+    args."cl-interpol"
+    args."cl-ppcre"
+    args."cl-unicode"
+    args."flexi-streams"
+    args."iterate"
+    args."lisp-unit2"
+    args."named-readtables"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-csv/2018-08-31/cl-csv-20180831-git.tgz'';
-    sha256 = ''0cy2pnzm3c6hmimp0kl5nz03rw6nzgy37i1ifpg9grmd3wipm9fd'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-csv/2018-08-31/cl-csv-20180831-git.tgz";
+    sha256 = "0cy2pnzm3c6hmimp0kl5nz03rw6nzgy37i1ifpg9grmd3wipm9fd";
   };
 
   packageName = "cl-csv";
 
-  asdFilesToKeep = ["cl-csv.asd"];
+  asdFilesToKeep = [ "cl-csv.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-csv DESCRIPTION
@@ -34,4 +43,5 @@ rec {
     (alexandria cl-interpol cl-ppcre cl-unicode flexi-streams iterate
      lisp-unit2 named-readtables)
     VERSION 20180831-git SIBLINGS (cl-csv-clsql cl-csv-data-table) PARASITES
-    (cl-csv/speed-test cl-csv/test)) */
+    (cl-csv/speed-test cl-csv/test))
+*/

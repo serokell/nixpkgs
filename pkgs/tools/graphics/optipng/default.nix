@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, libpng, static ? false
-}:
+{ stdenv, fetchurl, libpng, static ? false }:
 
 # This package comes with its own copy of zlib, libpng and pngxtern
 
@@ -22,19 +21,19 @@ stdenv.mkDerivation rec {
     export LD=$CC
   '';
 
-  configureFlags = [
-    "--with-system-zlib"
-    "--with-system-libpng"
-  ] ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    #"-prefix=$out"
-  ];
+  configureFlags = [ "--with-system-zlib" "--with-system-libpng" ]
+    ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      #"-prefix=$out"
+    ];
 
-  postInstall = if stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isWindows then ''
+  postInstall = if stdenv.hostPlatform != stdenv.buildPlatform
+  && stdenv.hostPlatform.isWindows then ''
     mv "$out"/bin/optipng{,.exe}
-  '' else null;
+  '' else
+    null;
 
   meta = with stdenv.lib; {
-    homepage = http://optipng.sourceforge.net/;
+    homepage = "http://optipng.sourceforge.net/";
     description = "A PNG optimizer";
     license = licenses.zlib;
     platforms = platforms.unix;

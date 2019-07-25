@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, isPy27
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, isPy27 }:
 
 buildPythonPackage rec {
   pname = "ibis";
@@ -23,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A lightweight template engine";
-    homepage = https://github.com/dmulholland/ibis;
+    homepage = "https://github.com/dmulholland/ibis";
     license = licenses.publicDomain;
     maintainers = [ maintainers.costrouc ];
   };

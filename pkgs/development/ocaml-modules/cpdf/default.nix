@@ -1,12 +1,12 @@
 { stdenv, fetchgit, ocaml, findlib, camlpdf, ncurses }:
 
-let version = "2.2.1"; in
+let version = "2.2.1";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "ocaml${ocaml.version}-cpdf-${version}";
 
   src = fetchgit {
-    url = https://github.com/johnwhitington/cpdf-source.git;
+    url = "https://github.com/johnwhitington/cpdf-source.git";
     rev = "refs/tags/v${version}";
     sha256 = "1i2z417agnzzdavjfwb20r6716jl3sk5yi43ssy4jqzy6ah8x1ff";
   };
@@ -15,10 +15,10 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [ camlpdf ];
 
   makeFlags = with stdenv.lib;
-  optionals (versionAtLeast ocaml.version "4.06") [
-    "OCAMLBCFLAGS+=-unsafe-string"
-    "OCAMLNCFLAGS+=-unsafe-string"
-  ];
+    optionals (versionAtLeast ocaml.version "4.06") [
+      "OCAMLBCFLAGS+=-unsafe-string"
+      "OCAMLNCFLAGS+=-unsafe-string"
+    ];
 
   createFindlibDestdir = true;
 
@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.coherentpdf.com/;
-    platforms = ocaml.meta.platforms or [];
+    homepage = "https://www.coherentpdf.com/";
+    platforms = ocaml.meta.platforms or [ ];
     description = "PDF Command Line Tools";
     license = licenses.unfree;
     maintainers = [ maintainers.vbgl ];

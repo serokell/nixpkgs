@@ -5,7 +5,8 @@ stdenv.mkDerivation {
   name = "sbt-mode-2014-06-05";
 
   src = fetchurl {
-    url = "https://github.com/hvesalai/sbt-mode/archive/676f22d9658989de401d299ed0250db9b911574d.zip";
+    url =
+      "https://github.com/hvesalai/sbt-mode/archive/676f22d9658989de401d299ed0250db9b911574d.zip";
     sha256 = "0b8qrr3yp48ggl757d3a6bz633mbf4zxqpcwsh47b1ckiwa3nb2h";
   };
 
@@ -17,7 +18,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://github.com/hvesalai/scala-mode2;
+    homepage = "https://github.com/hvesalai/scala-mode2";
     description = "An Emacs mode for editing Scala code";
     license = "permissive";
   };

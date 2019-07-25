@@ -1,34 +1,31 @@
 { config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.networking.nftables;
-in
-{
+let cfg = config.networking.nftables;
+in {
   ###### interface
 
   options = {
     networking.nftables.enable = mkOption {
       type = types.bool;
       default = false;
-      description =
-        ''
-          Whether to enable nftables.  nftables is a Linux-based packet
-          filtering framework intended to replace frameworks like iptables.
+      description = ''
+        Whether to enable nftables.  nftables is a Linux-based packet
+        filtering framework intended to replace frameworks like iptables.
 
-          This conflicts with the standard networking firewall, so make sure to
-          disable it before using nftables.
+        This conflicts with the standard networking firewall, so make sure to
+        disable it before using nftables.
 
-          Note that if you have Docker enabled you will not be able to use
-          nftables without intervention. Docker uses iptables internally to
-          setup NAT for containers. This module disables the ip_tables kernel
-          module, however Docker automatically loads the module. Please see [1]
-          for more information.
+        Note that if you have Docker enabled you will not be able to use
+        nftables without intervention. Docker uses iptables internally to
+        setup NAT for containers. This module disables the ip_tables kernel
+        module, however Docker automatically loads the module. Please see [1]
+        for more information.
 
-          There are other programs that use iptables internally too, such as
-          libvirt.
+        There are other programs that use iptables internally too, such as
+        libvirt.
 
-          [1]: https://github.com/NixOS/nixpkgs/issues/24318#issuecomment-289216273
-        '';
+        [1]: https://github.com/NixOS/nixpkgs/issues/24318#issuecomment-289216273
+      '';
     };
     networking.nftables.ruleset = mkOption {
       type = types.lines;
@@ -74,11 +71,10 @@ in
           }
         }
       '';
-      description =
-        ''
-          The ruleset to be used with nftables.  Should be in a format that
-          can be loaded using "/bin/nft -f".  The ruleset is updated atomically.
-        '';
+      description = ''
+        The ruleset to be used with nftables.  Should be in a format that
+        can be loaded using "/bin/nft -f".  The ruleset is updated atomically.
+      '';
     };
     networking.nftables.rulesetFile = mkOption {
       type = types.path;
@@ -86,11 +82,10 @@ in
         name = "nftables-rules";
         text = cfg.ruleset;
       };
-      description =
-        ''
-          The ruleset file to be used with nftables.  Should be in a format that
-          can be loaded using "nft -f".  The ruleset is updated atomically.
-        '';
+      description = ''
+        The ruleset file to be used with nftables.  Should be in a format that
+        can be loaded using "nft -f".  The ruleset is updated atomically.
+      '';
     };
   };
 
@@ -124,13 +119,13 @@ in
             ${rulesScript}
           fi
         '';
-      in {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = checkScript;
-        ExecReload = checkScript;
-        ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
-      };
+        in {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStart = checkScript;
+          ExecReload = checkScript;
+          ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
+        };
     };
   };
 }

@@ -22,7 +22,6 @@ with lib;
 
   };
 
-
   config = mkIf config.security.rtkit.enable {
 
     security.polkit.enable = true;
@@ -34,11 +33,11 @@ with lib;
 
     services.dbus.packages = [ pkgs.rtkit ];
 
-    users.users = singleton
-      { name = "rtkit";
-        uid = config.ids.uids.rtkit;
-        description = "RealtimeKit daemon";
-      };
+    users.users = singleton {
+      name = "rtkit";
+      uid = config.ids.uids.rtkit;
+      description = "RealtimeKit daemon";
+    };
 
   };
 

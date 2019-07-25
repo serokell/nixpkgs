@@ -26,8 +26,9 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails
 
   meta = with stdenv.lib; {
-    homepage = https://www.nongnu.org/libunwind;
-    description = "A portable and efficient API to determine the call-chain of a program";
+    homepage = "https://www.nongnu.org/libunwind";
+    description =
+      "A portable and efficient API to determine the call-chain of a program";
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.linux;
     license = licenses.mit;

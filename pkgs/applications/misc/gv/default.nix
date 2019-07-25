@@ -1,9 +1,7 @@
 { stdenv, fetchurl, Xaw3d, ghostscriptX, perl, pkgconfig, libiconv }:
 
-let
-  name = "gv-3.7.4";
-in
-stdenv.mkDerivation {
+let name = "gv-3.7.4";
+in stdenv.mkDerivation {
   inherit name;
 
   src = fetchurl {
@@ -11,18 +9,11 @@ stdenv.mkDerivation {
     sha256 = "0q8s43z14vxm41pfa8s5h9kyyzk1fkwjhkiwbf2x70alm6rv6qi1";
   };
 
-  configureFlags = stdenv.lib.optionals stdenv.isDarwin [
-    "--enable-SIGCHLD-fallback"
-  ];
+  configureFlags =
+    stdenv.lib.optionals stdenv.isDarwin [ "--enable-SIGCHLD-fallback" ];
 
-  buildInputs = [
-    Xaw3d
-    ghostscriptX
-    perl
-    pkgconfig
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [
-    libiconv
-  ];
+  buildInputs = [ Xaw3d ghostscriptX perl pkgconfig ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [ libiconv ];
 
   patchPhase = ''
     sed 's|\<gs\>|${ghostscriptX}/bin/gs|g' -i "src/"*.in
@@ -32,7 +23,7 @@ stdenv.mkDerivation {
   doCheck = true;
 
   meta = {
-    homepage = https://www.gnu.org/software/gv/;
+    homepage = "https://www.gnu.org/software/gv/";
     description = "PostScript/PDF document viewer";
 
     longDescription = ''

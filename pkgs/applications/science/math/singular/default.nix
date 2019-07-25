@@ -1,14 +1,5 @@
-{ stdenv, fetchurl, gmp, bison, perl, ncurses, readline, coreutils, pkgconfig
-, lib
-, fetchpatch
-, autoreconfHook
-, file
-, flint
-, ntl
-, cddlib
-, enableFactory ? true
-, enableGfanlib ? true
-}:
+{ stdenv, fetchurl, gmp, bison, perl, ncurses, readline, coreutils, pkgconfig, lib, fetchpatch, autoreconfHook, file, flint, ntl, cddlib, enableFactory ?
+  true, enableGfanlib ? true }:
 
 stdenv.mkDerivation rec {
   name = "singular-${version}";
@@ -19,19 +10,15 @@ stdenv.mkDerivation rec {
     # for example 4.1.1p1 will be in the directory 4-1-1
     baseVersion = builtins.head (lib.splitString "p" version);
     urlVersion = builtins.replaceStrings [ "." ] [ "-" ] baseVersion;
-  in
-  fetchurl {
-    url = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/${urlVersion}/singular-${version}.tar.gz";
-    sha256 = "07x9kri8vl4galik7lr6pscq3c51n8570pyw64i7gbj0m706f7wf";
-  };
+    in fetchurl {
+      url =
+        "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/${urlVersion}/singular-${version}.tar.gz";
+      sha256 = "07x9kri8vl4galik7lr6pscq3c51n8570pyw64i7gbj0m706f7wf";
+    };
 
-  configureFlags = [
-    "--with-ntl=${ntl}"
-  ] ++ lib.optionals enableFactory [
-    "--enable-factory"
-  ] ++ lib.optionals enableGfanlib [
-    "--enable-gfanlib"
-  ];
+  configureFlags = [ "--with-ntl=${ntl}" ]
+    ++ lib.optionals enableFactory [ "--enable-factory" ]
+    ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
 
   postUnpack = ''
     patchShebangs .
@@ -44,7 +31,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "move_error_handler_out_of_libsingular.patch";
       # rebased version of https://github.com/Singular/Sources/commit/502cf86d0bb2a96715be6764774b64a69c1ca34c.patch
-      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/singular/patches/singular-ntl-error-handler.patch?h=50b9ae2fd233c30860e1cbb3e63a26f2cc10560a";
+      url =
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/singular/patches/singular-ntl-error-handler.patch?h=50b9ae2fd233c30860e1cbb3e63a26f2cc10560a";
       sha256 = "0vgh4m9zn1kjl0br68n04j4nmn5i1igfn28cph0chnwf7dvr9194";
     })
   ];
@@ -60,15 +48,8 @@ stdenv.mkDerivation rec {
     readline
     ntl
     flint
-  ] ++ lib.optionals enableGfanlib [
-    cddlib
-  ];
-  nativeBuildInputs = [
-    bison
-    perl
-    pkgconfig
-    autoreconfHook
-  ];
+  ] ++ lib.optionals enableGfanlib [ cddlib ];
+  nativeBuildInputs = [ bison perl pkgconfig autoreconfHook ];
 
   preAutoreconf = ''
     find . -type f -readable -writable -exec sed \
@@ -112,7 +93,8 @@ stdenv.mkDerivation rec {
     # 32 bit x86 fails with some link error: `undefined reference to `__divmoddi4@GCC_7.0.0'`
     platforms = subtractLists platforms.i686 platforms.linux;
     license = licenses.gpl3; # Or GPLv2 at your option - but not GPLv4
-    homepage = http://www.singular.uni-kl.de;
-    downloadPage = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
+    homepage = "http://www.singular.uni-kl.de";
+    downloadPage =
+      "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
   };
 }

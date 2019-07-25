@@ -15,9 +15,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ bctoolbox belr ];
   nativeBuildInputs = [ cmake ];
 
-  meta = with stdenv.lib;{
-    description = "Belcard is a C++ library to manipulate VCard standard format";
-    homepage = https://github.com/BelledonneCommunications/belcard;
+  meta = with stdenv.lib; {
+    description =
+      "Belcard is a C++ library to manipulate VCard standard format";
+    homepage = "https://github.com/BelledonneCommunications/belcard";
     license = licenses.lgpl21;
     platforms = platforms.all;
   };

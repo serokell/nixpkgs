@@ -1,5 +1,5 @@
-{ stdenv, python3Packages, fetchurl, makeWrapper
-, coreutils, iptables, nettools, openssh, procps }:
+{ stdenv, python3Packages, fetchurl, makeWrapper, coreutils, iptables, nettools, openssh, procps
+}:
 
 python3Packages.buildPythonApplication rec {
   name = "sshuttle-${version}";
@@ -13,21 +13,25 @@ python3Packages.buildPythonApplication rec {
   patches = [ ./sudo.patch ];
 
   nativeBuildInputs = [ makeWrapper python3Packages.setuptools_scm ];
-  buildInputs =
-    [ coreutils openssh procps nettools ]
+  buildInputs = [ coreutils openssh procps nettools ]
     ++ stdenv.lib.optionals stdenv.isLinux [ iptables ];
 
-  checkInputs = with python3Packages; [ mock pytest pytestcov pytestrunner flake8 ];
+  checkInputs = with python3Packages; [
+    mock
+    pytest
+    pytestcov
+    pytestrunner
+    flake8
+  ];
 
-  postInstall = let
-    mapPath = f: x: stdenv.lib.concatStringsSep ":" (map f x);
-  in ''
-  wrapProgram $out/bin/sshuttle \
-    --prefix PATH : "${mapPath (x: "${x}/bin") buildInputs}" \
-  '';
+  postInstall = let mapPath = f: x: stdenv.lib.concatStringsSep ":" (map f x);
+    in ''
+      wrapProgram $out/bin/sshuttle \
+        --prefix PATH : "${mapPath (x: "${x}/bin") buildInputs}" \
+    '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/sshuttle/sshuttle/;
+    homepage = "https://github.com/sshuttle/sshuttle/";
     description = "Transparent proxy server that works as a poor man's VPN";
     longDescription = ''
       Forward connections over SSH, without requiring administrator access to the

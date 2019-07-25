@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, tox
-, six
-, dateutil
-, kitchen
-, pytz
-, pkgs
+{ stdenv, buildPythonPackage, fetchPypi, nose, tox, six, dateutil, kitchen, pytz, pkgs
 }:
 
 buildPythonPackage rec {
@@ -32,7 +23,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six dateutil kitchen pytz ];
 
   meta = with stdenv.lib; {
-    homepage =  https://github.com/ralphbean/taskw;
+    homepage = "https://github.com/ralphbean/taskw";
     description = "Python bindings for your taskwarrior database";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pierron ];

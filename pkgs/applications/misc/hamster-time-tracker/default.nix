@@ -1,7 +1,4 @@
-{ stdenv, fetchzip, pythonPackages, docbook2x, libxslt, gnome-doc-utils
-, intltool, dbus-glib, gnome_python
-, hicolor-icon-theme
-, wafHook
+{ stdenv, fetchzip, pythonPackages, docbook2x, libxslt, gnome-doc-utils, intltool, dbus-glib, gnome_python, hicolor-icon-theme, wafHook
 }:
 
 # TODO: Add optional dependency 'wnck', for "workspace tracking" support. Fixes
@@ -19,11 +16,16 @@ pythonPackages.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [ wafHook intltool ];
-  buildInputs = [
-    docbook2x libxslt gnome-doc-utils dbus-glib hicolor-icon-theme
-  ];
+  buildInputs =
+    [ docbook2x libxslt gnome-doc-utils dbus-glib hicolor-icon-theme ];
 
-  propagatedBuildInputs = with pythonPackages; [ pygobject2 pygtk pyxdg gnome_python dbus-python ];
+  propagatedBuildInputs = with pythonPackages; [
+    pygobject2
+    pygtk
+    pyxdg
+    gnome_python
+    dbus-python
+  ];
 
   postFixup = ''
     wrapPythonProgramsIn $out/lib/hamster-time-tracker "$out $pythonPath"
@@ -34,7 +36,7 @@ pythonPackages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Time tracking application";
-    homepage = https://projecthamster.wordpress.com/;
+    homepage = "https://projecthamster.wordpress.com/";
     license = licenses.gpl3;
     platforms = platforms.all;
     maintainers = [ maintainers.bjornfor ];

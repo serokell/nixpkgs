@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkgconfig
-, leptonica, libpng, libtiff, icu, pango, opencl-headers }:
+{ stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkgconfig, leptonica, libpng, libtiff, icu, pango, opencl-headers
+}:
 
 stdenv.mkDerivation rec {
   name = "tesseract-${version}";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "OCR engine";
-    homepage = https://github.com/tesseract-ocr/tesseract;
+    homepage = "https://github.com/tesseract-ocr/tesseract";
     license = stdenv.lib.licenses.asl20;
     maintainers = with stdenv.lib.maintainers; [ viric earvstedt ];
     platforms = with stdenv.lib.platforms; linux ++ darwin;

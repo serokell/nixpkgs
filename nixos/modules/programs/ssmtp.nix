@@ -11,9 +11,7 @@ let
 
   cfg = config.networking.defaultMailServer;
 
-in
-
-{
+in {
 
   options = {
 
@@ -128,7 +126,6 @@ in
 
   };
 
-
   config = mkIf cfg.directDelivery {
 
     networking.defaultMailServer.authPassFile = mkIf (cfg.authPass != "")
@@ -138,20 +135,21 @@ in
       })));
 
     environment.etc."ssmtp/ssmtp.conf".text =
-      let yesNo = yes : if yes then "YES" else "NO"; in
-      ''
+      let yesNo = yes: if yes then "YES" else "NO";
+      in ''
         MailHub=${cfg.hostName}
         FromLineOverride=YES
-        ${optionalString (cfg.root   != "") "root=${cfg.root}"}
+        ${optionalString (cfg.root != "") "root=${cfg.root}"}
         ${optionalString (cfg.domain != "") "rewriteDomain=${cfg.domain}"}
         UseTLS=${yesNo cfg.useTLS}
         UseSTARTTLS=${yesNo cfg.useSTARTTLS}
         #Debug=YES
-        ${optionalString (cfg.authUser != "")       "AuthUser=${cfg.authUser}"}
-        ${optionalString (cfg.authPassFile != null) "AuthPassFile=${cfg.authPassFile}"}
+        ${optionalString (cfg.authUser != "") "AuthUser=${cfg.authUser}"}
+        ${optionalString (cfg.authPassFile != null)
+        "AuthPassFile=${cfg.authPassFile}"}
       '';
 
-    environment.systemPackages = [pkgs.ssmtp];
+    environment.systemPackages = [ pkgs.ssmtp ];
 
     services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail {
       program = "sendmail";

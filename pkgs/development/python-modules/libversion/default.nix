@@ -15,8 +15,9 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/repology/py-libversion;
-    description = "Python bindings for libversion, which provides fast, powerful and correct generic version string comparison algorithm";
+    homepage = "https://github.com/repology/py-libversion";
+    description =
+      "Python bindings for libversion, which provides fast, powerful and correct generic version string comparison algorithm";
     license = licenses.mit;
     maintainers = [ maintainers.ryantm ];
   };

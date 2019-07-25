@@ -1,14 +1,9 @@
-{ stdenv, fetchurl, makeDesktopItem
-, ghostscript, atk, gtk2, glib, fontconfig, freetype
-, libgnomecanvas, libgnomeprint, libgnomeprintui
-, pango, libX11, xorgproto, zlib, poppler
-, autoconf, automake, libtool, pkgconfig}:
+{ stdenv, fetchurl, makeDesktopItem, ghostscript, atk, gtk2, glib, fontconfig, freetype, libgnomecanvas, libgnomeprint, libgnomeprintui, pango, libX11, xorgproto, zlib, poppler, autoconf, automake, libtool, pkgconfig
+}:
 
-let
-  isGdkQuartzBackend = (gtk2.gdktarget == "quartz");
-in
+let isGdkQuartzBackend = (gtk2.gdktarget == "quartz");
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "0.4.8.2016";
   name = "xournal-" + version;
   src = fetchurl {
@@ -17,11 +12,21 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    ghostscript atk gtk2 glib fontconfig freetype
+    ghostscript
+    atk
+    gtk2
+    glib
+    fontconfig
+    freetype
     libgnomecanvas
-    pango libX11 xorgproto zlib poppler
+    pango
+    libX11
+    xorgproto
+    zlib
+    poppler
   ] ++ stdenv.lib.optionals (!stdenv.isDarwin) [
-    libgnomeprint libgnomeprintui
+    libgnomeprint
+    libgnomeprintui
   ];
 
   nativeBuildInputs = [ autoconf automake libtool pkgconfig ];
@@ -40,23 +45,23 @@ stdenv.mkDerivation rec {
     genericName = "PDF Editor";
   };
 
-  postInstall=''
-      mkdir --parents $out/share/mime/packages
-      cat << EOF > $out/share/mime/packages/xournal.xml
-      <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
-         <mime-type type="application/x-xoj">
-          <comment>Xournal Document</comment>
-          <glob pattern="*.xoj"/>
-         </mime-type>
-      </mime-info>
-      EOF
-      cp --recursive ${desktopItem}/share/applications $out/share
-      mkdir --parents $out/share/icons
-      cp $out/share/xournal/pixmaps/xournal.png $out/share/icons
+  postInstall = ''
+    mkdir --parents $out/share/mime/packages
+    cat << EOF > $out/share/mime/packages/xournal.xml
+    <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+       <mime-type type="application/x-xoj">
+        <comment>Xournal Document</comment>
+        <glob pattern="*.xoj"/>
+       </mime-type>
+    </mime-info>
+    EOF
+    cp --recursive ${desktopItem}/share/applications $out/share
+    mkdir --parents $out/share/icons
+    cp $out/share/xournal/pixmaps/xournal.png $out/share/icons
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://xournal.sourceforge.net/;
+    homepage = "http://xournal.sourceforge.net/";
     description = "Note-taking application (supposes stylus)";
     maintainers = [ maintainers.guibert ];
     license = licenses.gpl2;

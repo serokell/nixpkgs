@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, six }:
 
 buildPythonPackage rec {
   version = "0.9.8";
@@ -24,7 +19,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/soft-matter/slicerator;
+    homepage = "https://github.com/soft-matter/slicerator";
     description = "A lazy-loading, fancy-sliceable iterable";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];

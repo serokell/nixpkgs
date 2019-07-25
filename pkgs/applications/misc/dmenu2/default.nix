@@ -1,4 +1,4 @@
-{stdenv, fetchhg, libX11, libXinerama, libXft, zlib}:
+{ stdenv, fetchhg, libX11, libXinerama, libXft, zlib }:
 
 with stdenv.lib;
 
@@ -17,13 +17,15 @@ stdenv.mkDerivation rec {
     sed -ri -e 's!\<(dmenu|stest)\>!'"$out/bin"'/&!g' dmenu_run
   '';
 
-  preConfigure = [ ''sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk'' ];
+  preConfigure =
+    [ ''sed -i "s@PREFIX = /usr/local@PREFIX = $out@g" config.mk'' ];
 
   meta = {
-      description = "A patched fork of the original dmenu - an efficient dynamic menu for X";
-      homepage = https://bitbucket.org/melek/dmenu2;
-      license = licenses.mit;
-      maintainers = [ maintainers.cstrahan ];
-      platforms = platforms.all;
+    description =
+      "A patched fork of the original dmenu - an efficient dynamic menu for X";
+    homepage = "https://bitbucket.org/melek/dmenu2";
+    license = licenses.mit;
+    maintainers = [ maintainers.cstrahan ];
+    platforms = platforms.all;
   };
 }

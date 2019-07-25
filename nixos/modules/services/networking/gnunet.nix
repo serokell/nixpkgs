@@ -8,8 +8,8 @@ let
 
   homeDir = "/var/lib/gnunet";
 
-  configFile = with cfg; pkgs.writeText "gnunetd.conf"
-    ''
+  configFile = with cfg;
+    pkgs.writeText "gnunetd.conf" ''
       [PATHS]
       SERVICEHOME = ${homeDir}
 
@@ -31,9 +31,7 @@ let
       ${extraOptions}
     '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -60,7 +58,7 @@ in
 
       udp = {
         port = mkOption {
-          default = 2086;  # assigned by IANA
+          default = 2086; # assigned by IANA
           description = ''
             The UDP port for use by GNUnet.
           '';
@@ -69,7 +67,7 @@ in
 
       tcp = {
         port = mkOption {
-          default = 2086;  # assigned by IANA
+          default = 2086; # assigned by IANA
           description = ''
             The TCP port for use by GNUnet.
           '';
@@ -121,7 +119,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.gnunet.enable {
@@ -147,7 +144,8 @@ in
       path = [ cfg.package pkgs.miniupnpc ];
       environment.TMPDIR = "/tmp";
       serviceConfig.PrivateTmp = true;
-      serviceConfig.ExecStart = "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c ${configFile}";
+      serviceConfig.ExecStart =
+        "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c ${configFile}";
       serviceConfig.User = "gnunet";
       serviceConfig.UMask = "0007";
       serviceConfig.WorkingDirectory = homeDir;

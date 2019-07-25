@@ -1,13 +1,12 @@
-{ stdenv, fetchurl, pkgconfig, intltool, exo, gtk, garcon, libxfce4util
-, libxfce4ui, xfconf, libXi, upower ? null, libnotify ? null
-, libXcursor ? null, xf86inputlibinput ? null, libxklavier ? null }:
+{ stdenv, fetchurl, pkgconfig, intltool, exo, gtk, garcon, libxfce4util, libxfce4ui, xfconf, libXi, upower ?
+  null, libnotify ? null, libXcursor ? null, xf86inputlibinput ?
+    null, libxklavier ? null }:
 
 let
-  p_name  = "xfce4-settings";
+  p_name = "xfce4-settings";
   ver_maj = "4.12";
   ver_min = "1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.xfce.org/projects/xfce4-settings;
+    homepage = "https://www.xfce.org/projects/xfce4-settings";
     description = "Settings manager for Xfce";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

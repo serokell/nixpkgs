@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, autoconf, automake
-, zlib, curl, gnutls, fribidi, libpng, SDL, SDL_gfx, SDL_image, SDL_mixer
-, SDL_net, SDL_ttf, libunwind, libX11, xorgproto, libxml2, pkgconfig
-, gettext, intltool, libtool, perl
+{ stdenv, fetchFromGitHub, autoconf, automake, zlib, curl, gnutls, fribidi, libpng, SDL, SDL_gfx, SDL_image, SDL_mixer, SDL_net, SDL_ttf, libunwind, libX11, xorgproto, libxml2, pkgconfig, gettext, intltool, libtool, perl
 }:
 
 stdenv.mkDerivation rec {
@@ -18,20 +15,33 @@ stdenv.mkDerivation rec {
   preConfigure = "patchShebangs autogen.sh && ./autogen.sh";
   configureFlagsArray = ("CFLAGS=-include ${zlib.dev}/include/zlib.h");
 
-  nativeBuildInputs = [
-    autoconf automake gettext intltool libtool pkgconfig
-  ];
+  nativeBuildInputs = [ autoconf automake gettext intltool libtool pkgconfig ];
   buildInputs = [
-    zlib curl gnutls fribidi libpng SDL SDL_gfx SDL_image SDL_mixer
-    SDL_net SDL_ttf libunwind libX11 xorgproto libxml2 perl
+    zlib
+    curl
+    gnutls
+    fribidi
+    libpng
+    SDL
+    SDL_gfx
+    SDL_image
+    SDL_mixer
+    SDL_net
+    SDL_ttf
+    libunwind
+    libX11
+    xorgproto
+    libxml2
+    perl
   ];
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "Ballistics turn-based battle game between teams - unofficial copy";
+    description =
+      "Ballistics turn-based battle game between teams - unofficial copy";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     license = with licenses; [ gpl2 ufl ];
-    homepage = https://github.com/fluxer/warmux;
+    homepage = "https://github.com/fluxer/warmux";
   };
 }

@@ -1,10 +1,8 @@
 { lib, config }:
 
-let
-  fpmCfg = config.services.phpfpm;
-in
+let fpmCfg = config.services.phpfpm;
 
-with lib; {
+in with lib; {
 
   options = {
 

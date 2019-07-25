@@ -1,23 +1,59 @@
-{ stdenv, fetchurl, perlPackages, makeWrapper, imagemagick, gdk_pixbuf, librsvg
-, hicolor-icon-theme, procps
+{ stdenv, fetchurl, perlPackages, makeWrapper, imagemagick, gdk_pixbuf, librsvg, hicolor-icon-theme, procps
 }:
 
 let
-  perlModules = with perlPackages;
-    [ Gnome2 Gnome2Canvas Gtk2 Glib Pango Gnome2VFS Gnome2Wnck Gtk2ImageView
-      Gtk2Unique FileBaseDir FileWhich FileCopyRecursive XMLSimple NetDBus XMLTwig
-      XMLParser HTTPMessage ProcSimple SortNaturally LocaleGettext
-      ProcProcessTable URI ImageExifTool Gtk2AppIndicator LWP JSON
-      PerlMagick WWWMechanize HTTPDate HTMLForm HTMLParser HTMLTagset JSONMaybeXS
-      commonsense HTTPCookies NetOAuth PathClass GooCanvas X11Protocol Cairo
-      EncodeLocale TryTiny TypesSerialiser LWPMediaTypes
-    ];
-in
-stdenv.mkDerivation rec {
+  perlModules = with perlPackages; [
+    Gnome2
+    Gnome2Canvas
+    Gtk2
+    Glib
+    Pango
+    Gnome2VFS
+    Gnome2Wnck
+    Gtk2ImageView
+    Gtk2Unique
+    FileBaseDir
+    FileWhich
+    FileCopyRecursive
+    XMLSimple
+    NetDBus
+    XMLTwig
+    XMLParser
+    HTTPMessage
+    ProcSimple
+    SortNaturally
+    LocaleGettext
+    ProcProcessTable
+    URI
+    ImageExifTool
+    Gtk2AppIndicator
+    LWP
+    JSON
+    PerlMagick
+    WWWMechanize
+    HTTPDate
+    HTMLForm
+    HTMLParser
+    HTMLTagset
+    JSONMaybeXS
+    commonsense
+    HTTPCookies
+    NetOAuth
+    PathClass
+    GooCanvas
+    X11Protocol
+    Cairo
+    EncodeLocale
+    TryTiny
+    TypesSerialiser
+    LWPMediaTypes
+  ];
+in stdenv.mkDerivation rec {
   name = "shutter-0.94.3";
 
   src = fetchurl {
-    url = "https://launchpad.net/shutter/0.9x/0.94.3/+download/shutter-0.94.3.tar.gz";
+    url =
+      "https://launchpad.net/shutter/0.9x/0.94.3/+download/shutter-0.94.3.tar.gz";
     sha256 = "01wv5k6zqfqa2rss461lpdpjxpfk4awzfdc6j2qk6bh4g4zgmgl5";
   };
 
@@ -38,7 +74,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Screenshot and annotation tool";
-    homepage = http://shutter-project.org/;
+    homepage = "http://shutter-project.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = [ maintainers.bjornfor ];

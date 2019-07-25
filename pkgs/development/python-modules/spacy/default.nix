@@ -1,26 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytest
-, preshed
-, ftfy
-, numpy
-, murmurhash
-, plac
-, ujson
-, dill
-, requests
-, thinc
-, regex
-, cymem
-, pathlib
-, msgpack-python
-, msgpack-numpy
-, jsonschema
-, blis
-, wasabi
-, srsly
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytest, preshed, ftfy, numpy, murmurhash, plac, ujson, dill, requests, thinc, regex, cymem, pathlib, msgpack-python, msgpack-numpy, jsonschema, blis, wasabi, srsly
 }:
 
 buildPythonPackage rec {
@@ -40,28 +18,26 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-   numpy
-   murmurhash
-   cymem
-   preshed
-   thinc
-   plac
-   ujson
-   dill
-   requests
-   regex
-   ftfy
-   msgpack-python
-   msgpack-numpy
-   jsonschema
-   blis
-   wasabi
-   srsly
+    numpy
+    murmurhash
+    cymem
+    preshed
+    thinc
+    plac
+    ujson
+    dill
+    requests
+    regex
+    ftfy
+    msgpack-python
+    msgpack-numpy
+    jsonschema
+    blis
+    wasabi
+    srsly
   ] ++ lib.optional (pythonOlder "3.4") pathlib;
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   doCheck = false;
   # checkPhase = ''
@@ -69,9 +45,10 @@ buildPythonPackage rec {
   # '';
 
   meta = with lib; {
-    description = "Industrial-strength Natural Language Processing (NLP) with Python and Cython";
-    homepage = https://github.com/explosion/spaCy;
+    description =
+      "Industrial-strength Natural Language Processing (NLP) with Python and Cython";
+    homepage = "https://github.com/explosion/spaCy";
     license = licenses.mit;
     maintainers = with maintainers; [ danieldk sdll ];
-    };
+  };
 }

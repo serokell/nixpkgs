@@ -1,4 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, execnet, pytest, setuptools_scm, pytest-forked, filelock, six }:
+{ stdenv, fetchPypi, buildPythonPackage, execnet, pytest, setuptools_scm, pytest-forked, filelock, six
+}:
 
 buildPythonPackage rec {
   pname = "pytest-xdist";
@@ -23,8 +24,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "py.test xdist plugin for distributed testing and loop-on-failing modes";
-    homepage = https://github.com/pytest-dev/pytest-xdist;
+    description =
+      "py.test xdist plugin for distributed testing and loop-on-failing modes";
+    homepage = "https://github.com/pytest-dev/pytest-xdist";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

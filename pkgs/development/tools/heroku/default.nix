@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "7.22.4";
 
   src = fetchurl {
-    url = "https://cli-assets.heroku.com/heroku-v${version}/heroku-v${version}.tar.xz";
+    url =
+      "https://cli-assets.heroku.com/heroku-v${version}/heroku-v${version}.tar.xz";
     sha256 = "067kvkdn7yvzb3ws6yjsfbypww914fclhnxrh2dw1hc6cazfgmqp";
   };
 
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://cli.heroku.com;
+    homepage = "https://cli.heroku.com";
     description = "Everything you need to get started using Heroku";
     maintainers = with lib.maintainers; [ aflatter mirdhyn peterhoeg ];
     license = lib.licenses.mit;

@@ -1,11 +1,8 @@
-{ stdenv, fetchFromGitHub, cmake, boost, pkgconfig, doxygen, qt48Full, libharu
-, pango, fcgi, firebird, mysql, postgresql, graphicsmagick, glew, openssl
-, pcre
+{ stdenv, fetchFromGitHub, cmake, boost, pkgconfig, doxygen, qt48Full, libharu, pango, fcgi, firebird, mysql, postgresql, graphicsmagick, glew, openssl, pcre
 }:
 
 let
-  generic =
-    { version, sha256 }:
+  generic = { version, sha256 }:
     stdenv.mkDerivation rec {
       name = "wt-${version}";
 
@@ -20,9 +17,20 @@ let
 
       nativeBuildInputs = [ pkgconfig ];
       buildInputs = [
-        cmake boost doxygen qt48Full libharu
-        pango fcgi firebird mysql.connector-c postgresql graphicsmagick glew
-        openssl pcre
+        cmake
+        boost
+        doxygen
+        qt48Full
+        libharu
+        pango
+        fcgi
+        firebird
+        mysql.connector-c
+        postgresql
+        graphicsmagick
+        glew
+        openssl
+        pcre
       ];
 
       cmakeFlags = [
@@ -34,7 +42,7 @@ let
       ];
 
       meta = with stdenv.lib; {
-        homepage = https://www.webtoolkit.eu/wt;
+        homepage = "https://www.webtoolkit.eu/wt";
         description = "C++ library for developing web applications";
         platforms = platforms.linux;
         license = licenses.gpl2;

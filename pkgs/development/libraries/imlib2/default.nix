@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, libjpeg, libtiff, giflib, libpng, bzip2, pkgconfig
-, freetype, libid3tag
-, x11Support ? true, xlibsWrapper ? null }:
+{ stdenv, fetchurl, libjpeg, libtiff, giflib, libpng, bzip2, pkgconfig, freetype, libid3tag, x11Support ?
+  true, xlibsWrapper ? null }:
 
 with stdenv.lib;
 
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
       easily, without sacrificing speed.
     '';
 
-    homepage = http://docs.enlightenment.org/api/imlib2/html;
+    homepage = "http://docs.enlightenment.org/api/imlib2/html";
     license = licenses.free;
     platforms = platforms.unix;
     maintainers = with maintainers; [ spwhitt ];

@@ -5,13 +5,12 @@ with lib;
 let
 
   tzdir = "${pkgs.tzdata}/share/zoneinfo";
-  nospace  = str: filter (c: c == " ") (stringToCharacters str) == [];
-  timezone = types.nullOr (types.addCheck types.str nospace)
-    // { description = "null or string without spaces"; };
+  nospace = str: filter (c: c == " ") (stringToCharacters str) == [ ];
+  timezone = types.nullOr (types.addCheck types.str nospace) // {
+    description = "null or string without spaces";
+  };
 
-in
-
-{
+in {
   options = {
 
     time = {
@@ -33,7 +32,8 @@ in
       hardwareClockInLocalTime = mkOption {
         default = false;
         type = types.bool;
-        description = "If set, keep the hardware clock in local time instead of UTC.";
+        description =
+          "If set, keep the hardware clock in local time instead of UTC.";
       };
 
     };
@@ -46,14 +46,17 @@ in
     # This way services are restarted when tzdata changes.
     systemd.globalEnvironment.TZDIR = tzdir;
 
-    systemd.services.systemd-timedated.environment = lib.optionalAttrs (config.time.timeZone != null) { NIXOS_STATIC_TIMEZONE = "1"; };
+    systemd.services.systemd-timedated.environment =
+      lib.optionalAttrs (config.time.timeZone != null) {
+        NIXOS_STATIC_TIMEZONE = "1";
+      };
 
     environment.etc = {
       zoneinfo.source = tzdir;
     } // lib.optionalAttrs (config.time.timeZone != null) {
-        localtime.source = "/etc/zoneinfo/${config.time.timeZone}";
-        localtime.mode = "direct-symlink";
-      };
+      localtime.source = "/etc/zoneinfo/${config.time.timeZone}";
+      localtime.mode = "direct-symlink";
+    };
   };
 
 }

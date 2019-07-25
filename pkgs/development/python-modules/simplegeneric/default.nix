@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "simplegeneric";
@@ -15,7 +12,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Simple generic functions";
-    homepage = http://cheeseshop.python.org/pypi/simplegeneric;
+    homepage = "http://cheeseshop.python.org/pypi/simplegeneric";
     license = lib.licenses.zpl21;
   };
 }

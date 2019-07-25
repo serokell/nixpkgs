@@ -1,13 +1,14 @@
-{ stdenv, fetchFromGitHub, pkgconfig, meson, gtk3, at-spi2-core, dbus, gst_all_1, sphinxbase, pocketsphinx, ninja, gettext, appstream-glib, python3, glib, gobject-introspection, gsettings-desktop-schemas, itstool, wrapGAppsHook, hicolor-icon-theme }:
+{ stdenv, fetchFromGitHub, pkgconfig, meson, gtk3, at-spi2-core, dbus, gst_all_1, sphinxbase, pocketsphinx, ninja, gettext, appstream-glib, python3, glib, gobject-introspection, gsettings-desktop-schemas, itstool, wrapGAppsHook, hicolor-icon-theme
+}:
 
 stdenv.mkDerivation rec {
   pname = "parlatype";
   version = "1.6.1";
 
   src = fetchFromGitHub {
-    owner  = "gkarsay";
-    repo   = pname;
-    rev    = "v${version}";
+    owner = "gkarsay";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "0b811lwiylrjirx88gi9az1b1b71j2i5a4a6g56wp9qxln6lzjj2";
   };
 
@@ -61,7 +62,7 @@ stdenv.mkDerivation rec {
       It plays audio sources to transcribe them in your favourite text application.
       It’s intended to be useful for journalists, students, scientists and whoever needs to transcribe audio files.
     '';
-    homepage = https://gkarsay.github.io/parlatype/;
+    homepage = "https://gkarsay.github.io/parlatype/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.melchips ];
     platforms = platforms.linux;

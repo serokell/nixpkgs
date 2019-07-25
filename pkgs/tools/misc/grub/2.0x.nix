@@ -1,11 +1,5 @@
-{ stdenv, fetchgit, flex, bison, python, autoconf, automake, gnulib, libtool
-, gettext, ncurses, libusb, freetype, qemu, lvm2, unifont, pkgconfig
-, fuse # only needed for grub-mount
-, zfs ? null
-, efiSupport ? false
-, zfsSupport ? true
-, xenSupport ? false
-}:
+{ stdenv, fetchgit, flex, bison, python, autoconf, automake, gnulib, libtool, gettext, ncurses, libusb, freetype, qemu, lvm2, unifont, pkgconfig, fuse # only needed for grub-mount
+, zfs ? null, efiSupport ? false, zfsSupport ? true, xenSupport ? false }:
 
 with stdenv.lib;
 let
@@ -28,8 +22,10 @@ let
     "aarch64-linux".target = "arm64";
   };
 
-  canEfi = any (system: stdenv.hostPlatform.system == system) (mapAttrsToList (name: _: name) efiSystemsBuild);
-  inPCSystems = any (system: stdenv.hostPlatform.system == system) (mapAttrsToList (name: _: name) pcSystems);
+  canEfi = any (system: stdenv.hostPlatform.system == system)
+    (mapAttrsToList (name: _: name) efiSystemsBuild);
+  inPCSystems = any (system: stdenv.hostPlatform.system == system)
+    (mapAttrsToList (name: _: name) pcSystems);
 
   version = "2.04-rc1";
 
@@ -48,61 +44,64 @@ stdenv.mkDerivation rec {
     sha256 = "0xkcfxs0hbzvi33kg4abkayl8b7gym9sv8ljbwlh2kpz8i4kmnk0";
   };
 
-  patches = [
-    ./fix-bash-completion.patch
-  ];
+  patches = [ ./fix-bash-completion.patch ];
 
   nativeBuildInputs = [ bison flex python pkgconfig autoconf automake ];
   buildInputs = [ ncurses libusb freetype gettext lvm2 fuse libtool ]
-    ++ optional doCheck qemu
-    ++ optional zfsSupport zfs;
+    ++ optional doCheck qemu ++ optional zfsSupport zfs;
 
   hardeningDisable = [ "all" ];
 
   # Work around a bug in the generated flex lexer (upstream flex bug?)
   NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  preConfigure =
-    '' for i in "tests/util/"*.in
-       do
-         sed -i "$i" -e's|/bin/bash|${stdenv.shell}|g'
-       done
+  preConfigure = ''
+    for i in "tests/util/"*.in
+          do
+            sed -i "$i" -e's|/bin/bash|${stdenv.shell}|g'
+          done
 
-       # Apparently, the QEMU executable is no longer called
-       # `qemu-system-i386', even on i386.
-       #
-       # In addition, use `-nodefaults' to avoid errors like:
-       #
-       #  chardev: opening backend "stdio" failed
-       #  qemu: could not open serial device 'stdio': Invalid argument
-       #
-       # See <http://www.mail-archive.com/qemu-devel@nongnu.org/msg22775.html>.
-       sed -i "tests/util/grub-shell.in" \
-           -e's/qemu-system-i386/qemu-system-x86_64 -nodefaults/g'
+          # Apparently, the QEMU executable is no longer called
+          # `qemu-system-i386', even on i386.
+          #
+          # In addition, use `-nodefaults' to avoid errors like:
+          #
+          #  chardev: opening backend "stdio" failed
+          #  qemu: could not open serial device 'stdio': Invalid argument
+          #
+          # See <http://www.mail-archive.com/qemu-devel@nongnu.org/msg22775.html>.
+          sed -i "tests/util/grub-shell.in" \
+              -e's/qemu-system-i386/qemu-system-x86_64 -nodefaults/g'
 
-      unset CPP # setting CPP intereferes with dependency calculation
+         unset CPP # setting CPP intereferes with dependency calculation
 
-      cp -r ${gnulib} $PWD/gnulib
-      chmod u+w -R $PWD/gnulib
+         cp -r ${gnulib} $PWD/gnulib
+         chmod u+w -R $PWD/gnulib
 
-      patchShebangs .
+         patchShebangs .
 
-      ./bootstrap --no-git --gnulib-srcdir=$PWD/gnulib
+         ./bootstrap --no-git --gnulib-srcdir=$PWD/gnulib
 
-      substituteInPlace ./configure --replace '/usr/share/fonts/unifont' '${unifont}/share/fonts'
-    '';
+         substituteInPlace ./configure --replace '/usr/share/fonts/unifont' '${unifont}/share/fonts'
+       '';
 
   configureFlags = [ "--enable-grub-mount" ] # dep of os-prober
-    ++ optional zfsSupport "--enable-libzfs"
-    ++ optionals efiSupport [ "--with-platform=efi" "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}" "--program-prefix=" ]
-    ++ optionals xenSupport [ "--with-platform=xen" "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"];
+    ++ optional zfsSupport "--enable-libzfs" ++ optionals efiSupport [
+      "--with-platform=efi"
+      "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"
+      "--program-prefix="
+    ] ++ optionals xenSupport [
+      "--with-platform=xen"
+      "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"
+    ];
 
   # save target that grub is compiled for
-  grubTarget = if efiSupport
-               then "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
-               else if inPCSystems
-                    then "${pcSystems.${stdenv.hostPlatform.system}.target}-pc"
-                    else "";
+  grubTarget = if efiSupport then
+    "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
+  else if inPCSystems then
+    "${pcSystems.${stdenv.hostPlatform.system}.target}-pc"
+  else
+    "";
 
   doCheck = false;
   enableParallelBuilding = true;
@@ -115,19 +114,19 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "GNU GRUB, the Grand Unified Boot Loader (2.x beta)";
 
-    longDescription =
-      '' GNU GRUB is a Multiboot boot loader. It was derived from GRUB, GRand
-         Unified Bootloader, which was originally designed and implemented by
-         Erich Stefan Boleyn.
+    longDescription = ''
+      GNU GRUB is a Multiboot boot loader. It was derived from GRUB, GRand
+              Unified Bootloader, which was originally designed and implemented by
+              Erich Stefan Boleyn.
 
-         Briefly, the boot loader is the first software program that runs when a
-         computer starts.  It is responsible for loading and transferring
-         control to the operating system kernel software (such as the Hurd or
-         the Linux).  The kernel, in turn, initializes the rest of the
-         operating system (e.g., GNU).
-      '';
+              Briefly, the boot loader is the first software program that runs when a
+              computer starts.  It is responsible for loading and transferring
+              control to the operating system kernel software (such as the Hurd or
+              the Linux).  The kernel, in turn, initializes the rest of the
+              operating system (e.g., GNU).
+           '';
 
-    homepage = https://www.gnu.org/software/grub/;
+    homepage = "https://www.gnu.org/software/grub/";
 
     license = licenses.gpl3Plus;
 

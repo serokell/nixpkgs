@@ -1,19 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, click-default-group
-, sanic
-, jinja2
-, hupper
-, pint
-, pluggy
-, pytest
-, pytestrunner
-, pytest-asyncio
-, black
-, aiohttp
-, beautifulsoup4
+{ lib, buildPythonPackage, fetchFromGitHub, click, click-default-group, sanic, jinja2, hupper, pint, pluggy, pytest, pytestrunner, pytest-asyncio, black, aiohttp, beautifulsoup4
 }:
 
 buildPythonPackage rec {
@@ -29,23 +14,10 @@ buildPythonPackage rec {
 
   buildInputs = [ pytestrunner ];
 
-  propagatedBuildInputs = [
-    click
-    click-default-group
-    sanic
-    jinja2
-    hupper
-    pint
-    pluggy
-  ];
+  propagatedBuildInputs =
+    [ click click-default-group sanic jinja2 hupper pint pluggy ];
 
-  checkInputs = [
-    pytest
-    pytest-asyncio
-    aiohttp
-    beautifulsoup4
-    black
-  ];
+  checkInputs = [ pytest pytest-asyncio aiohttp beautifulsoup4 black ];
 
   postConfigure = ''
     substituteInPlace setup.py \
@@ -65,7 +37,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An instant JSON API for your SQLite databases";
-    homepage = https://github.com/simonw/datasette;
+    homepage = "https://github.com/simonw/datasette";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

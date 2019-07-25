@@ -1,11 +1,10 @@
-{stdenv, fetchurl, cmake, qt4}:
+{ stdenv, fetchurl, cmake, qt4 }:
 
 let
   pn = "qimageblitz";
   v = "0.0.4";
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${pn}-${v}";
 
   src = fetchurl {

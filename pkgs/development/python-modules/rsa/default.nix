@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, unittest2
-, pyasn1
-, mock
-, isPy3k
-, pythonOlder
+{ stdenv, buildPythonPackage, fetchPypi, unittest2, pyasn1, mock, isPy3k, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -25,7 +18,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://stuvel.eu/rsa;
+    homepage = "https://stuvel.eu/rsa";
     license = licenses.asl20;
     description = "A pure-Python RSA implementation";
   };

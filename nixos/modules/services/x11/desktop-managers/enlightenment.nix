@@ -11,11 +11,10 @@ let
     pkgs.gst_all_1.gst-plugins-base
     pkgs.gst_all_1.gst-plugins-good
     pkgs.gst_all_1.gst-plugins-bad
-    pkgs.gst_all_1.gst-libav ];
+    pkgs.gst_all_1.gst-libav
+  ];
 
-in
-
-{
+in {
   options = {
 
     services.xserver.desktopManager.enlightenment.enable = mkOption {
@@ -28,8 +27,10 @@ in
   config = mkIf cfg.enable {
 
     environment.systemPackages = [
-      e.efl e.enlightenment
-      e.terminology e.econnman
+      e.efl
+      e.enlightenment
+      e.terminology
+      e.econnman
       pkgs.xorg.xauth # used by kdesu
       pkgs.gtk2 # To get GTK+'s themes.
       pkgs.tango-icon-theme
@@ -45,8 +46,8 @@ in
       "/share/locale"
     ];
 
-    services.xserver.desktopManager.session = [
-    { name = "Enlightenment";
+    services.xserver.desktopManager.session = [{
+      name = "Enlightenment";
       start = ''
         # Set GTK_DATA_PREFIX so that GTK+ can find the themes
         export GTK_DATA_PREFIX=${config.system.path}
@@ -66,12 +67,13 @@ in
       '';
     }];
 
-    security.wrappers = (import "${e.enlightenment}/e-wrappers.nix").security.wrappers;
+    security.wrappers =
+      (import "${e.enlightenment}/e-wrappers.nix").security.wrappers;
 
-    environment.etc = singleton
-      { source = xcfg.xkbDir;
-        target = "X11/xkb";
-      };
+    environment.etc = singleton {
+      source = xcfg.xkbDir;
+      target = "X11/xkb";
+    };
 
     fonts.fonts = [ pkgs.dejavu_fonts pkgs.ubuntu_font_family ];
 
@@ -80,24 +82,23 @@ in
 
     services.dbus.packages = [ e.efl ];
 
-    systemd.user.services.efreet =
-      { enable = true;
-        description = "org.enlightenment.Efreet";
-        serviceConfig =
-          { ExecStart = "${e.efl}/bin/efreetd";
-            StandardOutput = "null";
-          };
+    systemd.user.services.efreet = {
+      enable = true;
+      description = "org.enlightenment.Efreet";
+      serviceConfig = {
+        ExecStart = "${e.efl}/bin/efreetd";
+        StandardOutput = "null";
       };
+    };
 
-    systemd.user.services.ethumb =
-      { enable = true;
-        description = "org.enlightenment.Ethumb";
-        serviceConfig =
-          { ExecStart = "${e.efl}/bin/ethumbd";
-            StandardOutput = "null";
-          };
+    systemd.user.services.ethumb = {
+      enable = true;
+      description = "org.enlightenment.Ethumb";
+      serviceConfig = {
+        ExecStart = "${e.efl}/bin/ethumbd";
+        StandardOutput = "null";
       };
-
+    };
 
   };
 

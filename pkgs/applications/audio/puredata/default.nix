@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, autoreconfHook, gettext, makeWrapper
-, alsaLib, libjack2, tk, fftw
+{ stdenv, fetchurl, autoreconfHook, gettext, makeWrapper, alsaLib, libjack2, tk, fftw
 }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "puredata-${version}";
   version = "0.49-0";
 
@@ -28,9 +27,10 @@ stdenv.mkDerivation  rec {
   '';
 
   meta = with stdenv.lib; {
-    description = ''A real-time graphical programming environment for
-                    audio, video, and graphical processing'';
-    homepage = http://puredata.info;
+    description = ''
+      A real-time graphical programming environment for
+                          audio, video, and graphical processing'';
+    homepage = "http://puredata.info";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = [ maintainers.goibhniu ];

@@ -24,8 +24,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Modern icon theme designed around bold colours and simple geometric shapes";
-    homepage = https://snwh.org/paper;
+    description =
+      "Modern icon theme designed around bold colours and simple geometric shapes";
+    homepage = "https://snwh.org/paper";
     license = with licenses; [ cc-by-sa-40 lgpl3 ];
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;

@@ -16,18 +16,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./relative-fcronsighup.patch ];
 
-  configureFlags =
-    [ "--with-sendmail=${busybox}/sbin/sendmail"
-      "--with-editor=${vim}/bin/vi"  # TODO customizable
-      "--with-bootinstall=no"
-      "--localstatedir=/var"
-      "--sysconfdir=/etc"
-      "--with-rootname=root"
-      "--with-rootgroup=root"
-      "--disable-checks"
-    ];
+  configureFlags = [
+    "--with-sendmail=${busybox}/sbin/sendmail"
+    "--with-editor=${vim}/bin/vi" # TODO customizable
+    "--with-bootinstall=no"
+    "--localstatedir=/var"
+    "--sysconfdir=/etc"
+    "--with-rootname=root"
+    "--with-rootgroup=root"
+    "--disable-checks"
+  ];
 
-  installTargets = "install-staged"; # install does also try to change permissions of /etc/* files
+  installTargets =
+    "install-staged"; # install does also try to change permissions of /etc/* files
 
   # fcron tries to install pid into system directory on install
   installFlags = [
@@ -53,8 +54,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description="A command scheduler with extended capabilities over cron and anacron";
-    homepage = http://fcron.free.fr;
+    description =
+      "A command scheduler with extended capabilities over cron and anacron";
+    homepage = "http://fcron.free.fr";
     license = licenses.gpl2;
     platforms = stdenv.lib.platforms.all;
   };

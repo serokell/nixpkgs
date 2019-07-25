@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "remove-extra-decl.patch";
-      url = "https://github.com/rhboot/efibootmgr/commit/99b578501643377e0b1994b2a068b790d189d5ad.patch";
+      url =
+        "https://github.com/rhboot/efibootmgr/commit/99b578501643377e0b1994b2a068b790d189d5ad.patch";
       sha256 = "1sbijvlpv4khkix3vix9mbhzffj8lp8zpnbxm9gnzjz8yssz9p5h";
     })
   ];
@@ -28,8 +29,9 @@ stdenv.mkDerivation rec {
   installFlags = [ "prefix=$(out)" ];
 
   meta = with stdenv.lib; {
-    description = "A Linux user-space application to modify the Intel Extensible Firmware Interface (EFI) Boot Manager";
-    homepage = https://github.com/rhboot/efibootmgr;
+    description =
+      "A Linux user-space application to modify the Intel Extensible Firmware Interface (EFI) Boot Manager";
+    homepage = "https://github.com/rhboot/efibootmgr";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;

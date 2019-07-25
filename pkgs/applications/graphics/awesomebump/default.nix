@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchgit, qtbase, qmake, makeWrapper, qtscript, flex, bison, qtdeclarative }:
-
+{ lib, stdenv, fetchgit, qtbase, qmake, makeWrapper, qtscript, flex, bison, qtdeclarative
+}:
 
 let
   version = "5.1";
@@ -52,8 +52,9 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   meta = {
-    homepage = https://github.com/kmkolasinski/AwesomeBump;
-    description = "A program to generate normal, height, specular or ambient occlusion textures from a single image";
+    homepage = "https://github.com/kmkolasinski/AwesomeBump";
+    description =
+      "A program to generate normal, height, specular or ambient occlusion textures from a single image";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.linux;

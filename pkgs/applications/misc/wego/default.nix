@@ -4,7 +4,7 @@ buildGoPackage rec {
   name = "wego-${version}";
   version = "20170403-${stdenv.lib.strings.substring 0 7 rev}";
   rev = "415efdfab5d5ee68300bf261a0c6f630c6c2584c";
-  
+
   goPackagePath = "github.com/schachmat/wego";
 
   src = fetchgit {
@@ -15,7 +15,5 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  meta = {
-    license = stdenv.lib.licenses.isc;
-  };
+  meta = { license = stdenv.lib.licenses.isc; };
 }

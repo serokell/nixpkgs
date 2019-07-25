@@ -1,11 +1,10 @@
-{ stdenv, fetchgit, pkgconfig, qt4, SDL, SDL_image, libvorbis, libtar, libxml2
-, gamin, qmake4Hook
+{ stdenv, fetchgit, pkgconfig, qt4, SDL, SDL_image, libvorbis, libtar, libxml2, gamin, qmake4Hook
 }:
 
 stdenv.mkDerivation rec {
   version = "0.8";
   name = "linuxstopmotion-${version}";
-  
+
   src = fetchgit {
     url = "git://git.code.sf.net/p/linuxstopmotion/code";
     rev = "refs/tags/${version}";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Create stop-motion animation movies";
-    homepage = http://linuxstopmotion.org/;
+    homepage = "http://linuxstopmotion.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

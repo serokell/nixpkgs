@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "xmonad";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ nequissimus ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ nequissimus ]; };
 
   machine = { lib, pkgs, ... }: {
     imports = [ ./common/x11.nix ./common/user-account.nix ];

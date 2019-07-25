@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, cmake, pkgconfig
-, libva, libpciaccess, intel-gmmlib, libX11
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libva, libpciaccess, intel-gmmlib, libX11
 }:
 
 stdenv.mkDerivation rec {
@@ -8,9 +6,9 @@ stdenv.mkDerivation rec {
   version = "19.2";
 
   src = fetchFromGitHub {
-    owner  = "intel";
-    repo   = "media-driver";
-    rev    = "intel-media-${version}";
+    owner = "intel";
+    repo = "media-driver";
+    rev = "intel-media-${version}";
     sha256 = "118cg1grzm62lppaygvh7mgxn23bicjkwjwpxhbyqs9g6yhdj3p8";
   };
 
@@ -26,7 +24,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libva libpciaccess intel-gmmlib libX11 ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/intel/media-driver;
+    homepage = "https://github.com/intel/media-driver";
     license = with licenses; [ bsd3 mit ];
     description = "Intel Media Driver for VAAPI — Broadwell+ iGPUs";
     platforms = platforms.linux;

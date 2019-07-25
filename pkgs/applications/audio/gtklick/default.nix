@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, pythonPackages, gettext, klick}:
+{ stdenv, fetchurl, pythonPackages, gettext, klick }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "gtklick";
@@ -9,10 +9,7 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "7799d884126ccc818678aed79d58057f8cf3528e9f1be771c3fa5b694d9d0137";
   };
 
-  pythonPath = with pythonPackages; [
-    pyliblo
-    pyGtkGlade
-  ];
+  pythonPath = with pythonPackages; [ pyliblo pyGtkGlade ];
 
   nativeBuildInputs = [ gettext ];
 
@@ -27,7 +24,7 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = {
-    homepage = http://das.nasophon.de/gtklick/;
+    homepage = "http://das.nasophon.de/gtklick/";
     description = "Simple metronome with an easy-to-use GTK interface";
     license = stdenv.lib.licenses.gpl2Plus;
   };

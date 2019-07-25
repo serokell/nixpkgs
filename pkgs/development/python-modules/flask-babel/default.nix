@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, python
-, fetchPypi
-, flask
-, Babel
-, jinja2
-, pytz
-, speaklater
+{ stdenv, buildPythonPackage, python, fetchPypi, flask, Babel, jinja2, pytz, speaklater
 }:
 
 buildPythonPackage rec {
@@ -18,13 +10,7 @@ buildPythonPackage rec {
     sha256 = "11jwp8vvq1gnm31qh6ihy2h393hy18yn9yjp569g60r0wj1x2sii";
   };
 
-  propagatedBuildInputs = [
-    flask
-    Babel
-    jinja2
-    pytz
-    speaklater
-  ];
+  propagatedBuildInputs = [ flask Babel jinja2 pytz speaklater ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover -s tests
@@ -39,6 +25,6 @@ buildPythonPackage rec {
     '';
     license = licenses.bsd2;
     maintainers = with maintainers; [ timokau ];
-    homepage = https://github.com/python-babel/flask-babel;
+    homepage = "https://github.com/python-babel/flask-babel";
   };
 }

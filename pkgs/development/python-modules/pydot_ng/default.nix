@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyparsing
-, pytest
-, unittest2
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyparsing, pytest, unittest2, pkgs }:
 
 buildPythonPackage rec {
   pname = "pydot_ng";
@@ -26,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     homepage = "https://pypi.python.org/pypi/pydot-ng";
-    description = "Python 3-compatible update of pydot, a Python interface to Graphviz's Dot";
+    description =
+      "Python 3-compatible update of pydot, a Python interface to Graphviz's Dot";
     license = licenses.mit;
     maintainers = [ maintainers.bcdarwin ];
   };

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, wxGTK, autoconf, automake, libtool, python, gettext }:
+{ stdenv, fetchFromGitHub, fetchpatch, wxGTK, autoconf, automake, libtool, python, gettext
+}:
 
 stdenv.mkDerivation rec {
   name = "wxHexEditor-${version}";
@@ -23,7 +24,8 @@ stdenv.mkDerivation rec {
   patches = [
     # https://github.com/EUA/wxHexEditor/issues/90
     (fetchpatch {
-      url = https://github.com/EUA/wxHexEditor/commit/d0fa3ddc3e9dc9b05f90b650991ef134f74eed01.patch;
+      url =
+        "https://github.com/EUA/wxHexEditor/commit/d0fa3ddc3e9dc9b05f90b650991ef134f74eed01.patch";
       sha256 = "1wcb70hrnhq72frj89prcqylpqs74xrfz3kdfdkq84p5qfz9svyj";
     })
   ];
@@ -44,7 +46,7 @@ stdenv.mkDerivation rec {
       a good reverse engineer tool like a good hex editor, you welcome.
       wxHexEditor could edit HDD/SDD disk devices or partitions in raw up to exabyte sizes.
     '';
-    homepage = http://www.wxhexeditor.org/;
+    homepage = "http://www.wxhexeditor.org/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
   };

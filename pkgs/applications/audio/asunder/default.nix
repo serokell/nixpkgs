@@ -1,9 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, gtk2, libcddb, intltool, pkgconfig, cdparanoia
-, mp3Support ? false, lame
-, oggSupport ? true, vorbis-tools
-, flacSupport ? true, flac
-, opusSupport ? false, opusTools
-, wavpackSupport ? false, wavpack
+{ stdenv, fetchurl, makeWrapper, gtk2, libcddb, intltool, pkgconfig, cdparanoia, mp3Support ?
+  false, lame, oggSupport ? true, vorbis-tools, flacSupport ?
+    true, flac, opusSupport ? false, opusTools, wavpackSupport ? false, wavpack
 #, musepackSupport ? false, TODO: mpcenc
 , monkeysAudioSupport ? false, monkeysAudio
 #, aacSupport ? false, TODO: neroAacEnc
@@ -22,14 +19,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ gtk2 libcddb intltool makeWrapper ];
 
-  runtimeDeps =
-    optional mp3Support lame ++
-    optional oggSupport vorbis-tools ++
-    optional flacSupport flac ++
-    optional opusSupport opusTools ++
-    optional wavpackSupport wavpack ++
-    optional monkeysAudioSupport monkeysAudio ++
-    [ cdparanoia ];
+  runtimeDeps = optional mp3Support lame ++ optional oggSupport vorbis-tools
+    ++ optional flacSupport flac ++ optional opusSupport opusTools
+    ++ optional wavpackSupport wavpack
+    ++ optional monkeysAudioSupport monkeysAudio ++ [ cdparanoia ];
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \
@@ -38,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A graphical Audio CD ripper and encoder for Linux";
-    homepage = http://littlesvr.ca/asunder/index.php;
+    homepage = "http://littlesvr.ca/asunder/index.php";
     license = licenses.gpl2;
     maintainers = with maintainers; [ mudri ];
     platforms = platforms.linux;

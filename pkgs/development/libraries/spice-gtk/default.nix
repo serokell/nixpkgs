@@ -1,37 +1,5 @@
-{ stdenv
-, fetchurl
-, pkgconfig
-, meson
-, ninja
-, python3
-, spice-protocol
-, gettext
-, openssl
-, pixman
-, gobject-introspection
-, libjpeg_turbo
-, zlib
-, cyrus_sasl
-, usbredir
-, libsoup
-, polkit
-, acl
-, usbutils
-, vala
-, gtk3
-, epoxy
-, libdrm
-, gst_all_1
-, phodav
-, libopus
-, gtk-doc
-, json-glib
-, lz4
-, libcacard
-, perl
-, docbook_xsl
-, withPolkit ? true
-}:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, python3, spice-protocol, gettext, openssl, pixman, gobject-introspection, libjpeg_turbo, zlib, cyrus_sasl, usbredir, libsoup, polkit, acl, usbutils, vala, gtk3, epoxy, libdrm, gst_all_1, phodav, libopus, gtk-doc, json-glib, lz4, libcacard, perl, docbook_xsl, withPolkit ?
+  true }:
 
 # If this package is built with polkit support (withPolkit=true),
 # usb redirection reqires spice-client-glib-usb-acl-helper to run setuid root.
@@ -61,7 +29,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" "man" ];
 
   src = fetchurl {
-    url = "https://www.spice-space.org/download/gtk/${pname}-${version}.tar.bz2";
+    url =
+      "https://www.spice-space.org/download/gtk/${pname}-${version}.tar.bz2";
     sha256 = "1drvj8y35gnxbnrxsipwi15yh0vs9ixzv4wslz6r3lra8w3bfa0z";
   };
 
@@ -87,9 +56,8 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  propagatedBuildInputs = [
-    gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good
-  ];
+  propagatedBuildInputs =
+    [ gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good ];
 
   buildInputs = [
     cyrus_sasl
@@ -107,9 +75,10 @@ stdenv.mkDerivation rec {
     spice-protocol
     usbredir
     zlib
-  ] ++ stdenv.lib.optionals withPolkit [ polkit acl usbutils ] ;
+  ] ++ stdenv.lib.optionals withPolkit [ polkit acl usbutils ];
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${placeholder "out"}/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
+    "${placeholder "out"}/share/polkit-1/actions";
 
   mesonFlags = [
     "-Dcelt051=disabled"
@@ -125,7 +94,7 @@ stdenv.mkDerivation rec {
       Python bindings are available too.
     '';
 
-    homepage = https://www.spice-space.org/;
+    homepage = "https://www.spice-space.org/";
     license = licenses.lgpl21;
     maintainers = [ maintainers.xeji ];
     platforms = platforms.linux;

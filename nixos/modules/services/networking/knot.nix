@@ -8,11 +8,11 @@ let
   configFile = pkgs.writeText "knot.conf" cfg.extraConfig;
   socketFile = "/run/knot/knot.sock";
 
-  knotConfCheck = file: pkgs.runCommand "knot-config-checked"
-    { buildInputs = [ cfg.package ]; } ''
-    ln -s ${configFile} $out
-    knotc --config=${configFile} conf-check
-  '';
+  knotConfCheck = file:
+    pkgs.runCommand "knot-config-checked" { buildInputs = [ cfg.package ]; } ''
+      ln -s ${configFile} $out
+      knotc --config=${configFile} conf-check
+    '';
 
   knot-cli-wrappers = pkgs.stdenv.mkDerivation {
     name = "knot-cli-wrappers";
@@ -39,7 +39,7 @@ in {
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           List of additional command line paramters for knotd
         '';
@@ -65,15 +65,18 @@ in {
 
   config = mkIf config.services.knot.enable {
     systemd.services.knot = {
-      unitConfig.Documentation = "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
+      unitConfig.Documentation =
+        "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
       description = cfg.package.meta.description;
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
-      after = ["network.target" ];
+      after = [ "network.target" ];
 
       serviceConfig = {
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/knotd --config=${knotConfCheck configFile} --socket=${socketFile} ${concatStringsSep " " cfg.extraArgs}";
+        ExecStart = "${cfg.package}/bin/knotd --config=${
+          knotConfCheck configFile
+          } --socket=${socketFile} ${concatStringsSep " " cfg.extraArgs}";
         ExecReload = "${knot-cli-wrappers}/bin/knotc reload";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE CAP_SETPCAP";
         AmbientCapabilities = "CAP_NET_BIND_SERVICE CAP_SETPCAP";

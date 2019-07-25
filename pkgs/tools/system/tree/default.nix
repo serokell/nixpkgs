@@ -21,9 +21,8 @@ let
       LDFLAGS=-s
       EXTRA_OBJS=strverscmp.o
     '' else
-    ""; # use linux flags by default
-in
-stdenv.mkDerivation {
+      ""; # use linux flags by default
+in stdenv.mkDerivation {
   name = "tree-${version}";
 
   src = fetchurl {
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = http://mama.indstate.edu/users/ice/tree/;
+    homepage = "http://mama.indstate.edu/users/ice/tree/";
     description = "Command to produce a depth indented directory listing";
     license = stdenv.lib.licenses.gpl2;
 
@@ -53,6 +52,6 @@ stdenv.mkDerivation {
     '';
 
     platforms = stdenv.lib.platforms.all;
-    maintainers = [stdenv.lib.maintainers.peti];
+    maintainers = [ stdenv.lib.maintainers.peti ];
   };
 }

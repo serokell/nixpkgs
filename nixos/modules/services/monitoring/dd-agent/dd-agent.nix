@@ -23,7 +23,8 @@ let
     # proxy_password: password
 
     # tags: mytag0, mytag1
-    ${optionalString (cfg.tags != null ) "tags: ${concatStringsSep ", " cfg.tags }"}
+    ${optionalString (cfg.tags != null)
+    "tags: ${concatStringsSep ", " cfg.tags}"}
 
     # collect_ec2_tags: no
     # recent_point_threshold: 30
@@ -75,41 +76,39 @@ let
   jmxConfig = pkgs.writeText "jmx.yaml" cfg.jmxConfig;
   processConfig = pkgs.writeText "process.yaml" cfg.processConfig;
 
-  etcfiles =
-    let
-      defaultConfd = import ./dd-agent-defaults.nix;
-    in (map (f: { source = "${pkgs.dd-agent}/agent/conf.d-system/${f}";
-                  target = "dd-agent/conf.d/${f}";
-                }) defaultConfd) ++ [
-      { source = ddConf;
+  etcfiles = let defaultConfd = import ./dd-agent-defaults.nix;
+    in (map (f: {
+      source = "${pkgs.dd-agent}/agent/conf.d-system/${f}";
+      target = "dd-agent/conf.d/${f}";
+    }) defaultConfd) ++ [
+      {
+        source = ddConf;
         target = "dd-agent/datadog.conf";
       }
-      { source = diskConfig;
+      {
+        source = diskConfig;
         target = "dd-agent/conf.d/disk.yaml";
       }
-      { source = networkConfig;
+      {
+        source = networkConfig;
         target = "dd-agent/conf.d/network.yaml";
-      } ] ++
-    (optional (cfg.postgresqlConfig != null)
-      { source = postgresqlConfig;
-        target = "dd-agent/conf.d/postgres.yaml";
-      }) ++
-    (optional (cfg.nginxConfig != null)
-      { source = nginxConfig;
-        target = "dd-agent/conf.d/nginx.yaml";
-      }) ++
-    (optional (cfg.mongoConfig != null)
-      { source = mongoConfig;
-        target = "dd-agent/conf.d/mongo.yaml";
-      }) ++
-    (optional (cfg.processConfig != null)
-      { source = processConfig;
-        target = "dd-agent/conf.d/process.yaml";
-      }) ++
-    (optional (cfg.jmxConfig != null)
-      { source = jmxConfig;
-        target = "dd-agent/conf.d/jmx.yaml";
-      });
+      }
+    ] ++ (optional (cfg.postgresqlConfig != null) {
+      source = postgresqlConfig;
+      target = "dd-agent/conf.d/postgres.yaml";
+    }) ++ (optional (cfg.nginxConfig != null) {
+      source = nginxConfig;
+      target = "dd-agent/conf.d/nginx.yaml";
+    }) ++ (optional (cfg.mongoConfig != null) {
+      source = mongoConfig;
+      target = "dd-agent/conf.d/mongo.yaml";
+    }) ++ (optional (cfg.processConfig != null) {
+      source = processConfig;
+      target = "dd-agent/conf.d/process.yaml";
+    }) ++ (optional (cfg.jmxConfig != null) {
+      source = jmxConfig;
+      target = "dd-agent/conf.d/jmx.yaml";
+    });
 
 in {
   options.services.dd-agent = {
@@ -198,41 +197,54 @@ in {
     users.groups.datadog.gid = config.ids.gids.datadog;
 
     systemd.services = let
-      makeService = attrs: recursiveUpdate {
-        path = [ pkgs.dd-agent pkgs.python pkgs.sysstat pkgs.procps pkgs.gohai ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          User = "datadog";
-          Group = "datadog";
-          Restart = "always";
-          RestartSec = 2;
-          PrivateTmp = true;
+      makeService = attrs:
+        recursiveUpdate {
+          path =
+            [ pkgs.dd-agent pkgs.python pkgs.sysstat pkgs.procps pkgs.gohai ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            User = "datadog";
+            Group = "datadog";
+            Restart = "always";
+            RestartSec = 2;
+            PrivateTmp = true;
+          };
+          restartTriggers = [
+            pkgs.dd-agent
+            ddConf
+            diskConfig
+            networkConfig
+            postgresqlConfig
+            nginxConfig
+            mongoConfig
+            jmxConfig
+            processConfig
+          ];
+        } attrs;
+      in {
+        dd-agent = makeService {
+          description = "Datadog agent monitor";
+          serviceConfig.ExecStart = "${pkgs.dd-agent}/bin/dd-agent foreground";
         };
-        restartTriggers = [ pkgs.dd-agent ddConf diskConfig networkConfig postgresqlConfig nginxConfig mongoConfig jmxConfig processConfig ];
-      } attrs;
-    in {
-      dd-agent = makeService {
-        description = "Datadog agent monitor";
-        serviceConfig.ExecStart = "${pkgs.dd-agent}/bin/dd-agent foreground";
-      };
 
-      dogstatsd = makeService {
-        description = "Datadog statsd";
-        environment.TMPDIR = "/run/dogstatsd";
-        serviceConfig = {
-          ExecStart = "${pkgs.dd-agent}/bin/dogstatsd start";
-          Type = "forking";
-          PIDFile = "/run/dogstatsd/dogstatsd.pid";
-          RuntimeDirectory = "dogstatsd";
+        dogstatsd = makeService {
+          description = "Datadog statsd";
+          environment.TMPDIR = "/run/dogstatsd";
+          serviceConfig = {
+            ExecStart = "${pkgs.dd-agent}/bin/dogstatsd start";
+            Type = "forking";
+            PIDFile = "/run/dogstatsd/dogstatsd.pid";
+            RuntimeDirectory = "dogstatsd";
+          };
+        };
+
+        dd-jmxfetch = lib.mkIf (cfg.jmxConfig != null) {
+          description = "Datadog JMX Fetcher";
+          path =
+            [ pkgs.dd-agent pkgs.python pkgs.sysstat pkgs.procps pkgs.jdk ];
+          serviceConfig.ExecStart = "${pkgs.dd-agent}/bin/dd-jmxfetch";
         };
       };
-
-      dd-jmxfetch = lib.mkIf (cfg.jmxConfig != null) {
-        description = "Datadog JMX Fetcher";
-        path = [ pkgs.dd-agent pkgs.python pkgs.sysstat pkgs.procps pkgs.jdk ];
-        serviceConfig.ExecStart = "${pkgs.dd-agent}/bin/dd-jmxfetch";
-      };
-    };
 
     environment.etc = etcfiles;
   };

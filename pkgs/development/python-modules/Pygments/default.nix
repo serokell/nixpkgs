@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils }:
 
 buildPythonPackage rec {
   pname = "Pygments";
@@ -19,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = http://pygments.org/;
+    homepage = "http://pygments.org/";
     description = "A generic syntax highlighter";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ ];

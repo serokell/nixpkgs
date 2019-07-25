@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2019-07-17";
 
   src = fetchgit {
-    url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
+    url =
+      "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git";
     rev = "20190717";
     sha256 = "1dcaqdqyffxiadx420pg20157wqidz0c0ca5mrgyfxgrbh6a4mdj";
   };
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Binary firmware collection packaged by kernel.org";
-    homepage = http://packages.debian.org/sid/firmware-linux-nonfree;
+    homepage = "http://packages.debian.org/sid/firmware-linux-nonfree";
     license = licenses.unfreeRedistributableFirmware;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

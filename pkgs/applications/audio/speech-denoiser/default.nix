@@ -14,11 +14,15 @@ let
     src = speech-denoiser-src;
     sourceRoot = "source/rnnoise";
     nativeBuildInputs = [ autoreconfHook ];
-    configureFlags = [ "--disable-examples" "--disable-doc" "--disable-shared" "--enable-static" ];
+    configureFlags = [
+      "--disable-examples"
+      "--disable-doc"
+      "--disable-shared"
+      "--enable-static"
+    ];
     installTargets = [ "install-rnnoise-nu" ];
   };
-in
-stdenv.mkDerivation  rec {
+in stdenv.mkDerivation rec {
   pname = "speech-denoiser";
   version = "unstable-07-10-2019";
 
@@ -34,7 +38,7 @@ stdenv.mkDerivation  rec {
 
   meta = with stdenv.lib; {
     description = "Speech denoise lv2 plugin based on RNNoise library";
-    homepage = https://github.com/lucianodato/speech-denoiser;
+    homepage = "https://github.com/lucianodato/speech-denoiser";
     license = licenses.lgpl3;
     maintainers = [ maintainers.magnetophon ];
     platforms = platforms.linux;

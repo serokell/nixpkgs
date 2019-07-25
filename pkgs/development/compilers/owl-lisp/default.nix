@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub, coreutils, which }:
 
 stdenv.mkDerivation rec {
-  name    = "owl-lisp-${version}";
+  name = "owl-lisp-${version}";
   version = "0.1.16";
 
   src = fetchFromGitHub {
-    owner  = "aoh";
-    repo   = "owl-lisp";
-    rev    = "v${version}";
+    owner = "aoh";
+    repo = "owl-lisp";
+    rev = "v${version}";
     sha256 = "1qp6p48bmlyn83rqi6k3d098dg4cribavg5rd4x17z37i181vxvj";
   };
 
@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A functional lisp";
-    homepage    = https://github.com/aoh/owl-lisp;
-    license     = licenses.mit;
+    homepage = "https://github.com/aoh/owl-lisp";
+    license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };
 }

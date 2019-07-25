@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, libX11, xorgproto, imake, gccmakedep, libXt, libXmu
-, libXaw, libXext, libSM, libICE, libXpm, libXp
+{ stdenv, fetchurl, libX11, xorgproto, imake, gccmakedep, libXt, libXmu, libXaw, libXext, libSM, libICE, libXpm, libXp
 }:
 
 stdenv.mkDerivation rec {
@@ -13,10 +12,8 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   nativeBuildInputs = [ imake gccmakedep ];
-  buildInputs = [
-    libX11 xorgproto libXt libXmu libXaw
-    libXext libSM libICE libXpm libXp
-  ];
+  buildInputs =
+    [ libX11 xorgproto libXt libXmu libXaw libXext libSM libICE libXpm libXp ];
 
   makeFlags = [
     "BINDIR=${placeholder "out"}/bin"
@@ -26,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "VNC recorder";
-    homepage = http://ronja.twibright.com/utils/vncrec/;
+    homepage = "http://ronja.twibright.com/utils/vncrec/";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2;
   };

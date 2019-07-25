@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "1.22.0";
 
   src = fetchurl {
-    url = "http://pub.mate-desktop.org/releases/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "http://pub.mate-desktop.org/releases/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1ribgcwl4ncfbcf9bkcbxrgc7yzajdnxg12837psngymkqswlp6a";
   };
 
@@ -21,8 +23,9 @@ stdenv.mkDerivation rec {
   preFixup = "rm -f $out/share/icons/mate/icon-theme.cache";
 
   meta = with stdenv.lib; {
-    description = "Library to access weather information from online services for MATE";
-    homepage = https://github.com/mate-desktop/libmateweather;
+    description =
+      "Library to access weather information from online services for MATE";
+    homepage = "https://github.com/mate-desktop/libmateweather";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

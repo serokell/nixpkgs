@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
-, boost, bison, curl, ncurses, openssl, xxd
-, libaio, libev, libgcrypt, libgpgerror, libtool, zlib
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, bison, curl, ncurses, openssl, xxd, libaio, libev, libgcrypt, libgpgerror, libtool, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -17,8 +15,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
-    boost bison curl ncurses openssl xxd
-    libaio libev libgcrypt libgpgerror libtool zlib
+    boost
+    bison
+    curl
+    ncurses
+    openssl
+    xxd
+    libaio
+    libev
+    libgcrypt
+    libgpgerror
+    libtool
+    zlib
   ];
 
   cmakeFlags = [
@@ -37,7 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Non-blocking backup tool for MySQL";
-    homepage = http://www.percona.com/software/percona-xtrabackup;
+    homepage = "http://www.percona.com/software/percona-xtrabackup";
     license = licenses.lgpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ izorkin ];

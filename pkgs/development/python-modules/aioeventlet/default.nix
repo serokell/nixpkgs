@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, eventlet
-, trollius
-, mock
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, eventlet, trollius, mock, python }:
 
 buildPythonPackage rec {
   pname = "aioeventlet";
@@ -27,8 +20,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "aioeventlet implements the asyncio API (PEP 3156) on top of eventlet. It makes";
-    homepage = https://aioeventlet.readthedocs.org/;
+    description =
+      "aioeventlet implements the asyncio API (PEP 3156) on top of eventlet. It makes";
+    homepage = "https://aioeventlet.readthedocs.org/";
     license = licenses.asl20;
   };
 

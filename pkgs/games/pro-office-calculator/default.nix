@@ -4,9 +4,9 @@ stdenv.mkDerivation rec {
   name = "pro-office-calculator-${version}";
 
   src = fetchFromGitHub {
-    owner  = "RobJinman";
-    repo   = "pro_office_calc";
-    rev    = "v${version}";
+    owner = "RobJinman";
+    repo = "pro_office_calc";
+    rev = "v${version}";
     sha256 = "1v75cysargmp4fk7px5zgib1p6h5ya4w39rndbzk614fcnv0iipd";
   };
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Just an ordinary calculator. Nothing to see here...";
-    homepage = https://proofficecalculator.com/;
+    homepage = "https://proofficecalculator.com/";
     maintainers = [ maintainers.pmiddend ];
     platforms = platforms.linux;
     license = licenses.gpl3;

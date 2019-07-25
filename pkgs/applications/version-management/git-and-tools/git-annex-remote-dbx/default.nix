@@ -1,10 +1,4 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
-, dropbox
-, annexremote
-, humanfriendly
-}:
+{ lib, buildPythonApplication, fetchPypi, dropbox, annexremote, humanfriendly }:
 
 buildPythonApplication rec {
   pname = "git-annex-remote-dbx";
@@ -19,7 +13,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description = "A git-annex special remote for Dropbox";
-    homepage = https://pypi.org/project/git-annex-remote-dbx/;
+    homepage = "https://pypi.org/project/git-annex-remote-dbx/";
     license = licenses.mit;
   };
 }

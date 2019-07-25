@@ -6,32 +6,31 @@ let
 
   cfg = config.services.postgresqlBackup;
 
-  postgresqlBackupService = db: dumpCmd:
-    {
-      enable = true;
+  postgresqlBackupService = db: dumpCmd: {
+    enable = true;
 
-      description = "Backup of ${db} database(s)";
+    description = "Backup of ${db} database(s)";
 
-      requires = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
 
-      script = ''
-        umask 0077 # ensure backup is only readable by postgres user
+    script = ''
+      umask 0077 # ensure backup is only readable by postgres user
 
-        if [ -e ${cfg.location}/${db}.sql.gz ]; then
-          ${pkgs.coreutils}/bin/mv ${cfg.location}/${db}.sql.gz ${cfg.location}/${db}.prev.sql.gz
-        fi
+      if [ -e ${cfg.location}/${db}.sql.gz ]; then
+        ${pkgs.coreutils}/bin/mv ${cfg.location}/${db}.sql.gz ${cfg.location}/${db}.prev.sql.gz
+      fi
 
-        ${dumpCmd} | \
-          ${pkgs.gzip}/bin/gzip -c > ${cfg.location}/${db}.sql.gz
-      '';
+      ${dumpCmd} | \
+        ${pkgs.gzip}/bin/gzip -c > ${cfg.location}/${db}.sql.gz
+    '';
 
-      serviceConfig = {
-        Type = "oneshot";
-        User = "postgres";
-      };
-
-      startAt = cfg.startAt;
+    serviceConfig = {
+      Type = "oneshot";
+      User = "postgres";
     };
+
+    startAt = cfg.startAt;
+  };
 
 in {
 
@@ -54,7 +53,7 @@ in {
       };
 
       backupAll = mkOption {
-        default = cfg.databases == [];
+        default = cfg.databases == [ ];
         defaultText = "services.postgresqlBackup.databases == []";
         type = lib.types.bool;
         description = ''
@@ -67,7 +66,7 @@ in {
       };
 
       databases = mkOption {
-        default = [];
+        default = [ ];
         description = ''
           List of database names to dump.
         '';
@@ -97,23 +96,23 @@ in {
   config = mkMerge [
     {
       assertions = [{
-        assertion = cfg.backupAll -> cfg.databases == [];
-        message = "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
+        assertion = cfg.backupAll -> cfg.databases == [ ];
+        message =
+          "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
       }];
     }
     (mkIf cfg.enable {
-      systemd.tmpfiles.rules = [
-        "d '${cfg.location}' 0700 postgres - - -"
-      ];
+      systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ];
     })
     (mkIf (cfg.enable && cfg.backupAll) {
-      systemd.services.postgresqlBackup =
-        postgresqlBackupService "all" "${config.services.postgresql.package}/bin/pg_dumpall";
+      systemd.services.postgresqlBackup = postgresqlBackupService "all"
+        "${config.services.postgresql.package}/bin/pg_dumpall";
     })
     (mkIf (cfg.enable && !cfg.backupAll) {
       systemd.services = listToAttrs (map (db:
         let
-          cmd = "${config.services.postgresql.package}/bin/pg_dump ${cfg.pgdumpOptions} ${db}";
+          cmd =
+            "${config.services.postgresql.package}/bin/pg_dump ${cfg.pgdumpOptions} ${db}";
         in {
           name = "postgresqlBackup-${db}";
           value = postgresqlBackupService db cmd;

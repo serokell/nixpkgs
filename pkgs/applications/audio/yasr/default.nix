@@ -1,4 +1,4 @@
-{stdenv,fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "yasr-${version}";
@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.6.9";
 
   src = fetchurl {
-    url = "https://sourceforge.net/projects/yasr/files/yasr/${version}/${name}.tar.gz";
+    url =
+      "https://sourceforge.net/projects/yasr/files/yasr/${version}/${name}.tar.gz";
     sha256 = "1prv9r9y6jb5ga5578ldiw507fa414m60xhlvjl29278p3x7rwa1";
   };
 
@@ -18,9 +19,10 @@ stdenv.mkDerivation rec {
   ]; # taken from the debian yasr package
 
   meta = {
-    homepage = http://yasr.sourceforge.net;
+    homepage = "http://yasr.sourceforge.net";
     description = "A general-purpose console screen reader";
-    longDescription = "Yasr is a general-purpose console screen reader for GNU/Linux and other Unix-like operating systems.";
+    longDescription =
+      "Yasr is a general-purpose console screen reader for GNU/Linux and other Unix-like operating systems.";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ jhhuh ];

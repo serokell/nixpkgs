@@ -18,9 +18,7 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.mate;
 
-in
-
-{
+in {
   options = {
 
     services.xserver.desktopManager.mate = {
@@ -34,10 +32,11 @@ in
     };
 
     environment.mate.excludePackages = mkOption {
-      default = [];
+      default = [ ];
       example = literalExample "[ pkgs.mate.mate-terminal pkgs.mate.pluma ]";
       type = types.listOf types.package;
-      description = "Which MATE packages to exclude from the default environment";
+      description =
+        "Which MATE packages to exclude from the default environment";
     };
 
   };
@@ -64,9 +63,7 @@ in
           if [ -d "${p}/lib/caja/extensions-2.0" ]; then
             ${addToXDGDirs p}
           fi
-          '')
-          config.environment.systemPackages
-        }
+        '') config.environment.systemPackages}
 
         # Let mate-panel find applets
         export MATE_PANEL_APPLETS_DIR=$MATE_PANEL_APPLETS_DIR''${MATE_PANEL_APPLETS_DIR:+:}${config.system.path}/share/mate-panel/applets
@@ -75,17 +72,16 @@ in
         # Add mate-control-center paths to some XDG variables because its schemas are needed by mate-settings-daemon, and mate-settings-daemon is a dependency for mate-control-center (that is, they are mutually recursive)
         ${addToXDGDirs pkgs.mate.mate-control-center}
 
-        ${pkgs.mate.mate-session-manager}/bin/mate-session ${optionalString cfg.debug "--debug"} &
+        ${pkgs.mate.mate-session-manager}/bin/mate-session ${
+          optionalString cfg.debug "--debug"
+        } &
         waitPID=$!
       '';
     };
 
-    environment.systemPackages =
-      pkgs.mate.basePackages ++
-      (pkgs.gnome3.removePackagesByName
-        pkgs.mate.extraPackages
-        config.environment.mate.excludePackages) ++
-      [
+    environment.systemPackages = pkgs.mate.basePackages
+      ++ (pkgs.gnome3.removePackagesByName pkgs.mate.extraPackages
+      config.environment.mate.excludePackages) ++ [
         pkgs.desktop-file-utils
         pkgs.glib
         pkgs.gtk3.out
@@ -97,13 +93,15 @@ in
     services.gnome3.at-spi2-core.enable = true;
     services.gnome3.gnome-keyring.enable = true;
     services.gnome3.gnome-settings-daemon.enable = true;
-    services.gnome3.gnome-settings-daemon.package = pkgs.mate.mate-settings-daemon;
+    services.gnome3.gnome-settings-daemon.package =
+      pkgs.mate.mate-settings-daemon;
     services.gnome3.gvfs.enable = true;
     services.upower.enable = config.powerManagement.enable;
 
     security.pam.services."mate-screensaver".unixAuth = true;
 
-    environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
+    environment.variables.GIO_EXTRA_MODULES =
+      [ "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
 
     environment.pathsToLink = [ "/share" ];
   };

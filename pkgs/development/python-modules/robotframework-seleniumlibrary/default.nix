@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, python, robotframework, selenium, mockito, robotstatuschecker, approvaltests }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, robotframework, selenium, mockito, robotstatuschecker, approvaltests
+}:
 
 buildPythonPackage rec {
   version = "3.3.1";
@@ -23,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Web testing library for Robot Framework";
-    homepage = https://github.com/robotframework/SeleniumLibrary;
+    homepage = "https://github.com/robotframework/SeleniumLibrary";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];
   };

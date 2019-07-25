@@ -7,9 +7,8 @@ with lib;
 let
   memtest86 = pkgs.memtest86plus;
   cfg = config.boot.loader.grub.memtest86;
-in
 
-{
+in {
   options = {
 
     boot.loader.grub.memtest86 = {
@@ -24,7 +23,7 @@ in
       };
 
       params = mkOption {
-        default = [];
+        default = [ ];
         example = [ "console=ttyS0,115200" ];
         type = types.listOf types.str;
         description = ''
@@ -78,13 +77,11 @@ in
   config = mkIf cfg.enable {
 
     boot.loader.grub.extraEntries =
-      if config.boot.loader.grub.version == 2 then
-        ''
-          menuentry "Memtest86+" {
-            linux16 @bootRoot@/memtest.bin ${toString cfg.params}
-          }
-        ''
-      else
+      if config.boot.loader.grub.version == 2 then ''
+        menuentry "Memtest86+" {
+          linux16 @bootRoot@/memtest.bin ${toString cfg.params}
+        }
+      '' else
         throw "Memtest86+ is not supported with GRUB 1.";
 
     boot.loader.grub.extraFiles."memtest.bin" = "${memtest86}/memtest.bin";

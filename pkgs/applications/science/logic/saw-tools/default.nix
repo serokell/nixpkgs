@@ -1,29 +1,24 @@
 { stdenv, fetchurl, gmp4, ncurses, zlib, clang_35 }:
 
 let
-  libPath = stdenv.lib.makeLibraryPath
-    [ stdenv.cc.libc
-      stdenv.cc.cc
-      gmp4
-      ncurses
-      zlib
-    ] + ":${stdenv.cc.cc.lib}/lib64";
+  libPath =
+    stdenv.lib.makeLibraryPath [ stdenv.cc.libc stdenv.cc.cc gmp4 ncurses zlib ]
+    + ":${stdenv.cc.cc.lib}/lib64";
 
   url = "https://github.com/GaloisInc/saw-script/releases/download";
 
-  saw-bin =
-    if stdenv.hostPlatform.system == "i686-linux"
-    then fetchurl {
-      url    = url + "/v0.1.1-dev/saw-0.1.1-dev-2015-07-31-CentOS6-32.tar.gz";
+  saw-bin = if stdenv.hostPlatform.system == "i686-linux" then
+    fetchurl {
+      url = url + "/v0.1.1-dev/saw-0.1.1-dev-2015-07-31-CentOS6-32.tar.gz";
       sha256 = "126iag5nnvndi78c921z7vjrjfwcspn1hlxwwhzmqm4rvbhhr9v9";
     }
-    else fetchurl {
-      url    = url + "/v0.1.1-dev/saw-0.1.1-dev-2015-07-31-CentOS6-64.tar.gz";
+  else
+    fetchurl {
+      url = url + "/v0.1.1-dev/saw-0.1.1-dev-2015-07-31-CentOS6-64.tar.gz";
       sha256 = "07gyf319v6ama6n1aj96403as04bixi8mbisfy7f7va689zklflr";
     };
-in
-stdenv.mkDerivation rec {
-  name    = "saw-tools-${version}";
+in stdenv.mkDerivation rec {
+  name = "saw-tools-${version}";
   version = "0.1.1-20150731";
 
   src = saw-bin;
@@ -53,9 +48,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Tools for software verification and analysis";
-    homepage    = "https://saw.galois.com";
-    license     = stdenv.lib.licenses.unfreeRedistributable;
-    platforms   = stdenv.lib.platforms.linux;
+    homepage = "https://saw.galois.com";
+    license = stdenv.lib.licenses.unfreeRedistributable;
+    platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

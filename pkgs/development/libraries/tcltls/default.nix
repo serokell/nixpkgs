@@ -21,12 +21,10 @@ stdenv.mkDerivation rec {
     configureFlags="--exec_prefix=$prefix $configureFlags"
   '';
 
-  passthru = {
-    libPrefix = "tls${version}";
-  };
+  passthru = { libPrefix = "tls${version}"; };
 
   meta = {
-    homepage = http://tls.sourceforge.net/;
+    homepage = "http://tls.sourceforge.net/";
     description = "An OpenSSL / RSA-bsafe Tcl extension";
     license = stdenv.lib.licenses.tcltk;
     platforms = stdenv.lib.platforms.unix;

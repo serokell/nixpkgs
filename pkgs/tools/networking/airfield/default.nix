@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub
-, pkgs, makeWrapper, buildEnv
-, nodejs, runtimeShell
-}:
+{ stdenv, fetchFromGitHub, pkgs, makeWrapper, buildEnv, nodejs, runtimeShell }:
 
 let
   nodePackages = import ./node.nix {
@@ -12,9 +9,13 @@ let
   runtimeEnv = buildEnv {
     name = "airfield-runtime";
     paths = with nodePackages; [
-      nodePackages."express-3.0.5" nodePackages."swig-0.14.0"
-      nodePackages."consolidate-0.10.0" redis connect-redis
-      async request
+      nodePackages."express-3.0.5"
+      nodePackages."swig-0.14.0"
+      nodePackages."consolidate-0.10.0"
+      redis
+      connect-redis
+      async
+      request
     ];
   };
 
@@ -63,7 +64,7 @@ in stdenv.mkDerivation {
   meta = with stdenv.lib; {
     description = "A web-interface for hipache-proxy";
     license = licenses.mit;
-    homepage = https://github.com/emblica/airfield;
+    homepage = "https://github.com/emblica/airfield";
     maintainers = with maintainers; [ offline ma27 ];
     platforms = platforms.linux;
   };

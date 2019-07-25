@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "Twiggy";
@@ -15,10 +12,11 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://twiggy.wearpants.org;
+    homepage = "http://twiggy.wearpants.org";
     # Taken from http://i.wearpants.org/blog/meet-twiggy/
-    description = "Twiggy is the first totally new design for a logger since log4j";
-    license     = licenses.bsd3;
+    description =
+      "Twiggy is the first totally new design for a logger since log4j";
+    license = licenses.bsd3;
     maintainers = with maintainers; [ pierron ];
   };
 

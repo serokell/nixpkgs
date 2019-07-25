@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm
-, tempora, six, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, tempora, six, pytest }:
 
 buildPythonPackage rec {
   pname = "jaraco.logging";
@@ -23,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Support for Python logging facility";
-    homepage = https://github.com/jaraco/jaraco.logging;
+    homepage = "https://github.com/jaraco/jaraco.logging";
     license = licenses.mit;
   };
 }

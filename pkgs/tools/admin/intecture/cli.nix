@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, rustPlatform
-, openssl, zeromq, czmq, pkgconfig, cmake, zlib }:
+{ lib, fetchFromGitHub, rustPlatform, openssl, zeromq, czmq, pkgconfig, cmake, zlib
+}:
 
 with rustPlatform;
 
@@ -24,8 +24,9 @@ buildRustPackage rec {
   USER = "$(whoami)";
 
   meta = with lib; {
-    description = "A developer friendly, language agnostic configuration management tool for server systems";
-    homepage = https://intecture.io;
+    description =
+      "A developer friendly, language agnostic configuration management tool for server systems";
+    homepage = "https://intecture.io";
     license = licenses.mpl20;
     maintainers = [ maintainers.rushmorem ];
   };

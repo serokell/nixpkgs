@@ -19,13 +19,11 @@ stdenv.mkDerivation rec {
     sed -i 's/CXXFLAGS = -g -O2/CXXFLAGS = -g -O2 -nostartfiles/' Makefile
   '';
 
-  configureFlags = [
-    "--disable-debug"
-  ];
+  configureFlags = [ "--disable-debug" ];
 
   meta = with stdenv.lib; {
     description = "Database administration tool for Firebird RDBMS";
-    homepage = https://github.com/mariuz/flamerobin;
+    homepage = "https://github.com/mariuz/flamerobin";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ uralbash ];
     platforms = platforms.unix;

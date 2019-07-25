@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
-, pbr, six, futures, monotonic
-, pytest, sphinx, tornado
+{ lib, buildPythonPackage, fetchPypi, isPy27, pbr, six, futures, monotonic, pytest, sphinx, tornado
 }:
 
 buildPythonPackage rec {
@@ -13,8 +11,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pbr ];
-  propagatedBuildInputs = [ six ]
-    ++ lib.optionals isPy27 [ futures monotonic ];
+  propagatedBuildInputs = [ six ] ++ lib.optionals isPy27 [ futures monotonic ];
 
   checkInputs = [ pytest sphinx tornado ];
   checkPhase = (if isPy27 then ''
@@ -26,7 +23,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/jd/tenacity;
+    homepage = "https://github.com/jd/tenacity";
     description = "Retrying library for Python";
     license = licenses.asl20;
     maintainers = with maintainers; [ jakewaksbaum ];

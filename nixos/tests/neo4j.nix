@@ -2,12 +2,11 @@ import ./make-test.nix {
   name = "neo4j";
 
   nodes = {
-    master =
-      { ... }:
+    master = { ... }:
 
-      {
-        services.neo4j.enable = true;
-      };
+    {
+      services.neo4j.enable = true;
+    };
   };
 
   testScript = ''

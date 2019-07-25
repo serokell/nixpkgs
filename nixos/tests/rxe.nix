@@ -1,7 +1,7 @@
-import ./make-test.nix ({ ... } :
+import ./make-test.nix ({ ... }:
 
 let
-  node = { pkgs, ... } : {
+  node = { pkgs, ... }: {
     networking = {
       firewall = {
         allowedUDPPorts = [ 4791 ]; # open RoCE port
@@ -49,5 +49,4 @@ in {
     $client->succeed("sleep 2; rping -c -a server -C 10");
   '';
 })
-
 

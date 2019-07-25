@@ -7,7 +7,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/prometheus/collectd_exporter";
 
-  src= fetchFromGitHub {
+  src = fetchFromGitHub {
     inherit rev;
     owner = "prometheus";
     repo = "collectd_exporter";
@@ -15,8 +15,9 @@ buildGoPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Relay server for exporting metrics from collectd to Prometheus";
-    homepage = https://github.com/prometheus/collectd_exporter;
+    description =
+      "Relay server for exporting metrics from collectd to Prometheus";
+    homepage = "https://github.com/prometheus/collectd_exporter";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley fpletz ];
     platforms = platforms.unix;

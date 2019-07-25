@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, SDL2, SDL2_mixer, alsaLib, libpng, pcre }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, SDL2, SDL2_mixer, alsaLib, libpng, pcre
+}:
 
 stdenv.mkDerivation rec {
 
@@ -16,10 +17,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ SDL2 SDL2_mixer alsaLib libpng pcre ];
 
-  hardeningDisable = ["all"];
+  hardeningDisable = [ "all" ];
 
   # Enable wizard mode
-  cmakeFlags = ["-DCMAKE_CXX_FLAGS=-DWIZARD"];
+  cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-DWIZARD" ];
 
   # Help CMake find SDL_mixer.h
   NIX_CFLAGS_COMPILE = "-I${SDL2_mixer}/include/SDL2";
@@ -33,9 +34,9 @@ stdenv.mkDerivation rec {
 
       This is a fan continuation of IVAN by members of Attnam.com
     '';
-    homepage = https://attnam.com/;
+    homepage = "https://attnam.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [freepotion];
+    maintainers = with maintainers; [ freepotion ];
   };
 }

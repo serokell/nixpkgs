@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, aiger
-}:
+{ stdenv, fetchFromGitHub, aiger }:
 
 stdenv.mkDerivation rec {
   name = "lingeling-${version}";
@@ -9,9 +7,9 @@ stdenv.mkDerivation rec {
   version = "pre1_03b4860d";
 
   src = fetchFromGitHub {
-    owner  = "arminbiere";
-    repo   = "lingeling";
-    rev    = "03b4860d14016f42213ea271014f2f13d181f504";
+    owner = "arminbiere";
+    repo = "lingeling";
+    rev = "03b4860d14016f42213ea271014f2f13d181f504";
     sha256 = "1lw1yfy219p7rrk88sbq4zl24b70040zapbjdrpv5a6i0jsblksx";
   };
 
@@ -41,9 +39,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Fast SAT solver";
-    homepage    = http://fmv.jku.at/lingeling/;
-    license     = licenses.mit;
-    platforms   = platforms.linux;
+    homepage = "http://fmv.jku.at/lingeling/";
+    license = licenses.mit;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }

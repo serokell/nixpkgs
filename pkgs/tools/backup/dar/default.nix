@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, zlib, bzip2, openssl, attr, lzo, libgcrypt, e2fsprogs, gpgme, xz }:
+{ stdenv, fetchurl, zlib, bzip2, openssl, attr, lzo, libgcrypt, e2fsprogs, gpgme, xz
+}:
 
 with stdenv.lib;
 
@@ -31,8 +32,9 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = {
-    homepage = http://dar.linux.free.fr;
-    description = "Disk ARchiver, allows backing up files into indexed archives";
+    homepage = "http://dar.linux.free.fr";
+    description =
+      "Disk ARchiver, allows backing up files into indexed archives";
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

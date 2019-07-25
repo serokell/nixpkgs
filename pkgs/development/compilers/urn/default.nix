@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitLab, buildEnv, makeWrapper, lua, luajit, readline
-, useLuaJit ? false
-, extraLibraries ? []
-}:
+{ stdenv, fetchFromGitLab, buildEnv, makeWrapper, lua, luajit, readline, useLuaJit ?
+  false, extraLibraries ? [ ] }:
 
 let
   version = "0.7.2";
@@ -11,17 +9,14 @@ let
   urn-rt = buildEnv {
     name = "urn-rt-${version}";
     ignoreCollisions = true;
-    paths = if useLuaJit then
-              [ luajit readline ]
-            else
-              [ lua ];
+    paths = if useLuaJit then [ luajit readline ] else [ lua ];
   };
 
   inherit (stdenv.lib) optionalString concatMapStringsSep;
-in
 
-stdenv.mkDerivation rec {
-  name = "urn-${optionalString (extraLibraries != []) "with-libraries-"}${version}";
+in stdenv.mkDerivation rec {
+  name =
+    "urn-${optionalString (extraLibraries != [ ]) "with-libraries-"}${version}";
 
   src = fetchFromGitLab {
     owner = "urn";
@@ -35,7 +30,7 @@ stdenv.mkDerivation rec {
   # dependency on the Urn runtime support.
   propagatedBuildInputs = [ urn-rt ];
 
-  makeFlags = ["-B"];
+  makeFlags = [ "-B" ];
 
   installPhase = ''
     mkdir -p $out/bin $out/lib
@@ -43,19 +38,19 @@ stdenv.mkDerivation rec {
     cp -r lib $out/lib/urn
     wrapProgram $out/bin/urn \
       --add-flags "-i $out/lib/urn --prelude $out/lib/urn/prelude.lisp" \
-      --add-flags "${concatMapStringsSep " " (x: "-i ${x.libraryPath}") extraLibraries}" \
+      --add-flags "${
+      concatMapStringsSep " " (x: "-i ${x.libraryPath}") extraLibraries
+      }" \
       --prefix PATH : ${urn-rt}/bin/ \
       --prefix LD_LIBRARY_PATH : ${urn-rt}/lib/
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://urn-lang.com;
+    homepage = "https://urn-lang.com";
     description = "Yet another Lisp variant which compiles to Lua";
     license = licenses.bsd3;
     maintainers = with maintainers; [ CrazedProgrammer ];
   };
 
-  passthru = {
-    inherit urn-rt;
-  };
+  passthru = { inherit urn-rt; };
 }

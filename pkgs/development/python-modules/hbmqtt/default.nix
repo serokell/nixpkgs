@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
-, transitions, websockets, passlib, docopt, pyyaml, nose }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, transitions, websockets, passlib, docopt, pyyaml, nose
+}:
 
 buildPythonPackage rec {
   pname = "hbmqtt";
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/beerfactory/hbmqtt;
+    homepage = "https://github.com/beerfactory/hbmqtt";
     description = "MQTT client/broker using Python asynchronous I/O";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

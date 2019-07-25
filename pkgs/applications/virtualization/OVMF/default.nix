@@ -14,9 +14,8 @@ let
   version = (builtins.parseDrvName edk2.name).version;
 
   src = edk2.src;
-in
 
-stdenv.mkDerivation (edk2.setup projectDscPath {
+in stdenv.mkDerivation (edk2.setup projectDscPath {
   name = "OVMF-${version}";
 
   inherit src;
@@ -24,7 +23,8 @@ stdenv.mkDerivation (edk2.setup projectDscPath {
   outputs = [ "out" "fd" ];
 
   # TODO: properly include openssl for secureBoot
-  buildInputs = [nasm iasl] ++ stdenv.lib.optionals (secureBoot == true) [ openssl ];
+  buildInputs = [ nasm iasl ]
+    ++ stdenv.lib.optionals (secureBoot == true) [ openssl ];
 
   hardeningDisable = [ "stackprotector" "pic" "fortify" ];
 
@@ -45,11 +45,11 @@ stdenv.mkDerivation (edk2.setup projectDscPath {
       ln -sv ${src}/EmbeddedPkg .
       ln -sv ${src}/OvmfPkg .
     '' else if seabios != null then ''
-        cp -r ${src}/OvmfPkg .
-        chmod +w OvmfPkg/Csm/Csm16
-        cp ${seabios}/Csm16.bin OvmfPkg/Csm/Csm16/Csm16.bin
+      cp -r ${src}/OvmfPkg .
+      chmod +w OvmfPkg/Csm/Csm16
+      cp ${seabios}/Csm16.bin OvmfPkg/Csm/Csm16/Csm16.bin
     '' else ''
-        ln -sv ${src}/OvmfPkg .
+      ln -sv ${src}/OvmfPkg .
     ''}
 
     ${lib.optionalString secureBoot ''
@@ -59,12 +59,16 @@ stdenv.mkDerivation (edk2.setup projectDscPath {
   '';
 
   buildPhase = if stdenv.isAarch64 then ''
-      build -n $NIX_BUILD_CORES
-    '' else if seabios == null then ''
-      build -n $NIX_BUILD_CORES ${lib.optionalString secureBoot "-DSECURE_BOOT_ENABLE=TRUE"}
-    '' else ''
-      build -n $NIX_BUILD_CORES -D CSM_ENABLE -D FD_SIZE_2MB ${lib.optionalString secureBoot "-DSECURE_BOOT_ENABLE=TRUE"}
-    '';
+    build -n $NIX_BUILD_CORES
+  '' else if seabios == null then ''
+    build -n $NIX_BUILD_CORES ${
+      lib.optionalString secureBoot "-DSECURE_BOOT_ENABLE=TRUE"
+    }
+  '' else ''
+    build -n $NIX_BUILD_CORES -D CSM_ENABLE -D FD_SIZE_2MB ${
+      lib.optionalString secureBoot "-DSECURE_BOOT_ENABLE=TRUE"
+    }
+  '';
 
   postFixup = if stdenv.isAarch64 then ''
     mkdir -vp $fd/FV
@@ -85,8 +89,8 @@ stdenv.mkDerivation (edk2.setup projectDscPath {
 
   meta = {
     description = "Sample UEFI firmware for QEMU and KVM";
-    homepage = https://github.com/tianocore/tianocore.github.io/wiki/OVMF;
+    homepage = "https://github.com/tianocore/tianocore.github.io/wiki/OVMF";
     license = stdenv.lib.licenses.bsd2;
-    platforms = ["x86_64-linux" "i686-linux" "aarch64-linux"];
+    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
   };
 })

@@ -1,6 +1,4 @@
-{ stdenv, lib, fetchFromGitHub
-, gcc-arm-embedded, binutils-arm-embedded, libftdi
-, python, pythonPackages
+{ stdenv, lib, fetchFromGitHub, gcc-arm-embedded, binutils-arm-embedded, libftdi, python, pythonPackages
 }:
 
 with lib;
@@ -17,15 +15,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    gcc-arm-embedded binutils-arm-embedded
-  ];
+  nativeBuildInputs = [ gcc-arm-embedded binutils-arm-embedded ];
 
-  buildInputs = [
-    libftdi
-    python
-    pythonPackages.intelhex
-  ];
+  buildInputs = [ libftdi python pythonPackages.intelhex ];
 
   postPatch = ''
     # Prevent calling out to `git' to generate a version number:
@@ -54,7 +46,7 @@ stdenv.mkDerivation rec {
       directory.  It also places the FTDI version of the blackmagic
       executable in the bin directory.
     '';
-    homepage = https://github.com/blacksphere/blackmagic;
+    homepage = "https://github.com/blacksphere/blackmagic";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pjones ];
     platforms = platforms.unix;

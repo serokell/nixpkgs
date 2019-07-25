@@ -1,10 +1,7 @@
-{ stdenv, fetchurl
-, pkgconfig, gettext, pythonPackages
-, gtk2, gdk_pixbuf, upower
-, makeWrapper }:
+{ stdenv, fetchurl, pkgconfig, gettext, pythonPackages, gtk2, gdk_pixbuf, upower, makeWrapper
+}:
 
-let
-  inherit (pythonPackages) dbus-python pygtk python;
+let inherit (pythonPackages) dbus-python pygtk python;
 in stdenv.mkDerivation rec {
 
   name = "batti-${version}";
@@ -15,8 +12,17 @@ in stdenv.mkDerivation rec {
     sha256 = "072d92gpsiiin631589nj77i2w1425p6db0qxyml7myscfy9jgx6";
   };
 
-  buildInputs = with stdenv.lib;
-  [ pkgconfig gettext python gtk2 pygtk dbus-python gdk_pixbuf upower makeWrapper ];
+  buildInputs = with stdenv.lib; [
+    pkgconfig
+    gettext
+    python
+    gtk2
+    pygtk
+    dbus-python
+    gdk_pixbuf
+    upower
+    makeWrapper
+  ];
 
   dontConfigure = true;
 
@@ -32,7 +38,6 @@ in stdenv.mkDerivation rec {
       --prefix XDG_DATA_DIRS : "$out/share:$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH"
   '';
 
-
   meta = with stdenv.lib; {
     description = "An {UPower,GTK}-based battery monitor for the system tray";
     longDescription = ''
@@ -40,11 +45,12 @@ in stdenv.mkDerivation rec {
       uses UPower, and if that is missing DeviceKit.Power, for it's
       power information.
     '';
-    homepage = http://batti-gtk.googlecode.com/;
+    homepage = "http://batti-gtk.googlecode.com/";
     license = licenses.lgpl2Plus;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;
-    broken = true;  # see https://github.com/NixOS/nixpkgs/pull/4031#issuecomment-56283520
+    broken =
+      true; # see https://github.com/NixOS/nixpkgs/pull/4031#issuecomment-56283520
   };
 }
 

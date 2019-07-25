@@ -1,12 +1,8 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "novacomd";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ dtzWill ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ dtzWill ]; };
 
-  machine = { ... }: {
-    services.novacomd.enable = true;
-  };
+  machine = { ... }: { services.novacomd.enable = true; };
 
   testScript = ''
     $machine->waitForUnit("multi-user.target");

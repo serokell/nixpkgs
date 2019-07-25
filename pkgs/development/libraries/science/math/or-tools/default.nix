@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, abseil-cpp, google-gflags, which
-, lsb-release, glog, protobuf, cbc, zlib
-, ensureNewerSourcesForZipFilesHook, python, swig
-, pythonProtobuf }:
+{ stdenv, fetchFromGitHub, cmake, abseil-cpp, google-gflags, which, lsb-release, glog, protobuf, cbc, zlib, ensureNewerSourcesForZipFilesHook, python, swig, pythonProtobuf
+}:
 
 stdenv.mkDerivation rec {
   name = "or-tools-${version}";
@@ -45,13 +43,24 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    cmake lsb-release swig which zlib python
+    cmake
+    lsb-release
+    swig
+    which
+    zlib
+    python
     ensureNewerSourcesForZipFilesHook
-    python.pkgs.setuptools python.pkgs.wheel
+    python.pkgs.setuptools
+    python.pkgs.wheel
   ];
   propagatedBuildInputs = [
-    abseil-cpp google-gflags glog protobuf cbc
-    pythonProtobuf python.pkgs.six
+    abseil-cpp
+    google-gflags
+    glog
+    protobuf
+    cbc
+    pythonProtobuf
+    python.pkgs.six
   ];
 
   enableParallelBuilding = true;
@@ -59,7 +68,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "python" ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/google/or-tools;
+    homepage = "https://github.com/google/or-tools";
     license = licenses.asl20;
     description = ''
       Google's software suite for combinatorial optimization.

@@ -15,7 +15,17 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   propagatedBuildInputs = with python3.pkgs; [
-    requests netdisco click click-log tabulate jsonpath_rw jinja2 dateparser regex ruamel_yaml aiohttp
+    requests
+    netdisco
+    click
+    click-log
+    tabulate
+    jsonpath_rw
+    jinja2
+    dateparser
+    regex
+    ruamel_yaml
+    aiohttp
   ];
 
   postInstall = ''
@@ -24,9 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     $out/bin/hass-cli completion zsh > "$out/share/zsh/site-functions/_hass-cli"
   '';
 
-  checkInputs = with python3.pkgs; [
-    pytest requests-mock
-  ];
+  checkInputs = with python3.pkgs; [ pytest requests-mock ];
 
   checkPhase = ''
     pytest
@@ -34,7 +42,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Command-line tool for Home Asssistant";
-    homepage = https://github.com/home-assistant/home-assistant-cli;
+    homepage = "https://github.com/home-assistant/home-assistant-cli";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
   };

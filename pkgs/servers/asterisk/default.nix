@@ -1,95 +1,110 @@
-{ stdenv, lib, fetchurl, fetchsvn,
-  jansson, libedit, libxml2, libxslt, ncurses, openssl, sqlite,
-  utillinux, dmidecode, libuuid, newt,
-  lua, speex,
-  srtp, wget, curl, iksemel, pkgconfig
+{ stdenv, lib, fetchurl, fetchsvn, jansson, libedit, libxml2, libxslt, ncurses, openssl, sqlite, utillinux, dmidecode, libuuid, newt, lua, speex, srtp, wget, curl, iksemel, pkgconfig
 }:
 
 let
-  common = {version, sha256, externals}: stdenv.mkDerivation rec {
-    inherit version;
-    name = "asterisk-${version}";
+  common = { version, sha256, externals }:
+    stdenv.mkDerivation rec {
+      inherit version;
+      name = "asterisk-${version}";
 
-    buildInputs = [ jansson libedit libxml2 libxslt ncurses openssl sqlite
-                    dmidecode libuuid newt
-                    lua speex
-                    srtp wget curl iksemel ];
-    nativeBuildInputs = [ utillinux pkgconfig ];
+      buildInputs = [
+        jansson
+        libedit
+        libxml2
+        libxslt
+        ncurses
+        openssl
+        sqlite
+        dmidecode
+        libuuid
+        newt
+        lua
+        speex
+        srtp
+        wget
+        curl
+        iksemel
+      ];
+      nativeBuildInputs = [ utillinux pkgconfig ];
 
-    patches = [
-      # We want the Makefile to install the default /var skeleton
-      # under ${out}/var but we also want to use /var at runtime.
-      # This patch changes the runtime behavior to look for state
-      # directories in /var rather than ${out}/var.
-      ./runtime-vardirs.patch
-    ];
+      patches = [
+        # We want the Makefile to install the default /var skeleton
+        # under ${out}/var but we also want to use /var at runtime.
+        # This patch changes the runtime behavior to look for state
+        # directories in /var rather than ${out}/var.
+        ./runtime-vardirs.patch
+      ];
 
-    # Disable MD5 verification for pjsip
-    postPatch = ''
-      sed -i 's|$(verify_tarball)|true|' third-party/pjproject/Makefile
-    '';
+      # Disable MD5 verification for pjsip
+      postPatch = ''
+        sed -i 's|$(verify_tarball)|true|' third-party/pjproject/Makefile
+      '';
 
-    src = fetchurl {
-      url = "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${version}.tar.gz";
-      inherit sha256;
+      src = fetchurl {
+        url =
+          "https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${version}.tar.gz";
+        inherit sha256;
+      };
+
+      # The default libdir is $PREFIX/usr/lib, which causes problems when paths
+      # compiled into Asterisk expect ${out}/usr/lib rather than ${out}/lib.
+
+      # Copy in externals to avoid them being downloaded;
+      # they have to be copied, because the modification date is checked.
+      # If you are getting a permission denied error on this dir,
+      # you're likely missing an automatically downloaded dependency
+      preConfigure = ''
+        mkdir externals_cache
+
+        ${lib.concatStringsSep "\n"
+        (lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}")
+        externals)}
+
+        ${lib.optionalString (externals ? "addons/mp3")
+        "bash contrib/scripts/get_mp3_source.sh || true"}
+
+        chmod -w externals_cache
+      '';
+      configureFlags = [
+        "--libdir=\${out}/lib"
+        "--with-lua=${lua}/lib"
+        "--with-pjproject-bundled"
+        "--with-externals-cache=$(PWD)/externals_cache"
+      ];
+
+      preBuild = ''
+        make menuselect.makeopts
+        ${lib.optionalString (externals ? "addons/mp3") ''
+          substituteInPlace menuselect.makeopts --replace 'format_mp3 ' ""
+        ''}
+      '';
+
+      postInstall = ''
+        # Install sample configuration files for this version of Asterisk
+        make samples
+      '';
+
+      meta = with stdenv.lib; {
+        description =
+          "Software implementation of a telephone private branch exchange (PBX)";
+        homepage = "https://www.asterisk.org/";
+        license = licenses.gpl2;
+        maintainers = with maintainers; [ auntie DerTim1 yorickvp ];
+      };
     };
-
-    # The default libdir is $PREFIX/usr/lib, which causes problems when paths
-    # compiled into Asterisk expect ${out}/usr/lib rather than ${out}/lib.
-
-    # Copy in externals to avoid them being downloaded;
-    # they have to be copied, because the modification date is checked.
-    # If you are getting a permission denied error on this dir,
-    # you're likely missing an automatically downloaded dependency
-    preConfigure = ''
-      mkdir externals_cache
-
-      ${lib.concatStringsSep "\n"
-        (lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}") externals)}
-
-      ${lib.optionalString (externals ? "addons/mp3") "bash contrib/scripts/get_mp3_source.sh || true"}
-
-      chmod -w externals_cache
-    '';
-    configureFlags = [
-      "--libdir=\${out}/lib"
-      "--with-lua=${lua}/lib"
-      "--with-pjproject-bundled"
-      "--with-externals-cache=$(PWD)/externals_cache"
-    ];
-
-    preBuild = ''
-      make menuselect.makeopts
-      ${lib.optionalString (externals ? "addons/mp3") ''
-        substituteInPlace menuselect.makeopts --replace 'format_mp3 ' ""
-      ''}
-    '';
-
-    postInstall = ''
-      # Install sample configuration files for this version of Asterisk
-      make samples
-    '';
-
-    meta = with stdenv.lib; {
-      description = "Software implementation of a telephone private branch exchange (PBX)";
-      homepage = https://www.asterisk.org/;
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ auntie DerTim1 yorickvp ];
-    };
-  };
 
   pjproject_2_7_1 = fetchurl {
-    url = https://www.pjsip.org/release/2.7.1/pjproject-2.7.1.tar.bz2;
+    url = "https://www.pjsip.org/release/2.7.1/pjproject-2.7.1.tar.bz2";
     sha256 = "09ii5hgl5s7grx4fiimcl3s77i385h7b3kwpfa2q0arbl1ibryjr";
   };
 
   pjproject_2_8 = fetchurl {
-    url = https://www.pjsip.org/release/2.8/pjproject-2.8.tar.bz2;
+    url = "https://www.pjsip.org/release/2.8/pjproject-2.8.tar.bz2";
     sha256 = "0ybg0113rp3fk49rm2v0pcgqb28h3dv1pdy9594w2ggiz7bhngah";
   };
 
   mp3-202 = fetchsvn {
-    url = http://svn.digium.com/svn/thirdparty/mp3/trunk;
+    url = "http://svn.digium.com/svn/thirdparty/mp3/trunk";
     rev = "202";
     sha256 = "1s9idx2miwk178sa731ig9r4fzx4gy1q8xazfqyd7q4lfd70s1cy";
   };

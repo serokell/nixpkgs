@@ -1,15 +1,13 @@
-{ stdenv, fetchFromGitHub
-, bmake
-}:
+{ stdenv, fetchFromGitHub, bmake }:
 
 stdenv.mkDerivation rec {
-  name    = "libfsm-${version}";
+  name = "libfsm-${version}";
   version = "0.1pre1869_${builtins.substring 0 7 src.rev}";
 
   src = fetchFromGitHub {
-    owner  = "katef";
-    repo   = "libfsm";
-    rev    = "f70c3c5778a79eeecb52f9fd35c7cbc241db0ed6";
+    owner = "katef";
+    repo = "libfsm";
+    rev = "f70c3c5778a79eeecb52f9fd35c7cbc241db0ed6";
     sha256 = "1hgv272jdv6dwnsdjajyky537z84q0cwzspw9br46qj51h8gkwvx";
     fetchSubmodules = true;
   };
@@ -45,9 +43,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "DFA regular expression library & friends";
-    homepage    = "https://github.com/katef/libfsm";
-    license     = licenses.bsd2;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/katef/libfsm";
+    license = licenses.bsd2;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }

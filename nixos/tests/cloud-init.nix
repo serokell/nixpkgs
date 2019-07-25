@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -27,23 +25,19 @@ let
           - "should be a key!"
       EOF
       ${pkgs.cdrkit}/bin/genisoimage -volid cidata -joliet -rock -o $out/metadata.iso $out/iso
-      '';
+    '';
   };
 in makeTest {
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ lewo ];
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ lewo ]; };
+  machine = { ... }: {
+    virtualisation.qemu.options = [ "-cdrom" "${metadataDrive}/metadata.iso" ];
+    services.cloud-init.enable = true;
   };
-  machine =
-    { ... }:
-    {
-      virtualisation.qemu.options = [ "-cdrom" "${metadataDrive}/metadata.iso" ];
-      services.cloud-init.enable = true;
-    };
   testScript = ''
-     $machine->start;
-     $machine->waitForUnit("cloud-init.service");
-     $machine->succeed("cat /tmp/cloudinit-write-file | grep -q 'cloudinit'");
+    $machine->start;
+    $machine->waitForUnit("cloud-init.service");
+    $machine->succeed("cat /tmp/cloudinit-write-file | grep -q 'cloudinit'");
 
-     $machine->waitUntilSucceeds("cat /root/.ssh/authorized_keys | grep -q 'should be a key!'");
+    $machine->waitUntilSucceeds("cat /root/.ssh/authorized_keys | grep -q 'should be a key!'");
   '';
 }

@@ -1,28 +1,31 @@
-{ fetchurl, stdenv, libGLU_combined, freeglut, libX11, plib, openal, freealut, libXrandr, xorgproto,
-libXext, libSM, libICE, libXi, libXt, libXrender, libXxf86vm, openscenegraph, expat,
-libpng, zlib, bash, SDL2, enet, libjpeg, cmake, pkgconfig, libvorbis, runtimeShell }:
+{ fetchurl, stdenv, libGLU_combined, freeglut, libX11, plib, openal, freealut, libXrandr, xorgproto, libXext, libSM, libICE, libXi, libXt, libXrender, libXxf86vm, openscenegraph, expat, libpng, zlib, bash, SDL2, enet, libjpeg, cmake, pkgconfig, libvorbis, runtimeShell
+}:
 
 stdenv.mkDerivation rec {
   version = "2.2.1-r6404";
   name = "speed-dreams-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-base-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-base-${version}.tar.xz";
     sha256 = "0347sk8xbdsyvl48qybbycd7hvzsx5b37zzjx1yx73nzddhmlpbx";
   };
 
   cars-and-tracks = fetchurl {
-    url = "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-hq-cars-and-tracks-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-hq-cars-and-tracks-${version}.tar.xz";
     sha256 = "1h50l110n42nrq6j3kcyhi3swgmrjcg979vb6h0zsf46afwv0z3q";
   };
 
   more-cars-and-tracks = fetchurl {
-    url = "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-more-hq-cars-and-tracks-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-more-hq-cars-and-tracks-${version}.tar.xz";
     sha256 = "03m3gwd03jqgsfjdglzmrv613cp4gh50i63fwmnwl282zhxydcwd";
   };
 
   wip-cars-and-tracks = fetchurl {
-    url = "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-wip-cars-and-tracks-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/speed-dreams/2.2.1/speed-dreams-src-wip-cars-and-tracks-${version}.tar.xz";
     sha256 = "0ysk756rd294xzpwvmjh0mb229ngzrc4ry9lpyhyak98rbcp9hxm";
   };
 
@@ -60,16 +63,40 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig cmake ];
 
-  buildInputs = [ libpng libGLU_combined freeglut libX11 plib openal freealut libXrandr xorgproto
-    libXext libSM libICE libXi libXt libXrender libXxf86vm zlib bash expat
-    SDL2 enet libjpeg openscenegraph libvorbis ];
+  buildInputs = [
+    libpng
+    libGLU_combined
+    freeglut
+    libX11
+    plib
+    openal
+    freealut
+    libXrandr
+    xorgproto
+    libXext
+    libSM
+    libICE
+    libXi
+    libXt
+    libXrender
+    libXxf86vm
+    zlib
+    bash
+    expat
+    SDL2
+    enet
+    libjpeg
+    openscenegraph
+    libvorbis
+  ];
 
   meta = {
-    description = "Car racing game - TORCS fork with more experimental approach";
-    homepage = http://speed-dreams.sourceforge.net/;
+    description =
+      "Car racing game - TORCS fork with more experimental approach";
+    homepage = "http://speed-dreams.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = with stdenv.lib.maintainers; [raskin];
+    maintainers = with stdenv.lib.maintainers; [ raskin ];
     platforms = stdenv.lib.platforms.linux;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

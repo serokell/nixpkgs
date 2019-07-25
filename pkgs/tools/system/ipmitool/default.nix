@@ -3,8 +3,7 @@
 let
   pkgname = "ipmitool";
   version = "1.8.18";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${pkgname}-${version}";
 
   src = fetchurl {
@@ -22,16 +21,21 @@ stdenv.mkDerivation {
     configureFlagsArray=(
       --infodir=$out/share/info
       --mandir=$out/share/man
-      ${if static then "LDFLAGS=-static --enable-static --disable-shared" else "--enable-shared"}
+      ${
+      if static then
+        "LDFLAGS=-static --enable-static --disable-shared"
+      else
+        "--enable-shared"
+      }
     )
   '';
   makeFlags = if static then "AM_LDFLAGS=-all-static" else "";
   dontDisableStatic = static;
 
   meta = with lib; {
-    description = ''Command-line interface to IPMI-enabled devices'';
+    description = "Command-line interface to IPMI-enabled devices";
     license = licenses.bsd3;
-    homepage = https://sourceforge.net/projects/ipmitool/;
+    homepage = "https://sourceforge.net/projects/ipmitool/";
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];
   };

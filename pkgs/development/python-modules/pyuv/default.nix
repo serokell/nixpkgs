@@ -1,13 +1,9 @@
-{ stdenv
-, buildPythonPackage
-, isPyPy
-, pkgs
-}:
+{ stdenv, buildPythonPackage, isPyPy, pkgs }:
 
 buildPythonPackage rec {
   pname = "pyuv";
   version = "1.2.0";
-  disabled = isPyPy;  # see https://github.com/saghul/pyuv/issues/49
+  disabled = isPyPy; # see https://github.com/saghul/pyuv/issues/49
 
   src = pkgs.fetchurl {
     url = "https://github.com/saghul/pyuv/archive/${pname}-${version}.tar.gz";
@@ -20,8 +16,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python interface for libuv";
-    homepage = https://github.com/saghul/pyuv;
-    repositories.git = git://github.com/saghul/pyuv.git;
+    homepage = "https://github.com/saghul/pyuv";
+    repositories.git = "git://github.com/saghul/pyuv.git";
     license = licenses.mit;
   };
 

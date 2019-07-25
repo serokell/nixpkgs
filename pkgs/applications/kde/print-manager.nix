@@ -1,10 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules,
-  cups, ki18n,
-  kconfig, kconfigwidgets, kdbusaddons, kiconthemes, kcmutils, kio,
-  knotifications, kwidgetsaddons, kwindowsystem, kitemviews, plasma-framework,
-  qtdeclarative
+{ mkDerivation, lib, extra-cmake-modules, cups, ki18n, kconfig, kconfigwidgets, kdbusaddons, kiconthemes, kcmutils, kio, knotifications, kwidgetsaddons, kwindowsystem, kitemviews, plasma-framework, qtdeclarative
 }:
 
 mkDerivation {
@@ -16,8 +10,18 @@ mkDerivation {
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ cups ki18n ];
   propagatedBuildInputs = [
-    kconfig kconfigwidgets kdbusaddons kiconthemes kcmutils knotifications
-    kwidgetsaddons kitemviews kio kwindowsystem plasma-framework qtdeclarative
+    kconfig
+    kconfigwidgets
+    kdbusaddons
+    kiconthemes
+    kcmutils
+    knotifications
+    kwidgetsaddons
+    kitemviews
+    kio
+    kwindowsystem
+    plasma-framework
+    qtdeclarative
   ];
   outputs = [ "out" "dev" ];
 }

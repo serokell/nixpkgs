@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, clang, libclang, pkgconfig }:
+{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, clang, libclang, pkgconfig
+}:
 
 rustPlatform.buildRustPackage rec {
   name = "pijul-${version}";
@@ -20,7 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   LIBCLANG_PATH = libclang + "/lib";
 
-  buildInputs = [ openssl libsodium nettle libclang ] ++ stdenv.lib.optionals stdenv.isDarwin
+  buildInputs = [ openssl libsodium nettle libclang ]
+    ++ stdenv.lib.optionals stdenv.isDarwin
     (with darwin.apple_sdk.frameworks; [ CoreServices Security ]);
 
   doCheck = false;
@@ -29,7 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A distributed version control system";
-    homepage = https://pijul.org;
+    homepage = "https://pijul.org";
     license = with licenses; [ gpl2Plus ];
     maintainers = [ maintainers.gal_bolle ];
     platforms = platforms.all;

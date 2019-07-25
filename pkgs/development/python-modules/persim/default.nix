@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, scikitlearn
-, numpy
-, matplotlib
-, scipy
-, hopcroftkarp
-, pytest
+{ lib, buildPythonPackage, fetchPypi, scikitlearn, numpy, matplotlib, scipy, hopcroftkarp, pytest
 }:
 
 buildPythonPackage rec {
@@ -18,17 +10,9 @@ buildPythonPackage rec {
     sha256 = "52ce59856de25eec74c6f20951301b13e7d98c434e712d2225653e2087d54fbc";
   };
 
-  propagatedBuildInputs = [
-    scikitlearn
-    numpy
-    matplotlib
-    scipy
-    hopcroftkarp
-  ];
+  propagatedBuildInputs = [ scikitlearn numpy matplotlib scipy hopcroftkarp ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     # specifically needed for darwin
@@ -43,7 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Distances and representations of persistence diagrams";
-    homepage = https://persim.scikit-tda.org;
+    homepage = "https://persim.scikit-tda.org";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

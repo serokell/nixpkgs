@@ -16,13 +16,12 @@ buildGoPackage rec {
     sha256 = "0v45lwjw2phavhi6m4ql49ri1423m249a6xcf00v9hi2x1y9dh6q";
   };
 
-  goDeps = if stdenv.isDarwin
-           then ./deps-darwin.nix
-           else ./deps-linux.nix;
+  goDeps = if stdenv.isDarwin then ./deps-darwin.nix else ./deps-linux.nix;
 
   meta = {
-    description = "Like cURL, but for gRPC: Command-line tool for interacting with gRPC servers";
-    homepage = https://github.com/fullstorydev/grpcurl;
+    description =
+      "Like cURL, but for gRPC: Command-line tool for interacting with gRPC servers";
+    homepage = "https://github.com/fullstorydev/grpcurl";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ knl ];
   };

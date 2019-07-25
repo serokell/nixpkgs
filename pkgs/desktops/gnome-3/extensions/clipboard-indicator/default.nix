@@ -19,10 +19,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Adds a clipboard indicator to the top panel and saves clipboard history";
+    description =
+      "Adds a clipboard indicator to the top panel and saves clipboard history";
     license = licenses.mit;
     maintainers = with maintainers; [ jonafato ];
     platforms = platforms.linux;
-    homepage = https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator;
+    homepage =
+      "https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator";
   };
 }

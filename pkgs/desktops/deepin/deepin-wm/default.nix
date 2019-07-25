@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, vala, gnome3,
-  dbus, bamf, clutter-gtk, pantheon, libgee, libcanberra-gtk3,
-  libwnck3, deepin-menu, deepin-mutter, deepin-wallpapers,
-  deepin-desktop-schemas, wrapGAppsHook, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, vala, gnome3, dbus, bamf, clutter-gtk, pantheon, libgee, libcanberra-gtk3, libwnck3, deepin-menu, deepin-mutter, deepin-wallpapers, deepin-desktop-schemas, wrapGAppsHook, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -68,7 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin Window Manager";
-    homepage = https://github.com/linuxdeepin/deepin-wm;
+    homepage = "https://github.com/linuxdeepin/deepin-wm";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

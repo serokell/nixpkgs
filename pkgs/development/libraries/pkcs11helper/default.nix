@@ -17,9 +17,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/OpenSC/pkcs11-helper;
+    homepage = "https://github.com/OpenSC/pkcs11-helper";
     license = with licenses; [ bsd3 gpl2 ];
-    description = "Library that simplifies the interaction with PKCS#11 providers";
+    description =
+      "Library that simplifies the interaction with PKCS#11 providers";
     platforms = platforms.unix;
   };
 }

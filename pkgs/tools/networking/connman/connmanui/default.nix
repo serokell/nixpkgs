@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, autoconf, automake, libtool, glib, gtk3, dbus, pkgconfig, file, intltool, connman }:
+{ stdenv, fetchgit, autoconf, automake, libtool, glib, gtk3, dbus, pkgconfig, file, intltool, connman
+}:
 
 stdenv.mkDerivation rec {
   name = "connmanui-${version}";
@@ -12,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ autoconf automake libtool glib gtk3 dbus file intltool connman ];
+  buildInputs =
+    [ autoconf automake libtool glib gtk3 dbus file intltool connman ];
 
   preConfigure = ''
     rm m4/intltool.m4
@@ -26,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A full-featured GTK based trayicon UI for ConnMan";
-    homepage = https://github.com/tbursztyka/connman-ui;
+    homepage = "https://github.com/tbursztyka/connman-ui";
     maintainers = [ stdenv.lib.maintainers.matejc ];
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2;

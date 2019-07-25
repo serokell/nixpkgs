@@ -17,11 +17,7 @@ pythonPackages.buildPythonApplication rec {
       --replace "'scripts': []" "'scripts': { '${pname}.py' }"
   '';
 
-  propagatedBuildInputs = with pythonPackages; [
-    pycares
-    urllib3
-    requests
-  ];
+  propagatedBuildInputs = with pythonPackages; [ pycares urllib3 requests ];
 
   meta = with stdenv.lib; {
     description = "Extract, defang, resolve names and IPs from text";

@@ -1,4 +1,4 @@
-{lib, fetchPypi, python, buildPythonPackage, gfortran, nose, pytest, numpy}:
+{ lib, fetchPypi, python, buildPythonPackage, gfortran, nose, pytest, numpy }:
 
 buildPythonPackage rec {
   pname = "scipy";
@@ -42,15 +42,14 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  passthru = {
-    blas = numpy.blas;
-  };
+  passthru = { blas = numpy.blas; };
 
   setupPyBuildFlags = [ "--fcompiler='gnu95'" ];
 
   meta = {
-    description = "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering. ";
-    homepage = https://www.scipy.org/;
+    description =
+      "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering. ";
+    homepage = "https://www.scipy.org/";
     maintainers = with lib.maintainers; [ fridh ];
   };
 }

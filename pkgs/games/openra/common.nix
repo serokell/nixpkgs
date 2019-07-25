@@ -1,10 +1,7 @@
-/*  The reusable code, and package attributes, between OpenRA engine packages (engine.nix)
+/* The reusable code, and package attributes, between OpenRA engine packages (engine.nix)
     and out-of-tree mod packages (mod.nix).
 */
-{ stdenv, makeSetupHook, curl, unzip, dos2unix, pkgconfig, makeWrapper
-, lua, mono, dotnetPackages, python
-, libGL, freetype, openal, SDL2
-, zenity
+{ stdenv, makeSetupHook, curl, unzip, dos2unix, pkgconfig, makeWrapper, lua, mono, dotnetPackages, python, libGL, freetype, openal, SDL2, zenity
 }:
 
 with stdenv.lib;
@@ -38,36 +35,27 @@ in {
   '';
 
   packageAttrs = {
-    buildInputs = with dotnetPackages; [
-      FuzzyLogicLibrary
-      MaxMindDb
-      MaxMindGeoIP2
-      MonoNat
-      NewtonsoftJson
-      NUnit3
-      NUnitConsole
-      OpenNAT
-      RestSharp
-      SharpFont
-      SharpZipLib
-      SmartIrc4net
-      StyleCopMSBuild
-      StyleCopPlusMSBuild
-    ] ++ [
-      libGL
-    ];
+    buildInputs = with dotnetPackages;
+      [
+        FuzzyLogicLibrary
+        MaxMindDb
+        MaxMindGeoIP2
+        MonoNat
+        NewtonsoftJson
+        NUnit3
+        NUnitConsole
+        OpenNAT
+        RestSharp
+        SharpFont
+        SharpZipLib
+        SmartIrc4net
+        StyleCopMSBuild
+        StyleCopPlusMSBuild
+      ] ++ [ libGL ];
 
     # TODO: Test if this is correct.
-    nativeBuildInputs = [
-      curl
-      unzip
-      dos2unix
-      pkgconfig
-      makeWrapper
-      mkdirp
-      mono
-      python
-    ];
+    nativeBuildInputs =
+      [ curl unzip dos2unix pkgconfig makeWrapper mkdirp mono python ];
 
     makeFlags = "prefix=$(out)";
 

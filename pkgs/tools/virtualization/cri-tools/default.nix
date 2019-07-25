@@ -1,7 +1,6 @@
 { buildGoPackage, fetchFromGitHub, lib }:
 
-buildGoPackage
-rec {
+buildGoPackage rec {
   pname = "cri-tools";
   version = "1.14.0";
   src = fetchFromGitHub {
@@ -15,8 +14,9 @@ rec {
   subPackages = [ "cmd/crictl" "cmd/critest" ];
 
   meta = {
-    description = "CLI and validation tools for Kubelet Container Runtime Interface (CRI)";
-    homepage = https://github.com/kubernetes-sigs/cri-tools;
+    description =
+      "CLI and validation tools for Kubelet Container Runtime Interface (CRI)";
+    homepage = "https://github.com/kubernetes-sigs/cri-tools";
     license = lib.licenses.asl20;
   };
 }

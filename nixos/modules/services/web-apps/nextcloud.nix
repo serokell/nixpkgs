@@ -9,13 +9,16 @@ let
   phpPackages = pkgs.php73Packages;
 
   toKeyValue = generators.toKeyValue {
-    mkKeyValue = generators.mkKeyValueDefault {} " = ";
+    mkKeyValue = generators.mkKeyValueDefault { } " = ";
   };
 
   phpOptionsExtensions = ''
-    ${optionalString cfg.caching.apcu "extension=${phpPackages.apcu}/lib/php/extensions/apcu.so"}
-    ${optionalString cfg.caching.redis "extension=${phpPackages.redis}/lib/php/extensions/redis.so"}
-    ${optionalString cfg.caching.memcached "extension=${phpPackages.memcached}/lib/php/extensions/memcached.so"}
+    ${optionalString cfg.caching.apcu
+    "extension=${phpPackages.apcu}/lib/php/extensions/apcu.so"}
+    ${optionalString cfg.caching.redis
+    "extension=${phpPackages.redis}/lib/php/extensions/redis.so"}
+    ${optionalString cfg.caching.memcached
+    "extension=${phpPackages.memcached}/lib/php/extensions/memcached.so"}
     extension=${phpPackages.imagick}/lib/php/extensions/imagick.so
     zend_extension = opcache.so
     opcache.enable = 1
@@ -57,7 +60,8 @@ in {
     https = mkOption {
       type = types.bool;
       default = false;
-      description = "Enable if there is a TLS terminating proxy in front of nextcloud.";
+      description =
+        "Enable if there is a TLS terminating proxy in front of nextcloud.";
     };
 
     maxUploadSize = mkOption {
@@ -208,7 +212,7 @@ in {
 
       extraTrustedDomains = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           Trusted domains, from which the nextcloud installation will be
           acessible.  You don't need to add
@@ -277,18 +281,24 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-    { assertions = let acfg = cfg.config; in [
-        { assertion = !(acfg.dbpass != null && acfg.dbpassFile != null);
-          message = "Please specify no more than one of dbpass or dbpassFile";
-        }
-        { assertion = ((acfg.adminpass != null || acfg.adminpassFile != null)
-            && !(acfg.adminpass != null && acfg.adminpassFile != null));
-          message = "Please specify exactly one of adminpass or adminpassFile";
-        }
-      ];
+    {
+      assertions = let acfg = cfg.config;
+        in [
+          {
+            assertion = !(acfg.dbpass != null && acfg.dbpassFile != null);
+            message = "Please specify no more than one of dbpass or dbpassFile";
+          }
+          {
+            assertion = ((acfg.adminpass != null || acfg.adminpassFile != null)
+              && !(acfg.adminpass != null && acfg.adminpassFile != null));
+            message =
+              "Please specify exactly one of adminpass or adminpassFile";
+          }
+        ];
     }
 
-    { systemd.timers."nextcloud-cron" = {
+    {
+      systemd.timers."nextcloud-cron" = {
         wantedBy = [ "timers.target" ];
         timerConfig.OnBootSec = "5m";
         timerConfig.OnUnitActiveSec = "15m";
@@ -298,7 +308,8 @@ in {
       systemd.services = {
         "nextcloud-setup" = let
           c = cfg.config;
-          writePhpArrary = a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
+          writePhpArrary = a:
+            "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
           overrideConfig = pkgs.writeText "nextcloud-config.php" ''
             <?php
             ${optionalString (c.dbpassFile != null) ''
@@ -321,86 +332,117 @@ in {
               ],
               'datadirectory' => '${cfg.home}/data',
               'skeletondirectory' => '${cfg.skeletonDirectory}',
-              ${optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"}
+              ${
+              optionalString cfg.caching.apcu
+              "'memcache.local' => '\\OC\\Memcache\\APCu',"
+              }
               'log_type' => 'syslog',
               'log_level' => '${builtins.toString cfg.logLevel}',
-              ${optionalString (c.overwriteProtocol != null) "'overwriteprotocol' => '${c.overwriteProtocol}',"}
+              ${
+              optionalString (c.overwriteProtocol != null)
+              "'overwriteprotocol' => '${c.overwriteProtocol}',"
+              }
               ${optionalString (c.dbname != null) "'dbname' => '${c.dbname}',"}
               ${optionalString (c.dbhost != null) "'dbhost' => '${c.dbhost}',"}
-              ${optionalString (c.dbport != null) "'dbport' => '${toString c.dbport}',"}
+              ${
+              optionalString (c.dbport != null)
+              "'dbport' => '${toString c.dbport}',"
+              }
               ${optionalString (c.dbuser != null) "'dbuser' => '${c.dbuser}',"}
-              ${optionalString (c.dbtableprefix != null) "'dbtableprefix' => '${toString c.dbtableprefix}',"}
-              ${optionalString (c.dbpass != null) "'dbpassword' => '${c.dbpass}',"}
-              ${optionalString (c.dbpassFile != null) "'dbpassword' => nix_read_pwd(),"}
+              ${
+              optionalString (c.dbtableprefix != null)
+              "'dbtableprefix' => '${toString c.dbtableprefix}',"
+              }
+              ${
+              optionalString (c.dbpass != null) "'dbpassword' => '${c.dbpass}',"
+              }
+              ${
+              optionalString (c.dbpassFile != null)
+              "'dbpassword' => nix_read_pwd(),"
+              }
               'dbtype' => '${c.dbtype}',
               'trusted_domains' => ${writePhpArrary c.extraTrustedDomains},
             ];
           '';
           occInstallCmd = let
-            dbpass = if c.dbpassFile != null
-              then ''"$(<"${toString c.dbpassFile}")"''
-              else if c.dbpass != null
-              then ''"${toString c.dbpass}"''
-              else null;
-            adminpass = if c.adminpassFile != null
-              then ''"$(<"${toString c.adminpassFile}")"''
-              else ''"${toString c.adminpass}"'';
+            dbpass = if c.dbpassFile != null then
+              ''"$(<"${toString c.dbpassFile}")"''
+            else if c.dbpass != null then
+              ''"${toString c.dbpass}"''
+            else
+              null;
+            adminpass = if c.adminpassFile != null then
+              ''"$(<"${toString c.adminpassFile}")"''
+            else
+              ''"${toString c.adminpass}"'';
             installFlags = concatStringsSep " \\\n    "
               (mapAttrsToList (k: v: "${k} ${toString v}") {
-              "--database" = ''"${c.dbtype}"'';
-              # The following attributes are optional depending on the type of
-              # database.  Those that evaluate to null on the left hand side
-              # will be omitted.
-              ${if c.dbname != null then "--database-name" else null} = ''"${c.dbname}"'';
-              ${if c.dbhost != null then "--database-host" else null} = ''"${c.dbhost}"'';
-              ${if c.dbport != null then "--database-port" else null} = ''"${toString c.dbport}"'';
-              ${if c.dbuser != null then "--database-user" else null} = ''"${c.dbuser}"'';
-              ${if (any (x: x != null) [c.dbpass c.dbpassFile])
-                 then "--database-pass" else null} = dbpass;
-              ${if c.dbtableprefix != null
-                then "--database-table-prefix" else null} = ''"${toString c.dbtableprefix}"'';
-              "--admin-user" = ''"${c.adminuser}"'';
-              "--admin-pass" = adminpass;
-              "--data-dir" = ''"${cfg.home}/data"'';
-            });
-          in ''
-            ${occ}/bin/nextcloud-occ maintenance:install \
-                ${installFlags}
-          '';
-          occSetTrustedDomainsCmd = concatStringsSep "\n" (imap0
-            (i: v: ''
-              ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
-                ${toString i} --value="${toString v}"
-            '') ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains));
+                "--database" = ''"${c.dbtype}"'';
+                # The following attributes are optional depending on the type of
+                # database.  Those that evaluate to null on the left hand side
+                # will be omitted.
+                ${if c.dbname != null then "--database-name" else null} =
+                  ''"${c.dbname}"'';
+                ${if c.dbhost != null then "--database-host" else null} =
+                  ''"${c.dbhost}"'';
+                ${if c.dbport != null then "--database-port" else null} =
+                  ''"${toString c.dbport}"'';
+                ${if c.dbuser != null then "--database-user" else null} =
+                  ''"${c.dbuser}"'';
+                ${
+                  if (any (x: x != null) [ c.dbpass c.dbpassFile ]) then
+                    "--database-pass"
+                  else
+                    null
+                } = dbpass;
+                ${
+                  if c.dbtableprefix != null then
+                    "--database-table-prefix"
+                  else
+                    null
+                } = ''"${toString c.dbtableprefix}"'';
+                "--admin-user" = ''"${c.adminuser}"'';
+                "--admin-pass" = adminpass;
+                "--data-dir" = ''"${cfg.home}/data"'';
+              });
+            in ''
+              ${occ}/bin/nextcloud-occ maintenance:install \
+                  ${installFlags}
+            '';
+          occSetTrustedDomainsCmd = concatStringsSep "\n" (imap0 (i: v: ''
+            ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
+              ${toString i} --value="${toString v}"
+          '') ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains));
 
-        in {
-          wantedBy = [ "multi-user.target" ];
-          before = [ "phpfpm-nextcloud.service" ];
-          script = ''
-            chmod og+x ${cfg.home}
-            ln -sf ${pkgs.nextcloud}/apps ${cfg.home}/
-            mkdir -p ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
-            ln -sf ${overrideConfig} ${cfg.home}/config/override.config.php
+          in {
+            wantedBy = [ "multi-user.target" ];
+            before = [ "phpfpm-nextcloud.service" ];
+            script = ''
+              chmod og+x ${cfg.home}
+              ln -sf ${pkgs.nextcloud}/apps ${cfg.home}/
+              mkdir -p ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
+              ln -sf ${overrideConfig} ${cfg.home}/config/override.config.php
 
-            chown -R nextcloud:nginx ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
+              chown -R nextcloud:nginx ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
 
-            # Do not install if already installed
-            if [[ ! -e ${cfg.home}/config/config.php ]]; then
-              ${occInstallCmd}
-            fi
+              # Do not install if already installed
+              if [[ ! -e ${cfg.home}/config/config.php ]]; then
+                ${occInstallCmd}
+              fi
 
-            ${occ}/bin/nextcloud-occ upgrade
+              ${occ}/bin/nextcloud-occ upgrade
 
-            ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
-            ${occSetTrustedDomainsCmd}
-          '';
-          serviceConfig.Type = "oneshot";
-        };
+              ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
+              ${occSetTrustedDomainsCmd}
+            '';
+            serviceConfig.Type = "oneshot";
+          };
         "nextcloud-cron" = {
           environment.NEXTCLOUD_CONFIG_DIR = "${cfg.home}/config";
           serviceConfig.Type = "oneshot";
           serviceConfig.User = "nextcloud";
-          serviceConfig.ExecStart = "${phpPackage}/bin/php -f ${pkgs.nextcloud}/cron.php";
+          serviceConfig.ExecStart =
+            "${phpPackage}/bin/php -f ${pkgs.nextcloud}/cron.php";
         };
         "nextcloud-update-plugins" = mkIf cfg.autoUpdateApps.enable {
           serviceConfig.Type = "oneshot";
@@ -411,25 +453,24 @@ in {
 
       services.phpfpm = {
         pools.nextcloud = let
-          phpAdminValues = (toKeyValue
-            (foldr (a: b: a // b) {}
-              (mapAttrsToList (k: v: { "php_admin_value[${k}]" = v; })
-                phpOptions)));
-        in {
-          phpOptions = phpOptionsExtensions;
-          phpPackage = phpPackage;
-          listen = "/run/phpfpm/nextcloud";
-          extraConfig = ''
-            listen.owner = nginx
-            listen.group = nginx
-            user = nextcloud
-            group = nginx
-            ${cfg.poolConfig}
-            env[NEXTCLOUD_CONFIG_DIR] = ${cfg.home}/config
-            env[PATH] = /run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin
-            ${phpAdminValues}
-          '';
-        };
+          phpAdminValues = (toKeyValue (foldr (a: b: a // b) { }
+            (mapAttrsToList (k: v: { "php_admin_value[${k}]" = v; })
+            phpOptions)));
+          in {
+            phpOptions = phpOptionsExtensions;
+            phpPackage = phpPackage;
+            listen = "/run/phpfpm/nextcloud";
+            extraConfig = ''
+              listen.owner = nginx
+              listen.group = nginx
+              user = nextcloud
+              group = nginx
+              ${cfg.poolConfig}
+              env[NEXTCLOUD_CONFIG_DIR] = ${cfg.home}/config
+              env[PATH] = /run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin
+              ${phpAdminValues}
+            '';
+          };
       };
 
       users.extraUsers.nextcloud = {
@@ -480,7 +521,8 @@ in {
                 priority = 300;
                 extraConfig = "deny all;";
               };
-              "~ ^\\/(?:index|remote|public|cron|core/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|ocs-provider\\/.+|ocm-provider\\/.+)\\.php(?:$|\\/)" = {
+              "~ ^\\/(?:index|remote|public|cron|core/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|ocs-provider\\/.+|ocm-provider\\/.+)\\.php(?:$|\\/)" =
+              {
                 priority = 500;
                 extraConfig = ''
                   include ${config.services.nginx.package}/conf/fastcgi.conf;
@@ -495,10 +537,11 @@ in {
                   fastcgi_read_timeout 120s;
                 '';
               };
-              "~ ^\\/(?:updater|ocs-provider|ocm-provider)(?:$|\\/)".extraConfig = ''
-                try_files $uri/ =404;
-                index index.php;
-              '';
+              "~ ^\\/(?:updater|ocs-provider|ocm-provider)(?:$|\\/)".extraConfig =
+                ''
+                  try_files $uri/ =404;
+                  index index.php;
+                '';
               "~ \\.(?:css|js|woff2?|svg|gif)$".extraConfig = ''
                 try_files $uri /index.php$request_uri;
                 add_header Cache-Control "public, max-age=15778463";

@@ -10,7 +10,10 @@ stdenv.mkDerivation rec {
   };
 
   NIX_CFLAGS_COMPILE = "-Wno-error=implicit-fallthrough";
-  configureFlags = [ "--with-systemd" "--with-systemdsystemunitdir=$(out)/etc/systemd/system" ];
+  configureFlags = [
+    "--with-systemd"
+    "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
+  ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ systemd fcgi ];
@@ -21,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://nginx.localdomain.pl/wiki/FcgiWrap;
+    homepage = "https://nginx.localdomain.pl/wiki/FcgiWrap";
     description = "Simple server for running CGI applications over FastCGI";
     maintainers = with maintainers; [ lethalman ];
     platforms = with platforms; linux;

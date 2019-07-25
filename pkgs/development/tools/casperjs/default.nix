@@ -45,7 +45,7 @@ in stdenv.mkDerivation rec {
       syntactic sugar for doing common tasks.
     '';
 
-    homepage = http://casperjs.org;
+    homepage = "http://casperjs.org";
     license = stdenv.lib.licenses.mit;
 
     maintainers = [ stdenv.lib.maintainers.bluescreen303 ];

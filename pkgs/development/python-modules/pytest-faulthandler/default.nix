@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, pytest
-, pytest-mock
-, pythonOlder
-, faulthandler
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-mock, pythonOlder, faulthandler
 }:
 
 buildPythonPackage rec {
@@ -26,8 +19,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "Py.test plugin that activates the fault handler module for tests";
-    homepage = https://github.com/pytest-dev/pytest-faulthandler;
+    description =
+      "Py.test plugin that activates the fault handler module for tests";
+    homepage = "https://github.com/pytest-dev/pytest-faulthandler";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ costrouc ];
   };

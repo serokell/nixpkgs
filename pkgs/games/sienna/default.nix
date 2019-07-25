@@ -13,19 +13,18 @@ let
     name = "sienna";
     exec = "${pname}";
     icon = "${icon}";
-    comment = "Fast-paced one button platformer"; 
+    comment = "Fast-paced one button platformer";
     desktopName = "Sienna";
     genericName = "sienna";
     categories = "Game;";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-${version}.love";
+    url =
+      "https://github.com/SimonLarsen/${pname}/releases/download/v${version}/${pname}-${version}.love";
     sha256 = "1x15276fhqspgrrv8fzkp032i2qa8piywc0yy061x59mxhdndzj6";
   };
 
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
 
   phases = "installPhase";
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/games/lovegames
 
@@ -53,7 +51,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.linux;
     license = licenses.free;
-    downloadPage = http://tangramgames.dk/games/sienna;
+    downloadPage = "http://tangramgames.dk/games/sienna";
   };
 
 }

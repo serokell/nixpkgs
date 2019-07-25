@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, gettext
-, utillinux, openisns, openssl, kmod, perl, systemd, pkgconf
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, gettext, utillinux, openisns, openssl, kmod, perl, systemd, pkgconf
 }:
 
 stdenv.mkDerivation rec {
@@ -31,9 +30,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A high performance, transport independent, multi-platform implementation of RFC3720";
+    description =
+      "A high performance, transport independent, multi-platform implementation of RFC3720";
     license = licenses.gpl2;
-    homepage = https://www.open-iscsi.com;
+    homepage = "https://www.open-iscsi.com";
     platforms = platforms.linux;
     maintainers = with maintainers; [ cleverca22 zaninime ];
   };

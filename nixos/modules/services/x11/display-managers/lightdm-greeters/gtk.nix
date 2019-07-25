@@ -19,46 +19,46 @@ let
   # Again, we need a few things in the environment for the greeter to run with
   # fonts/icons.
   wrappedGtkGreeter = pkgs.runCommand "lightdm-gtk-greeter" {
-      buildInputs = [ pkgs.makeWrapper ];
-      preferLocalBuild = true;
-    } ''
-      # This wrapper ensures that we actually get themes
-      makeWrapper ${pkgs.lightdm_gtk_greeter}/sbin/lightdm-gtk-greeter \
-        $out/greeter \
-        --prefix PATH : "${lib.getBin pkgs.stdenv.cc.libc}/bin" \
-        --set GDK_PIXBUF_MODULE_FILE "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" \
-        --set GTK_PATH "${theme}:${pkgs.gtk3.out}" \
-        --set GTK_EXE_PREFIX "${theme}" \
-        --set GTK_DATA_PREFIX "${theme}" \
-        --set XDG_DATA_DIRS "${theme}/share:${icons}/share" \
-        --set XDG_CONFIG_HOME "${theme}/share" \
-        --set XCURSOR_PATH "${cursors}/share/icons"
+    buildInputs = [ pkgs.makeWrapper ];
+    preferLocalBuild = true;
+  } ''
+    # This wrapper ensures that we actually get themes
+    makeWrapper ${pkgs.lightdm_gtk_greeter}/sbin/lightdm-gtk-greeter \
+      $out/greeter \
+      --prefix PATH : "${lib.getBin pkgs.stdenv.cc.libc}/bin" \
+      --set GDK_PIXBUF_MODULE_FILE "${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" \
+      --set GTK_PATH "${theme}:${pkgs.gtk3.out}" \
+      --set GTK_EXE_PREFIX "${theme}" \
+      --set GTK_DATA_PREFIX "${theme}" \
+      --set XDG_DATA_DIRS "${theme}/share:${icons}/share" \
+      --set XDG_CONFIG_HOME "${theme}/share" \
+      --set XCURSOR_PATH "${cursors}/share/icons"
 
-      cat - > $out/lightdm-gtk-greeter.desktop << EOF
-      [Desktop Entry]
-      Name=LightDM Greeter
-      Comment=This runs the LightDM Greeter
-      Exec=$out/greeter
-      Type=Application
-      EOF
-    '';
+    cat - > $out/lightdm-gtk-greeter.desktop << EOF
+    [Desktop Entry]
+    Name=LightDM Greeter
+    Comment=This runs the LightDM Greeter
+    Exec=$out/greeter
+    Type=Application
+    EOF
+  '';
 
-  gtkGreeterConf = writeText "lightdm-gtk-greeter.conf"
-    ''
+  gtkGreeterConf = writeText "lightdm-gtk-greeter.conf" ''
     [greeter]
     theme-name = ${cfg.theme.name}
     icon-theme-name = ${cfg.iconTheme.name}
     cursor-theme-name = ${cfg.cursorTheme.name}
     cursor-theme-size = ${toString cfg.cursorTheme.size}
     background = ${ldmcfg.background}
-    ${optionalString (cfg.clock-format != null) "clock-format = ${cfg.clock-format}"}
-    ${optionalString (cfg.indicators != null) "indicators = ${concatStringsSep ";" cfg.indicators}"}
+    ${optionalString (cfg.clock-format != null)
+    "clock-format = ${cfg.clock-format}"}
+    ${optionalString (cfg.indicators != null)
+    "indicators = ${concatStringsSep ";" cfg.indicators}"}
     ${optionalString (xcfg.dpi != null) "xft-dpi=${toString xcfg.dpi}"}
     ${cfg.extraConfig}
-    '';
+  '';
 
-in
-{
+in {
   options = {
 
     services.xserver.displayManager.lightdm.greeters.gtk = {
@@ -155,7 +155,16 @@ in
       indicators = mkOption {
         type = types.nullOr (types.listOf types.str);
         default = null;
-        example = [ "~host" "~spacer" "~clock" "~spacer" "~session" "~language" "~a11y" "~power" ];
+        example = [
+          "~host"
+          "~spacer"
+          "~clock"
+          "~spacer"
+          "~session"
+          "~language"
+          "~a11y"
+          "~power"
+        ];
         description = ''
           List of allowed indicator modules to use for the lightdm gtk
           greeter panel.

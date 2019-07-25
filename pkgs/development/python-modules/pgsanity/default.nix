@@ -1,8 +1,4 @@
-{ stdenv
-, python
-, fetchPypi
-, buildPythonPackage
-, postgresql }:
+{ stdenv, python, fetchPypi, buildPythonPackage, postgresql }:
 
 buildPythonPackage rec {
   pname = "pgsanity";

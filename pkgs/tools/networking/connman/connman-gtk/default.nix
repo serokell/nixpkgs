@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, intltool, pkgconfig,
-gtk3, connman, openconnect, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, autoconf, automake, intltool, pkgconfig, gtk3, connman, openconnect, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   name = "connman-gtk-${version}";
@@ -12,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "09k0hx5hxpbykvslv12l2fq9pxdwpd311mxj038hbqzjghcyidyr";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    intltool
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoconf automake intltool pkgconfig wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    openconnect
-    connman
-  ];
+  buildInputs = [ gtk3 openconnect connman ];
 
   preConfigure = ''
     # m4/intltool.m4 is an invalid symbolic link
@@ -35,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GTK GUI for Connman";
-    homepage = https://github.com/jgke/connman-gtk;
+    homepage = "https://github.com/jgke/connman-gtk";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

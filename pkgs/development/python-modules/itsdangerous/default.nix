@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "itsdangerous";
@@ -13,7 +10,8 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Helpers to pass trusted data to untrusted environments and back";
+    description =
+      "Helpers to pass trusted data to untrusted environments and back";
     homepage = "https://pypi.python.org/pypi/itsdangerous/";
     license = licenses.bsd0;
   };

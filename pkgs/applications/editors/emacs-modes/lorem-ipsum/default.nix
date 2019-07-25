@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "122d0z3xqfaikgk34l7bh989mfxddin2ljinysp2lqw8djfi7jsl";
   };
 
-  phases = [ "buildPhase" "installPhase"];
+  phases = [ "buildPhase" "installPhase" ];
 
   buildInputs = [ emacs ];
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Insert dummy pseudo Latin text for Emacs";
-    homepage = http://www.emacswiki.org/emacs/LoremIpsum;
+    homepage = "http://www.emacswiki.org/emacs/LoremIpsum";
     license = stdenv.lib.licenses.gpl2Plus;
 
     platforms = stdenv.lib.platforms.all;

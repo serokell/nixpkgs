@@ -26,9 +26,8 @@ stdenv.mkDerivation rec {
     "--with-readline=${readline.dev}"
   ];
 
-  buildInputs = [
-    pcre libpng zlib readline
-  ] ++ stdenv.lib.optionals (stdenv.isDarwin) [ libiconv ];
+  buildInputs = [ pcre libpng zlib readline ]
+    ++ stdenv.lib.optionals (stdenv.isDarwin) [ libiconv ];
 
   propagatedBuildInputs = [ ncurses ];
 
@@ -41,8 +40,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A multi-platform programmer's library designed to allow a developer to create robust software";
-    homepage = http://www.jedsoft.org/slang/;
+    description =
+      "A multi-platform programmer's library designed to allow a developer to create robust software";
+    homepage = "http://www.jedsoft.org/slang/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ fuuzetsu ];
     platforms = platforms.unix;

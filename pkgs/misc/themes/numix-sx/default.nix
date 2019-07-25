@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "numix-sx-gtk-theme-${version}";
 
   src = fetchurl {
-    url = "https://dl.opendesktop.org/api/files/download/id/1493077417/Numix-SX.tar.xz";
+    url =
+      "https://dl.opendesktop.org/api/files/download/id/1493077417/Numix-SX.tar.xz";
     sha256 = "7e1983924b2d90e89eddb3da8f4c43dc1326fe138fd191c8212c7904dcd618b0";
   };
 
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Gray variation of Numix theme";
-    homepage = https://www.gnome-look.org/p/1117412/;
+    homepage = "https://www.gnome-look.org/p/1117412/";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.all;
     maintainers = [ stdenv.lib.maintainers.sauyon ];

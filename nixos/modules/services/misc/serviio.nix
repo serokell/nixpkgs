@@ -10,7 +10,7 @@ let
     #!${pkgs.bash}/bin/sh
 
     SERVIIO_HOME=${pkgs.serviio}
-    
+
     # Setup the classpath
     SERVIIO_CLASS_PATH="$SERVIIO_HOME/lib/*:$SERVIIO_HOME/config"
 
@@ -21,13 +21,13 @@ let
     # Execute the JVM in the foreground
     exec ${pkgs.jre}/bin/java -Xmx512M -Xms20M -XX:+UseG1GC -XX:GCTimeRatio=1 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 $JAVA_OPTS -classpath "$SERVIIO_CLASS_PATH" org.serviio.MediaServer "$@"
   '';
-  
+
 in {
 
   ###### interface
   options = {
     services.serviio = {
-      
+
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -63,28 +63,24 @@ in {
       };
     };
 
-    users.users = [
-      { 
-        name = "serviio";
-        group = "serviio";
-        home = cfg.dataDir;
-        description = "Serviio Media Server User";
-        createHome = true;
-        isSystemUser = true;
-      }
-    ];
+    users.users = [{
+      name = "serviio";
+      group = "serviio";
+      home = cfg.dataDir;
+      description = "Serviio Media Server User";
+      createHome = true;
+      isSystemUser = true;
+    }];
 
-    users.groups = [
-      { name = "serviio";} 
-    ];
+    users.groups = [{ name = "serviio"; }];
 
     networking.firewall = {
-      allowedTCPPorts = [ 
-        8895  # serve UPnP responses
+      allowedTCPPorts = [
+        8895 # serve UPnP responses
         23423 # console
         23424 # mediabrowser
       ];
-      allowedUDPPorts = [ 
+      allowedUDPPorts = [
         1900 # UPnP service discovey
       ];
     };

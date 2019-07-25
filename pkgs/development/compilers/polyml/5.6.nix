@@ -1,10 +1,8 @@
-{stdenv, fetchurl, autoreconfHook}:
+{ stdenv, fetchurl, autoreconfHook }:
 
-let
-  version = "5.6";
-in
+let version = "5.6";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "polyml-${version}";
 
   prePatch = stdenv.lib.optionalString stdenv.isDarwin ''
@@ -23,10 +21,10 @@ stdenv.mkDerivation {
     longDescription = ''
       Poly/ML is a full implementation of Standard ML.
     '';
-    homepage = https://www.polyml.org/;
+    homepage = "https://www.polyml.org/";
     license = stdenv.lib.licenses.lgpl21;
     platforms = with stdenv.lib.platforms; linux;
-    maintainers = [ #Add your name here!
+    maintainers = [ # Add your name here!
       stdenv.lib.maintainers.z77z
     ];
   };

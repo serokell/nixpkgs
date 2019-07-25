@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake, pkgconfig, gettext
-, dbus, dbus-glib, libgaminggear, libgudev, lua
+{ stdenv, fetchurl, cmake, pkgconfig, gettext, dbus, dbus-glib, libgaminggear, libgudev, lua
 }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Tools to configure ROCCAT devices";
-    homepage = http://roccat.sourceforge.net/;
+    homepage = "http://roccat.sourceforge.net/";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2Plus;
   };

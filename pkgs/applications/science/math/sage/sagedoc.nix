@@ -1,43 +1,29 @@
-{ stdenv
-, sage-with-env
-, python
-, maxima-ecl
-, tachyon
-, jmol
-, cddlib
-}:
+{ stdenv, sage-with-env, python, maxima-ecl, tachyon, jmol, cddlib }:
 
 stdenv.mkDerivation rec {
   version = src.version;
   name = "sagedoc-${version}";
   src = sage-with-env.env.lib.src;
 
-
   # Building the documentation has many dependencies, because all documented
   # modules are imported and because matplotlib is used to produce plots.
-  buildInputs = [
-    sage-with-env.env.lib
-    python
-    maxima-ecl
-    tachyon
-    jmol
-    cddlib
-  ] ++ (with python.pkgs; [
-    psutil
-    future
-    sphinx
-    sagenb
-    scipy
-    sympy
-    matplotlib
-    pillow
-    networkx
-    ipykernel
-    ipywidgets
-    jupyter_client
-    typing
-    pybrial
-  ]);
+  buildInputs = [ sage-with-env.env.lib python maxima-ecl tachyon jmol cddlib ]
+    ++ (with python.pkgs; [
+      psutil
+      future
+      sphinx
+      sagenb
+      scipy
+      sympy
+      matplotlib
+      pillow
+      networkx
+      ipykernel
+      ipywidgets
+      jupyter_client
+      typing
+      pybrial
+    ]);
 
   unpackPhase = ''
     export SAGE_DOC_OVERRIDE="$PWD/share/doc/sage"

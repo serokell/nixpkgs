@@ -1,8 +1,4 @@
-{ stdenv, fetchgit, git,  SDL2, udev, doxygen
-, qtbase, qtlocation, qtserialport, qtdeclarative, qtconnectivity, qtxmlpatterns
-, qtsvg, qtquick1, qtquickcontrols, qtgraphicaleffects, qmake, qtspeech
-, makeWrapper
-, gst_all_1, pkgconfig
+{ stdenv, fetchgit, git, SDL2, udev, doxygen, qtbase, qtlocation, qtserialport, qtdeclarative, qtconnectivity, qtxmlpatterns, qtsvg, qtquick1, qtquickcontrols, qtgraphicaleffects, qmake, qtspeech, makeWrapper, gst_all_1, pkgconfig
 }:
 
 stdenv.mkDerivation rec {
@@ -10,13 +6,20 @@ stdenv.mkDerivation rec {
   version = "3.3.0";
 
   qtInputs = [
-    qtbase qtlocation qtserialport qtdeclarative qtconnectivity qtxmlpatterns qtsvg
-    qtquick1 qtquickcontrols qtgraphicaleffects qtspeech
+    qtbase
+    qtlocation
+    qtserialport
+    qtdeclarative
+    qtconnectivity
+    qtxmlpatterns
+    qtsvg
+    qtquick1
+    qtquickcontrols
+    qtgraphicaleffects
+    qtspeech
   ];
 
-  gstInputs = with gst_all_1; [
-    gstreamer gst-plugins-base
-  ];
+  gstInputs = with gst_all_1; [ gstreamer gst-plugins-base ];
 
   enableParallelBuilding = true;
   buildInputs = [ SDL2 udev doxygen git ] ++ gstInputs ++ qtInputs;
@@ -64,8 +67,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
-    homepage = http://qgroundcontrol.org/;
+    description =
+      "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
+    homepage = "http://qgroundcontrol.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ pxc ];

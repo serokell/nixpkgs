@@ -1,5 +1,4 @@
-{ fetchFromGitHub, git, gnupg, makeWrapper, openssl, stdenv
-, libxslt, docbook_xsl
+{ fetchFromGitHub, git, gnupg, makeWrapper, openssl, stdenv, libxslt, docbook_xsl
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [
-    "PREFIX=${placeholder ''out''}"
+    "PREFIX=${placeholder "out"}"
     "ENABLE_MAN=yes"
     "DOCBOOK_XSL=${docbook_xsl}/share/xml/docbook-xsl-nons/manpages/docbook.xsl"
   ];
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.agwa.name/projects/git-crypt;
+    homepage = "https://www.agwa.name/projects/git-crypt";
     description = "Transparent file encryption in git";
     longDescription = ''
       git-crypt enables transparent encryption and decryption of files in a git

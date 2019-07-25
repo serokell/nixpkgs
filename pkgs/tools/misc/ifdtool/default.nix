@@ -11,15 +11,15 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     make -C util/ifdtool
-    '';
+  '';
 
   installPhase = ''
     install -Dm755 util/ifdtool/ifdtool $out/bin/ifdtool
-    '';
+  '';
 
   meta = with stdenv.lib; {
     description = "Extract and dump Intel Firmware Descriptor information";
-    homepage = https://www.coreboot.org;
+    homepage = "https://www.coreboot.org";
     license = licenses.gpl2;
     maintainers = [ maintainers.petabyteboy ];
     platforms = platforms.linux;

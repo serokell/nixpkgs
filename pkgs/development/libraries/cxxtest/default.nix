@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python2Packages}:
+{ stdenv, fetchFromGitHub, python2Packages }:
 
 let
   pname = "cxxtest";
@@ -18,9 +18,9 @@ in python2Packages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://cxxtest.com;
+    homepage = "http://cxxtest.com";
     description = "Unit testing framework for C++";
-    platforms = platforms.unix ;
+    platforms = platforms.unix;
     license = licenses.lgpl3;
     maintainers = [ maintainers.juliendehos ];
   };

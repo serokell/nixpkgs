@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
     sed -i 's/virtual void endImage() = 0;/virtual void endImage() {}/' src/nvtt/nvtt.h
   '';
 
-  cmakeFlags = [
-    "-DNVTT_SHARED=TRUE"
-  ];
+  cmakeFlags = [ "-DNVTT_SHARED=TRUE" ];
 
   postInstall = ''
     moveToOutput include "$dev"
@@ -34,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A set of cuda-enabled texture tools and compressors";
-    homepage = https://github.com/castano/nvidia-texture-tools;
+    homepage = "https://github.com/castano/nvidia-texture-tools";
     license = licenses.mit;
     platforms = platforms.unix;
   };

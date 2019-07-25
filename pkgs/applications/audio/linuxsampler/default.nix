@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, bison, libtool, pkgconfig, which
-, alsaLib, asio, libjack2, libgig, libsndfile, lv2 }:
+{ stdenv, fetchurl, autoconf, automake, bison, libtool, pkgconfig, which, alsaLib, asio, libjack2, libgig, libsndfile, lv2
+}:
 
 stdenv.mkDerivation rec {
   name = "linuxsampler-${version}";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://www.linuxsampler.org;
+    homepage = "http://www.linuxsampler.org";
     description = "Sampler backend";
     longDescription = ''
       Includes sampler engine, audio and MIDI drivers, network layer

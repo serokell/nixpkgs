@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "squaremap";
@@ -16,7 +12,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Hierarchic visualization control for wxPython";
-    homepage = https://launchpad.net/squaremap;
+    homepage = "https://launchpad.net/squaremap";
     license = licenses.bsd3;
   };
 

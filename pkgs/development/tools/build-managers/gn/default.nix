@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchgit, darwin, writeText
-, git, ninja, python2 }:
+{ stdenv, lib, fetchgit, darwin, writeText, git, ninja, python2 }:
 
 let
   rev = "96ff462cddf35f98e25fd5d098fc27bc81eab94a";
@@ -15,8 +14,7 @@ let
     #endif  // OUT_LAST_COMMIT_POSITION_H_
   '';
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gn-${version}";
   version = "20181031";
 
@@ -32,15 +30,16 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ ninja python2 git ];
-  buildInputs = lib.optionals stdenv.isDarwin (with darwin; with apple_sdk.frameworks; [
-    libobjc
-    cctools
+  buildInputs = lib.optionals stdenv.isDarwin (with darwin;
+    with apple_sdk.frameworks; [
+      libobjc
+      cctools
 
-    # frameworks
-    ApplicationServices
-    Foundation
-    AppKit
-  ]);
+      # frameworks
+      ApplicationServices
+      Foundation
+      AppKit
+    ]);
 
   buildPhase = ''
     python build/gen.py --no-sysroot --no-last-commit-position
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A meta-build system that generates NinjaBuild files";
-    homepage = https://gn.googlesource.com/gn;
+    homepage = "https://gn.googlesource.com/gn";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ stesie matthewbauer ];

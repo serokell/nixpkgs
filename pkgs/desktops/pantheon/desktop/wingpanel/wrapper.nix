@@ -1,9 +1,10 @@
-{ lib, makeWrapper, symlinkJoin, wingpanel, wingpanelIndicators, switchboard-with-plugs, indicators ? null }:
+{ lib, makeWrapper, symlinkJoin, wingpanel, wingpanelIndicators, switchboard-with-plugs, indicators ?
+  null }:
 
 let
-  selectedIndicators = if indicators == null then wingpanelIndicators else indicators;
-in
-symlinkJoin {
+  selectedIndicators =
+    if indicators == null then wingpanelIndicators else indicators;
+in symlinkJoin {
   name = "${wingpanel.name}-with-indicators";
 
   paths = [ wingpanel ] ++ selectedIndicators;
@@ -16,7 +17,11 @@ symlinkJoin {
     wrapProgram $out/bin/wingpanel \
       --set WINGPANEL_INDICATORS_PATH "$out/lib/wingpanel" \
       --set SWITCHBOARD_PLUGS_PATH "${switchboard-with-plugs}/lib/switchboard" \
-      --suffix XDG_DATA_DIRS : ${lib.concatMapStringsSep ":" (indicator: ''${indicator}/share/gsettings-schemas/${indicator.name}'') selectedIndicators}
+      --suffix XDG_DATA_DIRS : ${
+      lib.concatMapStringsSep ":"
+      (indicator: "${indicator}/share/gsettings-schemas/${indicator.name}")
+      selectedIndicators
+      }
   '';
 
   inherit (wingpanel) meta;

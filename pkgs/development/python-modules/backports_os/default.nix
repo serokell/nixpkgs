@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, future
-, isPy3k
-, python
-, hypothesis
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, future, isPy3k, python, hypothesis
 }:
 
 buildPythonPackage rec {
@@ -27,7 +20,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pjdelport/backports.os;
+    homepage = "https://github.com/pjdelport/backports.os";
     description = "Backport of new features in Python's os module";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

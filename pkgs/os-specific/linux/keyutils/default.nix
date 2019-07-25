@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchurl {
       # improve reproducibility
-      url = "https://salsa.debian.org/debian/keyutils/raw/4cecffcb8e2a2aa4ef41777ed40e4e4bcfb2e5bf/debian/patches/Make-build-reproducible.patch";
+      url =
+        "https://salsa.debian.org/debian/keyutils/raw/4cecffcb8e2a2aa4ef41777ed40e4e4bcfb2e5bf/debian/patches/Make-build-reproducible.patch";
       sha256 = "0wnvbjfrbk7rghd032z684l7vk7mhy3bd41zvhkrhgp3cd5id0bm";
     })
   ];
@@ -32,8 +33,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://people.redhat.com/dhowells/keyutils/;
-    description = "Tools used to control the Linux kernel key management system";
+    homepage = "https://people.redhat.com/dhowells/keyutils/";
+    description =
+      "Tools used to control the Linux kernel key management system";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

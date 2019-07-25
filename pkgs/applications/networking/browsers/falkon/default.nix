@@ -1,8 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, extra-cmake-modules, pkgconfig, qmake
-, libpthreadstubs, libxcb, libXdmcp
-, qtsvg, qttools, qtwebengine, qtx11extras
-, qtwayland
-, kwallet
+{ stdenv, lib, fetchFromGitHub, cmake, extra-cmake-modules, pkgconfig, qmake, libpthreadstubs, libxcb, libXdmcp, qtsvg, qttools, qtwebengine, qtx11extras, qtwayland, kwallet
 }:
 
 stdenv.mkDerivation rec {
@@ -10,9 +6,9 @@ stdenv.mkDerivation rec {
   version = "3.1.0";
 
   src = fetchFromGitHub {
-    owner  = "KDE";
-    repo   = "falkon";
-    rev    = "v${version}";
+    owner = "KDE";
+    repo = "falkon";
+    rev = "v${version}";
     sha256 = "1w64slh9wpcfi4v7ds9wci1zvwh0dh787ndpi6hd4kmdgnswvsw7";
   };
 
@@ -24,8 +20,13 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [
-    libpthreadstubs libxcb libXdmcp
-    qtsvg qttools qtwebengine qtx11extras
+    libpthreadstubs
+    libxcb
+    libXdmcp
+    qtsvg
+    qttools
+    qtwebengine
+    qtx11extras
     kwallet
   ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
@@ -35,9 +36,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "QtWebEngine based cross-platform web browser";
-    homepage    = https://community.kde.org/Incubator/Projects/Falkon;
-    license     = licenses.gpl3;
+    homepage = "https://community.kde.org/Incubator/Projects/Falkon";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

@@ -16,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Library for building complex data processing software by combining widely used machine learning algorithms";
-    homepage = http://mdp-toolkit.sourceforge.net;
+    description =
+      "Library for building complex data processing software by combining widely used machine learning algorithms";
+    homepage = "http://mdp-toolkit.sourceforge.net";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nico202 ];
   };

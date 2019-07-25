@@ -30,28 +30,30 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString stdenv.hostPlatform.isMusl ''
     patchShebangs utils/cat_files.py
   '';
-  nativeBuildInputs = [ cmake ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl python;
+  nativeBuildInputs = [ cmake ]
+    ++ stdenv.lib.optional stdenv.hostPlatform.isMusl python;
 
-  buildInputs = [ libcxxabi ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  buildInputs = [ libcxxabi ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   cmakeFlags = [
     "-DLIBCXX_LIBCXXABI_LIB_PATH=${libcxxabi}/lib"
     "-DLIBCXX_LIBCPPABI_VERSION=2"
     "-DLIBCXX_CXX_ABI=libcxxabi"
-  ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1";
+  ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl
+    "-DLIBCXX_HAS_MUSL_LIBC=1";
 
   enableParallelBuilding = true;
 
   linkCxxAbi = stdenv.isLinux;
 
-  setupHooks = [
-    ../../../../../build-support/setup-hooks/role.bash
-    ./setup-hook.sh
-  ];
+  setupHooks =
+    [ ../../../../../build-support/setup-hooks/role.bash ./setup-hook.sh ];
 
   meta = {
-    homepage = http://libcxx.llvm.org/;
-    description = "A new implementation of the C++ standard library, targeting C++11";
+    homepage = "http://libcxx.llvm.org/";
+    description =
+      "A new implementation of the C++ standard library, targeting C++11";
     license = with stdenv.lib.licenses; [ ncsa mit ];
     platforms = stdenv.lib.platforms.unix;
   };

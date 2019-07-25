@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.7";
 
   src = fetchurl {
-    url = "https://www.speicherleck.de/iblech/nat-traverse/nat-traverse-${version}.tar.bz2";
+    url =
+      "https://www.speicherleck.de/iblech/nat-traverse/nat-traverse-${version}.tar.bz2";
     sha256 = "0knwnqsjwv7sa5wjb863ghabs7s269a73qwkmxpsbngjw9s0j2ih";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
       isn't necessary to reconfigure the involved NAT gateways, either.
       nat-traverse works out-of-the-box.
     '';
-    homepage = https://www.speicherleck.de/iblech/nat-traverse/;
+    homepage = "https://www.speicherleck.de/iblech/nat-traverse/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = [ maintainers.iblech ];

@@ -1,22 +1,18 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, dbus-glib, libxklavier,
-  libcanberra-gtk3, libnotify, nss, polkit, gnome3, gtk3, mate,
-  pulseaudioSupport ? stdenv.config.pulseaudio or true, libpulseaudio,
-  wrapGAppsHook }:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, dbus-glib, libxklavier, libcanberra-gtk3, libnotify, nss, polkit, gnome3, gtk3, mate, pulseaudioSupport ?
+  stdenv.config.pulseaudio or true, libpulseaudio, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-settings-daemon-${version}";
   version = "1.22.0";
 
   src = fetchurl {
-    url = "http://pub.mate-desktop.org/releases/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "http://pub.mate-desktop.org/releases/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0yr5v6b9hdk20j29smbw1k4fkyg82i5vlflmgly0vi5whgc74gym";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    intltool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkgconfig intltool wrapGAppsHook ];
 
   buildInputs = [
     dbus-glib
@@ -38,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "MATE settings daemon";
-    homepage = https://github.com/mate-desktop/mate-settings-daemon;
+    homepage = "https://github.com/mate-desktop/mate-settings-daemon";
     license = with licenses; [ gpl2 lgpl21 ];
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

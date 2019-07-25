@@ -40,7 +40,7 @@ buildGoPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/kubernetes/helm;
+    homepage = "https://github.com/kubernetes/helm";
     description = "A package manager for kubernetes";
     license = licenses.asl20;
     maintainers = [ maintainers.rlupton20 maintainers.edude03 ];

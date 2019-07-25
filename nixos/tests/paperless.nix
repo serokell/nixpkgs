@@ -1,8 +1,6 @@
-import ./make-test.nix ({ lib, ... } : {
+import ./make-test.nix ({ lib, ... }: {
   name = "paperless";
-  meta = with lib.maintainers; {
-    maintainers = [ earvstedt ];
-  };
+  meta = with lib.maintainers; { maintainers = [ earvstedt ]; };
 
   machine = { pkgs, ... }: {
     environment.systemPackages = with pkgs; [ imagemagick jq ];

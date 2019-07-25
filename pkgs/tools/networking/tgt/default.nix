@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libxslt, libaio, systemd, perl, perlPackages
-, docbook_xsl }:
+{ stdenv, fetchFromGitHub, libxslt, libaio, systemd, perl, perlPackages, docbook_xsl
+}:
 
 stdenv.mkDerivation rec {
   pname = "tgt";
@@ -14,14 +14,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libxslt systemd libaio docbook_xsl ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "SD_NOTIFY=1"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" "SD_NOTIFY=1" ];
 
-  installFlags = [
-    "sysconfdir=${placeholder "out"}/etc"
-  ];
+  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
   preConfigure = ''
     sed -i 's|/usr/bin/||' doc/Makefile

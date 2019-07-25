@@ -41,7 +41,8 @@
       type = "git";
       url = "https://github.com/elazarl/go-bindata-assetfs";
       rev = "d5cac425555ca5cf00694df246e04f05e6a55150";
-      sha256 = "636ce247ff6f85c14f38a421f46662fa77bdc29762692e1f72b3cd1f9d7a1d17";
+      sha256 =
+        "636ce247ff6f85c14f38a421f46662fa77bdc29762692e1f72b3cd1f9d7a1d17";
     };
   }
   {

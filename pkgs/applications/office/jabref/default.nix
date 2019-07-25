@@ -1,16 +1,18 @@
-{ stdenv, fetchurl, makeWrapper, makeDesktopItem, jdk, jre, wrapGAppsHook, gtk3, gsettings-desktop-schemas }:
+{ stdenv, fetchurl, makeWrapper, makeDesktopItem, jdk, jre, wrapGAppsHook, gtk3, gsettings-desktop-schemas
+}:
 
 stdenv.mkDerivation rec {
   version = "3.8.1";
   name = "jabref-${version}";
 
   src = fetchurl {
-    url = "https://github.com/JabRef/jabref/releases/download/v${version}/JabRef-${version}.jar";
+    url =
+      "https://github.com/JabRef/jabref/releases/download/v${version}/JabRef-${version}.jar";
     sha256 = "11asfym74zdq46i217z5n6vc79gylcx8xn7nvwacfqmym0bz79cg";
   };
 
   desktopItem = makeDesktopItem {
-    comment =  meta.description;
+    comment = meta.description;
     name = "jabref";
     desktopName = "JabRef";
     genericName = "Bibliography manager";
@@ -19,7 +21,8 @@ stdenv.mkDerivation rec {
     exec = "jabref";
   };
 
-  buildInputs = [ makeWrapper jdk wrapGAppsHook gtk3 gsettings-desktop-schemas ];
+  buildInputs =
+    [ makeWrapper jdk wrapGAppsHook gtk3 gsettings-desktop-schemas ];
 
   dontUnpack = true;
 
@@ -38,7 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Open source bibliography reference manager";
-    homepage = http://jabref.sourceforge.net;
+    homepage = "http://jabref.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = [ maintainers.gebner ];

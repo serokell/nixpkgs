@@ -1,14 +1,9 @@
-{ stdenv
-, buildPythonPackage
-, fetchgit
-, lxml
-, isPy27
-}:
+{ stdenv, buildPythonPackage, fetchgit, lxml, isPy27 }:
 
 buildPythonPackage {
   pname = "svg2tikz";
   version = "1.0.0";
-  disabled = ! isPy27;
+  disabled = !isPy27;
 
   propagatedBuildInputs = [ lxml ];
 
@@ -19,10 +14,10 @@ buildPythonPackage {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/kjellmf/svg2tikz;
+    homepage = "https://github.com/kjellmf/svg2tikz";
     description = "An SVG to TikZ converter";
     license = licenses.gpl2Plus;
-    maintainers =  with maintainers; [ gal_bolle ];
+    maintainers = with maintainers; [ gal_bolle ];
   };
 
 }

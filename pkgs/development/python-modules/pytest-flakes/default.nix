@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytestpep8, pytest, pyflakes }:
+{ stdenv, buildPythonPackage, fetchPypi, pytestpep8, pytest, pyflakes }:
 
 buildPythonPackage rec {
   pname = "pytest-flakes";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     license = licenses.mit;
-    homepage = https://pypi.python.org/pypi/pytest-flakes;
+    homepage = "https://pypi.python.org/pypi/pytest-flakes";
     description = "pytest plugin to check source code with pyflakes";
   };
 }

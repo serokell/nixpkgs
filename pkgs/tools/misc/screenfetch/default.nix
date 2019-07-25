@@ -1,31 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, gawk, procps, gnused
-, bc, findutils, xdpyinfo, xprop, gnugrep, ncurses
-, darwin
+{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, gawk, procps, gnused, bc, findutils, xdpyinfo, xprop, gnugrep, ncurses, darwin
 }:
 
 let
-  path = lib.makeBinPath ([
-    coreutils gawk gnused findutils
-    gnugrep ncurses bc
-  ] ++ lib.optionals stdenv.isLinux [
-    procps
-    xdpyinfo
-    xprop
-  ] ++ lib.optionals stdenv.isDarwin (with darwin; [
-    adv_cmds
-    DarwinTools
-    system_cmds
-    "/usr" # some commands like defaults is not available to us
-  ]));
+  path = lib.makeBinPath ([ coreutils gawk gnused findutils gnugrep ncurses bc ]
+    ++ lib.optionals stdenv.isLinux [ procps xdpyinfo xprop ]
+    ++ lib.optionals stdenv.isDarwin (with darwin; [
+      adv_cmds
+      DarwinTools
+      system_cmds
+      "/usr" # some commands like defaults is not available to us
+    ]));
 
 in stdenv.mkDerivation rec {
   name = "screenFetch-${version}";
   version = "3.8.0";
 
   src = fetchFromGitHub {
-    owner  = "KittyKatt";
-    repo   = "screenFetch";
-    rev    = "v${version}";
+    owner = "KittyKatt";
+    repo = "screenFetch";
+    rev = "v${version}";
     sha256 = "00ibv72cb7cqfpljyzgvajhbp0clqsqliz18nyv83bfy3gkf2qs8";
   };
 
@@ -43,7 +36,8 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Fetches system/theme information in terminal for Linux desktop screenshots";
+    description =
+      "Fetches system/theme information in terminal for Linux desktop screenshots";
     longDescription = ''
       screenFetch is a "Bash Screenshot Information Tool". This handy Bash
       script can be used to generate one of those nifty terminal theme
@@ -55,7 +49,7 @@ in stdenv.mkDerivation rec {
       command! This script is very easy to add to and can easily be extended.
     '';
     license = licenses.gpl3;
-    homepage = https://github.com/KittyKatt/screenFetch;
+    homepage = "https://github.com/KittyKatt/screenFetch";
     maintainers = with maintainers; [ relrod ];
     platforms = platforms.all;
   };

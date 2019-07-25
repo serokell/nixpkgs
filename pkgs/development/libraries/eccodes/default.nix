@@ -1,15 +1,14 @@
-{ fetchurl, stdenv
-, cmake, netcdf, openjpeg, libpng, gfortran
-, enablePython ? false, pythonPackages
-, enablePosixThreads ? false
-, enableOpenMPThreads ? false}:
+{ fetchurl, stdenv, cmake, netcdf, openjpeg, libpng, gfortran, enablePython ?
+  false, pythonPackages, enablePosixThreads ? false, enableOpenMPThreads ? false
+}:
 with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "eccodes-${version}";
   version = "2.12.5";
 
   src = fetchurl {
-    url = "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
+    url =
+      "https://confluence.ecmwf.int/download/attachments/45757960/eccodes-${version}-Source.tar.gz";
     sha256 = "0576fccng4nvmq5gma1nb1v00if5cwl81w4nv5zkb80q5wicn50c";
   };
 
@@ -19,21 +18,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ netcdf
-                  openjpeg
-                  libpng
-                  gfortran
-                ];
-  propagatedBuildInputs = optionals enablePython [
-                  pythonPackages.python
-                  pythonPackages.numpy
-                ];
+  buildInputs = [ netcdf openjpeg libpng gfortran ];
+  propagatedBuildInputs =
+    optionals enablePython [ pythonPackages.python pythonPackages.numpy ];
 
-  cmakeFlags = [ "-DENABLE_PYTHON=${if enablePython then "ON" else "OFF"}"
-                 "-DENABLE_PNG=ON"
-                 "-DENABLE_ECCODES_THREADS=${if enablePosixThreads then "ON" else "OFF"}"
-                 "-DENABLE_ECCODES_OMP_THREADS=${if enableOpenMPThreads then "ON" else "OFF"}"
-               ];
+  cmakeFlags = [
+    "-DENABLE_PYTHON=${if enablePython then "ON" else "OFF"}"
+    "-DENABLE_PNG=ON"
+    "-DENABLE_ECCODES_THREADS=${if enablePosixThreads then "ON" else "OFF"}"
+    "-DENABLE_ECCODES_OMP_THREADS=${
+      if enableOpenMPThreads then "ON" else "OFF"
+    }"
+  ];
 
   enableParallelBuilding = true;
 
@@ -47,10 +43,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://confluence.ecmwf.int/display/ECC/;
+    homepage = "https://confluence.ecmwf.int/display/ECC/";
     license = licenses.asl20;
     maintainers = with maintainers; [ knedlsepp ];
     platforms = platforms.unix;
-    description = "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
+    description =
+      "ECMWF library for reading and writing GRIB, BUFR and GTS abbreviated header";
   };
 }

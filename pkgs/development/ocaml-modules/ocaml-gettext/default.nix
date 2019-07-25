@@ -1,11 +1,13 @@
-{ stdenv, fetchurl, ocaml, findlib, camlp4, ounit, gettext, fileutils, camomile }:
+{ stdenv, fetchurl, ocaml, findlib, camlp4, ounit, gettext, fileutils, camomile
+}:
 
 stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-gettext-${version}";
   version = "0.3.8";
 
   src = fetchurl {
-    url = "https://forge.ocamlcore.org/frs/download.php/1731/ocaml-gettext-${version}.tar.gz";
+    url =
+      "https://forge.ocamlcore.org/frs/download.php/1731/ocaml-gettext-${version}.tar.gz";
     sha256 = "05wnpxwzzpn2qinah2wb5wzfh5iz8gyf8jyihdbjxc8mk4hf70qv";
   };
 
@@ -30,9 +32,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OCaml Bindings to gettext";
-    homepage = https://forge.ocamlcore.org/projects/ocaml-gettext;
+    homepage = "https://forge.ocamlcore.org/projects/ocaml-gettext";
     license = licenses.gpl2;
     maintainers = [ maintainers.volth ];
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
   };
 }

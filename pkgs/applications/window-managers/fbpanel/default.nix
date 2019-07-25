@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, libX11, libXmu, libXpm, gtk2, libpng, libjpeg, libtiff, librsvg
+{ stdenv, fetchurl, pkgconfig, libX11, libXmu, libXpm, gtk2, libpng, libjpeg, libtiff, librsvg
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs .";
 
-  NIX_LDFLAGS="-lX11";
+  NIX_LDFLAGS = "-lX11";
 
   meta = with stdenv.lib; {
     description = "A stand-alone panel";
@@ -23,9 +22,5 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
   };
 
-  passthru = {
-    updateInfo = {
-      downloadPage = "fbpanel.sourceforge.net";
-    };
-  };
+  passthru = { updateInfo = { downloadPage = "fbpanel.sourceforge.net"; }; };
 }

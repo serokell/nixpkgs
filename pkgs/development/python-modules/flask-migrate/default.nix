@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, glibcLocales, flask, flask_sqlalchemy, flask_script, alembic }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, glibcLocales, flask, flask_sqlalchemy, flask_script, alembic
+}:
 
 with stdenv.lib;
 
@@ -20,8 +21,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "SQLAlchemy database migrations for Flask applications using Alembic";
+    description =
+      "SQLAlchemy database migrations for Flask applications using Alembic";
     license = licenses.mit;
-    homepage = https://github.com/miguelgrinberg/Flask-Migrate;
+    homepage = "https://github.com/miguelgrinberg/Flask-Migrate";
   };
 }

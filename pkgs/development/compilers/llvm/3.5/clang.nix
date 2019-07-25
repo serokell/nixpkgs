@@ -1,11 +1,12 @@
 { stdenv, fetch, cmake, libxml2, llvm, version, clang-tools-extra_src }:
-let
-  gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
+let gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
 in stdenv.mkDerivation {
   name = "clang-${version}";
 
   unpackPhase = ''
-    unpackFile ${fetch "cfe" "0846h8vn3zlc00jkmvrmy88gc6ql6014c02l4jv78fpvfigmgssg"}
+    unpackFile ${
+      fetch "cfe" "0846h8vn3zlc00jkmvrmy88gc6ql6014c02l4jv78fpvfigmgssg"
+    }
     mv cfe-${version}.src clang
     sourceRoot=$PWD/clang
     unpackFile ${clang-tools-extra_src}
@@ -14,12 +15,11 @@ in stdenv.mkDerivation {
 
   buildInputs = [ cmake libxml2 llvm ];
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-std=c++11"
-  ] ++
-  # Maybe with compiler-rt this won't be needed?
-  (stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}") ++
-  (stdenv.lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include");
+  cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-std=c++11" ] ++
+    # Maybe with compiler-rt this won't be needed?
+    (stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}")
+    ++ (stdenv.lib.optional (stdenv.cc.libc != null)
+    "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include");
 
   patches = [ ./clang-purity.patch ];
 
@@ -43,14 +43,13 @@ in stdenv.mkDerivation {
 
   passthru = {
     isClang = true;
-  } // stdenv.lib.optionalAttrs stdenv.isLinux {
-    inherit gcc;
-  };
+  } // stdenv.lib.optionalAttrs stdenv.isLinux { inherit gcc; };
 
   meta = {
-    description = "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
-    homepage    = http://llvm.org/;
-    license     = stdenv.lib.licenses.ncsa;
-    platforms   = stdenv.lib.platforms.all;
+    description =
+      "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
+    homepage = "http://llvm.org/";
+    license = stdenv.lib.licenses.ncsa;
+    platforms = stdenv.lib.platforms.all;
   };
 }

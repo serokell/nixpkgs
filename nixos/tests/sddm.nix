@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 
@@ -23,24 +21,22 @@ let
 
       enableOCR = true;
 
-      testScript = { nodes, ... }: let
-        user = nodes.machine.config.users.users.alice;
-      in ''
-        startAll;
-        $machine->waitForText(qr/select your user/i);
-        $machine->screenshot("sddm");
-        $machine->sendChars("${user.password}\n");
-        $machine->waitForFile("/home/alice/.Xauthority");
-        $machine->succeed("xauth merge ~alice/.Xauthority");
-        $machine->waitForWindow("^IceWM ");
-      '';
+      testScript = { nodes, ... }:
+        let user = nodes.machine.config.users.users.alice;
+        in ''
+          startAll;
+          $machine->waitForText(qr/select your user/i);
+          $machine->screenshot("sddm");
+          $machine->sendChars("${user.password}\n");
+          $machine->waitForFile("/home/alice/.Xauthority");
+          $machine->succeed("xauth merge ~alice/.Xauthority");
+          $machine->waitForWindow("^IceWM ");
+        '';
     };
 
     autoLogin = {
       name = "sddm-autologin";
-      meta = with pkgs.stdenv.lib.maintainers; {
-        maintainers = [ ttuegel ];
-      };
+      meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ttuegel ]; };
 
       machine = { ... }: {
         imports = [ ./common/user-account.nix ];
@@ -65,5 +61,4 @@ let
       '';
     };
   };
-in
-  lib.mapAttrs (lib.const makeTest) tests
+in lib.mapAttrs (lib.const makeTest) tests

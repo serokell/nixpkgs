@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, curl, gnugrep, libnotify, scrot, which, xclip }:
+{ stdenv, fetchFromGitHub, makeWrapper, curl, gnugrep, libnotify, scrot, which, xclip
+}:
 
 let deps = stdenv.lib.makeBinPath [ curl gnugrep libnotify scrot which xclip ];
 in stdenv.mkDerivation rec {
@@ -21,7 +22,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A tool for easy screencapping and uploading to imgur";
-    homepage = https://github.com/jomo/imgur-screenshot/;
+    homepage = "https://github.com/jomo/imgur-screenshot/";
     platforms = platforms.linux;
     license = licenses.mit;
     maintainers = with maintainers; [ lw ];

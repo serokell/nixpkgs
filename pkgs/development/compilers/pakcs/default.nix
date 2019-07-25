@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, makeWrapper
-, haskellPackages, haskell
-, which, swiProlog, rlwrap, tk
-, curl, git, unzip, gnutar, coreutils, sqlite }:
+{ stdenv, fetchurl, makeWrapper, haskellPackages, haskell, which, swiProlog, rlwrap, tk, curl, git, unzip, gnutar, coreutils, sqlite
+}:
 
 let
   name = "pakcs-2.1.1";
@@ -9,20 +7,25 @@ let
   # Don't switch to development release without a reason, because its
   # source updates without version bump. Prefer current release instead.
   src = fetchurl {
-    url = "https://www.informatik.uni-kiel.de/~pakcs/download/${name}-src.tar.gz";
+    url =
+      "https://www.informatik.uni-kiel.de/~pakcs/download/${name}-src.tar.gz";
     sha256 = "112v9ynqfbbm4x770mcfrai9v5bh7c3zn7jka80pv6v4y65r778c";
   };
 
   curry-frontend = (haskellPackages.override {
     overrides = self: super: {
-      curry-base = haskell.lib.overrideCabal (super.callPackage ./curry-base.nix {}) (drv: {
-        inherit src;
-        postUnpack = "sourceRoot+=/frontend/curry-base";
-      });
-      curry-frontend = haskell.lib.overrideCabal (super.callPackage ./curry-frontend.nix {}) (drv: {
-        inherit src;
-        postUnpack = "sourceRoot+=/frontend/curry-frontend";
-      });
+      curry-base =
+        haskell.lib.overrideCabal (super.callPackage ./curry-base.nix { })
+        (drv: {
+          inherit src;
+          postUnpack = "sourceRoot+=/frontend/curry-base";
+        });
+      curry-frontend =
+        haskell.lib.overrideCabal (super.callPackage ./curry-frontend.nix { })
+        (drv: {
+          inherit src;
+          postUnpack = "sourceRoot+=/frontend/curry-frontend";
+        });
     };
   }).curry-frontend;
 in stdenv.mkDerivation {
@@ -68,12 +71,15 @@ in stdenv.mkDerivation {
 
     # List of dependencies from currytools/cpm/src/CPM/Main.curry
     wrapProgram $out/pakcs/bin/cypm \
-      --prefix PATH ":" "${stdenv.lib.makeBinPath [ curl git unzip gnutar coreutils sqlite ]}"
+      --prefix PATH ":" "${
+      stdenv.lib.makeBinPath [ curl git unzip gnutar coreutils sqlite ]
+      }"
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.informatik.uni-kiel.de/~pakcs/;
-    description = "An implementation of the multi-paradigm declarative language Curry";
+    homepage = "http://www.informatik.uni-kiel.de/~pakcs/";
+    description =
+      "An implementation of the multi-paradigm declarative language Curry";
     license = licenses.bsd3;
 
     longDescription = ''

@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   name = "qxt-${version}";
   version = "0.6.2";
-  
+
   src = fetchzip {
     url = "https://bitbucket.org/libqxt/libqxt/get/v${version}.tar.gz";
     sha256 = "0zmqfn0h8cpky7wgaaxlfh0l89r9r0isi87587kaicyap7a6kxwz";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   prefixKey = "-prefix ";
 
   meta = {
-    homepage = http://libqxt.org;
+    homepage = "http://libqxt.org";
     description = "An extension library for Qt";
     longDescription = ''
       An extension library for Qt providing a suite of cross-platform utility

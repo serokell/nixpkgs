@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook
-, bind, zlib, openssl, libcap
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, bind, zlib, openssl, libcap
 }:
 
 stdenv.mkDerivation rec {
@@ -25,16 +24,17 @@ stdenv.mkDerivation rec {
   postInstall = let
     src-doc = fetchurl {
       url = "ftp://ftp.nominum.com/pub/nominum/dnsperf/2.1.0.0/"
-          + "dnsperf-src-2.1.0.0-1.tar.gz";
+        + "dnsperf-src-2.1.0.0-1.tar.gz";
       sha256 = "03kfc65s5a9csa5i7xjsv0psq144k8d9yw7xlny61bg1h2kg1db4";
     };
-  in ''
-    tar xf '${src-doc}'
-    cp ./dnsperf-src-*/doc/*.pdf "$doc/share/doc/dnsperf/"
-  '';
+    in ''
+      tar xf '${src-doc}'
+      cp ./dnsperf-src-*/doc/*.pdf "$doc/share/doc/dnsperf/"
+    '';
 
   meta = with stdenv.lib; {
-    outputsToInstall = outputs; # The man pages and docs are likely useful to most.
+    outputsToInstall =
+      outputs; # The man pages and docs are likely useful to most.
 
     description = "Tools for DNS benchmaring";
     homepage = "https://github.com/DNS-OARC/dnsperf";

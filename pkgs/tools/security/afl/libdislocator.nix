@@ -1,4 +1,4 @@
-{ stdenv, afl}:
+{ stdenv, afl }:
 
 stdenv.mkDerivation rec {
   version = (builtins.parseDrvName afl.name).version;

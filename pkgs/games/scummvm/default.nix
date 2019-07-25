@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, nasm
-, alsaLib, flac, fluidsynth, freetype, libjpeg, libmad, libmpeg2, libogg, libvorbis, libGLU_combined, SDL2, zlib
+{ stdenv, fetchurl, nasm, alsaLib, flac, fluidsynth, freetype, libjpeg, libmad, libmpeg2, libogg, libvorbis, libGLU_combined, SDL2, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -14,16 +13,24 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ nasm ];
 
   buildInputs = [
-    alsaLib freetype flac fluidsynth libjpeg libmad libmpeg2 libogg libvorbis libGLU_combined SDL2 zlib
+    alsaLib
+    freetype
+    flac
+    fluidsynth
+    libjpeg
+    libmad
+    libmpeg2
+    libogg
+    libvorbis
+    libGLU_combined
+    SDL2
+    zlib
   ];
 
   enableParallelBuilding = true;
 
   configurePlatforms = [ "host" ];
-  configureFlags = [
-    "--enable-c++11"
-    "--enable-release"
-  ];
+  configureFlags = [ "--enable-c++11" "--enable-release" ];
 
   # They use 'install -s', that calls the native strip instead of the cross
   postConfigure = ''
@@ -31,8 +38,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Program to run certain classic graphical point-and-click adventure games (such as Monkey Island)";
-    homepage = https://www.scummvm.org/;
+    description =
+      "Program to run certain classic graphical point-and-click adventure games (such as Monkey Island)";
+    homepage = "https://www.scummvm.org/";
     license = licenses.gpl2;
     maintainers = [ maintainers.peterhoeg ];
     platforms = platforms.linux;

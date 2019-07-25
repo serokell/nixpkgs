@@ -5,20 +5,22 @@ with lib;
 let
   cfg = config.services.systemhealth;
 
-  systemhealth = with pkgs; stdenv.mkDerivation {
-    name = "systemhealth-1.0";
-    src = fetchurl {
-      url = "https://www.brianlane.com/downloads/systemhealth/systemhealth-1.0.tar.bz2";
-      sha256 = "1q69lz7hmpbdpbz36zb06nzfkj651413n9icx0njmyr3xzq1j9qy";
+  systemhealth = with pkgs;
+    stdenv.mkDerivation {
+      name = "systemhealth-1.0";
+      src = fetchurl {
+        url =
+          "https://www.brianlane.com/downloads/systemhealth/systemhealth-1.0.tar.bz2";
+        sha256 = "1q69lz7hmpbdpbz36zb06nzfkj651413n9icx0njmyr3xzq1j9qy";
+      };
+      buildInputs = [ python ];
+      installPhase = ''
+        mkdir -p $out/bin
+        # Make it work for kernels 3.x, not so different than 2.6
+        sed -i 's/2\.6/4.0/' system_health.py
+        cp system_health.py $out/bin
+      '';
     };
-    buildInputs = [ python ];
-    installPhase = ''
-      mkdir -p $out/bin
-      # Make it work for kernels 3.x, not so different than 2.6
-      sed -i 's/2\.6/4.0/' system_health.py
-      cp system_health.py $out/bin
-    '';
-  };
 
   rrdDir = "/var/lib/health/rrd";
   htmlDir = "/var/lib/health/html";
@@ -38,8 +40,7 @@ let
   driveLine = d: "${d.path} = ${d.name}";
   drivesSection = concatStringsSep "\n" (map driveLine cfg.drives);
 
-in
-{
+in {
   options = {
     services.systemhealth = {
       enable = mkOption {
@@ -66,7 +67,10 @@ in
 
       drives = mkOption {
         default = [ ];
-        example = [ { name = "root"; path = "/"; } ];
+        example = [{
+          name = "root";
+          path = "/";
+        }];
         description = ''
           Drives to monitor.
         '';
@@ -77,57 +81,55 @@ in
   config = mkIf cfg.enable {
     services.cron.systemCronJobs = [ cronJob ];
 
-    system.activationScripts.systemhealth = stringAfter [ "var" ]
-      ''
-        mkdir -p ${rrdDir} ${htmlDir}
-        chown wwwrun:wwwrun ${rrdDir} ${htmlDir}
+    system.activationScripts.systemhealth = stringAfter [ "var" ] ''
+      mkdir -p ${rrdDir} ${htmlDir}
+      chown wwwrun:wwwrun ${rrdDir} ${htmlDir}
 
-        cat >${configFile} << EOF
-        [paths]
-        rrdtool = ${pkgs.rrdtool}/bin/rrdtool
-        loadavg_rrd = loadavg
-        ps = /run/current-system/sw/bin/ps
-        df = /run/current-system/sw/bin/df
-        meminfo_rrd = meminfo
-        uptime_rrd = uptime
-        rrd_path = ${rrdDir}
-        png_path = ${htmlDir}
+      cat >${configFile} << EOF
+      [paths]
+      rrdtool = ${pkgs.rrdtool}/bin/rrdtool
+      loadavg_rrd = loadavg
+      ps = /run/current-system/sw/bin/ps
+      df = /run/current-system/sw/bin/df
+      meminfo_rrd = meminfo
+      uptime_rrd = uptime
+      rrd_path = ${rrdDir}
+      png_path = ${htmlDir}
 
-        [processes]
+      [processes]
 
-        [interfaces]
-        ${interfacesSection}
+      [interfaces]
+      ${interfacesSection}
 
-        [drives]
-        ${drivesSection}
+      [drives]
+      ${drivesSection}
 
-        [graphs]
-        width = 400
-        time = ['-3hours', '-32hours', '-8days', '-5weeks', '-13months']
-        height = 100
+      [graphs]
+      width = 400
+      time = ['-3hours', '-32hours', '-8days', '-5weeks', '-13months']
+      height = 100
 
-        [external]
+      [external]
 
-        EOF
+      EOF
 
-        chown wwwrun:wwwrun ${configFile}
+      chown wwwrun:wwwrun ${configFile}
 
-        ${pkgs.su}/bin/su -s "/bin/sh" -c "${command} --check" wwwrun
-        ${pkgs.su}/bin/su -s "/bin/sh" -c "${command} --html" wwwrun
-      '';
+      ${pkgs.su}/bin/su -s "/bin/sh" -c "${command} --check" wwwrun
+      ${pkgs.su}/bin/su -s "/bin/sh" -c "${command} --html" wwwrun
+    '';
 
-    services.httpd.extraSubservices = [
-      { function = f: {
-          extraConfig = ''
-            Alias ${cfg.urlPrefix} ${htmlDir}
+    services.httpd.extraSubservices = [{
+      function = f: {
+        extraConfig = ''
+          Alias ${cfg.urlPrefix} ${htmlDir}
 
-            <Directory ${htmlDir}>
-                Order allow,deny
-                Allow from all
-            </Directory>
-          '';
-        };
-      }
-    ];
+          <Directory ${htmlDir}>
+              Order allow,deny
+              Allow from all
+          </Directory>
+        '';
+      };
+    }];
   };
 }

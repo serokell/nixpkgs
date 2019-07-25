@@ -1,9 +1,10 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, gettext, libXpm, libGL, fltk, hicolor-icon-theme, glib, gnome2, which }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, gettext, libXpm, libGL, fltk, hicolor-icon-theme, glib, gnome2, which
+}:
 
 stdenv.mkDerivation rec {
   name = "jwm-settings-manager-${version}";
   version = "2018-10-19";
-  
+
   src = fetchFromGitHub {
     owner = "Israel-D";
     repo = "jwm-settings-manager";
@@ -11,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0d5bqf74p8zg8azns44g46q973blhmp715k8kcd73x88g7sfir8s";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    gettext
-  ];
+  nativeBuildInputs = [ cmake pkgconfig gettext ];
 
   buildInputs = [
     libXpm
@@ -36,7 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A full configuration manager for JWM";
-    homepage = https://joewing.net/projects/jwm;
+    homepage = "https://joewing.net/projects/jwm";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

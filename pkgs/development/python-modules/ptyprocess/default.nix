@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "ptyprocess";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Run a subprocess in a pseudo terminal";
-    homepage = https://github.com/pexpect/ptyprocess;
+    homepage = "https://github.com/pexpect/ptyprocess";
     license = lib.licenses.isc;
   };
 }

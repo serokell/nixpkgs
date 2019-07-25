@@ -1,8 +1,4 @@
-{ stdenv, makeWrapper, bash, curl, darwin
-, version
-, src
-, platform
-, versionType
+{ stdenv, makeWrapper, bash, curl, darwin, version, src, platform, versionType
 }:
 
 let
@@ -11,13 +7,10 @@ let
 
   bootstrapping = versionType == "bootstrap";
 
-  installComponents
-    = "rustc,rust-std-${platform}"
-    + (optionalString bootstrapping ",cargo")
-    ;
-in
+  installComponents = "rustc,rust-std-${platform}"
+    + (optionalString bootstrapping ",cargo");
 
-rec {
+in rec {
   rustc = stdenv.mkDerivation rec {
     name = "rustc-${versionType}-${version}";
 
@@ -25,14 +18,13 @@ rec {
     inherit src;
 
     meta = with stdenv.lib; {
-      homepage = http://www.rust-lang.org/;
+      homepage = "http://www.rust-lang.org/";
       description = "A safe, concurrent, practical language";
       maintainers = with maintainers; [ qknight ];
       license = [ licenses.mit licenses.asl20 ];
     };
 
-    buildInputs = [ bash ]
-      ++ stdenv.lib.optional stdenv.isDarwin Security;
+    buildInputs = [ bash ] ++ stdenv.lib.optional stdenv.isDarwin Security;
 
     postPatch = ''
       patchShebangs .
@@ -69,7 +61,7 @@ rec {
     inherit src;
 
     meta = with stdenv.lib; {
-      homepage = http://www.rust-lang.org/;
+      homepage = "http://www.rust-lang.org/";
       description = "A safe, concurrent, practical language";
       maintainers = with maintainers; [ qknight ];
       license = [ licenses.mit licenses.asl20 ];

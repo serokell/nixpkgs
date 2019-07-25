@@ -17,16 +17,8 @@
 # This seperates "what to build" (the exact gem versions) from "how to build"
 # (to make gems behave if necessary).
 
-{ lib, fetchurl, writeScript, ruby, kerberos, libxml2, libxslt, python, stdenv, which
-, libiconv, postgresql, v8_3_16_14, clang, sqlite, zlib, imagemagick
-, pkgconfig , ncurses, xapian_1_2_22, gpgme, utillinux, fetchpatch, tzdata, icu, libffi
-, cmake, libssh2, openssl, mysql, darwin, git, perl, pcre, gecode_3, curl
-, msgpack, qt59, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg, gtk2, buildRubyGem
-, cairo, re2, rake, gobject-introspection, gdk_pixbuf, zeromq, czmq, graphicsmagick, libcxx
-, file, libvirt, glib, vips, taglib, libopus, linux-pam, libidn, protobuf, fribidi, harfbuzz
-, bison, flex, pango, python3, patchelf
-, libselinux ? null, libsepol ? null
-}@args:
+{ lib, fetchurl, writeScript, ruby, kerberos, libxml2, libxslt, python, stdenv, which, libiconv, postgresql, v8_3_16_14, clang, sqlite, zlib, imagemagick, pkgconfig, ncurses, xapian_1_2_22, gpgme, utillinux, fetchpatch, tzdata, icu, libffi, cmake, libssh2, openssl, mysql, darwin, git, perl, pcre, gecode_3, curl, msgpack, qt59, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg, gtk2, buildRubyGem, cairo, re2, rake, gobject-introspection, gdk_pixbuf, zeromq, czmq, graphicsmagick, libcxx, file, libvirt, glib, vips, taglib, libopus, linux-pam, libidn, protobuf, fribidi, harfbuzz, bison, flex, pango, python3, patchelf, libselinux ?
+  null, libsepol ? null }@args:
 
 let
   v8 = v8_3_16_14;
@@ -38,9 +30,8 @@ let
     type = "gem";
     version = "12.0.0";
   };
-in
 
-{
+in {
   atk = attrs: {
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ gtk2 pcre rake ];
@@ -48,11 +39,12 @@ in
 
   bundler = attrs:
     let
-      templates = "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/";
+      templates =
+        "${attrs.ruby.gemPath}/gems/${attrs.gemName}-${attrs.version}/lib/bundler/templates/";
     in {
       # patching shebangs would fail on the templates/Executable file, so we
       # temporarily remove the executable flag.
-      preFixup  = "chmod -x $out/${templates}/Executable";
+      preFixup = "chmod -x $out/${templates}/Executable";
       postFixup = ''
         chmod +x $out/${templates}/Executable
 
@@ -63,7 +55,7 @@ in
 
   cairo = attrs: {
     nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [ gtk2 pcre xorg.libpthreadstubs xorg.libXdmcp];
+    buildInputs = [ gtk2 pcre xorg.libpthreadstubs xorg.libXdmcp ];
   };
 
   cairo-gobject = attrs: {
@@ -72,26 +64,23 @@ in
   };
 
   capybara-webkit = attrs: {
-    buildInputs = [ qt59.qtbase qt59.qtwebkit ] ++ stdenv.lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
-    NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.isDarwin "-I${libcxx}/include/c++/v1";
+    buildInputs = [ qt59.qtbase qt59.qtwebkit ]
+      ++ stdenv.lib.optionals stdenv.isDarwin
+      [ darwin.apple_sdk.frameworks.Cocoa ];
+    NIX_CFLAGS_COMPILE =
+      stdenv.lib.optionalString stdenv.isDarwin "-I${libcxx}/include/c++/v1";
   };
 
-  charlock_holmes = attrs: {
-    buildInputs = [ which icu zlib ];
-  };
+  charlock_holmes = attrs: { buildInputs = [ which icu zlib ]; };
 
   cld3 = attrs: {
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ protobuf ];
   };
 
-  curb = attrs: {
-    buildInputs = [ curl ];
-  };
+  curb = attrs: { buildInputs = [ curl ]; };
 
-  curses = attrs: {
-    buildInputs = [ ncurses ];
-  };
+  curses = attrs: { buildInputs = [ ncurses ]; };
 
   dep-selector-libgecode = attrs: {
     USE_SYSTEM_GECODE = true;
@@ -101,9 +90,7 @@ in
     '';
   };
 
-  digest-sha3 = attrs: {
-    hardeningDisable = [ "format" ];
-  };
+  digest-sha3 = attrs: { hardeningDisable = [ "format" ]; };
 
   ethon = attrs: {
     dontBuild = false;
@@ -144,13 +131,9 @@ in
     '';
   };
 
-  do_sqlite3 = attrs: {
-    buildInputs = [ sqlite ];
-  };
+  do_sqlite3 = attrs: { buildInputs = [ sqlite ]; };
 
-  eventmachine = attrs: {
-    buildInputs = [ openssl ];
-  };
+  eventmachine = attrs: { buildInputs = [ openssl ]; };
 
   ffi = attrs: {
     nativeBuildInputs = [ pkgconfig ];
@@ -162,13 +145,12 @@ in
     buildInputs = [ rake gdk_pixbuf ];
   };
 
-  gpgme = attrs: {
-    buildInputs = [ gpgme ];
-  };
+  gpgme = attrs: { buildInputs = [ gpgme ]; };
 
   gio2 = attrs: {
     nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [ gtk2 pcre gobject-introspection ] ++ lib.optionals stdenv.isLinux [ utillinux libselinux libsepol ];
+    buildInputs = [ gtk2 pcre gobject-introspection ]
+      ++ lib.optionals stdenv.isLinux [ utillinux libselinux libsepol ];
   };
 
   gitlab-markup = attrs: { meta.priority = 1; };
@@ -179,7 +161,8 @@ in
   };
 
   gtk2 = attrs: {
-    nativeBuildInputs = [ pkgconfig ] ++ lib.optionals stdenv.isLinux [ utillinux libselinux libsepol ];
+    nativeBuildInputs = [ pkgconfig ]
+      ++ lib.optionals stdenv.isLinux [ utillinux libselinux libsepol ];
     buildInputs = [
       fribidi
       gobject-introspection
@@ -202,22 +185,20 @@ in
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
-    NIX_CFLAGS_COMPILE = [ "-Wno-error=stringop-overflow" "-Wno-error=implicit-fallthrough" ];
+    NIX_CFLAGS_COMPILE =
+      [ "-Wno-error=stringop-overflow" "-Wno-error=implicit-fallthrough" ];
   };
 
   hitimes = attrs: {
-    buildInputs =
-      stdenv.lib.optionals stdenv.isDarwin
-        [ darwin.apple_sdk.frameworks.CoreServices ];
+    buildInputs = stdenv.lib.optionals stdenv.isDarwin
+      [ darwin.apple_sdk.frameworks.CoreServices ];
   };
 
   iconv = attrs: {
     buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}";
   };
 
-  idn-ruby = attrs: {
-    buildInputs = [ libidn ];
-  };
+  idn-ruby = attrs: { buildInputs = [ libidn ]; };
 
   # disable bundle install as it can't install anything in addition to what is
   # specified in pkgs/applications/misc/jekyll/Gemfile anyway. Also do chmod_R
@@ -267,7 +248,9 @@ in
     postFixup = lib.optionalString stdenv.isLinux ''
       soPath="$out/${ruby.gemPath}/gems/mathematical-${attrs.version}/lib/mathematical/mathematical.so"
       ${patchelf}/bin/patchelf \
-        --set-rpath "${lib.makeLibraryPath [ glib cairo ]}:$(${patchelf}/bin/patchelf --print-rpath "$soPath")" \
+        --set-rpath "${
+        lib.makeLibraryPath [ glib cairo ]
+        }:$(${patchelf}/bin/patchelf --print-rpath "$soPath")" \
         "$soPath"
     '';
   };
@@ -286,17 +269,11 @@ in
     '';
   };
 
-  msgpack = attrs: {
-    buildInputs = [ msgpack ];
-  };
+  msgpack = attrs: { buildInputs = [ msgpack ]; };
 
-  mysql = attrs: {
-    buildInputs = [ mysql.connector-c zlib openssl ];
-  };
+  mysql = attrs: { buildInputs = [ mysql.connector-c zlib openssl ]; };
 
-  mysql2 = attrs: {
-    buildInputs = [ mysql.connector-c zlib openssl ];
-  };
+  mysql2 = attrs: { buildInputs = [ mysql.connector-c zlib openssl ]; };
 
   ncursesw = attrs: {
     buildInputs = [ ncurses ];
@@ -328,9 +305,7 @@ in
     '';
   };
 
-  ovirt-engine-sdk = attrs: {
-    buildInputs = [ curl libxml2 ];
-  };
+  ovirt-engine-sdk = attrs: { buildInputs = [ curl libxml2 ]; };
 
   pango = attrs: {
     nativeBuildInputs = [ pkgconfig ];
@@ -345,27 +320,17 @@ in
     ];
   };
 
-  patron = attrs: {
-    buildInputs = [ curl ];
-  };
+  patron = attrs: { buildInputs = [ curl ]; };
 
-  pcaprub = attrs: {
-    buildInputs = [ libpcap ];
-  };
+  pcaprub = attrs: { buildInputs = [ libpcap ]; };
 
   pg = attrs: {
-    buildFlags = [
-      "--with-pg-config=${postgresql}/bin/pg_config"
-    ];
+    buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
   };
 
-  puma = attrs: {
-    buildInputs = [ openssl ];
-  };
+  puma = attrs: { buildInputs = [ openssl ]; };
 
-  rainbow = attrs: {
-    buildInputs = [ rainbow_rake ];
-  };
+  rainbow = attrs: { buildInputs = [ rainbow_rake ]; };
 
   rbczmq = { ... }: {
     buildInputs = [ zeromq czmq ];
@@ -383,18 +348,14 @@ in
       buildInputs = [ libsodium ];
     };
 
-  re2 = attrs: {
-    buildInputs = [ re2 ];
-  };
+  re2 = attrs: { buildInputs = [ re2 ]; };
 
   rmagick = attrs: {
     nativeBuildInputs = [ pkgconfig ];
     buildInputs = [ imagemagick which ];
   };
 
-  rpam2 = attrs: {
-    buildInputs = [ linux-pam ];
-  };
+  rpam2 = attrs: { buildInputs = [ linux-pam ]; };
 
   ruby-libvirt = attrs: {
     buildInputs = [ libvirt pkgconfig ];
@@ -404,9 +365,7 @@ in
     ];
   };
 
-  ruby-lxc = attrs: {
-    buildInputs = [ lxc ];
-  };
+  ruby-lxc = attrs: { buildInputs = [ lxc ]; };
 
   ruby-terminfo = attrs: {
     buildInputs = [ ncurses ];
@@ -437,9 +396,7 @@ in
     dontUseCmakeConfigure = true;
   };
 
-  sassc = attrs: {
-    nativeBuildInputs = [ rake ];
-  };
+  sassc = attrs: { nativeBuildInputs = [ rake ]; };
 
   scrypt = attrs:
     if stdenv.isDarwin then {
@@ -447,19 +404,14 @@ in
       postPatch = ''
         sed -i -e "s/-arch i386//" Rakefile ext/scrypt/Rakefile
       '';
-    } else {};
+    } else
+      { };
 
-  semian = attrs: {
-    buildInputs = [ openssl ];
-  };
+  semian = attrs: { buildInputs = [ openssl ]; };
 
-  sequel_pg = attrs: {
-    buildInputs = [ postgresql ];
-  };
+  sequel_pg = attrs: { buildInputs = [ postgresql ]; };
 
-  snappy = attrs: {
-    buildInputs = [ args.snappy ];
-  };
+  snappy = attrs: { buildInputs = [ args.snappy ]; };
 
   sqlite3 = attrs: {
     buildFlags = [
@@ -489,24 +441,20 @@ in
     '';
   };
 
-  taglib-ruby = attrs: {
-    buildInputs = [ taglib ];
-  };
+  taglib-ruby = attrs: { buildInputs = [ taglib ]; };
 
   thrift = attrs: {
     # See: https://stackoverflow.com/questions/36378190/cant-install-thrift-gem-on-os-x-el-capitan/36523125#36523125
     # Note that thrift-0.8.0 is a dependency of fluent-plugin-scribe which is a dependency of fluentd.
-    buildFlags = lib.optional (stdenv.isDarwin && lib.versionOlder attrs.version "0.9.2.0")
-      "--with-cppflags=\"-D_FORTIFY_SOURCE=0 -Wno-macro-redefined -Wno-shift-negative-value\"";
+    buildFlags =
+      lib.optional (stdenv.isDarwin && lib.versionOlder attrs.version "0.9.2.0")
+      ''
+        --with-cppflags="-D_FORTIFY_SOURCE=0 -Wno-macro-redefined -Wno-shift-negative-value"'';
   };
 
-  timfel-krb5-auth = attrs: {
-    buildInputs = [ kerberos ];
-  };
+  timfel-krb5-auth = attrs: { buildInputs = [ kerberos ]; };
 
-  tiny_tds = attrs: {
-    nativeBuildInputs = [ pkgconfig openssl ];
-  };
+  tiny_tds = attrs: { nativeBuildInputs = [ pkgconfig openssl ]; };
 
   therubyracer = attrs: {
     buildFlags = [
@@ -516,27 +464,23 @@ in
     ];
   };
 
-  typhoeus = attrs: {
-    buildInputs = [ curl ];
-  };
+  typhoeus = attrs: { buildInputs = [ curl ]; };
 
-  tzinfo = attrs: lib.optionalAttrs (lib.versionAtLeast attrs.version "1.0") {
-    dontBuild = false;
-    postPatch =
-      let
-        path = if lib.versionAtLeast attrs.version "2.0"
-               then "lib/tzinfo/data_sources/zoneinfo_data_source.rb"
-               else "lib/tzinfo/zoneinfo_data_source.rb";
-      in
-        ''
+  tzinfo = attrs:
+    lib.optionalAttrs (lib.versionAtLeast attrs.version "1.0") {
+      dontBuild = false;
+      postPatch = let
+        path = if lib.versionAtLeast attrs.version "2.0" then
+          "lib/tzinfo/data_sources/zoneinfo_data_source.rb"
+        else
+          "lib/tzinfo/zoneinfo_data_source.rb";
+        in ''
           substituteInPlace ${path} \
             --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
         '';
-  };
+    };
 
-  uuid4r = attrs: {
-    buildInputs = [ which libossp_uuid ];
-  };
+  uuid4r = attrs: { buildInputs = [ which libossp_uuid ]; };
 
   xapian-ruby = attrs: {
     # use the system xapian
@@ -551,9 +495,7 @@ in
     '';
   };
 
-  zlib = attrs: {
-    buildInputs = [ zlib ];
-  };
+  zlib = attrs: { buildInputs = [ zlib ]; };
 
   zookeeper = attrs: {
     buildInputs = stdenv.lib.optionals stdenv.isDarwin [ darwin.cctools ];

@@ -1,16 +1,16 @@
 { stdenv, fetchgit, pkgconfig, xfce4-dev-tools, hicolor-icon-theme }:
 
-{ category, pname, version, rev ? "${pname}-${version}", sha256, ... } @ args:
+{ category, pname, version, rev ? "${pname}-${version}", sha256, ... }@args:
 
 let
   inherit (builtins) filter getAttr head isList;
   inherit (stdenv.lib) attrNames concatLists recursiveUpdate zipAttrsWithNames;
 
-  filterAttrNames = f: attrs:
-    filter (n: f (getAttr n attrs)) (attrNames attrs);
+  filterAttrNames = f: attrs: filter (n: f (getAttr n attrs)) (attrNames attrs);
 
   concatAttrLists = attrsets:
-    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists) attrsets;
+    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists)
+    attrsets;
 
   template = rec {
     name = "${pname}-${version}";
@@ -35,6 +35,6 @@ let
   };
 
   publicArgs = removeAttrs args [ "category" "pname" "sha256" ];
-in
 
-stdenv.mkDerivation (recursiveUpdate template publicArgs // concatAttrLists [ template args ])
+in stdenv.mkDerivation
+(recursiveUpdate template publicArgs // concatAttrLists [ template args ])

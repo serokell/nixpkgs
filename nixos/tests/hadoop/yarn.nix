@@ -1,17 +1,18 @@
-import ../make-test.nix ({...}: {
+import ../make-test.nix ({ ... }: {
   nodes = {
-    resourcemanager = {pkgs, ...}: {
+    resourcemanager = { pkgs, ... }: {
       services.hadoop.package = pkgs.hadoop_3_1;
       services.hadoop.yarn.resourcemanager.enabled = true;
       services.hadoop.yarnSite = {
-        "yarn.resourcemanager.scheduler.class" = "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fifo.FifoScheduler";
+        "yarn.resourcemanager.scheduler.class" =
+          "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fifo.FifoScheduler";
       };
       networking.firewall.allowedTCPPorts = [
         8088 # resourcemanager.webapp.address
         8031 # resourcemanager.resource-tracker.address
       ];
     };
-    nodemanager = {pkgs, ...}: {
+    nodemanager = { pkgs, ... }: {
       services.hadoop.package = pkgs.hadoop_3_1;
       services.hadoop.yarn.nodemanager.enabled = true;
       services.hadoop.yarnSite = {

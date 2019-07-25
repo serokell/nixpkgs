@@ -1,17 +1,8 @@
-{ stdenv, fetchurl, fetchpatch, lib
-, pkgconfig, meson, ninja, gettext, gobject-introspection
-, python3, gstreamer, orc, pango, libtheora
-, libintl, libopus
-, isocodes
-, libjpeg
-, libvisual
-, tremor # provides 'virbisidec'
-, gtk-doc, docbook_xsl, docbook_xml_dtd_412
-, enableX11 ? stdenv.isLinux, libXv
-, enableWayland ? stdenv.isLinux, wayland
-, enableAlsa ? stdenv.isLinux, alsaLib
-, enableCocoa ? false, darwin
-, enableCdparanoia ? (!stdenv.isDarwin), cdparanoia }:
+{ stdenv, fetchurl, fetchpatch, lib, pkgconfig, meson, ninja, gettext, gobject-introspection, python3, gstreamer, orc, pango, libtheora, libintl, libopus, isocodes, libjpeg, libvisual, tremor # provides 'virbisidec'
+, gtk-doc, docbook_xsl, docbook_xml_dtd_412, enableX11 ?
+  stdenv.isLinux, libXv, enableWayland ? stdenv.isLinux, wayland, enableAlsa ?
+    stdenv.isLinux, alsaLib, enableCocoa ? false, darwin, enableCdparanoia ?
+      (!stdenv.isDarwin), cdparanoia }:
 
 stdenv.mkDerivation rec {
   name = "gst-plugins-base-${version}";
@@ -19,7 +10,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Base plugins and helper libraries";
-    homepage = https://gstreamer.freedesktop.org;
+    homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ matthewbauer ];
@@ -33,14 +24,18 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [
-    pkgconfig python3 gettext gobject-introspection
+    pkgconfig
+    python3
+    gettext
+    gobject-introspection
     gtk-doc
     # Without these, enabling the 'gtk_doc' gives us `FAILED: meson-install`
-    docbook_xsl docbook_xml_dtd_412
+    docbook_xsl
+    docbook_xml_dtd_412
   ]
   # Broken meson with Darwin. Should hopefully be fixed soon. Tracking
   # in https://bugzilla.gnome.org/show_bug.cgi?id=781148.
-  ++ lib.optionals (!stdenv.isDarwin) [ meson ninja ];
+    ++ lib.optionals (!stdenv.isDarwin) [ meson ninja ];
 
   # On Darwin, we currently use autoconf, on all other systems Meson
   # TODO Switch to Meson on Darwin as well
@@ -52,7 +47,7 @@ stdenv.mkDerivation rec {
     "--enable-cocoa=${if enableCocoa then "yes" else "no"}"
   ]
   # Introspection fails on my MacBook currently
-  ++ lib.optional stdenv.isDarwin "--disable-introspection";
+    ++ lib.optional stdenv.isDarwin "--disable-introspection";
 
   mesonFlags = lib.optionals (!stdenv.isDarwin) [
     # Enables all features, so that we know when new dependencies are necessary.
@@ -60,7 +55,11 @@ stdenv.mkDerivation rec {
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
     "-Dgl-graphene=disabled" # not packaged in nixpkgs as of writing
     # See https://github.com/GStreamer/gst-plugins-base/blob/d64a4b7a69c3462851ff4dcfa97cc6f94cd64aef/meson_options.txt#L15 for a list of choices
-    "-Dgl_winsys=[${lib.concatStringsSep "," (lib.optional enableX11 "x11" ++ lib.optional enableWayland "wayland" ++ lib.optional enableCocoa "cocoa")}]"
+    "-Dgl_winsys=[${
+      lib.concatStringsSep "," (lib.optional enableX11 "x11"
+      ++ lib.optional enableWayland "wayland"
+      ++ lib.optional enableCocoa "cocoa")
+    }]"
     # We must currently disable gtk_doc API docs generation,
     # because it is not compatible with some features being disabled.
     # See for example
@@ -68,12 +67,10 @@ stdenv.mkDerivation rec {
     # for it failing because some Wayland symbols are missing.
     # This problem appeared between 1.15.1 and 1.16.0.
     "-Dgtk_doc=disabled"
-  ]
-  ++ lib.optional (!enableX11) "-Dx11=disabled"
-  # TODO How to disable Wayland?
-  ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
-  ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
-  ;
+  ] ++ lib.optional (!enableX11) "-Dx11=disabled"
+    # TODO How to disable Wayland?
+    ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
+    ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled";
 
   buildInputs = [ orc libtheora libintl libopus isocodes libjpeg tremor ]
     ++ lib.optional (!stdenv.isDarwin) libvisual
@@ -93,7 +90,5 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # fails, wants DRI access for OpenGL
 
-  patches = [
-    ./fix_pkgconfig_includedir.patch
-  ];
+  patches = [ ./fix_pkgconfig_includedir.patch ];
 }

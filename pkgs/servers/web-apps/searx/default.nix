@@ -32,14 +32,36 @@ buildPythonApplication rec {
   '';
 
   propagatedBuildInputs = [
-    pyyaml lxml grequests flaskbabel flask requests
-    gevent speaklater Babel pytz dateutil pygments
-    pyasn1 pyasn1-modules ndg-httpsclient certifi pysocks
+    pyyaml
+    lxml
+    grequests
+    flaskbabel
+    flask
+    requests
+    gevent
+    speaklater
+    Babel
+    pytz
+    dateutil
+    pygments
+    pyasn1
+    pyasn1-modules
+    ndg-httpsclient
+    certifi
+    pysocks
   ];
 
   checkInputs = [
-    Babel mock nose2 covCore pep8 plone-testing splinter
-    unittest2 zope_testrunner selenium
+    Babel
+    mock
+    nose2
+    covCore
+    pep8
+    plone-testing
+    splinter
+    unittest2
+    zope_testrunner
+    selenium
   ];
 
   preCheck = ''
@@ -48,7 +70,7 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/asciimoo/searx;
+    homepage = "https://github.com/asciimoo/searx";
     description = "A privacy-respecting, hackable metasearch engine";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ matejc fpletz ];

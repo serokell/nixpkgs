@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, meson, ninja, gettext, python3,
-  pkgconfig, libxml2, json-glib , sqlite, itstool, librsvg,
-  vala, gtk3, gnome3, desktop-file-utils, wrapGAppsHook, gobject-introspection
+{ stdenv, fetchFromGitHub, meson, ninja, gettext, python3, pkgconfig, libxml2, json-glib, sqlite, itstool, librsvg, vala, gtk3, gnome3, desktop-file-utils, wrapGAppsHook, gobject-introspection
 }:
 
 stdenv.mkDerivation rec {
@@ -29,18 +27,10 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    libxml2
-    json-glib
-    sqlite
-    librsvg
-    gtk3
-    gnome3.adwaita-icon-theme
-  ];
+  buildInputs =
+    [ libxml2 json-glib sqlite librsvg gtk3 gnome3.adwaita-icon-theme ];
 
-  mesonFlags = [
-    "-Ddisable_pycompile=true"
-  ];
+  mesonFlags = [ "-Ddisable_pycompile=true" ];
 
   postPatch = ''
     chmod +x meson_post_install.py
@@ -48,7 +38,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://fontmanager.github.io/;
+    homepage = "https://fontmanager.github.io/";
     description = "Simple font management for GTK+ desktop environments";
     longDescription = ''
       Font Manager is intended to provide a way for average users to
@@ -60,7 +50,7 @@ stdenv.mkDerivation rec {
       Font Manager is NOT a professional-grade font management solution.
     '';
     license = licenses.gpl3;
-    repositories.git = https://github.com/FontManager/master;
+    repositories.git = "https://github.com/FontManager/master";
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];
   };

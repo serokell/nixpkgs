@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, isodate
-, pyparsing
-, html5lib
-, keepalive
+{ stdenv, buildPythonPackage, fetchPypi, six, isodate, pyparsing, html5lib, keepalive
 }:
 
 buildPythonPackage rec {
@@ -28,7 +21,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six isodate pyparsing html5lib keepalive ];
 
   meta = with stdenv.lib; {
-    description = "This is a wrapper around a SPARQL service. It helps in creating the query URI and, possibly, convert the result into a more manageable format";
+    description =
+      "This is a wrapper around a SPARQL service. It helps in creating the query URI and, possibly, convert the result into a more manageable format";
     homepage = "http://rdflib.github.io/sparqlwrapper";
     license = licenses.w3c;
   };

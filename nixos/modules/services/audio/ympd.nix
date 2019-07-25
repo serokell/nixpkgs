@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.ympd;
+let cfg = config.services.ympd;
 in {
 
   ###### interface
@@ -41,7 +40,6 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -49,7 +47,10 @@ in {
     systemd.services.ympd = {
       description = "Standalone MPD Web GUI written in C";
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${pkgs.ympd}/bin/ympd --host ${cfg.mpd.host} --port ${toString cfg.mpd.port} --webport ${toString cfg.webPort} --user nobody";
+      serviceConfig.ExecStart =
+        "${pkgs.ympd}/bin/ympd --host ${cfg.mpd.host} --port ${
+          toString cfg.mpd.port
+        } --webport ${toString cfg.webPort} --user nobody";
     };
 
   };

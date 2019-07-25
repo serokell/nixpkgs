@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook
-, ncurses #acinclude.m4 wants headers for tgetent().
-, historySupport ? false
-, readline ? null
-}:
+{ stdenv, fetchurl, autoreconfHook, ncurses # acinclude.m4 wants headers for tgetent().
+, historySupport ? false, readline ? null }:
 
 stdenv.mkDerivation rec {
   name = "rc-${version}";
@@ -18,8 +15,8 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optionals (readline != null) [ readline ];
 
   configureFlags = [
-    "--enable-def-interp=${stdenv.shell}" #183
-    ] ++ stdenv.lib.optionals historySupport [ "--with-history" ]
+    "--enable-def-interp=${stdenv.shell}" # 183
+  ] ++ stdenv.lib.optionals historySupport [ "--with-history" ]
     ++ stdenv.lib.optionals (readline != null) [ "--with-edit=readline" ];
 
   prePatch = ''
@@ -27,14 +24,13 @@ stdenv.mkDerivation rec {
       --replace "date -I" "echo 2015-05-13" #reproducible-build
   '';
 
-  passthru = {
-    shellPath = "/bin/rc";
-  };
+  passthru = { shellPath = "/bin/rc"; };
 
   meta = with stdenv.lib; {
     description = "The Plan 9 shell";
-    longDescription = "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell.";
-    homepage = http://tobold.org/article/rc;
+    longDescription =
+      "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell.";
+    homepage = "http://tobold.org/article/rc";
     license = with licenses; zlib;
     maintainers = with maintainers; [ ramkromberg ];
     platforms = with platforms; all;

@@ -1,5 +1,4 @@
-{ lib, fetchurl, stdenv, ncurses,
-IOKit, python }:
+{ lib, fetchurl, stdenv, ncurses, IOKit, python }:
 
 stdenv.mkDerivation rec {
   name = "htop-${version}";
@@ -11,9 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ python ];
-  buildInputs =
-    [ ncurses ] ++
-    lib.optionals stdenv.isDarwin [ IOKit ];
+  buildInputs = [ ncurses ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   prePatch = ''
     patchShebangs scripts/MakeHeader.py
@@ -21,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An interactive process viewer for Linux";
-    homepage = https://hisham.hm/htop/;
+    homepage = "https://hisham.hm/htop/";
     license = licenses.gpl2Plus;
     platforms = with platforms; linux ++ freebsd ++ openbsd ++ darwin;
     maintainers = with maintainers; [ rob relrod ];

@@ -9,7 +9,9 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "marvin-${version}.deb";
-    url = "http://dl.chemaxon.com/marvin/${version}/marvin_linux_${versions.majorMinor version}.deb";
+    url = "http://dl.chemaxon.com/marvin/${version}/marvin_linux_${
+      versions.majorMinor version
+    }.deb";
     sha256 = "1ccsimfvms5q4prjyk6sg5hsc3hkcjjfq3gl7jjm8dgd2173zzyc";
   };
 
@@ -35,13 +37,16 @@ stdenv.mkDerivation rec {
       wrapBin $out/opt/chemaxon/marvinsuite/bin/$name
     done
     ${concatStrings (map (name: ''
-      substitute ${./. + "/${name}.desktop"} $out/share/applications/${name}.desktop --subst-var out
+      substitute ${
+        ./. + "/${name}.desktop"
+      } $out/share/applications/${name}.desktop --subst-var out
     '') [ "LicenseManager" "MarvinSketch" "MarvinView" ])}
   '';
 
   meta = {
-    description = "A chemical modelling, analysis and structure drawing program";
-    homepage = https://chemaxon.com/products/marvin;
+    description =
+      "A chemical modelling, analysis and structure drawing program";
+    homepage = "https://chemaxon.com/products/marvin";
     maintainers = with maintainers; [ fusion809 ];
     license = licenses.unfree;
     platforms = platforms.linux;

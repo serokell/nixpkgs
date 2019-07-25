@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper,
-  maim, slop, ffmpeg, byzanz, libnotify, xdpyinfo }:
+{ stdenv, fetchFromGitHub, makeWrapper, maim, slop, ffmpeg, byzanz, libnotify, xdpyinfo
+}:
 
 stdenv.mkDerivation rec {
   name = "yaxg-${version}";
@@ -19,7 +19,9 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin/
     mv yaxg $out/bin/
     chmod +x $out/bin/yaxg
-    wrapProgram $out/bin/yaxg --prefix PATH : ${ stdenv.lib.makeBinPath [ maim slop ffmpeg byzanz libnotify xdpyinfo ]}
+    wrapProgram $out/bin/yaxg --prefix PATH : ${
+      stdenv.lib.makeBinPath [ maim slop ffmpeg byzanz libnotify xdpyinfo ]
+    }
   '';
 
   meta = with stdenv.lib; {

@@ -1,9 +1,4 @@
-{ lib
-, mkDerivation
-, extra-cmake-modules
-, kdoctools
-, kdelibs4support
-, libkexiv2
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdelibs4support, libkexiv2
 }:
 
 mkDerivation {

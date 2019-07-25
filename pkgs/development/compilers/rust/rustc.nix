@@ -1,17 +1,16 @@
-{ stdenv, removeReferencesTo, pkgsBuildBuild, pkgsBuildHost, pkgsBuildTarget
-, fetchurl, file, python2, tzdata, ps
-, llvm_7, darwin, git, cmake, rustPlatform
-, which, libffi, gdb
-, withBundledLLVM ? false
-}:
+{ stdenv, removeReferencesTo, pkgsBuildBuild, pkgsBuildHost, pkgsBuildTarget, fetchurl, file, python2, tzdata, ps, llvm_7, darwin, git, cmake, rustPlatform, which, libffi, gdb, withBundledLLVM ?
+  false }:
 
 let
   inherit (stdenv.lib) optional optionalString;
   inherit (darwin.apple_sdk.frameworks) Security;
 
-  llvmSharedForBuild = pkgsBuildBuild.llvm_7.override { enableSharedLibraries = true; };
-  llvmSharedForHost = pkgsBuildHost.llvm_7.override { enableSharedLibraries = true; };
-  llvmSharedForTarget = pkgsBuildTarget.llvm_7.override { enableSharedLibraries = true; };
+  llvmSharedForBuild =
+    pkgsBuildBuild.llvm_7.override { enableSharedLibraries = true; };
+  llvmSharedForHost =
+    pkgsBuildHost.llvm_7.override { enableSharedLibraries = true; };
+  llvmSharedForTarget =
+    pkgsBuildTarget.llvm_7.override { enableSharedLibraries = true; };
 
   # For use at runtime
   llvmShared = llvm_7.override { enableSharedLibraries = true; };
@@ -38,10 +37,10 @@ in stdenv.mkDerivation rec {
   # See: https://github.com/NixOS/nixpkgs/pull/56540#issuecomment-471624656
   stripDebugList = [ "bin" ];
 
-
   NIX_LDFLAGS =
-       # when linking stage1 libstd: cc: undefined reference to `__cxa_begin_catch'
-       optional (stdenv.isLinux && !withBundledLLVM) "--push-state --as-needed -lstdc++ --pop-state"
+    # when linking stage1 libstd: cc: undefined reference to `__cxa_begin_catch'
+    optional (stdenv.isLinux && !withBundledLLVM)
+    "--push-state --as-needed -lstdc++ --pop-state"
     ++ optional (stdenv.isDarwin && !withBundledLLVM) "-lc++"
     ++ optional stdenv.isDarwin "-rpath ${llvmSharedForHost}/lib";
 
@@ -57,42 +56,48 @@ in stdenv.mkDerivation rec {
   # We need rust to build rust. If we don't provide it, configure will try to download it.
   # Reference: https://github.com/rust-lang/rust/blob/master/src/bootstrap/configure.py
   configureFlags = let
-    setBuild  = "--set=target.${stdenv.buildPlatform.config}";
-    setHost   = "--set=target.${stdenv.hostPlatform.config}";
+    setBuild = "--set=target.${stdenv.buildPlatform.config}";
+    setHost = "--set=target.${stdenv.hostPlatform.config}";
     setTarget = "--set=target.${stdenv.targetPlatform.config}";
-    ccForBuild  = "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}cc";
-    cxxForBuild = "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}c++";
-    ccForHost  = "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}cc";
-    cxxForHost = "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}c++";
-    ccForTarget  = "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc";
-    cxxForTarget = "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}c++";
-  in [
-    "--release-channel=stable"
-    "--set=build.rustc=${rustPlatform.rust.rustc}/bin/rustc"
-    "--set=build.cargo=${rustPlatform.rust.cargo}/bin/cargo"
-    "--enable-rpath"
-    "--enable-vendor"
-    "--build=${stdenv.buildPlatform.config}"
-    "--host=${stdenv.hostPlatform.config}"
-    "--target=${stdenv.targetPlatform.config}"
+    ccForBuild =
+      "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}cc";
+    cxxForBuild =
+      "${pkgsBuildBuild.targetPackages.stdenv.cc}/bin/${pkgsBuildBuild.targetPackages.stdenv.cc.targetPrefix}c++";
+    ccForHost =
+      "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}cc";
+    cxxForHost =
+      "${pkgsBuildHost.targetPackages.stdenv.cc}/bin/${pkgsBuildHost.targetPackages.stdenv.cc.targetPrefix}c++";
+    ccForTarget =
+      "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc";
+    cxxForTarget =
+      "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}c++";
+    in [
+      "--release-channel=stable"
+      "--set=build.rustc=${rustPlatform.rust.rustc}/bin/rustc"
+      "--set=build.cargo=${rustPlatform.rust.cargo}/bin/cargo"
+      "--enable-rpath"
+      "--enable-vendor"
+      "--build=${stdenv.buildPlatform.config}"
+      "--host=${stdenv.hostPlatform.config}"
+      "--target=${stdenv.targetPlatform.config}"
 
-    "${setBuild}.cc=${ccForBuild}"
-    "${setHost}.cc=${ccForHost}"
-    "${setTarget}.cc=${ccForTarget}"
+      "${setBuild}.cc=${ccForBuild}"
+      "${setHost}.cc=${ccForHost}"
+      "${setTarget}.cc=${ccForTarget}"
 
-    "${setBuild}.linker=${ccForBuild}"
-    "${setHost}.linker=${ccForHost}"
-    "${setTarget}.linker=${ccForTarget}"
+      "${setBuild}.linker=${ccForBuild}"
+      "${setHost}.linker=${ccForHost}"
+      "${setTarget}.linker=${ccForTarget}"
 
-    "${setBuild}.cxx=${cxxForBuild}"
-    "${setHost}.cxx=${cxxForHost}"
-    "${setTarget}.cxx=${cxxForTarget}"
-  ] ++ optional (!withBundledLLVM) [
-    "--enable-llvm-link-shared"
-    "${setBuild}.llvm-config=${llvmSharedForBuild}/bin/llvm-config"
-    "${setHost}.llvm-config=${llvmSharedForHost}/bin/llvm-config"
-    "${setTarget}.llvm-config=${llvmSharedForTarget}/bin/llvm-config"
-  ];
+      "${setBuild}.cxx=${cxxForBuild}"
+      "${setHost}.cxx=${cxxForHost}"
+      "${setTarget}.cxx=${cxxForTarget}"
+    ] ++ optional (!withBundledLLVM) [
+      "--enable-llvm-link-shared"
+      "${setBuild}.llvm-config=${llvmSharedForBuild}/bin/llvm-config"
+      "${setHost}.llvm-config=${llvmSharedForHost}/bin/llvm-config"
+      "${setTarget}.llvm-config=${llvmSharedForTarget}/bin/llvm-config"
+    ];
 
   # The bootstrap.py will generated a Makefile that then executes the build.
   # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass
@@ -120,7 +125,7 @@ in stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs src/etc
 
-    ${optionalString (!withBundledLLVM) ''rm -rf src/llvm''}
+    ${optionalString (!withBundledLLVM) "rm -rf src/llvm"}
 
     # Fix the configure script to not require curl as we won't use it
     sed -i configure \
@@ -160,8 +165,15 @@ in stdenv.mkDerivation rec {
 
   # ps is needed for one of the test cases
   nativeBuildInputs = [
-    file python2 ps rustPlatform.rust.rustc git cmake
-    which libffi removeReferencesTo
+    file
+    python2
+    ps
+    rustPlatform.rust.rustc
+    git
+    cmake
+    which
+    libffi
+    removeReferencesTo
   ] # Only needed for the debuginfo tests
     ++ optional (!stdenv.isDarwin) gdb;
 
@@ -177,13 +189,13 @@ in stdenv.mkDerivation rec {
     export TZDIR=${tzdata}/share/zoneinfo
     export hardeningDisable=all
   '' +
-  # Ensure TMPDIR is set, and disable a test that removing the HOME
-  # variable from the environment falls back to another home
-  # directory.
-  optionalString stdenv.isDarwin ''
-    export TMPDIR=/tmp
-    sed -i '28s/home_dir().is_some()/true/' ./src/test/run-pass/env-home-dir.rs
-  '';
+    # Ensure TMPDIR is set, and disable a test that removing the HOME
+    # variable from the environment falls back to another home
+    # directory.
+    optionalString stdenv.isDarwin ''
+      export TMPDIR=/tmp
+      sed -i '28s/home_dir().is_some()/true/' ./src/test/run-pass/env-home-dir.rs
+    '';
 
   # 1. Upstream is not running tests on aarch64:
   # see https://github.com/rust-lang/rust/issues/49807#issuecomment-380860567
@@ -200,7 +212,7 @@ in stdenv.mkDerivation rec {
     find $out/lib -name "*.so" -type f -exec remove-references-to -t ${llvmShared} '{}' '+'
   '';
 
-  configurePlatforms = [];
+  configurePlatforms = [ ];
 
   # https://github.com/NixOS/nixpkgs/pull/21742#issuecomment-272305764
   # https://github.com/rust-lang/rust/issues/30181
@@ -209,7 +221,7 @@ in stdenv.mkDerivation rec {
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.rust-lang.org/;
+    homepage = "https://www.rust-lang.org/";
     description = "A safe, concurrent, practical language";
     maintainers = with maintainers; [ madjar cstrahan wizeman globin havvy ];
     license = [ licenses.mit licenses.asl20 ];

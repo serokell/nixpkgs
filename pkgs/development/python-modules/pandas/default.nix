@@ -1,28 +1,5 @@
-{ buildPythonPackage
-, fetchPypi
-, python
-, stdenv
-, pytest
-, glibcLocales
-, cython
-, dateutil
-, scipy
-, moto
-, numexpr
-, pytz
-, xlrd
-, bottleneck
-, sqlalchemy
-, lxml
-, html5lib
-, beautifulsoup4
-, hypothesis
-, openpyxl
-, tables
-, xlwt
-, runtimeShell
-, libcxx ? null
-}:
+{ buildPythonPackage, fetchPypi, python, stdenv, pytest, glibcLocales, cython, dateutil, scipy, moto, numexpr, pytz, xlrd, bottleneck, sqlalchemy, lxml, html5lib, beautifulsoup4, hypothesis, openpyxl, tables, xlwt, runtimeShell, libcxx ?
+  null }:
 
 let
   inherit (stdenv.lib) optional optionals optionalString;
@@ -67,7 +44,6 @@ in buildPythonPackage rec {
                 "['pandas/src/klib', 'pandas/src', '$cpp_sdk']"
   '';
 
-
   disabledTests = stdenv.lib.concatMapStringsSep " and " (s: "not " + s) ([
     # since dateutil 0.6.0 the following fails: test_fallback_plural, test_ambiguous_flags, test_ambiguous_compat
     # was supposed to be solved by https://github.com/dateutil/dateutil/issues/321, but is not the case
@@ -84,34 +60,31 @@ in buildPythonPackage rec {
     "io"
     # KeyError Timestamp
     "test_to_excel"
-  ] ++ optionals isDarwin [
-    "test_locale"
-    "test_clipboard"
-  ]);
+  ] ++ optionals isDarwin [ "test_locale" "test_clipboard" ]);
 
   doCheck = !stdenv.isAarch64; # upstream doesn't test this architecture
 
   checkPhase = ''
     runHook preCheck
   ''
-  # TODO: Get locale and clipboard support working on darwin.
-  #       Until then we disable the tests.
-  + optionalString isDarwin ''
-    # Fake the impure dependencies pbpaste and pbcopy
-    echo "#!${runtimeShell}" > pbcopy
-    echo "#!${runtimeShell}" > pbpaste
-    chmod a+x pbcopy pbpaste
-    export PATH=$(pwd):$PATH
-  '' + ''
-    LC_ALL="en_US.UTF-8" py.test $out/${python.sitePackages}/pandas --skip-slow --skip-network -k "$disabledTests"
-    runHook postCheck
-  '';
+    # TODO: Get locale and clipboard support working on darwin.
+    #       Until then we disable the tests.
+    + optionalString isDarwin ''
+      # Fake the impure dependencies pbpaste and pbcopy
+      echo "#!${runtimeShell}" > pbcopy
+      echo "#!${runtimeShell}" > pbpaste
+      chmod a+x pbcopy pbpaste
+      export PATH=$(pwd):$PATH
+    '' + ''
+      LC_ALL="en_US.UTF-8" py.test $out/${python.sitePackages}/pandas --skip-slow --skip-network -k "$disabledTests"
+      runHook postCheck
+    '';
 
   meta = {
     # https://github.com/pandas-dev/pandas/issues/14866
     # pandas devs are no longer testing i686 so safer to assume it's broken
     broken = stdenv.isi686;
-    homepage = http://pandas.pydata.org/;
+    homepage = "http://pandas.pydata.org/";
     description = "Python Data Analysis Library";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ raskin fridh knedlsepp ];

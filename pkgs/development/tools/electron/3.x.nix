@@ -1,4 +1,5 @@
-{ stdenv, libXScrnSaver, makeWrapper, fetchurl, unzip, atomEnv, gtk2, at-spi2-atk }:
+{ stdenv, libXScrnSaver, makeWrapper, fetchurl, unzip, atomEnv, gtk2, at-spi2-atk
+}:
 
 let
   version = "3.1.8";
@@ -8,29 +9,39 @@ let
 
   meta = with stdenv.lib; {
     description = "Cross platform desktop application shell";
-    homepage = https://github.com/electron/electron;
+    homepage = "https://github.com/electron/electron";
     license = licenses.mit;
     maintainers = with maintainers; [ travisbhartwell manveru ];
-    platforms = [ "x86_64-darwin" "x86_64-linux" "i686-linux" "armv7l-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "i686-linux"
+      "armv7l-linux"
+      "aarch64-linux"
+    ];
   };
 
   linux = {
     inherit name version meta;
     src = {
       i686-linux = fetchurl {
-        url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-ia32.zip";
+        url =
+          "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-ia32.zip";
         sha256 = "1vq4vanlwixgk1q4v5d24f1ywgy2af1r14f9byzfy89vwds77yk9";
       };
       x86_64-linux = fetchurl {
-        url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-x64.zip";
+        url =
+          "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-x64.zip";
         sha256 = "13zds8bzn4z11544llkh99fw75gddxs5b9h1m5xgjzw37vf6rpws";
       };
       armv7l-linux = fetchurl {
-        url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-armv7l.zip";
+        url =
+          "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-armv7l.zip";
         sha256 = "0rfw1ydlmixyhifpmm2qyxapx3iqav4nlnzp2km9z7a0hpc4lii6";
       };
       aarch64-linux = fetchurl {
-        url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-arm64.zip";
+        url =
+          "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-linux-arm64.zip";
         sha256 = "0qrnvzjz78fblfg4r6xpzc40p10y6865gqpwx2h5vsdfp6sgq898";
       };
     }.${stdenv.hostPlatform.system} or throwSystem;
@@ -50,7 +61,9 @@ let
         $out/lib/electron/electron
 
       wrapProgram $out/lib/electron/electron \
-        --prefix LD_PRELOAD : ${stdenv.lib.makeLibraryPath [ libXScrnSaver ]}/libXss.so.1
+        --prefix LD_PRELOAD : ${
+        stdenv.lib.makeLibraryPath [ libXScrnSaver ]
+        }/libXss.so.1
     '';
   };
 
@@ -58,7 +71,8 @@ let
     inherit name version meta;
 
     src = fetchurl {
-      url = "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-darwin-x64.zip";
+      url =
+        "https://github.com/electron/electron/releases/download/v${version}/electron-v${version}-darwin-x64.zip";
       sha256 = "0ms75306dq2ym838zk9d9nypnd8yjipl0zqyq9bvd4r32p241hw9";
     };
 
@@ -72,6 +86,5 @@ let
       ln -s $out/Applications/Electron.app/Contents/MacOs/Electron $out/bin/electron
     '';
   };
-in
 
-  stdenv.mkDerivation (if stdenv.isDarwin then darwin else linux)
+in stdenv.mkDerivation (if stdenv.isDarwin then darwin else linux)

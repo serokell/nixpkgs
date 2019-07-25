@@ -23,7 +23,7 @@ let
 
       extraOptions = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         description = "Extra SSL configuration options.";
       };
 
@@ -41,7 +41,8 @@ let
     saslauth = mkOption {
       type = types.bool;
       default = true;
-      description = "Authentication for clients and servers. Recommended if you want to log in.";
+      description =
+        "Authentication for clients and servers. Recommended if you want to log in.";
     };
 
     tls = mkOption {
@@ -72,7 +73,8 @@ let
     pep = mkOption {
       type = types.bool;
       default = true;
-      description = "Enables users to publish their mood, activity, playing music and more";
+      description =
+        "Enables users to publish their mood, activity, playing music and more";
     };
 
     private = mkOption {
@@ -121,7 +123,8 @@ let
     register = mkOption {
       type = types.bool;
       default = true;
-      description = "Allow users to register on this server using a client and change passwords";
+      description =
+        "Allow users to register on this server using a client and change passwords";
     };
 
     mam = mkOption {
@@ -134,7 +137,8 @@ let
     admin_adhoc = mkOption {
       type = types.bool;
       default = true;
-      description = "Allows administration via an XMPP client that supports ad-hoc commands";
+      description =
+        "Allows administration via an XMPP client that supports ad-hoc commands";
     };
 
     admin_telnet = mkOption {
@@ -208,30 +212,40 @@ let
     legacyauth = mkOption {
       type = types.bool;
       default = false;
-      description = "Legacy authentication. Only used by some old clients and bots";
+      description =
+        "Legacy authentication. Only used by some old clients and bots";
     };
 
     proxy65 = mkOption {
       type = types.bool;
       default = false;
-      description = "Enables a file transfer proxy service which clients behind NAT can use";
+      description =
+        "Enables a file transfer proxy service which clients behind NAT can use";
     };
 
   };
 
   toLua = x:
-    if builtins.isString x then ''"${x}"''
-    else if builtins.isBool x then (if x == true then "true" else "false")
-    else if builtins.isInt x then toString x
-    else if builtins.isList x then ''{ ${lib.concatStringsSep ", " (map (n: toLua n) x) } }''
-    else throw "Invalid Lua value";
+    if builtins.isString x then
+      ''"${x}"''
+    else if builtins.isBool x then
+      (if x == true then "true" else "false")
+    else if builtins.isInt x then
+      toString x
+    else if builtins.isList x then
+      "{ ${lib.concatStringsSep ", " (map (n: toLua n) x)} }"
+    else
+      throw "Invalid Lua value";
 
   createSSLOptsStr = o: ''
     ssl = {
       cafile = "/etc/ssl/certs/ca-bundle.crt";
       key = "${o.key}";
       certificate = "${o.cert}";
-      ${concatStringsSep "\n" (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)}
+      ${
+      concatStringsSep "\n"
+      (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)
+      }
     };
   '';
 
@@ -267,9 +281,7 @@ let
 
   };
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -352,7 +364,7 @@ in
 
       s2sInsecureDomains = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "insecure.example.com" ];
         description = ''
           Some servers have invalid or self-signed certificates. You can list
@@ -364,7 +376,7 @@ in
 
       s2sSecureDomains = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "jabber.org" ];
         description = ''
           Even if you leave s2s_secure_auth disabled, you can still require valid
@@ -372,18 +384,17 @@ in
         '';
       };
 
-
       modules = moduleOpts;
 
       extraModules = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = "Enable custom modules";
       };
 
       extraPluginPaths = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = "Addtional path in which to look find plugins/modules";
       };
 
@@ -417,13 +428,14 @@ in
 
       admins = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "admin1@example.com" "admin2@example.com" ];
         description = "List of administrators of the current host";
       };
 
       authentication = mkOption {
-        type = types.enum [ "internal_plain" "internal_hashed" "cyrus" "anonymous" ];
+        type =
+          types.enum [ "internal_plain" "internal_hashed" "cyrus" "anonymous" ];
         default = "internal_hashed";
         example = "internal_plain";
         description = "Authentication mechanism used for logins.";
@@ -437,7 +449,6 @@ in
 
     };
   };
-
 
   ###### implementation
 
@@ -453,10 +464,10 @@ in
 
       data_path = "${cfg.dataDir}"
       plugin_paths = {
-        ${lib.concatStringsSep ", " (map (n: "\"${n}\"") cfg.extraPluginPaths) }
+        ${lib.concatStringsSep ", " (map (n: ''"${n}"'') cfg.extraPluginPaths)}
       }
 
-      ${ optionalString  (cfg.ssl != null) (createSSLOptsStr cfg.ssl) }
+      ${optionalString (cfg.ssl != null) (createSSLOptsStr cfg.ssl)}
 
       admins = ${toLua cfg.admins}
 
@@ -465,11 +476,16 @@ in
 
       modules_enabled = {
 
-        ${ lib.concatStringsSep "\n\ \ " (lib.mapAttrsToList
-          (name: val: optionalString val "${toLua name};")
-        cfg.modules) }
-        ${ lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)}
-        ${ lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
+        ${
+        lib.concatStringsSep "\n  "
+        (lib.mapAttrsToList (name: val: optionalString val "${toLua name};")
+        cfg.modules)
+        }
+        ${
+        lib.concatStringsSep "\n"
+        (map (x: "${toLua x};") cfg.package.communityModules)
+        }
+        ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
       };
 
       allow_registration = ${toLua cfg.allowRegistration}
@@ -486,14 +502,14 @@ in
 
       authentication = ${toLua cfg.authentication}
 
-      ${ cfg.extraConfig }
+      ${cfg.extraConfig}
 
-      ${ lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''
         VirtualHost "${v.domain}"
           enabled = ${boolToString v.enabled};
-          ${ optionalString (v.ssl != null) (createSSLOptsStr v.ssl) }
-          ${ v.extraConfig }
-        '') cfg.virtualHosts) }
+          ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+          ${v.extraConfig}
+      '') cfg.virtualHosts)}
     '';
 
     users.users.prosody = mkIf (cfg.user == "prosody") {
@@ -504,16 +520,16 @@ in
       home = "${cfg.dataDir}";
     };
 
-    users.groups.prosody = mkIf (cfg.group == "prosody") {
-      gid = config.ids.gids.prosody;
-    };
+    users.groups.prosody =
+      mkIf (cfg.group == "prosody") { gid = config.ids.gids.prosody; };
 
     systemd.services.prosody = {
       description = "Prosody XMPP server";
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."prosody/prosody.cfg.lua".source ];
+      restartTriggers =
+        [ config.environment.etc."prosody/prosody.cfg.lua".source ];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

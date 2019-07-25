@@ -1,5 +1,4 @@
-{ stdenv, fetchurl
-, enableSigbusFix ? false # required by kernels < 3.18.6
+{ stdenv, fetchurl, enableSigbusFix ? false # required by kernels < 3.18.6
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
   doCheck = true; # not cross;
 
   meta = {
-    homepage = https://www.gnu.org/software/libsigsegv/;
+    homepage = "https://www.gnu.org/software/libsigsegv/";
     description = "Library to handle page faults in user mode";
 
     longDescription = ''

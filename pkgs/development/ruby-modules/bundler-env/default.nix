@@ -1,26 +1,20 @@
 { ruby, lib, callPackage, defaultGemConfig, buildEnv, bundler }@defs:
 
-{ name ? null
-, pname ? null
-, gemdir ? null
-, gemfile ? null
-, lockfile ? null
-, gemset ? null
-, groups ? ["default"]
-, ruby ? defs.ruby
-, gemConfig ? defaultGemConfig
-, postBuild ? null
-, document ? []
-, meta ? {}
-, ignoreCollisions ? false
-, passthru ? {}
-, ...
-}@args:
+{ name ? null, pname ? null, gemdir ? null, gemfile ? null, lockfile ?
+  null, gemset ? null, groups ? [ "default" ], ruby ? defs.ruby, gemConfig ?
+    defaultGemConfig, postBuild ? null, document ? [ ], meta ?
+      { }, ignoreCollisions ? false, passthru ? { }, ... }@args:
 
 let
-  inherit (import ../bundled-common/functions.nix {inherit lib ruby gemConfig groups; }) genStubsScript;
+  inherit (import ../bundled-common/functions.nix {
+    inherit lib ruby gemConfig groups;
+  })
+    genStubsScript;
 
-  basicEnv = (callPackage ../bundled-common {}) (args // { inherit pname name; mainGemName = pname; });
+  basicEnv = (callPackage ../bundled-common { }) (args // {
+    inherit pname name;
+    mainGemName = pname;
+  });
 
   inherit (basicEnv) envPaths;
   # Idea here is a mkDerivation that gen-bin-stubs new stubs "as specified" -
@@ -34,27 +28,26 @@ let
   # than the expression trying to deduce a use case.
 
   # The basicEnv should be put into passthru so that e.g. nix-shell can use it.
-in
-  if pname == null then
-    basicEnv // { inherit name basicEnv; }
-  else
-    (buildEnv {
-      inherit ignoreCollisions;
+in if pname == null then
+  basicEnv // { inherit name basicEnv; }
+else
+  (buildEnv {
+    inherit ignoreCollisions;
 
-      name = basicEnv.name;
+    name = basicEnv.name;
 
-      paths = envPaths;
-      pathsToLink = [ "/lib" ];
+    paths = envPaths;
+    pathsToLink = [ "/lib" ];
 
-      postBuild = genStubsScript {
-        inherit lib ruby bundler groups;
-        confFiles = basicEnv.confFiles;
-        binPaths = [ basicEnv.gems."${pname}" ];
-      } + lib.optionalString (postBuild != null) postBuild;
+    postBuild = genStubsScript {
+      inherit lib ruby bundler groups;
+      confFiles = basicEnv.confFiles;
+      binPaths = [ basicEnv.gems."${pname}" ];
+    } + lib.optionalString (postBuild != null) postBuild;
 
-      meta = { platforms = ruby.meta.platforms; } // meta;
-      passthru = basicEnv.passthru // {
-        inherit basicEnv;
-        inherit (basicEnv) env;
-      } // passthru;
-    })
+    meta = { platforms = ruby.meta.platforms; } // meta;
+    passthru = basicEnv.passthru // {
+      inherit basicEnv;
+      inherit (basicEnv) env;
+    } // passthru;
+  })

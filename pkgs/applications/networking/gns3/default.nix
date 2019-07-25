@@ -4,8 +4,9 @@ let
   stableVersion = "2.1.21";
   previewVersion = "2.2.0b4";
   addVersion = args:
-    let version = if args.stable then stableVersion else previewVersion;
-        branch = if args.stable then "stable" else "preview";
+    let
+      version = if args.stable then stableVersion else previewVersion;
+      branch = if args.stable then "stable" else "preview";
     in args // { inherit version branch; };
   mkGui = args: callPackage (import ./gui.nix (addVersion args)) { };
   mkServer = args: callPackage (import ./server.nix (addVersion args)) { };

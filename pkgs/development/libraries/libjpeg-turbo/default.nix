@@ -10,21 +10,21 @@ stdenv.mkDerivation rec {
     sha256 = "1v9gx1gdzgxf51nd55ncq7rghmj4x9x91rby50ag36irwngmkf5c";
   };
 
-  patches =
-    stdenv.lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
-      ./mingw-boolean.patch;
+  patches = stdenv.lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
+    ./mingw-boolean.patch;
 
   outputs = [ "bin" "dev" "out" "man" "doc" ];
 
   nativeBuildInputs = [ cmake nasm ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_BINDIR=${placeholder "bin"}/bin" "-DENABLE_STATIC=0" ];
+  cmakeFlags =
+    [ "-DCMAKE_INSTALL_BINDIR=${placeholder "bin"}/bin" "-DENABLE_STATIC=0" ];
 
   doInstallCheck = true;
   installCheckTarget = "test";
 
   meta = with stdenv.lib; {
-    homepage = http://libjpeg-turbo.virtualgl.org/;
+    homepage = "http://libjpeg-turbo.virtualgl.org/";
     description = "A faster (using SIMD) libjpeg implementation";
     license = licenses.ijg; # and some parts under other BSD-style licenses
     maintainers = [ maintainers.vcunat ];

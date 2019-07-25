@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, decorator
-, appdirs
-, six
-, numpy
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, decorator, appdirs, six, numpy, pytest }:
 
 buildPythonPackage rec {
   pname = "pytools";
@@ -19,19 +11,14 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    decorator
-    appdirs
-    six
-    numpy
-  ];
+  propagatedBuildInputs = [ decorator appdirs six numpy ];
 
   checkPhase = ''
     py.test -k 'not test_persistent_dict'
   '';
 
   meta = {
-    homepage = https://github.com/inducer/pytools/;
+    homepage = "https://github.com/inducer/pytools/";
     description = "Miscellaneous Python lifesavers.";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ artuuge ];

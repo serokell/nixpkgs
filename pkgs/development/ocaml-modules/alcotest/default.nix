@@ -1,9 +1,8 @@
-{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, topkg, dune
-, cmdliner, astring, fmt, result, uuidm
+{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, topkg, dune, cmdliner, astring, fmt, result, uuidm
 }:
 
-let param =
-  if stdenv.lib.versionAtLeast ocaml.version "4.02" then {
+let
+  param = if stdenv.lib.versionAtLeast ocaml.version "4.02" then {
     version = "0.8.5";
     sha256 = "1mhckvdcxkikbzgvy24kjz4265l15b86a6swz7m3ynbgvqdcfzqn";
     buildInputs = [ dune ];
@@ -16,9 +15,8 @@ let param =
     buildInputs = [ ocamlbuild topkg ];
     inherit (topkg) buildPhase installPhase;
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-alcotest-${version}";
   inherit (param) version buildPhase installPhase;
 
@@ -30,12 +28,12 @@ stdenv.mkDerivation rec {
   buildInputs = [ ocaml findlib ] ++ param.buildInputs;
 
   propagatedBuildInputs = [ cmdliner astring fmt result ]
-  ++ (param.propagatedBuildInputs or []);
+    ++ (param.propagatedBuildInputs or [ ]);
 
   createFindlibDestdir = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mirage/alcotest;
+    homepage = "https://github.com/mirage/alcotest";
     description = "A lightweight and colourful test framework";
     license = stdenv.lib.licenses.isc;
     maintainers = [ maintainers.ericbmerritt ];

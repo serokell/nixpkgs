@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, dill
-, pox
-, ppft
-, multiprocess
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dill, pox, ppft, multiprocess }:
 
 buildPythonPackage rec {
   pname = "pathos";
@@ -22,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Parallel graph management and execution in heterogeneous computing";
-    homepage = http://www.cacr.caltech.edu/~mmckerns/pathos.htm;
+    description =
+      "Parallel graph management and execution in heterogeneous computing";
+    homepage = "http://www.cacr.caltech.edu/~mmckerns/pathos.htm";
     license = licenses.bsd3;
   };
 

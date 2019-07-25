@@ -26,8 +26,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/apenwarr/netselect;
-    description = "An ultrafast intelligent parallelizing binary-search implementation of \"ping\"";
+    homepage = "https://github.com/apenwarr/netselect";
+    description = ''
+      An ultrafast intelligent parallelizing binary-search implementation of "ping"'';
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, pytestcov
-, numpy
-, scipy
-, cython
-, numba
-, six
+{ stdenv, buildPythonPackage, fetchFromGitHub, pytest, pytestcov, numpy, scipy, cython, numba, six
 }:
 
 buildPythonPackage rec {
@@ -30,7 +21,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/bmcfee/resampy;
+    homepage = "https://github.com/bmcfee/resampy";
     description = "Efficient signal resampling";
     license = licenses.isc;
   };

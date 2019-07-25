@@ -1,13 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, xlibsWrapper, xorgproto, libXi
-, freeglut, libGLU_combined, libjpeg, zlib, libXft, libpng
-, libtiff, freetype, Cocoa, AGL, GLUT
+{ stdenv, fetchurl, pkgconfig, xlibsWrapper, xorgproto, libXi, freeglut, libGLU_combined, libjpeg, zlib, libXft, libpng, libtiff, freetype, Cocoa, AGL, GLUT
 }:
 
-let
-  version = "1.4.x-r13121";
-in
+let version = "1.4.x-r13121";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "fltk-${version}";
 
   src = fetchurl {
@@ -21,10 +17,14 @@ stdenv.mkDerivation {
   buildInputs = [ libGLU_combined libjpeg zlib libpng libXft ]
     ++ stdenv.lib.optional stdenv.isDarwin [ AGL Cocoa GLUT ];
 
-  propagatedBuildInputs = [ xorgproto ]
-    ++ (if stdenv.isDarwin
-        then [ freetype libtiff ]
-        else [ xlibsWrapper libXi freeglut ]);
+  propagatedBuildInputs = [ xorgproto ] ++ (if stdenv.isDarwin then [
+    freetype
+    libtiff
+  ] else [
+    xlibsWrapper
+    libXi
+    freeglut
+  ]);
 
   configureFlags = [
     "--enable-gl"
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "A C++ cross-platform lightweight GUI library";
-    homepage = http://www.fltk.org;
+    homepage = "http://www.fltk.org";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.gpl2;
   };

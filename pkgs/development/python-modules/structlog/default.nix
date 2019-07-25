@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, python-rapidjson
-, pretend
-, freezegun
-, twisted
-, simplejson
-, six
-, pythonAtLeast
+{ lib, buildPythonPackage, fetchPypi, pytest, python-rapidjson, pretend, freezegun, twisted, simplejson, six, pythonAtLeast
 }:
 
 buildPythonPackage rec {
@@ -31,7 +21,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Painless structural logging";
-    homepage = http://www.structlog.org/;
+    homepage = "http://www.structlog.org/";
     license = lib.licenses.asl20;
   };
 }

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, autoconf, automake, pkgconfig, glib
-, perl, ncurses, hamlib, xmlrpc_c }:
+{ stdenv, fetchFromGitHub, autoreconfHook, autoconf, automake, pkgconfig, glib, perl, ncurses, hamlib, xmlrpc_c
+}:
 
 stdenv.mkDerivation rec {
   pname = "tlf";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       EU SPRINT shortwave contests (single operator) as well as a LOT MORE basic
       contests, general QSO and DXpedition mode.
     '';
-    homepage = https://tlf.github.io/;
+    homepage = "https://tlf.github.io/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ etu ];
     platforms = platforms.linux;

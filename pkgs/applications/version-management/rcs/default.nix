@@ -18,14 +18,16 @@ stdenv.mkDerivation rec {
     ./disable-t810.patch
 
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/macports/macports-ports/b76d1e48dac/editors/nano/files/secure_snprintf.patch";
+      url =
+        "https://raw.githubusercontent.com/macports/macports-ports/b76d1e48dac/editors/nano/files/secure_snprintf.patch";
       extraPrefix = "";
       sha256 = "1wy9pjw3vvp8fv8a7pmkqmiapgacfx54qj9fvsc5gwry0vv7vnc3";
     })
 
     # Expected to appear in the next release
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/Homebrew/formula-patches/3fff7c990b8df4174045834b9c1210e7736ff5a4/rcs/noreturn.patch";
+      url =
+        "https://raw.githubusercontent.com/Homebrew/formula-patches/3fff7c990b8df4174045834b9c1210e7736ff5a4/rcs/noreturn.patch";
       sha256 = "10zniqrd6xagf3q03i1vksl0vd9nla3qcj0840n3m8z6jd4aypcx";
     })
   ];
@@ -56,15 +58,15 @@ stdenv.mkDerivation rec {
   hardeningDisable = stdenv.lib.optional stdenv.cc.isClang "format";
 
   meta = {
-    homepage = https://www.gnu.org/software/rcs/;
+    homepage = "https://www.gnu.org/software/rcs/";
     description = "Revision control system";
-    longDescription =
-      '' The GNU Revision Control System (RCS) manages multiple revisions of
-         files. RCS automates the storing, retrieval, logging,
-         identification, and merging of revisions.  RCS is useful for text
-         that is revised frequently, including source code, programs,
-         documentation, graphics, papers, and form letters.
-      '';
+    longDescription = ''
+      The GNU Revision Control System (RCS) manages multiple revisions of
+              files. RCS automates the storing, retrieval, logging,
+              identification, and merging of revisions.  RCS is useful for text
+              that is revised frequently, including source code, programs,
+              documentation, graphics, papers, and form letters.
+           '';
 
     license = stdenv.lib.licenses.gpl3Plus;
     maintainers = with stdenv.lib.maintainers; [ eelco ];

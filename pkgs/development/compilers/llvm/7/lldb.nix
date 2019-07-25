@@ -1,18 +1,4 @@
-{ stdenv
-, fetch
-, cmake
-, zlib
-, ncurses
-, swig
-, which
-, libedit
-, libxml2
-, llvm
-, clang-unwrapped
-, perl
-, python
-, version
-, darwin
+{ stdenv, fetch, cmake, zlib, ncurses, swig, which, libedit, libxml2, llvm, clang-unwrapped, perl, python, version, darwin
 }:
 
 stdenv.mkDerivation {
@@ -22,8 +8,14 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake perl python which swig ];
   buildInputs = [ ncurses zlib libedit libxml2 llvm ]
-    ++ stdenv.lib.optionals stdenv.isDarwin [ darwin.libobjc darwin.apple_sdk.libs.xpc darwin.apple_sdk.frameworks.Foundation darwin.bootstrap_cmds darwin.apple_sdk.frameworks.Carbon darwin.apple_sdk.frameworks.Cocoa ];
-
+    ++ stdenv.lib.optionals stdenv.isDarwin [
+      darwin.libobjc
+      darwin.apple_sdk.libs.xpc
+      darwin.apple_sdk.frameworks.Foundation
+      darwin.bootstrap_cmds
+      darwin.apple_sdk.frameworks.Carbon
+      darwin.apple_sdk.frameworks.Cocoa
+    ];
 
   postPatch = ''
     # Fix up various paths that assume llvm and clang are installed in the same place
@@ -49,7 +41,8 @@ stdenv.mkDerivation {
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang "-I${libxml2.dev}/include/libxml2";
+  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang
+    "-I${libxml2.dev}/include/libxml2";
 
   enableParallelBuilding = true;
 
@@ -60,8 +53,8 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "A next-generation high-performance debugger";
-    homepage    = http://llvm.org/;
-    license     = licenses.ncsa;
-    platforms   = platforms.all;
+    homepage = "http://llvm.org/";
+    license = licenses.ncsa;
+    platforms = platforms.all;
   };
 }

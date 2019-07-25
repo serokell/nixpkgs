@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libXtst, libvorbis, hunspell
-, libao, ffmpeg, libeb, lzo, xz, libtiff
-, qtbase, qtsvg, qtwebkit, qtx11extras, qttools, qmake }:
+{ stdenv, fetchFromGitHub, pkgconfig, libXtst, libvorbis, hunspell, libao, ffmpeg, libeb, lzo, xz, libtiff, qtbase, qtsvg, qtwebkit, qtx11extras, qttools, qmake
+}:
 stdenv.mkDerivation rec {
 
   name = "goldendict-2018-06-13";
@@ -13,14 +12,26 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig qmake ];
   buildInputs = [
-    qtbase qtsvg qtwebkit qtx11extras qttools
-    libXtst libvorbis hunspell libao ffmpeg libeb lzo xz libtiff
+    qtbase
+    qtsvg
+    qtwebkit
+    qtx11extras
+    qttools
+    libXtst
+    libvorbis
+    hunspell
+    libao
+    ffmpeg
+    libeb
+    lzo
+    xz
+    libtiff
   ];
 
   qmakeFlags = [ "CONFIG+=zim_support" ];
 
   meta = with stdenv.lib; {
-    homepage = http://goldendict.org/;
+    homepage = "http://goldendict.org/";
     description = "A feature-rich dictionary lookup program";
     platforms = platforms.linux;
     maintainers = with maintainers; [ gebner astsmtl ];

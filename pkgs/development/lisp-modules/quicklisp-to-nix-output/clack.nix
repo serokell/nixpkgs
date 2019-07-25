@@ -1,20 +1,30 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''clack'';
-  version = ''20181018-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "clack";
+  version = "20181018-git";
 
-  description = ''Web application environment for Common Lisp'';
+  description = "Web application environment for Common Lisp";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."ironclad" args."lack" args."lack-component" args."lack-middleware-backtrace" args."lack-util" args."nibbles" args."uiop" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."ironclad"
+    args."lack"
+    args."lack-component"
+    args."lack-middleware-backtrace"
+    args."lack-util"
+    args."nibbles"
+    args."uiop"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz'';
-    sha256 = ''1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf'';
+    url =
+      "http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz";
+    sha256 = "1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf";
   };
 
   packageName = "clack";
 
-  asdFilesToKeep = ["clack.asd"];
+  asdFilesToKeep = [ "clack.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clack DESCRIPTION Web application environment for Common Lisp SHA256
@@ -40,4 +50,5 @@ rec {
      clack-middleware-oauth clack-middleware-postmodern
      clack-middleware-rucksack clack-session-store-dbi
      t-clack-middleware-auth-basic t-clack-middleware-csrf)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

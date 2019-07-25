@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Firmware for the Raspberry Pi board";
-    homepage = https://github.com/raspberrypi/firmware;
-    license = licenses.unfreeRedistributableFirmware; # See https://github.com/raspberrypi/firmware/blob/master/boot/LICENCE.broadcom
+    homepage = "https://github.com/raspberrypi/firmware";
+    license =
+      licenses.unfreeRedistributableFirmware; # See https://github.com/raspberrypi/firmware/blob/master/boot/LICENCE.broadcom
     platforms = [ "armv6l-linux" "armv7l-linux" "aarch64-linux" ];
     maintainers = with maintainers; [ dezgeg tavyc ];
   };

@@ -1,11 +1,4 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, isPy3k
-, numpy
-, werkzeug
-, protobuf
-, grpcio
-, markdown
-, futures
-, absl-py
+{ stdenv, lib, fetchPypi, buildPythonPackage, isPy3k, numpy, werkzeug, protobuf, grpcio, markdown, futures, absl-py
 }:
 
 # tensorflow/tensorboard is built from a downloaded wheel, because
@@ -29,17 +22,12 @@ buildPythonPackage rec {
     sha256 = "1clv29yy942l3mfar2z6wkkk6l18fz7j6mi2dfz24j9dln0scny3";
   }));
 
-  propagatedBuildInputs = [
-    numpy
-    werkzeug
-    protobuf
-    markdown
-    grpcio absl-py
-  ] ++ lib.optional (!isPy3k) futures;
+  propagatedBuildInputs = [ numpy werkzeug protobuf markdown grpcio absl-py ]
+    ++ lib.optional (!isPy3k) futures;
 
   meta = with stdenv.lib; {
     description = "TensorFlow's Visualization Toolkit";
-    homepage = http://tensorflow.org;
+    homepage = "http://tensorflow.org";
     license = licenses.asl20;
     maintainers = with maintainers; [ abbradar ];
   };

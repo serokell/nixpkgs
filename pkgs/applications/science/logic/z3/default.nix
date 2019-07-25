@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   version = "4.8.5";
 
   src = fetchFromGitHub {
-    owner  = "Z3Prover";
-    repo   = pname;
-    rev    = "Z3-${version}";
+    owner = "Z3Prover";
+    repo = pname;
+    rev = "Z3-${version}";
     sha256 = "11sy98clv7ln0a5vqxzvh6wwqbswsjbik2084hav5kfws4xvklfa";
   };
 
@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A high-performance theorem prover and SMT solver";
-    homepage    = "https://github.com/Z3Prover/z3";
-    license     = stdenv.lib.licenses.mit;
-    platforms   = stdenv.lib.platforms.x86_64;
+    homepage = "https://github.com/Z3Prover/z3";
+    license = stdenv.lib.licenses.mit;
+    platforms = stdenv.lib.platforms.x86_64;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

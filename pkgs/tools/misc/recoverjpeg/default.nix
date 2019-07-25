@@ -19,8 +19,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://rfc1149.net/devel/recoverjpeg.html;
-    description = "Recover lost JPEGs and MOV files on a bogus memory card or disk";
+    homepage = "https://rfc1149.net/devel/recoverjpeg.html";
+    description =
+      "Recover lost JPEGs and MOV files on a bogus memory card or disk";
     license = licenses.gpl2;
     maintainers = with maintainers; [ dotlambda ];
     platforms = with platforms; linux;

@@ -5,11 +5,12 @@ with lib;
 let
   cfg = config.services.netdata;
 
-  wrappedPlugins = pkgs.runCommand "wrapped-plugins" { preferLocalBuild = true; } ''
-    mkdir -p $out/libexec/netdata/plugins.d
-    ln -s /run/wrappers/bin/apps.plugin $out/libexec/netdata/plugins.d/apps.plugin
-    ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
-  '';
+  wrappedPlugins =
+    pkgs.runCommand "wrapped-plugins" { preferLocalBuild = true; } ''
+      mkdir -p $out/libexec/netdata/plugins.d
+      ln -s /run/wrappers/bin/apps.plugin $out/libexec/netdata/plugins.d/apps.plugin
+      ln -s /run/wrappers/bin/freeipmi.plugin $out/libexec/netdata/plugins.d/freeipmi.plugin
+    '';
 
   plugins = [
     "${pkgs.netdata}/libexec/netdata/plugins.d"
@@ -17,16 +18,15 @@ let
   ] ++ cfg.extraPluginPaths;
 
   localConfig = {
-    global = {
-      "plugins directory" = concatStringsSep " " plugins;
-    };
+    global = { "plugins directory" = concatStringsSep " " plugins; };
     web = {
       "web files owner" = "root";
       "web files group" = "root";
     };
   };
-  mkConfig = generators.toINI {} (recursiveUpdate localConfig cfg.config);
-  configFile = pkgs.writeText "netdata.conf" (if cfg.configText != null then cfg.configText else mkConfig);
+  mkConfig = generators.toINI { } (recursiveUpdate localConfig cfg.config);
+  configFile = pkgs.writeText "netdata.conf"
+    (if cfg.configText != null then cfg.configText else mkConfig);
 
   defaultUser = "netdata";
 
@@ -68,7 +68,7 @@ in {
           '';
         };
         extraPackages = mkOption {
-          default = ps: [];
+          default = ps: [ ];
           defaultText = "ps: []";
           example = literalExample ''
             ps: [
@@ -104,8 +104,9 @@ in {
 
       config = mkOption {
         type = types.attrsOf types.attrs;
-        default = {};
-        description = "netdata.conf configuration as nix attributes. cannot be combined with configText.";
+        default = { };
+        description =
+          "netdata.conf configuration as nix attributes. cannot be combined with configText.";
         example = literalExample ''
           global = {
             "debug log" = "syslog";
@@ -113,16 +114,15 @@ in {
             "error log" = "syslog";
           };
         '';
-        };
       };
     };
+  };
 
   config = mkIf cfg.enable {
-    assertions =
-      [ { assertion = cfg.config != {} -> cfg.configText == null ;
-          message = "Cannot specify both config and configText";
-        }
-      ];
+    assertions = [{
+      assertion = cfg.config != { } -> cfg.configText == null;
+      message = "Cannot specify both config and configText";
+    }];
 
     systemd.tmpfiles.rules = [
       "d /var/cache/netdata 0755 ${cfg.user} ${cfg.group} -"
@@ -141,9 +141,12 @@ in {
       path = (with pkgs; [ gawk curl ]) ++ lib.optional cfg.python.enable
         (pkgs.python3.withPackages cfg.python.extraPackages);
       serviceConfig = {
-        Environment="PYTHONPATH=${pkgs.netdata}/libexec/netdata/python.d/python_modules";
-        ExecStart = "${pkgs.netdata}/bin/netdata -P /run/netdata/netdata.pid -D -c ${configFile}";
-        ExecReload = "${pkgs.utillinux}/bin/kill -s HUP -s USR1 -s USR2 $MAINPID";
+        Environment =
+          "PYTHONPATH=${pkgs.netdata}/libexec/netdata/python.d/python_modules";
+        ExecStart =
+          "${pkgs.netdata}/bin/netdata -P /run/netdata/netdata.pid -D -c ${configFile}";
+        ExecReload =
+          "${pkgs.utillinux}/bin/kill -s HUP -s USR1 -s USR2 $MAINPID";
         TimeoutStopSec = 60;
         # User and group
         User = cfg.user;
@@ -173,17 +176,23 @@ in {
     };
 
     security.pam.loginLimits = [
-      { domain = "netdata"; type = "soft"; item = "nofile"; value = "10000"; }
-      { domain = "netdata"; type = "hard"; item = "nofile"; value = "30000"; }
+      {
+        domain = "netdata";
+        type = "soft";
+        item = "nofile";
+        value = "10000";
+      }
+      {
+        domain = "netdata";
+        type = "hard";
+        item = "nofile";
+        value = "30000";
+      }
     ];
 
-    users.users = optional (cfg.user == defaultUser) {
-      name = defaultUser;
-    };
+    users.users = optional (cfg.user == defaultUser) { name = defaultUser; };
 
-    users.groups = optional (cfg.group == defaultUser) {
-      name = defaultUser;
-    };
+    users.groups = optional (cfg.group == defaultUser) { name = defaultUser; };
 
   };
 }

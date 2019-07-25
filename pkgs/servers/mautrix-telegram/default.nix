@@ -37,20 +37,13 @@ buildPythonPackage rec {
   # Hence we need to patch away `alembic` from `mautrix-telegram` and create an `alembic`
   # which has `mautrix-telegram` in its environment.
   passthru.alembic = alembic.overrideAttrs (old: {
-    propagatedBuildInputs = old.propagatedBuildInputs ++ [
-      mautrix-telegram
-    ];
+    propagatedBuildInputs = old.propagatedBuildInputs ++ [ mautrix-telegram ];
   });
 
-  checkInputs = [
-    pytest
-    pytestrunner
-    pytest-mock
-    pytest-asyncio
-  ];
+  checkInputs = [ pytest pytestrunner pytest-mock pytest-asyncio ];
 
   meta = with lib; {
-    homepage = https://github.com/tulir/mautrix-telegram;
+    homepage = "https://github.com/tulir/mautrix-telegram";
     description = "A Matrix-Telegram hybrid puppeting/relaybot bridge";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ nyanloutre ma27 ];

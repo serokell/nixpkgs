@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "libiptcdata-1.0.4";
@@ -9,8 +9,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "Library for reading and writing the IPTC metadata in images and other files";
-    homepage = http://libiptcdata.sourceforge.net/;
+    description =
+      "Library for reading and writing the IPTC metadata in images and other files";
+    homepage = "http://libiptcdata.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.unix;
   };

@@ -6,9 +6,7 @@
 with lib;
 
 {
-  meta = {
-    maintainers = [ maintainers.joachifm ];
-  };
+  meta = { maintainers = [ maintainers.joachifm ]; };
 
   boot.kernelPackages = mkDefault pkgs.linuxPackages_hardened;
 
@@ -106,9 +104,11 @@ with lib;
 
   # Ignore route information from sender
   boot.kernel.sysctl."net.ipv4.conf.all.accept_source_route" = mkDefault false;
-  boot.kernel.sysctl."net.ipv4.conf.default.accept_source_route" = mkDefault false;
+  boot.kernel.sysctl."net.ipv4.conf.default.accept_source_route" =
+    mkDefault false;
   boot.kernel.sysctl."net.ipv6.conf.all.accept_source_route" = mkDefault false;
-  boot.kernel.sysctl."net.ipv6.conf.default.accept_source_route" = mkDefault false;
+  boot.kernel.sysctl."net.ipv6.conf.default.accept_source_route" =
+    mkDefault false;
 
   # Ignore incoming ICMP redirects (note: default is needed to ensure that the
   # setting is applied to interfaces added after the sysctls are set)

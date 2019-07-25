@@ -1,20 +1,20 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''uuid'';
-  version = ''20130813-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "uuid";
+  version = "20130813-git";
 
-  description = ''UUID Generation'';
+  description = "UUID Generation";
 
   deps = [ args."ironclad" args."nibbles" args."trivial-utf-8" ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/uuid/2013-08-13/uuid-20130813-git.tgz'';
-    sha256 = ''1ph88gizpkxqigfrkgmq0vd3qkgpxd9zjy6qyr0ic4xdyyymg1hf'';
+    url =
+      "http://beta.quicklisp.org/archive/uuid/2013-08-13/uuid-20130813-git.tgz";
+    sha256 = "1ph88gizpkxqigfrkgmq0vd3qkgpxd9zjy6qyr0ic4xdyyymg1hf";
   };
 
   packageName = "uuid";
 
-  asdFilesToKeep = ["uuid.asd"];
+  asdFilesToKeep = [ "uuid.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM uuid DESCRIPTION UUID Generation SHA256
@@ -24,4 +24,5 @@ rec {
     ((NAME ironclad FILENAME ironclad) (NAME nibbles FILENAME nibbles)
      (NAME trivial-utf-8 FILENAME trivial-utf-8))
     DEPENDENCIES (ironclad nibbles trivial-utf-8) VERSION 20130813-git SIBLINGS
-    NIL PARASITES NIL) */
+    NIL PARASITES NIL)
+*/

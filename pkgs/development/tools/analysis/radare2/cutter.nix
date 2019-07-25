@@ -4,8 +4,7 @@
 # Qt
 , qtbase, qtsvg, qtwebengine
 # buildInputs
-, r2-for-cutter
-, python3 }:
+, r2-for-cutter, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "radare2-cutter";

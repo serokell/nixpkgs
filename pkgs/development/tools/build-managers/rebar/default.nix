@@ -1,10 +1,7 @@
 { stdenv, fetchurl, erlang }:
 
-
-let
-  version = "2.5.1";
-in
-stdenv.mkDerivation {
+let version = "2.5.1";
+in stdenv.mkDerivation {
   name = "rebar-${version}";
 
   src = fetchurl {
@@ -21,8 +18,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://github.com/rebar/rebar;
-    description = "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
+    homepage = "https://github.com/rebar/rebar";
+    description =
+      "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
 
     longDescription = ''
       rebar is a self-contained Erlang script, so it's easy to
@@ -32,7 +30,7 @@ stdenv.mkDerivation {
       work. rebar also provides dependency management, enabling
       application writers to easily re-use common libraries from a
       variety of locations (git, hg, etc).
-      '';
+    '';
 
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.the-kenny ];

@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-, python-language-server, isort
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python-language-server, isort }:
 
 buildPythonPackage rec {
   pname = "pyls-isort";
@@ -16,12 +14,10 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  propagatedBuildInputs = [
-    isort python-language-server
-  ];
+  propagatedBuildInputs = [ isort python-language-server ];
 
   meta = with lib; {
-    homepage = https://github.com/paradoxxxzero/pyls-isort;
+    homepage = "https://github.com/paradoxxxzero/pyls-isort";
     description = "Isort plugin for python-language-server";
     license = licenses.mit;
     maintainers = [ maintainers.mic92 ];

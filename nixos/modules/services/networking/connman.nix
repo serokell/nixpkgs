@@ -7,7 +7,9 @@ let
   cfg = config.networking.connman;
   configFile = pkgs.writeText "connman.conf" ''
     [General]
-    NetworkInterfaceBlacklist=${concatStringsSep "," cfg.networkInterfaceBlacklist}
+    NetworkInterfaceBlacklist=${
+      concatStringsSep "," cfg.networkInterfaceBlacklist
+    }
 
     ${cfg.extraConfig}
   '';
@@ -37,8 +39,7 @@ in {
 
       extraConfig = mkOption {
         type = types.lines;
-        default = ''
-        '';
+        default = "";
         description = ''
           Configuration lines appended to the generated connman configuration file.
         '';
@@ -69,16 +70,23 @@ in {
 
   config = mkIf cfg.enable {
 
-    assertions = [{
-      assertion = !config.networking.useDHCP;
-      message = "You can not use services.networking.connman with services.networking.useDHCP";
-    }{
-      assertion = config.networking.wireless.enable;
-      message = "You must use services.networking.connman with services.networking.wireless";
-    }{
-      assertion = !config.networking.networkmanager.enable;
-      message = "You can not use services.networking.connman with services.networking.networkmanager";
-    }];
+    assertions = [
+      {
+        assertion = !config.networking.useDHCP;
+        message =
+          "You can not use services.networking.connman with services.networking.useDHCP";
+      }
+      {
+        assertion = config.networking.wireless.enable;
+        message =
+          "You must use services.networking.connman with services.networking.wireless";
+      }
+      {
+        assertion = !config.networking.networkmanager.enable;
+        message =
+          "You can not use services.networking.connman with services.networking.networkmanager";
+      }
+    ];
 
     environment.systemPackages = [ connman ];
 
@@ -90,7 +98,10 @@ in {
         Type = "dbus";
         BusName = "net.connman";
         Restart = "on-failure";
-        ExecStart = "${pkgs.connman}/sbin/connmand --config=${configFile} --nodaemon ${toString cfg.extraFlags}";
+        ExecStart =
+          "${pkgs.connman}/sbin/connmand --config=${configFile} --nodaemon ${
+            toString cfg.extraFlags
+          }";
         StandardOutput = "null";
       };
     };

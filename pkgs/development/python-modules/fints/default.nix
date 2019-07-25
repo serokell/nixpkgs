@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi,
-  requests, mt-940, sepaxml, bleach, isPy3k }:
+{ stdenv, buildPythonPackage, fetchPypi, requests, mt-940, sepaxml, bleach, isPy3k
+}:
 
 buildPythonPackage rec {
   version = "2.1.1";
@@ -17,7 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/raphaelm/python-fints/;
+    homepage = "https://github.com/raphaelm/python-fints/";
     description = "Pure-python FinTS (formerly known as HBCI) implementation";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ elohmeier ];

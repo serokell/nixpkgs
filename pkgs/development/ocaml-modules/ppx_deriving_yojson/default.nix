@@ -1,5 +1,4 @@
-{ lib, buildDunePackage, fetchFromGitHub, ppxfind, ounit
-, ppx_deriving, yojson
+{ lib, buildDunePackage, fetchFromGitHub, ppxfind, ounit, ppx_deriving, yojson
 }:
 
 buildDunePackage rec {

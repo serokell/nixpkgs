@@ -1,19 +1,18 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, go-bindata, libvirt, qemu
-, gpgme, makeWrapper, vmnet
-, docker-machine-kvm, docker-machine-kvm2
-, extraDrivers ? []
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, go-bindata, libvirt, qemu, gpgme, makeWrapper, vmnet, docker-machine-kvm, docker-machine-kvm2, extraDrivers ?
+  [ ] }:
 
 let
   drivers = stdenv.lib.filter (d: d != null) (extraDrivers
-            ++ stdenv.lib.optionals stdenv.isLinux [ docker-machine-kvm docker-machine-kvm2 ]);
+    ++ stdenv.lib.optionals stdenv.isLinux [
+      docker-machine-kvm
+      docker-machine-kvm2
+    ]);
 
-  binPath = drivers
-            ++ stdenv.lib.optionals stdenv.isLinux ([ libvirt qemu ]);
+  binPath = drivers ++ stdenv.lib.optionals stdenv.isLinux ([ libvirt qemu ]);
 
 in buildGoPackage rec {
-  pname   = "minikube";
-  name    = "${pname}-${version}";
+  pname = "minikube";
+  name = "${pname}-${version}";
   version = "1.0.1";
 
   kubernetesVersion = "1.14.1";
@@ -21,14 +20,16 @@ in buildGoPackage rec {
   goPackagePath = "k8s.io/minikube";
 
   src = fetchFromGitHub {
-    owner  = "kubernetes";
-    repo   = "minikube";
-    rev    = "v${version}";
+    owner = "kubernetes";
+    repo = "minikube";
+    rev = "v${version}";
     sha256 = "1fgyaq8789wc3h6xmn4iw6if2jxdv5my35yn6ipx3q6i4hagxl4b";
   };
 
-  buildInputs = [ go-bindata makeWrapper gpgme ] ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin vmnet;
-  subPackages = [ "cmd/minikube" ] ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin "cmd/drivers/hyperkit";
+  buildInputs = [ go-bindata makeWrapper gpgme ]
+    ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin vmnet;
+  subPackages = [ "cmd/minikube" ]
+    ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin "cmd/drivers/hyperkit";
 
   preBuild = ''
     pushd go/src/${goPackagePath} >/dev/null
@@ -59,16 +60,18 @@ in buildGoPackage rec {
   '';
 
   postFixup = ''
-    wrapProgram $bin/bin/${pname} --prefix PATH : $bin/bin:${stdenv.lib.makeBinPath binPath}
+    wrapProgram $bin/bin/${pname} --prefix PATH : $bin/bin:${
+      stdenv.lib.makeBinPath binPath
+    }
   '' + stdenv.lib.optionalString stdenv.hostPlatform.isDarwin ''
     mv $bin/bin/hyperkit $bin/bin/docker-machine-driver-hyperkit
   '';
 
   meta = with stdenv.lib; {
-    homepage    = https://github.com/kubernetes/minikube;
+    homepage = "https://github.com/kubernetes/minikube";
     description = "A tool that makes it easy to run Kubernetes locally";
-    license     = licenses.asl20;
+    license = licenses.asl20;
     maintainers = with maintainers; [ ebzzry copumpkin vdemeester ];
-    platforms   = with platforms; unix;
+    platforms = with platforms; unix;
   };
 }

@@ -1,5 +1,5 @@
-{stdenv, fetchurl, unzip, python, makeWrapper, ghostscript, pngnq, pillow, djvulibre
-, optipng, unrar}:
+{ stdenv, fetchurl, unzip, python, makeWrapper, ghostscript, pngnq, pillow, djvulibre, optipng, unrar
+}:
 
 stdenv.mkDerivation {
   name = "pdfread-1.8.2";
@@ -9,7 +9,8 @@ stdenv.mkDerivation {
     # But that needs user registration to allow downloading.
     # This is an evolution from pdfread 1.7 in http://pdfread.sourceforge.net/
     # Temporary place:
-    url = http://vicerveza.homeunix.net/~viric/soft/PDFRead-1.8.2-Source-noGUI-noInstaller.zip;
+    url =
+      "http://vicerveza.homeunix.net/~viric/soft/PDFRead-1.8.2-Source-noGUI-noInstaller.zip";
     sha256 = "0mzxpnk97f0ww5ds7h4wsval3g4lnrhv6rhspjs7cy4i41gmk8an";
   };
 
@@ -39,12 +40,14 @@ stdenv.mkDerivation {
     cp -R *.py pylrs $PYDIR
 
     wrapProgram $out/bin/pdfread.py --prefix PYTHONPATH : $PYTHONPATH:${pillow}/$LIBSUFFIX/PIL:$PYDIR \
-      --prefix PATH : ${stdenv.lib.makeBinPath [ ghostscript pngnq djvulibre unrar optipng ]}
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath [ ghostscript pngnq djvulibre unrar optipng ]
+      }
   '';
 
   meta = with stdenv.lib; {
     description = "PDF/DJVU to ebook format converter";
-    homepage = https://www.mobileread.com/forums/showthread.php?t=21906;
+    homepage = "https://www.mobileread.com/forums/showthread.php?t=21906";
     license = licenses.mit;
   };
 }

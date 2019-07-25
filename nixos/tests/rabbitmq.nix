@@ -2,15 +2,9 @@
 
 import ./make-test.nix ({ pkgs, ... }: {
   name = "rabbitmq";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ eelco offline ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ eelco offline ]; };
 
-  nodes = {
-    one = { ... }: {
-      services.rabbitmq.enable = true;
-    };
-  };
+  nodes = { one = { ... }: { services.rabbitmq.enable = true; }; };
 
   testScript = ''
     startAll;

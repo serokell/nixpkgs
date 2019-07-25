@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ stdenv ];
   checkPhase = "make test-all";
-  installPhase = "make pkg-install prefix='' DESTDIR=$out; make pkg-install-scripts prefix='' DESTDIR=$out";
+  installPhase =
+    "make pkg-install prefix='' DESTDIR=$out; make pkg-install-scripts prefix='' DESTDIR=$out";
 
   meta = with stdenv.lib; {
     description = "A derivative of Markdown that adds new syntax features";
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
       glossary entries (LaTeX only)
       document metadata (e.g. title, author, date, etc.)
     '';
-    homepage = https://fletcherpenney.net/multimarkdown/;
+    homepage = "https://fletcherpenney.net/multimarkdown/";
     # licensed under GPLv2+ or MIT:
     # https://raw.githubusercontent.com/fletcher/MultiMarkdown-4/master/LICENSE
     license = with stdenv.lib.licenses; [ gpl2Plus mit ];

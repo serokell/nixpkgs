@@ -20,7 +20,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Write tests against structured configuration data";
-    homepage = https://github.com/instrumenta/conftest;
+    homepage = "https://github.com/instrumenta/conftest";
     license = licenses.asl20;
     maintainers = with maintainers; [ yurrriq ];
     platforms = platforms.all;

@@ -1,5 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, hidapi
-, pycrypto, pillow, protobuf, future, ecpy, python-u2flib-host, pycryptodomex
+{ stdenv, fetchPypi, buildPythonPackage, hidapi, pycrypto, pillow, protobuf, future, ecpy, python-u2flib-host, pycryptodomex
 }:
 
 buildPythonPackage rec {
@@ -12,7 +11,14 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    hidapi pycrypto pillow protobuf future ecpy python-u2flib-host pycryptodomex
+    hidapi
+    pycrypto
+    pillow
+    protobuf
+    future
+    ecpy
+    python-u2flib-host
+    pycryptodomex
   ];
 
   # No tests
@@ -20,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python library to communicate with Ledger Blue/Nano S";
-    homepage = https://github.com/LedgerHQ/blue-loader-python;
+    homepage = "https://github.com/LedgerHQ/blue-loader-python";
     license = licenses.asl20;
     maintainers = with maintainers; [ np ];
   };

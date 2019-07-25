@@ -1,15 +1,12 @@
-{ stdenv, fetchurl
-, pkgconfig
-, ncurses, libX11
-, utillinux, file, which, groff
-}:
+{ stdenv, fetchurl, pkgconfig, ncurses, libX11, utillinux, file, which, groff }:
 
 stdenv.mkDerivation rec {
   name = "vifm-${version}";
   version = "0.10";
 
   src = fetchurl {
-    url = "https://github.com/vifm/vifm/releases/download/v${version}/vifm-${version}.tar.bz2";
+    url =
+      "https://github.com/vifm/vifm/releases/download/v${version}/vifm-${version}.tar.bz2";
     sha256 = "1f380xcyjnm4xmcdazs6dj064bwddhywvn3mgm36k7r7b2gnjnp0";
   };
 
@@ -22,7 +19,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     license = licenses.gpl2;
     downloadPage = "https://vifm.info/downloads.shtml";
-    homepage = https://vifm.info/;
+    homepage = "https://vifm.info/";
     inherit version;
     updateWalker = true;
   };

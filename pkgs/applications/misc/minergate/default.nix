@@ -1,4 +1,5 @@
-{ fetchurl, stdenv, dpkg, makeWrapper, fontconfig, freetype, openssl, xorg, xkeyboard_config }:
+{ fetchurl, stdenv, dpkg, makeWrapper, fontconfig, freetype, openssl, xorg, xkeyboard_config
+}:
 
 stdenv.mkDerivation rec {
   version = "8.1";
@@ -19,7 +20,16 @@ stdenv.mkDerivation rec {
     interpreter=${stdenv.glibc}/lib/ld-linux-x86-64.so.2
     patchelf --set-interpreter "$interpreter" $pgm
 
-    wrapProgram $pgm --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ fontconfig freetype openssl stdenv.cc.cc xorg.libX11 xorg.libxcb ]} --prefix "QT_XKB_CONFIG_ROOT" ":" "${xkeyboard_config}/share/X11/xkb"
+    wrapProgram $pgm --prefix LD_LIBRARY_PATH : ${
+      stdenv.lib.makeLibraryPath [
+        fontconfig
+        freetype
+        openssl
+        stdenv.cc.cc
+        xorg.libX11
+        xorg.libxcb
+      ]
+    } --prefix "QT_XKB_CONFIG_ROOT" ":" "${xkeyboard_config}/share/X11/xkb"
 
     rm $out/usr/bin/minergate
     mkdir -p $out/bin
@@ -28,9 +38,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Minergate CPU/GPU mining software";
-    homepage = https://www.minergate.com/;
+    homepage = "https://www.minergate.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [ bfortz ];
     platforms = [ "x86_64-linux" ];
-};
+  };
 }

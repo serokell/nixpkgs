@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub, zlib, python, cmake }:
 
-stdenv.mkDerivation rec
-{
+stdenv.mkDerivation rec {
   name = "ptex-${version}";
   version = "2.3.0";
 
@@ -19,14 +18,14 @@ stdenv.mkDerivation rec
   enableParallelBuilding = true;
 
   buildPhase = ''
-      mkdir -p $out
+    mkdir -p $out
 
-      make prefix=$out
+    make prefix=$out
 
-      mkdir -p $bin/bin
-      mkdir -p $dev/include
-      mkdir -p $lib/lib
-      '';
+    mkdir -p $bin/bin
+    mkdir -p $dev/include
+    mkdir -p $lib/lib
+  '';
 
   installPhase = ''
     make install

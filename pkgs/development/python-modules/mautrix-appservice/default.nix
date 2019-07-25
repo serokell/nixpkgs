@@ -9,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "60192920cff75afdd096eea3a43276e33ec15f4f00bd04d2d1dda616c84f22a5";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    future-fstrings
-  ];
+  propagatedBuildInputs = [ aiohttp future-fstrings ];
 
   # No tests available
   doCheck = false;
@@ -20,8 +17,9 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.5";
 
   meta = with lib; {
-    homepage = https://github.com/tulir/mautrix-appservice-python;
-    description = "A Python 3 asyncio-based Matrix application service framework";
+    homepage = "https://github.com/tulir/mautrix-appservice-python";
+    description =
+      "A Python 3 asyncio-based Matrix application service framework";
     license = licenses.mit;
     maintainers = with maintainers; [ nyanloutre ];
   };

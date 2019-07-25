@@ -16,8 +16,8 @@ import ./make-test.nix {
       };
     };
 
-    systemd.extraConfig = "DefaultEnvironment=\"XXX_SYSTEM=foo\"";
-    systemd.user.extraConfig = "DefaultEnvironment=\"XXX_USER=bar\"";
+    systemd.extraConfig = ''DefaultEnvironment="XXX_SYSTEM=foo"'';
+    systemd.user.extraConfig = ''DefaultEnvironment="XXX_USER=bar"'';
     services.journald.extraConfig = "Storage=volatile";
     services.xserver.displayManager.auto.user = "alice";
 

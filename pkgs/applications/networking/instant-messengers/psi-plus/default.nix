@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
-, qt5, libidn, qca2-qt5, libXScrnSaver, hunspell
-, libgcrypt, libotr, html-tidy, libgpgerror, libsignal-protocol-c
+{ stdenv, fetchFromGitHub, cmake, qt5, libidn, qca2-qt5, libXScrnSaver, hunspell, libgcrypt, libotr, html-tidy, libgpgerror, libsignal-protocol-c
 }:
 
 stdenv.mkDerivation rec {
@@ -25,16 +23,25 @@ stdenv.mkDerivation rec {
     cp -a "${resources}/iconsets" "$sourceRoot"
   '';
 
-  cmakeFlags = [
-    "-DENABLE_PLUGINS=ON"
-  ];
+  cmakeFlags = [ "-DENABLE_PLUGINS=ON" ];
 
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
-    qt5.qtbase qt5.qtmultimedia qt5.qtx11extras qt5.qttools qt5.qtwebkit
-    libidn qca2-qt5 libXScrnSaver hunspell
-    libgcrypt libotr html-tidy libgpgerror libsignal-protocol-c
+    qt5.qtbase
+    qt5.qtmultimedia
+    qt5.qtx11extras
+    qt5.qttools
+    qt5.qtwebkit
+    libidn
+    qca2-qt5
+    libXScrnSaver
+    hunspell
+    libgcrypt
+    libotr
+    html-tidy
+    libgpgerror
+    libsignal-protocol-c
   ];
 
   enableParallelBuilding = true;

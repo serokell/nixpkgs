@@ -21,7 +21,9 @@ with lib;
     users.groups.proc.gid = config.ids.gids.proc;
     users.groups.proc.members = [ "polkituser" ];
 
-    boot.specialFileSystems."/proc".options = [ "hidepid=2" "gid=${toString config.ids.gids.proc}" ];
-    systemd.services.systemd-logind.serviceConfig.SupplementaryGroups = [ "proc" ];
+    boot.specialFileSystems."/proc".options =
+      [ "hidepid=2" "gid=${toString config.ids.gids.proc}" ];
+    systemd.services.systemd-logind.serviceConfig.SupplementaryGroups =
+      [ "proc" ];
   };
 }

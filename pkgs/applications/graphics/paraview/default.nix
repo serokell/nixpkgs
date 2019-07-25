@@ -1,7 +1,4 @@
-{
-stdenv, fetchFromGitHub, cmake, makeWrapper
-,qtbase, qttools, python, libGLU_combined
-,libXt, qtx11extras, qtxmlpatterns
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, qtbase, qttools, python, libGLU_combined, libXt, qtx11extras, qtxmlpatterns
 }:
 
 stdenv.mkDerivation rec {
@@ -34,10 +31,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
 
   buildInputs = [
     python
@@ -62,10 +56,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.paraview.org/;
+    homepage = "http://www.paraview.org/";
     description = "3D Data analysis and visualization application";
     license = stdenv.lib.licenses.free;
-    maintainers = with stdenv.lib.maintainers; [guibert];
+    maintainers = with stdenv.lib.maintainers; [ guibert ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

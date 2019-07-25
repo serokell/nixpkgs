@@ -5,8 +5,8 @@ in stdenv.mkDerivation {
   # mdp renamed to gpg-mdp because there is a mdp package already.
   name = "gpg-mdp-${version}";
   meta = {
-    homepage = https://tamentis.com/projects/mdp/;
-    license = [stdenv.lib.licenses.isc];
+    homepage = "https://tamentis.com/projects/mdp/";
+    license = [ stdenv.lib.licenses.isc ];
     description = "Manage your passwords with GnuPG and a text editor";
   };
   src = fetchurl {

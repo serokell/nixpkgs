@@ -1,9 +1,6 @@
-{ stdenv, fetchurl, perl
-, ghostscript #for postscript and html output
-, psutils, netpbm #for html output
-, buildPackages
-, autoreconfHook
-}:
+{ stdenv, fetchurl, perl, ghostscript # for postscript and html output
+, psutils, netpbm # for html output
+, buildPackages, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "groff-${version}";
@@ -18,10 +15,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = false;
 
-  patches = [
-    ./look-for-ar.patch
-    ./mdate-determinism.patch
-  ];
+  patches = [ ./look-for-ar.patch ./mdate-determinism.patch ];
 
   postPatch = stdenv.lib.optionalString (psutils != null) ''
     substituteInPlace src/preproc/html/pre-html.cpp \
@@ -45,20 +39,19 @@ stdenv.mkDerivation rec {
   # package. To avoid this issue, X11 support is explicitly disabled.
   # Note: If we ever want to *enable* X11 support, then we'll probably
   # have to pass "--with-appresdir", too.
-  configureFlags = [
-    "--without-x"
-  ] ++ stdenv.lib.optionals (ghostscript != null) [
-    "--with-gs=${ghostscript}/bin/gs"
-  ] ++ stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "ac_cv_path_PERL=${buildPackages.perl}/bin/perl"
-  ];
+  configureFlags = [ "--without-x" ]
+    ++ stdenv.lib.optionals (ghostscript != null)
+    [ "--with-gs=${ghostscript}/bin/gs" ]
+    ++ stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "ac_cv_path_PERL=${buildPackages.perl}/bin/perl" ];
 
-  makeFlags = stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    # Trick to get the build system find the proper 'native' groff
-    # http://www.mail-archive.com/bug-groff@gnu.org/msg01335.html
-    "GROFF_BIN_PATH=${buildPackages.groff}/bin"
-    "GROFFBIN=${buildPackages.groff}/bin/groff"
-  ];
+  makeFlags =
+    stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      # Trick to get the build system find the proper 'native' groff
+      # http://www.mail-archive.com/bug-groff@gnu.org/msg01335.html
+      "GROFF_BIN_PATH=${buildPackages.groff}/bin"
+      "GROFFBIN=${buildPackages.groff}/bin/groff"
+    ];
 
   doCheck = true;
 
@@ -105,13 +98,15 @@ stdenv.mkDerivation rec {
     substituteInPlace $perl/bin/grog \
       --replace $out/lib/groff/grog $perl/lib/groff/grog
 
-  '' + stdenv.lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    find $perl/ -type f -print0 | xargs --null sed -i 's|${buildPackages.perl}|${perl}|'
-  '';
+  ''
+    + stdenv.lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      find $perl/ -type f -print0 | xargs --null sed -i 's|${buildPackages.perl}|${perl}|'
+    '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/groff/;
-    description = "GNU Troff, a typesetting package that reads plain text and produces formatted output";
+    homepage = "https://www.gnu.org/software/groff/";
+    description =
+      "GNU Troff, a typesetting package that reads plain text and produces formatted output";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ pSub ];

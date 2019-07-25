@@ -52,21 +52,20 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl zlib bzip2 xz ];
   nativeBuildInputs = [ makeWrapper perl ];
 
-  postInstall =
-    ''
-      for i in $out/bin/*; do
-        if head -n 1 $i | grep -q perl; then
-          wrapProgram $i --prefix PERL5LIB : $out/${perl.libPrefix}
-        fi
-      done
+  postInstall = ''
+    for i in $out/bin/*; do
+      if head -n 1 $i | grep -q perl; then
+        wrapProgram $i --prefix PERL5LIB : $out/${perl.libPrefix}
+      fi
+    done
 
-      mkdir -p $out/etc/dpkg
-      cp -r scripts/t/origins $out/etc/dpkg
-    '';
+    mkdir -p $out/etc/dpkg
+    cp -r scripts/t/origins $out/etc/dpkg
+  '';
 
   meta = with stdenv.lib; {
     description = "The Debian package manager";
-    homepage = https://wiki.debian.org/Teams/Dpkg;
+    homepage = "https://wiki.debian.org/Teams/Dpkg";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ];

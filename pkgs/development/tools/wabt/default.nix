@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   version = "1.0.11";
 
   src = fetchFromGitHub {
-    owner  = "WebAssembly";
-    repo   = "wabt";
-    rev    = version;
+    owner = "WebAssembly";
+    repo = "wabt";
+    rev = version;
     sha256 = "0hn88vlqyclpk79v3wg3lrssd9vwhjdgvb41g03jqakygxxgnmp5";
   };
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
          format
        * wasm2c: convert a WebAssembly binary file to a C source and header
     '';
-    homepage = https://github.com/WebAssembly/wabt;
+    homepage = "https://github.com/WebAssembly/wabt";
     license = licenses.asl20;
     maintainers = with maintainers; [ ekleog ];
     platforms = platforms.unix;

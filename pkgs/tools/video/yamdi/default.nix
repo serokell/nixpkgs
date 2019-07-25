@@ -1,7 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-}:
+{ stdenv, fetchurl, }:
 
 stdenv.mkDerivation rec {
   name = "yamdi-${version}";
@@ -23,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Yet Another MetaData Injector for FLV";
-    homepage = http://yamdi.sourceforge.net/;
+    homepage = "http://yamdi.sourceforge.net/";
     license = licenses.bsd3;
     platforms = platforms.all;
     maintainers = [ maintainers.ryanartecona ];

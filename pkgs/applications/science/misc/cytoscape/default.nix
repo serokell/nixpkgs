@@ -5,11 +5,12 @@ stdenv.mkDerivation rec {
   version = "3.7.1";
 
   src = fetchurl {
-    url = "https://github.com/cytoscape/cytoscape/releases/download/${version}/${name}.tar.gz";
+    url =
+      "https://github.com/cytoscape/cytoscape/releases/download/${version}/${name}.tar.gz";
     sha256 = "1mhsngbwbgdwl70wj7850zg94534lasihwv2ryifardm35mkh48k";
   };
 
-  buildInputs = [jre makeWrapper];
+  buildInputs = [ jre makeWrapper ];
 
   installPhase = ''
     mkdir -pv $out/{share,bin}
@@ -25,10 +26,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.cytoscape.org;
-    description = "A general platform for complex network analysis and visualization";
+    homepage = "http://www.cytoscape.org";
+    description =
+      "A general platform for complex network analysis and visualization";
     license = stdenv.lib.licenses.lgpl21;
-    maintainers = [stdenv.lib.maintainers.mimadrid];
+    maintainers = [ stdenv.lib.maintainers.mimadrid ];
     platforms = stdenv.lib.platforms.unix;
   };
 }

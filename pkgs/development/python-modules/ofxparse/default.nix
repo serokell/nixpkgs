@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, beautifulsoup4
-, lxml
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, beautifulsoup4, lxml }:
 
 buildPythonPackage rec {
   pname = "ofxparse";
@@ -19,7 +13,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     homepage = "http://sites.google.com/site/ofxparse";
-    description = "Tools for working with the OFX (Open Financial Exchange) file format";
+    description =
+      "Tools for working with the OFX (Open Financial Exchange) file format";
     license = licenses.mit;
   };
 

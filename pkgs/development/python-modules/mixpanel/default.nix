@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchzip
-, pytest
-, mock
-, six
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchzip, pytest, mock, six, isPy3k }:
 
 buildPythonPackage rec {
   version = "4.0.2";
@@ -22,8 +15,8 @@ buildPythonPackage rec {
   checkPhase = "py.test tests.py";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mixpanel/mixpanel-python;
-    description = ''This is the official Mixpanel Python library'';
+    homepage = "https://github.com/mixpanel/mixpanel-python";
+    description = "This is the official Mixpanel Python library";
     license = licenses.asl20;
   };
 

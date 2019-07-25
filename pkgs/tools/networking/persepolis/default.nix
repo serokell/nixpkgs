@@ -1,13 +1,4 @@
-{ stdenv, lib, buildPythonApplication, fetchFromGitHub, makeWrapper
-, aria
-, libnotify
-, pulseaudio
-, psutil
-, pyqt5
-, requests
-, setproctitle
-, sound-theme-freedesktop
-, youtube-dl
+{ stdenv, lib, buildPythonApplication, fetchFromGitHub, makeWrapper, aria, libnotify, pulseaudio, psutil, pyqt5, requests, setproctitle, sound-theme-freedesktop, youtube-dl
 }:
 
 buildPythonApplication rec {
@@ -24,7 +15,7 @@ buildPythonApplication rec {
   # see: https://github.com/persepolisdm/persepolis/blob/3.1.0/setup.py#L130
   doCheck = false;
 
-  preBuild=''
+  preBuild = ''
     substituteInPlace setup.py --replace "answer = input(" "answer = 'y'#"
   '';
 
@@ -34,9 +25,11 @@ buildPythonApplication rec {
   '';
 
   postInstall = ''
-     mkdir -p $out/share/applications
-     cp $src/xdg/com.github.persepolisdm.persepolis.desktop $out/share/applications
-     wrapProgram $out/bin/persepolis --prefix PATH : "${lib.makeBinPath [aria libnotify ]}"
+    mkdir -p $out/share/applications
+    cp $src/xdg/com.github.persepolisdm.persepolis.desktop $out/share/applications
+    wrapProgram $out/bin/persepolis --prefix PATH : "${
+      lib.makeBinPath [ aria libnotify ]
+    }"
   '';
 
   buildInputs = [ makeWrapper ];
@@ -53,7 +46,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Persepolis Download Manager is a GUI for aria2.";
-    homepage = https://persepolisdm.github.io/;
+    homepage = "https://persepolisdm.github.io/";
     license = licenses.gpl3;
     maintainers = [ maintainers.linarcx ];
   };

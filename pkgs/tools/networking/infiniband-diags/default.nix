@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, rdma-core
-, opensm, perl, makeWrapper }:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, rdma-core, opensm, perl, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "infiniband-diags-${version}";
@@ -21,7 +21,10 @@ stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  configureFlags = [ "--with-perl-installdir=\${out}/${perl.libPrefix}" "--sbindir=\${out}/bin" ];
+  configureFlags = [
+    "--with-perl-installdir=\${out}/${perl.libPrefix}"
+    "--sbindir=\${out}/bin"
+  ];
 
   postInstall = ''
     rmdir $out/var/run $out/var
@@ -35,9 +38,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Utilities designed to help configure, debug, and maintain infiniband fabrics";
-    homepage = http://linux-rdma.org/;
-    license =  licenses.bsd2; # Or GPL 2
+    description =
+      "Utilities designed to help configure, debug, and maintain infiniband fabrics";
+    homepage = "http://linux-rdma.org/";
+    license = licenses.bsd2; # Or GPL 2
     maintainers = [ maintainers.aij ];
     platforms = [ "x86_64-linux" ];
   };

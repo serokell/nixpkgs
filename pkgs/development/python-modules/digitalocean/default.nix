@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "digitalocean.com API to manage Droplets and Images";
-    homepage = https://pypi.python.org/pypi/python-digitalocean;
+    homepage = "https://pypi.python.org/pypi/python-digitalocean";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ teh ];
   };

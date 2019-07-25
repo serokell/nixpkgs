@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, jinja2
-}:
+{ stdenv, buildPythonPackage, fetchPypi, jinja2 }:
 
 buildPythonPackage rec {
   pname = "gcovr";
@@ -13,9 +9,7 @@ buildPythonPackage rec {
     sha256 = "ca94c337f2d9a70db177ec4330534fad7b2b772beda625c1ec071fbcf1361e22";
   };
 
-  propagatedBuildInputs = [
-    jinja2
-  ];
+  propagatedBuildInputs = [ jinja2 ];
 
   # There are no unit tests in the pypi tarball. Most of the unit tests on the
   # github repository currently only work with gcc5, so we just disable them.
@@ -25,7 +19,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "A Python script for summarizing gcov data";
     license = licenses.bsd0;
-    homepage = https://www.gcovr.com/;
+    homepage = "https://www.gcovr.com/";
   };
 
 }

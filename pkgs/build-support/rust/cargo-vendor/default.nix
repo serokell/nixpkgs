@@ -1,6 +1,6 @@
 { callPackage, fetchFromGitHub }:
 
-((callPackage ./cargo-vendor.nix {}).cargo_vendor {}).overrideAttrs (attrs: {
+((callPackage ./cargo-vendor.nix { }).cargo_vendor { }).overrideAttrs (attrs: {
   src = fetchFromGitHub {
     owner = "alexcrichton";
     repo = "cargo-vendor";

@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, enum34, pyyaml, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, enum34, pyyaml, pytest }:
 
 buildPythonPackage rec {
   version = "4.15.0";
@@ -20,8 +18,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A library to parse MT940 files and returns smart Python collections for statistics and manipulation";
-    homepage = https://github.com/WoLpH/mt940;
+    description =
+      "A library to parse MT940 files and returns smart Python collections for statistics and manipulation";
+    homepage = "https://github.com/WoLpH/mt940";
     license = licenses.bsd3;
   };
 }

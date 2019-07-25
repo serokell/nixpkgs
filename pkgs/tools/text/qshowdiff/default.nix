@@ -1,4 +1,4 @@
-{stdenv, fetchurl, qt4, perl, pkgconfig }:
+{ stdenv, fetchurl, qt4, perl, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "qshowdiff-${version}";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://qshowdiff.danfis.cz/;
+    homepage = "http://qshowdiff.danfis.cz/";
     description = "Colourful diff viewer";
     license = stdenv.lib.licenses.gpl3Plus;
   };

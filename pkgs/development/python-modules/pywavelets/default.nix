@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cython
-, nose
-, pytest
-, numpy
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, nose, pytest, numpy }:
 
 buildPythonPackage rec {
   pname = "PyWavelets";
@@ -29,7 +22,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Wavelet transform module";
-    homepage = https://github.com/PyWavelets/pywt;
+    homepage = "https://github.com/PyWavelets/pywt";
     license = lib.licenses.mit;
   };
 

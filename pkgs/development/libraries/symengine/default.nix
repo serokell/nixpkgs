@@ -1,11 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, gmp
-, flint
-, mpfr
-, libmpc
-}:
+{ stdenv, fetchFromGitHub, cmake, gmp, flint, mpfr, libmpc }:
 
 stdenv.mkDerivation rec {
   name = "symengine-${version}";
@@ -38,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "SymEngine is a fast symbolic manipulation library";
-    homepage = https://github.com/symengine/symengine;
+    homepage = "https://github.com/symengine/symengine";
     platforms = platforms.unix ++ platforms.windows;
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

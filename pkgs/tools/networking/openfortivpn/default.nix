@@ -2,8 +2,9 @@
 
 with stdenv.lib;
 
-let repo = "openfortivpn";
-    version = "1.10.0";
+let
+  repo = "openfortivpn";
+  version = "1.10.0";
 
 in stdenv.mkDerivation {
   name = "${repo}-${version}";
@@ -26,7 +27,7 @@ in stdenv.mkDerivation {
 
   meta = {
     description = "Client for PPP+SSL VPN tunnel services";
-    homepage = https://github.com/adrienverge/openfortivpn;
+    homepage = "https://github.com/adrienverge/openfortivpn";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.madjar ];
     platforms = stdenv.lib.platforms.linux;

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cairo, libjpeg, libXft, pkgconfig, python2, wafHook }:
+{ stdenv, fetchFromGitHub, cairo, libjpeg, libXft, pkgconfig, python2, wafHook
+}:
 
 stdenv.mkDerivation rec {
   name = "ntk-${version}";
@@ -11,14 +12,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig wafHook ];
-  buildInputs = [
-    cairo libjpeg libXft python2
-  ];
+  buildInputs = [ cairo libjpeg libXft python2 ];
 
   meta = {
     description = "Fork of FLTK 1.3.0 with additional functionality";
     version = "${version}";
-    homepage = http://non.tuxfamily.org/;
+    homepage = "http://non.tuxfamily.org/";
     license = stdenv.lib.licenses.lgpl21;
     maintainers = with stdenv.lib.maintainers; [ magnetophon nico202 ];
     platforms = stdenv.lib.platforms.linux;

@@ -1,12 +1,5 @@
-{ stdenv, fetchFromGitHub
-, xorg, xkeyboard_config, zlib
-, libjpeg_turbo, pixman, fltk
-, fontDirectories
-, cmake, gettext, libtool
-, libGLU
-, gnutls, pam, nettle
-, xterm, openssh
-, makeWrapper}:
+{ stdenv, fetchFromGitHub, xorg, xkeyboard_config, zlib, libjpeg_turbo, pixman, fltk, fontDirectories, cmake, gettext, libtool, libGLU, gnutls, pam, nettle, xterm, openssh, makeWrapper
+}:
 
 with stdenv.lib;
 
@@ -74,19 +67,37 @@ stdenv.mkDerivation rec {
     rm -f $out/lib/xorg/protocol.txt
 
     wrapProgram $out/bin/vncserver \
-      --prefix PATH : ${stdenv.lib.makeBinPath (with xorg; [ xterm twm xsetroot ]) }
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath (with xorg; [ xterm twm xsetroot ])
+      }
   '';
 
-  buildInputs = with xorg; [
-    libjpeg_turbo fltk pixman
-    gnutls pam nettle
-    xorgproto
-    utilmacros libXtst libXext libX11 libXext libICE libXi libSM libXft
-    libxkbfile libXfont2 libpciaccess
-    libGLU
-  ] ++ xorg.xorgserver.buildInputs;
+  buildInputs = with xorg;
+    [
+      libjpeg_turbo
+      fltk
+      pixman
+      gnutls
+      pam
+      nettle
+      xorgproto
+      utilmacros
+      libXtst
+      libXext
+      libX11
+      libXext
+      libICE
+      libXi
+      libSM
+      libXft
+      libxkbfile
+      libXfont2
+      libpciaccess
+      libGLU
+    ] ++ xorg.xorgserver.buildInputs;
 
-  nativeBuildInputs = with xorg; [ cmake zlib gettext libtool utilmacros fontutil makeWrapper ]
+  nativeBuildInputs = with xorg;
+    [ cmake zlib gettext libtool utilmacros fontutil makeWrapper ]
     ++ xorg.xorgserver.nativeBuildInputs;
 
   propagatedBuildInputs = xorg.xorgserver.propagatedBuildInputs;
@@ -94,10 +105,10 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://www.tigervnc.org/;
+    homepage = "http://www.tigervnc.org/";
     license = stdenv.lib.licenses.gpl2Plus;
     description = "Fork of tightVNC, made in cooperation with VirtualGL";
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
     # Prevent a store collision.
     priority = 4;

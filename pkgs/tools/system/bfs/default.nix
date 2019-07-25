@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       bfs is a variant of the UNIX find command that operates breadth-first rather than
       depth-first. It is otherwise intended to be compatible with many versions of find.
     '';
-    homepage = https://github.com/tavianator/bfs;
+    homepage = "https://github.com/tavianator/bfs";
     license = licenses.bsd0;
     platforms = platforms.unix;
     maintainers = with maintainers; [ yesbox ];

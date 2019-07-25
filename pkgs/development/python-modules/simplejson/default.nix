@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, stdenv
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, stdenv, pytest }:
 
 buildPythonPackage rec {
   pname = "simplejson";
@@ -32,7 +27,7 @@ buildPythonPackage rec {
       default, encoding is done in an encoding neutral fashion (plain
       ASCII with \uXXXX escapes for unicode characters).
     '';
-    homepage = https://github.com/simplejson/simplejson;
+    homepage = "https://github.com/simplejson/simplejson";
     license = with lib.licenses; [ mit afl21 ];
   };
 }

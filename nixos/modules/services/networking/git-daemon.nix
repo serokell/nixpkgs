@@ -4,8 +4,7 @@ let
 
   cfg = config.services.gitDaemon;
 
-in
-{
+in {
 
   ###### interface
 
@@ -55,7 +54,7 @@ in
 
       repositories = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "/srv/git" "/home/user/git/repo2" ];
         description = ''
           A whitelist of paths of git repositories, or directories containing repositories
@@ -104,14 +103,20 @@ in
 
   config = mkIf cfg.enable {
 
-    users.users = if cfg.user != "git" then {} else singleton
-      { name = "git";
+    users.users = if cfg.user != "git" then
+      { }
+    else
+      singleton {
+        name = "git";
         uid = config.ids.uids.git;
         description = "Git daemon user";
       };
 
-    users.groups = if cfg.group != "git" then {} else singleton
-      { name = "git";
+    users.groups = if cfg.group != "git" then
+      { }
+    else
+      singleton {
+        name = "git";
         gid = config.ids.gids.git;
       };
 
@@ -120,9 +125,12 @@ in
       wantedBy = [ "multi-user.target" ];
       script = "${pkgs.git}/bin/git daemon --reuseaddr "
         + (optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")
-        + (optionalString (cfg.listenAddress != "") "--listen=${cfg.listenAddress} ")
-        + "--port=${toString cfg.port} --user=${cfg.user} --group=${cfg.group} ${cfg.options} "
-        + "--verbose " + (optionalString cfg.exportAll "--export-all ")  + concatStringsSep " " cfg.repositories;
+        + (optionalString (cfg.listenAddress != "")
+        "--listen=${cfg.listenAddress} ") + "--port=${
+          toString cfg.port
+        } --user=${cfg.user} --group=${cfg.group} ${cfg.options} "
+        + "--verbose " + (optionalString cfg.exportAll "--export-all ")
+        + concatStringsSep " " cfg.repositories;
     };
 
   };

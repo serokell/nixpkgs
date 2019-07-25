@@ -1,16 +1,10 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "ammonite";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ nequissimus ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ nequissimus ]; };
 
   nodes = {
-    amm =
-      { pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.ammonite ];
-        };
-    };
+    amm = { pkgs, ... }: { environment.systemPackages = [ pkgs.ammonite ]; };
+  };
 
   testScript = ''
     startAll;

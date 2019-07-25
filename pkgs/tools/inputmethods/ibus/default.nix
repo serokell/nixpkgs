@@ -1,8 +1,7 @@
-{ stdenv, substituteAll, fetchurl, fetchFromGitHub, autoreconfHook, gettext, makeWrapper, pkgconfig
-, vala, wrapGAppsHook, dbus, dconf ? null, glib, gdk_pixbuf, gobject-introspection, gtk2
-, gtk3, gtk-doc, isocodes, python3, json-glib, libnotify ? null, enablePython2Library ? false
-, enableUI ? true, withWayland ? false, libxkbcommon ? null, wayland ? null
-, buildPackages, runtimeShell }:
+{ stdenv, substituteAll, fetchurl, fetchFromGitHub, autoreconfHook, gettext, makeWrapper, pkgconfig, vala, wrapGAppsHook, dbus, dconf ?
+  null, glib, gdk_pixbuf, gobject-introspection, gtk2, gtk3, gtk-doc, isocodes, python3, json-glib, libnotify ?
+    null, enablePython2Library ? false, enableUI ? true, withWayland ?
+      false, libxkbcommon ? null, wayland ? null, buildPackages, runtimeShell }:
 
 assert withWayland -> wayland != null && libxkbcommon != null;
 
@@ -36,7 +35,8 @@ let
     dontUnpack = true;
     installPhase = ''
       mkdir $out
-      ${builtins.toString (flip mapAttrsToList emojiSrcs (k: v: "cp ${v} $out/emoji-${k}.txt;"))}
+      ${builtins.toString
+      (flip mapAttrsToList emojiSrcs (k: v: "cp ${v} $out/emoji-${k}.txt;"))}
     '';
   };
   cldrEmojiAnnotation = stdenv.mkDerivation rec {
@@ -53,11 +53,13 @@ let
   ucdSrcs = {
     NamesList = fetchurl {
       url = "https://www.unicode.org/Public/UNIDATA/NamesList.txt";
-      sha256 = "c17c7726f562bd9ef869096807f0297e1edef9a58fdae1fbae487378fa43586f";
+      sha256 =
+        "c17c7726f562bd9ef869096807f0297e1edef9a58fdae1fbae487378fa43586f";
     };
     Blocks = fetchurl {
       url = "https://www.unicode.org/Public/UNIDATA/Blocks.txt";
-      sha256 = "a1a3ca4381eb91f7b65afe7cb7df615cdcf67993fef4b486585f66b349993a10";
+      sha256 =
+        "a1a3ca4381eb91f7b65afe7cb7df615cdcf67993fef4b486585f66b349993a10";
     };
   };
   ucd = stdenv.mkDerivation rec {
@@ -65,7 +67,8 @@ let
     dontUnpack = true;
     installPhase = ''
       mkdir $out
-      ${builtins.toString (flip mapAttrsToList ucdSrcs (k: v: "cp ${v} $out/${k}.txt;"))}
+      ${builtins.toString
+      (flip mapAttrsToList ucdSrcs (k: v: "cp ${v} $out/${k}.txt;"))}
     '';
   };
   python3Runtime = python3.withPackages (ps: with ps; [ pygobject3 ]);
@@ -77,9 +80,8 @@ let
       makeWrapper ${glib.dev}/bin/glib-mkenums $out/bin/glib-mkenums --unset PYTHONPATH
     '';
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ibus-${version}";
   version = "1.5.20";
 
@@ -111,7 +113,8 @@ stdenv.mkDerivation rec {
     (enableFeature (libnotify != null) "libnotify")
     (enableFeature withWayland "wayland")
     (enableFeature enablePython2Library "python-library")
-    (enableFeature enablePython2Library "python2") # XXX: python2 library does not work anyway
+    (enableFeature enablePython2Library
+    "python2") # XXX: python2 library does not work anyway
     (enableFeature enableUI "ui")
     "--with-unicode-emoji-dir=${emojiData}"
     "--with-emoji-annotation-dir=${cldrEmojiAnnotation}/share/unicode/cldr/common/annotations"
@@ -142,10 +145,7 @@ stdenv.mkDerivation rec {
     isocodes
     json-glib
     libnotify
-  ] ++ optionals withWayland [
-    libxkbcommon
-    wayland
-  ];
+  ] ++ optionals withWayland [ libxkbcommon wayland ];
 
   enableParallelBuilding = true;
 
@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
   installCheckPhase = "$out/bin/ibus version";
 
   meta = {
-    homepage = https://github.com/ibus/ibus;
+    homepage = "https://github.com/ibus/ibus";
     description = "Intelligent Input Bus, input method framework";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

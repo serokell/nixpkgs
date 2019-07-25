@@ -1,12 +1,9 @@
-{stdenv, fetchFromGitHub, fetchurl, torch, torch-hdf5, loadcaffe, bash
-  , python, numpy, scipy, h5py, scikitlearn, pillow
-  }:
+{ stdenv, fetchFromGitHub, fetchurl, torch, torch-hdf5, loadcaffe, bash, python, numpy, scipy, h5py, scikitlearn, pillow
+}:
 stdenv.mkDerivation rec {
   name = "fast-neural-doodle-${version}";
   version = "0.0pre2016-07-01";
-  buildInputs = [
-    torch torch-hdf5 python numpy h5py scikitlearn scipy pillow
-  ];
+  buildInputs = [ torch torch-hdf5 python numpy h5py scikitlearn scipy pillow ];
 
   inherit torch loadcaffe bash python;
   torch_hdf5 = torch-hdf5;
@@ -20,15 +17,18 @@ stdenv.mkDerivation rec {
   };
   models = [
     (fetchurl {
-      url = "https://gist.githubusercontent.com/ksimonyan/3785162f95cd2d5fee77/raw/bb2b4fe0a9bb0669211cf3d0bc949dfdda173e9e/VGG_ILSVRC_19_layers_deploy.prototxt";
+      url =
+        "https://gist.githubusercontent.com/ksimonyan/3785162f95cd2d5fee77/raw/bb2b4fe0a9bb0669211cf3d0bc949dfdda173e9e/VGG_ILSVRC_19_layers_deploy.prototxt";
       sha256 = "09cpz7pyvc8sypg2q5j2i8yqwj1sjdbnmd6skl293p9pv13dmjg7";
     })
     (fetchurl {
-      url = "https://bethgelab.org/media/uploads/deeptextures/vgg_normalised.caffemodel";
+      url =
+        "https://bethgelab.org/media/uploads/deeptextures/vgg_normalised.caffemodel";
       sha256 = "11qckdvlck7wwl3pan0nawgxm8l2ccddi272i5l8rs9qzm7b23rf";
     })
     (fetchurl {
-      url = "http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_19_layers.caffemodel";
+      url =
+        "http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_19_layers.caffemodel";
       sha256 = "0m399x7pl4lnhy435ycsyz8xpzapqmx9n1sz698y2vhcqhkwdd1i";
     })
   ];
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
   '';
   meta = {
     inherit version;
-    description = ''Faster neural doodle'';
+    description = "Faster neural doodle";
     license = stdenv.lib.licenses.mit;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.linux;
     broken = true;
   };

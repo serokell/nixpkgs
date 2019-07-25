@@ -9,12 +9,13 @@ buildGoModule rec {
   goPackagePath = "sigs.k8s.io/kustomize";
   subPackages = [ "cmd/kustomize" ];
 
-  buildFlagsArray = let t = "${goPackagePath}/pkg/commands/misc"; in ''
-    -ldflags=
-      -s -X ${t}.kustomizeVersion=${version}
-         -X ${t}.gitCommit=${rev}
-         -X ${t}.buildDate=unknown
-  '';
+  buildFlagsArray = let t = "${goPackagePath}/pkg/commands/misc";
+    in ''
+      -ldflags=
+        -s -X ${t}.kustomizeVersion=${version}
+           -X ${t}.gitCommit=${rev}
+           -X ${t}.buildDate=unknown
+    '';
 
   src = fetchFromGitHub {
     sha256 = "1ywppn97gfgrwlq1nrj4kdvrdanq5ahqaa636ynyp9yiv9ibziq6";
@@ -32,8 +33,13 @@ buildGoModule rec {
       multiple purposes, leaving the original YAML untouched and usable
       as is.
     '';
-    homepage = https://github.com/kubernetes-sigs/kustomize;
+    homepage = "https://github.com/kubernetes-sigs/kustomize";
     license = licenses.asl20;
-    maintainers = with maintainers; [ carlosdagos vdemeester periklis zaninime ];
+    maintainers = with maintainers; [
+      carlosdagos
+      vdemeester
+      periklis
+      zaninime
+    ];
   };
 }

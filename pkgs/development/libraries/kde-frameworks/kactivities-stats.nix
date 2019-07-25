@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules,
-  boost, kactivities, kconfig, qtbase,
+{ mkDerivation, lib, extra-cmake-modules, boost, kactivities, kconfig, qtbase,
 }:
 
 mkDerivation {

@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub, glibcLocales, pandoc, python3 }:
 
-let
-  pythonPackages = python3.pkgs;
+let pythonPackages = python3.pkgs;
 
 in pythonPackages.buildPythonApplication rec {
   pname = "coursera-dl";
@@ -18,7 +17,16 @@ in pythonPackages.buildPythonApplication rec {
 
   buildInputs = with pythonPackages; [ glibcLocales ];
 
-  propagatedBuildInputs = with pythonPackages; [ attrs beautifulsoup4 ConfigArgParse keyring pyasn1 requests six urllib3 ];
+  propagatedBuildInputs = with pythonPackages; [
+    attrs
+    beautifulsoup4
+    ConfigArgParse
+    keyring
+    pyasn1
+    requests
+    six
+    urllib3
+  ];
 
   checkInputs = with pythonPackages; [ pytest mock ];
 
@@ -38,7 +46,7 @@ in pythonPackages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "CLI for downloading Coursera.org videos and naming them";
-    homepage = https://github.com/coursera-dl/coursera-dl;
+    homepage = "https://github.com/coursera-dl/coursera-dl";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ alexfmpe ];
     platforms = platforms.darwin ++ platforms.linux;

@@ -1,4 +1,4 @@
-{stdenv, buildOcamlJane, type_conv}:
+{ stdenv, buildOcamlJane, type_conv }:
 
 buildOcamlJane rec {
   minimumSupportedOcamlVersion = "4.02";
@@ -10,8 +10,9 @@ buildOcamlJane rec {
   propagatedBuildInputs = [ type_conv ];
 
   meta = with stdenv.lib; {
-    homepage = https://ocaml.janestreet.com/;
-    description = "Library for serializing OCaml values to and from S-expressions";
+    homepage = "https://ocaml.janestreet.com/";
+    description =
+      "Library for serializing OCaml values to and from S-expressions";
     license = licenses.asl20;
     maintainers = [ maintainers.maurer maintainers.ericbmerritt ];
   };

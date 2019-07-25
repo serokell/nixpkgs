@@ -16,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A simple, cross-platform, pure Python module for JavaScript-like message boxes";
-    homepage = https://github.com/asweigart/PyMsgBox;
+    description =
+      "A simple, cross-platform, pure Python module for JavaScript-like message boxes";
+    homepage = "https://github.com/asweigart/PyMsgBox";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jluttine ];
   };

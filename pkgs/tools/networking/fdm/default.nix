@@ -5,9 +5,7 @@ let
   baseName = "fdm";
   version = "1.9.0.20170124";
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${baseName}-${version}";
 
   src = fetchFromGitHub {
@@ -20,13 +18,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ openssl tdb zlib flex bison ];
 
-
   meta = with stdenv.lib; {
-    description = "Mail fetching and delivery tool - should do the job of getmail and procmail";
+    description =
+      "Mail fetching and delivery tool - should do the job of getmail and procmail";
     maintainers = with maintainers; [ raskin ];
     platforms = with platforms; linux;
-    homepage = https://github.com/nicm/fdm;
-    downloadPage = https://github.com/nicm/fdm/releases;
+    homepage = "https://github.com/nicm/fdm";
+    downloadPage = "https://github.com/nicm/fdm/releases";
     license = licenses.isc;
   };
 }

@@ -1,20 +1,5 @@
-{ lib
-, fetchurl
-, buildPythonPackage
-, pycrypto
-, paramiko
-, jinja2
-, pyyaml
-, httplib2
-, boto
-, six
-, netaddr
-, dnspython
-, jmespath
-, dopy
-, windowsSupport ? false
-, pywinrm
-}:
+{ lib, fetchurl, buildPythonPackage, pycrypto, paramiko, jinja2, pyyaml, httplib2, boto, six, netaddr, dnspython, jmespath, dopy, windowsSupport ?
+  false, pywinrm }:
 
 buildPythonPackage rec {
   pname = "ansible";
@@ -36,17 +21,26 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    pycrypto paramiko jinja2 pyyaml httplib2 boto
-    six netaddr dnspython jmespath dopy
+    pycrypto
+    paramiko
+    jinja2
+    pyyaml
+    httplib2
+    boto
+    six
+    netaddr
+    dnspython
+    jmespath
+    dopy
   ] ++ lib.optional windowsSupport pywinrm;
 
   # dificult to test
   doCheck = false;
 
   meta = with lib; {
-    homepage = http://www.ansible.com;
+    homepage = "http://www.ansible.com";
     description = "Radically simple IT automation";
-    license = [ licenses.gpl3 ] ;
+    license = [ licenses.gpl3 ];
     maintainers = with maintainers; [ joamaki costrouc ];
     platforms = platforms.linux ++ platforms.darwin;
   };

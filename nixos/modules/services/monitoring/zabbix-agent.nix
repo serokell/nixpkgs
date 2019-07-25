@@ -4,7 +4,8 @@ let
   cfg = config.services.zabbixAgent;
 
   inherit (lib) mkDefault mkEnableOption mkIf mkOption;
-  inherit (lib) attrValues concatMapStringsSep literalExample optionalString types;
+  inherit (lib)
+    attrValues concatMapStringsSep literalExample optionalString types;
 
   user = "zabbix-agent";
   group = "zabbix-agent";
@@ -19,14 +20,13 @@ let
     Server = ${cfg.server}
     ListenIP = ${cfg.listen.ip}
     ListenPort = ${toString cfg.listen.port}
-    ${optionalString (cfg.modules != {}) "LoadModulePath = ${moduleEnv}/lib"}
-    ${concatMapStringsSep "\n" (name: "LoadModule = ${name}") (builtins.attrNames cfg.modules)}
+    ${optionalString (cfg.modules != { }) "LoadModulePath = ${moduleEnv}/lib"}
+    ${concatMapStringsSep "\n" (name: "LoadModule = ${name}")
+    (builtins.attrNames cfg.modules)}
     ${cfg.extraConfig}
   '';
 
-in
-
-{
+in {
   # interface
 
   options = {
@@ -55,7 +55,7 @@ in
       modules = mkOption {
         type = types.attrsOf types.package;
         description = "A set of modules to load.";
-        default = {};
+        default = { };
         example = literalExample ''
           {
             "dummy.so" = pkgs.stdenv.mkDerivation {
@@ -124,9 +124,8 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
 
     users.users.${user} = {
       description = "Zabbix Agent daemon user";
@@ -143,7 +142,8 @@ in
       path = [ "/run/wrappers" ] ++ cfg.extraPackages;
 
       serviceConfig = {
-        ExecStart = "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";
+        ExecStart =
+          "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";
         Restart = "always";
         RestartSec = 2;
 

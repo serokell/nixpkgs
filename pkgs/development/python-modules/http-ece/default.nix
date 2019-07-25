@@ -1,6 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage
-, coverage, flake8, mock, nose
-, cryptography }:
+{ lib, fetchPypi, buildPythonPackage, coverage, flake8, mock, nose, cryptography
+}:
 
 buildPythonPackage rec {
   pname = "http_ece";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Encipher HTTP Messages";
-    homepage = https://github.com/martinthomson/encrypted-content-encoding;
+    homepage = "https://github.com/martinthomson/encrypted-content-encoding";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };

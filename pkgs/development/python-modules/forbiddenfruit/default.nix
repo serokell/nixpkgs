@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose }:
 
 buildPythonPackage rec {
   version = "0.1.3";
@@ -22,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Patch python built-in objects";
-    homepage = https://pypi.python.org/pypi/forbiddenfruit;
+    homepage = "https://pypi.python.org/pypi/forbiddenfruit";
     license = licenses.mit;
   };
 

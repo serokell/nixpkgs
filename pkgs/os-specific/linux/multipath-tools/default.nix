@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, perl, lvm2, libaio, gzip, readline, systemd, liburcu, json_c }:
+{ stdenv, fetchurl, pkgconfig, perl, lvm2, libaio, gzip, readline, systemd, liburcu, json_c
+}:
 
 stdenv.mkDerivation rec {
   name = "multipath-tools-${version}";
@@ -6,7 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "${name}.tar.gz";
-    url = "https://git.opensvc.com/gitweb.cgi?p=multipath-tools/.git;a=snapshot;h=refs/tags/${version};sf=tgz";
+    url =
+      "https://git.opensvc.com/gitweb.cgi?p=multipath-tools/.git;a=snapshot;h=refs/tags/${version};sf=tgz";
     sha256 = "0x6cjlb9mjrmpaqk5v6v47qz6n9zyqmw13i7pq5x6ppwyqdxhn5s";
   };
 
@@ -35,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tools for the Linux multipathing driver";
-    homepage = http://christophe.varoqui.free.fr/;
+    homepage = "http://christophe.varoqui.free.fr/";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

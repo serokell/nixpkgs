@@ -1,14 +1,11 @@
-import ./make-test.nix ({ pkgs, ... } :
+import ./make-test.nix ({ pkgs, ... }:
 let
-  role     = "test";
+  role = "test";
   password = "secret";
-  conn     = "local";
-in
-{
+  conn = "local";
+in {
   name = "pgmanage";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ basvandijk ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ basvandijk ]; };
   nodes = {
     one = { config, pkgs, ... }: {
       services = {
@@ -21,7 +18,9 @@ in
         pgmanage = {
           enable = true;
           connections = {
-            "${conn}" = "hostaddr=127.0.0.1 port=${toString config.services.postgresql.port} dbname=postgres";
+            "${conn}" = "hostaddr=127.0.0.1 port=${
+              toString config.services.postgresql.port
+            } dbname=postgres";
           };
         };
       };

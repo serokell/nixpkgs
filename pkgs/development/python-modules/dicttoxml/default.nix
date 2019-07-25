@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "dicttoxml";
@@ -16,8 +13,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Converts a Python dictionary or other native data type into a valid XML string";
-    homepage = https://github.com/quandyfactory/dicttoxml;
+    description =
+      "Converts a Python dictionary or other native data type into a valid XML string";
+    homepage = "https://github.com/quandyfactory/dicttoxml";
     license = lib.licenses.gpl2;
   };
 }

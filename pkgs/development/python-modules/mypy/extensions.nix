@@ -15,9 +15,10 @@ buildPythonPackage rec {
   propagatedBuildInputs = if pythonOlder "3.5" then [ typing ] else [ ];
 
   meta = with stdenv.lib; {
-    description = "Experimental type system extensions for programs checked with the mypy typechecker";
-    homepage    = "http://www.mypy-lang.org";
-    license     = licenses.mit;
+    description =
+      "Experimental type system extensions for programs checked with the mypy typechecker";
+    homepage = "http://www.mypy-lang.org";
+    license = licenses.mit;
     maintainers = with maintainers; [ martingms lnl7 ];
   };
 }

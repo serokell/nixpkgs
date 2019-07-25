@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, cython
-, numpy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, cython, numpy }:
 
 buildPythonPackage rec {
   version = "0.13";
@@ -27,7 +21,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/daleroberts/hdmedians;
+    homepage = "https://github.com/daleroberts/hdmedians";
     description = "High-dimensional medians";
     license = licenses.gpl3;
     maintainers = [ maintainers.costrouc ];

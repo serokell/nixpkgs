@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ automake autoconf libtool m4 sqlite ];
 
   configureScript = "./autogen.sh";
-  
+
   preConfigure = ''
     find . -name '*.sh' -exec sed -e 's@#!/bin/bash@${bash}/bin/bash@' -i '{}' ';'
   '';
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     longDescription = ''
       libcangjie is a library implementing the Cangjie input method.
     '';
-    homepage = http://cangjians.github.io/projects/libcangjie/;
+    homepage = "http://cangjians.github.io/projects/libcangjie/";
     license = stdenv.lib.licenses.lgpl3Plus;
 
     maintainers = [ stdenv.lib.maintainers.linquize ];

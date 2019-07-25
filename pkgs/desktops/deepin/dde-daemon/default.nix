@@ -1,10 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, fetchpatch, pkgconfig,
-  dbus-factory, go-dbus-factory, go-gir-generator, go-lib,
-  deepin-gettext-tools, dde-api, deepin-desktop-schemas,
-  deepin-wallpapers, deepin-desktop-base, alsaLib, glib, gtk3,
-  libgudev, libinput, libnl, librsvg, linux-pam, networkmanager,
-  pulseaudio, python3, hicolor-icon-theme, glibc, tzdata, go,
-  deepin, makeWrapper, xkeyboard_config, wrapGAppsHook }:
+{ stdenv, buildGoPackage, fetchFromGitHub, fetchpatch, pkgconfig, dbus-factory, go-dbus-factory, go-gir-generator, go-lib, deepin-gettext-tools, dde-api, deepin-desktop-schemas, deepin-wallpapers, deepin-desktop-base, alsaLib, glib, gtk3, libgudev, libinput, libnl, librsvg, linux-pam, networkmanager, pulseaudio, python3, hicolor-icon-theme, glibc, tzdata, go, deepin, makeWrapper, xkeyboard_config, wrapGAppsHook
+}:
 
 buildGoPackage rec {
   name = "${pname}-${version}";
@@ -23,7 +18,8 @@ buildGoPackage rec {
   patches = [
     # https://github.com/linuxdeepin/dde-daemon/issues/51
     (fetchpatch {
-      url = https://github.com/jouyouyun/tap-gesture-patches/raw/master/patches/dde-daemon_3.8.0.patch;
+      url =
+        "https://github.com/jouyouyun/tap-gesture-patches/raw/master/patches/dde-daemon_3.8.0.patch";
       sha256 = "1ampdsp9zlg263flswdw9gj10n7gxh7zi6w6z9jgh29xlai05pvh";
     })
   ];
@@ -125,8 +121,9 @@ buildGoPackage rec {
   passthru.updateScript = deepin.updateScript { inherit name; };
 
   meta = with stdenv.lib; {
-    description = "Daemon for handling Deepin Desktop Environment session settings";
-    homepage = https://github.com/linuxdeepin/dde-daemon;
+    description =
+      "Daemon for handling Deepin Desktop Environment session settings";
+    homepage = "https://github.com/linuxdeepin/dde-daemon";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

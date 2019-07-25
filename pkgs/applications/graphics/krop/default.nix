@@ -23,15 +23,15 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = {
-    homepage = http://arminstraub.com/software/krop;
+    homepage = "http://arminstraub.com/software/krop";
     description = "Graphical tool to crop the pages of PDF files";
     longDescription = ''
-    Krop is a tool that allows you to optimise your PDF files, and remove
-    sections of the page you do not want.  A unique feature of krop, at least to my
-    knowledge, is its ability to automatically split pages into subpages to fit the
-    limited screensize of devices such as eReaders. This is particularly useful, if
-    your eReader does not support convenient scrolling. Krop also has a command line
-    interface.
+      Krop is a tool that allows you to optimise your PDF files, and remove
+      sections of the page you do not want.  A unique feature of krop, at least to my
+      knowledge, is its ability to automatically split pages into subpages to fit the
+      limited screensize of devices such as eReaders. This is particularly useful, if
+      your eReader does not support convenient scrolling. Krop also has a command line
+      interface.
     '';
     license = stdenv.lib.licenses.gpl3Plus;
     maintainers = with stdenv.lib.maintainers; [ leenaars ];

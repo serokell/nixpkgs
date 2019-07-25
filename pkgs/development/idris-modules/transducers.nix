@@ -1,8 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, lib }:
+build-idris-package {
   name = "transducers";
   version = "2017-07-28";
 
@@ -15,7 +12,7 @@ build-idris-package  {
 
   meta = {
     description = "Composable algorithmic transformation";
-    homepage = https://github.com/QuentinDuval/IdrisReducers;
+    homepage = "https://github.com/QuentinDuval/IdrisReducers";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

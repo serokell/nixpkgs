@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, sqlite, isPyPy }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, sqlite, isPyPy }:
 
 buildPythonPackage rec {
   pname = "apsw";
@@ -17,8 +16,9 @@ buildPythonPackage rec {
   buildInputs = [ sqlite ];
 
   meta = with stdenv.lib; {
-    description = "A Python wrapper for the SQLite embedded relational database engine";
-    homepage = https://github.com/rogerbinns/apsw;
+    description =
+      "A Python wrapper for the SQLite embedded relational database engine";
+    homepage = "https://github.com/rogerbinns/apsw";
     license = licenses.zlib;
   };
 }

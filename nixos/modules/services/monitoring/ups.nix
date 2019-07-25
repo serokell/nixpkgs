@@ -4,13 +4,10 @@
 # the project sources.
 with lib;
 
-let
-  cfg = config.power.ups;
-in
+let cfg = config.power.ups;
 
-let
-  upsOptions = {name, config, ...}:
-  {
+in let
+  upsOptions = { name, config, ... }: {
     options = {
       # This can be infered from the UPS model by looking at
       # /nix/store/nut/share/driver.list
@@ -62,7 +59,7 @@ let
       };
 
       directives = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = ''
           List of configuration directives for this UPS.
@@ -86,19 +83,14 @@ let
         ''desc = "${config.description}"''
         "sdorder = ${toString config.shutdownOrder}"
       ] ++ (optional (config.maxStartDelay != null)
-            "maxstartdelay = ${toString config.maxStartDelay}")
-      );
+        "maxstartdelay = ${toString config.maxStartDelay}"));
 
       summary =
-        concatStringsSep "\n      "
-          (["[${name}]"] ++ config.directives);
+        concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
     };
   };
 
-in
-
-
-{
+in {
   options = {
     # powerManagement.powerDownCommands
 
@@ -148,7 +140,6 @@ in
         '';
       };
 
-
       maxStartDelay = mkOption {
         default = 45;
         type = types.int;
@@ -162,7 +153,7 @@ in
       };
 
       ups = mkOption {
-        default = {};
+        default = { };
         # see nut/etc/ups.conf.sample
         description = ''
           This is where you configure all the UPSes that this system will be
@@ -205,7 +196,7 @@ in
       after = [ "upsd.service" ];
       wantedBy = [ "multi-user.target" ];
       # TODO: replace 'root' by another username.
-      script = ''${pkgs.nut}/bin/upsdrvctl -u root start'';
+      script = "${pkgs.nut}/bin/upsdrvctl -u root start";
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -215,66 +206,62 @@ in
     };
 
     environment.etc = [
-      { source = pkgs.writeText "nut.conf"
-        ''
+      {
+        source = pkgs.writeText "nut.conf" ''
           MODE = ${cfg.mode}
         '';
         target = "nut/nut.conf";
       }
-      { source = pkgs.writeText "ups.conf"
-        ''
+      {
+        source = pkgs.writeText "ups.conf" ''
           maxstartdelay = ${toString cfg.maxStartDelay}
 
-          ${flip concatStringsSep (flip map (attrValues cfg.ups) (ups: ups.summary)) "
-
-          "}
+          ${flip concatStringsSep
+          (flip map (attrValues cfg.ups) (ups: ups.summary)) "\n\n          "}
         '';
         target = "nut/ups.conf";
       }
-      { source = cfg.schedulerRules;
+      {
+        source = cfg.schedulerRules;
         target = "nut/upssched.conf";
       }
       # These file are containing private informations and thus should not
       # be stored inside the Nix store.
-      /*
-      { source = ;
-        target = "nut/upsd.conf";
-      }
-      { source = ;
-        target = "nut/upsd.users";
-      }
-      { source = ;
-        target = "nut/upsmon.conf;
-      }
+      /* { source = ;
+           target = "nut/upsd.conf";
+         }
+         { source = ;
+           target = "nut/upsd.users";
+         }
+         { source = ;
+           target = "nut/upsmon.conf;
+         }
       */
     ];
 
     power.ups.schedulerRules = mkDefault "${pkgs.nut}/etc/upssched.conf.sample";
 
-    system.activationScripts.upsSetup = stringAfter [ "users" "groups" ]
-      ''
-        # Used to store pid files of drivers.
-        mkdir -p /var/state/ups
-      '';
+    system.activationScripts.upsSetup = stringAfter [ "users" "groups" ] ''
+      # Used to store pid files of drivers.
+      mkdir -p /var/state/ups
+    '';
 
+    /* users.users = [
+          { name = "nut";
+            uid = 84;
+            home = "/var/lib/nut";
+            createHome = true;
+            group = "nut";
+            description = "UPnP A/V Media Server user";
+          }
+        ];
 
-/*
-    users.users = [
-      { name = "nut";
-        uid = 84;
-        home = "/var/lib/nut";
-        createHome = true;
-        group = "nut";
-        description = "UPnP A/V Media Server user";
-      }
-    ];
-
-    users.groups = [
-      { name = "nut";
-        gid = 84;
-      }
-    ];
-*/
+        users.groups = [
+          { name = "nut";
+            gid = 84;
+          }
+        ];
+    */
 
   };
 }

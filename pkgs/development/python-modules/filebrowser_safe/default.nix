@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, django
-}:
+{ stdenv, buildPythonPackage, fetchPypi, django }:
 
 buildPythonPackage rec {
   version = "0.5.0";
@@ -30,8 +26,8 @@ buildPythonPackage rec {
       with Django 1.1 - filebrowser_safe was therefore created to
       address these specific issues.
     '';
-    homepage = https://github.com/stephenmcd/filebrowser-safe;
-    downloadPage = https://pypi.python.org/pypi/filebrowser_safe/;
+    homepage = "https://github.com/stephenmcd/filebrowser-safe";
+    downloadPage = "https://pypi.python.org/pypi/filebrowser_safe/";
     license = licenses.free;
     maintainers = with maintainers; [ prikhi ];
     platforms = platforms.unix;

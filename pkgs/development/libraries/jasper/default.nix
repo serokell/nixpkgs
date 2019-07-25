@@ -19,7 +19,6 @@ stdenv.mkDerivation rec {
     })
   ];
 
-
   # newer reconf to recognize a multiout flag
   nativeBuildInputs = [ cmake ];
   propagatedBuildInputs = [ libjpeg ];
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.ece.uvic.ca/~frodo/jasper/;
+    homepage = "https://www.ece.uvic.ca/~frodo/jasper/";
     description = "JPEG2000 Library";
     platforms = platforms.unix;
     license = licenses.jasper;

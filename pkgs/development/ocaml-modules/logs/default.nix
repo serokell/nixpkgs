@@ -1,11 +1,10 @@
-{ stdenv, fetchurl, ocaml, findlib, ocamlbuild
-, topkg, result, lwt, cmdliner, fmt }:
+{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, result, lwt, cmdliner, fmt
+}:
 let
   pname = "logs";
   webpage = "https://erratique.ch/software/${pname}";
-in
 
-assert stdenv.lib.versionAtLeast ocaml.version "4.01.0";
+in assert stdenv.lib.versionAtLeast ocaml.version "4.01.0";
 
 stdenv.mkDerivation rec {
   name = "ocaml-${pname}-${version}";

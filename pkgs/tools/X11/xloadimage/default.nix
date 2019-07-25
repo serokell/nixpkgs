@@ -1,47 +1,34 @@
-{ stdenv
-, fetchurl
-, libX11
-, libXt
+{ stdenv, fetchurl, libX11, libXt
 
-, libjpeg ? null
-, libpng ? null
-, libtiff ? null
+, libjpeg ? null, libpng ? null, libtiff ? null
 
-, withJpegSupport ? true
-, withPngSupport ? true
-, withTiffSupport ? true
-}:
+, withJpegSupport ? true, withPngSupport ? true, withTiffSupport ? true }:
 
 assert withJpegSupport -> libjpeg != null;
 assert withPngSupport -> libpng != null;
 assert withTiffSupport -> libtiff != null;
 
-let
-  deb_patch = "25";
-in
-stdenv.mkDerivation rec {
+let deb_patch = "25";
+in stdenv.mkDerivation rec {
   version = "4.1";
   name = "xloadimage-${version}";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz";
+    url =
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz";
     sha256 = "1i7miyvk5ydhi6yi8593vapavhwxcwciir8wg9d2dcyg9pccf2s0";
   };
 
   patches = fetchurl {
-    url = "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz";
+    url =
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz";
     sha256 = "17k518vrdrya5c9dqhpmm4g0h2vlkq1iy87sg2ngzygypbli1xvn";
   };
 
-  buildInputs = [
-    libX11 libXt
-  ] ++ stdenv.lib.optionals withJpegSupport [
-    libjpeg
-  ] ++ stdenv.lib.optionals withPngSupport [
-    libpng
-  ] ++ stdenv.lib.optionals withTiffSupport [
-    libtiff
-  ];
+  buildInputs = [ libX11 libXt ]
+    ++ stdenv.lib.optionals withJpegSupport [ libjpeg ]
+    ++ stdenv.lib.optionals withPngSupport [ libpng ]
+    ++ stdenv.lib.optionals withTiffSupport [ libtiff ];
 
   # NOTE: we patch the build-info script so that it never detects the utilities
   # it's trying to find; one of the Debian patches adds support for
@@ -83,6 +70,6 @@ stdenv.mkDerivation rec {
     license = stdenv.lib.licenses.gpl2Plus;
 
     maintainers = with stdenv.lib.maintainers; [ andrew-d ];
-    platforms = stdenv.lib.platforms.linux;  # arbitrary choice
+    platforms = stdenv.lib.platforms.linux; # arbitrary choice
   };
 }

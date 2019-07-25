@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.8.0";
 
   src = fetchurl {
-    url = "https://bitbucket.org/fabriceT/openbox-menu/downloads/${name}.tar.bz2";
+    url =
+      "https://bitbucket.org/fabriceT/openbox-menu/downloads/${name}.tar.bz2";
     sha256 = "1hi4b6mq97y6ajq4hhsikbkk23aha7ikaahm92djw48mgj2f1w8l";
   };
 
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
   installPhase = "make install prefix=$out";
 
   meta = {
-    homepage = http://fabrice.thiroux.free.fr/openbox-menu_en.html;
+    homepage = "http://fabrice.thiroux.free.fr/openbox-menu_en.html";
     description = "Dynamic XDG menu generator for Openbox";
     longDescription = ''
       Openbox-menu is a pipemenu for Openbox window manager. It provides a
@@ -26,6 +27,6 @@ stdenv.mkDerivation rec {
     '';
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.romildo ];
-    platforms   = stdenv.lib.platforms.unix;
+    platforms = stdenv.lib.platforms.unix;
   };
 }

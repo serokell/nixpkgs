@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 
@@ -10,28 +8,23 @@ let
   makeTest = import ./make-test.nix;
 
   makeZfsTest = name:
-    { kernelPackage ? pkgs.linuxPackages_latest
-    , enableUnstable ? false
-    , extraTest ? ""
-    }:
+    { kernelPackage ? pkgs.linuxPackages_latest, enableUnstable ?
+      false, extraTest ? "" }:
     makeTest {
       name = "zfs-" + name;
       meta = with pkgs.stdenv.lib.maintainers; {
         maintainers = [ adisbladis ];
       };
 
-      machine = { pkgs, ... }:
-        {
-          virtualisation.emptyDiskImages = [ 4096 ];
-          networking.hostId = "deadbeef";
-          boot.kernelPackages = kernelPackage;
-          boot.supportedFilesystems = [ "zfs" ];
-          boot.zfs.enableUnstable = enableUnstable;
+      machine = { pkgs, ... }: {
+        virtualisation.emptyDiskImages = [ 4096 ];
+        networking.hostId = "deadbeef";
+        boot.kernelPackages = kernelPackage;
+        boot.supportedFilesystems = [ "zfs" ];
+        boot.zfs.enableUnstable = enableUnstable;
 
-          environment.systemPackages = with pkgs; [
-            parted
-          ];
-        };
+        environment.systemPackages = with pkgs; [ parted ];
+      };
 
       testScript = ''
         $machine->succeed("modprobe zfs");
@@ -61,7 +54,6 @@ let
       '' + extraTest;
 
     };
-
 
 in {
 

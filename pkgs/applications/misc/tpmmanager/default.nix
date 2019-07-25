@@ -28,10 +28,10 @@ stdenv.mkDerivation rec {
     Exec=$out/bin/tpmmanager
     Terminal=false
     EOF
-    '';
+  '';
 
   meta = {
-    homepage = https://projects.sirrix.com/trac/tpmmanager;
+    homepage = "https://projects.sirrix.com/trac/tpmmanager";
     description = "Tool for managing the TPM";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ tstrobel ];

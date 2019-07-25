@@ -1,21 +1,45 @@
-{ stdenv, lib, fetchurl, dpkg, gnome2, gtk2, atk, glib, pango, gdk_pixbuf, cairo
-, freetype, fontconfig, dbus, libXi, libXcursor, libXdamage, libXrandr
-, libXcomposite, libXext, libXfixes, libXrender, libX11, libXtst, libXScrnSaver
-, libxcb, makeWrapper, nodejs
-, nss, nspr, alsaLib, cups, expat, systemd, libpulseaudio }:
+{ stdenv, lib, fetchurl, dpkg, gnome2, gtk2, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, dbus, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libX11, libXtst, libXScrnSaver, libxcb, makeWrapper, nodejs, nss, nspr, alsaLib, cups, expat, systemd, libpulseaudio
+}:
 
 let
   libPath = stdenv.lib.makeLibraryPath [
-    stdenv.cc.cc gtk2 atk glib pango gdk_pixbuf cairo freetype fontconfig dbus
-    libXi libXcursor libXdamage libXrandr libXcomposite libXext libXfixes libxcb
-    libXrender libX11 libXtst libXScrnSaver gnome2.GConf nss nspr alsaLib cups expat systemd libpulseaudio
+    stdenv.cc.cc
+    gtk2
+    atk
+    glib
+    pango
+    gdk_pixbuf
+    cairo
+    freetype
+    fontconfig
+    dbus
+    libXi
+    libXcursor
+    libXdamage
+    libXrandr
+    libXcomposite
+    libXext
+    libXfixes
+    libxcb
+    libXrender
+    libX11
+    libXtst
+    libXScrnSaver
+    gnome2.GConf
+    nss
+    nspr
+    alsaLib
+    cups
+    expat
+    systemd
+    libpulseaudio
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "1.0.0-alpha.42";
   name = "terminus-${version}";
   src = fetchurl {
-    url = "https://github.com/Eugeny/terminus/releases/download/v${version}/terminus_${version}_amd64.deb";
+    url =
+      "https://github.com/Eugeny/terminus/releases/download/v${version}/terminus_${version}_amd64.deb";
     sha256 = "1r5n75n71zwahg4rxlnf9qzrb0651gxv0987m6bykqmfpnw91nmb";
   };
   buildInputs = [ dpkg makeWrapper ];
@@ -35,9 +59,9 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   meta = with lib; {
     description = "A terminal for a more modern age";
-    homepage    = https://eugeny.github.io/terminus/;
+    homepage = "https://eugeny.github.io/terminus/";
     maintainers = with maintainers; [ jlesquembre ];
-    license     = licenses.mit;
-    platforms   = [ "x86_64-linux" ];
+    license = licenses.mit;
+    platforms = [ "x86_64-linux" ];
   };
 }

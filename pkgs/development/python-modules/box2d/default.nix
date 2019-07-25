@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, swig2
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, swig2, isPy3k }:
 
 buildPythonPackage rec {
   pname = "Box2D";
@@ -25,7 +20,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pybox2d/pybox2d;
+    homepage = "https://github.com/pybox2d/pybox2d";
     description = ''
       A 2D game physics library for Python under
       the very liberal zlib license

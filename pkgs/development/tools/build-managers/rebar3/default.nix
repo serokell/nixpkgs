@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub,
-  fetchHex, erlang,
-  tree, hexRegistrySnapshot }:
+{ stdenv, fetchFromGitHub, fetchHex, erlang, tree, hexRegistrySnapshot }:
 
 let
   version = "3.11.1";
@@ -68,8 +66,7 @@ let
     sha256 = "0q5r871bzx1a8fa06yyxdi3xkkp7v5yqazzah03d6yl3vsmn7vqp";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "rebar3";
   inherit version erlang;
 
@@ -122,8 +119,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/rebar/rebar3;
-    description = "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
+    homepage = "https://github.com/rebar/rebar3";
+    description =
+      "Erlang build tool that makes it easy to compile and test Erlang applications, port drivers and releases";
 
     longDescription = ''
       rebar is a self-contained Erlang script, so it's easy to distribute or
@@ -132,7 +130,7 @@ stdenv.mkDerivation rec {
       of build configuration work. rebar also provides dependency management,
       enabling application writers to easily re-use common libraries from a
       variety of locations (hex.pm, git, hg, and so on).
-      '';
+    '';
 
     platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ gleber tazjin ];

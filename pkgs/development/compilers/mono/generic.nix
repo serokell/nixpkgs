@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11, callPackage, ncurses, zlib, withLLVM ? false, cacert, Foundation, libobjc, python, version, sha256, autoconf, libtool, automake, cmake, which, enableParallelBuilding ? true }:
+{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11, callPackage, ncurses, zlib, withLLVM ?
+  false, cacert, Foundation, libobjc, python, version, sha256, autoconf, libtool, automake, cmake, which, enableParallelBuilding ?
+    true }:
 
-let
-  llvm     = callPackage ./llvm.nix { };
-in
-stdenv.mkDerivation rec {
+let llvm = callPackage ./llvm.nix { };
+in stdenv.mkDerivation rec {
   name = "mono-${version}";
 
   src = fetchurl {
@@ -11,14 +11,27 @@ stdenv.mkDerivation rec {
     url = "https://download.mono-project.com/sources/mono/${name}.tar.bz2";
   };
 
-  buildInputs =
-    [ bison pkgconfig glib gettext perl libgdiplus libX11 ncurses zlib python autoconf libtool automake cmake which
-    ]
-    ++ (stdenv.lib.optionals stdenv.isDarwin [ Foundation libobjc ]);
+  buildInputs = [
+    bison
+    pkgconfig
+    glib
+    gettext
+    perl
+    libgdiplus
+    libX11
+    ncurses
+    zlib
+    python
+    autoconf
+    libtool
+    automake
+    cmake
+    which
+  ] ++ (stdenv.lib.optionals stdenv.isDarwin [ Foundation libobjc ]);
 
-  propagatedBuildInputs = [glib];
+  propagatedBuildInputs = [ glib ];
 
-  NIX_LDFLAGS = if stdenv.isDarwin then "" else "-lgcc_s" ;
+  NIX_LDFLAGS = if stdenv.isDarwin then "" else "-lgcc_s";
 
   # To overcome the bug https://bugzilla.novell.com/show_bug.cgi?id=644723
   dontDisableStatic = true;
@@ -27,11 +40,7 @@ stdenv.mkDerivation rec {
     "--x-includes=${libX11.dev}/include"
     "--x-libraries=${libX11.out}/lib"
     "--with-libgdiplus=${libgdiplus}/lib/libgdiplus.so"
-  ]
-  ++ stdenv.lib.optionals withLLVM [
-    "--enable-llvm"
-    "--with-llvm=${llvm}"
-  ];
+  ] ++ stdenv.lib.optionals withLLVM [ "--enable-llvm" "--with-llvm=${llvm}" ];
 
   configurePhase = ''
     patchShebangs ./
@@ -71,16 +80,16 @@ stdenv.mkDerivation rec {
     echo "Updating Mono key store"
     $out/bin/cert-sync ${cacert}/etc/ssl/certs/ca-bundle.crt
   ''
-  # According to [1], gmcs is just mcs
-  # [1] https://github.com/mono/mono/blob/master/scripts/gmcs.in
-  + ''
-    ln -s $out/bin/mcs $out/bin/gmcs
-  '';
+    # According to [1], gmcs is just mcs
+    # [1] https://github.com/mono/mono/blob/master/scripts/gmcs.in
+    + ''
+      ln -s $out/bin/mcs $out/bin/gmcs
+    '';
 
   inherit enableParallelBuilding;
 
   meta = with stdenv.lib; {
-    homepage = https://mono-project.com/;
+    homepage = "https://mono-project.com/";
     description = "Cross platform, open source .NET development framework";
     platforms = with platforms; darwin ++ linux;
     maintainers = with maintainers; [ thoughtpolice obadz vrthra ];

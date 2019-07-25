@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptoolsTrial, mock, twisted, future,
-  coreutils }:
+{ lib, buildPythonPackage, fetchPypi, setuptoolsTrial, mock, twisted, future, coreutils
+}:
 
 buildPythonPackage (rec {
   pname = "buildbot-worker";
@@ -20,7 +20,7 @@ buildPythonPackage (rec {
   '';
 
   meta = with lib; {
-    homepage = http://buildbot.net/;
+    homepage = "http://buildbot.net/";
     description = "Buildbot Worker Daemon";
     maintainers = with maintainers; [ nand0p ryansydnor ];
     license = licenses.gpl2;

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase, qttools, qtsvg, qtx11extras, kwindowsystem, liblxqt, libqtxdg, xorg, xdg-user-dirs }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase, qttools, qtsvg, qtx11extras, kwindowsystem, liblxqt, libqtxdg, xorg, xdg-user-dirs
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-session";
@@ -11,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0s6b0lblb795zz1p7sy677c1iznhmdzc4vw3jkc2agmsrhm7if7s";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkgconfig lxqt-build-tools ];
 
   buildInputs = [
     qtbase
@@ -43,8 +40,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "An alternative session manager ported from the original razor-session";
-    homepage = https://github.com/lxqt/lxqt-session;
+    description =
+      "An alternative session manager ported from the original razor-session";
+    homepage = "https://github.com/lxqt/lxqt-session";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

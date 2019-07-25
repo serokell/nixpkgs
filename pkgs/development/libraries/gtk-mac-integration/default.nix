@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, glib, gtk-doc, gtk, gobject-introspection }:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, glib, gtk-doc, gtk, gobject-introspection
+}:
 
 stdenv.mkDerivation rec {
   name = "gtk-mac-integration-2.0.8";
@@ -10,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "1fbhnvj0rqc3089ypvgnpkp6ad2rr37v5qk38008dgamb9h7f3qs";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig gtk-doc gobject-introspection ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig gtk-doc gobject-introspection ];
   buildInputs = [ glib ];
   propagatedBuildInputs = [ gtk ];
 
@@ -19,11 +21,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Provides integration for Gtk+ applications into the Mac desktop";
+    description =
+      "Provides integration for Gtk+ applications into the Mac desktop";
 
     license = licenses.lgpl21;
 
-    homepage = https://wiki.gnome.org/Projects/GTK+/OSX/Integration;
+    homepage = "https://wiki.gnome.org/Projects/GTK+/OSX/Integration";
 
     maintainers = [ maintainers.matthewbauer ];
     platforms = platforms.darwin;

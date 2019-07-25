@@ -1,16 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, docutils
-, requests
-, requests_download
-, zipfile36
-, pythonOlder
-, pytest
-, testpath
-, responses
-, pytoml
+{ lib, buildPythonPackage, fetchPypi, isPy3k, docutils, requests, requests_download, zipfile36, pythonOlder, pytest, testpath, responses, pytoml
 }:
 
 # Flit is actually an application to build universal wheels.
@@ -41,7 +29,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A simple packaging tool for simple packages";
-    homepage = https://github.com/takluyver/flit;
+    homepage = "https://github.com/takluyver/flit";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.fridh ];
   };

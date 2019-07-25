@@ -1,8 +1,6 @@
-import ./make-test.nix ({pkgs, ...}: rec {
+import ./make-test.nix ({ pkgs, ... }: rec {
   name = "All-in-one-basic-ceph-cluster";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ lejonet ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ lejonet ]; };
 
   nodes = {
     aio = { pkgs, ... }: {
@@ -13,19 +11,20 @@ import ./make-test.nix ({pkgs, ...}: rec {
 
       networking = {
         useDHCP = false;
-        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          { address = "192.168.1.1"; prefixLength = 24; }
-        ];
+        interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = "192.168.1.1";
+          prefixLength = 24;
+        }];
       };
 
-      environment.systemPackages = with pkgs; [
-        bash
-        sudo
-        ceph
-        xfsprogs
-      ];
+      environment.systemPackages = with pkgs; [ bash sudo ceph xfsprogs ];
       nixpkgs.config.packageOverrides = super: {
-        ceph = super.ceph.override({ nss = super.nss; libxfs = super.libxfs; libaio = super.libaio; jemalloc = super.jemalloc; });
+        ceph = super.ceph.override ({
+          nss = super.nss;
+          libxfs = super.libxfs;
+          libaio = super.libaio;
+          jemalloc = super.jemalloc;
+        });
       };
 
       boot.kernelModules = [ "xfs" ];

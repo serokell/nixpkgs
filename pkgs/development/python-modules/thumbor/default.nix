@@ -1,8 +1,4 @@
-{ buildPythonPackage, python, tornado, pycrypto, pycurl, pytz
-, pillow, derpconf, python_magic, libthumbor, webcolors
-, piexif, futures, statsd, thumborPexif, fetchFromGitHub, isPy3k, lib
-, mock, raven, nose, yanc, remotecv, pyssim, cairosvg, preggy, opencv3
-, pkgs, coreutils, substituteAll
+{ buildPythonPackage, python, tornado, pycrypto, pycurl, pytz, pillow, derpconf, python_magic, libthumbor, webcolors, piexif, futures, statsd, thumborPexif, fetchFromGitHub, isPy3k, lib, mock, raven, nose, yanc, remotecv, pyssim, cairosvg, preggy, opencv3, pkgs, coreutils, substituteAll
 }:
 
 buildPythonPackage rec {
@@ -31,7 +27,9 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace "setup.py" \
-      --replace '"argparse",' "" ${lib.optionalString isPy3k ''--replace '"futures",' ""''}
+      --replace '"argparse",' "" ${
+      lib.optionalString isPy3k ''--replace '"futures",' ""''
+      }
     sed -i setup.py \
         -e 's/piexif[^"]*/piexif/;s/Pillow[^"]*/Pillow/'
     substituteInPlace "tests/test_utils.py" \
@@ -83,7 +81,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A smart imaging service";
-    homepage = https://github.com/thumbor/thumbor/wiki;
+    homepage = "https://github.com/thumbor/thumbor/wiki";
     license = licenses.mit;
     maintainers = with maintainers; [ ma27 ];
   };

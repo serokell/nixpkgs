@@ -1,21 +1,8 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, zlib
-, xz
-, ncompress
-, gzip
-, bzip2
-, gnutar
-, p7zip
-, cabextract
-, lzma
-, pycrypto
-, pyqtgraph ? null }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, zlib, xz, ncompress, gzip, bzip2, gnutar, p7zip, cabextract, lzma, pycrypto, pyqtgraph ?
+  null }:
 
 let visualizationSupport = (pyqtgraph != null);
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   name = "binwalk-${version}";
   version = "2.1.1";
 
@@ -26,12 +13,14 @@ buildPythonPackage rec {
     sha256 = "0grid93yz6i6jb2zggrqncp5awdf7qi88j5y2k7dq0k9r6b8zydw";
   };
 
-  propagatedBuildInputs = [ zlib xz ncompress gzip bzip2 gnutar p7zip cabextract lzma pycrypto ]
+  propagatedBuildInputs =
+    [ zlib xz ncompress gzip bzip2 gnutar p7zip cabextract lzma pycrypto ]
     ++ stdenv.lib.optional visualizationSupport pyqtgraph;
 
   meta = with stdenv.lib; {
     homepage = "http://binwalk.org";
-    description = "A tool for searching a given binary image for embedded files";
+    description =
+      "A tool for searching a given binary image for embedded files";
     maintainers = [ maintainers.koral ];
   };
 }

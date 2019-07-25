@@ -1,9 +1,9 @@
-{ lib, fetchurl, stdenv, libgcrypt, libevent, libidn, gnutls
-, libxml2, zlib, guile, texinfo, cppunit, killall }:
+{ lib, fetchurl, stdenv, libgcrypt, libevent, libidn, gnutls, libxml2, zlib, guile, texinfo, cppunit, killall
+}:
 
-let version = "0.11"; in
+let version = "0.11";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "myserver-${version}";
 
   src = fetchurl {
@@ -11,12 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "02y3vv4hxpy5h710y79s8ipzshhc370gbz1wm85x0lnq5nqxj2ax";
   };
 
-  patches =
-    [ ./disable-dns-lookup-in-chroot.patch ];
+  patches = [ ./disable-dns-lookup-in-chroot.patch ];
 
-  buildInputs = [
-    libgcrypt libevent libidn gnutls libxml2 zlib guile texinfo
-  ];
+  buildInputs = [ libgcrypt libevent libidn gnutls libxml2 zlib guile texinfo ];
 
   checkInputs = [ cppunit ];
 
@@ -40,7 +37,7 @@ stdenv.mkDerivation rec {
       built-in features.  Share your files in minutes!
     '';
 
-    homepage = https://www.gnu.org/software/myserver/;
+    homepage = "https://www.gnu.org/software/myserver/";
 
     license = lib.licenses.gpl3Plus;
 

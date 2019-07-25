@@ -9,16 +9,16 @@ stdenv.mkDerivation rec {
     sha256 = "0m6g7lbvfir4amf2cnap9wz9fmqrihqpihd84igrd7fp076894c0";
   };
 
-  nativeBuildInputs = stdenv.lib.optional stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    stdenv.lib.optional stdenv.isDarwin [ fixDarwinDylibNames ];
 
   buildInputs = [ oracle-instantclient ]
     ++ stdenv.lib.optionals stdenv.isLinux [ libaio ];
 
-  libPath = stdenv.lib.makeLibraryPath
-    [ oracle-instantclient ];
+  libPath = stdenv.lib.makeLibraryPath [ oracle-instantclient ];
 
   dontPatchELF = true;
-  makeFlags = [ "PREFIX=$(out)" "CC=cc" "LD=cc"];
+  makeFlags = [ "PREFIX=$(out)" "CC=cc" "LD=cc" ];
 
   postFixup = ''
     ${stdenv.lib.optionalString (stdenv.isLinux) ''
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     ${stdenv.lib.optionalString (stdenv.isDarwin) ''
       install_name_tool -add_rpath "${libPath}" $out/lib/libodpic${stdenv.hostPlatform.extensions.sharedLibrary}
     ''}
-    '';
+  '';
 
   meta = with stdenv.lib; {
     description = "Oracle ODPI-C library";
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ mkazulak flokli ];
     license = licenses.asl20;
     platforms = [ "x86_64-linux" "x86_64-darwin" ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

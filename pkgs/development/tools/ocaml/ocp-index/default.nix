@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, dune, ocp-build, ocp-indent, cmdliner, re }:
+{ stdenv, fetchFromGitHub, ocaml, findlib, dune, ocp-build, ocp-indent, cmdliner, re
+}:
 
 stdenv.mkDerivation rec {
 
@@ -20,10 +21,10 @@ stdenv.mkDerivation rec {
   inherit (dune) installPhase;
 
   meta = {
-    homepage = http://typerex.ocamlpro.com/ocp-index.html;
+    homepage = "http://typerex.ocamlpro.com/ocp-index.html";
     description = "A simple and light-weight documentation extractor for OCaml";
     license = stdenv.lib.licenses.lgpl3;
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
     maintainers = with stdenv.lib.maintainers; [ vbgl ];
   };
 }

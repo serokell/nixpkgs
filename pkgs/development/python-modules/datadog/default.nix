@@ -1,6 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi
-, decorator, requests, simplejson
-, nose, mock }:
+{ lib, buildPythonPackage, fetchPypi, decorator, requests, simplejson, nose, mock
+}:
 
 buildPythonPackage rec {
   pname = "datadog";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "The Datadog Python library";
     license = licenses.bsd3;
-    homepage = https://github.com/DataDog/datadogpy;
+    homepage = "https://github.com/DataDog/datadogpy";
   };
 }

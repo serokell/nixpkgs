@@ -3,7 +3,8 @@
 stdenv.mkDerivation rec {
   name = "ocaml-libvirt-${version}";
   rev = "bab7f84ade84ceaddb08b6948792d49b3d04b897";
-  version = "0.6.1.4.2017-11-08-unstable"; # libguestfs-1.34+ needs ocaml-libvirt newer than the latest release 0.6.1.4
+  version =
+    "0.6.1.4.2017-11-08-unstable"; # libguestfs-1.34+ needs ocaml-libvirt newer than the latest release 0.6.1.4
 
   src = fetchgit {
     url = "git://git.annexia.org/git/ocaml-libvirt.git";
@@ -23,15 +24,18 @@ stdenv.mkDerivation rec {
     autoconf
   '';
 
-  buildPhase = if stdenv.cc.isClang then "make all opt CPPFLAGS=-Wno-error" else "make all opt";
+  buildPhase = if stdenv.cc.isClang then
+    "make all opt CPPFLAGS=-Wno-error"
+  else
+    "make all opt";
 
   installPhase = "make install-opt";
 
   meta = with stdenv.lib; {
     description = "OCaml bindings for libvirt";
-    homepage = https://libvirt.org/ocaml/;
+    homepage = "https://libvirt.org/ocaml/";
     license = licenses.gpl2;
     maintainers = [ maintainers.volth ];
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
   };
 }

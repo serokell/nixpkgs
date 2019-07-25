@@ -1,32 +1,25 @@
-
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "ipfs";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ mguentner ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ mguentner ]; };
 
   nodes = {
-    adder =
-      { ... }:
-      {
-        services.ipfs = {
-          enable = true;
-          defaultMode = "norouting";
-          gatewayAddress = "/ip4/127.0.0.1/tcp/2323";
-          apiAddress = "/ip4/127.0.0.1/tcp/2324";
-        };
-        networking.firewall.allowedTCPPorts = [ 4001 ];
+    adder = { ... }: {
+      services.ipfs = {
+        enable = true;
+        defaultMode = "norouting";
+        gatewayAddress = "/ip4/127.0.0.1/tcp/2323";
+        apiAddress = "/ip4/127.0.0.1/tcp/2324";
       };
-    getter =
-      { ... }:
-      {
-        services.ipfs = {
-          enable = true;
-          defaultMode = "norouting";
-          autoMount = true;
-        };
-        networking.firewall.allowedTCPPorts = [ 4001 ];
+      networking.firewall.allowedTCPPorts = [ 4001 ];
+    };
+    getter = { ... }: {
+      services.ipfs = {
+        enable = true;
+        defaultMode = "norouting";
+        autoMount = true;
       };
+      networking.firewall.allowedTCPPorts = [ 4001 ];
+    };
   };
 
   testScript = ''
@@ -51,5 +44,5 @@ import ./make-test.nix ({ pkgs, ...} : {
     $getter->mustSucceed("ipfs --api /ip4/127.0.0.1/tcp/5001 swarm connect /ip4/$addrIp/tcp/4001/ipfs/$addrId");
     $getter->mustSucceed("[ -n \"\$(ipfs --api /ip4/127.0.0.1/tcp/5001 cat /ipfs/$ipfsHash | grep fnord)\" ]");
     $getter->mustSucceed("[ -n \"$(cat /ipfs/$ipfsHash | grep fnord)\" ]");
-    '';
+  '';
 })

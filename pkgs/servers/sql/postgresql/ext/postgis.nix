@@ -1,15 +1,4 @@
-{ fetchurl
-, stdenv
-, perl
-, libxml2
-, postgresql
-, geos
-, proj
-, gdal
-, json_c
-, pkgconfig
-, file
-, protobufc
+{ fetchurl, stdenv, perl, libxml2, postgresql, geos, proj, gdal, json_c, pkgconfig, file, protobufc
 }:
 stdenv.mkDerivation rec {
   name = "postgis-${version}";
@@ -61,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Geographic Objects for PostgreSQL";
-    homepage = https://postgis.net/;
+    homepage = "https://postgis.net/";
     license = licenses.gpl2;
     maintainers = [ maintainers.marcweber ];
     platforms = platforms.linux;

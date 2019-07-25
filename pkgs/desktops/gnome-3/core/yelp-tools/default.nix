@@ -5,12 +5,17 @@ stdenv.mkDerivation rec {
   version = "3.32.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/yelp-tools/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/yelp-tools/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1yg8f5g5wadhmy4yfd9yjhvd8vll4gq4l86ibp0b42qbxnsmcf0q";
   };
 
   passthru = {
-    updateScript = gnome3.updateScript { packageName = "yelp-tools"; attrPath = "gnome3.yelp-tools"; };
+    updateScript = gnome3.updateScript {
+      packageName = "yelp-tools";
+      attrPath = "gnome3.yelp-tools";
+    };
   };
 
   nativeBuildInputs = [ pkgconfig ];
@@ -19,8 +24,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Yelp/Tools;
-    description = "Small programs that help you create, edit, manage, and publish your Mallard or DocBook documentation";
+    homepage = "https://wiki.gnome.org/Apps/Yelp/Tools";
+    description =
+      "Small programs that help you create, edit, manage, and publish your Mallard or DocBook documentation";
     maintainers = with maintainers; [ domenkozar ];
     license = licenses.gpl2;
     platforms = platforms.linux;

@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   meta = with stdenv.lib; {
     broken = true;
     description = "A tiling window manager in Rust";
-    homepage = https://github.com/Kintaro/wtftw;
+    homepage = "https://github.com/Kintaro/wtftw";
     license = stdenv.lib.licenses.bsd3;
   };
 }

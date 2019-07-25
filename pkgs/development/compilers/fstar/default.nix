@@ -14,9 +14,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = with ocamlPackages; [
-    z3 ocaml findlib batteries menhir stdint
-    zarith camlp4 yojson pprint
-    ulex ocaml-migrate-parsetree process ppx_deriving ppx_deriving_yojson ocamlbuild
+    z3
+    ocaml
+    findlib
+    batteries
+    menhir
+    stdint
+    zarith
+    camlp4
+    yojson
+    pprint
+    ulex
+    ocaml-migrate-parsetree
+    process
+    ppx_deriving
+    ppx_deriving_yojson
+    ocamlbuild
   ];
 
   makeFlags = [ "PREFIX=$(out)" ];
@@ -36,8 +49,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "ML-like functional programming language aimed at program verification";
-    homepage = https://www.fstar-lang.org;
+    description =
+      "ML-like functional programming language aimed at program verification";
+    homepage = "https://www.fstar-lang.org";
     license = licenses.asl20;
     platforms = with platforms; darwin ++ linux;
     maintainers = with maintainers; [ gebner ];

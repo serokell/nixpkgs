@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "0.10.9";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://alastairs-place.net/projects/netifaces/;
+    homepage = "https://alastairs-place.net/projects/netifaces/";
     description = "Portable access to network interfaces from Python";
     license = licenses.mit;
   };

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, qtsvg, dtkcore,
-  dtkwidget, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, qtsvg, dtkcore, dtkwidget, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -13,18 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "10bfq0h8v0a8i46gcbsy79l194g8sc0ysg289ndrra209fhwlidq";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkgconfig
-    qttools
-    deepin.setupHook
-  ];
+  nativeBuildInputs = [ qmake pkgconfig qttools deepin.setupHook ];
 
-  buildInputs = [
-    dtkcore
-    dtkwidget
-    qtsvg
-  ];
+  buildInputs = [ dtkcore dtkwidget qtsvg ];
 
   postPatch = ''
     searchHardCodedPaths  # debugging
@@ -36,12 +27,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     searchHardCodedPaths $out  # debugging
   '';
-  
+
   passthru.updateScript = deepin.updateScript { inherit name; };
 
   meta = with stdenv.lib; {
     description = "Easy to use calculator for Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/deepin-calculator;
+    homepage = "https://github.com/linuxdeepin/deepin-calculator";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

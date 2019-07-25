@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  ecfg = config.services.earlyoom;
-in
-{
+let ecfg = config.services.earlyoom;
+in {
   options = {
     services.earlyoom = {
 
@@ -39,7 +37,7 @@ in
         '';
       };
 
-      useKernelOOMKiller= mkOption {
+      useKernelOOMKiller = mkOption {
         type = types.bool;
         default = false;
         description = ''
@@ -67,7 +65,8 @@ in
       notificationsCommand = mkOption {
         type = types.nullOr types.str;
         default = null;
-        example = "sudo -u example_user DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send";
+        example =
+          "sudo -u example_user DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus notify-send";
         description = ''
           Command used to send notifications.
 
@@ -79,12 +78,18 @@ in
 
   config = mkIf ecfg.enable {
     assertions = [
-      { assertion = ecfg.freeMemThreshold > 0 && ecfg.freeMemThreshold <= 100;
-        message = "Needs to be a positive percentage"; }
-      { assertion = ecfg.freeSwapThreshold > 0 && ecfg.freeSwapThreshold <= 100;
-        message = "Needs to be a positive percentage"; }
-      { assertion = !ecfg.useKernelOOMKiller || !ecfg.ignoreOOMScoreAdjust;
-        message = "Both options in conjunction do not make sense"; }
+      {
+        assertion = ecfg.freeMemThreshold > 0 && ecfg.freeMemThreshold <= 100;
+        message = "Needs to be a positive percentage";
+      }
+      {
+        assertion = ecfg.freeSwapThreshold > 0 && ecfg.freeSwapThreshold <= 100;
+        message = "Needs to be a positive percentage";
+      }
+      {
+        assertion = !ecfg.useKernelOOMKiller || !ecfg.ignoreOOMScoreAdjust;
+        message = "Both options in conjunction do not make sense";
+      }
     ];
 
     systemd.services.earlyoom = {
@@ -101,7 +106,7 @@ in
           ${optionalString ecfg.ignoreOOMScoreAdjust "-i"} \
           ${optionalString ecfg.enableDebugInfo "-d"} \
           ${optionalString (ecfg.notificationsCommand != null)
-            "-N ${escapeShellArg ecfg.notificationsCommand}"}
+          "-N ${escapeShellArg ecfg.notificationsCommand}"}
         '';
       };
     };

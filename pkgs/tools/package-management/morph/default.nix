@@ -37,7 +37,7 @@ buildGoPackage rec {
     description = "Morph is a NixOS host manager written in Golang.";
     license = licenses.mit;
     homepage = "https://github.com/dbcdk/morph";
-    maintainers = with maintainers; [adamt johanot];
+    maintainers = with maintainers; [ adamt johanot ];
     platforms = platforms.unix;
   };
 }

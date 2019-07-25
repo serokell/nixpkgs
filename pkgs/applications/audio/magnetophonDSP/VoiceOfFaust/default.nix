@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, faust2jack, faust2lv2, helmholtz, mrpeach, puredata-with-plugins }:
+{ stdenv, fetchFromGitHub, faust2jack, faust2lv2, helmholtz, mrpeach, puredata-with-plugins
+}:
 stdenv.mkDerivation rec {
   name = "VoiceOfFaust-${version}";
   version = "1.1.4";
@@ -49,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Turn your voice into a synthesizer";
-    homepage = https://github.com/magnetophon/VoiceOfFaust;
+    homepage = "https://github.com/magnetophon/VoiceOfFaust";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
   };

@@ -1,13 +1,12 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost
-, zlib, miniupnpc, qt4, utillinux, protobuf, qrencode, libevent
-, withGui
-, Foundation, ApplicationServices, AppKit }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost, zlib, miniupnpc, qt4, utillinux, protobuf, qrencode, libevent, withGui, Foundation, ApplicationServices, AppKit
+}:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
 
-  name = "bitcoin" + (toString (optional (!withGui) "d")) + "-unlimited-" + version;
+  name = "bitcoin" + (toString (optional (!withGui) "d")) + "-unlimited-"
+    + version;
   version = "1.0.3.0";
 
   src = fetchFromGitHub {
@@ -18,22 +17,20 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
-  buildInputs = [ openssl db48 boost zlib
-                  miniupnpc utillinux protobuf libevent ]
-                  ++ optionals withGui [ qt4 qrencode ]
-                  ++ optionals stdenv.isDarwin [ Foundation ApplicationServices AppKit ];
+  buildInputs =
+    [ openssl db48 boost zlib miniupnpc utillinux protobuf libevent ]
+    ++ optionals withGui [ qt4 qrencode ]
+    ++ optionals stdenv.isDarwin [ Foundation ApplicationServices AppKit ];
 
-  patches = [
-    ./bitcoin-unlimited-const-comparators.patch
-  ];
+  patches = [ ./bitcoin-unlimited-const-comparators.patch ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
-                     ++ optionals withGui [ "--with-gui=qt4" ];
+    ++ optionals withGui [ "--with-gui=qt4" ];
   enableParallelBuilding = true;
 
   meta = {
     description = "Peer-to-peer electronic cash system (Unlimited client)";
-    longDescription= ''
+    longDescription = ''
       Bitcoin is a free open source peer-to-peer electronic cash system that is
       completely decentralized, without the need for a central server or trusted
       parties. Users hold the crypto keys to their own money and transact directly
@@ -59,7 +56,7 @@ stdenv.mkDerivation rec {
       support Bitcoin conflict resolution as originally envisioned by its founder -
       consider running a Bitcoin Unlimited client.
     '';
-    homepage = https://www.bitcoinunlimited.info/;
+    homepage = "https://www.bitcoinunlimited.info/";
     maintainers = with maintainers; [ DmitryTsygankov ];
     license = licenses.mit;
     broken = stdenv.isDarwin;

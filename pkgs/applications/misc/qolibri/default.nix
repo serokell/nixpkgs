@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, libeb, lzo, qtbase
-, qtmultimedia, qttools, qtwebengine }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, libeb, lzo, qtbase, qtmultimedia, qttools, qtwebengine
+}:
 
 stdenv.mkDerivation rec {
   name = "qolibri-${version}";
@@ -13,14 +13,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig cmake ];
-  buildInputs = [
-    libeb lzo qtbase qtmultimedia qttools qtwebengine
-  ];
+  buildInputs = [ libeb lzo qtbase qtmultimedia qttools qtwebengine ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/ludios/qolibri;
+    homepage = "https://github.com/ludios/qolibri";
     description = "EPWING reader for viewing Japanese dictionaries";
     platforms = platforms.linux;
     maintainers = with maintainers; [ ivan ];

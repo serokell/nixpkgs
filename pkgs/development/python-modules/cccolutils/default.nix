@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, krb5Full, nose, GitPython, mock, git }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, krb5Full, nose, GitPython, mock, git
+}:
 
 buildPythonPackage rec {
   pname = "CCColUtils";
@@ -16,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python Kerberos 5 Credential Cache Collection Utilities";
-    homepage = https://pagure.io/cccolutils;
+    homepage = "https://pagure.io/cccolutils";
     license = licenses.gpl2;
     maintainers = with maintainers; [ disassembler ];
   };

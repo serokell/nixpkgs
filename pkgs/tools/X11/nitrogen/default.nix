@@ -1,8 +1,7 @@
 { stdenv, fetchurl, pkgconfig, glib, gtkmm2 }:
 
 let version = "1.6.1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "nitrogen-${version}";
 
   src = fetchurl {
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
       multi-head with Xinerama. Wallpapers are browsable with a convenient GUI,
       and settings are stored in a human-readable config file.
     '';
-    homepage = https://github.com/l3ib/nitrogen;
+    homepage = "https://github.com/l3ib/nitrogen";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.auntie ];

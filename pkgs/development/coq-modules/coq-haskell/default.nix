@@ -1,7 +1,7 @@
 { stdenv, fetchgit, coq, ssreflect }:
 
-let params =
-  {
+let
+  params = {
     "8.5" = {
       version = "20171215";
       rev = "e2cf8b270c2efa3b56fab1ef6acc376c2c3de968";
@@ -27,14 +27,13 @@ let params =
     };
   };
   param = params."${coq.coq-version}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   name = "coq${coq.coq-version}-coq-haskell-${param.version}";
 
   src = fetchgit {
-    url = git://github.com/jwiegley/coq-haskell.git;
+    url = "git://github.com/jwiegley/coq-haskell.git";
     inherit (param) rev sha256;
   };
 
@@ -48,13 +47,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jwiegley/coq-haskell;
-    description = "A library for formalizing Haskell types and functions in Coq";
+    homepage = "https://github.com/jwiegley/coq-haskell";
+    description =
+      "A library for formalizing Haskell types and functions in Coq";
     maintainers = with maintainers; [ jwiegley ];
     platforms = coq.meta.platforms;
   };
 
-  passthru = {
-    compatibleCoqVersions = v: builtins.hasAttr v params;
-  };
+  passthru = { compatibleCoqVersions = v: builtins.hasAttr v params; };
 }

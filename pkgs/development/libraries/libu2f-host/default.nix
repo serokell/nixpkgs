@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.1.10";
 
   src = fetchurl {
-    url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.xz";
+    url =
+      "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.xz";
     sha256 = "0vrivl1dwql6nfi48z6dy56fwy2z13d7abgahgrs2mcmqng7hra2";
   };
 
@@ -19,8 +20,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://developers.yubico.com/libu2f-host;
-    description = "A C library and command-line tool that implements the host-side of the U2F protocol";
+    homepage = "https://developers.yubico.com/libu2f-host";
+    description =
+      "A C library and command-line tool that implements the host-side of the U2F protocol";
     license = licenses.bsd2;
     platforms = platforms.unix;
   };

@@ -1,5 +1,5 @@
-{ stdenv, rpmextract, patchelf, makeWrapper, file, requireFile, glib, zlib, 
-    freetype, fontconfig, xorg }:
+{ stdenv, rpmextract, patchelf, makeWrapper, file, requireFile, glib, zlib, freetype, fontconfig, xorg
+}:
 
 stdenv.mkDerivation rec {
   name = "diamond-3.10";
@@ -15,17 +15,17 @@ stdenv.mkDerivation rec {
   buildCommand = ''
     origprefix=usr/local/diamond/3.10_x64
     prefix=diamond
-    
+
     echo "Unpacking $src..."
     rpmextract $src
-    
+
     # Move $pwd/usr/local/diamond/VERS to $out/diamond, cd.
     mkdir -p $out/$prefix
     rmdir $out/$prefix
     mv $origprefix $out/$prefix
-    
+
     cd $out
-    
+
     # Extract all tarballs.
     for tb in \
         cae_library/cae_library.tar.gz \
@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
         bin/bin.tar.gz \
         examples/examples.tar.gz \
         data/data.tar.gz ; do
-    
+
         echo "Extracting tarball $prefix/$tb"
         cd $out/$prefix/$(dirname $tb)
         tar xf $(basename $tb)
         rm $(basename $tb)
     done
-    
+
     # Patch shebangs in start scripts .
     cd $out/$prefix/bin/lin64
     for tool in \
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
         echo "Patching script $prefix/bin/lin64/$tool..."
         patchShebangs $tool
     done
-    
+
     # Patch executable ELFs.
     for path in bin/lin64 ispfpga/bin/lin64; do
         cd $out/$prefix/$path
@@ -82,10 +82,10 @@ stdenv.mkDerivation rec {
                 $f
         done
     done
-    
+
     # Remove 32-bit libz.
     rm $out/$prefix/bin/lin64/libz.{so,so.1}
-    
+
     # Make wrappers (should these target more than the 'diamond' tool?).
     # The purpose of these is just to call the target program using its
     # absolute path - otherwise, it will crash.
@@ -96,8 +96,16 @@ stdenv.mkDerivation rec {
   '';
 
   libPath = stdenv.lib.makeLibraryPath [
-    glib zlib freetype fontconfig
-    xorg.libSM xorg.libICE xorg.libXrender xorg.libXext xorg.libX11 xorg.libXt
+    glib
+    zlib
+    freetype
+    fontconfig
+    xorg.libSM
+    xorg.libICE
+    xorg.libXrender
+    xorg.libXext
+    xorg.libX11
+    xorg.libXt
   ];
 
   meta = {

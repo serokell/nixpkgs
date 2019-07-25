@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, makeWrapper
-, ghostscript, netpbm, perl }:
+{ stdenv, fetchurl, makeWrapper, ghostscript, netpbm, perl }:
 # TODO: withTex
 
 # Ported from Homebrew.
@@ -10,7 +9,8 @@ stdenv.mkDerivation rec {
   version = "2018";
 
   src = fetchurl {
-    url = "http://mirrors.ctan.org/support/latex2html/latex2html-${version}.tar.gz";
+    url =
+      "http://mirrors.ctan.org/support/latex2html/latex2html-${version}.tar.gz";
     sha256 = "1qnlg8ajh0amy9gy8rh8sp1l224ak54264i3dhk7rrv9s4k7bqq9";
   };
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       commands.
     '';
 
-    homepage = https://www.ctan.org/pkg/latex2html;
+    homepage = "https://www.ctan.org/pkg/latex2html";
 
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;

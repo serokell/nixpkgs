@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, glibcLocales, tox, pytestcov, parso }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, glibcLocales, tox, pytestcov, parso
+}:
 
 buildPythonPackage rec {
   pname = "jedi";
@@ -25,8 +26,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/davidhalter/jedi;
-    description = "An autocompletion tool for Python that can be used for text editors";
+    homepage = "https://github.com/davidhalter/jedi";
+    description =
+      "An autocompletion tool for Python that can be used for text editors";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ ];
   };

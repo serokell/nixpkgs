@@ -1,17 +1,30 @@
-{ stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsaLib, readline, libGLU_combined, libXaw
-, pkgconfig, gtk2, SDL, autoreconfHook, makeDesktopItem
+{ stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsaLib, readline, libGLU_combined, libXaw, pkgconfig, gtk2, SDL, autoreconfHook, makeDesktopItem
 }:
 
 stdenv.mkDerivation rec {
   name = "vice-3.1";
 
   src = fetchurl {
-    url = mirror://sourceforge/vice-emu/vice-3.1.tar.gz;
+    url = "mirror://sourceforge/vice-emu/vice-3.1.tar.gz";
     sha256 = "0h0jbml02s2a36hr78dxv1zshmfhxp1wadpcdl09aq416fb1bf1y";
   };
 
-  buildInputs = [ bison flex perl libpng giflib libjpeg alsaLib readline libGLU_combined
-    pkgconfig gtk2 SDL autoreconfHook libXaw ];
+  buildInputs = [
+    bison
+    flex
+    perl
+    libpng
+    giflib
+    libjpeg
+    alsaLib
+    readline
+    libGLU_combined
+    pkgconfig
+    gtk2
+    SDL
+    autoreconfHook
+    libXaw
+  ];
   dontDisableStatic = true;
   configureFlags = [ "--enable-fullscreen --enable-gnomeui" ];
 
@@ -45,7 +58,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Commodore 64, 128 and other emulators";
-    homepage = http://www.viceteam.org;
+    homepage = "http://www.viceteam.org";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [ stdenv.lib.maintainers.sander ];
     platforms = stdenv.lib.platforms.linux;

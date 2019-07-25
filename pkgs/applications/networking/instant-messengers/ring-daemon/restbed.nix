@@ -1,10 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, asio
-, openssl
-, patches
-}:
+{ stdenv, fetchFromGitHub, cmake, asio, openssl, patches }:
 
 stdenv.mkDerivation rec {
   name = "restbed-${version}";
@@ -19,11 +13,7 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  buildInputs = [
-    cmake
-    asio
-    openssl
-  ];
+  buildInputs = [ cmake asio openssl ];
 
   meta = with stdenv.lib; {
     description = "HTTP framework for building networked applications";
@@ -33,7 +23,7 @@ stdenv.mkDerivation rec {
       business processes. Targeting mobile, tablet, desktop, and embedded
       production environments.
     '';
-    homepage = https://corvusoft.co.uk/;
+    homepage = "https://corvusoft.co.uk/";
     license = licenses.agpl3;
     maintainers = with maintainers; [ taeer ];
     platforms = platforms.linux;

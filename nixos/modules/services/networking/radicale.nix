@@ -16,16 +16,15 @@ let
     pkg = pkgs.radicale1;
     text = "pkgs.radicale1";
   };
-in
 
-{
+in {
 
   options = {
     services.radicale.enable = mkOption {
       type = types.bool;
       default = false;
       description = ''
-          Enable Radicale CalDAV and CardDAV server.
+        Enable Radicale CalDAV and CardDAV server.
       '';
     };
 
@@ -51,7 +50,7 @@ in
 
     services.radicale.extraArgs = mkOption {
       type = types.listOf types.string;
-      default = [];
+      default = [ ];
       description = "Extra arguments passed to the Radicale daemon.";
     };
   };
@@ -59,29 +58,27 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    users.users = singleton
-      { name = "radicale";
-        uid = config.ids.uids.radicale;
-        description = "radicale user";
-        home = "/var/lib/radicale";
-        createHome = true;
-      };
+    users.users = singleton {
+      name = "radicale";
+      uid = config.ids.uids.radicale;
+      description = "radicale user";
+      home = "/var/lib/radicale";
+      createHome = true;
+    };
 
-    users.groups = singleton
-      { name = "radicale";
-        gid = config.ids.gids.radicale;
-      };
+    users.groups = singleton {
+      name = "radicale";
+      gid = config.ids.gids.radicale;
+    };
 
     systemd.services.radicale = {
       description = "A Simple Calendar and Contact Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = concatStringsSep " " ([
-          "${cfg.package}/bin/radicale" "-C" confFile
-        ] ++ (
-          map escapeShellArg cfg.extraArgs
-        ));
+        ExecStart = concatStringsSep " "
+          ([ "${cfg.package}/bin/radicale" "-C" confFile ]
+          ++ (map escapeShellArg cfg.extraArgs));
         User = "radicale";
         Group = "radicale";
       };

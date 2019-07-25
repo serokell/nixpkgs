@@ -1,7 +1,6 @@
-{ stdenv, fetchFromGitHub, cairo, fftw, gtkmm2, lv2, lvtk, pkgconfig
-, wafHook }:
+{ stdenv, fetchFromGitHub, cairo, fftw, gtkmm2, lv2, lvtk, pkgconfig, wafHook }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "ams-lv2-${version}";
   version = "1.2.2";
 
@@ -16,8 +15,9 @@ stdenv.mkDerivation  rec {
   buildInputs = [ cairo fftw gtkmm2 lv2 lvtk ];
 
   meta = with stdenv.lib; {
-    description = "An LV2 port of the internal modules found in Alsa Modular Synth";
-    homepage = http://objectivewave.wordpress.com/ams-lv2;
+    description =
+      "An LV2 port of the internal modules found in Alsa Modular Synth";
+    homepage = "http://objectivewave.wordpress.com/ams-lv2";
     license = licenses.gpl3;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux;

@@ -9,8 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "0j82q7g7hgvnahk6gdyhmn9880mqii3b4agqc98f5xaj3kxmd2dr";
   };
 
-  nativeBuildInputs = [cmake unzip];
-  buildInputs = [zlib];
+  nativeBuildInputs = [ cmake unzip ];
+  buildInputs = [ zlib ];
   sourceRoot = ".";
   enableParallelBuilding = true;
   installPhase = ''
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "ZDoom's internal node builder for DOOM maps";
-    homepage = https://zdoom.org/wiki/ZDBSP;
+    homepage = "https://zdoom.org/wiki/ZDBSP";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ertes];
+    maintainers = with maintainers; [ ertes ];
     platforms = platforms.linux;
   };
 }

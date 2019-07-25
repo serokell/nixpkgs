@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pyx";
@@ -19,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Python package for the generation of PostScript, PDF, and SVG files";
-    homepage = http://pyx.sourceforge.net/;
+    description =
+      "Python package for the generation of PostScript, PDF, and SVG files";
+    homepage = "http://pyx.sourceforge.net/";
     license = with licenses; [ gpl2 ];
   };
 

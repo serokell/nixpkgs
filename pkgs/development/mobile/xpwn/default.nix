@@ -4,8 +4,8 @@ stdenv.mkDerivation {
   name = "xpwn-0.5.8git";
 
   src = fetchgit {
-    url    = "git://github.com/dborca/xpwn.git";
-    rev    = "4534da88d4e8a32cdc9da9b5326e2cc482c95ef0";
+    url = "git://github.com/dborca/xpwn.git";
+    rev = "4534da88d4e8a32cdc9da9b5326e2cc482c95ef0";
     sha256 = "1h1ak40fg5bym0hifpii9q2hqdp2m387cwfzb4bl6qq36xpkd6wv";
   };
 
@@ -21,9 +21,9 @@ stdenv.mkDerivation {
   buildInputs = [ cmake zlib libpng bzip2 libusb openssl ];
 
   meta = with stdenv.lib; {
-    homepage    = "http://planetbeing.lighthouseapp.com/projects/15246-xpwn";
+    homepage = "http://planetbeing.lighthouseapp.com/projects/15246-xpwn";
     description = "Custom NOR firmware loader/IPSW generator for the iPhone";
-    license     = licenses.gpl3Plus;
-    platforms   = with platforms; linux ++ darwin;
+    license = licenses.gpl3Plus;
+    platforms = with platforms; linux ++ darwin;
   };
 }

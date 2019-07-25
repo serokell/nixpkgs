@@ -13,13 +13,14 @@ stdenv.mkDerivation rec {
   # Hack to disable documentation as there is no way to tell bbdb to
   # NOT build pdfs. I really don't want to pull in TexLive here...
   preConfigure = ''
-   substituteInPlace ./Makefile.in \
-     --replace "SUBDIRS = lisp doc tex" "SUBDIRS = lisp"
+    substituteInPlace ./Makefile.in \
+      --replace "SUBDIRS = lisp doc tex" "SUBDIRS = lisp"
   '';
 
   meta = {
-    homepage = https://savannah.nongnu.org/projects/bbdb/;
-    description = "The Insidious Big Brother Database (BBDB), a contact management utility for Emacs, version 3";
+    homepage = "https://savannah.nongnu.org/projects/bbdb/";
+    description =
+      "The Insidious Big Brother Database (BBDB), a contact management utility for Emacs, version 3";
     license = "GPL";
   };
 }

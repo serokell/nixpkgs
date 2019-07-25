@@ -1,8 +1,5 @@
-{ stdenv, buildPackages
-, fetchurl, pkgconfig, ncurses, gzip
-, sslSupport ? true, openssl ? null
-, nukeReferences
-}:
+{ stdenv, buildPackages, fetchurl, pkgconfig, ncurses, gzip, sslSupport ?
+  true, openssl ? null, nukeReferences }:
 
 assert sslSupport -> openssl != null;
 
@@ -22,11 +19,9 @@ stdenv.mkDerivation rec {
 
   hardeningEnable = [ "pie" ];
 
-  configureFlags = [
-    "--enable-default-colors"
-    "--enable-widec"
-    "--enable-ipv6"
-  ] ++ stdenv.lib.optional sslSupport "--with-ssl";
+  configureFlags =
+    [ "--enable-default-colors" "--enable-widec" "--enable-ipv6" ]
+    ++ stdenv.lib.optional sslSupport "--with-ssl";
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [ nukeReferences ]
@@ -43,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A text-mode web browser";
-    homepage = https://lynx.invisible-island.net/;
+    homepage = "https://lynx.invisible-island.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

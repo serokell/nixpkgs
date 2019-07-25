@@ -1,26 +1,47 @@
-{ stdenv, fetchurl, rpmextract, patchelf, libnotify, libcap, cairo, pango, fontconfig, udev, dbus
-, gtk2, atk, expat, gdk_pixbuf, freetype, nspr, glib, nss, gconf, libX11, libXrender, libXtst, libXdamage
-, libXi, libXext, libXfixes, libXcomposite, alsaLib, bash
+{ stdenv, fetchurl, rpmextract, patchelf, libnotify, libcap, cairo, pango, fontconfig, udev, dbus, gtk2, atk, expat, gdk_pixbuf, freetype, nspr, glib, nss, gconf, libX11, libXrender, libXtst, libXdamage, libXi, libXext, libXfixes, libXcomposite, alsaLib, bash
 }:
 
 stdenv.mkDerivation rec {
   name = "bluejeans-${version}";
   version = "1.36.9";
 
-  src =
-    fetchurl {
-      url = "https://swdl.bluejeans.com/desktop/linux/1.36/${version}/bluejeans-${version}.x86_64.rpm";
-      sha256 = "0sbv742pzqd2cxn3kq10lfi16jah486i9kyrmi8l1rpb9fhyw2m1";
-    };
+  src = fetchurl {
+    url =
+      "https://swdl.bluejeans.com/desktop/linux/1.36/${version}/bluejeans-${version}.x86_64.rpm";
+    sha256 = "0sbv742pzqd2cxn3kq10lfi16jah486i9kyrmi8l1rpb9fhyw2m1";
+  };
 
   nativeBuildInputs = [ patchelf rpmextract ];
 
-  libPath =
-    stdenv.lib.makeLibraryPath
-       [ libnotify libcap cairo pango fontconfig gtk2 atk expat gdk_pixbuf dbus udev.lib
-         freetype nspr glib stdenv.cc stdenv.cc.cc.lib nss gconf libX11 libXrender libXtst libXdamage
-         libXi libXext libXfixes libXcomposite alsaLib
-       ];
+  libPath = stdenv.lib.makeLibraryPath [
+    libnotify
+    libcap
+    cairo
+    pango
+    fontconfig
+    gtk2
+    atk
+    expat
+    gdk_pixbuf
+    dbus
+    udev.lib
+    freetype
+    nspr
+    glib
+    stdenv.cc
+    stdenv.cc.cc.lib
+    nss
+    gconf
+    libX11
+    libXrender
+    libXtst
+    libXdamage
+    libXi
+    libXext
+    libXfixes
+    libXcomposite
+    alsaLib
+  ];
 
   buildCommand = ''
     mkdir -p $out/bin/
@@ -42,7 +63,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Video, audio, and web conferencing that works together with the collaboration tools you use every day.";
+    description =
+      "Video, audio, and web conferencing that works together with the collaboration tools you use every day.";
     license = stdenv.lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
   };

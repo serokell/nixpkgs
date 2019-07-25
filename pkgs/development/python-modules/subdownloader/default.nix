@@ -1,16 +1,12 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, mmpython
-, pyqt4
-}:
+{ stdenv, buildPythonPackage, fetchurl, mmpython, pyqt4 }:
 
 buildPythonPackage rec {
   version = "2.0.18";
   pname = "subdownloader";
 
   src = fetchurl {
-    url = "https://launchpad.net/subdownloader/trunk/2.0.18/+download/subdownloader_2.0.18.orig.tar.gz";
+    url =
+      "https://launchpad.net/subdownloader/trunk/2.0.18/+download/subdownloader_2.0.18.orig.tar.gz";
     sha256 = "0manlfdpb585niw23ibb8n21mindd1bazp0pnxvmdjrp2mnw97ig";
   };
 
@@ -58,8 +54,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Tool for automatic download/upload subtitles for videofiles using fast hashing";
-    homepage = http://www.subdownloader.net;
+    description =
+      "Tool for automatic download/upload subtitles for videofiles using fast hashing";
+    homepage = "http://www.subdownloader.net";
     license = licenses.gpl3;
   };
 

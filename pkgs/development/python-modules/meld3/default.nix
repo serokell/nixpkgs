@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "meld3";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "An HTML/XML templating engine used by supervisor";
-    homepage = https://github.com/supervisor/meld3;
+    homepage = "https://github.com/supervisor/meld3";
     license = licenses.free;
   };
 

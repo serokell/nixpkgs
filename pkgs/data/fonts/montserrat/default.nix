@@ -4,8 +4,7 @@
 
 { lib, fetchzip }:
 
-let
-  version = "1.0";
+let version = "1.0";
 in fetchzip {
   name = "montserrat-${version}";
 
@@ -20,10 +19,11 @@ in fetchzip {
   sha256 = "11sdgvhaqg59mq71aqwqp2mb428984hjxy7hd1vasia9kgk8259w";
 
   meta = with lib; {
-    description = "A geometric sans serif font with extended latin support (Regular, Alternates, Subrayada)";
-    homepage    = "https://www.fontspace.com/julieta-ulanovsky/montserrat";
-    license     = licenses.ofl;
-    platforms   = platforms.all;
+    description =
+      "A geometric sans serif font with extended latin support (Regular, Alternates, Subrayada)";
+    homepage = "https://www.fontspace.com/julieta-ulanovsky/montserrat";
+    license = licenses.ofl;
+    platforms = platforms.all;
     maintainers = with maintainers; [ scolobb ];
   };
 }

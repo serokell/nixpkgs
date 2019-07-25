@@ -1,7 +1,4 @@
-{ stdenv, lib, fetchgit, pkgconfig, libssh2
-, qtbase, qtdeclarative, qtgraphicaleffects, qtimageformats, qtquickcontrols
-, qtsvg, qttools, qtquick1, qtcharts
-, qmake
+{ stdenv, lib, fetchgit, pkgconfig, libssh2, qtbase, qtdeclarative, qtgraphicaleffects, qtimageformats, qtquickcontrols, qtsvg, qttools, qtquick1, qtcharts, qmake
 }:
 
 let
@@ -11,9 +8,7 @@ let
     sha256 = "1ryshs2nyxwa0kn3rlbnd5b3fhna9vqm560yviddcfgdm2jyg0hz";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "redis-desktop-manager-${version}";
   version = "0.9.1";
 
@@ -26,8 +21,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig qmake ];
   buildInputs = [
-    libssh2 qtbase qtdeclarative qtgraphicaleffects qtimageformats
-    qtquick1 qtquickcontrols qtsvg qttools qtcharts
+    libssh2
+    qtbase
+    qtdeclarative
+    qtgraphicaleffects
+    qtimageformats
+    qtquick1
+    qtquickcontrols
+    qtsvg
+    qttools
+    qtcharts
   ];
 
   dontUseQmakeConfigure = true;
@@ -38,31 +41,31 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
-    srcdir=$PWD
+        srcdir=$PWD
 
-    cat <<EOF > src/version.h
-#ifndef RDM_VERSION
-    #define RDM_VERSION "${version}-120"
-#endif // !RDM_VERSION
-EOF
+        cat <<EOF > src/version.h
+    #ifndef RDM_VERSION
+        #define RDM_VERSION "${version}-120"
+    #endif // !RDM_VERSION
+    EOF
 
-    cd $srcdir/3rdparty/gbreakpad
-    cp -r ${breakpad_lss} src/third_party/lss
-    chmod +w -R src/third_party/lss
-    touch README
+        cd $srcdir/3rdparty/gbreakpad
+        cp -r ${breakpad_lss} src/third_party/lss
+        chmod +w -R src/third_party/lss
+        touch README
 
-    cd $srcdir/3rdparty/crashreporter
-    qmake CONFIG+=release DESTDIR="$srcdir/rdm/bin/linux/release" QMAKE_LFLAGS_RPATH=""
-    make
+        cd $srcdir/3rdparty/crashreporter
+        qmake CONFIG+=release DESTDIR="$srcdir/rdm/bin/linux/release" QMAKE_LFLAGS_RPATH=""
+        make
 
-    cd $srcdir/3rdparty/gbreakpad
-    ./configure
-    make
+        cd $srcdir/3rdparty/gbreakpad
+        ./configure
+        make
 
-    cd $srcdir/src
-    qmake
-    make
-  '';
+        cd $srcdir/src
+        qmake
+        make
+      '';
 
   installPhase = ''
     mkdir -p $out/bin
@@ -72,7 +75,7 @@ EOF
 
   meta = with lib; {
     description = "Cross-platform open source Redis DB management tool";
-    homepage = https://redisdesktop.com/;
+    homepage = "https://redisdesktop.com/";
     license = licenses.lgpl21;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ];

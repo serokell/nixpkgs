@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitLab, cmake, extra-cmake-modules, gtk3, kdeFrameworks, hicolor-icon-theme }:
+{ stdenv, fetchFromGitLab, cmake, extra-cmake-modules, gtk3, kdeFrameworks, hicolor-icon-theme
+}:
 
 stdenv.mkDerivation rec {
   name = "maia-icon-theme-${version}";
@@ -21,9 +22,7 @@ stdenv.mkDerivation rec {
     kdeFrameworks.kwindowsystem
   ];
 
-  buildInputs = [
-    hicolor-icon-theme
-  ];
+  buildInputs = [ hicolor-icon-theme ];
 
   postFixup = ''
     for theme in $out/share/icons/*; do
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Icons based on Breeze and Super Flat Remix";
-    homepage = https://gitlab.manjaro.org/artwork/themes/maia;
+    homepage = "https://gitlab.manjaro.org/artwork/themes/maia";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ mounium ];
     platforms = platforms.all;

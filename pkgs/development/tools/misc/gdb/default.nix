@@ -6,23 +6,21 @@
 # Run time
 , ncurses, readline, gmp, mpfr, expat, zlib, dejagnu
 
-, pythonSupport ? stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isCygwin, python3 ? null
-, guile ? null
+, pythonSupport ? stdenv.hostPlatform == stdenv.buildPlatform
+  && !stdenv.hostPlatform.isCygwin, python3 ? null, guile ? null
 
 }:
 
 let
   basename = "gdb-${version}";
   version = "8.3";
-in
 
-assert pythonSupport -> python3 != null;
+in assert pythonSupport -> python3 != null;
 
 stdenv.mkDerivation rec {
   name =
     stdenv.lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-                              (stdenv.targetPlatform.config + "-")
-    + basename;
+    (stdenv.targetPlatform.config + "-") + basename;
 
   src = fetchurl {
     url = "mirror://gnu/gdb/${basename}.tar.xz";
@@ -32,13 +30,11 @@ stdenv.mkDerivation rec {
   postPatch = if stdenv.isDarwin then ''
     substituteInPlace gdb/darwin-nat.c \
       --replace '#include "bfd/mach-o.h"' '#include "mach-o.h"'
-  '' else null;
+  '' else
+    null;
 
-  patches = [
-    ./debug-info-from-env.patch
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [
-    ./darwin-target-match.patch
-  ];
+  patches = [ ./debug-info-from-env.patch ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [ ./darwin-target-match.patch ];
 
   nativeBuildInputs = [ pkgconfig texinfo perl setupDebugInfoDirs ];
 
@@ -58,24 +54,30 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-Wno-format-nonliteral";
 
   # TODO(@Ericson2314): Always pass "--target" and always prefix.
-  configurePlatforms = [ "build" "host" ] ++ stdenv.lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
+  configurePlatforms = [ "build" "host" ]
+    ++ stdenv.lib.optional (stdenv.targetPlatform != stdenv.hostPlatform)
+    "target";
 
-  configureFlags = with stdenv.lib; [
-    "--enable-targets=all" "--enable-64-bit-bfd"
-    "--disable-install-libbfd"
-    "--disable-shared" "--enable-static"
-    "--with-system-zlib"
-    "--with-system-readline"
+  configureFlags = with stdenv.lib;
+    [
+      "--enable-targets=all"
+      "--enable-64-bit-bfd"
+      "--disable-install-libbfd"
+      "--disable-shared"
+      "--enable-static"
+      "--with-system-zlib"
+      "--with-system-readline"
 
-    "--with-gmp=${gmp.dev}"
-    "--with-mpfr=${mpfr.dev}"
-    "--with-expat" "--with-libexpat-prefix=${expat.dev}"
-  ] ++ stdenv.lib.optional (!pythonSupport) "--without-python";
+      "--with-gmp=${gmp.dev}"
+      "--with-mpfr=${mpfr.dev}"
+      "--with-expat"
+      "--with-libexpat-prefix=${expat.dev}"
+    ] ++ stdenv.lib.optional (!pythonSupport) "--without-python";
 
-  postInstall =
-    '' # Remove Info files already provided by Binutils and other packages.
-       rm -v $out/share/info/bfd.info
-    '';
+  postInstall = ''
+    # Remove Info files already provided by Binutils and other packages.
+          rm -v $out/share/info/bfd.info
+       '';
 
   # TODO: Investigate & fix the test failures.
   doCheck = false;
@@ -89,7 +91,7 @@ stdenv.mkDerivation rec {
       program was doing at the moment it crashed.
     '';
 
-    homepage = https://www.gnu.org/software/gdb/;
+    homepage = "https://www.gnu.org/software/gdb/";
 
     license = stdenv.lib.licenses.gpl3Plus;
 

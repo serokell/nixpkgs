@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ glibc.static ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dropbox/lepton;
+    homepage = "https://github.com/dropbox/lepton";
     description = "A tool to losslessly compress JPEGs";
     license = licenses.asl20;
     platforms = [ "x86_64-linux" ];

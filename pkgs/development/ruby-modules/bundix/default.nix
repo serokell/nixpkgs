@@ -1,5 +1,5 @@
-{ buildRubyGem, fetchFromGitHub, makeWrapper, lib, bundler, nix,
-  nix-prefetch-git }:
+{ buildRubyGem, fetchFromGitHub, makeWrapper, lib, bundler, nix, nix-prefetch-git
+}:
 
 buildRubyGem rec {
   inherit (bundler) ruby;
@@ -36,7 +36,7 @@ buildRubyGem rec {
       The output is then usable by the bundlerEnv derivation to list all the
       dependencies of a ruby package.
     '';
-    homepage = https://github.com/manveru/bundix;
+    homepage = "https://github.com/manveru/bundix";
     license = "MIT";
     maintainers = with lib.maintainers; [ manveru qyliss zimbatm ];
     platforms = lib.platforms.all;

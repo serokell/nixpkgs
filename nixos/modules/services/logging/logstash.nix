@@ -28,15 +28,14 @@ let
   logstashSettingsYml = pkgs.writeText "logstash.yml" cfg.extraSettings;
 
   logstashSettingsDir = pkgs.runCommand "logstash-settings" {
-      inherit logstashSettingsYml;
-      preferLocalBuild = true;
-    } ''
+    inherit logstashSettingsYml;
+    preferLocalBuild = true;
+  } ''
     mkdir -p $out
     ln -s $logstashSettingsYml $out/logstash.yml
   '';
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -99,7 +98,7 @@ in
 
       inputConfig = mkOption {
         type = types.lines;
-        default = ''generator { }'';
+        default = "generator { }";
         description = "Logstash input configuration.";
         example = ''
           # Read from journal
@@ -130,7 +129,7 @@ in
 
       outputConfig = mkOption {
         type = types.lines;
-        default = ''stdout { codec => rubydebug }'';
+        default = "stdout { codec => rubydebug }";
         description = "Logstash output configuration.";
         example = ''
           redis { host => ["localhost"] data_type => "list" key => "logstash" codec => json }
@@ -150,10 +149,8 @@ in
         '';
       };
 
-
     };
   };
-
 
   ###### implementation
 
@@ -164,7 +161,8 @@ in
       environment = { JAVA_HOME = jre; };
       path = [ pkgs.bash ];
       serviceConfig = {
-        ExecStartPre = ''${pkgs.coreutils}/bin/mkdir -p "${cfg.dataDir}" ; ${pkgs.coreutils}/bin/chmod 700 "${cfg.dataDir}"'';
+        ExecStartPre = ''
+          ${pkgs.coreutils}/bin/mkdir -p "${cfg.dataDir}" ; ${pkgs.coreutils}/bin/chmod 700 "${cfg.dataDir}"'';
         ExecStart = concatStringsSep " " (filter (s: stringLength s != 0) [
           "${cfg.package}/bin/logstash"
           "-w ${toString cfg.filterWorkers}"

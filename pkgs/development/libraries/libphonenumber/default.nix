@@ -1,9 +1,7 @@
 { stdenv, fetchFromGitHub, cmake, gmock, boost, pkgconfig, protobuf, icu }:
 
-let
-  version = "8.9.9";
-in
-stdenv.mkDerivation {
+let version = "8.9.9";
+in stdenv.mkDerivation {
   name = "phonenumber-${version}";
   inherit version;
 
@@ -14,17 +12,9 @@ stdenv.mkDerivation {
     sha256 = "005visnfnr84blgdi0yp4hrzskwbsnawrzv6lqfi9f073l6w5j6w";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gmock
-    pkgconfig
-  ];
+  nativeBuildInputs = [ cmake gmock pkgconfig ];
 
-  buildInputs = [
-    boost
-    protobuf
-    icu
-  ];
+  buildInputs = [ boost protobuf icu ];
 
   cmakeDir = "../cpp";
 

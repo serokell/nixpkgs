@@ -1,38 +1,48 @@
-{ stdenv, fetchurl, patchelf, coreutils, pcsclite
-, zlib, glib, gdk_pixbuf, gtk2, cairo, pango, libX11, atk, openssl
-, runtimeShell }:
+{ stdenv, fetchurl, patchelf, coreutils, pcsclite, zlib, glib, gdk_pixbuf, gtk2, cairo, pango, libX11, atk, openssl, runtimeShell
+}:
 
 let
   libPath = stdenv.lib.makeLibraryPath [
-    stdenv.cc.cc zlib glib gdk_pixbuf gtk2 cairo pango libX11 atk openssl
+    stdenv.cc.cc
+    zlib
+    glib
+    gdk_pixbuf
+    gtk2
+    cairo
+    pango
+    libX11
+    atk
+    openssl
   ];
 
   src_i686 = {
-    url = "http://www.matrica.com/download/distribution/moneyplex_16_install32_22424.tar.gz";
+    url =
+      "http://www.matrica.com/download/distribution/moneyplex_16_install32_22424.tar.gz";
     sha256 = "0yfpc6s85r08g796dycl378kagkma865vp7j72npia3hjc4vwamr";
   };
 
   src_x86_64 = {
-    url = "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz";
+    url =
+      "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz";
     sha256 = "03vxbg1yp8qyvcn6bw2a5s134nxzq9cn0vqbmlld7hh4knbsfqzw";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "moneyplex-${version}";
   version = "16.0.22424";
 
-  src = fetchurl (if stdenv.hostPlatform.system == "i686-linux" then src_i686
-                  else if stdenv.hostPlatform.system == "x86_64-linux" then src_x86_64
-                  else throw "moneyplex requires i686-linux or x86_64-linux");
-
+  src = fetchurl (if stdenv.hostPlatform.system == "i686-linux" then
+    src_i686
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    src_x86_64
+  else
+    throw "moneyplex requires i686-linux or x86_64-linux");
 
   phases = [ "unpackPhase" "installPhase" "postInstall" ];
 
   buildInputs = [ ];
 
-  installPhase =
-  ''
+  installPhase = ''
     mkdir -p "$out/opt/moneyplex"
     cp -r . $out/opt/moneyplex
 
@@ -63,8 +73,12 @@ stdenv.mkDerivation rec {
     if [ ! -d "\$MDIR/pcsc" ]; then
         ${coreutils}/bin/mkdir -p \$MDIR/pcsc
     fi
-    if [ ! -e "\$MDIR/pcsc/libpcsclite.so.1" ] || [ ! \`${coreutils}/bin/readlink -f "\$MDIR/pcsc/libpcsclite.so.1"\` -ef "${stdenv.lib.getLib pcsclite}/lib/libpcsclite.so.1" ]; then
-        ${coreutils}/bin/ln -sf "${stdenv.lib.getLib pcsclite}/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
+    if [ ! -e "\$MDIR/pcsc/libpcsclite.so.1" ] || [ ! \`${coreutils}/bin/readlink -f "\$MDIR/pcsc/libpcsclite.so.1"\` -ef "${
+      stdenv.lib.getLib pcsclite
+    }/lib/libpcsclite.so.1" ]; then
+        ${coreutils}/bin/ln -sf "${
+      stdenv.lib.getLib pcsclite
+        }/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
     fi
 
 
@@ -88,7 +102,7 @@ stdenv.mkDerivation rec {
     EOF
 
     chmod +x $out/bin/moneyplex
-    '';
+  '';
 
   postInstall = ''
     mkdir -p $out/share/icons
@@ -108,15 +122,14 @@ stdenv.mkDerivation rec {
     Categories=Application;
     StartupNotify=true
     EOF
-    '';
-
+  '';
 
   meta = with stdenv.lib; {
     description = "Moneyplex online banking software";
     maintainers = with maintainers; [ tstrobel ];
     platforms = platforms.linux;
     license = licenses.unfree;
-    downloadPage = http://matrica.de/download/download.html;
+    downloadPage = "http://matrica.de/download/download.html";
   };
 
 }

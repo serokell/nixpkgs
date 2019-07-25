@@ -17,8 +17,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Python package to work with Semantic Versioning (http://semver.org/)";
-    homepage = https://github.com/k-bx/python-semver;
+    description =
+      "Python package to work with Semantic Versioning (http://semver.org/)";
+    homepage = "https://github.com/k-bx/python-semver";
     license = licenses.bsd3;
     maintainers = with maintainers; [ np ];
   };

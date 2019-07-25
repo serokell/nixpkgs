@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gxa29mzwvr0xvvi2qizyvf68ma5s3405q58f1pcgadbb68jwx6q";
   };
 
-  phases = ["unpackPhase" "installPhase"];
+  phases = [ "unpackPhase" "installPhase" ];
 
   installPhase = ''
     mkdir -p $out
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://serviio.org;
+    homepage = "http://serviio.org";
     description = "UPnP Media Streaming Server";
     longDescription = ''
       Serviio is a free media server. It allows you to stream your media files (music, video or images)

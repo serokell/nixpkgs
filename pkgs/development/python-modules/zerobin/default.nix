@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cherrypy
-, bottle
-, lockfile
-, clize
+{ stdenv, buildPythonPackage, fetchFromGitHub, cherrypy, bottle, lockfile, clize
 }:
 
 buildPythonPackage rec {
@@ -26,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A client side encrypted pastebin";
-    homepage = https://0bin.net/;
+    homepage = "https://0bin.net/";
     license = licenses.wtfpl;
   };
 

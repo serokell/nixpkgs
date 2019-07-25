@@ -16,20 +16,23 @@ stdenv.mkDerivation rec {
   # includes an important security patch
   patches = [
     (fetchpatch {
-      url = "mirror://gentoo/../gentoo-portage/net-irc/bip/files/bip-freenode.patch";
+      url =
+        "mirror://gentoo/../gentoo-portage/net-irc/bip/files/bip-freenode.patch";
       sha256 = "05qy7a62p16f5knrsdv2lkhc07al18qq32ciq3k4r0lq1wbahj2y";
     })
     (fetchpatch {
-      url = "https://projects.duckcorp.org/projects/bip/repository/revisions/39414f8ff9df63c8bc2e4eee34f09f829a5bf8f5/diff/src/connection.c?format=diff";
+      url =
+        "https://projects.duckcorp.org/projects/bip/repository/revisions/39414f8ff9df63c8bc2e4eee34f09f829a5bf8f5/diff/src/connection.c?format=diff";
       sha256 = "1hvg58vci6invh0z19wf04jjvnm8w6f6v4c4nk1j5hc3ymxdp1rb";
     })
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=unused-result" "-Wno-error=duplicate-decl-specifier" ];
+  NIX_CFLAGS_COMPILE =
+    [ "-Wno-error=unused-result" "-Wno-error=duplicate-decl-specifier" ];
 
   meta = {
     description = "An IRC proxy (bouncer)";
-    homepage = http://bip.milkypond.org/;
+    homepage = "http://bip.milkypond.org/";
     license = stdenv.lib.licenses.gpl2;
     downloadPage = "https://projects.duckcorp.org/projects/bip/files";
     platforms = stdenv.lib.platforms.linux;

@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, six
-, pandas
-, pyyaml
-, matplotlib
-, pytest
+{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, scipy, six, pandas, pyyaml, matplotlib, pytest
 }:
 
 buildPythonPackage rec {
@@ -21,25 +12,16 @@ buildPythonPackage rec {
     sha256 = "01fdv93f6z16gypmvqnlbjmcih7dmr7a63n5w9swmp11x3if4iyq";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    six
-    pandas
-    pyyaml
-    matplotlib
-  ];
+  propagatedBuildInputs = [ numpy scipy six pandas pyyaml matplotlib ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     ${stdenv.lib.optionalString (stdenv.isDarwin) ''
-    # specifically needed for darwin
-    export HOME=$(mktemp -d)
-    mkdir -p $HOME/.matplotlib
-    echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
+      # specifically needed for darwin
+      export HOME=$(mktemp -d)
+      mkdir -p $HOME/.matplotlib
+      echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
     ''}
 
     pytest trackpy --ignore trackpy/tests/test_motion.py \
@@ -50,7 +32,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Particle-tracking toolkit";
-    homepage = https://github.com/soft-matter/trackpy;
+    homepage = "https://github.com/soft-matter/trackpy";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

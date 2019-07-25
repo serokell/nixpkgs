@@ -3,8 +3,7 @@
 let
   name = "source-highlight";
   version = "3.1.8";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${name}-${version}";
 
   src = fetchurl {
@@ -20,13 +19,12 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Source code renderer with syntax highlighting";
-    homepage = https://www.gnu.org/software/src-highlite/;
+    homepage = "https://www.gnu.org/software/src-highlite/";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = with stdenv.lib.platforms; linux ++ darwin;
-    longDescription =
-      ''
-        GNU Source-highlight, given a source file, produces a document
-        with syntax highlighting.
-      '';
+    longDescription = ''
+      GNU Source-highlight, given a source file, produces a document
+      with syntax highlighting.
+    '';
   };
 }

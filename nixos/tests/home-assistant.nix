@@ -13,59 +13,51 @@ in {
   };
 
   nodes = {
-    hass =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          mosquitto home-assistant-cli
-        ];
-        services.home-assistant = {
-          inherit configDir;
-          enable = true;
-          package = pkgs.home-assistant.override {
-            extraPackages = ps: with ps; [ hbmqtt ];
-          };
-          config = {
-            homeassistant = {
-              name = "Home";
-              time_zone = "UTC";
-              latitude = "0.0";
-              longitude = "0.0";
-              elevation = 0;
-              auth_providers = [
-                {
-                  type = "legacy_api_password";
-                  api_password = apiPassword;
-                }
-              ];
-            };
-            frontend = { };
-            mqtt = { # Use hbmqtt as broker
-              password = mqttPassword;
-            };
-            binary_sensor = [
-              {
-                platform = "mqtt";
-                state_topic = "home-assistant/test";
-                payload_on = "let_there_be_light";
-                payload_off = "off";
-              }
-            ];
-          };
-          lovelaceConfig = {
-            title = "My Awesome Home";
-            views = [ {
-              title = "Example";
-              cards = [ {
-                type = "markdown";
-                title = "Lovelace";
-                content = "Welcome to your **Lovelace UI**.";
-              } ];
-            } ];
-          };
-          lovelaceConfigWritable = true;
+    hass = { pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ mosquitto home-assistant-cli ];
+      services.home-assistant = {
+        inherit configDir;
+        enable = true;
+        package = pkgs.home-assistant.override {
+          extraPackages = ps: with ps; [ hbmqtt ];
         };
+        config = {
+          homeassistant = {
+            name = "Home";
+            time_zone = "UTC";
+            latitude = "0.0";
+            longitude = "0.0";
+            elevation = 0;
+            auth_providers = [{
+              type = "legacy_api_password";
+              api_password = apiPassword;
+            }];
+          };
+          frontend = { };
+          mqtt = { # Use hbmqtt as broker
+            password = mqttPassword;
+          };
+          binary_sensor = [{
+            platform = "mqtt";
+            state_topic = "home-assistant/test";
+            payload_on = "let_there_be_light";
+            payload_off = "off";
+          }];
+        };
+        lovelaceConfig = {
+          title = "My Awesome Home";
+          views = [{
+            title = "Example";
+            cards = [{
+              type = "markdown";
+              title = "Lovelace";
+              content = "Welcome to your **Lovelace UI**.";
+            }];
+          }];
+        };
+        lovelaceConfigWritable = true;
       };
+    };
   };
 
   testScript = ''

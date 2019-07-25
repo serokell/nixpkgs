@@ -1,7 +1,6 @@
-import ../make-test.nix ({ pkgs, ... } :
+import ../make-test.nix ({ pkgs, ... }:
 let
-  inherit (import ./../ssh-keys.nix pkgs)
-    snakeOilPrivateKey snakeOilPublicKey;
+  inherit (import ./../ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 in {
   name = "google-oslogin";
   meta = with pkgs.stdenv.lib.maintainers; {
@@ -12,9 +11,9 @@ in {
     # the server provides both the the mocked google metadata server and the ssh server
     server = (import ./server.nix pkgs);
 
-    client = { ... }: {};
+    client = { ... }: { };
   };
-  testScript =  ''
+  testScript = ''
     startAll;
 
     $server->waitForUnit("mock-google-metadata.service");
@@ -48,5 +47,5 @@ in {
     # and we should be able to sudo
     $client->succeed("ssh -o User=mockadmin -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no server -i ~/.ssh/id_snakeoil '/run/wrappers/bin/sudo /run/current-system/sw/bin/id' | grep -q 'root'");
   '';
-  })
+})
 

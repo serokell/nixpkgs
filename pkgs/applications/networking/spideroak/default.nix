@@ -1,14 +1,19 @@
-{ stdenv, fetchurl, makeWrapper, patchelf
-, fontconfig, freetype, glib, libICE, libSM
-, libX11, libXext, libXrender, zlib
+{ stdenv, fetchurl, makeWrapper, patchelf, fontconfig, freetype, glib, libICE, libSM, libX11, libXext, libXrender, zlib
 }:
 
 let
   sha256 = "6d6ca2b383bcc81af1217c696eb77864a2b6db7428f4b5bde5b5913ce705eec5";
 
   ldpath = stdenv.lib.makeLibraryPath [
-    fontconfig freetype glib libICE libSM
-    libX11 libXext libXrender zlib
+    fontconfig
+    freetype
+    glib
+    libICE
+    libSM
+    libX11
+    libXext
+    libXrender
+    zlib
   ];
 
   version = "7.5.0";
@@ -50,7 +55,7 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ patchelf makeWrapper ];
 
   meta = {
-    homepage = https://spideroak.com;
+    homepage = "https://spideroak.com";
     description = "Secure online backup and sychronization";
     license = stdenv.lib.licenses.unfree;
     maintainers = with stdenv.lib.maintainers; [ amorsillo ];

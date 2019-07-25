@@ -1,46 +1,4 @@
-{ stdenv
-, fetchurl
-, substituteAll
-, intltool
-, itstool
-, libxslt
-, gexiv2
-, tracker
-, meson
-, ninja
-, pkgconfig
-, vala
-, wrapGAppsHook
-, bzip2
-, dbus
-, evolution-data-server
-, exempi
-, flac
-, giflib
-, glib
-, gnome3
-, gst_all_1
-, icu
-, json-glib
-, libcue
-, libexif
-, libgrss
-, libgsf
-, libgxps
-, libiptcdata
-, libjpeg
-, libosinfo
-, libpng
-, libseccomp
-, libsoup
-, libtiff
-, libuuid
-, libvorbis
-, libxml2
-, poppler
-, taglib
-, upower
-, totem-pl-parser
+{ stdenv, fetchurl, substituteAll, intltool, itstool, libxslt, gexiv2, tracker, meson, ninja, pkgconfig, vala, wrapGAppsHook, bzip2, dbus, evolution-data-server, exempi, flac, giflib, glib, gnome3, gst_all_1, icu, json-glib, libcue, libexif, libgrss, libgsf, libgxps, libiptcdata, libjpeg, libosinfo, libpng, libseccomp, libsoup, libtiff, libuuid, libvorbis, libxml2, poppler, taglib, upower, totem-pl-parser
 }:
 
 stdenv.mkDerivation rec {
@@ -48,20 +6,14 @@ stdenv.mkDerivation rec {
   version = "2.2.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "0kk5xaajamb8jlm6cfdbc2m3axzr6bnph84m7697xmb0pkg8hdiw";
   };
 
-  nativeBuildInputs = [
-    intltool
-    itstool
-    libxslt
-    meson
-    ninja
-    pkgconfig
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ intltool itstool libxslt meson ninja pkgconfig vala wrapGAppsHook ];
 
   # TODO: add libenca, libosinfo
   buildInputs = [
@@ -113,7 +65,7 @@ stdenv.mkDerivation rec {
     })
     # https://bugzilla.gnome.org/show_bug.cgi?id=795576
     (fetchurl {
-      url = https://bugzilla.gnome.org/attachment.cgi?id=371427;
+      url = "https://bugzilla.gnome.org/attachment.cgi?id=371427";
       sha256 = "187flswvzymjfxwfrrhizb1cvs780zm39aa3i2vwa5fbllr7kcpf";
     })
   ];
@@ -131,8 +83,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/Tracker;
-    description = "Desktop-neutral user information store, search tool and indexer";
+    homepage = "https://wiki.gnome.org/Projects/Tracker";
+    description =
+      "Desktop-neutral user information store, search tool and indexer";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -9,7 +9,7 @@ rustPlatform.buildRustPackage rec {
     repo = "tw-rs";
     rev = "${version}";
     sha256 = "1s1gk2wcs3792gdzrngksczz3gma5kv02ni2jqrhib8l6z8mg9ia";
-    };
+  };
 
   buildInputs = [ perl zlib openssl ]
     ++ stdenv.lib.optional stdenv.isDarwin curl;
@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Twitter command-line interface written in rust";
-    homepage = https://github.com/vmchale/tw-rs;
+    homepage = "https://github.com/vmchale/tw-rs";
     license = licenses.bsd3;
     maintainers = with maintainers; [ vmchale ];
     platforms = platforms.all;

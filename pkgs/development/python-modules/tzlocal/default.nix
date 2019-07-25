@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytz }:
+{ stdenv, buildPythonPackage, fetchPypi, pytz }:
 
 buildPythonPackage rec {
   pname = "tzlocal";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Tzinfo object for the local timezone";
-    homepage = https://github.com/regebro/tzlocal;
+    homepage = "https://github.com/regebro/tzlocal";
     license = licenses.cddl;
   };
 }

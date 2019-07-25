@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, tzdata, iana-etc, go_bootstrap, runCommand, writeScriptBin
-, perl, which, pkgconfig, patch, procps, pcre, cacert, Security, Foundation
-, fetchpatch
+{ stdenv, fetchFromGitHub, tzdata, iana-etc, go_bootstrap, runCommand, writeScriptBin, perl, which, pkgconfig, patch, procps, pcre, cacert, Security, Foundation, fetchpatch
 }:
 
 let
@@ -12,7 +10,7 @@ let
     exec ${stdenv.cc}/bin/clang "$@" 2> >(sed '/ld: warning:.*ignoring unexpected dylib file/ d' 1>&2)
   '';
 
-  goBootstrap = runCommand "go-bootstrap" {} ''
+  goBootstrap = runCommand "go-bootstrap" { } ''
     mkdir $out
     cp -rf ${go_bootstrap}/* $out/
     chmod -R u+w $out
@@ -20,9 +18,7 @@ let
     cp -rf $out/bin/* $out/share/go/bin/
   '';
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "go-${version}";
   version = "1.10.8";
 
@@ -39,7 +35,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ perl which pkgconfig patch procps ];
   buildInputs = [ cacert pcre ]
     ++ optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+    ++ optionals (stdenv.hostPlatform.libc == "glibc")
+    [ stdenv.cc.libc.static ];
   propagatedBuildInputs = optionals stdenv.isDarwin [ Security Foundation ];
 
   hardeningDisable = [ "all" ];
@@ -132,12 +129,18 @@ stdenv.mkDerivation rec {
   ];
 
   GOOS = if stdenv.isDarwin then "darwin" else "linux";
-  GOARCH = if stdenv.isDarwin then "amd64"
-           else if stdenv.hostPlatform.system == "i686-linux" then "386"
-           else if stdenv.hostPlatform.system == "x86_64-linux" then "amd64"
-           else if stdenv.isAarch32 then "arm"
-           else if stdenv.isAarch64 then "arm64"
-           else throw "Unsupported system";
+  GOARCH = if stdenv.isDarwin then
+    "amd64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "386"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "amd64"
+  else if stdenv.isAarch32 then
+    "arm"
+  else if stdenv.isAarch64 then
+    "arm64"
+  else
+    throw "Unsupported system";
   GOARM = optionalString (stdenv.hostPlatform.system == "armv5tel-linux") "5";
   GO386 = 387; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 1;
@@ -177,7 +180,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     branch = "1.10";
-    homepage = http://golang.org/;
+    homepage = "http://golang.org/";
     description = "The Go Programming language";
     license = licenses.bsd3;
     maintainers = with maintainers; [ cstrahan orivej velovix mic92 ];

@@ -1,6 +1,7 @@
-{ stdenv, fetchzip, autoPatchelfHook, xorg, gtk2, gnome2, gtk3, nss, alsaLib, udev, unzip, wrapGAppsHook }:
+{ stdenv, fetchzip, autoPatchelfHook, xorg, gtk2, gnome2, gtk3, nss, alsaLib, udev, unzip, wrapGAppsHook
+}:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "cypress";
   version = "3.4.0";
 
@@ -14,11 +15,9 @@ stdenv.mkDerivation rec{
 
   nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
 
-  buildInputs = with xorg; [
-    libXScrnSaver libXdamage libXtst
-  ] ++ [
-    nss gtk2 alsaLib gnome2.GConf gtk3 unzip
-  ];
+  buildInputs = with xorg;
+    [ libXScrnSaver libXdamage libXtst ]
+    ++ [ nss gtk2 alsaLib gnome2.GConf gtk3 unzip ];
 
   runtimeDependencies = [ udev.lib ];
 
@@ -31,10 +30,11 @@ stdenv.mkDerivation rec{
   '';
 
   meta = with stdenv.lib; {
-    description = "Fast, easy and reliable testing for anything that runs in a browser";
+    description =
+      "Fast, easy and reliable testing for anything that runs in a browser";
     homepage = "https://www.cypress.io";
     license = licenses.mit;
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ tweber mmahut ];
   };
 }

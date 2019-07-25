@@ -1,5 +1,5 @@
-{ mkXfceDerivation, docbook_xsl, libxslt, perlPackages, gtk3
-, libxfce4ui, libxfce4util }:
+{ mkXfceDerivation, docbook_xsl, libxslt, perlPackages, gtk3, libxfce4ui, libxfce4util
+}:
 
 mkXfceDerivation rec {
   category = "xfce";
@@ -22,7 +22,5 @@ mkXfceDerivation rec {
                 ${docbook_xsl}/share/xml/docbook-xsl
   '';
 
-  meta = {
-    description = "Application library for Xfce";
-  };
+  meta = { description = "Application library for Xfce"; };
 }

@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, fixDarwinDylibNames, meson, ninja, pkgconfig, gettext, python3, libxml2, libxslt, docbook_xsl
-, docbook_xml_dtd_43, gtk-doc, glib, libtiff, libjpeg, libpng, libX11, gnome3
-, jasper, gobject-introspection, doCheck ? false, makeWrapper }:
+{ stdenv, fetchurl, fixDarwinDylibNames, meson, ninja, pkgconfig, gettext, python3, libxml2, libxslt, docbook_xsl, docbook_xml_dtd_43, gtk-doc, glib, libtiff, libjpeg, libpng, libX11, gnome3, jasper, gobject-introspection, doCheck ?
+  false, makeWrapper }:
 
 let
   pname = "gdk-pixbuf";
@@ -9,7 +8,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0fmbjgjcyym3qg46f64qgl7icdm4ii77flyc1mhk244rp8vgi7zi";
   };
 
@@ -26,10 +27,19 @@ in stdenv.mkDerivation rec {
   buildInputs = [ libX11 ];
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext python3 libxml2 libxslt docbook_xsl docbook_xml_dtd_43
-    gtk-doc gobject-introspection makeWrapper
-  ]
-    ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    meson
+    ninja
+    pkgconfig
+    gettext
+    python3
+    libxml2
+    libxslt
+    docbook_xsl
+    docbook_xml_dtd_43
+    gtk-doc
+    gobject-introspection
+    makeWrapper
+  ] ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   propagatedBuildInputs = [ glib libtiff libjpeg libpng jasper ];
 
@@ -92,7 +102,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A library for image loading and manipulation";
-    homepage = http://library.gnome.org/devel/gdk-pixbuf/;
+    homepage = "http://library.gnome.org/devel/gdk-pixbuf/";
     maintainers = [ maintainers.eelco ];
     license = licenses.lgpl21;
     platforms = platforms.unix;

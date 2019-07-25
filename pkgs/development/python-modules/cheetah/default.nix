@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, markdown
-, isPy3k
-, TurboCheetah
-}:
+{ lib, buildPythonPackage, fetchPypi, markdown, isPy3k, TurboCheetah }:
 
 buildPythonPackage rec {
   pname = "cheetah";
@@ -21,12 +15,10 @@ buildPythonPackage rec {
 
   doCheck = false; # Circular dependency
 
-  checkInputs = [
-    TurboCheetah
-  ];
+  checkInputs = [ TurboCheetah ];
 
   meta = {
-    homepage = http://www.cheetahtemplate.org/;
+    homepage = "http://www.cheetahtemplate.org/";
     description = "A template engine and code generation tool";
     license = lib.licenses.mit;
   };

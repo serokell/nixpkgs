@@ -1,15 +1,13 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, six, pytest, arrow
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, six, pytest, arrow }:
 
 buildPythonPackage rec {
-  pname   = "construct";
+  pname = "construct";
   version = "2.9.45";
 
   src = fetchFromGitHub {
-    owner  = pname;
-    repo   = pname;
-    rev    = "v${version}";
+    owner = pname;
+    repo = pname;
+    rev = "v${version}";
     sha256 = "0ig66xrzswpkhhmw123p2nvr15a9lxz54a1fmycfdh09327c1d3y";
   };
 
@@ -25,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Powerful declarative parser (and builder) for binary data";
-    homepage = https://construct.readthedocs.org/;
+    homepage = "https://construct.readthedocs.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ bjornfor ];
   };

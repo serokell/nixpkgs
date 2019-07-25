@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, setuptools_scm }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, setuptools_scm }:
 
 buildPythonPackage rec {
   pname = "apipkg";

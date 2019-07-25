@@ -13,9 +13,8 @@ let
   '';
   packages = epkgs: cfg.extraPackages epkgs ++ [ epkgs.exwm ];
   exwm-emacs = pkgs.emacsWithPackages packages;
-in
 
-{
+in {
   options = {
     services.xserver.windowManager.exwm = {
       enable = mkEnableOption "exwm";
@@ -25,7 +24,7 @@ in
         description = "Enable an uncustomised exwm configuration.";
       };
       extraPackages = mkOption {
-        default = self: [];
+        default = self: [ ];
         example = literalExample ''
           epkgs: [
             epkgs.emms

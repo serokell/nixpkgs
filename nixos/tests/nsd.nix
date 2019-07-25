@@ -5,44 +5,48 @@ let
     # for a host utility with IPv6 support
     environment.systemPackages = [ pkgs.bind ];
   };
-in import ./make-test.nix ({ pkgs, ...} : {
+in import ./make-test.nix ({ pkgs, ... }: {
   name = "nsd";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ aszlig ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ aszlig ]; };
 
   nodes = {
     clientv4 = { lib, nodes, ... }: {
       imports = [ common ];
       networking.nameservers = lib.mkForce [
-        (lib.head nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
+        (lib.head
+        nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
       ];
-      networking.interfaces.eth1.ipv4.addresses = [
-        { address = "192.168.0.2"; prefixLength = 24; }
-      ];
+      networking.interfaces.eth1.ipv4.addresses = [{
+        address = "192.168.0.2";
+        prefixLength = 24;
+      }];
     };
 
     clientv6 = { lib, nodes, ... }: {
       imports = [ common ];
       networking.nameservers = lib.mkForce [
-        (lib.head nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
+        (lib.head
+        nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
       ];
-      networking.interfaces.eth1.ipv4.addresses = [
-        { address = "dead:beef::2"; prefixLength = 24; }
-      ];
+      networking.interfaces.eth1.ipv4.addresses = [{
+        address = "dead:beef::2";
+        prefixLength = 24;
+      }];
     };
 
     server = { lib, ... }: {
       imports = [ common ];
-      networking.interfaces.eth1.ipv4.addresses = [
-        { address = "192.168.0.1"; prefixLength = 24; }
-      ];
-      networking.interfaces.eth1.ipv6.addresses = [
-        { address = "dead:beef::1"; prefixLength = 64; }
-      ];
+      networking.interfaces.eth1.ipv4.addresses = [{
+        address = "192.168.0.1";
+        prefixLength = 24;
+      }];
+      networking.interfaces.eth1.ipv6.addresses = [{
+        address = "dead:beef::1";
+        prefixLength = 64;
+      }];
       services.nsd.enable = true;
       services.nsd.rootServer = true;
-      services.nsd.interfaces = lib.mkForce [];
+      services.nsd.interfaces = lib.mkForce [ ];
       services.nsd.zones."example.com.".data = ''
         @ SOA ns.example.com noc.example.com 666 7200 3600 1209600 3600
         ipv4 A 1.2.3.4

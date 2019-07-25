@@ -1,17 +1,15 @@
-{ stdenv, fetchgit, libusb, pkgconfig, pmutils, udev} :
+{ stdenv, fetchgit, libusb, pkgconfig, pmutils, udev }:
 
 let
 
-version = "2.1.1";
-daemonlib = fetchgit {
+  version = "2.1.1";
+  daemonlib = fetchgit {
     url = "https://github.com/Tinkerforge/daemonlib.git";
     rev = "refs/tags/brickd-${version}";
     sha256 = "097kaz7d0rzg0ijvcna3y620k3m5fgxpqsac5gbhah8pd7vlj1a4";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "brickd-${version}";
 
   src = fetchgit {
@@ -52,8 +50,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.tinkerforge.com/;
-    description = "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
+    homepage = "https://www.tinkerforge.com/";
+    description =
+      "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
     maintainers = [ stdenv.lib.maintainers.qknight ];
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.all;

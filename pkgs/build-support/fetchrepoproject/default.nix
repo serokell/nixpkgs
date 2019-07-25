@@ -2,9 +2,8 @@
 
 { name, manifest, rev ? "HEAD", sha256
 # Optional parameters:
-, repoRepoURL ? "", repoRepoRev ? "", referenceDir ? ""
-, localManifests ? [], createMirror ? false, useArchive ? false
-}:
+, repoRepoURL ? "", repoRepoRev ? "", referenceDir ? "", localManifests ?
+  [ ], createMirror ? false, useArchive ? false }:
 
 assert repoRepoRev != "" -> repoRepoURL != "";
 assert createMirror -> !useArchive;
@@ -40,9 +39,8 @@ in stdenvNoCC.mkDerivation {
   preferLocalBuild = true;
   enableParallelBuilding = true;
 
-  impureEnvVars = fetchers.proxyImpureEnvVars ++ [
-    "GIT_PROXY_COMMAND" "SOCKS_SERVER"
-  ];
+  impureEnvVars = fetchers.proxyImpureEnvVars
+    ++ [ "GIT_PROXY_COMMAND" "SOCKS_SERVER" ];
 
   nativeBuildInputs = [ gitRepo cacert ];
 
@@ -56,9 +54,11 @@ in stdenvNoCC.mkDerivation {
     cd $out
 
     mkdir .repo
-    ${optionalString (local_manifests != []) ''
+    ${optionalString (local_manifests != [ ]) ''
       mkdir .repo/local_manifests
-      for local_manifest in ${concatMapStringsSep " " toString local_manifests}; do
+      for local_manifest in ${
+        concatMapStringsSep " " toString local_manifests
+      }; do
         cp $local_manifest .repo/local_manifests/$(stripHash $local_manifest; echo $strippedName)
       done
     ''}

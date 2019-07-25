@@ -11,13 +11,12 @@ let
 
   models = [
     (getmodel "en-default.pyrnn.gz"
-      "1xyi3k3p81mfw0491gb1haisazfyi2i18f1wjs1m34ak39qfqjdp")
+    "1xyi3k3p81mfw0491gb1haisazfyi2i18f1wjs1m34ak39qfqjdp")
     (getmodel "fraktur.pyrnn.gz"
-      "1wlwvxn91ilgmlri1hj81arl3mbzxc24ycdnkf5icq4hdi4c6y8b")
+    "1wlwvxn91ilgmlri1hj81arl3mbzxc24ycdnkf5icq4hdi4c6y8b")
   ];
 
-in
-pythonPackages.buildPythonApplication rec {
+in pythonPackages.buildPythonApplication rec {
   pname = "ocropus";
   version = "1.3.3";
 
@@ -28,20 +27,28 @@ pythonPackages.buildPythonApplication rec {
     owner = "tmbdev";
   };
 
-  propagatedBuildInputs = with pythonPackages; [ curl numpy scipy pillow
-    matplotlib beautifulsoup4 pygtk lxml ];
+  propagatedBuildInputs = with pythonPackages; [
+    curl
+    numpy
+    scipy
+    pillow
+    matplotlib
+    beautifulsoup4
+    pygtk
+    lxml
+  ];
 
   enableParallelBuilding = true;
 
   preConfigure = with stdenv.lib; ''
-    ${concatStrings (map (x: "cp -R ${x.src} models/`basename ${x.name}`;")
-      models)}
+    ${concatStrings
+    (map (x: "cp -R ${x.src} models/`basename ${x.name}`;") models)}
 
     substituteInPlace ocrolib/common.py --replace /usr/local $out
     substituteInPlace ocrolib/default.py --replace /usr/local $out
   '';
 
-  doCheck = false;  # fails
+  doCheck = false; # fails
   checkPhase = ''
     patchShebangs .
     substituteInPlace ./run-test \
@@ -52,7 +59,7 @@ pythonPackages.buildPythonApplication rec {
   meta = with stdenv.lib; {
     description = "Open source document analysis and OCR system";
     license = licenses.asl20;
-    homepage = https://github.com/tmbdev/ocropy/;
+    homepage = "https://github.com/tmbdev/ocropy/";
     maintainers = with maintainers; [ domenkozar ];
     platforms = platforms.linux;
   };

@@ -1,14 +1,10 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "zookeeper";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ nequissimus ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ nequissimus ]; };
 
   nodes = {
     server = { ... }: {
-      services.zookeeper = {
-        enable = true;
-      };
+      services.zookeeper = { enable = true; };
 
       networking.firewall.allowedTCPPorts = [ 2181 ];
     };

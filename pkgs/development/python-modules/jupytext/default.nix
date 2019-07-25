@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, testfixtures
-, pyyaml
-, mock
-, nbformat
-, pytest
+{ lib, buildPythonPackage, fetchPypi, testfixtures, pyyaml, mock, nbformat, pytest
 }:
 
 buildPythonPackage rec {
@@ -17,20 +10,11 @@ buildPythonPackage rec {
     sha256 = "0g365j22gbmq4x60l06id5930aywzy1dx2s25109nqq2l2cxc7ws";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-    nbformat
-    testfixtures
-  ];
-  checkInputs = [
-    pytest
-  ];
+  propagatedBuildInputs = [ pyyaml nbformat testfixtures ];
+  checkInputs = [ pytest ];
   # setup.py checks for those even though they're not needed at runtime (only
   # for tests), thus not propagated
-  buildInputs = [
-    mock
-    pytest
-  ];
+  buildInputs = [ mock pytest ];
 
   # requires test notebooks which are not shipped with the pypi release
   doCheck = false;
@@ -39,8 +23,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Jupyter notebooks as Markdown documents, Julia, Python or R scripts";
-    homepage = https://github.com/mwouts/jupytext;
+    description =
+      "Jupyter notebooks as Markdown documents, Julia, Python or R scripts";
+    homepage = "https://github.com/mwouts/jupytext";
     license = licenses.mit;
     maintainers = with maintainers; [ timokau ];
   };

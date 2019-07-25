@@ -1,13 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, gfortran
-, blas
-, boost
-, python
-, ocl-icd
-, opencl-headers
-, Accelerate, CoreGraphics, CoreVideo, OpenCL
+{ stdenv, fetchFromGitHub, cmake, gfortran, blas, boost, python, ocl-icd, opencl-headers, Accelerate, CoreGraphics, CoreVideo, OpenCL
 }:
 
 stdenv.mkDerivation rec {
@@ -31,33 +22,23 @@ stdenv.mkDerivation rec {
     cd src
   '';
 
-  cmakeFlags = [
-     "-DBUILD_TEST=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_TEST=OFF" ];
 
-  buildInputs = [
-    cmake
-    gfortran
-    blas
-    python
-    boost
-  ] ++ stdenv.lib.optionals (!stdenv.isDarwin) [
-    ocl-icd
-    opencl-headers
-  ] ++ stdenv.lib.optionals stdenv.isDarwin [
-    Accelerate
-    CoreGraphics
-    CoreVideo
-  ];
-  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [
-    OpenCL
-  ];
+  buildInputs = [ cmake gfortran blas python boost ]
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ ocl-icd opencl-headers ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [
+      Accelerate
+      CoreGraphics
+      CoreVideo
+    ];
+  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [ OpenCL ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/clMathLibraries/clBLAS";
-    description = "A software library containing BLAS functions written in OpenCL";
+    description =
+      "A software library containing BLAS functions written in OpenCL";
     longDescription = ''
       This package contains a library of BLAS functions on top of OpenCL.
     '';

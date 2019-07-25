@@ -1,7 +1,7 @@
 { stdenv, fetchurl, pkgconfig, libusb1 }:
 
 stdenv.mkDerivation rec {
-  name="dfu-util-${version}";
+  name = "dfu-util-${version}";
   version = "0.9";
 
   nativeBuildInputs = [ pkgconfig ];
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       phones. With dfu-util you are able to download firmware to your device or
       upload firmware from it.
     '';
-    homepage = http://dfu-util.sourceforge.net;
+    homepage = "http://dfu-util.sourceforge.net";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.fpletz ];

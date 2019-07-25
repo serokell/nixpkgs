@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "LuaDist";
-    repo  = "toluapp";
-    rev   = "${version}";
+    repo = "toluapp";
+    rev = "${version}";
     sha256 = "0zd55bc8smmgk9j4cf0jpibb03lgsvl0knpwhplxbv93mcdnw7s0";
   };
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A tool to integrate C/Cpp code with Lua";
-    homepage = http://www.codenix.com/~tolua/;
+    homepage = "http://www.codenix.com/~tolua/";
     license = licenses.mit;
     maintainers = with maintainers; [ vrthra ];
     platforms = with platforms; unix;

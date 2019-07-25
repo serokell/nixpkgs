@@ -1,4 +1,4 @@
-{stdenv, fetchurl, alsaLib, gettext, ncurses, libsamplerate, pciutils, fftw}:
+{ stdenv, fetchurl, alsaLib, gettext, ncurses, libsamplerate, pciutils, fftw }:
 
 stdenv.mkDerivation rec {
   name = "alsa-utils-${version}";
@@ -17,12 +17,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ gettext ];
   buildInputs = [ alsaLib ncurses libsamplerate fftw ];
 
-  configureFlags = [ "--disable-xmlto" "--with-udev-rules-dir=$(out)/lib/udev/rules.d" ];
+  configureFlags =
+    [ "--disable-xmlto" "--with-udev-rules-dir=$(out)/lib/udev/rules.d" ];
 
   installFlags = "ASOUND_STATE_DIR=$(TMPDIR)/dummy";
 
   meta = with stdenv.lib; {
-    homepage = http://www.alsa-project.org/;
+    homepage = "http://www.alsa-project.org/";
     description = "ALSA, the Advanced Linux Sound Architecture utils";
     longDescription = ''
       The Advanced Linux Sound Architecture (ALSA) provides audio and

@@ -37,11 +37,9 @@ let
     ${optionalString cfg.noScan "noscan=1"}
 
     ${cfg.extraConfig}
-  '' ;
+  '';
 
-in
-
-{
+in {
   ###### interface
 
   options = {
@@ -150,33 +148,32 @@ in
           auth_algo=0
           ieee80211n=1
           ht_capab=[HT40-][SHORT-GI-40][DSSS_CCK-40]
-          '';
+        '';
         type = types.lines;
         description = "Extra configuration options to put in hostapd.conf.";
       };
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages =  [ pkgs.hostapd ];
+    environment.systemPackages = [ pkgs.hostapd ];
 
-    systemd.services.hostapd =
-      { description = "hostapd wireless AP";
+    systemd.services.hostapd = {
+      description = "hostapd wireless AP";
 
-        path = [ pkgs.hostapd ];
-        after = [ "sys-subsystem-net-devices-${escapedInterface}.device" ];
-        bindsTo = [ "sys-subsystem-net-devices-${escapedInterface}.device" ];
-        requiredBy = [ "network-link-${cfg.interface}.service" ];
-        wantedBy = [ "multi-user.target" ];
+      path = [ pkgs.hostapd ];
+      after = [ "sys-subsystem-net-devices-${escapedInterface}.device" ];
+      bindsTo = [ "sys-subsystem-net-devices-${escapedInterface}.device" ];
+      requiredBy = [ "network-link-${cfg.interface}.service" ];
+      wantedBy = [ "multi-user.target" ];
 
-        serviceConfig =
-          { ExecStart = "${pkgs.hostapd}/bin/hostapd ${configFile}";
-            Restart = "always";
-          };
+      serviceConfig = {
+        ExecStart = "${pkgs.hostapd}/bin/hostapd ${configFile}";
+        Restart = "always";
       };
+    };
   };
 }

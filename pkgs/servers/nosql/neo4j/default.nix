@@ -7,12 +7,12 @@ stdenv.mkDerivation rec {
   version = "3.5.6";
 
   src = fetchurl {
-    url = "https://neo4j.com/artifact.php?name=neo4j-community-${version}-unix.tar.gz";
+    url =
+      "https://neo4j.com/artifact.php?name=neo4j-community-${version}-unix.tar.gz";
     sha256 = "0ajkz13qsjxjflh2dlyq8w1fiacv5gakf6n98xcvj9yfcm2j4dpm";
   };
 
   buildInputs = [ makeWrapper jre8 which gawk ];
-
 
   installPhase = ''
     mkdir -p "$out/share/neo4j"
@@ -29,8 +29,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A highly scalable, robust (fully ACID) native graph database";
-    homepage = http://www.neo4j.org/;
+    description =
+      "A highly scalable, robust (fully ACID) native graph database";
+    homepage = "http://www.neo4j.org/";
     license = licenses.gpl3;
 
     maintainers = [ maintainers.offline ];

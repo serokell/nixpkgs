@@ -1,11 +1,6 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, jheiling-extras
-, jheiling-js
-, lib
+{ build-idris-package, fetchFromGitHub, contrib, jheiling-extras, jheiling-js, lib
 }:
-build-idris-package  {
+build-idris-package {
   name = "electron";
   version = "2016-03-07";
 
@@ -20,7 +15,7 @@ build-idris-package  {
 
   meta = {
     description = "Electron bindings for Idris";
-    homepage = https://github.com/jheiling/idris-electron;
+    homepage = "https://github.com/jheiling/idris-electron";
     license = lib.licenses.unlicense;
     maintainers = [ lib.maintainers.brainrape ];
   };

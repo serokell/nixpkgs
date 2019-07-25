@@ -13,10 +13,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ readline libedit bc ];
   bits = if stdenv.is64bit then "64" else "32";
-  platform =
-    if (stdenv.isAarch32 || stdenv.isAarch64) then "raspberry" else
-    if stdenv.isLinux then "linux" else
-    if stdenv.isDarwin then "darwin" else
+  platform = if (stdenv.isAarch32 || stdenv.isAarch64) then
+    "raspberry"
+  else if stdenv.isLinux then
+    "linux"
+  else if stdenv.isDarwin then
+    "darwin"
+  else
     "unknown";
 
   doCheck = true;
@@ -88,6 +91,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ raskin synthetica ];
     platforms = with platforms; linux ++ darwin;
     license = licenses.gpl3Plus;
-    homepage = http://jsoftware.com/;
+    homepage = "http://jsoftware.com/";
   };
 }

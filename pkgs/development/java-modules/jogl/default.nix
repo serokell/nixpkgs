@@ -3,23 +3,21 @@
 let
   # workaround https://github.com/NixOS/nixpkgs/issues/37364
   jdk-without-symlinks = if jdk == openjdk8 then zulu8 else jdk;
-in
-{
-  jogl_2_3_2 =
-    let
-      version = "2.3.2";
+in {
+  jogl_2_3_2 = let
+    version = "2.3.2";
 
-      gluegen-src = fetchgit {
-        url = git://jogamp.org/srv/scm/gluegen.git;
-        rev = "v${version}";
-        sha256 = "00hybisjwqs88p24dds652bzrwbbmhn2dpx56kp4j6xpadkp33d0";
-        fetchSubmodules = true;
-      };
+    gluegen-src = fetchgit {
+      url = "git://jogamp.org/srv/scm/gluegen.git";
+      rev = "v${version}";
+      sha256 = "00hybisjwqs88p24dds652bzrwbbmhn2dpx56kp4j6xpadkp33d0";
+      fetchSubmodules = true;
+    };
     in stdenv.mkDerivation rec {
       name = "jogl-${version}";
 
       src = fetchgit {
-        url = git://jogamp.org/srv/scm/jogl.git;
+        url = "git://jogamp.org/srv/scm/jogl.git";
         rev = "v${version}";
         sha256 = "0msi2gxiqm2yqwkmxqbh521xdrimw1fly20g890r357rcgj8fsn3";
         fetchSubmodules = true;
@@ -31,7 +29,18 @@ in
           -exec sed -i 's@"libGLU.so"@"${libGLU}/lib/libGLU.so"@' {} \;
       '';
 
-      buildInputs = [ jdk-without-symlinks ant git udev xorg.libX11 xorg.libXrandr xorg.libXcursor xorg.libXt xorg.libXxf86vm xorg.libXrender ];
+      buildInputs = [
+        jdk-without-symlinks
+        ant
+        git
+        udev
+        xorg.libX11
+        xorg.libXrandr
+        xorg.libXcursor
+        xorg.libXt
+        xorg.libXxf86vm
+        xorg.libXrender
+      ];
 
       buildPhase = ''
         cp -r ${gluegen-src} $NIX_BUILD_TOP/gluegen
@@ -57,8 +66,9 @@ in
       '';
 
       meta = with stdenv.lib; {
-        description = "Java libraries for 3D Graphics, Multimedia and Processing";
-        homepage = https://jogamp.org/;
+        description =
+          "Java libraries for 3D Graphics, Multimedia and Processing";
+        homepage = "https://jogamp.org/";
         license = licenses.bsd3;
         platforms = [ "x86_64-linux" ];
       };

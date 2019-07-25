@@ -11,7 +11,7 @@ let
 
   gitlabSocket = "${cfg.statePath}/tmp/sockets/gitlab.socket";
   gitalySocket = "${cfg.statePath}/tmp/sockets/gitaly.socket";
-  pathUrlQuote = url: replaceStrings ["/"] ["%2F"] url;
+  pathUrlQuote = url: replaceStrings [ "/" ] [ "%2F" ] url;
   pgSuperUser = config.services.postgresql.superUser;
 
   databaseConfig = {
@@ -27,7 +27,7 @@ let
   };
 
   gitalyToml = pkgs.writeText "gitaly.toml" ''
-    socket_path = "${lib.escape ["\""] gitalySocket}"
+    socket_path = "${lib.escape [ ''"'' ] gitalySocket}"
     bin_dir = "${cfg.packages.gitaly}/bin"
     prometheus_listen_addr = "localhost:9236"
 
@@ -41,9 +41,9 @@ let
     dir = "${cfg.packages.gitlab-shell}"
 
     ${concatStringsSep "\n" (attrValues (mapAttrs (k: v: ''
-    [[storage]]
-    name = "${lib.escape ["\""] k}"
-    path = "${lib.escape ["\""] v.path}"
+      [[storage]]
+      name = "${lib.escape [ ''"'' ] k}"
+      path = "${lib.escape [ ''"'' ] v.path}"
     '') gitlabConfig.production.repositories.storages))}
   '';
 
@@ -123,7 +123,7 @@ let
           port = 3807;
         };
       };
-      extra = {};
+      extra = { };
       uploads.storage_path = cfg.statePath;
     };
   };
@@ -135,7 +135,8 @@ let
     SCHEMA = "${cfg.statePath}/db/schema.rb";
     GITLAB_UPLOADS_PATH = "${cfg.statePath}/uploads";
     GITLAB_LOG_PATH = "${cfg.statePath}/log";
-    GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (builtins.toJSON redisConfig);
+    GITLAB_REDIS_CONFIG_FILE =
+      pkgs.writeText "redis.yml" (builtins.toJSON redisConfig);
     prometheus_multiproc_dir = "/run/gitlab";
     RAILS_ENV = "production";
   };
@@ -148,11 +149,24 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
-          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)} \
-          --set PATH '${lib.makeBinPath [ pkgs.nodejs pkgs.gzip pkgs.git pkgs.gnutar config.services.postgresql.package pkgs.coreutils pkgs.procps ]}:$PATH' \
+          ${
+        concatStrings
+        (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
+          } \
+          --set PATH '${
+        lib.makeBinPath [
+          pkgs.nodejs
+          pkgs.gzip
+          pkgs.git
+          pkgs.gnutar
+          config.services.postgresql.package
+          pkgs.coreutils
+          pkgs.procps
+        ]
+          }:$PATH' \
           --set RAKEOPT '-f ${cfg.packages.gitlab}/share/gitlab/Rakefile' \
           --run 'cd ${cfg.packages.gitlab}/share/gitlab'
-     '';
+    '';
   };
 
   gitlab-rails = pkgs.stdenv.mkDerivation rec {
@@ -163,10 +177,23 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
-          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)} \
-          --set PATH '${lib.makeBinPath [ pkgs.nodejs pkgs.gzip pkgs.git pkgs.gnutar config.services.postgresql.package pkgs.coreutils pkgs.procps ]}:$PATH' \
+          ${
+        concatStrings
+        (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
+          } \
+          --set PATH '${
+        lib.makeBinPath [
+          pkgs.nodejs
+          pkgs.gzip
+          pkgs.git
+          pkgs.gnutar
+          config.services.postgresql.package
+          pkgs.coreutils
+          pkgs.procps
+        ]
+          }:$PATH' \
           --run 'cd ${cfg.packages.gitlab}/share/gitlab'
-     '';
+    '';
   };
 
   extraGitlabRb = pkgs.writeText "extra-gitlab.rb" cfg.extraGitlabRb;
@@ -179,10 +206,19 @@ let
       ActionMailer::Base.smtp_settings = {
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
-        ${optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''}
-        ${optionalString (cfg.smtp.password != null) ''password: "${cfg.smtp.password}",''}
+        ${
+      optionalString (cfg.smtp.username != null)
+      ''user_name: "${cfg.smtp.username}",''
+        }
+        ${
+      optionalString (cfg.smtp.password != null)
+      ''password: "${cfg.smtp.password}",''
+        }
         domain: "${cfg.smtp.domain}",
-        ${optionalString (cfg.smtp.authentication != null) "authentication: :${cfg.smtp.authentication},"}
+        ${
+      optionalString (cfg.smtp.authentication != null)
+      "authentication: :${cfg.smtp.authentication},"
+        }
         enable_starttls_auto: ${toString cfg.smtp.enableStartTLSAuto},
         openssl_verify_mode: '${cfg.smtp.opensslVerifyMode}'
       }
@@ -273,7 +309,7 @@ in {
 
       extraDatabaseConfig = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         description = "Extra configuration in config/database.yml.";
       };
 
@@ -385,7 +421,8 @@ in {
         authentication = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = "Authentitcation type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          description =
+            "Authentitcation type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
 
         enableStartTLSAuto = mkOption {
@@ -397,7 +434,8 @@ in {
         opensslVerifyMode = mkOption {
           type = types.str;
           default = "peer";
-          description = "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          description =
+            "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
       };
 
@@ -452,13 +490,9 @@ in {
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         example = {
-          gitlab = {
-            default_projects_features = {
-              builds = false;
-            };
-          };
+          gitlab = { default_projects_features = { builds = false; }; };
         };
         description = ''
           Extra options to be merged into config/gitlab.yml as nix
@@ -470,7 +504,8 @@ in {
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.git gitlab-rake gitlab-rails cfg.packages.gitlab-shell ];
+    environment.systemPackages =
+      [ pkgs.git gitlab-rake gitlab-rails cfg.packages.gitlab-shell ];
 
     # Redis is required for the sidekiq queue runner.
     services.redis.enable = mkDefault true;
@@ -479,20 +514,18 @@ in {
     # Use postfix to send out mails.
     services.postfix.enable = mkDefault true;
 
-    users.users = [
-      { name = cfg.user;
-        group = cfg.group;
-        home = "${cfg.statePath}/home";
-        shell = "${pkgs.bash}/bin/bash";
-        uid = config.ids.uids.gitlab;
-      }
-    ];
+    users.users = [{
+      name = cfg.user;
+      group = cfg.group;
+      home = "${cfg.statePath}/home";
+      shell = "${pkgs.bash}/bin/bash";
+      uid = config.ids.uids.gitlab;
+    }];
 
-    users.groups = [
-      { name = cfg.group;
-        gid = config.ids.gids.gitlab;
-      }
-    ];
+    users.groups = [{
+      name = cfg.group;
+      gid = config.ids.gids.gitlab;
+    }];
 
     systemd.tmpfiles.rules = [
       "d /run/gitlab 0755 ${cfg.user} ${cfg.group} -"
@@ -524,16 +557,26 @@ in {
       "L+ /run/gitlab/tmp - - - - ${cfg.statePath}/tmp"
       "L+ /run/gitlab/uploads - - - - ${cfg.statePath}/uploads"
 
-      "L+ /run/gitlab/shell-config.yml - - - - ${pkgs.writeText "config.yml" (builtins.toJSON gitlabShellConfig)}"
+      "L+ /run/gitlab/shell-config.yml - - - - ${
+        pkgs.writeText "config.yml" (builtins.toJSON gitlabShellConfig)
+      }"
 
-      "L+ ${cfg.statePath}/config/gitlab.yml - - - - ${pkgs.writeText "gitlab.yml" (builtins.toJSON gitlabConfig)}"
-      "L+ ${cfg.statePath}/config/database.yml - - - - ${pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)}"
-      "L+ ${cfg.statePath}/config/secrets.yml - - - - ${pkgs.writeText "secrets.yml" (builtins.toJSON secretsConfig)}"
-      "L+ ${cfg.statePath}/config/unicorn.rb - - - - ${./defaultUnicornConfig.rb}"
+      "L+ ${cfg.statePath}/config/gitlab.yml - - - - ${
+        pkgs.writeText "gitlab.yml" (builtins.toJSON gitlabConfig)
+      }"
+      "L+ ${cfg.statePath}/config/database.yml - - - - ${
+        pkgs.writeText "database.yml" (builtins.toJSON databaseConfig)
+      }"
+      "L+ ${cfg.statePath}/config/secrets.yml - - - - ${
+        pkgs.writeText "secrets.yml" (builtins.toJSON secretsConfig)
+      }"
+      "L+ ${cfg.statePath}/config/unicorn.rb - - - - ${
+        ./defaultUnicornConfig.rb
+      }"
 
       "L+ ${cfg.statePath}/config/initializers/extra-gitlab.rb - - - - ${extraGitlabRb}"
     ] ++ optional cfg.smtp.enable
-      "L+ ${cfg.statePath}/config/initializers/smtp_settings.rb - - - - ${smtpSettings}" ;
+      "L+ ${cfg.statePath}/config/initializers/smtp_settings.rb - - - - ${smtpSettings}";
 
     systemd.services.gitlab-sidekiq = {
       after = [ "network.target" "redis.service" "gitlab.service" ];
@@ -554,7 +597,8 @@ in {
         TimeoutSec = "infinity";
         Restart = "on-failure";
         WorkingDirectory = "${cfg.packages.gitlab}/share/gitlab";
-        ExecStart="${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C \"${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml\" -e production -P ${cfg.statePath}/tmp/sidekiq.pid";
+        ExecStart = ''
+          ${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production -P ${cfg.statePath}/tmp/sidekiq.pid'';
       };
     };
 
@@ -563,7 +607,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       path = with pkgs; [
         openssh
-        procps  # See https://gitlab.com/gitlab-org/gitaly/issues/1562
+        procps # See https://gitlab.com/gitlab-org/gitaly/issues/1562
         gitAndTools.git
         cfg.packages.gitaly.rubyEnv
         cfg.packages.gitaly.rubyEnv.wrappedRuby
@@ -600,10 +644,8 @@ in {
         TimeoutSec = "infinity";
         Restart = "on-failure";
         WorkingDirectory = gitlabEnv.HOME;
-        ExecStart =
-          "${cfg.packages.gitlab-workhorse}/bin/gitlab-workhorse "
-          + "-listenUmask 0 "
-          + "-listenNetwork unix "
+        ExecStart = "${cfg.packages.gitlab-workhorse}/bin/gitlab-workhorse "
+          + "-listenUmask 0 " + "-listenNetwork unix "
           + "-listenAddr /run/gitlab/gitlab-workhorse.socket "
           + "-authSocket ${gitlabSocket} "
           + "-documentRoot ${cfg.packages.gitlab}/share/gitlab/public "
@@ -612,7 +654,13 @@ in {
     };
 
     systemd.services.gitlab = {
-      after = [ "gitlab-workhorse.service" "gitaly.service" "network.target" "postgresql.service" "redis.service" ];
+      after = [
+        "gitlab-workhorse.service"
+        "gitaly.service"
+        "network.target"
+        "postgresql.service"
+        "redis.service"
+      ];
       requires = [ "gitlab-sidekiq.service" ];
       wantedBy = [ "multi-user.target" ];
       environment = gitlabEnv;
@@ -671,7 +719,8 @@ in {
         TimeoutSec = "infinity";
         Restart = "on-failure";
         WorkingDirectory = "${cfg.packages.gitlab}/share/gitlab";
-        ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/unicorn -c ${cfg.statePath}/config/unicorn.rb -E production";
+        ExecStart =
+          "${cfg.packages.gitlab.rubyEnv}/bin/unicorn -c ${cfg.statePath}/config/unicorn.rb -E production";
       };
 
     };

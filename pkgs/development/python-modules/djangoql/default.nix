@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, python
-, django, ply }:
+{ lib, buildPythonPackage, fetchPypi, python, django, ply }:
 
 buildPythonPackage rec {
   pname = "djangoql";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Advanced search language for Django";
-    homepage = https://github.com/ivelum/djangoql;
+    homepage = "https://github.com/ivelum/djangoql";
     license = licenses.mit;
     maintainers = with maintainers; [ earvstedt ];
   };

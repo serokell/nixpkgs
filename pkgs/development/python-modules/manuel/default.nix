@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, zope_testing
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, zope_testing }:
 
 buildPythonPackage rec {
   pname = "manuel";
@@ -19,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A documentation builder";
-    homepage = https://pypi.python.org/pypi/manuel;
+    homepage = "https://pypi.python.org/pypi/manuel";
     license = licenses.zpl20;
   };
 

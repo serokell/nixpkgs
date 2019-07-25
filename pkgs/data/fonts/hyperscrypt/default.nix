@@ -3,11 +3,11 @@
 let
   version = "1.1";
   pname = "HyperScrypt";
-in
 
-fetchzip rec {
+in fetchzip rec {
   name = "${lib.toLower pname}-font-${version}";
-  url = "https://gitlab.com/StudioTriple/Hyper-Scrypt/-/archive/${version}/Hyper-Scrypt-${version}.zip";
+  url =
+    "https://gitlab.com/StudioTriple/Hyper-Scrypt/-/archive/${version}/Hyper-Scrypt-${version}.zip";
   sha256 = "01pf5p2scmw02s0gxnibiwxbpzczphaaapv0v4s7svk9aw2gmc0m";
   postFetch = ''
     mkdir -p $out/share/fonts/{truetype,opentype}
@@ -16,8 +16,9 @@ fetchzip rec {
   '';
 
   meta = with lib; {
-    homepage = http://velvetyne.fr/fonts/hyper-scrypt/;
-    description = "A modern stencil typeface inspired by stained glass technique";
+    homepage = "http://velvetyne.fr/fonts/hyper-scrypt/";
+    description =
+      "A modern stencil typeface inspired by stained glass technique";
     longDescription = ''
       The Hyper Scrypt typeface was designed for the Hyper Chapelle
       exhibition. It was commissioned by AAAAA Atelier to Studio
@@ -32,7 +33,7 @@ fetchzip rec {
       molted metal, Hyper Scrypt is based upon a rigorous grid,
       allowing some neat alignements between shapes in multi lines
       layouts.
-      '';
+    '';
     license = licenses.ofl;
     maintainers = with maintainers; [ leenaars ];
     platforms = platforms.all;

@@ -4,9 +4,7 @@ let
   stateDir = "/var/lib/4store";
   fourStoreUser = "fourstore";
   run = "${pkgs.su}/bin/su -s ${pkgs.runtimeShell} ${fourStoreUser}";
-in
-with lib;
-{
+in with lib; {
 
   ###### interface
 
@@ -21,7 +19,8 @@ with lib;
 
       database = mkOption {
         default = "";
-        description = "RDF database name. If it doesn't exist, it will be created. Databases are stored in ${stateDir}.";
+        description =
+          "RDF database name. If it doesn't exist, it will be created. Databases are stored in ${stateDir}.";
       };
 
       options = mkOption {
@@ -33,22 +32,21 @@ with lib;
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = singleton
-      { assertion = cfg.enable -> cfg.database != "";
-        message = "Must specify 4Store database name.";
-      };
+    assertions = singleton {
+      assertion = cfg.enable -> cfg.database != "";
+      message = "Must specify 4Store database name.";
+    };
 
-    users.users = singleton
-      { name = fourStoreUser;
-        uid = config.ids.uids.fourstore;
-        description = "4Store database user";
-        home = stateDir;
-      };
+    users.users = singleton {
+      name = fourStoreUser;
+      uid = config.ids.uids.fourstore;
+      description = "4Store database user";
+      home = stateDir;
+    };
 
     services.avahi.enable = true;
 

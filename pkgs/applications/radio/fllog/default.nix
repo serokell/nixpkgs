@@ -1,9 +1,4 @@
-{ stdenv
-, fetchurl
-, fltk13
-, libjpeg
-, pkgconfig
-}:
+{ stdenv, fetchurl, fltk13, libjpeg, pkgconfig }:
 
 stdenv.mkDerivation rec {
   version = "1.2.6";
@@ -15,18 +10,13 @@ stdenv.mkDerivation rec {
     sha256 = "18nwqbbg5khpkwlr7dn41g6zf7ms2wzxykd42fwdsj4m4z0ysyyg";
   };
 
-  buildInputs = [
-    fltk13
-    libjpeg
-  ];
+  buildInputs = [ fltk13 libjpeg ];
 
-  nativeBuildInputs = [
-    pkgconfig
-  ];
+  nativeBuildInputs = [ pkgconfig ];
 
   meta = {
     description = "Digital modem log program";
-    homepage = https://sourceforge.net/projects/fldigi/;
+    homepage = "https://sourceforge.net/projects/fldigi/";
     license = stdenv.lib.licenses.gpl3Plus;
     maintainers = with stdenv.lib.maintainers; [ dysinger ];
     platforms = stdenv.lib.platforms.linux;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libX11, libXext, libXt, imake, gccmakedep}:
+{ stdenv, fetchurl, libX11, libXext, libXt, imake, gccmakedep }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}.${patchlevel}";
@@ -13,26 +13,24 @@ stdenv.mkDerivation rec {
   };
   patches = [
     (fetchurl {
-       url = "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patchlevel}.diff.gz";
-       sha256 = "0zhc06whbvaz987bzzzi2bz6h9jp6rv812qs7b71drivvd820qbh";
+      url =
+        "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patchlevel}.diff.gz";
+      sha256 = "0zhc06whbvaz987bzzzi2bz6h9jp6rv812qs7b71drivvd820qbh";
     })
   ];
 
   nativeBuildInputs = [ imake gccmakedep ];
   buildInputs = [ libX11 libXext libXt ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "BINDIR=$(out)/bin"
-    "MANPATH=$(out)/share/man"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "BINDIR=$(out)/bin" "MANPATH=$(out)/share/man" ];
   installTargets = "install install.man";
 
   meta = {
     inherit version;
     description = "An X11 screen zoom tool";
-    license = stdenv.lib.licenses.free ;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    license = stdenv.lib.licenses.free;
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

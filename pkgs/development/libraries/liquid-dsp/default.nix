@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, autoreconfHook }:
+{ stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "liquid-dsp-${version}";
@@ -14,8 +14,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = {
-    homepage = https://liquidsdr.org/;
-    description = "Digital signal processing library for software-defined radios";
+    homepage = "https://liquidsdr.org/";
+    description =
+      "Digital signal processing library for software-defined radios";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.unix;
   };

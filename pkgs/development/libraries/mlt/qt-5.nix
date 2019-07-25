@@ -1,11 +1,9 @@
-{ stdenv, fetchFromGitHub, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate
-, libvorbis, libxml2, makeWrapper, movit, pkgconfig, sox, qtbase, qtsvg
-, fftw, vid-stab, opencv3, ladspa-sdk
+{ stdenv, fetchFromGitHub, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate, libvorbis, libxml2, makeWrapper, movit, pkgconfig, sox, qtbase, qtsvg, fftw, vid-stab, opencv3, ladspa-sdk
 }:
 
-let inherit (stdenv.lib) getDev; in
+let inherit (stdenv.lib) getDev;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "mlt-${version}";
   version = "6.14.0";
 
@@ -17,8 +15,23 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    SDL ffmpeg frei0r libjack2 libdv libsamplerate libvorbis libxml2
-    makeWrapper movit pkgconfig qtbase qtsvg sox fftw vid-stab opencv3
+    SDL
+    ffmpeg
+    frei0r
+    libjack2
+    libdv
+    libsamplerate
+    libvorbis
+    libxml2
+    makeWrapper
+    movit
+    pkgconfig
+    qtbase
+    qtsvg
+    sox
+    fftw
+    vid-stab
+    opencv3
     ladspa-sdk
   ];
 
@@ -27,7 +40,10 @@ stdenv.mkDerivation rec {
   # Mostly taken from:
   # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
   configureFlags = [
-    "--avformat-swscale" "--enable-gpl" "--enable-gpl" "--enable-gpl3"
+    "--avformat-swscale"
+    "--enable-gpl"
+    "--enable-gpl"
+    "--enable-gpl3"
     "--enable-opengl"
   ];
 
@@ -53,13 +69,12 @@ stdenv.mkDerivation rec {
     sed -i $out/lib/mlt/libmltqt.so -e "s|$s|$t|g"
   '';
 
-  passthru = {
-    inherit ffmpeg;
-  };
+  passthru = { inherit ffmpeg; };
 
   meta = with stdenv.lib; {
-    description = "Open source multimedia framework, designed for television broadcasting";
-    homepage = https://www.mltframework.org/;
+    description =
+      "Open source multimedia framework, designed for television broadcasting";
+    homepage = "https://www.mltframework.org/";
     license = licenses.gpl3;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux;

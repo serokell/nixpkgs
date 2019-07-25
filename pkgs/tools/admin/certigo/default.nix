@@ -14,7 +14,8 @@ buildGoModule rec {
   modSha256 = "0x0iq3w5310dg8lp2kkw82iryfhs9p4707538f5dcxjsllpqvcvj";
 
   meta = with stdenv.lib; {
-    description = "A utility to examine and validate certificates in a variety of formats";
+    description =
+      "A utility to examine and validate certificates in a variety of formats";
     homepage = "https://github.com/square/certigo";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];

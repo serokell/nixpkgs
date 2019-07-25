@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, dpkg
-, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, glibc, gnome2, gnome3
-, gtk3, libnotify, libpulseaudio, libsecret, libv4l, nspr, nss, pango, systemd, wrapGAppsHook, xorg
-, at-spi2-atk }:
+{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, glibc, gnome2, gnome3, gtk3, libnotify, libpulseaudio, libsecret, libv4l, nspr, nss, pango, systemd, wrapGAppsHook, xorg, at-spi2-atk
+}:
 
 let
 
@@ -54,14 +52,14 @@ let
     xorg.libxcb
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb";
-        sha256 = "0l5q336kkw9i13076qn7fkknypg7cwjp58qi8xd6h0rwha3kkqa2";
-      }
-    else
-      throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${version}_amd64.deb";
+      sha256 = "0l5q336kkw9i13076qn7fkknypg7cwjp58qi8xd6h0rwha3kkqa2";
+    }
+  else
+    throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}";
 
 in stdenv.mkDerivation {
   name = "skypeforlinux-${version}";
@@ -104,7 +102,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Linux client for skype";
-    homepage = https://www.skype.com;
+    homepage = "https://www.skype.com";
     license = licenses.unfree;
     maintainers = with stdenv.lib.maintainers; [ panaeon jraygauthier ];
     platforms = [ "x86_64-linux" ];

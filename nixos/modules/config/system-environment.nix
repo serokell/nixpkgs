@@ -8,14 +8,12 @@ let
 
   cfg = config.environment;
 
-in
-
-{
+in {
 
   options = {
 
     environment.sessionVariables = mkOption {
-      default = {};
+      default = { };
       description = ''
         A set of environment variables used in the global environment.
         These variables will be set by PAM.
@@ -31,12 +29,12 @@ in
 
   config = {
 
-    system.build.pamEnvironment = pkgs.writeText "pam-environment"
-       ''
-         ${concatStringsSep "\n" (
-           (mapAttrsToList (n: v: ''${n}="${concatStringsSep ":" v}"'')
-             (zipAttrsWith (const concatLists) ([ (mapAttrs (n: v: [ v ]) cfg.sessionVariables) ]))))}
-       '';
+    system.build.pamEnvironment = pkgs.writeText "pam-environment" ''
+      ${concatStringsSep "\n"
+      ((mapAttrsToList (n: v: ''${n}="${concatStringsSep ":" v}"'')
+      (zipAttrsWith (const concatLists)
+      ([ (mapAttrs (n: v: [ v ]) cfg.sessionVariables) ]))))}
+    '';
 
   };
 

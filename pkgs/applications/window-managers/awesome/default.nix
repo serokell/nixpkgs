@@ -1,18 +1,11 @@
-{ stdenv, fetchFromGitHub, luaPackages, cairo, librsvg, cmake, imagemagick, pkgconfig, gdk_pixbuf
-, xorg, libstartup_notification, libxdg_basedir, libpthreadstubs
-, xcb-util-cursor, makeWrapper, pango, gobject-introspection
-, which, dbus, nettools, git, doxygen
-, xmlto, docbook_xml_dtd_45, docbook_xsl, findXMLCatalogs
-, libxkbcommon, xcbutilxrm, hicolor-icon-theme
-, asciidoctor
-, fontsConf
-, gtk3Support ? false, gtk3 ? null
-}:
+{ stdenv, fetchFromGitHub, luaPackages, cairo, librsvg, cmake, imagemagick, pkgconfig, gdk_pixbuf, xorg, libstartup_notification, libxdg_basedir, libpthreadstubs, xcb-util-cursor, makeWrapper, pango, gobject-introspection, which, dbus, nettools, git, doxygen, xmlto, docbook_xml_dtd_45, docbook_xsl, findXMLCatalogs, libxkbcommon, xcbutilxrm, hicolor-icon-theme, asciidoctor, fontsConf, gtk3Support ?
+  false, gtk3 ? null }:
 
 # needed for beautiful.gtk to work
 assert gtk3Support -> gtk3 != null;
 
-with luaPackages; stdenv.mkDerivation rec {
+with luaPackages;
+stdenv.mkDerivation rec {
   name = "awesome-${version}";
   version = "4.3";
 
@@ -29,8 +22,10 @@ with luaPackages; stdenv.mkDerivation rec {
     imagemagick
     makeWrapper
     pkgconfig
-    xmlto docbook_xml_dtd_45
-    docbook_xsl findXMLCatalogs
+    xmlto
+    docbook_xml_dtd_45
+    docbook_xsl
+    findXMLCatalogs
     asciidoctor
     ldoc
   ];
@@ -40,14 +35,33 @@ with luaPackages; stdenv.mkDerivation rec {
   FONTCONFIG_FILE = toString fontsConf;
 
   propagatedUserEnvPkgs = [ hicolor-icon-theme ];
-  buildInputs = [ cairo librsvg dbus gdk_pixbuf gobject-introspection
-                  git lgi libpthreadstubs libstartup_notification
-                  libxdg_basedir lua nettools pango xcb-util-cursor
-                  xorg.libXau xorg.libXdmcp xorg.libxcb xorg.libxshmfence
-                  xorg.xcbutil xorg.xcbutilimage xorg.xcbutilkeysyms
-                  xorg.xcbutilrenderutil xorg.xcbutilwm libxkbcommon
-                  xcbutilxrm ]
-                  ++ stdenv.lib.optional gtk3Support gtk3;
+  buildInputs = [
+    cairo
+    librsvg
+    dbus
+    gdk_pixbuf
+    gobject-introspection
+    git
+    lgi
+    libpthreadstubs
+    libstartup_notification
+    libxdg_basedir
+    lua
+    nettools
+    pango
+    xcb-util-cursor
+    xorg.libXau
+    xorg.libXdmcp
+    xorg.libxcb
+    xorg.libxshmfence
+    xorg.xcbutil
+    xorg.xcbutilimage
+    xorg.xcbutilkeysyms
+    xorg.xcbutilrenderutil
+    xorg.xcbutilwm
+    libxkbcommon
+    xcbutilxrm
+  ] ++ stdenv.lib.optional gtk3Support gtk3;
 
   #cmakeFlags = "-DGENERATE_MANPAGES=ON";
   cmakeFlags = "-DOVERRIDE_VERSION=${version}";
@@ -56,7 +70,7 @@ with luaPackages; stdenv.mkDerivation rec {
   # LUA_CPATH and LUA_PATH are used only for *building*, see the --search flags
   # below for how awesome finds the libraries it needs at runtime.
   LUA_CPATH = "${lgi}/lib/lua/${lua.luaversion}/?.so";
-  LUA_PATH  = "${lgi}/share/lua/${lua.luaversion}/?.lua;;";
+  LUA_PATH = "${lgi}/share/lua/${lua.luaversion}/?.lua;;";
 
   postInstall = ''
     # Don't use wrapProgram or the wrapper will duplicate the --search
@@ -72,15 +86,13 @@ with luaPackages; stdenv.mkDerivation rec {
       --prefix PATH : "${which}/bin"
   '';
 
-  passthru = {
-    inherit lua;
-  };
+  passthru = { inherit lua; };
 
   meta = with stdenv.lib; {
     description = "Highly configurable, dynamic window manager for X";
-    homepage    = https://awesomewm.org/;
-    license     = licenses.gpl2Plus;
+    homepage = "https://awesomewm.org/";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ lovek323 rasendubi ndowens ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

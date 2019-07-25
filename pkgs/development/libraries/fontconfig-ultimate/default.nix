@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub }:
 
-let version = "2016-04-23"; in
-stdenv.mkDerivation {
+let version = "2016-04-23";
+in stdenv.mkDerivation {
   name = "fontconfig-ultimate-${version}";
 
   src = fetchFromGitHub {
@@ -40,8 +40,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "Font configuration files, patches, scripts and source packages (Infinality & friends)";
-    homepage = https://github.com/bohoomil/fontconfig-ultimate;
+    description =
+      "Font configuration files, patches, scripts and source packages (Infinality & friends)";
+    homepage = "https://github.com/bohoomil/fontconfig-ultimate";
     license = licenses.mit;
     platforms = platforms.all;
   };

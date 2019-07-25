@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, gtk2, libXft, intltool, automake, autoconf, libtool, pkgconfig }:
+{ stdenv, fetchFromGitHub, gtk2, libXft, intltool, automake, autoconf, libtool, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "pcmanx-gtk2-${version}";
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://pcman.ptt.cc;
+    homepage = "https://pcman.ptt.cc";
     license = licenses.gpl2;
     description = "Telnet BBS browser with GTK+ interface";
     maintainers = [ maintainers.sifmelcara ];

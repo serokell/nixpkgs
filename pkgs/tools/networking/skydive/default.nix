@@ -1,5 +1,5 @@
-{ lib, buildGoPackage, fetchFromGitHub, perl
-, go-bindata, libxml2, protobuf3_1, libpcap, pkgconfig, go-protobuf }:
+{ lib, buildGoPackage, fetchFromGitHub, perl, go-bindata, libxml2, protobuf3_1, libpcap, pkgconfig, go-protobuf
+}:
 
 buildGoPackage rec {
   name = "skydive-${version}";
@@ -19,7 +19,8 @@ buildGoPackage rec {
       --replace ".bindata: builddep" ".bindata: "
   '';
 
-  buildInputs = [ perl go-bindata go-protobuf libxml2 protobuf3_1 libpcap pkgconfig ];
+  buildInputs =
+    [ perl go-bindata go-protobuf libxml2 protobuf3_1 libpcap pkgconfig ];
   goDeps = ./deps.nix;
 
   preBuild = ''
@@ -36,7 +37,7 @@ buildGoPackage rec {
   '';
 
   meta = {
-    homepage = http://skydive.network;
+    homepage = "http://skydive.network";
     description = "A real-time network analyzer";
     license = lib.licenses.asl20;
     platforms = [ "x86_64-linux" ];

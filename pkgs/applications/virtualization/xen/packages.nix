@@ -1,6 +1,4 @@
-{ callPackage
-, stdenv, overrideCC, gcc49
-}:
+{ callPackage, stdenv, overrideCC, gcc49 }:
 
 # TODO(@oxij) on new Xen version: generalize this to generate [vanilla slim
 # light] for each ./<version>.nix.

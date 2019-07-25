@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, six
-, scipy
-, smart_open
-, scikitlearn, testfixtures, unittest2
+{ lib, buildPythonPackage, fetchPypi, numpy, six, scipy, smart_open, scikitlearn, testfixtures, unittest2
 }:
 
 buildPythonPackage rec {
@@ -34,7 +27,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Topic-modelling library";
-    homepage = https://radimrehurek.com/gensim/;
+    homepage = "https://radimrehurek.com/gensim/";
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [ jyp ];
   };

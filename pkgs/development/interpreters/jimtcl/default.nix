@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub, sqlite, readline, asciidoc, SDL, SDL_gfx }:
 
-let
-  makeSDLFlags = map (p: "-I${stdenv.lib.getDev p}/include/SDL");
+let makeSDLFlags = map (p: "-I${stdenv.lib.getDev p}/include/SDL");
 
 in stdenv.mkDerivation rec {
   name = "jimtcl-${version}";
@@ -14,9 +13,7 @@ in stdenv.mkDerivation rec {
     sha256 = "1nrjxjfh69i35ig8sxdlal4ydd3cl0x68c05s6svnf1y2i1bl23j";
   };
 
-  buildInputs = [
-    sqlite readline asciidoc SDL SDL_gfx
-  ];
+  buildInputs = [ sqlite readline asciidoc SDL SDL_gfx ];
 
   NIX_CFLAGS_COMPILE = makeSDLFlags [ SDL SDL_gfx ];
 
@@ -32,8 +29,9 @@ in stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "An open source small-footprint implementation of the Tcl programming language";
-    homepage = http://jim.tcl.tk/;
+    description =
+      "An open source small-footprint implementation of the Tcl programming language";
+    homepage = "http://jim.tcl.tk/";
     license = stdenv.lib.licenses.bsd2;
     platforms = stdenv.lib.platforms.all;
     maintainers = with stdenv.lib.maintainers; [ dbohdan vrthra ];

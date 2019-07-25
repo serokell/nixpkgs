@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, coq }:
 
-let params =
-  {
+let
+  params = {
     "8.7" = {
       version = "1.1.1+coq8.7";
       sha256 = "1i7b5pkx46zf9il2xikbp3rhpnh3wdfbhw5yxcf9yk28ky9s0a0l";
@@ -16,9 +16,8 @@ let params =
     };
   };
   param = params."${coq.coq-version}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit (param) version;
   name = "coq${coq.coq-version}-paramcoq-${version}";
   src = fetchFromGitHub {
@@ -28,15 +27,11 @@ stdenv.mkDerivation rec {
     inherit (param) sha256;
   };
 
-  buildInputs = [ coq ]
-  ++ (with coq.ocamlPackages; [ ocaml findlib camlp5 ])
-  ;
+  buildInputs = [ coq ] ++ (with coq.ocamlPackages; [ ocaml findlib camlp5 ]);
 
   installFlags = "COQLIB=$(out)/lib/coq/${coq.coq-version}/";
 
-  passthru = {
-    compatibleCoqVersions = v: builtins.hasAttr v params;
-  };
+  passthru = { compatibleCoqVersions = v: builtins.hasAttr v params; };
 
   meta = {
     description = "Coq plugin for parametricity";

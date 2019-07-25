@@ -1,4 +1,4 @@
-{stdenv, fetchgit, bdftopcf, mkfontdir, mkfontscale}:
+{ stdenv, fetchgit, bdftopcf, mkfontdir, mkfontscale }:
 
 stdenv.mkDerivation rec {
   date = "2015-06-07";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       particularily useful while programming, to fit a lot of code on your
       screen.
     '';
-    homepage = https://github.com/lucy/tewi-font;
+    homepage = "https://github.com/lucy/tewi-font";
     license = {
       fullName = "GNU General Public License with a font exception";
       url = "https://www.gnu.org/licenses/gpl-faq.html#FontException";

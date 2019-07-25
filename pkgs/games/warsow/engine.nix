@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchurl, cmake, libogg, libvorbis, libtheora, curl, freetype
-, libjpeg, libpng, SDL2, libGL, openal, zlib
+{ stdenv, lib, fetchurl, cmake, libogg, libvorbis, libtheora, curl, freetype, libjpeg, libpng, SDL2, libGL, openal, zlib
 }:
 
 let
@@ -20,7 +19,16 @@ in stdenv.mkDerivation (libs // rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [
-    libogg libvorbis libtheora curl freetype libjpeg SDL2 libGL openal zlib
+    libogg
+    libvorbis
+    libtheora
+    curl
+    freetype
+    libjpeg
+    SDL2
+    libGL
+    openal
+    zlib
     libpng
   ];
 
@@ -43,8 +51,9 @@ in stdenv.mkDerivation (libs // rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Multiplayer FPS game designed for competitive gaming (engine only)";
-    homepage = http://www.warsow.net;
+    description =
+      "Multiplayer FPS game designed for competitive gaming (engine only)";
+    homepage = "http://www.warsow.net";
     license = licenses.gpl2;
     maintainers = with maintainers; [ astsmtl abbradar ];
     platforms = platforms.linux;

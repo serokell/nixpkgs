@@ -1,9 +1,6 @@
-{ lib, fetchurl, pythonPackages, pkgconfig
-, qmake, lndir, qtbase, qtsvg, qtwebengine, dbus
-, withConnectivity ? false, qtconnectivity
-, withWebKit ? false, qtwebkit
-, withWebSockets ? false, qtwebsockets
-}:
+{ lib, fetchurl, pythonPackages, pkgconfig, qmake, lndir, qtbase, qtsvg, qtwebengine, dbus, withConnectivity ?
+  false, qtconnectivity, withWebKit ? false, qtwebkit, withWebSockets ?
+    false, qtwebsockets }:
 
 let
 
@@ -17,7 +14,8 @@ in buildPythonPackage rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://sourceforge/pyqt/PyQt5/PyQt-${version}/PyQt5_gpl-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/pyqt/PyQt5/PyQt-${version}/PyQt5_gpl-${version}.tar.gz";
     sha256 = "0wqh4srqkcc03rvkwrcshaa028psrq58xkys6npnyhqxc0apvdf9";
   };
 
@@ -68,9 +66,9 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python bindings for Qt5";
-    homepage    = http://www.riverbankcomputing.co.uk;
-    license     = licenses.gpl3;
-    platforms   = platforms.mesaPlatforms;
+    homepage = "http://www.riverbankcomputing.co.uk";
+    license = licenses.gpl3;
+    platforms = platforms.mesaPlatforms;
     maintainers = with maintainers; [ sander ];
   };
 }

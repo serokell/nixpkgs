@@ -1,5 +1,4 @@
-{ stdenv, makeWrapper, fetchFromGitHub, ocaml, findlib, dune
-, menhir, merlin_extend, ppx_tools_versioned, utop
+{ stdenv, makeWrapper, fetchFromGitHub, ocaml, findlib, dune, menhir, merlin_extend, ppx_tools_versioned, utop
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://reasonml.github.io/;
+    homepage = "https://reasonml.github.io/";
     description = "Facebook's friendly syntax to OCaml";
     license = licenses.mit;
     inherit (ocaml.meta) platforms;

@@ -1,20 +1,29 @@
-{ stdenv, fetchurl, patchelf, zlib, libmad, libpng12, libcaca, libGLU_combined, alsaLib, libpulseaudio
-, xorg }:
+{ stdenv, fetchurl, patchelf, zlib, libmad, libpng12, libcaca, libGLU_combined, alsaLib, libpulseaudio, xorg
+}:
 
 let
 
   inherit (xorg) libXext libX11;
 
   lpath = "${stdenv.cc.cc.lib}/lib64:" + stdenv.lib.makeLibraryPath [
-      zlib libmad libpng12 libcaca libXext libX11 libGLU_combined alsaLib libpulseaudio];
+    zlib
+    libmad
+    libpng12
+    libcaca
+    libXext
+    libX11
+    libGLU_combined
+    alsaLib
+    libpulseaudio
+  ];
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "adom-${version}-noteye";
   version = "1.2.0_pre23";
 
   src = fetchurl {
-    url = "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz";
+    url =
+      "http://ancardia.uk.to/download/adom_noteye_linux_ubuntu_64_${version}.tar.gz";
     sha256 = "0sbn0csaqb9cqi0z5fdwvnymkf84g64csg0s9mm6fzh0sm2mi0hz";
   };
 
@@ -49,11 +58,11 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A rogue-like game with nice graphical interface";
-    homepage = http://adom.de/;
+    homepage = "http://adom.de/";
     license = licenses.unfreeRedistributable;
-    maintainers = [maintainers.smironov];
+    maintainers = [ maintainers.smironov ];
 
     # Please, notify me (smironov) if you need the x86 version
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtsvg, qtx11extras, kwindowsystem, liblxqt, libqtxdg }:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtsvg, qtx11extras, kwindowsystem, liblxqt, libqtxdg
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-openssh-askpass";
@@ -11,20 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "04jmvhhlhhspwzj4hfq7fnaa3h7h02z3rlq8p55hzlzkvshqqh1q";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
-  buildInputs = [
-    qtbase
-    qttools
-    qtx11extras
-    qtsvg
-    kwindowsystem
-    liblxqt
-    libqtxdg
-  ];
+  buildInputs =
+    [ qtbase qttools qtx11extras qtsvg kwindowsystem liblxqt libqtxdg ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -33,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GUI to query passwords on behalf of SSH agents";
-    homepage = https://github.com/lxqt/lxqt-openssh-askpass;
+    homepage = "https://github.com/lxqt/lxqt-openssh-askpass";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

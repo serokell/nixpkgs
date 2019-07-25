@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, openconnect, file, gawk,
-  openvpn, vpnc, glib, dbus, iptables, gnutls, polkit,
-  wpa_supplicant, readline6, pptp, ppp }:
+{ stdenv, fetchurl, pkgconfig, openconnect, file, gawk, openvpn, vpnc, glib, dbus, iptables, gnutls, polkit, wpa_supplicant, readline6, pptp, ppp
+}:
 
 stdenv.mkDerivation rec {
   name = "connman-${version}";
@@ -10,9 +9,20 @@ stdenv.mkDerivation rec {
     sha256 = "05kfjiqhqfmbbwc4snnyvi5hc4zxanac62f6gcwaf5mvn0z9pqkc";
   };
 
-  buildInputs = [ openconnect polkit
-                  openvpn vpnc glib dbus iptables gnutls
-                  wpa_supplicant readline6 pptp ppp ];
+  buildInputs = [
+    openconnect
+    polkit
+    openvpn
+    vpnc
+    glib
+    dbus
+    iptables
+    gnutls
+    wpa_supplicant
+    readline6
+    pptp
+    ppp
+  ];
 
   nativeBuildInputs = [ pkgconfig file gawk ];
 
@@ -53,7 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A daemon for managing internet connections";
-    homepage = https://01.org/connman;
+    homepage = "https://01.org/connman";
     maintainers = [ maintainers.matejc ];
     platforms = platforms.linux;
     license = licenses.gpl2;

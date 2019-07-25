@@ -14,8 +14,7 @@ let
 
   pidFile = "/run/openntpd.pid";
 
-in
-{
+in {
   ###### interface
 
   options.services.openntpd = {

@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "pytun";
@@ -17,7 +14,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/montag451/pytun;
+    homepage = "https://github.com/montag451/pytun";
     description = "Linux TUN/TAP wrapper for Python";
     license = licenses.mit;
     maintainers = with maintainers; [ montag451 ];

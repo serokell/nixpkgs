@@ -7,7 +7,8 @@ let
   pkg = pkgs.nzbget;
   stateDir = "/var/lib/nzbget";
   configFile = "${stateDir}/nzbget.conf";
-  configOpts = concatStringsSep " " (mapAttrsToList (name: value: "-o ${name}=${value}") nixosOpts);
+  configOpts = concatStringsSep " "
+    (mapAttrsToList (name: value: "-o ${name}=${value}") nixosOpts);
 
   nixosOpts = {
     # allows nzbget to run as a "simple" service
@@ -25,8 +26,7 @@ let
     UpdateCheck = "none";
   };
 
-in
-{
+in {
   # interface
 
   options = {
@@ -54,10 +54,7 @@ in
       description = "NZBGet Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        unrar
-        p7zip
-      ];
+      path = with pkgs; [ unrar p7zip ];
       preStart = ''
         if [ ! -f ${configFile} ]; then
           ${pkgs.coreutils}/bin/install -m 0700 ${pkg}/share/nzbget/nzbget.conf ${configFile}
@@ -71,7 +68,8 @@ in
         Group = cfg.group;
         UMask = "0002";
         Restart = "on-failure";
-        ExecStart = "${pkg}/bin/nzbget --server --configfile ${stateDir}/nzbget.conf ${configOpts}";
+        ExecStart =
+          "${pkg}/bin/nzbget --server --configfile ${stateDir}/nzbget.conf ${configOpts}";
         ExecStop = "${pkg}/bin/nzbget --quit";
       };
     };
@@ -85,9 +83,7 @@ in
     };
 
     users.groups = mkIf (cfg.group == "nzbget") {
-      nzbget = {
-        gid = config.ids.gids.nzbget;
-      };
+      nzbget = { gid = config.ids.gids.nzbget; };
     };
   };
 }

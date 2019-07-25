@@ -13,10 +13,9 @@ let
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash     = "18mf23ssy4lwvsi4pg6m4b003paz5yds5vs7nhl0bfcq57xg6qj1";
+    outputHash = "18mf23ssy4lwvsi4pg6m4b003paz5yds5vs7nhl0bfcq57xg6qj1";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${baseName}-${version}";
 
   nativeBuildInputs = [ makeWrapper ];
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Opinionated code formatter for Scala";
-    homepage = http://scalameta.org/scalafmt;
+    homepage = "http://scalameta.org/scalafmt";
     license = licenses.asl20;
     maintainers = [ maintainers.markus1189 ];
   };

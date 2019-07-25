@@ -1,7 +1,4 @@
-{ stdenv, meson, ninja, pkgconfig, fetchFromGitLab,
-  python3, umockdev, gobject-introspection, dbus,
-  asciidoc, libxml2, libxslt, docbook_xml_dtd_45, docbook_xsl,
-  glib, systemd, polkit
+{ stdenv, meson, ninja, pkgconfig, fetchFromGitLab, python3, umockdev, gobject-introspection, dbus, asciidoc, libxml2, libxslt, docbook_xml_dtd_45, docbook_xsl, glib, systemd, polkit
 }:
 
 stdenv.mkDerivation rec {
@@ -17,13 +14,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig
-    asciidoc libxml2 libxslt docbook_xml_dtd_45 docbook_xsl
+    meson
+    ninja
+    pkgconfig
+    asciidoc
+    libxml2
+    libxslt
+    docbook_xml_dtd_45
+    docbook_xsl
   ] ++ stdenv.lib.optional (!doCheck) python3;
 
-  buildInputs = [
-    glib systemd polkit
-  ];
+  buildInputs = [ glib systemd polkit ];
 
   doCheck = true;
 
@@ -32,9 +33,10 @@ stdenv.mkDerivation rec {
   '';
 
   checkInputs = [
-    dbus umockdev gobject-introspection
-    (python3.withPackages
-      (p: [ p.pygobject3 p.dbus-python p.python-dbusmock ]))
+    dbus
+    umockdev
+    gobject-introspection
+    (python3.withPackages (p: [ p.pygobject3 p.dbus-python p.python-dbusmock ]))
   ];
 
   # meson install tries to create /var/lib/boltd
@@ -44,16 +46,15 @@ stdenv.mkDerivation rec {
     patchShebangs tests/test-integration
   '';
 
-  mesonFlags = [
-    "-Dlocalstatedir=/var"
-  ];
+  mesonFlags = [ "-Dlocalstatedir=/var" ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
+    "${placeholder "out"}/lib/systemd/system";
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
 
   meta = with stdenv.lib; {
     description = "Thunderbolt 3 device management daemon";
-    homepage = https://gitlab.freedesktop.org/bolt/bolt;
+    homepage = "https://gitlab.freedesktop.org/bolt/bolt";
     license = licenses.lgpl21Plus;
     maintainers = [ maintainers.callahad ];
     platforms = platforms.linux;

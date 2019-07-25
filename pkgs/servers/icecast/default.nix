@@ -1,6 +1,5 @@
-{stdenv, fetchurl
-, libxml2, libxslt, curl
-, libvorbis, libtheora, speex, libkate, libopus }:
+{ stdenv, fetchurl, libxml2, libxslt, curl, libvorbis, libtheora, speex, libkate, libopus
+}:
 
 stdenv.mkDerivation rec {
   name = "icecast-2.4.4";
@@ -10,7 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "0i2d9rhav0x6js2qhjf5iy6j2a7f0d11ail0lfv40hb1kygrgda9";
   };
 
-  buildInputs = [ libxml2 libxslt curl libvorbis libtheora speex libkate libopus ];
+  buildInputs =
+    [ libxml2 libxslt curl libvorbis libtheora speex libkate libopus ];
 
   hardeningEnable = [ "pie" ];
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       open standards for commuincation and interaction.
     '';
 
-    homepage = http://www.icecast.org;
+    homepage = "http://www.icecast.org";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ jcumming ];
     platforms = with stdenv.lib.platforms; unix;

@@ -1,61 +1,52 @@
 { stdenv, writeText, elixir, erlang, hexRegistrySnapshot, hex, lib }:
 
-{ name
-, version
-, src
-, setupHook ? null
-, buildInputs ? []
-, beamDeps ? []
-, postPatch ? ""
-, compilePorts ? false
-, installPhase ? null
-, buildPhase ? null
-, configurePhase ? null
-, meta ? {}
-, enableDebugInfo ? false
-, ... }@attrs:
+{ name, version, src, setupHook ? null, buildInputs ? [ ], beamDeps ?
+  [ ], postPatch ? "", compilePorts ? false, installPhase ? null, buildPhase ?
+    null, configurePhase ? null, meta ? { }, enableDebugInfo ? false, ...
+}@attrs:
 
 with stdenv.lib;
 
 let
 
-  debugInfoFlag = lib.optionalString (enableDebugInfo || elixir.debugInfo) "--debug-info";
+  debugInfoFlag =
+    lib.optionalString (enableDebugInfo || elixir.debugInfo) "--debug-info";
 
-  shell = drv: stdenv.mkDerivation {
-          name = "interactive-shell-${drv.name}";
-          buildInputs = [ drv ];
+  shell = drv:
+    stdenv.mkDerivation {
+      name = "interactive-shell-${drv.name}";
+      buildInputs = [ drv ];
     };
 
   bootstrapper = ./mix-bootstrap;
 
-  pkg = self: stdenv.mkDerivation ( attrs // {
-    name = "${name}-${version}";
-    inherit version;
+  pkg = self:
+    stdenv.mkDerivation (attrs // {
+      name = "${name}-${version}";
+      inherit version;
 
-    dontStrip = true;
+      dontStrip = true;
 
-    inherit src;
+      inherit src;
 
-    setupHook = if setupHook == null
-    then writeText "setupHook.sh" ''
-       addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
-    ''
-    else setupHook;
+      setupHook = if setupHook == null then
+        writeText "setupHook.sh" ''
+          addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
+        ''
+      else
+        setupHook;
 
-    inherit buildInputs;
-    propagatedBuildInputs = [ hexRegistrySnapshot hex elixir ] ++ beamDeps;
+      inherit buildInputs;
+      propagatedBuildInputs = [ hexRegistrySnapshot hex elixir ] ++ beamDeps;
 
-    configurePhase = if configurePhase == null
-    then ''
-      runHook preConfigure
-      ${erlang}/bin/escript ${bootstrapper}
-      runHook postConfigure
-    ''
-    else configurePhase ;
+      configurePhase = if configurePhase == null then ''
+        runHook preConfigure
+        ${erlang}/bin/escript ${bootstrapper}
+        runHook postConfigure
+      '' else
+        configurePhase;
 
-
-    buildPhase = if buildPhase == null
-    then ''
+      buildPhase = if buildPhase == null then ''
         runHook preBuild
 
         export HEX_OFFLINE=1
@@ -66,11 +57,10 @@ let
         mix compile ${debugInfoFlag} --no-deps-check
 
         runHook postBuild
-    ''
-    else buildPhase;
+      '' else
+        buildPhase;
 
-    installPhase = if installPhase == null
-    then ''
+      installPhase = if installPhase == null then ''
         runHook preInstall
 
         MIXENV=prod
@@ -88,13 +78,13 @@ let
         done
 
         runHook postInstall
-    ''
-    else installPhase;
+      '' else
+        installPhase;
 
-    passthru = {
-      packageName = name;
-      env = shell self;
-      inherit beamDeps;
-    };
-});
+      passthru = {
+        packageName = name;
+        env = shell self;
+        inherit beamDeps;
+      };
+    });
 in fix pkg

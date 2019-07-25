@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, gnome3, glib,
-  gtk3, libgtop, bamf, json-glib, libcanberra-gtk3, libxkbcommon,
-  libstartup_notification, deepin-wallpapers, deepin-desktop-schemas,
-  deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, gnome3, glib, gtk3, libgtop, bamf, json-glib, libcanberra-gtk3, libxkbcommon, libstartup_notification, deepin-wallpapers, deepin-desktop-schemas, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,13 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "1im0wz1zlxiag4kpp5d4hv0aa0ybr4bizarr3903hrqv0lp46hyx";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    intltool
-    libtool
-    glib.dev
-    gnome3.gnome-common
-  ];
+  nativeBuildInputs =
+    [ pkgconfig intltool libtool glib.dev gnome3.gnome-common ];
 
   buildInputs = [
     gnome3.dconf
@@ -57,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "2D window manager for Deepin";
-    homepage = https://github.com/linuxdeepin/deepin-metacity;
+    homepage = "https://github.com/linuxdeepin/deepin-metacity";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

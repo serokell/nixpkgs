@@ -2,9 +2,7 @@
 let
   cfg = config.services.haproxy;
   haproxyCfg = pkgs.writeText "haproxy.conf" cfg.config;
-in
-with lib;
-{
+in with lib; {
   options = {
     services.haproxy = {
 
@@ -45,8 +43,10 @@ with lib;
         Type = "forking";
         PIDFile = "/run/haproxy.pid";
         ExecStartPre = "${pkgs.haproxy}/sbin/haproxy -c -q -f ${haproxyCfg}";
-        ExecStart = "${pkgs.haproxy}/sbin/haproxy -D -f ${haproxyCfg} -p /run/haproxy.pid";
-        ExecReload = "-${pkgs.bash}/bin/bash -c \"exec ${pkgs.haproxy}/sbin/haproxy -D -f ${haproxyCfg} -p /run/haproxy.pid -sf $MAINPID\"";
+        ExecStart =
+          "${pkgs.haproxy}/sbin/haproxy -D -f ${haproxyCfg} -p /run/haproxy.pid";
+        ExecReload = ''
+          -${pkgs.bash}/bin/bash -c "exec ${pkgs.haproxy}/sbin/haproxy -D -f ${haproxyCfg} -p /run/haproxy.pid -sf $MAINPID"'';
       };
     };
 

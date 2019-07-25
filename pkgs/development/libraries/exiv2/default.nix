@@ -1,15 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, zlib
-, expat
-, cmake
-, which
-, libxml2
-, python3
-, gettext
-, doxygen
-, graphviz
-, libxslt
+{ stdenv, fetchFromGitHub, zlib, expat, cmake, which, libxml2, python3, gettext, doxygen, graphviz, libxslt
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +7,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub rec {
     owner = "exiv2";
-    repo  = "exiv2";
+    repo = "exiv2";
     rev = version;
     sha256 = "0b5m921070fkyif0zlyb49gly3p6xd0hv1jyym4j25hx12gzbx0c";
   };
@@ -28,35 +17,17 @@ stdenv.mkDerivation rec {
     ./fix-cmake.patch
   ];
 
-  cmakeFlags = [
-    "-DEXIV2_BUILD_PO=ON"
-    "-DEXIV2_BUILD_DOC=ON"
-  ];
+  cmakeFlags = [ "-DEXIV2_BUILD_PO=ON" "-DEXIV2_BUILD_DOC=ON" ];
 
   outputs = [ "out" "dev" "doc" "man" ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    gettext
-    graphviz
-    libxslt
-  ];
+  nativeBuildInputs = [ cmake doxygen gettext graphviz libxslt ];
 
-  propagatedBuildInputs = [
-    expat
-    zlib
-  ];
+  propagatedBuildInputs = [ expat zlib ];
 
-  checkInputs = [
-    libxml2.bin
-    python3
-    which
-  ];
+  checkInputs = [ libxml2.bin python3 which ];
 
-  buildFlags = [
-    "doc"
-  ];
+  buildFlags = [ "doc" ];
 
   doCheck = stdenv.isLinux;
 
@@ -91,7 +62,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.exiv2.org/;
+    homepage = "https://www.exiv2.org/";
     description = "A library and command-line utility to manage image metadata";
     platforms = platforms.all;
     license = licenses.gpl2Plus;

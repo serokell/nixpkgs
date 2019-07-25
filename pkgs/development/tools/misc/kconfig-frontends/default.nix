@@ -11,17 +11,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ bison flex gperf ncurses pythonPackages.python pythonPackages.wrapPython ];
-
-  configureFlags = [
-    "--enable-frontends=conf,mconf,nconf"
+  buildInputs = [
+    bison
+    flex
+    gperf
+    ncurses
+    pythonPackages.python
+    pythonPackages.wrapPython
   ];
+
+  configureFlags = [ "--enable-frontends=conf,mconf,nconf" ];
 
   postInstall = ''
     wrapPythonPrograms
   '';
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=format-security";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=format-security";
 
   meta = with stdenv.lib; {
     description = "Out of Linux tree packaging of the kconfig infrastructure";
@@ -31,7 +37,7 @@ stdenv.mkDerivation rec {
       types, simple organization of options, and direct and reverse
       dependencies.
     '';
-    homepage = http://ymorin.is-a-geek.org/projects/kconfig-frontends;
+    homepage = "http://ymorin.is-a-geek.org/projects/kconfig-frontends";
     license = licenses.gpl2;
     platforms = platforms.unix;
     maintainers = with maintainers; [ mbe ];

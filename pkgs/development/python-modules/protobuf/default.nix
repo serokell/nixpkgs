@@ -1,6 +1,5 @@
-{ stdenv, fetchpatch, python, buildPythonPackage, isPy37
-, protobuf, google_apputils, pyext, libcxx
-, disabled, doCheck ? true }:
+{ stdenv, fetchpatch, python, buildPythonPackage, isPy37, protobuf, google_apputils, pyext, libcxx, disabled, doCheck ?
+  true }:
 
 with stdenv.lib;
 
@@ -14,18 +13,18 @@ buildPythonPackage rec {
     ++ optional (versionOlder protobuf.version "2.7.0") "-std=c++98";
 
   propagatedBuildInputs = [ google_apputils ];
-  propagatedNativeBuildInputs = [ protobuf ];  # For protoc.
+  propagatedNativeBuildInputs = [ protobuf ]; # For protoc.
   nativeBuildInputs = [ google_apputils pyext ];
   buildInputs = [ protobuf ];
 
   patches = optional (isPy37 && (versionOlder protobuf.version "3.6.1.2"))
     # Python 3.7 compatibility (not needed for protobuf >= 3.6.1.2)
     (fetchpatch {
-      url = "https://github.com/protocolbuffers/protobuf/commit/0a59054c30e4f0ba10f10acfc1d7f3814c63e1a7.patch";
+      url =
+        "https://github.com/protocolbuffers/protobuf/commit/0a59054c30e4f0ba10f10acfc1d7f3814c63e1a7.patch";
       sha256 = "09hw22y3423v8bbmc9xm07znwdxfbya6rp78d4zqw6fisdvjkqf1";
       stripLen = 1;
-    })
-  ;
+    });
 
   prePatch = ''
     while [ ! -d python ]; do
@@ -58,7 +57,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Protocol Buffers are Google's data interchange format";
-    homepage = https://developers.google.com/protocol-buffers/;
+    homepage = "https://developers.google.com/protocol-buffers/";
   };
 
   passthru.protobuf = protobuf;

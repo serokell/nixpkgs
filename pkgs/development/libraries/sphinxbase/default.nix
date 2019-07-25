@@ -1,10 +1,6 @@
-{ stdenv
-, fetchurl
-, bison
-, pkgconfig
-, python27 # >= 2.6
+{ stdenv, fetchurl, bison, pkgconfig, python27 # >= 2.6
 , swig2 # 2.0
-, multipleOutputs ? false #Uses incomplete features of nix!
+, multipleOutputs ? false # Uses incomplete features of nix!
 }:
 
 stdenv.mkDerivation (rec {
@@ -20,7 +16,7 @@ stdenv.mkDerivation (rec {
 
   meta = {
     description = "Support Library for Pocketsphinx";
-    homepage = http://cmusphinx.sourceforge.net;
+    homepage = "http://cmusphinx.sourceforge.net";
     license = stdenv.lib.licenses.bsd2;
     platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];

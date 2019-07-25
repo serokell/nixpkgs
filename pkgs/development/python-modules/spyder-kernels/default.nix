@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, cloudpickle, ipykernel, wurlitzer,
-  jupyter_client, pyzmq }:
+{ stdenv, buildPythonPackage, fetchPypi, cloudpickle, ipykernel, wurlitzer, jupyter_client, pyzmq
+}:
 
 buildPythonPackage rec {
   pname = "spyder-kernels";
@@ -10,13 +10,8 @@ buildPythonPackage rec {
     sha256 = "0g3754s71cnh7kygps6gbzrhs5gb47p3pblr7hcvxk1mzl3xw94r";
   };
 
-  propagatedBuildInputs = [
-    cloudpickle
-    ipykernel
-    wurlitzer
-    jupyter_client
-    pyzmq
-  ];
+  propagatedBuildInputs =
+    [ cloudpickle ipykernel wurlitzer jupyter_client pyzmq ];
 
   # No tests
   doCheck = false;

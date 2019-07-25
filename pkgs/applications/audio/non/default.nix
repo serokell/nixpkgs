@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python2, cairo, libjpeg, ntk, libjack2
-, libsndfile, ladspaH, liblrdf, liblo, libsigcxx, wafHook
+{ stdenv, fetchFromGitHub, pkgconfig, python2, cairo, libjpeg, ntk, libjack2, libsndfile, ladspaH, liblrdf, liblo, libsigcxx, wafHook
 }:
 
 stdenv.mkDerivation rec {
@@ -13,13 +12,23 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig wafHook ];
-  buildInputs = [ python2 cairo libjpeg ntk libjack2 libsndfile
-    ladspaH liblrdf liblo libsigcxx
+  buildInputs = [
+    python2
+    cairo
+    libjpeg
+    ntk
+    libjack2
+    libsndfile
+    ladspaH
+    liblrdf
+    liblo
+    libsigcxx
   ];
 
   meta = {
-    description = "Lightweight and lightning fast modular Digital Audio Workstation";
-    homepage = http://non.tuxfamily.org;
+    description =
+      "Lightweight and lightning fast modular Digital Audio Workstation";
+    homepage = "http://non.tuxfamily.org";
     license = stdenv.lib.licenses.lgpl21;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.nico202 ];

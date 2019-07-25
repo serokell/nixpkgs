@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, udev, dbus, perl, python2
-, IOKit ? null }:
+{ stdenv, fetchurl, pkgconfig, udev, dbus, perl, python2, IOKit ? null }:
 
 stdenv.mkDerivation rec {
   name = "pcsclite-${version}";
@@ -20,9 +19,8 @@ stdenv.mkDerivation rec {
     "--enable-confdir=/etc"
     "--enable-ipcdir=/run/pcscd"
   ] ++ stdenv.lib.optional stdenv.isLinux
-         "--with-systemdsystemunitdir=\${out}/etc/systemd/system"
-    ++ stdenv.lib.optional (!stdenv.isLinux)
-         "--disable-libsystemd";
+    "--with-systemdsystemunitdir=\${out}/etc/systemd/system"
+    ++ stdenv.lib.optional (!stdenv.isLinux) "--disable-libsystemd";
 
   postConfigure = ''
     sed -i -re '/^#define *PCSCLITE_HP_DROPDIR */ {
@@ -37,11 +35,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig perl python2 ];
   buildInputs = stdenv.lib.optionals stdenv.isLinux [ udev dbus ]
-             ++ stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
+    ++ stdenv.lib.optionals stdenv.isDarwin [ IOKit ];
 
   meta = with stdenv.lib; {
     description = "Middleware to access a smart card using SCard API (PC/SC)";
-    homepage = https://pcsclite.apdu.fr/;
+    homepage = "https://pcsclite.apdu.fr/";
     license = licenses.bsd3;
     platforms = with platforms; unix;
   };

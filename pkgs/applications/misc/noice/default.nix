@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "03rwglcy47fh6rb630vws10m95bxpcfv47nxrlws2li2ljam8prw";
   };
 
-  configFile = optionalString (conf!=null) (builtins.toFile "config.def.h" conf);
-  preBuild = optionalString (conf!=null) "cp ${configFile} config.def.h";
+  configFile =
+    optionalString (conf != null) (builtins.toFile "config.def.h" conf);
+  preBuild = optionalString (conf != null) "cp ${configFile} config.def.h";
 
   buildInputs = [ ncurses ];
 
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Small ncurses-based file browser";
-    homepage = https://git.2f30.org/noice/;
+    homepage = "https://git.2f30.org/noice/";
     license = licenses.bsd2;
     platforms = platforms.all;
     maintainers = with maintainers; [ jfrankenau ];

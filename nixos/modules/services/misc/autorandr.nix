@@ -11,7 +11,8 @@ in {
   options = {
 
     services.autorandr = {
-      enable = mkEnableOption "handling of hotplug and sleep events by autorandr";
+      enable =
+        mkEnableOption "handling of hotplug and sleep events by autorandr";
 
       defaultTarget = mkOption {
         default = "default";
@@ -40,7 +41,8 @@ in {
       serviceConfig = {
         StartLimitInterval = 5;
         StartLimitBurst = 1;
-        ExecStart = "${pkgs.autorandr}/bin/autorandr --batch --change --default ${cfg.defaultTarget}";
+        ExecStart =
+          "${pkgs.autorandr}/bin/autorandr --batch --change --default ${cfg.defaultTarget}";
         Type = "oneshot";
         RemainAfterExit = false;
       };

@@ -1,10 +1,11 @@
-{ lib, fetchPypi, python, buildPythonPackage, gfortran, pytest, blas, writeTextFile, isPyPy }:
+{ lib, fetchPypi, python, buildPythonPackage, gfortran, pytest, blas, writeTextFile, isPyPy
+}:
 
 let
   blasImplementation = lib.nameFromURL blas.name "-";
   cfg = writeTextFile {
     name = "site.cfg";
-    text = (lib.generators.toINI {} {
+    text = (lib.generators.toINI { } {
       "${blasImplementation}" = {
         include_dirs = "${blas}/include";
         library_dirs = "${blas}/lib";
@@ -45,7 +46,8 @@ in buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  doCheck = !isPyPy; # numpy 1.16+ hits a bug in pypy's ctypes, using either numpy or pypy HEAD fixes this (https://github.com/numpy/numpy/issues/13807)
+  doCheck =
+    !isPyPy; # numpy 1.16+ hits a bug in pypy's ctypes, using either numpy or pypy HEAD fixes this (https://github.com/numpy/numpy/issues/13807)
 
   checkPhase = ''
     runHook preCheck
@@ -63,11 +65,11 @@ in buildPythonPackage rec {
   # Disable two tests
   # - test_f2py: f2py isn't yet on path.
   # - test_large_file_support: takes a long time and can cause the machine to run out of disk space
-  NOSE_EXCLUDE="test_f2py,test_large_file_support";
+  NOSE_EXCLUDE = "test_f2py,test_large_file_support";
 
   meta = {
     description = "Scientific tools for Python";
-    homepage = http://numpy.scipy.org/;
+    homepage = "http://numpy.scipy.org/";
     maintainers = with lib.maintainers; [ fridh ];
   };
 }

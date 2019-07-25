@@ -1,69 +1,26 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, gettext
-, config
-, pkgconfig, python3, gst-plugins-base, orc
-, gobject-introspection
-, faacSupport ? false, faac ? null
-, faad2, libass, libkate, libmms, librdf, ladspaH
-, libnice, webrtc-audio-processing, lilv, lv2, serd, sord, sratom
-, libbs2b, libmodplug, mpeg2dec
-, openjpeg, libopus, librsvg
-, bluez
-, chromaprint
-, curl
-, directfb
-, fdk_aac
-, flite
-, gsm
-, libaom
-, libdc1394
-, libde265
-, libdrm
-, libdvdnav
-, libdvdread
-, libgudev
-, libofa
-, libsndfile
-, libusb1
-, neon
-, openal
-, opencv3
-, openexr
-, openh264
-, pango
-, rtmpdump
-, sbc
-, soundtouch
-, spandsp
-, srtp
-, zbar
-, wayland-protocols
-, wildmidi, fluidsynth, libvdpau, wayland
-, libwebp, xvidcore, gnutls, mjpegtools
-, libGLU_combined, libintl, libgme
-, openssl, x265, libxml2
-, srt
+{ stdenv, fetchurl, fetchpatch, meson, ninja, gettext, config, pkgconfig, python3, gst-plugins-base, orc, gobject-introspection, faacSupport ?
+  false, faac ?
+    null, faad2, libass, libkate, libmms, librdf, ladspaH, libnice, webrtc-audio-processing, lilv, lv2, serd, sord, sratom, libbs2b, libmodplug, mpeg2dec, openjpeg, libopus, librsvg, bluez, chromaprint, curl, directfb, fdk_aac, flite, gsm, libaom, libdc1394, libde265, libdrm, libdvdnav, libdvdread, libgudev, libofa, libsndfile, libusb1, neon, openal, opencv3, openexr, openh264, pango, rtmpdump, sbc, soundtouch, spandsp, srtp, zbar, wayland-protocols, wildmidi, fluidsynth, libvdpau, wayland, libwebp, xvidcore, gnutls, mjpegtools, libGLU_combined, libintl, libgme, openssl, x265, libxml2, srt
 }:
 
 assert faacSupport -> faac != null;
 
-let
-  inherit (stdenv.lib) optional optionals;
-in
-stdenv.mkDerivation rec {
+let inherit (stdenv.lib) optional optionals;
+in stdenv.mkDerivation rec {
   name = "gst-plugins-bad-${version}";
   version = "1.16.0";
 
   meta = with stdenv.lib; {
     description = "Gstreamer Bad Plugins";
-    homepage    = "https://gstreamer.freedesktop.org";
+    homepage = "https://gstreamer.freedesktop.org";
     longDescription = ''
       a set of plug-ins that aren't up to par compared to the
       rest.  They might be close to being good quality, but they're missing
       something - be it a good code review, some documentation, a set of tests,
       a real live maintainer, or some actual wide use.
     '';
-    license     = licenses.lgpl2Plus;
-    platforms   = platforms.linux ++ platforms.darwin;
+    license = licenses.lgpl2Plus;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ matthewbauer ];
   };
 
@@ -75,12 +32,14 @@ stdenv.mkDerivation rec {
     ./fix_pkgconfig_includedir.patch
     # Remove when https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/312 is merged and available to us
     (fetchpatch {
-      url = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/99790eaad9083cce5ab2b1646489e1a1c0faad1e.patch";
+      url =
+        "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/99790eaad9083cce5ab2b1646489e1a1c0faad1e.patch";
       sha256 = "11bqy4sl05qq5mj4bx5s09rq106s3j0vnpjl4np058im32j69lr3";
     })
     # Remove when https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/312 is merged and available to us
     (fetchpatch {
-      url = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/1872da81c48d3a719bd39955fd97deac7d037d74.patch";
+      url =
+        "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/commit/1872da81c48d3a719bd39955fd97deac7d037d74.patch";
       sha256 = "11zwrr5ggflmvr0qfssj7dmhgd3ybiadmy79b4zh24022zgw3xpz";
     })
   ];
@@ -92,22 +51,32 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    meson ninja pkgconfig python3 gettext gobject-introspection
-  ]
-  ++ optionals stdenv.isLinux [
-    wayland-protocols
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkgconfig python3 gettext gobject-introspection ]
+    ++ optionals stdenv.isLinux [ wayland-protocols ];
 
   buildInputs = [
-    gst-plugins-base orc
-    faad2 libass libkate libmms
-    libnice webrtc-audio-processing # webrtc
+    gst-plugins-base
+    orc
+    faad2
+    libass
+    libkate
+    libmms
+    libnice
+    webrtc-audio-processing # webrtc
     libbs2b
-    ladspaH librdf # ladspa plug-in
-    lilv lv2 serd sord sratom # lv2 plug-in
-    libmodplug mpeg2dec
-    openjpeg libopus librsvg
+    ladspaH
+    librdf # ladspa plug-in
+    lilv
+    lv2
+    serd
+    sord
+    sratom # lv2 plug-in
+    libmodplug
+    mpeg2dec
+    openjpeg
+    libopus
+    librsvg
     bluez
     chromaprint
     curl.dev
@@ -137,14 +106,19 @@ stdenv.mkDerivation rec {
     spandsp
     srtp
     zbar
-    fluidsynth libvdpau
-    libwebp xvidcore gnutls libGLU_combined
-    libgme openssl x265 libxml2
+    fluidsynth
+    libvdpau
+    libwebp
+    xvidcore
+    gnutls
+    libGLU_combined
+    libgme
+    openssl
+    x265
+    libxml2
     libintl
     srt
-  ]
-    ++ optional faacSupport faac
-    ++ optional stdenv.isLinux wayland
+  ] ++ optional faacSupport faac ++ optional stdenv.isLinux wayland
     # wildmidi requires apple's OpenAL
     # TODO: package apple's OpenAL, fix wildmidi, include on Darwin
     ++ optional (!stdenv.isDarwin) wildmidi

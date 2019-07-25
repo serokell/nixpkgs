@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, docutils
-, pillow
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, lxml, docutils, pillow, isPy3k }:
 
 buildPythonPackage rec {
   version = "1.1.7";
@@ -23,8 +16,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/lpod/lpod-python/;
-    description = "Library implementing the ISO/IEC 26300 OpenDocument Format standard (ODF) ";
+    homepage = "https://github.com/lpod/lpod-python/";
+    description =
+      "Library implementing the ISO/IEC 26300 OpenDocument Format standard (ODF) ";
     license = licenses.gpl3;
   };
 

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "flup";

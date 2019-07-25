@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "173l9yai5yndbyn8nzdl6q11wv4x959bd0w392i82nfsqcz0pfsv";
   };
 
-  configureFlags = [
-    "--program-transform-name='s,^,b,'"
-  ];
+  configureFlags = [ "--program-transform-name='s,^,b,'" ];
 
   doCheck = true;
 
@@ -24,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Berkeley YACC";
-    homepage = https://invisible-island.net/byacc/byacc.html;
+    homepage = "https://invisible-island.net/byacc/byacc.html";
     license = licenses.publicDomain;
     platforms = platforms.unix;
   };

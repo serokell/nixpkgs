@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
 
   # Release tarball differs from source tarball
   src = fetchurl {
-    url = "https://github.com/uriparser/uriparser/releases/download/${name}/${name}.tar.bz2";
+    url =
+      "https://github.com/uriparser/uriparser/releases/download/${name}/${name}.tar.bz2";
     sha256 = "1gisi7h8hd6mswbiaaa3s25bnb77xf37pzrmjy63rcdpwcyqy93m";
   };
 
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
   doCheck = stdenv.targetPlatform.system == stdenv.hostPlatform.system;
 
   meta = with stdenv.lib; {
-    homepage = https://uriparser.github.io/;
+    homepage = "https://uriparser.github.io/";
     description = "Strictly RFC 3986 compliant URI parsing library";
     longDescription = ''
       uriparser is a strictly RFC 3986 compliant URI parsing and handling library written in C.

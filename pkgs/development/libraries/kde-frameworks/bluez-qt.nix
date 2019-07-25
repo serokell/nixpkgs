@@ -1,7 +1,4 @@
-{ mkDerivation, lib
-, extra-cmake-modules
-, qtbase, qtdeclarative
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtbase, qtdeclarative }:
 
 mkDerivation {
   name = "bluez-qt";

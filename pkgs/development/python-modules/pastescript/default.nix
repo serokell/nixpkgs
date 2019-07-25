@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, six
-, paste
-, PasteDeploy
-, cheetah
+{ stdenv, buildPythonPackage, fetchPypi, nose, six, paste, PasteDeploy, cheetah
 }:
 
 buildPythonPackage rec {
@@ -23,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A pluggable command-line frontend, including commands to setup package file layouts";
-    homepage = http://pythonpaste.org/script/;
+    description =
+      "A pluggable command-line frontend, including commands to setup package file layouts";
+    homepage = "http://pythonpaste.org/script/";
     license = licenses.mit;
   };
 

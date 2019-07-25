@@ -13,7 +13,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ ipaddress ];
 
   meta = with stdenv.lib; {
-    description = "RFC 3986 compliant, Unicode-aware, scheme-agnostic replacement for urlparse";
+    description =
+      "RFC 3986 compliant, Unicode-aware, scheme-agnostic replacement for urlparse";
     license = licenses.mit;
     maintainers = [ maintainers.rvolosatovs ];
   };

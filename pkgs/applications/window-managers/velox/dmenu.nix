@@ -1,6 +1,5 @@
-{stdenv, fetchFromGitHub #, libX11, libXinerama, enableXft, libXft, zlib
-, swc, wld, wayland, libxkbcommon, pixman, fontconfig
-}:
+{ stdenv, fetchFromGitHub # , libX11, libXinerama, enableXft, libXft, zlib
+, swc, wld, wayland, libxkbcommon, pixman, fontconfig }:
 
 with stdenv.lib;
 
@@ -22,14 +21,16 @@ stdenv.mkDerivation rec {
   '';
 
   preConfigure = [
-    ''sed -i "s@PREFIX = /usr/local@PREFIX = $out@g; s@/usr/share/swc@${swc}/share/swc@g" config.mk''
+    ''
+      sed -i "s@PREFIX = /usr/local@PREFIX = $out@g; s@/usr/share/swc@${swc}/share/swc@g" config.mk''
   ];
 
   enableParallelBuilding = true;
 
   meta = {
-    description = "A generic, highly customizable, and efficient menu for the X Window System";
-    homepage = https://tools.suckless.org/dmenu;
+    description =
+      "A generic, highly customizable, and efficient menu for the X Window System";
+    homepage = "https://tools.suckless.org/dmenu";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ ];
     platforms = with stdenv.lib.platforms; all;

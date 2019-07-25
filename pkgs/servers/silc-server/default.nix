@@ -9,10 +9,10 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    homepage = http://silcnet.org/;
+    homepage = "http://silcnet.org/";
     description = "Secure Internet Live Conferencing server";
     license = stdenv.lib.licenses.gpl2;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

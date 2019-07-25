@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, rofi, mpc_cli, perl,
-utillinux, pythonPackages, libnotify }:
+{ stdenv, fetchFromGitHub, makeWrapper, rofi, mpc_cli, perl, utillinux, pythonPackages, libnotify
+}:
 
 stdenv.mkDerivation {
   name = "clerk-2016-10-14";
@@ -18,13 +18,15 @@ stdenv.mkDerivation {
   installPhase = ''
     DESTDIR=$out PREFIX=/ make install
     wrapProgram $out/bin/clerk \
-      --prefix PATH : "${stdenv.lib.makeBinPath [ rofi mpc_cli perl utillinux libnotify ]}"
+      --prefix PATH : "${
+      stdenv.lib.makeBinPath [ rofi mpc_cli perl utillinux libnotify ]
+      }"
   '';
 
   meta = with stdenv.lib; {
     description = "An MPD client built on top of rofi";
-    homepage    = https://github.com/carnager/clerk;
-    license     = licenses.mit;
+    homepage = "https://github.com/carnager/clerk";
+    license = licenses.mit;
     maintainers = with maintainers; [ anderspapitto ];
   };
 }

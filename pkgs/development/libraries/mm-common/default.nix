@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "0.9.12";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "02vwgv404b56wxy0gnm9xq9fvzgn9dhfqcy2hhl78ljv3v7drzyf";
   };
 
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
       control repository. An installation of mm-common is not required for
       building tarball releases, unless configured to use maintainer-mode.
     '';
-    homepage = https://www.gtkmm.org;
+    homepage = "https://www.gtkmm.org";
     license = licenses.gpl2Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

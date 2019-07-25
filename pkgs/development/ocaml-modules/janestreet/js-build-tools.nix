@@ -17,7 +17,8 @@ buildOcaml rec {
 
   dontAddPrefix = true;
   configurePhase = "./configure --prefix $prefix";
-  installPhase = "opaline -prefix $prefix -libdir $OCAMLFIND_DESTDIR ${name}.install";
+  installPhase =
+    "opaline -prefix $prefix -libdir $OCAMLFIND_DESTDIR ${name}.install";
 
   patches = [ ./js-build-tools-darwin.patch ];
 

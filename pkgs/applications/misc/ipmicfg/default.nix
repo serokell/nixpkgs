@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   buildVersion = "181029";
 
   src = fetchzip {
-    url = "ftp://ftp.supermicro.com/utility/IPMICFG/IPMICFG_${version}_build.${buildVersion}.zip";
+    url =
+      "ftp://ftp.supermicro.com/utility/IPMICFG/IPMICFG_${version}_build.${buildVersion}.zip";
     sha256 = "18nljs4xg6hffahyd0d5zlg1jhbwl7zr9ym925bkzwcnrkgqs2v3";
     extraPostFetch = "chmod u+rwX,go-rwx+X $out/";
   };
@@ -23,13 +24,14 @@ stdenv.mkDerivation rec {
     ln -s "$out/opt/ipmicfg/IPMICFG-Linux.x86_64" "$out/bin/ipmicfg"
   '';
 
-   dontPatchShebangs = true; # There are no scripts and it complains about null bytes.
+  dontPatchShebangs =
+    true; # There are no scripts and it complains about null bytes.
 
-   meta = with stdenv.lib; {
-     description = "Supermicro IPMI configuration tool";
-     homepage = "http://www.supermicro.com/products/nfo/ipmi.cfm";
-     license = licenses.unfree;
-     platforms = [ "x86_64-linux" ];
-     maintainers = with maintainers; [ sorki ];
-   };
+  meta = with stdenv.lib; {
+    description = "Supermicro IPMI configuration tool";
+    homepage = "http://www.supermicro.com/products/nfo/ipmi.cfm";
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ sorki ];
+  };
 }

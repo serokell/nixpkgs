@@ -7,7 +7,9 @@ let
   cfg = config.services.xserver.displayManager;
   gdm = pkgs.gnome3.gdm;
 
-  xSessionWrapper = if (cfg.setupCommands == "") then null else
+  xSessionWrapper = if (cfg.setupCommands == "") then
+    null
+  else
     pkgs.writeScript "gdm-x-session-wrapper" ''
       #!${pkgs.bash}/bin/bash
       ${cfg.setupCommands}
@@ -31,9 +33,7 @@ let
     load-module module-position-event-sounds
   '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -53,7 +53,7 @@ in
       '';
 
       autoLogin = mkOption {
-        default = {};
+        default = { };
         description = ''
           Auto login configuration attrset.
         '';
@@ -100,26 +100,25 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.gdm.enable {
 
-    assertions = [
-      { assertion = cfg.gdm.autoLogin.enable -> cfg.gdm.autoLogin.user != null;
-        message = "GDM auto-login requires services.xserver.displayManager.gdm.autoLogin.user to be set";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.gdm.autoLogin.enable -> cfg.gdm.autoLogin.user != null;
+      message =
+        "GDM auto-login requires services.xserver.displayManager.gdm.autoLogin.user to be set";
+    }];
 
     services.xserver.displayManager.lightdm.enable = false;
 
-    users.users.gdm =
-      { name = "gdm";
-        uid = config.ids.uids.gdm;
-        group = "gdm";
-        home = "/run/gdm";
-        description = "GDM user";
-      };
+    users.users.gdm = {
+      name = "gdm";
+      uid = config.ids.uids.gdm;
+      group = "gdm";
+      home = "/run/gdm";
+      description = "GDM user";
+    };
 
     users.groups.gdm.gid = config.ids.gids.gdm;
 
@@ -128,27 +127,26 @@ in
     services.xserver.display = null;
     services.xserver.verbose = null;
 
-    services.xserver.displayManager.job =
-      {
-        environment = {
-          GDM_X_SERVER_EXTRA_ARGS = toString
-            (filter (arg: arg != "-terminate") cfg.xserverArgs);
-          XDG_DATA_DIRS = "${cfg.session.desktops}/share/";
-          # Find the mouse
-          XCURSOR_PATH = "~/.icons:${pkgs.gnome3.adwaita-icon-theme}/share/icons";
-        } // optionalAttrs (xSessionWrapper != null) {
-          # Make GDM use this wrapper before running the session, which runs the
-          # configured setupCommands. This relies on a patched GDM which supports
-          # this environment variable.
-          GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
-        };
-        execCmd = "exec ${gdm}/bin/gdm";
-        preStart = optionalString config.hardware.pulseaudio.enable ''
-          mkdir -p /run/gdm/.config/pulse
-          ln -sf ${pulseConfig} /run/gdm/.config/pulse/default.pa
-          chown -R gdm:gdm /run/gdm/.config
-        '';
+    services.xserver.displayManager.job = {
+      environment = {
+        GDM_X_SERVER_EXTRA_ARGS =
+          toString (filter (arg: arg != "-terminate") cfg.xserverArgs);
+        XDG_DATA_DIRS = "${cfg.session.desktops}/share/";
+        # Find the mouse
+        XCURSOR_PATH = "~/.icons:${pkgs.gnome3.adwaita-icon-theme}/share/icons";
+      } // optionalAttrs (xSessionWrapper != null) {
+        # Make GDM use this wrapper before running the session, which runs the
+        # configured setupCommands. This relies on a patched GDM which supports
+        # this environment variable.
+        GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
       };
+      execCmd = "exec ${gdm}/bin/gdm";
+      preStart = optionalString config.hardware.pulseaudio.enable ''
+        mkdir -p /run/gdm/.config/pulse
+        ln -sf ${pulseConfig} /run/gdm/.config/pulse/default.pa
+        chown -R gdm:gdm /run/gdm/.config
+      '';
+    };
 
     # Because sd_login_monitor_new requires /run/systemd/machines
     systemd.services.display-manager.wants = [ "systemd-machined.service" ];
@@ -187,16 +185,15 @@ in
     environment.etc."gdm/custom.conf".text = ''
       [daemon]
       WaylandEnable=${if cfg.gdm.wayland then "true" else "false"}
-      ${optionalString cfg.gdm.autoLogin.enable (
-        if cfg.gdm.autoLogin.delay > 0 then ''
-          TimedLoginEnable=true
-          TimedLogin=${cfg.gdm.autoLogin.user}
-          TimedLoginDelay=${toString cfg.gdm.autoLogin.delay}
-        '' else ''
-          AutomaticLoginEnable=true
-          AutomaticLogin=${cfg.gdm.autoLogin.user}
-        '')
-      }
+      ${optionalString cfg.gdm.autoLogin.enable
+      (if cfg.gdm.autoLogin.delay > 0 then ''
+        TimedLoginEnable=true
+        TimedLogin=${cfg.gdm.autoLogin.user}
+        TimedLoginDelay=${toString cfg.gdm.autoLogin.delay}
+      '' else ''
+        AutomaticLoginEnable=true
+        AutomaticLogin=${cfg.gdm.autoLogin.user}
+      '')}
 
       [security]
 
@@ -210,7 +207,8 @@ in
       ${optionalString cfg.gdm.debug "Enable=true"}
     '';
 
-    environment.etc."gdm/Xsession".source = config.services.xserver.displayManager.session.wrapper;
+    environment.etc."gdm/Xsession".source =
+      config.services.xserver.displayManager.session.wrapper;
 
     # GDM LFS PAM modules, adapted somehow to NixOS
     security.pam.services = {

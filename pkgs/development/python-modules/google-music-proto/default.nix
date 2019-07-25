@@ -1,9 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
-, attrs
-, audio-metadata
-, marshmallow
-, pendulum
-, protobuf
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, audio-metadata, marshmallow, pendulum, protobuf
 }:
 
 buildPythonPackage rec {
@@ -15,13 +10,8 @@ buildPythonPackage rec {
     sha256 = "798ac14408593525d1865f608b30f71cce291b1a239f4d63f14bb4dcf79d7528";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    audio-metadata
-    marshmallow
-    pendulum
-    protobuf
-  ];
+  propagatedBuildInputs =
+    [ attrs audio-metadata marshmallow pendulum protobuf ];
 
   # No tests
   doCheck = false;
@@ -29,7 +19,7 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
 
   meta = with lib; {
-    homepage = https://github.com/thebigmunch/google-music-proto;
+    homepage = "https://github.com/thebigmunch/google-music-proto";
     description = "Sans-I/O wrapper of Google Music API calls";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

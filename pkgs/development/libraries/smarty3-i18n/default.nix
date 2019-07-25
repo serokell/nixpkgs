@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, ... }: stdenv.mkDerivation rec {
+{ stdenv, fetchFromGitHub, ... }:
+stdenv.mkDerivation rec {
   name = "smarty-i18n-${version}";
   version = "1.0";
 
@@ -17,7 +18,7 @@
   meta = with stdenv.lib; {
     description = "gettext for the smarty3 framework";
     license = licenses.lgpl21;
-    homepage = https://github.com/kikimosha/smarty3-i18n;
+    homepage = "https://github.com/kikimosha/smarty3-i18n";
     maintainers = with maintainers; [ das_j ];
     platforms = platforms.all;
   };

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, python
-, py
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, python, py, isPyPy }:
 
 buildPythonPackage rec {
   name = "tkinter-${python.version}";

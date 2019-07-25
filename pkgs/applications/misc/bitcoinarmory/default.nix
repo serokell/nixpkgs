@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, pythonPackages
-, pkgconfig, autoreconfHook, rsync
-, swig, qt48Full, fcgi
-, bitcoin, procps, utillinux
+{ stdenv, fetchFromGitHub, pythonPackages, pkgconfig, autoreconfHook, rsync, swig, qt48Full, fcgi, bitcoin, procps, utillinux
 }:
 let
 
@@ -16,7 +13,8 @@ in buildPythonApplication {
     owner = "goatpig";
     repo = "BitcoinArmory";
     rev = "v${version}";
-    sha256 = "0pjk5qx16n3kvs9py62666qkwp2awkgd87by4karbj7vk6p1l14h"; fetchSubmodules = true;
+    sha256 = "0pjk5qx16n3kvs9py62666qkwp2awkgd87by4karbj7vk6p1l14h";
+    fetchSubmodules = true;
   };
 
   format = "other";
@@ -32,25 +30,18 @@ in buildPythonApplication {
     qt48Full
     rsync # used by silly install script (TODO patch upstream)
   ];
-  buildInputs = [
-    qt48Full
-    fcgi
-  ];
+  buildInputs = [ qt48Full fcgi ];
 
-  propagatedBuildInputs = [
-    pyqt4
-    psutil
-    twisted
-  ];
+  propagatedBuildInputs = [ pyqt4 psutil twisted ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   makeWrapperArgs = [
-    "--prefix            PATH : ${bitcoin}/bin"   # for `bitcoind`
-    "--prefix            PATH : ${procps}/bin"    # for `free`
+    "--prefix            PATH : ${bitcoin}/bin" # for `bitcoind`
+    "--prefix            PATH : ${procps}/bin" # for `free`
     "--prefix            PATH : ${utillinux}/bin" # for `whereis`
-    "--suffix LD_LIBRARY_PATH : $out/lib"         # for python bindings built as .so files
-    "--run    cd\\ $out/lib/armory"               # so that GUI resources can be loaded
+    "--suffix LD_LIBRARY_PATH : $out/lib" # for python bindings built as .so files
+    "--run    cd\\ $out/lib/armory" # so that GUI resources can be loaded
   ];
 
   # auditTmpdir runs during fixupPhase, so patchelf before that
@@ -66,7 +57,8 @@ in buildPythonApplication {
   '';
 
   meta = {
-    description = "Bitcoin wallet with cold storage and multi-signature support";
+    description =
+      "Bitcoin wallet with cold storage and multi-signature support";
     longDescription = ''
       Armory is the most secure and full featured solution available for users
       and institutions to generate and store Bitcoin private keys. This means
@@ -82,7 +74,7 @@ in buildPythonApplication {
       discontinued development. I elected instead to package GitHub user
       @goatpig's fork, as it's the most active, at time of this writing.
     '';
-    homepage = https://github.com/goatpig/BitcoinArmory;
+    homepage = "https://github.com/goatpig/BitcoinArmory";
     license = stdenv.lib.licenses.agpl3Plus;
     maintainers = with stdenv.lib.maintainers; [ elitak ];
     platforms = [ "i686-linux" "x86_64-linux" ];

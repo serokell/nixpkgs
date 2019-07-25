@@ -1,12 +1,13 @@
-{ stdenv, fetchurl, pkgconfig, perl, utillinux, keyutils, nss, nspr, python2, pam
-, intltool, makeWrapper, coreutils, bash, gettext, cryptsetup, lvm2, rsync, which, lsof }:
+{ stdenv, fetchurl, pkgconfig, perl, utillinux, keyutils, nss, nspr, python2, pam, intltool, makeWrapper, coreutils, bash, gettext, cryptsetup, lvm2, rsync, which, lsof
+}:
 
 stdenv.mkDerivation rec {
   name = "ecryptfs-${version}";
   version = "111";
 
   src = fetchurl {
-    url = "https://launchpad.net/ecryptfs/trunk/${version}/+download/ecryptfs-utils_${version}.orig.tar.gz";
+    url =
+      "https://launchpad.net/ecryptfs/trunk/${version}/+download/ecryptfs-utils_${version}.orig.tar.gz";
     sha256 = "0zwq19siiwf09h7lwa7n7mgmrr8cxifp45lmwgcfr8c1gviv6b0i";
   };
 
@@ -35,7 +36,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ perl nss nspr python2 pam intltool makeWrapper ];
-  propagatedBuildInputs = [ coreutils gettext cryptsetup lvm2 rsync keyutils which ];
+  propagatedBuildInputs =
+    [ coreutils gettext cryptsetup lvm2 rsync keyutils which ];
 
   postInstall = ''
     FILES="$(grep -r '/bin/sh' $out/bin -l)"
@@ -53,8 +55,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Enterprise-class stacked cryptographic filesystem";
-    license     = licenses.gpl2Plus;
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ obadz ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

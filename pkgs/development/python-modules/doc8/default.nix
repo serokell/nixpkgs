@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pbr
-, docutils
-, six
-, chardet
-, stevedore
-, restructuredtext_lint
+{ lib, buildPythonPackage, fetchPypi, pbr, docutils, six, chardet, stevedore, restructuredtext_lint
 }:
 
 buildPythonPackage rec {
@@ -19,7 +11,8 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ pbr ];
-  propagatedBuildInputs = [ docutils six chardet stevedore restructuredtext_lint ];
+  propagatedBuildInputs =
+    [ docutils six chardet stevedore restructuredtext_lint ];
 
   doCheck = false;
 

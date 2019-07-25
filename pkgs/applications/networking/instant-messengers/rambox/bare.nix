@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchNodeModules, nodejs-8_x, ruby, sencha
-, auth0ClientID, auth0Domain }:
+{ stdenv, fetchFromGitHub, fetchNodeModules, nodejs-8_x, ruby, sencha, auth0ClientID, auth0Domain
+}:
 
 stdenv.mkDerivation rec {
   name = "rambox-bare-${version}";
@@ -47,8 +47,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Messaging and emailing app that combines common web applications into one";
-    homepage = http://rambox.pro;
+    description =
+      "Messaging and emailing app that combines common web applications into one";
+    homepage = "http://rambox.pro";
     license = licenses.gpl3;
     maintainers = with maintainers; [ gnidorah ];
     platforms = platforms.linux;

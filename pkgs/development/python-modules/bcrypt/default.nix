@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, isPyPy, fetchPypi
-, cffi, pycparser, mock, pytest, py, six }:
+{ stdenv, buildPythonPackage, isPyPy, fetchPypi, cffi, pycparser, mock, pytest, py, six
+}:
 
 with stdenv.lib;
 
@@ -18,6 +18,6 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ domenkozar ];
     description = "Modern password hashing for your software and your servers";
     license = licenses.asl20;
-    homepage = https://github.com/pyca/bcrypt/;
+    homepage = "https://github.com/pyca/bcrypt/";
   };
 }

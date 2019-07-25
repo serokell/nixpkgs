@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, imagemagick, qrencode
-, testQR ? false, zbar ? null
-}:
+{ stdenv, fetchFromGitHub, imagemagick, qrencode, testQR ? false, zbar ? null }:
 
 assert testQR -> zbar != false;
 
@@ -32,7 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/yishilin14/asc-key-to-qr-code-gif;
+    homepage = "https://github.com/yishilin14/asc-key-to-qr-code-gif";
     description = "Convert ASCII-armored PGP keys to animated QR code";
     platforms = platforms.linux;
     maintainers = with maintainers; [ asymmetric ];

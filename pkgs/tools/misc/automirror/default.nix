@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, git, ronn}:
+{ stdenv, fetchFromGitHub, git, ronn }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   installFlags = "DESTDIR=$(out)";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/schlomo/automirror;
+    homepage = "https://github.com/schlomo/automirror";
     description = "Automatic Display Mirror";
     license = licenses.gpl3;
     platforms = platforms.all;

@@ -1,6 +1,4 @@
-{ mkDerivation, fetchurl, lib
-, extra-cmake-modules, doxygen, graphviz, qtbase, qtwebkit, mpir
-, kdelibs4support, plasma-framework, knewstuff, kpackage
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, doxygen, graphviz, qtbase, qtwebkit, mpir, kdelibs4support, plasma-framework, knewstuff, kpackage
 }:
 
 mkDerivation rec {
@@ -14,7 +12,8 @@ mkDerivation rec {
 
   nativeBuildInputs = [ extra-cmake-modules doxygen graphviz ];
 
-  buildInputs = [ qtbase qtwebkit kdelibs4support plasma-framework knewstuff kpackage ];
+  buildInputs =
+    [ qtbase qtwebkit kdelibs4support plasma-framework knewstuff kpackage ];
   propagatedBuildInputs = [ mpir ];
 
   meta = {

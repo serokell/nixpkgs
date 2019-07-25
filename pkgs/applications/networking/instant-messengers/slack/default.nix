@@ -1,7 +1,5 @@
-{ theme ? null, stdenv, fetchurl, dpkg, makeWrapper , alsaLib, atk, cairo,
-cups, curl, dbus, expat, fontconfig, freetype, glib , gnome2, gtk3, gdk_pixbuf,
-libappindicator-gtk3, libnotify, libxcb, nspr, nss, pango , systemd, xorg,
-at-spi2-atk, libuuid, nodePackages
+{ theme ?
+  null, stdenv, fetchurl, dpkg, makeWrapper, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib, gnome2, gtk3, gdk_pixbuf, libappindicator-gtk3, libnotify, libxcb, nspr, nss, pango, systemd, xorg, at-spi2-atk, libuuid, nodePackages
 }:
 
 let
@@ -47,14 +45,15 @@ let
     xorg.libXScrnSaver
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://downloads.slack-edge.com/linux_releases/slack-desktop-${version}-amd64.deb";
-        sha256 = "911a4c05fb4f85181df13f013e82440b0d171862c9cb137dc19b6381d47bd57e";
-      }
-    else
-      throw "Slack is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://downloads.slack-edge.com/linux_releases/slack-desktop-${version}-amd64.deb";
+      sha256 =
+        "911a4c05fb4f85181df13f013e82440b0d171862c9cb137dc19b6381d47bd57e";
+    }
+  else
+    throw "Slack is not supported on ${stdenv.hostPlatform.system}";
 
 in stdenv.mkDerivation {
   name = "slack-${version}";
@@ -63,7 +62,7 @@ in stdenv.mkDerivation {
 
   buildInputs = [
     dpkg
-    gtk3  # needed for GSETTINGS_SCHEMAS_PATH
+    gtk3 # needed for GSETTINGS_SCHEMAS_PATH
   ];
 
   nativeBuildInputs = [ makeWrapper nodePackages.asar ];
@@ -111,7 +110,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Desktop client for Slack";
-    homepage = https://slack.com;
+    homepage = "https://slack.com";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
   };

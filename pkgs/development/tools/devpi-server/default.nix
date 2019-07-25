@@ -1,4 +1,4 @@
- { stdenv, python3Packages, nginx }:
+{ stdenv, python3Packages, nginx }:
 
 python3Packages.buildPythonApplication rec {
   name = "${pname}-${version}";
@@ -37,8 +37,8 @@ python3Packages.buildPythonApplication rec {
     PATH=$PATH:$out/bin pytest ./test_devpi_server --slow -rfsxX
   '';
 
-  meta = with stdenv.lib;{
-    homepage = http://doc.devpi.net;
+  meta = with stdenv.lib; {
+    homepage = "http://doc.devpi.net";
     description = "Github-style pypi index server and packaging meta tool";
     license = licenses.mit;
     maintainers = with maintainers; [ makefu ];

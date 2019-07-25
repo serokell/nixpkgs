@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook
-, gtk2, hicolor-icon-theme, intltool, pkgconfig
-, which, wrapGAppsHook, xdotool }:
+{ stdenv, fetchFromGitHub, autoreconfHook, gtk2, hicolor-icon-theme, intltool, pkgconfig, which, wrapGAppsHook, xdotool
+}:
 
 stdenv.mkDerivation rec {
   name = "parcellite-${version}";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Lightweight GTK+ clipboard manager";
-    homepage = https://github.com/rickyrockrat/parcellite;
+    homepage = "https://github.com/rickyrockrat/parcellite";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

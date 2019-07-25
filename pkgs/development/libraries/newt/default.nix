@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.52.21";
 
   src = fetchurl {
-    url = "https://fedorahosted.org/releases/n/e/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://fedorahosted.org/releases/n/e/${pname}/${pname}-${version}.tar.gz";
     sha256 = "0cdvbancr7y4nrj8257y5n45hmhizr8isynagy4fpsnpammv8pi6";
   };
 
@@ -23,12 +24,11 @@ stdenv.mkDerivation rec {
     unset CPP
   '';
 
-  makeFlags = stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+  makeFlags = stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   meta = with stdenv.lib; {
-    homepage = https://fedorahosted.org/newt/;
+    homepage = "https://fedorahosted.org/newt/";
     description = "Library for color text mode, widget based user interfaces";
 
     license = licenses.lgpl2;

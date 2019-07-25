@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, systemd ? null
-}:
+{ stdenv, fetchurl, pkgconfig, systemd ? null }:
 
 stdenv.mkDerivation rec {
   name = "liblogging-1.0.6";
@@ -21,7 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.liblogging.org/;
+    homepage = "http://www.liblogging.org/";
     description = "Lightweight signal-safe logging library";
     license = licenses.bsd2;
     platforms = platforms.all;

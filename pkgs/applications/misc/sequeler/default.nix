@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub
-, meson, ninja, pkgconfig, pantheon, gettext, wrapGAppsHook, python3, desktop-file-utils
-, gtk3, glib, libgee, libgda, gtksourceview, libxml2, libsecret, libssh2 }:
-
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, gettext, wrapGAppsHook, python3, desktop-file-utils, gtk3, glib, libgee, libgda, gtksourceview, libxml2, libsecret, libssh2
+}:
 
 let
   sqlGda = libgda.override {
@@ -20,9 +18,28 @@ in stdenv.mkDerivation rec {
     sha256 = "1x2ikagjsgnhhhwkj09ihln17mq4wjq3wwbnf02j2p3jpp4i8w1i";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig pantheon.vala gettext wrapGAppsHook python3 desktop-file-utils ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkgconfig
+    pantheon.vala
+    gettext
+    wrapGAppsHook
+    python3
+    desktop-file-utils
+  ];
 
-  buildInputs = [ gtk3 glib pantheon.granite libgee sqlGda gtksourceview libxml2 libsecret libssh2 ];
+  buildInputs = [
+    gtk3
+    glib
+    pantheon.granite
+    libgee
+    sqlGda
+    gtksourceview
+    libxml2
+    libsecret
+    libssh2
+  ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py
@@ -37,7 +54,7 @@ in stdenv.mkDerivation rec {
       editor with language recognition, and visualize SELECT results in a
       Gtk.Grid Widget.
     '';
-    homepage = https://github.com/Alecaddd/sequeler;
+    homepage = "https://github.com/Alecaddd/sequeler";
     license = licenses.gpl3;
     maintainers = [ maintainers.etu ] ++ pantheon.maintainers;
     platforms = platforms.linux;

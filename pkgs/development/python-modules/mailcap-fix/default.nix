@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy36
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy36 }:
 
 buildPythonPackage rec {
   pname = "mailcap-fix";

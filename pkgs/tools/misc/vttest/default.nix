@@ -13,8 +13,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Tests the compatibility so-called 'VT100-compatible' terminals";
-    homepage = https://invisible-island.net/vttest/;
+    description =
+      "Tests the compatibility so-called 'VT100-compatible' terminals";
+    homepage = "https://invisible-island.net/vttest/";
     license = licenses.mit;
     platforms = platforms.all;
   };

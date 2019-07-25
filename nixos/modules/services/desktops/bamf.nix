@@ -7,11 +7,7 @@ with lib;
 {
   ###### interface
 
-  options = {
-    services.bamf = {
-      enable = mkEnableOption "bamf";
-    };
-  };
+  options = { services.bamf = { enable = mkEnableOption "bamf"; }; };
 
   ###### implementation
 

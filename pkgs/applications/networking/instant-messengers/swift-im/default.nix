@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, qttools, scons
-, GConf, avahi, boost, hunspell, libXScrnSaver, libedit, libidn, libnatpmp, libxml2
-, lua, miniupnpc, openssl, qtbase, qtmultimedia, qtsvg, qtwebkit, qtx11extras, zlib
+{ stdenv, fetchurl, pkgconfig, qttools, scons, GConf, avahi, boost, hunspell, libXScrnSaver, libedit, libidn, libnatpmp, libxml2, lua, miniupnpc, openssl, qtbase, qtmultimedia, qtsvg, qtwebkit, qtx11extras, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -8,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "4.0.2";
 
   src = fetchurl {
-    url = "https://swift.im/downloads/releases/swift-${version}/swift-${version}.tar.gz";
+    url =
+      "https://swift.im/downloads/releases/swift-${version}/swift-${version}.tar.gz";
     sha256 = "0w0aiszjd58ynxpacwcgf052zpmbpcym4dhci64vbfgch6wryz0w";
   };
 
@@ -17,8 +16,24 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig qttools scons ];
 
   buildInputs = [
-    GConf avahi boost hunspell libXScrnSaver libedit libidn libnatpmp libxml2
-    lua miniupnpc openssl qtbase qtmultimedia qtsvg qtwebkit qtx11extras zlib
+    GConf
+    avahi
+    boost
+    hunspell
+    libXScrnSaver
+    libedit
+    libidn
+    libnatpmp
+    libxml2
+    lua
+    miniupnpc
+    openssl
+    qtbase
+    qtmultimedia
+    qtsvg
+    qtwebkit
+    qtx11extras
+    zlib
   ];
 
   propagatedUserEnvPkgs = [ GConf ];
@@ -37,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://swift.im/;
+    homepage = "https://swift.im/";
     description = "Qt XMPP client";
     license = licenses.gpl3;
     maintainers = with maintainers; [ orivej ];

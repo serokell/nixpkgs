@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitHub, makeWrapper
-, cmake, llvmPackages, rapidjson, runtimeShell }:
+{ stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, rapidjson, runtimeShell
+}:
 
 stdenv.mkDerivation rec {
-  name    = "ccls-${version}";
+  name = "ccls-${version}";
   version = "0.20190314.1";
 
   src = fetchFromGitHub {
@@ -15,10 +15,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake makeWrapper ];
   buildInputs = with llvmPackages; [ clang-unwrapped llvm rapidjson ];
 
-  cmakeFlags = [
-    "-DSYSTEM_CLANG=ON"
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.12"
-  ];
+  cmakeFlags = [ "-DSYSTEM_CLANG=ON" "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.12" ];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
@@ -28,7 +25,9 @@ stdenv.mkDerivation rec {
   postFixup = ''
     # We need to tell ccls where to find the standard library headers.
 
-    standard_library_includes="\\\"-isystem\\\", \\\"${stdenv.lib.getDev stdenv.cc.libc}/include\\\""
+    standard_library_includes="\\\"-isystem\\\", \\\"${
+      stdenv.lib.getDev stdenv.cc.libc
+    }/include\\\""
     standard_library_includes+=", \\\"-isystem\\\", \\\"${llvmPackages.libcxx}/include/c++/v1\\\""
     export standard_library_includes
 
@@ -42,9 +41,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A c/c++ language server powered by clang";
-    homepage    = https://github.com/MaskRay/ccls;
-    license     = licenses.asl20;
-    platforms   = platforms.linux ++ platforms.darwin;
+    homepage = "https://github.com/MaskRay/ccls";
+    license = licenses.asl20;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.mic92 ];
   };
 }

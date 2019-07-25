@@ -1,16 +1,4 @@
-{ stdenv, fetchFromGitHub
-, armadillo
-, boost
-, cmake
-, glog
-, gmock
-, openssl
-, google-gflags
-, gnuradio
-, orc
-, pkgconfig
-, pythonPackages
-, uhd
+{ stdenv, fetchFromGitHub, armadillo, boost, cmake, glog, gmock, openssl, google-gflags, gnuradio, orc, pkgconfig, pythonPackages, uhd
 }:
 
 stdenv.mkDerivation rec {
@@ -60,8 +48,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    description = "An open source Global Navigation Satellite Systems software-defined receiver";
-    homepage = https://gnss-sdr.org/;
+    description =
+      "An open source Global Navigation Satellite Systems software-defined receiver";
+    homepage = "https://gnss-sdr.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

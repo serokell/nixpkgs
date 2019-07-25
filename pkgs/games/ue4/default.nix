@@ -1,5 +1,5 @@
-{ stdenv, writeScript, fetchurl, requireFile, unzip, clang_35, mono, which,
-  xorg, xdg-user-dirs }:
+{ stdenv, writeScript, fetchurl, requireFile, unzip, clang_35, mono, which, xorg, xdg-user-dirs
+}:
 
 let
   inherit (stdenv) lib;
@@ -9,15 +9,21 @@ let
     in ''
       mkdir -p .git/ue4-gitdeps/${prefix}
       ln -s ${lib.getAttr hash deps} .git/ue4-gitdeps/${prefix}/${hash}
-    ''
-  ) (lib.attrNames deps));
+    '') (lib.attrNames deps));
   libPath = stdenv.lib.makeLibraryPath [
-    xorg.libX11 xorg.libXScrnSaver xorg.libXau xorg.libXcursor xorg.libXext
-    xorg.libXfixes xorg.libXi xorg.libXrandr xorg.libXrender xorg.libXxf86vm
+    xorg.libX11
+    xorg.libXScrnSaver
+    xorg.libXau
+    xorg.libXcursor
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libXxf86vm
     xorg.libxcb
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ue4-${version}";
   version = "4.10.2";
   sourceRoot = "UnrealEngine-${version}-release";
@@ -73,8 +79,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ clang_35 mono which xdg-user-dirs ];
 
   meta = {
-    description = "A suite of integrated tools for game developers to design and build games, simulations, and visualizations";
-    homepage = https://www.unrealengine.com/what-is-unreal-engine-4;
+    description =
+      "A suite of integrated tools for game developers to design and build games, simulations, and visualizations";
+    homepage = "https://www.unrealengine.com/what-is-unreal-engine-4";
     license = stdenv.lib.licenses.unfree;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.puffnfresh ];

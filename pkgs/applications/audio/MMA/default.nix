@@ -1,6 +1,6 @@
 { stdenv, fetchurl, makeWrapper, python3, alsaUtils, timidity }:
 
-  stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   version = "16.06";
   name = "mma-${version}";
 
@@ -59,8 +59,9 @@
   '';
 
   meta = {
-    description = "Creates MIDI tracks for a soloist to perform over from a user supplied file containing chords";
-    homepage =  http://www.mellowood.ca/mma/index.html;
+    description =
+      "Creates MIDI tracks for a soloist to perform over from a user supplied file containing chords";
+    homepage = "http://www.mellowood.ca/mma/index.html";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

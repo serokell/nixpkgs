@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, astroid,
-  isort, mccabe, pytest, pytestrunner }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, astroid, isort, mccabe, pytest, pytestrunner
+}:
 
 buildPythonPackage rec {
   pname = "pylint";
@@ -24,15 +24,16 @@ buildPythonPackage rec {
   '';
 
   checkPhase = ''
-    pytest pylint/test -k "not ${lib.concatStringsSep " and not " (
+    pytest pylint/test -k "not ${
+      lib.concatStringsSep " and not " (
       # Broken tests
       [ "member_checks_py37" "iterable_context_py36" ] ++
       # Disable broken darwin tests
       lib.optionals stdenv.isDarwin [
         "test_parallel_execution"
         "test_py3k_jobs_option"
-      ]
-    )}"
+      ])
+    }"
   '';
 
   postInstall = ''
@@ -41,7 +42,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/PyCQA/pylint;
+    homepage = "https://github.com/PyCQA/pylint";
     description = "A bug and style checker for Python";
     platforms = platforms.all;
     license = licenses.gpl1Plus;

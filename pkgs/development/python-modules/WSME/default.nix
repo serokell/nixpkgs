@@ -1,7 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k
-, pbr, six, simplegeneric, netaddr, pytz, webob
-, cornice, nose, webtest, pecan, transaction, cherrypy, sphinx
-, flask, flask-restful, suds-jurko, glibcLocales }:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pbr, six, simplegeneric, netaddr, pytz, webob, cornice, nose, webtest, pecan, transaction, cherrypy, sphinx, flask, flask-restful, suds-jurko, glibcLocales
+}:
 
 buildPythonPackage rec {
   pname = "WSME";
@@ -32,18 +30,26 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    six simplegeneric netaddr pytz webob
-  ];
+  propagatedBuildInputs = [ six simplegeneric netaddr pytz webob ];
 
   checkInputs = [
-    cornice nose webtest pecan transaction cherrypy sphinx
-    flask flask-restful suds-jurko glibcLocales
+    cornice
+    nose
+    webtest
+    pecan
+    transaction
+    cherrypy
+    sphinx
+    flask
+    flask-restful
+    suds-jurko
+    glibcLocales
   ];
 
   meta = with lib; {
-    description = "Simplify the writing of REST APIs, and extend them with additional protocols";
-    homepage = http://git.openstack.org/cgit/openstack/wsme;
+    description =
+      "Simplify the writing of REST APIs, and extend them with additional protocols";
+    homepage = "http://git.openstack.org/cgit/openstack/wsme";
     license = licenses.mit;
   };
 }

@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ipython
-, traitlets
-, glibcLocales
-, mock
-, pytest
+{ lib, buildPythonPackage, fetchPypi, ipython, traitlets, glibcLocales, mock, pytest
 }:
 
 buildPythonPackage rec {
@@ -28,8 +21,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Jupyter core package. A base package on which Jupyter projects rely";
-    homepage = https://jupyter.org/;
+    description =
+      "Jupyter core package. A base package on which Jupyter projects rely";
+    homepage = "https://jupyter.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fridh globin ];
   };

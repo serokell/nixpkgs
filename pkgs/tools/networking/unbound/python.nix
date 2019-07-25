@@ -1,7 +1,6 @@
 { stdenv, fetchurl, openssl, expat, libevent, swig, pythonPackages }:
 
-let
-  inherit (pythonPackages) python;
+let inherit (pythonPackages) python;
 in stdenv.mkDerivation rec {
   pname = "pyunbound";
   name = "${pname}-${version}";
@@ -14,10 +13,11 @@ in stdenv.mkDerivation rec {
 
   buildInputs = [ openssl expat libevent swig python ];
 
-  patchPhase = ''substituteInPlace Makefile.in \
-    --replace "\$(DESTDIR)\$(PYTHON_SITE_PKG)" "$out/${python.sitePackages}" \
-    --replace "\$(LIBTOOL) --mode=install cp _unbound.la" "cp _unbound.la"
-    '';
+  patchPhase = ''
+    substituteInPlace Makefile.in \
+        --replace "\$(DESTDIR)\$(PYTHON_SITE_PKG)" "$out/${python.sitePackages}" \
+        --replace "\$(LIBTOOL) --mode=install cp _unbound.la" "cp _unbound.la"
+        '';
 
   preConfigure = "export PYTHON_VERSION=${python.pythonVersion}";
 
@@ -40,9 +40,10 @@ in stdenv.mkDerivation rec {
     substituteInPlace _unbound.la \
       --replace "-L.libs $PWD/libunbound.la" "-L$out/${python.sitePackages}" \
       --replace "libdir=\'$PWD/${python.sitePackages}\'" "libdir=\'$out/${python.sitePackages}\'"
-    '';
+  '';
 
-  installFlags = [ "configfile=\${out}/etc/unbound/unbound.conf pyunbound-install lib" ];
+  installFlags =
+    [ "configfile=\${out}/etc/unbound/unbound.conf pyunbound-install lib" ];
 
   # All we want is the Unbound Python module
   postInstall = ''
@@ -53,12 +54,13 @@ in stdenv.mkDerivation rec {
     # We don't need anything else
     rm -fR $out/bin $out/share $out/include $out/etc/unbound
     patchelf --replace-needed libunbound.so.2 $out/${python.sitePackages}/libunbound.so.2 $out/${python.sitePackages}/_unbound.so
-    '';
+  '';
 
   meta = with stdenv.lib; {
-    description = "Python library for Unbound, the validating, recursive, and caching DNS resolver";
+    description =
+      "Python library for Unbound, the validating, recursive, and caching DNS resolver";
     license = licenses.bsd3;
-    homepage = http://www.unbound.net;
+    homepage = "http://www.unbound.net";
     maintainers = with maintainers; [ leenaars ];
     platforms = stdenv.lib.platforms.unix;
   };

@@ -19,9 +19,10 @@ buildPythonPackage rec {
   patches = [ ./fix_setup.patch ];
 
   meta = with stdenv.lib; {
-    description = "An authentication handler for using Kerberos with Python Requests.";
-    homepage    = "https://github.com/requests/requests-kerberos";
-    license     = licenses.isc;
+    description =
+      "An authentication handler for using Kerberos with Python Requests.";
+    homepage = "https://github.com/requests/requests-kerberos";
+    license = licenses.isc;
     maintainers = with maintainers; [ catern ];
   };
 }

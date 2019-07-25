@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchgit
-, canonicaljson
-, unpaddedbase64
-, pynacl
-}:
+{ stdenv, buildPythonPackage, fetchgit, canonicaljson, unpaddedbase64, pynacl }:
 
 buildPythonPackage rec {
   pname = "signedjson";
@@ -19,7 +13,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ canonicaljson unpaddedbase64 pynacl ];
 
   meta = with stdenv.lib; {
-    homepage = https://pypi.org/project/signedjson/;
+    homepage = "https://pypi.org/project/signedjson/";
     description = "Sign JSON with Ed25519 signatures";
     license = licenses.asl20;
   };

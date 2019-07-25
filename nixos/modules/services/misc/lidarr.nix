@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.lidarr;
-in
-{
+let cfg = config.services.lidarr;
+in {
   options = {
     services.lidarr = {
       enable = mkEnableOption "Lidarr";
@@ -61,9 +59,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 8686 ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ 8686 ]; };
 
     users.users = mkIf (cfg.user == "lidarr") {
       lidarr = {
@@ -74,9 +70,7 @@ in
     };
 
     users.groups = mkIf (cfg.group == "lidarr") {
-      lidarr = {
-        gid = config.ids.gids.lidarr;
-      };
+      lidarr = { gid = config.ids.gids.lidarr; };
     };
   };
 }

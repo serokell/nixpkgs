@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, writeText
-, ncurses, wayland, wayland-protocols, wld, libxkbcommon, fontconfig, pixman
-, conf, patches }:
+{ stdenv, fetchFromGitHub, pkgconfig, writeText, ncurses, wayland, wayland-protocols, wld, libxkbcommon, fontconfig, pixman, conf, patches
+}:
 
 with stdenv.lib;
 
@@ -17,11 +16,12 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  configFile = optionalString (conf!=null) (writeText "config.def.h" conf);
-  preBuild = optionalString (conf!=null) "cp ${configFile} config.def.h";
+  configFile = optionalString (conf != null) (writeText "config.def.h" conf);
+  preBuild = optionalString (conf != null) "cp ${configFile} config.def.h";
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ ncurses wayland wayland-protocols wld libxkbcommon fontconfig pixman ];
+  buildInputs =
+    [ ncurses wayland wayland-protocols wld libxkbcommon fontconfig pixman ];
 
   NIX_LDFLAGS = "-lfontconfig";
 
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://st.suckless.org/;
+    homepage = "https://st.suckless.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
     platforms = with platforms; linux;

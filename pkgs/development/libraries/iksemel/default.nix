@@ -1,4 +1,5 @@
-{ stdenv, autoreconfHook, libtool, pkgconfig, gnutls, fetchFromGitHub, texinfo }:
+{ stdenv, autoreconfHook, libtool, pkgconfig, gnutls, fetchFromGitHub, texinfo
+}:
 
 stdenv.mkDerivation rec {
   name = "iksemel-${version}";
@@ -17,7 +18,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "XML parser for jabber";
 
-    homepage = https://github.com/timothytylee/iksemel-1.4;
+    homepage = "https://github.com/timothytylee/iksemel-1.4";
     license = licenses.gpl2;
     maintainers = with maintainers; [ disassembler ];
     platforms = platforms.linux;

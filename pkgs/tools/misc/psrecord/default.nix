@@ -8,13 +8,9 @@ buildPythonApplication rec {
     sha256 = "151rynca97v5wq1drl2yfrqmqil1km72cizn3159c2ip14626mp6";
   };
 
-  propagatedBuildInputs = [
-    psutil matplotlib
-  ];
+  propagatedBuildInputs = [ psutil matplotlib ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     runHook preCheck

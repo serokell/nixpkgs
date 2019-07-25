@@ -1,9 +1,9 @@
-import ./make-test.nix ({ ... } :
+import ./make-test.nix ({ ... }:
 
 let
-  connAuthFile="beegfs/auth-def.key";
+  connAuthFile = "beegfs/auth-def.key";
 
-  client = { pkgs, ... } : {
+  client = { pkgs, ... }: {
     networking.firewall.enable = false;
     services.beegfsEnable = true;
     services.beegfs.default = {
@@ -15,13 +15,14 @@ let
       };
     };
 
-    fileSystems = pkgs.lib.mkVMOverride # FIXME: this should be creatd by the module
-      [ { mountPoint = "/beegfs";
-          device = "default";
-          fsType = "beegfs";
-          options = [ "cfgFile=/etc/beegfs/client-default.conf" "_netdev" ];
-        }
-      ];
+    fileSystems =
+      pkgs.lib.mkVMOverride # FIXME: this should be creatd by the module
+      [{
+        mountPoint = "/beegfs";
+        device = "default";
+        fsType = "beegfs";
+        options = [ "cfgFile=/etc/beegfs/client-default.conf" "_netdev" ];
+      }];
 
     environment.etc."${connAuthFile}" = {
       enable = true;
@@ -30,42 +31,40 @@ let
     };
   };
 
+  server = service:
+    { pkgs, ... }: {
+      networking.firewall.enable = false;
+      boot.initrd.postDeviceCommands = ''
+        ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
+      '';
 
-  server = service : { pkgs, ... } : {
-    networking.firewall.enable = false;
-    boot.initrd.postDeviceCommands = ''
-      ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
-    '';
+      virtualisation.emptyDiskImages = [ 4096 ];
 
-    virtualisation.emptyDiskImages = [ 4096 ];
+      fileSystems = pkgs.lib.mkVMOverride [{
+        mountPoint = "/data";
+        device = "/dev/disk/by-label/data";
+        fsType = "ext4";
+      }];
 
-    fileSystems = pkgs.lib.mkVMOverride
-      [ { mountPoint = "/data";
-          device = "/dev/disk/by-label/data";
-          fsType = "ext4";
-        }
-      ];
-
-    environment.systemPackages = with pkgs; [ beegfs ];
-    environment.etc."${connAuthFile}" = {
-      enable = true;
-      text = "ThisIsALousySecret";
-      mode = "0600";
-    };
-
-    services.beegfsEnable = true;
-    services.beegfs.default = {
-      mgmtdHost = "mgmt";
-      connAuthFile = "/etc/${connAuthFile}";
-      "${service}" = {
+      environment.systemPackages = with pkgs; [ beegfs ];
+      environment.etc."${connAuthFile}" = {
         enable = true;
-        storeDir = "/data";
+        text = "ThisIsALousySecret";
+        mode = "0600";
+      };
+
+      services.beegfsEnable = true;
+      services.beegfs.default = {
+        mgmtdHost = "mgmt";
+        connAuthFile = "/etc/${connAuthFile}";
+        "${service}" = {
+          enable = true;
+          storeDir = "/data";
+        };
       };
     };
-  };
 
-in
-{
+in {
   name = "beegfs";
 
   nodes = {

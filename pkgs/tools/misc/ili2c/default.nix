@@ -15,15 +15,14 @@ stdenv.mkDerivation rec {
 
   buildPhase = "ant jar";
 
-  installPhase =
-    ''
-      mkdir -p $out/share/${pname}
-      cp $build/build/source/build/jar/ili2c.jar $out/share/${pname}
+  installPhase = ''
+    mkdir -p $out/share/${pname}
+    cp $build/build/source/build/jar/ili2c.jar $out/share/${pname}
 
-      mkdir -p $out/bin
-      makeWrapper ${jre}/bin/java $out/bin/ili2c \
-        --add-flags "-jar $out/share/${pname}/ili2c.jar"
-    '';
+    mkdir -p $out/bin
+    makeWrapper ${jre}/bin/java $out/bin/ili2c \
+      --add-flags "-jar $out/share/${pname}/ili2c.jar"
+  '';
 
   meta = with stdenv.lib; {
     description = "The INTERLIS Compiler";

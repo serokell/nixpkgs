@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl
-, enableLargeConfig ? false # doc: https://github.com/ivmai/bdwgc/blob/v7.6.6/doc/README.macros#L179
+{ lib, stdenv, fetchurl, enableLargeConfig ?
+  false # doc: https://github.com/ivmai/bdwgc/blob/v7.6.6/doc/README.macros#L179
 }:
 
 stdenv.mkDerivation rec {
@@ -17,16 +17,16 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "doc" ];
   separateDebugInfo = stdenv.isLinux;
 
-  preConfigure = stdenv.lib.optionalString (stdenv.hostPlatform.libc == "musl") ''
-    export NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE -DUSE_MMAP -DHAVE_DL_ITERATE_PHDR"
-  '';
+  preConfigure =
+    stdenv.lib.optionalString (stdenv.hostPlatform.libc == "musl") ''
+      export NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE -DUSE_MMAP -DHAVE_DL_ITERATE_PHDR"
+    '';
 
   patches =
     # https://github.com/ivmai/bdwgc/pull/208
     lib.optional stdenv.hostPlatform.isRiscV ./riscv.patch;
 
-  configureFlags =
-    [ "--enable-cplusplus" "--with-libatomic-ops=none" ]
+  configureFlags = [ "--enable-cplusplus" "--with-libatomic-ops=none" ]
     ++ lib.optional enableLargeConfig "--enable-large-config"
     ++ lib.optional (stdenv.hostPlatform.libc == "musl") "--disable-static";
 
@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "The Boehm-Demers-Weiser conservative garbage collector for C and C++";
+    description =
+      "The Boehm-Demers-Weiser conservative garbage collector for C and C++";
 
     longDescription = ''
       The Boehm-Demers-Weiser conservative garbage collector can be used as a
@@ -54,10 +55,10 @@ stdenv.mkDerivation rec {
       C or C++ programs, though that is not its primary goal.
     '';
 
-    homepage = http://hboehm.info/gc/;
+    homepage = "http://hboehm.info/gc/";
 
     # non-copyleft, X11-style license
-    license = http://hboehm.info/gc/license.txt;
+    license = "http://hboehm.info/gc/license.txt";
 
     maintainers = [ ];
     platforms = stdenv.lib.platforms.all;

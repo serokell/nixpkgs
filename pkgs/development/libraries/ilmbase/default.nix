@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.3.0";
 
   src = fetchurl {
-    url = "https://github.com/openexr/openexr/releases/download/v${version}/${name}.tar.gz";
+    url =
+      "https://github.com/openexr/openexr/releases/download/v${version}/${name}.tar.gz";
     sha256 = "0qiq5bqq9rxhqjiym2k36sx4vq8adgrz6xf6qwizi9bqm78phsa5";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
   doCheck = stdenv.isx86_64;
 
   meta = with stdenv.lib; {
-    homepage = https://www.openexr.com/;
+    homepage = "https://www.openexr.com/";
     license = licenses.bsd3;
     platforms = platforms.all;
   };

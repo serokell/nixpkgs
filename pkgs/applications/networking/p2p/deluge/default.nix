@@ -12,27 +12,35 @@ pythonPackages.buildPythonPackage rec {
   patches = [
     # Fix preferences when built against libtorrent >=0.16
     (fetchpatch {
-      url = "https://git.deluge-torrent.org/deluge/patch/?id=38d7b7cdfde3c50d6263602ffb03af92fcbfa52e";
+      url =
+        "https://git.deluge-torrent.org/deluge/patch/?id=38d7b7cdfde3c50d6263602ffb03af92fcbfa52e";
       sha256 = "0la3i0lkj6yv4725h4kbd07mhfwcb34w7prjl9gxg12q7px6c31d";
     })
   ];
 
   propagatedBuildInputs = with pythonPackages; [
-    pyGtkGlade twisted Mako chardet pyxdg pyopenssl service-identity
-    libtorrentRasterbar.dev libtorrentRasterbar.python
+    pyGtkGlade
+    twisted
+    Mako
+    chardet
+    pyxdg
+    pyopenssl
+    service-identity
+    libtorrentRasterbar.dev
+    libtorrentRasterbar.python
   ];
 
   nativeBuildInputs = [ intltool ];
 
   postInstall = ''
-     mkdir -p $out/share/applications
-     cp -R deluge/data/pixmaps $out/share/
-     cp -R deluge/data/icons $out/share/
-     cp deluge/data/share/applications/deluge.desktop $out/share/applications
+    mkdir -p $out/share/applications
+    cp -R deluge/data/pixmaps $out/share/
+    cp -R deluge/data/icons $out/share/
+    cp deluge/data/share/applications/deluge.desktop $out/share/applications
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://deluge-torrent.org;
+    homepage = "https://deluge-torrent.org";
     description = "Torrent client";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ domenkozar ebzzry ];

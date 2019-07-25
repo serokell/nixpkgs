@@ -73,7 +73,8 @@ in {
     };
 
     cluster_name = mkOption {
-      description = "Elasticsearch name that identifies your cluster for auto-discovery.";
+      description =
+        "Elasticsearch name that identifies your cluster for auto-discovery.";
       default = "elasticsearch";
       type = types.str;
     };
@@ -115,21 +116,22 @@ in {
     };
 
     extraCmdLineOptions = mkOption {
-      description = "Extra command line options for the elasticsearch launcher.";
-      default = [];
+      description =
+        "Extra command line options for the elasticsearch launcher.";
+      default = [ ];
       type = types.listOf types.str;
     };
 
     extraJavaOptions = mkOption {
       description = "Extra command line options for Java.";
-      default = [];
+      default = [ ];
       type = types.listOf types.str;
       example = [ "-Djava.net.preferIPv4Stack=true" ];
     };
 
     plugins = mkOption {
       description = "Extra elasticsearch plugins";
-      default = [];
+      default = [ ];
       type = types.listOf types.package;
     };
 
@@ -145,13 +147,14 @@ in {
       path = [ pkgs.inetutils ];
       environment = {
         ES_HOME = cfg.dataDir;
-        ES_JAVA_OPTS = toString ( optional (!es6) [ "-Des.path.conf=${configDir}" ]
-                                  ++ cfg.extraJavaOptions);
-      } // optionalAttrs es6 {
-        ES_PATH_CONF = configDir;
-      };
+        ES_JAVA_OPTS = toString
+          (optional (!es6) [ "-Des.path.conf=${configDir}" ]
+          ++ cfg.extraJavaOptions);
+      } // optionalAttrs es6 { ES_PATH_CONF = configDir; };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
+        ExecStart = "${cfg.package}/bin/elasticsearch ${
+          toString cfg.extraCmdLineOptions
+          }";
         User = "elasticsearch";
         PermissionsStartOnly = true;
         LimitNOFILE = "1024000";
@@ -186,7 +189,8 @@ in {
         rm -f "${configDir}/logging.yml"
         cp ${loggingConfigFile} ${configDir}/${loggingConfigFilename}
         mkdir -p ${configDir}/scripts
-        ${optionalString es6 "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}
+        ${optionalString es6
+        "cp ${cfg.package}/config/jvm.options ${configDir}/jvm.options"}
 
         if [ "$(id -u)" = 0 ]; then chown -R elasticsearch:elasticsearch ${cfg.dataDir}; fi
       '';

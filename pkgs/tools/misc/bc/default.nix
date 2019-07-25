@@ -1,5 +1,4 @@
-{ stdenv, autoreconfHook, buildPackages
-, fetchurl, flex, readline, ed, texinfo
+{ stdenv, autoreconfHook, buildPackages, fetchurl, flex, readline, ed, texinfo
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +16,13 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
     # Tools
-    autoreconfHook ed flex texinfo
+    autoreconfHook
+    ed
+    flex
+    texinfo
     # Libraries for build
-    buildPackages.readline buildPackages.ncurses
+    buildPackages.readline
+    buildPackages.ncurses
   ];
   buildInputs = [ readline flex ];
 
@@ -32,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "GNU software calculator";
-    homepage = https://www.gnu.org/software/bc/;
+    homepage = "https://www.gnu.org/software/bc/";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.all;
   };

@@ -10,8 +10,9 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    homepage = https://simpy.readthedocs.io/en/latest/;
-    description = "A process-based discrete-event simulation framework based on standard Python.";
+    homepage = "https://simpy.readthedocs.io/en/latest/";
+    description =
+      "A process-based discrete-event simulation framework based on standard Python.";
     license = [ licenses.mit ];
     maintainers = with maintainers; [ shlevy ];
   };

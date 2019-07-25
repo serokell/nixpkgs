@@ -16,26 +16,26 @@ stdenv.mkDerivation rec {
     # Fix null termination in read_stream.
     # https://github.com/keenerd/jshon/issues/53
     (fetchpatch {
-      url = https://github.com/mbrock/jshon/commit/32288dd186573ceb58164f30be1782d4580466d8.patch;
+      url =
+        "https://github.com/mbrock/jshon/commit/32288dd186573ceb58164f30be1782d4580466d8.patch";
       sha256 = "04rss2nprl9nqblc7smq0477n54hm801xgnnmvyzni313i1n6vhl";
     })
   ];
 
   buildInputs = [ jansson ];
 
-  patchPhase =
-    ''
-      substituteInPlace Makefile --replace "/usr/" "/"
-    '';
+  patchPhase = ''
+    substituteInPlace Makefile --replace "/usr/" "/"
+  '';
 
-  preInstall =
-    ''
-      export DESTDIR=$out
-    '';
+  preInstall = ''
+    export DESTDIR=$out
+  '';
 
   meta = with lib; {
-    homepage = http://kmkeen.com/jshon;
-    description = "JSON parser designed for maximum convenience within the shell";
+    homepage = "http://kmkeen.com/jshon";
+    description =
+      "JSON parser designed for maximum convenience within the shell";
     license = licenses.free;
     platforms = platforms.all;
     maintainers = with maintainers; [ rushmorem ];

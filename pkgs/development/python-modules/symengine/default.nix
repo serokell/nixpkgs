@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, cmake
-, symengine
-, pytest
-, sympy
-, python
+{ lib, buildPythonPackage, fetchFromGitHub, cython, cmake, symengine, pytest, sympy, python
 }:
 
 buildPythonPackage rec {
@@ -34,7 +26,7 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = [
     "--symengine-dir=${symengine}/"
-    "--define=\"CYTHON_BIN=${cython}/bin/cython\""
+    ''--define="CYTHON_BIN=${cython}/bin/cython"''
   ];
 
   checkPhase = ''
@@ -45,7 +37,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python library providing wrappers to SymEngine";
-    homepage = https://github.com/symengine/symengine.py;
+    homepage = "https://github.com/symengine/symengine.py";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

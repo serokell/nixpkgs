@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja
-, pkgconfig, python, gst-plugins-base, libxml2
-, flex, perl, gettext, gobject-introspection
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, python, gst-plugins-base, libxml2, flex, perl, gettext, gobject-introspection
 }:
 
 stdenv.mkDerivation rec {
@@ -9,9 +7,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Library for creation of audio/video non-linear editors";
-    homepage    = "https://gstreamer.freedesktop.org";
-    license     = licenses.lgpl2Plus;
-    platforms   = platforms.unix;
+    homepage = "https://gstreamer.freedesktop.org";
+    license = licenses.lgpl2Plus;
+    platforms = platforms.unix;
   };
 
   src = fetchurl {
@@ -21,17 +19,14 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [ meson ninja pkgconfig gettext gobject-introspection python flex perl ];
+  nativeBuildInputs =
+    [ meson ninja pkgconfig gettext gobject-introspection python flex perl ];
 
   propagatedBuildInputs = [ gst-plugins-base libxml2 ];
 
-  mesonFlags = [
-    "-Dgtk_doc=disabled"
-  ];
+  mesonFlags = [ "-Dgtk_doc=disabled" ];
 
-  patches = [
-    ./fix_pkgconfig_includedir.patch
-  ];
+  patches = [ ./fix_pkgconfig_includedir.patch ];
 
   postPatch = ''
     sed -i -r -e 's/p(bad|good) = .*/p\1 = pbase/' tests/check/meson.build

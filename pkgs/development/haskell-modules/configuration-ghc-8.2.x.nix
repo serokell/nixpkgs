@@ -44,11 +44,13 @@ self: super: {
   text = self.text_1_2_3_1;
 
   # Build with the latest Cabal version, which works best albeit not perfectly.
-  jailbreak-cabal = super.jailbreak-cabal.override { Cabal = self.Cabal_2_2_0_1; };
+  jailbreak-cabal =
+    super.jailbreak-cabal.override { Cabal = self.Cabal_2_2_0_1; };
 
   # https://github.com/bmillwood/applicative-quoters/issues/6
   applicative-quoters = appendPatch super.applicative-quoters (pkgs.fetchpatch {
-    url = "https://patch-diff.githubusercontent.com/raw/bmillwood/applicative-quoters/pull/7.patch";
+    url =
+      "https://patch-diff.githubusercontent.com/raw/bmillwood/applicative-quoters/pull/7.patch";
     sha256 = "026vv2k3ks73jngwifszv8l59clg88pcdr4mz0wr0gamivkfa1zy";
   });
 
@@ -61,34 +63,40 @@ self: super: {
 
   # Reduction stack overflow; size = 38
   # https://github.com/jystic/hadoop-tools/issues/31
-  hadoop-rpc =
-    let patch = pkgs.fetchpatch
-          { url = https://github.com/shlevy/hadoop-tools/commit/f03a46cd15ce3796932c3382e48bcbb04a6ee102.patch;
-            sha256 = "09ls54zy6gx84fmzwgvx18ssgm740cwq6ds70p0p125phi54agcp";
-            stripLen = 1;
-          };
+  hadoop-rpc = let
+    patch = pkgs.fetchpatch {
+      url =
+        "https://github.com/shlevy/hadoop-tools/commit/f03a46cd15ce3796932c3382e48bcbb04a6ee102.patch";
+      sha256 = "09ls54zy6gx84fmzwgvx18ssgm740cwq6ds70p0p125phi54agcp";
+      stripLen = 1;
+    };
     in appendPatch super.hadoop-rpc patch;
 
   # Custom Setup.hs breaks with Cabal 2
   # https://github.com/NICTA/coordinate/pull/4
-  coordinate =
-    let patch = pkgs.fetchpatch
-          { url = https://github.com/NICTA/coordinate/pull/4.patch;
-            sha256 = "06sfxk5cyd8nqgjyb95jkihxxk8m6dw9m3mlv94sm2qwylj86gqy";
-          };
+  coordinate = let
+    patch = pkgs.fetchpatch {
+      url = "https://github.com/NICTA/coordinate/pull/4.patch";
+      sha256 = "06sfxk5cyd8nqgjyb95jkihxxk8m6dw9m3mlv94sm2qwylj86gqy";
+    };
     in appendPatch super.coordinate patch;
 
   # https://github.com/purescript/purescript/issues/3189
   purescript = doJailbreak (super.purescript);
 
   # These packages need Cabal 2.2.x, which is not the default.
-  cabal2nix = super.cabal2nix.overrideScope (self: super: { Cabal = self.Cabal_2_2_0_1; });
-  cabal2spec = super.cabal2spec.overrideScope (self: super: { Cabal = self.Cabal_2_2_0_1; });
-  distribution-nixpkgs = super.distribution-nixpkgs.overrideScope (self: super: { Cabal = self.Cabal_2_2_0_1; });
-  stack = super.stack.overrideScope (self: super: { Cabal = self.Cabal_2_2_0_1; });
+  cabal2nix = super.cabal2nix.overrideScope
+    (self: super: { Cabal = self.Cabal_2_2_0_1; });
+  cabal2spec = super.cabal2spec.overrideScope
+    (self: super: { Cabal = self.Cabal_2_2_0_1; });
+  distribution-nixpkgs = super.distribution-nixpkgs.overrideScope
+    (self: super: { Cabal = self.Cabal_2_2_0_1; });
+  stack =
+    super.stack.overrideScope (self: super: { Cabal = self.Cabal_2_2_0_1; });
 
   # Older GHC versions need these additional dependencies.
   ListLike = addBuildDepend super.ListLike self.semigroups;
-  base-compat-batteries = addBuildDepend super.base-compat-batteries self.contravariant;
+  base-compat-batteries =
+    addBuildDepend super.base-compat-batteries self.contravariant;
 
 }

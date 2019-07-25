@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, beautifulsoup4
-, requests
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, beautifulsoup4, requests, python }:
 
 buildPythonPackage rec {
   pname = "wikipedia";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "db0fad1829fdd441b1852306e9856398204dc0786d2996dd2e0c8bb8e26133b2";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    requests
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 requests ];
 
   checkPhase = ''
     runHook preCheck
@@ -30,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Wikipedia API for Python";
-    homepage = https://github.com/goldsmith/Wikipedia;
+    homepage = "https://github.com/goldsmith/Wikipedia";
     license = licenses.mit;
     maintainers = [ maintainers.worldofpeace ];
   };

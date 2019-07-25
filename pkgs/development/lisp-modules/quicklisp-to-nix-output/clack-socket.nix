@@ -1,20 +1,20 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''clack-socket'';
-  version = ''clack-20181018-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "clack-socket";
+  version = "clack-20181018-git";
 
-  description = '''';
+  description = "";
 
   deps = [ ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz'';
-    sha256 = ''1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf'';
+    url =
+      "http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz";
+    sha256 = "1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf";
   };
 
   packageName = "clack-socket";
 
-  asdFilesToKeep = ["clack-socket.asd"];
+  asdFilesToKeep = [ "clack-socket.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clack-socket DESCRIPTION NIL SHA256
@@ -30,4 +30,5 @@ rec {
      clack-middleware-postmodern clack-middleware-rucksack
      clack-session-store-dbi t-clack-middleware-auth-basic
      t-clack-middleware-csrf)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

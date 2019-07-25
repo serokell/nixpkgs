@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pbr
-, aiohttp
-, ddt
-, asynctest
-, pytest
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pbr, aiohttp, ddt, asynctest, pytest
 }:
 
 buildPythonPackage rec {
@@ -19,19 +11,11 @@ buildPythonPackage rec {
     sha256 = "0ii1jiwb8qa2y8cqa1zqn7mjax9l8bpf16k4clv616mxw1l0bvs6";
   };
 
-  nativeBuildInputs = [
-    pbr
-  ];
+  nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  checkInputs = [
-    asynctest
-    ddt
-    pytest
-  ];
+  checkInputs = [ asynctest ddt pytest ];
 
   # Skip a test which makes requests to httpbin.org
   checkPhase = ''
@@ -39,8 +23,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "A helper to mock/fake web requests in python aiohttp package";
-    homepage = https://github.com/pnuckowski/aioresponses;
+    description =
+      "A helper to mock/fake web requests in python aiohttp package";
+    homepage = "https://github.com/pnuckowski/aioresponses";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ rvl ];
   };

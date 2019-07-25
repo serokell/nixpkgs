@@ -10,19 +10,18 @@ stdenv.mkDerivation rec {
     sha256 = "007s2idsn6bspmfxv1qabj39ggkgvn6gwdbhczwn04lb4c6gh3xc";
   };
 
-  preConfigure =
-    ''
-      substituteInPlace Makefile --replace '-g bin' ""
-      installFlagsArray+=(BIN=$out/bin MAN=$out/share/man/man1)
-      mkdir -p $out/bin $out/share/man/man1
-    '';
+  preConfigure = ''
+    substituteInPlace Makefile --replace '-g bin' ""
+    installFlagsArray+=(BIN=$out/bin MAN=$out/share/man/man1)
+    mkdir -p $out/bin $out/share/man/man1
+  '';
 
   buildInputs = [ fuse ];
 
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://github.com/mischief/9pfs;
+    homepage = "https://github.com/mischief/9pfs";
     description = "FUSE-based client of the 9P network filesystem protocol";
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.linux;

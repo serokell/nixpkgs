@@ -1,18 +1,19 @@
-{ stdenv, fetchurl, pkgconfig, autoconf, automake, gettext
-, fluxbox, bc, gtkmm2, glibmm, libglademm, libsigcxx }:
+{ stdenv, fetchurl, pkgconfig, autoconf, automake, gettext, fluxbox, bc, gtkmm2, glibmm, libglademm, libsigcxx
+}:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "fme-${version}";
   version = "1.1.3";
-  
+
   src = fetchurl {
     url = "https://github.com/rdehouss/fme/archive/v${version}.tar.gz";
     sha256 = "d1c81a6a38c0faad02943ad65d6d0314bd205c6de841669a2efe43e4c503e63d";
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ autoconf automake gettext fluxbox bc gtkmm2 glibmm libglademm libsigcxx ];
+  buildInputs =
+    [ autoconf automake gettext fluxbox bc gtkmm2 glibmm libglademm libsigcxx ];
 
   preConfigure = ''
     ./autogen.sh
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec{
       Its user-friendly interface will help you to edit, delete, move (Drag and Drop)
       a row, a submenu, etc very easily.
     '';
-    homepage = https://github.com/rdehouss/fme/;
+    homepage = "https://github.com/rdehouss/fme/";
     license = licenses.gpl2;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;

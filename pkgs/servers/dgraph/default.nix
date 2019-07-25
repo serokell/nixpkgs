@@ -16,7 +16,7 @@ buildGoPackage rec {
   extraOutputsToInstall = [ "dashboard" ];
 
   goDeps = ./deps.nix;
-  subPackages = [ "cmd/dgraph" "cmd/dgraphloader" "cmd/bulkloader"];
+  subPackages = [ "cmd/dgraph" "cmd/dgraphloader" "cmd/bulkloader" ];
 
   # let's move the dashboard to a different output, to prevent $bin from
   # depending on $out

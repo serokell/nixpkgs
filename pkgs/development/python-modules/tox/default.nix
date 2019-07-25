@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, packaging
-, pluggy
-, py
-, six
-, virtualenv
-, setuptools_scm
-, toml
-, filelock
+{ lib, buildPythonPackage, fetchPypi, packaging, pluggy, py, six, virtualenv, setuptools_scm, toml, filelock
 }:
 
 buildPythonPackage rec {
@@ -27,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Virtualenv-based automation of test activities";
-    homepage = https://tox.readthedocs.io/;
+    homepage = "https://tox.readthedocs.io/";
     license = licenses.mit;
   };
 }

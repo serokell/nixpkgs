@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, lib, darwin
-, six, protobuf, enum34, futures, isPy27, isPy34, pkgconfig
-, cython}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, lib, darwin, six, protobuf, enum34, futures, isPy27, isPy34, pkgconfig, cython
+}:
 
 with stdenv.lib;
 buildPythonPackage rec {
@@ -16,11 +15,11 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ cython pkgconfig ]
-                    ++ optional stdenv.isDarwin darwin.cctools;
+    ++ optional stdenv.isDarwin darwin.cctools;
 
   propagatedBuildInputs = [ six protobuf ]
-                        ++ lib.optionals (isPy27 || isPy34) [ enum34 ]
-                        ++ lib.optionals (isPy27) [ futures ];
+    ++ lib.optionals (isPy27 || isPy34) [ enum34 ]
+    ++ lib.optionals (isPy27) [ futures ];
 
   preBuild = optionalString stdenv.isDarwin "unset AR";
 

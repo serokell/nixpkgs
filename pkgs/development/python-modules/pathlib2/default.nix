@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, pythonOlder
-, scandir
-, glibcLocales
-, mock
+{ lib, buildPythonPackage, fetchPypi, six, pythonOlder, scandir, glibcLocales, mock
 }:
 
 buildPythonPackage rec {
@@ -25,8 +18,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "This module offers classes representing filesystem paths with semantics appropriate for different operating systems.";
-    homepage = https://pypi.python.org/pypi/pathlib2/;
+    description =
+      "This module offers classes representing filesystem paths with semantics appropriate for different operating systems.";
+    homepage = "https://pypi.python.org/pypi/pathlib2/";
     license = with lib.licenses; [ mit ];
   };
 }

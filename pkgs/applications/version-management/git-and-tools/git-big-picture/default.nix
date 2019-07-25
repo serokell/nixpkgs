@@ -19,12 +19,12 @@ python2Packages.buildPythonApplication rec {
 
   postFixup = ''
     wrapProgram $out/bin/git-big-picture \
-      --prefix PATH ":" ${ stdenv.lib.makeBinPath buildInputs  }
-    '';
+      --prefix PATH ":" ${stdenv.lib.makeBinPath buildInputs}
+  '';
 
   meta = {
     description = "Tool for visualization of Git repositories";
-    homepage = https://github.com/esc/git-big-picture;
+    homepage = "https://github.com/esc/git-big-picture";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.nthorne ];

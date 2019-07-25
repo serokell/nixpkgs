@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
   name = "self-${version}";
 
   src = fetchgit {
-    url    = "https://github.com/russellallen/self";
-    rev    = "d16bcaad3c5092dae81ad0b16d503f2a53b8ef86";
+    url = "https://github.com/russellallen/self";
+    rev = "d16bcaad3c5092dae81ad0b16d503f2a53b8ef86";
     sha256 = "1dhs6209407j0ll9w9id31vbawdrm9nz1cjak8g8hixrw1nid4i5";
   };
 
@@ -34,8 +34,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A prototype-based dynamic object-oriented programming language, environment, and virtual machine";
-    homepage = http://selflanguage.org/;
+    description =
+      "A prototype-based dynamic object-oriented programming language, environment, and virtual machine";
+    homepage = "http://selflanguage.org/";
     license = stdenv.lib.licenses.bsd3;
     maintainers = [ stdenv.lib.maintainers.doublec ];
     platforms = with stdenv.lib.platforms; linux;

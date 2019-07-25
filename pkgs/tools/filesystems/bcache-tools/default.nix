@@ -23,10 +23,7 @@ stdenv.mkDerivation rec {
         -i Makefile
   '';
 
-  patches = [
-    ./bcache-udev-modern.patch
-    ./fix-static.patch
-  ];
+  patches = [ ./bcache-udev-modern.patch ./fix-static.patch ];
 
   preBuild = ''
     export makeFlags="$makeFlags PREFIX=\"$out\" UDEVLIBDIR=\"$out/lib/udev/\"";
@@ -38,18 +35,19 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "User-space tools required for bcache (Linux block layer cache)";
+    description =
+      "User-space tools required for bcache (Linux block layer cache)";
     longDescription = ''
       Bcache is a Linux kernel block layer cache. It allows one or more fast
       disk drives such as flash-based solid state drives (SSDs) to act as a
       cache for one or more slower hard disk drives.
-      
+
       This package contains the required user-space tools.
 
       User documentation is in Documentation/bcache.txt in the Linux kernel
       tree.
     '';
-    homepage = https://bcache.evilpiepirate.org/;
+    homepage = "https://bcache.evilpiepirate.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

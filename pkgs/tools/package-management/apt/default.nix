@@ -1,17 +1,13 @@
-{ stdenv, lib, fetchzip, pkgconfig, cmake, perlPackages, curl, gtest, lzma, bzip2, lz4
-, db, dpkg, libxslt, docbook_xsl, docbook_xml_dtd_45
+{ stdenv, lib, fetchzip, pkgconfig, cmake, perlPackages, curl, gtest, lzma, bzip2, lz4, db, dpkg, libxslt, docbook_xsl, docbook_xml_dtd_45
 
 # used when WITH_DOC=ON
-, w3m
-, doxygen
+, w3m, doxygen
 
 # used when WITH_NLS=ON
 , gettext
 
 # opts
-, withDocs ? true
-, withNLS ? true
-}:
+, withDocs ? true, withNLS ? true }:
 
 stdenv.mkDerivation rec {
   name = "apt-${version}";
@@ -19,19 +15,21 @@ stdenv.mkDerivation rec {
   version = "1.4.6";
 
   src = fetchzip {
-    url = "https://launchpad.net/ubuntu/+archive/primary/+files/apt_${version}.tar.xz";
+    url =
+      "https://launchpad.net/ubuntu/+archive/primary/+files/apt_${version}.tar.xz";
     sha256 = "0ahwhmscrmnpvl1r732wg93dzkhv8c1sph2yrqgsrhr73c1616ix";
   };
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [
-    cmake perlPackages.perl curl gtest lzma bzip2 lz4 db dpkg libxslt.bin
-  ] ++ lib.optionals withDocs [
-    doxygen perlPackages.Po4a w3m docbook_xml_dtd_45
-  ] ++ lib.optionals withNLS [
-    gettext
-  ];
+  buildInputs =
+    [ cmake perlPackages.perl curl gtest lzma bzip2 lz4 db dpkg libxslt.bin ]
+    ++ lib.optionals withDocs [
+      doxygen
+      perlPackages.Po4a
+      w3m
+      docbook_xml_dtd_45
+    ] ++ lib.optionals withNLS [ gettext ];
 
   preConfigure = ''
     cmakeFlagsArray+=(
@@ -47,7 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "";
-    homepage = https://launchpad.net/ubuntu/+source/apt;
+    homepage = "https://launchpad.net/ubuntu/+source/apt";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ];

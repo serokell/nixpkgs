@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "0.4.2";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/hackebrot/poyo;
+    homepage = "https://github.com/hackebrot/poyo";
     description = "A lightweight YAML Parser for Python";
     license = licenses.mit;
   };

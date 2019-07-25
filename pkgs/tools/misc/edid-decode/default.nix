@@ -1,6 +1,5 @@
 { stdenv, fetchgit }:
-let
-  version = "2018-12-06";
+let version = "2018-12-06";
 in stdenv.mkDerivation rec {
   name = "edid-decode-unstable-${version}";
 
@@ -17,7 +16,7 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "EDID decoder and conformance tester";
-    homepage = https://cgit.freedesktop.org/xorg/app/edid-decode/;
+    homepage = "https://cgit.freedesktop.org/xorg/app/edid-decode/";
     license = stdenv.lib.licenses.mit;
     maintainers = [ stdenv.lib.maintainers.chiiruno ];
     platforms = stdenv.lib.platforms.all;

@@ -1,6 +1,4 @@
-{ stdenv
-, python
-}:
+{ stdenv, python }:
 
 python.pkgs.buildPythonPackage rec {
   pname = "memory_profiler";
@@ -22,7 +20,7 @@ python.pkgs.buildPythonPackage rec {
       This is a python module for monitoring memory consumption of a process as
       well as line-by-line analysis of memory consumption for python programs.
     '';
-    homepage = https://pypi.python.org/pypi/memory_profiler;
+    homepage = "https://pypi.python.org/pypi/memory_profiler";
     license = licenses.bsd3;
   };
 }

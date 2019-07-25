@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "1.22.0";
 
   src = fetchurl {
-    url = "http://pub.mate-desktop.org/releases/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "http://pub.mate-desktop.org/releases/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1lkakbf2f1815c146z4xp5f0h4lim6jzr02681wbvzalc6k97v5c";
   };
 
@@ -20,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Menu system for MATE";
-    homepage = https://github.com/mate-desktop/mate-menus;
+    homepage = "https://github.com/mate-desktop/mate-menus";
     license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

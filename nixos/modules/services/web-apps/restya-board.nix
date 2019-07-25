@@ -15,9 +15,7 @@ let
   poolName = "restya-board";
   phpfpmSocketName = "/run/phpfpm/${poolName}.sock";
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -173,7 +171,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -210,7 +207,10 @@ in
 
     services.nginx.enable = true;
     services.nginx.virtualHosts."${cfg.virtualHost.serverName}" = {
-      listen = [ { addr = cfg.virtualHost.listenHost; port = cfg.virtualHost.listenPort; } ];
+      listen = [{
+        addr = cfg.virtualHost.listenHost;
+        port = cfg.virtualHost.listenPort;
+      }];
       serverName = cfg.virtualHost.serverName;
       root = runDir;
       extraConfig = ''
@@ -237,7 +237,7 @@ in
 
       locations."/".root = "${runDir}/client";
 
-      locations."~ \.php$" = {
+      locations."~ .php$" = {
         tryFiles = "$uri =404";
         extraConfig = ''
           include ${pkgs.nginx}/conf/fastcgi_params;
@@ -248,7 +248,7 @@ in
         '';
       };
 
-      locations."~* \.(css|js|less|html|ttf|woff|jpg|jpeg|gif|png|bmp|ico)" = {
+      locations."~* .(css|js|less|html|ttf|woff|jpg|jpeg|gif|png|bmp|ico)" = {
         root = "${runDir}/client";
         extraConfig = ''
           if (-f $request_filename) {
@@ -289,7 +289,9 @@ in
           sed -i "s/^.*'R_DB_HOST'.*$/define('R_DB_HOST', '${cfg.database.host}');/g" "${runDir}/server/php/config.inc.php"
           sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', '$(<${cfg.database.dbPassFile})');/g" "${runDir}/server/php/config.inc.php"
         ''}
-        sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${toString cfg.database.port}');/g" "${runDir}/server/php/config.inc.php"
+        sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${
+          toString cfg.database.port
+        }');/g" "${runDir}/server/php/config.inc.php"
         sed -i "s/^.*'R_DB_NAME'.*$/define('R_DB_NAME', '${cfg.database.name}');/g" "${runDir}/server/php/config.inc.php"
         sed -i "s/^.*'R_DB_USER'.*$/define('R_DB_USER', '${cfg.database.user}');/g" "${runDir}/server/php/config.inc.php"
 
@@ -363,19 +365,18 @@ in
       isSystemUser = true;
       createHome = false;
       home = runDir;
-      group  = "restya-board";
+      group = "restya-board";
     };
-    users.groups.restya-board = {};
+    users.groups.restya-board = { };
 
     services.postgresql.enable = mkIf (cfg.database.host == null) true;
 
-    services.postgresql.identMap = optionalString (cfg.database.host == null)
-      ''
-        restya-board-users restya-board restya_board
-      '';
+    services.postgresql.identMap = optionalString (cfg.database.host == null) ''
+      restya-board-users restya-board restya_board
+    '';
 
-    services.postgresql.authentication = optionalString (cfg.database.host == null)
-      ''
+    services.postgresql.authentication =
+      optionalString (cfg.database.host == null) ''
         local restya_board all ident map=restya-board-users
       '';
 

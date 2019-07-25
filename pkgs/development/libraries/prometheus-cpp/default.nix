@@ -1,12 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, gbenchmark
-, gtest
-, civetweb
-, zlib
-, curl
-}:
+{ stdenv, fetchFromGitHub, cmake, gbenchmark, gtest, civetweb, zlib, curl }:
 
 stdenv.mkDerivation rec {
   pname = "prometheus-cpp";
@@ -34,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Prometheus Client Library for Modern C++";
-    homepage = https://github.com/jupp0r/prometheus-cpp;
+    homepage = "https://github.com/jupp0r/prometheus-cpp";
     license = [ stdenv.lib.licenses.mit ];
   };
 

@@ -1,4 +1,4 @@
-{stdenv, fetchurl, emacs}:
+{ stdenv, fetchurl, emacs }:
 
 stdenv.mkDerivation rec {
   name = "yaoddmuse-0.1.2";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vlllq3xmnlni0ws226pqxj68nshclbl5rgqv6y11i3yvzgiazr6";
   };
 
-  phases = [ "buildPhase" "installPhase"];
+  phases = [ "buildPhase" "installPhase" ];
 
   buildInputs = [ emacs ];
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Comprehensive Emacs integration with Oddmuse wikis";
-    homepage = http://emacswiki.org/emacs/Yaoddmuse;
+    homepage = "http://emacswiki.org/emacs/Yaoddmuse";
     platforms = stdenv.lib.platforms.all;
   };
 }

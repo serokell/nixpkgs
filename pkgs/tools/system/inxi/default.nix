@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A full featured CLI system information tool";
-    homepage = https://smxi.org/docs/inxi.htm;
+    homepage = "https://smxi.org/docs/inxi.htm";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];

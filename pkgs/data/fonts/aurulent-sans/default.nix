@@ -13,8 +13,9 @@ fetchFromGitHub rec {
 
   meta = {
     description = "Aurulent Sans";
-    longDescription = "Aurulent Sans is a humanist sans serif intended to be used as an interface font.";
-    homepage = http://delubrum.org/;
+    longDescription =
+      "Aurulent Sans is a humanist sans serif intended to be used as an interface font.";
+    homepage = "http://delubrum.org/";
     maintainers = with lib.maintainers; [ deepfire ];
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;

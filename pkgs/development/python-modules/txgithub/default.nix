@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyopenssl
-, twisted
-, service-identity
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyopenssl, twisted, service-identity }:
 
 buildPythonPackage rec {
   pname = "txgithub";
@@ -31,8 +25,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "GitHub API client implemented using Twisted.";
-    homepage    = "https://github.com/tomprince/txgithub";
-    license     = licenses.mit;
+    homepage = "https://github.com/tomprince/txgithub";
+    license = licenses.mit;
     maintainers = with maintainers; [ nand0p ];
   };
 

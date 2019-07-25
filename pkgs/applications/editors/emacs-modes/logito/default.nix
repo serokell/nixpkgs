@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Tiny logging framework for Emacs";
-    homepage = https://github.com/sigma/logito;
+    homepage = "https://github.com/sigma/logito";
     license = stdenv.lib.licenses.gpl2Plus;
 
     platforms = stdenv.lib.platforms.all;

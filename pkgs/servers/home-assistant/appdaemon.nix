@@ -8,10 +8,17 @@ let
         version = "2.3.10";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "8adda6583ba438a4c70693374e10b60168663ffa6564c5c75d3c7a9055290964";
+          sha256 =
+            "8adda6583ba438a4c70693374e10b60168663ffa6564c5c75d3c7a9055290964";
         };
         # TODO: remove after pinning aiohttp to a newer version
-        propagatedBuildInputs = with self; [ chardet multidict async-timeout yarl idna-ssl ];
+        propagatedBuildInputs = with self; [
+          chardet
+          multidict
+          async-timeout
+          yarl
+          idna-ssl
+        ];
         doCheck = false;
       });
 
@@ -19,7 +26,8 @@ let
         version = "1.1.0";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "6af895b45bd49254cc309ac0fe6e1595636a024953d710e01114257736184698";
+          sha256 =
+            "6af895b45bd49254cc309ac0fe6e1595636a024953d710e01114257736184698";
         };
       });
 
@@ -27,7 +35,8 @@ let
         version = "2.10.1";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "065c4f02ebe7f7cf559e49ee5a95fb800a9e4528727aec6f24402a5374c65013";
+          sha256 =
+            "065c4f02ebe7f7cf559e49ee5a95fb800a9e4528727aec6f24402a5374c65013";
         };
       });
 
@@ -35,7 +44,8 @@ let
         version = "0.15.0";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "0f390693f46173d8ffb95669acbb0e2a3ec54ecce676703510ad47f1a6d9dc83";
+          sha256 =
+            "0f390693f46173d8ffb95669acbb0e2a3ec54ecce676703510ad47f1a6d9dc83";
         };
       });
 
@@ -43,7 +53,8 @@ let
         version = "5.1";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "436bc774ecf7c103814098159fbb84c2715d25980175292c648f2da143909f95";
+          sha256 =
+            "436bc774ecf7c103814098159fbb84c2715d25980175292c648f2da143909f95";
         };
       });
 
@@ -60,16 +71,30 @@ in python.pkgs.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python.pkgs; [
-    daemonize astral requests sseclient websocket_client aiohttp yarl jinja2
-    aiohttp-jinja2 pyyaml voluptuous feedparser iso8601 bcrypt paho-mqtt
+    daemonize
+    astral
+    requests
+    sseclient
+    websocket_client
+    aiohttp
+    yarl
+    jinja2
+    aiohttp-jinja2
+    pyyaml
+    voluptuous
+    feedparser
+    iso8601
+    bcrypt
+    paho-mqtt
   ];
 
   # no tests implemented
   doCheck = false;
 
   meta = with lib; {
-    description = "Sandboxed python execution environment for writing automation apps for Home Assistant";
-    homepage = https://github.com/home-assistant/appdaemon;
+    description =
+      "Sandboxed python execution environment for writing automation apps for Home Assistant";
+    homepage = "https://github.com/home-assistant/appdaemon";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg dotlambda ];
   };

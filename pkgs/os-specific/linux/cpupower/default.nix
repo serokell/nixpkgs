@@ -16,24 +16,24 @@ stdenv.mkDerivation {
 
   makeFlags = [ "CROSS=${stdenv.cc.targetPrefix}" ];
 
-  installFlags = stdenv.lib.mapAttrsToList
-    (n: v: "${n}dir=${placeholder "out"}/${v}") {
-    bin = "bin";
-    sbin = "sbin";
-    man = "share/man";
-    include = "include";
-    lib = "lib";
-    locale = "share/locale";
-    doc = "share/doc/cpupower";
-    conf = "etc";
-    bash_completion_ = "share/bash-completion/completions";
-  };
+  installFlags =
+    stdenv.lib.mapAttrsToList (n: v: "${n}dir=${placeholder "out"}/${v}") {
+      bin = "bin";
+      sbin = "sbin";
+      man = "share/man";
+      include = "include";
+      lib = "lib";
+      locale = "share/locale";
+      doc = "share/doc/cpupower";
+      conf = "etc";
+      bash_completion_ = "share/bash-completion/completions";
+    };
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "Tool to examine and tune power saving features";
-    homepage = https://www.kernel.org/;
+    homepage = "https://www.kernel.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

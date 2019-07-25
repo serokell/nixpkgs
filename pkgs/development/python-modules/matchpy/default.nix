@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hopcroftkarp
-, multiset
-, pytest_3
-, pytestrunner
-, hypothesis
-, setuptools_scm
-, isPy27
+{ lib, buildPythonPackage, fetchPypi, hopcroftkarp, multiset, pytest_3, pytestrunner, hypothesis, setuptools_scm, isPy27
 }:
 
 buildPythonPackage rec {
@@ -30,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A library for pattern matching on symbolic expressions";
-    homepage = https://github.com/HPAC/matchpy;
+    homepage = "https://github.com/HPAC/matchpy";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

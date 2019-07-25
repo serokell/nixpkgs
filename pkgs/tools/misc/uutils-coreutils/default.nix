@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cargo, cmake, sphinx, lib, prefix ? "uutils-" }:
+{ stdenv, fetchFromGitHub, rustPlatform, cargo, cmake, sphinx, lib, prefix ?
+  "uutils-" }:
 
 rustPlatform.buildRustPackage {
   name = "uutils-coreutils-2019-05-03";
@@ -14,9 +15,12 @@ rustPlatform.buildRustPackage {
 
   cargoSha256 = "0qnpx2xhckb45q8cgn0xh31dg5k73hqp5mz5zg3micmg7as4b621";
 
-  makeFlags =
-    [ "CARGO=${cargo}/bin/cargo" "PREFIX=$(out)" "PROFILE=release" "INSTALLDIR_MAN=$(out)/share/man/man1" ]
-    ++ lib.optional (prefix != null) [ "PROG_PREFIX=${prefix}" ];
+  makeFlags = [
+    "CARGO=${cargo}/bin/cargo"
+    "PREFIX=$(out)"
+    "PROFILE=release"
+    "INSTALLDIR_MAN=$(out)/share/man/man1"
+  ] ++ lib.optional (prefix != null) [ "PROG_PREFIX=${prefix}" ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ cargo sphinx ];
@@ -31,7 +35,7 @@ rustPlatform.buildRustPackage {
       uutils is an attempt at writing universal (as in cross-platform)
       CLI utils in Rust. This repo is to aggregate the GNU coreutils rewrites.
     '';
-    homepage = https://github.com/uutils/coreutils;
+    homepage = "https://github.com/uutils/coreutils";
     maintainers = with maintainers; [ ma27 ];
     license = licenses.mit;
     platforms = platforms.unix;

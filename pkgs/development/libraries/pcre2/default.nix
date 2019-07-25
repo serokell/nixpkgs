@@ -8,11 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "1anqi7vpbfzag7imccrc6di1zl5rl63ab7rfpmajpw6d1kzlsl9m";
   };
 
-  configureFlags = [
-    "--enable-pcre2-16"
-    "--enable-pcre2-32"
-    "--enable-jit"
-  ];
+  configureFlags = [ "--enable-pcre2-16" "--enable-pcre2-32" "--enable-jit" ];
 
   outputs = [ "bin" "dev" "out" "doc" "man" "devdoc" ];
 
@@ -24,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Perl Compatible Regular Expressions";
-    homepage = http://www.pcre.org/;
+    homepage = "http://www.pcre.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ttuegel ];
     platforms = platforms.all;

@@ -43,7 +43,5 @@ appleDerivation {
       --replace 'C=''${MIGCC}' "C=cc"
   '';
 
-  meta = {
-    platforms = stdenv.lib.platforms.darwin;
-  };
+  meta = { platforms = stdenv.lib.platforms.darwin; };
 }

@@ -7,9 +7,7 @@ let
   cfg = config.services.xserver.desktopManager.xterm;
   xserverEnabled = config.services.xserver.enable;
 
-in
-
-{
+in {
   options = {
 
     services.xserver.desktopManager.xterm.enable = mkOption {
@@ -23,13 +21,13 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.desktopManager.session = singleton
-      { name = "xterm";
-        start = ''
-          ${pkgs.xterm}/bin/xterm -ls &
-          waitPID=$!
-        '';
-      };
+    services.xserver.desktopManager.session = singleton {
+      name = "xterm";
+      start = ''
+        ${pkgs.xterm}/bin/xterm -ls &
+        waitPID=$!
+      '';
+    };
 
     environment.systemPackages = [ pkgs.xterm ];
 

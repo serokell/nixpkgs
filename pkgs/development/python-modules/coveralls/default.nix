@@ -1,16 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, mock
-, pytest
-, pytestrunner
-, sh
-, coverage
-, docopt
-, requests
-, urllib3
-, git
-, isPy3k
+{ buildPythonPackage, lib, fetchPypi, mock, pytest, pytestrunner, sh, coverage, docopt, requests, urllib3, git, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -24,16 +12,9 @@ buildPythonPackage rec {
     sha256 = "ab638e88d38916a6cedbf80a9cd8992d5fa55c77ab755e262e00b36792b7cd6d";
   };
 
-  checkInputs = [
-    mock
-    sh
-    pytest
-    git
-  ];
+  checkInputs = [ mock sh pytest git ];
 
-  buildInputs = [
-    pytestrunner
-  ];
+  buildInputs = [ pytestrunner ];
 
   # FIXME: tests requires .git directory to be present
   doCheck = false;
@@ -42,17 +23,13 @@ buildPythonPackage rec {
     python setup.py test
   '';
 
-  propagatedBuildInputs = [
-    coverage
-    docopt
-    requests
-  ] ++ lib.optional (!isPy3k) urllib3;
+  propagatedBuildInputs = [ coverage docopt requests ]
+    ++ lib.optional (!isPy3k) urllib3;
 
   meta = {
     description = "Show coverage stats online via coveralls.io";
-    homepage = https://github.com/coveralls-clients/coveralls-python;
+    homepage = "https://github.com/coveralls-clients/coveralls-python";
     license = lib.licenses.mit;
   };
 }
-
 

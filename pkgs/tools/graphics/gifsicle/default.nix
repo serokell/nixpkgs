@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = optional gifview [ xorgproto libXt libX11 ];
 
-  configureFlags = []
-    ++ optional (!gifview) [ "--disable-gifview" ];
+  configureFlags = [ ] ++ optional (!gifview) [ "--disable-gifview" ];
 
   LDFLAGS = optional static "-static";
 
@@ -24,8 +23,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Command-line tool for creating, editing, and getting information about GIF images and animations";
-    homepage = https://www.lcdf.org/gifsicle/;
+    description =
+      "Command-line tool for creating, editing, and getting information about GIF images and animations";
+    homepage = "https://www.lcdf.org/gifsicle/";
     license = stdenv.lib.licenses.gpl2;
     platforms = platforms.all;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu zimbatm ];

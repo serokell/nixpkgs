@@ -1,13 +1,14 @@
-{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, glib, gtk3, gsettings-desktop-schemas
-, gnome-desktop, dbus, json-glib, libICE, xmlto, docbook_xsl, docbook_xml_dtd_412, python3
-, libxslt, gettext, makeWrapper, systemd, xorg, epoxy, gnugrep, bash }:
+{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, glib, gtk3, gsettings-desktop-schemas, gnome-desktop, dbus, json-glib, libICE, xmlto, docbook_xsl, docbook_xml_dtd_412, python3, libxslt, gettext, makeWrapper, systemd, xorg, epoxy, gnugrep, bash
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-session-${version}";
   version = "3.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-session/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-session/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0zrzkpd406i159mla7bfs5npa32fgqh66aip1rfq02rgsgmc9m5v";
   };
 
@@ -24,14 +25,31 @@ stdenv.mkDerivation rec {
   mesonFlags = [ "-Dsystemd=true" ];
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext makeWrapper
-    xmlto libxslt docbook_xsl docbook_xml_dtd_412 python3
+    meson
+    ninja
+    pkgconfig
+    gettext
+    makeWrapper
+    xmlto
+    libxslt
+    docbook_xsl
+    docbook_xml_dtd_412
+    python3
     dbus # for DTD
   ];
 
   buildInputs = [
-    glib gtk3 libICE gnome-desktop json-glib xorg.xtrans gnome3.adwaita-icon-theme
-    gnome3.gnome-settings-daemon gsettings-desktop-schemas systemd epoxy
+    glib
+    gtk3
+    libICE
+    gnome-desktop
+    json-glib
+    xorg.xtrans
+    gnome3.adwaita-icon-theme
+    gnome3.gnome-settings-daemon
+    gsettings-desktop-schemas
+    systemd
+    epoxy
   ];
 
   postPatch = ''
@@ -59,7 +77,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GNOME session manager";
-    homepage = https://wiki.gnome.org/Projects/SessionManagement;
+    homepage = "https://wiki.gnome.org/Projects/SessionManagement";
     license = licenses.gpl2Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

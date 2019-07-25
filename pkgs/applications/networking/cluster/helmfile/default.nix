@@ -1,8 +1,8 @@
 { lib, buildGoModule, fetchFromGitHub, makeWrapper, kubernetes-helm, ... }:
 
-let version = "0.79.3"; in
+let version = "0.79.3";
 
-buildGoModule {
+in buildGoModule {
   pname = "helmfile";
   inherit version;
 
@@ -31,7 +31,7 @@ buildGoModule {
 
   meta = {
     description = "Deploy Kubernetes Helm charts";
-    homepage = https://github.com/roboll/helmfile;
+    homepage = "https://github.com/roboll/helmfile";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ pneumaticat yurrriq ];
     platforms = lib.platforms.unix;

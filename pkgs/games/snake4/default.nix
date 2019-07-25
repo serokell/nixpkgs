@@ -15,14 +15,13 @@ stdenv.mkDerivation rec {
       --replace "-o \$(OWNER) -g \$(GROUP)" "" \
       --replace "4755" "755"
   '';
-  
-  installFlags = [ "INSTLIBDIR=$(out)/lib"
-                   "INSTBINDIR=$(out)/bin"
-                   "INSTMANDIR=$(out)/man" ];
+
+  installFlags =
+    [ "INSTLIBDIR=$(out)/lib" "INSTBINDIR=$(out)/bin" "INSTMANDIR=$(out)/man" ];
 
   meta = with stdenv.lib; {
     description = "A game starring a fruit-eating snake";
-    homepage = http://shh.thathost.com/pub-unix/html/snake4.html;
+    homepage = "http://shh.thathost.com/pub-unix/html/snake4.html";
     license = licenses.artistic1;
     platforms = platforms.linux;
   };

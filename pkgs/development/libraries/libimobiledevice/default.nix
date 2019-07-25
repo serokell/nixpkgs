@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, pkgconfig, gnutls
-, libgcrypt, libtasn1, glib, libplist, libusbmuxd }:
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, pkgconfig, gnutls, libgcrypt, libtasn1, glib, libplist, libusbmuxd
+}:
 
 stdenv.mkDerivation rec {
   pname = "libimobiledevice";
@@ -16,32 +16,19 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkgconfig
-  ];
-  propagatedBuildInputs = [
-    glib
-    gnutls
-    libgcrypt
-    libplist
-    libtasn1
-    libusbmuxd
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkgconfig ];
+  propagatedBuildInputs =
+    [ glib gnutls libgcrypt libplist libtasn1 libusbmuxd ];
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags = [
-    "--disable-static"
-    "--disable-openssl"
-    "--without-cython"
-  ];
+  configureFlags =
+    [ "--disable-static" "--disable-openssl" "--without-cython" ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/libimobiledevice/libimobiledevice;
-    description = "A software library that talks the protocols to support iPhone®, iPod Touch® and iPad® devices on Linux";
+    homepage = "https://github.com/libimobiledevice/libimobiledevice";
+    description =
+      "A software library that talks the protocols to support iPhone®, iPod Touch® and iPad® devices on Linux";
     longDescription = ''
       libimobiledevice is a software library that talks the protocols to support
       iPhone®, iPod Touch® and iPad® devices on Linux. Unlike other projects, it

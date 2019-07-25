@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, gettext, makeWrapper, tcl, which, writeScript
-, ncurses, perl , cyrus_sasl, gss, gpgme, kerberos, libidn, libxml2, notmuch, openssl
-, lmdb, libxslt, docbook_xsl, docbook_xml_dtd_42, mailcap, runtimeShell
+{ stdenv, fetchFromGitHub, gettext, makeWrapper, tcl, which, writeScript, ncurses, perl, cyrus_sasl, gss, gpgme, kerberos, libidn, libxml2, notmuch, openssl, lmdb, libxslt, docbook_xsl, docbook_xml_dtd_42, mailcap, runtimeShell
 }:
 
 stdenv.mkDerivation rec {
@@ -8,20 +6,35 @@ stdenv.mkDerivation rec {
   name = "neomutt-${version}";
 
   src = fetchFromGitHub {
-    owner  = "neomutt";
-    repo   = "neomutt";
-    rev    = "neomutt-${version}";
+    owner = "neomutt";
+    repo = "neomutt";
+    rev = "neomutt-${version}";
     sha256 = "0im2kkahkr04q04irvcimfawxi531ld6wrsa92r2m7l10gmijkl8";
   };
 
   buildInputs = [
-    cyrus_sasl gss gpgme kerberos libidn ncurses
-    notmuch openssl perl lmdb
+    cyrus_sasl
+    gss
+    gpgme
+    kerberos
+    libidn
+    ncurses
+    notmuch
+    openssl
+    perl
+    lmdb
     mailcap
   ];
 
   nativeBuildInputs = [
-    docbook_xsl docbook_xml_dtd_42 gettext libxml2 libxslt.bin makeWrapper tcl which
+    docbook_xsl
+    docbook_xml_dtd_42
+    gettext
+    libxml2
+    libxslt.bin
+    makeWrapper
+    tcl
+    which
   ];
 
   enableParallelBuilding = true;
@@ -77,9 +90,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A small but very powerful text-based mail client";
-    homepage    = http://www.neomutt.org;
-    license     = licenses.gpl2Plus;
+    homepage = "http://www.neomutt.org";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ cstrahan erikryb jfrankenau vrthra ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

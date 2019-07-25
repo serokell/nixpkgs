@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, nose
-, pytest
-, mock
-, ipython
-, ipykernel
-, traitlets
-, notebook
-, widgetsnbextension
+{ lib, buildPythonPackage, fetchPypi, python, nose, pytest, mock, ipython, ipykernel, traitlets, notebook, widgetsnbextension
 }:
 
 buildPythonPackage rec {
@@ -25,13 +14,8 @@ buildPythonPackage rec {
   # doCheck = false;
 
   buildInputs = [ nose pytest mock ];
-  propagatedBuildInputs = [
-    ipython
-    ipykernel
-    traitlets
-    notebook
-    widgetsnbextension
-  ];
+  propagatedBuildInputs =
+    [ ipython ipykernel traitlets notebook widgetsnbextension ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover
@@ -39,7 +23,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "IPython HTML widgets for Jupyter";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };

@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Trusted computing software stack";
-    homepage    = http://trousers.sourceforge.net/;
-    license     = licenses.cpl10;
+    homepage = "http://trousers.sourceforge.net/";
+    license = licenses.cpl10;
     maintainers = [ maintainers.ak ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }
 

@@ -1,36 +1,4 @@
-{ stdenv
-, fetchFromGitLab
-, pkgconfig
-, autoconf
-, automake
-, libtool
-, mm-common
-, intltool
-, itstool
-, doxygen
-, graphviz
-, makeFontsConf
-, freefont_ttf
-, boost
-, libxmlxx3
-, libxslt
-, libgdamm
-, libarchive
-, libepc
-, python3
-, ncurses
-, glibmm
-, gtk3
-, openssl
-, gtkmm3
-, goocanvasmm2
-, evince
-, isocodes
-, gtksourceviewmm4
-, postgresql
-, gnome3
-, gobject-introspection
-, wrapGAppsHook
+{ stdenv, fetchFromGitLab, pkgconfig, autoconf, automake, libtool, mm-common, intltool, itstool, doxygen, graphviz, makeFontsConf, freefont_ttf, boost, libxmlxx3, libxslt, libgdamm, libarchive, libepc, python3, ncurses, glibmm, gtk3, openssl, gtkmm3, goocanvasmm2, evince, isocodes, gtksourceviewmm4, postgresql, gnome3, gobject-introspection, wrapGAppsHook
 }:
 
 let
@@ -45,7 +13,10 @@ let
       rm $out/nix-support/propagated-build-inputs
     '';
   });
-  boost_python = boost.override { enablePython = true; inherit python; };
+  boost_python = boost.override {
+    enablePython = true;
+    inherit python;
+  };
 in stdenv.mkDerivation rec {
   pname = "glom";
   version = "unstable-2018-12-16";
@@ -102,7 +73,9 @@ in stdenv.mkDerivation rec {
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
   configureFlags = [
-    "--with-boost-python=boost_python${stdenv.lib.versions.major python3.version}${stdenv.lib.versions.minor python3.version}"
+    "--with-boost-python=boost_python${
+      stdenv.lib.versions.major python3.version
+    }${stdenv.lib.versions.minor python3.version}"
   ];
 
   makeFlags = [
@@ -111,9 +84,7 @@ in stdenv.mkDerivation rec {
   ];
 
   # Fontconfig error: Cannot load default config file
-  FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
-  };
+  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -124,7 +95,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An easy-to-use database designer and user interface";
-    homepage = http://www.glom.org/;
+    homepage = "http://www.glom.org/";
     license = [ licenses.lgpl2 licenses.gpl2 ];
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

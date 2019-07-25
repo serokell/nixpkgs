@@ -25,11 +25,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://languagetool.org;
+    homepage = "https://languagetool.org";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [
-      edwtjo
-    ];
-    description = "A proofreading program for English, French German, Polish, and more";
+    maintainers = with maintainers; [ edwtjo ];
+    description =
+      "A proofreading program for English, French German, Polish, and more";
   };
 }

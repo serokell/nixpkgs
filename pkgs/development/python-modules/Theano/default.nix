@@ -1,25 +1,10 @@
-{ stdenv
-, runCommandCC
-, fetchPypi
-, buildPythonPackage
-, isPyPy
-, pythonOlder
-, isPy3k
-, nose
-, numpy
-, scipy
-, six
-, libgpuarray
-, cudaSupport ? false, cudatoolkit
-, cudnnSupport ? false, cudnn
-, nvidia_x11
-}:
+{ stdenv, runCommandCC, fetchPypi, buildPythonPackage, isPyPy, pythonOlder, isPy3k, nose, numpy, scipy, six, libgpuarray, cudaSupport ?
+  false, cudatoolkit, cudnnSupport ? false, cudnn, nvidia_x11 }:
 
 assert cudnnSupport -> cudaSupport;
 
-assert cudaSupport -> nvidia_x11 != null
-                   && cudatoolkit != null
-                   && cudnn != null;
+assert cudaSupport -> nvidia_x11 != null && cudatoolkit != null && cudnn
+!= null;
 
 let
   wrapped = command: buildTop: buildInputs:
@@ -36,8 +21,8 @@ let
 
   # Theano spews warnings and disabled flags if the compiler isn't named g++
   cxx_compiler = wrapped "g++" "\\$HOME/.theano"
-    (    stdenv.lib.optional cudaSupport libgpuarray_
-      ++ stdenv.lib.optional cudnnSupport cudnn );
+    (stdenv.lib.optional cudaSupport libgpuarray_
+    ++ stdenv.lib.optional cudnnSupport cudnn);
 
   libgpuarray_ = libgpuarray.override { inherit cudaSupport cudatoolkit; };
 
@@ -78,7 +63,7 @@ in buildPythonPackage rec {
   propagatedBuildInputs = [ numpy numpy.blas scipy six libgpuarray_ ];
 
   meta = with stdenv.lib; {
-    homepage = http://deeplearning.net/software/theano/;
+    homepage = "http://deeplearning.net/software/theano/";
     description = "A Python library for large-scale array computation";
     license = licenses.bsd3;
     maintainers = with maintainers; [ maintainers.bcdarwin ];

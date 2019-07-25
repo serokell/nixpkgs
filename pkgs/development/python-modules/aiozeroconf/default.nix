@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, netifaces
-, isPy27
-}:
+{ stdenv, buildPythonPackage, fetchPypi, netifaces, isPy27 }:
 
 buildPythonPackage rec {
   pname = "aiozeroconf";
@@ -18,8 +13,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ netifaces ];
 
   meta = with stdenv.lib; {
-    description = "A pure python implementation of multicast DNS service discovery";
-    homepage = https://github.com/jstasiak/python-zeroconf;
+    description =
+      "A pure python implementation of multicast DNS service discovery";
+    homepage = "https://github.com/jstasiak/python-zeroconf";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ obadz ];
   };

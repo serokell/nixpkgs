@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = ''A very high level general-purpose programming language'';
+    description = "A very high level general-purpose programming language";
     maintainers = with maintainers; [ vrthra ];
     platforms = platforms.linux;
     license = licenses.publicDomain;
-    homepage = https://www.cs.arizona.edu/icon/;
+    homepage = "https://www.cs.arizona.edu/icon/";
   };
 }

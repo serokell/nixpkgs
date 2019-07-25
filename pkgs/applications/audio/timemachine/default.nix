@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk2
-, libjack2, libsndfile
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk2, libjack2, libsndfile
 }:
 
 stdenv.mkDerivation rec {
@@ -13,19 +12,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [ autoconf automake gtk2 libjack2
-      libsndfile
-    ];
+  buildInputs = [ autoconf automake gtk2 libjack2 libsndfile ];
 
   preConfigure = "./autogen.sh";
 
-  NIX_LDFLAGS =  [
-    "-lm"
-  ];
+  NIX_LDFLAGS = [ "-lm" ];
 
   meta = {
     description = "JACK audio recorder";
-    homepage = http://plugin.org.uk/timemachine/;
+    homepage = "http://plugin.org.uk/timemachine/";
     license = stdenv.lib.licenses.lgpl2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.nico202 ];

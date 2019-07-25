@@ -1,4 +1,4 @@
-{stdenv, fetchurl, jre}:
+{ stdenv, fetchurl, jre }:
 
 stdenv.mkDerivation rec {
   name = "aspectj-1.5.2";
@@ -10,11 +10,12 @@ stdenv.mkDerivation rec {
   };
 
   inherit jre;
-  buildInputs = [jre];
+  buildInputs = [ jre ];
 
   meta = {
-    homepage = http://www.eclipse.org/aspectj/;
-    description = "A seamless aspect-oriented extension to the Java programming language";
+    homepage = "http://www.eclipse.org/aspectj/";
+    description =
+      "A seamless aspect-oriented extension to the Java programming language";
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.epl10;
   };

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, mozfile
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, mozfile }:
 
 buildPythonPackage rec {
   pname = "mozinfo";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "System information utilities for Mozilla testing";
-    homepage = https://wiki.mozilla.org/Auto-tools/Projects/Mozbase;
+    homepage = "https://wiki.mozilla.org/Auto-tools/Projects/Mozbase";
     license = licenses.mpl20;
     maintainers = with maintainers; [ raskin ];
   };

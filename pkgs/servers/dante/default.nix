@@ -11,15 +11,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ pam libkrb5 cyrus_sasl miniupnpc ];
 
-  configureFlags = [
-    "--with-libc=libc.so.6"
-  ];
+  configureFlags = [ "--with-libc=libc.so.6" ];
 
   meta = with stdenv.lib; {
-    description = "A circuit-level SOCKS client/server that can be used to provide convenient and secure network connectivity.";
-    homepage    = "https://www.inet.no/dante/";
+    description =
+      "A circuit-level SOCKS client/server that can be used to provide convenient and secure network connectivity.";
+    homepage = "https://www.inet.no/dante/";
     maintainers = [ maintainers.arobyn ];
-    license     = licenses.bsdOriginal;
-    platforms   = platforms.linux;
+    license = licenses.bsdOriginal;
+    platforms = platforms.linux;
   };
 }

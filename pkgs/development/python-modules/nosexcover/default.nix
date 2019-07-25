@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, coverage
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, coverage, nose }:
 
 buildPythonPackage rec {
   pname = "nosexcover";
@@ -17,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ coverage nose ];
 
   meta = with stdenv.lib; {
-    description = "Extends nose.plugins.cover to add Cobertura-style XML reports";
-    homepage = https://github.com/cmheisel/nose-xcover/;
+    description =
+      "Extends nose.plugins.cover to add Cobertura-style XML reports";
+    homepage = "https://github.com/cmheisel/nose-xcover/";
     license = licenses.bsd3;
   };
 

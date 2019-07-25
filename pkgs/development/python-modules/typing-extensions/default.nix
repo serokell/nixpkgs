@@ -1,6 +1,5 @@
 { lib, buildPythonPackage, fetchPypi, pythonOlder, isPy3k, python, typing }:
-let
-  testDir = if isPy3k then "src_py3" else "src_py2";
+let testDir = if isPy3k then "src_py3" else "src_py2";
 
 in buildPythonPackage rec {
   pname = "typing_extensions";
@@ -24,7 +23,7 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     description = "Backported and Experimental Type Hints for Python 3.5+";
-    homepage = https://github.com/python/typing;
+    homepage = "https://github.com/python/typing";
     license = licenses.psfl;
     maintainers = with maintainers; [ pmiddend ];
   };

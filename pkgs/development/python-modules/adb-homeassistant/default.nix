@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, libusb1
-, rsa
-, pycryptodome
-, pytest
-, mock
+{ lib, buildPythonPackage, fetchFromGitHub, libusb1, rsa, pycryptodome, pytest, mock
 }:
 buildPythonPackage rec {
   pname = "adb-homeassistant";
@@ -20,11 +13,7 @@ buildPythonPackage rec {
 
   };
 
-  propagatedBuildInputs = [
-    libusb1
-    rsa
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ libusb1 rsa pycryptodome ];
 
   checkInputs = [ pytest mock ];
   checkPhase = ''
@@ -32,8 +21,10 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A pure python implementation of the Android ADB and Fastboot protocols";
-    homepage = https://github.com/JeffLIrion/python-adb/tree/adb-homeassistant;
+    description =
+      "A pure python implementation of the Android ADB and Fastboot protocols";
+    homepage =
+      "https://github.com/JeffLIrion/python-adb/tree/adb-homeassistant";
     license = licenses.asl20;
     maintainers = [ maintainers.makefu ];
   };

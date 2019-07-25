@@ -1,11 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, pytest
-, coveralls
-, pytestcov
-, cython
-, numpy
-}:
+{ buildPythonPackage, fetchPypi, pytest, coveralls, pytestcov, cython, numpy }:
 
 buildPythonPackage rec {
   pname = "cftime";
@@ -24,8 +17,6 @@ buildPythonPackage rec {
     py.test
   '';
 
-  meta = {
-    description = "Time-handling functionality from netcdf4-python";
-  };
+  meta = { description = "Time-handling functionality from netcdf4-python"; };
 
 }

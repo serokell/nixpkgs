@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "HashiCorp Vault API client";
-    homepage = https://github.com/ianunruh/hvac;
+    homepage = "https://github.com/ianunruh/hvac";
     license = licenses.asl20;
   };
 }

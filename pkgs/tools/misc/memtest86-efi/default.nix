@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = http://memtest86.com/;
+    homepage = "http://memtest86.com/";
     downloadPage = "https://www.memtest86.com/download.htm";
     description = "A tool to detect memory errors, to be run from a bootloader";
     longDescription = ''

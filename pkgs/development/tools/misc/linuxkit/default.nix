@@ -17,13 +17,16 @@ buildGoPackage rec {
   subPackages = [ "src/cmd/linuxkit" ];
 
   preBuild = ''
-    buildFlagsArray+=("-ldflags" "-X main.GitCommit=${builtins.substring 0 7 rev} -X main.Version=0.0.0")
+    buildFlagsArray+=("-ldflags" "-X main.GitCommit=${
+      builtins.substring 0 7 rev
+    } -X main.Version=0.0.0")
   '';
 
   meta = {
-    description = "A toolkit for building secure, portable and lean operating systems for containers";
+    description =
+      "A toolkit for building secure, portable and lean operating systems for containers";
     license = lib.licenses.asl20;
-    homepage = https://github.com/linuxkit/linuxkit;
+    homepage = "https://github.com/linuxkit/linuxkit";
     platforms = lib.platforms.unix;
   };
 }

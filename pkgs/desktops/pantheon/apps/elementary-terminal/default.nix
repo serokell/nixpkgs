@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, python3
-, vala, desktop-file-utils, gtk3, libxml2, granite, libnotify, vte, libgee
-, elementary-icon-theme, appstream, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, python3, vala, desktop-file-utils, gtk3, libxml2, granite, libnotify, vte, libgee, elementary-icon-theme, appstream, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "terminal";
@@ -34,14 +33,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    elementary-icon-theme
-    granite
-    gtk3
-    libgee
-    libnotify
-    vte
-  ];
+  buildInputs = [ elementary-icon-theme granite gtk3 libgee libnotify vte ];
 
   # See https://github.com/elementary/terminal/commit/914d4b0e2d0a137f12276d748ae07072b95eff80
   mesonFlags = [ "-Dubuntu-bionic-patched-vte=false" ];
@@ -57,7 +49,7 @@ stdenv.mkDerivation rec {
       A super lightweight, beautiful, and simple terminal. Comes with sane defaults, browser-class tabs, sudo paste protection,
       smart copy/paste, and little to no configuration.
     '';
-    homepage = https://github.com/elementary/terminal;
+    homepage = "https://github.com/elementary/terminal";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

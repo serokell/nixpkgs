@@ -10,7 +10,9 @@ buildPythonPackage rec {
   };
 
   postPatch = ''
-    sed -e 's!"libpcsclite\.so\.1"!"${stdenv.lib.getLib pcsclite}/lib/libpcsclite.so.1"!' \
+    sed -e 's!"libpcsclite\.so\.1"!"${
+      stdenv.lib.getLib pcsclite
+    }/lib/libpcsclite.so.1"!' \
         -i smartcard/scard/winscarddll.c
   '';
 
@@ -20,7 +22,8 @@ buildPythonPackage rec {
     # Fixes darwin tests
     # See: https://github.com/LudovicRousseau/pyscard/issues/77
     (fetchpatch {
-      url = "https://github.com/LudovicRousseau/pyscard/commit/62e675028086c75656444cc21d563d9f08ebf8e7.patch";
+      url =
+        "https://github.com/LudovicRousseau/pyscard/commit/62e675028086c75656444cc21d563d9f08ebf8e7.patch";
       sha256 = "1lr55npcpc8j750vf7vaisqyk18d5f00l7nii2lvawg4sssjaaf7";
     })
   ];
@@ -30,7 +33,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ swig ];
 
   meta = {
-    homepage = https://pyscard.sourceforge.io/;
+    homepage = "https://pyscard.sourceforge.io/";
     description = "Smartcard library for python";
     license = stdenv.lib.licenses.lgpl21;
     maintainers = with stdenv.lib.maintainers; [ layus ];

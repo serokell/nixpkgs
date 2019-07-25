@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, dnspython
-, enum34
-, greenlet
-, monotonic
-, six
-, nose
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, dnspython, enum34, greenlet, monotonic, six, nose
 }:
 
 buildPythonPackage rec {
@@ -21,12 +12,13 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
 
-  doCheck = false;  # too much transient errors to bother
+  doCheck = false; # too much transient errors to bother
 
-  propagatedBuildInputs = [ dnspython greenlet monotonic six ] ++ lib.optional (pythonOlder "3.4") enum34;
+  propagatedBuildInputs = [ dnspython greenlet monotonic six ]
+    ++ lib.optional (pythonOlder "3.4") enum34;
 
   meta = with lib; {
-    homepage = https://pypi.python.org/pypi/eventlet/;
+    homepage = "https://pypi.python.org/pypi/eventlet/";
     description = "A concurrent networking library for Python";
   };
 

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libpng, glib /*just passthru*/ }:
+{ stdenv, fetchurl, pkgconfig, libpng, glib # just passthru
+}:
 
 stdenv.mkDerivation rec {
   name = "pixman-${version}";
@@ -20,7 +21,7 @@ stdenv.mkDerivation rec {
   postInstall = glib.flattenInclude;
 
   meta = with stdenv.lib; {
-    homepage = http://pixman.org;
+    homepage = "http://pixman.org";
     description = "A low-level library for pixel manipulation";
     license = licenses.mit;
     platforms = platforms.all;

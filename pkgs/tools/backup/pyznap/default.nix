@@ -1,9 +1,4 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
-, paramiko
-, configparser
-}:
+{ lib, buildPythonApplication, fetchPypi, paramiko, configparser }:
 
 buildPythonApplication rec {
   pname = "pyznap";

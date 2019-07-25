@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, zope_testing
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchPypi, six, zope_testing, setuptools }:
 
 buildPythonPackage rec {
   pname = "plone.testing";
@@ -22,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Testing infrastructure for Zope and Plone projects";
-    homepage = https://github.com/plone/plone.testing;
+    homepage = "https://github.com/plone/plone.testing";
     license = lib.licenses.bsd3;
   };
 }

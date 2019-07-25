@@ -16,7 +16,8 @@ buildPythonApplication rec {
     sha256 = "1xmc0cxvvf6jzr7p4f0hm8icysrd44sy2kgff9b99lr1agwkmysq";
   };
   meta = with stdenv.lib; {
-    description = "Preprocessor for Markdown files to generate a table of contents and other documentation needs";
+    description =
+      "Preprocessor for Markdown files to generate a table of contents and other documentation needs";
     license = licenses.mit;
     homepage = "https://github.com/jreese/markdown-pp";
     maintainers = with maintainers; [ zgrannan ];

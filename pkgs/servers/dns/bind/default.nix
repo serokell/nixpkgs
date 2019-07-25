@@ -1,16 +1,13 @@
-{ config, stdenv, lib, fetchurl, fetchpatch
-, perl
-, libcap, libtool, libxml2, openssl
-, enablePython ? config.bind.enablePython or false, python3 ? null
-, enableSeccomp ? false, libseccomp ? null, buildPackages
-}:
+{ config, stdenv, lib, fetchurl, fetchpatch, perl, libcap, libtool, libxml2, openssl, enablePython ?
+  config.bind.enablePython or false, python3 ? null, enableSeccomp ?
+    false, libseccomp ? null, buildPackages }:
 
 assert enableSeccomp -> libseccomp != null;
 assert enablePython -> python3 != null;
 
-let version = "9.14.3"; in
+let version = "9.14.3";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "bind-${version}";
 
   src = fetchurl {
@@ -20,10 +17,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "lib" "dev" "man" "dnsutils" "host" ];
 
-  patches = [
-    ./dont-keep-configure-flags.patch
-    ./remove-mkdir-var.patch
-  ];
+  patches = [ ./dont-keep-configure-flags.patch ./remove-mkdir-var.patch ];
 
   nativeBuildInputs = [ perl ];
   buildInputs = [ libtool libxml2 openssl ]
@@ -77,11 +71,11 @@ stdenv.mkDerivation rec {
   doCheck = false; # requires root and the net
 
   meta = {
-    homepage = https://www.isc.org/downloads/bind/;
+    homepage = "https://www.isc.org/downloads/bind/";
     description = "Domain name server";
     license = stdenv.lib.licenses.mpl20;
 
-    maintainers = with stdenv.lib.maintainers; [peti];
+    maintainers = with stdenv.lib.maintainers; [ peti ];
     platforms = with stdenv.lib.platforms; unix;
 
     outputsToInstall = [ "out" "dnsutils" "host" ];

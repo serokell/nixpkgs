@@ -1,4 +1,4 @@
-{stdenv, fetchurl, lzo}:
+{ stdenv, fetchurl, lzo }:
 
 stdenv.mkDerivation rec {
   name = "lzop-1.04";
@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ lzo ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.lzop.org;
+    homepage = "http://www.lzop.org";
     description = "Fast file compressor";
     license = licenses.gpl2;
     platforms = platforms.unix;

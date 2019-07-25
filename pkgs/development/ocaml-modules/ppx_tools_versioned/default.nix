@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
   createFindlibDestdir = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/let-def/ppx_tools_versioned;
-    description = "Tools for authors of syntactic tools (such as ppx rewriters)";
+    homepage = "https://github.com/let-def/ppx_tools_versioned";
+    description =
+      "Tools for authors of syntactic tools (such as ppx rewriters)";
     license = licenses.gpl2;
     maintainers = [ maintainers.volth ];
   };

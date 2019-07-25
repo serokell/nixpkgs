@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch
-, cmake, pkgconfig, SDL2, SDL, SDL2_ttf, openssl, spice-protocol, fontconfig
-, libX11, freefont_ttf, nettle, libconfig
+{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, SDL2, SDL, SDL2_ttf, openssl, spice-protocol, fontconfig, libX11, freefont_ttf, nettle, libconfig
 }:
 
 stdenv.mkDerivation rec {
@@ -17,14 +15,24 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
 
   buildInputs = [
-    SDL SDL2 SDL2_ttf openssl spice-protocol fontconfig
-    libX11 freefont_ttf nettle libconfig cmake
+    SDL
+    SDL2
+    SDL2_ttf
+    openssl
+    spice-protocol
+    fontconfig
+    libX11
+    freefont_ttf
+    nettle
+    libconfig
+    cmake
   ];
 
   patches = [
     # Fix obsolete spice header usage. Remove with the next release. See https://github.com/gnif/LookingGlass/pull/126
     (fetchpatch {
-      url = "https://github.com/gnif/LookingGlass/commit/2567447b24b28458ba0f09c766a643ad8d753255.patch";
+      url =
+        "https://github.com/gnif/LookingGlass/commit/2567447b24b28458ba0f09c766a643ad8d753255.patch";
       sha256 = "04j2h75rpxd71szry15f31r6s0kgk96i8q9khdv9q3i2fvkf242n";
       stripLen = 1;
     })
@@ -48,7 +56,7 @@ stdenv.mkDerivation rec {
       step required to move away from dual booting with other operating systems
       for legacy programs that require high performance graphics.
     '';
-    homepage = https://looking-glass.hostfission.com/;
+    homepage = "https://looking-glass.hostfission.com/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.pneumaticat ];
     platforms = [ "x86_64-linux" ];

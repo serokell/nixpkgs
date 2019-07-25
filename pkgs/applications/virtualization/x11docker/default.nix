@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  PATH_PREFIX = "${nx-libs}/bin:${xorg.xdpyinfo}/bin:${xorg.xhost}/bin:${xorg.xinit}/bin";
+  PATH_PREFIX =
+    "${nx-libs}/bin:${xorg.xdpyinfo}/bin:${xorg.xhost}/bin:${xorg.xinit}/bin";
 
   installPhase = ''
     install -D x11docker "$out/bin/x11docker";
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Run graphical applications with Docker";
-    homepage = https://github.com/mviereck/x11docker;
+    homepage = "https://github.com/mviereck/x11docker";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ jD91mZM2 ];
   };

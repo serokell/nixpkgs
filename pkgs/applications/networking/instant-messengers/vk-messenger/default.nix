@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, rpmextract, autoPatchelfHook
-, xorg, gtk2, gnome2, nss, alsaLib, udev, libnotify }:
+{ stdenv, fetchurl, rpmextract, autoPatchelfHook, xorg, gtk2, gnome2, nss, alsaLib, udev, libnotify
+}:
 
-let
-  version = "4.0.1";
+let version = "4.0.1";
 in stdenv.mkDerivation {
   name = "vk-messenger-${version}";
   src = {
@@ -17,11 +16,8 @@ in stdenv.mkDerivation {
   }.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
 
   nativeBuildInputs = [ rpmextract autoPatchelfHook ];
-  buildInputs = (with xorg; [
-    libXdamage libXtst libXScrnSaver libxkbfile
-  ]) ++ [
-    gtk2 gnome2.GConf nss alsaLib
-  ];
+  buildInputs = (with xorg; [ libXdamage libXtst libXScrnSaver libxkbfile ])
+    ++ [ gtk2 gnome2.GConf nss alsaLib ];
   runtimeDependencies = [ udev.lib libnotify ];
 
   unpackPhase = ''
@@ -44,10 +40,10 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Simple and Convenient Messaging App for VK";
-    homepage = https://vk.com/messenger;
+    homepage = "https://vk.com/messenger";
     license = licenses.unfree;
     maintainers = [ maintainers.gnidorah ];
-    platforms = ["i686-linux" "x86_64-linux"];
-    hydraPlatforms = [];
+    platforms = [ "i686-linux" "x86_64-linux" ];
+    hydraPlatforms = [ ];
   };
 }

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake
-, smartSupport ? false, libatasmart }:
+{ stdenv, fetchurl, cmake, smartSupport ? false, libatasmart }:
 
 stdenv.mkDerivation rec {
   name = "thinkfan-${version}";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     license = stdenv.lib.licenses.gpl3;
-    homepage = http://thinkfan.sourceforge.net/;
+    homepage = "http://thinkfan.sourceforge.net/";
     maintainers = with stdenv.lib.maintainers; [ domenkozar ];
     platforms = stdenv.lib.platforms.linux;
   };

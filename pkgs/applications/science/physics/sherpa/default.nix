@@ -24,10 +24,11 @@ stdenv.mkDerivation rec {
   CXXFLAGS = "-std=c++11"; # needed for rivet on OSX
 
   meta = {
-    description = "Simulation of High-Energy Reactions of PArticles in lepton-lepton, lepton-photon, photon-photon, lepton-hadron and hadron-hadron collisions";
-    license     = stdenv.lib.licenses.gpl2;
-    homepage    = https://gitlab.com/sherpa-team/sherpa;
-    platforms   = stdenv.lib.platforms.unix;
+    description =
+      "Simulation of High-Energy Reactions of PArticles in lepton-lepton, lepton-photon, photon-photon, lepton-hadron and hadron-hadron collisions";
+    license = stdenv.lib.licenses.gpl2;
+    homepage = "https://gitlab.com/sherpa-team/sherpa";
+    platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ veprbl ];
   };
 }

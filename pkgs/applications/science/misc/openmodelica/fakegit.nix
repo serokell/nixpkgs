@@ -1,7 +1,7 @@
-{stdenv, fetchgit, fetchsvn, bash } :
+{ stdenv, fetchgit, fetchsvn, bash }:
 
 let
-  mkscript = path : text : ''
+  mkscript = path: text: ''
     mkdir -pv `dirname ${path}`
     cat > ${path} <<"EOF"
     #!${bash}/bin/bash
@@ -11,25 +11,19 @@ let
     sed -i "s@%out@$out@g" ${path}
     chmod +x ${path}
   '';
-  
-  hashname = r: let
-    rpl = stdenv.lib.replaceChars [":" "/"] ["_" "_"];
-  in
-    (rpl r.url) + "-" + (rpl r.rev);
 
-in
+  hashname = r:
+    let rpl = stdenv.lib.replaceChars [ ":" "/" ] [ "_" "_" ];
+    in (rpl r.url) + "-" + (rpl r.rev);
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "fakegit";
 
   buildCommand = ''
     mkdir -pv $out/repos
-    ${stdenv.lib.concatMapStrings
-       (r : ''
-        cp -r ${fetchgit r} $out/repos/${hashname r}
-       ''
-       ) (import ./src-libs-git.nix)
-    }
+    ${stdenv.lib.concatMapStrings (r: ''
+      cp -r ${fetchgit r} $out/repos/${hashname r}
+    '') (import ./src-libs-git.nix)}
 
     ${mkscript "$out/bin/checkout-git.sh" ''
       if test "$#" -ne 4; then
@@ -55,12 +49,9 @@ stdenv.mkDerivation {
       chmod u+w -R $DEST
     ''}
 
-    ${stdenv.lib.concatMapStrings
-       (r : ''
-        cp -r ${fetchsvn r} $out/repos/${hashname r}
-       ''
-       ) (import ./src-libs-svn.nix)
-    }
+    ${stdenv.lib.concatMapStrings (r: ''
+      cp -r ${fetchsvn r} $out/repos/${hashname r}
+    '') (import ./src-libs-svn.nix)}
 
     ${mkscript "$out/bin/checkout-svn.sh" ''
       if test "$#" -ne 3; then

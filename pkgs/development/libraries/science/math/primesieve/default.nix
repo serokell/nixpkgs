@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   name = "primesieve-${version}";
   version = "7.4";
 
-  nativeBuildInputs = [cmake];
+  nativeBuildInputs = [ cmake ];
 
   src = fetchurl {
     url = "https://github.com/kimwalisch/primesieve/archive/v${version}.tar.gz";

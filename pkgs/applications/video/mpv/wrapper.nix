@@ -1,4 +1,4 @@
-{ stdenv, symlinkJoin, makeWrapper, mpv, scripts ? [] }:
+{ stdenv, symlinkJoin, makeWrapper, mpv, scripts ? [ ] }:
 
 symlinkJoin {
   name = "mpv-with-scripts-${mpv.version}";
@@ -9,6 +9,8 @@ symlinkJoin {
 
   postBuild = ''
     wrapProgram $out/bin/mpv \
-      --add-flags "${stdenv.lib.concatMapStringsSep " " (x: "--script=" + x) scripts}"
+      --add-flags "${
+      stdenv.lib.concatMapStringsSep " " (x: "--script=" + x) scripts
+      }"
   '';
 }

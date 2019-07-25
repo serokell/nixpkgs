@@ -1,12 +1,10 @@
-{ stdenv, fetchurl, SDL, SDL_mixer, SDL_net
-, libGLU_combined ? assert false; null
-, useOpenGL ? stdenv.hostPlatform == stdenv.buildPlatform
-}:
+{ stdenv, fetchurl, SDL, SDL_mixer, SDL_net, libGLU_combined ? assert false;
+  null, useOpenGL ? stdenv.hostPlatform == stdenv.buildPlatform }:
 
 stdenv.mkDerivation rec {
   name = "prboom-2.5.0";
   src = fetchurl {
-    url = mirror://sourceforge/prboom/prboom-2.5.0.tar.gz;
+    url = "mirror://sourceforge/prboom/prboom-2.5.0.tar.gz";
     sha256 = "1bjb04q8dk232956k30qlpq6q0hxb904yh1nflr87jcc1x3iqv12";
   };
 
@@ -25,7 +23,8 @@ stdenv.mkDerivation rec {
     "ac_cv_type_gid_t=yes"
   ];
 
-  postInstall = stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    mv $out/games/ $out/bin
-  '';
+  postInstall =
+    stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      mv $out/games/ $out/bin
+    '';
 }

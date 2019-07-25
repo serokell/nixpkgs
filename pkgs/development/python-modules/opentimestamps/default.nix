@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k
-, bitcoinlib, GitPython, pysha3, git }:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, bitcoinlib, GitPython, pysha3, git
+}:
 
 buildPythonPackage rec {
   pname = "opentimestamps";
@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Create and verify OpenTimestamps proofs";
-    homepage = https://github.com/opentimestamps/python-opentimestamps;
+    homepage = "https://github.com/opentimestamps/python-opentimestamps";
     license = lib.licenses.lgpl3;
   };
 }

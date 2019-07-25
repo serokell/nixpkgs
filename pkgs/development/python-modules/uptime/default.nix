@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "uptime";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Cairnarvon/uptime;
+    homepage = "https://github.com/Cairnarvon/uptime";
     description = "Cross-platform way to retrieve system uptime and boot time";
     license = licenses.bsd2;
     maintainers = with maintainers; [ rob ];

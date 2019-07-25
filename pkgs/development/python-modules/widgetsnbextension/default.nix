@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, notebook
-, ipywidgets
-}:
+{ lib, buildPythonPackage, fetchPypi, notebook, ipywidgets }:
 
 buildPythonPackage rec {
   pname = "widgetsnbextension";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "IPython HTML widgets for Jupyter";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = ipywidgets.meta.license; # Build from same repo
     maintainers = with lib.maintainers; [ fridh ];
   };

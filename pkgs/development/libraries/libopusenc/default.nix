@@ -1,9 +1,7 @@
 { stdenv, fetchurl, pkgconfig, libopus }:
 
-let
-  version = "0.2.1";
-in
-stdenv.mkDerivation rec {
+let version = "0.2.1";
+in stdenv.mkDerivation rec {
   name = "libopusenc-${version}";
 
   src = fetchurl {
@@ -21,7 +19,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Library for encoding .opus audio files and live streams";
     license = licenses.bsd3;
-    homepage = http://www.opus-codec.org/;
+    homepage = "http://www.opus-codec.org/";
     platforms = platforms.unix;
     maintainers = with maintainers; [ pmiddend ];
   };

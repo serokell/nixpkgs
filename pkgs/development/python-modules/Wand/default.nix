@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, imagemagick7Big
-}:
+{ stdenv, buildPythonPackage, fetchPypi, imagemagick7Big }:
 
 buildPythonPackage rec {
   pname = "Wand";
@@ -26,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Ctypes-based simple MagickWand API binding for Python";
-    homepage = http://wand-py.org/;
+    homepage = "http://wand-py.org/";
     license = [ licenses.mit ];
     maintainers = with maintainers; [ infinisil ];
   };

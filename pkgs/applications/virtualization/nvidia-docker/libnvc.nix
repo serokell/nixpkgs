@@ -1,6 +1,7 @@
 { stdenv, lib, fetchFromGitHub, libelf, libcap, libseccomp }:
 
-with lib; let
+with lib;
+let
 
   modp-ver = "396.51";
 
@@ -27,10 +28,7 @@ in stdenv.mkDerivation rec {
   # not resolved via the environment PATH but via the derivation output path.
   patches = [ ./libnvc-ldconfig-and-path-fixes.patch ];
 
-  makeFlags = [
-    "WITH_LIBELF=yes"
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "WITH_LIBELF=yes" "prefix=$(out)" ];
 
   postPatch = ''
     sed -i 's/^REVISION :=.*/REVISION = ${src.rev}/' mk/common.mk
@@ -45,7 +43,7 @@ in stdenv.mkDerivation rec {
   buildInputs = [ libelf libcap libseccomp ];
 
   meta = {
-    homepage = https://github.com/NVIDIA/libnvidia-container;
+    homepage = "https://github.com/NVIDIA/libnvidia-container";
     description = "NVIDIA container runtime library";
     license = licenses.bsd3;
     platforms = platforms.linux;

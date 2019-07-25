@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "2.40.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1sb3akryklvh2v6m6dihdnbpf1lkx441v972q9hlz1sq6bfspm2a";
   };
 
@@ -15,11 +17,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libxml2 glibmm ];
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     homepage = "http://libxmlplusplus.sourceforge.net/";

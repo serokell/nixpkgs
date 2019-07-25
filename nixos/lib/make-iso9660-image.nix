@@ -1,45 +1,44 @@
 { stdenv, closureInfo, xorriso, syslinux
 
 , # The file name of the resulting ISO image.
-  isoName ? "cd.iso"
+isoName ? "cd.iso"
 
 , # The files and directories to be placed in the ISO file system.
-  # This is a list of attribute sets {source, target} where `source'
-  # is the file system object (regular file or directory) to be
-  # grafted in the file system at path `target'.
-  contents
+# This is a list of attribute sets {source, target} where `source'
+# is the file system object (regular file or directory) to be
+# grafted in the file system at path `target'.
+contents
 
 , # In addition to `contents', the closure of the store paths listed
-  # in `packages' are also placed in the Nix store of the CD.  This is
-  # a list of attribute sets {object, symlink} where `object' if a
-  # store path whose closure will be copied, and `symlink' is a
-  # symlink to `object' that will be added to the CD.
-  storeContents ? []
+# in `packages' are also placed in the Nix store of the CD.  This is
+# a list of attribute sets {object, symlink} where `object' if a
+# store path whose closure will be copied, and `symlink' is a
+# symlink to `object' that will be added to the CD.
+storeContents ? [ ]
 
 , # Whether this should be an El-Torito bootable CD.
-  bootable ? false
+bootable ? false
 
 , # Whether this should be an efi-bootable El-Torito CD.
-  efiBootable ? false
+efiBootable ? false
 
 , # Whether this should be an hybrid CD (bootable from USB as well as CD).
-  usbBootable ? false
+usbBootable ? false
 
 , # The path (in the ISO file system) of the boot image.
-  bootImage ? ""
+bootImage ? ""
 
 , # The path (in the ISO file system) of the efi boot image.
-  efiBootImage ? ""
+efiBootImage ? ""
 
 , # The path (outside the ISO file system) of the isohybrid-mbr image.
-  isohybridMbrImage ? ""
+isohybridMbrImage ? ""
 
 , # Whether to compress the resulting ISO image with bzip2.
-  compressImage ? false
+compressImage ? false
 
 , # The volume ID.
-  volumeID ? ""
-}:
+volumeID ? "" }:
 
 assert bootable -> bootImage != "";
 assert efiBootable -> efiBootImage != "";
@@ -50,7 +49,8 @@ stdenv.mkDerivation {
   builder = ./make-iso9660-image.sh;
   buildInputs = [ xorriso syslinux ];
 
-  inherit isoName bootable bootImage compressImage volumeID efiBootImage efiBootable isohybridMbrImage usbBootable;
+  inherit isoName bootable bootImage compressImage volumeID efiBootImage
+    efiBootable isohybridMbrImage usbBootable;
 
   # !!! should use XML.
   sources = map (x: x.source) contents;

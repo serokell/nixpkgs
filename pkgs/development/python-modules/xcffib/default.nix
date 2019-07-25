@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, xorg
-, cffi
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, xorg, cffi, six }:
 
 buildPythonPackage rec {
   version = "0.8.1";

@@ -20,16 +20,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   patchPhase = "patch -p0 < ${./buildfix.diff}";
-  configureFlags = [
-    "--enable-dictorg"
-    "--datadir=/run/current-system/sw/share/dictd"
-  ];
+  configureFlags =
+    [ "--enable-dictorg" "--datadir=/run/current-system/sw/share/dictd" ];
 
   meta = with stdenv.lib; {
     description = "Dict protocol server and client";
-    homepage    = http://www.dict.org;
-    license     = licenses.gpl2;
+    homepage = "http://www.dict.org";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

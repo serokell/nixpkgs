@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrest
-, msrestazure
-, azure-common
-, azure-mgmt-nspkg
-, isPy3k
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common, azure-mgmt-nspkg, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -18,20 +11,17 @@ buildPythonPackage rec {
     sha256 = "0w3w1d156rnkwjdarv3qvycklxr3z2j7lry7a3jfgj3ykzny12rq";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-  ] ++ lib.optionals (!isPy3k) [
-    azure-mgmt-nspkg
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common ]
+    ++ lib.optionals (!isPy3k) [ azure-mgmt-nspkg ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure IoTHub Management Client Library";
-    homepage = https://docs.microsoft.com/en-us/python/api/overview/azure/iot?view=azure-python;
+    description =
+      "This is the Microsoft Azure IoTHub Management Client Library";
+    homepage =
+      "https://docs.microsoft.com/en-us/python/api/overview/azure/iot?view=azure-python";
     license = licenses.mit;
     maintainers = with maintainers; [ mwilsoninsight ];
   };

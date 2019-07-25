@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub }:
 
-let
-  version = "2.9.2";
+let version = "2.9.2";
 in stdenv.mkDerivation {
   name = "http-parser-${version}";
 
@@ -21,7 +20,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "An HTTP message parser written in C";
-    homepage = https://github.com/nodejs/http-parser;
+    homepage = "https://github.com/nodejs/http-parser";
     maintainers = with maintainers; [ matthewbauer ];
     license = licenses.mit;
     platforms = platforms.unix;

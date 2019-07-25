@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, nss, python
-, blacklist ? []
-, includeEmail ? false
-}:
+{ stdenv, fetchurl, nss, python, blacklist ? [ ], includeEmail ? false }:
 
 with stdenv.lib;
 
@@ -9,13 +6,12 @@ let
 
   certdata2pem = fetchurl {
     name = "certdata2pem.py";
-    url = "https://salsa.debian.org/debian/ca-certificates/raw/debian/20170717/mozilla/certdata2pem.py";
+    url =
+      "https://salsa.debian.org/debian/ca-certificates/raw/debian/20170717/mozilla/certdata2pem.py";
     sha256 = "1d4q27j1gss0186a5m8bs5dk786w07ccyq0qi6xmd2zr1a8q16wy";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "nss-cacert-${nss.version}";
 
   src = nss.src;
@@ -61,8 +57,9 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = {
-    homepage = https://curl.haxx.se/docs/caextract.html;
-    description = "A bundle of X.509 certificates of public Certificate Authorities (CA)";
+    homepage = "https://curl.haxx.se/docs/caextract.html";
+    description =
+      "A bundle of X.509 certificates of public Certificate Authorities (CA)";
     platforms = platforms.all;
     maintainers = with maintainers; [ fpletz ];
   };

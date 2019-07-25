@@ -1,12 +1,9 @@
-{ stdenv, fetchFromGitHub, popt, avahi, pkgconfig, python, gtk2, runCommand
-, gcc, autoconf, automake, which, procps, libiberty_static
-, runtimeShell
-, sysconfDir ? ""   # set this parameter to override the default value $out/etc
-, static ? false
-}:
+{ stdenv, fetchFromGitHub, popt, avahi, pkgconfig, python, gtk2, runCommand, gcc, autoconf, automake, which, procps, libiberty_static, runtimeShell, sysconfDir ?
+  "" # set this parameter to override the default value $out/etc
+, static ? false }:
 
 let
-  name    = "distcc";
+  name = "distcc";
   version = "2016-02-24";
   distcc = stdenv.mkDerivation {
     name = "${name}-${version}";
@@ -17,18 +14,32 @@ let
       sha256 = "1vj31wcdas8wy52hy6749mlrca9v6ynycdiigx5ay8pnya9z73c6";
     };
 
-  nativeBuildInputs = [ pkgconfig ];
-    buildInputs = [popt avahi pkgconfig python gtk2 autoconf automake which procps libiberty_static];
-    preConfigure =
-    ''
+    nativeBuildInputs = [ pkgconfig ];
+    buildInputs = [
+      popt
+      avahi
+      pkgconfig
+      python
+      gtk2
+      autoconf
+      automake
+      which
+      procps
+      libiberty_static
+    ];
+    preConfigure = ''
       export CPATH=$(ls -d ${gcc.cc}/lib/gcc/*/${gcc.cc.version}/plugin/include)
 
       configureFlagsArray=( CFLAGS="-O2 -fno-strict-aliasing"
                             CXXFLAGS="-O2 -fno-strict-aliasing"
           --mandir=$out/share/man
-                            ${if sysconfDir == "" then "" else "--sysconfdir=${sysconfDir}"}
+                            ${
+        if sysconfDir == "" then "" else "--sysconfdir=${sysconfDir}"
+                            }
                             ${if static then "LDFLAGS=-static" else ""}
-                            --with${if static == true || popt == null then "" else "out"}-included-popt
+                            --with${
+        if static == true || popt == null then "" else "out"
+                            }-included-popt
                             --with${if avahi != null then "" else "out"}-avahi
                             --with${if gtk2 != null then "" else "out"}-gtk
                             --without-gnome
@@ -49,8 +60,8 @@ let
       #
       # extraConfig is meant to be sh lines exporting environment
       # variables like DISTCC_HOSTS, DISTCC_DIR, ...
-      links = extraConfig: (runCommand "distcc-links" { passthru.gcc = gcc.cc; }
-        ''
+      links = extraConfig:
+        (runCommand "distcc-links" { passthru.gcc = gcc.cc; } ''
           mkdir -p $out/bin
           if [ -x "${gcc.cc}/bin/gcc" ]; then
             cat > $out/bin/gcc << EOF
@@ -73,12 +84,11 @@ let
 
     meta = {
       description = "A fast, free distributed C/C++ compiler";
-      homepage = http://distcc.org;
+      homepage = "http://distcc.org";
       license = "GPL";
 
       platforms = stdenv.lib.platforms.linux;
       maintainers = with stdenv.lib.maintainers; [ anderspapitto ];
     };
   };
-in
-  distcc
+in distcc

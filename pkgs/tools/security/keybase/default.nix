@@ -1,6 +1,4 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub
-, AVFoundation, AudioToolbox, ImageIO, CoreMedia
-, Foundation, CoreGraphics, MediaToolbox
+{ stdenv, lib, buildGoPackage, fetchFromGitHub, AVFoundation, AudioToolbox, ImageIO, CoreMedia, Foundation, CoreGraphics, MediaToolbox
 }:
 
 buildGoPackage rec {
@@ -19,11 +17,19 @@ buildGoPackage rec {
     sha256 = "00mxyy4jhdbcvbwabf4yvq4h5mpnlfp2z93gy2266kz6gkd5myzk";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ AVFoundation AudioToolbox ImageIO CoreMedia Foundation CoreGraphics MediaToolbox ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    AVFoundation
+    AudioToolbox
+    ImageIO
+    CoreMedia
+    Foundation
+    CoreGraphics
+    MediaToolbox
+  ];
   buildFlags = [ "-tags production" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.keybase.io/;
+    homepage = "https://www.keybase.io/";
     description = "The Keybase official command-line utility and service.";
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ carlsverre np rvolosatovs ];

@@ -1,14 +1,13 @@
-{ stdenv, fetchFromGitHub, pkgconfig, openssl, rustPlatform, Security
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, openssl, rustPlatform, Security }:
 
 rustPlatform.buildRustPackage rec {
   name = "websocat-${version}";
   version = "1.3.0";
 
   src = fetchFromGitHub {
-    owner  = "vi";
-    repo   = "websocat";
-    rev    = "v${version}";
+    owner = "vi";
+    repo = "websocat";
+    rev = "v${version}";
     sha256 = "1gf2snr12vnx2mhsrwkb5274r1pvdrf8m3bybrqbh8s9wd83nrh6";
   };
 
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Command-line client for WebSockets (like netcat/socat)";
-    homepage    = https://github.com/vi/websocat;
-    license     = with licenses; [ mit ];
+    homepage = "https://github.com/vi/websocat";
+    license = with licenses; [ mit ];
     maintainers = [ maintainers.thoughtpolice ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

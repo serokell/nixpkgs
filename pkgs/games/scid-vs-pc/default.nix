@@ -28,15 +28,14 @@ stdenv.mkDerivation rec {
   #   "FONTDIR=$(out)/fonts"
   # ];
 
-  preConfigure = ''configureFlags="
-    BINDIR=$out/bin
-    SHAREDIR=$out/share
-    FONTDIR=$out/fonts"
-  '';
+  preConfigure = ''
+    configureFlags="
+        BINDIR=$out/bin
+        SHAREDIR=$out/share
+        FONTDIR=$out/fonts"
+      '';
 
-  patches = [
-    ./0001-put-fonts-in-out.patch
-  ];
+  patches = [ ./0001-put-fonts-in-out.patch ];
 
   hardeningDisable = [ "format" ];
 
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Chess database with play and training functionality";
-    homepage = http://scidvspc.sourceforge.net/;
+    homepage = "http://scidvspc.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ maintainers.paraseba ];
     platforms = stdenv.lib.platforms.linux;

@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pdfkit";
@@ -17,8 +14,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://pypi.python.org/pypi/pdfkit;
-    description = "Wkhtmltopdf python wrapper to convert html to pdf using the webkit rendering engine and qt";
+    homepage = "https://pypi.python.org/pypi/pdfkit";
+    description =
+      "Wkhtmltopdf python wrapper to convert html to pdf using the webkit rendering engine and qt";
     license = licenses.mit;
   };
 

@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
     mv rsbep_chopper $libexecDir
 
     # Fix store dependencies in scripts
-    path="export PATH=$out/bin:$libexecDir:${lib.makeBinPath [ coreutils gnused gawk ]}"
+    path="export PATH=$out/bin:$libexecDir:${
+      lib.makeBinPath [ coreutils gnused gawk ]
+    }"
     sed -i "2i$path" freeze.sh
     sed -i "2i$path" melt.sh
 
@@ -29,8 +31,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Create resilient backups with Reed-Solomon error correction and byte-spreading";
-    homepage = https://www.thanassis.space/rsbep.html;
+    description =
+      "Create resilient backups with Reed-Solomon error correction and byte-spreading";
+    homepage = "https://www.thanassis.space/rsbep.html";
     license = licenses.gpl3;
     maintainers = [ maintainers.earvstedt ];
   };

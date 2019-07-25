@@ -22,14 +22,10 @@ import ./make-test.nix {
           port = 9093;
           configuration = {
             route.receiver = "webhook";
-            receivers = [
-              {
-                name = "webhook";
-                webhook_configs = [
-                  { url = "http://localhost"; }
-                ];
-              }
-            ];
+            receivers = [{
+              name = "webhook";
+              webhook_configs = [{ url = "http://localhost"; }];
+            }];
           };
         };
       };

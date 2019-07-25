@@ -6,27 +6,22 @@ import ./make-test.nix ({ pkgs, ... }:
     maintainers = [ grahamc ]; # under duress!
   };
 
-  machine =
-    { ... }:
-    { services.httpd.adminAddr = "webmaster@site.local";
-      services.httpd.logPerVirtualHost = true;
+  machine = { ... }: {
+    services.httpd.adminAddr = "webmaster@site.local";
+    services.httpd.logPerVirtualHost = true;
 
-      services.wordpress."site1.local" = {
-        database.tablePrefix = "site1_";
-      };
+    services.wordpress."site1.local" = { database.tablePrefix = "site1_"; };
 
-      services.wordpress."site2.local" = {
-        database.tablePrefix = "site2_";
-      };
+    services.wordpress."site2.local" = { database.tablePrefix = "site2_"; };
 
-      networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
+    networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
 
-      # required for wordpress-init.service to succeed
-      systemd.tmpfiles.rules = [
-        "F /var/lib/wordpress/site1.local/secret-keys.php 0440 wordpress wwwrun - -"
-        "F /var/lib/wordpress/site2.local/secret-keys.php 0440 wordpress wwwrun - -"
-      ];
-    };
+    # required for wordpress-init.service to succeed
+    systemd.tmpfiles.rules = [
+      "F /var/lib/wordpress/site1.local/secret-keys.php 0440 wordpress wwwrun - -"
+      "F /var/lib/wordpress/site2.local/secret-keys.php 0440 wordpress wwwrun - -"
+    ];
+  };
 
   testScript = ''
     startAll;

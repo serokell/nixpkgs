@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libxml2, xdg-desktop-portal, gtk3, glib, wrapGAppsHook, gsettings-desktop-schemas }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libxml2, xdg-desktop-portal, gtk3, glib, wrapGAppsHook, gsettings-desktop-schemas
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-gtk";
@@ -11,7 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1vgnsahljzrjcdjzv1dxhp2rf709pnf8595an82llnylwa8rdp1j";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig libxml2 xdg-desktop-portal wrapGAppsHook ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig libxml2 xdg-desktop-portal wrapGAppsHook ];
   buildInputs = [ glib gtk3 gsettings-desktop-schemas ];
 
   meta = with stdenv.lib; {

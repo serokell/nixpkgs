@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-, twisted
-, pyopenssl
-, service-identity
+{ stdenv, buildPythonPackage, fetchPypi, mock, twisted, pyopenssl, service-identity
 }:
 
 buildPythonPackage rec {
@@ -25,8 +19,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://foolscap.lothar.com/;
-    description = "Foolscap, an RPC protocol for Python that follows the distributed object-capability model";
+    homepage = "http://foolscap.lothar.com/";
+    description =
+      "Foolscap, an RPC protocol for Python that follows the distributed object-capability model";
     longDescription = ''
       "Foolscap" is the name for the next-generation RPC protocol,
       intended to replace Perspective Broker (part of Twisted).

@@ -7,7 +7,8 @@ let version = "2.0.2";
 in stdenv.mkDerivation {
   name = "magma-${version}";
   src = fetchurl {
-    url = "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz";
+    url =
+      "https://icl.cs.utk.edu/projectsfiles/magma/downloads/magma-${version}.tar.gz";
     sha256 = "0w3z6k1npfh0d3r8kpw873f1m7lny29sz2bvvfxzk596d4h083lk";
     name = "magma-${version}.tar.gz";
   };
@@ -17,7 +18,7 @@ in stdenv.mkDerivation {
   doCheck = false;
   #checkTarget = "tests";
 
-  enableParallelBuilding=true;
+  enableParallelBuilding = true;
 
   # MAGMA's default CMake setup does not care about installation. So we copy files directly.
   installPhase = ''
@@ -39,7 +40,7 @@ in stdenv.mkDerivation {
   meta = with stdenv.lib; {
     description = "Matrix Algebra on GPU and Multicore Architectures";
     license = licenses.bsd3;
-    homepage = http://icl.cs.utk.edu/magma/index.html;
+    homepage = "http://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.unix;
     maintainers = with maintainers; [ ianwookim ];
   };

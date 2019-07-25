@@ -13,15 +13,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python2 libxml2Python ];
 
-  patchPhase =
-    ''
-      sed -e '/import libxml2/i import sys\
-      sys.path.append("${libxml2Python}/lib/${python2.libPrefix}/site-packages")' \
-      -i itstool.in
-    '';
+  patchPhase = ''
+    sed -e '/import libxml2/i import sys\
+    sys.path.append("${libxml2Python}/lib/${python2.libPrefix}/site-packages")' \
+    -i itstool.in
+  '';
 
   meta = {
-    homepage = http://itstool.org/;
+    homepage = "http://itstool.org/";
     description = "XML to PO and back again";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.all;

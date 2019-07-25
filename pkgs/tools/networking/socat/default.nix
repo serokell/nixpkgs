@@ -25,9 +25,10 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails a bunch, hangs
 
   meta = {
-    description = "A utility for bidirectional data transfer between two independent data channels";
-    homepage = http://www.dest-unreach.org/socat/;
-    repositories.git = git://repo.or.cz/socat.git;
+    description =
+      "A utility for bidirectional data transfer between two independent data channels";
+    homepage = "http://www.dest-unreach.org/socat/";
+    repositories.git = "git://repo.or.cz/socat.git";
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.gpl2;
     maintainers = [ stdenv.lib.maintainers.eelco ];

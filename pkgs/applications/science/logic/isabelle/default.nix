@@ -7,18 +7,20 @@ stdenv.mkDerivation rec {
 
   dirname = "Isabelle${version}";
 
-  src = if stdenv.isDarwin
-    then fetchurl {
+  src = if stdenv.isDarwin then
+    fetchurl {
       url = "http://isabelle.in.tum.de/website-${dirname}/dist/${dirname}.dmg";
       sha256 = "0jwnvsf5whklq14ihaxs7b9nbic94mm56nvxljrdbvl6y628j9r5";
     }
-    else fetchurl {
-      url = "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux.tar.gz";
+  else
+    fetchurl {
+      url =
+        "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux.tar.gz";
       sha256 = "1928lwrw1v1p9s23kix30ncpqm8djmrnjixj82f3ni2a8sc3hrsp";
     };
 
   buildInputs = [ perl polyml z3 ]
-             ++ stdenv.lib.optionals (!stdenv.isDarwin) [ nettools java ];
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ nettools java ];
 
   sourceRoot = dirname;
 
@@ -52,12 +54,19 @@ stdenv.mkDerivation rec {
     for comp in contrib/jdk contrib/polyml-* contrib/z3-*; do
       rm -rf $comp/x86*
     done
-    '' + (if ! stdenv.isLinux then "" else ''
-    arch=${if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64-linux" else "x86-linux"}
+  '' + (if !stdenv.isLinux then
+    ""
+  else ''
+    arch=${
+      if stdenv.hostPlatform.system == "x86_64-linux" then
+        "x86_64-linux"
+      else
+        "x86-linux"
+    }
     for f in contrib/*/$arch/{bash_process,epclextract,eprover,nunchaku,SPASS}; do
       patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f"
     done
-    '');
+  '');
 
   installPhase = ''
     mkdir -p $out/bin
@@ -74,7 +83,7 @@ stdenv.mkDerivation rec {
       to be expressed in a formal language and provides tools for proving those
       formulas in a logical calculus.
     '';
-    homepage = http://isabelle.in.tum.de/;
+    homepage = "http://isabelle.in.tum.de/";
     license = "LGPL";
     maintainers = [ stdenv.lib.maintainers.jwiegley ];
     platforms = stdenv.lib.platforms.linux;

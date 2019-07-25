@@ -1,6 +1,4 @@
-{ buildPythonPackage, lib, fetchFromGitHub, glibcLocales
-, pytest, pytest-mock, gentools
-, typing, singledispatch, pythonOlder
+{ buildPythonPackage, lib, fetchFromGitHub, glibcLocales, pytest, pytest-mock, gentools, typing, singledispatch, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,17 +18,17 @@ buildPythonPackage rec {
   buildInputs = [ glibcLocales ];
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs =
-    lib.optionals (pythonOlder "3.4") [ singledispatch ] ++
-    lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.4") [ singledispatch ]
+    ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
   checkInputs = [ pytest pytest-mock gentools ];
   checkPhase = "pytest";
 
   meta = with lib; {
-    description = "Tiny toolkit for writing reusable interactions with web APIs";
+    description =
+      "Tiny toolkit for writing reusable interactions with web APIs";
     license = licenses.mit;
-    homepage = https://snug.readthedocs.io/en/latest/;
+    homepage = "https://snug.readthedocs.io/en/latest/";
     maintainers = with maintainers; [ mredaelli ];
   };
 

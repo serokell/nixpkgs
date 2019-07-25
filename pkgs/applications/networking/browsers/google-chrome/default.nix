@@ -1,16 +1,12 @@
 { stdenv, patchelf, makeWrapper
 
 # Linked dynamic libraries.
-, glib, fontconfig, freetype, pango, cairo, libX11, libXi, atk, gconf, nss, nspr
-, libXcursor, libXext, libXfixes, libXrender, libXScrnSaver, libXcomposite, libxcb
-, alsaLib, libXdamage, libXtst, libXrandr, expat, cups
-, dbus, gtk2, gtk3, gdk_pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core
-, kerberos
+, glib, fontconfig, freetype, pango, cairo, libX11, libXi, atk, gconf, nss, nspr, libXcursor, libXext, libXfixes, libXrender, libXScrnSaver, libXcomposite, libxcb, alsaLib, libXdamage, libXtst, libXrandr, expat, cups, dbus, gtk2, gtk3, gdk_pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core, kerberos
 
 # command line arguments which are always set e.g "--disable-gpu"
 , commandLineArgs ? ""
 
-# Will crash without.
+  # Will crash without.
 , systemd
 
 # Loaded at runtime.
@@ -27,40 +23,71 @@
 # Which distribution channel to use.
 , channel ? "stable"
 
-# Necessary for USB audio devices.
+  # Necessary for USB audio devices.
 , pulseSupport ? true, libpulseaudio ? null
 
-# Only needed for getting information about upstream binaries
+  # Only needed for getting information about upstream binaries
 , chromium
 
-, gsettings-desktop-schemas
-, gnome2, gnome3
-}:
+, gsettings-desktop-schemas, gnome2, gnome3 }:
 
 with stdenv.lib;
 
 let
-  opusWithCustomModes = libopus.override {
-    withCustomModes = true;
-  };
+  opusWithCustomModes = libopus.override { withCustomModes = true; };
 
   version = chromium.upstream-info.version;
   gtk = if (versionAtLeast version "59.0.0.0") then gtk3 else gtk2;
   gnome = if (versionAtLeast version "59.0.0.0") then gnome3 else gnome2;
 
   deps = [
-    glib fontconfig freetype pango cairo libX11 libXi atk gconf nss nspr
-    libXcursor libXext libXfixes libXrender libXScrnSaver libXcomposite libxcb
-    alsaLib libXdamage libXtst libXrandr expat cups
-    dbus gdk_pixbuf gcc-unwrapped.lib
+    glib
+    fontconfig
+    freetype
+    pango
+    cairo
+    libX11
+    libXi
+    atk
+    gconf
+    nss
+    nspr
+    libXcursor
+    libXext
+    libXfixes
+    libXrender
+    libXScrnSaver
+    libXcomposite
+    libxcb
+    alsaLib
+    libXdamage
+    libXtst
+    libXrandr
+    expat
+    cups
+    dbus
+    gdk_pixbuf
+    gcc-unwrapped.lib
     systemd
     libexif
-    liberation_ttf curl utillinux xdg_utils wget
-    flac harfbuzz icu libpng opusWithCustomModes snappy speechd
-    bzip2 libcap at-spi2-atk at-spi2-core
+    liberation_ttf
+    curl
+    utillinux
+    xdg_utils
+    wget
+    flac
+    harfbuzz
+    icu
+    libpng
+    opusWithCustomModes
+    snappy
+    speechd
+    bzip2
+    libcap
+    at-spi2-atk
+    at-spi2-core
     kerberos
-  ] ++ optional pulseSupport libpulseaudio
-    ++ [ gtk ];
+  ] ++ optional pulseSupport libpulseaudio ++ [ gtk ];
 
   suffix = if channel != "stable" then "-" + channel else "";
 
@@ -74,7 +101,9 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ patchelf makeWrapper ];
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
-    gsettings-desktop-schemas glib gtk
+    gsettings-desktop-schemas
+    glib
+    gtk
 
     # needed for XDG_ICON_DIRS
     gnome.adwaita-icon-theme
@@ -133,7 +162,7 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "A freeware web browser developed by Google";
-    homepage = https://www.google.com/chrome/browser/;
+    homepage = "https://www.google.com/chrome/browser/";
     license = licenses.unfree;
     maintainers = [ maintainers.msteen ];
     platforms = [ "x86_64-linux" ];

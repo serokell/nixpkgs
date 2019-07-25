@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchgit
-}:
+{ stdenv, buildPythonPackage, fetchgit }:
 
 buildPythonPackage rec {
   pname = "unpaddedbase64";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/matrix-org/python-unpaddedbase64;
+    homepage = "https://github.com/matrix-org/python-unpaddedbase64";
     description = "Unpadded Base64";
     license = licenses.asl20;
   };

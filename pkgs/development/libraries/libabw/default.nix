@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, boost, doxygen, gperf, pkgconfig, librevenge, libxml2, perl }:
+{ stdenv, fetchurl, boost, doxygen, gperf, pkgconfig, librevenge, libxml2, perl
+}:
 
 stdenv.mkDerivation rec {
   name = "libabw-${version}";
@@ -19,7 +20,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ boost doxygen gperf librevenge libxml2 perl ];
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.documentfoundation.org/DLP/Libraries/libabw;
+    homepage = "https://wiki.documentfoundation.org/DLP/Libraries/libabw";
     description = "Library parsing abiword documents";
     platforms = platforms.unix;
     license = licenses.mpl20;

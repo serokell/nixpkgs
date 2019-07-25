@@ -1,9 +1,7 @@
 { stdenv, fetchurl }:
 
-let
-  version = "1.1.1";
-in
-stdenv.mkDerivation {
+let version = "1.1.1";
+in stdenv.mkDerivation {
   name = "teseq-${version}";
 
   src = fetchurl {
@@ -12,7 +10,7 @@ stdenv.mkDerivation {
   };
 
   meta = {
-    homepage = https://www.gnu.org/software/teseq/;
+    homepage = "https://www.gnu.org/software/teseq/";
     description = "Escape sequence illuminator";
     license = stdenv.lib.licenses.gpl3;
 

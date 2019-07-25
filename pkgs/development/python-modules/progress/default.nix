@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   version = "1.5";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/verigak/progress/;
+    homepage = "https://github.com/verigak/progress/";
     description = "Easy to use progress bars";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

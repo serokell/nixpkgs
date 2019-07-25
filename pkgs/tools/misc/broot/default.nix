@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1hsrp9xbi6bj3461y58hmzfwakx4vakpzkjvi6174gy8xq7cdvg1";
 
   meta = with stdenv.lib; {
-    description = "An interactive tree view, a fuzzy search, a balanced BFS descent and customizable commands";
+    description =
+      "An interactive tree view, a fuzzy search, a balanced BFS descent and customizable commands";
     homepage = "https://dystroy.org/broot/";
     maintainers = with maintainers; [ magnetophon ];
     license = with licenses; [ mit ];

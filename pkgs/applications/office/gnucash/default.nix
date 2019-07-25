@@ -1,7 +1,4 @@
-{ fetchurl, stdenv, pkgconfig, makeWrapper, cmake, gtest
-, boost, icu, libxml2, libxslt, gettext, swig, isocodes, gtk3, glibcLocales
-, webkitgtk, dconf, hicolor-icon-theme, libofx, aqbanking, gwenhywfar, libdbi
-, libdbiDrivers, guile, perl, perlPackages
+{ fetchurl, stdenv, pkgconfig, makeWrapper, cmake, gtest, boost, icu, libxml2, libxslt, gettext, swig, isocodes, gtk3, glibcLocales, webkitgtk, dconf, hicolor-icon-theme, libofx, aqbanking, gwenhywfar, libdbi, libdbiDrivers, guile, perl, perlPackages
 }:
 
 let
@@ -21,9 +18,7 @@ let
     '';
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gnucash-${version}";
   version = "3.6";
 
@@ -35,10 +30,26 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig makeWrapper cmake gtest ];
 
   buildInputs = [
-    boost icu libxml2 libxslt gettext swig isocodes gtk3 glibcLocales
-    webkitgtk dconf hicolor-icon-theme libofx aqbanking gwenhywfar libdbi
-    libdbiDrivers guile
-    perlWrapper perl
+    boost
+    icu
+    libxml2
+    libxslt
+    gettext
+    swig
+    isocodes
+    gtk3
+    glibcLocales
+    webkitgtk
+    dconf
+    hicolor-icon-theme
+    libofx
+    aqbanking
+    gwenhywfar
+    libdbi
+    libdbiDrivers
+    guile
+    perlWrapper
+    perl
   ] ++ (with perlPackages; [ FinanceQuote DateManip ]);
 
   propagatedUserEnvPkgs = [ dconf ];
@@ -86,7 +97,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "Personal and small-business financial-accounting application";
+    description =
+      "Personal and small-business financial-accounting application";
 
     longDescription = ''
       GnuCash is personal and small-business financial-accounting software,
@@ -101,9 +113,10 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl2Plus;
 
-    homepage = http://www.gnucash.org/;
+    homepage = "http://www.gnucash.org/";
 
-    maintainers = [ stdenv.lib.maintainers.peti stdenv.lib.maintainers.domenkozar ];
+    maintainers =
+      [ stdenv.lib.maintainers.peti stdenv.lib.maintainers.domenkozar ];
     platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux;
   };
 }

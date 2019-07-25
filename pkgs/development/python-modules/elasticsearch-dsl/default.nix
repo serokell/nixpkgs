@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, elasticsearch
-, ipaddress
-, python-dateutil
-, six
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, elasticsearch, ipaddress, python-dateutil, six
 }:
 
 buildPythonPackage rec {
@@ -18,7 +11,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ elasticsearch python-dateutil six ]
-                          ++ stdenv.lib.optional (!isPy3k) ipaddress;
+    ++ stdenv.lib.optional (!isPy3k) ipaddress;
 
   # ImportError: No module named test_elasticsearch_dsl
   # Tests require a local instance of elasticsearch
@@ -31,7 +24,7 @@ buildPythonPackage rec {
       writing and running queries against Elasticsearch. It is built on top of
       the official low-level client (elasticsearch-py).
     '';
-    homepage = https://github.com/elasticsearch/elasticsearch-dsl-py;
+    homepage = "https://github.com/elasticsearch/elasticsearch-dsl-py";
     license = licenses.asl20;
     maintainers = with maintainers; [ desiderius ];
   };

@@ -11,8 +11,19 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   buildInputs = with emacsPackagesNg; [
-    s f dash ansi ecukes servant ert-runner el-mock
-    noflet ert-async shell-split-string git package-build
+    s
+    f
+    dash
+    ansi
+    ecukes
+    servant
+    ert-runner
+    el-mock
+    noflet
+    ert-async
+    shell-split-string
+    git
+    package-build
   ];
   buildPhase = ''
     emacs --batch -L . -f batch-byte-compile cask.el cask-cli.el
@@ -38,7 +49,7 @@ stdenv.mkDerivation rec {
       Cask can also be used to manage dependencies for your local Emacs configuration.
     '';
 
-    homepage = https://cask.readthedocs.io/en/latest/index.html;
+    homepage = "https://cask.readthedocs.io/en/latest/index.html";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.flexw ];

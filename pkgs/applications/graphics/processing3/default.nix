@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, xmlstarlet, makeWrapper, ant, jdk, rsync, javaPackages, libXxf86vm, gsettings-desktop-schemas }:
+{ stdenv, fetchFromGitHub, fetchurl, xmlstarlet, makeWrapper, ant, jdk, rsync, javaPackages, libXxf86vm, gsettings-desktop-schemas
+}:
 
 stdenv.mkDerivation rec {
   version = "3.4";
@@ -21,11 +22,12 @@ stdenv.mkDerivation rec {
 
     # do not download a file during build
     ${xmlstarlet}/bin/xmlstarlet ed --inplace -P -d '//get[@src="http://download.processing.org/reference.zip"]' build/build.xml
-    install -D -m0444 ${fetchurl {
-                          url    = http://download.processing.org/reference.zip;
-                          sha256 = "0ai0cr62gc7n6y22ki3qibyj1qnlaxv1miqxmmahfk3hpbyfqz9n";
-                        }
-                       } ./java/reference.zip
+    install -D -m0444 ${
+      fetchurl {
+        url = "http://download.processing.org/reference.zip";
+        sha256 = "0ai0cr62gc7n6y22ki3qibyj1qnlaxv1miqxmmahfk3hpbyfqz9n";
+      }
+    } ./java/reference.zip
 
     # suppress "Not fond of this Java VM" message box
     substituteInPlace app/src/processing/app/platform/LinuxPlatform.java \
@@ -56,7 +58,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A language and IDE for electronic arts";
-    homepage = https://processing.org;
+    homepage = "https://processing.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

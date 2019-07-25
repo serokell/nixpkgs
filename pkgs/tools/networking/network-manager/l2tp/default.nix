@@ -1,7 +1,5 @@
-{ stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool, pkgconfig
-, file, findutils
-, gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret
-, withGnome ? true, networkmanagerapplet }:
+{ stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool, pkgconfig, file, findutils, gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret, withGnome ?
+  true, networkmanagerapplet }:
 
 stdenv.mkDerivation rec {
   name = "${pname}${if withGnome then "-gnome" else ""}-${version}";
@@ -25,7 +23,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ networkmanager ppp ]
     ++ stdenv.lib.optionals withGnome [ gtk3 libsecret networkmanagerapplet ];
 
-  nativeBuildInputs = [ autoreconfHook libtool intltool pkgconfig file findutils ];
+  nativeBuildInputs =
+    [ autoreconfHook libtool intltool pkgconfig file findutils ];
 
   preConfigure = ''
     intltoolize -f
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "L2TP plugin for NetworkManager";
     inherit (networkmanager.meta) platforms;
-    homepage = https://github.com/nm-l2tp/network-manager-l2tp;
+    homepage = "https://github.com/nm-l2tp/network-manager-l2tp";
     license = licenses.gpl2;
     maintainers = with maintainers; [ abbradar obadz ];
   };

@@ -17,7 +17,9 @@ buildGoModule rec {
   modSha256 = "09mbjbk5wa18z4xis5b2v2v0b04mf4d896yp88vcj8d8hsmbmc6g";
 
   postFixup = ''
-    wrapProgram $out/bin/termshark --prefix PATH : ${stdenv.lib.makeBinPath [ wireshark-cli ]}
+    wrapProgram $out/bin/termshark --prefix PATH : ${
+      stdenv.lib.makeBinPath [ wireshark-cli ]
+    }
   '';
 
   buildFlagsArray = ''
@@ -26,7 +28,7 @@ buildGoModule rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://termshark.io/;
+    homepage = "https://termshark.io/";
     description = "A terminal UI for wireshark-cli, inspired by Wireshark";
     platforms = platforms.linux;
     license = licenses.mit;

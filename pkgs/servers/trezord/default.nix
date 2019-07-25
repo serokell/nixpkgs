@@ -10,9 +10,9 @@ buildGoPackage rec {
   goPackagePath = "github.com/trezor/trezord-go";
 
   src = fetchFromGitHub {
-    owner  = "trezor";
-    repo   = "trezord-go";
-    rev    = "v${version}";
+    owner = "trezor";
+    repo = "trezord-go";
+    rev = "v${version}";
     sha256 = "00d90qmmk1pays78a2jm8gb7dncvlsjjn4033q1yd1ii3fxc6nh8";
   };
 

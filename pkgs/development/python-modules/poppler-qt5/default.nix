@@ -1,5 +1,4 @@
-{ buildPythonPackage, fetchPypi, stdenv, sip, qtbase, pyqt5, poppler, pkgconfig, fetchpatch
-, substituteAll
+{ buildPythonPackage, fetchPypi, stdenv, sip, qtbase, pyqt5, poppler, pkgconfig, fetchpatch, substituteAll
 }:
 
 buildPythonPackage rec {
@@ -17,7 +16,8 @@ buildPythonPackage rec {
       poppler_include_dir = "${poppler.dev}/include/poppler";
     })
     (fetchpatch {
-      url = "https://github.com/wbsoft/python-poppler-qt5/commit/faf4d1308f89560b0d849671226e3080dfc72e79.patch";
+      url =
+        "https://github.com/wbsoft/python-poppler-qt5/commit/faf4d1308f89560b0d849671226e3080dfc72e79.patch";
       sha256 = "18krhh6wzsnpxzlzv02nginb1vralla8ai24zqk10nc4mj6fkj86";
     })
   ];
@@ -35,7 +35,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/wbsoft/python-poppler-qt5;
+    homepage = "https://github.com/wbsoft/python-poppler-qt5";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ma27 ];
   };

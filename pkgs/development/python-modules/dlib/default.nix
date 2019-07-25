@@ -10,7 +10,8 @@ buildPythonPackage {
     ${python.interpreter} nix_run_setup test --no USE_AVX_INSTRUCTIONS
   '';
 
-  setupPyBuildFlags = [ "--${if avxSupport then "yes" else "no"} USE_AVX_INSTRUCTIONS" ];
+  setupPyBuildFlags =
+    [ "--${if avxSupport then "yes" else "no"} USE_AVX_INSTRUCTIONS" ];
 
   patches = [ ./build-cores.patch ];
 

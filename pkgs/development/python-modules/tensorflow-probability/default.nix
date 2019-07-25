@@ -1,20 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildBazelPackage
-, buildPythonPackage
-, python
-, setuptools
-, wheel
-, tensorflow
-, six
-, numpy
-, decorator
-, cloudpickle
-, hypothesis
-, scipy
-, matplotlib
-, mock
-, pytest
+{ lib, fetchFromGitHub, buildBazelPackage, buildPythonPackage, python, setuptools, wheel, tensorflow, six, numpy, decorator, cloudpickle, hypothesis, scipy, matplotlib, mock, pytest
 }:
 
 let
@@ -69,23 +53,11 @@ in buildPythonPackage rec {
 
   src = bazel-wheel;
 
-  propagatedBuildInputs = [
-    tensorflow
-    six
-    numpy
-    decorator
-    cloudpickle
-  ];
+  propagatedBuildInputs = [ tensorflow six numpy decorator cloudpickle ];
 
   # Listed here:
   # https://github.com/tensorflow/probability/blob/f01d27a6f256430f03b14beb14d37def726cb257/testing/run_tests.sh#L58
-  checkInputs = [
-    hypothesis
-    pytest
-    scipy
-    matplotlib
-    mock
-  ];
+  checkInputs = [ hypothesis pytest scipy matplotlib mock ];
 
   # actual checks currently fail because for some reason
   # tf.enable_eager_execution is called too late. Probably because upstream
@@ -102,8 +74,9 @@ in buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Library for probabilistic reasoning and statistical analysis";
-    homepage = https://www.tensorflow.org/probability/;
+    description =
+      "Library for probabilistic reasoning and statistical analysis";
+    homepage = "https://www.tensorflow.org/probability/";
     license = licenses.asl20;
     maintainers = with maintainers; [ timokau ];
   };

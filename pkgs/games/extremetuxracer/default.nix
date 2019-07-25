@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, libGLU_combined, libX11, xorgproto, tcl, freeglut, freetype
-, sfml, libXi
-, libXmu, libXext, libXt, libSM, libICE
-, libpng, pkgconfig, gettext, intltool
+{ stdenv, fetchurl, libGLU_combined, libX11, xorgproto, tcl, freeglut, freetype, sfml, libXi, libXmu, libXext, libXt, libSM, libICE, libpng, pkgconfig, gettext, intltool
 }:
 
 stdenv.mkDerivation rec {
@@ -14,10 +11,23 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    libGLU_combined libX11 xorgproto tcl freeglut freetype
-    sfml libXi
-    libXmu libXext libXt libSM libICE
-    libpng pkgconfig gettext intltool
+    libGLU_combined
+    libX11
+    xorgproto
+    tcl
+    freeglut
+    freetype
+    sfml
+    libXi
+    libXmu
+    libXext
+    libXt
+    libSM
+    libICE
+    libpng
+    pkgconfig
+    gettext
+    intltool
   ];
 
   configureFlags = [ "--with-tcl=${tcl}/lib" ];
@@ -32,7 +42,7 @@ stdenv.mkDerivation rec {
       ExtremeTuxRacer - Tux lies on his belly and accelerates down ice slopes.
     '';
     license = stdenv.lib.licenses.gpl2Plus;
-    homepage = https://sourceforge.net/projects/extremetuxracer/;
+    homepage = "https://sourceforge.net/projects/extremetuxracer/";
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];
     platforms = with stdenv.lib.platforms; linux;
   };

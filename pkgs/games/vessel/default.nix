@@ -15,13 +15,16 @@ stdenv.mkDerivation rec {
       message = goBuyItNow;
       name = "${name}-bin";
       sha256 = "1vpwcrjiln2mx43h7ib3jnccyr3chk7a5x2bw9kb4lw8ycygvg96";
-    } else throw "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now.";
+    }
+  else
+    throw
+    "unsupported platform ${stdenv.hostPlatform.system} only i686-linux supported for now.";
 
   phases = "installPhase";
   ld_preload = ./isatty.c;
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc ]
-    + ":" + stdenv.lib.makeLibraryPath [ SDL libpulseaudio alsaLib ] ;
+  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc ] + ":"
+    + stdenv.lib.makeLibraryPath [ SDL libpulseaudio alsaLib ];
 
   installPhase = ''
     mkdir -p $out/libexec/strangeloop/vessel/
@@ -75,7 +78,7 @@ stdenv.mkDerivation rec {
       causing. Vessel is a game about a man with the power to bring ordinary matter
       to life, and all the consequences that ensue.
     '';
-    homepage = http://www.strangeloopgames.com;
+    homepage = "http://www.strangeloopgames.com";
     license = licenses.unfree;
     maintainers = with maintainers; [ jcumming ];
   };

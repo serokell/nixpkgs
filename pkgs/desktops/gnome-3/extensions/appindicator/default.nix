@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ jonafato ];
     platforms = gnome3.gnome-shell.meta.platforms;
-    homepage = https://github.com/Ubuntu/gnome-shell-extension-appindicator;
+    homepage = "https://github.com/Ubuntu/gnome-shell-extension-appindicator";
   };
 }

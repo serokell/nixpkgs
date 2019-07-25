@@ -1,8 +1,7 @@
-{ stdenv, buildPythonApplication, fetchPypi, fetchpatch
-, pytest, nose }:
+{ stdenv, buildPythonApplication, fetchPypi, fetchpatch, pytest, nose }:
 
 buildPythonApplication rec {
-  pname   = "sybil";
+  pname = "sybil";
   version = "1.0.9";
 
   src = fetchPypi {
@@ -12,7 +11,8 @@ buildPythonApplication rec {
 
   patches = [
     (fetchpatch {
-      url = https://github.com/cjw296/sybil/commit/6461d8156cfb68bd073ec613a5a516916e97e549.patch;
+      url =
+        "https://github.com/cjw296/sybil/commit/6461d8156cfb68bd073ec613a5a516916e97e549.patch";
       sha256 = "0aqny0i7l6g6d7vr025b90zz8wzszqdbmi05mp67dxw5xqjqvxj2";
     })
   ];
@@ -25,7 +25,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Automated testing for the examples in your documentation.";
-    homepage    = https://github.com/cjw296/sybil/;
-    license     = licenses.mit;
+    homepage = "https://github.com/cjw296/sybil/";
+    license = licenses.mit;
   };
 }

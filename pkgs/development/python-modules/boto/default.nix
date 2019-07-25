@@ -1,11 +1,4 @@
-{ pkgs
-, buildPythonPackage
-, fetchPypi
-, python
-, nose
-, mock
-, requests
-, httpretty
+{ pkgs, buildPythonPackage, fetchPypi, python, nose, mock, requests, httpretty
 }:
 
 buildPythonPackage rec {
@@ -25,7 +18,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests httpretty ];
 
   meta = with pkgs.lib; {
-    homepage = https://github.com/boto/boto;
+    homepage = "https://github.com/boto/boto";
     license = licenses.mit;
     description = "Python interface to Amazon Web Services";
     longDescription = ''

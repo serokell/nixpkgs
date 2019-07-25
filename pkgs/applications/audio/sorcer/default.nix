@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub , boost, cairomm, cmake, libsndfile, lv2, ntk, pkgconfig, python }:
+{ stdenv, fetchFromGitHub, boost, cairomm, cmake, libsndfile, lv2, ntk, pkgconfig, python
+}:
 
 stdenv.mkDerivation rec {
   name = "sorcer-${version}";
@@ -20,8 +21,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://openavproductions.com/sorcer/;
-    description = "A wavetable LV2 plugin synth, targeted at the electronic / dubstep genre";
+    homepage = "http://openavproductions.com/sorcer/";
+    description =
+      "A wavetable LV2 plugin synth, targeted at the electronic / dubstep genre";
     license = licenses.gpl3;
     maintainers = [ maintainers.magnetophon ];
     platforms = platforms.linux;

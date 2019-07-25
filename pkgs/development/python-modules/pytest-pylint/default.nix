@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pylint
-, six
-, pytestrunner
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pylint, six, pytestrunner }:
 
 buildPythonPackage rec {
   pname = "pytest-pylint";
@@ -18,18 +11,14 @@ buildPythonPackage rec {
 
   buildInputs = [ pytestrunner ];
 
-  propagatedBuildInputs = [
-    pytest
-    pylint
-    six
-  ];
+  propagatedBuildInputs = [ pytest pylint six ];
 
   # tests not included with release
   doCheck = false;
 
   meta = with lib; {
     description = "pytest plugin to check source code with pylint";
-    homepage = https://github.com/carsongee/pytest-pylint;
+    homepage = "https://github.com/carsongee/pytest-pylint";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

@@ -20,8 +20,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/M0Rf30/android-udev-rules;
-    description = "Android udev rules list aimed to be the most comprehensive on the net";
+    homepage = "https://github.com/M0Rf30/android-udev-rules";
+    description =
+      "Android udev rules list aimed to be the most comprehensive on the net";
     platforms = platforms.linux;
     license = licenses.gpl3;
     maintainers = with maintainers; [ abbradar ];

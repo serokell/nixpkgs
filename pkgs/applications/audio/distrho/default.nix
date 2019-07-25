@@ -1,12 +1,13 @@
-{ stdenv, fetchFromGitHub, alsaLib, fftwSinglePrec, freetype, libjack2
-, pkgconfig, ladspa-sdk, premake3
-, libX11, libXcomposite, libXcursor, libXext, libXinerama, libXrender
+{ stdenv, fetchFromGitHub, alsaLib, fftwSinglePrec, freetype, libjack2, pkgconfig, ladspa-sdk, premake3, libX11, libXcomposite, libXcursor, libXext, libXinerama, libXrender
 }:
 
 let
-  premakeos = if stdenv.hostPlatform.isDarwin then "osx"
-              else if stdenv.hostPlatform.isWindows then "mingw"
-              else "linux";
+  premakeos = if stdenv.hostPlatform.isDarwin then
+    "osx"
+  else if stdenv.hostPlatform.isWindows then
+    "mingw"
+  else
+    "linux";
 in stdenv.mkDerivation rec {
   name = "distrho-ports-${version}";
   version = "2018-04-16";
@@ -32,15 +33,23 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig premake3 ];
   buildInputs = [
-    alsaLib fftwSinglePrec freetype libjack2
-    libX11 libXcomposite libXcursor libXext
-    libXinerama libXrender ladspa-sdk
+    alsaLib
+    fftwSinglePrec
+    freetype
+    libjack2
+    libX11
+    libXcomposite
+    libXcursor
+    libXext
+    libXinerama
+    libXrender
+    ladspa-sdk
   ];
 
   makeFlags = "PREFIX=$(out)";
 
   meta = with stdenv.lib; {
-    homepage = http://distrho.sourceforge.net;
+    homepage = "http://distrho.sourceforge.net";
     description = "A collection of cross-platform audio effects and plugins";
     longDescription = ''
       Includes:

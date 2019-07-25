@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.13";
 
   src = fetchurl {
-    url = "https://launchpad.net/fatrace/trunk/${version}/+download/${name}.tar.bz2";
+    url =
+      "https://launchpad.net/fatrace/trunk/${version}/+download/${name}.tar.bz2";
     sha256 = "0hrh45bpzncw0jkxw3x2smh748r65k2yxvfai466043bi5q0d2vx";
   };
 
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Report system-wide file access events";
-    homepage = https://launchpad.net/fatrace/;
+    homepage = "https://launchpad.net/fatrace/";
     license = licenses.gpl3Plus;
     longDescription = ''
       fatrace reports file access events from all running processes.

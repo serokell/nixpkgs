@@ -1,11 +1,12 @@
-{stdenv, fetchurl, ncurses}:
+{ stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   name = "gopher-${version}";
   version = "3.0.11";
 
   src = fetchurl {
-    url = "http://gopher.quux.org:70/devel/gopher/Downloads/gopher_${version}.tar.gz";
+    url =
+      "http://gopher.quux.org:70/devel/gopher/Downloads/gopher_${version}.tar.gz";
     sha256 = "15r7x518wlpfqpd6z0hbdwm8rw8ll8hbpskdqgxxhrmy00aa7w9c";
   };
 
@@ -14,7 +15,7 @@ stdenv.mkDerivation rec {
   preConfigure = "export LIBS=-lncurses";
 
   meta = {
-    homepage = http://gopher.quux.org:70/devel/gopher;
+    homepage = "http://gopher.quux.org:70/devel/gopher";
     description = "A ncurses gopher client";
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.gpl2;

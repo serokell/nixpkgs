@@ -1,8 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, asciidoc, docbook_xml_dtd_45
-, docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
-, xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
-, dbus, libconfig, libdrm, libGL, pcre, libX11
-, libXinerama, libXext, xwininfo, libxdg_basedir }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja, xorgproto, libxcb, xcbutilrenderutil, xcbutilimage, pixman, libev, dbus, libconfig, libdrm, libGL, pcre, libX11, libXinerama, libXext, xwininfo, libxdg_basedir
+}:
 stdenv.mkDerivation rec {
   pname = "compton";
   version = "6.2";
@@ -10,14 +7,15 @@ stdenv.mkDerivation rec {
   COMPTON_VERSION = "v${version}";
 
   src = fetchFromGitHub {
-    owner  = "yshui";
-    repo   = "compton";
-    rev    = COMPTON_VERSION;
+    owner = "yshui";
+    repo = "compton";
+    rev = COMPTON_VERSION;
     sha256 = "03fi9q8zw2qrwpkmy1bnavgfh91ci9in5fdi17g4s5s0n2l7yil7";
   };
 
   nativeBuildInputs = [
-    meson ninja
+    meson
+    ninja
     pkgconfig
     asciidoc
     docbook_xml_dtd_45
@@ -26,19 +24,28 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    dbus libX11 libXext
+    dbus
+    libX11
+    libXext
     xorgproto
-    libXinerama libdrm pcre libxml2 libxslt libconfig libGL
-    libxcb xcbutilrenderutil xcbutilimage
-    pixman libev
+    libXinerama
+    libdrm
+    pcre
+    libxml2
+    libxslt
+    libconfig
+    libGL
+    libxcb
+    xcbutilrenderutil
+    xcbutilimage
+    pixman
+    libev
     libxdg_basedir
   ];
 
   NIX_CFLAGS_COMPILE = [ "-fno-strict-aliasing" ];
 
-  mesonFlags = [
-    "-Dbuild_docs=true"
-  ];
+  mesonFlags = [ "-Dbuild_docs=true" ];
 
   preBuild = ''
     git() { echo "v${version}"; }
@@ -53,7 +60,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A fork of XCompMgr, a sample compositing manager for X servers";
+    description =
+      "A fork of XCompMgr, a sample compositing manager for X servers";
     longDescription = ''
       A fork of XCompMgr, which is a sample compositing manager for X
       servers supporting the XFIXES, DAMAGE, RENDER, and COMPOSITE

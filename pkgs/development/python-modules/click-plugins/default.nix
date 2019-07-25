@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi,
-  click, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, click, pytest }:
 
 buildPythonPackage rec {
   pname = "click-plugins";
@@ -11,17 +9,14 @@ buildPythonPackage rec {
     sha256 = "dfed74b5063546a137de99baaaf742b4de4337ad2b3e1df5ec7c8a256adc0847";
   };
 
-  propagatedBuildInputs = [
-    click
-  ];
+  propagatedBuildInputs = [ click ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   meta = with stdenv.lib; {
-    description = "An extension module for click to enable registering CLI commands";
-    homepage = https://github.com/click-contrib/click-plugins;
+    description =
+      "An extension module for click to enable registering CLI commands";
+    homepage = "https://github.com/click-contrib/click-plugins";
     license = licenses.bsd3;
     maintainers = with maintainers; [ knedlsepp ];
   };

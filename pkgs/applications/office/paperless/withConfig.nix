@@ -19,17 +19,16 @@
 # Start web interface
 # ./paperless runserver --noreload localhost:8000
 
-{ config ? {}, dataDir ? null, ocrLanguages ? null
-, paperlessPkg ? paperless, extraCmds ? "" }:
+{ config ? { }, dataDir ? null, ocrLanguages ? null, paperlessPkg ?
+  paperless, extraCmds ? "" }:
 with lib;
 let
   paperless = if ocrLanguages == null then
     paperlessPkg
   else
     (paperlessPkg.override {
-      tesseract = paperlessPkg.tesseract.override {
-        enableLanguages = ocrLanguages;
-      };
+      tesseract =
+        paperlessPkg.tesseract.override { enableLanguages = ocrLanguages; };
     }).overrideDerivation (_: {
       # `ocrLanguages` might be missing some languages required by the tests.
       doCheck = false;
@@ -62,7 +61,4 @@ let
     ${extraCmds}
     exec python $paperlessSrc/manage.py "$@"
   '';
-in
-  runPaperless // {
-    inherit paperless setupEnv;
-  }
+in runPaperless // { inherit paperless setupEnv; }

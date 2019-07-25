@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, itsdangerous, click, werkzeug, jinja2, pytest }:
+{ stdenv, buildPythonPackage, fetchPypi, itsdangerous, click, werkzeug, jinja2, pytest
+}:
 
 buildPythonPackage rec {
   version = "1.0.3";
@@ -21,8 +21,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://flask.pocoo.org/;
-    description = "A microframework based on Werkzeug, Jinja 2, and good intentions";
+    homepage = "http://flask.pocoo.org/";
+    description =
+      "A microframework based on Werkzeug, Jinja 2, and good intentions";
     license = licenses.bsd3;
   };
 }

@@ -5,10 +5,10 @@ stdenv.mkDerivation rec {
   name = "xcwd-${version}";
 
   src = fetchFromGitHub {
-    owner   = "schischi";
-    repo    = "xcwd";
-    rev     = "3f0728b932904985b703b33bd5c936ea96cf15a0";
-    sha256  = "0lwfz6qg7fkiq86skp51vpav33yik22ps4dvr48asv3570skhlf9";
+    owner = "schischi";
+    repo = "xcwd";
+    rev = "3f0728b932904985b703b33bd5c936ea96cf15a0";
+    sha256 = "0lwfz6qg7fkiq86skp51vpav33yik22ps4dvr48asv3570skhlf9";
   };
 
   buildInputs = [ libX11 ];
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     description = ''
       A simple tool which print the current working directory of the currently focused window
     '';
-    homepage = https://github.com/schischi/xcwd;
+    homepage = "https://github.com/schischi/xcwd";
     maintainers = [ maintainers.grburst ];
     license = licenses.bsd3;
     platforms = platforms.linux;

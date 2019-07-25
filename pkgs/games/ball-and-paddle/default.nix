@@ -33,12 +33,13 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl3Plus;
 
-    homepage = https://www.gnu.org/software/ballandpaddle/;
+    homepage = "https://www.gnu.org/software/ballandpaddle/";
 
     maintainers = [ ];
 
     platforms = stdenv.lib.platforms.unix;
 
-    hydraPlatforms = stdenv.lib.platforms.linux; # sdl-config times out on darwin
+    hydraPlatforms =
+      stdenv.lib.platforms.linux; # sdl-config times out on darwin
   };
 }

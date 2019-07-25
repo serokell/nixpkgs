@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, pygments
-, markdown
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchurl, pygments, markdown, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pyblosxom";

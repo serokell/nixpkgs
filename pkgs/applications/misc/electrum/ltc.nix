@@ -1,7 +1,4 @@
-{ stdenv
-, fetchurl
-, python3Packages
-}:
+{ stdenv, fetchurl, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "electrum-ltc";
@@ -48,7 +45,7 @@ python3Packages.buildPythonApplication rec {
       about losing your litecoins to theft or hardware failure. No waiting, no
       lengthy blockchain downloads and no syncing to the network.
     '';
-    homepage = https://electrum-ltc.org/;
+    homepage = "https://electrum-ltc.org/";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ asymmetric ];

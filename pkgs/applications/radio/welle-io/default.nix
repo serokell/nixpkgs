@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
-, qtbase, qtcharts, qtmultimedia, qtquickcontrols, qtquickcontrols2
-, faad2, rtl-sdr, soapysdr-with-plugins, libusb, fftwSinglePrec }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtcharts, qtmultimedia, qtquickcontrols, qtquickcontrols2, faad2, rtl-sdr, soapysdr-with-plugins, libusb, fftwSinglePrec
+}:
 let
 
   version = "1.0";
@@ -31,15 +30,13 @@ in stdenv.mkDerivation {
     soapysdr-with-plugins
   ];
 
-  cmakeFlags = [
-    "-DRTLSDR=true" "-DSOAPYSDR=true"
-  ];
+  cmakeFlags = [ "-DRTLSDR=true" "-DSOAPYSDR=true" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "A DAB/DAB+ Software Radio";
-    homepage = https://www.welle.io/;
+    homepage = "https://www.welle.io/";
     maintainers = with maintainers; [ ck3d markuskowa ];
     license = licenses.gpl2;
     platforms = with platforms; [ "x86_64-linux" "i686-linux" ] ++ darwin;

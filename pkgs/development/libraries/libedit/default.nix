@@ -19,12 +19,12 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ ncurses ];
 
   postInstall = ''
-    find $out/lib -type f | grep '\.\(la\|pc\)''$' | xargs sed -i \
+    find $out/lib -type f | grep '\.\(la\|pc\)$' | xargs sed -i \
       -e 's,-lncurses[a-z]*,-L${ncurses.out}/lib -lncursesw,g'
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.thrysoee.dk/editline/;
+    homepage = "http://www.thrysoee.dk/editline/";
     description = "A port of the NetBSD Editline library (libedit)";
     license = licenses.bsd3;
     platforms = platforms.all;

@@ -1,5 +1,5 @@
-{ stdenv, lib, pythonPackages, python3Packages, less, patchutils, git
-, subversion, coreutils, which }:
+{ stdenv, lib, pythonPackages, python3Packages, less, patchutils, git, subversion, coreutils, which
+}:
 
 with pythonPackages;
 
@@ -31,7 +31,7 @@ buildPythonApplication rec {
   checkTarget = if isPy3k then "test3" else "test";
 
   meta = {
-    homepage = https://github.com/ymattw/ydiff;
+    homepage = "https://github.com/ymattw/ydiff";
     description = "View colored, incremental diff in workspace or from stdin";
     longDescription = ''
       Term based tool to view colored, incremental diff in a version

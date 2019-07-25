@@ -1,20 +1,33 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cl-project'';
-  version = ''20180831-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cl-project";
+  version = "20180831-git";
 
-  description = ''Generate a skeleton for modern project'';
+  description = "Generate a skeleton for modern project";
 
-  deps = [ args."alexandria" args."anaphora" args."bordeaux-threads" args."cl-ansi-text" args."cl-colors" args."cl-emb" args."cl-fad" args."cl-ppcre" args."let-plus" args."local-time" args."prove" args."uiop" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."bordeaux-threads"
+    args."cl-ansi-text"
+    args."cl-colors"
+    args."cl-emb"
+    args."cl-fad"
+    args."cl-ppcre"
+    args."let-plus"
+    args."local-time"
+    args."prove"
+    args."uiop"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-project/2018-08-31/cl-project-20180831-git.tgz'';
-    sha256 = ''0iifc03sj982bjakvy0k3m6zsidc3k1ds6xaq36wzgzgw7x6lm0s'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-project/2018-08-31/cl-project-20180831-git.tgz";
+    sha256 = "0iifc03sj982bjakvy0k3m6zsidc3k1ds6xaq36wzgzgw7x6lm0s";
   };
 
   packageName = "cl-project";
 
-  asdFilesToKeep = ["cl-project.asd"];
+  asdFilesToKeep = [ "cl-project.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-project DESCRIPTION Generate a skeleton for modern project SHA256
@@ -32,4 +45,5 @@ rec {
     DEPENDENCIES
     (alexandria anaphora bordeaux-threads cl-ansi-text cl-colors cl-emb cl-fad
      cl-ppcre let-plus local-time prove uiop)
-    VERSION 20180831-git SIBLINGS (cl-project-test) PARASITES NIL) */
+    VERSION 20180831-git SIBLINGS (cl-project-test) PARASITES NIL)
+*/

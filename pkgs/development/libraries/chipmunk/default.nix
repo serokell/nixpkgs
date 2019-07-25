@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake, freeglut, libGLU_combined, glfw2, glew, libX11, xorgproto
-, libXi, libXmu
+{ stdenv, fetchurl, cmake, freeglut, libGLU_combined, glfw2, glew, libX11, xorgproto, libXi, libXmu
 }:
 
 stdenv.mkDerivation rec {
@@ -8,7 +7,8 @@ stdenv.mkDerivation rec {
   version = "${majorVersion}.0.1";
 
   src = fetchurl {
-    url = "https://chipmunk-physics.net/release/Chipmunk-${majorVersion}.x/Chipmunk-${version}.tgz";
+    url =
+      "https://chipmunk-physics.net/release/Chipmunk-${majorVersion}.x/Chipmunk-${version}.tgz";
     sha256 = "0q4jwv1icz8spcjkp0v3bnygi6hq2zmnsgcxkwm8i2bxfxjb8m7y";
   };
 
@@ -23,8 +23,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A fast and lightweight 2D game physics library";
-    homepage = http://chipmunk2d.net/;
+    homepage = "http://chipmunk2d.net/";
     license = licenses.mit;
-    platforms = platforms.unix; # supports Windows and MacOS as well, but those require more work
+    platforms =
+      platforms.unix; # supports Windows and MacOS as well, but those require more work
   };
 }

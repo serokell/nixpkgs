@@ -14,13 +14,15 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/minio/mc";
 
-  buildFlagsArray = [''-ldflags=
-    -X github.com/minio/mc/cmd.Version=${version}
-  ''];
+  buildFlagsArray = [''
+    -ldflags=
+        -X github.com/minio/mc/cmd.Version=${version}
+      ''];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/minio/mc;
-    description = "A replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage";
+    homepage = "https://github.com/minio/mc";
+    description =
+      "A replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage";
     maintainers = with maintainers; [ eelco bachp ];
     platforms = platforms.unix;
     license = licenses.asl20;

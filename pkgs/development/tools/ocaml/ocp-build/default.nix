@@ -1,8 +1,6 @@
 { stdenv, fetchFromGitHub, ocaml, findlib, ncurses }:
-let
-  version = "1.99.19-beta";
-in
-stdenv.mkDerivation rec {
+let version = "1.99.19-beta";
+in stdenv.mkDerivation rec {
 
   name = "ocaml${ocaml.version}-ocp-build-${version}";
 
@@ -17,11 +15,11 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ ncurses ];
   preInstall = "mkdir -p $out/bin";
   preConfigure = ''
-  export configureFlags="$configureFlags --with-metadir=$OCAMLFIND_DESTDIR"
+    export configureFlags="$configureFlags --with-metadir=$OCAMLFIND_DESTDIR"
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.typerex.org/ocp-build.html;
+    homepage = "https://www.typerex.org/ocp-build.html";
     description = "A build tool for OCaml";
     longDescription = ''
       ocp-build is a build system for OCaml application, based on simple
@@ -31,7 +29,7 @@ stdenv.mkDerivation rec {
       between source files.
     '';
     license = licenses.gpl3;
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
     maintainers = [ maintainers.jirkamarsik ];
   };
 }

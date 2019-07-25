@@ -14,10 +14,10 @@ buildPythonPackage rec {
   checkInputs = [ pytest ];
   propagatedBuildInputs = [ libsodium ];
 
-  postPatch =
-    let soext = stdenv.hostPlatform.extensions.sharedLibrary; in ''
-    substituteInPlace "./libnacl/__init__.py" --replace "ctypes.cdll.LoadLibrary('libsodium${soext}')" "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"
-  '';
+  postPatch = let soext = stdenv.hostPlatform.extensions.sharedLibrary;
+    in ''
+      substituteInPlace "./libnacl/__init__.py" --replace "ctypes.cdll.LoadLibrary('libsodium${soext}')" "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"
+    '';
 
   checkPhase = ''
     py.test
@@ -26,7 +26,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     maintainers = with maintainers; [ xvapx ];
     description = "Python bindings for libsodium based on ctypes";
-    homepage = https://pypi.python.org/pypi/libnacl;
+    homepage = "https://pypi.python.org/pypi/libnacl";
     license = licenses.asl20;
     platforms = platforms.unix;
   };

@@ -1,16 +1,13 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, cppo, gen, sequence, qtest, ounit, result
-, qcheck }:
+{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, cppo, gen, sequence, qtest, ounit, result, qcheck
+}:
 
 let
 
-  mkpath = p:
-      "${p}/lib/ocaml/${ocaml.version}/site-lib";
+  mkpath = p: "${p}/lib/ocaml/${ocaml.version}/site-lib";
 
   version = "1.4";
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "ocaml${ocaml.version}-containers-${version}";
 
   src = fetchFromGitHub {
@@ -20,21 +17,22 @@ stdenv.mkDerivation {
     sha256 = "1wbarxphdrxvy7qsdp4p837h1zrv0z83pgs5lbz2h3kdnyvz2f1i";
   };
 
-  buildInputs = [ ocaml findlib ocamlbuild cppo gen sequence qtest ounit qcheck ];
+  buildInputs =
+    [ ocaml findlib ocamlbuild cppo gen sequence qtest ounit qcheck ];
 
   propagatedBuildInputs = [ result ];
 
   preConfigure = ''
-    # The following is done so that the '#use "topfind"' directive works in the ocaml top-level
-    export HOME="$(mktemp -d)"
-    export OCAML_TOPLEVEL_PATH="${mkpath findlib}"
-    cat <<EOF > $HOME/.ocamlinit
-let () =
-  try Topdirs.dir_directory (Sys.getenv "OCAML_TOPLEVEL_PATH")
-  with Not_found -> ()
-;;
-EOF
-  '';
+        # The following is done so that the '#use "topfind"' directive works in the ocaml top-level
+        export HOME="$(mktemp -d)"
+        export OCAML_TOPLEVEL_PATH="${mkpath findlib}"
+        cat <<EOF > $HOME/.ocamlinit
+    let () =
+      try Topdirs.dir_directory (Sys.getenv "OCAML_TOPLEVEL_PATH")
+      with Not_found -> ()
+    ;;
+    EOF
+      '';
 
   configureFlags = [
     "--enable-unix"
@@ -50,7 +48,7 @@ EOF
   createFindlibDestdir = true;
 
   meta = {
-    homepage = https://github.com/c-cube/ocaml-containers;
+    homepage = "https://github.com/c-cube/ocaml-containers";
     description = "A modular standard library focused on data structures";
     longDescription = ''
       Containers is a standard library (BSD license) focused on data structures,
@@ -63,6 +61,6 @@ EOF
       helpers for unix and threads.
     '';
     license = stdenv.lib.licenses.bsd2;
-    platforms = ocaml.meta.platforms or [];
+    platforms = ocaml.meta.platforms or [ ];
   };
 }

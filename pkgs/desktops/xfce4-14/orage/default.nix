@@ -1,13 +1,11 @@
-{ lib, fetchpatch, mkXfceDerivation, dbus-glib, gtk2, libical, libnotify, tzdata
-, popt, libxfce4ui ? null, xfce4-panel ? null, withPanelPlugin ? true }:
+{ lib, fetchpatch, mkXfceDerivation, dbus-glib, gtk2, libical, libnotify, tzdata, popt, libxfce4ui ?
+  null, xfce4-panel ? null, withPanelPlugin ? true }:
 
 assert withPanelPlugin -> libxfce4ui != null && xfce4-panel != null;
 
-let
-  inherit (lib) optionals;
-in
+let inherit (lib) optionals;
 
-mkXfceDerivation rec {
+in mkXfceDerivation rec {
   category = "apps";
   pname = "orage";
   version = "4.12.1";
@@ -22,13 +20,15 @@ mkXfceDerivation rec {
     substituteInPlace tz_convert/tz_convert.c --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
   '';
 
-  postConfigure = "rm -rf libical"; # ensure pkgs.libical is used instead of one included in the orage sources
+  postConfigure =
+    "rm -rf libical"; # ensure pkgs.libical is used instead of one included in the orage sources
 
   patches = [
     # Fix build with libical 3.0
     (fetchpatch {
       name = "fix-libical3.patch";
-      url = https://git.archlinux.org/svntogit/packages.git/plain/trunk/libical3.patch?h=packages/orage&id=7b1b06c42dda034d538977b9f3550b28e370057f;
+      url =
+        "https://git.archlinux.org/svntogit/packages.git/plain/trunk/libical3.patch?h=packages/orage&id=7b1b06c42dda034d538977b9f3550b28e370057f";
       sha256 = "1l8s106mcidmbx2p8c2pi8v9ngbv2x3fsgv36j8qk8wyd4qd1jbf";
     })
   ];

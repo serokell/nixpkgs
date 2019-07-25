@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, pbr
-, pyyaml
-, six
-, multi_key_dict
-, testscenarios
-, requests
-, unittest2
-, requests-mock
+{ lib, buildPythonPackage, fetchPypi, mock, pbr, pyyaml, six, multi_key_dict, testscenarios, requests, unittest2, requests-mock
 }:
 
 buildPythonPackage rec {
@@ -31,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python bindings for the remote Jenkins API";
-    homepage = https://pypi.python.org/pypi/python-jenkins;
+    homepage = "https://pypi.python.org/pypi/python-jenkins";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ma27 ];
   };

@@ -1,4 +1,5 @@
-{ buildPythonPackage, fetchFromGitHub, nose, pillow, scipy, numpy, imread, stdenv }:
+{ buildPythonPackage, fetchFromGitHub, nose, pillow, scipy, numpy, imread, stdenv
+}:
 
 buildPythonPackage rec {
   pname = "mahotas";
@@ -17,7 +18,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy imread pillow scipy ];
   checkInputs = [ nose ];
 
-  checkPhase= ''
+  checkPhase = ''
     python setup.py test
   '';
 
@@ -25,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Computer vision package based on numpy";
-    homepage = http://mahotas.readthedocs.io/;
+    homepage = "http://mahotas.readthedocs.io/";
     maintainers = with maintainers; [ luispedro ];
     license = licenses.mit;
     platforms = platforms.unix;

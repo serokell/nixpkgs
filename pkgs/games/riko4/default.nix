@@ -18,15 +18,15 @@ let
     enableParallelBuilding = true;
 
     meta = with stdenv.lib; {
-      homepage = https://github.com/grimfang4/sdl-gpu;
-      description = "A library for high-performance, modern 2D graphics with SDL written in C";
+      homepage = "https://github.com/grimfang4/sdl-gpu";
+      description =
+        "A library for high-performance, modern 2D graphics with SDL written in C";
       license = licenses.mit;
       maintainers = with maintainers; [ CrazedProgrammer ];
     };
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "riko4-${version}";
   version = "0.1.0";
   src = fetchFromGitHub {
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   hardeningDisable = [ "fortify" ];
-  cmakeFlags = [ "-DSDL2_gpu_INCLUDE_DIR=\"${sdl-gpu}/include\"" ];
+  cmakeFlags = [ ''-DSDL2_gpu_INCLUDE_DIR="${sdl-gpu}/include"'' ];
 
   # Riko4 needs the data/ and scripts/ directories to be in its PWD.
   installPhase = ''
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/incinirate/Riko4;
+    homepage = "https://github.com/incinirate/Riko4";
     description = "Fantasy console for pixel art game development";
     license = licenses.mit;
     maintainers = with maintainers; [ CrazedProgrammer ];

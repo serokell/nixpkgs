@@ -11,11 +11,10 @@ with lib;
   users.users.root.initialHashedPassword = mkOverride 150 "";
 
   # Some more help text.
-  services.mingetty.helpLine =
-    ''
+  services.mingetty.helpLine = ''
 
-      Log in as "root" with an empty password.
-    '';
+    Log in as "root" with an empty password.
+  '';
 
   # Containers should be light-weight, so start sshd on demand.
   services.openssh.enable = mkDefault true;

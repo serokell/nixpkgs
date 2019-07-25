@@ -16,7 +16,7 @@ buildRustPackage rec {
   cargoSha256 = "06iqzpg5jz1xd2amajvlf7yaz9kr3q2ipbhx71whvv9mwplmxmbi";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/cgag/loc;
+    homepage = "https://github.com/cgag/loc";
     description = "Count lines of code quickly";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ ];

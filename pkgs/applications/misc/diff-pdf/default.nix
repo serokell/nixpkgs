@@ -1,13 +1,13 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, cairo, poppler, wxGTK ? null, wxmac ? null, darwin ? null }:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, cairo, poppler, wxGTK ?
+  null, wxmac ? null, darwin ? null }:
 
 let
-  wxInputs =
-    if stdenv.isDarwin then
-      [ wxmac darwin.apple_sdk.frameworks.Cocoa ]
-    else
-      [ wxGTK ];
-in
-stdenv.mkDerivation rec {
+  wxInputs = if stdenv.isDarwin then [
+    wxmac
+    darwin.apple_sdk.frameworks.Cocoa
+  ] else
+    [ wxGTK ];
+in stdenv.mkDerivation rec {
   name = "diff-pdf-${version}";
   version = "2017-12-30";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   preConfigure = "./bootstrap";
 
   meta = with stdenv.lib; {
-    homepage = http://vslavik.github.io/diff-pdf;
+    homepage = "http://vslavik.github.io/diff-pdf";
     description = "Simple tool for visually comparing two PDF files";
     license = licenses.gpl2;
     maintainers = with maintainers; [ dtzWill ];

@@ -14,23 +14,22 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ lvm2 libaio readline gzip ];
 
-  preBuild =
-    ''
-      makeFlagsArray=(GZIP="-9" prefix=$out mandir=$out/share/man/man8 man5dir=$out/share/man/man5 LIB=lib)
+  preBuild = ''
+    makeFlagsArray=(GZIP="-9" prefix=$out mandir=$out/share/man/man8 man5dir=$out/share/man/man5 LIB=lib)
 
-      substituteInPlace multipath/Makefile --replace /etc $out/etc
-      substituteInPlace kpartx/Makefile --replace /etc $out/etc
+    substituteInPlace multipath/Makefile --replace /etc $out/etc
+    substituteInPlace kpartx/Makefile --replace /etc $out/etc
 
-      substituteInPlace kpartx/kpartx.rules --replace /sbin/kpartx $out/sbin/kpartx
-      substituteInPlace kpartx/kpartx_id --replace /sbin/dmsetup ${lvm2}/sbin/dmsetup
+    substituteInPlace kpartx/kpartx.rules --replace /sbin/kpartx $out/sbin/kpartx
+    substituteInPlace kpartx/kpartx_id --replace /sbin/dmsetup ${lvm2}/sbin/dmsetup
 
-      substituteInPlace libmultipath/defaults.h --replace /lib/udev/scsi_id ${systemd.lib}/lib/udev/scsi_id
-      substituteInPlace libmultipath/hwtable.c --replace /lib/udev/scsi_id ${systemd.lib}/lib/udev/scsi_id
-    '';
+    substituteInPlace libmultipath/defaults.h --replace /lib/udev/scsi_id ${systemd.lib}/lib/udev/scsi_id
+    substituteInPlace libmultipath/hwtable.c --replace /lib/udev/scsi_id ${systemd.lib}/lib/udev/scsi_id
+  '';
 
   meta = {
     description = "Tools for the Linux multipathing driver";
-    homepage = http://christophe.varoqui.free.fr/;
+    homepage = "http://christophe.varoqui.free.fr/";
     platforms = stdenv.lib.platforms.linux;
   };
 }

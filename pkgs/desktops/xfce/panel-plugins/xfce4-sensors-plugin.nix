@@ -1,10 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gnome2, libxfce4ui,
-  libxfce4util, xfce4-panel, libnotify, lm_sensors, hddtemp, netcat-gnu
+{ stdenv, fetchurl, pkgconfig, intltool, gnome2, libxfce4ui, libxfce4util, xfce4-panel, libnotify, lm_sensors, hddtemp, netcat-gnu
 }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${ver_maj}.${ver_min}";
-  pname  = "xfce4-sensors-plugin";
+  pname = "xfce4-sensors-plugin";
   ver_maj = "1.2";
   ver_min = "6";
 
@@ -13,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1h0vpqxcziml3gwrbvd8xvy1mwh9mf2a68dvxsy03rs5pm1ghpi3";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    intltool
-  ];
+  nativeBuildInputs = [ pkgconfig intltool ];
 
   buildInputs = [
     gnome2.gtk
@@ -27,7 +23,7 @@ stdenv.mkDerivation rec {
     lm_sensors
     hddtemp
     netcat-gnu
-   ];
+  ];
 
   enableParallelBuilding = true;
 
@@ -38,7 +34,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://goodies.xfce.org/projects/panel-plugins/${pname}";
-    description = "A panel plug-in for different sensors using acpi, lm_sensors and hddtemp";
+    description =
+      "A panel plug-in for different sensors using acpi, lm_sensors and hddtemp";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.romildo ];

@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, help2man, gettext
-, libxml2, perl, python3, doxygen }:
-
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, help2man, gettext, libxml2, perl, python3, doxygen
+}:
 
 stdenv.mkDerivation rec {
   name = "libsmbios-${version}";
@@ -13,7 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0bck3byk62a69ngyj0zjpzf4wxwjmkhwhvsqb8z24dww9wz41l9k";
   };
 
-  nativeBuildInputs = [ autoreconfHook doxygen gettext libxml2 help2man perl pkgconfig ];
+  nativeBuildInputs =
+    [ autoreconfHook doxygen gettext libxml2 help2man perl pkgconfig ];
 
   buildInputs = [ python3 ];
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   preFixup = ''rm -rf "$(pwd)" ''; # Hack to avoid TMPDIR in RPATHs
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dell/libsmbios;
+    homepage = "https://github.com/dell/libsmbios";
     description = "A library to obtain BIOS information";
     license = with licenses; [ osl21 gpl2Plus ];
     maintainers = with maintainers; [ ];

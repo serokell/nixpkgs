@@ -30,7 +30,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "A command line interface to Concourse CI";
-    homepage = https://concourse-ci.org;
+    homepage = "https://concourse-ci.org";
     license = licenses.asl20;
     maintainers = with maintainers; [ ivanbrennan ];
   };

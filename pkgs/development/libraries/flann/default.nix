@@ -13,7 +13,8 @@ stdenv.mkDerivation {
   patches = [
     # Upstream issue: https://github.com/mariusmuja/flann/issues/369
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/buildroot/buildroot/45a39b3e2ba42b72d19bfcef30db1b8da9ead51a/package/flann/0001-src-cpp-fix-cmake-3.11-build.patch";
+      url =
+        "https://raw.githubusercontent.com/buildroot/buildroot/45a39b3e2ba42b72d19bfcef30db1b8da9ead51a/package/flann/0001-src-cpp-fix-cmake-3.11-build.patch";
       sha256 = "1gmj06cmnqvwxx649mxaivd35727wj6w7710zbcmmgmsnyfh2js4";
     })
   ];
@@ -21,10 +22,11 @@ stdenv.mkDerivation {
   buildInputs = [ unzip cmake python ];
 
   meta = {
-    homepage = http://people.cs.ubc.ca/~mariusm/flann/;
+    homepage = "http://people.cs.ubc.ca/~mariusm/flann/";
     license = stdenv.lib.licenses.bsd3;
-    description = "Fast approximate nearest neighbor searches in high dimensional spaces";
-    maintainers = with stdenv.lib.maintainers; [viric];
+    description =
+      "Fast approximate nearest neighbor searches in high dimensional spaces";
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux ++ darwin;
   };
 }

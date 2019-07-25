@@ -6,10 +6,7 @@ let
 
   cfg = config.services.fprintd;
 
-in
-
-
-{
+in {
 
   ###### interface
 
@@ -39,7 +36,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -49,7 +45,6 @@ in
     environment.systemPackages = [ pkgs.fprintd ];
 
     systemd.packages = [ cfg.package ];
-
 
     # The upstream unit does not use StateDirectory, and will
     # fail if the directory it needs is not present. Should be

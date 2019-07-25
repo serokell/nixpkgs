@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.json;
-in
-{
+let cfg = config.services.prometheus.exporters.json;
+in {
   port = 7979;
   extraOpts = {
     url = mkOption {
@@ -20,7 +18,7 @@ in
         Path to configuration file.
       '';
     };
-    listenAddress = {}; # not used
+    listenAddress = { }; # not used
   };
   serviceOpts = {
     serviceConfig = {

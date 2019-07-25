@@ -1,4 +1,5 @@
-{ runCommand, nix, bash, git, jq, nix-prefetch-scripts, coreutils, common-updater-scripts, gnugrep, gnused, curl }:
+{ runCommand, nix, bash, git, jq, nix-prefetch-scripts, coreutils, common-updater-scripts, gnugrep, gnused, curl
+}:
 { repoName, attrPath ? repoName, versionPolicy ? "release" }:
 let
   script = ./update.sh;
@@ -13,6 +14,9 @@ let
     chmod +x $out
   '';
 
-  versionFlag = { "release" = "-r"; "master" = "-m"; }.${versionPolicy};
+  versionFlag = {
+    "release" = "-r";
+    "master" = "-m";
+  }.${versionPolicy};
 
 in [ updateScript versionFlag repoName attrPath ]

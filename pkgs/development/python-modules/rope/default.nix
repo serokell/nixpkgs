@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python refactoring library";
-    homepage = https://github.com/python-rope/rope;
+    homepage = "https://github.com/python-rope/rope";
     maintainers = with maintainers; [ goibhniu ];
     license = licenses.gpl2;
   };

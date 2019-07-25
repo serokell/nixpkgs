@@ -14,8 +14,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "Smart pointer constructs for the (GNU) C programming language";
-    homepage = https://github.com/Snaipe/libcsptr;
+    description =
+      "Smart pointer constructs for the (GNU) C programming language";
+    homepage = "https://github.com/Snaipe/libcsptr";
     license = licenses.mit;
     platforms = [ "i686-linux" "x86_64-linux" ];
     maintainers = [ maintainers.fragamus ];

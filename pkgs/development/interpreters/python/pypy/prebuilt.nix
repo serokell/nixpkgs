@@ -1,24 +1,9 @@
-{ stdenv
-, fetchurl
-, python-setup-hook
-, self
-, which
+{ stdenv, fetchurl, python-setup-hook, self, which
 # Dependencies
-, bzip2
-, zlib
-, openssl
-, expat
-, libffi
-, ncurses
-, tcl
-, tk
+, bzip2, zlib, openssl, expat, libffi, ncurses, tcl, tk
 # For the Python package set
-, packageOverrides ? (self: super: {})
-, sourceVersion
-, pythonVersion
-, sha256
-, passthruFun
-}:
+, packageOverrides ?
+  (self: super: { }), sourceVersion, pythonVersion, sha256, passthruFun }:
 
 # This version of PyPy is primarily added to speed-up translation of
 # our PyPy source build when developing that expression.
@@ -41,22 +26,15 @@ let
 
   majorVersion = substring 0 1 pythonVersion;
 
-  deps = [
-    bzip2
-    zlib
-    openssl
-    expat
-    libffi
-    ncurses
-    tcl
-    tk
-  ];
+  deps = [ bzip2 zlib openssl expat libffi ncurses tcl tk ];
 
-in with passthru; stdenv.mkDerivation {
+in with passthru;
+stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url= "https://bitbucket.org/pypy/pypy/downloads/pypy${majorVersion}-v${version}-linux64.tar.bz2";
+    url =
+      "https://bitbucket.org/pypy/pypy/downloads/pypy${majorVersion}-v${version}-linux64.tar.bz2";
     inherit sha256;
   };
 
@@ -79,7 +57,9 @@ in with passthru; stdenv.mkDerivation {
 
     pushd $out
     find {lib,lib_pypy*} -name "*.so" -exec patchelf --replace-needed "libbz2.so.1.0" "libbz2.so.1" {} \;
-    find {lib,lib_pypy*} -name "*.so" -exec patchelf --set-rpath ${stdenv.lib.makeLibraryPath deps} {} \;
+    find {lib,lib_pypy*} -name "*.so" -exec patchelf --set-rpath ${
+      stdenv.lib.makeLibraryPath deps
+    } {} \;
 
     echo "Removing bytecode"
     find . -name "__pycache__" -type d -depth -exec rm -rf {} \;
@@ -90,20 +70,13 @@ in with passthru; stdenv.mkDerivation {
 
   # Check whether importing of (extension) modules functions
   installCheckPhase = let
-    modules = [
-      "ssl"
-      "sys"
-      "curses"
-    ] ++ optionals (!isPy3k) [
-      "Tkinter"
-    ] ++ optionals isPy3k [
-      "tkinter"
-    ];
+    modules = [ "ssl" "sys" "curses" ] ++ optionals (!isPy3k) [ "Tkinter" ]
+      ++ optionals isPy3k [ "tkinter" ];
     imports = concatMapStringsSep "; " (x: "import ${x}") modules;
-  in ''
-    echo "Testing whether we can import modules"
-    $out/bin/${executable} -c '${imports}'
-  '';
+    in ''
+      echo "Testing whether we can import modules"
+      $out/bin/${executable} -c '${imports}'
+    '';
 
   setupHook = python-setup-hook sitePackages;
 
@@ -113,8 +86,9 @@ in with passthru; stdenv.mkDerivation {
   inherit passthru;
 
   meta = with stdenv.lib; {
-    homepage = http://pypy.org/;
-    description = "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
+    homepage = "http://pypy.org/";
+    description =
+      "Fast, compliant alternative implementation of the Python language (${pythonVersion})";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
   };

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, six }:
 
 buildPythonPackage rec {
   pname = "scales";
@@ -22,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Stats for Python processes";
-    homepage = https://www.github.com/Cue/scales;
+    homepage = "https://www.github.com/Cue/scales";
     license = licenses.asl20;
   };
 

@@ -28,13 +28,11 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ perlPackages.FileSlurp ];
 
-  buildInputs = [
-    perl libjpeg_turbo makeWrapper
-  ];
+  buildInputs = [ perl libjpeg_turbo makeWrapper ];
 
   meta = with stdenv.lib; {
     description = "losslessly shrink any JPEG file";
-    homepage = https://github.com/kud/jpegrescan;
+    homepage = "https://github.com/kud/jpegrescan";
     license = licenses.publicDomain;
     maintainers = [ maintainers.ramkromberg ];
     platforms = platforms.all;

@@ -1,9 +1,7 @@
-{ stdenv, fetchFromGitHub
-, doxygen, fontconfig, graphviz-nox, libxml2, pkgconfig, which
-, systemd }:
+{ stdenv, fetchFromGitHub, doxygen, fontconfig, graphviz-nox, libxml2, pkgconfig, which, systemd
+}:
 
-let
-  version = "2018-11-13";
+let version = "2018-11-13";
 
 in stdenv.mkDerivation rec {
   name = "openzwave-${version}";
@@ -17,7 +15,8 @@ in stdenv.mkDerivation rec {
     sha256 = "1d13maj93i6h792cbvqpx43ffss44dxmvbwj2777vzvvjib8m4n8";
   };
 
-  nativeBuildInputs = [ doxygen fontconfig graphviz-nox libxml2 pkgconfig which ];
+  nativeBuildInputs =
+    [ doxygen fontconfig graphviz-nox libxml2 pkgconfig which ];
 
   buildInputs = [ systemd ];
 
@@ -33,8 +32,8 @@ in stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  FONTCONFIG_FILE="${fontconfig.out}/etc/fonts/fonts.conf";
-  FONTCONFIG_PATH="${fontconfig.out}/etc/fonts/";
+  FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
+  FONTCONFIG_PATH = "${fontconfig.out}/etc/fonts/";
 
   postPatch = ''
     substituteInPlace cpp/src/Options.cpp \
@@ -51,8 +50,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "C++ library to control Z-Wave Networks via a USB Z-Wave Controller";
-    homepage = http://www.openzwave.net/;
+    description =
+      "C++ library to control Z-Wave Networks via a USB Z-Wave Controller";
+    homepage = "http://www.openzwave.net/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ etu ];
     platforms = platforms.linux;

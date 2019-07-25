@@ -12,21 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "17rzicqizyyrhjjf4rild7py1cyd07b2zdcd9nabvwn4gvj6lhfb";
   };
 
-  nativeBuildInputs = [
-    go
-    go-lib
-  ];
+  nativeBuildInputs = [ go go-lib ];
 
-  makeFlags = [
-    "PREFIX=${placeholder ''out''}"
-    "GOCACHE=$(TMPDIR)/go-cache"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" "GOCACHE=$(TMPDIR)/go-cache" ];
 
   passthru.updateScript = deepin.updateScript { inherit name; };
 
   meta = with stdenv.lib; {
     description = "Convert dbus interfaces to go-lang or qml wrapper code";
-    homepage = https://github.com/linuxdeepin/go-dbus-generator;
+    homepage = "https://github.com/linuxdeepin/go-dbus-generator";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

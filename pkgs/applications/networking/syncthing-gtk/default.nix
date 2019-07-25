@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, libnotify, librsvg, killall
-, gtk3, libappindicator-gtk3, substituteAll, syncthing, wrapGAppsHook
-, gnome3, buildPythonApplication, dateutil, pyinotify, pygobject3
-, bcrypt, gobject-introspection, gsettings-desktop-schemas }:
+{ stdenv, fetchFromGitHub, fetchpatch, libnotify, librsvg, killall, gtk3, libappindicator-gtk3, substituteAll, syncthing, wrapGAppsHook, gnome3, buildPythonApplication, dateutil, pyinotify, pygobject3, bcrypt, gobject-introspection, gsettings-desktop-schemas
+}:
 
 buildPythonApplication rec {
   version = "0.9.4";
@@ -21,19 +19,21 @@ buildPythonApplication rec {
   ];
 
   buildInputs = [
-    gtk3 librsvg libappindicator-gtk3
-    libnotify gnome3.adwaita-icon-theme
+    gtk3
+    librsvg
+    libappindicator-gtk3
+    libnotify
+    gnome3.adwaita-icon-theme
     # Schemas with proxy configuration
     gsettings-desktop-schemas
   ];
 
-  propagatedBuildInputs = [
-    dateutil pyinotify pygobject3 bcrypt
-  ];
+  propagatedBuildInputs = [ dateutil pyinotify pygobject3 bcrypt ];
 
   patches = [
     (fetchpatch {
-      url = https://github.com/syncthing/syncthing-gtk/commit/b2535e5a9cdb31c4987ab7af37f62d58d38255b7.patch;
+      url =
+        "https://github.com/syncthing/syncthing-gtk/commit/b2535e5a9cdb31c4987ab7af37f62d58d38255b7.patch";
       sha256 = "047v79wz2a9334gbzywlqwpacrk53s26ksvfqaddk06avv8742w7";
     })
     (substituteAll {
@@ -56,7 +56,7 @@ buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "GTK3 & python based GUI for Syncthing";
-    homepage = https://github.com/syncthing/syncthing-gtk;
+    homepage = "https://github.com/syncthing/syncthing-gtk";
     license = licenses.gpl2;
     maintainers = with maintainers; [ ];
     platforms = syncthing.meta.platforms;

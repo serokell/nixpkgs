@@ -4,6 +4,6 @@
 rec {
 
   prelude = prelude_3_0_0;
-  prelude_3_0_0 = pkgs.callPackage ./prelude/v3.nix {};
+  prelude_3_0_0 = pkgs.callPackage ./prelude/v3.nix { };
 
 }

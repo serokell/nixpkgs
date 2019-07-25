@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchurl, nose }:
 
 buildPythonPackage rec {
   version = "1.2.8";
@@ -21,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A minimalistic mocking library for python";
-    homepage = https://pypi.python.org/pypi/MiniMock;
+    homepage = "https://pypi.python.org/pypi/MiniMock";
     license = licenses.mit;
   };
 

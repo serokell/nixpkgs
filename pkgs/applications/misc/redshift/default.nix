@@ -1,15 +1,11 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, gettext, intltool
-, libtool, pkgconfig, wrapGAppsHook, wrapPython, gobject-introspection
-, gtk3, python, pygobject3, hicolor-icon-theme, pyxdg
+{ stdenv, fetchFromGitHub, autoconf, automake, gettext, intltool, libtool, pkgconfig, wrapGAppsHook, wrapPython, gobject-introspection, gtk3, python, pygobject3, hicolor-icon-theme, pyxdg
 
-, withQuartz ? stdenv.isDarwin, ApplicationServices
-, withRandr ? stdenv.isLinux, libxcb
-, withDrm ? stdenv.isLinux, libdrm
+, withQuartz ? stdenv.isDarwin, ApplicationServices, withRandr ?
+  stdenv.isLinux, libxcb, withDrm ? stdenv.isLinux, libdrm
 
-, withGeolocation ? true
-, withCoreLocation ? withGeolocation && stdenv.isDarwin, CoreLocation, Foundation, Cocoa
-, withGeoclue ? withGeolocation && stdenv.isLinux, geoclue
-}:
+, withGeolocation ? true, withCoreLocation ? withGeolocation
+  && stdenv.isDarwin, CoreLocation, Foundation, Cocoa, withGeoclue ?
+    withGeolocation && stdenv.isLinux, geoclue }:
 
 stdenv.mkDerivation rec {
   name = "redshift-${version}";
@@ -46,17 +42,12 @@ stdenv.mkDerivation rec {
     "--enable-corelocation=${if withCoreLocation then "yes" else "no"}"
   ];
 
-  buildInputs = [
-    gobject-introspection
-    gtk3
-    python
-    hicolor-icon-theme
-  ] ++ stdenv.lib.optional  withRandr        libxcb
-    ++ stdenv.lib.optional  withGeoclue      geoclue
-    ++ stdenv.lib.optional  withDrm          libdrm
-    ++ stdenv.lib.optional  withQuartz       ApplicationServices
-    ++ stdenv.lib.optionals withCoreLocation [ CoreLocation Foundation Cocoa ]
-    ;
+  buildInputs = [ gobject-introspection gtk3 python hicolor-icon-theme ]
+    ++ stdenv.lib.optional withRandr libxcb
+    ++ stdenv.lib.optional withGeoclue geoclue
+    ++ stdenv.lib.optional withDrm libdrm
+    ++ stdenv.lib.optional withQuartz ApplicationServices
+    ++ stdenv.lib.optionals withCoreLocation [ CoreLocation Foundation Cocoa ];
 
   pythonPath = [ pygobject3 pyxdg ];
 
@@ -86,7 +77,7 @@ stdenv.mkDerivation rec {
       be set to match the lamps in your room.
     '';
     license = licenses.gpl3Plus;
-    homepage = http://jonls.dk/redshift;
+    homepage = "http://jonls.dk/redshift";
     platforms = platforms.unix;
     maintainers = with maintainers; [ yegortimoshenko ];
   };

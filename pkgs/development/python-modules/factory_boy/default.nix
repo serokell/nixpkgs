@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, faker
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, faker, python }:
 
 buildPythonPackage rec {
   pname = "factory_boy";
@@ -25,8 +20,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python package to create factories for complex objects";
-    homepage    = https://github.com/rbarrois/factory_boy;
-    license     = licenses.mit;
+    homepage = "https://github.com/rbarrois/factory_boy";
+    license = licenses.mit;
   };
 
 }

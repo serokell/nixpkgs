@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.91";
 
   src = fetchurl {
-    url = "https://github.com/khenriks/mp3fs/releases/download/v${version}/${name}.tar.gz";
+    url =
+      "https://github.com/khenriks/mp3fs/releases/download/v${version}/${name}.tar.gz";
     sha256 = "14ngiqg24p3a0s6hp33zjl4i46d8qn4v9id36psycq3n3csmwyx4";
   };
 
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
       which only understands the MP3 format, or transcode files through
       simple drag-and-drop in a file browser.
     '';
-    homepage = https://khenriks.github.io/mp3fs/;
+    homepage = "https://khenriks.github.io/mp3fs/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

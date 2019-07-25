@@ -1,9 +1,5 @@
-{
-  stdenv, lib, fetchFromGitHub, which,
-  enableStatic ? false,
-  enableMinimal ? false,
-  extraConfig ? ""
-}:
+{ stdenv, lib, fetchFromGitHub, which, enableStatic ? false, enableMinimal ?
+  false, extraConfig ? "" }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -17,7 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "0mi1glrqmri3v6imbf8k20ylf0kmpv9prbnbggmcqfa0pswpyl4v";
   };
 
-  buildInputs = lib.optionals enableStatic [ stdenv.cc.libc stdenv.cc.libc.static ];
+  buildInputs =
+    lib.optionals enableStatic [ stdenv.cc.libc stdenv.cc.libc.static ];
 
   postPatch = "patchShebangs .";
 
@@ -25,16 +22,15 @@ stdenv.mkDerivation rec {
   passAsFile = [ "extraConfig" ];
 
   configurePhase = ''
-    make ${if enableMinimal then
-      "allnoconfig"
-    else
-      if stdenv.isFreeBSD then
+    make ${
+      if enableMinimal then
+        "allnoconfig"
+      else if stdenv.isFreeBSD then
         "freebsd_defconfig"
+      else if stdenv.isDarwin then
+        "macos_defconfig"
       else
-        if stdenv.isDarwin then
-          "macos_defconfig"
-        else
-          "defconfig"
+        "defconfig"
     }
 
     cat $extraConfigPath .config > .config-
@@ -43,7 +39,8 @@ stdenv.mkDerivation rec {
     make oldconfig
   '';
 
-  makeFlags = [ "PREFIX=$(out)/bin" ] ++ lib.optional enableStatic "LDFLAGS=--static";
+  makeFlags = [ "PREFIX=$(out)/bin" ]
+    ++ lib.optional enableStatic "LDFLAGS=--static";
 
   installTargets = "install_flat";
 
@@ -57,8 +54,9 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-Wno-error";
 
   meta = with stdenv.lib; {
-    description = "Lightweight implementation of some Unix command line utilities";
-    homepage = https://landley.net/toybox/;
+    description =
+      "Lightweight implementation of some Unix command line utilities";
+    homepage = "https://landley.net/toybox/";
     license = licenses.bsd0;
     platforms = with platforms; linux ++ darwin ++ freebsd;
     maintainers = with maintainers; [ hhm ];

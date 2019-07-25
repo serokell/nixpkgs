@@ -1,13 +1,9 @@
-{ stdenv, lib, fetchurl, dpkg, wrapGAppsHook
-, gnome2, gtk3, atk, at-spi2-atk, cairo, pango, gdk_pixbuf, glib, freetype, fontconfig
-, dbus, libX11, xorg, libXi, libXcursor, libXdamage, libXrandr, libXcomposite
-, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib
-, cups, expat, udev, libnotify, libuuid
+{ stdenv, lib, fetchurl, dpkg, wrapGAppsHook, gnome2, gtk3, atk, at-spi2-atk, cairo, pango, gdk_pixbuf, glib, freetype, fontconfig, dbus, libX11, xorg, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev, libnotify, libuuid
 # Unfortunately this also overwrites the UI language (not just the spell
 # checking language!):
 , hunspellDicts, spellcheckerLanguage ? null # E.g. "de_DE"
-# For a full list of available languages:
-# $ cat pkgs/development/libraries/hunspell/dictionaries.nix | grep "dictFileName =" | awk '{ print $3 }'
+  # For a full list of available languages:
+  # $ cat pkgs/development/libraries/hunspell/dictionaries.nix | grep "dictFileName =" | awk '{ print $3 }'
 }:
 
 let
@@ -15,12 +11,14 @@ let
     let
       # E.g. "de_DE" -> "de-de" (spellcheckerLanguage -> hunspellDict)
       spellLangComponents = splitString "_" spellcheckerLanguage;
-      hunspellDict = elemAt spellLangComponents 0 + "-" + toLower (elemAt spellLangComponents 1);
-    in if spellcheckerLanguage != null
-      then ''
-        --set HUNSPELL_DICTIONARIES "${hunspellDicts.${hunspellDict}}/share/hunspell" \
-        --set LC_MESSAGES "${spellcheckerLanguage}"''
-      else "");
+      hunspellDict = elemAt spellLangComponents 0 + "-"
+        + toLower (elemAt spellLangComponents 1);
+    in if spellcheckerLanguage != null then ''
+      --set HUNSPELL_DICTIONARIES "${
+        hunspellDicts.${hunspellDict}
+      }/share/hunspell" \
+      --set LC_MESSAGES "${spellcheckerLanguage}"'' else
+        "");
   rpath = lib.makeLibraryPath [
     alsaLib
     atk
@@ -60,7 +58,8 @@ in stdenv.mkDerivation rec {
   version = "1.25.3";
 
   src = fetchurl {
-    url = "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_${version}_amd64.deb";
+    url =
+      "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_${version}_amd64.deb";
     sha256 = "0f7pip4d97xixwf667xpi50r0r65givvmry862zhp2cq24bs0693";
   };
 
@@ -104,9 +103,9 @@ in stdenv.mkDerivation rec {
       Signal Desktop is an Electron application that links with your
       "Signal Android" or "Signal iOS" app.
     '';
-    homepage    = https://signal.org/;
-    license     = lib.licenses.gpl3;
+    homepage = "https://signal.org/";
+    license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ ixmatus primeos ];
-    platforms   = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
   };
 }

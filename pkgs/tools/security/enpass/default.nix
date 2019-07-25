@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, dpkg, xorg
-, glib, libGLU_combined, libpulseaudio, zlib, dbus, fontconfig, freetype
-, gtk3, pango
-, makeWrapper , python, pythonPackages, lib
-, lsof, curl, libuuid, cups, mesa
+{ stdenv, fetchurl, dpkg, xorg, glib, libGLU_combined, libpulseaudio, zlib, dbus, fontconfig, freetype, gtk3, pango, makeWrapper, python, pythonPackages, lib, lsof, curl, libuuid, cups, mesa
 }:
 
 let
@@ -12,9 +8,11 @@ let
     x86_64-linux = "amd64";
   };
 
-  data = all_data.${system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")};
+  data = all_data.${
+    system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")
+    };
 
-  baseUrl = http://repo.sinew.in;
+  baseUrl = "http://repo.sinew.in";
 
   # used of both wrappers and libpath
   libPath = lib.makeLibraryPath (with xorg; [
@@ -51,16 +49,16 @@ let
 
     meta = {
       description = "a well known password manager";
-      homepage = https://www.enpass.io/;
+      homepage = "https://www.enpass.io/";
       license = lib.licenses.unfree;
-      platforms = [ "x86_64-linux" "i686-linux"];
+      platforms = [ "x86_64-linux" "i686-linux" ];
     };
 
-    buildInputs = [makeWrapper dpkg];
+    buildInputs = [ makeWrapper dpkg ];
     phases = [ "unpackPhase" "installPhase" ];
 
     unpackPhase = "dpkg -X $src .";
-    installPhase=''
+    installPhase = ''
       mkdir -p $out/bin
       cp -r opt/enpass/*  $out/bin
       cp -r usr/* $out
@@ -82,13 +80,13 @@ let
   updater = {
     update = stdenv.mkDerivation rec {
       name = "enpass-update-script";
-      SCRIPT =./update_script.py;
+      SCRIPT = ./update_script.py;
 
-      buildInputs = with pythonPackages; [python requests pathlib2 six attrs ];
+      buildInputs = with pythonPackages; [ python requests pathlib2 six attrs ];
       shellHook = ''
-      exec python $SCRIPT --target pkgs/tools/security/enpass/data.json --repo ${baseUrl}
+        exec python $SCRIPT --target pkgs/tools/security/enpass/data.json --repo ${baseUrl}
       '';
 
     };
   };
-in (package // {refresh = updater;})
+in (package // { refresh = updater; })

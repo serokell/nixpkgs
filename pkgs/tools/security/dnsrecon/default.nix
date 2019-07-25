@@ -13,9 +13,7 @@ python3.pkgs.buildPythonApplication rec {
 
   format = "other";
 
-  pythonPath = with python3.pkgs; [
-    dns netaddr lxml
-  ];
+  pythonPath = with python3.pkgs; [ dns netaddr lxml ];
 
   postPatch = ''
     substituteInPlace dnsrecon.py \

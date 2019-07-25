@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub
-, qtbase, qtmultimedia, qtquick1, qmake }:
+{ stdenv, fetchFromGitHub, qtbase, qtmultimedia, qtquick1, qmake }:
 
 stdenv.mkDerivation rec {
   name = "libqtelegram-aseman-edition-${meta.version}";

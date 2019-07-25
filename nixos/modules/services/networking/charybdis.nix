@@ -8,9 +8,8 @@ let
   configFile = pkgs.writeText "charybdis.conf" ''
     ${cfg.config}
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -66,7 +65,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable (lib.mkMerge [
@@ -83,25 +81,23 @@ in
         gid = config.ids.gids.ircd;
       };
 
-      systemd.tmpfiles.rules = [
-        "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -"
-      ];
+      systemd.tmpfiles.rules =
+        [ "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -" ];
 
       systemd.services.charybdis = {
         description = "Charybdis IRC daemon";
         wantedBy = [ "multi-user.target" ];
-        environment = {
-          BANDB_DBPATH = "${cfg.statedir}/ban.db";
-        };
+        environment = { BANDB_DBPATH = "${cfg.statedir}/ban.db"; };
         serviceConfig = {
-          ExecStart   = "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile ${configFile}";
+          ExecStart =
+            "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile ${configFile}";
           Group = cfg.group;
           User = cfg.user;
         };
       };
 
     }
-    
+
     (mkIf (cfg.motd != null) {
       environment.etc."charybdis/ircd.motd".text = cfg.motd;
     })

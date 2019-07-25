@@ -1,24 +1,22 @@
-import ./make-test.nix ({ pkgs, ... } :
-{
+import ./make-test.nix ({ pkgs, ... }: {
   name = "graphite";
   nodes = {
-    one =
-      { ... }: {
-        virtualisation.memorySize = 1024;
-        time.timeZone = "UTC";
-        services.graphite = {
-          web.enable = true;
-          api = {
-            enable = true;
-            port = 8082;
-            finders = [ pkgs.python27Packages.influxgraph ];
-          };
-          carbon.enableCache = true;
-          seyren.enable = true;
-          pager.enable = true;
-          beacon.enable = true;
+    one = { ... }: {
+      virtualisation.memorySize = 1024;
+      time.timeZone = "UTC";
+      services.graphite = {
+        web.enable = true;
+        api = {
+          enable = true;
+          port = 8082;
+          finders = [ pkgs.python27Packages.influxgraph ];
         };
+        carbon.enableCache = true;
+        seyren.enable = true;
+        pager.enable = true;
+        beacon.enable = true;
       };
+    };
   };
 
   testScript = ''

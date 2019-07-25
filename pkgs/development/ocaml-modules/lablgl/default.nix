@@ -1,19 +1,19 @@
-{stdenv, fetchurl, ocaml, lablgtk, findlib, libGLU_combined, freeglut, camlp4 } :
+{ stdenv, fetchurl, ocaml, lablgtk, findlib, libGLU_combined, freeglut, camlp4
+}:
 
-let
-  pname = "lablgl";
-in
+let pname = "lablgl";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "1.05";
 
-  src = fetchurl { 
-    url = "http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/dist/lablgl-${version}.tar.gz";
+  src = fetchurl {
+    url =
+      "http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/dist/lablgl-${version}.tar.gz";
     sha256 = "0qabydd219i4ak7hxgc67496qnnscpnydya2m4ijn3cpbgih7zyq";
   };
 
-  buildInputs = [ocaml findlib lablgtk freeglut camlp4];
+  buildInputs = [ ocaml findlib lablgtk freeglut camlp4 ];
   propagatedBuildInputs = [ libGLU_combined ];
 
   patches = [ ./Makefile.config.patch ./META.patch ];
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/lablgl.html;
+    homepage = "http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/lablgl.html";
     description = "OpenGL bindings for ocaml";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pSub vbgl ];

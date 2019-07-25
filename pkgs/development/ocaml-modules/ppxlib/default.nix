@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, buildDunePackage
-, ocaml-compiler-libs, ocaml-migrate-parsetree, ppx_derivers, stdio
+{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-compiler-libs, ocaml-migrate-parsetree, ppx_derivers, stdio
 }:
 
 buildDunePackage rec {
@@ -13,9 +12,8 @@ buildDunePackage rec {
     sha256 = "0my9x7sxb329h0lzshppdaawiyfbaw6g5f41yiy7bhl071rnlvbv";
   };
 
-  propagatedBuildInputs = [
-    ocaml-compiler-libs ocaml-migrate-parsetree ppx_derivers stdio
-  ];
+  propagatedBuildInputs =
+    [ ocaml-compiler-libs ocaml-migrate-parsetree ppx_derivers stdio ];
 
   meta = {
     description = "Comprehensive ppx tool set";

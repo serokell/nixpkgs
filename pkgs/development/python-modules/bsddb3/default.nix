@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs, python }:
 
 buildPythonPackage rec {
   pname = "bsddb3";
@@ -30,8 +25,9 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python bindings for Oracle Berkeley DB";
-    homepage = https://www.jcea.es/programacion/pybsddb.htm;
-    license = with licenses; [ agpl3 ]; # License changed from bsd3 to agpl3 since 6.x
+    homepage = "https://www.jcea.es/programacion/pybsddb.htm";
+    license = with licenses;
+      [ agpl3 ]; # License changed from bsd3 to agpl3 since 6.x
     maintainers = [ maintainers.costrouc ];
   };
 

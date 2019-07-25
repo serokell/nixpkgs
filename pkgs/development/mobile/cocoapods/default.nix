@@ -1,5 +1,4 @@
-{ lib, bundlerApp, ruby
-, beta ? false }:
+{ lib, bundlerApp, ruby, beta ? false }:
 
 bundlerApp rec {
   inherit ruby;
@@ -13,13 +12,10 @@ bundlerApp rec {
   passthru.updateScript = toString ./update;
 
   meta = with lib; {
-    description     = "CocoaPods manages dependencies for your Xcode projects.";
-    homepage        = https://github.com/CocoaPods/CocoaPods;
-    license         = licenses.mit;
-    platforms       = platforms.darwin;
-    maintainers     = with maintainers; [
-      peterromfeldhk
-      lilyball
-    ];
+    description = "CocoaPods manages dependencies for your Xcode projects.";
+    homepage = "https://github.com/CocoaPods/CocoaPods";
+    license = licenses.mit;
+    platforms = platforms.darwin;
+    maintainers = with maintainers; [ peterromfeldhk lilyball ];
   };
 }

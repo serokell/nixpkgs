@@ -1,39 +1,42 @@
-{ fetchurl, fetchpatch, stdenv, autoreconfHook
-, perl, bison2, flex, pkgconfig, glib, libxml2, libintl, libunwind
+{ fetchurl, fetchpatch, stdenv, autoreconfHook, perl, bison2, flex, pkgconfig, glib, libxml2, libintl, libunwind
 }:
 
 stdenv.mkDerivation rec {
   name = "gstreamer-0.10.36";
 
   src = fetchurl {
-    urls =
-      [ "${meta.homepage}/src/gstreamer/${name}.tar.xz"
-        "mirror://gentoo/distfiles/${name}.tar.xz"
-      ];
+    urls = [
+      "${meta.homepage}/src/gstreamer/${name}.tar.xz"
+      "mirror://gentoo/distfiles/${name}.tar.xz"
+    ];
     sha256 = "1nkid1n2l3rrlmq5qrf5yy06grrkwjh3yxl5g0w58w0pih8allci";
   };
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [ autoreconfHook flex perl pkgconfig libintl bison2 glib ];
+  nativeBuildInputs =
+    [ autoreconfHook flex perl pkgconfig libintl bison2 glib ];
   buildInputs = stdenv.lib.optional stdenv.isDarwin libunwind;
   propagatedBuildInputs = [ glib libxml2 ];
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/GStreamer/common/commit/03a0e5736761a72d4ed880e8c485bbf9e4a8ea47.patch";
+      url =
+        "https://github.com/GStreamer/common/commit/03a0e5736761a72d4ed880e8c485bbf9e4a8ea47.patch";
       sha256 = "0rin3x01yy78ky3smmhbwlph18hhym18q4x9w6ddiqajg5lk4xhm";
       extraPrefix = "common/";
       stripLen = 1;
     })
     (fetchpatch {
-      url = "https://github.com/GStreamer/common/commit/8aadeaaa8a948d7ce62008789ab03e9aa514c2b9.patch";
+      url =
+        "https://github.com/GStreamer/common/commit/8aadeaaa8a948d7ce62008789ab03e9aa514c2b9.patch";
       sha256 = "0n2mqvq2al7jr2hflhz4l781i3jya5a9i725jvy508ambpgycz3x";
       extraPrefix = "common/";
       stripLen = 1;
     })
     (fetchpatch {
-      url = "https://github.com/GStreamer/common/commit/7bb2bcecda471a0d514a964365a78150f3ee5747.patch";
+      url =
+        "https://github.com/GStreamer/common/commit/7bb2bcecda471a0d514a964365a78150f3ee5747.patch";
       sha256 = "0famdj70m7wjvr1dpy7iywhrkqxmrshxz0rizz1bixgp42dvkhbq";
       extraPrefix = "common/";
       stripLen = 1;
@@ -63,9 +66,10 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = {
-    homepage = https://gstreamer.freedesktop.org;
+    homepage = "https://gstreamer.freedesktop.org";
 
-    description = "Library for constructing graphs of media-handling components";
+    description =
+      "Library for constructing graphs of media-handling components";
 
     longDescription = ''
       GStreamer is a library for constructing graphs of media-handling

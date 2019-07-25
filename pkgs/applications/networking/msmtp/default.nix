@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig
-, netcat-gnu, gnutls, gsasl, libidn2, Security
-, withKeyring ? true, libsecret ? null
-, systemd ? null }:
+{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, netcat-gnu, gnutls, gsasl, libidn2, Security, withKeyring ?
+  true, libsecret ? null, systemd ? null }:
 
 let
   tester = "n"; # {x| |p|P|n|s}
@@ -16,9 +14,7 @@ in stdenv.mkDerivation rec {
     sha256 = "0fczpfxlr62wkr7bwhp24clxg962k5khgz14h818qyy4v77dl4qn";
   };
 
-  patches = [
-    ./paths.patch
-  ];
+  patches = [ ./paths.patch ];
 
   buildInputs = [ gnutls gsasl libidn2 ]
     ++ stdenv.lib.optional stdenv.isDarwin Security
@@ -26,8 +22,8 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
-  configureFlags =
-    [ "--sysconfdir=/etc" ] ++ stdenv.lib.optional stdenv.isDarwin [ "--with-macosx-keyring" ];
+  configureFlags = [ "--sysconfdir=/etc" ]
+    ++ stdenv.lib.optional stdenv.isDarwin [ "--with-macosx-keyring" ];
 
   postInstall = ''
     install -d $out/share/doc/${pname}/scripts
@@ -38,7 +34,10 @@ in stdenv.mkDerivation rec {
       --replace @msmtp@      $out/bin/msmtp \
       --replace @nc@         ${netcat-gnu}/bin/nc \
       --replace @journal@    ${journal} \
-      ${lib.optionalString (journal == "y") "--replace @systemdcat@ ${systemd}/bin/systemd-cat" } \
+      ${
+      lib.optionalString (journal == "y")
+      "--replace @systemdcat@ ${systemd}/bin/systemd-cat"
+      } \
       --replace @test@       ${tester}
 
     substitute scripts/msmtpq/msmtp-queue $out/bin/msmtp-queue \
@@ -50,8 +49,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Simple and easy to use SMTP client with excellent sendmail compatibility";
-    homepage = https://marlam.de/msmtp/;
+    description =
+      "Simple and easy to use SMTP client with excellent sendmail compatibility";
+    homepage = "https://marlam.de/msmtp/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ peterhoeg ];
     platforms = platforms.unix;

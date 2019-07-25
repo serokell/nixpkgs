@@ -1,23 +1,15 @@
-{ stdenv, fetchurl, substituteAll, cmake, ninja, pkgconfig
-, glibc, gtk3, gtkmm3, pcre, swig, antlr4_7, sudo
-, mysql, libxml2, libmysqlconnectorcpp
-, vsqlite, gdal, libiodbc, libpthreadstubs
-, libXdmcp, libuuid, libzip, libsecret, libssh
-, python2, jre
-, boost, libsigcxx, libX11, openssl
-, proj, cairo, libxkbcommon, epoxy, wrapGAppsHook
-, at-spi2-core, dbus, bash, coreutils
+{ stdenv, fetchurl, substituteAll, cmake, ninja, pkgconfig, glibc, gtk3, gtkmm3, pcre, swig, antlr4_7, sudo, mysql, libxml2, libmysqlconnectorcpp, vsqlite, gdal, libiodbc, libpthreadstubs, libXdmcp, libuuid, libzip, libsecret, libssh, python2, jre, boost, libsigcxx, libX11, openssl, proj, cairo, libxkbcommon, epoxy, wrapGAppsHook, at-spi2-core, dbus, bash, coreutils
 }:
 
-let
-  inherit (python2.pkgs) paramiko pycairo pyodbc;
+let inherit (python2.pkgs) paramiko pycairo pyodbc;
 in stdenv.mkDerivation rec {
   pname = "mysql-workbench";
   version = "8.0.15";
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
+    url =
+      "http://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-${version}-src.tar.gz";
     sha256 = "0ca93azasya5xiw6j2map8drmxf445qqydpvrb512kjfqdiv67x6";
   };
 
@@ -38,19 +30,41 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    cmake ninja pkgconfig jre swig wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja pkgconfig jre swig wrapGAppsHook ];
 
   buildInputs = [
-    gtk3 gtkmm3 libX11 antlr4_7.runtime.cpp python2 mysql libxml2
-    libmysqlconnectorcpp vsqlite gdal boost libssh openssl
-    libiodbc pcre cairo libuuid libzip libsecret
-    libsigcxx proj
+    gtk3
+    gtkmm3
+    libX11
+    antlr4_7.runtime.cpp
+    python2
+    mysql
+    libxml2
+    libmysqlconnectorcpp
+    vsqlite
+    gdal
+    boost
+    libssh
+    openssl
+    libiodbc
+    pcre
+    cairo
+    libuuid
+    libzip
+    libsecret
+    libsigcxx
+    proj
     # python dependencies:
-    paramiko pycairo pyodbc # sqlanydb
+    paramiko
+    pycairo
+    pyodbc # sqlanydb
     # transitive dependencies:
-    libpthreadstubs libXdmcp libxkbcommon epoxy at-spi2-core dbus
+    libpthreadstubs
+    libXdmcp
+    libxkbcommon
+    epoxy
+    at-spi2-core
+    dbus
   ];
 
   postPatch = ''
@@ -93,7 +107,8 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Visual MySQL database modeling, administration and querying tool";
+    description =
+      "Visual MySQL database modeling, administration and querying tool";
     longDescription = ''
       MySQL Workbench is a modeling tool that allows you to design
       and generate MySQL databases graphically. It also has administration
@@ -101,7 +116,7 @@ in stdenv.mkDerivation rec {
       and execute SQL queries.
     '';
 
-    homepage = http://wb.mysql.com/;
+    homepage = "http://wb.mysql.com/";
     license = licenses.gpl2;
     maintainers = [ maintainers.kkallio ];
     platforms = platforms.linux;

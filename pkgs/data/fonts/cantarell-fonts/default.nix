@@ -7,7 +7,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "05hpnhihwm9sxlq1qn993g03pwkmpjbn0dvnba71r1gfjv0jp2w5";
   };
 
@@ -23,14 +25,11 @@ in stdenv.mkDerivation rec {
   outputHashMode = "recursive";
   outputHash = "12ps2gjv1lmzbmkv16vgjmaahl3ayadpniyrx0z31sqn443r57hq";
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = {
-    description = "Default typeface used in the user interface of GNOME since version 3.0";
+    description =
+      "Default typeface used in the user interface of GNOME since version 3.0";
     platforms = stdenv.lib.platforms.all;
     license = stdenv.lib.licenses.ofl;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];

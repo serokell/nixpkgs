@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Powerful yet simple to use screenshot software";
-    homepage = https://github.com/lupoDharkael/flameshot;
+    homepage = "https://github.com/lupoDharkael/flameshot";
     maintainers = [ maintainers.scode ];
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;

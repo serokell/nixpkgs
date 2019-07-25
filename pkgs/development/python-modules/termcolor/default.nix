@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "termcolor";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Termcolor";
-    homepage = https://pypi.python.org/pypi/termcolor;
+    homepage = "https://pypi.python.org/pypi/termcolor";
     license = licenses.mit;
   };
 

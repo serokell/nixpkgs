@@ -1,20 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, httptools
-, aiofiles
-, websockets
-, multidict
-, uvloop
-, ujson
-, pytest
-, gunicorn
-, pytestcov
-, aiohttp
-, beautifulsoup4
-, pytest-sanic
-, pytest-sugar
-, pytest-benchmark
+{ lib, buildPythonPackage, fetchPypi, httptools, aiofiles, websockets, multidict, uvloop, ujson, pytest, gunicorn, pytestcov, aiohttp, beautifulsoup4, pytest-sanic, pytest-sugar, pytest-benchmark
 }:
 
 buildPythonPackage rec {
@@ -26,14 +10,8 @@ buildPythonPackage rec {
     sha256 = "ce434eb154872ca64493a6c3a288f11fd10bca0de7be7bf9f1d0d063185e51ec";
   };
 
-  propagatedBuildInputs = [
-    httptools
-    aiofiles
-    websockets
-    multidict
-    uvloop
-    ujson
-  ];
+  propagatedBuildInputs =
+    [ httptools aiofiles websockets multidict uvloop ujson ];
 
   checkInputs = [
     pytest
@@ -60,8 +38,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A microframework based on uvloop, httptools, and learnings of flask";
-    homepage = http://github.com/channelcat/sanic/;
+    description =
+      "A microframework based on uvloop, httptools, and learnings of flask";
+    homepage = "http://github.com/channelcat/sanic/";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

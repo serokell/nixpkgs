@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -11,11 +9,10 @@ with pkgs.lib;
     name = "gitea-mysql";
     meta.maintainers = with maintainers; [ aanderse kolaente ];
 
-    machine =
-      { config, pkgs, ... }:
-      { services.gitea.enable = true;
-        services.gitea.database.type = "mysql";
-      };
+    machine = { config, pkgs, ... }: {
+      services.gitea.enable = true;
+      services.gitea.database.type = "mysql";
+    };
 
     testScript = ''
       startAll;
@@ -30,11 +27,10 @@ with pkgs.lib;
     name = "gitea-postgres";
     meta.maintainers = [ maintainers.aanderse ];
 
-    machine =
-      { config, pkgs, ... }:
-      { services.gitea.enable = true;
-        services.gitea.database.type = "postgres";
-      };
+    machine = { config, pkgs, ... }: {
+      services.gitea.enable = true;
+      services.gitea.database.type = "postgres";
+    };
 
     testScript = ''
       startAll;
@@ -49,11 +45,10 @@ with pkgs.lib;
     name = "gitea-sqlite";
     meta.maintainers = [ maintainers.aanderse ];
 
-    machine =
-      { config, pkgs, ... }:
-      { services.gitea.enable = true;
-        services.gitea.disableRegistration = true;
-      };
+    machine = { config, pkgs, ... }: {
+      services.gitea.enable = true;
+      services.gitea.disableRegistration = true;
+    };
 
     testScript = ''
       startAll;

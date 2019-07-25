@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ pidgin gmime libxml2 nss ];
   enableParallelBuilding = true;
 
-  postInstall = "find $out -ls; ln -s \$out/lib/purple-2 \$out/share/pidgin-sipe";
+  postInstall = "find $out -ls; ln -s $out/lib/purple-2 $out/share/pidgin-sipe";
 
   meta = with stdenv.lib; {
     description = "SIPE plugin for Pidgin IM";

@@ -1,12 +1,8 @@
-{ stdenv, fetchurl, coreutils, utillinux,
-  which, gnused, gnugrep,
-  groff, man-db, getent, libiconv, pcre2,
-  gettext, ncurses, python3,
-  cmake
+{ stdenv, fetchurl, coreutils, utillinux, which, gnused, gnugrep, groff, man-db, getent, libiconv, pcre2, gettext, ncurses, python3, cmake
 
-  , writeText
+, writeText
 
-  , useOperatingSystemEtc ? true
+, useOperatingSystemEtc ? true
 
 }:
 
@@ -91,12 +87,14 @@ let
     name = "fish-${version}";
     version = "3.0.2";
 
-    etcConfigAppendix = builtins.toFile "etc-config.appendix.fish" etcConfigAppendixText;
+    etcConfigAppendix =
+      builtins.toFile "etc-config.appendix.fish" etcConfigAppendixText;
 
     src = fetchurl {
       # There are differences between the release tarball and the tarball github packages from the tag
       # Hence we cannot use fetchFromGithub
-      url = "https://github.com/fish-shell/fish-shell/releases/download/${version}/${name}.tar.gz";
+      url =
+        "https://github.com/fish-shell/fish-shell/releases/download/${version}/${name}.tar.gz";
       sha256 = "03j3jl9jzlnhq4p86zj8wqsh5sx45j1d1fvfa80ks1cfdg68qwhl";
     };
 
@@ -109,10 +107,8 @@ let
 
     # Required binaries during execution
     # Python: Autocompletion generated from manpages and config editing
-    propagatedBuildInputs = [
-      coreutils gnugrep gnused
-      python3 groff gettext
-    ] ++ optional (!stdenv.isDarwin) man-db;
+    propagatedBuildInputs = [ coreutils gnugrep gnused python3 groff gettext ]
+      ++ optional (!stdenv.isDarwin) man-db;
 
     postInstall = ''
       sed -r "s|command grep|command ${gnugrep}/bin/grep|" \
@@ -153,32 +149,34 @@ let
       sed -i "s|command manpath|command ${man-db}/bin/manpath|"     \
               "$out/share/fish/functions/man.fish"
     '' + optionalString useOperatingSystemEtc ''
-      tee -a $out/etc/fish/config.fish < ${(writeText "config.fish.appendix" etcConfigAppendixText)}
+      tee -a $out/etc/fish/config.fish < ${
+        (writeText "config.fish.appendix" etcConfigAppendixText)
+      }
     '' + ''
-      tee -a $out/share/fish/__fish_build_paths.fish < ${(writeText "__fish_build_paths_suffix.fish" fishPreInitHooks)}
+      tee -a $out/share/fish/__fish_build_paths.fish < ${
+        (writeText "__fish_build_paths_suffix.fish" fishPreInitHooks)
+      }
     '';
 
     enableParallelBuilding = true;
 
     meta = with stdenv.lib; {
       description = "Smart and user-friendly command line shell";
-      homepage = http://fishshell.com/;
+      homepage = "http://fishshell.com/";
       license = licenses.gpl2;
       platforms = platforms.unix;
       maintainers = with maintainers; [ ocharles ];
     };
 
-    passthru = {
-      shellPath = "/bin/fish";
-    };
+    passthru = { shellPath = "/bin/fish"; };
   };
 
   tests = {
 
     # Test the fish_config tool by checking the generated splash page.
     # Since the webserver requires a port to run, it is not started.
-    fishConfig =
-      let fishScript = writeText "test.fish" ''
+    fishConfig = let
+      fishScript = writeText "test.fish" ''
         set -x __fish_bin_dir ${fish}/bin
         echo $__fish_bin_dir
         cp -r ${fish}/share/fish/tools/web_config/* .

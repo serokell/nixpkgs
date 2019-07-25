@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, coverage
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, coverage, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-testmon";
@@ -26,7 +21,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/tarpas/pytest-testmon/";
-    description = "This is a py.test plug-in which automatically selects and re-executes only tests affected by recent changes";
+    description =
+      "This is a py.test plug-in which automatically selects and re-executes only tests affected by recent changes";
     license = licenses.mit;
     maintainers = [ maintainers.dmvianna ];
   };

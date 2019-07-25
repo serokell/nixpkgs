@@ -1,4 +1,4 @@
-{stdenv, fetchurl, alsaLib, gettext, ncurses, libsamplerate}:
+{ stdenv, fetchurl, alsaLib, gettext, ncurses, libsamplerate }:
 
 stdenv.mkDerivation rec {
   pname = "alsa-oss";
@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
   installFlags = "ASOUND_STATE_DIR=$(TMPDIR)/dummy";
 
   meta = with stdenv.lib; {
-    homepage = http://www.alsa-project.org/;
-    description = "ALSA, the Advanced Linux Sound Architecture alsa-oss emulation";
+    homepage = "http://www.alsa-project.org/";
+    description =
+      "ALSA, the Advanced Linux Sound Architecture alsa-oss emulation";
 
     longDescription = ''
       The Advanced Linux Sound Architecture (ALSA) provides audio and

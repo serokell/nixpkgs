@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, pycryptodome
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pycryptodome, requests }:
 
 buildPythonPackage rec {
   pname = "httpsig";
@@ -27,6 +21,6 @@ buildPythonPackage rec {
     description = "Sign HTTP requests with secure signatures";
     license = licenses.mit;
     maintainers = with maintainers; [ srhb ];
-    homepage = https://github.com/ahknight/httpsig;
+    homepage = "https://github.com/ahknight/httpsig";
   };
 }

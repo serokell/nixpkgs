@@ -1,17 +1,11 @@
-{ stdenv, fetchurl, perl, zlib, apr, aprutil, pcre, libiconv, lynx
-, proxySupport ? true
-, sslSupport ? true, openssl
-, http2Support ? true, nghttp2
-, ldapSupport ? true, openldap
-, libxml2Support ? true, libxml2
-, brotliSupport ? true, brotli
-, luaSupport ? false, lua5
-}:
+{ stdenv, fetchurl, perl, zlib, apr, aprutil, pcre, libiconv, lynx, proxySupport ?
+  true, sslSupport ? true, openssl, http2Support ? true, nghttp2, ldapSupport ?
+    true, openldap, libxml2Support ? true, libxml2, brotliSupport ?
+      true, brotli, luaSupport ? false, lua5 }:
 
 let inherit (stdenv.lib) optional;
-in
 
-assert sslSupport -> aprutil.sslSupport && openssl != null;
+in assert sslSupport -> aprutil.sslSupport && openssl != null;
 assert ldapSupport -> aprutil.ldapSupport && openldap != null;
 assert http2Support -> nghttp2 != null;
 
@@ -28,13 +22,11 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "man" "doc" ];
   setOutputFlags = false; # it would move $out/modules, etc.
 
-  buildInputs = [perl] ++
-    optional brotliSupport brotli ++
-    optional sslSupport openssl ++
-    optional ldapSupport openldap ++    # there is no --with-ldap flag
-    optional libxml2Support libxml2 ++
-    optional http2Support nghttp2 ++
-    optional stdenv.isDarwin libiconv;
+  buildInputs = [ perl ] ++ optional brotliSupport brotli
+    ++ optional sslSupport openssl ++ optional ldapSupport openldap
+    ++ # there is no --with-ldap flag
+    optional libxml2Support libxml2 ++ optional http2Support nghttp2
+    ++ optional stdenv.isDarwin libiconv;
 
   prePatch = ''
     sed -i config.layout -e "s|installbuilddir:.*|installbuilddir: $dev/share/build|"
@@ -62,7 +54,8 @@ stdenv.mkDerivation rec {
     "--enable-cgi"
     (stdenv.lib.enableFeature proxySupport "proxy")
     (stdenv.lib.enableFeature sslSupport "ssl")
-    (stdenv.lib.withFeatureAs libxml2Support "libxml2" "${libxml2.dev}/include/libxml2")
+    (stdenv.lib.withFeatureAs libxml2Support "libxml2"
+    "${libxml2.dev}/include/libxml2")
     "--docdir=$(doc)/share/doc"
 
     (stdenv.lib.enableFeature brotliSupport "brotli")
@@ -86,15 +79,13 @@ stdenv.mkDerivation rec {
     mv $out/bin/apxs $dev/bin/apxs
   '';
 
-  passthru = {
-    inherit apr aprutil sslSupport proxySupport ldapSupport;
-  };
+  passthru = { inherit apr aprutil sslSupport proxySupport ldapSupport; };
 
   meta = with stdenv.lib; {
     description = "Apache HTTPD, the world's most popular web server";
-    homepage    = http://httpd.apache.org/;
-    license     = licenses.asl20;
-    platforms   = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;
+    homepage = "http://httpd.apache.org/";
+    license = licenses.asl20;
+    platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;
     maintainers = with maintainers; [ lovek323 peti ];
   };
 }

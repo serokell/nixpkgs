@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   name = "eventstat-${version}";
   version = "0.04.06";
   src = fetchzip {
-    url = "https://kernel.ubuntu.com/~cking/tarballs/eventstat/eventstat-${version}.tar.gz";
+    url =
+      "https://kernel.ubuntu.com/~cking/tarballs/eventstat/eventstat-${version}.tar.gz";
     sha256 = "1w0lb94rmyrcl03s6ajn7mcdbhh2s6xhsg7kfchy1bpwqcjh2yli";
   };
   buildInputs = [ ncurses ];

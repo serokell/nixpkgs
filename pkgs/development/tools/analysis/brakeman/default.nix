@@ -9,7 +9,7 @@ buildRubyGem rec {
 
   meta = with lib; {
     description = "Static analysis security scanner for Ruby on Rails";
-    homepage = https://brakemanscanner.org/;
+    homepage = "https://brakemanscanner.org/";
     license = [ licenses.cc-by-nc-sa-40 licenses.mit ];
     platforms = ruby.meta.platforms;
     maintainers = [ maintainers.marsam ];

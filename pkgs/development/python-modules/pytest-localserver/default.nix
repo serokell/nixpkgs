@@ -1,11 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, requests
-, pytest
-, six
-, werkzeug
-}:
+{ buildPythonPackage, lib, fetchPypi, requests, pytest, six, werkzeug }:
 
 buildPythonPackage rec {
   pname = "pytest-localserver";
@@ -24,8 +17,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "Plugin for the pytest testing framework to test server connections locally";
-    homepage = https://pypi.python.org/pypi/pytest-localserver;
+    description =
+      "Plugin for the pytest testing framework to test server connections locally";
+    homepage = "https://pypi.python.org/pypi/pytest-localserver";
     license = lib.licenses.mit;
   };
 }

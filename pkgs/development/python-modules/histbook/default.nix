@@ -12,7 +12,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy pandas ];
 
   meta = with lib; {
-    homepage = https://github.com/scikit-hep/histbook;
+    homepage = "https://github.com/scikit-hep/histbook";
     description = "Versatile, high-performance histogram toolkit for Numpy";
     license = licenses.bsd3;
     maintainers = with maintainers; [ veprbl ];

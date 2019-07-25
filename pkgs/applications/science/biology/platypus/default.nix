@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, python27, htslib, zlib, makeWrapper}:
+{ stdenv, fetchFromGitHub, python27, htslib, zlib, makeWrapper }:
 
 let python = python27.withPackages (ps: with ps; [ cython ]);
 
@@ -31,7 +31,7 @@ in stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "The Platypus variant caller";
     license = licenses.gpl3;
-    homepage = https://github.com/andyrimmer/Platypus;
+    homepage = "https://github.com/andyrimmer/Platypus";
     maintainers = with maintainers; [ jbedo ];
     platforms = platforms.x86_64;
   };

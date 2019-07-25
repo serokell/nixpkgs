@@ -1,13 +1,4 @@
-{ stdenv
-, bash
-, curl
-, fetchFromGitHub
-, gawk
-, host
-, lib
-, makeWrapper
-, ncurses
-, netcat
+{ stdenv, bash, curl, fetchFromGitHub, gawk, host, lib, makeWrapper, ncurses, netcat
 }:
 
 stdenv.mkDerivation rec {
@@ -32,12 +23,14 @@ stdenv.mkDerivation rec {
     install -Dm 0644 README.md "$out/share/doc/twa/README.md"
 
     wrapProgram "$out/bin/twa" \
-      --prefix PATH : ${stdenv.lib.makeBinPath [ curl netcat ncurses host.dnsutils ]}
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath [ curl netcat ncurses host.dnsutils ]
+      }
   '';
 
   meta = with lib; {
     description = "A tiny web auditor with strong opinions";
-    homepage = https://github.com/trailofbits/twa;
+    homepage = "https://github.com/trailofbits/twa";
     license = licenses.mit;
     maintainers = with maintainers; [ avaq ];
     platforms = platforms.unix;

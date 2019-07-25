@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.mailhog;
+let cfg = config.services.mailhog;
 in {
   ###### interface
 
@@ -18,7 +17,6 @@ in {
       };
     };
   };
-
 
   ###### implementation
 

@@ -4,7 +4,8 @@
 stdenv.mkDerivation rec {
   pname = "global-platform-pro";
   version = "18.09.14";
-  GPPRO_VERSION = "18.09.14-0-gb439b52"; # git describe --tags --always --long --dirty
+  GPPRO_VERSION =
+    "18.09.14-0-gb439b52"; # git describe --tags --always --long --dirty
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
@@ -52,7 +53,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Command-line utility for managing applets and keys on Java Cards";
+    description =
+      "Command-line utility for managing applets and keys on Java Cards";
     longDescription = ''
       This command-line utility can be used to manage applets and keys
       on Java Cards. It is made available as the `gp` executable.
@@ -60,7 +62,7 @@ stdenv.mkDerivation rec {
       The executable requires the PC/SC daemon running for correct execution.
       If you run NixOS, it can be enabled with `services.pcscd.enable = true;`.
     '';
-    homepage = https://github.com/martinpaljak/GlobalPlatformPro;
+    homepage = "https://github.com/martinpaljak/GlobalPlatformPro";
     license = with licenses; [ lgpl3 ];
     maintainers = with maintainers; [ ekleog ];
     platforms = platforms.all;

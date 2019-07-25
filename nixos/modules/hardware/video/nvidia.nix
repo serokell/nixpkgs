@@ -13,31 +13,33 @@ let
   # driver.
   nvidiaForKernel = kernelPackages:
     if elem "nvidia" drivers then
-        kernelPackages.nvidia_x11
+      kernelPackages.nvidia_x11
     else if elem "nvidiaBeta" drivers then
-        kernelPackages.nvidia_x11_beta
+      kernelPackages.nvidia_x11_beta
     else if elem "nvidiaLegacy304" drivers then
       kernelPackages.nvidia_x11_legacy304
     else if elem "nvidiaLegacy340" drivers then
       kernelPackages.nvidia_x11_legacy340
     else if elem "nvidiaLegacy390" drivers then
       kernelPackages.nvidia_x11_legacy390
-    else null;
+    else
+      null;
 
   nvidia_x11 = nvidiaForKernel config.boot.kernelPackages;
-  nvidia_libs32 =
-    if versionOlder nvidia_x11.version "391" then
-      ((nvidiaForKernel pkgs.pkgsi686Linux.linuxPackages).override { libsOnly = true; kernel = null; }).out
-    else
-      (nvidiaForKernel config.boot.kernelPackages).lib32;
+  nvidia_libs32 = if versionOlder nvidia_x11.version "391" then
+    ((nvidiaForKernel pkgs.pkgsi686Linux.linuxPackages).override {
+      libsOnly = true;
+      kernel = null;
+    }).out
+  else
+    (nvidiaForKernel config.boot.kernelPackages).lib32;
 
   enabled = nvidia_x11 != null;
 
   cfg = config.hardware.nvidia;
   optimusCfg = cfg.optimus_prime;
-in
 
-{
+in {
   options = {
     hardware.nvidia.modesetting.enable = lib.mkOption {
       type = lib.types.bool;
@@ -111,12 +113,14 @@ in
   config = mkIf enabled {
     assertions = [
       {
-        assertion = with config.services.xserver.displayManager; gdm.enable -> !gdm.wayland;
-        message = "NVIDIA drivers don't support wayland, set services.xserver.displayManager.gdm.wayland=false";
+        assertion = with config.services.xserver.displayManager;
+          gdm.enable -> !gdm.wayland;
+        message =
+          "NVIDIA drivers don't support wayland, set services.xserver.displayManager.gdm.wayland=false";
       }
       {
-        assertion = !optimusCfg.enable ||
-          (optimusCfg.nvidiaBusId != "" && optimusCfg.intelBusId != "");
+        assertion = !optimusCfg.enable
+          || (optimusCfg.nvidiaBusId != "" && optimusCfg.intelBusId != "");
         message = ''
           When NVIDIA Optimus via PRIME is enabled, the GPU bus IDs must configured.
         '';
@@ -138,41 +142,42 @@ in
     services.xserver.drivers = singleton {
       name = "nvidia";
       modules = [ nvidia_x11.bin ];
-      deviceSection = optionalString optimusCfg.enable
-        ''
-          BusID "${optimusCfg.nvidiaBusId}"
-          ${optionalString optimusCfg.allowExternalGpu "Option \"AllowExternalGpus\""}
-        '';
-      screenSection =
-        ''
-          Option "RandRRotation" "on"
-          ${optionalString optimusCfg.enable "Option \"AllowEmptyInitialConfiguration\""}
-        '';
+      deviceSection = optionalString optimusCfg.enable ''
+        BusID "${optimusCfg.nvidiaBusId}"
+        ${optionalString optimusCfg.allowExternalGpu
+        ''Option "AllowExternalGpus"''}
+      '';
+      screenSection = ''
+        Option "RandRRotation" "on"
+        ${optionalString optimusCfg.enable
+        ''Option "AllowEmptyInitialConfiguration"''}
+      '';
     };
 
-    services.xserver.extraConfig = optionalString optimusCfg.enable
-      ''
-        Section "Device"
-          Identifier "nvidia-optimus-intel"
-          Driver "modesetting"
-          BusID  "${optimusCfg.intelBusId}"
-          Option "AccelMethod" "none"
-        EndSection
-      '';
-    services.xserver.serverLayoutSection = optionalString optimusCfg.enable
-      ''
-        Inactive "nvidia-optimus-intel"
-      '';
-
-    services.xserver.displayManager.setupCommands = optionalString optimusCfg.enable ''
-      # Added by nvidia configuration module for Optimus/PRIME.
-      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
-      ${pkgs.xorg.xrandr}/bin/xrandr --auto
+    services.xserver.extraConfig = optionalString optimusCfg.enable ''
+      Section "Device"
+        Identifier "nvidia-optimus-intel"
+        Driver "modesetting"
+        BusID  "${optimusCfg.intelBusId}"
+        Option "AccelMethod" "none"
+      EndSection
+    '';
+    services.xserver.serverLayoutSection = optionalString optimusCfg.enable ''
+      Inactive "nvidia-optimus-intel"
     '';
 
-    environment.etc."nvidia/nvidia-application-profiles-rc" = mkIf nvidia_x11.useProfiles {
-      source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
-    };
+    services.xserver.displayManager.setupCommands =
+      optionalString optimusCfg.enable ''
+        # Added by nvidia configuration module for Optimus/PRIME.
+        ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
+        ${pkgs.xorg.xrandr}/bin/xrandr --auto
+      '';
+
+    environment.etc."nvidia/nvidia-application-profiles-rc" =
+      mkIf nvidia_x11.useProfiles {
+        source =
+          "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
+      };
 
     hardware.opengl.package = nvidia_x11.out;
     hardware.opengl.package32 = nvidia_libs32;
@@ -181,27 +186,31 @@ in
       ++ lib.filter (p: p != null) [ nvidia_x11.persistenced ];
 
     systemd.tmpfiles.rules = optional config.virtualisation.docker.enableNvidia
-        "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
-      ++ optional (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
-        "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
+      "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin" ++ optional
+      (nvidia_x11.persistenced != null
+      && config.virtualisation.docker.enableNvidia)
+      "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
     boot.extraModulePackages = [ nvidia_x11.bin ];
 
     # nvidia-uvm is required by CUDA applications.
-    boot.kernelModules = [ "nvidia-uvm" ] ++
-      lib.optionals config.services.xserver.enable [ "nvidia" "nvidia_modeset" "nvidia_drm" ];
+    boot.kernelModules = [ "nvidia-uvm" ]
+      ++ lib.optionals config.services.xserver.enable [
+        "nvidia"
+        "nvidia_modeset"
+        "nvidia_drm"
+      ];
 
     # If requested enable modesetting via kernel parameter.
     boot.kernelParams = optional cfg.modesetting.enable "nvidia-drm.modeset=1";
 
     # Create /dev/nvidia-uvm when the nvidia-uvm module is loaded.
-    services.udev.extraRules =
-      ''
-        KERNEL=="nvidia", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidiactl c $(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 255'"
-        KERNEL=="nvidia_modeset", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-modeset c $(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 254'"
-        KERNEL=="card*", SUBSYSTEM=="drm", DRIVERS=="nvidia", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia%n c $(grep nvidia-frontend /proc/devices | cut -d \  -f 1) %n'"
-        KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm c $(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 0'"
-      '';
+    services.udev.extraRules = ''
+      KERNEL=="nvidia", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidiactl c $(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 255'"
+      KERNEL=="nvidia_modeset", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-modeset c $(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 254'"
+      KERNEL=="card*", SUBSYSTEM=="drm", DRIVERS=="nvidia", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia%n c $(grep nvidia-frontend /proc/devices | cut -d \  -f 1) %n'"
+      KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm c $(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 0'"
+    '';
 
     boot.blacklistedKernelModules = [ "nouveau" "nvidiafb" ];
 

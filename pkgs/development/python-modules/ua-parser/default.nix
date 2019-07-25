@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A python implementation of the UA Parser";
-    homepage = https://github.com/ua-parser/uap-python;
+    homepage = "https://github.com/ua-parser/uap-python";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ dotlambda ];

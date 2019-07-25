@@ -1,5 +1,3 @@
 { config, lib, ... }:
 
-lib.mkIf config.enable {
-  loaOfSub.foo.enable = true;
-}
+lib.mkIf config.enable { loaOfSub.foo.enable = true; }

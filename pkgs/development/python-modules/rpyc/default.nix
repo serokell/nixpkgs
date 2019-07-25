@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, plumbum
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, plumbum }:
 
 buildPythonPackage rec {
   pname = "rpyc";
@@ -17,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ nose plumbum ];
 
   meta = with stdenv.lib; {
-    description = "Remote Python Call (RPyC), a transparent and symmetric RPC library";
-    homepage = https://rpyc.readthedocs.org;
+    description =
+      "Remote Python Call (RPyC), a transparent and symmetric RPC library";
+    homepage = "https://rpyc.readthedocs.org";
     license = licenses.mit;
   };
 

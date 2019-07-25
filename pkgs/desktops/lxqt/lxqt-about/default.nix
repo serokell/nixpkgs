@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtx11extras, qttools, qtsvg, kwindowsystem, liblxqt, libqtxdg }:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtx11extras, qttools, qtsvg, kwindowsystem, liblxqt, libqtxdg
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-about";
@@ -11,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0dj2rhbhnkzmv1iqqyq0bcp03imwnvxdr7rnpqnrs9kkjacm8zvr";
   };
 
-  nativeBuildInputs = [
-    cmake
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake lxqt-build-tools ];
 
-  buildInputs = [
-    qtx11extras
-    qttools
-    qtsvg
-    kwindowsystem
-    liblxqt
-    libqtxdg
-  ];
+  buildInputs = [ qtx11extras qttools qtsvg kwindowsystem liblxqt libqtxdg ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -31,8 +22,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Dialogue window providing information about LXQt and the system it's running on";
-    homepage = https://github.com/lxqt/lxqt-about;
+    description =
+      "Dialogue window providing information about LXQt and the system it's running on";
+    homepage = "https://github.com/lxqt/lxqt-about";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

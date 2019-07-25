@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, six
-, numpy
-, traitlets
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, six, numpy, traitlets }:
 
 buildPythonPackage rec {
   pname = "numtraits";
@@ -17,7 +10,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [ six numpy traitlets];
+  propagatedBuildInputs = [ six numpy traitlets ];
 
   checkPhase = ''
     py.test
@@ -27,6 +20,6 @@ buildPythonPackage rec {
     description = "Numerical traits for Python objects";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ fridh ];
-    homepage = https://github.com/astrofrog/numtraits;
+    homepage = "https://github.com/astrofrog/numtraits";
   };
 }

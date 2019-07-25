@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, python2, gnome_python, gnome_python_desktop }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, python2, gnome_python, gnome_python_desktop
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome15-2016-06-10";
@@ -13,8 +14,21 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkgconfig python2.pkgs.wrapPython ];
   buildInputs = [ python2 ];
   propagatedBuildInputs = with python2.pkgs; [
-    pygtk keyring virtkey pillow dbus-python pyinotify lxml pyxdg pyusb gnome_python gnome_python_desktop
-    python-uinput xlib pyudev pyinputevent
+    pygtk
+    keyring
+    virtkey
+    pillow
+    dbus-python
+    pyinotify
+    lxml
+    pyxdg
+    pyusb
+    gnome_python
+    gnome_python_desktop
+    python-uinput
+    xlib
+    pyudev
+    pyinputevent
   ];
 
   postPatch = ''
@@ -29,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "A set of tools for configuring the Logitech G15 keyboard";
     license = licenses.gpl3;
-    homepage = https://gnome15.org/;
+    homepage = "https://gnome15.org/";
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
   };

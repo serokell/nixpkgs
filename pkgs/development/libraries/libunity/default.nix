@@ -1,15 +1,4 @@
-{ stdenv
-, fetchgit
-, pkgconfig
-, glib
-, vala
-, dee
-, gobject-introspection
-, libdbusmenu
-, gtk3
-, intltool
-, python3
-, autoreconfHook
+{ stdenv, fetchgit, pkgconfig, glib, vala, dee, gobject-introspection, libdbusmenu, gtk3, intltool, python3, autoreconfHook
 }:
 
 stdenv.mkDerivation rec {
@@ -24,24 +13,12 @@ stdenv.mkDerivation rec {
     sha256 = "15b49v88v74q20a5c0lq867qnlz7fx20xifl6j8ha359r0zkfwzj";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gobject-introspection
-    intltool
-    pkgconfig
-    python3
-    vala
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook gobject-introspection intltool pkgconfig python3 vala ];
 
-  buildInputs = [
-    glib
-    gtk3
-  ];
+  buildInputs = [ glib gtk3 ];
 
-  propagatedBuildInputs = [
-    dee
-    libdbusmenu
-  ];
+  propagatedBuildInputs = [ dee libdbusmenu ];
 
   preConfigure = ''
     intltoolize
@@ -49,12 +26,15 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--disable-static"
-    "--with-pygi-overrides-dir=${placeholder ''py''}/${python3.sitePackages}/gi/overrides"
+    "--with-pygi-overrides-dir=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides"
   ];
 
   meta = with stdenv.lib; {
-    description = "A library for instrumenting and integrating with all aspects of the Unity shell";
-    homepage = https://launchpad.net/libunity;
+    description =
+      "A library for instrumenting and integrating with all aspects of the Unity shell";
+    homepage = "https://launchpad.net/libunity";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ worldofpeace ];

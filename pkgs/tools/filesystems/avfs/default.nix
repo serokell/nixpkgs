@@ -12,14 +12,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ fuse xz ];
 
-  configureFlags = [
-    "--enable-library"
-    "--enable-fuse"
-    "--disable-static"
-  ];
+  configureFlags = [ "--enable-library" "--enable-fuse" "--disable-static" ];
 
   meta = {
-    homepage = http://avf.sourceforge.net/;
+    homepage = "http://avf.sourceforge.net/";
     description = "Virtual filesystem that allows browsing of compressed files";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2;

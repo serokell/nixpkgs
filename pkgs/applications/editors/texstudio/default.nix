@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, qt5, poppler, zlib, pkgconfig}:
+{ stdenv, fetchFromGitHub, qt5, poppler, zlib, pkgconfig }:
 
 stdenv.mkDerivation rec {
   pname = "texstudio";
@@ -19,12 +19,12 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "TeX and LaTeX editor";
-    longDescription=''
-	Fork of TeXMaker, this editor is a full fledged IDE for
-	LaTeX editing with completion, structure viewer, preview,
-	spell checking and support of any compilation chain.
-	'';
-    homepage = http://texstudio.sourceforge.net;
+    longDescription = ''
+      Fork of TeXMaker, this editor is a full fledged IDE for
+      LaTeX editing with completion, structure viewer, preview,
+      spell checking and support of any compilation chain.
+    '';
+    homepage = "http://texstudio.sourceforge.net";
     license = licenses.gpl2Plus;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ cfouche ];

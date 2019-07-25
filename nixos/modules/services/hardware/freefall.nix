@@ -41,8 +41,8 @@ in {
 
     mkService = dev:
       assert dev != "";
-      let dev' = utils.escapeSystemdPath dev; in
-      nameValuePair "freefall-${dev'}" {
+      let dev' = utils.escapeSystemdPath dev;
+      in nameValuePair "freefall-${dev'}" {
         description = "Free-fall protection for ${dev}";
         after = [ "${dev'}.device" ];
         wantedBy = [ "${dev'}.device" ];
@@ -53,12 +53,12 @@ in {
         };
       };
 
-  in mkIf cfg.enable {
+    in mkIf cfg.enable {
 
-    environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [ cfg.package ];
 
-    systemd.services = builtins.listToAttrs (map mkService cfg.devices);
+      systemd.services = builtins.listToAttrs (map mkService cfg.devices);
 
-  };
+    };
 
 }

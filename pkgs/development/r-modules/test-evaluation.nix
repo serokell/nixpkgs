@@ -14,8 +14,8 @@ let
   inherit (import ../../.. { inherit config; }) pkgs;
 
   rWrapper = pkgs.rWrapper.override {
-    packages = pkgs.lib.filter pkgs.lib.isDerivation (pkgs.lib.attrValues pkgs.rPackages);
+    packages = pkgs.lib.filter pkgs.lib.isDerivation
+      (pkgs.lib.attrValues pkgs.rPackages);
   };
 
-in
-  rWrapper
+in rWrapper

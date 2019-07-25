@@ -1,6 +1,5 @@
 { stdenv, fetchurl }:
 
-
 stdenv.mkDerivation rec {
   name = "numdiff-${version}";
   version = "5.9.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
       line by line and field by field, ignoring small numeric differences
       or/and different numeric formats
     '';
-    homepage = https://www.nongnu.org/numdiff/;
+    homepage = "https://www.nongnu.org/numdiff/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ndowens ];
     platforms = platforms.gnu ++ platforms.linux;

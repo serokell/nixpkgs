@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, simplejson
-, pytz
-, requests
-}:
+{ stdenv, buildPythonPackage, fetchurl, simplejson, pytz, requests }:
 
 buildPythonPackage rec {
   pname = "etcd";
@@ -12,7 +6,8 @@ buildPythonPackage rec {
 
   # PyPI package is incomplete
   src = fetchurl {
-    url = "https://github.com/dsoprea/PythonEtcdClient/archive/${version}.tar.gz";
+    url =
+      "https://github.com/dsoprea/PythonEtcdClient/archive/${version}.tar.gz";
     sha256 = "0fi6rxa1yxvz7nwrc7dw6fax3041d6bj3iyhywjgbkg7nadi9i8v";
   };
 
@@ -27,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python etcd client that just works";
-    homepage = https://github.com/dsoprea/PythonEtcdClient;
+    homepage = "https://github.com/dsoprea/PythonEtcdClient";
     license = licenses.gpl2;
   };
 

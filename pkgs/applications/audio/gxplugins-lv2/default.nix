@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    xorg.libX11 xorgproto cairo lv2
-  ];
+  buildInputs = [ xorg.libX11 xorgproto cairo lv2 ];
 
   installFlags = [ "INSTALL_DIR=$(out)/lib/lv2" ];
 
@@ -27,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/brummer10/GxPlugins.lv2;
+    homepage = "https://github.com/brummer10/GxPlugins.lv2";
     description = "A set of extra lv2 plugins from the guitarix project";
     maintainers = [ maintainers.magnetophon ];
     license = licenses.gpl3;

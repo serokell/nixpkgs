@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.0.14";
 
   src = fetchurl {
-    url = "https://alioth.debian.org/frs/download.php/latestfile/175/${name}.tar.gz";
+    url =
+      "https://alioth.debian.org/frs/download.php/latestfile/175/${name}.tar.gz";
     sha256 = "1ad4zr7rcxpda8yzvfkq1rfjgx9nl6lan5a628wvpdbh3fn9v0z7";
   };
 
@@ -21,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Scanner Access Now Easy";
-    homepage    = http://www.sane-project.org/;
-    license     = licenses.gpl2Plus;
+    homepage = "http://www.sane-project.org/";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ peti ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

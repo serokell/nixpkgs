@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "0ks53lsrpa8yxav8jh0jlvs25y6p7mkcdch8il1kvib9k5zq2wnb";
   };
 
-  nativeBuildInputs = [ postgresql perl perlPackages.TAPParserSourceHandlerpgTAP which ];
+  nativeBuildInputs =
+    [ postgresql perl perlPackages.TAPParserSourceHandlerpgTAP which ];
 
   installPhase = ''
     install -D {sql/pgtap--${version}.sql,pgtap.control} -t $out/share/postgresql/extension
@@ -26,7 +27,7 @@ stdenv.mkDerivation rec {
       It can also be used in the xUnit testing style.
     '';
     maintainers = with maintainers; [ willibutz ];
-    homepage = https://pgtap.org;
+    homepage = "https://pgtap.org";
     inherit (postgresql.meta) platforms;
     license = licenses.mit;
   };

@@ -1,8 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, autoreconfHook
-, gmp
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, gmp }:
 
 stdenv.mkDerivation rec {
   version = "1.0";
@@ -20,19 +16,16 @@ stdenv.mkDerivation rec {
     touch ChangeLog
   '';
 
-  buildInputs = [
-    gmp
-  ];
+  buildInputs = [ gmp ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/sagemath/FlintQS;
-    description = "Highly optimized multi-polynomial quadratic sieve for integer factorization";
+    homepage = "https://github.com/sagemath/FlintQS";
+    description =
+      "Highly optimized multi-polynomial quadratic sieve for integer factorization";
     license = with licenses; [ gpl2 ];
     maintainers = with maintainers; [ timokau ];
     platforms = platforms.all;

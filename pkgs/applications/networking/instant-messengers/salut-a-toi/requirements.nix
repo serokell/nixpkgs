@@ -1,7 +1,4 @@
-{ fetchurl
-, stdenv
-, pythonPackages
-}:
+{ fetchurl, stdenv, pythonPackages }:
 
 let
   buildPythonPackage = pythonPackages.buildPythonPackage;
@@ -55,7 +52,7 @@ in {
       sha256 = "0rnshrzw8605x05mpd8ndrx3ri8h6cx713mp8sl4f04f4gcrz8ml";
     };
 
-    propagatedBuildInputs = with pythonPackages; [twisted dateutil];
+    propagatedBuildInputs = with pythonPackages; [ twisted dateutil ];
 
     meta = with stdenv.lib; {
       description = "Some (mainly XMPP-related) additions to twisted";

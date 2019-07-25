@@ -15,9 +15,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ fuse3 ];
 
   meta = with lib; {
-    homepage = https://github.com/containers/fuse-overlayfs;
+    homepage = "https://github.com/containers/fuse-overlayfs";
     description = "FUSE implementation for overlayfs";
-    longDescription = "An implementation of overlay+shiftfs in FUSE for rootless containers.";
+    longDescription =
+      "An implementation of overlay+shiftfs in FUSE for rootless containers.";
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = [ maintainers.ma9e ];

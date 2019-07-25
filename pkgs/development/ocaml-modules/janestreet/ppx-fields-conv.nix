@@ -1,5 +1,4 @@
-{stdenv, buildOcamlJane,
- ppx_core, ppx_tools, ppx_type_conv}:
+{ stdenv, buildOcamlJane, ppx_core, ppx_tools, ppx_type_conv }:
 
 buildOcamlJane rec {
   name = "ppx_fields_conv";
@@ -7,7 +6,8 @@ buildOcamlJane rec {
   propagatedBuildInputs = [ ppx_core ppx_tools ppx_type_conv ];
 
   meta = with stdenv.lib; {
-    description = "Generation of accessor and iteration functions for ocaml records";
+    description =
+      "Generation of accessor and iteration functions for ocaml records";
     maintainers = [ maintainers.maurer ];
     license = licenses.asl20;
   };

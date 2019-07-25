@@ -1,8 +1,5 @@
-{ stdenv, fetchurl
-, pkgconfig, wrapGAppsHook
-, glib, glib-networking, gsettings-desktop-schemas, gtk, libsoup, webkitgtk
-, patches ? null
-}:
+{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, glib, glib-networking, gsettings-desktop-schemas, gtk, libsoup, webkitgtk, patches ?
+  null }:
 
 stdenv.mkDerivation rec {
   name = "surf-${version}";
@@ -14,7 +11,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
-  buildInputs = [ glib glib-networking gsettings-desktop-schemas gtk libsoup webkitgtk ];
+  buildInputs =
+    [ glib glib-networking gsettings-desktop-schemas gtk libsoup webkitgtk ];
 
   inherit patches;
 
@@ -28,7 +26,7 @@ stdenv.mkDerivation rec {
       possible to embed it in another application. Furthermore, one can point
       surf to another URI by setting its XProperties.
     '';
-    homepage = https://surf.suckless.org;
+    homepage = "https://surf.suckless.org";
     license = licenses.mit;
     platforms = webkitgtk.meta.platforms;
     maintainers = with maintainers; [ joachifm ];

@@ -1,6 +1,4 @@
-{ stdenv, alsaLib, atk, cairo, cups, dbus, dpkg, expat, fontconfig, freetype
-, fetchurl, GConf, gdk_pixbuf, glib, gtk2, gtk3, libpulseaudio, makeWrapper, nspr
-, nss, pango, udev, xorg
+{ stdenv, alsaLib, atk, cairo, cups, dbus, dpkg, expat, fontconfig, freetype, fetchurl, GConf, gdk_pixbuf, glib, gtk2, gtk3, libpulseaudio, makeWrapper, nspr, nss, pango, udev, xorg
 }:
 
 let
@@ -40,13 +38,12 @@ let
     xorg.libXtst
   ];
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "google-play-music-desktop-player-${version}";
 
   src = fetchurl {
-    url = "https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases/download/v${version}/google-play-music-desktop-player_${version}_amd64.deb";
+    url =
+      "https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-/releases/download/v${version}/google-play-music-desktop-player_${version}_amd64.deb";
     sha256 = "0dyn2fxhcri9d9nmcprszs6yg79gsr09bjfzzb1p10yjmi77cj2g";
   };
 
@@ -71,8 +68,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://www.googleplaymusicdesktopplayer.com/;
-    description = "A beautiful cross platform Desktop Player for Google Play Music";
+    homepage = "https://www.googleplaymusicdesktopplayer.com/";
+    description =
+      "A beautiful cross platform Desktop Player for Google Play Music";
     license = stdenv.lib.licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = [ stdenv.lib.maintainers.SuprDewd ];

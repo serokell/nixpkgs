@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, blockdiag
-}:
+{ stdenv, buildPythonPackage, fetchPypi, blockdiag }:
 
 buildPythonPackage rec {
   pname = "blockdiagcontrib-cisco";
@@ -16,7 +12,8 @@ buildPythonPackage rec {
   buildInputs = [ blockdiag ];
 
   meta = with stdenv.lib; {
-    description = "Noderenderer plugin for blockdiag containing Cisco networking symbols";
+    description =
+      "Noderenderer plugin for blockdiag containing Cisco networking symbols";
     homepage = "https://bitbucket.org/blockdiag/blockdiag-contrib/";
     maintainers = [ maintainers.bjornfor ];
     license = licenses.psfl;

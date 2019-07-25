@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pymysql
-, sqlalchemy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pymysql, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "pymysqlsa";
@@ -18,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "PyMySQL dialect for SQL Alchemy";
-    homepage = https://pypi.python.org/pypi/pymysql_sa;
+    homepage = "https://pypi.python.org/pypi/pymysql_sa";
     license = licenses.mit;
   };
 

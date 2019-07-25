@@ -1,24 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy27
-, fetchPypi
-, cachetools
-, cld2-cffi
-, cytoolz
-, ftfy
-, ijson
-, matplotlib
-, networkx
-, numpy
-, pyemd
-, pyphen
-, python-Levenshtein
-, requests
-, scikitlearn
-, scipy
-, spacy
-, tqdm
-, unidecode
+{ stdenv, buildPythonPackage, isPy27, fetchPypi, cachetools, cld2-cffi, cytoolz, ftfy, ijson, matplotlib, networkx, numpy, pyemd, pyphen, python-Levenshtein, requests, scikitlearn, scipy, spacy, tqdm, unidecode
 }:
 
 buildPythonPackage rec {
@@ -57,7 +37,7 @@ buildPythonPackage rec {
       --replace "'ftfy>=4.2.0,<5.0.0'," "'ftfy>=5.0.0',"
   '';
 
-  doCheck = false;  # tests want to download data files
+  doCheck = false; # tests want to download data files
 
   meta = with stdenv.lib; {
     description = "Higher-level text processing, built on spaCy";

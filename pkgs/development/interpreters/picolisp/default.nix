@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     url = "https://www.software-lab.de/${name}.tgz";
     sha256 = "1ixxl6m5glhwqa4q3fb90pciv7jhhvn9pkh316d4wcv0m13l04gq";
   };
-  buildInputs = [makeWrapper openssl] ++ optional stdenv.is64bit jdk;
+  buildInputs = [ makeWrapper openssl ] ++ optional stdenv.is64bit jdk;
   patchPhase = ''
     sed -i "s/which java/command -v java/g" mkAsm
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       EOF
     ''}
   '';
-  sourceRoot = ''picoLisp/src${optionalString stdenv.is64bit "64"}'';
+  sourceRoot = "picoLisp/src${optionalString stdenv.is64bit "64"}";
   postBuild = ''
     cd ../src; make gate
   '';
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A simple Lisp with an integrated database";
-    homepage = https://picolisp.com/;
+    homepage = "https://picolisp.com/";
     license = licenses.mit;
     platforms = platforms.all;
     broken = stdenv.isDarwin; # times out
@@ -58,8 +58,6 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateInfo = {
-      downloadPage = "http://www.software-lab.de/down.html";
-    };
+    updateInfo = { downloadPage = "http://www.software-lab.de/down.html"; };
   };
 }

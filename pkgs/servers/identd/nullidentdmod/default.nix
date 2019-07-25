@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, ... }: stdenv.mkDerivation rec {
+{ stdenv, fetchFromGitHub, ... }:
+stdenv.mkDerivation rec {
   name = "nullidentdmod-${version}";
   version = "1.3";
 
@@ -16,9 +17,10 @@
   '';
 
   meta = with stdenv.lib; {
-    description = "Simple identd that just replies with a random string or customized userid";
+    description =
+      "Simple identd that just replies with a random string or customized userid";
     license = licenses.gpl2;
-    homepage = http://acidhub.click/NullidentdMod;
+    homepage = "http://acidhub.click/NullidentdMod";
     maintainers = with maintainers; [ das_j ];
     platforms = platforms.linux; # Must be run by systemd
   };

@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "2.3";
 
   src = fetchurl {
-    url = "https://github.com/OlafvdSpek/ctemplate/archive/ctemplate-${version}.tar.gz";
+    url =
+      "https://github.com/OlafvdSpek/ctemplate/archive/ctemplate-${version}.tar.gz";
     sha256 = "0mi5g2xlws10z1g4x0cj6kd1r673kkav35pgzyqxa1w47xnwprcr";
   };
 
@@ -23,7 +24,7 @@ stdenv.mkDerivation rec {
       emphasizes separating logic from presentation: it is impossible to
       embed application logic in this template language.
     '';
-    homepage = https://github.com/OlafvdSpek/ctemplate;
+    homepage = "https://github.com/OlafvdSpek/ctemplate";
     license = stdenv.lib.licenses.bsd3;
   };
 }

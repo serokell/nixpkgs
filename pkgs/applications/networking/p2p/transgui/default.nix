@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, makeDesktopItem, unzip, fpc, lazarus,
-libX11, glib, gtk2, gdk_pixbuf, pango, atk, cairo, openssl }:
+{ stdenv, fetchFromGitHub, pkgconfig, makeDesktopItem, unzip, fpc, lazarus, libX11, glib, gtk2, gdk_pixbuf, pango, atk, cairo, openssl
+}:
 
 stdenv.mkDerivation rec {
   pname = "transgui";
@@ -14,8 +14,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    unzip fpc lazarus stdenv.cc
-    libX11 glib gtk2 gdk_pixbuf pango atk cairo openssl
+    unzip
+    fpc
+    lazarus
+    stdenv.cc
+    libX11
+    glib
+    gtk2
+    gdk_pixbuf
+    pango
+    atk
+    cairo
+    openssl
   ];
 
   NIX_LDFLAGS = ''
@@ -32,13 +42,9 @@ stdenv.mkDerivation rec {
     lazbuild -B transgui.lpr --lazarusdir=${lazarus}/share/lazarus
   '';
 
-  makeFlags = [
-    "FPC=fpc"
-    "PP=fpc"
-    "INSTALL_PREFIX=$(out)"
-  ];
+  makeFlags = [ "FPC=fpc" "PP=fpc" "INSTALL_PREFIX=$(out)" ];
 
-  LCL_PLATFORM = "gtk2"; 
+  LCL_PLATFORM = "gtk2";
 
   desktopItem = makeDesktopItem rec {
     name = "transgui";
@@ -49,11 +55,16 @@ stdenv.mkDerivation rec {
     desktopName = "Transmission Remote GUI";
     genericName = "BitTorrent Client";
     categories = stdenv.lib.concatStringsSep ";" [
-      "Application" "Network" "FileTransfer" "P2P" "GTK"
+      "Application"
+      "Network"
+      "FileTransfer"
+      "P2P"
+      "GTK"
     ];
     startupNotify = "true";
     mimeType = stdenv.lib.concatStringsSep ";" [
-      "application/x-bittorrent" "x-scheme-handler/magnet"
+      "application/x-bittorrent"
+      "x-scheme-handler/magnet"
     ];
   };
 
@@ -66,9 +77,10 @@ stdenv.mkDerivation rec {
     cp -r "./lang" "$out/share/transgui" 
   '';
 
-  meta = { 
-    description = "A cross platform front-end for the Transmission Bit-Torrent client";
-    homepage = https://sourceforge.net/p/transgui;
+  meta = {
+    description =
+      "A cross platform front-end for the Transmission Bit-Torrent client";
+    homepage = "https://sourceforge.net/p/transgui";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = with stdenv.lib.maintainers; [ ramkromberg ];
     platforms = stdenv.lib.platforms.linux;

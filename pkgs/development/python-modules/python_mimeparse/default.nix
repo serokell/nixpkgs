@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "python-mimeparse";
@@ -16,8 +13,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A module provides basic functions for parsing mime-type names and matching them against a list of media-ranges";
-    homepage = https://code.google.com/p/mimeparse/;
+    description =
+      "A module provides basic functions for parsing mime-type names and matching them against a list of media-ranges";
+    homepage = "https://code.google.com/p/mimeparse/";
     license = licenses.mit;
   };
 

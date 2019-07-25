@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "pex";
@@ -19,7 +15,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A library and tool for generating .pex (Python EXecutable) files";
+    description =
+      "A library and tool for generating .pex (Python EXecutable) files";
     homepage = "https://github.com/pantsbuild/pex";
     license = licenses.asl20;
     maintainers = with maintainers; [ copumpkin ];

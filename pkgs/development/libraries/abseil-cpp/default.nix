@@ -16,8 +16,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "An open-source collection of C++ code designed to augment the C++ standard library";
-    homepage = https://abseil.io/;
+    description =
+      "An open-source collection of C++ code designed to augment the C++ standard library";
+    homepage = "https://abseil.io/";
     license = licenses.asl20;
     maintainers = [ maintainers.andersk ];
   };

@@ -25,36 +25,38 @@ let
     };
   };
 
-  dropBass = name: bass: stdenv.mkDerivation {
-    name = "lib${name}-${version}";
+  dropBass = name: bass:
+    stdenv.mkDerivation {
+      name = "lib${name}-${version}";
 
-    src = fetchurl {
-      url = "https://www.un4seen.com/files/${bass.urlpath}";
-      inherit (bass) sha256;
-    };
-    unpackCmd = ''
-      mkdir out
-      ${unzip}/bin/unzip $curSrc -d out
-    '';
-
-    lpropagatedBuildInputs = [ unzip ];
-    dontBuild = true;
-    installPhase =
-      let so =
-            if bass.so ? ${stdenv.hostPlatform.system} then bass.so.${stdenv.hostPlatform.system}
-            else throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";
-      in ''
-        mkdir -p $out/{lib,include}
-        install -m644 -t $out/lib/ ${so}
-        install -m644 -t $out/include/ ${bass.h}
+      src = fetchurl {
+        url = "https://www.un4seen.com/files/${bass.urlpath}";
+        inherit (bass) sha256;
+      };
+      unpackCmd = ''
+        mkdir out
+        ${unzip}/bin/unzip $curSrc -d out
       '';
 
-    meta = with stdenv.lib; {
-      description = "Shareware audio library";
-      homepage = https://www.un4seen.com/;
-      license = licenses.unfreeRedistributable;
-      platforms = builtins.attrNames bass.so;
+      lpropagatedBuildInputs = [ unzip ];
+      dontBuild = true;
+      installPhase = let
+        so = if bass.so ? ${stdenv.hostPlatform.system} then
+          bass.so.${stdenv.hostPlatform.system}
+        else
+          throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";
+        in ''
+          mkdir -p $out/{lib,include}
+          install -m644 -t $out/lib/ ${so}
+          install -m644 -t $out/include/ ${bass.h}
+        '';
+
+      meta = with stdenv.lib; {
+        description = "Shareware audio library";
+        homepage = "https://www.un4seen.com/";
+        license = licenses.unfreeRedistributable;
+        platforms = builtins.attrNames bass.so;
+      };
     };
-  };
 
 in stdenv.lib.mapAttrs dropBass allBass

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast
-, flask, blinker, nose, mock, semantic-version }:
+{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, flask, blinker, nose, mock, semantic-version
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Login";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   doCheck = pythonAtLeast "3.3";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/maxcountryman/flask-login;
+    homepage = "https://github.com/maxcountryman/flask-login";
     description = "User session management for Flask";
     license = licenses.mit;
     platforms = platforms.all;

@@ -1,16 +1,6 @@
-{ version
-, sha256
-, cargoSha256
-}:
+{ version, sha256, cargoSha256 }:
 
-{ stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkgconfig
-, openssl
-, systemd
-, cmake
-, perl
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, systemd, cmake, perl
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,10 +14,8 @@ rustPlatform.buildRustPackage rec {
     inherit sha256;
   };
 
-  buildInputs = [
-    pkgconfig cmake perl
-    systemd.lib systemd.dev openssl openssl.dev
-  ];
+  buildInputs =
+    [ pkgconfig cmake perl systemd.lib systemd.dev openssl openssl.dev ];
 
   cargoBuildFlags = [ "--features final" ];
 

@@ -1,5 +1,4 @@
-{ buildGoModule, fetchFromGitHub, lib
-, wayland, libX11, xbitmaps, libXcursor, libXmu
+{ buildGoModule, fetchFromGitHub, lib, wayland, libX11, xbitmaps, libXcursor, libXmu
 }:
 
 buildGoModule rec {
@@ -15,7 +14,8 @@ buildGoModule rec {
 
   modSha256 = "1kbggry1qrf0nkvysnaky2nl73l5f0bnc4wx0hfr6ifyagfjzy77";
 
-  patches = [ ./lscollection-Add-NixOS-paths-to-DefaultWallpaperDirectories.patch ];
+  patches =
+    [ ./lscollection-Add-NixOS-paths-to-DefaultWallpaperDirectories.patch ];
 
   postPatch = ''
     # VersionString is sometimes not up-to-date:
@@ -25,7 +25,8 @@ buildGoModule rec {
   buildInputs = [ wayland libX11 xbitmaps libXcursor libXmu ];
 
   meta = with lib; {
-    description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";
+    description =
+      "Utilities for handling monitors, resolutions, and (timed) wallpapers";
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = with maintainers; [ primeos ];

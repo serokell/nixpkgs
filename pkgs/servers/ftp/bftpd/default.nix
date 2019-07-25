@@ -1,14 +1,14 @@
 { stdenv, fetchurl }:
 
-let
-  pname = "bftpd";
+let pname = "bftpd";
 
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "5.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/${pname}/${pname}/${name}/${name}.tar.gz";
+    url =
+      "mirror://sourceforge/project/${pname}/${pname}/${name}/${name}.tar.gz";
     sha256 = "0kmavljj3zwpgdib9nb14fnriiv0l9zm3hglimcyz26sxbw5jqky";
   };
 
@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
     inherit version;
     description = "A minimal ftp server";
     downloadPage = "http://bftpd.sf.net/download.html";
-    homepage = http://bftpd.sf.net/;
+    homepage = "http://bftpd.sf.net/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;

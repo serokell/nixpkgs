@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, which, autoconf, automake, libtool, libpcap }:
 
-let version = "2.8"; in
+let version = "2.8";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ndpi-${version}";
 
   src = fetchFromGitHub {
@@ -14,15 +14,15 @@ stdenv.mkDerivation rec {
 
   configureScript = "./autogen.sh";
 
-  nativeBuildInputs = [which autoconf automake libtool];
-  buildInputs = [libpcap];
+  nativeBuildInputs = [ which autoconf automake libtool ];
+  buildInputs = [ libpcap ];
 
   meta = with stdenv.lib; {
     description = "A library for deep-packet inspection";
     longDescription = ''
       nDPI is a library for deep-packet inspection based on OpenDPI.
     '';
-    homepage = https://www.ntop.org/products/deep-packet-inspection/ndpi/;
+    homepage = "https://www.ntop.org/products/deep-packet-inspection/ndpi/";
     license = with licenses; lgpl3;
     maintainers = with maintainers; [ takikawa ];
     platforms = with platforms; unix;

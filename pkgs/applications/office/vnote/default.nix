@@ -1,7 +1,9 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme, makeDesktopItem }:
+{ stdenv, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme, makeDesktopItem
+}:
 
 let
-  description = "A note-taking application that knows programmers and Markdown better";
+  description =
+    "A note-taking application that knows programmers and Markdown better";
 in stdenv.mkDerivation rec {
   version = "2.6";
   pname = "vnote";

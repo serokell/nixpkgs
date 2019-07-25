@@ -8,9 +8,7 @@ let
 
   cfg = config.programs.xonsh;
 
-in
-
-{
+in {
 
   options = {
 
@@ -26,7 +24,8 @@ in
 
       package = mkOption {
         type = types.package;
-        example = literalExample "pkgs.xonsh.override { configFile = \"/path/to/xonshrc\"; }";
+        example = literalExample
+          ''pkgs.xonsh.override { configFile = "/path/to/xonshrc"; }'';
         description = ''
           xonsh package to use.
         '';
@@ -49,9 +48,7 @@ in
     environment.systemPackages = [ pkgs.xonsh ];
 
     environment.shells =
-      [ "/run/current-system/sw/bin/xonsh"
-        "${pkgs.xonsh}/bin/xonsh"
-      ];
+      [ "/run/current-system/sw/bin/xonsh" "${pkgs.xonsh}/bin/xonsh" ];
 
   };
 

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, linuxHeaders, readline, openssl, flex, kerberos, pam }:
+{ stdenv, fetchurl, fetchpatch, linuxHeaders, readline, openssl, flex, kerberos, pam
+}:
 
 # TODO: These tools are supposed to work under NetBSD and FreeBSD as
 # well, so I guess it's not appropriate to place this expression in
@@ -20,7 +21,8 @@ stdenv.mkDerivation rec {
     ./dont-create-localstatedir-during-install.patch
     ./CVE-2015-4047.patch
     (fetchpatch {
-      url = "https://anonscm.debian.org/cgit/pkg-ipsec-tools/pkg-ipsec-tools.git/plain/debian/patches/CVE-2016-10396.patch?id=62ac12648a4eb7c5ba5dba0f81998d1acf310d8b";
+      url =
+        "https://anonscm.debian.org/cgit/pkg-ipsec-tools/pkg-ipsec-tools.git/plain/debian/patches/CVE-2016-10396.patch?id=62ac12648a4eb7c5ba5dba0f81998d1acf310d8b";
       sha256 = "1kf7j2pf1blni52z7q41n0yisqb7gvk01lvldr319zaxxg7rm84a";
     })
   ];
@@ -43,8 +45,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = http://ipsec-tools.sourceforge.net/;
-    description = "Port of KAME's IPsec utilities to the Linux-2.6 IPsec implementation";
+    homepage = "http://ipsec-tools.sourceforge.net/";
+    description =
+      "Port of KAME's IPsec utilities to the Linux-2.6 IPsec implementation";
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

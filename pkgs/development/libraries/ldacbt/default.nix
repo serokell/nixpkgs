@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   name = "ldacBT-${version}";
@@ -15,15 +12,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
     description = "AOSP libldac dispatcher";
-    homepage    = https://github.com/EHfive/ldacBT;
-    license     = licenses.asl20;
-    platforms   = platforms.all;
+    homepage = "https://github.com/EHfive/ldacBT";
+    license = licenses.asl20;
+    platforms = platforms.all;
     maintainers = with maintainers; [ adisbladis ];
   };
 }

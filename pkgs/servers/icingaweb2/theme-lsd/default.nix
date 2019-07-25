@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub }: with lib; stdenv.mkDerivation rec {
+{ stdenv, lib, fetchFromGitHub }:
+with lib;
+stdenv.mkDerivation rec {
   name = "icingaweb2-theme-lsd";
   version = "1.0.3";
 

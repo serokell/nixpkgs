@@ -1,8 +1,6 @@
 { stdenv, libusb, fetchgit }:
-let
-  version = "2.1";
-in
-stdenv.mkDerivation {
+let version = "2.1";
+in stdenv.mkDerivation {
   name = "teensy-loader-cli-${version}";
   src = fetchgit {
     url = "git://github.com/PaulStoffregen/teensy_loader_cli.git";
@@ -19,7 +17,7 @@ stdenv.mkDerivation {
   meta = with stdenv.lib; {
     license = licenses.gpl3;
     description = "Firmware uploader for the Teensy microcontroller boards";
-    homepage = https://www.pjrc.com/teensy/;
+    homepage = "https://www.pjrc.com/teensy/";
     maintainers = with maintainers; [ the-kenny ];
     platforms = platforms.unix;
   };

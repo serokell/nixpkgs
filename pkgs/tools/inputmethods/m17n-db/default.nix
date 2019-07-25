@@ -11,11 +11,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ gettext ];
 
   configureFlags = stdenv.lib.optional (stdenv ? glibc)
-    "--with-charmaps=${stdenv.glibc.out}/share/i18n/charmaps"
-  ;
+    "--with-charmaps=${stdenv.glibc.out}/share/i18n/charmaps";
 
   meta = {
-    homepage = https://www.nongnu.org/m17n/;
+    homepage = "https://www.nongnu.org/m17n/";
     description = "Multilingual text processing library (database)";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;

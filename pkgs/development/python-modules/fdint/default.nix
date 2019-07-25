@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cython
-, numpy
-, python
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cython, numpy, python, isPy3k }:
 
 buildPythonPackage rec {
   version = "2.0.2";
@@ -28,8 +21,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/scott-maddox/fdint;
-    description = "A free, open-source python package for quickly and precisely approximating Fermi-Dirac integrals";
+    homepage = "https://github.com/scott-maddox/fdint";
+    description =
+      "A free, open-source python package for quickly and precisely approximating Fermi-Dirac integrals";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

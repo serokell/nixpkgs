@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pyramid
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyramid }:
 
 buildPythonPackage rec {
   pname = "pyramid_exclog";
@@ -16,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pyramid ];
 
   meta = with stdenv.lib; {
-    description = "A package which logs to a Python logger when an exception is raised by a Pyramid application";
-    homepage = http://docs.pylonsproject.org/;
+    description =
+      "A package which logs to a Python logger when an exception is raised by a Pyramid application";
+    homepage = "http://docs.pylonsproject.org/";
     license = licenses.bsd0;
     maintainers = with maintainers; [ domenkozar ];
   };

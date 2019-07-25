@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, qt4, clucene_core, librdf_redland, libiodbc
-, pkgconfig }:
+{ stdenv, fetchurl, cmake, qt4, clucene_core, librdf_redland, libiodbc, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "soprano-2.9.4";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   meta = {
-    homepage = http://soprano.sourceforge.net/;
+    homepage = "http://soprano.sourceforge.net/";
     description = "An object-oriented C++/Qt4 framework for RDF data";
     license = "LGPL";
     maintainers = with stdenv.lib.maintainers; [ sander ];

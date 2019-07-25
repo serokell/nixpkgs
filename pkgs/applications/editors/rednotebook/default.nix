@@ -1,6 +1,4 @@
-{ lib, buildPythonApplication, fetchFromGitHub
-, gdk_pixbuf, glib, gobject-introspection, gtk3, gtksourceview, pango, webkitgtk
-, pygobject3, pyyaml
+{ lib, buildPythonApplication, fetchFromGitHub, gdk_pixbuf, glib, gobject-introspection, gtk3, gtksourceview, pango, webkitgtk, pygobject3, pyyaml
 }:
 
 buildPythonApplication rec {
@@ -19,10 +17,8 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ gobject-introspection ];
 
-  propagatedBuildInputs = [
-    gdk_pixbuf glib gtk3 gtksourceview pango webkitgtk
-    pygobject3 pyyaml
-  ];
+  propagatedBuildInputs =
+    [ gdk_pixbuf glib gtk3 gtksourceview pango webkitgtk pygobject3 pyyaml ];
 
   makeWrapperArgs = [
     "--set GI_TYPELIB_PATH $GI_TYPELIB_PATH"
@@ -31,8 +27,9 @@ buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    homepage = http://rednotebook.sourceforge.net/;
-    description = "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
+    homepage = "http://rednotebook.sourceforge.net/";
+    description =
+      "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
     license = licenses.gpl2;
     maintainers = with maintainers; [ orivej tstrobel ];
   };

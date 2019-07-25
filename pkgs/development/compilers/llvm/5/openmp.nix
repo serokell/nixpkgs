@@ -1,10 +1,4 @@
-{ stdenv
-, fetch
-, cmake
-, llvm
-, perl
-, version
-}:
+{ stdenv, fetch, cmake, llvm, perl, version }:
 
 stdenv.mkDerivation {
   name = "openmp-${version}";
@@ -18,8 +12,8 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Components required to build an executable OpenMP program";
-    homepage    = http://openmp.llvm.org/;
-    license     = stdenv.lib.licenses.mit;
-    platforms   = stdenv.lib.platforms.all;
+    homepage = "http://openmp.llvm.org/";
+    license = stdenv.lib.licenses.mit;
+    platforms = stdenv.lib.platforms.all;
   };
 }

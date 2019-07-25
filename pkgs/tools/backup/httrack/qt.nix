@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, pkgconfig, makeWrapper
-, httrack, qtbase, qtmultimedia }:
+{ stdenv, fetchurl, cmake, pkgconfig, makeWrapper, httrack, qtbase, qtmultimedia
+}:
 
 stdenv.mkDerivation rec {
   name = "httraqt-${version}";
@@ -31,10 +31,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Easy-to-use offline browser / website mirroring utility - QT frontend";
-    homepage    = http://www.httrack.com;
-    license     = licenses.gpl3;
+    description =
+      "Easy-to-use offline browser / website mirroring utility - QT frontend";
+    homepage = "http://www.httrack.com";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms   = with platforms; unix;
+    platforms = with platforms; unix;
   };
 }

@@ -1,10 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub
-, ncurses
-, texinfo
-, gettext ? null
-, enableNls ? true
-, enableTiny ? false
-}:
+{ stdenv, fetchurl, fetchFromGitHub, ncurses, texinfo, gettext ?
+  null, enableNls ? true, enableTiny ? false }:
 
 assert enableNls -> (gettext != null);
 
@@ -45,12 +40,10 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://www.nano-editor.org/;
+    homepage = "https://www.nano-editor.org/";
     description = "A small, user-friendly console text editor";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      joachifm
-    ];
+    maintainers = with maintainers; [ joachifm ];
     platforms = platforms.all;
   };
 }

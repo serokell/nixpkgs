@@ -1,10 +1,7 @@
-{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, gtk-doc, libxslt, docbook_xsl
-, docbook_xml_dtd_43, python3, gobject-introspection, glib, udev, kmod, parted, gptfdisk, libyaml
-, cryptsetup, lvm2, dmraid, utillinux, libbytesize, libndctl, nss, volume_key
+{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, gtk-doc, libxslt, docbook_xsl, docbook_xml_dtd_43, python3, gobject-introspection, glib, udev, kmod, parted, gptfdisk, libyaml, cryptsetup, lvm2, dmraid, utillinux, libbytesize, libndctl, nss, volume_key
 }:
 
-let
-  version = "2.20";
+let version = "2.20";
 in stdenv.mkDerivation rec {
   name = "libblockdev-${version}";
 
@@ -29,18 +26,39 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    autoreconfHook pkgconfig gtk-doc libxslt docbook_xsl docbook_xml_dtd_43 python3 gobject-introspection
+    autoreconfHook
+    pkgconfig
+    gtk-doc
+    libxslt
+    docbook_xsl
+    docbook_xml_dtd_43
+    python3
+    gobject-introspection
   ];
 
   buildInputs = [
-    glib udev kmod parted gptfdisk cryptsetup lvm2 dmraid utillinux libbytesize libndctl nss volume_key libyaml
+    glib
+    udev
+    kmod
+    parted
+    gptfdisk
+    cryptsetup
+    lvm2
+    dmraid
+    utillinux
+    libbytesize
+    libndctl
+    nss
+    volume_key
+    libyaml
   ];
 
   meta = with stdenv.lib; {
     description = "A library for manipulating block devices";
-    homepage = http://storaged.org/libblockdev/;
-    license = licenses.lgpl2Plus; # lgpl2Plus for the library, gpl2Plus for the utils
-    maintainers = with maintainers; [];
+    homepage = "http://storaged.org/libblockdev/";
+    license =
+      licenses.lgpl2Plus; # lgpl2Plus for the library, gpl2Plus for the utils
+    maintainers = with maintainers; [ ];
     platforms = platforms.linux;
   };
 }

@@ -5,13 +5,10 @@ with lib;
 let
 
   cfg = config.services.ihaskell;
-  ihaskell = pkgs.ihaskell.override {
-    packages = self: cfg.extraPackages self;
-  };
+  ihaskell =
+    pkgs.ihaskell.override { packages = self: cfg.extraPackages self; };
 
-in
-
-{
+in {
   options = {
     services.ihaskell = {
       enable = mkOption {
@@ -20,7 +17,7 @@ in
       };
 
       extraPackages = mkOption {
-        default = self: [];
+        default = self: [ ];
         example = literalExample ''
           haskellPackages: [
             haskellPackages.wreq
@@ -55,7 +52,8 @@ in
       serviceConfig = {
         User = config.users.users.ihaskell.name;
         Group = config.users.groups.ihaskell.name;
-        ExecStart = "${pkgs.runtimeShell} -c \"cd $HOME;${ihaskell}/bin/ihaskell-notebook\"";
+        ExecStart = ''
+          ${pkgs.runtimeShell} -c "cd $HOME;${ihaskell}/bin/ihaskell-notebook"'';
       };
     };
   };

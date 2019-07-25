@@ -1,12 +1,12 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost
-, zlib, miniupnpc, qtbase ? null, qttools ? null, utillinux, protobuf, qrencode, libevent
-, withGui }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost, zlib, miniupnpc, qtbase ?
+  null, qttools ? null, utillinux, protobuf, qrencode, libevent, withGui }:
 
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
 
-  name = "bitcoin" + (toString (optional (!withGui) "d")) + "-classic-" + version;
+  name = "bitcoin" + (toString (optional (!withGui) "d")) + "-classic-"
+    + version;
   version = "1.3.8";
 
   src = fetchFromGitHub {
@@ -19,18 +19,18 @@ stdenv.mkDerivation rec {
   patches = [ ./fix-bitcoin-qt-build.patch ];
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
-  buildInputs = [ openssl db48 boost zlib
-                  miniupnpc utillinux protobuf libevent ]
-                  ++ optionals withGui [ qtbase qttools qrencode ];
+  buildInputs =
+    [ openssl db48 boost zlib miniupnpc utillinux protobuf libevent ]
+    ++ optionals withGui [ qtbase qttools qrencode ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
-                     ++ optionals withGui [ "--with-gui=qt5" ];
+    ++ optionals withGui [ "--with-gui=qt5" ];
 
   enableParallelBuilding = true;
 
   meta = {
     description = "Peer-to-peer electronic cash system (Classic client)";
-    longDescription= ''
+    longDescription = ''
       Bitcoin is a free open source peer-to-peer electronic cash system that is
       completely decentralized, without the need for a central server or trusted
       parties. Users hold the crypto keys to their own money and transact directly
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       will continue to release updates that are in line with Satoshi’s whitepaper &
       vision, and are agreed upon by the community.
     '';
-    homepage = https://bitcoinclassic.com/;
+    homepage = "https://bitcoinclassic.com/";
     maintainers = with maintainers; [ jefdaj ];
     license = licenses.mit;
     broken = stdenv.isDarwin;

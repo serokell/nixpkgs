@@ -24,15 +24,11 @@ stdenv.mkDerivation rec {
     cp -r niallib $out/lib/
   '';
 
-  buildInputs = [
-     unzip
-     pkgconfig
-     ncurses
-  ];
+  buildInputs = [ unzip pkgconfig ncurses ];
 
   meta = {
     description = "An array language from Nial Systems";
-    homepage = https://github.com/vrthra/qnial;
+    homepage = "https://github.com/vrthra/qnial";
     license = stdenv.lib.licenses.artistic1;
     maintainers = [ stdenv.lib.maintainers.vrthra ];
     platforms = stdenv.lib.platforms.linux;

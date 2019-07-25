@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, libjack2, alsaLib, libpulseaudio
-, faac, lame, libogg, libopus, libvorbis, libsamplerate
+{ stdenv, fetchurl, pkgconfig, libjack2, alsaLib, libpulseaudio, faac, lame, libogg, libopus, libvorbis, libsamplerate
 }:
 
 stdenv.mkDerivation rec {
@@ -14,22 +12,27 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    libopus libvorbis libogg libpulseaudio alsaLib libsamplerate libjack2 lame
+    libopus
+    libvorbis
+    libogg
+    libpulseaudio
+    alsaLib
+    libsamplerate
+    libjack2
+    lame
   ];
 
   NIX_CFLAGS_COMPILE = "-fpermissive";
 
-  configureFlags = [
-    "--with-faac-prefix=${faac}"
-    "--with-lame-prefix=${lame.lib}"
-  ];
+  configureFlags =
+    [ "--with-faac-prefix=${faac}" "--with-lame-prefix=${lame.lib}" ];
 
   patches = [ ./fix-undeclared-memmove.patch ];
 
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://darkice.org/;
+    homepage = "http://darkice.org/";
     description = "Live audio streamer";
     license = stdenv.lib.licenses.gpl3;
     maintainers = with stdenv.lib.maintainers; [ ikervagyok fpletz ];

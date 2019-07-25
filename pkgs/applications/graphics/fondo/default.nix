@@ -1,20 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, fetchpatch
-, pantheon
-, pkgconfig
-, meson
-, ninja
-, python3
-, glib
-, gsettings-desktop-schemas
-, gtk3
-, libgee
-, json-glib
-, glib-networking
-, libsoup
-, libunity
-, wrapGAppsHook
+{ stdenv, fetchFromGitHub, fetchpatch, pantheon, pkgconfig, meson, ninja, python3, glib, gsettings-desktop-schemas, gtk3, libgee, json-glib, glib-networking, libsoup, libunity, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -28,14 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0w7qai261l9m7ckzxc2gj3ywa55wm6p5br1xdk7607ql44lfpgba";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pantheon.vala
-    pkgconfig
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ meson ninja pantheon.vala pkgconfig python3 wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -52,7 +30,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix hardcoded FHS gsettings path
     (fetchpatch {
-      url = "https://github.com/calo001/fondo/commit/98afdd834201321a3242f0b53bfba4b2ffa04a4c.patch";
+      url =
+        "https://github.com/calo001/fondo/commit/98afdd834201321a3242f0b53bfba4b2ffa04a4c.patch";
       sha256 = "0vvgbgjja6vyrk6in3sgv8jbl4bwxkm6fhllgjzq7r65gkj4jg79";
     })
   ];
@@ -64,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Find the most beautiful wallpapers for your desktop";
-    homepage = https://github.com/calo001/fondo;
+    homepage = "https://github.com/calo001/fondo";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ worldofpeace ];
     platforms = platforms.linux;

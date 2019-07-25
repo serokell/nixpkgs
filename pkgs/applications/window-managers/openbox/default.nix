@@ -1,30 +1,26 @@
-{ stdenv, fetchurl, pkgconfig, python2
-, libxml2, libXinerama, libXcursor, libXau, libXrandr, libICE, libSM
-, imlib2, pango, libstartup_notification, makeWrapper }:
+{ stdenv, fetchurl, pkgconfig, python2, libxml2, libXinerama, libXcursor, libXau, libXrandr, libICE, libSM, imlib2, pango, libstartup_notification, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "openbox-${version}";
   version = "3.6.1";
 
-  nativeBuildInputs = [
-    pkgconfig
-    makeWrapper
-    python2.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ pkgconfig makeWrapper python2.pkgs.wrapPython ];
 
   buildInputs = [
     libxml2
-    libXinerama libXcursor libXau libXrandr libICE libSM
+    libXinerama
+    libXcursor
+    libXau
+    libXrandr
+    libICE
+    libSM
     libstartup_notification
   ];
 
-  propagatedBuildInputs = [
-    pango imlib2
-  ];
+  propagatedBuildInputs = [ pango imlib2 ];
 
-  pythonPath = with python2.pkgs; [
-    pyxdg
-  ];
+  pythonPath = with python2.pkgs; [ pyxdg ];
 
   src = fetchurl {
     url = "http://openbox.org/dist/openbox/${name}.tar.gz";
@@ -36,7 +32,8 @@ stdenv.mkDerivation rec {
     sha256 = "1ci9lq4qqhl31yz1jwwjiawah0f7x0vx44ap8baw7r6rdi00pyiv";
   };
 
-  postBuild = "gcc -O2 -o setlayout $(pkg-config --cflags --libs x11) $setlayoutSrc";
+  postBuild =
+    "gcc -O2 -o setlayout $(pkg-config --cflags --libs x11) $setlayoutSrc";
 
   # Openbox needs XDG_DATA_DIRS set or it can't find its default theme
   postInstall = ''
@@ -50,7 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "X window manager for non-desktop embedded systems";
-    homepage = http://openbox.org/;
+    homepage = "http://openbox.org/";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
   };

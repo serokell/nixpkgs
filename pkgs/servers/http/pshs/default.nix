@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libevent, file, qrencode, miniupnpc }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libevent, file, qrencode, miniupnpc
+}:
 
 stdenv.mkDerivation rec {
   name = "pshs-${version}";
@@ -18,8 +19,9 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--disable-ssl" ];
 
   meta = {
-    description = "Pretty small HTTP server - a command-line tool to share files";
-    homepage = https://github.com/mgorny/pshs;
+    description =
+      "Pretty small HTTP server - a command-line tool to share files";
+    homepage = "https://github.com/mgorny/pshs";
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.linux;
   };

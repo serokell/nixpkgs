@@ -1,11 +1,4 @@
-{ stdenv
-, eigen
-, fetchurl
-, cmake
-, google-gflags
-, glog
-, runTests ? false
-}:
+{ stdenv, eigen, fetchurl, cmake, google-gflags, glog, runTests ? false }:
 
 # google-gflags is required to run tests
 assert runTests -> google-gflags != null;
@@ -20,8 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen glog ]
-    ++ stdenv.lib.optional runTests google-gflags;
+  buildInputs = [ eigen glog ] ++ stdenv.lib.optional runTests google-gflags;
 
   # The Basel BUILD file conflicts with the cmake build directory on
   # case-insensitive filesystems, eg. darwin.
@@ -34,9 +26,10 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = with stdenv.lib; {
-    description = "C++ library for modeling and solving large, complicated optimization problems";
+    description =
+      "C++ library for modeling and solving large, complicated optimization problems";
     license = licenses.bsd3;
-    homepage = http://ceres-solver.org;
+    homepage = "http://ceres-solver.org";
     maintainers = with maintainers; [ giogadi ];
     platforms = platforms.unix;
   };

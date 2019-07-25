@@ -1,11 +1,5 @@
-{
-  stdenv, fetchurl, lib,
-  libxslt, pandoc, asciidoctor, pkgconfig,
-  dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf, qtbase, qttools, qtsvg,
-  audit,
-  libgcrypt ? null,
-  libsodium ? null
-}:
+{ stdenv, fetchurl, lib, libxslt, pandoc, asciidoctor, pkgconfig, dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf, qtbase, qttools, qtsvg, audit, libgcrypt ?
+  null, libsodium ? null }:
 
 with stdenv.lib;
 
@@ -41,9 +35,8 @@ stdenv.mkDerivation rec {
     qtbase
     qtsvg
     qttools
-  ]
-  ++ (lib.optional (libgcrypt != null) libgcrypt)
-  ++ (lib.optional (libsodium != null) libsodium);
+  ] ++ (lib.optional (libgcrypt != null) libgcrypt)
+    ++ (lib.optional (libsodium != null) libsodium);
 
   configureFlags = [
     "--with-bundled-catch"
@@ -51,14 +44,14 @@ stdenv.mkDerivation rec {
     "--with-dbus"
     "--with-gui-qt=qt5"
     "--with-polkit"
-  ]
-  ++ (lib.optional (libgcrypt != null) "--with-crypto-library=gcrypt")
-  ++ (lib.optional (libsodium != null) "--with-crypto-library=sodium");
+  ] ++ (lib.optional (libgcrypt != null) "--with-crypto-library=gcrypt")
+    ++ (lib.optional (libsodium != null) "--with-crypto-library=sodium");
 
   enableParallelBuilding = true;
 
   meta = {
-    description = "The USBGuard software framework helps to protect your computer against BadUSB.";
+    description =
+      "The USBGuard software framework helps to protect your computer against BadUSB.";
     homepage = "https://usbguard.github.io/";
     license = licenses.gpl2;
     maintainers = [ maintainers.tnias ];

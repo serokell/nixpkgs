@@ -15,7 +15,8 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     inherit (src.meta) homepage;
-    description = "Mozilla sops (Secrets OPerationS) is an editor of encrypted files";
+    description =
+      "Mozilla sops (Secrets OPerationS) is an editor of encrypted files";
     maintainers = [ maintainers.marsam ];
     license = licenses.mpl20;
   };

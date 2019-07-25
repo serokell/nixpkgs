@@ -3,14 +3,13 @@ with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "compiler-rt-${version}";
   inherit version;
-  src = fetch "compiler-rt" "0ipd4jdxpczgr2w6lzrabymz6dhzj69ywmyybjjc1q397zgrvziy";
+  src =
+    fetch "compiler-rt" "0ipd4jdxpczgr2w6lzrabymz6dhzj69ywmyybjjc1q397zgrvziy";
 
   nativeBuildInputs = [ cmake python llvm ];
   buildInputs = stdenv.lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
-  configureFlags = [
-    "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
-  ];
+  configureFlags = [ "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON" ];
 
   outputs = [ "out" "dev" ];
 

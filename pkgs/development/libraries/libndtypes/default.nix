@@ -1,6 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-}:
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "libndtypes-${version}";
@@ -20,8 +18,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "Dynamic types for data description and in-memory computations";
-    homepage = https://xnd.io/;
+    description =
+      "Dynamic types for data description and in-memory computations";
+    homepage = "https://xnd.io/";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];
   };

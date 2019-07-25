@@ -1,52 +1,40 @@
-{ stdenv, runCommand, ruby, lib
-, defaultGemConfig, buildRubyGem, buildEnv
-, makeWrapper
-, bundler
+{ stdenv, runCommand, ruby, lib, defaultGemConfig, buildRubyGem, buildEnv, makeWrapper, bundler
 }@defs:
 
-{
-  name ? null
-, pname ? null
-, mainGemName ? null
-, gemdir ? null
-, gemfile ? null
-, lockfile ? null
-, gemset ? null
-, ruby ? defs.ruby
-, gemConfig ? defaultGemConfig
-, postBuild ? null
-, document ? []
-, meta ? {}
-, groups ? null
-, ignoreCollisions ? false
-, buildInputs ? []
-, ...
-}@args:
+{ name ? null, pname ? null, mainGemName ? null, gemdir ? null, gemfile ?
+  null, lockfile ? null, gemset ? null, ruby ? defs.ruby, gemConfig ?
+    defaultGemConfig, postBuild ? null, document ? [ ], meta ? { }, groups ?
+      null, ignoreCollisions ? false, buildInputs ? [ ], ... }@args:
 
 assert name == null -> pname != null;
 
-with  import ./functions.nix { inherit lib gemConfig; };
+with import ./functions.nix { inherit lib gemConfig; };
 
 let
   gemFiles = bundlerFiles args;
 
-  importedGemset = if builtins.typeOf gemFiles.gemset != "set"
-    then import gemFiles.gemset
-    else gemFiles.gemset;
+  importedGemset = if builtins.typeOf gemFiles.gemset != "set" then
+    import gemFiles.gemset
+  else
+    gemFiles.gemset;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 
   configuredGemset = lib.flip lib.mapAttrs filteredGemset (name: attrs:
-    applyGemConfigs (attrs // { inherit ruby; gemName = name; })
-  );
+    applyGemConfigs (attrs // {
+      inherit ruby;
+      gemName = name;
+    }));
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
-  bundler =
-    if hasBundler then gems.bundler
-    else defs.bundler.override (attrs: { inherit ruby; });
+  bundler = if hasBundler then
+    gems.bundler
+  else
+    defs.bundler.override (attrs: { inherit ruby; });
 
-  gems = lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
+  gems =
+    lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 
   name' = if name != null then
     name
@@ -54,45 +42,41 @@ let
     let
       gem = gems."${pname}";
       version = gem.version;
-    in
-      "${pname}-${version}";
+    in "${pname}-${version}";
 
-  pname' = if pname != null then
-    pname
-  else
-    name;
+  pname' = if pname != null then pname else name;
 
-  copyIfBundledByPath = { bundledByPath ? false, ...}:
-  (if bundledByPath then
-      assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/" #*/
-    else ""
-  );
+  copyIfBundledByPath = { bundledByPath ? false, ... }:
+    (if bundledByPath then
+      assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/" # */
+    else
+      "");
 
-  maybeCopyAll = pkgname: if pkgname == null then "" else
-  let
-    mainGem = gems."${pkgname}" or (throw "bundlerEnv: gem ${pkgname} not found");
-  in
-    copyIfBundledByPath mainGem;
+  maybeCopyAll = pkgname:
+    if pkgname == null then
+      ""
+    else
+      let
+        mainGem =
+          gems."${pkgname}" or (throw "bundlerEnv: gem ${pkgname} not found");
+      in copyIfBundledByPath mainGem;
 
   # We have to normalize the Gemfile.lock, otherwise bundler tries to be
   # helpful by doing so at run time, causing executables to immediately bail
   # out. Yes, I'm serious.
-  confFiles = runCommand "gemfile-and-lockfile" {} ''
+  confFiles = runCommand "gemfile-and-lockfile" { } ''
     mkdir -p $out
     ${maybeCopyAll mainGemName}
     cp ${gemFiles.gemfile} $out/Gemfile || ls -l $out/Gemfile
     cp ${gemFiles.lockfile} $out/Gemfile.lock || ls -l $out/Gemfile.lock
   '';
 
-  buildGem = name: attrs: (
-    let
-      gemAttrs = composeGemAttrs ruby gems name attrs;
-    in
-    if gemAttrs.type == "path" then
+  buildGem = name: attrs:
+    (let gemAttrs = composeGemAttrs ruby gems name attrs;
+    in if gemAttrs.type == "path" then
       pathDerivation (gemAttrs.source // gemAttrs)
     else
-      buildRubyGem gemAttrs
-  );
+      buildRubyGem gemAttrs);
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 
@@ -154,5 +138,4 @@ let
         };
     };
   };
-in
-  basicEnv
+in basicEnv

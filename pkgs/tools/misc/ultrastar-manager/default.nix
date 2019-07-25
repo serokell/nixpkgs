@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, symlinkJoin, qmake, diffPlugins
-, qtbase, qtmultimedia, taglib, libmediainfo, libzen, libbass }:
+{ stdenv, fetchFromGitHub, pkgconfig, symlinkJoin, qmake, diffPlugins, qtbase, qtmultimedia, taglib, libmediainfo, libzen, libbass
+}:
 
 let
   version = "2019-04-23";
@@ -16,10 +16,10 @@ let
     "lyric"
     "preparatory"
     "rename"
- ];
+  ];
 
-  patchedSrc =
-    let src = fetchFromGitHub {
+  patchedSrc = let
+    src = fetchFromGitHub {
       owner = "UltraStar-Deluxe";
       repo = "UltraStar-Manager";
       inherit rev sha256;
@@ -55,32 +55,32 @@ let
     sed -e "s|QCore.*applicationDirPath()|QString(\"${path}\")|" -i "${file}"
   '';
 
-  buildPlugin = name: stdenv.mkDerivation {
-    name = "ultrastar-manager-${name}-plugin-${version}";
-    src = patchedSrc;
+  buildPlugin = name:
+    stdenv.mkDerivation {
+      name = "ultrastar-manager-${name}-plugin-${version}";
+      src = patchedSrc;
 
-    buildInputs = [ qmake ] ++ buildInputs;
+      buildInputs = [ qmake ] ++ buildInputs;
 
-    postPatch = ''
-      sed -e "s|DESTDIR = .*$|DESTDIR = $out|" \
-          -i src/plugins/${name}/${name}.pro
+      postPatch = ''
+        sed -e "s|DESTDIR = .*$|DESTDIR = $out|" \
+            -i src/plugins/${name}/${name}.pro
 
-      # plugins use the application’s binary folder (wtf)
-      for f in $(grep -lr "QCoreApplication::applicationDirPath" src/plugins); do
-        ${patchApplicationPath "$f" "\$out"}
-      done
+        # plugins use the application’s binary folder (wtf)
+        for f in $(grep -lr "QCoreApplication::applicationDirPath" src/plugins); do
+          ${patchApplicationPath "$f" "$out"}
+        done
 
-    '';
-    preConfigure = ''
-      cd src/plugins/${name}
-    '';
-  };
-
-  builtPlugins =
-    symlinkJoin {
-      name = "ultrastar-manager-plugins-${version}";
-      paths = map buildPlugin plugins;
+      '';
+      preConfigure = ''
+        cd src/plugins/${name}
+      '';
     };
+
+  builtPlugins = symlinkJoin {
+    name = "ultrastar-manager-plugins-${version}";
+    paths = map buildPlugin plugins;
+  };
 
 in stdenv.mkDerivation {
   name = "ultrastar-manager-${version}";
@@ -113,7 +113,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Ultrastar karaoke song manager";
-    homepage = https://github.com/UltraStar-Deluxe/UltraStar-Manager;
+    homepage = "https://github.com/UltraStar-Deluxe/UltraStar-Manager";
     license = licenses.gpl2;
     maintainers = with maintainers; [ Profpatsch ];
   };

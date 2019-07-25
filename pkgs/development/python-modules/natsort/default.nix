@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pytest
-, pytestcov
-, pytest-mock
-, hypothesis
-, glibcLocales
-, pathlib ? null
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pytest, pytestcov, pytest-mock, hypothesis, glibcLocales, pathlib ?
+  null }:
 
 buildPythonPackage rec {
   pname = "natsort";
@@ -22,7 +13,7 @@ buildPythonPackage rec {
     glibcLocales
   ]
   # pathlib was made part of standard library in 3.5:
-  ++ (lib.optionals (pythonOlder "3.4") [ pathlib ]);
+    ++ (lib.optionals (pythonOlder "3.4") [ pathlib ]);
 
   src = fetchPypi {
     inherit pname version;
@@ -37,7 +28,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Natural sorting for python";
-    homepage = https://github.com/SethMMorton/natsort;
+    homepage = "https://github.com/SethMMorton/natsort";
     license = lib.licenses.mit;
   };
 }

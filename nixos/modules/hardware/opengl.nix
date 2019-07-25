@@ -10,13 +10,14 @@ let
 
   videoDrivers = config.services.xserver.videoDrivers;
 
-  makePackage = p: pkgs.buildEnv {
-    name = "mesa-drivers+txc-${p.mesa.version}";
-    paths =
-      [ p.mesa.drivers
+  makePackage = p:
+    pkgs.buildEnv {
+      name = "mesa-drivers+txc-${p.mesa.version}";
+      paths = [
+        p.mesa.drivers
         (if cfg.s3tcSupport then p.libtxc_dxtn else p.libtxc_dxtn_s2tc)
       ];
-  };
+    };
 
   package = pkgs.buildEnv {
     name = "opengl-drivers";
@@ -28,9 +29,7 @@ let
     paths = [ cfg.package32 ] ++ cfg.extraPackages32;
   };
 
-in
-
-{
+in {
   options = {
 
     hardware.opengl = {
@@ -100,8 +99,9 @@ in
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = [];
-        example = literalExample "with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl ]";
+        default = [ ];
+        example = literalExample
+          "with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl ]";
         description = ''
           Additional packages to add to OpenGL drivers. This can be used
           to add OpenCL drivers, VA-API/VDPAU drivers etc.
@@ -110,8 +110,9 @@ in
 
       extraPackages32 = mkOption {
         type = types.listOf types.package;
-        default = [];
-        example = literalExample "with pkgs.pkgsi686Linux; [ vaapiIntel libvdpau-va-gl vaapiVdpau ]";
+        default = [ ];
+        example = literalExample
+          "with pkgs.pkgsi686Linux; [ vaapiIntel libvdpau-va-gl vaapiVdpau ]";
         description = ''
           Additional packages to add to 32-bit OpenGL drivers on
           64-bit systems. Used when <option>driSupport32Bit</option> is
@@ -138,32 +139,36 @@ in
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = cfg.driSupport32Bit -> pkgs.stdenv.isx86_64;
+      {
+        assertion = cfg.driSupport32Bit -> pkgs.stdenv.isx86_64;
         message = "Option driSupport32Bit only makes sense on a 64-bit system.";
       }
-      { assertion = cfg.driSupport32Bit -> (config.boot.kernelPackages.kernel.features.ia32Emulation or false);
-        message = "Option driSupport32Bit requires a kernel that supports 32bit emulation";
+      {
+        assertion = cfg.driSupport32Bit
+          -> (config.boot.kernelPackages.kernel.features.ia32Emulation or false);
+        message =
+          "Option driSupport32Bit requires a kernel that supports 32bit emulation";
       }
     ];
 
     systemd.tmpfiles.rules = [
       "L+ /run/opengl-driver - - - - ${package}"
-      (
-        if pkgs.stdenv.isi686 then
-          "L+ /run/opengl-driver-32 - - - - opengl-driver"
-        else if cfg.driSupport32Bit then
-          "L+ /run/opengl-driver-32 - - - - ${package32}"
-        else
-          "r /run/opengl-driver-32"
-      )
+      (if pkgs.stdenv.isi686 then
+        "L+ /run/opengl-driver-32 - - - - opengl-driver"
+      else if cfg.driSupport32Bit then
+        "L+ /run/opengl-driver-32 - - - - ${package32}"
+      else
+        "r /run/opengl-driver-32")
     ];
 
     environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.setLdLibraryPath
-      ([ "/run/opengl-driver/lib" ] ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib");
+      ([ "/run/opengl-driver/lib" ]
+      ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib");
 
     hardware.opengl.package = mkDefault (makePackage pkgs);
     hardware.opengl.package32 = mkDefault (makePackage pkgs.pkgsi686Linux);
 
-    boot.extraModulePackages = optional (elem "virtualbox" videoDrivers) kernelPackages.virtualboxGuestAdditions;
+    boot.extraModulePackages = optional (elem "virtualbox" videoDrivers)
+      kernelPackages.virtualboxGuestAdditions;
   };
 }

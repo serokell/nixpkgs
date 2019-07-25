@@ -1,18 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, glib
-, gtk3
-, hicolor-icon-theme
-, json-glib
-, libgee
-, meson
-, ninja
-, pkgconfig
-, pantheon
-, python3
-, wrapGAppsHook
+{ stdenv, fetchFromGitHub, glib, gtk3, hicolor-icon-theme, json-glib, libgee, meson, ninja, pkgconfig, pantheon, python3, wrapGAppsHook
 }:
-
 
 stdenv.mkDerivation rec {
   pname = "timetable";
@@ -25,23 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "080xgp917v6j40qxy0y1iycz01yylbcr8pahx6zd6mpi022ccfv0";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    pantheon.vala
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkgconfig pantheon.vala python3 wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    gtk3
-    hicolor-icon-theme
-    json-glib
-    libgee
-    pantheon.granite
-  ];
+  buildInputs =
+    [ glib gtk3 hicolor-icon-theme json-glib libgee pantheon.granite ];
 
   postPatch = ''
     chmod +x meson/post_install.py

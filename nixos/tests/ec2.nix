@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -9,37 +7,41 @@ with pkgs.lib;
 with import common/ec2.nix { inherit makeTest pkgs; };
 
 let
-  image =
-    (import ../lib/eval-config.nix {
-      inherit system;
-      modules = [
-        ../maintainers/scripts/ec2/amazon-image.nix
-        ../modules/testing/test-instrumentation.nix
-        ../modules/profiles/qemu-guest.nix
-        { ec2.hvm = true;
+  image = (import ../lib/eval-config.nix {
+    inherit system;
+    modules = [
+      ../maintainers/scripts/ec2/amazon-image.nix
+      ../modules/testing/test-instrumentation.nix
+      ../modules/profiles/qemu-guest.nix
+      {
+        ec2.hvm = true;
 
-          # Hack to make the partition resizing work in QEMU.
-          boot.initrd.postDeviceCommands = mkBefore
-            ''
-              ln -s vda /dev/xvda
-              ln -s vda1 /dev/xvda1
-            '';
+        # Hack to make the partition resizing work in QEMU.
+        boot.initrd.postDeviceCommands = mkBefore ''
+          ln -s vda /dev/xvda
+          ln -s vda1 /dev/xvda1
+        '';
 
-          # Needed by nixos-rebuild due to the lack of network
-          # access. Mostly copied from
-          # modules/profiles/installation-device.nix.
-          system.extraDependencies =
-            with pkgs; [
-              stdenv busybox perlPackages.ArchiveCpio unionfs-fuse mkinitcpio-nfs-utils
+        # Needed by nixos-rebuild due to the lack of network
+        # access. Mostly copied from
+        # modules/profiles/installation-device.nix.
+        system.extraDependencies = with pkgs; [
+          stdenv
+          busybox
+          perlPackages.ArchiveCpio
+          unionfs-fuse
+          mkinitcpio-nfs-utils
 
-              # These are used in the configure-from-userdata tests for EC2. Httpd and valgrind are requested
-              # directly by the configuration we set, and libxslt.bin is used indirectly as a build dependency
-              # of the derivation for dbus configuration files.
-              apacheHttpd valgrind.doc libxslt.bin
-            ];
-        }
-      ];
-    }).config.system.build.amazonImage;
+          # These are used in the configure-from-userdata tests for EC2. Httpd and valgrind are requested
+          # directly by the configuration we set, and libxslt.bin is used indirectly as a build dependency
+          # of the derivation for dbus configuration files.
+          apacheHttpd
+          valgrind.doc
+          libxslt.bin
+        ];
+      }
+    ];
+  }).config.system.build.amazonImage;
 
   sshKeys = import ./ssh-keys.nix pkgs;
   snakeOilPrivateKey = sshKeys.snakeOilPrivateKey.text;
@@ -47,13 +49,14 @@ let
 
 in {
   boot-ec2-nixops = makeEc2Test {
-    name         = "nixops-userdata";
+    name = "nixops-userdata";
     inherit image;
-    sshPublicKey = snakeOilPublicKey; # That's right folks! My user's key is also the host key!
+    sshPublicKey =
+      snakeOilPublicKey; # That's right folks! My user's key is also the host key!
 
     userData = ''
       SSH_HOST_ED25519_KEY_PUB:${snakeOilPublicKey}
-      SSH_HOST_ED25519_KEY:${replaceStrings ["\n"] ["|"] snakeOilPrivateKey}
+      SSH_HOST_ED25519_KEY:${replaceStrings [ "\n" ] [ "|" ] snakeOilPrivateKey}
     '';
     script = ''
       $machine->start;
@@ -92,7 +95,7 @@ in {
   };
 
   boot-ec2-config = makeEc2Test {
-    name         = "config-userdata";
+    name = "config-userdata";
     inherit image;
     sshPublicKey = snakeOilPublicKey;
 

@@ -1,10 +1,10 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, numpy, scipy, six, paramz, nose, matplotlib, cython }:
+{ stdenv, buildPythonPackage, fetchPypi, numpy, scipy, six, paramz, nose, matplotlib, cython
+}:
 
 buildPythonPackage rec {
   pname = "GPy";
   version = "1.9.8";
-  name  = "${pname}-${version}";
+  name = "${pname}-${version}";
 
   src = fetchPypi {
     inherit pname version;
@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Gaussian process framework in Python";
-    homepage = https://sheffieldml.github.io/GPy;
+    homepage = "https://sheffieldml.github.io/GPy";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
   };

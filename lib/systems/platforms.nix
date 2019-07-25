@@ -1,5 +1,4 @@
-{ lib }:
-rec {
+{ lib }: rec {
   pcBase = {
     name = "pc";
     kernelBaseConfig = "defconfig";
@@ -12,13 +11,9 @@ rec {
 
   pc32 = pcBase // { kernelArch = "i386"; };
 
-  pc32_simplekernel = pc32 // {
-    kernelAutoModules = false;
-  };
+  pc32_simplekernel = pc32 // { kernelAutoModules = false; };
 
-  pc64_simplekernel = pc64 // {
-    kernelAutoModules = false;
-  };
+  pc64_simplekernel = pc64 // { kernelAutoModules = false; };
 
   powernv = {
     name = "PowerNV";
@@ -43,25 +38,22 @@ rec {
   pogoplug4 = {
     name = "pogoplug4";
 
-    gcc = {
-      arch = "armv5te";
-    };
+    gcc = { arch = "armv5te"; };
 
     kernelMajor = "2.6";
     kernelBaseConfig = "multi_v5_defconfig";
     kernelArch = "arm";
     kernelAutoModules = false;
-    kernelExtraConfig =
-      ''
-        # Ubi for the mtd
-        MTD_UBI y
-        UBIFS_FS y
-        UBIFS_FS_XATTR y
-        UBIFS_FS_ADVANCED_COMPR y
-        UBIFS_FS_LZO y
-        UBIFS_FS_ZLIB y
-        UBIFS_FS_DEBUG n
-      '';
+    kernelExtraConfig = ''
+      # Ubi for the mtd
+      MTD_UBI y
+      UBIFS_FS y
+      UBIFS_FS_XATTR y
+      UBIFS_FS_ADVANCED_COMPR y
+      UBIFS_FS_LZO y
+      UBIFS_FS_ZLIB y
+      UBIFS_FS_DEBUG n
+    '';
     kernelMakeFlags = [ "LOADADDR=0x8000" ];
     kernelTarget = "uImage";
     # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
@@ -175,9 +167,7 @@ rec {
     kernelMakeFlags = [ "LOADADDR=0x0200000" ];
     kernelTarget = "uImage";
     kernelDTB = true; # Beyond 3.10
-    gcc = {
-      arch = "armv5te";
-    };
+    gcc = { arch = "armv5te"; };
   };
 
   raspberrypi = {
@@ -216,17 +206,16 @@ rec {
     kernelBaseConfig = "multi_v7_defconfig";
     kernelArch = "arm";
     kernelAutoModules = false;
-    kernelExtraConfig =
-      ''
-        # Ubi for the mtd
-        MTD_UBI y
-        UBIFS_FS y
-        UBIFS_FS_XATTR y
-        UBIFS_FS_ADVANCED_COMPR y
-        UBIFS_FS_LZO y
-        UBIFS_FS_ZLIB y
-        UBIFS_FS_DEBUG n
-      '';
+    kernelExtraConfig = ''
+      # Ubi for the mtd
+      MTD_UBI y
+      UBIFS_FS y
+      UBIFS_FS_XATTR y
+      UBIFS_FS_ADVANCED_COMPR y
+      UBIFS_FS_LZO y
+      UBIFS_FS_ZLIB y
+      UBIFS_FS_DEBUG n
+    '';
     kernelMakeFlags = [ "LOADADDR=0x10800000" ];
     kernelTarget = "uImage";
     kernelDTB = true;
@@ -254,7 +243,7 @@ rec {
   };
 
   # https://developer.android.com/ndk/guides/abis#v7a
-  armv7a-android =  {
+  armv7a-android = {
     name = "armeabi-v7a";
     gcc = {
       arch = "armv7-a";
@@ -341,9 +330,7 @@ rec {
       USB_XHCI_TEGRA m
     '';
     kernelTarget = "Image";
-    gcc = {
-      arch = "armv8-a";
-    };
+    gcc = { arch = "armv8-a"; };
   };
 
   ##
@@ -455,17 +442,18 @@ rec {
     '';
   };
 
-  selectBySystem = system: {
-      "i486-linux" = pc32;
-      "i586-linux" = pc32;
-      "i686-linux" = pc32;
-      "x86_64-linux" = pc64;
-      "armv5tel-linux" = sheevaplug;
-      "armv6l-linux" = raspberrypi;
-      "armv7a-linux" = armv7l-hf-multiplatform;
-      "armv7l-linux" = armv7l-hf-multiplatform;
-      "aarch64-linux" = aarch64-multiplatform;
-      "mipsel-linux" = fuloong2f_n32;
-      "powerpc64le-linux" = powernv;
-    }.${system} or pcBase;
+  selectBySystem = system:
+  {
+    "i486-linux" = pc32;
+    "i586-linux" = pc32;
+    "i686-linux" = pc32;
+    "x86_64-linux" = pc64;
+    "armv5tel-linux" = sheevaplug;
+    "armv6l-linux" = raspberrypi;
+    "armv7a-linux" = armv7l-hf-multiplatform;
+    "armv7l-linux" = armv7l-hf-multiplatform;
+    "aarch64-linux" = aarch64-multiplatform;
+    "mipsel-linux" = fuloong2f_n32;
+    "powerpc64le-linux" = powernv;
+  }.${system} or pcBase;
 }

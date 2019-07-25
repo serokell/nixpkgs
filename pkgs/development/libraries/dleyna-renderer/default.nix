@@ -1,15 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkgconfig
-, dleyna-connector-dbus
-, dleyna-core
-, gssdp
-, gupnp
-, gupnp-av
-, gupnp-dlna
-, libsoup
-, makeWrapper
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dleyna-connector-dbus, dleyna-core, gssdp, gupnp, gupnp-av, gupnp-dlna, libsoup, makeWrapper
 }:
 
 stdenv.mkDerivation rec {
@@ -29,11 +18,7 @@ stdenv.mkDerivation rec {
     ./gupnp-1.2.diff
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkgconfig
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig makeWrapper ];
 
   buildInputs = [
     dleyna-core
@@ -52,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Library to discover and manipulate Digital Media Renderers";
-    homepage = https://01.org/dleyna;
+    homepage = "https://01.org/dleyna";
     maintainers = [ maintainers.jtojnar ];
     platforms = platforms.linux;
     license = licenses.lgpl21;

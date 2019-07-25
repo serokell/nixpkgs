@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy }:
 
 buildPythonPackage rec {
   pname = "random2";
@@ -16,7 +12,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://pypi.python.org/pypi/random2;
+    homepage = "http://pypi.python.org/pypi/random2";
     description = "Python 3 compatible Python 2 `random` Module";
     license = licenses.psfl;
   };

@@ -1,13 +1,13 @@
-{lib, trivialBuild, fetchFromGitHub}:
+{ lib, trivialBuild, fetchFromGitHub }:
 
 trivialBuild rec {
-  pname    = "nyan-mode";
-  version  = "20150128";
+  pname = "nyan-mode";
+  version = "20150128";
 
   src = fetchFromGitHub {
-    owner  = "TeMPOraL";
-    repo   = pname;
-    rev    = "41faa2c809da7b2cb3e6f8fadefae3f338ced3f2";
+    owner = "TeMPOraL";
+    repo = pname;
+    rev = "41faa2c809da7b2cb3e6f8fadefae3f338ced3f2";
     sha256 = "1idaac7sjc8hhbf5zif61ncg1pvg28c0qfihavdx61albww0ll7f";
   };
 

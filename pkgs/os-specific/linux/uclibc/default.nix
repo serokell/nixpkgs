@@ -1,6 +1,4 @@
-{ stdenv, buildPackages
-, fetchurl, linuxHeaders, libiconvReal
-, extraConfig ? ""
+{ stdenv, buildPackages, fetchurl, linuxHeaders, libiconvReal, extraConfig ? ""
 }:
 
 let
@@ -39,24 +37,25 @@ let
     UCLIBC_SUSV4_LEGACY y
     UCLIBC_HAS_THREADS_NATIVE y
     KERNEL_HEADERS "${linuxHeaders}/include"
-  '' + stdenv.lib.optionalString (stdenv.isAarch32 && stdenv.buildPlatform != stdenv.hostPlatform) ''
-    CONFIG_ARM_EABI y
-    ARCH_WANTS_BIG_ENDIAN n
-    ARCH_BIG_ENDIAN n
-    ARCH_WANTS_LITTLE_ENDIAN y
-    ARCH_LITTLE_ENDIAN y
-    UCLIBC_HAS_FPU n
-  '';
+  '' + stdenv.lib.optionalString
+    (stdenv.isAarch32 && stdenv.buildPlatform != stdenv.hostPlatform) ''
+      CONFIG_ARM_EABI y
+      ARCH_WANTS_BIG_ENDIAN n
+      ARCH_BIG_ENDIAN n
+      ARCH_WANTS_LITTLE_ENDIAN y
+      ARCH_LITTLE_ENDIAN y
+      UCLIBC_HAS_FPU n
+    '';
 
   version = "1.0.31";
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "uclibc-ng-${version}";
   inherit version;
 
   src = fetchurl {
-    url = "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.bz2";
+    url =
+      "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.bz2";
     # from "${url}.sha256";
     sha256 = "0ba9yh7ir1jamrgc9x9v7zw0sw144f78q4vidiz6ynpr4dwbd5qm";
   };
@@ -80,12 +79,9 @@ stdenv.mkDerivation {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  makeFlags = [
-    "ARCH=${stdenv.hostPlatform.parsed.cpu.name}"
-    "VERBOSE=1"
-  ] ++ stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "CROSS=${stdenv.cc.targetPrefix}"
-  ];
+  makeFlags = [ "ARCH=${stdenv.hostPlatform.parsed.cpu.name}" "VERBOSE=1" ]
+    ++ stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "CROSS=${stdenv.cc.targetPrefix}" ];
 
   # `make libpthread/nptl/sysdeps/unix/sysv/linux/lowlevelrwlock.h`:
   # error: bits/sysnum.h: No such file or directory

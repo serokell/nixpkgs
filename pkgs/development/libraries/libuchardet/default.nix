@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   outputs = [ "bin" "out" "man" "dev" ];
 
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/${pname}/releases/${pname}-${version}.tar.xz";
+    url =
+      "https://www.freedesktop.org/software/${pname}/releases/${pname}-${version}.tar.xz";
     sha256 = "0q9c02b6nmw41yfsiqsnphgc3f0yg3fj31wkccp47cmwvy634lc3";
   };
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Mozilla's Universal Charset Detector C/C++ API";
-    homepage = https://www.freedesktop.org/wiki/Software/uchardet/;
+    homepage = "https://www.freedesktop.org/wiki/Software/uchardet/";
     license = licenses.mpl11;
     maintainers = with maintainers; [ cstrahan ];
     platforms = with platforms; unix;

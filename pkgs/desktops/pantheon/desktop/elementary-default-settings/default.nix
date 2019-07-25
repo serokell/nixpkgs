@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  patches = [
-    ./correct-override.patch
-  ];
+  patches = [ ./correct-override.patch ];
 
   dontBuild = true;
 
@@ -34,7 +32,9 @@ stdenv.mkDerivation rec {
     cp -av overrides/default-settings.gschema.override $out/share/glib-2.0/schemas/20-io.elementary.desktop.gschema.override
 
     mkdir $out/etc/wingpanel.d
-    cp -avr ${./io.elementary.greeter.whitelist} $out/etc/wingpanel.d/io.elementary.greeter.whitelist
+    cp -avr ${
+      ./io.elementary.greeter.whitelist
+    } $out/etc/wingpanel.d/io.elementary.greeter.whitelist
 
     mkdir -p $out/share/elementary/config/plank/dock1
     cp -avr ${./launchers} $out/share/elementary/config/plank/dock1/launchers
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Default settings and configuration files for elementary";
-    homepage = https://github.com/elementary/default-settings;
+    homepage = "https://github.com/elementary/default-settings";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

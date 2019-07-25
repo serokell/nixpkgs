@@ -1,8 +1,6 @@
-import ../make-test.nix ({ pkgs, ...} : {
+import ../make-test.nix ({ pkgs, ... }: {
   name = "test-hocker-fetchdocker";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ ixmatus ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ixmatus ]; };
 
   machine = import ./machine.nix;
 

@@ -19,10 +19,7 @@ stdenv.mkDerivation rec {
     patchShebangs test/
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "LIBEXEC_DIR=lib/charliecloud"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "LIBEXEC_DIR=lib/charliecloud" ];
 
   postInstall = ''
     mkdir -p $out/share/charliecloud
@@ -31,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "User-defined software stacks (UDSS) for high-performance computing (HPC) centers";
+    description =
+      "User-defined software stacks (UDSS) for high-performance computing (HPC) centers";
     longDescription = ''
       Charliecloud uses Linux user namespaces to run containers with no
       privileged operations or daemons and minimal configuration changes on
@@ -39,7 +37,7 @@ stdenv.mkDerivation rec {
       while maintaining access to the performance and functionality already
       on offer.
     '';
-    homepage = https://hpc.github.io/charliecloud;
+    homepage = "https://hpc.github.io/charliecloud";
     license = stdenv.lib.licenses.asl20;
     maintainers = [ stdenv.lib.maintainers.bzizou ];
     platforms = stdenv.lib.platforms.linux;

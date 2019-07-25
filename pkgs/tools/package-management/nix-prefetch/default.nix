@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper
-, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxml2, libxslt
-, coreutils, gawk, gnugrep, gnused, jq, nix }:
+{ stdenv, fetchFromGitHub, makeWrapper, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxml2, libxslt, coreutils, gawk, gnugrep, gnused, jq, nix
+}:
 
 with stdenv.lib;
 
@@ -16,10 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "0ykrbvbwwpz348424yy2452idgw8dffi3klh7n85n96dfflyyd4s";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    asciidoc docbook_xml_dtd_45 docbook_xsl libxml2 libxslt
-  ];
+  nativeBuildInputs =
+    [ makeWrapper asciidoc docbook_xml_dtd_45 docbook_xsl libxml2 libxslt ];
 
   configurePhase = ''
     . configure.sh
@@ -62,7 +59,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Prefetch any fetcher function call, e.g. package sources";
-    homepage = https://github.com/msteen/nix-prefetch;
+    homepage = "https://github.com/msteen/nix-prefetch";
     license = licenses.mit;
     maintainers = with maintainers; [ msteen ];
     platforms = platforms.all;

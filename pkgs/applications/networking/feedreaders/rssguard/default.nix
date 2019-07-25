@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dvjcazvrgxfxg1gvznxj8kx569v4ivns0brq00cn2yxyd4wx43s";
   };
 
-  buildInputs =  [ qtwebengine qttools ];
+  buildInputs = [ qtwebengine qttools ];
   nativeBuildInputs = [ qmake wrapGAppsHook ];
   qmakeFlags = [ "CONFIG+=release" ];
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       developed using Qt framework and with online feed synchronization support
       for ownCloud/Nextcloud.
     '';
-    homepage = https://github.com/martinrotter/rssguard;
+    homepage = "https://github.com/martinrotter/rssguard";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ jluttine ];

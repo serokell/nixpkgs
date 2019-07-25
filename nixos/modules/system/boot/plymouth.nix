@@ -24,9 +24,7 @@ let
     Theme=${cfg.theme}
   '';
 
-in
-
-{
+in {
 
   options = {
 
@@ -35,7 +33,7 @@ in
       enable = mkEnableOption "Plymouth boot splash screen";
 
       themePackages = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = ''
           Extra theme packages for plymouth.
@@ -56,10 +54,11 @@ in
           url = "https://nixos.org/logo/nixos-hires.png";
           sha256 = "1ivzgd7iz0i06y36p8m5w48fd8pjqwxhdaavc0pxs7w1g7mcy5si";
         };
-        defaultText = ''pkgs.fetchurl {
-          url = "https://nixos.org/logo/nixos-hires.png";
-          sha256 = "1ivzgd7iz0i06y36p8m5w48fd8pjqwxhdaavc0pxs7w1g7mcy5si";
-        }'';
+        defaultText = ''
+          pkgs.fetchurl {
+                    url = "https://nixos.org/logo/nixos-hires.png";
+                    sha256 = "1ivzgd7iz0i06y36p8m5w48fd8pjqwxhdaavc0pxs7w1g7mcy5si";
+                  }'';
         description = ''
           Logo which is displayed on the splash screen.
         '';
@@ -77,9 +76,11 @@ in
     environment.systemPackages = [ plymouth ];
 
     environment.etc."plymouth/plymouthd.conf".source = configFile;
-    environment.etc."plymouth/plymouthd.defaults".source = "${plymouth}/share/plymouth/plymouthd.defaults";
+    environment.etc."plymouth/plymouthd.defaults".source =
+      "${plymouth}/share/plymouth/plymouthd.defaults";
     environment.etc."plymouth/logo.png".source = cfg.logo;
-    environment.etc."plymouth/themes".source = "${themesEnv}/share/plymouth/themes";
+    environment.etc."plymouth/themes".source =
+      "${themesEnv}/share/plymouth/themes";
     # XXX: Needed because we supply a different set of plugins in initrd.
     environment.etc."plymouth/plugins".source = "${plymouth}/lib/plymouth";
 

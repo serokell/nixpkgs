@@ -10,12 +10,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ openssl ];
 
-  patches = stdenv.lib.singleton ./libressl-fixes.patch ;
+  patches = stdenv.lib.singleton ./libressl-fixes.patch;
 
   meta = with stdenv.lib; {
-    description = "A utility for bidirectional data transfer between two independent data channels";
-    homepage = http://www.dest-unreach.org/socat/;
-    repositories.git = git://repo.or.cz/socat.git;
+    description =
+      "A utility for bidirectional data transfer between two independent data channels";
+    homepage = "http://www.dest-unreach.org/socat/";
+    repositories.git = "git://repo.or.cz/socat.git";
     platforms = platforms.unix;
     license = licenses.gpl2;
     maintainers = [ maintainers.eelco ];

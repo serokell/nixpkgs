@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, guile, buildEnv
-, SDL, SDL_image, SDL_ttf, SDL_mixer
+{ stdenv, fetchurl, pkgconfig, guile, buildEnv, SDL, SDL_image, SDL_ttf, SDL_mixer
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
       name = "sdl-env";
       paths = buildInputs;
     };
-  in "SDLMINUSI=-I${sdl}/include/SDL";
+    in "SDLMINUSI=-I${sdl}/include/SDL";
 
   meta = with stdenv.lib; {
     description = "Guile bindings for SDL";

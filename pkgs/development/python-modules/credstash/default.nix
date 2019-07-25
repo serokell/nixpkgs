@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, cryptography, boto3, pyyaml, docutils, nose }:
+{ stdenv, buildPythonPackage, fetchPypi, cryptography, boto3, pyyaml, docutils, nose
+}:
 
 buildPythonPackage rec {
   pname = "credstash";
@@ -25,8 +26,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A utility for managing secrets in the cloud using AWS KMS and DynamoDB";
-    homepage = https://github.com/LuminalOSS/credstash;
+    description =
+      "A utility for managing secrets in the cloud using AWS KMS and DynamoDB";
+    homepage = "https://github.com/LuminalOSS/credstash";
     license = licenses.asl20;
   };
 }

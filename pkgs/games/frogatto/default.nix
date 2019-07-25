@@ -8,7 +8,8 @@ let
     name = "frogatto";
     exec = "frogatto";
     startupNotify = "true";
-    icon = "${data}/share/frogatto/modules/frogatto/images/os/frogatto-icon.png";
+    icon =
+      "${data}/share/frogatto/modules/frogatto/images/os/frogatto-icon.png";
     comment = description;
     desktopName = "Frogatto";
     genericName = "frogatto";
@@ -34,7 +35,7 @@ in buildEnv rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://frogatto.com;
+    homepage = "https://frogatto.com";
     description = description;
     license = with licenses; [ cc-by-30 unfree ];
     platforms = platforms.linux;

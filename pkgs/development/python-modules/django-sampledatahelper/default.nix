@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  django, nose, pillow, sampledata, six, versiontools
+{ lib, buildPythonPackage, fetchPypi, django, nose, pillow, sampledata, six, versiontools
 }:
 
 buildPythonPackage rec {
@@ -7,8 +6,9 @@ buildPythonPackage rec {
   version = "0.4.1";
 
   meta = {
-    description = "Helper class for generate sample data for django apps development";
-    homepage = https://github.com/kaleidos/django-sampledatahelper;
+    description =
+      "Helper class for generate sample data for django apps development";
+    homepage = "https://github.com/kaleidos/django-sampledatahelper";
     license = lib.licenses.bsd3;
   };
 

@@ -1,24 +1,13 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkgconfig, texinfo
-, cairo, gd, libcerf, pango, readline, zlib
-, withTeXLive ? false, texlive
-, withLua ? false, lua
-, libX11 ? null
-, libXt ? null
-, libXpm ? null
-, libXaw ? null
-, aquaterm ? false
-, withWxGTK ? false, wxGTK ? null
-, fontconfig ? null
-, gnused ? null
-, coreutils ? null
-, withQt ? false, qttools, qtbase, qtsvg
-}:
+{ lib, stdenv, fetchurl, makeWrapper, pkgconfig, texinfo, cairo, gd, libcerf, pango, readline, zlib, withTeXLive ?
+  false, texlive, withLua ? false, lua, libX11 ? null, libXt ? null, libXpm ?
+    null, libXaw ? null, aquaterm ? false, withWxGTK ? false, wxGTK ?
+      null, fontconfig ? null, gnused ? null, coreutils ? null, withQt ?
+        false, qttools, qtbase, qtsvg }:
 
-assert libX11 != null -> (fontconfig != null && gnused != null && coreutils != null);
-let
-  withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
-in
-stdenv.mkDerivation rec {
+assert libX11 != null
+-> (fontconfig != null && gnused != null && coreutils != null);
+let withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
+in stdenv.mkDerivation rec {
   name = "gnuplot-5.2.7";
 
   src = fetchurl {
@@ -26,15 +15,15 @@ stdenv.mkDerivation rec {
     sha256 = "1vglp4la40f5dpj0zdj63zprrkyjgzy068p35bz5dqxjyczm1zlp";
   };
 
-  nativeBuildInputs = [ makeWrapper pkgconfig texinfo ] ++ lib.optional withQt qttools;
+  nativeBuildInputs = [ makeWrapper pkgconfig texinfo ]
+    ++ lib.optional withQt qttools;
 
-  buildInputs =
-    [ cairo gd libcerf pango readline zlib ]
-    ++ lib.optional withTeXLive (texlive.combine { inherit (texlive) scheme-small; })
+  buildInputs = [ cairo gd libcerf pango readline zlib ]
+    ++ lib.optional withTeXLive
+    (texlive.combine { inherit (texlive) scheme-small; })
     ++ lib.optional withLua lua
     ++ lib.optionals withX [ libX11 libXpm libXt libXaw ]
-    ++ lib.optionals withQt [ qtbase qtsvg ]
-    ++ lib.optional withWxGTK wxGTK;
+    ++ lib.optionals withQt [ qtbase qtsvg ] ++ lib.optional withWxGTK wxGTK;
 
   postPatch = ''
     # lrelease is in qttools, not in qtbase.
@@ -58,8 +47,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = http://www.gnuplot.info/;
-    description = "A portable command-line driven graphing utility for many platforms";
+    homepage = "http://www.gnuplot.info/";
+    description =
+      "A portable command-line driven graphing utility for many platforms";
     platforms = platforms.linux ++ platforms.darwin;
     license = {
       # Essentially a BSD license with one modifaction:
@@ -68,7 +58,8 @@ stdenv.mkDerivation rec {
       # be distributed as patches to the released version.  Permission to
       # distribute binaries produced by compiling modified sources is granted,
       # provided you: ...
-      url = https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright;
+      url =
+        "https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright";
     };
     maintainers = with maintainers; [ lovek323 ];
   };

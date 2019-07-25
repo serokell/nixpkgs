@@ -28,8 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A lightweight conic solver for second-order cone programming";
-    homepage = https://www.embotech.com/ECOS;
+    description =
+      "A lightweight conic solver for second-order cone programming";
+    homepage = "https://www.embotech.com/ECOS";
     license = licenses.gpl3;
     platforms = platforms.all;
     maintainers = [ maintainers.bhipple ];

@@ -35,7 +35,10 @@ let
 
       name = mkOption {
         type = types.str;
-        apply = x: assert (builtins.stringLength x < 32 || abort "Username '${x}' is longer than 31 characters which is not allowed!"); x;
+        apply = x:
+          assert (builtins.stringLength x < 32 || abort
+          "Username '${x}' is longer than 31 characters which is not allowed!");
+          x;
         description = ''
           The name of the user account. If undefined, the name of the
           attribute set will be used.
@@ -92,14 +95,17 @@ let
 
       group = mkOption {
         type = types.str;
-        apply = x: assert (builtins.stringLength x < 32 || abort "Group name '${x}' is longer than 31 characters which is not allowed!"); x;
+        apply = x:
+          assert (builtins.stringLength x < 32 || abort
+          "Group name '${x}' is longer than 31 characters which is not allowed!");
+          x;
         default = "nogroup";
         description = "The user's primary group.";
       };
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = "The user's auxiliary groups.";
       };
 
@@ -134,10 +140,16 @@ let
 
       subUidRanges = mkOption {
         type = with types; listOf (submodule subordinateUidRange);
-        default = [];
+        default = [ ];
         example = [
-          { startUid = 1000; count = 1; }
-          { startUid = 100001; count = 65534; }
+          {
+            startUid = 1000;
+            count = 1;
+          }
+          {
+            startUid = 100001;
+            count = 65534;
+          }
         ];
         description = ''
           Subordinate user ids that user is allowed to use.
@@ -148,10 +160,16 @@ let
 
       subGidRanges = mkOption {
         type = with types; listOf (submodule subordinateGidRange);
-        default = [];
+        default = [ ];
         example = [
-          { startGid = 100; count = 1; }
-          { startGid = 1001; count = 999; }
+          {
+            startGid = 100;
+            count = 1;
+          }
+          {
+            startGid = 1001;
+            count = 999;
+          }
         ];
         description = ''
           Subordinate group ids that user is allowed to use.
@@ -248,7 +266,7 @@ let
 
       packages = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         example = literalExample "[ pkgs.firefox pkgs.thunderbird ]";
         description = ''
           The set of packages that should be made availabe to the user.
@@ -259,26 +277,27 @@ let
 
     };
 
-    config = mkMerge
-      [ { name = mkDefault name;
-          shell = mkIf config.useDefaultShell (mkDefault cfg.defaultUserShell);
-        }
-        (mkIf config.isNormalUser {
-          group = mkDefault "users";
-          createHome = mkDefault true;
-          home = mkDefault "/home/${config.name}";
-          useDefaultShell = mkDefault true;
-          isSystemUser = mkDefault false;
-        })
-        # If !mutableUsers, setting ‘initialPassword’ is equivalent to
-        # setting ‘password’ (and similarly for hashed passwords).
-        (mkIf (!cfg.mutableUsers && config.initialPassword != null) {
-          password = mkDefault config.initialPassword;
-        })
-        (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
-          hashedPassword = mkDefault config.initialHashedPassword;
-        })
-      ];
+    config = mkMerge [
+      {
+        name = mkDefault name;
+        shell = mkIf config.useDefaultShell (mkDefault cfg.defaultUserShell);
+      }
+      (mkIf config.isNormalUser {
+        group = mkDefault "users";
+        createHome = mkDefault true;
+        home = mkDefault "/home/${config.name}";
+        useDefaultShell = mkDefault true;
+        isSystemUser = mkDefault false;
+      })
+      # If !mutableUsers, setting ‘initialPassword’ is equivalent to
+      # setting ‘password’ (and similarly for hashed passwords).
+      (mkIf (!cfg.mutableUsers && config.initialPassword != null) {
+        password = mkDefault config.initialPassword;
+      })
+      (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
+        hashedPassword = mkDefault config.initialHashedPassword;
+      })
+    ];
 
   };
 
@@ -305,7 +324,7 @@ let
 
       members = mkOption {
         type = with types; listOf string;
-        default = [];
+        default = [ ];
         description = ''
           The user names of the group members, added to the
           <literal>/etc/group</literal> file.
@@ -314,9 +333,7 @@ let
 
     };
 
-    config = {
-      name = mkDefault name;
-    };
+    config = { name = mkDefault name; };
 
   };
 
@@ -332,7 +349,7 @@ let
       count = mkOption {
         type = types.int;
         default = 1;
-        description = ''Count of subordinate user ids'';
+        description = "Count of subordinate user ids";
       };
     };
   };
@@ -349,58 +366,73 @@ let
       count = mkOption {
         type = types.int;
         default = 1;
-        description = ''Count of subordinate group ids'';
+        description = "Count of subordinate group ids";
       };
     };
   };
 
-  mkSubuidEntry = user: concatStrings (
-    map (range: "${user.name}:${toString range.startUid}:${toString range.count}\n")
-      user.subUidRanges);
+  mkSubuidEntry = user:
+    concatStrings (map (range: ''
+      ${user.name}:${toString range.startUid}:${toString range.count}
+    '') user.subUidRanges);
 
   subuidFile = concatStrings (map mkSubuidEntry (attrValues cfg.users));
 
-  mkSubgidEntry = user: concatStrings (
-    map (range: "${user.name}:${toString range.startGid}:${toString range.count}\n")
-        user.subGidRanges);
+  mkSubgidEntry = user:
+    concatStrings (map (range: ''
+      ${user.name}:${toString range.startGid}:${toString range.count}
+    '') user.subGidRanges);
 
   subgidFile = concatStrings (map mkSubgidEntry (attrValues cfg.users));
 
-  idsAreUnique = set: idAttr: !(fold (name: args@{ dup, acc }:
+  idsAreUnique = set: idAttr:
+    !(fold (name:
+    args@{ dup, acc }:
     let
-      id = builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
+      id =
+        builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
       exists = builtins.hasAttr id acc;
-      newAcc = acc // (builtins.listToAttrs [ { name = id; value = true; } ]);
-    in if dup then args else if exists
-      then builtins.trace "Duplicate ${idAttr} ${id}" { dup = true; acc = null; }
-      else { dup = false; acc = newAcc; }
-    ) { dup = false; acc = {}; } (builtins.attrNames set)).dup;
+      newAcc = acc // (builtins.listToAttrs [{
+        name = id;
+        value = true;
+      }]);
+    in if dup then
+      args
+    else if exists then
+      builtins.trace "Duplicate ${idAttr} ${id}" {
+        dup = true;
+        acc = null;
+      }
+    else {
+      dup = false;
+      acc = newAcc;
+    }) {
+      dup = false;
+      acc = { };
+    } (builtins.attrNames set)).dup;
 
-  uidsAreUnique = idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
-  gidsAreUnique = idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
+  uidsAreUnique =
+    idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
+  gidsAreUnique =
+    idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
 
   spec = pkgs.writeText "users-groups.json" (builtins.toJSON {
     inherit (cfg) mutableUsers;
-    users = mapAttrsToList (_: u:
-      { inherit (u)
-          name uid group description home createHome isSystemUser
-          password passwordFile hashedPassword
-          initialPassword initialHashedPassword;
-        shell = utils.toShellPath u.shell;
-      }) cfg.users;
-    groups = mapAttrsToList (n: g:
-      { inherit (g) name gid;
-        members = g.members ++ (mapAttrsToList (n: u: u.name) (
-          filterAttrs (n: u: elem g.name u.extraGroups) cfg.users
-        ));
-      }) cfg.groups;
+    users = mapAttrsToList (_: u: {
+      inherit (u)
+        name uid group description home createHome isSystemUser password
+        passwordFile hashedPassword initialPassword initialHashedPassword;
+      shell = utils.toShellPath u.shell;
+    }) cfg.users;
+    groups = mapAttrsToList (n: g: {
+      inherit (g) name gid;
+      members = g.members ++ (mapAttrsToList (n: u: u.name)
+        (filterAttrs (n: u: elem g.name u.extraGroups) cfg.users));
+    }) cfg.groups;
   });
 
-  systemShells =
-    let
-      shells = mapAttrsToList (_: u: u.shell) cfg.users;
-    in
-      filter types.shellPackage.check shells;
+  systemShells = let shells = mapAttrsToList (_: u: u.shell) cfg.users;
+    in filter types.shellPackage.check shells;
 
 in {
 
@@ -442,7 +474,7 @@ in {
     };
 
     users.users = mkOption {
-      default = {};
+      default = { };
       type = with types; loaOf (submodule userOpts);
       example = {
         alice = {
@@ -451,7 +483,7 @@ in {
           home = "/home/alice";
           createHome = true;
           group = "users";
-          extraGroups = ["wheel"];
+          extraGroups = [ "wheel" ];
           shell = "/bin/sh";
         };
       };
@@ -462,11 +494,11 @@ in {
     };
 
     users.groups = mkOption {
-      default = {};
-      example =
-        { students.gid = 1001;
-          hackers = { };
-        };
+      default = { };
+      example = {
+        students.gid = 1001;
+        hackers = { };
+      };
       type = with types; loaOf (submodule groupOpts);
       description = ''
         Additional groups to be created automatically by the system.
@@ -482,7 +514,6 @@ in {
     };
 
   };
-
 
   ###### implementation
 
@@ -528,16 +559,15 @@ in {
       render.gid = ids.gids.render;
     };
 
-    system.activationScripts.users = stringAfter [ "stdio" ]
-      ''
-        install -m 0700 -d /root
-        install -m 0755 -d /home
+    system.activationScripts.users = stringAfter [ "stdio" ] ''
+      install -m 0700 -d /root
+      install -m 0755 -d /home
 
-        ${pkgs.perl}/bin/perl -w \
-          -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix} \
-          -I${pkgs.perlPackages.JSON}/${pkgs.perl.libPrefix} \
-          ${./update-users-groups.pl} ${spec}
-      '';
+      ${pkgs.perl}/bin/perl -w \
+        -I${pkgs.perlPackages.FileSlurp}/${pkgs.perl.libPrefix} \
+        -I${pkgs.perlPackages.JSON}/${pkgs.perl.libPrefix} \
+        ${./update-users-groups.pl} ${spec}
+    '';
 
     # for backwards compatibility
     system.activationScripts.groups = stringAfter [ "users" ] "";
@@ -554,20 +584,23 @@ in {
         text = subgidFile;
         mode = "0644";
       };
-    } // (mapAttrs' (name: { packages, ... }: {
-      name = "profiles/per-user/${name}";
-      value.source = pkgs.buildEnv {
-        name = "user-environment";
-        paths = packages;
-        inherit (config.environment) pathsToLink extraOutputsToInstall;
-        inherit (config.system.path) ignoreCollisions postBuild;
-      };
-    }) (filterAttrs (_: u: u.packages != []) cfg.users));
+    } // (mapAttrs' (name:
+      { packages, ... }: {
+        name = "profiles/per-user/${name}";
+        value.source = pkgs.buildEnv {
+          name = "user-environment";
+          paths = packages;
+          inherit (config.environment) pathsToLink extraOutputsToInstall;
+          inherit (config.system.path) ignoreCollisions postBuild;
+        };
+      }) (filterAttrs (_: u: u.packages != [ ]) cfg.users));
 
     environment.profiles = [ "/etc/profiles/per-user/$USER" ];
 
     assertions = [
-      { assertion = !cfg.enforceIdUniqueness || (uidsAreUnique && gidsAreUnique);
+      {
+        assertion = !cfg.enforceIdUniqueness
+          || (uidsAreUnique && gidsAreUnique);
         message = "UIDs and GIDs must be unique!";
       }
       { # If mutableUsers is false, to prevent users creating a
@@ -575,18 +608,13 @@ in {
         # there is at least one "privileged" account that has a
         # password or an SSH authorized key. Privileged accounts are
         # root and users in the wheel group.
-        assertion = !cfg.mutableUsers ->
-          any id (mapAttrsToList (name: cfg:
-            (name == "root"
-             || cfg.group == "wheel"
-             || elem "wheel" cfg.extraGroups)
-            &&
-            ((cfg.hashedPassword != null && cfg.hashedPassword != "!")
-             || cfg.password != null
-             || cfg.passwordFile != null
-             || cfg.openssh.authorizedKeys.keys != []
-             || cfg.openssh.authorizedKeys.keyFiles != [])
-          ) cfg.users);
+        assertion = !cfg.mutableUsers -> any id (mapAttrsToList (name: cfg:
+          (name == "root" || cfg.group == "wheel"
+          || elem "wheel" cfg.extraGroups)
+          && ((cfg.hashedPassword != null && cfg.hashedPassword != "!")
+          || cfg.password != null || cfg.passwordFile != null
+          || cfg.openssh.authorizedKeys.keys != [ ]
+          || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users);
         message = ''
           Neither the root account nor any wheel user has a password or SSH authorized key.
           You must set one to prevent being locked out of your system.'';

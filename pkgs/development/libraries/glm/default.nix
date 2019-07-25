@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "glm-${version}";
 
   src = fetchzip {
-    url = "https://github.com/g-truc/glm/releases/download/${version}/${name}.zip";
+    url =
+      "https://github.com/g-truc/glm/releases/download/${version}/${name}.zip";
     sha256 = "0dkfj4hin3am9fxgcvwr5gj0h9y52x7wa03lfwb3q0bvaj1rsly2";
   };
 
@@ -17,7 +18,8 @@ stdenv.mkDerivation rec {
 
   # fetch newer version of platform.h which correctly supports gcc 7.3
   gcc7PlatformPatch = fetchurl {
-    url = "https://raw.githubusercontent.com/g-truc/glm/384dab02e45a8ad3c1a3fa0906e0d5682c5b27b9/glm/simd/platform.h";
+    url =
+      "https://raw.githubusercontent.com/g-truc/glm/384dab02e45a8ad3c1a3fa0906e0d5682c5b27b9/glm/simd/platform.h";
     sha256 = "0ym0sgwznxhfyi014xs55x3ql7r65fjs34sqb5jiaffkdhkqgzia";
   };
 
@@ -27,9 +29,8 @@ stdenv.mkDerivation rec {
     cp ${gcc7PlatformPatch} glm/simd/platform.h
   '';
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionals stdenv.isDarwin [
-    "-DGLM_COMPILER=0"
-  ];
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionals stdenv.isDarwin [ "-DGLM_COMPILER=0" ];
 
   postInstall = ''
     mkdir -p $doc/share/doc/glm
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
       graphics software based on the OpenGL Shading Language (GLSL)
       specification and released under the MIT license.
     '';
-    homepage = http://glm.g-truc.net/;
+    homepage = "http://glm.g-truc.net/";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ fuuzetsu ];

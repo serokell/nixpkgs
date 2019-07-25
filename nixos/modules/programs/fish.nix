@@ -8,14 +8,11 @@ let
 
   cfg = config.programs.fish;
 
-  fishAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}")
-      (filterAttrs (k: v: v != null) cfg.shellAliases)
-  );
+  fishAliases = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}")
+    (filterAttrs (k: v: v != null) cfg.shellAliases));
 
-in
-
-{
+in {
 
   options = {
 
@@ -54,7 +51,7 @@ in
       };
 
       shellAliases = mkOption {
-        default = {};
+        default = { };
         description = ''
           Set of aliases for fish shell, which overrides <option>environment.shellAliases</option>.
           See <option>environment.shellAliases</option> for an option format description.
@@ -103,8 +100,10 @@ in
     programs.fish.shellAliases = mapAttrs (name: mkDefault) cfge.shellAliases;
 
     environment.etc."fish/foreign-env/shellInit".text = cfge.shellInit;
-    environment.etc."fish/foreign-env/loginShellInit".text = cfge.loginShellInit;
-    environment.etc."fish/foreign-env/interactiveShellInit".text = cfge.interactiveShellInit;
+    environment.etc."fish/foreign-env/loginShellInit".text =
+      cfge.loginShellInit;
+    environment.etc."fish/foreign-env/interactiveShellInit".text =
+      cfge.interactiveShellInit;
 
     environment.etc."fish/nixos-env-preinit.fish".text = ''
       # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
@@ -180,60 +179,56 @@ in
       end
     '';
 
-    environment.etc."fish/generated_completions".source =
-      let
-        patchedGenerator = pkgs.stdenv.mkDerivation {
-          name = "fish_patched-completion-generator";
-          srcs = [
-            "${pkgs.fish}/share/fish/tools/create_manpage_completions.py"
-            "${pkgs.fish}/share/fish/tools/deroff.py"
-          ];
-          unpackCmd = "cp $curSrc $(basename $curSrc)";
-          sourceRoot = ".";
-          patches = [ ./fish_completion-generator.patch ]; # to prevent collisions of identical completion files
-          dontBuild = true;
-          installPhase = ''
-            mkdir -p $out
-            cp * $out/
-          '';
+    environment.etc."fish/generated_completions".source = let
+      patchedGenerator = pkgs.stdenv.mkDerivation {
+        name = "fish_patched-completion-generator";
+        srcs = [
+          "${pkgs.fish}/share/fish/tools/create_manpage_completions.py"
+          "${pkgs.fish}/share/fish/tools/deroff.py"
+        ];
+        unpackCmd = "cp $curSrc $(basename $curSrc)";
+        sourceRoot = ".";
+        patches = [
+          ./fish_completion-generator.patch
+        ]; # to prevent collisions of identical completion files
+        dontBuild = true;
+        installPhase = ''
+          mkdir -p $out
+          cp * $out/
+        '';
+        preferLocalBuild = true;
+        allowSubstitutes = false;
+      };
+      generateCompletions = package:
+        pkgs.runCommand "${package.name}_fish-completions" ({
+          inherit package;
           preferLocalBuild = true;
           allowSubstitutes = false;
-        };
-        generateCompletions = package: pkgs.runCommand
-          "${package.name}_fish-completions"
-          (
-            {
-              inherit package;
-              preferLocalBuild = true;
-              allowSubstitutes = false;
-            }
-            // optionalAttrs (package ? meta.priority) { meta.priority = package.meta.priority; }
-          )
-          ''
-            mkdir -p $out
-            if [ -d $package/share/man ]; then
-              find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
-            fi
-          '';
-      in
-        pkgs.buildEnv {
-          name = "system_fish-completions";
-          ignoreCollisions = true;
-          paths = map generateCompletions config.environment.systemPackages;
-        };
+        } // optionalAttrs (package ? meta.priority) {
+          meta.priority = package.meta.priority;
+        }) ''
+          mkdir -p $out
+          if [ -d $package/share/man ]; then
+            find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
+          fi
+        '';
+      in pkgs.buildEnv {
+        name = "system_fish-completions";
+        ignoreCollisions = true;
+        paths = map generateCompletions config.environment.systemPackages;
+      };
 
     # include programs that bring their own completions
-    environment.pathsToLink = []
+    environment.pathsToLink = [ ]
       ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
-      ++ optional cfg.vendor.completions.enable "/share/fish/vendor_completions.d"
+      ++ optional cfg.vendor.completions.enable
+      "/share/fish/vendor_completions.d"
       ++ optional cfg.vendor.functions.enable "/share/fish/vendor_functions.d";
 
     environment.systemPackages = [ pkgs.fish ];
 
-    environment.shells = [
-      "/run/current-system/sw/bin/fish"
-      "${pkgs.fish}/bin/fish"
-    ];
+    environment.shells =
+      [ "/run/current-system/sw/bin/fish" "${pkgs.fish}/bin/fish" ];
 
   };
 

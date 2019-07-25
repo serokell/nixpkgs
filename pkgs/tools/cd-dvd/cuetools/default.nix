@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook
-, bison, flac, flex, id3v2, vorbis-tools
+{ stdenv, fetchFromGitHub, autoreconfHook, bison, flac, flex, id3v2, vorbis-tools
 }:
 
 stdenv.mkDerivation rec {
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A set of utilities for working with cue files and toc files";
-    homepage = https://github.com/svend/cuetools;
+    homepage = "https://github.com/svend/cuetools";
     license = licenses.gpl2;
     maintainers = with maintainers; [ codyopel jcumming ];
     platforms = platforms.all;

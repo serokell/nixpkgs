@@ -1,7 +1,4 @@
-{ stdenv, buildGoPackage, fetchgit
-, pkgconfig
-, glib, libxml2
-}:
+{ stdenv, buildGoPackage, fetchgit, pkgconfig, glib, libxml2 }:
 
 buildGoPackage rec {
   name = "ua-unstable-${version}";
@@ -22,7 +19,7 @@ buildGoPackage rec {
   buildInputs = [ glib libxml2 ];
 
   meta = {
-    homepage = https://github.com/sloonz/ua;
+    homepage = "https://github.com/sloonz/ua";
     license = stdenv.lib.licenses.isc;
     description = "Universal Aggregator";
     platforms = stdenv.lib.platforms.unix;

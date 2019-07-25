@@ -1,12 +1,4 @@
-{ fetchurl, stdenv
-, pkgconfig, gnupg
-, xapian, gmime, talloc, zlib
-, doxygen, perl
-, pythonPackages
-, bash-completion
-, emacs
-, ruby
-, which, dtach, openssl, bash, gdb, man
+{ fetchurl, stdenv, pkgconfig, gnupg, xapian, gmime, talloc, zlib, doxygen, perl, pythonPackages, bash-completion, emacs, ruby, which, dtach, openssl, bash, gdb, man
 }:
 
 with stdenv.lib;
@@ -28,12 +20,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
     gnupg # undefined dependencies
-    xapian gmime talloc zlib  # dependencies described in INSTALL
-    doxygen perl  # (optional) api docs
-    pythonPackages.sphinx pythonPackages.python  # (optional) documentation -> doc/INSTALL
-    bash-completion  # (optional) dependency to install bash completion
-    emacs  # (optional) to byte compile emacs code, also needed for tests
-    ruby  # (optional) ruby bindings
+    xapian
+    gmime
+    talloc
+    zlib # dependencies described in INSTALL
+    doxygen
+    perl # (optional) api docs
+    pythonPackages.sphinx
+    pythonPackages.python # (optional) documentation -> doc/INSTALL
+    bash-completion # (optional) dependency to install bash completion
+    emacs # (optional) to byte compile emacs code, also needed for tests
+    ruby # (optional) ruby bindings
   ];
 
   postPatch = ''
@@ -52,7 +49,8 @@ stdenv.mkDerivation rec {
       --replace '-install_name $(libdir)' "-install_name $out/lib"
   '';
 
-  configureFlags = [ "--zshcompletiondir=${placeholder "out"}/share/zsh/site-functions" ];
+  configureFlags =
+    [ "--zshcompletiondir=${placeholder "out"}/share/zsh/site-functions" ];
 
   # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
   # friends
@@ -62,18 +60,17 @@ stdenv.mkDerivation rec {
 
   preCheck = let
     test-database = fetchurl {
-      url = "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
+      url =
+        "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
       sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
     };
-  in ''
-    ln -s ${test-database} test/test-databases/database-v1.tar.xz
-  '';
-  doCheck = !stdenv.hostPlatform.isDarwin && (versionAtLeast gmime.version "3.0");
+    in ''
+      ln -s ${test-database} test/test-databases/database-v1.tar.xz
+    '';
+  doCheck = !stdenv.hostPlatform.isDarwin
+    && (versionAtLeast gmime.version "3.0");
   checkTarget = "test";
-  checkInputs = [
-    which dtach openssl bash
-    gdb man
-  ];
+  checkInputs = [ which dtach openssl bash gdb man ];
 
   installTargets = [ "install" "install-man" ];
 
@@ -81,9 +78,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Mail indexer";
-    homepage    = https://notmuchmail.org/;
-    license     = licenses.gpl3;
+    homepage = "https://notmuchmail.org/";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ flokli the-kenny ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

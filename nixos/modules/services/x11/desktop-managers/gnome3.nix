@@ -15,28 +15,33 @@ let
     '';
   };
 
-  nixos-gsettings-desktop-schemas = pkgs.runCommand "nixos-gsettings-desktop-schemas" { preferLocalBuild = true; }
-    ''
-     mkdir -p $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
-     cp -rf ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
+  nixos-gsettings-desktop-schemas =
+    pkgs.runCommand "nixos-gsettings-desktop-schemas" {
+      preferLocalBuild = true;
+    } ''
+      mkdir -p $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
+      cp -rf ${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
 
-     ${concatMapStrings (pkg: "cp -rf ${pkg}/share/gsettings-schemas/*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas\n") cfg.extraGSettingsOverridePackages}
+      ${concatMapStrings (pkg: ''
+        cp -rf ${pkg}/share/gsettings-schemas/*/glib-2.0/schemas/*.xml $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas
+      '') cfg.extraGSettingsOverridePackages}
 
-     chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
-     cat - > $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/nixos-defaults.gschema.override <<- EOF
-       [org.gnome.desktop.background]
-       picture-uri='${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/gnome/nix-wallpaper-simple-dark-gray.png'
+      chmod -R a+w $out/share/gsettings-schemas/nixos-gsettings-overrides
+      cat - > $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/nixos-defaults.gschema.override <<- EOF
+        [org.gnome.desktop.background]
+        picture-uri='${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/artwork/gnome/nix-wallpaper-simple-dark-gray.png'
 
-       [org.gnome.desktop.screensaver]
-       picture-uri='${pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom}/share/artwork/gnome/nix-wallpaper-simple-dark-gray_bottom.png'
+        [org.gnome.desktop.screensaver]
+        picture-uri='${pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom}/share/artwork/gnome/nix-wallpaper-simple-dark-gray_bottom.png'
 
-       ${cfg.extraGSettingsOverrides}
-     EOF
+        ${cfg.extraGSettingsOverrides}
+      EOF
 
-     ${pkgs.glib.dev}/bin/glib-compile-schemas $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/
+      ${pkgs.glib.dev}/bin/glib-compile-schemas $out/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas/
     '';
 
-  flashbackEnabled = cfg.flashback.enableMetacity || length cfg.flashback.customSessions > 0;
+  flashbackEnabled = cfg.flashback.enableMetacity
+    || length cfg.flashback.customSessions > 0;
 
 in {
 
@@ -49,7 +54,7 @@ in {
       };
 
       sessionPath = mkOption {
-        default = [];
+        default = [ ];
         example = literalExample "[ pkgs.gnome3.gpaste ]";
         description = ''
           Additional list of packages to be added to the session search path.
@@ -57,7 +62,9 @@ in {
 
           Note that this should be a last resort; patching the package is preferred (see GPaste).
         '';
-        apply = list: list ++ [ pkgs.gnome3.gnome-shell pkgs.gnome3.gnome-shell-extensions ];
+        apply = list:
+          list
+          ++ [ pkgs.gnome3.gnome-shell pkgs.gnome3.gnome-shell-extensions ];
       };
 
       extraGSettingsOverrides = mkOption {
@@ -67,7 +74,7 @@ in {
       };
 
       extraGSettingsOverridePackages = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.path;
         description = "List of packages for which gsettings are overridden.";
       };
@@ -75,14 +82,16 @@ in {
       debug = mkEnableOption "gnome-session debug messages";
 
       flashback = {
-        enableMetacity = mkEnableOption "the standard GNOME Flashback session with Metacity";
+        enableMetacity =
+          mkEnableOption "the standard GNOME Flashback session with Metacity";
 
         customSessions = mkOption {
           type = types.listOf (types.submodule {
             options = {
               wmName = mkOption {
                 type = types.str;
-                description = "The filename-compatible name of the window manager to use.";
+                description =
+                  "The filename-compatible name of the window manager to use.";
                 example = "xmonad";
               };
 
@@ -99,17 +108,18 @@ in {
               };
             };
           });
-          default = [];
+          default = [ ];
           description = "Other GNOME Flashback sessions to enable.";
         };
       };
     };
 
     environment.gnome3.excludePackages = mkOption {
-      default = [];
+      default = [ ];
       example = literalExample "[ pkgs.gnome3.totem ]";
       type = types.listOf types.package;
-      description = "Which packages gnome should exclude from the default environment";
+      description =
+        "Which packages gnome should exclude from the default environment";
     };
 
   };
@@ -146,13 +156,14 @@ in {
     networking.networkmanager.enable = mkDefault true;
     services.upower.enable = config.powerManagement.enable;
     services.dbus.packages =
-      optional config.services.printing.enable pkgs.system-config-printer ++
-      optional flashbackEnabled pkgs.gnome3.gnome-screensaver;
+      optional config.services.printing.enable pkgs.system-config-printer
+      ++ optional flashbackEnabled pkgs.gnome3.gnome-screensaver;
     services.colord.enable = mkDefault true;
     services.packagekit.enable = mkDefault true;
     hardware.bluetooth.enable = mkDefault true;
     services.hardware.bolt.enable = mkDefault true;
-    services.xserver.libinput.enable = mkDefault true; # for controlling touchpad settings via gnome control center
+    services.xserver.libinput.enable = mkDefault
+      true; # for controlling touchpad settings via gnome control center
     systemd.packages = [ pkgs.gnome3.vino ];
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
@@ -160,20 +171,21 @@ in {
     nixpkgs.config.vim.gui = "gtk3";
 
     fonts.fonts = [
-      pkgs.dejavu_fonts pkgs.cantarell-fonts
+      pkgs.dejavu_fonts
+      pkgs.cantarell-fonts
       pkgs.source-sans-pro
       pkgs.source-code-pro # Default monospace font in 3.32
     ];
 
-    services.xserver.displayManager.extraSessionFilePackages = [ pkgs.gnome3.gnome-session ]
-      ++ map
-        (wm: pkgs.gnome3.gnome-flashback.mkSessionForWm {
-          inherit (wm) wmName wmLabel wmCommand;
-        }) (optional cfg.flashback.enableMetacity {
-              wmName = "metacity";
-              wmLabel = "Metacity";
-              wmCommand = "${pkgs.gnome3.metacity}/bin/metacity";
-            } ++ cfg.flashback.customSessions);
+    services.xserver.displayManager.extraSessionFilePackages =
+      [ pkgs.gnome3.gnome-session ] ++ map (wm:
+      pkgs.gnome3.gnome-flashback.mkSessionForWm {
+        inherit (wm) wmName wmLabel wmCommand;
+      }) (optional cfg.flashback.enableMetacity {
+        wmName = "metacity";
+        wmLabel = "Metacity";
+        wmCommand = "${pkgs.gnome3.metacity}/bin/metacity";
+      } ++ cfg.flashback.customSessions);
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
@@ -187,7 +199,6 @@ in {
         fi
       '') cfg.sessionPath}
     '';
-
 
     services.geoclue2.enable = mkDefault true;
     # GNOME should have its own geoclue agent
@@ -212,38 +223,39 @@ in {
     environment.variables.XDG_DATA_DIRS = [ "${mimeAppsList}/share" ];
 
     # Override GSettings schemas
-    environment.variables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+    environment.variables.NIX_GSETTINGS_OVERRIDES_DIR =
+      "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
     # Let nautilus find extensions
     # TODO: Create nautilus-with-extensions package
-    environment.variables.NAUTILUS_EXTENSION_DIR = "${config.system.path}/lib/nautilus/extensions-3.0";
+    environment.variables.NAUTILUS_EXTENSION_DIR =
+      "${config.system.path}/lib/nautilus/extensions-3.0";
 
     services.xserver.updateDbusEnvironment = true;
 
-    environment.variables.GIO_EXTRA_MODULES = [ "${lib.getLib pkgs.gnome3.dconf}/lib/gio/modules"
-                                                "${pkgs.gnome3.gvfs}/lib/gio/modules" ];
-    environment.systemPackages = pkgs.gnome3.corePackages ++ cfg.sessionPath
-      ++ (pkgs.gnome3.removePackagesByName pkgs.gnome3.optionalPackages config.environment.gnome3.excludePackages) ++ [
-      pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+    environment.variables.GIO_EXTRA_MODULES = [
+      "${lib.getLib pkgs.gnome3.dconf}/lib/gio/modules"
+      "${pkgs.gnome3.gvfs}/lib/gio/modules"
     ];
+    environment.systemPackages = pkgs.gnome3.corePackages ++ cfg.sessionPath
+      ++ (pkgs.gnome3.removePackagesByName pkgs.gnome3.optionalPackages
+      config.environment.gnome3.excludePackages) ++ [
+        pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+      ];
 
     # Use the correct gnome3 packageSet
-    networking.networkmanager.basePackages =
-      { inherit (pkgs) networkmanager modemmanager wpa_supplicant;
-        inherit (pkgs.gnome3) networkmanager-openvpn networkmanager-vpnc
-                              networkmanager-openconnect networkmanager-fortisslvpn
-                              networkmanager-iodine networkmanager-l2tp; };
+    networking.networkmanager.basePackages = {
+      inherit (pkgs) networkmanager modemmanager wpa_supplicant;
+      inherit (pkgs.gnome3)
+        networkmanager-openvpn networkmanager-vpnc networkmanager-openconnect
+        networkmanager-fortisslvpn networkmanager-iodine networkmanager-l2tp;
+    };
 
     # Needed for themes and backgrounds
-    environment.pathsToLink = [
-      "/share"
-      "/share/nautilus-python/extensions"
-    ];
+    environment.pathsToLink = [ "/share" "/share/nautilus-python/extensions" ];
 
-    security.pam.services.gnome-screensaver = mkIf flashbackEnabled {
-      enableGnomeKeyring = true;
-    };
+    security.pam.services.gnome-screensaver =
+      mkIf flashbackEnabled { enableGnomeKeyring = true; };
   };
-
 
 }

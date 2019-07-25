@@ -1,10 +1,4 @@
-{ stdenv, pkgconfig, fetchurl, buildPythonApplication
-, autoreconfHook, wrapGAppsHook, gobject-introspection
-, intltool, yelp-tools, itstool, libxmlxx3
-, python, pygobject3, gtk3, gnome3, substituteAll
-, at-spi2-atk, at-spi2-core, pyatspi, dbus, dbus-python, pyxdg
-, xkbcomp, procps, lsof, coreutils, gsettings-desktop-schemas
-, speechd, brltty, liblouis, setproctitle, gst_all_1, gst-python
+{ stdenv, pkgconfig, fetchurl, buildPythonApplication, autoreconfHook, wrapGAppsHook, gobject-introspection, intltool, yelp-tools, itstool, libxmlxx3, python, pygobject3, gtk3, gnome3, substituteAll, at-spi2-atk, at-spi2-core, pyatspi, dbus, dbus-python, pyxdg, xkbcomp, procps, lsof, coreutils, gsettings-desktop-schemas, speechd, brltty, liblouis, setproctitle, gst_all_1, gst-python
 }:
 
 buildPythonApplication rec {
@@ -14,7 +8,9 @@ buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "05jqzlg0f1x53hyl0l9282ynmw37159g6dsbrid12b7sjs12cc1i";
   };
 
@@ -29,19 +25,40 @@ buildPythonApplication rec {
   ];
 
   nativeBuildInputs = [
-    autoreconfHook wrapGAppsHook pkgconfig libxmlxx3
-    intltool yelp-tools itstool gobject-introspection
+    autoreconfHook
+    wrapGAppsHook
+    pkgconfig
+    libxmlxx3
+    intltool
+    yelp-tools
+    itstool
+    gobject-introspection
   ];
 
   propagatedBuildInputs = [
-    pygobject3 pyatspi dbus-python pyxdg brltty liblouis speechd gst-python setproctitle
+    pygobject3
+    pyatspi
+    dbus-python
+    pyxdg
+    brltty
+    liblouis
+    speechd
+    gst-python
+    setproctitle
   ];
 
   strictDeps = false;
 
   buildInputs = [
-    python gtk3 at-spi2-atk at-spi2-core dbus gsettings-desktop-schemas
-    gst_all_1.gstreamer gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good
+    python
+    gtk3
+    at-spi2-atk
+    at-spi2-core
+    dbus
+    gsettings-desktop-schemas
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
   ];
 
   # Run intltoolize to create po/Makefile.in.in
@@ -49,14 +66,10 @@ buildPythonApplication rec {
     intltoolize
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/Orca;
+    homepage = "https://wiki.gnome.org/Projects/Orca";
     description = "Screen reader";
     longDescription = ''
       A free, open source, flexible and extensible screen reader that provides

@@ -1,12 +1,7 @@
-{ lib
-, pkgs
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-}:
+{ lib, pkgs, buildPythonPackage, fetchFromGitHub, pytest }:
 
 buildPythonPackage rec {
-  pname   = "DendroPy";
+  pname = "DendroPy";
   version = "4.4.0";
 
   # tests are incorrectly packaged in pypi version
@@ -30,7 +25,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://dendropy.org/;
+    homepage = "https://dendropy.org/";
     description = "A Python library for phylogenetic computing";
     maintainers = with lib.maintainers; [ unode ];
     license = lib.licenses.bsd3;

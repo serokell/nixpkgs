@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, autoreconfHook, pkgconfig, wrapGAppsHook
-, gtk2 ? null, gtk3 ? null, mednafen }:
+{ stdenv, fetchFromGitHub, makeWrapper, autoreconfHook, pkgconfig, wrapGAppsHook, gtk2 ?
+  null, gtk3 ? null, mednafen }:
 
 with stdenv.lib;
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "GTK-based frontend for mednafen emulator";
-    homepage = https://github.com/AmatCoder/mednaffe;
+    homepage = "https://github.com/AmatCoder/mednaffe";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sheenobu yegortimoshenko ];
     platforms = platforms.linux;

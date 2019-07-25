@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
-, doxygen, perl, valgrind
-, curl, geoip, libxml2, lmdb, lua, pcre, yajl }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, doxygen, perl, valgrind, curl, geoip, libxml2, lmdb, lua, pcre, yajl
+}:
 
 stdenv.mkDerivation rec {
   name = "libmodsecurity-${version}";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
       the ModSecurity SecRules format and apply them to HTTP content provided
       by your application via Connectors.
     '';
-    homepage = https://modsecurity.org/;
+    homepage = "https://modsecurity.org/";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ izorkin ];

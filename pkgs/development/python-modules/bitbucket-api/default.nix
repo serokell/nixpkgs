@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
-, requests_oauthlib, nose, sh }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, requests_oauthlib, nose, sh }:
 
 buildPythonPackage rec {
   pname = "bitbucket-api";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Sheeprider/BitBucket-api;
+    homepage = "https://github.com/Sheeprider/BitBucket-api";
     description = "Python library to interact with BitBucket REST API";
     license = licenses.mit;
   };

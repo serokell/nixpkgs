@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage , fetchPypi
-, pytest, jupyter_core, pandas }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, jupyter_core, pandas }:
 
 buildPythonPackage rec {
   pname = "vega";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
       jupyter nbextension install --user --py vega
       jupyter nbextension enable --user vega
     '';
-    homepage = https://github.com/vega/ipyvega;
+    homepage = "https://github.com/vega/ipyvega";
     license = licenses.bsd3;
     maintainers = with maintainers; [ teh ];
     platforms = platforms.unix;

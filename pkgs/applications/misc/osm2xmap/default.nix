@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, libroxml, proj, libyamlcpp, boost } :
+{ stdenv, fetchFromGitHub, libroxml, proj, libyamlcpp, boost }:
 
 stdenv.mkDerivation rec {
   name = "osm2xmap-${version}";
@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/sembruk/osm2xmap";
-    description = "Converter from OpenStreetMap data format to OpenOrienteering Mapper format.";
+    description =
+      "Converter from OpenStreetMap data format to OpenOrienteering Mapper format.";
     license = licenses.gpl3;
     maintainers = [ maintainers.mpickering ];
     platforms = with stdenv.lib.platforms; linux;

@@ -1,10 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, pcre
-, pkgconfig
-, check
-, autoreconfHook
-}:
+{ stdenv, fetchFromGitHub, pcre, pkgconfig, check, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "r3";
@@ -26,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A high-performance path dispatching library";
-    homepage = https://github.com/c9s/r3;
+    homepage = "https://github.com/c9s/r3";
     license = [ stdenv.lib.licenses.mit ];
   };
 

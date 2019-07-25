@@ -1,42 +1,42 @@
 /* List of NixOS maintainers.
 
-    handle = {
-      # Required
-      name = "Your name";
-      email = "address@example.org";
+     handle = {
+       # Required
+       name = "Your name";
+       email = "address@example.org";
 
-      # Optional
-      github = "GithubUsername";
-      keys = [{
-        longkeyid = "rsa2048/0x0123456789ABCDEF";
-        fingerprint = "AAAA BBBB CCCC DDDD EEEE  FFFF 0000 1111 2222 3333";
-      }];
-    };
+       # Optional
+       github = "GithubUsername";
+       keys = [{
+         longkeyid = "rsa2048/0x0123456789ABCDEF";
+         fingerprint = "AAAA BBBB CCCC DDDD EEEE  FFFF 0000 1111 2222 3333";
+       }];
+     };
 
-  where
+   where
 
-  - `handle` is the handle you are going to use in nixpkgs expressions,
-  - `name` is your, preferably real, name,
-  - `email` is your maintainer email address, and
-  - `github` is your GitHub handle (as it appears in the URL of your profile page, `https://github.com/<userhandle>`),
-  - `keys` is a list of your PGP/GPG key IDs and fingerprints.
+   - `handle` is the handle you are going to use in nixpkgs expressions,
+   - `name` is your, preferably real, name,
+   - `email` is your maintainer email address, and
+   - `github` is your GitHub handle (as it appears in the URL of your profile page, `https://github.com/<userhandle>`),
+   - `keys` is a list of your PGP/GPG key IDs and fingerprints.
 
-  `handle == github` is strongly preferred whenever `github` is an acceptable attribute name and is short and convenient.
+   `handle == github` is strongly preferred whenever `github` is an acceptable attribute name and is short and convenient.
 
-  Add PGP/GPG keys only if you actually use them to sign commits and/or mail.
+   Add PGP/GPG keys only if you actually use them to sign commits and/or mail.
 
-  To get the required PGP/GPG values for a key run
-  ```shell
-  gpg --keyid-format 0xlong --fingerprint <email> | head -n 2
-  ```
+   To get the required PGP/GPG values for a key run
+   ```shell
+   gpg --keyid-format 0xlong --fingerprint <email> | head -n 2
+   ```
 
-  !!! Note that PGP/GPG values stored here are for informational purposes only, don't use this file as a source of truth.
+   !!! Note that PGP/GPG values stored here are for informational purposes only, don't use this file as a source of truth.
 
-  More fields may be added in the future.
+   More fields may be added in the future.
 
-  Please keep the list alphabetically sorted.
-  See `./scripts/check-maintainer-github-handles.sh` for an example on how to work with this data.
-  */
+   Please keep the list alphabetically sorted.
+   See `./scripts/check-maintainer-github-handles.sh` for an example on how to work with this data.
+*/
 {
   "0x4A6F" = {
     email = "0x4A6F@shackspace.de";
@@ -67,10 +67,12 @@
     github = "aaronjanse";
     name = "Aaron Janse";
     keys = [
-      { longkeyid = "rsa2048/0x651BD4B37D75E234"; # Email only
+      {
+        longkeyid = "rsa2048/0x651BD4B37D75E234"; # Email only
         fingerprint = "490F 5009 34E7 20BD 4C53  96C2 651B D4B3 7D75 E234";
       }
-      { longkeyid = "rsa4096/0xBE6C92145BFF4A34"; # Git, etc
+      {
+        longkeyid = "rsa4096/0xBE6C92145BFF4A34"; # Git, etc
         fingerprint = "CED9 6DF4 63D7 B86A 1C4B  1322 BE6C 9214 5BFF 4A34";
       }
     ];
@@ -1153,10 +1155,12 @@
     github = "cypherpunk2140";
     name = "Ștefan D. Mihăilă";
     keys = [
-      { longkeyid = "rsa4096/6E68A39BF16A3ECB";
+      {
+        longkeyid = "rsa4096/6E68A39BF16A3ECB";
         fingerprint = "CBC9 C7CC 51F0 4A61 3901 C723 6E68 A39B F16A 3ECB";
       }
-      { longkeyid = "rsa4096/6220AD7846220A52";
+      {
+        longkeyid = "rsa4096/6220AD7846220A52";
         fingerprint = "7EAB 1447 5BBA 7DDE 7092 7276 6220 AD78 4622 0A52";
       }
     ];
@@ -1306,7 +1310,7 @@
     name = "Didier J. Devroye";
   };
   devhell = {
-    email = "\"^\"@regexmail.net";
+    email = ''"^"@regexmail.net'';
     github = "devhell";
     name = "devhell";
   };
@@ -1603,9 +1607,9 @@
     name = "Jack Kelly";
   };
   enorris = {
-      name = "Eric Norris";
-      email = "erictnorris@gmail.com";
-      github = "ericnorris";
+    name = "Eric Norris";
+    email = "erictnorris@gmail.com";
+    github = "ericnorris";
   };
   enzime = {
     email = "enzime@users.noreply.github.com";
@@ -2076,7 +2080,7 @@
     email = "commits@schurr.at";
     github = "hansjoergschurr";
     name = "Hans-Jörg Schurr";
-    };
+  };
   HaoZeke = {
     email = "r95g10@gmail.com";
     github = "haozeke";
@@ -2964,9 +2968,9 @@
     }];
   };
   luis = {
-      email = "luis.nixos@gmail.com";
-      github = "Luis-Hebendanz";
-      name = "Luis Hebendanz";
+    email = "luis.nixos@gmail.com";
+    github = "Luis-Hebendanz";
+    name = "Luis Hebendanz";
   };
   lionello = {
     email = "lio@lunesu.com";
@@ -3141,11 +3145,11 @@
     github = "marcweber";
     name = "Marc Weber";
   };
-	marenz = {
-		email = "marenz@arkom.men";
-		github = "marenz2569";
-		name = "Markus Schmidl";
-	};
+  marenz = {
+    email = "marenz@arkom.men";
+    github = "marenz2569";
+    name = "Markus Schmidl";
+  };
   markus1189 = {
     email = "markus1189@gmail.com";
     github = "markus1189";
@@ -3338,7 +3342,7 @@
     github = "mguentner";
     name = "Maximilian Güntner";
   };
-   mhaselsteiner = {
+  mhaselsteiner = {
     email = "magdalena.haselsteiner@gmx.at";
     github = "mhaselsteiner";
     name = "Magdalena Haselsteiner";
@@ -4149,11 +4153,10 @@
     email = "me@pradyuman.co";
     github = "pradyuman";
     name = "Pradyuman Vig";
-    keys = [
-      { longkeyid = "rsa4096/4F74D5361C4CA31E";
-        fingerprint = "240B 57DE 4271 2480 7CE3  EAC8 4F74 D536 1C4C A31E";
-      }
-    ];
+    keys = [{
+      longkeyid = "rsa4096/4F74D5361C4CA31E";
+      fingerprint = "240B 57DE 4271 2480 7CE3  EAC8 4F74 D536 1C4C A31E";
+    }];
   };
   prikhi = {
     email = "pavan.rikhi@gmail.com";
@@ -4165,10 +4168,12 @@
     github = "primeos";
     name = "Michael Weiss";
     keys = [
-      { longkeyid = "ed25519/0x130826A6C2A389FD"; # Git only
+      {
+        longkeyid = "ed25519/0x130826A6C2A389FD"; # Git only
         fingerprint = "86A7 4A55 07D0 58D1 322E  37FD 1308 26A6 C2A3 89FD";
       }
-      { longkeyid = "rsa3072/0xBCA9943DD1DF4C04"; # Email, etc.
+      {
+        longkeyid = "rsa3072/0xBCA9943DD1DF4C04"; # Email, etc.
         fingerprint = "AF85 991C C950 49A2 4205  1933 BCA9 943D D1DF 4C04";
       }
     ];
@@ -4599,9 +4604,9 @@
     name = "Sam Parkinson";
   };
   samrose = {
-   email = "samuel.rose@gmail.com";
-   github = "samrose";
-   name = "Sam Rose";
+    email = "samuel.rose@gmail.com";
+    github = "samrose";
+    name = "Sam Rose";
   };
   samueldr = {
     email = "samuel@dionne-riel.com";
@@ -5514,7 +5519,8 @@
   };
   vcunat = {
     name = "Vladimír Čunát";
-    email = "v@cunat.cz"; # vcunat@gmail.com predominated in commits before 2019/03
+    email =
+      "v@cunat.cz"; # vcunat@gmail.com predominated in commits before 2019/03
     github = "vcunat";
     keys = [{
       longkeyid = "rsa4096/0xE747DF1F9575A3AA";

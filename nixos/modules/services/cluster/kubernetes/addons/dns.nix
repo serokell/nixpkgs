@@ -18,11 +18,8 @@ in {
       description = "Dns addon clusterIP";
 
       # this default is also what kubernetes users
-      default = (
-        concatStringsSep "." (
-          take 3 (splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange
-        ))
-      ) + ".254";
+      default = (concatStringsSep "." (take 3 (splitString "."
+        config.services.kubernetes.apiserver.serviceClusterIpRange))) + ".254";
       type = types.str;
     };
 
@@ -55,7 +52,8 @@ in {
       type = types.attrs;
       default = {
         imageName = "coredns/coredns";
-        imageDigest = "sha256:e83beb5e43f8513fa735e77ffc5859640baea30a882a11cc75c4c3244a737d3c";
+        imageDigest =
+          "sha256:e83beb5e43f8513fa735e77ffc5859640baea30a882a11cc75c4c3244a737d3c";
         finalImageTag = version;
         sha256 = "15sbmhrxjxidj0j0cccn1qxpg6al175w43m6ngspl0mc132zqc9q";
       };
@@ -113,13 +111,11 @@ in {
           kind = "ClusterRole";
           name = "system:coredns";
         };
-        subjects = [
-          {
-            kind = "ServiceAccount";
-            name = "coredns";
-            namespace = "kube-system";
-          }
-        ];
+        subjects = [{
+          kind = "ServiceAccount";
+          name = "coredns";
+          namespace = "kube-system";
+        }];
       };
     };
 
@@ -151,21 +147,22 @@ in {
           namespace = "kube-system";
         };
         data = {
-          Corefile = ".:${toString ports.dns} {
-            errors
-            health :${toString ports.health}
-            kubernetes ${cfg.clusterDomain} in-addr.arpa ip6.arpa {
-              pods insecure
-              upstream
-              fallthrough in-addr.arpa ip6.arpa
-            }
-            prometheus :${toString ports.metrics}
-            forward . /etc/resolv.conf
-            cache 30
-            loop
-            reload
-            loadbalance
-          }";
+          Corefile = ''
+            .:${toString ports.dns} {
+                        errors
+                        health :${toString ports.health}
+                        kubernetes ${cfg.clusterDomain} in-addr.arpa ip6.arpa {
+                          pods insecure
+                          upstream
+                          fallthrough in-addr.arpa ip6.arpa
+                        }
+                        prometheus :${toString ports.metrics}
+                        forward . /etc/resolv.conf
+                        cache 30
+                        loop
+                        reload
+                        loadbalance
+                      }'';
         };
       };
 
@@ -184,83 +181,67 @@ in {
         };
         spec = {
           replicas = cfg.replicas;
-          selector = {
-            matchLabels = { k8s-app = "kube-dns"; };
-          };
+          selector = { matchLabels = { k8s-app = "kube-dns"; }; };
           strategy = {
             rollingUpdate = { maxUnavailable = 1; };
             type = "RollingUpdate";
           };
           template = {
-            metadata = {
-              labels = {
-                k8s-app = "kube-dns";
-              };
-            };
+            metadata = { labels = { k8s-app = "kube-dns"; }; };
             spec = {
-              containers = [
-                {
-                  args = [ "-conf" "/etc/coredns/Corefile" ];
-                  image = with cfg.coredns; "${imageName}:${finalImageTag}";
-                  imagePullPolicy = "Never";
-                  livenessProbe = {
-                    failureThreshold = 5;
-                    httpGet = {
-                      path = "/health";
-                      port = ports.health;
-                      scheme = "HTTP";
-                    };
-                    initialDelaySeconds = 60;
-                    successThreshold = 1;
-                    timeoutSeconds = 5;
+              containers = [{
+                args = [ "-conf" "/etc/coredns/Corefile" ];
+                image = with cfg.coredns; "${imageName}:${finalImageTag}";
+                imagePullPolicy = "Never";
+                livenessProbe = {
+                  failureThreshold = 5;
+                  httpGet = {
+                    path = "/health";
+                    port = ports.health;
+                    scheme = "HTTP";
                   };
-                  name = "coredns";
-                  ports = [
-                    {
-                      containerPort = ports.dns;
-                      name = "dns";
-                      protocol = "UDP";
-                    }
-                    {
-                      containerPort = ports.dns;
-                      name = "dns-tcp";
-                      protocol = "TCP";
-                    }
-                    {
-                      containerPort = ports.metrics;
-                      name = "metrics";
-                      protocol = "TCP";
-                    }
-                  ];
-                  resources = {
-                    limits = {
-                      memory = "170Mi";
-                    };
-                    requests = {
-                      cpu = "100m";
-                      memory = "70Mi";
-                    };
+                  initialDelaySeconds = 60;
+                  successThreshold = 1;
+                  timeoutSeconds = 5;
+                };
+                name = "coredns";
+                ports = [
+                  {
+                    containerPort = ports.dns;
+                    name = "dns";
+                    protocol = "UDP";
+                  }
+                  {
+                    containerPort = ports.dns;
+                    name = "dns-tcp";
+                    protocol = "TCP";
+                  }
+                  {
+                    containerPort = ports.metrics;
+                    name = "metrics";
+                    protocol = "TCP";
+                  }
+                ];
+                resources = {
+                  limits = { memory = "170Mi"; };
+                  requests = {
+                    cpu = "100m";
+                    memory = "70Mi";
                   };
-                  securityContext = {
-                    allowPrivilegeEscalation = false;
-                    capabilities = {
-                      drop = [ "all" ];
-                    };
-                    readOnlyRootFilesystem = true;
-                  };
-                  volumeMounts = [
-                    {
-                      mountPath = "/etc/coredns";
-                      name = "config-volume";
-                      readOnly = true;
-                    }
-                  ];
-                }
-              ];
+                };
+                securityContext = {
+                  allowPrivilegeEscalation = false;
+                  capabilities = { drop = [ "all" ]; };
+                  readOnlyRootFilesystem = true;
+                };
+                volumeMounts = [{
+                  mountPath = "/etc/coredns";
+                  name = "config-volume";
+                  readOnly = true;
+                }];
+              }];
               dnsPolicy = "Default";
-              nodeSelector = {
-                "beta.kubernetes.io/os" = "linux";
-              };
+              nodeSelector = { "beta.kubernetes.io/os" = "linux"; };
               serviceAccountName = "coredns";
               tolerations = [
                 {
@@ -272,20 +253,16 @@ in {
                   operator = "Exists";
                 }
               ];
-              volumes = [
-                {
-                  configMap = {
-                    items = [
-                      {
-                        key = "Corefile";
-                        path = "Corefile";
-                      }
-                    ];
-                    name = "coredns";
-                  };
-                  name = "config-volume";
-                }
-              ];
+              volumes = [{
+                configMap = {
+                  items = [{
+                    key = "Corefile";
+                    path = "Corefile";
+                  }];
+                  name = "coredns";
+                };
+                name = "config-volume";
+              }];
             };
           };
         };

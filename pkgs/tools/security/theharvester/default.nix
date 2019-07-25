@@ -14,7 +14,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   # add dependencies
-  propagatedBuildInputs = with python3Packages; [ requests beautifulsoup4 plotly ];
+  propagatedBuildInputs = with python3Packages; [
+    requests
+    beautifulsoup4
+    plotly
+  ];
 
   installPhase = ''
     # create dirs
@@ -31,7 +35,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Gather E-mails, subdomains and names from different public sources";
+    description =
+      "Gather E-mails, subdomains and names from different public sources";
     homepage = "https://github.com/laramies/theHarvester";
     platforms = platforms.all;
     maintainers = with maintainers; [ treemo ];

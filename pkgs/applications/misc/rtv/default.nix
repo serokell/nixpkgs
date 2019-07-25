@@ -19,26 +19,12 @@ buildPythonApplication rec {
     py.test
   '';
 
-  checkInputs = [
-    coverage
-    coveralls
-    docopt
-    mock
-    pylint
-    pytest
-    vcrpy
-  ];
+  checkInputs = [ coverage coveralls docopt mock pylint pytest vcrpy ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    decorator
-    kitchen
-    requests
-    six
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 decorator kitchen requests six ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/michael-lazar/rtv;
+    homepage = "https://github.com/michael-lazar/rtv";
     description = "Browse Reddit from your Terminal";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer wedens ];

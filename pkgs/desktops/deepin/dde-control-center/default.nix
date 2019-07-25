@@ -1,9 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, deepin, qttools, qtdeclarative,
- networkmanager, qtsvg, qtx11extras,  dtkcore, dtkwidget, geoip, gsettings-qt,
- dde-network-utils, networkmanager-qt, xorg, mtdev, fontconfig, freetype, dde-api,
- dde-daemon, qt5integration, deepin-desktop-base, deepin-desktop-schemas, dbus,
- systemd, dde-qt-dbus-factory, qtmultimedia, qtbase, glib, gnome3, which,
- substituteAll, wrapGAppsHook, tzdata
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, deepin, qttools, qtdeclarative, networkmanager, qtsvg, qtx11extras, dtkcore, dtkwidget, geoip, gsettings-qt, dde-network-utils, networkmanager-qt, xorg, mtdev, fontconfig, freetype, dde-api, dde-daemon, qt5integration, deepin-desktop-base, deepin-desktop-schemas, dbus, systemd, dde-qt-dbus-factory, qtmultimedia, qtbase, glib, gnome3, which, substituteAll, wrapGAppsHook, tzdata
 }:
 
 stdenv.mkDerivation rec {
@@ -18,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ip8wjwf0n9q8xnqymzh8lz0j5gcnns976n291np6k5kdh2wqhr5";
   };
 
-  nativeBuildInputs = [
-    cmake
-    deepin.setupHook
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake deepin.setupHook pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     dde-api
@@ -58,10 +48,7 @@ stdenv.mkDerivation rec {
     xorg.libxcb
   ];
 
-  cmakeFlags = [
-    "-DDISABLE_SYS_UPDATE=YES"
-    "-DDCC_DISABLE_GRUB=YES"
-  ];
+  cmakeFlags = [ "-DDISABLE_SYS_UPDATE=YES" "-DDCC_DISABLE_GRUB=YES" ];
 
   patches = [
     (substituteAll {
@@ -104,7 +91,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Control panel of Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/dde-control-center;
+    homepage = "https://github.com/linuxdeepin/dde-control-center";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo worldofpeace ];

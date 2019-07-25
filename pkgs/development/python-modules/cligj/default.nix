@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, click, pytest, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, click, pytest, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "cligj";
@@ -13,9 +11,7 @@ buildPythonPackage rec {
     sha256 = "13vlibbn86dhh6iy8k831vsa249746jnk419wcr9vvr3pqxml6g2";
   };
 
-  propagatedBuildInputs = [
-    click
-  ];
+  propagatedBuildInputs = [ click ];
 
   checkInputs = [ pytest glibcLocales ];
 
@@ -25,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Click params for commmand line interfaces to GeoJSON";
-    homepage = https://github.com/mapbox/cligj;
+    homepage = "https://github.com/mapbox/cligj";
     license = licenses.bsd3;
     maintainers = with maintainers; [ knedlsepp ];
   };

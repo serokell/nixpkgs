@@ -1,10 +1,10 @@
-{ stdenv, fetchurl, tcl, tk, libX11, glibc, which, yacc, flex, imake, xorgproto, gccmakedep }:
+{ stdenv, fetchurl, tcl, tk, libX11, glibc, which, yacc, flex, imake, xorgproto, gccmakedep
+}:
 
 let
   libiconvInc = stdenv.lib.optionalString stdenv.isLinux "${glibc.dev}/include";
   libiconvLib = stdenv.lib.optionalString stdenv.isLinux "${glibc.out}/lib";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "tkgate-1.8.7";
 
   src = fetchurl {
@@ -33,8 +33,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Event driven digital circuit simulator with a TCL/TK-based graphical editor";
-    homepage = http://www.tkgate.org/;
+    description =
+      "Event driven digital circuit simulator with a TCL/TK-based graphical editor";
+    homepage = "http://www.tkgate.org/";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [ stdenv.lib.maintainers.peti ];
     hydraPlatforms = stdenv.lib.platforms.linux;

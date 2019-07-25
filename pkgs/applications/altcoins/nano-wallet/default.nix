@@ -1,4 +1,4 @@
-{lib, stdenv, fetchFromGitHub, cmake, pkgconfig, boost, libGL, qtbase}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, boost, libGL, qtbase }:
 
 stdenv.mkDerivation rec {
 
@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   # Use a patch to force dynamic linking
-  patches = [
-    ./CMakeLists.txt.patch
-  ];
+  patches = [ ./CMakeLists.txt.patch ];
 
   cmakeFlags = let
     options = {
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
       Qt5Widgets_INCLUDE_DIRS = "${qtbase.dev}/include/QtWidgets";
     };
     optionToFlag = name: value: "-D${name}=${value}";
-  in lib.mapAttrsToList optionToFlag options;
+    in lib.mapAttrsToList optionToFlag options;
 
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ boost libGL qtbase ];
@@ -46,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = {
     inherit version;
     description = "Wallet for Nano cryptocurrency";
-    homepage = https://nano.org/en/wallet/;
+    homepage = "https://nano.org/en/wallet/";
     license = lib.licenses.bsd2;
     # Fails on Darwin. See:
     # https://github.com/NixOS/nixpkgs/pull/39295#issuecomment-386800962

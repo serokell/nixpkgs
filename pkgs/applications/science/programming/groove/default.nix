@@ -15,7 +15,9 @@ in stdenv.mkDerivation rec {
   version = "5.7.4";
 
   src = fetchurl {
-    url = "mirror://sourceforge/groove/groove/${version}/${pname}-${builtins.replaceStrings ["."] ["_"] version}-bin.zip";
+    url = "mirror://sourceforge/groove/groove/${version}/${pname}-${
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }-bin.zip";
     sha256 = "1cl3xzl3n8b9a7h5pvnv31bab9j9zaw07ppk8whk8h865dcq1d10";
   };
 
@@ -46,7 +48,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GRaphs for Object-Oriented VErification";
-    homepage = http://groove.cs.utwente.nl/;
+    homepage = "http://groove.cs.utwente.nl/";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ jfrankenau ];

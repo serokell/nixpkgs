@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, unittest2, lxml, robotframework
-}:
+{ stdenv, buildPythonPackage, fetchPypi, unittest2, lxml, robotframework }:
 
 buildPythonPackage rec {
   pname = "robotsuite";
@@ -21,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python unittest test suite for Robot Framework";
-    homepage = https://github.com/collective/robotsuite/;
+    homepage = "https://github.com/collective/robotsuite/";
     license = licenses.gpl3;
   };
 }

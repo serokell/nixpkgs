@@ -1,13 +1,12 @@
 { lib, fetchFromGitHub }:
 
-let
-  version = "3.0.1";
+let version = "3.0.1";
 in fetchFromGitHub {
   name = "material-icons-${version}";
 
-  owner  = "google";
-  repo   = "material-design-icons";
-  rev    = version;
+  owner = "google";
+  repo = "material-design-icons";
+  rev = version;
 
   postFetch = ''
     tar xf $downloadedFile --strip=1
@@ -18,7 +17,7 @@ in fetchFromGitHub {
 
   meta = with lib; {
     description = "System status icons by Google, featuring material design";
-    homepage = https://material.io/icons;
+    homepage = "https://material.io/icons";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ mpcsh ];

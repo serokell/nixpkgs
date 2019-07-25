@@ -19,7 +19,8 @@ buildGoPackage rec {
   buildFlagsArray = [ "-ldflags=" "-X main.versionString=${version}" ];
 
   meta = with stdenv.lib; {
-    description = "An authenticating proxy for Second Generation Google Cloud SQL databases";
+    description =
+      "An authenticating proxy for Second Generation Google Cloud SQL databases";
     homepage = "https://${goPackagePath}";
     license = licenses.asl20;
     maintainers = [ maintainers.nicknovitski ];

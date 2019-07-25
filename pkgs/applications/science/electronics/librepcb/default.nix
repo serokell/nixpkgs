@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qtbase ];
 
-  qmakeFlags = ["-r"];
+  qmakeFlags = [ "-r" ];
 
   postInstall = ''
-      mkdir -p $out/share/librepcb/fontobene
-      cp share/librepcb/fontobene/newstroke.bene $out/share/librepcb/fontobene/
-    '';
+    mkdir -p $out/share/librepcb/fontobene
+    cp share/librepcb/fontobene/newstroke.bene $out/share/librepcb/fontobene/
+  '';
 
   meta = with stdenv.lib; {
     description = "A free EDA software to develop printed circuit boards";
-    homepage = https://librepcb.org/;
+    homepage = "https://librepcb.org/";
     maintainers = with maintainers; [ luz ];
     license = licenses.gpl3;
     platforms = platforms.linux;

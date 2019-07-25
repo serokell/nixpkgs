@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, isPy3k, keyring, pbkdf2, pyaes}:
+{ lib, fetchPypi, buildPythonPackage, isPy3k, keyring, pbkdf2, pyaes }:
 buildPythonPackage rec {
   pname = "browser-cookie3";
   version = "0.6.4";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Loads cookies from your browser into a cookiejar object";
     maintainers = with maintainers; [ borisbabic ];
-    homepage = https://github.com/borisbabic/browser_cookie3;
+    homepage = "https://github.com/borisbabic/browser_cookie3";
     license = licenses.gpl3;
   };
 }

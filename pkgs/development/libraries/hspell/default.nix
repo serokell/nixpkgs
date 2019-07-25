@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "08x7rigq5pa1pfpl30qp353hbdkpadr1zc49slpczhsn0sg36pd6";
   };
 
-  patchPhase = ''patchShebangs .'';
+  patchPhase = "patchShebangs .";
   buildInputs = [ perl zlib ];
 
   meta = with stdenv.lib; {
     description = "Hebrew spell checker";
-    homepage = http://hspell.ivrix.org.il/;
+    homepage = "http://hspell.ivrix.org.il/";
     platforms = platforms.all;
     license = licenses.gpl2;
   };

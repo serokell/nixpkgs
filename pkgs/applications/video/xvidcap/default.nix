@@ -1,12 +1,11 @@
-{ stdenv, fetchurl, perlPackages, pkgconfig, gtk2
-, scrollkeeper, libglade, libXmu, libX11, libXext, gettext
-, lame, libXfixes, libXdamage }:
+{ stdenv, fetchurl, perlPackages, pkgconfig, gtk2, scrollkeeper, libglade, libXmu, libX11, libXext, gettext, lame, libXfixes, libXdamage
+}:
 
 stdenv.mkDerivation {
   name = "xvidcap-1.1.7";
 
   src = fetchurl {
-    url = mirror://sourceforge/xvidcap/xvidcap-1.1.7.tar.gz;
+    url = "mirror://sourceforge/xvidcap/xvidcap-1.1.7.tar.gz";
     sha256 = "0p8rhpyhxgy37crf1xk1046z4p663jg7ww776jw92pld3s024ihm";
   };
 
@@ -14,8 +13,16 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    gtk2 scrollkeeper
-    libglade libXmu gettext lame libXdamage libXfixes libXext libX11
+    gtk2
+    scrollkeeper
+    libglade
+    libXmu
+    gettext
+    lame
+    libXdamage
+    libXfixes
+    libXext
+    libX11
   ] ++ (with perlPackages; [ perl XMLParser ]);
 
   # !!! don't know why this is necessary
@@ -23,7 +30,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Screencast video catpuring tool";
-    homepage = http://xvidcap.sourceforge.net/;
+    homepage = "http://xvidcap.sourceforge.net/";
     license = stdenv.lib.licenses.gpl2;
     platforms = platforms.linux;
   };

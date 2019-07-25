@@ -1,26 +1,23 @@
 { stdenv, fetchbzr, xlibsWrapper }:
 
-let
-  version = "4";
-in
-stdenv.mkDerivation {
+let version = "4";
+in stdenv.mkDerivation {
   name = "xwinwrap-${version}";
 
   src = fetchbzr {
-    url = https://code.launchpad.net/~shantanu-goel/xwinwrap/devel;
+    url = "https://code.launchpad.net/~shantanu-goel/xwinwrap/devel";
     rev = version;
     sha256 = "1annhqc71jcgx5zvcy31c1c488ygx4q1ygrwyy2y0ww743smbchw";
   };
 
-  buildInputs = [
-    xlibsWrapper
-  ];
+  buildInputs = [ xlibsWrapper ];
 
   buildPhase = if stdenv.hostPlatform.system == "x86_64-linux" then ''
     make all64
   '' else if stdenv.hostPlatform.system == "i686-linux" then ''
     make all32
-  '' else throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}";
+  '' else
+    throw "xwinwrap is not supported on ${stdenv.hostPlatform.system}";
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,7 +25,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "A utility that allows you to use an animated X window as the wallpaper";
+    description =
+      "A utility that allows you to use an animated X window as the wallpaper";
     longDescription = ''
       XWinWrap is a small utility written a loooong time ago that allowed you to
       stick most of the apps to your desktop background. What this meant was you
@@ -47,7 +45,7 @@ stdenv.mkDerivation {
       it is, in its new avatar “Shantz XWinWrap”.
     '';
     license = licenses.hpnd;
-    homepage = https://shantanugoel.com/2008/09/03/shantz-xwinwrap/;
+    homepage = "https://shantanugoel.com/2008/09/03/shantz-xwinwrap/";
     maintainers = with maintainers; [ infinisil ];
     platforms = platforms.linux;
   };

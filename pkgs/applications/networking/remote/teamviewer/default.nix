@@ -1,12 +1,13 @@
-{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, xdg_utils, dbus, qtbase, qtwebkit, qtx11extras, qtquickcontrols, glibc, libXrandr, libX11 }:
-
+{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, xdg_utils, dbus, qtbase, qtwebkit, qtx11extras, qtquickcontrols, glibc, libXrandr, libX11
+}:
 
 stdenv.mkDerivation rec {
   name = "teamviewer-${version}";
   version = "14.4.2669";
 
   src = fetchurl {
-    url = "https://dl.tvcdn.de/download/linux/version_14x/teamviewer_${version}_amd64.deb";
+    url =
+      "https://dl.tvcdn.de/download/linux/version_14x/teamviewer_${version}_amd64.deb";
     sha256 = "0vk782xpp8plbaz8cfggp0jrw7n8d5p9lv605pzmgxyq5h8z72za";
   };
 
@@ -41,16 +42,21 @@ stdenv.mkDerivation rec {
       --replace '/lib64/ld-linux-x86-64.so.2' '${glibc.out}/lib/ld-linux-x86-64.so.2'
     substituteInPlace $out/share/teamviewer/tv_bin/script/tvw_config \
       --replace '/var/run/' '/run/'
-    wrapProgram $out/share/teamviewer/tv_bin/script/teamviewer --prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ libXrandr libX11 ]}"
-    wrapProgram $out/share/teamviewer/tv_bin/teamviewerd --prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ libXrandr libX11 ]}"
+    wrapProgram $out/share/teamviewer/tv_bin/script/teamviewer --prefix LD_LIBRARY_PATH : "${
+      stdenv.lib.makeLibraryPath [ libXrandr libX11 ]
+    }"
+    wrapProgram $out/share/teamviewer/tv_bin/teamviewerd --prefix LD_LIBRARY_PATH : "${
+      stdenv.lib.makeLibraryPath [ libXrandr libX11 ]
+    }"
   '';
 
   dontStrip = true;
 
   meta = with stdenv.lib; {
-    homepage = http://www.teamviewer.com;
+    homepage = "http://www.teamviewer.com";
     license = licenses.unfree;
-    description = "Desktop sharing application, providing remote support and online meetings";
+    description =
+      "Desktop sharing application, providing remote support and online meetings";
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ jagajaga dasuxullebt ];
   };

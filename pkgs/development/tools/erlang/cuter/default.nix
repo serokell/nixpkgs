@@ -1,5 +1,5 @@
-{ stdenv, autoreconfHook, which, writeText, makeWrapper, fetchFromGitHub, erlang
-, z3, python }:
+{ stdenv, autoreconfHook, which, writeText, makeWrapper, fetchFromGitHub, erlang, z3, python
+}:
 
 stdenv.mkDerivation rec {
   name = "cuter-${version}";
@@ -37,9 +37,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A concolic testing tool for the Erlang functional programming language";
+    description =
+      "A concolic testing tool for the Erlang functional programming language";
     license = stdenv.lib.licenses.gpl3;
-    homepage = https://github.com/aggelgian/cuter;
+    homepage = "https://github.com/aggelgian/cuter";
     maintainers = with stdenv.lib.maintainers; [ ericbmerritt ];
     platforms = with stdenv.lib.platforms; unix;
   };

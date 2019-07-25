@@ -1,8 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, perl
-, libtool
-}:
+{ stdenv, fetchFromGitHub, perl, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "libvterm-neovim";
@@ -25,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "VT220/xterm/ECMA-48 terminal emulator library";
-    homepage = http://www.leonerd.org.uk/code/libvterm/;
+    homepage = "http://www.leonerd.org.uk/code/libvterm/";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, libyamlcpp, systemd
-, python3Packages, asciidoc, libxslt, docbook_xml_dtd_45, docbook_xsl
-, libxml2, docbook5
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, libyamlcpp, systemd, python3Packages, asciidoc, libxslt, docbook_xml_dtd_45, docbook_xsl, libxml2, docbook5
 }:
 
 stdenv.mkDerivation rec {
@@ -15,8 +13,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig asciidoc libxslt.bin docbook_xml_dtd_45 docbook_xsl
-    libxml2.bin docbook5 python3Packages.pytest python3Packages.pytest-timeout
+    meson
+    ninja
+    pkgconfig
+    asciidoc
+    libxslt.bin
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxml2.bin
+    docbook5
+    python3Packages.pytest
+    python3Packages.pytest-timeout
     systemd
   ];
 
@@ -37,7 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/nixcloud/ip2unix;
+    homepage = "https://github.com/nixcloud/ip2unix";
     description = "Turn IP sockets into Unix domain sockets";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.lgpl3;

@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3
-, ninja, vala, gtk3, granite, bamf, libgtop, udev, wingpanel
-, libgee, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala, gtk3, granite, bamf, libgtop, udev, wingpanel, libgee, elementary-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-power";
@@ -13,33 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "02gp9m9zkmhcl43nz02kjkcim4zm25zab3il8dhwkihh731g1c6j";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig python3 vala wrapGAppsHook ];
 
-  buildInputs = [
-    bamf
-    elementary-icon-theme
-    granite
-    gtk3
-    libgee
-    libgtop
-    udev
-    wingpanel
-  ];
+  buildInputs =
+    [ bamf elementary-icon-theme granite gtk3 libgee libgtop udev wingpanel ];
 
-  PKG_CONFIG_WINGPANEL_2_0_INDICATORSDIR = "${placeholder ''out''}/lib/wingpanel";
+  PKG_CONFIG_WINGPANEL_2_0_INDICATORSDIR = "${placeholder "out"}/lib/wingpanel";
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -48,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Power Indicator for Wingpanel";
-    homepage = https://github.com/elementary/wingpanel-indicator-power;
+    homepage = "https://github.com/elementary/wingpanel-indicator-power";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

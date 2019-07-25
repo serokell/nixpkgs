@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig
-, openssl ? null, libpcap ? null
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, openssl ? null, libpcap ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -19,9 +17,8 @@ stdenv.mkDerivation rec {
   # libsrtp.pc references -lcrypto -lpcap without -L
   propagatedBuildInputs = [ openssl libpcap ];
 
-  configureFlags = [
-    "--disable-debug"
-  ] ++ optional (openssl != null) "--enable-openssl";
+  configureFlags = [ "--disable-debug" ]
+    ++ optional (openssl != null) "--enable-openssl";
 
   buildFlags = [ "shared_library" ];
 
@@ -30,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/cisco/libsrtp;
+    homepage = "https://github.com/cisco/libsrtp";
     description = "Secure RTP (SRTP) Reference Implementation";
     license = licenses.bsd3;
     platforms = platforms.all;

@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, gcc
-, wirelesstools
-, isPy27
-, isPyPy
-}:
+{ lib, buildPythonPackage, fetchPypi, gcc, wirelesstools, isPy27, isPyPy }:
 
 buildPythonPackage rec {
   pname = "basiciw";
@@ -23,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Get info about wireless interfaces using libiw";
-    homepage = https://github.com/enkore/basiciw;
+    homepage = "https://github.com/enkore/basiciw";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2;
   };

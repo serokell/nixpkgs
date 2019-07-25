@@ -4,11 +4,9 @@
 # qualche cambiamento negli header .h
 # TODO: compilazione di moduli dipendenti da zip, ssl, tcl, gtk, gtk2
 
-let
-  pname = "ocaml-mysql";
-in
+let pname = "ocaml-mysql";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "1.2.1";
 
@@ -17,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "06mb2bq7v37wn0lza61917zqgb4bsg1xxb73myjyn88p6khl6yl2";
   };
 
-  configureFlags = [ 
-     "--prefix=$out" 
-     "--libdir=$out/lib/ocaml/${ocaml.version}/site-lib/mysql"
+  configureFlags = [
+    "--prefix=$out"
+    "--libdir=$out/lib/ocaml/${ocaml.version}/site-lib/mysql"
   ];
 
   buildInputs = [ ocaml findlib ];
@@ -30,13 +28,14 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/ygrek/ocaml-mysql/compare/v1.2.1...d6d1b3b262ae2cf493ef56f1dd7afcf663a70a26.patch";
+      url =
+        "https://github.com/ygrek/ocaml-mysql/compare/v1.2.1...d6d1b3b262ae2cf493ef56f1dd7afcf663a70a26.patch";
       sha256 = "0018s2wcrvbsw9yaqmwq500qmikwffrgdp5xg9b8v7ixhd4gi6hn";
     })
   ];
 
   meta = {
-    homepage = http://ocaml-mysql.forge.ocamlcore.org;
+    homepage = "http://ocaml-mysql.forge.ocamlcore.org";
     description = "Bindings for interacting with MySQL databases from ocaml";
     license = stdenv.lib.licenses.lgpl21Plus;
     maintainers = [ stdenv.lib.maintainers.roconnor ];

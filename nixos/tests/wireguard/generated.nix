@@ -1,8 +1,6 @@
-import ../make-test.nix ({ pkgs, ...} : {
+import ../make-test.nix ({ pkgs, ... }: {
   name = "wireguard-generated";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ ma27 grahamc ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ma27 grahamc ]; };
 
   nodes = {
     peer1 = {

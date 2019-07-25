@@ -7,7 +7,5 @@ stdenv.mkDerivation {
 
   inherit mysql_jdbc;
 
-  meta = {
-    platforms = stdenv.lib.platforms.unix;
-  };
+  meta = { platforms = stdenv.lib.platforms.unix; };
 }

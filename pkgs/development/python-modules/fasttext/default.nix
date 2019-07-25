@@ -1,4 +1,4 @@
-{stdenv, buildPythonPackage, fetchFromGitHub, numpy, pybind11}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, pybind11 }:
 
 buildPythonPackage rec {
   pname = "fasttext";
@@ -20,8 +20,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Python module for text classification and representation learning";
-    homepage = https://fasttext.cc/;
+    description =
+      "Python module for text classification and representation learning";
+    homepage = "https://fasttext.cc/";
     license = licenses.mit;
     maintainers = with maintainers; [ danieldk ];
   };

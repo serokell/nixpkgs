@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "retry_decorator";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pnpnpn/retry-decorator;
+    homepage = "https://github.com/pnpnpn/retry-decorator";
     description = "Retry Decorator for python functions";
     license = licenses.mit;
   };

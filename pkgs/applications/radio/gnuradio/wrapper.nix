@@ -1,6 +1,8 @@
-{ stdenv, gnuradio, makeWrapper, python, extraPackages ? [] }:
+{ stdenv, gnuradio, makeWrapper, python, extraPackages ? [ ] }:
 
-with { inherit (stdenv.lib) appendToName makeSearchPath; };
+with {
+  inherit (stdenv.lib) appendToName makeSearchPath;
+};
 
 stdenv.mkDerivation {
   name = (appendToName "with-packages" gnuradio).name;
@@ -13,9 +15,13 @@ stdenv.mkDerivation {
     for file in $(find -L $out/bin -type f); do
         if test -x "$(readlink -f "$file")"; then
             wrapProgram "$file" \
-                --prefix PYTHONPATH : ${stdenv.lib.concatStringsSep ":"
-                                         (map (path: "$(toPythonPath ${path})") extraPackages)} \
-                --prefix GRC_BLOCKS_PATH : ${makeSearchPath "share/gnuradio/grc/blocks" extraPackages}
+                --prefix PYTHONPATH : ${
+      stdenv.lib.concatStringsSep ":"
+      (map (path: "$(toPythonPath ${path})") extraPackages)
+                } \
+                --prefix GRC_BLOCKS_PATH : ${
+      makeSearchPath "share/gnuradio/grc/blocks" extraPackages
+                }
         fi
     done
   '';

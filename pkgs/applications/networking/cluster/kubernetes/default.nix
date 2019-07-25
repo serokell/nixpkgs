@@ -1,15 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, removeReferencesTo, which, go, go-bindata, makeWrapper, rsync
-, components ? [
-    "cmd/kubeadm"
-    "cmd/kubectl"
-    "cmd/kubelet"
-    "cmd/kube-apiserver"
-    "cmd/kube-controller-manager"
-    "cmd/kube-proxy"
-    "cmd/kube-scheduler"
-    "test/e2e/e2e.test"
-  ]
-}:
+{ stdenv, lib, fetchFromGitHub, removeReferencesTo, which, go, go-bindata, makeWrapper, rsync, components ? [
+  "cmd/kubeadm"
+  "cmd/kubectl"
+  "cmd/kubelet"
+  "cmd/kube-apiserver"
+  "cmd/kube-controller-manager"
+  "cmd/kube-proxy"
+  "cmd/kube-scheduler"
+  "test/e2e/e2e.test"
+] }:
 
 with lib;
 
@@ -26,7 +24,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ removeReferencesTo makeWrapper which go rsync go-bindata ];
 
-  outputs = ["out" "man" "pause"];
+  outputs = [ "out" "man" "pause" ];
 
   postPatch = ''
     substituteInPlace "hack/lib/golang.sh" --replace "_cgo" ""
@@ -38,7 +36,7 @@ stdenv.mkDerivation rec {
     patchShebangs ./hack
   '';
 
-  WHAT="${concatStringsSep " " components}";
+  WHAT = "${concatStringsSep " " components}";
 
   postBuild = ''
     ./hack/update-generated-docs.sh
@@ -70,8 +68,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Production-Grade Container Scheduling and Management";
     license = licenses.asl20;
-    homepage = https://kubernetes.io;
-    maintainers = with maintainers; [johanot offline];
+    homepage = "https://kubernetes.io";
+    maintainers = with maintainers; [ johanot offline ];
     platforms = platforms.unix;
   };
 }

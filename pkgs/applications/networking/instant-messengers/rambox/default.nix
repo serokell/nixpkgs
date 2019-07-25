@@ -1,16 +1,12 @@
-{ stdenv, newScope, makeWrapper
-, electron, xdg_utils, makeDesktopItem
-, auth0ClientID ? "0spuNKfIGeLAQ_Iki9t3fGxbfJl3k8SU"
-, auth0Domain ? "nixpkgs.auth0.com" }:
+{ stdenv, newScope, makeWrapper, electron, xdg_utils, makeDesktopItem, auth0ClientID ?
+  "0spuNKfIGeLAQ_Iki9t3fGxbfJl3k8SU", auth0Domain ? "nixpkgs.auth0.com" }:
 
 let
   callPackage = newScope self;
   self = {
-    fetchNodeModules = callPackage ./fetchNodeModules.nix {};
-    rambox-bare = callPackage ./bare.nix {
-      inherit auth0ClientID auth0Domain;
-    };
-    sencha = callPackage ./sencha {};
+    fetchNodeModules = callPackage ./fetchNodeModules.nix { };
+    rambox-bare = callPackage ./bare.nix { inherit auth0ClientID auth0Domain; };
+    sencha = callPackage ./sencha { };
   };
   desktopItem = makeDesktopItem rec {
     name = "Rambox";
@@ -20,9 +16,8 @@ let
     genericName = "Rambox messenger";
     categories = "Network;";
   };
-in
 
-with self;
+in with self;
 
 stdenv.mkDerivation {
   name = "rambox-${rambox-bare.version}";
@@ -46,7 +41,6 @@ stdenv.mkDerivation {
       --prefix PATH : ${xdg_utils}/bin
   '';
 
-  inherit (rambox-bare.meta // {
-    platforms = [ "i686-linux" "x86_64-linux" ];
-  });
+  inherit (rambox-bare.meta // { platforms = [ "i686-linux" "x86_64-linux" ]; })
+  ;
 }

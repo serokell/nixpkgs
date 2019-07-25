@@ -8,9 +8,7 @@ let
 
   configFile = cfg.configFile;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -42,34 +40,30 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.searx.enable {
 
-    users.users.searx =
-      { uid = config.ids.uids.searx;
-        description = "Searx user";
-        createHome = true;
-        home = "/var/lib/searx";
-      };
+    users.users.searx = {
+      uid = config.ids.uids.searx;
+      description = "Searx user";
+      createHome = true;
+      home = "/var/lib/searx";
+    };
 
-    users.groups.searx =
-      { gid = config.ids.gids.searx;
-      };
+    users.groups.searx = { gid = config.ids.gids.searx; };
 
-    systemd.services.searx =
-      {
-        description = "Searx server, the meta search engine.";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          User = "searx";
-          ExecStart = "${cfg.package}/bin/searx-run";
-        };
-      } // (optionalAttrs (configFile != null) {
-        environment.SEARX_SETTINGS_PATH = configFile;
-      });
+    systemd.services.searx = {
+      description = "Searx server, the meta search engine.";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "searx";
+        ExecStart = "${cfg.package}/bin/searx-run";
+      };
+    } // (optionalAttrs (configFile != null) {
+      environment.SEARX_SETTINGS_PATH = configFile;
+    });
 
     environment.systemPackages = [ cfg.package ];
 

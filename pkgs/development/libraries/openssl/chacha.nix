@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, perl, zlib
-, withCryptodev ? false, cryptodev
-}:
+{ stdenv, fetchFromGitHub, perl, zlib, withCryptodev ? false, cryptodev }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -37,9 +35,7 @@ stdenv.mkDerivation rec {
     "-DUSE_CRYPTODEV_DIGESTS"
   ];
 
-  makeFlags = [
-    "MANDIR=$(man)/share/man"
-  ];
+  makeFlags = [ "MANDIR=$(man)/share/man" ];
 
   # Parallel building is broken in OpenSSL.
   enableParallelBuilding = false;
@@ -72,8 +68,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.openssl.org/;
-    description = "A cryptographic library that implements the SSL and TLS protocols";
+    homepage = "https://www.openssl.org/";
+    description =
+      "A cryptographic library that implements the SSL and TLS protocols";
     platforms = [ "x86_64-linux" ];
     maintainers = [ stdenv.lib.maintainers.cstrahan ];
     license = licenses.openssl;

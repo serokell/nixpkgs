@@ -14,8 +14,9 @@ buildPythonApplication rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A tiny command line utility to download media contents from the web";
-    homepage = https://you-get.org;
+    description =
+      "A tiny command line utility to download media contents from the web";
+    homepage = "https://you-get.org";
     license = licenses.mit;
     maintainers = with maintainers; [ ryneeverett ];
     platforms = platforms.all;

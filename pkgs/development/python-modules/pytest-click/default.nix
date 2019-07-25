@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, click
-, pytestcov
-, isPy27
-, mock
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, click, pytestcov, isPy27, mock
 }:
 
 buildPythonPackage rec {
@@ -24,16 +17,13 @@ buildPythonPackage rec {
       --replace "mock==1.0.1" "mock"
   '';
 
-  propagatedBuildInputs = [
-    pytest
-    click
-  ];
+  propagatedBuildInputs = [ pytest click ];
 
   checkInputs = [ pytestcov ] ++ lib.optionals isPy27 [ mock ];
 
   meta = with lib; {
     description = "pytest plugin for click";
-    homepage = https://github.com/Stranger6667/pytest-click;
+    homepage = "https://github.com/Stranger6667/pytest-click";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,11 +1,13 @@
-{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtscript, qtsensors, qtwebkit, openssl, xkeyboard_config, wrapQtAppsHook }:
+{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtscript, qtsensors, qtwebkit, openssl, xkeyboard_config, wrapQtAppsHook
+}:
 
 stdenv.mkDerivation rec {
   name = "p4v-${version}";
   version = "2017.3.1601999";
 
   src = fetchurl {
-    url = "https://cdist2.perforce.com/perforce/r17.3/bin.linux26x86_64/p4v.tgz";
+    url =
+      "https://cdist2.perforce.com/perforce/r17.3/bin.linux26x86_64/p4v.tgz";
     sha256 = "9ded42683141e1808535ec3e87d3149f890315c192d6e97212794fd54862b9a4";
   };
 
@@ -13,13 +15,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ wrapQtAppsHook ];
 
   ldLibraryPath = lib.makeLibraryPath [
-      stdenv.cc.cc.lib
-      qtbase
-      qtmultimedia
-      qtscript
-      qtsensors
-      qtwebkit
-      openssl
+    stdenv.cc.cc.lib
+    qtbase
+    qtmultimedia
+    qtscript
+    qtsensors
+    qtwebkit
+    openssl
   ];
 
   dontWrapQtApps = true;
@@ -40,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Perforce Visual Client";
-    homepage = https://www.perforce.com;
+    homepage = "https://www.perforce.com";
     license = stdenv.lib.licenses.unfreeRedistributable;
     platforms = [ "x86_64-linux" ];
     maintainers = [ stdenv.lib.maintainers.nioncode ];

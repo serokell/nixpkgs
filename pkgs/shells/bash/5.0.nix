@@ -1,10 +1,8 @@
-{ stdenv, buildPackages
-, fetchurl, binutils ? null, bison, utillinux
+{ stdenv, buildPackages, fetchurl, binutils ? null, bison, utillinux
 
 # patch for cygwin requires readline support
-, interactive ? stdenv.isCygwin, readline80 ? null
-, withDocs ? false, texinfo ? null
-}:
+, interactive ? stdenv.isCygwin, readline80 ? null, withDocs ? false, texinfo ?
+  null }:
 
 with stdenv.lib;
 
@@ -13,14 +11,16 @@ assert withDocs -> texinfo != null;
 assert stdenv.hostPlatform.isDarwin -> binutils != null;
 
 let
-  upstreamPatches = import ./bash-5.0-patches.nix (nr: sha256: fetchurl {
-    url = "mirror://gnu/bash/bash-5.0-patches/bash50-${nr}";
-    inherit sha256;
-  });
-in
+  upstreamPatches = import ./bash-5.0-patches.nix (nr: sha256:
+    fetchurl {
+      url = "mirror://gnu/bash/bash-5.0-patches/bash50-${nr}";
+      inherit sha256;
+    });
 
-stdenv.mkDerivation rec {
-  name = "bash-${optionalString interactive "interactive-"}${version}-p${toString (builtins.length upstreamPatches)}";
+in stdenv.mkDerivation rec {
+  name = "bash-${optionalString interactive "interactive-"}${version}-p${
+    toString (builtins.length upstreamPatches)
+  }";
   version = "5.0";
 
   src = fetchurl {
@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
 
   # Note: Bison is needed because the patches above modify parse.y.
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ bison ]
-    ++ optional withDocs texinfo
+  nativeBuildInputs = [ bison ] ++ optional withDocs texinfo
     ++ optional stdenv.hostPlatform.isDarwin binutils;
 
   buildInputs = optional interactive readline80;
@@ -86,21 +85,19 @@ stdenv.mkDerivation rec {
     rm -f $out/lib/bash/Makefile.inc
   '';
 
-  postFixup = if interactive
-    then ''
-      substituteInPlace "$out/bin/bashbug" \
-        --replace '${stdenv.shell}' "$out/bin/bash"
-    ''
-    # most space is taken by locale data
-    else ''
-      rm -rf "$out/share" "$out/bin/bashbug"
-    '';
+  postFixup = if interactive then ''
+    substituteInPlace "$out/bin/bashbug" \
+      --replace '${stdenv.shell}' "$out/bin/bash"
+  ''
+  # most space is taken by locale data
+  else ''
+    rm -rf "$out/share" "$out/bin/bashbug"
+  '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/bash/;
-    description =
-      "GNU Bourne-Again Shell, the de facto standard shell on Linux" +
-        (if interactive then " (for interactive use)" else "");
+    homepage = "https://www.gnu.org/software/bash/";
+    description = "GNU Bourne-Again Shell, the de facto standard shell on Linux"
+      + (if interactive then " (for interactive use)" else "");
 
     longDescription = ''
       Bash is the shell, or command language interpreter, that will
@@ -120,7 +117,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ peti dtzWill ];
   };
 
-  passthru = {
-    shellPath = "/bin/bash";
-  };
+  passthru = { shellPath = "/bin/bash"; };
 }

@@ -1,6 +1,5 @@
 { stdenv, fetchzip, coreutils, perl, gnutar, gzip }:
-let
-  version = "6M62";
+let version = "6M62";
 in stdenv.mkDerivation {
   name = "inform7-${version}";
   buildInputs = [ perl coreutils gnutar gzip ];
@@ -22,7 +21,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "A design system for interactive fiction.";
-    homepage = http://inform7.com/;
+    homepage = "http://inform7.com/";
     license = licenses.artistic2;
     maintainers = with maintainers; [ mbbx6spp ];
     platforms = platforms.unix;

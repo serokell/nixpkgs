@@ -1,14 +1,15 @@
 { stdenv, fetchurl, xercesc }:
 let
-    major = "1.9";
-    minor = "0";
-in
-with stdenv; with lib;
+  major = "1.9";
+  minor = "0";
+in with stdenv;
+with lib;
 mkDerivation rec {
   name = "libcutl-${major}.${minor}";
 
   meta = {
-    description = "A collection of generic and independent components such as meta-programming tests, smart pointers, containers, compiler building blocks" ;
+    description =
+      "A collection of generic and independent components such as meta-programming tests, smart pointers, containers, compiler building blocks";
     platforms = platforms.all;
     maintainers = with maintainers; [ ];
     license = licenses.mit;

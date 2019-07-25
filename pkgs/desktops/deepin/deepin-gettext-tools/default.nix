@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "03cwa82dd14a31v44jd3z0kpiri6g21ar4f48s8ph78nvjy55880";
   };
 
-  nativeBuildInputs = [
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ python3Packages.wrapPython ];
 
   buildInputs = [
     gettext
@@ -24,7 +22,7 @@ stdenv.mkDerivation rec {
     python3Packages.python
   ];
 
-  makeFlags = [ "PREFIX=${placeholder ''out''}" ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postPatch = ''
     sed -e 's/sudo cp/cp/' -i src/generate_mo.py
@@ -40,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin Internationalization utilities";
-    homepage = https://github.com/linuxdeepin/deepin-gettext-tools;
+    homepage = "https://github.com/linuxdeepin/deepin-gettext-tools";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

@@ -7,9 +7,9 @@ let
       inherit version;
 
       src = fetchFromGitHub {
-        owner  = "gabime";
-        repo   = "spdlog";
-        rev    = "v${version}";
+        owner = "gabime";
+        repo = "spdlog";
+        rev = "v${version}";
         inherit sha256;
       };
 
@@ -25,15 +25,14 @@ let
       '';
 
       meta = with stdenv.lib; {
-        description    = "Very fast, header only, C++ logging library.";
-        homepage       = https://github.com/gabime/spdlog;
-        license        = licenses.mit;
-        maintainers    = with maintainers; [ obadz ];
-        platforms      = platforms.all;
+        description = "Very fast, header only, C++ logging library.";
+        homepage = "https://github.com/gabime/spdlog";
+        license = licenses.mit;
+        maintainers = with maintainers; [ obadz ];
+        platforms = platforms.all;
       };
     };
-in
-{
+in {
   spdlog_1 = generic {
     version = "1.3.1";
     sha256 = "1rd4zmrlkcdjx0m0wpmjm1g9srj7jak6ai08qkhbn2lsn0niifzd";

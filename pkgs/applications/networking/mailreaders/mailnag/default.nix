@@ -1,13 +1,8 @@
-{ stdenv, fetchurl, gettext, gtk3, pythonPackages
-, gdk_pixbuf, libnotify, gst_all_1
-, libgnome-keyring3
-, wrapGAppsHook, gnome3
+{ stdenv, fetchurl, gettext, gtk3, pythonPackages, gdk_pixbuf, libnotify, gst_all_1, libgnome-keyring3, wrapGAppsHook, gnome3
 # otherwise passwords are stored unencrypted
-, withGnomeKeyring ? true
-}:
+, withGnomeKeyring ? true }:
 
-let
-  inherit (pythonPackages) python;
+let inherit (pythonPackages) python;
 in pythonPackages.buildPythonApplication rec {
   name = "mailnag-${version}";
   version = "1.3.0";
@@ -18,20 +13,19 @@ in pythonPackages.buildPythonApplication rec {
   };
 
   buildInputs = [
-    gtk3 gdk_pixbuf libnotify gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good
+    gtk3
+    gdk_pixbuf
+    libnotify
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gnome3.adwaita-icon-theme
   ] ++ stdenv.lib.optional withGnomeKeyring libgnome-keyring3;
 
-  nativeBuildInputs = [
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext wrapGAppsHook ];
 
-  propagatedBuildInputs = with pythonPackages; [
-    pygobject3 dbus-python pyxdg
-  ];
+  propagatedBuildInputs = with pythonPackages; [ pygobject3 dbus-python pyxdg ];
 
   buildPhase = "";
 
@@ -41,7 +35,7 @@ in pythonPackages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "An extensible mail notification daemon";
-    homepage = https://github.com/pulb/mailnag;
+    homepage = "https://github.com/pulb/mailnag";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

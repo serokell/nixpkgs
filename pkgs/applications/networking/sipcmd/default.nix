@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   rev = "3090e9f";
 
   name = "sipcmd-${rev}";
-  
+
   src = fetchFromGitHub {
     repo = "sipcmd";
     owner = "tmakkonen";
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/tmakkonen/sipcmd;
+    homepage = "https://github.com/tmakkonen/sipcmd";
     description = "The command line SIP/H.323/RTP softphone";
     platforms = with stdenv.lib.platforms; linux;
     license = stdenv.lib.licenses.gpl2;

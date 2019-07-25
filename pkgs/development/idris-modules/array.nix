@@ -1,7 +1,4 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
+{ build-idris-package, fetchFromGitHub, lib }:
 build-idris-package {
   name = "array";
   version = "2016-10-14";
@@ -15,7 +12,7 @@ build-idris-package {
 
   meta = {
     description = "Primitive flat arrays containing Idris values";
-    homepage = https://github.com/idris-hackers/idris-array;
+    homepage = "https://github.com/idris-hackers/idris-array";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

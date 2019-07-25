@@ -1,12 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, numpy
-, scipy
-, matplotlib
-, flask
-, pillow
-, psycopg2
+{ lib, fetchPypi, buildPythonPackage, numpy, scipy, matplotlib, flask, pillow, psycopg2
 }:
 
 buildPythonPackage rec {
@@ -29,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Atomic Simulation Environment";
-    homepage = https://wiki.fysik.dtu.dk/ase/;
+    homepage = "https://wiki.fysik.dtu.dk/ase/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ costrouc ];
   };

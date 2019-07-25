@@ -36,9 +36,13 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Small tool to manage your installations of the Lean theorem prover";
+    description =
+      "Small tool to manage your installations of the Lean theorem prover";
     homepage = "https://github.com/Kha/elan";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ gebner ];
   };
 }

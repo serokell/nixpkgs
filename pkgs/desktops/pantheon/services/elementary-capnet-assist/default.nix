@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala
-, desktop-file-utils, gtk3, granite, libgee, gcr, webkitgtk, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala, desktop-file-utils, gtk3, granite, libgee, gcr, webkitgtk, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "capnet-assist";
@@ -21,23 +21,10 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkgconfig python3 vala wrapGAppsHook ];
 
-  buildInputs = [
-    gcr
-    granite
-    gtk3
-    libgee
-    webkitgtk
-  ];
+  buildInputs = [ gcr granite gtk3 libgee webkitgtk ];
 
   # Not useful here or in elementary - See: https://github.com/elementary/capnet-assist/issues/3
   patches = [ ./remove-capnet-test.patch ];
@@ -48,8 +35,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A small WebKit app that assists a user with login when a captive portal is detected";
-    homepage = https://github.com/elementary/capnet-assist;
+    description =
+      "A small WebKit app that assists a user with login when a captive portal is detected";
+    homepage = "https://github.com/elementary/capnet-assist";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

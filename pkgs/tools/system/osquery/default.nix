@@ -1,11 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, python
-, udev, audit, aws-sdk-cpp, cryptsetup, lvm2, libgcrypt, libarchive
-, libgpgerror, libuuid, iptables, dpkg, lzma, bzip2, rpm
-, beecrypt, augeas, libxml2, sleuthkit, yara, lldpd, google-gflags
-, thrift, boost, rocksdb_lite, glog, gbenchmark, snappy
-, openssl, file, doxygen
-, gtest, fpm, zstd, rdkafka, rapidjson, fetchgit, fetchurl, libelfin
-, smartmontools, which, git, cscope, ctags, ssdeep
+{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, python, udev, audit, aws-sdk-cpp, cryptsetup, lvm2, libgcrypt, libarchive, libgpgerror, libuuid, iptables, dpkg, lzma, bzip2, rpm, beecrypt, augeas, libxml2, sleuthkit, yara, lldpd, google-gflags, thrift, boost, rocksdb_lite, glog, gbenchmark, snappy, openssl, file, doxygen, gtest, fpm, zstd, rdkafka, rapidjson, fetchgit, fetchurl, libelfin, smartmontools, which, git, cscope, ctags, ssdeep
 }:
 
 let
@@ -38,7 +31,7 @@ let
 
       # Apple build fix doesn't apply here and isn't needed as we
       # only support `osquery` on Linux.
-      patches = [];
+      patches = [ ];
     });
 
     # dpkg 1.19.2 dropped api in `<dpkg/dpkg-db.h>` which breaks compilation.
@@ -54,12 +47,13 @@ let
     # filter out static linking configuration to avoid that the library will
     # be linked both statically and dynamically.
     gflags = google-gflags.overrideAttrs (old: {
-      cmakeFlags = stdenv.lib.filter (f: (builtins.match ".*STATIC.*" f) == null) old.cmakeFlags;
+      cmakeFlags =
+        stdenv.lib.filter (f: (builtins.match ".*STATIC.*" f) == null)
+        old.cmakeFlags;
     });
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osquery";
   version = "3.3.2";
 
@@ -76,11 +70,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-Fix-CMake-configuration-for-Nix.patch ];
 
-  NIX_CFLAGS_COMPILE = [
-    "-I${libxml2.dev}/include/libxml2"
-  ];
+  NIX_CFLAGS_COMPILE = [ "-I${libxml2.dev}/include/libxml2" ];
 
-  nativeBuildInputs = [ python which git cscope ctags cmake pkgconfig doxygen fpm ]
+  nativeBuildInputs =
+    [ python which git cscope ctags cmake pkgconfig doxygen fpm ]
     ++ (with python.pkgs; [ jinja2 ]);
 
   buildInputs = [
@@ -128,19 +121,22 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DSKIP_TESTS=1" ];
 
   preConfigure = ''
-    cp -r ${fetchFromGitHub {
-      owner = "osquery";
-      repo = "third-party";
-      rev = "32e01462fbea75d3b1904693f937dfd62eaced15";
-      sha256 = "0va24gmgk43a1lyjs63q9qrhvpv8gmqjzpjr5595vhr16idv8wyf";
-    }}/* third-party
+    cp -r ${
+      fetchFromGitHub {
+        owner = "osquery";
+        repo = "third-party";
+        rev = "32e01462fbea75d3b1904693f937dfd62eaced15";
+        sha256 = "0va24gmgk43a1lyjs63q9qrhvpv8gmqjzpjr5595vhr16idv8wyf";
+      }
+    }/* third-party
 
     chmod +w -R third-party
   '';
 
   meta = with lib; {
-    description = "SQL powered operating system instrumentation, monitoring, and analytics";
-    homepage = https://osquery.io/;
+    description =
+      "SQL powered operating system instrumentation, monitoring, and analytics";
+    homepage = "https://osquery.io/";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ma27 ];

@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_testing
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_testing }:
 
 buildPythonPackage rec {
   pname = "zope-hookable";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Supports the efficient creation of “hookable” objects";
-    homepage = https://github.com/zopefoundation/zope.hookable;
+    homepage = "https://github.com/zopefoundation/zope.hookable";
     license = licenses.zpl21;
   };
 }

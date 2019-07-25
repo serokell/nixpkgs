@@ -1,5 +1,5 @@
-{ stdenv, glib, fetchFromGitHub, networkmanager, python3Packages
-, gobject-introspection }:
+{ stdenv, glib, fetchFromGitHub, networkmanager, python3Packages, gobject-introspection
+}:
 
 let inherit (python3Packages) python pygobject3;
 in stdenv.mkDerivation rec {
@@ -13,7 +13,14 @@ in stdenv.mkDerivation rec {
     sha256 = "1z6151z7c4jv5k2i50zr7ld4k3m07dgpmss9f3hsav95cv55dcnb";
   };
 
-  buildInputs = [ glib python pygobject3 gobject-introspection networkmanager python3Packages.wrapPython ];
+  buildInputs = [
+    glib
+    python
+    pygobject3
+    gobject-introspection
+    networkmanager
+    python3Packages.wrapPython
+  ];
 
   dontBuild = true;
 
@@ -29,12 +36,12 @@ in stdenv.mkDerivation rec {
     wrapPythonPrograms
   '';
 
-
   meta = with stdenv.lib; {
-    description  = "Small script to manage NetworkManager connections with dmenu instead of nm-applet";
-    homepage     = https://github.com/firecat53/networkmanager-dmenu;
-    license      = stdenv.lib.licenses.mit;
-    maintainers  = [ stdenv.lib.maintainers.jensbin ];
-    platforms    = stdenv.lib.platforms.all;
+    description =
+      "Small script to manage NetworkManager connections with dmenu instead of nm-applet";
+    homepage = "https://github.com/firecat53/networkmanager-dmenu";
+    license = stdenv.lib.licenses.mit;
+    maintainers = [ stdenv.lib.maintainers.jensbin ];
+    platforms = stdenv.lib.platforms.all;
   };
 }

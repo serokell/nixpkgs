@@ -20,18 +20,13 @@ with lib;
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.pantheon.files.enable {
 
-    environment.systemPackages = [
-      pkgs.pantheon.elementary-files
-    ];
+    environment.systemPackages = [ pkgs.pantheon.elementary-files ];
 
-    services.dbus.packages = [
-      pkgs.pantheon.elementary-files
-    ];
+    services.dbus.packages = [ pkgs.pantheon.elementary-files ];
 
   };
 

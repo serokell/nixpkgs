@@ -13,7 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "08x6vy5v2vgrk3gsw3qcvv52a7hifsgcsnsg1phlk1ikaff21y4z";
 
-  buildInputs = stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  buildInputs =
+    stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   # As of 1.0.0 and rustc 1.30 rustfmt requires a nightly compiler
   RUSTC_BOOTSTRAP = 1;
@@ -25,8 +26,9 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A tool for formatting Rust code according to style guidelines";
-    homepage = https://github.com/rust-lang-nursery/rustfmt;
+    description =
+      "A tool for formatting Rust code according to style guidelines";
+    homepage = "https://github.com/rust-lang-nursery/rustfmt";
     license = with licenses; [ mit asl20 ];
     maintainers = [ maintainers.globin ];
     platforms = platforms.all;

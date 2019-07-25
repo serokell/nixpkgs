@@ -1,8 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, lib }:
+build-idris-package {
   name = "tparsec";
   version = "2019-06-18";
 
@@ -17,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "TParsec - Total Parser Combinators in Idris";
-    homepage = https://github.com/gallais/idris-tparsec;
+    homepage = "https://github.com/gallais/idris-tparsec";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.brainrape ];
   };

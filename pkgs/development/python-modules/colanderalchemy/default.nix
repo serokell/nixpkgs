@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-, unittest2
-, colander
-, sqlalchemy
+{ stdenv, buildPythonPackage, fetchpatch, fetchPypi, unittest2, colander, sqlalchemy
 }:
 
 buildPythonPackage rec {
@@ -18,8 +12,9 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-        url = "https://github.com/stefanofontanelli/ColanderAlchemy/commit/b45fe35f2936a5ccb705e9344075191e550af6c9.patch";
-        sha256 = "1kf278wjq49zd6fhpp55vdcawzdd107767shzfck522sv8gr6qvx";
+      url =
+        "https://github.com/stefanofontanelli/ColanderAlchemy/commit/b45fe35f2936a5ccb705e9344075191e550af6c9.patch";
+      sha256 = "1kf278wjq49zd6fhpp55vdcawzdd107767shzfck522sv8gr6qvx";
     })
   ];
 
@@ -28,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Autogenerate Colander schemas based on SQLAlchemy models";
-    homepage = https://github.com/stefanofontanelli/ColanderAlchemy;
+    homepage = "https://github.com/stefanofontanelli/ColanderAlchemy";
     license = licenses.mit;
     # ColanderAlchemy's tests currently fail with colander >1.6.0
     # (see https://github.com/stefanofontanelli/ColanderAlchemy/issues/107)

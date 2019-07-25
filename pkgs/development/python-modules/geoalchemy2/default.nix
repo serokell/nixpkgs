@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, sqlalchemy
-, shapely
-}:
+{ stdenv, buildPythonPackage, fetchPypi, sqlalchemy, shapely }:
 
 buildPythonPackage rec {
   pname = "GeoAlchemy2";
@@ -17,7 +12,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ sqlalchemy shapely ];
 
   meta = with stdenv.lib; {
-    homepage =  http://geoalchemy.org/;
+    homepage = "http://geoalchemy.org/";
     license = licenses.mit;
     description = "Toolkit for working with spatial databases";
   };

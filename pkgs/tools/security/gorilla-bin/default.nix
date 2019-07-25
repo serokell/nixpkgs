@@ -1,4 +1,5 @@
-{ fetchurl, makeWrapper, patchelf, stdenv, libXft, libX11, freetype, fontconfig, libXrender, libXScrnSaver, libXext }:
+{ fetchurl, makeWrapper, patchelf, stdenv, libXft, libX11, freetype, fontconfig, libXrender, libXScrnSaver, libXext
+}:
 
 stdenv.mkDerivation rec {
   name = "gorilla-bin-${version}";
@@ -19,21 +20,29 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = let
-    interpreter = "$(< \"$NIX_CC/nix-support/dynamic-linker\")";
-    libPath = stdenv.lib.makeLibraryPath [ libXft libX11 freetype fontconfig libXrender libXScrnSaver libXext ];
-  in ''
-    mkdir -p $out/opt/password-gorilla
-    mkdir -p $out/bin
-    cp gorilla-${version} $out/opt/password-gorilla
-    chmod ugo+x $out/opt/password-gorilla/gorilla-${version}
-    patchelf --set-interpreter "${interpreter}" "$out/opt/password-gorilla/gorilla-${version}"
-    makeWrapper "$out/opt/password-gorilla/gorilla-${version}" "$out/bin/gorilla" \
-      --prefix LD_LIBRARY_PATH : "${libPath}"
-  '';
+    interpreter = ''$(< "$NIX_CC/nix-support/dynamic-linker")'';
+    libPath = stdenv.lib.makeLibraryPath [
+      libXft
+      libX11
+      freetype
+      fontconfig
+      libXrender
+      libXScrnSaver
+      libXext
+    ];
+    in ''
+      mkdir -p $out/opt/password-gorilla
+      mkdir -p $out/bin
+      cp gorilla-${version} $out/opt/password-gorilla
+      chmod ugo+x $out/opt/password-gorilla/gorilla-${version}
+      patchelf --set-interpreter "${interpreter}" "$out/opt/password-gorilla/gorilla-${version}"
+      makeWrapper "$out/opt/password-gorilla/gorilla-${version}" "$out/bin/gorilla" \
+        --prefix LD_LIBRARY_PATH : "${libPath}"
+    '';
 
   meta = {
     description = "Password Gorilla is a Tk based password manager";
-    homepage = https://github.com/zdia/gorilla/wiki;
+    homepage = "https://github.com/zdia/gorilla/wiki";
     maintainers = [ stdenv.lib.maintainers.namore ];
     platforms = [ "x86_64-linux" ];
     license = stdenv.lib.licenses.gpl2;

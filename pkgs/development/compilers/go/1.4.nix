@@ -1,13 +1,9 @@
-{ stdenv, lib, fetchurl, fetchpatch, tzdata, iana-etc, libcCross
-, pkgconfig
-, pcre
-, Security }:
+{ stdenv, lib, fetchurl, fetchpatch, tzdata, iana-etc, libcCross, pkgconfig, pcre, Security
+}:
 
-let
-  libc = if stdenv ? "cross" then libcCross else stdenv.cc.libc;
-in
+let libc = if stdenv ? "cross" then libcCross else stdenv.cc.libc;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "go-${version}";
   version = "1.4-bootstrap-20161024";
   revision = "79d85a4965ea7c46db483314c3981751909d7883";
@@ -121,18 +117,26 @@ stdenv.mkDerivation rec {
     # This test checks for the wrong thing with recent tzdata. It's been fixed in master but the patch
     # actually works on old versions too.
     (fetchpatch {
-      url    = "https://github.com/golang/go/commit/91563ced5897faf729a34be7081568efcfedda31.patch";
+      url =
+        "https://github.com/golang/go/commit/91563ced5897faf729a34be7081568efcfedda31.patch";
       sha256 = "1ny5l3f8a9dpjjrnjnsplb66308a0x13sa0wwr4j6yrkc8j4qxqi";
     })
   ];
 
   GOOS = if stdenv.isDarwin then "darwin" else "linux";
-  GOARCH = if stdenv.isDarwin then "amd64"
-           else if stdenv.hostPlatform.system == "i686-linux" then "386"
-           else if stdenv.hostPlatform.system == "x86_64-linux" then "amd64"
-           else if stdenv.isAarch32 then "arm"
-           else throw "Unsupported system";
-  GOARM = stdenv.lib.optionalString (stdenv.hostPlatform.system == "armv5tel-linux") "5";
+  GOARCH = if stdenv.isDarwin then
+    "amd64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "386"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "amd64"
+  else if stdenv.isAarch32 then
+    "arm"
+  else
+    throw "Unsupported system";
+  GOARM =
+    stdenv.lib.optionalString (stdenv.hostPlatform.system == "armv5tel-linux")
+    "5";
   GO386 = 387; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 0;
 
@@ -153,7 +157,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     branch = "1.4";
-    homepage = http://golang.org/;
+    homepage = "http://golang.org/";
     description = "The Go Programming language";
     license = licenses.bsd3;
     maintainers = with maintainers; [ cstrahan ];

@@ -1,7 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, requests
-, testfixtures, mock, requests_toolbelt
-, betamax, betamax-serializers, betamax-matchers
+{ stdenv, buildPythonPackage, fetchPypi, requests, testfixtures, mock, requests_toolbelt, betamax, betamax-serializers, betamax-matchers
 }:
 
 buildPythonPackage rec {
@@ -13,9 +10,7 @@ buildPythonPackage rec {
     sha256 = "ab5558efb438aa73fc66c4178bfc809194dea3ce2addf4dec873de7e2fd2824e";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   checkInputs = [
     testfixtures
@@ -28,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Low-level communication layer for PRAW";
-    homepage = https://praw.readthedocs.org/;
+    homepage = "https://praw.readthedocs.org/";
     license = licenses.gpl3;
     platforms = platforms.all;
     maintainers = with maintainers; [ ];

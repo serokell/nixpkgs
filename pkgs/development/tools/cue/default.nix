@@ -14,13 +14,13 @@ buildGoModule rec {
 
   subPackages = [ "cmd/cue" ];
 
-  buildFlagsArray = [
-    "-ldflags=-X cuelang.org/go/cmd/cue/cmd.version=${version}"
-  ];
+  buildFlagsArray =
+    [ "-ldflags=-X cuelang.org/go/cmd/cue/cmd.version=${version}" ];
 
   meta = {
-    description = "A data constraint language which aims to simplify tasks involving defining and using data.";
-    homepage = https://cue.googlesource.com/cue;
+    description =
+      "A data constraint language which aims to simplify tasks involving defining and using data.";
+    homepage = "https://cue.googlesource.com/cue";
     maintainers = with stdenv.lib.maintainers; [ solson ];
     license = stdenv.lib.licenses.asl20;
   };

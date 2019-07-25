@@ -1,15 +1,13 @@
-{ stdenv, fetchurl, pkgconfig, intltool
-, gtk3, glib, curl, goocanvas2, gpsd
-, hamlib, wrapGAppsHook
+{ stdenv, fetchurl, pkgconfig, intltool, gtk3, glib, curl, goocanvas2, gpsd, hamlib, wrapGAppsHook
 }:
 
-let
-  version = "2.2.1";
+let version = "2.2.1";
 in stdenv.mkDerivation {
   name = "gpredict-${version}";
 
   src = fetchurl {
-    url = "https://github.com/csete/gpredict/releases/download/v${version}/gpredict-${version}.tar.bz2";
+    url =
+      "https://github.com/csete/gpredict/releases/download/v${version}/gpredict-${version}.tar.bz2";
     sha256 = "0hwf97kng1zy8rxyglw04x89p0bg07zq30hgghm20yxiw2xc8ng7";
   };
 
@@ -27,7 +25,7 @@ in stdenv.mkDerivation {
     '';
     license = licenses.gpl2;
     platforms = platforms.linux;
-    homepage = http://gpredict.oz9aec.net/;
+    homepage = "http://gpredict.oz9aec.net/";
     maintainers = [ maintainers.markuskowa maintainers.cmcdragonkai ];
   };
 }

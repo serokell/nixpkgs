@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, python2Packages}:
+{ stdenv, fetchzip, python2Packages }:
 
 python2Packages.buildPythonApplication rec {
   name = "gitinspector-${version}";
@@ -11,12 +11,10 @@ python2Packages.buildPythonApplication rec {
     name = name + "-src";
   };
 
-  checkInputs = with python2Packages; [
-    unittest2
-  ];
+  checkInputs = with python2Packages; [ unittest2 ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/ejwa/gitinspector;
+    homepage = "https://github.com/ejwa/gitinspector";
     description = "Statistical analysis tool for git repositories";
     license = licenses.gpl3;
     platforms = platforms.all;

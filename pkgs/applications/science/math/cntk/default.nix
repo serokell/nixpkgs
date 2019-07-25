@@ -1,9 +1,7 @@
-{ config, lib, stdenv, fetchgit, fetchFromGitHub, cmake
-, openblas, opencv3, libzip, boost, protobuf, openmpi
-, onebitSGDSupport ? false
-, cudaSupport ? config.cudaSupport or false, cudatoolkit, nvidia_x11
-, cudnnSupport ? cudaSupport, cudnn
-}:
+{ config, lib, stdenv, fetchgit, fetchFromGitHub, cmake, openblas, opencv3, libzip, boost, protobuf, openmpi, onebitSGDSupport ?
+  false, cudaSupport ?
+    config.cudaSupport or false, cudatoolkit, nvidia_x11, cudnnSupport ?
+      cudaSupport, cudnn }:
 
 assert cudnnSupport -> cudaSupport;
 
@@ -30,8 +28,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   buildInputs = [ openblas opencv3 libzip boost protobuf openmpi ]
-             ++ lib.optional cudaSupport cudatoolkit
-             ++ lib.optional cudnnSupport cudnn;
+    ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn;
 
   configureFlags = [
     "--with-opencv=${opencv3}"
@@ -82,9 +79,10 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    homepage = https://github.com/Microsoft/CNTK;
+    homepage = "https://github.com/Microsoft/CNTK";
     description = "An open source deep-learning toolkit";
-    license = if onebitSGDSupport then licenses.unfreeRedistributable else licenses.mit;
+    license =
+      if onebitSGDSupport then licenses.unfreeRedistributable else licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ abbradar ];
   };

@@ -1,8 +1,4 @@
-{ stdenv, fetchurl, libdbi
-, mysql ? null
-, sqlite ? null
-, postgresql ? null
-}:
+{ stdenv, fetchurl, libdbi, mysql ? null, sqlite ? null, postgresql ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -13,7 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "0m680h8cc4428xin4p733azysamzgzcmv4psjvraykrsaz6ymlj3";
   };
 
-  buildInputs = [ libdbi sqlite postgresql ] ++ optional (mysql != null) mysql.connector-c;
+  buildInputs = [ libdbi sqlite postgresql ]
+    ++ optional (mysql != null) mysql.connector-c;
 
   postPatch = ''
     sed -i '/SQLITE3_LIBS/ s/-lsqlite/-lsqlite3/' configure;
@@ -54,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://libdbi-drivers.sourceforge.net/;
+    homepage = "http://libdbi-drivers.sourceforge.net/";
     description = "Database drivers for libdbi";
     platforms = platforms.all;
     license = licenses.lgpl21;

@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase,
-  qtx11extras, qttools, qtsvg, kwindowsystem, libkscreen, liblxqt,
-  libqtxdg, xorg }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase, qtx11extras, qttools, qtsvg, kwindowsystem, libkscreen, liblxqt, libqtxdg, xorg
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-config";
@@ -13,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0x1k08587i2pakxlrj2n0l82r179sfywnzn2cphxiy89r5zpn7vi";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkgconfig lxqt-build-tools ];
 
   buildInputs = [
     qtbase
@@ -60,7 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tools to configure LXQt and the underlying operating system";
-    homepage = https://github.com/lxqt/lxqt-config;
+    homepage = "https://github.com/lxqt/lxqt-config";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

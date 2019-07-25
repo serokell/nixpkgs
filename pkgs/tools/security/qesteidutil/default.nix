@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, cmake, ccid, qttools, qttranslations
-, pkgconfig, pcsclite, hicolor-icon-theme 
+{ stdenv, fetchFromGitHub, cmake, ccid, qttools, qttranslations, pkgconfig, pcsclite, hicolor-icon-theme
 }:
 
 stdenv.mkDerivation rec {
@@ -18,13 +16,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ cmake ccid qttools pcsclite qttranslations
-                  hicolor-icon-theme
-                ];
-  
+  buildInputs =
+    [ cmake ccid qttools pcsclite qttranslations hicolor-icon-theme ];
+
   meta = with stdenv.lib; {
-    description = "UI application for managing smart card PIN/PUK codes and certificates";
-    homepage = http://www.id.ee/;
+    description =
+      "UI application for managing smart card PIN/PUK codes and certificates";
+    homepage = "http://www.id.ee/";
     license = licenses.lgpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ jagajaga domenkozar ];

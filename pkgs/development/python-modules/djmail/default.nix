@@ -1,15 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi
-, glibcLocales
-, celery, django, psycopg2
-}:
+{ lib, buildPythonPackage, fetchPypi, glibcLocales, celery, django, psycopg2 }:
 
 buildPythonPackage rec {
   pname = "djmail";
   version = "1.1.0";
 
   meta = {
-    description = "Simple, powerfull and nonobstructive django email middleware";
-    homepage = https://github.com/bameda/djmail;
+    description =
+      "Simple, powerfull and nonobstructive django email middleware";
+    homepage = "https://github.com/bameda/djmail";
     license = lib.licenses.bsd3;
   };
 

@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, numpy
-, scipy
-, numba
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, numpy, scipy, numba, pytest }:
 
 buildPythonPackage rec {
   pname = "sparse";
@@ -20,11 +12,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    numba
-  ];
+  propagatedBuildInputs = [ numpy scipy numba ];
 
   checkPhase = ''
     pytest sparse
@@ -32,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Sparse n-dimensional arrays computations";
-    homepage = https://github.com/pydata/sparse/;
+    homepage = "https://github.com/pydata/sparse/";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

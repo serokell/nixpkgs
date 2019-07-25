@@ -1,20 +1,31 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''ixf'';
-  version = ''cl-20180228-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "ixf";
+  version = "cl-20180228-git";
 
-  description = ''Tools to handle IBM PC version of IXF file format'';
+  description = "Tools to handle IBM PC version of IXF file format";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cl-fad" args."cl-ppcre" args."ieee-floats" args."local-time" args."md5" args."split-sequence" args."trivial-features" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cl-fad"
+    args."cl-ppcre"
+    args."ieee-floats"
+    args."local-time"
+    args."md5"
+    args."split-sequence"
+    args."trivial-features"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-ixf/2018-02-28/cl-ixf-20180228-git.tgz'';
-    sha256 = ''1yqlzyl51kj5fjfg064fc9606zha5b2xdjapfivr2vqz4azs1nvs'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-ixf/2018-02-28/cl-ixf-20180228-git.tgz";
+    sha256 = "1yqlzyl51kj5fjfg064fc9606zha5b2xdjapfivr2vqz4azs1nvs";
   };
 
   packageName = "ixf";
 
-  asdFilesToKeep = ["ixf.asd"];
+  asdFilesToKeep = [ "ixf.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM ixf DESCRIPTION Tools to handle IBM PC version of IXF file format
@@ -31,4 +42,5 @@ rec {
     DEPENDENCIES
     (alexandria babel bordeaux-threads cl-fad cl-ppcre ieee-floats local-time
      md5 split-sequence trivial-features)
-    VERSION cl-20180228-git SIBLINGS NIL PARASITES NIL) */
+    VERSION cl-20180228-git SIBLINGS NIL PARASITES NIL)
+*/

@@ -11,7 +11,7 @@ agda.mkDerivation (self: rec {
     sha256 = "0ia7mgxs5g9849r26yrx07lrx65vhlrxqqh5b6d69gfi1pykb4j2";
   };
 
-  nativeBuildInputs = [ (ghcWithPackages (self : [ self.filemanip ])) ];
+  nativeBuildInputs = [ (ghcWithPackages (self: [ self.filemanip ])) ];
   preConfigure = ''
     runhaskell GenerateEverything.hs
   '';
@@ -19,7 +19,8 @@ agda.mkDerivation (self: rec {
   topSourceDirectories = [ "src" ];
 
   meta = with stdenv.lib; {
-    homepage = http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary;
+    homepage =
+      "http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary";
     description = "A standard library for use with the Agda compiler";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.unix;

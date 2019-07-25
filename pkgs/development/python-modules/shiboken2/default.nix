@@ -1,14 +1,12 @@
-{ buildPythonPackage, python, fetchurl, stdenv, pyside2,
-  cmake, qt5, llvmPackages }:
+{ buildPythonPackage, python, fetchurl, stdenv, pyside2, cmake, qt5, llvmPackages
+}:
 
 stdenv.mkDerivation rec {
   pname = "shiboken2";
 
   inherit (pyside2) version src;
 
-  patches = [
-    ./nix_compile_cflags.patch
-  ];
+  patches = [ ./nix_compile_cflags.patch ];
 
   postPatch = ''
     cd sources/shiboken2
@@ -19,9 +17,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ llvmPackages.libclang python qt5.qtbase qt5.qtxmlpatterns ];
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
 
   postInstall = ''
     rm $out/bin/shiboken_tool.py

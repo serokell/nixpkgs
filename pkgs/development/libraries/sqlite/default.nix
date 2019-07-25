@@ -1,20 +1,21 @@
-{ stdenv, fetchurl, zlib, interactive ? false, readline ? null, ncurses ? null }:
+{ stdenv, fetchurl, zlib, interactive ? false, readline ? null, ncurses ? null
+}:
 
 assert interactive -> readline != null && ncurses != null;
 
 with stdenv.lib;
 
-let
-  archiveVersion = import ./archive-version.nix stdenv.lib;
-in
+let archiveVersion = import ./archive-version.nix stdenv.lib;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "sqlite-${version}";
   version = "3.28.0";
 
   # NB! Make sure to update analyzer.nix src (in the same directory).
   src = fetchurl {
-    url = "https://sqlite.org/2019/sqlite-autoconf-${archiveVersion version}.tar.gz";
+    url = "https://sqlite.org/2019/sqlite-autoconf-${
+      archiveVersion version
+    }.tar.gz";
     sha256 = "1hxpi45crbqp6lacl7z611lna02k956m9bsy2bjzrbb2y23546yn";
   };
 
@@ -23,7 +24,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ] ++ optionals interactive [ readline ncurses ];
 
-  configureFlags = [ "--enable-threadsafe" ] ++ optional interactive "--enable-readline";
+  configureFlags = [ "--enable-threadsafe" ]
+    ++ optional interactive "--enable-readline";
 
   NIX_CFLAGS_COMPILE = [
     "-DSQLITE_ENABLE_COLUMN_METADATA"
@@ -47,14 +49,14 @@ stdenv.mkDerivation rec {
   preBuild = ''
     # Use pread(), pread64(), pwrite(), pwrite64() functions for better performance if they are available.
     if cc -Werror=implicit-function-declaration -x c - -o "$TMPDIR/pread_pwrite_test" <<< \
-      ''$'#include <unistd.h>\nint main()\n{\n  pread(0, NULL, 0, 0);\n  pwrite(0, NULL, 0, 0);\n  return 0;\n}'; then
+      $'#include <unistd.h>\nint main()\n{\n  pread(0, NULL, 0, 0);\n  pwrite(0, NULL, 0, 0);\n  return 0;\n}'; then
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DUSE_PREAD"
     fi
     if cc -Werror=implicit-function-declaration -x c - -o "$TMPDIR/pread64_pwrite64_test" <<< \
-      ''$'#include <unistd.h>\nint main()\n{\n  pread64(0, NULL, 0, 0);\n  pwrite64(0, NULL, 0, 0);\n  return 0;\n}'; then
+      $'#include <unistd.h>\nint main()\n{\n  pread64(0, NULL, 0, 0);\n  pwrite64(0, NULL, 0, 0);\n  return 0;\n}'; then
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DUSE_PREAD64"
     elif cc -D_LARGEFILE64_SOURCE -Werror=implicit-function-declaration -x c - -o "$TMPDIR/pread64_pwrite64_test" <<< \
-      ''$'#include <unistd.h>\nint main()\n{\n  pread64(0, NULL, 0, 0);\n  pwrite64(0, NULL, 0, 0);\n  return 0;\n}'; then
+      $'#include <unistd.h>\nint main()\n{\n  pread64(0, NULL, 0, 0);\n  pwrite64(0, NULL, 0, 0);\n  return 0;\n}'; then
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DUSE_PREAD64 -D_LARGEFILE64_SOURCE"
     fi
 
@@ -74,9 +76,10 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails to link against tcl
 
   meta = {
-    description = "A self-contained, serverless, zero-configuration, transactional SQL database engine";
-    downloadPage = https://sqlite.org/download.html;
-    homepage = https://www.sqlite.org/;
+    description =
+      "A self-contained, serverless, zero-configuration, transactional SQL database engine";
+    downloadPage = "https://sqlite.org/download.html";
+    homepage = "https://www.sqlite.org/";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ eelco np ];
     platforms = platforms.unix ++ platforms.windows;

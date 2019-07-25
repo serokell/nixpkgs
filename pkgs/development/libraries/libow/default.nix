@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "1-Wire File System full library";
-    homepage = https://owfs.org/;
+    homepage = "https://owfs.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ disserman ];
     platforms = platforms.unix;
@@ -26,18 +26,18 @@ stdenv.mkDerivation rec {
   preConfigure = "./bootstrap";
 
   configureFlags = [
-      "--disable-owtcl"
-      "--disable-owphp"
-      "--disable-owpython"
-      "--disable-zero"
-      "--disable-owshell"
-      "--disable-owhttpd"
-      "--disable-owftpd"
-      "--disable-owserver"
-      "--disable-owperl"
-      "--disable-owtcl"
-      "--disable-owtap"
-      "--disable-owmon"
-      "--disable-owexternal"
-    ];
+    "--disable-owtcl"
+    "--disable-owphp"
+    "--disable-owpython"
+    "--disable-zero"
+    "--disable-owshell"
+    "--disable-owhttpd"
+    "--disable-owftpd"
+    "--disable-owserver"
+    "--disable-owperl"
+    "--disable-owtcl"
+    "--disable-owtap"
+    "--disable-owmon"
+    "--disable-owexternal"
+  ];
 }

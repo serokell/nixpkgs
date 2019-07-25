@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, usbmuxd, fuse, libimobiledevice }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, usbmuxd, fuse, libimobiledevice
+}:
 
 stdenv.mkDerivation rec {
   pname = "ifuse";
@@ -13,11 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "1b9w2i0sliswlkkb890l9i0rxrf631xywxf8ihygfmjdsfw47h1m";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig fuse usbmuxd libimobiledevice ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig fuse usbmuxd libimobiledevice ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/libimobiledevice/ifuse;
-    description = "A fuse filesystem implementation to access the contents of iOS devices";
+    homepage = "https://github.com/libimobiledevice/ifuse";
+    description =
+      "A fuse filesystem implementation to access the contents of iOS devices";
     longDescription = ''
       Mount directories of an iOS device locally using fuse. By default the media
       directory is mounted, options allow to also mount the sandbox container of an

@@ -1,6 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-}:
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "civetweb";
@@ -20,9 +18,7 @@ stdenv.mkDerivation rec {
     "INCLUDEDIR=${placeholder "dev"}/include"
   ];
 
-  patches = [
-    ./0001-allow-setting-paths-in-makefile.patch
-  ];
+  patches = [ ./0001-allow-setting-paths-in-makefile.patch ];
 
   strictDeps = true;
 
@@ -35,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Embedded C/C++ web server";
-    homepage = https://github.com/civetweb/civetweb;
+    homepage = "https://github.com/civetweb/civetweb";
     license = [ stdenv.lib.licenses.mit ];
   };
 }

@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, fetchpatch, autoreconfHook, texinfo, ncurses, readline, zlib, lzo, openssl }:
+{ stdenv, fetchgit, fetchpatch, autoreconfHook, texinfo, ncurses, readline, zlib, lzo, openssl
+}:
 
 stdenv.mkDerivation rec {
   name = "tinc-${version}";
@@ -15,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "tinc-openssl-1.0.2r.patch";
-      url = "http://git.tinc-vpn.org/git/browse?p=tinc;a=patch;h=2b0aeec02d64bb4724da9ff1dbc19b7d35d7c904";
+      url =
+        "http://git.tinc-vpn.org/git/browse?p=tinc;a=patch;h=2b0aeec02d64bb4724da9ff1dbc19b7d35d7c904";
       sha256 = "0kidzlmgl0cin4g54ygcxa0jbq9vwlk3dyq5f65nkjd8yvayfzi8";
     })
   ];
@@ -31,10 +33,7 @@ stdenv.mkDerivation rec {
     sed -i '/AC_INIT/s/m4_esyscmd_s.*/${version})/' configure.ac
   '';
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
 
   meta = with stdenv.lib; {
     description = "VPN daemon with full mesh routing";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
       Internet.  It features full mesh routing, as well as encryption,
       authentication, compression and ethernet bridging.
     '';
-    homepage="http://www.tinc-vpn.org/";
+    homepage = "http://www.tinc-vpn.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ fpletz lassulus ];

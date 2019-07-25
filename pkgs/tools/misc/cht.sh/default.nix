@@ -1,11 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, makeWrapper
-, curl
-, ncurses
-, rlwrap
-, xsel
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, curl, ncurses, rlwrap, xsel }:
 
 stdenv.mkDerivation rec {
   name = "cht.sh-${version}";
@@ -33,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "CLI client for cheat.sh, a community driven cheat sheet";
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];
-    homepage = https://github.com/chubin/cheat.sh;
+    homepage = "https://github.com/chubin/cheat.sh";
   };
 }
 

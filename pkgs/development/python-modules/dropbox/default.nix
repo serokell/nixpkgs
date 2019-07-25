@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytestrunner, requests, urllib3, mock, setuptools }:
+{ stdenv, buildPythonPackage, fetchPypi, pytestrunner, requests, urllib3, mock, setuptools
+}:
 
 buildPythonPackage rec {
   pname = "dropbox";
@@ -17,8 +17,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests urllib3 mock setuptools ];
 
   meta = with stdenv.lib; {
-    description = "A Python library for Dropbox's HTTP-based Core and Datastore APIs";
-    homepage = https://www.dropbox.com/developers/core/docs;
+    description =
+      "A Python library for Dropbox's HTTP-based Core and Datastore APIs";
+    homepage = "https://www.dropbox.com/developers/core/docs";
     license = licenses.mit;
   };
 }

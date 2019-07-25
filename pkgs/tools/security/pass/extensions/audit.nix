@@ -1,7 +1,6 @@
 { stdenv, pass, fetchFromGitHub, pythonPackages, makeWrapper }:
 
-let
-  pythonEnv = pythonPackages.python.withPackages (p: [ p.requests ]);
+let pythonEnv = pythonPackages.python.withPackages (p: [ p.requests ]);
 
 in stdenv.mkDerivation rec {
   name = "pass-audit-${version}";
@@ -35,7 +34,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Pass extension for auditing your password repository.";
-    homepage = https://github.com/roddhjav/pass-audit;
+    homepage = "https://github.com/roddhjav/pass-audit";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

@@ -1,4 +1,5 @@
-{stdenv, fetchurl, gtk3, aspell, pkgconfig, enchant, isocodes, intltool, gobject-introspection, vala}:
+{ stdenv, fetchurl, gtk3, aspell, pkgconfig, enchant, isocodes, intltool, gobject-introspection, vala
+}:
 
 stdenv.mkDerivation rec {
   name = "gtkspell-${version}";
@@ -15,13 +16,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ aspell gtk3 enchant isocodes ];
   propagatedBuildInputs = [ enchant ];
 
-  configureFlags = [
-    "--enable-introspection"
-    "--enable-vala"
-  ];
+  configureFlags = [ "--enable-introspection" "--enable-vala" ];
 
   meta = with stdenv.lib; {
-    homepage = http://gtkspell.sourceforge.net/;
+    homepage = "http://gtkspell.sourceforge.net/";
     description = "Word-processor-style highlighting GtkTextView widget";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

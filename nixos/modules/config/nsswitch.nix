@@ -12,33 +12,25 @@ let
   mymachines = canLoadExternalModules;
   nssmdns = canLoadExternalModules && config.services.avahi.nssmdns;
   nsswins = canLoadExternalModules && config.services.samba.nsswins;
-  ldap = canLoadExternalModules && (config.users.ldap.enable && config.users.ldap.nsswitch);
+  ldap = canLoadExternalModules
+    && (config.users.ldap.enable && config.users.ldap.nsswitch);
   sssd = canLoadExternalModules && config.services.sssd.enable;
   resolved = canLoadExternalModules && config.services.resolved.enable;
-  googleOsLogin = canLoadExternalModules && config.security.googleOsLogin.enable;
+  googleOsLogin = canLoadExternalModules
+    && config.security.googleOsLogin.enable;
 
-  hostArray = [ "files" ]
-    ++ optional mymachines "mymachines"
+  hostArray = [ "files" ] ++ optional mymachines "mymachines"
     ++ optional nssmdns "mdns_minimal [NOTFOUND=return]"
-    ++ optional nsswins "wins"
-    ++ optional resolved "resolve [!UNAVAIL=return]"
-    ++ [ "dns" ]
-    ++ optional nssmdns "mdns"
-    ++ optional myhostname "myhostname";
+    ++ optional nsswins "wins" ++ optional resolved "resolve [!UNAVAIL=return]"
+    ++ [ "dns" ] ++ optional nssmdns "mdns" ++ optional myhostname "myhostname";
 
-  passwdArray = [ "files" ]
-    ++ optional sssd "sss"
-    ++ optional ldap "ldap"
+  passwdArray = [ "files" ] ++ optional sssd "sss" ++ optional ldap "ldap"
     ++ optional mymachines "mymachines"
-    ++ optional googleOsLogin "cache_oslogin oslogin"
-    ++ [ "systemd" ];
+    ++ optional googleOsLogin "cache_oslogin oslogin" ++ [ "systemd" ];
 
-  shadowArray = [ "files" ]
-    ++ optional sssd "sss"
-    ++ optional ldap "ldap";
+  shadowArray = [ "files" ] ++ optional sssd "sss" ++ optional ldap "ldap";
 
-  servicesArray = [ "files" ]
-    ++ optional sssd "sss";
+  servicesArray = [ "files" ] ++ optional sssd "sss";
 
 in {
   options = {
@@ -48,22 +40,21 @@ in {
     system.nssModules = mkOption {
       type = types.listOf types.path;
       internal = true;
-      default = [];
+      default = [ ];
       description = ''
         Search path for NSS (Name Service Switch) modules.  This allows
         several DNS resolution methods to be specified via
         <filename>/etc/nsswitch.conf</filename>.
       '';
-      apply = list:
-        {
-          inherit list;
-          path = makeLibraryPath list;
-        };
+      apply = list: {
+        inherit list;
+        path = makeLibraryPath list;
+      };
     };
 
     system.nssHosts = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "mdns" ];
       description = ''
         List of host entries to configure in <filename>/etc/nsswitch.conf</filename>.
@@ -76,13 +67,16 @@ in {
     assertions = [
       {
         # generic catch if the NixOS module adding to nssModules does not prevent it with specific message.
-        assertion = config.system.nssModules.path != "" -> canLoadExternalModules;
-        message = "Loading NSS modules from path ${config.system.nssModules.path} requires nscd being enabled.";
+        assertion = config.system.nssModules.path != ""
+          -> canLoadExternalModules;
+        message =
+          "Loading NSS modules from path ${config.system.nssModules.path} requires nscd being enabled.";
       }
       {
         # resolved does not need to add to nssModules, therefore needs an extra assertion
         assertion = resolved -> canLoadExternalModules;
-        message = "Loading systemd-resolved's nss-resolve NSS module requires nscd being enabled.";
+        message =
+          "Loading systemd-resolved's nss-resolve NSS module requires nscd being enabled.";
       }
     ];
 
@@ -110,7 +104,8 @@ in {
     # configured IP addresses, or ::1 and 127.0.0.2 as
     # fallbacks. Systemd also provides nss-mymachines to return IP
     # addresses of local containers.
-    system.nssModules = (optionals canLoadExternalModules [ config.systemd.package.out ])
+    system.nssModules =
+      (optionals canLoadExternalModules [ config.systemd.package.out ])
       ++ optional googleOsLogin pkgs.google-compute-engine-oslogin.out;
   };
 }

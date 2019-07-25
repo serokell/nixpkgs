@@ -16,64 +16,65 @@ let
   inherit (pkgs) lightdm writeScript writeText;
 
   # lightdm runs with clearenv(), but we need a few things in the environment for X to startup
-  xserverWrapper = writeScript "xserver-wrapper"
-    ''
-      #! ${pkgs.bash}/bin/bash
-      ${concatMapStrings (n: "export ${n}=\"${getAttr n xEnv}\"\n") (attrNames xEnv)}
+  xserverWrapper = writeScript "xserver-wrapper" ''
+    #! ${pkgs.bash}/bin/bash
+    ${concatMapStrings (n: ''
+      export ${n}="${getAttr n xEnv}"
+    '') (attrNames xEnv)}
 
-      display=$(echo "$@" | xargs -n 1 | grep -P ^:\\d\$ | head -n 1 | sed s/^://)
-      if [ -z "$display" ]
-      then additionalArgs=":0 -logfile /var/log/X.0.log"
-      else additionalArgs="-logfile /var/log/X.$display.log"
-      fi
+    display=$(echo "$@" | xargs -n 1 | grep -P ^:\\d\$ | head -n 1 | sed s/^://)
+    if [ -z "$display" ]
+    then additionalArgs=":0 -logfile /var/log/X.0.log"
+    else additionalArgs="-logfile /var/log/X.$display.log"
+    fi
 
-      exec ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} $additionalArgs "$@"
-    '';
+    exec ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} $additionalArgs "$@"
+  '';
 
-  usersConf = writeText "users.conf"
-    ''
-      [UserList]
-      minimum-uid=500
-      hidden-users=${concatStringsSep " " dmcfg.hiddenUsers}
-      hidden-shells=/run/current-system/sw/bin/nologin
-    '';
+  usersConf = writeText "users.conf" ''
+    [UserList]
+    minimum-uid=500
+    hidden-users=${concatStringsSep " " dmcfg.hiddenUsers}
+    hidden-shells=/run/current-system/sw/bin/nologin
+  '';
 
-  lightdmConf = writeText "lightdm.conf"
-    ''
-      [LightDM]
-      ${optionalString cfg.greeter.enable ''
-        greeter-user = ${config.users.users.lightdm.name}
-        greeters-directory = ${cfg.greeter.package}
-      ''}
-      sessions-directory = ${dmcfg.session.desktops}/share/xsessions
-      ${cfg.extraConfig}
+  lightdmConf = writeText "lightdm.conf" ''
+    [LightDM]
+    ${optionalString cfg.greeter.enable ''
+      greeter-user = ${config.users.users.lightdm.name}
+      greeters-directory = ${cfg.greeter.package}
+    ''}
+    sessions-directory = ${dmcfg.session.desktops}/share/xsessions
+    ${cfg.extraConfig}
 
-      [Seat:*]
-      xserver-command = ${xserverWrapper}
-      session-wrapper = ${dmcfg.session.wrapper}
-      ${optionalString cfg.greeter.enable ''
-        greeter-session = ${cfg.greeter.name}
-      ''}
-      ${optionalString cfg.autoLogin.enable ''
-        autologin-user = ${cfg.autoLogin.user}
-        autologin-user-timeout = ${toString cfg.autoLogin.timeout}
-        autologin-session = ${defaultSessionName}
-      ''}
-      ${optionalString hasDefaultUserSession ''
-        user-session=${defaultSessionName}
-      ''}
-      ${optionalString (dmcfg.setupCommands != "") ''
-        display-setup-script=${pkgs.writeScript "lightdm-display-setup" ''
+    [Seat:*]
+    xserver-command = ${xserverWrapper}
+    session-wrapper = ${dmcfg.session.wrapper}
+    ${optionalString cfg.greeter.enable ''
+      greeter-session = ${cfg.greeter.name}
+    ''}
+    ${optionalString cfg.autoLogin.enable ''
+      autologin-user = ${cfg.autoLogin.user}
+      autologin-user-timeout = ${toString cfg.autoLogin.timeout}
+      autologin-session = ${defaultSessionName}
+    ''}
+    ${optionalString hasDefaultUserSession ''
+      user-session=${defaultSessionName}
+    ''}
+    ${optionalString (dmcfg.setupCommands != "") ''
+      display-setup-script=${
+        pkgs.writeScript "lightdm-display-setup" ''
           #!${pkgs.bash}/bin/bash
           ${dmcfg.setupCommands}
-        ''}
-      ''}
-      ${cfg.extraSeatDefaults}
-    '';
+        ''
+      }
+    ''}
+    ${cfg.extraSeatDefaults}
+  '';
 
-  defaultSessionName = dmDefault + optionalString (wmDefault != "none") ("+" + wmDefault);
-in
-{
+  defaultSessionName = dmDefault
+    + optionalString (wmDefault != "none") ("+" + wmDefault);
+in {
   # Note: the order in which lightdm greeter modules are imported
   # here determines the default: later modules (if enable) are
   # preferred.
@@ -96,7 +97,7 @@ in
         '';
       };
 
-      greeter =  {
+      greeter = {
         enable = mkOption {
           type = types.bool;
           default = true;
@@ -133,7 +134,8 @@ in
 
       background = mkOption {
         type = types.str;
-        default = "${pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom}/share/artwork/gnome/nix-wallpaper-simple-dark-gray_bottom.png";
+        default =
+          "${pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom}/share/artwork/gnome/nix-wallpaper-simple-dark-gray_bottom.png";
         description = ''
           The background image or color to use.
         '';
@@ -149,7 +151,7 @@ in
       };
 
       autoLogin = mkOption {
-        default = {};
+        default = { };
         description = ''
           Configuration for automatic login.
         '';
@@ -189,24 +191,30 @@ in
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = xcfg.enable;
+      {
+        assertion = xcfg.enable;
         message = ''
           LightDM requires services.xserver.enable to be true
         '';
       }
-      { assertion = cfg.autoLogin.enable -> cfg.autoLogin.user != null;
+      {
+        assertion = cfg.autoLogin.enable -> cfg.autoLogin.user != null;
         message = ''
           LightDM auto-login requires services.xserver.displayManager.lightdm.autoLogin.user to be set
         '';
       }
-      { assertion = cfg.autoLogin.enable -> dmDefault != "none" || wmDefault != "none";
+      {
+        assertion = cfg.autoLogin.enable -> dmDefault != "none" || wmDefault
+          != "none";
         message = ''
           LightDM auto-login requires that services.xserver.desktopManager.default and
           services.xserver.windowManager.default are set to valid values. The current
           default session: ${defaultSessionName} is not valid.
         '';
       }
-      { assertion = !cfg.greeter.enable -> (cfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
+      {
+        assertion = !cfg.greeter.enable
+          -> (cfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it
           is set to zero.
@@ -253,15 +261,15 @@ in
       '';
     };
     security.pam.services.lightdm-autologin.text = ''
-        auth     requisite pam_nologin.so
-        auth     required  pam_succeed_if.so uid >= 1000 quiet
-        auth     required  pam_permit.so
+      auth     requisite pam_nologin.so
+      auth     required  pam_succeed_if.so uid >= 1000 quiet
+      auth     required  pam_permit.so
 
-        account  include   lightdm
+      account  include   lightdm
 
-        password include   lightdm
+      password include   lightdm
 
-        session  include   lightdm
+      session  include   lightdm
     '';
 
     users.users.lightdm = {
@@ -279,7 +287,9 @@ in
     ];
 
     users.groups.lightdm.gid = config.ids.gids.lightdm;
-    services.xserver.tty     = null; # We might start multiple X servers so let the tty increment themselves..
-    services.xserver.display = null; # We specify our own display (and logfile) in xserver-wrapper up there
+    services.xserver.tty =
+      null; # We might start multiple X servers so let the tty increment themselves..
+    services.xserver.display =
+      null; # We specify our own display (and logfile) in xserver-wrapper up there
   };
 }

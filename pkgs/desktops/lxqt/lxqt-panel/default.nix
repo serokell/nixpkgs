@@ -1,10 +1,4 @@
-{
-  stdenv, fetchFromGitHub,
-  cmake, pkgconfig, lxqt-build-tools,
-  qtbase, qttools, qtx11extras, qtsvg, libdbusmenu, kwindowsystem, solid,
-  kguiaddons, liblxqt, libqtxdg, lxqt-globalkeys, libsysstat,
-  xorg, libstatgrab, lm_sensors, libpulseaudio, alsaLib, menu-cache,
-  lxmenu-data, pcre, libXdamage
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase, qttools, qtx11extras, qtsvg, libdbusmenu, kwindowsystem, solid, kguiaddons, liblxqt, libqtxdg, lxqt-globalkeys, libsysstat, xorg, libstatgrab, lm_sensors, libpulseaudio, alsaLib, menu-cache, lxmenu-data, pcre, libXdamage
 }:
 
 stdenv.mkDerivation rec {
@@ -18,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1py3i7qgm6h2iwjwqfjml1rp06s7ls1d7z5i9iizsmfshdzkaq86";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkgconfig lxqt-build-tools ];
 
   buildInputs = [
     qtbase
@@ -65,7 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The LXQt desktop panel";
-    homepage = https://github.com/lxqt/lxqt-panel;
+    homepage = "https://github.com/lxqt/lxqt-panel";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

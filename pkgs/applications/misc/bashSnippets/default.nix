@@ -1,17 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper
-, curl, python, bind, iproute, bc, gitMinimal }:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, curl, python, bind, iproute, bc, gitMinimal
+}:
 let
   version = "1.17.3";
-  deps = lib.makeBinPath [
-    curl
-    python
-    bind.dnsutils
-    iproute
-    bc
-    gitMinimal
-  ];
-in
-stdenv.mkDerivation {
+  deps = lib.makeBinPath [ curl python bind.dnsutils iproute bc gitMinimal ];
+in stdenv.mkDerivation {
   name = "bashSnippets-${version}";
 
   src = fetchFromGitHub {
@@ -40,7 +32,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A collection of small bash scripts for heavy terminal users";
-    homepage = https://github.com/alexanderepstein/Bash-Snippets;
+    homepage = "https://github.com/alexanderepstein/Bash-Snippets";
     license = licenses.mit;
     maintainers = with maintainers; [ infinisil ];
     platforms = platforms.unix;

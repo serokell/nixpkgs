@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, nose, numpy
-, bottle, pyyaml, redis, six
-, zlib }:
+{ stdenv, buildPythonPackage, fetchPypi, nose, numpy, bottle, pyyaml, redis, six, zlib
+}:
 
 buildPythonPackage rec {
   pname = "Jug";
@@ -24,7 +22,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "A Task-Based Parallelization Framework";
     license = licenses.mit;
-    homepage = https://jug.readthedocs.io/;
+    homepage = "https://jug.readthedocs.io/";
     maintainers = with maintainers; [ luispedro ];
   };
 }

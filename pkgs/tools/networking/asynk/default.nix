@@ -10,9 +10,16 @@ stdenv.mkDerivation rec {
     sha256 = "1bp30437mnls0kzm0525p3bg5nw9alpqrqhw186f6zp9i4y5znp1";
   };
 
-  propagatedBuildInputs = with python2Packages;
-    [ python2 makeWrapper tornado requests dateutil
-      vobject gdata caldavclientlibrary-asynk ];
+  propagatedBuildInputs = with python2Packages; [
+    python2
+    makeWrapper
+    tornado
+    requests
+    dateutil
+    vobject
+    gdata
+    caldavclientlibrary-asynk
+  ];
 
   installPhase = ''
     mkdir -p $out/bin $out/lib
@@ -38,7 +45,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://asynk.io/;
+    homepage = "http://asynk.io/";
     description = "Flexible contacts synchronization program";
     license = licenses.agpl3;
     maintainers = [ ];

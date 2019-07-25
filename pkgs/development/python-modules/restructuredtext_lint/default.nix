@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, docutils
-, nose
-, testtools
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, nose, testtools }:
 
 buildPythonPackage rec {
   pname = "restructuredtext_lint";
@@ -24,7 +18,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "reStructuredText linter";
-    homepage = https://github.com/twolfson/restructuredtext-lint;
+    homepage = "https://github.com/twolfson/restructuredtext-lint";
     license = lib.licenses.unlicense;
   };
 }

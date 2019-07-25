@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.keybase;
+let cfg = config.services.keybase;
 
 in {
 

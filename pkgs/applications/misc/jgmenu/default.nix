@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python3Packages, pango, librsvg, libxml2, menu-cache, xorg, makeWrapper }:
+{ stdenv, fetchFromGitHub, pkgconfig, python3Packages, pango, librsvg, libxml2, menu-cache, xorg, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   pname = "jgmenu";
@@ -11,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "03lk89d6wvqv234qciksd4zm0z4lkvrxfh6r9ff0d8yzg67m7rd0";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    makeWrapper
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ pkgconfig makeWrapper python3Packages.wrapPython ];
 
   buildInputs = [
     pango
@@ -37,7 +34,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/johanmalm/jgmenu;
+    homepage = "https://github.com/johanmalm/jgmenu";
     description = "Small X11 menu intended to be used with openbox and tint2";
     license = licenses.gpl2;
     platforms = platforms.linux;

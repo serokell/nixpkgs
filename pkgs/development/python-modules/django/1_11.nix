@@ -1,14 +1,13 @@
-{ stdenv, buildPythonPackage, fetchurl, substituteAll,
-  geos, gdal, pytz,
-  withGdal ? false
-}:
+{ stdenv, buildPythonPackage, fetchurl, substituteAll, geos, gdal, pytz, withGdal ?
+  false }:
 
 buildPythonPackage rec {
   pname = "Django";
   version = "1.11.22";
 
   src = fetchurl {
-    url = "https://www.djangoproject.com/m/releases/1.11/${pname}-${version}.tar.gz";
+    url =
+      "https://www.djangoproject.com/m/releases/1.11/${pname}-${version}.tar.gz";
     sha256 = "0if8p7sgbvpy3m8d25pw1x232s14ndd60w5s5d88jl3hl505s3c3";
   };
 
@@ -33,7 +32,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A high-level Python Web framework";
-    homepage = https://www.djangoproject.com/;
+    homepage = "https://www.djangoproject.com/";
     license = licenses.bsd3;
   };
 }

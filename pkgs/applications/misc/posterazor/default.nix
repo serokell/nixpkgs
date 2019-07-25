@@ -29,8 +29,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://posterazor.sourceforge.net/;
-    description = "Cuts a raster image into pieces which can afterwards be printed out and assembled to a poster";
+    homepage = "http://posterazor.sourceforge.net/";
+    description =
+      "Cuts a raster image into pieces which can afterwards be printed out and assembled to a poster";
     maintainers = [ maintainers.madjar ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

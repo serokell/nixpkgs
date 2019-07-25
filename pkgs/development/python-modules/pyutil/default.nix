@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptoolsDarcs
-, setuptoolsTrial
-, simplejson
-, twisted
-, isPyPy
+{ stdenv, buildPythonPackage, fetchPypi, setuptoolsDarcs, setuptoolsTrial, simplejson, twisted, isPyPy
 }:
 
 buildPythonPackage rec {
@@ -17,7 +10,8 @@ buildPythonPackage rec {
     sha256 = "8e254aa0a3b59e90515f7bca7ebc467b20a8d3fd2e26b63d196655c075da8d38";
   };
 
-  buildInputs = [ setuptoolsDarcs setuptoolsTrial ] ++ (if doCheck then [ simplejson ] else []);
+  buildInputs = [ setuptoolsDarcs setuptoolsTrial ]
+    ++ (if doCheck then [ simplejson ] else [ ]);
   propagatedBuildInputs = [ twisted ];
 
   # Tests fail because they try to write new code into the twisted
@@ -29,7 +23,8 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Pyutil, a collection of mature utilities for Python programmers";
+    description =
+      "Pyutil, a collection of mature utilities for Python programmers";
 
     longDescription = ''
       These are a few data structures, classes and functions which
@@ -41,7 +36,7 @@ buildPythonPackage rec {
       we're not alone in wanting tools like these.
     '';
 
-    homepage = http://allmydata.org/trac/pyutil;
+    homepage = "http://allmydata.org/trac/pyutil";
     license = licenses.gpl2Plus;
   };
 

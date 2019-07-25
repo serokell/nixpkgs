@@ -4,11 +4,12 @@ stdenv.mkDerivation rec {
   name = "anthy-9100h";
 
   meta = with stdenv.lib; {
-    description = "Hiragana text to Kana Kanji mixed text Japanese input method";
-    homepage    = "https://anthy.osdn.jp/";
-    license     = licenses.gpl2Plus;
+    description =
+      "Hiragana text to Kana Kanji mixed text Japanese input method";
+    homepage = "https://anthy.osdn.jp/";
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ericsagnes ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 
   src = fetchurl {

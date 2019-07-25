@@ -19,7 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://pythonhosted.org/Logbook/;
+    homepage = "https://pythonhosted.org/Logbook/";
     description = "A logging replacement for Python";
     license = lib.licenses.bsd3;
   };

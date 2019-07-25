@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "cernlib-${version}";
 
   src = fetchurl {
-    url = "https://cernlib.web.cern.ch/cernlib/download/${version}_source/tar/${version}_src.tar.gz";
+    url =
+      "https://cernlib.web.cern.ch/cernlib/download/${version}_source/tar/${version}_src.tar.gz";
     sha256 = "0awla1rl96z82br7slcmg8ks1d2a7slk6dj79ywb871j2ksi3fky";
   };
 
@@ -56,8 +57,9 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = {
-    homepage = http://cernlib.web.cern.ch;
-    description = "Legacy collection of libraries and modules for data analysis in high energy physics";
+    homepage = "http://cernlib.web.cern.ch";
+    description =
+      "Legacy collection of libraries and modules for data analysis in high energy physics";
     broken = stdenv.isDarwin;
     platforms = [ "i686-linux" "x86_64-linux" "x86_64-darwin" ];
     maintainers = with stdenv.lib.maintainers; [ veprbl ];

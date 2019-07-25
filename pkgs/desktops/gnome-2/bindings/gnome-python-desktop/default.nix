@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, gnome_python, librsvg, libwnck, libgtop, pkgconfig, python2, gtk2 }:
+{ stdenv, fetchurl, gnome_python, librsvg, libwnck, libgtop, pkgconfig, python2, gtk2
+}:
 
-let
-  inherit (python2.pkgs) python pygtk;
+let inherit (python2.pkgs) python pygtk;
 in stdenv.mkDerivation rec {
   ver_maj = "2.32";
   ver_min = "0";
@@ -9,7 +9,8 @@ in stdenv.mkDerivation rec {
   name = "gnome-python-desktop-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-python-desktop/${ver_maj}/gnome-python-desktop-${version}.tar.bz2";
+    url =
+      "mirror://gnome/sources/gnome-python-desktop/${ver_maj}/gnome-python-desktop-${version}.tar.bz2";
     sha256 = "1s8f9rns9v7qlwjv9qh9lr8crp88dpzfm45hj47zc3ivpy0dbnq9";
   };
 
@@ -24,7 +25,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.pygtk.org;
+    homepage = "http://www.pygtk.org";
     description = "Python bindings for GNOME desktop packages";
     license = licenses.lgpl21;
     maintainers = [ maintainers.goibhniu ];

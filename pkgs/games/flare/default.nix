@@ -3,10 +3,7 @@
 buildEnv {
   name = "flare-1.10";
 
-  paths = [
-    (callPackage ./engine.nix {})
-    (callPackage ./game.nix {})
-  ];
+  paths = [ (callPackage ./engine.nix { }) (callPackage ./game.nix { }) ];
 
   buildInputs = [ makeWrapper ];
   postBuild = ''

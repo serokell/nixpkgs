@@ -10,7 +10,5 @@ mkXfceDerivation rec {
   buildInputs = [ gtk3 libxfce4ui vte ];
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  meta = {
-    description = "A modern terminal emulator";
-  };
+  meta = { description = "A modern terminal emulator"; };
 }

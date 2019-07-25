@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "10.2.1";
 
   src = fetchurl {
-    url = "https://github.com/airsonic/airsonic/releases/download/v${version}/airsonic.war";
+    url =
+      "https://github.com/airsonic/airsonic/releases/download/v${version}/airsonic.war";
     sha256 = "1gjyg9qnrckm2gmym13yhlvw0iaspl8x0534zdw558gi3mjykm4v";
   };
 
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Personal media streamer";
-    homepage = https://airsonic.github.io;
+    homepage = "https://airsonic.github.io";
     license = stdenv.lib.licenses.gpl3;
     platforms = platforms.all;
     maintainers = with maintainers; [ disassembler ];

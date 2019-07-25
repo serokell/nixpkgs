@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.undervolt;
+let cfg = config.services.undervolt;
 in {
   options.services.undervolt = {
     enable = mkOption {
@@ -109,11 +108,21 @@ in {
         ExecStart = ''
           ${pkgs.undervolt}/bin/undervolt \
             ${optionalString cfg.verbose "--verbose"} \
-            ${optionalString (cfg.coreOffset != null) "--core ${cfg.coreOffset}"} \
-            ${optionalString (cfg.coreOffset != null) "--cache ${cfg.coreOffset}"} \
+            ${
+            optionalString (cfg.coreOffset != null) "--core ${cfg.coreOffset}"
+            } \
+            ${
+            optionalString (cfg.coreOffset != null) "--cache ${cfg.coreOffset}"
+            } \
             ${optionalString (cfg.gpuOffset != null) "--gpu ${cfg.gpuOffset}"} \
-            ${optionalString (cfg.uncoreOffset != null) "--uncore ${cfg.uncoreOffset}"} \
-            ${optionalString (cfg.analogioOffset != null) "--analogio ${cfg.analogioOffset}"} \
+            ${
+            optionalString (cfg.uncoreOffset != null)
+            "--uncore ${cfg.uncoreOffset}"
+            } \
+            ${
+            optionalString (cfg.analogioOffset != null)
+            "--analogio ${cfg.analogioOffset}"
+            } \
             ${optionalString (cfg.temp != null) "--temp ${cfg.temp}"} \
             ${optionalString (cfg.tempAc != null) "--temp-ac ${cfg.tempAc}"} \
             ${optionalString (cfg.tempBat != null) "--temp-bat ${cfg.tempBat}"}
@@ -122,7 +131,8 @@ in {
     };
 
     systemd.timers.undervolt = {
-      description = "Undervolt timer to ensure voltage settings are always applied";
+      description =
+        "Undervolt timer to ensure voltage settings are always applied";
       partOf = [ "undervolt.service" ];
       wantedBy = [ "multi-user.target" ];
       timerConfig = {

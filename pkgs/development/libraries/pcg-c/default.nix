@@ -13,9 +13,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches = [
-    ./prefix-variable.patch
-    ];
+  patches = [ ./prefix-variable.patch ];
 
   preInstall = ''
     sed -i s,/usr/local,$out, Makefile
@@ -24,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A family of better random number generators";
-    homepage = http://www.pcg-random.org/;
+    homepage = "http://www.pcg-random.org/";
     license = stdenv.lib.licenses.asl20;
     longDescription = ''
       PCG is a family of simple fast space-efficient statistically good
@@ -33,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.unix;
     maintainers = [ maintainers.linus ];
-    repositories.git = git://github.com/imneme/pcg-c.git;
+    repositories.git = "git://github.com/imneme/pcg-c.git";
     broken = stdenv.isi686; # https://github.com/imneme/pcg-c/issues/11
   };
 }

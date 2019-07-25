@@ -17,8 +17,8 @@ buildGoPackage rec {
   meta = {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [];
-    homepage = https://cloud.google.com/storage/docs/gcs-fuse;
+    maintainers = [ ];
+    homepage = "https://cloud.google.com/storage/docs/gcs-fuse";
     description =
       "A user-space file system for interacting with Google Cloud Storage";
   };

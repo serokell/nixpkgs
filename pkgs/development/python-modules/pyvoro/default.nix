@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "1.3.2";
@@ -16,8 +13,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/joe-jordan/pyvoro;
-    description = "2D and 3D Voronoi tessellations: a python entry point for the voro++ library";
+    homepage = "https://github.com/joe-jordan/pyvoro";
+    description =
+      "2D and 3D Voronoi tessellations: a python entry point for the voro++ library";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

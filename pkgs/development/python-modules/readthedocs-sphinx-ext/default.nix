@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-, pytest
-, mock
-, sphinx
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, pytest, mock, sphinx }:
 
 buildPythonPackage rec {
   pname = "readthedocs-sphinx-ext";
@@ -26,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Sphinx extension for Read the Docs overrides";
-    homepage = https://github.com/rtfd/readthedocs-sphinx-ext;
+    homepage = "https://github.com/rtfd/readthedocs-sphinx-ext";
     license = licenses.mit;
   };
 }

@@ -1,4 +1,5 @@
-{stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, libtool, python2Packages, glib, jansson}:
+{ stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, libtool, python2Packages, glib, jansson
+}:
 
 stdenv.mkDerivation rec {
   version = "3.1.0";
@@ -14,7 +15,13 @@ stdenv.mkDerivation rec {
   patches = [ ./libsearpc.pc.patch ];
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ automake autoconf libtool python2Packages.python python2Packages.simplejson ];
+  buildInputs = [
+    automake
+    autoconf
+    libtool
+    python2Packages.python
+    python2Packages.simplejson
+  ];
   propagatedBuildInputs = [ glib jansson ];
 
   postPatch = "patchShebangs autogen.sh";
@@ -22,8 +29,9 @@ stdenv.mkDerivation rec {
   preConfigure = "./autogen.sh";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/haiwen/libsearpc;
-    description = "A simple and easy-to-use C language RPC framework (including both server side & client side) based on GObject System";
+    homepage = "https://github.com/haiwen/libsearpc";
+    description =
+      "A simple and easy-to-use C language RPC framework (including both server side & client side) based on GObject System";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

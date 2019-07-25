@@ -1,15 +1,4 @@
-{ fetchurl
-, libX11
-, libXrandr
-, libXcursor
-, libXft
-, libXt
-, libxcb
-, xcbutil
-, xcb-util-cursor
-, xcbutilkeysyms
-, xcbutilwm
-, stdenv
+{ fetchurl, libX11, libXrandr, libXcursor, libXft, libXt, libxcb, xcbutil, xcb-util-cursor, xcbutilkeysyms, xcbutilwm, stdenv
 }:
 
 stdenv.mkDerivation rec {
@@ -20,7 +9,6 @@ stdenv.mkDerivation rec {
     url = "https://github.com/conformal/spectrwm/archive/SPECTRWM_2_7_2.tar.gz";
     sha256 = "1yssqnhxlfl1b60gziqp8c5pzs1lr8p6anrnp9ga1zfdql3b7993";
   };
-
 
   buildInputs = [
     libX11
@@ -35,19 +23,18 @@ stdenv.mkDerivation rec {
     xcbutilwm
   ];
 
-  sourceRoot = let
-    subdir = if stdenv.isDarwin then "osx" else "linux";
-  in "spectrwm-SPECTRWM_2_7_2/${subdir}";
+  sourceRoot = let subdir = if stdenv.isDarwin then "osx" else "linux";
+    in "spectrwm-SPECTRWM_2_7_2/${subdir}";
 
-  makeFlags="PREFIX=$(out)";
+  makeFlags = "PREFIX=$(out)";
   installPhase = "PREFIX=$out make install";
 
   meta = with stdenv.lib; {
     description = "A tiling window manager";
-    homepage    = "https://github.com/conformal/spectrwm";
+    homepage = "https://github.com/conformal/spectrwm";
     maintainers = with maintainers; [ jb55 ];
-    license     = licenses.isc;
-    platforms   = platforms.all;
+    license = licenses.isc;
+    platforms = platforms.all;
 
     longDescription = ''
       spectrwm is a small dynamic tiling window manager for X11. It

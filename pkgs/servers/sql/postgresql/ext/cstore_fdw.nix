@@ -8,9 +8,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ postgresql ];
 
   src = fetchFromGitHub {
-    owner  = "citusdata";
-    repo   = "cstore_fdw";
-    rev    = "refs/tags/v${version}";
+    owner = "citusdata";
+    repo = "cstore_fdw";
+    rev = "refs/tags/v${version}";
     sha256 = "0kdmzpbhhjdg4p6i5963h7qbs88jzgpqc52gz450h7hwb9ckpv74";
   };
 
@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Columnar storage for PostgreSQL";
-    homepage    = https://www.citusdata.com/;
+    homepage = "https://www.citusdata.com/";
     maintainers = with maintainers; [ thoughtpolice ];
-    platforms   = postgresql.meta.platforms;
-    license     = licenses.asl20;
+    platforms = postgresql.meta.platforms;
+    license = licenses.asl20;
   };
 }

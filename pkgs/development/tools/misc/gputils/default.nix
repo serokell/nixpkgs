@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://gputils.sourceforge.io/;
+    homepage = "https://gputils.sourceforge.io/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ yorickvp ];
     platforms = platforms.linux;

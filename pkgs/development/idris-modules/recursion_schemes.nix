@@ -1,13 +1,6 @@
-{ build-idris-package
-, fetchFromGitHub
-, free
-, composition
-, comonad
-, bifunctors
-, hezarfen
-, lib
+{ build-idris-package, fetchFromGitHub, free, composition, comonad, bifunctors, hezarfen, lib
 }:
-build-idris-package  {
+build-idris-package {
   name = "recursion_schemes";
   version = "2018-01-19";
 
@@ -22,7 +15,7 @@ build-idris-package  {
 
   meta = {
     description = "Recursion schemes for Idris";
-    homepage = https://github.com/vmchale/recursion_schemes;
+    homepage = "https://github.com/vmchale/recursion_schemes";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

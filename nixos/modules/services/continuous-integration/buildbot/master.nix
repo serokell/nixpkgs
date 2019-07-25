@@ -9,7 +9,7 @@ let
 
   python = cfg.package.pythonModule;
 
-  escapeStr = s: escape ["'"] s;
+  escapeStr = s: escape [ "'" ] s;
 
   defaultMasterCfg = pkgs.writeText "master.cfg" ''
     from buildbot.plugins import *
@@ -61,7 +61,7 @@ in {
       factorySteps = mkOption {
         type = types.listOf types.str;
         description = "Factory Steps";
-        default = [];
+        default = [ ];
         example = [
           "steps.Git(repourl='git://github.com/buildbot/pyflakes.git', mode='incremental')"
           "steps.ShellCommand(command=['trial', 'pyflakes'])"
@@ -71,7 +71,7 @@ in {
       changeSource = mkOption {
         type = types.listOf types.str;
         description = "List of Change Sources.";
-        default = [];
+        default = [ ];
         example = [
           "changes.GitPoller('git://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)"
         ];
@@ -80,7 +80,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "Whether to enable the Buildbot continuous integration server.";
+        description =
+          "Whether to enable the Buildbot continuous integration server.";
       };
 
       extraConfig = mkOption {
@@ -91,7 +92,8 @@ in {
 
       masterCfg = mkOption {
         type = types.path;
-        description = "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
+        description =
+          "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
         default = defaultMasterCfg;
         example = "/etc/nixos/buildbot/master.cfg";
       };
@@ -120,7 +122,7 @@ in {
       };
 
       status = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.str;
         description = "List of status notification endpoints.";
       };
@@ -139,8 +141,9 @@ in {
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = "List of extra groups that the buildbot user should be a part of.";
+        default = [ ];
+        description =
+          "List of extra groups that the buildbot user should be a part of.";
       };
 
       home = mkOption {
@@ -164,7 +167,8 @@ in {
       listenAddress = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description = "Specifies the bind address on which the buildbot HTTP interface listens.";
+        description =
+          "Specifies the bind address on which the buildbot HTTP interface listens.";
       };
 
       buildbotUrl = mkOption {
@@ -194,7 +198,8 @@ in {
       port = mkOption {
         default = 8010;
         type = types.int;
-        description = "Specifies port number on which the buildbot HTTP interface listens.";
+        description =
+          "Specifies port number on which the buildbot HTTP interface listens.";
       };
 
       package = mkOption {
@@ -215,16 +220,16 @@ in {
       pythonPackages = mkOption {
         default = pythonPackages: with pythonPackages; [ ];
         defaultText = "pythonPackages: with pythonPackages; [ ]";
-        description = "Packages to add the to the PYTHONPATH of the buildbot process.";
-        example = literalExample "pythonPackages: with pythonPackages; [ requests ]";
+        description =
+          "Packages to add the to the PYTHONPATH of the buildbot process.";
+        example =
+          literalExample "pythonPackages: with pythonPackages; [ requests ]";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    users.groups = optional (cfg.group == "buildbot") {
-      name = "buildbot";
-    };
+    users.groups = optional (cfg.group == "buildbot") { name = "buildbot"; };
 
     users.users = optional (cfg.user == "buildbot") {
       name = "buildbot";
@@ -242,7 +247,9 @@ in {
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages ++ cfg.pythonPackages python.pkgs;
-      environment.PYTHONPATH = "${python.withPackages (self: cfg.pythonPackages self ++ [ cfg.package ])}/${python.sitePackages}";
+      environment.PYTHONPATH = "${
+        python.withPackages (self: cfg.pythonPackages self ++ [ cfg.package ])
+        }/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}"
@@ -258,7 +265,8 @@ in {
         Group = cfg.group;
         WorkingDirectory = cfg.home;
         # NOTE: call twistd directly with stdout logging for systemd
-        ExecStart = "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
+        ExecStart =
+          "${python.pkgs.twisted}/bin/twistd -o --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };
     };
   };

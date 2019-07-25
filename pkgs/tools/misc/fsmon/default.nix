@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "FileSystem Monitor utility";
-    homepage = https://github.com/nowsecure/fsmon;
+    homepage = "https://github.com/nowsecure/fsmon";
     license = licenses.mit;
     maintainers = [ maintainers.dezgeg ];
     platforms = platforms.linux;

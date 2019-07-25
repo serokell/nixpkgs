@@ -1,14 +1,4 @@
-{ pkgs
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, adal
-, msrest
-, mock
-, httpretty
-, pytest
-, pytest-asyncio
+{ pkgs, lib, buildPythonPackage, fetchFromGitHub, isPy3k, adal, msrest, mock, httpretty, pytest, pytest-asyncio
 }:
 
 buildPythonPackage rec {
@@ -27,14 +17,15 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ adal msrest ];
 
   checkInputs = [ httpretty mock pytest ]
-                ++ lib.optional isPy3k [ pytest-asyncio ];
+    ++ lib.optional isPy3k [ pytest-asyncio ];
 
   checkPhase = ''
     pytest tests/
   '';
 
   meta = with pkgs.lib; {
-    description = "The runtime library 'msrestazure' for AutoRest generated Python clients.";
+    description =
+      "The runtime library 'msrestazure' for AutoRest generated Python clients.";
     homepage = "https://azure.microsoft.com/en-us/develop/python/";
     license = licenses.mit;
     maintainers = with maintainers; [ bendlas jonringer ];

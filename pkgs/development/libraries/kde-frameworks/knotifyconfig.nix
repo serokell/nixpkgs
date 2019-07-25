@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules,
-  kcompletion, kconfig, ki18n, kio, phonon, qtbase,
+{ mkDerivation, lib, extra-cmake-modules, kcompletion, kconfig, ki18n, kio, phonon, qtbase,
 }:
 
 mkDerivation {

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose, six, pyyaml, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, six, pyyaml, mock }:
 
 buildPythonPackage rec {
   pname = "ddt";
@@ -20,8 +16,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Data-Driven/Decorated Tests, a library to multiply test cases";
-    homepage = https://github.com/txels/ddt;
+    description =
+      "Data-Driven/Decorated Tests, a library to multiply test cases";
+    homepage = "https://github.com/txels/ddt";
     license = licenses.mit;
   };
 

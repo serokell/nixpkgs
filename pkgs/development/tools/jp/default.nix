@@ -14,8 +14,9 @@ buildGoPackage rec {
     sha256 = "1i0jl0c062crigkxqx8zpyqliz8j4d37y95cna33jl777kx42r6h";
   };
   meta = with stdenv.lib; {
-    description = "A command line interface to the JMESPath expression language for JSON";
-    homepage = https://github.com/jmespath/jp;
+    description =
+      "A command line interface to the JMESPath expression language for JSON";
+    homepage = "https://github.com/jmespath/jp";
     maintainers = with maintainers; [ cransom ];
     license = licenses.asl20;
   };

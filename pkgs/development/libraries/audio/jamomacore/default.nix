@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, alsaLib, portaudio, portmidi, libsndfile, cmake, libxml2 }:
+{ stdenv, fetchFromGitHub, pkgconfig, alsaLib, portaudio, portmidi, libsndfile, cmake, libxml2
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0-beta.1";
@@ -15,8 +16,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ alsaLib portaudio portmidi libsndfile cmake libxml2 ];
 
   meta = {
-    description = "A C++ platform for building dynamic and reflexive systems with an emphasis on audio and media";
-    homepage = http://www.jamoma.org;
+    description =
+      "A C++ platform for building dynamic and reflexive systems with an emphasis on audio and media";
+    homepage = "http://www.jamoma.org";
     license = stdenv.lib.licenses.bsd3;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

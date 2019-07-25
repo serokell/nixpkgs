@@ -8,8 +8,7 @@ let
 
   motdFile = builtins.toFile "rsyncd-motd" cfg.motd;
 
-  foreach = attrs: f:
-    concatStringsSep "\n" (mapAttrsToList f attrs);
+  foreach = attrs: f: concatStringsSep "\n" (mapAttrsToList f attrs);
 
   cfgFile = ''
     ${optionalString (cfg.motd != "") "motd file = ${motdFile}"}
@@ -18,14 +17,11 @@ let
     ${cfg.extraConfig}
     ${foreach cfg.modules (name: module: ''
       [${name}]
-      ${foreach module (k: v:
-        "${k} = ${v}"
-      )}
+      ${foreach module (k: v: "${k} = ${v}")}
     '')}
   '';
-in
 
-{
+in {
   options = {
     services.rsyncd = {
 
@@ -62,25 +58,25 @@ in
         type = types.lines;
         default = "";
         description = ''
-            Lines of configuration to add to rsyncd globally.
-            See <command>man rsyncd.conf</command> for options.
-          '';
+          Lines of configuration to add to rsyncd globally.
+          See <command>man rsyncd.conf</command> for options.
+        '';
       };
 
       modules = mkOption {
-        default = {};
+        default = { };
         description = ''
-            A set describing exported directories.
-            See <command>man rsyncd.conf</command> for options.
-          '';
+          A set describing exported directories.
+          See <command>man rsyncd.conf</command> for options.
+        '';
         type = types.attrsOf (types.attrsOf types.str);
-        example =
-          { srv =
-             { path = "/srv";
-               "read only" = "yes";
-               comment = "Public rsync share.";
-             };
+        example = {
+          srv = {
+            path = "/srv";
+            "read only" = "yes";
+            comment = "Public rsync share.";
           };
+        };
       };
 
       user = mkOption {

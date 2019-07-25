@@ -1,5 +1,4 @@
-{ stdenv, fetchgit
-, SDL2, wxGTK }:
+{ stdenv, fetchgit, SDL2, wxGTK }:
 
 stdenv.mkDerivation rec {
 
@@ -13,16 +12,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = with stdenv.lib;
-  [ wxGTK SDL2 ];
+  buildInputs = with stdenv.lib; [ wxGTK SDL2 ];
 
   preConfigure = ''
     export SDL_CONFIG=${SDL2.dev}/bin/sdl2-config
   '';
 
-  meta = with stdenv.lib;{
+  meta = with stdenv.lib; {
     description = "Audibilization and Visualization of Sorting Algorithms";
-    homepage = http://panthema.net/2013/sound-of-sorting/;
+    homepage = "http://panthema.net/2013/sound-of-sorting/";
     license = with licenses; gpl3;
     maintainers = with maintainers; [ AndersonTorres ];
   };

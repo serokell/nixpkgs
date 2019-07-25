@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pandas
-, imutils
-, progress
-, matplotlib
-, pytest
+{ stdenv, buildPythonPackage, fetchPypi, numpy, pandas, imutils, progress, matplotlib, pytest
 }:
 
 buildPythonPackage rec {
@@ -25,7 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/AdamSpannbauer/python_video_stab;
+    homepage = "https://github.com/AdamSpannbauer/python_video_stab";
     description = "Video Stabilization using OpenCV";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

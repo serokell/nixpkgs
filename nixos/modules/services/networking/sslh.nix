@@ -31,8 +31,7 @@ let
       { name: "anyprot"; host: "localhost"; port: "443"; probe: "builtin"; }
     );
   '';
-in
-{
+in {
   options = {
     services.sslh = {
       enable = mkEnableOption "sslh";
@@ -52,7 +51,8 @@ in
       transparent = mkOption {
         type = types.bool;
         default = false;
-        description = "Will the services behind sslh (Apache, sshd and so on) see the external IP and ports as if the external world connected directly to them";
+        description =
+          "Will the services behind sslh (Apache, sshd and so on) see the external IP and ports as if the external world connected directly to them";
       };
 
       listenAddress = mkOption {
@@ -83,23 +83,25 @@ in
       };
 
       systemd.services.sslh = {
-        description = "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
+        description =
+          "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
-          User                 = user;
-          Group                = "nogroup";
+          User = user;
+          Group = "nogroup";
           PermissionsStartOnly = true;
-          Restart              = "always";
-          RestartSec           = "1s";
-          ExecStart            = "${pkgs.sslh}/bin/sslh -F${configFile}";
-          KillMode             = "process";
-          AmbientCapabilities  = "CAP_NET_BIND_SERVICE CAP_NET_ADMIN CAP_SETGID CAP_SETUID";
-          PrivateTmp           = true;
-          PrivateDevices       = true;
-          ProtectSystem        = "full";
-          ProtectHome          = true;
+          Restart = "always";
+          RestartSec = "1s";
+          ExecStart = "${pkgs.sslh}/bin/sslh -F${configFile}";
+          KillMode = "process";
+          AmbientCapabilities =
+            "CAP_NET_BIND_SERVICE CAP_NET_ADMIN CAP_SETGID CAP_SETUID";
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectSystem = "full";
+          ProtectHome = true;
         };
       };
     })
@@ -109,57 +111,97 @@ in
     (mkIf (cfg.enable && cfg.transparent) {
       # Set route_localnet = 1 on all interfaces so that ssl can use "localhost" as destination
       boot.kernel.sysctl."net.ipv4.conf.default.route_localnet" = 1;
-      boot.kernel.sysctl."net.ipv4.conf.all.route_localnet"     = 1;
+      boot.kernel.sysctl."net.ipv4.conf.all.route_localnet" = 1;
 
       systemd.services.sslh = let
         iptablesCommands = [
           # DROP martian packets as they would have been if route_localnet was zero
           # Note: packets not leaving the server aren't affected by this, thus sslh will still work
-          { table = "raw";    command = "PREROUTING  ! -i lo -d 127.0.0.0/8 -j DROP"; }
-          { table = "mangle"; command = "POSTROUTING ! -o lo -s 127.0.0.0/8 -j DROP"; }
+          {
+            table = "raw";
+            command = "PREROUTING  ! -i lo -d 127.0.0.0/8 -j DROP";
+          }
+          {
+            table = "mangle";
+            command = "POSTROUTING ! -o lo -s 127.0.0.0/8 -j DROP";
+          }
           # Mark all connections made by ssl for special treatment (here sslh is run as user ${user})
-          { table = "nat";    command = "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f"; }
+          {
+            table = "nat";
+            command =
+              "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
+          }
           # Outgoing packets that should go to sslh instead have to be rerouted, so mark them accordingly (copying over the connection mark)
-          { table = "mangle"; command = "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f"; }
+          {
+            table = "mangle";
+            command =
+              "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
+          }
         ];
         ip6tablesCommands = [
-          { table = "raw";    command = "PREROUTING  ! -i lo -d ::1/128     -j DROP"; }
-          { table = "mangle"; command = "POSTROUTING ! -o lo -s ::1/128     -j DROP"; }
-          { table = "nat";    command = "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f"; }
-          { table = "mangle"; command = "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f"; }
+          {
+            table = "raw";
+            command = "PREROUTING  ! -i lo -d ::1/128     -j DROP";
+          }
+          {
+            table = "mangle";
+            command = "POSTROUTING ! -o lo -s ::1/128     -j DROP";
+          }
+          {
+            table = "nat";
+            command =
+              "OUTPUT -m owner --uid-owner ${user} -p tcp --tcp-flags FIN,SYN,RST,ACK SYN -j CONNMARK --set-xmark 0x02/0x0f";
+          }
+          {
+            table = "mangle";
+            command =
+              "OUTPUT ! -o lo -p tcp -m connmark --mark 0x02/0x0f -j CONNMARK --restore-mark --mask 0x0f";
+          }
         ];
-      in {
-        path = [ pkgs.iptables pkgs.iproute pkgs.procps ];
+        in {
+          path = [ pkgs.iptables pkgs.iproute pkgs.procps ];
 
-        preStart = ''
-          # Cleanup old iptables entries which might be still there
-          ${concatMapStringsSep "\n" ({table, command}: "while iptables -w -t ${table} -D ${command} 2>/dev/null; do echo; done") iptablesCommands}
-          ${concatMapStringsSep "\n" ({table, command}:       "iptables -w -t ${table} -A ${command}"                           ) iptablesCommands}
+          preStart = ''
+            # Cleanup old iptables entries which might be still there
+            ${concatMapStringsSep "\n" ({ table, command }:
+            "while iptables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
+            iptablesCommands}
+            ${concatMapStringsSep "\n"
+            ({ table, command }: "iptables -w -t ${table} -A ${command}")
+            iptablesCommands}
 
-          # Configure routing for those marked packets
-          ip rule  add fwmark 0x2 lookup 100
-          ip route add local 0.0.0.0/0 dev lo table 100
+            # Configure routing for those marked packets
+            ip rule  add fwmark 0x2 lookup 100
+            ip route add local 0.0.0.0/0 dev lo table 100
 
-        '' + optionalString config.networking.enableIPv6 ''
-          ${concatMapStringsSep "\n" ({table, command}: "while ip6tables -w -t ${table} -D ${command} 2>/dev/null; do echo; done") ip6tablesCommands}
-          ${concatMapStringsSep "\n" ({table, command}:       "ip6tables -w -t ${table} -A ${command}"                           ) ip6tablesCommands}
+          '' + optionalString config.networking.enableIPv6 ''
+            ${concatMapStringsSep "\n" ({ table, command }:
+            "while ip6tables -w -t ${table} -D ${command} 2>/dev/null; do echo; done")
+            ip6tablesCommands}
+            ${concatMapStringsSep "\n"
+            ({ table, command }: "ip6tables -w -t ${table} -A ${command}")
+            ip6tablesCommands}
 
-          ip -6 rule  add fwmark 0x2 lookup 100
-          ip -6 route add local ::/0 dev lo table 100
-        '';
+            ip -6 rule  add fwmark 0x2 lookup 100
+            ip -6 route add local ::/0 dev lo table 100
+          '';
 
-        postStop = ''
-          ${concatMapStringsSep "\n" ({table, command}: "iptables -w -t ${table} -D ${command}") iptablesCommands}
+          postStop = ''
+            ${concatMapStringsSep "\n"
+            ({ table, command }: "iptables -w -t ${table} -D ${command}")
+            iptablesCommands}
 
-          ip rule  del fwmark 0x2 lookup 100
-          ip route del local 0.0.0.0/0 dev lo table 100
-        '' + optionalString config.networking.enableIPv6 ''
-          ${concatMapStringsSep "\n" ({table, command}: "ip6tables -w -t ${table} -D ${command}") ip6tablesCommands}
+            ip rule  del fwmark 0x2 lookup 100
+            ip route del local 0.0.0.0/0 dev lo table 100
+          '' + optionalString config.networking.enableIPv6 ''
+            ${concatMapStringsSep "\n"
+            ({ table, command }: "ip6tables -w -t ${table} -D ${command}")
+            ip6tablesCommands}
 
-          ip -6 rule  del fwmark 0x2 lookup 100
-          ip -6 route del local ::/0 dev lo table 100
-        '';
-      };
+            ip -6 rule  del fwmark 0x2 lookup 100
+            ip -6 route del local ::/0 dev lo table 100
+          '';
+        };
     })
   ];
 }

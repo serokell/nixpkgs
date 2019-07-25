@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, fftw, fftwFloat, fftwLongDouble, numpy, scipy, cython, dask }:
+{ stdenv, buildPythonPackage, fetchPypi, fftw, fftwFloat, fftwLongDouble, numpy, scipy, cython, dask
+}:
 
 buildPythonPackage rec {
   version = "0.11.1";
@@ -10,7 +10,7 @@ buildPythonPackage rec {
     sha256 = "05ea28dede4c3aaaf5c66f56eb0f71849d0d50f5bc0f53ca0ffa69534af14926";
   };
 
-  buildInputs = [ fftw fftwFloat fftwLongDouble];
+  buildInputs = [ fftw fftwFloat fftwLongDouble ];
 
   propagatedBuildInputs = [ numpy scipy cython dask ];
 
@@ -26,8 +26,9 @@ buildPythonPackage rec {
   #'';
 
   meta = with stdenv.lib; {
-    description = "A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms";
-    homepage = http://hgomersall.github.com/pyFFTW/;
+    description =
+      "A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms";
+    homepage = "http://hgomersall.github.com/pyFFTW/";
     license = with licenses; [ bsd2 bsd3 ];
     maintainers = with maintainers; [ fridh ];
   };

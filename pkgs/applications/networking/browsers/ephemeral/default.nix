@@ -1,20 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, desktop-file-utils
-, gettext
-, glib
-, gtk3
-, hicolor-icon-theme
-, libgee
-, libdazzle
-, meson
-, ninja
-, pantheon
-, pkgconfig
-, python3
-, webkitgtk
-, wrapGAppsHook
-, glib-networking
+{ stdenv, fetchFromGitHub, desktop-file-utils, gettext, glib, gtk3, hicolor-icon-theme, libgee, libdazzle, meson, ninja, pantheon, pkgconfig, python3, webkitgtk, wrapGAppsHook, glib-networking
 }:
 
 stdenv.mkDerivation rec {
@@ -57,7 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The always-incognito web browser";
-    homepage = https://github.com/cassidyjames/ephemeral;
+    homepage = "https://github.com/cassidyjames/ephemeral";
     maintainers = with maintainers; [ kjuvi ] ++ pantheon.maintainers;
     platforms = platforms.linux;
     license = licenses.gpl3;

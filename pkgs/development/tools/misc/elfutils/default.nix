@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, m4, zlib, bzip2, bison, flex, gettext, xz, setupDebugInfoDirs }:
+{ lib, stdenv, fetchurl, m4, zlib, bzip2, bison, flex, gettext, xz, setupDebugInfoDirs
+}:
 
 # TODO: Look at the hardcoded paths to kernel, modules etc.
 stdenv.mkDerivation rec {
@@ -25,10 +26,10 @@ stdenv.mkDerivation rec {
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 
-  configureFlags =
-    [ "--program-prefix=eu-" # prevent collisions with binutils
-      "--enable-deterministic-archives"
-    ];
+  configureFlags = [
+    "--program-prefix=eu-" # prevent collisions with binutils
+    "--enable-deterministic-archives"
+  ];
 
   enableParallelBuilding = true;
 
@@ -39,39 +40,41 @@ stdenv.mkDerivation rec {
   #
   # I wrote this testing for the nanonote.
 
-  buildPhase = stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    pushd libebl
-    make
-    popd
-    pushd libelf
-    make
-    popd
-    pushd libdwfl
-    make
-    popd
-    pushd libdw
-    make
-    popd
-  '';
+  buildPhase =
+    stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      pushd libebl
+      make
+      popd
+      pushd libelf
+      make
+      popd
+      pushd libdwfl
+      make
+      popd
+      pushd libdw
+      make
+      popd
+    '';
 
-  installPhase = stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    pushd libelf
-    make install
-    popd
-    pushd libdwfl
-    make install
-    popd
-    pushd libdw
-    make install
-    popd
-    cp version.h $out/include
-  '';
+  installPhase =
+    stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      pushd libelf
+      make install
+      popd
+      pushd libdwfl
+      make install
+      popd
+      pushd libdw
+      make install
+      popd
+      cp version.h $out/include
+    '';
 
   doCheck = false; # fails 3 out of 174 tests
   doInstallCheck = false; # fails 70 out of 174 tests
 
   meta = {
-    homepage = https://sourceware.org/elfutils/;
+    homepage = "https://sourceware.org/elfutils/";
     description = "A set of utilities to handle ELF objects";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3;

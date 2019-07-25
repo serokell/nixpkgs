@@ -1,8 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, pkgs
-, mpi ? false
-}:
+{ stdenv, fetchFromGitHub, pkgs, mpi ? false }:
 
 stdenv.mkDerivation rec {
   pname = "RAxML";
@@ -16,14 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "1jqjzhch0rips0vp04prvb8vmc20c5pdmsqn8knadcf91yy859fh";
   };
 
-  buildInputs = if mpi then [ pkgs.openmpi ] else [];
+  buildInputs = if mpi then [ pkgs.openmpi ] else [ ];
 
   # TODO darwin, AVX and AVX2 makefile targets
   buildPhase = if mpi then ''
-      make -f Makefile.MPI.gcc
-    '' else ''
-      make -f Makefile.SSE3.PTHREADS.gcc
-    '';
+    make -f Makefile.MPI.gcc
+  '' else ''
+    make -f Makefile.SSE3.PTHREADS.gcc
+  '';
 
   installPhase = if mpi then ''
     mkdir -p $out/bin && cp raxmlHPC-MPI $out/bin
@@ -32,9 +28,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies";
+    description =
+      "A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies";
     license = licenses.gpl3;
-    homepage = https://sco.h-its.org/exelixis/web/software/raxml/;
+    homepage = "https://sco.h-its.org/exelixis/web/software/raxml/";
     maintainers = [ maintainers.unode ];
     platforms = [ "i686-linux" "x86_64-linux" ];
   };

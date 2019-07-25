@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub
-, cmake }:
+{ stdenv, fetchFromGitHub, cmake }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -8,8 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "JWasm";
-    repo  = "JWasm";
-    rev    = "26f97c8b5c9d9341ec45538701116fa3649b7766";
+    repo = "JWasm";
+    rev = "26f97c8b5c9d9341ec45538701116fa3649b7766";
     sha256 = "0m972pc8vk8s9yv1pi85fsjgm6hj24gab7nalw2q04l0359nqi7w";
   };
 
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A MASM-compatible x86 assembler";
-    homepage = http://jwasm.github.io/;
+    homepage = "http://jwasm.github.io/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.darwin ++ platforms.linux;

@@ -1,6 +1,4 @@
-{ lib, buildGoPackage, fetchFromGitHub, go-bindata, pkgconfig, makeWrapper
-, glib, gtk3, libappindicator-gtk3, gpgme, openshift, ostree, libselinux, btrfs-progs
-, lvm2, docker-machine-kvm
+{ lib, buildGoPackage, fetchFromGitHub, go-bindata, pkgconfig, makeWrapper, glib, gtk3, libappindicator-gtk3, gpgme, openshift, ostree, libselinux, btrfs-progs, lvm2, docker-machine-kvm
 }:
 
 let
@@ -22,7 +20,8 @@ in buildGoPackage rec {
   };
 
   nativeBuildInputs = [ pkgconfig go-bindata makeWrapper ];
-  buildInputs = [ glib gtk3 libappindicator-gtk3 gpgme ostree libselinux btrfs-progs lvm2 ];
+  buildInputs =
+    [ glib gtk3 libappindicator-gtk3 gpgme ostree libselinux btrfs-progs lvm2 ];
 
   goPackagePath = "github.com/minishift/minishift";
   subPackages = [ "cmd/minishift" ];
@@ -59,7 +58,7 @@ in buildGoPackage rec {
       a single-node OpenShift cluster inside a VM. You can try out OpenShift
       or develop with it, day-to-day, on your local host.
     '';
-    homepage = https://github.com/minishift/minishift;
+    homepage = "https://github.com/minishift/minishift";
     maintainers = with maintainers; [ fpletz vdemeester ];
     platforms = platforms.linux;
     license = licenses.asl20;

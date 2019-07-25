@@ -1,8 +1,8 @@
-{ stdenv, makeDesktopItem, freetype, fontconfig, libX11, libXrender
-, zlib, jdk, glib, gtk3, libXtst, gsettings-desktop-schemas, webkitgtk
-, makeWrapper, ... }:
+{ stdenv, makeDesktopItem, freetype, fontconfig, libX11, libXrender, zlib, jdk, glib, gtk3, libXtst, gsettings-desktop-schemas, webkitgtk, makeWrapper, ...
+}:
 
-{ name, src ? builtins.getAttr stdenv.hostPlatform.system sources, sources ? null, description }:
+{ name, src ? builtins.getAttr stdenv.hostPlatform.system sources, sources ?
+  null, description }:
 
 stdenv.mkDerivation rec {
   inherit name src;
@@ -18,8 +18,17 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    fontconfig freetype glib gsettings-desktop-schemas gtk3 jdk libX11
-    libXrender libXtst makeWrapper zlib
+    fontconfig
+    freetype
+    glib
+    gsettings-desktop-schemas
+    gtk3
+    jdk
+    libX11
+    libXrender
+    libXtst
+    makeWrapper
+    zlib
   ] ++ stdenv.lib.optional (webkitgtk != null) webkitgtk;
 
   buildCommand = ''
@@ -31,7 +40,9 @@ stdenv.mkDerivation rec {
     interpreter=$(echo ${stdenv.glibc.out}/lib/ld-linux*.so.2)
     libCairo=$out/eclipse/libcairo-swt.so
     patchelf --set-interpreter $interpreter $out/eclipse/eclipse
-    [ -f $libCairo ] && patchelf --set-rpath ${stdenv.lib.makeLibraryPath [ freetype fontconfig libX11 libXrender zlib ]} $libCairo
+    [ -f $libCairo ] && patchelf --set-rpath ${
+      stdenv.lib.makeLibraryPath [ freetype fontconfig libX11 libXrender zlib ]
+    } $libCairo
 
     # Create wrapper script.  Pass -configuration to store
     # settings in ~/.eclipse/org.eclipse.platform_<version> rather
@@ -41,7 +52,10 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/eclipse/eclipse $out/bin/eclipse \
       --prefix PATH : ${jdk}/bin \
-      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath ([ glib gtk3 libXtst ] ++ stdenv.lib.optional (webkitgtk != null) webkitgtk)} \
+      --prefix LD_LIBRARY_PATH : ${
+      stdenv.lib.makeLibraryPath ([ glib gtk3 libXtst ]
+      ++ stdenv.lib.optional (webkitgtk != null) webkitgtk)
+      } \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
       --add-flags "-configuration \$HOME/.eclipse/''${productId}_$productVersion/configuration"
 
@@ -53,7 +67,7 @@ stdenv.mkDerivation rec {
   ''; # */
 
   meta = {
-    homepage = http://www.eclipse.org/;
+    homepage = "http://www.eclipse.org/";
     inherit description;
     platforms = [ "x86_64-linux" ];
   };

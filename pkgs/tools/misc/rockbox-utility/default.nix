@@ -1,15 +1,15 @@
-{ stdenv, fetchurl, pkgconfig, libusb1
-, qtbase, qttools, makeWrapper, qmake
-, withEspeak ? false, espeak ? null }:
+{ stdenv, fetchurl, pkgconfig, libusb1, qtbase, qttools, makeWrapper, qmake, withEspeak ?
+  false, espeak ? null }:
 
-let inherit (stdenv.lib) getDev; in
+let inherit (stdenv.lib) getDev;
 
-stdenv.mkDerivation  rec {
+in stdenv.mkDerivation rec {
   name = "rockbox-utility-${version}";
   version = "1.4.0";
 
   src = fetchurl {
-    url = "https://download.rockbox.org/rbutil/source/RockboxUtility-v${version}-src.tar.bz2";
+    url =
+      "https://download.rockbox.org/rbutil/source/RockboxUtility-v${version}-src.tar.bz2";
     sha256 = "0k3ycga3b0jnj13whwiip2l0gx32l50pnbh7kfima87nq65aaa5w";
   };
 
@@ -19,7 +19,9 @@ stdenv.mkDerivation  rec {
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \
-        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${getDev qttools}/bin/lrelease|'
+        -e '/^lrelease.commands =/ s|$$\[QT_INSTALL_BINS\]/lrelease -silent|${
+      getDev qttools
+        }/bin/lrelease|'
   '';
 
   preConfigure = ''
@@ -47,7 +49,7 @@ stdenv.mkDerivation  rec {
 
   meta = with stdenv.lib; {
     description = "Open source firmware for mp3 players";
-    homepage = https://www.rockbox.org;
+    homepage = "https://www.rockbox.org";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ goibhniu ];

@@ -4,12 +4,10 @@ with lib;
 
 let
   cfg = config.services.gitweb;
-  package = pkgs.gitweb.override (optionalAttrs cfg.gitwebTheme {
-    gitwebTheme = true;
-  });
+  package = pkgs.gitweb.override
+    (optionalAttrs cfg.gitwebTheme { gitwebTheme = true; });
 
-in
-{
+in {
 
   options.services.nginx.gitweb = {
 
@@ -28,9 +26,7 @@ in
     systemd.services.gitweb = {
       description = "GitWeb service";
       script = "${package}/gitweb.cgi --fastcgi --nproc=1";
-      environment  = {
-        FCGI_SOCKET_PATH = "/run/gitweb/gitweb.sock";
-      };
+      environment = { FCGI_SOCKET_PATH = "/run/gitweb/gitweb.sock"; };
       serviceConfig = {
         User = "nginx";
         Group = "nginx";
@@ -41,9 +37,7 @@ in
 
     services.nginx = {
       virtualHosts.default = {
-        locations."/gitweb/static/" = {
-          alias = "${package}/static/";
-        };
+        locations."/gitweb/static/" = { alias = "${package}/static/"; };
         locations."/gitweb/" = {
           extraConfig = ''
             include ${pkgs.nginx}/conf/fastcgi_params;

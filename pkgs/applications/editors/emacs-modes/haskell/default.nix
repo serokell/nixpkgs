@@ -2,10 +2,8 @@
 
 # Use "emacsMelpa.haskell-mode" instead.
 
-let
-  version = "13.14-169-g0d3569d";      # git describe --tags
-in
-stdenv.mkDerivation {
+let version = "13.14-169-g0d3569d"; # git describe --tags
+in stdenv.mkDerivation {
   name = "haskell-mode-${version}";
 
   src = fetchFromGitHub {
@@ -32,11 +30,11 @@ stdenv.mkDerivation {
   installCheckTarget = "check";
 
   meta = {
-    homepage = https://github.com/haskell/haskell-mode;
+    homepage = "https://github.com/haskell/haskell-mode";
     description = "Haskell mode for Emacs";
 
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.peti ];
-    broken = true;  # no longer compiles and this package is obsolete anyway
+    broken = true; # no longer compiles and this package is obsolete anyway
   };
 }

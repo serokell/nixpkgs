@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, qtx11extras, dtkcore,
-  deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, qtx11extras, dtkcore, deepin }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -13,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "10l89i84vsh5knq9wg2php7vfg5rj5c9hrrl9rjlcidn1rz8yx6f";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    qmake
-  ];
+  nativeBuildInputs = [ pkgconfig qmake ];
 
-  buildInputs = [
-    dtkcore
-    qtx11extras
-  ];
+  buildInputs = [ dtkcore qtx11extras ];
 
   preConfigure = ''
     qmakeFlags="$qmakeFlags \
@@ -34,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin graphical user interface library";
-    homepage = https://github.com/linuxdeepin/dtkwm;
+    homepage = "https://github.com/linuxdeepin/dtkwm";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

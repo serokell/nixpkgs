@@ -1,6 +1,6 @@
 { stdenv, fetchurl, emacs }:
 stdenv.mkDerivation rec {
-  pname  = "emacs-jabber";
+  pname = "emacs-jabber";
   version = "0.8.0";
   name = "${pname}-${version}";
   src = fetchurl {
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
       chat client in an editor, but consider that chatting is, after all, just
       a special case of text editing.
     '';
-    homepage = http://emacs-jabber.sourceforge.net/;
+    homepage = "http://emacs-jabber.sourceforge.net/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ astsmtl ];
     platforms = platforms.linux;

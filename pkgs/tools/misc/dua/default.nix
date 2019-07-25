@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "1jg1ljm5h21shkyfrq0ivz9m0c25dxc0kd6cipf5i2dbnzcszmhh";
 
   meta = with lib; {
-    description = "A tool to conveniently learn about the disk usage of directories, fast!";
+    description =
+      "A tool to conveniently learn about the disk usage of directories, fast!";
     homepage = "https://github.com/Byron/dua-cli";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ killercup ];

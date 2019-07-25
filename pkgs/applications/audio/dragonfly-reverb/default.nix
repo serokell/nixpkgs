@@ -17,9 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    libjack2 xorg.libX11 libGL
-  ];
+  buildInputs = [ libjack2 xorg.libX11 libGL ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -34,10 +32,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/michaelwillis/dragonfly-reverb;
+    homepage = "https://github.com/michaelwillis/dragonfly-reverb";
     description = "A hall-style reverb based on freeverb3 algorithms";
     maintainers = [ maintainers.magnetophon ];
     license = licenses.gpl3;
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

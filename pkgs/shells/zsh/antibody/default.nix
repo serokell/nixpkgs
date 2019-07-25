@@ -17,7 +17,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "The fastest shell plugin manager";
-    homepage = https://github.com/getantibody/antibody;
+    homepage = "https://github.com/getantibody/antibody";
     license = licenses.mit;
     maintainers = with maintainers; [ worldofpeace ];
   };

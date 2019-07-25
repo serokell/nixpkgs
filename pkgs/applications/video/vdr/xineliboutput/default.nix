@@ -1,18 +1,17 @@
-{ stdenv, fetchurl, lib, vdr
-, libav, libcap, libvdpau
-, xineLib, libjpeg, libextractor, mesa, libGLU
-, libX11, libXext, libXrender, libXrandr
-, makeWrapper
-}: let
+{ stdenv, fetchurl, lib, vdr, libav, libcap, libvdpau, xineLib, libjpeg, libextractor, mesa, libGLU, libX11, libXext, libXrender, libXrandr, makeWrapper
+}:
+let
   name = "vdr-xineliboutput-2.1.0";
 
-  makeXinePluginPath = l: lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
+  makeXinePluginPath = l:
+    lib.concatStringsSep ":" (map (p: "${p}/lib/xine/plugins") l);
 
-  self =  stdenv.mkDerivation {
+  self = stdenv.mkDerivation {
     inherit name;
 
     src = fetchurl {
-      url = "mirror://sourceforge/project/xineliboutput/xineliboutput/${name}/${name}.tgz";
+      url =
+        "mirror://sourceforge/project/xineliboutput/xineliboutput/${name}/${name}.tgz";
       sha256 = "1phrxpaz8li7z0qy241spawalhcmwkv5hh3gdijbv4h7mm899yba";
     };
 
@@ -29,7 +28,9 @@
     postFixup = ''
       for f in $out/bin/*; do
         wrapProgram $f \
-          --prefix XINE_PLUGIN_PATH ":" "${makeXinePluginPath [ "$out" xineLib ]}"
+          --prefix XINE_PLUGIN_PATH ":" "${
+        makeXinePluginPath [ "$out" xineLib ]
+          }"
       done
     '';
 
@@ -53,7 +54,7 @@
 
     passthru.requiredXinePlugins = [ xineLib self ];
 
-    meta = with lib;{
+    meta = with lib; {
       homepage = "https://sourceforge.net/projects/xineliboutput/";
       description = "Xine-lib based software output device for VDR";
       maintainers = [ maintainers.ck3d ];

@@ -9,17 +9,16 @@ stdenv.mkDerivation rec {
     sha256 = "00jdkyk4wg1356c3ar6nk3hyp494ya3yvshq9m57kfmqpn3inqdy";
   };
 
-  buildInputs = [ qt4 qmake4Hook ]
-    ++ stdenv.lib.optional stdenv.isDarwin AGL;
+  buildInputs = [ qt4 qmake4Hook ] ++ stdenv.lib.optional stdenv.isDarwin AGL;
 
-  postPatch =
-    ''
-      cd QGLViewer
-    '';
+  postPatch = ''
+    cd QGLViewer
+  '';
 
   meta = with stdenv.lib; {
-    description = "C++ library based on Qt that eases the creation of OpenGL 3D viewers";
-    homepage = http://libqglviewer.com/;
+    description =
+      "C++ library based on Qt that eases the creation of OpenGL 3D viewers";
+    homepage = "http://libqglviewer.com/";
     license = licenses.gpl2;
     platforms = platforms.all;
   };

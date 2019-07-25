@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pox";
@@ -15,7 +12,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "Utilities for filesystem exploration and automated builds";
     license = licenses.bsd3;
-    homepage = http://www.cacr.caltech.edu/~mmckerns/pox.htm;
+    homepage = "http://www.cacr.caltech.edu/~mmckerns/pox.htm";
   };
 
 }

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake
-, curl, glib, sqlite, pkgconfig }:
+{ stdenv, fetchFromGitHub, cmake, curl, glib, sqlite, pkgconfig }:
 
 stdenv.mkDerivation rec {
   version = "1.0.10";
@@ -18,10 +17,9 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     license = licenses.lgpl3;
     description = "A music related metadata searchengine";
-    homepage = https://github.com/sahib/glyr;
+    homepage = "https://github.com/sahib/glyr";
     maintainers = [ maintainers.sternenseemann ];
     platforms = platforms.unix;
   };
 }
-
 

@@ -6,12 +6,11 @@ stdenv.mkDerivation rec {
 
   jarfilename = "${pname}-${version}.jar";
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   src = fetchurl {
-    url = "http://central.maven.org/maven2/org/openapitools/${pname}/${version}/${jarfilename}";
+    url =
+      "http://central.maven.org/maven2/org/openapitools/${pname}/${version}/${jarfilename}";
     sha256 = "1fglvn6ricvb0csbrjkjfp902y6drjf6cby5fihmr5v9m7pjym1y";
   };
 
@@ -25,8 +24,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
-    homepage = https://github.com/OpenAPITools/openapi-generator;
+    description =
+      "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
+    homepage = "https://github.com/OpenAPITools/openapi-generator";
     license = licenses.asl20;
     maintainers = [ maintainers.shou ];
   };

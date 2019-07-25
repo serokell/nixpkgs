@@ -1,12 +1,9 @@
-{ stdenv, fetchurl, cmake, ninja, coin3d, xercesc, ode, eigen, qt5, opencascade-occt, gts
-, hdf5, vtk, medfile, zlib, python3Packages, swig, gfortran, libXmu
-, soqt, libf2c, libGLU, makeWrapper, pkgconfig
-, mpi ? null }:
+{ stdenv, fetchurl, cmake, ninja, coin3d, xercesc, ode, eigen, qt5, opencascade-occt, gts, hdf5, vtk, medfile, zlib, python3Packages, swig, gfortran, libXmu, soqt, libf2c, libGLU, makeWrapper, pkgconfig, mpi ?
+  null }:
 
 assert mpi != null;
 
-let
-  pythonPackages = python3Packages;
+let pythonPackages = python3Packages;
 in stdenv.mkDerivation rec {
   name = "freecad-${version}";
   version = "0.18.2";
@@ -17,13 +14,35 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ninja pkgconfig pythonPackages.pyside2-tools ];
-  buildInputs = [ cmake coin3d xercesc ode eigen opencascade-occt gts
-    zlib swig gfortran soqt libf2c makeWrapper mpi vtk hdf5 medfile
-    libGLU libXmu
-  ] ++ (with qt5; [
-    qtbase qttools qtwebkit
-  ]) ++ (with pythonPackages; [
-    matplotlib pycollada shiboken2 pyside2 pyside2-tools pivy python boost
+  buildInputs = [
+    cmake
+    coin3d
+    xercesc
+    ode
+    eigen
+    opencascade-occt
+    gts
+    zlib
+    swig
+    gfortran
+    soqt
+    libf2c
+    makeWrapper
+    mpi
+    vtk
+    hdf5
+    medfile
+    libGLU
+    libXmu
+  ] ++ (with qt5; [ qtbase qttools qtwebkit ]) ++ (with pythonPackages; [
+    matplotlib
+    pycollada
+    shiboken2
+    pyside2
+    pyside2-tools
+    pivy
+    python
+    boost
   ]);
 
   cmakeFlags = [
@@ -31,10 +50,9 @@ in stdenv.mkDerivation rec {
     "-DSHIBOKEN_INCLUDE_DIR=${pythonPackages.shiboken2}/include"
     "-DSHIBOKEN_LIBRARY=Shiboken2::libshiboken"
     ("-DPYSIDE_INCLUDE_DIR=${pythonPackages.pyside2}/include"
-      + ";${pythonPackages.pyside2}/include/PySide2/QtCore"
-      + ";${pythonPackages.pyside2}/include/PySide2/QtWidgets"
-      + ";${pythonPackages.pyside2}/include/PySide2/QtGui"
-      )
+    + ";${pythonPackages.pyside2}/include/PySide2/QtCore"
+    + ";${pythonPackages.pyside2}/include/PySide2/QtWidgets"
+    + ";${pythonPackages.pyside2}/include/PySide2/QtGui")
     "-DPYSIDE_LIBRARY=PySide2::pyside2"
   ];
 
@@ -59,7 +77,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "General purpose Open Source 3D CAD/MCAD/CAx/CAE/PLM modeler";
-    homepage = https://www.freecadweb.org/;
+    homepage = "https://www.freecadweb.org/";
     license = licenses.lgpl2Plus;
     maintainers = [ maintainers.viric ];
     platforms = platforms.linux;

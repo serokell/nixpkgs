@@ -1,15 +1,9 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pbr
-, pythonix
-, pythonAtLeast
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pbr, pythonix, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "nixpkgs";
   version = "0.2.3";
-  disabled = ! pythonAtLeast "3.5";
+  disabled = !pythonAtLeast "3.5";
 
   src = fetchPypi {
     inherit pname version;
@@ -20,8 +14,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pythonix ];
 
   meta = with stdenv.lib; {
-    description = "Allows to `from nixpkgs import` stuff in interactive Python sessions";
-    homepage = https://github.com/t184256/nixpkgs-python-importer;
+    description =
+      "Allows to `from nixpkgs import` stuff in interactive Python sessions";
+    homepage = "https://github.com/t184256/nixpkgs-python-importer";
     license = licenses.mit;
     maintainers = with maintainers; [ t184256 ];
   };

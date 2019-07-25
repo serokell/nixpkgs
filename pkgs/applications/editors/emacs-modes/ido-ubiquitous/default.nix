@@ -1,9 +1,7 @@
 { stdenv, fetchFromGitHub, emacs }:
 
-let
-  version = "3.6-4-gb659bf8";
-in
-stdenv.mkDerivation {
+let version = "3.6-4-gb659bf8";
+in stdenv.mkDerivation {
   name = "ido-ubiquitous-${version}";
 
   src = fetchFromGitHub {

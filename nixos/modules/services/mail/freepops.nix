@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.mail.freepopsd;
-in
+let cfg = config.services.mail.freepopsd;
 
-{
+in {
   options = {
     services.mail.freepopsd = {
       enable = mkOption {

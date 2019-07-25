@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, unzip, cmake, freeglut, libGLU_combined, zlib, swig, python, doxygen, xorg }:
+{ stdenv, fetchFromGitHub, unzip, cmake, freeglut, libGLU_combined, zlib, swig, python, doxygen, xorg
+}:
 
-stdenv.mkDerivation rec
-{
+stdenv.mkDerivation rec {
   name = "partio-${version}";
   version = "2018-03-01";
 
@@ -15,7 +15,8 @@ stdenv.mkDerivation rec
   outputs = [ "dev" "out" "lib" ];
 
   nativeBuildInputs = [ unzip cmake doxygen ];
-  buildInputs = [ freeglut libGLU_combined zlib swig python xorg.libXi xorg.libXmu ];
+  buildInputs =
+    [ freeglut libGLU_combined zlib swig python xorg.libXi xorg.libXmu ];
 
   enableParallelBuilding = true;
 
@@ -36,7 +37,8 @@ stdenv.mkDerivation rec
   '';
 
   meta = with stdenv.lib; {
-    description = "C++ (with python bindings) library for easily reading/writing/manipulating common animation particle formats such as PDB, BGEO, PTC";
+    description =
+      "C++ (with python bindings) library for easily reading/writing/manipulating common animation particle formats such as PDB, BGEO, PTC";
     homepage = "https://www.disneyanimation.com/technology/partio.html";
     license = licenses.bsd3;
     platforms = platforms.linux;

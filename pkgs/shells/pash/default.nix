@@ -3,7 +3,7 @@
 buildDotnetPackage rec {
   baseName = "pash";
   version = "git-2016-07-06";
-  
+
   src = fetchFromGitHub {
     owner = "Pash-Project";
     repo = "Pash";
@@ -17,13 +17,11 @@ buildDotnetPackage rec {
 
   meta = with stdenv.lib; {
     description = "An open source implementation of Windows PowerShell";
-    homepage = https://github.com/Pash-Project/Pash;
+    homepage = "https://github.com/Pash-Project/Pash";
     maintainers = [ maintainers.fornever maintainers.vrthra ];
     platforms = platforms.all;
     license = with licenses; [ bsd3 gpl3 ];
   };
 
-  passthru = {
-    shellPath = "/bin/pash";
-  };
+  passthru = { shellPath = "/bin/pash"; };
 }

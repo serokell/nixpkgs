@@ -1,6 +1,4 @@
-{ lib
-, python3Packages
-}:
+{ lib, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "sqlite-web";
@@ -18,7 +16,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Web-based SQLite database browser";
-    homepage = https://github.com/coleifer/sqlite-web;
+    homepage = "https://github.com/coleifer/sqlite-web";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

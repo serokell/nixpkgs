@@ -1,4 +1,4 @@
-{stdenv, fetchurl, ant, unzip}:
+{ stdenv, fetchurl, ant, unzip }:
 
 stdenv.mkDerivation rec {
   name = "mysql-connector-java-5.1.46";
@@ -11,7 +11,5 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ unzip ant ];
 
-  meta = {
-    platforms = stdenv.lib.platforms.unix;
-  };
+  meta = { platforms = stdenv.lib.platforms.unix; };
 }

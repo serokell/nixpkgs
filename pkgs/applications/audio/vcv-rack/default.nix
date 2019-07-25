@@ -1,6 +1,5 @@
-{ stdenv, makeWrapper, fetchFromBitbucket, fetchFromGitHub, pkgconfig
-, alsaLib, curl, glew, glfw, gtk2-x11, jansson, libjack2, libXext, libXi
-, libzip, rtaudio, rtmidi, speex }:
+{ stdenv, makeWrapper, fetchFromBitbucket, fetchFromGitHub, pkgconfig, alsaLib, curl, glew, glfw, gtk2-x11, jansson, libjack2, libXext, libXi, libzip, rtaudio, rtmidi, speex
+}:
 
 let
   glfw-git = glfw.overrideAttrs (oldAttrs: rec {
@@ -20,8 +19,8 @@ let
     rev = "29e4f76ac53bef048938754f32231d7836401f79";
     sha256 = "084csgqa6f1a270bhybjayrh3mpyi2jimc87qkdgsqcp8ycsx1l1";
   };
-in
-with stdenv.lib; stdenv.mkDerivation rec {
+in with stdenv.lib;
+stdenv.mkDerivation rec {
   name = "VCV-Rack-${version}";
   version = "0.6.2b";
 
@@ -54,7 +53,19 @@ with stdenv.lib; stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ makeWrapper pkgconfig ];
-  buildInputs = [ glfw-git alsaLib curl glew gtk2-x11 jansson libjack2 libzip rtaudio rtmidi speex ];
+  buildInputs = [
+    glfw-git
+    alsaLib
+    curl
+    glew
+    gtk2-x11
+    jansson
+    libjack2
+    libzip
+    rtaudio
+    rtmidi
+    speex
+  ];
 
   buildFlags = "Rack";
 
@@ -71,7 +82,7 @@ with stdenv.lib; stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Open-source virtual modular synthesizer";
-    homepage = http://vcvrack.com/;
+    homepage = "http://vcvrack.com/";
     # The source is BSD-3 licensed, some of the art is CC-BY-NC 4.0 or under a
     # no-derivatives clause
     license = with licenses; [ bsd3 cc-by-nc-40 unfreeRedistributable ];

@@ -4,28 +4,24 @@ with lib;
 let
   cfg = config.services.venus;
 
-  configFile = pkgs.writeText "venus.ini"
-    ''
-      [Planet]
-      name = ${cfg.name}
-      link = ${cfg.link}
-      owner_name = ${cfg.ownerName}
-      owner_email = ${cfg.ownerEmail}
-      output_theme = ${cfg.cacheDirectory}/theme
-      output_dir = ${cfg.outputDirectory}
-      cache_directory = ${cfg.cacheDirectory}
-      items_per_page = ${toString cfg.itemsPerPage}
-      ${(concatStringsSep "\n\n"
-            (map ({ name, feedUrl, homepageUrl }:
-            ''
-              [${feedUrl}]
-              name = ${name}
-              link = ${homepageUrl}
-            '') cfg.feeds))}
-    '';
+  configFile = pkgs.writeText "venus.ini" ''
+    [Planet]
+    name = ${cfg.name}
+    link = ${cfg.link}
+    owner_name = ${cfg.ownerName}
+    owner_email = ${cfg.ownerEmail}
+    output_theme = ${cfg.cacheDirectory}/theme
+    output_dir = ${cfg.outputDirectory}
+    cache_directory = ${cfg.cacheDirectory}
+    items_per_page = ${toString cfg.itemsPerPage}
+    ${(concatStringsSep "\n\n" (map ({ name, feedUrl, homepageUrl }: ''
+      [${feedUrl}]
+      name = ${name}
+      link = ${homepageUrl}
+    '') cfg.feeds))}
+  '';
 
-in
-{
+in {
 
   options = {
     services.venus = {
@@ -119,7 +115,7 @@ in
         default = "/var/cache/venus";
         type = types.path;
         description = ''
-            Where cached feeds are stored.
+          Where cached feeds are stored.
         '';
       };
 
@@ -132,14 +128,12 @@ in
       };
 
       feeds = mkOption {
-        default = [];
-        example = [
-          {
-            name = "Rok Garbas";
-            feedUrl= "http://url/to/rss/feed.xml";
-            homepageUrl = "http://garbas.si";
-          }
-        ];
+        default = [ ];
+        example = [{
+          name = "Rok Garbas";
+          feedUrl = "http://url/to/rss/feed.xml";
+          homepageUrl = "http://garbas.si";
+        }];
         description = ''
           List of feeds.
         '';
@@ -150,24 +144,23 @@ in
 
   config = mkIf cfg.enable {
 
-    system.activationScripts.venus =
-      ''
-        mkdir -p ${cfg.outputDirectory}
-        chown ${cfg.user}:${cfg.group} ${cfg.outputDirectory} -R
-        rm -rf ${cfg.cacheDirectory}/theme
-        mkdir -p ${cfg.cacheDirectory}/theme
-        cp -R ${cfg.outputTheme}/* ${cfg.cacheDirectory}/theme
-        chown ${cfg.user}:${cfg.group} ${cfg.cacheDirectory} -R
-      '';
+    system.activationScripts.venus = ''
+      mkdir -p ${cfg.outputDirectory}
+      chown ${cfg.user}:${cfg.group} ${cfg.outputDirectory} -R
+      rm -rf ${cfg.cacheDirectory}/theme
+      mkdir -p ${cfg.cacheDirectory}/theme
+      cp -R ${cfg.outputTheme}/* ${cfg.cacheDirectory}/theme
+      chown ${cfg.user}:${cfg.group} ${cfg.cacheDirectory} -R
+    '';
 
-    systemd.services.venus =
-      { description = "Planet Venus Feed Reader";
-        path  = [ pkgs.venus ];
-        script = "exec venus-planet ${configFile}";
-        serviceConfig.User = "${cfg.user}";
-        serviceConfig.Group = "${cfg.group}";
-        startAt = cfg.dates;
-      };
+    systemd.services.venus = {
+      description = "Planet Venus Feed Reader";
+      path = [ pkgs.venus ];
+      script = "exec venus-planet ${configFile}";
+      serviceConfig.User = "${cfg.user}";
+      serviceConfig.Group = "${cfg.group}";
+      startAt = cfg.dates;
+    };
 
   };
 }

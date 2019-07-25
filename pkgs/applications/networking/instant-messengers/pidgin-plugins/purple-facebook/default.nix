@@ -1,6 +1,5 @@
 { stdenv, fetchFromGitHub, fetchhg, pidgin, glib, json-glib, autoreconfHook }:
 
-
 let
   pidginHg = fetchhg {
     url = "https://bitbucket.org/pidgin/main";
@@ -42,10 +41,8 @@ in stdenv.mkDerivation rec {
     ./autogen.sh
   '';
 
-  makeFlags = [
-    "PLUGIN_DIR_PURPLE=/lib/pidgin/"
-    "DATA_ROOT_DIR_PURPLE=/share"
-  ];
+  makeFlags =
+    [ "PLUGIN_DIR_PURPLE=/lib/pidgin/" "DATA_ROOT_DIR_PURPLE=/share" ];
 
   installPhase = ''
     mkdir -p $out/lib/purple-2

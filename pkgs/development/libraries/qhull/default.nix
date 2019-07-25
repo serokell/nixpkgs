@@ -13,8 +13,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.qhull.org/;
-    description = "Compute the convex hull, Delaunay triangulation, Voronoi diagram and more";
+    homepage = "http://www.qhull.org/";
+    description =
+      "Compute the convex hull, Delaunay triangulation, Voronoi diagram and more";
     license = licenses.free;
     platforms = platforms.unix;
     maintainers = with maintainers; [ orivej ];

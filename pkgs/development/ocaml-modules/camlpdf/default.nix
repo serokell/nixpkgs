@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   version = "2.2.1";
   name = "ocaml${ocaml.version}-camlpdf-${version}";
   src = fetchgit {
-    url = https://github.com/johnwhitington/camlpdf.git;
+    url = "https://github.com/johnwhitington/camlpdf.git";
     rev = "refs/tags/v${version}";
     sha256 = "0wa4rw8ccpb8xprslg88hbk352bi8bia4iffc22y55gkjr60f8gj";
   };
@@ -22,17 +22,18 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = with stdenv.lib;
-  optionals (versionAtLeast ocaml.version "4.06") [
-    "OCAMLBCFLAGS+=-unsafe-string"
-    "OCAMLNCFLAGS+=-unsafe-string"
-  ];
+    optionals (versionAtLeast ocaml.version "4.06") [
+      "OCAMLBCFLAGS+=-unsafe-string"
+      "OCAMLNCFLAGS+=-unsafe-string"
+    ];
 
   createFindlibDestdir = true;
 
   meta = with stdenv.lib; {
-    description = "An OCaml library for reading, writing and modifying PDF files";
-    homepage = https://github.com/johnwhitington/camlpdf;
+    description =
+      "An OCaml library for reading, writing and modifying PDF files";
+    homepage = "https://github.com/johnwhitington/camlpdf";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [vbgl];
+    maintainers = with maintainers; [ vbgl ];
   };
 }

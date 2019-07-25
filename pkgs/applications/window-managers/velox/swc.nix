@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig
-, wld, wayland, wayland-protocols, fontconfig, pixman, libdrm, libinput, libevdev, libxkbcommon, libxcb, xcbutilwm
+{ lib, stdenv, fetchFromGitHub, pkgconfig, wld, wayland, wayland-protocols, fontconfig, pixman, libdrm, libinput, libevdev, libxkbcommon, libxcb, xcbutilwm
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +14,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [ wld wayland wayland-protocols fontconfig pixman libdrm libinput libevdev libxkbcommon libxcb xcbutilwm ];
+  buildInputs = [
+    wld
+    wayland
+    wayland-protocols
+    fontconfig
+    pixman
+    libdrm
+    libinput
+    libevdev
+    libxkbcommon
+    libxcb
+    xcbutilwm
+  ];
 
   prePatch = ''
     substituteInPlace launch/local.mk --replace 4755 755
@@ -28,9 +39,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A library for making a simple Wayland compositor";
-    homepage    = src.meta.homepage;
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.linux;
+    homepage = src.meta.homepage;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ ];
   };
 }

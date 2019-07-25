@@ -62,7 +62,7 @@ import ./make-test.nix {
           pop.quit()
       '';
 
-    in [ sendTestMail sendTestMailViaDeliveryAgent testImap testPop ];
+      in [ sendTestMail sendTestMailViaDeliveryAgent testImap testPop ];
   };
 
   testScript = ''

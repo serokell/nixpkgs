@@ -1,9 +1,5 @@
-{ stdenv, fetchgit
-, qtbase, qtmultimedia, qtquick1, qtquickcontrols
-, qtimageformats, qtgraphicaleffects, qtwebkit
-, telegram-qml, libqtelegram-aseman-edition
-, gst_all_1
-, makeWrapper, qmake }:
+{ stdenv, fetchgit, qtbase, qtmultimedia, qtquick1, qtquickcontrols, qtimageformats, qtgraphicaleffects, qtwebkit, telegram-qml, libqtelegram-aseman-edition, gst_all_1, makeWrapper, qmake
+}:
 
 stdenv.mkDerivation rec {
   name = "cutegram-${meta.version}";
@@ -14,12 +10,22 @@ stdenv.mkDerivation rec {
     sha256 = "146vd3ri05da2asxjjxibnqmb685lgwl2kaz7mwb7ja7vi4149f0";
   };
 
-  buildInputs =
-  [ qtbase qtmultimedia qtquick1 qtquickcontrols
-    qtimageformats qtgraphicaleffects qtwebkit
-    telegram-qml libqtelegram-aseman-edition
-  ] ++ (with gst_all_1; [ gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly ]);
-
+  buildInputs = [
+    qtbase
+    qtmultimedia
+    qtquick1
+    qtquickcontrols
+    qtimageformats
+    qtgraphicaleffects
+    qtwebkit
+    telegram-qml
+    libqtelegram-aseman-edition
+  ] ++ (with gst_all_1; [
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+    gst-plugins-ugly
+  ]);
 
   enableParallelBuilding = true;
   nativeBuildInputs = [ makeWrapper qmake ];
@@ -32,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     version = "2.7.1";
     description = "Telegram client forked from sigram";
-    homepage = http://aseman.co/en/products/cutegram/;
+    homepage = "http://aseman.co/en/products/cutegram/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.linux;

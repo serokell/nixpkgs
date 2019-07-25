@@ -23,7 +23,7 @@ let
       ${optionalString (config.users.ldap.bind.distinguishedName != "") ''
         binddn ${config.users.ldap.bind.distinguishedName}
       ''}
-      ${optionalString (cfg.extraConfig != "") cfg.extraConfig }
+      ${optionalString (cfg.extraConfig != "") cfg.extraConfig}
     '';
   };
 
@@ -35,25 +35,24 @@ let
     timelimit ${toString cfg.timeLimit}
     bind_timelimit ${toString cfg.bind.timeLimit}
     ${optionalString (cfg.bind.distinguishedName != "")
-      "binddn ${cfg.bind.distinguishedName}" }
+    "binddn ${cfg.bind.distinguishedName}"}
     ${optionalString (cfg.daemon.rootpwmoddn != "")
-      "rootpwmoddn ${cfg.daemon.rootpwmoddn}" }
-    ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig }
+    "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
+    ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
 
   # nslcd normally reads configuration from /etc/nslcd.conf.
   # this file might contain secrets. We append those at runtime,
   # so redirect its location to something more temporary.
-  nslcdWrapped = runCommandNoCC "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
-      --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
-      --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
-  '';
+  nslcdWrapped =
+    runCommandNoCC "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
+      mkdir -p $out/bin
+      makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
+        --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
+        --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
+    '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -64,13 +63,15 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "Whether to enable authentication against an LDAP server.";
+        description =
+          "Whether to enable authentication against an LDAP server.";
       };
 
       loginPam = mkOption {
         type = types.bool;
         default = true;
-        description = "Whether to include authentication against LDAP in login PAM";
+        description =
+          "Whether to include authentication against LDAP in login PAM";
       };
 
       nsswitch = mkOption {
@@ -125,13 +126,13 @@ in
         };
 
         extraConfig = mkOption {
-          default =  "";
+          default = "";
           type = types.lines;
           description = ''
             Extra configuration options that will be added verbatim at
             the end of the nslcd configuration file (nslcd.conf).
-          '' ;
-        } ;
+          '';
+        };
 
         rootpwmoddn = mkOption {
           default = "";
@@ -213,7 +214,7 @@ in
           If <literal>users.ldap.daemon</literal> is enabled, this
           configuration will not be used. In that case, use
           <literal>users.ldap.daemon.extraConfig</literal> instead.
-        '' ;
+        '';
       };
 
     };
@@ -238,14 +239,11 @@ in
       '';
     };
 
-    system.nssModules = singleton (
-      if cfg.daemon.enable then nss_pam_ldapd else nss_ldap
-    );
+    system.nssModules =
+      singleton (if cfg.daemon.enable then nss_pam_ldapd else nss_ldap);
 
     users = mkIf cfg.daemon.enable {
-      groups.nslcd = {
-        gid = config.ids.gids.nslcd;
-      };
+      groups.nslcd = { gid = config.ids.gids.nslcd; };
 
       users.nslcd = {
         uid = config.ids.uids.nslcd;
@@ -287,7 +285,12 @@ in
 
   };
 
-  imports =
-    [ (mkRenamedOptionModule [ "users" "ldap" "bind" "password"] [ "users" "ldap" "bind" "passwordFile"])
-    ];
+  imports = [
+    (mkRenamedOptionModule [ "users" "ldap" "bind" "password" ] [
+      "users"
+      "ldap"
+      "bind"
+      "passwordFile"
+    ])
+  ];
 }

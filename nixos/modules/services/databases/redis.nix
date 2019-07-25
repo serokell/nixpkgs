@@ -5,7 +5,8 @@ with lib;
 let
   cfg = config.services.redis;
   redisBool = b: if b then "yes" else "no";
-  condOption = name: value: if value != null then "${name} ${toString value}" else "";
+  condOption = name: value:
+    if value != null then "${name} ${toString value}" else "";
 
   redisConfig = pkgs.writeText "redis.conf" ''
     pidfile ${cfg.pidFile}
@@ -16,10 +17,15 @@ let
     logfile ${cfg.logfile}
     syslog-enabled ${redisBool cfg.syslog}
     databases ${toString cfg.databases}
-    ${concatMapStrings (d: "save ${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}\n") cfg.save}
+    ${concatMapStrings (d: ''
+      save ${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}
+    '') cfg.save}
     dbfilename ${cfg.dbFilename}
     dir ${toString cfg.dbpath}
-    ${if cfg.slaveOf != null then "slaveof ${cfg.slaveOf.ip} ${toString cfg.slaveOf.port}" else ""}
+    ${if cfg.slaveOf != null then
+      "slaveof ${cfg.slaveOf.ip} ${toString cfg.slaveOf.port}"
+    else
+      ""}
     ${condOption "masterauth" cfg.masterAuth}
     ${condOption "requirepass" cfg.requirePass}
     appendOnly ${redisBool cfg.appendOnly}
@@ -28,8 +34,7 @@ let
     slowlog-max-len ${toString cfg.slowLogMaxLen}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
 
   ###### interface
 
@@ -102,13 +107,15 @@ in
         type = types.str;
         default = "notice"; # debug, verbose, notice, warning
         example = "debug";
-        description = "Specify the server verbosity level, options: debug, verbose, notice, warning.";
+        description =
+          "Specify the server verbosity level, options: debug, verbose, notice, warning.";
       };
 
       logfile = mkOption {
         type = types.str;
         default = "/dev/null";
-        description = "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
+        description =
+          "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
         example = "/var/log/redis.log";
       };
 
@@ -126,9 +133,10 @@ in
 
       save = mkOption {
         type = with types; listOf (listOf int);
-        default = [ [900 1] [300 10] [60 10000] ];
-        description = "The schedule in which data is persisted to disk, represented as a list of lists where the first element represent the amount of seconds and the second the number of changes.";
-        example = [ [900 1] [300 10] [60 10000] ];
+        default = [ [ 900 1 ] [ 300 10 ] [ 60 10000 ] ];
+        description =
+          "The schedule in which data is persisted to disk, represented as a list of lists where the first element represent the amount of seconds and the second the number of changes.";
+        example = [ [ 900 1 ] [ 300 10 ] [ 60 10000 ] ];
       };
 
       dbFilename = mkOption {
@@ -140,52 +148,63 @@ in
       dbpath = mkOption {
         type = types.path;
         default = "/var/lib/redis";
-        description = "The DB will be written inside this directory, with the filename specified using the 'dbFilename' configuration.";
+        description =
+          "The DB will be written inside this directory, with the filename specified using the 'dbFilename' configuration.";
       };
 
       slaveOf = mkOption {
         default = null; # { ip, port }
-        description = "An attribute set with two attributes: ip and port to which this redis instance acts as a slave.";
-        example = { ip = "192.168.1.100"; port = 6379; };
+        description =
+          "An attribute set with two attributes: ip and port to which this redis instance acts as a slave.";
+        example = {
+          ip = "192.168.1.100";
+          port = 6379;
+        };
       };
 
       masterAuth = mkOption {
         default = null;
-        description = ''If the master is password protected (using the requirePass configuration)
-        it is possible to tell the slave to authenticate before starting the replication synchronization
-        process, otherwise the master will refuse the slave request.
-        (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)'';
+        description = ''
+          If the master is password protected (using the requirePass configuration)
+                  it is possible to tell the slave to authenticate before starting the replication synchronization
+                  process, otherwise the master will refuse the slave request.
+                  (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)'';
       };
 
       requirePass = mkOption {
         type = with types; nullOr str;
         default = null;
-        description = "Password for database (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)";
+        description =
+          "Password for database (STORED PLAIN TEXT, WORLD-READABLE IN NIX STORE)";
         example = "letmein!";
       };
 
       appendOnly = mkOption {
         type = types.bool;
         default = false;
-        description = "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
+        description =
+          "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
       };
 
       appendOnlyFilename = mkOption {
         type = types.str;
         default = "appendonly.aof";
-        description = "Filename for the append-only file (stored inside of dbpath)";
+        description =
+          "Filename for the append-only file (stored inside of dbpath)";
       };
 
       appendFsync = mkOption {
         type = types.str;
         default = "everysec"; # no, always, everysec
-        description = "How often to fsync the append-only log, options: no, always, everysec.";
+        description =
+          "How often to fsync the append-only log, options: no, always, everysec.";
       };
 
       slowLogLogSlowerThan = mkOption {
         type = types.int;
         default = 10000;
-        description = "Log queries whose execution take longer than X in milliseconds.";
+        description =
+          "Log queries whose execution take longer than X in milliseconds.";
         example = 1000;
       };
 
@@ -204,51 +223,48 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.redis.enable {
 
-    boot.kernel.sysctl = mkIf cfg.vmOverCommit {
-      "vm.overcommit_memory" = "1";
-    };
+    boot.kernel.sysctl =
+      mkIf cfg.vmOverCommit { "vm.overcommit_memory" = "1"; };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
-    users.users.redis =
-      { name = cfg.user;
-        description = "Redis database user";
-      };
+    users.users.redis = {
+      name = cfg.user;
+      description = "Redis database user";
+    };
 
     environment.systemPackages = [ cfg.package ];
 
-    systemd.services.redis_init =
-      { description = "Redis Server Initialisation";
+    systemd.services.redis_init = {
+      description = "Redis Server Initialisation";
 
-        wantedBy = [ "redis.service" ];
-        before = [ "redis.service" ];
+      wantedBy = [ "redis.service" ];
+      before = [ "redis.service" ];
 
-        serviceConfig.Type = "oneshot";
+      serviceConfig.Type = "oneshot";
 
-        script = ''
-          install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
-          chown -R ${cfg.user} ${cfg.dbpath}
-        '';
+      script = ''
+        install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
+        chown -R ${cfg.user} ${cfg.dbpath}
+      '';
+    };
+
+    systemd.services.redis = {
+      description = "Redis Server";
+
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/redis-server ${redisConfig}";
+        User = cfg.user;
       };
-
-    systemd.services.redis =
-      { description = "Redis Server";
-
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-
-        serviceConfig = {
-          ExecStart = "${cfg.package}/bin/redis-server ${redisConfig}";
-          User = cfg.user;
-        };
-      };
+    };
 
   };
 

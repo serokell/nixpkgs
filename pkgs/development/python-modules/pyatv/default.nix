@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, srptools, aiohttp, zeroconf
-, ed25519, cryptography, curve25519-donna, pytest, pytestrunner
-, netifaces, asynctest, virtualenv, toml, filelock, tox }:
+{ stdenv, buildPythonPackage, fetchPypi, srptools, aiohttp, zeroconf, ed25519, cryptography, curve25519-donna, pytest, pytestrunner, netifaces, asynctest, virtualenv, toml, filelock, tox
+}:
 
 buildPythonPackage rec {
   pname = "pyatv";
@@ -11,13 +10,15 @@ buildPythonPackage rec {
     sha256 = "135xvy1nn0x5knc7l05amfs837xkx2gcg3lpp69ya9kqs8j6brgp";
   };
 
-  propagatedBuildInputs = [ srptools aiohttp zeroconf ed25519 cryptography curve25519-donna tox ];
+  propagatedBuildInputs =
+    [ srptools aiohttp zeroconf ed25519 cryptography curve25519-donna tox ];
 
-  checkInputs = [ pytest pytestrunner netifaces asynctest virtualenv toml filelock ];
+  checkInputs =
+    [ pytest pytestrunner netifaces asynctest virtualenv toml filelock ];
 
   meta = with stdenv.lib; {
     description = "A python client library for the Apple TV";
-    homepage = https://github.com/postlund/pyatv;
+    homepage = "https://github.com/postlund/pyatv";
     license = licenses.mit;
     maintainers = with maintainers; [ elseym ];
   };

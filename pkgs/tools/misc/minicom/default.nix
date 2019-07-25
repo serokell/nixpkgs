@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, makeWrapper, pkgconfig
-, lrzsz, ncurses, libiconv }:
+{ stdenv, fetchgit, autoreconfHook, makeWrapper, pkgconfig, lrzsz, ncurses, libiconv
+}:
 
 stdenv.mkDerivation rec {
   name = "minicom-${version}";
@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   # The repository isn't tagged properly, so we need to use commit refs
   src = fetchgit {
-    url    = "https://salsa.debian.org/minicom-team/minicom.git";
-    rev    = "6ea8033b6864aa35d14fb8b87e104e4f783635ce";
+    url = "https://salsa.debian.org/minicom-team/minicom.git";
+    rev = "6ea8033b6864aa35d14fb8b87e104e4f783635ce";
     sha256 = "0j95727xni4r122dalp09963gvc1nqa18l1d4wzz8746kw5s2rrb";
   };
 
@@ -18,10 +18,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--enable-lock-dir=/var/lock"
-  ];
+  configureFlags = [ "--sysconfdir=/etc" "--enable-lock-dir=/var/lock" ];
 
   patches = [ ./xminicom_terminal_paths.patch ];
 
@@ -40,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Modem control and terminal emulation program";
-    homepage = https://salsa.debian.org/minicom-team/minicom;
+    homepage = "https://salsa.debian.org/minicom-team/minicom";
     license = licenses.gpl2;
     longDescription = ''
       Minicom is a menu driven communications program. It emulates ANSI

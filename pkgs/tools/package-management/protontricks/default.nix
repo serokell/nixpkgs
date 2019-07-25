@@ -1,5 +1,4 @@
-{ stdenv, lib, buildPythonApplication, fetchFromGitHub
-, vdf, wine, winetricks, zenity
+{ stdenv, lib, buildPythonApplication, fetchFromGitHub, vdf, wine, winetricks, zenity
 }:
 
 buildPythonApplication rec {
@@ -24,15 +23,15 @@ buildPythonApplication rec {
     "--set STEAM_RUNTIME 0"
     "--set-default WINE ${wine}/bin/wine"
     "--set-default WINESERVER ${wine}/bin/wineserver"
-    "--prefix PATH : ${lib.makeBinPath [
-      (winetricks.override { inherit wine; })
-      zenity
-    ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [ (winetricks.override { inherit wine; }) zenity ]
+    }"
   ];
 
   meta = with stdenv.lib; {
-    description = "A simple wrapper for running Winetricks commands for Proton-enabled games";
-    homepage = https://github.com/Matoking/protontricks;
+    description =
+      "A simple wrapper for running Winetricks commands for Proton-enabled games";
+    homepage = "https://github.com/Matoking/protontricks";
     license = licenses.gpl3;
     platforms = with platforms; linux;
     maintainers = with maintainers; [ metadark ];

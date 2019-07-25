@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, cairocffi, nose, fontconfig
-, cssselect2, defusedxml, pillow, tinycss2 }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, cairocffi, nose, fontconfig, cssselect2, defusedxml, pillow, tinycss2
+}:
 
 # CairoSVG 2.x dropped support for Python 2 so offer CairoSVG 1.x as an
 # alternative
@@ -29,7 +29,7 @@ buildPythonPackage rec {
   # '';
 
   meta = with stdenv.lib; {
-    homepage = https://cairosvg.org;
+    homepage = "https://cairosvg.org";
     license = licenses.lgpl3;
     description = "SVG converter based on Cairo";
     maintainers = with maintainers; [ jluttine ];

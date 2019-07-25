@@ -1,22 +1,34 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''xpath'';
-  version = ''plexippus-20181210-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "xpath";
+  version = "plexippus-20181210-git";
 
   parasites = [ "xpath/test" ];
 
-  description = ''An implementation of the XML Path Language (XPath) Version 1.0'';
+  description =
+    "An implementation of the XML Path Language (XPath) Version 1.0";
 
-  deps = [ args."alexandria" args."babel" args."cl-ppcre" args."closure-common" args."cxml" args."parse-number" args."puri" args."trivial-features" args."trivial-gray-streams" args."yacc" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."cl-ppcre"
+    args."closure-common"
+    args."cxml"
+    args."parse-number"
+    args."puri"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."yacc"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/plexippus-xpath/2018-12-10/plexippus-xpath-20181210-git.tgz'';
-    sha256 = ''1acg17ckl65h0xr1vv2ljkmli7jgln7qhl4zs8lwl9jcayi6fynn'';
+    url =
+      "http://beta.quicklisp.org/archive/plexippus-xpath/2018-12-10/plexippus-xpath-20181210-git.tgz";
+    sha256 = "1acg17ckl65h0xr1vv2ljkmli7jgln7qhl4zs8lwl9jcayi6fynn";
   };
 
   packageName = "xpath";
 
-  asdFilesToKeep = ["xpath.asd"];
+  asdFilesToKeep = [ "xpath.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM xpath DESCRIPTION
@@ -34,4 +46,5 @@ rec {
     DEPENDENCIES
     (alexandria babel cl-ppcre closure-common cxml parse-number puri
      trivial-features trivial-gray-streams yacc)
-    VERSION plexippus-20181210-git SIBLINGS NIL PARASITES (xpath/test)) */
+    VERSION plexippus-20181210-git SIBLINGS NIL PARASITES (xpath/test))
+*/

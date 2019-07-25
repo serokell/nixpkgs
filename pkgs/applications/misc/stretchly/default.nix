@@ -1,43 +1,4 @@
-{ GConf
-, alsaLib
-, at-spi2-atk
-, atk
-, cairo
-, cups
-, dbus
-, expat
-, fetchurl
-, fontconfig
-, gdk_pixbuf
-, glib
-, gtk2
-, gtk3
-, lib
-, libX11
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libappindicator
-, libdrm
-, libnotify
-, libpciaccess
-, libpng12
-, libxcb
-, nspr
-, nss
-, pango
-, pciutils
-, pulseaudio
-, stdenv
-, udev
-, wrapGAppsHook
+{ GConf, alsaLib, at-spi2-atk, atk, cairo, cups, dbus, expat, fetchurl, fontconfig, gdk_pixbuf, glib, gtk2, gtk3, lib, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libappindicator, libdrm, libnotify, libpciaccess, libpng12, libxcb, nspr, nss, pango, pciutils, pulseaudio, stdenv, udev, wrapGAppsHook
 }:
 
 let
@@ -82,20 +43,18 @@ let
   ];
 
   libPath = lib.makeLibraryPath libs;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "stretchly";
   version = "0.19.1";
 
   src = fetchurl {
-    url = "https://github.com/hovancik/stretchly/releases/download/v${version}/stretchly-${version}.tar.xz";
+    url =
+      "https://github.com/hovancik/stretchly/releases/download/v${version}/stretchly-${version}.tar.xz";
     sha256 = "1q2wxfqs8qv9b1rfh5lhmyp3rrgdl05m6ihsgkxlgp0yzi07afz8";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ wrapGAppsHook ];
 
   buildInputs = libs;
 
@@ -130,8 +89,8 @@ stdenv.mkDerivation rec {
       seconds every 10 minutes. Every 30 minutes, it displays a window
       containing an idea for a longer 5 minute break.
     '';
-    homepage = https://hovancik.net/stretchly;
-    downloadPage = https://hovancik.net/stretchly/downloads/;
+    homepage = "https://hovancik.net/stretchly";
+    downloadPage = "https://hovancik.net/stretchly/downloads/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ cdepillabout ];
     platforms = platforms.linux;

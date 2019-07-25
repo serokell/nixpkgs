@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libpfm, zlib, pkgconfig, python2Packages, which, procps, gdb, capnproto }:
+{ stdenv, fetchFromGitHub, cmake, libpfm, zlib, pkgconfig, python2Packages, which, procps, gdb, capnproto
+}:
 
 stdenv.mkDerivation rec {
   version = "5.2.0";
@@ -19,11 +20,20 @@ stdenv.mkDerivation rec {
 
   # TODO: remove this preConfigure hook after 5.2.0 since it is fixed upstream
   # see https://github.com/mozilla/rr/issues/2269
-  preConfigure = ''substituteInPlace CMakeLists.txt --replace "std=c++11" "std=c++14"'';
+  preConfigure =
+    ''substituteInPlace CMakeLists.txt --replace "std=c++11" "std=c++14"'';
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    cmake libpfm zlib python2Packages.python python2Packages.pexpect which procps gdb capnproto
+    cmake
+    libpfm
+    zlib
+    python2Packages.python
+    python2Packages.pexpect
+    which
+    procps
+    gdb
+    capnproto
   ];
   cmakeFlags = [
     "-DCMAKE_C_FLAGS_RELEASE:STRING="
@@ -44,8 +54,9 @@ stdenv.mkDerivation rec {
   preCheck = "export HOME=$TMPDIR";
 
   meta = {
-    homepage = https://rr-project.org/;
-    description = "Records nondeterministic executions and debugs them deterministically";
+    homepage = "https://rr-project.org/";
+    description =
+      "Records nondeterministic executions and debugs them deterministically";
     longDescription = ''
       rr aspires to be your primary debugging tool, replacing -- well,
       enhancing -- gdb. You record a failure once, then debug the

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, makeWrapper
-, coreutils, jdk, rlwrap, gnupg }:
+{ stdenv, fetchurl, makeWrapper, coreutils, jdk, rlwrap, gnupg }:
 
 stdenv.mkDerivation rec {
   pname = "leiningen";
@@ -7,13 +6,15 @@ stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://raw.github.com/technomancy/leiningen/${version}/bin/lein-pkg";
+    url =
+      "https://raw.github.com/technomancy/leiningen/${version}/bin/lein-pkg";
     sha256 = "1h0gpzpr7xk6hvmrrq41bcp2k9aai348baf8ad9bxvci01n4zb12";
   };
 
   jarsrc = fetchurl {
     # NOTE: This is actually a .jar, Github has issues
-    url = "https://github.com/technomancy/leiningen/releases/download/${version}/${name}-standalone.zip";
+    url =
+      "https://github.com/technomancy/leiningen/releases/download/${version}/${name}-standalone.zip";
     sha256 = "1y2mva5s2w2szzn1b9rhz0dvkffls4ravii677ybcf2w9wd86z7a";
   };
 
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://leiningen.org/;
+    homepage = "https://leiningen.org/";
     description = "Project automation for Clojure";
     license = stdenv.lib.licenses.epl10;
     platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;

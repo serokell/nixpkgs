@@ -1,7 +1,5 @@
-{ stdenv, fetch, cmake, libxml2, llvm, version, release_version, clang-tools-extra_src, python
-, fixDarwinDylibNames
-, enableManpages ? false
-}:
+{ stdenv, fetch, cmake, libxml2, llvm, version, release_version, clang-tools-extra_src, python, fixDarwinDylibNames, enableManpages ?
+  false }:
 
 let
   gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
@@ -9,7 +7,9 @@ let
     name = "clang-${version}";
 
     unpackPhase = ''
-      unpackFile ${fetch "cfe" "16vnv3msnvx33dydd17k2cq0icndi1a06bg5vcxkrhjjb1rqlwv1"}
+      unpackFile ${
+        fetch "cfe" "16vnv3msnvx33dydd17k2cq0icndi1a06bg5vcxkrhjjb1rqlwv1"
+      }
       mv cfe-${version}* clang
       sourceRoot=$PWD/clang
       unpackFile ${clang-tools-extra_src}
@@ -22,18 +22,18 @@ let
     buildInputs = [ libxml2 llvm ]
       ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-    cmakeFlags = [
-      "-DCMAKE_CXX_FLAGS=-std=c++11"
-    ] ++ stdenv.lib.optionals enableManpages [
-      "-DCLANG_INCLUDE_DOCS=ON"
-      "-DLLVM_ENABLE_SPHINX=ON"
-      "-DSPHINX_OUTPUT_MAN=ON"
-      "-DSPHINX_OUTPUT_HTML=OFF"
-      "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ]
-    # Maybe with compiler-rt this won't be needed?
-    ++ stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}"
-    ++ stdenv.lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include";
+    cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-std=c++11" ]
+      ++ stdenv.lib.optionals enableManpages [
+        "-DCLANG_INCLUDE_DOCS=ON"
+        "-DLLVM_ENABLE_SPHINX=ON"
+        "-DSPHINX_OUTPUT_MAN=ON"
+        "-DSPHINX_OUTPUT_HTML=OFF"
+        "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
+      ]
+      # Maybe with compiler-rt this won't be needed?
+      ++ stdenv.lib.optional stdenv.isLinux "-DGCC_INSTALL_PREFIX=${gcc}"
+      ++ stdenv.lib.optional (stdenv.cc.libc != null)
+      "-DC_INCLUDE_DIRS=${stdenv.cc.libc}/include";
 
     patches = [ ./purity.patch ];
 
@@ -78,15 +78,14 @@ let
     passthru = {
       isClang = true;
       inherit llvm;
-    } // stdenv.lib.optionalAttrs stdenv.isLinux {
-      inherit gcc;
-    };
+    } // stdenv.lib.optionalAttrs stdenv.isLinux { inherit gcc; };
 
     meta = {
-      description = "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
-      homepage    = http://llvm.org/;
-      license     = stdenv.lib.licenses.ncsa;
-      platforms   = stdenv.lib.platforms.all;
+      description =
+        "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
+      homepage = "http://llvm.org/";
+      license = stdenv.lib.licenses.ncsa;
+      platforms = stdenv.lib.platforms.all;
     };
   } // stdenv.lib.optionalAttrs enableManpages {
     name = "clang-manpages-${version}";

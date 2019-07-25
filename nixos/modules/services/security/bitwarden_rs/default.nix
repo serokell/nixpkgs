@@ -11,17 +11,34 @@ let
   nameToEnvVar = name:
     let
       parts = builtins.split "([A-Z0-9]+)" name;
-      partsToEnvVar = parts: foldl' (key: x: let last = stringLength key - 1; in
-        if isList x then key + optionalString (key != "" && substring last 1 key != "_") "_" + head x
-        else if key != "" && elem (substring 0 1 x) lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
-          substring 0 last key + optionalString (substring (last - 1) 1 key != "_") "_" + substring last 1 key + toUpper x
-        else key + toUpper x) "" parts;
-    in if builtins.match "[A-Z0-9_]+" name != null then name else partsToEnvVar parts;
+      partsToEnvVar = parts:
+        foldl' (key: x:
+        let last = stringLength key - 1;
+        in if isList x then
+          key + optionalString (key != "" && substring last 1 key != "_") "_"
+          + head x
+        else if key != "" && elem (substring 0 1 x)
+        lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
+          substring 0 last key
+          + optionalString (substring (last - 1) 1 key != "_") "_"
+          + substring last 1 key + toUpper x
+        else
+          key + toUpper x) "" parts;
+    in if builtins.match "[A-Z0-9_]+" name != null then
+      name
+    else
+      partsToEnvVar parts;
 
-  configFile = pkgs.writeText "bitwarden_rs.env" (concatMapStrings (s: s + "\n") (
-    (concatLists (mapAttrsToList (name: value:
-      if value != null then [ "${nameToEnvVar name}=${if isBool value then boolToString value else toString value}" ] else []
-    ) cfg.config))));
+  configFile = pkgs.writeText "bitwarden_rs.env" (concatMapStrings (s: s + "\n")
+    ((concatLists (mapAttrsToList (name: value:
+    if value != null then
+      [
+        "${nameToEnvVar name}=${
+          if isBool value then boolToString value else toString value
+        }"
+      ]
+    else
+      [ ]) cfg.config))));
 
 in {
   options.services.bitwarden_rs = with types; {
@@ -37,7 +54,7 @@ in {
 
     config = mkOption {
       type = attrsOf (nullOr (either (either bool int) str));
-      default = {};
+      default = { };
       example = literalExample ''
         {
           domain = https://bw.domain.tld:8443;
@@ -62,9 +79,11 @@ in {
         The available configuration options can be found in
         <link xlink:href="https://github.com/dani-garcia/bitwarden_rs/blob/1.8.0/.env.template">the environment template file</link>.
       '';
-      apply = config: optionalAttrs config.webVaultEnabled {
-        webVaultFolder = "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
-      } // config;
+      apply = config:
+        optionalAttrs config.webVaultEnabled {
+          webVaultFolder =
+            "${pkgs.bitwarden_rs-vault}/share/bitwarden_rs/vault";
+        } // config;
     };
   };
 

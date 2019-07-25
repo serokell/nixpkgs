@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "jsonpickle";
@@ -15,8 +12,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Python library for serializing any arbitrary object graph into JSON";
-    homepage = http://jsonpickle.github.io/;
+    description =
+      "Python library for serializing any arbitrary object graph into JSON";
+    homepage = "http://jsonpickle.github.io/";
     license = lib.licenses.bsd3;
   };
 

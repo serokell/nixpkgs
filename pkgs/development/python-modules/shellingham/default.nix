@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "shellingham";
@@ -12,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Tool to Detect Surrounding Shell";
-    homepage = https://github.com/sarugaku/shellingham;
+    homepage = "https://github.com/sarugaku/shellingham";
     license = licenses.isc;
     maintainers = with maintainers; [ mbode ];
   };

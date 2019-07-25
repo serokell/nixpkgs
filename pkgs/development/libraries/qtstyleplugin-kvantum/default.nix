@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qtsvg, qtx11extras, kwindowsystem, libX11, libXext, qttools }:
+{ stdenv, fetchFromGitHub, qmake, qtbase, qtsvg, qtx11extras, kwindowsystem, libX11, libXext, qttools
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtstyleplugin-kvantum";
@@ -12,7 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake qttools ];
-  buildInputs = [ qtbase qtsvg qtx11extras kwindowsystem libX11 libXext  ];
+  buildInputs = [ qtbase qtsvg qtx11extras kwindowsystem libX11 libXext ];
 
   sourceRoot = "source/Kvantum";
 
@@ -23,7 +24,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "SVG-based Qt5 theme engine plus a config tool and extra themes";
+    description =
+      "SVG-based Qt5 theme engine plus a config tool and extra themes";
     homepage = "https://github.com/tsujan/Kvantum";
     license = licenses.gpl3;
     platforms = platforms.linux;

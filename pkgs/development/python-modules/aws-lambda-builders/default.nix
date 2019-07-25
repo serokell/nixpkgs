@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, six
-, pytest
-, mock
-, parameterized
-, isPy35
+{ lib, buildPythonPackage, fetchFromGitHub, six, pytest, mock, parameterized, isPy35
 }:
 
 buildPythonPackage rec {
@@ -23,15 +16,9 @@ buildPythonPackage rec {
   # Package is not compatible with Python 3.5
   disabled = isPy35;
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  checkInputs = [
-    pytest
-    mock
-    parameterized
-  ];
+  checkInputs = [ pytest mock parameterized ];
 
   checkPhase = ''
     export PATH=$out/bin:$PATH
@@ -39,7 +26,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/awslabs/aws-lambda-builders;
+    homepage = "https://github.com/awslabs/aws-lambda-builders";
     description = "A tool to compile, build and package AWS Lambda functions";
     longDescription = ''
       Lambda Builders is a Python library to compile, build and package

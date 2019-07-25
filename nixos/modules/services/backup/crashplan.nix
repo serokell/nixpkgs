@@ -3,9 +3,8 @@
 let
   cfg = config.services.crashplan;
   crashplan = pkgs.crashplan;
-in
 
-with lib;
+in with lib;
 
 {
   options = {
@@ -27,7 +26,7 @@ with lib;
       description = "CrashPlan Backup Engine";
 
       wantedBy = [ "multi-user.target" ];
-      after    = [ "network.target" "local-fs.target" ];
+      after = [ "network.target" "local-fs.target" ];
 
       preStart = ''
         ensureDir() {

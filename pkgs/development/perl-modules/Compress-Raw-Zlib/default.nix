@@ -5,7 +5,7 @@ buildPerlPackage {
   version = "2.086";
 
   src = fetchurl {
-    url = mirror://cpan/authors/id/P/PM/PMQS/Compress-Raw-Zlib-2.086.tar.gz;
+    url = "mirror://cpan/authors/id/P/PM/PMQS/Compress-Raw-Zlib-2.086.tar.gz";
     sha256 = "0va93wc968p4l2ql0k349bz189l2vbs09bpn865cvc36amqxwv9z";
   };
 
@@ -21,7 +21,5 @@ buildPerlPackage {
 
   doCheck = !stdenv.isDarwin;
 
-  meta = {
-    license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
-  };
+  meta = { license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ]; };
 }

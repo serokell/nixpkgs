@@ -58,13 +58,9 @@ let
       https-enabled = false;
     };
 
-    graphite = [{
-      enabled = false;
-    }];
+    graphite = [{ enabled = false; }];
 
-    udp = [{
-      enabled = false;
-    }];
+    udp = [{ enabled = false; }];
 
     collectd = [{
       enabled = false;
@@ -73,9 +69,7 @@ let
       bind-address = ":25826";
     }];
 
-    opentsdb = [{
-      enabled = false;
-    }];
+    opentsdb = [{ enabled = false; }];
 
     continuous_queries = {
       enabled = true;
@@ -104,8 +98,7 @@ let
       < ${pkgs.writeText "config.json" (builtins.toJSON configOptions)} \
       > $out
   '';
-in
-{
+in {
 
   ###### interface
 
@@ -145,21 +138,19 @@ in
       };
 
       extraConfig = mkOption {
-        default = {};
+        default = { };
         description = "Extra configuration options for influxdb";
         type = types.attrs;
       };
     };
   };
 
-
   ###### implementation
 
   config = mkIf config.services.influxdb.enable {
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0770 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' 0770 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.influxdb = {
       description = "InfluxDB Server";
@@ -170,12 +161,12 @@ in
         User = cfg.user;
         Group = cfg.group;
       };
-      postStart =
-        let
-          scheme = if configOptions.http.https-enabled then "-k https" else "http";
-          bindAddr = (ba: if hasPrefix ":" ba then "127.0.0.1${ba}" else "${ba}")(toString configOptions.http.bind-address);
-        in
-        mkBefore ''
+      postStart = let
+        scheme =
+          if configOptions.http.https-enabled then "-k https" else "http";
+        bindAddr = (ba: if hasPrefix ":" ba then "127.0.0.1${ba}" else "${ba}")
+          (toString configOptions.http.bind-address);
+        in mkBefore ''
           until ${pkgs.curl.bin}/bin/curl -s -o /dev/null ${scheme}://${bindAddr}/ping; do
             sleep 1;
           done

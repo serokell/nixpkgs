@@ -1,45 +1,42 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "emacs-daemon";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ ]; };
 
   enableOCR = true;
 
-  machine =
-    { ... }:
+  machine = { ... }:
 
-    { imports = [ ./common/x11.nix ];
-      services.emacs = {
-        enable = true;
-        defaultEditor = true;
-      };
-
-      # Important to get the systemd service running for root
-      environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
-
-      environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
+  {
+    imports = [ ./common/x11.nix ];
+    services.emacs = {
+      enable = true;
+      defaultEditor = true;
     };
 
-  testScript =
-    ''
-      $machine->waitForUnit("multi-user.target");
+    # Important to get the systemd service running for root
+    environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
 
-      # checks that the EDITOR environment variable is set
-      $machine->succeed("test \$(basename \"\$EDITOR\") = emacseditor");
+    environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
+  };
 
-      # waits for the emacs service to be ready
-      $machine->waitUntilSucceeds("systemctl --user status emacs.service | grep 'Active: active'");
+  testScript = ''
+    $machine->waitForUnit("multi-user.target");
 
-      # connects to the daemon
-      $machine->succeed("emacsclient --create-frame \$EDITOR &");
+    # checks that the EDITOR environment variable is set
+    $machine->succeed("test \$(basename \"\$EDITOR\") = emacseditor");
 
-      # checks that Emacs shows the edited filename
-      $machine->waitForText("emacseditor");
+    # waits for the emacs service to be ready
+    $machine->waitUntilSucceeds("systemctl --user status emacs.service | grep 'Active: active'");
 
-      # makes sure environment variables are accessible from Emacs
-      $machine->succeed("emacsclient --eval '(getenv \"TEST_SYSTEM_VARIABLE\")'") =~ /system variable/ or die;
+    # connects to the daemon
+    $machine->succeed("emacsclient --create-frame \$EDITOR &");
 
-      $machine->screenshot("emacsclient");
-    '';
+    # checks that Emacs shows the edited filename
+    $machine->waitForText("emacseditor");
+
+    # makes sure environment variables are accessible from Emacs
+    $machine->succeed("emacsclient --eval '(getenv \"TEST_SYSTEM_VARIABLE\")'") =~ /system variable/ or die;
+
+    $machine->screenshot("emacsclient");
+  '';
 })

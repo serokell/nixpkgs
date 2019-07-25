@@ -1,4 +1,5 @@
-{ stdenv, cmake, fetchurl, perl, python, flex, bison, qt4, CoreServices, libiconv }:
+{ stdenv, cmake, fetchurl, perl, python, flex, bison, qt4, CoreServices, libiconv
+}:
 
 stdenv.mkDerivation rec {
 
@@ -14,15 +15,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ perl python flex bison ]
+  buildInputs = [ perl python flex bison ]
     ++ stdenv.lib.optional (qt4 != null) qt4
     ++ stdenv.lib.optional stdenv.isSunOS libiconv
     ++ stdenv.lib.optionals stdenv.isDarwin [ CoreServices libiconv ];
 
-  cmakeFlags =
-    [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ] ++
-    stdenv.lib.optional (qt4 != null) "-Dbuild_wizard=YES";
+  cmakeFlags = [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ]
+    ++ stdenv.lib.optional (qt4 != null) "-Dbuild_wizard=YES";
 
   NIX_CFLAGS_COMPILE =
     stdenv.lib.optional stdenv.isDarwin "-mmacosx-version-min=10.9";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     license = stdenv.lib.licenses.gpl2Plus;
-    homepage = http://doxygen.nl/;
+    homepage = "http://doxygen.nl/";
     description = "Source code documentation generator tool";
 
     longDescription = ''
@@ -43,6 +42,9 @@ stdenv.mkDerivation rec {
       manual (in LaTeX) from a set of documented source files.
     '';
 
-    platforms = if qt4 != null then stdenv.lib.platforms.linux else stdenv.lib.platforms.unix;
+    platforms = if qt4 != null then
+      stdenv.lib.platforms.linux
+    else
+      stdenv.lib.platforms.unix;
   };
 }

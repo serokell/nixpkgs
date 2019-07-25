@@ -1,13 +1,5 @@
-{ stdenv, fetchgit, cmake, pkgconfig, makeWrapper
-, boost
-, pythonSupport ? true, python, swig
-, airspy
-, gnuradio
-, hackrf
-, libbladeRF
-, rtl-sdr
-, soapysdr-with-plugins
-, uhd
+{ stdenv, fetchgit, cmake, pkgconfig, makeWrapper, boost, pythonSupport ?
+  true, python, swig, airspy, gnuradio, hackrf, libbladeRF, rtl-sdr, soapysdr-with-plugins, uhd
 }:
 
 assert pythonSupport -> python != null && swig != null;
@@ -23,10 +15,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    cmake makeWrapper boost
-    airspy gnuradio hackrf libbladeRF rtl-sdr uhd
-  ] ++ stdenv.lib.optionals stdenv.isLinux [ soapysdr-with-plugins ]
+  buildInputs =
+    [ cmake makeWrapper boost airspy gnuradio hackrf libbladeRF rtl-sdr uhd ]
+    ++ stdenv.lib.optionals stdenv.isLinux [ soapysdr-with-plugins ]
     ++ stdenv.lib.optionals pythonSupport [ python swig ];
 
   postInstall = ''
@@ -39,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Gnuradio block for OsmoSDR and rtl-sdr";
-    homepage = https://sdr.osmocom.org/trac/wiki/GrOsmoSDR;
+    homepage = "https://sdr.osmocom.org/trac/wiki/GrOsmoSDR";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ bjornfor the-kenny ];

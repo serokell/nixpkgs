@@ -1,12 +1,9 @@
-{ stdenv, fetchurl, gtk2-x11 , pkgconfig , python27 , gfortran , lesstif
-, cfitsio , getopt , perl , groff , which
+{ stdenv, fetchurl, gtk2-x11, pkgconfig, python27, gfortran, lesstif, cfitsio, getopt, perl, groff, which
 }:
 
-let
-  python27Env = python27.withPackages(ps: with ps; [ numpy ]);
-in
+let python27Env = python27.withPackages (ps: with ps; [ numpy ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   srcVersion = "jul19a";
   version = "20190701_a";
   name = "gildas-${version}";
@@ -14,8 +11,10 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # For each new release, the upstream developers of Gildas move the
     # source code of the previous release to a different directory
-    urls = [ "http://www.iram.fr/~gildas/dist/gildas-src-${srcVersion}.tar.xz"
-      "http://www.iram.fr/~gildas/dist/archive/gildas/gildas-src-${srcVersion}.tar.xz" ];
+    urls = [
+      "http://www.iram.fr/~gildas/dist/gildas-src-${srcVersion}.tar.xz"
+      "http://www.iram.fr/~gildas/dist/archive/gildas/gildas-src-${srcVersion}.tar.xz"
+    ];
     sha256 = "97eaa0d0a0f53f0616462642a9bfaddb0305a8a0948e60531d8a524a13a370b6";
   };
 
@@ -27,9 +26,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ];
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
+  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang
+    "-Wno-unused-command-line-argument";
 
-  configurePhase=''
+  configurePhase = ''
     substituteInPlace admin/wrapper.sh --replace '%%OUT%%' $out
     substituteInPlace admin/wrapper.sh --replace '%%PYTHONHOME%%' ${python27Env}
     substituteInPlace utilities/main/gag-makedepend.pl --replace '/usr/bin/perl' ${perl}/bin/perl
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     echo "gag_doc:        $out/share/doc/" >> kernel/etc/gag.dico.lcl
   '';
 
-  postInstall=''
+  postInstall = ''
     mkdir -p $out/bin
     cp -a ../gildas-exe-${srcVersion}/* $out
     mv $out/$GAG_EXEC_SYSTEM $out/libexec
@@ -60,9 +60,10 @@ stdenv.mkDerivation rec {
       extensible. GILDAS is written in Fortran-90, with a
       few parts in C/C++ (mainly keyboard interaction,
       plotting, widgets).'';
-    homepage = http://www.iram.fr/IRAMFR/GILDAS/gildas.html;
+    homepage = "http://www.iram.fr/IRAMFR/GILDAS/gildas.html";
     license = stdenv.lib.licenses.free;
-    maintainers = [ stdenv.lib.maintainers.bzizou stdenv.lib.maintainers.smaret ];
+    maintainers =
+      [ stdenv.lib.maintainers.bzizou stdenv.lib.maintainers.smaret ];
     platforms = stdenv.lib.platforms.all;
   };
 

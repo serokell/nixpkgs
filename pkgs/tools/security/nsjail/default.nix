@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, autoconf, bison, flex, libtool, pkgconfig, which
-, libnl, protobuf, protobufc, shadow
+{ stdenv, fetchFromGitHub, autoconf, bison, flex, libtool, pkgconfig, which, libnl, protobuf, protobufc, shadow
 }:
 
 stdenv.mkDerivation rec {
@@ -7,11 +6,11 @@ stdenv.mkDerivation rec {
   version = "2.8";
 
   src = fetchFromGitHub {
-    owner           = "google";
-    repo            = "nsjail";
-    rev             = version;
+    owner = "google";
+    repo = "nsjail";
+    rev = version;
     fetchSubmodules = true;
-    sha256          = "0cgycj0cz74plmz4asxryqprg6mkzpmnxzqbfsp1wwackinxq5fq";
+    sha256 = "0cgycj0cz74plmz4asxryqprg6mkzpmnxzqbfsp1wwackinxq5fq";
   };
 
   postPatch = ''
@@ -31,10 +30,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A light-weight process isolation tool, making use of Linux namespaces and seccomp-bpf syscall filters";
-    homepage    = http://nsjail.com/;
-    license     = licenses.asl20;
+    description =
+      "A light-weight process isolation tool, making use of Linux namespaces and seccomp-bpf syscall filters";
+    homepage = "http://nsjail.com/";
+    license = licenses.asl20;
     maintainers = with maintainers; [ bosu c0bw3b ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

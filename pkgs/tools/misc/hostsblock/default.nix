@@ -1,23 +1,22 @@
-{ lib, coreutils, curl, fetchFromGitHub, unzip, p7zip, gnused, gnugrep, stdenv
-, blacklist ? [ "adwords.google.com" ]
-, whitelist ? [
-  ".dropbox.com"
-  " www.malwaredomainlists.com"
-  " www.arcamax.com"
-  " www.instructables.com"
-  " goo.gl"
-  " www.reddit.com"
-  " t.co"
-  " bit.ly"
-  " www.viddler.com"
-  " viddler.com"
-  " tinyurl.com"
-  " ompldr.org"
-  " www.ompldr.org"
-  "login.yahoo.com"
-  " l.yimg.com"
-  ".bp.blogspot.com"
-] }:
+{ lib, coreutils, curl, fetchFromGitHub, unzip, p7zip, gnused, gnugrep, stdenv, blacklist ?
+  [ "adwords.google.com" ], whitelist ? [
+    ".dropbox.com"
+    " www.malwaredomainlists.com"
+    " www.arcamax.com"
+    " www.instructables.com"
+    " goo.gl"
+    " www.reddit.com"
+    " t.co"
+    " bit.ly"
+    " www.viddler.com"
+    " viddler.com"
+    " tinyurl.com"
+    " ompldr.org"
+    " www.ompldr.org"
+    "login.yahoo.com"
+    " l.yimg.com"
+    ".bp.blogspot.com"
+  ] }:
 
 stdenv.mkDerivation rec {
   name = "hostsblock-${version}";
@@ -40,8 +39,12 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/etc
     install -Dm644 conf/hostsblock.conf $out/etc/
-    ${lib.concatMapStrings (d: "echo ${d} >> $out/etc/black.list\n") blacklist}
-    ${lib.concatMapStrings (d: "echo ${d} >> $out/etc/white.list\n") whitelist}
+    ${lib.concatMapStrings (d: ''
+      echo ${d} >> $out/etc/black.list
+    '') blacklist}
+    ${lib.concatMapStrings (d: ''
+      echo ${d} >> $out/etc/white.list
+    '') whitelist}
     install -Dm644 conf/hosts.head $out/etc/
 
     for f in $out/bin/* $out/lib/* $out/etc/hostsblock.conf; do
@@ -64,7 +67,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "An ad- and malware-blocking script for Linux";
-    homepage = http://gaenserich.github.io/hostsblock/;
+    homepage = "http://gaenserich.github.io/hostsblock/";
     license = licenses.gpl3;
     maintainers = [ maintainers.nicknovitski ];
     platforms = platforms.unix;

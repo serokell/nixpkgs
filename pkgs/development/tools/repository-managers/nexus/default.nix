@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "3.16.1-02";
 
   src = fetchurl {
-    url = "https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-${version}-unix.tar.gz";
+    url =
+      "https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-${version}-unix.tar.gz";
     sha256 = "0nfcpsb7byykiwrdz01c99a6hr5ww2d4471spzpgs9i64kbjj7ln";
   };
 
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Repository manager for binary software components";
-    homepage = http://www.sonatype.org/nexus;
+    homepage = "http://www.sonatype.org/nexus";
     license = licenses.epl10;
     platforms = platforms.all;
     maintainers = with maintainers; [ aespinosa ironpinguin ma27 zaninime ];

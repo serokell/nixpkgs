@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cssselect
-, lxml
-, webob
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cssselect, lxml, webob }:
 
 buildPythonPackage rec {
   pname = "pyquery";
@@ -22,7 +16,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/gawel/pyquery;
+    homepage = "https://github.com/gawel/pyquery";
     description = "A jquery-like library for python";
     license = licenses.bsd0;
   };

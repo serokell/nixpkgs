@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Autosort is a weechat script to automatically or manually keep your buffers sorted";
-    homepage = https://github.com/de-vri-es/weechat-autosort;
+    description =
+      "Autosort is a weechat script to automatically or manually keep your buffers sorted";
+    homepage = "https://github.com/de-vri-es/weechat-autosort";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ma27 ];
   };

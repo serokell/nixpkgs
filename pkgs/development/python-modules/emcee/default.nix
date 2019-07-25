@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, numpy }:
+{ stdenv, buildPythonPackage, fetchPypi, numpy }:
 
 buildPythonPackage rec {
   pname = "emcee";
@@ -14,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Kick ass affine-invariant ensemble MCMC sampling";
-    homepage = http://dan.iel.fm/emcee;
+    homepage = "http://dan.iel.fm/emcee";
     license = licenses.mit;
   };
 }

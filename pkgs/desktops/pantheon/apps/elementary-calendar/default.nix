@@ -1,8 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson
-, ninja, vala, desktop-file-utils, gtk3, granite, libgee
-, geoclue2, libchamplain, clutter, folks, geocode-glib, python3
-, libnotify, libical, evolution-data-server, appstream-glib
-, elementary-icon-theme, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, desktop-file-utils, gtk3, granite, libgee, geoclue2, libchamplain, clutter, folks, geocode-glib, python3, libnotify, libical, evolution-data-server, appstream-glib, elementary-icon-theme, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "calendar";
@@ -57,7 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Desktop calendar app designed for elementary OS";
-    homepage = https://github.com/elementary/calendar;
+    homepage = "https://github.com/elementary/calendar";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

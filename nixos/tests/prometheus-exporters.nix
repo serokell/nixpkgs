@@ -1,68 +1,63 @@
-{ system ? builtins.currentSystem
-, config ? {}
-, pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 let
   inherit (import ../lib/testing.nix { inherit system pkgs; }) makeTest;
-  inherit (pkgs.lib) concatStringsSep maintainers mapAttrs mkMerge
-                     removeSuffix replaceChars singleton splitString;
+  inherit (pkgs.lib)
+    concatStringsSep maintainers mapAttrs mkMerge removeSuffix replaceChars
+    singleton splitString;
 
-  escape' = str: replaceChars [''"'' "$" "\n"] [''\\\"'' "\\$" ""] str;
+  escape' = str: replaceChars [ ''"'' "$" "\n" ] [ ''\\\"'' "\\$" "" ] str;
 
-/*
- * The attrset `exporterTests` contains one attribute
- * for each exporter test. Each of these attributes
- * is expected to be an attrset containing:
- *
- *  `exporterConfig`:
- *    this attribute set contains config for the exporter itself
- *
- *  `exporterTest`
- *    this attribute set contains test instructions
- *
- *  `metricProvider` (optional)
- *    this attribute contains additional machine config
- *
- *  Example:
- *    exporterTests.<exporterName> = {
- *      exporterConfig = {
- *        enable = true;
- *      };
- *      metricProvider = {
- *        services.<metricProvider>.enable = true;
- *      };
- *      exporterTest = ''
- *        waitForUnit("prometheus-<exporterName>-exporter.service");
- *        waitForOpenPort("1234");
- *        succeed("curl -sSf 'localhost:1234/metrics'");
- *      '';
- *    };
- *
- *  # this would generate the following test config:
- *
- *    nodes.<exporterName> = {
- *      services.prometheus.<exporterName> = {
- *        enable = true;
- *      };
- *      services.<metricProvider>.enable = true;
- *    };
- *
- *    testScript = ''
- *      $<exporterName>->start();
- *      $<exporterName>->waitForUnit("prometheus-<exporterName>-exporter.service");
- *      $<exporterName>->waitForOpenPort("1234");
- *      $<exporterName>->succeed("curl -sSf 'localhost:1234/metrics'");
- *      $<exporterName>->shutdown();
- *    '';
- */
+  # The attrset `exporterTests` contains one attribute
+  # for each exporter test. Each of these attributes
+  # is expected to be an attrset containing:
+  #
+  #  `exporterConfig`:
+  #    this attribute set contains config for the exporter itself
+  #
+  #  `exporterTest`
+  #    this attribute set contains test instructions
+  #
+  #  `metricProvider` (optional)
+  #    this attribute contains additional machine config
+  #
+  #  Example:
+  #    exporterTests.<exporterName> = {
+  #      exporterConfig = {
+  #        enable = true;
+  #      };
+  #      metricProvider = {
+  #        services.<metricProvider>.enable = true;
+  #      };
+  #      exporterTest = ''
+  #        waitForUnit("prometheus-<exporterName>-exporter.service");
+  #        waitForOpenPort("1234");
+  #        succeed("curl -sSf 'localhost:1234/metrics'");
+  #      '';
+  #    };
+  #
+  #  # this would generate the following test config:
+  #
+  #    nodes.<exporterName> = {
+  #      services.prometheus.<exporterName> = {
+  #        enable = true;
+  #      };
+  #      services.<metricProvider>.enable = true;
+  #    };
+  #
+  #    testScript = ''
+  #      $<exporterName>->start();
+  #      $<exporterName>->waitForUnit("prometheus-<exporterName>-exporter.service");
+  #      $<exporterName>->waitForOpenPort("1234");
+  #      $<exporterName>->succeed("curl -sSf 'localhost:1234/metrics'");
+  #      $<exporterName>->shutdown();
+  #    '';
 
   exporterTests = {
 
     bind = {
-      exporterConfig = {
-        enable = true;
-      };
+      exporterConfig = { enable = true; };
       metricProvider = {
         services.bind.enable = true;
         services.bind.extraConfig = ''
@@ -100,22 +95,24 @@ let
         enable = true;
         extraFlags = [ "--web.collectd-push-path /collectd" ];
       };
-      exporterTest =let postData = escape' ''
-        [{
-          "values":[23],
-          "dstypes":["gauge"],
-          "type":"gauge",
-          "interval":1000,
-          "host":"testhost",
-          "plugin":"testplugin",
-          "time":$(date +%s)
-        }]
-        ''; in ''
-        waitForUnit("prometheus-collectd-exporter.service");
-        waitForOpenPort(9103);
-        succeed("curl -sSfH 'Content-Type: application/json' -X POST --data \"${postData}\" localhost:9103/collectd");
-        succeed("curl -sSf localhost:9103/metrics | grep -q 'collectd_testplugin_gauge{instance=\"testhost\"} 23'");
-      '';
+      exporterTest = let
+        postData = escape' ''
+          [{
+            "values":[23],
+            "dstypes":["gauge"],
+            "type":"gauge",
+            "interval":1000,
+            "host":"testhost",
+            "plugin":"testplugin",
+            "time":$(date +%s)
+          }]
+        '';
+        in ''
+          waitForUnit("prometheus-collectd-exporter.service");
+          waitForOpenPort(9103);
+          succeed("curl -sSfH 'Content-Type: application/json' -X POST --data \"${postData}\" localhost:9103/collectd");
+          succeed("curl -sSf localhost:9103/metrics | grep -q 'collectd_testplugin_gauge{instance=\"testhost\"} 23'");
+        '';
     };
 
     dnsmasq = {
@@ -123,9 +120,7 @@ let
         enable = true;
         leasesPath = "/var/lib/dnsmasq/dnsmasq.leases";
       };
-      metricProvider = {
-        services.dnsmasq.enable = true;
-      };
+      metricProvider = { services.dnsmasq.enable = true; };
       exporterTest = ''
         waitForUnit("prometheus-dnsmasq-exporter.service");
         waitForOpenPort(9153);
@@ -140,9 +135,7 @@ let
         socketPath = "/var/run/dovecot2/old-stats";
         user = "root"; # <- don't use user root in production
       };
-      metricProvider = {
-        services.dovecot2.enable = true;
-      };
+      metricProvider = { services.dovecot2.enable = true; };
       exporterTest = ''
         waitForUnit("prometheus-dovecot-exporter.service");
         waitForOpenPort(9166);
@@ -151,9 +144,7 @@ let
     };
 
     fritzbox = { # TODO add proper test case
-      exporterConfig = {
-        enable = true;
-      };
+      exporterConfig = { enable = true; };
       exporterTest = ''
         waitForUnit("prometheus-fritzbox-exporter.service");
         waitForOpenPort(9133);
@@ -165,10 +156,11 @@ let
       exporterConfig = {
         enable = true;
         url = "http://localhost";
-        configFile = pkgs.writeText "json-exporter-conf.json" (builtins.toJSON [{
-          name = "json_test_metric";
-          path = "$.test";
-        }]);
+        configFile = pkgs.writeText "json-exporter-conf.json"
+          (builtins.toJSON [{
+            name = "json_test_metric";
+            path = "$.test";
+          }]);
       };
       metricProvider = {
         systemd.services.prometheus-json-exporter.after = [ "nginx.service" ];
@@ -189,9 +181,7 @@ let
     };
 
     nginx = {
-      exporterConfig = {
-        enable = true;
-      };
+      exporterConfig = { enable = true; };
       metricProvider = {
         services.nginx = {
           enable = true;
@@ -208,9 +198,7 @@ let
     };
 
     node = {
-      exporterConfig = {
-        enable = true;
-      };
+      exporterConfig = { enable = true; };
       exporterTest = ''
         waitForUnit("prometheus-node-exporter.service");
         waitForOpenPort(9100);
@@ -219,12 +207,8 @@ let
     };
 
     postfix = {
-      exporterConfig = {
-        enable = true;
-      };
-      metricProvider = {
-        services.postfix.enable = true;
-      };
+      exporterConfig = { enable = true; };
+      metricProvider = { services.postfix.enable = true; };
       exporterTest = ''
         waitForUnit("prometheus-postfix-exporter.service");
         waitForOpenPort(9154);
@@ -253,7 +237,8 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ];
+        systemd.services.prometheus-surfboard-exporter.after =
+          [ "nginx.service" ];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -271,9 +256,7 @@ let
     };
 
     tor = {
-      exporterConfig = {
-        enable = true;
-      };
+      exporterConfig = { enable = true; };
       metricProvider = {
         # Note: this does not connect the test environment to the Tor network.
         # Client, relay, bridge or exit connectivity are disabled by default.
@@ -296,9 +279,8 @@ let
         group = "varnish";
       };
       metricProvider = {
-        systemd.services.prometheus-varnish-exporter.after = [
-          "varnish.service"
-        ];
+        systemd.services.prometheus-varnish-exporter.after =
+          [ "varnish.service" ];
         services.varnish = {
           enable = true;
           config = ''
@@ -318,47 +300,48 @@ let
       '';
     };
 
-    wireguard = let snakeoil = import ./wireguard/snakeoil-keys.nix; in {
-      exporterConfig.enable = true;
-      metricProvider = {
-        networking.wireguard.interfaces.wg0 = {
-          ips = [ "10.23.42.1/32" "fc00::1/128" ];
-          listenPort = 23542;
+    wireguard = let snakeoil = import ./wireguard/snakeoil-keys.nix;
+      in {
+        exporterConfig.enable = true;
+        metricProvider = {
+          networking.wireguard.interfaces.wg0 = {
+            ips = [ "10.23.42.1/32" "fc00::1/128" ];
+            listenPort = 23542;
 
-          inherit (snakeoil.peer0) privateKey;
+            inherit (snakeoil.peer0) privateKey;
 
-          peers = singleton {
-            allowedIPs = [ "10.23.42.2/32" "fc00::2/128" ];
+            peers = singleton {
+              allowedIPs = [ "10.23.42.2/32" "fc00::2/128" ];
 
-            inherit (snakeoil.peer1) publicKey;
+              inherit (snakeoil.peer1) publicKey;
+            };
           };
+          systemd.services.prometheus-wireguard-exporter.after =
+            [ "wireguard-wg0.service" ];
         };
-        systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ];
+        exporterTest = ''
+          waitForUnit("prometheus-wireguard-exporter.service");
+          waitForOpenPort(9586);
+          waitUntilSucceeds("curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'");
+        '';
       };
-      exporterTest = ''
-        waitForUnit("prometheus-wireguard-exporter.service");
-        waitForOpenPort(9586);
-        waitUntilSucceeds("curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'");
-      '';
-    };
   };
-in
-mapAttrs (exporter: testConfig: (makeTest {
+in mapAttrs (exporter: testConfig:
+(makeTest {
   name = "prometheus-${exporter}-exporter";
 
-  nodes.${exporter} = mkMerge [{
-    services.prometheus.exporters.${exporter} = testConfig.exporterConfig;
-  } testConfig.metricProvider or {}];
+  nodes.${exporter} = mkMerge [
+    { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
+    testConfig.metricProvider or { }
+  ];
 
   testScript = ''
-    ${"$"+exporter}->start();
+    ${"$" + exporter}->start();
     ${concatStringsSep "  " (map (line: ''
-      ${"$"+exporter}->${line};
+      ${"$" + exporter}->${line};
     '') (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
-    ${"$"+exporter}->shutdown();
+    ${"$" + exporter}->shutdown();
   '';
 
-  meta = with maintainers; {
-    maintainers = [ willibutz ];
-  };
+  meta = with maintainers; { maintainers = [ willibutz ]; };
 })) exporterTests

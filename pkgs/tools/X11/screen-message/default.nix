@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.25";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/s/screen-message/screen-message_${version}.orig.tar.gz";
+    url =
+      "mirror://debian/pool/main/s/screen-message/screen-message_${version}.orig.tar.gz";
     sha256 = "1lw955qq5pq010lzmaf32ylj2iprgsri9ih4hx672c3f794ilab0";
   };
 

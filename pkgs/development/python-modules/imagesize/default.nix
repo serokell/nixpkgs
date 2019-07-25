@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "imagesize";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Getting image size from png/jpeg/jpeg2000/gif file";
-    homepage = https://github.com/shibukawa/imagesize_py;
+    homepage = "https://github.com/shibukawa/imagesize_py";
     license = with licenses; [ mit ];
   };
 

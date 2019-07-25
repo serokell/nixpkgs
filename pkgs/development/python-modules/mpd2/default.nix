@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock }:
 
 buildPythonPackage rec {
   pname = "mpd2";

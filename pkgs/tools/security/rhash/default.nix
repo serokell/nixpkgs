@@ -20,11 +20,17 @@ stdenv.mkDerivation rec {
 
   checkTarget = "test-full";
 
-  installTargets = [ "install" "install-lib-shared" "install-lib-so-link" "install-lib-headers" ];
+  installTargets = [
+    "install"
+    "install-lib-shared"
+    "install-lib-so-link"
+    "install-lib-headers"
+  ];
 
   meta = with stdenv.lib; {
-    homepage = http://rhash.anz.ru;
-    description = "Console utility and library for computing and verifying hash sums of files";
+    homepage = "http://rhash.anz.ru";
+    description =
+      "Console utility and library for computing and verifying hash sums of files";
     platforms = platforms.all;
     maintainers = [ maintainers.andrewrk ];
   };

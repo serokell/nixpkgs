@@ -1,16 +1,18 @@
 { stdenv, fetchurl, makeWrapper, jre, makeDesktopItem, lib }:
 
-  stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   name = "runelite-${version}";
   version = "1.6.0";
 
   src = fetchurl {
-    url = "https://github.com/runelite/launcher/releases/download/${version}/RuneLite.jar";
+    url =
+      "https://github.com/runelite/launcher/releases/download/${version}/RuneLite.jar";
     sha256 = "0q2xx0wrnlg5mrv8nnmnh300r8mqfm8k2p028m7mr09kn18xvkzx";
   };
 
   icon = fetchurl {
-    url = "https://github.com/runelite/runelite/raw/master/runelite-client/src/main/resources/runelite.png";
+    url =
+      "https://github.com/runelite/runelite/raw/master/runelite-client/src/main/resources/runelite.png";
     sha256 = "0fxzkpsin09giqp7h8z0plxznk5d5j60sv34v1lw61p7d5y2izvr";
   };
 
@@ -50,4 +52,4 @@
     maintainers = [ lib.maintainers.kmeakin ];
     platforms = lib.platforms.all;
   };
-  }
+}

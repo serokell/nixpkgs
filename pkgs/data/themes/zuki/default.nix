@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, sassc, gdk_pixbuf, librsvg, gtk_engines, gtk-engine-murrine }:
+{ stdenv, fetchFromGitHub, meson, ninja, sassc, gdk_pixbuf, librsvg, gtk_engines, gtk-engine-murrine
+}:
 
 stdenv.mkDerivation rec {
   pname = "zuki-themes";
@@ -19,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Themes for GTK3, gnome-shell and more";
-    homepage = https://github.com/lassekongo83/zuki-themes;
+    homepage = "https://github.com/lassekongo83/zuki-themes";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];

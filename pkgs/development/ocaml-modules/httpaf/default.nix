@@ -16,7 +16,8 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    description = "A high-performance, memory-efficient, and scalable web server for OCaml";
+    description =
+      "A high-performance, memory-efficient, and scalable web server for OCaml";
     license = stdenv.lib.licenses.bsd3;
     maintainers = [ stdenv.lib.maintainers.vbgl ];
     inherit (src.meta) homepage;

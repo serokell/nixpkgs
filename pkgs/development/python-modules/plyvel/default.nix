@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-, pytest
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs, pytest, isPy3k }:
 
 buildPythonPackage rec {
   pname = "plyvel";
@@ -23,7 +17,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "Fast and feature-rich Python interface to LevelDB";
     platforms = platforms.unix;
-    homepage = https://github.com/wbolster/plyvel;
+    homepage = "https://github.com/wbolster/plyvel";
     license = licenses.bsd3;
   };
 }

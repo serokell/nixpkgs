@@ -1,42 +1,6 @@
-{ fetchFromGitLab
-, stdenv
-, fetchpatch
-, meson
-, ninja
-, pkgconfig
-, gettext
-, libxml2
-, appstream
-, glib
-, gtk3
-, pango
-, atk
-, gdk_pixbuf
-, shared-mime-info
-, itstool
-, gnome3
-, poppler
-, ghostscriptX
-, djvulibre
-, libspectre
-, libarchive
-, libsecret
-, wrapGAppsHook
-, librsvg
-, gobject-introspection
-, yelp-tools
-, gspell
-, adwaita-icon-theme
-, gsettings-desktop-schemas
-, gnome-desktop
-, dbus
-, python3
-, texlive
-, t1lib
-, gst_all_1
-, supportMultimedia ? true # PDF multimedia
-, libgxps
-, supportXPS ? true # Open XML Paper Specification via libgxps
+{ fetchFromGitLab, stdenv, fetchpatch, meson, ninja, pkgconfig, gettext, libxml2, appstream, glib, gtk3, pango, atk, gdk_pixbuf, shared-mime-info, itstool, gnome3, poppler, ghostscriptX, djvulibre, libspectre, libarchive, libsecret, wrapGAppsHook, librsvg, gobject-introspection, yelp-tools, gspell, adwaita-icon-theme, gsettings-desktop-schemas, gnome-desktop, dbus, python3, texlive, t1lib, gst_all_1, supportMultimedia ?
+  true # PDF multimedia
+, libgxps, supportXPS ? true # Open XML Paper Specification via libgxps
 }:
 
 stdenv.mkDerivation rec {
@@ -51,11 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "1klq8j70q8r8hyqv1wi6jcx8g76yh46bh8614y82zzggn4cx6y3r";
   };
 
-
   patches = [
     (fetchpatch {
       name = "CVE-2019-11459.patch";
-      url = "https://gitlab.gnome.org/GNOME/evince/commit/3e38d5ad724a042eebadcba8c2d57b0f48b7a8c7.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/evince/commit/3e38d5ad724a042eebadcba8c2d57b0f48b7a8c7.patch";
       sha256 = "1ds6iwr2r9i86nwrly8cx7p1kbvf1gljjplcffa67znxqmwx4n74";
     })
   ];
@@ -101,13 +65,15 @@ stdenv.mkDerivation rec {
     t1lib
   ] ++ stdenv.lib.optional supportXPS libgxps
     ++ stdenv.lib.optionals supportMultimedia (with gst_all_1; [
-      gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav ]);
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ]);
 
-  mesonFlags = [
-    "-Dnautilus=false"
-    "-Dps=enabled"
-    "-Dgtk_doc=false"
-  ];
+  mesonFlags = [ "-Dnautilus=false" "-Dps=enabled" "-Dgtk_doc=false" ];
 
   NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
@@ -115,14 +81,10 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share")
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Evince;
+    homepage = "https://wiki.gnome.org/Apps/Evince";
     description = "GNOME's document viewer";
 
     longDescription = ''

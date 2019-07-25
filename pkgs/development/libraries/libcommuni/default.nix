@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, qtbase, qtdeclarative, qmake, which
-}:
+{ stdenv, fetchFromGitHub, qtbase, qtdeclarative, qmake, which }:
 
 stdenv.mkDerivation rec {
   name = "libcommuni-${version}";
@@ -36,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A cross-platform IRC framework written with Qt";
-    homepage = https://communi.github.io;
+    homepage = "https://communi.github.io";
     license = licenses.bsd3;
     platforms = platforms.all;
     maintainers = with maintainers; [ hrdinka ];

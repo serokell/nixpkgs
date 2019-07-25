@@ -1,7 +1,4 @@
-{ buildGoPackage
-, lib
-, fetchFromGitLab
-}:
+{ buildGoPackage, lib, fetchFromGitLab }:
 
 buildGoPackage rec {
   name = "check-unstable-${version}";
@@ -22,7 +19,7 @@ buildGoPackage rec {
 
   meta = with lib; {
     description = "A set of utilities for checking Go sources.";
-    homepage = https://gitlab.com/opennota/check;
+    homepage = "https://gitlab.com/opennota/check";
     license = licenses.gpl3;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

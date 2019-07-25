@@ -11,38 +11,45 @@ let
   inetSocket = addr: port: "inet:${addr}:${toString port}";
   unixSocket = sock: "unix:${sock}";
 
-  systemdSocket = if cfg.bindSocket.type == "unix" then cfg.bindSocket.path
-    else "${cfg.bindSocket.address}:${toString cfg.bindSocket.port}";
-  rmilterSocket = if cfg.bindSocket.type == "unix" then unixSocket cfg.bindSocket.path
-    else inetSocket cfg.bindSocket.address cfg.bindSocket.port;
+  systemdSocket = if cfg.bindSocket.type == "unix" then
+    cfg.bindSocket.path
+  else
+    "${cfg.bindSocket.address}:${toString cfg.bindSocket.port}";
+  rmilterSocket = if cfg.bindSocket.type == "unix" then
+    unixSocket cfg.bindSocket.path
+  else
+    inetSocket cfg.bindSocket.address cfg.bindSocket.port;
 
   rmilterConf = ''
     pidfile = /run/rmilter/rmilter.pid;
     bind_socket = ${if cfg.socketActivation then "fd:3" else rmilterSocket};
     tempdir = /tmp;
-  '' + (with cfg.rspamd; if enable then ''
-    spamd {
-      servers = ${concatStringsSep ", " servers};
-      connect_timeout = 1s;
-      results_timeout = 20s;
-      error_time = 10;
-      dead_time = 300;
-      maxerrors = 10;
-      reject_message = "${rejectMessage}";
-      ${optionalString (length whitelist != 0)  "whitelist = ${concatStringsSep ", " whitelist};"}
+  '' + (with cfg.rspamd;
+    if enable then ''
+      spamd {
+        servers = ${concatStringsSep ", " servers};
+        connect_timeout = 1s;
+        results_timeout = 20s;
+        error_time = 10;
+        dead_time = 300;
+        maxerrors = 10;
+        reject_message = "${rejectMessage}";
+        ${
+        optionalString (length whitelist != 0)
+        "whitelist = ${concatStringsSep ", " whitelist};"
+        }
 
-      # rspamd_metric - metric for using with rspamd
-      # Default: "default"
-      rspamd_metric = "default";
-      ${extraConfig}
-    };
-  '' else "") + cfg.extraConfig;
+        # rspamd_metric - metric for using with rspamd
+        # Default: "default"
+        rspamd_metric = "default";
+        ${extraConfig}
+      };
+    '' else
+      "") + cfg.extraConfig;
 
   rmilterConfigFile = pkgs.writeText "rmilter.conf" rmilterConf;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -68,7 +75,7 @@ in
         description = ''
           User to use when no root privileges are required.
         '';
-       };
+      };
 
       group = mkOption {
         type = types.string;
@@ -76,7 +83,7 @@ in
         description = ''
           Group to use when no root privileges are required.
         '';
-       };
+      };
 
       bindSocket.type = mkOption {
         type = types.enum [ "unix" "inet" ];
@@ -88,9 +95,9 @@ in
       };
 
       bindSocket.path = mkOption {
-       type = types.str;
-       default = "/run/rmilter.sock";
-       description = ''
+        type = types.str;
+        default = "/run/rmilter.sock";
+        description = ''
           Path to Unix domain socket to listen on.
         '';
       };
@@ -133,7 +140,7 @@ in
 
         servers = mkOption {
           type = types.listOf types.str;
-          default = ["r:/run/rspamd/rspamd.sock"];
+          default = [ "r:/run/rspamd/rspamd.sock" ];
           description = ''
             Spamd socket definitions.
             Is server name is prefixed with r: it is rspamd server.
@@ -143,7 +150,8 @@ in
         whitelist = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          description = "list of ips or nets that should be not checked with spamd";
+          description =
+            "list of ips or nets that should be not checked with spamd";
         };
 
         rejectMessage = mkOption {
@@ -187,14 +195,13 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkMerge [
 
     (mkIf cfg.enable {
       warnings = [
-        ''`config.services.rmilter' is deprecated, `rmilter' deprecated and unsupported by upstream, and will be removed from next releases. Use built-in rspamd milter instead.''
+        "`config.services.rmilter' is deprecated, `rmilter' deprecated and unsupported by upstream, and will be removed from next releases. Use built-in rspamd milter instead."
       ];
 
       users.users = singleton {
@@ -216,7 +223,9 @@ in
         after = [ "network.target" ];
 
         serviceConfig = {
-          ExecStart = "${pkgs.rmilter}/bin/rmilter ${optionalString cfg.debug "-d"} -n -c ${rmilterConfigFile}";
+          ExecStart = "${pkgs.rmilter}/bin/rmilter ${
+            optionalString cfg.debug "-d"
+            } -n -c ${rmilterConfigFile}";
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           User = cfg.user;
           Group = cfg.group;

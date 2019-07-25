@@ -1,10 +1,4 @@
-{ stdenv
-, pkgs
-, lib
-, buildBowerComponents
-, fetchurl
-, nodejs
-}:
+{ stdenv, pkgs, lib, buildBowerComponents, fetchurl, nodejs }:
 
 let
   nodePackages = import ./node-packages.nix {
@@ -24,30 +18,21 @@ let
   # find an element in an attribute set
   findValue = pred: default: set:
     let
-      list =
-        lib.concatMap
-        (name:
-          let v = set.${name}; in
-          if pred name v then [v] else []
-        )
-        (lib.attrNames set)
-        ;
-    in
-      if list == [] then default
-      else lib.head list
-      ;
+      list = lib.concatMap
+        (name: let v = set.${name}; in if pred name v then [ v ] else [ ])
+        (lib.attrNames set);
+    in if list == [ ] then default else lib.head list;
 
   # The cryptpad package attribute key changes for each release. Get it out
   # programatically instead.
-  cryptpad = findValue
-    (k: v: v.packageName == "cryptpad")
-    (throw "cryptpad not found")
-    nodePackages
-    ;
+  cryptpad =
+    findValue (k: v: v.packageName == "cryptpad") (throw "cryptpad not found")
+    nodePackages;
 
   # Get the patched load-config.js that allows loading config from the env
   dynamicConfig = fetchurl {
-    url = "https://raw.githubusercontent.com/zimbatm/cryptpad/35dd3abbb5ef6e3f9d5fb0b31b693c430d159b4a/lib/load-config.js";
+    url =
+      "https://raw.githubusercontent.com/zimbatm/cryptpad/35dd3abbb5ef6e3f9d5fb0b31b693c430d159b4a/lib/load-config.js";
     sha256 = "1ch6r4fkcvyxhc501nmdc39zpnxcqwgwkj7nb39ayflkhil19f6a";
   };
 
@@ -72,5 +57,4 @@ let
       chmod +x $out/bin/cryptpad
     '';
   };
-in
-  combined
+in combined

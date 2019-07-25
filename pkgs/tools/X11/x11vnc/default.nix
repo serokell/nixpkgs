@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub,
-  openssl, zlib, libjpeg, xorg, coreutils, libvncserver,
-  autoreconfHook, pkgconfig }:
+{ stdenv, fetchFromGitHub, openssl, zlib, libjpeg, xorg, coreutils, libvncserver, autoreconfHook, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "x11vnc-${version}";
@@ -15,14 +14,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
-  buildInputs =
-    [ xorg.libXfixes xorg.xorgproto openssl xorg.libXdamage
-      zlib xorg.libX11 libjpeg
-      xorg.libXtst xorg.libXinerama xorg.libXrandr
-      xorg.libXext
-      xorg.libXi xorg.libXrender
-      libvncserver
-    ];
+  buildInputs = [
+    xorg.libXfixes
+    xorg.xorgproto
+    openssl
+    xorg.libXdamage
+    zlib
+    xorg.libX11
+    libjpeg
+    xorg.libXtst
+    xorg.libXinerama
+    xorg.libXrandr
+    xorg.libXext
+    xorg.libXi
+    xorg.libXrender
+    libvncserver
+  ];
 
   postPatch = ''
     substituteInPlace src/unixpw.c \
@@ -41,7 +48,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A VNC server connected to a real X11 screen";
-    homepage = https://github.com/LibVNC/x11vnc/;
+    homepage = "https://github.com/LibVNC/x11vnc/";
     platforms = platforms.linux;
     license = licenses.gpl2;
     maintainers = with maintainers; [ OPNA2608 ];

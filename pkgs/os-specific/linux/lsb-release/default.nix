@@ -16,18 +16,21 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "prefix=$(out)" ];
 
-  nativeBuildInputs  = [ makeWrapper perl ];
+  nativeBuildInputs = [ makeWrapper perl ];
 
   buildInputs = [ coreutils getopt ];
 
   # Ensure utilities used are available
   preFixup = ''
-    wrapProgram $out/bin/lsb_release --prefix PATH : ${stdenv.lib.makeBinPath [ coreutils getopt ]}
+    wrapProgram $out/bin/lsb_release --prefix PATH : ${
+      stdenv.lib.makeBinPath [ coreutils getopt ]
+    }
   '';
 
   meta = {
-    description = "Prints certain LSB (Linux Standard Base) and Distribution information";
-    homepage = http://www.linuxfoundation.org/collaborate/workgroups/lsb;
+    description =
+      "Prints certain LSB (Linux Standard Base) and Distribution information";
+    homepage = "http://www.linuxfoundation.org/collaborate/workgroups/lsb";
     license = [ stdenv.lib.licenses.gpl2Plus stdenv.lib.licenses.gpl3Plus ];
     platforms = stdenv.lib.platforms.linux;
   };

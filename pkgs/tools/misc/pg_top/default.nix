@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A 'top' like tool for PostgreSQL";
-    longDescription = '' 
+    longDescription = ''
       pg_top allows you to: 
        * View currently running SQL statement of a process.
        * View query plan of a currently running SQL statement.
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
        * View user index statistics.
     '';
 
-    homepage = http://ptop.projects.postgresql.org/;
+    homepage = "http://ptop.projects.postgresql.org/";
     platforms = platforms.linux;
     license = licenses.free; # see commands.c
   };

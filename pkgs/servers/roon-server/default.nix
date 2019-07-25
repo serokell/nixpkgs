@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "100600401";
 
   src = fetchurl {
-    url = "http://download.roonlabs.com/updates/stable/RoonServer_linuxx64_${version}.tar.bz2";
+    url =
+      "http://download.roonlabs.com/updates/stable/RoonServer_linuxx64_${version}.tar.bz2";
     sha256 = "121mmdh35q4bpgsqhcps6a6q1f4ld9v4hq9gp181bf2n779pk8sh";
   };
 
@@ -18,7 +19,9 @@ stdenv.mkDerivation rec {
     sed -i '/check_ulimit$/d' check.sh
 
     # Start script
-    sed -i '3i PATH=$PATH:${makeBinPath [ alsaUtils cifs-utils ffmpeg libav ]}' start.sh
+    sed -i '3i PATH=$PATH:${
+      makeBinPath [ alsaUtils cifs-utils ffmpeg libav ]
+    }' start.sh
 
     # Debug logging
     sed -i '/--debug--gc=sgen --server/exec "$HARDLINK" --debug --gc=sgen --server "$SCRIPT.exe" "$@" -storagetrace -watchertrace' Appliance/RoonAppliance
@@ -57,9 +60,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "The music player for music lovers.";
-    homepage    = https://roonlabs.com;
-    license     = licenses.unfree;
+    homepage = "https://roonlabs.com";
+    license = licenses.unfree;
     maintainers = with maintainers; [ steell ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

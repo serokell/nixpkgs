@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, SDL2, libGLU_combined, zlib, libjpeg, libogg, libvorbis
-, openal, curl }:
+{ stdenv, fetchFromGitHub, cmake, SDL2, libGLU_combined, zlib, libjpeg, libogg, libvorbis, openal, curl
+}:
 
 stdenv.mkDerivation rec {
   name = "dhewm3-${version}";
@@ -22,14 +22,15 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 libGLU_combined zlib libjpeg libogg libvorbis openal curl ];
+  buildInputs =
+    [ SDL2 libGLU_combined zlib libjpeg libogg libvorbis openal curl ];
 
   enableParallelBuilding = true;
 
   hardeningDisable = [ "format" ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dhewm/dhewm3;
+    homepage = "https://github.com/dhewm/dhewm3";
     description = "Doom 3 port to SDL";
     license = stdenv.lib.licenses.gpl3;
     maintainers = with maintainers; [ MP2E ];

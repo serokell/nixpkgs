@@ -1,4 +1,5 @@
-{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, docker, git, gnutar, gzip }:
+{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, docker, git, gnutar, gzip
+}:
 
 stdenv.mkDerivation rec {
   name = "cide-${version}";
@@ -10,7 +11,7 @@ stdenv.mkDerivation rec {
     gemdir = ./.;
   };
 
-  phases = ["installPhase"];
+  phases = [ "installPhase" ];
 
   buildInputs = [ makeWrapper ];
 
@@ -24,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Isolated test runner with Docker";
-    homepage    = http://zimbatm.github.io/cide/;
-    license     = licenses.mit;
+    homepage = "http://zimbatm.github.io/cide/";
+    license = licenses.mit;
     maintainers = with maintainers; [ zimbatm nicknovitski ];
-    platforms   = docker.meta.platforms;
+    platforms = docker.meta.platforms;
   };
 }

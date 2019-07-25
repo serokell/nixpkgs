@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, lightyear
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, lightyear, lib }:
+build-idris-package {
   name = "protobuf";
   version = "2017-08-12";
 
@@ -18,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "A partial implementation of Protocol Buffers in Idris";
-    homepage = https://github.com/artagnon/idris-protobuf;
+    homepage = "https://github.com/artagnon/idris-protobuf";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.brainrape ];
   };

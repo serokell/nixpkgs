@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, gradle_3_5, perl, makeWrapper, jre, gsettings-desktop-schemas }:
+{ stdenv, fetchFromGitHub, gradle_3_5, perl, makeWrapper, jre, gsettings-desktop-schemas
+}:
 
 let
   version = "0.9.2";
@@ -75,7 +76,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.mucommander.com/;
+    homepage = "http://www.mucommander.com/";
     description = "Cross-platform file manager";
     license = licenses.gpl3;
     maintainers = with maintainers; [ volth ];

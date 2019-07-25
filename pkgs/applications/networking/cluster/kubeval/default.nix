@@ -17,11 +17,9 @@ let
       mkdir -p $out/kubernetes-json-schema/master
       cp -R . $out/kubernetes-json-schema/master
     '';
-   };
+  };
 
-in
-
-buildGoPackage rec {
+in buildGoPackage rec {
   name = "kubeval-${version}";
   version = "0.7.3";
 
@@ -36,11 +34,12 @@ buildGoPackage rec {
 
   buildInputs = [ makeWrapper ];
 
-  postFixup = "wrapProgram $bin/bin/kubeval --set KUBEVAL_SCHEMA_LOCATION file:///${schema}";
+  postFixup =
+    "wrapProgram $bin/bin/kubeval --set KUBEVAL_SCHEMA_LOCATION file:///${schema}";
 
   meta = with lib; {
     description = "Validate your Kubernetes configuration files";
-    homepage = https://github.com/garethr/kubeval;
+    homepage = "https://github.com/garethr/kubeval";
     license = licenses.asl20;
     maintainers = with maintainers; [ nicknovitski ];
     platforms = platforms.all;

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, multipledispatch
-, numpy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools, multipledispatch, numpy }:
 
 buildPythonPackage rec {
   version = "0.10.3";
@@ -20,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "3D mathematical functions using NumPy";
-    homepage = https://github.com/adamlwgriffiths/Pyrr/;
+    homepage = "https://github.com/adamlwgriffiths/Pyrr/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ c0deaddict ];
   };

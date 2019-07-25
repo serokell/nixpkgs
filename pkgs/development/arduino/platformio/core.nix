@@ -1,8 +1,4 @@
-{ stdenv, lib, buildPythonApplication, fetchFromGitHub
-, bottle, click, colorama
-, lockfile, pyserial, requests
-, pytest, semantic-version, tox
-, git
+{ stdenv, lib, buildPythonApplication, fetchFromGitHub, bottle, click, colorama, lockfile, pyserial, requests, pytest, semantic-version, tox, git
 }:
 
 let
@@ -56,10 +52,8 @@ in buildPythonApplication rec {
     sha256 = "1qwd6684y2xagl375sv8fm6a535hcdqx296hknjlbvsgc1jc514a";
   };
 
-  propagatedBuildInputs =  [
-    bottle click colorama git lockfile
-    pyserial requests semantic-version
-  ];
+  propagatedBuildInputs =
+    [ bottle click colorama git lockfile pyserial requests semantic-version ];
 
   HOME = "/tmp";
 
@@ -78,7 +72,7 @@ in buildPythonApplication rec {
   meta = with stdenv.lib; {
     broken = stdenv.isAarch64;
     description = "An open source ecosystem for IoT development";
-    homepage = http://platformio.org;
+    homepage = "http://platformio.org";
     license = licenses.asl20;
     maintainers = with maintainers; [ mog makefu ];
   };

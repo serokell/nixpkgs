@@ -1,15 +1,16 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, glib, gettext, python3, gnutls, p11-kit, libproxy, gnome3
-, gsettings-desktop-schemas }:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, glib, gettext, python3, gnutls, p11-kit, libproxy, gnome3, gsettings-desktop-schemas
+}:
 
 let
   pname = "glib-networking";
   version = "2.60.3";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1mfw44qpmwvz6yzj8c6spx6z357wrmkk15byrkc5byagd82860fm";
   };
 
@@ -23,10 +24,14 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext
+    meson
+    ninja
+    pkgconfig
+    gettext
     python3 # install_script
   ];
-  propagatedBuildInputs = [ glib gnutls p11-kit libproxy gsettings-desktop-schemas ];
+  propagatedBuildInputs =
+    [ glib gnutls p11-kit libproxy gsettings-desktop-schemas ];
 
   mesonFlags = [
     # Default auto detection doesn't work
@@ -35,11 +40,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # tests need to access the certificates (among other things)
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     description = "Network-related giomodules for glib";

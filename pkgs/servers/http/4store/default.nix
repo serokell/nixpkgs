@@ -1,10 +1,5 @@
-{ stdenv, fetchFromGitHub, librdf_raptor
-, librdf_rasqal, glib, libxml2, pcre
-, avahi, readline, ncurses, expat, autoreconfHook
-, zlib, pkgconfig, which, perl, libuuid
-, gmp, mpfr
-, db_dir ? "/var/lib/4store" }:
-
+{ stdenv, fetchFromGitHub, librdf_raptor, librdf_rasqal, glib, libxml2, pcre, avahi, readline, ncurses, expat, autoreconfHook, zlib, pkgconfig, which, perl, libuuid, gmp, mpfr, db_dir ?
+  "/var/lib/4store" }:
 
 stdenv.mkDerivation rec {
   name = "4store-${version}";
@@ -21,15 +16,28 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook perl pkgconfig which ];
 
-  buildInputs = [ librdf_raptor librdf_rasqal glib libxml2 pcre
-    avahi readline ncurses expat zlib libuuid gmp mpfr ];
+  buildInputs = [
+    librdf_raptor
+    librdf_rasqal
+    glib
+    libxml2
+    pcre
+    avahi
+    readline
+    ncurses
+    expat
+    zlib
+    libuuid
+    gmp
+    mpfr
+  ];
 
   # needed for ./autogen.sh
   prePatch = ''
     echo "${version}" > .version
   '';
 
-  preConfigure =  ''
+  preConfigure = ''
     sed -e 's@#! */bin/bash@#! ${stdenv.shell}@' -i configure
     find . -name Makefile -exec sed -e "s@/usr/local@$out@g" -i '{}' ';'
 
@@ -42,7 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "SparQL query server (RDF storage)";
-    homepage = https://4store.danielknoell.de/;
+    homepage = "https://4store.danielknoell.de/";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
     broken = true; # since 2018-04-11

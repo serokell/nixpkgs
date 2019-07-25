@@ -1,4 +1,4 @@
-{ stdenv , fetchFromGitHub , cmake , python }:
+{ stdenv, fetchFromGitHub, cmake, python }:
 
 stdenv.mkDerivation rec {
   pname = "jsoncpp";
@@ -11,9 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "10wnwlq92gp32f5p55kjcc12jfsl0yq6f2y4abb0si6wym12krw9";
   };
 
-  /* During darwin bootstrap, we have a cp that doesn't understand the
-   * --reflink=auto flag, which is used in the default unpackPhase for dirs
-   */
+  # During darwin bootstrap, we have a cp that doesn't understand the
+  # --reflink=auto flag, which is used in the default unpackPhase for dirs
   unpackPhase = ''
     cp -a ${src} ${src.name}
     chmod -R +w ${src.name}
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     inherit version;
-    homepage = https://github.com/open-source-parsers/jsoncpp;
+    homepage = "https://github.com/open-source-parsers/jsoncpp";
     description = "A C++ library for interacting with JSON.";
     maintainers = with maintainers; [ ttuegel cpages nand0p ];
     license = licenses.mit;

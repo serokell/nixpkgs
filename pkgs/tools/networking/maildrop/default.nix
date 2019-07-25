@@ -13,11 +13,13 @@ stdenv.mkDerivation rec {
 
   patches = [ ./maildrop.configure.hack.patch ]; # for building in chroot
 
-  doCheck = false; # fails with "setlocale: LC_ALL: cannot change locale (en_US.UTF-8)"
+  doCheck =
+    false; # fails with "setlocale: LC_ALL: cannot change locale (en_US.UTF-8)"
 
   meta = with stdenv.lib; {
-    homepage = http://www.courier-mta.org/maildrop/;
-    description = "Mail filter/mail delivery agent that is used by the Courier Mail Server";
+    homepage = "http://www.courier-mta.org/maildrop/";
+    description =
+      "Mail filter/mail delivery agent that is used by the Courier Mail Server";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

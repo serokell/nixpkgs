@@ -11,15 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "01z2dml8dvl5sljw62g7x19mz02dz1g4gkmyp0h5bx49djcw1nnh";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    python3
-  ];
-  buildInputs = [
-    glib
-    gettext
-  ];
+  nativeBuildInputs = [ meson ninja python3 ];
+  buildInputs = [ glib gettext ];
 
   postPatch = ''
     rm build
@@ -30,7 +23,8 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Control MPRIS Version 2 Capable Media Players";
     license = licenses.gpl2Plus;
-    homepage = https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/;
+    homepage =
+      "https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/";
     maintainers = with maintainers; [ tiramiseb ];
   };
 }

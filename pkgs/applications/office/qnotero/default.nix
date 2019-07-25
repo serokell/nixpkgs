@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages
-}:
+{ stdenv, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   name = "qnotero-${version}";
@@ -17,16 +16,16 @@ python3Packages.buildPythonPackage rec {
   propagatedBuildInputs = [ python3Packages.pyqt4 ];
 
   patchPhase = ''
-      substituteInPlace ./setup.py \
-        --replace "/usr/share" "usr/share"
+    substituteInPlace ./setup.py \
+      --replace "/usr/share" "usr/share"
 
-      substituteInPlace ./libqnotero/_themes/default.py \
-         --replace "/usr/share" "$out/usr/share"
+    substituteInPlace ./libqnotero/_themes/default.py \
+       --replace "/usr/share" "$out/usr/share"
   '';
 
   meta = {
     description = "Quick access to Zotero references";
-    homepage = http://www.cogsci.nl/software/qnotero;
+    homepage = "http://www.cogsci.nl/software/qnotero";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.nico202 ];

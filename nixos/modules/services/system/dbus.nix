@@ -15,9 +15,7 @@ let
     serviceDirectories = cfg.packages;
   };
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -66,10 +64,10 @@ in
 
     environment.systemPackages = [ pkgs.dbus.daemon pkgs.dbus ];
 
-    environment.etc = singleton
-      { source = configDir;
-        target = "dbus-1";
-      };
+    environment.etc = singleton {
+      source = configDir;
+      target = "dbus-1";
+    };
 
     users.users.messagebus = {
       uid = config.ids.uids.messagebus;
@@ -91,10 +89,7 @@ in
       permissions = "u+rx,g+rx,o-rx";
     };
 
-    services.dbus.packages = [
-      pkgs.dbus.out
-      config.system.path
-    ];
+    services.dbus.packages = [ pkgs.dbus.out config.system.path ];
 
     systemd.services.dbus = {
       # Don't restart dbus-daemon. Bad things tend to happen if we do.

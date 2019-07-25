@@ -1,18 +1,7 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, openssl
-, cryptography
-, pyasn1
-, idna
-, pytest
-, pretend
-, flaky
-, glibcLocales
+{ stdenv, buildPythonPackage, fetchPypi, openssl, cryptography, pyasn1, idna, pytest, pretend, flaky, glibcLocales
 }:
 
 with stdenv.lib;
-
 
 let
   # https://github.com/pyca/pyopenssl/issues/791
@@ -46,20 +35,15 @@ let
     # These tests, we disable always.
     "test_set_default_verify_paths"
     "test_fallback_default_verify_paths"
-  ] ++ (
-    optionals (hasPrefix "libressl" openssl.meta.name) failingLibresslTests
-  ) ++ (
-    optionals (versionAtLeast (getVersion openssl.name) "1.1") failingOpenSSL_1_1Tests
-  );
+  ] ++ (optionals (hasPrefix "libressl" openssl.meta.name) failingLibresslTests)
+    ++ (optionals (versionAtLeast (getVersion openssl.name) "1.1")
+    failingOpenSSL_1_1Tests);
 
   # Compose the final string expression, including the "-k" and the single quotes.
-  testExpression = optionalString (disabledTests != [])
+  testExpression = optionalString (disabledTests != [ ])
     "-k 'not ${concatStringsSep " and not " disabledTests}'";
 
-in
-
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pyOpenSSL";
   version = "19.0.0";
 

@@ -7,26 +7,19 @@
 let
   serverUrl = "localhost:8153/go/api/agents";
   header = "Accept: application/vnd.go.cd.v2+json";
-in
 
-import ./make-test.nix ({ pkgs, ...} : {
+in import ./make-test.nix ({ pkgs, ... }: {
   name = "gocd-agent";
   meta = with pkgs.stdenv.lib.maintainers; {
     maintainers = [ grahamc swarren83 ];
   };
 
   nodes = {
-    gocd_agent =
-      { ... }:
-      {
-        virtualisation.memorySize = 2046;
-        services.gocd-agent = {
-          enable = true;
-        };
-        services.gocd-server = {
-          enable = true;
-        };
-      };
+    gocd_agent = { ... }: {
+      virtualisation.memorySize = 2046;
+      services.gocd-agent = { enable = true; };
+      services.gocd-server = { enable = true; };
+    };
   };
 
   testScript = ''

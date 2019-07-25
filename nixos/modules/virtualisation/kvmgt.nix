@@ -10,7 +10,8 @@ let
   vgpuOptions = {
     uuid = mkOption {
       type = types.string;
-      description = "UUID of VGPU device. You can generate one with <package>libossp_uuid</package>.";
+      description =
+        "UUID of VGPU device. You can generate one with <package>libossp_uuid</package>.";
     };
   };
 
@@ -25,19 +26,18 @@ in {
       device = mkOption {
         type = types.string;
         default = "0000:00:02.0";
-        description = "PCI ID of graphics card. You can figure it with <command>ls /sys/class/mdev_bus</command>.";
+        description =
+          "PCI ID of graphics card. You can figure it with <command>ls /sys/class/mdev_bus</command>.";
       };
       vgpus = mkOption {
-        default = {};
-        type = with types; attrsOf (submodule [ { options = vgpuOptions; } ]);
+        default = { };
+        type = with types; attrsOf (submodule [{ options = vgpuOptions; }]);
         description = ''
           Virtual GPUs to be used in Qemu. You can find devices via <command>ls /sys/bus/pci/devices/*/mdev_supported_types</command>
           and find info about device via <command>cat /sys/bus/pci/devices/*/mdev_supported_types/i915-GVTg_V5_4/description</command>
         '';
         example = {
-          "i915-GVTg_V5_8" = {
-            uuid = "a297db4a-f4c2-11e6-90f6-d3b88d6c9525";
-          };
+          "i915-GVTg_V5_8" = { uuid = "a297db4a-f4c2-11e6-90f6-d3b88d6c9525"; };
         };
       };
     };
@@ -60,10 +60,10 @@ in {
         description = "KVMGT VGPU ${name} path";
         wantedBy = [ "multi-user.target" ];
         pathConfig = {
-          PathExists = "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${name}/create";
+          PathExists =
+            "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${name}/create";
         };
-      }
-    ) cfg.vgpus;
+      }) cfg.vgpus;
 
     systemd.services = mapAttrs' (name: value:
       nameValuePair "kvmgt-${name}" {
@@ -71,11 +71,12 @@ in {
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
-          ExecStart = "${pkgs.runtimeShell} -c 'echo ${value.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${name}/create'";
-          ExecStop = "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${value.uuid}/remove'";
+          ExecStart =
+            "${pkgs.runtimeShell} -c 'echo ${value.uuid} > /sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${name}/create'";
+          ExecStop =
+            "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${value.uuid}/remove'";
         };
-      }
-    ) cfg.vgpus;
+      }) cfg.vgpus;
   };
 
   meta.maintainers = with maintainers; [ gnidorah ];

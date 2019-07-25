@@ -1,8 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll,
-  isPy3k,
-  geos, gdal, pytz, sqlparse,
-  withGdal ? false
-}:
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, isPy3k, geos, gdal, pytz, sqlparse, withGdal ?
+  false }:
 
 buildPythonPackage rec {
   pname = "Django";
@@ -15,14 +12,12 @@ buildPythonPackage rec {
     sha256 = "1sn0a7yjipwxrplh1x4kr77a93xzik1inh07bxwaqaw94qdzc8sd";
   };
 
-  patches = stdenv.lib.optional withGdal
-    (substituteAll {
-      src = ./1.10-gis-libs.template.patch;
-      geos = geos;
-      gdal = gdal;
-      extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    })
-  ;
+  patches = stdenv.lib.optional withGdal (substituteAll {
+    src = ./1.10-gis-libs.template.patch;
+    geos = geos;
+    gdal = gdal;
+    extension = stdenv.hostPlatform.extensions.sharedLibrary;
+  });
 
   propagatedBuildInputs = [ pytz sqlparse ];
 
@@ -31,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A high-level Python Web framework";
-    homepage = https://www.djangoproject.com/;
+    homepage = "https://www.djangoproject.com/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ georgewhewell lsix ];
   };

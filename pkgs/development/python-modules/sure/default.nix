@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, rednose
-, six
-, mock
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, rednose, six, mock, isPyPy }:
 
 buildPythonPackage rec {
   pname = "sure";
@@ -22,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Utility belt for automated testing";
-    homepage = https://sure.readthedocs.io/en/latest/;
+    homepage = "https://sure.readthedocs.io/en/latest/";
     license = licenses.gpl3Plus;
   };
 

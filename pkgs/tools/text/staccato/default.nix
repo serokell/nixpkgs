@@ -15,7 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     broken = true;
-    description = "A command line program that lets you compute statistics from values from a file or standard input";
+    description =
+      "A command line program that lets you compute statistics from values from a file or standard input";
     longDescription = ''
       Staccato (`st` for short) is a command line program that lets you
       compute statistics from values from a file or standard input. It
@@ -23,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       and standard deviation. It can also compute these things about some
       subset of the stream, for example the lower 95% of values.
     '';
-    homepage = https://docs.rs/crate/staccato;
+    homepage = "https://docs.rs/crate/staccato";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.all;
   };

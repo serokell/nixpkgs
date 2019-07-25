@@ -3,7 +3,7 @@
 buildGoPackage rec {
   name = "hcloud-${version}";
   version = "1.11.0";
-  
+
   goPackagePath = "github.com/hetznercloud/cli";
 
   src = fetchFromGitHub {
@@ -15,7 +15,8 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  buildFlagsArray = [ "-ldflags=" "-w -X github.com/hetznercloud/cli/cli.Version=${version}" ];
+  buildFlagsArray =
+    [ "-ldflags=" "-w -X github.com/hetznercloud/cli/cli.Version=${version}" ];
 
   postInstall = ''
     mkdir -p \
@@ -31,8 +32,9 @@ buildGoPackage rec {
   '';
 
   meta = {
-    description = "A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers";
-    homepage = https://github.com/hetznercloud/cli;
+    description =
+      "A command-line interface for Hetzner Cloud, a provider for cloud virtual private servers";
+    homepage = "https://github.com/hetznercloud/cli";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.all;
     maintainers = [ stdenv.lib.maintainers.zauberpony ];

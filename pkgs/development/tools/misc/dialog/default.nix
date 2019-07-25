@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, ncurses
-, withLibrary ? false, libtool
-, unicodeSupport ? true
-, enableShared ? !stdenv.isDarwin
-}:
+{ stdenv, fetchurl, ncurses, withLibrary ? false, libtool, unicodeSupport ?
+  true, enableShared ? !stdenv.isDarwin }:
 
 assert withLibrary -> libtool != null;
 assert unicodeSupport -> ncurses.unicode && ncurses != null;
@@ -31,7 +28,7 @@ stdenv.mkDerivation rec {
   installTargets = "install${stdenv.lib.optionalString withLibrary "-full"}";
 
   meta = {
-    homepage = https://invisible-island.net/dialog/dialog.html;
+    homepage = "https://invisible-island.net/dialog/dialog.html";
     description = "Display dialog boxes from shell";
     license = stdenv.lib.licenses.lgpl21Plus;
     maintainers = [ stdenv.lib.maintainers.spacefrogg ];

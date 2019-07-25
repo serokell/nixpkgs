@@ -15,8 +15,8 @@ buildGoPackage rec {
     sha256 = "1nq78670limq8lydysadk0kb1r88w55fr8cqxqxw0zy58vy1jzr4";
   };
 
-  makeTarget = let hps = stdenv.hostPlatform.system; in
-    if hps == "x86_64-darwin" then
+  makeTarget = let hps = stdenv.hostPlatform.system;
+    in if hps == "x86_64-darwin" then
       "out/cf-cli_osx"
     else if hps == "x86_64-linux" then
       "out/cf-cli_linux_x86-64"
@@ -38,7 +38,7 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "The official command line client for Cloud Foundry";
-    homepage = https://github.com/cloudfoundry/cli;
+    homepage = "https://github.com/cloudfoundry/cli";
     maintainers = with maintainers; [ ris ];
     license = licenses.asl20;
     platforms = [ "i686-linux" "x86_64-linux" "x86_64-darwin" ];

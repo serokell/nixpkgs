@@ -13,22 +13,26 @@ stdenv.mkDerivation rec {
   CPP = "${stdenv.cc}/bin/gcc -E";
 
   configureFlags = [
-    "--enable-shared" "--disable-all-vads" "--with-readline=${readline.dev}"
-    "--disable-hslookup" "--disable-wbxml2" "--without-iodbc"
+    "--enable-shared"
+    "--disable-all-vads"
+    "--with-readline=${readline.dev}"
+    "--disable-hslookup"
+    "--disable-wbxml2"
+    "--without-iodbc"
     "--enable-openssl=${openssl.dev}"
   ];
 
-  postInstall=''
+  postInstall = ''
     echo Moving documentation
     mkdir -pv $out/share/doc
     mv -v $out/share/virtuoso/doc $out/share/doc/${name}
     echo Removing jars and empty directories
     find $out -name "*.a" -delete -o -name "*.jar" -delete -o -type d -empty -delete
-    '';
+  '';
 
   meta = with stdenv.lib; {
     description = "SQL/RDF database used by, e.g., KDE-nepomuk";
-    homepage = http://virtuoso.openlinksw.com/dataspace/dav/wiki/Main/;
+    homepage = "http://virtuoso.openlinksw.com/dataspace/dav/wiki/Main/";
     #configure: The current version [...] can only be built on 64bit platforms
     platforms = [ "x86_64-linux" ];
     license = licenses.gpl2;

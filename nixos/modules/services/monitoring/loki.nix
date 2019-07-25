@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) escapeShellArgs literalExample mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    escapeShellArgs literalExample mkEnableOption mkIf mkOption types;
 
   cfg = config.services.loki;
 
@@ -40,7 +41,7 @@ in {
 
     configuration = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       description = ''
         Specify the configuration for Loki in Nix.
       '';
@@ -56,7 +57,7 @@ in {
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = literalExample [ "--server.http-listen-port=3101" ];
       description = ''
         Specify a list of additional command line flags,
@@ -67,11 +68,9 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [{
-      assertion = (
-        (cfg.configuration == {} -> cfg.configFile != null) &&
-        (cfg.configFile != null -> cfg.configuration == {})
-      );
-      message  = ''
+      assertion = ((cfg.configuration == { } -> cfg.configFile != null)
+        && (cfg.configFile != null -> cfg.configuration == { }));
+      message = ''
         Please specify either
         'services.loki.configuration' or
         'services.loki.configFile'.
@@ -92,21 +91,23 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = let
-        conf = if cfg.configFile == null
-               then prettyJSON cfg.configuration
-               else cfg.configFile;
-      in
-      {
-        ExecStart = "${pkgs.grafana-loki}/bin/loki --config.file=${conf} ${escapeShellArgs cfg.extraFlags}";
-        User = cfg.user;
-        Restart = "always";
-        PrivateTmp = true;
-        ProtectHome = true;
-        ProtectSystem = "full";
-        DecvicePolicy = "closed";
-        NoNewPrivileges = true;
-        WorkingDirectory = cfg.dataDir;
-      };
+        conf = if cfg.configFile == null then
+          prettyJSON cfg.configuration
+        else
+          cfg.configFile;
+        in {
+          ExecStart = "${pkgs.grafana-loki}/bin/loki --config.file=${conf} ${
+            escapeShellArgs cfg.extraFlags
+            }";
+          User = cfg.user;
+          Restart = "always";
+          PrivateTmp = true;
+          ProtectHome = true;
+          ProtectSystem = "full";
+          DecvicePolicy = "closed";
+          NoNewPrivileges = true;
+          WorkingDirectory = cfg.dataDir;
+        };
     };
   };
 }

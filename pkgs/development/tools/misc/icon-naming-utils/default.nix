@@ -1,4 +1,4 @@
-{stdenv, fetchurl, perlPackages, librsvg}:
+{ stdenv, fetchurl, perlPackages, librsvg }:
 
 stdenv.mkDerivation rec {
   name = "icon-naming-utils-0.8.90";
@@ -10,15 +10,15 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ librsvg ] ++ (with perlPackages; [ perl XMLSimple ]);
 
-  postInstall =
-    ''
-      # Add XML::Simple to the runtime search path.
-      substituteInPlace $out/libexec/icon-name-mapping \
-          --replace '/bin/perl' '/bin/perl -I${perlPackages.XMLSimple}/${perlPackages.perl.libPrefix}'
-    '';
+  postInstall = ''
+    # Add XML::Simple to the runtime search path.
+    substituteInPlace $out/libexec/icon-name-mapping \
+        --replace '/bin/perl' '/bin/perl -I${perlPackages.XMLSimple}/${perlPackages.perl.libPrefix}'
+  '';
 
   meta = with stdenv.lib; {
-    homepage = http://tango.freedesktop.org/Standard_Icon_Naming_Specification;
+    homepage =
+      "http://tango.freedesktop.org/Standard_Icon_Naming_Specification";
     platforms = with platforms; linux ++ darwin;
     license = licenses.gpl2;
   };

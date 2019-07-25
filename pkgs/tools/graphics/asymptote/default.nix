@@ -1,43 +1,47 @@
-{stdenv, fetchurl, fetchpatch
-  , freeglut, ghostscriptX, imagemagick, fftw
-  , boehmgc, libGLU, libGL, mesa, ncurses, readline, gsl, libsigsegv
-  , python, zlib, perl, texLive, texinfo, xz
-, darwin
+{ stdenv, fetchurl, fetchpatch, freeglut, ghostscriptX, imagemagick, fftw, boehmgc, libGLU, libGL, mesa, ncurses, readline, gsl, libsigsegv, python, zlib, perl, texLive, texinfo, xz, darwin
 }:
 
 let
   s = # Generated upstream information
   rec {
-    baseName="asymptote";
-    version="2.47";
-    name="${baseName}-${version}";
-    hash="0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
-    url="https://freefr.dl.sourceforge.net/project/asymptote/2.47/asymptote-2.47.src.tgz";
-    sha256="0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
+    baseName = "asymptote";
+    version = "2.47";
+    name = "${baseName}-${version}";
+    hash = "0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
+    url =
+      "https://freefr.dl.sourceforge.net/project/asymptote/2.47/asymptote-2.47.src.tgz";
+    sha256 = "0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
   };
   buildInputs = [
-   ghostscriptX imagemagick fftw
-   boehmgc ncurses readline gsl libsigsegv
-   python zlib perl texLive texinfo xz ]
-   ++ stdenv.lib.optionals stdenv.isLinux
-     [ freeglut libGLU libGL mesa.osmesa ]
-   ++ stdenv.lib.optionals stdenv.isDarwin
-     (with darwin.apple_sdk.frameworks; [ OpenGL GLUT Cocoa ])
-   ;
-in
-stdenv.mkDerivation {
+    ghostscriptX
+    imagemagick
+    fftw
+    boehmgc
+    ncurses
+    readline
+    gsl
+    libsigsegv
+    python
+    zlib
+    perl
+    texLive
+    texinfo
+    xz
+  ] ++ stdenv.lib.optionals stdenv.isLinux [ freeglut libGLU libGL mesa.osmesa ]
+    ++ stdenv.lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ OpenGL GLUT Cocoa ]);
+in stdenv.mkDerivation {
   inherit (s) name version;
   inherit buildInputs;
 
-  src = fetchurl {
-    inherit (s) url sha256;
-  };
+  src = fetchurl { inherit (s) url sha256; };
 
   patches = [
     # Remove when updating from 2.47 to 2.48
     # Compatibility with BoehmGC 7.6.8
     (fetchpatch {
-      url = "https://github.com/vectorgraphics/asymptote/commit/38a59370dc5ac720c29e1424614a10f7384b943f.patch";
+      url =
+        "https://github.com/vectorgraphics/asymptote/commit/38a59370dc5ac720c29e1424614a10f7384b943f.patch";
       sha256 = "0c3d11hzxxaqh24kfw9y8zvlid54kk40rx2zajx7jwl12gga05s1";
     })
   ];
@@ -69,10 +73,12 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     inherit (s) version;
-    description =  "A tool for programming graphics intended to replace Metapost";
+    description =
+      "A tool for programming graphics intended to replace Metapost";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.raskin maintainers.peti ];
-    broken = stdenv.isDarwin;  # https://github.com/vectorgraphics/asymptote/issues/69
+    broken =
+      stdenv.isDarwin; # https://github.com/vectorgraphics/asymptote/issues/69
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

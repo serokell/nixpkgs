@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jinja2
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, jinja2, six }:
 
 buildPythonPackage rec {
   pname = "mplleaflet";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Convert Matplotlib plots into Leaflet web maps";
-    homepage = https://github.com/jwass/mplleaflet;
+    homepage = "https://github.com/jwass/mplleaflet";
     license = with lib.licenses; [ bsd3 ];
   };
 }

@@ -1,6 +1,5 @@
 { stdenv, fetchzip, libGLU_combined, unzip, libXrandr, libX11, libXxf86vm }:
 
-
 stdenv.mkDerivation rec {
   name = "irrlicht-${version}";
   version = "1.8.4";
@@ -26,9 +25,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ unzip libGLU_combined libXrandr libX11 libXxf86vm ];
 
   meta = {
-    homepage = http://irrlicht.sourceforge.net/;
+    homepage = "http://irrlicht.sourceforge.net/";
     license = stdenv.lib.licenses.zlib;
-    description = "Open source high performance realtime 3D engine written in C++";
+    description =
+      "Open source high performance realtime 3D engine written in C++";
     platforms = stdenv.lib.platforms.linux;
   };
 }

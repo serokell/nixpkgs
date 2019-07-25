@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "pic" "format" ];
 
-  NIX_CFLAGS_COMPILE="-Wno-error=incompatible-pointer-types";
+  NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   prePatch = ''
     substituteInPlace ./Makefile \
@@ -31,8 +31,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "rtl8821AU, rtl8812AU and rtl8811AU chipset driver with firmware";
-    homepage = https://github.com/zebulon2/rtl8812au;
+    description =
+      "rtl8821AU, rtl8812AU and rtl8811AU chipset driver with firmware";
+    homepage = "https://github.com/zebulon2/rtl8812au";
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = with maintainers; [ plchldr ];

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pyopenssl
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pyopenssl }:
 
 buildPythonPackage rec {
   version = "0.5.1";
@@ -21,8 +17,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/cedadev/ndg_httpsclient/;
-    description = "Provide enhanced HTTPS support for httplib and urllib2 using PyOpenSSL";
+    homepage = "https://github.com/cedadev/ndg_httpsclient/";
+    description =
+      "Provide enhanced HTTPS support for httplib and urllib2 using PyOpenSSL";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

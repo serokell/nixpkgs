@@ -1,9 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, python, pkgs, pythonOlder, substituteAll
-, aenum
-, cython
-, pytest
-, mock
-, numpy
+{ lib, buildPythonPackage, fetchPypi, python, pkgs, pythonOlder, substituteAll, aenum, cython, pytest, mock, numpy
 }:
 
 buildPythonPackage rec {
@@ -25,9 +20,7 @@ buildPythonPackage rec {
 
   buildInputs = [ cython pkgs.proj ];
 
-  propagatedBuildInputs = [
-    numpy
-  ] ++ lib.optional (pythonOlder "3.6") aenum;
+  propagatedBuildInputs = [ numpy ] ++ lib.optional (pythonOlder "3.6") aenum;
 
   checkInputs = [ pytest mock ];
 

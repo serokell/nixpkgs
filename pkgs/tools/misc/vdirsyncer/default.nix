@@ -1,4 +1,5 @@
-{ stdenv, python3Packages, fetchFromGitHub, fetchpatch, rustPlatform, pkgconfig, openssl, Security }:
+{ stdenv, python3Packages, fetchFromGitHub, fetchpatch, rustPlatform, pkgconfig, openssl, Security
+}:
 
 # Packaging documentation at:
 # https://github.com/untitaker/vdirsyncer/blob/master/docs/packaging.rst
@@ -19,11 +20,14 @@ python3Packages.buildPythonApplication rec {
     inherit src;
     sourceRoot = "source/rust";
     cargoSha256 = "1qziwlf6nlkpxb1hamb7qsipqg9ibp871rimgpwil38vqmyd570s";
-    buildInputs = [ pkgconfig openssl ] ++ stdenv.lib.optional stdenv.isDarwin Security;
+    buildInputs = [ pkgconfig openssl ]
+      ++ stdenv.lib.optional stdenv.isDarwin Security;
   };
 
   propagatedBuildInputs = with python3Packages; [
-    click click-log click-threading
+    click
+    click-log
+    click-threading
     requests_toolbelt
     requests
     requests_oauthlib # required for google oauth sync
@@ -34,16 +38,23 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ setuptools_scm ];
 
-  checkInputs = with python3Packages; [ hypothesis pytest pytest-localserver pytest-subtesthack ];
+  checkInputs = with python3Packages; [
+    hypothesis
+    pytest
+    pytest-localserver
+    pytest-subtesthack
+  ];
 
   patches = [
     # Fixes for hypothesis: https://github.com/pimutils/vdirsyncer/pull/779
     (fetchpatch {
-      url = https://github.com/pimutils/vdirsyncer/commit/22ad88a6b18b0979c5d1f1d610c1d2f8f87f4b89.patch;
+      url =
+        "https://github.com/pimutils/vdirsyncer/commit/22ad88a6b18b0979c5d1f1d610c1d2f8f87f4b89.patch";
       sha256 = "0dbzj6jlxhdidnm3i21a758z83sdiwzhpd45pbkhycfhgmqmhjpl";
     })
     (fetchpatch {
-      url = https://github.com/pimutils/vdirsyncer/commit/29417235321c249c65904bc7948b066ef5683aee.patch;
+      url =
+        "https://github.com/pimutils/vdirsyncer/commit/29417235321c249c65904bc7948b066ef5683aee.patch";
       sha256 = "0zvr0y88gm3vprjcdzs4m151laa9qhkyi61rvrfdjmf42fwhbm80";
     })
   ];
@@ -72,7 +83,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pimutils/vdirsyncer;
+    homepage = "https://github.com/pimutils/vdirsyncer";
     description = "Synchronize calendars and contacts";
     maintainers = with maintainers; [ matthiasbeyer ];
     license = licenses.mit;

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, python27Packages, nasm, libelf
-, kernel ? null, withDriver ? false }:
+{ stdenv, lib, fetchFromGitHub, python27Packages, nasm, libelf, kernel ?
+  null, withDriver ? false }:
 python27Packages.buildPythonApplication rec {
   name = "chipsec-${version}";
   version = "1.3.7";
@@ -11,17 +11,15 @@ python27Packages.buildPythonApplication rec {
     sha256 = "00hwhi5f24y429zazhm77l1pp31q7fmx7ks3sfm6d16v89zbcp9a";
   };
 
-  nativeBuildInputs = [
-    nasm libelf
-  ];
+  nativeBuildInputs = [ nasm libelf ];
 
   setupPyBuildFlags = lib.optional (!withDriver) "--skip-driver";
 
   checkPhase = "python setup.py build "
-             + lib.optionalString (!withDriver) "--skip-driver "
-             + "test";
+    + lib.optionalString (!withDriver) "--skip-driver " + "test";
 
-  KERNEL_SRC_DIR = lib.optionalString withDriver "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  KERNEL_SRC_DIR = lib.optionalString withDriver
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
   meta = with stdenv.lib; {
     description = "Platform Security Assessment Framework";
@@ -33,7 +31,7 @@ python27Packages.buildPythonApplication rec {
       Mac OS X and UEFI shell.
     '';
     license = licenses.gpl2;
-    homepage = https://github.com/chipsec/chipsec;
+    homepage = "https://github.com/chipsec/chipsec";
     maintainers = with maintainers; [ johnazoidberg ];
     platforms = if withDriver then [ "x86_64-linux" ] else platforms.all;
   };

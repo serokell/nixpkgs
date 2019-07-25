@@ -1,41 +1,9 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, kconfig
-, kcrash
-, kguiaddons
-, kiconthemes
-, ki18n
-, kinit
-, kdbusaddons
-, knotifications
-, knewstuff
-, karchive
-, knotifyconfig
-, kplotting
-, ktextwidgets
-, mlt
-, shared-mime-info
-, libv4l
-, kfilemetadata
-, ffmpeg
-, phonon-backend-gstreamer
-, qtdeclarative
-, qtquickcontrols
-, qtscript
-, qtwebkit
-, rttr
-, kpurpose
-, kdeclarative
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kconfig, kcrash, kguiaddons, kiconthemes, ki18n, kinit, kdbusaddons, knotifications, knewstuff, karchive, knotifyconfig, kplotting, ktextwidgets, mlt, shared-mime-info, libv4l, kfilemetadata, ffmpeg, phonon-backend-gstreamer, qtdeclarative, qtquickcontrols, qtscript, qtwebkit, rttr, kpurpose, kdeclarative
 }:
 
 mkDerivation {
   name = "kdenlive";
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     kconfig
     kcrash
@@ -69,7 +37,5 @@ mkDerivation {
     ''
       sed -i CMakeLists.txt -e '/find_package(Qt5 REQUIRED/ s|)| Concurrent)|'
     '';
-  meta = {
-    license = with lib.licenses; [ gpl2Plus ];
-  };
+  meta = { license = with lib.licenses; [ gpl2Plus ]; };
 }

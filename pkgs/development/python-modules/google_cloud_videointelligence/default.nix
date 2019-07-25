@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_api_core
-, pytest
-, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-videointelligence";
@@ -24,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Google Cloud Video Intelligence API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

@@ -1,15 +1,11 @@
-{ stdenv, fetchurl, makeWrapper
-, alsaLib, libX11, libXcursor, libXinerama, libXrandr, libXi, libGL
-, factorio-utils
-, releaseType
-, mods ? []
-, username ? "", token ? "" # get/reset token at https://factorio.com/profile
+{ stdenv, fetchurl, makeWrapper, alsaLib, libX11, libXcursor, libXinerama, libXrandr, libXi, libGL, factorio-utils, releaseType, mods ?
+  [ ], username ? "", token ?
+    "" # get/reset token at https://factorio.com/profile
 , experimental ? false # true means to always use the latest branch
 }:
 
-assert releaseType == "alpha"
-    || releaseType == "headless"
-    || releaseType == "demo";
+assert releaseType == "alpha" || releaseType == "headless" || releaseType
+== "demo";
 
 let
 
@@ -50,66 +46,96 @@ let
   # NB `experimental` directs us to take the latest build, regardless of its branch;
   # hence the (stable, experimental) pairs may sometimes refer to the same distributable.
   binDists = {
-    x86_64-linux = let bdist = bdistForArch { inUrl = "linux64"; inTar = "x64"; }; in {
-      alpha = {
-        stable        = bdist { sha256 = "0b4hbpdcrh5hgip9q5dkmw22p66lcdhnr0kmb0w5dw6yi7fnxxh0"; version = "0.16.51"; withAuth = true; };
-        experimental  = bdist { sha256 = "1q66chnxsdlaz1bj3al62iikyxvknj1vkwh5bcc46favy4wpqpzz"; version = "0.17.52"; withAuth = true; };
+    x86_64-linux = let
+      bdist = bdistForArch {
+        inUrl = "linux64";
+        inTar = "x64";
       };
-      headless = {
-        stable        = bdist { sha256 = "0zrnpg2js0ysvx9y50h3gajldk16mv02dvrwnkazh5kzr1d9zc3c"; version = "0.16.51"; };
-        experimental  = bdist { sha256 = "03nv0qagv5pmqqbisf0hq6cb5rg2ih37lzkvcxihnnw72r78li94"; version = "0.17.52"; };
+      in {
+        alpha = {
+          stable = bdist {
+            sha256 = "0b4hbpdcrh5hgip9q5dkmw22p66lcdhnr0kmb0w5dw6yi7fnxxh0";
+            version = "0.16.51";
+            withAuth = true;
+          };
+          experimental = bdist {
+            sha256 = "1q66chnxsdlaz1bj3al62iikyxvknj1vkwh5bcc46favy4wpqpzz";
+            version = "0.17.52";
+            withAuth = true;
+          };
+        };
+        headless = {
+          stable = bdist {
+            sha256 = "0zrnpg2js0ysvx9y50h3gajldk16mv02dvrwnkazh5kzr1d9zc3c";
+            version = "0.16.51";
+          };
+          experimental = bdist {
+            sha256 = "03nv0qagv5pmqqbisf0hq6cb5rg2ih37lzkvcxihnnw72r78li94";
+            version = "0.17.52";
+          };
+        };
+        demo = {
+          stable = bdist {
+            sha256 = "0zf61z8937yd8pyrjrqdjgd0rjl7snwrm3xw86vv7s7p835san6a";
+            version = "0.16.51";
+          };
+        };
       };
-      demo = {
-        stable        = bdist { sha256 = "0zf61z8937yd8pyrjrqdjgd0rjl7snwrm3xw86vv7s7p835san6a"; version = "0.16.51"; };
+    i686-linux = let
+      bdist = bdistForArch {
+        inUrl = "linux32";
+        inTar = "i386";
       };
-    };
-    i686-linux = let bdist = bdistForArch { inUrl = "linux32"; inTar = "i386"; }; in {
-      alpha = {
-        stable        = bdist { sha256 = "0nnfkxxqnywx1z05xnndgh71gp4izmwdk026nnjih74m2k5j086l"; version = "0.14.23"; withAuth = true; nameMut = asGz; };
+      in {
+        alpha = {
+          stable = bdist {
+            sha256 = "0nnfkxxqnywx1z05xnndgh71gp4izmwdk026nnjih74m2k5j086l";
+            version = "0.14.23";
+            withAuth = true;
+            nameMut = asGz;
+          };
+        };
       };
-    };
   };
 
-  actual = binDists.${stdenv.hostPlatform.system}.${releaseType}.${branch} or (throw "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download.");
+  actual =
+    binDists.${stdenv.hostPlatform.system}.${releaseType}.${branch} or (throw
+    "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download.");
 
-  bdistForArch = arch: { version
-                       , sha256
-                       , withAuth ? false
-                       , nameMut ? x: x
-                       }:
+  bdistForArch = arch:
+    { version, sha256, withAuth ? false, nameMut ? x: x }:
     let
-      url = "https://factorio.com/get-download/${version}/${releaseType}/${arch.inUrl}";
+      url =
+        "https://factorio.com/get-download/${version}/${releaseType}/${arch.inUrl}";
       name = nameMut "factorio_${releaseType}_${arch.inTar}-${version}.tar.xz";
     in {
       inherit version arch;
-      src =
-        if withAuth then
-          (stdenv.lib.overrideDerivation
-            (fetchurl {
-              inherit name url sha256;
-              curlOpts = [
-                "--get"
-                "--data-urlencode" "username@username"
-                "--data-urlencode" "token@token"
-              ];
-            })
-            (_: { # This preHook hides the credentials from /proc
-                  preHook = ''
-                    echo -n "${username}" >username
-                    echo -n "${token}"    >token
-                  '';
-                  failureHook = ''
-                    cat <<EOF
-                    ${helpMsg}
-                    EOF
-                  '';
-            })
-          )
-        else
-          fetchurl { inherit name url sha256; };
+      src = if withAuth then
+        (stdenv.lib.overrideDerivation (fetchurl {
+          inherit name url sha256;
+          curlOpts = [
+            "--get"
+            "--data-urlencode"
+            "username@username"
+            "--data-urlencode"
+            "token@token"
+          ];
+        }) (_: { # This preHook hides the credentials from /proc
+          preHook = ''
+            echo -n "${username}" >username
+            echo -n "${token}"    >token
+          '';
+          failureHook = ''
+            cat <<EOF
+            ${helpMsg}
+            EOF
+          '';
+        }))
+      else
+        fetchurl { inherit name url sha256; };
     };
 
-  asGz = builtins.replaceStrings [".xz"] [".gz"];
+  asGz = builtins.replaceStrings [ ".xz" ] [ ".gz" ];
 
   configBaseCfg = ''
     use-system-read-write-data-directories=false
@@ -164,7 +190,7 @@ let
         Factorio has been in development since spring of 2012 and it is
         currently in late alpha.
       '';
-      homepage = https://www.factorio.com/;
+      homepage = "https://www.factorio.com/";
       license = stdenv.lib.licenses.unfree;
       maintainers = with stdenv.lib.maintainers; [ Baughn elitak ];
       platforms = [ "i686-linux" "x86_64-linux" ];
@@ -193,7 +219,7 @@ let
           --run "$out/share/factorio/update-config.sh"               \
           --argv0 ""                                                 \
           --add-flags "-c \$HOME/.factorio/config.cfg"               \
-          ${if mods!=[] then "--add-flags --mod-directory=${modDir}" else ""}
+          ${if mods != [ ] then "--add-flags --mod-directory=${modDir}" else ""}
 
           # TODO Currently, every time a mod is changed/added/removed using the
           # modlist, a new derivation will take up the entire footprint of the

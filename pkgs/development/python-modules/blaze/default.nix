@@ -1,26 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, contextlib2
-, cytoolz
-, dask
-, datashape
-, flask
-, flask-cors
-, h5py
-, multipledispatch
-, numba
-, numpy
-, odo
-, pandas
-, psutil
-, pymongo
-, pyyaml
-, requests
-, sqlalchemy
-, tables
-, toolz
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, contextlib2, cytoolz, dask, datashape, flask, flask-cors, h5py, multipledispatch, numba, numpy, odo, pandas, psutil, pymongo, pyyaml, requests, sqlalchemy, tables, toolz
 }:
 
 buildPythonPackage rec {
@@ -63,8 +41,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/ContinuumIO/blaze;
-    description = "Allows Python users a familiar interface to query data living in other data storage systems";
+    homepage = "https://github.com/ContinuumIO/blaze";
+    description =
+      "Allows Python users a familiar interface to query data living in other data storage systems";
     license = lib.licenses.bsdOriginal;
     maintainers = with lib.maintainers; [ fridh ];
   };

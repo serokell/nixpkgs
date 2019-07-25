@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, fetchpatch, pkgconfig, exiv2, libxml2, gtk3
-, libxslt, docbook_xsl, docbook_xml_dtd_42, desktop-file-utils }:
+{ fetchFromGitHub, stdenv, fetchpatch, pkgconfig, exiv2, libxml2, gtk3, libxslt, docbook_xsl, docbook_xml_dtd_42, desktop-file-utils
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpscorrelate";
@@ -12,26 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "1gaan0nd7ai0bwilfnkza7lg5mz87804mvlygj0gjc672izr37r6";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    docbook_xml_dtd_42
-    docbook_xsl
-    libxslt
-    pkgconfig
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils docbook_xml_dtd_42 docbook_xsl libxslt pkgconfig ];
 
-  buildInputs = [
-    exiv2
-    gtk3
-    libxml2
-  ];
+  buildInputs = [ exiv2 gtk3 libxml2 ];
 
-  makeFlags = [
-    "prefix=${placeholder ''out''}"
-    "GTK=3"
-    "CC=cc"
-    "CXX=c++"
-  ];
+  makeFlags = [ "prefix=${placeholder "out"}" "GTK=3" "CC=cc" "CXX=c++" ];
 
   doCheck = true;
 

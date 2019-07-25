@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  qtbase, qtdeclarative, qttools,
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, qtbase, qtdeclarative, qttools,
 }:
 
 mkDerivation {

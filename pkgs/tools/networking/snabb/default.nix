@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, bash, makeWrapper, git, mysql, diffutils, which, coreutils, procps, nettools
-,supportOpenstack ? true
-}:
+{ stdenv, fetchFromGitHub, bash, makeWrapper, git, mysql, diffutils, which, coreutils, procps, nettools, supportOpenstack ?
+  true }:
 
 with stdenv.lib;
 
@@ -43,8 +42,8 @@ stdenv.mkDerivation rec {
   # "Fatal error: can't create obj/arch/sse2_c.o: No such file or directory".
   enableParallelBuilding = false;
 
-  meta =  {
-    homepage = https://github.com/SnabbCo/snabbswitch;
+  meta = {
+    homepage = "https://github.com/SnabbCo/snabbswitch";
     description = "Simple and fast packet networking toolkit";
     longDescription = ''
       Snabb Switch is a LuaJIT-based toolkit for writing high-speed

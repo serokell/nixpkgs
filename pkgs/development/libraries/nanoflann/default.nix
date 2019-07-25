@@ -1,9 +1,9 @@
-{stdenv, fetchFromGitHub, cmake}:
+{ stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   version = "1.3.0";
   name = "nanoflann-${version}";
-  
+
   src = fetchFromGitHub {
     owner = "jlblancoc";
     repo = "nanoflann";
@@ -17,9 +17,10 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = {
-    homepage = https://github.com/jlblancoc/nanoflann;
+    homepage = "https://github.com/jlblancoc/nanoflann";
     license = stdenv.lib.licenses.bsd3;
-    description = "Header only C++ library for approximate nearest neighbor search";
+    description =
+      "Header only C++ library for approximate nearest neighbor search";
     platforms = stdenv.lib.platforms.unix;
   };
 }

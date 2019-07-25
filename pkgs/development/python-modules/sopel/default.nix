@@ -1,14 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy
-, dnspython
-, geoip2
-, ipython
-, praw
-, pyenchant
-, pygeoip
-, pytest
-, python
-, pytz
-, xmltodict
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, dnspython, geoip2, ipython, praw, pyenchant, pygeoip, pytest, python, pytz, xmltodict
 }:
 
 buildPythonPackage rec {
@@ -21,16 +11,8 @@ buildPythonPackage rec {
     sha256 = "1arldn3p2yp09wnn2cw50r5ri303d5jdsjnf6lgfl82jhfmk49a2";
   };
 
-  propagatedBuildInputs = [
-    dnspython
-    geoip2
-    ipython
-    praw
-    pyenchant
-    pygeoip
-    pytz
-    xmltodict
-  ];
+  propagatedBuildInputs =
+    [ dnspython geoip2 ipython praw pyenchant pygeoip pytz xmltodict ];
 
   # remove once https://github.com/sopel-irc/sopel/pull/1653 lands
   postPatch = ''

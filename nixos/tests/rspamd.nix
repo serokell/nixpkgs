@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }, pkgs ?
+  import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -18,33 +16,33 @@ let
     $machine->succeed("[[ \"\$(stat -c %G ${socket})\" == \"${group}\" ]]");
     $machine->succeed("[[ \"\$(stat -c %a ${socket})\" == \"${mode}\" ]]");
   '';
-  simple = name: enableIPv6: makeTest {
-    name = "rspamd-${name}";
-    machine = {
-      services.rspamd.enable = true;
-      networking.enableIPv6 = enableIPv6;
+  simple = name: enableIPv6:
+    makeTest {
+      name = "rspamd-${name}";
+      machine = {
+        services.rspamd.enable = true;
+        networking.enableIPv6 = enableIPv6;
+      };
+      testScript = ''
+        startAll
+        $machine->waitForUnit("multi-user.target");
+        $machine->waitForOpenPort(11334);
+        $machine->waitForUnit("rspamd.service");
+        $machine->succeed("id \"rspamd\" >/dev/null");
+        ${checkSocket "/run/rspamd/rspamd.sock" "rspamd" "rspamd" "660"}
+        sleep 10;
+        $machine->log($machine->succeed("cat /etc/rspamd/rspamd.conf"));
+        $machine->log($machine->succeed("grep 'CONFDIR/worker-controller.inc' /etc/rspamd/rspamd.conf"));
+        $machine->log($machine->succeed("grep 'CONFDIR/worker-normal.inc' /etc/rspamd/rspamd.conf"));
+        $machine->log($machine->succeed("systemctl cat rspamd.service"));
+        $machine->log($machine->succeed("curl http://localhost:11334/auth"));
+        $machine->log($machine->succeed("curl http://127.0.0.1:11334/auth"));
+        ${optionalString enableIPv6 ''
+          $machine->log($machine->succeed("curl http://[::1]:11334/auth"));
+        ''}
+      '';
     };
-    testScript = ''
-      startAll
-      $machine->waitForUnit("multi-user.target");
-      $machine->waitForOpenPort(11334);
-      $machine->waitForUnit("rspamd.service");
-      $machine->succeed("id \"rspamd\" >/dev/null");
-      ${checkSocket "/run/rspamd/rspamd.sock" "rspamd" "rspamd" "660" }
-      sleep 10;
-      $machine->log($machine->succeed("cat /etc/rspamd/rspamd.conf"));
-      $machine->log($machine->succeed("grep 'CONFDIR/worker-controller.inc' /etc/rspamd/rspamd.conf"));
-      $machine->log($machine->succeed("grep 'CONFDIR/worker-normal.inc' /etc/rspamd/rspamd.conf"));
-      $machine->log($machine->succeed("systemctl cat rspamd.service"));
-      $machine->log($machine->succeed("curl http://localhost:11334/auth"));
-      $machine->log($machine->succeed("curl http://127.0.0.1:11334/auth"));
-      ${optionalString enableIPv6 ''
-        $machine->log($machine->succeed("curl http://[::1]:11334/auth"));
-      ''}
-    '';
-  };
-in
-{
+in {
   simple = simple "simple" true;
   ipv4only = simple "ipv4only" false;
   deprecated = makeTest {
@@ -70,8 +68,8 @@ in
     testScript = ''
       ${initMachine}
       $machine->waitForFile("/run/rspamd.sock");
-      ${checkSocket "/run/rspamd.sock" "root" "root" "600" }
-      ${checkSocket "/run/rspamd-worker.sock" "root" "root" "666" }
+      ${checkSocket "/run/rspamd.sock" "root" "root" "600"}
+      ${checkSocket "/run/rspamd-worker.sock" "root" "root" "666"}
       $machine->log($machine->succeed("cat /etc/rspamd/rspamd.conf"));
       $machine->log($machine->succeed("grep 'CONFDIR/worker-controller.inc' /etc/rspamd/rspamd.conf"));
       $machine->log($machine->succeed("grep 'CONFDIR/worker-normal.inc' /etc/rspamd/rspamd.conf"));
@@ -112,8 +110,8 @@ in
     testScript = ''
       ${initMachine}
       $machine->waitForFile("/run/rspamd.sock");
-      ${checkSocket "/run/rspamd.sock" "root" "root" "600" }
-      ${checkSocket "/run/rspamd-worker.sock" "root" "root" "666" }
+      ${checkSocket "/run/rspamd.sock" "root" "root" "600"}
+      ${checkSocket "/run/rspamd-worker.sock" "root" "root" "666"}
       $machine->log($machine->succeed("cat /etc/rspamd/rspamd.conf"));
       $machine->log($machine->succeed("grep 'CONFDIR/worker-controller.inc' /etc/rspamd/rspamd.conf"));
       $machine->log($machine->succeed("grep 'CONFDIR/worker-normal.inc' /etc/rspamd/rspamd.conf"));
@@ -145,7 +143,8 @@ in
       services.rspamd = {
         enable = true;
         locals = {
-          "antivirus.conf" = mkIf false { text = ''
+          "antivirus.conf" = mkIf false {
+            text = ''
               clamav {
                 action = "reject";
                 symbol = "CLAM_VIRUS";
@@ -153,7 +152,8 @@ in
                 log_clean = true;
                 servers = "/run/clamav/clamd.ctl";
               }
-            '';};
+            '';
+          };
           "redis.conf" = {
             enable = false;
             text = ''
@@ -172,29 +172,29 @@ in
           '';
         };
         localLuaRules = pkgs.writeText "rspamd.local.lua" ''
-          local rspamd_logger = require "rspamd_logger"
-          rspamd_config.NO_MUH = {
-            callback = function (task)
-              local parts = task:get_text_parts()
-              if parts then
-                for _,part in ipairs(parts) do
-                  local content = tostring(part:get_content())
-                  rspamd_logger.infox(rspamd_config, 'Found content %s', content)
-                  local found = string.find(content, "Muh");
-                  rspamd_logger.infox(rspamd_config, 'Found muh %s', tostring(found))
-                  if found then
-                    return true
-                  end
-                end
-              end
-              return false
-            end,
-            score = 5.0,
-	          description = 'Allow no cows',
-            group = "cows",
-          }
-          rspamd_logger.infox(rspamd_config, 'Work dammit!!!')
-        '';
+                    local rspamd_logger = require "rspamd_logger"
+                    rspamd_config.NO_MUH = {
+                      callback = function (task)
+                        local parts = task:get_text_parts()
+                        if parts then
+                          for _,part in ipairs(parts) do
+                            local content = tostring(part:get_content())
+                            rspamd_logger.infox(rspamd_config, 'Found content %s', content)
+                            local found = string.find(content, "Muh");
+                            rspamd_logger.infox(rspamd_config, 'Found muh %s', tostring(found))
+                            if found then
+                              return true
+                            end
+                          end
+                        end
+                        return false
+                      end,
+                      score = 5.0,
+          	          description = 'Allow no cows',
+                      group = "cows",
+                    }
+                    rspamd_logger.infox(rspamd_config, 'Work dammit!!!')
+                  '';
       };
     };
     testScript = ''
@@ -207,7 +207,7 @@ in
       $machine->fail("cat /etc/rspamd/local.d/redis.conf >&2");
       # Verify that antivirus.conf was not written
       $machine->fail("cat /etc/rspamd/local.d/antivirus.conf >&2");
-      ${checkSocket "/run/rspamd/rspamd.sock" "rspamd" "rspamd" "660" }
+      ${checkSocket "/run/rspamd/rspamd.sock" "rspamd" "rspamd" "660"}
       $machine->log($machine->succeed("curl --unix-socket /run/rspamd/rspamd.sock http://localhost/ping"));
       $machine->log($machine->succeed("rspamc -h 127.0.0.1:11334 stat"));
       $machine->log($machine->succeed("cat /etc/tests/no-muh.eml | rspamc -h 127.0.0.1:11334"));
@@ -240,7 +240,7 @@ in
       users.users.tester.password = "test";
       services.postfix = {
         enable = true;
-        destination = ["example.com"];
+        destination = [ "example.com" ];
       };
       services.rspamd = {
         enable = true;
@@ -252,7 +252,7 @@ in
       ${initMachine}
       $machine->waitForOpenPort(11334);
       $machine->waitForOpenPort(25);
-      ${checkSocket "/run/rspamd/rspamd-milter.sock" "rspamd" "postfix" "660" }
+      ${checkSocket "/run/rspamd/rspamd-milter.sock" "rspamd" "postfix" "660"}
       $machine->log($machine->succeed("rspamc -h 127.0.0.1:11334 stat"));
       $machine->log($machine->succeed("msmtp --host=localhost -t --read-envelope-from < /etc/tests/example.eml"));
       $machine->log($machine->fail("msmtp --host=localhost -t --read-envelope-from < /etc/tests/gtube.eml"));

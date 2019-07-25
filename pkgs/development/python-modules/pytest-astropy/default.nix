@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytest-doctestplus
-, pytest-remotedata
-, pytest-openfiles
-, pytest-arraydiff
+{ lib, buildPythonPackage, fetchPypi, pytest, pytest-doctestplus, pytest-remotedata, pytest-openfiles, pytest-arraydiff
 }:
 
 buildPythonPackage rec {
@@ -30,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Meta-package containing dependencies for testing";
-    homepage = https://astropy.org;
+    homepage = "https://astropy.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

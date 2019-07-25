@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   buildTargets = "all hicolor-links";
   installTargets = "install-icons install-cursors";
-  installFlags = [ "PREFIX=${placeholder ''out''}" ];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     cp -a ./Sea ./usr/share/icons/hicolor "$out"/share/icons/
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Icons for the Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/deepin-icon-theme;
+    homepage = "https://github.com/linuxdeepin/deepin-icon-theme";
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ romildo ];

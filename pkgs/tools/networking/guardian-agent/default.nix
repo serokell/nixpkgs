@@ -1,9 +1,4 @@
-{ buildGoPackage
-, fetchFromGitHub
-, lib
-, autossh
-, makeWrapper
-}:
+{ buildGoPackage, fetchFromGitHub, lib, autossh, makeWrapper }:
 
 buildGoPackage rec {
   pname = "guardian-agent";
@@ -29,9 +24,9 @@ buildGoPackage rec {
   '';
 
   postFixup = ''
-		wrapProgram $bin/bin/sga-guard \
-			--prefix PATH : "$bin/bin" \
-			--prefix PATH : "${autossh}/bin"
+    wrapProgram $bin/bin/sga-guard \
+    	--prefix PATH : "$bin/bin" \
+    	--prefix PATH : "${autossh}/bin"
   '';
 
   meta = with lib; {

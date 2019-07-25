@@ -1,5 +1,5 @@
-{stdenv, fetchurl, pkgconfig, freetype, pango, libpng, libtiff, giflib
-, libjpeg, netpbm}:
+{ stdenv, fetchurl, pkgconfig, freetype, pango, libpng, libtiff, giflib, libjpeg, netpbm
+}:
 
 stdenv.mkDerivation rec {
   name = "xplanet-1.3.0";
@@ -12,16 +12,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ freetype pango libpng libtiff giflib libjpeg netpbm ];
 
-  patches = [
-    ./giflib.patch
-    ./gcc6.patch
-  ];
+  patches = [ ./giflib.patch ./gcc6.patch ];
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
 
   meta = {
-    description = "Renders an image of the earth or other planets into the X root window";
-    homepage = http://xplanet.sourceforge.net;
+    description =
+      "Renders an image of the earth or other planets into the X root window";
+    homepage = "http://xplanet.sourceforge.net";
     license = "GPL";
     maintainers = [ stdenv.lib.maintainers.sander ];
     platforms = stdenv.lib.platforms.all;

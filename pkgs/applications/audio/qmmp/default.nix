@@ -1,15 +1,12 @@
-{ stdenv, fetchurl, cmake, pkgconfig, xlibsWrapper
-, qtbase, qttools, qtmultimedia, qtx11extras
+{ stdenv, fetchurl, cmake, pkgconfig, xlibsWrapper, qtbase, qttools, qtmultimedia, qtx11extras
 # transports
 , curl, libmms
 # input plugins
-, libmad, taglib, libvorbis, libogg, flac, libmpcdec, libmodplug, libsndfile
-, libcdio, cdparanoia, libcddb, faad2, ffmpeg, wildmidi
+, libmad, taglib, libvorbis, libogg, flac, libmpcdec, libmodplug, libsndfile, libcdio, cdparanoia, libcddb, faad2, ffmpeg, wildmidi
 # output plugins
 , alsaLib, libpulseaudio
 # effect plugins
-, libsamplerate
-}:
+, libsamplerate }:
 
 # Additional plugins that can be added:
 #  wavpack (http://www.wavpack.com/)
@@ -37,28 +34,45 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
-  buildInputs =
-    [ # basic requirements
-      qtbase qttools qtmultimedia qtx11extras xlibsWrapper
-      # transports
-      curl libmms
-      # input plugins
-      libmad taglib libvorbis libogg flac libmpcdec libmodplug libsndfile
-      libcdio cdparanoia libcddb faad2 ffmpeg wildmidi
-      # output plugins
-      alsaLib libpulseaudio
-      # effect plugins
-      libsamplerate
-    ];
+  buildInputs = [ # basic requirements
+    qtbase
+    qttools
+    qtmultimedia
+    qtx11extras
+    xlibsWrapper
+    # transports
+    curl
+    libmms
+    # input plugins
+    libmad
+    taglib
+    libvorbis
+    libogg
+    flac
+    libmpcdec
+    libmodplug
+    libsndfile
+    libcdio
+    cdparanoia
+    libcddb
+    faad2
+    ffmpeg
+    wildmidi
+    # output plugins
+    alsaLib
+    libpulseaudio
+    # effect plugins
+    libsamplerate
+  ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "Qt-based audio player that looks like Winamp";
-    homepage = http://qmmp.ylsoftware.com/;
+    homepage = "http://qmmp.ylsoftware.com/";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
-    repositories.svn = http://qmmp.googlecode.com/svn/;
+    repositories.svn = "http://qmmp.googlecode.com/svn/";
   };
 }

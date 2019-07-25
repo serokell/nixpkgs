@@ -15,8 +15,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ cracklib python ];
 
   meta = with lib; {
-    description = "Password quality checking and random password generation library";
-    homepage = https://github.com/libpwquality/libpwquality;
+    description =
+      "Password quality checking and random password generation library";
+    homepage = "https://github.com/libpwquality/libpwquality";
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

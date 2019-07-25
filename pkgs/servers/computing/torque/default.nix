@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, flex, bison, pkgconfig, groff, libxml2, utillinux
-, file, libtool, which }:
+{ stdenv, fetchurl, openssl, flex, bison, pkgconfig, groff, libxml2, utillinux, file, libtool, which
+}:
 
 stdenv.mkDerivation rec {
   name = "torque-4.2.10";
@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ openssl flex bison groff libxml2 utillinux libtool
-                  which ];
+  buildInputs = [ openssl flex bison groff libxml2 utillinux libtool which ];
 
   enableParallelBuilding = true;
 
@@ -20,21 +19,21 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = [ "-fpermissive" ];
 
   preConfigure = ''
-   substituteInPlace ./configure \
-     --replace '/usr/bin/file' '${file}/bin/file'
+    substituteInPlace ./configure \
+      --replace '/usr/bin/file' '${file}/bin/file'
 
-   # fix broken libxml2 detection
-   sed -i '/xmlLib\=/c\xmlLib=xml2' ./configure
+    # fix broken libxml2 detection
+    sed -i '/xmlLib\=/c\xmlLib=xml2' ./configure
 
-   for s in fifo cray_t3e dec_cluster msic_cluster sgi_origin umn_cluster; do
-     substituteInPlace src/scheduler.cc/samples/$s/Makefile.in \
-       --replace "schedprivdir = " "schedprivdir = $out/"
-   done
+    for s in fifo cray_t3e dec_cluster msic_cluster sgi_origin umn_cluster; do
+      substituteInPlace src/scheduler.cc/samples/$s/Makefile.in \
+        --replace "schedprivdir = " "schedprivdir = $out/"
+    done
 
-   for f in $(find ./ -name Makefile.in); do
-     echo patching $f...
-     sed -i $f -e '/PBS_MKDIRS/d' -e '/chmod u+s/d'
-   done
+    for f in $(find ./ -name Makefile.in); do
+      echo patching $f...
+      sed -i $f -e '/PBS_MKDIRS/d' -e '/chmod u+s/d'
+    done
 
   '';
 
@@ -47,8 +46,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.adaptivecomputing.com/products/open-source/torque;
-    description = "Resource management system for submitting and controlling jobs on supercomputers, clusters, and grids";
+    homepage = "http://www.adaptivecomputing.com/products/open-source/torque";
+    description =
+      "Resource management system for submitting and controlling jobs on supercomputers, clusters, and grids";
     platforms = platforms.linux;
   };
 }

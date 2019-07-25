@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   version = "3.99-u4-b5";
@@ -8,7 +8,8 @@ stdenv.mkDerivation rec {
   patches = [ ./buildfix.diff ];
 
   src = fetchurl {
-    url = "https://deb-multimedia.org/pool/main/m/${pname}/${pname}_${version}.orig.tar.gz";
+    url =
+      "https://deb-multimedia.org/pool/main/m/${pname}/${pname}_${version}.orig.tar.gz";
     sha256 = "0kjfwzfxfx7f958b2b1kf8yj655lp0ppmn0sh57gbkjvj8lml7nz";
   };
 

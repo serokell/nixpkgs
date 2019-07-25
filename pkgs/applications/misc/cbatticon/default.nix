@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig gettext ];
 
-  buildInputs =  [ glib gtk3 libnotify ];
+  buildInputs = [ glib gtk3 libnotify ];
 
   patchPhase = ''
     sed -i -e 's/ -Wno-format//g' Makefile
@@ -22,8 +22,9 @@ stdenv.mkDerivation rec {
   makeFlags = "PREFIX=${placeholder "out"}";
 
   meta = with stdenv.lib; {
-    description = "Lightweight and fast battery icon that sits in the system tray";
-    homepage = https://github.com/valr/cbatticon;
+    description =
+      "Lightweight and fast battery icon that sits in the system tray";
+    homepage = "https://github.com/valr/cbatticon";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.domenkozar ];

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Various packaging tools and scripts for LXQt applications";
-    homepage = https://github.com/lxqt/lxqt-build-tools;
+    homepage = "https://github.com/lxqt/lxqt-build-tools";
     license = licenses.lgpl21;
     platforms = with platforms; unix;
     maintainers = with maintainers; [ romildo ];

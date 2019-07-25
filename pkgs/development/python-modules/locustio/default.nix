@@ -1,12 +1,4 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, mock
-, unittest2
-, msgpack
-, requests
-, flask
-, gevent
-, pyzmq
+{ buildPythonPackage, fetchFromGitHub, mock, unittest2, msgpack, requests, flask, gevent, pyzmq
 }:
 
 buildPythonPackage rec {
@@ -24,7 +16,7 @@ buildPythonPackage rec {
   buildInputs = [ mock unittest2 ];
 
   meta = {
-    homepage = https://locust.io/;
+    homepage = "https://locust.io/";
     description = "A load testing tool";
   };
 }

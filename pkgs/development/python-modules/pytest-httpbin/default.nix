@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, pytest
-, httpbin
-, six
-}:
+{ buildPythonPackage, lib, fetchPypi, pytest, httpbin, six }:
 
 buildPythonPackage rec {
   pname = "pytest-httpbin";
@@ -27,8 +21,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Easily test your HTTP library against a local copy of httpbin.org";
-    homepage = https://github.com/kevin1024/pytest-httpbin;
+    description =
+      "Easily test your HTTP library against a local copy of httpbin.org";
+    homepage = "https://github.com/kevin1024/pytest-httpbin";
     license = lib.licenses.mit;
   };
 }

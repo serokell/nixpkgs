@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, meson, pkgconfig, ninja, docutils
-, fuse3, glib
-, which, python3Packages
+{ stdenv, fetchFromGitHub, meson, pkgconfig, ninja, docutils, fuse3, glib, which, python3Packages
 }:
 
 stdenv.mkDerivation rec {
@@ -18,8 +16,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ fuse3 glib ];
   checkInputs = [ which python3Packages.pytest ];
 
-  NIX_CFLAGS_COMPILE = stdenv.lib.optional
-    (stdenv.hostPlatform.system == "i686-linux")
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optional (stdenv.hostPlatform.system == "i686-linux")
     "-D_FILE_OFFSET_BITS=64";
 
   postInstall = ''
@@ -41,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     inherit (src.meta) homepage;
-    description = "FUSE-based filesystem that allows remote filesystems to be mounted over SSH";
+    description =
+      "FUSE-based filesystem that allows remote filesystems to be mounted over SSH";
     platforms = platforms.linux;
     license = licenses.gpl2;
     maintainers = with maintainers; [ primeos ];

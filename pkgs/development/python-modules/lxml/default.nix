@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, libxml2
-, libxslt
-}:
+{ stdenv, buildPythonPackage, fetchPypi, libxml2, libxslt }:
 
 buildPythonPackage rec {
   pname = "lxml";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Pythonic binding for the libxml2 and libxslt libraries";
-    homepage = https://lxml.de;
+    homepage = "https://lxml.de";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ sjourdois ];
   };

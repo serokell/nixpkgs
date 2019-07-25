@@ -1,7 +1,4 @@
-{ buildGoPackage
-, lib
-, fetchFromGitHub
-}:
+{ buildGoPackage, lib, fetchFromGitHub }:
 
 # TODO(yl): should we package https://github.com/remyoudompheng/go-misc instead of
 # the standalone extract of deadcode from it?
@@ -22,8 +19,9 @@ buildGoPackage rec {
   };
 
   meta = with lib; {
-    description = "deadcode is a very simple utility which detects unused declarations in a Go package.";
-    homepage = https://github.com/remyoudompheng/go-misc/tree/master/deadcode;
+    description =
+      "deadcode is a very simple utility which detects unused declarations in a Go package.";
+    homepage = "https://github.com/remyoudompheng/go-misc/tree/master/deadcode";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

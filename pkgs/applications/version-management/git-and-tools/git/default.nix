@@ -1,20 +1,8 @@
-{ fetchurl, stdenv, buildPackages
-, curl, openssl, zlib, expat, perlPackages, python, gettext, cpio
-, gnugrep, gnused, gawk, coreutils # needed at runtime by git-filter-branch etc
-, openssh, pcre2
-, asciidoc, texinfo, xmlto, docbook2x, docbook_xsl, docbook_xml_dtd_45
-, libxslt, tcl, tk, makeWrapper, libiconv
-, svnSupport, subversionClient, perlLibs, smtpPerlLibs
-, perlSupport ? true
-, guiSupport
-, withManual ? true
-, pythonSupport ? true
-, withpcre2 ? true
-, sendEmailSupport
-, darwin
-, withLibsecret ? false
-, pkgconfig, glib, libsecret
-}:
+{ fetchurl, stdenv, buildPackages, curl, openssl, zlib, expat, perlPackages, python, gettext, cpio, gnugrep, gnused, gawk, coreutils # needed at runtime by git-filter-branch etc
+, openssh, pcre2, asciidoc, texinfo, xmlto, docbook2x, docbook_xsl, docbook_xml_dtd_45, libxslt, tcl, tk, makeWrapper, libiconv, svnSupport, subversionClient, perlLibs, smtpPerlLibs, perlSupport ?
+  true, guiSupport, withManual ? true, pythonSupport ? true, withpcre2 ?
+    true, sendEmailSupport, darwin, withLibsecret ?
+      false, pkgconfig, glib, libsecret }:
 
 assert sendEmailSupport -> perlSupport;
 assert svnSupport -> perlSupport;
@@ -22,9 +10,8 @@ assert svnSupport -> perlSupport;
 let
   version = "2.22.0";
   svn = subversionClient.override { perlBindings = perlSupport; };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "git-${version}";
 
   src = fetchurl {
@@ -60,39 +47,55 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [ gettext perlPackages.perl ]
-    ++ stdenv.lib.optionals withManual [ asciidoc texinfo xmlto docbook2x
-         docbook_xsl docbook_xml_dtd_45 libxslt ];
-  buildInputs = [curl openssl zlib expat cpio makeWrapper libiconv]
+    ++ stdenv.lib.optionals withManual [
+      asciidoc
+      texinfo
+      xmlto
+      docbook2x
+      docbook_xsl
+      docbook_xml_dtd_45
+      libxslt
+    ];
+  buildInputs = [ curl openssl zlib expat cpio makeWrapper libiconv ]
     ++ stdenv.lib.optionals perlSupport [ perlPackages.perl ]
-    ++ stdenv.lib.optionals guiSupport [tcl tk]
+    ++ stdenv.lib.optionals guiSupport [ tcl tk ]
     ++ stdenv.lib.optionals withpcre2 [ pcre2 ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ darwin.Security ]
     ++ stdenv.lib.optionals withLibsecret [ pkgconfig glib libsecret ];
 
   # required to support pthread_cancel()
   NIX_LDFLAGS = stdenv.lib.optionalString (!stdenv.cc.isClang) "-lgcc_s"
-              + stdenv.lib.optionalString (stdenv.isFreeBSD) "-lthr";
+    + stdenv.lib.optionalString (stdenv.isFreeBSD) "-lthr";
 
-  configureFlags = stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "ac_cv_fread_reads_directories=yes"
-    "ac_cv_snprintf_returns_bogus=no"
-  ];
+  configureFlags =
+    stdenv.lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      "ac_cv_fread_reads_directories=yes"
+      "ac_cv_snprintf_returns_bogus=no"
+    ];
 
   preBuild = ''
     makeFlagsArray+=( perllibdir=$out/$(perl -MConfig -wle 'print substr $Config{installsitelib}, 1 + length $Config{siteprefixexp}') )
   '';
 
-  makeFlags = [
-    "prefix=\${out}"
-    "SHELL_PATH=${stdenv.shell}"
-  ]
-  ++ (if perlSupport then ["PERL_PATH=${perlPackages.perl}/bin/perl"] else ["NO_PERL=1"])
-  ++ (if pythonSupport then ["PYTHON_PATH=${python}/bin/python"] else ["NO_PYTHON=1"])
-  ++ stdenv.lib.optionals stdenv.isSunOS ["INSTALL=install" "NO_INET_NTOP=" "NO_INET_PTON="]
-  ++ (if stdenv.isDarwin then ["NO_APPLE_COMMON_CRYPTO=1"] else ["sysconfdir=/etc/"])
-  ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl ["NO_SYS_POLL_H=1" "NO_GETTEXT=YesPlease"]
-  ++ stdenv.lib.optional withpcre2 "USE_LIBPCRE2=1";
-
+  makeFlags = [ "prefix=\${out}" "SHELL_PATH=${stdenv.shell}" ]
+    ++ (if perlSupport then
+      [ "PERL_PATH=${perlPackages.perl}/bin/perl" ]
+    else
+      [ "NO_PERL=1" ]) ++ (if pythonSupport then
+        [ "PYTHON_PATH=${python}/bin/python" ]
+      else
+        [ "NO_PYTHON=1" ]) ++ stdenv.lib.optionals stdenv.isSunOS [
+          "INSTALL=install"
+          "NO_INET_NTOP="
+          "NO_INET_PTON="
+        ] ++ (if stdenv.isDarwin then
+          [ "NO_APPLE_COMMON_CRYPTO=1" ]
+        else
+          [ "sysconfdir=/etc/" ])
+    ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
+      "NO_SYS_POLL_H=1"
+      "NO_GETTEXT=YesPlease"
+    ] ++ stdenv.lib.optional withpcre2 "USE_LIBPCRE2=1";
 
   postBuild = ''
     make -C contrib/subtree
@@ -103,7 +106,6 @@ stdenv.mkDerivation {
   '') + (stdenv.lib.optionalString withLibsecret ''
     make -C contrib/credential/libsecret
   '');
-
 
   ## Install
 
@@ -122,116 +124,134 @@ stdenv.mkDerivation {
     rm -f $PWD/contrib/credential/libsecret/git-credential-libsecret.o
   '');
 
-  postInstall =
-    ''
-      notSupported() {
-        unlink $1 || true
+  postInstall = ''
+    notSupported() {
+      unlink $1 || true
+    }
+
+    # Install git-subtree.
+    make -C contrib/subtree install ${
+      stdenv.lib.optionalString withManual "install-doc"
+    }
+    rm -rf contrib/subtree
+
+    # Install contrib stuff.
+    mkdir -p $out/share/git
+    cp -a contrib $out/share/git/
+    mkdir -p $out/share/emacs/site-lisp
+    ln -s "$out/share/git/contrib/emacs/"*.el $out/share/emacs/site-lisp/
+    mkdir -p $out/etc/bash_completion.d
+    ln -s $out/share/git/contrib/completion/git-completion.bash $out/etc/bash_completion.d/
+    ln -s $out/share/git/contrib/completion/git-prompt.sh $out/etc/bash_completion.d/
+
+    # grep is a runtime dependency, need to patch so that it's found
+    substituteInPlace $out/libexec/git-core/git-sh-setup \
+        --replace ' grep' ' ${gnugrep}/bin/grep' \
+        --replace ' egrep' ' ${gnugrep}/bin/egrep'
+
+    # Fix references to the perl, sed, awk and various coreutil binaries used by
+    # shell scripts that git calls (e.g. filter-branch)
+    SCRIPT="$(cat <<'EOS'
+      BEGIN{
+        @a=(
+          '${gnugrep}/bin/grep', '${gnused}/bin/sed', '${gawk}/bin/awk',
+          '${coreutils}/bin/cut', '${coreutils}/bin/basename', '${coreutils}/bin/dirname',
+          '${coreutils}/bin/wc', '${coreutils}/bin/tr'
+          ${
+      stdenv.lib.optionalString perlSupport ", '${perlPackages.perl}/bin/perl'"
+          }
+        );
       }
-
-      # Install git-subtree.
-      make -C contrib/subtree install ${stdenv.lib.optionalString withManual "install-doc"}
-      rm -rf contrib/subtree
-
-      # Install contrib stuff.
-      mkdir -p $out/share/git
-      cp -a contrib $out/share/git/
-      mkdir -p $out/share/emacs/site-lisp
-      ln -s "$out/share/git/contrib/emacs/"*.el $out/share/emacs/site-lisp/
-      mkdir -p $out/etc/bash_completion.d
-      ln -s $out/share/git/contrib/completion/git-completion.bash $out/etc/bash_completion.d/
-      ln -s $out/share/git/contrib/completion/git-prompt.sh $out/etc/bash_completion.d/
-
-      # grep is a runtime dependency, need to patch so that it's found
-      substituteInPlace $out/libexec/git-core/git-sh-setup \
-          --replace ' grep' ' ${gnugrep}/bin/grep' \
-          --replace ' egrep' ' ${gnugrep}/bin/egrep'
-
-      # Fix references to the perl, sed, awk and various coreutil binaries used by
-      # shell scripts that git calls (e.g. filter-branch)
-      SCRIPT="$(cat <<'EOS'
-        BEGIN{
-          @a=(
-            '${gnugrep}/bin/grep', '${gnused}/bin/sed', '${gawk}/bin/awk',
-            '${coreutils}/bin/cut', '${coreutils}/bin/basename', '${coreutils}/bin/dirname',
-            '${coreutils}/bin/wc', '${coreutils}/bin/tr'
-            ${stdenv.lib.optionalString perlSupport ", '${perlPackages.perl}/bin/perl'"}
-          );
-        }
-        foreach $c (@a) {
-          $n=(split("/", $c))[-1];
-          s|(?<=[^#][^/.-])\b''${n}(?=\s)|''${c}|g
-        }
-      EOS
-      )"
-      perl -0777 -i -pe "$SCRIPT" \
-        $out/libexec/git-core/git-{sh-setup,filter-branch,merge-octopus,mergetool,quiltimport,request-pull,stash,submodule,subtree,web--browse}
+      foreach $c (@a) {
+        $n=(split("/", $c))[-1];
+        s|(?<=[^#][^/.-])\b''${n}(?=\s)|''${c}|g
+      }
+    EOS
+    )"
+    perl -0777 -i -pe "$SCRIPT" \
+      $out/libexec/git-core/git-{sh-setup,filter-branch,merge-octopus,mergetool,quiltimport,request-pull,stash,submodule,subtree,web--browse}
 
 
-      # Also put git-http-backend into $PATH, so that we can use smart
-      # HTTP(s) transports for pushing
-      ln -s $out/libexec/git-core/git-http-backend $out/bin/git-http-backend
-    '' + stdenv.lib.optionalString perlSupport ''
-      # put in separate package for simpler maintenance
-      mv $out/share/gitweb $gitweb/
+    # Also put git-http-backend into $PATH, so that we can use smart
+    # HTTP(s) transports for pushing
+    ln -s $out/libexec/git-core/git-http-backend $out/bin/git-http-backend
+  '' + stdenv.lib.optionalString perlSupport ''
+    # put in separate package for simpler maintenance
+    mv $out/share/gitweb $gitweb/
 
-      # wrap perl commands
-      makeWrapper "$out/share/git/contrib/credential/netrc/git-credential-netrc" $out/bin/git-credential-netrc \
-                  --set PERL5LIB   "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
-      wrapProgram $out/libexec/git-core/git-cvsimport \
-                  --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
-      wrapProgram $out/libexec/git-core/git-add--interactive \
-                  --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
-      wrapProgram $out/libexec/git-core/git-archimport \
-                  --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
-      wrapProgram $out/libexec/git-core/git-instaweb \
-                  --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
-      wrapProgram $out/libexec/git-core/git-cvsexportcommit \
-                  --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
-    ''
+    # wrap perl commands
+    makeWrapper "$out/share/git/contrib/credential/netrc/git-credential-netrc" $out/bin/git-credential-netrc \
+                --set PERL5LIB   "$out/${perlPackages.perl.libPrefix}:${
+      perlPackages.makePerlPath perlLibs
+                }"
+    wrapProgram $out/libexec/git-core/git-cvsimport \
+                --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+      perlPackages.makePerlPath perlLibs
+                }"
+    wrapProgram $out/libexec/git-core/git-add--interactive \
+                --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+      perlPackages.makePerlPath perlLibs
+                }"
+    wrapProgram $out/libexec/git-core/git-archimport \
+                --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+      perlPackages.makePerlPath perlLibs
+                }"
+    wrapProgram $out/libexec/git-core/git-instaweb \
+                --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+      perlPackages.makePerlPath perlLibs
+                }"
+    wrapProgram $out/libexec/git-core/git-cvsexportcommit \
+                --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+      perlPackages.makePerlPath perlLibs
+                }"
+  ''
 
-   + (if svnSupport then ''
-        # wrap git-svn
-        wrapProgram $out/libexec/git-core/git-svn                                                                                \
-                     --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath (perlLibs ++ [svn.out])}" \
-                     --prefix PATH : "${svn.out}/bin" ''
-       else '' # replace git-svn by notification script
-        notSupported $out/libexec/git-core/git-svn
-     '')
+    + (if svnSupport then ''
+      # wrap git-svn
+      wrapProgram $out/libexec/git-core/git-svn                                                                                \
+                   --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+        perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
+                   }" \
+                   --prefix PATH : "${svn.out}/bin" '' else ''
+        # replace git-svn by notification script
+               notSupported $out/libexec/git-core/git-svn
+            '')
 
-   + (if sendEmailSupport then ''
-        # wrap git-send-email
-        wrapProgram $out/libexec/git-core/git-send-email \
-                     --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath smtpPerlLibs}"
-      '' else ''
-        # replace git-send-email by notification script
-        notSupported $out/libexec/git-core/git-send-email
-      '')
+    + (if sendEmailSupport then ''
+      # wrap git-send-email
+      wrapProgram $out/libexec/git-core/git-send-email \
+                   --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
+        perlPackages.makePerlPath smtpPerlLibs
+                   }"
+    '' else ''
+      # replace git-send-email by notification script
+      notSupported $out/libexec/git-core/git-send-email
+    '')
 
-   + stdenv.lib.optionalString withManual ''# Install man pages and Info manual
-       make -j $NIX_BUILD_CORES -l $NIX_BUILD_CORES PERL_PATH="${buildPackages.perl}/bin/perl" cmd-list.made install install-info \
-         -C Documentation ''
+    + stdenv.lib.optionalString withManual ''
+      # Install man pages and Info manual
+             make -j $NIX_BUILD_CORES -l $NIX_BUILD_CORES PERL_PATH="${buildPackages.perl}/bin/perl" cmd-list.made install install-info \
+               -C Documentation ''
 
-   + (if guiSupport then ''
-       # Wrap Tcl/Tk programs
-       for prog in bin/gitk libexec/git-core/{git-gui,git-citool,git-gui--askpass}; do
-         sed -i -e "s|exec 'wish'|exec '${tk}/bin/wish'|g" \
-                -e "s|exec wish|exec '${tk}/bin/wish'|g" \
-                "$out/$prog"
-       done
-     '' else ''
-       # Don't wrap Tcl/Tk, replace them by notification scripts
-       for prog in bin/gitk libexec/git-core/git-gui; do
-         notSupported "$out/$prog"
-       done
-     '')
-   + stdenv.lib.optionalString stdenv.isDarwin ''
-    # enable git-credential-osxkeychain by default if darwin
-    cat > $out/etc/gitconfig << EOF
-    [credential]
-      helper = osxkeychain
-    EOF
-  '';
-
+    + (if guiSupport then ''
+      # Wrap Tcl/Tk programs
+      for prog in bin/gitk libexec/git-core/{git-gui,git-citool,git-gui--askpass}; do
+        sed -i -e "s|exec 'wish'|exec '${tk}/bin/wish'|g" \
+               -e "s|exec wish|exec '${tk}/bin/wish'|g" \
+               "$out/$prog"
+      done
+    '' else ''
+      # Don't wrap Tcl/Tk, replace them by notification scripts
+      for prog in bin/gitk libexec/git-core/git-gui; do
+        notSupported "$out/$prog"
+      done
+    '') + stdenv.lib.optionalString stdenv.isDarwin ''
+      # enable git-credential-osxkeychain by default if darwin
+      cat > $out/etc/gitconfig << EOF
+      [credential]
+        helper = osxkeychain
+      EOF
+    '';
 
   ## InstallCheck
 
@@ -294,11 +314,11 @@ stdenv.mkDerivation {
     disable_test t0028-working-tree-encoding
   '';
 
-  stripDebugList = [ "lib" "libexec" "bin" "share/git/contrib/credential/libsecret" ];
-
+  stripDebugList =
+    [ "lib" "libexec" "bin" "share/git/contrib/credential/libsecret" ];
 
   meta = {
-    homepage = https://git-scm.com/;
+    homepage = "https://git-scm.com/";
     description = "Distributed version control system";
     license = stdenv.lib.licenses.gpl2;
 

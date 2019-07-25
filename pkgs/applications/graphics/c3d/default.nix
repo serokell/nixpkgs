@@ -1,8 +1,8 @@
 { stdenv, fetchgit, cmake, itk, Cocoa }:
 
 stdenv.mkDerivation rec {
-  name    = "${pname}-${version}";
-  pname   = "c3d";
+  name = "${pname}-${version}";
+  pname = "c3d";
   version = "2018-10-04";
 
   src = fetchgit {
@@ -12,11 +12,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ itk ]
-    ++ stdenv.lib.optional stdenv.isDarwin Cocoa;
+  buildInputs = [ itk ] ++ stdenv.lib.optional stdenv.isDarwin Cocoa;
 
   meta = with stdenv.lib; {
-    homepage = http://www.itksnap.org/c3d;
+    homepage = "http://www.itksnap.org/c3d";
     description = "Medical imaging processing tool";
     maintainers = with maintainers; [ bcdarwin ];
     platforms = platforms.unix;

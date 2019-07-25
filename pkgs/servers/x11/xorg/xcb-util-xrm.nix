@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "xcb-util-xrm-${version}";
 
   src = fetchurl {
-    url = "https://github.com/Airblader/xcb-util-xrm/releases/download/v${version}/${name}.tar.bz2";
+    url =
+      "https://github.com/Airblader/xcb-util-xrm/releases/download/v${version}/${name}.tar.bz2";
     sha256 = "118cj1ybw86pgw0l5whn9vbg5n5b0ijcpx295mwahzi004vz671h";
   };
 
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "XCB utility functions for the X resource manager";
-    homepage = https://github.com/Airblader/xcb-util-xrm;
+    homepage = "https://github.com/Airblader/xcb-util-xrm";
     license = licenses.mit; # X11 variant
     platforms = with platforms; unix;
   };

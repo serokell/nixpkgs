@@ -10,14 +10,11 @@ let
 
   cfg = config.programs.zsh;
 
-  zshAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
-      (filterAttrs (k: v: v != null) cfg.shellAliases)
-  );
+  zshAliases = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
+    (filterAttrs (k: v: v != null) cfg.shellAliases));
 
-in
-
-{
+in {
 
   options = {
 
@@ -35,7 +32,7 @@ in
       };
 
       shellAliases = mkOption {
-        default = {};
+        default = { };
         description = ''
           Set of aliases for zsh shell, which overrides <option>environment.shellAliases</option>.
           See <option>environment.shellAliases</option> for an option format description.
@@ -97,9 +94,7 @@ in
 
       setOptions = mkOption {
         type = types.listOf types.str;
-        default = [
-          "HIST_IGNORE_DUPS" "SHARE_HISTORY" "HIST_FCNTL_LOCK"
-        ];
+        default = [ "HIST_IGNORE_DUPS" "SHARE_HISTORY" "HIST_FCNTL_LOCK" ];
         example = [ "EXTENDED_HISTORY" "RM_STAR_WAIT" ];
         description = ''
           Configure zsh options.
@@ -113,7 +108,6 @@ in
         '';
         type = types.bool;
       };
-
 
       enableGlobalCompInit = mkOption {
         default = cfg.enableCompletion;
@@ -135,89 +129,88 @@ in
 
     programs.zsh.shellAliases = mapAttrs (name: mkDefault) cfge.shellAliases;
 
-    environment.etc."zshenv".text =
-      ''
-        # /etc/zshenv: DO NOT EDIT -- this file has been generated automatically.
-        # This file is read for all shells.
+    environment.etc."zshenv".text = ''
+      # /etc/zshenv: DO NOT EDIT -- this file has been generated automatically.
+      # This file is read for all shells.
 
-        # Only execute this file once per shell.
-        # But don't clobber the environment of interactive non-login children!
-        if [ -n "$__ETC_ZSHENV_SOURCED" ]; then return; fi
-        export __ETC_ZSHENV_SOURCED=1
+      # Only execute this file once per shell.
+      # But don't clobber the environment of interactive non-login children!
+      if [ -n "$__ETC_ZSHENV_SOURCED" ]; then return; fi
+      export __ETC_ZSHENV_SOURCED=1
 
-        if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]; then
-            . ${config.system.build.setEnvironment}
-        fi
+      if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]; then
+          . ${config.system.build.setEnvironment}
+      fi
 
-        ${cfge.shellInit}
+      ${cfge.shellInit}
 
-        ${cfg.shellInit}
+      ${cfg.shellInit}
 
-        # Read system-wide modifications.
-        if test -f /etc/zshenv.local; then
-            . /etc/zshenv.local
-        fi
-      '';
+      # Read system-wide modifications.
+      if test -f /etc/zshenv.local; then
+          . /etc/zshenv.local
+      fi
+    '';
 
-    environment.etc."zprofile".text =
-      ''
-        # /etc/zprofile: DO NOT EDIT -- this file has been generated automatically.
-        # This file is read for login shells.
+    environment.etc."zprofile".text = ''
+      # /etc/zprofile: DO NOT EDIT -- this file has been generated automatically.
+      # This file is read for login shells.
 
-        # Only execute this file once per shell.
-        if [ -n "$__ETC_ZPROFILE_SOURCED" ]; then return; fi
-        __ETC_ZPROFILE_SOURCED=1
+      # Only execute this file once per shell.
+      if [ -n "$__ETC_ZPROFILE_SOURCED" ]; then return; fi
+      __ETC_ZPROFILE_SOURCED=1
 
-        ${cfge.loginShellInit}
+      ${cfge.loginShellInit}
 
-        ${cfg.loginShellInit}
+      ${cfg.loginShellInit}
 
-        # Read system-wide modifications.
-        if test -f /etc/zprofile.local; then
-            . /etc/zprofile.local
-        fi
-      '';
+      # Read system-wide modifications.
+      if test -f /etc/zprofile.local; then
+          . /etc/zprofile.local
+      fi
+    '';
 
-    environment.etc."zshrc".text =
-      ''
-        # /etc/zshrc: DO NOT EDIT -- this file has been generated automatically.
-        # This file is read for interactive shells.
+    environment.etc."zshrc".text = ''
+      # /etc/zshrc: DO NOT EDIT -- this file has been generated automatically.
+      # This file is read for interactive shells.
 
-        # Only execute this file once per shell.
-        if [ -n "$__ETC_ZSHRC_SOURCED" -o -n "$NOSYSZSHRC" ]; then return; fi
-        __ETC_ZSHRC_SOURCED=1
+      # Only execute this file once per shell.
+      if [ -n "$__ETC_ZSHRC_SOURCED" -o -n "$NOSYSZSHRC" ]; then return; fi
+      __ETC_ZSHRC_SOURCED=1
 
-        . /etc/zinputrc
+      . /etc/zinputrc
 
-        # Don't export these, otherwise other shells (bash) will try to use same histfile
-        SAVEHIST=${toString cfg.histSize}
-        HISTSIZE=${toString cfg.histSize}
-        HISTFILE=${cfg.histFile}
+      # Don't export these, otherwise other shells (bash) will try to use same histfile
+      SAVEHIST=${toString cfg.histSize}
+      HISTSIZE=${toString cfg.histSize}
+      HISTFILE=${cfg.histFile}
 
-        HELPDIR="${pkgs.zsh}/share/zsh/$ZSH_VERSION/help"
+      HELPDIR="${pkgs.zsh}/share/zsh/$ZSH_VERSION/help"
 
-        # Tell zsh how to find installed completions
-        for p in ''${(z)NIX_PROFILES}; do
-            fpath+=($p/share/zsh/site-functions $p/share/zsh/$ZSH_VERSION/functions $p/share/zsh/vendor-completions)
-        done
+      # Tell zsh how to find installed completions
+      for p in ''${(z)NIX_PROFILES}; do
+          fpath+=($p/share/zsh/site-functions $p/share/zsh/$ZSH_VERSION/functions $p/share/zsh/vendor-completions)
+      done
 
-        ${optionalString cfg.enableGlobalCompInit "autoload -U compinit && compinit"}
+      ${optionalString cfg.enableGlobalCompInit
+      "autoload -U compinit && compinit"}
 
-        ${cfge.interactiveShellInit}
+      ${cfge.interactiveShellInit}
 
-        ${cfg.interactiveShellInit}
+      ${cfg.interactiveShellInit}
 
-        ${optionalString (cfg.setOptions != []) "setopt ${concatStringsSep " " cfg.setOptions}"}
+      ${optionalString (cfg.setOptions != [ ])
+      "setopt ${concatStringsSep " " cfg.setOptions}"}
 
-        ${zshAliases}
+      ${zshAliases}
 
-        ${cfg.promptInit}
+      ${cfg.promptInit}
 
-        # Read system-wide modifications.
-        if test -f /etc/zshrc.local; then
-            . /etc/zshrc.local
-        fi
-      '';
+      # Read system-wide modifications.
+      if test -f /etc/zshrc.local; then
+          . /etc/zshrc.local
+      fi
+    '';
 
     environment.etc."zinputrc".source = ./zinputrc;
 
@@ -229,9 +222,7 @@ in
     #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
 
     environment.shells =
-      [ "/run/current-system/sw/bin/zsh"
-        "${pkgs.zsh}/bin/zsh"
-      ];
+      [ "/run/current-system/sw/bin/zsh" "${pkgs.zsh}/bin/zsh" ];
 
   };
 

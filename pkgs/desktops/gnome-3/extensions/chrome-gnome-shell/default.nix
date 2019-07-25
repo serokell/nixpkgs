@@ -1,4 +1,4 @@
-{stdenv, fetchurl, cmake, ninja, jq, python3, gnome3, wrapGAppsHook}:
+{ stdenv, fetchurl, cmake, ninja, jq, python3, gnome3, wrapGAppsHook }:
 
 let
   version = "10.1";
@@ -25,14 +25,12 @@ in stdenv.mkDerivation rec {
   wrapPrefixVariables = [ "PYTHONPATH" ];
 
   passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = "chrome-gnome-shell";
-    };
+    updateScript = gnome3.updateScript { packageName = "chrome-gnome-shell"; };
   };
 
   meta = with stdenv.lib; {
     description = "GNOME Shell integration for Chrome";
-    homepage = https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome;
+    homepage = "https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome";
     longDescription = ''
       To use the integration, install the <link xlink:href="https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome/Installation">browser extension</link>, and then set <option>services.gnome3.chrome-gnome-shell.enable</option> to <literal>true</literal>. For Firefox based browsers, you will also need to build the wrappers with <option>nixpkgs.config.firefox.enableGnomeExtensions</option> set to <literal>true</literal>.
     '';

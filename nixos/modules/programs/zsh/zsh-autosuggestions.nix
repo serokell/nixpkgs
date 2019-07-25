@@ -2,17 +2,16 @@
 
 with lib;
 
-let
-  cfg = config.programs.zsh.autosuggestions;
-in
-{
+let cfg = config.programs.zsh.autosuggestions;
+in {
   options.programs.zsh.autosuggestions = {
 
     enable = mkEnableOption "zsh-autosuggestions";
 
     highlightStyle = mkOption {
       type = types.str;
-      default = "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
+      default =
+        "fg=8"; # https://github.com/zsh-users/zsh-autosuggestions/tree/v0.4.3#suggestion-highlight-style
       description = "Highlight style for suggestions ({fore,back}ground color)";
       example = "fg=cyan";
     };
@@ -34,7 +33,7 @@ in
 
     extraConfig = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
       description = "Attribute set with additional configuration values";
       example = literalExample ''
         {
@@ -53,7 +52,9 @@ in
       export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="${cfg.highlightStyle}"
       export ZSH_AUTOSUGGEST_STRATEGY=("${cfg.strategy}")
 
-      ${concatStringsSep "\n" (mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig)}
+      ${concatStringsSep "\n"
+      (mapAttrsToList (key: value: ''export ${key}="${value}"'')
+      cfg.extraConfig)}
     '';
 
   };

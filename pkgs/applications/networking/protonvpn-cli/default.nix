@@ -1,9 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils
-, openvpn, python, dialog, wget, update-resolv-conf }:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, openvpn, python, dialog, wget, update-resolv-conf
+}:
 
 let
   expectedUpdateResolvPath = "/etc/openvpn/update-resolv-conf";
-  actualUpdateResolvePath = "${update-resolv-conf}/libexec/openvpn/update-resolv-conf";
+  actualUpdateResolvePath =
+    "${update-resolv-conf}/libexec/openvpn/update-resolv-conf";
 
 in stdenv.mkDerivation rec {
   name = "protonvpn-cli";
@@ -33,12 +34,21 @@ in stdenv.mkDerivation rec {
 
   postInstallPhase = ''
     wrapProgram $out/protonvpn-cli \
-      --prefix PATH : ${lib.makeBinPath [ coreutils openvpn python dialog wget update-resolv-conf ]}
+      --prefix PATH : ${
+      lib.makeBinPath [
+        coreutils
+        openvpn
+        python
+        dialog
+        wget
+        update-resolv-conf
+      ]
+      }
   '';
 
   meta = with stdenv.lib; {
     description = "ProtonVPN Command-Line Tool";
-    homepage = https://github.com/ProtonVPN/protonvpn-cli;
+    homepage = "https://github.com/ProtonVPN/protonvpn-cli";
     maintainers = with maintainers; [ caugner ];
     license = licenses.mit;
     platforms = platforms.unix;

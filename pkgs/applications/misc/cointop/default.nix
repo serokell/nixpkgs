@@ -14,7 +14,8 @@ buildGoModule rec {
   modSha256 = "1fg5h689s6r79qa9qsmd8hcvyihfyzlvqrhhk0qyfl528ipi1zwg";
 
   meta = with lib; {
-    description = "The fastest and most interactive terminal based UI application for tracking cryptocurrencies";
+    description =
+      "The fastest and most interactive terminal based UI application for tracking cryptocurrencies";
     longDescription = ''
       cointop is a fast and lightweight interactive terminal based UI
       application for tracking and monitoring cryptocurrency coin stats in

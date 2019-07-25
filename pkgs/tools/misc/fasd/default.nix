@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub } :
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "fasd";
@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/clvv/${pname}";
-    description = "Quick command-line access to files and directories for POSIX shells";
+    description =
+      "Quick command-line access to files and directories for POSIX shells";
     license = stdenv.lib.licenses.mit;
 
     longDescription = ''

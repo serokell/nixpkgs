@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, pytest
-, pytest-flake8
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-flake8 }:
 
 buildPythonPackage rec {
   pname = "zipp";
@@ -28,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Pathlib-compatible object wrapper for zip files";
-    homepage = https://github.com/jaraco/zipp;
+    homepage = "https://github.com/jaraco/zipp";
     license = licenses.mit;
   };
 }

@@ -3,7 +3,7 @@
 buildPythonPackage rec {
   pname = "loguru";
   version = "0.3.1";
-  
+
   disabled = isPy27;
   src = fetchPypi {
     inherit pname version;
@@ -16,7 +16,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/Delgan/loguru;
+    homepage = "https://github.com/Delgan/loguru";
     description = "Python logging made (stupidly) simple";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];

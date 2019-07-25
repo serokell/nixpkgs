@@ -1,21 +1,4 @@
-{ stdenv
-, fetchzip
-, fetchFromGitHub
-, cmake
-, makeWrapper
-, python
-, db
-, fuse
-, asciidoc
-, libxml2
-, libxslt
-, docbook_xml_dtd_412
-, docbook_xsl
-, boost
-, pkgconfig
-, judy
-, pam
-, zlib # optional
+{ stdenv, fetchzip, fetchFromGitHub, cmake, makeWrapper, python, db, fuse, asciidoc, libxml2, libxslt, docbook_xml_dtd_412, docbook_xsl, boost, pkgconfig, judy, pam, zlib # optional
 }:
 
 let
@@ -40,14 +23,21 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkgconfig makeWrapper ];
 
-  buildInputs =
-    [ db fuse asciidoc libxml2 libxslt docbook_xml_dtd_412 docbook_xsl
-      zlib boost judy pam
-    ];
-
-  patches = [
-    ./remove-download-external.patch
+  buildInputs = [
+    db
+    fuse
+    asciidoc
+    libxml2
+    libxslt
+    docbook_xml_dtd_412
+    docbook_xsl
+    zlib
+    boost
+    judy
+    pam
   ];
+
+  patches = [ ./remove-download-external.patch ];
 
   postUnpack = ''
     mkdir $sourceRoot/external/spdlog-0.14.0
@@ -61,8 +51,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://lizardfs.com;
-    description = "A highly reliable, scalable and efficient distributed file system";
+    homepage = "https://lizardfs.com";
+    description =
+      "A highly reliable, scalable and efficient distributed file system";
     platforms = platforms.linux;
     license = licenses.gpl3;
     maintainers = [ maintainers.rushmorem ];

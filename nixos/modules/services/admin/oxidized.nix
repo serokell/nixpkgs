@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.oxidized;
-in
-{
+let cfg = config.services.oxidized;
+in {
   options.services.oxidized = {
     enable = mkEnableOption "the oxidized configuration backup service";
 
@@ -107,7 +105,7 @@ in
         Group = cfg.group;
         UMask = "0077";
         NoNewPrivileges = true;
-        Restart  = "always";
+        Restart = "always";
         WorkingDirectory = cfg.dataDir;
         KillSignal = "SIGKILL";
       };

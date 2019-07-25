@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mozfile
-, mozlog
-}:
+{ lib, buildPythonPackage, fetchPypi, mozfile, mozlog }:
 
 buildPythonPackage rec {
   pname = "mozcrash";
@@ -18,7 +13,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Minidump stack trace extractor";
-    homepage = https://wiki.mozilla.org/Auto-tools/Projects/Mozbase;
+    homepage = "https://wiki.mozilla.org/Auto-tools/Projects/Mozbase";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ raskin ];
   };

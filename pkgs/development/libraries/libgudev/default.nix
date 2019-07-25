@@ -1,7 +1,6 @@
 { stdenv, fetchurl, pkgconfig, udev, glib, gobject-introspection, gnome3 }:
 
-let
-  pname = "libgudev";
+let pname = "libgudev";
 in stdenv.mkDerivation rec {
   name = "libgudev-${version}";
   version = "232";
@@ -9,7 +8,9 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "ee4cb2b9c573cdf354f6ed744f01b111d4b5bed3503ffa956cefff50489c7860";
   };
 
@@ -27,7 +28,7 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Projects/libgudev;
+    homepage = "https://wiki.gnome.org/Projects/libgudev";
     maintainers = [ maintainers.eelco ] ++ gnome3.maintainers;
     platforms = platforms.linux;
     license = licenses.lgpl2Plus;

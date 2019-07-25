@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pbr
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pbr, pytest }:
 
 buildPythonPackage rec {
   pname = "ssdp";
@@ -19,8 +14,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/codingjoe/ssdp;
-    description = "Python asyncio library for Simple Service Discovery Protocol (SSDP).";
+    homepage = "https://github.com/codingjoe/ssdp";
+    description =
+      "Python asyncio library for Simple Service Discovery Protocol (SSDP).";
     license = licenses.mit;
   };
 }

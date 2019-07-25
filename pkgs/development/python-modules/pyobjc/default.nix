@@ -14,9 +14,10 @@ buildPythonPackage rec {
   };
 
   meta = {
-    description = "A bridge between the Python and Objective-C programming languages";
+    description =
+      "A bridge between the Python and Objective-C programming languages";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ sauyon ];
-    homepage = https://pythonhosted.org/pyobjc/;
+    homepage = "https://pythonhosted.org/pyobjc/";
   };
 }

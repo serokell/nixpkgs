@@ -1,17 +1,10 @@
-{ stdenv, fetchurl, pkgconfig, dbus, nettle
-, libidn, libnetfilter_conntrack }:
+{ stdenv, fetchurl, pkgconfig, dbus, nettle, libidn, libnetfilter_conntrack }:
 
 with stdenv.lib;
 let
-  copts = concatStringsSep " " ([
-    "-DHAVE_IDN"
-    "-DHAVE_DNSSEC"
-  ] ++ optionals stdenv.isLinux [
-    "-DHAVE_DBUS"
-    "-DHAVE_CONNTRACK"
-  ]);
-in
-stdenv.mkDerivation rec {
+  copts = concatStringsSep " " ([ "-DHAVE_IDN" "-DHAVE_DNSSEC" ]
+    ++ optionals stdenv.isLinux [ "-DHAVE_DBUS" "-DHAVE_CONNTRACK" ]);
+in stdenv.mkDerivation rec {
   name = "dnsmasq-2.80";
 
   src = fetchurl {
@@ -67,7 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "An integrated DNS, DHCP and TFTP server for small networks";
-    homepage = http://www.thekelleys.org.uk/dnsmasq/doc.html;
+    homepage = "http://www.thekelleys.org.uk/dnsmasq/doc.html";
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ eelco fpletz ];

@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, poppler_utils, pkgconfig, libpng
-, imagemagick, libjpeg, fontconfig, podofo, qtbase, qmake, icu, sqlite
-, makeWrapper, unrarSupport ? false, chmlib, python2Packages, libusb1, libmtp
-, xdg_utils, makeDesktopItem, wrapGAppsHook, removeReferencesTo
+{ stdenv, fetchurl, poppler_utils, pkgconfig, libpng, imagemagick, libjpeg, fontconfig, podofo, qtbase, qmake, icu, sqlite, makeWrapper, unrarSupport ?
+  false, chmlib, python2Packages, libusb1, libmtp, xdg_utils, makeDesktopItem, wrapGAppsHook, removeReferencesTo
 }:
 
 stdenv.mkDerivation rec {
@@ -38,12 +36,37 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper pkgconfig qmake removeReferencesTo ];
 
   buildInputs = [
-    poppler_utils libpng imagemagick libjpeg
-    fontconfig podofo qtbase chmlib icu sqlite libusb1 libmtp xdg_utils wrapGAppsHook
+    poppler_utils
+    libpng
+    imagemagick
+    libjpeg
+    fontconfig
+    podofo
+    qtbase
+    chmlib
+    icu
+    sqlite
+    libusb1
+    libmtp
+    xdg_utils
+    wrapGAppsHook
   ] ++ (with python2Packages; [
-    apsw cssselect css-parser dateutil dnspython html5-parser lxml mechanize netifaces pillow
-    python pyqt5_with_qtwebkit sip
-    regex msgpack beautifulsoup4
+    apsw
+    cssselect
+    css-parser
+    dateutil
+    dnspython
+    html5-parser
+    lxml
+    mechanize
+    netifaces
+    pillow
+    python
+    pyqt5_with_qtwebkit
+    sip
+    regex
+    msgpack
+    beautifulsoup4
     # the following are distributed with calibre, but we use upstream instead
     odfpy
   ]);
@@ -169,8 +192,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Comprehensive e-book software";
-    homepage = https://calibre-ebook.com;
-    license = with licenses; if unrarSupport then unfreeRedistributable else gpl3;
+    homepage = "https://calibre-ebook.com";
+    license = with licenses;
+      if unrarSupport then unfreeRedistributable else gpl3;
     maintainers = with maintainers; [ domenkozar pSub AndersonTorres ];
     platforms = platforms.linux;
     inherit version;

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "cups-pk-helper-${version}";
 
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-${version}.tar.xz";
+    url =
+      "https://www.freedesktop.org/software/cups-pk-helper/releases/cups-pk-helper-${version}.tar.xz";
     sha256 = "0a52jw6rm7lr5nbyksiia0rn7sasyb5cjqcb95z1wxm2yprgi6lm";
   };
 
@@ -13,8 +14,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib polkit cups ];
 
   meta = with stdenv.lib; {
-    description = "PolicyKit helper to configure cups with fine-grained privileges";
-    homepage = http://www.freedesktop.org/wiki/Software/cups-pk-helper/;
+    description =
+      "PolicyKit helper to configure cups with fine-grained privileges";
+    homepage = "http://www.freedesktop.org/wiki/Software/cups-pk-helper/";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

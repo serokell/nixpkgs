@@ -1,11 +1,11 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja
-, libevdev, mtdev, udev, libwacom
-, documentationSupport ? false, doxygen ? null, graphviz ? null # Documentation
-, eventGUISupport ? false, cairo ? null, glib ? null, gtk3 ? null # GUI event viewer support
-, testsSupport ? false, check ? null, valgrind ? null, python3 ? null
-}:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, libevdev, mtdev, udev, libwacom, documentationSupport ?
+  false, doxygen ? null, graphviz ? null # Documentation
+, eventGUISupport ? false, cairo ? null, glib ? null, gtk3 ?
+  null # GUI event viewer support
+, testsSupport ? false, check ? null, valgrind ? null, python3 ? null }:
 
-assert documentationSupport -> doxygen != null && graphviz != null && python3 != null;
+assert documentationSupport -> doxygen != null && graphviz != null && python3
+!= null;
 assert eventGUISupport -> cairo != null && glib != null && gtk3 != null;
 assert testsSupport -> check != null && valgrind != null && python3 != null;
 
@@ -14,17 +14,18 @@ let
 
   sphinx-build = if documentationSupport then
     python3.pkgs.sphinx.overrideAttrs (super: {
-      propagatedBuildInputs = super.propagatedBuildInputs ++ (with python3.pkgs; [ recommonmark sphinx_rtd_theme ]);
+      propagatedBuildInputs = super.propagatedBuildInputs
+        ++ (with python3.pkgs; [ recommonmark sphinx_rtd_theme ]);
 
       postFixup = super.postFixup or "" + ''
         # Do not propagate Python
         rm $out/nix-support/propagated-build-inputs
       '';
     })
-  else null;
-in
+  else
+    null;
 
-with stdenv.lib;
+in with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "libinput-${version}";
   version = "1.13.4";
@@ -47,8 +48,12 @@ stdenv.mkDerivation rec {
     ++ optionals documentationSupport [ doxygen graphviz sphinx-build ]
     ++ optionals testsSupport [ valgrind ];
 
-  buildInputs = [ libevdev mtdev libwacom (python3.withPackages (pkgs: with pkgs; [ evdev ])) ]
-    ++ optionals eventGUISupport [ cairo glib gtk3 ]
+  buildInputs = [
+    libevdev
+    mtdev
+    libwacom
+    (python3.withPackages (pkgs: with pkgs; [ evdev ]))
+  ] ++ optionals eventGUISupport [ cairo glib gtk3 ]
     ++ optionals testsSupport [ check ];
 
   propagatedBuildInputs = [ udev ];
@@ -64,10 +69,11 @@ stdenv.mkDerivation rec {
   doCheck = testsSupport && stdenv.hostPlatform == stdenv.buildPlatform;
 
   meta = {
-    description = "Handles input devices in Wayland compositors and provides a generic X.Org input driver";
-    homepage    = http://www.freedesktop.org/wiki/Software/libinput;
-    license     = licenses.mit;
-    platforms   = platforms.unix;
+    description =
+      "Handles input devices in Wayland compositors and provides a generic X.Org input driver";
+    homepage = "http://www.freedesktop.org/wiki/Software/libinput";
+    license = licenses.mit;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ codyopel ];
   };
 }

@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, meson, ninja, buildPythonPackage, pytest, pkgconfig, cairo, xlibsWrapper, isPy33, isPy3k }:
+{ lib, fetchFromGitHub, meson, ninja, buildPythonPackage, pytest, pkgconfig, cairo, xlibsWrapper, isPy33, isPy3k
+}:
 
 buildPythonPackage rec {
   pname = "pycairo";
@@ -15,16 +16,9 @@ buildPythonPackage rec {
     sha256 = "0f4l7d1ibkk8xdspyv5zx8fah9z3x775bd91zirnp37vlgqds7xj";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig ];
 
-  buildInputs = [
-    cairo
-    xlibsWrapper
-  ];
+  buildInputs = [ cairo xlibsWrapper ];
 
   checkInputs = [ pytest ];
 
@@ -32,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python 2/3 bindings for cairo";
-    homepage = https://pycairo.readthedocs.io/;
+    homepage = "https://pycairo.readthedocs.io/";
     license = with licenses; [ lgpl2 mpl11 ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

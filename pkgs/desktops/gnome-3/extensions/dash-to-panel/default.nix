@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0r26ph6zq87kvglydv00rf24mshz7l4r38zf9niyp3mxyzz6rwys";
   };
 
-  buildInputs = [
-    glib gettext
-  ];
+  buildInputs = [ glib gettext ];
 
   makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
 
@@ -21,6 +19,6 @@ stdenv.mkDerivation rec {
     description = "An icon taskbar for Gnome Shell";
     license = licenses.gpl2;
     maintainers = with maintainers; [ mounium ];
-    homepage = https://github.com/jderose9/dash-to-panel;
+    homepage = "https://github.com/jderose9/dash-to-panel";
   };
 }

@@ -1,10 +1,5 @@
-{ stdenv, lib, fetchurl, callPackage, substituteAll, python3, pkgconfig
-, xorg, gtk3, glib, pango, cairo, gdk_pixbuf, atk
-, wrapGAppsHook, xorgserver, getopt, xauth, utillinux, which
-, ffmpeg_4, x264, libvpx, libwebp, x265
-, libfakeXinerama
-, gst_all_1, pulseaudio, gobject-introspection
-, pam }:
+{ stdenv, lib, fetchurl, callPackage, substituteAll, python3, pkgconfig, xorg, gtk3, glib, pango, cairo, gdk_pixbuf, atk, wrapGAppsHook, xorgserver, getopt, xauth, utillinux, which, ffmpeg_4, x264, libvpx, libwebp, x265, libfakeXinerama, gst_all_1, pulseaudio, gobject-introspection, pam
+}:
 
 with lib;
 
@@ -33,31 +28,64 @@ in buildPythonApplication rec {
   '';
 
   nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
-  buildInputs = with xorg; [
-    libX11 xorgproto libXrender libXi
-    libXtst libXfixes libXcomposite libXdamage
-    libXrandr libxkbfile
+  buildInputs = with xorg;
+    [
+      libX11
+      xorgproto
+      libXrender
+      libXi
+      libXtst
+      libXfixes
+      libXcomposite
+      libXdamage
+      libXrandr
+      libxkbfile
     ] ++ [
-    cython
+      cython
 
-    pango cairo gdk_pixbuf atk.out gtk3 glib
+      pango
+      cairo
+      gdk_pixbuf
+      atk.out
+      gtk3
+      glib
 
-    ffmpeg_4 libvpx x264 libwebp x265
+      ffmpeg_4
+      libvpx
+      x264
+      libwebp
+      x265
 
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-libav
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-libav
 
-    pam
-    gobject-introspection
-  ];
+      pam
+      gobject-introspection
+    ];
   propagatedBuildInputs = with python3.pkgs; [
-    pillow rencode pycrypto cryptography pycups lz4 dbus-python
-    netifaces numpy pygobject3 pycairo gst-python pam
-    pyopengl paramiko opencv python-uinput pyxdg
-    ipaddress idna
+    pillow
+    rencode
+    pycrypto
+    cryptography
+    pycups
+    lz4
+    dbus-python
+    netifaces
+    numpy
+    pygobject3
+    pycairo
+    gst-python
+    pam
+    pyopengl
+    paramiko
+    opencv
+    python-uinput
+    pyxdg
+    ipaddress
+    idna
   ];
 
   NIX_CFLAGS_COMPILE = [
@@ -79,7 +107,16 @@ in buildPythonApplication rec {
     gappsWrapperArgs+=(
       --set XPRA_INSTALL_PREFIX "$out"
       --prefix LD_LIBRARY_PATH : ${libfakeXinerama}/lib
-      --prefix PATH : ${stdenv.lib.makeBinPath [ getopt xorgserver xauth which utillinux pulseaudio ]}
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath [
+        getopt
+        xorgserver
+        xauth
+        which
+        utillinux
+        pulseaudio
+      ]
+      }
     )
   '';
 
@@ -90,7 +127,7 @@ in buildPythonApplication rec {
   passthru = { inherit xf86videodummy; };
 
   meta = {
-    homepage = http://xpra.org/;
+    homepage = "http://xpra.org/";
     downloadPage = "https://xpra.org/src/";
     downloadURLRegexp = "xpra-.*[.]tar[.]xz$";
     description = "Persistent remote applications for X";

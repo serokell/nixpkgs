@@ -1,28 +1,26 @@
-import ./make-test.nix ({ pkgs, lib, ...}:
+import ./make-test.nix ({ pkgs, lib, ... }:
 
 with lib;
 
 {
   name = "couchdb";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ fpletz ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ fpletz ]; };
 
   nodes = {
-    couchdb1 =
-      { pkgs, ... }:
+    couchdb1 = { pkgs, ... }:
 
-      { environment.systemPackages = with pkgs; [ jq ];
-        services.couchdb.enable = true;
-      };
+    {
+      environment.systemPackages = with pkgs; [ jq ];
+      services.couchdb.enable = true;
+    };
 
-    couchdb2 =
-      { pkgs, ... }:
+    couchdb2 = { pkgs, ... }:
 
-      { environment.systemPackages = with pkgs; [ jq ];
-        services.couchdb.enable = true;
-        services.couchdb.package = pkgs.couchdb2;
-      };
+    {
+      environment.systemPackages = with pkgs; [ jq ];
+      services.couchdb.enable = true;
+      services.couchdb.package = pkgs.couchdb2;
+    };
   };
 
   testScript = let
@@ -34,23 +32,31 @@ with lib;
           exit 1
         fi
       '';
-  in ''
-    startAll;
+    in ''
+      startAll;
 
-    $couchdb1->waitForUnit("couchdb.service");
-    $couchdb1->waitUntilSucceeds("${curlJqCheck "GET" "" ".couchdb" "Welcome"}");
-    $couchdb1->waitUntilSucceeds("${curlJqCheck "GET" "_all_dbs" ". | length" "2"}");
-    $couchdb1->succeed("${curlJqCheck "PUT" "foo" ".ok" "true"}");
-    $couchdb1->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "3"}");
-    $couchdb1->succeed("${curlJqCheck "DELETE" "foo" ".ok" "true"}");
-    $couchdb1->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "2"}");
+      $couchdb1->waitForUnit("couchdb.service");
+      $couchdb1->waitUntilSucceeds("${
+        curlJqCheck "GET" "" ".couchdb" "Welcome"
+      }");
+      $couchdb1->waitUntilSucceeds("${
+        curlJqCheck "GET" "_all_dbs" ". | length" "2"
+      }");
+      $couchdb1->succeed("${curlJqCheck "PUT" "foo" ".ok" "true"}");
+      $couchdb1->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "3"}");
+      $couchdb1->succeed("${curlJqCheck "DELETE" "foo" ".ok" "true"}");
+      $couchdb1->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "2"}");
 
-    $couchdb2->waitForUnit("couchdb.service");
-    $couchdb2->waitUntilSucceeds("${curlJqCheck "GET" "" ".couchdb" "Welcome"}");
-    $couchdb2->waitUntilSucceeds("${curlJqCheck "GET" "_all_dbs" ". | length" "0"}");
-    $couchdb2->succeed("${curlJqCheck "PUT" "foo" ".ok" "true"}");
-    $couchdb2->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "1"}");
-    $couchdb2->succeed("${curlJqCheck "DELETE" "foo" ".ok" "true"}");
-    $couchdb2->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "0"}");
-  '';
+      $couchdb2->waitForUnit("couchdb.service");
+      $couchdb2->waitUntilSucceeds("${
+        curlJqCheck "GET" "" ".couchdb" "Welcome"
+      }");
+      $couchdb2->waitUntilSucceeds("${
+        curlJqCheck "GET" "_all_dbs" ". | length" "0"
+      }");
+      $couchdb2->succeed("${curlJqCheck "PUT" "foo" ".ok" "true"}");
+      $couchdb2->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "1"}");
+      $couchdb2->succeed("${curlJqCheck "DELETE" "foo" ".ok" "true"}");
+      $couchdb2->succeed("${curlJqCheck "GET" "_all_dbs" ". | length" "0"}");
+    '';
 })

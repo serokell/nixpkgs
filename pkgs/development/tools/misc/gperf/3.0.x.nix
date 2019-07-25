@@ -1,4 +1,4 @@
-{stdenv, fetchurl, autoreconfHook }:
+{ stdenv, fetchurl, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "gperf-3.0.4";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl3Plus;
 
-    homepage = https://www.gnu.org/software/gperf/;
+    homepage = "https://www.gnu.org/software/gperf/";
     platforms = stdenv.lib.platforms.unix;
   };
 }

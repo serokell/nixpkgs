@@ -1,10 +1,11 @@
-{ stdenv, fetchurl , alsaLib, }:
+{ stdenv, fetchurl, alsaLib, }:
 
 stdenv.mkDerivation rec {
   name = "zita-alsa-pcmi-${version}";
   version = "0.3.2";
   src = fetchurl {
-    url = "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/${name}.tar.bz2";
+    url =
+      "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/${name}.tar.bz2";
     sha256 = "12d7vdg74yh21w69qi0wg57iz4876j94qbiq09bvscih6xz9y78s";
   };
 
@@ -54,9 +55,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "The successor of clalsadrv, provides easy access to ALSA PCM devices";
+    description =
+      "The successor of clalsadrv, provides easy access to ALSA PCM devices";
     version = "${version}";
-    homepage = http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html;
+    homepage =
+      "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.magnetophon ];
     platforms = stdenv.lib.platforms.linux;

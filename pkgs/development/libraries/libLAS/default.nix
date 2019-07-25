@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, boost, cmake, gdal, libgeotiff, libtiff, LASzip, fixDarwinDylibNames }:
+{ stdenv, fetchurl, boost, cmake, gdal, libgeotiff, libtiff, LASzip, fixDarwinDylibNames
+}:
 
 stdenv.mkDerivation rec {
   name = "libLAS-1.8.1";
@@ -10,7 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ boost cmake gdal libgeotiff libtiff LASzip ]
-                ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   cmakeFlags = [
     "-DGDAL_CONFIG=${gdal}/bin/gdal-config"
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "LAS 1.0/1.1/1.2 ASPRS LiDAR data translation toolset";
-    homepage = https://liblas.org;
+    homepage = "https://liblas.org";
     license = stdenv.lib.licenses.bsd3;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.michelk ];

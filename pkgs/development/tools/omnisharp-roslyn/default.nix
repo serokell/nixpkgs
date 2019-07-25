@@ -1,16 +1,13 @@
-{ stdenv
-, fetchurl
-, mono5
-, makeWrapper
-}:
+{ stdenv, fetchurl, mono5, makeWrapper }:
 
 stdenv.mkDerivation rec {
 
   name = "omnisharp-roslyn-${version}";
   version = "1.32.19";
-  
+
   src = fetchurl {
-    url = "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${version}/omnisharp-mono.tar.gz";
+    url =
+      "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v${version}/omnisharp-mono.tar.gz";
     sha256 = "0flmijar7ih9wp2i585035zhgwpqymr2y778x841bpgv412kxgpz";
   };
 
@@ -23,13 +20,13 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
-    cd ..
-		cp -r src $out/
-    ls -al $out/src
-    makeWrapper ${mono5}/bin/mono $out/bin/omnisharp \
-    --add-flags "$out/src/OmniSharp.exe"
-  '';
+        mkdir -p $out/bin
+        cd ..
+    		cp -r src $out/
+        ls -al $out/src
+        makeWrapper ${mono5}/bin/mono $out/bin/omnisharp \
+        --add-flags "$out/src/OmniSharp.exe"
+      '';
 
   meta = with stdenv.lib; {
     description = "OmniSharp based on roslyn workspaces";

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "checkstyle-${version}";
 
   src = fetchurl {
-    url = "https://github.com/checkstyle/checkstyle/releases/download/checkstyle-${version}/checkstyle-${version}-all.jar";
+    url =
+      "https://github.com/checkstyle/checkstyle/releases/download/checkstyle-${version}/checkstyle-${version}-all.jar";
     sha256 = "0lnpzh4c5m8xkdx8dxywp33i3zrnwj1nhgpqnqgx31aw3x0drw40";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
       adheres to a coding standard. By default it supports the Sun Code
       Conventions, but is highly configurable.
     '';
-    homepage = http://checkstyle.sourceforge.net/;
+    homepage = "http://checkstyle.sourceforge.net/";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ pSub ];
     platforms = jre.meta.platforms;

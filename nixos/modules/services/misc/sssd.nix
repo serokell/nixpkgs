@@ -44,12 +44,13 @@ in {
     (mkIf cfg.enable {
       assertions = singleton {
         assertion = nscd.enable;
-        message = "nscd must be enabled through `services.nscd.enable` for SSSD to work.";
+        message =
+          "nscd must be enabled through `services.nscd.enable` for SSSD to work.";
       };
 
       systemd.services.sssd = {
         description = "System Security Services Daemon";
-        wantedBy    = [ "multi-user.target" ];
+        wantedBy = [ "multi-user.target" ];
         before = [ "systemd-user-sessions.service" "nss-user-lookup.target" ];
         after = [ "network-online.target" "nscd.service" ];
         requires = [ "network-online.target" "nscd.service" ];
@@ -79,18 +80,19 @@ in {
     })
 
     (mkIf cfg.sshAuthorizedKeysIntegration {
-    # Ugly: sshd refuses to start if a store path is given because /nix/store is group-writable.
-    # So indirect by a symlink.
-    environment.etc."ssh/authorized_keys_command" = {
-      mode = "0755";
-      text = ''
-        #!/bin/sh
-        exec ${pkgs.sssd}/bin/sss_ssh_authorizedkeys "$@"
+      # Ugly: sshd refuses to start if a store path is given because /nix/store is group-writable.
+      # So indirect by a symlink.
+      environment.etc."ssh/authorized_keys_command" = {
+        mode = "0755";
+        text = ''
+          #!/bin/sh
+          exec ${pkgs.sssd}/bin/sss_ssh_authorizedkeys "$@"
+        '';
+      };
+      services.openssh.extraConfig = ''
+        AuthorizedKeysCommand /etc/ssh/authorized_keys_command
+        AuthorizedKeysCommandUser nobody
       '';
-    };
-    services.openssh.extraConfig = ''
-      AuthorizedKeysCommand /etc/ssh/authorized_keys_command
-      AuthorizedKeysCommandUser nobody
-    '';
-  })];
+    })
+  ];
 }

@@ -1,8 +1,8 @@
-{ fetchurl, stdenv, libxml2, freetype, libGLU_combined, glew, qt4
-, cmake, makeWrapper, libjpeg, python }:
+{ fetchurl, stdenv, libxml2, freetype, libGLU_combined, glew, qt4, cmake, makeWrapper, libjpeg, python
+}:
 
-let version = "5.1.0"; in
-stdenv.mkDerivation rec {
+let version = "5.1.0";
+in stdenv.mkDerivation rec {
   name = "tulip-${version}";
 
   src = fetchurl {
@@ -18,21 +18,23 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = {
-    description = "A visualization framework for the analysis and visualization of relational data";
+    description =
+      "A visualization framework for the analysis and visualization of relational data";
 
-    longDescription =
-      '' Tulip is an information visualization framework dedicated to the
-         analysis and visualization of relational data.  Tulip aims to
-         provide the developer with a complete library, supporting the design
-         of interactive information visualization applications for relational
-         data that can be tailored to the problems he or she is addressing.
-      '';
+    longDescription = ''
+      Tulip is an information visualization framework dedicated to the
+              analysis and visualization of relational data.  Tulip aims to
+              provide the developer with a complete library, supporting the design
+              of interactive information visualization applications for relational
+              data that can be tailored to the problems he or she is addressing.
+           '';
 
-    homepage = http://tulip.labri.fr/;
+    homepage = "http://tulip.labri.fr/";
 
     license = stdenv.lib.licenses.gpl3Plus;
 
     maintainers = [ ];
-    platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux;  # arbitrary choice
+    platforms = stdenv.lib.platforms.gnu
+      ++ stdenv.lib.platforms.linux; # arbitrary choice
   };
 }

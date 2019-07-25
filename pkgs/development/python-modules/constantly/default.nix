@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
   pname = "constantly";
   version = "15.1.0";
@@ -10,7 +9,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/twisted/constantly;
+    homepage = "https://github.com/twisted/constantly";
     description = "symbolic constant support";
     license = licenses.mit;
     maintainers = [ ];

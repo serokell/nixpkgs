@@ -1,22 +1,21 @@
-{ lib, stdenv, buildPackages, fetchurl, autoconf, automake, libtool, pkgconfig, zlib, ilmbase, }:
+{ lib, stdenv, buildPackages, fetchurl, autoconf, automake, libtool, pkgconfig, zlib, ilmbase,
+}:
 
 let
   # Doesn't really do anything when not crosscompiling
   emulator = stdenv.hostPlatform.emulator buildPackages;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "openexr-${version}";
   version = lib.getVersion ilmbase;
 
   src = fetchurl {
-    url = "https://github.com/openexr/openexr/releases/download/v${version}/${name}.tar.gz";
+    url =
+      "https://github.com/openexr/openexr/releases/download/v${version}/${name}.tar.gz";
     sha256 = "19jywbs9qjvsbkvlvzayzi81s976k53wg53vw4xj66lcgylb6v7x";
   };
 
-  patches = [
-    ./bootstrap.patch
-  ];
+  patches = [ ./bootstrap.patch ];
 
   outputs = [ "bin" "dev" "out" "doc" ];
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     for file in b44ExpLogTable dwaLookups
     do
       # Ecape for both sh and Automake
-      emu=${lib.escapeShellArg (lib.replaceStrings ["$"] ["$$"] emulator)}
+      emu=${lib.escapeShellArg (lib.replaceStrings [ "$" ] [ "$$" ] emulator)}
       before="./$file > $file.h"
       after="$emu $before"
       substituteInPlace IlmImf/Makefile.am \
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails 1 of 1 tests
 
   meta = with stdenv.lib; {
-    homepage = https://www.openexr.com/;
+    homepage = "https://www.openexr.com/";
     license = licenses.bsd3;
     platforms = platforms.all;
   };

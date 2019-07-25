@@ -1,14 +1,9 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, ipython
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, ipython, isPyPy }:
 
 buildPythonPackage rec {
   pname = "ipdb";
   version = "0.12";
-  disabled = isPyPy;  # setupterm: could not find terminfo database
+  disabled = isPyPy; # setupterm: could not find terminfo database
 
   src = fetchPypi {
     inherit pname version;
@@ -22,7 +17,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/gotcha/ipdb;
+    homepage = "https://github.com/gotcha/ipdb";
     description = "IPython-enabled pdb";
     license = licenses.bsd0;
     maintainers = [ maintainers.costrouc ];

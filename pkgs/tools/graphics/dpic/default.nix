@@ -19,8 +19,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://ece.uwaterloo.ca/~aplevich/dpic/;
-    description = "An implementation of the pic little language for creating drawings";
+    homepage = "https://ece.uwaterloo.ca/~aplevich/dpic/";
+    description =
+      "An implementation of the pic little language for creating drawings";
     license = stdenv.lib.licenses.bsd2;
     maintainers = [ stdenv.lib.maintainers.aespinosa ];
     platforms = stdenv.lib.platforms.all;

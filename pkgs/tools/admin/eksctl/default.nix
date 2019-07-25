@@ -15,14 +15,12 @@ buildGoModule rec {
 
   subPackages = [ "cmd/eksctl" ];
 
-  buildFlags =
-  ''
+  buildFlags = ''
     -tags netgo
     -tags release
   '';
 
-  postInstall =
-  ''
+  postInstall = ''
     mkdir -p "$out/share/"{bash-completion/completions,zsh/site-functions}
 
     $out/bin/eksctl completion bash > "$out/share/bash-completion/completions/eksctl"

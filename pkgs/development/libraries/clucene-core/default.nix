@@ -1,4 +1,4 @@
-{stdenv, fetchurl}:
+{ stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   name = "clucene-core-0.9.21b";
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
       CLucene is a port of the very popular Java Lucene text search engine API.
     '';
-    homepage = http://clucene.sourceforge.net;
+    homepage = "http://clucene.sourceforge.net";
     platforms = platforms.linux;
     license = with licenses; [ asl20 lgpl2 ];
   };

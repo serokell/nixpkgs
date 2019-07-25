@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, numpy
-, awkward
-}:
+{ stdenv, buildPythonPackage, fetchPypi, numpy, awkward }:
 
 buildPythonPackage rec {
   version = "0.7.0";
@@ -20,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/scikit-hep/uproot-methods;
+    homepage = "https://github.com/scikit-hep/uproot-methods";
     description = "Pythonic mix-ins for ROOT classes";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

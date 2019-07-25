@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, flask
-, flask-silk
-, future
-}:
+{ stdenv, buildPythonPackage, fetchPypi, flask, flask-silk, future }:
 
 buildPythonPackage rec {
   pname = "Flask-AutoIndex";
@@ -15,11 +9,7 @@ buildPythonPackage rec {
     sha256 = "af2cdb34eefe6edbf43ce19200880829e8c2df3598000e75dc63c9b7e3478706";
   };
 
-  propagatedBuildInputs = [
-    flask
-    flask-silk
-    future
-  ];
+  propagatedBuildInputs = [ flask flask-silk future ];
 
   meta = with stdenv.lib; {
     description = "The mod_autoindex for Flask";
@@ -29,6 +19,6 @@ buildPythonPackage rec {
     '';
     license = licenses.bsd2;
     maintainers = with maintainers; [ timokau ];
-    homepage = https://pythonhosted.org/Flask-AutoIndex/;
+    homepage = "https://pythonhosted.org/Flask-AutoIndex/";
   };
 }

@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   configureFlags = stdenv.lib.optional (perl == null) "--with-perl-bindings=no";
 
   meta = with stdenv.lib; {
-    description = "C library to generate ICMP echo requests (a.k.a. ping packets)";
+    description =
+      "C library to generate ICMP echo requests (a.k.a. ping packets)";
     longDescription = ''
       liboping is a C library to generate ICMP echo requests, better known as
       "ping packets". It is intended for use in network monitoring applications
@@ -21,7 +22,7 @@ stdenv.mkDerivation rec {
       Included is a sample application, called oping, which demonstrates the
       library's abilities.
     '';
-    homepage = http://noping.cc/;
+    homepage = "http://noping.cc/";
     license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = [ maintainers.bjornfor ];

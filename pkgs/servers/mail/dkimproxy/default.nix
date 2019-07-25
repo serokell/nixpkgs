@@ -3,8 +3,7 @@
 let
   pkg = "dkimproxy";
   version = "1.4.1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pkg}-${version}";
 
   src = fetchurl {
@@ -24,11 +23,16 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [ perlPackages.perl ];
-  propagatedBuildInputs = with perlPackages; [ Error MailDKIM MIMETools NetServer ];
+  propagatedBuildInputs = with perlPackages; [
+    Error
+    MailDKIM
+    MIMETools
+    NetServer
+  ];
 
   meta = with stdenv.lib; {
     description = "SMTP-proxy that signs and/or verifies emails";
-    homepage = http://dkimproxy.sourceforge.net/;
+    homepage = "http://dkimproxy.sourceforge.net/";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.ekleog ];
     platforms = platforms.all;

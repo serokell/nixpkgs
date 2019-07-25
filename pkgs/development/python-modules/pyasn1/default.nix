@@ -11,8 +11,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "ASN.1 tools for Python";
-    homepage = http://pyasn1.sourceforge.net/;
+    homepage = "http://pyasn1.sourceforge.net/";
     license = "mBSD";
-    platforms = platforms.unix;  # arbitrary choice
+    platforms = platforms.unix; # arbitrary choice
   };
 }

@@ -23,7 +23,7 @@ let
     cp ${cfg.package}/conf/* $out/
     rm $out/hbase-site.xml
     ln -s ${configFile} $out/hbase-site.xml
-  '' ;
+  '';
 
 in {
 
@@ -50,7 +50,6 @@ in {
           HBase package to use.
         '';
       };
-
 
       user = mkOption {
         type = types.string;
@@ -111,7 +110,8 @@ in {
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/hbase --config ${configDir} master start";
+        ExecStart =
+          "${cfg.package}/bin/hbase --config ${configDir} master start";
       };
     };
 

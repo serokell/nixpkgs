@@ -3,7 +3,7 @@
 buildPythonPackage rec {
   pname = "cx_Freeze";
   version = "5.1.1";
-  name  = "${pname}-${version}";
+  name = "${pname}-${version}";
 
   src = fetchPypi {
     inherit pname version;
@@ -21,7 +21,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A set of scripts and modules for freezing Python scripts into executables";
+    description =
+      "A set of scripts and modules for freezing Python scripts into executables";
     homepage = "http://cx-freeze.sourceforge.net/";
     license = licenses.psfl;
   };

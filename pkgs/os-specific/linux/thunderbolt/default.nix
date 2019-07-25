@@ -1,10 +1,4 @@
-{ stdenv
-, boost
-, cmake
-, fetchFromGitHub
-, pkgconfig
-, txt2tags
-}:
+{ stdenv, boost, cmake, fetchFromGitHub, pkgconfig, txt2tags }:
 
 stdenv.mkDerivation rec {
   name = "thunderbolt-${version}";
@@ -28,7 +22,7 @@ stdenv.mkDerivation rec {
     description = "Thunderbolt(TM) user-space components";
     license = stdenv.lib.licenses.bsd3;
     maintainers = [ stdenv.lib.maintainers.ryantrinkle ];
-    homepage = https://01.org/thunderbolt-sw;
+    homepage = "https://01.org/thunderbolt-sw";
     platforms = stdenv.lib.platforms.linux;
   };
 }

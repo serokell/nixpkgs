@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, jinja2
-, selenium
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, jinja2, selenium, six }:
 
 buildPythonPackage rec {
   pname = "branca";
@@ -24,7 +17,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Generate complex HTML+JS pages with Python";
-    homepage = https://github.com/python-visualization/branca;
+    homepage = "https://github.com/python-visualization/branca";
     license = with lib.licenses; [ mit ];
   };
 }

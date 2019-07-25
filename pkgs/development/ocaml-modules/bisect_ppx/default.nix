@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-migrate-parsetree, ppx_tools_versioned }:
+{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-migrate-parsetree, ppx_tools_versioned
+}:
 
 buildDunePackage rec {
   pname = "bisect_ppx";
@@ -11,14 +12,11 @@ buildDunePackage rec {
     sha256 = "1plhm4pvrhpapz5zaks194ji1fgzmp13y942g10pbn9m7kgkqg4h";
   };
 
-  buildInputs = [
-    ocaml-migrate-parsetree
-    ppx_tools_versioned
-  ];
+  buildInputs = [ ocaml-migrate-parsetree ppx_tools_versioned ];
 
   meta = {
     description = "Code coverage for OCaml";
     license = stdenv.lib.licenses.mpl20;
-    homepage = https://github.com/aantron/bisect_ppx;
+    homepage = "https://github.com/aantron/bisect_ppx";
   };
 }

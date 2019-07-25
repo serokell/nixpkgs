@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, pcre, pkgconfig, libsepol
-, enablePython ? true, swig ? null, python ? null
-, fts
-}:
+{ stdenv, fetchurl, pcre, pkgconfig, libsepol, enablePython ? true, swig ?
+  null, python ? null, fts }:
 
 assert enablePython -> swig != null && python != null;
 
@@ -44,7 +42,7 @@ stdenv.mkDerivation rec {
 
   installTargets = [ "install" ] ++ optional enablePython "install-pywrap";
 
-  meta = removeAttrs libsepol.meta ["outputsToInstall"] // {
+  meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
     description = "SELinux core library";
   };
 }

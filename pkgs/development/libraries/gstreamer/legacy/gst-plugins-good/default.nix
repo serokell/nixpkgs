@@ -1,11 +1,6 @@
-{ fetchurl, stdenv, lib, pkgconfig, gst-plugins-base, aalib, cairo
-, flac, libjpeg, speex, libpng, libdv, libcaca, libvpx
-, taglib, libpulseaudio, gdk_pixbuf, orc
-, glib, gstreamer, bzip2, libsoup, libshout, ncurses, libintl
-, # Whether to build no plugins that have external dependencies
-  # (except the PulseAudio plugin).
-  minimalDeps ? false
-}:
+{ fetchurl, stdenv, lib, pkgconfig, gst-plugins-base, aalib, cairo, flac, libjpeg, speex, libpng, libdv, libcaca, libvpx, taglib, libpulseaudio, gdk_pixbuf, orc, glib, gstreamer, bzip2, libsoup, libshout, ncurses, libintl, # Whether to build no plugins that have external dependencies
+# (except the PulseAudio plugin).
+minimalDeps ? false }:
 
 stdenv.mkDerivation rec {
   name = "gst-plugins-good-0.10.31";
@@ -14,7 +9,7 @@ stdenv.mkDerivation rec {
     urls = [
       "${meta.homepage}/src/gst-plugins-good/${name}.tar.bz2"
       "mirror://gentoo/distfiles/${name}.tar.bz2"
-      ];
+    ];
     sha256 = "1ijswgcrdp243mfsyza31fpzq6plz40p4b83vkr2x4x7807889vy";
   };
 
@@ -22,12 +17,25 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-experimental" "--disable-oss" ];
 
-  buildInputs =
-    [ pkgconfig glib gstreamer gst-plugins-base libintl ]
+  buildInputs = [ pkgconfig glib gstreamer gst-plugins-base libintl ]
     ++ lib.optional stdenv.isLinux libpulseaudio
-    ++ lib.optionals (!minimalDeps)
-      [ aalib libcaca cairo libdv flac libjpeg libpng speex
-        taglib bzip2 libvpx gdk_pixbuf orc libsoup libshout ];
+    ++ lib.optionals (!minimalDeps) [
+      aalib
+      libcaca
+      cairo
+      libdv
+      flac
+      libjpeg
+      libpng
+      speex
+      taglib
+      bzip2
+      libvpx
+      gdk_pixbuf
+      orc
+      libsoup
+      libshout
+    ];
 
   enableParallelBuilding = true;
 
@@ -40,11 +48,11 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = {
-    homepage = https://gstreamer.freedesktop.org;
+    homepage = "https://gstreamer.freedesktop.org";
 
     description = "`Good' plug-ins for GStreamer";
 
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.unix;
 
     license = stdenv.lib.licenses.lgpl2Plus;

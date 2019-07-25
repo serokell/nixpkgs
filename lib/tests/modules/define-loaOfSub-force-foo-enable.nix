@@ -1,7 +1,5 @@
 { lib, ... }:
 
 {
-  loaOfSub = lib.mkForce {
-    foo.enable = false;
-  };
+  loaOfSub = lib.mkForce { foo.enable = false; };
 }

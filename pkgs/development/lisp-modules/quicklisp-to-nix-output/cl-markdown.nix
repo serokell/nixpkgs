@@ -1,20 +1,28 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cl-markdown'';
-  version = ''20101006-darcs'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cl-markdown";
+  version = "20101006-darcs";
 
-  description = '''';
+  description = "";
 
-  deps = [ args."anaphora" args."asdf-system-connections" args."cl-containers" args."cl-ppcre" args."dynamic-classes" args."metabang-bind" args."metatilities-base" ];
+  deps = [
+    args."anaphora"
+    args."asdf-system-connections"
+    args."cl-containers"
+    args."cl-ppcre"
+    args."dynamic-classes"
+    args."metabang-bind"
+    args."metatilities-base"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-markdown/2010-10-06/cl-markdown-20101006-darcs.tgz'';
-    sha256 = ''1hrv7szhmhxgbadwrmf6wx4kwkbg3dnabbsz4hfffzjgprwac79w'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-markdown/2010-10-06/cl-markdown-20101006-darcs.tgz";
+    sha256 = "1hrv7szhmhxgbadwrmf6wx4kwkbg3dnabbsz4hfffzjgprwac79w";
   };
 
   packageName = "cl-markdown";
 
-  asdFilesToKeep = ["cl-markdown.asd"];
+  asdFilesToKeep = [ "cl-markdown.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-markdown DESCRIPTION NIL SHA256
@@ -33,4 +41,5 @@ rec {
     (anaphora asdf-system-connections cl-containers cl-ppcre dynamic-classes
      metabang-bind metatilities-base)
     VERSION 20101006-darcs SIBLINGS (cl-markdown-comparisons cl-markdown-test)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

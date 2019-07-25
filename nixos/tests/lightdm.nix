@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "lightdm";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ aszlig ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ aszlig ]; };
 
   machine = { ... }: {
     imports = [ ./common/user-account.nix ];
@@ -15,15 +13,15 @@ import ./make-test.nix ({ pkgs, ...} : {
 
   enableOCR = true;
 
-  testScript = { nodes, ... }: let
-    user = nodes.machine.config.users.users.alice;
-  in ''
-    startAll;
-    $machine->waitForText(qr/${user.description}/);
-    $machine->screenshot("lightdm");
-    $machine->sendChars("${user.password}\n");
-    $machine->waitForFile("/home/alice/.Xauthority");
-    $machine->succeed("xauth merge ~alice/.Xauthority");
-    $machine->waitForWindow("^IceWM ");
-  '';
+  testScript = { nodes, ... }:
+    let user = nodes.machine.config.users.users.alice;
+    in ''
+      startAll;
+      $machine->waitForText(qr/${user.description}/);
+      $machine->screenshot("lightdm");
+      $machine->sendChars("${user.password}\n");
+      $machine->waitForFile("/home/alice/.Xauthority");
+      $machine->succeed("xauth merge ~alice/.Xauthority");
+      $machine->waitForWindow("^IceWM ");
+    '';
 })

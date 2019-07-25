@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "oauth";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://code.google.com/p/oauth;
+    homepage = "http://code.google.com/p/oauth";
     description = "Library for OAuth version 1.0a";
     license = licenses.mit;
   };

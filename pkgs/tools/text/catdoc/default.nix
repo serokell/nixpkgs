@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://anonscm.debian.org/git/collab-maint/catdoc.git/diff/debian/patches/05-CVE-2017-11110.patch?id=21dd5b29b11be04149587657dd90253f52dfef0b";
+      url =
+        "https://anonscm.debian.org/git/collab-maint/catdoc.git/diff/debian/patches/05-CVE-2017-11110.patch?id=21dd5b29b11be04149587657dd90253f52dfef0b";
       sha256 = "0mdqa9w1p6cmli6976v4wi0sw9r4p5prkj7lzfd1877wk11c9c73";
     })
   ];

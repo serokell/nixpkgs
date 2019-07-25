@@ -19,13 +19,15 @@ stdenv.mkDerivation rec {
     "--with-var-prefix=/var/lib/mailman"
   ];
 
-  installTargets = "doinstall"; # Leave out the 'update' target that's implied by 'install'.
+  installTargets =
+    "doinstall"; # Leave out the 'update' target that's implied by 'install'.
 
   makeFlags = [ "DIRSETGID=:" ];
 
   meta = {
-    homepage = https://www.gnu.org/software/mailman/;
-    description = "Free software for managing electronic mail discussion and e-newsletter lists";
+    homepage = "https://www.gnu.org/software/mailman/";
+    description =
+      "Free software for managing electronic mail discussion and e-newsletter lists";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.peti ];

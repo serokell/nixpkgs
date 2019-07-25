@@ -16,10 +16,11 @@ buildGoPackage rec {
   postInstall = "rm $bin/bin/issue-template-gen";
 
   meta = with stdenv.lib; {
-    description = "A utility for managing disaster recovery, specifically for your Kubernetes cluster resources and persistent volumes";
-    homepage = https://heptio.github.io/ark/;
+    description =
+      "A utility for managing disaster recovery, specifically for your Kubernetes cluster resources and persistent volumes";
+    homepage = "https://heptio.github.io/ark/";
     license = licenses.asl20;
-    maintainers = [maintainers.mbode];
+    maintainers = [ maintainers.mbode ];
     platforms = platforms.unix;
   };
 }

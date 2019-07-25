@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, nodejs, which, python27, utillinux }:
 
-let version = "20.3"; in
-stdenv.mkDerivation {
-  name = "cjdns-"+version;
+let version = "20.3";
+in stdenv.mkDerivation {
+  name = "cjdns-" + version;
 
   src = fetchFromGitHub {
     owner = "cjdelisle";
@@ -16,8 +16,7 @@ stdenv.mkDerivation {
     stdenv.lib.optional stdenv.isLinux utillinux;
 
   CFLAGS = "-O2";
-  buildPhase =
-    stdenv.lib.optionalString stdenv.isAarch32 "Seccomp_NO=1 "
+  buildPhase = stdenv.lib.optionalString stdenv.isAarch32 "Seccomp_NO=1 "
     + "bash do";
   installPhase = ''
     install -Dt "$out/bin/" cjdroute makekeys privatetopublic publictoip6
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/cjdelisle/cjdns;
+    homepage = "https://github.com/cjdelisle/cjdns";
     description = "Encrypted networking for regular people";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ehmry ];

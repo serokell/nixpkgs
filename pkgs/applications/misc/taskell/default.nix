@@ -2,7 +2,7 @@
 
 let
   version = "1.4.3";
-  sha256  = "0i12x7qzfmmdvi09k96x53zzzrva2w3zbl2f6dkxb8kk5scqqa4v";
+  sha256 = "0i12x7qzfmmdvi09k96x53zzzrva2w3zbl2f6dkxb8kk5scqqa4v";
 
 in (haskellPackages.mkDerivation {
   pname = "taskell";
@@ -15,7 +15,7 @@ in (haskellPackages.mkDerivation {
     inherit sha256;
   };
 
-  postPatch = ''${haskellPackages.hpack}/bin/hpack'';
+  postPatch = "${haskellPackages.hpack}/bin/hpack";
 
   # basically justStaticExecutables; TODO: use justStaticExecutables
   enableSharedExecutables = false;
@@ -48,7 +48,7 @@ in (haskellPackages.mkDerivation {
     vty
   ];
 
-  executableHaskellDepends = [];
+  executableHaskellDepends = [ ];
 
   testHaskellDepends = with haskellPackages; [
     tasty
@@ -57,9 +57,10 @@ in (haskellPackages.mkDerivation {
     tasty-hunit
   ];
 
-  description = "Command-line Kanban board/task manager with support for Trello boards and GitHub projects";
-  homepage    = "https://taskell.app";
-  license     = lib.licenses.bsd3;
+  description =
+    "Command-line Kanban board/task manager with support for Trello boards and GitHub projects";
+  homepage = "https://taskell.app";
+  license = lib.licenses.bsd3;
   maintainers = with lib.maintainers; [ matthiasbeyer ];
-  platforms   = with lib.platforms; unix ++ darwin;
+  platforms = with lib.platforms; unix ++ darwin;
 })

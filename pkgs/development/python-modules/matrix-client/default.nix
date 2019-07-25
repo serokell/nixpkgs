@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, requests
-, pytest, pytestrunner, responses
+{ stdenv, buildPythonPackage, fetchPypi, requests, pytest, pytestrunner, responses
 }:
 
 buildPythonPackage rec {
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Matrix Client-Server SDK";
-    homepage = https://github.com/matrix-org/matrix-python-sdk;
+    homepage = "https://github.com/matrix-org/matrix-python-sdk";
     license = licenses.asl20;
     maintainers = with maintainers; [ olejorgenb ];
   };

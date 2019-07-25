@@ -1,9 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
-, attrs
-, bidict
-, bitstruct
-, more-itertools
-, pprintpp
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, bidict, bitstruct, more-itertools, pprintpp
 }:
 
 buildPythonPackage rec {
@@ -21,13 +16,7 @@ buildPythonPackage rec {
       --replace "more-itertools>=4.0,<5.0" "more-itertools"
   '';
 
-  propagatedBuildInputs = [
-    attrs
-    bidict
-    bitstruct
-    more-itertools
-    pprintpp
-  ];
+  propagatedBuildInputs = [ attrs bidict bitstruct more-itertools pprintpp ];
 
   # No tests
   doCheck = false;
@@ -35,8 +24,9 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.6";
 
   meta = with lib; {
-    homepage = https://github.com/thebigmunch/audio-metadata;
-    description = "A library for reading and, in the future, writing metadata from audio files";
+    homepage = "https://github.com/thebigmunch/audio-metadata";
+    description =
+      "A library for reading and, in the future, writing metadata from audio files";
     license = licenses.mit;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

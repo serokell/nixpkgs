@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Dune, Reinvented";
-    homepage = https://github.com/OpenDUNE/OpenDUNE;
+    homepage = "https://github.com/OpenDUNE/OpenDUNE";
     license = licenses.gpl2;
     maintainers = [ maintainers.nand0p ];
     platforms = platforms.linux;

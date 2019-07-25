@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, dtkcore, dtkwidget,
-  qt5integration, deepin }:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, dtkcore, dtkwidget, qt5integration, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -13,17 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "09i0ybllymlj7s46pxma5py6x8nknfja4gxn5gj9kpf2c37qsqjc";
   };
 
-  nativeBuildInputs = [
-    pkgconfig
-    qmake
-    deepin.setupHook
-  ];
+  nativeBuildInputs = [ pkgconfig qmake deepin.setupHook ];
 
-  buildInputs = [
-    dtkcore
-    dtkwidget
-    qt5integration
-  ];
+  buildInputs = [ dtkcore dtkwidget qt5integration ];
 
   postPatch = ''
     searchHardCodedPaths
@@ -39,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin menu service";
-    homepage = https://github.com/linuxdeepin/deepin-menu;
+    homepage = "https://github.com/linuxdeepin/deepin-menu";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

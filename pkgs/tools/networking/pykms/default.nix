@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python3Packages, writeText, writeScript
-, coreutils, sqlite }:
+{ stdenv, fetchFromGitHub, python3Packages, writeText, writeScript, coreutils, sqlite
+}:
 
 with python3Packages;
 
@@ -34,9 +34,9 @@ in buildPythonApplication rec {
   version = "20180208";
 
   src = fetchFromGitHub {
-    owner  = "ThunderEX";
-    repo   = "py-kms";
-    rev    = "a1666a0ee5b404569a234afd05b164accc9a8845";
+    owner = "ThunderEX";
+    repo = "py-kms";
+    rev = "a1666a0ee5b404569a234afd05b164accc9a8845";
     sha256 = "17yj5n8byxp09l5zkap73hpphjy35px84wy68ps824w8l0l8kcd4";
   };
 
@@ -76,9 +76,10 @@ in buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Windows KMS (Key Management Service) server written in Python";
-    homepage    = https://github.com/ThunderEX/py-kms;
-    license     = licenses.mit;
+    description =
+      "Windows KMS (Key Management Service) server written in Python";
+    homepage = "https://github.com/ThunderEX/py-kms";
+    license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
   };
 }

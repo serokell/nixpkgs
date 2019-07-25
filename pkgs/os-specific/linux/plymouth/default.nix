@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, libxslt, docbook_xsl
-, gtk3, udev, systemd
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, libxslt, docbook_xsl, gtk3, udev, systemd
 }:
 
 stdenv.mkDerivation rec {
@@ -7,17 +6,14 @@ stdenv.mkDerivation rec {
   version = "0.9.4";
 
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/plymouth/releases/${name}.tar.xz";
+    url =
+      "https://www.freedesktop.org/software/plymouth/releases/${name}.tar.xz";
     sha256 = "0l8kg7b2vfxgz9gnrn0v2w4jvysj2cirp0nxads5sy05397pl6aa";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkgconfig libxslt docbook_xsl
-  ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig libxslt docbook_xsl ];
 
-  buildInputs = [
-    gtk3 udev systemd
-  ];
+  buildInputs = [ gtk3 udev systemd ];
 
   postPatch = ''
     sed -i \
@@ -56,7 +52,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.freedesktop.org/wiki/Software/Plymouth;
+    homepage = "http://www.freedesktop.org/wiki/Software/Plymouth";
     description = "A graphical boot animation";
     license = licenses.gpl2;
     maintainers = [ maintainers.goibhniu ];

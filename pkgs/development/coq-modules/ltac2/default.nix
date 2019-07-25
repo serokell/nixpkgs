@@ -1,26 +1,26 @@
 { stdenv, fetchFromGitHub, which, coq }:
 
-let params = {
-  "8.7" = {
-    version = "0.1";
-    rev = "v0.1-8.7";
-    sha256 = "0l6wiwi4cvd0i324fb29i9mdh0ijlxzggw4mrjjy695l2qdnlgg0";
+let
+  params = {
+    "8.7" = {
+      version = "0.1";
+      rev = "v0.1-8.7";
+      sha256 = "0l6wiwi4cvd0i324fb29i9mdh0ijlxzggw4mrjjy695l2qdnlgg0";
+    };
+    "8.8" = {
+      version = "0.1";
+      rev = "0.1";
+      sha256 = "1zz26cyv99whj7rrpgnhhm9dfqnpmrx5pqizn8ihf8jkq8d4drz7";
+    };
+    "8.9" = {
+      version = "0.1";
+      rev = "a69551a49543b22a7d4e6a2484356b56bd05068e";
+      sha256 = "0xby1kb26r9gcvk5511wqj05fqm9paynwfxlfqkmwkgnfmzk0x73";
+    };
   };
-  "8.8" = {
-    version = "0.1";
-    rev = "0.1";
-    sha256 = "1zz26cyv99whj7rrpgnhhm9dfqnpmrx5pqizn8ihf8jkq8d4drz7";
-  };
-  "8.9" = {
-    version = "0.1";
-    rev = "a69551a49543b22a7d4e6a2484356b56bd05068e";
-    sha256 = "0xby1kb26r9gcvk5511wqj05fqm9paynwfxlfqkmwkgnfmzk0x73";
-  };
-};
   param = params."${coq.coq-version}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit (param) version;
   name = "coq${coq.coq-version}-ltac2-${version}";
 

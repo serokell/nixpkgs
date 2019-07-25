@@ -1,11 +1,4 @@
-{ stdenv
-, fetchPypi
-, buildPythonPackage
-, certifi
-, future
-, urllib3
-, tornado
-, pytest
+{ stdenv, fetchPypi, buildPythonPackage, certifi, future, urllib3, tornado, pytest
 }:
 
 buildPythonPackage rec {
@@ -35,8 +28,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "This library provides a pure Python interface for the Telegram Bot API.";
-    homepage = https://python-telegram-bot.org;
+    description =
+      "This library provides a pure Python interface for the Telegram Bot API.";
+    homepage = "https://python-telegram-bot.org";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ veprbl ];
   };

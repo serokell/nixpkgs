@@ -9,18 +9,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    libao json_c libgcrypt ffmpeg curl
-  ];
+  buildInputs = [ libao json_c libgcrypt ffmpeg curl ];
 
-  makeFlags="PREFIX=$(out)";
+  makeFlags = "PREFIX=$(out)";
 
   CC = "gcc";
   CFLAGS = "-std=c99";
 
   meta = with stdenv.lib; {
     description = "A console front-end for Pandora.com";
-    homepage = http://6xq.net/projects/pianobar/;
+    homepage = "http://6xq.net/projects/pianobar/";
     platforms = platforms.linux;
     license = licenses.mit; # expat version
   };

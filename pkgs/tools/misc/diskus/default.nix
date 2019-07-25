@@ -17,8 +17,11 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A minimal, fast alternative to 'du -sh'";
-    homepage = https://github.com/sharkdp/diskus;
-    license = with licenses; [ asl20 /* or */ mit ];
+    homepage = "https://github.com/sharkdp/diskus";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = [ maintainers.fuerbringer ];
     platforms = platforms.unix;
   };

@@ -27,16 +27,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     fontforge
-    (pythonFull.withPackages (ps: [
-      ps.jinja2
-      ps.py3to2
-      ps.fonttools
-    ]))
+    (pythonFull.withPackages (ps: [ ps.jinja2 ps.py3to2 ps.fonttools ]))
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/hakatashi/RictyDiminished-with-FiraCode;
-    description = "The best Japanese programming font meets the awesone ligatures of Firacode";
+    homepage = "https://github.com/hakatashi/RictyDiminished-with-FiraCode";
+    description =
+      "The best Japanese programming font meets the awesone ligatures of Firacode";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ mt-caret ];

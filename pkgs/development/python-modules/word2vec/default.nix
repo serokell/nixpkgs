@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cython
-, numpy
-, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cython, numpy, python }:
 
 buildPythonPackage rec {
   pname = "word2vec";
@@ -18,14 +12,15 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cython numpy ];
 
   checkPhase = ''
-   cd word2vec/tests;
-    ${python.interpreter} test_word2vec.py
+    cd word2vec/tests;
+     ${python.interpreter} test_word2vec.py
   '';
 
   meta = with stdenv.lib; {
-    description = "Tool for computing continuous distributed representations of words";
+    description =
+      "Tool for computing continuous distributed representations of words";
     homepage = "https://github.com/danielfrg/word2vec";
-    license     = licenses.asl20;
+    license = licenses.asl20;
     maintainers = with maintainers; [ NikolaMandic ];
   };
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxml2, libxslt, popt, perl
-, glib, pango, pangoxsl, gtk2, libtool, autoconf, automake }:
+{ stdenv, fetchurl, pkgconfig, libxml2, libxslt, popt, perl, glib, pango, pangoxsl, gtk2, libtool, autoconf, automake
+}:
 
 stdenv.mkDerivation rec {
   name = "xmlroff-${version}";
@@ -11,25 +11,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    autoconf
-    automake
-    libxml2
-    libxslt
-    libtool
-    glib
-    pango
-    pangoxsl
-    gtk2
-    popt
-  ];
+  buildInputs =
+    [ autoconf automake libxml2 libxslt libtool glib pango pangoxsl gtk2 popt ];
 
   configureScript = "./autogen.sh";
 
-  configureFlags = [
-    "--disable-pangoxsl"
-    "--disable-gp"
-  ];
+  configureFlags = [ "--disable-pangoxsl" "--disable-gp" ];
 
   hardeningDisable = [ "format" ];
 
@@ -40,7 +27,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${name}/xmlroff/";
 
-  patches = [./xmlroff.patch];
+  patches = [ ./xmlroff.patch ];
 
   meta = {
     platforms = stdenv.lib.platforms.unix;

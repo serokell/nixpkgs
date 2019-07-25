@@ -1,31 +1,4 @@
-{ stdenv
-, fetchurl
-, fetchpatch
-, vala
-, gettext
-, pkgconfig
-, gtk3
-, glib
-, json-glib
-, wrapGAppsHook
-, libpeas
-, bash
-, gobject-introspection
-, libsoup
-, gtksourceview
-, gsettings-desktop-schemas
-, adwaita-icon-theme
-, gnome3
-, gtkspell3
-, shared-mime-info
-, libgee
-, libgit2-glib
-, libsecret
-, meson
-, ninja
-, python3
-, hicolor-icon-theme
-, libdazzle
+{ stdenv, fetchurl, fetchpatch, vala, gettext, pkgconfig, gtk3, glib, json-glib, wrapGAppsHook, libpeas, bash, gobject-introspection, libsoup, gtksourceview, gsettings-desktop-schemas, adwaita-icon-theme, gnome3, gtkspell3, shared-mime-info, libgee, libgit2-glib, libsecret, meson, ninja, python3, hicolor-icon-theme, libdazzle
 }:
 
 stdenv.mkDerivation rec {
@@ -33,7 +6,9 @@ stdenv.mkDerivation rec {
   version = "3.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1wzsv7bh0a2w70f938hkpzbb9xkyrp3bil65c0q3yf2v72nbbn81";
   };
 
@@ -91,14 +66,10 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Gitg;
+    homepage = "https://wiki.gnome.org/Apps/Gitg";
     description = "GNOME GUI client to view git repositories";
     maintainers = with maintainers; [ domenkozar ];
     license = licenses.gpl2;

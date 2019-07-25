@@ -1,20 +1,19 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''iolib_dot_conf'';
-  version = ''iolib-v0.8.3'';
+args@{ fetchurl, ... }: rec {
+  baseName = "iolib_dot_conf";
+  version = "iolib-v0.8.3";
 
-  description = ''Compile-time configuration for IOLib.'';
+  description = "Compile-time configuration for IOLib.";
 
   deps = [ args."alexandria" args."iolib_dot_asdf" ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/iolib/2018-02-28/iolib-v0.8.3.tgz'';
-    sha256 = ''12gsvsjyxmclwidcjvyrfvd0773ib54a3qzmf33hmgc9knxlli7c'';
+    url = "http://beta.quicklisp.org/archive/iolib/2018-02-28/iolib-v0.8.3.tgz";
+    sha256 = "12gsvsjyxmclwidcjvyrfvd0773ib54a3qzmf33hmgc9knxlli7c";
   };
 
   packageName = "iolib.conf";
 
-  asdFilesToKeep = ["iolib.conf.asd"];
+  asdFilesToKeep = [ "iolib.conf.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM iolib.conf DESCRIPTION Compile-time configuration for IOLib. SHA256
@@ -27,4 +26,5 @@ rec {
     DEPENDENCIES (alexandria iolib.asdf) VERSION iolib-v0.8.3 SIBLINGS
     (iolib iolib.asdf iolib.base iolib.common-lisp iolib.examples iolib.grovel
      iolib.tests)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

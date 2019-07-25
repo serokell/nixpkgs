@@ -8,7 +8,7 @@ buildPythonPackage rec {
   pname = "pycrypto";
 
   # Cannot build wheel otherwise (zip 1980 issue)
-  SOURCE_DATE_EPOCH=315532800;
+  SOURCE_DATE_EPOCH = 315532800;
 
   # We need to have a dist-info folder, so let's create one with setuptools
   unpackPhase = ''
@@ -21,7 +21,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = http://www.pycrypto.org/;
+    homepage = "http://www.pycrypto.org/";
     description = "Python Cryptography Toolkit";
     platforms = pycryptodome.meta.platforms;
   };

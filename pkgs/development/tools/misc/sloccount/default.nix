@@ -46,10 +46,11 @@ stdenv.mkDerivation rec {
       isScript "$w" || continue
       wrapProgram "$w" --prefix PATH : "$out/bin"
     done
-    '';
+  '';
 
   meta = {
-    description = "Set of tools for counting physical Source Lines of Code (SLOC)";
+    description =
+      "Set of tools for counting physical Source Lines of Code (SLOC)";
 
     longDescription = ''
       This is the home page of "SLOCCount", a set of tools for
@@ -64,7 +65,7 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl2Plus;
 
-    homepage = https://www.dwheeler.com/sloccount/;
+    homepage = "https://www.dwheeler.com/sloccount/";
 
     maintainers = [ ];
     platforms = stdenv.lib.platforms.all;

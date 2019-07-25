@@ -1,10 +1,11 @@
-{stdenv, fetchurl, cdrkit, m4}:
+{ stdenv, fetchurl, cdrkit, m4 }:
 
 stdenv.mkDerivation {
   name = "dvd+rw-tools-7.1";
 
   src = fetchurl {
-    url = http://fy.chalmers.se/~appro/linux/DVD+RW/tools/dvd+rw-tools-7.1.tar.gz;
+    url =
+      "http://fy.chalmers.se/~appro/linux/DVD+RW/tools/dvd+rw-tools-7.1.tar.gz";
     sha256 = "1jkjvvnjcyxpql97xjjx0kwvy70kxpiznr2zpjy2hhci5s10zmpq";
   };
 
@@ -20,7 +21,7 @@ stdenv.mkDerivation {
     ./dvd+rw-tools-7.1-layerbreaksetup.patch
   ];
 
-  buildInputs = [cdrkit m4];
+  buildInputs = [ cdrkit m4 ];
 
   preBuild = ''
     makeFlags="prefix=$out"
@@ -31,7 +32,7 @@ stdenv.mkDerivation {
   NIX_CFLAGS_COMPILE = "-DINT_MAX=__INT_MAX__";
 
   meta = {
-    homepage = http://fy.chalmers.se/~appro/linux/DVD+RW/tools;
+    homepage = "http://fy.chalmers.se/~appro/linux/DVD+RW/tools";
     description = "Tools for burning DVDs";
     platforms = stdenv.lib.platforms.linux;
   };

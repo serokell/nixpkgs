@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, pkgs
-, python
-}:
+{ stdenv, buildPythonPackage, pkgs, python }:
 
 buildPythonPackage rec {
   name = "python-${pkgs.notmuch.name}";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python wrapper around notmuch";
-    homepage = https://notmuchmail.org/;
+    homepage = "https://notmuchmail.org/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];
   };

@@ -1,8 +1,7 @@
-import ./make-test.nix ({ pkgs, ... }: with pkgs.python2Packages; rec {
+import ./make-test.nix ({ pkgs, ... }:
+with pkgs.python2Packages; rec {
   name = "blivet";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ aszlig ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ aszlig ]; };
 
   machine = {
     environment.systemPackages = [ pkgs.python blivet mock ];
@@ -10,7 +9,7 @@ import ./make-test.nix ({ pkgs, ... }: with pkgs.python2Packages; rec {
     virtualisation.memorySize = 768;
   };
 
-  debugBlivet       = false;
+  debugBlivet = false;
   debugProgramCalls = false;
 
   pythonTestRunner = pkgs.writeText "run-blivet-tests.py" ''
@@ -72,11 +71,13 @@ import ./make-test.nix ({ pkgs, ... }: with pkgs.python2Packages; rec {
       -e 's|DEFAULT_STORE_SIZE = .*|DEFAULT_STORE_SIZE = 409600|' \
       tests/loopbackedtestcase.py
 
-    PYTHONPATH=".:$(< "${pkgs.stdenv.mkDerivation {
-      name = "blivet-pythonpath";
-      buildInputs = [ blivet mock ];
-      buildCommand = "echo \"$PYTHONPATH\" > \"$out\"";
-    }}")" python "${pythonTestRunner}"
+    PYTHONPATH=".:$(< "${
+      pkgs.stdenv.mkDerivation {
+        name = "blivet-pythonpath";
+        buildInputs = [ blivet mock ];
+        buildCommand = ''echo "$PYTHONPATH" > "$out"'';
+      }
+    }")" python "${pythonTestRunner}"
   '';
 
   testScript = ''

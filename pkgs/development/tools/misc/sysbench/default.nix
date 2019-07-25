@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, vim, mysql
-, libaio }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, vim, mysql, libaio }:
 
 stdenv.mkDerivation rec {
   name = "sysbench-1.0.17";

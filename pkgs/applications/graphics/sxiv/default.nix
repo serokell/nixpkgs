@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
       --replace /usr/local $out
   '';
 
-  configFile = optionalString (conf!=null) (builtins.toFile "config.def.h" conf);
-  preBuild = optionalString (conf!=null) "cp ${configFile} config.def.h";
+  configFile =
+    optionalString (conf != null) (builtins.toFile "config.def.h" conf);
+  preBuild = optionalString (conf != null) "cp ${configFile} config.def.h";
 
   buildInputs = [ libXft imlib2 giflib libexif ];
 
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Simple X Image Viewer";
-    homepage = https://github.com/muennich/sxiv;
+    homepage = "https://github.com/muennich/sxiv";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with maintainers; [ jfrankenau fuuzetsu ];

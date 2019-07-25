@@ -1,12 +1,9 @@
-{ stdenv, fetchFromGitHub, cmake
-, gfortran, openblas, eigen }:
+{ stdenv, fetchFromGitHub, cmake, gfortran, openblas, eigen }:
 
 with stdenv.lib;
 
-let
-  version = "3.7.0";
-in
-stdenv.mkDerivation {
+let version = "3.7.0";
+in stdenv.mkDerivation {
   name = "arpack-${version}";
 
   src = fetchFromGitHub {
@@ -30,21 +27,21 @@ stdenv.mkDerivation {
 
   preCheck = if stdenv.isDarwin then ''
     export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:`pwd`/lib
-  '' else ''
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/lib
-  '' + ''
-    # Prevent tests from using all cores
-    export OMP_NUM_THREADS=2
-  '';
+  '' else
+    ''
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/lib
+    '' + ''
+      # Prevent tests from using all cores
+      export OMP_NUM_THREADS=2
+    '';
 
   postInstall = ''
     mkdir -p $out/lib/pkgconfig
     cp arpack.pc $out/lib/pkgconfig/
   '';
 
-
   meta = {
-    homepage = https://github.com/opencollab/arpack-ng;
+    homepage = "https://github.com/opencollab/arpack-ng";
     description = ''
       A collection of Fortran77 subroutines to solve large scale eigenvalue
       problems.

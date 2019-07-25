@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "peppercorn";
@@ -13,8 +10,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A library for converting a token stream into a data structure for use in web form posts";
-    homepage = https://docs.pylonsproject.org/projects/peppercorn/en/latest/;
+    description =
+      "A library for converting a token stream into a data structure for use in web form posts";
+    homepage = "https://docs.pylonsproject.org/projects/peppercorn/en/latest/";
     maintainers = with maintainers; [ domenkozar ];
     platforms = platforms.all;
   };

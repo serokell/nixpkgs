@@ -1,20 +1,18 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gnupg, p11-kit, glib
-, libgcrypt, libtasn1, dbus-glib, gtk3, pango, gdk_pixbuf, atk
-, gobject-introspection, makeWrapper, libxslt, vala, gnome3
-, python2 }:
+{ stdenv, fetchurl, pkgconfig, intltool, gnupg, p11-kit, glib, libgcrypt, libtasn1, dbus-glib, gtk3, pango, gdk_pixbuf, atk, gobject-introspection, makeWrapper, libxslt, vala, gnome3, python2
+}:
 
 stdenv.mkDerivation rec {
   pname = "gcr";
   version = "3.28.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "12qn7mcmxb45lz1gq3s3b34rimiyrrshkrpvxdw1fc0w26i4l84m";
   };
 
-  passthru = {
-    updateScript = gnome3.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   postPatch = ''
     patchShebangs .
@@ -22,13 +20,14 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [ pkgconfig intltool gobject-introspection libxslt makeWrapper vala ];
+  nativeBuildInputs =
+    [ pkgconfig intltool gobject-introspection libxslt makeWrapper vala ];
 
   buildInputs = let
-    gpg = gnupg.override { guiSupport = false; }; # prevent build cycle with pinentry_gnome
-  in [
-    gpg libgcrypt libtasn1 dbus-glib pango gdk_pixbuf atk
-  ];
+    gpg = gnupg.override {
+      guiSupport = false;
+    }; # prevent build cycle with pinentry_gnome
+    in [ gpg libgcrypt libtasn1 dbus-glib pango gdk_pixbuf atk ];
 
   propagatedBuildInputs = [ glib gtk3 p11-kit ];
 
@@ -46,8 +45,8 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = gnome3.maintainers;
     description = "GNOME crypto services (daemon and tools)";
-    homepage    = https://gitlab.gnome.org/GNOME/gcr;
-    license     = licenses.gpl2;
+    homepage = "https://gitlab.gnome.org/GNOME/gcr";
+    license = licenses.gpl2;
 
     longDescription = ''
       GCR is a library for displaying certificates, and crypto UI, accessing

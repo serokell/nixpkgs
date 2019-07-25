@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ makeWrapper ];
 
-  phases = ["installPhase"];
+  phases = [ "installPhase" ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Command-line password safe";
-    homepage    = https://github.com/janlelis/pws;
-    license     = licenses.mit;
+    homepage = "https://github.com/janlelis/pws";
+    license = licenses.mit;
     maintainers = with maintainers; [ swistak35 nicknovitski ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

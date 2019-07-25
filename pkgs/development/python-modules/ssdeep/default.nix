@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-, cffi
-, six
-, pytest
-, pytestrunner
+{ stdenv, buildPythonPackage, fetchPypi, pkgs, cffi, six, pytest, pytestrunner
 }:
 
 buildPythonPackage rec {
@@ -25,7 +18,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/DinoTools/python-ssdeep;
+    homepage = "https://github.com/DinoTools/python-ssdeep";
     description = "Python wrapper for the ssdeep library";
     license = licenses.lgpl3;
   };

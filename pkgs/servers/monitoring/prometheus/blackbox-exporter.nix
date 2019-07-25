@@ -15,8 +15,9 @@ buildGoPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP";
-    homepage = https://github.com/prometheus/blackbox_exporter;
+    description =
+      "Blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP and ICMP";
+    homepage = "https://github.com/prometheus/blackbox_exporter";
     license = licenses.asl20;
     maintainers = with maintainers; [ globin fpletz ];
     platforms = platforms.unix;

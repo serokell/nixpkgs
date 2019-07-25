@@ -1,18 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, mono
-, glib
-, pango
-, gtk3
-, GConf ? null
-, libglade ? null
-, libgtkhtml ? null
-, gtkhtml ? null
-, libgnomecanvas ? null
-, libgnomeui ? null
-, libgnomeprint ? null
-, libgnomeprintui ? null
-, libxml2
-, monoDLLFixer
-}:
+{ stdenv, fetchurl, pkgconfig, mono, glib, pango, gtk3, GConf ? null, libglade ?
+  null, libgtkhtml ? null, gtkhtml ? null, libgnomecanvas ? null, libgnomeui ?
+    null, libgnomeprint ? null, libgnomeprintui ? null, libxml2, monoDLLFixer }:
 
 stdenv.mkDerivation {
   name = "gtk-sharp-2.99.3";
@@ -20,7 +8,8 @@ stdenv.mkDerivation {
   builder = ./builder.sh;
   src = fetchurl {
     #"mirror://gnome/sources/gtk-sharp/2.99/gtk-sharp-2.99.3.tar.xz";
-    url = "http://ftp.gnome.org/pub/GNOME/sources/gtk-sharp/2.99/gtk-sharp-2.99.3.tar.xz";
+    url =
+      "http://ftp.gnome.org/pub/GNOME/sources/gtk-sharp/2.99/gtk-sharp-2.99.3.tar.xz";
     sha256 = "18n3l9zcldyvn4lwi8izd62307mkhz873039nl6awrv285qzah34";
   };
 
@@ -33,17 +22,26 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    mono glib pango gtk3 GConf libglade libgnomecanvas
-    libgtkhtml libgnomeui libgnomeprint libgnomeprintui gtkhtml libxml2
+    mono
+    glib
+    pango
+    gtk3
+    GConf
+    libglade
+    libgnomecanvas
+    libgtkhtml
+    libgnomeui
+    libgnomeprint
+    libgnomeprintui
+    gtkhtml
+    libxml2
   ];
 
   dontStrip = true;
 
   inherit monoDLLFixer;
 
-  passthru = {
-    inherit gtk3;
-  };
+  passthru = { inherit gtk3; };
 
   meta = {
     platforms = stdenv.lib.platforms.linux;

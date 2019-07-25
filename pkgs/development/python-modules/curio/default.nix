@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, pytest
-, sphinx
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, sphinx }:
 
 buildPythonPackage rec {
   pname = "curio";
@@ -29,7 +23,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/dabeaz/curio";
-    description = "Library for performing concurrent I/O with coroutines in Python 3";
+    description =
+      "Library for performing concurrent I/O with coroutines in Python 3";
     license = licenses.bsd3;
     maintainers = [ maintainers.marsam ];
   };

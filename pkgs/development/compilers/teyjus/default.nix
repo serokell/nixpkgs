@@ -1,10 +1,8 @@
 { stdenv, fetchurl, omake, ocaml, flex, bison }:
 
-let
-  version = "2.1";
-in
+let version = "2.1";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "teyjus-${version}";
 
   src = fetchurl {
@@ -26,7 +24,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "An efficient implementation of the Lambda Prolog language";
-    homepage = https://github.com/teyjus/teyjus;
+    homepage = "https://github.com/teyjus/teyjus";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ maintainers.bcdarwin ];
     platforms = platforms.linux;

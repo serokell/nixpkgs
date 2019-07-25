@@ -12,23 +12,18 @@ stdenv.mkDerivation rec {
   # doesn't depend on the Avahi libraries.  Instead, it contains
   # hand-written D-Bus code to talk to the Avahi daemon.
 
-  configureFlags =
-    [ # Try to use the Avahi daemon before resolving on our own.
-      "--enable-avahi"
+  configureFlags = [ # Try to use the Avahi daemon before resolving on our own.
+    "--enable-avahi"
 
-      # Connect to the daemon at `/var/run/avahi-daemon/socket'.
-      "--localstatedir=/var"
-    ];
+    # Connect to the daemon at `/var/run/avahi-daemon/socket'.
+    "--localstatedir=/var"
+  ];
 
-  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl
-    (
-      fetchpatch
-      {
-        url = "https://raw.githubusercontent.com/openembedded/openembedded-core/94f780e889f194b67a48587ac68b3200288bee10/meta/recipes-connectivity/libnss-mdns/libnss-mdns/0001-check-for-nss.h.patch";
-        sha256 = "1l1kjbdw8z31br4vib3l5b85jy7kxin760a2f24lww8v6lqdpgds";
-      }
-    );
-
+  patches = stdenv.lib.optional stdenv.hostPlatform.isMusl (fetchpatch {
+    url =
+      "https://raw.githubusercontent.com/openembedded/openembedded-core/94f780e889f194b67a48587ac68b3200288bee10/meta/recipes-connectivity/libnss-mdns/libnss-mdns/0001-check-for-nss.h.patch";
+    sha256 = "1l1kjbdw8z31br4vib3l5b85jy7kxin760a2f24lww8v6lqdpgds";
+  });
 
   meta = {
     description = "The mDNS Name Service Switch (NSS) plug-in";
@@ -40,11 +35,12 @@ stdenv.mkDerivation rec {
       domain `.local'.
     '';
 
-    homepage = http://0pointer.de/lennart/projects/nss-mdns/;
+    homepage = "http://0pointer.de/lennart/projects/nss-mdns/";
     license = stdenv.lib.licenses.lgpl2Plus;
 
     # Supports both the GNU and FreeBSD NSS.
-    platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux ++ stdenv.lib.platforms.freebsd;
+    platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux
+      ++ stdenv.lib.platforms.freebsd;
 
     maintainers = [ ];
   };

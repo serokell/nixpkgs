@@ -1,7 +1,4 @@
-{ mkDerivation, lib
-, extra-cmake-modules
-, hunspell, qtbase, qttools
-}:
+{ mkDerivation, lib, extra-cmake-modules, hunspell, qtbase, qttools }:
 
 mkDerivation {
   name = "sonnet";

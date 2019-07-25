@@ -1,4 +1,5 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, isPy3k, mock, unittest2, six, futures }:
+{ lib, stdenv, buildPythonPackage, fetchPypi, isPy3k, mock, unittest2, six, futures
+}:
 
 buildPythonPackage rec {
   pname = "trollius";
@@ -13,9 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ] ++ lib.optional (!isPy3k) futures;
 
-  patches = [
-    ./tests.patch
-  ];
+  patches = [ ./tests.patch ];
 
   disabled = isPy3k;
 
@@ -45,7 +44,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Port of the asyncio project to Python 2.7";
-    homepage = https://github.com/vstinner/trollius;
+    homepage = "https://github.com/vstinner/trollius";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

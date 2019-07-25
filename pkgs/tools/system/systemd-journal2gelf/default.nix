@@ -14,7 +14,8 @@ buildGoModule rec {
   modSha256 = "0f66bjij3bkjs09xhhp26arivlqrd66z1j5ziy4lq4krg82krsdp";
 
   meta = with stdenv.lib; {
-    description = "Export entries from systemd's journal and send them to a graylog server using gelf";
+    description =
+      "Export entries from systemd's journal and send them to a graylog server using gelf";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fadenb fpletz globin ];
     platforms = platforms.unix;

@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, autoreconfHook, pkgconfig
-, zlib, libffi, elfutils, libdwarf
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, zlib, libffi, elfutils, libdwarf
 }:
 
 stdenv.mkDerivation rec {

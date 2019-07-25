@@ -16,11 +16,7 @@ stdenv.mkDerivation rec {
     substituteInPlace build.sh --replace "gksu " ""
   '';
 
-  nativeBuildInputs  = [
-    gnome-themes-extra
-    inkscape
-    xcursorgen
-  ];
+  nativeBuildInputs = [ gnome-themes-extra inkscape xcursorgen ];
 
   buildPhase = ''
     HOME="$NIX_BUILD_ROOT" ./build.sh
@@ -33,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Material Based Cursor";
-    homepage = https://github.com/KaizIqbal/Bibata_Cursor;
+    homepage = "https://github.com/KaizIqbal/Bibata_Cursor";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ rawkode ];

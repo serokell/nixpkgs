@@ -1,6 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, orcania, systemd, check, subunit
-, withSystemd ? stdenv.isLinux
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, orcania, systemd, check, subunit, withSystemd ?
+  stdenv.isLinux }:
 assert withSystemd -> systemd != null;
 stdenv.mkDerivation rec {
   pname = "yder";
@@ -34,9 +33,8 @@ stdenv.mkDerivation rec {
 
   checkInputs = [ check subunit ];
 
-  cmakeFlags = [
-    "-DBUILD_YDER_TESTING=on"
-  ] ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off";
+  cmakeFlags = [ "-DBUILD_YDER_TESTING=on" ]
+    ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off";
 
   doCheck = true;
 

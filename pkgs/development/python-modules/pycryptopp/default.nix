@@ -1,16 +1,10 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, setuptoolsDarcs
-, darcsver
-, pkgs
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, setuptoolsDarcs, darcsver, pkgs
 }:
 
 buildPythonPackage rec {
   pname = "pycryptopp";
   version = "0.7.1.869544967005693312591928092448767568728501330214";
-  disabled = isPy3k;  # see https://bitbucket.org/pypy/pypy/issue/1190/
+  disabled = isPy3k; # see https://bitbucket.org/pypy/pypy/issue/1190/
 
   src = fetchPypi {
     inherit pname version;
@@ -24,7 +18,7 @@ buildPythonPackage rec {
   buildInputs = [ setuptoolsDarcs darcsver pkgs.cryptopp ];
 
   meta = with stdenv.lib; {
-    homepage = http://allmydata.org/trac/pycryptopp;
+    homepage = "http://allmydata.org/trac/pycryptopp";
     description = "Python wrappers for the Crypto++ library";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

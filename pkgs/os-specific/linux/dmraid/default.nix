@@ -11,13 +11,15 @@ stdenv.mkDerivation rec {
   patches = [ ./hardening-format.patch ]
     ++ stdenv.lib.optionals stdenv.hostPlatform.isMusl [
       (fetchpatch {
-        url = "https://raw.githubusercontent.com/void-linux/void-packages/fceed4b8e96b3c1da07babf6f67b6ed1588a28b2/srcpkgs/dmraid/patches/006-musl-libc.patch";
+        url =
+          "https://raw.githubusercontent.com/void-linux/void-packages/fceed4b8e96b3c1da07babf6f67b6ed1588a28b2/srcpkgs/dmraid/patches/006-musl-libc.patch";
         sha256 = "1j8xda0fpz8lxjxnqdidy7qb866qrzwpbca56yjdg6vf4x21hx6w";
         stripLen = 2;
         extraPrefix = "1.0.0.rc16/";
       })
       (fetchpatch {
-        url = "https://raw.githubusercontent.com/void-linux/void-packages/fceed4b8e96b3c1da07babf6f67b6ed1588a28b2/srcpkgs/dmraid/patches/007-fix-loff_t-musl.patch";
+        url =
+          "https://raw.githubusercontent.com/void-linux/void-packages/fceed4b8e96b3c1da07babf6f67b6ed1588a28b2/srcpkgs/dmraid/patches/007-fix-loff_t-musl.patch";
         sha256 = "0msnq39qnzg3b1pdksnz1dgqwa3ak03g41pqh0lw3h7w5rjc016k";
         stripLen = 2;
         extraPrefix = "1.0.0.rc16/";
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
     ];
 
   postPatch = ''
-    sed -i 's/\[\[[^]]*\]\]/[ "''$''${n##*.}" = "so" ]/' */lib/Makefile.in
+    sed -i 's/\[\[[^]]*\]\]/[ "$${n##*.}" = "so" ]/' */lib/Makefile.in
   '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE"
   '';

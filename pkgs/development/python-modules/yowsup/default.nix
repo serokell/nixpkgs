@@ -1,5 +1,4 @@
-{ buildPythonPackage, stdenv, fetchFromGitHub, six, python-axolotl, pytest
-, isPy3k
+{ buildPythonPackage, stdenv, fetchFromGitHub, six, python-axolotl, pytest, isPy3k
 }:
 
 buildPythonPackage rec {

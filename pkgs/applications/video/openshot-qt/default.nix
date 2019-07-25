@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub
-, doxygen, python3Packages, libopenshot
-, wrapGAppsHook, gtk3 }:
+{ stdenv, fetchFromGitHub, doxygen, python3Packages, libopenshot, wrapGAppsHook, gtk3
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "openshot-qt";
@@ -17,8 +16,14 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = with python3Packages; [ libopenshot pyqt5_with_qtwebkit requests sip httplib2 pyzmq ];
-
+  propagatedBuildInputs = with python3Packages; [
+    libopenshot
+    pyqt5_with_qtwebkit
+    requests
+    sip
+    httplib2
+    pyzmq
+  ];
 
   preConfigure = ''
     # tries to create caching directories during install
@@ -28,7 +33,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://openshot.org/;
+    homepage = "http://openshot.org/";
     description = "Free, open-source video editor";
     longDescription = ''
       OpenShot Video Editor is a free, open-source video editor for Linux.

@@ -1,7 +1,4 @@
-{ mkDerivation, lib, fetchFromGitHub
-, cmake, freetype, libpng, libGLU_combined, openssl, perl, libiconv
-, qtscript, qtserialport, qttools
-, qtmultimedia, qtlocation, qtbase, wrapQtAppsHook
+{ mkDerivation, lib, fetchFromGitHub, cmake, freetype, libpng, libGLU_combined, openssl, perl, libiconv, qtscript, qtserialport, qttools, qtmultimedia, qtlocation, qtbase, wrapQtAppsHook
 }:
 
 mkDerivation rec {
@@ -18,16 +15,26 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake perl wrapQtAppsHook ];
 
   buildInputs = [
-    freetype libpng libGLU_combined openssl libiconv qtscript qtserialport qttools
-    qtmultimedia qtlocation qtbase
+    freetype
+    libpng
+    libGLU_combined
+    openssl
+    libiconv
+    qtscript
+    qtserialport
+    qttools
+    qtmultimedia
+    qtlocation
+    qtbase
   ];
 
   meta = with lib; {
     description = "Free open-source planetarium";
-    homepage = http://stellarium.org/;
+    homepage = "http://stellarium.org/";
     license = licenses.gpl2;
 
-    platforms = platforms.linux; # should be mesaPlatforms, but we don't have qt on darwin
+    platforms =
+      platforms.linux; # should be mesaPlatforms, but we don't have qt on darwin
     maintainers = with maintainers; [ peti ma27 ];
   };
 }

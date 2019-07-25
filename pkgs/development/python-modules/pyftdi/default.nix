@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pyusb
-, pyserial
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pyusb, pyserial }:
 
 buildPythonPackage rec {
   pname = "pyftdi";

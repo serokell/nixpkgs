@@ -19,13 +19,15 @@ stdenv.mkDerivation rec {
     ./no-sys-dirs.patch
     (fetchpatch {
       name = "siginfo.patch";
-      url = "https://git.archlinux.org/svntogit/packages.git/plain/trunk/siginfo.patch?h=packages/libstdc%2B%2B5&id=e36ee8ed9bb5942db14cf6249a2ead14974a2bfa";
+      url =
+        "https://git.archlinux.org/svntogit/packages.git/plain/trunk/siginfo.patch?h=packages/libstdc%2B%2B5&id=e36ee8ed9bb5942db14cf6249a2ead14974a2bfa";
       sha256 = "15zldbm33yba293dgrgsbv3j332hkc3iqpyc8fa7zl42mh9qk22j";
       extraPrefix = "";
     })
     (fetchpatch {
       name = "gcc-3.4.3-no_multilib_amd64.patch";
-      url = "https://git.archlinux.org/svntogit/packages.git/plain/trunk/gcc-3.4.3-no_multilib_amd64.patch?h=packages/libstdc%2B%2B5&id=e36ee8ed9bb5942db14cf6249a2ead14974a2bfa";
+      url =
+        "https://git.archlinux.org/svntogit/packages.git/plain/trunk/gcc-3.4.3-no_multilib_amd64.patch?h=packages/libstdc%2B%2B5&id=e36ee8ed9bb5942db14cf6249a2ead14974a2bfa";
       sha256 = "11m5lc51b0addhc4yq4rz0dwpv6k73rrj73wya3lqdk8rly6cjpm";
       extraPrefix = "";
     })
@@ -93,7 +95,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ flex bison file ];
 
-  configureFlags = [ "--disable-multilib" "--enable-__cxa-atexit" "--enable-threads=posix" "--enable-languages=c++" "--enable-clocale=gnu" ];
+  configureFlags = [
+    "--disable-multilib"
+    "--enable-__cxa-atexit"
+    "--enable-threads=posix"
+    "--enable-languages=c++"
+    "--enable-clocale=gnu"
+  ];
 
   buildFLags = [ "all-target-libstdc++-v3" ];
 
@@ -108,9 +116,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://gcc.gnu.org/;
+    homepage = "https://gcc.gnu.org/";
     license = licenses.lgpl3Plus;
-    description = "GNU Compiler Collection, version ${version} -- C++ standard library";
+    description =
+      "GNU Compiler Collection, version ${version} -- C++ standard library";
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
   };

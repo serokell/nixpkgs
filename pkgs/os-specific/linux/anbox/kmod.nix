@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  KERNEL_SRC="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  KERNEL_SRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
   buildPhase = ''
     for d in ashmem binder;do
@@ -33,10 +33,11 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Anbox ashmem and binder drivers.";
-    homepage = https://github.com/anbox/anbox-modules;
+    homepage = "https://github.com/anbox/anbox-modules";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    broken = (versionOlder kernel.version "4.4") || (kernel.features.grsecurity);
+    broken = (versionOlder kernel.version "4.4")
+      || (kernel.features.grsecurity);
     maintainers = with maintainers; [ edwtjo ];
   };
 

@@ -1,35 +1,71 @@
-{ stdenv, fetchgit, cmake, pkgconfig, boost, libunwind, libmemcached
-, pcre, libevent, gd, curl, libxml2, icu, flex, bison, openssl, zlib, php
-, expat, libcap, oniguruma, libdwarf, libmcrypt, tbb, gperftools, glog, libkrb5
-, bzip2, openldap, readline, libelf, uwimap, binutils, cyrus_sasl, pam, libpng
-, libxslt, freetype, gdb, git, perl, mysql, gmp, libyaml, libedit
-, libvpx, imagemagick, fribidi, gperf, which, ocamlPackages
+{ stdenv, fetchgit, cmake, pkgconfig, boost, libunwind, libmemcached, pcre, libevent, gd, curl, libxml2, icu, flex, bison, openssl, zlib, php, expat, libcap, oniguruma, libdwarf, libmcrypt, tbb, gperftools, glog, libkrb5, bzip2, openldap, readline, libelf, uwimap, binutils, cyrus_sasl, pam, libpng, libxslt, freetype, gdb, git, perl, mysql, gmp, libyaml, libedit, libvpx, imagemagick, fribidi, gperf, which, ocamlPackages
 }:
 
 stdenv.mkDerivation rec {
-  name    = "hhvm-${version}";
+  name = "hhvm-${version}";
   version = "3.23.2";
 
   # use git version since we need submodules
   src = fetchgit {
-    url    = "https://github.com/facebook/hhvm.git";
-    rev    = "HHVM-${version}";
+    url = "https://github.com/facebook/hhvm.git";
+    rev = "HHVM-${version}";
     sha256 = "1nic49j8nghx82lgvz0b95r78sqz46qaaqv4nx48p8yrj9ysnd7i";
     fetchSubmodules = true;
   };
 
-  buildInputs =
-    [ cmake pkgconfig boost libunwind mysql.connector-c libmemcached pcre gdb git perl
-      libevent gd curl libxml2 icu flex bison openssl zlib php expat libcap
-      oniguruma libdwarf libmcrypt tbb gperftools bzip2 openldap readline
-      libelf uwimap binutils cyrus_sasl pam glog libpng libxslt libkrb5
-      gmp libyaml libedit libvpx imagemagick fribidi gperf which
-      ocamlPackages.ocaml ocamlPackages.ocamlbuild
-    ];
-
-  patches = [
-    ./flexible-array-members-gcc6.patch
+  buildInputs = [
+    cmake
+    pkgconfig
+    boost
+    libunwind
+    mysql.connector-c
+    libmemcached
+    pcre
+    gdb
+    git
+    perl
+    libevent
+    gd
+    curl
+    libxml2
+    icu
+    flex
+    bison
+    openssl
+    zlib
+    php
+    expat
+    libcap
+    oniguruma
+    libdwarf
+    libmcrypt
+    tbb
+    gperftools
+    bzip2
+    openldap
+    readline
+    libelf
+    uwimap
+    binutils
+    cyrus_sasl
+    pam
+    glog
+    libpng
+    libxslt
+    libkrb5
+    gmp
+    libyaml
+    libedit
+    libvpx
+    imagemagick
+    fribidi
+    gperf
+    which
+    ocamlPackages.ocaml
+    ocamlPackages.ocamlbuild
   ];
+
+  patches = [ ./flexible-array-members-gcc6.patch ];
 
   enableParallelBuilding = true;
   dontUseCmakeBuildDir = true;
@@ -59,10 +95,11 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "High-performance JIT compiler for PHP/Hack";
-    homepage    = "https://hhvm.com";
-    license     = "PHP/Zend";
-    platforms   = [ "x86_64-linux" ];
+    homepage = "https://hhvm.com";
+    license = "PHP/Zend";
+    platforms = [ "x86_64-linux" ];
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
-    broken = true; # Since 2018-04-21, see https://hydra.nixos.org/build/73059373
+    broken =
+      true; # Since 2018-04-21, see https://hydra.nixos.org/build/73059373
   };
 }

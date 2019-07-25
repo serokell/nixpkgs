@@ -13,16 +13,11 @@ let
     reportlab = python.pkgs.reportlab;
   };
 
-in
-
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "sasview";
   version = "4.2.0";
 
-  checkInputs = with python.pkgs; [
-    pytest
-    unittest-xml-reporting
-  ];
+  checkInputs = with python.pkgs; [ pytest unittest-xml-reporting ];
 
   checkPhase = ''
     # fix the following error:
@@ -67,7 +62,7 @@ python.pkgs.buildPythonApplication rec {
   patches = [ ./pyparsing-fix.patch ./local_config.patch ];
 
   meta = with lib; {
-    homepage = https://www.sasview.org;
+    homepage = "https://www.sasview.org";
     description = "Fitting and data analysis for small angle scattering data";
     maintainers = with maintainers; [ rprospero ];
     license = licenses.bsd3;

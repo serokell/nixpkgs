@@ -18,11 +18,15 @@ let
 
     nix = config.nix.package.out;
 
-    timeout = if config.boot.loader.timeout != null then config.boot.loader.timeout else "";
+    timeout = if config.boot.loader.timeout != null then
+      config.boot.loader.timeout
+    else
+      "";
 
     editor = if cfg.editor then "True" else "False";
 
-    configurationLimit = if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
+    configurationLimit =
+      if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
 
     inherit (cfg) consoleMode;
 
@@ -32,9 +36,14 @@ let
   };
 in {
 
-  imports =
-    [ (mkRenamedOptionModule [ "boot" "loader" "gummiboot" "enable" ] [ "boot" "loader" "systemd-boot" "enable" ])
-    ];
+  imports = [
+    (mkRenamedOptionModule [ "boot" "loader" "gummiboot" "enable" ] [
+      "boot"
+      "loader"
+      "systemd-boot"
+      "enable"
+    ])
+  ];
 
   options.boot.loader.systemd-boot = {
     enable = mkOption {
@@ -42,7 +51,8 @@ in {
 
       type = types.bool;
 
-      description = "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
+      description =
+        "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
     };
 
     editor = mkOption {
@@ -118,13 +128,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
+    assertions = [{
+      assertion =
+        (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
+        ? efiBootStub;
 
-        message = "This kernel does not support the EFI boot stub";
-      }
-    ];
+      message = "This kernel does not support the EFI boot stub";
+    }];
 
     boot.loader.grub.enable = mkDefault false;
 
@@ -135,9 +145,8 @@ in {
 
       boot.loader.id = "systemd-boot";
 
-      requiredKernelConfig = with config.lib.kernelConfig; [
-        (isYes "EFI_STUB")
-      ];
+      requiredKernelConfig = with config.lib.kernelConfig;
+        [ (isYes "EFI_STUB") ];
     };
   };
 }

@@ -1,22 +1,18 @@
-{ stdenv, fetchFromGitHub
-, pkgconfig, libftdi
-, python3, pypy3
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libftdi, python3, pypy3 }:
 
 let
-  pypyCompatible = stdenv.isx86_64; /* pypy3 seems broken on i686 */
-  pythonPkg      = if pypyCompatible then pypy3 else python3;
-  pythonInterp   = pythonPkg.interpreter;
-in
+  pypyCompatible = stdenv.isx86_64; # pypy3 seems broken on i686
+  pythonPkg = if pypyCompatible then pypy3 else python3;
+  pythonInterp = pythonPkg.interpreter;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "icestorm-${version}";
   version = "2019.04.16";
 
   src = fetchFromGitHub {
-    owner  = "cliffordwolf";
-    repo   = "icestorm";
-    rev    = "d9ea2e15fccebbbce59409b0ae7a1481d78aab86";
+    owner = "cliffordwolf";
+    repo = "icestorm";
+    rev = "d9ea2e15fccebbbce59409b0ae7a1481d78aab86";
     sha256 = "1qa37p7hm7c2ga26xcvsd8xkqrp4hm0w6yh7cvz2q988yjzal5ky";
   };
 
@@ -53,9 +49,9 @@ stdenv.mkDerivation rec {
       FPGAs and providing simple tools for analyzing and
       creating bitstream files.
     '';
-    homepage    = http://www.clifford.at/icestorm/;
-    license     = stdenv.lib.licenses.isc;
+    homepage = "http://www.clifford.at/icestorm/";
+    license = stdenv.lib.licenses.isc;
     maintainers = with stdenv.lib.maintainers; [ shell thoughtpolice ];
-    platforms   = stdenv.lib.platforms.linux;
+    platforms = stdenv.lib.platforms.linux;
   };
 }

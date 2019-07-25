@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, boost, cmake, ilmbase, libjpeg, libpng, libtiff
-, opencolorio, openexr, unzip
+{ stdenv, fetchFromGitHub, boost, cmake, ilmbase, libjpeg, libpng, libtiff, opencolorio, openexr, unzip
 }:
 
 stdenv.mkDerivation rec {
@@ -16,10 +15,7 @@ stdenv.mkDerivation rec {
   outputs = [ "bin" "out" "dev" "doc" ];
 
   nativeBuildInputs = [ cmake unzip ];
-  buildInputs = [
-    boost ilmbase libjpeg libpng
-    libtiff opencolorio openexr
-  ];
+  buildInputs = [ boost ilmbase libjpeg libpng libtiff opencolorio openexr ];
 
   cmakeFlags = [
     "-DUSE_PYTHON=OFF"
@@ -36,7 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.openimageio.org;
+    homepage = "http://www.openimageio.org";
     description = "A library and tools for reading and writing images";
     license = licenses.bsd3;
     maintainers = [ maintainers.goibhniu ];

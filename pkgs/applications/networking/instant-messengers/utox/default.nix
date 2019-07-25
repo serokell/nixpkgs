@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, check, cmake, pkgconfig
-, libtoxcore, filter-audio, dbus, libvpx, libX11, openal, freetype, libv4l
-, libXrender, fontconfig, libXext, libXft, libsodium, libopus }:
+{ stdenv, fetchFromGitHub, check, cmake, pkgconfig, libtoxcore, filter-audio, dbus, libvpx, libX11, openal, freetype, libv4l, libXrender, fontconfig, libXext, libXft, libsodium, libopus
+}:
 
 stdenv.mkDerivation rec {
   name = "utox-${version}";
@@ -8,22 +7,31 @@ stdenv.mkDerivation rec {
   version = "0.17.0";
 
   src = fetchFromGitHub {
-    owner  = "uTox";
-    repo   = "uTox";
-    rev    = "v${version}";
+    owner = "uTox";
+    repo = "uTox";
+    rev = "v${version}";
     sha256 = "12wbq883il7ikldayh8hm0cjfrkp45vn05xx9s1jbfz6gmkidyar";
     fetchSubmodules = true;
   };
 
   buildInputs = [
-    libtoxcore dbus libvpx libX11 openal freetype
-    libv4l libXrender fontconfig libXext libXft filter-audio
-    libsodium libopus
+    libtoxcore
+    dbus
+    libvpx
+    libX11
+    openal
+    freetype
+    libv4l
+    libXrender
+    fontconfig
+    libXext
+    libXft
+    filter-audio
+    libsodium
+    libopus
   ];
 
-  nativeBuildInputs = [
-    cmake pkgconfig
-  ];
+  nativeBuildInputs = [ cmake pkgconfig ];
 
   cmakeFlags = [
     "-DENABLE_AUTOUPDATE=OFF"
@@ -35,7 +43,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Lightweight Tox client";
-    homepage = https://github.com/uTox/uTox;
+    homepage = "https://github.com/uTox/uTox";
     license = licenses.gpl3;
     maintainers = with maintainers; [ domenkozar ];
     platforms = platforms.all;

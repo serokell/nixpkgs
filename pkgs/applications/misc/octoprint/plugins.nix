@@ -1,13 +1,15 @@
 { stdenv, fetchFromGitHub, octoprint, python2Packages, marlin-calc }:
 
 let
-  buildPlugin = args: python2Packages.buildPythonPackage (args // {
-    pname = "OctoPrintPlugin-${args.pname}";
-    inherit (args) version;
-    propagatedBuildInputs = (args.propagatedBuildInputs or []) ++ [ octoprint ];
-    # none of the following have tests
-    doCheck = false;
-  });
+  buildPlugin = args:
+    python2Packages.buildPythonPackage (args // {
+      pname = "OctoPrintPlugin-${args.pname}";
+      inherit (args) version;
+      propagatedBuildInputs = (args.propagatedBuildInputs or [ ])
+        ++ [ octoprint ];
+      # none of the following have tests
+      doCheck = false;
+    });
 
   self = {
 
@@ -25,9 +27,7 @@ let
         sha256 = "1la3611kkqn8yiwjn6cizc45ri8pnk6ckld1na4nk6mqk88jvjq7";
       };
 
-      patches = [
-        ./m33-fio-one-library.patch
-      ];
+      patches = [ ./m33-fio-one-library.patch ];
 
       postPatch = ''
         rm -rf octoprint_m33fio/static/libraries/*
@@ -39,7 +39,7 @@ let
 
       meta = with stdenv.lib; {
         description = "OctoPrint plugin for the Micro 3D printer";
-        homepage = https://github.com/donovan6000/M33-Fio;
+        homepage = "https://github.com/donovan6000/M33-Fio";
         license = licenses.gpl3;
         maintainers = with maintainers; [ abbradar ];
       };
@@ -60,7 +60,7 @@ let
 
       meta = with stdenv.lib; {
         description = "Publish printer status MQTT";
-        homepage = https://github.com/OctoPrint/OctoPrint-MQTT;
+        homepage = "https://github.com/OctoPrint/OctoPrint-MQTT";
         license = licenses.agpl3;
         maintainers = with maintainers; [ peterhoeg ];
       };
@@ -79,7 +79,7 @@ let
 
       meta = with stdenv.lib; {
         description = "Show printers status in window title";
-        homepage = https://github.com/MoonshineSG/OctoPrint-TitleStatus;
+        homepage = "https://github.com/MoonshineSG/OctoPrint-TitleStatus";
         license = licenses.agpl3;
         maintainers = with maintainers; [ abbradar ];
       };
@@ -98,7 +98,7 @@ let
 
       meta = with stdenv.lib; {
         description = "A simple stl viewer tab for OctoPrint";
-        homepage = https://github.com/jneilliii/Octoprint-STLViewer;
+        homepage = "https://github.com/jneilliii/Octoprint-STLViewer";
         license = licenses.agpl3;
         maintainers = with maintainers; [ abbradar ];
       };
@@ -116,7 +116,8 @@ let
       };
 
       meta = with stdenv.lib; {
-        description = "Plugin for slicing via Cura Legacy from within OctoPrint";
+        description =
+          "Plugin for slicing via Cura Legacy from within OctoPrint";
         homepage = "https://github.com/OctoPrint/OctoPrint-CuraEngineLegacy";
         license = licenses.agpl3;
         maintainers = with maintainers; [ gebner ];
@@ -135,7 +136,8 @@ let
       };
 
       meta = with stdenv.lib; {
-        description = "Touch friendly interface for a small TFT module or phone for OctoPrint";
+        description =
+          "Touch friendly interface for a small TFT module or phone for OctoPrint";
         homepage = "https://github.com/BillyBlaze/OctoPrint-TouchUI";
         license = licenses.agpl3;
         maintainers = with maintainers; [ gebner ];

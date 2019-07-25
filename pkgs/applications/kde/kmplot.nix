@@ -1,5 +1,4 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools
-, kcrash, kguiaddons, ki18n, kparts, kwidgetsaddons, kdbusaddons
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcrash, kguiaddons, ki18n, kparts, kwidgetsaddons, kdbusaddons
 }:
 
 mkDerivation {
@@ -9,7 +8,5 @@ mkDerivation {
     maintainers = [ lib.maintainers.orivej ];
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [
-    kcrash kguiaddons ki18n kparts kwidgetsaddons kdbusaddons
-  ];
+  buildInputs = [ kcrash kguiaddons ki18n kparts kwidgetsaddons kdbusaddons ];
 }

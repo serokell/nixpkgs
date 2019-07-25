@@ -1,4 +1,4 @@
-{stdenv, buildPythonPackage, fetchFromGitHub, bap, requests}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, bap, requests }:
 
 buildPythonPackage rec {
   pname = "bap";
@@ -10,13 +10,14 @@ buildPythonPackage rec {
     sha256 = "1ahkrmcn7qaivps1gar8wd9mq2qqyx6zzvznf5r9rr05h17x5lbp";
   };
 
-  propagatedBuildInputs = [bap requests];
+  propagatedBuildInputs = [ bap requests ];
 
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Platform for binary analysis. It is written in OCaml, but can be used from other languages.";
-    homepage = https://github.com/BinaryAnalysisPlatform/bap/;
+    description =
+      "Platform for binary analysis. It is written in OCaml, but can be used from other languages.";
+    homepage = "https://github.com/BinaryAnalysisPlatform/bap/";
     maintainers = [ maintainers.maurer ];
     license = licenses.mit;
   };

@@ -4,7 +4,6 @@ with lib;
 
 let
 
-
   # This attribute is responsible for creating boot entries for
   # child configuration. They are only (directly) accessible
   # when the parent configuration is boot default. For example,
@@ -13,25 +12,20 @@ let
   # !!! fix this
   cloner = inheritParent: list:
     map (childConfig:
-      (import ../../../lib/eval-config.nix {
-        inherit baseModules;
-        modules =
-           (optionals inheritParent modules)
-        ++ [ ./no-clone.nix ]
+    (import ../../../lib/eval-config.nix {
+      inherit baseModules;
+      modules = (optionals inheritParent modules) ++ [ ./no-clone.nix ]
         ++ [ childConfig ];
-      }).config.system.build.toplevel
-    ) list;
+    }).config.system.build.toplevel) list;
 
-  children =
-     cloner false config.nesting.children
-  ++ cloner true config.nesting.clone;
+  children = cloner false config.nesting.children
+    ++ cloner true config.nesting.clone;
 
-  systemBuilder =
-    let
-      kernelPath = "${config.boot.kernelPackages.kernel}/" +
-        "${config.system.boot.loader.kernelFile}";
-      initrdPath = "${config.system.build.initialRamdisk}/" +
-        "${config.system.boot.loader.initrdFile}";
+  systemBuilder = let
+    kernelPath = "${config.boot.kernelPackages.kernel}/"
+      + "${config.system.boot.loader.kernelFile}";
+    initrdPath = "${config.system.build.initialRamdisk}/"
+      + "${config.system.boot.loader.initrdFile}";
     in ''
       mkdir $out
 
@@ -46,7 +40,8 @@ let
 
         ln -s ${kernelPath} $out/kernel
         ln -s ${config.system.modulesTree} $out/kernel-modules
-        ${optionalString (pkgs.stdenv.hostPlatform.platform.kernelDTB or false) ''
+        ${optionalString
+        (pkgs.stdenv.hostPlatform.platform.kernelDTB or false) ''
           ln -s ${config.boot.kernelPackages.kernel}/dtbs $out/dtbs
         ''}
 
@@ -72,7 +67,9 @@ let
       ln -s "$systemd" $out/systemd
 
       echo -n "$configurationName" > $out/configuration-name
-      echo -n "systemd ${toString config.systemd.package.interfaceVersion}" > $out/init-interface-version
+      echo -n "systemd ${
+        toString config.systemd.package.interfaceVersion
+      }" > $out/init-interface-version
       echo -n "$nixosLabel" > $out/nixos-version
       echo -n "${pkgs.stdenv.hostPlatform.system}" > $out/system
 
@@ -85,10 +82,14 @@ let
 
       mkdir $out/bin
       export localeArchive="${config.i18n.glibcLocales}/lib/locale/locale-archive"
-      substituteAll ${./switch-to-configuration.pl} $out/bin/switch-to-configuration
+      substituteAll ${
+        ./switch-to-configuration.pl
+      } $out/bin/switch-to-configuration
       chmod +x $out/bin/switch-to-configuration
 
-      echo -n "${toString config.system.extraDependencies}" > $out/extra-dependencies
+      echo -n "${
+        toString config.system.extraDependencies
+      }" > $out/extra-dependencies
 
       ${config.system.extraSystemBuilderCmds}
     '';
@@ -99,9 +100,10 @@ let
   # `switch-to-configuration' that activates the configuration and
   # makes it bootable.
   baseSystem = pkgs.stdenvNoCC.mkDerivation {
-    name = let hn = config.networking.hostName;
-               nn = if (hn != "") then hn else "unnamed";
-        in "nixos-system-${nn}-${config.system.nixos.label}";
+    name = let
+      hn = config.networking.hostName;
+      nn = if (hn != "") then hn else "unnamed";
+      in "nixos-system-${nn}-${config.system.nixos.label}";
     preferLocalBuild = true;
     allowSubstitutes = false;
     buildCommand = systemBuilder;
@@ -114,8 +116,7 @@ let
     inherit children;
     kernelParams = config.boot.kernelParams;
     installBootLoader =
-      config.system.build.installBootLoader
-      or "echo 'Warning: do not know how to make this configuration bootable; please enable a boot loader.' 1>&2; true";
+      config.system.build.installBootLoader or "echo 'Warning: do not know how to make this configuration bootable; please enable a boot loader.' 1>&2; true";
     activationScript = config.system.activationScripts.script;
     nixosLabel = config.system.nixos.label;
 
@@ -123,30 +124,36 @@ let
 
     # Needed by switch-to-configuration.
 
-    perl = "${pkgs.perl}/bin/perl " + (concatMapStringsSep " " (lib: "-I${lib}/${pkgs.perl.libPrefix}") (with pkgs.perlPackages; [ FileSlurp NetDBus XMLParser XMLTwig ]));
+    perl = "${pkgs.perl}/bin/perl "
+      + (concatMapStringsSep " " (lib: "-I${lib}/${pkgs.perl.libPrefix}")
+      (with pkgs.perlPackages; [ FileSlurp NetDBus XMLParser XMLTwig ]));
   };
 
   # Handle assertions and warnings
 
-  failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
+  failedAssertions =
+    map (x: x.message) (filter (x: !x.assertion) config.assertions);
 
-  baseSystemAssertWarn = if failedAssertions != []
-    then throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
-    else showWarnings config.warnings baseSystem;
+  baseSystemAssertWarn = if failedAssertions != [ ] then
+    throw ''
+
+      Failed assertions:
+      ${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}''
+  else
+    showWarnings config.warnings baseSystem;
 
   # Replace runtime dependencies
-  system = fold ({ oldDependency, newDependency }: drv:
-      pkgs.replaceDependency { inherit oldDependency newDependency drv; }
-    ) baseSystemAssertWarn config.system.replaceRuntimeDependencies;
+  system = fold ({ oldDependency, newDependency }:
+    drv:
+    pkgs.replaceDependency { inherit oldDependency newDependency drv; })
+    baseSystemAssertWarn config.system.replaceRuntimeDependencies;
 
-in
-
-{
+in {
   options = {
 
     system.build = mkOption {
       internal = true;
-      default = {};
+      default = { };
       type = types.attrs;
       description = ''
         Attribute set of derivations used to setup the system.
@@ -154,14 +161,14 @@ in
     };
 
     nesting.children = mkOption {
-      default = [];
+      default = [ ];
       description = ''
         Additional configurations to build.
       '';
     };
 
     nesting.clone = mkOption {
-      default = [];
+      default = [ ];
       description = ''
         Additional configurations to build based on the current
         configuration which then has a lower priority.
@@ -224,7 +231,7 @@ in
 
     system.extraDependencies = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       description = ''
         A list of packages that should be included in the system
         closure but not otherwise made available to users. This is
@@ -233,21 +240,20 @@ in
     };
 
     system.replaceRuntimeDependencies = mkOption {
-      default = [];
-      example = lib.literalExample "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
-      type = types.listOf (types.submodule (
-        { ... }: {
-          options.original = mkOption {
-            type = types.package;
-            description = "The original package to override.";
-          };
+      default = [ ];
+      example = lib.literalExample
+        "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
+      type = types.listOf (types.submodule ({ ... }: {
+        options.original = mkOption {
+          type = types.package;
+          description = "The original package to override.";
+        };
 
-          options.replacement = mkOption {
-            type = types.package;
-            description = "The replacement package.";
-          };
-        })
-      );
+        options.replacement = mkOption {
+          type = types.package;
+          description = "The replacement package.";
+        };
+      }));
       apply = map ({ original, replacement, ... }: {
         oldDependency = original;
         newDependency = replacement;
@@ -261,15 +267,15 @@ in
 
   };
 
-
   config = {
 
     system.extraSystemBuilderCmds =
-      optionalString
-        config.system.copySystemConfiguration
-        ''ln -s '${import ../../../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>}' \
-            "$out/configuration.nix"
-        '';
+      optionalString config.system.copySystemConfiguration ''
+        ln -s '${
+          import ../../../lib/from-env.nix "NIXOS_CONFIG" <nixos-config>
+        }' \
+                    "$out/configuration.nix"
+                '';
 
     system.build.toplevel = system;
 

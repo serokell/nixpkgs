@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, qmake
-, qtbase, qtscript, qtwebkit, qtserialport, qtsvg, qtdeclarative, qtquickcontrols2
-, alsaLib, libsndfile, flite, openssl, udev, SDL2
+{ stdenv, fetchFromGitHub, qmake, qtbase, qtscript, qtwebkit, qtserialport, qtsvg, qtdeclarative, qtquickcontrols2, alsaLib, libsndfile, flite, openssl, udev, SDL2
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +13,13 @@ stdenv.mkDerivation rec {
   };
 
   qtInputs = [
-    qtbase qtscript qtwebkit qtserialport qtsvg qtdeclarative qtquickcontrols2
+    qtbase
+    qtscript
+    qtwebkit
+    qtserialport
+    qtsvg
+    qtdeclarative
+    qtquickcontrols2
   ];
 
   buildInputs = [ alsaLib libsndfile flite openssl udev SDL2 ] ++ qtInputs;
@@ -29,7 +33,7 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/share/applications/apmplanner2.desktop \
                       --replace /usr $out
   '';
-  
+
   enableParallelBuilding = true;
 
   meta = {
@@ -38,7 +42,7 @@ stdenv.mkDerivation rec {
       A GUI ground control station for autonomous vehicles using the MAVLink protocol.
       Includes support for the APM and PX4 based controllers.
     '';
-    homepage = http://ardupilot.org/planner2/;
+    homepage = "http://ardupilot.org/planner2/";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.wucke13 ];
   };

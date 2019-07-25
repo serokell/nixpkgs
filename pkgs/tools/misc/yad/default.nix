@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, intltool, autoreconfHook, wrapGAppsHook
-, gtk3, hicolor-icon-theme, netpbm }:
+{ stdenv, fetchFromGitHub, pkgconfig, intltool, autoreconfHook, wrapGAppsHook, gtk3, hicolor-icon-theme, netpbm
+}:
 
 stdenv.mkDerivation rec {
   pname = "yad";
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://sourceforge.net/projects/yad-dialog/;
+    homepage = "https://sourceforge.net/projects/yad-dialog/";
     description = "GUI dialog tool for shell scripts";
     longDescription = ''
       Yad (yet another dialog) is a GUI dialog tool for shell scripts. It is a

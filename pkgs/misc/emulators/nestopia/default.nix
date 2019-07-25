@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, SDL2, alsaLib, gtk3
-, makeWrapper, libGLU_combined, libarchive, libao, unzip, xdg_utils
-, epoxy, gdk_pixbuf, gnome3, wrapGAppsHook
+{ stdenv, fetchFromGitHub, pkgconfig, SDL2, alsaLib, gtk3, makeWrapper, libGLU_combined, libarchive, libao, unzip, xdg_utils, epoxy, gdk_pixbuf, gnome3, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -33,11 +31,7 @@ stdenv.mkDerivation rec {
     gnome3.adwaita-icon-theme
   ];
 
-  nativeBuildInputs = [
-    pkgconfig
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkgconfig makeWrapper wrapGAppsHook ];
 
   installPhase = ''
     mkdir -p $out/{bin,share/nestopia}
@@ -45,10 +39,10 @@ stdenv.mkDerivation rec {
   '';
 
   preFixup = ''
-     for f in $out/bin/*; do
-       wrapProgram $f \
-         --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share"
-     done
+    for f in $out/bin/*; do
+      wrapProgram $f \
+        --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH:$out/share"
+    done
   '';
 
   patches = [
@@ -62,7 +56,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    homepage = http://0ldsk00l.ca/nestopia/;
+    homepage = "http://0ldsk00l.ca/nestopia/";
     description = "NES emulator with a focus on accuracy";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;

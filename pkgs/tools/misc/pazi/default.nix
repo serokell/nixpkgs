@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [ ./cargo-lock.patch ];
 
   meta = with stdenv.lib; {
-    description = "An autojump \"zap to directory\" helper";
-    homepage = https://github.com/euank/pazi;
+    description = ''An autojump "zap to directory" helper'';
+    homepage = "https://github.com/euank/pazi";
     license = licenses.gpl3;
     maintainers = with maintainers; [ bbigras ];
   };

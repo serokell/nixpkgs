@@ -8,9 +8,7 @@ let
 
   memcached = pkgs.memcached;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -38,11 +36,13 @@ in
         description = "The port to bind to";
       };
 
-      enableUnixSocket = mkEnableOption "unix socket at /run/memcached/memcached.sock";
+      enableUnixSocket =
+        mkEnableOption "unix socket at /run/memcached/memcached.sock";
 
       maxMemory = mkOption {
         default = 64;
-        description = "The maximum amount of memory to use for storage, in megabytes.";
+        description =
+          "The maximum amount of memory to use for storage, in megabytes.";
       };
 
       maxConnections = mkOption {
@@ -51,8 +51,9 @@ in
       };
 
       extraOptions = mkOption {
-        default = [];
-        description = "A list of extra options that will be added as a suffix when running memcached";
+        default = [ ];
+        description =
+          "A list of extra options that will be added as a suffix when running memcached";
       };
     };
 
@@ -76,12 +77,16 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart =
-        let
-          networking = if cfg.enableUnixSocket
-          then "-s /run/memcached/memcached.sock"
-          else "-l ${cfg.listen} -p ${toString cfg.port}";
-        in "${memcached}/bin/memcached ${networking} -m ${toString cfg.maxMemory} -c ${toString cfg.maxConnections} ${concatStringsSep " " cfg.extraOptions}";
+        ExecStart = let
+          networking = if cfg.enableUnixSocket then
+            "-s /run/memcached/memcached.sock"
+          else
+            "-l ${cfg.listen} -p ${toString cfg.port}";
+          in "${memcached}/bin/memcached ${networking} -m ${
+            toString cfg.maxMemory
+          } -c ${toString cfg.maxConnections} ${
+            concatStringsSep " " cfg.extraOptions
+          }";
 
         User = cfg.user;
         RuntimeDirectory = "memcached";
@@ -89,7 +94,7 @@ in
     };
   };
   imports = [
-    (mkRemovedOptionModule ["services" "memcached" "socket"] ''
+    (mkRemovedOptionModule [ "services" "memcached" "socket" ] ''
       This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
     '')
   ];

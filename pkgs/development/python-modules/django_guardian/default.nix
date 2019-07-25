@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, django_environ, mock, django
-, pytest, pytestrunner, pytest-django
+{ stdenv, buildPythonPackage, fetchPypi, django_environ, mock, django, pytest, pytestrunner, pytest-django
 }:
 buildPythonPackage rec {
   pname = "django-guardian";
@@ -16,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Per object permissions for Django";
-    homepage = https://github.com/django-guardian/django-guardian;
+    homepage = "https://github.com/django-guardian/django-guardian";
     license = [ licenses.mit licenses.bsd2 ];
   };
 }

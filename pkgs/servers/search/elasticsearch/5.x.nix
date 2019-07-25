@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, elk5Version, makeWrapper, jre_headless
-, utillinux, gnugrep, coreutils }:
+{ stdenv, fetchurl, elk5Version, makeWrapper, jre_headless, utillinux, gnugrep, coreutils
+}:
 
 with stdenv.lib;
 
@@ -37,8 +37,6 @@ stdenv.mkDerivation rec {
     description = "Open Source, Distributed, RESTful Search Engine";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [
-      maintainers.apeschar
-    ];
+    maintainers = [ maintainers.apeschar ];
   };
 }

@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.amazonImage;
+let cfg = config.amazonImage;
 in {
 
   imports = [ ../../../modules/virtualisation/amazon-image.nix ];
@@ -27,7 +26,7 @@ in {
           }
         ]
       '';
-      default = [];
+      default = [ ];
       description = ''
         This option lists files to be copied to fixed locations in the
         generated image. Glob patterns work.
@@ -50,18 +49,21 @@ in {
   config.system.build.amazonImage = import ../../../lib/make-disk-image.nix {
     inherit lib config;
     inherit (cfg) contents format name;
-    pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
+    pkgs = import ../../../.. {
+      inherit (pkgs) system;
+    }; # ensure we use the regular qemu-kvm package
     partitionTableType = if config.ec2.hvm then "legacy" else "none";
     diskSize = cfg.sizeMB;
     fsType = "ext4";
-    configFile = pkgs.writeText "configuration.nix"
-      ''
-        {
-          imports = [ <nixpkgs/nixos/modules/virtualisation/amazon-image.nix> ];
-          ${optionalString config.ec2.hvm ''
-            ec2.hvm = true;
-          ''}
+    configFile = pkgs.writeText "configuration.nix" ''
+      {
+        imports = [ <nixpkgs/nixos/modules/virtualisation/amazon-image.nix> ];
+        ${
+        optionalString config.ec2.hvm ''
+          ec2.hvm = true;
+        ''
         }
-      '';
+      }
+    '';
   };
 }

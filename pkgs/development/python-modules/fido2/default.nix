@@ -1,7 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, six, cryptography
-, mock, pyfakefs
-}:
+{ lib, buildPythonPackage, fetchPypi, six, cryptography, mock, pyfakefs }:
 
 buildPythonPackage rec {
   pname = "fido2";
@@ -17,8 +14,9 @@ buildPythonPackage rec {
   checkInputs = [ mock pyfakefs ];
 
   meta = with lib; {
-    description = "Provides library functionality for FIDO 2.0, including communication with a device over USB.";
-    homepage = https://github.com/Yubico/python-fido2;
+    description =
+      "Provides library functionality for FIDO 2.0, including communication with a device over USB.";
+    homepage = "https://github.com/Yubico/python-fido2";
     license = licenses.mpl20;
   };
 }

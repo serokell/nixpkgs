@@ -1,18 +1,4 @@
-{ stdenv, fetchFromGitHub
-, ninja
-, meson
-, pkgconfig
-, wrapGAppsHook
-, appstream-glib
-, desktop-file-utils
-, gtk3
-, gst_all_1
-, gobject-introspection
-, python3Packages
-, file
-, cairo
-, gettext
-, gnome3
+{ stdenv, fetchFromGitHub, ninja, meson, pkgconfig, wrapGAppsHook, appstream-glib, desktop-file-utils, gtk3, gst_all_1, gobject-introspection, python3Packages, file, cairo, gettext, gnome3
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -35,24 +21,22 @@ python3Packages.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig
+    meson
+    ninja
+    pkgconfig
     wrapGAppsHook
     appstream-glib
     desktop-file-utils
     gobject-introspection
   ];
 
-  buildInputs = [
-    gtk3
-    cairo
-    gettext
-    gnome3.adwaita-icon-theme
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-good
-    gst-plugins-ugly
-    gst-plugins-base
-  ]);
+  buildInputs = [ gtk3 cairo gettext gnome3.adwaita-icon-theme ]
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-good
+      gst-plugins-ugly
+      gst-plugins-base
+    ]);
 
   propagatedBuildInputs = with python3Packages; [
     gst-python
@@ -75,7 +59,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "A modern audio book player for Linux using GTK+ 3";
-    homepage = https://cozy.geigi.de/;
+    homepage = "https://cozy.geigi.de/";
     maintainers = [ maintainers.makefu ];
     license = licenses.gpl3;
   };

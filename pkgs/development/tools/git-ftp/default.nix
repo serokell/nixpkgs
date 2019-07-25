@@ -15,11 +15,11 @@ stdenv.mkDerivation rec {
     make install-all prefix=$out
   '';
 
-  buildInputs = [pandoc man];
+  buildInputs = [ pandoc man ];
 
   meta = with stdenv.lib; {
     description = "Git powered FTP client written as shell script.";
-    homepage = https://git-ftp.github.io/;
+    homepage = "https://git-ftp.github.io/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ tweber ];
     platforms = platforms.unix;

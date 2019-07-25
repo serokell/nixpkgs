@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Split file trees into bags (called \"partitions\")";
+    description = ''Split file trees into bags (called "partitions")'';
     longDescription = ''
       Fpart is a tool that helps you sort file trees and pack them into bags
       (called "partitions").

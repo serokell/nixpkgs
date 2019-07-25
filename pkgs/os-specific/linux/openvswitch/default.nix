@@ -1,11 +1,9 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, utillinux, which
-, procps, libcap_ng, openssl, python27 , perl
-, kernel ? null }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, utillinux, which, procps, libcap_ng, openssl, python27, perl, kernel ?
+  null }:
 
 with stdenv.lib;
 
-let
-  _kernel = kernel;
+let _kernel = kernel;
 in stdenv.mkDerivation rec {
   version = "2.5.4";
   name = "openvswitch-${version}";
@@ -18,14 +16,12 @@ in stdenv.mkDerivation rec {
   kernel = optional (_kernel != null) _kernel.dev;
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ makeWrapper utillinux openssl libcap_ng python27
-                  perl procps which ];
+  buildInputs =
+    [ makeWrapper utillinux openssl libcap_ng python27 perl procps which ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sharedstatedir=/var"
-    "--sbindir=$(out)/bin"
-  ] ++ (optionals (_kernel != null) ["--with-linux"]);
+  configureFlags =
+    [ "--localstatedir=/var" "--sharedstatedir=/var" "--sbindir=$(out)/bin" ]
+    ++ (optionals (_kernel != null) [ "--with-linux" ]);
 
   # Leave /var out of this!
   installFlags = [
@@ -41,7 +37,8 @@ in stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  doCheck = false; # bash-completion test fails with "compgen: command not found"
+  doCheck =
+    false; # bash-completion test fails with "compgen: command not found"
 
   postInstall = ''
     cp debian/ovs-monitor-ipsec $out/share/openvswitch/scripts
@@ -60,8 +57,7 @@ in stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     platforms = platforms.linux;
     description = "A multilayer virtual switch";
-    longDescription =
-      ''
+    longDescription = ''
       Open vSwitch is a production quality, multilayer virtual switch
       licensed under the open source Apache 2.0 license. It is
       designed to enable massive network automation through
@@ -70,8 +66,8 @@ in stdenv.mkDerivation rec {
       RSPAN, CLI, LACP, 802.1ag). In addition, it is designed to
       support distribution across multiple physical servers similar
       to VMware's vNetwork distributed vswitch or Cisco's Nexus 1000V.
-      '';
-    homepage = http://openvswitch.org/;
+    '';
+    homepage = "http://openvswitch.org/";
     license = licenses.asl20;
   };
 }

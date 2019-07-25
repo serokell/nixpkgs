@@ -16,14 +16,12 @@ stdenv.mkDerivation rec {
     cp xclock.man $out/share/man/man1/xclock.1
   '';
 
-  makeFlags = [
-    "DESTINATION=$(out)/bin/"
-  ];
+  makeFlags = [ "DESTINATION=$(out)/bin/" ];
 
   buildInputs = [ xlibsWrapper motif ];
 
   meta = with stdenv.lib; {
-    homepage = http://codefromabove.com/2014/05/catclock/;
+    homepage = "http://codefromabove.com/2014/05/catclock/";
     license = with licenses; mit;
     maintainers = with maintainers; [ ramkromberg ];
     platforms = with platforms; linux ++ darwin;

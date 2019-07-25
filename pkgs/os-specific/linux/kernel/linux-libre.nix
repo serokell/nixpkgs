@@ -1,14 +1,11 @@
-{ stdenv, lib, fetchsvn, linux
-, scripts ? fetchsvn {
-    url = "https://www.fsfla.org/svn/fsfla/software/linux-libre/releases/tags/";
+{ stdenv, lib, fetchsvn, linux, scripts ? fetchsvn {
+  url = "https://www.fsfla.org/svn/fsfla/software/linux-libre/releases/tags/";
 
-    # Update this if linux_latest-libre fails to build.
-    # $ curl https://www.fsfla.org/svn/fsfla/software/linux-libre/releases/tags/ | grep -Eo 'Revision [0-9]+'
-    rev = "16330";
-    sha256 = "1d7rsq2m6lp1784cgdg95aspgrnzxm6q9dxqalxja5cac8n6p11y";
-  }
-, ...
-}:
+  # Update this if linux_latest-libre fails to build.
+  # $ curl https://www.fsfla.org/svn/fsfla/software/linux-libre/releases/tags/ | grep -Eo 'Revision [0-9]+'
+  rev = "16330";
+  sha256 = "1d7rsq2m6lp1784cgdg95aspgrnzxm6q9dxqalxja5cac8n6p11y";
+}, ... }:
 
 let
   majorMinor = lib.versions.majorMinor linux.modDirVersion;

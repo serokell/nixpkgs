@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, docopt
-, requests
-}:
+{ stdenv, buildPythonPackage, fetchPypi, docopt, requests }:
 
 buildPythonPackage rec {
   version = "2.0.9";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A CLI client and Python API library for the MailChimp email platform";
+    description =
+      "A CLI client and Python API library for the MailChimp email platform";
     homepage = "http://apidocs.mailchimp.com/api/2.0/";
     license = licenses.mit;
   };

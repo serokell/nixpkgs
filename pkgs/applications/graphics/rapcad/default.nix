@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchurl, cgal, boost, gmp, mpfr, flex, bison, dxflib, readline
-, qtbase, qmake, libGLU
+{ stdenv, fetchFromGitHub, fetchurl, cgal, boost, gmp, mpfr, flex, bison, dxflib, readline, qtbase, qmake, libGLU
 }:
 
 stdenv.mkDerivation rec {
@@ -15,20 +14,22 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchurl {
-      url = "https://github.com/GilesBathgate/RapCAD/commit/278a8d6c7b8fe08f867002528bbab4a6319a7bb6.patch";
+      url =
+        "https://github.com/GilesBathgate/RapCAD/commit/278a8d6c7b8fe08f867002528bbab4a6319a7bb6.patch";
       sha256 = "1vvkyf0wg79zdzs5zlggfrr1lrp1x75dglzl0mspnycwldsdwznj";
       name = "disable-QVector-qHash.patch";
     })
   ];
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase cgal boost gmp mpfr flex bison dxflib readline libGLU ];
+  buildInputs =
+    [ qtbase cgal boost gmp mpfr flex bison dxflib readline libGLU ];
 
   meta = with stdenv.lib; {
     license = licenses.gpl3;
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
-    description = ''Constructive solid geometry package'';
+    description = "Constructive solid geometry package";
     broken = true; # 2018-04-11
   };
 }

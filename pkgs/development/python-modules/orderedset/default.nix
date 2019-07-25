@@ -11,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "An Ordered Set implementation in Cython";
-    homepage = https://pypi.python.org/pypi/orderedset;
+    homepage = "https://pypi.python.org/pypi/orderedset";
     license = licenses.bsd3;
     maintainers = [ maintainers.jtojnar ];
   };

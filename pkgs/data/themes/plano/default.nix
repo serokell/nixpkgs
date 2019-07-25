@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Flat theme for GNOME & Xfce4";
-    homepage = https://github.com/lassekongo83/plano-theme;
+    homepage = "https://github.com/lassekongo83/plano-theme";
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

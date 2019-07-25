@@ -1,41 +1,17 @@
-{ fetchurl
-, stdenv
-, substituteAll
-, aspellWithDicts
-, at-spi2-core ? null
-, atspiSupport ? true
-, bash
-, glib
-, glibcLocales
-, gnome3
-, gobject-introspection
-, gsettings-desktop-schemas
-, gtk3
-, hunspell
-, hunspellDicts
-, hunspellWithDicts
-, intltool
-, isocodes
-, libcanberra-gtk3
-, mousetweaks
-, udev
-, libxkbcommon
-, pkgconfig
-, procps
-, python3
-, wrapGAppsHook
-, xorg
-, yelp
+{ fetchurl, stdenv, substituteAll, aspellWithDicts, at-spi2-core ?
+  null, atspiSupport ?
+    true, bash, glib, glibcLocales, gnome3, gobject-introspection, gsettings-desktop-schemas, gtk3, hunspell, hunspellDicts, hunspellWithDicts, intltool, isocodes, libcanberra-gtk3, mousetweaks, udev, libxkbcommon, pkgconfig, procps, python3, wrapGAppsHook, xorg, yelp
 }:
 
 let
-  customHunspell = hunspellWithDicts [hunspellDicts.en-us];
+  customHunspell = hunspellWithDicts [ hunspellDicts.en-us ];
   majorVersion = "1.4";
   version = "${majorVersion}.1";
 in python3.pkgs.buildPythonApplication rec {
   name = "onboard-${version}";
   src = fetchurl {
-    url = "https://launchpad.net/onboard/${majorVersion}/${version}/+download/${name}.tar.gz";
+    url =
+      "https://launchpad.net/onboard/${majorVersion}/${version}/+download/${name}.tar.gz";
     sha256 = "01cae1ac5b1ef1ab985bd2d2d79ded6fc99ee04b1535cc1bb191e43a231a3865";
   };
 
@@ -100,9 +76,7 @@ in python3.pkgs.buildPythonApplication rec {
     pkgconfig
   ];
 
-  propagatedUserEnvPkgs = [
-    gnome3.dconf
-  ];
+  propagatedUserEnvPkgs = [ gnome3.dconf ];
 
   preBuild = ''
     # Unnecessary file, has been removed upstream
@@ -156,8 +130,9 @@ in python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = {
-    homepage = https://launchpad.net/onboard;
-    description = "An onscreen keyboard useful for tablet PC users and for mobility impaired users.";
+    homepage = "https://launchpad.net/onboard";
+    description =
+      "An onscreen keyboard useful for tablet PC users and for mobility impaired users.";
     maintainers = with stdenv.lib.maintainers; [ johnramsden ];
     license = stdenv.lib.licenses.gpl3;
   };

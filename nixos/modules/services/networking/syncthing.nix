@@ -11,17 +11,15 @@ let
     inherit (device) name addresses introducer;
   }) cfg.declarative.devices;
 
-  folders = mapAttrsToList ( _: folder: {
+  folders = mapAttrsToList (_: folder: {
     inherit (folder) path id label type;
-    devices = map (device: { deviceId = cfg.declarative.devices.${device}.id; }) folder.devices;
+    devices = map (device: { deviceId = cfg.declarative.devices.${device}.id; })
+      folder.devices;
     rescanIntervalS = folder.rescanInterval;
     fsWatcherEnabled = folder.watch;
     fsWatcherDelayS = folder.watchDelay;
     ignorePerms = folder.ignorePerms;
-  }) (filterAttrs (
-    _: folder:
-    folder.enable
-  ) cfg.declarative.folders);
+  }) (filterAttrs (_: folder: folder.enable) cfg.declarative.folders);
 
   # get the api key by parsing the config.xml
   getApiKey = pkgs.writers.writeDash "getAPIKey" ''
@@ -44,8 +42,12 @@ let
 
     # generate the new config by merging with the nixos config options
     NEW_CFG=$(echo "$OLD_CFG" | ${pkgs.jq}/bin/jq -s '.[] as $in | $in * {
-      "devices": (${builtins.toJSON devices}${optionalString (! cfg.declarative.overrideDevices) " + $in.devices"}),
-      "folders": (${builtins.toJSON folders}${optionalString (! cfg.declarative.overrideFolders) " + $in.folders"})
+      "devices": (${builtins.toJSON devices}${
+      optionalString (!cfg.declarative.overrideDevices) " + $in.devices"
+      }),
+      "folders": (${builtins.toJSON folders}${
+      optionalString (!cfg.declarative.overrideFolders) " + $in.folders"
+      })
     }')
 
     # POST the new config to syncthing
@@ -101,13 +103,14 @@ in {
         };
 
         devices = mkOption {
-          default = {};
+          default = { };
           description = ''
             Peers/devices which syncthing should communicate with.
           '';
           example = {
             bigbox = {
-              id = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
+              id =
+                "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
               addresses = [ "tcp://192.168.0.10:51820" ];
             };
           };
@@ -124,7 +127,7 @@ in {
 
               addresses = mkOption {
                 type = types.listOf types.str;
-                default = [];
+                default = [ ];
                 description = ''
                   The addresses used to connect to the device.
                   If this is let empty, dynamic configuration is attempted
@@ -164,7 +167,7 @@ in {
         };
 
         folders = mkOption {
-          default = {};
+          default = { };
           description = ''
             folders which should be shared by syncthing.
           '';
@@ -213,7 +216,7 @@ in {
 
               devices = mkOption {
                 type = types.listOf types.str;
-                default = [];
+                default = [ ];
                 description = ''
                   The devices this folder should be shared with. Must be defined
                   in the <literal>declarative.devices</literal> attribute.
@@ -322,10 +325,9 @@ in {
         description = ''
           Path where the settings and keys will exist.
         '';
-        default =
-          let
-            nixos = config.system.stateVersion;
-            cond  = versionAtLeast nixos "19.03";
+        default = let
+          nixos = config.system.stateVersion;
+          cond = versionAtLeast nixos "19.03";
           in cfg.dataDir + (optionalString cond "/.config/syncthing");
       };
 
@@ -355,7 +357,7 @@ in {
   };
 
   imports = [
-    (mkRemovedOptionModule ["services" "syncthing" "useInotify"] ''
+    (mkRemovedOptionModule [ "services" "syncthing" "useInotify" ] ''
       This option was removed because syncthing now has the inotify functionality included under the name "fswatcher".
       It can be enabled on a per-folder basis through the webinterface.
     '')
@@ -373,16 +375,15 @@ in {
     systemd.packages = [ pkgs.syncthing ];
 
     users = mkIf (cfg.systemService && cfg.user == defaultUser) {
-      users."${defaultUser}" =
-        { group = cfg.group;
-          home  = cfg.dataDir;
-          createHome = true;
-          uid = config.ids.uids.syncthing;
-          description = "Syncthing daemon user";
-        };
+      users."${defaultUser}" = {
+        group = cfg.group;
+        home = cfg.dataDir;
+        createHome = true;
+        uid = config.ids.uids.syncthing;
+        description = "Syncthing daemon user";
+      };
 
-      groups."${defaultUser}".gid =
-        config.ids.gids.syncthing;
+      groups."${defaultUser}".gid = config.ids.gids.syncthing;
     };
 
     systemd.services = {
@@ -398,26 +399,28 @@ in {
         serviceConfig = {
           Restart = "on-failure";
           SuccessExitStatus = "2 3 4";
-          RestartForceExitStatus="3 4";
+          RestartForceExitStatus = "3 4";
           User = cfg.user;
           Group = cfg.group;
-          ExecStartPre = mkIf (cfg.declarative.cert != null || cfg.declarative.key != null)
-            "+${pkgs.writers.writeBash "syncthing-copy-keys" ''
-              mkdir -p ${cfg.configDir}
-              chown ${cfg.user}:${cfg.group} ${cfg.configDir}
-              chmod 700 ${cfg.configDir}
-              ${optionalString (cfg.declarative.cert != null) ''
-                cp ${toString cfg.declarative.cert} ${cfg.configDir}/cert.pem
-                chown ${cfg.user}:${cfg.group} ${cfg.configDir}/cert.pem
-                chmod 400 ${cfg.configDir}/cert.pem
-              ''}
-              ${optionalString (cfg.declarative.key != null) ''
-                cp ${toString cfg.declarative.key} ${cfg.configDir}/key.pem
-                chown ${cfg.user}:${cfg.group} ${cfg.configDir}/key.pem
-                chmod 400 ${cfg.configDir}/key.pem
-              ''}
-            ''}"
-          ;
+          ExecStartPre =
+            mkIf (cfg.declarative.cert != null || cfg.declarative.key != null)
+            "+${
+              pkgs.writers.writeBash "syncthing-copy-keys" ''
+                mkdir -p ${cfg.configDir}
+                chown ${cfg.user}:${cfg.group} ${cfg.configDir}
+                chmod 700 ${cfg.configDir}
+                ${optionalString (cfg.declarative.cert != null) ''
+                  cp ${toString cfg.declarative.cert} ${cfg.configDir}/cert.pem
+                  chown ${cfg.user}:${cfg.group} ${cfg.configDir}/cert.pem
+                  chmod 400 ${cfg.configDir}/cert.pem
+                ''}
+                ${optionalString (cfg.declarative.key != null) ''
+                  cp ${toString cfg.declarative.key} ${cfg.configDir}/key.pem
+                  chown ${cfg.user}:${cfg.group} ${cfg.configDir}/key.pem
+                  chmod 400 ${cfg.configDir}/key.pem
+                ''}
+              ''
+            }";
           ExecStart = ''
             ${cfg.package}/bin/syncthing \
               -no-browser \
@@ -426,23 +429,20 @@ in {
           '';
         };
       };
-      syncthing-init = mkIf (
-        cfg.declarative.devices != {} || cfg.declarative.folders != {}
-      ) {
-        after = [ "syncthing.service" ];
-        wantedBy = [ "multi-user.target" ];
+      syncthing-init = mkIf
+        (cfg.declarative.devices != { } || cfg.declarative.folders != { }) {
+          after = [ "syncthing.service" ];
+          wantedBy = [ "multi-user.target" ];
 
-        serviceConfig = {
-          User = cfg.user;
-          RemainAfterExit = true;
-          Type = "oneshot";
-          ExecStart = updateConfig;
+          serviceConfig = {
+            User = cfg.user;
+            RemainAfterExit = true;
+            Type = "oneshot";
+            ExecStart = updateConfig;
+          };
         };
-      };
 
-      syncthing-resume = {
-        wantedBy = [ "suspend.target" ];
-      };
+      syncthing-resume = { wantedBy = [ "suspend.target" ]; };
     };
   };
 }

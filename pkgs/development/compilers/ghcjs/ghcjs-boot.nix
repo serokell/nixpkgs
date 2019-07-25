@@ -1,7 +1,7 @@
 { runCommand, src }:
 
 # we remove the patches so ghcjs-boot doesn't try to apply them again.
-runCommand "${src.name}-patched" {} ''
+runCommand "${src.name}-patched" { } ''
   cp -r ${src} $out
   chmod -R +w $out
 

@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, nose, pyyaml, pathspec }:
+{ stdenv, buildPythonPackage, fetchPypi, nose, pyyaml, pathspec }:
 
 buildPythonPackage rec {
   pname = "yamllint";
@@ -12,14 +11,14 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
 
-  propagatedBuildInputs = [  pyyaml pathspec ];
+  propagatedBuildInputs = [ pyyaml pathspec ];
 
   # Two test failures
   doCheck = false;
 
   meta = with stdenv.lib; {
     description = "A linter for YAML files";
-    homepage = https://github.com/adrienverge/yamllint;
+    homepage = "https://github.com/adrienverge/yamllint";
     license = licenses.gpl3;
     maintainers = with maintainers; [ mikefaille ];
   };

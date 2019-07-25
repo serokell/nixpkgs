@@ -3,7 +3,8 @@
 fetchzip rec {
   name = "profont";
 
-  url = "http://web.archive.org/web/20160707013914/http://tobiasjung.name/downloadfile.php?file=profont-x11.zip";
+  url =
+    "http://web.archive.org/web/20160707013914/http://tobiasjung.name/downloadfile.php?file=profont-x11.zip";
 
   postFetch = ''
     unzip -j $downloadedFile
@@ -20,8 +21,9 @@ fetchzip rec {
   sha256 = "1calqmvrfv068w61f614la8mg8szas6m5i9s0lsmwjhb4qwjyxbw";
 
   meta = with lib; {
-    homepage = http://tobiasjung.name;
-    description = "A monospaced font created to be a most readable font for programming";
+    homepage = "http://tobiasjung.name";
+    description =
+      "A monospaced font created to be a most readable font for programming";
     maintainers = with lib.maintainers; [ myrl ];
     license = licenses.mit;
     platforms = platforms.all;

@@ -1,13 +1,8 @@
-{ stdenv, ghc, pkgconfig, glibcLocales
-, cacert, stack, makeSetupHook, lib }@depArgs:
+{ stdenv, ghc, pkgconfig, glibcLocales, cacert, stack, makeSetupHook, lib
+}@depArgs:
 
-{ buildInputs ? []
-, extraArgs ? []
-, LD_LIBRARY_PATH ? []
-, ghc ? depArgs.ghc
-, stack ? depArgs.stack
-, ...
-}@args:
+{ buildInputs ? [ ], extraArgs ? [ ], LD_LIBRARY_PATH ? [ ], ghc ?
+  depArgs.ghc, stack ? depArgs.stack, ... }@args:
 
 let
 
@@ -15,7 +10,7 @@ let
 
   # Add all dependencies in buildInputs including propagated ones to
   # STACK_IN_NIX_EXTRA_ARGS.
-  stackHook = makeSetupHook {} ./stack-hook.sh;
+  stackHook = makeSetupHook { } ./stack-hook.sh;
 
 in stdenv.mkDerivation (args // {
 
@@ -30,7 +25,7 @@ in stdenv.mkDerivation (args // {
 
   # XXX: workaround for https://ghc.haskell.org/trac/ghc/ticket/11042.
   LD_LIBRARY_PATH = lib.makeLibraryPath (LD_LIBRARY_PATH ++ buildInputs);
-                    # ^^^ Internally uses `getOutput "lib"` (equiv. to getLib)
+  # ^^^ Internally uses `getOutput "lib"` (equiv. to getLib)
 
   # Non-NixOS git needs cert
   GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";

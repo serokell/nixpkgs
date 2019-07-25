@@ -6,9 +6,7 @@ let
 
   cfg = config.services.riak-cs;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -35,7 +33,7 @@ in
           Name of the Erlang node.
         '';
       };
-      
+
       anonymousUserCreation = mkOption {
         type = types.bool;
         default = false;
@@ -136,7 +134,9 @@ in
       listener = ${cfg.listener}
       stanchion_host = ${cfg.stanchionHost}
 
-      anonymous_user_creation = ${if cfg.anonymousUserCreation then "on" else "off"}
+      anonymous_user_creation = ${
+        if cfg.anonymousUserCreation then "on" else "off"
+      }
 
       ${cfg.extraConfig}
     '';
@@ -152,7 +152,7 @@ in
       description = "Riak CS server user";
     };
 
-  systemd.services.riak-cs = {
+    systemd.services.riak-cs = {
       description = "Riak CS Server";
 
       wantedBy = [ "multi-user.target" ];
@@ -192,11 +192,8 @@ in
         LimitNOFILE = 65536;
       };
 
-      unitConfig.RequiresMountsFor = [
-        "${cfg.dataDir}"
-        "${cfg.logDir}"
-        "/etc/riak"
-      ];
+      unitConfig.RequiresMountsFor =
+        [ "${cfg.dataDir}" "${cfg.logDir}" "/etc/riak" ];
     };
   };
 }

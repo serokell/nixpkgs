@@ -1,12 +1,8 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, urwid
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, urwid }:
 
 buildPythonPackage rec {
   pname = "urwidtrees";
-  version  = "1.0.2";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "pazz";
@@ -19,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Tree widgets for urwid";
-    homepage = https://github.com/pazz/urwidtrees;
+    homepage = "https://github.com/pazz/urwidtrees";
     license = licenses.gpl3;
   };
 

@@ -1,12 +1,8 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, cmake
-, glew, ftgl, ttf_bitstream_vera
-, withQt ? true, qt4
-, withLibvisual ? false, libvisual, SDL
-, withJack ? false, libjack2
-, withPulseAudio ? true, libpulseaudio
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, cmake, glew, ftgl, ttf_bitstream_vera, withQt ?
+  true, qt4, withLibvisual ? false, libvisual, SDL, withJack ?
+    false, libjack2, withPulseAudio ? true, libpulseaudio }:
 
-assert withJack       -> withQt;
+assert withJack -> withQt;
 assert withPulseAudio -> withQt;
 
 stdenv.mkDerivation {
@@ -14,18 +10,20 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Music Visualizer";
-    homepage = http://projectm.sourceforge.net/;
+    homepage = "http://projectm.sourceforge.net/";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;
   };
 
   src = fetchurl {
-    url = "mirror://sourceforge/projectm/2.1.0/projectM-complete-2.1.0-Source.tar.gz";
+    url =
+      "mirror://sourceforge/projectm/2.1.0/projectM-complete-2.1.0-Source.tar.gz";
     sha256 = "1vh6jk68a0jdb6qwppb6f8cbgmhnv2ba3bcavzfd6sq06gq08cji";
   };
 
   patch_gcc6 = fetchpatch {
-    url = https://raw.githubusercontent.com/gentoo/gentoo/45abd63abc6644b6e177c057b5b42d894dbf8e29/media-libs/libprojectm/files/libprojectm-2.1.0-fix-c++14.patch;
+    url =
+      "https://raw.githubusercontent.com/gentoo/gentoo/45abd63abc6644b6e177c057b5b42d894dbf8e29/media-libs/libprojectm/files/libprojectm-2.1.0-fix-c++14.patch";
     sha256 = "1i50scxv1jlqvb3jm3sql89a7wqckxhlpvnhz20vvmm1kii6lrsn";
   };
 
@@ -48,10 +46,7 @@ stdenv.mkDerivation {
   '';
 
   buildInputs = with stdenv.lib;
-    [ glew ftgl ]
-    ++ optional withQt qt4
-    ++ optionals withLibvisual [ libvisual SDL ]
-    ++ optional withJack libjack2
-    ++ optional withPulseAudio libpulseaudio
-    ;
+    [ glew ftgl ] ++ optional withQt qt4
+    ++ optionals withLibvisual [ libvisual SDL ] ++ optional withJack libjack2
+    ++ optional withPulseAudio libpulseaudio;
 }

@@ -1,6 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage
-, mock, nose
-}:
+{ stdenv, fetchPypi, buildPythonPackage, mock, nose }:
 
 buildPythonPackage rec {
   pname = "dpath";
@@ -17,9 +15,10 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/akesterson/dpath-python;
+    homepage = "https://github.com/akesterson/dpath-python";
     license = [ licenses.mit ];
-    description = "A python library for accessing and searching dictionaries via /slashed/paths ala xpath";
+    description =
+      "A python library for accessing and searching dictionaries via /slashed/paths ala xpath";
     maintainers = [ maintainers.mmlb ];
   };
 }

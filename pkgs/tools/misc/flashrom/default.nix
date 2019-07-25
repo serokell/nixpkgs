@@ -21,8 +21,9 @@ stdenv.mkDerivation rec {
   preConfigure = "export PREFIX=$out";
 
   meta = with lib; {
-    homepage = http://www.flashrom.org;
-    description = "Utility for reading, writing, erasing and verifying flash ROM chips";
+    homepage = "http://www.flashrom.org";
+    description =
+      "Utility for reading, writing, erasing and verifying flash ROM chips";
     license = licenses.gpl2;
     maintainers = with maintainers; [ funfunctor fpletz ];
     platforms = with platforms; linux;

@@ -1,10 +1,8 @@
 { stdenv, callPackage, makeWrapper }:
 
-let
-  sencha-bare = callPackage ./bare.nix {};
-in
+let sencha-bare = callPackage ./bare.nix { };
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "sencha-${sencha-bare.version}";
 
   nativeBuildInputs = [ makeWrapper ];

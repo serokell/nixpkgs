@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pyusb
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pyusb }:
 
 buildPythonPackage rec {
   pname = "openant-unstable";

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, opencv3
-}:
+{ stdenv, buildPythonPackage, fetchPypi, opencv3 }:
 
 buildPythonPackage rec {
   version = "0.5.2";
@@ -19,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/jrosebr1/imutils;
-    description = "A series of convenience functions to make basic image processing functions";
+    homepage = "https://github.com/jrosebr1/imutils";
+    description =
+      "A series of convenience functions to make basic image processing functions";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

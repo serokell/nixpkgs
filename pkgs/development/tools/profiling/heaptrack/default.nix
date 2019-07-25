@@ -1,7 +1,4 @@
-{
-  stdenv, fetchFromGitHub, cmake, extra-cmake-modules,
-  zlib, boost, libunwind, elfutils, sparsehash,
-  qtbase, kio, kitemmodels, threadweaver, kconfigwidgets, kcoreaddons, kdiagram
+{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, zlib, boost, libunwind, elfutils, sparsehash, qtbase, kio, kitemmodels, threadweaver, kconfigwidgets, kcoreaddons, kdiagram
 }:
 
 stdenv.mkDerivation rec {
@@ -17,13 +14,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake extra-cmake-modules ];
   buildInputs = [
-    zlib boost libunwind elfutils sparsehash
-    qtbase kio kitemmodels threadweaver kconfigwidgets kcoreaddons kdiagram
+    zlib
+    boost
+    libunwind
+    elfutils
+    sparsehash
+    qtbase
+    kio
+    kitemmodels
+    threadweaver
+    kconfigwidgets
+    kcoreaddons
+    kdiagram
   ];
 
   meta = with stdenv.lib; {
     description = "Heap memory profiler for Linux";
-    homepage = https://github.com/KDE/heaptrack;
+    homepage = "https://github.com/KDE/heaptrack";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ gebner ];
     platforms = platforms.linux;

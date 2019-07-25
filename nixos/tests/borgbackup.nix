@@ -43,7 +43,7 @@ in {
   nodes = {
     client = { ... }: {
       services.borgbackup.jobs = {
-        
+
         local = rec {
           paths = dataDir;
           repo = localRepo;
@@ -70,7 +70,8 @@ in {
           repo = remoteRepo;
           encryption.mode = "none";
           startAt = [ ];
-          environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
+          environment.BORG_RSH =
+            "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
         };
 
         remoteAppendOnly = {
@@ -78,7 +79,8 @@ in {
           repo = remoteRepo;
           encryption.mode = "none";
           startAt = [ ];
-          environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519.appendOnly";
+          environment.BORG_RSH =
+            "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519.appendOnly";
         };
 
       };

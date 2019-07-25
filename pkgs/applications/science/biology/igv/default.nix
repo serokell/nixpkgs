@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.4.19";
 
   src = fetchurl {
-    url = "https://data.broadinstitute.org/igv/projects/downloads/2.4/IGV_${version}.zip";
+    url =
+      "https://data.broadinstitute.org/igv/projects/downloads/2.4/IGV_${version}.zip";
     sha256 = "048dgrhxcb854d24kyjkqz12bw04bsv49i5jawb75yzkswwfkb0z";
   };
 
@@ -24,8 +25,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.broadinstitute.org/igv/;
-    description = "A visualization tool for interactive exploration of genomic datasets";
+    homepage = "https://www.broadinstitute.org/igv/";
+    description =
+      "A visualization tool for interactive exploration of genomic datasets";
     license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = [ maintainers.mimadrid ];

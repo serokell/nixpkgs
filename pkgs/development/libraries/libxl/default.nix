@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A lbrary for parsing excel files";
-    license     = licenses.unfree;
-    platforms   = platforms.linux;
-    maintainers = with maintainers; [  ];
+    license = licenses.unfree;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ ];
   };
 }

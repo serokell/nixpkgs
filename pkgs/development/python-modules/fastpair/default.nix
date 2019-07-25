@@ -15,16 +15,14 @@ buildPythonPackage {
 
   checkInputs = [ pytest_3 ];
 
-  propagatedBuildInputs = [
-    scipy
-  ];
+  propagatedBuildInputs = [ scipy ];
 
   checkPhase = ''
     pytest fastpair
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/carsonfarmer/fastpair;
+    homepage = "https://github.com/carsonfarmer/fastpair";
     description = "Data-structure for the dynamic closest-pair problem";
     license = licenses.mit;
     maintainers = with maintainers; [ cmcdragonkai ];

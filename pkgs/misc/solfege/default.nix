@@ -1,11 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, pythonPackages, gettext, texinfo
-, ghostscript, librsvg, gdk_pixbuf, txt2man, timidity, mpg123
-, alsaUtils, vorbis-tools, csound, lilypond
-, makeWrapper
+{ stdenv, fetchurl, pkgconfig, pythonPackages, gettext, texinfo, ghostscript, librsvg, gdk_pixbuf, txt2man, timidity, mpg123, alsaUtils, vorbis-tools, csound, lilypond, makeWrapper
 }:
 
-let
-  inherit (pythonPackages) python pygtk;
+let inherit (pythonPackages) python pygtk;
 in stdenv.mkDerivation rec {
   name = "solfege-3.22.2";
 
@@ -15,8 +11,16 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ python pygtk gettext texinfo
-    ghostscript librsvg gdk_pixbuf txt2man makeWrapper
+  buildInputs = [
+    python
+    pygtk
+    gettext
+    texinfo
+    ghostscript
+    librsvg
+    gdk_pixbuf
+    txt2man
+    makeWrapper
   ];
 
   preBuild = ''
@@ -30,15 +34,15 @@ in stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-      set -x
-      wrapProgram "$out/bin/solfege" \
-          --prefix PYTHONPATH ':' "$PYTHONPATH" \
-          --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
+    set -x
+    wrapProgram "$out/bin/solfege" \
+        --prefix PYTHONPATH ':' "$PYTHONPATH" \
+        --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"
   '';
 
   meta = with stdenv.lib; {
     description = "Ear training program";
-    homepage = http://www.solfege.org/;
+    homepage = "http://www.solfege.org/";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

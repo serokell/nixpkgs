@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     ++ stdenv.lib.optional stdenv.isDarwin ./darwin-secure-format.patch;
 
   meta = {
-    homepage = https://www.gnu.org/software/m4/;
+    homepage = "https://www.gnu.org/software/m4/";
     description = "GNU M4, a macro processor";
 
     longDescription = ''

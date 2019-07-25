@@ -1,19 +1,17 @@
-{ stdenv, fetchurl, libxml2Python, libxslt, makeWrapper
-, pyserial, pygtk }:
+{ stdenv, fetchurl, libxml2Python, libxslt, makeWrapper, pyserial, pygtk }:
 
 stdenv.mkDerivation rec {
   pname = "chirp-daily";
   version = "20190511";
 
   src = fetchurl {
-    url = "https://trac.chirp.danplanet.com/chirp_daily/daily-${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://trac.chirp.danplanet.com/chirp_daily/daily-${version}/${pname}-${version}.tar.gz";
     sha256 = "1k5smkzkvbr4d8gbl1yczf2i5xrdkgk6i8pmwnlfghzcgy8n4jzj";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    pyserial pygtk libxml2Python libxslt
-  ];
+  buildInputs = [ pyserial pygtk libxml2Python libxslt ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/chirp
@@ -28,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A free, open-source tool for programming your amateur radio";
-    homepage = https://chirp.danplanet.com/;
+    homepage = "https://chirp.danplanet.com/";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.the-kenny ];

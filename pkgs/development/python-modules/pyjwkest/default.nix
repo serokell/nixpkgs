@@ -1,5 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi,
-  future, pycryptodomex, pytest, requests, six
+{ lib, buildPythonPackage, fetchPypi, future, pycryptodomex, pytest, requests, six
 }:
 
 buildPythonPackage rec {
@@ -8,7 +7,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Implementation of JWT, JWS, JWE and JWK";
-    homepage = https://github.com/rohe/pyjwkest;
+    homepage = "https://github.com/rohe/pyjwkest";
     license = lib.licenses.asl20;
   };
 

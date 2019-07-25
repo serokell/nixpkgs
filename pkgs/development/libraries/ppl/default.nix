@@ -1,28 +1,34 @@
 { fetchurl, fetchpatch, stdenv, gmpxx, perl, gnum4 }:
 
-let version = "1.2"; in
+let version = "1.2";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ppl-${version}";
 
   src = fetchurl {
-    url = "http://bugseng.com/products/ppl/download/ftp/releases/${version}/ppl-${version}.tar.bz2";
+    url =
+      "http://bugseng.com/products/ppl/download/ftp/releases/${version}/ppl-${version}.tar.bz2";
     sha256 = "1wgxcbgmijgk11df43aiqfzv31r3bkxmgb4yl68g21194q60nird";
   };
 
-  patches = [(fetchpatch {
-    name = "ppl.patch";
-    url = "http://www.cs.unipr.it/git/gitweb.cgi?p=ppl/ppl.git;a=patch;h=c39f6a07b51f89e365b05ba4147aa2aa448febd7";
-    sha256 = "1zj90hm25pkgvk4jlkfzh18ak9b98217gbidl3731fdccbw6hr87";
-  })];
+  patches = [
+    (fetchpatch {
+      name = "ppl.patch";
+      url =
+        "http://www.cs.unipr.it/git/gitweb.cgi?p=ppl/ppl.git;a=patch;h=c39f6a07b51f89e365b05ba4147aa2aa448febd7";
+      sha256 = "1zj90hm25pkgvk4jlkfzh18ak9b98217gbidl3731fdccbw6hr87";
+    })
+  ];
 
   nativeBuildInputs = [ perl gnum4 ];
   propagatedBuildInputs = [ gmpxx ];
 
-  configureFlags = [ "--disable-watchdog" ] ++
-    stdenv.lib.optionals stdenv.isDarwin [
+  configureFlags = [ "--disable-watchdog" ]
+    ++ stdenv.lib.optionals stdenv.isDarwin [
       "CPPFLAGS=-fexceptions"
-      "--disable-ppl_lcdd" "--disable-ppl_lpsol" "--disable-ppl_pips"
+      "--disable-ppl_lcdd"
+      "--disable-ppl_lpsol"
+      "--disable-ppl_pips"
     ];
 
   # Beware!  It took ~6 hours to compile PPL and run its tests on a 1.2 GHz
@@ -50,7 +56,7 @@ stdenv.mkDerivation rec {
       version of the simplex algorithm.
     '';
 
-    homepage = http://bugseng.com/products/ppl/;
+    homepage = "http://bugseng.com/products/ppl/";
 
     license = stdenv.lib.licenses.gpl3Plus;
 

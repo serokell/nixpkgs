@@ -1,13 +1,4 @@
-{ stdenv
-, python2Packages
-, pkgconfig
-, librsvg
-, gobject-introspection
-, atk
-, gtk3
-, gtkspell3
-, gnome3
-, goocanvas2
+{ stdenv, python2Packages, pkgconfig, librsvg, gobject-introspection, atk, gtk3, gtkspell3, gnome3, goocanvas2
 }:
 
 with stdenv.lib;
@@ -29,13 +20,7 @@ python2Packages.buildPythonApplication rec {
     goocalendar
     cdecimal
   ];
-  buildInputs = [
-    atk
-    gtk3
-    gnome3.adwaita-icon-theme
-    gtkspell3
-    goocanvas2
-  ];
+  buildInputs = [ atk gtk3 gnome3.adwaita-icon-theme gtkspell3 goocanvas2 ];
   makeWrapperArgs = [
     ''--set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE"''
     ''--set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"''
@@ -51,7 +36,7 @@ python2Packages.buildPythonApplication rec {
       It is the core base of a complete business solution providing
       modularity, scalability and security.
     '';
-    homepage = http://www.tryton.org/;
+    homepage = "http://www.tryton.org/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ johbo udono ];
   };

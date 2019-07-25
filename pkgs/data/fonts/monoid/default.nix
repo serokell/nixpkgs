@@ -29,8 +29,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://larsenwork.com/monoid;
-    description = "Customisable coding font with alternates, ligatures and contextual positioning";
+    homepage = "http://larsenwork.com/monoid";
+    description =
+      "Customisable coding font with alternates, ligatures and contextual positioning";
     license = [ licenses.ofl licenses.mit ];
     platforms = platforms.all;
     maintainers = [ maintainers.romildo ];

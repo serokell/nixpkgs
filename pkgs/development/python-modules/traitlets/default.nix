@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, glibcLocales
-, pytest
-, mock
-, ipython_genutils
-, decorator
-, enum34
-, pythonOlder
-, six
+{ lib, buildPythonPackage, fetchPypi, glibcLocales, pytest, mock, ipython_genutils, decorator, enum34, pythonOlder, six
 }:
 
 buildPythonPackage rec {
@@ -21,17 +11,18 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ glibcLocales pytest mock ];
-  propagatedBuildInputs = [ ipython_genutils decorator six ] ++ lib.optional (pythonOlder "3.4") enum34;
+  propagatedBuildInputs = [ ipython_genutils decorator six ]
+    ++ lib.optional (pythonOlder "3.4") enum34;
 
   checkPhase = ''
     LC_ALL="en_US.UTF-8" py.test
   '';
 
-#   doCheck = false;
+  #   doCheck = false;
 
   meta = {
     description = "Traitlets Python config system";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };

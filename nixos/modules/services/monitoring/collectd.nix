@@ -17,7 +17,7 @@ let
     </Plugin>
 
     ${concatMapStrings (f: ''
-    Include "${f}"
+      Include "${f}"
     '') cfg.include}
 
     ${cfg.extraConfig}
@@ -61,7 +61,7 @@ in {
     };
 
     include = mkOption {
-      default = [];
+      default = [ ];
       description = ''
         Additional paths to load config from.
       '';
@@ -79,9 +79,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} - - -" ];
 
     systemd.services.collectd = {
       description = "Collectd Monitoring Agent";
@@ -96,8 +94,6 @@ in {
       };
     };
 
-    users.users = optional (cfg.user == "collectd") {
-      name = "collectd";
-    };
+    users.users = optional (cfg.user == "collectd") { name = "collectd"; };
   };
 }

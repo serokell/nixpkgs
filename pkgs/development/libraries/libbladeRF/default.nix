@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, git, doxygen, help2man, ncurses, tecla
-, libusb1, udev }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, git, doxygen, help2man, ncurses, tecla, libusb1, udev
+}:
 
 let
   # fetch submodule
@@ -28,22 +28,20 @@ in stdenv.mkDerivation {
     ++ lib.optionals stdenv.isLinux [ udev ]
     ++ lib.optionals stdenv.isDarwin [ ncurses ];
 
-
   postUnpack = ''
     cp -r ${noos}/* source/thirdparty/analogdevicesinc/no-OS/
   '';
 
   # Fixup shebang
-  prePatch = "patchShebangs host/utilities/bladeRF-cli/src/cmd/doc/generate.bash";
+  prePatch =
+    "patchShebangs host/utilities/bladeRF-cli/src/cmd/doc/generate.bash";
 
   # Let us avoid nettools as a dependency.
   postPatch = ''
     sed -i 's/$(hostname)/hostname/' host/utilities/bladeRF-cli/src/cmd/doc/generate.bash
   '';
 
-  cmakeFlags = [
-    "-DBUILD_DOCUMENTATION=ON"
-  ] ++ lib.optionals stdenv.isLinux [
+  cmakeFlags = [ "-DBUILD_DOCUMENTATION=ON" ] ++ lib.optionals stdenv.isLinux [
     "-DUDEV_RULES_PATH=etc/udev/rules.d"
     "-DINSTALL_UDEV_RULES=ON"
     "-DBLADERF_GROUP=bladerf"
@@ -52,7 +50,7 @@ in stdenv.mkDerivation {
   hardeningDisable = [ "fortify" ];
 
   meta = with lib; {
-    homepage = https://nuand.com/libbladeRF-doc;
+    homepage = "https://nuand.com/libbladeRF-doc";
     description = "Supporting library of the BladeRF SDR opensource hardware";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ funfunctor ];

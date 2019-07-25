@@ -13,8 +13,9 @@ pythonPackages.buildPythonApplication rec {
   doCheck = false;
 
   meta = {
-    description = "A command line HTTP client whose goal is to make CLI human-friendly";
-    homepage = https://httpie.org/;
+    description =
+      "A command line HTTP client whose goal is to make CLI human-friendly";
+    homepage = "https://httpie.org/";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ antono relrod schneefux ];
   };

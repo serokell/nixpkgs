@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "setuptools-git";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Setuptools revision control system plugin for Git";
-    homepage = https://pypi.python.org/pypi/setuptools-git;
+    homepage = "https://pypi.python.org/pypi/setuptools-git";
     license = licenses.bsd3;
   };
 

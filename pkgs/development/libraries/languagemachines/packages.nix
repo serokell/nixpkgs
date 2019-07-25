@@ -1,5 +1,4 @@
-{ callPackage }:
-{
+{ callPackage }: {
   ticcutils = callPackage ./ticcutils.nix { };
   libfolia = callPackage ./libfolia.nix { };
   ucto = callPackage ./ucto.nix { };

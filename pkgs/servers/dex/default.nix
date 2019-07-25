@@ -13,13 +13,10 @@ buildGoModule rec {
 
   modSha256 = "043sjq547nwg5v8708nhij0g7d2j28pyn676fgbnpps35ymnywfi";
 
-  subPackages = [
-    "cmd/dex"
-  ];
+  subPackages = [ "cmd/dex" ];
 
-  buildFlagsArray = [
-    "-ldflags=-w -X github.com/dexidp/dex/version.Version=${src.rev}"
-  ];
+  buildFlagsArray =
+    [ "-ldflags=-w -X github.com/dexidp/dex/version.Version=${src.rev}" ];
 
   postInstall = ''
     mkdir -p $out/share
@@ -27,7 +24,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "OpenID Connect and OAuth2 identity provider with pluggable connectors";
+    description =
+      "OpenID Connect and OAuth2 identity provider with pluggable connectors";
     homepage = "https://github.com/dexidp/dex";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley ];

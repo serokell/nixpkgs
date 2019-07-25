@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   # remember to rm -r var/cache/* after a rebuild or unexpected errors will occur
 
   src = fetchurl {
-    url = "https://static.wallabag.org/releases/wallabag-release-${version}.tar.gz";
+    url =
+      "https://static.wallabag.org/releases/wallabag-release-${version}.tar.gz";
     sha256 = "1sr62hfk2f2rl5by48dg8yd1gchngjnc850as17wr3w287p1kwsq";
   };
 
@@ -31,7 +32,7 @@ stdenv.mkDerivation rec {
       After a package upgrade, empty the `var/cache` folder.
     '';
     license = licenses.mit;
-    homepage = http://wallabag.org;
+    homepage = "http://wallabag.org";
     maintainers = with maintainers; [ schneefux ];
     platforms = platforms.all;
   };

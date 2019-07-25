@@ -27,7 +27,7 @@ buildGoPackage rec {
     description = "An implementation of Jsonnet in pure Go";
     maintainers = with lib.maintainers; [ nshalman ];
     license = lib.licenses.asl20;
-    homepage = https://github.com/google/go-jsonnet;
+    homepage = "https://github.com/google/go-jsonnet";
     platforms = lib.platforms.unix;
   };
 }

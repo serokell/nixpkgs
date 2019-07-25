@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, markdown,
-  pytest, pytestrunner, pytestcov, coverage }:
+{ stdenv, buildPythonPackage, fetchPypi, markdown, pytest, pytestrunner, pytestcov, coverage
+}:
 
 buildPythonPackage rec {
   pname = "MarkdownSuperscript";
@@ -23,8 +23,9 @@ buildPythonPackage rec {
   checkInputs = [ pytest pytestrunner pytestcov coverage ];
 
   meta = {
-    description = "An extension to the Python Markdown package enabling superscript text";
-    homepage = https://github.com/jambonrose/markdown_superscript_extension;
+    description =
+      "An extension to the Python Markdown package enabling superscript text";
+    homepage = "https://github.com/jambonrose/markdown_superscript_extension";
     license = stdenv.lib.licenses.bsd2;
   };
 }

@@ -1,16 +1,13 @@
-{ stdenv, fetchFromGitHub, pkgconfig, nettools, gettext, flex
-, readline ? null, openssl ? null, python2 ? null, ncurses ? null, rocksdb
-, sqlite ? null, postgresql ? null, mysql ? null, zlib ? null, lzo ? null
-, jansson ? null, acl ? null, glusterfs ? null, libceph ? null, libcap ? null
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, nettools, gettext, flex, readline ?
+  null, openssl ? null, python2 ? null, ncurses ? null, rocksdb, sqlite ?
+    null, postgresql ? null, mysql ? null, zlib ? null, lzo ? null, jansson ?
+      null, acl ? null, glusterfs ? null, libceph ? null, libcap ? null }:
 
 assert sqlite != null || postgresql != null || mysql != null;
 
 with stdenv.lib;
-let
-  withGlusterfs = "\${with_glusterfs_directory}";
-in
-stdenv.mkDerivation rec {
+let withGlusterfs = "\${with_glusterfs_directory}";
+in stdenv.mkDerivation rec {
   name = "bareos-${version}";
   version = "17.2.7";
 
@@ -24,8 +21,24 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    nettools gettext readline openssl python2 flex ncurses sqlite postgresql
-    mysql.connector-c zlib lzo jansson acl glusterfs libceph libcap rocksdb
+    nettools
+    gettext
+    readline
+    openssl
+    python2
+    flex
+    ncurses
+    sqlite
+    postgresql
+    mysql.connector-c
+    zlib
+    lzo
+    jansson
+    acl
+    glusterfs
+    libceph
+    libcap
+    rocksdb
   ];
 
   postPatch = ''
@@ -50,8 +63,11 @@ stdenv.mkDerivation rec {
     "--enable-dynamic-cats-backends"
     "--enable-sql-pooling"
     "--enable-scsi-crypto"
-  ] ++ optionals (readline != null) [ "--disable-conio" "--enable-readline" "--with-readline=${readline.dev}" ]
-    ++ optional (python2 != null) "--with-python=${python2}"
+  ] ++ optionals (readline != null) [
+    "--disable-conio"
+    "--enable-readline"
+    "--with-readline=${readline.dev}"
+  ] ++ optional (python2 != null) "--with-python=${python2}"
     ++ optional (openssl != null) "--with-openssl=${openssl.dev}"
     ++ optional (sqlite != null) "--with-sqlite3=${sqlite.dev}"
     ++ optional (postgresql != null) "--with-postgresql=${postgresql}"
@@ -73,7 +89,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.bareos.org/;
+    homepage = "http://www.bareos.org/";
     description = "A fork of the bacula project";
     license = licenses.agpl3;
     platforms = platforms.unix;

@@ -1,15 +1,11 @@
-{ stdenv, lib, fetchurl, pkgconfig, perl
-, http2Support ? true, nghttp2
-, idnSupport ? false, libidn ? null
-, ldapSupport ? false, openldap ? null
-, zlibSupport ? true, zlib ? null
-, sslSupport ? zlibSupport, openssl ? null
-, gnutlsSupport ? false, gnutls ? null
-, scpSupport ? zlibSupport && !stdenv.isSunOS && !stdenv.isCygwin, libssh2 ? null
-, gssSupport ? !stdenv.hostPlatform.isWindows, libkrb5 ? null
-, c-aresSupport ? false, c-ares ? null
-, brotliSupport ? false, brotli ? null
-}:
+{ stdenv, lib, fetchurl, pkgconfig, perl, http2Support ?
+  true, nghttp2, idnSupport ? false, libidn ? null, ldapSupport ?
+    false, openldap ? null, zlibSupport ? true, zlib ? null, sslSupport ?
+      zlibSupport, openssl ? null, gnutlsSupport ? false, gnutls ?
+        null, scpSupport ? zlibSupport && !stdenv.isSunOS
+          && !stdenv.isCygwin, libssh2 ? null, gssSupport ?
+            !stdenv.hostPlatform.isWindows, libkrb5 ? null, c-aresSupport ?
+              false, c-ares ? null, brotliSupport ? false, brotli ? null }:
 
 assert http2Support -> nghttp2 != null;
 assert idnSupport -> libidn != null;
@@ -29,7 +25,9 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/${name}.tar.bz2"
-      "https://github.com/curl/curl/releases/download/${lib.replaceStrings ["."] ["_"] name}/${name}.tar.bz2"
+      "https://github.com/curl/curl/releases/download/${
+        lib.replaceStrings [ "." ] [ "_" ] name
+      }/${name}.tar.bz2"
     ];
     sha256 = "0p6z77iv6wlxq7skbnxn61rn8rangrp4g4spr09y920fcf7w0iza";
   };
@@ -45,16 +43,11 @@ stdenv.mkDerivation rec {
   # "-lz -lssl", which aren't necessary direct build inputs of
   # applications that use Curl.
   propagatedBuildInputs = with stdenv.lib;
-    optional http2Support nghttp2 ++
-    optional idnSupport libidn ++
-    optional ldapSupport openldap ++
-    optional zlibSupport zlib ++
-    optional gssSupport libkrb5 ++
-    optional c-aresSupport c-ares ++
-    optional sslSupport openssl ++
-    optional gnutlsSupport gnutls ++
-    optional scpSupport libssh2 ++
-    optional brotliSupport brotli;
+    optional http2Support nghttp2 ++ optional idnSupport libidn
+    ++ optional ldapSupport openldap ++ optional zlibSupport zlib
+    ++ optional gssSupport libkrb5 ++ optional c-aresSupport c-ares
+    ++ optional sslSupport openssl ++ optional gnutlsSupport gnutls
+    ++ optional scpSupport libssh2 ++ optional brotliSupport brotli;
 
   # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
   preConfigure = ''
@@ -63,25 +56,30 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-      # Disable default CA bundle, use NIX_SSL_CERT_FILE or fallback
-      # to nss-cacert from the default profile.
-      "--without-ca-bundle"
-      "--without-ca-path"
-      "--with-ca-fallback"
-      "--disable-manual"
-      ( if sslSupport then "--with-ssl=${openssl.dev}" else "--without-ssl" )
-      ( if gnutlsSupport then "--with-gnutls=${gnutls.dev}" else "--without-gnutls" )
-      ( if scpSupport then "--with-libssh2=${libssh2.dev}" else "--without-libssh2" )
-      ( if ldapSupport then "--enable-ldap" else "--disable-ldap" )
-      ( if ldapSupport then "--enable-ldaps" else "--disable-ldaps" )
-      ( if idnSupport then "--with-libidn=${libidn.dev}" else "--without-libidn" )
-      ( if brotliSupport then "--with-brotli" else "--without-brotli" )
-    ]
-    ++ stdenv.lib.optional c-aresSupport "--enable-ares=${c-ares}"
+    # Disable default CA bundle, use NIX_SSL_CERT_FILE or fallback
+    # to nss-cacert from the default profile.
+    "--without-ca-bundle"
+    "--without-ca-path"
+    "--with-ca-fallback"
+    "--disable-manual"
+    (if sslSupport then "--with-ssl=${openssl.dev}" else "--without-ssl")
+    (if gnutlsSupport then
+      "--with-gnutls=${gnutls.dev}"
+    else
+      "--without-gnutls")
+    (if scpSupport then
+      "--with-libssh2=${libssh2.dev}"
+    else
+      "--without-libssh2")
+    (if ldapSupport then "--enable-ldap" else "--disable-ldap")
+    (if ldapSupport then "--enable-ldaps" else "--disable-ldaps")
+    (if idnSupport then "--with-libidn=${libidn.dev}" else "--without-libidn")
+    (if brotliSupport then "--with-brotli" else "--without-brotli")
+  ] ++ stdenv.lib.optional c-aresSupport "--enable-ares=${c-ares}"
     ++ stdenv.lib.optional gssSupport "--with-gssapi=${libkrb5.dev}"
-       # For the 'urandom', maybe it should be a cross-system option
+    # For the 'urandom', maybe it should be a cross-system option
     ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-       "--with-random=/dev/urandom"
+    "--with-random=/dev/urandom"
     ++ stdenv.lib.optionals stdenv.hostPlatform.isWindows [
       "--disable-shared"
       "--enable-static"
@@ -102,13 +100,11 @@ stdenv.mkDerivation rec {
     ln $out/lib/libcurl.so $out/lib/libcurl-gnutls.so.4.4.0
   '';
 
-  passthru = {
-    inherit sslSupport openssl;
-  };
+  passthru = { inherit sslSupport openssl; };
 
   meta = with stdenv.lib; {
     description = "A command line tool for transferring files with URL syntax";
-    homepage    = https://curl.haxx.se/;
+    homepage = "https://curl.haxx.se/";
     maintainers = with maintainers; [ lovek323 ];
     license = licenses.curl;
     platforms = platforms.all;

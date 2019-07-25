@@ -11,11 +11,7 @@ buildPythonApplication rec {
     sha256 = "1228plh55id03qywsw0ai88ypdpbh9iz18jfcyhn21pci7mj77fv";
   };
 
-  checkInputs = [
-    git
-    mercurial
-    pytest
-  ];
+  checkInputs = [ git mercurial pytest ];
 
   checkPhase = ''
     export GIT_COMMITTER_NAME=nixbld
@@ -25,7 +21,7 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/ARMmbed/mbed-cli;
+    homepage = "https://github.com/ARMmbed/mbed-cli";
     description = "Arm Mbed Command Line Interface";
     license = licenses.asl20;
     maintainers = with maintainers; [ rvolosatovs ];

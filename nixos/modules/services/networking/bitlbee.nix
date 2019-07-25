@@ -8,12 +8,11 @@ let
   bitlbeeUid = config.ids.uids.bitlbee;
 
   bitlbeePkg = pkgs.bitlbee.override {
-    enableLibPurple = cfg.libpurple_plugins != [];
+    enableLibPurple = cfg.libpurple_plugins != [ ];
     enablePam = cfg.authBackend == "pam";
   };
 
-  bitlbeeConfig = pkgs.writeText "bitlbee.conf"
-    ''
+  bitlbeeConfig = pkgs.writeText "bitlbee.conf" ''
     [settings]
     RunMode = Daemon
     User = bitlbee
@@ -29,17 +28,13 @@ let
 
     [defaults]
     ${cfg.extraDefaults}
-    '';
+  '';
 
-  purple_plugin_path =
-    lib.concatMapStringsSep ":"
-      (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
-      cfg.libpurple_plugins
-    ;
+  purple_plugin_path = lib.concatMapStringsSep ":"
+    (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
+    cfg.libpurple_plugins;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -105,7 +100,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         example = literalExample "[ pkgs.bitlbee-facebook ]";
         description = ''
           The list of bitlbee plugins to install.
@@ -114,7 +109,7 @@ in
 
       libpurple_plugins = mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         example = literalExample "[ pkgs.purple-matrix ]";
         description = ''
           The list of libpurple plugins to install.
@@ -159,7 +154,7 @@ in
 
   ###### implementation
 
-  config =  mkMerge [
+  config = mkMerge [
     (mkIf config.services.bitlbee.enable {
       users.users = singleton {
         name = "bitlbee";
@@ -180,14 +175,15 @@ in
         after = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         serviceConfig.User = "bitlbee";
-        serviceConfig.ExecStart = "${bitlbeePkg}/sbin/bitlbee -F -n -c ${bitlbeeConfig}";
+        serviceConfig.ExecStart =
+          "${bitlbeePkg}/sbin/bitlbee -F -n -c ${bitlbeeConfig}";
       };
 
       environment.systemPackages = [ bitlbeePkg ];
 
     })
     (mkIf (config.services.bitlbee.authBackend == "pam") {
-      security.pam.services.bitlbee = {};
+      security.pam.services.bitlbee = { };
     })
   ];
 

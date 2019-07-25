@@ -1,15 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, xmltodict
-, requests
-, ifaddr
+{ lib, buildPythonPackage, fetchPypi, isPy3k, xmltodict, requests, ifaddr
 
 # Test dependencies
-, pytest_3, pylint, flake8, graphviz
-, mock, sphinx, sphinx_rtd_theme
-}:
+, pytest_3, pylint, flake8, graphviz, mock, sphinx, sphinx_rtd_theme }:
 
 buildPythonPackage rec {
   pname = "pysonos";
@@ -24,13 +16,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ xmltodict requests ifaddr ];
 
-  checkInputs = [
-    pytest_3 pylint flake8 graphviz
-    mock sphinx sphinx_rtd_theme
-  ];
+  checkInputs =
+    [ pytest_3 pylint flake8 graphviz mock sphinx sphinx_rtd_theme ];
 
   meta = {
-    homepage = https://github.com/amelchio/pysonos;
+    homepage = "https://github.com/amelchio/pysonos";
     description = "A SoCo fork with fixes for Home Assistant";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ juaningan ];

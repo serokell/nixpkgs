@@ -1,15 +1,9 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, dateutil
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy27, dateutil, pkgs }:
 
 buildPythonPackage rec {
-  version  = "2.0.3";
+  version = "2.0.3";
   pname = "pync";
-  disabled = ! isPy27;
+  disabled = !isPy27;
 
   src = fetchPypi {
     inherit pname version;
@@ -25,9 +19,9 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python Wrapper for Mac OS 10.8 Notification Center";
-    homepage    = https://pypi.python.org/pypi/pync/1.4;
-    license     = licenses.mit;
-    platforms   = platforms.darwin;
+    homepage = "https://pypi.python.org/pypi/pync/1.4";
+    license = licenses.mit;
+    platforms = platforms.darwin;
     maintainers = with maintainers; [ lovek323 ];
   };
 

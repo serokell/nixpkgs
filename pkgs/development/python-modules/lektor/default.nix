@@ -1,24 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, watchdog
-, exifread
-, requests
-, mistune
-, inifile
-, Babel
-, jinja2
-, flask
-, pyopenssl
-, ndg-httpsclient
-, pytest
-, pytestcov
-, pytest-mock
-, pytest-pylint
-, pytest-click
-, isPy27
-, functools32
+{ lib, buildPythonPackage, fetchFromGitHub, click, watchdog, exifread, requests, mistune, inifile, Babel, jinja2, flask, pyopenssl, ndg-httpsclient, pytest, pytestcov, pytest-mock, pytest-pylint, pytest-click, isPy27, functools32
 }:
 
 buildPythonPackage rec {
@@ -33,13 +13,20 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    click watchdog exifread requests mistune inifile Babel jinja2
-    flask pyopenssl ndg-httpsclient
+    click
+    watchdog
+    exifread
+    requests
+    mistune
+    inifile
+    Babel
+    jinja2
+    flask
+    pyopenssl
+    ndg-httpsclient
   ] ++ lib.optionals isPy27 [ functools32 ];
 
-  checkInputs = [
-    pytest pytestcov pytest-mock pytest-pylint pytest-click
-  ];
+  checkInputs = [ pytest pytestcov pytest-mock pytest-pylint pytest-click ];
 
   checkPhase = ''
     pytest
@@ -50,8 +37,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A static content management system";
-    homepage    = "https://www.getlektor.com/";
-    license     = licenses.bsd0;
+    homepage = "https://www.getlektor.com/";
+    license = licenses.bsd0;
     maintainers = with maintainers; [ vozz costrouc ];
   };
 

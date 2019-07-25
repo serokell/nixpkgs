@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, blas
-, Accelerate, CoreGraphics, CoreVideo
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, blas, Accelerate, CoreGraphics, CoreVideo
 }:
 
 stdenv.mkDerivation rec {
@@ -14,12 +13,15 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    ./disable-cpack.patch   #disable the need of cpack/rpm
+    ./disable-cpack.patch # disable the need of cpack/rpm
   ];
 
   nativeBuildInputs = [ pkgconfig cmake ];
-  buildInputs = [ boost blas ]
-    ++ stdenv.lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
+  buildInputs = [ boost blas ] ++ stdenv.lib.optionals stdenv.isDarwin [
+    Accelerate
+    CoreGraphics
+    CoreVideo
+  ];
 
   enableParallelBuilding = true;
 
@@ -28,19 +30,21 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = with stdenv.lib; {
-    description = "A vector and matrix math library implemented using C++ templates";
+    description =
+      "A vector and matrix math library implemented using C++ templates";
 
-    longDescription = ''vmmlib is a vector and matrix math library implemented 
-            using C++ templates. Its basic functionality includes a vector 
-            and a matrix class, with additional functionality for the 
-            often-used 3d and 4d vectors and 3x3 and 4x4 matrices.
-            More advanced functionality include solvers, frustum 
-            computations and frustum culling classes, and spatial data structures'';
+    longDescription = ''
+      vmmlib is a vector and matrix math library implemented 
+                  using C++ templates. Its basic functionality includes a vector 
+                  and a matrix class, with additional functionality for the 
+                  often-used 3d and 4d vectors and 3x3 and 4x4 matrices.
+                  More advanced functionality include solvers, frustum 
+                  computations and frustum culling classes, and spatial data structures'';
 
-    license     = licenses.bsd2;
-    homepage    = https://github.com/VMML/vmmlib/;
+    license = licenses.bsd2;
+    homepage = "https://github.com/VMML/vmmlib/";
     maintainers = [ maintainers.adev ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }
 

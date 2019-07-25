@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, openssl, trousers, autoreconfHook, libtool, bison, flex }:
+{ stdenv, fetchFromGitHub, openssl, trousers, autoreconfHook, libtool, bison, flex
+}:
 
 stdenv.mkDerivation rec {
   name = "opencryptoki-${version}";
@@ -23,19 +24,15 @@ stdenv.mkDerivation rec {
     substituteInPlace usr/lib/Makefile.am --replace "DESTDIR" "out"
   '';
 
-  configureFlags = [
-    "--prefix=$(out)"
-    "--disable-ccatok"
-    "--disable-icatok"
-  ];
+  configureFlags = [ "--prefix=$(out)" "--disable-ccatok" "--disable-icatok" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "PKCS#11 implementation for Linux";
-    homepage    = https://github.com/opencryptoki/opencryptoki;
-    license     = licenses.cpl10;
+    homepage = "https://github.com/opencryptoki/opencryptoki";
+    license = licenses.cpl10;
     maintainers = [ maintainers.tstrobel ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

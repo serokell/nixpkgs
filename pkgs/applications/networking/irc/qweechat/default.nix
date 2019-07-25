@@ -5,7 +5,7 @@ python27Packages.buildPythonApplication rec {
   name = "qweechat-unstable-${version}";
   namePrefix = "";
 
- src = fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "weechat";
     repo = "qweechat";
     rev = "f5e54d01691adb3abef47e051a6412186c33313c";
@@ -17,12 +17,10 @@ python27Packages.buildPythonApplication rec {
       --replace 'qweechat = qweechat.qweechat' 'qweechat = qweechat.qweechat:main'
   '';
 
-  propagatedBuildInputs = with python27Packages; [
-     pyside
-  ];
+  propagatedBuildInputs = with python27Packages; [ pyside ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/weechat/qweechat;
+    homepage = "https://github.com/weechat/qweechat";
     description = "Qt remote GUI for WeeChat";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ramkromberg ];

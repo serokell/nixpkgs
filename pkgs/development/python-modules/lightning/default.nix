@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, jinja2
-, matplotlib
-, numpy
-, requests
-, six
+{ stdenv, buildPythonPackage, fetchPypi, pytest, jinja2, matplotlib, numpy, requests, six
 }:
 
 buildPythonPackage rec {
@@ -22,8 +14,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ jinja2 matplotlib numpy requests six ];
 
   meta = with stdenv.lib; {
-    description = "A Python client library for the Lightning data visualization server";
-    homepage = http://lightning-viz.org;
+    description =
+      "A Python client library for the Lightning data visualization server";
+    homepage = "http://lightning-viz.org";
     license = licenses.mit;
   };
 

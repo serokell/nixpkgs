@@ -1,4 +1,5 @@
-{stdenv, fetchurl, which, autoreconfHook, pkgconfig, vala, python, libsearpc, libzdb, libuuid, libevent, sqlite, openssl}:
+{ stdenv, fetchurl, which, autoreconfHook, pkgconfig, vala, python, libsearpc, libzdb, libuuid, libevent, sqlite, openssl
+}:
 
 stdenv.mkDerivation rec {
   version = "6.1.8";
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--enable-server" ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/haiwen/ccnet;
+    homepage = "https://github.com/haiwen/ccnet";
     description = "A framework for writing networked applications in C";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

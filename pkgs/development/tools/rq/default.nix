@@ -24,7 +24,7 @@ buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A tool for doing record analysis and transformation";
-    homepage = https://github.com/dflemstr/rq ;
+    homepage = "https://github.com/dflemstr/rq";
     license = with licenses; [ asl20 ];
     maintainers = [ maintainers.aristid ];
     platforms = platforms.all;

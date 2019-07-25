@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, isPy3k }:
 
 buildPythonPackage rec {
   pname = "sqlparse";
@@ -27,7 +22,7 @@ buildPythonPackage rec {
     longDescription = ''
       Provides support for parsing, splitting and formatting SQL statements.
     '';
-    homepage = https://github.com/andialbrecht/sqlparse;
+    homepage = "https://github.com/andialbrecht/sqlparse";
     license = licenses.bsd3;
   };
 

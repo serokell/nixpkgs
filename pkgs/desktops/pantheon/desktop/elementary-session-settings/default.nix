@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, substituteAll, writeScript, pantheon, gnome-keyring, gnome-session, wingpanel, orca, at-spi2-core, elementary-default-settings, writeShellScriptBin, elementary-settings-daemon, runtimeShell }:
+{ stdenv, fetchFromGitHub, substituteAll, writeScript, pantheon, gnome-keyring, gnome-session, wingpanel, orca, at-spi2-core, elementary-default-settings, writeShellScriptBin, elementary-settings-daemon, runtimeShell
+}:
 
 let
 
@@ -41,9 +42,7 @@ let
     exec ${gnome-session}/bin/gnome-session --session=pantheon "$@"
   '';
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "session-settings";
   version = "5.0.3";
 
@@ -67,7 +66,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/applications
-    cp -av ${./pantheon-mimeapps.list} $out/share/applications/pantheon-mimeapps.list
+    cp -av ${
+      ./pantheon-mimeapps.list
+    } $out/share/applications/pantheon-mimeapps.list
 
     mkdir -p $out/etc/xdg/autostart
     cp -av ${gnome-keyring}/etc/xdg/autostart/* $out/etc/xdg/autostart
@@ -99,7 +100,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Session settings for elementary";
-    homepage = https://github.com/elementary/session-settings;
+    homepage = "https://github.com/elementary/session-settings";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

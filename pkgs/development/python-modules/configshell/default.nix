@@ -6,7 +6,7 @@ buildPythonPackage rec {
 
   src = fetchFromGitHub {
     owner = "open-iscsi";
-    repo ="${pname}-fb";
+    repo = "${pname}-fb";
     rev = "v${version}";
     sha256 = "0zpr2n4105qqsklyfyr9lzl1rhxjcv0mnsl57hgk0m763w6na90h";
   };
@@ -15,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python library for building configuration shells";
-    homepage = https://github.com/open-iscsi/configshell-fb;
+    homepage = "https://github.com/open-iscsi/configshell-fb";
     license = licenses.asl20;
   };
 }

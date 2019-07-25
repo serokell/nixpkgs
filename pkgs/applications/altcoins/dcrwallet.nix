@@ -33,7 +33,6 @@ buildGoPackage rec {
     cp -v dcrwallet $bin/bin
   '';
 
-
   meta = {
     homepage = "https://decred.org";
     description = "Decred daemon in Go (golang)";

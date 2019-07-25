@@ -1,10 +1,4 @@
-{
-  stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "ratelimiter";
@@ -26,7 +20,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/RazerM/ratelimiter;
+    homepage = "https://github.com/RazerM/ratelimiter";
     license = licenses.asl20;
     description = "Simple python rate limiting object";
     maintainers = with maintainers; [ helkafen ];

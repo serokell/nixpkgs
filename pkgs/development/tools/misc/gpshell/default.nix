@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, globalplatform, pcsclite, gppcscconnectionplugin
-, makeWrapper
+{ stdenv, fetchurl, pkgconfig, globalplatform, pcsclite, gppcscconnectionplugin, makeWrapper
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://sourceforge.net/p/globalplatform/wiki/Home/;
+    homepage = "https://sourceforge.net/p/globalplatform/wiki/Home/";
     description = "Smartcard management application";
     license = licenses.gpl3;
     platforms = platforms.all;

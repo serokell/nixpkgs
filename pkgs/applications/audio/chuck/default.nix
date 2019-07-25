@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchurl, alsaLib, bison, flex, libsndfile, which
-, AppKit, Carbon, CoreAudio, CoreMIDI, CoreServices, Kernel
+{ stdenv, lib, fetchurl, alsaLib, bison, flex, libsndfile, which, AppKit, Carbon, CoreAudio, CoreMIDI, CoreServices, Kernel
 }:
 
 stdenv.mkDerivation rec {
@@ -13,9 +12,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ flex bison which ];
 
-  buildInputs = [ libsndfile ]
-    ++ lib.optional (!stdenv.isDarwin) alsaLib
-    ++ lib.optional stdenv.isDarwin [ AppKit Carbon CoreAudio CoreMIDI CoreServices Kernel ];
+  buildInputs = [ libsndfile ] ++ lib.optional (!stdenv.isDarwin) alsaLib
+    ++ lib.optional stdenv.isDarwin [
+      AppKit
+      Carbon
+      CoreAudio
+      CoreMIDI
+      CoreServices
+      Kernel
+    ];
 
   patches = [ ./clang.patch ./darwin-limits.patch ];
 
@@ -33,8 +38,9 @@ stdenv.mkDerivation rec {
   buildFlags = [ (if stdenv.isDarwin then "osx" else "linux-alsa") ];
 
   meta = with lib; {
-    description = "Programming language for real-time sound synthesis and music creation";
-    homepage = http://chuck.cs.princeton.edu;
+    description =
+      "Programming language for real-time sound synthesis and music creation";
+    homepage = "http://chuck.cs.princeton.edu";
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ ftrvxmtrx ];

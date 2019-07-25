@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, buildPythonPackage,
-  six, mock, pyfakefs, unittest2, pytest
+{ stdenv, lib, fetchFromGitHub, buildPythonPackage, six, mock, pyfakefs, unittest2, pytest
 }:
 
 buildPythonPackage rec {
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "U2F host library for interacting with a U2F device over USB";
-    homepage = https://github.com/google/pyu2f/;
+    homepage = "https://github.com/google/pyu2f/";
     license = licenses.asl20;
     maintainers = with maintainers; [ prusnak ];
   };

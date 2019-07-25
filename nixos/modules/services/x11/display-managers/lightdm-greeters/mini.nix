@@ -9,12 +9,12 @@ let
   cfg = ldmcfg.greeters.mini;
 
   xgreeters = pkgs.linkFarm "lightdm-mini-greeter-xgreeters" [{
-    path = "${pkgs.lightdm-mini-greeter}/share/xgreeters/lightdm-mini-greeter.desktop";
+    path =
+      "${pkgs.lightdm-mini-greeter}/share/xgreeters/lightdm-mini-greeter.desktop";
     name = "lightdm-mini-greeter.desktop";
   }];
 
-  miniGreeterConf = pkgs.writeText "lightdm-mini-greeter.conf"
-    ''
+  miniGreeterConf = pkgs.writeText "lightdm-mini-greeter.conf" ''
     [greeter]
     user = ${cfg.user}
     show-password-label = true
@@ -43,10 +43,9 @@ let
     password-background-color = "#1B1D1E"
 
     ${cfg.extraConfig}
-    '';
+  '';
 
-in
-{
+in {
   options = {
 
     services.xserver.displayManager.lightdm.greeters.mini = {
@@ -94,7 +93,8 @@ in
       name = "lightdm-mini-greeter";
     };
 
-    environment.etc."lightdm/lightdm-mini-greeter.conf".source = miniGreeterConf;
+    environment.etc."lightdm/lightdm-mini-greeter.conf".source =
+      miniGreeterConf;
 
   };
 }

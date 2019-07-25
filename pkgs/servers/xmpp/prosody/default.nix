@@ -1,17 +1,13 @@
-{ stdenv, fetchurl, libidn, openssl, makeWrapper, fetchhg
-, lua5, luasocket, luasec, luaexpat, luafilesystem, luabitop
-, withLibevent ? true, luaevent ? null
-, withDBI ? true, luadbi ? null
-# use withExtraLibs to add additional dependencies of community modules
-, withExtraLibs ? [ ]
-, withOnlyInstalledCommunityModules ? [ ]
-, withCommunityModules ? [ ] }:
+{ stdenv, fetchurl, libidn, openssl, makeWrapper, fetchhg, lua5, luasocket, luasec, luaexpat, luafilesystem, luabitop, withLibevent ?
+  true, luaevent ? null, withDBI ? true, luadbi ? null
+    # use withExtraLibs to add additional dependencies of community modules
+, withExtraLibs ? [ ], withOnlyInstalledCommunityModules ?
+  [ ], withCommunityModules ? [ ] }:
 
 assert withLibevent -> luaevent != null;
 assert withDBI -> luadbi != null;
 
 with stdenv.lib;
-
 
 stdenv.mkDerivation rec {
   version = "0.11.2"; # also update communityModules
@@ -32,16 +28,15 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    lua5 makeWrapper libidn openssl
+    lua5
+    makeWrapper
+    libidn
+    openssl
   ]
   # Lua libraries
-  ++ [
-    luasocket luasec luaexpat luafilesystem luabitop
-  ]
-  ++ optional withLibevent luaevent
-  ++ optional withDBI luadbi
-  ++ withExtraLibs;
-
+    ++ [ luasocket luasec luaexpat luafilesystem luabitop ]
+    ++ optional withLibevent luaevent ++ optional withDBI luadbi
+    ++ withExtraLibs;
 
   configureFlags = [
     "--ostype=linux"
@@ -50,24 +45,24 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-      ${concatMapStringsSep "\n" (module: ''
-        cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
-      '') (withCommunityModules ++ withOnlyInstalledCommunityModules)}
-      wrapProgram $out/bin/prosody \
-        --prefix LUA_PATH ';' "$NIX_LUA_PATH" \
-        --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
-      wrapProgram $out/bin/prosodyctl \
-        --add-flags '--config "/etc/prosody/prosody.cfg.lua"' \
-        --prefix LUA_PATH ';' "$NIX_LUA_PATH" \
-        --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
-    '';
+    ${concatMapStringsSep "\n" (module: ''
+      cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
+    '') (withCommunityModules ++ withOnlyInstalledCommunityModules)}
+    wrapProgram $out/bin/prosody \
+      --prefix LUA_PATH ';' "$NIX_LUA_PATH" \
+      --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
+    wrapProgram $out/bin/prosodyctl \
+      --add-flags '--config "/etc/prosody/prosody.cfg.lua"' \
+      --prefix LUA_PATH ';' "$NIX_LUA_PATH" \
+      --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
+  '';
 
   passthru.communityModules = withCommunityModules;
 
   meta = {
     description = "Open-source XMPP application server written in Lua";
     license = licenses.mit;
-    homepage = https://prosody.im;
+    homepage = "https://prosody.im";
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz globin ];
   };

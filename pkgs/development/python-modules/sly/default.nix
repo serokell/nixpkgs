@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sly";
@@ -22,7 +17,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An improved PLY implementation of lex and yacc for Python 3";
-    homepage = https://github.com/dabeaz/sly;
+    homepage = "https://github.com/dabeaz/sly";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

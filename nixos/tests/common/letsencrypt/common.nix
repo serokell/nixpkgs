@@ -1,7 +1,6 @@
 { lib, nodes, ... }: {
-  networking.nameservers = [
-    nodes.letsencrypt.config.networking.primaryIPAddress
-  ];
+  networking.nameservers =
+    [ nodes.letsencrypt.config.networking.primaryIPAddress ];
 
   nixpkgs.overlays = lib.singleton (self: super: {
     cacert = super.cacert.overrideDerivation (drv: {

@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, qtbase, qtmultimedia, qtsvg, qtx11extras
-, pkgconfig, cmake, gettext
+{ stdenv, fetchFromGitHub, qtbase, qtmultimedia, qtsvg, qtx11extras, pkgconfig, cmake, gettext
 }:
 
 stdenv.mkDerivation rec {
@@ -14,13 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "1dq7v6djw0gz56rvghs4r5gfhzx4sfg60rnv6b9zprw0vlvcxbn4";
   };
 
-  buildInputs = [
-    qtbase qtmultimedia qtsvg qtx11extras
-  ];
+  buildInputs = [ qtbase qtmultimedia qtsvg qtx11extras ];
 
-  nativeBuildInputs = [
-    pkgconfig cmake gettext
-  ];
+  nativeBuildInputs = [ pkgconfig cmake gettext ];
 
   meta = with stdenv.lib; {
     description = "Advanced IRC Client";

@@ -1,11 +1,4 @@
-{ lib
-, fetchPypi
-, fetchpatch
-, buildPythonPackage
-, pytest
-, mock
-, isPy3k
-, pysqlite
+{ lib, fetchPypi, fetchpatch, buildPythonPackage, pytest, mock, isPy3k, pysqlite
 }:
 
 buildPythonPackage rec {
@@ -22,7 +15,8 @@ buildPythonPackage rec {
     # https://bitbucket.org/zzzeek/sqlalchemy/issues/4370/sqlite-325x-docs-tutorialrst-doctests-fail
     (fetchpatch {
       name = "doc-test-fixes.patch";
-      url = https://bitbucket.org/zzzeek/sqlalchemy/commits/63279a69e2b9277df5e97ace161fa3a1bb4f29cd/raw;
+      url =
+        "https://bitbucket.org/zzzeek/sqlalchemy/commits/63279a69e2b9277df5e97ace161fa3a1bb4f29cd/raw";
       sha256 = "1x25aj5hqmgjdak4hllya0rf0srr937k1hwaxb24i9ban607hjri";
     })
   ];
@@ -30,8 +24,8 @@ buildPythonPackage rec {
   checkInputs = [
     pytest
     mock
-#     Disable pytest_xdist tests for now, because our version seems to be too new.
-#     pytest_xdist
+    #     Disable pytest_xdist tests for now, because our version seems to be too new.
+    #     pytest_xdist
   ] ++ lib.optional (!isPy3k) pysqlite;
 
   checkPhase = ''
@@ -39,7 +33,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = http://www.sqlalchemy.org/;
+    homepage = "http://www.sqlalchemy.org/";
     description = "A Python SQL toolkit and Object Relational Mapper";
     license = licenses.mit;
   };

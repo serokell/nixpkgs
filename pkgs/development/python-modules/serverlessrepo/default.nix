@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, boto3
-, six
-, pyyaml
-, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, boto3, six, pyyaml, mock }:
 
 buildPythonPackage rec {
   pname = "serverlessrepo";
@@ -17,11 +9,7 @@ buildPythonPackage rec {
     sha256 = "533389d41a51450e50cc01405ab766550170149c08e1c85b3a1559b0fab4cb25";
   };
 
-  propagatedBuildInputs = [
-    six
-    boto3
-    pyyaml
-  ];
+  propagatedBuildInputs = [ six boto3 pyyaml ];
 
   checkInputs = [ pytest mock ];
 
@@ -34,8 +22,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/awslabs/aws-serverlessrepo-python;
-    description = "Helpers for working with the AWS Serverless Application Repository";
+    homepage = "https://github.com/awslabs/aws-serverlessrepo-python";
+    description =
+      "Helpers for working with the AWS Serverless Application Repository";
     longDescription = ''
       A Python library with convenience helpers for working with the
       AWS Serverless Application Repository.

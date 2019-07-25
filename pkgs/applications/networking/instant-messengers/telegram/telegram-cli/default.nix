@@ -1,6 +1,4 @@
-{ stdenv, fetchgit, libconfig, libevent, openssl
-, readline, zlib, lua5_2, python, pkgconfig, jansson
-, runtimeShell
+{ stdenv, fetchgit, libconfig, libevent, openssl, readline, zlib, lua5_2, python, pkgconfig, jansson, runtimeShell
 }:
 
 stdenv.mkDerivation rec {
@@ -13,8 +11,15 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    libconfig libevent openssl readline zlib
-    lua5_2 python pkgconfig jansson
+    libconfig
+    libevent
+    openssl
+    readline
+    zlib
+    lua5_2
+    python
+    pkgconfig
+    jansson
   ];
   installPhase = ''
     mkdir -p $out/bin
@@ -29,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Command-line interface for Telegram messenger";
-    homepage = https://telegram.org/;
+    homepage = "https://telegram.org/";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.jagajaga ];

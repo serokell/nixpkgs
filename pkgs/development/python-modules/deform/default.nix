@@ -1,6 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi
-, chameleon, colander, iso8601, peppercorn, translationstring, zope_deprecation
-, nose, coverage, beautifulsoup4, flaky }:
+{ lib, buildPythonPackage, fetchPypi, chameleon, colander, iso8601, peppercorn, translationstring, zope_deprecation, nose, coverage, beautifulsoup4, flaky
+}:
 
 buildPythonPackage rec {
   pname = "deform";
@@ -25,16 +24,11 @@ buildPythonPackage rec {
     zope_deprecation
   ];
 
-  checkInputs = [
-    nose
-    coverage
-    beautifulsoup4
-    flaky
-  ];
+  checkInputs = [ nose coverage beautifulsoup4 flaky ];
 
   meta = with lib; {
     description = "Form library with advanced features like nested forms";
-    homepage = https://docs.pylonsproject.org/projects/deform/en/latest/;
+    homepage = "https://docs.pylonsproject.org/projects/deform/en/latest/";
     license = licenses.free; # http://www.repoze.org/LICENSE.txt
     maintainers = with maintainers; [ domenkozar ];
   };

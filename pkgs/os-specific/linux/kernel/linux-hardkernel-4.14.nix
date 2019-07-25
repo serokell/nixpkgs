@@ -1,4 +1,5 @@
-{ stdenv, buildPackages, fetchFromGitHub, perl, buildLinux, libelf, utillinux, ... } @ args:
+{ stdenv, buildPackages, fetchFromGitHub, perl, buildLinux, libelf, utillinux, ...
+}@args:
 
 buildLinux (args // rec {
   version = "4.14.120-160";
@@ -30,4 +31,4 @@ buildLinux (args // rec {
 
   extraMeta.platforms = [ "armv7l-linux" ];
 
-} // (args.argsOverride or {}))
+} // (args.argsOverride or { }))

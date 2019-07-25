@@ -15,7 +15,8 @@ buildGoPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "The Docker toolset to pack, ship, store, and deliver content";
+    description =
+      "The Docker toolset to pack, ship, store, and deliver content";
     license = licenses.asl20;
     maintainers = [ maintainers.globin ];
     platforms = platforms.unix;

@@ -1,30 +1,4 @@
-{ mkDerivation
-, lib
-, fetchurl
-, extra-cmake-modules
-, kdoctools
-, kbookmarks
-, karchive
-, kconfig
-, kconfigwidgets
-, kcoreaddons
-, kcrash
-, kdbusaddons
-, kemoticons
-, kglobalaccel
-, ki18n
-, kiconthemes
-, kidletime
-, kitemviews
-, knotifications
-, knotifyconfig
-, kwindowsystem
-, kio
-, kparts
-, kwallet
-, solid
-, sonnet
-, phonon
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, kbookmarks, karchive, kconfig, kconfigwidgets, kcoreaddons, kcrash, kdbusaddons, kemoticons, kglobalaccel, ki18n, kiconthemes, kidletime, kitemviews, knotifications, knotifyconfig, kwindowsystem, kio, kparts, kwallet, solid, sonnet, phonon
 }:
 
 let
@@ -64,15 +38,12 @@ in mkDerivation rec {
     phonon
   ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
 
   meta = {
     description = "Integrated IRC client for KDE";
     license = with lib.licenses; [ gpl2 ];
     maintainers = with lib.maintainers; [ fridh ];
-    homepage = https://konversation.kde.org;
+    homepage = "https://konversation.kde.org";
   };
 }

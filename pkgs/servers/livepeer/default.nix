@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, buildGoPackage
-, pkgconfig, ffmpeg
-}:
+{ stdenv, fetchFromGitHub, buildGoPackage, pkgconfig, ffmpeg }:
 
 buildGoPackage rec {
   name = "livepeer-${version}";
@@ -27,7 +25,7 @@ buildGoPackage rec {
 
   meta = with stdenv.lib; {
     description = "Official Go implementation of the Livepeer protocol";
-    homepage = https://livepeer.org;
+    homepage = "https://livepeer.org";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ elitak ];

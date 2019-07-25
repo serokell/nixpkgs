@@ -1,9 +1,10 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, scipy, cython, networkx, joblib, nose }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, scipy, cython, networkx, joblib, nose
+}:
 
 buildPythonPackage rec {
   pname = "pomegranate";
   version = "0.8.1";
-  
+
   src = fetchFromGitHub {
     repo = pname;
     owner = "jmschrei";
@@ -16,13 +17,14 @@ buildPythonPackage rec {
   checkInputs = [ nose ];
 
   meta = with stdenv.lib; {
-    description = "Probabilistic and graphical models for Python, implemented in cython for speed";
-    homepage = https://github.com/jmschrei/pomegranate;
+    description =
+      "Probabilistic and graphical models for Python, implemented in cython for speed";
+    homepage = "https://github.com/jmschrei/pomegranate";
     license = licenses.mit;
     maintainers = with maintainers; [ rybern ];
 
     # "pomegranate does not yet work with networkx 2.0"
     # see https://github.com/jmschrei/pomegranate/issues/209
-    broken = true; 
+    broken = true;
   };
 }

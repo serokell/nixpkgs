@@ -1,7 +1,6 @@
 { stdenv, fetchFromGitHub, pythonPackages, gettext, git }:
 
-let
-  inherit (pythonPackages) buildPythonApplication pyqt5 sip pyinotify;
+let inherit (pythonPackages) buildPythonApplication pyqt5 sip pyinotify;
 
 in buildPythonApplication rec {
   name = "git-cola-${version}";
@@ -20,7 +19,7 @@ in buildPythonApplication rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/git-cola/git-cola;
+    homepage = "https://github.com/git-cola/git-cola";
     description = "A sleek and powerful Git GUI";
     license = licenses.gpl2;
     platforms = platforms.linux;

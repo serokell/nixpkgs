@@ -1,5 +1,4 @@
-let
-  inherit (import <nixpkgs> { }) snapTools firefox;
+let inherit (import <nixpkgs> { }) snapTools firefox;
 in snapTools.makeSnap {
   meta = {
     name = "nix-example-firefox";

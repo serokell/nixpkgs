@@ -1,4 +1,4 @@
-{stdenv, fetchurl, cyrus_sasl, libevent}:
+{ stdenv, fetchurl, cyrus_sasl, libevent }:
 
 stdenv.mkDerivation rec {
   version = "1.5.16";
@@ -10,10 +10,12 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [
-     "ac_cv_c_endian=${if stdenv.hostPlatform.isBigEndian then "big" else "little"}"
+    "ac_cv_c_endian=${
+      if stdenv.hostPlatform.isBigEndian then "big" else "little"
+    }"
   ];
 
-  buildInputs = [cyrus_sasl libevent];
+  buildInputs = [ cyrus_sasl libevent ];
 
   hardeningEnable = [ "pie" ];
 
@@ -21,8 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A distributed memory object caching system";
-    repositories.git = https://github.com/memcached/memcached.git;
-    homepage = http://memcached.org/;
+    repositories.git = "https://github.com/memcached/memcached.git";
+    homepage = "http://memcached.org/";
     license = licenses.bsd3;
     maintainers = [ maintainers.coconnor ];
     platforms = platforms.linux ++ platforms.darwin;

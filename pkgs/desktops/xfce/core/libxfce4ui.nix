@@ -1,14 +1,11 @@
-{ stdenv, fetchurl, pkgconfig, intltool, xorg, gtk, libxfce4util, xfconf
-, libglade, libstartup_notification, hicolor-icon-theme
-, withGtk3 ? false, gtk3
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, xorg, gtk, libxfce4util, xfconf, libglade, libstartup_notification, hicolor-icon-theme, withGtk3 ?
+  false, gtk3 }:
 let
-  p_name  = "libxfce4ui";
+  p_name = "libxfce4ui";
   ver_maj = "4.12";
   ver_min = "1";
   inherit (stdenv.lib) optional;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -20,10 +17,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig intltool ];
 
-  buildInputs =
-    [ gtk libxfce4util xfconf libglade
-      libstartup_notification hicolor-icon-theme
-    ] ++ optional withGtk3 gtk3;
+  buildInputs = [
+    gtk
+    libxfce4util
+    xfconf
+    libglade
+    libstartup_notification
+    hicolor-icon-theme
+  ] ++ optional withGtk3 gtk3;
 
   propagatedBuildInputs = [ xorg.libICE xorg.libSM ];
 
@@ -33,7 +34,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.xfce.org/;
+    homepage = "https://www.xfce.org/";
     description = "Basic GUI library for Xfce";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

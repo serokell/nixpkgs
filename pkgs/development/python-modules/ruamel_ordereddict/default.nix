@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, isPyPy }:
 
 buildPythonPackage rec {
   pname = "ruamel.ordereddict";
@@ -16,8 +11,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A version of dict that keeps keys in insertion resp. sorted order";
-    homepage = https://bitbucket.org/ruamel/ordereddict;
+    description =
+      "A version of dict that keeps keys in insertion resp. sorted order";
+    homepage = "https://bitbucket.org/ruamel/ordereddict";
     license = licenses.mit;
   };
 

@@ -1,46 +1,39 @@
-{
-  stdenv, lib,
-  fetchFromGitHub, fetchurl,
-  nodejs, ttfautohint-nox, otfcc,
+{ stdenv, lib, fetchFromGitHub, fetchurl, nodejs, ttfautohint-nox, otfcc,
 
-  # Custom font set options.
-  # See https://github.com/be5invis/Iosevka#build-your-own-style
-  design ? [], upright ? [], italic ? [], oblique ? [],
-  family ? null, weights ? [],
-  # Custom font set name. Required if any custom settings above.
-  set ? null
-}:
+# Custom font set options.
+# See https://github.com/be5invis/Iosevka#build-your-own-style
+design ? [ ], upright ? [ ], italic ? [ ], oblique ? [ ], family ?
+  null, weights ? [ ],
+# Custom font set name. Required if any custom settings above.
+set ? null }:
 
-assert (design != []) -> set != null;
-assert (upright != []) -> set != null;
-assert (italic != []) -> set != null;
-assert (oblique != []) -> set != null;
+assert (design != [ ]) -> set != null;
+assert (upright != [ ]) -> set != null;
+assert (italic != [ ]) -> set != null;
+assert (oblique != [ ]) -> set != null;
 assert (family != null) -> set != null;
-assert (weights != []) -> set != null;
+assert (weights != [ ]) -> set != null;
 
-let
-  installPackageLock = import ./package-lock.nix { inherit fetchurl lib; };
-in
+let installPackageLock = import ./package-lock.nix { inherit fetchurl lib; };
 
-let pname = if set != null then "iosevka-${set}" else "iosevka"; in
+in let pname = if set != null then "iosevka-${set}" else "iosevka";
 
-let
+in let
   version = "1.14.3";
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "be5invis";
-    repo ="Iosevka";
+    repo = "Iosevka";
     rev = "v${version}";
     sha256 = "0ba8hwxi88bp2jb9xfhk95nnlv8ykl74cv62xr4ybzm3b8ahpwqf";
   };
-in
 
-with lib;
-let unwords = concatStringsSep " "; in
+in with lib;
+let unwords = concatStringsSep " ";
 
-let
+in let
   param = name: options:
-    if options != [] then "${name}='${unwords options}'" else null;
+    if options != [ ] then "${name}='${unwords options}'" else null;
   config = unwords (lib.filter (x: x != null) [
     (param "design" design)
     (param "upright" upright)
@@ -49,11 +42,10 @@ let
     (if family != null then "family='${family}'" else null)
     (param "weights" weights)
   ]);
-  custom = design != [] || upright != [] || italic != [] || oblique != []
-    || family != null || weights != [];
-in
+  custom = design != [ ] || upright != [ ] || italic != [ ] || oblique != [ ]
+    || family != null || weights != [ ];
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit name pname version src;
 
   nativeBuildInputs = [ nodejs ttfautohint-nox otfcc ];
@@ -70,7 +62,7 @@ stdenv.mkDerivation {
   configurePhase = ''
     runHook preConfigure
 
-    ${optionalString custom ''make custom-config set=${set} ${config}''}
+    ${optionalString custom "make custom-config set=${set} ${config}"}
 
     runHook postConfigure
   '';
@@ -90,7 +82,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://be5invis.github.io/Iosevka/;
+    homepage = "https://be5invis.github.io/Iosevka/";
     downloadPage = "https://github.com/be5invis/Iosevka/releases";
     description = ''
       Slender monospace sans-serif and slab-serif typeface inspired by Pragmata

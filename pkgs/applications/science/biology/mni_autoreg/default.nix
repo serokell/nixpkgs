@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "mni_autoreg";
-  name  = "${pname}-2017-09-22";
+  name = "${pname}-2017-09-22";
 
   src = fetchFromGitHub {
     owner = "BIC-MNI";
@@ -26,8 +26,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/BIC-MNI/mni_autoreg;
-    description = "Tools for automated registration using the MINC image format";
+    homepage = "https://github.com/BIC-MNI/mni_autoreg";
+    description =
+      "Tools for automated registration using the MINC image format";
     maintainers = with maintainers; [ bcdarwin ];
     platforms = platforms.unix;
     license = licenses.free;

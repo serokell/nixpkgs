@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, lib }:
+build-idris-package {
   name = "iaia";
   version = "2017-11-10";
 
@@ -18,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Recursion scheme library for Idris";
-    homepage = https://github.com/sellout/Iaia;
+    homepage = "https://github.com/sellout/Iaia";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.brainrape ];
   };

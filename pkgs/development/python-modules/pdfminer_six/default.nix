@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, python, fetchFromGitHub, six, pycryptodome, chardet, nose, pytest, sortedcontainers }:
+{ stdenv, buildPythonPackage, python, fetchFromGitHub, six, pycryptodome, chardet, nose, pytest, sortedcontainers
+}:
 
 buildPythonPackage rec {
   pname = "pdfminer_six";
@@ -20,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "fork of PDFMiner using six for Python 2+3 compatibility";
-    homepage = https://github.com/pdfminer/pdfminer.six;
+    homepage = "https://github.com/pdfminer/pdfminer.six";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];
   };

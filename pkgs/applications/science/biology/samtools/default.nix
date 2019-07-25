@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.9";
 
   src = fetchurl {
-    url = "https://github.com/samtools/samtools/releases/download/${version}/${name}.tar.bz2";
+    url =
+      "https://github.com/samtools/samtools/releases/download/${version}/${name}.tar.bz2";
     sha256 = "10ilqbmm7ri8z431sn90lvbjwizd0hhkf9rcqw8j823hf26nhgq8";
   };
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Tools for manipulating SAM/BAM/CRAM format";
     license = licenses.mit;
-    homepage = http://www.htslib.org/;
+    homepage = "http://www.htslib.org/";
     platforms = platforms.unix;
     maintainers = [ maintainers.mimadrid ];
   };

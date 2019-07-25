@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, cmake, pkgconfig, zlib, pcre, expat, sqlite, openssl, unixODBC, mysql }:
+{ stdenv, fetchurl, cmake, pkgconfig, zlib, pcre, expat, sqlite, openssl, unixODBC, mysql
+}:
 
 stdenv.mkDerivation rec {
   name = "poco-${version}";
@@ -17,14 +18,12 @@ stdenv.mkDerivation rec {
   MYSQL_DIR = mysql.connector-c;
   MYSQL_INCLUDE_DIR = "${MYSQL_DIR}/include/mysql";
 
-  cmakeFlags = [
-    "-DPOCO_UNBUNDLED=ON"
-  ];
+  cmakeFlags = [ "-DPOCO_UNBUNDLED=ON" ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://pocoproject.org/;
+    homepage = "https://pocoproject.org/";
     description = "Cross-platform C++ libraries with a network/internet focus";
     license = licenses.boost;
     maintainers = with maintainers; [ orivej ];

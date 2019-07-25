@@ -1,8 +1,5 @@
-{ lib, stdenv, kernel, elfutils, python, perl, newt, slang, asciidoc, xmlto, makeWrapper
-, docbook_xsl, docbook_xml_dtd_45, libxslt, flex, bison, pkgconfig, libunwind, binutils
-, libiberty, audit, libbfd, libopcodes, openssl, systemtap, numactl
-, zlib, withGtk ? false, gtk2 ? null
-}:
+{ lib, stdenv, kernel, elfutils, python, perl, newt, slang, asciidoc, xmlto, makeWrapper, docbook_xsl, docbook_xml_dtd_45, libxslt, flex, bison, pkgconfig, libunwind, binutils, libiberty, audit, libbfd, libopcodes, openssl, systemtap, numactl, zlib, withGtk ?
+  false, gtk2 ? null }:
 
 with lib;
 
@@ -29,31 +26,51 @@ stdenv.mkDerivation {
     fi
   '';
 
-  makeFlags = ["prefix=$(out)" "WERROR=0"] ++ kernel.makeFlags;
+  makeFlags = [ "prefix=$(out)" "WERROR=0" ] ++ kernel.makeFlags;
 
   hardeningDisable = [ "format" ];
 
   # perf refers both to newt and slang
   nativeBuildInputs = [
-    asciidoc xmlto docbook_xsl docbook_xml_dtd_45 libxslt
-    flex bison libiberty audit makeWrapper pkgconfig python perl
+    asciidoc
+    xmlto
+    docbook_xsl
+    docbook_xml_dtd_45
+    libxslt
+    flex
+    bison
+    libiberty
+    audit
+    makeWrapper
+    pkgconfig
+    python
+    perl
   ];
   buildInputs = [
-    elfutils newt slang libunwind libbfd zlib openssl systemtap.stapBuild numactl
+    elfutils
+    newt
+    slang
+    libunwind
+    libbfd
+    zlib
+    openssl
+    systemtap.stapBuild
+    numactl
     libopcodes
   ] ++ stdenv.lib.optional withGtk gtk2;
 
   # Note: we don't add elfutils to buildInputs, since it provides a
   # bad `ld' and other stuff.
-  NIX_CFLAGS_COMPILE =
-    [ "-Wno-error=cpp"
-      "-Wno-error=bool-compare"
-      "-Wno-error=deprecated-declarations"
-      "-DOBJDUMP_PATH=\"${binutils}/bin/objdump\""
-    ]
-    # gcc before 6 doesn't know these options
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=cpp"
+    "-Wno-error=bool-compare"
+    "-Wno-error=deprecated-declarations"
+    ''-DOBJDUMP_PATH="${binutils}/bin/objdump"''
+  ]
+  # gcc before 6 doesn't know these options
     ++ stdenv.lib.optionals (hasPrefix "gcc-6" stdenv.cc.cc.name) [
-      "-Wno-error=unused-const-variable" "-Wno-error=misleading-indentation"
+      "-Wno-error=unused-const-variable"
+      "-Wno-error=misleading-indentation"
     ];
 
   doCheck = false; # requires "sparse"
@@ -68,9 +85,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://perf.wiki.kernel.org/;
+    homepage = "https://perf.wiki.kernel.org/";
     description = "Linux tools to profile with performance counters";
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

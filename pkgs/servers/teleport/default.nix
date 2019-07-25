@@ -27,7 +27,7 @@ buildGoPackage rec {
     cd $NIX_BUILD_TOP/go/bin
     zip -q -A teleport
     popd
-    '';
+  '';
 
   dontStrip = true;
 

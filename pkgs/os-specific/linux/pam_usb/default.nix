@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, dbus, libxml2, pam, pkgconfig, pmount, pythonPackages, writeScript, runtimeShell }:
+{ stdenv, fetchurl, makeWrapper, dbus, libxml2, pam, pkgconfig, pmount, pythonPackages, writeScript, runtimeShell
+}:
 
 let
 
@@ -10,29 +11,28 @@ let
       name = baseNameOf path;
       bin = "${drv}${path}";
     in assert name != "";
-      writeScript "setUID-${name}" ''
-        #!${runtimeShell}
-        inode=$(stat -Lc %i ${bin})
-        for file in $(type -ap ${name}); do
-          case $(stat -Lc %a $file) in
-            ([2-7][0-7][0-7][0-7])
-              if test -r "$file".real; then
-                orig=$(cat "$file".real)
-                if test $inode = $(stat -Lc %i "$orig"); then
-                  exec "$file" "$@"
-                fi
-              fi;;
-          esac
-        done
-        exec ${bin} "$@"
-      '';
+    writeScript "setUID-${name}" ''
+      #!${runtimeShell}
+      inode=$(stat -Lc %i ${bin})
+      for file in $(type -ap ${name}); do
+        case $(stat -Lc %a $file) in
+          ([2-7][0-7][0-7][0-7])
+            if test -r "$file".real; then
+              orig=$(cat "$file".real)
+              if test $inode = $(stat -Lc %i "$orig"); then
+                exec "$file" "$@"
+              fi
+            fi;;
+        esac
+      done
+      exec ${bin} "$@"
+    '';
 
   pmountBin = useSetUID pmount "/bin/pmount";
   pumountBin = useSetUID pmount "/bin/pumount";
   inherit (pythonPackages) python dbus-python;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "pam_usb-0.5.0";
 
   src = fetchurl {
@@ -43,7 +43,11 @@ stdenv.mkDerivation rec {
   buildInputs = [
     makeWrapper
     # pam_usb dependencies
-    dbus libxml2 pam pmount pkgconfig
+    dbus
+    libxml2
+    pam
+    pmount
+    pkgconfig
     # pam_usb's tools dependencies
     python
     # cElementTree is included with python 2.5 and later.
@@ -68,7 +72,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://pamusb.org/;
+    homepage = "http://pamusb.org/";
     description = "Authentication using USB Flash Drives";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;

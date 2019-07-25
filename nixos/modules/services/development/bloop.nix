@@ -26,9 +26,9 @@ in {
       description = "Bloop Scala build server";
 
       serviceConfig = {
-        Type      = "simple";
-        ExecStart = ''${pkgs.bloop}/bin/blp-server'';
-        Restart   = "always";
+        Type = "simple";
+        ExecStart = "${pkgs.bloop}/bin/blp-server";
+        Restart = "always";
       };
     };
 

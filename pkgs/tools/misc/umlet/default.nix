@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   name = "umlet-${version}";
 
   src = fetchurl {
-    url = "http://www.umlet.com/umlet_${major}_${minor}/umlet-standalone-${version}.zip";
+    url =
+      "http://www.umlet.com/umlet_${major}_${minor}/umlet-standalone-${version}.zip";
     sha256 = "0jfyxjxsjx29xhs3fl0f574nyncmk9j5jp8zlgd401mcaznn9c7l";
   };
 
@@ -43,7 +44,7 @@ stdenv.mkDerivation rec {
       UMLet runs stand-alone or as Eclipse plug-in on Windows, macOS and
       Linux.
     '';
-    homepage = http://www.umlet.com;
+    homepage = "http://www.umlet.com";
     license = licenses.gpl3;
     maintainers = with maintainers; [ geistesk ];
     platforms = platforms.all;

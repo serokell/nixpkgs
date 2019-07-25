@@ -13,8 +13,9 @@ python3Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python3Packages; [ requests ];
 
   meta = {
-    description = "Command-line program to download image-galleries and -collections from several image hosting sites";
-    homepage = https://github.com/mikf/gallery-dl;
+    description =
+      "Command-line program to download image-galleries and -collections from several image hosting sites";
+    homepage = "https://github.com/mikf/gallery-dl";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ dawidsowa ];
   };

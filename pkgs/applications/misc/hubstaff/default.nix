@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, unzip, makeWrapper, libX11, zlib, libSM, libICE
-, libXext , freetype, libXrender, fontconfig, libXft, libXinerama
-, libXfixes, libXScrnSaver, libnotify, glib , gtk3, libappindicator-gtk3
-, curl }:
+{ stdenv, fetchurl, unzip, makeWrapper, libX11, zlib, libSM, libICE, libXext, freetype, libXrender, fontconfig, libXft, libXinerama, libXfixes, libXScrnSaver, libnotify, glib, gtk3, libappindicator-gtk3, curl
+}:
 
 let
 
@@ -9,14 +7,28 @@ let
 
   inherit (data) version url sha256;
 
-  rpath = stdenv.lib.makeLibraryPath
-    [ libX11 zlib libSM libICE libXext freetype libXrender fontconfig libXft
-      libXinerama stdenv.cc.cc.lib libnotify glib gtk3 libappindicator-gtk3
-      curl libXfixes libXScrnSaver ];
+  rpath = stdenv.lib.makeLibraryPath [
+    libX11
+    zlib
+    libSM
+    libICE
+    libXext
+    freetype
+    libXrender
+    fontconfig
+    libXft
+    libXinerama
+    stdenv.cc.cc.lib
+    libnotify
+    glib
+    gtk3
+    libappindicator-gtk3
+    curl
+    libXfixes
+    libXScrnSaver
+  ];
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "hubstaff-${version}";
 
   src = fetchurl { inherit sha256 url; };
@@ -27,7 +39,7 @@ stdenv.mkDerivation {
     # MojoSetups have a ZIP file at the end. ZIP’s magic string is
     # most often PK\x03\x04. This has worked for all past updates,
     # but feel free to come up with something more reasonable.
-    dataZipOffset=$(grep --max-count=1 --byte-offset --only-matching --text ''$'PK\x03\x04' $curSrc | cut -d: -f1)
+    dataZipOffset=$(grep --max-count=1 --byte-offset --only-matching --text $'PK\x03\x04' $curSrc | cut -d: -f1)
     dd bs=$dataZipOffset skip=1 if=$curSrc of=data.zip 2>/dev/null
     unzip -q data.zip "data/*"
     rm data.zip
@@ -57,7 +69,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Time tracking software";
-    homepage = https://hubstaff.com/;
+    homepage = "https://hubstaff.com/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ michalrus srghma ];

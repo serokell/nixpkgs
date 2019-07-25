@@ -16,9 +16,7 @@ let
 
   configFile = pkgs.writeText "shadowsocks.json" (builtins.toJSON opts);
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -86,26 +84,32 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = singleton
-      { assertion = cfg.password == null || cfg.passwordFile == null;
-        message = "Cannot use both password and passwordFile for shadowsocks-libev";
-      };
+    assertions = singleton {
+      assertion = cfg.password == null || cfg.passwordFile == null;
+      message =
+        "Cannot use both password and passwordFile for shadowsocks-libev";
+    };
 
     systemd.services.shadowsocks-libev = {
       description = "shadowsocks-libev Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.shadowsocks-libev ] ++ optional (cfg.passwordFile != null) pkgs.jq;
+      path = [ pkgs.shadowsocks-libev ]
+        ++ optional (cfg.passwordFile != null) pkgs.jq;
       serviceConfig.PrivateTmp = true;
       script = ''
         ${optionalString (cfg.passwordFile != null) ''
           cat ${configFile} | jq --arg password "$(cat "${cfg.passwordFile}")" '. + { password: $password }' > /tmp/shadowsocks.json
         ''}
-        exec ss-server -c ${if cfg.passwordFile != null then "/tmp/shadowsocks.json" else configFile}
+        exec ss-server -c ${
+          if cfg.passwordFile != null then
+            "/tmp/shadowsocks.json"
+          else
+            configFile
+        }
       '';
     };
   };

@@ -1,45 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, buildPythonPackage
-, isPy3k, pythonOlder
-, astor
-, gast
-, google-pasta
-, wrapt
-, numpy
-, six
-, termcolor
-, protobuf
-, absl-py
-, grpcio
-, mock
-, backports_weakref
-, tensorflow-estimator
-, tensorflow-tensorboard
-, cudaSupport ? false
-, cudatoolkit ? null
-, cudnn ? null
-, nvidia_x11 ? null
-, zlib
-, python
-, symlinkJoin
-, keras-applications
-, keras-preprocessing
-}:
+{ stdenv, lib, fetchurl, buildPythonPackage, isPy3k, pythonOlder, astor, gast, google-pasta, wrapt, numpy, six, termcolor, protobuf, absl-py, grpcio, mock, backports_weakref, tensorflow-estimator, tensorflow-tensorboard, cudaSupport ?
+  false, cudatoolkit ? null, cudnn ? null, nvidia_x11 ?
+    null, zlib, python, symlinkJoin, keras-applications, keras-preprocessing }:
 
 # We keep this binary build for two reasons:
 # - the source build doesn't work on Darwin.
 # - the source build is currently brittle and not easy to maintain
 
-assert cudaSupport -> cudatoolkit != null
-                   && cudnn != null
-                   && nvidia_x11 != null;
+assert cudaSupport -> cudatoolkit != null && cudnn != null && nvidia_x11
+!= null;
 let
   cudatoolkit_joined = symlinkJoin {
     name = "unsplit_cudatoolkit";
-    paths = [ cudatoolkit.out
-              cudatoolkit.lib ];};
+    paths = [ cudatoolkit.out cudatoolkit.lib ];
+  };
 
 in buildPythonPackage rec {
   pname = "tensorflow";
@@ -47,13 +20,15 @@ in buildPythonPackage rec {
   format = "wheel";
 
   src = let
-    pyVerNoDot = lib.strings.stringAsChars (x: if x == "." then "" else x) "${python.pythonVersion}";
-    pyver = if stdenv.isDarwin then builtins.substring 0 1 pyVerNoDot else pyVerNoDot;
+    pyVerNoDot = lib.strings.stringAsChars (x: if x == "." then "" else x)
+      "${python.pythonVersion}";
+    pyver =
+      if stdenv.isDarwin then builtins.substring 0 1 pyVerNoDot else pyVerNoDot;
     platform = if stdenv.isDarwin then "mac" else "linux";
     unit = if cudaSupport then "gpu" else "cpu";
     key = "${platform}_py_${pyver}_${unit}";
     dls = import (./. + "/tf${version}-hashes.nix");
-  in fetchurl dls.${key};
+    in fetchurl dls.${key};
 
   propagatedBuildInputs = [
     protobuf
@@ -85,19 +60,18 @@ in buildPythonPackage rec {
   # libraries are loaded at runtime. If we run in preFixup then
   # patchelf --shrink-rpath will remove the cuda libraries.
   postFixup = let
-    rpath = stdenv.lib.makeLibraryPath
-      ([ stdenv.cc.cc.lib zlib ] ++ lib.optionals cudaSupport [ cudatoolkit_joined cudnn nvidia_x11 ]);
-  in
-  lib.optionalString (stdenv.isLinux) ''
-    rrPath="$out/${python.sitePackages}/tensorflow/:$out/${python.sitePackages}/tensorflow/contrib/tensor_forest/:${rpath}"
-    internalLibPath="$out/${python.sitePackages}/tensorflow/python/_pywrap_tensorflow_internal.so"
-    find $out -name '*${stdenv.hostPlatform.extensions.sharedLibrary}' -exec patchelf --set-rpath "$rrPath" {} \;
-  '';
-
+    rpath = stdenv.lib.makeLibraryPath ([ stdenv.cc.cc.lib zlib ]
+      ++ lib.optionals cudaSupport [ cudatoolkit_joined cudnn nvidia_x11 ]);
+    in lib.optionalString (stdenv.isLinux) ''
+      rrPath="$out/${python.sitePackages}/tensorflow/:$out/${python.sitePackages}/tensorflow/contrib/tensor_forest/:${rpath}"
+      internalLibPath="$out/${python.sitePackages}/tensorflow/python/_pywrap_tensorflow_internal.so"
+      find $out -name '*${stdenv.hostPlatform.extensions.sharedLibrary}' -exec patchelf --set-rpath "$rrPath" {} \;
+    '';
 
   meta = with stdenv.lib; {
-    description = "Computation using data flow graphs for scalable machine learning";
-    homepage = http://tensorflow.org;
+    description =
+      "Computation using data flow graphs for scalable machine learning";
+    homepage = "http://tensorflow.org";
     license = licenses.asl20;
     maintainers = with maintainers; [ jyp abbradar ];
     platforms = with platforms; linux ++ lib.optionals (!cudaSupport) darwin;

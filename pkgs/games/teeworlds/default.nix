@@ -1,5 +1,4 @@
-{ fetchFromGitHub, stdenv, bam, pkgconfig, python, alsaLib
-, libX11, libGLU, SDL2, lua5_3, zlib, freetype, wavpack
+{ fetchFromGitHub, stdenv, bam, pkgconfig, python, alsaLib, libX11, libGLU, SDL2, lua5_3, zlib, freetype, wavpack
 }:
 
 stdenv.mkDerivation rec {
@@ -37,9 +36,8 @@ stdenv.mkDerivation rec {
     cp -r build/x86_64/release/data $out/share/teeworlds
   '';
 
-  buildInputs = [
-    python alsaLib libX11 libGLU SDL2 lua5_3 zlib freetype wavpack
-  ];
+  buildInputs =
+    [ python alsaLib libX11 libGLU SDL2 lua5_3 zlib freetype wavpack ];
 
   postInstall = ''
     mkdir -p $out/share/doc/teeworlds
@@ -56,9 +54,9 @@ stdenv.mkDerivation rec {
       Flag.  You can even design your own maps!
     '';
 
-    homepage = https://teeworlds.com/;
+    homepage = "https://teeworlds.com/";
     license = "BSD-style, see `license.txt'";
     maintainers = with stdenv.lib.maintainers; [ astsmtl ];
-    platforms = ["x86_64-linux" "i686-linux"];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

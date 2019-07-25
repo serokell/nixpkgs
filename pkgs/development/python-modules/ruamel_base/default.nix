@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "ruamel.base";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Common routines for ruamel packages";
-    homepage = https://bitbucket.org/ruamel/base;
+    homepage = "https://bitbucket.org/ruamel/base";
     license = licenses.mit;
   };
 

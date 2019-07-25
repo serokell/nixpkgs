@@ -1,8 +1,4 @@
-{ buildPythonPackage
-, pkgs
-, testtools
-, testscenarios
-}:
+{ buildPythonPackage, pkgs, testtools, testscenarios }:
 
 buildPythonPackage rec {
   name = pkgs.subunit.name;

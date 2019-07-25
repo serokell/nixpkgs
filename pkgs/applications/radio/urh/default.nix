@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python3Packages
-, hackrf, rtl-sdr, airspy, limesuite }:
+{ stdenv, fetchFromGitHub, python3Packages, hackrf, rtl-sdr, airspy, limesuite
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "urh";
@@ -14,14 +14,19 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ hackrf rtl-sdr airspy limesuite ];
   propagatedBuildInputs = with python3Packages; [
-    pyqt5 numpy psutil cython pyzmq
+    pyqt5
+    numpy
+    psutil
+    cython
+    pyzmq
   ];
 
   doCheck = false;
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/jopohl/urh";
-    description = "Universal Radio Hacker: investigate wireless protocols like a boss";
+    description =
+      "Universal Radio Hacker: investigate wireless protocols like a boss";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

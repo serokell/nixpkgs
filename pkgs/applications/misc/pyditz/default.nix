@@ -16,7 +16,7 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://pythonhosted.org/pyditz/;
+    homepage = "https://pythonhosted.org/pyditz/";
     description = "Drop-in replacement for the Ditz distributed issue tracker";
     maintainers = [ maintainers.ilikeavocadoes ];
     license = licenses.lgpl2;

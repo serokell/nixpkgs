@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pytest
-, pytestrunner
-, glibcLocales
+{ lib, buildPythonPackage, fetchPypi, numpy, pytest, pytestrunner, glibcLocales
 }:
 
 buildPythonPackage rec {
@@ -17,22 +11,16 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  buildInputs = [
-    numpy
-  ];
+  buildInputs = [ numpy ];
 
-  checkInputs = [
-    pytest
-    pytestrunner
-    glibcLocales
-  ];
+  checkInputs = [ pytest pytestrunner glibcLocales ];
 
   preCheck = ''
     export LC_ALL="en_US.UTF-8"
   '';
 
   meta = {
-    homepage = https://github.com/fonttools/fonttools;
+    homepage = "https://github.com/fonttools/fonttools";
     description = "A library to manipulate font files from Python";
     license = lib.licenses.mit;
   };

@@ -1,8 +1,10 @@
-{ stdenv, fetchFromGitHub, mozjpeg, makeWrapper, coreutils, parallel, findutils }:
+{ stdenv, fetchFromGitHub, mozjpeg, makeWrapper, coreutils, parallel, findutils
+}:
 
 stdenv.mkDerivation rec {
   name = "jpeg-archive-${version}";
-  version = "2.2.0"; # can be found here https://github.com/danielgtaylor/jpeg-archive/blob/master/src/util.c#L15
+  version =
+    "2.2.0"; # can be found here https://github.com/danielgtaylor/jpeg-archive/blob/master/src/util.c#L15
 
   # update with
   # nix-prefetch-git https://github.com/danielgtaylor/jpeg-archive
@@ -33,10 +35,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Utilities for archiving photos for saving to long term storage or serving over the web";
-    homepage    = "https://github.com/danielgtaylor/jpeg-archive";
+    description =
+      "Utilities for archiving photos for saving to long term storage or serving over the web";
+    homepage = "https://github.com/danielgtaylor/jpeg-archive";
     # license = ...; # mixed?
     maintainers = [ maintainers.srghma ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

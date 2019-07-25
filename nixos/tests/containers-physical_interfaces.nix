@@ -1,28 +1,27 @@
-
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "containers-physical_interfaces";
   meta = with pkgs.stdenv.lib.maintainers; {
     maintainers = [ kampfschlaefer ];
   };
 
   nodes = {
-    server = { ... }:
-      {
-        virtualisation.memorySize = 256;
-        virtualisation.vlans = [ 1 ];
+    server = { ... }: {
+      virtualisation.memorySize = 256;
+      virtualisation.vlans = [ 1 ];
 
-        containers.server = {
-          privateNetwork = true;
-          interfaces = [ "eth1" ];
+      containers.server = {
+        privateNetwork = true;
+        interfaces = [ "eth1" ];
 
-          config = {
-            networking.interfaces.eth1.ipv4.addresses = [
-              { address = "10.10.0.1"; prefixLength = 24; }
-            ];
-            networking.firewall.enable = false;
-          };
+        config = {
+          networking.interfaces.eth1.ipv4.addresses = [{
+            address = "10.10.0.1";
+            prefixLength = 24;
+          }];
+          networking.firewall.enable = false;
         };
       };
+    };
     bridged = { ... }: {
       virtualisation.memorySize = 128;
       virtualisation.vlans = [ 1 ];
@@ -33,9 +32,10 @@ import ./make-test.nix ({ pkgs, ...} : {
 
         config = {
           networking.bridges.br0.interfaces = [ "eth1" ];
-          networking.interfaces.br0.ipv4.addresses = [
-            { address = "10.10.0.2"; prefixLength = 24; }
-          ];
+          networking.interfaces.br0.ipv4.addresses = [{
+            address = "10.10.0.2";
+            prefixLength = 24;
+          }];
           networking.firewall.enable = false;
         };
       };
@@ -54,9 +54,10 @@ import ./make-test.nix ({ pkgs, ...} : {
             interfaces = [ "eth1" ];
             driverOptions.mode = "active-backup";
           };
-          networking.interfaces.bond0.ipv4.addresses = [
-            { address = "10.10.0.3"; prefixLength = 24; }
-          ];
+          networking.interfaces.bond0.ipv4.addresses = [{
+            address = "10.10.0.3";
+            prefixLength = 24;
+          }];
           networking.firewall.enable = false;
         };
       };
@@ -76,9 +77,10 @@ import ./make-test.nix ({ pkgs, ...} : {
             driverOptions.mode = "active-backup";
           };
           networking.bridges.br0.interfaces = [ "bond0" ];
-          networking.interfaces.br0.ipv4.addresses = [
-            { address = "10.10.0.4"; prefixLength = 24; }
-          ];
+          networking.interfaces.br0.ipv4.addresses = [{
+            address = "10.10.0.4";
+            prefixLength = 24;
+          }];
           networking.firewall.enable = false;
         };
       };

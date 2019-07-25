@@ -1,12 +1,10 @@
-{
-  lib, fetchPypi, buildPythonPackage, isPy3k,
-  # runtime dependencies
-  pandas, numpy, requests, inflection, python-dateutil, six, more-itertools,
-  # test suite dependencies
-  nose, unittest2, flake8, httpretty, mock, jsondate, parameterized, faker, factory_boy,
-  # additional runtime dependencies are required on Python 2.x
-  pyOpenSSL ? null, ndg-httpsclient ? null, pyasn1 ? null
-}:
+{ lib, fetchPypi, buildPythonPackage, isPy3k,
+# runtime dependencies
+pandas, numpy, requests, inflection, python-dateutil, six, more-itertools,
+# test suite dependencies
+nose, unittest2, flake8, httpretty, mock, jsondate, parameterized, faker, factory_boy,
+# additional runtime dependencies are required on Python 2.x
+pyOpenSSL ? null, ndg-httpsclient ? null, pyasn1 ? null }:
 
 buildPythonPackage rec {
   pname = "quandl";
@@ -32,19 +30,9 @@ buildPythonPackage rec {
     factory_boy
   ];
 
-  propagatedBuildInputs = [
-    pandas
-    numpy
-    requests
-    inflection
-    python-dateutil
-    six
-    more-itertools
-  ] ++ lib.optional (!isPy3k) [
-    pyOpenSSL
-    ndg-httpsclient
-    pyasn1
-  ];
+  propagatedBuildInputs =
+    [ pandas numpy requests inflection python-dateutil six more-itertools ]
+    ++ lib.optional (!isPy3k) [ pyOpenSSL ndg-httpsclient pyasn1 ];
 
   meta = {
     homepage = "https://github.com/quandl/quandl-python";

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, tokyocabinet, cairo, pango, ncurses }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, tokyocabinet, cairo, pango, ncurses
+}:
 
 stdenv.mkDerivation rec {
   name = "duc-${version}";
@@ -15,8 +16,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ tokyocabinet cairo pango ncurses ];
 
   meta = with stdenv.lib; {
-    homepage = http://duc.zevv.nl/;
-    description = "Collection of tools for inspecting and visualizing disk usage";
+    homepage = "http://duc.zevv.nl/";
+    description =
+      "Collection of tools for inspecting and visualizing disk usage";
     license = licenses.gpl2;
 
     platforms = platforms.linux;

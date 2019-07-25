@@ -17,10 +17,11 @@ stdenv.mkDerivation rec {
   buildInputs = [ libplist ];
 
   meta = with stdenv.lib; {
-    description = "A client library to multiplex connections from and to iOS devices";
-    homepage    = https://github.com/libimobiledevice/libusbmuxd;
-    license     = licenses.lgpl21Plus;
-    platforms   = platforms.linux;
+    description =
+      "A client library to multiplex connections from and to iOS devices";
+    homepage = "https://github.com/libimobiledevice/libusbmuxd";
+    license = licenses.lgpl21Plus;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ infinisil ];
   };
 }

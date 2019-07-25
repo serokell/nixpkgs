@@ -1,19 +1,4 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchPypi
-, betamax
-, pytest
-, betamax-matchers
-, unittest2
-, mock
-, requests
-, uritemplate
-, dateutil
-, jwcrypto
-, pyopenssl
-, ndg-httpsclient
-, pyasn1
+{ lib, pythonOlder, buildPythonPackage, fetchPypi, betamax, pytest, betamax-matchers, unittest2, mock, requests, uritemplate, dateutil, jwcrypto, pyopenssl, ndg-httpsclient, pyasn1
 }:
 
 buildPythonPackage rec {
@@ -28,7 +13,8 @@ buildPythonPackage rec {
   checkInputs = [ betamax pytest betamax-matchers ]
     ++ lib.optional (pythonOlder "3") unittest2
     ++ lib.optional (pythonOlder "3.3") mock;
-  propagatedBuildInputs = [ requests uritemplate dateutil jwcrypto pyopenssl ndg-httpsclient pyasn1 ];
+  propagatedBuildInputs =
+    [ requests uritemplate dateutil jwcrypto pyopenssl ndg-httpsclient pyasn1 ];
 
   postPatch = ''
     sed -i -e 's/unittest2 ==0.5.1/unittest2>=0.5.1/' setup.py
@@ -38,7 +24,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    homepage = https://github3py.readthedocs.org/en/master/;
+    homepage = "https://github3py.readthedocs.org/en/master/";
     description = "A wrapper for the GitHub API written in python";
     license = licenses.bsd3;
     maintainers = with maintainers; [ pSub ];

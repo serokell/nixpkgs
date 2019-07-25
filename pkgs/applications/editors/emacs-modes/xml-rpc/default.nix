@@ -1,14 +1,14 @@
-{stdenv, fetchurl, emacs}:
+{ stdenv, fetchurl, emacs }:
 
 stdenv.mkDerivation rec {
   name = "xml-rpc-1.6.8";
 
   src = fetchurl {
-    url = https://launchpadlibrarian.net/40270196/xml-rpc.el;
+    url = "https://launchpadlibrarian.net/40270196/xml-rpc.el";
     sha256 = "0i8hf90yhrjwqrv7q1f2g1cff6ld8apqkka42fh01wkdys1fbm7b";
   };
 
-  phases = [ "buildPhase" "installPhase"];
+  phases = [ "buildPhase" "installPhase" ];
 
   buildInputs = [ emacs ];
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Elisp implementation of clientside XML-RPC";
-    homepage = https://launchpad.net/xml-rpc-el;
+    homepage = "https://launchpad.net/xml-rpc-el";
     license = stdenv.lib.licenses.gpl3Plus;
 
     platforms = stdenv.lib.platforms.all;

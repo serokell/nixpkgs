@@ -1,6 +1,4 @@
-{ python3Packages
-, lib
-}:
+{ python3Packages, lib }:
 
 with python3Packages;
 
@@ -30,13 +28,10 @@ buildPythonPackage rec {
     sha256 = "1y3smw9620w2ia4zfsl2svb9j7mkfgc8z1bzjffyk1w5vryhwikh";
   };
 
-  checkInputs = [
-    pytest
-    selenium
-  ];
+  checkInputs = [ pytest selenium ];
 
   meta = {
-    homepage = https://github.com/bepasty/bepasty-server;
+    homepage = "https://github.com/bepasty/bepasty-server";
     description = "Binary pastebin server";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.makefu ];

@@ -1,10 +1,10 @@
-{stdenv, fetchurl, ncurses}:
+{ stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   name = "iptraf-3.0.1";
 
   src = fetchurl {
-    url = ftp://iptraf.seul.org/pub/iptraf/iptraf-3.0.1.tar.gz;
+    url = "ftp://iptraf.seul.org/pub/iptraf/iptraf-3.0.1.tar.gz";
     sha256 = "12n059j9iihhpf6spmlaspqzxz3wqan6kkpnhmlj08jdijpnk84m";
   };
 
@@ -21,10 +21,10 @@ stdenv.mkDerivation rec {
     cp iptraf $out/bin
   '';
 
-  buildInputs = [ncurses];
+  buildInputs = [ ncurses ];
 
   meta = {
-    homepage = http://iptraf.seul.org/;
+    homepage = "http://iptraf.seul.org/";
     license = stdenv.lib.licenses.gpl2Plus;
     description = "Console-based network statistics utility for Linux";
     platforms = stdenv.lib.platforms.linux;

@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, mwlib
-, mwlib-ext
-, pygments
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mwlib, mwlib-ext, pygments }:
 
 buildPythonPackage rec {
   version = "0.14.5";

@@ -63,10 +63,9 @@ in {
       javaProperties = mkOption {
         type = types.attrs;
         default = { };
-        example = {
-          "java.net.preferIPv4Stack" = "true";
-        };
-        apply = attrs: {
+        example = { "java.net.preferIPv4Stack" = "true"; };
+        apply = attrs:
+        {
           "activemq.base" = "${cfg.baseDir}";
           "activemq.data" = "${cfg.baseDir}/data";
           "activemq.conf" = "${cfg.configurationDir}";
@@ -121,7 +120,11 @@ in {
         source ${activemq}/lib/classpath.env
         export CLASSPATH=${activemqBroker}/lib:${cfg.configurationDir}:$CLASSPATH
         exec java \
-          ${concatStringsSep " \\\n" (mapAttrsToList (name: value: "-D${name}=${value}") cfg.javaProperties)} \
+          ${
+          concatStringsSep " \\\n"
+          (mapAttrsToList (name: value: "-D${name}=${value}")
+          cfg.javaProperties)
+          } \
           ${cfg.extraJavaOptions} ActiveMQBroker "${cfg.configurationURI}"
       '';
     };

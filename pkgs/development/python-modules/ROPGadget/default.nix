@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, capstone}:
+{ stdenv, buildPythonPackage, fetchPypi, capstone }:
 
 buildPythonPackage rec {
   pname = "ROPGadget";
@@ -13,7 +12,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ capstone ];
 
   meta = with stdenv.lib; {
-    description = "Tool to search for gadgets in binaries to facilitate ROP exploitation";
+    description =
+      "Tool to search for gadgets in binaries to facilitate ROP exploitation";
     homepage = "http://shell-storm.org/project/ROPgadget/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bennofs ];

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       Duff is a Unix command-line utility for quickly finding duplicates in
       a given set of files.
     '';
-    homepage = http://duff.dreda.org/;
+    homepage = "http://duff.dreda.org/";
     license = licenses.zlib;
     platforms = platforms.all;
   };

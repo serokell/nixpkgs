@@ -2,15 +2,17 @@
 
 with lib;
 
-let cfg = config.services.networking.websockify; in {
+let cfg = config.services.networking.websockify;
+in {
   options = {
     services.networking.websockify = {
-      enable = mkOption {  
-        description = "Whether to enable websockify to forward websocket connections to TCP connections.";
+      enable = mkOption {
+        description =
+          "Whether to enable websockify to forward websocket connections to TCP connections.";
 
-        default = false;   
+        default = false;
 
-        type = types.bool; 
+        type = types.bool;
       };
 
       sslCert = mkOption {
@@ -27,7 +29,7 @@ let cfg = config.services.networking.websockify; in {
 
       portMap = mkOption {
         description = "Ports to map by default.";
-        default = {};
+        default = { };
         type = types.attrsOf types.int;
       };
     };
@@ -35,7 +37,8 @@ let cfg = config.services.networking.websockify; in {
 
   config = mkIf cfg.enable {
     systemd.services."websockify@" = {
-      description = "Service to forward websocket connections to TCP connections (from port:to port %I)";
+      description =
+        "Service to forward websocket connections to TCP connections (from port:to port %I)";
       script = ''
         IFS=':' read -a array <<< "$1"
         ${pkgs.pythonPackages.websockify}/bin/websockify --ssl-only \
@@ -47,7 +50,9 @@ let cfg = config.services.networking.websockify; in {
     systemd.targets."default-websockify" = {
       description = "Target to start all default websockify@ services";
       unitConfig."X-StopOnReconfiguration" = true;
-      wants = mapAttrsToList (name: value: "websockify@${name}:${toString value}.service") cfg.portMap;
+      wants = mapAttrsToList
+        (name: value: "websockify@${name}:${toString value}.service")
+        cfg.portMap;
       wantedBy = [ "multi-user.target" ];
     };
   };

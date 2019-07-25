@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "Disables the top left hot corner";
     license = licenses.gpl2;
     maintainers = with maintainers; [ jonafato ];
-    homepage = https://github.com/HROMANO/nohotcorner;
+    homepage = "https://github.com/HROMANO/nohotcorner";
   };
 }

@@ -1,7 +1,7 @@
 { stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
-  name    = "lockdep-${version}";
+  name = "lockdep-${version}";
   version = "4.1.2";
   fullver = "4.1.2";
 
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Userspace locking validation tool built on the Linux kernel";
-    homepage    = "https://kernel.org/";
-    license     = stdenv.lib.licenses.gpl2;
-    platforms   = stdenv.lib.platforms.linux;
+    homepage = "https://kernel.org/";
+    license = stdenv.lib.licenses.gpl2;
+    platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

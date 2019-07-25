@@ -1,7 +1,16 @@
-{ stdenv, fetchFromGitHub, cmake, jdk, zlib, file, makeWrapper, xorg, libpulseaudio, qtbase }:
+{ stdenv, fetchFromGitHub, cmake, jdk, zlib, file, makeWrapper, xorg, libpulseaudio, qtbase
+}:
 
 let
-  libpath = with xorg; stdenv.lib.makeLibraryPath [ libX11 libXext libXcursor libXrandr libXxf86vm libpulseaudio ];
+  libpath = with xorg;
+    stdenv.lib.makeLibraryPath [
+      libX11
+      libXext
+      libXcursor
+      libXrandr
+      libXxf86vm
+      libpulseaudio
+    ];
 in stdenv.mkDerivation rec {
   name = "multimc-${version}";
   version = "0.6.4";
@@ -31,7 +40,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://multimc.org/;
+    homepage = "https://multimc.org/";
     description = "A free, open source launcher for Minecraft";
     longDescription = ''
       Allows you to have multiple, separate instances of Minecraft (each with their own mods, texture packs, saves, etc) and helps you manage them and their associated options with a simple interface.

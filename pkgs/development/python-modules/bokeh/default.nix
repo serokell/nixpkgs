@@ -1,34 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, mock
-, pytest
-, flask
-, jinja2
-, markupsafe
-, werkzeug
-, itsdangerous
-, dateutil
-, requests
-, six
-, pygments
-, pystache
-, markdown
-, pyyaml
-, pyzmq
-, tornado
-, colorama
-, isPy3k
-, futures
-, websocket_client
-, numpy
-, pandas
-, greenlet
-, python
-, bkcharts
-, pillow
-, selenium
+{ lib, buildPythonPackage, fetchPypi, isPyPy, mock, pytest, flask, jinja2, markupsafe, werkzeug, itsdangerous, dateutil, requests, six, pygments, pystache, markdown, pyyaml, pyzmq, tornado, colorama, isPy3k, futures, websocket_client, numpy, pandas, greenlet, python, bkcharts, pillow, selenium
 }:
 
 buildPythonPackage rec {
@@ -43,7 +13,7 @@ buildPythonPackage rec {
   disabled = isPyPy;
 
   # Some test that uses tornado fails
-#   doCheck = false;
+  #   doCheck = false;
 
   checkInputs = [ mock pytest pillow selenium ];
 
@@ -65,10 +35,9 @@ buildPythonPackage rec {
     tornado
     colorama
     bkcharts
-  ]
-  ++ lib.optionals ( !isPy3k ) [ futures ]
-  ++ lib.optionals ( !isPy3k && !isPyPy ) [ websocket_client ]
-  ++ lib.optionals ( !isPyPy ) [ numpy pandas greenlet ];
+  ] ++ lib.optionals (!isPy3k) [ futures ]
+    ++ lib.optionals (!isPy3k && !isPyPy) [ websocket_client ]
+    ++ lib.optionals (!isPyPy) [ numpy pandas greenlet ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover -s bokeh/tests
@@ -76,7 +45,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Statistical and novel interactive HTML plots for Python";
-    homepage = https://github.com/bokeh/bokeh;
+    homepage = "https://github.com/bokeh/bokeh";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ orivej ];
   };

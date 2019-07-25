@@ -7,9 +7,9 @@ stdenv.mkDerivation rec {
   sourceRoot = "${src.name}/re2c";
 
   src = fetchFromGitHub {
-    owner  = "skvadrik";
-    repo   = "re2c";
-    rev    = version;
+    owner = "skvadrik";
+    repo = "re2c";
+    rev = version;
     sha256 = "0grx7nl9fwcn880v5ssjljhcb9c5p2a6xpwil7zxpmv0rwnr3yqi";
   };
 
@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tool for writing very fast and very flexible scanners";
-    homepage    = "http://re2c.org";
-    license     = licenses.publicDomain;
-    platforms   = platforms.all;
+    homepage = "http://re2c.org";
+    license = licenses.publicDomain;
+    platforms = platforms.all;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }

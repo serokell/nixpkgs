@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, makeDesktopItem, wrapQtAppsHook, pkgconfig
-, cmake, epoxy, libzip, ffmpeg, imagemagick, SDL2, qtbase, qtmultimedia, libedit
-, qttools, minizip }:
+{ stdenv, fetchFromGitHub, makeDesktopItem, wrapQtAppsHook, pkgconfig, cmake, epoxy, libzip, ffmpeg, imagemagick, SDL2, qtbase, qtmultimedia, libedit, qttools, minizip
+}:
 
 let
   desktopItem = makeDesktopItem {
@@ -28,7 +27,15 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ wrapQtAppsHook pkgconfig cmake ];
 
   buildInputs = [
-    libzip epoxy ffmpeg imagemagick SDL2 qtbase qtmultimedia libedit minizip
+    libzip
+    epoxy
+    ffmpeg
+    imagemagick
+    SDL2
+    qtbase
+    qtmultimedia
+    libedit
+    minizip
     qttools
   ];
 
@@ -37,7 +44,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://mgba.io;
+    homepage = "https://mgba.io";
     description = "A modern GBA emulator with a focus on accuracy";
 
     longDescription = ''

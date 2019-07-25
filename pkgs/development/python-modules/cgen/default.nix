@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytools
-, numpy
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, pytools, numpy, pytest }:
 
 buildPythonPackage rec {
   pname = "cgen";
@@ -16,10 +10,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [
-    pytools
-    numpy
-  ];
+  propagatedBuildInputs = [ pytools numpy ];
 
   checkPhase = ''
     pytest
@@ -27,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "C/C++ source generation from an AST";
-    homepage = https://github.com/inducer/cgen;
+    homepage = "https://github.com/inducer/cgen";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

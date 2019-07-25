@@ -1,6 +1,6 @@
-{stdenv, fetchurl, tex}:
+{ stdenv, fetchurl, tex }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
 
   name = "nuweb-${version}";
   version = "1.58";
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec{
 
   meta = with stdenv.lib; {
     description = "A simple literate programming tool";
-    homepage = http://nuweb.sourceforge.net;
+    homepage = "http://nuweb.sourceforge.net";
     license = licenses.free;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;

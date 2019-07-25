@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja, libpthreadstubs, libpciaccess, valgrind-light }:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, libpthreadstubs, libpciaccess, valgrind-light
+}:
 
 stdenv.mkDerivation rec {
   name = "libdrm-2.4.98";
@@ -19,17 +20,17 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  mesonFlags =
-    [ "-Dinstall-test-programs=true" ]
-    ++ stdenv.lib.optionals (stdenv.isAarch32 || stdenv.isAarch64)
-      [ "-Dtegra=true" "-Detnaviv=true" ]
-    ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "-Dintel=false"
-    ;
+  mesonFlags = [ "-Dinstall-test-programs=true" ]
+    ++ stdenv.lib.optionals (stdenv.isAarch32 || stdenv.isAarch64) [
+      "-Dtegra=true"
+      "-Detnaviv=true"
+    ] ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    "-Dintel=false";
 
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://dri.freedesktop.org/libdrm/;
+    homepage = "https://dri.freedesktop.org/libdrm/";
     description = "Library for accessing the kernel's Direct Rendering Manager";
     license = "bsd";
     platforms = stdenv.lib.platforms.unix;

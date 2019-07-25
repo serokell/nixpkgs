@@ -8,9 +8,7 @@ let
 
   inherit (pkgs) at;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -32,11 +30,10 @@ in
         writeable by everyone (and sticky).  This is normally not
         needed since the <command>at</command> commands are
         setuid/setgid <literal>atd</literal>.
-     '';
+      '';
     };
 
   };
-
 
   ###### implementation
 
@@ -44,30 +41,32 @@ in
 
     # Not wrapping "batch" because it's a shell script (kernel drops perms
     # anyway) and it's patched to invoke the "at" setuid wrapper.
-    security.wrappers = builtins.listToAttrs (
-      map (program: { name = "${program}"; value = {
-      source = "${at}/bin/${program}";
-      owner = "atd";
-      group = "atd";
-      setuid = true;
-      setgid = true;
-    };}) [ "at" "atq" "atrm" ]);
+    security.wrappers = builtins.listToAttrs (map (program: {
+      name = "${program}";
+      value = {
+        source = "${at}/bin/${program}";
+        owner = "atd";
+        group = "atd";
+        setuid = true;
+        setgid = true;
+      };
+    }) [ "at" "atq" "atrm" ]);
 
     environment.systemPackages = [ at ];
 
-    security.pam.services.atd = {};
+    security.pam.services.atd = { };
 
-    users.users = singleton
-      { name = "atd";
-        uid = config.ids.uids.atd;
-        description = "atd user";
-        home = "/var/empty";
-      };
+    users.users = singleton {
+      name = "atd";
+      uid = config.ids.uids.atd;
+      description = "atd user";
+      home = "/var/empty";
+    };
 
-    users.groups = singleton
-      { name = "atd";
-        gid = config.ids.gids.atd;
-      };
+    users.groups = singleton {
+      name = "atd";
+      gid = config.ids.gids.atd;
+    };
 
     systemd.services.atd = {
       description = "Job Execution Daemon (atd)";
@@ -94,7 +93,10 @@ in
           fi
         done
         chmod 1770 "$spooldir" "$jobdir"
-        ${if cfg.allowEveryone then ''chmod a+rwxt "$spooldir" "$jobdir" '' else ""}
+        ${if cfg.allowEveryone then
+          ''chmod a+rwxt "$spooldir" "$jobdir" ''
+        else
+          ""}
         if [ ! -f "$etcdir"/at.deny ]; then
             touch "$etcdir"/at.deny
             chown root:atd "$etcdir"/at.deny

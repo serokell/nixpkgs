@@ -1,20 +1,37 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cl-async-repl'';
-  version = ''cl-async-20190107-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cl-async-repl";
+  version = "cl-async-20190107-git";
 
-  description = ''REPL integration for CL-ASYNC.'';
+  description = "REPL integration for CL-ASYNC.";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."cl-async" args."cl-async-base" args."cl-async-util" args."cl-libuv" args."cl-ppcre" args."fast-io" args."static-vectors" args."trivial-features" args."trivial-gray-streams" args."vom" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."cl-async"
+    args."cl-async-base"
+    args."cl-async-util"
+    args."cl-libuv"
+    args."cl-ppcre"
+    args."fast-io"
+    args."static-vectors"
+    args."trivial-features"
+    args."trivial-gray-streams"
+    args."vom"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-async/2019-01-07/cl-async-20190107-git.tgz'';
-    sha256 = ''11hgsnms6w2s1vsphsqdwyqql11aa6bzplzrp5w4lizl2nkva82b'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-async/2019-01-07/cl-async-20190107-git.tgz";
+    sha256 = "11hgsnms6w2s1vsphsqdwyqql11aa6bzplzrp5w4lizl2nkva82b";
   };
 
   packageName = "cl-async-repl";
 
-  asdFilesToKeep = ["cl-async-repl.asd"];
+  asdFilesToKeep = [ "cl-async-repl.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-async-repl DESCRIPTION REPL integration for CL-ASYNC. SHA256
@@ -40,4 +57,5 @@ rec {
      cl-async-base cl-async-util cl-libuv cl-ppcre fast-io static-vectors
      trivial-features trivial-gray-streams vom)
     VERSION cl-async-20190107-git SIBLINGS
-    (cl-async-ssl cl-async-test cl-async) PARASITES NIL) */
+    (cl-async-ssl cl-async-test cl-async) PARASITES NIL)
+*/

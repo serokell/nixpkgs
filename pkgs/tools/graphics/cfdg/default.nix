@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "3.0.9";
   src = fetchurl {
     sha256 = "1jqpinz6ri4a2l04mf2z1ljalkdk1m07hj47lqkh8gbf2slfs0jl";
-    url = "http://www.contextfreeart.org/download/ContextFreeSource${version}.tgz";
+    url =
+      "http://www.contextfreeart.org/download/ContextFreeSource${version}.tgz";
   };
 
   buildInputs = [ libpng bison flex ffmpeg ];
@@ -23,11 +24,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Context-free design grammar - a tool for graphics generation";
+    description =
+      "Context-free design grammar - a tool for graphics generation";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
-    homepage = https://contextfreeart.org/;
+    homepage = "https://contextfreeart.org/";
     license = licenses.gpl2;
-    downloadPage = "https://contextfreeart.org/mediawiki/index.php/Download_page";
+    downloadPage =
+      "https://contextfreeart.org/mediawiki/index.php/Download_page";
   };
 }

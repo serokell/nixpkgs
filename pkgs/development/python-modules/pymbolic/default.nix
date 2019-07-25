@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytools
-, pytest
-, six
-, sympy
-, pexpect
-, symengine
+{ lib, buildPythonPackage, fetchPypi, pytools, pytest, six, sympy, pexpect, symengine
 }:
 
 buildPythonPackage rec {
@@ -24,10 +16,7 @@ buildPythonPackage rec {
   '';
 
   checkInputs = [ sympy pexpect symengine pytest ];
-  propagatedBuildInputs = [
-    pytools
-    six
-  ];
+  propagatedBuildInputs = [ pytools six ];
 
   # too many tests fail
   doCheck = false;
@@ -37,7 +26,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A package for symbolic computation";
-    homepage = https://mathema.tician.de/software/pymbolic;
+    homepage = "https://mathema.tician.de/software/pymbolic";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

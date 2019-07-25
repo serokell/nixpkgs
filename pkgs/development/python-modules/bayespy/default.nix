@@ -1,6 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder
-, pytest, glibcLocales
-, numpy, scipy, matplotlib, h5py }:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, pytest, glibcLocales, numpy, scipy, matplotlib, h5py
+}:
 
 buildPythonPackage rec {
   pname = "bayespy";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://www.bayespy.org;
+    homepage = "http://www.bayespy.org";
     description = "Variational Bayesian inference tools for Python";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];

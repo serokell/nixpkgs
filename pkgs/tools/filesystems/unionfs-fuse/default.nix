@@ -11,13 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "0lb8zgdxnjy2fjr2284hvdfn7inc1in44ynzgcr66x54bxzvynj6";
   };
 
-  patches =
-    [ # Prevent the unionfs daemon from being killed during
-      # shutdown. See
-      # http://www.freedesktop.org/wiki/Software/systemd/RootStorageDaemons/
-      # for details.
-      ./prevent-kill-on-shutdown.patch
-    ];
+  patches = [ # Prevent the unionfs daemon from being killed during
+    # shutdown. See
+    # http://www.freedesktop.org/wiki/Software/systemd/RootStorageDaemons/
+    # for details.
+    ./prevent-kill-on-shutdown.patch
+  ];
 
   buildInputs = [ cmake fuse ];
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "FUSE UnionFS implementation";
-    homepage = https://github.com/rpodgorny/unionfs-fuse;
+    homepage = "https://github.com/rpodgorny/unionfs-fuse";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ orivej ];

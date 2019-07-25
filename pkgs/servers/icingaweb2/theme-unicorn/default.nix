@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub }: with lib; stdenv.mkDerivation rec {
+{ stdenv, lib, fetchurl, fetchFromGitHub }:
+with lib;
+stdenv.mkDerivation rec {
   name = "icingaweb2-theme-unicorn";
   version = "1.0.2";
 

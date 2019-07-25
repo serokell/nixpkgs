@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform , fetchFromGitHub, Security }:
+{ stdenv, rustPlatform, fetchFromGitHub, Security }:
 rustPlatform.buildRustPackage rec {
   name = "whitebox_tools-${version}";
   version = "0.9.0";
@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "An advanced geospatial data analysis platform";
-    homepage = http://www.uoguelph.ca/~hydrogeo/WhiteboxTools/index.html;
+    homepage = "http://www.uoguelph.ca/~hydrogeo/WhiteboxTools/index.html";
     license = licenses.mit;
     maintainers = [ maintainers.mpickering ];
     platforms = platforms.all;

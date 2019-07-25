@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, numpy
-, six
-, ruamel_yaml
-, msgpack-python
-, coverage
-, coveralls
-, pymongo
-, lsof
+{ lib, buildPythonPackage, fetchFromGitHub, nose, numpy, six, ruamel_yaml, msgpack-python, coverage, coveralls, pymongo, lsof
 }:
 
 buildPythonPackage rec {
@@ -24,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "0vqaaz0dw0ypl6sfwbycpb0qs3ap04c4ghbggklxih66spdlggh6";
   };
 
-  checkInputs = [ lsof nose numpy msgpack-python coverage coveralls pymongo];
+  checkInputs = [ lsof nose numpy msgpack-python coverage coveralls pymongo ];
   propagatedBuildInputs = [ six ruamel_yaml ];
 
   preCheck = ''
@@ -45,7 +34,7 @@ buildPythonPackage rec {
       singleton and cached_class, and many more.
     '';
 
-    homepage = https://github.com/materialsvirtuallab/monty;
+    homepage = "https://github.com/materialsvirtuallab/monty";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];
   };

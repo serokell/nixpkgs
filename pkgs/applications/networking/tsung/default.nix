@@ -1,8 +1,5 @@
-{ fetchurl, stdenv, lib, makeWrapper,
-  erlang,
-  python2, python2Packages,
-  perlPackages,
-  gnuplot }:
+{ fetchurl, stdenv, lib, makeWrapper, erlang, python2, python2Packages, perlPackages, gnuplot
+}:
 
 stdenv.mkDerivation rec {
   name = "tsung-${version}";
@@ -22,7 +19,6 @@ stdenv.mkDerivation rec {
     python2Packages.matplotlib
   ];
 
-
   postFixup = ''
     # Make tsung_stats.pl accessible
     # Leaving .pl at the end since all of tsung documentation is refering to it
@@ -32,12 +28,15 @@ stdenv.mkDerivation rec {
     # Add Template Toolkit and gnuplot to tsung_stats.pl
     wrapProgram $out/bin/tsung_stats.pl \
         --prefix PATH : ${lib.makeBinPath [ gnuplot ]} \
-        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]}"
+        --set PERL5LIB "${
+      perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]
+        }"
   '';
 
   meta = with stdenv.lib; {
     homepage = "http://tsung.erlang-projects.org/";
-    description = "A high-performance benchmark framework for various protocols including HTTP, XMPP, LDAP, etc.";
+    description =
+      "A high-performance benchmark framework for various protocols including HTTP, XMPP, LDAP, etc.";
     longDescription = ''
       Tsung is a distributed load testing tool. It is protocol-independent and
       can currently be used to stress HTTP, WebDAV, SOAP, PostgreSQL, MySQL,

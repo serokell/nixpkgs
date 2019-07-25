@@ -1,9 +1,4 @@
-{ lib
-, pythonPackages
-, qscintilla
-, lndir
-, qtbase
-}:
+{ lib, pythonPackages, qscintilla, lndir, qtbase }:
 with pythonPackages;
 buildPythonPackage rec {
   pname = "qscintilla";
@@ -33,9 +28,10 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A Python binding to QScintilla, Qt based text editing control";
+    description =
+      "A Python binding to QScintilla, Qt based text editing control";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ lsix ];
-    homepage = https://www.riverbankcomputing.com/software/qscintilla/;
+    homepage = "https://www.riverbankcomputing.com/software/qscintilla/";
   };
 }

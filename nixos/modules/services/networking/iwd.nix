@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.networking.wireless.iwd;
+let cfg = config.networking.wireless.iwd;
 in {
   options.networking.wireless.iwd.enable = mkEnableOption "iwd";
 
@@ -16,7 +15,7 @@ in {
     }];
 
     # for iwctl
-    environment.systemPackages =  [ pkgs.iwd ];
+    environment.systemPackages = [ pkgs.iwd ];
 
     services.dbus.packages = [ pkgs.iwd ];
 
@@ -24,9 +23,7 @@ in {
 
     systemd.services.iwd.wantedBy = [ "multi-user.target" ];
 
-    systemd.tmpfiles.rules = [
-      "d /var/lib/iwd 0700 root root -"
-    ];
+    systemd.tmpfiles.rules = [ "d /var/lib/iwd 0700 root root -" ];
   };
 
   meta.maintainers = with lib.maintainers; [ mic92 ];

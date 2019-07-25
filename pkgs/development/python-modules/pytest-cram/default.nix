@@ -1,4 +1,4 @@
-{lib, buildPythonPackage, fetchPypi, pytest, cram, bash}:
+{ lib, buildPythonPackage, fetchPypi, pytest, cram, bash }:
 
 buildPythonPackage rec {
   version = "0.2.0";
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Test command-line applications with pytest and cram";
-    homepage = https://github.com/tbekolay/pytest-cram;
+    homepage = "https://github.com/tbekolay/pytest-cram";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jluttine ];
   };

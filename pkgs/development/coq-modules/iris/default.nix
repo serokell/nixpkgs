@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   version = "3.1.0";
   name = "coq${coq.coq-version}-iris-${version}";
   src = fetchzip {
-    url = "https://gitlab.mpi-sws.org/FP/iris-coq/-/archive/iris-${version}/iris-coq-iris-${version}.tar.gz";
+    url =
+      "https://gitlab.mpi-sws.org/FP/iris-coq/-/archive/iris-${version}/iris-coq-iris-${version}.tar.gz";
     sha256 = "0ipdb061jj205avxifshxkpyxxqykigmlxk2n5nvxj62gs3rl5j1";
   };
 

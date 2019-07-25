@@ -1,24 +1,4 @@
-{ buildPythonPackage,
-  fetchPypi,
-  cairosvg,
-  pyphen,
-  cffi,
-  cssselect,
-  lxml,
-  html5lib,
-  tinycss,
-  pygobject2,
-  glib,
-  pango,
-  fontconfig,
-  stdenv,
-  pytest,
-  pytestrunner,
-  pytest-isort,
-  pytest-flake8,
-  pytestcov,
-  isPy3k,
-  substituteAll
+{ buildPythonPackage, fetchPypi, cairosvg, pyphen, cffi, cssselect, lxml, html5lib, tinycss, pygobject2, glib, pango, fontconfig, stdenv, pytest, pytestrunner, pytest-isort, pytest-flake8, pytestcov, isPy3k, substituteAll
 }:
 
 buildPythonPackage rec {
@@ -39,16 +19,22 @@ buildPythonPackage rec {
 
   FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
 
-  propagatedBuildInputs = [ cairosvg pyphen cffi cssselect lxml html5lib tinycss pygobject2 ];
+  propagatedBuildInputs =
+    [ cairosvg pyphen cffi cssselect lxml html5lib tinycss pygobject2 ];
 
   patches = [
     (substituteAll {
       src = ./library-paths.patch;
-      fontconfig = "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pangoft2 = "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      gobject = "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pango = "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pangocairo = "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      fontconfig =
+        "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+      pangoft2 =
+        "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      gobject =
+        "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      pango =
+        "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      pangocairo =
+        "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
@@ -59,7 +45,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://weasyprint.org/;
+    homepage = "https://weasyprint.org/";
     description = "Converts web documents to PDF";
     license = licenses.bsd3;
     maintainers = with maintainers; [ elohmeier ];

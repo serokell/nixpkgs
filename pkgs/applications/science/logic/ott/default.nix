@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/emacs/site-lisp
     cp emacs/ott-mode.el $out/share/emacs/site-lisp
-    '';
+  '';
 
   meta = {
     description = "Ott: tool for the working semanticist";
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       terms of the defined language, parsing them and replacing them by
       target-system terms.
     '';
-    homepage = http://www.cl.cam.ac.uk/~pes20/ott;
+    homepage = "http://www.cl.cam.ac.uk/~pes20/ott";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ jwiegley ];
     platforms = stdenv.lib.platforms.unix;

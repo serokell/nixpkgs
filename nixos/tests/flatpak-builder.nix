@@ -3,13 +3,13 @@ import ./make-test.nix ({ pkgs, ... }:
 
 {
   name = "flatpak-builder";
-  meta = {
-    maintainers = pkgs.flatpak-builder.meta.maintainers;
-  };
+  meta = { maintainers = pkgs.flatpak-builder.meta.maintainers; };
 
   machine = { pkgs, ... }: {
     services.flatpak.enable = true;
-    environment.systemPackages = with pkgs; [ gnome-desktop-testing flatpak-builder ] ++ flatpak-builder.installedTestsDependencies;
+    environment.systemPackages = with pkgs;
+      [ gnome-desktop-testing flatpak-builder ]
+      ++ flatpak-builder.installedTestsDependencies;
     virtualisation.diskSize = 2048;
   };
 

@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytz
-, requests
-, coverage
-, mock
-, nose
-, unittest2
+{ stdenv, buildPythonPackage, fetchPypi, pytz, requests, coverage, mock, nose, unittest2
 }:
 
 buildPythonPackage rec {
@@ -22,8 +14,9 @@ buildPythonPackage rec {
   buildInputs = [ coverage mock nose unittest2 ];
 
   meta = with stdenv.lib; {
-    description = "A Python API for accessing resources on a Jenkins continuous-integration server";
-    homepage = https://github.com/salimfadhley/jenkinsapi;
+    description =
+      "A Python API for accessing resources on a Jenkins continuous-integration server";
+    homepage = "https://github.com/salimfadhley/jenkinsapi";
     maintainers = with maintainers; [ drets ];
     license = licenses.mit;
   };

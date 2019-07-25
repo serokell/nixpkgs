@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchurl
-, numpy
-, scipy
-, matplotlib
-, pyqt4
-, cython
-, pkgs
-, nose
+{ stdenv, buildPythonPackage, fetchurl, numpy, scipy, matplotlib, pyqt4, cython, pkgs, nose
 }:
 
 buildPythonPackage rec {
@@ -37,7 +28,7 @@ buildPythonPackage rec {
       superconducting circuits, and quantum nanomechanical
       resonators.
     '';
-    homepage = http://qutip.org/;
+    homepage = "http://qutip.org/";
     license = licenses.bsd0;
   };
 

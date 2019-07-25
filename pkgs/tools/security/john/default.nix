@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, openssl, nss, nspr, kerberos, gmp, zlib, libpcap, re2
-, gcc, pythonPackages, perl, perlPackages, makeWrapper
+{ stdenv, fetchurl, openssl, nss, nspr, kerberos, gmp, zlib, libpcap, re2, gcc, pythonPackages, perl, perlPackages, makeWrapper
 }:
 
 with stdenv.lib;
@@ -33,11 +32,29 @@ stdenv.mkDerivation rec {
   '';
   configureFlags = [ "--disable-native-macro" ];
 
-  buildInputs = [ openssl nss nspr kerberos gmp zlib libpcap re2 gcc pythonPackages.wrapPython perl makeWrapper ];
-  propagatedBuildInputs = (with pythonPackages; [ dpkt scapy lxml ]) ++ # For pcap2john.py
-                          (with perlPackages; [ DigestMD4 DigestSHA1 GetoptLong # For pass_gen.pl
-                                                perlldap ]); # For sha-dump.pl
-                          # TODO: Get dependencies for radius2john.pl and lion2john-alt.pl
+  buildInputs = [
+    openssl
+    nss
+    nspr
+    kerberos
+    gmp
+    zlib
+    libpcap
+    re2
+    gcc
+    pythonPackages.wrapPython
+    perl
+    makeWrapper
+  ];
+  propagatedBuildInputs = (with pythonPackages; [ dpkt scapy lxml ])
+    ++ # For pcap2john.py
+    (with perlPackages; [
+      DigestMD4
+      DigestSHA1
+      GetoptLong # For pass_gen.pl
+      perlldap
+    ]); # For sha-dump.pl
+  # TODO: Get dependencies for radius2john.pl and lion2john-alt.pl
 
   # gcc -DAC_BUILT -Wall vncpcap2john.o memdbg.o -g    -lpcap -fopenmp -o ../run/vncpcap2john
   # gcc: error: memdbg.o: No such file or directory
@@ -65,8 +82,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "John the Ripper password cracker";
     license = licenses.gpl2;
-    homepage = https://github.com/magnumripper/JohnTheRipper/;
+    homepage = "https://github.com/magnumripper/JohnTheRipper/";
     maintainers = with maintainers; [ offline ];
-    platforms = [ "x86_64-linux" "x86_64-darwin"];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 }

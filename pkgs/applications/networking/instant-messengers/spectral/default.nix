@@ -1,12 +1,6 @@
-{ stdenv, fetchgit
-, pkgconfig, makeWrapper
-, qmake, qtbase, qtquickcontrols2, qtmultimedia
-, libpulseaudio
+{ stdenv, fetchgit, pkgconfig, makeWrapper, qmake, qtbase, qtquickcontrols2, qtmultimedia, libpulseaudio
 # Not mentioned but seems needed
-, qtgraphicaleffects
-, qtdeclarative
-, qtmacextras
-}:
+, qtgraphicaleffects, qtdeclarative, qtmacextras }:
 
 let
   # Following "borrowed" from yubikey-manager-qt
@@ -15,7 +9,11 @@ let
   inherit (stdenv) lib;
 
   qml2ImportPath = lib.concatMapStringsSep ":" qmlPath [
-    qtbase.bin qtdeclarative.bin qtquickcontrols2.bin qtgraphicaleffects qtmultimedia
+    qtbase.bin
+    qtdeclarative.bin
+    qtquickcontrols2.bin
+    qtgraphicaleffects
+    qtmultimedia
   ];
 
 in stdenv.mkDerivation rec {
@@ -37,13 +35,15 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig qmake makeWrapper ];
-  buildInputs = [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative ]
+  buildInputs =
+    [ qtbase qtquickcontrols2 qtmultimedia qtgraphicaleffects qtdeclarative ]
     ++ stdenv.lib.optional stdenv.hostPlatform.isLinux libpulseaudio
     ++ stdenv.lib.optional stdenv.hostPlatform.isDarwin qtmacextras;
 
   meta = with stdenv.lib; {
-    description = "A glossy client for Matrix, written in QtQuick Controls 2 and C++";
-    homepage = https://gitlab.com/b0/spectral;
+    description =
+      "A glossy client for Matrix, written in QtQuick Controls 2 and C++";
+    homepage = "https://gitlab.com/b0/spectral";
     license = licenses.gpl3;
     platforms = with platforms; linux ++ darwin;
     maintainers = with maintainers; [ dtzWill ];

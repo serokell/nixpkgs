@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, python
-, applicationinsights
-, portalocker
+{ stdenv, lib, buildPythonPackage, fetchPypi, isPy3k, python, applicationinsights, portalocker
 }:
 
 buildPythonPackage rec {
@@ -17,10 +10,7 @@ buildPythonPackage rec {
     sha256 = "14wmxdsrrlnixaj52q37rrvp9wg5b54gf5wn2z1vq68kxpg1s560";
   };
 
-  propagatedBuildInputs = [
-    applicationinsights
-    portalocker
-  ];
+  propagatedBuildInputs = [ applicationinsights portalocker ];
 
   # tests are not published to pypi
   doCheck = false;
@@ -41,8 +31,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/Azure/azure-cli;
-    description = "Next generation multi-platform command line experience for Azure";
+    homepage = "https://github.com/Azure/azure-cli";
+    description =
+      "Next generation multi-platform command line experience for Azure";
     platforms = platforms.all;
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

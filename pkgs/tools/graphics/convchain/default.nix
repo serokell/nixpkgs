@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, mono}:
+{ stdenv, fetchFromGitHub, mono }:
 stdenv.mkDerivation rec {
   name = "convchain-${version}";
   version = "0.0pre20160901";
@@ -29,12 +29,13 @@ stdenv.mkDerivation rec {
     echo "'${mono}/bin/mono' '$out/bin/convchainfast.exe' \"\$@\"" >>  "$out/bin/convchainfast"
     chmod a+x "$out/bin/convchainfast"
   '';
-  buildInputs = [mono];
+  buildInputs = [ mono ];
   meta = {
     inherit version;
-    description = ''Bitmap generation from a single example with convolutions and MCMC'';
+    description =
+      "Bitmap generation from a single example with convolutions and MCMC";
     license = stdenv.lib.licenses.mit;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.linux;
   };
 }

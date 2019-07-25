@@ -1,9 +1,10 @@
 { config, pkgs, lib, options, ... }:
 
 let
-  inherit (lib) concatStrings foldl foldl' genAttrs literalExample maintainers
-                mapAttrsToList mkDefault mkEnableOption mkIf mkMerge mkOption
-                optional types;
+  inherit (lib)
+    concatStrings foldl foldl' genAttrs literalExample maintainers
+    mapAttrsToList mkDefault mkEnableOption mkIf mkMerge mkOption optional
+    types;
 
   cfg = config.services.prometheus.exporters;
 
@@ -39,8 +40,9 @@ let
     "varnish"
     "wireguard"
   ] (name:
-    import (./. + "/exporters/${name}.nix") { inherit config lib pkgs options; }
-  );
+    import (./. + "/exporters/${name}.nix") {
+      inherit config lib pkgs options;
+    });
 
   mkExporterOpts = ({ name, port }: {
     enable = mkEnableOption "the prometheus ${name} exporter";
@@ -60,7 +62,7 @@ let
     };
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = ''
         Extra commandline options to pass to the ${name} exporter.
       '';
@@ -106,50 +108,48 @@ let
     ${name} = mkOption {
       type = types.submodule {
         inherit imports;
-        options = (mkExporterOpts {
-          inherit name port;
-        } // extraOpts);
+        options = (mkExporterOpts { inherit name port; } // extraOpts);
       };
       internal = true;
-      default = {};
+      default = { };
     };
   };
 
-  mkSubModules = (foldl' (a: b: a//b) {}
-    (mapAttrsToList (name: opts: mkSubModule {
+  mkSubModules = (foldl' (a: b: a // b) { } (mapAttrsToList (name: opts:
+    mkSubModule {
       inherit name;
       inherit (opts) port;
-      extraOpts = opts.extraOpts or {};
-      imports = opts.imports or [];
-    }) exporterOpts)
-  );
+      extraOpts = opts.extraOpts or { };
+      imports = opts.imports or [ ];
+    }) exporterOpts));
 
   mkExporterConf = { name, conf, serviceOpts }:
     mkIf conf.enable {
-      warnings = conf.warnings or [];
-      networking.firewall.extraCommands = mkIf conf.openFirewall (concatStrings [
-        "ip46tables -A nixos-fw ${conf.firewallFilter} "
-        "-m comment --comment ${name}-exporter -j nixos-fw-accept"
-      ]);
-      systemd.services."prometheus-${name}-exporter" = mkMerge ([{
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        serviceConfig.Restart = mkDefault "always";
-        serviceConfig.PrivateTmp = mkDefault true;
-        serviceConfig.WorkingDirectory = mkDefault /tmp;
-      } serviceOpts ] ++ optional (!(serviceOpts.serviceConfig.DynamicUser or false)) {
+      warnings = conf.warnings or [ ];
+      networking.firewall.extraCommands = mkIf conf.openFirewall
+        (concatStrings [
+          "ip46tables -A nixos-fw ${conf.firewallFilter} "
+          "-m comment --comment ${name}-exporter -j nixos-fw-accept"
+        ]);
+      systemd.services."prometheus-${name}-exporter" = mkMerge ([
+        {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig.Restart = mkDefault "always";
+          serviceConfig.PrivateTmp = mkDefault true;
+          serviceConfig.WorkingDirectory = mkDefault /tmp;
+        }
+        serviceOpts
+      ] ++ optional (!(serviceOpts.serviceConfig.DynamicUser or false)) {
         serviceConfig.User = conf.user;
         serviceConfig.Group = conf.group;
       });
-  };
-in
-{
-  options.services.prometheus.exporters = mkOption {
-    type = types.submodule {
-      options = (mkSubModules);
     };
+in {
+  options.services.prometheus.exporters = mkOption {
+    type = types.submodule { options = (mkSubModules); };
     description = "Prometheus exporter configuration";
-    default = {};
+    default = { };
     example = literalExample ''
       {
         node = {
@@ -163,23 +163,28 @@ in
 
   config = mkMerge ([{
     assertions = [{
-      assertion = (cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null);
+      assertion = (cfg.snmp.configurationPath == null)
+        != (cfg.snmp.configuration == null);
       message = ''
         Please ensure you have either `services.prometheus.exporters.snmp.configuration'
           or `services.prometheus.exporters.snmp.configurationPath' set!
       '';
     }];
-  }] ++ [(mkIf config.services.minio.enable {
-    services.prometheus.exporters.minio.minioAddress  = mkDefault "http://localhost:9000";
-    services.prometheus.exporters.minio.minioAccessKey = mkDefault config.services.minio.accessKey;
-    services.prometheus.exporters.minio.minioAccessSecret = mkDefault config.services.minio.secretKey;
-  })] ++ (mapAttrsToList (name: conf:
+  }] ++ [
+    (mkIf config.services.minio.enable {
+      services.prometheus.exporters.minio.minioAddress =
+        mkDefault "http://localhost:9000";
+      services.prometheus.exporters.minio.minioAccessKey =
+        mkDefault config.services.minio.accessKey;
+      services.prometheus.exporters.minio.minioAccessSecret =
+        mkDefault config.services.minio.secretKey;
+    })
+  ] ++ (mapAttrsToList (name: conf:
     mkExporterConf {
       inherit name;
       inherit (conf) serviceOpts;
       conf = cfg.${name};
-    }) exporterOpts)
-  );
+    }) exporterOpts));
 
   meta = {
     doc = ./exporters.xml;

@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   name = "libdigidoc-${version}";
 
   src = fetchurl {
-    url = "https://github.com/open-eid/libdigidoc/releases/download/v${version}/libdigidoc-${version}.tar.gz";
+    url =
+      "https://github.com/open-eid/libdigidoc/releases/download/v${version}/libdigidoc-${version}.tar.gz";
     sha256 = "0w5wsaj2a5wss1r9j39bfsrkp3xz0w3v1gnr190v6k7l74l453w1";
   };
 
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Library for creating DigiDoc signature files";
-    homepage = http://www.id.ee/;
+    homepage = "http://www.id.ee/";
     license = licenses.lgpl2;
     platforms = platforms.linux;
     maintainers = [ maintainers.jagajaga ];

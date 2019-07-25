@@ -1,4 +1,5 @@
-{ stdenv, fetchsvn, nettools, libgcrypt, openssl, openresolv, perl, gawk, makeWrapper }:
+{ stdenv, fetchsvn, nettools, libgcrypt, openssl, openresolv, perl, gawk, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "vpnc-0.5.3-post-r550";
@@ -19,7 +20,7 @@ stdenv.mkDerivation rec {
   # `ifconfig' as found in net-tools (not GNU Inetutils).
   propagatedBuildInputs = [ nettools ];
 
-  buildInputs = [libgcrypt perl makeWrapper openssl ];
+  buildInputs = [ libgcrypt perl makeWrapper openssl ];
 
   preConfigure = ''
     sed -i 's|^#OPENSSL|OPENSSL|g' Makefile
@@ -48,8 +49,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.unix-ag.uni-kl.de/~massar/vpnc/;
-    description = "Virtual private network (VPN) client for Cisco's VPN concentrators";
+    homepage = "https://www.unix-ag.uni-kl.de/~massar/vpnc/";
+    description =
+      "Virtual private network (VPN) client for Cisco's VPN concentrators";
     license = stdenv.lib.licenses.gpl2Plus;
 
     platforms = stdenv.lib.platforms.linux;

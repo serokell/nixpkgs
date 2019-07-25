@@ -1,4 +1,5 @@
-import ./make-test.nix ({ lib, pkgs, ... }: let
+import ./make-test.nix ({ lib, pkgs, ... }:
+let
 
   testId = "7CFNTQM-IMTJBHJ-3UWRDIU-ZGQJFR6-VCXZ3NB-XUH3KZO-N52ITXR-LAIYUAU";
 
@@ -10,9 +11,7 @@ in {
     services.syncthing = {
       enable = true;
       declarative = {
-        devices.testDevice = {
-          id = testId;
-        };
+        devices.testDevice = { id = testId; };
         folders.testFolder = {
           path = "/tmp/test";
           devices = [ "testDevice" ];

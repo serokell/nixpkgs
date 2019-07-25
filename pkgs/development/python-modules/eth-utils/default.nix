@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytest, eth-hash, eth-typing,
-  cytoolz, hypothesis }:
+{ lib, fetchFromGitHub, buildPythonPackage, pytest, eth-hash, eth-typing, cytoolz, hypothesis
+}:
 
 buildPythonPackage rec {
   pname = "eth-utils";
@@ -27,8 +27,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "Common utility functions for codebases which interact with ethereum";
-    homepage = https://github.com/ethereum/eth-utils;
+    description =
+      "Common utility functions for codebases which interact with ethereum";
+    homepage = "https://github.com/ethereum/eth-utils";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jluttine ];
   };

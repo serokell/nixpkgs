@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, substituteAll, aiodns, pyasn1, pyasn1-modules, aiohttp, gnupg, nose }:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, substituteAll, aiodns, pyasn1, pyasn1-modules, aiohttp, gnupg, nose
+}:
 
 buildPythonPackage rec {
   pname = "slixmpp";
@@ -29,6 +30,6 @@ buildPythonPackage rec {
   meta = {
     description = "Elegant Python library for XMPP";
     license = lib.licenses.mit;
-    homepage = https://dev.louiz.org/projects/slixmpp;
+    homepage = "https://dev.louiz.org/projects/slixmpp";
   };
 }

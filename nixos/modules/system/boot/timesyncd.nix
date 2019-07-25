@@ -29,7 +29,8 @@ with lib;
 
     systemd.services.systemd-timesyncd = {
       wantedBy = [ "sysinit.target" ];
-      restartTriggers = [ config.environment.etc."systemd/timesyncd.conf".source ];
+      restartTriggers =
+        [ config.environment.etc."systemd/timesyncd.conf".source ];
     };
 
     environment.etc."systemd/timesyncd.conf".text = ''
@@ -40,15 +41,16 @@ with lib;
     users.users.systemd-timesync.uid = config.ids.uids.systemd-timesync;
     users.groups.systemd-timesync.gid = config.ids.gids.systemd-timesync;
 
-    system.activationScripts.systemd-timesyncd-migration = mkIf (versionOlder config.system.stateVersion "19.09") ''
-      # workaround an issue of systemd-timesyncd not starting due to upstream systemd reverting their dynamic users changes
-      #  - https://github.com/NixOS/nixpkgs/pull/61321#issuecomment-492423742
-      #  - https://github.com/systemd/systemd/issues/12131
-      if [ -L /var/lib/systemd/timesync ]; then
-        rm /var/lib/systemd/timesync
-        mv /var/lib/private/systemd/timesync /var/lib/systemd/timesync
-      fi
-    '';
+    system.activationScripts.systemd-timesyncd-migration =
+      mkIf (versionOlder config.system.stateVersion "19.09") ''
+        # workaround an issue of systemd-timesyncd not starting due to upstream systemd reverting their dynamic users changes
+        #  - https://github.com/NixOS/nixpkgs/pull/61321#issuecomment-492423742
+        #  - https://github.com/systemd/systemd/issues/12131
+        if [ -L /var/lib/systemd/timesync ]; then
+          rm /var/lib/systemd/timesync
+          mv /var/lib/private/systemd/timesync /var/lib/systemd/timesync
+        fi
+      '';
   };
 
 }

@@ -7,7 +7,6 @@ let
       inherit version;
       pname = "openlilypond-font-${fontName}";
 
-
       src = fetchFromGitHub {
         inherit rev sha256;
         owner = "OpenLilyPondFonts";
@@ -39,9 +38,7 @@ let
       };
     };
 
-in
-
-rec {
+in rec {
   beethoven = olpFont {
     fontName = "beethoven";
     rev = "669f400";

@@ -1,7 +1,7 @@
 { pkgs, stdenv, eggDerivation, fetchegg }:
-let
-  eggs = import ./eggs.nix { inherit eggDerivation fetchegg; };
-in with pkgs; eggDerivation rec {
+let eggs = import ./eggs.nix { inherit eggDerivation fetchegg; };
+in with pkgs;
+eggDerivation rec {
   pname = "ugarit";
   version = "2.0";
   name = "${pname}-${version}";
@@ -32,8 +32,9 @@ in with pkgs; eggDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.kitten-technologies.co.uk/project/ugarit/;
-    description = "A backup/archival system based around content-addressible storage";
+    homepage = "https://www.kitten-technologies.co.uk/project/ugarit/";
+    description =
+      "A backup/archival system based around content-addressible storage";
     license = licenses.bsd3;
     maintainers = [ maintainers.ebzzry ];
     platforms = platforms.unix;

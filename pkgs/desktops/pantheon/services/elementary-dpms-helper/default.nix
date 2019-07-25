@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, makeWrapper, meson, ninja, desktop-file-utils, glib, coreutils, elementary-settings-daemon, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, makeWrapper, meson, ninja, desktop-file-utils, glib, coreutils, elementary-settings-daemon, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "dpms-helper";
@@ -20,21 +21,15 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    makeWrapper
-    meson
-    ninja
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils makeWrapper meson ninja wrapGAppsHook ];
 
-  buildInputs = [
-    elementary-settings-daemon
-    glib
-  ];
+  buildInputs = [ elementary-settings-daemon glib ];
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix PATH : "${stdenv.lib.makeBinPath [ glib.dev coreutils ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${
+      stdenv.lib.makeBinPath [ glib.dev coreutils ]
+    }")
   '';
 
   postFixup = ''
@@ -49,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Sets DPMS settings found in org.pantheon.dpms";
-    homepage = https://github.com/elementary/dpms-helper;
+    homepage = "https://github.com/elementary/dpms-helper";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

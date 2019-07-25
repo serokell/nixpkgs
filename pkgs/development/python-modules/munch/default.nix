@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six }:
 
 buildPythonPackage rec {
   pname = "munch";
@@ -21,7 +17,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "A dot-accessible dictionary (a la JavaScript objects)";
     license = licenses.mit;
-    homepage = https://github.com/Infinidat/munch;
+    homepage = "https://github.com/Infinidat/munch";
   };
 
 }

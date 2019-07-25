@@ -1,11 +1,13 @@
-{ stdenv, fetchurl, lib, libX11, libXext, alsaLib, freetype, brand, type, version, homepage, sha256, ... }:
+{ stdenv, fetchurl, lib, libX11, libXext, alsaLib, freetype, brand, type, version, homepage, sha256, ...
+}:
 stdenv.mkDerivation rec {
   inherit type;
   baseName = "${type}-Edit";
   name = "${lib.toLower baseName}-${version}";
 
   src = fetchurl {
-    url = "http://downloads.music-group.com/software/behringer/${type}/${type}-Edit_LINUX_64bit_${version}.tar.gz";
+    url =
+      "http://downloads.music-group.com/software/behringer/${type}/${type}-Edit_LINUX_64bit_${version}.tar.gz";
     inherit sha256;
   };
 
@@ -20,18 +22,18 @@ stdenv.mkDerivation rec {
   preFixup = let
     # we prepare our library path in the let clause to avoid it become part of the input of mkDerivation
     libPath = lib.makeLibraryPath [
-      libX11           # libX11.so.6
-      libXext          # libXext.so.6
-      alsaLib          # libasound.so.2
-      freetype         # libfreetype.so.6
+      libX11 # libX11.so.6
+      libXext # libXext.so.6
+      alsaLib # libasound.so.2
+      freetype # libfreetype.so.6
       stdenv.cc.cc.lib # libstdc++.so.6
     ];
-  in ''
-    patchelf \
-      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath "${libPath}" \
-      $out/bin/${baseName}
-  '';
+    in ''
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}" \
+        $out/bin/${baseName}
+    '';
 
   meta = with stdenv.lib; {
     inherit homepage;

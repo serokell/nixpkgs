@@ -6,12 +6,10 @@ let
     system = stdenv.system;
   };
 
-  phantomjs-prebuilt = nodePackages."phantomjs-prebuilt-^2.1.12".override (oldAttrs: {
-    buildInputs = oldAttrs.buildInputs ++ [ phantomjs2 ];
-  });
-in
+  phantomjs-prebuilt = nodePackages."phantomjs-prebuilt-^2.1.12".override
+    (oldAttrs: { buildInputs = oldAttrs.buildInputs ++ [ phantomjs2 ]; });
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "codemirror-hackmdio-05-07-2018";
 
   src = fetchFromGitHub {

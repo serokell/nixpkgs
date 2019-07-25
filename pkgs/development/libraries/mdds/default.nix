@@ -18,8 +18,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     inherit version;
-    homepage = https://gitlab.com/mdds/mdds;
-    description = "A collection of multi-dimensional data structure and indexing algorithm";
+    homepage = "https://gitlab.com/mdds/mdds";
+    description =
+      "A collection of multi-dimensional data structure and indexing algorithm";
     platforms = platforms.all;
     license = licenses.mit;
   };

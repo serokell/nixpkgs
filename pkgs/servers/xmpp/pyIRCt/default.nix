@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, xmpppy, pythonIRClib, python, pythonPackages, runtimeShell } :
+{ stdenv, fetchurl, xmpppy, pythonIRClib, python, pythonPackages, runtimeShell
+}:
 
 stdenv.mkDerivation rec {
   name = "pyIRCt-${version}";
@@ -11,11 +12,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ pythonPackages.wrapPython ];
 
-  pythonPath = [
-    xmpppy pythonIRClib
-  ];
+  pythonPath = [ xmpppy pythonIRClib ];
 
-  /* doConfigure should be removed if not needed */
+  # doConfigure should be removed if not needed
   # phaseNames = ["deploy" (a.makeManyWrappers "$out/share/${name}/irc.py" a.pythonWrapperArguments)];
 
   installPhase = ''

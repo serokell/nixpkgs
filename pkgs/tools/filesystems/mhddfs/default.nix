@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ fuse attr uthash ];
 
-  patches = [
-    ./fix-format-security-error.patch
-  ];
+  patches = [ ./fix-format-security-error.patch ];
 
   postPatch = ''
     substituteInPlace src/main.c --replace "attr/xattr.h" "sys/xattr.h"
@@ -27,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://mhddfs.uvw.ru/;
+    homepage = "http://mhddfs.uvw.ru/";
     description = "Combines a several mount points into the single one";
     license = stdenv.lib.licenses.gpl3;
     maintainers = [ stdenv.lib.maintainers.makefu ];

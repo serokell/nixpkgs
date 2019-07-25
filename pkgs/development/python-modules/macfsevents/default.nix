@@ -15,8 +15,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    homepage = https://github.com/malthe/macfsevents;
-    description = "Thread-based interface to file system observation primitives";
+    homepage = "https://github.com/malthe/macfsevents";
+    description =
+      "Thread-based interface to file system observation primitives";
     license = licenses.bsd2;
     maintainers = [ maintainers.marsam ];
     platforms = platforms.darwin;

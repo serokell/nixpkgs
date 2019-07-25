@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-,
-}:
+{ stdenv, buildPythonPackage, fetchPypi, }:
 
 buildPythonPackage rec {
   pname = "pycountry";
@@ -14,8 +10,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://bitbucket.org/flyingcircus/pycountry;
-    description = "ISO country, subdivision, language, currency and script definitions and their translations";
+    homepage = "https://bitbucket.org/flyingcircus/pycountry";
+    description =
+      "ISO country, subdivision, language, currency and script definitions and their translations";
     license = licenses.lgpl2;
   };
 

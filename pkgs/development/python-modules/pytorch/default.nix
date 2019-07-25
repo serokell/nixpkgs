@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, buildPythonPackage, pythonOlder,
-  cudaSupport ? false, cudatoolkit ? null, cudnn ? null,
-  fetchFromGitHub, lib, numpy, pyyaml, cffi, typing, cmake, hypothesis, numactl,
-  linkFarm, symlinkJoin,
-  utillinux, which }:
+{ stdenv, fetchurl, buildPythonPackage, pythonOlder, cudaSupport ?
+  false, cudatoolkit ? null, cudnn ?
+    null, fetchFromGitHub, lib, numpy, pyyaml, cffi, typing, cmake, hypothesis, numactl, linkFarm, symlinkJoin, utillinux, which
+}:
 
 assert cudnn == null || cudatoolkit != null;
 assert !cudaSupport || cudatoolkit != null;
@@ -29,20 +28,20 @@ in buildPythonPackage rec {
   pname = "pytorch";
 
   src = fetchFromGitHub {
-    owner  = "pytorch";
-    repo   = "pytorch";
-    rev    = "v${version}";
+    owner = "pytorch";
+    repo = "pytorch";
+    rev = "v${version}";
     fetchSubmodules = true;
     sha256 = "076cpbig4sywn9vv674c0xdg832sdrd5pk1d0725pjkm436kpvlm";
   };
 
-  patches =
-    [ # Skips two tests that are only meant to run on multi GPUs
-      (fetchurl {
-        url = "https://github.com/pytorch/pytorch/commit/bfa666eb0deebac21b03486e26642fd70d66e478.patch";
-        sha256 = "1fgblcj02gjc0y62svwc5gnml879q3x2z7m69c9gax79dpr37s9i";
-      })
-    ];
+  patches = [ # Skips two tests that are only meant to run on multi GPUs
+    (fetchurl {
+      url =
+        "https://github.com/pytorch/pytorch/commit/bfa666eb0deebac21b03486e26642fd70d66e478.patch";
+      sha256 = "1fgblcj02gjc0y62svwc5gnml879q3x2z7m69c9gax79dpr37s9i";
+    })
+  ];
 
   preConfigure = lib.optionalString cudaSupport ''
     export CC=${cudatoolkit.cc}/bin/gcc CXX=${cudatoolkit.cc}/bin/g++
@@ -75,24 +74,17 @@ in buildPythonPackage rec {
   # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
   # (upstream seems to have fixed this in the wrong place?)
   # https://github.com/intel/mkl-dnn/commit/8134d346cdb7fe1695a2aa55771071d455fae0bc
-  NIX_CFLAGS_COMPILE = lib.optionals (numpy.blasImplementation == "mkl") [ "-Wno-error=array-bounds" ];
+  NIX_CFLAGS_COMPILE = lib.optionals (numpy.blasImplementation == "mkl")
+    [ "-Wno-error=array-bounds" ];
 
-  nativeBuildInputs = [
-     cmake
-     utillinux
-     which
-  ] ++ lib.optionals cudaSupport [ cudatoolkit_joined ];
+  nativeBuildInputs = [ cmake utillinux which ]
+    ++ lib.optionals cudaSupport [ cudatoolkit_joined ];
 
-  buildInputs = [
-     numpy.blas
-  ] ++ lib.optionals cudaSupport [ cudnn ]
+  buildInputs = [ numpy.blas ] ++ lib.optionals cudaSupport [ cudnn ]
     ++ lib.optionals stdenv.isLinux [ numactl ];
 
-  propagatedBuildInputs = [
-    cffi
-    numpy
-    pyyaml
-  ] ++ lib.optional (pythonOlder "3.5") typing;
+  propagatedBuildInputs = [ cffi numpy pyyaml ]
+    ++ lib.optional (pythonOlder "3.5") typing;
 
   checkInputs = [ hypothesis ];
   checkPhase = ''
@@ -101,9 +93,9 @@ in buildPythonPackage rec {
 
   meta = {
     description = "Open source, prototype-to-production deep learning platform";
-    homepage    = https://pytorch.org/;
-    license     = lib.licenses.bsd3;
-    platforms   = lib.platforms.linux;
+    homepage = "https://pytorch.org/";
+    license = lib.licenses.bsd3;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ teh thoughtpolice ];
   };
 }

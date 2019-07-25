@@ -9,8 +9,7 @@ let
   timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;
 
   builder = import ./extlinux-conf-builder.nix { inherit pkgs; };
-in
-{
+in {
   options = {
     boot.loader.generic-extlinux-compatible = {
       enable = mkOption {
@@ -38,7 +37,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    system.build.installBootLoader = "${builder} -g ${toString cfg.configurationLimit} -t ${timeoutStr} -c";
+    system.build.installBootLoader =
+      "${builder} -g ${toString cfg.configurationLimit} -t ${timeoutStr} -c";
     system.boot.loader.id = "generic-extlinux-compatible";
   };
 }

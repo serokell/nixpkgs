@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, which, pkgconfig, gtk2, pcre, glib, libxml2
-, libsoup ? null
+{ stdenv, fetchurl, which, pkgconfig, gtk2, pcre, glib, libxml2, libsoup ? null
 }:
 
 stdenv.mkDerivation rec {
@@ -7,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.5.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/hardinfo.berlios/hardinfo-${version}.tar.bz2";
+    url =
+      "mirror://sourceforge/project/hardinfo.berlios/hardinfo-${version}.tar.bz2";
     sha256 = "0yhvfc5icam3i4mphlz0m9d9d2irjw8mbsxq203x59wjgh6nrpx0";
   };
 
@@ -41,8 +41,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://hardinfo.org/;
-    description = "Display information about your hardware and operating system";
+    homepage = "http://hardinfo.org/";
+    description =
+      "Display information about your hardware and operating system";
     license = licenses.gpl2;
     maintainers = with maintainers; [ bjornfor ];
     platforms = platforms.linux;

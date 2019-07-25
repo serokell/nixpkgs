@@ -1,9 +1,8 @@
 # This function provides specific bits for building a wheel-based Python package.
 
-{
-}:
+{ }:
 
-{ ... } @ attrs:
+{ ... }@attrs:
 
 attrs // {
   unpackPhase = ''

@@ -1,9 +1,7 @@
 import ./make-test.nix ({ pkgs, ... }: {
   name = "powerdns";
 
-  nodes.server = { ... }: {
-    services.powerdns.enable = true;
-  };
+  nodes.server = { ... }: { services.powerdns.enable = true; };
 
   testScript = ''
     $server->waitForUnit("pdns");

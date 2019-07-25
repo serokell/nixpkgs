@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib python3 libsigrok check ];
 
   meta = with stdenv.lib; {
-    description = "Protocol decoding library for the sigrok signal analysis software suite";
-    homepage = https://sigrok.org/;
+    description =
+      "Protocol decoding library for the sigrok signal analysis software suite";
+    homepage = "https://sigrok.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.bjornfor ];

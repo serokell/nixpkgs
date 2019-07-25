@@ -1,60 +1,44 @@
 import ./make-test.nix ({ lib, ... }:
 let
-    mungekey = "mungeverryweakkeybuteasytointegratoinatest";
+  mungekey = "mungeverryweakkeybuteasytointegratoinatest";
 
-    slurmconfig = {
-      controlMachine = "control";
-      nodeName = [ "node[1-3] CPUs=1 State=UNKNOWN" ];
-      partitionName = [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
-      extraConfig = ''
-        AccountingStorageHost=dbd
-        AccountingStorageType=accounting_storage/slurmdbd
-      '';
-    };
+  slurmconfig = {
+    controlMachine = "control";
+    nodeName = [ "node[1-3] CPUs=1 State=UNKNOWN" ];
+    partitionName =
+      [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
+    extraConfig = ''
+      AccountingStorageHost=dbd
+      AccountingStorageType=accounting_storage/slurmdbd
+    '';
+  };
 in {
   name = "slurm";
 
   meta.maintainers = [ lib.maintainers.markuskowa ];
 
-  nodes =
-    let
-    computeNode =
-      { ...}:
-      {
-        # TODO slurmd port and slurmctld port should be configurations and
-        # automatically allowed by the  firewall.
-        networking.firewall.enable = false;
-        services.slurm = {
-          client.enable = true;
-        } // slurmconfig;
-      };
+  nodes = let
+    computeNode = { ... }: {
+      # TODO slurmd port and slurmctld port should be configurations and
+      # automatically allowed by the  firewall.
+      networking.firewall.enable = false;
+      services.slurm = { client.enable = true; } // slurmconfig;
+    };
     in {
 
-    control =
-      { ...}:
-      {
+      control = { ... }: {
         networking.firewall.enable = false;
-        services.slurm = {
-          server.enable = true;
-        } // slurmconfig;
+        services.slurm = { server.enable = true; } // slurmconfig;
       };
 
-    submit =
-      { ...}:
-      {
+      submit = { ... }: {
         networking.firewall.enable = false;
-        services.slurm = {
-          enableStools = true;
-        } // slurmconfig;
+        services.slurm = { enableStools = true; } // slurmconfig;
       };
 
-    dbd =
-      { pkgs, ... } :
-      {
+      dbd = { pkgs, ... }: {
         networking.firewall.enable = false;
-        services.slurm.dbdserver = {
-          enable = true;
-        };
+        services.slurm.dbdserver = { enable = true; };
         services.mysql = {
           enable = true;
           package = pkgs.mysql;
@@ -72,71 +56,69 @@ in {
         };
       };
 
-    node1 = computeNode;
-    node2 = computeNode;
-    node3 = computeNode;
-  };
+      node1 = computeNode;
+      node2 = computeNode;
+      node3 = computeNode;
+    };
 
+  testScript = ''
+    startAll;
 
-  testScript =
-  ''
-  startAll;
-
-  # Set up authentification across the cluster
-  foreach my $node (($submit,$control,$dbd,$node1,$node2,$node3))
-  {
-    $node->waitForUnit("default.target");
-
-    $node->succeed("mkdir /etc/munge");
-    $node->succeed("echo '${mungekey}' > /etc/munge/munge.key");
-    $node->succeed("chmod 0400 /etc/munge/munge.key");
-    $node->succeed("chown munge:munge /etc/munge/munge.key");
-    $node->succeed("systemctl restart munged");
-
-    $node->waitForUnit("munged");
-  };
-
-  # Restart the services since they have probably failed due to the munge init
-  # failure
-  subtest "can_start_slurmdbd", sub {
-    $dbd->succeed("systemctl restart slurmdbd");
-    $dbd->waitForUnit("slurmdbd.service");
-    $dbd->waitForOpenPort(6819);
-  };
-
-  # there needs to be an entry for the current
-  # cluster in the database before slurmctld is restarted
-  subtest "add_account", sub {
-    $control->succeed("sacctmgr -i add cluster default");
-    # check for cluster entry
-    $control->succeed("sacctmgr list cluster | awk '{ print \$1 }' | grep default");
-  };
-
-  subtest "can_start_slurmctld", sub {
-    $control->succeed("systemctl restart slurmctld");
-    $control->waitForUnit("slurmctld.service");
-  };
-
-  subtest "can_start_slurmd", sub {
-    foreach my $node (($node1,$node2,$node3))
+    # Set up authentification across the cluster
+    foreach my $node (($submit,$control,$dbd,$node1,$node2,$node3))
     {
-      $node->succeed("systemctl restart slurmd.service");
-      $node->waitForUnit("slurmd");
-    }
-  };
+      $node->waitForUnit("default.target");
 
-  # Test that the cluster works and can distribute jobs;
+      $node->succeed("mkdir /etc/munge");
+      $node->succeed("echo '${mungekey}' > /etc/munge/munge.key");
+      $node->succeed("chmod 0400 /etc/munge/munge.key");
+      $node->succeed("chown munge:munge /etc/munge/munge.key");
+      $node->succeed("systemctl restart munged");
 
-  subtest "run_distributed_command", sub {
-    # Run `hostname` on 3 nodes of the partition (so on all the 3 nodes).
-    # The output must contain the 3 different names
-    $submit->succeed("srun -N 3 hostname | sort | uniq | wc -l | xargs test 3 -eq");
-  };
+      $node->waitForUnit("munged");
+    };
 
-  subtest "check_slurm_dbd", sub {
-    # find the srun job from above in the database
-    sleep 5;
-    $control->succeed("sacct | grep hostname");
-  };
+    # Restart the services since they have probably failed due to the munge init
+    # failure
+    subtest "can_start_slurmdbd", sub {
+      $dbd->succeed("systemctl restart slurmdbd");
+      $dbd->waitForUnit("slurmdbd.service");
+      $dbd->waitForOpenPort(6819);
+    };
+
+    # there needs to be an entry for the current
+    # cluster in the database before slurmctld is restarted
+    subtest "add_account", sub {
+      $control->succeed("sacctmgr -i add cluster default");
+      # check for cluster entry
+      $control->succeed("sacctmgr list cluster | awk '{ print \$1 }' | grep default");
+    };
+
+    subtest "can_start_slurmctld", sub {
+      $control->succeed("systemctl restart slurmctld");
+      $control->waitForUnit("slurmctld.service");
+    };
+
+    subtest "can_start_slurmd", sub {
+      foreach my $node (($node1,$node2,$node3))
+      {
+        $node->succeed("systemctl restart slurmd.service");
+        $node->waitForUnit("slurmd");
+      }
+    };
+
+    # Test that the cluster works and can distribute jobs;
+
+    subtest "run_distributed_command", sub {
+      # Run `hostname` on 3 nodes of the partition (so on all the 3 nodes).
+      # The output must contain the 3 different names
+      $submit->succeed("srun -N 3 hostname | sort | uniq | wc -l | xargs test 3 -eq");
+    };
+
+    subtest "check_slurm_dbd", sub {
+      # find the srun job from above in the database
+      sleep 5;
+      $control->succeed("sacct | grep hostname");
+    };
   '';
 })

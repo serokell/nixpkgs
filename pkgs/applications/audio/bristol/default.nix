@@ -1,6 +1,6 @@
 { stdenv, fetchurl, alsaLib, libjack2, pkgconfig, libpulseaudio, xorg }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "bristol-${version}";
   version = "0.60.11";
 
@@ -10,14 +10,14 @@ stdenv.mkDerivation  rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    alsaLib libjack2 libpulseaudio xorg.libX11 xorg.libXext
-    xorg.xorgproto
-  ];
+  buildInputs =
+    [ alsaLib libjack2 libpulseaudio xorg.libX11 xorg.libXext xorg.xorgproto ];
 
-  patchPhase = "sed -i '41,43d' libbristolaudio/audioEngineJack.c"; # disable alsa/iatomic
+  patchPhase =
+    "sed -i '41,43d' libbristolaudio/audioEngineJack.c"; # disable alsa/iatomic
 
-  configurePhase = "./configure --prefix=$out --enable-jack-default-audio --enable-jack-default-midi";
+  configurePhase =
+    "./configure --prefix=$out --enable-jack-default-audio --enable-jack-default-midi";
 
   preInstall = ''
     sed -e "s@\`which bristol\`@$out/bin/bristol@g" -i bin/startBristol
@@ -26,9 +26,9 @@ stdenv.mkDerivation  rec {
 
   meta = with stdenv.lib; {
     description = "A range of synthesiser, electric piano and organ emulations";
-    homepage = http://bristol.sourceforge.net;
+    homepage = "http://bristol.sourceforge.net";
     license = licenses.gpl3;
-    platforms = ["x86_64-linux" "i686-linux"];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = [ maintainers.goibhniu ];
   };
 }

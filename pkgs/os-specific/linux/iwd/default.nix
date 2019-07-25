@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, python3Packages }:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, ell, coreutils, readline, python3Packages
+}:
 
 stdenv.mkDerivation rec {
   pname = "iwd";
@@ -6,27 +7,16 @@ stdenv.mkDerivation rec {
   version = "0.18";
 
   src = fetchgit {
-    url = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
+    url = "https://git.kernel.org/pub/scm/network/wireless/iwd.git";
     rev = version;
     sha256 = "19scrkdyfj92cycirm22in1jf6rb77sy419gki4m9j8zdyapcqm9";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkgconfig
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ autoreconfHook pkgconfig python3Packages.wrapPython ];
 
-  buildInputs = [
-    ell
-    readline
-    python3Packages.python
-  ];
+  buildInputs = [ ell readline python3Packages.python ];
 
-  pythonPath = [
-    python3Packages.dbus-python
-    python3Packages.pygobject3
-  ];
+  pythonPath = [ python3Packages.dbus-python python3Packages.pygobject3 ];
 
   configureFlags = [
     "--with-dbus-datadir=${placeholder "out"}/etc/"
@@ -61,7 +51,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://git.kernel.org/pub/scm/network/wireless/iwd.git;
+    homepage = "https://git.kernel.org/pub/scm/network/wireless/iwd.git";
     description = "Wireless daemon for Linux";
     license = licenses.lgpl21;
     platforms = platforms.linux;

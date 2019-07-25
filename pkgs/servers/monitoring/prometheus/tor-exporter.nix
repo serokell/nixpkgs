@@ -14,7 +14,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1gzf42z0cgdqijbi9cwpjkqzkvnabaxkkfa5ac5h27r3pxx3q4n0";
   };
 
-  propagatedBuildInputs = with python3Packages; [ prometheus_client stem retrying ];
+  propagatedBuildInputs = with python3Packages; [
+    prometheus_client
+    stem
+    retrying
+  ];
 
   installPhase = ''
     mkdir -p $out/share/
@@ -29,7 +33,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Prometheus exporter that exposes metrics from a Tor daemon";
-    homepage = https://github.com/atx/prometheus-tor_exporter;
+    homepage = "https://github.com/atx/prometheus-tor_exporter";
     license = licenses.mit;
     maintainers = with maintainers; [ delroth ];
     platforms = platforms.unix;

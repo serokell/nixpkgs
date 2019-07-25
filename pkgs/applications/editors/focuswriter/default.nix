@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ madjar ];
     platforms = platforms.linux;
-    homepage = https://gottcode.org/focuswriter/;
+    homepage = "https://gottcode.org/focuswriter/";
   };
 }

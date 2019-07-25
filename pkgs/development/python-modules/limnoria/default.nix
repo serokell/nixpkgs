@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "limnoria";
@@ -22,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A modified version of Supybot, an IRC bot";
-    homepage = http://supybot.fr.cr;
+    homepage = "http://supybot.fr.cr";
     license = licenses.bsd3;
     maintainers = with maintainers; [ goibhniu ];
   };

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub
-, autoconf, automake, pkgconfig, pango }:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, pango }:
 
 stdenv.mkDerivation rec {
   pname = "paps";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Pango to PostScript converter";
-    homepage = https://github.com/dov/paps;
+    homepage = "https://github.com/dov/paps";
     license = licenses.lgpl2;
     maintainers = with maintainers; [ etu ];
     platforms = platforms.linux;

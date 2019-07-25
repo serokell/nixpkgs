@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ poppler gdk_pixbuf SDL gtk2 ];
 
-  patches = [
-    ./gdk-libs.patch
-  ];
+  patches = [ ./gdk-libs.patch ];
 
   buildPhase = ''
     make PREFIX=$out
@@ -28,11 +26,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/schandinat/green/;
+    homepage = "https://github.com/schandinat/green/";
     description = "Viewer for PDF files, uses SDL and libpoppler";
 
     platforms = platforms.unix;
-    license  = licenses.gpl3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.vrthra ];
   };
 }

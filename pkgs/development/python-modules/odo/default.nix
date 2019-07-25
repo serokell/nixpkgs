@@ -1,19 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, datashape
-, numpy
-, pandas
-, toolz
-, multipledispatch
-, networkx
-, dask
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, datashape, numpy, pandas, toolz, multipledispatch, networkx, dask
 }:
 
 buildPythonPackage rec {
   pname = "odo";
-  version= "unstable-2019-07-16";
+  version = "unstable-2019-07-16";
 
   src = fetchFromGitHub {
     owner = "blaze";
@@ -22,19 +12,10 @@ buildPythonPackage rec {
     sha256 = "0givkd5agr05wrf72fbghdaav6gplx7c069ngs1ip385v72ifsl9";
   };
 
-  checkInputs = [
-    pytest
-    dask
-  ];
+  checkInputs = [ pytest dask ];
 
-  propagatedBuildInputs = [
-    datashape
-    numpy
-    pandas
-    toolz
-    multipledispatch
-    networkx
-  ];
+  propagatedBuildInputs =
+    [ datashape numpy pandas toolz multipledispatch networkx ];
 
   postConfigure = ''
     substituteInPlace setup.py \
@@ -50,7 +31,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = https://github.com/ContinuumIO/odo;
+    homepage = "https://github.com/ContinuumIO/odo";
     description = "Data migration utilities";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ fridh costrouc ];

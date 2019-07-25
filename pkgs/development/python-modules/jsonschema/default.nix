@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python
-, nose, mock, vcversioner, functools32 }:
+{ stdenv, buildPythonPackage, fetchPypi, python, nose, mock, vcversioner, functools32
+}:
 
 buildPythonPackage rec {
   pname = "jsonschema";
@@ -23,7 +23,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Julian/jsonschema;
+    homepage = "https://github.com/Julian/jsonschema";
     description = "An implementation of JSON Schema validation for Python";
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];

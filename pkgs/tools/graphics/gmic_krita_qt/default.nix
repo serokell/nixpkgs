@@ -1,10 +1,7 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig
-, opencv, openexr, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng
-, curl, krita, qtbase, qttools
-, fetchgit }:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, opencv, openexr, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng, curl, krita, qtbase, qttools, fetchgit
+}:
 
-let
-  version = "2.3.6";
+let version = "2.3.6";
 
 in stdenv.mkDerivation rec {
   name = "gmic_krita_qt-${version}";
@@ -40,7 +37,7 @@ in stdenv.mkDerivation rec {
     owner = "c-koi";
     repo = "gmic-qt";
     rev = "v.${version}";
-    sha256= "0j9wqlq67dwzir36yg58xy5lbblwizvgcvlmzcv9d6l901d5ayf3";
+    sha256 = "0j9wqlq67dwzir36yg58xy5lbblwizvgcvlmzcv9d6l901d5ayf3";
   };
 
   unpackPhase = ''
@@ -62,8 +59,18 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
-    qtbase qttools fftw zlib libjpeg libtiff libpng
-    opencv openexr graphicsmagick curl krita
+    qtbase
+    qttools
+    fftw
+    zlib
+    libjpeg
+    libtiff
+    libpng
+    opencv
+    openexr
+    graphicsmagick
+    curl
+    krita
   ];
 
   cmakeFlags = [ "-DGMIC_QT_HOST=krita" ];
@@ -75,7 +82,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Krita plugin for the G'MIC image processing framework";
-    homepage = http://gmic.eu/;
+    homepage = "http://gmic.eu/";
     license = licenses.gpl3;
     platforms = platforms.unix;
   };

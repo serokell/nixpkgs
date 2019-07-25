@@ -1,8 +1,8 @@
 { stdenv, fetchurl, b43FirmwareCutter }:
 
-let version = "5.100.138"; in
+let version = "5.100.138";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "b43-firmware-${version}";
 
   src = fetchurl {
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Firmware for cards supported by the b43 kernel module";
-    homepage = http://wireless.kernel.org/en/users/Drivers/b43;
+    homepage = "http://wireless.kernel.org/en/users/Drivers/b43";
     license = stdenv.lib.licenses.unfree;
   };
 }

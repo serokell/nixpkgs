@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, ntlm-auth
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, ntlm-auth, requests }:
 
 buildPythonPackage rec {
   pname = "requests_ntlm";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "HTTP NTLM authentication support for python-requests";
-    homepage = https://github.com/requests/requests-ntlm;
+    homepage = "https://github.com/requests/requests-ntlm";
     license = licenses.isc;
     maintainers = with maintainers; [ elasticdog ];
     platforms = platforms.all;

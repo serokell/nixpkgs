@@ -1,9 +1,7 @@
 { stdenv, fetchurl }:
 
-let
-  version = "1.5.1";
-in
-stdenv.mkDerivation {
+let version = "1.5.1";
+in stdenv.mkDerivation {
   name = "adns-${version}";
 
   src = fetchurl {
@@ -15,8 +13,8 @@ stdenv.mkDerivation {
     sha256 = "1ssfh94ck6kn98nf2yy6743srpgqgd167va5ja3bwx42igqjc42v";
   };
 
-  preConfigure =
-    stdenv.lib.optionalString stdenv.isDarwin "sed -i -e 's|-Wl,-soname=$(SHLIBSONAME)||' configure";
+  preConfigure = stdenv.lib.optionalString stdenv.isDarwin
+    "sed -i -e 's|-Wl,-soname=$(SHLIBSONAME)||' configure";
 
   # https://www.mail-archive.com/nix-dev@cs.uu.nl/msg01347.html for details.
   doCheck = false;
@@ -26,7 +24,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = http://www.chiark.greenend.org.uk/~ian/adns/;
+    homepage = "http://www.chiark.greenend.org.uk/~ian/adns/";
     description = "Asynchronous DNS Resolver Library";
     license = stdenv.lib.licenses.lgpl2;
 

@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python-editor, readchar, blessings, pytest, pytestcov, pexpect, pytest-mock }:
+{ stdenv, buildPythonPackage, fetchPypi, python-editor, readchar, blessings, pytest, pytestcov, pexpect, pytest-mock
+}:
 
 buildPythonPackage rec {
   pname = "inquirer";
@@ -13,8 +14,8 @@ buildPythonPackage rec {
 
   # No real changes in 2.0.0...e0edfa3
   postPatch = ''
-   substituteInPlace setup.py \
-     --replace "readchar == 2.0.1" "readchar >= 2.0.0"
+    substituteInPlace setup.py \
+      --replace "readchar == 2.0.1" "readchar >= 2.0.0"
   '';
 
   checkInputs = [ pytest pytestcov pexpect pytest-mock ];
@@ -25,7 +26,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/magmax/python-inquirer";
-    description = "A collection of common interactive command line user interfaces, based on Inquirer.js";
+    description =
+      "A collection of common interactive command line user interfaces, based on Inquirer.js";
     license = licenses.mit;
     maintainers = [ maintainers.mmahut ];
   };

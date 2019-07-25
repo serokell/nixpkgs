@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, gettext, libxml2, pkgconfig, txt2man, vala_0_40, wrapGAppsHook
-, gsettings-desktop-schemas, gtk3, keybinder3, ffmpeg
+{ stdenv, fetchFromGitHub, cmake, gettext, libxml2, pkgconfig, txt2man, vala_0_40, wrapGAppsHook, gsettings-desktop-schemas, gtk3, keybinder3, ffmpeg
 }:
 
 stdenv.mkDerivation rec {
@@ -27,19 +26,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gsettings-desktop-schemas
-    gtk3
-    keybinder3
-  ];
+  buildInputs = [ gsettings-desktop-schemas gtk3 keybinder3 ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage    = https://github.com/phw/peek;
-    description = "Simple animated GIF screen recorder with an easy to use interface";
-    license     = licenses.gpl3;
+    homepage = "https://github.com/phw/peek";
+    description =
+      "Simple animated GIF screen recorder with an easy to use interface";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ puffnfresh ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

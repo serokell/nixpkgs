@@ -3,7 +3,8 @@
 stdenv.mkDerivation rec {
   name = "chocolate-doom-2.3.0";
   src = fetchurl {
-    url = "https://github.com/chocolate-doom/chocolate-doom/archive/${name}.tar.gz";
+    url =
+      "https://github.com/chocolate-doom/chocolate-doom/archive/${name}.tar.gz";
     sha256 = "0i57smxmbhxj0wgvxq845ba9zsn5nx5wmzkl71rdchyd4q5jmida";
   };
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
@@ -15,8 +16,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://chocolate-doom.org/;
-    description = "A Doom source port that accurately reproduces the experience of Doom as it was played in the 1990s";
+    homepage = "http://chocolate-doom.org/";
+    description =
+      "A Doom source port that accurately reproduces the experience of Doom as it was played in the 1990s";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.unix;
     hydraPlatforms = stdenv.lib.platforms.linux; # darwin times out

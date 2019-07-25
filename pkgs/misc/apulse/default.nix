@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, alsaLib, cmake, pkgconfig, glib
-, tracingSupport ? true, logToStderr ? true }:
+{ stdenv, fetchFromGitHub, alsaLib, cmake, pkgconfig, glib, tracingSupport ?
+  true, logToStderr ? true }:
 
-let oz = x: if x then "1" else "0"; in
+let oz = x: if x then "1" else "0";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "apulse";
   version = "0.1.12";
 
@@ -20,10 +20,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ alsaLib glib ];
 
-  cmakeFlags = [
-    "-DWITH_TRACE=${oz tracingSupport}"
-    "-DLOG_TO_STDERR=${oz logToStderr}"
-  ];
+  cmakeFlags =
+    [ "-DWITH_TRACE=${oz tracingSupport}" "-DLOG_TO_STDERR=${oz logToStderr}" ];
 
   meta = with stdenv.lib; {
     description = "PulseAudio emulation for ALSA";

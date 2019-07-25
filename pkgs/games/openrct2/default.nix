@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub,
-  SDL2, cmake, curl, fontconfig, freetype, icu, jansson, libiconv, libpng,
-  libpthreadstubs, libzip, libGLU, openssl, pkgconfig, speexdsp, zlib
+{ stdenv, fetchFromGitHub, SDL2, cmake, curl, fontconfig, freetype, icu, jansson, libiconv, libpng, libpthreadstubs, libzip, libGLU, openssl, pkgconfig, speexdsp, zlib
 }:
 
 let
@@ -27,8 +25,7 @@ let
     rev = "v0.1.2";
     sha256 = "1yb1ynkfmiankii3fngr9km5wbc07rp30nh0apkj6wryrhy7imgm";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit name;
 
   src = openrct2-src;
@@ -63,13 +60,14 @@ stdenv.mkDerivation rec {
     "-DDOWNLOAD_TITLE_SEQUENCES=OFF"
   ];
 
-  makeFlags = ["all" "g2"];
+  makeFlags = [ "all" "g2" ];
 
   preFixup = "ln -s $out/share/openrct2 $out/bin/data";
 
   meta = with stdenv.lib; {
-    description = "An open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
-    homepage = https://openrct2.io/;
+    description =
+      "An open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
+    homepage = "https://openrct2.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ geistesk ];

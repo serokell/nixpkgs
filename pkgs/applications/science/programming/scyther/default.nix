@@ -1,7 +1,5 @@
-{ stdenv, lib, buildEnv, pkgsi686Linux, fetchFromGitHub, python27Packages, graphviz
-, includeGUI ? true
-, includeProtocols ? true
-}:
+{ stdenv, lib, buildEnv, pkgsi686Linux, fetchFromGitHub, python27Packages, graphviz, includeGUI ?
+  true, includeProtocols ? true }:
 let
   version = "1.1.3";
 
@@ -13,23 +11,20 @@ let
   };
 
   meta = with lib; {
-    description = "Scyther is a tool for the automatic verification of security protocols.";
-    homepage = https://www.cs.ox.ac.uk/people/cas.cremers/scyther/;
+    description =
+      "Scyther is a tool for the automatic verification of security protocols.";
+    homepage = "https://www.cs.ox.ac.uk/people/cas.cremers/scyther/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ infinisil ];
     platforms = platforms.linux;
   };
 
-  cli = pkgsi686Linux.callPackage ./cli.nix {
-    inherit version src meta;
-  };
+  cli = pkgsi686Linux.callPackage ./cli.nix { inherit version src meta; };
 
   gui = stdenv.mkDerivation {
     name = "scyther-gui-${version}";
     inherit src meta;
-    buildInputs = [
-      python27Packages.wrapPython
-    ];
+    buildInputs = [ python27Packages.wrapPython ];
 
     patchPhase = ''
       file=gui/Scyther/Scyther.py
@@ -43,10 +38,7 @@ let
 
     dontBuild = true;
 
-    propagatedBuildInputs = [
-      python27Packages.wxPython
-      graphviz
-    ];
+    propagatedBuildInputs = [ python27Packages.wxPython graphviz ];
 
     installPhase = ''
       mkdir -p "$out"/gui "$out"/bin
@@ -63,17 +55,16 @@ let
       "$out/gui/scyther.py" "$src/gui/Protocols/Demo/ns3.spdl"
     '';
   };
-in
-  buildEnv {
-    name = "scyther-${version}";
-    inherit meta;
-    paths = [ cli ] ++ lib.optional includeGUI gui;
-    pathsToLink = [ "/bin" ];
+in buildEnv {
+  name = "scyther-${version}";
+  inherit meta;
+  paths = [ cli ] ++ lib.optional includeGUI gui;
+  pathsToLink = [ "/bin" ];
 
-    postBuild = ''
-      rm "$out/bin/scyther-linux"
-    '' + lib.optionalString includeProtocols ''
-      mkdir -p "$out/protocols"
-      cp -rv ${src}/protocols/* "$out/protocols"
-    '';
-  }
+  postBuild = ''
+    rm "$out/bin/scyther-linux"
+  '' + lib.optionalString includeProtocols ''
+    mkdir -p "$out/protocols"
+    cp -rv ${src}/protocols/* "$out/protocols"
+  '';
+}

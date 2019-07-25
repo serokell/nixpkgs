@@ -1,14 +1,7 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, requests
-, mock
-, unittest2
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, requests, mock, unittest2 }:
 
 buildPythonPackage rec {
-  pname    = "PyChef";
+  pname = "PyChef";
   version = "0.3.0";
 
   src = fetchPypi {
@@ -22,7 +15,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/coderanger/pychef;
+    homepage = "https://github.com/coderanger/pychef";
     description = "Python implementation of a Chef API client";
     license = licenses.bsd0;
   };

@@ -1,4 +1,5 @@
-{ coreutils, dpkg, fetchurl, ghostscript, gnugrep, gnused, makeWrapper, perl, stdenv, which }:
+{ coreutils, dpkg, fetchurl, ghostscript, gnugrep, gnused, makeWrapper, perl, stdenv, which
+}:
 
 stdenv.mkDerivation rec {
   name = "mfcl2700dnlpr-${version}";
@@ -24,9 +25,9 @@ stdenv.mkDerivation rec {
       --replace "PRINTER =~" "PRINTER = \"MFCL2700DN\"; #"
 
     wrapProgram $dir/lpd/filter_MFCL2700DN \
-      --prefix PATH : ${stdenv.lib.makeBinPath [
-        coreutils ghostscript gnugrep gnused which
-      ]}
+      --prefix PATH : ${
+      stdenv.lib.makeBinPath [ coreutils ghostscript gnugrep gnused which ]
+      }
 
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
     patchelf --set-interpreter "$interpreter" $dir/inf/braddprinter
@@ -36,7 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Brother MFC-L2700DN LPR driver";
-    homepage = http://www.brother.com/;
+    homepage = "http://www.brother.com/";
     license = stdenv.lib.licenses.unfree;
     maintainers = [ stdenv.lib.maintainers.tv ];
     platforms = [ "i686-linux" ];

@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_api_core
-, google_cloud_core
-, pytest
-, mock
-, webapp2
-, django
-, flask
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, google_cloud_core, pytest, mock, webapp2, django, flask
 }:
 
 buildPythonPackage rec {
@@ -28,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Stackdriver Logging API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

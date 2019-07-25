@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
   '';
 
-  configureFlags = [
-    "--bindir=$(out)/bin"
-  ];
+  configureFlags = [ "--bindir=$(out)/bin" ];
 
   patchPhase = ''
     patchShebangs etc
@@ -44,18 +42,14 @@ stdenv.mkDerivation rec {
     rmdir $out/share
   '';
 
-  installFlags = [
-    "COQBIN=${coq}/bin"
-  ];
+  installFlags = [ "COQBIN=${coq}/bin" ];
 
   meta = with stdenv.lib; {
-    homepage = http://homotopytypetheory.org/;
+    homepage = "http://homotopytypetheory.org/";
     description = "Homotopy type theory";
     maintainers = with maintainers; [ siddharthist ];
     platforms = coq.meta.platforms;
   };
 
-  passthru = {
-    compatibleCoqVersions = v: v == "8.6";
-  };
+  passthru = { compatibleCoqVersions = v: v == "8.6"; };
 }

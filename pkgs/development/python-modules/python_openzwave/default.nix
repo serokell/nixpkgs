@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
-, pkgconfig
-, systemd, libyaml, openzwave, cython
-, six, pydispatcher, urwid }:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, pkgconfig, systemd, libyaml, openzwave, cython, six, pydispatcher, urwid
+}:
 
 buildPythonPackage rec {
   pname = "python_openzwave";
@@ -32,7 +30,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python wrapper for the OpenZWave C++ library";
-    homepage = https://github.com/OpenZWave/python-openzwave;
+    homepage = "https://github.com/OpenZWave/python-openzwave";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ etu ];
     inherit (openzwave.meta) platforms;

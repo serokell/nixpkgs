@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pip, pandoc, glibcLocales, haskellPackages, texlive }:
+{ stdenv, buildPythonPackage, fetchPypi, pip, pandoc, glibcLocales, haskellPackages, texlive
+}:
 
 buildPythonPackage rec {
   pname = "pypandoc";
@@ -16,15 +16,20 @@ buildPythonPackage rec {
     substituteInPlace tests.py --replace "pypandoc.convert_file(file_name, lua_file_name)" "'<h1 id=\"title\">title</h1>'"
   '';
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   propagatedBuildInputs = [ pip ];
 
-  buildInputs = [ pandoc texlive.combined.scheme-small haskellPackages.pandoc-citeproc glibcLocales ];
+  buildInputs = [
+    pandoc
+    texlive.combined.scheme-small
+    haskellPackages.pandoc-citeproc
+    glibcLocales
+  ];
 
   meta = with stdenv.lib; {
     description = "Thin wrapper for pandoc";
-    homepage = https://github.com/bebraw/pypandoc;
+    homepage = "https://github.com/bebraw/pypandoc";
     license = licenses.mit;
     maintainers = with maintainers; [ bennofs ];
 

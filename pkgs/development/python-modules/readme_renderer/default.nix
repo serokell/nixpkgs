@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, mock
-, cmarkgfm
-, bleach
-, docutils
-, future
-, pygments
-, six
+{ lib, buildPythonPackage, fetchPypi, pytest, mock, cmarkgfm, bleach, docutils, future, pygments, six
 }:
 
 buildPythonPackage rec {
@@ -22,9 +12,7 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest mock ];
 
-  propagatedBuildInputs = [
-    bleach cmarkgfm docutils future pygments six
-  ];
+  propagatedBuildInputs = [ bleach cmarkgfm docutils future pygments six ];
 
   checkPhase = ''
     # disable one failing test case
@@ -32,8 +20,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "readme_renderer is a library for rendering readme descriptions for Warehouse";
-    homepage = https://github.com/pypa/readme_renderer;
+    description =
+      "readme_renderer is a library for rendering readme descriptions for Warehouse";
+    homepage = "https://github.com/pypa/readme_renderer";
     license = lib.licenses.asl20;
   };
 }

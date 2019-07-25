@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, libuuid, gobject-introspection, gtk-doc, shared-mime-info, python3, docbook_xsl, docbook_xml_dtd_43 }:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, libuuid, gobject-introspection, gtk-doc, shared-mime-info, python3, docbook_xsl, docbook_xml_dtd_43
+}:
 
 stdenv.mkDerivation rec {
   name = "libxmlb-${version}";
@@ -13,14 +14,21 @@ stdenv.mkDerivation rec {
     sha256 = "1ismh3bdwd0l1fjlhwycam89faxjmpb0wxqlbv58m0z6cxykp6rd";
   };
 
-  nativeBuildInputs = [ meson ninja python3 pkgconfig gobject-introspection gtk-doc shared-mime-info docbook_xsl docbook_xml_dtd_43 ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    python3
+    pkgconfig
+    gobject-introspection
+    gtk-doc
+    shared-mime-info
+    docbook_xsl
+    docbook_xml_dtd_43
+  ];
 
   buildInputs = [ glib libuuid ];
 
-  mesonFlags = [
-    "--libexecdir=${placeholder "out"}/libexec"
-    "-Dgtkdoc=true"
-  ];
+  mesonFlags = [ "--libexecdir=${placeholder "out"}/libexec" "-Dgtkdoc=true" ];
 
   preCheck = ''
     export XDG_DATA_DIRS=$XDG_DATA_DIRS:${shared-mime-info}/share
@@ -30,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A library to help create and query binary XML blobs";
-    homepage = https://github.com/hughsie/libxmlb;
+    homepage = "https://github.com/hughsie/libxmlb";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.linux;

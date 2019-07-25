@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi,
-  click
-}:
+{ stdenv, buildPythonPackage, fetchPypi, click }:
 
 buildPythonPackage rec {
   pname = "click-didyoumean";
@@ -15,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Enable git-like did-you-mean feature in click";
-    homepage = https://github.com/click-contrib/click-didyoumean;
+    homepage = "https://github.com/click-contrib/click-didyoumean";
     license = licenses.mit;
     maintainers = with maintainers; [ mbode ];
   };

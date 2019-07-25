@@ -5,10 +5,10 @@ with lib;
 let
   cfg = config.security.pam.mount;
 
-  anyPamMount = any (attrByPath ["pamMount"] false) (attrValues config.security.pam.services);
-in
+  anyPamMount = any (attrByPath [ "pamMount" ] false)
+    (attrValues config.security.pam.services);
 
-{
+in {
   options = {
 
     security.pam.mount = {
@@ -22,7 +22,7 @@ in
 
       extraVolumes = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = ''
           List of volume definitions for pam_mount.
           For more information, visit <link
@@ -38,12 +38,13 @@ in
     environment.systemPackages = [ pkgs.pam_mount ];
     environment.etc = [{
       target = "security/pam_mount.conf.xml";
-      source =
-        let
-          extraUserVolumes = filterAttrs (n: u: u.cryptHomeLuks != null) config.users.users;
-          userVolumeEntry = user: "<volume user=\"${user.name}\" path=\"${user.cryptHomeLuks}\" mountpoint=\"${user.home}\" />\n";
-        in
-         pkgs.writeText "pam_mount.conf.xml" ''
+      source = let
+        extraUserVolumes =
+          filterAttrs (n: u: u.cryptHomeLuks != null) config.users.users;
+        userVolumeEntry = user: ''
+          <volume user="${user.name}" path="${user.cryptHomeLuks}" mountpoint="${user.home}" />
+        '';
+        in pkgs.writeText "pam_mount.conf.xml" ''
           <?xml version="1.0" encoding="utf-8" ?>
           <!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
           <!-- auto generated from Nixos: modules/config/users-groups.nix -->
@@ -65,7 +66,7 @@ in
           <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
           <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
           </pam_mount>
-          '';
+        '';
     }];
 
   };

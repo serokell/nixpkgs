@@ -17,7 +17,7 @@ let
 
   };
 
-  libvterm = libvterm-neovim.overrideAttrs(old: rec {
+  libvterm = libvterm-neovim.overrideAttrs (old: rec {
     pname = "libvterm-neovim";
     version = "2019-04-27";
     name = pname + "-" + version;
@@ -28,7 +28,6 @@ let
       sha256 = "0l9ixbj516vl41v78fi302ws655xawl7s94gmx1kb3fmfgamqisy";
     };
   });
-
 
 in stdenv.mkDerivation rec {
   name = "emacs-libvterm-${version}";
@@ -44,10 +43,8 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ emacs libvterm ];
 
-  cmakeFlags = [
-    "-DEMACS_SOURCE=${emacsSources}"
-    "-DUSE_SYSTEM_LIBVTERM=True"
-  ];
+  cmakeFlags =
+    [ "-DEMACS_SOURCE=${emacsSources}" "-DUSE_SYSTEM_LIBVTERM=True" ];
 
   installPhase = ''
     install -d $out/share/emacs/site-lisp

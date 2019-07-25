@@ -4,7 +4,8 @@ buildDunePackage rec {
   version = "2.0.0";
   pname = "earley";
   src = fetchurl {
-    url = "https://github.com/rlepigre/ocaml-earley/releases/download/${version}/earley-${version}.tbz";
+    url =
+      "https://github.com/rlepigre/ocaml-earley/releases/download/${version}/earley-${version}.tbz";
     sha256 = "1kjr0wh3lji7f493kf48rphxnlv3sygj5a8rmx9z3xkpbd7aqyyw";
   };
 

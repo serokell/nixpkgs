@@ -6,27 +6,27 @@ let
 
   cfg = config.services.freeradius;
 
-  freeradiusService = cfg:
-  {
+  freeradiusService = cfg: {
     description = "FreeRadius server";
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     preStart = ''
       ${pkgs.freeradius}/bin/radiusd -C -d ${cfg.configDir} -l stdout
     '';
 
     serviceConfig = {
-        ExecStart = "${pkgs.freeradius}/bin/radiusd -f -d ${cfg.configDir} -l stdout -xx";
-        ExecReload = [
-          "${pkgs.freeradius}/bin/radiusd -C -d ${cfg.configDir} -l stdout"
-          "${pkgs.coreutils}/bin/kill -HUP $MAINPID"
-        ];
-        User = "radius";
-        ProtectSystem = "full";
-        ProtectHome = "on";
-        Restart = "on-failure";
-        RestartSec = 2;
+      ExecStart =
+        "${pkgs.freeradius}/bin/radiusd -f -d ${cfg.configDir} -l stdout -xx";
+      ExecReload = [
+        "${pkgs.freeradius}/bin/radiusd -C -d ${cfg.configDir} -l stdout"
+        "${pkgs.coreutils}/bin/kill -HUP $MAINPID"
+      ];
+      User = "radius";
+      ProtectSystem = "full";
+      ProtectHome = "on";
+      Restart = "on-failure";
+      RestartSec = 2;
     };
   };
 
@@ -43,16 +43,11 @@ let
 
   };
 
-in
-
-{
+in {
 
   ###### interface
 
-  options = {
-    services.freeradius = freeradiusConfig;
-  };
-
+  options = { services.freeradius = freeradiusConfig; };
 
   ###### implementation
 
@@ -60,7 +55,7 @@ in
 
     users = {
       users.radius = {
-        /*uid = config.ids.uids.radius;*/
+        # uid = config.ids.uids.radius;
         description = "Radius daemon user";
       };
     };

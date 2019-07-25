@@ -1,10 +1,4 @@
-{ stdenv
-, fetchPypi
-, buildPythonPackage
-, zope_interface
-, mock
-}:
-
+{ stdenv, fetchPypi, buildPythonPackage, zope_interface, mock }:
 
 buildPythonPackage rec {
   pname = "transaction";
@@ -19,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Transaction management";
-    homepage = https://pypi.python.org/pypi/transaction;
+    homepage = "https://pypi.python.org/pypi/transaction";
     license = licenses.zpl20;
   };
 }

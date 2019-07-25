@@ -5,20 +5,22 @@ with lib;
 
 let
 
-  addAttributeName = mapAttrs (a: v: v // {
-    text = ''
-      #### Activation script snippet ${a}:
-      _localstatus=0
-      ${v.text}
+  addAttributeName = mapAttrs (a: v:
+    v // {
+      text = ''
+        #### Activation script snippet ${a}:
+        _localstatus=0
+        ${v.text}
 
-      if (( _localstatus > 0 )); then
-        printf "Activation script snippet '%s' failed (%s)\n" "${a}" "$_localstatus"
-      fi
-    '';
-  });
+        if (( _localstatus > 0 )); then
+          printf "Activation script snippet '%s' failed (%s)\n" "${a}" "$_localstatus"
+        fi
+      '';
+    });
 
-  path = with pkgs; map getBin
-    [ coreutils
+  path = with pkgs;
+    map getBin [
+      coreutils
       gnugrep
       findutils
       getent
@@ -28,16 +30,14 @@ let
       utillinux # needed for mount and mountpoint
     ];
 
-in
-
-{
+in {
 
   ###### interface
 
   options = {
 
     system.activationScripts = mkOption {
-      default = {};
+      default = { };
 
       example = literalExample ''
         { stdio = {
@@ -65,46 +65,43 @@ in
       type = types.attrsOf types.unspecified; # FIXME
 
       apply = set: {
-        script =
-          ''
-            #! ${pkgs.runtimeShell}
+        script = ''
+          #! ${pkgs.runtimeShell}
 
-            systemConfig=@out@
+          systemConfig=@out@
 
-            export PATH=/empty
-            for i in ${toString path}; do
-                PATH=$PATH:$i/bin:$i/sbin
-            done
+          export PATH=/empty
+          for i in ${toString path}; do
+              PATH=$PATH:$i/bin:$i/sbin
+          done
 
-            _status=0
-            trap "_status=1 _localstatus=\$?" ERR
+          _status=0
+          trap "_status=1 _localstatus=\$?" ERR
 
-            # Ensure a consistent umask.
-            umask 0022
+          # Ensure a consistent umask.
+          umask 0022
 
-            ${
-              let
-                set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
-                withHeadlines = addAttributeName set';
-              in textClosureMap id (withHeadlines) (attrNames withHeadlines)
-            }
+          ${let
+            set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
+            withHeadlines = addAttributeName set';
+          in textClosureMap id (withHeadlines) (attrNames withHeadlines)}
 
-            # Make this configuration the current configuration.
-            # The readlink is there to ensure that when $systemConfig = /system
-            # (which is a symlink to the store), /run/current-system is still
-            # used as a garbage collection root.
-            ln -sfn "$(readlink -f "$systemConfig")" /run/current-system
+          # Make this configuration the current configuration.
+          # The readlink is there to ensure that when $systemConfig = /system
+          # (which is a symlink to the store), /run/current-system is still
+          # used as a garbage collection root.
+          ln -sfn "$(readlink -f "$systemConfig")" /run/current-system
 
-            # Prevent the current configuration from being garbage-collected.
-            ln -sfn /run/current-system /nix/var/nix/gcroots/current-system
+          # Prevent the current configuration from being garbage-collected.
+          ln -sfn /run/current-system /nix/var/nix/gcroots/current-system
 
-            exit $_status
-          '';
+          exit $_status
+        '';
       };
     };
 
     system.userActivationScripts = mkOption {
-      default = {};
+      default = { };
 
       example = literalExample ''
         { plasmaSetup = {
@@ -137,12 +134,10 @@ in
           _status=0
           trap "_status=1 _localstatus=\$?" ERR
 
-          ${
-            let
-              set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
-              withHeadlines = addAttributeName set';
-            in textClosureMap id (withHeadlines) (attrNames withHeadlines)
-          }
+          ${let
+            set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
+            withHeadlines = addAttributeName set';
+          in textClosureMap id (withHeadlines) (attrNames withHeadlines)}
 
           exit $_status
         '';
@@ -164,57 +159,53 @@ in
     };
   };
 
-
   ###### implementation
 
   config = {
 
     system.activationScripts.stdio = ""; # obsolete
 
-    system.activationScripts.var =
-      ''
-        # Various log/runtime directories.
+    system.activationScripts.var = ''
+      # Various log/runtime directories.
 
-        mkdir -m 1777 -p /var/tmp
+      mkdir -m 1777 -p /var/tmp
 
-        # Empty, immutable home directory of many system accounts.
-        mkdir -p /var/empty
-        # Make sure it's really empty
-        ${pkgs.e2fsprogs}/bin/chattr -f -i /var/empty || true
-        find /var/empty -mindepth 1 -delete
-        chmod 0555 /var/empty
-        chown root:root /var/empty
-        ${pkgs.e2fsprogs}/bin/chattr -f +i /var/empty || true
-      '';
+      # Empty, immutable home directory of many system accounts.
+      mkdir -p /var/empty
+      # Make sure it's really empty
+      ${pkgs.e2fsprogs}/bin/chattr -f -i /var/empty || true
+      find /var/empty -mindepth 1 -delete
+      chmod 0555 /var/empty
+      chown root:root /var/empty
+      ${pkgs.e2fsprogs}/bin/chattr -f +i /var/empty || true
+    '';
 
-    system.activationScripts.usrbinenv = if config.environment.usrbinenv != null
-      then ''
+    system.activationScripts.usrbinenv =
+      if config.environment.usrbinenv != null then ''
         mkdir -m 0755 -p /usr/bin
         ln -sfn ${config.environment.usrbinenv} /usr/bin/.env.tmp
         mv /usr/bin/.env.tmp /usr/bin/env # atomically replace /usr/bin/env
-      ''
-      else ''
+      '' else ''
         rm -f /usr/bin/env
         rmdir --ignore-fail-on-non-empty /usr/bin /usr
       '';
 
-    system.activationScripts.specialfs =
-      ''
-        specialMount() {
-          local device="$1"
-          local mountPoint="$2"
-          local options="$3"
-          local fsType="$4"
+    system.activationScripts.specialfs = ''
+      specialMount() {
+        local device="$1"
+        local mountPoint="$2"
+        local options="$3"
+        local fsType="$4"
 
-          if mountpoint -q "$mountPoint"; then
-            local options="remount,$options"
-          else
-            mkdir -m 0755 -p "$mountPoint"
-          fi
-          mount -t "$fsType" -o "$options" "$device" "$mountPoint"
-        }
-        source ${config.system.build.earlyMountScript}
-      '';
+        if mountpoint -q "$mountPoint"; then
+          local options="remount,$options"
+        else
+          mkdir -m 0755 -p "$mountPoint"
+        fi
+        mount -t "$fsType" -o "$options" "$device" "$mountPoint"
+      }
+      source ${config.system.build.earlyMountScript}
+    '';
 
     systemd.user = {
       services.nixos-activation = {

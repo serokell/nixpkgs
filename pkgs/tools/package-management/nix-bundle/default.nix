@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, nix, makeWrapper, coreutils, gnutar, gzip, bzip2 }:
+{ stdenv, lib, fetchFromGitHub, nix, makeWrapper, coreutils, gnutar, gzip, bzip2
+}:
 
 stdenv.mkDerivation rec {
   pname = "nix-bundle";
@@ -31,6 +32,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     description = "Create bundles from Nixpkgs attributes";
     license = licenses.mit;
-    homepage = https://github.com/matthewbauer/nix-bundle;
+    homepage = "https://github.com/matthewbauer/nix-bundle";
   };
 }

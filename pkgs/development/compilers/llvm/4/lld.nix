@@ -1,9 +1,4 @@
-{ stdenv
-, fetch
-, cmake
-, llvm
-, version
-}:
+{ stdenv, fetch, cmake, llvm, version }:
 
 stdenv.mkDerivation {
   name = "lld-${version}";
@@ -24,9 +19,9 @@ stdenv.mkDerivation {
 
   meta = {
     description = "The LLVM Linker";
-    homepage    = http://lld.llvm.org/;
-    license     = stdenv.lib.licenses.ncsa;
-    platforms   = stdenv.lib.platforms.all;
+    homepage = "http://lld.llvm.org/";
+    license = stdenv.lib.licenses.ncsa;
+    platforms = stdenv.lib.platforms.all;
     badPlatforms = [ "x86_64-darwin" ];
   };
 }

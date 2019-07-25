@@ -14,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "The function you always missed in Python";
-    homepage = https://github.com/hynek/first/;
+    homepage = "https://github.com/hynek/first/";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];
   };

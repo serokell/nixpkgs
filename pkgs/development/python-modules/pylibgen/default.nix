@@ -1,8 +1,4 @@
-{ buildPythonPackage, lib, fetchPypi
-, isPy3k
-, requests
-, pytest
-}:
+{ buildPythonPackage, lib, fetchPypi, isPy3k, requests, pytest }:
 
 buildPythonPackage rec {
   pname = "pylibgen";
@@ -24,7 +20,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python interface to Library Genesis";
-    homepage = https://pypi.org/project/pylibgen/;
+    homepage = "https://pypi.org/project/pylibgen/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.nico202 ];
   };

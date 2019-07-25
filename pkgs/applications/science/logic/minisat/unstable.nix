@@ -11,13 +11,13 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ zlib ];
-  nativeBuildInputs =  [ cmake ];
+  nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
     description = "Compact and readable SAT solver";
     maintainers = with maintainers; [ mic92 ];
     platforms = platforms.unix;
     license = licenses.mit;
-    homepage = http://minisat.se/;
+    homepage = "http://minisat.se/";
   };
 }

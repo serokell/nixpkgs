@@ -1,11 +1,7 @@
-{ lib, stdenv, fetchgit, cmake, pkgconfig, makeWrapper, callPackage
-, wlc, dbus, wayland, libxkbcommon, pixman, libinput, udev, zlib, libpng
-, libdrm, libX11
-, westonLite
+{ lib, stdenv, fetchgit, cmake, pkgconfig, makeWrapper, callPackage, wlc, dbus, wayland, libxkbcommon, pixman, libinput, udev, zlib, libpng, libdrm, libX11, westonLite
 }:
 
-let
-  bemenu = callPackage ./bemenu.nix {};
+let bemenu = callPackage ./bemenu.nix { };
 in stdenv.mkDerivation rec {
   name = "orbment-${version}";
   version = "git-2016-08-13";
@@ -20,7 +16,16 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig makeWrapper ];
 
   buildInputs = [
-    wlc dbus wayland libxkbcommon pixman libinput udev zlib libpng libX11
+    wlc
+    dbus
+    wayland
+    libxkbcommon
+    pixman
+    libinput
+    udev
+    zlib
+    libpng
+    libX11
     libdrm
   ];
 
@@ -33,9 +38,9 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "Modular Wayland compositor";
-    homepage    = src.url;
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.linux;
+    homepage = src.url;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ ];
   };
 }

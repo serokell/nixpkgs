@@ -3,7 +3,7 @@
 buildPythonPackage rec {
   pname = "paramz";
   version = "0.9.5";
-  name  = "${pname}-${version}";
+  name = "${pname}-${version}";
 
   src = fetchPypi {
     inherit pname version;
@@ -13,8 +13,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy scipy six decorator ];
 
   meta = with stdenv.lib; {
-    description = "Parameterization framework for parameterized model creation and handling";
-    homepage = https://github.com/sods/paramz;
+    description =
+      "Parameterization framework for parameterized model creation and handling";
+    homepage = "https://github.com/sods/paramz";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
   };

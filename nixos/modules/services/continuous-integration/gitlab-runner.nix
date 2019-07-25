@@ -4,21 +4,19 @@ with lib;
 
 let
   cfg = config.services.gitlab-runner;
-  configFile =
-    if (cfg.configFile == null) then
-      (pkgs.runCommand "config.toml" {
-        buildInputs = [ pkgs.remarshal ];
-        preferLocalBuild = true;
-      } ''
-        remarshal -if json -of toml \
-          < ${pkgs.writeText "config.json" (builtins.toJSON cfg.configOptions)} \
-          > $out
-      '')
-    else
-      cfg.configFile;
+  configFile = if (cfg.configFile == null) then
+    (pkgs.runCommand "config.toml" {
+      buildInputs = [ pkgs.remarshal ];
+      preferLocalBuild = true;
+    } ''
+      remarshal -if json -of toml \
+        < ${pkgs.writeText "config.json" (builtins.toJSON cfg.configOptions)} \
+        > $out
+    '')
+  else
+    cfg.configFile;
   hasDocker = config.virtualisation.docker.enable;
-in
-{
+in {
   options.services.gitlab-runner = {
     enable = mkEnableOption "Gitlab Runner";
 
@@ -80,7 +78,8 @@ in
       default = "infinity";
       type = types.str;
       example = "5min 20s";
-      description = ''Time to wait until a graceful shutdown is turned into a forceful one.'';
+      description =
+        "Time to wait until a graceful shutdown is turned into a forceful one.";
     };
 
     workDir = mkOption {
@@ -113,19 +112,19 @@ in
       path = cfg.packages;
       environment = config.networking.proxy.envVars;
       description = "Gitlab Runner";
-      after = [ "network.target" ]
-        ++ optional hasDocker "docker.service";
+      after = [ "network.target" ] ++ optional hasDocker "docker.service";
       requires = optional hasDocker "docker.service";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = ''${cfg.package.bin}/bin/gitlab-runner run \
-          --working-directory ${cfg.workDir} \
-          --config ${configFile} \
-          --service gitlab-runner \
-          --user gitlab-runner \
-        '';
+        ExecStart = ''
+          ${cfg.package.bin}/bin/gitlab-runner run \
+                    --working-directory ${cfg.workDir} \
+                    --config ${configFile} \
+                    --service gitlab-runner \
+                    --user gitlab-runner \
+                  '';
 
-      } //  optionalAttrs (cfg.gracefulTermination) {
+      } // optionalAttrs (cfg.gracefulTermination) {
         TimeoutStopSec = "${cfg.gracefulTimeout}";
         KillSignal = "SIGQUIT";
         KillMode = "process";

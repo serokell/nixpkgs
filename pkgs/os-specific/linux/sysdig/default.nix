@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, kernel
-, luajit, zlib, ncurses, perl, jsoncpp, libb64, openssl, curl, jq, gcc, elfutils, tbb, c-ares, protobuf, grpc
+{ stdenv, fetchFromGitHub, cmake, kernel, luajit, zlib, ncurses, perl, jsoncpp, libb64, openssl, curl, jq, gcc, elfutils, tbb, c-ares, protobuf, grpc
 }:
 
 with stdenv.lib;
@@ -16,21 +15,30 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake perl ];
   buildInputs = [
-    zlib luajit ncurses jsoncpp libb64 openssl curl jq gcc elfutils tbb c-ares protobuf grpc
+    zlib
+    luajit
+    ncurses
+    jsoncpp
+    libb64
+    openssl
+    curl
+    jq
+    gcc
+    elfutils
+    tbb
+    c-ares
+    protobuf
+    grpc
   ] ++ optional (kernel != null) kernel.moduleBuildDependencies;
 
   hardeningDisable = [ "pic" ];
 
-  cmakeFlags = [
-    "-DUSE_BUNDLED_DEPS=OFF"
-    "-DSYSDIG_VERSION=${version}"
-  ] ++ optional (kernel == null) "-DBUILD_DRIVER=OFF";
+  cmakeFlags = [ "-DUSE_BUNDLED_DEPS=OFF" "-DSYSDIG_VERSION=${version}" ]
+    ++ optional (kernel == null) "-DBUILD_DRIVER=OFF";
 
   # needed since luajit-2.1.0-beta3
-  NIX_CFLAGS_COMPILE = [
-    "-DluaL_reg=luaL_Reg"
-    "-DluaL_getn(L,i)=((int)lua_objlen(L,i))"
-  ];
+  NIX_CFLAGS_COMPILE =
+    [ "-DluaL_reg=luaL_Reg" "-DluaL_getn(L,i)=((int)lua_objlen(L,i))" ];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_EXE_LINKER_FLAGS="-ltbb -lcurl")
@@ -55,10 +63,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
+    description =
+      "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";
     license = with licenses; [ asl20 gpl2 mit ];
-    maintainers = [maintainers.raskin];
-    platforms = ["x86_64-linux"] ++ platforms.darwin;
+    maintainers = [ maintainers.raskin ];
+    platforms = [ "x86_64-linux" ] ++ platforms.darwin;
     broken = kernel != null && versionOlder kernel.version "4.14";
     homepage = "https://sysdig.com/opensource/";
     downloadPage = "https://github.com/draios/sysdig/releases";

@@ -1,4 +1,4 @@
-{stdenv, buildOcamlJane, type_conv}:
+{ stdenv, buildOcamlJane, type_conv }:
 
 buildOcamlJane rec {
   name = "bin_prot";
@@ -9,7 +9,7 @@ buildOcamlJane rec {
   propagatedBuildInputs = [ type_conv ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/janestreet/bin_prot;
+    homepage = "https://github.com/janestreet/bin_prot";
     description = "Binary protocol generator ";
     license = licenses.asl20;
     maintainers = [ maintainers.maurer maintainers.ericbmerritt ];

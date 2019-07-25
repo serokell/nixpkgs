@@ -3,7 +3,7 @@ stdenv.mkDerivation rec {
   version = "1.11";
   name = "beanstalkd-${version}";
 
-  installPhase=''make install "PREFIX=$out"'';
+  installPhase = ''make install "PREFIX=$out"'';
 
   src = fetchurl {
     url = "https://github.com/kr/beanstalkd/archive/v${version}.tar.gz";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "fortify" ];
 
   meta = with stdenv.lib; {
-    homepage = http://kr.github.io/beanstalkd/;
+    homepage = "http://kr.github.io/beanstalkd/";
     description = "A simple, fast work queue";
     license = licenses.mit;
     maintainers = [ maintainers.zimbatm ];

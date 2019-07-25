@@ -9,9 +9,8 @@ with lib;
 let
   cfg = config.services.nixosManual;
   cfgd = config.documentation;
-in
 
-{
+in {
 
   options = {
 
@@ -43,12 +42,12 @@ in
 
   };
 
-
   config = mkMerge [
     (mkIf cfg.showManual {
       assertions = singleton {
         assertion = cfgd.enable && cfgd.nixos.enable;
-        message   = "Can't enable `services.nixosManual.showManual` without `documentation.nixos.enable`";
+        message =
+          "Can't enable `services.nixosManual.showManual` without `documentation.nixos.enable`";
       };
     })
     (mkIf (cfg.showManual && cfgd.enable && cfgd.nixos.enable) {
@@ -58,7 +57,8 @@ in
         description = "NixOS Manual";
         wantedBy = [ "multi-user.target" ];
         serviceConfig = {
-          ExecStart = "${cfg.browser} ${config.system.build.manual.manualHTMLIndex}";
+          ExecStart =
+            "${cfg.browser} ${config.system.build.manual.manualHTMLIndex}";
           StandardInput = "tty";
           StandardOutput = "tty";
           TTYPath = "/dev/tty${toString cfg.ttyNumber}";

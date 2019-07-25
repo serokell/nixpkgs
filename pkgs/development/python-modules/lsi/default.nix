@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, colored
-, boto
-, pkgs
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchPypi, colored, boto, pkgs }:
 
 buildPythonPackage rec {
   pname = "lsi";
@@ -21,8 +14,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "CLI for querying and SSHing onto AWS EC2 instances";
-    homepage = https://github.com/NarrativeScience/lsi;
-    maintainers = [maintainers.adnelson];
+    homepage = "https://github.com/NarrativeScience/lsi";
+    maintainers = [ maintainers.adnelson ];
     license = licenses.mit;
   };
 

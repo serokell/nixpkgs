@@ -1,9 +1,7 @@
-{ stdenv, fetchFromGitLab, pam, xmlsec, autoreconfHook, pkgconfig, libxml2, gtk-doc, perl, gengetopt, bison, help2man }:
+{ stdenv, fetchFromGitLab, pam, xmlsec, autoreconfHook, pkgconfig, libxml2, gtk-doc, perl, gengetopt, bison, help2man
+}:
 
-let
-  securityDependency =
-    if stdenv.isDarwin then xmlsec
-    else pam;
+let securityDependency = if stdenv.isDarwin then xmlsec else pam;
 
 in stdenv.mkDerivation rec {
   name = "oath-toolkit-2.6.2";
@@ -32,8 +30,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Components for building one-time password authentication systems";
-    homepage = https://www.nongnu.org/oath-toolkit/;
+    description =
+      "Components for building one-time password authentication systems";
+    homepage = "https://www.nongnu.org/oath-toolkit/";
     platforms = with platforms; linux ++ darwin;
   };
 }

@@ -1,8 +1,7 @@
 # NOTE: this is rakshava's version of libtorrent, used mainly by rtorrent
 # This is NOT libtorrent-rasterbar, used by Deluge, qbitttorent, and others
-{ stdenv, fetchFromGitHub, pkgconfig
-, libtool, autoconf, automake, cppunit
-, openssl, libsigcxx, zlib }:
+{ stdenv, fetchFromGitHub, pkgconfig, libtool, autoconf, automake, cppunit, openssl, libsigcxx, zlib
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtorrent";
@@ -22,7 +21,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/rakshasa/libtorrent";
-    description = "A BitTorrent library written in C++ for *nix, with focus on high performance and good code";
+    description =
+      "A BitTorrent library written in C++ for *nix, with focus on high performance and good code";
 
     platforms = platforms.unix;
     maintainers = with maintainers; [ ebzzry codyopel ];

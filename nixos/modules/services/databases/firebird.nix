@@ -30,9 +30,7 @@ let
   dataDir = "${cfg.baseDir}/data";
   systemDir = "${cfg.baseDir}/system";
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -51,8 +49,7 @@ in
         default = pkgs.firebirdSuper;
         defaultText = "pkgs.firebirdSuper";
         type = types.package;
-        /*
-          Example: <code>package = pkgs.firebirdSuper.override { icu =
+        /* Example: <code>package = pkgs.firebirdSuper.override { icu =
             pkgs.icu; };</code> which is not recommended for compatibility
             reasons. See comments at the firebirdSuper derivation
         */
@@ -77,7 +74,8 @@ in
       };
 
       baseDir = mkOption {
-        default = "/var/db/firebird"; # ubuntu is using /var/lib/firebird/2.1/data/.. ?
+        default =
+          "/var/db/firebird"; # ubuntu is using /var/lib/firebird/2.1/data/.. ?
         description = ''
           Location containing data/ and system/ directories.
           data/ stores the databases, system/ stores the password database security2.fdb.
@@ -88,41 +86,39 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.firebird.enable {
 
-    environment.systemPackages = [cfg.package];
+    environment.systemPackages = [ cfg.package ];
 
     systemd.tmpfiles.rules = [
       "d '${dataDir}' 0700 ${cfg.user} - - -"
       "d '${systemDir}' 0700 ${cfg.user} - - -"
     ];
 
-    systemd.services.firebird =
-      { description = "Firebird Super-Server";
+    systemd.services.firebird = {
+      description = "Firebird Super-Server";
 
-        wantedBy = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-        # TODO: moving security2.fdb into the data directory works, maybe there
-        # is a better way
-        preStart =
-          ''
-            if ! test -e "${systemDir}/security2.fdb"; then
-                cp ${firebird}/security2.fdb "${systemDir}"
-            fi
+      # TODO: moving security2.fdb into the data directory works, maybe there
+      # is a better way
+      preStart = ''
+        if ! test -e "${systemDir}/security2.fdb"; then
+            cp ${firebird}/security2.fdb "${systemDir}"
+        fi
 
-            chmod -R 700         "${dataDir}" "${systemDir}" /var/log/firebird
-          '';
+        chmod -R 700         "${dataDir}" "${systemDir}" /var/log/firebird
+      '';
 
-        serviceConfig.User = cfg.user;
-        serviceConfig.LogsDirectory = "firebird";
-        serviceConfig.LogsDirectoryMode = "0700";
-        serviceConfig.ExecStart = ''${firebird}/bin/fbserver -d'';
+      serviceConfig.User = cfg.user;
+      serviceConfig.LogsDirectory = "firebird";
+      serviceConfig.LogsDirectoryMode = "0700";
+      serviceConfig.ExecStart = "${firebird}/bin/fbserver -d";
 
-        # TODO think about shutdown
-      };
+      # TODO think about shutdown
+    };
 
     environment.etc."firebird/firebird.msg".source = "${firebird}/firebird.msg";
 

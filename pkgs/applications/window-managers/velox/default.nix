@@ -1,21 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, makeWrapper, newScope
-, libxkbcommon
-, wayland, pixman, fontconfig
-, stConf ? null, stPatches ? []
-}:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, makeWrapper, newScope, libxkbcommon, wayland, pixman, fontconfig, stConf ?
+  null, stPatches ? [ ] }:
 
 let
   callPackage = newScope self;
   self = {
-    swc = callPackage ./swc.nix {};
-    wld = callPackage ./wld.nix {};
-    dmenu-velox = callPackage ./dmenu.nix {};
+    swc = callPackage ./swc.nix { };
+    wld = callPackage ./wld.nix { };
+    dmenu-velox = callPackage ./dmenu.nix { };
     st-velox = callPackage ./st.nix {
       conf = stConf;
       patches = stPatches;
     };
   };
-in with self; stdenv.mkDerivation rec {
+in with self;
+stdenv.mkDerivation rec {
   name = "velox-${version}";
   version = "git-2017-07-04";
 
@@ -51,9 +49,9 @@ in with self; stdenv.mkDerivation rec {
 
   meta = {
     description = "velox window manager";
-    homepage    = "https://github.com/michaelforney/velox";
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.linux;
+    homepage = "https://github.com/michaelforney/velox";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ ];
   };
 }

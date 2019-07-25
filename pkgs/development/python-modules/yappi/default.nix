@@ -14,8 +14,9 @@ buildPythonPackage rec {
   checkInputs = [ nose ];
 
   meta = with lib; {
-    homepage = https://github.com/sumerc/yappi;
-    description = "Python profiler that supports multithreading and measuring CPU time";
+    homepage = "https://github.com/sumerc/yappi";
+    description =
+      "Python profiler that supports multithreading and measuring CPU time";
     license = licenses.mit;
     maintainers = with maintainers; [ orivej ];
   };

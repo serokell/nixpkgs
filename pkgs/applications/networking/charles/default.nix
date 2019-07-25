@@ -1,31 +1,27 @@
-{
-stdenv
-, makeWrapper
-, makeDesktopItem
-, fetchurl
-, jre
-}:
+{ stdenv, makeWrapper, makeDesktopItem, fetchurl, jre }:
 
 let
   generic = { version, sha256, ... }@attrs:
-  let
-    desktopItem = makeDesktopItem {
-      categories = "Network;Development;WebDevelopment;Java;";
-      desktopName = "Charles";
-      exec = "charles %F";
-      genericName  = "Web Debugging Proxy";
-      icon = "charles-proxy";
-      mimeType = "application/x-charles-savedsession;application/x-charles-savedsession+xml;application/x-charles-savedsession+json;application/har+json;application/vnd.tcpdump.pcap;application/x-charles-trace";
-      name = "Charles";
-      startupNotify = "true";
-    };
+    let
+      desktopItem = makeDesktopItem {
+        categories = "Network;Development;WebDevelopment;Java;";
+        desktopName = "Charles";
+        exec = "charles %F";
+        genericName = "Web Debugging Proxy";
+        icon = "charles-proxy";
+        mimeType =
+          "application/x-charles-savedsession;application/x-charles-savedsession+xml;application/x-charles-savedsession+json;application/har+json;application/vnd.tcpdump.pcap;application/x-charles-trace";
+        name = "Charles";
+        startupNotify = "true";
+      };
 
-  in stdenv.mkDerivation rec {
+    in stdenv.mkDerivation rec {
       name = "charles-${version}";
       inherit version;
 
       src = fetchurl {
-        url = "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}.tar.gz";
+        url =
+          "https://www.charlesproxy.com/assets/release/${version}/charles-proxy-${version}.tar.gz";
         inherit sha256;
       };
       buildInputs = [ makeWrapper ];
@@ -47,7 +43,7 @@ let
 
       meta = with stdenv.lib; {
         description = "Web Debugging Proxy";
-        homepage = https://www.charlesproxy.com/;
+        homepage = "https://www.charlesproxy.com/";
         maintainers = [ maintainers.kalbasit ];
         license = stdenv.lib.licenses.unfree;
         platforms = stdenv.lib.platforms.linux ++ stdenv.lib.platforms.darwin;

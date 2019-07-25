@@ -1,15 +1,4 @@
-{ stdenv
-, fetchPypi
-, pythonOlder
-, buildPythonPackage
-, docutils
-, mock
-, nose
-, coverage
-, wheel
-, unittest2
-, botocore
-, futures
+{ stdenv, fetchPypi, pythonOlder, buildPythonPackage, docutils, mock, nose, coverage, wheel, unittest2, botocore, futures
 }:
 
 buildPythonPackage rec {
@@ -23,18 +12,10 @@ buildPythonPackage rec {
 
   foo = 1;
 
-  propagatedBuildInputs =
-    [ botocore
-    ] ++ stdenv.lib.optional (pythonOlder "3") futures;
+  propagatedBuildInputs = [ botocore ]
+    ++ stdenv.lib.optional (pythonOlder "3") futures;
 
-  buildInputs = [
-    docutils
-    mock
-    nose
-    coverage
-    wheel
-    unittest2
-  ];
+  buildInputs = [ docutils mock nose coverage wheel unittest2 ];
 
   checkPhase = ''
     pushd s3transfer/tests
@@ -46,7 +27,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    homepage = https://github.com/boto/s3transfer;
+    homepage = "https://github.com/boto/s3transfer";
     license = stdenv.lib.licenses.asl20;
     description = "A library for managing Amazon S3 transfers";
   };

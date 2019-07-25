@@ -1,7 +1,4 @@
-{ stdenv
-, libopcodes, libbfd, libelf
-, linuxPackages_latest
-}:
+{ stdenv, libopcodes, libbfd, libelf, linuxPackages_latest }:
 
 stdenv.mkDerivation rec {
   pname = "bpftool";
@@ -19,8 +16,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Debugging/program analysis tool for the eBPF subsystem";
-    license     = [ licenses.gpl2 licenses.bsd2 ];
-    platforms   = platforms.linux;
+    license = [ licenses.gpl2 licenses.bsd2 ];
+    platforms = platforms.linux;
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }

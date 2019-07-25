@@ -1,16 +1,15 @@
-{ stdenv, fetchurl, substituteAll
-, pkgconfig, gobject-introspection, gdk_pixbuf
-, gtk3, mate, python3, dropbox }:
+{ stdenv, fetchurl, substituteAll, pkgconfig, gobject-introspection, gdk_pixbuf, gtk3, mate, python3, dropbox
+}:
 
-let
-  dropboxd = "${dropbox}/bin/dropbox";
-in
-stdenv.mkDerivation rec {
+let dropboxd = "${dropbox}/bin/dropbox";
+in stdenv.mkDerivation rec {
   pname = "caja-dropbox";
   version = "1.22.1";
 
   src = fetchurl {
-    url = "http://pub.mate-desktop.org/releases/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "http://pub.mate-desktop.org/releases/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "18cnd3yw2ingvl38mhmfbl5k0kfg8pzcf2649j00i6v90cwiril5";
   };
 
@@ -27,19 +26,13 @@ stdenv.mkDerivation rec {
     pkgconfig
     gobject-introspection
     gdk_pixbuf
-    (python3.withPackages (ps: with ps; [
-      docutils
-      pygobject3
-    ]))
+    (python3.withPackages (ps: with ps; [ docutils pygobject3 ]))
   ];
 
-  buildInputs = [
-    gtk3
-    mate.caja
-    python3
-  ];
+  buildInputs = [ gtk3 mate.caja python3 ];
 
-  configureFlags = [ "--with-caja-extension-dir=$$out/lib/caja/extensions-2.0" ];
+  configureFlags =
+    [ "--with-caja-extension-dir=$$out/lib/caja/extensions-2.0" ];
 
   meta = with stdenv.lib; {
     description = "Dropbox extension for Caja file manager";

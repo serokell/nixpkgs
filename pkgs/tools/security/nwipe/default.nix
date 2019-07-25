@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   preConfigure = "sh init.sh || :";
   meta = with stdenv.lib; {
     description = "Securely erase disks";
-    homepage = https://github.com/martijnvanbrummelen/nwipe;
+    homepage = "https://github.com/martijnvanbrummelen/nwipe";
     license = licenses.gpl2;
     maintainers = [ maintainers.woffs ];
     platforms = platforms.linux;

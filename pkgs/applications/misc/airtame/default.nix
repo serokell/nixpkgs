@@ -1,16 +1,44 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, makeWrapper
-, alsaLib, atk, cairo, cups, curl, dbus, expat, ffmpeg, fontconfig, freetype
-, gdk_pixbuf, glib, glibc, gnome2, gtk2, libX11, libXScrnSaver, libXcomposite
-, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
-, libXtst, libopus, libpulseaudio, libxcb, nspr, nss, pango, udev, x264
+{ stdenv, lib, fetchurl, makeDesktopItem, makeWrapper, alsaLib, atk, cairo, cups, curl, dbus, expat, ffmpeg, fontconfig, freetype, gdk_pixbuf, glib, glibc, gnome2, gtk2, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libopus, libpulseaudio, libxcb, nspr, nss, pango, udev, x264
 }:
 
-let libPath = lib.makeLibraryPath [
-  alsaLib atk cairo cups curl dbus expat ffmpeg fontconfig freetype gdk_pixbuf
-  glib glibc gnome2.GConf gtk2 libopus nspr nss pango stdenv.cc.cc udev x264
-  libX11 libXScrnSaver libXcomposite libXcursor libXdamage libXext libXfixes
-  libXi libXrandr libXrender libXtst libpulseaudio libxcb
-];
+let
+  libPath = lib.makeLibraryPath [
+    alsaLib
+    atk
+    cairo
+    cups
+    curl
+    dbus
+    expat
+    ffmpeg
+    fontconfig
+    freetype
+    gdk_pixbuf
+    glib
+    glibc
+    gnome2.GConf
+    gtk2
+    libopus
+    nspr
+    nss
+    pango
+    stdenv.cc.cc
+    udev
+    x264
+    libX11
+    libXScrnSaver
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libXtst
+    libpulseaudio
+    libxcb
+  ];
 in stdenv.mkDerivation rec {
   pname = "airtame";
   version = "3.3.0";
@@ -18,7 +46,8 @@ in stdenv.mkDerivation rec {
   longName = "${pname}-application";
 
   src = fetchurl {
-    url = "https://downloads.airtame.com/application/ga/lin_x64/releases/${longName}-${version}.tar.gz";
+    url =
+      "https://downloads.airtame.com/application/ga/lin_x64/releases/${longName}-${version}.tar.gz";
     sha256 = "16ca1vcxpka26jcrfbxpq74kcizgrm138j94bby6kzqp2swhrl76";
   };
 
@@ -71,7 +100,7 @@ in stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   meta = with stdenv.lib; {
-    homepage = https://airtame.com/download;
+    homepage = "https://airtame.com/download";
     description = "Wireless streaming client for Airtame devices";
     license = licenses.unfree;
     maintainers = with maintainers; [ thanegill ];

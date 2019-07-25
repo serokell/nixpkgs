@@ -1,7 +1,6 @@
 { stdenv, fetchzip }:
 
-let
-  version = "2.0.0";
+let version = "2.0.0";
 in fetchzip {
   name = "stix-two-${version}";
 
@@ -15,7 +14,7 @@ in fetchzip {
   sha256 = "19i30d2xjk52bjj7xva1hnlyh58yd5phas1njcc8ldcz87a1lhql";
 
   meta = with stdenv.lib; {
-    homepage = http://www.stixfonts.org/;
+    homepage = "http://www.stixfonts.org/";
     description = "Fonts for Scientific and Technical Information eXchange";
     license = licenses.ofl;
     platforms = platforms.all;

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl
-, linkStatic ? (stdenv.hostPlatform.system == "i686-cygwin")
+{ stdenv, fetchurl, linkStatic ? (stdenv.hostPlatform.system == "i686-cygwin")
 }:
 
 stdenv.mkDerivation rec {
@@ -7,11 +6,11 @@ stdenv.mkDerivation rec {
   version = "1.0.6.0.1";
 
   /* We use versions patched to use autotools style properly,
-      saving lots of trouble. */
+      saving lots of trouble.
+  */
   src = fetchurl {
-    urls = map
-      (prefix: prefix + "/people/sbrabec/bzip2/tarballs/${name}.tar.gz")
-      [
+    urls =
+      map (prefix: prefix + "/people/sbrabec/bzip2/tarballs/${name}.tar.gz") [
         "http://ftp.uni-kl.de/pub/linux/suse"
         "ftp://ftp.hs.uni-hamburg.de/pub/mirrors/suse"
         "ftp://ftp.mplayerhq.hu/pub/linux/suse"
@@ -20,10 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b5b5p8c7bslc6fslcr1nj9136412v3qcvbg6yxi9argq9g72v8c";
   };
 
-  patches = [
-    ./CVE-2016-3189.patch
-    ./cve-2019-12900.patch
-  ];
+  patches = [ ./CVE-2016-3189.patch ./cve-2019-12900.patch ];
 
   postPatch = ''
     sed -i -e '/<sys\\stat\.h>/s|\\|/|' bzip2.c
@@ -40,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "High-quality data compression program";
     license = licenses.bsdOriginal;
     platforms = platforms.all;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

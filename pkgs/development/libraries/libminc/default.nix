@@ -2,15 +2,15 @@
 
 stdenv.mkDerivation rec {
   pname = "libminc";
-  name  = "${pname}-2018-01-17";
+  name = "${pname}-2018-01-17";
 
   owner = "BIC-MNI";
 
   # current master is significantly ahead of most recent release, so use Git version:
   src = fetchFromGitHub {
     inherit owner;
-    repo   = pname;
-    rev    = "a9cbe1353eae9791b7d5b03af16e0f86922ce40b";
+    repo = pname;
+    rev = "a9cbe1353eae9791b7d5b03af16e0f86922ce40b";
     sha256 = "0mn4n3ihzcr1jw2g1vy6c8p4lkc88jwljk04argmj7k4djrgpxpa";
   };
 
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Medical imaging library based on HDF5";
     maintainers = with maintainers; [ bcdarwin ];
     platforms = platforms.unix;
-    license   = licenses.free;
+    license = licenses.free;
   };
 }

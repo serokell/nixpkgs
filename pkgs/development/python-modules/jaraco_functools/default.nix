@@ -1,6 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi
-, setuptools_scm
-, more-itertools, backports_functools_lru_cache }:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, more-itertools, backports_functools_lru_cache
+}:
 
 buildPythonPackage rec {
   pname = "jaraco.functools";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Additional functools in the spirit of stdlib's functools";
-    homepage = https://github.com/jaraco/jaraco.functools;
+    homepage = "https://github.com/jaraco/jaraco.functools";
     license = licenses.mit;
   };
 }

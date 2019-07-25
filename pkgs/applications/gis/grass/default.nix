@@ -1,24 +1,43 @@
-{ stdenv, fetchFromGitHub, flex, bison, pkgconfig, zlib, libtiff, libpng, fftw
-, cairo, readline, ffmpeg, makeWrapper, wxGTK30, netcdf, blas
-, proj, gdal, geos, sqlite, postgresql, mysql, python2Packages, libLAS, proj-datumgrid
+{ stdenv, fetchFromGitHub, flex, bison, pkgconfig, zlib, libtiff, libpng, fftw, cairo, readline, ffmpeg, makeWrapper, wxGTK30, netcdf, blas, proj, gdal, geos, sqlite, postgresql, mysql, python2Packages, libLAS, proj-datumgrid
 }:
 
 stdenv.mkDerivation rec {
   name = "grass";
   version = "7.6.1";
 
-  src = with stdenv.lib; fetchFromGitHub {
-    owner = "OSGeo";
-    repo = "grass";
-    rev = "${name}_${replaceStrings ["."] ["_"] version}";
-    sha256 = "1amjk9rz7vw5ha7nyl5j2bfwj5if9w62nlwx5qbp1x7spldimlll";
-  };
+  src = with stdenv.lib;
+    fetchFromGitHub {
+      owner = "OSGeo";
+      repo = "grass";
+      rev = "${name}_${replaceStrings [ "." ] [ "_" ] version}";
+      sha256 = "1amjk9rz7vw5ha7nyl5j2bfwj5if9w62nlwx5qbp1x7spldimlll";
+    };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ flex bison zlib proj gdal libtiff libpng fftw sqlite cairo proj
-  readline ffmpeg makeWrapper wxGTK30 netcdf geos postgresql mysql.connector-c blas
-  libLAS proj-datumgrid ]
-    ++ (with python2Packages; [ python dateutil wxPython30 numpy ]);
+  buildInputs = [
+    flex
+    bison
+    zlib
+    proj
+    gdal
+    libtiff
+    libpng
+    fftw
+    sqlite
+    cairo
+    proj
+    readline
+    ffmpeg
+    makeWrapper
+    wxGTK30
+    netcdf
+    geos
+    postgresql
+    mysql.connector-c
+    blas
+    libLAS
+    proj-datumgrid
+  ] ++ (with python2Packages; [ python dateutil wxPython30 numpy ]);
 
   # On Darwin the installer tries to symlink the help files into a system
   # directory
@@ -46,8 +65,8 @@ stdenv.mkDerivation rec {
   # Otherwise a very confusing "Can't load GDAL library" error
   makeFlags = stdenv.lib.optional stdenv.isDarwin "GDAL_DYNAMIC=";
 
-  /* Ensures that the python script run at build time are actually executable;
-   * otherwise, patchShebangs ignores them.  */
+  # Ensures that the python script run at build time are actually executable;
+  # otherwise, patchShebangs ignores them.
   postConfigure = ''
     chmod +x scripts/d.out.file/d.out.file.py \
       scripts/d.to.rast/d.to.rast.py \
@@ -94,10 +113,11 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = https://grass.osgeo.org/;
-    description = "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
+    homepage = "https://grass.osgeo.org/";
+    description =
+      "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.all;
-    maintainers = with stdenv.lib.maintainers; [mpickering];
+    maintainers = with stdenv.lib.maintainers; [ mpickering ];
   };
 }

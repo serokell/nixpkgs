@@ -1,21 +1,4 @@
-{ stdenv
-, libev
-, buildPythonPackage
-, fetchPypi
-, cython
-, futures
-, six
-, python
-, scales
-, eventlet
-, twisted
-, mock
-, gevent
-, nose
-, pytz
-, pyyaml
-, sure
-, pythonOlder
+{ stdenv, libev, buildPythonPackage, fetchPypi, cython, futures, six, python, scales, eventlet, twisted, mock, gevent, nose, pytz, pyyaml, sure, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -27,19 +10,18 @@ buildPythonPackage rec {
     sha256 = "1w9a7fdl626m977cjj9zclh4a0mr3s4q9jpwm1fsmpi7v3gbribi";
   };
 
-  buildInputs = [
-    libev
-  ];
+  buildInputs = [ libev ];
 
   nativeBuildInputs = [
     # NOTE: next version will work with cython 0.29
     # Requires 'Cython!=0.25,<0.29,>=0.20'
-    (cython.overridePythonAttrs(old: rec {
+    (cython.overridePythonAttrs (old: rec {
       pname = "Cython";
       version = "0.28.3";
       src = fetchPypi {
         inherit pname version;
-        sha256 = "1aae6d6e9858888144cea147eb5e677830f45faaff3d305d77378c3cba55f526";
+        sha256 =
+          "1aae6d6e9858888144cea147eb5e677830f45faaff3d305d77378c3cba55f526";
       };
     }))
   ];
@@ -62,7 +44,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://datastax.github.io/python-driver/;
+    homepage = "http://datastax.github.io/python-driver/";
     description = "A Python client driver for Apache Cassandra";
     license = licenses.asl20;
   };

@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, dateutil
-, six
-, mock
-, nose
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dateutil, six, mock, nose, pytest }:
 
 buildPythonPackage rec {
   pname = "freezegun";

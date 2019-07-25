@@ -1,7 +1,4 @@
-{ fetchurl, stdenv, squashfsTools, xorg, alsaLib, makeWrapper, openssl, freetype
-, glib, pango, cairo, atk, gdk_pixbuf, gtk2, cups, nspr, nss, libpng, libnotify
-, libgcrypt, systemd, fontconfig, dbus, expat, ffmpeg_3, curl, zlib, gnome3
-, at-spi2-atk
+{ fetchurl, stdenv, squashfsTools, xorg, alsaLib, makeWrapper, openssl, freetype, glib, pango, cairo, atk, gdk_pixbuf, gtk2, cups, nspr, nss, libpng, libnotify, libgcrypt, systemd, fontconfig, dbus, expat, ffmpeg_3, curl, zlib, gnome3, at-spi2-atk
 }:
 
 let
@@ -18,7 +15,6 @@ let
   # More examples of api usage:
   # https://github.com/canonical-websites/snapcraft.io/blob/master/webapp/publisher/snaps/views.py
   rev = "30";
-
 
   deps = [
     alsaLib
@@ -57,9 +53,7 @@ let
     zlib
   ];
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "spotify-${version}";
 
   # fetch from snapcraft instead of the debian repository most repos fetch from.
@@ -71,8 +65,10 @@ stdenv.mkDerivation {
   # spotify ourselves:
   # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
   src = fetchurl {
-    url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
-    sha512 = "859730fbc80067f0828f7e13eee9a21b13b749f897a50e17c2da4ee672785cfd79e1af6336e609529d105e040dc40f61b6189524783ac93d49f991c4ea8b3c56";
+    url =
+      "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
+    sha512 =
+      "859730fbc80067f0828f7e13eee9a21b13b749f897a50e17c2da4ee672785cfd79e1af6336e609529d105e040dc40f61b6189524783ac93d49f991c4ea8b3c56";
   };
 
   buildInputs = [ squashfsTools makeWrapper ];
@@ -104,58 +100,57 @@ stdenv.mkDerivation {
     runHook postUnpack
   '';
 
-  installPhase =
-    ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      libdir=$out/lib/spotify
-      mkdir -p $libdir
-      mv ./usr/* $out/
+    libdir=$out/lib/spotify
+    mkdir -p $libdir
+    mv ./usr/* $out/
 
-      cp meta/snap.yaml $out
+    cp meta/snap.yaml $out
 
-      # Work around Spotify referring to a specific minor version of
-      # OpenSSL.
+    # Work around Spotify referring to a specific minor version of
+    # OpenSSL.
 
-      ln -s ${openssl.out}/lib/libssl.so $libdir/libssl.so.1.0.0
-      ln -s ${openssl.out}/lib/libcrypto.so $libdir/libcrypto.so.1.0.0
-      ln -s ${nspr.out}/lib/libnspr4.so $libdir/libnspr4.so
-      ln -s ${nspr.out}/lib/libplc4.so $libdir/libplc4.so
+    ln -s ${openssl.out}/lib/libssl.so $libdir/libssl.so.1.0.0
+    ln -s ${openssl.out}/lib/libcrypto.so $libdir/libcrypto.so.1.0.0
+    ln -s ${nspr.out}/lib/libnspr4.so $libdir/libnspr4.so
+    ln -s ${nspr.out}/lib/libplc4.so $libdir/libplc4.so
 
-      ln -s ${ffmpeg_3.out}/lib/libavcodec.so* $libdir
-      ln -s ${ffmpeg_3.out}/lib/libavformat.so* $libdir
+    ln -s ${ffmpeg_3.out}/lib/libavcodec.so* $libdir
+    ln -s ${ffmpeg_3.out}/lib/libavformat.so* $libdir
 
-      rpath="$out/share/spotify:$libdir"
+    rpath="$out/share/spotify:$libdir"
 
-      patchelf \
-        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath $rpath $out/share/spotify/spotify
+    patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath $rpath $out/share/spotify/spotify
 
-      librarypath="${stdenv.lib.makeLibraryPath deps}:$libdir"
-      wrapProgram $out/share/spotify/spotify \
-        --prefix LD_LIBRARY_PATH : "$librarypath" \
-        --prefix PATH : "${gnome3.zenity}/bin"
+    librarypath="${stdenv.lib.makeLibraryPath deps}:$libdir"
+    wrapProgram $out/share/spotify/spotify \
+      --prefix LD_LIBRARY_PATH : "$librarypath" \
+      --prefix PATH : "${gnome3.zenity}/bin"
 
-      # fix Icon line in the desktop file (#48062)
-      sed -i "s:^Icon=.*:Icon=spotify-client:" "$out/share/spotify/spotify.desktop"
+    # fix Icon line in the desktop file (#48062)
+    sed -i "s:^Icon=.*:Icon=spotify-client:" "$out/share/spotify/spotify.desktop"
 
-      # Desktop file
-      mkdir -p "$out/share/applications/"
-      cp "$out/share/spotify/spotify.desktop" "$out/share/applications/"
+    # Desktop file
+    mkdir -p "$out/share/applications/"
+    cp "$out/share/spotify/spotify.desktop" "$out/share/applications/"
 
-      # Icons
-      for i in 16 22 24 32 48 64 128 256 512; do
-        ixi="$i"x"$i"
-        mkdir -p "$out/share/icons/hicolor/$ixi/apps"
-        ln -s "$out/share/spotify/icons/spotify-linux-$i.png" \
-          "$out/share/icons/hicolor/$ixi/apps/spotify-client.png"
-      done
+    # Icons
+    for i in 16 22 24 32 48 64 128 256 512; do
+      ixi="$i"x"$i"
+      mkdir -p "$out/share/icons/hicolor/$ixi/apps"
+      ln -s "$out/share/spotify/icons/spotify-linux-$i.png" \
+        "$out/share/icons/hicolor/$ixi/apps/spotify-client.png"
+    done
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.spotify.com/;
+    homepage = "https://www.spotify.com/";
     description = "Play music from the Spotify music service";
     license = licenses.unfree;
     maintainers = with maintainers; [ eelco ftrvxmtrx sheenobu mudri timokau ];

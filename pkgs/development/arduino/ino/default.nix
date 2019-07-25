@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, python2Packages, picocom
-, avrdude, arduino-core }:
+{ stdenv, fetchurl, python2Packages, picocom, avrdude, arduino-core }:
 
 python2Packages.buildPythonApplication rec {
   name = "ino-0.3.6";
@@ -38,7 +37,7 @@ python2Packages.buildPythonApplication rec {
 
   meta = {
     description = "Command line toolkit for working with Arduino hardware";
-    homepage = http://inotool.org/;
+    homepage = "http://inotool.org/";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ antono the-kenny ];
     platforms = stdenv.lib.platforms.linux;

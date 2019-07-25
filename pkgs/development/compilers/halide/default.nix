@@ -1,13 +1,11 @@
-{ llvmPackages, lib, fetchFromGitHub, cmake
-, libpng, libjpeg, mesa, eigen, openblas
+{ llvmPackages, lib, fetchFromGitHub, cmake, libpng, libjpeg, mesa, eigen, openblas
 }:
 
-let
-  version = "2018_02_15";
+let version = "2018_02_15";
 
 in llvmPackages.stdenv.mkDerivation {
 
-  name = "halide-${builtins.replaceStrings ["_"] ["."] version}";
+  name = "halide-${builtins.replaceStrings [ "_" ] [ "." ] version}";
 
   src = fetchFromGitHub {
     owner = "halide";
@@ -55,7 +53,8 @@ in llvmPackages.stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "C++ based language for image processing and computational photography";
+    description =
+      "C++ based language for image processing and computational photography";
     homepage = "https://halide-lang.org";
     license = licenses.mit;
     platforms = platforms.linux;

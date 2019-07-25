@@ -1,16 +1,17 @@
-{ stdenv, fetchurl, ocaml, findlib, which, ulex, easy-format, ocaml_optcomp, xmlm, base64 }:
+{ stdenv, fetchurl, ocaml, findlib, which, ulex, easy-format, ocaml_optcomp, xmlm, base64
+}:
 
 stdenv.mkDerivation rec {
   version = "0.6.14";
-  name    = "piqi-${version}";
- 
+  name = "piqi-${version}";
+
   src = fetchurl {
     url = "https://github.com/alavrik/piqi/archive/v${version}.tar.gz";
     sha256 = "1ssccnwqzfyf7syfq2fv4zyhwayxwd75rhq9y28mvq1w6qbww4l7";
   };
 
   buildInputs = [ ocaml findlib which ocaml_optcomp ];
-  propagatedBuildInputs = [ulex xmlm easy-format base64];
+  propagatedBuildInputs = [ ulex xmlm easy-format base64 ];
 
   patches = [ ./no-ocamlpath-override.patch ];
 
@@ -27,8 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://piqi.org;
-    description = "Universal schema language and a collection of tools built around it";
+    homepage = "http://piqi.org";
+    description =
+      "Universal schema language and a collection of tools built around it";
     license = licenses.asl20;
     maintainers = [ maintainers.maurer ];
   };

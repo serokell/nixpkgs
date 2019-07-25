@@ -1,7 +1,7 @@
-{ symlinkJoin, rxvt_unicode, makeWrapper, plugins, perlPackages, perlDeps ? []}:
+{ symlinkJoin, rxvt_unicode, makeWrapper, plugins, perlPackages, perlDeps ? [ ]
+}:
 
-let
-  rxvt_name = builtins.parseDrvName rxvt_unicode.name;
+let rxvt_name = builtins.parseDrvName rxvt_unicode.name;
 
 in symlinkJoin {
   name = "${rxvt_name.name}-with-plugins-${rxvt_name.version}";

@@ -1,7 +1,6 @@
-{ stdenv, fetchurl, cups, perl, glibc, ghostscript, which, makeWrapper}:
+{ stdenv, fetchurl, cups, perl, glibc, ghostscript, which, makeWrapper }:
 
-/*
-    [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
+/* [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
 
     URI example
      ~  `lpd://BRW0080927AFBCE/binary_p1`
@@ -28,13 +27,15 @@
 */
 
 let
-  myPatchElf = file: with stdenv.lib; ''
-    patchelf --set-interpreter \
-      ${stdenv.glibc}/lib/ld-linux${optionalString stdenv.is64bit "-x86-64"}.so.2 \
-      ${file}
-  '';
-in
-stdenv.mkDerivation rec {
+  myPatchElf = file:
+    with stdenv.lib; ''
+      patchelf --set-interpreter \
+        ${stdenv.glibc}/lib/ld-linux${
+        optionalString stdenv.is64bit "-x86-64"
+        }.so.2 \
+        ${file}
+    '';
+in stdenv.mkDerivation rec {
 
   name = "brgenml1lpr-3.1.0-1";
   src = fetchurl {
@@ -82,10 +83,9 @@ stdenv.mkDerivation rec {
 
   dontPatchELF = true;
 
-
   meta = {
     description = "Brother BrGenML1 LPR driver";
-    homepage = http://www.brother.com;
+    homepage = "http://www.brother.com";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.unfreeRedistributable;
     maintainers = with stdenv.lib.maintainers; [ jraygauthier ];

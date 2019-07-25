@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    description = "JBake is a Java based, open source, static site/blog generator for developers & designers";
+    description =
+      "JBake is a Java based, open source, static site/blog generator for developers & designers";
     homepage = "https://jbake.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ moaxcp ];

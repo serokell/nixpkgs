@@ -1,11 +1,13 @@
-{ stdenv, lib, unzip, utillinux,
-  libusb1, evdi, systemd, makeWrapper, requireFile, substituteAll }:
+{ stdenv, lib, unzip, utillinux, libusb1, evdi, systemd, makeWrapper, requireFile, substituteAll
+}:
 
 let
-  arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then "x64"
-    else if stdenv.hostPlatform.system == "i686-linux" then "x86"
-    else throw "Unsupported architecture";
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "x86"
+  else
+    throw "Unsupported architecture";
   bins = "${arch}-ubuntu-1604";
   libPath = lib.makeLibraryPath [ stdenv.cc.cc utillinux libusb1 evdi ];
 
@@ -39,10 +41,12 @@ in stdenv.mkDerivation rec {
     ./displaylink-driver-${version}.run --target . --noexec
   '';
 
-  patches = [ (substituteAll {
-    src = ./udev-installer.patch;
-    inherit systemd;
-  })];
+  patches = [
+    (substituteAll {
+      src = ./udev-installer.patch;
+      inherit systemd;
+    })
+  ];
 
   installPhase = ''
     sed -i "s,/opt/displaylink/udev.sh,$out/lib/udev/displaylink.sh,g" udev-installer.sh
@@ -64,11 +68,10 @@ in stdenv.mkDerivation rec {
   dontStrip = true;
   dontPatchELF = true;
 
-
   meta = with stdenv.lib; {
     description = "DisplayLink DL-5xxx, DL-41xx and DL-3x00 Driver for Linux";
     platforms = [ "x86_64-linux" "i686-linux" ];
     license = licenses.unfree;
-    homepage = https://www.displaylink.com/;
+    homepage = "https://www.displaylink.com/";
   };
 }

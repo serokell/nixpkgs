@@ -1,10 +1,8 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.hardware.brightnessctl;
-in
-{
+let cfg = config.hardware.brightnessctl;
+in {
 
   options = {
 
@@ -22,9 +20,7 @@ in
     };
   };
 
-
-  config = mkIf cfg.enable {
-    services.udev.packages = with pkgs; [ brightnessctl ];
-  };
+  config =
+    mkIf cfg.enable { services.udev.packages = with pkgs; [ brightnessctl ]; };
 
 }

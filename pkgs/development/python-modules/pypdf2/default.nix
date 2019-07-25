@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, glibcLocales
-, python
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, glibcLocales, python, isPy3k }:
 
 buildPythonPackage rec {
   pname = "PyPDF2";

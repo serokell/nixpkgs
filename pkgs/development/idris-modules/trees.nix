@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, contrib
-, bi
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, contrib, bi, lib }:
+build-idris-package {
   name = "trees";
   version = "2018-03-19";
 
@@ -19,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Trees in Idris";
-    homepage = https://github.com/clayrat/idris-trees;
+    homepage = "https://github.com/clayrat/idris-trees";
     maintainers = [ lib.maintainers.brainrape ];
   };
 }

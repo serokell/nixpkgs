@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose }:
 
 buildPythonPackage rec {
   pname = "datadiff";
@@ -18,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "DataDiff";
-    homepage = https://sourceforge.net/projects/datadiff/;
+    homepage = "https://sourceforge.net/projects/datadiff/";
     license = licenses.asl20;
   };
 

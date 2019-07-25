@@ -11,13 +11,10 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "1fjd9ydbfwd1n9b9zw8zjn4l7c5hpam2n0xs51pjkjn82m3zq9zv";
   };
 
-  propagatedBuildInputs = [
-    mopidy
-    pythonPackages.uritools
-  ];
+  propagatedBuildInputs = [ mopidy pythonPackages.uritools ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mopidy/mopidy-local-sqlite;
+    homepage = "https://github.com/mopidy/mopidy-local-sqlite";
     description = "Mopidy SQLite local library extension";
     license = licenses.asl20;
     maintainers = [ maintainers.rvolosatovs ];

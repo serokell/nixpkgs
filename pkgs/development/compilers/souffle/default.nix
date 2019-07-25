@@ -1,25 +1,20 @@
-{ stdenv, fetchFromGitHub
-, perl, ncurses, zlib, sqlite, libffi
-, autoreconfHook, mcpp, bison, flex, doxygen, graphviz
-, makeWrapper
+{ stdenv, fetchFromGitHub, perl, ncurses, zlib, sqlite, libffi, autoreconfHook, mcpp, bison, flex, doxygen, graphviz, makeWrapper
 }:
 
-
-let
-  toolsPath = stdenv.lib.makeBinPath [ mcpp ];
-in
-stdenv.mkDerivation rec {
-  name    = "souffle-${version}";
+let toolsPath = stdenv.lib.makeBinPath [ mcpp ];
+in stdenv.mkDerivation rec {
+  name = "souffle-${version}";
   version = "1.5.1";
 
   src = fetchFromGitHub {
-    owner  = "souffle-lang";
-    repo   = "souffle";
-    rev    = version;
+    owner = "souffle-lang";
+    repo = "souffle";
+    rev = version;
     sha256 = "06sa250z3v8hs91p6cqdzlwwaq96j6zmfrrld1fzd1b620aa5iys";
   };
 
-  nativeBuildInputs = [ autoreconfHook bison flex mcpp doxygen graphviz makeWrapper perl ];
+  nativeBuildInputs =
+    [ autoreconfHook bison flex mcpp doxygen graphviz makeWrapper perl ];
   buildInputs = [ ncurses zlib sqlite libffi ];
 
   # these propagated inputs are needed for the compiled Souffle mode to work,
@@ -44,10 +39,11 @@ stdenv.mkDerivation rec {
   outputs = [ "out" ];
 
   meta = with stdenv.lib; {
-    description = "A translator of declarative Datalog programs into the C++ language";
-    homepage    = "http://souffle-lang.github.io/";
-    platforms   = platforms.unix;
+    description =
+      "A translator of declarative Datalog programs into the C++ language";
+    homepage = "http://souffle-lang.github.io/";
+    platforms = platforms.unix;
     maintainers = with maintainers; [ thoughtpolice copumpkin wchresta ];
-    license     = licenses.upl;
+    license = licenses.upl;
   };
 }

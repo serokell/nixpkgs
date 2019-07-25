@@ -1,16 +1,14 @@
 { efivar, fetchurl, gettext, gnu-efi, libsmbios, pkgconfig, popt, stdenv }:
-let
-  version = "12";
+let version = "12";
 in stdenv.mkDerivation {
   name = "fwupdate-${version}";
   src = fetchurl {
-    url = "https://github.com/rhinstaller/fwupdate/releases/download/${version}/fwupdate-${version}.tar.bz2";
+    url =
+      "https://github.com/rhinstaller/fwupdate/releases/download/${version}/fwupdate-${version}.tar.bz2";
     sha256 = "00w7jsg7wrlq4cpfz26m9rbv2jwyf0sansf343vfq02fy5lxars1";
   };
 
-  patches = [
-    ./do-not-create-sharedstatedir.patch
-  ];
+  patches = [ ./do-not-create-sharedstatedir.patch ];
 
   NIX_CFLAGS_COMPILE = [ "-I${gnu-efi}/include/efi" ];
 
@@ -25,20 +23,11 @@ in stdenv.mkDerivation {
     "ESPMOUNTPOINT=$(out)/boot"
   ];
 
-  nativeBuildInputs = [
-    pkgconfig
-    gettext
-  ];
+  nativeBuildInputs = [ pkgconfig gettext ];
 
-  buildInputs = [
-    gnu-efi
-    libsmbios
-    popt
-  ];
+  buildInputs = [ gnu-efi libsmbios popt ];
 
-  propagatedBuildInputs = [
-    efivar
-  ];
+  propagatedBuildInputs = [ efivar ];
 
   # TODO: fix wrt cross-compilation
   preConfigure = ''
@@ -52,7 +41,8 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "Tools for using the ESRT and UpdateCapsule() to apply firmware updates";
+    description =
+      "Tools for using the ESRT and UpdateCapsule() to apply firmware updates";
     maintainers = with maintainers; [ ];
     license = licenses.gpl2;
     platforms = platforms.linux;

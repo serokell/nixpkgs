@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchurl, autoconf, automake, pkgconfig, libtool
-, gtk2, halibut, ncurses, perl
+{ stdenv, lib, fetchurl, autoconf, automake, pkgconfig, libtool, gtk2, halibut, ncurses, perl
 }:
 
 stdenv.mkDerivation rec {
@@ -33,12 +32,11 @@ stdenv.mkDerivation rec {
     for exe in *.exe; do
        install -D $exe $out/bin/$exe
     done
-  '' else null;
+  '' else
+    null;
 
   nativeBuildInputs = [ autoconf automake halibut libtool perl pkgconfig ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isUnix [
-    gtk2 ncurses
-  ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isUnix [ gtk2 ncurses ];
   enableParallelBuilding = true;
 
   meta = with lib; {
@@ -48,7 +46,7 @@ stdenv.mkDerivation rec {
       platforms, along with an xterm terminal emulator.
       It is written and maintained primarily by Simon Tatham.
     '';
-    homepage = https://www.chiark.greenend.org.uk/~sgtatham/putty/;
+    homepage = "https://www.chiark.greenend.org.uk/~sgtatham/putty/";
     license = licenses.mit;
     platforms = platforms.unix ++ platforms.windows;
   };

@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.nix-serve;
-in
-{
+let cfg = config.services.nix-serve;
+in {
   options = {
     services.nix-serve = {
-      enable = mkEnableOption "nix-serve, the standalone Nix binary cache server";
+      enable =
+        mkEnableOption "nix-serve, the standalone Nix binary cache server";
 
       port = mkOption {
         type = types.int;
@@ -66,8 +65,10 @@ in
       serviceConfig = {
         Restart = "always";
         RestartSec = "5s";
-        ExecStart = "${pkgs.nix-serve}/bin/nix-serve " +
-          "--listen ${cfg.bindAddress}:${toString cfg.port} ${cfg.extraParams}";
+        ExecStart = "${pkgs.nix-serve}/bin/nix-serve "
+          + "--listen ${cfg.bindAddress}:${
+            toString cfg.port
+          } ${cfg.extraParams}";
         User = "nix-serve";
         Group = "nogroup";
       };

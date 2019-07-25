@@ -1,5 +1,4 @@
-{ stdenv, fetchgit, fetchurl, cmake, protobuf, libunwind, openssl, glog
-, google-gflags, gmock, gtest
+{ stdenv, fetchgit, fetchurl, cmake, protobuf, libunwind, openssl, glog, google-gflags, gmock, gtest
 }:
 
 let
@@ -7,8 +6,7 @@ let
     url = "https://github.com/Seagate/kinetic-protocol/archive/3.0.0.tar.gz";
     sha256 = "0406pp0sdf0rg6s5g18r2d8si2rin7p6qbzp7c6pma5hyzsygz48";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "kinetic-cpp-client-2015-04-14";
 
   src = fetchgit {
@@ -30,9 +28,7 @@ stdenv.mkDerivation rec {
   # The headers and library include from these and there is no provided pc file
   propagatedBuildInputs = [ protobuf openssl ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=true"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=true" ];
 
   preCheck = ''
     # The checks cannot find libkinetic_client.so otherwise
@@ -50,7 +46,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/Seagate/kinetic-cpp-client;
+    homepage = "https://github.com/Seagate/kinetic-cpp-client";
     description = "Code for producing C and C++ kinetic clients";
     license = licenses.lgpl21;
     platforms = platforms.unix;

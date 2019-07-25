@@ -16,16 +16,17 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = {
-    description = "Tools and libraries to access human-editable, text-based databases";
+    description =
+      "Tools and libraries to access human-editable, text-based databases";
 
-    longDescription =
-      '' GNU Recutils is a set of tools and libraries to access
-         human-editable, text-based databases called recfiles.  The data is
-         stored as a sequence of records, each record containing an arbitrary
-         number of named fields.
-      '';
+    longDescription = ''
+      GNU Recutils is a set of tools and libraries to access
+              human-editable, text-based databases called recfiles.  The data is
+              stored as a sequence of records, each record containing an arbitrary
+              number of named fields.
+           '';
 
-    homepage = https://www.gnu.org/software/recutils/;
+    homepage = "https://www.gnu.org/software/recutils/";
 
     license = stdenv.lib.licenses.gpl3Plus;
 

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.8";
 
   src = fetchurl {
-    url = "https://github.com/scop/bash-completion/releases/download/${version}/${name}.tar.xz";
+    url =
+      "https://github.com/scop/bash-completion/releases/download/${version}/${name}.tar.xz";
     sha256 = "0kgmflrr1ga9wfk770vmakna3nj46ylb5ky9ipd0v2k9ymq5a7y0";
   };
 
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/scop/bash-completion;
+    homepage = "https://github.com/scop/bash-completion";
     description = "Programmable completion for the bash shell";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

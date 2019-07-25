@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, pythonOlder
-, stdenv
-, setuptools_scm
-, pytest
-, glibcLocales
+{ buildPythonPackage, fetchPypi, pythonOlder, stdenv, setuptools_scm, pytest, glibcLocales
 }:
 
 buildPythonPackage rec {
@@ -19,7 +13,7 @@ buildPythonPackage rec {
   buildInputs = [ setuptools_scm ];
   nativeBuildInputs = [ glibcLocales ];
 
-  LC_ALL="en_US.utf-8";
+  LC_ALL = "en_US.utf-8";
 
   postPatch = ''
     substituteInPlace setup.cfg --replace " --cov" ""
@@ -34,8 +28,9 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.3";
 
   meta = with stdenv.lib; {
-    description = "This library provides run-time type checking for functions defined with argument type annotations";
-    homepage = https://github.com/agronholm/typeguard;
+    description =
+      "This library provides run-time type checking for functions defined with argument type annotations";
+    homepage = "https://github.com/agronholm/typeguard";
     license = licenses.mit;
   };
 }

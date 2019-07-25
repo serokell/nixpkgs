@@ -1,16 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, pathlib
-, fetchPypi
-, pillow
-, psutil
-, imageio-ffmpeg
-, pytest
-, numpy
-, isPy3k
-, ffmpeg
-, futures
-, enum34
+{ stdenv, buildPythonPackage, pathlib, fetchPypi, pillow, psutil, imageio-ffmpeg, pytest, numpy, isPy3k, ffmpeg, futures, enum34
 }:
 
 buildPythonPackage rec {
@@ -22,14 +10,10 @@ buildPythonPackage rec {
     inherit pname version;
   };
 
-  checkInputs = [ pytest psutil ] ++ stdenv.lib.optionals isPy3k [
-    imageio-ffmpeg ffmpeg
-    ];
-  propagatedBuildInputs = [ numpy pillow ] ++ stdenv.lib.optionals (!isPy3k) [
-    futures
-    enum34
-    pathlib
-  ];
+  checkInputs = [ pytest psutil ]
+    ++ stdenv.lib.optionals isPy3k [ imageio-ffmpeg ffmpeg ];
+  propagatedBuildInputs = [ numpy pillow ]
+    ++ stdenv.lib.optionals (!isPy3k) [ futures enum34 pathlib ];
 
   checkPhase = ''
     export IMAGEIO_USERDIR="$TMP"
@@ -49,8 +33,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
-    homepage = http://imageio.github.io/;
+    description =
+      "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
+    homepage = "http://imageio.github.io/";
     license = licenses.bsd2;
   };
 

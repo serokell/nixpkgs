@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub
-, version # "12" for "1.2", "22" for "2.2" and so on
+{ stdenv, fetchFromGitHub, version # "12" for "1.2", "22" for "2.2" and so on
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Khronos OpenCL headers version ${version}";
-    homepage = https://www.khronos.org/registry/cl/;
+    homepage = "https://www.khronos.org/registry/cl/";
     license = licenses.mit;
     platforms = platforms.unix;
   };

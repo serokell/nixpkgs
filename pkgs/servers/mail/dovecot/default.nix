@@ -1,23 +1,26 @@
-{ stdenv, lib, fetchurl, perl, pkgconfig, systemd, openssl
-, bzip2, zlib, lz4, inotify-tools, pam, libcap
-, clucene_core_2, icu, openldap, libsodium, libstemmer, cyrus_sasl
-, nixosTests
+{ stdenv, lib, fetchurl, perl, pkgconfig, systemd, openssl, bzip2, zlib, lz4, inotify-tools, pam, libcap, clucene_core_2, icu, openldap, libsodium, libstemmer, cyrus_sasl, nixosTests
 # Auth modules
-, withMySQL ? false, mysql
-, withPgSQL ? false, postgresql
-, withSQLite ? true, sqlite
-}:
+, withMySQL ? false, mysql, withPgSQL ? false, postgresql, withSQLite ?
+  true, sqlite }:
 
 stdenv.mkDerivation rec {
   name = "dovecot-2.3.7";
 
   nativeBuildInputs = [ perl pkgconfig ];
-  buildInputs =
-    [ openssl bzip2 zlib lz4 clucene_core_2 icu openldap libsodium libstemmer cyrus_sasl.dev ]
-    ++ lib.optionals (stdenv.isLinux) [ systemd pam libcap inotify-tools ]
+  buildInputs = [
+    openssl
+    bzip2
+    zlib
+    lz4
+    clucene_core_2
+    icu
+    openldap
+    libsodium
+    libstemmer
+    cyrus_sasl.dev
+  ] ++ lib.optionals (stdenv.isLinux) [ systemd pam libcap inotify-tools ]
     ++ lib.optional withMySQL mysql.connector-c
-    ++ lib.optional withPgSQL postgresql
-    ++ lib.optional withSQLite sqlite;
+    ++ lib.optional withPgSQL postgresql ++ lib.optional withSQLite sqlite;
 
   src = fetchurl {
     url = "https://dovecot.org/releases/2.3/${name}.tar.gz";
@@ -74,19 +77,19 @@ stdenv.mkDerivation rec {
     "lib_cv_va_copy=yes"
     "lib_cv___va_copy=yes"
     "lib_cv_va_val_copy=yes"
-  ] ++ lib.optional (stdenv.isLinux) "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
+  ] ++ lib.optional (stdenv.isLinux)
+    "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
     ++ lib.optional (stdenv.isDarwin) "--enable-static"
     ++ lib.optional withMySQL "--with-mysql"
     ++ lib.optional withPgSQL "--with-pgsql"
     ++ lib.optional withSQLite "--with-sqlite";
 
   meta = {
-    homepage = https://dovecot.org/;
-    description = "Open source IMAP and POP3 email server written with security primarily in mind";
+    homepage = "https://dovecot.org/";
+    description =
+      "Open source IMAP and POP3 email server written with security primarily in mind";
     maintainers = with stdenv.lib.maintainers; [ peti rickynils fpletz ];
     platforms = stdenv.lib.platforms.unix;
   };
-  passthru.tests = {
-    opensmtpd-interaction = nixosTests.opensmtpd;
-  };
+  passthru.tests = { opensmtpd-interaction = nixosTests.opensmtpd; };
 }

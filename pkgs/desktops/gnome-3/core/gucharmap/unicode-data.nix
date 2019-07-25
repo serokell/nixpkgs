@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     done
   '';
   meta = with stdenv.lib; {
-    homepage = http://www.unicode.org/ucd/;
+    homepage = "http://www.unicode.org/ucd/";
     description = "Unicode Character Database";
     maintainers = gnome3.maintainers;
     license = licenses.mit;

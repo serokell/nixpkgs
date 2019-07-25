@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, buildPythonPackage, python, dbus-python, sip, qt4, pkgconfig, lndir, dbus, makeWrapper }:
+{ stdenv, fetchurl, buildPythonPackage, python, dbus-python, sip, qt4, pkgconfig, lndir, dbus, makeWrapper
+}:
 
 buildPythonPackage rec {
   pname = "PyQt-x11-gpl";
@@ -55,14 +56,12 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    qt = qt4;
-  };
+  passthru = { qt = qt4; };
 
   meta = {
     description = "Python bindings for Qt";
     license = "GPL";
-    homepage = http://www.riverbankcomputing.co.uk;
+    homepage = "http://www.riverbankcomputing.co.uk";
     maintainers = [ stdenv.lib.maintainers.sander ];
     platforms = stdenv.lib.platforms.mesaPlatforms;
   };

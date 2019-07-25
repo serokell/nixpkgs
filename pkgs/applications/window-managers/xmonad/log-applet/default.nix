@@ -1,11 +1,8 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, glib, dbus-glib
-, desktopSupport ? "gnomeflashback", xorg
-, gtk2
-, gtk3, gnome3, mate
-, libxfce4util, xfce4-panel
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, glib, dbus-glib, desktopSupport ?
+  "gnomeflashback", xorg, gtk2, gtk3, gnome3, mate, libxfce4util, xfce4-panel }:
 
-assert desktopSupport == "gnomeflashback" || desktopSupport == "mate"  || desktopSupport == "xfce4";
+assert desktopSupport == "gnomeflashback" || desktopSupport == "mate"
+|| desktopSupport == "xfce4";
 
 stdenv.mkDerivation rec {
   version = "unstable-2017-09-15";
@@ -20,14 +17,20 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ glib dbus-glib xorg.xcbutilwm ]
-    ++ stdenv.lib.optionals (desktopSupport == "gnomeflashback") [ gtk3 gnome3.gnome-panel ]
+    ++ stdenv.lib.optionals (desktopSupport == "gnomeflashback") [
+      gtk3
+      gnome3.gnome-panel
+    ]
     ++ stdenv.lib.optionals (desktopSupport == "mate") [ gtk3 mate.mate-panel ]
-    ++ stdenv.lib.optionals (desktopSupport == "xfce4") [ gtk2 libxfce4util xfce4-panel ]
-  ;
+    ++ stdenv.lib.optionals (desktopSupport == "xfce4") [
+      gtk2
+      libxfce4util
+      xfce4-panel
+    ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
 
-  configureFlags =  [ "--with-panel=${desktopSupport}" ];
+  configureFlags = [ "--with-panel=${desktopSupport}" ];
 
   patches = [ ./fix-paths.patch ];
 
@@ -36,9 +39,10 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_LIBXFCE4PANEL_1_0_LIBDIR = "$(out)/lib";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/kalj/xmonad-log-applet;
+    homepage = "https://github.com/kalj/xmonad-log-applet";
     license = licenses.bsd3;
-    description = "An applet that will display XMonad log information (${desktopSupport} version)";
+    description =
+      "An applet that will display XMonad log information (${desktopSupport} version)";
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
   };

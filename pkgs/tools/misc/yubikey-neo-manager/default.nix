@@ -1,12 +1,13 @@
-{ stdenv, fetchurl, python27Packages
-, libykneomgr, yubikey-personalization, libu2f-host }:
+{ stdenv, fetchurl, python27Packages, libykneomgr, yubikey-personalization, libu2f-host
+}:
 
 python27Packages.buildPythonPackage rec {
   namePrefix = "";
   name = "yubikey-neo-manager-${version}";
   version = "1.4.0";
   src = fetchurl {
-    url = "https://developers.yubico.com/yubikey-neo-manager/Releases/${name}.tar.gz";
+    url =
+      "https://developers.yubico.com/yubikey-neo-manager/Releases/${name}.tar.gz";
     sha256 = "1isxvx27hk0avxwgwcwys2z8ickfs816ii1aklvmi09ak1rgrf1g";
   };
 
@@ -19,7 +20,7 @@ python27Packages.buildPythonPackage rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://developers.yubico.com/yubikey-neo-manager;
+    homepage = "https://developers.yubico.com/yubikey-neo-manager";
     description = "Cross platform personalization tool for the YubiKey NEO";
     license = licenses.bsd2;
     platforms = platforms.unix;

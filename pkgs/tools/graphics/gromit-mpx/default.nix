@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
-, gtk, glib, pcre, libappindicator, libpthreadstubs, libXdmcp
-, libxkbcommon, epoxy, at-spi2-core, dbus, libdbusmenu
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, gtk, glib, pcre, libappindicator, libpthreadstubs, libXdmcp, libxkbcommon, epoxy, at-spi2-core, dbus, libdbusmenu
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +15,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
     cmake
-    gtk glib pcre libappindicator libpthreadstubs
-    libXdmcp libxkbcommon epoxy at-spi2-core
-    dbus libdbusmenu
+    gtk
+    glib
+    pcre
+    libappindicator
+    libpthreadstubs
+    libXdmcp
+    libxkbcommon
+    epoxy
+    at-spi2-core
+    dbus
+    libdbusmenu
   ];
 
   meta = with stdenv.lib; {
@@ -30,7 +36,7 @@ stdenv.mkDerivation rec {
       to make annotations on the screen.
     '';
 
-    homepage = https://github.com/bk138/gromit-mpx;
+    homepage = "https://github.com/bk138/gromit-mpx";
     maintainers = with maintainers; [ pjones ];
     platforms = platforms.linux;
     license = licenses.gpl2;

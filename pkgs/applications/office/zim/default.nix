@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, python3Packages, gtk3, gobject-introspection, wrapGAppsHook }:
+{ stdenv, fetchurl, python3Packages, gtk3, gobject-introspection, wrapGAppsHook
+}:
 
 #
 # TODO: Declare configuration options for the following optional dependencies:
@@ -19,7 +20,6 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [ gtk3 gobject-introspection wrapGAppsHook ];
   propagatedBuildInputs = with python3Packages; [ pyxdg pygobject3 ];
 
-
   preFixup = ''
     export makeWrapperArgs="--prefix XDG_DATA_DIRS : $out/share --argv0 $out/bin/.zim-wrapped"
   '';
@@ -31,12 +31,12 @@ python3Packages.buildPythonApplication rec {
     python test.py
   '';
 
-
   meta = with stdenv.lib; {
     description = "A desktop wiki";
-    homepage = http://zim-wiki.org;
+    homepage = "http://zim-wiki.org";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];
-    broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
+    broken =
+      stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/52658#issuecomment-449565790
   };
 }

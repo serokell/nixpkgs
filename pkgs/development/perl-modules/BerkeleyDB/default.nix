@@ -1,4 +1,4 @@
-{buildPerlPackage, fetchurl, db}:
+{ buildPerlPackage, fetchurl, db }:
 
 buildPerlPackage {
   pname = "BerkeleyDB";

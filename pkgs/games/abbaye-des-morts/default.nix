@@ -15,11 +15,10 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" "DESTDIR=" ];
 
-  preBuild = stdenv.lib.optionalString stdenv.cc.isClang
-    ''
-      substituteInPlace Makefile \
-        --replace -fpredictive-commoning ""
-    '';
+  preBuild = stdenv.lib.optionalString stdenv.cc.isClang ''
+    substituteInPlace Makefile \
+      --replace -fpredictive-commoning ""
+  '';
 
   preInstall = ''
     mkdir -p $out/bin

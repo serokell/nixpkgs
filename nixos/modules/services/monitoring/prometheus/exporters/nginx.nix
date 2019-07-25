@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.nginx;
-in
-{
+let cfg = config.services.prometheus.exporters.nginx;
+in {
   port = 9113;
   extraOpts = {
     scrapeUri = mkOption {

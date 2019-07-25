@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, libressl
-, privsepPath ? "/var/empty"
-, privsepUser ? "ntp"
-}:
+{ stdenv, fetchurl, libressl, privsepPath ? "/var/empty", privsepUser ? "ntp" }:
 
 stdenv.mkDerivation rec {
   name = "openntpd-${version}";
@@ -27,13 +24,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libressl ];
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-    "localstatedir=\${TMPDIR}"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.openntpd.org/;
+    homepage = "http://www.openntpd.org/";
     license = licenses.bsd3;
     description = "OpenBSD NTP daemon (Debian port)";
     platforms = platforms.all;

@@ -1,8 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, gobject-introspection
-, meson
-, ninja
-, python3
-  # just for passthru
+{ stdenv, fetchurl, pkgconfig, glib, gobject-introspection, meson, ninja, python3
+# just for passthru
 , gnome3 }:
 
 stdenv.mkDerivation rec {
@@ -10,12 +7,15 @@ stdenv.mkDerivation rec {
   version = "3.32.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gsettings-desktop-schemas/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gsettings-desktop-schemas/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "0d8a6479vappgplq5crdr3ah0ykqcr3fw533wkx9v1a8lnrv8n9d";
   };
 
   passthru = {
-    updateScript = gnome3.updateScript { packageName = "gsettings-desktop-schemas"; };
+    updateScript =
+      gnome3.updateScript { packageName = "gsettings-desktop-schemas"; };
   };
 
   # meson installs the schemas to share/glib-2.0/schemas
@@ -41,7 +41,5 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig python3 meson ninja ];
 
-  meta = with stdenv.lib; {
-    maintainers = gnome3.maintainers;
-  };
+  meta = with stdenv.lib; { maintainers = gnome3.maintainers; };
 }

@@ -1,10 +1,10 @@
-{stdenv, fetchurl, fetchpatch}:
+{ stdenv, fetchurl, fetchpatch }:
 
 stdenv.mkDerivation {
   name = "par-1.52";
 
   src = fetchurl {
-    url = http://www.nicemice.net/par/Par152.tar.gz;
+    url = "http://www.nicemice.net/par/Par152.tar.gz";
     sha256 = "33dcdae905f4b4267b4dc1f3efb032d79705ca8d2122e17efdecfd8162067082";
   };
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildPhase = ''make -f protoMakefile'';
+  buildPhase = "make -f protoMakefile";
 
   installPhase = ''
     mkdir -p $out/bin
@@ -27,9 +27,8 @@ stdenv.mkDerivation {
     cp  par.1 $out/share/man/man1
   '';
 
-
   meta = with stdenv.lib; {
-    homepage = http://www.nicemice.net/par/;
+    homepage = "http://www.nicemice.net/par/";
     description = "Paragraph reflow for email";
     platforms = platforms.unix;
     # See https://fedoraproject.org/wiki/Licensing/Par for license details

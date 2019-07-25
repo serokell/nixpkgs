@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, python2Packages, root, makeWrapper, zlib, withRootSupport ? false }:
+{ stdenv, fetchurl, python2Packages, root, makeWrapper, zlib, withRootSupport ?
+  false }:
 
 stdenv.mkDerivation rec {
   name = "yoda-${version}";
@@ -9,9 +10,10 @@ stdenv.mkDerivation rec {
     sha256 = "1ki88rscnym0vjxpfgql8m1lrc7vm1jb9w4jhw9lvv3rk84lpdng";
   };
 
-  pythonPath = []; # python wrapper support
+  pythonPath = [ ]; # python wrapper support
 
-  buildInputs = with python2Packages; [ python numpy matplotlib makeWrapper ]
+  buildInputs = with python2Packages;
+    [ python numpy matplotlib makeWrapper ]
     ++ stdenv.lib.optional withRootSupport root;
   propagatedBuildInputs = [ zlib ];
 
@@ -26,10 +28,11 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = {
-    description = "Provides small set of data analysis (specifically histogramming) classes";
-    license     = stdenv.lib.licenses.gpl3;
-    homepage    = https://yoda.hepforge.org;
-    platforms   = stdenv.lib.platforms.unix;
+    description =
+      "Provides small set of data analysis (specifically histogramming) classes";
+    license = stdenv.lib.licenses.gpl3;
+    homepage = "https://yoda.hepforge.org";
+    platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ veprbl ];
   };
 }

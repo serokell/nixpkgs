@@ -1,16 +1,16 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, libGL, glib, gdk_pixbuf, xorg, libintl
-, pangoSupport ? true, pango, cairo, gobject-introspection, wayland, gnome3
-, mesa
-, gstreamerSupport ? true, gst_all_1 }:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, libGL, glib, gdk_pixbuf, xorg, libintl, pangoSupport ?
+  true, pango, cairo, gobject-introspection, wayland, gnome3, mesa, gstreamerSupport ?
+    true, gst_all_1 }:
 
-let
-  pname = "cogl";
+let pname = "cogl";
 in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "1.22.4";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1q0drs82a8f6glg1v29bb6g2nf15fw0rvdx3d0rgcgfarfaby5sj";
   };
 
@@ -21,12 +21,14 @@ in stdenv.mkDerivation rec {
     # could be merged, but dev can not make a new release.
 
     (fetchpatch {
-      url = https://bug787443.bugzilla-attachments.gnome.org/attachment.cgi?id=359589;
+      url =
+        "https://bug787443.bugzilla-attachments.gnome.org/attachment.cgi?id=359589";
       sha256 = "0f0d9iddg8zwy853phh7swikg4yzhxxv71fcag36f8gis0j5p998";
     })
 
     (fetchpatch {
-      url = https://bug787443.bugzilla-attachments.gnome.org/attachment.cgi?id=361056;
+      url =
+        "https://bug787443.bugzilla-attachments.gnome.org/attachment.cgi?id=361056";
       sha256 = "09fyrdci4727fg6qm5aaapsbv71sf4wgfaqz8jqlyy61dibgg490";
     })
   ];
@@ -41,31 +43,41 @@ in stdenv.mkDerivation rec {
     "--enable-wayland-egl-platform"
     "--enable-wayland-egl-server"
   ] ++ stdenv.lib.optional gstreamerSupport "--enable-cogl-gst"
-    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ "--enable-gles1" "--enable-gles2" ];
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [
+      "--enable-gles1"
+      "--enable-gles2"
+    ];
 
-  propagatedBuildInputs = with xorg; [
-      glib gdk_pixbuf gobject-introspection wayland mesa
-      libGL libXrandr libXfixes libXcomposite libXdamage
-    ]
-    ++ stdenv.lib.optionals gstreamerSupport [ gst_all_1.gstreamer
-                                               gst_all_1.gst-plugins-base ];
+  propagatedBuildInputs = with xorg;
+    [
+      glib
+      gdk_pixbuf
+      gobject-introspection
+      wayland
+      mesa
+      libGL
+      libXrandr
+      libXfixes
+      libXcomposite
+      libXdamage
+    ] ++ stdenv.lib.optionals gstreamerSupport [
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+    ];
 
   buildInputs = stdenv.lib.optionals pangoSupport [ pango cairo ];
 
-  COGL_PANGO_DEP_CFLAGS
-    = stdenv.lib.optionalString (stdenv.isDarwin && pangoSupport)
-      "-I${pango.dev}/include/pango-1.0 -I${cairo.dev}/include/cairo";
+  COGL_PANGO_DEP_CFLAGS =
+    stdenv.lib.optionalString (stdenv.isDarwin && pangoSupport)
+    "-I${pango.dev}/include/pango-1.0 -I${cairo.dev}/include/cairo";
 
   #doCheck = true; # all tests fail (no idea why)
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
-    description = "A small open source library for using 3D graphics hardware for rendering";
+    description =
+      "A small open source library for using 3D graphics hardware for rendering";
     maintainers = with maintainers; [ lovek323 ];
 
     longDescription = ''

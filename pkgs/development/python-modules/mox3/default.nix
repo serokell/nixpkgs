@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, subunit
-, testrepository
-, testtools
-, six
-, pbr
-, fixtures
-, isPy36
+{ stdenv, buildPythonPackage, fetchPypi, python, subunit, testrepository, testtools, six, pbr, fixtures, isPy36
 }:
 
 buildPythonPackage rec {
@@ -33,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Mock object framework for Python";
-    homepage = https://docs.openstack.org/mox3/latest/;
+    homepage = "https://docs.openstack.org/mox3/latest/";
     license = licenses.asl20;
   };
 

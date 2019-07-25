@@ -2,8 +2,7 @@
 
 { stdenv, python3Packages, fetchFromGitHub }:
 
-let
-  pythonPackages = python3Packages;
+let pythonPackages = python3Packages;
 
 in pythonPackages.buildPythonPackage rec {
   name = "${pname}-${version}";
@@ -16,11 +15,15 @@ in pythonPackages.buildPythonPackage rec {
     sha256 = sha256Hash;
   };
 
-  propagatedBuildInputs = with pythonPackages; [
-    raven psutil jsonschema # tox for check
-    # Runtime dependencies
-    sip (pyqt5.override { withWebSockets = true; })
-  ] ++ stdenv.lib.optional (!stable) pythonPackages.distro;
+  propagatedBuildInputs = with pythonPackages;
+    [
+      raven
+      psutil
+      jsonschema # tox for check
+      # Runtime dependencies
+      sip
+      (pyqt5.override { withWebSockets = true; })
+    ] ++ stdenv.lib.optional (!stable) pythonPackages.distro;
 
   doCheck = false; # Failing
 
@@ -31,7 +34,7 @@ in pythonPackages.buildPythonPackage rec {
       requires access to a local or remote GNS3 server (it's recommended to
       download the official GNS3 VM).
     '';
-    homepage = https://www.gns3.com/;
+    homepage = "https://www.gns3.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

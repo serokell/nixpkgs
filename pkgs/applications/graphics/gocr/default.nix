@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   };
 
   buildFlags = [ "all" "libs" ];
-  installFlags = [ "libdir=/lib/" ]; # Specify libdir so Makefile will also install library.
+  installFlags =
+    [ "libdir=/lib/" ]; # Specify libdir so Makefile will also install library.
 
   preInstall = "mkdir -p $out/lib";
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://jocr.sourceforge.net/;
+    homepage = "http://jocr.sourceforge.net/";
     description = "GPL Optical Character Recognition";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;

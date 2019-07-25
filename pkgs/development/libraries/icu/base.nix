@@ -1,16 +1,16 @@
-{ version, sha256, patches ? [], patchFlags ? "" }:
+{ version, sha256, patches ? [ ], patchFlags ? "" }:
 { stdenv, lib, fetchurl, fixDarwinDylibNames
-  # Cross-compiled icu4c requires a build-root of a native compile
-, buildRootOnly ? false, nativeBuildRoot
-}:
+# Cross-compiled icu4c requires a build-root of a native compile
+, buildRootOnly ? false, nativeBuildRoot }:
 
 let
   pname = "icu4c";
 
   baseAttrs = {
     src = fetchurl {
-      url = "http://download.icu-project.org/files/${pname}/${version}/${pname}-"
-        + (stdenv.lib.replaceChars ["."] ["_"] version) + "-src.tgz";
+      url =
+        "http://download.icu-project.org/files/${pname}/${version}/${pname}-"
+        + (stdenv.lib.replaceChars [ "." ] [ "_" ] version) + "-src.tgz";
       inherit sha256;
     };
 
@@ -20,9 +20,12 @@ let
     '';
 
     # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
-    postPatch = if (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl") && lib.versionOlder version "62.1"
-      then "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
-      else null; # won't find locale_t on darwin
+    postPatch = if (stdenv.hostPlatform.libc == "glibc"
+    || stdenv.hostPlatform.libc == "musl")
+    && lib.versionOlder version "62.1" then
+      "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
+    else
+      null; # won't find locale_t on darwin
 
     inherit patchFlags patches;
 
@@ -37,14 +40,16 @@ let
     '';
 
     configureFlags = [ "--disable-debug" ]
-      ++ stdenv.lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
-      ++ stdenv.lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--with-cross-build=${nativeBuildRoot}";
+      ++ stdenv.lib.optional (stdenv.isFreeBSD || stdenv.isDarwin)
+      "--enable-rpath"
+      ++ stdenv.lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+      "--with-cross-build=${nativeBuildRoot}";
 
     enableParallelBuilding = true;
 
     meta = with stdenv.lib; {
       description = "Unicode and globalization support library";
-      homepage = http://site.icu-project.org/;
+      homepage = "http://site.icu-project.org/";
       maintainers = with maintainers; [ raskin ];
       platforms = platforms.all;
     };
@@ -88,8 +93,5 @@ let
     '';
   };
 
-  attrs = if buildRootOnly
-            then buildRootOnlyAttrs
-          else realAttrs;
-in
-stdenv.mkDerivation attrs
+  attrs = if buildRootOnly then buildRootOnlyAttrs else realAttrs;
+in stdenv.mkDerivation attrs

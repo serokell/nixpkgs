@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "04krl6rxlp1qc97psraf2kwin7h0mx4c7pnfpi7vhplmvasrwkfh";
   };
 
-  nativeBuildInputs = [
-    glib gettext
-  ];
+  nativeBuildInputs = [ glib gettext ];
 
   makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
 
@@ -21,6 +19,6 @@ stdenv.mkDerivation rec {
     description = "A dock for the Gnome Shell";
     license = licenses.gpl2;
     maintainers = with maintainers; [ eperuffo ];
-    homepage = https://micheleg.github.io/dash-to-dock/;
+    homepage = "https://micheleg.github.io/dash-to-dock/";
   };
 }

@@ -1,16 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytools
-, pymbolic
-, genpy
-, cgen
-, islpy
-, six
-, colorama
-, mako
-, pyopencl
-, pytest
+{ lib, buildPythonPackage, fetchPypi, pytools, pymbolic, genpy, cgen, islpy, six, colorama, mako, pyopencl, pytest
 }:
 
 buildPythonPackage rec {
@@ -24,17 +12,8 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest ];
-  propagatedBuildInputs = [
-    pytools
-    pymbolic
-    genpy
-    cgen
-    islpy
-    six
-    colorama
-    mako
-    pyopencl
-  ];
+  propagatedBuildInputs =
+    [ pytools pymbolic genpy cgen islpy six colorama mako pyopencl ];
 
   # pyopencl._cl.LogicError: clGetPlatformIDs failed: PLATFORM_NOT_FOUND_KHR
   doCheck = false;
@@ -44,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A code generator for array-based code on CPUs and GPUs";
-    homepage = https://mathema.tician.de/software/loopy;
+    homepage = "https://mathema.tician.de/software/loopy";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];
   };

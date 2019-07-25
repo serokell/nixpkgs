@@ -9,8 +9,9 @@ stdenv.mkDerivation {
   };
 
   meta = with lib; {
-    description = "Complex error (erf), Dawson, Faddeeva, and Voigt function library";
-    homepage = http://apps.jcns.fz-juelich.de/doku/sc/libcerf;
+    description =
+      "Complex error (erf), Dawson, Faddeeva, and Voigt function library";
+    homepage = "http://apps.jcns.fz-juelich.de/doku/sc/libcerf";
     license = licenses.mit;
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.all;

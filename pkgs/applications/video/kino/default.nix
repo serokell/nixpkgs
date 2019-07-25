@@ -4,7 +4,6 @@
 
 #TODO shared version?
 
-
 # This is my config output.. Much TODO ?
 #source path               /tmp/nix-31998-1/kino-1.2.0/ffmpeg
 #C compiler                gcc
@@ -50,33 +49,49 @@
 #AMR-WB float support      no
 #AMR-WB IF2 support        no
 
-{ stdenv, fetchurl, gtk2, libglade, libxml2, libraw1394, libsamplerate, libdv
-, pkgconfig, perlPackages, libavc1394, libiec61883, libXv, gettext
-, libX11, glib, cairo, intltool, ffmpeg, libv4l
+{ stdenv, fetchurl, gtk2, libglade, libxml2, libraw1394, libsamplerate, libdv, pkgconfig, perlPackages, libavc1394, libiec61883, libXv, gettext, libX11, glib, cairo, intltool, ffmpeg, libv4l
 }:
 
 stdenv.mkDerivation {
   name = "kino-1.3.4";
 
   src = fetchurl {
-    url = mirror://sourceforge/kino/kino-1.3.4.tar.gz;
+    url = "mirror://sourceforge/kino/kino-1.3.4.tar.gz";
     sha256 = "020s05k0ma83rq2kfs8x474pqicaqp9spar81qc816ddfrnh8k8i";
   };
 
-  buildInputs = [ gtk2 libglade libxml2 libraw1394 libsamplerate libdv
-      pkgconfig libavc1394 libiec61883 intltool libXv gettext libX11 glib cairo ffmpeg libv4l ] # TODOoptional packages
+  buildInputs = [
+    gtk2
+    libglade
+    libxml2
+    libraw1394
+    libsamplerate
+    libdv
+    pkgconfig
+    libavc1394
+    libiec61883
+    intltool
+    libXv
+    gettext
+    libX11
+    glib
+    cairo
+    ffmpeg
+    libv4l
+  ] # TODOoptional packages
     ++ (with perlPackages; [ perl XMLParser ]);
 
   configureFlags = [ "--enable-local-ffmpeg=no" ];
 
   hardeningDisable = [ "format" ];
 
-  NIX_LDFLAGS = [
-    "-lavcodec"
-    "-lavutil"
-  ];
+  NIX_LDFLAGS = [ "-lavcodec" "-lavutil" ];
 
-  patches = [ ./kino-1.3.4-v4l1.patch ./kino-1.3.4-libav-0.7.patch ./kino-1.3.4-libav-0.8.patch ]; #./kino-1.3.4-libavcodec-pkg-config.patch ];
+  patches = [
+    ./kino-1.3.4-v4l1.patch
+    ./kino-1.3.4-libav-0.7.patch
+    ./kino-1.3.4-libav-0.8.patch
+  ]; # ./kino-1.3.4-libavcodec-pkg-config.patch ];
 
   postInstall = ''
     rpath=`patchelf --print-rpath $out/bin/kino`;
@@ -90,9 +105,9 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-      description = "Non-linear DV editor for GNU/Linux";
-      homepage = http://www.kinodv.org/;
-      license = stdenv.lib.licenses.gpl2;
+    description = "Non-linear DV editor for GNU/Linux";
+    homepage = "http://www.kinodv.org/";
+    license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
   };
 }

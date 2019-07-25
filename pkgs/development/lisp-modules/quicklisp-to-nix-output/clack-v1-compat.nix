@@ -1,20 +1,81 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''clack-v1-compat'';
-  version = ''clack-20181018-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "clack-v1-compat";
+  version = "clack-20181018-git";
 
-  description = '''';
+  description = "";
 
-  deps = [ args."alexandria" args."anaphora" args."babel" args."bordeaux-threads" args."cffi" args."cffi-grovel" args."cffi-toolchain" args."chipz" args."chunga" args."circular-streams" args."cl_plus_ssl" args."cl-annot" args."cl-ansi-text" args."cl-base64" args."cl-colors" args."cl-cookie" args."cl-fad" args."cl-ppcre" args."cl-reexport" args."cl-syntax" args."cl-syntax-annot" args."cl-utilities" args."clack" args."clack-handler-hunchentoot" args."clack-socket" args."clack-test" args."dexador" args."fast-http" args."fast-io" args."flexi-streams" args."http-body" args."hunchentoot" args."ironclad" args."jonathan" args."lack" args."lack-component" args."lack-middleware-backtrace" args."lack-util" args."let-plus" args."local-time" args."marshal" args."md5" args."named-readtables" args."nibbles" args."proc-parse" args."prove" args."quri" args."rfc2388" args."smart-buffer" args."split-sequence" args."static-vectors" args."trivial-backtrace" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."trivial-mimes" args."trivial-types" args."uiop" args."usocket" args."xsubseq" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."cffi-grovel"
+    args."cffi-toolchain"
+    args."chipz"
+    args."chunga"
+    args."circular-streams"
+    args."cl_plus_ssl"
+    args."cl-annot"
+    args."cl-ansi-text"
+    args."cl-base64"
+    args."cl-colors"
+    args."cl-cookie"
+    args."cl-fad"
+    args."cl-ppcre"
+    args."cl-reexport"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."cl-utilities"
+    args."clack"
+    args."clack-handler-hunchentoot"
+    args."clack-socket"
+    args."clack-test"
+    args."dexador"
+    args."fast-http"
+    args."fast-io"
+    args."flexi-streams"
+    args."http-body"
+    args."hunchentoot"
+    args."ironclad"
+    args."jonathan"
+    args."lack"
+    args."lack-component"
+    args."lack-middleware-backtrace"
+    args."lack-util"
+    args."let-plus"
+    args."local-time"
+    args."marshal"
+    args."md5"
+    args."named-readtables"
+    args."nibbles"
+    args."proc-parse"
+    args."prove"
+    args."quri"
+    args."rfc2388"
+    args."smart-buffer"
+    args."split-sequence"
+    args."static-vectors"
+    args."trivial-backtrace"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."trivial-mimes"
+    args."trivial-types"
+    args."uiop"
+    args."usocket"
+    args."xsubseq"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz'';
-    sha256 = ''1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf'';
+    url =
+      "http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz";
+    sha256 = "1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf";
   };
 
   packageName = "clack-v1-compat";
 
-  asdFilesToKeep = ["clack-v1-compat.asd"];
+  asdFilesToKeep = [ "clack-v1-compat.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clack-v1-compat DESCRIPTION NIL SHA256
@@ -82,4 +143,5 @@ rec {
      clack-middleware-postmodern clack-middleware-rucksack
      clack-session-store-dbi t-clack-middleware-auth-basic
      t-clack-middleware-csrf)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

@@ -22,7 +22,7 @@ buildGoModule rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://caddyserver.com;
+    homepage = "https://caddyserver.com";
     description = "Fast, cross-platform HTTP/2 web server with automatic HTTPS";
     license = licenses.asl20;
     maintainers = with maintainers; [ rushmorem fpletz zimbatm ];

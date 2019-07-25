@@ -12,8 +12,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ];
 
   meta = {
-    description = "ncurses-based hierarchical todo list manager with vim-like keybindings";
-    homepage = https://code.meskio.net/tudu/;
+    description =
+      "ncurses-based hierarchical todo list manager with vim-like keybindings";
+    homepage = "https://code.meskio.net/tudu/";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.linux;
   };

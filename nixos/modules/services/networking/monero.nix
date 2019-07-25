@@ -3,47 +3,48 @@
 with lib;
 
 let
-  cfg     = config.services.monero;
+  cfg = config.services.monero;
   dataDir = "/var/lib/monero";
 
   listToConf = option: list:
-    concatMapStrings (value: "${option}=${value}\n") list;
+    concatMapStrings (value: ''
+      ${option}=${value}
+    '') list;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 
-  configFile = with cfg; pkgs.writeText "monero.conf" ''
-    log-file=/dev/stdout
-    data-dir=${dataDir}
+  configFile = with cfg;
+    pkgs.writeText "monero.conf" ''
+      log-file=/dev/stdout
+      data-dir=${dataDir}
 
-    ${optionalString mining.enable ''
-      start-mining=${mining.address}
-      mining-threads=${toString mining.threads}
-    ''}
+      ${optionalString mining.enable ''
+        start-mining=${mining.address}
+        mining-threads=${toString mining.threads}
+      ''}
 
-    rpc-bind-ip=${rpc.address}
-    rpc-bind-port=${toString rpc.port}
-    ${optionalString login ''
-      rpc-login=${rpc.user}:${rpc.password}
-    ''}
-    ${optionalString rpc.restricted ''
-      restrict-rpc=1
-    ''}
+      rpc-bind-ip=${rpc.address}
+      rpc-bind-port=${toString rpc.port}
+      ${optionalString login ''
+        rpc-login=${rpc.user}:${rpc.password}
+      ''}
+      ${optionalString rpc.restricted ''
+        restrict-rpc=1
+      ''}
 
-    limit-rate-up=${toString limits.upload}
-    limit-rate-down=${toString limits.download}
-    max-concurrency=${toString limits.threads}
-    block-sync-size=${toString limits.syncSize}
+      limit-rate-up=${toString limits.upload}
+      limit-rate-down=${toString limits.download}
+      max-concurrency=${toString limits.threads}
+      block-sync-size=${toString limits.syncSize}
 
-    ${listToConf "add-peer" extraNodes}
-    ${listToConf "add-priority-node" priorityNodes}
-    ${listToConf "add-exclusive-node" exclusiveNodes}
+      ${listToConf "add-peer" extraNodes}
+      ${listToConf "add-priority-node" priorityNodes}
+      ${listToConf "add-exclusive-node" exclusiveNodes}
 
-    ${extraConfig}
-  '';
+      ${extraConfig}
+    '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -70,7 +71,7 @@ in
       };
 
       mining.threads = mkOption {
-        type = types.addCheck types.int (x: x>=0);
+        type = types.addCheck types.int (x: x >= 0);
         default = 0;
         description = ''
           Number of threads used for mining.
@@ -119,7 +120,7 @@ in
       };
 
       limits.upload = mkOption {
-        type = types.addCheck types.int (x: x>=-1);
+        type = types.addCheck types.int (x: x >= -1);
         default = -1;
         description = ''
           Limit of the upload rate in kB/s.
@@ -128,7 +129,7 @@ in
       };
 
       limits.download = mkOption {
-        type = types.addCheck types.int (x: x>=-1);
+        type = types.addCheck types.int (x: x >= -1);
         default = -1;
         description = ''
           Limit of the download rate in kB/s.
@@ -137,7 +138,7 @@ in
       };
 
       limits.threads = mkOption {
-        type = types.addCheck types.int (x: x>=0);
+        type = types.addCheck types.int (x: x >= 0);
         default = 0;
         description = ''
           Maximum number of threads used for a parallel job.
@@ -146,7 +147,7 @@ in
       };
 
       limits.syncSize = mkOption {
-        type = types.addCheck types.int (x: x>=0);
+        type = types.addCheck types.int (x: x >= 0);
         default = 0;
         description = ''
           Maximum number of blocks to sync at once.
@@ -192,14 +193,13 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     users.users = singleton {
       name = "monero";
-      uid  = config.ids.uids.monero;
+      uid = config.ids.uids.monero;
       description = "Monero daemon user";
       home = dataDir;
       createHome = true;
@@ -207,30 +207,31 @@ in
 
     users.groups = singleton {
       name = "monero";
-      gid  = config.ids.gids.monero;
+      gid = config.ids.gids.monero;
     };
 
     systemd.services.monero = {
       description = "monero daemon";
-      after    = [ "network.target" ];
+      after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        User  = "monero";
+        User = "monero";
         Group = "monero";
-        ExecStart = "${pkgs.monero}/bin/monerod --config-file=${configFile} --non-interactive";
+        ExecStart =
+          "${pkgs.monero}/bin/monerod --config-file=${configFile} --non-interactive";
         Restart = "always";
         SuccessExitStatus = [ 0 1 ];
       };
     };
 
-   assertions = singleton {
-     assertion = cfg.mining.enable -> cfg.mining.address != "";
-     message   = ''
-       You need a Monero address to receive mining rewards:
-       specify one using option monero.mining.address.
-    '';
-   };
+    assertions = singleton {
+      assertion = cfg.mining.enable -> cfg.mining.address != "";
+      message = ''
+        You need a Monero address to receive mining rewards:
+        specify one using option monero.mining.address.
+      '';
+    };
 
   };
 

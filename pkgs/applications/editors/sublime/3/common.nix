@@ -1,9 +1,7 @@
 { buildVersion, x32sha256, x64sha256, dev ? false }:
 
-{ fetchurl, stdenv, xorg, glib, glibcLocales, gtk3, cairo, pango, libredirect, makeWrapper, wrapGAppsHook
-, pkexecPath ? "/run/wrappers/bin/pkexec"
-, writeScript, common-updater-scripts, curl, gnugrep
-, openssl, bzip2, bash, unzip, zip
+{ fetchurl, stdenv, xorg, glib, glibcLocales, gtk3, cairo, pango, libredirect, makeWrapper, wrapGAppsHook, pkexecPath ?
+  "/run/wrappers/bin/pkexec", writeScript, common-updater-scripts, curl, gnugrep, openssl, bzip2, bash, unzip, zip
 }:
 
 let
@@ -12,19 +10,13 @@ let
   binaries = [ "sublime_text" "plugin_host" "crash_reporter" ];
   primaryBinary = "sublime_text";
   primaryBinaryAliases = [ "subl" "sublime" "sublime3" ];
-  downloadUrl = "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
+  downloadUrl =
+    "https://download.sublimetext.com/sublime_text_3_build_${buildVersion}_${arch}.tar.bz2";
   versionUrl = "https://www.sublimetext.com/${if dev then "3dev" else "3"}";
   versionFile = builtins.toString ./packages.nix;
   archSha256 =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      x32sha256
-    else
-      x64sha256;
-  arch =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      "x32"
-    else
-      "x64";
+    if stdenv.hostPlatform.system == "i686-linux" then x32sha256 else x64sha256;
+  arch = if stdenv.hostPlatform.system == "i686-linux" then "x32" else "x64";
 
   libPath = stdenv.lib.makeLibraryPath [ xorg.libX11 glib gtk3 cairo pango ];
   redirects = [ "/usr/bin/pkexec=${pkexecPath}" ];
@@ -63,10 +55,12 @@ in let
     buildPhase = ''
       runHook preBuild
 
-      for binary in ${ builtins.concatStringsSep " " binaries }; do
+      for binary in ${builtins.concatStringsSep " " binaries}; do
         patchelf \
           --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath ${libPath}:${stdenv.cc.cc.lib}/lib${stdenv.lib.optionalString stdenv.is64bit "64"} \
+          --set-rpath ${libPath}:${stdenv.cc.cc.lib}/lib${
+        stdenv.lib.optionalString stdenv.is64bit "64"
+          } \
           $binary
       done
 
@@ -89,11 +83,14 @@ in let
       runHook postInstall
     '';
 
-    dontWrapGApps = true; # non-standard location, need to wrap the executables manually
+    dontWrapGApps =
+      true; # non-standard location, need to wrap the executables manually
 
     postFixup = ''
       wrapProgram $out/sublime_bash \
-        --set LD_PRELOAD "${stdenv.cc.cc.lib}/lib${stdenv.lib.optionalString stdenv.is64bit "64"}/libgcc_s.so.1"
+        --set LD_PRELOAD "${stdenv.cc.cc.lib}/lib${
+        stdenv.lib.optionalString stdenv.is64bit "64"
+        }/libgcc_s.so.1"
 
       wrapProgram $out/${primaryBinary} \
         --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
@@ -102,7 +99,9 @@ in let
         "''${gappsWrapperArgs[@]}"
 
       # Without this, plugin_host crashes, even though it has the rpath
-      wrapProgram $out/plugin_host --prefix LD_PRELOAD : ${stdenv.cc.cc.lib}/lib${stdenv.lib.optionalString stdenv.is64bit "64"}/libgcc_s.so.1:${openssl.out}/lib/libssl.so:${bzip2.out}/lib/libbz2.so
+      wrapProgram $out/plugin_host --prefix LD_PRELOAD : ${stdenv.cc.cc.lib}/lib${
+        stdenv.lib.optionalString stdenv.is64bit "64"
+      }/libgcc_s.so.1:${openssl.out}/lib/libssl.so:${bzip2.out}/lib/libbz2.so
     '';
   };
 in stdenv.mkDerivation (rec {
@@ -117,14 +116,16 @@ in stdenv.mkDerivation (rec {
 
   installPhase = ''
     mkdir -p "$out/bin"
-    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-  '' + builtins.concatStringsSep "" (map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases) + ''
+    makeWrapper "$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+  '') primaryBinaryAliases) + ''
     mkdir -p "$out/share/applications"
-    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    for directory in ''$${primaryBinary}/Icon/*; do
+    substitute "$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+    for directory in $${primaryBinary}/Icon/*; do
       size=$(basename $directory)
       mkdir -p "$out/share/icons/hicolor/$size/apps"
-      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+      ln -s $${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
     done
   '';
 
@@ -145,7 +146,7 @@ in stdenv.mkDerivation (rec {
 
   meta = with stdenv.lib; {
     description = "Sophisticated text editor for code, markup and prose";
-    homepage = https://www.sublimetext.com/;
+    homepage = "https://www.sublimetext.com/";
     maintainers = with maintainers; [ jtojnar wmertens demin-dmitriy zimbatm ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" "i686-linux" ];

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-kmod=no" ];
 
   meta = with stdenv.lib; {
-    homepage = http://ipset.netfilter.org/;
+    homepage = "http://ipset.netfilter.org/";
     description = "Administration tool for IP sets";
     license = licenses.gpl2;
     platforms = platforms.linux;

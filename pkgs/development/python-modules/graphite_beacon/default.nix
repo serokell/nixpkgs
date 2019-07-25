@@ -1,6 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, tornado, pyyaml, funcparserlib
-}:
+{ stdenv, buildPythonPackage, fetchPypi, tornado, pyyaml, funcparserlib }:
 buildPythonPackage rec {
   pname = "graphite_beacon";
   version = "0.27.0";
@@ -18,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A simple alerting application for Graphite metrics";
-    homepage = https://github.com/klen/graphite-beacon;
+    homepage = "https://github.com/klen/graphite-beacon";
     maintainers = [ maintainers.offline ];
     license = licenses.mit;
   };

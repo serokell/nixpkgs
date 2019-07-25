@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name    = "pgjwt-${version}";
+  name = "pgjwt-${version}";
   version = "unstable-2017-04-24";
 
   src = fetchFromGitHub {
-    owner  = "michelp";
-    repo   = "pgjwt";
-    rev    = "546a2911027b716586e241be7fd4c6f1785237cd";
+    owner = "michelp";
+    repo = "pgjwt";
+    rev = "546a2911027b716586e241be7fd4c6f1785237cd";
     sha256 = "1riz0xvwb6y02j0fljbr9hcbqb2jqs4njlivmavy9ysbcrrv1vrf";
   };
 
@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
       sign() and verify() functions to create and verify JSON Web Tokens.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [spinus];
+    maintainers = with maintainers; [ spinus ];
   };
 }

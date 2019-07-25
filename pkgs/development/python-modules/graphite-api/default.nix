@@ -1,5 +1,4 @@
-{ buildPythonPackage, fetchFromGitHub, lib, flask, flask-caching, cairocffi, pyparsing, pytz, pyyaml
-, raven, six, structlog, tzlocal, nose, mock, cairo, isPyPy
+{ buildPythonPackage, fetchFromGitHub, lib, flask, flask-caching, cairocffi, pyparsing, pytz, pyyaml, raven, six, structlog, tzlocal, nose, mock, cairo, isPyPy
 }:
 
 buildPythonPackage rec {
@@ -38,8 +37,9 @@ buildPythonPackage rec {
   LD_LIBRARY_PATH = "${cairo.out}/lib";
 
   meta = with lib; {
-    description = "Graphite-web, without the interface. Just the rendering HTTP API";
-    homepage = https://github.com/brutasse/graphite-api;
+    description =
+      "Graphite-web, without the interface. Just the rendering HTTP API";
+    homepage = "https://github.com/brutasse/graphite-api";
     license = licenses.asl20;
   };
 }

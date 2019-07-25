@@ -14,10 +14,12 @@ stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./libpath.patch;
-      env = "${buildEnv {
-        name = "wee-slack-env";
-        paths = with pythonPackages; [ websocket_client six ];
-      }}/${pythonPackages.python.sitePackages}";
+      env = "${
+        buildEnv {
+          name = "wee-slack-env";
+          paths = with pythonPackages; [ websocket_client six ];
+        }
+        }/${pythonPackages.python.sitePackages}";
     })
   ];
 
@@ -29,7 +31,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/wee-slack/wee-slack;
+    homepage = "https://github.com/wee-slack/wee-slack";
     license = licenses.mit;
     maintainers = with maintainers; [ ma27 ];
     description = ''

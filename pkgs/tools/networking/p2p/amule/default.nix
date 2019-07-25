@@ -2,8 +2,8 @@
 , daemon ? false # build amule daemon
 , httpServer ? false # build web interface for the daemon
 , client ? false # build amule remote gui
-, fetchurl, stdenv, zlib, wxGTK, perl, cryptopp, libupnp, gettext, libpng ? null
-, pkgconfig, makeWrapper, libX11 ? null }:
+, fetchurl, stdenv, zlib, wxGTK, perl, cryptopp, libupnp, gettext, libpng ?
+  null, pkgconfig, makeWrapper, libX11 ? null }:
 
 assert httpServer -> libpng != null;
 assert client -> libX11 != null;
@@ -19,8 +19,7 @@ mkDerivation rec {
 
   buildInputs =
     [ zlib wxGTK perl cryptopp libupnp gettext pkgconfig makeWrapper ]
-    ++ lib.optional httpServer libpng
-    ++ lib.optional client libX11;
+    ++ lib.optional httpServer libpng ++ lib.optional client libX11;
 
   # See: https://github.com/amule-project/amule/issues/126
   patches = [ ./upnp-1.8.patch ];
@@ -49,7 +48,7 @@ mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://amule.org/;
+    homepage = "http://amule.org/";
     description = "Peer-to-peer client for the eD2K and Kademlia networks";
 
     longDescription = ''
@@ -65,7 +64,8 @@ mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl2Plus;
 
-    platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux;  # arbitrary choice
+    platforms = stdenv.lib.platforms.gnu
+      ++ stdenv.lib.platforms.linux; # arbitrary choice
     maintainers = [ stdenv.lib.maintainers.phreedom ];
   };
 }

@@ -2,12 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.epmd;
+let cfg = config.services.epmd;
 
-in
-
-{
+in {
   ###### interface
   options.services.epmd = {
     enable = mkOption {

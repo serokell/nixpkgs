@@ -1,15 +1,11 @@
-{ aspell, aspellDicts_de, aspellDicts_en, buildEnv, fetchurl, fortune, gnugrep, makeWrapper, stdenv, tk, tre }:
+{ aspell, aspellDicts_de, aspellDicts_en, buildEnv, fetchurl, fortune, gnugrep, makeWrapper, stdenv, tk, tre
+}:
 let
   aspellEnv = buildEnv {
     name = "env-ding-aspell";
-    paths = [
-      aspell
-      aspellDicts_de
-      aspellDicts_en
-    ];
+    paths = [ aspell aspellDicts_de aspellDicts_en ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ding-1.8.1";
 
   src = fetchurl {
@@ -42,12 +38,14 @@ stdenv.mkDerivation rec {
     cp -v ding.png $out/share/pixmaps/
     cp -v ding.desktop $out/share/applications/
 
-    wrapProgram $out/bin/ding --prefix PATH : ${stdenv.lib.makeBinPath [ gnugrep aspellEnv tk fortune ]} --prefix ASPELL_CONF : "\"prefix ${aspellEnv};\""
+    wrapProgram $out/bin/ding --prefix PATH : ${
+      stdenv.lib.makeBinPath [ gnugrep aspellEnv tk fortune ]
+    } --prefix ASPELL_CONF : "\"prefix ${aspellEnv};\""
   '';
 
   meta = with stdenv.lib; {
     description = "Simple and fast dictionary lookup tool";
-    homepage = https://www-user.tu-chemnitz.de/~fri/ding/;
+    homepage = "https://www-user.tu-chemnitz.de/~fri/ding/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux; # homepage says: unix-like except darwin
     maintainers = [ maintainers.exi ];

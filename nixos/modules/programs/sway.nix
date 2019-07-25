@@ -54,10 +54,7 @@ in {
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [
-        swaylock swayidle
-        xwayland rxvt_unicode dmenu
-      ];
+      default = with pkgs; [ swaylock swayidle xwayland rxvt_unicode dmenu ];
       defaultText = literalExample ''
         with pkgs; [ swaylock swayidle xwayland rxvt_unicode dmenu ];
       '';
@@ -83,7 +80,7 @@ in {
         #"sway/config.d".source = mkOptionDefault "${swayPackage}/etc/sway/config.d/";
       };
     };
-    security.pam.services.swaylock = {};
+    security.pam.services.swaylock = { };
     hardware.opengl.enable = mkDefault true;
     fonts.enableDefaultFonts = mkDefault true;
     programs.dconf.enable = mkDefault true;

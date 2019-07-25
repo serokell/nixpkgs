@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.chronos;
+let cfg = config.services.chronos;
 
 in {
 
@@ -44,7 +43,10 @@ in {
       after = [ "network.target" "zookeeper.service" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.chronos}/bin/chronos --master ${cfg.master} --zk_hosts ${concatStringsSep "," cfg.zookeeperHosts} --http_port ${toString cfg.httpPort}";
+        ExecStart =
+          "${pkgs.chronos}/bin/chronos --master ${cfg.master} --zk_hosts ${
+            concatStringsSep "," cfg.zookeeperHosts
+          } --http_port ${toString cfg.httpPort}";
         User = "chronos";
       };
     };

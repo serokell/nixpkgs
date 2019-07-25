@@ -4,9 +4,7 @@ let
 
   p = builtins.parseDrvName retroarch.name;
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "retroarch-" + p.version;
   version = p.version;
 
@@ -35,9 +33,8 @@ stdenv.mkDerivation {
 
   meta = with retroarch.meta; {
     inherit license homepage platforms maintainers;
-    description = description
-                  + " (with cores: "
-                  + lib.concatStrings (lib.intersperse ", " (map (x: ""+x.name) cores))
-                  + ")";
+    description = description + " (with cores: "
+      + lib.concatStrings (lib.intersperse ", " (map (x: "" + x.name) cores))
+      + ")";
   };
 }

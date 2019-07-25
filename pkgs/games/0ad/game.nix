@@ -1,10 +1,5 @@
-{ stdenv, lib, perl, fetchurl, python2
-, pkgconfig, spidermonkey_38, boost, icu, libxml2, libpng, libsodium
-, libjpeg, zlib, curl, libogg, libvorbis, enet, miniupnpc
-, openal, libGLU_combined, xorgproto, libX11, libXcursor, nspr, SDL2
-, gloox, nvidia-texture-tools
-, withEditor ? true, wxGTK ? null
-}:
+{ stdenv, lib, perl, fetchurl, python2, pkgconfig, spidermonkey_38, boost, icu, libxml2, libpng, libsodium, libjpeg, zlib, curl, libogg, libvorbis, enet, miniupnpc, openal, libGLU_combined, xorgproto, libX11, libXcursor, nspr, SDL2, gloox, nvidia-texture-tools, withEditor ?
+  true, wxGTK ? null }:
 
 assert withEditor -> wxGTK != null;
 
@@ -13,17 +8,36 @@ stdenv.mkDerivation rec {
   version = "0.0.23b";
 
   src = fetchurl {
-    url = "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
+    url =
+      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
     sha256 = "0draa53xg69i5qhqym85658m45xhwkbiimaldj4sr3703rjgggq1";
   };
 
   nativeBuildInputs = [ python2 perl pkgconfig ];
 
   buildInputs = [
-    spidermonkey_38 boost icu libxml2 libpng libjpeg
-    zlib curl libogg libvorbis enet miniupnpc openal
-    libGLU_combined xorgproto libX11 libXcursor nspr SDL2 gloox
-    nvidia-texture-tools libsodium
+    spidermonkey_38
+    boost
+    icu
+    libxml2
+    libpng
+    libjpeg
+    zlib
+    curl
+    libogg
+    libvorbis
+    enet
+    miniupnpc
+    openal
+    libGLU_combined
+    xorgproto
+    libX11
+    libXcursor
+    nspr
+    SDL2
+    gloox
+    nvidia-texture-tools
+    libsodium
   ] ++ lib.optional withEditor wxGTK;
 
   NIX_CFLAGS_COMPILE = [
@@ -38,7 +52,8 @@ stdenv.mkDerivation rec {
     # Fixes build with spidermonkey-38.8.0, includes the minor version check:
     # https://src.fedoraproject.org/rpms/0ad/c/26dc1657f6e3c0ad9f1180ca38cd79b933ef0c8b
     (fetchurl {
-      url = https://src.fedoraproject.org/rpms/0ad/raw/26dc1657f6e3c0ad9f1180ca38cd79b933ef0c8b/f/0ad-mozjs-incompatible.patch;
+      url =
+        "https://src.fedoraproject.org/rpms/0ad/raw/26dc1657f6e3c0ad9f1180ca38cd79b933ef0c8b/f/0ad-mozjs-incompatible.patch";
       sha256 = "1rzpaalcrzihsgvlk3nqd87n2kxjldlwvb3qp5fcd5ffzr6k90wa";
     })
   ];
@@ -94,7 +109,10 @@ stdenv.mkDerivation rec {
     description = "A free, open-source game of ancient warfare";
     homepage = "https://play0ad.com/";
     license = with licenses; [
-      gpl2 lgpl21 mit cc-by-sa-30
+      gpl2
+      lgpl21
+      mit
+      cc-by-sa-30
       licenses.zlib # otherwise masked by pkgs.zlib
     ];
     platforms = subtractLists platforms.i686 platforms.linux;

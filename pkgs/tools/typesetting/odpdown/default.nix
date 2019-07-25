@@ -10,15 +10,20 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "005eecc73c65b9d4c09532547940718a7b308cd565f62a213dfa040827d4d565";
   };
 
-  propagatedBuildInputs = with pythonPackages; [ libreoffice lpod lxml mistune pillow pygments ];
-
-  checkInputs = with pythonPackages; [
-    nose
+  propagatedBuildInputs = with pythonPackages; [
+    libreoffice
+    lpod
+    lxml
+    mistune
+    pillow
+    pygments
   ];
 
+  checkInputs = with pythonPackages; [ nose ];
+
   meta = with stdenv.lib; {
-    homepage = https://github.com/thorstenb/odpdown;
-    repositories.git = https://github.com/thorstenb/odpdown.git;
+    homepage = "https://github.com/thorstenb/odpdown";
+    repositories.git = "https://github.com/thorstenb/odpdown.git";
     description = "Create nice-looking slides from your favourite text editor";
     longDescription = ''
       Have a tool like pandoc, latex beamer etc, that you can write (or

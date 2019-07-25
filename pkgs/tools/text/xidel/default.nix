@@ -10,18 +10,20 @@ stdenv.mkDerivation rec {
   #  sha256 = "1h5xn16lgzx0s94iyhxa50lk05yf0af44nzm5w5k57615nd82kz2";
   #};
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/xidel_${version}-1_amd64.deb";
-        sha256 = "0hskc74y7p4j1x33yx0w4fvr610p2yimas8pxhr6bs7mb9b300h7";
-      }
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      fetchurl {
-        url = "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/xidel_${version}-1_i386.deb";
-        sha256 = "07yk5sk1p4jm0jmgjwdm2wq8d2wybi1wkn1qq5j5y03z1pdc3fi6";
-      }
-    else throw "xidel is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/xidel_${version}-1_amd64.deb";
+      sha256 = "0hskc74y7p4j1x33yx0w4fvr610p2yimas8pxhr6bs7mb9b300h7";
+    }
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    fetchurl {
+      url =
+        "mirror://sourceforge/videlibri/Xidel/Xidel%20${version}/xidel_${version}-1_i386.deb";
+      sha256 = "07yk5sk1p4jm0jmgjwdm2wq8d2wybi1wkn1qq5j5y03z1pdc3fi6";
+    }
+  else
+    throw "xidel is not supported on ${stdenv.hostPlatform.system}";
 
   buildInputs = [ dpkg ];
 
@@ -38,8 +40,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Command line tool to download and extract data from html/xml pages";
-    homepage = http://videlibri.sourceforge.net/xidel.html;
+    description =
+      "Command line tool to download and extract data from html/xml pages";
+    homepage = "http://videlibri.sourceforge.net/xidel.html";
     # source contains no license info (AFAICS), but sourceforge says GPLv2
     license = licenses.gpl2;
     # more platforms will be supported when we switch to source build

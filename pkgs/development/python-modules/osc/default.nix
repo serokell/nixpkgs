@@ -1,18 +1,10 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, pkgs
-, urlgrabber
-, m2crypto
-, pyyaml
-, lxml
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy3k, pkgs, urlgrabber, m2crypto, pyyaml, lxml
 }:
 
 buildPythonPackage {
   pname = "osc";
   version = "0.163.0-40-gb4b1ec7";
-  disabled = isPy3k;    # urlgrabber doesn't support python-3.x
+  disabled = isPy3k; # urlgrabber doesn't support python-3.x
 
   src = fetchFromGitHub {
     owner = "openSUSE";

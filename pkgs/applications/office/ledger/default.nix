@@ -1,20 +1,25 @@
-{ stdenv, fetchFromGitHub, cmake, boost, gmp, mpfr, libedit, python
-, texinfo, gnused, usePython ? true }:
+{ stdenv, fetchFromGitHub, cmake, boost, gmp, mpfr, libedit, python, texinfo, gnused, usePython ?
+  true }:
 
 stdenv.mkDerivation rec {
   name = "ledger-${version}";
   version = "3.1.3";
 
   src = fetchFromGitHub {
-    owner  = "ledger";
-    repo   = "ledger";
-    rev    = "v${version}";
+    owner = "ledger";
+    repo = "ledger";
+    rev = "v${version}";
     sha256 = "0bfnrqrd6wqgsngfpqi30xh6yy86pwl25iwzrqy44q31r0zl4mm3";
   };
 
   buildInputs = [
     (boost.override { enablePython = usePython; })
-    gmp mpfr libedit python texinfo gnused
+    gmp
+    mpfr
+    libedit
+    python
+    texinfo
+    gnused
   ];
 
   nativeBuildInputs = [ cmake ];
@@ -25,15 +30,16 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DBUILD_DOCS:BOOL=ON"
     (stdenv.lib.optionalString usePython "-DUSE_PYTHON=true")
-   ];
+  ];
 
   postBuild = ''
     make doc
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://ledger-cli.org/;
-    description = "A double-entry accounting system with a command-line reporting interface";
+    homepage = "https://ledger-cli.org/";
+    description =
+      "A double-entry accounting system with a command-line reporting interface";
     license = licenses.bsd3;
 
     longDescription = ''

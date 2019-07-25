@@ -1,6 +1,5 @@
 { stdenv, fetchurl, unzip }:
-let
-  version = "7.6.1";
+let version = "7.6.1";
 in stdenv.mkDerivation rec {
   name = "libjson-${version}";
   src = fetchurl {
@@ -13,7 +12,7 @@ in stdenv.mkDerivation rec {
   preInstall = "mkdir -p $out/lib";
 
   meta = with stdenv.lib; {
-    homepage = http://libjson.sourceforge.net/;
+    homepage = "http://libjson.sourceforge.net/";
     description = "A JSON reader and writer";
     longDescription = ''
       A JSON reader and writer which is super-efficient and

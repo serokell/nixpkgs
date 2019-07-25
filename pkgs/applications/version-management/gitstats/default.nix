@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
 
   # upstream does not make releases
   src = fetchzip {
-    url = "https://github.com/hoxu/gitstats/archive/55c5c285558c410bb35ebf421245d320ab9ee9fa.zip";
+    url =
+      "https://github.com/hoxu/gitstats/archive/55c5c285558c410bb35ebf421245d320ab9ee9fa.zip";
     sha256 = "1bfcwhksylrpm88vyp33qjby4js31zcxy7w368dzjv4il3fh2i59";
     name = name + "-src";
   };
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://gitstats.sourceforge.net/;
+    homepage = "http://gitstats.sourceforge.net/";
     description = "Git history statistics generator";
     license = licenses.gpl2Plus;
     platforms = platforms.all;

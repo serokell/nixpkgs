@@ -1,4 +1,4 @@
-{stdenv, fetchurl, unzip, bdftopcf, mkfontdir, mkfontscale}:
+{ stdenv, fetchurl, unzip, bdftopcf, mkfontdir, mkfontscale }:
 
 stdenv.mkDerivation rec {
   version = "2.92";
@@ -56,8 +56,8 @@ stdenv.mkDerivation rec {
       relatively compact to allow a lot of code on screen, while (hopefully)
       clear enough to remain readable even at high resolutions.
     '';
-    homepage = https://www.donationcoder.com/Software/Jibz/Dina/;
-    downloadPage = https://www.donationcoder.com/Software/Jibz/Dina/;
+    homepage = "https://www.donationcoder.com/Software/Jibz/Dina/";
+    downloadPage = "https://www.donationcoder.com/Software/Jibz/Dina/";
     license = licenses.free;
     maintainers = [ maintainers.prikhi ];
   };

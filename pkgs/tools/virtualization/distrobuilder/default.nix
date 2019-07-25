@@ -1,12 +1,10 @@
-{ stdenv, pkgconfig, buildGoPackage, fetchFromGitHub
-, makeWrapper, coreutils, gnupg, gnutar, squashfsTools, debootstrap
+{ stdenv, pkgconfig, buildGoPackage, fetchFromGitHub, makeWrapper, coreutils, gnupg, gnutar, squashfsTools, debootstrap
 }:
 
-let binPath = stdenv.lib.makeBinPath [
-  coreutils gnupg gnutar squashfsTools debootstrap
-];
-in
-buildGoPackage rec {
+let
+  binPath =
+    stdenv.lib.makeBinPath [ coreutils gnupg gnutar squashfsTools debootstrap ];
+in buildGoPackage rec {
   name = "distrobuilder-${version}";
   version = "2018_10_04";
   rev = "d2329be9569d45028a38836186d2353b8ddfe1ca";

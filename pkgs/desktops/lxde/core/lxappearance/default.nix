@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   name = "lxappearance-0.6.3";
 
-  src = fetchurl{
+  src = fetchurl {
     url = "mirror://sourceforge/project/lxde/LXAppearance/${name}.tar.xz";
     sha256 = "0f4bjaamfxxdr9civvy55pa6vv9dx1hjs522gjbbgx7yp1cdh8kj";
   };
@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
   configureFlags = stdenv.lib.optional withGtk3 "--enable-gtk3";
 
   meta = {
-    description = "A lightweight program for configuring the theme and fonts of gtk applications";
-    homepage = https://lxde.org/;
+    description =
+      "A lightweight program for configuring the theme and fonts of gtk applications";
+    homepage = "https://lxde.org/";
     maintainers = [ stdenv.lib.maintainers.hinton ];
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.gpl2;

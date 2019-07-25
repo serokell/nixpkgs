@@ -3,10 +3,9 @@
 with lib;
 
 let
-  cfg     = config.security.chromiumSuidSandbox;
+  cfg = config.security.chromiumSuidSandbox;
   sandbox = pkgs.chromium.sandbox;
-in
-{
+in {
   options.security.chromiumSuidSandbox.enable = mkOption {
     type = types.bool;
     default = false;
@@ -24,6 +23,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ sandbox ];
-    security.wrappers."${sandbox.passthru.sandboxExecutableName}".source = "${sandbox}/bin/${sandbox.passthru.sandboxExecutableName}";
+    security.wrappers."${sandbox.passthru.sandboxExecutableName}".source =
+      "${sandbox}/bin/${sandbox.passthru.sandboxExecutableName}";
   };
 }

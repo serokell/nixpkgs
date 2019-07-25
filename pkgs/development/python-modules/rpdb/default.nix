@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "rpdb";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "pdb wrapper with remote access via tcp socket";
-    homepage = https://github.com/tamentis/rpdb;
+    homepage = "https://github.com/tamentis/rpdb";
     license = licenses.bsd2;
   };
 

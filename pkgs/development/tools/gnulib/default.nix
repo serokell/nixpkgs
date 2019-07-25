@@ -5,7 +5,7 @@ stdenv.mkDerivation {
   version = "20190326";
 
   src = fetchgit {
-    url = https://git.savannah.gnu.org/r/gnulib.git;
+    url = "https://git.savannah.gnu.org/r/gnulib.git";
     rev = "a18f7ce3c0aa760c33d46bbeb8e5b3a14cf24984";
     sha256 = "04py5n3j17wyqv9wfsslcrxzapni9vmw6p5g0adzy2md3ygjw4x4";
   };
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://www.gnu.org/software/gnulib/;
+    homepage = "https://www.gnu.org/software/gnulib/";
     description = "Central location for code to be shared among GNU packages";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.unix;

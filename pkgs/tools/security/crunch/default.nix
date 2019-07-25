@@ -1,6 +1,6 @@
 { stdenv, fetchurl, which }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "crunch-${version}";
   version = "3.6";
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation  rec {
 
   meta = with stdenv.lib; {
     description = "Wordlist generator";
-    homepage = https://sourceforge.net/projects/crunch-wordlist/;
+    homepage = "https://sourceforge.net/projects/crunch-wordlist/";
     platforms = platforms.unix;
     maintainers = with maintainers; [ lethalman lnl7 ];
   };

@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "10cpzrd588ya52blghxss5zkn6x8hc7bx1h0qbcdlybbmkjgpkxr";
   };
 
-  phases = [ "buildPhase" "installPhase"];
+  phases = [ "buildPhase" "installPhase" ];
 
   buildInputs = [ emacs ];
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Displays flymake error msg in minibuffer after delay";
-    homepage = http://www.emacswiki.org/emacs/flymake-cursor.el;
+    homepage = "http://www.emacswiki.org/emacs/flymake-cursor.el";
     license = stdenv.lib.licenses.publicDomain;
   };
 }

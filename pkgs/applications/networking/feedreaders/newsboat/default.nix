@@ -1,5 +1,5 @@
-{ stdenv, rustPlatform, fetchurl, stfl, sqlite, curl, gettext, pkgconfig, libxml2, json_c, ncurses
-, asciidoc, docbook_xml_dtd_45, libxslt, docbook_xsl, libiconv, Security, makeWrapper }:
+{ stdenv, rustPlatform, fetchurl, stfl, sqlite, curl, gettext, pkgconfig, libxml2, json_c, ncurses, asciidoc, docbook_xml_dtd_45, libxslt, docbook_xsl, libiconv, Security, makeWrapper
+}:
 
 rustPlatform.buildRustPackage rec {
   name = "newsboat-${version}";
@@ -19,7 +19,8 @@ rustPlatform.buildRustPackage rec {
       --replace "ncurses5.4" "ncurses"
   '';
 
-  nativeBuildInputs = [ pkgconfig asciidoc docbook_xml_dtd_45 libxslt docbook_xsl ]
+  nativeBuildInputs =
+    [ pkgconfig asciidoc docbook_xml_dtd_45 libxslt docbook_xsl ]
     ++ stdenv.lib.optionals stdenv.isDarwin [ makeWrapper libiconv ];
 
   buildInputs = [ stfl sqlite curl gettext libxml2 json_c ncurses ]
@@ -48,10 +49,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage    = https://newsboat.org/;
-    description = "A fork of Newsbeuter, an RSS/Atom feed reader for the text console";
+    homepage = "https://newsboat.org/";
+    description =
+      "A fork of Newsbeuter, an RSS/Atom feed reader for the text console";
     maintainers = with maintainers; [ dotlambda nicknovitski ];
-    license     = licenses.mit;
-    platforms   = platforms.unix;
+    license = licenses.mit;
+    platforms = platforms.unix;
   };
 }

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, doxygen, alsaLib , libX11, libXft, libXrandr, libXinerama, libXext, libXcursor }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, doxygen, alsaLib, libX11, libXft, libXrandr, libXinerama, libXext, libXcursor
+}:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -12,16 +13,15 @@ stdenv.mkDerivation rec {
     sha256 = "1fvp6nmf30xzkmcznakh8dv5vn9d7nq051pqcqv638hsfppkmcrl";
   };
 
-  nativeBuildInputs =
-  [ pkgconfig cmake doxygen ];
+  nativeBuildInputs = [ pkgconfig cmake doxygen ];
 
   buildInputs =
-  [ alsaLib libX11 libXft libXrandr libXinerama libXext libXcursor ];
+    [ alsaLib libX11 libXft libXrandr libXinerama libXext libXcursor ];
 
   doCheck = false;
 
   meta = {
-    homepage = http://openshot.org/;
+    homepage = "http://openshot.org/";
     description = "High-quality sound editing library";
     longDescription = ''
       OpenShot Audio Library (libopenshot-audio) is a program that allows the

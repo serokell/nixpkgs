@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala
-, libgee, granite, gtk3, libaccounts-glib, libsignon-glib, json-glib
-, librest, webkitgtk, libsoup, switchboard }:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, libaccounts-glib, libsignon-glib, json-glib, librest, webkitgtk, libsoup, switchboard
+}:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-onlineaccounts";
@@ -13,18 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "03h8ii8zz59fpp4fwlvyx3m3550096fn7a6w612b1rbj3dqhlmh9";
   };
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkgconfig
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkgconfig vala ];
 
   buildInputs = [
     granite
@@ -39,14 +29,15 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  PKG_CONFIG_LIBACCOUNTS_GLIB_PROVIDERFILESDIR = "${placeholder "out"}/share/accounts/providers";
-  PKG_CONFIG_LIBACCOUNTS_GLIB_SERVICEFILESDIR = "${placeholder "out"}/share/accounts/services";
+  PKG_CONFIG_LIBACCOUNTS_GLIB_PROVIDERFILESDIR =
+    "${placeholder "out"}/share/accounts/providers";
+  PKG_CONFIG_LIBACCOUNTS_GLIB_SERVICEFILESDIR =
+    "${placeholder "out"}/share/accounts/services";
   PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
-
 
   meta = with stdenv.lib; {
     description = "Switchboard Online Accounts Plug";
-    homepage = https://github.com/elementary/switchboard-plug-onlineaccounts;
+    homepage = "https://github.com/elementary/switchboard-plug-onlineaccounts";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

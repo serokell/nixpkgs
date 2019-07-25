@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, flask, elasticsearch }:
+{ stdenv, buildPythonPackage, fetchPypi, flask, elasticsearch }:
 
 buildPythonPackage rec {
   pname = "Flask-Elastic";
@@ -17,6 +16,6 @@ buildPythonPackage rec {
     description = "Integrates official client for Elasticsearch into Flask";
     license = licenses.bsd3;
     maintainers = [ maintainers.mic92 ];
-    homepage = https://github.com/cepture/foppch/flask-elastic;
+    homepage = "https://github.com/cepture/foppch/flask-elastic";
   };
 }

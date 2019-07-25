@@ -1,10 +1,8 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, gtk-doc, xkeyboard_config, libxml2, xorg, docbook_xsl
-, glib, isocodes, gobject-introspection }:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, gtk-doc, xkeyboard_config, libxml2, xorg, docbook_xsl, glib, isocodes, gobject-introspection
+}:
 
-let
-  version = "5.4";
-in
-stdenv.mkDerivation rec {
+let version = "5.4";
+in stdenv.mkDerivation rec {
   name = "libxklavier-${version}";
 
   src = fetchgit {
@@ -16,7 +14,16 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   # TODO: enable xmodmap support, needs xmodmap DB
-  propagatedBuildInputs = with xorg; [ libX11 libXi xkeyboard_config libxml2 libICE glib libxkbfile isocodes ];
+  propagatedBuildInputs = with xorg; [
+    libX11
+    libXi
+    xkeyboard_config
+    libxml2
+    libICE
+    glib
+    libxkbfile
+    isocodes
+  ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig gtk-doc docbook_xsl ];
 
@@ -35,8 +42,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    description = "Library providing high-level API for X Keyboard Extension known as XKB";
-    homepage = http://freedesktop.org/wiki/Software/LibXklavier;
+    description =
+      "Library providing high-level API for X Keyboard Extension known as XKB";
+    homepage = "http://freedesktop.org/wiki/Software/LibXklavier";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
   };

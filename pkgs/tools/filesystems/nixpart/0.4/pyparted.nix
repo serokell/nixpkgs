@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, python, buildPythonApplication, parted, e2fsprogs }:
+{ stdenv, fetchurl, pkgconfig, python, buildPythonApplication, parted, e2fsprogs
+}:
 
 buildPythonApplication rec {
   name = "pyparted-${version}";
@@ -34,7 +35,7 @@ buildPythonApplication rec {
   '';
 
   meta = {
-    homepage = https://fedorahosted.org/pyparted/;
+    homepage = "https://fedorahosted.org/pyparted/";
     description = "Python interface for libparted";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;

@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.localtime;
+let cfg = config.services.localtime;
 in {
   options = {
     services.localtime = {

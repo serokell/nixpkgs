@@ -1,20 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, pkgconfig
-, pantheon
-, curl
-, glib
-, gtk3
-, hicolor-icon-theme
-, libb64
-, libevent
-, libgee
-, libnatpmp
-, libunity
-, miniupnpc
-, openssl
-, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, pantheon, curl, glib, gtk3, hicolor-icon-theme, libb64, libevent, libgee, libnatpmp, libunity, miniupnpc, openssl, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "torrential";
@@ -28,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "17aby0c17ybyzyzyc1cg1j6q1a186801fy84avlaxahqp7vdammx";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pantheon.vala
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pantheon.vala pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     curl
@@ -51,8 +31,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    description = "Download torrents in style with this speedy, minimalist torrent client for elementary OS";
-    homepage = https://github.com/davidmhewitt/torrential;
+    description =
+      "Download torrents in style with this speedy, minimalist torrent client for elementary OS";
+    homepage = "https://github.com/davidmhewitt/torrential";
     maintainers = with maintainers; [ kjuvi ] ++ pantheon.maintainers;
     platforms = platforms.linux;
     license = licenses.gpl3;

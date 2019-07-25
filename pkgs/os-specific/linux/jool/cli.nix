@@ -1,10 +1,8 @@
 { stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libnl, iptables }:
 
-let
-  sourceAttrs = (import ./source.nix) { inherit fetchFromGitHub; };
-in
+let sourceAttrs = (import ./source.nix) { inherit fetchFromGitHub; };
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "jool-cli-${sourceAttrs.version}";
 
   src = sourceAttrs.src;
@@ -19,8 +17,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.jool.mx/;
-    description = "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
+    homepage = "https://www.jool.mx/";
+    description =
+      "Fairly compliant SIIT and Stateful NAT64 for Linux - CLI tools";
     platforms = platforms.linux;
     license = licenses.gpl2;
     maintainers = with maintainers; [ fpletz ];

@@ -1,4 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, gnupg, bzip2, xz, graphviz }:
+{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, gnupg, bzip2, xz, graphviz
+}:
 
 let
 
@@ -19,9 +20,7 @@ let
     sha256 = "0dkc4z687yk912lpv8rirv0nby7iny1zgdvnhdm5b47qmjr1sm5q";
   };
 
-in
-
-buildGoPackage {
+in buildGoPackage {
   name = "aptly-${version}";
 
   src = aptlySrc;
@@ -38,7 +37,7 @@ buildGoPackage {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.aptly.info;
+    homepage = "https://www.aptly.info";
     description = "Debian repository management tool";
     license = licenses.mit;
     platforms = platforms.unix;

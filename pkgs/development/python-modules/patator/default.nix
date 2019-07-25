@@ -1,7 +1,5 @@
-{ stdenv, buildPythonPackage, isPy3k, fetchPypi,
-  paramiko, pycurl, ajpy, pyopenssl, cx_oracle, mysqlclient,
-  psycopg2, pycrypto, dnspython, ipy, pysnmp, pyasn1 }:
-
+{ stdenv, buildPythonPackage, isPy3k, fetchPypi, paramiko, pycurl, ajpy, pyopenssl, cx_oracle, mysqlclient, psycopg2, pycrypto, dnspython, ipy, pysnmp, pyasn1
+}:
 
 buildPythonPackage rec {
   pname = "patator";

@@ -17,9 +17,8 @@ buildGoPackage rec {
   '';
 
   # we have no bash at the moment for windows
-  makeFlags = stdenv.lib.optional (!stdenv.hostPlatform.isWindows) [
-    "BASH_PATH=${bash}/bin/bash"
-  ];
+  makeFlags = stdenv.lib.optional (!stdenv.hostPlatform.isWindows)
+    [ "BASH_PATH=${bash}/bin/bash" ];
 
   installPhase = ''
     mkdir -p $out
@@ -41,7 +40,7 @@ buildGoPackage rec {
       In short, this little tool allows you to have project-specific
       environment variables.
     '';
-    homepage = https://direnv.net;
+    homepage = "https://direnv.net";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];
   };

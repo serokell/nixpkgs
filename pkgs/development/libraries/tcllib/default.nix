@@ -9,14 +9,12 @@ stdenv.mkDerivation rec {
     sha256 = "173abxaazdmf210v651708ab6h7xhskvd52krxk6ifam337qgzh1";
   };
 
-  passthru = {
-    libPrefix = "tcllib${version}";
-  };
+  passthru = { libPrefix = "tcllib${version}"; };
 
   buildInputs = [ tcl ];
 
   meta = {
-    homepage = https://sourceforge.net/projects/tcllib/;
+    homepage = "https://sourceforge.net/projects/tcllib/";
     description = "Tcl-only library of standard routines for Tcl";
     license = stdenv.lib.licenses.tcltk;
     platforms = stdenv.lib.platforms.unix;

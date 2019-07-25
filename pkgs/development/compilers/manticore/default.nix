@@ -1,11 +1,10 @@
 { stdenv, fetchFromGitHub, coreutils, autoreconfHook, smlnj }:
 
-let
-  rev= "47273c463fc3c5d0a0ae655cf75a4700bdb020b4";
+let rev = "47273c463fc3c5d0a0ae655cf75a4700bdb020b4";
 in stdenv.mkDerivation rec {
   name = "manticore-${version}";
   version = "2018.09.29";
- 
+
   src = fetchFromGitHub {
     owner = "ManticoreProject";
     repo = "manticore";
@@ -14,9 +13,9 @@ in stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = false;
- 
+
   nativeBuildInputs = [ autoreconfHook ];
-  
+
   buildInputs = [ coreutils smlnj ];
 
   autoreconfFlags = "-Iconfig -vfi";
@@ -28,8 +27,8 @@ in stdenv.mkDerivation rec {
     mv source repo_checkout
     cd repo_checkout
     chmod u+w . -R
-  ''; 
-  
+  '';
+
   postPatch = ''
     patchShebangs .
     substituteInPlace configure.ac --replace 'MANTICORE_ROOT=`pwd`' 'MANTICORE_ROOT=$out/repo_checkout'
@@ -40,7 +39,7 @@ in stdenv.mkDerivation rec {
   meta = {
     description = "A parallel, pure variant of Standard ML";
 
-    longDescription = '' 
+    longDescription = ''
       Manticore is a high-level parallel programming language aimed at
       general-purpose applications running on multi-core
       processors. Manticore supports parallelism at multiple levels:
@@ -50,6 +49,6 @@ in stdenv.mkDerivation rec {
       parallel array comprehensions.  
     '';
 
-    homepage = http://manticore.cs.uchicago.edu/;
+    homepage = "http://manticore.cs.uchicago.edu/";
   };
 }

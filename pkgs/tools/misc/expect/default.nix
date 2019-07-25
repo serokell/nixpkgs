@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   name = "expect-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/expect/Expect/${version}/expect${version}.tar.gz";
+    url =
+      "mirror://sourceforge/expect/Expect/${version}/expect${version}.tar.gz";
     sha256 = "0d1cp5hggjl93xwc8h1y6adbnrvpkk0ywkd00inz9ndxn21xm9s9";
   };
 
@@ -29,13 +30,16 @@ stdenv.mkDerivation rec {
       wrapProgram $i \
         --prefix PATH : "${tcl}/bin" \
         --prefix TCLLIBPATH ' ' $out/lib/* \
-        ${stdenv.lib.optionalString stdenv.isDarwin "--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version}"}
+        ${
+      stdenv.lib.optionalString stdenv.isDarwin
+      "--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version}"
+        }
     done
   '';
 
   meta = with stdenv.lib; {
     description = "A tool for automating interactive applications";
-    homepage = http://expect.sourceforge.net/;
+    homepage = "http://expect.sourceforge.net/";
     license = "Expect";
     platforms = platforms.unix;
   };

@@ -1,7 +1,7 @@
 { stdenv, cedille, emacs }:
 
 stdenv.mkDerivation rec {
-  name    = "cedille-mode-${version}";
+  name = "cedille-mode-${version}";
   version = cedille.version;
 
   src = cedille.src;
@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Emacs major mode for Cedille";
-    homepage    = cedille.meta.homepage;
-    license     = cedille.meta.license ;
-    platforms   = cedille.meta.platforms;
+    homepage = cedille.meta.homepage;
+    license = cedille.meta.license;
+    platforms = cedille.meta.platforms;
     maintainers = cedille.meta.maintainers;
   };
 }

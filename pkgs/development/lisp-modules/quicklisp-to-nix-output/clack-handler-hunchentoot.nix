@@ -1,20 +1,41 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''clack-handler-hunchentoot'';
-  version = ''clack-20181018-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "clack-handler-hunchentoot";
+  version = "clack-20181018-git";
 
-  description = ''Clack handler for Hunchentoot.'';
+  description = "Clack handler for Hunchentoot.";
 
-  deps = [ args."alexandria" args."babel" args."bordeaux-threads" args."cffi" args."chunga" args."cl_plus_ssl" args."cl-base64" args."cl-fad" args."cl-ppcre" args."clack-socket" args."flexi-streams" args."hunchentoot" args."md5" args."rfc2388" args."split-sequence" args."trivial-backtrace" args."trivial-features" args."trivial-garbage" args."trivial-gray-streams" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."babel"
+    args."bordeaux-threads"
+    args."cffi"
+    args."chunga"
+    args."cl_plus_ssl"
+    args."cl-base64"
+    args."cl-fad"
+    args."cl-ppcre"
+    args."clack-socket"
+    args."flexi-streams"
+    args."hunchentoot"
+    args."md5"
+    args."rfc2388"
+    args."split-sequence"
+    args."trivial-backtrace"
+    args."trivial-features"
+    args."trivial-garbage"
+    args."trivial-gray-streams"
+    args."usocket"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz'';
-    sha256 = ''1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf'';
+    url =
+      "http://beta.quicklisp.org/archive/clack/2018-10-18/clack-20181018-git.tgz";
+    sha256 = "1f16i1pdqkh56ahnhxni3182q089d7ya8gxv4vyczsjzw93yakcf";
   };
 
   packageName = "clack-handler-hunchentoot";
 
-  asdFilesToKeep = ["clack-handler-hunchentoot.asd"];
+  asdFilesToKeep = [ "clack-handler-hunchentoot.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM clack-handler-hunchentoot DESCRIPTION Clack handler for Hunchentoot.
@@ -51,4 +72,5 @@ rec {
      clack-middleware-postmodern clack-middleware-rucksack
      clack-session-store-dbi t-clack-middleware-auth-basic
      t-clack-middleware-csrf)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

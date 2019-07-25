@@ -6,9 +6,7 @@ let
 
   cfg = config.services.xserver.displayManager.startx;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -28,7 +26,6 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -38,7 +35,7 @@ in
       displayManager.lightdm.enable = lib.mkForce false;
     };
     systemd.services.display-manager.enable = false;
-    environment.systemPackages =  with pkgs; [ xorg.xinit ];
+    environment.systemPackages = with pkgs; [ xorg.xinit ];
   };
 
 }

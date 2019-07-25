@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala
-, python3, desktop-file-utils, gtk3, granite, libgee, elementary-icon-theme
-, appstream, libpeas, editorconfig-core-c, gtksourceview3, gtkspell3, libsoup
-, vte, webkitgtk, zeitgeist, ctags, libgit2-glib, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, python3, desktop-file-utils, gtk3, granite, libgee, elementary-icon-theme, appstream, libpeas, editorconfig-core-c, gtksourceview3, gtkspell3, libsoup, vte, webkitgtk, zeitgeist, ctags, libgit2-glib, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "code";
@@ -68,7 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Code editor designed for elementary OS";
-    homepage = https://github.com/elementary/code;
+    homepage = "https://github.com/elementary/code";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

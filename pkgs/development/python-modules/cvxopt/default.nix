@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, python
-, openblasCompat # build segfaults with regular openblas
-, suitesparse
-, glpk ? null
-, gsl ? null
-, fftw ? null
-, withGlpk ? true
-, withGsl ? true
-, withFftw ? true
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, isPyPy, python, openblasCompat # build segfaults with regular openblas
+, suitesparse, glpk ? null, gsl ? null, fftw ? null, withGlpk ? true, withGsl ?
+  true, withFftw ? true }:
 
 buildPythonPackage rec {
   pname = "cvxopt";
@@ -52,7 +40,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = http://cvxopt.org/;
+    homepage = "http://cvxopt.org/";
     description = "Python Software for Convex Optimization";
     longDescription = ''
       CVXOPT is a free software package for convex optimization based on the

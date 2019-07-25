@@ -1,8 +1,8 @@
 { stdenv, fetchurl, pcre, libiconv, perl }:
 
-let version = "3.3"; in
+let version = "3.3";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "gnugrep-${version}";
 
   src = fetchurl {
@@ -30,18 +30,17 @@ stdenv.mkDerivation {
 
   # Fix reference to sh in bootstrap-tools, and invoke grep via
   # absolute path rather than looking at argv[0].
-  postInstall =
-    ''
-      rm $out/bin/egrep $out/bin/fgrep
-      echo "#! /bin/sh" > $out/bin/egrep
-      echo "exec $out/bin/grep -E \"\$@\"" >> $out/bin/egrep
-      echo "#! /bin/sh" > $out/bin/fgrep
-      echo "exec $out/bin/grep -F \"\$@\"" >> $out/bin/fgrep
-      chmod +x $out/bin/egrep $out/bin/fgrep
-    '';
+  postInstall = ''
+    rm $out/bin/egrep $out/bin/fgrep
+    echo "#! /bin/sh" > $out/bin/egrep
+    echo "exec $out/bin/grep -E \"\$@\"" >> $out/bin/egrep
+    echo "#! /bin/sh" > $out/bin/fgrep
+    echo "exec $out/bin/grep -F \"\$@\"" >> $out/bin/fgrep
+    chmod +x $out/bin/egrep $out/bin/fgrep
+  '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/grep/;
+    homepage = "https://www.gnu.org/software/grep/";
     description = "GNU implementation of the Unix grep command";
 
     longDescription = ''
@@ -56,5 +55,5 @@ stdenv.mkDerivation {
     platforms = platforms.all;
   };
 
-  passthru = {inherit pcre;};
+  passthru = { inherit pcre; };
 }

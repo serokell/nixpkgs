@@ -7,9 +7,7 @@ let
 
   cfg = config.services.felix;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -43,21 +41,20 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
-    users.groups = singleton
-      { name = "osgi";
-        gid = config.ids.gids.osgi;
-      };
+    users.groups = singleton {
+      name = "osgi";
+      gid = config.ids.gids.osgi;
+    };
 
-    users.users = singleton
-      { name = "osgi";
-        uid = config.ids.uids.osgi;
-        description = "OSGi user";
-        home = "/homeless-shelter";
-      };
+    users.users = singleton {
+      name = "osgi";
+      uid = config.ids.uids.osgi;
+      description = "OSGi user";
+      home = "/homeless-shelter";
+    };
 
     systemd.services.felix = {
       description = "Felix server";

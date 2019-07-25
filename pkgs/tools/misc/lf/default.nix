@@ -30,14 +30,15 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A terminal file manager written in Go and heavily inspired by ranger";
+    description =
+      "A terminal file manager written in Go and heavily inspired by ranger";
     longDescription = ''
       lf (as in "list files") is a terminal file manager written in Go. It is
       heavily inspired by ranger with some missing and extra features. Some of
       the missing features are deliberately omitted since it is better if they
       are handled by external tools.
     '';
-    homepage = https://godoc.org/github.com/gokcehan/lf;
+    homepage = "https://godoc.org/github.com/gokcehan/lf";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];

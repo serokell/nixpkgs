@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pillow
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pillow }:
 
 buildPythonPackage rec {
   pname = "pillowfight";

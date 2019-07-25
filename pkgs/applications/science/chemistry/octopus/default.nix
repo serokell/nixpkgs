@@ -1,16 +1,19 @@
-{ stdenv, fetchurl, symlinkJoin, gfortran, perl, procps
-, libyaml, libxc, fftw, openblas, gsl, netcdf, arpack
+{ stdenv, fetchurl, symlinkJoin, gfortran, perl, procps, libyaml, libxc, fftw, openblas, gsl, netcdf, arpack
 }:
 
 let
   version = "9.0";
-  fftwAll = symlinkJoin { name ="ftw-dev-out"; paths = [ fftw.dev fftw.out ]; };
+  fftwAll = symlinkJoin {
+    name = "ftw-dev-out";
+    paths = [ fftw.dev fftw.out ];
+  };
 
 in stdenv.mkDerivation {
   name = "octopus-${version}";
 
   src = fetchurl {
-    url = "http://www.tddft.org/programs/octopus/down.php?file=${version}/octopus-${version}.tar.gz";
+    url =
+      "http://www.tddft.org/programs/octopus/down.php?file=${version}/octopus-${version}.tar.gz";
     sha256 = "0p1gjykjnzm4m93mgjsmnxd0n2j381jk5kn3a7gkzxanixp60ilm";
   };
 
@@ -41,7 +44,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Real-space time dependent density-functional theory code";
-    homepage = http://octopus-code.org;
+    homepage = "http://octopus-code.org";
     maintainers = with maintainers; [ markuskowa ];
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" ];

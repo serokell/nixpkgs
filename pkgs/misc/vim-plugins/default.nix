@@ -3,11 +3,10 @@
 
 let
 
-  inherit (vimUtils.override {inherit vim;}) buildVimPluginFrom2Nix;
+  inherit (vimUtils.override { inherit vim; }) buildVimPluginFrom2Nix;
 
-  plugins = callPackage ./generated.nix {
-    inherit buildVimPluginFrom2Nix overrides;
-  };
+  plugins =
+    callPackage ./generated.nix { inherit buildVimPluginFrom2Nix overrides; };
 
   # TL;DR
   # * Add your plugin to ./vim-plugin-names
@@ -22,8 +21,7 @@ let
     inherit llvmPackages;
   };
 
-  aliases = lib.optionalAttrs (config.allowAliases or true) (import ./aliases.nix lib plugins);
+  aliases = lib.optionalAttrs (config.allowAliases or true)
+    (import ./aliases.nix lib plugins);
 
-in
-
-plugins // aliases
+in plugins // aliases

@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi, nose
-, six
-, lxml
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, six, lxml }:
 
 buildPythonPackage rec {
   pname = "htmllaundry";
@@ -24,7 +19,7 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "Simple HTML cleanup utilities";
     license = licenses.bsd3;
-    homepage = https://pypi.org/project/htmllaundry/;
+    homepage = "https://pypi.org/project/htmllaundry/";
   };
 
 }

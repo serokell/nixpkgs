@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, coreutils, dbus, freetype, glib, gnused
-, libpthreadstubs, pango, pkgconfig, libpulseaudio, which }:
+{ stdenv, fetchurl, cmake, coreutils, dbus, freetype, glib, gnused, libpthreadstubs, pango, pkgconfig, libpulseaudio, which
+}:
 
 stdenv.mkDerivation rec {
   name = "squeak-${version}";
@@ -10,8 +10,17 @@ stdenv.mkDerivation rec {
     url = "http://squeakvm.org/unix/release/Squeak-${version}-src.tar.gz";
   };
 
-  buildInputs = [ coreutils dbus freetype glib gnused libpthreadstubs
-    pango libpulseaudio which ];
+  buildInputs = [
+    coreutils
+    dbus
+    freetype
+    glib
+    gnused
+    libpthreadstubs
+    pango
+    libpulseaudio
+    which
+  ];
   nativeBuildInputs = [ cmake pkgconfig ];
 
   postPatch = ''
@@ -39,8 +48,8 @@ stdenv.mkDerivation rec {
       capabilities. It also includes a customisable framework for creating
       dynamic HTTP servers and interactively extensible Web sites.
     '';
-    homepage = http://squeakvm.org/;
-    downloadPage = http://squeakvm.org/unix/index.html;
+    homepage = "http://squeakvm.org/";
+    downloadPage = "http://squeakvm.org/unix/index.html";
     license = with licenses; [ asl20 mit ];
     platforms = platforms.linux;
   };

@@ -1,6 +1,4 @@
-{ stdenv, fetchurl
-, xorgproto, motif, libX11, libXt, libXpm, bison
-, flex, automake, autoconf, libtool, runtimeShell
+{ stdenv, fetchurl, xorgproto, motif, libX11, libXt, libXpm, bison, flex, automake, autoconf, libtool, runtimeShell
 }:
 
 stdenv.mkDerivation rec {
@@ -8,20 +6,17 @@ stdenv.mkDerivation rec {
   version = "5.1.1";
 
   src = fetchurl {
-    url = "http://www-asim.lip6.fr/pub/alliance/distribution/5.0/${name}.tar.bz2";
+    url =
+      "http://www-asim.lip6.fr/pub/alliance/distribution/5.0/${name}.tar.bz2";
     sha256 = "046c9qwl1vbww0ljm4xyxf5jpz9nq62b2q0wdz9xjimgh4c207w1";
   };
-
 
   nativeBuildInputs = [ libtool automake autoconf flex ];
   buildInputs = [ xorgproto motif libX11 libXt libXpm bison ];
 
   sourceRoot = "alliance/src/";
 
-  configureFlags = [
-    "--prefix=$(out)"
-    "--disable-static"
-  ];
+  configureFlags = [ "--prefix=$(out)" "--disable-static" ];
 
   preConfigure = ''
     mkdir -p $out/etc
@@ -65,8 +60,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Complete set of free CAD tools and portable libraries for VLSI design";
-    homepage = http://www-asim.lip6.fr/recherche/alliance/;
+    description =
+      "Complete set of free CAD tools and portable libraries for VLSI design";
+    homepage = "http://www-asim.lip6.fr/recherche/alliance/";
     license = with licenses; gpl2Plus;
     maintainers = with maintainers; [ ];
     platforms = with platforms; linux;

@@ -1,28 +1,34 @@
-{ stdenv, fetchurl
-, automake, autoconf, bzip2, libtar, libtool, pkgconfig, autoconf-archive
-, libxml2, icu
-, languageMachines
+{ stdenv, fetchurl, automake, autoconf, bzip2, libtar, libtool, pkgconfig, autoconf-archive, libxml2, icu, languageMachines
 }:
 
 let
-  release = builtins.fromJSON (builtins.readFile ./release-info/LanguageMachines-frog.json);
-in
+  release = builtins.fromJSON
+    (builtins.readFile ./release-info/LanguageMachines-frog.json);
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "frog-${release.version}";
   version = release.version;
-  src = fetchurl { inherit (release) url sha256;
-                   name = "frog-v${release.version}.tar.gz"; };
+  src = fetchurl {
+    inherit (release) url sha256;
+    name = "frog-v${release.version}.tar.gz";
+  };
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ automake autoconf bzip2 libtar libtool autoconf-archive
-                  libxml2 icu
-                  languageMachines.ticcutils
-                  languageMachines.timbl
-                  languageMachines.mbt
-                  languageMachines.libfolia
-                  languageMachines.ucto
-                  languageMachines.frogdata
-                ];
+  buildInputs = [
+    automake
+    autoconf
+    bzip2
+    libtar
+    libtool
+    autoconf-archive
+    libxml2
+    icu
+    languageMachines.ticcutils
+    languageMachines.timbl
+    languageMachines.mbt
+    languageMachines.libfolia
+    languageMachines.ucto
+    languageMachines.frogdata
+  ];
 
   preConfigure = ''
     sh bootstrap.sh
@@ -38,10 +44,11 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "A Tagger-Lemmatizer-Morphological-Analyzer-Dependency-Parser for Dutch";
-    homepage    = https://languagemachines.github.io/frog;
-    license     = licenses.gpl3;
-    platforms   = platforms.all;
+    description =
+      "A Tagger-Lemmatizer-Morphological-Analyzer-Dependency-Parser for Dutch";
+    homepage = "https://languagemachines.github.io/frog";
+    license = licenses.gpl3;
+    platforms = platforms.all;
     maintainers = with maintainers; [ roberth ];
 
     longDescription = ''

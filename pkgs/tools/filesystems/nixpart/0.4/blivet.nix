@@ -1,9 +1,7 @@
 # FIXME: Unify with pkgs/development/python-modules/blivet/default.nix.
 
-{ stdenv, fetchurl, buildPythonApplication, pykickstart, pyparted, pyblock
-, libselinux, cryptsetup, multipath_tools, lsof, utillinux
-, useNixUdev ? true, systemd ? null
-}:
+{ stdenv, fetchurl, buildPythonApplication, pykickstart, pyparted, pyblock, libselinux, cryptsetup, multipath_tools, lsof, utillinux, useNixUdev ?
+  true, systemd ? null }:
 
 assert useNixUdev -> systemd != null;
 
@@ -13,7 +11,7 @@ buildPythonApplication rec {
 
   src = fetchurl {
     url = "https://git.fedorahosted.org/cgit/blivet.git/snapshot/"
-        + "${name}.tar.bz2";
+      + "${name}.tar.bz2";
     sha256 = "1k3mws2q0ryb7422mml6idmaasz2i2v6ngyvg6d976dx090qnmci";
   };
 
@@ -34,15 +32,15 @@ buildPythonApplication rec {
     }' blivet/pyudev.py
   '';
 
-  propagatedBuildInputs = [
-    pykickstart pyparted pyblock libselinux.py cryptsetup
-  ] ++ stdenv.lib.optional useNixUdev systemd;
+  propagatedBuildInputs =
+    [ pykickstart pyparted pyblock libselinux.py cryptsetup ]
+    ++ stdenv.lib.optional useNixUdev systemd;
 
   # tests are currently _heavily_ broken upstream
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://fedoraproject.org/wiki/Blivet;
+    homepage = "https://fedoraproject.org/wiki/Blivet";
     description = "Module for management of a system's storage configuration";
     license = with licenses; [ gpl2Plus lgpl21Plus ];
     platforms = platforms.linux;

@@ -24,8 +24,8 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     description = "Run HTTP requests over UNIX socket";
     license = licenses.mit;
-    homepage = https://github.com/Soulou/curl-unix-socket;
-    maintainers = with maintainers; [offline];
+    homepage = "https://github.com/Soulou/curl-unix-socket";
+    maintainers = with maintainers; [ offline ];
     platforms = platforms.unix;
   };
 }

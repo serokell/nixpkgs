@@ -16,9 +16,10 @@ in {
       enable = mkEnableOption "support for Bluetooth";
 
       powerOnBoot = mkOption {
-        type    = types.bool;
+        type = types.bool;
         default = true;
-        description = "Whether to power up the default Bluetooth controller on boot.";
+        description =
+          "Whether to power up the default Bluetooth controller on boot.";
       };
 
       package = mkOption {
@@ -71,12 +72,12 @@ in {
 
     services.udev.packages = [ bluez-bluetooth ];
     services.dbus.packages = [ bluez-bluetooth ];
-    systemd.packages       = [ bluez-bluetooth ];
+    systemd.packages = [ bluez-bluetooth ];
 
     systemd.services = {
       bluetooth = {
         wantedBy = [ "bluetooth.target" ];
-        aliases  = [ "dbus-org.bluez.service" ];
+        aliases = [ "dbus-org.bluez.service" ];
       };
     };
 

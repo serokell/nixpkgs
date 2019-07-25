@@ -1,6 +1,4 @@
-{stdenv, fetchurl, ncurses, tcl, openssl, pam, kerberos
-, openldap
-}:
+{ stdenv, fetchurl, ncurses, tcl, openssl, pam, kerberos, openldap }:
 
 # NOTE: Please check if any changes here are applicable to ../realpine/ as well
 stdenv.mkDerivation rec {
@@ -12,9 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f3llxrmaxw7w9w6aixh752md3cdc91mwfmbarkm8s413f4bcc30";
   };
 
-  buildInputs = [
-    ncurses tcl openssl pam kerberos openldap
-  ];
+  buildInputs = [ ncurses tcl openssl pam kerberos openldap ];
 
   hardeningDisable = [ "format" ];
 
@@ -26,8 +22,8 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Console mail reader";
     license = stdenv.lib.licenses.asl20;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.linux;
-    homepage = https://www.washington.edu/alpine/;
+    homepage = "https://www.washington.edu/alpine/";
   };
 }

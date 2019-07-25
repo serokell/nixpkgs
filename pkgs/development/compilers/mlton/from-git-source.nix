@@ -1,24 +1,15 @@
-{ fetchgit
-, gmp
-, mltonBootstrap
-, url ? "https://github.com/mlton/mlton"
-, rev
-, sha256
-, stdenv
-, version
-}:
+{ fetchgit, gmp, mltonBootstrap, url ?
+  "https://github.com/mlton/mlton", rev, sha256, stdenv, version }:
 
 stdenv.mkDerivation {
   name = "mlton-${version}";
 
-  src = fetchgit {
-    inherit url rev sha256;
-  };
+  src = fetchgit { inherit url rev sha256; };
 
-  buildInputs = [mltonBootstrap gmp];
+  buildInputs = [ mltonBootstrap gmp ];
 
   preBuild = ''
-    find . -type f | grep -v -e '\.tgz''$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
+    find . -type f | grep -v -e '\.tgz$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
 
     makeFlagsArray=(
       MLTON_VERSION="${version} ${rev}"

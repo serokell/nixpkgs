@@ -15,10 +15,9 @@ let
 
     # RPC server options
     ${optionalString (cfg.rpc.port != null) "rpcport=${toString cfg.rpc.port}"}
-    ${concatMapStringsSep  "\n"
-      (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}")
-      (attrValues cfg.rpc.users)
-    }
+    ${concatMapStringsSep "\n"
+    (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}")
+    (attrValues cfg.rpc.users)}
 
     # Extra config options (from bitcoind nixos service)
     ${cfg.extraConfig}
@@ -40,16 +39,15 @@ let
       };
       passwordHMAC = mkOption {
         type = with types; uniq (strMatching "[0-9a-f]+\\$[0-9a-f]{64}");
-        example = "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae";
+        example =
+          "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae";
         description = ''
           Password HMAC-SHA-256 for JSON-RPC connections. Must be a string of the
           format &lt;SALT-HEX&gt;$&lt;HMAC-HEX&gt;.
         '';
       };
     };
-    config = {
-      name = mkDefault name;
-    };
+    config = { name = mkDefault name; };
   };
 in {
   options = {
@@ -77,7 +75,8 @@ in {
           rpcthreads=16
           logips=1
         '';
-        description = "Additional configurations to be appended to <filename>bitcoin.conf</filename>.";
+        description =
+          "Additional configurations to be appended to <filename>bitcoin.conf</filename>.";
       };
       dataDir = mkOption {
         type = types.path;
@@ -100,10 +99,11 @@ in {
         port = mkOption {
           type = types.nullOr types.port;
           default = null;
-          description = "Override the default port on which to listen for JSON-RPC connections.";
+          description =
+            "Override the default port on which to listen for JSON-RPC connections.";
         };
         users = mkOption {
-          default = {};
+          default = { };
           example = literalExample ''
             {
               alice.passwordHMAC = "f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae";
@@ -125,7 +125,8 @@ in {
       port = mkOption {
         type = types.nullOr types.port;
         default = null;
-        description = "Override the default port on which to listen for connections.";
+        description =
+          "Override the default port on which to listen for connections.";
       };
       dbCache = mkOption {
         type = types.nullOr (types.ints.between 4 16384);
@@ -134,11 +135,8 @@ in {
         description = "Override the default database cache size in megabytes.";
       };
       prune = mkOption {
-        type = types.nullOr (types.coercedTo
-          (types.enum [ "disable" "manual" ])
-          (x: if x == "disable" then 0 else 1)
-          types.ints.unsigned
-        );
+        type = types.nullOr (types.coercedTo (types.enum [ "disable" "manual" ])
+          (x: if x == "disable" then 0 else 1) types.ints.unsigned);
         default = null;
         example = 10000;
         description = ''
@@ -188,8 +186,6 @@ in {
       description = "Bitcoin daemon user";
       home = cfg.dataDir;
     };
-    users.groups.${cfg.group} = {
-      name = cfg.group;
-    };
+    users.groups.${cfg.group} = { name = cfg.group; };
   };
 }

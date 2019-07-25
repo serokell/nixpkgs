@@ -1,8 +1,8 @@
 { stdenv, fetchurl, pcre }:
 
-let version = "1.0.10"; in
+let version = "1.0.10";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "classads-${version}";
 
   src = fetchurl {
@@ -12,13 +12,12 @@ stdenv.mkDerivation {
 
   buildInputs = [ pcre ];
 
-  configureFlags = [
-    "--enable-namespace" "--enable-flexible-member"
-  ];
-  
+  configureFlags = [ "--enable-namespace" "--enable-flexible-member" ];
+
   meta = {
-    homepage = http://www.cs.wisc.edu/condor/classad/;
-    description = "The Classified Advertisements library provides a generic means for matching resources";
+    homepage = "http://www.cs.wisc.edu/condor/classad/";
+    description =
+      "The Classified Advertisements library provides a generic means for matching resources";
     license = stdenv.lib.licenses.asl20;
     platforms = stdenv.lib.platforms.unix;
   };

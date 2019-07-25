@@ -1,8 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, pytest
-, lib
-}:
+{ buildPythonPackage, fetchPypi, pytest, lib }:
 
 buildPythonPackage rec {
   pname = "msgpack";
@@ -20,7 +16,7 @@ buildPythonPackage rec {
   checkInputs = [ pytest ];
 
   meta = {
-    homepage = https://github.com/msgpack/msgpack-python;
+    homepage = "https://github.com/msgpack/msgpack-python";
     description = "MessagePack serializer implementation for Python";
     license = lib.licenses.asl20;
     # maintainers =  ?? ;

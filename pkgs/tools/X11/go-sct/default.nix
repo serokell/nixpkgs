@@ -19,7 +19,8 @@ buildGoPackage rec {
   buildInputs = [ xorg.libX11 xorg.libXrandr ];
 
   meta = with stdenv.lib; {
-    description = "Color temperature setting library and CLI that operates in a similar way to f.lux and Redshift";
+    description =
+      "Color temperature setting library and CLI that operates in a similar way to f.lux and Redshift";
     license = licenses.mit;
     maintainers = with maintainers; [ rvolosatovs cstrahan ];
     platforms = platforms.linux ++ platforms.windows;

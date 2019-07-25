@@ -1,56 +1,63 @@
-{ stdenv, fetchurl, makeWrapper, symlinkJoin, writeShellScriptBin, callPackage, defaultCrateOverrides
-, wayland, wlc, cairo, libxkbcommon, pam, python3Packages, lemonbar, gdk_pixbuf
+{ stdenv, fetchurl, makeWrapper, symlinkJoin, writeShellScriptBin, callPackage, defaultCrateOverrides, wayland, wlc, cairo, libxkbcommon, pam, python3Packages, lemonbar, gdk_pixbuf
 }:
 
 let
   # refer to
   # https://github.com/way-cooler/way-cooler.github.io/blob/master/way-cooler-release-i3-default.sh
   # for version numbers
-  cratesIO = callPackage ./crates-io.nix {};
+  cratesIO = callPackage ./crates-io.nix { };
 
   fakegit = writeShellScriptBin "git" ''
     echo ""
   '';
   # https://nest.pijul.com/pmeunier/carnix/discussions/22
   version = "0.8.1";
-  deps = (callPackage ./way-cooler.nix {}).deps;
-  way_cooler_ = f: cratesIO.crates.way_cooler."${version}" deps {
-    features = cratesIO.features_.way_cooler."${version}" deps {
-      "way_cooler"."${version}" = f;
+  deps = (callPackage ./way-cooler.nix { }).deps;
+  way_cooler_ = f:
+    cratesIO.crates.way_cooler."${version}" deps {
+      features = cratesIO.features_.way_cooler."${version}" deps {
+        "way_cooler"."${version}" = f;
+      };
     };
-  };
   way-cooler = ((way_cooler_ { builtin-lua = true; }).override {
     crateOverrides = defaultCrateOverrides // {
 
-    way-cooler = attrs: { buildInputs = [ wlc cairo libxkbcommon fakegit gdk_pixbuf wayland ]; };
-  };}).overrideAttrs (oldAttrs: rec {
+      way-cooler = attrs: {
+        buildInputs = [ wlc cairo libxkbcommon fakegit gdk_pixbuf wayland ];
+      };
+    };
+  }).overrideAttrs (oldAttrs: rec {
     postBuild = ''
       mkdir -p $out/etc
       cp -r config $out/etc/way-cooler
     '';
   });
 
-  wc-bg = ((callPackage ./wc-bg.nix {}).wc_bg {}).overrideAttrs (oldAttrs: rec {
-    nativeBuildInputs = [ makeWrapper ];
+  wc-bg = ((callPackage ./wc-bg.nix { }).wc_bg { }).overrideAttrs
+    (oldAttrs: rec {
+      nativeBuildInputs = [ makeWrapper ];
 
-    postFixup = ''
-      makeWrapper $out/bin/wc-bg $out/bin/wc-bg \
-        --prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ wayland ]}"
-    '';
-  });
+      postFixup = ''
+        makeWrapper $out/bin/wc-bg $out/bin/wc-bg \
+          --prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ wayland ]}"
+      '';
+    });
 
-  wc-grab = (callPackage ./wc-grab.nix {}).wc_grab {};
+  wc-grab = (callPackage ./wc-grab.nix { }).wc_grab { };
 
-  wc-lock = (((callPackage ./wc-lock.nix {}).wc_lock {}).override {
+  wc-lock = (((callPackage ./wc-lock.nix { }).wc_lock { }).override {
     crateOverrides = defaultCrateOverrides // {
 
-    wc-lock = attrs: { buildInputs = [ pam ]; };
-  };}).overrideAttrs (oldAttrs: rec {
+      wc-lock = attrs: { buildInputs = [ pam ]; };
+    };
+  }).overrideAttrs (oldAttrs: rec {
     nativeBuildInputs = [ makeWrapper ];
 
     postFixup = ''
       makeWrapper $out/bin/wc-lock $out/bin/wc-lock \
-        --prefix LD_LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ libxkbcommon wayland ]}"
+        --prefix LD_LIBRARY_PATH : "${
+        stdenv.lib.makeLibraryPath [ libxkbcommon wayland ]
+        }"
     '';
   });
 
@@ -102,7 +109,7 @@ in symlinkJoin rec {
       window manager, with much better guarantees about interoperability
       between extensions.
     '';
-    homepage = http://way-cooler.org/;
+    homepage = "http://way-cooler.org/";
     license = with licenses; [ mit ];
     maintainers = [ maintainers.miltador ];
     platforms = platforms.all;

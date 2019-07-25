@@ -1,16 +1,10 @@
-{ stdenv, fetchurl, gettext, intltool, pkgconfig, python2
-, avahi, bluez, boost, eigen, fftw, glib, glib-networking
-, glibmm, gsettings-desktop-schemas, gtkmm2, libjack2
-, ladspaH, libav, librdf, libsndfile, lilv, lv2, serd, sord, sratom
-, wrapGAppsHook, zita-convolver, zita-resampler, curl, wafHook
-, optimizationSupport ? false # Enable support for native CPU extensions
+{ stdenv, fetchurl, gettext, intltool, pkgconfig, python2, avahi, bluez, boost, eigen, fftw, glib, glib-networking, glibmm, gsettings-desktop-schemas, gtkmm2, libjack2, ladspaH, libav, librdf, libsndfile, lilv, lv2, serd, sord, sratom, wrapGAppsHook, zita-convolver, zita-resampler, curl, wafHook, optimizationSupport ?
+  false # Enable support for native CPU extensions
 }:
 
-let
-  inherit (stdenv.lib) optional;
-in
+let inherit (stdenv.lib) optional;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "guitarix-${version}";
   version = "0.38.1";
 
@@ -19,13 +13,33 @@ stdenv.mkDerivation rec {
     sha256 = "0bw7xnrx062nwb1bfj9x660h7069ncmz77szcs8icpqxrvhs7z80";
   };
 
-  nativeBuildInputs = [ gettext intltool wrapGAppsHook pkgconfig python2 wafHook ];
+  nativeBuildInputs =
+    [ gettext intltool wrapGAppsHook pkgconfig python2 wafHook ];
 
   buildInputs = [
-    avahi bluez boost eigen fftw glib glibmm glib-networking.out
-    gsettings-desktop-schemas gtkmm2 libjack2 ladspaH libav librdf
-    libsndfile lilv lv2 serd sord sratom zita-convolver
-    zita-resampler curl
+    avahi
+    bluez
+    boost
+    eigen
+    fftw
+    glib
+    glibmm
+    glib-networking.out
+    gsettings-desktop-schemas
+    gtkmm2
+    libjack2
+    ladspaH
+    libav
+    librdf
+    libsndfile
+    lilv
+    lv2
+    serd
+    sord
+    sratom
+    zita-convolver
+    zita-resampler
+    curl
   ];
 
   wafConfigureFlags = [
@@ -62,7 +76,7 @@ stdenv.mkDerivation rec {
       clean-sounds, nice overdrive, fat distortion and a diversity of
       crazy sounds never heard before.
     '';
-    homepage = http://guitarix.sourceforge.net/;
+    homepage = "http://guitarix.sourceforge.net/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ astsmtl goibhniu ];
     platforms = platforms.linux;

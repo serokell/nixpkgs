@@ -1,22 +1,22 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''hu_dot_dwim_dot_stefil'';
-  version = ''20170403-darcs'';
+args@{ fetchurl, ... }: rec {
+  baseName = "hu_dot_dwim_dot_stefil";
+  version = "20170403-darcs";
 
   parasites = [ "hu.dwim.stefil/test" ];
 
-  description = ''A Simple Test Framework In Lisp.'';
+  description = "A Simple Test Framework In Lisp.";
 
   deps = [ args."alexandria" args."hu_dot_dwim_dot_asdf" ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/hu.dwim.stefil/2017-04-03/hu.dwim.stefil-20170403-darcs.tgz'';
-    sha256 = ''1irrsb0xfc5bx49aqs4ak0xzpjbjhxi9igx5x392gb5pzsak2r9n'';
+    url =
+      "http://beta.quicklisp.org/archive/hu.dwim.stefil/2017-04-03/hu.dwim.stefil-20170403-darcs.tgz";
+    sha256 = "1irrsb0xfc5bx49aqs4ak0xzpjbjhxi9igx5x392gb5pzsak2r9n";
   };
 
   packageName = "hu.dwim.stefil";
 
-  asdFilesToKeep = ["hu.dwim.stefil.asd"];
+  asdFilesToKeep = [ "hu.dwim.stefil.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.stefil DESCRIPTION A Simple Test Framework In Lisp. SHA256
@@ -29,4 +29,5 @@ rec {
     DEPENDENCIES (alexandria hu.dwim.asdf) VERSION 20170403-darcs SIBLINGS
     (hu.dwim.stefil+hu.dwim.def+swank hu.dwim.stefil+hu.dwim.def
      hu.dwim.stefil+swank)
-    PARASITES (hu.dwim.stefil/test)) */
+    PARASITES (hu.dwim.stefil/test))
+*/

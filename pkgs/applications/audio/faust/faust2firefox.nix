@@ -1,6 +1,4 @@
-{ faust
-, xdg_utils
-}:
+{ faust, xdg_utils }:
 
 # This just runs faust2svg, then attempts to open a browser using
 # 'xdg-open'.

@@ -1,17 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, numba
-, pandas
-, dask
-, distributed
-, coverage
-, flake8
-, black
-, pytest
-, codecov
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, numba, pandas, dask, distributed, coverage, flake8, black, pytest, codecov
 }:
 
 buildPythonPackage rec {
@@ -25,30 +12,19 @@ buildPythonPackage rec {
     sha256 = "0s2s3y855jjwdb7p55zx8lknplz58ghpw547yzmqisacr968b67w";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    numba
-  ];
+  propagatedBuildInputs = [ numpy scipy numba ];
 
-  checkInputs = [
-    pandas
-    dask
-    distributed
-    coverage
-    flake8
-    black
-    pytest
-    codecov
-  ];
+  checkInputs =
+    [ pandas dask distributed coverage flake8 black pytest codecov ];
 
   checkPhase = ''
     pytest
   '';
 
   meta = with lib; {
-    description = "A powerful and scalable library that can be used for a variety of time series data mining tasks";
-    homepage = https://github.com/TDAmeritrade/stumpy;
+    description =
+      "A powerful and scalable library that can be used for a variety of time series data mining tasks";
+    homepage = "https://github.com/TDAmeritrade/stumpy";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

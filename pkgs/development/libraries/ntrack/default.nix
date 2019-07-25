@@ -1,14 +1,13 @@
 { stdenv, fetchurl, qt4, pkgconfig, libnl, python }:
 
-let
-  version = "016";
-in
+let version = "016";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ntrack-${version}";
 
   src = fetchurl {
-    url = "https://launchpad.net/ntrack/main/${version}/+download/${name}.tar.gz";
+    url =
+      "https://launchpad.net/ntrack/main/${version}/+download/${name}.tar.gz";
     sha256 = "037ig5y0mp327m0hh4pnfr3vmsk3wrxgfjy3645q4ws9vdhx807w";
   };
 
@@ -29,8 +28,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Network Connectivity Tracking library for Desktop Applications";
-    homepage = https://launchpad.net/ntrack;
+    description =
+      "Network Connectivity Tracking library for Desktop Applications";
+    homepage = "https://launchpad.net/ntrack";
     platforms = platforms.linux;
     license = licenses.lgpl3Plus;
   };

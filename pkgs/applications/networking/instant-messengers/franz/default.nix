@@ -1,13 +1,12 @@
-{ stdenv, fetchurl, makeWrapper, wrapGAppsHook, autoPatchelfHook, dpkg
-, xorg, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, gtk3
-, gnome2, dbus, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils }:
+{ stdenv, fetchurl, makeWrapper, wrapGAppsHook, autoPatchelfHook, dpkg, xorg, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, gtk3, gnome2, dbus, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils
+}:
 
-let
-  version = "5.2.0";
+let version = "5.2.0";
 in stdenv.mkDerivation rec {
   name = "franz-${version}";
   src = fetchurl {
-    url = "https://github.com/meetfranz/franz/releases/download/v${version}/franz_${version}_amd64.deb";
+    url =
+      "https://github.com/meetfranz/franz/releases/download/v${version}/franz_${version}_amd64.deb";
     sha256 = "1wlfd1ja38vbjy8y5pg95cpvf5ixkkq53m7v3c24q473jax4ynvg";
   };
 
@@ -16,11 +15,34 @@ in stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper wrapGAppsHook dpkg ];
   buildInputs = (with xorg; [
-    libXi libXcursor libXdamage libXrandr libXcomposite libXext libXfixes
-    libXrender libX11 libXtst libXScrnSaver
+    libXi
+    libXcursor
+    libXdamage
+    libXrandr
+    libXcomposite
+    libXext
+    libXfixes
+    libXrender
+    libX11
+    libXtst
+    libXScrnSaver
   ]) ++ [
-    gtk3 atk glib pango gdk_pixbuf cairo freetype fontconfig dbus
-    gnome2.GConf nss nspr alsaLib cups expat stdenv.cc.cc
+    gtk3
+    atk
+    glib
+    pango
+    gdk_pixbuf
+    cairo
+    freetype
+    fontconfig
+    dbus
+    gnome2.GConf
+    nss
+    nspr
+    alsaLib
+    cups
+    expat
+    stdenv.cc.cc
   ];
   runtimeDependencies = [ udev.lib libnotify ];
 
@@ -46,11 +68,12 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A free messaging app that combines chat & messaging services into one application";
-    homepage = https://meetfranz.com;
+    description =
+      "A free messaging app that combines chat & messaging services into one application";
+    homepage = "https://meetfranz.com";
     license = licenses.free;
     maintainers = [ maintainers.gnidorah ];
-    platforms = ["x86_64-linux"];
-    hydraPlatforms = [];
+    platforms = [ "x86_64-linux" ];
+    hydraPlatforms = [ ];
   };
 }

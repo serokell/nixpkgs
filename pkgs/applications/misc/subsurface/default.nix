@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, cmake, wrapQtAppsHook, pkgconfig, qmake
-, curl, grantlee, libgit2, libusb, libssh2, libxml2, libxslt, libzip, zlib
-, qtbase, qtconnectivity, qtlocation, qtsvg, qttools, qtwebkit, libXcomposite
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, cmake, wrapQtAppsHook, pkgconfig, qmake, curl, grantlee, libgit2, libusb, libssh2, libxml2, libxslt, libzip, zlib, qtbase, qtconnectivity, qtlocation, qtsvg, qttools, qtwebkit, libXcomposite
 }:
 
 let
@@ -10,7 +8,8 @@ let
     name = "libdivecomputer-ssrf-${version}";
 
     src = fetchurl {
-      url = "https://subsurface-divelog.org/downloads/libdivecomputer-subsurface-branch-${version}.tgz";
+      url =
+        "https://subsurface-divelog.org/downloads/libdivecomputer-subsurface-branch-${version}.tgz";
       sha256 = "167qan59raibmilkc574gdqxfjg2f5ww2frn86xzk2kn4qg8190w";
     };
 
@@ -21,8 +20,9 @@ let
     enableParallelBuilding = true;
 
     meta = with stdenv.lib; {
-      homepage = http://www.libdivecomputer.org;
-      description = "A cross-platform and open source library for communication with dive computers from various manufacturers";
+      homepage = "http://www.libdivecomputer.org";
+      description =
+        "A cross-platform and open source library for communication with dive computers from various manufacturers";
       maintainers = with maintainers; [ mguentner ];
       license = licenses.lgpl21;
       platforms = platforms.all;
@@ -74,17 +74,26 @@ in stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    libdc googlemaps
-    curl grantlee libgit2 libssh2 libusb libxml2 libxslt libzip
-    qtbase qtconnectivity qtsvg qttools qtwebkit
+    libdc
+    googlemaps
+    curl
+    grantlee
+    libgit2
+    libssh2
+    libusb
+    libxml2
+    libxslt
+    libzip
+    qtbase
+    qtconnectivity
+    qtsvg
+    qttools
+    qtwebkit
   ];
 
   nativeBuildInputs = [ cmake wrapQtAppsHook pkgconfig ];
 
-  cmakeFlags = [
-    "-DLIBDC_FROM_PKGCONFIG=ON"
-    "-DNO_PRINTING=OFF"
-  ];
+  cmakeFlags = [ "-DLIBDC_FROM_PKGCONFIG=ON" "-DNO_PRINTING=OFF" ];
 
   enableParallelBuilding = true;
 
@@ -98,7 +107,7 @@ in stdenv.mkDerivation rec {
       conveniently be entered using a map interface), logging of equipment used and
       names of other divers, and lets users rate dives and provide additional notes.
     '';
-    homepage = https://subsurface-divelog.org;
+    homepage = "https://subsurface-divelog.org";
     license = licenses.gpl2;
     maintainers = with maintainers; [ mguentner ];
     platforms = platforms.all;

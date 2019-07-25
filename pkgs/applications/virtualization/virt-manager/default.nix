@@ -1,44 +1,48 @@
-{ stdenv, fetchurl, python3Packages, intltool, file
-, wrapGAppsHook, gtk-vnc, vte, avahi, dconf
-, gobject-introspection, libvirt-glib, system-libvirt
-, gsettings-desktop-schemas, glib, libosinfo, gnome3
-, gtksourceview4
-, spiceSupport ? true, spice-gtk ? null
-, cpio, e2fsprogs, findutils, gzip
-}:
+{ stdenv, fetchurl, python3Packages, intltool, file, wrapGAppsHook, gtk-vnc, vte, avahi, dconf, gobject-introspection, libvirt-glib, system-libvirt, gsettings-desktop-schemas, glib, libosinfo, gnome3, gtksourceview4, spiceSupport ?
+  true, spice-gtk ? null, cpio, e2fsprogs, findutils, gzip }:
 
 with stdenv.lib;
 
 # TODO: remove after there's support for setupPyDistFlags
-let
-  setuppy = ../../../development/interpreters/python/run_setup.py;
-in
-python3Packages.buildPythonApplication rec {
+let setuppy = ../../../development/interpreters/python/run_setup.py;
+in python3Packages.buildPythonApplication rec {
   name = "virt-manager-${version}";
   version = "2.2.1";
   namePrefix = "";
 
   src = fetchurl {
-    url = "http://virt-manager.org/download/sources/virt-manager/${name}.tar.gz";
+    url =
+      "http://virt-manager.org/download/sources/virt-manager/${name}.tar.gz";
     sha256 = "06ws0agxlip6p6n3n43knsnjyd91gqhh2dadgc33wl9lx1k8vn6g";
   };
 
   nativeBuildInputs = [
-    intltool file
+    intltool
+    file
     gobject-introspection # for setup hook populating GI_TYPELIB_PATH
   ];
 
   buildInputs = [
     wrapGAppsHook
-    libvirt-glib vte dconf gtk-vnc gnome3.adwaita-icon-theme avahi
-    gsettings-desktop-schemas libosinfo gtksourceview4
+    libvirt-glib
+    vte
+    dconf
+    gtk-vnc
+    gnome3.adwaita-icon-theme
+    avahi
+    gsettings-desktop-schemas
+    libosinfo
+    gtksourceview4
     gobject-introspection # Temporary fix, see https://github.com/NixOS/nixpkgs/issues/56943
   ] ++ optional spiceSupport spice-gtk;
 
-  propagatedBuildInputs = with python3Packages;
-    [
-      pygobject3 ipaddress libvirt libxml2 requests
-    ];
+  propagatedBuildInputs = with python3Packages; [
+    pygobject3
+    ipaddress
+    libvirt
+    libxml2
+    requests
+  ];
 
   patchPhase = ''
     sed -i 's|/usr/share/libvirt/cpu_map.xml|${system-libvirt}/share/libvirt/cpu_map.xml|g' virtinst/capabilities.py
@@ -60,14 +64,16 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     gappsWrapperArgs+=(--set PYTHONPATH "$PYTHONPATH")
     # these are called from virt-install in initrdinject.py
-    gappsWrapperArgs+=(--prefix PATH : "${makeBinPath [ cpio e2fsprogs file findutils gzip ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${
+      makeBinPath [ cpio e2fsprogs file findutils gzip ]
+    }")
   '';
 
   # Failed tests
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://virt-manager.org;
+    homepage = "http://virt-manager.org";
     description = "Desktop user interface for managing virtual machines";
     longDescription = ''
       The virt-manager application is a desktop user interface for managing

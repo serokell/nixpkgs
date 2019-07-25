@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qttools, qtx11extras,
-  dtkcore, dtkwidget, ffmpeg, ffmpegthumbnailer, mpv, pulseaudio,
-  libdvdnav, libdvdread, xorg, deepin }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qttools, qtx11extras, dtkcore, dtkwidget, ffmpeg, ffmpegthumbnailer, mpv, pulseaudio, libdvdnav, libdvdread, xorg, deepin
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -16,11 +15,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    qttools
-  ];
+  nativeBuildInputs = [ cmake pkgconfig qttools ];
 
   buildInputs = [
     dtkcore
@@ -49,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin movie player";
-    homepage = https://github.com/linuxdeepin/deepin-movie-reborn;
+    homepage = "https://github.com/linuxdeepin/deepin-movie-reborn";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

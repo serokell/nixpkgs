@@ -1,14 +1,11 @@
-{ stdenv, fetchurl, tzdata, iana-etc, runCommand
-, perl, which, pkgconfig, patch, procps, pcre, cacert, Security, Foundation
-, mailcap, runtimeShell
-, buildPackages, pkgsTargetTarget
+{ stdenv, fetchurl, tzdata, iana-etc, runCommand, perl, which, pkgconfig, patch, procps, pcre, cacert, Security, Foundation, mailcap, runtimeShell, buildPackages, pkgsTargetTarget
 }:
 
 let
 
   inherit (stdenv.lib) optionals optionalString;
 
-  goBootstrap = runCommand "go-bootstrap" {} ''
+  goBootstrap = runCommand "go-bootstrap" { } ''
     mkdir $out
     cp -rf ${buildPackages.go_bootstrap}/* $out/
     chmod -R u+w $out
@@ -16,7 +13,8 @@ let
     cp -rf $out/bin/* $out/share/go/bin/
   '';
 
-  goarch = platform: {
+  goarch = platform:
+  {
     "i686" = "386";
     "x86_64" = "amd64";
     "aarch64" = "arm64";
@@ -26,9 +24,7 @@ let
     "armv7l" = "arm";
   }.${platform.parsed.cpu.name} or (throw "Unsupported system");
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "go";
   version = "1.11.12";
 
@@ -41,8 +37,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ perl which pkgconfig patch procps ];
   buildInputs = [ cacert pcre ]
     ++ optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
-
+    ++ optionals (stdenv.hostPlatform.libc == "glibc")
+    [ stdenv.cc.libc.static ];
 
   propagatedBuildInputs = optionals stdenv.isDarwin [ Security Foundation ];
 
@@ -147,15 +143,16 @@ stdenv.mkDerivation rec {
   # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
   # to be different from CC/CXX
   CC_FOR_TARGET = if (stdenv.buildPlatform != stdenv.targetPlatform) then
-      "${pkgsTargetTarget.stdenv.cc}/bin/${pkgsTargetTarget.stdenv.cc.targetPrefix}cc"
-    else
-      null;
+    "${pkgsTargetTarget.stdenv.cc}/bin/${pkgsTargetTarget.stdenv.cc.targetPrefix}cc"
+  else
+    null;
   CXX_FOR_TARGET = if (stdenv.buildPlatform != stdenv.targetPlatform) then
-      "${pkgsTargetTarget.stdenv.cc}/bin/${pkgsTargetTarget.stdenv.cc.targetPrefix}c++"
-    else
-      null;
+    "${pkgsTargetTarget.stdenv.cc}/bin/${pkgsTargetTarget.stdenv.cc.targetPrefix}c++"
+  else
+    null;
 
-  GOARM = toString (stdenv.lib.intersectLists [(stdenv.hostPlatform.parsed.cpu.version or "")] ["5" "6" "7"]);
+  GOARM = toString (stdenv.lib.intersectLists
+    [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [ "5" "6" "7" ]);
   GO386 = 387; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 1;
   # Hopefully avoids test timeouts on Hydra
@@ -165,7 +162,7 @@ stdenv.mkDerivation rec {
   # Some tests assume things like home directories and users exists
   GO_BUILDER_NAME = "nix";
 
-  GOROOT_BOOTSTRAP="${goBootstrap}/share/go";
+  GOROOT_BOOTSTRAP = "${goBootstrap}/share/go";
 
   postConfigure = ''
     export GOCACHE=$TMPDIR/go-cache
@@ -207,7 +204,8 @@ stdenv.mkDerivation rec {
     ${optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
       rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
     ''}
-  '' else "");
+  '' else
+    "");
 
   installPhase = ''
     runHook preInstall
@@ -223,10 +221,16 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     branch = "1.11";
-    homepage = http://golang.org/;
+    homepage = "http://golang.org/";
     description = "The Go Programming language";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cstrahan orivej velovix mic92 rvolosatovs ];
+    maintainers = with maintainers; [
+      cstrahan
+      orivej
+      velovix
+      mic92
+      rvolosatovs
+    ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

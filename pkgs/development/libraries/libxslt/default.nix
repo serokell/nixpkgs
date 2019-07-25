@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, libxml2, findXMLCatalogs, python2, libgcrypt
-, cryptoSupport ? false
-, pythonSupport ? stdenv.buildPlatform == stdenv.hostPlatform
-}:
+{ stdenv, fetchurl, fetchpatch, libxml2, findXMLCatalogs, python2, libgcrypt, cryptoSupport ?
+  false, pythonSupport ? stdenv.buildPlatform == stdenv.hostPlatform }:
 
 assert pythonSupport -> python2 != null;
 assert pythonSupport -> libxml2.pythonSupport;
@@ -21,12 +19,14 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "CVE-2019-11068.patch";
-      url = "https://gitlab.gnome.org/GNOME/libxslt/commit/e03553605b45c88f0b4b2980adfbbb8f6fca2fd6.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/libxslt/commit/e03553605b45c88f0b4b2980adfbbb8f6fca2fd6.patch";
       sha256 = "0pkpb4837km15zgg6h57bncp66d5lwrlvkr73h0lanywq7zrwhj8";
     })
   ];
 
-  outputs = [ "bin" "dev" "out" "man" "doc" ] ++ stdenv.lib.optional pythonSupport "py";
+  outputs = [ "bin" "dev" "out" "man" "doc" ]
+    ++ stdenv.lib.optional pythonSupport "py";
 
   buildInputs = [ libxml2.dev ]
     ++ stdenv.lib.optionals pythonSupport [ libxml2.py python2 ]
@@ -52,12 +52,10 @@ stdenv.mkDerivation rec {
     moveToOutput lib/python2.7 "$py"
   '';
 
-  passthru = {
-    inherit pythonSupport;
-  };
+  passthru = { inherit pythonSupport; };
 
   meta = with stdenv.lib; {
-    homepage = http://xmlsoft.org/XSLT/;
+    homepage = "http://xmlsoft.org/XSLT/";
     description = "A C library and tools to do XSL transformations";
     license = licenses.mit;
     platforms = platforms.all;

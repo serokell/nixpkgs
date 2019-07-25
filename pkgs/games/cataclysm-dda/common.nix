@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gettext, ncurses, CoreFoundation
-, tiles, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, freetype, Cocoa
-, debug, runtimeShell
+{ stdenv, fetchFromGitHub, pkgconfig, gettext, ncurses, CoreFoundation, tiles, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, freetype, Cocoa, debug, runtimeShell
 }:
 
 let
@@ -21,21 +19,15 @@ let
       patchShebangs .
     '';
 
-    makeFlags = [
-      "PREFIX=$(out)" "USE_HOME_DIR=1" "LANGUAGES=all"
-    ] ++ optionals (!debug) [
-      "RELEASE=1"
-    ] ++ optionals tiles [
-      "TILES=1" "SOUND=1"
-    ] ++ optionals stdenv.isDarwin [
-      "NATIVE=osx" "CLANG=1"
-    ];
+    makeFlags = [ "PREFIX=$(out)" "USE_HOME_DIR=1" "LANGUAGES=all" ]
+      ++ optionals (!debug) [ "RELEASE=1" ]
+      ++ optionals tiles [ "TILES=1" "SOUND=1" ]
+      ++ optionals stdenv.isDarwin [ "NATIVE=osx" "CLANG=1" ];
 
-    postInstall = optionalString tiles
-    ( if !stdenv.isDarwin
-      then utils.installXDGAppLauncher
-      else utils.installMacOSAppLauncher
-    );
+    postInstall = optionalString tiles (if !stdenv.isDarwin then
+      utils.installXDGAppLauncher
+    else
+      utils.installMacOSAppLauncher);
 
     dontStrip = debug;
 
@@ -69,7 +61,7 @@ let
         substances or radiation, now more closely resemble insects, birds or fish
         than their original form.
       '';
-      homepage = https://cataclysmdda.org/;
+      homepage = "https://cataclysmdda.org/";
       license = licenses.cc-by-sa-30;
       maintainers = with maintainers; [ mnacamura ];
       platforms = platforms.unix;
@@ -78,11 +70,11 @@ let
 
   utils = {
     fetchFromCleverRaven = { rev, sha256 }:
-    fetchFromGitHub {
-      owner = "CleverRaven";
-      repo = "Cataclysm-DDA";
-      inherit rev sha256;
-    };
+      fetchFromGitHub {
+        owner = "CleverRaven";
+        repo = "Cataclysm-DDA";
+        inherit rev sha256;
+      };
 
     installXDGAppLauncher = ''
       launcher="$out/share/applications/cataclysm-dda.desktop"
@@ -104,6 +96,5 @@ let
       chmod 555 $launcher
     '';
   };
-in
 
-{ inherit common utils; }
+in { inherit common utils; }

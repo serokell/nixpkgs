@@ -2,12 +2,9 @@
 
 assert (stdenv.hostPlatform.system == "i686-linux");
 
-let
-  libPath = stdenv.lib.makeLibraryPath
-    [ stdenv.cc.libc stdenv.cc.cc ];
-in
-stdenv.mkDerivation rec {
-  name    = "kdbplus-${version}";
+let libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.libc stdenv.cc.cc ];
+in stdenv.mkDerivation rec {
+  name = "kdbplus-${version}";
   version = "3.3";
 
   src = requireFile {
@@ -17,7 +14,7 @@ stdenv.mkDerivation rec {
       Linux. Then run "nix-prefetch-url file://\$PWD/linux.zip" in
       the directory where you saved it. Note you need version 3.3.
     '';
-    name   = "linux.zip";
+    name = "linux.zip";
     sha256 = "5fd0837599e24f0f437a8314510888a86ab0787684120a8fcf592299800aa940";
   };
 
@@ -67,9 +64,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Analytics and time-series database";
-    homepage    = "http://www.kx.com/";
-    license     = stdenv.lib.licenses.unfree;
-    platforms   = [ "i686-linux" ];
+    homepage = "http://www.kx.com/";
+    license = stdenv.lib.licenses.unfree;
+    platforms = [ "i686-linux" ];
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

@@ -1,24 +1,31 @@
-{ stdenv, fetchurl, gettext, pkgconfig, glib, libnotify, gtk3, libgee
-, keybinder3, json-glib, zeitgeist, vala, hicolor-icon-theme, gobject-introspection
+{ stdenv, fetchurl, gettext, pkgconfig, glib, libnotify, gtk3, libgee, keybinder3, json-glib, zeitgeist, vala, hicolor-icon-theme, gobject-introspection
 }:
 
-let
-  version = "0.2.99.4";
+let version = "0.2.99.4";
 in stdenv.mkDerivation rec {
   name = "synapse-${version}";
 
   src = fetchurl {
-    url = "https://launchpad.net/synapse-project/0.3/${version}/+download/${name}.tar.xz";
+    url =
+      "https://launchpad.net/synapse-project/0.3/${version}/+download/${name}.tar.xz";
     sha256 = "1g6x9knb4jy1d8zgssjhzkgac583137pibisy9whjs8mckaj4k1j";
   };
 
   nativeBuildInputs = [
-    pkgconfig gettext vala
+    pkgconfig
+    gettext
+    vala
     # For setup hook
     gobject-introspection
   ];
   buildInputs = [
-    glib libnotify gtk3 libgee keybinder3 json-glib zeitgeist
+    glib
+    libnotify
+    gtk3
+    libgee
+    keybinder3
+    json-glib
+    zeitgeist
     hicolor-icon-theme
   ];
 
@@ -28,8 +35,9 @@ in stdenv.mkDerivation rec {
       as well as find and access relevant documents and files by making use of
       the Zeitgeist engine
     '';
-    description = "Semantic launcher to start applications and find relevant files";
-    homepage = https://launchpad.net/synapse-project;
+    description =
+      "Semantic launcher to start applications and find relevant files";
+    homepage = "https://launchpad.net/synapse-project";
     license = licenses.gpl3;
     maintainers = with maintainers; [ mahe ];
     platforms = with platforms; all;

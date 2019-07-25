@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, qt4, quazip, qt-mobility, qxt, pythonPackages }:
+{ stdenv, fetchFromGitHub, cmake, qt4, quazip, qt-mobility, qxt, pythonPackages
+}:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -9,7 +10,7 @@ stdenv.mkDerivation rec {
   # for tracking usage.
   consumerKey = "23e747012c68601f27ab69c6de129ed70552d55b6";
   consumerSecret = "4701cb00c1bd357bbcae7c3d713dd216";
-  
+
   src = fetchFromGitHub {
     owner = "olav-st";
     repo = "screencloud";
@@ -17,7 +18,15 @@ stdenv.mkDerivation rec {
     sha256 = "1s0dxa1sa37nvna5nfqdsp294810favj68qb7ghl78qna7zw0cim";
   };
 
-  buildInputs = [ cmake qt4 quazip qt-mobility qxt pythonPackages.python pythonPackages.pycrypto ];
+  buildInputs = [
+    cmake
+    qt4
+    quazip
+    qt-mobility
+    qxt
+    pythonPackages.python
+    pythonPackages.pycrypto
+  ];
 
   patchPhase = ''
     # Required to make the configure script work. Normally, screencloud's
@@ -68,8 +77,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://screencloud.net/;
-    description = "Client for Screencloud, an easy to use screenshot sharing tool";
+    homepage = "https://screencloud.net/";
+    description =
+      "Client for Screencloud, an easy to use screenshot sharing tool";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ forkk ];
     platforms = with stdenv.lib.platforms; linux;

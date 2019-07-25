@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, cmake, qt4, perl, bzip2, libxml2, exiv2
-, clucene_core, fam, zlib, dbus, pkgconfig
+{ stdenv, fetchurl, cmake, qt4, perl, bzip2, libxml2, exiv2, clucene_core, fam, zlib, dbus, pkgconfig
 }:
 
 stdenv.mkDerivation rec {
@@ -15,8 +14,7 @@ stdenv.mkDerivation rec {
 
   CLUCENE_HOME = clucene_core;
 
-  buildInputs =
-    [ zlib bzip2 libxml2 qt4 exiv2 clucene_core fam dbus.out ];
+  buildInputs = [ zlib bzip2 libxml2 qt4 exiv2 clucene_core fam dbus.out ];
 
   nativeBuildInputs = [ cmake pkgconfig perl ];
 
@@ -27,15 +25,15 @@ stdenv.mkDerivation rec {
   # Strigi installs some libraries in an incorrect place
   # ($out/$out/lib instead of $out/lib), so move them to the right
   # place.
-  postInstall =
-    ''
-      mv $out/$out/lib/* $out/lib
-      rm -rf $out/nix
-    '';
+  postInstall = ''
+    mv $out/$out/lib/* $out/lib
+    rm -rf $out/nix
+  '';
 
   meta = {
-    homepage = http://strigi.sourceforge.net;
-    description = "A very fast and efficient crawler to index data on your harddrive";
+    homepage = "http://strigi.sourceforge.net";
+    description =
+      "A very fast and efficient crawler to index data on your harddrive";
     license = "LGPL";
     maintainers = with stdenv.lib.maintainers; [ sander ];
     inherit (qt4.meta) platforms;

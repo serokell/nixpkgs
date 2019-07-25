@@ -1,7 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper
-, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate
-, libvorbis, libxml2, movit, pkgconfig, sox
-, gtk2
+{ stdenv, fetchFromGitHub, makeWrapper, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate, libvorbis, libxml2, movit, pkgconfig, sox, gtk2
 }:
 
 stdenv.mkDerivation rec {
@@ -16,15 +13,28 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    SDL ffmpeg frei0r libjack2 libdv libsamplerate libvorbis libxml2
-    makeWrapper movit pkgconfig sox
+    SDL
+    ffmpeg
+    frei0r
+    libjack2
+    libdv
+    libsamplerate
+    libvorbis
+    libxml2
+    makeWrapper
+    movit
+    pkgconfig
+    sox
     gtk2
   ];
 
   # Mostly taken from:
   # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
   configureFlags = [
-    "--avformat-swscale" "--enable-gpl" "--enable-gpl" "--enable-gpl3"
+    "--avformat-swscale"
+    "--enable-gpl"
+    "--enable-gpl"
+    "--enable-gpl3"
     "--enable-opengl"
   ];
 
@@ -40,8 +50,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Open source multimedia framework, designed for television broadcasting";
-    homepage = https://www.mltframework.org;
+    description =
+      "Open source multimedia framework, designed for television broadcasting";
+    homepage = "https://www.mltframework.org";
     license = licenses.gpl3;
     maintainers = [ maintainers.tohl ];
     platforms = platforms.linux;

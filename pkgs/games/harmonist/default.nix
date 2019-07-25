@@ -1,4 +1,4 @@
-{stdenv, fetchurl, buildGoPackage}:
+{ stdenv, fetchurl, buildGoPackage }:
 
 buildGoPackage rec {
 
@@ -8,7 +8,8 @@ buildGoPackage rec {
   goPackagePath = "git.tuxfamily.org/harmonist/harmonist.git";
 
   src = fetchurl {
-    url = "https://download.tuxfamily.org/harmonist/releases/${pname}-${version}.tar.gz";
+    url =
+      "https://download.tuxfamily.org/harmonist/releases/${pname}-${version}.tar.gz";
     sha256 = "1cvhfvscd80qz95pqkblnyjhz1l87k7y6vmzyzap893mpjk9a3pm";
   };
 
@@ -29,6 +30,6 @@ buildGoPackage rec {
     homepage = "https://harmonist.tuxfamily.org/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [freepotion];
+    maintainers = with maintainers; [ freepotion ];
   };
 }

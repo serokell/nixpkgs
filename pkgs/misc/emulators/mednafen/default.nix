@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, freeglut, libGLU_combined, libcdio, libjack2
-, libsamplerate, libsndfile, libX11, SDL, SDL_net, zlib }:
+{ stdenv, fetchurl, pkgconfig, freeglut, libGLU_combined, libcdio, libjack2, libsamplerate, libsndfile, libX11, SDL, SDL_net, zlib
+}:
 
 stdenv.mkDerivation rec {
   name = "mednafen-${version}";
@@ -33,8 +33,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A portable, CLI-driven, SDL+OpenGL-based, multi-system emulator";
-    homepage = https://mednafen.github.io/;
+    description =
+      "A portable, CLI-driven, SDL+OpenGL-based, multi-system emulator";
+    homepage = "https://mednafen.github.io/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.linux;

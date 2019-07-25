@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, systemd ? null, libobjc, IOKit, withStatic ? false }:
+{ stdenv, fetchurl, pkgconfig, systemd ? null, libobjc, IOKit, withStatic ?
+  false }:
 
 stdenv.mkDerivation (rec {
   name = "libusb-1.0.22";
@@ -11,9 +12,8 @@ stdenv.mkDerivation (rec {
   outputs = [ "out" "dev" ]; # get rid of propagating systemd closure
 
   nativeBuildInputs = [ pkgconfig ];
-  propagatedBuildInputs =
-    stdenv.lib.optional stdenv.isLinux systemd ++
-    stdenv.lib.optionals stdenv.isDarwin [ libobjc IOKit ];
+  propagatedBuildInputs = stdenv.lib.optional stdenv.isLinux systemd
+    ++ stdenv.lib.optionals stdenv.isDarwin [ libobjc IOKit ];
 
   NIX_LDFLAGS = stdenv.lib.optionalString stdenv.isLinux "-lgcc_s";
 

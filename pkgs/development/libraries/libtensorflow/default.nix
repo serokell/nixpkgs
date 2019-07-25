@@ -1,50 +1,51 @@
-{ config, stdenv
-, fetchurl
-, patchelf
-, cudaSupport ? config.cudaSupport or false, symlinkJoin, cudatoolkit, cudnn, nvidia_x11
-}:
+{ config, stdenv, fetchurl, patchelf, cudaSupport ?
+  config.cudaSupport or false, symlinkJoin, cudatoolkit, cudnn, nvidia_x11 }:
 with stdenv.lib;
 let
   tfType = if cudaSupport then "gpu" else "cpu";
-  system =
-    if stdenv.isx86_64
-    then if      stdenv.isLinux  then "linux-x86_64"
-         else if stdenv.isDarwin then "darwin-x86_64" else unavailable
-    else unavailable;
+  system = if stdenv.isx86_64 then
+    if stdenv.isLinux then
+      "linux-x86_64"
+    else if stdenv.isDarwin then
+      "darwin-x86_64"
+    else
+      unavailable
+  else
+    unavailable;
   unavailable = throw "libtensorflow is not available for this platform!";
   cudatoolkit_joined = symlinkJoin {
     name = "unsplit_cudatoolkit";
-    paths = [ cudatoolkit.out
-              cudatoolkit.lib ];};
-  rpath = makeLibraryPath ([stdenv.cc.libc stdenv.cc.cc.lib] ++
-            optionals cudaSupport [ cudatoolkit_joined cudnn nvidia_x11 ]);
-  patchLibs =
-    if stdenv.isDarwin
-    then ''
-      install_name_tool -id $out/lib/libtensorflow.so $out/lib/libtensorflow.so
-      install_name_tool -id $out/lib/libtensorflow_framework.so $out/lib/libtensorflow_framework.so
-    ''
-    else ''
-      ${patchelf}/bin/patchelf --set-rpath "${rpath}:$out/lib" $out/lib/libtensorflow.so
-      ${patchelf}/bin/patchelf --set-rpath "${rpath}" $out/lib/libtensorflow_framework.so
-    '';
+    paths = [ cudatoolkit.out cudatoolkit.lib ];
+  };
+  rpath = makeLibraryPath ([ stdenv.cc.libc stdenv.cc.cc.lib ]
+    ++ optionals cudaSupport [ cudatoolkit_joined cudnn nvidia_x11 ]);
+  patchLibs = if stdenv.isDarwin then ''
+    install_name_tool -id $out/lib/libtensorflow.so $out/lib/libtensorflow.so
+    install_name_tool -id $out/lib/libtensorflow_framework.so $out/lib/libtensorflow_framework.so
+  '' else ''
+    ${patchelf}/bin/patchelf --set-rpath "${rpath}:$out/lib" $out/lib/libtensorflow.so
+    ${patchelf}/bin/patchelf --set-rpath "${rpath}" $out/lib/libtensorflow_framework.so
+  '';
 
 in stdenv.mkDerivation rec {
   pname = "libtensorflow";
   version = "1.9.0";
   name = "${pname}-${version}";
   src = fetchurl {
-    url = "https://storage.googleapis.com/tensorflow/${pname}/${pname}-${tfType}-${system}-${version}.tar.gz";
-    sha256 =
-      if system == "linux-x86_64" then
-        if cudaSupport
-        then "1q3mh06x344im25z7r3vgrfksfdsi8fh8ldn6y2mf86h4d11yxc3"
-        else "0l9ps115ng5ffzdwphlqmj3jhidps2v5afppdzrbpzmy41xz0z21"
-      else if system == "darwin-x86_64" then
-        if cudaSupport
-        then unavailable
-        else "1qj0v1706w6mczycdsh38h2glyv5d25v62kdn98wxd5rw8f9v657"
-      else unavailable;
+    url =
+      "https://storage.googleapis.com/tensorflow/${pname}/${pname}-${tfType}-${system}-${version}.tar.gz";
+    sha256 = if system == "linux-x86_64" then
+      if cudaSupport then
+        "1q3mh06x344im25z7r3vgrfksfdsi8fh8ldn6y2mf86h4d11yxc3"
+      else
+        "0l9ps115ng5ffzdwphlqmj3jhidps2v5afppdzrbpzmy41xz0z21"
+    else if system == "darwin-x86_64" then
+      if cudaSupport then
+        unavailable
+      else
+        "1qj0v1706w6mczycdsh38h2glyv5d25v62kdn98wxd5rw8f9v657"
+    else
+      unavailable;
   };
 
   # Patch library to use our libc, libstdc++ and others
@@ -72,9 +73,9 @@ in stdenv.mkDerivation rec {
 
   meta = {
     description = "C API for TensorFlow";
-    homepage = https://www.tensorflow.org/versions/master/install/install_c;
+    homepage = "https://www.tensorflow.org/versions/master/install/install_c";
     license = licenses.asl20;
     platforms = with platforms; linux ++ darwin;
-    maintainers = [maintainers.basvandijk];
+    maintainers = [ maintainers.basvandijk ];
   };
 }

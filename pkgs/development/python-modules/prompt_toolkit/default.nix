@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, six
-, wcwidth
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, six, wcwidth }:
 
 buildPythonPackage rec {
   pname = "prompt_toolkit";
@@ -22,14 +16,15 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ six wcwidth ];
 
   meta = {
-    description = "Python library for building powerful interactive command lines";
+    description =
+      "Python library for building powerful interactive command lines";
     longDescription = ''
       prompt_toolkit could be a replacement for readline, but it can be
       much more than that. It is cross-platform, everything that you build
       with it should run fine on both Unix and Windows systems. Also ships
       with a nice interactive Python shell (called ptpython) built on top.
     '';
-    homepage = https://github.com/jonathanslenders/python-prompt-toolkit;
+    homepage = "https://github.com/jonathanslenders/python-prompt-toolkit";
     license = lib.licenses.bsd3;
   };
 }

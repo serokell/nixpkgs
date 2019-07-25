@@ -9,16 +9,19 @@ stdenv.mkDerivation rec {
     sha256 = "1q42wvdwy2pac7bhfraqqj2czw7w2m33ms3ifjl8phm7d87i8825";
   };
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ eigen (libav_all.override { vaapiSupport = stdenv.isLinux; }).libav_11 ];
+  buildInputs =
+    [ eigen (libav_all.override { vaapiSupport = stdenv.isLinux; }).libav_11 ];
   fixupPhase = if stdenv.isDarwin then ''
     install_name_tool -change libmusly.dylib $out/lib/libmusly.dylib $out/bin/musly
     install_name_tool -change libmusly_resample.dylib $out/lib/libmusly_resample.dylib $out/bin/musly
     install_name_tool -change libmusly_resample.dylib $out/lib/libmusly_resample.dylib $out/lib/libmusly.dylib
-  '' else "";
+  '' else
+    "";
 
   meta = with stdenv.lib; {
-    homepage = https://www.musly.org;
-    description = "A fast and high-quality audio music similarity library written in C/C++";
+    homepage = "https://www.musly.org";
+    description =
+      "A fast and high-quality audio music similarity library written in C/C++";
     longDescription = ''
       Musly analyzes the the audio signal of music pieces to estimate their similarity.
       No meta-data about the music piece is included in the similarity estimation.

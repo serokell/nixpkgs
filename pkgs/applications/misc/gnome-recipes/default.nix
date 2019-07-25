@@ -1,23 +1,5 @@
-{ stdenv
-, fetchurl
-, meson
-, ninja
-, pkgconfig
-, gnome3
-, desktop-file-utils
-, gettext
-, itstool
-, python3
-, wrapGAppsHook
-, gtk3
-, glib
-, libsoup
-, gnome-online-accounts
-, librest
-, json-glib
-, gnome-autoar
-, gspell
-, libcanberra }:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, desktop-file-utils, gettext, itstool, python3, wrapGAppsHook, gtk3, glib, libsoup, gnome-online-accounts, librest, json-glib, gnome-autoar, gspell, libcanberra
+}:
 
 let
   pname = "gnome-recipes";
@@ -26,7 +8,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1yymii3yf823d9x28fbhqdqm1wa30s40j94x0am9fjj0nzyd5s8v";
   };
 
@@ -63,15 +47,11 @@ in stdenv.mkDerivation rec {
     patchShebangs meson_post_install.py
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     description = "Recipe management application for GNOME";
-    homepage = https://wiki.gnome.org/Apps/Recipes;
+    homepage = "https://wiki.gnome.org/Apps/Recipes";
     maintainers = gnome3.maintainers;
     license = licenses.gpl3;
     platforms = platforms.unix;

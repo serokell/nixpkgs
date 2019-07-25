@@ -1,10 +1,12 @@
-{stdenv, fetchurl, fetchpatch}:
+{ stdenv, fetchurl, fetchpatch }:
 
 let
-   acpitool-patch-051-4 = params: fetchpatch rec {
-     inherit (params) name sha256;
-     url = "https://anonscm.debian.org/cgit/pkg-acpi/acpitool.git/plain/debian/patches/${name}?h=debian/0.5.1-4&id=3fd9f396f12ec9c1cae3337a2a25026b7faad2ae";
-   };
+  acpitool-patch-051-4 = params:
+    fetchpatch rec {
+      inherit (params) name sha256;
+      url =
+        "https://anonscm.debian.org/cgit/pkg-acpi/acpitool.git/plain/debian/patches/${name}?h=debian/0.5.1-4&id=3fd9f396f12ec9c1cae3337a2a25026b7faad2ae";
+    };
 
 in stdenv.mkDerivation rec {
   name = "acpitool-0.5.1";
@@ -42,8 +44,9 @@ in stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "A small, convenient command-line ACPI client with a lot of features";
-    homepage = https://sourceforge.net/projects/acpitool/;
+    description =
+      "A small, convenient command-line ACPI client with a lot of features";
+    homepage = "https://sourceforge.net/projects/acpitool/";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [ stdenv.lib.maintainers.guibert ];
     platforms = stdenv.lib.platforms.unix;

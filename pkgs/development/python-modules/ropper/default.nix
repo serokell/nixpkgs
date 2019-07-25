@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonApplication
-, fetchPypi
-, capstone
-, filebytes
-, pytest
-}:
+{ stdenv, buildPythonApplication, fetchPypi, capstone, filebytes, pytest }:
 
 buildPythonApplication rec {
   pname = "ropper";
@@ -21,10 +15,10 @@ buildPythonApplication rec {
   '';
   doCheck = false; # Tests not included in archive
 
-  checkInputs = [pytest];
+  checkInputs = [ pytest ];
   propagatedBuildInputs = [ capstone filebytes ];
   meta = with stdenv.lib; {
-    homepage = https://scoding.de/ropper/;
+    homepage = "https://scoding.de/ropper/";
     license = licenses.bsd3;
     description = "Show information about files in different file formats";
     maintainers = with maintainers; [ bennofs ];

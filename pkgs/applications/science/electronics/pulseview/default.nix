@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, cmake, glib, boost, libsigrok
-, libsigrokdecode, libserialport, libzip, udev, libusb1, libftdi1, glibmm
-, pcre, librevisa, python3, qtbase, qtsvg
+{ stdenv, fetchurl, pkgconfig, cmake, glib, boost, libsigrok, libsigrokdecode, libserialport, libzip, udev, libusb1, libftdi1, glibmm, pcre, librevisa, python3, qtbase, qtsvg
 }:
 
 stdenv.mkDerivation rec {
@@ -14,15 +12,29 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkgconfig ];
 
   buildInputs = [
-    glib boost libsigrok libsigrokdecode libserialport libzip udev libusb1 libftdi1 glibmm
-    pcre librevisa python3 qtbase qtsvg
+    glib
+    boost
+    libsigrok
+    libsigrokdecode
+    libserialport
+    libzip
+    udev
+    libusb1
+    libftdi1
+    glibmm
+    pcre
+    librevisa
+    python3
+    qtbase
+    qtsvg
   ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "Qt-based LA/scope/MSO GUI for sigrok (a signal analysis software suite)";
-    homepage = https://sigrok.org/;
+    description =
+      "Qt-based LA/scope/MSO GUI for sigrok (a signal analysis software suite)";
+    homepage = "https://sigrok.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

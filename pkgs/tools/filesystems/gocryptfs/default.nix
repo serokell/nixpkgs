@@ -2,13 +2,14 @@
 { stdenv, buildGoPackage, fetchFromGitHub, openssl, pandoc, pkgconfig }:
 
 let
-  goFuseVersion = with stdenv.lib; substring 0 7 (head (filter (
-    d: d.goPackagePath == "github.com/hanwen/go-fuse"
-  ) (import ./deps.nix))).fetch.rev;
-in
-buildGoPackage rec {
+  goFuseVersion = with stdenv.lib;
+    substring 0 7 (head
+    (filter (d: d.goPackagePath == "github.com/hanwen/go-fuse")
+    (import ./deps.nix))).fetch.rev;
+in buildGoPackage rec {
   pname = "gocryptfs";
-  version = "1.7"; # TODO: Drop `patches` with next release. Remove `fix-unix2syscall_darwin.go-build-failure.patch`.
+  version =
+    "1.7"; # TODO: Drop `patches` with next release. Remove `fix-unix2syscall_darwin.go-build-failure.patch`.
 
   goPackagePath = "github.com/rfjakob/gocryptfs";
 
@@ -47,7 +48,7 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     description = "Encrypted overlay filesystem written in Go";
     license = licenses.mit;
-    homepage = https://nuetzlich.net/gocryptfs/;
+    homepage = "https://nuetzlich.net/gocryptfs/";
     maintainers = with maintainers; [ flokli offline ];
     platforms = platforms.unix;
   };

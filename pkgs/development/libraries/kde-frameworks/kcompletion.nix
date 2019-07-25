@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules,
-  kconfig, kwidgetsaddons, qtbase, qttools
+{ mkDerivation, lib, extra-cmake-modules, kconfig, kwidgetsaddons, qtbase, qttools
 }:
 
 mkDerivation {

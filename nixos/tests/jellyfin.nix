@@ -1,12 +1,10 @@
-import ./make-test.nix ({ lib, ...}:
+import ./make-test.nix ({ lib, ... }:
 
 {
   name = "jellyfin";
   meta.maintainers = with lib.maintainers; [ minijackson ];
 
-  machine =
-    { ... }:
-    { services.jellyfin.enable = true; };
+  machine = { ... }: { services.jellyfin.enable = true; };
 
   testScript = ''
     $machine->waitForUnit('jellyfin.service');

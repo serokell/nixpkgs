@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, python2Packages
-}:
+{ stdenv, fetchFromGitHub, python2Packages }:
 
 python2Packages.buildPythonApplication rec {
   pname = "cpuset";
@@ -19,9 +16,10 @@ python2Packages.buildPythonApplication rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Cpuset is a Python application that forms a wrapper around the standard Linux filesystem calls to make using the cpusets facilities in the Linux kernel easier.";
-    homepage    = https://github.com/wykurz/cpuset;
-    license     = licenses.gpl2;
+    description =
+      "Cpuset is a Python application that forms a wrapper around the standard Linux filesystem calls to make using the cpusets facilities in the Linux kernel easier.";
+    homepage = "https://github.com/wykurz/cpuset";
+    license = licenses.gpl2;
     maintainers = with maintainers; [ wykurz ];
   };
 }

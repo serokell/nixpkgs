@@ -1,10 +1,10 @@
-{lib, fetchPypi, buildPythonPackage, numpy, pyparsing}:
+{ lib, fetchPypi, buildPythonPackage, numpy, pyparsing }:
 
-buildPythonPackage rec{
+buildPythonPackage rec {
   pname = "periodictable";
   version = "1.5.0";
 
-  propagatedBuildInputs = [numpy pyparsing];
+  propagatedBuildInputs = [ numpy pyparsing ];
 
   src = fetchPypi {
     inherit pname version;
@@ -12,8 +12,9 @@ buildPythonPackage rec{
   };
 
   meta = {
-    homepage = http://www.reflectometry.org/danse/software.html;
-    description = "an extensible periodic table of the elements prepopulated with data important to neutron and x-ray scattering experiments";
+    homepage = "http://www.reflectometry.org/danse/software.html";
+    description =
+      "an extensible periodic table of the elements prepopulated with data important to neutron and x-ray scattering experiments";
     license = lib.licenses.publicDomain;
     maintainers = with lib.maintainers; [ rprospero ];
   };

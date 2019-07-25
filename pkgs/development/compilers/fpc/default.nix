@@ -1,8 +1,8 @@
 { stdenv, fetchurl, gawk }:
 
-let startFPC = import ./binary.nix { inherit stdenv fetchurl; }; in
+let startFPC = import ./binary.nix { inherit stdenv fetchurl; };
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "3.0.0";
   name = "fpc-${version}";
 
@@ -13,11 +13,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ startFPC gawk ];
 
-  preConfigure =
-    if stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux" then ''
-      sed -e "s@'/lib/ld-linux[^']*'@'''@" -i fpcsrc/compiler/systems/t_linux.pas
-      sed -e "s@'/lib64/ld-linux[^']*'@'''@" -i fpcsrc/compiler/systems/t_linux.pas
-    '' else "";
+  preConfigure = if stdenv.hostPlatform.system == "i686-linux"
+  || stdenv.hostPlatform.system == "x86_64-linux" then ''
+    sed -e "s@'/lib/ld-linux[^']*'@'''@" -i fpcsrc/compiler/systems/t_linux.pas
+    sed -e "s@'/lib64/ld-linux[^']*'@'''@" -i fpcsrc/compiler/systems/t_linux.pas
+  '' else
+    "";
 
   makeFlags = "NOGDB=1 FPC=${startFPC}/bin/fpc";
 
@@ -31,13 +32,11 @@ stdenv.mkDerivation rec {
     $out/lib/fpc/*/samplecfg $out/lib/fpc/${version} $out/lib/fpc/etc/
   '';
 
-  passthru = {
-    bootstrap = startFPC;
-  };
+  passthru = { bootstrap = startFPC; };
 
   meta = with stdenv.lib; {
     description = "Free Pascal Compiler from a source distribution";
-    homepage = https://www.freepascal.org;
+    homepage = "https://www.freepascal.org";
     maintainers = [ maintainers.raskin ];
     license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.linux;

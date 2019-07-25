@@ -21,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Spying framework";
-    homepage = https://github.com/kaste/mockito-python;
+    homepage = "https://github.com/kaste/mockito-python";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

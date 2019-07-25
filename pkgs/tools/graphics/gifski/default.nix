@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "GIF encoder based on libimagequant (pngquant)";
-    homepage = https://gif.ski/;
+    homepage = "https://gif.ski/";
     license = licenses.agpl3;
     maintainers = [ maintainers.marsam ];
   };

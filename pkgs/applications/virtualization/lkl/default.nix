@@ -1,10 +1,10 @@
-{ stdenv, fetchFromGitHub, bc, python, bison, flex, fuse, libarchive
-, buildPackages }:
+{ stdenv, fetchFromGitHub, bc, python, bison, flex, fuse, libarchive, buildPackages
+}:
 
 stdenv.mkDerivation rec {
   pname = "lkl";
   version = "2019-06-20";
-  rev  = "0a4ebeadad12b94db665b8daf30e44e949a02d90";
+  rev = "0a4ebeadad12b94db665b8daf30e44e949a02d90";
 
   outputs = [ "dev" "lib" "out" ];
 
@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     inherit rev;
-    owner  = "lkl";
-    repo   = "linux";
+    owner = "lkl";
+    repo = "linux";
     sha256 = "09y9ci3j0lp3z74h577ng2s9a4n4glqpqndyc9iy6wdqaj764gm6";
   };
 
@@ -58,9 +58,14 @@ stdenv.mkDerivation rec {
       extensively as possible with minimal effort and reduced maintenance
       overhead
     '';
-    homepage    = https://github.com/lkl/linux/;
-    platforms   = [ "x86_64-linux" "aarch64-linux" "armv7l-linux" "armv6l-linux" ]; # Darwin probably works too but I haven't tested it
-    license     = licenses.gpl2;
+    homepage = "https://github.com/lkl/linux/";
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "armv7l-linux"
+      "armv6l-linux"
+    ]; # Darwin probably works too but I haven't tested it
+    license = licenses.gpl2;
     maintainers = with maintainers; [ copumpkin ];
   };
 }

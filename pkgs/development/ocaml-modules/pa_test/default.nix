@@ -1,4 +1,4 @@
-{stdenv, buildOcaml, fetchurl, type_conv, pa_ounit, sexplib_p4, herelib}:
+{ stdenv, buildOcaml, fetchurl, type_conv, pa_ounit, sexplib_p4, herelib }:
 
 buildOcaml rec {
   name = "pa_test";
@@ -15,7 +15,7 @@ buildOcaml rec {
   propagatedBuildInputs = [ type_conv sexplib_p4 herelib ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/janestreet/pa_test;
+    homepage = "https://github.com/janestreet/pa_test";
     description = "Syntax to reduce boiler plate in testing";
     license = licenses.asl20;
     maintainers = [ maintainers.ericbmerritt ];

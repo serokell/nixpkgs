@@ -1,4 +1,4 @@
-{stdenv, fetchurl, ruby, opencl-headers, addOpenGLRunpath }:
+{ stdenv, fetchurl, ruby, opencl-headers, addOpenGLRunpath }:
 
 stdenv.mkDerivation rec {
   name = "ocl-icd-${version}";
@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OpenCL ICD Loader for ${opencl-headers.name}";
-    homepage    = https://forge.imag.fr/projects/ocl-icd/;
-    license     = licenses.bsd2;
+    homepage = "https://forge.imag.fr/projects/ocl-icd/";
+    license = licenses.bsd2;
     platforms = platforms.linux;
   };
 }

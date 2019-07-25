@@ -1,5 +1,5 @@
-{ mkXfceDerivation, dbus-glib, exo, gtk3, libnotify, libxfce4ui, libxfce4util
-, xfce4-panel, xfconf }:
+{ mkXfceDerivation, dbus-glib, exo, gtk3, libnotify, libxfce4ui, libxfce4util, xfce4-panel, xfconf
+}:
 
 mkXfceDerivation rec {
   category = "apps";
@@ -8,5 +8,6 @@ mkXfceDerivation rec {
 
   sha256 = "1lmm9h3ych8dz9jpjkxg91f9ln14xs527nxjxsryks00kmqk4kai";
 
-  buildInputs = [ dbus-glib exo gtk3 libnotify libxfce4ui libxfce4util xfce4-panel xfconf ];
+  buildInputs =
+    [ dbus-glib exo gtk3 libnotify libxfce4ui libxfce4util xfce4-panel xfconf ];
 }

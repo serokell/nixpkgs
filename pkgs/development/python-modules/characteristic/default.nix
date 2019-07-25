@@ -1,7 +1,4 @@
-{ buildPythonPackage
-, fetchPypi
-, pytest
-}:
+{ buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "characteristic";
@@ -19,6 +16,6 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python attributes without boilerplate";
-    homepage = https://characteristic.readthedocs.org;
+    homepage = "https://characteristic.readthedocs.org";
   };
 }

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, scons, pkgconfig, wrapGAppsHook
-, glfw3, gtk3, libpng12 }:
+{ stdenv, fetchFromGitHub, scons, pkgconfig, wrapGAppsHook, glfw3, gtk3, libpng12
+}:
 
 stdenv.mkDerivation rec {
   name = "goxel-${version}";
@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ scons pkgconfig wrapGAppsHook ];
   buildInputs = [ glfw3 gtk3 libpng12 ];
-  NIX_LDFLAGS = [
-    "-lpthread"
-  ];
+  NIX_LDFLAGS = [ "-lpthread" ];
 
   buildPhase = ''
     make release
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Open Source 3D voxel editor";
-    homepage = https://guillaumechereau.github.io/goxel/;
+    homepage = "https://guillaumechereau.github.io/goxel/";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ tilpner ];

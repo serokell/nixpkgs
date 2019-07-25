@@ -1,10 +1,9 @@
 { stdenv, fetchurl, pkgconfig, glib, intltool }:
 let
-  p_name  = "libxfce4util";
+  p_name = "libxfce4util";
   ver_maj = "4.12";
   ver_min = "1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   src = fetchurl {
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib intltool ];
 
   meta = {
-    homepage = https://www.xfce.org/;
+    homepage = "https://www.xfce.org/";
     description = "Basic utility non-GUI functions for Xfce";
     license = "bsd";
     platforms = stdenv.lib.platforms.linux;

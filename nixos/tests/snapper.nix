@@ -1,5 +1,4 @@
-import ./make-test.nix ({ ... }:
-{
+import ./make-test.nix ({ ... }: {
   name = "snapper";
 
   machine = { pkgs, lib, ... }: {

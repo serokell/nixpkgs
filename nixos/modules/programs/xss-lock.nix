@@ -2,16 +2,14 @@
 
 with lib;
 
-let
-  cfg = config.programs.xss-lock;
-in
-{
+let cfg = config.programs.xss-lock;
+in {
   options.programs.xss-lock = {
     enable = mkEnableOption "xss-lock";
 
     lockerCommand = mkOption {
       default = "${pkgs.i3lock}/bin/i3lock";
-      example = literalExample ''''${pkgs.i3lock-fancy}/bin/i3lock-fancy'';
+      example = literalExample "\${pkgs.i3lock-fancy}/bin/i3lock-fancy";
       type = types.string;
       description = "Locker to be used with xsslock";
     };
@@ -33,12 +31,8 @@ in
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig.ExecStart = with lib;
-        strings.concatStringsSep " " ([
-            "${pkgs.xss-lock}/bin/xss-lock"
-          ] ++ (map escapeShellArg cfg.extraOptions) ++ [
-            "--"
-            cfg.lockerCommand
-        ]);
+        strings.concatStringsSep " " ([ "${pkgs.xss-lock}/bin/xss-lock" ]
+        ++ (map escapeShellArg cfg.extraOptions) ++ [ "--" cfg.lockerCommand ]);
     };
   };
 }

@@ -9,9 +9,7 @@ let
   cfg = config.services.tumbler;
   tumbler = cfg.package;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -32,18 +30,13 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [
-      tumbler
-    ];
+    environment.systemPackages = [ tumbler ];
 
-    services.dbus.packages = [
-      tumbler
-    ];
+    services.dbus.packages = [ tumbler ];
 
   };
 

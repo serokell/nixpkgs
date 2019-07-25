@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, buildPythonPackage, libsexy, pkgconfig, libxml2, pygtk, pango, glib, python }:
+{ stdenv, fetchurl, buildPythonPackage, libsexy, pkgconfig, libxml2, pygtk, pango, glib, python
+}:
 
 buildPythonPackage rec {
   pname = "libsexy";
@@ -6,15 +7,14 @@ buildPythonPackage rec {
   format = "other";
 
   src = fetchurl {
-    url = "http://releases.chipx86.com/libsexy/sexy-python/sexy-python-${version}.tar.gz";
+    url =
+      "http://releases.chipx86.com/libsexy/sexy-python/sexy-python-${version}.tar.gz";
     sha256 = "05bgcsxwkp63rlr8wg6znd46cfbhrzc5wh70jabsi654pxxjb39d";
   };
 
   nativeBuildInputs = [ pkgconfig pygtk ];
 
-  propagatedBuildInputs = [
-    pygtk libsexy glib pango libxml2
-  ];
+  propagatedBuildInputs = [ pygtk libsexy glib pango libxml2 ];
 
   postInstall = ''
     ln -s $out/${python.sitePackages}/gtk-2.0/* $out/${python.sitePackages}

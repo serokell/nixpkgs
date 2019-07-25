@@ -25,15 +25,34 @@ pythonPackages.buildPythonApplication rec {
 
   buildInputs = [ glibcLocales ];
   propagatedBuildInputs = with pythonPackages; [
-    webtest bottle threadpool rocket-errbot requests jinja2
-    pyopenssl colorlog Yapsy markdown ansi pygments dnspython pep8
-    daemonize pygments-markdown-lexer telegram irc slackclient
-    sleekxmpp hypchat pytest
+    webtest
+    bottle
+    threadpool
+    rocket-errbot
+    requests
+    jinja2
+    pyopenssl
+    colorlog
+    Yapsy
+    markdown
+    ansi
+    pygments
+    dnspython
+    pep8
+    daemonize
+    pygments-markdown-lexer
+    telegram
+    irc
+    slackclient
+    sleekxmpp
+    hypchat
+    pytest
   ];
 
   meta = with stdenv.lib; {
-    description = "Chatbot designed to be simple to extend with plugins written in Python";
-    homepage = http://errbot.io/;
+    description =
+      "Chatbot designed to be simple to extend with plugins written in Python";
+    homepage = "http://errbot.io/";
     maintainers = with maintainers; [ fpletz globin ];
     license = licenses.gpl3;
     platforms = platforms.unix;

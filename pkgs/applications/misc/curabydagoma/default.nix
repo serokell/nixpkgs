@@ -26,7 +26,13 @@ stdenv.mkDerivation rec {
   };
   unpackCmd = "unzip $curSrc && tar zxf CuraByDagoma_amd64.tar.gz";
   nativeBuildInputs = [ unzip ];
-  buildInputs = [ python pythonPackages.pyopengl pythonPackages.wxPython pythonPackages.pyserial pythonPackages.numpy ];
+  buildInputs = [
+    python
+    pythonPackages.pyopengl
+    pythonPackages.wxPython
+    pythonPackages.pyserial
+    pythonPackages.numpy
+  ];
 
   # Compile all pyc files because the included pyc files may be older than the
   # py files. However, Python doesn't realize that because the packages
@@ -68,7 +74,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Slicer for 3D printers built by Dagoma";
-    homepage = https://dagoma.fr/cura-by-dagoma.html;
+    homepage = "https://dagoma.fr/cura-by-dagoma.html";
     license = licenses.agpl3;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ tiramiseb ];

@@ -9,14 +9,15 @@ stdenv.mkDerivation rec {
     sha256 = "1v18fmlzhkkhv8xdc9dyvl8vamwg3ka4dsrg7vvmk1f2iczdx3dp";
   };
 
-  buildInputs = [unzip zlib];
+  buildInputs = [ unzip zlib ];
 
   installPhase = ''
     make -C . prefix="$out" install;
   '';
 
   meta = {
-    description = "Tool for converting single/multi part UIF image files to ISO";
+    description =
+      "Tool for converting single/multi part UIF image files to ISO";
     homepage = "http://aluigi.org/mytoolz.htm#uif2iso";
     license = stdenv.lib.licenses.gpl1Plus;
     platforms = stdenv.lib.platforms.linux;

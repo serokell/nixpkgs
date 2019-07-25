@@ -19,10 +19,10 @@ stdenv.mkDerivation {
   NIX_LDFLAGS = [ "-lvorbis" ];
 
   meta = {
-    homepage = http://atdot.ch/scr/;
+    homepage = "http://atdot.ch/scr/";
     description = "Open source tool to record your Skype calls on Linux";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = with stdenv.lib.platforms; linux;
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
   };
 }

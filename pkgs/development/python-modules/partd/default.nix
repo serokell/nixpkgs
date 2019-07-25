@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, locket
-, numpy
-, pandas
-, pyzmq
-, toolz
+{ lib, buildPythonPackage, fetchPypi, pytest, locket, numpy, pandas, pyzmq, toolz
 }:
 
 buildPythonPackage rec {
@@ -30,6 +22,6 @@ buildPythonPackage rec {
   meta = {
     description = "Appendable key-value storage";
     license = with lib.licenses; [ bsd3 ];
-    homepage = https://github.com/dask/partd/;
+    homepage = "https://github.com/dask/partd/";
   };
 }

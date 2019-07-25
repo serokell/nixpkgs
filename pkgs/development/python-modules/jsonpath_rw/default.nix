@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, ply
-, six
-, decorator
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, ply, six, decorator }:
 
 buildPythonPackage rec {
   pname = "jsonpath-rw";
@@ -23,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/kennknowles/python-jsonpath-rw;
-    description = "A robust and significantly extended implementation of JSONPath for Python, with a clear AST for metaprogramming";
+    homepage = "https://github.com/kennknowles/python-jsonpath-rw";
+    description =
+      "A robust and significantly extended implementation of JSONPath for Python, with a clear AST for metaprogramming";
     license = licenses.asl20;
   };
 

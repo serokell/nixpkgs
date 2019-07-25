@@ -13,13 +13,12 @@ let
       };
     };
   };
-in
 
-{
+in {
   options = {
     loaOfSub = lib.mkOption {
-      default = {};
-      example = {};
+      default = { };
+      example = { };
       type = lib.types.loaOf (lib.types.submodule [ submod ]);
       description = ''
         Some descriptive text

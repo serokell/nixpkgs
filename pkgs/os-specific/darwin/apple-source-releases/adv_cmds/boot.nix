@@ -1,5 +1,4 @@
-{ stdenv, appleDerivation, fetchzip, bsdmake, perl, flex, yacc
-}:
+{ stdenv, appleDerivation, fetchzip, bsdmake, perl, flex, yacc }:
 
 # this derivation sucks
 # locale data was removed after adv_cmds-118, so our base is that because it's easier than
@@ -10,10 +9,11 @@
 #
 # the more recent adv_cmds release is used for everything else in this package
 
-let recentAdvCmds = fetchzip {
-  url = "http://opensource.apple.com/tarballs/adv_cmds/adv_cmds-158.tar.gz";
-  sha256 = "0z081kcprzg5jcvqivfnwvvv6wfxzkjg2jc2lagsf8c7j7vgm8nn";
-};
+let
+  recentAdvCmds = fetchzip {
+    url = "http://opensource.apple.com/tarballs/adv_cmds/adv_cmds-158.tar.gz";
+    sha256 = "0z081kcprzg5jcvqivfnwvvv6wfxzkjg2jc2lagsf8c7j7vgm8nn";
+  };
 
 in appleDerivation {
   nativeBuildInputs = [ bsdmake perl yacc flex ];
@@ -77,11 +77,7 @@ in appleDerivation {
     touch "$out"
   '';
 
-  outputs = [
-    "out"
-    "ps"
-    "locale"
-  ];
+  outputs = [ "out" "ps" "locale" ];
   setOutputFlags = false;
 
   meta = {

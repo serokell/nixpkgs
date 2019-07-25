@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, gevent
-, certifi
-, six
-, backports_ssl_match_hostname
+{ stdenv, buildPythonPackage, fetchPypi, pytest, gevent, certifi, six, backports_ssl_match_hostname
 }:
 
 buildPythonPackage rec {
@@ -27,7 +20,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/gwik/geventhttpclient;
+    homepage = "https://github.com/gwik/geventhttpclient";
     description = "HTTP client library for gevent";
     license = licenses.mit;
     maintainers = with maintainers; [ koral ];

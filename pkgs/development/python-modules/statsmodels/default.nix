@@ -1,14 +1,4 @@
-{ lib
-, self
-, buildPythonPackage
-, fetchPypi
-, nose
-, numpy
-, scipy
-, pandas
-, patsy
-, cython
-, matplotlib
+{ lib, self, buildPythonPackage, fetchPypi, nose, numpy, scipy, pandas, patsy, cython, matplotlib
 }:
 
 buildPythonPackage rec {
@@ -21,14 +11,21 @@ buildPythonPackage rec {
   };
 
   checkInputs = with self; [ nose ];
-  propagatedBuildInputs = with self; [numpy scipy pandas patsy cython matplotlib];
+  propagatedBuildInputs = with self; [
+    numpy
+    scipy
+    pandas
+    patsy
+    cython
+    matplotlib
+  ];
 
   # Huge test suites with several test failures
   doCheck = false;
 
   meta = {
     description = "Statistical computations and models for use with SciPy";
-    homepage = https://www.github.com/statsmodels/statsmodels;
+    homepage = "https://www.github.com/statsmodels/statsmodels";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fridh ];
   };

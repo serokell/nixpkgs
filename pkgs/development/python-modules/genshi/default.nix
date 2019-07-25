@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "Genshi";
@@ -20,13 +16,14 @@ buildPythonPackage rec {
   buildInputs = [ setuptools ];
 
   meta = with stdenv.lib; {
-    description = "Python components for parsing HTML, XML and other textual content";
+    description =
+      "Python components for parsing HTML, XML and other textual content";
     longDescription = ''
       Python library that provides an integrated set of components for
       parsing, generating, and processing HTML, XML or other textual
       content for output generation on the web.
     '';
-    homepage = https://genshi.edgewall.org/;
+    homepage = "https://genshi.edgewall.org/";
     license = licenses.bsd0;
   };
 }

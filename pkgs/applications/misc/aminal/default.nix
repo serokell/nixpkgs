@@ -1,12 +1,4 @@
-{ buildGoPackage
-, Carbon
-, Cocoa
-, Kernel
-, fetchFromGitHub
-, lib
-, mesa_glu
-, stdenv
-, xorg
+{ buildGoPackage, Carbon, Cocoa, Kernel, fetchFromGitHub, lib, mesa_glu, stdenv, xorg
 }:
 
 buildGoPackage rec {
@@ -15,16 +7,15 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/liamg/aminal";
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [
-      mesa_glu
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXinerama
-      xorg.libXrandr
-      xorg.libXxf86vm
-    ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa Kernel ];
+  buildInputs = lib.optionals stdenv.isLinux [
+    mesa_glu
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXinerama
+    xorg.libXrandr
+    xorg.libXxf86vm
+  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa Kernel ];
 
   src = fetchFromGitHub {
     owner = "liamg";
@@ -61,7 +52,7 @@ buildGoPackage rec {
       - Built-in patched fonts for powerline
       - Retina display support
     '';
-    homepage = https://github.com/liamg/aminal;
+    homepage = "https://github.com/liamg/aminal";
     license = licenses.gpl3;
     maintainers = with maintainers; [ kalbasit ];
     platforms = platforms.linux ++ platforms.darwin;

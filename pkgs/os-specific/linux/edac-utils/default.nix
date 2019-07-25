@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, perl, makeWrapper
-, sysfsutils, dmidecode, kmod }:
+{ stdenv, fetchFromGitHub, perl, makeWrapper, sysfsutils, dmidecode, kmod }:
 
 stdenv.mkDerivation {
   name = "edac-utils-2015-01-07";
@@ -14,14 +13,9 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ perl makeWrapper ];
   buildInputs = [ sysfsutils ];
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" ];
 
   postInstall = ''
     wrapProgram "$out/sbin/edac-ctl" \
@@ -29,7 +23,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/grondo/edac-utils;
+    homepage = "https://github.com/grondo/edac-utils";
     description = "Handles the reporting of hardware-related memory errors";
     license = licenses.gpl2;
     platforms = platforms.linux;

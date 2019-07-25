@@ -1,8 +1,4 @@
-{ buildPythonPackage
-, lib
-, fetchPypi
-, portalocker
-}:
+{ buildPythonPackage, lib, fetchPypi, portalocker }:
 
 buildPythonPackage rec {
   version = "0.11.9";
@@ -16,8 +12,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ portalocker ];
 
   meta = with lib; {
-    description = "This project extends the Application Insights API surface to support Python";
-    homepage = https://github.com/Microsoft/ApplicationInsights-Python;
+    description =
+      "This project extends the Application Insights API surface to support Python";
+    homepage = "https://github.com/Microsoft/ApplicationInsights-Python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

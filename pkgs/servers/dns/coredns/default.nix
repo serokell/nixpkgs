@@ -16,9 +16,10 @@ buildGoPackage rec {
   goDeps = ./deps.nix;
 
   meta = with stdenv.lib; {
-    homepage = https://coredns.io;
+    homepage = "https://coredns.io";
     description = "A DNS server that runs middleware";
     license = licenses.asl20;
-    maintainers = [ maintainers.rushmorem maintainers.rtreffer maintainers.deltaevo ];
+    maintainers =
+      [ maintainers.rushmorem maintainers.rtreffer maintainers.deltaevo ];
   };
 }

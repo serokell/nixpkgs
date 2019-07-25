@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "06fqyad9f50gcjsjkh7929yyaprahdjhnd0dr4gl2797a7wysl3f";
   };
 
-  makeFlags = [ "PREFIX=${placeholder ''out''}" ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postPatch = ''
     sed -i -e 's:/share/gocode:/share/go:' Makefile
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "GoLang DBus factory for the Deepin Desktop Environment";
-    homepage = https://github.com/linuxdeepin/go-dbus-factory;
+    homepage = "https://github.com/linuxdeepin/go-dbus-factory";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, pythonOlder, isPy36
-, nose, asynctest, mock, pytz, tzlocal, imaplib2, docutils, pyopenssl }:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, pythonOlder, isPy36, nose, asynctest, mock, pytz, tzlocal, imaplib2, docutils, pyopenssl
+}:
 
 buildPythonPackage rec {
   pname = "aioimaplib";
@@ -15,14 +15,15 @@ buildPythonPackage rec {
 
   disabled = !(isPy3k && pythonOlder "3.7");
 
-  checkInputs = [ nose asynctest mock pytz tzlocal imaplib2 docutils pyopenssl ];
+  checkInputs =
+    [ nose asynctest mock pytz tzlocal imaplib2 docutils pyopenssl ];
 
   # https://github.com/bamthomas/aioimaplib/issues/35
   doCheck = !isPy36;
 
   meta = with lib; {
     description = "Python asyncio IMAP4rev1 client library";
-    homepage = https://github.com/bamthomas/aioimaplib;
+    homepage = "https://github.com/bamthomas/aioimaplib";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];
   };

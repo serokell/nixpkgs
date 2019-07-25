@@ -1,12 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, nose
-, six
-, numpy
-, scipy # optional, allows spline-related features (see patsy's docs)
-, parameterized
-}:
+{ lib, fetchPypi, buildPythonPackage, nose, six, numpy, scipy # optional, allows spline-related features (see patsy's docs)
+, parameterized }:
 
 buildPythonPackage rec {
   pname = "patsy";
@@ -20,15 +13,11 @@ buildPythonPackage rec {
   checkInputs = [ nose parameterized ];
   checkPhase = "nosetests -v";
 
-  propagatedBuildInputs = [
-    six
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ six numpy scipy ];
 
   meta = {
     description = "A Python package for describing statistical models";
-    homepage = https://github.com/pydata/patsy;
+    homepage = "https://github.com/pydata/patsy";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ ilya-kolpakov ];
   };

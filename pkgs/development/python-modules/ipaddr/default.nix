@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "ipaddr";
@@ -16,7 +12,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Google's IP address manipulation library";
-    homepage = http://code.google.com/p/ipaddr-py/;
+    homepage = "http://code.google.com/p/ipaddr-py/";
     license = licenses.asl20;
   };
 

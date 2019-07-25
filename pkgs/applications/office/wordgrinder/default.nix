@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper
-, lua52Packages, libXft, ncurses, ninja, readline, zlib }:
+{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, lua52Packages, libXft, ncurses, ninja, readline, zlib
+}:
 
 stdenv.mkDerivation rec {
   name = "wordgrinder-${version}";
@@ -25,22 +25,13 @@ stdenv.mkDerivation rec {
   dontUseNinjaBuild = true;
   dontUseNinjaInstall = true;
 
-  nativeBuildInputs = [
-    pkgconfig
-    makeWrapper
-    ninja
-  ];
+  nativeBuildInputs = [ pkgconfig makeWrapper ninja ];
 
-  buildInputs = [
-    libXft
-    lua52Packages.lua
-    ncurses
-    readline
-    zlib
-  ];
+  buildInputs = [ libXft lua52Packages.lua ncurses readline zlib ];
 
   # To be able to find <Xft.h>
-  NIX_CFLAGS_COMPILE = stdenv.lib.optionalString stdenv.isLinux "-I${libXft.dev}/include/X11";
+  NIX_CFLAGS_COMPILE =
+    stdenv.lib.optionalString stdenv.isLinux "-I${libXft.dev}/include/X11";
 
   # Binaries look for LuaFileSystem library (lfs.so) at runtime
   postInstall = ''
@@ -51,7 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Text-based word processor";
-    homepage = https://cowlark.com/wordgrinder;
+    homepage = "https://cowlark.com/wordgrinder";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer ];
     platforms = with stdenv.lib.platforms; linux ++ darwin;

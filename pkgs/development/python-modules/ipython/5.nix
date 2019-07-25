@@ -1,26 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
+{ lib, stdenv, buildPythonPackage, fetchPypi
 # Build dependencies
 , glibcLocales
 # Test dependencies
-, nose
-, pygments
-, testpath
-, isPy27
-, mock
+, nose, pygments, testpath, isPy27, mock
 # Runtime dependencies
-, backports_shutil_get_terminal_size
-, decorator
-, pathlib2
-, pickleshare
-, requests
-, simplegeneric
-, traitlets
-, prompt_toolkit
-, pexpect
-, appnope
+, backports_shutil_get_terminal_size, decorator, pathlib2, pickleshare, requests, simplegeneric, traitlets, prompt_toolkit, pexpect, appnope
 }:
 
 buildPythonPackage rec {
@@ -41,11 +25,18 @@ buildPythonPackage rec {
   checkInputs = [ nose pygments testpath ] ++ lib.optional isPy27 mock;
 
   propagatedBuildInputs = [
-    backports_shutil_get_terminal_size decorator pickleshare prompt_toolkit
-    simplegeneric traitlets requests pathlib2 pexpect
+    backports_shutil_get_terminal_size
+    decorator
+    pickleshare
+    prompt_toolkit
+    simplegeneric
+    traitlets
+    requests
+    pathlib2
+    pexpect
   ] ++ lib.optionals stdenv.isDarwin [ appnope ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   doCheck = false; # Circular dependency with ipykernel
 
@@ -55,7 +46,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "IPython: Productive Interactive Computing";
-    homepage = http://ipython.org/;
+    homepage = "http://ipython.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ bjornfor orivej lnl7 ];
   };

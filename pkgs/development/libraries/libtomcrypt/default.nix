@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.18.2";
 
   src = fetchurl {
-    url = "https://github.com/libtom/libtomcrypt/releases/download/v${version}/crypt-${version}.tar.xz";
+    url =
+      "https://github.com/libtom/libtomcrypt/releases/download/v${version}/crypt-${version}.tar.xz";
     sha256 = "113vfrgapyv72lalhd3nkw7jnks8az0gcb5wqn9hj19nhcxlrbcn";
   };
 
@@ -26,8 +27,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.libtom.net/LibTomCrypt/;
-    description = "A fairly comprehensive, modular and portable cryptographic toolkit";
+    homepage = "https://www.libtom.net/LibTomCrypt/";
+    description =
+      "A fairly comprehensive, modular and portable cryptographic toolkit";
     license = with licenses; [ publicDomain wtfpl ];
     platforms = platforms.linux;
   };

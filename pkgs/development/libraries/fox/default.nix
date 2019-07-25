@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor, libXrandr, libXft
-, CoreServices ? null }:
+{ stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor, libXrandr, libXft, CoreServices ?
+  null }:
 
 stdenv.mkDerivation rec {
   name = "fox-${version}";
@@ -12,8 +12,17 @@ stdenv.mkDerivation rec {
 
   patches = [ ./clang.patch ];
 
-  buildInputs = [ libpng xlibsWrapper libjpeg libtiff zlib bzip2 libXcursor libXrandr libXft ]
-    ++ stdenv.lib.optional stdenv.isDarwin CoreServices;
+  buildInputs = [
+    libpng
+    xlibsWrapper
+    libjpeg
+    libtiff
+    zlib
+    bzip2
+    libXcursor
+    libXrandr
+    libXft
+  ] ++ stdenv.lib.optional stdenv.isDarwin CoreServices;
 
   doCheck = true;
 
@@ -22,16 +31,17 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with stdenv.lib; {
-    description = "C++ based class library for building Graphical User Interfaces";
+    description =
+      "C++ based class library for building Graphical User Interfaces";
     longDescription = ''
       FOX stands for Free Objects for X.
       It is a C++ based class library for building Graphical User Interfaces.
       Initially, it was developed for LINUX, but the scope of this project has in the course of time become somewhat more ambitious.
       Current aims are to make FOX completely platform independent, and thus programs written against the FOX library will be only a compile away from running on a variety of platforms.
     '';
-    homepage = http://fox-toolkit.org;
+    homepage = "http://fox-toolkit.org";
     license = licenses.lgpl3;
-    maintainers = [];
+    maintainers = [ ];
     broken = stdenv.isDarwin;
     platforms = platforms.all;
   };

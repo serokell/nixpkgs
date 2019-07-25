@@ -49,17 +49,17 @@ let
   };
 
   nodes = builtins.listToAttrs (map (dbName:
-    nameValuePair dbName (mkMerge [
-    baseGrafanaConf
-    (extraNodeConfs.${dbName} or {})
-  ])) [ "sqlite" "postgresql" "mysql" ]);
+    nameValuePair dbName
+    (mkMerge [ baseGrafanaConf (extraNodeConfs.${dbName} or { }) ])) [
+      "sqlite"
+      "postgresql"
+      "mysql"
+    ]);
 
 in {
   name = "grafana";
 
-  meta = with maintainers; {
-    maintainers = [ willibutz ];
-  };
+  meta = with maintainers; { maintainers = [ willibutz ]; };
 
   inherit nodes;
 

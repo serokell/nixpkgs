@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libnotify
-, gtk , libxfce4util, libxfce4ui, xfconf, hicolor-icon-theme }:
+{ stdenv, fetchurl, pkgconfig, intltool, libnotify, gtk, libxfce4util, libxfce4ui, xfconf, hicolor-icon-theme
+}:
 
 stdenv.mkDerivation rec {
-  p_name  = "xfce4-notifyd";
+  p_name = "xfce4-notifyd";
   ver_maj = "0.2";
   ver_min = "4";
 
@@ -13,7 +13,15 @@ stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ intltool libnotify gtk libxfce4util libxfce4ui xfconf hicolor-icon-theme ];
+  buildInputs = [
+    intltool
+    libnotify
+    gtk
+    libxfce4util
+    libxfce4ui
+    xfconf
+    hicolor-icon-theme
+  ];
 
   preFixup = ''
     # to be able to run the daemon we need it in PATH

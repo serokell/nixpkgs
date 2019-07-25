@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "SocksiPy-branch";
@@ -13,8 +10,9 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://code.google.com/p/socksipy-branch/;
-    description = "This Python module allows you to create TCP connections through a SOCKS proxy without any special effort";
+    homepage = "http://code.google.com/p/socksipy-branch/";
+    description =
+      "This Python module allows you to create TCP connections through a SOCKS proxy without any special effort";
     license = licenses.bsd3;
   };
 

@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "xrdp";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ volth ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ volth ]; };
 
   nodes = {
     server = { pkgs, ... }: {

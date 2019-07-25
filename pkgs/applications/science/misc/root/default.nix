@@ -1,6 +1,5 @@
-{ stdenv, fetchurl, cmake, pcre, pkgconfig, python2
-, libX11, libXpm, libXft, libXext, libGLU_combined, zlib, libxml2, lz4, lzma, gsl, xxHash
-, Cocoa, OpenGL, noSplash ? false }:
+{ stdenv, fetchurl, cmake, pcre, pkgconfig, python2, libX11, libXpm, libXft, libXext, libGLU_combined, zlib, libxml2, lz4, lzma, gsl, xxHash, Cocoa, OpenGL, noSplash ?
+  false }:
 
 stdenv.mkDerivation rec {
   name = "root-${version}";
@@ -13,13 +12,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ cmake pcre python2 zlib libxml2 lz4 lzma gsl xxHash ]
-    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ libX11 libXpm libXft libXext libGLU_combined ]
-    ++ stdenv.lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ]
-    ;
+    ++ stdenv.lib.optionals (!stdenv.isDarwin) [
+      libX11
+      libXpm
+      libXft
+      libXext
+      libGLU_combined
+    ] ++ stdenv.lib.optionals (stdenv.isDarwin) [ Cocoa OpenGL ];
 
-  patches = [
-    ./sw_vers.patch
-  ];
+  patches = [ ./sw_vers.patch ];
 
   preConfigure = ''
     patchShebangs build/unix/
@@ -59,16 +60,17 @@ stdenv.mkDerivation rec {
     "-Dssl=OFF"
     "-Dxml=ON"
     "-Dxrootd=OFF"
-  ]
-  ++ stdenv.lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${stdenv.lib.getDev stdenv.cc.libc}/include"
-  ++ stdenv.lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+  ] ++ stdenv.lib.optional (stdenv.cc.libc != null)
+    "-DC_INCLUDE_DIRS=${stdenv.lib.getDev stdenv.cc.libc}/include"
+    ++ stdenv.lib.optional stdenv.isDarwin
+    "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
 
   enableParallelBuilding = true;
 
   setupHook = ./setup-hook.sh;
 
   meta = with stdenv.lib; {
-    homepage = https://root.cern.ch/;
+    homepage = "https://root.cern.ch/";
     description = "A data analysis framework";
     platforms = platforms.unix;
     maintainers = [ maintainers.veprbl ];

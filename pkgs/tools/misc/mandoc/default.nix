@@ -22,16 +22,14 @@ stdenv.mkDerivation rec {
     CC=${stdenv.cc.targetPrefix}cc
   '';
 
-  patches = [
-    ./remove-broken-cc-check.patch
-  ];
+  patches = [ ./remove-broken-cc-check.patch ];
 
   preConfigure = ''
     echo $configureLocal > configure.local
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://mandoc.bsd.lv/;
+    homepage = "https://mandoc.bsd.lv/";
     description = "suite of tools compiling mdoc and man";
     downloadPage = "http://mandoc.bsd.lv/snapshots/";
     license = licenses.bsd3;

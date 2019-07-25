@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, google_resumable_media
-, google_api_core
-, google_cloud_core
-, pytest
-, mock
+{ stdenv, buildPythonPackage, fetchPypi, google_resumable_media, google_api_core, google_cloud_core, pytest, mock
 }:
 
 buildPythonPackage rec {
@@ -18,15 +11,16 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ pytest mock ];
-  propagatedBuildInputs = [ google_resumable_media google_api_core google_cloud_core ];
+  propagatedBuildInputs =
+    [ google_resumable_media google_api_core google_cloud_core ];
 
   checkPhase = ''
-   pytest tests/unit
+    pytest tests/unit
   '';
 
   meta = with stdenv.lib; {
     description = "Google Cloud Storage API client library";
-    homepage = https://github.com/GoogleCloudPlatform/google-cloud-python;
+    homepage = "https://github.com/GoogleCloudPlatform/google-cloud-python";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

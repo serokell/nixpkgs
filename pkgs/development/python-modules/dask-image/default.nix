@@ -1,13 +1,5 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, dask
-, numpy, toolz # dask[array]
-, scipy
-, pims
-, pytest
-, scikitimage
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dask, numpy, toolz # dask[array]
+, scipy, pims, pytest, scikitimage }:
 
 buildPythonPackage rec {
   version = "0.2.0";
@@ -22,7 +14,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ dask numpy toolz scipy pims ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/dask/dask-image;
+    homepage = "https://github.com/dask/dask-image";
     description = "Distributed image processing";
     license = licenses.bsdOriginal;
     maintainers = [ maintainers.costrouc ];

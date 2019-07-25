@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub }: with lib; stdenv.mkDerivation rec {
+{ stdenv, lib, fetchFromGitHub }:
+with lib;
+stdenv.mkDerivation rec {
   name = "icingaweb2-theme-spring";
   version = "1.0.0";
 
@@ -15,7 +17,8 @@
   '';
 
   meta = {
-    description = "Theme with some soft colors and nice background images loaded from unsplash.com";
+    description =
+      "Theme with some soft colors and nice background images loaded from unsplash.com";
     homepage = "https://github.com/Mikesch-mp/icingaweb2-theme-spring";
     license = licenses.publicDomain;
     platforms = platforms.all;

@@ -1,48 +1,18 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy3k
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k
 # python dependencies
-, click
-, configparser ? null
-, dateutil
-, funcsigs
-, future
-, futures
-, mock
-, networkx
-, nibabel
-, numpy
-, packaging
-, prov
-, psutil
-, pydot
-, pytest
-, pytest_xdist
-, pytest-forked
-, scipy
-, simplejson
-, traits
-, xvfbwrapper
-, pytestcov
-, codecov
+, click, configparser ?
+  null, dateutil, funcsigs, future, futures, mock, networkx, nibabel, numpy, packaging, prov, psutil, pydot, pytest, pytest_xdist, pytest-forked, scipy, simplejson, traits, xvfbwrapper, pytestcov, codecov
 # other dependencies
-, which
-, bash
-, glibcLocales
-, callPackage
-}:
+, which, bash, glibcLocales, callPackage }:
 
 assert !isPy3k -> configparser != null;
 
 let
 
- # This is a temporary convenience package for changes waiting to be merged into the primary rdflib repo.
- neurdflib = callPackage ./neurdflib.nix { };
+  # This is a temporary convenience package for changes waiting to be merged into the primary rdflib repo.
+  neurdflib = callPackage ./neurdflib.nix { };
 
-in
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "nipype";
   version = "1.1.9";
 
@@ -73,10 +43,7 @@ buildPythonPackage rec {
     simplejson
     traits
     xvfbwrapper
-  ] ++ stdenv.lib.optional (!isPy3k) [
-    configparser
-    futures
-  ];
+  ] ++ stdenv.lib.optional (!isPy3k) [ configparser futures ];
 
   checkInputs = [
     codecov
@@ -97,7 +64,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://nipy.org/nipype/;
+    homepage = "https://nipy.org/nipype/";
     description = "Neuroimaging in Python: Pipelines and Interfaces";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ashgillman ];

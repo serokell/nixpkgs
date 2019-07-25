@@ -1,7 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, SDL, SDL_image, SDL_ttf, SDL_gfx, flex, bison }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, SDL, SDL_image, SDL_ttf, SDL_gfx, flex, bison
+}:
 
-let
-  makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
+let makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
 
 in stdenv.mkDerivation rec {
   name = "xsw-${version}";
@@ -29,7 +29,7 @@ in stdenv.mkDerivation rec {
     description = "A slide show presentation tool";
 
     platforms = platforms.unix;
-    license  = licenses.gpl3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.vrthra ];
   };
 }

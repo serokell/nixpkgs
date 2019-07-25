@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, numpy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, numpy }:
 
 buildPythonPackage rec {
   version = "0.8.0";
@@ -17,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "WebSockets support for any application/server";
-    homepage = https://github.com/kanaka/websockify;
+    homepage = "https://github.com/kanaka/websockify";
     license = licenses.lgpl3;
   };
 

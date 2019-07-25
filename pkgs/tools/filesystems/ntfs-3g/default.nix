@@ -1,5 +1,5 @@
-{stdenv, fetchurl, utillinux, libuuid
-, crypto ? false, libgcrypt, gnutls, pkgconfig}:
+{ stdenv, fetchurl, utillinux, libuuid, crypto ?
+  false, libgcrypt, gnutls, pkgconfig }:
 
 stdenv.mkDerivation rec {
   pname = "ntfs3g";
@@ -33,14 +33,13 @@ stdenv.mkDerivation rec {
     "--${if crypto then "enable" else "disable"}-crypto"
   ];
 
-  postInstall =
-    ''
-      # Prefer ntfs-3g over the ntfs driver in the kernel.
-      ln -sv mount.ntfs-3g $out/sbin/mount.ntfs
-    '';
+  postInstall = ''
+    # Prefer ntfs-3g over the ntfs driver in the kernel.
+    ln -sv mount.ntfs-3g $out/sbin/mount.ntfs
+  '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.tuxera.com/community/open-source-ntfs-3g/;
+    homepage = "https://www.tuxera.com/community/open-source-ntfs-3g/";
     description = "FUSE-based NTFS driver with full write support";
     maintainers = with maintainers; [ dezgeg ];
     platforms = platforms.linux;

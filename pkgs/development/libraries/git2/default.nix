@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, python
-, zlib, libssh2, openssl, http-parser, curl
-, libiconv, Security
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, python, zlib, libssh2, openssl, http-parser, curl, libiconv, Security
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "The Git linkable library";
-    homepage = https://libgit2.github.com/;
+    homepage = "https://libgit2.github.com/";
     license = stdenv.lib.licenses.gpl2;
     platforms = with stdenv.lib.platforms; all;
   };

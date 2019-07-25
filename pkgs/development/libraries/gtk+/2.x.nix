@@ -1,11 +1,7 @@
-{ config, stdenv, fetchurl, pkgconfig, gettext, glib, atk, pango, cairo, perl, xorg
-, gdk_pixbuf, xlibsWrapper, gobject-introspection
-, xineramaSupport ? stdenv.isLinux
-, cupsSupport ? config.gtk2.cups or stdenv.isLinux, cups ? null
-, gdktarget ? if stdenv.isDarwin then "quartz" else "x11"
-, AppKit, Cocoa
-, fetchpatch
-}:
+{ config, stdenv, fetchurl, pkgconfig, gettext, glib, atk, pango, cairo, perl, xorg, gdk_pixbuf, xlibsWrapper, gobject-introspection, xineramaSupport ?
+  stdenv.isLinux, cupsSupport ? config.gtk2.cups or stdenv.isLinux, cups ?
+    null, gdktarget ?
+      if stdenv.isDarwin then "quartz" else "x11", AppKit, Cocoa, fetchpatch }:
 
 assert xineramaSupport -> xorg.libXinerama != null;
 assert cupsSupport -> cups != null;
@@ -27,37 +23,37 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  nativeBuildInputs = [ setupHook perl pkgconfig gettext gobject-introspection ];
+  nativeBuildInputs =
+    [ setupHook perl pkgconfig gettext gobject-introspection ];
 
-  patches = [
-    ./2.0-immodules.cache.patch
-    ./gtk2-theme-paths.patch
-  ] ++ optionals stdenv.isDarwin [
-    (fetchpatch {
-      url = https://bug557780.bugzilla-attachments.gnome.org/attachment.cgi?id=306776;
-      sha256 = "0sp8f1r5c4j2nlnbqgv7s7nxa4cfwigvm033hvhb1ld652pjag4r";
-    })
-    ./2.0-darwin-x11.patch
-  ];
+  patches = [ ./2.0-immodules.cache.patch ./gtk2-theme-paths.patch ]
+    ++ optionals stdenv.isDarwin [
+      (fetchpatch {
+        url =
+          "https://bug557780.bugzilla-attachments.gnome.org/attachment.cgi?id=306776";
+        sha256 = "0sp8f1r5c4j2nlnbqgv7s7nxa4cfwigvm033hvhb1ld652pjag4r";
+      })
+      ./2.0-darwin-x11.patch
+    ];
 
   propagatedBuildInputs = with xorg;
     [ glib cairo pango gdk_pixbuf atk ]
     ++ optionals (stdenv.isLinux || stdenv.isDarwin) [
-         libXrandr libXrender libXcomposite libXi libXcursor
-       ]
-    ++ optionals stdenv.isDarwin [ xlibsWrapper libXdamage ]
-    ++ optional xineramaSupport libXinerama
-    ++ optionals cupsSupport [ cups ]
+      libXrandr
+      libXrender
+      libXcomposite
+      libXi
+      libXcursor
+    ] ++ optionals stdenv.isDarwin [ xlibsWrapper libXdamage ]
+    ++ optional xineramaSupport libXinerama ++ optionals cupsSupport [ cups ]
     ++ optionals stdenv.isDarwin [ AppKit Cocoa ];
 
-  configureFlags = [
-    "--with-gdktarget=${gdktarget}"
-    "--with-xinput=yes"
-  ] ++ optionals stdenv.isDarwin [
-    "--disable-glibtest"
-    "--disable-introspection"
-    "--disable-visibility"
-  ];
+  configureFlags = [ "--with-gdktarget=${gdktarget}" "--with-xinput=yes" ]
+    ++ optionals stdenv.isDarwin [
+      "--disable-glibtest"
+      "--disable-introspection"
+      "--disable-visibility"
+    ];
 
   doCheck = false; # needs X11
 
@@ -76,11 +72,12 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "A multi-platform toolkit for creating graphical user interfaces";
-    homepage    = https://www.gtk.org/;
-    license     = licenses.lgpl2Plus;
+    description =
+      "A multi-platform toolkit for creating graphical user interfaces";
+    homepage = "https://www.gtk.org/";
+    license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ lovek323 raskin ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
 
     longDescription = ''
       GTK+ is a highly usable, feature rich toolkit for creating

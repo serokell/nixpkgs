@@ -13,8 +13,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "A library that provides the `editor` module for programmatically";
-    homepage = https://github.com/fmoo/python-editor;
+    description =
+      "A library that provides the `editor` module for programmatically";
+    homepage = "https://github.com/fmoo/python-editor";
     license = licenses.asl20;
   };
 }

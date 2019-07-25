@@ -1,14 +1,12 @@
-{ stdenv, lib, fetchurl
-, enableSSO ? false
-, crowdProperties ? null
-}:
+{ stdenv, lib, fetchurl, enableSSO ? false, crowdProperties ? null }:
 
 stdenv.mkDerivation rec {
   name = "atlassian-jira-${version}";
   version = "8.2.3";
 
   src = fetchurl {
-    url = "https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-${version}.tar.gz";
+    url =
+      "https://product-downloads.atlassian.com/software/jira/downloads/atlassian-jira-software-${version}.tar.gz";
     sha256 = "1078s225rb44y7nfsvd1vba9jjn14rdsxvdgah164i0nd16070sn";
   };
 
@@ -35,8 +33,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Proprietary issue tracking product, also providing project management functions";
-    homepage = https://www.atlassian.com/software/jira;
+    description =
+      "Proprietary issue tracking product, also providing project management functions";
+    homepage = "https://www.atlassian.com/software/jira";
     license = licenses.unfree;
     maintainers = with maintainers; [ fpletz globin ciil ];
   };

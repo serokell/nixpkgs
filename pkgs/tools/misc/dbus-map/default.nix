@@ -10,16 +10,15 @@ stdenv.mkDerivation rec {
     sha256 = "1pjqn6w29ci8hfxkn1aynzfc8nvy3pqv3hixbxwr7qx20g4rwvdc";
   };
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    glib procps libxml2
-  ];
+  buildInputs = [ glib procps libxml2 ];
   installPhase = ''
     mkdir -p $out/bin
     mv dbus-map $out/bin
   '';
   meta = with lib; {
-    description = "Simple utility for enumerating D-Bus endpoints, an nmap for D-Bus";
-    homepage = https://github.com/taviso/dbusmap;
+    description =
+      "Simple utility for enumerating D-Bus endpoints, an nmap for D-Bus";
+    homepage = "https://github.com/taviso/dbusmap";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ];

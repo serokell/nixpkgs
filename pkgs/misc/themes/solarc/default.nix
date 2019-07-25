@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig,
-  gtk-engine-murrine, gtk3
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk-engine-murrine, gtk3
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Solarized version of the Arc theme";
-    homepage = https://github.com/schemar/solarc-theme;
+    homepage = "https://github.com/schemar/solarc-theme";
     license = licenses.gpl3;
     maintainers = [ maintainers.bricewge ];
     platforms = platforms.linux;

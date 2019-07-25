@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, PyICU
-, python
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy3k, PyICU, python }:
 
 buildPythonPackage rec {
   name = "slob";
@@ -25,8 +19,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/itkach/slob/;
-    description = "Reference implementation of the slob (sorted list of blobs) format";
+    homepage = "https://github.com/itkach/slob/";
+    description =
+      "Reference implementation of the slob (sorted list of blobs) format";
     license = licenses.gpl3;
     maintainers = [ maintainers.rycee ];
   };

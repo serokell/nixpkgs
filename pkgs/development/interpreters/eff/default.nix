@@ -1,8 +1,8 @@
 { stdenv, fetchFromGitHub, which, ocamlPackages }:
 
-let version = "5.0"; in
+let version = "5.0";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
 
   name = "eff-${version}";
 
@@ -14,15 +14,21 @@ stdenv.mkDerivation {
   };
 
   buildInputs = [ which ] ++ (with ocamlPackages; [
-    ocaml findlib ocamlbuild menhir js_of_ocaml js_of_ocaml-ocamlbuild
+    ocaml
+    findlib
+    ocamlbuild
+    menhir
+    js_of_ocaml
+    js_of_ocaml-ocamlbuild
   ]);
 
   doCheck = true;
   checkTarget = "test";
 
   meta = with stdenv.lib; {
-    homepage = http://www.eff-lang.org;
-    description = "A functional programming language based on algebraic effects and their handlers";
+    homepage = "http://www.eff-lang.org";
+    description =
+      "A functional programming language based on algebraic effects and their handlers";
     longDescription = ''
       Eff is a functional language with handlers of not only exceptions,
       but also of other computational effects such as state or I/O. With

@@ -1,27 +1,8 @@
-{ stdenv
-, autoreconfHook
-, curl
-, fetchFromGitHub
-, git
-, libevent
-, libtool
-, qrencode
-, udev
-, libusb
-, makeWrapper
-, pkgconfig
-, qtbase
-, qttools
-, qtwebsockets
-, qtmultimedia
-, udevRule51 ? ''
-,   SUBSYSTEM=="usb", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbb%n", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402"
-, ''
-, udevRule52 ? ''
-,   KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbbf%n"
-, ''
-, writeText
-}:
+{ stdenv, autoreconfHook, curl, fetchFromGitHub, git, libevent, libtool, qrencode, udev, libusb, makeWrapper, pkgconfig, qtbase, qttools, qtwebsockets, qtmultimedia, udevRule51 ? ''
+  ,   SUBSYSTEM=="usb", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbb%n", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402"
+  , '', udevRule52 ? ''
+    ,   KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbbf%n"
+    , '', writeText }:
 
 # Enabling the digitalbitbox program
 #
@@ -78,20 +59,16 @@ in stdenv.mkDerivation rec {
     qtmultimedia
   ];
 
-  LUPDATE="${qttools.dev}/bin/lupdate";
-  LRELEASE="${qttools.dev}/bin/lrelease";
-  MOC="${qtbase.dev}/bin/moc";
-  QTDIR="${qtbase.dev}";
-  RCC="${qtbase.dev}/bin/rcc";
-  UIC="${qtbase.dev}/bin/uic";
+  LUPDATE = "${qttools.dev}/bin/lupdate";
+  LRELEASE = "${qttools.dev}/bin/lrelease";
+  MOC = "${qtbase.dev}/bin/moc";
+  QTDIR = "${qtbase.dev}";
+  RCC = "${qtbase.dev}/bin/rcc";
+  UIC = "${qtbase.dev}/bin/uic";
 
-  configureFlags = [
-    "--enable-libusb"
-  ];
+  configureFlags = [ "--enable-libusb" ];
 
-  hardeningDisable = [
-    "format"
-  ];
+  hardeningDisable = [ "format" ];
 
   postInstall = ''
     mkdir -p "$out/lib"
@@ -115,7 +92,8 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "A QT based application for the Digital Bitbox hardware wallet";
+    description =
+      "A QT based application for the Digital Bitbox hardware wallet";
     longDescription = ''
       Digital Bitbox provides dbb-app, a GUI tool, and dbb-cli, a CLI tool, to manage Digital Bitbox devices.
 
@@ -134,9 +112,7 @@ in stdenv.mkDerivation rec {
     '';
     homepage = "https://digitalbitbox.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      vidbina
-    ];
+    maintainers = with maintainers; [ vidbina ];
     platforms = platforms.linux;
   };
 }

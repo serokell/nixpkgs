@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, isPy3k
-, fetchPypi
-, requests
-, lxml
-, beautifulsoup4
-}:
+{ lib, buildPythonPackage, isPy3k, fetchPypi, requests, lxml, beautifulsoup4 }:
 
 buildPythonPackage rec {
   pname = "snscrape";
@@ -27,7 +20,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ requests lxml beautifulsoup4 ];
 
   meta = with lib; {
-    homepage = https://github.com/JustAnotherArchivist/snscrape;
+    homepage = "https://github.com/JustAnotherArchivist/snscrape";
     description = "A social networking service scraper in Python";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ivan ];

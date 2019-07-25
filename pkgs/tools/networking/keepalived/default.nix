@@ -11,22 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "154yxs6kwpi9yc4pa45ba3z3bfwzgmmmja5nk3d9mxq6w6s1swcy";
   };
 
-  buildInputs = [
-    libnfnetlink
-    libnl
-    net_snmp
-    openssl
-  ];
+  buildInputs = [ libnfnetlink libnl net_snmp openssl ];
 
   nativeBuildInputs = [ pkgconfig ];
 
-  configureFlags = [
-    "--enable-sha1"
-    "--enable-snmp"
- ];
+  configureFlags = [ "--enable-sha1" "--enable-snmp" ];
 
   meta = with stdenv.lib; {
-    homepage = https://keepalived.org;
+    homepage = "https://keepalived.org";
     description = "Routing software written in C";
     license = licenses.gpl2;
     platforms = platforms.linux;

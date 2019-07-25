@@ -1,12 +1,11 @@
 { lib, fetchFromGitHub }:
 
-let
-  version = "3.3.92";
+let version = "3.3.92";
 in fetchFromGitHub {
   name = "material-design-icons-${version}";
-  owner  = "Templarian";
-  repo   = "MaterialDesign-Webfont";
-  rev    = "v${version}";
+  owner = "Templarian";
+  repo = "MaterialDesign-Webfont";
+  rev = "v${version}";
 
   postFetch = ''
     tar xf $downloadedFile --strip=1
@@ -26,9 +25,9 @@ in fetchFromGitHub {
       developers targeting various platforms to download icons in the format,
       color and size they need for any project.
     '';
-    homepage = https://materialdesignicons.com;
+    homepage = "https://materialdesignicons.com";
     license = with licenses; [
-      asl20  # for icons from: https://github.com/google/material-design-icons
+      asl20 # for icons from: https://github.com/google/material-design-icons
       ofl
     ];
     platforms = platforms.all;

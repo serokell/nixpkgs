@@ -1,5 +1,4 @@
-{ stdenv, multiStdenv, cmake, fetchFromGitHub, file, libX11, makeWrapper
-, qt5, requireFile, unzip, wine
+{ stdenv, multiStdenv, cmake, fetchFromGitHub, file, libX11, makeWrapper, qt5, requireFile, unzip, wine
 }:
 
 let
@@ -18,7 +17,8 @@ let
     src = requireFile {
       name = "${name}.zip";
       url = "http://www.steinberg.net/en/company/developers.html";
-      sha256 = "e0f235d8826d70f1ae0ae5929cd198acae1ecff74612fde5c60cbfb45c2f4a70";
+      sha256 =
+        "e0f235d8826d70f1ae0ae5929cd198acae1ecff74612fde5c60cbfb45c2f4a70";
     };
     nativeBuildInputs = [ unzip ];
     installPhase = "cp -r . $out";
@@ -34,9 +34,7 @@ let
     patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
   });
 
-in
-
-multiStdenv.mkDerivation {
+in multiStdenv.mkDerivation {
   name = "airwave-${version}";
 
   src = airwave-src;
@@ -82,10 +80,10 @@ multiStdenv.mkDerivation {
       protocol to correctly embed the plugin editor into the host
       window.
     '';
-    homepage = https://github.com/phantom-code/airwave;
+    homepage = "https://github.com/phantom-code/airwave";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ michalrus ];
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

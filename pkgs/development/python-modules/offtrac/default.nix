@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "offtrac";
@@ -15,7 +12,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = http://fedorahosted.org/offtrac;
+    homepage = "http://fedorahosted.org/offtrac";
     description = "Trac xmlrpc library";
     license = licenses.gpl2;
   };

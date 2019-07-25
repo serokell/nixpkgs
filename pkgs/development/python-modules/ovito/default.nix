@@ -1,7 +1,4 @@
-{ stdenv, fetchgit
-, cmake
-, libav, netcdf, qscintilla, zlib, boost, git, fftw, hdf5, libssh
-, pythonPackages
+{ stdenv, fetchgit, cmake, libav, netcdf, qscintilla, zlib, boost, git, fftw, hdf5, libssh, pythonPackages
 }:
 
 stdenv.mkDerivation rec {
@@ -16,14 +13,23 @@ stdenv.mkDerivation rec {
     sha256 = "1vqzv3gzwf8r0g05a7fj8hdyvnzq2h3wdfck7j6n1av6rvp7hi5r";
   };
 
-  buildInputs = [ cmake libav netcdf qscintilla zlib boost zlib git fftw hdf5 libssh ];
-  propagatedBuildInputs = with pythonPackages; [ sphinx numpy sip pyqt5 matplotlib ase ];
+  buildInputs =
+    [ cmake libav netcdf qscintilla zlib boost zlib git fftw hdf5 libssh ];
+  propagatedBuildInputs = with pythonPackages; [
+    sphinx
+    numpy
+    sip
+    pyqt5
+    matplotlib
+    ase
+  ];
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    description = "Scientific visualization and analysis software for atomistic simulation data";
-    homepage = https://www.ovito.org;
+    description =
+      "Scientific visualization and analysis software for atomistic simulation data";
+    homepage = "https://www.ovito.org";
     license = licenses.gpl3;
     maintainers = [ maintainers.costrouc ];
     # ensures not built on hydra

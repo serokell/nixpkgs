@@ -19,7 +19,8 @@ buildBazelPackage rec {
     sha256 = "0hypf7mcbpx2djqm92k82vn1k6pbnv564xbnazx8nw60f6ns0x87";
   };
 
-  bazelTarget = "//src/scala/com/github/johnynek/bazel_deps:parseproject_deploy.jar";
+  bazelTarget =
+    "//src/scala/com/github/johnynek/bazel_deps:parseproject_deploy.jar";
 
   buildInputs = [ git makeWrapper ];
 
@@ -74,7 +75,9 @@ buildBazelPackage rec {
       mkdir -p $out/bin/bazel-bin/src/scala/com/github/johnynek/bazel_deps
 
       cp gen_maven_deps.sh $out/bin
-      wrapProgram "$out/bin/gen_maven_deps.sh" --set JAVA_HOME "${jre}" --prefix PATH : ${lib.makeBinPath [ jre ]}
+      wrapProgram "$out/bin/gen_maven_deps.sh" --set JAVA_HOME "${jre}" --prefix PATH : ${
+        lib.makeBinPath [ jre ]
+      }
       cp bazel-bin/src/scala/com/github/johnynek/bazel_deps/parseproject_deploy.jar $out/bin/bazel-bin/src/scala/com/github/johnynek/bazel_deps
     '';
   };

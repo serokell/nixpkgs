@@ -1,34 +1,4 @@
-{ stdenv
-, fetchurl
-, fetchpatch
-, gnome3
-, pkgconfig
-, meson
-, ninja
-, exiv2
-, libjpeg
-, libtiff
-, gst_all_1
-, libraw
-, libsoup
-, libsecret
-, glib
-, gtk3
-, gsettings-desktop-schemas
-, libchamplain
-, librsvg
-, libwebp
-, json-glib
-, webkitgtk
-, lcms2
-, bison
-, flex
-, clutter-gtk
-, wrapGAppsHook
-, shared-mime-info
-, python3
-, desktop-file-utils
-, itstool
+{ stdenv, fetchurl, fetchpatch, gnome3, pkgconfig, meson, ninja, exiv2, libjpeg, libtiff, gst_all_1, libraw, libsoup, libsecret, glib, gtk3, gsettings-desktop-schemas, libchamplain, librsvg, libwebp, json-glib, webkitgtk, lcms2, bison, flex, clutter-gtk, wrapGAppsHook, shared-mime-info, python3, desktop-file-utils, itstool
 }:
 
 stdenv.mkDerivation rec {
@@ -36,7 +6,9 @@ stdenv.mkDerivation rec {
   version = "3.8.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "1l2s1facq1r6yvqjqc34aqfzlvb3nhkhn79xisxbbdlgrrxdq52f";
   };
 
@@ -74,9 +46,7 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  mesonFlags = [
-    "-Dlibchamplain=true"
-  ];
+  mesonFlags = [ "-Dlibchamplain=true" ];
 
   postPatch = ''
     chmod +x gthumb/make-gthumb-h.py
@@ -92,11 +62,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share")
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     homepage = "https://wiki.gnome.org/Apps/Gthumb";

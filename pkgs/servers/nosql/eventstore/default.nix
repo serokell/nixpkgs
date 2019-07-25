@@ -1,19 +1,10 @@
-{ stdenv
-, fetchFromGitHub
-, fetchurl
-, makeWrapper
-, dotnet-sdk
-, mono
-, Nuget
-}:
+{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, dotnet-sdk, mono, Nuget }:
 
 let
 
   deps = import ./deps.nix { inherit fetchurl; };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   name = "EventStore-${version}";
   version = "5.0.0";
@@ -25,12 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qdnkaxiryyz8yhwqncmshsg8wi4v69dcxnvgvl4hn81zsj6fasw";
   };
 
-  buildInputs = [
-    makeWrapper
-    dotnet-sdk
-    mono
-    Nuget
-  ];
+  buildInputs = [ makeWrapper dotnet-sdk mono Nuget ];
 
   # that dependency seems to not be required for building, but pulls in libcurl which fails to be located.
   # see: https://github.com/EventStore/EventStore/issues/1897
@@ -72,7 +58,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://geteventstore.com/;
+    homepage = "https://geteventstore.com/";
     description = "Event sourcing database with processing logic in JavaScript";
     license = stdenv.lib.licenses.bsd3;
     maintainers = with stdenv.lib.maintainers; [ puffnfresh ];

@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchurl,
-  pkgconfig, pure, glpk, gmp, libtool, mysql, libiodbc }:
+{ lib, stdenv, fetchurl, pkgconfig, pure, glpk, gmp, libtool, mysql, libiodbc }:
 
 stdenv.mkDerivation rec {
   baseName = "glpk";
@@ -20,10 +19,8 @@ stdenv.mkDerivation rec {
       substituteInPlace configure \
         --replace /usr/include/mysql ${mysql.connector-c}/include/mysql
     '';
-    configureFlags = [ "--enable-dl"
-                       "--enable-odbc"
-                       "--enable-mysql"
-                       "--with-gmp=yes" ];
+    configureFlags =
+      [ "--enable-dl" "--enable-odbc" "--enable-mysql" "--with-gmp=yes" ];
   });
 
   nativeBuildInputs = [ pkgconfig ];
@@ -33,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "GLPK interface for the Pure Programming Language";
-    homepage = http://puredocs.bitbucket.org/pure-glpk.html;
+    homepage = "http://puredocs.bitbucket.org/pure-glpk.html";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ asppsa ];

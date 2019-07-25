@@ -15,11 +15,14 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -m755 -D supergenpass.sh "$out/bin/supergenpass"
-    wrapProgram "$out/bin/supergenpass" --prefix PATH : "${stdenv.lib.makeBinPath [ openssl coreutils gnugrep ]}"
+    wrapProgram "$out/bin/supergenpass" --prefix PATH : "${
+      stdenv.lib.makeBinPath [ openssl coreutils gnugrep ]
+    }"
   '';
 
   meta = with stdenv.lib; {
-    description = "Bash shell-script implementation of SuperGenPass password generation";
+    description =
+      "Bash shell-script implementation of SuperGenPass password generation";
     longDescription = ''
       Bash shell-script implementation of SuperGenPass password generation
       Usage: ./supergenpass.sh <domain> [ <length> ]
@@ -33,7 +36,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fgaz ];
-    homepage = https://github.com/lanzz/bash-supergenpass;
+    homepage = "https://github.com/lanzz/bash-supergenpass";
   };
 }
 

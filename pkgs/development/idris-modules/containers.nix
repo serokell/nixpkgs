@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, effects
-, test
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, effects, test, lib }:
+build-idris-package {
   name = "containers";
   version = "2017-09-10";
 
@@ -19,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Various data structures for use in the Idris Language.";
-    homepage = https://github.com/jfdm/idris-containers;
+    homepage = "https://github.com/jfdm/idris-containers";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

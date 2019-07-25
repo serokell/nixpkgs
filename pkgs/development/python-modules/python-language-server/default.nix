@@ -1,25 +1,15 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, isPy27
-, backports_functools_lru_cache, configparser, futures, future, jedi, pluggy, python-jsonrpc-server
-, pytest, mock, pytestcov, coverage
-, # Allow building a limited set of providers, e.g. ["pycodestyle"].
-  providers ? ["*"]
-  # The following packages are optional and
-  # can be overwritten with null as your liking.
-, autopep8 ? null
-, mccabe ? null
-, pycodestyle ? null
-, pydocstyle ? null
-, pyflakes ? null
-, pylint ? null
-, rope ? null
-, yapf ? null
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, isPy27, backports_functools_lru_cache, configparser, futures, future, jedi, pluggy, python-jsonrpc-server, pytest, mock, pytestcov, coverage, # Allow building a limited set of providers, e.g. ["pycodestyle"].
+providers ? [
+  "*"
+]
+# The following packages are optional and
+# can be overwritten with null as your liking.
+, autopep8 ? null, mccabe ? null, pycodestyle ? null, pydocstyle ?
+  null, pyflakes ? null, pylint ? null, rope ? null, yapf ? null }:
 
-let
-  withProvider = p: builtins.elem "*" providers || builtins.elem p providers;
-in
+let withProvider = p: builtins.elem "*" providers || builtins.elem p providers;
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "python-language-server";
   version = "0.27.0";
 
@@ -31,10 +21,13 @@ buildPythonPackage rec {
   };
 
   # The tests require all the providers, disable otherwise.
-  doCheck = providers == ["*"];
+  doCheck = providers == [ "*" ];
 
   checkInputs = [
-    pytest mock pytestcov coverage
+    pytest
+    mock
+    pytestcov
+    coverage
     # rope is technically a dependency, but we don't add it by default since we
     # already have jedi, which is the preferred option
     rope
@@ -54,11 +47,15 @@ buildPythonPackage rec {
     ++ stdenv.lib.optional (withProvider "rope") rope
     ++ stdenv.lib.optional (withProvider "yapf") yapf
     ++ stdenv.lib.optional isPy27 configparser
-    ++ stdenv.lib.optionals (pythonOlder "3.2") [ backports_functools_lru_cache futures ];
+    ++ stdenv.lib.optionals (pythonOlder "3.2") [
+      backports_functools_lru_cache
+      futures
+    ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/palantir/python-language-server;
-    description = "An implementation of the Language Server Protocol for Python";
+    homepage = "https://github.com/palantir/python-language-server";
+    description =
+      "An implementation of the Language Server Protocol for Python";
     license = licenses.mit;
     maintainers = [ maintainers.mic92 ];
   };

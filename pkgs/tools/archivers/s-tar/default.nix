@@ -18,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A very fast tar like tape archiver with improved functionality";
+    description =
+      "A very fast tar like tape archiver with improved functionality";
     longDescription = ''
       Star archives and extracts multiple files to and from a single file called a tarfile.
       A tarfile is usually a magnetic tape, but it can be any file.
@@ -27,7 +28,7 @@ stdenv.mkDerivation rec {
       The way star acts may be modified by additional options.
       Note that unpacking tar archives may be a security risk because star may overwrite existing files.
     '';
-    homepage = http://cdrtools.sourceforge.net/private/star.html;
+    homepage = "http://cdrtools.sourceforge.net/private/star.html";
     license = stdenv.lib.licenses.cddl;
     maintainers = [ stdenv.lib.maintainers.wucke13 ];
     platforms = [ "x86_64-linux" ];

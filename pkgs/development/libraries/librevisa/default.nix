@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libusb1 ];
 
   meta = with stdenv.lib; {
-    description = "Implementation of the VISA standard (for instrument control)";
+    description =
+      "Implementation of the VISA standard (for instrument control)";
     longDescription = ''
       LibreVISA aims to be a compliant implementation of the VISA standard in a
       free software library.
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
       We currently support targets connected via USB, exposing the USBTMC
       interface, and VXI-11 devices.
     '';
-    homepage = http://www.librevisa.org/;
+    homepage = "http://www.librevisa.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.bjornfor ];

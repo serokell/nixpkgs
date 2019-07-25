@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-, pytestrunner
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, pytestrunner, pytest }:
 
 buildPythonPackage rec {
   pname = "paste";
@@ -27,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Tools for using a Web Server Gateway Interface stack";
-    homepage = http://pythonpaste.org/;
+    homepage = "http://pythonpaste.org/";
     license = licenses.mit;
   };
 

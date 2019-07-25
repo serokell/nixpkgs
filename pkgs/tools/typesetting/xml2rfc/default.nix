@@ -17,7 +17,8 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     homepage = "https://xml2rfc.tools.ietf.org/";
     license = licenses.bsdOriginal;
-    description = "Xml2rfc generates RFCs and IETF drafts from document source in XML according to the dtd in RFC2629.";
+    description =
+      "Xml2rfc generates RFCs and IETF drafts from document source in XML according to the dtd in RFC2629.";
     maintainers = [ maintainers.yrashk ];
   };
 

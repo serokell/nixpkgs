@@ -1,8 +1,7 @@
-{ stdenv, fetchFromGitHub, gtk3, intltool, json_c, lcms2, libpng, librsvg, gobject-introspection, hicolor-icon-theme
-, gdk_pixbuf, pkgconfig, python2Packages, scons, swig, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, gtk3, intltool, json_c, lcms2, libpng, librsvg, gobject-introspection, hicolor-icon-theme, gdk_pixbuf, pkgconfig, python2Packages, scons, swig, wrapGAppsHook
+}:
 
-let
-  inherit (python2Packages) python pycairo pygobject3 numpy;
+let inherit (python2Packages) python pycairo pygobject3 numpy;
 in stdenv.mkDerivation rec {
   name = "mypaint-${version}";
   version = "1.2.1";
@@ -16,12 +15,25 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    intltool pkgconfig scons swig wrapGAppsHook
+    intltool
+    pkgconfig
+    scons
+    swig
+    wrapGAppsHook
     gobject-introspection # for setup hook
   ];
 
   buildInputs = [
-    gtk3 gdk_pixbuf json_c lcms2 libpng librsvg pycairo pygobject3 python hicolor-icon-theme
+    gtk3
+    gdk_pixbuf
+    json_c
+    lcms2
+    libpng
+    librsvg
+    pycairo
+    pygobject3
+    python
+    hicolor-icon-theme
   ];
 
   propagatedBuildInputs = [ numpy ];
@@ -36,7 +48,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A graphics application for digital painters";
-    homepage = http://mypaint.org/;
+    homepage = "http://mypaint.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ goibhniu jtojnar ];

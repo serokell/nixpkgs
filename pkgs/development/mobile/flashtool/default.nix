@@ -1,4 +1,5 @@
-{ stdenv, requireFile, p7zip, jre, libusb1, platform-tools, gtk2, glib, libXtst }:
+{ stdenv, requireFile, p7zip, jre, libusb1, platform-tools, gtk2, glib, libXtst
+}:
 
 # TODO:
 #
@@ -42,7 +43,9 @@ stdenv.mkDerivation rec {
     sed -i \
       -e 's|$(uname -m)|i686|' \
       -e 's|export JAVA_HOME=.*|export JAVA_HOME=${jre}|' \
-      -e 's|export LD_LIBRARY_PATH=.*|export LD_LIBRARY_PATH=${stdenv.lib.makeLibraryPath [ libXtst glib gtk2 ]}:./x10flasher_lib/linux/lib32|' \
+      -e 's|export LD_LIBRARY_PATH=.*|export LD_LIBRARY_PATH=${
+      stdenv.lib.makeLibraryPath [ libXtst glib gtk2 ]
+      }:./x10flasher_lib/linux/lib32|' \
       FlashTool FlashToolConsole
   '';
 
@@ -52,8 +55,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www.flashtool.net/;
-    description = "S1 flashing software for Sony phones from X10 to Xperia Z Ultra";
+    homepage = "http://www.flashtool.net/";
+    description =
+      "S1 flashing software for Sony phones from X10 to Xperia Z Ultra";
     license = stdenv.lib.licenses.unfreeRedistributableFirmware;
     platforms = [ "i686-linux" ];
     hydraPlatforms = stdenv.lib.platforms.none;

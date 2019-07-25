@@ -1,213 +1,215 @@
-{ pkgs, idris-no-deps, overrides ? (self: super: {}) }: let
+{ pkgs, idris-no-deps, overrides ? (self: super: { }) }:
+let
   inherit (pkgs.lib) callPackageWith fix' extends;
 
-  /* Taken from haskell-modules/default.nix, should probably abstract this away */
-  callPackageWithScope = scope: drv: args: (callPackageWith scope drv args) // {
-    overrideScope = f: callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv args;
-  };
-
-  mkScope = scope : pkgs // pkgs.xorg // pkgs.gnome2 // scope;
-
-  idrisPackages = self: let
-    defaultScope = mkScope self;
-
-    callPackage = callPackageWithScope defaultScope;
-
-    builtins_ = pkgs.lib.mapAttrs self.build-builtin-package {
-      prelude = [];
-
-      base = [ self.prelude ];
-
-      contrib = [ self.prelude self.base ];
-
-      effects = [ self.prelude self.base ];
-
-      pruviloj = [ self.prelude self.base ];
+  # Taken from haskell-modules/default.nix, should probably abstract this away
+  callPackageWithScope = scope: drv: args:
+    (callPackageWith scope drv args) // {
+      overrideScope = f:
+        callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv
+        args;
     };
 
-  in
-    {
-    inherit idris-no-deps callPackage;
+  mkScope = scope: pkgs // pkgs.xorg // pkgs.gnome2 // scope;
 
-    # Idris wrapper with specified compiler and library paths, used to build packages
+  idrisPackages = self:
+    let
+      defaultScope = mkScope self;
 
-    idris = pkgs.callPackage ./idris-wrapper.nix {
-      inherit idris-no-deps;
-    };
+      callPackage = callPackageWithScope defaultScope;
 
-    # Utilities for building packages
+      builtins_ = pkgs.lib.mapAttrs self.build-builtin-package {
+        prelude = [ ];
 
-    with-packages = callPackage ./with-packages.nix {} ;
+        base = [ self.prelude ];
 
-    build-builtin-package = callPackage ./build-builtin-package.nix {};
+        contrib = [ self.prelude self.base ];
 
-    build-idris-package = callPackage ./build-idris-package.nix {};
+        effects = [ self.prelude self.base ];
 
-    # The set of libraries that comes with idris
+        pruviloj = [ self.prelude self.base ];
+      };
 
-    builtins = pkgs.lib.mapAttrsToList (name: value: value) builtins_;
+    in {
+      inherit idris-no-deps callPackage;
 
-    # Libraries
+      # Idris wrapper with specified compiler and library paths, used to build packages
 
-    array = callPackage ./array.nix {};
+      idris = pkgs.callPackage ./idris-wrapper.nix { inherit idris-no-deps; };
 
-    bi = callPackage ./bi.nix {};
+      # Utilities for building packages
 
-    bifunctors = callPackage ./bifunctors.nix {};
+      with-packages = callPackage ./with-packages.nix { };
 
-    bytes = callPackage ./bytes.nix {};
+      build-builtin-package = callPackage ./build-builtin-package.nix { };
 
-    canvas = callPackage ./canvas.nix {};
+      build-idris-package = callPackage ./build-idris-package.nix { };
 
-    categories = callPackage ./categories.nix {};
+      # The set of libraries that comes with idris
 
-    coda = callPackage ./coda.nix {};
+      builtins = pkgs.lib.mapAttrsToList (name: value: value) builtins_;
 
-    config = callPackage ./config.nix {};
+      # Libraries
 
-    comonad = callPackage ./comonad.nix {};
+      array = callPackage ./array.nix { };
 
-    composition = callPackage ./composition.nix {};
+      bi = callPackage ./bi.nix { };
 
-    console = callPackage ./console.nix {};
+      bifunctors = callPackage ./bifunctors.nix { };
 
-    containers = callPackage ./containers.nix {};
+      bytes = callPackage ./bytes.nix { };
 
-    cube = callPackage ./cube.nix {};
+      canvas = callPackage ./canvas.nix { };
 
-    data = callPackage ./data.nix {};
+      categories = callPackage ./categories.nix { };
 
-    derive = callPackage ./derive.nix {};
+      coda = callPackage ./coda.nix { };
 
-    descncrunch = callPackage ./descncrunch.nix {};
+      config = callPackage ./config.nix { };
 
-    dict = callPackage ./dict.nix {};
+      comonad = callPackage ./comonad.nix { };
 
-    dom = callPackage ./dom.nix {};
+      composition = callPackage ./composition.nix { };
 
-    electron = callPackage ./electron.nix {};
+      console = callPackage ./console.nix { };
 
-    eternal = callPackage ./eternal.nix {};
+      containers = callPackage ./containers.nix { };
 
-    farrp = callPackage ./farrp.nix {};
+      cube = callPackage ./cube.nix { };
 
-    free = callPackage ./free.nix {};
+      data = callPackage ./data.nix { };
 
-    fsm = callPackage ./fsm.nix {};
+      derive = callPackage ./derive.nix { };
 
-    glfw = callPackage ./glfw.nix {};
+      descncrunch = callPackage ./descncrunch.nix { };
 
-    graphviz = callPackage ./graphviz.nix {};
+      dict = callPackage ./dict.nix { };
 
-    hamt = callPackage ./hamt.nix {};
+      dom = callPackage ./dom.nix { };
 
-    html = callPackage ./html.nix {};
+      electron = callPackage ./electron.nix { };
 
-    heyting-algebra = callPackage ./heyting-algebra.nix {};
+      eternal = callPackage ./eternal.nix { };
 
-    hezarfen = callPackage ./hezarfen.nix {};
+      farrp = callPackage ./farrp.nix { };
 
-    hrtime = callPackage ./hrtime.nix {};
+      free = callPackage ./free.nix { };
 
-    http = callPackage ./http.nix {};
+      fsm = callPackage ./fsm.nix { };
 
-    http4idris = callPackage ./http4idris.nix {};
+      glfw = callPackage ./glfw.nix { };
 
-    iaia = callPackage ./iaia.nix {};
+      graphviz = callPackage ./graphviz.nix { };
 
-    idrishighlighter = callPackage ./idrishighlighter.nix {};
+      hamt = callPackage ./hamt.nix { };
 
-    idrisscript = callPackage ./idrisscript.nix {};
+      html = callPackage ./html.nix { };
 
-    ipkgparser = callPackage ./ipkgparser.nix {};
+      heyting-algebra = callPackage ./heyting-algebra.nix { };
 
-    jheiling-extras = callPackage ./jheiling-extras.nix {};
+      hezarfen = callPackage ./hezarfen.nix { };
 
-    jheiling-js = callPackage ./jheiling-js.nix {};
+      hrtime = callPackage ./hrtime.nix { };
 
-    js = callPackage ./js.nix {};
+      http = callPackage ./http.nix { };
 
-    lens = callPackage ./lens.nix {};
+      http4idris = callPackage ./http4idris.nix { };
 
-    lightyear = callPackage ./lightyear.nix {};
+      iaia = callPackage ./iaia.nix { };
 
-    logic = callPackage ./logic.nix {};
+      idrishighlighter = callPackage ./idrishighlighter.nix { };
 
-    mapping = callPackage ./mapping.nix {};
+      idrisscript = callPackage ./idrisscript.nix { };
 
-    mhd = callPackage ./mhd.nix {};
+      ipkgparser = callPackage ./ipkgparser.nix { };
 
-    pacman = callPackage ./pacman.nix {};
+      jheiling-extras = callPackage ./jheiling-extras.nix { };
 
-    patricia = callPackage ./patricia.nix {};
+      jheiling-js = callPackage ./jheiling-js.nix { };
 
-    permutations = callPackage ./permutations.nix {};
+      js = callPackage ./js.nix { };
 
-    pfds = callPackage ./pfds.nix {};
+      lens = callPackage ./lens.nix { };
 
-    pipes = callPackage ./pipes.nix {};
+      lightyear = callPackage ./lightyear.nix { };
 
-    posix = callPackage ./posix.nix {};
+      logic = callPackage ./logic.nix { };
 
-    protobuf = callPackage ./protobuf.nix {};
+      mapping = callPackage ./mapping.nix { };
 
-    quantities = callPackage ./quantities.nix {};
+      mhd = callPackage ./mhd.nix { };
 
-    rationals = callPackage ./rationals.nix {};
+      pacman = callPackage ./pacman.nix { };
 
-    recursion_schemes = callPackage ./recursion_schemes.nix {};
+      patricia = callPackage ./patricia.nix { };
 
-    refined = callPackage ./refined.nix {};
+      permutations = callPackage ./permutations.nix { };
 
-    sdl = callPackage ./sdl.nix {};
+      pfds = callPackage ./pfds.nix { };
 
-    sdl2 = callPackage ./sdl2.nix {};
+      pipes = callPackage ./pipes.nix { };
 
-    semidirect = callPackage ./semidirect.nix {};
+      posix = callPackage ./posix.nix { };
 
-    setoids = callPackage ./setoids.nix {};
+      protobuf = callPackage ./protobuf.nix { };
 
-    smproc = callPackage ./smproc.nix {};
+      quantities = callPackage ./quantities.nix { };
 
-    snippets = callPackage ./snippets.nix {};
+      rationals = callPackage ./rationals.nix { };
 
-    software_foundations = callPackage ./software_foundations.nix {};
+      recursion_schemes = callPackage ./recursion_schemes.nix { };
 
-    specdris = callPackage ./specdris.nix {};
+      refined = callPackage ./refined.nix { };
 
-    tap = callPackage ./tap.nix {};
+      sdl = callPackage ./sdl.nix { };
 
-    test = callPackage ./test.nix {};
+      sdl2 = callPackage ./sdl2.nix { };
 
-    tlhydra = callPackage ./tlhydra.nix {};
+      semidirect = callPackage ./semidirect.nix { };
 
-    tomladris = callPackage ./tomladris.nix {};
+      setoids = callPackage ./setoids.nix { };
 
-    tp = callPackage ./tp.nix {};
+      smproc = callPackage ./smproc.nix { };
 
-    tparsec = callPackage ./tparsec.nix {};
+      snippets = callPackage ./snippets.nix { };
 
-    transducers = callPackage ./transducers.nix {};
+      software_foundations = callPackage ./software_foundations.nix { };
 
-    trees = callPackage ./trees.nix {};
+      specdris = callPackage ./specdris.nix { };
 
-    union_type = callPackage ./union_type.nix {};
+      tap = callPackage ./tap.nix { };
 
-    vdom = callPackage ./vdom.nix {};
+      test = callPackage ./test.nix { };
 
-    vecspace = callPackage ./vecspace.nix {};
+      tlhydra = callPackage ./tlhydra.nix { };
 
-    webgl = callPackage ./webgl.nix {};
+      tomladris = callPackage ./tomladris.nix { };
 
-    wl-pprint = callPackage ./wl-pprint.nix {};
+      tp = callPackage ./tp.nix { };
 
-    wyvern = callPackage ./wyvern.nix {};
+      tparsec = callPackage ./tparsec.nix { };
 
-    xhr = callPackage ./xhr.nix {};
+      transducers = callPackage ./transducers.nix { };
 
-    yaml = callPackage ./yaml.nix {};
+      trees = callPackage ./trees.nix { };
 
-    yampa = callPackage ./yampa.nix {};
+      union_type = callPackage ./union_type.nix { };
 
-  } // builtins_;
+      vdom = callPackage ./vdom.nix { };
+
+      vecspace = callPackage ./vecspace.nix { };
+
+      webgl = callPackage ./webgl.nix { };
+
+      wl-pprint = callPackage ./wl-pprint.nix { };
+
+      wyvern = callPackage ./wyvern.nix { };
+
+      xhr = callPackage ./xhr.nix { };
+
+      yaml = callPackage ./yaml.nix { };
+
+      yampa = callPackage ./yampa.nix { };
+
+    } // builtins_;
 in fix' (extends overrides idrisPackages)

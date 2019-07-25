@@ -1,11 +1,13 @@
-{ stdenv, fetchurl, gradle_2_5, perl, makeWrapper, jre, makeDesktopItem, writeText, runtimeShell }:
+{ stdenv, fetchurl, gradle_2_5, perl, makeWrapper, jre, makeDesktopItem, writeText, runtimeShell
+}:
 
 let
   version = "1.4.0";
   name = "jd-gui-${version}";
 
   src = fetchurl {
-    url    = "https://github.com/java-decompiler/jd-gui/archive/v${version}.tar.gz";
+    url =
+      "https://github.com/java-decompiler/jd-gui/archive/v${version}.tar.gz";
     sha256 = "0anz7szlr5kgmsmkyv34jdynsnk8v6kvibcyz98jsd96fh725lax";
   };
 
@@ -52,16 +54,17 @@ let
     }
   '';
 
-  desktopItem = launcher: makeDesktopItem {
-    name = "jd-gui";
-    exec = "${launcher} %F";
-    icon = "jd-gui";
-    comment = "Java Decompiler JD-GUI";
-    desktopName = "JD-GUI";
-    genericName = "Java Decompiler";
-    mimeType = "application/x-java-archive;application/x-java";
-    categories = "Development;Debugger;";
-  };
+  desktopItem = launcher:
+    makeDesktopItem {
+      name = "jd-gui";
+      exec = "${launcher} %F";
+      icon = "jd-gui";
+      comment = "Java Decompiler JD-GUI";
+      desktopName = "JD-GUI";
+      genericName = "Java Decompiler";
+      mimeType = "application/x-java-archive;application/x-java";
+      categories = "Development;Debugger;";
+    };
 
 in stdenv.mkDerivation rec {
   inherit name version src;
@@ -73,30 +76,29 @@ in stdenv.mkDerivation rec {
     gradle --offline --no-daemon --info --init-script ${gradleInit} jar
   '';
 
-  installPhase = let
-    jar = "$out/share/jd-gui/${name}.jar";
-  in ''
-    mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}
-    cp build/libs/${name}.jar ${jar}
-    cp src/linux/resources/jd_icon_128.png $out/share/icons/hicolor/128x128/apps/jd-gui.png
+  installPhase = let jar = "$out/share/jd-gui/${name}.jar";
+    in ''
+      mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}
+      cp build/libs/${name}.jar ${jar}
+      cp src/linux/resources/jd_icon_128.png $out/share/icons/hicolor/128x128/apps/jd-gui.png
 
-    cat > $out/bin/jd-gui <<EOF
-    #!${runtimeShell}
-    export JAVA_HOME=${jre}
-    ${jre}/bin/java -jar ${jar} $@
-    EOF
-    chmod +x $out/bin/jd-gui
+      cat > $out/bin/jd-gui <<EOF
+      #!${runtimeShell}
+      export JAVA_HOME=${jre}
+      ${jre}/bin/java -jar ${jar} $@
+      EOF
+      chmod +x $out/bin/jd-gui
 
-    ${(desktopItem "$out/bin/jd-gui").buildCommand}
-  '';
+      ${(desktopItem "$out/bin/jd-gui").buildCommand}
+    '';
 
   dontStrip = true;
 
   meta = with stdenv.lib; {
     description = "Fast Java Decompiler with powerful GUI";
-    homepage    = "http://jd.benow.ca/";
-    license     = licenses.gpl3;
-    platforms   = platforms.unix;
+    homepage = "http://jd.benow.ca/";
+    license = licenses.gpl3;
+    platforms = platforms.unix;
     maintainers = [ maintainers.thoughtpolice ];
   };
 }

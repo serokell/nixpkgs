@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.security.rngd;
-in
-{
+let cfg = config.security.rngd;
+in {
   options = {
     security.rngd = {
       enable = mkOption {

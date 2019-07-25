@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, fetchFromGitHub
-, mkfontdir, mkfontscale, bdf2psf, bdftopcf
+{ stdenv, fetchurl, fetchFromGitHub, mkfontdir, mkfontscale, bdf2psf, bdftopcf
 }:
 
 stdenv.mkDerivation rec {
@@ -12,9 +11,9 @@ stdenv.mkDerivation rec {
   };
 
   bdf = fetchFromGitHub {
-    owner  = "hchargois";
-    repo   = "gohufont";
-    rev    = "cc36b8c9fed7141763e55dcee0a97abffcf08224";
+    owner = "hchargois";
+    repo = "gohufont";
+    rev = "cc36b8c9fed7141763e55dcee0a97abffcf08224";
     sha256 = "1hmp11mrr01b29phw0xyj4h9b92qz19cf56ssf6c47c5j2c4xmbv";
   };
 
@@ -58,14 +57,14 @@ stdenv.mkDerivation rec {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash     = "0kl7k8idl0fnsap2c4j02i33z017p2s4gi2cgspy6ica46fczcc1";
+  outputHash = "0kl7k8idl0fnsap2c4j02i33z017p2s4gi2cgspy6ica46fczcc1";
 
   meta = with stdenv.lib; {
     description = ''
       A monospace bitmap font well suited for programming and terminal use
     '';
-    homepage    = http://font.gohu.org/;
-    license     = licenses.wtfpl;
+    homepage = "http://font.gohu.org/";
+    license = licenses.wtfpl;
     maintainers = with maintainers; [ epitrochoid rnhmjoj ];
   };
 }

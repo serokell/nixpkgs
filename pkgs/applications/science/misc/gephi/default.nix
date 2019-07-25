@@ -21,13 +21,13 @@ let
       done
     '';
     # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
-    installPhase = ''find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete'';
+    installPhase =
+      "find $out/.m2 -type f -regex '.+\\(\\.lastUpdated\\|resolver-status\\.properties\\|_remote\\.repositories\\)' -delete";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = "1p7yf97dn0nvr005cbs6vdk3i341s8fya4kfccj8qqad2qgxflif";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "gephi-${version}";
 
   inherit src;
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A platform for visualizing and manipulating large graphs";
-    homepage = https://gephi.org;
+    homepage = "https://gephi.org";
     license = licenses.gpl3;
     maintainers = [ maintainers.taeer ];
     platforms = [ "x86_64-linux" ];

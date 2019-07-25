@@ -1,11 +1,10 @@
 import ./make-test.nix ({ pkgs, lib, ... }:
-let
-  port = 5000;
+let port = 5000;
 in {
   name = "osrm-backend";
   meta.maintainers = [ lib.maintainers.erictapen ];
 
-  machine = { config, pkgs, ... }:{
+  machine = { config, pkgs, ... }: {
 
     services.osrm = {
       enable = true;
@@ -22,7 +21,8 @@ in {
           # as apparently no provider of OSM files guarantees immutability,
           # this is hosted as a gist on GitHub.
           src = pkgs.fetchgit {
-            url = "https://gist.github.com/erictapen/01e39f73a6c856eac53ba809a94cdb83";
+            url =
+              "https://gist.github.com/erictapen/01e39f73a6c856eac53ba809a94cdb83";
             rev = "9b1ff0f24deb40e5cf7df51f843dbe860637b8ce";
             sha256 = "1scqhmrfnpwsy5i2a9jpggqnvfgj4hv9p4qyvc79321pzkbv59nx";
           };
@@ -36,18 +36,20 @@ in {
             cp ${filename}* $out/
           '';
         };
-      in "${osrm-data}/${filename}.osrm";
+        in "${osrm-data}/${filename}.osrm";
     };
 
     environment.systemPackages = [ pkgs.jq ];
   };
 
   testScript = let
-    query = "http://localhost:${toString port}/route/v1/driving/7.41720,43.73304;7.42463,43.73886?steps=true";
-  in ''
-    $machine->waitForUnit("osrm.service");
-    $machine->waitForOpenPort(${toString port});
-    $machine->succeed("curl --silent '${query}' | jq .waypoints[0].name | grep -F 'Boulevard Rainier III'");
-    $machine->succeed("curl --silent '${query}' | jq .waypoints[1].name | grep -F 'Avenue de la Costa'");
-  '';
+    query = "http://localhost:${
+      toString port
+    }/route/v1/driving/7.41720,43.73304;7.42463,43.73886?steps=true";
+    in ''
+      $machine->waitForUnit("osrm.service");
+      $machine->waitForOpenPort(${toString port});
+      $machine->succeed("curl --silent '${query}' | jq .waypoints[0].name | grep -F 'Boulevard Rainier III'");
+      $machine->succeed("curl --silent '${query}' | jq .waypoints[1].name | grep -F 'Avenue de la Costa'");
+    '';
 })

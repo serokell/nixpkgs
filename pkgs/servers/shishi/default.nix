@@ -1,26 +1,28 @@
-{ stdenv, fetchurl, pkgconfig
-, libgcrypt, libgpgerror, libtasn1
+{ stdenv, fetchurl, pkgconfig, libgcrypt, libgpgerror, libtasn1
 
 # Optional Dependencies
-, pam ? null, libidn ? null, gnutls ? null
-}:
+, pam ? null, libidn ? null, gnutls ? null }:
 
 let
-  mkFlag = trueStr: falseStr: cond: name: val: "--"
-    + (if cond then trueStr else falseStr)
-    + name
+  mkFlag = trueStr: falseStr: cond: name: val:
+    "--" + (if cond then trueStr else falseStr) + name
     + stdenv.lib.optionalString (val != null && cond != false) "=${val}";
   mkEnable = mkFlag "enable-" "disable-";
   mkWith = mkFlag "with-" "without-";
   mkOther = mkFlag "" "" true;
 
-  shouldUsePkg = pkg: if pkg != null && stdenv.lib.any (stdenv.lib.meta.platformMatch stdenv.hostPlatform) pkg.meta.platforms then pkg else null;
+  shouldUsePkg = pkg:
+    if pkg != null
+    && stdenv.lib.any (stdenv.lib.meta.platformMatch stdenv.hostPlatform)
+    pkg.meta.platforms then
+      pkg
+    else
+      null;
 
   optPam = shouldUsePkg pam;
   optLibidn = shouldUsePkg libidn;
   optGnutls = shouldUsePkg gnutls;
-in
-with stdenv.lib;
+in with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "shishi-1.0.2";
 
@@ -36,23 +38,22 @@ stdenv.mkDerivation rec {
   buildInputs = [ libgcrypt libgpgerror libtasn1 optPam optLibidn optGnutls ];
 
   configureFlags = [
-    (mkOther                      "sysconfdir"    "/etc")
-    (mkOther                      "localstatedir" "/var")
-    (mkEnable true                "libgcrypt"     null)
-    (mkEnable (optPam != null)    "pam"           null)
-    (mkEnable true                "ipv6"          null)
-    (mkWith   (optLibidn != null) "stringprep"    null)
-    (mkEnable (optGnutls != null) "starttls"      null)
-    (mkEnable true                "des"           null)
-    (mkEnable true                "3des"          null)
-    (mkEnable true                "aes"           null)
-    (mkEnable true                "md"            null)
-    (mkEnable false               "null"          null)
-    (mkEnable true                "arcfour"       null)
+    (mkOther "sysconfdir" "/etc")
+    (mkOther "localstatedir" "/var")
+    (mkEnable true "libgcrypt" null)
+    (mkEnable (optPam != null) "pam" null)
+    (mkEnable true "ipv6" null)
+    (mkWith (optLibidn != null) "stringprep" null)
+    (mkEnable (optGnutls != null) "starttls" null)
+    (mkEnable true "des" null)
+    (mkEnable true "3des" null)
+    (mkEnable true "aes" null)
+    (mkEnable true "md" null)
+    (mkEnable false "null" null)
+    (mkEnable true "arcfour" null)
   ];
 
-  NIX_CFLAGS_COMPILE
-    = optionalString stdenv.isDarwin "-DBIND_8_COMPAT";
+  NIX_CFLAGS_COMPILE = optionalString stdenv.isDarwin "-DBIND_8_COMPAT";
 
   doCheck = true;
 
@@ -62,20 +63,20 @@ stdenv.mkDerivation rec {
   postInstall = ''
     sed -i $out/lib/libshi{sa,shi}.la \
   '' + optionalString (optLibidn != null) ''
-      -e 's,\(-lidn\),-L${optLibidn.out}/lib \1,' \
+    -e 's,\(-lidn\),-L${optLibidn.out}/lib \1,' \
   '' + optionalString (optGnutls != null) ''
-      -e 's,\(-lgnutls\),-L${optGnutls.out}/lib \1,' \
+    -e 's,\(-lgnutls\),-L${optGnutls.out}/lib \1,' \
   '' + ''
-      -e 's,\(-lgcrypt\),-L${libgcrypt.out}/lib \1,' \
-      -e 's,\(-lgpg-error\),-L${libgpgerror.out}/lib \1,' \
-      -e 's,\(-ltasn1\),-L${libtasn1.out}/lib \1,'
+    -e 's,\(-lgcrypt\),-L${libgcrypt.out}/lib \1,' \
+    -e 's,\(-lgpg-error\),-L${libgpgerror.out}/lib \1,' \
+    -e 's,\(-ltasn1\),-L${libtasn1.out}/lib \1,'
   '';
 
   meta = {
-    homepage    = https://www.gnu.org/software/shishi/;
+    homepage = "https://www.gnu.org/software/shishi/";
     description = "An implementation of the Kerberos 5 network security system";
-    license     = licenses.gpl3Plus;
+    license = licenses.gpl3Plus;
     maintainers = with maintainers; [ bjg lovek323 ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

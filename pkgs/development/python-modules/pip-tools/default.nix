@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, pip, pytest, click, six, first
-, setuptools_scm, git, glibcLocales, mock }:
+{ stdenv, fetchPypi, buildPythonPackage, pip, pytest, click, six, first, setuptools_scm, git, glibcLocales, mock
+}:
 
 buildPythonPackage rec {
   pname = "pip-tools";
@@ -16,8 +16,8 @@ buildPythonPackage rec {
 
   disabledTests = stdenv.lib.concatMapStringsSep " and " (s: "not " + s) [
     # Depend on network tests:
-    "test_allow_unsafe_option" #paramaterized, but all fail
-    "test_annotate_option" #paramaterized, but all fail
+    "test_allow_unsafe_option" # paramaterized, but all fail
+    "test_annotate_option" # paramaterized, but all fail
     "test_editable_package_vcs"
     "test_editable_top_level_deps_preserved" # can't figure out how to select only one parameter to ignore
     "test_filter_pip_markers"
@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Keeps your pinned dependencies fresh";
-    homepage = https://github.com/jazzband/pip-tools/;
+    homepage = "https://github.com/jazzband/pip-tools/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ zimbatm ];
   };

@@ -1,14 +1,15 @@
-{stdenv, fetchurl, emacs}:
+{ stdenv, fetchurl, emacs }:
 
 stdenv.mkDerivation rec {
   name = "org-mac-link-1.2";
 
   src = fetchurl {
-    url = "https://raw.githubusercontent.com/stuartsierra/org-mode/master/contrib/lisp/org-mac-link.el";
+    url =
+      "https://raw.githubusercontent.com/stuartsierra/org-mode/master/contrib/lisp/org-mac-link.el";
     sha256 = "1gkzlfbhg289r1hbqd25szan1wizgk6s99h9xxjip5bjv0jywcx5";
   };
 
-  phases = [ "buildPhase" "installPhase"];
+  phases = [ "buildPhase" "installPhase" ];
 
   buildInputs = [ emacs ];
 
@@ -24,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Insert org-mode links to items selected in various Mac apps";
-    homepage = http://orgmode.org/worg/org-contrib/org-mac-link.html;
+    homepage = "http://orgmode.org/worg/org-contrib/org-mac-link.html";
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.all;
   };

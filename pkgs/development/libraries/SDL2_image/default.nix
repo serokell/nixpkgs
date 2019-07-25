@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, SDL2, libpng, libjpeg, libtiff, libungif, libwebp, libXpm, zlib, Foundation }:
+{ stdenv, fetchurl, SDL2, libpng, libjpeg, libtiff, libungif, libwebp, libXpm, zlib, Foundation
+}:
 
 stdenv.mkDerivation rec {
   name = "SDL2_image-${version}";
@@ -12,14 +13,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ SDL2 libpng libjpeg libtiff libungif libwebp libXpm zlib ]
     ++ stdenv.lib.optional stdenv.isDarwin Foundation;
 
-
   configureFlags = stdenv.lib.optional stdenv.isDarwin "--disable-sdltest";
 
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
     description = "SDL image library";
-    homepage = http://www.libsdl.org/projects/SDL_image/;
+    homepage = "http://www.libsdl.org/projects/SDL_image/";
     platforms = platforms.unix;
     license = licenses.zlib;
     maintainers = with maintainers; [ cpages ];

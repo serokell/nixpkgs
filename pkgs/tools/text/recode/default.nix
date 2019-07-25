@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python, perl, intltool, flex, autoreconfHook
-, texinfo, libiconv, libintl }:
+{ stdenv, fetchFromGitHub, python, perl, intltool, flex, autoreconfHook, texinfo, libiconv, libintl
+}:
 
 stdenv.mkDerivation rec {
   name = "recode-3.7-2fd838565";
@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "06vyjqaraamcc5vka66mlvxj27ihccqc74aymv2wn8nphr2rhh03";
   };
 
-  nativeBuildInputs = [ python perl intltool flex texinfo autoreconfHook libiconv ];
+  nativeBuildInputs =
+    [ python perl intltool flex texinfo autoreconfHook libiconv ];
   buildInputs = [ libintl ];
 
   preAutoreconf = ''
@@ -28,7 +29,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.gnu.org/software/recode/;
+    homepage = "https://www.gnu.org/software/recode/";
     description = "Converts files between various character sets and usages";
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.gpl2Plus;

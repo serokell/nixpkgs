@@ -4,7 +4,7 @@ stdenv.mkDerivation {
   name = "clearlyU-12-1.9";
 
   src = fetchurl {
-    url = https://www.math.nmsu.edu/~mleisher/Software/cu/cu12-1.9.tgz;
+    url = "https://www.math.nmsu.edu/~mleisher/Software/cu/cu12-1.9.tgz";
     sha256 = "1xn14jbv3m1khy7ydvad9ydkn7yygdbhjy9wm1v000jzjwr3lv21";
   };
 
@@ -24,6 +24,6 @@ stdenv.mkDerivation {
 
   meta = {
     description = "A Unicode font";
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
   };
 }

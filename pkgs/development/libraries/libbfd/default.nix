@@ -1,6 +1,4 @@
-{ stdenv
-, fetchpatch, gnu-config, autoreconfHook, bison, binutils-unwrapped
-, libiberty, zlib
+{ stdenv, fetchpatch, gnu-config, autoreconfHook, bison, binutils-unwrapped, libiberty, zlib
 }:
 
 stdenv.mkDerivation rec {
@@ -12,7 +10,8 @@ stdenv.mkDerivation rec {
   patches = binutils-unwrapped.patches ++ [
     ../../tools/misc/binutils/build-components-separately.patch
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/mxe/mxe/e1d4c144ee1994f70f86cf7fd8168fe69bd629c6/src/bfd-1-disable-subdir-doc.patch";
+      url =
+        "https://raw.githubusercontent.com/mxe/mxe/e1d4c144ee1994f70f86cf7fd8168fe69bd629c6/src/bfd-1-disable-subdir-doc.patch";
       sha256 = "0pzb3i74d1r7lhjan376h59a7kirw15j7swwm8pz3zy9lkdqkj6q";
     })
   ];
@@ -35,7 +34,8 @@ stdenv.mkDerivation rec {
 
   configurePlatforms = [ "build" "host" ];
   configureFlags = [
-    "--enable-targets=all" "--enable-64-bit-bfd"
+    "--enable-targets=all"
+    "--enable-64-bit-bfd"
     "--enable-install-libbfd"
     "--enable-shared"
     "--with-system-zlib"
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       It is associated with GNU Binutils, and elsewhere often distributed with
       it.
     '';
-    homepage = https://www.gnu.org/software/binutils/;
+    homepage = "https://www.gnu.org/software/binutils/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ericson2314 ];
     platforms = platforms.unix;

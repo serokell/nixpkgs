@@ -12,7 +12,6 @@ let
     sha256 = "1h1lx531rjswh0m2zdsmfizrkkx9bh414v9m321hbbfzk3f98fkk";
   };
 
-
   deps = stdenv.mkDerivation {
     name = "${name}-deps";
     inherit src;
@@ -24,7 +23,7 @@ let
       gradle --no-daemon build -x test
     '';
 
-     # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
+    # perl code mavenizes pathes (com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar -> com/squareup/okio/okio/1.13.0/okio-1.13.0.jar)
     installPhase = ''
       find $GRADLE_USER_HOME/caches/modules-2 -type f -regex '.*\.\(jar\|pom\)' \
         | perl -pe 's#(.*/([^/]+)/([^/]+)/([^/]+)/[0-9a-f]{30,40}/([^/\s]+))$# ($x = $2) =~ tr|\.|/|; "install -Dm444 $1 \$out/$x/$3/$4/$5" #e' \
@@ -38,8 +37,7 @@ let
     outputHash = "0z9f3w7lfdvbk26kyckpbgas7mi98rjghck9w0kvx3r7k48p5vnv";
   };
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit name src version;
   nativeBuildInputs = [ gradle_4_10 perl makeWrapper ];
   buildInputs = [ jre ];
@@ -61,7 +59,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "a federated matrix identity server";
-    homepage = https://github.com/kamax-matrix/mxisd;
+    homepage = "https://github.com/kamax-matrix/mxisd";
     license = licenses.agpl3;
     maintainers = with maintainers; [ mguentner ];
     platforms = platforms.all;

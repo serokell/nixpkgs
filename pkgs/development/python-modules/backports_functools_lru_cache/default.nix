@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, isPy3k
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, isPy3k, pytest }:
 
 buildPythonPackage rec {
   pname = "backports.functools_lru_cache";
@@ -28,7 +22,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Backport of functools.lru_cache";
-    homepage = https://github.com/jaraco/backports.functools_lru_cache;
+    homepage = "https://github.com/jaraco/backports.functools_lru_cache";
     license = lib.licenses.mit;
   };
 }

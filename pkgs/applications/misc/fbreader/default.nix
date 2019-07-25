@@ -1,10 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig
-, bzip2, curl, expat, fribidi, libunibreak, sqlite, zlib
-, uiTarget ? if !stdenv.isDarwin then "desktop" else "macosx"
-, uiType ? if !stdenv.isDarwin then "qt4" else "cocoa"
-, qt4, gtk2
-, AppKit, Cocoa
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, bzip2, curl, expat, fribidi, libunibreak, sqlite, zlib, uiTarget ?
+  if !stdenv.isDarwin then "desktop" else "macosx", uiType ?
+    if !stdenv.isDarwin then "qt4" else "cocoa", qt4, gtk2, AppKit, Cocoa }:
 
 with stdenv.lib;
 
@@ -28,7 +24,8 @@ stdenv.mkDerivation {
   patches = [
     ./typecheck.patch
     (fetchpatch {
-      name = "curl-7_62.diff"; # see https://github.com/geometer/FBReader/pull/311
+      name =
+        "curl-7_62.diff"; # see https://github.com/geometer/FBReader/pull/311
       url = "https://github.com/geometer/FBReader/commit/b7c78e965d06f780.diff";
       sha256 = "1dgnx9wps7hcf8fkidc7037vcf92fr3ccnjx7bgxm9x02j0hngjg";
     })
@@ -52,12 +49,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [
-    bzip2 curl expat fribidi libunibreak sqlite zlib
-  ]
-  ++ optional (uiType == "qt4") qt4
-  ++ optional (uiType == "gtk") gtk2
-  ++ optionals (uiType == "cocoa") [ AppKit Cocoa ];
+  buildInputs = [ bzip2 curl expat fribidi libunibreak sqlite zlib ]
+    ++ optional (uiType == "qt4") qt4 ++ optional (uiType == "gtk") gtk2
+    ++ optionals (uiType == "cocoa") [ AppKit Cocoa ];
 
   makeFlags = "INSTALLDIR=$(out)";
 
@@ -65,10 +59,10 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "An e-book reader for Linux";
-    homepage = http://www.fbreader.org/;
+    homepage = "http://www.fbreader.org/";
     license = licenses.gpl3;
-    broken = stdenv.isDarwin  # untested, might work
-          || uiType == "gtk"; # builds, but the result is unusable, hangs a lot
+    broken = stdenv.isDarwin # untested, might work
+      || uiType == "gtk"; # builds, but the result is unusable, hangs a lot
     platforms = platforms.unix;
     maintainers = [ maintainers.coroa ];
   };

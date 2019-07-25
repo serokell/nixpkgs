@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pythonPackages
-, which, xpra, xmodmap }:
+{ stdenv, fetchurl, pythonPackages, which, xpra, xmodmap }:
 
 let
   base = pythonPackages.buildPythonApplication rec {
@@ -13,7 +12,13 @@ let
     };
 
     propagatedBuildInputs = with pythonPackages; [
-      pygtk twisted pycrypto pyasn1 which xpra xmodmap
+      pygtk
+      twisted
+      pycrypto
+      pyasn1
+      which
+      xpra
+      xmodmap
     ];
 
     patchPhase = ''

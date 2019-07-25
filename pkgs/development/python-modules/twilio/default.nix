@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub
-, pyjwt, pysocks, pytz, requests, six, nose, mock }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pyjwt, pysocks, pytz, requests, six, nose, mock
+}:
 
 buildPythonPackage rec {
   pname = "twilio";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Twilio API client and TwiML generator";
-    homepage = https://github.com/twilio/twilio-python/;
+    homepage = "https://github.com/twilio/twilio-python/";
     license = licenses.mit;
     maintainers = with maintainers; [ flokli ];
   };

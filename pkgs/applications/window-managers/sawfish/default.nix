@@ -1,9 +1,4 @@
-{ stdenv, fetchurl
-, pkgconfig, which, autoreconfHook
-, rep-gtk, pango, gdk_pixbuf
-, imlib, gettext, texinfo
-, libXinerama, libXrandr, libXtst, libICE, libSM
-, makeWrapper
+{ stdenv, fetchurl, pkgconfig, which, autoreconfHook, rep-gtk, pango, gdk_pixbuf, imlib, gettext, texinfo, libXinerama, libXrandr, libXtst, libICE, libSM, makeWrapper
 }:
 
 with stdenv.lib;
@@ -20,10 +15,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
-  buildInputs = [ which
-    rep-gtk pango gdk_pixbuf imlib gettext texinfo
-    libXinerama libXrandr libXtst libICE libSM
-    makeWrapper ];
+  buildInputs = [
+    which
+    rep-gtk
+    pango
+    gdk_pixbuf
+    imlib
+    gettext
+    texinfo
+    libXinerama
+    libXrandr
+    libXtst
+    libICE
+    libSM
+    makeWrapper
+  ];
 
   patchPhase = ''
     sed -e 's|REP_DL_LOAD_PATH=|REP_DL_LOAD_PATH=$(REP_DL_LOAD_PATH):|g' -i Makedefs.in
@@ -47,7 +53,7 @@ stdenv.mkDerivation rec {
       All high-level WM functions are implemented in Lisp for future extensibility
       or redefinition.
     '';
-    homepage = http://sawfish.wikia.com;
+    homepage = "http://sawfish.wikia.com";
     license = licenses.gpl2;
     maintainers = [ maintainers.AndersonTorres ];
   };

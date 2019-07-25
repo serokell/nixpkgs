@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, cmake, python3
-, libX11, libXrandr, qtbase, qtwebchannel, qtwebengine, qtx11extras
-, libvdpau, SDL2, mpv, libGL }:
+{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, cmake, python3, libX11, libXrandr, qtbase, qtwebchannel, qtwebengine, qtx11extras, libvdpau, SDL2, mpv, libGL
+}:
 let
   # During compilation, a CMake bundle is downloaded from `artifacts.plex.tv`,
   # which then downloads a handful of web client-related files. To enable
@@ -14,23 +13,28 @@ let
     webClientTvBuildId = "3.105.0-669a5ee";
 
     webClient = fetchurl {
-      url = "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/buildid.cmake";
+      url =
+        "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/buildid.cmake";
       sha256 = "0gd7x0rf7sf696zd24y6pji9iam851vjjqbpm4xkqwpadwrwzhwk";
     };
     webClientDesktopHash = fetchurl {
-      url = "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-desktop-${webClientDesktopBuildId}.tar.xz.sha1";
+      url =
+        "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-desktop-${webClientDesktopBuildId}.tar.xz.sha1";
       sha256 = "136hk7p6gxxmhq1d09jfjljkv76b5h2p16s5jwf28xixkp0ab2jg";
     };
     webClientDesktop = fetchurl {
-      url = "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-desktop-${webClientDesktopBuildId}.tar.xz";
+      url =
+        "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-desktop-${webClientDesktopBuildId}.tar.xz";
       sha256 = "0yvjqar72jq58jllsp51b8ybiv6kad8w51bfzss87m1cv3qdbzpa";
     };
     webClientTvHash = fetchurl {
-      url = "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-tv-${webClientTvBuildId}.tar.xz.sha1";
+      url =
+        "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-tv-${webClientTvBuildId}.tar.xz.sha1";
       sha256 = "0kkw9dd0kr5n4ip1pwfs2dkfjwrph88i0dlw64dca9i885gyjvhd";
     };
     webClientTv = fetchurl {
-      url = "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-tv-${webClientTvBuildId}.tar.xz";
+      url =
+        "https://artifacts.plex.tv/web-client-pmp/${webClientBuildId}/web-client-tv-${webClientTvBuildId}.tar.xz";
       sha256 = "0yssii01nx6ixg3mikqjn8hz34dalma0rfr8spj115xwr7aq8ixk";
     };
   };
@@ -47,8 +51,18 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig cmake python3 ];
-  buildInputs = [ libX11 libXrandr qtbase qtwebchannel qtwebengine qtx11extras
-                  libvdpau SDL2 mpv libGL ];
+  buildInputs = [
+    libX11
+    libXrandr
+    qtbase
+    qtwebchannel
+    qtwebengine
+    qtx11extras
+    libvdpau
+    SDL2
+    mpv
+    libGL
+  ];
 
   preConfigure = with depSrcs; ''
     mkdir -p build/dependencies
@@ -65,6 +79,6 @@ in stdenv.mkDerivation rec {
     description = "Streaming media player for Plex";
     license = licenses.gpl2;
     maintainers = with maintainers; [ kylewlacy ];
-    homepage = https://plex.tv;
+    homepage = "https://plex.tv";
   };
 }

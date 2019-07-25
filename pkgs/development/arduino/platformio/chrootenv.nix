@@ -11,7 +11,8 @@ let
             version = "5.1";
             src = oldAttrs.src.override {
               inherit version;
-              sha256 = "678c98275431fad324275dec63791e4a17558b40e5a110e20a82866139a85a5a";
+              sha256 =
+                "678c98275431fad324275dec63791e4a17558b40e5a110e20a82866139a85a5a";
             };
             postPatch = "";
           });
@@ -19,16 +20,8 @@ let
           platformio = self.callPackage ./core.nix { };
         };
       };
-    in (with pkgs; [
-      zlib
-      git
-    ]) ++ (with python.pkgs; [
-      python
-      setuptools
-      pip
-      bottle
-      platformio
-    ]);
+    in (with pkgs; [ zlib git ])
+    ++ (with python.pkgs; [ python setuptools pip bottle platformio ]);
 
 in buildFHSUserEnv {
   name = "platformio";
@@ -38,7 +31,7 @@ in buildFHSUserEnv {
 
   meta = with lib; {
     description = "An open source ecosystem for IoT development";
-    homepage = http://platformio.org;
+    homepage = "http://platformio.org";
     maintainers = with maintainers; [ mog ];
     license = licenses.asl20;
     platforms = with platforms; linux;

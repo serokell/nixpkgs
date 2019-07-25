@@ -1,22 +1,6 @@
 # FIXME: make gdk_pixbuf dependency optional
-{ stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, lib
-, substituteAll
-, makeFontsConf
-, freefont_ttf
-, pytest
-, pytestrunner
-, glibcLocales
-, cairo
-, cffi
-, withXcffib ? false, xcffib
-, python
-, glib
-, gdk_pixbuf
-}@args:
+{ stdenv, buildPythonPackage, pythonOlder, fetchPypi, lib, substituteAll, makeFontsConf, freefont_ttf, pytest, pytestrunner, glibcLocales, cairo, cffi, withXcffib ?
+  false, xcffib, python, glib, gdk_pixbuf }@args:
 
 import ./generic.nix ({
   version = "1.0.2";

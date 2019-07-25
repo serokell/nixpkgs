@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, nibabel, numpy, scikitlearn
-, scipy, matplotlib }:
+{ stdenv, buildPythonPackage, fetchPypi, nose, nibabel, numpy, scikitlearn, scipy, matplotlib
+}:
 
 buildPythonPackage rec {
   pname = "nilearn";
@@ -20,16 +20,10 @@ buildPythonPackage rec {
 
   checkInputs = [ nose ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    nibabel
-    numpy
-    scikitlearn
-    scipy
-  ];
+  propagatedBuildInputs = [ matplotlib nibabel numpy scikitlearn scipy ];
 
   meta = with stdenv.lib; {
-    homepage = http://nilearn.github.io;
+    homepage = "http://nilearn.github.io";
     description = "A module for statistical learning on neuroimaging data";
     license = licenses.bsd3;
   };

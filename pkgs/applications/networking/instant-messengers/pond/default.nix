@@ -1,10 +1,8 @@
-{ stdenv, buildGoPackage, trousers, dclxvi, wrapGAppsHook, pkgconfig, gtk3, gtkspell3,
-  fetchgit }:
+{ stdenv, buildGoPackage, trousers, dclxvi, wrapGAppsHook, pkgconfig, gtk3, gtkspell3, fetchgit
+}:
 
-let
-  gui = true; # Might be implemented with nixpkgs config.
-in
-buildGoPackage rec {
+let gui = true; # Might be implemented with nixpkgs config.
+in buildGoPackage rec {
   name = "pond-${version}";
   version = "20150830-${stdenv.lib.strings.substring 0 7 rev}";
   rev = "bce6e0dc61803c23699c749e29a83f81da3c41b2";

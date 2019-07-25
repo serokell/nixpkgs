@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, openssl, perl, pkgconfig, rustPlatform
-, CoreServices, Security
+{ stdenv, fetchFromGitHub, openssl, perl, pkgconfig, rustPlatform, CoreServices, Security
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,8 +19,11 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Cargo subcommand for the client-side Web";
-    homepage = https://github.com/koute/cargo-web;
-    license = with licenses; [ asl20 /* or */ mit ];
+    homepage = "https://github.com/koute/cargo-web";
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = [ maintainers.kevincox ];
     platforms = platforms.all;
   };

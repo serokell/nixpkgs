@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, dpkg, makeWrapper
-, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib
-, gnome2, gtk3, gdk_pixbuf, libnotify, libxcb, nspr, nss, pango
-, systemd, xorg, xprintidle-ng }:
+{ stdenv, fetchurl, dpkg, makeWrapper, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib, gnome2, gtk3, gdk_pixbuf, libnotify, libxcb, nspr, nss, pango, systemd, xorg, xprintidle-ng
+}:
 
 let
 
@@ -43,14 +41,15 @@ let
     xorg.libXScrnSaver
   ] + ":${stdenv.cc.cc.lib}/lib64";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://github.com/johannesjo/super-productivity/releases/download/v${version}/superProductivity_${version}_amd64.deb";
-        sha256 = "0jfi0lfijnhij9jvkhxgyvq8m1jzaym8n1c7707fv3hjh1h0vxn1";
-      }
-    else
-      throw "super-productivity is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://github.com/johannesjo/super-productivity/releases/download/v${version}/superProductivity_${version}_amd64.deb";
+      sha256 = "0jfi0lfijnhij9jvkhxgyvq8m1jzaym8n1c7707fv3hjh1h0vxn1";
+    }
+  else
+    throw
+    "super-productivity is not supported on ${stdenv.hostPlatform.system}";
 
 in stdenv.mkDerivation {
   name = "super-productivity-${version}";
@@ -59,7 +58,7 @@ in stdenv.mkDerivation {
 
   buildInputs = [
     dpkg
-    gtk3  # needed for GSETTINGS_SCHEMAS_PATH
+    gtk3 # needed for GSETTINGS_SCHEMAS_PATH
   ];
 
   nativeBuildInputs = [ makeWrapper ];
@@ -97,7 +96,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "To Do List / Time Tracker with Jira Integration.";
-    homepage = https://super-productivity.com;
+    homepage = "https://super-productivity.com";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ offline ];

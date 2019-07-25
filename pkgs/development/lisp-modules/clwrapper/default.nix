@@ -1,10 +1,10 @@
-{stdenv, asdf, which, bash, lisp ? null}:
+{ stdenv, asdf, which, bash, lisp ? null }:
 stdenv.mkDerivation {
   name = "cl-wrapper-script";
 
-  buildPhase="";
+  buildPhase = "";
 
-  installPhase=''
+  installPhase = ''
     mkdir -p "$out"/bin
     export head="$(which head)"
     export ls="$(which ls)"
@@ -34,23 +34,21 @@ stdenv.mkDerivation {
       "$out/bin/common-lisp.sh"
   '';
 
-  buildInputs = [which];
+  buildInputs = [ which ];
 
   inherit asdf lisp bash;
   stdenv_shell = stdenv.shell;
 
   setupHook = ./setup-hook.sh;
 
-  phases="installPhase fixupPhase";
+  phases = "installPhase fixupPhase";
 
-  ASDF_OUTPUT_TRANSLATIONS="${builtins.storeDir}/:${builtins.storeDir}";
+  ASDF_OUTPUT_TRANSLATIONS = "${builtins.storeDir}/:${builtins.storeDir}";
 
-  passthru = {
-    inherit lisp;
-  };
+  passthru = { inherit lisp; };
 
   meta = {
-    description = ''Script used to wrap Common Lisp implementations'';
-    maintainers = [stdenv.lib.maintainers.raskin];
+    description = "Script used to wrap Common Lisp implementations";
+    maintainers = [ stdenv.lib.maintainers.raskin ];
   };
 }

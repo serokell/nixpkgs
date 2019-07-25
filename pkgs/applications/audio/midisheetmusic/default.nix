@@ -1,14 +1,12 @@
-{ stdenv, fetchurl
-, mono, dotnetPackages, makeWrapper
-, gtk2, cups, timidity }:
+{ stdenv, fetchurl, mono, dotnetPackages, makeWrapper, gtk2, cups, timidity }:
 
-let
-  version = "2.6";
+let version = "2.6";
 in stdenv.mkDerivation {
   name = "midisheetmusic-${version}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
+    url =
+      "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
     sha256 = "05c6zskj50g29f51lx8fvgzsi3f31z01zj6ssjjrgr7jfs7ak70p";
   };
 
@@ -53,7 +51,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Convert MIDI Files to Piano Sheet Music for two hands";
-    homepage = http://midisheetmusic.com;
+    homepage = "http://midisheetmusic.com";
     license = licenses.gpl2;
     maintainers = [ maintainers.gnidorah ];
     platforms = platforms.linux;

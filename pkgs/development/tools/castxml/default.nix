@@ -1,34 +1,27 @@
-{ stdenv, fetchFromGitHub
-, pythonPackages
-, cmake
-, llvmPackages
-, libffi, libxml2, zlib
-, withMan ? true
-}:
+{ stdenv, fetchFromGitHub, pythonPackages, cmake, llvmPackages, libffi, libxml2, zlib, withMan ?
+  true }:
 stdenv.mkDerivation rec {
 
-  pname   = "CastXML";
+  pname = "CastXML";
   version = "0.2.0";
 
   src = fetchFromGitHub {
-    owner  = pname;
-    repo   = pname;
-    rev    = "v${version}";
+    owner = pname;
+    repo = pname;
+    rev = "v${version}";
     sha256 = "1qpgr5hyb692h7l5igmq53m6a6vi4d9qp8ks893cflfx9955h3ip";
   };
 
-  nativeBuildInputs = [ cmake ] ++ stdenv.lib.optionals withMan [ pythonPackages.sphinx ];
+  nativeBuildInputs = [ cmake ]
+    ++ stdenv.lib.optionals withMan [ pythonPackages.sphinx ];
 
   cmakeFlags = [
     "-DCLANG_RESOURCE_DIR=${llvmPackages.clang-unwrapped}"
     "-DSPHINX_MAN=${if withMan then "ON" else "OFF"}"
   ];
 
-  buildInputs = [
-    llvmPackages.clang-unwrapped
-    llvmPackages.llvm
-    libffi libxml2 zlib
-  ];
+  buildInputs =
+    [ llvmPackages.clang-unwrapped llvmPackages.llvm libffi libxml2 zlib ];
 
   propagatedBuildInputs = [ llvmPackages.libclang ];
 

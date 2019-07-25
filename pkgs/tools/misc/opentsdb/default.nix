@@ -1,5 +1,4 @@
-{ stdenv, autoconf, automake, curl, fetchurl, jdk, jre, makeWrapper, nettools
-, python, git
+{ stdenv, autoconf, automake, curl, fetchurl, jdk, jre, makeWrapper, nettools, python, git
 }:
 
 with stdenv.lib;
@@ -9,7 +8,8 @@ stdenv.mkDerivation rec {
   version = "2.3.1";
 
   src = fetchurl {
-    url = "https://github.com/OpenTSDB/opentsdb/releases/download/v${version}/${name}.tar.gz";
+    url =
+      "https://github.com/OpenTSDB/opentsdb/releases/download/v${version}/${name}.tar.gz";
     sha256 = "1lf1gynr11silla4bsrkwqv023dxirsb88ncs2qmc2ng35593fjd";
   };
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Time series database with millisecond precision";
-    homepage = http://opentsdb.net;
+    homepage = "http://opentsdb.net";
     license = licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ maintainers.ocharles ];

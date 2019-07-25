@@ -5,30 +5,20 @@ with lib;
 let
   cfg = config.services.mesos.slave;
 
-  mkAttributes =
-    attrs: concatStringsSep ";" (mapAttrsToList
-                                   (k: v: "${k}:${v}")
-                                   (filterAttrs (k: v: v != null) attrs));
-  attribsArg = optionalString (cfg.attributes != {})
-                              "--attributes=${mkAttributes cfg.attributes}";
+  mkAttributes = attrs:
+    concatStringsSep ";"
+    (mapAttrsToList (k: v: "${k}:${v}") (filterAttrs (k: v: v != null) attrs));
+  attribsArg = optionalString (cfg.attributes != { })
+    "--attributes=${mkAttributes cfg.attributes}";
 
-  containerizersArg = concatStringsSep "," (
-    lib.unique (
-      cfg.containerizers ++ (optional cfg.withDocker "docker")
-    )
-  );
+  containerizersArg = concatStringsSep ","
+    (lib.unique (cfg.containerizers ++ (optional cfg.withDocker "docker")));
 
-  imageProvidersArg = concatStringsSep "," (
-    lib.unique (
-      cfg.imageProviders ++ (optional cfg.withDocker "docker")
-    )
-  );
+  imageProvidersArg = concatStringsSep ","
+    (lib.unique (cfg.imageProviders ++ (optional cfg.withDocker "docker")));
 
-  isolationArg = concatStringsSep "," (
-    lib.unique (
-      cfg.isolation ++ (optionals cfg.withDocker [ "filesystem/linux" "docker/runtime"])
-    )
-  );
+  isolationArg = concatStringsSep "," (lib.unique (cfg.isolation
+    ++ (optionals cfg.withDocker [ "filesystem/linux" "docker/runtime" ])));
 
 in {
 
@@ -163,11 +153,13 @@ in {
           Use caution when changing this; you may need to manually reset slave
           metadata before the slave can re-register.
         '';
-        default = {};
+        default = { };
         type = types.attrsOf types.str;
-        example = { rack = "aa";
-                    host = "aabc123";
-                    os = "nixos"; };
+        example = {
+          rack = "aa";
+          host = "aabc123";
+          os = "nixos";
+        };
       };
 
       executorEnvironmentVariables = mkOption {
@@ -184,13 +176,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.workDir}' 0701 - - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.workDir}' 0701 - - - -" ];
     systemd.services.mesos-slave = {
       description = "Mesos Slave";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ optionals cfg.withDocker [ "docker.service" ] ;
+      after = [ "network.target" ]
+        ++ optionals cfg.withDocker [ "docker.service" ];
       path = [ pkgs.runtimeShellPackage ];
       serviceConfig = {
         ExecStart = ''
@@ -201,16 +192,31 @@ in {
             --isolation=${isolationArg} \
             --ip=${cfg.ip} \
             --port=${toString cfg.port} \
-            ${optionalString (cfg.advertiseIp != null) "--advertise_ip=${cfg.advertiseIp}"} \
-            ${optionalString (cfg.advertisePort  != null) "--advertise_port=${toString cfg.advertisePort}"} \
+            ${
+            optionalString (cfg.advertiseIp != null)
+            "--advertise_ip=${cfg.advertiseIp}"
+            } \
+            ${
+            optionalString (cfg.advertisePort != null)
+            "--advertise_port=${toString cfg.advertisePort}"
+            } \
             --master=${cfg.master} \
             --work_dir=${cfg.workDir} \
             --logging_level=${cfg.logLevel} \
             ${attribsArg} \
             ${optionalString cfg.withHadoop "--hadoop-home=${pkgs.hadoop}"} \
-            ${optionalString cfg.withDocker "--docker=${pkgs.docker}/libexec/docker/docker"} \
-            ${optionalString (cfg.dockerRegistry != null) "--docker_registry=${cfg.dockerRegistry}"} \
-            --executor_environment_variables=${lib.escapeShellArg (builtins.toJSON cfg.executorEnvironmentVariables)} \
+            ${
+            optionalString cfg.withDocker
+            "--docker=${pkgs.docker}/libexec/docker/docker"
+            } \
+            ${
+            optionalString (cfg.dockerRegistry != null)
+            "--docker_registry=${cfg.dockerRegistry}"
+            } \
+            --executor_environment_variables=${
+            lib.escapeShellArg
+            (builtins.toJSON cfg.executorEnvironmentVariables)
+            } \
             ${toString cfg.extraCmdLineOptions}
         '';
       };

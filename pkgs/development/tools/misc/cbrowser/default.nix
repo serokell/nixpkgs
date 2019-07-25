@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
 
     license = stdenv.lib.licenses.gpl2Plus;
 
-    homepage = https://sourceforge.net/projects/cbrowser/;
+    homepage = "https://sourceforge.net/projects/cbrowser/";
 
-    maintainers = with stdenv.lib.maintainers; [viric];
+    maintainers = with stdenv.lib.maintainers; [ viric ];
 
     platforms = with stdenv.lib.platforms; linux;
   };

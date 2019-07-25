@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, lxml
-, networkx
-, dateutil
-, six
-, pydotplus
-, rdflib
-, pydot
-, glibcLocales
+{ stdenv, buildPythonPackage, fetchPypi, lxml, networkx, dateutil, six, pydotplus, rdflib, pydot, glibcLocales
 }:
 
 buildPythonPackage rec {
@@ -24,19 +14,9 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "six==1.10.0" "six>=1.10.0"
   '';
 
-  propagatedBuildInputs = [
-    lxml
-    networkx
-    dateutil
-    six
-    pydotplus
-    rdflib
-  ];
+  propagatedBuildInputs = [ lxml networkx dateutil six pydotplus rdflib ];
 
-  checkInputs = [
-    pydot
-    glibcLocales
-  ];
+  checkInputs = [ pydot glibcLocales ];
 
   preCheck = ''
     export LC_ALL="en_US.utf-8"
@@ -44,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A Python library for W3C Provenance Data Model (PROV)";
-    homepage = https://github.com/trungdong/prov;
+    homepage = "https://github.com/trungdong/prov";
     license = licenses.mit;
     maintainers = with maintainers; [ ashgillman ];
   };

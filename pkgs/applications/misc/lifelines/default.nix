@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, gettext, libiconv, bison, ncurses, perl, autoreconfHook }:
+{ stdenv, fetchFromGitHub, gettext, libiconv, bison, ncurses, perl, autoreconfHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "lifelines";
@@ -11,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1agszzlmkxmznpc1xj0vzxkskrcfagfjvqsdyw1yp5yg6bsq272y";
   };
 
-  buildInputs = [
-    gettext
-    libiconv
-    ncurses
-    perl
-  ];
+  buildInputs = [ gettext libiconv ncurses perl ];
   nativeBuildInputs = [ autoreconfHook bison ];
 
   meta = with stdenv.lib; {

@@ -1,4 +1,5 @@
-{ newScope, crossLibcStdenv }: let
+{ newScope, crossLibcStdenv }:
+let
 
   callPackage = newScope self;
 
@@ -12,9 +13,7 @@
     mingwrt = callPackage ./mingwrt { };
     mingw_runtime = self.mingwrt;
 
-    mingw_w64 = callPackage ./mingw-w64 {
-      stdenv = crossLibcStdenv;
-    };
+    mingw_w64 = callPackage ./mingw-w64 { stdenv = crossLibcStdenv; };
 
     mingw_w64_headers = callPackage ./mingw-w64/headers.nix { };
 

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkgconfig, which
-, gettext, libffi, libiconv, libtasn1
+{ stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkgconfig, which, gettext, libffi, libiconv, libtasn1
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0jr62qkbqxp3iawgksk1qc3gp8p6x09sg5v7xac80ghyfxil15wy";
   };
 
-  outputs = [ "out" "dev"];
+  outputs = [ "out" "dev" ];
   outputBin = "dev";
 
   nativeBuildInputs = [ autoreconfHook pkgconfig which ];
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
       Provides a standard configuration setup for installing
       PKCS#11 modules in such a way that they're discoverable.
     '';
-    homepage = https://p11-glue.github.io/p11-glue/p11-kit.html;
+    homepage = "https://p11-glue.github.io/p11-glue/p11-kit.html";
     platforms = platforms.all;
     license = licenses.bsd3;
   };

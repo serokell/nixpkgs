@@ -1,13 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, six
-, setuptools_scm
-, xorg
-, python
-, mock
-, nose
-, utillinux
+{ stdenv, buildPythonPackage, fetchFromGitHub, six, setuptools_scm, xorg, python, mock, nose, utillinux
 }:
 
 buildPythonPackage rec {
@@ -25,7 +16,13 @@ buildPythonPackage rec {
     ${python.interpreter} runtests.py
   '';
 
-  checkInputs = [ mock nose utillinux /* mcookie */ xorg.xauth xorg.xorgserver /* xvfb */ ];
+  checkInputs = [
+    mock
+    nose
+    utillinux # mcookie
+    xorg.xauth
+    xorg.xorgserver # xvfb
+  ];
   nativeBuildInputs = [ setuptools_scm ];
   buildInputs = [ xorg.libX11 ];
   propagatedBuildInputs = [ six ];
@@ -34,7 +31,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Fully functional X client library for Python programs";
-    homepage = http://python-xlib.sourceforge.net/;
+    homepage = "http://python-xlib.sourceforge.net/";
     license = licenses.gpl2Plus;
   };
 

@@ -11,10 +11,8 @@ stdenv.mkDerivation rec {
 
   CXXDEFS = [ "-DHAVE_RAND" "-DHAVE_CSTRING" "-DHAVE_CSTDIO" ];
 
-  configureFlags = [
-    "--with-blas-lib=-lopenblas"
-    "--with-lapack-lib=-lopenblas"
-  ];
+  configureFlags =
+    [ "--with-blas-lib=-lopenblas" "--with-lapack-lib=-lopenblas" ];
 
   nativeBuildInputs = [ unzip ];
 
@@ -24,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A software package for large-scale nonlinear optimization";
-    homepage = https://projects.coin-or.org/Ipopt;
+    homepage = "https://projects.coin-or.org/Ipopt";
     license = licenses.epl10;
     platforms = platforms.unix;
     maintainers = with maintainers; [ abbradar ];

@@ -11,13 +11,12 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with stdenv.lib; {
-    homepage = http://gondor.apana.org.au/~herbert/dash/;
-    description = "A POSIX-compliant implementation of /bin/sh that aims to be as small as possible";
+    homepage = "http://gondor.apana.org.au/~herbert/dash/";
+    description =
+      "A POSIX-compliant implementation of /bin/sh that aims to be as small as possible";
     platforms = platforms.unix;
     license = with licenses; [ bsd3 gpl2 ];
   };
 
-  passthru = {
-    shellPath = "/bin/dash";
-  };
+  passthru = { shellPath = "/bin/dash"; };
 }

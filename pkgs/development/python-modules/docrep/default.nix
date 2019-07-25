@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, six }:
 
 buildPythonPackage rec {
   pname = "docrep";
@@ -26,7 +21,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python package for docstring repetition";
-    homepage = https://github.com/Chilipp/docrep;
+    homepage = "https://github.com/Chilipp/docrep";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ costrouc ];
   };

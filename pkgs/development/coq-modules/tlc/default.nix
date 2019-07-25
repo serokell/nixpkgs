@@ -21,7 +21,5 @@ stdenv.mkDerivation rec {
     inherit (coq.meta) platforms;
   };
 
-  passthru = {
-    compatibleCoqVersions = v: stdenv.lib.versionAtLeast v "8.6";
-  };
+  passthru = { compatibleCoqVersions = v: stdenv.lib.versionAtLeast v "8.6"; };
 }

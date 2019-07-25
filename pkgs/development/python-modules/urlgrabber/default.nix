@@ -3,7 +3,7 @@
 buildPythonPackage rec {
   pname = "urlgrabber";
   version = "3.10.2";
-  name  = "${pname}-${version}";
+  name = "${pname}-${version}";
 
   disabled = isPy3k;
 
@@ -15,7 +15,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pycurl ];
 
   meta = with stdenv.lib; {
-    homepage = http://urlgrabber.baseurl.org;
+    homepage = "http://urlgrabber.baseurl.org";
     license = licenses.lgpl2Plus;
     description = "Python module for downloading files";
     maintainers = with maintainers; [ qknight ];

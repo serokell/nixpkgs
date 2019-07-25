@@ -6,14 +6,13 @@
 #
 # (These lines were copied from 50darcsum.el in the darcsum repository.)
 
-
 { fetchdarcs, stdenv }:
 
 stdenv.mkDerivation {
   name = "darcsum-1.3";
 
   src = fetchdarcs {
-    url = http://hub.darcs.net/simon/darcsum;
+    url = "http://hub.darcs.net/simon/darcsum";
     context = ./darcs_context;
     sha256 = "18dyk2apmnjapd604a5njfqwjri1mc7lgjaajy9phicpibgdrwzh";
   };
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "A pcl-cvs like interface for managing darcs patches";
-    homepage = http://hub.darcs.net/simon/darcsum;
+    homepage = "http://hub.darcs.net/simon/darcsum";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = [ stdenv.lib.maintainers.falsifian ];
   };

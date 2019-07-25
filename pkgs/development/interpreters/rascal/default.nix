@@ -12,15 +12,14 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  installPhase =
-    ''
-      mkdir -p $out/bin
-      makeWrapper ${jdk}/bin/java $out/bin/rascal \
-        --add-flags "-jar ${src}" \
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    makeWrapper ${jdk}/bin/java $out/bin/rascal \
+      --add-flags "-jar ${src}" \
+  '';
 
   meta = {
-    homepage = https://www.rascal-mpl.org/;
+    homepage = "https://www.rascal-mpl.org/";
     description = "Command-line REPL for the Rascal metaprogramming language";
     license = stdenv.lib.licenses.epl10;
     maintainers = [ stdenv.lib.maintainers.eelco ];

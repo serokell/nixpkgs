@@ -1,16 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, coverage
-, ipykernel
-, jupyter_client
-, nbformat
-, pytest
-, six
-, glibcLocales
-, matplotlib
-, sympy
-, pytestcov
+{ lib, buildPythonPackage, fetchPypi, coverage, ipykernel, jupyter_client, nbformat, pytest, six, glibcLocales, matplotlib, sympy, pytestcov
 }:
 
 buildPythonPackage rec {
@@ -26,7 +14,8 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
   checkInputs = [ matplotlib sympy pytestcov ];
-  propagatedBuildInputs = [ coverage ipykernel jupyter_client nbformat pytest six ];
+  propagatedBuildInputs =
+    [ coverage ipykernel jupyter_client nbformat pytest six ];
 
   checkPhase = ''
     pytest tests --current-env --ignore tests/test_timeouts.py
@@ -34,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "A py.test plugin to validate Jupyter notebooks";
-    homepage = https://github.com/computationalmodelling/nbval;
+    homepage = "https://github.com/computationalmodelling/nbval";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

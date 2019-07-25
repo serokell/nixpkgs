@@ -1,17 +1,4 @@
-{ stdenv
-, fetchPypi
-, buildPythonPackage
-, Mako
-, pytest
-, numpy
-, cffi
-, pytools
-, decorator
-, appdirs
-, six
-, opencl-headers
-, ocl-icd
-, pybind11
+{ stdenv, fetchPypi, buildPythonPackage, Mako, pytest, numpy, cffi, pytools, decorator, appdirs, six, opencl-headers, ocl-icd, pybind11
 }:
 
 buildPythonPackage rec {
@@ -42,7 +29,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python wrapper for OpenCL";
-    homepage = https://github.com/pyopencl/pyopencl;
+    homepage = "https://github.com/pyopencl/pyopencl";
     license = licenses.mit;
     maintainers = [ maintainers.fridh ];
   };

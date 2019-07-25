@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchsvn, pkgconfig, libjpeg, libpng, flex, zlib, perl, libxml2
-, makeWrapper, libtiff
-, enableX11 ? false, libX11 }:
+{ lib, stdenv, fetchsvn, pkgconfig, libjpeg, libpng, flex, zlib, perl, libxml2, makeWrapper, libtiff, enableX11 ?
+  false, libX11 }:
 
 stdenv.mkDerivation rec {
   # Determine version and revision from:
@@ -13,10 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "17fmyjbxp1l18rma7gb0m8wd9kx2iwhqs8dd6fpalsn2cr8mf8hf";
   };
 
-  postPatch = /* CVE-2005-2471, from Arch */ ''
-    substituteInPlace converter/other/pstopnm.c \
-      --replace '"-DSAFER"' '"-DPARANOIDSAFER"'
-  '';
+  postPatch = # CVE-2005-2471, from Arch
+    ''
+      substituteInPlace converter/other/pstopnm.c \
+        --replace '"-DSAFER"' '"-DPARANOIDSAFER"'
+    '';
 
   buildInputs =
     [ pkgconfig flex zlib perl libpng libjpeg libxml2 makeWrapper libtiff ]
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
         --replace "TIFFHDR_DIR =" "TIFFHDR_DIR = ${libtiff.dev}/include" \
         --replace "JPEGLIB = NONE" "JPEGLIB = ${libjpeg.out}/lib/libjpeg.so" \
         --replace "JPEGHDR_DIR =" "JPEGHDR_DIR = ${libjpeg.dev}/include"
-   '' + stdenv.lib.optionalString stdenv.isDarwin ''
+  '' + stdenv.lib.optionalString stdenv.isDarwin ''
     echo "LDSHLIB=-dynamiclib -install_name $out/lib/libnetpbm.\$(MAJ).dylib" >> config.mk
     echo "NETPBMLIBTYPE = dylib" >> config.mk
     echo "NETPBMLIBSUFFIX = dylib" >> config.mk
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://netpbm.sourceforge.net/;
+    homepage = "http://netpbm.sourceforge.net/";
     description = "Toolkit for manipulation of graphic images";
     license = "GPL,free";
     platforms = with stdenv.lib.platforms; linux ++ darwin;

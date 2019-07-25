@@ -7,16 +7,17 @@
 #   3) used by `google-cloud-sdk` only on GCE guests
 #
 
-{ stdenv, lib, fetchurl, makeWrapper, python, cffi, cryptography, pyopenssl,
-  crcmod, google-compute-engine, with-gce ? false }:
+{ stdenv, lib, fetchurl, makeWrapper, python, cffi, cryptography, pyopenssl, crcmod, google-compute-engine, with-gce ?
+  false }:
 
 let
   pythonInputs = [ cffi cryptography pyopenssl crcmod ]
-                 ++ lib.optional (with-gce) google-compute-engine;
+    ++ lib.optional (with-gce) google-compute-engine;
   pythonPath = lib.makeSearchPath python.sitePackages pythonInputs;
 
   baseUrl = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads";
-  sources = name: system: {
+  sources = name: system:
+  {
     x86_64-darwin = {
       url = "${baseUrl}/${name}-darwin-x86_64.tar.gz";
       sha256 = "1w94c1p8vnp3kf802zpr3i0932f5b5irnfqmxj2p44gfyfmkym1j";
@@ -38,9 +39,7 @@ in stdenv.mkDerivation rec {
 
   doBuild = false;
 
-  patches = [
-    ./gcloud-path.patch
-  ];
+  patches = [ ./gcloud-path.patch ];
 
   installPhase = ''
     mkdir -p $out/google-cloud-sdk
@@ -80,7 +79,8 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tools for the google cloud platform";
-    longDescription = "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
+    longDescription =
+      "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
     # This package contains vendored dependencies. All have free licenses.
     license = licenses.free;
     homepage = "https://cloud.google.com/sdk/";

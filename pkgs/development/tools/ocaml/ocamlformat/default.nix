@@ -1,6 +1,7 @@
 { stdenv, fetchFromGitHub, ocamlPackages }:
 
-with ocamlPackages; buildDunePackage rec {
+with ocamlPackages;
+buildDunePackage rec {
   pname = "ocamlformat";
   version = "0.8";
 
@@ -13,13 +14,7 @@ with ocamlPackages; buildDunePackage rec {
     sha256 = "1i7rsbs00p43362yv7z7dw0qsnv7vjf630qk676qvfg7kg422w6j";
   };
 
-  buildInputs = [
-    base
-    cmdliner
-    fpath
-    ocaml-migrate-parsetree
-    stdio
-  ];
+  buildInputs = [ base cmdliner fpath ocaml-migrate-parsetree stdio ];
 
   configurePhase = ''
     patchShebangs tools/gen_version.sh

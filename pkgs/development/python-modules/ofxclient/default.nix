@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi,
- ofxhome, ofxparse, beautifulsoup4, lxml, keyring
+{ stdenv, buildPythonPackage, fetchPypi, ofxhome, ofxparse, beautifulsoup4, lxml, keyring
 }:
 
 buildPythonPackage rec {
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ ofxhome ofxparse beautifulsoup4 lxml keyring ];
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/captin411/ofxclient;
+    homepage = "https://github.com/captin411/ofxclient";
     description = "OFX client for dowloading transactions from banks";
     license = licenses.mit;
   };

@@ -1,4 +1,5 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, python3, qtbase, qtquickcontrols2, qtgraphicaleffects, curaengine, plugins ? [] }:
+{ mkDerivation, lib, fetchFromGitHub, cmake, python3, qtbase, qtquickcontrols2, qtgraphicaleffects, curaengine, plugins ?
+  [ ] }:
 
 mkDerivation rec {
   name = "cura-${version}";
@@ -19,15 +20,12 @@ mkDerivation rec {
   };
 
   buildInputs = [ qtbase qtquickcontrols2 qtgraphicaleffects ];
-  propagatedBuildInputs = with python3.pkgs; [
-    libsavitar numpy-stl pyserial requests uranium zeroconf
-  ] ++ plugins;
+  propagatedBuildInputs = with python3.pkgs;
+    [ libsavitar numpy-stl pyserial requests uranium zeroconf ] ++ plugins;
   nativeBuildInputs = [ cmake python3.pkgs.wrapPython ];
 
-  cmakeFlags = [
-    "-DURANIUM_DIR=${python3.pkgs.uranium.src}"
-    "-DCURA_VERSION=${version}"
-  ];
+  cmakeFlags =
+    [ "-DURANIUM_DIR=${python3.pkgs.uranium.src}" "-DCURA_VERSION=${version}" ];
 
   postPatch = ''
     sed -i 's,/python''${PYTHON_VERSION_MAJOR}/dist-packages,/python''${PYTHON_VERSION_MAJOR}.''${PYTHON_VERSION_MINOR}/site-packages,g' CMakeLists.txt
@@ -48,8 +46,9 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "3D printer / slicing GUI built on top of the Uranium framework";
-    homepage = https://github.com/Ultimaker/Cura;
+    description =
+      "3D printer / slicing GUI built on top of the Uranium framework";
+    homepage = "https://github.com/Ultimaker/Cura";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

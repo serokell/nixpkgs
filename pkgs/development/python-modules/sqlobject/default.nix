@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, FormEncode
-, PasteDeploy
-, paste
-, pydispatcher
+{ stdenv, buildPythonPackage, fetchPypi, pytest, FormEncode, PasteDeploy, paste, pydispatcher
 }:
 
 buildPythonPackage rec {
@@ -21,7 +14,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ FormEncode PasteDeploy paste pydispatcher ];
 
   meta = with stdenv.lib; {
-    description = "Object Relational Manager for providing an object interface to your database";
+    description =
+      "Object Relational Manager for providing an object interface to your database";
     homepage = "http://www.sqlobject.org/";
     license = licenses.lgpl21;
   };

@@ -1,4 +1,4 @@
-{ fetchurl,  stdenv, flex }:
+{ fetchurl, stdenv, flex }:
 
 stdenv.mkDerivation rec {
   version = "6.3";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "ftp://ftp.atnf.csiro.au/pub/software/wcslib/${name}.tar.bz2";
-    sha256 ="1si272bms58yv1zmymx9ypx1ycka8bfqy8wk03rvl6nmciyz0dsc";
+    sha256 = "1si272bms58yv1zmymx9ypx1ycka8bfqy8wk03rvl6nmciyz0dsc";
   };
 
   prePatch = ''
@@ -20,12 +20,13 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "World Coordinate System Library for Astronomy";
-    homepage = http://www.atnf.csiro.au/people/mcalabre/WCS/;
+    homepage = "http://www.atnf.csiro.au/people/mcalabre/WCS/";
 
-    longDescription = ''Library for world coordinate systems for
-    spherical geometries and their conversion to image coordinate
-    systems. This is the standard library for this purpose in
-    astronomy.'';
+    longDescription = ''
+      Library for world coordinate systems for
+          spherical geometries and their conversion to image coordinate
+          systems. This is the standard library for this purpose in
+          astronomy.'';
 
     license = stdenv.lib.licenses.lgpl3Plus;
     platforms = stdenv.lib.platforms.unix;

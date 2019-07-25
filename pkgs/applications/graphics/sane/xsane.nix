@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, sane-backends, sane-frontends, libX11, gtk2, pkgconfig, libpng
-, libusb ? null
-, gimpSupport ? false, gimp ? null
-}:
+{ stdenv, fetchurl, sane-backends, sane-frontends, libX11, gtk2, pkgconfig, libpng, libusb ?
+  null, gimpSupport ? false, gimp ? null }:
 
 assert gimpSupport -> gimp != null;
 
@@ -19,15 +17,15 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [libpng sane-backends sane-frontends libX11 gtk2 ]
-    ++ (if libusb != null then [libusb] else [])
+  buildInputs = [ libpng sane-backends sane-frontends libX11 gtk2 ]
+    ++ (if libusb != null then [ libusb ] else [ ])
     ++ stdenv.lib.optional gimpSupport gimp;
 
   meta = {
-    homepage = http://www.sane-project.org/;
+    homepage = "http://www.sane-project.org/";
     description = "Graphical scanning frontend for sane";
     license = stdenv.lib.licenses.gpl2Plus;
-    maintainers = with stdenv.lib.maintainers; [peti];
+    maintainers = with stdenv.lib.maintainers; [ peti ];
     platforms = with stdenv.lib.platforms; linux;
   };
 }

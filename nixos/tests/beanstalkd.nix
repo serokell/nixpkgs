@@ -1,7 +1,7 @@
 import ./make-test.nix ({ pkgs, lib, ... }:
 
 let
-  pythonEnv = pkgs.python3.withPackages (p: [p.beanstalkc]);
+  pythonEnv = pkgs.python3.withPackages (p: [ p.beanstalkc ]);
 
   produce = pkgs.writeScript "produce.py" ''
     #!${pythonEnv.interpreter}
@@ -23,15 +23,11 @@ let
     job.delete()
   '';
 
-in
-{
+in {
   name = "beanstalkd";
   meta.maintainers = [ lib.maintainers.aanderse ];
 
-  machine =
-    { ... }:
-    { services.beanstalkd.enable = true;
-    };
+  machine = { ... }: { services.beanstalkd.enable = true; };
 
   testScript = ''
     startAll;

@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, pkgconfig
-, zlib, bzip2, libiconv, libxml2, openssl, ncurses, curl, libmilter, pcre2
-, libmspack, systemd
+{ stdenv, fetchurl, pkgconfig, zlib, bzip2, libiconv, libxml2, openssl, ncurses, curl, libmilter, pcre2, libmspack, systemd
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +17,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    zlib bzip2 libxml2 openssl ncurses curl libiconv libmilter pcre2 libmspack
+    zlib
+    bzip2
+    libxml2
+    openssl
+    ncurses
+    curl
+    libiconv
+    libmilter
+    pcre2
+    libmspack
     systemd
   ];
 
@@ -42,8 +49,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.clamav.net;
-    description = "Antivirus engine designed for detecting Trojans, viruses, malware and other malicious threats";
+    homepage = "https://www.clamav.net";
+    description =
+      "Antivirus engine designed for detecting Trojans, viruses, malware and other malicious threats";
     license = licenses.gpl2;
     maintainers = with maintainers; [ phreedom robberer qknight fpletz ];
     platforms = platforms.linux;

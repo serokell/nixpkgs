@@ -8,56 +8,63 @@ let
   cfg = config.services.compton;
 
   literalAttrs = v:
-    if isString v then toString v
-    else if isAttrs v then "{\n"
-      + concatStringsSep "\n" (mapAttrsToList
-        (name: value: "${literalAttrs name} = ${literalAttrs value};")
-        v)
-      + "\n}"
-    else generators.toPretty {} v;
+    if isString v then
+      toString v
+    else if isAttrs v then
+      ''
+        {
+      '' + concatStringsSep "\n" (mapAttrsToList
+      (name: value: "${literalAttrs name} = ${literalAttrs value};") v) + ''
 
-  floatBetween = a: b: with lib; with types;
+        }''
+    else
+      generators.toPretty { } v;
+
+  floatBetween = a: b:
+    with lib;
+    with types;
     addCheck str (x: versionAtLeast x a && versionOlder x b);
 
   pairOf = x: with types; addCheck (listOf x) (y: length y == 2);
 
   opacityRules = optionalString (length cfg.opacityRules != 0)
-    (concatMapStringsSep ",\n" (rule: ''"${rule}"'') cfg.opacityRules);
+    (concatMapStringsSep ''
+      ,
+    '' (rule: ''"${rule}"'') cfg.opacityRules);
 
-  configFile = pkgs.writeText "compton.conf"
-    (optionalString cfg.fade ''
-      # fading
-      fading = true;
-      fade-delta    = ${toString cfg.fadeDelta};
-      fade-in-step  = ${elemAt cfg.fadeSteps 0};
-      fade-out-step = ${elemAt cfg.fadeSteps 1};
-      fade-exclude  = ${toJSON cfg.fadeExclude};
-    '' + optionalString cfg.shadow ''
+  configFile = pkgs.writeText "compton.conf" (optionalString cfg.fade ''
+    # fading
+    fading = true;
+    fade-delta    = ${toString cfg.fadeDelta};
+    fade-in-step  = ${elemAt cfg.fadeSteps 0};
+    fade-out-step = ${elemAt cfg.fadeSteps 1};
+    fade-exclude  = ${toJSON cfg.fadeExclude};
+  '' + optionalString cfg.shadow ''
 
-      # shadows
-      shadow = true;
-      shadow-offset-x = ${toString (elemAt cfg.shadowOffsets 0)};
-      shadow-offset-y = ${toString (elemAt cfg.shadowOffsets 1)};
-      shadow-opacity  = ${cfg.shadowOpacity};
-      shadow-exclude  = ${toJSON cfg.shadowExclude};
-    '' + ''
+    # shadows
+    shadow = true;
+    shadow-offset-x = ${toString (elemAt cfg.shadowOffsets 0)};
+    shadow-offset-y = ${toString (elemAt cfg.shadowOffsets 1)};
+    shadow-opacity  = ${cfg.shadowOpacity};
+    shadow-exclude  = ${toJSON cfg.shadowExclude};
+  '' + ''
 
-      # opacity
-      active-opacity   = ${cfg.activeOpacity};
-      inactive-opacity = ${cfg.inactiveOpacity};
+    # opacity
+    active-opacity   = ${cfg.activeOpacity};
+    inactive-opacity = ${cfg.inactiveOpacity};
 
-      wintypes:
-      ${literalAttrs cfg.wintypes};
+    wintypes:
+    ${literalAttrs cfg.wintypes};
 
-      opacity-rule = [
-        ${opacityRules}
-      ];
+    opacity-rule = [
+      ${opacityRules}
+    ];
 
-      # other options
-      backend = ${toJSON cfg.backend};
-      vsync = ${boolToString cfg.vSync};
-      refresh-rate = ${toString cfg.refreshRate};
-    '' + cfg.extraOptions);
+    # other options
+    backend = ${toJSON cfg.backend};
+    vsync = ${boolToString cfg.vSync};
+    refresh-rate = ${toString cfg.refreshRate};
+  '' + cfg.extraOptions);
 
 in {
 
@@ -99,12 +106,8 @@ in {
 
     fadeExclude = mkOption {
       type = types.listOf types.str;
-      default = [];
-      example = [
-        "window_type *= 'menu'"
-        "name ~= 'Firefox$'"
-        "focused = 1"
-      ];
+      default = [ ];
+      example = [ "window_type *= 'menu'" "name ~= 'Firefox$'" "focused = 1" ];
       description = ''
         List of conditions of windows that should not be faded.
         See <literal>compton(1)</literal> man page for more examples.
@@ -139,12 +142,8 @@ in {
 
     shadowExclude = mkOption {
       type = types.listOf types.str;
-      default = [];
-      example = [
-        "window_type *= 'menu'"
-        "name ~= 'Firefox$'"
-        "focused = 1"
-      ];
+      default = [ ];
+      example = [ "window_type *= 'menu'" "name ~= 'Firefox$'" "focused = 1" ];
       description = ''
         List of conditions of windows that should have no shadow.
         See <literal>compton(1)</literal> man page for more examples.
@@ -180,8 +179,11 @@ in {
 
     wintypes = mkOption {
       type = types.attrs;
-      default = { popup_menu = { opacity = cfg.menuOpacity; }; dropdown_menu = { opacity = cfg.menuOpacity; }; };
-      example = {};
+      default = {
+        popup_menu = { opacity = cfg.menuOpacity; };
+        dropdown_menu = { opacity = cfg.menuOpacity; };
+      };
+      example = { };
       description = ''
         Rules for specific window types.
       '';
@@ -189,7 +191,7 @@ in {
 
     opacityRules = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [
         "95:class_g = 'URxvt' && !_NET_WM_STATE@:32a"
         "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
@@ -208,17 +210,22 @@ in {
     };
 
     vSync = mkOption {
-      type = with types; either bool
-        (enum [ "none" "drm" "opengl" "opengl-oml" "opengl-swc" "opengl-mswc" ]);
+      type = with types;
+        either bool (enum [
+          "none"
+          "drm"
+          "opengl"
+          "opengl-oml"
+          "opengl-swc"
+          "opengl-mswc"
+        ]);
       default = false;
       apply = x:
         let
           res = x != "none";
           msg = "The type of services.compton.vSync has changed to bool:"
-                + " interpreting ${x} as ${boolToString res}";
-        in
-          if isBool x then x
-          else warn msg res;
+            + " interpreting ${x} as ${boolToString res}";
+        in if isBool x then x else warn msg res;
 
       description = ''
         Enable vertical synchronization. Chooses the best method
@@ -232,7 +239,7 @@ in {
       default = 0;
       example = 60;
       description = ''
-       Screen refresh rate (0 = automatically detect).
+        Screen refresh rate (0 = automatically detect).
       '';
     };
 
@@ -266,9 +273,8 @@ in {
       partOf = [ "graphical-session.target" ];
 
       # Temporarily fixes corrupt colours with Mesa 18
-      environment = mkIf (cfg.backend == "glx") {
-        allow_rgb10_configs = "false";
-      };
+      environment =
+        mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/compton --config ${configFile}";

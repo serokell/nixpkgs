@@ -1,11 +1,4 @@
-{ stdenv 
-, fetchFromGitHub
-, qttools
-, qtmultimedia
-, liblo
-, gst_all_1
-, qmake
-, pkgconfig
+{ stdenv, fetchFromGitHub, qttools, qtmultimedia, liblo, gst_all_1, qmake, pkgconfig
 }:
 
 with stdenv;
@@ -22,10 +15,7 @@ mkDerivation rec {
     sha256 = "15km6xmfkxhrflq4sl9m9r85zi4shrr4k5h15x17v7x0qkc3xgsh";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkgconfig
-  ];
+  nativeBuildInputs = [ qmake pkgconfig ];
 
   buildInputs = [
     qttools
@@ -53,7 +43,7 @@ mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Open source video mapping software";
-    homepage = https://github.com/mapmapteam/mapmap;
+    homepage = "https://github.com/mapmapteam/mapmap";
     license = licenses.gpl3;
     maintainers = [ maintainers.erictapen ];
     platforms = platforms.linux;

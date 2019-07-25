@@ -1,6 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig
-, boost, openssl, log4cpp, libopus, protobuf }:
-with lib; stdenv.mkDerivation rec {
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, boost, openssl, log4cpp, libopus, protobuf
+}:
+with lib;
+stdenv.mkDerivation rec {
   pname = "mumlib";
   version = "unstable-2018-12-12";
 
@@ -19,7 +20,8 @@ with lib; stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Fairy simple Mumble library written in C++, using boost::asio asynchronous networking framework";
+    description =
+      "Fairy simple Mumble library written in C++, using boost::asio asynchronous networking framework";
     homepage = "https://github.com/slomkowski/mumlib";
     maintainers = with maintainers; [ das_j ];
     license = licenses.gpl2;

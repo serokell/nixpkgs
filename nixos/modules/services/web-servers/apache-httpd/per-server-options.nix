@@ -17,8 +17,8 @@ with lib;
 
   serverAliases = mkOption {
     type = types.listOf types.str;
-    default = [];
-    example = ["www.example.org" "www.example.org:8080" "example.org"];
+    default = [ ];
+    example = [ "www.example.org" "www.example.org:8080" "example.org" ];
     description = ''
       Additional names of virtual hosts served by this virtual host configuration.
     '';
@@ -29,29 +29,28 @@ with lib;
     default = 0;
     description = ''
       Port for the server. Option will be removed, use <option>listen</option> instead.
-  '';
+    '';
   };
 
   listen = mkOption {
-     type = types.listOf (types.submodule (
-          {
-            options = {
-              port = mkOption {
-                type = types.int;
-                description = "port to listen on";
-              };
-              ip = mkOption {
-                type = types.string;
-                default = "*";
-                description = "Ip to listen on. 0.0.0.0 for ipv4 only, * for all.";
-              };
-            };
-          } ));
+    type = types.listOf (types.submodule ({
+      options = {
+        port = mkOption {
+          type = types.int;
+          description = "port to listen on";
+        };
+        ip = mkOption {
+          type = types.string;
+          default = "*";
+          description = "Ip to listen on. 0.0.0.0 for ipv4 only, * for all.";
+        };
+      };
+    }));
     description = ''
       List of { /* ip: "*"; */ port = 80;} to listen on
     '';
 
-    default = [];
+    default = [ ];
   };
 
   enableSSL = mkOption {
@@ -88,7 +87,7 @@ with lib;
     type = types.nullOr types.str;
     example = "admin@example.org";
     description = "E-mail address of the server administrator.";
-  } // (if forMainServer then {} else {default = null;}));
+  } // (if forMainServer then { } else { default = null; }));
 
   documentRoot = mkOption {
     type = types.nullOr types.path;
@@ -102,12 +101,11 @@ with lib;
 
   servedDirs = mkOption {
     type = types.listOf types.attrs;
-    default = [];
-    example = [
-      { urlPath = "/nix";
-        dir = "/home/eelco/Dev/nix-homepage";
-      }
-    ];
+    default = [ ];
+    example = [{
+      urlPath = "/nix";
+      dir = "/home/eelco/Dev/nix-homepage";
+    }];
     description = ''
       This option provides a simple way to serve static directories.
     '';
@@ -115,12 +113,11 @@ with lib;
 
   servedFiles = mkOption {
     type = types.listOf types.attrs;
-    default = [];
-    example = [
-      { urlPath = "/foo/bar.png";
-        file = "/home/eelco/some-file.png";
-      }
-    ];
+    default = [ ];
+    example = [{
+      urlPath = "/foo/bar.png";
+      file = "/home/eelco/some-file.png";
+    }];
     description = ''
       This option provides a simple way to serve individual, static files.
     '';
@@ -143,7 +140,7 @@ with lib;
 
   extraSubservices = mkOption {
     type = types.listOf types.unspecified;
-    default = [];
+    default = [ ];
     description = "Extra subservices to enable in the webserver.";
   };
 
@@ -159,7 +156,7 @@ with lib;
   globalRedirect = mkOption {
     type = types.nullOr types.str;
     default = null;
-    example = http://newserver.example.org/;
+    example = "http://newserver.example.org/";
     description = ''
       If set, all requests for this host are redirected permanently to
       the given URL.

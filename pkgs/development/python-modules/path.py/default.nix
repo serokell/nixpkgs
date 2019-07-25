@@ -1,14 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools_scm
-, pytest
-, pytest-flake8
-, glibcLocales
-, packaging
-, isPy27
-, backports_os
-, importlib-metadata
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-flake8, glibcLocales, packaging, isPy27, backports_os, importlib-metadata
 }:
 
 buildPythonPackage rec {
@@ -22,16 +12,14 @@ buildPythonPackage rec {
 
   checkInputs = [ pytest pytest-flake8 glibcLocales packaging ];
   buildInputs = [ setuptools_scm ];
-  propagatedBuildInputs = [
-    importlib-metadata
-  ] ++ lib.optional isPy27 backports_os
-  ;
+  propagatedBuildInputs = [ importlib-metadata ]
+    ++ lib.optional isPy27 backports_os;
 
   LC_ALL = "en_US.UTF-8";
 
   meta = {
     description = "A module wrapper for os.path";
-    homepage = https://github.com/jaraco/path.py;
+    homepage = "https://github.com/jaraco/path.py";
     license = lib.licenses.mit;
   };
 

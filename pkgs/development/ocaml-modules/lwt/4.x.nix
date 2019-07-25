@@ -1,10 +1,9 @@
-{ stdenv, fetchzip, pkgconfig, ncurses, libev, buildDunePackage, ocaml
-, cppo, ocaml-migrate-parsetree, ppx_tools_versioned, result
+{ stdenv, fetchzip, pkgconfig, ncurses, libev, buildDunePackage, ocaml, cppo, ocaml-migrate-parsetree, ppx_tools_versioned, result
 }:
 
-let inherit (stdenv.lib) optional versionAtLeast; in
+let inherit (stdenv.lib) optional versionAtLeast;
 
-buildDunePackage rec {
+in buildDunePackage rec {
   pname = "lwt";
   version = "4.1.0";
 
@@ -15,7 +14,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ cppo ocaml-migrate-parsetree ppx_tools_versioned ]
-   ++ optional (!versionAtLeast ocaml.version "4.07") ncurses;
+    ++ optional (!versionAtLeast ocaml.version "4.07") ncurses;
   propagatedBuildInputs = [ libev result ];
 
   configurePhase = "ocaml src/util/configure.ml -use-libev true";

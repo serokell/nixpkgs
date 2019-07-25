@@ -12,14 +12,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libXaw freetype ];
 
-  postInstall =
-    ''
-      mkdir -p $dev/bin
-      mv $out/bin/libotf-config $dev/bin/
-    '';
+  postInstall = ''
+    mkdir -p $dev/bin
+    mv $out/bin/libotf-config $dev/bin/
+  '';
 
   meta = {
-    homepage = https://www.nongnu.org/m17n/;
+    homepage = "https://www.nongnu.org/m17n/";
     description = "Multilingual text processing library (libotf)";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;

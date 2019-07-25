@@ -10,32 +10,32 @@ stdenv.mkDerivation rec {
 
   patches = stdenv.lib.optionals stdenv.isDarwin [
     (fetchurl {
-      url = "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/osx_interface.patch";
+      url =
+        "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/osx_interface.patch";
       sha256 = "1n86kzm2ssl8fdf5wlhp6ncb2bf6b9xlb5vg0mhc85r69prqzjiy";
     })
     (fetchurl {
-      url = "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/patch-paranoia_paranoia.c.10.4.diff";
+      url =
+        "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/patch-paranoia_paranoia.c.10.4.diff";
       sha256 = "17l2qhn8sh4jy6ryy5si6ll6dndcm0r537rlmk4a6a8vkn852vad";
     })
-    ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl ./utils.patch
-    ++ [./fix_private_keyword.patch];
+  ] ++ stdenv.lib.optional stdenv.hostPlatform.isMusl ./utils.patch
+    ++ [ ./fix_private_keyword.patch ];
 
   nativeBuildInputs = stdenv.lib.optional stdenv.isAarch64 autoreconfHook;
 
-  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [
-    Carbon
-    IOKit
-  ];
+  propagatedBuildInputs = stdenv.lib.optionals stdenv.isDarwin [ Carbon IOKit ];
 
   hardeningDisable = [ "format" ];
 
-  preConfigure = "unset CC" + stdenv.lib.optionalString stdenv.isAarch64 '';
-    cp ${gnu-config}/config.sub configure.sub
-    cp ${gnu-config}/config.guess configure.guess
-  '';
+  preConfigure = "unset CC" + stdenv.lib.optionalString stdenv.isAarch64 ''
+    ;
+        cp ${gnu-config}/config.sub configure.sub
+        cp ${gnu-config}/config.guess configure.guess
+      '';
 
   meta = with stdenv.lib; {
-    homepage = https://xiph.org/paranoia;
+    homepage = "https://xiph.org/paranoia";
     description = "A tool and library for reading digital audio from CDs";
     license = with licenses; [ gpl2Plus lgpl21Plus ];
     platforms = platforms.unix;

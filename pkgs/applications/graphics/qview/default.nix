@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, qmake}:
+{ stdenv, fetchFromGitHub, qmake }:
 stdenv.mkDerivation rec {
   pname = "qview";
   version = "2.0";

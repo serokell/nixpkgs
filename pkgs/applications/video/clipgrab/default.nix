@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, makeDesktopItem, ffmpeg
-, qmake, qttools
-, qtbase, qtdeclarative, qtlocation, qtquickcontrols2, qtwebchannel, qtwebengine
+{ stdenv, fetchurl, makeDesktopItem, ffmpeg, qmake, qttools, qtbase, qtdeclarative, qtlocation, qtquickcontrols2, qtwebchannel, qtwebengine
 }:
 
 stdenv.mkDerivation rec {
@@ -13,13 +11,21 @@ stdenv.mkDerivation rec {
     url = "https://download.clipgrab.org/${name}.tar.gz";
   };
 
-  buildInputs = [ ffmpeg qtbase qtdeclarative qtlocation qtquickcontrols2 qtwebchannel qtwebengine ];
+  buildInputs = [
+    ffmpeg
+    qtbase
+    qtdeclarative
+    qtlocation
+    qtquickcontrols2
+    qtwebchannel
+    qtwebengine
+  ];
   nativeBuildInputs = [ qmake qttools ];
 
   postPatch = stdenv.lib.optionalString (ffmpeg != null) ''
-  substituteInPlace converter_ffmpeg.cpp \
-    --replace '"ffmpeg"' '"${ffmpeg.bin}/bin/ffmpeg"' \
-    --replace '"ffmpeg ' '"${ffmpeg.bin}/bin/ffmpeg '
+    substituteInPlace converter_ffmpeg.cpp \
+      --replace '"ffmpeg"' '"${ffmpeg.bin}/bin/ffmpeg"' \
+      --replace '"ffmpeg ' '"${ffmpeg.bin}/bin/ffmpeg '
   '';
 
   qmakeFlags = [ "clipgrab.pro" ];
@@ -49,7 +55,7 @@ stdenv.mkDerivation rec {
       Dailymotion and many other online video sites. It converts downloaded
       videos to MPEG4, MP3 or other formats in just one easy step.
     '';
-    homepage = https://clipgrab.org/;
+    homepage = "https://clipgrab.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

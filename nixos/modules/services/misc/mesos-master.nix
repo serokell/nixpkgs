@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.mesos.master;
+let cfg = config.services.mesos.master;
 
 in {
 
@@ -90,14 +89,10 @@ in {
 
     };
 
-
   };
 
-
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.workDir}' 0700 - - - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.workDir}' 0700 - - - -" ];
     systemd.services.mesos-master = {
       description = "Mesos Master";
       wantedBy = [ "multi-user.target" ];
@@ -107,11 +102,22 @@ in {
           ${pkgs.mesos}/bin/mesos-master \
             --ip=${cfg.ip} \
             --port=${toString cfg.port} \
-            ${optionalString (cfg.advertiseIp != null) "--advertise_ip=${cfg.advertiseIp}"} \
-            ${optionalString (cfg.advertisePort  != null) "--advertise_port=${toString cfg.advertisePort}"} \
-            ${if cfg.quorum == 0
-              then "--registry=in_memory"
-              else "--zk=${cfg.zk} --registry=replicated_log --quorum=${toString cfg.quorum}"} \
+            ${
+            optionalString (cfg.advertiseIp != null)
+            "--advertise_ip=${cfg.advertiseIp}"
+            } \
+            ${
+            optionalString (cfg.advertisePort != null)
+            "--advertise_port=${toString cfg.advertisePort}"
+            } \
+            ${
+            if cfg.quorum == 0 then
+              "--registry=in_memory"
+            else
+              "--zk=${cfg.zk} --registry=replicated_log --quorum=${
+                toString cfg.quorum
+              }"
+            } \
             --work_dir=${cfg.workDir} \
             --logging_level=${cfg.logLevel} \
             ${toString cfg.extraCmdLineOptions}

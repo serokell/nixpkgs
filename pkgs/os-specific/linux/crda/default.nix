@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, libgcrypt, libnl, pkgconfig, python2Packages, wireless-regdb }:
+{ stdenv, fetchurl, libgcrypt, libnl, pkgconfig, python2Packages, wireless-regdb
+}:
 
 stdenv.mkDerivation rec {
   name = "crda-${version}";
@@ -10,9 +11,8 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ libgcrypt libnl ];
-  nativeBuildInputs = [
-    pkgconfig python2Packages.m2crypto python2Packages.python
-  ];
+  nativeBuildInputs =
+    [ pkgconfig python2Packages.m2crypto python2Packages.python ];
 
   postPatch = ''
     patchShebangs utils/
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
       to the system configuration.
     '';
-    homepage = http://drvbp1.linux-foundation.org/~mcgrof/rel-html/crda/;
+    homepage = "http://drvbp1.linux-foundation.org/~mcgrof/rel-html/crda/";
     license = licenses.free; # "copyleft-next 0.3.0", as yet without a web site
     platforms = platforms.linux;
   };

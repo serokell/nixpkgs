@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "devkitPro";
-    repo  = "wiiload";
+    repo = "wiiload";
     rev = version;
     sha256 = "0dffy603zggkqv7g1a2jninmi64vy519gpgkdfhjnijhdm9gs5m3";
   };
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Load homebrew apps over network/usbgecko to your Wii";
-    homepage = https://wiibrew.org/wiki/Wiiload;
+    homepage = "https://wiibrew.org/wiki/Wiiload";
     license = licenses.gpl2;
     maintainers = with maintainers; [ tomsmeets ];
   };

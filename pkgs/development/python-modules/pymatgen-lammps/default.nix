@@ -1,11 +1,4 @@
-{ lib
-, fetchurl
-, buildPythonPackage
-, pymatgen
-, pytestrunner
-, pytest
-, isPy3k
-}:
+{ lib, fetchurl, buildPythonPackage, pymatgen, pytestrunner, pytest, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pymatgen-lammps";
@@ -13,8 +6,9 @@ buildPythonPackage rec {
   disabled = (!isPy3k);
 
   src = fetchurl {
-     url = "https://gitlab.com/costrouc/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
-     sha256 = "0shldl8is3195jmji7dr3zsh1bzxlahaqrmpr28niks7nnfj80fx";
+    url =
+      "https://gitlab.com/costrouc/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
+    sha256 = "0shldl8is3195jmji7dr3zsh1bzxlahaqrmpr28niks7nnfj80fx";
   };
 
   buildInputs = [ pytestrunner ];
@@ -23,7 +17,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A LAMMPS wrapper using pymatgen";
-    homepage = https://gitlab.com/costrouc/pymatgen-lammps;
+    homepage = "https://gitlab.com/costrouc/pymatgen-lammps";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ costrouc ];
   };

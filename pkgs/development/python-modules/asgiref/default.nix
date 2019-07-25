@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, async-timeout, pytest, pytest-asyncio }:
+{ stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, async-timeout, pytest, pytest-asyncio
+}:
 buildPythonPackage rec {
   version = "3.1.4";
   pname = "asgiref";
@@ -24,6 +25,6 @@ buildPythonPackage rec {
   meta = with stdenv.lib; {
     description = "Reference ASGI adapters and channel layers";
     license = licenses.bsd3;
-    homepage = https://github.com/django/asgiref;
+    homepage = "https://github.com/django/asgiref";
   };
 }

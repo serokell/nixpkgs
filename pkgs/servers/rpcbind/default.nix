@@ -1,5 +1,5 @@
-{ fetchgit, stdenv, pkgconfig, libnsl, libtirpc, autoreconfHook
-, useSystemd ? true, systemd }:
+{ fetchgit, stdenv, pkgconfig, libnsl, libtirpc, autoreconfHook, useSystemd ?
+  true, systemd }:
 
 stdenv.mkDerivation rec {
   name = "rpcbind-${version}";
@@ -11,15 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "1k5rr0pia70ifyp877rbjdd82377fp7ii0sqvv18qhashr6489va";
   };
 
-  patches = [
-    ./sunrpc.patch
-  ];
+  patches = [ ./sunrpc.patch ];
 
-  buildInputs = [ libnsl libtirpc ]
-             ++ stdenv.lib.optional useSystemd systemd;
+  buildInputs = [ libnsl libtirpc ] ++ stdenv.lib.optional useSystemd systemd;
 
   configureFlags = [
-    "--with-systemdsystemunitdir=${if useSystemd then "${placeholder "out"}/etc/systemd/system" else "no"}"
+    "--with-systemdsystemunitdir=${
+      if useSystemd then "${placeholder "out"}/etc/systemd/system" else "no"
+    }"
     "--enable-warmstarts"
     "--with-rpcuser=rpc"
   ];
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "ONC RPC portmapper";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    homepage = https://linux-nfs.org/;
+    homepage = "https://linux-nfs.org/";
     maintainers = with maintainers; [ abbradar ];
     longDescription = ''
       Universal addresses to RPC program number mapper.

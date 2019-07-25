@@ -1,10 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, sphinx
-, pyenchant
-, pbr
-}:
+{ stdenv, buildPythonPackage, fetchPypi, sphinx, pyenchant, pbr }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-spelling";
@@ -22,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Sphinx spelling extension";
-    homepage = https://bitbucket.org/dhellmann/sphinxcontrib-spelling;
+    homepage = "https://bitbucket.org/dhellmann/sphinxcontrib-spelling";
     maintainers = with maintainers; [ nand0p ];
     license = licenses.bsd2;
   };

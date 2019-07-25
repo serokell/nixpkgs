@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flake8
-, pytest
-, pytest-expect
-, mock
-, six
-, webencodings
+{ lib, buildPythonPackage, fetchPypi, flake8, pytest, pytest-expect, mock, six, webencodings
 }:
 
 buildPythonPackage rec {
@@ -19,9 +11,7 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ flake8 pytest pytest-expect mock ];
-  propagatedBuildInputs = [
-    six webencodings
-  ];
+  propagatedBuildInputs = [ six webencodings ];
 
   checkPhase = ''
     # remove test causing error
@@ -31,8 +21,8 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/html5lib/html5lib-python;
-    downloadPage = https://github.com/html5lib/html5lib-python/releases;
+    homepage = "https://github.com/html5lib/html5lib-python";
+    downloadPage = "https://github.com/html5lib/html5lib-python/releases";
     description = "HTML parser based on WHAT-WG HTML5 specification";
     longDescription = ''
       html5lib is a pure-python library for parsing HTML. It is designed to

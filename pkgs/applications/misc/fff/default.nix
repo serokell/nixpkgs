@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, bashInteractive, xdg_utils, file, coreutils, w3m, xdotool }:
+{ stdenv, fetchFromGitHub, makeWrapper, bashInteractive, xdg_utils, file, coreutils, w3m, xdotool
+}:
 
 stdenv.mkDerivation rec {
   pname = "fff";
@@ -11,7 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0s5gi5ghwax5gc886pvbpcmsbmzhxzywajwzjsdxwjyd1v1iynwh";
   };
 
-  pathAdd = stdenv.lib.makeSearchPath "bin" ([ xdg_utils file coreutils w3m xdotool ]);
+  pathAdd =
+    stdenv.lib.makeSearchPath "bin" ([ xdg_utils file coreutils w3m xdotool ]);
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ bashInteractive ];
@@ -25,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Fucking Fast File-Manager";
-    homepage = https://github.com/dylanaraps/fff;
+    homepage = "https://github.com/dylanaraps/fff";
     license = licenses.mit;
     maintainers = [ maintainers.tadeokondrak ];
     platforms = platforms.all;

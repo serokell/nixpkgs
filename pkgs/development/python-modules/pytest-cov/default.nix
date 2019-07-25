@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, pytest, coverage }:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, coverage }:
 
 buildPythonPackage rec {
   pname = "pytest-cov";
@@ -23,8 +22,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing";
-    homepage = https://github.com/pytest-dev/pytest-cov;
+    description =
+      "Plugin for coverage reporting with support for both centralised and distributed testing, including subprocesses and multiprocessing";
+    homepage = "https://github.com/pytest-dev/pytest-cov";
     license = licenses.mit;
   };
 }

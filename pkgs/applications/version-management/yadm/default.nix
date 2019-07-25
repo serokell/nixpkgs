@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub }:
 
-let version = "1.12.0"; in
-stdenv.mkDerivation {
+let version = "1.12.0";
+in stdenv.mkDerivation {
   name = "yadm-${version}";
 
   src = fetchFromGitHub {
-    owner  = "TheLocehiliosan";
-    repo   = "yadm";
-    rev    = "${version}";
+    owner = "TheLocehiliosan";
+    repo = "yadm";
+    rev = "${version}";
     sha256 = "0873jgks7dpfkj5km1jchxdrhf7lia70p0f8zsrh9p4crj5f4pc6";
   };
 
@@ -24,13 +24,13 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    homepage = https://github.com/TheLocehiliosan/yadm;
+    homepage = "https://github.com/TheLocehiliosan/yadm";
     description = "Yet Another Dotfiles Manager";
     longDescription = ''
-    yadm is a dotfile management tool with 3 main features: Manages files across
-    systems using a single Git repository. Provides a way to use alternate files on
-    a specific OS or host. Supplies a method of encrypting confidential data so it
-    can safely be stored in your repository.
+      yadm is a dotfile management tool with 3 main features: Manages files across
+      systems using a single Git repository. Provides a way to use alternate files on
+      a specific OS or host. Supplies a method of encrypting confidential data so it
+      can safely be stored in your repository.
     '';
     license = stdenv.lib.licenses.gpl3;
     platforms = stdenv.lib.platforms.unix;

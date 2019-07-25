@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, idrisscript
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, idrisscript, lib }:
+build-idris-package {
   name = "webgl";
   version = "2017-05-08";
 
@@ -18,7 +14,7 @@ build-idris-package  {
 
   meta = {
     description = "Idris library to interact with WebGL";
-    homepage = https://github.com/pierrebeaucamp/idris-webgl;
+    homepage = "https://github.com/pierrebeaucamp/idris-webgl";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.brainrape ];
   };

@@ -1,7 +1,6 @@
 { symlinkJoin, pidgin, makeWrapper, plugins }:
 
-let
-extraArgs = map (x: x.wrapArgs or "") plugins;
+let extraArgs = map (x: x.wrapArgs or "") plugins;
 in symlinkJoin {
   name = "pidgin-with-plugins-${pidgin.version}";
 

@@ -1,33 +1,21 @@
-{ stdenv
-, fetchurl
-, python27Packages
-, gnome3
-, gobject-introspection
-, wrapGAppsHook
-, webkitgtk
-, libnotify
-, keybinder3
-, libappindicator
-, intltool
-, wmctrl
-, hicolor-icon-theme
-, xvfb_run
+{ stdenv, fetchurl, python27Packages, gnome3, gobject-introspection, wrapGAppsHook, webkitgtk, libnotify, keybinder3, libappindicator, intltool, wmctrl, hicolor-icon-theme, xvfb_run
 }:
 
-python27Packages.buildPythonApplication rec  {
+python27Packages.buildPythonApplication rec {
   pname = "ulauncher";
   version = "4.4.0.r1";
 
   # Python 3 support is currently in development
   # on the dev branch and 5.x.x releases
-  disabled = ! python27Packages.isPy27;
+  disabled = !python27Packages.isPy27;
 
   src = fetchurl {
-    url = "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
+    url =
+      "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
     sha256 = "12v7qpjhf0842ivsfflsl2zlvhiaw25f9ffv7vhnkvrhrmksim9f";
   };
 
-  nativeBuildInputs = with python27Packages;  [
+  nativeBuildInputs = with python27Packages; [
     distutils_extra
     intltool
     wrapGAppsHook
@@ -63,9 +51,7 @@ python27Packages.buildPythonApplication rec  {
     xvfb_run
   ];
 
-  patches = [
-    ./fix-path.patch
-  ];
+  patches = [ ./fix-path.patch ];
 
   postPatch = ''
     substituteInPlace setup.py --subst-var out
@@ -96,8 +82,9 @@ python27Packages.buildPythonApplication rec  {
   '';
 
   meta = with stdenv.lib; {
-    description = "A fast application launcher for Linux, written in Python, using GTK";
-    homepage = https://ulauncher.io/;
+    description =
+      "A fast application launcher for Linux, written in Python, using GTK";
+    homepage = "https://ulauncher.io/";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ aaronjanse worldofpeace ];

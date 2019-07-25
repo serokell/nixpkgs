@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "Potluck with different functions for different purposes that can be shared among C programs";
+    description =
+      "Potluck with different functions for different purposes that can be shared among C programs";
     homepage = "https://github.com/babelouest/orcania";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ johnazoidberg ];

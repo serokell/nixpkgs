@@ -1,13 +1,9 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
-, cairo, ffmpeg, ffms, libjpeg, log4cpp, pango
-, avxeditSupport ? false, qt4 ? null
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, cairo, ffmpeg, ffms, libjpeg, log4cpp, pango, avxeditSupport ?
+  false, qt4 ? null }:
 
-let
-  inherit (stdenv.lib) enableFeature optional;
-in
+let inherit (stdenv.lib) enableFeature optional;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "avxsynth-${version}";
   version = "2015-04-07";
 
@@ -34,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A script system that allows advanced non-linear editing";
-    homepage = https://github.com/avxsynth/avxsynth;
+    homepage = "https://github.com/avxsynth/avxsynth";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ codyopel ];
     platforms = platforms.linux;

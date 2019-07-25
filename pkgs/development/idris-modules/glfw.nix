@@ -1,10 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, effects
-, lib
-, pkgs
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, effects, lib, pkgs }:
+build-idris-package {
   name = "glfw";
   version = "2016-12-05";
 
@@ -27,7 +22,7 @@ build-idris-package  {
 
   meta = {
     description = "GLFW bindings for Idris";
-    homepage = https://github.com/eckart/glfw-idris;
+    homepage = "https://github.com/eckart/glfw-idris";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.brainrape ];
   };

@@ -1,6 +1,6 @@
 { stdenv, buildGoPackage, fetchFromGitHub }:
 
-buildGoPackage  rec {
+buildGoPackage rec {
   name = "micro-${version}";
   version = "1.4.1";
 
@@ -19,7 +19,7 @@ buildGoPackage  rec {
   buildFlagsArray = [ "-ldflags=" "-X main.Version=${version}" ];
 
   meta = with stdenv.lib; {
-    homepage = https://micro-editor.github.io;
+    homepage = "https://micro-editor.github.io";
     description = "Modern and intuitive terminal-based text editor";
     license = licenses.mit;
     maintainers = with maintainers; [ dtzWill ];

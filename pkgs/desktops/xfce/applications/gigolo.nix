@@ -1,7 +1,7 @@
 { stdenv, fetchurl, python, gettext, intltool, pkgconfig, gtk, gvfs }:
 
 stdenv.mkDerivation rec {
-  p_name  = "gigolo";
+  p_name = "gigolo";
   ver_maj = "0.4";
   ver_min = "2";
 
@@ -12,11 +12,12 @@ stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ python gettext intltool gtk gvfs];
+  buildInputs = [ python gettext intltool gtk gvfs ];
 
   meta = {
     homepage = "https://goodies.xfce.org/projects/applications/${p_name}";
-    description = "A frontend to easily manage connections to remote filesystems";
+    description =
+      "A frontend to easily manage connections to remote filesystems";
     platforms = stdenv.lib.platforms.linux;
   };
 }

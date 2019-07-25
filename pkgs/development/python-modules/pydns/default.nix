@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pydns";
@@ -16,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python DNS library";
-    homepage = http://pydns.sourceforge.net/;
+    homepage = "http://pydns.sourceforge.net/";
     license = licenses.psfl;
   };
 

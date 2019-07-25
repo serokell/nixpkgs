@@ -1,15 +1,8 @@
-{ stdenv, writeScript, vmTools, makeInitrd
-, samba, vde2, openssh, socat, netcat-gnu, coreutils, gnugrep, gzip
-, runtimeShell
+{ stdenv, writeScript, vmTools, makeInitrd, samba, vde2, openssh, socat, netcat-gnu, coreutils, gnugrep, gzip, runtimeShell
 }:
 
-{ sshKey
-, qemuArgs ? []
-, command ? "sync"
-, suspendTo ? null
-, resumeFrom ? null
-, installMode ? false
-}:
+{ sshKey, qemuArgs ? [ ], command ? "sync", suspendTo ? null, resumeFrom ?
+  null, installMode ? false }:
 
 with stdenv.lib;
 
@@ -153,12 +146,13 @@ let
     "-virtfs local,path=$XCHG_DIR,security_model=none,mount_tag=xchg"
     "-kernel ${modulesClosure.kernel}/bzImage"
     "-initrd ${initrd}/initrd"
-    "-append \"${kernelAppend}\""
+    ''-append "${kernelAppend}"''
     "-net nic,vlan=0,macaddr=52:54:00:12:01:02,model=virtio"
     "-net vde,vlan=0,sock=$QEMU_VDE_SOCKET"
   ]);
 
-  maybeKvm64 = optional (stdenv.hostPlatform.system == "x86_64-linux") "-cpu kvm64";
+  maybeKvm64 =
+    optional (stdenv.hostPlatform.system == "x86_64-linux") "-cpu kvm64";
 
   cygwinQemuArgs = concatStringsSep " " (maybeKvm64 ++ [
     "-monitor unix:$MONITOR_SOCKET,server,nowait"
@@ -167,13 +161,11 @@ let
     "-net nic,vlan=0,macaddr=52:54:00:12:01:01"
     "-net vde,vlan=0,sock=$QEMU_VDE_SOCKET"
     "-rtc base=2010-01-01,clock=vm"
-  ] ++ qemuArgs ++ optionals (resumeFrom != null) [
-    "-incoming 'exec: ${gzip}/bin/gzip -c -d \"${resumeFrom}\"'"
-  ]);
+  ] ++ qemuArgs ++ optionals (resumeFrom != null)
+    [ "-incoming 'exec: ${gzip}/bin/gzip -c -d \"${resumeFrom}\"'" ]);
 
-  modulesClosure = overrideDerivation vmTools.modulesClosure (o: {
-    rootModules = o.rootModules ++ singleton "virtio_net";
-  });
+  modulesClosure = overrideDerivation vmTools.modulesClosure
+    (o: { rootModules = o.rootModules ++ singleton "virtio_net"; });
 
   preVM = ''
     (set; declare -p) > saved-env

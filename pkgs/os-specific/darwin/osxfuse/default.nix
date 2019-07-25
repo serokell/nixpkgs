@@ -14,9 +14,8 @@ let
     mkdir -p $out/include
     cp --target-directory=$out/include $src/common/*.h
   '';
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   pname = "osxfuse";
@@ -25,7 +24,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "osxfuse";
     repo = "fuse";
-    rev = "1a1977a"; # Submodule reference from osxfuse/osxfuse at tag osxfuse-${version}
+    rev =
+      "1a1977a"; # Submodule reference from osxfuse/osxfuse at tag osxfuse-${version}
     sha256 = "101fw8j40ylfbbrjycnwr5qp422agyf9sfbczyb9w5ivrkds3rfw";
   };
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ headers ];
 
   meta = with stdenv.lib; {
-    homepage = https://osxfuse.github.io;
+    homepage = "https://osxfuse.github.io";
     description = "C-based FUSE for macOS SDK";
     platforms = platforms.darwin;
     license = licenses.gpl2;

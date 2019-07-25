@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchurl, pythonPackages, zip, makeWrapper, nix, nix-prefetch-git
-, nix-prefetch-hg
+{ stdenv, fetchFromGitHub, fetchurl, pythonPackages, zip, makeWrapper, nix, nix-prefetch-git, nix-prefetch-hg
 }:
 
 let
@@ -14,25 +13,28 @@ let
   };
 
   click = fetchurl {
-    url = "https://pypi.python.org/packages/95/d9/c3336b6b5711c3ab9d1d3a80f1a3e2afeb9d8c02a7166462f6cc96570897/click-6.7.tar.gz";
+    url =
+      "https://pypi.python.org/packages/95/d9/c3336b6b5711c3ab9d1d3a80f1a3e2afeb9d8c02a7166462f6cc96570897/click-6.7.tar.gz";
     sha256 = "02qkfpykbq35id8glfgwc38yc430427yd05z1wc5cnld8zgicmgi";
   };
 
   requests = fetchurl {
-    url = "https://pypi.python.org/packages/16/09/37b69de7c924d318e51ece1c4ceb679bf93be9d05973bb30c35babd596e2/requests-2.13.0.tar.gz";
+    url =
+      "https://pypi.python.org/packages/16/09/37b69de7c924d318e51ece1c4ceb679bf93be9d05973bb30c35babd596e2/requests-2.13.0.tar.gz";
     sha256 = "1s0wg4any4dsv5l3hqjxqk2zgb7pdbqhy9rhc8kh3aigfq4ws8jp";
   };
 
 in stdenv.mkDerivation rec {
   name = "pypi2nix-${version}";
-  srcs = [
-    src
-    click
-    requests
-  ];
+  srcs = [ src click requests ];
   buildInputs = [
-    pythonPackages.python pythonPackages.flake8
-    zip makeWrapper nix.out nix-prefetch-git nix-prefetch-hg
+    pythonPackages.python
+    pythonPackages.flake8
+    zip
+    makeWrapper
+    nix.out
+    nix-prefetch-git
+    nix-prefetch-hg
   ];
 
   sourceRoot = ".";
@@ -99,8 +101,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://github.com/garbas/pypi2nix;
-    description = "A tool that generates nix expressions for your python packages, so you don't have to.";
+    homepage = "https://github.com/garbas/pypi2nix";
+    description =
+      "A tool that generates nix expressions for your python packages, so you don't have to.";
     maintainers = with stdenv.lib.maintainers; [ ];
   };
 }

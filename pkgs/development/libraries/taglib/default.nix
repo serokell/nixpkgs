@@ -1,4 +1,4 @@
-{stdenv, fetchurl, zlib, cmake, fetchpatch}:
+{ stdenv, fetchurl, zlib, cmake, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "taglib-1.11.1";
@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # https://github.com/taglib/taglib/pull/869
       name = "CVE-2018-11439.patch";
-      url = "https://github.com/taglib/taglib/commit/272648ccfcccae30e002ccf34a22e075dd477278.patch";
+      url =
+        "https://github.com/taglib/taglib/commit/272648ccfcccae30e002ccf34a22e075dd477278.patch";
       sha256 = "0p397qq4anvcm0p8xs68mxa8hg6dl07chg260lc6k2929m34xv72";
     })
   ];
@@ -31,8 +32,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
   meta = with stdenv.lib; {
-    homepage = http://taglib.org/;
-    repositories.git = git://github.com/taglib/taglib.git;
+    homepage = "http://taglib.org/";
+    repositories.git = "git://github.com/taglib/taglib.git";
     description = "A library for reading and editing audio file metadata.";
     longDescription = ''
       TagLib is a library for reading and editing the meta-data of several

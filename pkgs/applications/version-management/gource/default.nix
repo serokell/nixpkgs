@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, SDL2, ftgl, pkgconfig, libpng, libjpeg, pcre
-, SDL2_image, freetype, glew, libGLU_combined, boost, glm
+{ stdenv, fetchurl, SDL2, ftgl, pkgconfig, libpng, libjpeg, pcre, SDL2_image, freetype, glew, libGLU_combined, boost, glm
 }:
 
 stdenv.mkDerivation rec {
@@ -7,14 +6,24 @@ stdenv.mkDerivation rec {
   name = "gource-${version}";
 
   src = fetchurl {
-    url = "https://github.com/acaudwell/Gource/releases/download/${name}/${name}.tar.gz";
+    url =
+      "https://github.com/acaudwell/Gource/releases/download/${name}/${name}.tar.gz";
     sha256 = "12hf5ipcsp9dxsqn84n4kr63xaiskrnf5a084wr29qk171lj7pd9";
   };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    glew SDL2 ftgl libpng libjpeg pcre SDL2_image libGLU_combined
-    boost glm freetype
+    glew
+    SDL2
+    ftgl
+    libpng
+    libjpeg
+    pcre
+    SDL2_image
+    libGLU_combined
+    boost
+    glm
+    freetype
   ];
 
   configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
@@ -22,7 +31,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://gource.io/;
+    homepage = "https://gource.io/";
     description = "A Software version control visualization tool";
     license = licenses.gpl3Plus;
     longDescription = ''

@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, bison, flex, pkgconfig
-, libuuid, cppunit, protobuf3_1, zlib, avahi, libmicrohttpd
-, perl, python36 # Replace by python3 after the next update
+{ stdenv, fetchFromGitHub, autoreconfHook, bison, flex, pkgconfig, libuuid, cppunit, protobuf3_1, zlib, avahi, libmicrohttpd, perl, python36 # Replace by python3 after the next update
 }:
 
 stdenv.mkDerivation rec {
@@ -15,7 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook bison flex pkgconfig perl ];
-  buildInputs = [ libuuid cppunit protobuf3_1 zlib avahi libmicrohttpd python36 ];
+  buildInputs =
+    [ libuuid cppunit protobuf3_1 zlib avahi libmicrohttpd python36 ];
   propagatedBuildInputs = [
     (python36.pkgs.protobuf.override { protobuf = protobuf3_1; })
     python36.pkgs.numpy
@@ -24,7 +23,8 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--enable-python-libs" ];
 
   meta = with stdenv.lib; {
-    description = "A framework for controlling entertainment lighting equipment.";
+    description =
+      "A framework for controlling entertainment lighting equipment.";
     maintainers = [ maintainers.globin ];
     license = with licenses; [ lgpl21 gpl2Plus ];
     platforms = platforms.all;

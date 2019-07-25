@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A simple Mode S decoder for RTLSDR devices";
-    homepage = https://github.com/MalcolmRobb/dump1090;
+    homepage = "https://github.com/MalcolmRobb/dump1090";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ earldouglas ];

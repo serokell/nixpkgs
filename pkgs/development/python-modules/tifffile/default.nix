@@ -1,6 +1,4 @@
-{ lib, fetchPypi, buildPythonPackage, isPy27
-, numpy, enum34, futures, pathlib
-, pytest
+{ lib, fetchPypi, buildPythonPackage, isPy27, numpy, enum34, futures, pathlib, pytest
 }:
 
 buildPythonPackage rec {
@@ -27,7 +25,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Read and write image data from and to TIFF files.";
-    homepage = https://www.lfd.uci.edu/~gohlke/;
+    homepage = "https://www.lfd.uci.edu/~gohlke/";
     maintainers = [ maintainers.lebastr ];
     license = licenses.bsd3;
   };

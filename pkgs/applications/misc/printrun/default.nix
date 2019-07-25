@@ -11,12 +11,19 @@ python27Packages.buildPythonApplication rec {
   };
 
   propagatedBuildInputs = with python27Packages; [
-    wxPython30 pyserial dbus-python psutil numpy pyopengl pyglet cython
+    wxPython30
+    pyserial
+    dbus-python
+    psutil
+    numpy
+    pyopengl
+    pyglet
+    cython
   ];
 
   doCheck = false;
 
-  setupPyBuildFlags = ["-i"];
+  setupPyBuildFlags = [ "-i" ];
 
   postPatch = ''
     sed -i -r "s|/usr(/local)?/share/|$out/share/|g" printrun/utils.py
@@ -29,8 +36,9 @@ python27Packages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
-    homepage = https://github.com/kliment/Printrun;
+    description =
+      "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
+    homepage = "https://github.com/kliment/Printrun";
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

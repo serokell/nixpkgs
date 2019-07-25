@@ -15,13 +15,16 @@ stdenv.mkDerivation {
   buildInputs = [ qtwebkit hunspell ];
 
   postPatch = ''
-    sed -i "s,-lhunspell,-lhunspell-${stdenv.lib.versions.majorMinor hunspell.version}," src/spellcheck/spellcheck.pri
+    sed -i "s,-lhunspell,-lhunspell-${
+      stdenv.lib.versions.majorMinor hunspell.version
+    }," src/spellcheck/spellcheck.pri
     sed -i "s,\$\$\[QT_INSTALL_PLUGINS\],$out/$qtPluginPrefix," src/src.pro
   '';
 
   meta = with stdenv.lib; {
-    description = "Spell checking plugin using Hunspell and HTML5 Notifications plugin for QtWebKit";
-    homepage = https://github.com/QupZilla/qtwebkit-plugins;
+    description =
+      "Spell checking plugin using Hunspell and HTML5 Notifications plugin for QtWebKit";
+    homepage = "https://github.com/QupZilla/qtwebkit-plugins";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

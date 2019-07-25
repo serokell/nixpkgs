@@ -2,17 +2,14 @@
 let
   pname = "cppo";
   webpage = "http://mjambon.com/${pname}.html";
-in
-assert stdenv.lib.versionAtLeast ocaml.version "3.12";
+in assert stdenv.lib.versionAtLeast ocaml.version "3.12";
 
-let param =
-  if stdenv.lib.versionAtLeast ocaml.version "4.02" then {
+let
+  param = if stdenv.lib.versionAtLeast ocaml.version "4.02" then {
     version = "1.6.5";
     sha256 = "03c0amszy28shinvz61hm340jz446zz5763a1pdqlza36kwcj0p0";
     buildInputs = [ dune ];
-    extra = {
-      inherit (dune) installPhase;
-    };
+    extra = { inherit (dune) installPhase; };
   } else {
     version = "1.5.0";
     sha256 = "1xqldjz9risndnabvadw41fdbi5sa2hl4fnqls7j9xfbby1izbg8";
@@ -23,10 +20,9 @@ let param =
         mkdir $out/bin
       '';
     };
-  }
-; in
+  };
 
-stdenv.mkDerivation (rec {
+in stdenv.mkDerivation (rec {
 
   name = "${pname}-${param.version}";
 
@@ -37,7 +33,7 @@ stdenv.mkDerivation (rec {
     inherit (param) sha256;
   };
 
-  buildInputs = [ ocaml findlib ocamlbuild ] ++ (param.buildInputs or []);
+  buildInputs = [ ocaml findlib ocamlbuild ] ++ (param.buildInputs or [ ]);
 
   meta = with stdenv.lib; {
     description = "The C preprocessor for OCaml";

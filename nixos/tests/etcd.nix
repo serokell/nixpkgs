@@ -1,17 +1,11 @@
 # This test runs simple etcd node
 
-import ./make-test.nix ({ pkgs, ... } : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "etcd";
 
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ offline ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ offline ]; };
 
-  nodes = {
-    node = { ... }: {
-      services.etcd.enable = true;
-    };
-  };
+  nodes = { node = { ... }: { services.etcd.enable = true; }; };
 
   testScript = ''
     subtest "should start etcd node", sub {

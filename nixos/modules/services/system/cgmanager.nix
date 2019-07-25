@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.cgmanager;
+let cfg = config.services.cgmanager;
 in {
   meta.maintainers = [ maintainers.mic92 ];
 

@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper, glibc }:
+{ stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper, glibc }:
 
 stdenv.mkDerivation rec {
   version = "1.1.5";
@@ -25,21 +25,20 @@ stdenv.mkDerivation rec {
         --replace /etc/linode /run/longview
   '';
 
-  buildInputs = [ perl makeWrapper glibc ]
-    ++ (with perlPackages; [
-      LWP
-      LWPProtocolHttps
-      MozillaCA
-      CryptSSLeay
-      IOSocketInet6
-      LinuxDistribution
-      JSONPP
-      JSON
-      LogLogLite
-      TryTiny
-      DBI
-      DBDmysql
-    ]);
+  buildInputs = [ perl makeWrapper glibc ] ++ (with perlPackages; [
+    LWP
+    LWPProtocolHttps
+    MozillaCA
+    CryptSSLeay
+    IOSocketInet6
+    LinuxDistribution
+    JSONPP
+    JSON
+    LogLogLite
+    TryTiny
+    DBI
+    DBDmysql
+  ]);
 
   dontBuild = true;
 
@@ -58,8 +57,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.linode.com/longview;
-    description = "Longview collects all of your system-level metrics and sends them to Linode";
+    homepage = "https://www.linode.com/longview";
+    description =
+      "Longview collects all of your system-level metrics and sends them to Linode";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.rvl ];
     inherit version;

@@ -1,48 +1,15 @@
-{ stdenv
-, fetchurl
-, substituteAll
+{ stdenv, fetchurl, substituteAll
 
-, autoreconfHook
-, docbook_xml_dtd_412
-, docbook_xml_dtd_42
-, docbook_xml_dtd_43
-, docbook_xsl
-, gettext
-, libxml2
-, libxslt
-, pkgconfig
-, xmlto
+, autoreconfHook, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43, docbook_xsl, gettext, libxml2, libxslt, pkgconfig, xmlto
 
-, acl
-, bazaar
-, binutils
-, bzip2
-, coreutils
-, cpio
-, curl
-, elfutils
-, flatpak
-, gitMinimal
-, glib
-, glibcLocales
-, gnumake
-, gnupg
-, gnutar
-, json-glib
-, libcap
-, libdwarf
-, libsoup
-, libyaml
-, ostree
-, patch
-, python2
-, rpm
-, unzip
+, acl, bazaar, binutils, bzip2, coreutils, cpio, curl, elfutils, flatpak, gitMinimal, glib, glibcLocales, gnumake, gnupg, gnutar, json-glib, libcap, libdwarf, libsoup, libyaml, ostree, patch, python2, rpm, unzip
 }:
 
 let
-  installed_testdir = "${placeholder "installedTests"}/libexec/installed-tests/flatpak-builder";
-  installed_test_metadir = "${placeholder "installedTests"}/share/installed-tests/flatpak-builder";
+  installed_testdir =
+    "${placeholder "installedTests"}/libexec/installed-tests/flatpak-builder";
+  installed_test_metadir =
+    "${placeholder "installedTests"}/share/installed-tests/flatpak-builder";
   version = "1.0.8";
 in stdenv.mkDerivation rec {
   name = "flatpak-builder-${version}";
@@ -50,7 +17,8 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "doc" "man" "installedTests" ];
 
   src = fetchurl {
-    url = "https://github.com/flatpak/flatpak-builder/releases/download/${version}/${name}.tar.xz";
+    url =
+      "https://github.com/flatpak/flatpak-builder/releases/download/${version}/${name}.tar.xz";
     sha256 = "0ns1vv2phhd3vsi2749cajwapapx7xa841kkvssixwgfa575d912";
   };
 
@@ -110,9 +78,7 @@ in stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [
-    "--enable-installed-tests"
-  ];
+  configureFlags = [ "--enable-installed-tests" ];
 
   makeFlags = [
     "installed_testdir=${installed_testdir}"
@@ -129,13 +95,11 @@ in stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = {
-    installedTestsDependencies = [ gnupg ostree python2 gnumake ];
-  };
+  passthru = { installedTestsDependencies = [ gnupg ostree python2 gnumake ]; };
 
   meta = with stdenv.lib; {
     description = "Tool to build flatpaks from source";
-    homepage = https://flatpak.org/;
+    homepage = "https://flatpak.org/";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ jtojnar ];
     platforms = platforms.linux;

@@ -14,7 +14,6 @@ let
     exec ${pkgs.riemann-tools}/bin/riemann-health --host ${riemannHost}
   '';
 
-
 in {
 
   options = {

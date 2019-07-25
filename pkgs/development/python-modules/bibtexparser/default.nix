@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage, fetchFromGitHub
-, future, pyparsing
-, glibcLocales, nose, unittest2
+{ lib, buildPythonPackage, fetchFromGitHub, future, pyparsing, glibcLocales, nose, unittest2
 }:
 
 buildPythonPackage rec {
@@ -26,7 +23,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Bibtex parser for python 2.7 and 3.3 and newer";
-    homepage = https://github.com/sciunto-org/python-bibtexparser;
+    homepage = "https://github.com/sciunto-org/python-bibtexparser";
     license = with lib.licenses; [ gpl3 bsd3 ];
     maintainers = with lib.maintainers; [ fridh ];
   };

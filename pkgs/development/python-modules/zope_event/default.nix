@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "zope.event";
@@ -14,7 +11,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "An event publishing system";
-    homepage = https://pypi.python.org/pypi/zope.event;
+    homepage = "https://pypi.python.org/pypi/zope.event";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };

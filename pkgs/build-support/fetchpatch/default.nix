@@ -8,8 +8,8 @@
 let
   # 0.3.4 would change hashes: https://github.com/NixOS/nixpkgs/issues/25154
   patchutils = buildPackages.patchutils_0_3_3;
-in
-{ stripLen ? 0, extraPrefix ? null, excludes ? [], includes ? [], revert ? false, ... }@args:
+in { stripLen ? 0, extraPrefix ? null, excludes ? [ ], includes ? [ ], revert ?
+  false, ... }@args:
 
 fetchurl ({
   postFetch = ''
@@ -24,10 +24,12 @@ fetchurl ({
         "${patchutils}/bin/filterdiff" \
         --include={} \
         --strip=${toString stripLen} \
-        ${lib.optionalString (extraPrefix != null) ''
-           --addoldprefix=a/${extraPrefix} \
-           --addnewprefix=b/${extraPrefix} \
-        ''} \
+        ${
+      lib.optionalString (extraPrefix != null) ''
+        --addoldprefix=a/${extraPrefix} \
+        --addnewprefix=b/${extraPrefix} \
+      ''
+        } \
         --clean "$out" > "$tmpfile"
     if [ ! -s "$tmpfile" ]; then
       echo "error: Normalized patch '$tmpfile' is empty (while the fetched file was not)!" 1>&2
@@ -38,8 +40,14 @@ fetchurl ({
     fi
     ${patchutils}/bin/filterdiff \
       -p1 \
-      ${builtins.toString (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)} \
-      ${builtins.toString (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)} \
+      ${
+      builtins.toString
+      (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)
+      } \
+      ${
+      builtins.toString
+      (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)
+      } \
       "$tmpfile" > "$out"
 
     if [ ! -s "$out" ]; then
@@ -53,5 +61,12 @@ fetchurl ({
     ${patchutils}/bin/interdiff "$out" /dev/null > "$tmpfile"
     mv "$tmpfile" "$out"
   '' + (args.postFetch or "");
-  meta.broken = excludes != [] && includes != [];
-} // builtins.removeAttrs args ["stripLen" "extraPrefix" "excludes" "includes" "revert" "postFetch"])
+  meta.broken = excludes != [ ] && includes != [ ];
+} // builtins.removeAttrs args [
+  "stripLen"
+  "extraPrefix"
+  "excludes"
+  "includes"
+  "revert"
+  "postFetch"
+])

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, ncurses  }:
+{ stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   name = "gcal-${version}";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
       hybrid and proleptic Julian and Gregorian calendar sheets.  It
       also displays holiday lists for many countries around the globe.
     '';
-    homepage = https://www.gnu.org/software/gcal/;
+    homepage = "https://www.gnu.org/software/gcal/";
     license = stdenv.lib.licenses.gpl3Plus;
     platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.romildo ];

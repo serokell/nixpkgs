@@ -5,7 +5,8 @@ buildDunePackage rec {
   version = "0.4.0";
 
   src = fetchurl {
-    url = "https://github.com/johnwhitington/${pname}/releases/download/${version}/ppx_blob-${version}.tbz";
+    url =
+      "https://github.com/johnwhitington/${pname}/releases/download/${version}/ppx_blob-${version}.tbz";
     sha256 = "1xmslk1mwdzhy1bydgsjlcb7h544c39hvxa8lywp8w72gaggjl16";
   };
 
@@ -13,7 +14,7 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/johnwhitington/ppx_blob;
+    homepage = "https://github.com/johnwhitington/ppx_blob";
     description = "OCaml ppx to include binary data from a file as a string";
     license = licenses.unlicense;
   };

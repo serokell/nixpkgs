@@ -1,9 +1,7 @@
 { stdenv, fetchurl, pkgconfig, fuse, libarchive }:
 
-let
-  name = "archivemount-0.8.12";
-in
-stdenv.mkDerivation {
+let name = "archivemount-0.8.12";
+in stdenv.mkDerivation {
   inherit name;
 
   src = fetchurl {
@@ -15,7 +13,8 @@ stdenv.mkDerivation {
   buildInputs = [ fuse libarchive ];
 
   meta = {
-    description = "Gateway between FUSE and libarchive: allows mounting of cpio, .tar.gz, .tar.bz2 archives";
+    description =
+      "Gateway between FUSE and libarchive: allows mounting of cpio, .tar.gz, .tar.bz2 archives";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.linux;
   };

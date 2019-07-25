@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, python, pkgconfig, readline, talloc
-, libxslt, docbook_xsl, docbook_xml_dtd_42
+{ stdenv, fetchurl, python, pkgconfig, readline, talloc, libxslt, docbook_xsl, docbook_xml_dtd_42
 }:
 
 stdenv.mkDerivation rec {
@@ -11,22 +10,19 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    python readline talloc libxslt docbook_xsl docbook_xml_dtd_42
-  ];
+  buildInputs =
+    [ python readline talloc libxslt docbook_xsl docbook_xml_dtd_42 ];
 
   preConfigure = ''
     sed -i 's,#!/usr/bin/env python,#!${python}/bin/python,g' buildtools/bin/waf
   '';
 
-  configureFlags = [
-    "--bundled-libraries=NONE"
-    "--builtin-libraries=replace"
-  ];
+  configureFlags = [ "--bundled-libraries=NONE" "--builtin-libraries=replace" ];
 
   meta = with stdenv.lib; {
-    description = "An event system based on the talloc memory management library";
-    homepage = https://tevent.samba.org/;
+    description =
+      "An event system based on the talloc memory management library";
+    homepage = "https://tevent.samba.org/";
     license = licenses.lgpl3Plus;
     platforms = platforms.all;
   };

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, zope_interface
-, zope_location
-, zope_schema
+{ lib, buildPythonPackage, fetchPypi, zope_interface, zope_location, zope_schema
 }:
-
 
 buildPythonPackage rec {
   pname = "zope.copy";
@@ -24,7 +18,5 @@ buildPythonPackage rec {
     python -m unittest discover -s src/zope/copy
   '';
 
-  meta = {
-    maintainers = with lib.maintainers; [ domenkozar ];
-  };
+  meta = { maintainers = with lib.maintainers; [ domenkozar ]; };
 }

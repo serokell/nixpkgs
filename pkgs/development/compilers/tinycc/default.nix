@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--cc=cc")
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
     configureFlagsArray+=("--crtprefix=${getLib stdenv.cc.libc}/lib")
-    configureFlagsArray+=("--sysincludepaths=${getDev stdenv.cc.libc}/include:{B}/include")
+    configureFlagsArray+=("--sysincludepaths=${
+      getDev stdenv.cc.libc
+    }/include:{B}/include")
     configureFlagsArray+=("--libpaths=${getLib stdenv.cc.libc}/lib")
   '';
 
@@ -60,7 +62,7 @@ stdenv.mkDerivation rec {
       generation.
     '';
 
-    homepage = http://www.tinycc.org/;
+    homepage = "http://www.tinycc.org/";
     license = licenses.mit;
 
     platforms = [ "x86_64-linux" ];

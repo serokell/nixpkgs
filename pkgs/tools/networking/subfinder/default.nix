@@ -22,7 +22,7 @@ buildGoPackage rec {
       subdomains for websites. Designed as a passive framework to be
       useful for bug bounties and safe for penetration testing.
     '';
-    homepage = https://github.com/subfinder/subfinder;
+    homepage = "https://github.com/subfinder/subfinder";
     license = licenses.mit;
     maintainers = with maintainers; [ fpletz ];
   };

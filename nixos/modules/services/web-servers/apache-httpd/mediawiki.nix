@@ -15,75 +15,82 @@ let
     Allow from all
   '';
 
-  mediawikiConfig = pkgs.writeText "LocalSettings.php"
-    ''
-      <?php
-        # Copied verbatim from the default (generated) LocalSettings.php.
-        if( defined( 'MW_INSTALL_PATH' ) ) {
-                $IP = MW_INSTALL_PATH;
-        } else {
-                $IP = dirname( __FILE__ );
-        }
+  mediawikiConfig = pkgs.writeText "LocalSettings.php" ''
+    <?php
+      # Copied verbatim from the default (generated) LocalSettings.php.
+      if( defined( 'MW_INSTALL_PATH' ) ) {
+              $IP = MW_INSTALL_PATH;
+      } else {
+              $IP = dirname( __FILE__ );
+      }
 
-        $path = array( $IP, "$IP/includes", "$IP/languages" );
-        set_include_path( implode( PATH_SEPARATOR, $path ) . PATH_SEPARATOR . get_include_path() );
+      $path = array( $IP, "$IP/includes", "$IP/languages" );
+      set_include_path( implode( PATH_SEPARATOR, $path ) . PATH_SEPARATOR . get_include_path() );
 
-        require_once( "$IP/includes/DefaultSettings.php" );
+      require_once( "$IP/includes/DefaultSettings.php" );
 
-        if ( $wgCommandLineMode ) {
-                if ( isset( $_SERVER ) && array_key_exists( 'REQUEST_METHOD', $_SERVER ) ) {
-                        die( "This script must be run from the command line\n" );
-                }
-        }
+      if ( $wgCommandLineMode ) {
+              if ( isset( $_SERVER ) && array_key_exists( 'REQUEST_METHOD', $_SERVER ) ) {
+                      die( "This script must be run from the command line\n" );
+              }
+      }
 
-        $wgScriptPath = "${config.urlPrefix}";
+      $wgScriptPath = "${config.urlPrefix}";
 
-        # We probably need to set $wgSecretKey and $wgCacheEpoch.
+      # We probably need to set $wgSecretKey and $wgCacheEpoch.
 
-        # Paths to external programs.
-        $wgDiff3 = "${pkgs.diffutils}/bin/diff3";
-        $wgDiff = "${pkgs.diffutils}/bin/diff";
-        $wgImageMagickConvertCommand = "${pkgs.imagemagick.out}/bin/convert";
+      # Paths to external programs.
+      $wgDiff3 = "${pkgs.diffutils}/bin/diff3";
+      $wgDiff = "${pkgs.diffutils}/bin/diff";
+      $wgImageMagickConvertCommand = "${pkgs.imagemagick.out}/bin/convert";
 
-        #$wgDebugLogFile = "/tmp/mediawiki_debug_log.txt";
+      #$wgDebugLogFile = "/tmp/mediawiki_debug_log.txt";
 
-        # Database configuration.
-        $wgDBtype = "${config.dbType}";
-        $wgDBserver = "${config.dbServer}";
-        $wgDBuser = "${config.dbUser}";
-        $wgDBpassword = "${config.dbPassword}";
-        $wgDBname = "${config.dbName}";
+      # Database configuration.
+      $wgDBtype = "${config.dbType}";
+      $wgDBserver = "${config.dbServer}";
+      $wgDBuser = "${config.dbUser}";
+      $wgDBpassword = "${config.dbPassword}";
+      $wgDBname = "${config.dbName}";
 
-        # E-mail.
-        $wgEmergencyContact = "${config.emergencyContact}";
-        $wgPasswordSender = "${config.passwordSender}";
+      # E-mail.
+      $wgEmergencyContact = "${config.emergencyContact}";
+      $wgPasswordSender = "${config.passwordSender}";
 
-        $wgSitename = "${config.siteName}";
+      $wgSitename = "${config.siteName}";
 
-        ${optionalString (config.logo != "") ''
-          $wgLogo = "${config.logo}";
-        ''}
+      ${
+      optionalString (config.logo != "") ''
+        $wgLogo = "${config.logo}";
+      ''
+      }
 
-        ${optionalString (config.articleUrlPrefix != "") ''
-          $wgArticlePath = "${config.articleUrlPrefix}/$1";
-        ''}
+      ${
+      optionalString (config.articleUrlPrefix != "") ''
+        $wgArticlePath = "${config.articleUrlPrefix}/$1";
+      ''
+      }
 
-        ${optionalString config.enableUploads ''
-          $wgEnableUploads = true;
-          $wgUploadDirectory = "${config.uploadDir}";
-        ''}
+      ${
+      optionalString config.enableUploads ''
+        $wgEnableUploads = true;
+        $wgUploadDirectory = "${config.uploadDir}";
+      ''
+      }
 
-        ${optionalString (config.defaultSkin != "") ''
-          $wgDefaultSkin = "${config.defaultSkin}";
-        ''}
+      ${
+      optionalString (config.defaultSkin != "") ''
+        $wgDefaultSkin = "${config.defaultSkin}";
+      ''
+      }
 
-        ${config.extraConfig}
-      ?>
-    '';
+      ${config.extraConfig}
+    ?>
+  '';
 
   # Unpack Mediawiki and put the config file in its root directory.
   mediawikiRoot = pkgs.stdenv.mkDerivation rec {
-    name= "mediawiki-1.31.1";
+    name = "mediawiki-1.31.1";
 
     src = pkgs.fetchurl {
       url = "https://releases.wikimedia.org/mediawiki/1.31/${name}.tar.gz";
@@ -93,79 +100,81 @@ let
     skins = config.skins;
     extensions = config.extensions;
 
-    buildPhase =
-      ''
-        for skin in $skins; do
-          cp -prvd $skin/* skins/
-        done
-        for extension in $extensions; do
-          cp -prvd $extension/* extensions/
-        done
-      ''; # */
+    buildPhase = ''
+      for skin in $skins; do
+        cp -prvd $skin/* skins/
+      done
+      for extension in $extensions; do
+        cp -prvd $extension/* extensions/
+      done
+    ''; # */
 
-    installPhase =
-      ''
-        mkdir -p $out
-        cp -r * $out
-        cp ${mediawikiConfig} $out/LocalSettings.php
-        sed -i \
-        -e 's|/bin/bash|${pkgs.bash}/bin/bash|g' \
-        -e 's|/usr/bin/timeout|${pkgs.coreutils}/bin/timeout|g' \
-          $out/includes/shell/limit.sh \
-          $out/includes/GlobalFunctions.php
-      '';
+    installPhase = ''
+      mkdir -p $out
+      cp -r * $out
+      cp ${mediawikiConfig} $out/LocalSettings.php
+      sed -i \
+      -e 's|/bin/bash|${pkgs.bash}/bin/bash|g' \
+      -e 's|/usr/bin/timeout|${pkgs.coreutils}/bin/timeout|g' \
+        $out/includes/shell/limit.sh \
+        $out/includes/GlobalFunctions.php
+    '';
   };
 
   mediawikiScripts = pkgs.runCommand "mediawiki-${config.id}-scripts" {
-      buildInputs = [ pkgs.makeWrapper ];
-      preferLocalBuild = true;
-    } ''
-      mkdir -p $out/bin
-      for i in changePassword.php createAndPromote.php userOptions.php edit.php nukePage.php update.php; do
-        makeWrapper ${php}/bin/php $out/bin/mediawiki-${config.id}-$(basename $i .php) \
-          --add-flags ${mediawikiRoot}/maintenance/$i
-      done
-    '';
+    buildInputs = [ pkgs.makeWrapper ];
+    preferLocalBuild = true;
+  } ''
+    mkdir -p $out/bin
+    for i in changePassword.php createAndPromote.php userOptions.php edit.php nukePage.php update.php; do
+      makeWrapper ${php}/bin/php $out/bin/mediawiki-${config.id}-$(basename $i .php) \
+        --add-flags ${mediawikiRoot}/maintenance/$i
+    done
+  '';
 
-in
+in {
 
-{
+  extraConfig = ''
+    ${optionalString config.enableUploads ''
+      Alias ${config.urlPrefix}/images ${config.uploadDir}
 
-  extraConfig =
-    ''
-      ${optionalString config.enableUploads ''
-        Alias ${config.urlPrefix}/images ${config.uploadDir}
-
-        <Directory ${config.uploadDir}>
-            ${allGranted}
-            Options -Indexes
-        </Directory>
-      ''}
-
-      ${if config.urlPrefix != "" then "Alias ${config.urlPrefix} ${mediawikiRoot}" else ''
-        RewriteEngine On
-        RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
-        RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
-        ${concatMapStringsSep "\n" (u: "RewriteCond %{REQUEST_URI} !^${u.urlPath}") serverInfo.vhostConfig.servedDirs}
-        ${concatMapStringsSep "\n" (u: "RewriteCond %{REQUEST_URI} !^${u.urlPath}") serverInfo.vhostConfig.servedFiles}
-        RewriteRule ${if config.enableUploads
-          then "!^/images"
-          else "^.*\$"
-        } %{DOCUMENT_ROOT}/${if config.articleUrlPrefix == ""
-          then ""
-          else "${config.articleUrlPrefix}/"
-        }index.php [L]
-      ''}
-
-      <Directory ${mediawikiRoot}>
+      <Directory ${config.uploadDir}>
           ${allGranted}
-          DirectoryIndex index.php
+          Options -Indexes
       </Directory>
+    ''}
 
-      ${optionalString (config.articleUrlPrefix != "") ''
-        Alias ${config.articleUrlPrefix} ${mediawikiRoot}/index.php
-      ''}
-    '';
+    ${if config.urlPrefix != "" then
+      "Alias ${config.urlPrefix} ${mediawikiRoot}"
+    else ''
+      RewriteEngine On
+      RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
+      RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-d
+      ${concatMapStringsSep "\n"
+      (u: "RewriteCond %{REQUEST_URI} !^${u.urlPath}")
+      serverInfo.vhostConfig.servedDirs}
+      ${concatMapStringsSep "\n"
+      (u: "RewriteCond %{REQUEST_URI} !^${u.urlPath}")
+      serverInfo.vhostConfig.servedFiles}
+      RewriteRule ${
+        if config.enableUploads then "!^/images" else "^.*$"
+      } %{DOCUMENT_ROOT}/${
+        if config.articleUrlPrefix == "" then
+          ""
+        else
+          "${config.articleUrlPrefix}/"
+      }index.php [L]
+    ''}
+
+    <Directory ${mediawikiRoot}>
+        ${allGranted}
+        DirectoryIndex index.php
+    </Directory>
+
+    ${optionalString (config.articleUrlPrefix != "") ''
+      Alias ${config.articleUrlPrefix} ${mediawikiRoot}/index.php
+    ''}
+  '';
 
   documentRoot = if config.urlPrefix == "" then mediawikiRoot else null;
 
@@ -245,7 +254,8 @@ in
     logo = mkOption {
       default = "";
       example = "/images/logo.png";
-      description = "The URL of the site's logo (which should be a 135x135px image).";
+      description =
+        "The URL of the site's logo (which should be a 135x135px image).";
     };
 
     urlPrefix = mkOption {
@@ -279,36 +289,34 @@ in
     defaultSkin = mkOption {
       default = "";
       example = "nostalgia";
-      description = "Set this value to change the default skin used by MediaWiki.";
+      description =
+        "Set this value to change the default skin used by MediaWiki.";
     };
 
     skins = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.path;
-      description =
-        ''
-          List of paths whose content is copied to the ‘skins’
-          subdirectory of the MediaWiki installation.
-        '';
+      description = ''
+        List of paths whose content is copied to the ‘skins’
+        subdirectory of the MediaWiki installation.
+      '';
     };
 
     extensions = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.path;
-      description =
-        ''
-          List of paths whose content is copied to the 'extensions'
-          subdirectory of the MediaWiki installation.
-        '';
+      description = ''
+        List of paths whose content is copied to the 'extensions'
+        subdirectory of the MediaWiki installation.
+      '';
     };
 
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      example =
-        ''
-          $wgEnableEmail = false;
-        '';
+      example = ''
+        $wgEnableEmail = false;
+      '';
       description = ''
         Any additional text to be appended to MediaWiki's
         configuration file.  This is a PHP script.  For configuration
@@ -338,12 +346,11 @@ in
       ${php}/bin/php ${mediawikiRoot}/maintenance/update.php
     '');
 
-  robotsEntries = optionalString (config.articleUrlPrefix != "")
-    ''
-      User-agent: *
-      Disallow: ${config.urlPrefix}/
-      Disallow: ${config.articleUrlPrefix}/Special:Search
-      Disallow: ${config.articleUrlPrefix}/Special:Random
-    '';
+  robotsEntries = optionalString (config.articleUrlPrefix != "") ''
+    User-agent: *
+    Disallow: ${config.urlPrefix}/
+    Disallow: ${config.articleUrlPrefix}/Special:Search
+    Disallow: ${config.articleUrlPrefix}/Special:Random
+  '';
 
 }

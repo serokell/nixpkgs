@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, numpy
-, six
-, nose
-, fetchPypi
-}:
+{ lib, buildPythonPackage, numpy, six, nose, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "py_stringmatching";
@@ -16,12 +10,14 @@ buildPythonPackage rec {
   };
 
   checkInputs = [ nose ];
-   
+
   propagatedBuildInputs = [ numpy six ];
 
   meta = with lib; {
-    description = "A Python string matching library including string tokenizers and string similarity measures";
-    homepage =  https://sites.google.com/site/anhaidgroup/projects/magellan/py_stringmatching;
+    description =
+      "A Python string matching library including string tokenizers and string similarity measures";
+    homepage =
+      "https://sites.google.com/site/anhaidgroup/projects/magellan/py_stringmatching";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ixxie ];
   };

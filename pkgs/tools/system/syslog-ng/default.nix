@@ -1,20 +1,15 @@
-{ stdenv, fetchurl, openssl, libcap, curl, which
-, eventlog, pkgconfig, glib, python, systemd, perl
-, riemann_c_client, protobufc, pcre, libnet
-, json_c, libuuid, libivykis, mongoc, rabbitmq-c
-, libesmtp
+{ stdenv, fetchurl, openssl, libcap, curl, which, eventlog, pkgconfig, glib, python, systemd, perl, riemann_c_client, protobufc, pcre, libnet, json_c, libuuid, libivykis, mongoc, rabbitmq-c, libesmtp
 }:
 
-let
-  pname = "syslog-ng";
-in
+let pname = "syslog-ng";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "3.22.1";
 
   src = fetchurl {
-    url = "https://github.com/balabit/${pname}/releases/download/${name}/${name}.tar.gz";
+    url =
+      "https://github.com/balabit/${pname}/releases/download/${name}/${name}.tar.gz";
     sha256 = "1j3l9pn3lf9w87vvwbnxk098gprbqzmfpfw1rch46mgsfqvl8mh6";
   };
 
@@ -59,10 +54,11 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.balabit.com/network-security/syslog-ng/;
-    description = "Next-generation syslogd with advanced networking and filtering capabilities";
+    homepage = "https://www.balabit.com/network-security/syslog-ng/";
+    description =
+      "Next-generation syslogd with advanced networking and filtering capabilities";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ rickynils  fpletz ];
+    maintainers = with maintainers; [ rickynils fpletz ];
     platforms = platforms.linux;
   };
 }

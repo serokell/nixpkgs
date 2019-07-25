@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig
-, cairo, gtk2, poppler }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, cairo, gtk2, poppler }:
 
 stdenv.mkDerivation rec {
   name = "pdf2svg-${version}";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "PDF converter to SVG format";
-    homepage = http://www.cityinthesky.co.uk/opensource/pdf2svg;
+    homepage = "http://www.cityinthesky.co.uk/opensource/pdf2svg";
     license = licenses.gpl2;
     maintainers = [ maintainers.ianwookim ];
     platforms = platforms.unix;

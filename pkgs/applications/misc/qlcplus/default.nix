@@ -1,6 +1,4 @@
-{ stdenv, mkDerivation, fetchFromGitHub, qmake, pkgconfig, udev
-, qtmultimedia, qtscript, alsaLib, ola, libftdi1, libusb
-, libsndfile, libmad
+{ stdenv, mkDerivation, fetchFromGitHub, qmake, pkgconfig, udev, qtmultimedia, qtscript, alsaLib, ola, libftdi1, libusb, libsndfile, libmad
 }:
 
 mkDerivation rec {
@@ -16,7 +14,15 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake pkgconfig ];
   buildInputs = [
-    udev qtmultimedia qtscript alsaLib ola libftdi1 libusb libsndfile libmad
+    udev
+    qtmultimedia
+    qtscript
+    alsaLib
+    ola
+    libftdi1
+    libusb
+    libsndfile
+    libmad
   ];
 
   qmakeFlags = [ "INSTALLROOT=$(out)" ];
@@ -36,7 +42,8 @@ mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A free and cross-platform software to control DMX or analog lighting systems like moving heads, dimmers, scanners etc.";
+    description =
+      "A free and cross-platform software to control DMX or analog lighting systems like moving heads, dimmers, scanners etc.";
     maintainers = [ maintainers.globin ];
     license = licenses.asl20;
     platforms = platforms.all;

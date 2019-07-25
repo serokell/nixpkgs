@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub
-, meson, ninja, pkgconfig, scdoc
-, wayland, wayland-protocols, libxkbcommon, cairo, gdk_pixbuf, pam
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, wayland, wayland-protocols, libxkbcommon, cairo, gdk_pixbuf, pam
 }:
 
 stdenv.mkDerivation rec {
@@ -21,9 +19,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig scdoc ];
   buildInputs = [ wayland wayland-protocols libxkbcommon cairo gdk_pixbuf pam ];
 
-  mesonFlags = [
-    "-Dpam=enabled" "-Dgdk-pixbuf=enabled" "-Dman-pages=enabled"
-  ];
+  mesonFlags = [ "-Dpam=enabled" "-Dgdk-pixbuf=enabled" "-Dman-pages=enabled" ];
 
   meta = with stdenv.lib; {
     description = "Screen locker for Wayland";

@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, requests, pytest, pytestcov, pytest-mock, pytest_xdist }:
+{ lib, buildPythonPackage, fetchPypi, requests, pytest, pytestcov, pytest-mock, pytest_xdist
+}:
 
 buildPythonPackage rec {
   pname = "stripe";
@@ -19,7 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Stripe Python bindings";
-    homepage = https://github.com/stripe/stripe-python;
+    homepage = "https://github.com/stripe/stripe-python";
     license = licenses.mit;
   };
 }

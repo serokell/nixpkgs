@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig
-, boost, libtorrentRasterbar, qtbase, qttools, qtsvg
-, debugSupport ? false # Debugging
+{ stdenv, fetchFromGitHub, pkgconfig, boost, libtorrentRasterbar, qtbase, qttools, qtsvg, debugSupport ?
+  false # Debugging
 , guiSupport ? true, dbus ? null # GUI (disable to run headless)
 , webuiSupport ? true # WebUI
 }:
@@ -28,10 +27,12 @@ stdenv.mkDerivation rec {
   # Otherwise qm_gen.pri assumes lrelease-qt5, which does not exist.
   QMAKE_LRELEASE = "lrelease";
 
-  configureFlags = [
-    "--with-boost-libdir=${boost.out}/lib"
-    "--with-boost=${boost.dev}" ]
-    ++ optionals (!guiSupport) [ "--disable-gui" "--enable-systemd" ] # Also place qbittorrent-nox systemd service files
+  configureFlags =
+    [ "--with-boost-libdir=${boost.out}/lib" "--with-boost=${boost.dev}" ]
+    ++ optionals (!guiSupport) [
+      "--disable-gui"
+      "--enable-systemd"
+    ] # Also place qbittorrent-nox systemd service files
     ++ optional (!webuiSupport) "--disable-webui"
     ++ optional debugSupport "--enable-debug";
 
@@ -39,9 +40,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Featureful free software BitTorrent client";
-    homepage    = https://www.qbittorrent.org/;
-    license     = licenses.gpl2;
-    platforms   = platforms.linux;
+    homepage = "https://www.qbittorrent.org/";
+    license = licenses.gpl2;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ Anton-Latukha ];
   };
 }

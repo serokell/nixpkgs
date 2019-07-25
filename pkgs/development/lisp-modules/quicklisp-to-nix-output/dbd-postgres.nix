@@ -1,20 +1,35 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''dbd-postgres'';
-  version = ''cl-dbi-20190107-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "dbd-postgres";
+  version = "cl-dbi-20190107-git";
 
-  description = ''Database driver for PostgreSQL.'';
+  description = "Database driver for PostgreSQL.";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."cl-annot" args."cl-postgres" args."cl-syntax" args."cl-syntax-annot" args."closer-mop" args."dbi" args."md5" args."named-readtables" args."split-sequence" args."trivial-garbage" args."trivial-types" args."usocket" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."cl-annot"
+    args."cl-postgres"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."closer-mop"
+    args."dbi"
+    args."md5"
+    args."named-readtables"
+    args."split-sequence"
+    args."trivial-garbage"
+    args."trivial-types"
+    args."usocket"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz'';
-    sha256 = ''02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz";
+    sha256 = "02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2";
   };
 
   packageName = "dbd-postgres";
 
-  asdFilesToKeep = ["dbd-postgres.asd"];
+  asdFilesToKeep = [ "dbd-postgres.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM dbd-postgres DESCRIPTION Database driver for PostgreSQL. SHA256
@@ -38,4 +53,5 @@ rec {
      closer-mop dbi md5 named-readtables split-sequence trivial-garbage
      trivial-types usocket)
     VERSION cl-dbi-20190107-git SIBLINGS
-    (cl-dbi dbd-mysql dbd-sqlite3 dbi-test dbi) PARASITES NIL) */
+    (cl-dbi dbd-mysql dbd-sqlite3 dbi-test dbi) PARASITES NIL)
+*/

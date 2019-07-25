@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, mcpp, bzip2, expat, openssl, db5
-, darwin, libiconv, Security
+{ stdenv, fetchFromGitHub, mcpp, bzip2, expat, openssl, db5, darwin, libiconv, Security
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +15,11 @@ stdenv.mkDerivation rec {
   patches = [ ./makefile.patch ];
 
   buildInputs = [ mcpp bzip2 expat openssl db5 ]
-    ++ stdenv.lib.optionals stdenv.isDarwin [ darwin.cctools libiconv Security ];
+    ++ stdenv.lib.optionals stdenv.isDarwin [
+      darwin.cctools
+      libiconv
+      Security
+    ];
 
   postUnpack = ''
     sourceRoot=$sourceRoot/cpp
@@ -33,7 +36,7 @@ stdenv.mkDerivation rec {
   #enableParallelBuilding = true;
 
   meta = with stdenv.lib; {
-    homepage = http://www.zeroc.com/ice.html;
+    homepage = "http://www.zeroc.com/ice.html";
     description = "The internet communications engine";
     license = licenses.gpl2;
     platforms = platforms.unix;

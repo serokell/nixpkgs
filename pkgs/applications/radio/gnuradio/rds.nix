@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, gnuradio
-, makeWrapper, pythonSupport ? true, python, swig
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, gnuradio, makeWrapper, pythonSupport ?
+  true, python, swig }:
 
 assert pythonSupport -> python != null && swig != null;
 
@@ -16,9 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-    cmake boost gnuradio makeWrapper
-  ] ++ stdenv.lib.optionals pythonSupport [ python swig ];
+  buildInputs = [ cmake boost gnuradio makeWrapper ]
+    ++ stdenv.lib.optionals pythonSupport [ python swig ];
 
   postInstall = ''
     for prog in "$out"/bin/*; do
@@ -30,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Gnuradio block for radio data system";
-    homepage = https://github.com/bastibl/gr-rds;
+    homepage = "https://github.com/bastibl/gr-rds";
     license = licenses.gpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ mog ];

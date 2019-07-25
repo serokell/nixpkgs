@@ -1,12 +1,4 @@
-{ pkgs
-, buildPythonPackage
-, fetchPypi
-, invoke
-, paramiko
-, cryptography
-, pytest
-, mock
-, pytest-relaxed
+{ pkgs, buildPythonPackage, fetchPypi, invoke, paramiko, cryptography, pytest, mock, pytest-relaxed
 }:
 
 buildPythonPackage rec {
@@ -29,8 +21,8 @@ buildPythonPackage rec {
 
   meta = with pkgs.lib; {
     description = "Pythonic remote execution";
-    homepage    = https://www.fabfile.org/;
-    license     = licenses.bsd2;
+    homepage = "https://www.fabfile.org/";
+    license = licenses.bsd2;
     maintainers = [ maintainers.costrouc ];
   };
 }

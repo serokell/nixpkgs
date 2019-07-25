@@ -1,16 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, msrestazure
-, azure-common
-, azure-mgmt-nspkg
-, python
-, isPy3k
+{ lib, buildPythonPackage, fetchFromGitHub, msrestazure, azure-common, azure-mgmt-nspkg, python, isPy3k
 }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-billing";
-  version = "0.2.0"; #pypi's 0.2.0 doesn't build ootb
+  version = "0.2.0"; # pypi's 0.2.0 doesn't build ootb
 
   src = fetchFromGitHub {
     owner = "Azure";
@@ -23,18 +16,15 @@ buildPythonPackage rec {
     cd ./azure-mgmt-billing
   '';
 
-  propagatedBuildInputs = [
-    msrestazure
-    azure-common
-    azure-mgmt-nspkg
-  ];
+  propagatedBuildInputs = [ msrestazure azure-common azure-mgmt-nspkg ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
     description = "This is the Microsoft Azure Billing Client Library";
-    homepage = https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-billing;
+    homepage =
+      "https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-billing";
     license = licenses.mit;
     maintainers = with maintainers; [ mwilsoninsight ];
   };

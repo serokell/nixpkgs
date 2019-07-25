@@ -1,11 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, qtbase
-, qtsvg
-, qmake
-, leptonica
-, tesseract
-}:
+{ stdenv, fetchFromGitHub, qtbase, qtsvg, qmake, leptonica, tesseract }:
 
 stdenv.mkDerivation rec {
   pname = "qt-box-editor";
@@ -30,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Editor of tesseract-ocr box files";
-    homepage = https://github.com/zdenop/qt-box-editor;
+    homepage = "https://github.com/zdenop/qt-box-editor";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
     platforms = platforms.all;

@@ -6,7 +6,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "06c2f1kihyhawap1s3zg5w7q7fypsybkp7xry4hxkdz4mpsy0zjs";
   };
 
@@ -20,8 +22,9 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A collection of GStreamer effects to be used in different GNOME Modules";
-    homepage = https://wiki.gnome.org/Projects/GnomeVideoEffects;
+    description =
+      "A collection of GStreamer effects to be used in different GNOME Modules";
+    homepage = "https://wiki.gnome.org/Projects/GnomeVideoEffects";
     platforms = platforms.linux;
     maintainers = gnome3.maintainers;
     license = licenses.gpl2;

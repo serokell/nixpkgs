@@ -1,7 +1,7 @@
 { fetchurl, stdenv, gettext, libmpcdec, libao }:
 
-let version = "0.2.4"; in
-stdenv.mkDerivation rec {
+let version = "0.2.4";
+in stdenv.mkDerivation rec {
   name = "mpc123-${version}";
 
   src = fetchurl {
@@ -15,18 +15,20 @@ stdenv.mkDerivation rec {
 
   installPhase =
     # XXX: Should install locales too (though there's only 1 available).
-    '' mkdir -p "$out/bin"
-       cp -v mpc123 "$out/bin"
-    '';
+    ''
+      mkdir -p "$out/bin"
+            cp -v mpc123 "$out/bin"
+         '';
 
   meta = {
-    homepage = http://mpc123.sourceforge.net/;
+    homepage = "http://mpc123.sourceforge.net/";
 
     description = "A Musepack (.mpc) audio player";
 
     license = stdenv.lib.licenses.gpl2Plus;
 
     maintainers = [ ];
-    platforms = stdenv.lib.platforms.gnu ++ stdenv.lib.platforms.linux; # arbitrary choice
+    platforms = stdenv.lib.platforms.gnu
+      ++ stdenv.lib.platforms.linux; # arbitrary choice
   };
 }

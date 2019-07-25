@@ -1,32 +1,12 @@
-{ stdenv, fetchurl, fetchpatch
-, bzip2
-, expat
-, libffi
-, gdbm
-, lzma
-, ncurses
-, openssl
-, readline
-, sqlite
-, tcl ? null, tk ? null, tix ? null, libX11 ? null, xorgproto ? null, x11Support ? false
-, zlib
-, self
-, CF, configd
-, python-setup-hook
-, nukeReferences
+{ stdenv, fetchurl, fetchpatch, bzip2, expat, libffi, gdbm, lzma, ncurses, openssl, readline, sqlite, tcl ?
+  null, tk ? null, tix ? null, libX11 ? null, xorgproto ? null, x11Support ?
+    false, zlib, self, CF, configd, python-setup-hook, nukeReferences
 # For the Python package set
-, packageOverrides ? (self: super: {})
-, buildPackages
-, sourceVersion
-, sha256
-, passthruFun
-, bash
-}:
+, packageOverrides ?
+  (self: super: { }), buildPackages, sourceVersion, sha256, passthruFun, bash }:
 
-assert x11Support -> tcl != null
-                  && tk != null
-                  && xorgproto != null
-                  && libX11 != null;
+assert x11Support -> tcl != null && tk != null && xorgproto != null && libX11
+!= null;
 with stdenv.lib;
 
 let
@@ -43,34 +23,47 @@ let
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
-  nativeBuildInputs = [
-    nukeReferences
-  ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    buildPackages.stdenv.cc
-    pythonForBuild
-  ];
+  nativeBuildInputs = [ nukeReferences ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      buildPackages.stdenv.cc
+      pythonForBuild
+    ];
 
   buildInputs = filter (p: p != null) [
-    zlib bzip2 expat lzma libffi gdbm sqlite readline ncurses openssl ]
-    ++ optionals x11Support [ tcl tk libX11 xorgproto ]
+    zlib
+    bzip2
+    expat
+    lzma
+    libffi
+    gdbm
+    sqlite
+    readline
+    ncurses
+    openssl
+  ] ++ optionals x11Support [ tcl tk libX11 xorgproto ]
     ++ optionals stdenv.isDarwin [ CF configd ];
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
-  pythonForBuild = buildPackages.${"python${sourceVersion.major}${sourceVersion.minor}"};
+  pythonForBuild =
+    buildPackages.${"python${sourceVersion.major}${sourceVersion.minor}"};
 
-  pythonForBuildInterpreter = if stdenv.hostPlatform == stdenv.buildPlatform then
-    "$out/bin/python"
-  else pythonForBuild.interpreter;
+  pythonForBuildInterpreter =
+    if stdenv.hostPlatform == stdenv.buildPlatform then
+      "$out/bin/python"
+    else
+      pythonForBuild.interpreter;
 
-in with passthru; stdenv.mkDerivation {
+in with passthru;
+stdenv.mkDerivation {
   pname = "python3";
   inherit version;
 
   inherit buildInputs nativeBuildInputs;
 
   src = fetchurl {
-    url = with sourceVersion; "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
+    url = with sourceVersion;
+      "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
     inherit sha256;
   };
 
@@ -95,7 +88,7 @@ in with passthru; stdenv.mkDerivation {
   ] ++ optionals isPy37 [
     # Fix darwin build https://bugs.python.org/issue34027
     (fetchpatch {
-      url = https://bugs.python.org/file47666/darwin-libutil.patch;
+      url = "https://bugs.python.org/file47666/darwin-libutil.patch";
       sha256 = "0242gihnw3wfskl4fydp2xanpl8k5q7fj4dp7dbbqf46a4iwdzpa";
     })
   ] ++ optionals (isPy3k && hasDistutilsCxxPatch) [
@@ -103,30 +96,32 @@ in with passthru; stdenv.mkDerivation {
     # Upstream distutils is calling C compiler to compile C++ code, which
     # only works for GCC and Apple Clang. This makes distutils to call C++
     # compiler when needed.
-    (
-      if isPy35 then
-        ./3.5/python-3.x-distutils-C++.patch
-      else if isPy37 then
-        ./3.7/python-3.x-distutils-C++.patch
-      else
-        fetchpatch {
-          url = "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
-          sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
-        }
-    )
+    (if isPy35 then
+      ./3.5/python-3.x-distutils-C++.patch
+    else if isPy37 then
+      ./3.7/python-3.x-distutils-C++.patch
+    else
+      fetchpatch {
+        url =
+          "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
+        sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
+      })
   ];
 
-  postPatch = ''
-  '' + optionalString (x11Support && (tix != null)) ''
+  postPatch = "" + optionalString (x11Support && (tix != null)) ''
     substituteInPlace "Lib/tkinter/tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
   '';
 
-  CPPFLAGS = "${concatStringsSep " " (map (p: "-I${getDev p}/include") buildInputs)}";
-  LDFLAGS = "${concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs)}";
-  LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"} ${optionalString (ncurses != null) "-lncurses"}";
+  CPPFLAGS =
+    "${concatStringsSep " " (map (p: "-I${getDev p}/include") buildInputs)}";
+  LDFLAGS =
+    "${concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs)}";
+  LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"} ${
+    optionalString (ncurses != null) "-lncurses"
+    }";
   NIX_LDFLAGS = optionalString stdenv.isLinux "-lgcc_s";
   # Determinism: We fix the hashes of str, bytes and datetime objects.
-  PYTHONHASHSEED=0;
+  PYTHONHASHSEED = 0;
 
   configureFlags = [
     "--enable-shared"
@@ -231,27 +226,28 @@ in with passthru; stdenv.mkDerivation {
     find $out -name "*.py" | ${pythonForBuildInterpreter} -OO -m compileall -q -f -x "lib2to3" -i -
   '';
 
-  preFixup = stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    # Ensure patch-shebangs uses shebangs of host interpreter.
-    export PATH=${stdenv.lib.makeBinPath [ "$out" bash ]}:$PATH
-  '';
+  preFixup =
+    stdenv.lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      # Ensure patch-shebangs uses shebangs of host interpreter.
+      export PATH=${stdenv.lib.makeBinPath [ "$out" bash ]}:$PATH
+    '';
 
   # Enforce that we don't have references to the OpenSSL -dev package, which we
   # explicitly specify in our configure flags above.
-  disallowedReferences = [
-    openssl.dev
-  ] ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # Ensure we don't have references to build-time packages.
-    # These typically end up in shebangs.
-    pythonForBuild buildPackages.bash
-  ];
+  disallowedReferences = [ openssl.dev ]
+    ++ stdenv.lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      # Ensure we don't have references to build-time packages.
+      # These typically end up in shebangs.
+      pythonForBuild
+      buildPackages.bash
+    ];
 
   inherit passthru;
 
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://python.org;
+    homepage = "http://python.org";
     description = "A high-level dynamically-typed programming language";
     longDescription = ''
       Python is a remarkably powerful dynamic programming language that

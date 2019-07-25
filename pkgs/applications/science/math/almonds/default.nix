@@ -1,6 +1,7 @@
 { stdenv, python3, fetchFromGitHub, ncurses }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "almonds";
   version = "1.25b";
 
@@ -19,7 +20,7 @@ with python3.pkgs; buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "Terminal Mandelbrot fractal viewer";
-    homepage = https://github.com/Tenchi2xh/Almonds;
+    homepage = "https://github.com/Tenchi2xh/Almonds";
     license = licenses.mit;
     maintainers = with maintainers; [ infinisil ];
   };

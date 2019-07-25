@@ -17,8 +17,8 @@ let
     configuration to yield an operational system.
   '';
 
-  str1 = lib.types.addCheck str (s: s!="");  # non-empty string
-  int1 = lib.types.addCheck int (i: i>0);  # positive integer
+  str1 = lib.types.addCheck str (s: s != ""); # non-empty string
+  int1 = lib.types.addCheck int (i: i > 0); # positive integer
 
   configAttrType =
     # Options in HylaFAX configuration files can be
@@ -30,8 +30,7 @@ let
       inherit (lib.types) attrsOf coercedTo listOf;
       innerType = coercedTo bool (x: if x then "Yes" else "No")
         (coercedTo int (toString) str);
-    in
-      attrsOf (coercedTo innerType lib.singleton (listOf innerType));
+    in attrsOf (coercedTo innerType lib.singleton (listOf innerType));
 
   cfg = config.services.hylafax;
 
@@ -74,54 +73,44 @@ let
     config.config.Include = [ "config/${config.type}" ];
   };
 
-  defaultConfig =
-    let
-      inherit (config.security) wrapperDir;
-      inherit (config.services.mail.sendmailSetuidWrapper) program;
-      mkIfDefault = cond: value: mkIf cond (mkDefault value);
-      noWrapper = config.services.mail.sendmailSetuidWrapper==null;
-      # If a sendmail setuid wrapper exists,
-      # we add the path to the default configuration file.
-      # Otherwise, we use `false` to provoke
-      # an error if hylafax tries to use it.
-      c.sendmailPath = mkMerge [
-        (mkIfDefault noWrapper ''${pkgs.coreutils}/bin/false'')
-        (mkIfDefault (!noWrapper) ''${wrapperDir}/${program}'')
-      ];
-      importDefaultConfig = file:
-        lib.attrsets.mapAttrs
-        (lib.trivial.const mkDefault)
-        (import file { inherit pkgs; });
-      c.commonModemConfig = importDefaultConfig ./modem-default.nix;
-      c.faxqConfig = importDefaultConfig ./faxq-default.nix;
-      c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
-    in
-      c;
+  defaultConfig = let
+    inherit (config.security) wrapperDir;
+    inherit (config.services.mail.sendmailSetuidWrapper) program;
+    mkIfDefault = cond: value: mkIf cond (mkDefault value);
+    noWrapper = config.services.mail.sendmailSetuidWrapper == null;
+    # If a sendmail setuid wrapper exists,
+    # we add the path to the default configuration file.
+    # Otherwise, we use `false` to provoke
+    # an error if hylafax tries to use it.
+    c.sendmailPath = mkMerge [
+      (mkIfDefault noWrapper "${pkgs.coreutils}/bin/false")
+      (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
+    ];
+    importDefaultConfig = file:
+      lib.attrsets.mapAttrs (lib.trivial.const mkDefault)
+      (import file { inherit pkgs; });
+    c.commonModemConfig = importDefaultConfig ./modem-default.nix;
+    c.faxqConfig = importDefaultConfig ./faxq-default.nix;
+    c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
+    in c;
 
-  localConfig =
-    let
-      c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
-      c.faxqConfig = lib.attrsets.mapAttrs
-        (lib.trivial.const (v: mkIf (v!=null) v))
-        {
-          AreaCode = cfg.areaCode;
-          CountryCode = cfg.countryCode;
-          LongDistancePrefix = cfg.longDistancePrefix;
-          InternationalPrefix = cfg.internationalPrefix;
-        };
-      c.commonModemConfig = c.faxqConfig;
-    in
-      c;
+  localConfig = let
+    c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
+    c.faxqConfig =
+      lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v)) {
+        AreaCode = cfg.areaCode;
+        CountryCode = cfg.countryCode;
+        LongDistancePrefix = cfg.longDistancePrefix;
+        InternationalPrefix = cfg.internationalPrefix;
+      };
+    c.commonModemConfig = c.faxqConfig;
+    in c;
 
-in
-
-
-{
-
+in {
 
   options.services.hylafax = {
 
-    enable = mkEnableOption ''HylaFAX server'';
+    enable = mkEnableOption "HylaFAX server";
 
     autostart = mkOption {
       type = bool;
@@ -139,28 +128,28 @@ in
       type = nullOr str1;
       default = null;
       example = "49";
-      description = ''Country code for server and all modems.'';
+      description = "Country code for server and all modems.";
     };
 
     areaCode = mkOption {
       type = nullOr str1;
       default = null;
       example = "30";
-      description = ''Area code for server and all modems.'';
+      description = "Area code for server and all modems.";
     };
 
     longDistancePrefix = mkOption {
       type = nullOr str;
       default = null;
       example = "0";
-      description = ''Long distance prefix for server and all modems.'';
+      description = "Long distance prefix for server and all modems.";
     };
 
     internationalPrefix = mkOption {
       type = nullOr str;
       default = null;
       example = "00";
-      description = ''International prefix for server and all modems.'';
+      description = "International prefix for server and all modems.";
     };
 
     spoolAreaPath = mkOption {
@@ -249,7 +238,7 @@ in
 
     modems = mkOption {
       type = loaOf (submodule [ modemConfigOptions ]);
-      default = {};
+      default = { };
       example.ttyS1 = {
         type = "cirrus";
         config = {
@@ -267,7 +256,7 @@ in
     spoolExtraInit = mkOption {
       type = lines;
       default = "";
-      example = ''chmod 0755 .  # everyone may read my faxes'';
+      example = "chmod 0755 .  # everyone may read my faxes";
       description = ''
         Additional shell code that is executed within the
         spooling area directory right after its setup.
@@ -345,7 +334,7 @@ in
     faxqclean.doneqMinutes = mkOption {
       type = int1;
       default = 15;
-      example = literalExample ''24*60'';
+      example = literalExample "24*60";
       description = ''
         Set the job
         age threshold (in minutes) that controls how long
@@ -355,7 +344,7 @@ in
     faxqclean.docqMinutes = mkOption {
       type = int1;
       default = 60;
-      example = literalExample ''24*60'';
+      example = literalExample "24*60";
       description = ''
         Set the document
         age threshold (in minutes) that controls how long
@@ -365,11 +354,7 @@ in
 
   };
 
-
-  config.services.hylafax =
-    mkIf
-    (config.services.hylafax.enable)
-    (mkMerge [ defaultConfig localConfig ])
-  ;
+  config.services.hylafax = mkIf (config.services.hylafax.enable)
+    (mkMerge [ defaultConfig localConfig ]);
 
 }

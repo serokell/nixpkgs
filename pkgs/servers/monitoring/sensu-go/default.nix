@@ -18,23 +18,22 @@ let
 
       inherit subPackages postInstall;
 
-      buildFlagsArray = let
-        versionPkg = "github.com/sensu/sensu-go/version";
-      in ''
-        -ldflags=
-          -X ${versionPkg}.Version=${version}
-          -X ${versionPkg}.BuildSHA=${shortRev}
-      '';
+      buildFlagsArray = let versionPkg = "github.com/sensu/sensu-go/version";
+        in ''
+          -ldflags=
+            -X ${versionPkg}.Version=${version}
+            -X ${versionPkg}.BuildSHA=${shortRev}
+        '';
 
       meta = {
-        homepage = https://sensu.io;
-        description = "Open source monitoring tool for ephemeral infrastructure & distributed applications";
+        homepage = "https://sensu.io";
+        description =
+          "Open source monitoring tool for ephemeral infrastructure & distributed applications";
         license = lib.licenses.mit;
         maintainers = with lib.maintainers; [ thefloweringash ];
       };
     };
-in
-{
+in {
   sensu-go-cli = generic {
     pname = "sensu-go-cli";
     subPackages = [ "cmd/sensuctl" ];

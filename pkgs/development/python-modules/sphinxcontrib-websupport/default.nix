@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, six }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-websupport";
@@ -19,7 +15,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Sphinx API for Web Apps";
-    homepage = http://sphinx-doc.org/;
+    homepage = "http://sphinx-doc.org/";
     license = lib.licenses.bsd2;
   };
 }

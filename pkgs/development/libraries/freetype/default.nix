@@ -1,16 +1,11 @@
-{ stdenv, fetchurl
-, buildPackages
-, pkgconfig, which, makeWrapper
-, zlib, bzip2, libpng, gnumake, glib
+{ stdenv, fetchurl, buildPackages, pkgconfig, which, makeWrapper, zlib, bzip2, libpng, gnumake, glib
 
 , # FreeType supports LCD filtering (colloquially referred to as sub-pixel rendering).
-  # LCD filtering is also known as ClearType and covered by several Microsoft patents.
-  # This option allows it to be disabled. See http://www.freetype.org/patents.html.
-  useEncumberedCode ? true
-}:
+# LCD filtering is also known as ClearType and covered by several Microsoft patents.
+# This option allows it to be disabled. See http://www.freetype.org/patents.html.
+useEncumberedCode ? true }:
 
-let
-  inherit (stdenv.lib) optional optionalString;
+let inherit (stdenv.lib) optional optionalString;
 
 in stdenv.mkDerivation rec {
   pname = "freetype";
@@ -25,8 +20,9 @@ in stdenv.mkDerivation rec {
       autofit which can be used instead of hinting instructions included in
       fonts.
     '';
-    homepage = https://www.freetype.org/;
-    license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
+    homepage = "https://www.freetype.org/";
+    license =
+      licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
     platforms = platforms.all;
     maintainers = with maintainers; [ ttuegel ];
   };
@@ -36,20 +32,24 @@ in stdenv.mkDerivation rec {
     sha256 = "01mybx78n3n9dhzylbrdy42wxdwfn8rp514qdkzjy6b5ij965k7w";
   };
 
-  propagatedBuildInputs = [ zlib bzip2 libpng ]; # needed when linking against freetype
+  propagatedBuildInputs =
+    [ zlib bzip2 libpng ]; # needed when linking against freetype
   # dependence on harfbuzz is looser than the reverse dependence
-  nativeBuildInputs = [ pkgconfig which makeWrapper ]
-    # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
+  nativeBuildInputs = [
+    pkgconfig
+    which
+    makeWrapper
+  ]
+  # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
     ++ optional (!stdenv.isLinux) gnumake;
 
-  patches =
-    [ ./enable-table-validation.patch
-    ] ++
-    optional useEncumberedCode ./enable-subpixel-rendering.patch;
+  patches = [ ./enable-table-validation.patch ]
+    ++ optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
   outputs = [ "out" "dev" ];
 
-  configureFlags = [ "--disable-static" "--bindir=$(dev)/bin" "--enable-freetype-config" ];
+  configureFlags =
+    [ "--disable-static" "--bindir=$(dev)/bin" "--enable-freetype-config" ];
 
   # native compiler to generate building tool
   CC_BUILD = "${buildPackages.stdenv.cc}/bin/cc";

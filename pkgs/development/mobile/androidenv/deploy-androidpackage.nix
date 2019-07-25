@@ -1,12 +1,16 @@
-{stdenv, unzip}:
-{package, os ? null, buildInputs ? [], patchInstructions ? "", meta ? {}, ...}@args:
+{ stdenv, unzip }:
+{ package, os ? null, buildInputs ? [ ], patchInstructions ? "", meta ? { }, ...
+}@args:
 
 let
-  extraParams = removeAttrs args [ "package" "os" "buildInputs" "patchInstructions" ];
-in
-stdenv.mkDerivation ({
+  extraParams =
+    removeAttrs args [ "package" "os" "buildInputs" "patchInstructions" ];
+in stdenv.mkDerivation ({
   name = package.name + "-" + package.revision;
-  src = if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all;
+  src = if os != null && builtins.hasAttr os package.archives then
+    package.archives.${os}
+  else
+    package.archives.all;
   buildInputs = [ unzip ] ++ buildInputs;
 
   # Most Android Zip packages have a root folder, but some don't. We unpack
@@ -38,7 +42,5 @@ stdenv.mkDerivation ({
   dontPatchELF = true;
   dontAutoPatchelf = true;
 
-  meta = {
-    description = package.displayName;
-  } // meta;
+  meta = { description = package.displayName; } // meta;
 } // extraParams)

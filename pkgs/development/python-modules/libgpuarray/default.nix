@@ -1,19 +1,7 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, cmake
-, cython
-, numpy
-, six
-, nose
-, Mako
-, cudaSupport ? false, cudatoolkit , nvidia_x11
-, openclSupport ? true, ocl-icd, clblas
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, cmake, cython, numpy, six, nose, Mako, cudaSupport ?
+  false, cudatoolkit, nvidia_x11, openclSupport ? true, ocl-icd, clblas }:
 
-assert cudaSupport -> nvidia_x11 != null
-                   && cudatoolkit != null;
+assert cudaSupport -> nvidia_x11 != null && cudatoolkit != null;
 
 buildPythonPackage rec {
   pname = "libgpuarray";
@@ -32,11 +20,10 @@ buildPythonPackage rec {
 
   configurePhase = "cmakeConfigurePhase";
 
-  libraryPath = lib.makeLibraryPath (
-    []
+  libraryPath = lib.makeLibraryPath ([ ]
     ++ lib.optionals cudaSupport [ cudatoolkit.lib cudatoolkit.out nvidia_x11 ]
-    ++ lib.optionals openclSupport ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd)
-  );
+    ++ lib.optionals openclSupport
+    ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd));
 
   preBuild = ''
     make -j$NIX_BUILD_CORES
@@ -58,20 +45,13 @@ buildPythonPackage rec {
     fixRunPath $out/lib/libgpuarray.so
   '';
 
-  propagatedBuildInputs = [
-    numpy
-    six
-    Mako
-  ];
+  propagatedBuildInputs = [ numpy six Mako ];
 
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    cython
-    nose
-  ];
+  buildInputs = [ cython nose ];
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/Theano/libgpuarray";

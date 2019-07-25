@@ -1,6 +1,5 @@
-/*
-To use aditional parts libraries
-set the variable LEOCAD_LIB=/path/to/libs/ or use option -l /path/to/libs/
+/* To use aditional parts libraries
+   set the variable LEOCAD_LIB=/path/to/libs/ or use option -l /path/to/libs/
 */
 
 { stdenv, fetchFromGitHub, qt4, qmake4Hook, zlib }:
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "CAD program for creating virtual LEGO models";
-    homepage = https://www.leocad.org/;
+    homepage = "https://www.leocad.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

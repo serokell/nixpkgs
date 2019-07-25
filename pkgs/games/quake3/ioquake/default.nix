@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, which, pkgconfig, SDL2, libGL, openalSoft
-, curl, speex, opusfile, libogg, libvorbis, libopus, libjpeg, mumble, freetype
+{ stdenv, fetchFromGitHub, which, pkgconfig, SDL2, libGL, openalSoft, curl, speex, opusfile, libogg, libvorbis, libopus, libjpeg, mumble, freetype
 }:
 
 stdenv.mkDerivation rec {
@@ -15,13 +14,28 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ which pkgconfig ];
   buildInputs = [
-    SDL2 libGL openalSoft curl speex opusfile libogg libvorbis libopus libjpeg
-    freetype mumble
+    SDL2
+    libGL
+    openalSoft
+    curl
+    speex
+    opusfile
+    libogg
+    libvorbis
+    libopus
+    libjpeg
+    freetype
+    mumble
   ];
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "USE_INTERNAL_LIBS=0" "USE_FREETYPE=1" "USE_OPENAL_DLOPEN=0" "USE_CURL_DLOPEN=0" ];
+  makeFlags = [
+    "USE_INTERNAL_LIBS=0"
+    "USE_FREETYPE=1"
+    "USE_OPENAL_DLOPEN=0"
+    "USE_CURL_DLOPEN=0"
+  ];
 
   installTargets = [ "copyfiles" ];
 
@@ -32,8 +46,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://ioquake3.org/;
-    description = "First person shooter engine based on the Quake 3: Arena and Quake 3: Team Arena";
+    homepage = "https://ioquake3.org/";
+    description =
+      "First person shooter engine based on the Quake 3: Arena and Quake 3: Team Arena";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ rvolosatovs eelco abbradar ];

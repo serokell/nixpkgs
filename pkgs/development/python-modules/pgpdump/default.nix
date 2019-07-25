@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pgpdump";
@@ -17,7 +14,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python library for parsing PGP packets";
-    homepage = https://github.com/toofishes/python-pgpdump;
+    homepage = "https://github.com/toofishes/python-pgpdump";
     license = licenses.bsd3;
   };
 

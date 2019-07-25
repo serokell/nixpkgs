@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, twisted
-, pycrypto
-, pyopenssl
-, pyparsing
-, zope_interface
-, isPy3k
+{ lib, buildPythonPackage, fetchPypi, twisted, pycrypto, pyopenssl, pyparsing, zope_interface, isPy3k
 }:
 
 buildPythonPackage rec {
@@ -18,9 +10,8 @@ buildPythonPackage rec {
     sha256 = "6b9ebe5814e9e7091703c4e3bfeae73b46508b4678e2ff403cddaedf8213815d";
   };
 
-  propagatedBuildInputs = [
-    twisted pycrypto pyopenssl pyparsing zope_interface
-  ];
+  propagatedBuildInputs =
+    [ twisted pycrypto pyopenssl pyparsing zope_interface ];
 
   disabled = isPy3k;
 
@@ -29,7 +20,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "A Pure-Python Twisted library for LDAP";
-    homepage = https://github.com/twisted/ldaptor;
+    homepage = "https://github.com/twisted/ldaptor";
     license = lib.licenses.mit;
   };
 }

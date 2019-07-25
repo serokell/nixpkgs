@@ -1,27 +1,39 @@
-{ stdenv, fetchurl, ninja, meson, pkgconfig, vala, gobject-introspection, libxml2
-, gtk-doc, docbook_xsl, docbook_xml_dtd_43, glibcLocales, dbus, xvfb_run, glib, gtk3, gnome3 }:
+{ stdenv, fetchurl, ninja, meson, pkgconfig, vala, gobject-introspection, libxml2, gtk-doc, docbook_xsl, docbook_xml_dtd_43, glibcLocales, dbus, xvfb_run, glib, gtk3, gnome3
+}:
 
 let
   version = "3.32.2";
   pname = "libdazzle";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   outputs = [ "out" "dev" "devdoc" ];
   outputBin = "dev";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/libdazzle/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/libdazzle/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "0hgi7gnkna9n42nh7p81crrw0jjj22yr8acych60wxh6hzxqsgs1";
   };
 
-  nativeBuildInputs = [ ninja meson pkgconfig vala gobject-introspection libxml2 gtk-doc docbook_xsl docbook_xml_dtd_43 glibcLocales dbus xvfb_run ];
+  nativeBuildInputs = [
+    ninja
+    meson
+    pkgconfig
+    vala
+    gobject-introspection
+    libxml2
+    gtk-doc
+    docbook_xsl
+    docbook_xml_dtd_43
+    glibcLocales
+    dbus
+    xvfb_run
+  ];
   buildInputs = [ glib gtk3 ];
 
-  mesonFlags = [
-    "-Denable_gtk_doc=true"
-  ];
+  mesonFlags = [ "-Denable_gtk_doc=true" ];
 
   LC_ALL = "en_US.UTF-8";
 
@@ -35,11 +47,7 @@ stdenv.mkDerivation {
       meson test --print-errorlogs
   '';
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
     description = "A library to delight your users with fancy features";
@@ -50,7 +58,7 @@ stdenv.mkDerivation {
       for those libraries. In other cases, our design isn't quite generic
       enough to work for everyone.
     '';
-    homepage = https://wiki.gnome.org/Apps/Builder;
+    homepage = "https://wiki.gnome.org/Apps/Builder";
     license = licenses.gpl3Plus;
     maintainers = gnome3.maintainers;
     platforms = platforms.unix;

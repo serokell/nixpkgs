@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptoolsDarcs
-, pyutil
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptoolsDarcs, pyutil }:
 
 buildPythonPackage rec {
   pname = "zbase32";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "zbase32, a base32 encoder/decoder";
-    homepage = https://pypi.python.org/pypi/zbase32;
+    homepage = "https://pypi.python.org/pypi/zbase32";
     license = licenses.bsd0;
   };
 

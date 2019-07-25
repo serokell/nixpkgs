@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, cmake, ninja, gtk3, gtksourceview3, webkitgtk, gtkspell3, glib, libgee, sqlite, discount, wrapGAppsHook
-, withPantheon ? false }:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, cmake, ninja, gtk3, gtksourceview3, webkitgtk, gtkspell3, glib, libgee, sqlite, discount, wrapGAppsHook, withPantheon ?
+  false }:
 
 stdenv.mkDerivation rec {
   pname = "notes-up";
@@ -12,13 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bklgp8qrrj9y5m77xqbpy1ld2d9ya3rlxklgzx3alffq5312i4s";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pantheon.vala
-    pkgconfig
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja pantheon.vala pkgconfig wrapGAppsHook ];
 
   buildInputs = [
     discount
@@ -37,8 +31,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Markdown notes editor and manager designed for elementary OS"
-    + stdenv.lib.optionalString withPantheon " - built with Contractor support";
-    homepage = https://github.com/Philip-Scott/Notes-up;
+      + stdenv.lib.optionalString withPantheon
+      " - built with Contractor support";
+    homepage = "https://github.com/Philip-Scott/Notes-up";
     license = licenses.gpl2;
     maintainers = with maintainers; [ davidak worldofpeace ];
     platforms = platforms.linux;

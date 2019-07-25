@@ -1,6 +1,7 @@
 { stdenv, python2, fetchFromGitHub }:
 
-with python2.pkgs; buildPythonApplication rec {
+with python2.pkgs;
+buildPythonApplication rec {
   pname = "isso";
   version = "0.12.2";
 
@@ -12,16 +13,8 @@ with python2.pkgs; buildPythonApplication rec {
     sha256 = "18v8lzwgl5hcbnawy50lfp3wnlc0rjhrnw9ja9260awkx7jra9ba";
   };
 
-  propagatedBuildInputs = [
-    bleach
-    cffi
-    configparser
-    html5lib
-    ipaddr
-    jinja2
-    misaka
-    werkzeug
-  ];
+  propagatedBuildInputs =
+    [ bleach cffi configparser html5lib ipaddr jinja2 misaka werkzeug ];
 
   checkInputs = [ nose ];
 
@@ -31,7 +24,7 @@ with python2.pkgs; buildPythonApplication rec {
 
   meta = with stdenv.lib; {
     description = "A commenting server similar to Disqus";
-    homepage = https://posativ.org/isso/;
+    homepage = "https://posativ.org/isso/";
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];
   };

@@ -1,12 +1,6 @@
-{ fetchurl
-, lib
-, buildPythonPackage
-, python
-, isPyPy
-, isPy3k
-}:
+{ fetchurl, lib, buildPythonPackage, python, isPyPy, isPy3k }:
 
-buildPythonPackage rec{
+buildPythonPackage rec {
   pname = "yenc";
   version = "0.4.0";
   src = fetchurl {
@@ -23,7 +17,7 @@ buildPythonPackage rec{
   meta = {
     description = "Encoding and decoding yEnc";
     license = lib.licenses.lgpl21;
-    homepage = https://bitbucket.org/dual75/yenc;
+    homepage = "https://bitbucket.org/dual75/yenc";
     maintainers = with lib.maintainers; [ fridh ];
   };
 }

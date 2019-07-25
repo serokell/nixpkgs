@@ -1,9 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
-, click
-, ipython
-, pytest
-, sh
-, typing
+{ lib, buildPythonPackage, fetchPypi, isPy27, click, ipython, pytest, sh, typing
 }:
 
 buildPythonPackage rec {
@@ -25,8 +20,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Add .env support to your django/flask apps in development and deployments";
-    homepage = https://github.com/theskumar/python-dotenv;
+    description =
+      "Add .env support to your django/flask apps in development and deployments";
+    homepage = "https://github.com/theskumar/python-dotenv";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ earvstedt ];
   };

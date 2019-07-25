@@ -11,13 +11,14 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "09f02cn4i1l2aksb3azwfb70axqhn7d0d0vl2r6640hqr74nc1cv";
   };
 
-  checkInputs = with pythonPackages; [
-    mock
-  ];
+  checkInputs = with pythonPackages; [ mock ];
 
   propagatedBuildInputs = with pythonPackages; [
-    requests ruamel_yaml appdirs
-    sleekxmpp dns
+    requests
+    ruamel_yaml
+    appdirs
+    sleekxmpp
+    dns
     emoji
     psutil
     matrix-client
@@ -29,8 +30,9 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A utility for sending notifications, on demand and when commands finish";
-    homepage = http://ntfy.rtfd.org/;
+    description =
+      "A utility for sending notifications, on demand and when commands finish";
+    homepage = "http://ntfy.rtfd.org/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ jfrankenau kamilchm ];
   };

@@ -11,17 +11,15 @@ pythonPackages.buildPythonApplication rec {
 
   nativeBuildInputs = with pythonPackages; [ sphinx setuptools_scm ];
 
-  propagatedBuildInputs = with pythonPackages; [
-    pythonPackages.notmuch chardet dkimpy
-  ] ++ stdenv.lib.optional (!pythonPackages.isPy3k) subprocess32;
+  propagatedBuildInputs = with pythonPackages;
+    [ pythonPackages.notmuch chardet dkimpy ]
+    ++ stdenv.lib.optional (!pythonPackages.isPy3k) subprocess32;
 
-  makeWrapperArgs = [
-    ''--prefix PATH ':' "${notmuch}/bin"''
-  ];
+  makeWrapperArgs = [ ''--prefix PATH ':' "${notmuch}/bin"'' ];
 
   outputs = [ "out" "doc" ];
 
-  postBuild =  ''
+  postBuild = ''
     python setup.py build_sphinx -b html,man
   '';
 
@@ -31,9 +29,8 @@ pythonPackages.buildPythonApplication rec {
     cp -R build/sphinx/html/* $out/share/doc/afew
   '';
 
-
   meta = with stdenv.lib; {
-    homepage = https://github.com/afewmail/afew;
+    homepage = "https://github.com/afewmail/afew";
     description = "An initial tagging script for notmuch mail";
     license = licenses.isc;
     maintainers = with maintainers; [ andir flokli ];

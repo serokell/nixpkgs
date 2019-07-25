@@ -23,8 +23,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Invoke py.test as distutils command with dependency resolution";
-    homepage = https://github.com/pytest-dev/pytest-runner;
+    description =
+      "Invoke py.test as distutils command with dependency resolution";
+    homepage = "https://github.com/pytest-dev/pytest-runner";
     license = licenses.mit;
   };
 }

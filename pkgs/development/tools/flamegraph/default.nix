@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     license = licenses.cddl;
-    homepage = http://www.brendangregg.com/flamegraphs.html;
+    homepage = "http://www.brendangregg.com/flamegraphs.html";
     description = "Visualization for profiled code";
     platforms = platforms.unix;
   };

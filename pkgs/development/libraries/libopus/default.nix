@@ -1,10 +1,7 @@
-{ stdenv, fetchurl
-, fixedPoint ? false, withCustomModes ? true }:
+{ stdenv, fetchurl, fixedPoint ? false, withCustomModes ? true }:
 
-let
-  version = "1.3.1";
-in
-stdenv.mkDerivation rec {
+let version = "1.3.1";
+in stdenv.mkDerivation rec {
   name = "libopus-${version}";
 
   src = fetchurl {
@@ -15,14 +12,14 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   configureFlags = stdenv.lib.optional fixedPoint "--enable-fixed-point"
-                ++ stdenv.lib.optional withCustomModes "--enable-custom-modes";
+    ++ stdenv.lib.optional withCustomModes "--enable-custom-modes";
 
   doCheck = true;
 
   meta = with stdenv.lib; {
     description = "Open, royalty-free, highly versatile audio codec";
     license = stdenv.lib.licenses.bsd3;
-    homepage = http://www.opus-codec.org/;
+    homepage = "http://www.opus-codec.org/";
     platforms = platforms.unix;
   };
 }

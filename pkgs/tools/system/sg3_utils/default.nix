@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://sg.danny.cz/sg/;
+    homepage = "http://sg.danny.cz/sg/";
     description = "Utilities that send SCSI commands to devices";
     platforms = platforms.linux;
     license = with licenses; [ bsd2 gpl2Plus ];

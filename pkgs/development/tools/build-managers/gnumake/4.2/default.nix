@@ -1,11 +1,9 @@
-{ stdenv, fetchurl, guileSupport ? false, pkgconfig ? null , guile ? null }:
+{ stdenv, fetchurl, guileSupport ? false, pkgconfig ? null, guile ? null }:
 
-assert guileSupport -> ( pkgconfig != null && guile != null );
+assert guileSupport -> (pkgconfig != null && guile != null);
 
-let
-  version = "4.2.1";
-in
-stdenv.mkDerivation {
+let version = "4.2.1";
+in stdenv.mkDerivation {
   name = "gnumake-${version}";
 
   src = fetchurl {
@@ -41,8 +39,9 @@ stdenv.mkDerivation {
   outputs = [ "out" "man" "info" ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnu.org/software/make/;
-    description = "A tool to control the generation of non-source files from sources";
+    homepage = "https://www.gnu.org/software/make/";
+    description =
+      "A tool to control the generation of non-source files from sources";
     license = licenses.gpl3Plus;
 
     longDescription = ''

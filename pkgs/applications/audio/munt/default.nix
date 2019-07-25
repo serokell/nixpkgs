@@ -15,7 +15,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = with stdenv.lib.versions; "${pname}_${major version}_${minor version}_${patch version}";
+    rev = with stdenv.lib.versions;
+      "${pname}_${major version}_${minor version}_${patch version}";
     sha256 = "0fjhshs4w942rlfksalalqshflbq83pyz1z0hcq53falh9v54cyw";
   };
 
@@ -29,7 +30,8 @@ in stdenv.mkDerivation rec {
   buildInputs = [ qtbase alsaLib ];
 
   meta = with stdenv.lib; {
-    description = "Multi-platform software synthesiser emulating Roland MT-32, CM-32L, CM-64 and LAPC-I devices";
+    description =
+      "Multi-platform software synthesiser emulating Roland MT-32, CM-32L, CM-64 and LAPC-I devices";
     homepage = "http://munt.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.linux;

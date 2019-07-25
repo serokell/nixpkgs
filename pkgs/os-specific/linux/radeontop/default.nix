@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gettext, makeWrapper
-, ncurses, libdrm, libpciaccess, libxcb }:
+{ stdenv, fetchFromGitHub, pkgconfig, gettext, makeWrapper, ncurses, libdrm, libpciaccess, libxcb
+}:
 
 stdenv.mkDerivation rec {
   name = "radeontop-${version}";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       is also valid for OpenCL loads; the other blocks are only useful for GL
       loads. Requires root rights or other permissions to read /dev/mem.
     '';
-    homepage = https://github.com/clbr/radeontop;
+    homepage = "https://github.com/clbr/radeontop";
     platforms = platforms.linux;
     license = licenses.gpl3;
     maintainers = with maintainers; [ rycee ];

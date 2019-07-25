@@ -1,30 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, dask
-, distributed
-, bokeh
-, toolz
-, datashape
-, numba
-, numpy
-, pandas
-, pillow
-, xarray
-, colorcet
-, param
-, pyct
-, pyyaml
-, requests
-, scikitimage
-, scipy
-, pytest
-, pytest-benchmark
-, flake8
-, nbsmoke
-, fastparquet
-, testpath
-, nbconvert
+{ lib, buildPythonPackage, fetchPypi, dask, distributed, bokeh, toolz, datashape, numba, numpy, pandas, pillow, xarray, colorcet, param, pyct, pyyaml, requests, scikitimage, scipy, pytest, pytest-benchmark, flake8, nbsmoke, fastparquet, testpath, nbconvert
 }:
 
 buildPythonPackage rec {
@@ -57,15 +31,8 @@ buildPythonPackage rec {
     testpath
   ];
 
-  checkInputs = [
-    pytest
-    pytest-benchmark
-    flake8
-    nbsmoke
-    fastparquet
-    pandas
-    nbconvert
-  ];
+  checkInputs =
+    [ pytest pytest-benchmark flake8 nbsmoke fastparquet pandas nbconvert ];
 
   postConfigure = ''
     substituteInPlace setup.py \
@@ -77,8 +44,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Data visualization toolchain based on aggregating into a grid";
-    homepage = https://datashader.org;
+    description =
+      "Data visualization toolchain based on aggregating into a grid";
+    homepage = "https://datashader.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

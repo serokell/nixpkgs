@@ -1,7 +1,5 @@
-{ fetchurl, stdenv, makeWrapper, pkgconfig, intltool, gettext, gtk2, expat, curl
-, gpsd, bc, file, gnome-doc-utils, libexif, libxml2, libxslt, scrollkeeper
-, docbook_xml_dtd_412, gexiv2, sqlite, gpsbabel, expect, hicolor-icon-theme
-, geoclue2, liboauth }:
+{ fetchurl, stdenv, makeWrapper, pkgconfig, intltool, gettext, gtk2, expat, curl, gpsd, bc, file, gnome-doc-utils, libexif, libxml2, libxslt, scrollkeeper, docbook_xml_dtd_412, gexiv2, sqlite, gpsbabel, expect, hicolor-icon-theme, geoclue2, liboauth
+}:
 
 stdenv.mkDerivation rec {
   name = "viking-${version}";
@@ -13,9 +11,27 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ makeWrapper intltool gettext gtk2 expat curl gpsd bc file gnome-doc-utils
-    libexif libxml2 libxslt scrollkeeper docbook_xml_dtd_412 gexiv2 sqlite hicolor-icon-theme
-    geoclue2 liboauth
+  buildInputs = [
+    makeWrapper
+    intltool
+    gettext
+    gtk2
+    expat
+    curl
+    gpsd
+    bc
+    file
+    gnome-doc-utils
+    libexif
+    libxml2
+    libxslt
+    scrollkeeper
+    docbook_xml_dtd_412
+    gexiv2
+    sqlite
+    hicolor-icon-theme
+    geoclue2
+    liboauth
   ];
 
   configureFlags = [ "--disable-scrollkeeper --disable-mapnik" ];
@@ -43,7 +59,7 @@ stdenv.mkDerivation rec {
       on the map, make new tracks and waypoints, see real-time GPS
       position, etc.
     '';
-    homepage = https://sourceforge.net/projects/viking/;
+    homepage = "https://sourceforge.net/projects/viking/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ pSub ];
     platforms = with platforms; linux;

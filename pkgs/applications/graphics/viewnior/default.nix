@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk2, libpng, exiv2, lcms
-, intltool, gettext, shared-mime-info, glib, gdk_pixbuf, perl}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk2, libpng, exiv2, lcms, intltool, gettext, shared-mime-info, glib, gdk_pixbuf, perl
+}:
 
 stdenv.mkDerivation rec {
   name = "viewnior-${version}";
@@ -13,10 +13,19 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs =
-    [ pkgconfig gtk2 libpng exiv2 lcms intltool gettext
-      shared-mime-info glib gdk_pixbuf perl
-    ];
+  buildInputs = [
+    pkgconfig
+    gtk2
+    libpng
+    exiv2
+    lcms
+    intltool
+    gettext
+    shared-mime-info
+    glib
+    gdk_pixbuf
+    perl
+  ];
 
   preFixup = ''
     rm $out/share/icons/*/icon-theme.cache
@@ -24,17 +33,17 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Fast and simple image viewer";
-    longDescription =
-      '' Viewnior is insipred by big projects like Eye of Gnome, because of it's
-         usability and richness,and by GPicView, because of it's lightweight design and
-         minimal interface. So here comes Viewnior - small and light, with no compromise
-         with the quality of it's functions. The program is made with better integration
-         in mind (follows Gnome HIG2).
-      '';
+    longDescription = ''
+      Viewnior is insipred by big projects like Eye of Gnome, because of it's
+              usability and richness,and by GPicView, because of it's lightweight design and
+              minimal interface. So here comes Viewnior - small and light, with no compromise
+              with the quality of it's functions. The program is made with better integration
+              in mind (follows Gnome HIG2).
+           '';
 
     license = stdenv.lib.licenses.gpl3;
 
-    homepage = http://siyanpanayotov.com/project/viewnior/;
+    homepage = "http://siyanpanayotov.com/project/viewnior/";
 
     maintainers = [ stdenv.lib.maintainers.smironov ];
 

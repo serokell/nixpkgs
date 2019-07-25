@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, dde-qt-dbus-factory,
-  dde-session-ui, deepin, deepin-desktop-schemas, deepin-wallpapers,
-  dtkcore, dtkwidget, gsettings-qt, qtsvg, qttools, qtx11extras,
-  which, xdg_utils, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, dde-qt-dbus-factory, dde-session-ui, deepin, deepin-desktop-schemas, deepin-wallpapers, dtkcore, dtkwidget, gsettings-qt, qtsvg, qttools, qtx11extras, which, xdg_utils, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -15,13 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "1lwwn2qjbd4i7wx18mi8n7hzdh832i3kdadrivr10sbafdank7ky";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-    qttools
-    wrapGAppsHook
-    deepin.setupHook
-  ];
+  nativeBuildInputs =
+    [ cmake pkgconfig qttools wrapGAppsHook deepin.setupHook ];
 
   buildInputs = [
     dde-qt-dbus-factory
@@ -68,7 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Deepin Desktop Environment launcher module";
-    homepage = https://github.com/linuxdeepin/dde-launcher;
+    homepage = "https://github.com/linuxdeepin/dde-launcher";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ romildo ];

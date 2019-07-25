@@ -22,8 +22,9 @@ buildGoModule rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Command line program to sync files and directories to and from major cloud storage";
-    homepage = https://rclone.org;
+    description =
+      "Command line program to sync files and directories to and from major cloud storage";
+    homepage = "https://rclone.org";
     license = licenses.mit;
     maintainers = with maintainers; [ danielfullmer ];
     platforms = platforms.all;

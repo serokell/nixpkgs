@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
       number of additional glyphs from popular 'iconic fonts' such as Font
       Awesome, Devicons, Octicons, and others.
     '';
-    homepage = https://github.com/ryanoasis/nerd-fonts;
+    homepage = "https://github.com/ryanoasis/nerd-fonts";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
-    hydraPlatforms = []; # 'Output limit exceeded' on Hydra
+    hydraPlatforms = [ ]; # 'Output limit exceeded' on Hydra
   };
 }

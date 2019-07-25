@@ -1,17 +1,16 @@
-{stdenv, fetchurl, scons, zlib, SDL, lua5_1, pkgconfig}:
+{ stdenv, fetchurl, scons, zlib, SDL, lua5_1, pkgconfig }:
 
 stdenv.mkDerivation {
   name = "fceux-2.2.3";
 
   src = fetchurl {
-    url = mirror://sourceforge/fceultra/Source%20Code/2.2.3%20src/fceux-2.2.3.src.tar.gz;
+    url =
+      "mirror://sourceforge/fceultra/Source%20Code/2.2.3%20src/fceux-2.2.3.src.tar.gz";
     sha256 = "0gl2i3qdmcm7v9m5kpfz98w05d8m33990jiwka043ya7lflxvrjb";
   };
 
   nativeBuildInputs = [ pkgconfig scons ];
-  buildInputs = [
-    zlib SDL lua5_1
-  ];
+  buildInputs = [ zlib SDL lua5_1 ];
 
   sconsFlags = "OPENGL=false GTK=false CREATE_AVI=false LOGO=false";
   prefixKey = "--prefix=";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
   meta = {
     description = "A Nintendo Entertainment System (NES) Emulator";
     license = stdenv.lib.licenses.gpl2;
-    homepage = http://www.fceux.com/;
+    homepage = "http://www.fceux.com/";
     platforms = stdenv.lib.platforms.linux;
   };
 }

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   inherit (zeroad-unwrapped) version;
 
   src = fetchurl {
-    url = "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-data.tar.xz";
+    url =
+      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-data.tar.xz";
     sha256 = "04x7729hk6zw1xj3n4s4lvaviijsnbjf5rhzvjxlr5fygvg4l6z1";
   };
 
@@ -20,6 +21,6 @@ stdenv.mkDerivation rec {
     homepage = "https://play0ad.com/";
     license = licenses.cc-by-sa-30;
     platforms = platforms.linux;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

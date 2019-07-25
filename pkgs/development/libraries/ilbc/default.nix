@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   script = ./extract-cfile.awk;
 
   rfc3951 = fetchurl {
-    url = http://www.ietf.org/rfc/rfc3951.txt;
+    url = "http://www.ietf.org/rfc/rfc3951.txt";
     sha256 = "0zf4mvi3jzx6zjrfl2rbhl2m68pzbzpf1vbdmn7dqbfpcb67jpdy";
   };
 
@@ -17,9 +17,7 @@ stdenv.mkDerivation rec {
     cd ${name}
     ${gawk}/bin/gawk -f ${script} ${rfc3951}
     cp -v ${./CMakeLists.txt} CMakeLists.txt
-    '';
+  '';
 
-  meta = {
-    platforms = stdenv.lib.platforms.unix;
-  };
+  meta = { platforms = stdenv.lib.platforms.unix; };
 }

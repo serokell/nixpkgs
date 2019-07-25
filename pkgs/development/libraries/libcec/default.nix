@@ -1,12 +1,13 @@
 { stdenv, fetchurl, cmake, pkgconfig, udev, libcec_platform }:
 
-let version = "4.0.4"; in
+let version = "4.0.4";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "libcec-${version}";
 
   src = fetchurl {
-    url = "https://github.com/Pulse-Eight/libcec/archive/libcec-${version}.tar.gz";
+    url =
+      "https://github.com/Pulse-Eight/libcec/archive/libcec-${version}.tar.gz";
     sha256 = "02j09y06csaic4m0fyb4dr9l3hl15nxbbniwq0i1qlccpxjak0j3";
   };
 
@@ -21,8 +22,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    description = "Allows you (with the right hardware) to control your device with your TV remote control using existing HDMI cabling";
-    homepage = http://libcec.pulse-eight.com;
+    description =
+      "Allows you (with the right hardware) to control your device with your TV remote control using existing HDMI cabling";
+    homepage = "http://libcec.pulse-eight.com";
     repositories.git = "https://github.com/Pulse-Eight/libcec.git";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = platforms.linux;

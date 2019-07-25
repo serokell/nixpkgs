@@ -1,11 +1,7 @@
-{ stdenv, fetchurl
-, # required for both
-  unzip, libjpeg, zlib, libvorbis, curl
-, # glx
-  libX11, libGLU_combined, libXpm, libXext, libXxf86vm, alsaLib
-, # sdl
-  SDL2
-}:
+{ stdenv, fetchurl, # required for both
+unzip, libjpeg, zlib, libvorbis, curl, # glx
+libX11, libGLU_combined, libXpm, libXext, libXxf86vm, alsaLib, # sdl
+SDL2 }:
 
 stdenv.mkDerivation rec {
   name = "xonotic-0.8.2";
@@ -17,12 +13,20 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     # required for both
-    unzip libjpeg
+    unzip
+    libjpeg
     # glx
-    libX11 libGLU_combined libXpm libXext libXxf86vm alsaLib
+    libX11
+    libGLU_combined
+    libXpm
+    libXext
+    libXxf86vm
+    alsaLib
     # sdl
     SDL2
-    zlib libvorbis curl
+    zlib
+    libvorbis
+    curl
   ];
 
   sourceRoot = "Xonotic/source/darkplaces";
@@ -79,10 +83,10 @@ stdenv.mkDerivation rec {
       Nexuiz project with years of development between them, and it
       aims to become the best possible open-source FPS of its kind.
     '';
-    homepage = http://www.xonotic.org;
+    homepage = "http://www.xonotic.org";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = with stdenv.lib.maintainers; [ astsmtl zalakain ];
     platforms = stdenv.lib.platforms.linux;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

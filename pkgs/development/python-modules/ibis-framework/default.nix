@@ -1,19 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, multipledispatch
-, numpy
-, pandas
-, pytz
-, regex
-, toolz
-, isPy27
-, pytest
-, sqlalchemy
-, requests
-, tables
-, pyarrow
-, graphviz
+{ lib, buildPythonPackage, fetchPypi, multipledispatch, numpy, pandas, pytz, regex, toolz, isPy27, pytest, sqlalchemy, requests, tables, pyarrow, graphviz
 }:
 
 buildPythonPackage rec {
@@ -40,9 +25,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  checkInputs = [
-    pytest
-  ];
+  checkInputs = [ pytest ];
 
   checkPhase = ''
     pytest ibis
@@ -50,7 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Productivity-centric Python Big Data Framework";
-    homepage = https://github.com/ibis-project/ibis;
+    homepage = "https://github.com/ibis-project/ibis";
     license = licenses.asl20;
     maintainers = [ maintainers.costrouc ];
   };

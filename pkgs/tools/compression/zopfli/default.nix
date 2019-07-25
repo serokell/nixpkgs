@@ -15,14 +15,16 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "zopfli-cmake.patch";
-      url = "https://github.com/google/zopfli/commit/7554e4d34e7000b0595aa606e7d72357cf46ba86.patch";
+      url =
+        "https://github.com/google/zopfli/commit/7554e4d34e7000b0595aa606e7d72357cf46ba86.patch";
       sha256 = "1pvfhir2083v1l042a4dy5byqdmad7sxnd4jrprl2hzzb2avxbbn";
     })
   ];
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ];
+  cmakeFlags =
+    [ "-DBUILD_SHARED_LIBS=ON" "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ];
 
   installPhase = ''
     install -D -t $out/bin zopfli*

@@ -4,11 +4,9 @@ with lib;
 
 let
 
-  cfg  = config.services.supybot;
+  cfg = config.services.supybot;
 
-in
-
-{
+in {
 
   options = {
 
@@ -39,7 +37,6 @@ in
     };
 
   };
-
 
   config = mkIf cfg.enable {
 
@@ -73,7 +70,8 @@ in
       '';
 
       serviceConfig = {
-        ExecStart = "${pkgs.pythonPackages.limnoria}/bin/supybot ${cfg.stateDir}/supybot.cfg";
+        ExecStart =
+          "${pkgs.pythonPackages.limnoria}/bin/supybot ${cfg.stateDir}/supybot.cfg";
         PIDFile = "/run/supybot.pid";
         User = "supybot";
         Group = "supybot";

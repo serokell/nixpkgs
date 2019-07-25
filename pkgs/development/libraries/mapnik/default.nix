@@ -1,10 +1,7 @@
-{ stdenv, fetchzip
-, boost, cairo, freetype, gdal, harfbuzz, icu, libjpeg, libpng, libtiff
-, libwebp, libxml2, proj, python, sqlite, zlib
+{ stdenv, fetchzip, boost, cairo, freetype, gdal, harfbuzz, icu, libjpeg, libpng, libtiff, libwebp, libxml2, proj, python, sqlite, zlib
 
 # supply a postgresql package to enable the PostGIS input plugin
-, postgresql ? null
-}:
+, postgresql ? null }:
 
 stdenv.mkDerivation rec {
   name = "mapnik-${version}";
@@ -12,7 +9,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     # this one contains all git submodules and is cheaper than fetchgit
-    url = "https://github.com/mapnik/mapnik/releases/download/v${version}/mapnik-v${version}.tar.bz2";
+    url =
+      "https://github.com/mapnik/mapnik/releases/download/v${version}/mapnik-v${version}.tar.bz2";
     sha256 = "18yvnnbwqndagzaa2nwh3g7gb52dghaypxpkmc2h5l88770bl17f";
   };
 
@@ -21,13 +19,26 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python ];
 
-  buildInputs =
-    [ boost cairo freetype gdal harfbuzz icu libjpeg libpng libtiff
-      libwebp libxml2 proj python sqlite zlib
+  buildInputs = [
+    boost
+    cairo
+    freetype
+    gdal
+    harfbuzz
+    icu
+    libjpeg
+    libpng
+    libtiff
+    libwebp
+    libxml2
+    proj
+    python
+    sqlite
+    zlib
 
-      # optional inputs
-      postgresql
-    ];
+    # optional inputs
+    postgresql
+  ];
 
   prefixKey = "PREFIX=";
 
@@ -65,7 +76,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An open source toolkit for developing mapping applications";
-    homepage = http://mapnik.org;
+    homepage = "http://mapnik.org";
     maintainers = with maintainers; [ hrdinka ];
     license = licenses.lgpl21;
     platforms = platforms.all;

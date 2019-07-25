@@ -1,15 +1,14 @@
-{ stdenv, callPackage, CoreFoundation
-, tiles ? true, Cocoa
-, debug ? false
-}:
+{ stdenv, callPackage, CoreFoundation, tiles ? true, Cocoa, debug ? false }:
 
 let
   inherit (stdenv.lib) substring;
-  inherit (callPackage ./common.nix { inherit tiles CoreFoundation Cocoa debug; }) common utils;
+  inherit (callPackage ./common.nix {
+    inherit tiles CoreFoundation Cocoa debug;
+  })
+    common utils;
   inherit (utils) fetchFromCleverRaven;
-in
 
-stdenv.mkDerivation (common // rec {
+in stdenv.mkDerivation (common // rec {
   version = "2019-05-03";
   name = "cataclysm-dda-git-${version}";
 
@@ -20,11 +19,11 @@ stdenv.mkDerivation (common // rec {
 
   patches = [ ./patches/fix_locale_dir_git.patch ];
 
-  makeFlags = common.makeFlags ++ [
-    "VERSION=git-${version}-${substring 0 8 src.rev}"
-  ];
+  makeFlags = common.makeFlags
+    ++ [ "VERSION=git-${version}-${substring 0 8 src.rev}" ];
 
-  meta = with stdenv.lib.maintainers; common.meta // {
-    maintainers = common.meta.maintainers ++ [ rardiol ];
-  };
+  meta = with stdenv.lib.maintainers;
+    common.meta // {
+      maintainers = common.meta.maintainers ++ [ rardiol ];
+    };
 })

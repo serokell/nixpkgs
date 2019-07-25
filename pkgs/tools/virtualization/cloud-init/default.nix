@@ -7,7 +7,8 @@ in pythonPackages.buildPythonApplication rec {
   namePrefix = "";
 
   src = fetchurl {
-    url = "https://launchpad.net/cloud-init/trunk/${version}/+download/cloud-init-${version}.tar.gz";
+    url =
+      "https://launchpad.net/cloud-init/trunk/${version}/+download/cloud-init-${version}.tar.gz";
     sha256 = "0wnl76pdcj754pl99wxx76hkir1s61x0bg0lh27sdgdxy45vivbn";
   };
 
@@ -26,17 +27,26 @@ in pythonPackages.buildPythonApplication rec {
 
     # Argparse is part of python stdlib
     sed -i s/argparse// requirements.txt
-    '';
+  '';
 
-  propagatedBuildInputs = with pythonPackages; [ cheetah jinja2 prettytable
-    oauthlib pyserial configobj pyyaml requests jsonpatch ];
+  propagatedBuildInputs = with pythonPackages; [
+    cheetah
+    jinja2
+    prettytable
+    oauthlib
+    pyserial
+    configobj
+    pyyaml
+    requests
+    jsonpatch
+  ];
 
   checkInputs = with pythonPackages; [ contextlib2 httpretty mock unittest2 ];
 
   doCheck = false;
 
   meta = {
-    homepage = https://cloudinit.readthedocs.org;
+    homepage = "https://cloudinit.readthedocs.org";
     description = "Provides configuration and customization of cloud instance";
     maintainers = [ lib.maintainers.madjar lib.maintainers.phile314 ];
     platforms = lib.platforms.all;

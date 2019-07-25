@@ -1,7 +1,5 @@
-{ stdenv, fetch, cmake, libxml2, llvm, version, clang-tools-extra_src, python
-, fixDarwinDylibNames
-, enableManpages ? false
-, enablePolly ? false # TODO: get this info from llvm (passthru?)
+{ stdenv, fetch, cmake, libxml2, llvm, version, clang-tools-extra_src, python, fixDarwinDylibNames, enableManpages ?
+  false, enablePolly ? false # TODO: get this info from llvm (passthru?)
 }:
 
 let
@@ -9,7 +7,9 @@ let
     name = "clang-${version}";
 
     unpackPhase = ''
-      unpackFile ${fetch "cfe" "0svk1f70hvpwrjp6x5i9kqwrqwxnmcrw5s7f4cxyd100mdd12k08"}
+      unpackFile ${
+        fetch "cfe" "0svk1f70hvpwrjp6x5i9kqwrqwxnmcrw5s7f4cxyd100mdd12k08"
+      }
       mv cfe-${version}* clang
       sourceRoot=$PWD/clang
       unpackFile ${clang-tools-extra_src}
@@ -22,19 +22,17 @@ let
     buildInputs = [ libxml2 llvm ]
       ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-    cmakeFlags = [
-      "-DCMAKE_CXX_FLAGS=-std=c++11"
-      "-DCLANGD_BUILD_XPC=OFF"
-    ] ++ stdenv.lib.optionals enableManpages [
-      "-DCLANG_INCLUDE_DOCS=ON"
-      "-DLLVM_ENABLE_SPHINX=ON"
-      "-DSPHINX_OUTPUT_MAN=ON"
-      "-DSPHINX_OUTPUT_HTML=OFF"
-      "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-    ] ++ stdenv.lib.optionals enablePolly [
-      "-DWITH_POLLY=ON"
-      "-DLINK_POLLY_INTO_TOOLS=ON"
-    ];
+    cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-std=c++11" "-DCLANGD_BUILD_XPC=OFF" ]
+      ++ stdenv.lib.optionals enableManpages [
+        "-DCLANG_INCLUDE_DOCS=ON"
+        "-DLLVM_ENABLE_SPHINX=ON"
+        "-DSPHINX_OUTPUT_MAN=ON"
+        "-DSPHINX_OUTPUT_HTML=OFF"
+        "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
+      ] ++ stdenv.lib.optionals enablePolly [
+        "-DWITH_POLLY=ON"
+        "-DLINK_POLLY_INTO_TOOLS=ON"
+      ];
 
     patches = [
       ./purity.patch
@@ -90,15 +88,17 @@ let
     passthru = {
       isClang = true;
       inherit llvm;
-    } // stdenv.lib.optionalAttrs (stdenv.targetPlatform.isLinux || (stdenv.cc.isGNU && stdenv.cc.cc ? gcc)) {
-      gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
-    };
+    } // stdenv.lib.optionalAttrs (stdenv.targetPlatform.isLinux
+      || (stdenv.cc.isGNU && stdenv.cc.cc ? gcc)) {
+        gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;
+      };
 
     meta = {
-      description = "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
-      homepage    = http://llvm.org/;
-      license     = stdenv.lib.licenses.ncsa;
-      platforms   = stdenv.lib.platforms.all;
+      description =
+        "A c, c++, objective-c, and objective-c++ frontend for the llvm compiler";
+      homepage = "http://llvm.org/";
+      license = stdenv.lib.licenses.ncsa;
+      platforms = stdenv.lib.platforms.all;
     };
   } // stdenv.lib.optionalAttrs enableManpages {
     name = "clang-manpages-${version}";

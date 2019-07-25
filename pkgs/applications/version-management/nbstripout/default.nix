@@ -1,4 +1,4 @@
-{lib, python2Packages, fetchFromGitHub, fetchurl, git, mercurial, coreutils}:
+{ lib, python2Packages, fetchFromGitHub, fetchurl, git, mercurial, coreutils }:
 
 with python2Packages;
 buildPythonApplication rec {
@@ -24,16 +24,16 @@ buildPythonApplication rec {
 
   patches = [
     (
-      # Fix git diff tests by using --no-index.
-      # See: https://github.com/kynan/nbstripout/issues/74
-      #
-      # Remove this patch once the pull request has been merged and a new
-      # release made.
-      fetchurl {
-        url = "https://github.com/jluttine/nbstripout/commit/03e28424fb788dd09a95e99814977b0d0846c0b4.patch";
-        sha256 = "09myfb77a2wh8lqqs9fcpam97vmaw8b7zbq8n5gwn6d80zbl7dn0";
-      }
-    )
+    # Fix git diff tests by using --no-index.
+    # See: https://github.com/kynan/nbstripout/issues/74
+    #
+    # Remove this patch once the pull request has been merged and a new
+    # release made.
+    fetchurl {
+      url =
+        "https://github.com/jluttine/nbstripout/commit/03e28424fb788dd09a95e99814977b0d0846c0b4.patch";
+      sha256 = "09myfb77a2wh8lqqs9fcpam97vmaw8b7zbq8n5gwn6d80zbl7dn0";
+    })
   ];
 
   # for some reason, darwin uses /bin/sh echo native instead of echo binary, so
@@ -50,7 +50,7 @@ buildPythonApplication rec {
   meta = {
     inherit version;
     description = "Strip output from Jupyter and IPython notebooks";
-    homepage = https://github.com/kynan/nbstripout;
+    homepage = "https://github.com/kynan/nbstripout";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ jluttine ];
   };

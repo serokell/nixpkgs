@@ -12,7 +12,5 @@ buildPythonPackage rec {
   # ImportError: No module named test
   doCheck = false;
 
-  meta = with stdenv.lib; {
-    maintainers = with maintainers; [ domenkozar ];
-  };
+  meta = with stdenv.lib; { maintainers = with maintainers; [ domenkozar ]; };
 }

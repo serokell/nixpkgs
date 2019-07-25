@@ -20,7 +20,7 @@ with lib;
       type = types.bool;
       default = false;
       description = ''
-         Whether to mount a tmpfs on <filename>/tmp</filename> during boot.
+        Whether to mount a tmpfs on <filename>/tmp</filename> during boot.
       '';
     };
 
@@ -30,9 +30,11 @@ with lib;
 
   config = {
 
-    systemd.additionalUpstreamSystemUnits = optional config.boot.tmpOnTmpfs "tmp.mount";
+    systemd.additionalUpstreamSystemUnits =
+      optional config.boot.tmpOnTmpfs "tmp.mount";
 
-    systemd.tmpfiles.rules = optional config.boot.cleanTmpDir "D! /tmp 1777 root root";
+    systemd.tmpfiles.rules =
+      optional config.boot.cleanTmpDir "D! /tmp 1777 root root";
 
   };
 

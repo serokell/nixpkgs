@@ -14,7 +14,9 @@ pythonPackages.buildPythonApplication rec {
 
   # Patch the many hardcoded uses of /usr/share/ and /usr/bin
   postPatch = ''
-    find -type f -exec sed -i -e 's@/usr/share@${placeholder "out"}/share@g' {} \;
+    find -type f -exec sed -i -e 's@/usr/share@${
+      placeholder "out"
+    }/share@g' {} \;
     find -type f -exec sed -i -e 's@/usr/bin@${placeholder "out"}/bin@g' {} \;
   '';
 
@@ -25,9 +27,10 @@ pythonPackages.buildPythonApplication rec {
   propagatedBuildInputs = with pythonPackages; [ pygtk ];
 
   meta = {
-    homepage = http://bleachbit.sourceforge.net;
+    homepage = "http://bleachbit.sourceforge.net";
     description = "A program to clean your computer";
-    longDescription = "BleachBit helps you easily clean your computer to free space and maintain privacy.";
+    longDescription =
+      "BleachBit helps you easily clean your computer to free space and maintain privacy.";
     license = stdenv.lib.licenses.gpl3;
     maintainers = with stdenv.lib.maintainers; [ leonardoce ];
   };

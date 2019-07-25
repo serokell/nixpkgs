@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, which, libtool, pkgconfig
-, ronn
-, pcaudiolibSupport ? true, pcaudiolib
-, sonicSupport ? true, sonic }:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, which, libtool, pkgconfig, ronn, pcaudiolibSupport ?
+  true, pcaudiolib, sonicSupport ? true, sonic }:
 
 stdenv.mkDerivation rec {
   name = "espeak-ng-${version}";
@@ -17,7 +15,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoconf automake which libtool pkgconfig ronn ];
 
   buildInputs = lib.optional pcaudiolibSupport pcaudiolib
-             ++ lib.optional sonicSupport sonic;
+    ++ lib.optional sonicSupport sonic;
 
   preConfigure = "./autogen.sh";
 
@@ -26,7 +24,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Open source speech synthesizer that supports over 70 languages, based on eSpeak";
+    description =
+      "Open source speech synthesizer that supports over 70 languages, based on eSpeak";
     homepage = src.meta.homepage;
     license = licenses.gpl3;
     maintainers = with maintainers; [ aske ];

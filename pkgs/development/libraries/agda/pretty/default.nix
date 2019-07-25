@@ -12,11 +12,12 @@ agda.mkDerivation (self: rec {
 
   buildDepends = [ AgdaStdlib ];
   everythingFile = "Pretty.agda";
-  sourceDirectories = [];
+  sourceDirectories = [ ];
   topSourceDirectories = [ "../$sourceRoot" ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.cse.chalmers.se/~nad/publications/danielsson-correct-pretty.html;
+    homepage =
+      "http://www.cse.chalmers.se/~nad/publications/danielsson-correct-pretty.html";
     description = "Correct-by-Construction Pretty-Printing";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.unix;

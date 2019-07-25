@@ -10,9 +10,7 @@ let
 
   seeks = pkgs.seeks.override { seeks_confDir = confDir; };
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -41,32 +39,28 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf config.services.seeks.enable {
 
-    users.users.seeks =
-      { uid = config.ids.uids.seeks;
-        description = "Seeks user";
-        createHome = true;
-        home = "/var/lib/seeks";
-      };
+    users.users.seeks = {
+      uid = config.ids.uids.seeks;
+      description = "Seeks user";
+      createHome = true;
+      home = "/var/lib/seeks";
+    };
 
-    users.groups.seeks =
-      { gid = config.ids.gids.seeks;
-      };
+    users.groups.seeks = { gid = config.ids.gids.seeks; };
 
-    systemd.services.seeks =
-      {
-        description = "Seeks server, the p2p search engine.";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          User = "seeks";
-          ExecStart = "${seeks}/bin/seeks";
-        };
+    systemd.services.seeks = {
+      description = "Seeks server, the p2p search engine.";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        User = "seeks";
+        ExecStart = "${seeks}/bin/seeks";
       };
+    };
 
     environment.systemPackages = [ seeks ];
 

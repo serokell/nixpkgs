@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, neon, libusb, openssl, udev, avahi, freeipmi
-, libtool, makeWrapper }:
+{ stdenv, fetchurl, pkgconfig, neon, libusb, openssl, udev, avahi, freeipmi, libtool, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "nut-2.7.4";
@@ -13,19 +13,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig makeWrapper ];
 
-  configureFlags =
-    [ "--with-all"
-      "--with-ssl"
-      "--without-snmp" # Until we have it ...
-      "--without-powerman" # Until we have it ...
-      "--without-cgi"
-      "--without-hal"
-      "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
-      "--with-udev-dir=$(out)/etc/udev"
-    ];
+  configureFlags = [
+    "--with-all"
+    "--with-ssl"
+    "--without-snmp" # Until we have it ...
+    "--without-powerman" # Until we have it ...
+    "--without-cgi"
+    "--without-hal"
+    "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
+    "--with-udev-dir=$(out)/etc/udev"
+  ];
 
   enableParallelBuilding = true;
-
 
   postInstall = ''
     wrapProgram $out/bin/nut-scanner --prefix LD_LIBRARY_PATH : \
@@ -39,8 +38,8 @@ stdenv.mkDerivation rec {
       interface for monitoring and administering UPS, PDU and SCD hardware.
       It uses a layered approach to connect all of the parts.
     '';
-    homepage = http://www.networkupstools.org/;
-    repositories.git = https://github.com/networkupstools/nut.git;
+    homepage = "http://www.networkupstools.org/";
+    repositories.git = "https://github.com/networkupstools/nut.git";
     platforms = platforms.linux;
     maintainers = [ maintainers.pierron ];
     license = with licenses; [ gpl1Plus gpl2Plus gpl3Plus ];

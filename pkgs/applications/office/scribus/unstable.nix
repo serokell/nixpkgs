@@ -1,12 +1,10 @@
-{ stdenv, fetchsvn, wrapQtAppsHook, pkgconfig, cmake, qtbase, cairo, pixman,
-boost, cups, fontconfig, freetype, hunspell, libjpeg, libtiff, libxml2, lcms2,
-podofo, poppler, poppler_data, python2, harfbuzz, qtimageformats, qttools }:
+{ stdenv, fetchsvn, wrapQtAppsHook, pkgconfig, cmake, qtbase, cairo, pixman, boost, cups, fontconfig, freetype, hunspell, libjpeg, libtiff, libxml2, lcms2, podofo, poppler, poppler_data, python2, harfbuzz, qtimageformats, qttools
+}:
 
 let
-  pythonEnv = python2.withPackages(ps: [ps.tkinter ps.pillow]);
+  pythonEnv = python2.withPackages (ps: [ ps.tkinter ps.pillow ]);
   revision = "22806";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "scribus-unstable-${version}";
   version = "2019-01-16";
 
@@ -20,16 +18,34 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
   buildInputs = [
-    pkgconfig cmake qtbase cairo pixman boost cups fontconfig
-    freetype hunspell libjpeg libtiff libxml2 lcms2 podofo poppler
-    poppler_data pythonEnv harfbuzz qtimageformats qttools
+    pkgconfig
+    cmake
+    qtbase
+    cairo
+    pixman
+    boost
+    cups
+    fontconfig
+    freetype
+    hunspell
+    libjpeg
+    libtiff
+    libxml2
+    lcms2
+    podofo
+    poppler
+    poppler_data
+    pythonEnv
+    harfbuzz
+    qtimageformats
+    qttools
   ];
 
   meta = {
     maintainers = [ stdenv.lib.maintainers.erictapen ];
     platforms = stdenv.lib.platforms.linux;
     description = "Desktop Publishing (DTP) and Layout program for Linux";
-    homepage = http://www.scribus.net;
+    homepage = "http://www.scribus.net";
     license = stdenv.lib.licenses.gpl2;
   };
 }

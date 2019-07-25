@@ -1,16 +1,4 @@
-{ stdenv
-, autoreconfHook
-, boost
-, db48
-, fetchurl
-, libevent
-, miniupnpc
-, openssl
-, pkgconfig
-, zeromq
-, zlib
-, unixtools
-, python3
+{ stdenv, autoreconfHook, boost, db48, fetchurl, libevent, miniupnpc, openssl, pkgconfig, zeromq, zlib, unixtools, python3
 }:
 
 with stdenv.lib;
@@ -25,14 +13,20 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig autoreconfHook ];
-  buildInputs = [ openssl db48 boost zlib miniupnpc libevent zeromq unixtools.hexdump python3 ];
-
-  configureFlags = [
-    "--disable-bench"
-    "--with-boost-libdir=${boost.out}/lib"
-  ] ++ optionals (!doCheck) [
-    "--enable-tests=no"
+  buildInputs = [
+    openssl
+    db48
+    boost
+    zlib
+    miniupnpc
+    libevent
+    zeromq
+    unixtools.hexdump
+    python3
   ];
+
+  configureFlags = [ "--disable-bench" "--with-boost-libdir=${boost.out}/lib" ]
+    ++ optionals (!doCheck) [ "--enable-tests=no" ];
 
   # Always check during Hydra builds
   doCheck = true;
@@ -40,12 +34,13 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "Privacy-Focused Marketplace & Decentralized Application Platform";
-    longDescription= ''
+    description =
+      "Privacy-Focused Marketplace & Decentralized Application Platform";
+    longDescription = ''
       An open source, decentralized privacy platform built for global person to person eCommerce.
       RPC daemon and CLI client only.
     '';
-    homepage = https://particl.io/;
+    homepage = "https://particl.io/";
     maintainers = with maintainers; [ demyanrogozhin ];
     license = licenses.mit;
     platforms = platforms.unix;

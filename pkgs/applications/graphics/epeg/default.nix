@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libtool, autoconf, automake
-, libjpeg, libexif
+{ stdenv, fetchFromGitHub, pkgconfig, libtool, autoconf, automake, libjpeg, libexif
 }:
 
 stdenv.mkDerivation rec {
@@ -24,12 +23,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mattes/epeg;
+    homepage = "https://github.com/mattes/epeg";
     description = "Insanely fast JPEG/ JPG thumbnail scaling";
     platforms = platforms.linux ++ platforms.darwin;
-    license = {
-      url = "https://github.com/mattes/epeg#license";
-    };
+    license = { url = "https://github.com/mattes/epeg#license"; };
     maintainers = with maintainers; [ nh2 ];
   };
 }

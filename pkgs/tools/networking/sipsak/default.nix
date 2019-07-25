@@ -4,11 +4,7 @@ stdenv.mkDerivation rec {
   name = "sipsak-${version}";
   version = "4.1.2.1";
 
-  buildInputs = [
-    autoreconfHook
-    openssl
-    c-ares
-  ];
+  buildInputs = [ autoreconfHook openssl c-ares ];
 
   NIX_CFLAGS_COMPILE = "--std=gnu89";
 
@@ -18,7 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/sipwise/sipsak;
+    homepage = "https://github.com/sipwise/sipsak";
     description = "SIP Swiss army knife";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with maintainers; [ sheenobu ];

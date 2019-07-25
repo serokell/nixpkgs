@@ -1,6 +1,5 @@
-{ fetchurl, stdenv, libxml2, libxslt
-, docbook_xml_dtd_45, docbook_xsl, w3m
-, bash, getopt, makeWrapper }:
+{ fetchurl, stdenv, libxml2, libxslt, docbook_xml_dtd_45, docbook_xsl, w3m, bash, getopt, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "xmlto-0.0.28";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = stdenv.lib.licenses.gpl2Plus;
-    homepage = https://fedorahosted.org/xmlto/;
+    homepage = "https://fedorahosted.org/xmlto/";
     platforms = stdenv.lib.platforms.unix;
   };
 }

@@ -1,18 +1,10 @@
 # This test runs haka and probes it with hakactl
 
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "haka";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ tvestelind ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ tvestelind ]; };
 
-  nodes = {
-    haka =
-      { ... }:
-        {
-          services.haka.enable = true;
-        };
-    };
+  nodes = { haka = { ... }: { services.haka.enable = true; }; };
 
   testScript = ''
     startAll;

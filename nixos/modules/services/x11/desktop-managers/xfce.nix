@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.desktopManager.xfce;
-in
+let cfg = config.services.xserver.desktopManager.xfce;
 
-{
+in {
   options = {
     services.xserver.desktopManager.xfce = {
       enable = mkOption {
@@ -16,7 +14,7 @@ in
       };
 
       thunarPlugins = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         example = literalExample "[ pkgs.xfce.thunar-archive-plugin ]";
         description = ''
@@ -27,7 +25,8 @@ in
       noDesktop = mkOption {
         type = types.bool;
         default = false;
-        description = "Don't install XFCE desktop components (xfdesktop, panel and notification daemon).";
+        description =
+          "Don't install XFCE desktop components (xfdesktop, panel and notification daemon).";
       };
 
       extraSessionCommands = mkOption {
@@ -47,58 +46,57 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs.xfce // pkgs; [
-      # Get GTK+ themes and gtk-update-icon-cache
-      gtk2.out
+    environment.systemPackages = with pkgs.xfce // pkgs;
+      [
+        # Get GTK+ themes and gtk-update-icon-cache
+        gtk2.out
 
-      # Supplies some abstract icons such as:
-      # utilities-terminal, accessories-text-editor
-      gnome3.adwaita-icon-theme
+        # Supplies some abstract icons such as:
+        # utilities-terminal, accessories-text-editor
+        gnome3.adwaita-icon-theme
 
-      hicolor-icon-theme
-      tango-icon-theme
-      xfce4-icon-theme
+        hicolor-icon-theme
+        tango-icon-theme
+        xfce4-icon-theme
 
-      # Needed by Xfce's xinitrc script
-      # TODO: replace with command -v
-      which
+        # Needed by Xfce's xinitrc script
+        # TODO: replace with command -v
+        which
 
-      exo
-      garcon
-      gtk-xfce-engine
-      gvfs
-      libxfce4ui
-      tumbler
-      xfconf
+        exo
+        garcon
+        gtk-xfce-engine
+        gvfs
+        libxfce4ui
+        tumbler
+        xfconf
 
-      mousepad
-      ristretto
-      xfce4-appfinder
-      xfce4-screenshooter
-      xfce4-session
-      xfce4-settings
-      xfce4-terminal
+        mousepad
+        ristretto
+        xfce4-appfinder
+        xfce4-screenshooter
+        xfce4-session
+        xfce4-settings
+        xfce4-terminal
 
-      (thunar.override { thunarPlugins = cfg.thunarPlugins; })
-      thunar-volman # TODO: drop
-    ] ++ (if config.hardware.pulseaudio.enable
-          then [ xfce4-mixer-pulse xfce4-volumed-pulse ]
-          else [ xfce4-mixer xfce4-volumed ])
+        (thunar.override { thunarPlugins = cfg.thunarPlugins; })
+        thunar-volman # TODO: drop
+      ] ++ (if config.hardware.pulseaudio.enable then [
+        xfce4-mixer-pulse
+        xfce4-volumed-pulse
+      ] else [
+        xfce4-mixer
+        xfce4-volumed
+      ])
       # TODO: NetworkManager doesn't belong here
-      ++ optionals config.networking.networkmanager.enable [ networkmanagerapplet ]
+      ++ optionals config.networking.networkmanager.enable
+      [ networkmanagerapplet ]
       ++ optionals config.powerManagement.enable [ xfce4-power-manager ]
       ++ optionals cfg.enableXfwm [ xfwm4 ]
-      ++ optionals (!cfg.noDesktop) [
-        xfce4-panel
-        xfce4-notifyd
-        xfdesktop
-      ];
+      ++ optionals (!cfg.noDesktop) [ xfce4-panel xfce4-notifyd xfdesktop ];
 
-    environment.pathsToLink = [
-      "/share/xfce4"
-      "/share/themes"
-      "/share/gtksourceview-2.0"
-    ];
+    environment.pathsToLink =
+      [ "/share/xfce4" "/share/themes" "/share/gtksourceview-2.0" ];
 
     environment.variables = {
       GIO_EXTRA_MODULES = [ "${pkgs.xfce.gvfs}/lib/gio/modules" ];

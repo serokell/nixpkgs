@@ -6,9 +6,7 @@ let
 
   cfg = config.services.stanchion;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -127,8 +125,12 @@ in
 
       riak_host = ${cfg.riakHost}
 
-      ${optionalString (cfg.adminKey == "") "#"} admin.key=${optionalString (cfg.adminKey != "") cfg.adminKey}
-      ${optionalString (cfg.adminSecret == "") "#"} admin.secret=${optionalString (cfg.adminSecret != "") cfg.adminSecret}
+      ${optionalString (cfg.adminKey == "") "#"} admin.key=${
+        optionalString (cfg.adminKey != "") cfg.adminKey
+      }
+      ${optionalString (cfg.adminSecret == "") "#"} admin.secret=${
+        optionalString (cfg.adminSecret != "") cfg.adminSecret
+      }
 
       platform_bin_dir = ${pkgs.stanchion}/bin
       platform_data_dir = ${cfg.dataDir}
@@ -184,11 +186,8 @@ in
         LimitNOFILE = 65536;
       };
 
-      unitConfig.RequiresMountsFor = [
-        "${cfg.dataDir}"
-        "${cfg.logDir}"
-        "/etc/stanchion"
-      ];
+      unitConfig.RequiresMountsFor =
+        [ "${cfg.dataDir}" "${cfg.logDir}" "/etc/stanchion" ];
     };
   };
 }

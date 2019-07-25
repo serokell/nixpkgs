@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.6.4";
 
   src = fetchurl {
-    url = "http://apache.proserve.nl/axis/axis2/java/core/${version}/${name}-bin.zip";
+    url =
+      "http://apache.proserve.nl/axis/axis2/java/core/${version}/${name}-bin.zip";
     sha256 = "12ir706dn95567j6lkxdwrh28vnp6292h59qwjyqjm7ckglkmgyr";
   };
 
@@ -13,7 +14,8 @@ stdenv.mkDerivation rec {
   builder = ./builder.sh;
 
   meta = {
-    description = "Web Services / SOAP / WSDL engine, the successor to the widely used Apache Axis SOAP stack";
+    description =
+      "Web Services / SOAP / WSDL engine, the successor to the widely used Apache Axis SOAP stack";
     platforms = stdenv.lib.platforms.unix;
     license = stdenv.lib.licenses.asl20;
   };

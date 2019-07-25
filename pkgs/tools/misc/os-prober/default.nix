@@ -1,18 +1,19 @@
 { stdenv, fetchurl, makeWrapper,
 # optional dependencies, the command(s) they provide
-coreutils,  # mktemp
-grub2,      # grub-mount and grub-probe
+coreutils, # mktemp
+grub2, # grub-mount and grub-probe
 cryptsetup, # cryptsetup
-libuuid,    # blkid and blockdev
-udev,    # udevadm udevinfo
-ntfs3g      # ntfs3g
+libuuid, # blkid and blockdev
+udev, # udevadm udevinfo
+ntfs3g # ntfs3g
 }:
 
 stdenv.mkDerivation rec {
   version = "1.76";
   name = "os-prober-${version}";
   src = fetchurl {
-    url = "https://salsa.debian.org/philh/os-prober/-/archive/${version}/os-prober-${version}.tar.bz2";
+    url =
+      "https://salsa.debian.org/philh/os-prober/-/archive/${version}/os-prober-${version}.tar.bz2";
     sha256 = "07rw3092pckh21vx6y4hzqcn3wn4cqmwxaaiq100lncnhmszg11g";
   };
 
@@ -51,14 +52,16 @@ stdenv.mkDerivation rec {
     done;
     for file in $out/bin/*; do
       wrapProgram $file \
-        --suffix PATH : ${stdenv.lib.makeBinPath [ grub2 udev coreutils cryptsetup libuuid ntfs3g ]} \
+        --suffix PATH : ${
+      stdenv.lib.makeBinPath [ grub2 udev coreutils cryptsetup libuuid ntfs3g ]
+        } \
         --run "[ -d /var/lib/os-prober ] || mkdir /var/lib/os-prober"
     done;
   '';
 
   meta = with stdenv.lib; {
     description = "Utility to detect other OSs on a set of drives";
-    homepage = http://packages.debian.org/source/sid/os-prober;
+    homepage = "http://packages.debian.org/source/sid/os-prober";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ symphorien ];
   };

@@ -1,4 +1,4 @@
-{stdenv, fetchurl, pkgconfig }:
+{ stdenv, fetchurl, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "liboil-0.3.17";
@@ -20,13 +20,15 @@ stdenv.mkDerivation rec {
   configureFlags = stdenv.lib.optional stdenv.isDarwin "--build=x86_64";
 
   # fixes a cast in inline asm: easier than patching
-  buildFlags = stdenv.lib.optional stdenv.isDarwin "CFLAGS=-fheinous-gnu-extensions";
+  buildFlags =
+    stdenv.lib.optional stdenv.isDarwin "CFLAGS=-fheinous-gnu-extensions";
 
   meta = with stdenv.lib; {
-    description = "A library of simple functions that are optimized for various CPUs";
-    homepage    = https://liboil.freedesktop.org;
-    license     = licenses.bsd2;
+    description =
+      "A library of simple functions that are optimized for various CPUs";
+    homepage = "https://liboil.freedesktop.org";
+    license = licenses.bsd2;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

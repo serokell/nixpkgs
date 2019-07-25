@@ -1,4 +1,4 @@
-{stdenv, fetchurl, perl}:
+{ stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   name = "lcov-1.14";
@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Code coverage tool that enhances GNU gcov";
 
-    longDescription =
-      '' LCOV is an extension of GCOV, a GNU tool which provides information
-         about what parts of a program are actually executed (i.e.,
-         "covered") while running a particular test case.  The extension
-         consists of a set of PERL scripts which build on the textual GCOV
-         output to implement the following enhanced functionality such as
-         HTML output.
-      '';
+    longDescription = ''
+      LCOV is an extension of GCOV, a GNU tool which provides information
+              about what parts of a program are actually executed (i.e.,
+              "covered") while running a particular test case.  The extension
+              consists of a set of PERL scripts which build on the textual GCOV
+              output to implement the following enhanced functionality such as
+              HTML output.
+           '';
 
-    homepage = http://ltp.sourceforge.net/coverage/lcov.php;
+    homepage = "http://ltp.sourceforge.net/coverage/lcov.php";
     license = stdenv.lib.licenses.gpl2Plus;
 
     maintainers = with maintainers; [ dezgeg ];

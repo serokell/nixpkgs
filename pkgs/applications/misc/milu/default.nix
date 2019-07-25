@@ -23,15 +23,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [
-     glib
-     unzip
-     llvmPackages.libclang
-  ];
+  buildInputs = [ glib unzip llvmPackages.libclang ];
 
   meta = {
     description = "Higher Order Mutation Testing Tool for C and C++ programs";
-    homepage = https://github.com/yuejia/Milu;
+    homepage = "https://github.com/yuejia/Milu";
     license = stdenv.lib.licenses.bsd2;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ stdenv.lib.maintainers.vrthra ];

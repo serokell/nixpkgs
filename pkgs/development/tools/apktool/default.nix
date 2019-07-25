@@ -23,15 +23,17 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     makeWrapper "${jre}/bin/java" "$out/bin/apktool" \
         --add-flags "-jar $out/libexec/apktool/apktool.jar" \
-        --prefix PATH : "${builtins.head build-tools}/libexec/android-sdk/build-tools/28.0.3"
+        --prefix PATH : "${
+      builtins.head build-tools
+        }/libexec/android-sdk/build-tools/28.0.3"
   '';
 
   meta = with stdenv.lib; {
     description = "A tool for reverse engineering Android apk files";
-    homepage    = https://ibotpeaches.github.io/Apktool/;
-    license     = licenses.asl20;
+    homepage = "https://ibotpeaches.github.io/Apktool/";
+    license = licenses.asl20;
     maintainers = with maintainers; [ offline ];
-    platforms   = with platforms; unix;
+    platforms = with platforms; unix;
   };
 
 }

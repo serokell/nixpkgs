@@ -9,18 +9,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
     sha256 = "0mmvkq72i4rda6b7g93qrwg2nwh2rvkq4xw70yppj51hsdrnpfl7";
   };
-  nativeBuildInputs = [
-    automake
-    autoconf
-    which
-    libtool
-    pkgconfig
-  ];
+  nativeBuildInputs = [ automake autoconf which libtool pkgconfig ];
   preConfigure = "./autogen.sh";
-  configureFlags = [
-    "--disable-documentation"
-    "--disable-shared"
-  ];
+  configureFlags = [ "--disable-documentation" "--disable-shared" ];
   meta = with stdenv.lib; {
     homepage = "https://github.com/obgm/libcoap";
     description = "A CoAP (RFC 7252) implementation in C";

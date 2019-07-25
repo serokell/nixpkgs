@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, lib, bzip2, cmake, gflags, lz4, snappy, zlib, zstd, enableLite ? false }:
+{ stdenv, fetchFromGitHub, lib, bzip2, cmake, gflags, lz4, snappy, zlib, zstd, enableLite ?
+  false }:
 
 stdenv.mkDerivation rec {
   pname = "rocksdb";
@@ -27,16 +28,15 @@ stdenv.mkDerivation rec {
     "-DWITH_SNAPPY=1"
     "-DWITH_ZLIB=1"
     "-DWITH_ZSTD=1"
-    (lib.optional
-        (stdenv.hostPlatform.system == "i686-linux"
-         || stdenv.hostPlatform.system == "x86_64-linux")
-        "-DFORCE_SSE42=1")
+    (lib.optional (stdenv.hostPlatform.system == "i686-linux"
+    || stdenv.hostPlatform.system == "x86_64-linux") "-DFORCE_SSE42=1")
     (lib.optional enableLite "-DROCKSDB_LITE=1")
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://rocksdb.org;
-    description = "A library that provides an embeddable, persistent key-value store for fast storage";
+    homepage = "https://rocksdb.org";
+    description =
+      "A library that provides an embeddable, persistent key-value store for fast storage";
     license = licenses.asl20;
     maintainers = with maintainers; [ adev magenbluten ];
   };

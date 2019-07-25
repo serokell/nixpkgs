@@ -17,11 +17,12 @@ buildRustPackage rec {
 
   patches = [ ./fix_cargo_lock_version.patch ];
 
-  buildInputs = stdenv.lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = stdenv.lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with stdenv.lib; {
     description = ''The "Command Line Interactive Controller for Kubernetes"'';
-    homepage = https://github.com/databricks/click;
+    homepage = "https://github.com/databricks/click";
     license = [ licenses.asl20 ];
     maintainers = [ maintainers.mbode ];
     platforms = [ "x86_64-linux" "x86_64-darwin" ];

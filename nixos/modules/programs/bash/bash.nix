@@ -32,35 +32,31 @@ let
     fi
   '';
 
-  bashAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
-      (filterAttrs (k: v: v != null) cfg.shellAliases)
-  );
+  bashAliases = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
+    (filterAttrs (k: v: v != null) cfg.shellAliases));
 
-in
-
-{
+in {
   options = {
 
     programs.bash = {
 
-      /*
-      enable = mkOption {
-        default = true;
-        description = ''
-          Whenever to configure Bash as an interactive shell.
-          Note that this tries to make Bash the default
-          <option>users.defaultUserShell</option>,
-          which in turn means that you might need to explicitly
-          set this variable if you have another shell configured
-          with NixOS.
-        '';
-        type = types.bool;
-      };
+      /* enable = mkOption {
+           default = true;
+           description = ''
+             Whenever to configure Bash as an interactive shell.
+             Note that this tries to make Bash the default
+             <option>users.defaultUserShell</option>,
+             which in turn means that you might need to explicitly
+             set this variable if you have another shell configured
+             with NixOS.
+           '';
+           type = types.bool;
+         };
       */
 
       shellAliases = mkOption {
-        default = {};
+        default = { };
         description = ''
           Set of aliases for bash shell, which overrides <option>environment.shellAliases</option>.
           See <option>environment.shellAliases</option> for an option format description.
@@ -127,7 +123,8 @@ in
 
   };
 
-  config = /* mkIf cfg.enable */ {
+  config = # mkIf cfg.enable
+  {
 
     programs.bash = {
 
@@ -159,56 +156,54 @@ in
 
     };
 
-    environment.etc."profile".text =
-      ''
-        # /etc/profile: DO NOT EDIT -- this file has been generated automatically.
-        # This file is read for login shells.
+    environment.etc."profile".text = ''
+      # /etc/profile: DO NOT EDIT -- this file has been generated automatically.
+      # This file is read for login shells.
 
-        # Only execute this file once per shell.
-        if [ -n "$__ETC_PROFILE_SOURCED" ]; then return; fi
-        __ETC_PROFILE_SOURCED=1
+      # Only execute this file once per shell.
+      if [ -n "$__ETC_PROFILE_SOURCED" ]; then return; fi
+      __ETC_PROFILE_SOURCED=1
 
-        # Prevent this file from being sourced by interactive non-login child shells.
-        export __ETC_PROFILE_DONE=1
+      # Prevent this file from being sourced by interactive non-login child shells.
+      export __ETC_PROFILE_DONE=1
 
-        ${cfg.shellInit}
-        ${cfg.loginShellInit}
+      ${cfg.shellInit}
+      ${cfg.loginShellInit}
 
-        # Read system-wide modifications.
-        if test -f /etc/profile.local; then
-            . /etc/profile.local
-        fi
+      # Read system-wide modifications.
+      if test -f /etc/profile.local; then
+          . /etc/profile.local
+      fi
 
-        if [ -n "''${BASH_VERSION:-}" ]; then
-            . /etc/bashrc
-        fi
-      '';
+      if [ -n "''${BASH_VERSION:-}" ]; then
+          . /etc/bashrc
+      fi
+    '';
 
-    environment.etc."bashrc".text =
-      ''
-        # /etc/bashrc: DO NOT EDIT -- this file has been generated automatically.
+    environment.etc."bashrc".text = ''
+      # /etc/bashrc: DO NOT EDIT -- this file has been generated automatically.
 
-        # Only execute this file once per shell.
-        if [ -n "$__ETC_BASHRC_SOURCED" -o -n "$NOSYSBASHRC" ]; then return; fi
-        __ETC_BASHRC_SOURCED=1
+      # Only execute this file once per shell.
+      if [ -n "$__ETC_BASHRC_SOURCED" -o -n "$NOSYSBASHRC" ]; then return; fi
+      __ETC_BASHRC_SOURCED=1
 
-        # If the profile was not loaded in a parent process, source
-        # it.  But otherwise don't do it because we don't want to
-        # clobber overridden values of $PATH, etc.
-        if [ -z "$__ETC_PROFILE_DONE" ]; then
-            . /etc/profile
-        fi
+      # If the profile was not loaded in a parent process, source
+      # it.  But otherwise don't do it because we don't want to
+      # clobber overridden values of $PATH, etc.
+      if [ -z "$__ETC_PROFILE_DONE" ]; then
+          . /etc/profile
+      fi
 
-        # We are not always an interactive shell.
-        if [ -n "$PS1" ]; then
-            ${cfg.interactiveShellInit}
-        fi
+      # We are not always an interactive shell.
+      if [ -n "$PS1" ]; then
+          ${cfg.interactiveShellInit}
+      fi
 
-        # Read system-wide modifications.
-        if test -f /etc/bashrc.local; then
-            . /etc/bashrc.local
-        fi
-      '';
+      # Read system-wide modifications.
+      if test -f /etc/bashrc.local; then
+          . /etc/bashrc.local
+      fi
+    '';
 
     # Configuration for readline in bash. We use "option default"
     # priority to allow user override using both .text and .source.
@@ -221,15 +216,15 @@ in
       "/share/bash-completion"
     ];
 
-    environment.systemPackages = optional cfg.enableCompletion
-      pkgs.nix-bash-completions;
+    environment.systemPackages =
+      optional cfg.enableCompletion pkgs.nix-bash-completions;
 
-    environment.shells =
-      [ "/run/current-system/sw/bin/bash"
-        "/run/current-system/sw/bin/sh"
-        "${pkgs.bashInteractive}/bin/bash"
-        "${pkgs.bashInteractive}/bin/sh"
-      ];
+    environment.shells = [
+      "/run/current-system/sw/bin/bash"
+      "/run/current-system/sw/bin/sh"
+      "${pkgs.bashInteractive}/bin/bash"
+      "${pkgs.bashInteractive}/bin/sh"
+    ];
 
   };
 

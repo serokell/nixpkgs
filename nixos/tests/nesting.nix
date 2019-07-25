@@ -1,21 +1,15 @@
 import ./make-test.nix {
   name = "nesting";
-  nodes =  {
+  nodes = {
     clone = { pkgs, ... }: {
       environment.systemPackages = [ pkgs.cowsay ];
-      nesting.clone = [
-        ({ pkgs, ... }: {
-          environment.systemPackages = [ pkgs.hello ];
-        })
-      ];
+      nesting.clone =
+        [ ({ pkgs, ... }: { environment.systemPackages = [ pkgs.hello ]; }) ];
     };
     children = { pkgs, ... }: {
       environment.systemPackages = [ pkgs.cowsay ];
-      nesting.children = [
-        ({ pkgs, ... }: {
-          environment.systemPackages = [ pkgs.hello ];
-        })
-      ];
+      nesting.children =
+        [ ({ pkgs, ... }: { environment.systemPackages = [ pkgs.hello ]; }) ];
     };
   };
   testScript = ''
@@ -27,7 +21,7 @@ import ./make-test.nix {
     $clone->succeed("/run/current-system/fine-tune/child-1/bin/switch-to-configuration test");
     $clone->succeed("cowsay hey");
     $clone->succeed("hello");
-    
+
 
     $children->waitForUnit("default.target");
     $children->succeed("cowsay hey");

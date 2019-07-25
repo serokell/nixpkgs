@@ -15,13 +15,14 @@ stdenv.mkDerivation rec {
 
   preBuild = "cd src";
 
-  preInstall = '' mkdir -p "$out" '';
+  preInstall = ''mkdir -p "$out" '';
 
   installPhase = ''make install prefix="$out"'';
 
   meta = {
-    description = "Bitmap paint program inspired by the Amiga programs Deluxe Paint and Brilliance";
-    homepage = http://pulkomandy.tk/projects/GrafX2;
+    description =
+      "Bitmap paint program inspired by the Amiga programs Deluxe Paint and Brilliance";
+    homepage = "http://pulkomandy.tk/projects/GrafX2";
     license = stdenv.lib.licenses.gpl2;
     platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = [ stdenv.lib.maintainers.zoomulator ];

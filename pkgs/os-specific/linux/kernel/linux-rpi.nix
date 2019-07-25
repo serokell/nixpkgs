@@ -1,10 +1,9 @@
-{ stdenv, lib, buildPackages, fetchFromGitHub, perl, buildLinux, ... } @ args:
+{ stdenv, lib, buildPackages, fetchFromGitHub, perl, buildLinux, ... }@args:
 
 let
   modDirVersion = "4.14.98";
   tag = "1.20190215";
-in
-lib.overrideDerivation (buildLinux (args // rec {
+in lib.overrideDerivation (buildLinux (args // rec {
   version = "${modDirVersion}-${tag}";
   inherit modDirVersion;
 
@@ -19,14 +18,13 @@ lib.overrideDerivation (buildLinux (args // rec {
     "armv6l-linux" = "bcmrpi_defconfig";
     "armv7l-linux" = "bcm2709_defconfig";
     "aarch64-linux" = "bcmrpi3_defconfig";
-  }.${stdenv.hostPlatform.system} or (throw "linux_rpi not supported on '${stdenv.hostPlatform.system}'");
+  }.${stdenv.hostPlatform.system} or (throw
+    "linux_rpi not supported on '${stdenv.hostPlatform.system}'");
 
-  features = {
-    efiBootStub = false;
-  } // (args.features or {});
+  features = { efiBootStub = false; } // (args.features or { });
 
   extraMeta.hydraPlatforms = [ "aarch64-linux" ];
-} // (args.argsOverride or {}))) (oldAttrs: {
+} // (args.argsOverride or { }))) (oldAttrs: {
   postConfigure = ''
     # The v7 defconfig has this set to '-v7' which screws up our modDirVersion.
     sed -i $buildRoot/.config -e 's/^CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION=""/'
@@ -40,21 +38,24 @@ lib.overrideDerivation (buildLinux (args // rec {
     copyDTB() {
       cp -v "$dtbDir/$1" "$dtbDir/$2"
     }
-  '' + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv6l-linux"]) ''
-    copyDTB bcm2708-rpi-0-w.dtb bcm2835-rpi-zero.dtb
-    copyDTB bcm2708-rpi-0-w.dtb bcm2835-rpi-zero-w.dtb
-    copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-a.dtb
-    copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-b.dtb
-    copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-b-rev2.dtb
-    copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-a-plus.dtb
-    copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-b-plus.dtb
-    copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-zero.dtb
-    copyDTB bcm2708-rpi-cm.dtb bcm2835-rpi-cm.dtb
-  '' + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv7l-linux"]) ''
-    copyDTB bcm2709-rpi-2-b.dtb bcm2836-rpi-2-b.dtb
-  '' + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv7l-linux" "aarch64-linux"]) ''
-    copyDTB bcm2710-rpi-3-b.dtb bcm2837-rpi-3-b.dtb
-    copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-b-plus.dtb
-    copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
-  '';
+  '' + lib.optionalString
+    (lib.elem stdenv.hostPlatform.system [ "armv6l-linux" ]) ''
+      copyDTB bcm2708-rpi-0-w.dtb bcm2835-rpi-zero.dtb
+      copyDTB bcm2708-rpi-0-w.dtb bcm2835-rpi-zero-w.dtb
+      copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-a.dtb
+      copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-b.dtb
+      copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-b-rev2.dtb
+      copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-a-plus.dtb
+      copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-b-plus.dtb
+      copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-zero.dtb
+      copyDTB bcm2708-rpi-cm.dtb bcm2835-rpi-cm.dtb
+    '' + lib.optionalString
+    (lib.elem stdenv.hostPlatform.system [ "armv7l-linux" ]) ''
+      copyDTB bcm2709-rpi-2-b.dtb bcm2836-rpi-2-b.dtb
+    '' + lib.optionalString
+    (lib.elem stdenv.hostPlatform.system [ "armv7l-linux" "aarch64-linux" ]) ''
+      copyDTB bcm2710-rpi-3-b.dtb bcm2837-rpi-3-b.dtb
+      copyDTB bcm2710-rpi-3-b-plus.dtb bcm2837-rpi-3-b-plus.dtb
+      copyDTB bcm2710-rpi-cm3.dtb bcm2837-rpi-cm3.dtb
+    '';
 })

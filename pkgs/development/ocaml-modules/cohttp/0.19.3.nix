@@ -1,8 +1,6 @@
-{ stdenv, buildOcaml, fetchurl, ocaml, cmdliner, re, uri_p4, fieldslib_p4
-, sexplib_p4, conduit , stringext, base64, magic-mime, ounit, alcotest
-, asyncSupport ? stdenv.lib.versionAtLeast ocaml.version "4.02"
-, lwt ? null, async_p4 ? null, async_ssl_p4 ? null
-}:
+{ stdenv, buildOcaml, fetchurl, ocaml, cmdliner, re, uri_p4, fieldslib_p4, sexplib_p4, conduit, stringext, base64, magic-mime, ounit, alcotest, asyncSupport ?
+  stdenv.lib.versionAtLeast ocaml.version "4.02", lwt ? null, async_p4 ?
+    null, async_ssl_p4 ? null }:
 
 buildOcaml rec {
   name = "cohttp";
@@ -16,13 +14,14 @@ buildOcaml rec {
   };
 
   buildInputs = [ alcotest cmdliner conduit magic-mime ounit lwt ]
-  ++ stdenv.lib.optionals asyncSupport [ async_p4 async_ssl_p4 ];
-  propagatedBuildInputs = [ re stringext uri_p4 fieldslib_p4 sexplib_p4 base64 ];
+    ++ stdenv.lib.optionals asyncSupport [ async_p4 async_ssl_p4 ];
+  propagatedBuildInputs =
+    [ re stringext uri_p4 fieldslib_p4 sexplib_p4 base64 ];
 
   buildFlags = "PREFIX=$(out)";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/mirage/ocaml-cohttp;
+    homepage = "https://github.com/mirage/ocaml-cohttp";
     description = "Very lightweight HTTP server using Lwt or Async";
     license = licenses.mit;
     maintainers = [ maintainers.ericbmerritt ];

@@ -12,7 +12,8 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     license = licenses.mit;
-    homepage = https://pypi.python.org/pypi/pytest-catchlog/;
-    description = "py.test plugin to create a 'tmpdir' containing predefined files/directories.";
+    homepage = "https://pypi.python.org/pypi/pytest-catchlog/";
+    description =
+      "py.test plugin to create a 'tmpdir' containing predefined files/directories.";
   };
 }

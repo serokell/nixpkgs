@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.virtualisation.rkt;
-in
-{
+let cfg = config.virtualisation.rkt;
+in {
   options.virtualisation.rkt = {
     enable = mkEnableOption "rkt metadata service";
 
@@ -13,7 +11,8 @@ in
       automatic = mkOption {
         default = true;
         type = types.bool;
-        description = "Automatically run the garbage collector at a specific time.";
+        description =
+          "Automatically run the garbage collector at a specific time.";
       };
 
       dates = mkOption {
@@ -45,9 +44,7 @@ in
       description = "rkt metadata service";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.rkt}/bin/rkt metadata-service";
-      };
+      serviceConfig = { ExecStart = "${pkgs.rkt}/bin/rkt metadata-service"; };
     };
 
     systemd.services.rkt-gc = {
@@ -59,6 +56,6 @@ in
       };
     };
 
-    users.groups.rkt = {};
+    users.groups.rkt = { };
   };
 }

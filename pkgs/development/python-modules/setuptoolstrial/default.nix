@@ -1,12 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, virtualenv
-, pytestrunner
-, pytest-virtualenv
-, twisted
-, pathlib2
+{ stdenv, buildPythonPackage, fetchPypi, pytest, virtualenv, pytestrunner, pytest-virtualenv, twisted, pathlib2
 }:
 
 buildPythonPackage rec {
@@ -29,7 +21,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Setuptools plugin that makes unit tests execute with trial instead of pyunit.";
+    description =
+      "Setuptools plugin that makes unit tests execute with trial instead of pyunit.";
     homepage = "https://github.com/rutsky/setuptools-trial";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ryansydnor nand0p ];

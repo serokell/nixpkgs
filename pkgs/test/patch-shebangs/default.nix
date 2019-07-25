@@ -2,7 +2,7 @@
 
 let
   bad-shebang = stdenv.mkDerivation {
-    name         = "bad-shebang";
+    name = "bad-shebang";
     dontUnpack = true;
     installPhase = ''
       mkdir -p $out/bin

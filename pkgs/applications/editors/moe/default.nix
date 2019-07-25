@@ -1,6 +1,4 @@
-{ stdenv, fetchurl
-, lzip, ncurses
-}:
+{ stdenv, fetchurl, lzip, ncurses }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -33,7 +31,7 @@ stdenv.mkDerivation rec {
       completion, directory browser, duplicate removal from prompt histories,
       delimiter matching, text conversion from/to UTF-8, romanization, etc.
     '';
-    homepage = https://www.gnu.org/software/moe/;
+    homepage = "https://www.gnu.org/software/moe/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;

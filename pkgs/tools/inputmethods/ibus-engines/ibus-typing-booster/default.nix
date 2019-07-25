@@ -1,17 +1,11 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, python3, ibus, pkgconfig, gtk3, m17n_lib
-, wrapGAppsHook, gobject-introspection
+{ stdenv, fetchFromGitHub, autoreconfHook, python3, ibus, pkgconfig, gtk3, m17n_lib, wrapGAppsHook, gobject-introspection
 }:
 
 let
 
-  python = python3.withPackages (ps: with ps; [
-    pygobject3
-    dbus-python
-  ]);
+  python = python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "ibus-typing-booster-${version}";
   version = "2.6.2";
 
@@ -24,7 +18,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./hunspell-dirs.patch ];
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig wrapGAppsHook gobject-introspection ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig wrapGAppsHook gobject-introspection ];
   buildInputs = [ python ibus gtk3 m17n_lib ];
 
   preFixup = ''
@@ -32,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://mike-fabian.github.io/ibus-typing-booster/;
+    homepage = "https://mike-fabian.github.io/ibus-typing-booster/";
     license = licenses.gpl3Plus;
     description = "A typing booster engine for the IBus platform";
     maintainers = with maintainers; [ ma27 ];

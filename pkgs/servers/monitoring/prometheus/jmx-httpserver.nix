@@ -3,7 +3,8 @@
 let
   version = "0.10";
   jarName = "jmx_prometheus_httpserver-${version}-jar-with-dependencies.jar";
-  mavenUrl = "http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_httpserver/${version}/${jarName}";
+  mavenUrl =
+    "http://central.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_httpserver/${version}/${jarName}";
 in stdenv.mkDerivation {
   inherit version jarName;
 
@@ -26,8 +27,9 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/prometheus/jmx_exporter;
-    description = "A process for exposing JMX Beans via HTTP for Prometheus consumption";
+    homepage = "https://github.com/prometheus/jmx_exporter";
+    description =
+      "A process for exposing JMX Beans via HTTP for Prometheus consumption";
     license = licenses.asl20;
     maintainers = [ maintainers.offline ];
     platforms = platforms.unix;

@@ -1,10 +1,11 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.hadoop;
-  hadoopConf = import ./conf.nix { hadoop = cfg; pkgs = pkgs; };
-in
-with lib;
-{
+  hadoopConf = import ./conf.nix {
+    hadoop = cfg;
+    pkgs = pkgs;
+  };
+in with lib; {
   options.services.hadoop.hdfs = {
     namenode.enabled = mkOption {
       type = types.bool;
@@ -28,9 +29,7 @@ with lib;
         description = "Hadoop HDFS NameNode";
         wantedBy = [ "multi-user.target" ];
 
-        environment = {
-          HADOOP_HOME = "${cfg.package}";
-        };
+        environment = { HADOOP_HOME = "${cfg.package}"; };
 
         preStart = ''
           ${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true
@@ -48,9 +47,7 @@ with lib;
         description = "Hadoop HDFS DataNode";
         wantedBy = [ "multi-user.target" ];
 
-        environment = {
-          HADOOP_HOME = "${cfg.package}";
-        };
+        environment = { HADOOP_HOME = "${cfg.package}"; };
 
         serviceConfig = {
           User = "hdfs";
@@ -59,9 +56,7 @@ with lib;
         };
       };
     })
-    (mkIf (
-        cfg.hdfs.namenode.enabled || cfg.hdfs.datanode.enabled
-    ) {
+    (mkIf (cfg.hdfs.namenode.enabled || cfg.hdfs.datanode.enabled) {
       users.users.hdfs = {
         description = "Hadoop HDFS user";
         group = "hadoop";

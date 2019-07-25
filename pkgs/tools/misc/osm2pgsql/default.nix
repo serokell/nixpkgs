@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, expat, proj, bzip2, zlib, boost, postgresql, lua}:
+{ stdenv, fetchFromGitHub, cmake, expat, proj, bzip2, zlib, boost, postgresql, lua
+}:
 
 stdenv.mkDerivation rec {
   name = "osm2pgsql-${version}";
@@ -19,7 +20,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "OpenStreetMap data to PostgreSQL converter";
-    homepage = https://github.com/openstreetmap/osm2pgsql;
+    homepage = "https://github.com/openstreetmap/osm2pgsql";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl
-, pkgconfig }:
+{ stdenv, fetchurl, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "libast-${version}";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Library of Assorted Spiffy Things";
-    homepage = https://www.eterm.org;
+    homepage = "https://www.eterm.org";
     license = licenses.bsd2;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.unix;

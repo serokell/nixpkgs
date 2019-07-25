@@ -1,9 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, cairo, harfbuzz
-, libintl, gobject-introspection, darwin, fribidi, gnome3
-, gtk-doc, docbook_xsl, docbook_xml_dtd_43, makeFontsConf, freefont_ttf
-, meson, ninja, glib
-, x11Support? !stdenv.isDarwin, libXft
-}:
+{ stdenv, fetchurl, pkgconfig, cairo, harfbuzz, libintl, gobject-introspection, darwin, fribidi, gnome3, gtk-doc, docbook_xsl, docbook_xml_dtd_43, makeFontsConf, freefont_ttf, meson, ninja, glib, x11Support ?
+  !stdenv.isDarwin, libXft }:
 
 with stdenv.lib;
 
@@ -14,7 +10,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1lnxldmv1a12dq5h0dlq5jyzl4w75k76dp8cn360x2ijlm9w5h6j";
   };
 
@@ -22,49 +20,47 @@ in stdenv.mkDerivation rec {
   outputs = [ "bin" "dev" "out" ] ++ optional (!stdenv.isDarwin) "devdoc";
 
   nativeBuildInputs = [
-    meson ninja
-    pkgconfig gobject-introspection gtk-doc docbook_xsl docbook_xml_dtd_43
+    meson
+    ninja
+    pkgconfig
+    gobject-introspection
+    gtk-doc
+    docbook_xsl
+    docbook_xml_dtd_43
   ];
-  buildInputs = [
-    harfbuzz fribidi
-  ] ++ optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    ApplicationServices
-    Carbon
-    CoreGraphics
-    CoreText
-  ]);
-  propagatedBuildInputs = [ cairo glib libintl ] ++
-    optional x11Support libXft;
+  buildInputs = [ harfbuzz fribidi ] ++ optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [
+      ApplicationServices
+      Carbon
+      CoreGraphics
+      CoreText
+    ]);
+  propagatedBuildInputs = [ cairo glib libintl ] ++ optional x11Support libXft;
 
   patches = [
     (fetchurl {
       # Add gobject-2 to .pc file
-      url = "https://gitlab.gnome.org/GNOME/pango/commit/546f4c242d6f4fe312de3b7c918a848e5172e18d.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/pango/commit/546f4c242d6f4fe312de3b7c918a848e5172e18d.patch";
       sha256 = "034na38cq98vk8gggn3yfr65jmv3jgig8d25zg89wydrandp14yr";
     })
   ];
 
-  mesonFlags = [
-    "-Denable_docs=${if stdenv.isDarwin then "false" else "true"}"
-  ];
+  mesonFlags =
+    [ "-Denable_docs=${if stdenv.isDarwin then "false" else "true"}" ];
 
   enableParallelBuilding = true;
 
   # Fontconfig error: Cannot load default config file
-  FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ freefont_ttf ];
-  };
+  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
 
   doCheck = false; # /layout/valid-1.markup: FAIL
 
-  passthru = {
-    updateScript = gnome3.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome3.updateScript { packageName = pname; }; };
 
   meta = with stdenv.lib; {
-    description = "A library for laying out and rendering of text, with an emphasis on internationalization";
+    description =
+      "A library for laying out and rendering of text, with an emphasis on internationalization";
 
     longDescription = ''
       Pango is a library for laying out and rendering of text, with an
@@ -74,7 +70,7 @@ in stdenv.mkDerivation rec {
       Pango forms the core of text and font handling for GTK+-2.x.
     '';
 
-    homepage = https://www.pango.org/;
+    homepage = "https://www.pango.org/";
     license = licenses.lgpl2Plus;
 
     maintainers = with maintainers; [ raskin ];

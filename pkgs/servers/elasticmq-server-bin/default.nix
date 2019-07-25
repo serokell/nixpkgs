@@ -27,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/softwaremill/elasticmq";
-    description = "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
+    description =
+      "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ peterromfeldhk ];

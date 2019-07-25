@@ -1,7 +1,6 @@
+let testString = "can-use-subgroups";
 
-let testString = "can-use-subgroups"; in
-
-import ./make-test.nix ({ ...}: {
+in import ./make-test.nix ({ ... }: {
   name = "php-httpd-pcre-jit-test";
   machine = { lib, pkgs, ... }: {
     time.timeZone = "UTC";
@@ -13,17 +12,14 @@ import ./make-test.nix ({ ...}: {
           enablePHP = true;
           phpOptions = "pcre.jit = true";
 
-          extraConfig =
-          let
-            testRoot = pkgs.writeText "index.php"
-            ''
+          extraConfig = let
+            testRoot = pkgs.writeText "index.php" ''
               <?php
                 preg_match('/(${testString})/', '${testString}', $result);
                 var_dump($result);
               ?>
             '';
-          in
-            ''
+            in ''
               Alias / ${testRoot}/
 
               <Directory ${testRoot}>
@@ -34,11 +30,12 @@ import ./make-test.nix ({ ...}: {
       };
     };
   };
-  testScript = { ... }:
-  ''
+  testScript = { ... }: ''
     $machine->waitForUnit('httpd.service');
     # Ensure php evaluation by matching on the var_dump syntax
     $machine->succeed('curl -vvv -s http://127.0.0.1:80/index.php \
-      | grep "string(${toString (builtins.stringLength testString)}) \"${testString}\""');
+      | grep "string(${
+      toString (builtins.stringLength testString)
+      }) \"${testString}\""');
   '';
 })

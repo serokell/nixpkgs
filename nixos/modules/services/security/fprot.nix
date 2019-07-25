@@ -44,8 +44,10 @@ in {
 
   config = mkIf cfg.updater.enable {
 
-    services.fprot.updater.productData = mkDefault "${pkgs.fprot}/opt/f-prot/product.data";
-    services.fprot.updater.licenseKeyfile = mkDefault "${pkgs.fprot}/opt/f-prot/license.key";
+    services.fprot.updater.productData =
+      mkDefault "${pkgs.fprot}/opt/f-prot/product.data";
+    services.fprot.updater.licenseKeyfile =
+      mkDefault "${pkgs.fprot}/opt/f-prot/license.key";
 
     environment.systemPackages = [ pkgs.fprot ];
     environment.etc = singleton {
@@ -53,19 +55,21 @@ in {
       target = "f-prot.conf";
     };
 
-    users.users = singleton
-      { name = fprotUser;
-        uid = config.ids.uids.fprot;
-        description = "F-Prot daemon user";
-        home = stateDir;
-      };
+    users.users = singleton {
+      name = fprotUser;
+      uid = config.ids.uids.fprot;
+      description = "F-Prot daemon user";
+      home = stateDir;
+    };
 
-    users.groups = singleton
-      { name = fprotGroup;
-        gid = config.ids.gids.fprot;
-      };
+    users.groups = singleton {
+      name = fprotGroup;
+      gid = config.ids.gids.fprot;
+    };
 
-    services.cron.systemCronJobs = [ "*/${toString cfg.updater.frequency} * * * * root start fprot-updater" ];
+    services.cron.systemCronJobs = [
+      "*/${toString cfg.updater.frequency} * * * * root start fprot-updater"
+    ];
 
     systemd.services."fprot-updater" = {
       serviceConfig = {
@@ -82,7 +86,8 @@ in {
         ln -sf ${cfg.updater.productData} ${stateDir}/product.data
       '';
 
-      script = "/var/lib/fprot/fpupdate --keyfile ${cfg.updater.licenseKeyfile}";
+      script =
+        "/var/lib/fprot/fpupdate --keyfile ${cfg.updater.licenseKeyfile}";
     };
- };
+  };
 }

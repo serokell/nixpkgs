@@ -23,7 +23,8 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "A tool for compliance with the REUSE Initiative recommendations";
+    description =
+      "A tool for compliance with the REUSE Initiative recommendations";
     license = with licenses; [ cc-by-sa-40 cc0 gpl3 ];
     maintainers = [ maintainers.FlorianFranzen ];
   };

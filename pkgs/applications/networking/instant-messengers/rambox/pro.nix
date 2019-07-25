@@ -1,4 +1,5 @@
-{ autoPatchelfHook, electron, fetchurl, makeDesktopItem, makeWrapper, nodePackages, nss, stdenv, xdg_utils, xorg }:
+{ autoPatchelfHook, electron, fetchurl, makeDesktopItem, makeWrapper, nodePackages, nss, stdenv, xdg_utils, xorg
+}:
 
 stdenv.mkDerivation rec {
   pname = "rambox-pro";
@@ -11,7 +12,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoPatchelfHook makeWrapper nodePackages.asar ];
 
   src = fetchurl {
-    url = "https://github.com/ramboxapp/download/releases/download/v${version}/RamboxPro-${version}-linux-x64.tar.gz";
+    url =
+      "https://github.com/ramboxapp/download/releases/download/v${version}/RamboxPro-${version}-linux-x64.tar.gz";
     sha256 = "0rrfpl371hp278b02b9b6745ax29yrdfmxrmkxv6d158jzlv0dlr";
   };
 
@@ -42,8 +44,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "Messaging and emailing app that combines common web applications into one";
-    homepage = https://rambox.pro;
+    description =
+      "Messaging and emailing app that combines common web applications into one";
+    homepage = "https://rambox.pro";
     license = licenses.unfree;
     maintainers = with maintainers; [ chrisaw ];
     platforms = [ "i686-linux" "x86_64-linux" ];

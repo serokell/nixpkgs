@@ -4,9 +4,7 @@ let
 
   version = "2.19.83";
 
-in
-
-lilypond.overrideAttrs (oldAttrs: {
+in lilypond.overrideAttrs (oldAttrs: {
   inherit version;
 
   src = fetchgit {

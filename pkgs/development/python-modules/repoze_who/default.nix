@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, zope_interface
-, webob
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_interface, webob }:
 
 buildPythonPackage rec {
   pname = "repoze.who";

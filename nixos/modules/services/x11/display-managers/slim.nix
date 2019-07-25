@@ -8,38 +8,37 @@ let
 
   cfg = dmcfg.slim;
 
-  slimConfig = pkgs.writeText "slim.cfg"
-    ''
-      xauth_path ${dmcfg.xauthBin}
-      default_xserver ${dmcfg.xserverBin}
-      xserver_arguments ${toString dmcfg.xserverArgs}
-      sessiondir ${dmcfg.session.desktops}/share/xsessions
-      login_cmd exec ${pkgs.runtimeShell} ${dmcfg.session.wrapper} "%session"
-      halt_cmd ${config.systemd.package}/sbin/shutdown -h now
-      reboot_cmd ${config.systemd.package}/sbin/shutdown -r now
-      logfile /dev/stderr
-      ${optionalString (cfg.defaultUser != null) ("default_user " + cfg.defaultUser)}
-      ${optionalString (cfg.defaultUser != null) ("focus_password yes")}
-      ${optionalString cfg.autoLogin "auto_login yes"}
-      ${optionalString (cfg.consoleCmd != null) "console_cmd ${cfg.consoleCmd}"}
-      ${cfg.extraConfig}
-    '';
+  slimConfig = pkgs.writeText "slim.cfg" ''
+    xauth_path ${dmcfg.xauthBin}
+    default_xserver ${dmcfg.xserverBin}
+    xserver_arguments ${toString dmcfg.xserverArgs}
+    sessiondir ${dmcfg.session.desktops}/share/xsessions
+    login_cmd exec ${pkgs.runtimeShell} ${dmcfg.session.wrapper} "%session"
+    halt_cmd ${config.systemd.package}/sbin/shutdown -h now
+    reboot_cmd ${config.systemd.package}/sbin/shutdown -r now
+    logfile /dev/stderr
+    ${optionalString (cfg.defaultUser != null)
+    ("default_user " + cfg.defaultUser)}
+    ${optionalString (cfg.defaultUser != null) ("focus_password yes")}
+    ${optionalString cfg.autoLogin "auto_login yes"}
+    ${optionalString (cfg.consoleCmd != null) "console_cmd ${cfg.consoleCmd}"}
+    ${cfg.extraConfig}
+  '';
 
   # Unpack the SLiM theme, or use the default.
-  slimThemesDir =
-    let
-      unpackedTheme = pkgs.runCommand "slim-theme" { preferLocalBuild = true; }
-        ''
-          mkdir -p $out
-          cd $out
-          unpackFile ${cfg.theme}
-          ln -s * default
-        '';
-    in if cfg.theme == null then "${pkgs.slim}/share/slim/themes" else unpackedTheme;
+  slimThemesDir = let
+    unpackedTheme = pkgs.runCommand "slim-theme" { preferLocalBuild = true; } ''
+      mkdir -p $out
+      cd $out
+      unpackFile ${cfg.theme}
+      ln -s * default
+    '';
+    in if cfg.theme == null then
+      "${pkgs.slim}/share/slim/themes"
+    else
+      unpackedTheme;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -58,13 +57,15 @@ in
       theme = mkOption {
         type = types.nullOr types.path;
         default = pkgs.fetchurl {
-          url = "https://github.com/jagajaga/nixos-slim-theme/archive/2.0.tar.gz";
+          url =
+            "https://github.com/jagajaga/nixos-slim-theme/archive/2.0.tar.gz";
           sha256 = "0lldizhigx7bjhxkipii87y432hlf5wdvamnfxrryf9z7zkfypc8";
         };
-        defaultText = ''pkgs.fetchurl {
-          url = "https://github.com/jagajaga/nixos-slim-theme/archive/2.0.tar.gz";
-          sha256 = "0lldizhigx7bjhxkipii87y432hlf5wdvamnfxrryf9z7zkfypc8";
-        }'';
+        defaultText = ''
+          pkgs.fetchurl {
+                    url = "https://github.com/jagajaga/nixos-slim-theme/archive/2.0.tar.gz";
+                    sha256 = "0lldizhigx7bjhxkipii87y432hlf5wdvamnfxrryf9z7zkfypc8";
+                  }'';
         example = literalExample ''
           pkgs.fetchurl {
             url = "mirror://sourceforge/slim.berlios/slim-wave.tar.gz";
@@ -123,31 +124,32 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.job =
-      { environment =
-          { SLIM_CFGFILE = slimConfig;
-            SLIM_THEMESDIR = slimThemesDir;
-          };
-        execCmd = "exec ${pkgs.slim}/bin/slim";
+    services.xserver.displayManager.job = {
+      environment = {
+        SLIM_CFGFILE = slimConfig;
+        SLIM_THEMESDIR = slimThemesDir;
       };
+      execCmd = "exec ${pkgs.slim}/bin/slim";
+    };
 
-    services.xserver.displayManager.sessionCommands =
-      ''
-        # Export the config/themes for slimlock.
-        export SLIM_THEMESDIR=${slimThemesDir}
-      '';
+    services.xserver.displayManager.sessionCommands = ''
+      # Export the config/themes for slimlock.
+      export SLIM_THEMESDIR=${slimThemesDir}
+    '';
 
     # Allow null passwords so that the user can login as root on the
     # installation CD.
-    security.pam.services.slim = { allowNullPassword = true; startSession = true; };
+    security.pam.services.slim = {
+      allowNullPassword = true;
+      startSession = true;
+    };
 
     # Allow slimlock to work.
-    security.pam.services.slimlock = {};
+    security.pam.services.slimlock = { };
 
     environment.systemPackages = [ pkgs.slim ];
 

@@ -1,18 +1,31 @@
-{ stdenv, fetchurl, gtk2, glib, gdk_pixbuf, alsaLib, nss, nspr, gconf
-, cups, libgcrypt_1_5, systemd, dbus, libXdamage, expat }:
+{ stdenv, fetchurl, gtk2, glib, gdk_pixbuf, alsaLib, nss, nspr, gconf, cups, libgcrypt_1_5, systemd, dbus, libXdamage, expat
+}:
 with stdenv.lib;
 
 let
   bracketsLibs = makeLibraryPath [
-    gtk2 glib gdk_pixbuf stdenv.cc.cc.lib alsaLib nss nspr gconf cups libgcrypt_1_5 dbus systemd libXdamage expat
+    gtk2
+    glib
+    gdk_pixbuf
+    stdenv.cc.cc.lib
+    alsaLib
+    nss
+    nspr
+    gconf
+    cups
+    libgcrypt_1_5
+    dbus
+    systemd
+    libXdamage
+    expat
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "brackets-${version}";
   version = "1.9";
 
   src = fetchurl {
-    url = "https://github.com/adobe/brackets/releases/download/release-${version}/Brackets.Release.${version}.64-bit.deb";
+    url =
+      "https://github.com/adobe/brackets/releases/download/release-${version}/Brackets.Release.${version}.64-bit.deb";
     sha256 = "0c4l2rr0853xd21kw8hhxlmrx8mqwb7iqa2k24zvwyjp4nnwkgbp";
     name = "${name}.deb";
   };
@@ -49,8 +62,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "An open source code editor for the web, written in JavaScript, HTML and CSS";
-    homepage = http://brackets.io/;
+    description =
+      "An open source code editor for the web, written in JavaScript, HTML and CSS";
+    homepage = "http://brackets.io/";
     license = licenses.mit;
     maintainers = [ maintainers.matejc ];
     platforms = [ "x86_64-linux" ];

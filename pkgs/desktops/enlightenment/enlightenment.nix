@@ -1,7 +1,4 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, efl,
-  xcbutilkeysyms, libXrandr, libXdmcp, libxcb, libffi, pam, alsaLib,
-  luajit, bzip2, libpthreadstubs, gdbm, libcap, mesa,
-  xkeyboard_config, pcre
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, efl, xcbutilkeysyms, libXrandr, libXdmcp, libxcb, libffi, pam, alsaLib, luajit, bzip2, libpthreadstubs, gdbm, libcap, mesa, xkeyboard_config, pcre
 }:
 
 stdenv.mkDerivation rec {
@@ -9,16 +6,13 @@ stdenv.mkDerivation rec {
   version = "0.22.4";
 
   src = fetchurl {
-    url = "http://download.enlightenment.org/rel/apps/enlightenment/${name}.tar.xz";
+    url =
+      "http://download.enlightenment.org/rel/apps/enlightenment/${name}.tar.xz";
     sha256 = "0ygy891rrw5c7lhk539nhif77j88phvz2h0fhx172iaridy9kx2r";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    (pkgconfig.override { vanilla = true; })
-    gettext
-  ];
+  nativeBuildInputs =
+    [ meson ninja (pkgconfig.override { vanilla = true; }) gettext ];
 
   buildInputs = [
     efl
@@ -36,8 +30,7 @@ stdenv.mkDerivation rec {
     pcre
     mesa
     xkeyboard_config
-  ] ++
-    stdenv.lib.optionals stdenv.isLinux [ libcap ];
+  ] ++ stdenv.lib.optionals stdenv.isLinux [ libcap ];
 
   patches = [
     # Some programs installed by enlightenment (to set the cpu frequency,
@@ -70,7 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The Compositing Window Manager and Desktop Shell";
-    homepage = https://www.enlightenment.org;
+    homepage = "https://www.enlightenment.org";
     license = licenses.bsd2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ matejc tstrobel ftrvxmtrx romildo ];

@@ -3,10 +3,8 @@
 # IMPORTANT: You need permissions to access the stlink usb devices. 
 # Add services.udev.pkgs = [ pkgs.stlink ] to your configuration.nix
 
-let
-  version = "1.3.0";
-in
-stdenv.mkDerivation {
+let version = "1.3.0";
+in stdenv.mkDerivation {
   name = "stlink-${version}";
 
   src = fetchurl {

@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, findutils, fixDarwinDylibNames
-, sslSupport? true, openssl
+{ stdenv, fetchurl, findutils, fixDarwinDylibNames, sslSupport ? true, openssl
 }:
 
 assert sslSupport -> openssl != null;
@@ -9,25 +8,21 @@ stdenv.mkDerivation rec {
   version = "2.1.10";
 
   src = fetchurl {
-    url = "https://github.com/libevent/libevent/releases/download/release-${version}-stable/libevent-${version}-stable.tar.gz";
+    url =
+      "https://github.com/libevent/libevent/releases/download/release-${version}-stable/libevent-${version}-stable.tar.gz";
     sha256 = "1c25928gdv495clxk2v1d4gkr5py7ack4gx2n7d13frnld0syr78";
   };
 
   # libevent_openssl is moved into its own output, so that openssl isn't present
   # in the default closure.
-  outputs = [ "out" "dev" ]
-    ++ stdenv.lib.optional sslSupport "openssl"
-    ;
+  outputs = [ "out" "dev" ] ++ stdenv.lib.optional sslSupport "openssl";
   outputBin = "dev";
   propagatedBuildOutputs = [ "out" ]
-    ++ stdenv.lib.optional sslSupport "openssl"
-    ;
+    ++ stdenv.lib.optional sslSupport "openssl";
 
-  buildInputs = []
-    ++ stdenv.lib.optional sslSupport openssl
+  buildInputs = [ ] ++ stdenv.lib.optional sslSupport openssl
     ++ stdenv.lib.optional stdenv.isCygwin findutils
-    ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ;
+    ++ stdenv.lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   doCheck = false; # needs the net
 
@@ -53,7 +48,7 @@ stdenv.mkDerivation rec {
       and then add or remove events dynamically without having to change
       the event loop.
     '';
-    homepage = http://libevent.org/;
+    homepage = "http://libevent.org/";
     license = licenses.bsd3;
     platforms = platforms.all;
   };

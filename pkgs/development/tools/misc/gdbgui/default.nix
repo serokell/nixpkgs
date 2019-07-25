@@ -1,28 +1,13 @@
-{ stdenv
-, buildPythonApplication
-, fetchPypi
-, gdb
-, flask
-, flask-socketio
-, flask-compress
-, pygdbmi
-, pygments
-, gevent
-, }:
+{ stdenv, buildPythonApplication, fetchPypi, gdb, flask, flask-socketio, flask-compress, pygdbmi, pygments, gevent,
+}:
 
 buildPythonApplication rec {
   pname = "gdbgui";
   version = "0.13.1.1";
 
   buildInputs = [ gdb ];
-  propagatedBuildInputs = [
-    flask
-    flask-socketio
-    flask-compress
-    pygdbmi
-    pygments
-    gevent
-  ];
+  propagatedBuildInputs =
+    [ flask flask-socketio flask-compress pygdbmi pygments gevent ];
 
   src = fetchPypi {
     inherit pname version;

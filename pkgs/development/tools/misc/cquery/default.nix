@@ -1,6 +1,4 @@
-{ fetchFromGitHub, makeWrapper
-, cmake, llvmPackages, ncurses
-, runtimeShell }:
+{ fetchFromGitHub, makeWrapper, cmake, llvmPackages, ncurses, runtimeShell }:
 
 let
   src = fetchFromGitHub {
@@ -13,9 +11,8 @@ let
 
   stdenv = llvmPackages.stdenv;
 
-in
-stdenv.mkDerivation rec {
-  name    = "cquery-${version}";
+in stdenv.mkDerivation rec {
+  name = "cquery-${version}";
   version = "2018-10-14";
 
   inherit src;
@@ -33,7 +30,9 @@ stdenv.mkDerivation rec {
   postFixup = ''
     # We need to tell cquery where to find the standard library headers.
 
-    standard_library_includes="\\\"-isystem\\\", \\\"${stdenv.lib.getDev stdenv.cc.libc}/include\\\""
+    standard_library_includes="\\\"-isystem\\\", \\\"${
+      stdenv.lib.getDev stdenv.cc.libc
+    }/include\\\""
     standard_library_includes+=", \\\"-isystem\\\", \\\"${llvmPackages.libcxx}/include/c++/v1\\\""
     export standard_library_includes
 
@@ -57,9 +56,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A c/c++ language server powered by libclang";
-    homepage    = https://github.com/cquery-project/cquery;
-    license     = licenses.mit;
-    platforms   = platforms.linux ++ platforms.darwin;
+    homepage = "https://github.com/cquery-project/cquery";
+    license = licenses.mit;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = [ maintainers.tobim ];
   };
 }

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mozlog
-, mozdevice
-}:
+{ lib, buildPythonPackage, fetchPypi, mozlog, mozdevice }:
 
 buildPythonPackage rec {
   pname = "mozversion";
@@ -18,7 +13,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Application version information library";
-    homepage = https://wiki.mozilla.org/Auto-tools/Projects/Mozbase;
+    homepage = "https://wiki.mozilla.org/Auto-tools/Projects/Mozbase";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ raskin ];
   };

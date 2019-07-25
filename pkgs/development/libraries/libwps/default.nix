@@ -12,10 +12,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ boost librevenge zlib ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=implicit-fallthrough" ]; # newly detected by gcc-7
+  NIX_CFLAGS_COMPILE =
+    [ "-Wno-error=implicit-fallthrough" ]; # newly detected by gcc-7
 
   meta = with stdenv.lib; {
-    homepage = http://libwps.sourceforge.net/;
+    homepage = "http://libwps.sourceforge.net/";
     description = "Microsoft Works document format import filter library";
     platforms = platforms.unix;
     license = licenses.lgpl21;

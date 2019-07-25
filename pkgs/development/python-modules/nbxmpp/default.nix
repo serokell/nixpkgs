@@ -9,8 +9,9 @@ in buildPythonPackage rec {
   # Tests aren't included in PyPI tarball.
   src = fetchzip {
     name = "${name}.tar.bz2";
-    url = "https://dev.gajim.org/gajim/python-nbxmpp/repository/archive.tar.bz2?"
-        + "ref=${name}";
+    url =
+      "https://dev.gajim.org/gajim/python-nbxmpp/repository/archive.tar.bz2?"
+      + "ref=${name}";
     sha256 = "1w31a747mj9rvlp3n20z0fnvyvihphkgkyr22sk2kap3migw8vai";
   };
 

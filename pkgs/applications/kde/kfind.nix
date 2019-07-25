@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  karchive, kcoreaddons, kfilemetadata, ktextwidgets, kwidgetsaddons, kio
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, karchive, kcoreaddons, kfilemetadata, ktextwidgets, kwidgetsaddons, kio
 }:
 
 mkDerivation {
@@ -11,7 +8,6 @@ mkDerivation {
     maintainers = [ lib.maintainers.iblech ];
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [
-    karchive kcoreaddons kfilemetadata ktextwidgets kwidgetsaddons kio
-  ];
+  buildInputs =
+    [ karchive kcoreaddons kfilemetadata ktextwidgets kwidgetsaddons kio ];
 }

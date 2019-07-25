@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, aiohttp, jsonrpc-base }:
+{ stdenv, buildPythonPackage, fetchPypi, aiohttp, jsonrpc-base }:
 
 buildPythonPackage rec {
   pname = "jsonrpc-async";
@@ -14,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A JSON-RPC client library for asyncio";
-    homepage = https://github.com/armills/jsonrpc-async;
+    homepage = "https://github.com/armills/jsonrpc-async";
     license = licenses.bsd3;
     maintainers = with maintainers; [ peterhoeg ];
   };

@@ -12,13 +12,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [
-    alsaLib qttools
-  ];
+  buildInputs = [ alsaLib qttools ];
   nativeBuildInputs = [ cmake ];
 
   meta = with stdenv.lib; {
-    description = "A small cross-platform editor of the OPL3 FM banks of different formats";
+    description =
+      "A small cross-platform editor of the OPL3 FM banks of different formats";
     homepage = src.meta.homepage;
     license = licenses.gpl3;
     platforms = platforms.linux;

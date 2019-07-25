@@ -1,8 +1,6 @@
-import ./make-test.nix ({ pkgs, ...} : {
+import ./make-test.nix ({ pkgs, ... }: {
   name = "roundcube";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ globin ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ globin ]; };
 
   nodes = {
     roundcube = { config, pkgs, ... }: {
@@ -10,7 +8,8 @@ import ./make-test.nix ({ pkgs, ...} : {
         enable = true;
         hostName = "roundcube";
         database.password = "notproduction";
-        package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
+        package =
+          pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
         plugins = [ "persistent_login" ];
       };
       services.nginx.virtualHosts.roundcube = {

@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch, automake, autoconf, libtool
-, zimlib, cxxtools, tntnet
+{ stdenv, fetchFromGitHub, fetchpatch, automake, autoconf, libtool, zimlib, cxxtools, tntnet
 }:
 
 stdenv.mkDerivation rec {
@@ -16,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "zimreader_tntnet221.patch";
-      url = "https://github.com/wikimedia/openzim/compare/r1.3...juliendehos:3ee5f11eaa811284d340451e6f466529c00f6ef2.patch";
+      url =
+        "https://github.com/wikimedia/openzim/compare/r1.3...juliendehos:3ee5f11eaa811284d340451e6f466529c00f6ef2.patch";
       sha256 = "0rc5n20svyyndqh7hsynjyblfraphgi0f6khw6f5jq89w9i1j1hd";
     })
   ];
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A tool to serve ZIM files using HTTP";
-    homepage = http://git.wikimedia.org/log/openzim;
+    homepage = "http://git.wikimedia.org/log/openzim";
     license = stdenv.lib.licenses.gpl2;
     maintainers = with stdenv.lib.maintainers; [ robbinch juliendehos ];
     platforms = [ "x86_64-linux" ];

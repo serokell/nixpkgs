@@ -1,11 +1,8 @@
-{ mkXfceDerivation, automakeAddFlags, dbus-glib, gtk2, libxfce4ui, libxfce4util, xfce4-panel, xfconf, gst-plugins-base, libunique }:
+{ mkXfceDerivation, automakeAddFlags, dbus-glib, gtk2, libxfce4ui, libxfce4util, xfce4-panel, xfconf, gst-plugins-base, libunique
+}:
 
-let
-  gst_plugins_minimal = gst-plugins-base.override {
-    minimalDeps = true;
-  };
-in
-mkXfceDerivation rec {
+let gst_plugins_minimal = gst-plugins-base.override { minimalDeps = true; };
+in mkXfceDerivation rec {
   category = "apps";
   pname = "xfce4-mixer";
   version = "4.11.0";

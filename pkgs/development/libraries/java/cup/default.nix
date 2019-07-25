@@ -1,11 +1,12 @@
-{ stdenv, fetchurl, jdk, ant } :
+{ stdenv, fetchurl, jdk, ant }:
 
 stdenv.mkDerivation rec {
   name = "java-cup-${version}";
   version = "11b-20160615";
 
   src = fetchurl {
-    url = "http://www2.cs.tum.edu/projects/cup/releases/java-cup-src-${version}.tar.gz";
+    url =
+      "http://www2.cs.tum.edu/projects/cup/releases/java-cup-src-${version}.tar.gz";
     sha256 = "1ymz3plngxclh7x3xr31537rvvak7lwyd0qkmnl1mkj5drh77rz0";
   };
 
@@ -29,7 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://www2.cs.tum.edu/projects/cup/;
+    homepage = "http://www2.cs.tum.edu/projects/cup/";
     description = "LALR parser generator for Java";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.all;

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, zope_proxy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_proxy }:
 
 buildPythonPackage rec {
   pname = "zope.location";
@@ -23,7 +19,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/zopefoundation/zope.location/;
+    homepage = "https://github.com/zopefoundation/zope.location/";
     description = "Zope Location";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];

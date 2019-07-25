@@ -1,19 +1,16 @@
-{ config, lib, writeScript, buildFHSUserEnv, steam, glxinfo-i686
-, steam-runtime-wrapped, steam-runtime-wrapped-i686 ? null
-, extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
+{ config, lib, writeScript, buildFHSUserEnv, steam, glxinfo-i686, steam-runtime-wrapped, steam-runtime-wrapped-i686 ?
+  null, extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
 , extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
 , extraProfile ? "" # string to append to profile
-, nativeOnly ? false
-, runtimeOnly ? false
-, runtimeShell
+, nativeOnly ? false, runtimeOnly ? false, runtimeShell
 
 # DEPRECATED
-, withJava ? config.steam.java or false
-, withPrimus ? config.steam.primus or false
-}:
+, withJava ? config.steam.java or false, withPrimus ?
+  config.steam.primus or false }:
 
 let
-  commonTargetPkgs = pkgs: with pkgs;
+  commonTargetPkgs = pkgs:
+    with pkgs;
     [
       steamPackages.steam-fonts
       # Errors in output without those
@@ -32,12 +29,14 @@ let
       # Steam VR
       procps
       usbutils
-    ] ++ lib.optional withJava jdk
-      ++ lib.optional withPrimus primus
-      ++ extraPkgs pkgs;
+    ] ++ lib.optional withJava jdk ++ lib.optional withPrimus primus
+    ++ extraPkgs pkgs;
 
-  ldPath = map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x) steam-runtime-wrapped.libs
-           ++ lib.optionals (steam-runtime-wrapped-i686 != null) (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x) steam-runtime-wrapped-i686.libs);
+  ldPath = map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x)
+    steam-runtime-wrapped.libs
+    ++ lib.optionals (steam-runtime-wrapped-i686 != null)
+    (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
+    steam-runtime-wrapped-i686.libs);
 
   setupSh = writeScript "setup.sh" ''
     #!${runtimeShell}
@@ -57,117 +56,126 @@ let
 in buildFHSUserEnv rec {
   name = "steam";
 
-  targetPkgs = pkgs: with pkgs; [
-    steamPackages.steam
-    # License agreement
-    gnome3.zenity
-  ] ++ commonTargetPkgs pkgs;
+  targetPkgs = pkgs:
+    with pkgs;
+    [
+      steamPackages.steam
+      # License agreement
+      gnome3.zenity
+    ] ++ commonTargetPkgs pkgs;
 
-  multiPkgs = pkgs: with pkgs; [
-    # These are required by steam with proper errors
-    xorg.libXcomposite
-    xorg.libXtst
-    xorg.libXrandr
-    xorg.libXext
-    xorg.libX11
-    xorg.libXfixes
-    libGL
+  multiPkgs = pkgs:
+    with pkgs;
+    [
+      # These are required by steam with proper errors
+      xorg.libXcomposite
+      xorg.libXtst
+      xorg.libXrandr
+      xorg.libXext
+      xorg.libX11
+      xorg.libXfixes
+      libGL
 
-    # Not formally in runtime but needed by some games
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-ugly
-    libdrm
-    mono
-    xorg.xkeyboardconfig
-    xorg.libpciaccess
-  ] ++ (if (!nativeOnly) then [
-    (steamPackages.steam-runtime-wrapped.override {
-      inherit runtimeOnly;
-    })
-  ] else [
-    # Required
-    glib
-    gtk2
-    bzip2
-    zlib
-    gdk_pixbuf
+      # Not formally in runtime but needed by some games
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-ugly
+      libdrm
+      mono
+      xorg.xkeyboardconfig
+      xorg.libpciaccess
+    ] ++ (if (!nativeOnly) then
+      [
+        (steamPackages.steam-runtime-wrapped.override { inherit runtimeOnly; })
+      ]
+    else
+      [
+        # Required
+        glib
+        gtk2
+        bzip2
+        zlib
+        gdk_pixbuf
 
-    # Without these it silently fails
-    xorg.libXinerama
-    xorg.libXdamage
-    xorg.libXcursor
-    xorg.libXrender
-    xorg.libXScrnSaver
-    xorg.libXxf86vm
-    xorg.libXi
-    xorg.libSM
-    xorg.libICE
-    gnome2.GConf
-    freetype
-    (curl.override { gnutlsSupport = true; sslSupport = false; })
-    nspr
-    nss
-    fontconfig
-    cairo
-    pango
-    expat
-    dbus
-    cups
-    libcap
-    SDL2
-    libusb1
-    dbus-glib
-    libav
-    atk
-    # Only libraries are needed from those two
-    libudev0-shim
-    networkmanager098
+        # Without these it silently fails
+        xorg.libXinerama
+        xorg.libXdamage
+        xorg.libXcursor
+        xorg.libXrender
+        xorg.libXScrnSaver
+        xorg.libXxf86vm
+        xorg.libXi
+        xorg.libSM
+        xorg.libICE
+        gnome2.GConf
+        freetype
+        (curl.override {
+          gnutlsSupport = true;
+          sslSupport = false;
+        })
+        nspr
+        nss
+        fontconfig
+        cairo
+        pango
+        expat
+        dbus
+        cups
+        libcap
+        SDL2
+        libusb1
+        dbus-glib
+        libav
+        atk
+        # Only libraries are needed from those two
+        libudev0-shim
+        networkmanager098
 
-    # Verified games requirements
-    xorg.libXt
-    xorg.libXmu
-    xorg.libxcb
-    libGLU
-    libuuid
-    libogg
-    libvorbis
-    SDL
-    SDL2_image
-    glew110
-    openssl
-    libidn
-    tbb
-    wayland
-    mesa
-    libxkbcommon
+        # Verified games requirements
+        xorg.libXt
+        xorg.libXmu
+        xorg.libxcb
+        libGLU
+        libuuid
+        libogg
+        libvorbis
+        SDL
+        SDL2_image
+        glew110
+        openssl
+        libidn
+        tbb
+        wayland
+        mesa
+        libxkbcommon
 
-    # Other things from runtime
-    flac
-    freeglut
-    libjpeg
-    libpng12
-    libsamplerate
-    libmikmod
-    libtheora
-    libtiff
-    pixman
-    speex
-    SDL_image
-    SDL_ttf
-    SDL_mixer
-    SDL2_ttf
-    SDL2_mixer
-    gstreamer
-    gst-plugins-base
-    libappindicator-gtk2
-    libcaca
-    libcanberra
-    libgcrypt
-    libvpx
-    librsvg
-    xorg.libXft
-    libvdpau
-  ] ++ steamPackages.steam-runtime-wrapped.overridePkgs) ++ extraLibraries pkgs;
+        # Other things from runtime
+        flac
+        freeglut
+        libjpeg
+        libpng12
+        libsamplerate
+        libmikmod
+        libtheora
+        libtiff
+        pixman
+        speex
+        SDL_image
+        SDL_ttf
+        SDL_mixer
+        SDL2_ttf
+        SDL2_mixer
+        gstreamer
+        gst-plugins-base
+        libappindicator-gtk2
+        libcaca
+        libcanberra
+        libgcrypt
+        libvpx
+        librsvg
+        xorg.libXft
+        libvdpau
+      ] ++ steamPackages.steam-runtime-wrapped.overridePkgs)
+    ++ extraLibraries pkgs;
 
   extraBuildCommands = if (!nativeOnly) then ''
     mkdir -p steamrt
@@ -225,9 +233,7 @@ in buildFHSUserEnv rec {
     exec steam "$@"
   '';
 
-  meta = steam.meta // {
-    broken = nativeOnly;
-  };
+  meta = steam.meta // { broken = nativeOnly; };
 
   passthru.run = buildFHSUserEnv {
     name = "steam-run";
@@ -243,7 +249,9 @@ in buildFHSUserEnv rec {
         exit 1
       fi
       shift
-      ${lib.optionalString (!nativeOnly) "export LD_LIBRARY_PATH=${lib.concatStringsSep ":" ldPath}:$LD_LIBRARY_PATH"}
+      ${lib.optionalString (!nativeOnly) "export LD_LIBRARY_PATH=${
+        lib.concatStringsSep ":" ldPath
+      }:$LD_LIBRARY_PATH"}
       exec -- "$run" "$@"
     '';
   };

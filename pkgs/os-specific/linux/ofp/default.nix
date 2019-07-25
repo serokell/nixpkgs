@@ -1,5 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook
-, openssl, libpcap, odp-dpdk, dpdk
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, libpcap, odp-dpdk, dpdk
 }:
 
 stdenv.mkDerivation rec {
@@ -24,17 +23,14 @@ stdenv.mkDerivation rec {
     echo ${version} > .scmversion
   '';
 
-  configureFlags = [
-    "--with-odp=${odp-dpdk}"
-    "--with-odp-lib=odp-dpdk"
-    "--disable-shared"
-  ];
+  configureFlags =
+    [ "--with-odp=${odp-dpdk}" "--with-odp-lib=odp-dpdk" "--disable-shared" ];
 
   meta = with stdenv.lib; {
     description = "High performance TCP/IP stack";
-    homepage = http://www.openfastpath.org;
+    homepage = "http://www.openfastpath.org";
     license = licenses.bsd3;
-    platforms =  [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.abuibrahim ];
     broken = true;
   };

@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "lazy-object-proxy";
@@ -23,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A fast and thorough lazy object proxy";
-    homepage = https://github.com/ionelmc/python-lazy-object-proxy;
+    homepage = "https://github.com/ionelmc/python-lazy-object-proxy";
     license = with licenses; [ bsd2 ];
   };
 

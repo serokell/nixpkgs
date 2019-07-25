@@ -9,9 +9,9 @@ in python2Packages.buildPythonApplication rec {
   version = "20181001";
 
   src = fetchFromGitHub {
-    owner  = "Napsty";
-    repo   = bName;
-    rev    = version;
+    owner = "Napsty";
+    repo = bName;
+    rev = version;
     sha256 = "0azfacxcnnxxfqzrhh29k8cnjyr88gz35bi6h8fq931fl3plv10l";
   };
 
@@ -30,7 +30,7 @@ in python2Packages.buildPythonApplication rec {
   propagatedBuildInputs = with python2Packages; [ pywbem ];
 
   meta = with stdenv.lib; {
-    homepage = https://www.claudiokuenzler.com/nagios-plugins/;
+    homepage = "https://www.claudiokuenzler.com/nagios-plugins/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
   };

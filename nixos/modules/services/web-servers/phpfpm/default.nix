@@ -4,13 +4,12 @@ with lib;
 
 let
   cfg = config.services.phpfpm;
-  enabled = cfg.poolConfigs != {} || cfg.pools != {};
+  enabled = cfg.poolConfigs != { } || cfg.pools != { };
 
   stateDir = "/run/phpfpm";
 
-  poolConfigs =
-    (mapAttrs mapPoolConfig cfg.poolConfigs) //
-    (mapAttrs mapPool cfg.pools);
+  poolConfigs = (mapAttrs mapPoolConfig cfg.poolConfigs)
+    // (mapAttrs mapPool cfg.pools);
 
   mapPoolConfig = n: p: {
     phpPackage = cfg.phpPackage;
@@ -27,26 +26,28 @@ let
     '';
   };
 
-  fpmCfgFile = pool: conf: pkgs.writeText "phpfpm-${pool}.conf" ''
-    [global]
-    error_log = syslog
-    daemonize = no
-    ${cfg.extraConfig}
+  fpmCfgFile = pool: conf:
+    pkgs.writeText "phpfpm-${pool}.conf" ''
+      [global]
+      error_log = syslog
+      daemonize = no
+      ${cfg.extraConfig}
 
-    [${pool}]
-    ${conf}
-  '';
-
-  phpIni = pool: pkgs.runCommand "php.ini" {
-    inherit (pool) phpPackage phpOptions;
-    preferLocalBuild = true;
-    nixDefaults = ''
-      sendmail_path = "/run/wrappers/bin/sendmail -t -i"
+      [${pool}]
+      ${conf}
     '';
-    passAsFile = [ "nixDefaults" "phpOptions" ];
-  } ''
-    cat $phpPackage/etc/php.ini $nixDefaultsPath $phpOptionsPath > $out
-  '';
+
+  phpIni = pool:
+    pkgs.runCommand "php.ini" {
+      inherit (pool) phpPackage phpOptions;
+      preferLocalBuild = true;
+      nixDefaults = ''
+        sendmail_path = "/run/wrappers/bin/sendmail -t -i"
+      '';
+      passAsFile = [ "nixDefaults" "phpOptions" ];
+    } ''
+      cat $phpPackage/etc/php.ini $nixDefaultsPath $phpOptionsPath > $out
+    '';
 
 in {
 
@@ -76,16 +77,15 @@ in {
       phpOptions = mkOption {
         type = types.lines;
         default = "";
-        example =
-          ''
-            date.timezone = "CET"
-          '';
+        example = ''
+          date.timezone = "CET"
+        '';
         description =
           "Options appended to the PHP configuration file <filename>php.ini</filename>.";
       };
 
       poolConfigs = mkOption {
-        default = {};
+        default = { };
         type = types.attrsOf types.lines;
         example = literalExample ''
           { mypool = '''
@@ -109,26 +109,25 @@ in {
       };
 
       pools = mkOption {
-        type = types.attrsOf (types.submodule (import ./pool-options.nix {
-          inherit lib config;
-        }));
-        default = {};
+        type = types.attrsOf
+          (types.submodule (import ./pool-options.nix { inherit lib config; }));
+        default = { };
         example = literalExample ''
-         {
-           mypool = {
-             listen = "/path/to/unix/socket";
-             phpPackage = pkgs.php;
-             extraConfig = '''
-               user = nobody
-               pm = dynamic
-               pm.max_children = 75
-               pm.start_servers = 10
-               pm.min_spare_servers = 5
-               pm.max_spare_servers = 20
-               pm.max_requests = 500
-             ''';
-           }
-         }'';
+          {
+            mypool = {
+              listen = "/path/to/unix/socket";
+              phpPackage = pkgs.php;
+              extraConfig = '''
+                user = nobody
+                pm = dynamic
+                pm.max_children = 75
+                pm.start_servers = 10
+                pm.min_spare_servers = 5
+                pm.max_spare_servers = 20
+                pm.max_requests = 500
+              ''';
+            }
+          }'';
         description = ''
           PHP-FPM pools. If no pools or poolConfigs are defined, the PHP-FPM
           service is disabled.
@@ -160,18 +159,18 @@ in {
         serviceConfig = let
           cfgFile = fpmCfgFile pool poolConfig.config;
           iniFile = phpIni poolConfig;
-        in {
-          Slice = "phpfpm.slice";
-          PrivateDevices = true;
-          ProtectSystem = "full";
-          ProtectHome = true;
-          # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
-          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-          Type = "notify";
-          ExecStart = "${poolConfig.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
-        };
-      }
-   );
+          in {
+            Slice = "phpfpm.slice";
+            PrivateDevices = true;
+            ProtectSystem = "full";
+            ProtectHome = true;
+            # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
+            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+            Type = "notify";
+            ExecStart =
+              "${poolConfig.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
+            ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
+          };
+      });
   };
 }

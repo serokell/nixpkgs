@@ -1,12 +1,6 @@
-{ stdenv
-, fetchzip
-, pkgconfig
-, qtbase
-, makeWrapper
-, python3Packages
-}:
+{ stdenv, fetchzip, pkgconfig, qtbase, makeWrapper, python3Packages }:
 
- stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   version = "0.9.0";
   pname = "cadence";
 
@@ -70,7 +64,7 @@
   '';
 
   meta = {
-    homepage = https://github.com/falkTX/Cadence/;
+    homepage = "https://github.com/falkTX/Cadence/";
     description = "Collection of tools useful for audio production";
     license = stdenv.lib.licenses.gpl2Plus;
     maintainers = with stdenv.lib.maintainers; [ genesis ];

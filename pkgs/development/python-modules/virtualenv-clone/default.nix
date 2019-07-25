@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pytest
-, virtualenv
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, virtualenv }:
 
 buildPythonPackage rec {
   pname = "virtualenv-clone";
@@ -21,7 +16,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/edwardgeorge/virtualenv-clone;
+    homepage = "https://github.com/edwardgeorge/virtualenv-clone";
     description = "Script to clone virtualenvs";
     license = licenses.mit;
   };

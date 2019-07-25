@@ -1,6 +1,6 @@
 { stdenv, fetchurl, alsaLib, libX11, makeWrapper, tcl, tk }:
 
-stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   name = "vkeybd-${version}";
   version = "0.1.18d";
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation  rec {
 
   meta = with stdenv.lib; {
     description = "Virtual MIDI keyboard";
-    homepage = http://www.alsa-project.org/~tiwai/alsa.html;
+    homepage = "http://www.alsa-project.org/~tiwai/alsa.html";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.goibhniu ];

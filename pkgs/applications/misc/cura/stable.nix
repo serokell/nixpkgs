@@ -2,8 +2,7 @@
 let
   py = python27Packages;
   version = "15.04";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "cura-${version}";
 
   src = fetchurl {
@@ -21,7 +20,14 @@ stdenv.mkDerivation rec {
     categories = "GNOME;GTK;Utility;";
   };
 
-  python_deps = with py; [ pyopengl pyserial numpy wxPython30 power setuptools ];
+  python_deps = with py; [
+    pyopengl
+    pyserial
+    numpy
+    wxPython30
+    power
+    setuptools
+  ];
 
   pythonPath = python_deps;
 
@@ -31,7 +37,7 @@ stdenv.mkDerivation rec {
 
   configurePhase = "";
   buildPhase = "";
-  
+
   patches = [ ./numpy-cast.patch ];
 
   installPhase = ''
@@ -65,7 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "3D printing host software";
-    homepage = https://github.com/daid/Cura;
+    homepage = "https://github.com/daid/Cura";
     license = licenses.agpl3;
     platforms = platforms.linux;
     maintainers = with stdenv.lib.maintainers; [ the-kenny ];

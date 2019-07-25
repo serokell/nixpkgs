@@ -3,12 +3,9 @@
 with builtins;
 with lib;
 
-let
-  cfg = config.services.osquery;
+let cfg = config.services.osquery;
 
-in
-
-{
+in {
 
   options = {
 
@@ -42,9 +39,10 @@ in
 
       extraConfig = mkOption {
         type = types.attrs // {
-          merge = loc: foldl' (res: def: recursiveUpdate res def.value) {};
+          merge = loc: foldl' (res: def: recursiveUpdate res def.value) { };
         };
-        description = "Extra config to be recursively merged into the JSON config file.";
+        description =
+          "Extra config to be recursively merged into the JSON config file.";
         default = { };
       };
     };
@@ -55,17 +53,15 @@ in
 
     environment.systemPackages = [ pkgs.osquery ];
 
-    environment.etc."osquery/osquery.conf".text = toJSON (
-      recursiveUpdate {
-        options = {
-          config_plugin = "filesystem";
-          logger_plugin = "filesystem";
-          logger_path = cfg.loggerPath;
-          database_path = cfg.databasePath;
-          utc = cfg.utc;
-        };
-      } cfg.extraConfig
-    );
+    environment.etc."osquery/osquery.conf".text = toJSON (recursiveUpdate {
+      options = {
+        config_plugin = "filesystem";
+        logger_plugin = "filesystem";
+        logger_path = cfg.loggerPath;
+        database_path = cfg.databasePath;
+        utc = cfg.utc;
+      };
+    } cfg.extraConfig);
 
     systemd.services.osqueryd = {
       description = "The osquery Daemon";
@@ -79,7 +75,11 @@ in
       '';
       serviceConfig = {
         TimeoutStartSec = "infinity";
-        ExecStart = "${pkgs.osquery}/bin/osqueryd --logger_path ${escapeShellArg cfg.loggerPath} --pidfile ${escapeShellArg cfg.pidfile} --database_path ${escapeShellArg cfg.databasePath}";
+        ExecStart = "${pkgs.osquery}/bin/osqueryd --logger_path ${
+          escapeShellArg cfg.loggerPath
+          } --pidfile ${escapeShellArg cfg.pidfile} --database_path ${
+            escapeShellArg cfg.databasePath
+          }";
         KillMode = "process";
         KillSignal = "SIGTERM";
         Restart = "on-failure";

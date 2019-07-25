@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, argh
-, pathtools
-, pyyaml
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, argh, pathtools, pyyaml, pkgs }:
 
 buildPythonPackage rec {
   pname = "watchdog";
@@ -23,8 +16,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Python API and shell utilities to monitor file system events";
-    homepage = https://github.com/gorakhargosh/watchdog;
+    description =
+      "Python API and shell utilities to monitor file system events";
+    homepage = "https://github.com/gorakhargosh/watchdog";
     license = licenses.asl20;
     maintainers = with maintainers; [ goibhniu ];
   };

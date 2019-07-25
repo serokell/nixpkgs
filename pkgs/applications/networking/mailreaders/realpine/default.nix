@@ -1,12 +1,9 @@
-{stdenv, fetchurl, ncurses, tcl, openssl, pam, kerberos
-, openldap
-}:
+{ stdenv, fetchurl, ncurses, tcl, openssl, pam, kerberos, openldap }:
 # NOTE: Please check if any changes here are applicable to ../alpine/ as well
 let
   baseName = "re-alpine";
   version = "2.03";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${baseName}-${version}";
   inherit version;
 
@@ -15,9 +12,7 @@ stdenv.mkDerivation {
     sha256 = "11xspzbk9cwmklmcw6rxsan7j71ysd4m9c7qldlc59ck595k5nbh";
   };
 
-  buildInputs = [
-    ncurses tcl openssl pam kerberos openldap
-  ];
+  buildInputs = [ ncurses tcl openssl pam kerberos openldap ];
 
   hardeningDisable = [ "format" ];
 
@@ -34,9 +29,9 @@ stdenv.mkDerivation {
   meta = {
     description = "Console mail reader";
     license = stdenv.lib.licenses.asl20;
-    maintainers = [stdenv.lib.maintainers.raskin];
+    maintainers = [ stdenv.lib.maintainers.raskin ];
     platforms = stdenv.lib.platforms.linux;
-    homepage = https://sourceforge.net/projects/re-alpine/;
+    homepage = "https://sourceforge.net/projects/re-alpine/";
     downloadPage = "https://sourceforge.net/projects/re-alpine/files/";
   };
 }

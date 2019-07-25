@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, buildGoPackage
-, go
-, makeWrapper
-, nix-prefetch-git
-, fetchFromGitHub
+{ stdenv, lib, buildGoPackage, go, makeWrapper, nix-prefetch-git, fetchFromGitHub
 }:
 
 buildGoPackage rec {
@@ -25,15 +19,16 @@ buildGoPackage rec {
 
   allowGoReference = true;
 
-  postInstall = with stdenv; let
-    binPath = lib.makeBinPath [ nix-prefetch-git go ];
-  in ''
-    wrapProgram $bin/bin/vgo2nix --prefix PATH : ${binPath}
-  '';
+  postInstall = with stdenv;
+    let binPath = lib.makeBinPath [ nix-prefetch-git go ];
+    in ''
+      wrapProgram $bin/bin/vgo2nix --prefix PATH : ${binPath}
+    '';
 
   meta = with stdenv.lib; {
-    description = "Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files";
-    homepage = https://github.com/adisbladis/vgo2nix;
+    description =
+      "Convert go.mod files to nixpkgs buildGoPackage compatible deps.nix files";
+    homepage = "https://github.com/adisbladis/vgo2nix";
     license = licenses.mit;
     maintainers = with maintainers; [ adisbladis ];
   };

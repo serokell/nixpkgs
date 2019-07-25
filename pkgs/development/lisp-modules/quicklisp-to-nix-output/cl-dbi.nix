@@ -1,20 +1,31 @@
-args @ { fetchurl, ... }:
-rec {
-  baseName = ''cl-dbi'';
-  version = ''20190107-git'';
+args@{ fetchurl, ... }: rec {
+  baseName = "cl-dbi";
+  version = "20190107-git";
 
-  description = '''';
+  description = "";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."cl-annot" args."cl-syntax" args."cl-syntax-annot" args."closer-mop" args."dbi" args."named-readtables" args."split-sequence" args."trivial-types" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."cl-annot"
+    args."cl-syntax"
+    args."cl-syntax-annot"
+    args."closer-mop"
+    args."dbi"
+    args."named-readtables"
+    args."split-sequence"
+    args."trivial-types"
+  ];
 
   src = fetchurl {
-    url = ''http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz'';
-    sha256 = ''02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2'';
+    url =
+      "http://beta.quicklisp.org/archive/cl-dbi/2019-01-07/cl-dbi-20190107-git.tgz";
+    sha256 = "02w729jfkbd8443ia07ixr53b4asxx2gcllr84hvlibafawkkdh2";
   };
 
   packageName = "cl-dbi";
 
-  asdFilesToKeep = ["cl-dbi.asd"];
+  asdFilesToKeep = [ "cl-dbi.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM cl-dbi DESCRIPTION NIL SHA256
@@ -33,4 +44,5 @@ rec {
     (alexandria bordeaux-threads cl-annot cl-syntax cl-syntax-annot closer-mop
      dbi named-readtables split-sequence trivial-types)
     VERSION 20190107-git SIBLINGS
-    (dbd-mysql dbd-postgres dbd-sqlite3 dbi-test dbi) PARASITES NIL) */
+    (dbd-mysql dbd-postgres dbd-sqlite3 dbi-test dbi) PARASITES NIL)
+*/

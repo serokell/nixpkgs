@@ -1,4 +1,4 @@
-{stdenv, fetchurl, lzo, openssl, zlib}:
+{ stdenv, fetchurl, lzo, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   version = "1.0.35";
@@ -11,10 +11,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ lzo openssl zlib ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-  ];
+  configureFlags = [ "--localstatedir=/var" "--sysconfdir=/etc" ];
 
   meta = {
     description = "VPN daemon with full mesh routing";
@@ -24,7 +21,7 @@ stdenv.mkDerivation rec {
       Internet.  It features full mesh routing, as well as encryption,
       authentication, compression and ethernet bridging.
     '';
-    homepage="http://www.tinc-vpn.org/";
+    homepage = "http://www.tinc-vpn.org/";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.unix;
   };

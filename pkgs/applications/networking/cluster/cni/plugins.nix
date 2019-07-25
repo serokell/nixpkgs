@@ -29,8 +29,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Some standard networking plugins, maintained by the CNI team";
-    homepage = https://github.com/containernetworking/plugins;
+    description =
+      "Some standard networking plugins, maintained by the CNI team";
+    homepage = "https://github.com/containernetworking/plugins";
     license = licenses.asl20;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ cstrahan ];

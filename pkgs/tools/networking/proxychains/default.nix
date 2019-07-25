@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub } :
+{ stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   name = "proxychains-${version}";
   version = "4.2.0";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Proxifier for SOCKS proxies";
-    homepage = http://proxychains.sourceforge.net;
+    homepage = "http://proxychains.sourceforge.net";
     license = stdenv.lib.licenses.gpl2Plus;
     platforms = stdenv.lib.platforms.linux;
   };

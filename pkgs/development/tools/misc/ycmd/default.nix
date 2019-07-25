@@ -1,9 +1,5 @@
-{ stdenv, lib, fetchgit, cmake, llvmPackages, boost, python
-, gocode ? null
-, godef ? null
-, rustracerd ? null
-, fixDarwinDylibNames, Cocoa ? null
-}:
+{ stdenv, lib, fetchgit, cmake, llvmPackages, boost, python, gocode ?
+  null, godef ? null, rustracerd ? null, fixDarwinDylibNames, Cocoa ? null }:
 
 stdenv.mkDerivation rec {
   name = "ycmd-${version}";
@@ -75,7 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A code-completion and comprehension server";
-    homepage = https://github.com/Valloric/ycmd;
+    homepage = "https://github.com/Valloric/ycmd";
     license = licenses.gpl3;
     maintainers = with maintainers; [ rasendubi cstrahan lnl7 ];
     platforms = platforms.all;

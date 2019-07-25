@@ -1,40 +1,4 @@
-{ stdenv
-, substituteAll
-, fetchurl
-, meson
-, ninja
-, pkgconfig
-, gnome3
-, perl
-, gettext
-, gtk3
-, glib
-, libnotify
-, libgnomekbd
-, lcms2
-, libpulseaudio
-, mousetweaks
-, alsaLib
-, libcanberra-gtk3
-, upower
-, colord
-, libgweather
-, polkit
-, gsettings-desktop-schemas
-, geoclue2
-, systemd
-, libgudev
-, libwacom
-, libxslt
-, libxml2
-, networkmanager
-, gnome-desktop
-, geocode-glib
-, docbook_xsl
-, wrapGAppsHook
-, python3
-, tzdata
-, nss
+{ stdenv, substituteAll, fetchurl, meson, ninja, pkgconfig, gnome3, perl, gettext, gtk3, glib, libnotify, libgnomekbd, lcms2, libpulseaudio, mousetweaks, alsaLib, libcanberra-gtk3, upower, colord, libgweather, polkit, gsettings-desktop-schemas, geoclue2, systemd, libgudev, libwacom, libxslt, libxml2, networkmanager, gnome-desktop, geocode-glib, docbook_xsl, wrapGAppsHook, python3, tzdata, nss
 }:
 
 stdenv.mkDerivation rec {
@@ -42,7 +6,9 @@ stdenv.mkDerivation rec {
   version = "3.32.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-settings-daemon/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-settings-daemon/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "02d0s0g2mmqfib44r3sf0499r08p61s8l2ndsjssbam1bi7x2dks";
   };
 
@@ -91,9 +57,7 @@ stdenv.mkDerivation rec {
     libwacom
   ];
 
-  mesonFlags = [
-    "-Dudev_dir=${placeholder "out"}/lib/udev"
-  ];
+  mesonFlags = [ "-Dudev_dir=${placeholder "out"}/lib/udev" ];
 
   # So the polkit policy can reference /run/current-system/sw/bin/gnome-settings-daemon/gsd-backlight-helper
   postFixup = ''

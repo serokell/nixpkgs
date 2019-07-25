@@ -1,4 +1,5 @@
-{ lib, mkXfceDerivation, gtk3, libnotify ? null, libpulseaudio, keybinder3, xfconf }:
+{ lib, mkXfceDerivation, gtk3, libnotify ?
+  null, libpulseaudio, keybinder3, xfconf }:
 
 mkXfceDerivation rec {
   category = "apps";
@@ -9,7 +10,5 @@ mkXfceDerivation rec {
 
   buildInputs = [ gtk3 libnotify libpulseaudio keybinder3 xfconf ];
 
-  meta = with lib; {
-    license = licenses.gpl3Plus;
-  };
+  meta = with lib; { license = licenses.gpl3Plus; };
 }

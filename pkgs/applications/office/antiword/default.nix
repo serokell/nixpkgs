@@ -1,9 +1,7 @@
 { fetchurl, stdenv }:
 
-let
-  name = "antiword-0.37";
-in
-stdenv.mkDerivation {
+let name = "antiword-0.37";
+in stdenv.mkDerivation {
   inherit name;
 
   src = fetchurl {
@@ -21,7 +19,7 @@ stdenv.mkDerivation {
   installTargets = "global_install";
 
   meta = {
-    homepage = http://www.winfield.demon.nl/;
+    homepage = "http://www.winfield.demon.nl/";
     description = "Convert MS Word documents to plain text or PostScript";
     license = stdenv.lib.licenses.gpl2;
 

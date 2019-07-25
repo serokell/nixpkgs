@@ -1,7 +1,4 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  knotifications, kwindowsystem, kxmlgui, qtx11extras
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, knotifications, kwindowsystem, kxmlgui, qtx11extras
 }:
 
 mkDerivation {
@@ -11,7 +8,5 @@ mkDerivation {
     maintainers = [ lib.maintainers.vandenoever ];
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [
-    kwindowsystem knotifications kxmlgui qtx11extras
-  ];
+  buildInputs = [ kwindowsystem knotifications kxmlgui qtx11extras ];
 }

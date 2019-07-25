@@ -1,24 +1,53 @@
-{stdenv, fetchgit, fetchsvn, autoconf, automake, libtool, gfortran, clang, cmake, gnumake,
-hwloc, jre, liblapack, blas, hdf5, expat, ncurses, readline, qt4, webkitgtk, which,
-lp_solve, omniorb, sqlite, libatomic_ops, pkgconfig, file, gettext, flex, bison,
-doxygen, boost, openscenegraph, gnome2, pangox_compat, xorg, git, bash, gtk2, makeWrapper }:
+{ stdenv, fetchgit, fetchsvn, autoconf, automake, libtool, gfortran, clang, cmake, gnumake, hwloc, jre, liblapack, blas, hdf5, expat, ncurses, readline, qt4, webkitgtk, which, lp_solve, omniorb, sqlite, libatomic_ops, pkgconfig, file, gettext, flex, bison, doxygen, boost, openscenegraph, gnome2, pangox_compat, xorg, git, bash, gtk2, makeWrapper
+}:
 
 let
 
-  fakegit = import ./fakegit.nix {inherit stdenv fetchgit fetchsvn bash;} ;
+  fakegit = import ./fakegit.nix { inherit stdenv fetchgit fetchsvn bash; };
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "openmodelica";
 
   src = fetchgit (import ./src-main.nix);
 
-  buildInputs = [autoconf cmake automake libtool gfortran clang gnumake
-    hwloc jre liblapack blas hdf5 expat ncurses readline qt4 webkitgtk which
-    lp_solve omniorb sqlite libatomic_ops pkgconfig file gettext flex bison
-    doxygen boost openscenegraph gnome2.gtkglext pangox_compat xorg.libXmu
-    git gtk2 makeWrapper];
+  buildInputs = [
+    autoconf
+    cmake
+    automake
+    libtool
+    gfortran
+    clang
+    gnumake
+    hwloc
+    jre
+    liblapack
+    blas
+    hdf5
+    expat
+    ncurses
+    readline
+    qt4
+    webkitgtk
+    which
+    lp_solve
+    omniorb
+    sqlite
+    libatomic_ops
+    pkgconfig
+    file
+    gettext
+    flex
+    bison
+    doxygen
+    boost
+    openscenegraph
+    gnome2.gtkglext
+    pangox_compat
+    xorg.libXmu
+    git
+    gtk2
+    makeWrapper
+  ];
 
   hardeningDisable = [ "format" ];
 
@@ -40,18 +69,20 @@ stdenv.mkDerivation {
     for e in $(cd $out/bin && ls); do
       wrapProgram $out/bin/$e \
         --prefix PATH : "${gnumake}/bin" \
-        --prefix LIBRARY_PATH : "${stdenv.lib.makeLibraryPath [ liblapack blas ]}"
+        --prefix LIBRARY_PATH : "${
+      stdenv.lib.makeLibraryPath [ liblapack blas ]
+        }"
     done
   '';
 
   meta = with stdenv.lib; {
-    description = "OpenModelica is an open-source Modelica-based modeling and simulation environment";
-    homepage    = "https://openmodelica.org";
-    license     = licenses.gpl3;
+    description =
+      "OpenModelica is an open-source Modelica-based modeling and simulation environment";
+    homepage = "https://openmodelica.org";
+    license = licenses.gpl3;
     maintainers = with maintainers; [ smironov ];
-    platforms   = platforms.linux;
-    broken      = true;
+    platforms = platforms.linux;
+    broken = true;
   };
 }
-
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, erlang, icu, openssl, spidermonkey
-, coreutils, bash, makeWrapper }:
+{ stdenv, fetchurl, erlang, icu, openssl, spidermonkey, coreutils, bash, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "couchdb-${version}";
@@ -47,8 +47,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
-    homepage = http://couchdb.apache.org;
+    description =
+      "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
+    homepage = "http://couchdb.apache.org";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ ];

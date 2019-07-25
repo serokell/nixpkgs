@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, getdns, libtool, m4, file , doxygen
-, autoreconfHook, automake, check, libbsd, libyaml, darwin }:
+{ stdenv, fetchFromGitHub, getdns, libtool, m4, file, doxygen, autoreconfHook, automake, check, libbsd, libyaml, darwin
+}:
 
 stdenv.mkDerivation rec {
   pname = "stubby";
@@ -26,10 +26,11 @@ stdenv.mkDerivation rec {
       queries sent from a client machine (desktop or laptop) to a DNS
       Privacy resolver increasing end user privacy. Stubby is developed by
       the getdns team.
-'';
-    homepage = https://dnsprivacy.org/wiki/x/JYAT;
+    '';
+    homepage = "https://dnsprivacy.org/wiki/x/JYAT";
     downloadPage = "https://github.com/getdnsapi/stubby";
     maintainers = with maintainers; [ leenaars ];
-    license = licenses.bsd3; platforms = platforms.all;
-    };
+    license = licenses.bsd3;
+    platforms = platforms.all;
+  };
 }

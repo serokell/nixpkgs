@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, docutils
-, readme_renderer
-, pygments
-, mock
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, docutils, readme_renderer, pygments, mock
 }:
 
 buildPythonPackage rec {
@@ -24,7 +17,8 @@ buildPythonPackage rec {
     # fix tests after readme_renderer update
     # TODO remove on next update
     (fetchpatch {
-      url = "https://github.com/mgedmin/restview/commit/541743ded13ae55dea4c437046984a5f13d06e8b.patch";
+      url =
+        "https://github.com/mgedmin/restview/commit/541743ded13ae55dea4c437046984a5f13d06e8b.patch";
       sha256 = "031b1dlqx346bz7afpc011lslnq771lnxb6iy1l2285pph534bci";
     })
   ];
@@ -36,7 +30,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "ReStructuredText viewer";
-    homepage = https://mg.pov.lt/restview/;
+    homepage = "https://mg.pov.lt/restview/";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ koral ];
   };

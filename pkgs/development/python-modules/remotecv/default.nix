@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pillow, pyres, nose
-, preggy, numpy, yanc, nose-focus, mock, opencv }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pillow, pyres, nose, preggy, numpy, yanc, nose-focus, mock, opencv
+}:
 
 buildPythonPackage rec {
   pname = "remotecv";
@@ -21,9 +21,7 @@ buildPythonPackage rec {
   # version upper bounds because nixpkgs contains (or could contain) newer
   # versions.
   # See: https://github.com/thumbor/remotecv/issues/15
-  patches = [
-    ./install_requires.patch
-  ];
+  patches = [ ./install_requires.patch ];
 
   checkPhase = ''
     nosetests --with-yanc -s tests/
@@ -31,7 +29,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "OpenCV worker for facial and feature recognition";
-    homepage = https://github.com/thumbor/remotecv/wiki;
+    homepage = "https://github.com/thumbor/remotecv/wiki";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];
   };

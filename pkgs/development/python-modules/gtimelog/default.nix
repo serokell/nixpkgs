@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, pkgs
-, python
-, pygobject3
-}:
+{ stdenv, buildPythonPackage, pkgs, python, pygobject3 }:
 
 buildPythonPackage rec {
   pname = "gtimelog";
@@ -16,10 +11,11 @@ buildPythonPackage rec {
 
   buildInputs = [ pkgs.glibcLocales ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   # TODO: AppIndicator
-  propagatedBuildInputs = [ pkgs.gobject-introspection pygobject3 pkgs.makeWrapper pkgs.gtk3 ];
+  propagatedBuildInputs =
+    [ pkgs.gobject-introspection pygobject3 pkgs.makeWrapper pkgs.gtk3 ];
 
   checkPhase = ''
     substituteInPlace runtests --replace "/usr/bin/env python" "${python}/bin/${python.executable}"
@@ -27,14 +23,15 @@ buildPythonPackage rec {
   '';
 
   preFixup = ''
-      wrapProgram $out/bin/gtimelog \
-        --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
-        --prefix LD_LIBRARY_PATH ":" "${pkgs.gtk3.out}/lib" \
+    wrapProgram $out/bin/gtimelog \
+      --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
+      --prefix LD_LIBRARY_PATH ":" "${pkgs.gtk3.out}/lib" \
   '';
 
   meta = with stdenv.lib; {
-    description = "A small Gtk+ app for keeping track of your time. It's main goal is to be as unintrusive as possible";
-    homepage = https://mg.pov.lt/gtimelog/;
+    description =
+      "A small Gtk+ app for keeping track of your time. It's main goal is to be as unintrusive as possible";
+    homepage = "https://mg.pov.lt/gtimelog/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ocharles ];
     platforms = platforms.unix;

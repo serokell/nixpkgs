@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       While a tree like structure like shown on this page can be drawn by hand or any drawing software
       vym offers much more features to work with such maps.
     '';
-    homepage = http://www.insilmaril.de/vym/;
+    homepage = "http://www.insilmaril.de/vym/";
     license = licenses.gpl2;
     maintainers = [ maintainers.AndersonTorres ];
     platforms = platforms.linux;

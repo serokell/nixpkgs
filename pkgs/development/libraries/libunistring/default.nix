@@ -13,9 +13,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = stdenv.lib.optional (!stdenv.isLinux) libiconv;
 
-  configureFlags = [
-    "--with-libiconv-prefix=${libiconv}"
-  ];
+  configureFlags = [ "--with-libiconv-prefix=${libiconv}" ];
 
   doCheck = true;
 
@@ -34,7 +32,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   meta = {
-    homepage = https://www.gnu.org/software/libunistring/;
+    homepage = "https://www.gnu.org/software/libunistring/";
 
     description = "Unicode string library";
 

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, unzip, ... }: stdenv.mkDerivation rec {
+{ stdenv, fetchurl, unzip, ... }:
+stdenv.mkDerivation rec {
   name = "scriptaculous-${version}";
   version = "1.9.0";
 
@@ -15,15 +16,16 @@
   '';
 
   meta = with stdenv.lib; {
-    description = "A set of JavaScript libraries to enhance the user interface of web sites";
+    description =
+      "A set of JavaScript libraries to enhance the user interface of web sites";
     longDescription = ''
       script.aculo.us provides you with
       easy-to-use, cross-browser user
       interface JavaScript libraries to make
       your web sites and web applications fly.
     '';
-    homepage = https://script.aculo.us/;
-    downloadPage = https://script.aculo.us/dist/;
+    homepage = "https://script.aculo.us/";
+    downloadPage = "https://script.aculo.us/dist/";
     license = licenses.mit;
     maintainers = with maintainers; [ das_j ];
   };

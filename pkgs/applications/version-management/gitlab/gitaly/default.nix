@@ -1,12 +1,12 @@
-{ stdenv, fetchFromGitLab, buildGoPackage, ruby, bundlerEnv, pkgconfig, libgit2 }:
+{ stdenv, fetchFromGitLab, buildGoPackage, ruby, bundlerEnv, pkgconfig, libgit2
+}:
 
 let
   rubyEnv = bundlerEnv rec {
     name = "gitaly-env";
     inherit ruby;
     gemdir = ./.;
-    gemset =
-      let x = import (gemdir + "/gemset.nix");
+    gemset = let x = import (gemdir + "/gemset.nix");
       in x // {
         # grpc expects the AR environment variable to contain `ar rpc`. See the
         # discussion in nixpkgs #63056.
@@ -29,9 +29,7 @@ in buildGoPackage rec {
 
   goPackagePath = "gitlab.com/gitlab-org/gitaly";
 
-  passthru = {
-    inherit rubyEnv;
-  };
+  passthru = { inherit rubyEnv; };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ rubyEnv.wrappedRuby libgit2 ];
@@ -53,7 +51,7 @@ in buildGoPackage rec {
   outputs = [ "bin" "out" "ruby" ];
 
   meta = with stdenv.lib; {
-    homepage = http://www.gitlab.com/;
+    homepage = "http://www.gitlab.com/";
     platforms = platforms.unix;
     maintainers = with maintainers; [ roblabla globin fpletz ];
     license = licenses.mit;

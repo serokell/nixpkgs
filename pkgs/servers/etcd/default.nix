@@ -16,18 +16,16 @@ buildGoPackage rec {
     sha256 = "1kac4qfr83f2hdz35403f1ald05wc85vvhw79vxb431n61jvyaqy";
   };
 
-  subPackages = [
-    "cmd/etcd"
-    "cmd/etcdctl"
-  ];
+  subPackages = [ "cmd/etcd" "cmd/etcdctl" ];
 
   buildInputs = [ libpcap ];
 
   meta = {
-    description = "Distributed reliable key-value store for the most critical data of a distributed system";
+    description =
+      "Distributed reliable key-value store for the most critical data of a distributed system";
     license = licenses.asl20;
-    homepage = https://coreos.com/etcd/;
-    maintainers = with maintainers; [offline];
+    homepage = "https://coreos.com/etcd/";
+    maintainers = with maintainers; [ offline ];
     platforms = with platforms; linux;
   };
 }

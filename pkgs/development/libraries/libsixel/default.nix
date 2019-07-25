@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub}:
+{ stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   version = "1.8.2";
   name = "libsixel-${version}";
@@ -11,8 +11,9 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "The SIXEL library for console graphics, and converter programs";
-    homepage = http://saitoha.github.com/libsixel;
+    description =
+      "The SIXEL library for console graphics, and converter programs";
+    homepage = "http://saitoha.github.com/libsixel";
     maintainers = with maintainers; [ vrthra ];
     license = licenses.mit;
     platforms = with platforms; unix;

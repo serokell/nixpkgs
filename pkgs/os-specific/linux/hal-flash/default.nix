@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, dbus, glib, libtool, pkgconfig, udisks2 }:
+{ stdenv, fetchurl, autoconf, automake, dbus, glib, libtool, pkgconfig, udisks2
+}:
 
 stdenv.mkDerivation {
   name = "hal-flash-0.3.3";
@@ -14,14 +15,14 @@ stdenv.mkDerivation {
   preConfigure = "libtoolize && aclocal && autoconf && automake --add-missing";
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/cshorler/hal-flash;
-    description = "libhal stub library to satisfy the Flash Player DRM requirements";
-    longDescription =
-      ''
-        Stub library based loosely upon libhal.[ch] from the hal-0.5.14
-        package.  Provides the minimum necessary functionality to enable
-        libflashplayer.so/libadobecp.so to play back DRM content.
-      '';
+    homepage = "https://github.com/cshorler/hal-flash";
+    description =
+      "libhal stub library to satisfy the Flash Player DRM requirements";
+    longDescription = ''
+      Stub library based loosely upon libhal.[ch] from the hal-0.5.14
+      package.  Provides the minimum necessary functionality to enable
+      libflashplayer.so/libadobecp.so to play back DRM content.
+    '';
     license = with licenses; [ afl21 gpl2 ];
     maintainers = with maintainers; [ malyn ];
     platforms = platforms.linux;

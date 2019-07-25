@@ -1,10 +1,9 @@
 { stdenv, fetchurl, bison, flex, texinfo, readline, texLive }:
 
 let
-  name    = "eukleides";
+  name = "eukleides";
   version = "1.5.4";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${name}-${version}";
 
   src = fetchurl {
@@ -12,14 +11,14 @@ stdenv.mkDerivation {
     sha256 = "0s8cyh75hdj89v6kpm3z24i48yzpkr8qf0cwxbs9ijxj1i38ki0q";
   };
 
-  buildInputs = [bison flex texinfo readline texLive];
+  buildInputs = [ bison flex texinfo readline texLive ];
 
   preConfigure = "sed -i 's/ginstall-info/install-info/g' doc/Makefile";
   installPhase = "mkdir -p $out/bin ; make PREFIX=$out install";
 
   meta = {
     description = "Geometry Drawing Language";
-    homepage = http://www.eukleides.org/;
+    homepage = "http://www.eukleides.org/";
     license = stdenv.lib.licenses.gpl2;
 
     longDescription = ''

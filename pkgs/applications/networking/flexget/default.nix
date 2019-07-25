@@ -18,9 +18,7 @@ let
     });
   };
 
-in
-
-with python'.pkgs;
+in with python'.pkgs;
 
 buildPythonApplication rec {
   pname = "FlexGet";
@@ -45,16 +43,34 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [
     # See https://github.com/Flexget/Flexget/blob/master/requirements.in
-    feedparser sqlalchemy pyyaml
-    beautifulsoup4 html5lib
-    PyRSS2Gen pynzb rpyc jinja2
-    requests dateutil jsonschema
-    pathpy guessit rebulk APScheduler
-    terminaltables colorclass
-    cherrypy flask flask-restful
-    flask-restplus flask-compress
-    flask_login flask-cors
-    pyparsing zxcvbn future
+    feedparser
+    sqlalchemy
+    pyyaml
+    beautifulsoup4
+    html5lib
+    PyRSS2Gen
+    pynzb
+    rpyc
+    jinja2
+    requests
+    dateutil
+    jsonschema
+    pathpy
+    guessit
+    rebulk
+    APScheduler
+    terminaltables
+    colorclass
+    cherrypy
+    flask
+    flask-restful
+    flask-restplus
+    flask-compress
+    flask_login
+    flask-cors
+    pyparsing
+    zxcvbn
+    future
     progressbar
     # Optional requirements
     deluge-client
@@ -63,9 +79,9 @@ buildPythonApplication rec {
   ] ++ lib.optional (pythonOlder "3.4") pathlib;
 
   meta = with lib; {
-    homepage    = https://flexget.com/;
+    homepage = "https://flexget.com/";
     description = "Multipurpose automation tool for content like torrents";
-    license     = licenses.mit;
+    license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
 }

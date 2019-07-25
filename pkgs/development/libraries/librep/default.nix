@@ -1,7 +1,5 @@
-{ stdenv, fetchurl
-, pkgconfig, autoreconfHook
-, readline, texinfo
-, gdbm, gmp, libffi }:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, readline, texinfo, gdbm, gmp, libffi
+}:
 
 with stdenv.lib;
 
@@ -19,9 +17,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ readline texinfo ];
   propagatedBuildInputs = [ gdbm gmp libffi ];
 
-  configureFlags = [
-    "--disable-static"
-  ];
+  configureFlags = [ "--disable-static" ];
 
   setupHook = ./setup-hook.sh;
 
@@ -32,8 +28,8 @@ stdenv.mkDerivation rec {
       interpreter, a byte-code compiler, and a virtual
       machine. It can serve as an application extension language
       but is also suitable for standalone scripts.
-     '';
-    homepage = http://sawfish.wikia.com;
+    '';
+    homepage = "http://sawfish.wikia.com";
     license = licenses.gpl2;
     maintainers = [ maintainers.AndersonTorres ];
   };

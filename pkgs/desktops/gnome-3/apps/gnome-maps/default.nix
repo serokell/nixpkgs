@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, gettext, python3, pkgconfig, gnome3, gtk3
-, gobject-introspection, gdk_pixbuf, librsvg, libgweather
-, geoclue2, wrapGAppsHook, folks, libchamplain, gfbgraph, libsoup, gsettings-desktop-schemas
-, webkitgtk, gjs, libgee, geocode-glib, evolution-data-server, gnome-online-accounts }:
+{ stdenv, fetchurl, meson, ninja, gettext, python3, pkgconfig, gnome3, gtk3, gobject-introspection, gdk_pixbuf, librsvg, libgweather, geoclue2, wrapGAppsHook, folks, libchamplain, gfbgraph, libsoup, gsettings-desktop-schemas, webkitgtk, gjs, libgee, geocode-glib, evolution-data-server, gnome-online-accounts
+}:
 
 let
   pname = "gnome-maps";
@@ -10,7 +8,9 @@ in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "1m191iq1gjaqz79ci3dkbmwrkxp7pzknngimlf5bqib5x8yairlb";
   };
 
@@ -19,11 +19,22 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja pkgconfig gettext python3 wrapGAppsHook ];
   buildInputs = [
     gobject-introspection
-    gtk3 geoclue2 gjs libgee folks gfbgraph
-    geocode-glib libchamplain libsoup
-    gdk_pixbuf librsvg libgweather
-    gsettings-desktop-schemas evolution-data-server
-    gnome-online-accounts gnome3.adwaita-icon-theme
+    gtk3
+    geoclue2
+    gjs
+    libgee
+    folks
+    gfbgraph
+    geocode-glib
+    libchamplain
+    libsoup
+    gdk_pixbuf
+    librsvg
+    libgweather
+    gsettings-desktop-schemas
+    evolution-data-server
+    gnome-online-accounts
+    gnome3.adwaita-icon-theme
     webkitgtk
   ];
 
@@ -48,7 +59,7 @@ in stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Maps;
+    homepage = "https://wiki.gnome.org/Apps/Maps";
     description = "A map application for GNOME 3";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2Plus;

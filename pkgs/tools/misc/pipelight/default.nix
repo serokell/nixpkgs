@@ -1,10 +1,10 @@
-{ stdenv, fetchurl, bash, cabextract, curl, gnupg, libX11, libGLU_combined, wine-staging }:
+{ stdenv, fetchurl, bash, cabextract, curl, gnupg, libX11, libGLU_combined, wine-staging
+}:
 
 let
   wine_custom = wine-staging;
 
   mozillaPluginPath = "/lib/mozilla/plugins";
-
 
 in stdenv.mkDerivation rec {
 
@@ -52,7 +52,7 @@ in stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    homepage = http://pipelight.net/;
+    homepage = "http://pipelight.net/";
     license = with stdenv.lib.licenses; [ mpl11 gpl2 lgpl21 ];
     description = "A wrapper for using Windows plugins in Linux browsers";
     maintainers = with stdenv.lib.maintainers; [ skeidel ];

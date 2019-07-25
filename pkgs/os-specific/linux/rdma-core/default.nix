@@ -1,9 +1,7 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, pandoc
-, ethtool, iproute, libnl, udev, python, perl
-} :
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, pandoc, ethtool, iproute, libnl, udev, python, perl
+}:
 
-let
-  version = "24.0";
+let version = "24.0";
 
 in stdenv.mkDerivation {
   name = "rdma-core-${version}";
@@ -18,10 +16,8 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ cmake pkgconfig pandoc ];
   buildInputs = [ libnl ethtool iproute udev python perl ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_RUNDIR=/run"
-    "-DCMAKE_INSTALL_SHAREDSTATEDIR=/var/lib"
-  ];
+  cmakeFlags =
+    [ "-DCMAKE_INSTALL_RUNDIR=/run" "-DCMAKE_INSTALL_SHAREDSTATEDIR=/var/lib" ];
 
   postPatch = ''
     substituteInPlace providers/rxe/rxe_cfg.in \
@@ -32,7 +28,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "RDMA Core Userspace Libraries and Daemons";
-    homepage = https://github.com/linux-rdma/rdma-core;
+    homepage = "https://github.com/linux-rdma/rdma-core";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ markuskowa ];

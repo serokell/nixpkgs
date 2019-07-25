@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "monotonic";
@@ -12,7 +9,8 @@ buildPythonPackage rec {
     sha256 = "23953d55076df038541e648a53676fb24980f7a1be290cdda21300b3bc21dfb0";
   };
 
-  __propagatedImpureHostDeps = stdenv.lib.optional stdenv.isDarwin "/usr/lib/libc.dylib";
+  __propagatedImpureHostDeps =
+    stdenv.lib.optional stdenv.isDarwin "/usr/lib/libc.dylib";
 
   patchPhase = stdenv.lib.optionalString stdenv.isLinux ''
     substituteInPlace monotonic.py --replace \
@@ -21,7 +19,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "An implementation of time.monotonic() for Python 2 & < 3.3";
-    homepage = https://github.com/atdt/monotonic;
+    homepage = "https://github.com/atdt/monotonic";
     license = licenses.asl20;
   };
 

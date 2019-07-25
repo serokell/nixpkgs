@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, cython
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cython }:
 
 buildPythonPackage rec {
   pname = "murmurhash";
@@ -17,9 +13,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'wheel>=0.32.0,<0.33.0'" ""
   '';
 
-  buildInputs = [
-   cython
-  ];
+  buildInputs = [ cython ];
 
   # No test
   doCheck = false;
@@ -30,7 +24,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Cython bindings for MurmurHash2";
-    homepage = https://github.com/explosion/murmurhash;
+    homepage = "https://github.com/explosion/murmurhash";
     license = licenses.mit;
     maintainers = with maintainers; [ aborsu sdll ];
   };

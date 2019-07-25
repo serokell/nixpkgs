@@ -23,13 +23,15 @@ let
       domain = mkOption {
         type = types.str;
         default = name;
-        description = "Domain to fetch certificate for (defaults to the entry name)";
+        description =
+          "Domain to fetch certificate for (defaults to the entry name)";
       };
 
       email = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = "Contact email address for the CA to be able to reach you.";
+        description =
+          "Contact email address for the CA to be able to reach you.";
       };
 
       user = mkOption {
@@ -68,8 +70,15 @@ let
 
       plugins = mkOption {
         type = types.listOf (types.enum [
-          "cert.der" "cert.pem" "chain.pem" "external.sh"
-          "fullchain.pem" "full.pem" "key.der" "key.pem" "account_key.json"
+          "cert.der"
+          "cert.pem"
+          "chain.pem"
+          "external.sh"
+          "fullchain.pem"
+          "full.pem"
+          "key.der"
+          "key.pem"
+          "account_key.json"
         ]);
         default = [ "fullchain.pem" "full.pem" "key.pem" "account_key.json" ];
         description = ''
@@ -103,7 +112,7 @@ let
 
       extraDomains = mkOption {
         type = types.attrsOf (types.nullOr types.str);
-        default = {};
+        default = { };
         example = literalExample ''
           {
             "example.org" = "/srv/http/nginx";
@@ -118,9 +127,7 @@ let
     };
   };
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -205,167 +212,187 @@ in
     (mkIf (cfg.certs != { }) {
 
       systemd.services = let
-          services = concatLists servicesLists;
-          servicesLists = mapAttrsToList certToServices cfg.certs;
-          certToServices = cert: data:
-              let
-                cpath = lpath + optionalString (data.activationDelay != null) ".staging";
-                lpath = "${cfg.directory}/${cert}";
-                rights = if data.allowKeysForGroup then "750" else "700";
-                cmdline = [ "-v" "-d" data.domain "--default_root" data.webroot "--valid_min" cfg.validMin ]
-                          ++ optionals (data.email != null) [ "--email" data.email ]
-                          ++ concatMap (p: [ "-f" p ]) data.plugins
-                          ++ concatLists (mapAttrsToList (name: root: [ "-d" (if root == null then name else "${name}:${root}")]) data.extraDomains)
-                          ++ optionals (!cfg.production) ["--server" "https://acme-staging.api.letsencrypt.org/directory"];
-                acmeService = {
-                  description = "Renew ACME Certificate for ${cert}";
-                  after = [ "network.target" "network-online.target" ];
-                  wants = [ "network-online.target" ];
-                  serviceConfig = {
-                    Type = "oneshot";
-                    SuccessExitStatus = [ "0" "1" ];
-                    PermissionsStartOnly = true;
-                    User = data.user;
-                    Group = data.group;
-                    PrivateTmp = true;
-                  };
-                  path = with pkgs; [ simp_le systemd ];
-                  preStart = ''
-                    mkdir -p '${cfg.directory}'
-                    chown 'root:root' '${cfg.directory}'
-                    chmod 755 '${cfg.directory}'
-                    if [ ! -d '${cpath}' ]; then
-                      mkdir '${cpath}'
+        services = concatLists servicesLists;
+        servicesLists = mapAttrsToList certToServices cfg.certs;
+        certToServices = cert: data:
+          let
+            cpath = lpath
+              + optionalString (data.activationDelay != null) ".staging";
+            lpath = "${cfg.directory}/${cert}";
+            rights = if data.allowKeysForGroup then "750" else "700";
+            cmdline = [
+              "-v"
+              "-d"
+              data.domain
+              "--default_root"
+              data.webroot
+              "--valid_min"
+              cfg.validMin
+            ] ++ optionals (data.email != null) [ "--email" data.email ]
+              ++ concatMap (p: [ "-f" p ]) data.plugins ++ concatLists
+              (mapAttrsToList (name: root: [
+                "-d"
+                (if root == null then name else "${name}:${root}")
+              ]) data.extraDomains) ++ optionals (!cfg.production) [
+                "--server"
+                "https://acme-staging.api.letsencrypt.org/directory"
+              ];
+            acmeService = {
+              description = "Renew ACME Certificate for ${cert}";
+              after = [ "network.target" "network-online.target" ];
+              wants = [ "network-online.target" ];
+              serviceConfig = {
+                Type = "oneshot";
+                SuccessExitStatus = [ "0" "1" ];
+                PermissionsStartOnly = true;
+                User = data.user;
+                Group = data.group;
+                PrivateTmp = true;
+              };
+              path = with pkgs; [ simp_le systemd ];
+              preStart = ''
+                mkdir -p '${cfg.directory}'
+                chown 'root:root' '${cfg.directory}'
+                chmod 755 '${cfg.directory}'
+                if [ ! -d '${cpath}' ]; then
+                  mkdir '${cpath}'
+                fi
+                chmod ${rights} '${cpath}'
+                chown -R '${data.user}:${data.group}' '${cpath}'
+                mkdir -p '${data.webroot}/.well-known/acme-challenge'
+                chown -R '${data.user}:${data.group}' '${data.webroot}/.well-known/acme-challenge'
+              '';
+              script = ''
+                cd '${cpath}'
+                set +e
+                simp_le ${escapeShellArgs cmdline}
+                EXITCODE=$?
+                set -e
+                echo "$EXITCODE" > /tmp/lastExitCode
+                exit "$EXITCODE"
+              '';
+              postStop = ''
+                cd '${cpath}'
+
+                if [ -e /tmp/lastExitCode ] && [ "$(cat /tmp/lastExitCode)" = "0" ]; then
+                  ${
+                  if data.activationDelay != null then ''
+
+                    ${data.preDelay}
+
+                    if [ -d '${lpath}' ]; then
+                      systemd-run --no-block --on-active='${data.activationDelay}' --unit acme-setlive-${cert}.service
+                    else
+                      systemctl --wait start acme-setlive-${cert}.service
                     fi
-                    chmod ${rights} '${cpath}'
-                    chown -R '${data.user}:${data.group}' '${cpath}'
-                    mkdir -p '${data.webroot}/.well-known/acme-challenge'
-                    chown -R '${data.user}:${data.group}' '${data.webroot}/.well-known/acme-challenge'
-                  '';
-                  script = ''
-                    cd '${cpath}'
-                    set +e
-                    simp_le ${escapeShellArgs cmdline}
-                    EXITCODE=$?
-                    set -e
-                    echo "$EXITCODE" > /tmp/lastExitCode
-                    exit "$EXITCODE"
-                  '';
-                  postStop = ''
-                    cd '${cpath}'
+                  '' else
+                    data.postRun
+                  }
 
-                    if [ -e /tmp/lastExitCode ] && [ "$(cat /tmp/lastExitCode)" = "0" ]; then
-                      ${if data.activationDelay != null then ''
+                  # noop ensuring that the "if" block is non-empty even if
+                  # activationDelay == null and postRun == ""
+                  true
+                fi
+              '';
 
-                      ${data.preDelay}
+              before = [ "acme-certificates.target" ];
+              wantedBy = [ "acme-certificates.target" ];
+            };
+            delayService = {
+              description = "Set certificate for ${cert} live";
+              path = with pkgs; [ rsync ];
+              serviceConfig = { Type = "oneshot"; };
+              script = ''
+                rsync -a --delete-after '${cpath}/' '${lpath}'
+              '';
+              postStop = data.postRun;
+            };
+            selfsignedService = {
+              description =
+                "Create preliminary self-signed certificate for ${cert}";
+              path = [ pkgs.openssl ];
+              preStart = ''
+                if [ ! -d '${cpath}' ]
+                then
+                  mkdir -p '${cpath}'
+                  chmod ${rights} '${cpath}'
+                  chown '${data.user}:${data.group}' '${cpath}'
+                fi
+              '';
+              script = ''
+                workdir="$(mktemp -d)"
 
-                      if [ -d '${lpath}' ]; then
-                        systemd-run --no-block --on-active='${data.activationDelay}' --unit acme-setlive-${cert}.service
-                      else
-                        systemctl --wait start acme-setlive-${cert}.service
-                      fi
-                      '' else data.postRun}
+                # Create CA
+                openssl genrsa -des3 -passout pass:xxxx -out $workdir/ca.pass.key 2048
+                openssl rsa -passin pass:xxxx -in $workdir/ca.pass.key -out $workdir/ca.key
+                openssl req -new -key $workdir/ca.key -out $workdir/ca.csr \
+                  -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=Security Department/CN=example.com"
+                openssl x509 -req -days 1 -in $workdir/ca.csr -signkey $workdir/ca.key -out $workdir/ca.crt
 
-                      # noop ensuring that the "if" block is non-empty even if
-                      # activationDelay == null and postRun == ""
-                      true
-                    fi
-                  '';
+                # Create key
+                openssl genrsa -des3 -passout pass:xxxx -out $workdir/server.pass.key 2048
+                openssl rsa -passin pass:xxxx -in $workdir/server.pass.key -out $workdir/server.key
+                openssl req -new -key $workdir/server.key -out $workdir/server.csr \
+                  -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=example.com"
+                openssl x509 -req -days 1 -in $workdir/server.csr -CA $workdir/ca.crt \
+                  -CAkey $workdir/ca.key -CAserial $workdir/ca.srl -CAcreateserial \
+                  -out $workdir/server.crt
 
-                  before = [ "acme-certificates.target" ];
-                  wantedBy = [ "acme-certificates.target" ];
-                };
-                delayService = {
-                  description = "Set certificate for ${cert} live";
-                  path = with pkgs; [ rsync ];
-                  serviceConfig = {
-                    Type = "oneshot";
-                  };
-                  script = ''
-                    rsync -a --delete-after '${cpath}/' '${lpath}'
-                  '';
-                  postStop = data.postRun;
-                };
-                selfsignedService = {
-                  description = "Create preliminary self-signed certificate for ${cert}";
-                  path = [ pkgs.openssl ];
-                  preStart = ''
-                      if [ ! -d '${cpath}' ]
-                      then
-                        mkdir -p '${cpath}'
-                        chmod ${rights} '${cpath}'
-                        chown '${data.user}:${data.group}' '${cpath}'
-                      fi
-                  '';
-                  script =
-                    ''
-                      workdir="$(mktemp -d)"
+                # Copy key to destination
+                cp $workdir/server.key ${cpath}/key.pem
 
-                      # Create CA
-                      openssl genrsa -des3 -passout pass:xxxx -out $workdir/ca.pass.key 2048
-                      openssl rsa -passin pass:xxxx -in $workdir/ca.pass.key -out $workdir/ca.key
-                      openssl req -new -key $workdir/ca.key -out $workdir/ca.csr \
-                        -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=Security Department/CN=example.com"
-                      openssl x509 -req -days 1 -in $workdir/ca.csr -signkey $workdir/ca.key -out $workdir/ca.crt
+                # Create fullchain.pem (same format as "simp_le ... -f fullchain.pem" creates)
+                cat $workdir/{server.crt,ca.crt} > "${cpath}/fullchain.pem"
 
-                      # Create key
-                      openssl genrsa -des3 -passout pass:xxxx -out $workdir/server.pass.key 2048
-                      openssl rsa -passin pass:xxxx -in $workdir/server.pass.key -out $workdir/server.key
-                      openssl req -new -key $workdir/server.key -out $workdir/server.csr \
-                        -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=example.com"
-                      openssl x509 -req -days 1 -in $workdir/server.csr -CA $workdir/ca.crt \
-                        -CAkey $workdir/ca.key -CAserial $workdir/ca.srl -CAcreateserial \
-                        -out $workdir/server.crt
+                # Create full.pem for e.g. lighttpd
+                cat $workdir/{server.key,server.crt,ca.crt} > "${cpath}/full.pem"
 
-                      # Copy key to destination
-                      cp $workdir/server.key ${cpath}/key.pem
+                # Give key acme permissions
+                chown '${data.user}:${data.group}' "${cpath}/"{key,fullchain,full}.pem
+                chmod ${rights} "${cpath}/"{key,fullchain,full}.pem
+              '';
+              serviceConfig = {
+                Type = "oneshot";
+                PermissionsStartOnly = true;
+                PrivateTmp = true;
+                User = data.user;
+                Group = data.group;
+              };
+              unitConfig = {
+                # Do not create self-signed key when key already exists
+                ConditionPathExists = "!${cpath}/key.pem";
+              };
+              before = [ "acme-selfsigned-certificates.target" ];
+              wantedBy = [ "acme-selfsigned-certificates.target" ];
+            };
+          in ([{
+            name = "acme-${cert}";
+            value = acmeService;
+          }] ++ optional cfg.preliminarySelfsigned {
+            name = "acme-selfsigned-${cert}";
+            value = selfsignedService;
+          } ++ optional (data.activationDelay != null) {
+            name = "acme-setlive-${cert}";
+            value = delayService;
+          });
+        servicesAttr = listToAttrs services;
+        injectServiceDep = {
+          after = [ "acme-selfsigned-certificates.target" ];
+          wants = [
+            "acme-selfsigned-certificates.target"
+            "acme-certificates.target"
+          ];
+        };
+        in servicesAttr // (if config.services.nginx.enable then {
+          nginx = injectServiceDep;
+        } else
+          { }) // (if config.services.lighttpd.enable then {
+            lighttpd = injectServiceDep;
+          } else
+            { });
 
-                      # Create fullchain.pem (same format as "simp_le ... -f fullchain.pem" creates)
-                      cat $workdir/{server.crt,ca.crt} > "${cpath}/fullchain.pem"
-
-                      # Create full.pem for e.g. lighttpd
-                      cat $workdir/{server.key,server.crt,ca.crt} > "${cpath}/full.pem"
-
-                      # Give key acme permissions
-                      chown '${data.user}:${data.group}' "${cpath}/"{key,fullchain,full}.pem
-                      chmod ${rights} "${cpath}/"{key,fullchain,full}.pem
-                    '';
-                  serviceConfig = {
-                    Type = "oneshot";
-                    PermissionsStartOnly = true;
-                    PrivateTmp = true;
-                    User = data.user;
-                    Group = data.group;
-                  };
-                  unitConfig = {
-                    # Do not create self-signed key when key already exists
-                    ConditionPathExists = "!${cpath}/key.pem";
-                  };
-                  before = [
-                    "acme-selfsigned-certificates.target"
-                  ];
-                  wantedBy = [
-                    "acme-selfsigned-certificates.target"
-                  ];
-                };
-              in (
-                [ { name = "acme-${cert}"; value = acmeService; } ]
-                ++ optional cfg.preliminarySelfsigned { name = "acme-selfsigned-${cert}"; value = selfsignedService; }
-                ++ optional (data.activationDelay != null) { name = "acme-setlive-${cert}"; value = delayService; }
-              );
-          servicesAttr = listToAttrs services;
-          injectServiceDep = {
-            after = [ "acme-selfsigned-certificates.target" ];
-            wants = [ "acme-selfsigned-certificates.target" "acme-certificates.target" ];
-          };
-        in
-          servicesAttr //
-          (if config.services.nginx.enable then { nginx = injectServiceDep; } else {}) //
-          (if config.services.lighttpd.enable then { lighttpd = injectServiceDep; } else {});
-
-      systemd.timers = flip mapAttrs' cfg.certs (cert: data: nameValuePair
-        ("acme-${cert}")
-        ({
+      systemd.timers = flip mapAttrs' cfg.certs (cert: data:
+        nameValuePair ("acme-${cert}") ({
           description = "Renew ACME Certificate for ${cert}";
           wantedBy = [ "timers.target" ];
           timerConfig = {
@@ -375,11 +402,11 @@ in
             AccuracySec = "5m";
             RandomizedDelaySec = "1h";
           };
-        })
-      );
+        }));
 
-      systemd.targets."acme-selfsigned-certificates" = mkIf cfg.preliminarySelfsigned {};
-      systemd.targets."acme-certificates" = {};
+      systemd.targets."acme-selfsigned-certificates" =
+        mkIf cfg.preliminarySelfsigned { };
+      systemd.targets."acme-certificates" = { };
     })
 
   ];

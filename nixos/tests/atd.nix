@@ -2,15 +2,12 @@ import ./make-test.nix ({ pkgs, ... }:
 
 {
   name = "atd";
-  meta = with pkgs.stdenv.lib.maintainers; {
-    maintainers = [ bjornfor ];
-  };
+  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ bjornfor ]; };
 
-  machine =
-    { ... }:
-    { services.atd.enable = true;
-      users.users.alice = { isNormalUser = true; };
-    };
+  machine = { ... }: {
+    services.atd.enable = true;
+    users.users.alice = { isNormalUser = true; };
+  };
 
   # "at" has a resolution of 1 minute
   testScript = ''

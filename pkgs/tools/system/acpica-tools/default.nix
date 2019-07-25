@@ -13,14 +13,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildFlags = [
-    "acpibin"
-    "acpidump"
-    "acpiexec"
-    "acpihelp"
-    "acpinames"
-    "acpixtract"
-  ];
+  buildFlags =
+    [ "acpibin" "acpidump" "acpiexec" "acpihelp" "acpinames" "acpixtract" ];
 
   nativeBuildInputs = [ bison flex ];
 

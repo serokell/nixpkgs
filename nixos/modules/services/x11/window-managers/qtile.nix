@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.qtile;
-in
+let cfg = config.services.xserver.windowManager.qtile;
 
-{
+in {
   options = {
     services.xserver.windowManager.qtile.enable = mkEnableOption "qtile";
   };
@@ -19,7 +17,7 @@ in
         waitPID=$!
       '';
     }];
-    
+
     environment.systemPackages = [ pkgs.qtile ];
   };
 }

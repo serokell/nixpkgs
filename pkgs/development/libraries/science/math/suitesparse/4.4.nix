@@ -1,6 +1,4 @@
-{ stdenv, fetchurl, gfortran, openblas
-, enableCuda  ? false, cudatoolkit
-}:
+{ stdenv, fetchurl, gfortran, openblas, enableCuda ? false, cudatoolkit }:
 
 let
   version = "4.4.4";
@@ -8,12 +6,12 @@ let
 
   int_t = if openblas.blas64 then "int64_t" else "int32_t";
   SHLIB_EXT = stdenv.hostPlatform.extensions.sharedLibrary;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit name;
 
   src = fetchurl {
-    url = "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
+    url =
+      "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-${version}.tar.gz";
     sha256 = "1zdn1y0ij6amj7smmcslkqgbqv9yy5cwmbyzqc9v6drzdzllgbpj";
   };
 
@@ -26,12 +24,10 @@ stdenv.mkDerivation {
         -e 's/METIS_PATH .*$/METIS_PATH =/' \
         -e '/CHOLMOD_CONFIG/ s/$/-DNPARTITION -DLONGBLAS=${int_t}/' \
         -e '/UMFPACK_CONFIG/ s/$/-DLONGBLAS=${int_t}/'
-  ''
-  + stdenv.lib.optionalString stdenv.isDarwin ''
+  '' + stdenv.lib.optionalString stdenv.isDarwin ''
     sed -i "SuiteSparse_config/SuiteSparse_config.mk" \
         -e 's/^[[:space:]]*\(LIB = -lm\) -lrt/\1/'
-  ''
-  + stdenv.lib.optionalString enableCuda ''
+  '' + stdenv.lib.optionalString enableCuda ''
     sed -i "SuiteSparse_config/SuiteSparse_config.mk" \
         -e 's|^[[:space:]]*\(CUDA_ROOT     =\)|CUDA_ROOT = ${cudatoolkit}|' \
         -e 's|^[[:space:]]*\(GPU_BLAS_PATH =\)|GPU_BLAS_PATH = $(CUDA_ROOT)|' \
@@ -48,7 +44,7 @@ stdenv.mkDerivation {
   '';
 
   makeFlags = [
-    "PREFIX=\"$(out)\""
+    ''PREFIX="$(out)"''
     "INSTALL_LIB=$(out)/lib"
     "INSTALL_INCLUDE=$(out)/include"
     "BLAS=-lopenblas"
@@ -64,7 +60,13 @@ stdenv.mkDerivation {
         for i in "$out"/lib/lib*.a; do
           ar -x $i
         done
-        ${if enableCuda then cudatoolkit else stdenv.cc.outPath}/bin/${if enableCuda then "nvcc" else "cc"} *.o ${if stdenv.isDarwin then "-dynamiclib" else "--shared"} -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lopenblas ${stdenv.lib.optionalString enableCuda "-lcublas"}
+        ${if enableCuda then cudatoolkit else stdenv.cc.outPath}/bin/${
+      if enableCuda then "nvcc" else "cc"
+        } *.o ${
+          if stdenv.isDarwin then "-dynamiclib" else "--shared"
+        } -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lopenblas ${
+          stdenv.lib.optionalString enableCuda "-lcublas"
+        }
     )
     for i in umfpack cholmod amd camd colamd spqr; do
       ln -s libsuitesparse${SHLIB_EXT} "$out"/lib/lib$i${SHLIB_EXT}
@@ -91,7 +93,7 @@ stdenv.mkDerivation {
   buildInputs = [ openblas ];
 
   meta = with stdenv.lib; {
-    homepage = http://faculty.cse.tamu.edu/davis/suitesparse.html;
+    homepage = "http://faculty.cse.tamu.edu/davis/suitesparse.html";
     description = "A suite of sparse matrix algorithms";
     license = with licenses; [ bsd2 gpl2Plus lgpl21Plus ];
     maintainers = with maintainers; [ ttuegel ];

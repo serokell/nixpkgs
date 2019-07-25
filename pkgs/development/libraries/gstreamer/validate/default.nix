@@ -1,5 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, gstreamer, gst-plugins-base
-, python, gobject-introspection, json-glib
+{ stdenv, fetchurl, pkgconfig, gstreamer, gst-plugins-base, python, gobject-introspection, json-glib
 }:
 
 stdenv.mkDerivation rec {
@@ -7,8 +6,9 @@ stdenv.mkDerivation rec {
   version = "1.16.0";
 
   meta = {
-    description = "Integration testing infrastructure for the GStreamer framework";
-    homepage = https://gstreamer.freedesktop.org;
+    description =
+      "Integration testing infrastructure for the GStreamer framework";
+    homepage = "https://gstreamer.freedesktop.org";
     license = stdenv.lib.licenses.lgpl2Plus;
     platforms = stdenv.lib.platforms.unix;
   };
@@ -20,13 +20,9 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    pkgconfig gobject-introspection
-  ];
+  nativeBuildInputs = [ pkgconfig gobject-introspection ];
 
-  buildInputs = [
-    python json-glib
-  ];
+  buildInputs = [ python json-glib ];
 
   propagatedBuildInputs = [ gstreamer gst-plugins-base ];
 

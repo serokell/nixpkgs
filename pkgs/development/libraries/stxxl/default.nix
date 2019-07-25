@@ -1,12 +1,8 @@
-{ stdenv, fetchurl, cmake
-, parallel ? true
-}:
+{ stdenv, fetchurl, cmake, parallel ? true }:
 
-let
-  mkFlag = optset: flag: if optset then "-D${flag}=ON" else "-D${flag}=OFF";
-in
+let mkFlag = optset: flag: if optset then "-D${flag}=ON" else "-D${flag}=OFF";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "stxxl-${version}";
   version = "1.4.1";
 
@@ -23,13 +19,12 @@ stdenv.mkDerivation rec {
     (mkFlag parallel "USE_GNU_PARALLEL")
   ];
 
-  passthru = {
-    inherit parallel;
-  };
+  passthru = { inherit parallel; };
 
   meta = with stdenv.lib; {
-    description = "An implementation of the C++ standard template library STL for external memory (out-of-core) computations";
-    homepage = https://github.com/stxxl/stxxl;
+    description =
+      "An implementation of the C++ standard template library STL for external memory (out-of-core) computations";
+    homepage = "https://github.com/stxxl/stxxl";
     license = licenses.boost;
     maintainers = with maintainers; [ ];
     platforms = platforms.all;

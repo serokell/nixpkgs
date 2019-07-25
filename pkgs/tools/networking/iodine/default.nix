@@ -12,12 +12,12 @@ stdenv.mkDerivation rec {
 
   patchPhase = ''sed -i "s,/sbin/route,${nettools}/bin/route," src/tun.c'';
 
-  NIX_CFLAGS_COMPILE = "-DIFCONFIGPATH=\"${nettools}/bin/\"";
+  NIX_CFLAGS_COMPILE = ''-DIFCONFIGPATH="${nettools}/bin/"'';
 
   installFlags = "prefix=\${out}";
 
   meta = {
-    homepage = http://code.kryo.se/iodine/;
+    homepage = "http://code.kryo.se/iodine/";
     description = "Tool to tunnel IPv4 data through a DNS server";
     license = stdenv.lib.licenses.isc;
     platforms = stdenv.lib.platforms.unix;

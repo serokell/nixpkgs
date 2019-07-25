@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "berkeley-abc";
     repo = "abc";
-    rev    = "24407e13db4b8ca16c3996049b2d33ec3722de39";
+    rev = "24407e13db4b8ca16c3996049b2d33ec3722de39";
     sha256 = "1rckji7nk81n6v1yajz7daqwipxacv7zlafknvmbiwji30j47sq5";
   };
 
@@ -22,10 +22,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A tool for squential logic synthesis and formal verification";
-    homepage    = https://people.eecs.berkeley.edu/~alanmi/abc;
-    license     = stdenv.lib.licenses.mit;
-    platforms   = stdenv.lib.platforms.unix;
+    description =
+      "A tool for squential logic synthesis and formal verification";
+    homepage = "https://people.eecs.berkeley.edu/~alanmi/abc";
+    license = stdenv.lib.licenses.mit;
+    platforms = stdenv.lib.platforms.unix;
     maintainers = [ stdenv.lib.maintainers.thoughtpolice ];
   };
 }

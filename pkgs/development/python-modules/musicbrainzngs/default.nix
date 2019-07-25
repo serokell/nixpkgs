@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "musicbrainzngs";
@@ -15,7 +11,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pkgs.glibcLocales ];
 
-  LC_ALL="en_US.UTF-8";
+  LC_ALL = "en_US.UTF-8";
 
   preCheck = ''
     # Remove tests that rely on networking (breaks sandboxed builds)
@@ -23,7 +19,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = http://alastair/python-musicbrainz-ngs;
+    homepage = "http://alastair/python-musicbrainz-ngs";
     description = "Python bindings for musicbrainz NGS webservice";
     license = licenses.bsd2;
     maintainers = with maintainers; [ domenkozar ];

@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, requests }:
+{ stdenv, buildPythonPackage, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "pyfttt";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Package for sending events to the IFTTT Webhooks Channel";
-    homepage = https://github.com/briandconnelly/pyfttt;
+    homepage = "https://github.com/briandconnelly/pyfttt";
     maintainers = with maintainers; [ peterhoeg ];
     license = licenses.bsd2;
   };

@@ -1,4 +1,4 @@
-{stdenv, buildOcaml, fetchurl}:
+{ stdenv, buildOcaml, fetchurl }:
 
 buildOcaml rec {
   name = "pipebang";
@@ -12,7 +12,7 @@ buildOcaml rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/janestreet/pipebang;
+    homepage = "https://github.com/janestreet/pipebang";
     description = "Syntax extension to transform x |! f into f x";
     license = licenses.asl20;
     maintainers = [ maintainers.ericbmerritt ];

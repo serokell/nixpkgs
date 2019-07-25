@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, qt4, pkgconfig, libsamplerate, fftwSinglePrec, which, cmake
-, darwin }:
+{ stdenv, fetchurl, qt4, pkgconfig, libsamplerate, fftwSinglePrec, which, cmake, darwin
+}:
 
-let version = "1.0.9"; in
+let version = "1.0.9";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "liblastfm-${version}";
 
   # Upstream does not package git tags as tarballs. Get tarball from github.
@@ -16,14 +16,15 @@ stdenv.mkDerivation rec {
   prefixKey = "--prefix ";
   propagatedBuildInputs = [ qt4 libsamplerate fftwSinglePrec ];
   nativeBuildInputs = [ pkgconfig which cmake ];
-  buildInputs = stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration;
+  buildInputs = stdenv.lib.optional stdenv.isDarwin
+    darwin.apple_sdk.frameworks.SystemConfiguration;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/lastfm/liblastfm;
-    repositories.git = git://github.com/lastfm/liblastfm.git;
+    homepage = "https://github.com/lastfm/liblastfm";
+    repositories.git = "git://github.com/lastfm/liblastfm.git";
     description = "Official LastFM library";
     inherit (qt4.meta) platforms;
-    maintainers =  [ maintainers.phreedom ];
+    maintainers = [ maintainers.phreedom ];
     license = licenses.gpl3;
   };
 }

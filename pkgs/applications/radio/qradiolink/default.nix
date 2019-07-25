@@ -1,11 +1,7 @@
-{ stdenv, fetchFromGitHub, alsaLib, boost
-, qt4, libpulseaudio, codec2, libconfig
-, gnuradio, gr-osmosdr, gsm
-, libopus, libjpeg, protobuf, qwt, speex
-} :
+{ stdenv, fetchFromGitHub, alsaLib, boost, qt4, libpulseaudio, codec2, libconfig, gnuradio, gr-osmosdr, gsm, libopus, libjpeg, protobuf, qwt, speex
+}:
 
-let
-  version = "0.5.0";
+let version = "0.5.0";
 
 in stdenv.mkDerivation {
   name = "qradiolink-${version}";
@@ -51,7 +47,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "SDR transceiver application for analog and digital modes";
-    homepage = http://qradiolink.org/;
+    homepage = "http://qradiolink.org/";
     license = licenses.agpl3;
     maintainers = [ maintainers.markuskowa ];
     platforms = platforms.linux;

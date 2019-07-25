@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, msrestazure
-, azure-common
-, azure-mgmt-nspkg
+{ lib, buildPythonPackage, fetchPypi, msrestazure, azure-common, azure-mgmt-nspkg
 }:
 
 buildPythonPackage rec {
@@ -16,18 +11,16 @@ buildPythonPackage rec {
     sha256 = "0nqgywknpj2a69an5yrn0c32fk01v5gi05za7dlf4ivwr9s4np83";
   };
 
-  propagatedBuildInputs = [
-    msrestazure
-    azure-common
-    azure-mgmt-nspkg
-  ];
+  propagatedBuildInputs = [ msrestazure azure-common azure-mgmt-nspkg ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Consumption Management Client Library";
-    homepage = https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-consumption;
+    description =
+      "This is the Microsoft Azure Consumption Management Client Library";
+    homepage =
+      "https://github.com/Azure/sdk-for-python/tree/master/azure-mgmt-consumption";
     license = licenses.mit;
     maintainers = with maintainers; [ mwilsoninsight ];
   };

@@ -13,7 +13,8 @@ let
 
     src = fetchurl {
       url = "https://wsr.imagej.net/distros/cross-platform/ij150.zip";
-      sha256 = "97aba6fc5eb908f5160243aebcdc4965726693cb1353d9c0d71b8f5dd832cb7b";
+      sha256 =
+        "97aba6fc5eb908f5160243aebcdc4965726693cb1353d9c0d71b8f5dd832cb7b";
     };
     buildInputs = [ unzip makeWrapper ];
     inherit jre;
@@ -32,7 +33,7 @@ let
         --add-flags "-jar $out/share/java/ij.jar -ijpath $out/share"
     '';
     meta = with stdenv.lib; {
-      homepage = https://imagej.nih.gov/ij/;
+      homepage = "https://imagej.nih.gov/ij/";
       description = "Image processing and analysis in Java";
       longDescription = ''
         ImageJ is a public domain Java image processing program
@@ -44,5 +45,4 @@ let
       maintainers = with maintainers; [ yuriaisaka ];
     };
   };
-in
-  imagej150
+in imagej150

@@ -1,53 +1,57 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, makeWrapper
-, # Patchelf dependencies:
-  alsaLib, atomEnv, boehmgc, flac, libogg, libvorbis, libXScrnSaver, libGLU_combined
-, openssl, xorg, zlib
+{ stdenv, lib, fetchurl, makeDesktopItem, makeWrapper, # Patchelf dependencies:
+alsaLib, atomEnv, boehmgc, flac, libogg, libvorbis, libXScrnSaver, libGLU_combined, openssl, xorg, zlib
 }:
 
 let
 
   version = "17.1";
 
-  sha256 = if stdenv.hostPlatform.system == "x86_64-linux"  then "1kddisnvlk48jip6k59mw3wlkrl7rkck2lxpaghn0gfx02cvms5f"
-      else if stdenv.hostPlatform.system == "i686-cygwin"   then "1izp42afrlh4yd322ax9w85ki388gnkqfqbw8dwnn4k3j7r5487z"
-      else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  sha256 = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "1kddisnvlk48jip6k59mw3wlkrl7rkck2lxpaghn0gfx02cvms5f"
+  else if stdenv.hostPlatform.system == "i686-cygwin" then
+    "1izp42afrlh4yd322ax9w85ki388gnkqfqbw8dwnn4k3j7r5487z"
+  else
+    throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-  urlBase = "https://github.com/Kode/KodeStudio/releases/download/v${version}/KodeStudio-";
+  urlBase =
+    "https://github.com/Kode/KodeStudio/releases/download/v${version}/KodeStudio-";
 
-  urlStr = if stdenv.hostPlatform.system == "x86_64-linux"  then urlBase + "linux64.tar.gz"
-      else if stdenv.hostPlatform.system == "i686-cygwin"   then urlBase + "win32.zip"
-      else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  urlStr = if stdenv.hostPlatform.system == "x86_64-linux" then
+    urlBase + "linux64.tar.gz"
+  else if stdenv.hostPlatform.system == "i686-cygwin" then
+    urlBase + "win32.zip"
+  else
+    throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-in
+in stdenv.mkDerivation rec {
+  name = "kodestudio-${version}";
 
-  stdenv.mkDerivation rec {
-    name = "kodestudio-${version}";
+  src = fetchurl {
+    url = urlStr;
+    inherit sha256;
+  };
 
-    src = fetchurl {
-        url = urlStr;
-        inherit sha256;
-    };
+  buildInputs = [ makeWrapper libXScrnSaver ];
 
-    buildInputs = [ makeWrapper libXScrnSaver ];
+  desktopItem = makeDesktopItem {
+    name = "kodestudio";
+    exec = "kodestudio";
+    icon = "kodestudio";
+    comment = "Kode Studio is an IDE for Kha based on Visual Studio Code";
+    desktopName = "Kode Studio";
+    genericName = "Text Editor";
+    categories = "GNOME;GTK;Utility;TextEditor;Development;";
+  };
 
-    desktopItem = makeDesktopItem {
-      name = "kodestudio";
-      exec = "kodestudio";
-      icon = "kodestudio";
-      comment = "Kode Studio is an IDE for Kha based on Visual Studio Code";
-      desktopName = "Kode Studio";
-      genericName = "Text Editor";
-      categories = "GNOME;GTK;Utility;TextEditor;Development;";
-    };
+  sourceRoot = ".";
 
-    sourceRoot = ".";
+  installPhase = ''
+    mkdir -p $out
+    cp -r ./* $out
+  '';
 
-    installPhase = ''
-      mkdir -p $out
-      cp -r ./* $out
-    '';
-
-    postFixup = lib.optionalString (stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux") ''
+  postFixup = lib.optionalString (stdenv.hostPlatform.system == "i686-linux"
+    || stdenv.hostPlatform.system == "x86_64-linux") ''
       # Patch Binaries
       patchelf \
           --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
@@ -110,24 +114,26 @@ in
 
       # Wrap preload libXss
       wrapProgram $out/bin/kodestudio \
-          --prefix LD_PRELOAD : ${stdenv.lib.makeLibraryPath [ libXScrnSaver ]}/libXss.so.1
+          --prefix LD_PRELOAD : ${
+        stdenv.lib.makeLibraryPath [ libXScrnSaver ]
+          }/libXss.so.1
     '';
 
-    meta = with stdenv.lib; {
-      description = ''
-        An IDE for Kha based on Visual Studio Code
-      '';
-      longDescription = ''
-        Kode Studio is an IDE for Kha based on Visual Studio Code.
+  meta = with stdenv.lib; {
+    description = ''
+      An IDE for Kha based on Visual Studio Code
+    '';
+    longDescription = ''
+      Kode Studio is an IDE for Kha based on Visual Studio Code.
 
-        Kha and Kore are multimedia frameworks for Haxe and C++ respectively
-        (with JavaScript coming soon). Using Kha or Kore you can access all
-        hardware at the lowest possible level in a completely portable way.
-      '';
-      homepage = http://kode.tech/;
-      downloadPage = https://github.com/Kode/KodeStudio/releases;
-      license = licenses.mit;
-      maintainers = [ maintainers.patternspandemic ];
-      platforms = [ "x86_64-linux" "i686-cygwin" ];
-    };
-  }
+      Kha and Kore are multimedia frameworks for Haxe and C++ respectively
+      (with JavaScript coming soon). Using Kha or Kore you can access all
+      hardware at the lowest possible level in a completely portable way.
+    '';
+    homepage = "http://kode.tech/";
+    downloadPage = "https://github.com/Kode/KodeStudio/releases";
+    license = licenses.mit;
+    maintainers = [ maintainers.patternspandemic ];
+    platforms = [ "x86_64-linux" "i686-cygwin" ];
+  };
+}

@@ -1,7 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-}:
+{ stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "Yapsy";
@@ -13,7 +10,7 @@ buildPythonPackage rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = http://yapsy.sourceforge.net/;
+    homepage = "http://yapsy.sourceforge.net/";
     description = "Yet another plugin system";
     license = licenses.bsd0;
   };

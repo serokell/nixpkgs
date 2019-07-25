@@ -5,10 +5,10 @@ with lib;
 let
   cfg = config.services.gitolite;
   # Use writeTextDir to not leak Nix store hash into file name
-  pubkeyFile = (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey) + "/gitolite-admin.pub";
+  pubkeyFile = (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
+    + "/gitolite-admin.pub";
   hooks = lib.concatMapStrings (hook: "${hook} ") cfg.commonHooks;
-in
-{
+in {
   options = {
     services.gitolite = {
       enable = mkOption {
@@ -52,7 +52,7 @@ in
 
       commonHooks = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = ''
           A list of custom git hooks that get copied to <literal>~/.gitolite/hooks/common</literal>.
         '';
@@ -107,63 +107,68 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-  let
+  config = mkIf cfg.enable (let
     manageGitoliteRc = cfg.extraGitoliteRc != "";
-    rcDir = pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; } rcDirScript;
-    rcDirScript =
-      ''
-        mkdir "$out"
-        export HOME=temp-home
-        mkdir -p "$HOME/.gitolite/logs" # gitolite can't run without it
-        '${pkgs.gitolite}'/bin/gitolite print-default-rc >>"$out/gitolite.rc.default"
-        cat <<END >>"$out/gitolite.rc"
-        # This file is managed by NixOS.
-        # Use services.gitolite options to control it.
+    rcDir =
+      pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; } rcDirScript;
+    rcDirScript = ''
+      mkdir "$out"
+      export HOME=temp-home
+      mkdir -p "$HOME/.gitolite/logs" # gitolite can't run without it
+      '${pkgs.gitolite}'/bin/gitolite print-default-rc >>"$out/gitolite.rc.default"
+      cat <<END >>"$out/gitolite.rc"
+      # This file is managed by NixOS.
+      # Use services.gitolite options to control it.
 
-        END
-        cat "$out/gitolite.rc.default" >>"$out/gitolite.rc"
-      '' +
-      optionalString (cfg.extraGitoliteRc != "") ''
-        echo -n ${escapeShellArg ''
+      END
+      cat "$out/gitolite.rc.default" >>"$out/gitolite.rc"
+    '' + optionalString (cfg.extraGitoliteRc != "") ''
+      echo -n ${
+        escapeShellArg ''
 
           # Added by NixOS:
           ${removeSuffix "\n" cfg.extraGitoliteRc}
 
           # per perl rules, this should be the last line in such a file:
           1;
-        ''} >>"$out/gitolite.rc"
-      '';
-  in {
-    services.gitolite.extraGitoliteRc = optionalString cfg.enableGitAnnex ''
-      # Enable git-annex support:
-      push( @{$RC{ENABLE}}, 'git-annex-shell ua');
+        ''
+      } >>"$out/gitolite.rc"
     '';
+    in {
+      services.gitolite.extraGitoliteRc = optionalString cfg.enableGitAnnex ''
+        # Enable git-annex support:
+        push( @{$RC{ENABLE}}, 'git-annex-shell ua');
+      '';
 
-    users.users.${cfg.user} = {
-      description     = "Gitolite user";
-      home            = cfg.dataDir;
-      createHome      = true;
-      uid             = config.ids.uids.gitolite;
-      group           = cfg.group;
-      useDefaultShell = true;
-    };
-    users.groups."${cfg.group}".gid = config.ids.gids.gitolite;
+      users.users.${cfg.user} = {
+        description = "Gitolite user";
+        home = cfg.dataDir;
+        createHome = true;
+        uid = config.ids.uids.gitolite;
+        group = cfg.group;
+        useDefaultShell = true;
+      };
+      users.groups."${cfg.group}".gid = config.ids.gids.gitolite;
 
-    systemd.services."gitolite-init" = {
-      description = "Gitolite initialization";
-      wantedBy    = [ "multi-user.target" ];
-      unitConfig.RequiresMountsFor = cfg.dataDir;
+      systemd.services."gitolite-init" = {
+        description = "Gitolite initialization";
+        wantedBy = [ "multi-user.target" ];
+        unitConfig.RequiresMountsFor = cfg.dataDir;
 
-      serviceConfig.User = "${cfg.user}";
-      serviceConfig.Type = "oneshot";
-      serviceConfig.RemainAfterExit = true;
+        serviceConfig.User = "${cfg.user}";
+        serviceConfig.Type = "oneshot";
+        serviceConfig.RemainAfterExit = true;
 
-      path = [ pkgs.gitolite pkgs.git pkgs.perl pkgs.bash pkgs.diffutils config.programs.ssh.package ];
-      script =
-      let
-        rcSetupScriptIfCustomFile =
-          if manageGitoliteRc then ''
+        path = [
+          pkgs.gitolite
+          pkgs.git
+          pkgs.perl
+          pkgs.bash
+          pkgs.diffutils
+          config.programs.ssh.package
+        ];
+        script = let
+          rcSetupScriptIfCustomFile = if manageGitoliteRc then ''
             cat <<END
             <3>ERROR: NixOS can't apply declarative configuration
             <3>to your .gitolite.rc file, because it seems to be
@@ -179,42 +184,38 @@ in
           '' else ''
             :
           '';
-        rcSetupScriptIfDefaultFileOrStoreSymlink =
-          if manageGitoliteRc then ''
+          rcSetupScriptIfDefaultFileOrStoreSymlink = if manageGitoliteRc then ''
             ln -sf "${rcDir}/gitolite.rc" "$GITOLITE_RC"
           '' else ''
             [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
           '';
-      in
-        ''
-          cd ${cfg.dataDir}
-          mkdir -p .gitolite/logs
+          in ''
+            cd ${cfg.dataDir}
+            mkdir -p .gitolite/logs
 
-          GITOLITE_RC=.gitolite.rc
-          GITOLITE_RC_DEFAULT=${rcDir}/gitolite.rc.default
-          if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
-             ( [[ -f "$GITOLITE_RC" ]] && diff -q "$GITOLITE_RC" "$GITOLITE_RC_DEFAULT" >/dev/null ) ||
-             ( [[ -L "$GITOLITE_RC" ]] && [[ "$(readlink "$GITOLITE_RC")" =~ ^/nix/store/ ]] )
-          then
-        '' + rcSetupScriptIfDefaultFileOrStoreSymlink +
-        ''
-          else
-        '' + rcSetupScriptIfCustomFile +
-        ''
-          fi
+            GITOLITE_RC=.gitolite.rc
+            GITOLITE_RC_DEFAULT=${rcDir}/gitolite.rc.default
+            if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
+               ( [[ -f "$GITOLITE_RC" ]] && diff -q "$GITOLITE_RC" "$GITOLITE_RC_DEFAULT" >/dev/null ) ||
+               ( [[ -L "$GITOLITE_RC" ]] && [[ "$(readlink "$GITOLITE_RC")" =~ ^/nix/store/ ]] )
+            then
+          '' + rcSetupScriptIfDefaultFileOrStoreSymlink + ''
+            else
+          '' + rcSetupScriptIfCustomFile + ''
+            fi
 
-          if [ ! -d repositories ]; then
-            gitolite setup -pk ${pubkeyFile}
-          fi
-          if [ -n "${hooks}" ]; then
-            cp -f ${hooks} .gitolite/hooks/common/
-            chmod +x .gitolite/hooks/common/*
-          fi
-          gitolite setup # Upgrade if needed
-        '';
-    };
+            if [ ! -d repositories ]; then
+              gitolite setup -pk ${pubkeyFile}
+            fi
+            if [ -n "${hooks}" ]; then
+              cp -f ${hooks} .gitolite/hooks/common/
+              chmod +x .gitolite/hooks/common/*
+            fi
+            gitolite setup # Upgrade if needed
+          '';
+      };
 
-    environment.systemPackages = [ pkgs.gitolite pkgs.git ]
+      environment.systemPackages = [ pkgs.gitolite pkgs.git ]
         ++ optional cfg.enableGitAnnex pkgs.gitAndTools.git-annex;
-  });
+    });
 }

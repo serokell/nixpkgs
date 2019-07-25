@@ -54,8 +54,7 @@ let
       ${cfg.extraConfig}
     '';
   };
-in
-{
+in {
   options.services.kapacitor = {
     enable = mkEnableOption "kapacitor";
 
@@ -76,7 +75,8 @@ in
       type = types.str;
       default = "";
       example = literalExample "0.0.0.0";
-      description = "Address to bind to. The default is to bind to all addresses";
+      description =
+        "Address to bind to. The default is to bind to all addresses";
     };
 
     extraConfig = mkOption {
@@ -99,14 +99,16 @@ in
 
     taskSnapshotInterval = mkOption {
       type = types.str;
-      description = "Specifies how often to snapshot the task state  (in InfluxDB time units)";
+      description =
+        "Specifies how often to snapshot the task state  (in InfluxDB time units)";
       default = "1m0s";
       example = "1m0s";
     };
 
     loadDirectory = mkOption {
       type = types.nullOr types.path;
-      description = "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
+      description =
+        "Directory where to load services from, such as tasks, templates and handlers (or null to disable service loading on startup)";
       default = null;
     };
 
@@ -114,7 +116,8 @@ in
       enable = mkEnableOption "kapacitor.defaultDatabase";
 
       url = mkOption {
-        description = "The URL to an InfluxDB server that serves as the default database";
+        description =
+          "The URL to an InfluxDB server that serves as the default database";
         example = "http://localhost:8086";
         type = types.string;
       };
@@ -163,9 +166,8 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.kapacitor ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.kapacitor = {
       description = "Kapacitor Real-Time Stream Processing Engine";
@@ -184,8 +186,6 @@ in
       home = cfg.dataDir;
     };
 
-    users.groups.kapacitor = {
-      gid = config.ids.gids.kapacitor;
-    };
+    users.groups.kapacitor = { gid = config.ids.gids.kapacitor; };
   };
 }

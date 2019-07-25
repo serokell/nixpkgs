@@ -1,26 +1,42 @@
-{ stdenv, gettext, fetchurl, pkgconfig, udisks2, libsecret, libdvdread
-, meson, ninja, gtk3, glib, wrapGAppsHook, python3, libnotify
-, itstool, gnome3, libxml2, gsettings-desktop-schemas
-, libcanberra-gtk3, libxslt, docbook_xsl, libpwquality }:
+{ stdenv, gettext, fetchurl, pkgconfig, udisks2, libsecret, libdvdread, meson, ninja, gtk3, glib, wrapGAppsHook, python3, libnotify, itstool, gnome3, libxml2, gsettings-desktop-schemas, libcanberra-gtk3, libxslt, docbook_xsl, libpwquality
+}:
 
 stdenv.mkDerivation rec {
   name = "gnome-disk-utility-${version}";
   version = "3.32.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-disk-utility/${stdenv.lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/gnome-disk-utility/${
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.xz";
     sha256 = "08vwbji9m1nhjjdiyhhaqi8cncys7i89b4bpy095f8475v8y05bg";
   };
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext itstool libxslt docbook_xsl
-    wrapGAppsHook python3 libxml2
+    meson
+    ninja
+    pkgconfig
+    gettext
+    itstool
+    libxslt
+    docbook_xsl
+    wrapGAppsHook
+    python3
+    libxml2
   ];
 
   buildInputs = [
-    gtk3 glib libsecret libpwquality libnotify libdvdread libcanberra-gtk3
-    udisks2 gnome3.adwaita-icon-theme
-    gnome3.gnome-settings-daemon gsettings-desktop-schemas
+    gtk3
+    glib
+    libsecret
+    libpwquality
+    libnotify
+    libdvdread
+    libcanberra-gtk3
+    udisks2
+    gnome3.adwaita-icon-theme
+    gnome3.gnome-settings-daemon
+    gsettings-desktop-schemas
   ];
 
   postPatch = ''
@@ -36,7 +52,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    homepage = https://en.wikipedia.org/wiki/GNOME_Disks;
+    homepage = "https://en.wikipedia.org/wiki/GNOME_Disks";
     description = "A udisks graphical front-end";
     maintainers = gnome3.maintainers;
     license = licenses.gpl2;

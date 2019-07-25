@@ -1,9 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, squaremap
-, wxPython
-}:
+{ stdenv, buildPythonPackage, fetchPypi, squaremap, wxPython }:
 
 buildPythonPackage rec {
   pname = "runsnakerun";
@@ -18,7 +13,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "GUI Viewer for Python profiling runs";
-    homepage = http://www.vrplumber.com/programming/runsnakerun/;
+    homepage = "http://www.vrplumber.com/programming/runsnakerun/";
     license = licenses.bsd3;
   };
 

@@ -14,19 +14,18 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    pdf_sets = import ./pdf_sets.nix { inherit stdenv fetchurl; };
-  };
+  passthru = { pdf_sets = import ./pdf_sets.nix { inherit stdenv fetchurl; }; };
 
   postInstall = ''
     wrapProgram $out/bin/lhapdf --prefix PYTHONPATH : "$(toPythonPath "$out")"
   '';
 
   meta = {
-    description = "A general purpose interpolator, used for evaluating Parton Distribution Functions from discretised data files";
-    license     = stdenv.lib.licenses.gpl2;
-    homepage    = http://lhapdf.hepforge.org;
-    platforms   = stdenv.lib.platforms.unix;
+    description =
+      "A general purpose interpolator, used for evaluating Parton Distribution Functions from discretised data files";
+    license = stdenv.lib.licenses.gpl2;
+    homepage = "http://lhapdf.hepforge.org";
+    platforms = stdenv.lib.platforms.unix;
     maintainers = with stdenv.lib.maintainers; [ veprbl ];
   };
 }

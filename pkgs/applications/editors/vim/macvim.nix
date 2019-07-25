@@ -1,30 +1,28 @@
-{ stdenv, fetchFromGitHub, runCommand, ncurses, gettext
-, pkgconfig, cscope, ruby, tcl, perl, luajit
-, darwin
+{ stdenv, fetchFromGitHub, runCommand, ncurses, gettext, pkgconfig, cscope, ruby, tcl, perl, luajit, darwin
 
-, usePython27 ? false
-, python27 ? null, python37 ? null
-}:
+, usePython27 ? false, python27 ? null, python37 ? null }:
 
 let
-  python = if usePython27
-           then { pkg = python27; name = "python"; }
-           else { pkg = python37; name = "python3"; };
-in
-assert python.pkg != null;
+  python = if usePython27 then {
+    pkg = python27;
+    name = "python";
+  } else {
+    pkg = python37;
+    name = "python3";
+  };
+in assert python.pkg != null;
 
 let
   # Building requires a few system tools to be in PATH.
   # Some of these we could patch into the relevant source files (such as xcodebuild and
   # qlmanage) but some are used by Xcode itself and we have no choice but to put them in PATH.
   # Symlinking them in this way is better than just putting all of /usr/bin in there.
-  buildSymlinks = runCommand "macvim-build-symlinks" {} ''
+  buildSymlinks = runCommand "macvim-build-symlinks" { } ''
     mkdir -p $out/bin
     ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
   '';
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "macvim-${version}";
 
   version = "8.1.1517";
@@ -39,9 +37,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkgconfig buildSymlinks ];
-  buildInputs = [
-    gettext ncurses cscope luajit ruby tcl perl python.pkg
-  ];
+  buildInputs = [ gettext ncurses cscope luajit ruby tcl perl python.pkg ];
 
   patches = [ ./macvim.patch ./macvim-sparkle.patch ];
 
@@ -53,25 +49,25 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-      "--enable-cscope"
-      "--enable-fail-if-missing"
-      "--with-features=huge"
-      "--enable-gui=macvim"
-      "--enable-multibyte"
-      "--enable-nls"
-      "--enable-luainterp=dynamic"
-      "--enable-${python.name}interp=dynamic"
-      "--enable-perlinterp=dynamic"
-      "--enable-rubyinterp=dynamic"
-      "--enable-tclinterp=yes"
-      "--without-local-dir"
-      "--with-luajit"
-      "--with-lua-prefix=${luajit}"
-      "--with-${python.name}-command=${python.pkg}/bin/${python.name}"
-      "--with-ruby-command=${ruby}/bin/ruby"
-      "--with-tclsh=${tcl}/bin/tclsh"
-      "--with-tlib=ncurses"
-      "--with-compiledby=Nix"
+    "--enable-cscope"
+    "--enable-fail-if-missing"
+    "--with-features=huge"
+    "--enable-gui=macvim"
+    "--enable-multibyte"
+    "--enable-nls"
+    "--enable-luainterp=dynamic"
+    "--enable-${python.name}interp=dynamic"
+    "--enable-perlinterp=dynamic"
+    "--enable-rubyinterp=dynamic"
+    "--enable-tclinterp=yes"
+    "--without-local-dir"
+    "--with-luajit"
+    "--with-lua-prefix=${luajit}"
+    "--with-${python.name}-command=${python.pkg}/bin/${python.name}"
+    "--with-ruby-command=${ruby}/bin/ruby"
+    "--with-tclsh=${tcl}/bin/tclsh"
+    "--with-tlib=ncurses"
+    "--with-compiledby=Nix"
   ];
 
   makeFlags = ''PREFIX=$(out) CPPFLAGS="-Wno-error"'';
@@ -91,12 +87,11 @@ stdenv.mkDerivation rec {
       "--with-developer-dir=$DEV_DIR"
     )
   ''
-  # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
-  # passes arguments to ld that it meant for clang.
-  + ''
-    unset LD
-  ''
-  ;
+    # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
+    # passes arguments to ld that it meant for clang.
+    + ''
+      unset LD
+    '';
 
   postConfigure = ''
     substituteInPlace src/auto/config.mk --replace "PERL_CFLAGS	=" "PERL_CFLAGS	= -I${darwin.libutil}/include"
@@ -131,9 +126,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Vim - the text editor - for macOS";
-    homepage    = https://github.com/macvim-dev/macvim;
+    homepage = "https://github.com/macvim-dev/macvim";
     license = licenses.vim;
     maintainers = with maintainers; [ cstrahan lilyball ];
-    platforms   = platforms.darwin;
+    platforms = platforms.darwin;
   };
 }

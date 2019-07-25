@@ -1,5 +1,4 @@
-crateName: metadata:
-''
+crateName: metadata: ''
   runHook preInstall
   mkdir -p $out
   if [[ -s target/env ]]; then

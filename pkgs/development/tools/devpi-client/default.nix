@@ -1,10 +1,4 @@
-{ stdenv
-, pythonPackages
-, glibcLocales
-, devpi-server
-, git
-, mercurial
-} :
+{ stdenv, pythonPackages, glibcLocales, devpi-server, git, mercurial }:
 
 pythonPackages.buildPythonApplication rec {
   name = "${pname}-${version}";
@@ -17,11 +11,19 @@ pythonPackages.buildPythonApplication rec {
   };
 
   checkInputs = with pythonPackages; [
-                    pytest pytest-flakes webtest mock
-                    devpi-server tox
-                    sphinx wheel git mercurial detox
-                    setuptools
-                    ];
+    pytest
+    pytest-flakes
+    webtest
+    mock
+    devpi-server
+    tox
+    sphinx
+    wheel
+    git
+    mercurial
+    detox
+    setuptools
+  ];
   checkPhase = ''
     export PATH=$PATH:$out/bin
     export HOME=$TMPDIR # fix tests failing in sandbox due to "/homeless-shelter"
@@ -35,11 +37,17 @@ pythonPackages.buildPythonApplication rec {
 
   LC_ALL = "en_US.UTF-8";
   buildInputs = with pythonPackages; [ glibcLocales pkginfo check-manifest ];
-  propagatedBuildInputs = with pythonPackages; [ py devpi-common pluggy setuptools ];
+  propagatedBuildInputs = with pythonPackages; [
+    py
+    devpi-common
+    pluggy
+    setuptools
+  ];
 
   meta = with stdenv.lib; {
-    homepage = http://doc.devpi.net;
-    description = "Client for devpi, a pypi index server and packaging meta tool";
+    homepage = "http://doc.devpi.net";
+    description =
+      "Client for devpi, a pypi index server and packaging meta tool";
     license = licenses.mit;
     maintainers = with maintainers; [ lewo makefu ];
   };

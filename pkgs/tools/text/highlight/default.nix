@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "126nsf4cjxflg2kiv72qf1xl5fsilk0jqcncs6qqgm72cpjfmlsy";
   };
 
-  nativeBuildInputs = [ pkgconfig ] ++ optional stdenv.isDarwin  gcc ;
+  nativeBuildInputs = [ pkgconfig ] ++ optional stdenv.isDarwin gcc;
 
   buildInputs = [ getopt lua boost ];
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Source code highlighting tool";
-    homepage = http://www.andre-simon.de/doku/highlight/en/highlight.php;
+    homepage = "http://www.andre-simon.de/doku/highlight/en/highlight.php";
     platforms = platforms.unix;
     maintainers = with maintainers; [ ndowens willibutz ];
   };

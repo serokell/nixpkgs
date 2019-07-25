@@ -1,7 +1,5 @@
-{ stdenv, fetchurl, adns, curl, gettext, gmp, gnutls, libextractor
-, libgcrypt, libgnurl, libidn, libmicrohttpd, libtool, libunistring
-, makeWrapper, ncurses, pkgconfig, libxml2, sqlite, zlib
-, libpulseaudio, libopus, libogg }:
+{ stdenv, fetchurl, adns, curl, gettext, gmp, gnutls, libextractor, libgcrypt, libgnurl, libidn, libmicrohttpd, libtool, libunistring, makeWrapper, ncurses, pkgconfig, libxml2, sqlite, zlib, libpulseaudio, libopus, libogg
+}:
 
 stdenv.mkDerivation rec {
   name = "gnunet-0.11.0";
@@ -12,9 +10,27 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    adns curl gettext gmp gnutls libextractor libgcrypt libgnurl libidn
-    libmicrohttpd libtool libunistring libxml2 makeWrapper ncurses
-    pkgconfig sqlite zlib libpulseaudio libopus libogg
+    adns
+    curl
+    gettext
+    gmp
+    gnutls
+    libextractor
+    libgcrypt
+    libgnurl
+    libidn
+    libmicrohttpd
+    libtool
+    libunistring
+    libxml2
+    makeWrapper
+    ncurses
+    pkgconfig
+    sqlite
+    zlib
+    libpulseaudio
+    libopus
+    libogg
   ];
 
   preConfigure = ''
@@ -41,17 +57,18 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   /* FIXME: Tests must be run this way, but there are still a couple of
-     failures.
+        failures.
 
-  postInstall =
-    '' export GNUNET_PREFIX="$out"
-       export PATH="$out/bin:$PATH"
-       make -k check
-    '';
+     postInstall =
+       '' export GNUNET_PREFIX="$out"
+          export PATH="$out/bin:$PATH"
+          make -k check
+       '';
   */
 
   meta = with stdenv.lib; {
-    description = "GNU's decentralized anonymous and censorship-resistant P2P framework";
+    description =
+      "GNU's decentralized anonymous and censorship-resistant P2P framework";
 
     longDescription = ''
       GNUnet is a framework for secure peer-to-peer networking that
@@ -68,7 +85,7 @@ stdenv.mkDerivation rec {
       network are rewarded with better service.
     '';
 
-    homepage = https://gnunet.org/;
+    homepage = "https://gnunet.org/";
 
     license = licenses.gpl2Plus;
 

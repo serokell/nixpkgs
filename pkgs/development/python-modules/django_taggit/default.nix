@@ -1,11 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, python
-, fetchPypi
-, pythonOlder
-, django
-, mock
-, isort
+{ stdenv, buildPythonPackage, python, fetchPypi, pythonOlder, django, mock, isort
 }:
 
 buildPythonPackage rec {
@@ -28,8 +21,9 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "django-taggit is a reusable Django application for simple tagging";
-    homepage = https://github.com/alex/django-taggit/tree/master/;
+    description =
+      "django-taggit is a reusable Django application for simple tagging";
+    homepage = "https://github.com/alex/django-taggit/tree/master/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ desiderius ];
   };

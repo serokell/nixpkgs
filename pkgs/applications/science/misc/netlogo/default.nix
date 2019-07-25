@@ -11,14 +11,13 @@ let
     categories = "Science;";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "netlogo-${version}";
   version = "6.0.4";
 
   src = fetchurl {
-    url = "https://ccl.northwestern.edu/netlogo/${version}/NetLogo-${version}-64.tgz";
+    url =
+      "https://ccl.northwestern.edu/netlogo/${version}/NetLogo-${version}-64.tgz";
     sha256 = "0dcd9df4dfb218826a74f9df42163fa588908a1dfe58864106936f8dfb76acec";
   };
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
       NetLogo is a multi-agent programmable modeling environment. It is used by
       many tens of thousands of students, teachers and researchers worldwide.
     '';
-    homepage = https://ccl.northwestern.edu/netlogo/index.shtml;
+    homepage = "https://ccl.northwestern.edu/netlogo/index.shtml";
     license = licenses.gpl2;
     maintainers = [ maintainers.dpaetzel ];
     platforms = platforms.linux;

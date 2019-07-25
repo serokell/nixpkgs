@@ -1,13 +1,12 @@
 { composeAndroidPackages, stdenv }:
-{ name, app ? null
-, platformVersion ? "16", abiVersion ? "armeabi-v7a", systemImageType ? "default", useGoogleAPIs ? false
-, enableGPU ? false, extraAVDFiles ? []
-, package ? null, activity ? null
-, avdHomeDir ? null
-}@args:
+{ name, app ? null, platformVersion ? "16", abiVersion ?
+  "armeabi-v7a", systemImageType ? "default", useGoogleAPIs ? false, enableGPU ?
+    false, extraAVDFiles ? [ ], package ? null, activity ? null, avdHomeDir ?
+      null }@args:
 
 let
-  androidSdkArgNames = builtins.attrNames (builtins.functionArgs composeAndroidPackages);
+  androidSdkArgNames =
+    builtins.attrNames (builtins.functionArgs composeAndroidPackages);
 
   # Extract the parameters meant for the Android SDK
   androidParams = {
@@ -19,8 +18,7 @@ let
   };
 
   androidsdkComposition = (composeAndroidPackages androidParams).androidsdk;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit name;
 
   buildCommand = ''
@@ -77,14 +75,18 @@ stdenv.mkDerivation {
         # Create a virtual android device
         yes "" | ${androidsdkComposition}/libexec/android-sdk/tools/android create avd -n device -t 1 --abi ${systemImageType}/${abiVersion} $NIX_ANDROID_AVD_FLAGS
 
-        ${stdenv.lib.optionalString enableGPU ''
-          # Enable GPU acceleration
-          echo "hw.gpu.enabled=yes" >> $ANDROID_SDK_HOME/.android/avd/device.avd/config.ini
-        ''}
+        ${
+      stdenv.lib.optionalString enableGPU ''
+        # Enable GPU acceleration
+        echo "hw.gpu.enabled=yes" >> $ANDROID_SDK_HOME/.android/avd/device.avd/config.ini
+      ''
+        }
 
-        ${stdenv.lib.concatMapStrings (extraAVDFile: ''
-          ln -sf ${extraAVDFile} $ANDROID_SDK_HOME/.android/avd/device.avd
-        '') extraAVDFiles}
+        ${
+      stdenv.lib.concatMapStrings (extraAVDFile: ''
+        ln -sf ${extraAVDFile} $ANDROID_SDK_HOME/.android/avd/device.avd
+      '') extraAVDFiles
+        }
     fi
 
     # Launch the emulator
@@ -130,7 +132,7 @@ stdenv.mkDerivation {
 
       # Start the application
       ${stdenv.lib.optionalString (package != null && activity != null) ''
-          ${androidsdkComposition}/libexec/android-sdk/platform-tools/adb -s emulator-$port shell am start -a android.intent.action.MAIN -n ${package}/${activity}
+        ${androidsdkComposition}/libexec/android-sdk/platform-tools/adb -s emulator-$port shell am start -a android.intent.action.MAIN -n ${package}/${activity}
       ''}
     ''}
     EOF

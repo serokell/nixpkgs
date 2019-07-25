@@ -1,17 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, matplotlib
-, numpy
-, python-dateutil
-, pytz
-, requests
-, retrying
-, scipy
-, six
-, tornado
-, tweepy
-, ws4py
+{ stdenv, buildPythonPackage, fetchPypi, matplotlib, numpy, python-dateutil, pytz, requests, retrying, scipy, six, tornado, tweepy, ws4py
 }:
 
 buildPythonPackage rec {
@@ -25,8 +12,17 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    matplotlib numpy python-dateutil pytz requests
-    retrying scipy six tornado tweepy ws4py
+    matplotlib
+    numpy
+    python-dateutil
+    pytz
+    requests
+    retrying
+    scipy
+    six
+    tornado
+    tweepy
+    ws4py
   ];
 
   # no tests in PyPI tarball
@@ -34,7 +30,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Python Algorithmic Trading";
-    homepage = http://gbeced.github.io/pyalgotrade/;
+    homepage = "http://gbeced.github.io/pyalgotrade/";
     license = licenses.asl20;
   };
 

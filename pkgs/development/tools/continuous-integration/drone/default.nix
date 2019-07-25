@@ -8,7 +8,7 @@ buildGoPackage rec {
 
   # These dependencies pulled (in `drone` buildprocess) via Makefile,
   # so I extracted them here, all revisions pinned by same date, as ${version}
-  goDeps= ./deps.nix;
+  goDeps = ./deps.nix;
 
   nativeBuildInputs = [ go-bindata go-bindata-assetfs ];
 
@@ -22,6 +22,7 @@ buildGoPackage rec {
   meta = with stdenv.lib; {
     maintainers = with maintainers; [ avnik vdemeester ];
     license = licenses.asl20;
-    description = "Continuous Integration platform built on container technology";
+    description =
+      "Continuous Integration platform built on container technology";
   };
 }

@@ -1,14 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, django-discover-runner
-, mock
-, dj-database-url
-, dj-email-url
-, dj-search-url
-, django-cache-url
-, six
-, django
+{ stdenv, buildPythonPackage, fetchPypi, django-discover-runner, mock, dj-database-url, dj-email-url, dj-search-url, django-cache-url, six, django
 }:
 
 buildPythonPackage rec {
@@ -20,7 +10,15 @@ buildPythonPackage rec {
     sha256 = "71d9acdff33aa034f0157b0b3d23629fe0cd499bf4d0b6d699b9ca0701d952e8";
   };
 
-  checkInputs = [ django-discover-runner mock dj-database-url dj-email-url dj-search-url django-cache-url six ];
+  checkInputs = [
+    django-discover-runner
+    mock
+    dj-database-url
+    dj-email-url
+    dj-search-url
+    django-cache-url
+    six
+  ];
 
   checkPhase = ''
     export PYTHONPATH=.:$PYTHONPATH
@@ -33,7 +31,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://django-configurations.readthedocs.io/;
+    homepage = "https://django-configurations.readthedocs.io/";
     description = "A helper for organizing Django settings";
     license = licenses.bsd0;
     maintainers = [ maintainers.costrouc ];

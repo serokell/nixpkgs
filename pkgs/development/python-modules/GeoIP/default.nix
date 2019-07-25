@@ -1,14 +1,11 @@
-{lib, buildPythonPackage, fetchPypi
-, geoip, nose}:
+{ lib, buildPythonPackage, fetchPypi, geoip, nose }:
 
 buildPythonPackage rec {
   pname = "GeoIP";
   version = "1.3.2";
 
   checkInputs = [ nose ];
-  propagatedBuildInputs = [
-    geoip
-  ];
+  propagatedBuildInputs = [ geoip ];
 
   src = fetchPypi {
     inherit pname version;
@@ -21,7 +18,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "MaxMind GeoIP Legacy Database - Python API";
-    homepage = https://www.maxmind.com/;
+    homepage = "https://www.maxmind.com/";
     maintainers = with lib.maintainers; [ jluttine ];
     license = lib.licenses.lgpl21Plus;
   };

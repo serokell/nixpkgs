@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, mpfr, libxml2, intltool, pkgconfig, doxygen,
-  autoreconfHook, readline, libiconv, icu, curl, gnuplot, gettext }:
+{ stdenv, fetchFromGitHub, mpfr, libxml2, intltool, pkgconfig, doxygen, autoreconfHook, readline, libiconv, icu, curl, gnuplot, gettext
+}:
 
 stdenv.mkDerivation rec {
   pname = "libqalculate";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An advanced calculator library";
-    homepage = http://qalculate.github.io;
+    homepage = "http://qalculate.github.io";
     maintainers = with maintainers; [ gebner ];
     license = licenses.gpl2Plus;
     platforms = platforms.all;

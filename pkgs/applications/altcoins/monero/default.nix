@@ -1,9 +1,4 @@
-{ stdenv, fetchgit
-, cmake, pkgconfig, git
-, boost, miniupnpc, openssl, unbound, cppzmq
-, zeromq, pcsclite, readline, libsodium, hidapi
-, python3Packages
-, CoreData, IOKit, PCSC
+{ stdenv, fetchgit, cmake, pkgconfig, git, boost, miniupnpc, openssl, unbound, cppzmq, zeromq, pcsclite, readline, libsodium, hidapi, python3Packages, CoreData, IOKit, PCSC
 }:
 
 assert stdenv.isDarwin -> IOKit != null;
@@ -11,21 +6,28 @@ assert stdenv.isDarwin -> IOKit != null;
 with stdenv.lib;
 
 stdenv.mkDerivation rec {
-  name    = "monero-${version}";
+  name = "monero-${version}";
   version = "0.14.1.0";
 
   src = fetchgit {
-    url    = "https://github.com/monero-project/monero.git";
-    rev    = "v${version}";
+    url = "https://github.com/monero-project/monero.git";
+    rev = "v${version}";
     sha256 = "1asa197fad81jfv12qgaa7y7pdr1r1pda96m9pvivkh4v30cx0nh";
   };
 
   nativeBuildInputs = [ cmake pkgconfig git ];
 
   buildInputs = [
-    boost miniupnpc openssl unbound
-    cppzmq zeromq pcsclite readline
-    libsodium hidapi
+    boost
+    miniupnpc
+    openssl
+    unbound
+    cppzmq
+    zeromq
+    pcsclite
+    readline
+    libsodium
+    hidapi
     python3Packages.protobuf
   ] ++ optionals stdenv.isDarwin [ IOKit CoreData PCSC ];
 
@@ -39,9 +41,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Private, secure, untraceable currency";
-    homepage    = https://getmonero.org/;
-    license     = licenses.bsd3;
-    platforms   = platforms.all;
+    homepage = "https://getmonero.org/";
+    license = licenses.bsd3;
+    platforms = platforms.all;
     maintainers = with maintainers; [ ehmry rnhmjoj ];
   };
 }

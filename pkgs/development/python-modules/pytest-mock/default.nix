@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy3k, pytest, mock, setuptools_scm }:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy3k, pytest, mock, setuptools_scm
+}:
 
 buildPythonPackage rec {
   pname = "pytest-mock";
@@ -15,7 +16,8 @@ buildPythonPackage rec {
   patches = [
     # Fix tests for pytest 4.6. Remove with the next release
     (fetchpatch {
-      url = "https://github.com/pytest-dev/pytest-mock/commit/189cc599d3bfbe91a17c93211c04237b6c5849b1.patch";
+      url =
+        "https://github.com/pytest-dev/pytest-mock/commit/189cc599d3bfbe91a17c93211c04237b6c5849b1.patch";
       sha256 = "13nk75ldab3j8nfzyd9w4cgfk2fxq4if1aqkqy82ar7y7qh07a7m";
     })
   ];
@@ -25,9 +27,10 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Thin-wrapper around the mock package for easier use with py.test.";
-    homepage    = https://github.com/pytest-dev/pytest-mock;
-    license     = licenses.mit;
+    description =
+      "Thin-wrapper around the mock package for easier use with py.test.";
+    homepage = "https://github.com/pytest-dev/pytest-mock";
+    license = licenses.mit;
     maintainers = with maintainers; [ nand0p ];
   };
 }

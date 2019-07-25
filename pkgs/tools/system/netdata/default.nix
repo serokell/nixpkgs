@@ -1,13 +1,8 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig
-, CoreFoundation, IOKit, libossp_uuid
-, curl, libcap,  libuuid, lm_sensors, zlib
-, withCups ? false, cups
-, withDBengine ? true, libuv, lz4, judy
-, withIpmi ? (!stdenv.isDarwin), freeipmi
-, withNetfilter ? (!stdenv.isDarwin), libmnl, libnetfilter_acct
-, withSsl ? true, openssl
-, withDebug ? false
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, CoreFoundation, IOKit, libossp_uuid, curl, libcap, libuuid, lm_sensors, zlib, withCups ?
+  false, cups, withDBengine ? true, libuv, lz4, judy, withIpmi ?
+    (!stdenv.isDarwin), freeipmi, withNetfilter ?
+      (!stdenv.isDarwin), libmnl, libnetfilter_acct, withSsl ?
+        true, openssl, withDebug ? false }:
 
 with stdenv.lib;
 
@@ -16,7 +11,8 @@ stdenv.mkDerivation rec {
   name = "netdata-${version}";
 
   src = fetchurl {
-    url = "https://github.com/netdata/netdata/releases/download/v${version}/netdata-v${version}.tar.gz";
+    url =
+      "https://github.com/netdata/netdata/releases/download/v${version}/netdata-v${version}.tar.gz";
     sha256 = "0kwbrkv7g9m7l580myd2r8bpxqn6fxmx5vd6xh7x94wygfffhann";
   };
 
@@ -30,11 +26,10 @@ stdenv.mkDerivation rec {
     ++ optionals withNetfilter [ libmnl libnetfilter_acct ]
     ++ optionals withSsl [ openssl.dev ];
 
-  patches = [
-    ./no-files-in-etc-and-var.patch
-  ];
+  patches = [ ./no-files-in-etc-and-var.patch ];
 
-  NIX_CFLAGS_COMPILE = optional withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
+  NIX_CFLAGS_COMPILE =
+    optional withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
 
   postInstall = optionalString (!stdenv.isDarwin) ''
     # rename this plugin so netdata will look for setuid wrapper
@@ -46,15 +41,12 @@ stdenv.mkDerivation rec {
     ''}
   '';
 
-  preConfigure =  optionalString (!stdenv.isDarwin) ''
+  preConfigure = optionalString (!stdenv.isDarwin) ''
     substituteInPlace collectors/python.d.plugin/python_modules/third_party/lm_sensors.py \
       --replace 'ctypes.util.find_library("sensors")' '"${lm_sensors.out}/lib/libsensors${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-  ];
+  configureFlags = [ "--localstatedir=/var" "--sysconfdir=/etc" ];
 
   postFixup = ''
     rm -r $out/sbin
@@ -62,7 +54,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Real-time performance monitoring tool";
-    homepage = https://my-netdata.io/;
+    homepage = "https://my-netdata.io/";
     license = licenses.gpl3;
     platforms = platforms.unix;
     maintainers = [ maintainers.lethalman ];

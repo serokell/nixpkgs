@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, pymongo
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pymongo }:
 
 buildPythonPackage rec {
   pname = "mongodict";

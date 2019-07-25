@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook
-, boost, libbitcoin, zeromq }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, boost, libbitcoin, zeromq
+}:
 
 let
   pname = "libbitcoin-network";
@@ -28,7 +28,7 @@ in stdenv.mkDerivation {
 
   meta = with stdenv.lib; {
     description = "Bitcoin P2P Network Library";
-    homepage = https://libbitcoin.org/;
+    homepage = "https://libbitcoin.org/";
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ asymmetric ];
 

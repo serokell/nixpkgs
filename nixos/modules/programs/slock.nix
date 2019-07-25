@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.programs.slock;
+let cfg = config.programs.slock;
 
-in
-{
+in {
   options = {
     programs.slock = {
       enable = mkOption {

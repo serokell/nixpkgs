@@ -21,8 +21,9 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    description = "Very resource-friendly and feature-rich replacement for i3status";
-    homepage = https://github.com/greshake/i3status-rust;
+    description =
+      "Very resource-friendly and feature-rich replacement for i3status";
+    homepage = "https://github.com/greshake/i3status-rust";
     license = licenses.gpl3;
     maintainers = [ maintainers.backuitist ];
     platforms = platforms.linux;

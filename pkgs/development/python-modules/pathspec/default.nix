@@ -1,12 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
-  pname   = "pathspec";
+  pname = "pathspec";
   version = "0.5.9";
-  name    = "${pname}-${version}";
+  name = "${pname}-${version}";
 
   src = fetchPypi {
     inherit pname version;
@@ -14,7 +11,8 @@ buildPythonPackage rec {
   };
 
   meta = {
-    description = "Utility library for gitignore-style pattern matching of file paths";
+    description =
+      "Utility library for gitignore-style pattern matching of file paths";
     homepage = "https://github.com/cpburnz/python-path-specification";
     license = lib.licenses.mpl20;
     maintainers = with lib.maintainers; [ copumpkin ];

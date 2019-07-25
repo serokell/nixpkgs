@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pkgconfig
-, pytest
-, pytestrunner
-, cffi
-, secp256k1
+{ lib, buildPythonPackage, fetchPypi, pkgconfig, pytest, pytestrunner, cffi, secp256k1
 }:
 
 buildPythonPackage rec {
@@ -40,7 +33,7 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/ludbb/secp256k1-py;
+    homepage = "https://github.com/ludbb/secp256k1-py";
     description = "Python FFI bindings for secp256k1";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ chris-martin ];

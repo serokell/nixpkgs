@@ -1,28 +1,6 @@
-{ fetchPypi
-, lib
-, buildPythonPackage
-, isPy3k
-, appdirs
-, attrs
-, cached-property
-, defusedxml
-, isodate
-, lxml
-, requests
-, requests_toolbelt
-, six
-, pytz
-, tornado
-, aiohttp
+{ fetchPypi, lib, buildPythonPackage, isPy3k, appdirs, attrs, cached-property, defusedxml, isodate, lxml, requests, requests_toolbelt, six, pytz, tornado, aiohttp
 # test dependencies
-, freezegun
-, mock
-, pretend
-, pytest_3
-, pytestcov
-, requests-mock
-, aioresponses
-}:
+, freezegun, mock, pretend, pytest_3, pytestcov, requests-mock, aioresponses }:
 
 buildPythonPackage rec {
   pname = "zeep";
@@ -49,14 +27,8 @@ buildPythonPackage rec {
     tornado
   ] ++ lib.optional isPy3k aiohttp;
 
-  checkInputs = [
-    freezegun
-    mock
-    pretend
-    pytestcov
-    pytest_3
-    requests-mock
-  ] ++ lib.optional isPy3k aioresponses;
+  checkInputs = [ freezegun mock pretend pytestcov pytest_3 requests-mock ]
+    ++ lib.optional isPy3k aioresponses;
 
   checkPhase = ''
     runHook preCheck
@@ -66,7 +38,7 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = http://docs.python-zeep.org;
+    homepage = "http://docs.python-zeep.org";
     license = licenses.mit;
     description = "A modern/fast Python SOAP client based on lxml / requests";
     maintainers = with maintainers; [ rvl ];

@@ -1,19 +1,18 @@
-{ stdenv, lib, fetchurl, unzip, erlang, git, wget, which, pam 
-, Carbon ? null, Cocoa ? null }:
+{ stdenv, lib, fetchurl, unzip, erlang, git, wget, which, pam, Carbon ?
+  null, Cocoa ? null }:
 
 stdenv.mkDerivation rec {
   name = "stanchion-2.1.1";
 
-  buildInputs = [
-    which unzip erlang git wget
-  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ]
+  buildInputs = [ which unzip erlang git wget ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ]
     ++ lib.optional stdenv.isLinux [ pam ];
 
   src = fetchurl {
-    url = "https://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/stanchion-2.1.1.tar.gz";
+    url =
+      "https://s3.amazonaws.com/downloads.basho.com/stanchion/2.1/2.1.1/stanchion-2.1.1.tar.gz";
     sha256 = "1443arwgg7qvlx3msyg99qvvhck7qxphdjslcp494i60fhr2g8ja";
   };
-
 
   postPatch = ''
     sed -i deps/node_package/priv/base/env.sh \
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     maintainers = with maintainers; [ mdaiter ];
     description = "Manager for Riak CS";
-    platforms   = [ "x86_64-linux" "x86_64-darwin" ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     license = licenses.asl20;
   };
 }

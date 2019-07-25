@@ -1,9 +1,7 @@
 { stdenv
 
 # Version specific stuff
-, release, version, src
-, ...
-}:
+, release, version, src, ... }:
 
 stdenv.mkDerivation rec {
   name = "tcl-${version}";
@@ -38,7 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "The Tcl scripting language";
-    homepage = https://www.tcl.tk/;
+    homepage = "https://www.tcl.tk/";
     license = licenses.tcltk;
     platforms = platforms.all;
     maintainers = with maintainers; [ vrthra ];

@@ -1,5 +1,4 @@
-{ stdenv, fetchPypi, buildPythonPackage, service-identity, requests, six
-, mock, twisted, incremental, pep8, httpbin
+{ stdenv, fetchPypi, buildPythonPackage, service-identity, requests, six, mock, twisted, incremental, pep8, httpbin
 }:
 
 buildPythonPackage rec {
@@ -21,11 +20,7 @@ buildPythonPackage rec {
     twisted.extras.tls
   ];
 
-  checkInputs = [
-    pep8
-    mock
-    httpbin
-  ];
+  checkInputs = [ pep8 mock httpbin ];
 
   postPatch = ''
     rm -fv src/treq/test/test_treq_integration.py
@@ -48,7 +43,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/twisted/treq;
+    homepage = "https://github.com/twisted/treq";
     description = "A requests-like API built on top of twisted.web's Agent";
     license = licenses.mit;
     maintainers = with maintainers; [ nand0p ];

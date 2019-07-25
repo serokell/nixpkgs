@@ -1,10 +1,8 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, perl, docbook2x
-, docbook_xml_dtd_45, python3Packages, pam
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, perl, docbook2x, docbook_xml_dtd_45, python3Packages, pam
 
 # Optional Dependencies
-, libapparmor ? null, gnutls ? null, libselinux ? null, libseccomp ? null
-, libcap ? null, systemd ? null
-}:
+, libapparmor ? null, gnutls ? null, libselinux ? null, libseccomp ?
+  null, libcap ? null, systemd ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {
@@ -16,17 +14,21 @@ stdenv.mkDerivation rec {
     sha256 = "1igxqgx8q9cp15mcp1y8j564bl85ijw04jcmgb1s5bmfbg1751sd";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkgconfig perl docbook2x python3Packages.wrapPython
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkgconfig perl docbook2x python3Packages.wrapPython ];
   buildInputs = [
-    pam libapparmor gnutls libselinux libseccomp libcap
-    python3Packages.python python3Packages.setuptools systemd
+    pam
+    libapparmor
+    gnutls
+    libselinux
+    libseccomp
+    libcap
+    python3Packages.python
+    python3Packages.setuptools
+    systemd
   ];
 
-  patches = [
-    ./support-db2x.patch
-  ];
+  patches = [ ./support-db2x.patch ];
 
   postPatch = ''
     sed -i '/chmod u+s/d' src/lxc/Makefile.am
@@ -44,15 +46,14 @@ stdenv.mkDerivation rec {
   ] ++ optional (libapparmor != null) "--enable-apparmor"
     ++ optional (libselinux != null) "--enable-selinux"
     ++ optional (libseccomp != null) "--enable-seccomp"
-    ++ optional (libcap != null) "--enable-capabilities"
-    ++ [
-    "--disable-examples"
-    "--enable-python"
-    "--disable-lua"
-    "--enable-bash"
-    (if doCheck then "--enable-tests" else "--disable-tests")
-    "--with-rootfs-path=/var/lib/lxc/rootfs"
-  ];
+    ++ optional (libcap != null) "--enable-capabilities" ++ [
+      "--disable-examples"
+      "--enable-python"
+      "--disable-lua"
+      "--enable-bash"
+      (if doCheck then "--enable-tests" else "--disable-tests")
+      "--with-rootfs-path=/var/lib/lxc/rootfs"
+    ];
 
   doCheck = false;
 
@@ -81,8 +82,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://linuxcontainers.org/;
-    description = "Userspace tools for Linux Containers, a lightweight virtualization system";
+    homepage = "https://linuxcontainers.org/";
+    description =
+      "Userspace tools for Linux Containers, a lightweight virtualization system";
     license = licenses.lgpl21Plus;
 
     longDescription = ''

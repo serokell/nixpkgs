@@ -1,8 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six }:
 
 buildPythonPackage rec {
   pname = "importmagic";
@@ -15,11 +11,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  doCheck = false;  # missing json file from tarball
+  doCheck = false; # missing json file from tarball
 
   meta = with stdenv.lib; {
-    description = "Python Import Magic - automagically add, remove and manage imports";
-    homepage = https://github.com/alecthomas/importmagic;
+    description =
+      "Python Import Magic - automagically add, remove and manage imports";
+    homepage = "https://github.com/alecthomas/importmagic";
     license = licenses.bsd0;
   };
 

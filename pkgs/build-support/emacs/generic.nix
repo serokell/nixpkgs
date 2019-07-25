@@ -4,16 +4,13 @@
 
 with lib;
 
-{ pname
-, version ? null
+{ pname, version ? null
 
-, buildInputs ? []
-, packageRequires ? []
+, buildInputs ? [ ], packageRequires ? [ ]
 
-, meta ? {}
+, meta ? { }
 
-, ...
-}@args:
+, ... }@args:
 
 let
 
@@ -24,9 +21,7 @@ let
     homepage = args.src.meta.homepage;
   };
 
-in
-
-stdenv.mkDerivation ({
+in stdenv.mkDerivation ({
   name = "emacs-${pname}${optionalString (version != null) "-${version}"}";
 
   unpackCmd = ''
@@ -45,7 +40,7 @@ stdenv.mkDerivation ({
     esac
   '';
 
-  buildInputs = [emacs texinfo] ++ packageRequires ++ buildInputs;
+  buildInputs = [ emacs texinfo ] ++ packageRequires ++ buildInputs;
   propagatedBuildInputs = packageRequires;
   propagatedUserEnvPkgs = packageRequires;
 
@@ -56,6 +51,4 @@ stdenv.mkDerivation ({
   meta = defaultMeta // meta;
 }
 
-// removeAttrs args [ "buildInputs" "packageRequires"
-                      "meta"
-                    ])
+// removeAttrs args [ "buildInputs" "packageRequires" "meta" ])

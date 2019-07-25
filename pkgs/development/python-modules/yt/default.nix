@@ -1,15 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, matplotlib
-, setuptools
-, sympy
-, numpy
-, ipython
-, hdf5
-, nose
-, cython
-, python
+{ lib, buildPythonPackage, fetchPypi, matplotlib, setuptools, sympy, numpy, ipython, hdf5, nose, cython, python
 }:
 
 buildPythonPackage rec {
@@ -21,22 +10,11 @@ buildPythonPackage rec {
     sha256 = "c8ef8eceb934dc189d63dc336109fad3002140a9a32b19f38d1812d5d5a30d71";
   };
 
-  buildInputs = [
-    cython
-  ];
+  buildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    setuptools
-    sympy
-    numpy
-    ipython
-    hdf5
-  ];
+  propagatedBuildInputs = [ matplotlib setuptools sympy numpy ipython hdf5 ];
 
-  checkInputs = [
-    nose
-  ];
+  checkInputs = [ nose ];
 
   checkPhase = ''
     cd $out/${python.sitePackages}
@@ -45,7 +23,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "An analysis and visualization toolkit for volumetric data";
-    homepage = https://github.com/yt-project/yt;
+    homepage = "https://github.com/yt-project/yt";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];
   };

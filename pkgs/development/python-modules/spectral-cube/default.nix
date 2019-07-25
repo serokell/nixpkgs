@@ -1,15 +1,11 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, astropy
-, radio_beam
-, pytest }:
+{ lib, fetchPypi, buildPythonPackage, astropy, radio_beam, pytest }:
 
 buildPythonPackage rec {
   pname = "spectral-cube";
   version = "0.4.4";
 
-  doCheck = false; # the tests requires several pytest plugins that are not in nixpkgs
+  doCheck =
+    false; # the tests requires several pytest plugins that are not in nixpkgs
 
   src = fetchPypi {
     inherit pname version;
@@ -19,12 +15,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ astropy radio_beam pytest ];
 
   meta = {
-    description = "Library for reading and analyzing astrophysical spectral data cubes";
-    homepage = http://radio-astro-tools.github.io;
+    description =
+      "Library for reading and analyzing astrophysical spectral data cubes";
+    homepage = "http://radio-astro-tools.github.io";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ smaret ];
   };
 }
-
 

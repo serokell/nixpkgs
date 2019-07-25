@@ -1,9 +1,4 @@
-{ stdenv, fetchurl, pkgconfig, openssl, libjpeg, zlib, lz4, freetype, fontconfig
-, fribidi, SDL2, SDL, libGL, giflib, libpng, libtiff, glib, gst_all_1, libpulseaudio
-, libsndfile, xorg, libdrm, libxkbcommon, udev, utillinux, bullet, luajit
-, python27Packages, openjpeg, doxygen, expat, harfbuzz, jbig2dec, librsvg
-, dbus, alsaLib, poppler, ghostscript, libraw, libspectre, xineLib, libwebp
-, curl, libinput, systemd, mesa, writeText, gtk3
+{ stdenv, fetchurl, pkgconfig, openssl, libjpeg, zlib, lz4, freetype, fontconfig, fribidi, SDL2, SDL, libGL, giflib, libpng, libtiff, glib, gst_all_1, libpulseaudio, libsndfile, xorg, libdrm, libxkbcommon, udev, utillinux, bullet, luajit, python27Packages, openjpeg, doxygen, expat, harfbuzz, jbig2dec, librsvg, dbus, alsaLib, poppler, ghostscript, libraw, libspectre, xineLib, libwebp, curl, libinput, systemd, mesa, writeText, gtk3
 }:
 
 stdenv.mkDerivation rec {
@@ -17,17 +12,74 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig gtk3 ];
 
-  buildInputs = [ openssl zlib lz4 freetype fontconfig SDL libGL mesa
-    giflib libpng libtiff glib gst_all_1.gstreamer gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good
-    gst_all_1.gst-libav libpulseaudio libsndfile xorg.libXcursor xorg.xorgproto
-    xorg.libX11 udev systemd ];
+  buildInputs = [
+    openssl
+    zlib
+    lz4
+    freetype
+    fontconfig
+    SDL
+    libGL
+    mesa
+    giflib
+    libpng
+    libtiff
+    glib
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-libav
+    libpulseaudio
+    libsndfile
+    xorg.libXcursor
+    xorg.xorgproto
+    xorg.libX11
+    udev
+    systemd
+  ];
 
-  propagatedBuildInputs = [ libxkbcommon python27Packages.dbus-python dbus libjpeg xorg.libXcomposite
-    xorg.libXdamage xorg.libXinerama xorg.libXp xorg.libXtst xorg.libXi xorg.libXext
-    bullet xorg.libXScrnSaver xorg.libXrender xorg.libXfixes xorg.libXrandr
-    xorg.libxkbfile xorg.libxcb xorg.xcbutilkeysyms openjpeg doxygen expat luajit
-    harfbuzz jbig2dec librsvg dbus alsaLib poppler ghostscript libraw libspectre xineLib libwebp curl libdrm
-    libinput utillinux fribidi SDL2 ];
+  propagatedBuildInputs = [
+    libxkbcommon
+    python27Packages.dbus-python
+    dbus
+    libjpeg
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libXinerama
+    xorg.libXp
+    xorg.libXtst
+    xorg.libXi
+    xorg.libXext
+    bullet
+    xorg.libXScrnSaver
+    xorg.libXrender
+    xorg.libXfixes
+    xorg.libXrandr
+    xorg.libxkbfile
+    xorg.libxcb
+    xorg.xcbutilkeysyms
+    openjpeg
+    doxygen
+    expat
+    luajit
+    harfbuzz
+    jbig2dec
+    librsvg
+    dbus
+    alsaLib
+    poppler
+    ghostscript
+    libraw
+    libspectre
+    xineLib
+    libwebp
+    curl
+    libdrm
+    libinput
+    utillinux
+    fribidi
+    SDL2
+  ];
 
   # ac_ct_CXX must be set to random value, because then it skips some magic which does alternative searching for g++
   configureFlags = [
@@ -65,7 +117,8 @@ stdenv.mkDerivation rec {
     source "$setupHook"
   '';
 
-  NIX_CFLAGS_COMPILE = [ "-DluaL_reg=luaL_Reg" ]; # needed since luajit-2.1.0-beta3
+  NIX_CFLAGS_COMPILE =
+    [ "-DluaL_reg=luaL_Reg" ]; # needed since luajit-2.1.0-beta3
 
   postInstall = ''
     substituteInPlace "$out/share/elua/core/util.lua" --replace '$out' "$out"
@@ -87,7 +140,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Enlightenment foundation libraries";
-    homepage = https://enlightenment.org/;
+    homepage = "https://enlightenment.org/";
     platforms = stdenv.lib.platforms.linux;
     license = stdenv.lib.licenses.lgpl3;
     maintainers = with stdenv.lib.maintainers; [ matejc tstrobel ftrvxmtrx ];

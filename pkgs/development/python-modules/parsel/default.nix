@@ -1,13 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pytestrunner
-, functools32
-, six
-, w3lib
-, lxml
-, cssselect
+{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, functools32, six, w3lib, lxml, cssselect
 }:
 
 buildPythonPackage rec {
@@ -28,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/scrapy/parsel";
-    description = "Parsel is a library to extract data from HTML and XML using XPath and CSS selectors";
+    description =
+      "Parsel is a library to extract data from HTML and XML using XPath and CSS selectors";
     license = licenses.bsd3;
   };
 

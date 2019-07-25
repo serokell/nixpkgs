@@ -1,15 +1,14 @@
-{ stdenv, fetchpatch, fetchurl, python2Packages, librsync, ncftp, gnupg
-, gnutar
-, par2cmdline
-, utillinux
-, rsync, makeWrapper }:
+{ stdenv, fetchpatch, fetchurl, python2Packages, librsync, ncftp, gnupg, gnutar, par2cmdline, utillinux, rsync, makeWrapper
+}:
 
 python2Packages.buildPythonApplication rec {
   name = "duplicity-${version}";
   version = "0.7.19";
 
   src = fetchurl {
-    url = "https://code.launchpad.net/duplicity/${stdenv.lib.versions.majorMinor version}-series/${version}/+download/${name}.tar.gz";
+    url = "https://code.launchpad.net/duplicity/${
+      stdenv.lib.versions.majorMinor version
+    }-series/${version}/+download/${name}.tar.gz";
     sha256 = "0ag9dknslxlasslwfjhqgcqbkb1mvzzx93ry7lch2lfzcdd91am6";
   };
   patches = [
@@ -21,36 +20,50 @@ python2Packages.buildPythonApplication rec {
     (fetchpatch {
       extraPrefix = "";
       sha256 = "07ay3mmnw8p2j3v8yvcpjsx0rf2jqly9ablwjpmry23dz9f0mxsd";
-      url = "https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/diff/1359.2.1";
+      url =
+        "https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/diff/1359.2.1";
     })
     # Minimize time spent sleeping between backups
     (fetchpatch {
       extraPrefix = "";
       sha256 = "0v99q6mvikb8sf68gh3s0zg12pq8fijs87fv1qrvdnc8zvs4pmfs";
-      url = "https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/diff/1359.2.2";
+      url =
+        "https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/diff/1359.2.2";
     })
     # Remove unnecessary sleeping after running backups in tests
     (fetchpatch {
       extraPrefix = "";
       sha256 = "1bmgp4ilq2gwz2k73fxrqplf866hj57lbyabaqpkvwxhr0ch1jiq";
-      url = "https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/diff/1359.2.3";
+      url =
+        "https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/diff/1359.2.3";
     })
-  ] ++ stdenv.lib.optionals stdenv.isLinux [
-    ./linux-disable-timezone-test.patch
-  ];
+  ] ++ stdenv.lib.optionals stdenv.isLinux
+    [ ./linux-disable-timezone-test.patch ];
 
   buildInputs = [ librsync makeWrapper python2Packages.wrapPython ];
   propagatedBuildInputs = with python2Packages; [
-    boto cffi cryptography ecdsa enum idna pygobject3 fasteners
-    ipaddress lockfile paramiko pyasn1 pycrypto six
+    boto
+    cffi
+    cryptography
+    ecdsa
+    enum
+    idna
+    pygobject3
+    fasteners
+    ipaddress
+    lockfile
+    paramiko
+    pyasn1
+    pycrypto
+    six
   ];
   checkInputs = [
-    gnupg  # Add 'gpg' to PATH.
-    gnutar  # Add 'tar' to PATH.
-    librsync  # Add 'rdiff' to PATH.
-    par2cmdline  # Add 'par2' to PATH.
+    gnupg # Add 'gpg' to PATH.
+    gnutar # Add 'tar' to PATH.
+    librsync # Add 'rdiff' to PATH.
+    par2cmdline # Add 'par2' to PATH.
   ] ++ stdenv.lib.optionals stdenv.isLinux [
-    utillinux  # Add 'setsid' to PATH.
+    utillinux # Add 'setsid' to PATH.
   ] ++ (with python2Packages; [ lockfile mock pexpect ]);
 
   postInstall = ''
@@ -86,8 +99,9 @@ python2Packages.buildPythonApplication rec {
   doCheck = !stdenv.isDarwin;
 
   meta = with stdenv.lib; {
-    description = "Encrypted bandwidth-efficient backup using the rsync algorithm";
-    homepage = https://www.nongnu.org/duplicity;
+    description =
+      "Encrypted bandwidth-efficient backup using the rsync algorithm";
+    homepage = "https://www.nongnu.org/duplicity";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ peti ];
     platforms = platforms.unix;

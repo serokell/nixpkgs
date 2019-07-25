@@ -3,9 +3,7 @@ let
   cfg = config.services.virtuoso;
   virtuosoUser = "virtuoso";
   stateDir = "/var/lib/virtuoso";
-in
-with lib;
-{
+in with lib; {
 
   ###### interface
 
@@ -25,7 +23,8 @@ with lib;
 
       parameters = mkOption {
         default = "";
-        description = "Extra options to put into [Parameters] section of Virtuoso configuration file.";
+        description =
+          "Extra options to put into [Parameters] section of Virtuoso configuration file.";
       };
 
       listenAddress = mkOption {
@@ -49,17 +48,16 @@ with lib;
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    users.users = singleton
-      { name = virtuosoUser;
-        uid = config.ids.uids.virtuoso;
-        description = "virtuoso user";
-        home = stateDir;
-      };
+    users.users = singleton {
+      name = virtuosoUser;
+      uid = config.ids.uids.virtuoso;
+      description = "virtuoso user";
+      home = stateDir;
+    };
 
     systemd.services.virtuoso = {
       after = [ "network.target" ];
@@ -72,7 +70,9 @@ with lib;
 
       script = ''
         cd ${stateDir}
-        ${pkgs.virtuoso}/bin/virtuoso-t +foreground +configfile ${pkgs.writeText "virtuoso.ini" cfg.config}
+        ${pkgs.virtuoso}/bin/virtuoso-t +foreground +configfile ${
+          pkgs.writeText "virtuoso.ini" cfg.config
+        }
       '';
     };
 
@@ -86,11 +86,13 @@ with lib;
       [Parameters]
       ServerPort=${cfg.listenAddress}
       RunAs=${virtuosoUser}
-      ${optionalString (cfg.dirsAllowed != null) "DirsAllowed=${cfg.dirsAllowed}"}
+      ${optionalString (cfg.dirsAllowed != null)
+      "DirsAllowed=${cfg.dirsAllowed}"}
       ${cfg.parameters}
 
       [HTTPServer]
-      ${optionalString (cfg.httpListenAddress != null) "ServerPort=${cfg.httpListenAddress}"}
+      ${optionalString (cfg.httpListenAddress != null)
+      "ServerPort=${cfg.httpListenAddress}"}
     '';
 
   };

@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, rustPlatform
-, openssl, zeromq, czmq, pkgconfig, cmake, zlib }:
+{ lib, fetchFromGitHub, rustPlatform, openssl, zeromq, czmq, pkgconfig, cmake, zlib
+}:
 
 with rustPlatform;
 
@@ -22,7 +22,7 @@ buildRustPackage rec {
 
   meta = with lib; {
     description = "Authentication client/server for Intecture components";
-    homepage = https://intecture.io;
+    homepage = "https://intecture.io";
     license = licenses.mpl20;
     maintainers = [ maintainers.rushmorem ];
   };

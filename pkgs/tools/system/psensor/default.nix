@@ -1,5 +1,4 @@
-{ stdenv, lib, fetchurl, pkgconfig, lm_sensors, libgtop, libatasmart, gtk3
-, libnotify, udisks2, libXNVCtrl, wrapGAppsHook
+{ stdenv, lib, fetchurl, pkgconfig, lm_sensors, libgtop, libatasmart, gtk3, libnotify, udisks2, libXNVCtrl, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -14,9 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig wrapGAppsHook ];
 
-  buildInputs = [
-    lm_sensors libgtop libatasmart gtk3 libnotify udisks2
-  ];
+  buildInputs = [ lm_sensors libgtop libatasmart gtk3 libnotify udisks2 ];
 
   preConfigure = ''
     NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${libXNVCtrl}/include"
@@ -25,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Graphical hardware monitoring application for Linux";
-    homepage = https://wpitchoune.net/psensor/;
+    homepage = "https://wpitchoune.net/psensor/";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ cstrahan ];

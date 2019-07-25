@@ -28,7 +28,8 @@ in {
       default = "https://acme-v02.api.letsencrypt.org/directory";
       example = "https://acme-staging-v02.api.letsencrypt.org/directory";
       type = types.string;
-      description = "Certificate authority ACME server. The default (Let's Encrypt production server) should be fine for most people.";
+      description =
+        "Certificate authority ACME server. The default (Let's Encrypt production server) should be fine for most people.";
     };
 
     email = mkOption {
@@ -66,12 +67,15 @@ in {
       description = "Caddy web server";
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      environment = mkIf (versionAtLeast config.system.stateVersion "17.09")
-        { CADDYPATH = cfg.dataDir; };
+      environment = mkIf (versionAtLeast config.system.stateVersion "17.09") {
+        CADDYPATH = cfg.dataDir;
+      };
       serviceConfig = {
         ExecStart = ''
           ${cfg.package.bin}/bin/caddy -root=/var/tmp -conf=${configFile} \
-            -ca=${cfg.ca} -email=${cfg.email} ${optionalString cfg.agree "-agree"}
+            -ca=${cfg.ca} -email=${cfg.email} ${
+            optionalString cfg.agree "-agree"
+            }
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Type = "simple";

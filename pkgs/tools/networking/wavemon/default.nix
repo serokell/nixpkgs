@@ -17,8 +17,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     inherit version;
-    description = "Ncurses-based monitoring application for wireless network devices";
-    homepage = https://github.com/uoaerg/wavemon;
+    description =
+      "Ncurses-based monitoring application for wireless network devices";
+    homepage = "https://github.com/uoaerg/wavemon";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ raskin fpletz ];
     platforms = stdenv.lib.platforms.linux;

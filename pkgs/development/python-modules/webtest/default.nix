@@ -1,15 +1,4 @@
-{ stdenv
-, buildPythonPackage
-, fetchPypi
-, nose
-, webob
-, six
-, beautifulsoup4
-, waitress
-, mock
-, pyquery
-, wsgiproxy2
-, PasteDeploy
+{ stdenv, buildPythonPackage, fetchPypi, nose, webob, six, beautifulsoup4, waitress, mock, pyquery, wsgiproxy2, PasteDeploy
 }:
 
 buildPythonPackage rec {
@@ -32,7 +21,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Helper to test WSGI applications";
-    homepage = https://webtest.readthedocs.org/en/latest/;
+    homepage = "https://webtest.readthedocs.org/en/latest/";
     license = licenses.mit;
   };
 

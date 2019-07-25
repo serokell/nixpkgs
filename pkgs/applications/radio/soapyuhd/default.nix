@@ -1,9 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig
-, uhd, boost, soapysdr
-} :
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, uhd, boost, soapysdr }:
 
-let
-  version = "0.3.6";
+let version = "0.3.6";
 
 in stdenv.mkDerivation {
   name = "soapyuhd-${version}";
@@ -25,7 +22,7 @@ in stdenv.mkDerivation {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://github.com/pothosware/SoapyAirspy;
+    homepage = "https://github.com/pothosware/SoapyAirspy";
     description = "SoapySDR plugin for UHD devices";
     license = licenses.gpl3;
     maintainers = with maintainers; [ markuskowa ];

@@ -1,6 +1,6 @@
 { stdenv, bazel, cacert }:
 
-args@{ name, bazelFlags ? [], bazelTarget, buildAttrs, fetchAttrs, ... }:
+args@{ name, bazelFlags ? [ ], bazelTarget, buildAttrs, fetchAttrs, ... }:
 
 let
   fArgs = removeAttrs args [ "buildAttrs" "fetchAttrs" ];
@@ -14,7 +14,7 @@ in stdenv.mkDerivation (fBuildAttrs // {
     name = "${name}-deps";
     inherit bazelFlags bazelTarget;
 
-    nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [] ++ [ bazel ];
+    nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
 
     preHook = fFetchAttrs.preHook or "" + ''
       export bazelOut="$(echo ''${NIX_BUILD_TOP}/output | sed -e 's,//,/,g')"
@@ -82,14 +82,15 @@ in stdenv.mkDerivation (fBuildAttrs // {
     '';
 
     dontFixup = true;
-    allowedRequisites = [];
+    allowedRequisites = [ ];
 
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
     outputHash = fetchAttrs.sha256;
   });
 
-  nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [] ++ [ (bazel.override { enableNixHacks = true; }) ];
+  nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ]
+    ++ [ (bazel.override { enableNixHacks = true; }) ];
 
   preHook = fBuildAttrs.preHook or "" + ''
     export bazelOut="$NIX_BUILD_TOP/output"

@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, SDL, alsaLib, autoreconfHook, gtk2, libjack2, ladspaH
-, ladspaPlugins, libsamplerate, libsndfile, pkgconfig, libpulseaudio, lame
-, vorbis-tools }:
+{ stdenv, fetchFromGitHub, makeWrapper, SDL, alsaLib, autoreconfHook, gtk2, libjack2, ladspaH, ladspaPlugins, libsamplerate, libsndfile, pkgconfig, libpulseaudio, lame, vorbis-tools
+}:
 
 stdenv.mkDerivation rec {
   name = "mhwaveedit-${version}";
@@ -18,7 +17,14 @@ stdenv.mkDerivation rec {
   preAutoreconf = "(cd docgen && sh gendocs.sh)";
 
   buildInputs = [
-    SDL alsaLib gtk2 libjack2 ladspaH libsamplerate libsndfile libpulseaudio
+    SDL
+    alsaLib
+    gtk2
+    libjack2
+    ladspaH
+    libsamplerate
+    libsndfile
+    libpulseaudio
   ];
 
   configureFlags = [ "--with-default-ladspa-path=${ladspaPlugins}/lib/ladspa" ];
@@ -30,8 +36,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Graphical program for editing, playing and recording sound files";
-    homepage = https://github.com/magnush/mhwaveedit;
+    description =
+      "Graphical program for editing, playing and recording sound files";
+    homepage = "https://github.com/magnush/mhwaveedit";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.goibhniu ];

@@ -11,7 +11,6 @@ buildPythonPackage rec {
     sha256 = "1v0bghy4j2nnkgf1r8rbz4s7war872asyy08pc0x1iy1qs275i7s";
   };
 
-
   # disable a test that fails on aarch64 due to rounding errors
   postPatch = stdenv.lib.optionalString stdenv.isAarch64 ''
     substituteInPlace test/test.py \
@@ -25,9 +24,10 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Manipulate audio with a simple and easy high level interface.";
-    homepage    = "http://pydub.com/";
-    license     = licenses.mit;
-    platforms   = platforms.all;
+    description =
+      "Manipulate audio with a simple and easy high level interface.";
+    homepage = "http://pydub.com/";
+    license = licenses.mit;
+    platforms = platforms.all;
   };
 }

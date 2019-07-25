@@ -1,16 +1,4 @@
-{ lib
-, substituteAll
-, buildPythonApplication
-, fetchFromGitHub
-, distutils_extra
-, setuptools-git
-, intltool
-, pygtk
-, libX11
-, libXtst
-, wrapGAppsHook
-, gnome3
-, hicolor-icon-theme
+{ lib, substituteAll, buildPythonApplication, fetchFromGitHub, distutils_extra, setuptools-git, intltool, pygtk, libX11, libXtst, wrapGAppsHook, gnome3, hicolor-icon-theme
 }:
 buildPythonApplication rec {
   pname = "screenkey";
@@ -38,21 +26,17 @@ buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gnome3.adwaita-icon-theme
-    hicolor-icon-theme
-  ];
+  buildInputs = [ gnome3.adwaita-icon-theme hicolor-icon-theme ];
 
-  propagatedBuildInputs = [
-    pygtk
-  ];
+  propagatedBuildInputs = [ pygtk ];
 
   # screenkey does not have any tests
   doCheck = false;
 
   meta = with lib; {
-    homepage = https://www.thregr.org/~wavexx/software/screenkey/;
-    description = "A screencast tool to display your keys inspired by Screenflick";
+    homepage = "https://www.thregr.org/~wavexx/software/screenkey/";
+    description =
+      "A screencast tool to display your keys inspired by Screenflick";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.rasendubi ];

@@ -1,8 +1,8 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libX11, xorgproto, libXtst, libXi, libXext
-, libXinerama, libXrandr, glib, cairo, xdotool }:
+{ stdenv, fetchFromGitHub, pkgconfig, libX11, xorgproto, libXtst, libXi, libXext, libXinerama, libXrandr, glib, cairo, xdotool
+}:
 
-let release = "20180821"; in
-stdenv.mkDerivation rec {
+let release = "20180821";
+in stdenv.mkDerivation rec {
   name = "keynav-0.${release}.0";
 
   src = fetchFromGitHub {
@@ -13,8 +13,18 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libX11 xorgproto libXtst libXi libXext libXinerama libXrandr
-                  glib cairo xdotool ];
+  buildInputs = [
+    libX11
+    xorgproto
+    libXtst
+    libXi
+    libXext
+    libXinerama
+    libXrandr
+    glib
+    cairo
+    xdotool
+  ];
 
   patchPhase = ''
     echo >>VERSION MAJOR=0
@@ -22,16 +32,15 @@ stdenv.mkDerivation rec {
     echo >>VERSION REVISION=0
   '';
 
-  installPhase =
-    ''
-      mkdir -p $out/bin $out/share/keynav/doc
-      cp keynav $out/bin
-      cp keynavrc $out/share/keynav/doc
-    '';
+  installPhase = ''
+    mkdir -p $out/bin $out/share/keynav/doc
+    cp keynav $out/bin
+    cp keynavrc $out/share/keynav/doc
+  '';
 
   meta = with stdenv.lib; {
     description = "Generate X11 mouse clicks from keyboard";
-    homepage = https://www.semicomplete.com/projects/keynav/;
+    homepage = "https://www.semicomplete.com/projects/keynav/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ pSub ];
     platforms = platforms.linux;

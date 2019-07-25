@@ -1,29 +1,4 @@
-{ fetchurl
-, stdenv
-, pkgconfig
-, meson
-, ninja
-, glib
-, gnome3
-, nspr
-, gettext
-, gobject-introspection
-, vala
-, sqlite
-, libxml2
-, dbus-glib
-, libsoup
-, nss
-, dbus
-, libgee
-, telepathy-glib
-, evolution-data-server
-, libsecret
-, db
-, python3
-, python
-, readline
-, gtk3
+{ fetchurl, stdenv, pkgconfig, meson, ninja, glib, gnome3, nspr, gettext, gobject-introspection, vala, sqlite, libxml2, dbus-glib, libsoup, nss, dbus, libgee, telepathy-glib, evolution-data-server, libsecret, db, python3, python, readline, gtk3
 }:
 
 # TODO: enable more folks backends
@@ -35,7 +10,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+      stdenv.lib.versions.majorMinor version
+    }/${pname}-${version}.tar.xz";
     sha256 = "0xfl6rnzhdbmw1q26xiq34cdiy7a9karpi2r7wyplnnz1zaz5a9w";
   };
 
@@ -69,15 +46,9 @@ stdenv.mkDerivation rec {
     telepathy-glib
   ];
 
-  propagatedBuildInputs = [
-    glib
-    libgee
-    sqlite
-  ];
+  propagatedBuildInputs = [ glib libgee sqlite ];
 
-  checkInputs = [
-    dbus
-  ];
+  checkInputs = [ dbus ];
 
   # TODO: enable tests
   # doCheck = true;
@@ -96,10 +67,11 @@ stdenv.mkDerivation rec {
   };
 
   meta = with stdenv.lib; {
-    description = "A library that aggregates people from multiple sources to create metacontacts";
-    homepage = https://wiki.gnome.org/Projects/Folks;
+    description =
+      "A library that aggregates people from multiple sources to create metacontacts";
+    homepage = "https://wiki.gnome.org/Projects/Folks";
     license = licenses.lgpl2Plus;
     maintainers = gnome3.maintainers;
-    platforms = platforms.gnu ++ platforms.linux;  # arbitrary choice
+    platforms = platforms.gnu ++ platforms.linux; # arbitrary choice
   };
 }

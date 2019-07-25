@@ -17,9 +17,7 @@ let
     sha256 = "0h34cikch98sb7nsqjnb9wl384c8ndln3m6yb1172l4y89qjg9rr";
   };
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "email-git-2016-01-31";
   src = eMailSrc;
 
@@ -34,7 +32,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Command line SMTP client";
     license = with lib.licenses; [ gpl2 ];
-    homepage = https://deanproxy.com/code;
+    homepage = "https://deanproxy.com/code";
     platforms = stdenv.lib.platforms.unix;
   };
 }

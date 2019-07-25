@@ -1,20 +1,16 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, autoreconfHook
-, libcxxabi, libuuid
-, libobjc ? null, maloader ? null
-, enableTapiSupport ? true, libtapi
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, autoreconfHook, libcxxabi, libuuid, libobjc ?
+  null, maloader ? null, enableTapiSupport ? true, libtapi }:
 
 let
 
   # The targetPrefix prepended to binary names to allow multiple binuntils on the
   # PATH to both be usable.
-  targetPrefix = stdenv.lib.optionalString
-    (stdenv.targetPlatform != stdenv.hostPlatform)
+  targetPrefix =
+    stdenv.lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
     "${stdenv.targetPlatform.config}-";
-in
 
-# Non-Darwin alternatives
-assert (!stdenv.hostPlatform.isDarwin) -> maloader != null;
+  # Non-Darwin alternatives
+in assert (!stdenv.hostPlatform.isDarwin) -> maloader != null;
 
 let
   baseParams = rec {
@@ -22,9 +18,9 @@ let
     version = "895";
 
     src = fetchFromGitHub {
-      owner  = "tpoechtrager";
-      repo   = "cctools-port";
-      rev    = "07619027f8311fa61b4a549c75994b88739a82d8";
+      owner = "tpoechtrager";
+      repo = "cctools-port";
+      rev = "07619027f8311fa61b4a549c75994b88739a82d8";
       sha256 = "12g94hhz5v5bmy2w0zb6fb4bjlmn992gygc60h9nai15kshj2spi";
     };
 
@@ -35,7 +31,8 @@ let
       ++ stdenv.lib.optionals stdenv.isDarwin [ libcxxabi libobjc ]
       ++ stdenv.lib.optional enableTapiSupport libtapi;
 
-    patches = [ ./ld-rpath-nonfinal.patch ./ld-ignore-rpath-link.patch ./apfs.patch ];
+    patches =
+      [ ./ld-rpath-nonfinal.patch ./ld-ignore-rpath-link.patch ./apfs.patch ];
 
     __propagatedImpureHostDeps = [
       # As far as I can tell, otool from cctools is the only thing that depends on these two, and we should fix them
@@ -47,7 +44,8 @@ let
 
     # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
     configurePlatforms = [ "build" "host" ]
-      ++ stdenv.lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
+      ++ stdenv.lib.optional (stdenv.targetPlatform != stdenv.hostPlatform)
+      "target";
     configureFlags = [ "--disable-clang-as" ]
       ++ stdenv.lib.optionals enableTapiSupport [
         "--enable-tapi-support"
@@ -96,13 +94,11 @@ let
       popd
     '';
 
-    passthru = {
-      inherit targetPrefix;
-    };
+    passthru = { inherit targetPrefix; };
 
     meta = {
       broken = !stdenv.targetPlatform.isDarwin; # Only supports darwin targets
-      homepage = http://www.opensource.apple.com/source/cctools/;
+      homepage = "http://www.opensource.apple.com/source/cctools/";
       description = "MacOS Compiler Tools (cross-platform port)";
       license = stdenv.lib.licenses.apsl20;
       maintainers = with stdenv.lib.maintainers; [ matthewbauer ];

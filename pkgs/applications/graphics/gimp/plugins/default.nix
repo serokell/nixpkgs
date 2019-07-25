@@ -8,42 +8,44 @@ let
   inherit (pkgs) stdenv fetchurl pkgconfig intltool glib fetchFromGitHub;
   inherit (gimp) targetPluginDir targetScriptDir;
 
-  pluginDerivation = a: stdenv.mkDerivation ({
-    prePhases = "extraLib";
-    extraLib = ''
-      installScripts(){
-        mkdir -p $out/${targetScriptDir};
-        for p in "$@"; do cp "$p" $out/${targetScriptDir}; done
-      }
-      installPlugins(){
-        mkdir -p $out/${targetPluginDir};
-        for p in "$@"; do cp "$p" $out/${targetPluginDir}; done
-      }
-    '';
-  }
-  // a
-  // {
+  pluginDerivation = a:
+    stdenv.mkDerivation ({
+      prePhases = "extraLib";
+      extraLib = ''
+        installScripts(){
+          mkdir -p $out/${targetScriptDir};
+          for p in "$@"; do cp "$p" $out/${targetScriptDir}; done
+        }
+        installPlugins(){
+          mkdir -p $out/${targetPluginDir};
+          for p in "$@"; do cp "$p" $out/${targetPluginDir}; done
+        }
+      '';
+    } // a // {
       name = "gimp-plugin-${a.name or "${a.pname}-${a.version}"}";
-      buildInputs = [ gimp gimp.gtk glib ] ++ (a.buildInputs or []);
-      nativeBuildInputs = [ pkgconfig intltool ] ++ (a.nativeBuildInputs or []);
-    }
-  );
+      buildInputs = [ gimp gimp.gtk glib ] ++ (a.buildInputs or [ ]);
+      nativeBuildInputs = [ pkgconfig intltool ]
+        ++ (a.nativeBuildInputs or [ ]);
+    });
 
-  scriptDerivation = {name, src} : pluginDerivation {
-    inherit name; phases = "extraLib installPhase";
-    installPhase = "installScripts ${src}";
-  };
+  scriptDerivation = { name, src }:
+    pluginDerivation {
+      inherit name;
+      phases = "extraLib installPhase";
+      installPhase = "installScripts ${src}";
+    };
 
-in
-
-stdenv.lib.makeScope pkgs.newScope (self: with self; {
+in stdenv.lib.makeScope pkgs.newScope (self:
+with self;
+{
   gap = pluginDerivation {
     /* menu:
        Video
     */
     name = "gap-2.6.0";
     src = fetchurl {
-      url = https://ftp.gimp.org/pub/gimp/plug-ins/v2.6/gap/gimp-gap-2.6.0.tar.bz2;
+      url =
+        "https://ftp.gimp.org/pub/gimp/plug-ins/v2.6/gap/gimp-gap-2.6.0.tar.bz2";
       sha256 = "1jic7ixcmsn4kx2cn32nc5087rk6g8xsrz022xy11yfmgvhzb0ql";
     };
     patchPhase = ''
@@ -53,7 +55,7 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
     hardeningDisable = [ "format" ];
     meta = with stdenv.lib; {
       description = "The GIMP Animation Package";
-      homepage = https://www.gimp.org;
+      homepage = "https://www.gimp.org";
       # The main code is given in GPLv3, but it has ffmpeg in it, and I think ffmpeg license
       # falls inside "free".
       license = with licenses; [ gpl3 free ];
@@ -93,13 +95,13 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
 
   resynthesizer = pluginDerivation rec {
     /* menu:
-      Edit/Fill with pattern seamless...
-      Filters/Enhance/Heal selection...
-      Filters/Enhance/Heal transparency...
-      Filters/Enhance/Sharpen by synthesis...
-      Filters/Enhance/Uncrop...
-      Filters/Map/Style...
-      Filters/Render/Texture...
+       Edit/Fill with pattern seamless...
+       Filters/Enhance/Heal selection...
+       Filters/Enhance/Heal transparency...
+       Filters/Enhance/Sharpen by synthesis...
+       Filters/Enhance/Uncrop...
+       Filters/Map/Style...
+       Filters/Render/Texture...
     */
     pname = "resynthesizer";
     version = "2.0.3";
@@ -128,14 +130,15 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
 
   waveletSharpen = pluginDerivation {
     /* menu:
-      Filters/Enhance/Wavelet sharpen
+       Filters/Enhance/Wavelet sharpen
     */
     name = "wavelet-sharpen-0.1.2";
     src = fetchurl {
-      url = http://registry.gimp.org/files/wavelet-sharpen-0.1.2.tar.gz;
+      url = "http://registry.gimp.org/files/wavelet-sharpen-0.1.2.tar.gz";
       sha256 = "0vql1k67i21g5ivaa1jh56rg427m0icrkpryrhg75nscpirfxxqw";
     };
-    installPhase = "installPlugins src/wavelet-sharpen"; # TODO translations are not copied .. How to do this on nix?
+    installPhase =
+      "installPlugins src/wavelet-sharpen"; # TODO translations are not copied .. How to do this on nix?
   };
 
   lqrPlugin = pluginDerivation {
@@ -145,7 +148,7 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
     name = "lqr-plugin-0.6.1";
     buildInputs = with pkgs; [ liblqr1 ];
     src = fetchurl {
-      url = http://registry.gimp.org/files/gimp-lqr-plugin-0.6.1.tar.bz2;
+      url = "http://registry.gimp.org/files/gimp-lqr-plugin-0.6.1.tar.bz2";
       sha256 = "00hklkpcimcbpjly4rjhfipaw096cpy768g9wixglwrsyqhil7l9";
     };
     #postInstall = ''mkdir -p $out/nix-support; echo "${liblqr1}" > "$out/nix-support/propagated-user-env-packages"'';
@@ -174,9 +177,10 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
     '';
 
     meta = {
-      description = "GIMP plugin to correct lens distortion using the lensfun library and database";
+      description =
+        "GIMP plugin to correct lens distortion using the lensfun library and database";
 
-      homepage = http://lensfun.sebastiankraft.net/;
+      homepage = "http://lensfun.sebastiankraft.net/";
 
       license = stdenv.lib.licenses.gpl3Plus;
       maintainers = [ ];
@@ -184,13 +188,13 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
     };
   };
 
-  /* =============== simple script files ==================== */
+  # =============== simple script files ====================
 
   # also have a look at enblend-enfuse in all-packages.nix
   exposureBlend = scriptDerivation {
     name = "exposure-blend";
     src = fetchurl {
-      url = http://tir.astro.utoledo.edu/jdsmith/code/eb/exposure-blend.scm;
+      url = "http://tir.astro.utoledo.edu/jdsmith/code/eb/exposure-blend.scm";
       sha256 = "1b6c9wzpklqras4wwsyw3y3jp6fjmhnnskqiwm5sabs8djknfxla";
     };
   };
@@ -198,33 +202,34 @@ stdenv.lib.makeScope pkgs.newScope (self: with self; {
   lightning = scriptDerivation {
     name = "Lightning";
     src = fetchurl {
-      url = http://registry.gimp.org/files/Lightning.scm;
-      sha256 = "c14a8f4f709695ede3f77348728a25b3f3ded420da60f3f8de3944b7eae98a49";
+      url = "http://registry.gimp.org/files/Lightning.scm";
+      sha256 =
+        "c14a8f4f709695ede3f77348728a25b3f3ded420da60f3f8de3944b7eae98a49";
     };
   };
 
   /* space in name trouble ?
 
-  rainbowPlasma = scriptDerivation {
-    # http://registry.gimp.org/node/164
-    name = "rainbow-plasma";
-    src = fetchurl {
-      url = "http://registry.gimp.org/files/Rainbow Plasma.scm";
-      sha256 = "34308d4c9441f9e7bafa118af7ec9540f10ea0df75e812e2f3aa3fd7b5344c23";
-      name = "Rainbow-Plasma.scm"; # nix doesn't like spaces, does it?
-    };
-  };
+     rainbowPlasma = scriptDerivation {
+       # http://registry.gimp.org/node/164
+       name = "rainbow-plasma";
+       src = fetchurl {
+         url = "http://registry.gimp.org/files/Rainbow Plasma.scm";
+         sha256 = "34308d4c9441f9e7bafa118af7ec9540f10ea0df75e812e2f3aa3fd7b5344c23";
+         name = "Rainbow-Plasma.scm"; # nix doesn't like spaces, does it?
+       };
+     };
   */
 
   /* doesn't seem to be working :-(
-  lightningGate = scriptDerivation {
-    # http://registry.gimp.org/node/153
-    name = "lightning-gate";
-    src = fetchurl {
-      url = http://registry.gimp.org/files/LightningGate.scm;
-      sha256 = "181w1zi9a99kn2mfxjp43wkwcgw5vbb6iqjas7a9mhm8p04csys2";
-    };
-  };
+     lightningGate = scriptDerivation {
+       # http://registry.gimp.org/node/153
+       name = "lightning-gate";
+       src = fetchurl {
+         url = http://registry.gimp.org/files/LightningGate.scm;
+         sha256 = "181w1zi9a99kn2mfxjp43wkwcgw5vbb6iqjas7a9mhm8p04csys2";
+       };
+     };
   */
 
 } // stdenv.lib.optionalAttrs (config.allowAliases or true) {

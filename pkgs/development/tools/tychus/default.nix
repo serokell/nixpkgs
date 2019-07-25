@@ -6,7 +6,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/devlocker/tychus";
   goDeps = ./deps.nix;
-  subPackages = [];
+  subPackages = [ ];
 
   src = fetchFromGitHub {
     owner = "devlocker";
@@ -15,13 +15,14 @@ buildGoPackage rec {
     sha256 = "02ybxjsfga89gpg0k21zmykhhnpx1vy3ny8fcwj0qsg73i11alvw";
   };
 
-  buildInputs = stdenv.lib.optionals stdenv.hostPlatform.isDarwin [ CoreFoundation ];
+  buildInputs =
+    stdenv.lib.optionals stdenv.hostPlatform.isDarwin [ CoreFoundation ];
 
   buildFlags = "--tags release";
 
   meta = {
     description = "Command line utility to live-reload your application.";
-    homepage = https://github.com/devlocker/tychus;
+    homepage = "https://github.com/devlocker/tychus";
     license = stdenv.lib.licenses.mit;
     platforms = stdenv.lib.platforms.all;
   };

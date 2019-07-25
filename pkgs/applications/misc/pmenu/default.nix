@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ python2Packages.pygtk gnome-menus ];
 
   pythonPath = [ python2Packages.pygtk ];
-    
+
   installPhase = ''
     mkdir -p $out/bin $out/share/applications
     ./install.sh $out
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://gitlab.com/o9000/pmenu;
+    homepage = "https://gitlab.com/o9000/pmenu";
     description = "Start menu for Linux/BSD";
     license = stdenv.lib.licenses.gpl2;
     platforms = stdenv.lib.platforms.unix;

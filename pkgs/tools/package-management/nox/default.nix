@@ -15,14 +15,14 @@ python3Packages.buildPythonApplication rec {
   buildInputs = [ python3Packages.pbr git ];
 
   propagatedBuildInputs = with python3Packages; [
-      dogpile_cache
-      click
-      requests
-      characteristic
-    ];
+    dogpile_cache
+    click
+    requests
+    characteristic
+  ];
 
   meta = {
-    homepage = https://github.com/madjar/nox;
+    homepage = "https://github.com/madjar/nox";
     description = "Tools to make nix nicer to use";
     maintainers = [ lib.maintainers.madjar ];
     license = lib.licenses.mit;

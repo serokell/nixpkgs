@@ -14,8 +14,9 @@ buildPythonPackage rec {
   buildInputs = [ setuptools_scm ];
 
   meta = with stdenv.lib; {
-    description = "Library with cross-python path, ini-parsing, io, code, log facilities";
-    homepage = https://pylib.readthedocs.org/;
+    description =
+      "Library with cross-python path, ini-parsing, io, code, log facilities";
+    homepage = "https://pylib.readthedocs.org/";
     license = licenses.mit;
   };
 }

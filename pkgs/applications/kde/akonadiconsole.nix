@@ -1,9 +1,4 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  akonadi, akonadi-contacts, calendarsupport, kcalcore, kcompletion,
-  kconfigwidgets, kcontacts, kdbusaddons, kitemmodels, kpimtextedit, libkdepim,
-  ktextwidgets, kxmlgui, messagelib, qtbase, akonadi-search, xapian
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-contacts, calendarsupport, kcalcore, kcompletion, kconfigwidgets, kcontacts, kdbusaddons, kitemmodels, kpimtextedit, libkdepim, ktextwidgets, kxmlgui, messagelib, qtbase, akonadi-search, xapian
 }:
 
 mkDerivation {
@@ -14,8 +9,22 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
-    akonadi akonadi-contacts calendarsupport kcalcore kcompletion kconfigwidgets
-    kcontacts kdbusaddons kitemmodels kpimtextedit ktextwidgets kxmlgui
-    messagelib qtbase libkdepim akonadi-search xapian
+    akonadi
+    akonadi-contacts
+    calendarsupport
+    kcalcore
+    kcompletion
+    kconfigwidgets
+    kcontacts
+    kdbusaddons
+    kitemmodels
+    kpimtextedit
+    ktextwidgets
+    kxmlgui
+    messagelib
+    qtbase
+    libkdepim
+    akonadi-search
+    xapian
   ];
 }

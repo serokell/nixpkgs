@@ -1,25 +1,20 @@
-{
-  mkDerivation, lib, config,
+{ mkDerivation, lib, config,
 
-  extra-cmake-modules, kdoctools,
+extra-cmake-modules, kdoctools,
 
-  breeze-icons, karchive, kconfig, kcrash, kdbusaddons, ki18n,
-  kiconthemes, kitemmodels, khtml, kio, kparts, kpty, kservice, kwidgetsaddons,
+breeze-icons, karchive, kconfig, kcrash, kdbusaddons, ki18n, kiconthemes, kitemmodels, khtml, kio, kparts, kpty, kservice, kwidgetsaddons,
 
-  libarchive, libzip,
+libarchive, libzip,
 
-  # Archive tools
-  p7zip, lrzip,
+# Archive tools
+p7zip, lrzip,
 
-  # Unfree tools
-  unfreeEnableUnrar ? false, unrar,
-}:
+# Unfree tools
+unfreeEnableUnrar ? false, unrar, }:
 
-let
-  extraTools = [ p7zip lrzip ] ++ lib.optional unfreeEnableUnrar unrar;
-in
+let extraTools = [ p7zip lrzip ] ++ lib.optional unfreeEnableUnrar unrar;
 
-mkDerivation {
+in mkDerivation {
   name = "ark";
   meta = {
     license = with lib.licenses;
@@ -31,8 +26,20 @@ mkDerivation {
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [ libarchive libzip ] ++ extraTools;
   propagatedBuildInputs = [
-    breeze-icons karchive kconfig kcrash kdbusaddons khtml ki18n kiconthemes kio
-    kitemmodels kparts kpty kservice kwidgetsaddons
+    breeze-icons
+    karchive
+    kconfig
+    kcrash
+    kdbusaddons
+    khtml
+    ki18n
+    kiconthemes
+    kio
+    kitemmodels
+    kparts
+    kpty
+    kservice
+    kwidgetsaddons
   ];
 
   qtWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath extraTools) ];

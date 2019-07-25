@@ -1,23 +1,11 @@
-{ stdenv
-, fetchFromGitHub
-, fftwSinglePrec
-, ruby
-, libffi
-, aubio
-, cmake
-, pkgconfig
-, qt5
-, libsForQt5
-, boost
-, bash
-, makeWrapper
-, jack2Full
+{ stdenv, fetchFromGitHub, fftwSinglePrec, ruby, libffi, aubio, cmake, pkgconfig, qt5, libsForQt5, boost, bash, makeWrapper, jack2Full
 }:
 
 let
-  supercollider = libsForQt5.callPackage ../../../development/interpreters/supercollider {
-    fftw = fftwSinglePrec;
-  };
+  supercollider =
+    libsForQt5.callPackage ../../../development/interpreters/supercollider {
+      fftw = fftwSinglePrec;
+    };
 
 in stdenv.mkDerivation rec {
   version = "3.1.0";
@@ -90,8 +78,9 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = http://sonic-pi.net/;
-    description = "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
+    homepage = "http://sonic-pi.net/";
+    description =
+      "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
     license = stdenv.lib.licenses.mit;
     maintainers = with stdenv.lib.maintainers; [ Phlogistique kamilchm ];
     platforms = stdenv.lib.platforms.linux;

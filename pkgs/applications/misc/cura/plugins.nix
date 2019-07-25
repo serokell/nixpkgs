@@ -17,12 +17,11 @@ let
 
       nativeBuildInputs = [ cmake ];
 
-      propagatedBuildInputs = with python3Packages; [
-        netifaces
-      ];
+      propagatedBuildInputs = with python3Packages; [ netifaces ];
 
       meta = with stdenv.lib; {
-        description = "Enables printing directly to OctoPrint and monitoring the process";
+        description =
+          "Enables printing directly to OctoPrint and monitoring the process";
         homepage = "https://github.com/fieldOfView/Cura-OctoPrintPlugin";
         license = licenses.agpl3;
         maintainers = with maintainers; [ gebner ];

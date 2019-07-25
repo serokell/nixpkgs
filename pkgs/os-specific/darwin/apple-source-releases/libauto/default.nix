@@ -2,7 +2,8 @@
 
 appleDerivation {
   # these are included in the pure libc
-  buildInputs = stdenv.lib.optionals stdenv.cc.nativeLibc [ libdispatch Libsystem ];
+  buildInputs =
+    stdenv.lib.optionals stdenv.cc.nativeLibc [ libdispatch Libsystem ];
 
   buildPhase = ''
     cp ${./auto_dtrace.h} ./auto_dtrace.h
@@ -10,7 +11,7 @@ appleDerivation {
     substituteInPlace ThreadLocalCollector.h --replace SubZone.h Subzone.h
 
     substituteInPlace auto_zone.cpp \
-      --replace "#include <msgtracer_client.h>" ''$'#include <asl.h>\nstatic void msgtracer_log_with_keys(...) { };'
+      --replace "#include <msgtracer_client.h>" $'#include <asl.h>\nstatic void msgtracer_log_with_keys(...) { };'
 
     substituteInPlace Definitions.h \
       --replace "#include <System/pthread_machdep.h>" "" \
@@ -40,7 +41,7 @@ appleDerivation {
       --replace "__PTK_FRAMEWORK_GC_KEY9" "119" \
       --replace "__PTK_FRAMEWORK_GC_KEY0" "110" \
       --replace "__PTK_LIBDISPATCH_KEY0"  "20" \
-      --replace "struct auto_zone_cursor {" ''$'extern "C" int pthread_key_init_np(int, void (*)(void *));\nstruct auto_zone_cursor {'
+      --replace "struct auto_zone_cursor {" $'extern "C" int pthread_key_init_np(int, void (*)(void *));\nstruct auto_zone_cursor {'
 
     substituteInPlace auto_impl_utilities.c \
       --replace "#   include <CrashReporterClient.h>" "void CRSetCrashLogMessage(void *msg) { };"
@@ -78,7 +79,5 @@ appleDerivation {
     cp libauto.dylib $out/lib
   '';
 
-  meta = {
-    platforms = stdenv.lib.platforms.darwin;
-  };
+  meta = { platforms = stdenv.lib.platforms.darwin; };
 }

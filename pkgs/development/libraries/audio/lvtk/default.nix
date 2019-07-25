@@ -19,14 +19,12 @@ stdenv.mkDerivation rec {
     sed -i '/target[ ]*= "ttl2c"/ ilib=["boost_system"],' tools/wscript_build
   '';
 
-  wafConfigureFlags = [
-    "--boost-includes=${boost.dev}/include"
-    "--boost-libs=${boost.out}/lib"
-  ];
+  wafConfigureFlags =
+    [ "--boost-includes=${boost.dev}/include" "--boost-libs=${boost.out}/lib" ];
 
   meta = with stdenv.lib; {
     description = "A set C++ wrappers around the LV2 C API";
-    homepage = http://lvtoolkit.org;
+    homepage = "http://lvtoolkit.org";
     license = licenses.gpl3;
     maintainers = [ maintainers.goibhniu ];
     platforms = platforms.linux;

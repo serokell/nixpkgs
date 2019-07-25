@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, python3, meson, ninja, vala, pkgconfig, libgee, pantheon, gtk3, glib, gettext, hicolor-icon-theme, gobject-introspection, wrapGAppsHook }:
+{ stdenv, fetchFromGitHub, fetchpatch, python3, meson, ninja, vala, pkgconfig, libgee, pantheon, gtk3, glib, gettext, hicolor-icon-theme, gobject-introspection, wrapGAppsHook
+}:
 
 stdenv.mkDerivation rec {
   pname = "granite";
@@ -15,16 +16,13 @@ stdenv.mkDerivation rec {
     # Resolve the circular dependency between granite and the datetime wingpanel indicator
     # See: https://github.com/elementary/granite/pull/242
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/granite/raw/0550b44ed6400c9b1ff7e70871913747df2ff323/f/00-datetime-clock-format-gsettings.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/granite/raw/0550b44ed6400c9b1ff7e70871913747df2ff323/f/00-datetime-clock-format-gsettings.patch";
       sha256 = "0i9yvdmn77x5fjdwd1raw6ym8js8yxa7w6ydc7syx7hcyls00dmq";
     })
   ];
 
-  passthru = {
-    updateScript = pantheon.updateScript {
-      repoName = pname;
-    };
-  };
+  passthru = { updateScript = pantheon.updateScript { repoName = pname; }; };
 
   nativeBuildInputs = [
     gettext
@@ -37,12 +35,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    hicolor-icon-theme
-    libgee
-  ];
+  buildInputs = [ glib gtk3 hicolor-icon-theme libgee ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -55,7 +48,7 @@ stdenv.mkDerivation rec {
       Granite is a companion library for GTK+ and GLib. Among other things, it provides complex widgets and convenience functions
       designed for use in apps built for elementary OS.
     '';
-    homepage = https://github.com/elementary/granite;
+    homepage = "https://github.com/elementary/granite";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

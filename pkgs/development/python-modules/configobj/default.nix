@@ -1,8 +1,4 @@
-{ stdenv, buildPythonPackage
-, fetchFromGitHub
-, six
-, mock, pytest
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, six, mock, pytest }:
 
 buildPythonPackage rec {
   pname = "configobj";
@@ -16,7 +12,6 @@ buildPythonPackage rec {
     sha256 = "0x97794nk3dfn0i3si9fv7y19jnpnarb34bkdwlz7ii7ag6xihhw";
   };
 
-
   propagatedBuildInputs = [ six ];
 
   checkPhase = ''
@@ -27,7 +22,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Config file reading, writing and validation";
-    homepage = https://pypi.python.org/pypi/configobj;
+    homepage = "https://pypi.python.org/pypi/configobj";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

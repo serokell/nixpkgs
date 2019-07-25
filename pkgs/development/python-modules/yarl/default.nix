@@ -1,10 +1,4 @@
-{ stdenv
-, fetchPypi
-, buildPythonPackage
-, multidict
-, pytestrunner
-, pytest
-, idna
+{ stdenv, fetchPypi, buildPythonPackage, multidict, pytestrunner, pytest, idna
 }:
 
 buildPythonPackage rec {
@@ -21,7 +15,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "Yet another URL library";
-    homepage = https://github.com/aio-libs/yarl/;
+    homepage = "https://github.com/aio-libs/yarl/";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];
   };

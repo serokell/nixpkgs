@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook
-, asciidoctor, pkgconfig, xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt
-, json_c, kmod, which, utillinux, systemd, keyutils
+{ stdenv, fetchFromGitHub, autoreconfHook, asciidoctor, pkgconfig, xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt, json_c, kmod, which, utillinux, systemd, keyutils
 }:
 
 stdenv.mkDerivation rec {
@@ -8,27 +6,28 @@ stdenv.mkDerivation rec {
   version = "65";
 
   src = fetchFromGitHub {
-    owner  = "pmem";
-    repo   = "ndctl";
-    rev    = "v${version}";
+    owner = "pmem";
+    repo = "ndctl";
+    rev = "v${version}";
     sha256 = "0d8hzfvyxs2q8kgkwgdizlml41kin4mhx3vpdsjk34pfi7mqy69y";
   };
 
   outputs = [ "out" "lib" "man" "dev" ];
 
-  nativeBuildInputs =
-    [ autoreconfHook asciidoctor pkgconfig xmlto docbook_xml_dtd_45 docbook_xsl libxslt
-      which
-    ];
+  nativeBuildInputs = [
+    autoreconfHook
+    asciidoctor
+    pkgconfig
+    xmlto
+    docbook_xml_dtd_45
+    docbook_xsl
+    libxslt
+    which
+  ];
 
-  buildInputs =
-    [ json_c kmod utillinux systemd keyutils
-    ];
+  buildInputs = [ json_c kmod utillinux systemd keyutils ];
 
-  configureFlags =
-    [ "--without-bash"
-      "--without-systemd"
-    ];
+  configureFlags = [ "--without-bash" "--without-systemd" ];
 
   patchPhase = ''
     patchShebangs test
@@ -40,10 +39,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Tools for managing the Linux Non-Volatile Memory Device sub-system";
-    homepage    = https://github.com/pmem/ndctl;
-    license     = licenses.lgpl21;
+    description =
+      "Tools for managing the Linux Non-Volatile Memory Device sub-system";
+    homepage = "https://github.com/pmem/ndctl";
+    license = licenses.lgpl21;
     maintainers = with maintainers; [ thoughtpolice ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

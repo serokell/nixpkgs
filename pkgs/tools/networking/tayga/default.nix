@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   pname = "tayga";
 
   src = fetchurl {
-    url= "http://www.litech.org/${pname}/${pname}-${version}.tar.bz2";
+    url = "http://www.litech.org/${pname}/${pname}-${version}.tar.bz2";
     sha256 = "1700y121lhvpna49bjpssb7jq1abj9qw5wxgjn8gzp6jm4kpj7rb";
   };
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
       It is intended to provide production-quality NAT64 service
       for networks where dedicated NAT64 hardware would be overkill.
     '';
-    homepage = http://www.litech.org/tayga;
+    homepage = "http://www.litech.org/tayga";
     license = licenses.gpl2;
     maintainers = [ maintainers."0x4A6F" ];
     platforms = platforms.linux;

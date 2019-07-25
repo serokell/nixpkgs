@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, ffmpeg-full, graphicsmagick
-, quicktemplate, go-bindata, easyjson }:
+{ stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, ffmpeg-full, graphicsmagick, quicktemplate, go-bindata, easyjson
+}:
 
 buildGoPackage rec {
   name = "hydron-unstable-${version}";
@@ -16,7 +16,8 @@ buildGoPackage rec {
 
   enableParallelBuilding = true;
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ ffmpeg-full graphicsmagick quicktemplate go-bindata easyjson ];
+  buildInputs =
+    [ ffmpeg-full graphicsmagick quicktemplate go-bindata easyjson ];
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/bakape/hydron";

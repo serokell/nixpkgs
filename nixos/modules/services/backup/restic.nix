@@ -4,9 +4,10 @@ with lib;
 
 let
   # Type for a valid systemd unit option. Needed for correctly passing "timerConfig" to "systemd.timers"
-  unitOption = (import ../../system/boot/systemd-unit-options.nix { inherit config lib; }).unitOption;
-in
-{
+  unitOption = (import ../../system/boot/systemd-unit-options.nix {
+    inherit config lib;
+  }).unitOption;
+in {
   options.services.restic.backups = mkOption {
     description = ''
       Periodic backups to create with Restic.
@@ -41,21 +42,16 @@ in
 
         paths = mkOption {
           type = types.listOf types.str;
-          default = [];
+          default = [ ];
           description = ''
             Which paths to backup.
           '';
-          example = [
-            "/var/lib/postgresql"
-            "/home/user/backup"
-          ];
+          example = [ "/var/lib/postgresql" "/home/user/backup" ];
         };
 
         timerConfig = mkOption {
           type = types.attrsOf unitOption;
-          default = {
-            OnCalendar = "daily";
-          };
+          default = { OnCalendar = "daily"; };
           description = ''
             When to run the backup. See man systemd.timer for details.
           '';
@@ -76,18 +72,16 @@ in
 
         extraBackupArgs = mkOption {
           type = types.listOf types.str;
-          default = [];
+          default = [ ];
           description = ''
             Extra arguments passed to restic backup.
           '';
-          example = [
-            "--exclude-file=/etc/nixos/restic-ignore"
-          ];
+          example = [ "--exclude-file=/etc/nixos/restic-ignore" ];
         };
 
         extraOptions = mkOption {
           type = types.listOf types.str;
-          default = [];
+          default = [ ];
           description = ''
             Extra extended options to be passed to the restic --option flag.
           '';
@@ -105,7 +99,7 @@ in
         };
       };
     }));
-    default = {};
+    default = { };
     example = {
       localbackup = {
         paths = [ "/home" ];
@@ -129,35 +123,33 @@ in
   };
 
   config = {
-    systemd.services =
-      mapAttrs' (name: backup:
-        let
-          extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
-          resticCmd = "${pkgs.restic}/bin/restic${extraOptions}";
-        in nameValuePair "restic-backups-${name}" ({
-          environment = {
-            RESTIC_PASSWORD_FILE = backup.passwordFile;
-            RESTIC_REPOSITORY = backup.repository;
-          };
-          path = with pkgs; [
-            openssh
-          ];
-          restartIfChanged = false;
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = "${resticCmd} backup ${concatStringsSep " " backup.extraBackupArgs} ${concatStringsSep " " backup.paths}";
-            User = backup.user;
-          } // optionalAttrs (backup.s3CredentialsFile != null) {
-            EnvironmentFile = backup.s3CredentialsFile;
-          };
-        } // optionalAttrs backup.initialize {
-          preStart = ''
-            ${resticCmd} snapshots || ${resticCmd} init
-          '';
-        })
-      ) config.services.restic.backups;
-    systemd.timers =
-      mapAttrs' (name: backup: nameValuePair "restic-backups-${name}" {
+    systemd.services = mapAttrs' (name: backup:
+      let
+        extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
+        resticCmd = "${pkgs.restic}/bin/restic${extraOptions}";
+      in nameValuePair "restic-backups-${name}" ({
+        environment = {
+          RESTIC_PASSWORD_FILE = backup.passwordFile;
+          RESTIC_REPOSITORY = backup.repository;
+        };
+        path = with pkgs; [ openssh ];
+        restartIfChanged = false;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${resticCmd} backup ${
+            concatStringsSep " " backup.extraBackupArgs
+            } ${concatStringsSep " " backup.paths}";
+          User = backup.user;
+        } // optionalAttrs (backup.s3CredentialsFile != null) {
+          EnvironmentFile = backup.s3CredentialsFile;
+        };
+      } // optionalAttrs backup.initialize {
+        preStart = ''
+          ${resticCmd} snapshots || ${resticCmd} init
+        '';
+      })) config.services.restic.backups;
+    systemd.timers = mapAttrs' (name: backup:
+      nameValuePair "restic-backups-${name}" {
         wantedBy = [ "timers.target" ];
         timerConfig = backup.timerConfig;
       }) config.services.restic.backups;

@@ -1,14 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, taglib
-, cython
-, pytest
-, glibcLocales
-}:
+{ lib, buildPythonPackage, fetchPypi, taglib, cython, pytest, glibcLocales }:
 
 buildPythonPackage rec {
-  pname   = "pytaglib";
+  pname = "pytaglib";
   version = "1.4.5";
 
   src = fetchPypi {
@@ -25,8 +18,9 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    homepage = https://github.com/supermihi/pytaglib;
-    description = "Python 2.x/3.x bindings for the Taglib audio metadata library";
+    homepage = "https://github.com/supermihi/pytaglib";
+    description =
+      "Python 2.x/3.x bindings for the Taglib audio metadata library";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.mrkkrp ];
   };

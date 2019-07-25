@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestrunner
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestrunner }:
 
 buildPythonPackage rec {
   pname = "audioread";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libglade, gtk2, guile, libxml2, perl
-, intltool, libtool, pkgconfig }:
+{ stdenv, fetchurl, libglade, gtk2, guile, libxml2, perl, intltool, libtool, pkgconfig
+}:
 
 stdenv.mkDerivation rec {
   name = "drgeo-${version}";
@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./struct.patch ];
 
-  buildInputs = [libglade gtk2 guile libxml2
-    perl intltool libtool pkgconfig];
+  buildInputs = [ libglade gtk2 guile libxml2 perl intltool libtool pkgconfig ];
 
   prebuild = ''
     cp drgeo.desktop.in drgeo.desktop
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Interactive geometry program";
-    homepage = https://sourceforge.net/projects/ofset;
+    homepage = "https://sourceforge.net/projects/ofset";
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

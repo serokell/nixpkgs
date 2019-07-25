@@ -1,9 +1,5 @@
-{ build-idris-package
-, fetchFromGitHub
-, effects
-, lib
-}:
-build-idris-package  {
+{ build-idris-package, fetchFromGitHub, effects, lib }:
+build-idris-package {
   name = "test";
   version = "2017-03-30";
 
@@ -20,7 +16,7 @@ build-idris-package  {
 
   meta = {
     description = "Testing Utilities for Idris programs";
-    homepage = https://github.com/jfdm/idris-testing;
+    homepage = "https://github.com/jfdm/idris-testing";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];
   };

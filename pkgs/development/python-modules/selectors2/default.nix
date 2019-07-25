@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi
-, nose, psutil, mock }:
+{ stdenv, buildPythonPackage, fetchPypi, nose, psutil, mock }:
 
 buildPythonPackage rec {
   version = "2.0.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.github.com/SethMichaelLarson/selectors2;
+    homepage = "https://www.github.com/SethMichaelLarson/selectors2";
     description = "Back-ported, durable, and portable selectors";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

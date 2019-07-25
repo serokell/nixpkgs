@@ -1,23 +1,21 @@
-{ stdenv
-, name
-, src
-, doTest ? true
-, doTestCompile ? true
-, doJavadoc ? false
-, doCheckstyle ? false
-, doRelease ? false
-, includeTestClasses ? true
-, extraMvnFlags ? ""
-, ...
-} @ args :
+{ stdenv, name, src, doTest ? true, doTestCompile ? true, doJavadoc ?
+  false, doCheckstyle ? false, doRelease ? false, includeTestClasses ?
+    true, extraMvnFlags ? "", ... }@args:
 
-let 
-  mvnFlags = "-Dmaven.repo.local=$M2_REPO ${if doTest then "" else "-Dmaven.test.skip.exec=true"} ${extraMvnFlags}";
-in
+let
+  mvnFlags = "-Dmaven.repo.local=$M2_REPO ${
+    if doTest then "" else "-Dmaven.test.skip.exec=true"
+  } ${extraMvnFlags}";
 
-stdenv.mkDerivation ( rec {
-  inherit name src; 
-  phases = "setupPhase unpackPhase patchPhase mvnCompile ${if doTestCompile then "mvnTestCompile mvnTestJar" else ""} ${if doTest then "mvnTest" else ""} ${if doJavadoc then "mvnJavadoc" else ""} ${if doCheckstyle then "mvnCheckstyle" else ""} mvnJar mvnAssembly mvnRelease finalPhase";
+in stdenv.mkDerivation (rec {
+  inherit name src;
+  phases = "setupPhase unpackPhase patchPhase mvnCompile ${
+    if doTestCompile then "mvnTestCompile mvnTestJar" else ""
+  } ${if doTest then "mvnTest" else ""} ${
+    if doJavadoc then "mvnJavadoc" else ""
+  } ${
+    if doCheckstyle then "mvnCheckstyle" else ""
+  } mvnJar mvnAssembly mvnRelease finalPhase";
 
   setupPhase = ''
     runHook preSetupPhase
@@ -32,15 +30,15 @@ stdenv.mkDerivation ( rec {
 
   mvnCompile = ''
     mvn compile ${mvnFlags}
-  '';  
+  '';
 
   mvnTestCompile = ''
     mvn test-compile ${mvnFlags}
-  '';  
+  '';
 
   mvnTestJar = ''
     mvn jar:test-jar ${mvnFlags}
-  '';  
+  '';
 
   mvnTest = ''
     mvn test ${mvnFlags}
@@ -53,21 +51,21 @@ stdenv.mkDerivation ( rec {
       mvn surefire-report:report-only
       echo "report coverage $out/site/surefire-report.html" >> $out/nix-support/hydra-build-products
     fi
-  '';  
+  '';
 
   mvnJavadoc = ''
     mvn javadoc:javadoc ${mvnFlags}
     echo "report javadoc $out/site/apidocs" >> $out/nix-support/hydra-build-products
-  '';  
+  '';
 
   mvnCheckstyle = ''
     mvn checkstyle:checkstyle ${mvnFlags}
     echo "report checkstyle $out/site/checkstyle.html" >> $out/nix-support/hydra-build-products
-  '';  
+  '';
 
   mvnJar = ''
     mvn jar:jar ${mvnFlags}
-  '';  
+  '';
 
   mvnAssembly = ''
     mvn assembly:assembly -Dmaven.test.skip=true ${mvnFlags}
@@ -80,13 +78,14 @@ stdenv.mkDerivation ( rec {
     releaseName=$(basename $zip .zip)
     releaseName="$releaseName-r${toString src.rev or "0"}"
     cp $zip $out/release/$releaseName.zip
-    
+
     echo "$releaseName" > $out/nix-support/hydra-release-name
 
-    ${if doRelease then  ''
-    echo "file zip $out/release/$releaseName.zip" >> $out/nix-support/hydra-build-products
-    '' else ""}
-  '';  
+    ${if doRelease then ''
+      echo "file zip $out/release/$releaseName.zip" >> $out/nix-support/hydra-build-products
+    '' else
+      ""}
+  '';
 
   finalPhase = ''
     if [ -d target/site ] ; then
@@ -94,5 +93,4 @@ stdenv.mkDerivation ( rec {
       echo "report site $out/site" >> $out/nix-support/hydra-build-products
     fi
   '';
-} // args 
-)
+} // args)

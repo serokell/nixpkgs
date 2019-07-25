@@ -1,7 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, substituteAll, meson, ninja, python3
-, pkgconfig, vala, granite, libgee, gettext, gtk3, appstream, gnome-menus
-, json-glib, plank, bamf, switchboard, libunity, libsoup, wingpanel, zeitgeist
-, bc }:
+{ stdenv, fetchFromGitHub, pantheon, substituteAll, meson, ninja, python3, pkgconfig, vala, granite, libgee, gettext, gtk3, appstream, gnome-menus, json-glib, plank, bamf, switchboard, libunity, libsoup, wingpanel, zeitgeist, bc
+}:
 
 stdenv.mkDerivation rec {
   pname = "applications-menu";
@@ -23,15 +21,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  nativeBuildInputs = [
-    appstream
-    gettext
-    meson
-    ninja
-    pkgconfig
-    python3
-    vala
-   ];
+  nativeBuildInputs = [ appstream gettext meson ninja pkgconfig python3 vala ];
 
   buildInputs = [
     bamf
@@ -46,14 +36,12 @@ stdenv.mkDerivation rec {
     switchboard
     wingpanel
     zeitgeist
-   ];
-
-  mesonFlags = [
-    "--sysconfdir=${placeholder ''out''}/etc"
   ];
 
-  PKG_CONFIG_WINGPANEL_2_0_INDICATORSDIR = "${placeholder ''out''}/lib/wingpanel";
-  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder ''out''}/lib/switchboard";
+  mesonFlags = [ "--sysconfdir=${placeholder "out"}/etc" ];
+
+  PKG_CONFIG_WINGPANEL_2_0_INDICATORSDIR = "${placeholder "out"}/lib/wingpanel";
+  PKG_CONFIG_SWITCHBOARD_2_0_PLUGSDIR = "${placeholder "out"}/lib/switchboard";
 
   patches = [
     (substituteAll {
@@ -69,7 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Lightweight and stylish app launcher for Pantheon";
-    homepage = https://github.com/elementary/applications-menu;
+    homepage = "https://github.com/elementary/applications-menu";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = pantheon.maintainers;

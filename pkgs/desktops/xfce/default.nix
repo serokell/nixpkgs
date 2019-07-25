@@ -1,6 +1,8 @@
 { config, lib, pkgs }:
 
-lib.makeScope pkgs.newScope (self: with self; {
+lib.makeScope pkgs.newScope (self:
+with self;
+{
   #### NixOS support
 
   inherit (pkgs.gnome2) libglade vte gtksourceview;
@@ -21,7 +23,8 @@ lib.makeScope pkgs.newScope (self: with self; {
   garcon = callPackage ./core/garcon.nix { };
 
   # When built with GTK+3, it was breaking GTK+3 app layout
-  gtk-xfce-engine = callPackage ./core/gtk-xfce-engine.nix { withGtk3 = false; };
+  gtk-xfce-engine =
+    callPackage ./core/gtk-xfce-engine.nix { withGtk3 = false; };
 
   libxfce4ui = callPackage ./core/libxfce4ui.nix { };
 
@@ -75,7 +78,8 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   xfce4-mixer = callPackage ./applications/xfce4-mixer.nix { };
 
-  xfce4-mixer-pulse = callPackage ./applications/xfce4-mixer.nix { pulseaudioSupport = true; };
+  xfce4-mixer-pulse =
+    callPackage ./applications/xfce4-mixer.nix { pulseaudioSupport = true; };
 
   xfce4-notifyd = callPackage ./applications/xfce4-notifyd.nix { };
 
@@ -97,45 +101,59 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   #### PANEL PLUGINS
 
-  xfce4-vala-panel-appmenu-plugin = callPackage ./panel-plugins/xfce4-vala-panel-appmenu-plugin { };
+  xfce4-vala-panel-appmenu-plugin =
+    callPackage ./panel-plugins/xfce4-vala-panel-appmenu-plugin { };
 
-  xfce4-battery-plugin = callPackage ./panel-plugins/xfce4-battery-plugin.nix { };
+  xfce4-battery-plugin =
+    callPackage ./panel-plugins/xfce4-battery-plugin.nix { };
 
-  xfce4-clipman-plugin = callPackage ./panel-plugins/xfce4-clipman-plugin.nix { };
+  xfce4-clipman-plugin =
+    callPackage ./panel-plugins/xfce4-clipman-plugin.nix { };
 
-  xfce4-cpufreq-plugin = callPackage ./panel-plugins/xfce4-cpufreq-plugin.nix { };
+  xfce4-cpufreq-plugin =
+    callPackage ./panel-plugins/xfce4-cpufreq-plugin.nix { };
 
-  xfce4-cpugraph-plugin = callPackage ./panel-plugins/xfce4-cpugraph-plugin.nix { };
+  xfce4-cpugraph-plugin =
+    callPackage ./panel-plugins/xfce4-cpugraph-plugin.nix { };
 
-  xfce4-datetime-plugin = callPackage ./panel-plugins/xfce4-datetime-plugin.nix { };
+  xfce4-datetime-plugin =
+    callPackage ./panel-plugins/xfce4-datetime-plugin.nix { };
 
   xfce4-dict-plugin = callPackage ./panel-plugins/xfce4-dict-plugin.nix { };
 
-  xfce4-dockbarx-plugin = callPackage ./panel-plugins/xfce4-dockbarx-plugin.nix { };
+  xfce4-dockbarx-plugin =
+    callPackage ./panel-plugins/xfce4-dockbarx-plugin.nix { };
 
   xfce4-embed-plugin = callPackage ./panel-plugins/xfce4-embed-plugin.nix { };
 
   xfce4-eyes-plugin = callPackage ./panel-plugins/xfce4-eyes-plugin.nix { };
 
-  xfce4-fsguard-plugin = callPackage ./panel-plugins/xfce4-fsguard-plugin.nix { };
+  xfce4-fsguard-plugin =
+    callPackage ./panel-plugins/xfce4-fsguard-plugin.nix { };
 
   xfce4-genmon-plugin = callPackage ./panel-plugins/xfce4-genmon-plugin.nix { };
 
-  xfce4-hardware-monitor-plugin = callPackage ./panel-plugins/xfce4-hardware-monitor-plugin.nix { };
+  xfce4-hardware-monitor-plugin =
+    callPackage ./panel-plugins/xfce4-hardware-monitor-plugin.nix { };
 
-  xfce4-namebar-plugin = callPackage ./panel-plugins/xfce4-namebar-plugin.nix { };
+  xfce4-namebar-plugin =
+    callPackage ./panel-plugins/xfce4-namebar-plugin.nix { };
 
-  xfce4-netload-plugin = callPackage ./panel-plugins/xfce4-netload-plugin.nix { };
+  xfce4-netload-plugin =
+    callPackage ./panel-plugins/xfce4-netload-plugin.nix { };
 
   xfce4-notes-plugin = callPackage ./panel-plugins/xfce4-notes-plugin.nix { };
 
-  xfce4-mailwatch-plugin = callPackage ./panel-plugins/xfce4-mailwatch-plugin.nix { };
+  xfce4-mailwatch-plugin =
+    callPackage ./panel-plugins/xfce4-mailwatch-plugin.nix { };
 
   xfce4-mpc-plugin = callPackage ./panel-plugins/xfce4-mpc-plugin.nix { };
 
-  xfce4-sensors-plugin = callPackage ./panel-plugins/xfce4-sensors-plugin.nix { };
+  xfce4-sensors-plugin =
+    callPackage ./panel-plugins/xfce4-sensors-plugin.nix { };
 
-  xfce4-systemload-plugin = callPackage ./panel-plugins/xfce4-systemload-plugin.nix { };
+  xfce4-systemload-plugin =
+    callPackage ./panel-plugins/xfce4-systemload-plugin.nix { };
 
   xfce4-timer-plugin = callPackage ./panel-plugins/xfce4-timer-plugin.nix { };
 
@@ -143,13 +161,17 @@ lib.makeScope pkgs.newScope (self: with self; {
 
   xfce4-xkb-plugin = callPackage ./panel-plugins/xfce4-xkb-plugin.nix { };
 
-  xfce4-weather-plugin = callPackage ./panel-plugins/xfce4-weather-plugin.nix { };
+  xfce4-weather-plugin =
+    callPackage ./panel-plugins/xfce4-weather-plugin.nix { };
 
-  xfce4-whiskermenu-plugin = callPackage ./panel-plugins/xfce4-whiskermenu-plugin.nix { };
+  xfce4-whiskermenu-plugin =
+    callPackage ./panel-plugins/xfce4-whiskermenu-plugin.nix { };
 
-  xfce4-windowck-plugin = callPackage ./panel-plugins/xfce4-windowck-plugin.nix { };
+  xfce4-windowck-plugin =
+    callPackage ./panel-plugins/xfce4-windowck-plugin.nix { };
 
-  xfce4-pulseaudio-plugin = callPackage ./panel-plugins/xfce4-pulseaudio-plugin.nix { };
+  xfce4-pulseaudio-plugin =
+    callPackage ./panel-plugins/xfce4-pulseaudio-plugin.nix { };
 
   #### GTK+3 (deprecated, see NixOS/nixpkgs#32763)
 

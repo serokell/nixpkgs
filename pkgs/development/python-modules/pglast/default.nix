@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy3k
-, pythonOlder
-, aenum
-, pytest
-, pytestcov
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pythonOlder, aenum, pytest, pytestcov
 }:
 
 buildPythonPackage rec {

@@ -18,8 +18,9 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    homepage = http://babel.edgewall.org;
-    description = "A collection of tools for internationalizing Python applications";
+    homepage = "http://babel.edgewall.org";
+    description =
+      "A collection of tools for internationalizing Python applications";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

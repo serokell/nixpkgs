@@ -1,6 +1,4 @@
-{ stdenv, fetchFromGitHub, pythonPackages
-, gnome_python
-, libappindicator-gtk2, xflux, librsvg, wrapGAppsHook
+{ stdenv, fetchFromGitHub, pythonPackages, gnome_python, libappindicator-gtk2, xflux, librsvg, wrapGAppsHook
 }:
 pythonPackages.buildPythonApplication rec {
   name = "xflux-gui-${version}";
@@ -27,7 +25,7 @@ pythonPackages.buildPythonApplication rec {
   nativeBuildInputs = [ wrapGAppsHook ];
 
   postPatch = ''
-     substituteInPlace src/fluxgui/xfluxcontroller.py --replace "pexpect.spawn(\"xflux\"" "pexpect.spawn(\"${xflux}/bin/xflux\""
+    substituteInPlace src/fluxgui/xfluxcontroller.py --replace "pexpect.spawn(\"xflux\"" "pexpect.spawn(\"${xflux}/bin/xflux\""
   '';
 
   postFixup = ''
@@ -38,8 +36,9 @@ pythonPackages.buildPythonApplication rec {
 
   meta = {
     description = "Better lighting for Linux. Open source GUI for xflux";
-    homepage = https://justgetflux.com/linux.html;
-    license = stdenv.lib.licenses.unfree; # marked as unfree since the source code contains a copy of the unfree xflux binary
+    homepage = "https://justgetflux.com/linux.html";
+    license =
+      stdenv.lib.licenses.unfree; # marked as unfree since the source code contains a copy of the unfree xflux binary
     maintainers = [ stdenv.lib.maintainers.sheenobu ];
     platforms = stdenv.lib.platforms.linux;
   };

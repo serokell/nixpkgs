@@ -1,8 +1,4 @@
-{
-  stdenv, fetchurl,
-  automoc4, cmake_2_8, libxslt, perl, pkgconfig, shared-mime-info,
-  attica, docbook_xml_dtd_42, docbook_xsl, giflib,
-  libdbusmenu_qt, libjpeg, phonon, qt4
+{ stdenv, fetchurl, automoc4, cmake_2_8, libxslt, perl, pkgconfig, shared-mime-info, attica, docbook_xml_dtd_42, docbook_xsl, giflib, libdbusmenu_qt, libjpeg, phonon, qt4
 }:
 
 stdenv.mkDerivation rec {
@@ -15,12 +11,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    automoc4 cmake_2_8 libxslt perl pkgconfig shared-mime-info
-  ];
-  buildInputs = [
-    attica giflib libdbusmenu_qt libjpeg
-  ];
+  nativeBuildInputs =
+    [ automoc4 cmake_2_8 libxslt perl pkgconfig shared-mime-info ];
+  buildInputs = [ attica giflib libdbusmenu_qt libjpeg ];
   propagatedBuildInputs = [ qt4 phonon ];
 
   cmakeFlags = [
@@ -32,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     platforms = platforms.linux;
-    homepage = http://www.kde.org;
+    homepage = "http://www.kde.org";
     license = with licenses; [ gpl2 fdl12 lgpl21 ];
   };
 }

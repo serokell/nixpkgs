@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share
     cp scallion/bin/Debug/* $out/share/
     makeWrapper ${mono}/bin/mono $out/bin/scallion \
-      --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath [ openssl ocl-icd ]} \
+      --prefix LD_LIBRARY_PATH : ${
+      stdenv.lib.makeLibraryPath [ openssl ocl-icd ]
+      } \
       --add-flags $out/share/scallion.exe
   '';
 

@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
       -e "s:^\( *\)mutt:\1${mutt}/bin/mutt:" \
       $out/bin/grepm
   '';
-  
+
   meta = with stdenv.lib; {
     description = "Wrapper for grepmail utilizing mutt";
-    homepage = http://www.barsnick.net/sw/grepm.html;
+    homepage = "http://www.barsnick.net/sw/grepm.html";
     license = licenses.free;
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];

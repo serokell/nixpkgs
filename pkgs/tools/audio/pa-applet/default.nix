@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, libpulseaudio, pkgconfig, gtk3, glibc, autoconf, automake, libnotify, libX11, xf86inputevdev }:
+{ stdenv, fetchgit, libpulseaudio, pkgconfig, gtk3, glibc, autoconf, automake, libnotify, libX11, xf86inputevdev
+}:
 
 stdenv.mkDerivation rec {
   name = "pa-applet-2012-04-11";
@@ -11,7 +12,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [
-    gtk3 libpulseaudio glibc automake autoconf libnotify libX11 xf86inputevdev
+    gtk3
+    libpulseaudio
+    glibc
+    automake
+    autoconf
+    libnotify
+    libX11
+    xf86inputevdev
   ];
 
   preConfigure = ''
@@ -21,8 +29,7 @@ stdenv.mkDerivation rec {
   # work around a problem related to gtk3 updates
   NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
-  postInstall = ''
-  '';
+  postInstall = "";
 
   meta = with stdenv.lib; {
     description = "";

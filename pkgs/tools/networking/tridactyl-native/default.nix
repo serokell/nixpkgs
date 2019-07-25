@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, python3
-}:
+{ stdenv, fetchFromGitHub, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "tridactyl-native";
@@ -17,9 +14,7 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = "source/native";
 
-  nativeBuildInputs = [
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ python3.pkgs.wrapPython ];
 
   buildPhase = ''
     sed -i -e "s|REPLACE_ME_WITH_SED|$out/share/tridactyl/native_main.py|" "tridactyl.json"
@@ -36,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tridactyl native messaging host application";
-    homepage = https://github.com/tridactyl/tridactyl;
+    homepage = "https://github.com/tridactyl/tridactyl";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ timokau ];

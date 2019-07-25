@@ -1,6 +1,5 @@
-{ stdenv, fetchFromGitHub, libupnp, gpgme, gnome3, glib, libssh, pkgconfig, protobuf, bzip2
-, libXScrnSaver, speex, curl, libxml2, libxslt, sqlcipher, libmicrohttpd, opencv, qmake, ffmpeg
-, qtmultimedia, qtx11extras, qttools }:
+{ stdenv, fetchFromGitHub, libupnp, gpgme, gnome3, glib, libssh, pkgconfig, protobuf, bzip2, libXScrnSaver, speex, curl, libxml2, libxslt, sqlcipher, libmicrohttpd, opencv, qmake, ffmpeg, qtmultimedia, qtx11extras, qttools
+}:
 
 stdenv.mkDerivation rec {
   name = "retroshare-${version}";
@@ -23,8 +22,25 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkgconfig qmake ];
   buildInputs = [
-    speex libupnp gpgme gnome3.libgnome-keyring glib libssh qtmultimedia qtx11extras qttools
-    protobuf bzip2 libXScrnSaver curl libxml2 libxslt sqlcipher libmicrohttpd opencv ffmpeg
+    speex
+    libupnp
+    gpgme
+    gnome3.libgnome-keyring
+    glib
+    libssh
+    qtmultimedia
+    qtx11extras
+    qttools
+    protobuf
+    bzip2
+    libXScrnSaver
+    curl
+    libxml2
+    libxslt
+    sqlcipher
+    libmicrohttpd
+    opencv
+    ffmpeg
   ];
 
   preConfigure = ''
@@ -50,7 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "";
-    homepage = http://retroshare.sourceforge.net/;
+    homepage = "http://retroshare.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = [ maintainers.domenkozar ];

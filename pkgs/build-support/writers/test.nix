@@ -1,10 +1,11 @@
-{ stdenv, lib, runCommand, haskellPackages, nodePackages, perlPackages, python2Packages, python3Packages, writers, writeText }:
+{ stdenv, lib, runCommand, haskellPackages, nodePackages, perlPackages, python2Packages, python3Packages, writers, writeText
+}:
 with writers;
 let
 
   bin = {
     bash = writeBashBin "test_writers" ''
-     if [[ "test" == "test" ]]; then echo "success"; fi
+      if [[ "test" == "test" ]]; then echo "success"; fi
     '';
 
     c = writeCBin "test_writers" { libraries = [ ]; } ''
@@ -16,10 +17,12 @@ let
     '';
 
     dash = writeDashBin "test_writers" ''
-     test '~' = '~' && echo 'success'
+      test '~' = '~' && echo 'success'
     '';
 
-    haskell = writeHaskellBin "test_writers" { libraries = [ haskellPackages.acme-default ]; } ''
+    haskell = writeHaskellBin "test_writers" {
+      libraries = [ haskellPackages.acme-default ];
+    } ''
       import Data.Default
 
       int :: Int
@@ -41,12 +44,15 @@ let
       }
     '';
 
-    perl = writePerlBin "test_writers" { libraries = [ perlPackages.boolean ]; } ''
-      use boolean;
-      print "success\n" if true;
-    '';
+    perl =
+      writePerlBin "test_writers" { libraries = [ perlPackages.boolean ]; } ''
+        use boolean;
+        print "success\n" if true;
+      '';
 
-    python2 = writePython2Bin "test_writers" { libraries = [ python2Packages.enum ]; } ''
+    python2 = writePython2Bin "test_writers" {
+      libraries = [ python2Packages.enum ];
+    } ''
       from enum import Enum
 
       class Test(Enum):
@@ -55,7 +61,9 @@ let
       print Test.a
     '';
 
-    python3 = writePython3Bin "test_writers" { libraries = [ python3Packages.pyyaml ]; } ''
+    python3 = writePython3Bin "test_writers" {
+      libraries = [ python3Packages.pyyaml ];
+    } ''
       import yaml
 
       y = yaml.load("""
@@ -67,7 +75,7 @@ let
 
   simple = {
     bash = writeBash "test_bash" ''
-     if [[ "test" == "test" ]]; then echo "success"; fi
+      if [[ "test" == "test" ]]; then echo "success"; fi
     '';
 
     c = writeC "test_c" { libraries = [ ]; } ''
@@ -79,10 +87,12 @@ let
     '';
 
     dash = writeDash "test_dash" ''
-     test '~' = '~' && echo 'success'
+      test '~' = '~' && echo 'success'
     '';
 
-    haskell = writeHaskell "test_haskell" { libraries = [ haskellPackages.acme-default ]; } ''
+    haskell = writeHaskell "test_haskell" {
+      libraries = [ haskellPackages.acme-default ];
+    } ''
       import Data.Default
 
       int :: Int
@@ -109,31 +119,34 @@ let
       print "success\n" if true;
     '';
 
-    python2 = writePython2 "test_python2" { libraries = [ python2Packages.enum ]; } ''
-      from enum import Enum
+    python2 =
+      writePython2 "test_python2" { libraries = [ python2Packages.enum ]; } ''
+        from enum import Enum
 
-      class Test(Enum):
-          a = "success"
+        class Test(Enum):
+            a = "success"
 
-      print Test.a
-    '';
+        print Test.a
+      '';
 
-    python3 = writePython3 "test_python3" { libraries = [ python3Packages.pyyaml ]; } ''
-      import yaml
+    python3 =
+      writePython3 "test_python3" { libraries = [ python3Packages.pyyaml ]; } ''
+        import yaml
 
-      y = yaml.load("""
-        - test: success
-      """)
-      print(y[0]['test'])
-    '';
+        y = yaml.load("""
+          - test: success
+        """)
+        print(y[0]['test'])
+      '';
   };
-
 
   path = {
     bash = writeBash "test_bash" (writeText "test" ''
       if [[ "test" == "test" ]]; then echo "success"; fi
     '');
-    haskell = writeHaskell "test_haskell" { libraries = [ haskellPackages.acme-default ]; } (writeText "test" ''
+    haskell = writeHaskell "test_haskell" {
+      libraries = [ haskellPackages.acme-default ];
+    } (writeText "test" ''
       import Data.Default
 
       int :: Int
@@ -158,9 +171,12 @@ in runCommand "test-writers" {
   passthru = { inherit writeTest bin simple; };
   meta.platforms = stdenv.lib.platforms.all;
 } ''
-  ${lib.concatMapStringsSep "\n" (test: writeTest "success" "${test}/bin/test_writers") (lib.attrValues bin)}
-  ${lib.concatMapStringsSep "\n" (test: writeTest "success" "${test}") (lib.attrValues simple)}
-  ${lib.concatMapStringsSep "\n" (test: writeTest "success" "${test}") (lib.attrValues path)}
+  ${lib.concatMapStringsSep "\n"
+  (test: writeTest "success" "${test}/bin/test_writers") (lib.attrValues bin)}
+  ${lib.concatMapStringsSep "\n" (test: writeTest "success" "${test}")
+  (lib.attrValues simple)}
+  ${lib.concatMapStringsSep "\n" (test: writeTest "success" "${test}")
+  (lib.attrValues path)}
 
   echo 'nix-writers successfully tested' >&2
   touch $out

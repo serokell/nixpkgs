@@ -1,8 +1,9 @@
-{stdenv, fetchurl, pkgconfig, lua5, curl, quvi_scripts, libquvi, lua5_sockets, glib, makeWrapper}:
+{ stdenv, fetchurl, pkgconfig, lua5, curl, quvi_scripts, libquvi, lua5_sockets, glib, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   name = "quvi-${version}";
-  version="0.9.5";
+  version = "0.9.5";
 
   src = fetchurl {
     url = "mirror://sourceforge/quvi/quvi-${version}.tar.xz";
@@ -12,12 +13,12 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ lua5 curl quvi_scripts libquvi glib makeWrapper ];
   postInstall = ''
-      wrapProgram $out/bin/quvi --set LUA_PATH "${lua5_sockets}/share/lua/${lua5.luaversion}/?.lua"
+    wrapProgram $out/bin/quvi --set LUA_PATH "${lua5_sockets}/share/lua/${lua5.luaversion}/?.lua"
   '';
 
   meta = {
     description = "Web video downloader";
-    homepage = http://quvi.sf.net;
+    homepage = "http://quvi.sf.net";
     license = stdenv.lib.licenses.lgpl21Plus;
     platforms = stdenv.lib.platforms.linux;
     maintainers = [ ];

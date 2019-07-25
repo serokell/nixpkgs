@@ -1,5 +1,4 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k
-, twisted, whisper, txamqp, cachetools, urllib3
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, twisted, whisper, txamqp, cachetools, urllib3
 }:
 
 buildPythonPackage rec {
@@ -16,7 +15,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ twisted whisper txamqp cachetools urllib3 ];
 
   meta = with stdenv.lib; {
-    homepage = http://graphite.wikidot.com/;
+    homepage = "http://graphite.wikidot.com/";
     description = "Backend data caching and persistence daemon for Graphite";
     maintainers = with maintainers; [ rickynils offline basvandijk ];
     license = licenses.asl20;

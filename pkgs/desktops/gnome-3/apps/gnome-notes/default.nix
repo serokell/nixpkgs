@@ -1,16 +1,14 @@
-{ stdenv, meson, ninja, gettext, fetchurl, pkgconfig
-, wrapGAppsHook, itstool, desktop-file-utils, python3
-, glib, gtk3, evolution-data-server
-, libuuid, webkitgtk, zeitgeist
-, gnome3, libxml2, gsettings-desktop-schemas }:
+{ stdenv, meson, ninja, gettext, fetchurl, pkgconfig, wrapGAppsHook, itstool, desktop-file-utils, python3, glib, gtk3, evolution-data-server, libuuid, webkitgtk, zeitgeist, gnome3, libxml2, gsettings-desktop-schemas
+}:
 
-let
-  version = "3.32.2";
+let version = "3.32.2";
 in stdenv.mkDerivation rec {
   name = "gnome-notes-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/bijiben/${stdenv.lib.versions.majorMinor version}/bijiben-${version}.tar.xz";
+    url = "mirror://gnome/sources/bijiben/${
+      stdenv.lib.versions.majorMinor version
+    }/bijiben-${version}.tar.xz";
     sha256 = "0chm2fks7cpx3mycxzddpj6v9by203c3m1y6zns5ra43bspwafy2";
   };
 
@@ -22,21 +20,31 @@ in stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [
-    meson ninja pkgconfig gettext itstool libxml2 desktop-file-utils python3 wrapGAppsHook
+    meson
+    ninja
+    pkgconfig
+    gettext
+    itstool
+    libxml2
+    desktop-file-utils
+    python3
+    wrapGAppsHook
   ];
 
   buildInputs = [
-    glib gtk3 libuuid webkitgtk gnome3.tracker
-    gnome3.gnome-online-accounts zeitgeist
+    glib
+    gtk3
+    libuuid
+    webkitgtk
+    gnome3.tracker
+    gnome3.gnome-online-accounts
+    zeitgeist
     gsettings-desktop-schemas
     evolution-data-server
     gnome3.adwaita-icon-theme
   ];
 
-  mesonFlags = [
-    "-Dzeitgeist=true"
-    "-Dupdate_mimedb=false"
-  ];
+  mesonFlags = [ "-Dzeitgeist=true" "-Dupdate_mimedb=false" ];
 
   passthru = {
     updateScript = gnome3.updateScript {
@@ -47,7 +55,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Note editor designed to remain simple to use";
-    homepage = https://wiki.gnome.org/Apps/Notes;
+    homepage = "https://wiki.gnome.org/Apps/Notes";
     license = licenses.gpl3;
     maintainers = gnome3.maintainers;
     platforms = platforms.linux;

@@ -1,11 +1,11 @@
-{ stdenv, fetchurl
-, threadingSupport ? true # multi-threading
-, openglSupport ? false, freeglut ? null, libGLU_combined ? null # OpenGL (required for vwebp)
+{ stdenv, fetchurl, threadingSupport ? true # multi-threading
+, openglSupport ? false, freeglut ? null, libGLU_combined ?
+  null # OpenGL (required for vwebp)
 , pngSupport ? true, libpng ? null # PNG image format
 , jpegSupport ? true, libjpeg ? null # JPEG image format
 , tiffSupport ? true, libtiff ? null # TIFF image format
 , gifSupport ? true, giflib ? null # GIF image format
-#, wicSupport ? true # Windows Imaging Component
+  #, wicSupport ? true # Windows Imaging Component
 , alignedSupport ? false # Force aligned memory operations
 , swap16bitcspSupport ? false # Byte swap for 16bit color spaces
 , experimentalSupport ? false # Experimental code
@@ -21,10 +21,10 @@ assert tiffSupport -> (libtiff != null);
 assert gifSupport -> (giflib != null);
 
 let
-  mkFlag = optSet: flag: if optSet then "--enable-${flag}" else "--disable-${flag}";
-in
+  mkFlag = optSet: flag:
+    if optSet then "--enable-${flag}" else "--disable-${flag}";
 
-with stdenv.lib;
+in with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "libwebp-${version}";
   version = "1.0.2";
@@ -50,18 +50,15 @@ stdenv.mkDerivation rec {
     (mkFlag libwebpdecoderSupport "libwebpdecoder")
   ];
 
-  buildInputs = [ ]
-    ++ optionals openglSupport [ freeglut libGLU_combined ]
-    ++ optional pngSupport libpng
-    ++ optional jpegSupport libjpeg
-    ++ optional tiffSupport libtiff
-    ++ optional gifSupport giflib;
+  buildInputs = [ ] ++ optionals openglSupport [ freeglut libGLU_combined ]
+    ++ optional pngSupport libpng ++ optional jpegSupport libjpeg
+    ++ optional tiffSupport libtiff ++ optional gifSupport giflib;
 
   enableParallelBuilding = true;
 
   meta = {
     description = "Tools and library for the WebP image format";
-    homepage = https://developers.google.com/speed/webp/;
+    homepage = "https://developers.google.com/speed/webp/";
     license = licenses.bsd3;
     platforms = platforms.all;
     maintainers = with maintainers; [ codyopel ];

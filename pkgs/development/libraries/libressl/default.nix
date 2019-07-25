@@ -2,48 +2,60 @@
 
 let
 
-  generic = { version, sha256 }: stdenv.mkDerivation rec {
-    name = "libressl-${version}";
-    inherit version;
+  generic = { version, sha256 }:
+    stdenv.mkDerivation rec {
+      name = "libressl-${version}";
+      inherit version;
 
-    src = fetchurl {
-      url = "mirror://openbsd/LibreSSL/${name}.tar.gz";
-      inherit sha256;
+      src = fetchurl {
+        url = "mirror://openbsd/LibreSSL/${name}.tar.gz";
+        inherit sha256;
+      };
+
+      nativeBuildInputs = [ cmake ];
+
+      cmakeFlags = [ "-DENABLE_NC=ON" "-DBUILD_SHARED_LIBS=ON" ];
+
+      # The autoconf build is broken as of 2.9.1, resulting in the following error:
+      # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
+      # Fortunately LibreSSL provides a CMake build as well, so opt for CMake by
+      # removing ./configure pre-config.
+      preConfigure = ''
+        rm configure
+      '';
+
+      enableParallelBuilding = true;
+
+      outputs = [ "bin" "dev" "out" "man" "nc" ];
+
+      postFixup = ''
+        moveToOutput "bin/nc" "$nc"
+        moveToOutput "bin/openssl" "$bin"
+        moveToOutput "bin/ocspcheck" "$bin"
+        moveToOutput "share/man/man1/nc.1${
+          lib.optionalString (dontGzipMan == null) ".gz"
+        }" "$nc"
+      '';
+
+      dontGzipMan =
+        if stdenv.isDarwin then true else null; # not sure what's wrong
+
+      meta = with lib; {
+        description = "Free TLS/SSL implementation";
+        homepage = "https://www.libressl.org";
+        license = with licenses; [
+          publicDomain
+          bsdOriginal
+          bsd0
+          bsd3
+          gpl3
+          isc
+          openssl
+        ];
+        platforms = platforms.all;
+        maintainers = with maintainers; [ thoughtpolice fpletz globin ];
+      };
     };
-
-    nativeBuildInputs = [ cmake ];
-
-    cmakeFlags = [ "-DENABLE_NC=ON" "-DBUILD_SHARED_LIBS=ON" ];
-
-    # The autoconf build is broken as of 2.9.1, resulting in the following error:
-    # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
-    # Fortunately LibreSSL provides a CMake build as well, so opt for CMake by
-    # removing ./configure pre-config.
-    preConfigure = ''
-      rm configure
-    '';
-
-    enableParallelBuilding = true;
-
-    outputs = [ "bin" "dev" "out" "man" "nc" ];
-
-    postFixup = ''
-      moveToOutput "bin/nc" "$nc"
-      moveToOutput "bin/openssl" "$bin"
-      moveToOutput "bin/ocspcheck" "$bin"
-      moveToOutput "share/man/man1/nc.1${lib.optionalString (dontGzipMan==null) ".gz"}" "$nc"
-    '';
-
-    dontGzipMan = if stdenv.isDarwin then true else null; # not sure what's wrong
-
-    meta = with lib; {
-      description = "Free TLS/SSL implementation";
-      homepage    = "https://www.libressl.org";
-      license = with licenses; [ publicDomain bsdOriginal bsd0 bsd3 gpl3 isc openssl ];
-      platforms   = platforms.all;
-      maintainers = with maintainers; [ thoughtpolice fpletz globin ];
-    };
-  };
 
 in {
 

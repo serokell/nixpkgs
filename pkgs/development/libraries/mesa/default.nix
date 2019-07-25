@@ -1,41 +1,33 @@
-{ stdenv, lib, fetchurl, fetchpatch
-, pkgconfig, intltool, ninja, meson
-, file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl
-, llvmPackages, libffi, libomxil-bellagio, libva-minimal
-, libelf, libvdpau, python3Packages
-, libglvnd
-, enableRadv ? true
-, galliumDrivers ? ["auto"]
-, driDrivers ? ["auto"]
-, vulkanDrivers ? ["auto"]
-, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" "drm" ]
-, OpenGL, Xplugin
-, withValgrind ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32, valgrind-light
-}:
+{ stdenv, lib, fetchurl, fetchpatch, pkgconfig, intltool, ninja, meson, file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl, llvmPackages, libffi, libomxil-bellagio, libva-minimal, libelf, libvdpau, python3Packages, libglvnd, enableRadv ?
+  true, galliumDrivers ? [ "auto" ], driDrivers ? [ "auto" ], vulkanDrivers ?
+    [ "auto" ], eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [
+      "wayland"
+      "drm"
+    ], OpenGL, Xplugin, withValgrind ? stdenv.hostPlatform.isLinux
+      && !stdenv.hostPlatform.isAarch32, valgrind-light }:
 
-/** Packaging design:
-  - The basic mesa ($out) contains headers and libraries (GLU is in libGLU now).
-    This or the mesa attribute (which also contains GLU) are small (~ 2 MB, mostly headers)
-    and are designed to be the buildInput of other packages.
-  - DRI drivers are compiled into $drivers output, which is much bigger and
-    depends on LLVM. These should be searched at runtime in
-    "/run/opengl-driver{,-32}/lib/*" and so are kind-of impure (given by NixOS).
-    (I suppose on non-NixOS one would create the appropriate symlinks from there.)
-  - libOSMesa is in $osmesa (~4 MB)
+/* * Packaging design:
+   - The basic mesa ($out) contains headers and libraries (GLU is in libGLU now).
+     This or the mesa attribute (which also contains GLU) are small (~ 2 MB, mostly headers)
+     and are designed to be the buildInput of other packages.
+   - DRI drivers are compiled into $drivers output, which is much bigger and
+     depends on LLVM. These should be searched at runtime in
+     "/run/opengl-driver{,-32}/lib/*" and so are kind-of impure (given by NixOS).
+     (I suppose on non-NixOS one would create the appropriate symlinks from there.)
+   - libOSMesa is in $osmesa (~4 MB)
 */
 
 with stdenv.lib;
 
 let
   version = "19.1.1";
-  branch  = head (splitString "." version);
-in
+  branch = head (splitString "." version);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mesa";
   inherit version;
 
-  src =  fetchurl {
+  src = fetchurl {
     urls = [
       "ftp://ftp.freedesktop.org/pub/mesa/mesa-${version}.tar.xz"
       "ftp://ftp.freedesktop.org/pub/mesa/${version}/mesa-${version}.tar.xz"
@@ -56,19 +48,21 @@ stdenv.mkDerivation rec {
     ./disk_cache-include-dri-driver-path-in-cache-key.patch
   ] # do not prefix user provided dri-drivers-path
     ++ lib.optional (lib.versionOlder version "19.0.0") (fetchpatch {
-      url = "https://gitlab.freedesktop.org/mesa/mesa/commit/f6556ec7d126b31da37c08d7cb657250505e01a0.patch";
+      url =
+        "https://gitlab.freedesktop.org/mesa/mesa/commit/f6556ec7d126b31da37c08d7cb657250505e01a0.patch";
       sha256 = "0z6phi8hbrbb32kkp1js7ggzviq7faz1ria36wi4jbc4in2392d9";
-    })
-    ++ lib.optionals (lib.versionOlder version "19.1.0") [
+    }) ++ lib.optionals (lib.versionOlder version "19.1.0") [
       # do not prefix user provided d3d-drivers-path
       (fetchpatch {
-        url = "https://gitlab.freedesktop.org/mesa/mesa/commit/dcc48664197c7e44684ccfb970a4ae083974d145.patch";
+        url =
+          "https://gitlab.freedesktop.org/mesa/mesa/commit/dcc48664197c7e44684ccfb970a4ae083974d145.patch";
         sha256 = "1nhs0xpx3hiy8zfb5gx1zd7j7xha6h0hr7yingm93130a5902lkb";
       })
 
       # don't build libGLES*.so with GLVND
       (fetchpatch {
-        url = "https://gitlab.freedesktop.org/mesa/mesa/commit/b01524fff05eef66e8cd24f1c5aacefed4209f03.patch";
+        url =
+          "https://gitlab.freedesktop.org/mesa/mesa/commit/b01524fff05eef66e8cd24f1c5aacefed4209f03.patch";
         sha256 = "1pszr6acx2xw469zq89n156p3bf3xf84qpbjw5fr1sj642lbyh7c";
       })
     ];
@@ -103,24 +97,44 @@ stdenv.mkDerivation rec {
     "-Dgallium-nine=true" # Direct3D in Wine
   ];
 
-  buildInputs = with xorg; [
-    expat llvmPackages.llvm libglvnd xorgproto
-    libX11 libXext libxcb libXt libXfixes libxshmfence libXrandr
-    libffi libvdpau libelf libXvMC
-    libpthreadstubs openssl /*or another sha1 provider*/
-  ] ++ lib.optionals (elem "wayland" eglPlatforms) [ wayland wayland-protocols ]
+  buildInputs = with xorg;
+    [
+      expat
+      llvmPackages.llvm
+      libglvnd
+      xorgproto
+      libX11
+      libXext
+      libxcb
+      libXt
+      libXfixes
+      libxshmfence
+      libXrandr
+      libffi
+      libvdpau
+      libelf
+      libXvMC
+      libpthreadstubs
+      openssl # or another sha1 provider
+    ]
+    ++ lib.optionals (elem "wayland" eglPlatforms) [ wayland wayland-protocols ]
     ++ lib.optionals stdenv.isLinux [ libomxil-bellagio libva-minimal ]
     ++ lib.optional withValgrind valgrind-light;
 
   nativeBuildInputs = [
-    pkgconfig meson ninja
-    intltool bison flex file
-    python3Packages.python python3Packages.Mako
+    pkgconfig
+    meson
+    ninja
+    intltool
+    bison
+    flex
+    file
+    python3Packages.python
+    python3Packages.Mako
   ];
 
-  propagatedBuildInputs = with xorg; [
-    libXdamage libXxf86vm
-  ] ++ optional stdenv.isLinux libdrm
+  propagatedBuildInputs = with xorg;
+    [ libXdamage libXxf86vm ] ++ optional stdenv.isLinux libdrm
     ++ optionals stdenv.isDarwin [ OpenGL Xplugin ];
 
   enableParallelBuilding = true;
@@ -192,7 +206,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "An open source implementation of OpenGL";
-    homepage = https://www.mesa3d.org/;
+    homepage = "https://www.mesa3d.org/";
     license = licenses.mit; # X11 variant, in most files
     platforms = platforms.mesaPlatforms;
     maintainers = with maintainers; [ vcunat ];

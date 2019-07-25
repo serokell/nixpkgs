@@ -1,72 +1,67 @@
 # Generic builder for lua packages
-{ lib
-, lua
-, wrapLua
+{ lib, lua, wrapLua
 # Whether the derivation provides a lua module or not.
-, toLuaModule
-}:
+, toLuaModule }:
 
-{
-name ? "${attrs.pname}-${attrs.version}"
+{ name ? "${attrs.pname}-${attrs.version}"
 
 , version
 
 # by default prefix `name` e.g. "lua5.2-${name}"
-, namePrefix ? if lua.pkgs.isLuaJIT
-               then lua.name + "-"
-               else "lua" + lua.luaversion + "-"
+, namePrefix ? if lua.pkgs.isLuaJIT then
+  lua.name + "-"
+else
+  "lua" + lua.luaversion + "-"
 
-# Dependencies for building the package
-, buildInputs ? []
+  # Dependencies for building the package
+, buildInputs ? [ ]
 
-# Dependencies needed for running the checkPhase.
-# These are added to buildInputs when doCheck = true.
-, checkInputs ? []
+  # Dependencies needed for running the checkPhase.
+  # These are added to buildInputs when doCheck = true.
+, checkInputs ? [ ]
 
-# propagate build dependencies so in case we have A -> B -> C,
-# C can import package A propagated by B
-, propagatedBuildInputs ? []
-, propagatedNativeBuildInputs ? []
+  # propagate build dependencies so in case we have A -> B -> C,
+  # C can import package A propagated by B
+, propagatedBuildInputs ? [ ], propagatedNativeBuildInputs ? [ ]
 
-# used to disable derivation, useful for specific lua versions
-# TODO move from this setting meta.broken to a 'disabled' attribute on the
-# package, then use that to skip/include in each lua${ver}Packages set?
+  # used to disable derivation, useful for specific lua versions
+  # TODO move from this setting meta.broken to a 'disabled' attribute on the
+  # package, then use that to skip/include in each lua${ver}Packages set?
 , disabled ? false
 
-# Additional arguments to pass to the makeWrapper function, which wraps
-# generated binaries.
-, makeWrapperArgs ? []
+  # Additional arguments to pass to the makeWrapper function, which wraps
+  # generated binaries.
+, makeWrapperArgs ? [ ]
 
-# Skip wrapping of lua programs altogether
+  # Skip wrapping of lua programs altogether
 , dontWrapLuaPrograms ? false
 
-, meta ? {}
+, meta ? { }
 
-, passthru ? {}
-, doCheck ? false
+, passthru ? { }, doCheck ? false
 
-# Non-Lua / system (e.g. C library) dependencies. Is a list of deps, where
-# each dep is either a derivation, or an attribute set like
-# { name = "rockspec external_dependencies key"; dep = derivation; }
-# The latter is used to work-around luarocks having a problem with
-# multiple-output derivations as external deps:
-# https://github.com/luarocks/luarocks/issues/766<Paste>
-, externalDeps ? lib.unique (lib.filter (drv: !drv ? luaModule) (propagatedBuildInputs ++ buildInputs))
+  # Non-Lua / system (e.g. C library) dependencies. Is a list of deps, where
+  # each dep is either a derivation, or an attribute set like
+  # { name = "rockspec external_dependencies key"; dep = derivation; }
+  # The latter is used to work-around luarocks having a problem with
+  # multiple-output derivations as external deps:
+  # https://github.com/luarocks/luarocks/issues/766<Paste>
+, externalDeps ? lib.unique
+  (lib.filter (drv: !drv ? luaModule) (propagatedBuildInputs ++ buildInputs))
 
-# Appended to the generated luarocks config
+  # Appended to the generated luarocks config
 , extraConfig ? ""
-# Inserted into the generated luarocks config in the "variables" table
+  # Inserted into the generated luarocks config in the "variables" table
 , extraVariables ? ""
-# The two above arguments have access to builder variables -- e.g. to $out
+  # The two above arguments have access to builder variables -- e.g. to $out
 
-# relative to srcRoot, path to the rockspec to use when using rocks
-, rockspecFilename ?  "../*.rockspec"
+  # relative to srcRoot, path to the rockspec to use when using rocks
+, rockspecFilename ? "../*.rockspec"
 
-# must be set for packages that don't have a rock
+  # must be set for packages that don't have a rock
 , knownRockspec ? null
 
-, ... } @ attrs:
-
+, ... }@attrs:
 
 # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
 
@@ -85,7 +80,11 @@ let
     -- Then we need to tell luarocks where to find the rock files per
     -- dependency
     rocks_trees = {
-      ${lib.concatStringsSep "\n, " rocksTrees}
+      ${
+      lib.concatStringsSep ''
+
+        , '' rocksTrees
+      }
     }
   '' + lib.optionalString lua.pkgs.isLuaJIT ''
     -- Luajit provides some additional functionality built-in; this exposes
@@ -99,13 +98,19 @@ let
   '' + ''
     -- For single-output external dependencies
     external_deps_dirs = {
-      ${lib.concatStringsSep "\n, " externalDepsDirs}
+      ${
+      lib.concatStringsSep ''
+
+        , '' externalDepsDirs
+      }
     }
     variables = {
       -- Some needed machinery to handle multiple-output external dependencies,
       -- as per https://github.com/luarocks/luarocks/issues/766
-      ${lib.optionalString (lib.length depVariables > 0) ''
-      ${lib.concatStringsSep "\n  " depVariables}''}
+      ${
+      lib.optionalString (lib.length depVariables > 0)
+      "${lib.concatStringsSep "\n  " depVariables}"
+      }
       ${extraVariables}
     }
     ${extraConfig}
@@ -113,12 +118,13 @@ let
 
   rocksSubdir = "${attrs.pname}-${version}-rocks";
 
-  externalDepsDirs = map
-    (x: "'${builtins.toString x}'")
+  externalDepsDirs = map (x: "'${builtins.toString x}'")
     (lib.filter (lib.isDerivation) externalDeps);
 
-  rocksTrees = lib.imap0
-    (i: dep: "{ name = [[dep-${toString i}]], root = '${dep}', rocks_dir = '${dep}/${dep.rocksSubdir}' }")
+  rocksTrees = lib.imap0 (i: dep:
+    "{ name = [[dep-${
+      toString i
+    }]], root = '${dep}', rocks_dir = '${dep}/${dep.rocksSubdir}' }")
     requiredLuaRocks;
 
   # Filter out the lua derivation itself from the Lua module dependency
@@ -129,7 +135,7 @@ let
   # Explicitly point luarocks to the relevant locations for multiple-output
   # derivations that are external dependencies, to work around an issue it has
   # (https://github.com/luarocks/luarocks/issues/766)
-  depVariables = lib.concatMap ({name, dep}: [
+  depVariables = lib.concatMap ({ name, dep }: [
     "${name}_INCDIR='${lib.getDev dep}/include';"
     "${name}_LIBDIR='${lib.getLib dep}/lib';"
     "${name}_BINDIR='${lib.getBin dep}/bin';"
@@ -137,17 +143,13 @@ let
 
   # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
   externalDeps' = lib.filter (dep: !lib.isDerivation dep) externalDeps;
-in
-toLuaModule ( lua.stdenv.mkDerivation (
-builtins.removeAttrs attrs ["disabled" "checkInputs" "externalDeps"] // {
+in toLuaModule (lua.stdenv.mkDerivation
+(builtins.removeAttrs attrs [ "disabled" "checkInputs" "externalDeps" ] // {
 
   name = namePrefix + name;
 
-  buildInputs = [ wrapLua lua.pkgs.luarocks ]
-    ++ buildInputs
-    ++ lib.optionals doCheck checkInputs
-    ++ (map (d: d.dep) externalDeps')
-    ;
+  buildInputs = [ wrapLua lua.pkgs.luarocks ] ++ buildInputs
+    ++ lib.optionals doCheck checkInputs ++ (map (d: d.dep) externalDeps');
 
   # propagate lua to active setup-hook in nix-shell
   propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
@@ -160,15 +162,13 @@ builtins.removeAttrs attrs ["disabled" "checkInputs" "externalDeps"] // {
   inherit rocksSubdir;
 
   # enabled only for src.rock
-  setSourceRoot= let
-    name_only=(builtins.parseDrvName name).name;
-  in
-    lib.optionalString (knownRockspec == null) ''
-    # format is rockspec_basename/source_basename
-    # rockspec can set it via spec.source.dir
-    folder=$(find . -mindepth 2 -maxdepth 2 -type d -path '*${name_only}*/*'|head -n1)
-    sourceRoot="$folder"
-  '';
+  setSourceRoot = let name_only = (builtins.parseDrvName name).name;
+    in lib.optionalString (knownRockspec == null) ''
+      # format is rockspec_basename/source_basename
+      # rockspec can set it via spec.source.dir
+      folder=$(find . -mindepth 2 -maxdepth 2 -type d -path '*${name_only}*/*'|head -n1)
+      sourceRoot="$folder"
+    '';
 
   configurePhase = ''
     runHook preConfigure
@@ -177,15 +177,13 @@ builtins.removeAttrs attrs ["disabled" "checkInputs" "externalDeps"] // {
     ${luarocks_content}
     EOF
     export LUAROCKS_CONFIG="$PWD/${luarocks_config}";
-  ''
-  + lib.optionalString (knownRockspec != null) ''
+  '' + lib.optionalString (knownRockspec != null) ''
 
     # prevents the following type of error:
     # Inconsistency between rockspec filename (42fm1b3d7iv6fcbhgm9674as3jh6y2sh-luv-1.22.0-1.rockspec) and its contents (luv-1.22.0-1.rockspec)
     rockspecFilename="$TMP/$(stripHash ''${knownRockspec})"
     cp ''${knownRockspec} "$rockspecFilename"
-  ''
-  + ''
+  '' + ''
     runHook postConfigure
   '';
 
@@ -206,7 +204,7 @@ builtins.removeAttrs attrs ["disabled" "checkInputs" "externalDeps"] // {
 
   postFixup = lib.optionalString (!dontWrapLuaPrograms) ''
     wrapLuaPrograms
-  '' + attrs.postFixup or '''';
+  '' + attrs.postFixup or "";
 
   installPhase = attrs.installPhase or ''
     runHook preInstall
@@ -234,10 +232,11 @@ builtins.removeAttrs attrs ["disabled" "checkInputs" "externalDeps"] // {
     inherit externalDeps;
   } // passthru;
 
-  meta = with lib.maintainers; {
+  meta = with lib.maintainers;
+  {
     platforms = lua.meta.platforms;
     # add extra maintainer(s) to every package
-    maintainers = (meta.maintainers or []) ++ [ ];
+    maintainers = (meta.maintainers or [ ]) ++ [ ];
     broken = disabled;
   } // meta;
 }))

@@ -29,27 +29,22 @@ let
 
   streamToOption = name: opt:
     let
-      os = val:
-        optionalString (val != null) "${val}";
-      os' = prefixx: val:
-        optionalString (val != null) (prefixx + "${val}");
-      flatten = key: value:
-        "&${key}=${value}";
-    in
-      "-s ${opt.type}://" + os opt.location + "?" + os' "name=" name
-        + concatStrings (mapAttrsToList flatten opt.query);
+      os = val: optionalString (val != null) "${val}";
+      os' = prefixx: val: optionalString (val != null) (prefixx + "${val}");
+      flatten = key: value: "&${key}=${value}";
+    in "-s ${opt.type}://" + os opt.location + "?" + os' "name=" name
+    + concatStrings (mapAttrsToList flatten opt.query);
 
-  optionalNull = val: ret:
-    optional (val != null) ret;
+  optionalNull = val: ret: optional (val != null) ret;
 
   optionString = concatStringsSep " " (mapAttrsToList streamToOption cfg.streams
-             ++ ["-p ${toString cfg.port}"]
-             ++ ["--controlPort ${toString cfg.controlPort}"]
-             ++ optionalNull cfg.sampleFormat "--sampleFormat ${cfg.sampleFormat}"
-             ++ optionalNull cfg.codec "-c ${cfg.codec}"
-             ++ optionalNull cfg.streamBuffer "--streamBuffer ${cfg.streamBuffer}"
-             ++ optionalNull cfg.buffer "-b ${cfg.buffer}"
-             ++ optional cfg.sendToMuted "--sendToMuted");
+    ++ [ "-p ${toString cfg.port}" ]
+    ++ [ "--controlPort ${toString cfg.controlPort}" ]
+    ++ optionalNull cfg.sampleFormat "--sampleFormat ${cfg.sampleFormat}"
+    ++ optionalNull cfg.codec "-c ${cfg.codec}"
+    ++ optionalNull cfg.streamBuffer "--streamBuffer ${cfg.streamBuffer}"
+    ++ optionalNull cfg.buffer "-b ${cfg.buffer}"
+    ++ optional cfg.sendToMuted "--sendToMuted");
 
 in {
 
@@ -95,44 +90,46 @@ in {
       inherit codec;
 
       streams = mkOption {
-        type = with types; attrsOf (submodule {
-          options = {
-            location = mkOption {
-              type = types.path;
-              description = ''
-                The location of the pipe.
-              '';
+        type = with types;
+          attrsOf (submodule {
+            options = {
+              location = mkOption {
+                type = types.path;
+                description = ''
+                  The location of the pipe.
+                '';
+              };
+              type = mkOption {
+                type =
+                  types.enum [ "pipe" "file" "process" "spotify" "airplay" ];
+                default = "pipe";
+                description = ''
+                  The type of input stream.
+                '';
+              };
+              query = mkOption {
+                type = attrsOf str;
+                default = { };
+                description = ''
+                  Key-value pairs that convey additional parameters about a stream.
+                '';
+                example = literalExample ''
+                  # for type == "pipe":
+                  {
+                    mode = "listen";
+                  };
+                  # for type == "process":
+                  {
+                    params = "--param1 --param2";
+                    logStderr = "true";
+                  };
+                '';
+              };
+              inherit sampleFormat;
+              inherit codec;
             };
-            type = mkOption {
-              type = types.enum [ "pipe" "file" "process" "spotify" "airplay" ];
-              default = "pipe";
-              description = ''
-                The type of input stream.
-              '';
-            };
-            query = mkOption {
-              type = attrsOf str;
-              default = {};
-              description = ''
-                Key-value pairs that convey additional parameters about a stream.
-              '';
-              example = literalExample ''
-                # for type == "pipe":
-                {
-                  mode = "listen";
-                };
-                # for type == "process":
-                {
-                  params = "--param1 --param2";
-                  logStderr = "true";
-                };
-              '';
-            };
-            inherit sampleFormat;
-            inherit codec;
-          };
-        });
-        default = { default = {}; };
+          });
+        default = { default = { }; };
         description = ''
           The definition for an input source.
         '';
@@ -177,7 +174,6 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -206,11 +202,10 @@ in {
       };
     };
 
-    networking.firewall.allowedTCPPorts = optionals cfg.openFirewall [ cfg.port cfg.controlPort ];
+    networking.firewall.allowedTCPPorts =
+      optionals cfg.openFirewall [ cfg.port cfg.controlPort ];
   };
 
-  meta = {
-    maintainers = with maintainers; [ tobim ];
-  };
+  meta = { maintainers = with maintainers; [ tobim ]; };
 
 }

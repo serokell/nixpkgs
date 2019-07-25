@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeDesktopItem, makeWrapper, premake4, unzip
-, openal, libpng, libvorbis, libGLU, SDL2, SDL2_image, SDL2_ttf }:
+{ stdenv, fetchurl, makeDesktopItem, makeWrapper, premake4, unzip, openal, libpng, libvorbis, libGLU, SDL2, SDL2_image, SDL2_ttf
+}:
 
 let
   pname = "tome4";
@@ -10,7 +10,8 @@ let
     exec = "@out@/bin/${pname}";
     icon = "${pname}";
     terminal = "False";
-    comment = "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
+    comment =
+      "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
     type = "Application";
     categories = "Game;RolePlaying;";
     genericName = pname;
@@ -29,9 +30,7 @@ in stdenv.mkDerivation rec {
 
   # tome4 vendors quite a few libraries so someone might want to look
   # into avoiding that...
-  buildInputs = [
-    libGLU openal libpng libvorbis SDL2 SDL2_ttf SDL2_image
-  ];
+  buildInputs = [ libGLU openal libpng libvorbis SDL2 SDL2_ttf SDL2_image ];
 
   # disable parallel building as it caused sporadic build failures
   enableParallelBuilding = false;
@@ -71,7 +70,7 @@ in stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Tales of Maj'eyal (rogue-like game)";
-    homepage = https://te4.org/;
+    homepage = "https://te4.org/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ chattered peterhoeg ];
     platforms = with platforms; [ "i686-linux" "x86_64-linux" ];
