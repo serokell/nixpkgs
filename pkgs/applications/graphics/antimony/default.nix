@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libpng, python3, libGLU_combined, qtbase, ncurses, cmake, flex, lemon
-}:
+{ stdenv, fetchFromGitHub, libpng, python3, libGLU_combined, qtbase, ncurses
+, cmake, flex, lemon }:
 
 let
   gitRev = "c0038e3ea82fec6119de364bcbc3370955ed46a2";

@@ -1,8 +1,8 @@
 let maybePkgs = import ../../../../../. { };
 
-in { stdenv ? maybePkgs.stdenv, runCommand ? maybePkgs.runCommand, fetchurl ?
-  maybePkgs.fetchurl, writeText ? maybePkgs.writeText, curl ?
-    maybePkgs.curl, cacert ? maybePkgs.cacert, nix ? maybePkgs.nix }:
+in { stdenv ? maybePkgs.stdenv, runCommand ? maybePkgs.runCommand
+, fetchurl ? maybePkgs.fetchurl, writeText ? maybePkgs.writeText
+, curl ? maybePkgs.curl, cacert ? maybePkgs.cacert, nix ? maybePkgs.nix }:
 
 let
   inherit (stdenv) lib;

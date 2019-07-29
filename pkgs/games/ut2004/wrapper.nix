@@ -1,5 +1,5 @@
-{ stdenv, lib, runCommand, buildEnv, makeWrapper, makeDesktopItem, gamePacks, libstdcxx5, SDL, openal
-}:
+{ stdenv, lib, runCommand, buildEnv, makeWrapper, makeDesktopItem, gamePacks
+, libstdcxx5, SDL, openal }:
 
 let
   game = buildEnv {

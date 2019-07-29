@@ -1,14 +1,15 @@
 # currently needs to be installed into an environment and needs a `kbuildsycoca5` run afterwards for plugin discovery
-{ mkDerivation, fetchFromGitHub, lib, makeWrapper, cmake, extra-cmake-modules, pkgconfig, libkcddb, kconfig, kconfigwidgets, ki18n, kdelibs4support, kio, solid, kwidgetsaddons, kxmlgui, qtbase, phonon, taglib,
+{ mkDerivation, fetchFromGitHub, lib, makeWrapper, cmake, extra-cmake-modules
+, pkgconfig, libkcddb, kconfig, kconfigwidgets, ki18n, kdelibs4support, kio
+, solid, kwidgetsaddons, kxmlgui, qtbase, phonon, taglib,
 # optional backends
-withCD ? true, cdparanoia, withFlac ? true, flac, withMidi ?
-  true, fluidsynth, timidity, withSpeex ? false, speex, withVorbis ?
-    true, vorbis-tools, vorbisgain, withMp3 ? true, lame, mp3gain, withAac ?
-      true, faad2, aacgain, withUnfreeAac ? false, faac, withFfmpeg ?
-        true, ffmpeg-full, withMplayer ? false, mplayer, withSox ?
-          true, sox, withOpus ? true, opusTools, withTwolame ?
-            false, twolame, withApe ? false, mac, withWavpack ? false, wavpack
-}:
+withCD ? true, cdparanoia, withFlac ? true, flac, withMidi ? true, fluidsynth
+, timidity, withSpeex ? false, speex, withVorbis ? true, vorbis-tools
+, vorbisgain, withMp3 ? true, lame, mp3gain, withAac ? true, faad2, aacgain
+, withUnfreeAac ? false, faac, withFfmpeg ? true, ffmpeg-full
+, withMplayer ? false, mplayer, withSox ? true, sox, withOpus ? true, opusTools
+, withTwolame ? false, twolame, withApe ? false, mac, withWavpack ? false
+, wavpack }:
 
 assert withAac -> withFfmpeg || withUnfreeAac;
 assert withUnfreeAac -> withAac;

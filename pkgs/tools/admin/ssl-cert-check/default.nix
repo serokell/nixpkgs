@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, openssl, which, gnugrep, gnused, gawk, mktemp, coreutils, findutils
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, openssl, which, gnugrep, gnused, gawk
+, mktemp, coreutils, findutils }:
 
 stdenv.mkDerivation rec {
   pname = "ssl-cert-check";

@@ -1,5 +1,6 @@
-{ stdenv, isPy3k, buildPythonPackage, fetchPypi, numpy, scipy, sympy, matplotlib, networkx, ply, pillow, cffi, requests, requests_ntlm, IBMQuantumExperience, jsonschema, psutil, cmake, llvmPackages
-}:
+{ stdenv, isPy3k, buildPythonPackage, fetchPypi, numpy, scipy, sympy, matplotlib
+, networkx, ply, pillow, cffi, requests, requests_ntlm, IBMQuantumExperience
+, jsonschema, psutil, cmake, llvmPackages }:
 
 buildPythonPackage rec {
   pname = "qiskit";

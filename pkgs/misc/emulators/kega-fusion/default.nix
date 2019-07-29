@@ -1,5 +1,5 @@
-{ stdenv, lib, writeText, fetchurl, upx, libGLU, glib, gtk2, alsaLib, libSM, libX11, gdk_pixbuf, pango, libXinerama, mpg123, runtimeShell
-}:
+{ stdenv, lib, writeText, fetchurl, upx, libGLU, glib, gtk2, alsaLib, libSM
+, libX11, gdk_pixbuf, pango, libXinerama, mpg123, runtimeShell }:
 
 let
   libPath = lib.makeLibraryPath [

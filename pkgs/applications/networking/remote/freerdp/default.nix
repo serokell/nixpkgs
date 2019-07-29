@@ -1,6 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, alsaLib, ffmpeg, glib, openssl, pcre, zlib, libX11, libXcursor, libXdamage, libXext, libXi, libXinerama, libXrandr, libXrender, libXv, libxkbcommon, libxkbfile, wayland, gstreamer, gst-plugins-base, gst-plugins-good, libunwind, orc, libpulseaudio ?
-  null, cups ? null, pcsclite ? null, systemd ? null, buildServer ?
-    true, nocaps ? false }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, alsaLib, ffmpeg, glib, openssl
+, pcre, zlib, libX11, libXcursor, libXdamage, libXext, libXi, libXinerama
+, libXrandr, libXrender, libXv, libxkbcommon, libxkbfile, wayland, gstreamer
+, gst-plugins-base, gst-plugins-good, libunwind, orc, libpulseaudio ? null
+, cups ? null, pcsclite ? null, systemd ? null, buildServer ? true
+, nocaps ? false }:
 
 stdenv.mkDerivation rec {
   name = "freerdp-${version}";

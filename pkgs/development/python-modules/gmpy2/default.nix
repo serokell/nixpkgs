@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, isPyPy, gmp, mpfr, libmpc
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, isPyPy, gmp, mpfr
+, libmpc }:
 
 let
   pname = "gmpy2";

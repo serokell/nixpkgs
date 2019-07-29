@@ -19,15 +19,15 @@ rec {
      config (as the proper arguments need to be replicated at each call to
      evalModules) and the less declarative the module set is.
   */
-  evalModules = { modules, prefix ?
-    [ ], # This should only be used for special arguments that need to be evaluated
+  evalModules = { modules, prefix ? [ ]
+    , # This should only be used for special arguments that need to be evaluated
     # when resolving module structure (like in imports). For everything else,
     # there's _module.args. If specialArgs.modulesPath is defined it will be
     # used as the base path for disabledModules.
-    specialArgs ?
-      { }, # This would be remove in the future, Prefer _module.args option instead.
-    args ?
-      { }, # This would be remove in the future, Prefer _module.check option instead.
+    specialArgs ? { }
+    , # This would be remove in the future, Prefer _module.args option instead.
+    args ? { }
+    , # This would be remove in the future, Prefer _module.check option instead.
     check ? true }:
     let
       # This internal module declare internal options under the `_module'

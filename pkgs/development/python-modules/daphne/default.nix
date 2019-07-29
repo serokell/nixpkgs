@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, isPy3k, fetchFromGitHub, fetchpatch, asgiref, autobahn, twisted, pytestrunner, hypothesis, pytest, pytest-asyncio
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchFromGitHub, fetchpatch, asgiref
+, autobahn, twisted, pytestrunner, hypothesis, pytest, pytest-asyncio }:
 buildPythonPackage rec {
   pname = "daphne";
   version = "2.3.0";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cmake, perl, pkgconfig, zlib, darwin, libiconv
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, cmake, perl, pkgconfig, zlib, darwin
+, libiconv }:
 
 with rustPlatform;
 

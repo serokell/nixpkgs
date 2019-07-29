@@ -13,12 +13,12 @@ let
     name = "${ext.publisher}-${ext.name}.zip";
   };
 
-  buildVscodeExtension =
-    a@{ name, namePrefix ? "${extendedPkgName}-extension-", src,
+  buildVscodeExtension = a@{ name, namePrefix ? "${extendedPkgName}-extension-"
+    , src,
     # Same as "Unique Identifier" on the extension's web page.
     # For the moment, only serve as unique extension dir.
-    vscodeExtUniqueId, configurePhase ? ":", buildPhase ? ":", dontPatchELF ?
-      true, dontStrip ? true, buildInputs ? [ ], ... }:
+    vscodeExtUniqueId, configurePhase ? ":", buildPhase ? ":"
+    , dontPatchELF ? true, dontStrip ? true, buildInputs ? [ ], ... }:
     stdenv.mkDerivation ((removeAttrs a [ "vscodeExtUniqueId" ]) // {
 
       name = namePrefix + name;

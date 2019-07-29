@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, systemd, pango, cairo, gdk_pixbuf, wayland, wayland-protocols, fetchpatch
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, systemd, pango, cairo
+, gdk_pixbuf, wayland, wayland-protocols, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "mako";

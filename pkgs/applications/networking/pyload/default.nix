@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pythonPackages, gocr, unrar, rhino, spidermonkey
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, pythonPackages, gocr, unrar, rhino
+, spidermonkey }:
 
 let
   beautifulsoup =

@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, gnome3, meson, ninja, pkgconfig, gtk3, intltool, glib, udev, itstool, libxml2, wrapGAppsHook, libnotify, libcanberra-gtk3, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_43, python3, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, gnome3, meson, ninja, pkgconfig, gtk3, intltool, glib, udev
+, itstool, libxml2, wrapGAppsHook, libnotify, libcanberra-gtk3
+, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_43, python3
+, gsettings-desktop-schemas }:
 
 let pname = "gnome-bluetooth";
 in stdenv.mkDerivation rec {

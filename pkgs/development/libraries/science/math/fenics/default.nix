@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, boost, cmake, doxygen, eigen, numpy, pkgconfig, pytest, pythonPackages, six, sympy, gtest ?
-  null, hdf5 ? null, mpi ? null, ply ? null, python ? null, sphinx ?
-    null, suitesparse ? null, swig ? null, vtk ? null, zlib ? null, docs ?
-      false, pythonBindings ? false, doCheck ? true }:
+{ stdenv, fetchurl, boost, cmake, doxygen, eigen, numpy, pkgconfig, pytest
+, pythonPackages, six, sympy, gtest ? null, hdf5 ? null, mpi ? null, ply ? null
+, python ? null, sphinx ? null, suitesparse ? null, swig ? null, vtk ? null
+, zlib ? null, docs ? false, pythonBindings ? false, doCheck ? true }:
 
 assert pythonBindings -> python != null && ply != null && swig != null;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gnome_python, librsvg, libwnck, libgtop, pkgconfig, python2, gtk2
-}:
+{ stdenv, fetchurl, gnome_python, librsvg, libwnck, libgtop, pkgconfig, python2
+, gtk2 }:
 
 let inherit (python2.pkgs) python pygtk;
 in stdenv.mkDerivation rec {

@@ -1,5 +1,9 @@
-{ stdenv, fetchFromGitHub, substituteAll, libtool, pkgconfig, gettext, gnused, gtk-doc, acl, systemd, glib, libatasmart, polkit, coreutils, bash, which, expat, libxslt, docbook_xsl, utillinux, mdadm, libgudev, libblockdev, parted, gobject-introspection, docbook_xml_dtd_412, docbook_xml_dtd_43, autoconf, automake, xfsprogs, f2fs-tools, dosfstools, e2fsprogs, btrfs-progs, exfat, nilfs-utils, ntfs3g
-}:
+{ stdenv, fetchFromGitHub, substituteAll, libtool, pkgconfig, gettext, gnused
+, gtk-doc, acl, systemd, glib, libatasmart, polkit, coreutils, bash, which
+, expat, libxslt, docbook_xsl, utillinux, mdadm, libgudev, libblockdev, parted
+, gobject-introspection, docbook_xml_dtd_412, docbook_xml_dtd_43, autoconf
+, automake, xfsprogs, f2fs-tools, dosfstools, e2fsprogs, btrfs-progs, exfat
+, nilfs-utils, ntfs3g }:
 
 let version = "2.8.2";
 in stdenv.mkDerivation rec {

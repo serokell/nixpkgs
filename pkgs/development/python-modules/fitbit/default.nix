@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, coverage, dateutil, freezegun, mock, requests-mock, requests_oauthlib, sphinx
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, coverage, dateutil, freezegun, mock
+, requests-mock, requests_oauthlib, sphinx }:
 
 buildPythonPackage rec {
   pname = "fitbit";

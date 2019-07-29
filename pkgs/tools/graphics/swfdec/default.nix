@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cairo, pango, glib, liboil, zlib, gstreamer, gst-plugins-base, gst-plugins-good, gtk2, libsoup, alsaLib, pkgconfig
-}:
+{ stdenv, fetchurl, cairo, pango, glib, liboil, zlib, gstreamer
+, gst-plugins-base, gst-plugins-good, gtk2, libsoup, alsaLib, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

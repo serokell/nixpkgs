@@ -1,5 +1,5 @@
-{ stdenv, file, curl, pkgconfig, python, openssl, cmake, zlib, makeWrapper, libiconv, cacert, rustPlatform, rustc, libgit2, CoreFoundation, Security
-}:
+{ stdenv, file, curl, pkgconfig, python, openssl, cmake, zlib, makeWrapper
+, libiconv, cacert, rustPlatform, rustc, libgit2, CoreFoundation, Security }:
 
 rustPlatform.buildRustPackage rec {
   name = "cargo-${rustc.version}";

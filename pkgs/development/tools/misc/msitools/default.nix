@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, glib, pkgconfig, libgsf, libuuid, gcab, bzip2, gnome3
-}:
+{ stdenv, fetchurl, intltool, glib, pkgconfig, libgsf, libuuid, gcab, bzip2
+, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "msitools";

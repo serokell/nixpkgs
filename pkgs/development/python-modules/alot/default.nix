@@ -1,5 +1,7 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, isPy3k, notmuch, urwid, urwidtrees, twisted, python_magic, configobj, mock, file, gpgme, service-identity, gnupg ?
-  null, sphinx, awk ? null, procps ? null, future ? null, withManpage ? false }:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, isPy3k, notmuch, urwid
+, urwidtrees, twisted, python_magic, configobj, mock, file, gpgme
+, service-identity, gnupg ? null, sphinx, awk ? null, procps ? null
+, future ? null, withManpage ? false }:
 
 buildPythonPackage rec {
   pname = "alot";

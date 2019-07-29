@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, SDL2, alsaLib, gtk3, makeWrapper, libGLU_combined, libarchive, libao, unzip, xdg_utils, epoxy, gdk_pixbuf, gnome3, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, SDL2, alsaLib, gtk3, makeWrapper
+, libGLU_combined, libarchive, libao, unzip, xdg_utils, epoxy, gdk_pixbuf
+, gnome3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   version = "1.47";

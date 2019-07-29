@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, intltool, libxfce4util, libxfcegui4, xfce4-panel, gtk, exo, garcon
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, intltool, libxfce4util, libxfcegui4
+, xfce4-panel, gtk, exo, garcon }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

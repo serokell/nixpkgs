@@ -1,5 +1,6 @@
-{ stdenv, gcc, glibc, fetchurl, fetchgit, libtool, autoconf, automake, file, gnumake, which, zsh, m4, pkgconfig, perl, gnome2, pango, sqlite, libxml2, zlib, gmp, smlnj
-}:
+{ stdenv, gcc, glibc, fetchurl, fetchgit, libtool, autoconf, automake, file
+, gnumake, which, zsh, m4, pkgconfig, perl, gnome2, pango, sqlite, libxml2, zlib
+, gmp, smlnj }:
 
 stdenv.mkDerivation {
   name = "aliceml-1.4-7d44dc8e";

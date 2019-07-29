@@ -1,5 +1,6 @@
-{ stdenv, cmake, qtbase, fetchurl, qtdeclarative, qtmultimedia, qttools, qtsensors, qmlbox2d, gettext, qtquickcontrols, qtgraphicaleffects, qtxmlpatterns, makeWrapper, gst_all_1, ninja
-}:
+{ stdenv, cmake, qtbase, fetchurl, qtdeclarative, qtmultimedia, qttools
+, qtsensors, qmlbox2d, gettext, qtquickcontrols, qtgraphicaleffects
+, qtxmlpatterns, makeWrapper, gst_all_1, ninja }:
 stdenv.mkDerivation rec {
   version = "0.96";
   name = "gcompris-${version}";

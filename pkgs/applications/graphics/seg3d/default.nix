@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, cmake, wxGTK, itk, libGLU_combined, libXft, libXext, libXi, zlib, libXmu, libuuid
-}:
+{ fetchurl, stdenv, cmake, wxGTK, itk, libGLU_combined, libXft, libXext, libXi
+, zlib, libXmu, libuuid }:
 
 assert (stdenv ? glibc);
 

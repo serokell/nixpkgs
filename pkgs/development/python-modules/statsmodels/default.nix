@@ -1,5 +1,5 @@
-{ lib, self, buildPythonPackage, fetchPypi, nose, numpy, scipy, pandas, patsy, cython, matplotlib
-}:
+{ lib, self, buildPythonPackage, fetchPypi, nose, numpy, scipy, pandas, patsy
+, cython, matplotlib }:
 
 buildPythonPackage rec {
   pname = "statsmodels";

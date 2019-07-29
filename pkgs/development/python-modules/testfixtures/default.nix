@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, mock, pytest, sybil, zope_component
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, mock, pytest, sybil
+, zope_component }:
 
 buildPythonPackage rec {
   pname = "testfixtures";

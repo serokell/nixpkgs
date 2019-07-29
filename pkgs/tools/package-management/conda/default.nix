@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, runCommand, makeWrapper, buildFHSUserEnv, libselinux, libarchive, libGL, xorg
+{ lib, stdenv, fetchurl, runCommand, makeWrapper, buildFHSUserEnv, libselinux
+, libarchive, libGL, xorg
 # Conda installs its packages and environments under this directory
 , installationPath ? "~/.conda"
   # Conda manages most pkgs itself, but expects a few to be on the system.

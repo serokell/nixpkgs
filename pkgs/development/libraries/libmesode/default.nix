@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, libtool, openssl, expat, pkgconfig, check
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, libtool, openssl, expat, pkgconfig
+, check }:
 
 stdenv.mkDerivation rec {
   name = "libmesode-${version}";

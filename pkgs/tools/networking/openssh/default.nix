@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, zlib, openssl, libedit, pkgconfig, pam, autoreconfHook, etcDir ?
-  null, hpnSupport ? false, withKerberos ? true, withGssapiPatches ?
-    false, kerberos, linkOpenssl ? true }:
+{ stdenv, fetchurl, fetchpatch, zlib, openssl, libedit, pkgconfig, pam
+, autoreconfHook, etcDir ? null, hpnSupport ? false, withKerberos ? true
+, withGssapiPatches ? false, kerberos, linkOpenssl ? true }:
 
 let
 

@@ -1,5 +1,5 @@
-{ runCommand, stdenv, storeDir ?
-  builtins.storeDir, writeScript, singularity, writeReferencesToFile, bash, vmTools, gawk, utillinux, runtimeShell, e2fsprogs
+{ runCommand, stdenv, storeDir ? builtins.storeDir, writeScript, singularity
+, writeReferencesToFile, bash, vmTools, gawk, utillinux, runtimeShell, e2fsprogs
 }:
 
 rec {

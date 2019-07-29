@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, which, autoconf, automake, flex, bison, kernel, glibc, perl
-}:
+{ stdenv, fetchurl, fetchpatch, which, autoconf, automake, flex, bison, kernel
+, glibc, perl }:
 
 with (import ./srcs.nix { inherit fetchurl; });
 

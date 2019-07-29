@@ -1,5 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi, click, dataclasses, jsonschema, matplotlib, numpy, pandas, regional, semantic-version, scikitimage, scikitlearn, scipy, showit, slicedimage, sympy, tqdm, trackpy, validators, xarray, ipywidgets, pytest, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, click, dataclasses, jsonschema, matplotlib
+, numpy, pandas, regional, semantic-version, scikitimage, scikitlearn, scipy
+, showit, slicedimage, sympy, tqdm, trackpy, validators, xarray, ipywidgets
+, pytest, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "starfish";

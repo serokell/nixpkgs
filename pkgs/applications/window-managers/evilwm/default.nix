@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, libXext, libXrandr, libXrender, xorgproto, patches ?
-  [ ] }:
+{ stdenv, fetchurl, libX11, libXext, libXrandr, libXrender, xorgproto
+, patches ? [ ] }:
 
 stdenv.mkDerivation rec {
   name = "evilwm-1.1.1";

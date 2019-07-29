@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, ncurses, libX11, libXaw, libXt, libXext, libXmu, makeWrapper, writeScript, ...
-}:
+{ stdenv, fetchzip, ncurses, libX11, libXaw, libXt, libXext, libXmu, makeWrapper
+, writeScript, ... }:
 let
   setup = writeScript "setup" ''
     mkdir -p "$ANGBAND_PATH"

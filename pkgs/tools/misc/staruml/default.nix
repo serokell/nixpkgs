@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, dpkg, patchelf, gtk2, glib, gdk_pixbuf, alsaLib, nss, nspr, GConf, cups, libgcrypt, dbus, systemd, libXdamage, expat
-}:
+{ stdenv, fetchurl, makeWrapper, dpkg, patchelf, gtk2, glib, gdk_pixbuf, alsaLib
+, nss, nspr, GConf, cups, libgcrypt, dbus, systemd, libXdamage, expat }:
 
 let
   inherit (stdenv) lib;

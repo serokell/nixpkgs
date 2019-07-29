@@ -1,7 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, flex, bison, gettext, xineUI, wxSVG, fontconfig, xmlto, docbook5, zip, cdrtools, dvdauthor, dvdplusrwtools, dvdisasterSupport ?
-  true, dvdisaster ? null, thumbnailSupport ? true, libgnomeui ?
-    null, udevSupport ? true, udev ? null, dbusSupport ? true, dbus ?
-      null, makeWrapper }:
+{ stdenv, fetchurl, pkgconfig, flex, bison, gettext, xineUI, wxSVG, fontconfig
+, xmlto, docbook5, zip, cdrtools, dvdauthor, dvdplusrwtools
+, dvdisasterSupport ? true, dvdisaster ? null, thumbnailSupport ? true
+, libgnomeui ? null, udevSupport ? true, udev ? null, dbusSupport ? true
+, dbus ? null, makeWrapper }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, writeText, ncurses, wayland, wayland-protocols, wld, libxkbcommon, fontconfig, pixman, conf, patches
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, writeText, ncurses, wayland
+, wayland-protocols, wld, libxkbcommon, fontconfig, pixman, conf, patches }:
 
 with stdenv.lib;
 

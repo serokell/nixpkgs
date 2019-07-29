@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, attr, keyutils, libaio, libapparmor, libbsd, libcap, libgcrypt, lksctp-tools, zlib
-}:
+{ stdenv, fetchurl, attr, keyutils, libaio, libapparmor, libbsd, libcap
+, libgcrypt, lksctp-tools, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "stress-ng";

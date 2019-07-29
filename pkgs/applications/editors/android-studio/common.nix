@@ -1,7 +1,10 @@
 { channel, pname, version, build, sha256Hash }:
 
-{ bash, buildFHSUserEnv, coreutils, fetchurl, findutils, file, fontsConf, git, glxinfo, gnugrep, gnused, gnutar, gtk2, gnome_vfs, glib, GConf, gzip, fontconfig, freetype, libpulseaudio, libGL, libX11, libXext, libXi, libXrandr, libXrender, libXtst, makeWrapper, pciutils, pkgsi686Linux, setxkbmap, stdenv, unzip, which, runCommand, xkeyboard_config, zlib, makeDesktopItem
-}:
+{ bash, buildFHSUserEnv, coreutils, fetchurl, findutils, file, fontsConf, git
+, glxinfo, gnugrep, gnused, gnutar, gtk2, gnome_vfs, glib, GConf, gzip
+, fontconfig, freetype, libpulseaudio, libGL, libX11, libXext, libXi, libXrandr
+, libXrender, libXtst, makeWrapper, pciutils, pkgsi686Linux, setxkbmap, stdenv
+, unzip, which, runCommand, xkeyboard_config, zlib, makeDesktopItem }:
 
 let
   drvName = "android-studio-${channel}-${version}";

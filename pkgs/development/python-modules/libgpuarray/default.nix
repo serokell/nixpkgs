@@ -1,5 +1,6 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, cmake, cython, numpy, six, nose, Mako, cudaSupport ?
-  false, cudatoolkit, nvidia_x11, openclSupport ? true, ocl-icd, clblas }:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, cmake, cython, numpy, six
+, nose, Mako, cudaSupport ? false, cudatoolkit, nvidia_x11, openclSupport ? true
+, ocl-icd, clblas }:
 
 assert cudaSupport -> nvidia_x11 != null && cudatoolkit != null;
 

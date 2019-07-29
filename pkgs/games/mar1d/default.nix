@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, libGLU, xlibsWrapper, xorg, xinput_calibrator, doxygen, libpthreadstubs, alsaLib, alsaOss, libao, width ?
-  30, mute ? false, effects ? false, sensitivity ? 5, reverseY ? false }:
+{ stdenv, fetchFromGitHub, cmake, libGLU, xlibsWrapper, xorg, xinput_calibrator
+, doxygen, libpthreadstubs, alsaLib, alsaOss, libao, width ? 30, mute ? false
+, effects ? false, sensitivity ? 5, reverseY ? false }:
 
 stdenv.mkDerivation rec {
   name = "MAR1D-${version}";

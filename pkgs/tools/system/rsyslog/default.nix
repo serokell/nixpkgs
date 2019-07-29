@@ -1,10 +1,11 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, libestr, json_c, zlib, pythonPackages, fastJson, libkrb5 ?
-  null, systemd ? null, jemalloc ? null, mysql ? null, postgresql ?
-    null, libdbi ? null, net_snmp ? null, libuuid ? null, curl ? null, gnutls ?
-      null, libgcrypt ? null, liblognorm ? null, openssl ? null, librelp ?
-        null, libksi ? null, libgt ? null, liblogging ? null, libnet ?
-          null, hadoop ? null, rdkafka ? null, libmongo-client ? null, czmq ?
-            null, rabbitmq-c ? null, hiredis ? null, mongoc ? null }:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, libestr, json_c, zlib
+, pythonPackages, fastJson, libkrb5 ? null, systemd ? null, jemalloc ? null
+, mysql ? null, postgresql ? null, libdbi ? null, net_snmp ? null
+, libuuid ? null, curl ? null, gnutls ? null, libgcrypt ? null
+, liblognorm ? null, openssl ? null, librelp ? null, libksi ? null, libgt ? null
+, liblogging ? null, libnet ? null, hadoop ? null, rdkafka ? null
+, libmongo-client ? null, czmq ? null, rabbitmq-c ? null, hiredis ? null
+, mongoc ? null }:
 
 with stdenv.lib;
 let

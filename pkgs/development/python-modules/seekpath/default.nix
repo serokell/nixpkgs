@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, numpy, future, spglib, glibcLocales, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, numpy, future, spglib, glibcLocales
+, pytest }:
 
 buildPythonPackage rec {
   pname = "seekpath";

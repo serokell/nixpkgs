@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, boost, cairo, gettext, glibmm, gtk3, gtkmm3, libjack2, libsigcxx, libxmlxx, makeWrapper, mlt-qt5, pango, pkgconfig, imagemagick, intltool, autoreconfHook, which, gnome3
-}:
+{ stdenv, fetchFromGitHub, boost, cairo, gettext, glibmm, gtk3, gtkmm3, libjack2
+, libsigcxx, libxmlxx, makeWrapper, mlt-qt5, pango, pkgconfig, imagemagick
+, intltool, autoreconfHook, which, gnome3 }:
 
 let
   version = "1.0.2";

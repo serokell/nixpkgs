@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, pandas, pytz, six, pytest, mock, pytest-mock
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, pandas, pytz, six, pytest
+, mock, pytest-mock }:
 
 buildPythonPackage rec {
   pname = "pvlib";

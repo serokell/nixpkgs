@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, baloo, kconfig, kdelibs4support, kfilemetadata, ki18n, kio, kservice
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, baloo, kconfig
+, kdelibs4support, kfilemetadata, ki18n, kio, kservice }:
 
 mkDerivation {
   name = "baloo-widgets";

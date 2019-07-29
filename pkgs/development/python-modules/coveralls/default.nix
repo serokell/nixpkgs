@@ -1,5 +1,5 @@
-{ buildPythonPackage, lib, fetchPypi, mock, pytest, pytestrunner, sh, coverage, docopt, requests, urllib3, git, isPy3k
-}:
+{ buildPythonPackage, lib, fetchPypi, mock, pytest, pytestrunner, sh, coverage
+, docopt, requests, urllib3, git, isPy3k }:
 
 buildPythonPackage rec {
   pname = "coveralls";

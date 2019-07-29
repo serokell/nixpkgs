@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, pam, xmlsec, autoreconfHook, pkgconfig, libxml2, gtk-doc, perl, gengetopt, bison, help2man
-}:
+{ stdenv, fetchFromGitLab, pam, xmlsec, autoreconfHook, pkgconfig, libxml2
+, gtk-doc, perl, gengetopt, bison, help2man }:
 
 let securityDependency = if stdenv.isDarwin then xmlsec else pam;
 

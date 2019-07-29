@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, cppo, ppx_tools, ppx_deriving, result
-}:
+{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, cppo, ppx_tools, ppx_deriving
+, result }:
 
 stdenv.mkDerivation {
   name = "ocaml${ocaml.version}-visitors-20190711";

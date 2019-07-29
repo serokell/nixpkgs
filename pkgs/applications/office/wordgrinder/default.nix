@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, lua52Packages, libXft, ncurses, ninja, readline, zlib
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, lua52Packages, libXft
+, ncurses, ninja, readline, zlib }:
 
 stdenv.mkDerivation rec {
   name = "wordgrinder-${version}";

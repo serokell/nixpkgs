@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, openssl, cryptography, pyasn1, idna, pytest, pretend, flaky, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, openssl, cryptography, pyasn1, idna
+, pytest, pretend, flaky, glibcLocales }:
 
 with stdenv.lib;
 

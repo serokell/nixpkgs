@@ -1,8 +1,9 @@
-{ stdenv, fetch, cmake, python, libffi, libbfd, libpfm, libxml2, ncurses, version, release_version, zlib, buildPackages, debugVersion ?
-  false, enableManpages ? false, enableSharedLibraries ? true, enablePFM ?
-    !(stdenv.isDarwin
-    || stdenv.isAarch64 # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
-    ), enablePolly ? false }:
+{ stdenv, fetch, cmake, python, libffi, libbfd, libpfm, libxml2, ncurses
+, version, release_version, zlib, buildPackages, debugVersion ? false
+, enableManpages ? false, enableSharedLibraries ? true, enablePFM ?
+  !(stdenv.isDarwin
+  || stdenv.isAarch64 # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
+  ), enablePolly ? false }:
 
 let
   inherit (stdenv.lib) optional optionals optionalString;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, cmake, fuse, zlib, bzip2, openssl, libxml2, icu
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, cmake, fuse, zlib, bzip2, openssl
+, libxml2, icu }:
 
 stdenv.mkDerivation rec {
   name = "darling-dmg-${version}";

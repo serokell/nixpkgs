@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, fetchpatch, pkgconfig, systemd, udev, utillinux, libuuid, thin-provisioning-tools, libaio, enable_dmeventd ?
-  false }:
+{ stdenv, fetchgit, fetchpatch, pkgconfig, systemd, udev, utillinux, libuuid
+, thin-provisioning-tools, libaio, enable_dmeventd ? false }:
 
 let version = "2.03.01";
 

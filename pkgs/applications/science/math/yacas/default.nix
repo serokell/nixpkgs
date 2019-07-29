@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, perl, enableGui ? false, qt5, enableJupyter ?
-  false, boost, jsoncpp, openssl, zmqpp }:
+{ stdenv, fetchFromGitHub, cmake, perl, enableGui ? false, qt5
+, enableJupyter ? false, boost, jsoncpp, openssl, zmqpp }:
 
 stdenv.mkDerivation rec {
   name = "yacas-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk, libxml2, libsoup, upower, libxfce4ui, libxfce4util, xfce4-panel, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk, libxml2, libsoup, upower
+, libxfce4ui, libxfce4util, xfce4-panel, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   name = "${p_name}-${ver_maj}.${ver_min}";

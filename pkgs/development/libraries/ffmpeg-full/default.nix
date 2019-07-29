@@ -96,8 +96,8 @@
 , openglExtlib ? false, libGLU_combined ? null # OpenGL rendering
   #, openh264 ? null # H.264/AVC encoder
 , openjpeg ? null # JPEG 2000 de/encoder
-, opensslExtlib ? false, openssl ? null, libpulseaudio ?
-  null # Pulseaudio input support
+, opensslExtlib ? false, openssl ? null
+, libpulseaudio ? null # Pulseaudio input support
 , rtmpdump ? null # RTMP[E] support
   #, libquvi ? null # Quvi input support
 , samba ? null # Samba protocol
@@ -120,11 +120,11 @@
 , zlib ? null
   #, zvbi ? null # Teletext support
   # *  Developer options
-, debugDeveloper ? false, optimizationsDeveloper ?
-  true, extraWarningsDeveloper ? false, strippingDeveloper ? false
-    # *  Darwin frameworks
-, Cocoa, CoreAudio, CoreServices, AVFoundation, MediaToolbox, VideoDecodeAcceleration
-}:
+, debugDeveloper ? false, optimizationsDeveloper ? true
+, extraWarningsDeveloper ? false, strippingDeveloper ? false
+  # *  Darwin frameworks
+, Cocoa, CoreAudio, CoreServices, AVFoundation, MediaToolbox
+, VideoDecodeAcceleration }:
 
 # Maintainer notes:
 #

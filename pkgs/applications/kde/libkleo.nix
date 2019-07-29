@@ -1,5 +1,6 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, boost, qgpgme, kcodecs, kcompletion, kconfig, kcoreaddons, ki18n, kitemmodels, kpimtextedit, kwidgetsaddons, kwindowsystem
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, boost, qgpgme
+, kcodecs, kcompletion, kconfig, kcoreaddons, ki18n, kitemmodels, kpimtextedit
+, kwidgetsaddons, kwindowsystem }:
 
 mkDerivation {
   name = "libkleo";

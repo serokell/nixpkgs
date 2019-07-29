@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, requests, pytz, tzlocal, i3ipc, pydbus, pygobject3, pyserial
+{ stdenv, buildPythonPackage, fetchPypi, requests, pytz, tzlocal, i3ipc, pydbus
+, pygobject3, pyserial
 
 , file, acpi, coreutils, alsaUtils, i3, procps, lm_sensors, libnotify, xorg }:
 

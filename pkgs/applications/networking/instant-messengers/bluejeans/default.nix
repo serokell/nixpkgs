@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, rpmextract, patchelf, libnotify, libcap, cairo, pango, fontconfig, udev, dbus, gtk2, atk, expat, gdk_pixbuf, freetype, nspr, glib, nss, gconf, libX11, libXrender, libXtst, libXdamage, libXi, libXext, libXfixes, libXcomposite, alsaLib, bash
-}:
+{ stdenv, fetchurl, rpmextract, patchelf, libnotify, libcap, cairo, pango
+, fontconfig, udev, dbus, gtk2, atk, expat, gdk_pixbuf, freetype, nspr, glib
+, nss, gconf, libX11, libXrender, libXtst, libXdamage, libXi, libXext, libXfixes
+, libXcomposite, alsaLib, bash }:
 
 stdenv.mkDerivation rec {
   name = "bluejeans-${version}";

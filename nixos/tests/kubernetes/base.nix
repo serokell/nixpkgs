@@ -1,12 +1,12 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ?
-  import ../../.. { inherit system config; } }:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../../.. { inherit system config; } }:
 
 with import ../../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  mkKubernetesBaseTest = { name, domain ? "my.zyx", test, machines, pkgs ?
-    import <nixpkgs> { inherit system; }, extraConfiguration ? null }:
+  mkKubernetesBaseTest = { name, domain ? "my.zyx", test, machines
+    , pkgs ? import <nixpkgs> { inherit system; }, extraConfiguration ? null }:
     let
       masterName = head (filter (machineName:
         any (role: role == "master") machines.${machineName}.roles)

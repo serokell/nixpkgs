@@ -1,5 +1,6 @@
-{ stdenv, makeWrapper, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, pango, nspr, nss, gtk3, xorg, autoPatchelfHook, systemd, libnotify
-}:
+{ stdenv, makeWrapper, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat
+, fontconfig, freetype, gdk_pixbuf, glib, gnome2, pango, nspr, nss, gtk3, xorg
+, autoPatchelfHook, systemd, libnotify }:
 
 let
   deps = [

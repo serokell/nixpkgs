@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, p7zip, pkgconfig, libX11, libXv, udev, libGLU_combined, SDL, libao, openal, libpulseaudio, gtk2, gtksourceview, runtimeShell
-}:
+{ stdenv, fetchurl, p7zip, pkgconfig, libX11, libXv, udev, libGLU_combined, SDL
+, libao, openal, libpulseaudio, gtk2, gtksourceview, runtimeShell }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

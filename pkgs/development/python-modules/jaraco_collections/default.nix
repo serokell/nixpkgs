@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, setuptools_scm, six, jaraco_classes, jaraco_text
-}:
+{ buildPythonPackage, fetchPypi, setuptools_scm, six, jaraco_classes
+, jaraco_text }:
 
 buildPythonPackage rec {
   pname = "jaraco.collections";

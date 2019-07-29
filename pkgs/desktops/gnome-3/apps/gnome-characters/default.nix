@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gnome3, glib, gtk3, pango, wrapGAppsHook, python3, gobject-introspection, gjs, libunistring, gsettings-desktop-schemas, adwaita-icon-theme, gnome-desktop
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gnome3, glib, gtk3, pango
+, wrapGAppsHook, python3, gobject-introspection, gjs, libunistring
+, gsettings-desktop-schemas, adwaita-icon-theme, gnome-desktop }:
 
 stdenv.mkDerivation rec {
   name = "gnome-characters-${version}";

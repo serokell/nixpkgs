@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libdrm, libpciaccess, cairo, xorgproto, udev, libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod, procps, utilmacros, gtk-doc, openssl, peg
-}:
+{ stdenv, fetchurl, pkgconfig, libdrm, libpciaccess, cairo, xorgproto, udev
+, libX11, libXext, libXv, libXrandr, glib, bison, libunwind, python3, kmod
+, procps, utilmacros, gtk-doc, openssl, peg }:
 
 stdenv.mkDerivation rec {
   name = "intel-gpu-tools-${version}";

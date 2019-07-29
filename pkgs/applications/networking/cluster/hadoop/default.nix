@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, which, maven, cmake, jre, bash, coreutils, glibc, protobuf2_5, fuse, snappy, zlib, bzip2, openssl
-}:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, which, maven, cmake, jre, bash
+, coreutils, glibc, protobuf2_5, fuse, snappy, zlib, bzip2, openssl }:
 
 let
   common = { version, sha256, dependencies-sha256, tomcat }:

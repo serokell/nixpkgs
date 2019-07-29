@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, ninja, pkgconfig, pantheon, gtk3, glib, libxml2, webkitgtk, clutter-gtk, clutter-gst, libunity, libnotify, sqlite, gst_all_1, json-glib, libgee, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, cmake, ninja, pkgconfig, pantheon, gtk3, glib
+, libxml2, webkitgtk, clutter-gtk, clutter-gst, libunity, libnotify, sqlite
+, gst_all_1, json-glib, libgee, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "vocal";

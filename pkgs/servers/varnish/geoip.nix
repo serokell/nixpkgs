@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, pkgconfig, varnish, geoip, docutils
-}:
+{ stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, pkgconfig, varnish, geoip
+, docutils }:
 
 stdenv.mkDerivation rec {
   version = "1.0.2";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libvorbis, libogg, libtheora, SDL, libXft, SDL_image, zlib, libX11, libpng, openal, runtimeShell, requireFile, commercialVersion ?
-  false }:
+{ stdenv, fetchurl, libvorbis, libogg, libtheora, SDL, libXft, SDL_image, zlib
+, libX11, libpng, openal, runtimeShell, requireFile, commercialVersion ? false
+}:
 
 let
   plainName = "andyetitmoves";

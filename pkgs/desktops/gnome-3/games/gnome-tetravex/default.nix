@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, libxml2, gettext, itstool, meson, ninja, python3, vala, desktop-file-utils
-}:
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, libxml2, gettext
+, itstool, meson, ninja, python3, vala, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "gnome-tetravex-${version}";

@@ -1,4 +1,8 @@
-{ stdenv, intltool, fetchurl, wrapGAppsHook, gnome-video-effects, libcanberra-gtk3, pkgconfig, gtk3, glib, clutter-gtk, clutter-gst, udev, gst_all_1, itstool, libgudev, autoreconfHook, vala, docbook_xml_dtd_43, docbook_xsl, appstream-glib, libxslt, yelp-tools, gnome-common, gtk-doc, adwaita-icon-theme, librsvg, totem, gdk_pixbuf, gnome3, gnome-desktop, libxml2
+{ stdenv, intltool, fetchurl, wrapGAppsHook, gnome-video-effects
+, libcanberra-gtk3, pkgconfig, gtk3, glib, clutter-gtk, clutter-gst, udev
+, gst_all_1, itstool, libgudev, autoreconfHook, vala, docbook_xml_dtd_43
+, docbook_xsl, appstream-glib, libxslt, yelp-tools, gnome-common, gtk-doc
+, adwaita-icon-theme, librsvg, totem, gdk_pixbuf, gnome3, gnome-desktop, libxml2
 }:
 
 stdenv.mkDerivation rec {

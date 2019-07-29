@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, markdown, pytest, pytestrunner, pytestcov, coverage
-}:
+{ stdenv, buildPythonPackage, fetchPypi, markdown, pytest, pytestrunner
+, pytestcov, coverage }:
 
 buildPythonPackage rec {
   pname = "MarkdownSuperscript";

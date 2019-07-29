@@ -1,6 +1,6 @@
 { stdenv, fetchurl, threadingSupport ? true # multi-threading
-, openglSupport ? false, freeglut ? null, libGLU_combined ?
-  null # OpenGL (required for vwebp)
+, openglSupport ? false, freeglut ? null
+, libGLU_combined ? null # OpenGL (required for vwebp)
 , pngSupport ? true, libpng ? null # PNG image format
 , jpegSupport ? true, libjpeg ? null # JPEG image format
 , tiffSupport ? true, libtiff ? null # TIFF image format

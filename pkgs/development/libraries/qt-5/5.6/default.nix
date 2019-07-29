@@ -21,8 +21,8 @@
    5. Commit the changes and open a pull request.
 */
 
-{ newScope, stdenv, fetchurl, fetchpatch, makeSetupHook, makeWrapper, bison, cups ?
-  null, harfbuzz, libGL, perl, gstreamer, gst-plugins-base,
+{ newScope, stdenv, fetchurl, fetchpatch, makeSetupHook, makeWrapper, bison
+, cups ? null, harfbuzz, libGL, perl, gstreamer, gst-plugins-base,
 
 # options
 developerBuild ? false, decryptSslTraffic ? false, debug ? false, }:

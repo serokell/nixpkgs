@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, leptonica, libpng, libtiff, icu, pango, opencl-headers
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, leptonica, libpng, libtiff
+, icu, pango, opencl-headers }:
 
 stdenv.mkDerivation rec {
   name = "tesseract-${version}";

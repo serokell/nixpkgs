@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, xorg, pkgconfig, gtkSupport ? true, gtk2, qtSupport ?
-  true, qt4 }:
+{ stdenv, fetchurl, xorg, pkgconfig, gtkSupport ? true, gtk2, qtSupport ? true
+, qt4 }:
 
 stdenv.mkDerivation rec {
   version = "0.31";

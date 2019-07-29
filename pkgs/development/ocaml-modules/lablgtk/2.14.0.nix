@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, pkgconfig, gtk2, libgnomecanvas, libglade, gtksourceview, camlp4
-}:
+{ stdenv, fetchurl, ocaml, findlib, pkgconfig, gtk2, libgnomecanvas, libglade
+, gtksourceview, camlp4 }:
 
 if stdenv.lib.versionAtLeast ocaml.version "4.04" then
   throw "lablgtk-2.14 is not available for OCaml ${ocaml.version}"

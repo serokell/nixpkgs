@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtcharts, qtmultimedia, qtquickcontrols, qtquickcontrols2, faad2, rtl-sdr, soapysdr-with-plugins, libusb, fftwSinglePrec
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtcharts, qtmultimedia
+, qtquickcontrols, qtquickcontrols2, faad2, rtl-sdr, soapysdr-with-plugins
+, libusb, fftwSinglePrec }:
 let
 
   version = "1.0";

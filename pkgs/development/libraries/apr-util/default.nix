@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, apr, expat, gnused, sslSupport ?
-  true, openssl, bdbSupport ? true, db, ldapSupport ?
-    !stdenv.isCygwin, openldap, libiconv, cyrus_sasl, autoreconfHook }:
+{ stdenv, fetchurl, makeWrapper, apr, expat, gnused, sslSupport ? true, openssl
+, bdbSupport ? true, db, ldapSupport ? !stdenv.isCygwin, openldap, libiconv
+, cyrus_sasl, autoreconfHook }:
 
 assert sslSupport -> openssl != null;
 assert bdbSupport -> db != null;

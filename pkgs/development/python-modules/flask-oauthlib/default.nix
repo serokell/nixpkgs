@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, flask, oauthlib, requests_oauthlib, flask_sqlalchemy, mock, nose
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, flask, oauthlib
+, requests_oauthlib, flask_sqlalchemy, mock, nose }:
 buildPythonPackage rec {
   pname = "Flask-OAuthlib";
   version = "0.9.5";

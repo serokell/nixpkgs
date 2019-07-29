@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, pango, glibmm, cairomm, gnome3, ApplicationServices
-}:
+{ stdenv, fetchurl, pkgconfig, pango, glibmm, cairomm, gnome3
+, ApplicationServices }:
 
 stdenv.mkDerivation rec {
   pname = "pangomm";

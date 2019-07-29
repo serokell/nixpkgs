@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, SDL, libogg, libvorbis, smpeg, enableNativeMidi ?
-  false, fluidsynth ? null }:
+{ stdenv, lib, fetchurl, SDL, libogg, libvorbis, smpeg, enableNativeMidi ? false
+, fluidsynth ? null }:
 
 stdenv.mkDerivation rec {
   pname = "SDL_mixer";

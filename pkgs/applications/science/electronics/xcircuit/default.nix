@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, automake, pkgconfig, cairo, ghostscript, ngspice, tcl, tk, xorg, zlib
-}:
+{ stdenv, fetchurl, autoreconfHook, automake, pkgconfig, cairo, ghostscript
+, ngspice, tcl, tk, xorg, zlib }:
 
 let
   version = "3.9.73";

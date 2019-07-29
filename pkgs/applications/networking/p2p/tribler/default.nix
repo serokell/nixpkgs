@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pythonPackages, makeWrapper, imagemagick, enablePlayer ?
-  true, vlc ? null, qt5 }:
+{ stdenv, fetchurl, pythonPackages, makeWrapper, imagemagick
+, enablePlayer ? true, vlc ? null, qt5 }:
 
 stdenv.mkDerivation rec {
   name = "tribler-${version}";

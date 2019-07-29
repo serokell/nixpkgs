@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gnome3, glib, gtk3, gobject-introspection, python3, ncurses
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gnome3, glib, gtk3
+, gobject-introspection, python3, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "libpeas";

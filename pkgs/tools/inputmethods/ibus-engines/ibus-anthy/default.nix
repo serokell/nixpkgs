@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, pkgconfig, anthy, ibus, glib, gobject-introspection, gtk3, python3
-}:
+{ stdenv, fetchurl, intltool, pkgconfig, anthy, ibus, glib
+, gobject-introspection, gtk3, python3 }:
 
 stdenv.mkDerivation rec {
   name = "ibus-anthy-${version}";

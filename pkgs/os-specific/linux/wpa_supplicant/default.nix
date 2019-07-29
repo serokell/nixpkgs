@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, pkgconfig, libnl, dbus, readline ? null, pcsclite ?
-  null }:
+{ stdenv, fetchurl, openssl, pkgconfig, libnl, dbus, readline ? null
+, pcsclite ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

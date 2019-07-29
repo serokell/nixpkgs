@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, bison, flex, pkgconfig, pruneLibtoolFiles, libnetfilter_conntrack, libnftnl, libmnl, libpcap
-}:
+{ stdenv, fetchurl, bison, flex, pkgconfig, pruneLibtoolFiles
+, libnetfilter_conntrack, libnftnl, libmnl, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "iptables";

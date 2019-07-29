@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub, gtk3, gobject-introspection, wrapGAppsHook, python3Packages
-}:
+{ stdenv, buildPythonApplication, fetchFromGitHub, gtk3, gobject-introspection
+, wrapGAppsHook, python3Packages }:
 
 buildPythonApplication rec {
   pname = "gshogi";

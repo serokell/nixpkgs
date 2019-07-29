@@ -1,5 +1,5 @@
-{ config, stdenv, fetchurl, patchelf, cudaSupport ?
-  config.cudaSupport or false, symlinkJoin, cudatoolkit, cudnn, nvidia_x11 }:
+{ config, stdenv, fetchurl, patchelf, cudaSupport ? config.cudaSupport or false
+, symlinkJoin, cudatoolkit, cudnn, nvidia_x11 }:
 with stdenv.lib;
 let
   tfType = if cudaSupport then "gpu" else "cpu";

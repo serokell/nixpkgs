@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, perl, ncurses, zlib, sqlite, libffi, autoreconfHook, mcpp, bison, flex, doxygen, graphviz, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, perl, ncurses, zlib, sqlite, libffi, autoreconfHook
+, mcpp, bison, flex, doxygen, graphviz, makeWrapper }:
 
 let toolsPath = stdenv.lib.makeBinPath [ mcpp ];
 in stdenv.mkDerivation rec {

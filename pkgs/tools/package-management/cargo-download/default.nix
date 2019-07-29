@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchgit, darwin, buildPlatform, buildRustCrate, defaultCrateOverrides
-}:
+{ stdenv, lib, fetchgit, darwin, buildPlatform, buildRustCrate
+, defaultCrateOverrides }:
 
 ((import ./Cargo.nix {
   inherit lib buildPlatform buildRustCrate fetchgit;

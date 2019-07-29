@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, coreutils, utillinux, which, gnused, gnugrep, groff, man-db, getent, libiconv, pcre2, gettext, ncurses, python3, cmake
+{ stdenv, fetchurl, coreutils, utillinux, which, gnused, gnugrep, groff, man-db
+, getent, libiconv, pcre2, gettext, ncurses, python3, cmake
 
 , writeText
 

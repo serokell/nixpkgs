@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, wayland, fontconfig, pixman, freetype, libdrm
-}:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, wayland, fontconfig, pixman, freetype
+, libdrm }:
 
 stdenv.mkDerivation rec {
   name = "wld-${version}";

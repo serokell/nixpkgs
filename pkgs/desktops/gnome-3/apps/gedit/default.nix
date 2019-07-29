@@ -1,5 +1,6 @@
-{ stdenv, meson, fetchurl, python3, pkgconfig, gtk3, glib, adwaita-icon-theme, libpeas, gtksourceview4, gsettings-desktop-schemas, wrapGAppsHook, ninja, libsoup, libxml2, gnome3, gspell, perl, itstool, desktop-file-utils
-}:
+{ stdenv, meson, fetchurl, python3, pkgconfig, gtk3, glib, adwaita-icon-theme
+, libpeas, gtksourceview4, gsettings-desktop-schemas, wrapGAppsHook, ninja
+, libsoup, libxml2, gnome3, gspell, perl, itstool, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "gedit-${version}";

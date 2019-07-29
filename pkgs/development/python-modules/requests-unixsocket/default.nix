@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, requests, pytest, pytestpep8, waitress
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, requests, pytest, pytestpep8
+, waitress }:
 
 buildPythonPackage rec {
   pname = "requests-unixsocket";

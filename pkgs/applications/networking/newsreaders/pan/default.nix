@@ -1,6 +1,6 @@
-{ spellChecking ? true, stdenv, fetchurl, pkgconfig, gtk3, gtkspell3 ?
-  null, gmime2, gettext, intltool, itstool, libxml2, libnotify, gnutls, makeWrapper, gnupg, gnomeSupport ?
-    true, libsecret, gcr }:
+{ spellChecking ? true, stdenv, fetchurl, pkgconfig, gtk3, gtkspell3 ? null
+, gmime2, gettext, intltool, itstool, libxml2, libnotify, gnutls, makeWrapper
+, gnupg, gnomeSupport ? true, libsecret, gcr }:
 
 assert spellChecking -> gtkspell3 != null;
 

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, autoconf, automake, clutter, clutter-gst, gdk_pixbuf, cairo, clutter-gtk
-}:
+{ fetchurl, stdenv, pkgconfig, autoconf, automake, clutter, clutter-gst
+, gdk_pixbuf, cairo, clutter-gtk }:
 
 stdenv.mkDerivation rec {
   name = "pinpoint-${version}";

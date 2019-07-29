@@ -1,6 +1,6 @@
 { lib, stdenv, echo_build_heading, noisily, makeDeps }:
-{ crateName, dependencies, crateFeatures, libName, release, libPath, crateType, metadata, crateBin, hasCrateBin, extraRustcOpts, verbose, colors
-}:
+{ crateName, dependencies, crateFeatures, libName, release, libPath, crateType
+, metadata, crateBin, hasCrateBin, extraRustcOpts, verbose, colors }:
 
 let
 

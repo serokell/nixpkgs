@@ -1,8 +1,9 @@
-{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, plymouth, nixos-icons, imagemagick, netpbm, perl,
+{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, plymouth
+, nixos-icons, imagemagick, netpbm, perl,
 # these will typically need to be set via an override
 # in a NixOS context
-nixosBranding ? false, nixosName ? "NixOS", nixosVersion ? "", topColor ?
-  "black", bottomColor ? "black" }:
+nixosBranding ? false, nixosName ? "NixOS", nixosVersion ? ""
+, topColor ? "black", bottomColor ? "black" }:
 
 let logoName = "nixos";
 in mkDerivation {

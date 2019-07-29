@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, coreutils, cctools, ncurses, libiconv, libX11, libuuid
-}:
+{ stdenv, fetchFromGitHub, coreutils, cctools, ncurses, libiconv, libX11
+, libuuid }:
 
 stdenv.mkDerivation rec {
   name = "chez-scheme-${version}";

@@ -1,4 +1,7 @@
-{ fetchurl, stdenv, lib, pkgconfig, gst-plugins-base, aalib, cairo, flac, libjpeg, speex, libpng, libdv, libcaca, libvpx, taglib, libpulseaudio, gdk_pixbuf, orc, glib, gstreamer, bzip2, libsoup, libshout, ncurses, libintl, # Whether to build no plugins that have external dependencies
+{ fetchurl, stdenv, lib, pkgconfig, gst-plugins-base, aalib, cairo, flac
+, libjpeg, speex, libpng, libdv, libcaca, libvpx, taglib, libpulseaudio
+, gdk_pixbuf, orc, glib, gstreamer, bzip2, libsoup, libshout, ncurses, libintl
+, # Whether to build no plugins that have external dependencies
 # (except the PulseAudio plugin).
 minimalDeps ? false }:
 

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, gtk, pkgconfig, libofx, intltool, wrapGAppsHook, hicolor-icon-theme, libsoup, gnome3
-}:
+{ fetchurl, stdenv, gtk, pkgconfig, libofx, intltool, wrapGAppsHook
+, hicolor-icon-theme, libsoup, gnome3 }:
 
 stdenv.mkDerivation rec {
   name = "homebank-5.2.6";

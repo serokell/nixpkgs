@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, opencv, zlib, libxml2, freetype, libjpeg, libtiff, swig, openexr, ilmbase, boost165, withPython ?
-  true, python35 }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, opencv, zlib, libxml2, freetype
+, libjpeg, libtiff, swig, openexr, ilmbase, boost165, withPython ? true
+, python35 }:
 
 stdenv.mkDerivation rec {
 

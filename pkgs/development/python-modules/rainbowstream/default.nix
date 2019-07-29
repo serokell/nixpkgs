@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python, pkgs, pillow, twitter, pyfiglet, requests, arrow, dateutil, pysocks, pocket
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, pkgs, pillow, twitter, pyfiglet
+, requests, arrow, dateutil, pysocks, pocket }:
 
 buildPythonPackage rec {
   pname = "rainbowstream";

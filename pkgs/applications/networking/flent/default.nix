@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub, matplotlib, procps, pyqt5, sphinx
-}:
+{ stdenv, buildPythonApplication, fetchFromGitHub, matplotlib, procps, pyqt5
+, sphinx }:
 
 buildPythonApplication rec {
   pname = "flent";

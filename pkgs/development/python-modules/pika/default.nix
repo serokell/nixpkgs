@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, nose, mock, pyyaml, unittest2, pyev, twisted, tornado
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, nose, mock, pyyaml, unittest2
+, pyev, twisted, tornado }:
 
 buildPythonPackage rec {
   pname = "pika";

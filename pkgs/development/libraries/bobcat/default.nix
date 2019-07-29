@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, icmake, libmilter, libX11, openssl, readline, utillinux, yodl
-}:
+{ stdenv, fetchFromGitHub, icmake, libmilter, libX11, openssl, readline
+, utillinux, yodl }:
 
 stdenv.mkDerivation rec {
   name = "bobcat-${version}";

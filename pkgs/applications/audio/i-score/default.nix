@@ -1,5 +1,7 @@
-{ alsaLib, boost, cln, cmake, fetchFromGitHub, gcc, ginac, jamomacore, kdnssd, libsndfile, ninja, portaudio, portmidi, qtbase, qtdeclarative, qtimageformats, qtmultimedia, qtquickcontrols2, qtserialport, qtsvg, qttools, qtwebsockets, rtaudio, stdenv
-}:
+{ alsaLib, boost, cln, cmake, fetchFromGitHub, gcc, ginac, jamomacore, kdnssd
+, libsndfile, ninja, portaudio, portmidi, qtbase, qtdeclarative, qtimageformats
+, qtmultimedia, qtquickcontrols2, qtserialport, qtsvg, qttools, qtwebsockets
+, rtaudio, stdenv }:
 
 stdenv.mkDerivation rec {
   version = "1.0.0-b31";

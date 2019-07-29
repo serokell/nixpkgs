@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gettext, m4, intltool, libxmlxx, keybinder, gtk2, libX11, libfm, libwnck, libXmu, libXpm, cairo, gdk_pixbuf, menu-cache, lxmenu-data, wirelesstools, supportAlsa ?
-  false, alsaLib }:
+{ stdenv, fetchurl, pkgconfig, gettext, m4, intltool, libxmlxx, keybinder, gtk2
+, libX11, libfm, libwnck, libXmu, libXpm, cairo, gdk_pixbuf, menu-cache
+, lxmenu-data, wirelesstools, supportAlsa ? false, alsaLib }:
 
 stdenv.mkDerivation rec {
   name = "lxpanel-0.9.3";

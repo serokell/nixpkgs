@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, doxygen, libGL, glew, xorg, ffmpeg, python3, libjpeg, libpng, libtiff, eigen, Carbon ?
-  null, Cocoa ? null }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, doxygen, libGL, glew, xorg
+, ffmpeg, python3, libjpeg, libpng, libtiff, eigen, Carbon ? null, Cocoa ? null
+}:
 
 stdenv.mkDerivation rec {
   name = "pangolin-${version}";

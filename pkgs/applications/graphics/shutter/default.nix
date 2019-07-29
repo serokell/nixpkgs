@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, perlPackages, makeWrapper, imagemagick, gdk_pixbuf, librsvg, hicolor-icon-theme, procps
-}:
+{ stdenv, fetchurl, perlPackages, makeWrapper, imagemagick, gdk_pixbuf, librsvg
+, hicolor-icon-theme, procps }:
 
 let
   perlModules = with perlPackages; [

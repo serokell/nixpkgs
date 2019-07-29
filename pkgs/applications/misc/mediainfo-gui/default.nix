@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, libzen, libmediainfo, wxGTK, desktop-file-utils, libSM, imagemagick
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, libzen, libmediainfo, wxGTK
+, desktop-file-utils, libSM, imagemagick }:
 
 stdenv.mkDerivation rec {
   version = "19.04";

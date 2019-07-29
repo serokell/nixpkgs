@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libX11, libXt, libXpm, libXaw, localStateDir ?
-  null }:
+{ stdenv, fetchFromGitHub, autoconf, automake, libX11, libXt, libXpm, libXaw
+, localStateDir ? null }:
 
 stdenv.mkDerivation rec {
   name = "xjump-${version}";

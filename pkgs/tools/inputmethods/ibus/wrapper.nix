@@ -1,5 +1,5 @@
-{ stdenv, runCommand, makeWrapper, lndir, dconf, hicolor-icon-theme, ibus, librsvg, plugins ?
-  [ ] }:
+{ stdenv, runCommand, makeWrapper, lndir, dconf, hicolor-icon-theme, ibus
+, librsvg, plugins ? [ ] }:
 
 let
   name = "ibus-with-plugins-" + (builtins.parseDrvName ibus.name).version;

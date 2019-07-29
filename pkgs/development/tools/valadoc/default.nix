@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gnome3, automake, autoconf, which, libtool, pkgconfig, graphviz, glib, gobject-introspection, expat
-}:
+{ stdenv, fetchurl, gnome3, automake, autoconf, which, libtool, pkgconfig
+, graphviz, glib, gobject-introspection, expat }:
 stdenv.mkDerivation rec {
   version = "0.36.2";
   name = "valadoc-${version}";

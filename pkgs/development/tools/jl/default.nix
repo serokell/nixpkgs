@@ -1,5 +1,7 @@
-{ mkDerivation, fetchFromGitHub, fetchpatch, aeson, aeson-pretty, attoparsec, base, bytestring, conduit, conduit-extra, containers, exceptions, mtl, optparse-simple, parsec, scientific, stdenv, text, unordered-containers, vector
-}:
+{ mkDerivation, fetchFromGitHub, fetchpatch, aeson, aeson-pretty, attoparsec
+, base, bytestring, conduit, conduit-extra, containers, exceptions, mtl
+, optparse-simple, parsec, scientific, stdenv, text, unordered-containers
+, vector }:
 mkDerivation rec {
   pname = "jl";
   version = "0.0.5";

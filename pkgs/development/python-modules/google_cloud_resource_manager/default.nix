@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, google_cloud_core, google_api_core, pytest, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, google_cloud_core, google_api_core
+, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-resource-manager";

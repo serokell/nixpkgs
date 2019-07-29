@@ -1,5 +1,7 @@
-{ stdenv, makeDesktopItem, fetchurl, unzip, gdk_pixbuf, glib, gtk3, atk, at-spi2-atk, pango, cairo, freetype, fontconfig, dbus, nss, nspr, alsaLib, cups, expat, udev, gnome3, xorg, mozjpeg, makeWrapper, wrapGAppsHook, hicolor-icon-theme, libuuid
-}:
+{ stdenv, makeDesktopItem, fetchurl, unzip, gdk_pixbuf, glib, gtk3, atk
+, at-spi2-atk, pango, cairo, freetype, fontconfig, dbus, nss, nspr, alsaLib
+, cups, expat, udev, gnome3, xorg, mozjpeg, makeWrapper, wrapGAppsHook
+, hicolor-icon-theme, libuuid }:
 
 stdenv.mkDerivation rec {
   name = "avocode-${version}";

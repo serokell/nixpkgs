@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pcre, withCrypto ?
-  true, openssl, enableMagic ? true, file, enableCuckoo ? true, jansson }:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pcre, withCrypto ? true
+, openssl, enableMagic ? true, file, enableCuckoo ? true, jansson }:
 
 stdenv.mkDerivation rec {
   version = "3.10.0";

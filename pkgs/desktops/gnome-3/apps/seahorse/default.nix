@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, vala, meson, ninja, libpwquality, pkgconfig, gtk3, glib, gobject-introspection, wrapGAppsHook, itstool, gnupg, libsoup, gnome3, gpgme, python3, openldap, gcr, libsecret, avahi, p11-kit, openssh, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, vala, meson, ninja, libpwquality, pkgconfig, gtk3, glib
+, gobject-introspection, wrapGAppsHook, itstool, gnupg, libsoup, gnome3, gpgme
+, python3, openldap, gcr, libsecret, avahi, p11-kit, openssh
+, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   pname = "seahorse";

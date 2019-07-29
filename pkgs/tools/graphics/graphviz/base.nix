@@ -1,7 +1,8 @@
 { rev, sha256, version }:
 
-{ stdenv, fetchFromGitLab, autoreconfHook, pkgconfig, cairo, expat, flex, fontconfig, gd, gettext, gts, libdevil, libjpeg, libpng, libtool, pango, yacc, fetchpatch, xorg ?
-  null, ApplicationServices ? null }:
+{ stdenv, fetchFromGitLab, autoreconfHook, pkgconfig, cairo, expat, flex
+, fontconfig, gd, gettext, gts, libdevil, libjpeg, libpng, libtool, pango, yacc
+, fetchpatch, xorg ? null, ApplicationServices ? null }:
 
 assert stdenv.isDarwin -> ApplicationServices != null;
 

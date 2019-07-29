@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, xorgproto, libX11, libXext, libXi, libXrandr, libXrender, ncurses, pkgconfig, xorgserver, udev, libXinerama, pixman
-}:
+{ stdenv, fetchurl, xorgproto, libX11, libXext, libXi, libXrandr, libXrender
+, ncurses, pkgconfig, xorgserver, udev, libXinerama, pixman }:
 
 stdenv.mkDerivation rec {
   name = "xf86-input-wacom-0.36.0";

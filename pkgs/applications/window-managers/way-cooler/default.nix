@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, symlinkJoin, writeShellScriptBin, callPackage, defaultCrateOverrides, wayland, wlc, cairo, libxkbcommon, pam, python3Packages, lemonbar, gdk_pixbuf
-}:
+{ stdenv, fetchurl, makeWrapper, symlinkJoin, writeShellScriptBin, callPackage
+, defaultCrateOverrides, wayland, wlc, cairo, libxkbcommon, pam, python3Packages
+, lemonbar, gdk_pixbuf }:
 
 let
   # refer to

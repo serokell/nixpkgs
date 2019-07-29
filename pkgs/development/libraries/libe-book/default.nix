@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gperf, pkgconfig, librevenge, libxml2, boost, icu, cppunit, zlib, liblangtag
-}:
+{ stdenv, fetchurl, gperf, pkgconfig, librevenge, libxml2, boost, icu, cppunit
+, zlib, liblangtag }:
 
 let
   s = # Generated upstream information

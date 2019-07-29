@@ -1,5 +1,5 @@
-{ mkXfceDerivation, gtk3, librsvg, libwnck3, libxklavier, garcon, libxfce4ui, libxfce4util, xfce4-panel, xfconf
-}:
+{ mkXfceDerivation, gtk3, librsvg, libwnck3, libxklavier, garcon, libxfce4ui
+, libxfce4util, xfce4-panel, xfconf }:
 
 mkXfceDerivation rec {
   category = "panel-plugins";

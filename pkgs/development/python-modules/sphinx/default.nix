@@ -1,5 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, simplejson, mock, glibcLocales, html5lib, pythonOlder, enum34, python, docutils, jinja2, pygments, alabaster, Babel, snowballstemmer, six, sqlalchemy, whoosh, imagesize, requests, sphinxcontrib-websupport, typing
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, simplejson, mock, glibcLocales
+, html5lib, pythonOlder, enum34, python, docutils, jinja2, pygments, alabaster
+, Babel, snowballstemmer, six, sqlalchemy, whoosh, imagesize, requests
+, sphinxcontrib-websupport, typing }:
 
 buildPythonPackage rec {
   pname = "sphinx";

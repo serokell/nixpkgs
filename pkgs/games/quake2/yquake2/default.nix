@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, buildEnv, cmake, makeWrapper, SDL2, libGL, oggSupport ?
-  true, libogg, libvorbis, openalSupport ? true, openal, zipSupport ?
-    true, zlib, Cocoa, OpenAL }:
+{ stdenv, lib, fetchFromGitHub, buildEnv, cmake, makeWrapper, SDL2, libGL
+, oggSupport ? true, libogg, libvorbis, openalSupport ? true, openal
+, zipSupport ? true, zlib, Cocoa, OpenAL }:
 
 let
   mkFlag = b: if b then "ON" else "OFF";

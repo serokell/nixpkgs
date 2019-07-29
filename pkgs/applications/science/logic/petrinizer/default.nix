@@ -1,5 +1,5 @@
-{ mkDerivation, async, base, bytestring, containers, fetchFromGitLab, mtl, parallel-io, parsec, sbv, stdenv, stm, transformers
-}:
+{ mkDerivation, async, base, bytestring, containers, fetchFromGitLab, mtl
+, parallel-io, parsec, sbv, stdenv, stm, transformers }:
 mkDerivation rec {
   pname = "petrinizer";
   version = "0.9.1.1";

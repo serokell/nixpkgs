@@ -1,7 +1,8 @@
-{ stdenv, fetchFromGitHub, cmake, gettext, msgpack, libtermkey, libiconv, libuv, lua, ncurses, pkgconfig, unibilium, xsel, gperf, libvterm-neovim, withJemalloc ?
-  true, jemalloc, glibcLocales ? null, procps ? null
+{ stdenv, fetchFromGitHub, cmake, gettext, msgpack, libtermkey, libiconv, libuv
+, lua, ncurses, pkgconfig, unibilium, xsel, gperf, libvterm-neovim
+, withJemalloc ? true, jemalloc, glibcLocales ? null, procps ? null
 
-    # now defaults to false because some tests can be flaky (clipboard etc)
+  # now defaults to false because some tests can be flaky (clipboard etc)
 , doCheck ? false }:
 
 with stdenv.lib;

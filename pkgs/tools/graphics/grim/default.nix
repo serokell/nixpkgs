@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cairo, libjpeg, meson, ninja, wayland, pkgconfig, scdoc, wayland-protocols
-}:
+{ stdenv, fetchFromGitHub, cairo, libjpeg, meson, ninja, wayland, pkgconfig
+, scdoc, wayland-protocols }:
 
 stdenv.mkDerivation rec {
   pname = "grim";

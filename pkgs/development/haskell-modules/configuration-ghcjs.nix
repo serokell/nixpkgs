@@ -79,9 +79,8 @@ in stage1 // stage2 // {
   });
 
   # experimental
-  ghcjs-ffiqq = self.callPackage
-    ({ mkDerivation, base, template-haskell, ghcjs-base, split, containers, text, ghc-prim
-    }:
+  ghcjs-ffiqq = self.callPackage ({ mkDerivation, base, template-haskell
+    , ghcjs-base, split, containers, text, ghc-prim }:
     mkDerivation {
       pname = "ghcjs-ffiqq";
       version = "0.1.0.0";
@@ -97,9 +96,8 @@ in stage1 // stage2 // {
       license = pkgs.stdenv.lib.licenses.mit;
     }) { };
   # experimental
-  ghcjs-vdom = self.callPackage
-    ({ mkDerivation, base, ghc-prim, ghcjs-ffiqq, ghcjs-base, ghcjs-prim, containers, split, template-haskell
-    }:
+  ghcjs-vdom = self.callPackage ({ mkDerivation, base, ghc-prim, ghcjs-ffiqq
+    , ghcjs-base, ghcjs-prim, containers, split, template-haskell }:
     mkDerivation rec {
       pname = "ghcjs-vdom";
       version = "0.2.0.0";

@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, fontconfig, autoreconfHook, withJava ?
-  false, jdk ? null, ant ? null, withAACS ? false, libaacs ? null, withBDplus ?
-    false, libbdplus ? null, withMetadata ? true, libxml2 ? null, withFonts ?
-      true, freetype ? null }:
+{ stdenv, fetchurl, pkgconfig, fontconfig, autoreconfHook, withJava ? false
+, jdk ? null, ant ? null, withAACS ? false, libaacs ? null, withBDplus ? false
+, libbdplus ? null, withMetadata ? true, libxml2 ? null, withFonts ? true
+, freetype ? null }:
 
 with stdenv.lib;
 

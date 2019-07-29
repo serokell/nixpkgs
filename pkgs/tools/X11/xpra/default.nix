@@ -1,5 +1,7 @@
-{ stdenv, lib, fetchurl, callPackage, substituteAll, python3, pkgconfig, xorg, gtk3, glib, pango, cairo, gdk_pixbuf, atk, wrapGAppsHook, xorgserver, getopt, xauth, utillinux, which, ffmpeg_4, x264, libvpx, libwebp, x265, libfakeXinerama, gst_all_1, pulseaudio, gobject-introspection, pam
-}:
+{ stdenv, lib, fetchurl, callPackage, substituteAll, python3, pkgconfig, xorg
+, gtk3, glib, pango, cairo, gdk_pixbuf, atk, wrapGAppsHook, xorgserver, getopt
+, xauth, utillinux, which, ffmpeg_4, x264, libvpx, libwebp, x265
+, libfakeXinerama, gst_all_1, pulseaudio, gobject-introspection, pam }:
 
 with lib;
 

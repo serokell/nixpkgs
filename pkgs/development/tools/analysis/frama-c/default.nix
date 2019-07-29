@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, ncurses, ocamlPackages, graphviz, ltl2ba, coq, why3, autoconf
-}:
+{ stdenv, fetchurl, makeWrapper, ncurses, ocamlPackages, graphviz, ltl2ba, coq
+, why3, autoconf }:
 
 let
   mkocamlpath = p: "${p}/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib";

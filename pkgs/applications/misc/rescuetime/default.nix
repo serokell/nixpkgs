@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, dpkg, patchelf, qt5, libXtst, libXext, libX11, makeWrapper, libXScrnSaver
-}:
+{ stdenv, lib, fetchurl, dpkg, patchelf, qt5, libXtst, libXext, libX11
+, makeWrapper, libXScrnSaver }:
 
 let
   src = if stdenv.hostPlatform.system == "i686-linux" then

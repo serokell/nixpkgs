@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python2, par2cmdline, unzip, unrar, p7zip, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, python2, par2cmdline, unzip, unrar, p7zip
+, makeWrapper }:
 
 let
   pythonEnv =

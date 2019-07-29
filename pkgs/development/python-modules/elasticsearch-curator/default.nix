@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, boto3, click, certifi, requests-aws4auth, voluptuous, pyyaml, elasticsearch, nosexcover, coverage, nose, mock, funcsigs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, boto3, click, certifi
+, requests-aws4auth, voluptuous, pyyaml, elasticsearch, nosexcover, coverage
+, nose, mock, funcsigs }:
 
 buildPythonPackage rec {
   pname = "elasticsearch-curator";

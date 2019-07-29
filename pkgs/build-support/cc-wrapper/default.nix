@@ -5,12 +5,11 @@
 # script that sets up the right environment variables so that the
 # compiler and the linker just "work".
 
-{ name ? "", stdenvNoCC, cc ? null, libc ? null, bintools, coreutils ?
-  null, shell ? stdenvNoCC.shell, nativeTools, noLibc ?
-    false, nativeLibc, nativePrefix ? "", propagateDoc ? cc != null && cc
-      ? man, extraPackages ? [ ], extraBuildCommands ? "", isGNU ?
-        false, isClang ? cc.isClang or false, gnugrep ? null, buildPackages ?
-          { }, libcxx ? null }:
+{ name ? "", stdenvNoCC, cc ? null, libc ? null, bintools, coreutils ? null
+, shell ? stdenvNoCC.shell, nativeTools, noLibc ? false, nativeLibc
+, nativePrefix ? "", propagateDoc ? cc != null && cc ? man, extraPackages ? [ ]
+, extraBuildCommands ? "", isGNU ? false, isClang ? cc.isClang or false
+, gnugrep ? null, buildPackages ? { }, libcxx ? null }:
 
 with stdenvNoCC.lib;
 

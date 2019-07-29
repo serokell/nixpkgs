@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gcc, flex, bison, texinfo, jdk, erlang, makeWrapper, readline
-}:
+{ stdenv, fetchurl, gcc, flex, bison, texinfo, jdk, erlang, makeWrapper
+, readline }:
 
 stdenv.mkDerivation rec {
   name = "mercury-${version}";

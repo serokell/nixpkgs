@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, scons, boost, gperftools, pcre-cpp, snappy, zlib, libyamlcpp, sasl, openssl, libpcap, Security
-}:
+{ stdenv, fetchurl, fetchpatch, scons, boost, gperftools, pcre-cpp, snappy, zlib
+, libyamlcpp, sasl, openssl, libpcap, Security }:
 
 # Note:
 # The command line tools are written in Go as part of a different package (mongodb-tools)

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, ipython, jupyter_client, traitlets, tornado, pythonOlder, pytest, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, ipython, jupyter_client
+, traitlets, tornado, pythonOlder, pytest, nose }:
 
 buildPythonPackage rec {
   pname = "ipykernel";

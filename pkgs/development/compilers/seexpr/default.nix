@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libpng, zlib, qt4, bison, flex, libGLU, pythonPackages
-}:
+{ stdenv, fetchFromGitHub, cmake, libpng, zlib, qt4, bison, flex, libGLU
+, pythonPackages }:
 
 stdenv.mkDerivation rec {
   name = "seexpr-${version}";

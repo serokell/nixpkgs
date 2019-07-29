@@ -1,5 +1,5 @@
-{ stdenv, fetchsvn, SDL, autoconf, automake, libtool, gtk2, m4, pkgconfig, libGLU_combined, makeWrapper
-}:
+{ stdenv, fetchsvn, SDL, autoconf, automake, libtool, gtk2, m4, pkgconfig
+, libGLU_combined, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "smpeg-svn${version}";

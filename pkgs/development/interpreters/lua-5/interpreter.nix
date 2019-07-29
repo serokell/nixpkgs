@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, readline, compat ? false, callPackage, packageOverrides ?
-  (self: super: { }), sourceVersion, hash, patches ? [ ], postConfigure ?
-    null, postBuild ? null }:
+{ stdenv, fetchurl, readline, compat ? false, callPackage
+, packageOverrides ? (self: super: { }), sourceVersion, hash, patches ? [ ]
+, postConfigure ? null, postBuild ? null }:
 let
   luaPackages = callPackage ../../lua-modules {
     lua = self;

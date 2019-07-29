@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, curl, xorg, avahi, qtbase, mkDerivation, avahiWithLibdnssdCompat ?
-  avahi.override { withLibdnssdCompat = true; } }:
+{ stdenv, fetchFromGitHub, cmake, curl, xorg, avahi, qtbase, mkDerivation
+, avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; } }:
 
 mkDerivation rec {
   pname = "barrier";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, libxslt, libarchive, bzip2, lzma, json-glib
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, libxslt, libarchive
+, bzip2, lzma, json-glib }:
 
 stdenv.mkDerivation rec {
   pname = "osinfo-db-tools";

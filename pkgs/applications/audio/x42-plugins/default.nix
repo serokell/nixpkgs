@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libltc, libsndfile, libsamplerate, ftgl, freefont_ttf, libjack2, libGLU, lv2, gtk2, cairo, pango, fftwFloat, zita-convolver
-}:
+{ stdenv, fetchurl, pkgconfig, libltc, libsndfile, libsamplerate, ftgl
+, freefont_ttf, libjack2, libGLU, lv2, gtk2, cairo, pango, fftwFloat
+, zita-convolver }:
 
 stdenv.mkDerivation rec {
   version = "20190206";

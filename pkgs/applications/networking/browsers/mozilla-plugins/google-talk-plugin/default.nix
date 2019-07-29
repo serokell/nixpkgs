@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, libGL, xorg, cairo, libpng, gtk2, glib, gdk_pixbuf, fontconfig, freetype, curl, dbus-glib, alsaLib, libpulseaudio, systemd, pango
+{ stdenv, fetchurl, libGL, xorg, cairo, libpng, gtk2, glib, gdk_pixbuf
+, fontconfig, freetype, curl, dbus-glib, alsaLib, libpulseaudio, systemd, pango
 }:
 
 with stdenv.lib;

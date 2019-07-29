@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, openssl, botan2, log4cplus, boost, python3, postgresql, mysql, gmp, bzip2
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, openssl, botan2, log4cplus, boost
+, python3, postgresql, mysql, gmp, bzip2 }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

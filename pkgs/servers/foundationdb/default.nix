@@ -1,7 +1,8 @@
-{ stdenv, stdenv49, gcc9Stdenv, llvmPackages_8, lib, fetchurl, fetchpatch, fetchFromGitHub
+{ stdenv, stdenv49, gcc9Stdenv, llvmPackages_8, lib, fetchurl, fetchpatch
+, fetchFromGitHub
 
-, cmake, ninja, which, findutils, m4, gawk, python, python3, openjdk, mono, libressl, boost
-}@args:
+, cmake, ninja, which, findutils, m4, gawk, python, python3, openjdk, mono
+, libressl, boost }@args:
 
 let
   vsmakeBuild = import ./vsmake.nix args;

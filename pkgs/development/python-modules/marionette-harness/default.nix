@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, mozprofile, mozversion, moztest, manifestparser, marionette_driver, browsermob-proxy, wptserve
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, mozprofile, mozversion, moztest
+, manifestparser, marionette_driver, browsermob-proxy, wptserve }:
 
 buildPythonPackage rec {
   pname = "marionette-harness";

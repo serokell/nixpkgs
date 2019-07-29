@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, boost, libbitcoin-client, libbitcoin-network
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, boost, libbitcoin-client
+, libbitcoin-network }:
 
 let
   pname = "libbitcoin-explorer";

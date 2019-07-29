@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, flask, pyquery, pytest, pytestrunner, cairosvg, tinycss, cssselect, lxml
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, flask, pyquery, pytest
+, pytestrunner, cairosvg, tinycss, cssselect, lxml }:
 
 buildPythonPackage rec {
   pname = "pygal";

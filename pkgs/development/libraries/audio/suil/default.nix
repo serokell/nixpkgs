@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, gtk2, lv2, pkgconfig, python, serd, sord, sratom, wafHook, withQt4 ?
-  true, qt4 ? null, withQt5 ? false, qt5 ? null }:
+{ stdenv, lib, fetchurl, gtk2, lv2, pkgconfig, python, serd, sord, sratom
+, wafHook, withQt4 ? true, qt4 ? null, withQt5 ? false, qt5 ? null }:
 
 # I haven't found an XOR operator in nix...
 assert withQt4 || withQt5;

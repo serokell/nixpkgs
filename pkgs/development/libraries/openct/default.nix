@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, pcsclite, libusb, doxygen, libxslt
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, pcsclite, libusb, doxygen
+, libxslt }:
 
 stdenv.mkDerivation rec {
   name = "openct-${version}";

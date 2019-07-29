@@ -1,18 +1,18 @@
-{ stdenv, targetPackages, fetchurl, noSysDirs, langC ? true, langCC ?
-  true, langFortran ? false, langObjC ?
-    stdenv.targetPlatform.isDarwin, langObjCpp ?
-      stdenv.targetPlatform.isDarwin, langGo ? false, profiledCompiler ?
-        false, staticCompiler ? false, enableShared ? true, texinfo ?
-          null, perl ? null # optional, for texi2pod (then pod2man)
-, gmp, mpfr, libmpc, gettext, which, libelf # optional, for link-time optimizations (LTO)
+{ stdenv, targetPackages, fetchurl, noSysDirs, langC ? true, langCC ? true
+, langFortran ? false, langObjC ? stdenv.targetPlatform.isDarwin
+, langObjCpp ? stdenv.targetPlatform.isDarwin, langGo ? false
+, profiledCompiler ? false, staticCompiler ? false, enableShared ? true
+, texinfo ? null, perl ? null # optional, for texi2pod (then pod2man)
+, gmp, mpfr, libmpc, gettext, which
+, libelf # optional, for link-time optimizations (LTO)
 , isl ? null # optional, for the Graphite optimization framework.
 , zlib ? null, enableMultilib ? false, enablePlugin ? stdenv.hostPlatform
   == stdenv.buildPlatform # Whether to support user-supplied plug-ins
-, name ? "gcc", libcCross ? null, crossStageStatic ?
-  false, # Strip kills static libs of other archs (hence no cross)
+, name ? "gcc", libcCross ? null, crossStageStatic ? false
+, # Strip kills static libs of other archs (hence no cross)
 stripped ? stdenv.hostPlatform == stdenv.buildPlatform && stdenv.targetPlatform
-  == stdenv.hostPlatform, gnused ?
-    null, cloog # unused; just for compat with gcc4, as we override the parameter on some places
+  == stdenv.hostPlatform, gnused ? null
+, cloog # unused; just for compat with gcc4, as we override the parameter on some places
 , flex ? null, buildPackages }:
 
 # LTO needs libelf and zlib.

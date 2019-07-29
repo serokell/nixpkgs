@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, numpy, scipy, matplotlib, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, numpy, scipy, matplotlib
+, pytest }:
 
 buildPythonPackage rec {
   pname = "nimfa";

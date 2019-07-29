@@ -1,5 +1,5 @@
-{ lib, writeScript, coreutils, curl, gnugrep, jq, gnupg, common-updater-scripts, majorVersion, nix, runtimeShell
-}:
+{ lib, writeScript, coreutils, curl, gnugrep, jq, gnupg, common-updater-scripts
+, majorVersion, nix, runtimeShell }:
 
 writeScript "update-nodejs" ''
   #!${runtimeShell}

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, zope_interface, zope_exceptions, zope_location
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, zope_interface, zope_exceptions
+, zope_location }:
 
 buildPythonPackage rec {
   pname = "zope.testing";

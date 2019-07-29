@@ -1,15 +1,17 @@
 # TODO tidy up eg The patchelf code is patching gvim even if you don't build it..
 # but I have gvim with python support now :) - Marc
-{ source ?
-  "default", callPackage, stdenv, ncurses, pkgconfig, gettext, writeText, config, glib, gtk2-x11, gtk3-x11, lua, python, perl, tcl, ruby, libX11, libXext, libSM, libXpm, libXt, libXaw, libXau, libXmu, libICE, vimPlugins, makeWrapper, wrapGAppsHook, runtimeShell
+{ source ? "default", callPackage, stdenv, ncurses, pkgconfig, gettext
+, writeText, config, glib, gtk2-x11, gtk3-x11, lua, python, perl, tcl, ruby
+, libX11, libXext, libSM, libXpm, libXt, libXaw, libXau, libXmu, libICE
+, vimPlugins, makeWrapper, wrapGAppsHook, runtimeShell
 
 # apple frameworks
 , CoreServices, CoreData, Cocoa, Foundation, libobjc
 
 , features ? "huge" # One of tiny, small, normal, big or huge
-, wrapPythonDrv ? false, guiSupport ? config.vim.gui or "gtk3", luaSupport ?
-  config.vim.lua or true, perlSupport ?
-    config.vim.perl or false # Perl interpreter
+, wrapPythonDrv ? false, guiSupport ? config.vim.gui or "gtk3"
+, luaSupport ? config.vim.lua or true
+, perlSupport ? config.vim.perl or false # Perl interpreter
 , pythonSupport ? config.vim.python or true # Python interpreter
 , rubySupport ? config.vim.ruby or true # Ruby interpreter
 , nlsSupport ? config.vim.nls or false # Enable NLS (gettext())

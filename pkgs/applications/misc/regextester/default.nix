@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, gettext, libxml2, pkgconfig, glib, gtk3, gnome3, meson, ninja, gobject-introspection, gsettings-desktop-schemas, pantheon, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, gettext, libxml2, pkgconfig, glib, gtk3, gnome3
+, meson, ninja, gobject-introspection, gsettings-desktop-schemas, pantheon
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "regextester-${version}";

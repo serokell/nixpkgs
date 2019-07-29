@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxslt, makeWrapper, xmlto, pythonPackages
-}:
+{ stdenv, fetchgit, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxslt
+, makeWrapper, xmlto, pythonPackages }:
 
 stdenv.mkDerivation rec {
   name = "git-bz-${version}";

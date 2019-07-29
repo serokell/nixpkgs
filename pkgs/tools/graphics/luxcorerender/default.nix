@@ -1,5 +1,9 @@
-{ stdenv, fetchFromGitHub, cmake, boost165, pkgconfig, python35, tbb, openimageio, libjpeg, libpng, zlib, libtiff, ilmbase, freetype, openexr, libXdmcp, libxkbcommon, epoxy, at-spi2-core, dbus, doxygen, qt5, c-blosc, libGLU, gnome3, gtk3, pcre, bison, flex, libpthreadstubs, libX11, embree2, makeWrapper, gsettings-desktop-schemas, glib, withOpenCL ?
-  true, opencl-headers, ocl-icd, opencl-clhpp }:
+{ stdenv, fetchFromGitHub, cmake, boost165, pkgconfig, python35, tbb
+, openimageio, libjpeg, libpng, zlib, libtiff, ilmbase, freetype, openexr
+, libXdmcp, libxkbcommon, epoxy, at-spi2-core, dbus, doxygen, qt5, c-blosc
+, libGLU, gnome3, gtk3, pcre, bison, flex, libpthreadstubs, libX11, embree2
+, makeWrapper, gsettings-desktop-schemas, glib, withOpenCL ? true
+, opencl-headers, ocl-icd, opencl-clhpp }:
 
 let
   boost_static = boost165.override {

@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, python, buildPythonPackage, cython, bzip2, lzo, numpy, numexpr, hdf5, six, c-blosc, mock
-}:
+{ stdenv, fetchPypi, python, buildPythonPackage, cython, bzip2, lzo, numpy
+, numexpr, hdf5, six, c-blosc, mock }:
 
 buildPythonPackage rec {
   version = "3.5.2";

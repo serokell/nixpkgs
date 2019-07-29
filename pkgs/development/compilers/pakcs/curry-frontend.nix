@@ -1,5 +1,5 @@
-{ mkDerivation, base, Cabal, containers, curry-base, directory, extra, filepath, mtl, network-uri, pretty, process, set-extra, stdenv, transformers
-}:
+{ mkDerivation, base, Cabal, containers, curry-base, directory, extra, filepath
+, mtl, network-uri, pretty, process, set-extra, stdenv, transformers }:
 mkDerivation {
   pname = "curry-frontend";
   version = "1.0.2";

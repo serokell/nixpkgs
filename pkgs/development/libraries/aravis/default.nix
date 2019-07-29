@@ -1,9 +1,9 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk-doc, intltool, audit, glib, libusb, libxml2, wrapGAppsHook, gstreamer ?
-  null, gst-plugins-base ? null, gst-plugins-good ? null, gst-plugins-bad ?
-    null, libnotify ? null, gnome3 ? null, gtk3 ? null, enableUsb ?
-      true, enablePacketSocket ? true, enableViewer ? true, enableGstPlugin ?
-        true, enableCppTest ? false, enableFastHeartbeat ? false, enableAsan ?
-          false }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk-doc, intltool, audit
+, glib, libusb, libxml2, wrapGAppsHook, gstreamer ? null
+, gst-plugins-base ? null, gst-plugins-good ? null, gst-plugins-bad ? null
+, libnotify ? null, gnome3 ? null, gtk3 ? null, enableUsb ? true
+, enablePacketSocket ? true, enableViewer ? true, enableGstPlugin ? true
+, enableCppTest ? false, enableFastHeartbeat ? false, enableAsan ? false }:
 
 let
   gstreamerAtLeastVersion1 = stdenv.lib.all (pkg:

@@ -1,18 +1,18 @@
-{ pkgs, kernel ? pkgs.linux, img ?
-  pkgs.stdenv.hostPlatform.platform.kernelTarget, storeDir ?
-    builtins.storeDir, rootModules ? [
-      "virtio_pci"
-      "virtio_mmio"
-      "virtio_blk"
-      "virtio_balloon"
-      "virtio_rng"
-      "ext4"
-      "unix"
-      "9p"
-      "9pnet_virtio"
-      "crc32c_generic"
-    ] ++ pkgs.lib.optional (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64)
-      "rtc_cmos" }:
+{ pkgs, kernel ? pkgs.linux
+, img ? pkgs.stdenv.hostPlatform.platform.kernelTarget
+, storeDir ? builtins.storeDir, rootModules ? [
+  "virtio_pci"
+  "virtio_mmio"
+  "virtio_blk"
+  "virtio_balloon"
+  "virtio_rng"
+  "ext4"
+  "unix"
+  "9p"
+  "9pnet_virtio"
+  "crc32c_generic"
+] ++ pkgs.lib.optional (pkgs.stdenv.isi686 || pkgs.stdenv.isx86_64) "rtc_cmos"
+}:
 
 with pkgs;
 with import ../../../nixos/lib/qemu-flags.nix { inherit pkgs; };
@@ -404,10 +404,9 @@ rec {
      a set of RPM packages.
   */
 
-  fillDiskWithRPMs =
-    { size ? 4096, rpms, name, fullName, preInstall ? "", postInstall ?
-      "", runScripts ? true, createRootFS ? defaultCreateRootFS, QEMU_OPTS ?
-        "", memSize ? 512, unifiedSystemDir ? false }:
+  fillDiskWithRPMs = { size ? 4096, rpms, name, fullName, preInstall ? ""
+    , postInstall ? "", runScripts ? true, createRootFS ? defaultCreateRootFS
+    , QEMU_OPTS ? "", memSize ? 512, unifiedSystemDir ? false }:
 
     runInLinuxVM (stdenv.mkDerivation {
       inherit name preInstall postInstall rpms QEMU_OPTS memSize;
@@ -567,9 +566,8 @@ rec {
      strongly connected components.  See deb/deb-closure.nix.
   */
 
-  fillDiskWithDebs =
-    { size ? 4096, debs, name, fullName, postInstall ? null, createRootFS ?
-      defaultCreateRootFS, QEMU_OPTS ? "", memSize ? 512 }:
+  fillDiskWithDebs = { size ? 4096, debs, name, fullName, postInstall ? null
+    , createRootFS ? defaultCreateRootFS, QEMU_OPTS ? "", memSize ? 512 }:
 
     runInLinuxVM (stdenv.mkDerivation {
       inherit name postInstall QEMU_OPTS memSize;
@@ -681,13 +679,12 @@ rec {
      names.
   */
 
-  makeImageFromRPMDist =
-    { name, fullName, size ? 4096, urlPrefix ? "", urlPrefixes ?
-      [ urlPrefix ], packagesList ? "", packagesLists ?
-        [ packagesList ], packages, extraPackages ? [ ], preInstall ?
-          "", postInstall ? "", archs ? [ "noarch" "i386" ], runScripts ?
-            true, createRootFS ? defaultCreateRootFS, QEMU_OPTS ? "", memSize ?
-              512, unifiedSystemDir ? false }:
+  makeImageFromRPMDist = { name, fullName, size ? 4096, urlPrefix ? ""
+    , urlPrefixes ? [ urlPrefix ], packagesList ? ""
+    , packagesLists ? [ packagesList ], packages, extraPackages ? [ ]
+    , preInstall ? "", postInstall ? "", archs ? [ "noarch" "i386" ]
+    , runScripts ? true, createRootFS ? defaultCreateRootFS, QEMU_OPTS ? ""
+    , memSize ? 512, unifiedSystemDir ? false }:
 
     fillDiskWithRPMs {
       inherit name fullName size preInstall postInstall runScripts createRootFS
@@ -732,10 +729,10 @@ rec {
      names.
   */
 
-  makeImageFromDebDist =
-    { name, fullName, size ? 4096, urlPrefix, packagesList ? "", packagesLists ?
-      [ packagesList ], packages, extraPackages ? [ ], postInstall ?
-        "", extraDebs ? [ ], QEMU_OPTS ? "", memSize ? 512 }:
+  makeImageFromDebDist = { name, fullName, size ? 4096, urlPrefix
+    , packagesList ? "", packagesLists ? [ packagesList ], packages
+    , extraPackages ? [ ], postInstall ? "", extraDebs ? [ ], QEMU_OPTS ? ""
+    , memSize ? 512 }:
 
     let
       expr = debClosureGenerator {

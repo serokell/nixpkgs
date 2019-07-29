@@ -1,5 +1,6 @@
-{ stdenv, makeWrapper, fetchFromBitbucket, fetchFromGitHub, pkgconfig, alsaLib, curl, glew, glfw, gtk2-x11, jansson, libjack2, libXext, libXi, libzip, rtaudio, rtmidi, speex
-}:
+{ stdenv, makeWrapper, fetchFromBitbucket, fetchFromGitHub, pkgconfig, alsaLib
+, curl, glew, glfw, gtk2-x11, jansson, libjack2, libXext, libXi, libzip, rtaudio
+, rtmidi, speex }:
 
 let
   glfw-git = glfw.overrideAttrs (oldAttrs: rec {

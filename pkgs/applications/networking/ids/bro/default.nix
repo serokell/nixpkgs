@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, flex, bison, openssl, libpcap, perl, zlib, file, curl, geoip, gperftools, python, swig
-}:
+{ stdenv, fetchurl, cmake, flex, bison, openssl, libpcap, perl, zlib, file, curl
+, geoip, gperftools, python, swig }:
 
 stdenv.mkDerivation rec {
   name = "bro-2.5.5";

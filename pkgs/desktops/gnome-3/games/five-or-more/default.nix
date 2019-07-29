@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg, libgnome-games-support, gettext, itstool, libxml2, python3, vala
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, gtk3, wrapGAppsHook
+, librsvg, libgnome-games-support, gettext, itstool, libxml2, python3, vala }:
 
 stdenv.mkDerivation rec {
   name = "five-or-more-${version}";

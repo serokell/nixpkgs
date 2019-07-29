@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk, intltool, libglade, libxfce4util, libxfce4ui, xfconf, libwnck, libstartup_notification, xorg
-}:
+{ stdenv, fetchurl, pkgconfig, gtk, intltool, libglade, libxfce4util, libxfce4ui
+, xfconf, libwnck, libstartup_notification, xorg }:
 let
   p_name = "xfwm4";
   ver_maj = "4.12";

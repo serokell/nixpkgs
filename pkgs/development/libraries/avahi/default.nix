@@ -1,6 +1,7 @@
-{ fetchurl, fetchpatch, stdenv, pkgconfig, libdaemon, dbus, perlPackages, expat, gettext, intltool, glib, libiconv, gtk3Support ?
-  false, gtk3 ? null, qt4 ? null, qt4Support ? false, withLibdnssdCompat ?
-    false, python ? null, withPython ? false }:
+{ fetchurl, fetchpatch, stdenv, pkgconfig, libdaemon, dbus, perlPackages, expat
+, gettext, intltool, glib, libiconv, gtk3Support ? false, gtk3 ? null
+, qt4 ? null, qt4Support ? false, withLibdnssdCompat ? false, python ? null
+, withPython ? false }:
 
 assert qt4Support -> qt4 != null;
 

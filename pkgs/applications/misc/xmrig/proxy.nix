@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, libuuid, openssl, donateLevel ?
-  0 }:
+{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, libuuid, openssl
+, donateLevel ? 0 }:
 
 stdenv.mkDerivation rec {
   name = "xmrig-proxy-${version}";

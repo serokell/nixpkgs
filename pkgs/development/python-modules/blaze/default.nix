@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, contextlib2, cytoolz, dask, datashape, flask, flask-cors, h5py, multipledispatch, numba, numpy, odo, pandas, psutil, pymongo, pyyaml, requests, sqlalchemy, tables, toolz
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, contextlib2, cytoolz, dask
+, datashape, flask, flask-cors, h5py, multipledispatch, numba, numpy, odo
+, pandas, psutil, pymongo, pyyaml, requests, sqlalchemy, tables, toolz }:
 
 buildPythonPackage rec {
   pname = "blaze";

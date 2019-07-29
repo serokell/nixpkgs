@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildPythonApplication, fuse, appdirs, colorama, dateutil, requests, requests_toolbelt, fusepy, sqlalchemy
-}:
+{ stdenv, fetchFromGitHub, buildPythonApplication, fuse, appdirs, colorama
+, dateutil, requests, requests_toolbelt, fusepy, sqlalchemy }:
 
 buildPythonApplication rec {
   name = pname + "-" + version;

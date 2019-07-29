@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libpcap, openssl, zlib, wirelesstools, iw, ethtool, pciutils, libnl, pkgconfig, makeWrapper, autoreconfHook
-}:
+{ stdenv, fetchurl, libpcap, openssl, zlib, wirelesstools, iw, ethtool, pciutils
+, libnl, pkgconfig, makeWrapper, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "aircrack-ng-1.5.2";

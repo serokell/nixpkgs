@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, openblas, gfortran, openssh, openmpi
-}:
+{ stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, openblas, gfortran
+, openssh, openmpi }:
 
 let version = "5.7";
 

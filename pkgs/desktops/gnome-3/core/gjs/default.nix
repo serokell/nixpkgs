@@ -1,4 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, gnome3, gtk3, atk, gobject-introspection, spidermonkey_60, pango, readline, glib, libxml2, dbus, gdk_pixbuf, makeWrapper
+{ fetchurl, stdenv, pkgconfig, gnome3, gtk3, atk, gobject-introspection
+, spidermonkey_60, pango, readline, glib, libxml2, dbus, gdk_pixbuf, makeWrapper
 }:
 
 stdenv.mkDerivation rec {

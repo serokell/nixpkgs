@@ -1,5 +1,7 @@
-{ mkDerivation, copyPathsToStore, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-contacts, grantlee, grantleetheme, kconfig, kconfigwidgets, kcontacts, ki18n, kiconthemes, kio, libkleo, pimcommon, prison,
-}:
+{ mkDerivation, copyPathsToStore, lib, kdepimTeam, extra-cmake-modules
+, kdoctools, akonadi, akonadi-contacts, grantlee, grantleetheme, kconfig
+, kconfigwidgets, kcontacts, ki18n, kiconthemes, kio, libkleo, pimcommon, prison
+, }:
 
 mkDerivation {
   name = "kdepim-apps-libs";

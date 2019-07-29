@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, mock, pycrypto, requests, pytestrunner, pytest, requests-mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, pycrypto, requests, pytestrunner
+, pytest, requests-mock }:
 
 buildPythonPackage rec {
   pname = "apache-libcloud";

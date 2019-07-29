@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, which, ocaml, findlib, lwt_react, ssl, lwt_ssl, lwt_log, ocamlnet, ocaml_pcre, cryptokit, tyxml, xml-light, ipaddr, pgocaml, camlzip, ocaml_sqlite3, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, which, ocaml, findlib, lwt_react, ssl, lwt_ssl
+, lwt_log, ocamlnet, ocaml_pcre, cryptokit, tyxml, xml-light, ipaddr, pgocaml
+, camlzip, ocaml_sqlite3, makeWrapper }:
 
 if !stdenv.lib.versionAtLeast ocaml.version "4.03" then
   throw "ocsigenserver is not available for OCaml ${ocaml.version}"

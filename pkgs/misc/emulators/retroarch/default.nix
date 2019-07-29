@@ -1,8 +1,9 @@
-{ stdenv, fetchFromGitHub, which, pkgconfig, makeWrapper, ffmpeg, libGLU_combined, freetype, libxml2, python3, libobjc, AppKit, Foundation, alsaLib ?
-  null, libpulseaudio ? null, libv4l ? null, libX11 ? null, libXdmcp ?
-    null, libXext ? null, libXxf86vm ? null, SDL2 ? null, udev ?
-      null, enableNvidiaCgToolkit ? false, nvidia_cg_toolkit ?
-        null, withVulkan ? stdenv.isLinux, vulkan-loader ? null, fetchurl }:
+{ stdenv, fetchFromGitHub, which, pkgconfig, makeWrapper, ffmpeg
+, libGLU_combined, freetype, libxml2, python3, libobjc, AppKit, Foundation
+, alsaLib ? null, libpulseaudio ? null, libv4l ? null, libX11 ? null
+, libXdmcp ? null, libXext ? null, libXxf86vm ? null, SDL2 ? null, udev ? null
+, enableNvidiaCgToolkit ? false, nvidia_cg_toolkit ? null
+, withVulkan ? stdenv.isLinux, vulkan-loader ? null, fetchurl }:
 
 with stdenv.lib;
 

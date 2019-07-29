@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, asn1-combinators, astring, nocrypto, ppx_sexp_conv, ounit, cstruct-unix
-}:
+{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, asn1-combinators, astring
+, nocrypto, ppx_sexp_conv, ounit, cstruct-unix }:
 
 stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-x509-${version}";

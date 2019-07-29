@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, audiofile, libvorbis, fltk, fftw, fftwFloat, minixml, pkgconfig, libmad, libjack2, portaudio, libsamplerate
-}:
+{ stdenv, fetchFromGitHub, audiofile, libvorbis, fltk, fftw, fftwFloat, minixml
+, pkgconfig, libmad, libjack2, portaudio, libsamplerate }:
 
 stdenv.mkDerivation {
   pname = "paulstretch";

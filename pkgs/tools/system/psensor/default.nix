@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, lm_sensors, libgtop, libatasmart, gtk3, libnotify, udisks2, libXNVCtrl, wrapGAppsHook
-}:
+{ stdenv, lib, fetchurl, pkgconfig, lm_sensors, libgtop, libatasmart, gtk3
+, libnotify, udisks2, libXNVCtrl, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "psensor-${version}";

@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, exiv2, lcms2, baloo, kactivities, kdelibs4support, kio, kipi-plugins, libkdcraw, libkipi, phonon, qtimageformats, qtsvg, qtx11extras, kinit, fetchpatch
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, exiv2, lcms2, baloo
+, kactivities, kdelibs4support, kio, kipi-plugins, libkdcraw, libkipi, phonon
+, qtimageformats, qtsvg, qtx11extras, kinit, fetchpatch }:
 
 mkDerivation {
   name = "gwenview";

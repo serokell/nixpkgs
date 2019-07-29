@@ -1,5 +1,7 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, nose, nose_warnings_filters, glibcLocales, isPy3k, mock, jinja2, tornado, ipython_genutils, traitlets, jupyter_core, jupyter_client, nbformat, nbconvert, ipykernel, terminado, requests, send2trash, pexpect, prometheus_client
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, nose, nose_warnings_filters
+, glibcLocales, isPy3k, mock, jinja2, tornado, ipython_genutils, traitlets
+, jupyter_core, jupyter_client, nbformat, nbconvert, ipykernel, terminado
+, requests, send2trash, pexpect, prometheus_client }:
 
 buildPythonPackage rec {
   pname = "notebook";

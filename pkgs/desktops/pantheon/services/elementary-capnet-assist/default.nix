@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala, desktop-file-utils, gtk3, granite, libgee, gcr, webkitgtk, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala
+, desktop-file-utils, gtk3, granite, libgee, gcr, webkitgtk, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "capnet-assist";

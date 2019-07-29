@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, glib, pkgconfig, gnome3, appstream-glib, gettext
-}:
+{ stdenv, fetchurl, meson, ninja, glib, pkgconfig, gnome3, appstream-glib
+, gettext }:
 
 let
   pname = "nautilus-sendto";

@@ -2,8 +2,8 @@
 , daemon ? false # build amule daemon
 , httpServer ? false # build web interface for the daemon
 , client ? false # build amule remote gui
-, fetchurl, stdenv, zlib, wxGTK, perl, cryptopp, libupnp, gettext, libpng ?
-  null, pkgconfig, makeWrapper, libX11 ? null }:
+, fetchurl, stdenv, zlib, wxGTK, perl, cryptopp, libupnp, gettext, libpng ? null
+, pkgconfig, makeWrapper, libX11 ? null }:
 
 assert httpServer -> libpng != null;
 assert client -> libX11 != null;

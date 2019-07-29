@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, requests, zeroconf, protobuf, casttube, isPy3k
-}:
+{ lib, fetchPypi, buildPythonPackage, requests, zeroconf, protobuf, casttube
+, isPy3k }:
 
 buildPythonPackage rec {
   pname = "PyChromecast";

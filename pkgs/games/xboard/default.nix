@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, xorgproto, libXt, libXaw, libSM, libICE, libXmu, libXext, gnuchess, texinfo, libXpm, pkgconfig, librsvg, cairo, pango, gtk2
-}:
+{ stdenv, fetchurl, libX11, xorgproto, libXt, libXaw, libSM, libICE, libXmu
+, libXext, gnuchess, texinfo, libXpm, pkgconfig, librsvg, cairo, pango, gtk2 }:
 let
   s = # Generated upstream information
   rec {

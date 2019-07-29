@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, python3, fetchhg, gtk3, glib, gdbm, gtkspell3, itstool, libappindicator-gtk3, perlPackages, glibcLocales, meson, ninja
-}:
+{ stdenv, pkgconfig, python3, fetchhg, gtk3, glib, gdbm, gtkspell3, itstool
+, libappindicator-gtk3, perlPackages, glibcLocales, meson, ninja }:
 
 stdenv.mkDerivation rec {
   name = "modem-manager-gui-${version}";

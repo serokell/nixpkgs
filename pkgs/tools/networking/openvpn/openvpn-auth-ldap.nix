@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, re2c, openldap, openvpn, gnustep, check
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, re2c, openldap
+, openvpn, gnustep, check }:
 
 let
   srcName = "openvpn-auth-ldap";

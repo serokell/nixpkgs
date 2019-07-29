@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, ibus, m17n_lib, m17n_db, gettext, python3
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, ibus, m17n_lib, m17n_db
+, gettext, python3 }:
 
 stdenv.mkDerivation rec {
   name = "ibus-m17n-${version}";

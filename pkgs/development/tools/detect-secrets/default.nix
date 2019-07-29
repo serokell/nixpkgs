@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, isPy27, pyyaml, unidiff, configparser, enum34, future, functools32, mock, pytest
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, isPy27, pyyaml, unidiff
+, configparser, enum34, future, functools32, mock, pytest }:
 
 buildPythonApplication rec {
   pname = "detect-secrets";

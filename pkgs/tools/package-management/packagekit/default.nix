@@ -1,8 +1,9 @@
-{ stdenv, fetchFromGitHub, lib, intltool, glib, pkgconfig, polkit, python, sqlite, gobject-introspection, vala, gtk-doc, autoreconfHook, autoconf-archive
+{ stdenv, fetchFromGitHub, lib, intltool, glib, pkgconfig, polkit, python
+, sqlite, gobject-introspection, vala, gtk-doc, autoreconfHook, autoconf-archive
 # TODO: set enableNixBackend to true, as soon as it builds
-, nix, enableNixBackend ? false, boost, enableCommandNotFound ?
-  false, enableBashCompletion ? false, bash-completion ? null, enableSystemd ?
-    stdenv.isLinux, systemd }:
+, nix, enableNixBackend ? false, boost, enableCommandNotFound ? false
+, enableBashCompletion ? false, bash-completion ? null
+, enableSystemd ? stdenv.isLinux, systemd }:
 
 stdenv.mkDerivation rec {
   name = "packagekit-${version}";

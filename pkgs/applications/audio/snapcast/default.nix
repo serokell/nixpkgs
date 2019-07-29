@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, alsaLib, asio, avahi, flac, libogg, libvorbis
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, alsaLib, asio, avahi, flac
+, libogg, libvorbis }:
 
 let
 

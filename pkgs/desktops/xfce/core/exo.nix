@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, URI, glib, gtk, libxfce4ui, libxfce4util, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, URI, glib, gtk, libxfce4ui
+, libxfce4util, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   p_name = "exo";

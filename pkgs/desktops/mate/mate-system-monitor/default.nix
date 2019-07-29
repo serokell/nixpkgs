@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, gtkmm3, libxml2, libgtop, libwnck3, librsvg, systemd, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, gtkmm3, libxml2, libgtop
+, libwnck3, librsvg, systemd, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-system-monitor-${version}";

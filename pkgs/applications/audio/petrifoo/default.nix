@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, alsaLib, cmake, gtk2, libjack2, libgnomecanvas, libpthreadstubs, libsamplerate, libsndfile, libtool, libxml2, pkgconfig, openssl
-}:
+{ stdenv, fetchurl, alsaLib, cmake, gtk2, libjack2, libgnomecanvas
+, libpthreadstubs, libsamplerate, libsndfile, libtool, libxml2, pkgconfig
+, openssl }:
 
 stdenv.mkDerivation rec {
   name = "petri-foo-${version}";

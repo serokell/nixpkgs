@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, matchpy, numpy, astunparse, typing-extensions, black, pytest, pytestcov, numba, nbval, python, isPy37
-}:
+{ lib, buildPythonPackage, fetchPypi, matchpy, numpy, astunparse
+, typing-extensions, black, pytest, pytestcov, numba, nbval, python, isPy37 }:
 
 buildPythonPackage rec {
   pname = "uarray";

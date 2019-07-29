@@ -1,5 +1,6 @@
-{ lib, fetchPypi, buildPythonPackage, pymatgen, marshmallow, pyyaml, pygmo, pandas, scipy, numpy, scikitlearn, lammps-cython, pymatgen-lammps, pytestrunner, pytest, pytestcov, pytest-benchmark, isPy3k, openssh
-}:
+{ lib, fetchPypi, buildPythonPackage, pymatgen, marshmallow, pyyaml, pygmo
+, pandas, scipy, numpy, scikitlearn, lammps-cython, pymatgen-lammps
+, pytestrunner, pytest, pytestcov, pytest-benchmark, isPy3k, openssh }:
 
 buildPythonPackage rec {
   pname = "dftfit";

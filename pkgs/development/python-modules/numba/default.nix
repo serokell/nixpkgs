@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, python, buildPythonPackage, isPy27, isPy33, isPy3k, numpy, llvmlite, funcsigs, singledispatch, libcxx
-}:
+{ stdenv, fetchPypi, python, buildPythonPackage, isPy27, isPy33, isPy3k, numpy
+, llvmlite, funcsigs, singledispatch, libcxx }:
 
 buildPythonPackage rec {
   version = "0.44.0";

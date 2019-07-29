@@ -62,9 +62,8 @@ in {
     tensorflow-mnist-input-data = self.tensorflow-mnist-input-data;
   }) (_drv: { broken = false; });
   tensorflow-mnist-input-data = setSourceRoot "tensorflow-mnist-input-data"
-    (super.callPackage
-    ({ mkDerivation, base, bytestring, Cabal, cryptonite, directory, filepath, HTTP, network-uri, stdenv
-    }:
+    (super.callPackage ({ mkDerivation, base, bytestring, Cabal, cryptonite
+    , directory, filepath, HTTP, network-uri, stdenv }:
 
     let
       fileInfos = {

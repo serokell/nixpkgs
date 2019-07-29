@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, lib, libxslt, pandoc, asciidoctor, pkgconfig, dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf, qtbase, qttools, qtsvg, audit, libgcrypt ?
-  null, libsodium ? null }:
+{ stdenv, fetchurl, lib, libxslt, pandoc, asciidoctor, pkgconfig, dbus-glib
+, libcap_ng, libqb, libseccomp, polkit, protobuf, qtbase, qttools, qtsvg, audit
+, libgcrypt ? null, libsodium ? null }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll, geos, pytest, cython, numpy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, geos, pytest, cython
+, numpy }:
 
 buildPythonPackage rec {
   pname = "Shapely";

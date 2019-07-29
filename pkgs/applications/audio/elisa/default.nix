@@ -1,5 +1,6 @@
-{ mkDerivation, fetchFromGitHub, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, qtmultimedia, qtquickcontrols2, qtwebsockets, kconfig, kcmutils, kcrash, kdeclarative, kfilemetadata, kinit, kirigami2, baloo, vlc
-}:
+{ mkDerivation, fetchFromGitHub, lib, extra-cmake-modules, kdoctools
+, wrapGAppsHook, qtmultimedia, qtquickcontrols2, qtwebsockets, kconfig, kcmutils
+, kcrash, kdeclarative, kfilemetadata, kinit, kirigami2, baloo, vlc }:
 
 mkDerivation rec {
   pname = "elisa";

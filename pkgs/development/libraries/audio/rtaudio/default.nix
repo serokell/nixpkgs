@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, libjack2, alsaLib, rtmidi
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, libjack2, alsaLib
+, rtmidi }:
 
 stdenv.mkDerivation rec {
   version = "5.1.0";

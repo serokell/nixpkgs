@@ -1,11 +1,10 @@
-{ stdenv, fetchurl, ejabberd ? null, mysql ? null, postgresql ?
-  null, subversion ? null, mongodb ? null, mongodb-tools ?
-    null, enableApacheWebApplication ? false, enableAxis2WebService ?
-      false, enableEjabberdDump ? false, enableMySQLDatabase ?
-        false, enablePostgreSQLDatabase ? false, enableSubversionRepository ?
-          false, enableTomcatWebApplication ? false, enableMongoDatabase ?
-            false, catalinaBaseDir ? "/var/tomcat", jobTemplate ?
-              "systemd", getopt }:
+{ stdenv, fetchurl, ejabberd ? null, mysql ? null, postgresql ? null
+, subversion ? null, mongodb ? null, mongodb-tools ? null
+, enableApacheWebApplication ? false, enableAxis2WebService ? false
+, enableEjabberdDump ? false, enableMySQLDatabase ? false
+, enablePostgreSQLDatabase ? false, enableSubversionRepository ? false
+, enableTomcatWebApplication ? false, enableMongoDatabase ? false
+, catalinaBaseDir ? "/var/tomcat", jobTemplate ? "systemd", getopt }:
 
 assert enableMySQLDatabase -> mysql != null;
 assert enablePostgreSQLDatabase -> postgresql != null;

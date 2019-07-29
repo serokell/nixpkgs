@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, glib, xorg, fontconfig, freetype, zlib, libpng12, libICE, libXrender, cups
-}:
+{ stdenv, fetchurl, libX11, glib, xorg, fontconfig, freetype, zlib, libpng12
+, libICE, libXrender, cups }:
 
 let
   bits =

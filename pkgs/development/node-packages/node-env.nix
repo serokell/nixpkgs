@@ -383,12 +383,11 @@ let
     '';
 
   # Builds and composes an NPM package including all its dependencies
-  buildNodePackage =
-    { name, packageName, version, dependencies ? [ ], buildInputs ?
-      [ ], production ? true, npmFlags ? "", dontNpmInstall ?
-        false, bypassCache ? false, reconstructLock ? false, preRebuild ?
-          "", dontStrip ? true, unpackPhase ? "true", buildPhase ? "true", ...
-    }@args:
+  buildNodePackage = { name, packageName, version, dependencies ? [ ]
+    , buildInputs ? [ ], production ? true, npmFlags ? ""
+    , dontNpmInstall ? false, bypassCache ? false, reconstructLock ? false
+    , preRebuild ? "", dontStrip ? true, unpackPhase ? "true"
+    , buildPhase ? "true", ... }@args:
 
     let
       extraArgs = removeAttrs args [
@@ -454,11 +453,10 @@ let
     } // extraArgs);
 
   # Builds a development shell
-  buildNodeShell =
-    { name, packageName, version, src, dependencies ? [ ], buildInputs ?
-      [ ], production ? true, npmFlags ? "", dontNpmInstall ?
-        false, bypassCache ? false, reconstructLock ? false, dontStrip ?
-          true, unpackPhase ? "true", buildPhase ? "true", ... }@args:
+  buildNodeShell = { name, packageName, version, src, dependencies ? [ ]
+    , buildInputs ? [ ], production ? true, npmFlags ? ""
+    , dontNpmInstall ? false, bypassCache ? false, reconstructLock ? false
+    , dontStrip ? true, unpackPhase ? "true", buildPhase ? "true", ... }@args:
 
     let
       extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];

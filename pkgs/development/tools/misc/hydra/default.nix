@@ -1,5 +1,9 @@
-{ stdenv, nix, perlPackages, buildEnv, releaseTools, fetchFromGitHub, makeWrapper, autoconf, automake, libtool, unzip, pkgconfig, sqlite, libpqxx, gitAndTools, mercurial, darcs, subversion, bazaar, openssl, bzip2, libxslt, guile, perl, postgresql, nukeReferences, git, boehmgc, nlohmann_json, docbook_xsl, openssh, gnused, coreutils, findutils, gzip, lzma, gnutar, rpm, dpkg, cdrkit, pixz, lib, fetchpatch, boost, autoreconfHook
-}:
+{ stdenv, nix, perlPackages, buildEnv, releaseTools, fetchFromGitHub
+, makeWrapper, autoconf, automake, libtool, unzip, pkgconfig, sqlite, libpqxx
+, gitAndTools, mercurial, darcs, subversion, bazaar, openssl, bzip2, libxslt
+, guile, perl, postgresql, nukeReferences, git, boehmgc, nlohmann_json
+, docbook_xsl, openssh, gnused, coreutils, findutils, gzip, lzma, gnutar, rpm
+, dpkg, cdrkit, pixz, lib, fetchpatch, boost, autoreconfHook }:
 
 with stdenv;
 

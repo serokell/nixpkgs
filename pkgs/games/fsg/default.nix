@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gtk2, glib, pkgconfig, libGLU_combined, wxGTK, libX11, xorgproto, runtimeShell
-}:
+{ stdenv, fetchurl, gtk2, glib, pkgconfig, libGLU_combined, wxGTK, libX11
+, xorgproto, runtimeShell }:
 
 stdenv.mkDerivation {
   name = "fsg-4.4";

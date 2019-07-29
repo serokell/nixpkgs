@@ -1,5 +1,5 @@
-{ stdenv, fetchdarcs, pythonPackages, libvncserver, zlib, gnutls, libvpx, makeDesktopItem
-}:
+{ stdenv, fetchdarcs, pythonPackages, libvncserver, zlib, gnutls, libvpx
+, makeDesktopItem }:
 
 pythonPackages.buildPythonApplication rec {
   name = "blink-${version}";

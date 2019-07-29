@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, wxGTK, perl, python2, zlib, libGLU_combined, libX11, automake, autoconf
-}:
+{ stdenv, fetchgit, wxGTK, perl, python2, zlib, libGLU_combined, libX11
+, automake, autoconf }:
 
 stdenv.mkDerivation rec {
   pname = "golly";

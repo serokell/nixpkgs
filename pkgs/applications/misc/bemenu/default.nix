@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, cairo, cmake, libxkbcommon, pango, fribidi, harfbuzz, pcre, pkgconfig, ncursesSupport ?
-  true, ncurses ? null, waylandSupport ? true, wayland ? null, x11Support ?
-    true, xlibs ? null, xorg ? null }:
+{ stdenv, fetchFromGitHub, cairo, cmake, libxkbcommon, pango, fribidi, harfbuzz
+, pcre, pkgconfig, ncursesSupport ? true, ncurses ? null, waylandSupport ? true
+, wayland ? null, x11Support ? true, xlibs ? null, xorg ? null }:
 
 assert ncursesSupport -> ncurses != null;
 assert waylandSupport -> wayland != null;

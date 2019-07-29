@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, pkgconfig, gnome3, gtk-doc, gtk2, python2Packages, lua, gobject-introspection
-}:
+{ stdenv, fetchurl, autoconf, automake, libtool, pkgconfig, gnome3, gtk-doc
+, gtk2, python2Packages, lua, gobject-introspection }:
 
 let inherit (python2Packages) python pygtk;
 in stdenv.mkDerivation rec {

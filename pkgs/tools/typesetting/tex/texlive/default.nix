@@ -2,8 +2,9 @@
    - source: ../../../../../doc/languages-frameworks/texlive.xml
    - current html: http://nixos.org/nixpkgs/manual/#sec-language-texlive
 */
-{ stdenv, lib, fetchurl, runCommand, writeText, buildEnv, callPackage, ghostscriptX, harfbuzz, poppler_min, makeWrapper, python, ruby, perl, useFixedHashes ?
-  true, recurseIntoAttrs }:
+{ stdenv, lib, fetchurl, runCommand, writeText, buildEnv, callPackage
+, ghostscriptX, harfbuzz, poppler_min, makeWrapper, python, ruby, perl
+, useFixedHashes ? true, recurseIntoAttrs }:
 let
   # various binaries (compiled)
   bin = callPackage ./bin.nix {
@@ -97,9 +98,8 @@ let
     };
 
   # create a derivation that contains an unpacked upstream TL package
-  mkPkg =
-    { pname, tlType, version, sha512, postUnpack ? "", stripPrefix ? 1, ...
-    }@args:
+  mkPkg = { pname, tlType, version, sha512, postUnpack ? "", stripPrefix ? 1
+    , ... }@args:
     let
       # the basename used by upstream (without ".tar.xz" suffix)
       urlName = pname + lib.optionalString (tlType != "run") ".${tlType}";

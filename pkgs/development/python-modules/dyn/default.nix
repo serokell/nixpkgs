@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcov, mock, pytestpep8, pytest_xdist, covCore, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcov, mock, pytestpep8
+, pytest_xdist, covCore, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "dyn";

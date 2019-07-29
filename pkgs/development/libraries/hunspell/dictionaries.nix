@@ -1,7 +1,7 @@
 # hunspell dictionaries
 
-{ stdenv, fetchurl, fetchFromGitHub, unzip, coreutils, bash, which, zip, ispell, perl, hunspell
-}:
+{ stdenv, fetchurl, fetchFromGitHub, unzip, coreutils, bash, which, zip, ispell
+, perl, hunspell }:
 
 let
   mkDict = { name, readmeFile, dictFileName, ... }@args:
@@ -107,9 +107,8 @@ let
       '';
     };
 
-  mkDictFromDicollecte =
-    { shortName, shortDescription, longDescription, dictFileName, isDefault ?
-      false }:
+  mkDictFromDicollecte = { shortName, shortDescription, longDescription
+    , dictFileName, isDefault ? false }:
     mkDict rec {
       inherit dictFileName;
       version = "5.3";
@@ -259,9 +258,8 @@ let
       };
     };
 
-  mkDictFromLibreOffice =
-    { shortName, shortDescription, dictFileName, license, readmeFile ?
-      "README_${dictFileName}.txt", sourceRoot ? dictFileName }:
+  mkDictFromLibreOffice = { shortName, shortDescription, dictFileName, license
+    , readmeFile ? "README_${dictFileName}.txt", sourceRoot ? dictFileName }:
     mkDict rec {
       name = "hunspell-dict-${shortName}-libreoffice-${version}";
       version = "6.2.0.3";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, boost, libtorrentRasterbar, qtbase, qttools, qtsvg, debugSupport ?
-  false # Debugging
+{ stdenv, fetchFromGitHub, pkgconfig, boost, libtorrentRasterbar, qtbase
+, qttools, qtsvg, debugSupport ? false # Debugging
 , guiSupport ? true, dbus ? null # GUI (disable to run headless)
 , webuiSupport ? true # WebUI
 }:

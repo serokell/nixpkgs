@@ -1,5 +1,5 @@
-{ stdenv, substituteAll, fetchurl, perl, gcc, llvm_39, ncurses5, gmp, glibc, libiconv
-}:
+{ stdenv, substituteAll, fetchurl, perl, gcc, llvm_39, ncurses5, gmp, glibc
+, libiconv }:
 
 # Prebuilt only does native
 assert stdenv.targetPlatform == stdenv.hostPlatform;

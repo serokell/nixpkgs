@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, xorg, xkeyboard_config, zlib, libjpeg_turbo, pixman, fltk, fontDirectories, cmake, gettext, libtool, libGLU, gnutls, pam, nettle, xterm, openssh, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, xorg, xkeyboard_config, zlib, libjpeg_turbo, pixman
+, fltk, fontDirectories, cmake, gettext, libtool, libGLU, gnutls, pam, nettle
+, xterm, openssh, makeWrapper }:
 
 with stdenv.lib;
 

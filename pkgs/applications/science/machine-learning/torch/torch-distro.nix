@@ -1,5 +1,5 @@
-{ luarocks, lib, stdenv, readline, makeWrapper, less, ncurses, cmake, coreutils, fetchgit, libuuid, czmq, openssl, gnuplot, lua, src, libjpeg, libpng
-}:
+{ luarocks, lib, stdenv, readline, makeWrapper, less, ncurses, cmake, coreutils
+, fetchgit, libuuid, czmq, openssl, gnuplot, lua, src, libjpeg, libpng }:
 
 let
 
@@ -20,9 +20,8 @@ let
 
     luarocks = default_luarocks.override { inherit lua; };
 
-    buildLuaRocks =
-      { rockspec ? "", luadeps ? [ ], buildInputs ? [ ], preBuild ?
-        "", postInstall ? "", runtimeDeps ? [ ], ... }@args:
+    buildLuaRocks = { rockspec ? "", luadeps ? [ ], buildInputs ? [ ]
+      , preBuild ? "", postInstall ? "", runtimeDeps ? [ ], ... }@args:
       let
 
         luadeps_ = luadeps

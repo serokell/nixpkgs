@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libX11, libxcb, cairo, gtk2, pango, python27, python3
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libX11, libxcb, cairo, gtk2, pango
+, python27, python3 }:
 
 stdenv.mkDerivation rec {
   name = "lighthouse-${date}";

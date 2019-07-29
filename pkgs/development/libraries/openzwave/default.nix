@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, doxygen, fontconfig, graphviz-nox, libxml2, pkgconfig, which, systemd
-}:
+{ stdenv, fetchFromGitHub, doxygen, fontconfig, graphviz-nox, libxml2, pkgconfig
+, which, systemd }:
 
 let version = "2018-11-13";
 

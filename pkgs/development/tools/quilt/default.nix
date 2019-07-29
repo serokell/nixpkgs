@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, bash, perl, diffstat, diffutils, patch, findutils
-}:
+{ stdenv, fetchurl, makeWrapper, bash, perl, diffstat, diffutils, patch
+, findutils }:
 
 stdenv.mkDerivation rec {
 

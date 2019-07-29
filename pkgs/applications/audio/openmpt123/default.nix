@@ -1,5 +1,6 @@
-{ config, stdenv, fetchurl, zlib, pkgconfig, mpg123, libogg, libvorbis, portaudio, libsndfile, flac, usePulseAudio ?
-  config.pulseaudio or false, libpulseaudio }:
+{ config, stdenv, fetchurl, zlib, pkgconfig, mpg123, libogg, libvorbis
+, portaudio, libsndfile, flac, usePulseAudio ? config.pulseaudio or false
+, libpulseaudio }:
 
 let version = "0.4.1";
 in stdenv.mkDerivation rec {

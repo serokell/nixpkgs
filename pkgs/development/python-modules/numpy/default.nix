@@ -1,5 +1,5 @@
-{ lib, fetchPypi, python, buildPythonPackage, gfortran, pytest, blas, writeTextFile, isPyPy
-}:
+{ lib, fetchPypi, python, buildPythonPackage, gfortran, pytest, blas
+, writeTextFile, isPyPy }:
 
 let
   blasImplementation = lib.nameFromURL blas.name "-";

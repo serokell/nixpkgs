@@ -1,5 +1,6 @@
-{ stdenv, cmake, elfutils, extra-cmake-modules, fetchFromGitHub, kconfigwidgets, ki18n, kio, kitemmodels, kitemviews, kwindowsystem, libelf, qtbase, threadweaver,
-}:
+{ stdenv, cmake, elfutils, extra-cmake-modules, fetchFromGitHub, kconfigwidgets
+, ki18n, kio, kitemmodels, kitemviews, kwindowsystem, libelf, qtbase
+, threadweaver, }:
 
 stdenv.mkDerivation rec {
   pname = "hotspot";

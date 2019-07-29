@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, sqlite, expat, mp4v2, flac, spidermonkey_1_8_5, taglib, libexif, curl, ffmpeg, file, pkgconfig, autoreconfHook
-}:
+{ stdenv, fetchgit, sqlite, expat, mp4v2, flac, spidermonkey_1_8_5, taglib
+, libexif, curl, ffmpeg, file, pkgconfig, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "mediatomb-${version}";

@@ -1,8 +1,8 @@
 { lib, buildPythonPackage, fetchPypi, xmltodict, requests
 
 # Test dependencies
-, pytest, pytestcov, coveralls, pylint, flake8, graphviz, mock, sphinx, sphinx_rtd_theme
-}:
+, pytest, pytestcov, coveralls, pylint, flake8, graphviz, mock, sphinx
+, sphinx_rtd_theme }:
 
 buildPythonPackage rec {
   pname = "soco";

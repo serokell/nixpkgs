@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, automake, autoconf, udisks1, dbus-glib, glib, libconfuse
-}:
+{ stdenv, fetchurl, pkgconfig, automake, autoconf, udisks1, dbus-glib, glib
+, libconfuse }:
 
 stdenv.mkDerivation {
   name = "udisks-glue-1.3.5";

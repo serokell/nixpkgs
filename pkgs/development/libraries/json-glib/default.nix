@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, glib, meson, ninja, pkgconfig, gettext, gobject-introspection, fixDarwinDylibNames, gnome3
-}:
+{ stdenv, fetchurl, glib, meson, ninja, pkgconfig, gettext
+, gobject-introspection, fixDarwinDylibNames, gnome3 }:
 
 let
   pname = "json-glib";

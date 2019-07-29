@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, vala, enchant2, wrapGAppsHook, meson, ninja, desktop-file-utils, gnome-online-accounts, gsettings-desktop-schemas, adwaita-icon-theme, libnotify, libcanberra-gtk3, libsecret, gmime, isocodes, libxml2, gettext, sqlite, gcr, json-glib, itstool, libgee, gnome3, webkitgtk, python3, xvfb_run, dbus, shared-mime-info, libunwind, libunity, folks, glib-networking
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, vala, enchant2, wrapGAppsHook, meson, ninja
+, desktop-file-utils, gnome-online-accounts, gsettings-desktop-schemas
+, adwaita-icon-theme, libnotify, libcanberra-gtk3, libsecret, gmime, isocodes
+, libxml2, gettext, sqlite, gcr, json-glib, itstool, libgee, gnome3, webkitgtk
+, python3, xvfb_run, dbus, shared-mime-info, libunwind, libunity, folks
+, glib-networking }:
 
 stdenv.mkDerivation rec {
   pname = "geary";

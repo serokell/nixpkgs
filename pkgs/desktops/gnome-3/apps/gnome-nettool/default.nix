@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, libgtop, intltool, itstool, libxml2, nmap, inetutils
-}:
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, libgtop, intltool
+, itstool, libxml2, nmap, inetutils }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-nettool";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, arpa2cm, openldap, p11-kit, unbound, libtasn1, db, openssl, quickder, libkrb5, ldns, gnutls-kdh, softhsm
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, arpa2cm, openldap, p11-kit, unbound
+, libtasn1, db, openssl, quickder, libkrb5, ldns, gnutls-kdh, softhsm }:
 
 let
   pname = "tlspool";

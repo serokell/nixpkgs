@@ -1,5 +1,8 @@
-{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, boost, qttools, qtwebkit, breeze-icons, karchive, kcodecs, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kcrash, kguiaddons, ki18n, kiconthemes, kitemviews, kio, ktexteditor, ktextwidgets, kwidgetsaddons, kxmlgui, kdb, kproperty, kreport, lcms2, mysql, marble, postgresql
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, boost, qttools
+, qtwebkit, breeze-icons, karchive, kcodecs, kcompletion, kconfig
+, kconfigwidgets, kcoreaddons, kcrash, kguiaddons, ki18n, kiconthemes
+, kitemviews, kio, ktexteditor, ktextwidgets, kwidgetsaddons, kxmlgui, kdb
+, kproperty, kreport, lcms2, mysql, marble, postgresql }:
 
 mkDerivation rec {
   pname = "kexi";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, astring, cmdliner, cppo, fmt, logs, ocaml-migrate-parsetree, ocaml_lwt, pandoc, re
-}:
+{ stdenv, fetchFromGitHub, buildDunePackage, astring, cmdliner, cppo, fmt, logs
+, ocaml-migrate-parsetree, ocaml_lwt, pandoc, re }:
 
 buildDunePackage rec {
   pname = "mdx";

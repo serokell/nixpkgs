@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, wcwidth, pytest, mock, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, wcwidth, pytest, mock
+, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "blessed";

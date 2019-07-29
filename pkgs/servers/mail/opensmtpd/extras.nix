@@ -1,6 +1,7 @@
-{ stdenv, fetchurl, openssl, libevent, libasr, python2, pkgconfig, lua5, perl, mysql, postgresql, sqlite, hiredis, enablePython ?
-  true, enableLua ? true, enablePerl ? true, enableMysql ?
-    true, enablePostgres ? true, enableSqlite ? true, enableRedis ? true, }:
+{ stdenv, fetchurl, openssl, libevent, libasr, python2, pkgconfig, lua5, perl
+, mysql, postgresql, sqlite, hiredis, enablePython ? true, enableLua ? true
+, enablePerl ? true, enableMysql ? true, enablePostgres ? true
+, enableSqlite ? true, enableRedis ? true, }:
 
 stdenv.mkDerivation rec {
   name = "opensmtpd-extras-${version}";

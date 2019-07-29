@@ -1,5 +1,8 @@
-{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, kdoctools, karchive, kbookmarks, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kdbusaddons, ki18n, kiconthemes, kitemviews, kjobwidgets, knotifications, kservice, ktextwidgets, kwallet, kwidgetsaddons, kwindowsystem, kxmlgui, qtbase, qtscript, qtx11extras, solid, kcrash
-}:
+{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, kdoctools, karchive
+, kbookmarks, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kdbusaddons
+, ki18n, kiconthemes, kitemviews, kjobwidgets, knotifications, kservice
+, ktextwidgets, kwallet, kwidgetsaddons, kwindowsystem, kxmlgui, qtbase
+, qtscript, qtx11extras, solid, kcrash }:
 
 mkDerivation {
   name = "kio";

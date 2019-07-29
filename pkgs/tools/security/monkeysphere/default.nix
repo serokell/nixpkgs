@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, perl, libassuan, libgcrypt, perlPackages, lockfileProgs, gnupg, coreutils
+{ stdenv, fetchurl, makeWrapper, perl, libassuan, libgcrypt, perlPackages
+, lockfileProgs, gnupg, coreutils
 # For the tests:
 , openssh, which, socat, cpio, hexdump, procps, openssl }:
 

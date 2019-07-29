@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, openssh, openssl, pkgconfig, cmake, zlib, curl, libiconv, CoreFoundation, Security
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, openssh, openssl, pkgconfig, cmake
+, zlib, curl, libiconv, CoreFoundation, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rls";

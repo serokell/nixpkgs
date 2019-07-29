@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, unzip, sqlite, makeWrapper, dotnet-sdk, ffmpeg, fontconfig, freetype
-}:
+{ stdenv, lib, fetchurl, unzip, sqlite, makeWrapper, dotnet-sdk, ffmpeg
+, fontconfig, freetype }:
 
 let
   os = if stdenv.isDarwin then "osx" else "linux";

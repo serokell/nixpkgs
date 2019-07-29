@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, makeWrapper, meson, ninja, desktop-file-utils, glib, coreutils, elementary-settings-daemon, wrapGAppsHook
+{ stdenv, fetchFromGitHub, pantheon, makeWrapper, meson, ninja
+, desktop-file-utils, glib, coreutils, elementary-settings-daemon, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {

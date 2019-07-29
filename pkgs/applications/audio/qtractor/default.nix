@@ -1,5 +1,6 @@
-{ alsaLib, autoconf, automake, dssi, fetchurl, libjack2, ladspaH, ladspaPlugins, liblo, libmad, libsamplerate, libsndfile, libtool, libvorbis, lilv, lv2, pkgconfig, qttools, qtbase, rubberband, serd, sord, sratom, stdenv, suil
-}:
+{ alsaLib, autoconf, automake, dssi, fetchurl, libjack2, ladspaH, ladspaPlugins
+, liblo, libmad, libsamplerate, libsndfile, libtool, libvorbis, lilv, lv2
+, pkgconfig, qttools, qtbase, rubberband, serd, sord, sratom, stdenv, suil }:
 
 stdenv.mkDerivation rec {
   pname = "qtractor";

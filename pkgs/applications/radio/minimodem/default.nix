@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoconf, automake, libtool, fftw, fftwSinglePrec, alsaLib, libsndfile, libpulseaudio
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoconf, automake, libtool, fftw
+, fftwSinglePrec, alsaLib, libsndfile, libpulseaudio }:
 
 stdenv.mkDerivation rec {
   version = "0.24-1";

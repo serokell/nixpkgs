@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, gettext, glib, gtk3, libmowgli, dbus-glib, libxml2, xorg, gnome3, alsaLib, libpulseaudio, libjack2, fluidsynth, libmad, libogg, libvorbis, libcdio, libcddb, flac, ffmpeg, mpg123, libcue, libmms, libbs2b, libsndfile, libmodplug, libsamplerate, soxr, lirc, curl, wavpack, neon, faad2, lame, libnotify, libsidplayfp
-}:
+{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, gettext, glib, gtk3, libmowgli
+, dbus-glib, libxml2, xorg, gnome3, alsaLib, libpulseaudio, libjack2, fluidsynth
+, libmad, libogg, libvorbis, libcdio, libcddb, flac, ffmpeg, mpg123, libcue
+, libmms, libbs2b, libsndfile, libmodplug, libsamplerate, soxr, lirc, curl
+, wavpack, neon, faad2, lame, libnotify, libsidplayfp }:
 
 stdenv.mkDerivation rec {
   name = "audacious-${version}";

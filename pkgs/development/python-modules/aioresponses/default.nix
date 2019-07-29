@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pbr, aiohttp, ddt, asynctest, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pbr, aiohttp, ddt, asynctest
+, pytest }:
 
 buildPythonPackage rec {
   pname = "aioresponses";

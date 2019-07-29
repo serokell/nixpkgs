@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, isPy27, isPyPy, python, pycares, typing, trollius
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, isPy27, isPyPy, python
+, pycares, typing, trollius }:
 
 buildPythonPackage rec {
   pname = "aiodns";

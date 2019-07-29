@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, scikitlearn, numpy, scipy, jinja2, pytest, networkx, matplotlib, python-igraph, plotly, ipywidgets
-}:
+{ lib, buildPythonPackage, fetchPypi, scikitlearn, numpy, scipy, jinja2, pytest
+, networkx, matplotlib, python-igraph, plotly, ipywidgets }:
 
 buildPythonPackage rec {
   pname = "kmapper";

@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, pam, pkgconfig, autoconf, automake, libtool, libxcb, glib, libXdmcp, itstool, intltool, libxklavier, libgcrypt, audit, busybox, polkit, accountsservice, gtk-doc, gnome3, gobject-introspection, vala, fetchpatch, withQt4 ?
-  false, qt4, withQt5 ? false, qtbase }:
+{ stdenv, fetchFromGitHub, pam, pkgconfig, autoconf, automake, libtool, libxcb
+, glib, libXdmcp, itstool, intltool, libxklavier, libgcrypt, audit, busybox
+, polkit, accountsservice, gtk-doc, gnome3, gobject-introspection, vala
+, fetchpatch, withQt4 ? false, qt4, withQt5 ? false, qtbase }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, aspell, boost, expat, intltool, libxml2, libxslt, pcre, wxGTK, xercesc
-}:
+{ stdenv, fetchurl, aspell, boost, expat, intltool, libxml2, libxslt, pcre
+, wxGTK, xercesc }:
 
 stdenv.mkDerivation rec {
   name = "xmlcopyeditor-${version}";

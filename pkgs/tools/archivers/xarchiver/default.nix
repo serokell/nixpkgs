@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gtk3, pkgconfig, intltool, libxslt, hicolor-icon-theme
-}:
+{ stdenv, fetchFromGitHub, gtk3, pkgconfig, intltool, libxslt
+, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   version = "0.5.4.14";

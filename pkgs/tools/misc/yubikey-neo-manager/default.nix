@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python27Packages, libykneomgr, yubikey-personalization, libu2f-host
-}:
+{ stdenv, fetchurl, python27Packages, libykneomgr, yubikey-personalization
+, libu2f-host }:
 
 python27Packages.buildPythonPackage rec {
   namePrefix = "";

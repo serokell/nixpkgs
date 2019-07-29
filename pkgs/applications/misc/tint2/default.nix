@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitLab, pkgconfig, cmake, gettext, cairo, pango, pcre, glib, imlib2, gtk2, libXinerama, libXrender, libXcomposite, libXdamage, libX11, libXrandr, librsvg, libpthreadstubs, libXdmcp, libstartup_notification, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitLab, pkgconfig, cmake, gettext, cairo, pango, pcre, glib
+, imlib2, gtk2, libXinerama, libXrender, libXcomposite, libXdamage, libX11
+, libXrandr, librsvg, libpthreadstubs, libXdmcp, libstartup_notification
+, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "tint2-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, blessings, mock, nose, pyte, wcwidth, typing
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, blessings
+, mock, nose, pyte, wcwidth, typing }:
 
 buildPythonPackage rec {
   pname = "curtsies";

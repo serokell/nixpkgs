@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, pkgconfig, avahi, dbus, gettext, git, gnutar, gzip, bzip2, ffmpeg, libiconv, openssl, python, which, zlib
-}:
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, pkgconfig, avahi, dbus, gettext
+, git, gnutar, gzip, bzip2, ffmpeg, libiconv, openssl, python, which, zlib }:
 
 let version = "4.2.8";
 

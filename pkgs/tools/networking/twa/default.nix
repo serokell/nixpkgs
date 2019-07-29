@@ -1,5 +1,5 @@
-{ stdenv, bash, curl, fetchFromGitHub, gawk, host, lib, makeWrapper, ncurses, netcat
-}:
+{ stdenv, bash, curl, fetchFromGitHub, gawk, host, lib, makeWrapper, ncurses
+, netcat }:
 
 stdenv.mkDerivation rec {
   name = "twa-${version}";

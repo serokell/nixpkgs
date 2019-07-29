@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, scikitlearn, numpy, matplotlib, scipy, hopcroftkarp, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, scikitlearn, numpy, matplotlib, scipy
+, hopcroftkarp, pytest }:
 
 buildPythonPackage rec {
   pname = "persim";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libtool, autoconf, automake, libjpeg, libexif
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libtool, autoconf, automake, libjpeg
+, libexif }:
 
 stdenv.mkDerivation rec {
   pname = "epeg";

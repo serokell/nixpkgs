@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchurl, cmake, xz, which, autoconf, ncurses6, libedit, libunwind
-}:
+{ stdenv, buildGoPackage, fetchurl, cmake, xz, which, autoconf, ncurses6
+, libedit, libunwind }:
 
 let
   darwinDeps = [ libunwind libedit ];

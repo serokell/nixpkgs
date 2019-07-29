@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeDesktopItem, patchelf, zlib, freetype, fontconfig, openssl, libXrender, libXrandr, libXcursor, libX11, libXext, libXi, libxcb, cups, xkeyboardconfig, runtimeShell
-}:
+{ stdenv, fetchurl, makeDesktopItem, patchelf, zlib, freetype, fontconfig
+, openssl, libXrender, libXrandr, libXcursor, libX11, libXext, libXi, libxcb
+, cups, xkeyboardconfig, runtimeShell }:
 
 let
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, git, gnupg, pass, qtbase, qtsvg, qttools, qmake, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, git, gnupg, pass, qtbase, qtsvg, qttools, qmake
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "qtpass";

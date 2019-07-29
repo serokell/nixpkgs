@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitLab, intltool, meson, ninja, pkgconfig, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, json-glib, libsoup, libnotify, gdk_pixbuf, modemmanager, avahi, glib-networking, python3, wrapGAppsHook, gobject-introspection, vala, withDemoAgent ?
-  false }:
+{ stdenv, fetchFromGitLab, intltool, meson, ninja, pkgconfig, gtk-doc
+, docbook_xsl, docbook_xml_dtd_412, glib, json-glib, libsoup, libnotify
+, gdk_pixbuf, modemmanager, avahi, glib-networking, python3, wrapGAppsHook
+, gobject-introspection, vala, withDemoAgent ? false }:
 
 with stdenv.lib;
 

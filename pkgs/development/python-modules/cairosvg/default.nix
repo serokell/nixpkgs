@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, fetchpatch, cairocffi, cssselect2, defusedxml, pillow, tinycss2, pytest, pytestrunner, pytestcov, pytest-flake8, pytest-isort
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, fetchpatch, cairocffi
+, cssselect2, defusedxml, pillow, tinycss2, pytest, pytestrunner, pytestcov
+, pytest-flake8, pytest-isort }:
 
 buildPythonPackage rec {
   pname = "CairoSVG";

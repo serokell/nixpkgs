@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, buildPackages, perl, coreutils, withCryptodev ?
-  false, cryptodev, enableSSL2 ? false, static ? false }:
+{ stdenv, fetchurl, buildPackages, perl, coreutils, withCryptodev ? false
+, cryptodev, enableSSL2 ? false, static ? false }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, ApplicationServices, CoreServices
-}:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, pkgconfig
+, ApplicationServices, CoreServices }:
 
 stdenv.mkDerivation rec {
   version = "1.30.0";

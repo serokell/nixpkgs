@@ -18,8 +18,8 @@ repos ? defaultRepos
   # The `url` and `urls` parameters, if specified should point to the JAR
   # file and will take precedence over the `repos` parameter. Only one of `url`
   # and `urls` can be specified, not both.
-, url ? "", urls ?
-  [ ], # The rest of the arguments are just forwarded to `fetchurl`.
+, url ? "", urls ? [ ]
+, # The rest of the arguments are just forwarded to `fetchurl`.
 ... }:
 
 # only one of url and urls can be specified at a time.

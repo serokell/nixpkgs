@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, elk5Version, makeWrapper, jre_headless, utillinux, gnugrep, coreutils
-}:
+{ stdenv, fetchurl, elk5Version, makeWrapper, jre_headless, utillinux, gnugrep
+, coreutils }:
 
 with stdenv.lib;
 

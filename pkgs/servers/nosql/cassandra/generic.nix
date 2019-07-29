@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python, makeWrapper, gawk, bash, getopt, procps, which, jre, version, sha256, coreutils, ...
-}:
+{ stdenv, fetchurl, python, makeWrapper, gawk, bash, getopt, procps, which, jre
+, version, sha256, coreutils, ... }:
 
 let
   libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc ];

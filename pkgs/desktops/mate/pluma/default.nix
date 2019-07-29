@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, isocodes, enchant, libxml2, python3, gnome3, gtksourceview3, libpeas, mate, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, isocodes, enchant, libxml2
+, python3, gnome3, gtksourceview3, libpeas, mate, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "pluma-${version}";

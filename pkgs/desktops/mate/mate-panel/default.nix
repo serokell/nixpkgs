@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, glib, libwnck3, librsvg, libxml2, gnome3, gtk3, mate, hicolor-icon-theme, gobject-introspection, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, glib, libwnck3, librsvg
+, libxml2, gnome3, gtk3, mate, hicolor-icon-theme, gobject-introspection
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-panel-${version}";

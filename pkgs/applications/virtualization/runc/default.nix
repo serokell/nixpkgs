@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildGoPackage, go-md2man, pkgconfig, libapparmor, apparmor-parser, libseccomp, which
-}:
+{ lib, fetchFromGitHub, buildGoPackage, go-md2man, pkgconfig, libapparmor
+, apparmor-parser, libseccomp, which }:
 
 with lib;
 

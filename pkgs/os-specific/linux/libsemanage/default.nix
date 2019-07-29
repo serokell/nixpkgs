@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, bison, flex, libsepol, libselinux, bzip2, audit, enablePython ?
-  true, swig ? null, python ? null }:
+{ stdenv, fetchurl, pkgconfig, bison, flex, libsepol, libselinux, bzip2, audit
+, enablePython ? true, swig ? null, python ? null }:
 
 with stdenv.lib;
 

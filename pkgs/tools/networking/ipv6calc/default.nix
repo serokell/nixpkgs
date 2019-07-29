@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, getopt, ip2location-c, openssl, perl, geoip ?
-  null, geolite-legacy ? null }:
+{ stdenv, fetchurl, getopt, ip2location-c, openssl, perl, geoip ? null
+, geolite-legacy ? null }:
 
 stdenv.mkDerivation rec {
   name = "ipv6calc-${version}";

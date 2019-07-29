@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, libzip, boost, fftw, qtbase, libusb, wrapQtAppsHook, libsigrok4dsl, libsigrokdecode4dsl
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, libzip, boost, fftw, qtbase, libusb
+, wrapQtAppsHook, libsigrok4dsl, libsigrokdecode4dsl }:
 
 stdenv.mkDerivation rec {
   name = "dsview-${version}";

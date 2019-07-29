@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libde265, x265, libpng, libjpeg
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libde265, x265, libpng
+, libjpeg }:
 
 stdenv.mkDerivation rec {
   version = "1.4.0";

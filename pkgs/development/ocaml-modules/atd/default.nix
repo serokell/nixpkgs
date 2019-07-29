@@ -1,5 +1,5 @@
-{ stdenv, menhir, easy-format, fetchFromGitHub, buildDunePackage, which, biniou, yojson
-}:
+{ stdenv, menhir, easy-format, fetchFromGitHub, buildDunePackage, which, biniou
+, yojson }:
 
 buildDunePackage rec {
   pname = "atd";

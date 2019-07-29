@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, cups, ki18n, kconfig, kconfigwidgets, kdbusaddons, kiconthemes, kcmutils, kio, knotifications, kwidgetsaddons, kwindowsystem, kitemviews, plasma-framework, qtdeclarative
-}:
+{ mkDerivation, lib, extra-cmake-modules, cups, ki18n, kconfig, kconfigwidgets
+, kdbusaddons, kiconthemes, kcmutils, kio, knotifications, kwidgetsaddons
+, kwindowsystem, kitemviews, plasma-framework, qtdeclarative }:
 
 mkDerivation {
   name = "print-manager";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, cargo, cmake, sphinx, lib, prefix ?
-  "uutils-" }:
+{ stdenv, fetchFromGitHub, rustPlatform, cargo, cmake, sphinx, lib
+, prefix ? "uutils-" }:
 
 rustPlatform.buildRustPackage {
   name = "uutils-coreutils-2019-05-03";

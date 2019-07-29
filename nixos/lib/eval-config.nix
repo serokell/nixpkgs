@@ -9,12 +9,12 @@
 # expressions are ever made modular at the top level) can just use
 # types.submodule instead of using eval-config.nix
 { # !!! system can be set modularly, would be nice to remove
-system ?
-  builtins.currentSystem, # !!! is this argument needed any more? The pkgs argument can
+system ? builtins.currentSystem
+, # !!! is this argument needed any more? The pkgs argument can
 # be set modularly anyway.
 pkgs ? null, # !!! what do we gain by making this configurable?
-baseModules ? import
-  ../modules/module-list.nix, # !!! See comment about args in lib/modules.nix
+baseModules ? import ../modules/module-list.nix
+, # !!! See comment about args in lib/modules.nix
 extraArgs ? { }, # !!! See comment about args in lib/modules.nix
 specialArgs ? { }, modules, # !!! See comment about check in lib/modules.nix
 check ? true, prefix ? [ ], lib ? import ../../lib }:

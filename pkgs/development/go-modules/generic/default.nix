@@ -1,9 +1,9 @@
 { go, cacert, git, lib, removeReferencesTo, stdenv }:
 
-{ name ? "${args'.pname}-${args'.version}", src, buildInputs ?
-  [ ], nativeBuildInputs ? [ ], passthru ? { }, patches ? [ ]
+{ name ? "${args'.pname}-${args'.version}", src, buildInputs ? [ ]
+, nativeBuildInputs ? [ ], passthru ? { }, patches ? [ ]
 
-    # modSha256 is the sha256 of the vendored dependencies
+  # modSha256 is the sha256 of the vendored dependencies
 , modSha256
 
 # We want parallel builds by default

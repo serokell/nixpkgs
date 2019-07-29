@@ -2,8 +2,8 @@
 
 , perlPackages
 
-, cdparanoia, coreutils, eject, flac, gnugrep, nano, sox, vorbis-tools, vorbisgain, which
-}:
+, cdparanoia, coreutils, eject, flac, gnugrep, nano, sox, vorbis-tools
+, vorbisgain, which }:
 
 with stdenv.lib;
 

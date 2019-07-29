@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, beautifulsoup4, bottle, chardet, dateutil, google_api_python_client, lxml, ply, python_magic, pytest, requests
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, beautifulsoup4, bottle, chardet
+, dateutil, google_api_python_client, lxml, ply, python_magic, pytest, requests
 }:
 
 buildPythonPackage rec {

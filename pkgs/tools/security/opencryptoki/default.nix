@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, openssl, trousers, autoreconfHook, libtool, bison, flex
-}:
+{ stdenv, fetchFromGitHub, openssl, trousers, autoreconfHook, libtool, bison
+, flex }:
 
 stdenv.mkDerivation rec {
   name = "opencryptoki-${version}";

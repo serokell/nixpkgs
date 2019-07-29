@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, wrapGAppsHook, pkgconfig, gtk, libxml2, enchant, gucharmap, python, gnome3
-}:
+{ stdenv, fetchurl, intltool, wrapGAppsHook, pkgconfig, gtk, libxml2, enchant
+, gucharmap, python, gnome3 }:
 
 stdenv.mkDerivation rec {
   name = "bluefish-2.2.10";

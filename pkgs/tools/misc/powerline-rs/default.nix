@@ -1,5 +1,5 @@
-{ stdenv, lib, rustPlatform, fetchFromGitLab, pkgconfig, file, perl, curl, cmake, openssl, libssh2, libgit2, libzip, Security
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitLab, pkgconfig, file, perl, curl, cmake
+, openssl, libssh2, libgit2, libzip, Security }:
 rustPlatform.buildRustPackage rec {
   pname = "powerline-rs";
   name = "${pname}-${version}";

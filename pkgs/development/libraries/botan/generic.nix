@@ -1,7 +1,7 @@
 { stdenv, fetchurl, python, bzip2, zlib, gmp, openssl, boost
 # Passed by version specific builders
-, baseVersion, revision, sha256, extraConfigureFlags ? "", postPatch ?
-  null, darwin, ... }:
+, baseVersion, revision, sha256, extraConfigureFlags ? "", postPatch ? null
+, darwin, ... }:
 
 stdenv.mkDerivation rec {
   name = "botan-${version}";

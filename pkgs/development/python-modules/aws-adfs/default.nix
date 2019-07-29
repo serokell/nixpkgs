@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, pytestcov, mock, glibcLocales, lxml, boto3, requests, click, configparser
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, pytestcov, mock
+, glibcLocales, lxml, boto3, requests, click, configparser }:
 
 buildPythonPackage rec {
   version = "1.12.3";

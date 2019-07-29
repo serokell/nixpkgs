@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libpng, libjpeg, libogg, libvorbis, freetype, smpeg, SDL, SDL_image, SDL_mixer, SDL_ttf
-}:
+{ stdenv, fetchurl, libpng, libjpeg, libogg, libvorbis, freetype, smpeg, SDL
+, SDL_image, SDL_mixer, SDL_ttf }:
 
 stdenv.mkDerivation rec {
   name = "onscripter-en-20110930";

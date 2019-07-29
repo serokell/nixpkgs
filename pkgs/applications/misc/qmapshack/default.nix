@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, cmake, qtscript, qtwebengine, gdal, proj, routino, quazip
-}:
+{ stdenv, fetchurl, fetchpatch, cmake, qtscript, qtwebengine, gdal, proj
+, routino, quazip }:
 
 stdenv.mkDerivation rec {
   name = "qmapshack-${version}";

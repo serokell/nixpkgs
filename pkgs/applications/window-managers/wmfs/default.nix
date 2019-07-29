@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gnumake, libX11, libXinerama, libXrandr, libXpm, libXft, imlib2
-}:
+{ stdenv, fetchFromGitHub, gnumake, libX11, libXinerama, libXrandr, libXpm
+, libXft, imlib2 }:
 stdenv.mkDerivation rec {
   name = "wmfs-${version}";
 

@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, cmake, makeWrapper, pkgconfig, curl, ffmpeg, glib, libjpeg, libselinux, libsepol, mp4v2, mysql, pcre, perl, perlPackages, polkit, utillinuxMinimal, x264, zlib, coreutils, procps, psmisc
+{ stdenv, lib, fetchFromGitHub, fetchurl, cmake, makeWrapper, pkgconfig, curl
+, ffmpeg, glib, libjpeg, libselinux, libsepol, mp4v2, mysql, pcre, perl
+, perlPackages, polkit, utillinuxMinimal, x264, zlib, coreutils, procps, psmisc
 }:
 
 # NOTES:

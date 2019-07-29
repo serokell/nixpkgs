@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcov, mock, coverage, Mako, sqlalchemy, python-editor, dateutil
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcov, mock, coverage, Mako
+, sqlalchemy, python-editor, dateutil }:
 
 buildPythonPackage rec {
   pname = "alembic";

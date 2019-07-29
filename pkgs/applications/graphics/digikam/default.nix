@@ -1,13 +1,18 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, doxygen, extra-cmake-modules, wrapGAppsHook
+{ mkDerivation, lib, fetchFromGitHub, cmake, doxygen, extra-cmake-modules
+, wrapGAppsHook
 
 # For `digitaglinktree`
 , perl, sqlite
 
 , qtbase, qtxmlpatterns, qtsvg, qtwebengine
 
-, akonadi-contacts, kcalcore, kconfigwidgets, kcoreaddons, kdoctools, kfilemetadata, knotifications, knotifyconfig, ktextwidgets, kwidgetsaddons, kxmlgui
+, akonadi-contacts, kcalcore, kconfigwidgets, kcoreaddons, kdoctools
+, kfilemetadata, knotifications, knotifyconfig, ktextwidgets, kwidgetsaddons
+, kxmlgui
 
-, bison, boost, eigen, exiv2, ffmpeg, flex, jasper, lcms2, lensfun, libgphoto2, libkipi, libksane, liblqr1, libqtav, libusb1, marble, libGL, libGLU, opencv3, pcre, threadweaver
+, bison, boost, eigen, exiv2, ffmpeg, flex, jasper, lcms2, lensfun, libgphoto2
+, libkipi, libksane, liblqr1, libqtav, libusb1, marble, libGL, libGLU, opencv3
+, pcre, threadweaver
 
 # For panorama and focus stacking
 , enblend-enfuse, hugin, gnumake

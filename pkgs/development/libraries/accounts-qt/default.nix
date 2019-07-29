@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, doxygen, glib, libaccounts-glib, pkgconfig, qtbase, qmake
-}:
+{ stdenv, fetchFromGitLab, doxygen, glib, libaccounts-glib, pkgconfig, qtbase
+, qmake }:
 
 stdenv.mkDerivation rec {
   name = "accounts-qt-${version}";

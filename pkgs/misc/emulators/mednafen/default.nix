@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, freeglut, libGLU_combined, libcdio, libjack2, libsamplerate, libsndfile, libX11, SDL, SDL_net, zlib
-}:
+{ stdenv, fetchurl, pkgconfig, freeglut, libGLU_combined, libcdio, libjack2
+, libsamplerate, libsndfile, libX11, SDL, SDL_net, zlib }:
 
 stdenv.mkDerivation rec {
   name = "mednafen-${version}";

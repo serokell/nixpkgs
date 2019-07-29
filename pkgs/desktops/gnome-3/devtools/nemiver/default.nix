@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, gnome3, gtk3, libxml2, intltool, itstool, gdb, boost, sqlite, libgtop, glibmm, gtkmm3, vte, gtksourceview, gsettings-desktop-schemas, gtksourceviewmm, wrapGAppsHook
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, gnome3, gtk3, libxml2, intltool
+, itstool, gdb, boost, sqlite, libgtop, glibmm, gtkmm3, vte, gtksourceview
+, gsettings-desktop-schemas, gtksourceviewmm, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "nemiver-${version}";

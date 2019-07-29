@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, scikitlearn, pyaml, pytest
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, scikitlearn, pyaml
+, pytest }:
 
 buildPythonPackage rec {
   pname = "scikit-optimize";

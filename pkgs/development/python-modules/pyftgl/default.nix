@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, boost, freetype, ftgl, libGLU_combined, python
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, boost, freetype, ftgl
+, libGLU_combined, python }:
 
 let
 

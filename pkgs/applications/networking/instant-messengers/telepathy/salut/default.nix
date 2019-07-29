@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libxslt, glib, libxml2, telepathy-glib, avahi, libsoup, libuuid, openssl, pcre, sqlite, pkgconfig
-}:
+{ stdenv, fetchurl, libxslt, glib, libxml2, telepathy-glib, avahi, libsoup
+, libuuid, openssl, pcre, sqlite, pkgconfig }:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-salut";

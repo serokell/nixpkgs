@@ -1,5 +1,6 @@
-{ lib, python, buildPythonPackage, fetchPypi, isPyPy, isPy27, readline, R, rWrapper, rPackages, pcre, lzma, bzip2, zlib, icu, singledispatch, six, jinja2, pytz, numpy, pytest, mock, extraRPackages ?
-  [ ] }:
+{ lib, python, buildPythonPackage, fetchPypi, isPyPy, isPy27, readline, R
+, rWrapper, rPackages, pcre, lzma, bzip2, zlib, icu, singledispatch, six, jinja2
+, pytz, numpy, pytest, mock, extraRPackages ? [ ] }:
 
 buildPythonPackage rec {
   version = if isPy27 then

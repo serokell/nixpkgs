@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, python, zlib, libssh2, openssl, http-parser, curl, libiconv, Security
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, python, zlib, libssh2, openssl
+, http-parser, curl, libiconv, Security }:
 
 stdenv.mkDerivation rec {
   pname = "libgit2";

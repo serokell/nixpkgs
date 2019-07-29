@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gradle, perl, jre, makeWrapper, makeDesktopItem, mplayer
-}:
+{ stdenv, fetchFromGitHub, gradle, perl, jre, makeWrapper, makeDesktopItem
+, mplayer }:
 
 let
   version = "6.6.7-build-529";

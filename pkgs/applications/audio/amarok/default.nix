@@ -1,5 +1,9 @@
-{ mkDerivation, fetchgit, lib, extra-cmake-modules, kdoctools, qca-qt5, qjson, qtquickcontrols2, qtscript, qtwebengine, karchive, kcmutils, kconfig, kdnssd, kguiaddons, kinit, kirigami2, knewstuff, knotifyconfig, ktexteditor, kwindowsystem, fftw, phonon, plasma-framework, threadweaver, curl, ffmpeg, gdk_pixbuf, libaio, libmtp, loudmouth, lzo, lz4, mysql57, pcre, snappy, taglib, taglib_extras
-}:
+{ mkDerivation, fetchgit, lib, extra-cmake-modules, kdoctools, qca-qt5, qjson
+, qtquickcontrols2, qtscript, qtwebengine, karchive, kcmutils, kconfig, kdnssd
+, kguiaddons, kinit, kirigami2, knewstuff, knotifyconfig, ktexteditor
+, kwindowsystem, fftw, phonon, plasma-framework, threadweaver, curl, ffmpeg
+, gdk_pixbuf, libaio, libmtp, loudmouth, lzo, lz4, mysql57, pcre, snappy, taglib
+, taglib_extras }:
 
 let
   pname = "amarok";

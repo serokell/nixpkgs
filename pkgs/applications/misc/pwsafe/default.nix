@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, zip, gettext, perl, wxGTK31, libXext, libXi, libXt, libXtst, xercesc, qrencode, libuuid, libyubikey, yubikey-personalization, curl, openssl
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, zip, gettext, perl, wxGTK31
+, libXext, libXi, libXt, libXtst, xercesc, qrencode, libuuid, libyubikey
+, yubikey-personalization, curl, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "pwsafe";

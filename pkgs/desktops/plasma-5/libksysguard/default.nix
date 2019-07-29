@@ -1,5 +1,6 @@
-{ mkDerivation, extra-cmake-modules, kauth, kcompletion, kconfig, kconfigwidgets, kcoreaddons, ki18n, kiconthemes, kservice, kwidgetsaddons, kwindowsystem, plasma-framework, qtscript, qtwebkit, qtx11extras
-}:
+{ mkDerivation, extra-cmake-modules, kauth, kcompletion, kconfig, kconfigwidgets
+, kcoreaddons, ki18n, kiconthemes, kservice, kwidgetsaddons, kwindowsystem
+, plasma-framework, qtscript, qtwebkit, qtx11extras }:
 
 mkDerivation {
   name = "libksysguard";

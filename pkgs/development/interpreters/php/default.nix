@@ -1,77 +1,58 @@
 # pcre functionality is tested in nixos/tests/php-pcre.nix
-{ lib, stdenv, fetchurl, autoconf, bison, libtool, pkgconfig, re2c, mysql, libxml2, readline, zlib, curl, postgresql, gettext, openssl, pcre, pcre2, sqlite, config, libjpeg, libpng, freetype, libxslt, libmcrypt, bzip2, icu, openldap, cyrus_sasl, libmhash, unixODBC, uwimap, pam, gmp, apacheHttpd, libiconv, systemd, libsodium, html-tidy, libargon2, libzip, valgrind
-}:
+{ lib, stdenv, fetchurl, autoconf, bison, libtool, pkgconfig, re2c, mysql
+, libxml2, readline, zlib, curl, postgresql, gettext, openssl, pcre, pcre2
+, sqlite, config, libjpeg, libpng, freetype, libxslt, libmcrypt, bzip2, icu
+, openldap, cyrus_sasl, libmhash, unixODBC, uwimap, pam, gmp, apacheHttpd
+, libiconv, systemd, libsodium, html-tidy, libargon2, libzip, valgrind }:
 
 with lib;
 
 let
-  generic = { version, sha256, extraPatches ? [ ], withSystemd ?
-    config.php.systemd or stdenv.isLinux, imapSupport ?
-      config.php.imap or (!stdenv.isDarwin), ldapSupport ?
-        config.php.ldap or true, mhashSupport ?
-          config.php.mhash or true, mysqlndSupport ?
-            config.php.mysqlnd or true, mysqliSupport ?
-              config.php.mysqli or true, pdo_mysqlSupport ?
-                config.php.pdo_mysql or true, libxml2Support ?
-                  config.php.libxml2 or true, apxs2Support ?
-                    config.php.apxs2 or (!stdenv.isDarwin), embedSupport ?
-                      config.php.embed or false, bcmathSupport ?
-                        config.php.bcmath or true, socketsSupport ?
-                          config.php.sockets or true, curlSupport ?
-                            config.php.curl or true, gettextSupport ?
-                              config.php.gettext or true, pcntlSupport ?
-                                config.php.pcntl or true, pdo_odbcSupport ?
-                                  config.php.pdo_odbc or true, postgresqlSupport ?
-                                    config.php.postgresql or true, pdo_pgsqlSupport ?
-                                      config.php.pdo_pgsql or true, readlineSupport ?
-                                        config.php.readline or true, sqliteSupport ?
-                                          config.php.sqlite or true, soapSupport ?
-                                            (config.php.soap or true)
-                                            && (libxml2Support), zlibSupport ?
-                                              config.php.zlib or true, opensslSupport ?
-                                                config.php.openssl or true, mbstringSupport ?
-                                                  config.php.mbstring or true, gdSupport ?
-                                                    config.php.gd or true, intlSupport ?
-                                                      config.php.intl or true, exifSupport ?
-                                                        config.php.exif or true, xslSupport ?
-                                                          config.php.xsl or false, mcryptSupport ?
-                                                            (config.php.mcrypt or true)
-                                                            && (versionOlder
-                                                            version
-                                                            "7.2"), bz2Support ?
-                                                              config.php.bz2 or false, zipSupport ?
-                                                                config.php.zip or true, ftpSupport ?
-                                                                  config.php.ftp or true, fpmSupport ?
-                                                                    config.php.fpm or true, gmpSupport ?
-                                                                      config.php.gmp or true, ztsSupport ?
-                                                                        (config.php.zts or false)
-                                                                        || (apxs2Support), calendarSupport ?
-                                                                          config.php.calendar or true, sodiumSupport ?
-                                                                            (config.php.sodium or true)
-                                                                            && (versionAtLeast
-                                                                            version
-                                                                            "7.2"), tidySupport ?
-                                                                              (config.php.tidy or false), argon2Support ?
-                                                                                (config.php.argon2 or true)
-                                                                                && (versionAtLeast
-                                                                                version
-                                                                                "7.2"), libzipSupport ?
-                                                                                  (config.php.libzip or true)
-                                                                                  && (versionAtLeast
-                                                                                  version
-                                                                                  "7.2"), phpdbgSupport ?
-                                                                                    config.php.phpdbg or true, cgiSupport ?
-                                                                                      config.php.cgi or true, cliSupport ?
-                                                                                        config.php.cli or true, pharSupport ?
-                                                                                          config.php.phar or true, xmlrpcSupport ?
-                                                                                            (config.php.xmlrpc or false)
-                                                                                            && (libxml2Support), cgotoSupport ?
-                                                                                              config.php.cgoto or false, valgrindSupport ?
-                                                                                                (config.php.valgrind or true)
-                                                                                                && (versionAtLeast
-                                                                                                version
-                                                                                                "7.2")
-    }:
+  generic = { version, sha256, extraPatches ? [ ]
+    , withSystemd ? config.php.systemd or stdenv.isLinux
+    , imapSupport ? config.php.imap or (!stdenv.isDarwin)
+    , ldapSupport ? config.php.ldap or true
+    , mhashSupport ? config.php.mhash or true
+    , mysqlndSupport ? config.php.mysqlnd or true
+    , mysqliSupport ? config.php.mysqli or true
+    , pdo_mysqlSupport ? config.php.pdo_mysql or true
+    , libxml2Support ? config.php.libxml2 or true
+    , apxs2Support ? config.php.apxs2 or (!stdenv.isDarwin)
+    , embedSupport ? config.php.embed or false
+    , bcmathSupport ? config.php.bcmath or true
+    , socketsSupport ? config.php.sockets or true
+    , curlSupport ? config.php.curl or true
+    , gettextSupport ? config.php.gettext or true
+    , pcntlSupport ? config.php.pcntl or true
+    , pdo_odbcSupport ? config.php.pdo_odbc or true
+    , postgresqlSupport ? config.php.postgresql or true
+    , pdo_pgsqlSupport ? config.php.pdo_pgsql or true
+    , readlineSupport ? config.php.readline or true
+    , sqliteSupport ? config.php.sqlite or true
+    , soapSupport ? (config.php.soap or true) && (libxml2Support)
+    , zlibSupport ? config.php.zlib or true
+    , opensslSupport ? config.php.openssl or true
+    , mbstringSupport ? config.php.mbstring or true
+    , gdSupport ? config.php.gd or true, intlSupport ? config.php.intl or true
+    , exifSupport ? config.php.exif or true
+    , xslSupport ? config.php.xsl or false, mcryptSupport ?
+      (config.php.mcrypt or true) && (versionOlder version "7.2")
+    , bz2Support ? config.php.bz2 or false, zipSupport ? config.php.zip or true
+    , ftpSupport ? config.php.ftp or true, fpmSupport ? config.php.fpm or true
+    , gmpSupport ? config.php.gmp or true
+    , ztsSupport ? (config.php.zts or false) || (apxs2Support)
+    , calendarSupport ? config.php.calendar or true, sodiumSupport ?
+      (config.php.sodium or true) && (versionAtLeast version "7.2")
+    , tidySupport ? (config.php.tidy or false), argon2Support ?
+      (config.php.argon2 or true) && (versionAtLeast version "7.2")
+    , libzipSupport ? (config.php.libzip or true)
+      && (versionAtLeast version "7.2")
+    , phpdbgSupport ? config.php.phpdbg or true
+    , cgiSupport ? config.php.cgi or true, cliSupport ? config.php.cli or true
+    , pharSupport ? config.php.phar or true
+    , xmlrpcSupport ? (config.php.xmlrpc or false) && (libxml2Support)
+    , cgotoSupport ? config.php.cgoto or false, valgrindSupport ?
+      (config.php.valgrind or true) && (versionAtLeast version "7.2") }:
 
     let
       mysqlBuildInputs = optional (!mysqlndSupport) mysql.connector-c;

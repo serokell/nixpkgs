@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, testfixtures, unittest2, webtest, pyramid, sqlalchemy, simplejson, mozsvc, cornice, pyramid_hawkauth, pymysql, pymysqlsa, umemcache, WSGIProxy, requests, pybrowserid
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, testfixtures, unittest2
+, webtest, pyramid, sqlalchemy, simplejson, mozsvc, cornice, pyramid_hawkauth
+, pymysql, pymysqlsa, umemcache, WSGIProxy, requests, pybrowserid }:
 
 buildPythonPackage rec {
   pname = "serversyncstorage";

@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, qtbase, qtdeclarative, kconfig, kcoreaddons, ki18n, kio
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtbase, qtdeclarative, kconfig
+, kcoreaddons, ki18n, kio }:
 
 mkDerivation {
   name = "purpose";

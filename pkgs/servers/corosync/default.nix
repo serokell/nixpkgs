@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, nss, nspr, libqb, dbus, rdma-core, libstatgrab, net_snmp, enableDbus ?
-  false, enableInfiniBandRdma ? false, enableMonitoring ? false, enableSnmp ?
-    false }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, nss, nspr, libqb, dbus, rdma-core
+, libstatgrab, net_snmp, enableDbus ? false, enableInfiniBandRdma ? false
+, enableMonitoring ? false, enableSnmp ? false }:
 
 with stdenv.lib;
 

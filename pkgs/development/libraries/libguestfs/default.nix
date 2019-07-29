@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, makeWrapper, ncurses, cpio, gperf, cdrkit, flex, bison, qemu, pcre, augeas, libxml2, acl, libcap, libcap_ng, libconfig, systemd, fuse, yajl, libvirt, hivex, gmp, readline, file, numactl, xen, libapparmor, getopt, perlPackages, ocamlPackages, appliance ?
-  null, javaSupport ? false, jdk ? null }:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, makeWrapper, ncurses, cpio, gperf
+, cdrkit, flex, bison, qemu, pcre, augeas, libxml2, acl, libcap, libcap_ng
+, libconfig, systemd, fuse, yajl, libvirt, hivex, gmp, readline, file, numactl
+, xen, libapparmor, getopt, perlPackages, ocamlPackages, appliance ? null
+, javaSupport ? false, jdk ? null }:
 
 assert appliance == null || stdenv.lib.isDerivation appliance;
 assert javaSupport -> jdk != null;

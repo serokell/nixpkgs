@@ -1,5 +1,5 @@
-{ mkXfceDerivation, docbook_xsl, libxslt, perlPackages, gtk3, libxfce4ui, libxfce4util
-}:
+{ mkXfceDerivation, docbook_xsl, libxslt, perlPackages, gtk3, libxfce4ui
+, libxfce4util }:
 
 mkXfceDerivation rec {
   category = "xfce";

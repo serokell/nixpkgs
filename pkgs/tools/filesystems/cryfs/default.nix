@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, coreutils, boost, cryptopp, curl, fuse, openssl, python, spdlog
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, coreutils, boost, cryptopp, curl
+, fuse, openssl, python, spdlog }:
 
 stdenv.mkDerivation rec {
   name = "cryfs-${version}";

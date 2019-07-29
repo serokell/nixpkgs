@@ -1,9 +1,10 @@
-{ stdenv, lib, buildEnv, substituteAll, runCommand, dwarf-fortress, dwarf-therapist, enableDFHack ?
-  false, dfhack, enableSoundSense ? false, soundSense, jdk, enableStoneSense ?
-    false, enableTWBT ? false, twbt, themes ? { }, theme ? null
-      # General config options:
-, enableIntro ? true, enableTruetype ? true, enableFPS ? false, enableTextMode ?
-  false }:
+{ stdenv, lib, buildEnv, substituteAll, runCommand, dwarf-fortress
+, dwarf-therapist, enableDFHack ? false, dfhack, enableSoundSense ? false
+, soundSense, jdk, enableStoneSense ? false, enableTWBT ? false, twbt
+, themes ? { }, theme ? null
+  # General config options:
+, enableIntro ? true, enableTruetype ? true, enableFPS ? false
+, enableTextMode ? false }:
 
 let
   dfhack_ = dfhack.override {

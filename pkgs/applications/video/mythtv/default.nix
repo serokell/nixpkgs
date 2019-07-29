@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, which, qtbase, qtwebkit, qtscript, xlibsWrapper, libpulseaudio, fftwSinglePrec, lame, zlib, libGLU_combined, alsaLib, freetype, perl, pkgconfig, libX11, libXv, libXrandr, libXvMC, libXinerama, libXxf86vm, libXmu, yasm, libuuid, taglib, libtool, autoconf, automake, file, exiv2, linuxHeaders, fetchpatch
-}:
+{ stdenv, fetchFromGitHub, which, qtbase, qtwebkit, qtscript, xlibsWrapper
+, libpulseaudio, fftwSinglePrec, lame, zlib, libGLU_combined, alsaLib, freetype
+, perl, pkgconfig, libX11, libXv, libXrandr, libXvMC, libXinerama, libXxf86vm
+, libXmu, yasm, libuuid, taglib, libtool, autoconf, automake, file, exiv2
+, linuxHeaders, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "mythtv-${version}";

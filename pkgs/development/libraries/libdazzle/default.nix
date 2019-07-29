@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, ninja, meson, pkgconfig, vala, gobject-introspection, libxml2, gtk-doc, docbook_xsl, docbook_xml_dtd_43, glibcLocales, dbus, xvfb_run, glib, gtk3, gnome3
-}:
+{ stdenv, fetchurl, ninja, meson, pkgconfig, vala, gobject-introspection
+, libxml2, gtk-doc, docbook_xsl, docbook_xml_dtd_43, glibcLocales, dbus
+, xvfb_run, glib, gtk3, gnome3 }:
 
 let
   version = "3.32.2";

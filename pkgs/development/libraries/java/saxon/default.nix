@@ -1,9 +1,8 @@
 { stdenv, fetchurl, unzip, jre }:
 
 let
-  common =
-    { pname, version, src, description, prog ? null, jar ? null, license ?
-      stdenv.lib.licenses.mpl20 }:
+  common = { pname, version, src, description, prog ? null, jar ? null
+    , license ? stdenv.lib.licenses.mpl20 }:
     stdenv.mkDerivation {
       name = "${pname}-${version}";
       inherit pname version src;

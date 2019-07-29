@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, requests, requests_toolbelt, requests_oauthlib, pytest, pytestrunner, pytestcov, responses
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, requests_toolbelt
+, requests_oauthlib, pytest, pytestrunner, pytestcov, responses }:
 
 buildPythonPackage rec {
   pname = "flickrapi";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, expat, systemd, libX11 ? null, libICE ?
-  null, libSM ? null, x11Support ? (stdenv.isLinux || stdenv.isDarwin) }:
+{ stdenv, lib, fetchurl, pkgconfig, expat, systemd, libX11 ? null, libICE ? null
+, libSM ? null, x11Support ? (stdenv.isLinux || stdenv.isDarwin) }:
 
 assert x11Support -> libX11 != null && libICE != null && libSM != null;
 

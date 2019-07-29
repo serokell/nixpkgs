@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, openldap, openssl, popt, glib, ncurses, readline, pkgconfig, cyrus_sasl, autoconf, automake
-}:
+{ stdenv, fetchgit, openldap, openssl, popt, glib, ncurses, readline, pkgconfig
+, cyrus_sasl, autoconf, automake }:
 
 stdenv.mkDerivation rec {
   name = "ldapvi-${version}";

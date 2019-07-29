@@ -1,5 +1,6 @@
-{ lib, python, buildPythonPackage, fetchPypi, backports_abc, backports_ssl_match_hostname, certifi, singledispatch, pythonOlder, futures, version ?
-  "5.1" }:
+{ lib, python, buildPythonPackage, fetchPypi, backports_abc
+, backports_ssl_match_hostname, certifi, singledispatch, pythonOlder, futures
+, version ? "5.1" }:
 
 let
   versionMap = {

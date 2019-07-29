@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libjack2, lv2, glib, qt5, libao, cairo, libsndfile, fftwFloat
-}:
+{ stdenv, fetchurl, pkgconfig, libjack2, lv2, glib, qt5, libao, cairo
+, libsndfile, fftwFloat }:
 
 stdenv.mkDerivation rec {
   name = "spectmorph-${version}";

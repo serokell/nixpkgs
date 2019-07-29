@@ -1,5 +1,6 @@
-{ stdenv, fetchsvn, boost, cmake, ffmpeg, freeglut, glib, gtk2, libjpeg, libpng, libpthreadstubs, libvorbis, libXau, libXdmcp, libXmu, libGLU_combined, openal, pixman, pkgconfig, python27, SDL
-}:
+{ stdenv, fetchsvn, boost, cmake, ffmpeg, freeglut, glib, gtk2, libjpeg, libpng
+, libpthreadstubs, libvorbis, libXau, libXdmcp, libXmu, libGLU_combined, openal
+, pixman, pkgconfig, python27, SDL }:
 
 stdenv.mkDerivation {
   name = "privateer-1.03";

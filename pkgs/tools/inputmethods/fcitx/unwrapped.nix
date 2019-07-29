@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, cmake, intltool, gettext, libxml2, enchant1, isocodes, icu, libpthreadstubs, pango, cairo, libxkbfile, libXau, libXdmcp, libxkbcommon, dbus, gtk2, gtk3, qt4, extra-cmake-modules, xkeyboard_config, pcre, libuuid, withPinyin ?
-  true, fetchFromGitLab }:
+{ stdenv, fetchurl, pkgconfig, cmake, intltool, gettext, libxml2, enchant1
+, isocodes, icu, libpthreadstubs, pango, cairo, libxkbfile, libXau, libXdmcp
+, libxkbcommon, dbus, gtk2, gtk3, qt4, extra-cmake-modules, xkeyboard_config
+, pcre, libuuid, withPinyin ? true, fetchFromGitLab }:
 
 let
   # releases at http://download.fcitx-im.org/fcitx/${name}_dict.tar.xz

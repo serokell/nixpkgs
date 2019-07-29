@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkgconfig, glib, libgcrypt
-}:
+{ fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkgconfig, glib
+, libgcrypt }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

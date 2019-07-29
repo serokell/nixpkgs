@@ -1,5 +1,5 @@
-{ gsmakeDerivation, cairo, fetchurl, base, gui, xlibsWrapper, freetype, pkgconfig, libXmu
-}:
+{ gsmakeDerivation, cairo, fetchurl, base, gui, xlibsWrapper, freetype
+, pkgconfig, libXmu }:
 let version = "0.27.0";
 in gsmakeDerivation {
   name = "gnustep-back-${version}";

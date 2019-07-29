@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, fetchFromGitHub, cmake, openssl, sqlite, pkgconfig, systemd, tlsSupport ?
-  false }:
+{ stdenv, fetchpatch, fetchFromGitHub, cmake, openssl, sqlite, pkgconfig
+, systemd, tlsSupport ? false }:
 
 assert tlsSupport -> openssl != null;
 

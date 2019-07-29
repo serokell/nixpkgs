@@ -1,4 +1,7 @@
-{ fetchurl, stdenv, pkgconfig, gstreamer, xorg, alsaLib, cdparanoia, libogg, libtheora, libvorbis, freetype, pango, liboil, glib, cairo, orc, libintl, ApplicationServices, # Whether to build no plugins that have external dependencies
+{ fetchurl, stdenv, pkgconfig, gstreamer, xorg, alsaLib, cdparanoia, libogg
+, libtheora, libvorbis, freetype, pango, liboil, glib, cairo, orc, libintl
+, ApplicationServices
+, # Whether to build no plugins that have external dependencies
 # (except the ALSA plugin).
 minimalDeps ? false }:
 

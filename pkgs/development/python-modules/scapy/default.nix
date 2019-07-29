@@ -1,8 +1,9 @@
-{ buildPythonPackage, fetchFromGitHub, lib, isPyPy, isPy3k, pythonOlder, pycrypto, ecdsa # TODO
-, enum34, mock, withOptionalDeps ? true, tcpdump, ipython, withCryptography ?
-  true, cryptography, withVoipSupport ? true, sox, withPlottingSupport ?
-    true, matplotlib, withGraphicsSupport ?
-      false, pyx, texlive, graphviz, imagemagick, withManufDb ? false, wireshark
+{ buildPythonPackage, fetchFromGitHub, lib, isPyPy, isPy3k, pythonOlder
+, pycrypto, ecdsa # TODO
+, enum34, mock, withOptionalDeps ? true, tcpdump, ipython
+, withCryptography ? true, cryptography, withVoipSupport ? true, sox
+, withPlottingSupport ? true, matplotlib, withGraphicsSupport ? false, pyx
+, texlive, graphviz, imagemagick, withManufDb ? false, wireshark
 # 2D/3D graphics and graphs TODO: VPython
 # TODO: nmap, numpy
 }:

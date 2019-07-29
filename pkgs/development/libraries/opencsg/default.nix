@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libGLU_combined, freeglut, glew, libXmu, libXext, libX11, qmake, GLUT, fixDarwinDylibNames
-}:
+{ stdenv, fetchurl, libGLU_combined, freeglut, glew, libXmu, libXext, libX11
+, qmake, GLUT, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";

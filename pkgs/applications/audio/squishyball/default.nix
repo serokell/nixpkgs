@@ -1,5 +1,5 @@
-{ stdenv, autoreconfHook, fetchsvn, flac, libao, libvorbis, ncurses, opusfile, pkgconfig
-}:
+{ stdenv, autoreconfHook, fetchsvn, flac, libao, libvorbis, ncurses, opusfile
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "squishyball-${rev}";

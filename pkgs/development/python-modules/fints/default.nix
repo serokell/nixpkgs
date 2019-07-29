@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, requests, mt-940, sepaxml, bleach, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, requests, mt-940, sepaxml, bleach
+, isPy3k }:
 
 buildPythonPackage rec {
   version = "2.1.1";

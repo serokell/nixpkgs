@@ -1,14 +1,14 @@
-{ stdenv, icu, expat, zlib, bzip2, python, fixDarwinDylibNames, libiconv, which, buildPackages, toolset ?
-  if stdenv.cc.isClang then "clang" else null, enableRelease ?
-    true, enableDebug ? false, enableSingleThreaded ?
-      false, enableMultiThreaded ? true, enableShared ?
-        !(stdenv.hostPlatform.libc == "msvcrt") # problems for now
-, enableStatic ? !enableShared, enablePython ? false, enableNumpy ?
-  false, taggedLayout ? ((enableRelease && enableDebug)
-    || (enableSingleThreaded && enableMultiThreaded)
-    || (enableShared && enableStatic)), patches ? [ ], mpi ? null
+{ stdenv, icu, expat, zlib, bzip2, python, fixDarwinDylibNames, libiconv, which
+, buildPackages, toolset ? if stdenv.cc.isClang then "clang" else null
+, enableRelease ? true, enableDebug ? false, enableSingleThreaded ? false
+, enableMultiThreaded ? true
+, enableShared ? !(stdenv.hostPlatform.libc == "msvcrt") # problems for now
+, enableStatic ? !enableShared, enablePython ? false, enableNumpy ? false
+, taggedLayout ? ((enableRelease && enableDebug)
+  || (enableSingleThreaded && enableMultiThreaded)
+  || (enableShared && enableStatic)), patches ? [ ], mpi ? null
 
-      # Attributes inherit from specific versions
+    # Attributes inherit from specific versions
 , version, src, ... }:
 
 # We must build at least one type of libraries

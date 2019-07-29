@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcov, pytestpep8, pytest_xdist, six, numpy, scipy, pyyaml, h5py, keras-applications, keras-preprocessing
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, pytestcov, pytestpep8
+, pytest_xdist, six, numpy, scipy, pyyaml, h5py, keras-applications
+, keras-preprocessing }:
 
 buildPythonPackage rec {
   pname = "Keras";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, qttools, pkgconfig, minizip, zlib, qtbase, qtsvg, qtmultimedia, qtwebkit, qttranslations, qtxmlpatterns, rsync, SDL2, xwininfo, utillinux, xorg
-}:
+{ stdenv, fetchurl, qttools, pkgconfig, minizip, zlib, qtbase, qtsvg
+, qtmultimedia, qtwebkit, qttranslations, qtxmlpatterns, rsync, SDL2, xwininfo
+, utillinux, xorg }:
 
 stdenv.mkDerivation rec {
   name = "qmc2-${version}";

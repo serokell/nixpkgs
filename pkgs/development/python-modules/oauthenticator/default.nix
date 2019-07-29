@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, jupyterhub, globus-sdk, mwoauth, codecov, flake8, pyjwt, pytest, pytestcov, pytest-tornado, requests-mock, pythonOlder, fetchPypi
-}:
+{ lib, buildPythonPackage, jupyterhub, globus-sdk, mwoauth, codecov, flake8
+, pyjwt, pytest, pytestcov, pytest-tornado, requests-mock, pythonOlder
+, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "oauthenticator";

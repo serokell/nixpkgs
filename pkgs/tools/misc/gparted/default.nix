@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, intltool, gettext, makeWrapper, parted, glib, libuuid, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme, gpart, hdparm, procps, utillinux
-}:
+{ stdenv, fetchurl, intltool, gettext, makeWrapper, parted, glib, libuuid
+, pkgconfig, gtkmm3, libxml2, hicolor-icon-theme, gpart, hdparm, procps
+, utillinux }:
 
 stdenv.mkDerivation rec {
   name = "gparted-1.0.0";

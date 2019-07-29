@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, SDL_image, SDL_ttf, SDL_mixer, libpng, cairo, librsvg, gettext, libpaper, fribidi, pkgconfig, gperf
-}:
+{ stdenv, fetchurl, SDL, SDL_image, SDL_ttf, SDL_mixer, libpng, cairo, librsvg
+, gettext, libpaper, fribidi, pkgconfig, gperf }:
 
 stdenv.mkDerivation rec {
   version = "0.9.22";

@@ -1,5 +1,5 @@
-{ lib, stdenv, substituteAll, fetchurl, fetchpatch, findXMLCatalogs, writeScriptBin, ruby, bash
-}:
+{ lib, stdenv, substituteAll, fetchurl, fetchpatch, findXMLCatalogs
+, writeScriptBin, ruby, bash }:
 
 let
 

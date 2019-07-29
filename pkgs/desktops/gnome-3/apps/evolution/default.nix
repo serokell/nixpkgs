@@ -1,5 +1,9 @@
-{ stdenv, cmake, ninja, intltool, fetchurl, libxml2, webkitgtk, highlight, pkgconfig, gtk3, glib, libnotify, gtkspell3, evolution-data-server, adwaita-icon-theme, gnome-desktop, libgdata, libgweather, glib-networking, gsettings-desktop-schemas, wrapGAppsHook, itstool, shared-mime-info, libical, db, gcr, sqlite, gnome3, librsvg, gdk_pixbuf, libsecret, nss, nspr, icu, libcanberra-gtk3, bogofilter, gst_all_1, procps, p11-kit, openldap
-}:
+{ stdenv, cmake, ninja, intltool, fetchurl, libxml2, webkitgtk, highlight
+, pkgconfig, gtk3, glib, libnotify, gtkspell3, evolution-data-server
+, adwaita-icon-theme, gnome-desktop, libgdata, libgweather, glib-networking
+, gsettings-desktop-schemas, wrapGAppsHook, itstool, shared-mime-info, libical
+, db, gcr, sqlite, gnome3, librsvg, gdk_pixbuf, libsecret, nss, nspr, icu
+, libcanberra-gtk3, bogofilter, gst_all_1, procps, p11-kit, openldap }:
 
 stdenv.mkDerivation rec {
   pname = "evolution";

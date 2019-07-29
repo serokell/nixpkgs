@@ -1,20 +1,19 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, unzip, zlib, pcre, hdf5, glog, boost, google-gflags, protobuf, config
+{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, unzip, zlib, pcre
+, hdf5, glog, boost, google-gflags, protobuf, config
 
-, enableJPEG ? true, libjpeg, enablePNG ? true, libpng, enableTIFF ?
-  true, libtiff, enableWebP ? true, libwebp, enableEXR ?
-    !stdenv.isDarwin, openexr, ilmbase, enableJPEG2K ?
-      true, jasper, enableEigen ? true, eigen, enableOpenblas ?
-        true, openblas, enableContrib ? true
+, enableJPEG ? true, libjpeg, enablePNG ? true, libpng, enableTIFF ? true
+, libtiff, enableWebP ? true, libwebp, enableEXR ? !stdenv.isDarwin, openexr
+, ilmbase, enableJPEG2K ? true, jasper, enableEigen ? true, eigen
+, enableOpenblas ? true, openblas, enableContrib ? true
 
 , enableCuda ? config.cudaSupport or false, cudatoolkit
 
-, enableUnfree ? false, enableIpp ? false, enablePython ?
-  false, pythonPackages, enableGtk2 ? false, gtk2, enableGtk3 ?
-    false, gtk3, enableVtk ? false, vtk, enableFfmpeg ?
-      false, ffmpeg, enableGStreamer ? false, gst_all_1, enableTesseract ?
-        false, tesseract, leptonica, enableTbb ? false, tbb, enableOvis ?
-          false, ogre, enableGPhoto2 ? false, libgphoto2, enableDC1394 ?
-            false, libdc1394, enableDocs ? false, doxygen, graphviz-nox
+, enableUnfree ? false, enableIpp ? false, enablePython ? false, pythonPackages
+, enableGtk2 ? false, gtk2, enableGtk3 ? false, gtk3, enableVtk ? false, vtk
+, enableFfmpeg ? false, ffmpeg, enableGStreamer ? false, gst_all_1
+, enableTesseract ? false, tesseract, leptonica, enableTbb ? false, tbb
+, enableOvis ? false, ogre, enableGPhoto2 ? false, libgphoto2
+, enableDC1394 ? false, libdc1394, enableDocs ? false, doxygen, graphviz-nox
 
 , AVFoundation, Cocoa, VideoDecodeAcceleration, bzip2 }:
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, fetchurl, cmake, darkhttpd, gettext, makeWrapper, pkgconfig, libdigidocpp, opensc, openldap, openssl, pcsclite, qtbase, qttranslations, qtsvg
-}:
+{ stdenv, fetchgit, fetchurl, cmake, darkhttpd, gettext, makeWrapper, pkgconfig
+, libdigidocpp, opensc, openldap, openssl, pcsclite, qtbase, qttranslations
+, qtsvg }:
 
 stdenv.mkDerivation rec {
   name = "qdigidoc-${version}";

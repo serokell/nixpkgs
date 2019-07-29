@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, haskellPackages, haskell, which, swiProlog, rlwrap, tk, curl, git, unzip, gnutar, coreutils, sqlite
-}:
+{ stdenv, fetchurl, makeWrapper, haskellPackages, haskell, which, swiProlog
+, rlwrap, tk, curl, git, unzip, gnutar, coreutils, sqlite }:
 
 let
   name = "pakcs-2.1.1";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, imagemagickBig, pkgconfig, python2Packages, perl, libX11, libv4l, qt5, gtk2, xmlto, docbook_xsl, autoreconfHook, dbus, enableVideo ?
-  stdenv.isLinux, enableDbus ? stdenv.isLinux }:
+{ stdenv, fetchFromGitHub, imagemagickBig, pkgconfig, python2Packages, perl
+, libX11, libv4l, qt5, gtk2, xmlto, docbook_xsl, autoreconfHook, dbus
+, enableVideo ? stdenv.isLinux, enableDbus ? stdenv.isLinux }:
 
 with stdenv.lib;
 let inherit (python2Packages) pygtk python;

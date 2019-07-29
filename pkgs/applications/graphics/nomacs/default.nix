@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, wrapGAppsHook, gsettings-desktop-schemas
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, wrapGAppsHook
+, gsettings-desktop-schemas
 
 , qtbase, qttools, qtsvg
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gtk3, glib, intltool, dbus-glib, libX11, libXScrnSaver, libXxf86vm, libXext, systemd, pantheon, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gtk3, glib, intltool
+, dbus-glib, libX11, libXScrnSaver, libXxf86vm, libXext, systemd, pantheon
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "light-locker";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pbr, six, futures, monotonic, pytest, sphinx, tornado
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, pbr, six, futures, monotonic
+, pytest, sphinx, tornado }:
 
 buildPythonPackage rec {
   pname = "tenacity";

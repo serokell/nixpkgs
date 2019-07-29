@@ -1,26 +1,22 @@
-{ config, stdenv, fetchurl, pkgconfig, freetype, yasm, ffmpeg, aalibSupport ?
-  true, aalib ? null, fontconfigSupport ? true, fontconfig ?
-    null, freefont_ttf ? null, fribidiSupport ? true, fribidi ?
-      null, x11Support ? true, libX11 ? null, libXext ? null, libGLU_combined ?
-        null, xineramaSupport ? true, libXinerama ? null, xvSupport ?
-          true, libXv ? null, alsaSupport ? stdenv.isLinux, alsaLib ?
-            null, screenSaverSupport ? true, libXScrnSaver ?
-              null, vdpauSupport ? false, libvdpau ? null, cddaSupport ?
-                !stdenv.isDarwin, cdparanoia ? null, dvdnavSupport ?
-                  !stdenv.isDarwin, libdvdnav ? null, dvdreadSupport ?
-                    true, libdvdread ? null, bluraySupport ? true, libbluray ?
-                      null, amrSupport ? false, amrnb ? null, amrwb ?
-                        null, cacaSupport ? true, libcaca ? null, lameSupport ?
-                          true, lame ? null, speexSupport ? true, speex ?
-                            null, theoraSupport ? true, libtheora ?
-                              null, x264Support ? false, x264 ?
-                                null, jackaudioSupport ? false, libjack2 ?
-                                  null, pulseSupport ?
-                                    config.pulseaudio or false, libpulseaudio ?
-                                      null, bs2bSupport ? false, libbs2b ? null
-                                        # For screenshots
-, libpngSupport ? true, libpng ? null, libjpegSupport ? true, libjpeg ?
-  null, useUnfreeCodecs ? false, darwin ? null, buildPackages }:
+{ config, stdenv, fetchurl, pkgconfig, freetype, yasm, ffmpeg
+, aalibSupport ? true, aalib ? null, fontconfigSupport ? true, fontconfig ? null
+, freefont_ttf ? null, fribidiSupport ? true, fribidi ? null, x11Support ? true
+, libX11 ? null, libXext ? null, libGLU_combined ? null, xineramaSupport ? true
+, libXinerama ? null, xvSupport ? true, libXv ? null
+, alsaSupport ? stdenv.isLinux, alsaLib ? null, screenSaverSupport ? true
+, libXScrnSaver ? null, vdpauSupport ? false, libvdpau ? null
+, cddaSupport ? !stdenv.isDarwin, cdparanoia ? null
+, dvdnavSupport ? !stdenv.isDarwin, libdvdnav ? null, dvdreadSupport ? true
+, libdvdread ? null, bluraySupport ? true, libbluray ? null, amrSupport ? false
+, amrnb ? null, amrwb ? null, cacaSupport ? true, libcaca ? null
+, lameSupport ? true, lame ? null, speexSupport ? true, speex ? null
+, theoraSupport ? true, libtheora ? null, x264Support ? false, x264 ? null
+, jackaudioSupport ? false, libjack2 ? null
+, pulseSupport ? config.pulseaudio or false, libpulseaudio ? null
+, bs2bSupport ? false, libbs2b ? null
+  # For screenshots
+, libpngSupport ? true, libpng ? null, libjpegSupport ? true, libjpeg ? null
+, useUnfreeCodecs ? false, darwin ? null, buildPackages }:
 
 assert fontconfigSupport -> (fontconfig != null);
 assert (!fontconfigSupport) -> (freefont_ttf != null);

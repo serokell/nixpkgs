@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchurl, pkgconfig, libbfd, popt, zlib, linuxHeaders, libiberty_static, withGUI ?
-  false, qt4 ? null }:
+{ stdenv, buildPackages, fetchurl, pkgconfig, libbfd, popt, zlib, linuxHeaders
+, libiberty_static, withGUI ? false, qt4 ? null }:
 
 # libX11 is needed because the Qt build stuff automatically adds `-lX11'.
 assert withGUI -> qt4 != null;

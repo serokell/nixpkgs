@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, fuse, bison, flex_2_5_35, openssl, python2, ncurses, readline, autoconf, automake, libtool, pkgconfig, zlib, libaio, libxml2, acl, sqlite, liburcu, attr, makeWrapper, coreutils, gnused, gnugrep, which, openssh, gawk, findutils, utillinux, lvm2, btrfs-progs, e2fsprogs, xfsprogs, systemd, rsync, glibc
-}:
+{ stdenv, fetchurl, fuse, bison, flex_2_5_35, openssl, python2, ncurses
+, readline, autoconf, automake, libtool, pkgconfig, zlib, libaio, libxml2, acl
+, sqlite, liburcu, attr, makeWrapper, coreutils, gnused, gnugrep, which, openssh
+, gawk, findutils, utillinux, lvm2, btrfs-progs, e2fsprogs, xfsprogs, systemd
+, rsync, glibc }:
 let
   s = rec {
     baseName = "glusterfs";

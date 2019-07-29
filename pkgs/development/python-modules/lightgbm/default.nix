@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, cmake, numpy, scipy, scikitlearn, llvmPackages ?
-  null }:
+{ stdenv, buildPythonPackage, fetchPypi, cmake, numpy, scipy, scikitlearn
+, llvmPackages ? null }:
 
 buildPythonPackage rec {
   pname = "lightgbm";

@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, cmake, docutils, pkgconfig, glib, libpthreadstubs, libXau, libXdmcp, xcbutil
-}:
+{ stdenv, fetchgit, cmake, docutils, pkgconfig, glib, libpthreadstubs, libXau
+, libXdmcp, xcbutil }:
 
 stdenv.mkDerivation {
   name = "xss-lock-git-2014-03-02";

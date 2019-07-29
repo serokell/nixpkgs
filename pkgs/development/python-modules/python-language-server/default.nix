@@ -1,11 +1,14 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, isPy27, backports_functools_lru_cache, configparser, futures, future, jedi, pluggy, python-jsonrpc-server, pytest, mock, pytestcov, coverage, # Allow building a limited set of providers, e.g. ["pycodestyle"].
+{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, isPy27
+, backports_functools_lru_cache, configparser, futures, future, jedi, pluggy
+, python-jsonrpc-server, pytest, mock, pytestcov, coverage
+, # Allow building a limited set of providers, e.g. ["pycodestyle"].
 providers ? [
   "*"
 ]
 # The following packages are optional and
 # can be overwritten with null as your liking.
-, autopep8 ? null, mccabe ? null, pycodestyle ? null, pydocstyle ?
-  null, pyflakes ? null, pylint ? null, rope ? null, yapf ? null }:
+, autopep8 ? null, mccabe ? null, pycodestyle ? null, pydocstyle ? null
+, pyflakes ? null, pylint ? null, rope ? null, yapf ? null }:
 
 let withProvider = p: builtins.elem "*" providers || builtins.elem p providers;
 

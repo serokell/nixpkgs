@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, pythonPackages, docbook2x, libxslt, gnome-doc-utils, intltool, dbus-glib, gnome_python, hicolor-icon-theme, wafHook
-}:
+{ stdenv, fetchzip, pythonPackages, docbook2x, libxslt, gnome-doc-utils
+, intltool, dbus-glib, gnome_python, hicolor-icon-theme, wafHook }:
 
 # TODO: Add optional dependency 'wnck', for "workspace tracking" support. Fixes
 # this message:

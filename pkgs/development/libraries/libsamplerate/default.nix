@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libsndfile, ApplicationServices, Carbon, CoreServices
-}:
+{ stdenv, fetchurl, pkgconfig, libsndfile, ApplicationServices, Carbon
+, CoreServices }:
 
 let inherit (stdenv.lib) optionals optionalString;
 

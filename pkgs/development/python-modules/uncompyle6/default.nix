@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, spark_parser, xdis, nose, pytest, hypothesis, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, spark_parser, xdis, nose, pytest
+, hypothesis, six }:
 
 buildPythonPackage rec {
   pname = "uncompyle6";

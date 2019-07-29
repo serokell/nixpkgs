@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, attrs, click, toml, appdirs, aiohttp, aiohttp-cors, glibcLocales, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, attrs, click, toml
+, appdirs, aiohttp, aiohttp-cors, glibcLocales, pytest }:
 
 buildPythonPackage rec {
   pname = "black";

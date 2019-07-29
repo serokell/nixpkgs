@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, orcania, systemd, check, subunit, withSystemd ?
-  stdenv.isLinux }:
+{ stdenv, lib, fetchFromGitHub, cmake, orcania, systemd, check, subunit
+, withSystemd ? stdenv.isLinux }:
 assert withSystemd -> systemd != null;
 stdenv.mkDerivation rec {
   pname = "yder";

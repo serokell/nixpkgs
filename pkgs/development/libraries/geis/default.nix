@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, python3Packages, wrapGAppsHook, atk, dbus, evemu, frame, gdk_pixbuf, gobject-introspection, grail, gtk3, libX11, libXext, libXi, libXtst, pango, xorgserver
-}:
+{ stdenv, fetchurl, pkgconfig, python3Packages, wrapGAppsHook, atk, dbus, evemu
+, frame, gdk_pixbuf, gobject-introspection, grail, gtk3, libX11, libXext, libXi
+, libXtst, pango, xorgserver }:
 
 with stdenv.lib;
 

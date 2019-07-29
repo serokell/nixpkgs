@@ -1,15 +1,16 @@
-args@{ fetchgit, stdenv, ncurses, pkgconfig, gettext, lib, config, python, perl, tcl, ruby, qt4, libX11, libXext, libSM, libXpm, libXt, libXaw, libXau, libXmu, libICE, lua, features, luaSupport ?
-  config.vim.lua or true, perlSupport ?
-    config.vim.perl or false # Perl interpreter
-, pythonSupport ? config.vim.python or true, rubySupport ?
-  config.vim.ruby or true, nlsSupport ? config.vim.nls or false, tclSupport ?
-    config.vim.tcl or false, multibyteSupport ?
-      config.vim.multibyte or false, cscopeSupport ?
-        config.vim.cscope or false, netbeansSupport ?
-          config.netbeans or true # eg envim is using it
+args@{ fetchgit, stdenv, ncurses, pkgconfig, gettext, lib, config, python, perl
+, tcl, ruby, qt4, libX11, libXext, libSM, libXpm, libXt, libXaw, libXau, libXmu
+, libICE, lua, features, luaSupport ? config.vim.lua or true
+, perlSupport ? config.vim.perl or false # Perl interpreter
+, pythonSupport ? config.vim.python or true
+, rubySupport ? config.vim.ruby or true, nlsSupport ? config.vim.nls or false
+, tclSupport ? config.vim.tcl or false
+, multibyteSupport ? config.vim.multibyte or false
+, cscopeSupport ? config.vim.cscope or false, netbeansSupport ?
+  config.netbeans or true # eg envim is using it
 
-          # by default, compile with darwin support if we're compiling on darwin, but
-          # allow this to be disabled by setting config.vim.darwin to false
+  # by default, compile with darwin support if we're compiling on darwin, but
+  # allow this to be disabled by setting config.vim.darwin to false
 , darwinSupport ? stdenv.isDarwin && (config.vim.darwin or true)
 
   # add .nix filetype detection and minimal syntax highlighting support

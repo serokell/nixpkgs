@@ -1,5 +1,9 @@
-{ stdenv, fetchgit, cmake, pkgconfig, boost, libunwind, libmemcached, pcre, libevent, gd, curl, libxml2, icu, flex, bison, openssl, zlib, php, expat, libcap, oniguruma, libdwarf, libmcrypt, tbb, gperftools, glog, libkrb5, bzip2, openldap, readline, libelf, uwimap, binutils, cyrus_sasl, pam, libpng, libxslt, freetype, gdb, git, perl, mysql, gmp, libyaml, libedit, libvpx, imagemagick, fribidi, gperf, which, ocamlPackages
-}:
+{ stdenv, fetchgit, cmake, pkgconfig, boost, libunwind, libmemcached, pcre
+, libevent, gd, curl, libxml2, icu, flex, bison, openssl, zlib, php, expat
+, libcap, oniguruma, libdwarf, libmcrypt, tbb, gperftools, glog, libkrb5, bzip2
+, openldap, readline, libelf, uwimap, binutils, cyrus_sasl, pam, libpng, libxslt
+, freetype, gdb, git, perl, mysql, gmp, libyaml, libedit, libvpx, imagemagick
+, fribidi, gperf, which, ocamlPackages }:
 
 stdenv.mkDerivation rec {
   name = "hhvm-${version}";

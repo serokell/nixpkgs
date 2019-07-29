@@ -1,10 +1,12 @@
-{ stdenv, ensureNewerSourcesHook, cmake, pkgconfig, which, git, boost, python2Packages, libxml2, zlib, openldap, lttng-ust, babeltrace, gperf, cunit, snappy, rocksdb, makeWrapper
+{ stdenv, ensureNewerSourcesHook, cmake, pkgconfig, which, git, boost
+, python2Packages, libxml2, zlib, openldap, lttng-ust, babeltrace, gperf, cunit
+, snappy, rocksdb, makeWrapper
 
 # Optional Dependencies
-, yasm ? null, fcgi ? null, expat ? null, curl ? null, fuse ? null, libedit ?
-  null, libatomic_ops ? null, kinetic-cpp-client ? null, libs3 ? null
+, yasm ? null, fcgi ? null, expat ? null, curl ? null, fuse ? null
+, libedit ? null, libatomic_ops ? null, kinetic-cpp-client ? null, libs3 ? null
 
-    # Mallocs
+  # Mallocs
 , jemalloc ? null, gperftools ? null
 
   # Crypto Dependencies

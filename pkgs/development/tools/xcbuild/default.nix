@@ -1,5 +1,5 @@
-{ stdenv, cmake, fetchFromGitHub, zlib, libxml2, libpng, CoreServices, CoreGraphics, ImageIO, ninja
-}:
+{ stdenv, cmake, fetchFromGitHub, zlib, libxml2, libpng, CoreServices
+, CoreGraphics, ImageIO, ninja }:
 
 let
   googletest = fetchFromGitHub {

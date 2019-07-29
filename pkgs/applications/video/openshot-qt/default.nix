@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, doxygen, python3Packages, libopenshot, wrapGAppsHook, gtk3
-}:
+{ stdenv, fetchFromGitHub, doxygen, python3Packages, libopenshot, wrapGAppsHook
+, gtk3 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "openshot-qt";

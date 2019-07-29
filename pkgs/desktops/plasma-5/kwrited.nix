@@ -1,5 +1,5 @@
-{ mkDerivation, extra-cmake-modules, kcoreaddons, kdbusaddons, ki18n, knotifications, kpty, qtbase,
-}:
+{ mkDerivation, extra-cmake-modules, kcoreaddons, kdbusaddons, ki18n
+, knotifications, kpty, qtbase, }:
 
 mkDerivation {
   name = "kwrited";

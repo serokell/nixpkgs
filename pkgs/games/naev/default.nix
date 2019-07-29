@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, SDL, openal, SDL_mixer, libxml2, pkgconfig, libvorbis, libpng, libGLU_combined, makeWrapper, zlib, freetype
-}:
+{ fetchurl, stdenv, SDL, openal, SDL_mixer, libxml2, pkgconfig, libvorbis
+, libpng, libGLU_combined, makeWrapper, zlib, freetype }:
 
 let
   pname = "naev";

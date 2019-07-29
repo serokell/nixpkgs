@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, zlib, gnutlsSupport ? false, gnutls ? null, nettle ?
-  null, opensslSupport ? true, openssl ? null }:
+{ stdenv, fetchgit, zlib, gnutlsSupport ? false, gnutls ? null, nettle ? null
+, opensslSupport ? true, openssl ? null }:
 
 # Must have an ssl library enabled
 assert (gnutlsSupport || opensslSupport);

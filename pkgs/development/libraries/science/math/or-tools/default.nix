@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, abseil-cpp, google-gflags, which, lsb-release, glog, protobuf, cbc, zlib, ensureNewerSourcesForZipFilesHook, python, swig, pythonProtobuf
-}:
+{ stdenv, fetchFromGitHub, cmake, abseil-cpp, google-gflags, which, lsb-release
+, glog, protobuf, cbc, zlib, ensureNewerSourcesForZipFilesHook, python, swig
+, pythonProtobuf }:
 
 stdenv.mkDerivation rec {
   name = "or-tools-${version}";

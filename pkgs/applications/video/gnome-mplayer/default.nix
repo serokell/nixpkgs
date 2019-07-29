@@ -1,5 +1,5 @@
-{ stdenv, substituteAll, fetchFromGitHub, pkgconfig, gettext, glib, gtk3, gmtk, dbus, dbus-glib, libnotify, libpulseaudio, mplayer, wrapGAppsHook
-}:
+{ stdenv, substituteAll, fetchFromGitHub, pkgconfig, gettext, glib, gtk3, gmtk
+, dbus, dbus-glib, libnotify, libpulseaudio, mplayer, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "gnome-mplayer-${version}";

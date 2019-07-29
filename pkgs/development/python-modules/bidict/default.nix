@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, sphinx, hypothesis, py, pytest, pytest-benchmark, sortedcollections, sortedcontainers
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, sphinx, hypothesis, py
+, pytest, pytest-benchmark, sortedcollections, sortedcontainers }:
 
 buildPythonPackage rec {
   pname = "bidict";

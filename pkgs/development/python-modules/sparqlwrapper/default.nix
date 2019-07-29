@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, isodate, pyparsing, html5lib, keepalive
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, isodate, pyparsing, html5lib
+, keepalive }:
 
 buildPythonPackage rec {
   pname = "SPARQLWrapper";

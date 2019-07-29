@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libosmium, protozero, boost, bzip2, zlib, expat
-}:
+{ stdenv, fetchFromGitHub, cmake, libosmium, protozero, boost, bzip2, zlib
+, expat }:
 
 stdenv.mkDerivation rec {
   name = "osmium-tool-${version}";

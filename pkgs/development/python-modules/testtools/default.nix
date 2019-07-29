@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, python_mimeparse, extras, unittest2, traceback2, testscenarios
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, python_mimeparse, extras, unittest2
+, traceback2, testscenarios }:
 
 buildPythonPackage rec {
   pname = "testtools";

@@ -1,8 +1,9 @@
 { buildVersion, x32sha256, x64sha256, dev ? false }:
 
-{ fetchurl, stdenv, xorg, glib, glibcLocales, gtk3, cairo, pango, libredirect, makeWrapper, wrapGAppsHook, pkexecPath ?
-  "/run/wrappers/bin/pkexec", writeScript, common-updater-scripts, curl, gnugrep, openssl, bzip2, bash, unzip, zip
-}:
+{ fetchurl, stdenv, xorg, glib, glibcLocales, gtk3, cairo, pango, libredirect
+, makeWrapper, wrapGAppsHook, pkexecPath ? "/run/wrappers/bin/pkexec"
+, writeScript, common-updater-scripts, curl, gnugrep, openssl, bzip2, bash
+, unzip, zip }:
 
 let
   pname = "sublimetext3";

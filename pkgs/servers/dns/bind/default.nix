@@ -1,6 +1,6 @@
-{ config, stdenv, lib, fetchurl, fetchpatch, perl, libcap, libtool, libxml2, openssl, enablePython ?
-  config.bind.enablePython or false, python3 ? null, enableSeccomp ?
-    false, libseccomp ? null, buildPackages }:
+{ config, stdenv, lib, fetchurl, fetchpatch, perl, libcap, libtool, libxml2
+, openssl, enablePython ? config.bind.enablePython or false, python3 ? null
+, enableSeccomp ? false, libseccomp ? null, buildPackages }:
 
 assert enableSeccomp -> libseccomp != null;
 assert enablePython -> python3 != null;

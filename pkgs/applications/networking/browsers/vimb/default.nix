@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libsoup, webkitgtk, gtk3, glib-networking, gsettings-desktop-schemas, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libsoup, webkitgtk, gtk3, glib-networking
+, gsettings-desktop-schemas, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "vimb-${version}";

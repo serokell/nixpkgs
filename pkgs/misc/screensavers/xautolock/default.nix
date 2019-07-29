@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, xlibsWrapper, imake, gccmakedep, libXScrnSaver, xorgproto
-}:
+{ stdenv, fetchFromGitHub, xlibsWrapper, imake, gccmakedep, libXScrnSaver
+, xorgproto }:
 
 stdenv.mkDerivation rec {
   name = "xautolock-${version}";

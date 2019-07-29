@@ -1,5 +1,5 @@
-{ stdenv, python36Packages, fetchFromGitHub, libxcb, mtools, p7zip, parted, procps, utillinux, qt5, runtimeShell
-}:
+{ stdenv, python36Packages, fetchFromGitHub, libxcb, mtools, p7zip, parted
+, procps, utillinux, qt5, runtimeShell }:
 python36Packages.buildPythonApplication rec {
   pname = "multibootusb";
   name = "${pname}-${version}";

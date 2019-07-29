@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, dnspython, geoip2, ipython, praw, pyenchant, pygeoip, pytest, python, pytz, xmltodict
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, dnspython, geoip2, ipython
+, praw, pyenchant, pygeoip, pytest, python, pytz, xmltodict }:
 
 buildPythonPackage rec {
   pname = "sopel";

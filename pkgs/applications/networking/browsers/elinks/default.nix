@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, ncurses, xlibsWrapper, bzip2, zlib, openssl, gpm, # Incompatible licenses, LGPLv3 - GPLv2
-enableGuile ? false, guile ? null, enablePython ? false, python ?
-  null, enablePerl ? (stdenv.hostPlatform == stdenv.buildPlatform), perl ?
-    null, enableSpidermonkey ?
-      (stdenv.hostPlatform == stdenv.buildPlatform), spidermonkey_1_8_5 ? null
-}:
+{ stdenv, fetchurl, ncurses, xlibsWrapper, bzip2, zlib, openssl, gpm
+, # Incompatible licenses, LGPLv3 - GPLv2
+enableGuile ? false, guile ? null, enablePython ? false, python ? null
+, enablePerl ? (stdenv.hostPlatform == stdenv.buildPlatform), perl ? null
+, enableSpidermonkey ? (stdenv.hostPlatform == stdenv.buildPlatform)
+, spidermonkey_1_8_5 ? null }:
 
 assert enableGuile -> guile != null;
 assert enablePython -> python != null;

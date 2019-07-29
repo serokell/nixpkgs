@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, pkgs, isPyPy, pycrypto, requests, singledispatch, futures, isPy27, isPy33
-}:
+{ stdenv, buildPythonPackage, pkgs, isPyPy, pycrypto, requests, singledispatch
+, futures, isPy27, isPy33 }:
 
 buildPythonPackage rec {
   version = "1.12.2";

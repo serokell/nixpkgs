@@ -1,5 +1,8 @@
-{ mkDerivation, lib, fetchurl, fetchpatch, gettext, pkgconfig, qtbase, alsaLib, curl, faad2, ffmpeg, flac, fluidsynth, gdk_pixbuf, lame, libbs2b, libcddb, libcdio, libcue, libjack2, libmad, libmms, libmodplug, libmowgli, libnotify, libogg, libpulseaudio, libsamplerate, libsidplayfp, libsndfile, libvorbis, libxml2, lirc, mpg123, neon, qtmultimedia, soxr, wavpack
-}:
+{ mkDerivation, lib, fetchurl, fetchpatch, gettext, pkgconfig, qtbase, alsaLib
+, curl, faad2, ffmpeg, flac, fluidsynth, gdk_pixbuf, lame, libbs2b, libcddb
+, libcdio, libcue, libjack2, libmad, libmms, libmodplug, libmowgli, libnotify
+, libogg, libpulseaudio, libsamplerate, libsidplayfp, libsndfile, libvorbis
+, libxml2, lirc, mpg123, neon, qtmultimedia, soxr, wavpack }:
 
 let
   version = "3.9";

@@ -1,5 +1,8 @@
-{ mkDerivation, lib, makeWrapper, extra-cmake-modules, kdoctools, kbookmarks, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kguiaddons, ki18n, kiconthemes, kinit, kdelibs4support, kio, knotifications, knotifyconfig, kparts, kpty, kservice, ktextwidgets, kwidgetsaddons, kwindowsystem, kxmlgui, qtscript, knewstuff
-}:
+{ mkDerivation, lib, makeWrapper, extra-cmake-modules, kdoctools, kbookmarks
+, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kguiaddons, ki18n
+, kiconthemes, kinit, kdelibs4support, kio, knotifications, knotifyconfig
+, kparts, kpty, kservice, ktextwidgets, kwidgetsaddons, kwindowsystem, kxmlgui
+, qtscript, knewstuff }:
 
 mkDerivation {
   name = "konsole";

@@ -1,7 +1,7 @@
 { buildOcaml, opaline, js_build_tools, ocaml_oasis, fetchurl }:
 
-{ name, version ? "113.33.03", buildInputs ? [ ], hash ?
-  "", minimumSupportedOcamlVersion ? "4.02", ... }@args:
+{ name, version ? "113.33.03", buildInputs ? [ ], hash ? ""
+, minimumSupportedOcamlVersion ? "4.02", ... }@args:
 
 buildOcaml (args // {
   inherit name version minimumSupportedOcamlVersion;

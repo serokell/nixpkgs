@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, cmake, pkgconfig, gtk2, freetype, fontconfig, lcms, flex, libtiff, libjpeg, libpng, libexif, zlib, perlPackages, libX11, pythonPackages, gettext, intltool, babl, gegl, glib, makedepend, xorgproto, libXmu, openexr, libGLU_combined, libXext, libXpm, libXau, libXxf86vm, pixman, libpthreadstubs, fltk
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, gtk2, freetype, fontconfig, lcms, flex
+, libtiff, libjpeg, libpng, libexif, zlib, perlPackages, libX11, pythonPackages
+, gettext, intltool, babl, gegl, glib, makedepend, xorgproto, libXmu, openexr
+, libGLU_combined, libXext, libXpm, libXau, libXxf86vm, pixman, libpthreadstubs
+, fltk }:
 
 let inherit (pythonPackages) python pygtk;
 in stdenv.mkDerivation rec {

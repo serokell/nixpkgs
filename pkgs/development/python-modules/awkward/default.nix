@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pandas, pyarrow, pytestrunner, pytest, h5py
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pandas, pyarrow, pytestrunner
+, pytest, h5py }:
 
 buildPythonPackage rec {
   pname = "awkward";

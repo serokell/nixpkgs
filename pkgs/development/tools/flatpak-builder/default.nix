@@ -1,9 +1,11 @@
 { stdenv, fetchurl, substituteAll
 
-, autoreconfHook, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43, docbook_xsl, gettext, libxml2, libxslt, pkgconfig, xmlto
+, autoreconfHook, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
+, docbook_xsl, gettext, libxml2, libxslt, pkgconfig, xmlto
 
-, acl, bazaar, binutils, bzip2, coreutils, cpio, curl, elfutils, flatpak, gitMinimal, glib, glibcLocales, gnumake, gnupg, gnutar, json-glib, libcap, libdwarf, libsoup, libyaml, ostree, patch, python2, rpm, unzip
-}:
+, acl, bazaar, binutils, bzip2, coreutils, cpio, curl, elfutils, flatpak
+, gitMinimal, glib, glibcLocales, gnumake, gnupg, gnutar, json-glib, libcap
+, libdwarf, libsoup, libyaml, ostree, patch, python2, rpm, unzip }:
 
 let
   installed_testdir =

@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, substituteAll, cmake, ninja, pkgconfig, glibc, gtk3, gtkmm3, pcre, swig, antlr4_7, sudo, mysql, libxml2, libmysqlconnectorcpp, vsqlite, gdal, libiodbc, libpthreadstubs, libXdmcp, libuuid, libzip, libsecret, libssh, python2, jre, boost, libsigcxx, libX11, openssl, proj, cairo, libxkbcommon, epoxy, wrapGAppsHook, at-spi2-core, dbus, bash, coreutils
-}:
+{ stdenv, fetchurl, substituteAll, cmake, ninja, pkgconfig, glibc, gtk3, gtkmm3
+, pcre, swig, antlr4_7, sudo, mysql, libxml2, libmysqlconnectorcpp, vsqlite
+, gdal, libiodbc, libpthreadstubs, libXdmcp, libuuid, libzip, libsecret, libssh
+, python2, jre, boost, libsigcxx, libX11, openssl, proj, cairo, libxkbcommon
+, epoxy, wrapGAppsHook, at-spi2-core, dbus, bash, coreutils }:
 
 let inherit (python2.pkgs) paramiko pycairo pyodbc;
 in stdenv.mkDerivation rec {

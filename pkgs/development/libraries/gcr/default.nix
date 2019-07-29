@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gnupg, p11-kit, glib, libgcrypt, libtasn1, dbus-glib, gtk3, pango, gdk_pixbuf, atk, gobject-introspection, makeWrapper, libxslt, vala, gnome3, python2
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gnupg, p11-kit, glib, libgcrypt
+, libtasn1, dbus-glib, gtk3, pango, gdk_pixbuf, atk, gobject-introspection
+, makeWrapper, libxslt, vala, gnome3, python2 }:
 
 stdenv.mkDerivation rec {
   pname = "gcr";

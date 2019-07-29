@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchsvn, recordmydesktop, autoreconfHook, pkgconfig, pythonPackages, jack2, xwininfo
-}:
+{ stdenv, lib, fetchsvn, recordmydesktop, autoreconfHook, pkgconfig
+, pythonPackages, jack2, xwininfo }:
 
 let binPath = lib.makeBinPath [ recordmydesktop jack2 xwininfo ];
 

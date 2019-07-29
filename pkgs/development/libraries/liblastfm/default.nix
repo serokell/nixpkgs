@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, qt4, pkgconfig, libsamplerate, fftwSinglePrec, which, cmake, darwin
-}:
+{ stdenv, fetchurl, qt4, pkgconfig, libsamplerate, fftwSinglePrec, which, cmake
+, darwin }:
 
 let version = "1.0.9";
 

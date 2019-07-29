@@ -1,5 +1,5 @@
-{ stdenv, autoconf, automake, curl, fetchurl, jdk, jre, makeWrapper, nettools, python, git
-}:
+{ stdenv, autoconf, automake, curl, fetchurl, jdk, jre, makeWrapper, nettools
+, python, git }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, pkgconfig, gtk2, libgnomecanvas, libglade, gtksourceview
-}:
+{ stdenv, fetchurl, ocaml, findlib, pkgconfig, gtk2, libgnomecanvas, libglade
+, gtksourceview }:
 
 let
   param = let check = stdenv.lib.versionAtLeast ocaml.version;

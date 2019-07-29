@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, intltool, autoreconfHook, pkgconfig, libqalculate, gtk3, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, intltool, autoreconfHook, pkgconfig, libqalculate
+, gtk3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "qalculate-gtk";

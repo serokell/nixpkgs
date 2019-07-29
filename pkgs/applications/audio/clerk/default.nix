@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, rofi, mpc_cli, perl, utillinux, pythonPackages, libnotify
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, rofi, mpc_cli, perl, utillinux
+, pythonPackages, libnotify }:
 
 stdenv.mkDerivation {
   name = "clerk-2016-10-14";

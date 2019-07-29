@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pam, openssl, openssh, shadow, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pam, openssl, openssh, shadow
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   version = "2.20";

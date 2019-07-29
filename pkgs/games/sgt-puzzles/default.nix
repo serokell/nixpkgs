@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gtk3, libX11, makeWrapper, pkgconfig, perl, autoreconfHook, wrapGAppsHook
-}:
+{ stdenv, fetchurl, gtk3, libX11, makeWrapper, pkgconfig, perl, autoreconfHook
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "sgt-puzzles-r${version}";

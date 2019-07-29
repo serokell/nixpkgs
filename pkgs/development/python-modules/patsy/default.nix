@@ -1,4 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, nose, six, numpy, scipy # optional, allows spline-related features (see patsy's docs)
+{ lib, fetchPypi, buildPythonPackage, nose, six, numpy
+, scipy # optional, allows spline-related features (see patsy's docs)
 , parameterized }:
 
 buildPythonPackage rec {

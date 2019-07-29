@@ -1,5 +1,5 @@
-{ stdenv, autoconf, automake, fetchFromGitHub, libgcc, libjpeg_turbo, libpng, libtool, libxml2, pkgconfig, which, xorg
-}:
+{ stdenv, autoconf, automake, fetchFromGitHub, libgcc, libjpeg_turbo, libpng
+, libtool, libxml2, pkgconfig, which, xorg }:
 stdenv.mkDerivation rec {
   name = "nx-libs-${version}";
   version = "3.5.99.20";

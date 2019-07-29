@@ -1,5 +1,6 @@
-{ lib, fetchPypi, buildPythonPackage, isPy27, awkward, backports_lzma, cachetools, lz4, pytestrunner, pytest, pkgconfig, mock, numpy, requests, uproot-methods, xxhash
-}:
+{ lib, fetchPypi, buildPythonPackage, isPy27, awkward, backports_lzma
+, cachetools, lz4, pytestrunner, pytest, pkgconfig, mock, numpy, requests
+, uproot-methods, xxhash }:
 
 buildPythonPackage rec {
   pname = "uproot";

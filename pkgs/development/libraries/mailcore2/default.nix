@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libetpan, icu, cyrus_sasl, libctemplate, libuchardet, pkgconfig, glib, html-tidy, libxml2, libuuid, openssl
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libetpan, icu, cyrus_sasl, libctemplate
+, libuchardet, pkgconfig, glib, html-tidy, libxml2, libuuid, openssl }:
 
 stdenv.mkDerivation rec {
   name = "mailcore2-${version}";

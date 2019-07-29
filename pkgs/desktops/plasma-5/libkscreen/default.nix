@@ -1,5 +1,5 @@
-{ mkDerivation, lib, copyPathsToStore, propagate, extra-cmake-modules, kwayland, libXrandr, qtx11extras
-}:
+{ mkDerivation, lib, copyPathsToStore, propagate, extra-cmake-modules, kwayland
+, libXrandr, qtx11extras }:
 
 mkDerivation {
   name = "libkscreen";

@@ -1,5 +1,7 @@
-{ stdenv, pkgconfig, lxc, buildGoPackage, fetchurl, makeWrapper, acl, rsync, gnutar, xz, btrfs-progs, gzip, dnsmasq, squashfsTools, iproute, iptables, ebtables, libcap, dqlite, sqlite-replication, writeShellScriptBin, apparmor-profiles, apparmor-parser, criu, bash
-}:
+{ stdenv, pkgconfig, lxc, buildGoPackage, fetchurl, makeWrapper, acl, rsync
+, gnutar, xz, btrfs-progs, gzip, dnsmasq, squashfsTools, iproute, iptables
+, ebtables, libcap, dqlite, sqlite-replication, writeShellScriptBin
+, apparmor-profiles, apparmor-parser, criu, bash }:
 
 buildGoPackage rec {
   pname = "lxd";

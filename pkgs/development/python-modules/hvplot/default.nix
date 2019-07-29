@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, bokeh, holoviews, pandas, pytest, parameterized, nbsmoke, flake8, coveralls, xarray, networkx, streamz
-}:
+{ lib, buildPythonPackage, fetchPypi, bokeh, holoviews, pandas, pytest
+, parameterized, nbsmoke, flake8, coveralls, xarray, networkx, streamz }:
 
 buildPythonPackage rec {
   pname = "hvplot";

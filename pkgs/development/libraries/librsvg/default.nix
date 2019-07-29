@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchurl, pkgconfig, glib, gdk_pixbuf, pango, cairo, libxml2, libgsf, bzip2, libcroco, libintl, darwin, rustc, cargo, gnome3, withGTK ?
-  false, gtk3 ? null, vala, gobject-introspection }:
+{ lib, stdenv, fetchurl, pkgconfig, glib, gdk_pixbuf, pango, cairo, libxml2
+, libgsf, bzip2, libcroco, libintl, darwin, rustc, cargo, gnome3
+, withGTK ? false, gtk3 ? null, vala, gobject-introspection }:
 
 let
   pname = "librsvg";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, gettext, glib, gnome3, gsettings-desktop-schemas, gtk3, libcanberra-gtk3, libgtop, libstartup_notification, libxml2, pkgconfig, substituteAll, wrapGAppsHook, zenity
-}:
+{ stdenv, fetchurl, gettext, glib, gnome3, gsettings-desktop-schemas, gtk3
+, libcanberra-gtk3, libgtop, libstartup_notification, libxml2, pkgconfig
+, substituteAll, wrapGAppsHook, zenity }:
 
 let
   pname = "metacity";

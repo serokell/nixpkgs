@@ -1,5 +1,9 @@
-{ stdenv, substituteAll, fetchFromGitHub, python3Packages, glfw, libunistring, harfbuzz, fontconfig, pkgconfig, ncurses, imagemagick, xsel, libstartup_notification, libX11, libXrandr, libXinerama, libXcursor, libxkbcommon, libXi, libXext, wayland-protocols, wayland, which, dbus, Cocoa, CoreGraphics, Foundation, IOKit, Kernel, OpenGL, libicns, libpng, librsvg, optipng, python3, zlib,
-}:
+{ stdenv, substituteAll, fetchFromGitHub, python3Packages, glfw, libunistring
+, harfbuzz, fontconfig, pkgconfig, ncurses, imagemagick, xsel
+, libstartup_notification, libX11, libXrandr, libXinerama, libXcursor
+, libxkbcommon, libXi, libXext, wayland-protocols, wayland, which, dbus, Cocoa
+, CoreGraphics, Foundation, IOKit, Kernel, OpenGL, libicns, libpng, librsvg
+, optipng, python3, zlib, }:
 
 with python3Packages;
 buildPythonApplication rec {

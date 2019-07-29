@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gettext, which, glib, gtk2, enableSoftening ?
-  true }:
+{ stdenv, fetchurl, pkgconfig, gettext, which, glib, gtk2
+, enableSoftening ? true }:
 
 stdenv.mkDerivation rec {
   name = "dvdisaster-${version}";

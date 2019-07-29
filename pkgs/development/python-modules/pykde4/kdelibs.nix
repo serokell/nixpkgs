@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, automoc4, cmake_2_8, libxslt, perl, pkgconfig, shared-mime-info, attica, docbook_xml_dtd_42, docbook_xsl, giflib, libdbusmenu_qt, libjpeg, phonon, qt4
-}:
+{ stdenv, fetchurl, automoc4, cmake_2_8, libxslt, perl, pkgconfig
+, shared-mime-info, attica, docbook_xml_dtd_42, docbook_xsl, giflib
+, libdbusmenu_qt, libjpeg, phonon, qt4 }:
 
 stdenv.mkDerivation rec {
   version = "4.14.38";

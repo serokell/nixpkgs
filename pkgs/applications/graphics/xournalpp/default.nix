@@ -2,7 +2,8 @@
 
 , cmake, gettext, wrapGAppsHook, pkgconfig
 
-, glib, gsettings-desktop-schemas, gtk3, hicolor-icon-theme, libsndfile, libxml2, libzip, pcre, poppler, portaudio, zlib
+, glib, gsettings-desktop-schemas, gtk3, hicolor-icon-theme, libsndfile, libxml2
+, libzip, pcre, poppler, portaudio, zlib
 # plugins
 , withLua ? true, lua }:
 

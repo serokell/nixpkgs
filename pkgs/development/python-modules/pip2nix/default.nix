@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, click, configobj, contexter, jinja2, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, click, configobj, contexter, jinja2
+, pytest }:
 
 buildPythonPackage rec {
   pname = "pip2nix";

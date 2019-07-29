@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, unzip, openexr, boost, jemalloc, c-blosc, ilmbase, tbb
-}:
+{ stdenv, fetchFromGitHub, unzip, openexr, boost, jemalloc, c-blosc, ilmbase
+, tbb }:
 
 stdenv.mkDerivation rec {
   name = "openvdb-${version}";

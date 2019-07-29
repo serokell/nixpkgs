@@ -1,5 +1,8 @@
-{ stdenv, meson, ninja, gettext, fetchurl, evince, gjs, pkgconfig, gtk3, glib, tracker, tracker-miners, itstool, libxslt, webkitgtk, libgdata, gnome-desktop, libzapojit, libgepub, gnome3, gdk_pixbuf, libsoup, docbook_xsl, docbook_xml_dtd_42, gobject-introspection, inkscape, poppler_utils, desktop-file-utils, wrapGAppsHook, python3, gsettings-desktop-schemas
-}:
+{ stdenv, meson, ninja, gettext, fetchurl, evince, gjs, pkgconfig, gtk3, glib
+, tracker, tracker-miners, itstool, libxslt, webkitgtk, libgdata, gnome-desktop
+, libzapojit, libgepub, gnome3, gdk_pixbuf, libsoup, docbook_xsl
+, docbook_xml_dtd_42, gobject-introspection, inkscape, poppler_utils
+, desktop-file-utils, wrapGAppsHook, python3, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "gnome-documents-${version}";

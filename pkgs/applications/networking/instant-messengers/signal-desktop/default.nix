@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchurl, dpkg, wrapGAppsHook, gnome2, gtk3, atk, at-spi2-atk, cairo, pango, gdk_pixbuf, glib, freetype, fontconfig, dbus, libX11, xorg, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev, libnotify, libuuid
+{ stdenv, lib, fetchurl, dpkg, wrapGAppsHook, gnome2, gtk3, atk, at-spi2-atk
+, cairo, pango, gdk_pixbuf, glib, freetype, fontconfig, dbus, libX11, xorg
+, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes
+, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev
+, libnotify, libuuid
 # Unfortunately this also overwrites the UI language (not just the spell
 # checking language!):
 , hunspellDicts, spellcheckerLanguage ? null # E.g. "de_DE"

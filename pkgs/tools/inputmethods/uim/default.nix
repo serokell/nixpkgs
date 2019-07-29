@@ -1,12 +1,12 @@
-{ stdenv, fetchFromGitHub, shared-mime-info, autoconf, automake, intltool, libtool, pkgconfig, cmake, ruby, librsvg, ncurses, m17n_lib, m17n_db, expat, withAnthy ?
-  true, anthy ? null, withGtk ? true, withGtk2 ? withGtk, gtk2 ?
-    null, withGtk3 ? withGtk, gtk3 ? null, withQt ? true, withQt4 ?
-      withQt, qt4 ? null, withQt5 ? false, qt5 ? null, withLibnotify ?
-        true, libnotify ? null, withSqlite ? true, sqlite ?
-          null, withNetworking ? true, curl ? null, openssl ? null, withFFI ?
-            true, libffi ? null
+{ stdenv, fetchFromGitHub, shared-mime-info, autoconf, automake, intltool
+, libtool, pkgconfig, cmake, ruby, librsvg, ncurses, m17n_lib, m17n_db, expat
+, withAnthy ? true, anthy ? null, withGtk ? true, withGtk2 ? withGtk
+, gtk2 ? null, withGtk3 ? withGtk, gtk3 ? null, withQt ? true, withQt4 ? withQt
+, qt4 ? null, withQt5 ? false, qt5 ? null, withLibnotify ? true
+, libnotify ? null, withSqlite ? true, sqlite ? null, withNetworking ? true
+, curl ? null, openssl ? null, withFFI ? true, libffi ? null
 
-              # Things that are clearly an overkill to be enabled by default
+  # Things that are clearly an overkill to be enabled by default
 , withMisc ? false, libeb ? null }:
 
 with stdenv.lib;

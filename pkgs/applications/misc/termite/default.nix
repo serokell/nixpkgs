@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, vte-ng, gtk3, ncurses, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, vte-ng, gtk3, ncurses
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "termite-${version}";

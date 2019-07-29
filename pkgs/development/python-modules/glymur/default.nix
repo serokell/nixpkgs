@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, setuptools, python, scikitimage, openjpeg, procps, contextlib2, mock, importlib-resources, isPy27
+{ stdenv, buildPythonPackage, fetchFromGitHub, numpy, setuptools, python
+, scikitimage, openjpeg, procps, contextlib2, mock, importlib-resources, isPy27
 }:
 
 buildPythonPackage rec {

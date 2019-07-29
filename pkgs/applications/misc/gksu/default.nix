@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk2, gnome2, gnome3, libgksu, intltool, libstartup_notification, gtk-doc, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, gtk2, gnome2, gnome3, libgksu, intltool
+, libstartup_notification, gtk-doc, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   version = "2.0.2";

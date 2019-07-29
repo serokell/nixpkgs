@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python, alsaLib, glew, libGL, libpng, libogg, libtheora, libvorbis, SDL, SDL_image, SDL_ttf, freetype, tcl, zlib
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, python, alsaLib, glew, libGL, libpng
+, libogg, libtheora, libvorbis, SDL, SDL_image, SDL_ttf, freetype, tcl, zlib }:
 
 stdenv.mkDerivation rec {
 

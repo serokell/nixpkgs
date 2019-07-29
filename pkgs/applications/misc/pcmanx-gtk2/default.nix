@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gtk2, libXft, intltool, automake, autoconf, libtool, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, gtk2, libXft, intltool, automake, autoconf, libtool
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "pcmanx-gtk2-${version}";

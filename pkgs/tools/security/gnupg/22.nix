@@ -1,9 +1,10 @@
-{ fetchurl, fetchpatch, stdenv, pkgconfig, libgcrypt, libassuan, libksba, libgpgerror, libiconv, npth, gettext, texinfo, pcsclite, sqlite, buildPackages
+{ fetchurl, fetchpatch, stdenv, pkgconfig, libgcrypt, libassuan, libksba
+, libgpgerror, libiconv, npth, gettext, texinfo, pcsclite, sqlite, buildPackages
 
 # Each of the dependencies below are optional.
 # Gnupg can be built without them at the cost of reduced functionality.
-, pinentry ? null, guiSupport ? true, adns ? null, gnutls ? null, libusb ?
-  null, openldap ? null, readline ? null, zlib ? null, bzip2 ? null }:
+, pinentry ? null, guiSupport ? true, adns ? null, gnutls ? null, libusb ? null
+, openldap ? null, readline ? null, zlib ? null, bzip2 ? null }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, intltool, autoreconfHook, wrapGAppsHook, gtk3, hicolor-icon-theme, netpbm
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, intltool, autoreconfHook, wrapGAppsHook
+, gtk3, hicolor-icon-theme, netpbm }:
 
 stdenv.mkDerivation rec {
   pname = "yad";

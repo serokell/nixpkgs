@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, python, pkg-config, libX11, SDL, SDL_image, SDL_mixer, SDL_ttf, libpng, libjpeg, portmidi, freetype
-}:
+{ lib, fetchPypi, buildPythonPackage, python, pkg-config, libX11, SDL, SDL_image
+, SDL_mixer, SDL_ttf, libpng, libjpeg, portmidi, freetype }:
 
 buildPythonPackage rec {
   pname = "pygame";

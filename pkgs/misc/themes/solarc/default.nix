@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk-engine-murrine, gtk3
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk-engine-murrine
+, gtk3 }:
 
 stdenv.mkDerivation rec {
   name = "solarc-gtk-theme-${version}";

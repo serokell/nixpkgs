@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, isPy3k, python, fetchFromGitHub, fetchpatch, qt5, boost, assimp, gym, bullet-roboschool, pkgconfig, which
-}:
+{ lib, buildPythonPackage, isPy3k, python, fetchFromGitHub, fetchpatch, qt5
+, boost, assimp, gym, bullet-roboschool, pkgconfig, which }:
 
 buildPythonPackage rec {
   pname = "roboschool";

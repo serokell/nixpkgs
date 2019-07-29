@@ -1,5 +1,5 @@
-{ mkDerivation, lib, fetchFromGitHub, makeWrapper, qtbase, qtdeclarative, qtsvg, qtx11extras, muparser, cmake, python3, qtcharts
-}:
+{ mkDerivation, lib, fetchFromGitHub, makeWrapper, qtbase, qtdeclarative, qtsvg
+, qtx11extras, muparser, cmake, python3, qtcharts }:
 
 mkDerivation rec {
   pname = "albert";

@@ -1,9 +1,10 @@
-{ fetchurl, stdenv, readline, zlib, libgpgerror, pth, libgcrypt, libassuan, libksba, coreutils, libiconv, pcsclite
+{ fetchurl, stdenv, readline, zlib, libgpgerror, pth, libgcrypt, libassuan
+, libksba, coreutils, libiconv, pcsclite
 
 # Each of the dependencies below are optional.
 # Gnupg can be built without them at the cost of reduced functionality.
-, pinentry ? null, guiSupport ? true, openldap ? null, bzip2 ? null, libusb ?
-  null, curl ? null }:
+, pinentry ? null, guiSupport ? true, openldap ? null, bzip2 ? null
+, libusb ? null, curl ? null }:
 
 with stdenv.lib;
 

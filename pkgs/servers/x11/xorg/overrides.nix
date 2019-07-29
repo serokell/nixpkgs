@@ -1,6 +1,9 @@
-{ abiCompat ?
-  null, stdenv, makeWrapper, fetchurl, fetchpatch, buildPackages, automake, autoconf, gettext, libiconv, libtool, intltool, freetype, tradcpp, fontconfig, meson, ninja, libGL, spice-protocol, zlib, libGLU, dbus, libunwind, libdrm, mesa, udev, bootstrap_cmds, bison, flex, clangStdenv, autoreconfHook, mcpp, epoxy, openssl, pkgconfig, llvm_6, ApplicationServices, Carbon, Cocoa, Xplugin
-}:
+{ abiCompat ? null, stdenv, makeWrapper, fetchurl, fetchpatch, buildPackages
+, automake, autoconf, gettext, libiconv, libtool, intltool, freetype, tradcpp
+, fontconfig, meson, ninja, libGL, spice-protocol, zlib, libGLU, dbus, libunwind
+, libdrm, mesa, udev, bootstrap_cmds, bison, flex, clangStdenv, autoreconfHook
+, mcpp, epoxy, openssl, pkgconfig, llvm_6, ApplicationServices, Carbon, Cocoa
+, Xplugin }:
 
 let
   inherit (stdenv) lib isDarwin;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtx11extras, qtsvg, makeWrapper, vulkan-loader, xorg, python3, bison, pcre, automake, autoconf
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtx11extras, qtsvg
+, makeWrapper, vulkan-loader, xorg, python3, bison, pcre, automake, autoconf }:
 let
   custom_swig = fetchFromGitHub {
     owner = "baldurk";

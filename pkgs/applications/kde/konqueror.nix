@@ -1,5 +1,5 @@
-{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdelibs4support, kcmutils, khtml, kdesu, qtwebkit, qtwebengine, qtx11extras, qtscript, qtwayland
-}:
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdelibs4support, kcmutils
+, khtml, kdesu, qtwebkit, qtwebengine, qtx11extras, qtscript, qtwayland }:
 
 mkDerivation {
   name = "konqueror";

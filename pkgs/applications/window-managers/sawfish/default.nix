@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, which, autoreconfHook, rep-gtk, pango, gdk_pixbuf, imlib, gettext, texinfo, libXinerama, libXrandr, libXtst, libICE, libSM, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, which, autoreconfHook, rep-gtk, pango, gdk_pixbuf
+, imlib, gettext, texinfo, libXinerama, libXrandr, libXtst, libICE, libSM
+, makeWrapper }:
 
 with stdenv.lib;
 

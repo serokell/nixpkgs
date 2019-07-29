@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, requests, websocket_client, ipaddress, backports_ssl_match_hostname, docker_pycreds
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, requests, websocket_client
+, ipaddress, backports_ssl_match_hostname, docker_pycreds }:
 buildPythonPackage rec {
   version = "3.7.2";
   pname = "docker";

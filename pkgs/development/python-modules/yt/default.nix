@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, matplotlib, setuptools, sympy, numpy, ipython, hdf5, nose, cython, python
-}:
+{ lib, buildPythonPackage, fetchPypi, matplotlib, setuptools, sympy, numpy
+, ipython, hdf5, nose, cython, python }:
 
 buildPythonPackage rec {
   pname = "yt";

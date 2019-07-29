@@ -2,8 +2,8 @@
 
 let buildFHSEnv = callPackage ./env.nix { };
 
-in args@{ name, runScript ? "bash", extraInstallCommands ? "", meta ?
-  { }, passthru ? { }, ... }:
+in args@{ name, runScript ? "bash", extraInstallCommands ? "", meta ? { }
+, passthru ? { }, ... }:
 
 let
   env = buildFHSEnv

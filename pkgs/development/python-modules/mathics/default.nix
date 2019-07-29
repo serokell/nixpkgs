@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, django, python, cython, sympy, ply, mpmath, dateutil, colorama, six, pexpect
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, django, python, cython, sympy
+, ply, mpmath, dateutil, colorama, six, pexpect }:
 
 if (stdenv.lib.versionOlder django.version "1.8")
 || (stdenv.lib.versionAtLeast django.version "1.9") then

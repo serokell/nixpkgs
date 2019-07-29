@@ -1,5 +1,5 @@
-{ mkDerivation, extra-cmake-modules, boost, kconfig, kcoreaddons, kdbusaddons, ki18n, kio, kglobalaccel, kwindowsystem, kxmlgui, kcrash
-}:
+{ mkDerivation, extra-cmake-modules, boost, kconfig, kcoreaddons, kdbusaddons
+, ki18n, kio, kglobalaccel, kwindowsystem, kxmlgui, kcrash }:
 
 mkDerivation {
   name = "kactivitymanagerd";

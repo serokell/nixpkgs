@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, stompclient, python-daemon, redis, pid, pytest, six, click, coverage, sqlalchemy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, stompclient, python-daemon, redis, pid
+, pytest, six, click, coverage, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "CoilMQ";

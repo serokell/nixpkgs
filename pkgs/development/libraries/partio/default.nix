@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, unzip, cmake, freeglut, libGLU_combined, zlib, swig, python, doxygen, xorg
-}:
+{ stdenv, fetchFromGitHub, unzip, cmake, freeglut, libGLU_combined, zlib, swig
+, python, doxygen, xorg }:
 
 stdenv.mkDerivation rec {
   name = "partio-${version}";

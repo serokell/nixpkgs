@@ -1,7 +1,8 @@
-{ stdenv, buildPackages, fetchurl, pkgconfig, pcre, libxml2, zlib, bzip2, which, file, openssl, enableMagnet ?
-  false, lua5_1 ? null, enableMysql ? false, mysql ? null, enableLdap ?
-    false, openldap ? null, enableWebDAV ? false, sqlite ? null, libuuid ?
-      null, enableExtendedAttrs ? false, attr ? null, perl }:
+{ stdenv, buildPackages, fetchurl, pkgconfig, pcre, libxml2, zlib, bzip2, which
+, file, openssl, enableMagnet ? false, lua5_1 ? null, enableMysql ? false
+, mysql ? null, enableLdap ? false, openldap ? null, enableWebDAV ? false
+, sqlite ? null, libuuid ? null, enableExtendedAttrs ? false, attr ? null, perl
+}:
 
 assert enableMagnet -> lua5_1 != null;
 assert enableMysql -> mysql != null;

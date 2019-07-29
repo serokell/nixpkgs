@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, python, gst-plugins-base, orc, gettext, a52dec, libcdio, libdvdread, libmad, libmpeg2, x264, libintl, lib, opencore-amr, darwin
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, python, gst-plugins-base, orc
+, gettext, a52dec, libcdio, libdvdread, libmad, libmpeg2, x264, libintl, lib
+, opencore-amr, darwin }:
 
 stdenv.mkDerivation rec {
   name = "gst-plugins-ugly-${version}";

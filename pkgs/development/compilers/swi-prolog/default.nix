@@ -1,13 +1,8 @@
-{ stdenv, fetchgit, jdk, gmp, readline, openssl, unixODBC, zlib, libarchive, db, pcre, libedit, libossp_uuid, libXpm, libSM, libXt, freetype, pkgconfig, fontconfig, makeWrapper ?
-  stdenv.isDarwin, git, cacert, cmake, libyaml, extraLibraries ? [
-    jdk
-    unixODBC
-    libXpm
-    libSM
-    libXt
-    freetype
-    fontconfig
-  ], extraPacks ? [ ] }:
+{ stdenv, fetchgit, jdk, gmp, readline, openssl, unixODBC, zlib, libarchive, db
+, pcre, libedit, libossp_uuid, libXpm, libSM, libXt, freetype, pkgconfig
+, fontconfig, makeWrapper ? stdenv.isDarwin, git, cacert, cmake, libyaml
+, extraLibraries ? [ jdk unixODBC libXpm libSM libXt freetype fontconfig ]
+, extraPacks ? [ ] }:
 
 let
   version = "8.1.4";

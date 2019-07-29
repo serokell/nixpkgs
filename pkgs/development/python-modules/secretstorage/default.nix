@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, cryptography, jeepney, pygobject3
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, cryptography, jeepney
+, pygobject3 }:
 
 buildPythonPackage rec {
   pname = "secretstorage";

@@ -1,5 +1,5 @@
-{ autoPatchelfHook, electron, fetchurl, makeDesktopItem, makeWrapper, nodePackages, nss, stdenv, xdg_utils, xorg
-}:
+{ autoPatchelfHook, electron, fetchurl, makeDesktopItem, makeWrapper
+, nodePackages, nss, stdenv, xdg_utils, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "rambox-pro";

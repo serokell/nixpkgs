@@ -1,12 +1,12 @@
-{ stdenv, config, fetchurl, fetchpatch, pkgconfig, audiofile, libcap, libiconv, libGLSupported ?
-  stdenv.lib.elem stdenv.hostPlatform.system
-  stdenv.lib.platforms.mesaPlatforms, openglSupport ?
-    libGLSupported, libGL, libGLU, alsaSupport ? stdenv.isLinux
-      && !stdenv.hostPlatform.isAndroid, alsaLib, x11Support ? !stdenv.isCygwin
-        && !stdenv.hostPlatform.isAndroid, libXext, libICE, libXrandr, pulseaudioSupport ?
-          config.pulseaudio or stdenv.isLinux
-          && !stdenv.hostPlatform.isAndroid, libpulseaudio, OpenGL, CoreAudio, CoreServices, AudioUnit, Kernel, Cocoa
-}:
+{ stdenv, config, fetchurl, fetchpatch, pkgconfig, audiofile, libcap, libiconv
+, libGLSupported ?
+  stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
+, openglSupport ? libGLSupported, libGL, libGLU
+, alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, alsaLib
+, x11Support ? !stdenv.isCygwin && !stdenv.hostPlatform.isAndroid, libXext
+, libICE, libXrandr, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
+  && !stdenv.hostPlatform.isAndroid, libpulseaudio, OpenGL, CoreAudio
+, CoreServices, AudioUnit, Kernel, Cocoa }:
 
 # NOTE: When editing this expression see if the same change applies to
 # SDL2 expression too

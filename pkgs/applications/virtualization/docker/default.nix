@@ -1,12 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, removeReferencesTo, pkgconfig, go-md2man, go, containerd, runc, docker-proxy, tini, libtool, sqlite, iproute, lvm2, systemd, btrfs-progs, iptables, e2fsprogs, xz, utillinux, xfsprogs, procps, libseccomp
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, removeReferencesTo, pkgconfig
+, go-md2man, go, containerd, runc, docker-proxy, tini, libtool, sqlite, iproute
+, lvm2, systemd, btrfs-progs, iptables, e2fsprogs, xz, utillinux, xfsprogs
+, procps, libseccomp }:
 
 with lib;
 
 rec {
-  dockerGen =
-    { version, rev, sha256, runcRev, runcSha256, containerdRev, containerdSha256, tiniRev, tiniSha256
-    }:
+  dockerGen = { version, rev, sha256, runcRev, runcSha256, containerdRev
+    , containerdSha256, tiniRev, tiniSha256 }:
     let
       docker-runc = runc.overrideAttrs (oldAttrs: rec {
         name = "docker-runc-${version}";

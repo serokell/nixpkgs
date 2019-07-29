@@ -1,5 +1,6 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, grantlee, kcmutils, kconfig, kcoreaddons, kdbusaddons, kdelibs4support, ki18n, kinit, khtml, kservice, xapian
-}:
+{ mkDerivation, extra-cmake-modules, kdoctools, grantlee, kcmutils, kconfig
+, kcoreaddons, kdbusaddons, kdelibs4support, ki18n, kinit, khtml, kservice
+, xapian }:
 
 mkDerivation {
   name = "khelpcenter";

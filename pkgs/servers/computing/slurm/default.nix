@@ -1,4 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libtool, curl, python, munge, perl, pam, openssl, zlib, ncurses, mysql, gtk2, lua, hwloc, numactl, readline, freeipmi, libssh2, xorg, lz4
+{ stdenv, fetchFromGitHub, pkgconfig, libtool, curl, python, munge, perl, pam
+, openssl, zlib, ncurses, mysql, gtk2, lua, hwloc, numactl, readline, freeipmi
+, libssh2, xorg, lz4
 # enable internal X11 support via libssh2
 , enableX11 ? true }:
 

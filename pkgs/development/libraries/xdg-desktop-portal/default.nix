@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, libxml2, glib, pipewire, fontconfig, flatpak, gsettings-desktop-schemas, acl, dbus, fuse, geoclue2, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, libxml2
+, glib, pipewire, fontconfig, flatpak, gsettings-desktop-schemas, acl, dbus
+, fuse, geoclue2, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal";

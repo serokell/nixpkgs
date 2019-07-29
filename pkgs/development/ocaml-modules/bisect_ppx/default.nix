@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-migrate-parsetree, ppx_tools_versioned
-}:
+{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-migrate-parsetree
+, ppx_tools_versioned }:
 
 buildDunePackage rec {
   pname = "bisect_ppx";

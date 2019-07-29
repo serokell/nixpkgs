@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchgit, flex, bison, fig2dev, imagemagick, netpbm, gtk2, pkgconfig
-}:
+{ lib, stdenv, fetchgit, flex, bison, fig2dev, imagemagick, netpbm, gtk2
+, pkgconfig }:
 
 with lib;
 stdenv.mkDerivation rec {

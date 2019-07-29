@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, SDL2, SDL2_ttf, freeimage, fontconfig, pkgconfig, asciidoc, docbook_xsl, libxslt, cmocka, librsvg
-}:
+{ stdenv, fetchFromGitHub, SDL2, SDL2_ttf, freeimage, fontconfig, pkgconfig
+, asciidoc, docbook_xsl, libxslt, cmocka, librsvg }:
 
 stdenv.mkDerivation rec {
   name = "imv-${version}";

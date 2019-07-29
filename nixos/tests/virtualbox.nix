@@ -1,5 +1,6 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ?
-  import ../.. { inherit system config; }, debug ? false, enableUnfree ? false,
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, debug ? false
+, enableUnfree ? false,
 # Nested KVM virtualization (https://www.linux-kvm.org/page/Nested_Guests)
 # requires a modprobe flag on the build machine: (kvm-amd for AMD CPUs)
 #   boot.extraModprobeConfig = "options kvm-intel nested=Y";

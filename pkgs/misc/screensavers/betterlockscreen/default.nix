@@ -1,5 +1,5 @@
-{ stdenv, makeWrapper, fetchFromGitHub, imagemagick, i3lock-color, xdpyinfo, xrandr, bc, feh, procps, xrdb
-}:
+{ stdenv, makeWrapper, fetchFromGitHub, imagemagick, i3lock-color, xdpyinfo
+, xrandr, bc, feh, procps, xrdb }:
 
 stdenv.mkDerivation rec {
   name = "betterlockscreen-${version}";

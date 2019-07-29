@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, fetchPypi, gdb, flask, flask-socketio, flask-compress, pygdbmi, pygments, gevent,
-}:
+{ stdenv, buildPythonApplication, fetchPypi, gdb, flask, flask-socketio
+, flask-compress, pygdbmi, pygments, gevent, }:
 
 buildPythonApplication rec {
   pname = "gdbgui";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, dune, alcotest, cmdliner, fmt, optint, rresult
-}:
+{ stdenv, fetchurl, ocaml, findlib, dune, alcotest, cmdliner, fmt, optint
+, rresult }:
 
 if !stdenv.lib.versionAtLeast ocaml.version "4.03" then
   throw "checkseum is not available for OCaml ${ocaml.version}"

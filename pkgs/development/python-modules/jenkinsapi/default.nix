@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytz, requests, coverage, mock, nose, unittest2
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytz, requests, coverage, mock, nose
+, unittest2 }:
 
 buildPythonPackage rec {
   pname = "jenkinsapi";

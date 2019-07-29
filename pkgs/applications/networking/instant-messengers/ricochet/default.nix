@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, makeDesktopItem, qtbase, qttools, qtmultimedia, qtquick1, qtquickcontrols, openssl, protobuf, qmake
-}:
+{ stdenv, fetchurl, pkgconfig, makeDesktopItem, qtbase, qttools, qtmultimedia
+, qtquick1, qtquickcontrols, openssl, protobuf, qmake }:
 
 stdenv.mkDerivation rec {
   name = "ricochet-${version}";

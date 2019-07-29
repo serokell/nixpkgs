@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, libtool, autoconf, automake, gmp, mpfr, libffi, makeWrapper, noUnicode ?
-  false, gcc, threadSupport ? false, useBoehmgc ? true, boehmgc }:
+{ stdenv, fetchurl, fetchpatch, libtool, autoconf, automake, gmp, mpfr, libffi
+, makeWrapper, noUnicode ? false, gcc, threadSupport ? false, useBoehmgc ? true
+, boehmgc }:
 
 assert useBoehmgc -> boehmgc != null;
 

@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, pythonPackages, gtk3, gobject-introspection, libnotify, gst_all_1, wrapGAppsHook
-}:
+{ fetchFromGitHub, stdenv, pythonPackages, gtk3, gobject-introspection
+, libnotify, gst_all_1, wrapGAppsHook }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "pithos";

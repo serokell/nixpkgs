@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase, qttools, qtsvg, kwindowsystem, liblxqt, libqtxdg, lxqt-globalkeys, qtx11extras, menu-cache, muparser, pcre
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, qtbase, qttools
+, qtsvg, kwindowsystem, liblxqt, libqtxdg, lxqt-globalkeys, qtx11extras
+, menu-cache, muparser, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-runner";

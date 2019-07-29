@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, freeglut, gtk2, gtkglext, libjpeg_turbo, libtheora, libXmu, lua, libGLU_combined, pkgconfig, perl, autoreconfHook
-}:
+{ stdenv, fetchurl, freeglut, gtk2, gtkglext, libjpeg_turbo, libtheora, libXmu
+, lua, libGLU_combined, pkgconfig, perl, autoreconfHook }:
 
 let
   name = "celestia-1.6.1";

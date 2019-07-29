@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, intltool, file, desktop-file-utils, enchant, gtk3, gtkmm3, gst_all_1, hicolor-icon-theme, libsigcxx, libxmlxx, xdg_utils, isocodes, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, intltool, file
+, desktop-file-utils, enchant, gtk3, gtkmm3, gst_all_1, hicolor-icon-theme
+, libsigcxx, libxmlxx, xdg_utils, isocodes, wrapGAppsHook }:
 
 let version = "0.54.0";
 

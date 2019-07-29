@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, django-discover-runner, mock, dj-database-url, dj-email-url, dj-search-url, django-cache-url, six, django
-}:
+{ stdenv, buildPythonPackage, fetchPypi, django-discover-runner, mock
+, dj-database-url, dj-email-url, dj-search-url, django-cache-url, six, django }:
 
 buildPythonPackage rec {
   version = "2.1";

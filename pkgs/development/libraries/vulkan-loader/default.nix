@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, python3, vulkan-headers, pkgconfig, xlibsWrapper, libxcb, libXrandr, libXext, wayland, addOpenGLRunpath
-}:
+{ stdenv, fetchFromGitHub, cmake, python3, vulkan-headers, pkgconfig
+, xlibsWrapper, libxcb, libXrandr, libXext, wayland, addOpenGLRunpath }:
 
 let version = "1.1.106";
 

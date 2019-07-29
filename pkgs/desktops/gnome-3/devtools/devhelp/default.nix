@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, gtk3, wrapGAppsHook, glib, amtk, appstream-glib, gobject-introspection, python3, webkitgtk, gettext, itstool, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, gtk3, wrapGAppsHook, glib
+, amtk, appstream-glib, gobject-introspection, python3, webkitgtk, gettext
+, itstool, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "devhelp-${version}";

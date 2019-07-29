@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, requests-mock, tox, autobahn, certifi, chardet, cryptography, dateparser, pyopenssl, requests, service-identity, twisted
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, requests-mock, tox, autobahn
+, certifi, chardet, cryptography, dateparser, pyopenssl, requests
+, service-identity, twisted }:
 
 buildPythonPackage rec {
   version = "0.7.1";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, perl, libjpeg, udev, withUtils ?
-  true, withGUI ? true, alsaLib, libX11, qtbase, libGLU }:
+{ stdenv, lib, fetchurl, pkgconfig, perl, libjpeg, udev, withUtils ? true
+, withGUI ? true, alsaLib, libX11, qtbase, libGLU }:
 
 # See libv4l in all-packages.nix for the libs only (overrides alsa, libX11 & QT)
 

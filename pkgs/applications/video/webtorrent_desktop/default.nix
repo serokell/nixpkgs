@@ -1,5 +1,7 @@
-{ alsaLib, atk, cairo, cups, dbus, dpkg, expat, fetchurl, fontconfig, freetype, gdk_pixbuf, glib, gnome2, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, nspr, nss, stdenv, udev
-}:
+{ alsaLib, atk, cairo, cups, dbus, dpkg, expat, fetchurl, fontconfig, freetype
+, gdk_pixbuf, glib, gnome2, libX11, libXScrnSaver, libXcomposite, libXcursor
+, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb
+, nspr, nss, stdenv, udev }:
 
 let
   rpath = stdenv.lib.makeLibraryPath ([

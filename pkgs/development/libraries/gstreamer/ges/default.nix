@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, python, gst-plugins-base, libxml2, flex, perl, gettext, gobject-introspection
-}:
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, python
+, gst-plugins-base, libxml2, flex, perl, gettext, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "gstreamer-editing-services-${version}";

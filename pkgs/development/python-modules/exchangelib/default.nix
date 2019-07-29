@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage, lxml, tzlocal, python-dateutil, pygments, future, requests-kerberos, defusedxml, cached-property, isodate, requests_ntlm, dnspython, psutil, requests-mock, pyyaml
-}:
+{ stdenv, fetchFromGitHub, buildPythonPackage, lxml, tzlocal, python-dateutil
+, pygments, future, requests-kerberos, defusedxml, cached-property, isodate
+, requests_ntlm, dnspython, psutil, requests-mock, pyyaml }:
 
 buildPythonPackage rec {
   pname = "exchangelib";

@@ -1,5 +1,5 @@
-{ stdenv, autoreconfHook, boost, db48, fetchurl, libevent, miniupnpc, openssl, pkgconfig, zeromq, zlib, unixtools, python3
-}:
+{ stdenv, autoreconfHook, boost, db48, fetchurl, libevent, miniupnpc, openssl
+, pkgconfig, zeromq, zlib, unixtools, python3 }:
 
 with stdenv.lib;
 

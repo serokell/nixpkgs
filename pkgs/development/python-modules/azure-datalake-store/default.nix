@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, requests, adal, azure-common, futures, pathlib2, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, adal, azure-common, futures
+, pathlib2, isPy3k }:
 
 buildPythonPackage rec {
   pname = "azure-datalake-store";

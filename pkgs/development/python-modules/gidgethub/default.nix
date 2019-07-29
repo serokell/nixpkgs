@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, pytestrunner, pytest, pytest-asyncio, twisted, treq, tornado, aiohttp, uritemplate
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, pytestrunner
+, pytest, pytest-asyncio, twisted, treq, tornado, aiohttp, uritemplate }:
 
 buildPythonPackage rec {
   pname = "gidgethub";

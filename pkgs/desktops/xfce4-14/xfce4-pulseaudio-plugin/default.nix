@@ -1,5 +1,5 @@
-{ mkXfceDerivation, automakeAddFlags, dbus-glib, dbus, gtk3, libpulseaudio, libnotify, libxfce4ui, libxfce4util, xfce4-panel, xfconf
-}:
+{ mkXfceDerivation, automakeAddFlags, dbus-glib, dbus, gtk3, libpulseaudio
+, libnotify, libxfce4ui, libxfce4util, xfce4-panel, xfconf }:
 
 mkXfceDerivation rec {
   category = "panel-plugins";

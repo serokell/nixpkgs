@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, nose, dbus, dbus-python, pygobject3, which, pyflakes, pycodestyle, bluez, networkmanager
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, dbus, dbus-python, pygobject3, which
+, pyflakes, pycodestyle, bluez, networkmanager }:
 
 buildPythonPackage rec {
   pname = "python-dbusmock";

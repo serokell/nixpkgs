@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, substituteAll, udev, pkgconfig, qtbase, cmake, zlib, kmod
-}:
+{ stdenv, fetchFromGitHub, substituteAll, udev, pkgconfig, qtbase, cmake, zlib
+, kmod }:
 
 stdenv.mkDerivation rec {
   version = "0.3.2";

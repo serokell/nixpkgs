@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, perl, pkgconfig, cmake, ninja, vala, gobject-introspection, python3, tzdata, glib, libxml2, icu
-}:
+{ stdenv, fetchFromGitHub, perl, pkgconfig, cmake, ninja, vala
+, gobject-introspection, python3, tzdata, glib, libxml2, icu }:
 
 stdenv.mkDerivation rec {
   name = "libical-${version}";

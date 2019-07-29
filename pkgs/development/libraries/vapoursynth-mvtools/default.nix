@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, vapoursynth, nasm, fftwFloat
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, vapoursynth, nasm
+, fftwFloat }:
 
 stdenv.mkDerivation rec {
   name = "vapoursynth-mvtools-${version}";

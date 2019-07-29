@@ -1,5 +1,5 @@
-{ stdenv, substituteAll, fetchurl, pkgconfig, freetype, expat, libxslt, gperf, dejavu_fonts
-}:
+{ stdenv, substituteAll, fetchurl, pkgconfig, freetype, expat, libxslt, gperf
+, dejavu_fonts }:
 
 /* * Font configuration scheme
    - ./config-compat.patch makes fontconfig try the following root configs, in order:

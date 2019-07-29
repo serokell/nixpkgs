@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost, zlib, miniupnpc, qt4, utillinux, protobuf, qrencode, curl, libevent, withGui, Foundation, ApplicationServices, AppKit
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, db48, boost, zlib
+, miniupnpc, qt4, utillinux, protobuf, qrencode, curl, libevent, withGui
+, Foundation, ApplicationServices, AppKit }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

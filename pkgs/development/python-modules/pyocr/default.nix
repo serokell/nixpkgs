@@ -1,5 +1,5 @@
-{ lib, fetchFromGitLab, buildPythonPackage, pillow, six, tesseract, cuneiform, isPy3k, substituteAll, pytest, tox
-}:
+{ lib, fetchFromGitLab, buildPythonPackage, pillow, six, tesseract, cuneiform
+, isPy3k, substituteAll, pytest, tox }:
 
 buildPythonPackage rec {
   pname = "pyocr";

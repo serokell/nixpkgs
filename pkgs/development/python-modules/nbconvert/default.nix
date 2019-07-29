@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, nose, glibcLocales, entrypoints, bleach, mistune, jinja2, pygments, traitlets, testpath, jupyter_core, nbformat, ipykernel, pandocfilters, tornado, jupyter_client, defusedxml
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, nose, glibcLocales, entrypoints
+, bleach, mistune, jinja2, pygments, traitlets, testpath, jupyter_core, nbformat
+, ipykernel, pandocfilters, tornado, jupyter_client, defusedxml }:
 
 buildPythonPackage rec {
   pname = "nbconvert";

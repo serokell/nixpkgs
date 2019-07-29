@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, joblib, matplotlib, six, scikitlearn, decorator, audioread, resampy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, joblib, matplotlib, six, scikitlearn
+, decorator, audioread, resampy }:
 
 buildPythonPackage rec {
   pname = "librosa";

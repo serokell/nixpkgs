@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, jack2, cairo, liblo, libsndfile, libsamplerate, ntk
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, jack2, cairo, liblo
+, libsndfile, libsamplerate, ntk }:
 
 stdenv.mkDerivation rec {
   pname = "luppp";

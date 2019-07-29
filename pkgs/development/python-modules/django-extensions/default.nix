@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, six, typing, django, shortuuid, python-dateutil, pytest, pytest-django, pytestcov, mock, vobject, werkzeug, glibcLocales
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, six, typing, django
+, shortuuid, python-dateutil, pytest, pytest-django, pytestcov, mock, vobject
+, werkzeug, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "django-extensions";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, ronn, libpng, uthash, xorg
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, ronn, libpng, uthash
+, xorg }:
 
 stdenv.mkDerivation rec {
   version = "1.4.0";

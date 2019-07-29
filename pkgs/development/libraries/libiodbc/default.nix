@@ -1,5 +1,5 @@
-{ config, stdenv, fetchurl, pkgconfig, gtk2, Carbon, useGTK ?
-  config.libiodbc.gtk or false }:
+{ config, stdenv, fetchurl, pkgconfig, gtk2, Carbon
+, useGTK ? config.libiodbc.gtk or false }:
 
 stdenv.mkDerivation rec {
   name = "libiodbc-3.52.12";

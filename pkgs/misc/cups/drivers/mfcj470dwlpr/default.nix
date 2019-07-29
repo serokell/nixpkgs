@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cups, dpkg, ghostscript, a2ps, coreutils, gnused, gawk, file, makeWrapper
-}:
+{ stdenv, fetchurl, cups, dpkg, ghostscript, a2ps, coreutils, gnused, gawk, file
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "mfcj470dw-cupswrapper-${version}";

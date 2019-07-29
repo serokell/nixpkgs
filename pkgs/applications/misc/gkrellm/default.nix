@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, gettext, pkgconfig, glib, gtk2, libX11, libSM, libICE, which, IOKit ?
-  null }:
+{ fetchurl, stdenv, gettext, pkgconfig, glib, gtk2, libX11, libSM, libICE, which
+, IOKit ? null }:
 
 with stdenv.lib;
 

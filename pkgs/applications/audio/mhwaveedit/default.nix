@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, makeWrapper, SDL, alsaLib, autoreconfHook, gtk2, libjack2, ladspaH, ladspaPlugins, libsamplerate, libsndfile, pkgconfig, libpulseaudio, lame, vorbis-tools
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, SDL, alsaLib, autoreconfHook, gtk2
+, libjack2, ladspaH, ladspaPlugins, libsamplerate, libsndfile, pkgconfig
+, libpulseaudio, lame, vorbis-tools }:
 
 stdenv.mkDerivation rec {
   name = "mhwaveedit-${version}";

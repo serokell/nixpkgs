@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, bc, perl, perlPackages, pam, libXext, libXScrnSaver, libX11, libXrandr, libXmu, libXxf86vm, libXrender, libXxf86misc, libjpeg, libGLU_combined, gtk2, libxml2, libglade, intltool, xorg, makeWrapper, gle, forceInstallAllHacks ?
-  false }:
+{ stdenv, fetchurl, pkgconfig, bc, perl, perlPackages, pam, libXext
+, libXScrnSaver, libX11, libXrandr, libXmu, libXxf86vm, libXrender, libXxf86misc
+, libjpeg, libGLU_combined, gtk2, libxml2, libglade, intltool, xorg, makeWrapper
+, gle, forceInstallAllHacks ? false }:
 
 stdenv.mkDerivation rec {
   version = "5.43";

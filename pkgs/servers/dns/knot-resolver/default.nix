@@ -4,8 +4,8 @@
 # build+runtime deps.
 , knot-dns, luajitPackages, libuv, gnutls, lmdb, systemd, dns-root-data
 # test-only deps.
-, cmocka, which, cacert, extraFeatures ?
-  false # catch-all if defaults aren't enough
+, cmocka, which, cacert
+, extraFeatures ? false # catch-all if defaults aren't enough
 }:
 let # un-indented, over the whole file
 

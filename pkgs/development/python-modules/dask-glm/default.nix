@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, cloudpickle, dask, numpy, toolz # dask[array]
+{ stdenv, buildPythonPackage, fetchPypi, cloudpickle, dask, numpy
+, toolz # dask[array]
 , multipledispatch, scipy, scikitlearn, pytest }:
 
 buildPythonPackage rec {

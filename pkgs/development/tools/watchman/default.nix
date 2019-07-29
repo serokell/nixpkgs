@@ -1,5 +1,6 @@
-{ stdenv, lib, config, fetchFromGitHub, autoconf, automake, pcre, libtool, pkgconfig, openssl, confFile ?
-  config.watchman.confFile or null, withApple ? stdenv.isDarwin, CoreServices }:
+{ stdenv, lib, config, fetchFromGitHub, autoconf, automake, pcre, libtool
+, pkgconfig, openssl, confFile ? config.watchman.confFile or null
+, withApple ? stdenv.isDarwin, CoreServices }:
 
 stdenv.mkDerivation rec {
   name = "watchman-${version}";

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, boost, pkgconfig, doxygen, qt48Full, libharu, pango, fcgi, firebird, mysql, postgresql, graphicsmagick, glew, openssl, pcre
+{ stdenv, fetchFromGitHub, cmake, boost, pkgconfig, doxygen, qt48Full, libharu
+, pango, fcgi, firebird, mysql, postgresql, graphicsmagick, glew, openssl, pcre
 }:
 
 let

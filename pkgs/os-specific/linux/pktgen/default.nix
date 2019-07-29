@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, dpdk, libpcap, numactl, utillinux, gtk2, withGtk ?
-  false }:
+{ stdenv, lib, fetchurl, pkgconfig, dpdk, libpcap, numactl, utillinux, gtk2
+, withGtk ? false }:
 
 let
 

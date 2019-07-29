@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, gnome3, glib, gtk3, libgtop, bamf, json-glib, libcanberra-gtk3, libxkbcommon, libstartup_notification, deepin-wallpapers, deepin-desktop-schemas, deepin
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, intltool, libtool, gnome3, glib, gtk3
+, libgtop, bamf, json-glib, libcanberra-gtk3, libxkbcommon
+, libstartup_notification, deepin-wallpapers, deepin-desktop-schemas, deepin }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

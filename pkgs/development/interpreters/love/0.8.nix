@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, SDL, libGLU_combined, openal, lua, libdevil, freetype, physfs, libmodplug, mpg123, libvorbis, libogg
-}:
+{ stdenv, fetchurl, pkgconfig, SDL, libGLU_combined, openal, lua, libdevil
+, freetype, physfs, libmodplug, mpg123, libvorbis, libogg }:
 
 stdenv.mkDerivation rec {
   name = "love-0.8.0";

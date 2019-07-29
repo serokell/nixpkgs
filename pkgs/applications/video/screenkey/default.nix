@@ -1,5 +1,6 @@
-{ lib, substituteAll, buildPythonApplication, fetchFromGitHub, distutils_extra, setuptools-git, intltool, pygtk, libX11, libXtst, wrapGAppsHook, gnome3, hicolor-icon-theme
-}:
+{ lib, substituteAll, buildPythonApplication, fetchFromGitHub, distutils_extra
+, setuptools-git, intltool, pygtk, libX11, libXtst, wrapGAppsHook, gnome3
+, hicolor-icon-theme }:
 buildPythonApplication rec {
   pname = "screenkey";
   version = "0.9";

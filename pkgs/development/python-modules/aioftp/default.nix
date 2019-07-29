@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pytest-asyncio, pytestcov, trustme, async-timeout
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pytest-asyncio, pytestcov
+, trustme, async-timeout }:
 
 buildPythonPackage rec {
   pname = "aioftp";

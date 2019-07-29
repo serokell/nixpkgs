@@ -1,5 +1,6 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-mime, kcalcore, kcmutils, kcontacts, kcoreaddons, kmime, krunner, qtbase, xapian
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, akonadi-mime, kcalcore, kcmutils, kcontacts, kcoreaddons, kmime, krunner
+, qtbase, xapian }:
 
 mkDerivation {
   name = "akonadi-search";

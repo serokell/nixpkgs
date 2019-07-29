@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, libpcap, libjpeg, libungif, libpng, giflib, glib, gtk2, cairo, pango, gdk_pixbuf, atk, pkgconfig, autoreconfHook
-}:
+{ stdenv, lib, fetchFromGitHub, libpcap, libjpeg, libungif, libpng, giflib, glib
+, gtk2, cairo, pango, gdk_pixbuf, atk, pkgconfig, autoreconfHook }:
 
 with lib;
 

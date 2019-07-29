@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kauth, kcodecs, kconfig, kdoctools, kguiaddons, ki18n, kwidgetsaddons, qtbase,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kauth, kcodecs, kconfig, kdoctools
+, kguiaddons, ki18n, kwidgetsaddons, qtbase, }:
 
 mkDerivation {
   name = "kconfigwidgets";

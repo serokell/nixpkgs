@@ -1,5 +1,5 @@
-{ stdenv, fetchsvn, libGLU_combined, SDL, SDL_image, SDL_mixer, libpng, zlib, libjpeg, imagemagick, libX11, runtimeShell
-}:
+{ stdenv, fetchsvn, libGLU_combined, SDL, SDL_image, SDL_mixer, libpng, zlib
+, libjpeg, imagemagick, libX11, runtimeShell }:
 
 stdenv.mkDerivation rec {
   name = "sauerbraten-r${version}";

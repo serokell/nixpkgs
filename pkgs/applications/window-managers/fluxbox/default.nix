@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, freetype, fribidi, libXext, libXft, libXpm, libXrandr, libXrender, xorgproto, libXinerama, imlib2
-}:
+{ stdenv, fetchurl, pkgconfig, freetype, fribidi, libXext, libXft, libXpm
+, libXrandr, libXrender, xorgproto, libXinerama, imlib2 }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

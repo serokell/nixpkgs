@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkg-config, perl, fribidi, kbd, xkbutils
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkg-config, perl, fribidi, kbd
+, xkbutils }:
 
 stdenv.mkDerivation rec {
   pname = "bicon";

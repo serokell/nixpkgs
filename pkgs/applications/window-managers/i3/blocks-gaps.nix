@@ -1,4 +1,5 @@
-{ fetchFromGitHub, stdenv, perl, makeWrapper, iproute, acpi, sysstat, alsaUtils, scripts ? [
+{ fetchFromGitHub, stdenv, perl, makeWrapper, iproute, acpi, sysstat, alsaUtils
+, scripts ? [
   "bandwidth"
   "battery"
   "cpu_usage"

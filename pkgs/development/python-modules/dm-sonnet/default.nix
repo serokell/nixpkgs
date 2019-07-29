@@ -1,5 +1,6 @@
-{ lib, fetchFromGitHub, buildBazelPackage, buildPythonPackage, git, python, six, absl-py, semantic-version, contextlib2, wrapt, tensorflow, tensorflow-probability, tensorflow-estimator
-}:
+{ lib, fetchFromGitHub, buildBazelPackage, buildPythonPackage, git, python, six
+, absl-py, semantic-version, contextlib2, wrapt, tensorflow
+, tensorflow-probability, tensorflow-estimator }:
 
 let
   version = "1.33";

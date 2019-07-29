@@ -1,4 +1,6 @@
-{ stdenv, fetchgit, autoreconfHook, help2man, pkgconfig, libsndfile, fftwFloat, libjack2, libxml2, qt4, boost, ecasound, glibcLocales, libGLU_combined # Needed because help2man basically does a ./ssr-binaural  --help and ssr-binaural needs libGL
+{ stdenv, fetchgit, autoreconfHook, help2man, pkgconfig, libsndfile, fftwFloat
+, libjack2, libxml2, qt4, boost, ecasound, glibcLocales
+, libGLU_combined # Needed because help2man basically does a ./ssr-binaural  --help and ssr-binaural needs libGL
 }:
 
 stdenv.mkDerivation rec {

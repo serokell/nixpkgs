@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, meson, ninja, pkgconfig, gettext, libxslt, docbook_xsl_ns, libcap, nettle, libidn2, openssl, systemd
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, meson, ninja, pkgconfig, gettext, libxslt
+, docbook_xsl_ns, libcap, nettle, libidn2, openssl, systemd }:
 
 with stdenv.lib;
 

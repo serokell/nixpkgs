@@ -1,5 +1,6 @@
-{ stdenv, makeStaticLibraries, coreutils, rsync, bash, openssl, zlib, sqlite, libxml2, libyaml, mysql, lmdb, leveldb, postgresql, version, git-version, gambit, src
-}:
+{ stdenv, makeStaticLibraries, coreutils, rsync, bash, openssl, zlib, sqlite
+, libxml2, libyaml, mysql, lmdb, leveldb, postgresql, version, git-version
+, gambit, src }:
 
 # TODO: distinct packages for gerbil-release and gerbil-devel
 # TODO: make static compilation work

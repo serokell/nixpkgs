@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pythonPackages, intltool, gtk3, gobject-introspection, gnome3
-}:
+{ stdenv, fetchgit, pythonPackages, intltool, gtk3, gobject-introspection
+, gnome3 }:
 
 pythonPackages.buildPythonApplication rec {
   name = "onioncircuits-${version}";

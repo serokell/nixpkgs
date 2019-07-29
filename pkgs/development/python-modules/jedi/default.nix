@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, glibcLocales, tox, pytestcov, parso
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, glibcLocales, tox, pytestcov
+, parso }:
 
 buildPythonPackage rec {
   pname = "jedi";

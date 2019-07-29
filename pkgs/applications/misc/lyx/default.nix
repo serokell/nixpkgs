@@ -1,4 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, python, file, bc, fetchpatch, qtbase, qtsvg, hunspell, makeWrapper # , mythes, boost
+{ fetchurl, stdenv, pkgconfig, python, file, bc, fetchpatch, qtbase, qtsvg
+, hunspell, makeWrapper # , mythes, boost
 }:
 
 stdenv.mkDerivation rec {

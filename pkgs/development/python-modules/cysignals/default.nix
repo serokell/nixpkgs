@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, cython, pariSupport ?
-  true, pari # for interfacing with the PARI/GP signal handler
+{ lib, fetchPypi, buildPythonPackage, cython, pariSupport ? true
+, pari # for interfacing with the PARI/GP signal handler
 }:
 
 assert pariSupport -> pari != null;

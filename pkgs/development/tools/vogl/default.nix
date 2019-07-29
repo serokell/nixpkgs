@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, git, pkgconfig, wget, zip, qtbase, qtx11extras, libdwarf, libjpeg_turbo, libunwind, lzma, tinyxml, libX11, SDL2, SDL2_gfx, SDL2_image, SDL2_ttf, freeglut, libGLU, fetchpatch
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, git, pkgconfig, wget, zip, qtbase
+, qtx11extras, libdwarf, libjpeg_turbo, libunwind, lzma, tinyxml, libX11, SDL2
+, SDL2_gfx, SDL2_image, SDL2_ttf, freeglut, libGLU, fetchpatch }:
 
 mkDerivation rec {
   name = "vogl-${version}";

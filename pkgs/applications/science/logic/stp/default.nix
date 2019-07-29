@@ -1,5 +1,5 @@
-{ stdenv, cmake, boost, bison, flex, fetchFromGitHub, perl, python3, python3Packages, zlib, minisatUnstable, cryptominisat
-}:
+{ stdenv, cmake, boost, bison, flex, fetchFromGitHub, perl, python3
+, python3Packages, zlib, minisatUnstable, cryptominisat }:
 
 stdenv.mkDerivation rec {
   version = "2.2.0";

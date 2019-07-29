@@ -1,6 +1,7 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, isPyPy, python, openblasCompat # build segfaults with regular openblas
-, suitesparse, glpk ? null, gsl ? null, fftw ? null, withGlpk ? true, withGsl ?
-  true, withFftw ? true }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, isPyPy, python
+, openblasCompat # build segfaults with regular openblas
+, suitesparse, glpk ? null, gsl ? null, fftw ? null, withGlpk ? true
+, withGsl ? true, withFftw ? true }:
 
 buildPythonPackage rec {
   pname = "cvxopt";

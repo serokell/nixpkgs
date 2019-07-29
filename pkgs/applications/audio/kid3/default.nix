@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, cmake, python, ffmpeg, phonon, automoc4, chromaprint, docbook_xml_dtd_45, docbook_xsl, libxslt, id3lib, taglib, mp4v2, flac, libogg, libvorbis, zlib, readline, qtbase, qttools, qtmultimedia, qtquickcontrols, wrapQtAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, cmake, python, ffmpeg, phonon, automoc4
+, chromaprint, docbook_xml_dtd_45, docbook_xsl, libxslt, id3lib, taglib, mp4v2
+, flac, libogg, libvorbis, zlib, readline, qtbase, qttools, qtmultimedia
+, qtquickcontrols, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
 

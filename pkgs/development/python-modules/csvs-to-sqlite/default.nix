@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestrunner, click, dateparser, pandas, py-lru-cache, six, pytest
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestrunner, click, dateparser
+, pandas, py-lru-cache, six, pytest }:
 
 buildPythonPackage rec {
   pname = "csvs-to-sqlite";

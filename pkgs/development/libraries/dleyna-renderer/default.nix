@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dleyna-connector-dbus, dleyna-core, gssdp, gupnp, gupnp-av, gupnp-dlna, libsoup, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dleyna-connector-dbus
+, dleyna-core, gssdp, gupnp, gupnp-av, gupnp-dlna, libsoup, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "dleyna-renderer";

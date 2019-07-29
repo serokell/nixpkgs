@@ -1,7 +1,7 @@
 { version, sha256, cargoSha256 }:
 
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, systemd, cmake, perl
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, systemd, cmake
+, perl }:
 
 rustPlatform.buildRustPackage rec {
   name = "parity-${version}";

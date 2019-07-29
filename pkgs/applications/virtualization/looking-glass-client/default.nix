@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, SDL2, SDL, SDL2_ttf, openssl, spice-protocol, fontconfig, libX11, freefont_ttf, nettle, libconfig
+{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, SDL2, SDL, SDL2_ttf
+, openssl, spice-protocol, fontconfig, libX11, freefont_ttf, nettle, libconfig
 }:
 
 stdenv.mkDerivation rec {

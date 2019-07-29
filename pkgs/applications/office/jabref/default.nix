@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, makeDesktopItem, jdk, jre, wrapGAppsHook, gtk3, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, makeWrapper, makeDesktopItem, jdk, jre, wrapGAppsHook, gtk3
+, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   version = "3.8.1";

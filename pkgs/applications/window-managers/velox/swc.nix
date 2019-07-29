@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, wld, wayland, wayland-protocols, fontconfig, pixman, libdrm, libinput, libevdev, libxkbcommon, libxcb, xcbutilwm
-}:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, wld, wayland, wayland-protocols
+, fontconfig, pixman, libdrm, libinput, libevdev, libxkbcommon, libxcb
+, xcbutilwm }:
 
 stdenv.mkDerivation rec {
   name = "swc-${version}";

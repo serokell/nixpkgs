@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, asciidoc, libxslt, libxml2, docbook_xml_dtd_45, docbook_xsl, libarchive, lzma
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, asciidoc
+, libxslt, libxml2, docbook_xml_dtd_45, docbook_xsl, libarchive, lzma }:
 stdenv.mkDerivation rec {
   baseName = "pixz";
   version = "1.0.6";

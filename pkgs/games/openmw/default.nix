@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qtbase, openscenegraph, mygui, bullet, ffmpeg, boost, cmake, SDL2, unshield, openal, libXt, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, qtbase, openscenegraph, mygui, bullet, ffmpeg, boost
+, cmake, SDL2, unshield, openal, libXt, pkgconfig }:
 
 let
   openscenegraph_ = openscenegraph.overrideDerivation (self: {

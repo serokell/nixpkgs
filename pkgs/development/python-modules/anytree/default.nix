@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, fetchpatch, nose, six, graphviz, fontconfig
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, fetchpatch, nose, six
+, graphviz, fontconfig }:
 
 buildPythonPackage rec {
   pname = "anytree";

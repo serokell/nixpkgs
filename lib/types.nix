@@ -51,23 +51,24 @@ let
     mkOptionType =
       { # Human-readable representation of the type, should be equivalent to
       # the type function name.
-      name, # Description of the type, defined recursively by embedding the wrapped type if any.
-      description ?
-        null, # Function applied to each definition that should return true if
+      name
+      , # Description of the type, defined recursively by embedding the wrapped type if any.
+      description ? null
+      , # Function applied to each definition that should return true if
       # its type-correct, false otherwise.
-      check ?
-        (x: true), # Merge a list of definitions together into a single value.
+      check ? (x: true)
+      , # Merge a list of definitions together into a single value.
       # This function is called with two arguments: the location of
       # the option in the configuration as a list of strings
       # (e.g. ["boot" "loader "grub" "enable"]), and a list of
       # definition values and locations (e.g. [ { file = "/foo.nix";
       # value = 1; } { file = "/bar.nix"; value = 2 } ]).
-      merge ?
-        mergeDefaultOption, # Return a flat list of sub-options.  Used to generate
+      merge ? mergeDefaultOption
+      , # Return a flat list of sub-options.  Used to generate
       # documentation.
       getSubOptions ? prefix: { }, # List of modules if any, or null if none.
-      getSubModules ?
-        null, # Function for building the same option type with a different list of
+      getSubModules ? null
+      , # Function for building the same option type with a different list of
       # modules.
       substSubModules ? m: null, # Function that merge type declarations.
       # internal, takes a functor as argument and returns the merged type.

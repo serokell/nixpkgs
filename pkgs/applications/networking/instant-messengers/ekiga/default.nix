@@ -1,5 +1,9 @@
-{ stdenv, glib, fetchurl, fetchpatch, cyrus_sasl, gettext, openldap, ptlib, opal, libXv, rarian, intltool, perlPackages, evolution-data-server, gnome-doc-utils, avahi, autoreconfHook, libsigcxx, gtk2, dbus-glib, libnotify, libXext, xorgproto, gnome3, boost, libsecret, pkgconfig, libxml2, unixODBC, db, nspr, nss, zlib, libXrandr, which, libxslt, libtasn1, gmp, nettle, sqlite, makeWrapper
-}:
+{ stdenv, glib, fetchurl, fetchpatch, cyrus_sasl, gettext, openldap, ptlib, opal
+, libXv, rarian, intltool, perlPackages, evolution-data-server, gnome-doc-utils
+, avahi, autoreconfHook, libsigcxx, gtk2, dbus-glib, libnotify, libXext
+, xorgproto, gnome3, boost, libsecret, pkgconfig, libxml2, unixODBC, db, nspr
+, nss, zlib, libXrandr, which, libxslt, libtasn1, gmp, nettle, sqlite
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "ekiga";

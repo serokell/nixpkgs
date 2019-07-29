@@ -1,5 +1,9 @@
-{ stdenv, substituteAll, fetchurl, meson, ninja, pkgconfig, gnome3, perl, gettext, gtk3, glib, libnotify, libgnomekbd, lcms2, libpulseaudio, mousetweaks, alsaLib, libcanberra-gtk3, upower, colord, libgweather, polkit, gsettings-desktop-schemas, geoclue2, systemd, libgudev, libwacom, libxslt, libxml2, networkmanager, gnome-desktop, geocode-glib, docbook_xsl, wrapGAppsHook, python3, tzdata, nss
-}:
+{ stdenv, substituteAll, fetchurl, meson, ninja, pkgconfig, gnome3, perl
+, gettext, gtk3, glib, libnotify, libgnomekbd, lcms2, libpulseaudio, mousetweaks
+, alsaLib, libcanberra-gtk3, upower, colord, libgweather, polkit
+, gsettings-desktop-schemas, geoclue2, systemd, libgudev, libwacom, libxslt
+, libxml2, networkmanager, gnome-desktop, geocode-glib, docbook_xsl
+, wrapGAppsHook, python3, tzdata, nss }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-settings-daemon";

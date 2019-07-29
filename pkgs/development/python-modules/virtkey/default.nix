@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchurl, pkgconfig, gtk2, libX11, libXtst, libXi, libxkbfile, xorgproto
-}:
+{ lib, buildPythonPackage, fetchurl, pkgconfig, gtk2, libX11, libXtst, libXi
+, libxkbfile, xorgproto }:
 
 let
   majorVersion = "0.63";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, libaio, python, zlib, withGnuplot ?
-  false, gnuplot ? null }:
+{ stdenv, fetchFromGitHub, makeWrapper, libaio, python, zlib
+, withGnuplot ? false, gnuplot ? null }:
 
 stdenv.mkDerivation rec {
   name = "fio-${version}";

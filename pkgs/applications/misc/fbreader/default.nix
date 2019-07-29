@@ -1,6 +1,8 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, bzip2, curl, expat, fribidi, libunibreak, sqlite, zlib, uiTarget ?
-  if !stdenv.isDarwin then "desktop" else "macosx", uiType ?
-    if !stdenv.isDarwin then "qt4" else "cocoa", qt4, gtk2, AppKit, Cocoa }:
+{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, bzip2, curl, expat, fribidi
+, libunibreak, sqlite, zlib
+, uiTarget ? if !stdenv.isDarwin then "desktop" else "macosx"
+, uiType ? if !stdenv.isDarwin then "qt4" else "cocoa", qt4, gtk2, AppKit, Cocoa
+}:
 
 with stdenv.lib;
 

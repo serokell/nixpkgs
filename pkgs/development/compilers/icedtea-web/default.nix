@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, jdk, gtk2, xulrunner, zip, pkgconfig, perl, npapi_sdk, bash, bc
-}:
+{ stdenv, fetchurl, jdk, gtk2, xulrunner, zip, pkgconfig, perl, npapi_sdk, bash
+, bc }:
 
 stdenv.mkDerivation rec {
   name = "icedtea-web-${version}";

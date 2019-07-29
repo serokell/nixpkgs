@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, libGLU_combined, zlib, libpng, libvorbis, libmikmod, SDL_sound
-}:
+{ stdenv, fetchurl, SDL, libGLU_combined, zlib, libpng, libvorbis, libmikmod
+, SDL_sound }:
 
 stdenv.mkDerivation rec {
   name = "gltron-0.70";

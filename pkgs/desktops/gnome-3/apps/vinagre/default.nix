@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, vte, libxml2, gtk-vnc, intltool, libsecret, itstool, wrapGAppsHook, librsvg
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, vte, libxml2, gtk-vnc, intltool
+, libsecret, itstool, wrapGAppsHook, librsvg }:
 
 stdenv.mkDerivation rec {
   name = "vinagre-${version}";

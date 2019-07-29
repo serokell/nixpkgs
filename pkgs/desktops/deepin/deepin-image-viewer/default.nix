@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, qtsvg, qtx11extras, dtkcore, dtkwidget, qt5integration, freeimage, libraw, libexif, deepin
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, qtsvg, qtx11extras
+, dtkcore, dtkwidget, qt5integration, freeimage, libraw, libexif, deepin }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

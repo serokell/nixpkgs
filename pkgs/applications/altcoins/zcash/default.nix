@@ -1,5 +1,6 @@
-{ stdenv, libsodium, fetchFromGitHub, wget, pkgconfig, autoreconfHook, openssl, db62, boost, zlib, gtest, gmock, callPackage, gmp, qt4, utillinux, protobuf, qrencode, libevent, withGui
-}:
+{ stdenv, libsodium, fetchFromGitHub, wget, pkgconfig, autoreconfHook, openssl
+, db62, boost, zlib, gtest, gmock, callPackage, gmp, qt4, utillinux, protobuf
+, qrencode, libevent, withGui }:
 
 let librustzcash = callPackage ./librustzcash { };
 in with stdenv.lib;

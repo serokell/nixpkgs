@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeDesktopItem, ghostscript, atk, gtk2, glib, fontconfig, freetype, libgnomecanvas, libgnomeprint, libgnomeprintui, pango, libX11, xorgproto, zlib, poppler, autoconf, automake, libtool, pkgconfig
-}:
+{ stdenv, fetchurl, makeDesktopItem, ghostscript, atk, gtk2, glib, fontconfig
+, freetype, libgnomecanvas, libgnomeprint, libgnomeprintui, pango, libX11
+, xorgproto, zlib, poppler, autoconf, automake, libtool, pkgconfig }:
 
 let isGdkQuartzBackend = (gtk2.gdktarget == "quartz");
 

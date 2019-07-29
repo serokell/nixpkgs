@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gtk2, libjack2, lilv, lv2, pkgconfig, python, serd, sord, sratom, suil, wafHook
-}:
+{ stdenv, fetchurl, gtk2, libjack2, lilv, lv2, pkgconfig, python, serd, sord
+, sratom, suil, wafHook }:
 
 stdenv.mkDerivation rec {
   name = "jalv-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, lib, buildGoPackage, go, makeWrapper, nix-prefetch-git, fetchFromGitHub
-}:
+{ stdenv, lib, buildGoPackage, go, makeWrapper, nix-prefetch-git
+, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "vgo2nix-${version}";

@@ -1,12 +1,10 @@
-{ stdenv, lib, fetchurl, fetchpatch, makeWrapper, autoreconfHook, pkgconfig, which, flex, bison, linuxHeaders ?
-  stdenv.cc.libc.linuxHeaders, gawk, withPerl ? stdenv.hostPlatform
-    == stdenv.buildPlatform
-    && lib.any (lib.meta.platformMatch stdenv.hostPlatform)
-    perl.meta.platforms, perl, withPython ? stdenv.hostPlatform
-      == stdenv.buildPlatform
-      && lib.any (lib.meta.platformMatch stdenv.hostPlatform)
-      python.meta.platforms, python, swig, ncurses, pam, libnotify, buildPackages
-}:
+{ stdenv, lib, fetchurl, fetchpatch, makeWrapper, autoreconfHook, pkgconfig
+, which, flex, bison, linuxHeaders ? stdenv.cc.libc.linuxHeaders, gawk
+, withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
+  && lib.any (lib.meta.platformMatch stdenv.hostPlatform) perl.meta.platforms
+, perl, withPython ? stdenv.hostPlatform == stdenv.buildPlatform
+  && lib.any (lib.meta.platformMatch stdenv.hostPlatform) python.meta.platforms
+, python, swig, ncurses, pam, libnotify, buildPackages }:
 
 let
   apparmor-series = "2.13";

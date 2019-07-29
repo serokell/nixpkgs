@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, runCommand, python, perl, xorriso, pathsFromGraph, arch ?
-  "x86_64" }:
+{ stdenv, fetchurl, runCommand, python, perl, xorriso, pathsFromGraph
+, arch ? "x86_64" }:
 
-{ packages ? [ ], mirror ?
-  "http://ftp.gwdg.de/pub/linux/sources.redhat.com/cygwin", extraContents ? [ ]
-}:
+{ packages ? [ ]
+, mirror ? "http://ftp.gwdg.de/pub/linux/sources.redhat.com/cygwin"
+, extraContents ? [ ] }:
 
 let
   cygPkgList = if arch == "x86_64" then

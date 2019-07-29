@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, exiv2, glib, gnome3, gobject-introspection, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_43
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, exiv2, glib, gnome3
+, gobject-introspection, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_43 }:
 
 stdenv.mkDerivation rec {
   pname = "gexiv2";

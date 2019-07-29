@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, makeDesktopItem, wrapQtAppsHook, pkgconfig, cmake, epoxy, libzip, ffmpeg, imagemagick, SDL2, qtbase, qtmultimedia, libedit, qttools, minizip
-}:
+{ stdenv, fetchFromGitHub, makeDesktopItem, wrapQtAppsHook, pkgconfig, cmake
+, epoxy, libzip, ffmpeg, imagemagick, SDL2, qtbase, qtmultimedia, libedit
+, qttools, minizip }:
 
 let
   desktopItem = makeDesktopItem {

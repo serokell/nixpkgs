@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, writeText, openjdk, bootjdk, gradleGen, pkgconfig, perl, cmake, gperf, gtk2, gtk3, libXtst, libXxf86vm, glib, alsaLib, ffmpeg, python, ruby
-}:
+{ stdenv, fetchurl, writeText, openjdk, bootjdk, gradleGen, pkgconfig, perl
+, cmake, gperf, gtk2, gtk3, libXtst, libXxf86vm, glib, alsaLib, ffmpeg, python
+, ruby }:
 
 let
   major = "11";

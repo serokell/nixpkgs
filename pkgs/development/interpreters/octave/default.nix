@@ -1,7 +1,9 @@
-{ stdenv, fetchurl, gfortran, readline, ncurses, perl, flex, texinfo, qhull, libsndfile, portaudio, libX11, graphicsmagick, pcre, pkgconfig, libGLU_combined, fltk, fftw, fftwSinglePrec, zlib, curl, qrupdate, openblas, arpack, libwebp, qt ?
-  null, qscintilla ? null, ghostscript ? null, llvm ? null, hdf5 ? null, glpk ?
-    null, suitesparse ? null, gnuplot ? null, jdk ? null, python ?
-      null, overridePlatforms ? null }:
+{ stdenv, fetchurl, gfortran, readline, ncurses, perl, flex, texinfo, qhull
+, libsndfile, portaudio, libX11, graphicsmagick, pcre, pkgconfig
+, libGLU_combined, fltk, fftw, fftwSinglePrec, zlib, curl, qrupdate, openblas
+, arpack, libwebp, qt ? null, qscintilla ? null, ghostscript ? null, llvm ? null
+, hdf5 ? null, glpk ? null, suitesparse ? null, gnuplot ? null, jdk ? null
+, python ? null, overridePlatforms ? null }:
 
 let
   suitesparseOrig = suitesparse;

@@ -1,5 +1,5 @@
-{ bazel, bazelTest, bazel-examples, gccStdenv, lib, runLocal, runtimeShell, writeScript, writeText
-}:
+{ bazel, bazelTest, bazel-examples, gccStdenv, lib, runLocal, runtimeShell
+, writeScript, writeText }:
 
 let
 

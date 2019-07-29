@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libvirt, glib, libxml2, intltool, libtool, yajl, nettle, libgcrypt, pythonPackages, gobject-introspection, libcap_ng, numactl, xen, libapparmor, vala
-}:
+{ stdenv, fetchurl, pkgconfig, libvirt, glib, libxml2, intltool, libtool, yajl
+, nettle, libgcrypt, pythonPackages, gobject-introspection, libcap_ng, numactl
+, xen, libapparmor, vala }:
 
 let inherit (pythonPackages) python pygobject2;
 in stdenv.mkDerivation rec {

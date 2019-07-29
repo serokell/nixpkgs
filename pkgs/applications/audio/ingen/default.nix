@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, boost, ganv, glibmm, gtkmm2, libjack2, lilv, lv2Unstable, makeWrapper, pkgconfig, python, raul, rdflib, serd, sord, sratom, wafHook, suil
-}:
+{ stdenv, fetchgit, boost, ganv, glibmm, gtkmm2, libjack2, lilv, lv2Unstable
+, makeWrapper, pkgconfig, python, raul, rdflib, serd, sord, sratom, wafHook
+, suil }:
 
 stdenv.mkDerivation rec {
   name = "ingen-unstable-${rev}";

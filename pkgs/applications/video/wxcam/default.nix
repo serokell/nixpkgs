@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libX11, libXv, libSM, gtk, libglade, wxGTK, perlPackages, xvidcore, mjpegtools, alsaLib, libv4l, cimg
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, libX11, libXv, libSM, gtk, libglade
+, wxGTK, perlPackages, xvidcore, mjpegtools, alsaLib, libv4l, cimg }:
 
 stdenv.mkDerivation rec {
 

@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, fetchpatch
 # Python bits:
-, buildPythonPackage, pytest, responses, docopt, flask, markdown, path-and-address, pygments, requests, tabulate
-}:
+, buildPythonPackage, pytest, responses, docopt, flask, markdown
+, path-and-address, pygments, requests, tabulate }:
 
 buildPythonPackage rec {
   pname = "grip";

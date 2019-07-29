@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, substituteAll, openvpn, intltool, libxml2, pkgconfig, file, networkmanager, libsecret, gtk3, withGnome ?
-  true, gnome3, kmod }:
+{ stdenv, fetchurl, substituteAll, openvpn, intltool, libxml2, pkgconfig, file
+, networkmanager, libsecret, gtk3, withGnome ? true, gnome3, kmod }:
 
 let
   pname = "NetworkManager-openvpn";

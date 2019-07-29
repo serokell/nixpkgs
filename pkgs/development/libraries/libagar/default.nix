@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libtool, perl, bsdbuild, gettext, mandoc, libpng, libjpeg, xlibsWrapper, libXinerama, freetype, SDL, libGLU_combined, libsndfile, portaudio, mysql, fontconfig
-}:
+{ stdenv, fetchurl, pkgconfig, libtool, perl, bsdbuild, gettext, mandoc, libpng
+, libjpeg, xlibsWrapper, libXinerama, freetype, SDL, libGLU_combined, libsndfile
+, portaudio, mysql, fontconfig }:
 
 let srcs = import ./srcs.nix { inherit fetchurl; };
 in stdenv.mkDerivation rec {

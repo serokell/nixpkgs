@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchgit, cmake, pkgconfig, git, qt5, openal, glew, vulkan-loader, libpng, ffmpeg, libevdev, python27, pulseaudioSupport ?
-  true, libpulseaudio, waylandSupport ? true, wayland, alsaSupport ?
-    true, alsaLib }:
+{ stdenv, lib, fetchgit, cmake, pkgconfig, git, qt5, openal, glew, vulkan-loader
+, libpng, ffmpeg, libevdev, python27, pulseaudioSupport ? true, libpulseaudio
+, waylandSupport ? true, wayland, alsaSupport ? true, alsaLib }:
 
 let
   majorVersion = "0.0.6";

@@ -1,9 +1,9 @@
 { dotnetenv }:
 
-{ name, src, baseDir ? ".", slnFile, targets ? "ReBuild", verbosity ?
-  "detailed", options ?
-    "/p:Configuration=Debug;Platform=Win32", assemblyInputs ? [ ], preBuild ?
-      "", namespace, mainClassName, mainClassFile, modifyPublicMain ? true }:
+{ name, src, baseDir ? ".", slnFile, targets ? "ReBuild", verbosity ? "detailed"
+, options ? "/p:Configuration=Debug;Platform=Win32", assemblyInputs ? [ ]
+, preBuild ? "", namespace, mainClassName, mainClassFile
+, modifyPublicMain ? true }:
 
 let
   application = dotnetenv.buildSolution {

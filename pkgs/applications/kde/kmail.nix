@@ -1,5 +1,11 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi-search, kbookmarks, kcalutils, kcmutils, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kdelibs4support, kdepim-apps-libs, libkdepim, kdepim-runtime, kguiaddons, ki18n, kiconthemes, kinit, kio, kldap, kmail-account-wizard, kmailtransport, knotifications, knotifyconfig, kontactinterface, kparts, kpty, kservice, ktextwidgets, ktnef, kwallet, kwidgetsaddons, kwindowsystem, kxmlgui, libgravatar, libksieve, mailcommon, messagelib, pim-sieve-editor, qtscript, qtwebengine,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi-search
+, kbookmarks, kcalutils, kcmutils, kcompletion, kconfig, kconfigwidgets
+, kcoreaddons, kdelibs4support, kdepim-apps-libs, libkdepim, kdepim-runtime
+, kguiaddons, ki18n, kiconthemes, kinit, kio, kldap, kmail-account-wizard
+, kmailtransport, knotifications, knotifyconfig, kontactinterface, kparts, kpty
+, kservice, ktextwidgets, ktnef, kwallet, kwidgetsaddons, kwindowsystem, kxmlgui
+, libgravatar, libksieve, mailcommon, messagelib, pim-sieve-editor, qtscript
+, qtwebengine, }:
 
 mkDerivation {
   name = "kmail";

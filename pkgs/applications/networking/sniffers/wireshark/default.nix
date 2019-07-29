@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, pcre, perl, flex, bison, gettext, libpcap, libnl, c-ares, gnutls, libgcrypt, libgpgerror, geoip, openssl, lua5, python3, libcap, glib, libssh, nghttp2, zlib, cmake, extra-cmake-modules, fetchpatch, makeWrapper, withQt ?
-  true, qt5 ? null, ApplicationServices, SystemConfiguration, gmp }:
+{ stdenv, fetchurl, pkgconfig, pcre, perl, flex, bison, gettext, libpcap, libnl
+, c-ares, gnutls, libgcrypt, libgpgerror, geoip, openssl, lua5, python3, libcap
+, glib, libssh, nghttp2, zlib, cmake, extra-cmake-modules, fetchpatch
+, makeWrapper, withQt ? true, qt5 ? null, ApplicationServices
+, SystemConfiguration, gmp }:
 
 assert withQt -> qt5 != null;
 

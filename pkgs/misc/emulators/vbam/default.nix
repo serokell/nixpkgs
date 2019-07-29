@@ -1,5 +1,5 @@
-{ stdenv, cairo, cmake, fetchFromGitHub, ffmpeg, gettext, libGLU_combined, openal, pkgconfig, SDL2, sfml, zip, zlib
-}:
+{ stdenv, cairo, cmake, fetchFromGitHub, ffmpeg, gettext, libGLU_combined
+, openal, pkgconfig, SDL2, sfml, zip, zlib }:
 
 stdenv.mkDerivation rec {
   name = "visualboyadvance-m-${version}";

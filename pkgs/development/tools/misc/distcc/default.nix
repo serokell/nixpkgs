@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, popt, avahi, pkgconfig, python, gtk2, runCommand, gcc, autoconf, automake, which, procps, libiberty_static, runtimeShell, sysconfDir ?
-  "" # set this parameter to override the default value $out/etc
+{ stdenv, fetchFromGitHub, popt, avahi, pkgconfig, python, gtk2, runCommand, gcc
+, autoconf, automake, which, procps, libiberty_static, runtimeShell
+, sysconfDir ? "" # set this parameter to override the default value $out/etc
 , static ? false }:
 
 let

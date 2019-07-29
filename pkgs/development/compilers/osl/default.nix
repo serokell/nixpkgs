@@ -1,5 +1,5 @@
-{ clangStdenv, stdenv, fetchFromGitHub, cmake, zlib, openexr, openimageio, llvm, boost165, flex, bison, partio, pugixml, utillinux, python
-}:
+{ clangStdenv, stdenv, fetchFromGitHub, cmake, zlib, openexr, openimageio, llvm
+, boost165, flex, bison, partio, pugixml, utillinux, python }:
 
 let boost_static = boost165.override { enableStatic = true; };
 in clangStdenv.mkDerivation rec {

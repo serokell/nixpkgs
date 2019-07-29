@@ -1,5 +1,6 @@
-{ stdenv, vscode-utils, fetchurl, unzip, mono, writeScript, runtimeShell, jq, clang-tools, gdbUseFixed ?
-  true, gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
+{ stdenv, vscode-utils, fetchurl, unzip, mono, writeScript, runtimeShell, jq
+, clang-tools, gdbUseFixed ? true
+, gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
 }:
 
 assert gdbUseFixed -> null != gdb;

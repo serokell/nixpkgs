@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, gnupg, bzip2, xz, graphviz
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, gnupg, bzip2, xz
+, graphviz }:
 
 let
 

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, xgboost, dask, distributed, pytest, scikitlearn
-}:
+{ stdenv, buildPythonPackage, fetchPypi, xgboost, dask, distributed, pytest
+, scikitlearn }:
 
 buildPythonPackage rec {
   version = "0.1.5";

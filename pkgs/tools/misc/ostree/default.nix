@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, gtk-doc, gobject-introspection, gnome3, glib, systemd, xz, e2fsprogs, libsoup, gpgme, which, autoconf, automake, libtool, fuse, utillinuxMinimal, libselinux, libarchive, libcap, bzip2, yacc, libxslt, docbook_xsl, docbook_xml_dtd_42, python3
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, gtk-doc, gobject-introspection
+, gnome3, glib, systemd, xz, e2fsprogs, libsoup, gpgme, which, autoconf
+, automake, libtool, fuse, utillinuxMinimal, libselinux, libarchive, libcap
+, bzip2, yacc, libxslt, docbook_xsl, docbook_xml_dtd_42, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "ostree";

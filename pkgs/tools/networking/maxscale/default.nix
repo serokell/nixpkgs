@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, glibc, bison2, curl, flex, gperftools, jansson, jemalloc, kerberos, lua, mariadb, ncurses, openssl, pcre, pcre2, perl, rabbitmq-c, sqlite, tcl, libaio, libedit, libtool, libui, libuuid, zlib
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, glibc, bison2, curl, flex
+, gperftools, jansson, jemalloc, kerberos, lua, mariadb, ncurses, openssl, pcre
+, pcre2, perl, rabbitmq-c, sqlite, tcl, libaio, libedit, libtool, libui, libuuid
+, zlib }:
 
 stdenv.mkDerivation rec {
   name = "maxscale-${version}";

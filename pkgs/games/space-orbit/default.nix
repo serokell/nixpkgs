@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libGLU_combined, libXi, libXt, libXext, libX11, libXmu, freeglut
-}:
+{ stdenv, fetchurl, libGLU_combined, libXi, libXt, libXext, libX11, libXmu
+, freeglut }:
 
 stdenv.mkDerivation rec {
   name = "space-orbit-${version}";

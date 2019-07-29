@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, gnuradio, pythonSupport ?
-  true, python, swig, limesuite }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, gnuradio
+, pythonSupport ? true, python, swig, limesuite }:
 
 assert pythonSupport -> python != null && swig != null;
 

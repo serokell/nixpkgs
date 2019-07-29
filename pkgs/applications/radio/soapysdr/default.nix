@@ -1,5 +1,5 @@
-{ stdenv, lib, lndir, makeWrapper, fetchFromGitHub, cmake, libusb, pkgconfig, python, swig2, numpy, ncurses, extraPackages ?
-  [ ] }:
+{ stdenv, lib, lndir, makeWrapper, fetchFromGitHub, cmake, libusb, pkgconfig
+, python, swig2, numpy, ncurses, extraPackages ? [ ] }:
 
 let
 

@@ -1,5 +1,6 @@
-{ stdenv, lib, autoreconfHook, acl, go, file, git, wget, gnupg, trousers, squashfsTools, cpio, fetchurl, fetchFromGitHub, iptables, systemd, makeWrapper, glibc
-}:
+{ stdenv, lib, autoreconfHook, acl, go, file, git, wget, gnupg, trousers
+, squashfsTools, cpio, fetchurl, fetchFromGitHub, iptables, systemd, makeWrapper
+, glibc }:
 
 let
   # Always get the information from

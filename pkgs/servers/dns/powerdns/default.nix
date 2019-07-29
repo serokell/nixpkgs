@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, boost, libyamlcpp, libsodium, sqlite, protobuf, botan2, libressl, mysql57, postgresql, lua, openldap, geoip, curl, opendbx, unixODBC
-}:
+{ stdenv, fetchurl, pkgconfig, boost, libyamlcpp, libsodium, sqlite, protobuf
+, botan2, libressl, mysql57, postgresql, lua, openldap, geoip, curl, opendbx
+, unixODBC }:
 
 stdenv.mkDerivation rec {
   name = "powerdns-${version}";

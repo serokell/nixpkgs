@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libwpg, libwpd, lcms, pkgconfig, librevenge, icu, boost, cppunit
-}:
+{ stdenv, fetchurl, libwpg, libwpd, lcms, pkgconfig, librevenge, icu, boost
+, cppunit }:
 
 stdenv.mkDerivation rec {
   name = "libcdr-0.1.5";

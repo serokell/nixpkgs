@@ -1,14 +1,15 @@
-{ lib, fetchurl, fetchFromGitHub, callPackage, storeDir ?
-  "/nix/store", stateDir ? "/nix/var", confDir ?
-    "/etc", boehmgc, stdenv, llvmPackages_6 }:
+{ lib, fetchurl, fetchFromGitHub, callPackage, storeDir ? "/nix/store"
+, stateDir ? "/nix/var", confDir ? "/etc", boehmgc, stdenv, llvmPackages_6 }:
 
 let
 
-  common = { lib, stdenv, fetchpatch, perl, curl, bzip2, sqlite, openssl ?
-    null, xz, pkgconfig, boehmgc, perlPackages, libsodium, brotli, boost, editline, autoreconfHook, autoconf-archive, bison, flex, libxml2, libxslt, docbook5, docbook_xsl_ns, jq, busybox-sandbox-shell, storeDir, stateDir, confDir, withLibseccomp ?
-      lib.any (lib.meta.platformMatch stdenv.hostPlatform)
-      libseccomp.meta.platforms, libseccomp, withAWS ? stdenv.isLinux
-        || stdenv.isDarwin, aws-sdk-cpp
+  common = { lib, stdenv, fetchpatch, perl, curl, bzip2, sqlite, openssl ? null
+    , xz, pkgconfig, boehmgc, perlPackages, libsodium, brotli, boost, editline
+    , autoreconfHook, autoconf-archive, bison, flex, libxml2, libxslt, docbook5
+    , docbook_xsl_ns, jq, busybox-sandbox-shell, storeDir, stateDir, confDir
+    , withLibseccomp ? lib.any (lib.meta.platformMatch stdenv.hostPlatform)
+      libseccomp.meta.platforms, libseccomp
+    , withAWS ? stdenv.isLinux || stdenv.isDarwin, aws-sdk-cpp
 
     , name, suffix ? "", src, includesPerl ? false, fromGit ? false
 

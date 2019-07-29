@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, rdkafka, requests, avro3k, avro, futures, enum34
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, rdkafka, requests, avro3k, avro
+, futures, enum34 }:
 
 buildPythonPackage rec {
   version = "1.0.1";

@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, dpkg, makeWrapper, gcc, libGLU_combined, xdg_utils, dbus, alsaLib, cups, fontconfig, glib, icu, libpng12, xkeyboard_config, zlib, libxslt, libxml2, sqlite, orc, libX11, libXcursor, libXrandr, libxcb, libXi, libSM, libICE, libXrender, libXcomposite
-}:
+{ stdenv, fetchurl, dpkg, makeWrapper, gcc, libGLU_combined, xdg_utils, dbus
+, alsaLib, cups, fontconfig, glib, icu, libpng12, xkeyboard_config, zlib
+, libxslt, libxml2, sqlite, orc, libX11, libXcursor, libXrandr, libxcb, libXi
+, libSM, libICE, libXrender, libXcomposite }:
 
 let version = "2018SP2";
 in stdenv.mkDerivation {

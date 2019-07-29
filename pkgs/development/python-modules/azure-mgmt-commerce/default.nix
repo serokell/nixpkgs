@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, msrestazure, azure-common, azure-mgmt-nspkg, python, isPy3k
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, msrestazure, azure-common
+, azure-mgmt-nspkg, python, isPy3k }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-commerce";

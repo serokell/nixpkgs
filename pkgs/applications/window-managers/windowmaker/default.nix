@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libX11, libXext, libXft, libXmu, libXinerama, libXrandr, libXpm, imagemagick, libpng, libjpeg, libexif, libtiff, libungif, libwebp
-}:
+{ stdenv, fetchurl, pkgconfig, libX11, libXext, libXft, libXmu, libXinerama
+, libXrandr, libXpm, imagemagick, libpng, libjpeg, libexif, libtiff, libungif
+, libwebp }:
 
 stdenv.mkDerivation rec {
   name = "windowmaker-${version}";

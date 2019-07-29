@@ -1,6 +1,6 @@
-{ fetchurl, stdenv, cmake, netcdf, openjpeg, libpng, gfortran, enablePython ?
-  false, pythonPackages, enablePosixThreads ? false, enableOpenMPThreads ? false
-}:
+{ fetchurl, stdenv, cmake, netcdf, openjpeg, libpng, gfortran
+, enablePython ? false, pythonPackages, enablePosixThreads ? false
+, enableOpenMPThreads ? false }:
 with stdenv.lib;
 stdenv.mkDerivation rec {
   name = "eccodes-${version}";

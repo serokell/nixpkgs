@@ -1,5 +1,6 @@
-{ stdenv, fetchpatch, fetchurl, autoreconfHook, pkgconfig, atk, cairo, glib, gnome-common, gtk2, pango, libxml2Python, perl, intltool, gettext, gtk-mac-integration-gtk2
-}:
+{ stdenv, fetchpatch, fetchurl, autoreconfHook, pkgconfig, atk, cairo, glib
+, gnome-common, gtk2, pango, libxml2Python, perl, intltool, gettext
+, gtk-mac-integration-gtk2 }:
 
 with stdenv.lib;
 

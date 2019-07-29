@@ -1,5 +1,5 @@
-{ config, stdenv, callPackage, lib, fetchurl, unzip, licenseAccepted ?
-  config.sc2-headless.accept_license or false }:
+{ config, stdenv, callPackage, lib, fetchurl, unzip
+, licenseAccepted ? config.sc2-headless.accept_license or false }:
 
 if !licenseAccepted then
   throw ''

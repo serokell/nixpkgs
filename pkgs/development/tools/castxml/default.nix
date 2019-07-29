@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pythonPackages, cmake, llvmPackages, libffi, libxml2, zlib, withMan ?
-  true }:
+{ stdenv, fetchFromGitHub, pythonPackages, cmake, llvmPackages, libffi, libxml2
+, zlib, withMan ? true }:
 stdenv.mkDerivation rec {
 
   pname = "CastXML";

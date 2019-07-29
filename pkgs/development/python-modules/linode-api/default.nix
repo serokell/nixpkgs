@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, lib, requests, future, enum34, mock
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, lib, requests
+, future, enum34, mock }:
 
 buildPythonPackage rec {
   pname = "linode-api";

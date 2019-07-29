@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, more-itertools, backports_functools_lru_cache
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, more-itertools
+, backports_functools_lru_cache }:
 
 buildPythonPackage rec {
   pname = "jaraco.functools";

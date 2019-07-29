@@ -1,5 +1,5 @@
-{ mkDerivation, lib, copyPathsToStore, propagate, extra-cmake-modules, kcoreaddons, polkit-qt, qttools
-}:
+{ mkDerivation, lib, copyPathsToStore, propagate, extra-cmake-modules
+, kcoreaddons, polkit-qt, qttools }:
 
 mkDerivation {
   name = "kauth";

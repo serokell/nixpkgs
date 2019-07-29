@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, lua5_3, pkgconfig, python, zlib, bzip2, curl, lzma, gettext, libiconv, sdlClient ?
-  true, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_gfx, freetype, fluidsynth, gtkClient ?
-    false, gtk3, qtClient ? false, qt5, server ? true, readline, enableSqlite ?
-      true, sqlite }:
+{ stdenv, fetchFromGitHub, autoreconfHook, lua5_3, pkgconfig, python, zlib
+, bzip2, curl, lzma, gettext, libiconv, sdlClient ? true, SDL, SDL_mixer
+, SDL_image, SDL_ttf, SDL_gfx, freetype, fluidsynth, gtkClient ? false, gtk3
+, qtClient ? false, qt5, server ? true, readline, enableSqlite ? true, sqlite }:
 
 let inherit (stdenv.lib) optional optionals;
 

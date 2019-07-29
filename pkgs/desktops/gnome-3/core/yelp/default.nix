@@ -1,5 +1,5 @@
-{ stdenv, gettext, fetchurl, webkitgtk, pkgconfig, gtk3, glib, gnome3, sqlite, itstool, libxml2, libxslt, gst_all_1, wrapGAppsHook
-}:
+{ stdenv, gettext, fetchurl, webkitgtk, pkgconfig, gtk3, glib, gnome3, sqlite
+, itstool, libxml2, libxslt, gst_all_1, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "yelp-${version}";

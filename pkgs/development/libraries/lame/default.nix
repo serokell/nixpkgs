@@ -1,8 +1,8 @@
 { stdenv, fetchurl, nasmSupport ? true, nasm ? null # Assembly optimizations
 , cpmlSupport ? true # Compaq's fast math library
   #, efenceSupport ? false, libefence ? null # Use ElectricFence for malloc debugging
-, sndfileFileIOSupport ? false, libsndfile ?
-  null # Use libsndfile, instead of lame's internal routines
+, sndfileFileIOSupport ? false
+, libsndfile ? null # Use libsndfile, instead of lame's internal routines
 , analyzerHooksSupport ? true # Use analyzer hooks
 , decoderSupport ? true # mpg123 decoder
 , frontendSupport ? true # Build the lame executable

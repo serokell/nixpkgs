@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, boost, mpd_clientlib, ncurses, pkgconfig, readline, libiconv, icu, curl, outputsSupport ?
-  true # outputs screen
+{ stdenv, fetchurl, boost, mpd_clientlib, ncurses, pkgconfig, readline, libiconv
+, icu, curl, outputsSupport ? true # outputs screen
 , visualizerSupport ? false, fftw ? null # visualizer screen
 , clockSupport ? true # clock screen
 , taglibSupport ? true, taglib ? null # tag editor

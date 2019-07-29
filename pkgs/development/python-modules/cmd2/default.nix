@@ -1,6 +1,6 @@
-{ stdenv, fetchPypi, buildPythonPackage, pythonOlder, isPy3k, pyperclip, six, pyparsing, vim, wcwidth, colorama, attrs, contextlib2 ?
-  null, typing ? null, setuptools_scm, pytest, mock ?
-    null, pytest-mock, which, glibcLocales }:
+{ stdenv, fetchPypi, buildPythonPackage, pythonOlder, isPy3k, pyperclip, six
+, pyparsing, vim, wcwidth, colorama, attrs, contextlib2 ? null, typing ? null
+, setuptools_scm, pytest, mock ? null, pytest-mock, which, glibcLocales }:
 buildPythonPackage rec {
   pname = "cmd2";
   version = "0.9.14";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libXi, libXrandr, libXxf86vm, libGL, libGLU, xlibsWrapper, cmake
-}:
+{ stdenv, fetchurl, libXi, libXrandr, libXxf86vm, libGL, libGLU, xlibsWrapper
+, cmake }:
 
 let version = "3.0.0";
 in stdenv.mkDerivation {

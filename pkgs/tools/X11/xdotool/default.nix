@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libX11, perl, libXtst, xorgproto, libXi, libXinerama, libxkbcommon
-}:
+{ stdenv, fetchurl, pkgconfig, libX11, perl, libXtst, xorgproto, libXi
+, libXinerama, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   name = "xdotool-${version}";

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, intltool, gettext, glib, libxml2, zlib, bzip2, python, perl, gdk_pixbuf, libiconv, libintl, gnome3
-}:
+{ fetchurl, stdenv, pkgconfig, intltool, gettext, glib, libxml2, zlib, bzip2
+, python, perl, gdk_pixbuf, libiconv, libintl, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "libgsf";

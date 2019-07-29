@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, boost, openssl, log4cpp, libopus, protobuf
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, boost, openssl, log4cpp
+, libopus, protobuf }:
 with lib;
 stdenv.mkDerivation rec {
   pname = "mumlib";

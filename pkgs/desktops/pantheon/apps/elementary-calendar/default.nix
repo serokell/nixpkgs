@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, desktop-file-utils, gtk3, granite, libgee, geoclue2, libchamplain, clutter, folks, geocode-glib, python3, libnotify, libical, evolution-data-server, appstream-glib, elementary-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala
+, desktop-file-utils, gtk3, granite, libgee, geoclue2, libchamplain, clutter
+, folks, geocode-glib, python3, libnotify, libical, evolution-data-server
+, appstream-glib, elementary-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "calendar";

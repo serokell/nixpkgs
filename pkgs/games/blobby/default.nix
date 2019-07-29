@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL2, SDL2_image, libGLU_combined, cmake, physfs, boost, zip, zlib, pkgconfig, unzip
-}:
+{ stdenv, fetchurl, SDL2, SDL2_image, libGLU_combined, cmake, physfs, boost, zip
+, zlib, pkgconfig, unzip }:
 stdenv.mkDerivation rec {
   version = "1.0";
   name = "blobby-volley-${version}";

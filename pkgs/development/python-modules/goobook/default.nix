@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, google_api_python_client, simplejson, oauth2client
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, google_api_python_client
+, simplejson, oauth2client }:
 
 buildPythonPackage rec {
   pname = "goobook";

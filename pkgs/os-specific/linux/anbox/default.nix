@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, fetchurl, cmake, pkgconfig, dbus, makeWrapper, gtest, boost, libcap, systemd, mesa, libGL, libglvnd, glib, git, SDL2, SDL2_image, properties-cpp, protobuf, protobufc, python, lxc, writeText, writeScript, runtimeShell
-}:
+{ stdenv, fetchFromGitHub, fetchurl, cmake, pkgconfig, dbus, makeWrapper, gtest
+, boost, libcap, systemd, mesa, libGL, libglvnd, glib, git, SDL2, SDL2_image
+, properties-cpp, protobuf, protobufc, python, lxc, writeText, writeScript
+, runtimeShell }:
 
 let
 

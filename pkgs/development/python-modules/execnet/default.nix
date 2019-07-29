@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, isPyPy, fetchPypi, pytest, setuptools_scm, apipkg
-}:
+{ stdenv, lib, buildPythonPackage, isPyPy, fetchPypi, pytest, setuptools_scm
+, apipkg }:
 
 buildPythonPackage rec {
   pname = "execnet";

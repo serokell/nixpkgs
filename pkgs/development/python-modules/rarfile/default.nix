@@ -1,4 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pytest, nose, libarchive, glibcLocales
+{ stdenv, buildPythonPackage, fetchFromGitHub, pytest, nose, libarchive
+, glibcLocales
 # unrar is non-free software
 , useUnrar ? false, unrar }:
 

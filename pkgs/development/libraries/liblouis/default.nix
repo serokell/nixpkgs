@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, autoreconfHook, pkgconfig, gettext, python3, texinfo, help2man, libyaml, perl
-}:
+{ fetchFromGitHub, stdenv, autoreconfHook, pkgconfig, gettext, python3, texinfo
+, help2man, libyaml, perl }:
 
 let version = "3.10.0";
 in stdenv.mkDerivation rec {

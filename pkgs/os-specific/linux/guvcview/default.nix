@@ -1,5 +1,7 @@
-{ config, stdenv, fetchurl, intltool, pkgconfig, gtk3, portaudio, SDL2, ffmpeg, udev, libusb1, libv4l, alsaLib, gsl, pulseaudioSupport ?
-  config.pulseaudio or stdenv.isLinux, libpulseaudio ? null }:
+{ config, stdenv, fetchurl, intltool, pkgconfig, gtk3, portaudio, SDL2, ffmpeg
+, udev, libusb1, libv4l, alsaLib, gsl
+, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
+}:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, flex, bison, pkgconfig, zlib, libtiff, libpng, fftw, cairo, readline, ffmpeg, makeWrapper, wxGTK30, netcdf, blas, proj, gdal, geos, sqlite, postgresql, mysql, python2Packages, libLAS, proj-datumgrid
-}:
+{ stdenv, fetchFromGitHub, flex, bison, pkgconfig, zlib, libtiff, libpng, fftw
+, cairo, readline, ffmpeg, makeWrapper, wxGTK30, netcdf, blas, proj, gdal, geos
+, sqlite, postgresql, mysql, python2Packages, libLAS, proj-datumgrid }:
 
 stdenv.mkDerivation rec {
   name = "grass";

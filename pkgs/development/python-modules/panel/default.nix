@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, bokeh, param, pyviz-comms, markdown, pyct, testpath
-}:
+{ lib, buildPythonPackage, fetchPypi, bokeh, param, pyviz-comms, markdown, pyct
+, testpath }:
 
 buildPythonPackage rec {
   pname = "panel";

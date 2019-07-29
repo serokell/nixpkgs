@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gettext, pythonPackages, gtk2, gdk_pixbuf, upower, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, gettext, pythonPackages, gtk2, gdk_pixbuf, upower
+, makeWrapper }:
 
 let inherit (pythonPackages) dbus-python pygtk python;
 in stdenv.mkDerivation rec {

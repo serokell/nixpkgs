@@ -1,8 +1,8 @@
 { stdenv, buildPackages, fetchurl, binutils ? null, bison, autoconf, utillinux
 
 # patch for cygwin requires readline support
-, interactive ? stdenv.isCygwin, readline70 ? null, withDocs ? false, texinfo ?
-  null }:
+, interactive ? stdenv.isCygwin, readline70 ? null, withDocs ? false
+, texinfo ? null }:
 
 with stdenv.lib;
 

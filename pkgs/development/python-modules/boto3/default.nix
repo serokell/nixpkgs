@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, botocore, jmespath, s3transfer, futures, docutils, nose, mock, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, botocore, jmespath, s3transfer, futures
+, docutils, nose, mock, isPy3k }:
 
 buildPythonPackage rec {
   pname = "boto3";

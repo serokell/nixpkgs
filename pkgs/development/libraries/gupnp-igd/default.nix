@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, gettext, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gupnp, gnome3
-}:
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, gettext
+, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gupnp
+, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gupnp-igd";

@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, makeWrapper, coreutils, git, openssh, bash, gnused, gnugrep, src, version, hasBootstrapScript, postPatch ?
-  "", ... }:
+{ stdenv, buildGoPackage, makeWrapper, coreutils, git, openssh, bash, gnused
+, gnugrep, src, version, hasBootstrapScript, postPatch ? "", ... }:
 let goPackagePath = "github.com/buildkite/agent";
 in buildGoPackage {
   name = "buildkite-agent-${version}";

@@ -6,7 +6,8 @@
 # May be able to upgrade to swig3
 , python, swig2, numpy, scipy, matplotlib
 # => grc - the gnu radio companion
-, Mako, cheetah, pygtk # Note: GR is migrating to Mako. Cheetah should be removed for GR3.8
+, Mako, cheetah
+, pygtk # Note: GR is migrating to Mako. Cheetah should be removed for GR3.8
 # => gr-wavelet: collection of wavelet blocks
 , gsl
 # => gr-qtgui: the Qt-based GUI

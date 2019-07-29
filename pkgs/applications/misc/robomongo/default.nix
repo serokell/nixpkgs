@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, zlib, glib, xorg, dbus, fontconfig, freetype, xkeyboard_config, makeDesktopItem, makeWrapper
-}:
+{ stdenv, fetchurl, zlib, glib, xorg, dbus, fontconfig, freetype
+, xkeyboard_config, makeDesktopItem, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "robomongo-${version}";

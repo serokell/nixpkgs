@@ -1,10 +1,12 @@
-{ stdenv, lib, fetchurl, fetchpatch, pkgconfig, intltool, ninja, meson, file, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl, llvmPackages, libffi, libomxil-bellagio, libva-minimal, libelf, libvdpau, python3Packages, libglvnd, enableRadv ?
-  true, galliumDrivers ? [ "auto" ], driDrivers ? [ "auto" ], vulkanDrivers ?
-    [ "auto" ], eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [
-      "wayland"
-      "drm"
-    ], OpenGL, Xplugin, withValgrind ? stdenv.hostPlatform.isLinux
-      && !stdenv.hostPlatform.isAarch32, valgrind-light }:
+{ stdenv, lib, fetchurl, fetchpatch, pkgconfig, intltool, ninja, meson, file
+, flex, bison, expat, libdrm, xorg, wayland, wayland-protocols, openssl
+, llvmPackages, libffi, libomxil-bellagio, libva-minimal, libelf, libvdpau
+, python3Packages, libglvnd, enableRadv ? true, galliumDrivers ? [ "auto" ]
+, driDrivers ? [ "auto" ], vulkanDrivers ? [ "auto" ]
+, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" "drm" ]
+, OpenGL, Xplugin
+, withValgrind ? stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isAarch32
+, valgrind-light }:
 
 /* * Packaging design:
    - The basic mesa ($out) contains headers and libraries (GLU is in libGLU now).

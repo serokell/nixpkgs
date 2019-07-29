@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, python, unittest2, scripttest, pytz, mock, testtools, pbr, tempita, decorator, sqlalchemy, six, sqlparse, testrepository
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, python, unittest2
+, scripttest, pytz, mock, testtools, pbr, tempita, decorator, sqlalchemy, six
+, sqlparse, testrepository }:
 buildPythonPackage rec {
   pname = "sqlalchemy-migrate";
   version = "0.12.0";

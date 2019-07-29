@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, isPy3k, opentimestamps, appdirs, GitPython, pysocks, fetchpatch, git
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, isPy3k, opentimestamps, appdirs
+, GitPython, pysocks, fetchpatch, git }:
 
 buildPythonApplication rec {
   pname = "opentimestamps-client";

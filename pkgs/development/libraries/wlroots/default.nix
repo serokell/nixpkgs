@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, wayland, libGL, wayland-protocols, libinput, libxkbcommon, pixman, xcbutilwm, libX11, libcap, xcbutilimage, xcbutilerrors, mesa, libpng, ffmpeg_4, freerdp
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, wayland, libGL
+, wayland-protocols, libinput, libxkbcommon, pixman, xcbutilwm, libX11, libcap
+, xcbutilimage, xcbutilerrors, mesa, libpng, ffmpeg_4, freerdp }:
 
 stdenv.mkDerivation rec {
   pname = "wlroots";

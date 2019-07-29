@@ -1,5 +1,5 @@
-{ mkXfceDerivation, exo, gtk3, libsoup, libxfce4ui, libxfce4util, xfce4-panel, wrapGAppsHook, glib-networking
-}:
+{ mkXfceDerivation, exo, gtk3, libsoup, libxfce4ui, libxfce4util, xfce4-panel
+, wrapGAppsHook, glib-networking }:
 
 mkXfceDerivation rec {
   category = "apps";

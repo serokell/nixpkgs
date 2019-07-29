@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, patchelf, fontconfig, freetype, glib, libICE, libSM, libX11, libXext, libXrender, zlib
-}:
+{ stdenv, fetchurl, makeWrapper, patchelf, fontconfig, freetype, glib, libICE
+, libSM, libX11, libXext, libXrender, zlib }:
 
 let
   sha256 = "6d6ca2b383bcc81af1217c696eb77864a2b6db7428f4b5bde5b5913ce705eec5";

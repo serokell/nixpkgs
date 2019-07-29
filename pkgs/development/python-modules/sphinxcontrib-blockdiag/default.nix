@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python, mock, sphinx-testing, sphinx, blockdiag
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, mock, sphinx-testing, sphinx
+, blockdiag }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-blockdiag";

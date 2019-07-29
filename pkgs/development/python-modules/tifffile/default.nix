@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, isPy27, numpy, enum34, futures, pathlib, pytest
-}:
+{ lib, fetchPypi, buildPythonPackage, isPy27, numpy, enum34, futures, pathlib
+, pytest }:
 
 buildPythonPackage rec {
   pname = "tifffile";

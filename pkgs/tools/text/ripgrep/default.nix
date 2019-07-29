@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, asciidoc, docbook_xsl, libxslt, Security, withPCRE2 ?
-  true, pcre2 ? null }:
+{ stdenv, fetchFromGitHub, rustPlatform, asciidoc, docbook_xsl, libxslt
+, Security, withPCRE2 ? true, pcre2 ? null }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ripgrep";

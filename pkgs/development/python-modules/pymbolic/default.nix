@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytools, pytest, six, sympy, pexpect, symengine
-}:
+{ lib, buildPythonPackage, fetchPypi, pytools, pytest, six, sympy, pexpect
+, symengine }:
 
 buildPythonPackage rec {
   pname = "pymbolic";

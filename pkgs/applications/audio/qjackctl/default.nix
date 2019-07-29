@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, alsaLib, libjack2, dbus, qtbase, qttools, qtx11extras
-}:
+{ stdenv, fetchurl, pkgconfig, alsaLib, libjack2, dbus, qtbase, qttools
+, qtx11extras }:
 
 stdenv.mkDerivation rec {
   version = "0.5.8";

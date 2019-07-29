@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, coreutils, perlPackages, bicpl, libminc, zlib, minc_tools, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, cmake, coreutils, perlPackages, bicpl, libminc, zlib
+, minc_tools, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "conglomerate";

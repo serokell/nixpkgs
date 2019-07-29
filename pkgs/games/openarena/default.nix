@@ -1,5 +1,5 @@
-{ fetchurl, makeWrapper, patchelf, pkgs, stdenv, SDL, libglvnd, libogg, libvorbis, curl, openal
-}:
+{ fetchurl, makeWrapper, patchelf, pkgs, stdenv, SDL, libglvnd, libogg
+, libvorbis, curl, openal }:
 
 stdenv.mkDerivation rec {
   name = "openarena-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, python27Packages, gnome3, gobject-introspection, wrapGAppsHook, webkitgtk, libnotify, keybinder3, libappindicator, intltool, wmctrl, hicolor-icon-theme, xvfb_run
-}:
+{ stdenv, fetchurl, python27Packages, gnome3, gobject-introspection
+, wrapGAppsHook, webkitgtk, libnotify, keybinder3, libappindicator, intltool
+, wmctrl, hicolor-icon-theme, xvfb_run }:
 
 python27Packages.buildPythonApplication rec {
   pname = "ulauncher";

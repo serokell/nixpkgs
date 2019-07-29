@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gtk3, glib, pantheon, libsoup, gtksourceview, libgee, cmake, libqalculate, cln, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, gtk3, glib, pantheon, libsoup
+, gtksourceview, libgee, cmake, libqalculate, cln, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "nasc";

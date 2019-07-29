@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, which, libxslt, libxml2, docbook_xml_dtd_412, docbook_xsl, glib, imagemagick, darwin
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, which
+, libxslt, libxml2, docbook_xml_dtd_412, docbook_xsl, glib, imagemagick, darwin
 }:
 
 stdenv.mkDerivation rec {

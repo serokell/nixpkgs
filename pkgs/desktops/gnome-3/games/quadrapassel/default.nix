@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, gdk_pixbuf, librsvg, libcanberra-gtk3, libmanette, gettext, itstool, libxml2, clutter, clutter-gtk, wrapGAppsHook, meson, ninja, python3, vala, desktop-file-utils
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, gdk_pixbuf, librsvg
+, libcanberra-gtk3, libmanette, gettext, itstool, libxml2, clutter, clutter-gtk
+, wrapGAppsHook, meson, ninja, python3, vala, desktop-file-utils }:
 
 let pname = "quadrapassel";
 in stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gtk2, which, pkgconfig, intltool, file, libintl, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, gtk2, which, pkgconfig, intltool, file, libintl
+, hicolor-icon-theme }:
 
 with stdenv.lib;
 

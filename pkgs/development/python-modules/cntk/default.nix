@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, pkgs, numpy, scipy, openmpi, enum34, protobuf, pip, python, swig
-}:
+{ lib, buildPythonPackage, pkgs, numpy, scipy, openmpi, enum34, protobuf, pip
+, python, swig }:
 
 let cntk = pkgs.cntk;
 in buildPythonPackage rec {

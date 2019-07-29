@@ -1,5 +1,8 @@
-{ stdenv, fetchgit, autoconf, automake, libtool, pkgconfig, faad2, faac, a52dec, alsaLib, fftw, lame, libavc1394, libiec61883, libraw1394, libsndfile, libvorbis, libogg, libjpeg, libtiff, freetype, mjpegtools, x264, gettext, openexr, libXext, libXxf86vm, libXv, libXi, libX11, libXft, xorgproto, libtheora, libpng, libdv, libuuid, file, nasm, perl, fontconfig, intltool
-}:
+{ stdenv, fetchgit, autoconf, automake, libtool, pkgconfig, faad2, faac, a52dec
+, alsaLib, fftw, lame, libavc1394, libiec61883, libraw1394, libsndfile
+, libvorbis, libogg, libjpeg, libtiff, freetype, mjpegtools, x264, gettext
+, openexr, libXext, libXxf86vm, libXv, libXi, libX11, libXft, xorgproto
+, libtheora, libpng, libdv, libuuid, file, nasm, perl, fontconfig, intltool }:
 
 stdenv.mkDerivation {
   name = "cinelerra-unstable-2016-01-12";

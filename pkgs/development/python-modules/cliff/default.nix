@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, prettytable, pyparsing, six, stevedore, pyyaml, unicodecsv, cmd2
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, prettytable, pyparsing, six
+, stevedore, pyyaml, unicodecsv, cmd2 }:
 
 buildPythonPackage rec {
   pname = "cliff";

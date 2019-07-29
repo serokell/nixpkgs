@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk, libxfce4util, libxfce4ui, libxfce4ui_gtk3, libwnck, exo, garcon, xfconf, libstartup_notification, makeWrapper, xfce4-mixer, hicolor-icon-theme, tzdata, withGtk3 ?
-  false, gtk3, gettext, glib-networking }:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk, libxfce4util, libxfce4ui
+, libxfce4ui_gtk3, libwnck, exo, garcon, xfconf, libstartup_notification
+, makeWrapper, xfce4-mixer, hicolor-icon-theme, tzdata, withGtk3 ? false, gtk3
+, gettext, glib-networking }:
 let
   inherit (stdenv.lib) optional;
   p_name = "xfce4-panel";

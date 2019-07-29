@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, autoconf, automake, libtool, pkgconfig, python2, boost, db, openssl, geoip, libiconv, miniupnpc, srcOnly, fetchgit
-}:
+{ stdenv, fetchurl, fetchpatch, autoconf, automake, libtool, pkgconfig, python2
+, boost, db, openssl, geoip, libiconv, miniupnpc, srcOnly, fetchgit }:
 
 let
   twisterHTML = srcOnly {

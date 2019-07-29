@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, jshon, electron, runtimeShell, hyper-haskell-server, extra-packages ?
-  [ ] }:
+{ stdenv, fetchFromGitHub, jshon, electron, runtimeShell, hyper-haskell-server
+, extra-packages ? [ ] }:
 
 let
   binPath = stdenv.lib.makeBinPath ([ hyper-haskell-server ] ++ extra-packages);

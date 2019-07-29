@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pcre, libxslt, groff, ncurses, pkgconfig, readline, libedit, python2, makeWrapper
-}:
+{ stdenv, fetchurl, pcre, libxslt, groff, ncurses, pkgconfig, readline, libedit
+, python2, makeWrapper }:
 
 let
   common = { version, sha256, extraBuildInputs ? [ ] }:

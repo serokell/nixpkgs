@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, isPy3k, python, applicationinsights, portalocker
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, isPy3k, python
+, applicationinsights, portalocker }:
 
 buildPythonPackage rec {
   pname = "azure-cli-telemetry";

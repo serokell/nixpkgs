@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, protobuf, protobufc, asciidoc, iptables, xmlto, docbook_xsl, libpaper, libnl, libcap, libnet, pkgconfig, which, python, makeWrapper, docbook_xml_dtd_45
-}:
+{ stdenv, lib, fetchurl, protobuf, protobufc, asciidoc, iptables, xmlto
+, docbook_xsl, libpaper, libnl, libcap, libnet, pkgconfig, which, python
+, makeWrapper, docbook_xml_dtd_45 }:
 
 stdenv.mkDerivation rec {
   name = "criu-${version}";

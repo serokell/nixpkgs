@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchgit, python3Packages, docutils, help2man, acl, apktool, binutils-unwrapped, bzip2, cbfstool, cdrkit, colord, colordiff, coreutils, cpio, db, diffutils, dtc, e2fsprogs, file, findutils, fontforge-fonttools, fpc, gettext, ghc, ghostscriptX, giflib, gnumeric, gnupg, gnutar, gzip, imagemagick, jdk, libarchive, libcaca, llvm, lz4, mono, openssh, pdftk, pgpdump, poppler_utils, sng, sqlite, squashfsTools, tcpdump, unoconv, unzip, xxd, xz, enableBloat ?
-  false }:
+{ lib, stdenv, fetchgit, python3Packages, docutils, help2man, acl, apktool
+, binutils-unwrapped, bzip2, cbfstool, cdrkit, colord, colordiff, coreutils
+, cpio, db, diffutils, dtc, e2fsprogs, file, findutils, fontforge-fonttools, fpc
+, gettext, ghc, ghostscriptX, giflib, gnumeric, gnupg, gnutar, gzip, imagemagick
+, jdk, libarchive, libcaca, llvm, lz4, mono, openssh, pdftk, pgpdump
+, poppler_utils, sng, sqlite, squashfsTools, tcpdump, unoconv, unzip, xxd, xz
+, enableBloat ? false }:
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python3Packages.buildPythonApplication rec {

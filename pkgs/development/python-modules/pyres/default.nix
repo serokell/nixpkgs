@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, fetchFromGitHub, simplejson, redis, setproctitle, nose, pkgs
-}:
+{ stdenv, fetchPypi, buildPythonPackage, fetchFromGitHub, simplejson, redis
+, setproctitle, nose, pkgs }:
 
 let
 

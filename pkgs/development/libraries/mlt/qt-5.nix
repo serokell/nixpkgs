@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate, libvorbis, libxml2, makeWrapper, movit, pkgconfig, sox, qtbase, qtsvg, fftw, vid-stab, opencv3, ladspa-sdk
-}:
+{ stdenv, fetchFromGitHub, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate
+, libvorbis, libxml2, makeWrapper, movit, pkgconfig, sox, qtbase, qtsvg, fftw
+, vid-stab, opencv3, ladspa-sdk }:
 
 let inherit (stdenv.lib) getDev;
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, python3, meson, ninja, vala, pkgconfig, libgee, pantheon, gtk3, glib, gettext, hicolor-icon-theme, gobject-introspection, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, python3, meson, ninja, vala, pkgconfig
+, libgee, pantheon, gtk3, glib, gettext, hicolor-icon-theme
+, gobject-introspection, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "granite";

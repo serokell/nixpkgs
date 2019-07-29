@@ -1,5 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, python, udev, audit, aws-sdk-cpp, cryptsetup, lvm2, libgcrypt, libarchive, libgpgerror, libuuid, iptables, dpkg, lzma, bzip2, rpm, beecrypt, augeas, libxml2, sleuthkit, yara, lldpd, google-gflags, thrift, boost, rocksdb_lite, glog, gbenchmark, snappy, openssl, file, doxygen, gtest, fpm, zstd, rdkafka, rapidjson, fetchgit, fetchurl, libelfin, smartmontools, which, git, cscope, ctags, ssdeep
-}:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, python, udev, audit
+, aws-sdk-cpp, cryptsetup, lvm2, libgcrypt, libarchive, libgpgerror, libuuid
+, iptables, dpkg, lzma, bzip2, rpm, beecrypt, augeas, libxml2, sleuthkit, yara
+, lldpd, google-gflags, thrift, boost, rocksdb_lite, glog, gbenchmark, snappy
+, openssl, file, doxygen, gtest, fpm, zstd, rdkafka, rapidjson, fetchgit
+, fetchurl, libelfin, smartmontools, which, git, cscope, ctags, ssdeep }:
 
 let
   overrides = {

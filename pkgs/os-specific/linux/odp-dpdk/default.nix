@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, dpdk, libconfig, libpcap, numactl, openssl
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, dpdk, libconfig, libpcap, numactl
+, openssl }:
 
 stdenv.mkDerivation rec {
   name = "odp-dpdk-${version}";

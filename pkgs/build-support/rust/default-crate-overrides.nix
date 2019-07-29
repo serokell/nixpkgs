@@ -1,5 +1,6 @@
-{ stdenv, pkgconfig, curl, darwin, libiconv, libgit2, libssh2, openssl, sqlite, zlib, dbus, dbus-glib, gdk_pixbuf, cairo, python3, libsodium, postgresql, gmp, foundationdb, ...
-}:
+{ stdenv, pkgconfig, curl, darwin, libiconv, libgit2, libssh2, openssl, sqlite
+, zlib, dbus, dbus-glib, gdk_pixbuf, cairo, python3, libsodium, postgresql, gmp
+, foundationdb, ... }:
 
 let inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
 in {

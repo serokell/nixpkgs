@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, autoconf, automake, dssi, gtk2, libjack2, ladspaH, ladspaPlugins, liblo, pkgconfig
-}:
+{ stdenv, fetchurl, alsaLib, autoconf, automake, dssi, gtk2, libjack2, ladspaH
+, ladspaPlugins, liblo, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "xsynth-dssi-${version}";

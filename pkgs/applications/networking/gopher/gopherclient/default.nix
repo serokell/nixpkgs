@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchgit, makeWrapper, pkgconfig, qtbase, qtdeclarative, qtwebengine
-}:
+{ stdenv, buildGoPackage, fetchgit, makeWrapper, pkgconfig, qtbase
+, qtdeclarative, qtwebengine }:
 
 buildGoPackage rec {
   name = "gopherclient-${version}";

@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, wrapGAppsHook, autoconf, autoconf-archive, automake, gettext, intltool, libtool, pkgconfig, libICE, libSM, libXScrnSaver, libXtst, cheetah, gobject-introspection, glib, glibmm, gtkmm3, atk, pango, pangomm, cairo, cairomm, dbus, dbus-glib, gdome2, gstreamer, gst-plugins-base, gst-plugins-good, libsigcxx
-}:
+{ stdenv, fetchFromGitHub, wrapGAppsHook, autoconf, autoconf-archive, automake
+, gettext, intltool, libtool, pkgconfig, libICE, libSM, libXScrnSaver, libXtst
+, cheetah, gobject-introspection, glib, glibmm, gtkmm3, atk, pango, pangomm
+, cairo, cairomm, dbus, dbus-glib, gdome2, gstreamer, gst-plugins-base
+, gst-plugins-good, libsigcxx }:
 
 stdenv.mkDerivation rec {
   name = "workrave-${version}";

@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, epoxy, kconfig, kglobalaccel, kguiaddons, ki18n, kiconthemes, kio, kpackage, kwidgetsaddons, kwindowsystem, qtdeclarative
-}:
+{ mkDerivation, lib, extra-cmake-modules, epoxy, kconfig, kglobalaccel
+, kguiaddons, ki18n, kiconthemes, kio, kpackage, kwidgetsaddons, kwindowsystem
+, qtdeclarative }:
 
 mkDerivation {
   name = "kdeclarative";

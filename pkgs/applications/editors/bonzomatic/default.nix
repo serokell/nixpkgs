@@ -1,5 +1,5 @@
-{ stdenv, makeWrapper, fetchFromGitHub, cmake, alsaLib, mesa_glu, libXcursor, libXinerama, libXrandr, xorgserver
-}:
+{ stdenv, makeWrapper, fetchFromGitHub, cmake, alsaLib, mesa_glu, libXcursor
+, libXinerama, libXrandr, xorgserver }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

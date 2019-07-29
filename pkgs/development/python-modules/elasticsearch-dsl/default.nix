@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, elasticsearch, ipaddress, python-dateutil, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, elasticsearch, ipaddress
+, python-dateutil, six }:
 
 buildPythonPackage rec {
   pname = "elasticsearch-dsl";

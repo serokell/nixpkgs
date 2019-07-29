@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk2, libjack2, libsndfile
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, gtk2, libjack2
+, libsndfile }:
 
 stdenv.mkDerivation rec {
   pname = "timemachine";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, colorama, coverage, termstyle, unidecode, mock, backports_shutil_get_terminal_size
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, colorama, coverage, termstyle
+, unidecode, mock, backports_shutil_get_terminal_size }:
 
 buildPythonPackage rec {
   pname = "green";

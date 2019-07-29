@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gfortran, openblas, cmake, fixDarwinDylibNames, gnum4, enableCuda ?
-  false, cudatoolkit }:
+{ stdenv, fetchurl, gfortran, openblas, cmake, fixDarwinDylibNames, gnum4
+, enableCuda ? false, cudatoolkit }:
 
 let
   version = "5.4.0";

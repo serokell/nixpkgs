@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeDesktopItem, makeWrapper, premake4, unzip, openal, libpng, libvorbis, libGLU, SDL2, SDL2_image, SDL2_ttf
-}:
+{ stdenv, fetchurl, makeDesktopItem, makeWrapper, premake4, unzip, openal
+, libpng, libvorbis, libGLU, SDL2, SDL2_image, SDL2_ttf }:
 
 let
   pname = "tome4";

@@ -1,7 +1,8 @@
-{ config, lib, stdenv, fetchurl, zlib, lzo, libtasn1, nettle, pkgconfig, lzip, perl, gmp, autoconf, autogen, automake, libidn, p11-kit, libiconv, unbound, dns-root-data, gettext, cacert, guileBindings ?
-  config.gnutls.guile or false, guile, tpmSupport ?
-    false, trousers, which, nettools, libunistring, withSecurity ?
-      false, Security # darwin Security.framework
+{ config, lib, stdenv, fetchurl, zlib, lzo, libtasn1, nettle, pkgconfig, lzip
+, perl, gmp, autoconf, autogen, automake, libidn, p11-kit, libiconv, unbound
+, dns-root-data, gettext, cacert, guileBindings ? config.gnutls.guile or false
+, guile, tpmSupport ? false, trousers, which, nettools, libunistring
+, withSecurity ? false, Security # darwin Security.framework
 }:
 
 assert guileBindings -> guile != null;

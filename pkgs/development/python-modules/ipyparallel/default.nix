@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, nose, dateutil, ipython_genutils, decorator, pyzmq, ipython, jupyter_client, ipykernel, tornado, isPy3k, futures
+{ lib, buildPythonPackage, fetchPypi, nose, dateutil, ipython_genutils
+, decorator, pyzmq, ipython, jupyter_client, ipykernel, tornado, isPy3k, futures
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libpcap, bison, flex, cyrus_sasl, tcp_wrappers, pkgconfig, perl
-}:
+{ stdenv, fetchurl, libpcap, bison, flex, cyrus_sasl, tcp_wrappers, pkgconfig
+, perl }:
 
 stdenv.mkDerivation rec {
   pname = "argus-clients";

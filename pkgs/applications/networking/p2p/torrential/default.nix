@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, pantheon, curl, glib, gtk3, hicolor-icon-theme, libb64, libevent, libgee, libnatpmp, libunity, miniupnpc, openssl, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, pantheon, curl, glib, gtk3
+, hicolor-icon-theme, libb64, libevent, libgee, libnatpmp, libunity, miniupnpc
+, openssl, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "torrential";

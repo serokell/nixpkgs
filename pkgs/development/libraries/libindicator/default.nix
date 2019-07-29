@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, file, pkgconfig, gtkVersion ? "3", gtk2 ? null, gtk3 ?
-  null }:
+{ stdenv, fetchurl, lib, file, pkgconfig, gtkVersion ? "3", gtk2 ? null
+, gtk3 ? null }:
 
 with lib;
 

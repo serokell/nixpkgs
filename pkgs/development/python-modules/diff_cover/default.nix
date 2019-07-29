@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, jinja2, jinja2_pluralize, pygments, six, inflect, mock, nose, coverage, pycodestyle, flake8, pyflakes, git, pylint, pydocstyle, fetchpatch, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, jinja2, jinja2_pluralize, pygments, six
+, inflect, mock, nose, coverage, pycodestyle, flake8, pyflakes, git, pylint
+, pydocstyle, fetchpatch, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "diff_cover";

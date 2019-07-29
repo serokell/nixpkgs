@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, buildGoPackage, fetchFromGitHub, makeWrapper, coreutils, gnupg, gnutar, squashfsTools, debootstrap
-}:
+{ stdenv, pkgconfig, buildGoPackage, fetchFromGitHub, makeWrapper, coreutils
+, gnupg, gnutar, squashfsTools, debootstrap }:
 
 let
   binPath =

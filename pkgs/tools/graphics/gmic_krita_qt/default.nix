@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, opencv, openexr, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng, curl, krita, qtbase, qttools, fetchgit
-}:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, opencv, openexr
+, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng, curl, krita, qtbase
+, qttools, fetchgit }:
 
 let version = "2.3.6";
 

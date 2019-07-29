@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, decorator, nbformat, pytz, requests, retrying, six
-}:
+{ lib, buildPythonPackage, fetchPypi, decorator, nbformat, pytz, requests
+, retrying, six }:
 
 buildPythonPackage rec {
   pname = "plotly";

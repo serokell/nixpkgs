@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtx11extras, qttools, qtsvg, kwindowsystem, liblxqt, libqtxdg, polkit-qt
-}:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtx11extras, qttools, qtsvg
+, kwindowsystem, liblxqt, libqtxdg, polkit-qt }:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-admin";

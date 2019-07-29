@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, freetype, giflib, gtk2, lcms2, libjpeg, libpng, libtiff, openjpeg, gifsicle
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, freetype, giflib, gtk2, lcms2, libjpeg
+, libpng, libtiff, openjpeg, gifsicle }:
 
 stdenv.mkDerivation rec {
   p_name = "mtPaint";

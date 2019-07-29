@@ -1,5 +1,6 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, go-bindata, libvirt, qemu, gpgme, makeWrapper, vmnet, docker-machine-kvm, docker-machine-kvm2, extraDrivers ?
-  [ ] }:
+{ stdenv, buildGoPackage, fetchFromGitHub, go-bindata, libvirt, qemu, gpgme
+, makeWrapper, vmnet, docker-machine-kvm, docker-machine-kvm2
+, extraDrivers ? [ ] }:
 
 let
   drivers = stdenv.lib.filter (d: d != null) (extraDrivers

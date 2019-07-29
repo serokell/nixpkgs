@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, qmake, qtbase, qtquickcontrols, python3, pyotherside, pcsclite, yubikey-personalization, yubikey-manager, makeWrapper
-}:
+{ stdenv, fetchurl, qmake, qtbase, qtquickcontrols, python3, pyotherside
+, pcsclite, yubikey-personalization, yubikey-manager, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "yubioath-desktop";

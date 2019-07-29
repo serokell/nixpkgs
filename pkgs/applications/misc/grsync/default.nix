@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, dee, gtk2, intltool, libdbusmenu-gtk2, libunity, pkg-config, rsync
-}:
+{ stdenv, fetchurl, dee, gtk2, intltool, libdbusmenu-gtk2, libunity, pkg-config
+, rsync }:
 
 stdenv.mkDerivation rec {
   version = "1.2.6";

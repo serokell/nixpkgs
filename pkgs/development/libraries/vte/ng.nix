@@ -1,5 +1,5 @@
-{ vte, fetchFromGitHub, fetchpatch, autoconf, automake, gtk-doc, gettext, libtool, gperf
-}:
+{ vte, fetchFromGitHub, fetchpatch, autoconf, automake, gtk-doc, gettext
+, libtool, gperf }:
 
 vte.overrideAttrs (oldAttrs: rec {
   name = "vte-ng-${version}";

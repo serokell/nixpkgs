@@ -1,10 +1,11 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, python, gst-plugins-base, orc, bzip2, gettext, libv4l, libdv, libavc1394, libiec61883, libvpx, speex, flac, taglib, libshout, cairo, gdk_pixbuf, aalib, libcaca, libsoup, libpulseaudio, libintl, darwin, lame, mpg123, twolame, gtkSupport ?
-  false, gtk3 ? null
-    # As of writing, jack2 incurs a Qt dependency (big!) via `ffado`.
-    # In the fuure we should probably split `ffado`.
-, enableJack ?
-  false, libXdamage, libXext, libXfixes, ncurses, xorg, libgudev, wavpack, jack2
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, python, gst-plugins-base, orc
+, bzip2, gettext, libv4l, libdv, libavc1394, libiec61883, libvpx, speex, flac
+, taglib, libshout, cairo, gdk_pixbuf, aalib, libcaca, libsoup, libpulseaudio
+, libintl, darwin, lame, mpg123, twolame, gtkSupport ? false, gtk3 ? null
+  # As of writing, jack2 incurs a Qt dependency (big!) via `ffado`.
+  # In the fuure we should probably split `ffado`.
+, enableJack ? false, libXdamage, libXext, libXfixes, ncurses, xorg, libgudev
+, wavpack, jack2 }:
 
 assert gtkSupport -> gtk3 != null;
 

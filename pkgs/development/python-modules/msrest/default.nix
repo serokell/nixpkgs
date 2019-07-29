@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, requests, requests_oauthlib, isodate, certifi, enum34, typing, aiohttp, aiodns, pytest, httpretty, mock, futures, trio
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, requests, requests_oauthlib
+, isodate, certifi, enum34, typing, aiohttp, aiodns, pytest, httpretty, mock
+, futures, trio }:
 
 buildPythonPackage rec {
   version = "0.6.8";

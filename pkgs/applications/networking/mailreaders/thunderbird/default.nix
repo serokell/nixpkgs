@@ -1,7 +1,11 @@
-{ lib, stdenv, fetchurl, pkgconfig, gtk2, pango, perl, python, zip, libIDL, libjpeg, zlib, dbus, dbus-glib, bzip2, xorg, freetype, fontconfig, file, nspr, nss, libnotify, yasm, libGLU_combined, sqlite, unzip, hunspell, libevent, libstartup_notification, icu, libpng, jemalloc, autoconf213, which, m4, writeScript, xidel, common-updater-scripts, coreutils, gnused, gnugrep, curl, runtimeShell, cargo, rustc, llvmPackages, enableGTK3 ?
-  false, gtk3, gnome3, wrapGAppsHook, makeWrapper, enableCalendar ?
-    true, debugBuild ?
-      false, # If you want the resulting program to call itself "Thunderbird" instead
+{ lib, stdenv, fetchurl, pkgconfig, gtk2, pango, perl, python, zip, libIDL
+, libjpeg, zlib, dbus, dbus-glib, bzip2, xorg, freetype, fontconfig, file, nspr
+, nss, libnotify, yasm, libGLU_combined, sqlite, unzip, hunspell, libevent
+, libstartup_notification, icu, libpng, jemalloc, autoconf213, which, m4
+, writeScript, xidel, common-updater-scripts, coreutils, gnused, gnugrep, curl
+, runtimeShell, cargo, rustc, llvmPackages, enableGTK3 ? false, gtk3, gnome3
+, wrapGAppsHook, makeWrapper, enableCalendar ? true, debugBuild ? false
+, # If you want the resulting program to call itself "Thunderbird" instead
 # of "Earlybird" or whatever, enable this option.  However, those
 # binaries may not be distributed without permission from the
 # Mozilla Foundation, see

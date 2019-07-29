@@ -1,8 +1,9 @@
 # This function provides a generic Python package builder,
 # and can build packages that use distutils, setuptools or flit.
 
-{ lib, config, python, wrapPython, setuptools, unzip, ensureNewerSourcesForZipFilesHook, toPythonModule, namePrefix, flit, writeScript, update-python-libraries
-}:
+{ lib, config, python, wrapPython, setuptools, unzip
+, ensureNewerSourcesForZipFilesHook, toPythonModule, namePrefix, flit
+, writeScript, update-python-libraries }:
 
 let
   setuptools-specific =

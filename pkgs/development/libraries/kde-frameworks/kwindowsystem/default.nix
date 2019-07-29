@@ -1,5 +1,5 @@
-{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, libpthreadstubs, libXdmcp, qtbase, qttools, qtx11extras
-}:
+{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, libpthreadstubs
+, libXdmcp, qtbase, qttools, qtx11extras }:
 
 mkDerivation {
   name = "kwindowsystem";

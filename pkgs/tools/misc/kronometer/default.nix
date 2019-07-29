@@ -1,5 +1,5 @@
-{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, kconfig, kcrash, kinit
-}:
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
+, kconfig, kcrash, kinit }:
 
 let
   pname = "kronometer";

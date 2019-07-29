@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, h5py, matplotlib, numpy, phonopy, pymatgen, pytest, scipy, seekpath, spglib
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, h5py, matplotlib, numpy
+, phonopy, pymatgen, pytest, scipy, seekpath, spglib }:
 
 buildPythonPackage rec {
   pname = "sumo";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qtx11extras, qttools, qtsvg, libdbusmenu, libqtxdg, libfm-qt
-}:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qtx11extras, qttools
+, qtsvg, libdbusmenu, libqtxdg, libfm-qt }:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-qtplugin";

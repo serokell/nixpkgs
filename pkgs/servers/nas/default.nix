@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, imake, bison, flex, gccmakedep, xorgproto, libXau, libXt, libXext, libXaw, libXpm, xorgcffiles
-}:
+{ stdenv, fetchurl, imake, bison, flex, gccmakedep, xorgproto, libXau, libXt
+, libXext, libXaw, libXpm, xorgcffiles }:
 
 let
   pname = "nas";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, audio-metadata, marshmallow, pendulum, protobuf
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, audio-metadata
+, marshmallow, pendulum, protobuf }:
 
 buildPythonPackage rec {
   pname = "google-music-proto";

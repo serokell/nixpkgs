@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, jinja2, nbconvert, nbformat, sphinx, traitlets, python
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, jinja2, nbconvert, nbformat
+, sphinx, traitlets, python }:
 
 buildPythonPackage rec {
   pname = "nbsphinx";

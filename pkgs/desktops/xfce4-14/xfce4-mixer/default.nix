@@ -1,5 +1,5 @@
-{ mkXfceDerivation, automakeAddFlags, dbus-glib, gtk2, libxfce4ui, libxfce4util, xfce4-panel, xfconf, gst-plugins-base, libunique
-}:
+{ mkXfceDerivation, automakeAddFlags, dbus-glib, gtk2, libxfce4ui, libxfce4util
+, xfce4-panel, xfconf, gst-plugins-base, libunique }:
 
 let gst_plugins_minimal = gst-plugins-base.override { minimalDeps = true; };
 in mkXfceDerivation rec {

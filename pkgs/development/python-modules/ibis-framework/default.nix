@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, multipledispatch, numpy, pandas, pytz, regex, toolz, isPy27, pytest, sqlalchemy, requests, tables, pyarrow, graphviz
+{ lib, buildPythonPackage, fetchPypi, multipledispatch, numpy, pandas, pytz
+, regex, toolz, isPy27, pytest, sqlalchemy, requests, tables, pyarrow, graphviz
 }:
 
 buildPythonPackage rec {

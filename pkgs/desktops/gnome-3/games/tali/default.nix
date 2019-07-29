@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, gdk_pixbuf, librsvg, gettext, itstool, libxml2, wrapGAppsHook, meson, ninja, python3, desktop-file-utils
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, gdk_pixbuf, librsvg, gettext
+, itstool, libxml2, wrapGAppsHook, meson, ninja, python3, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "tali-${version}";

@@ -1,5 +1,7 @@
-{ stdenv, callPackage, fetchFromGitHub, cmake, kodiPlain, libcec_platform, tinyxml, rapidxml, steam, libusb, pcre-cpp, jsoncpp, libhdhomerun, zlib, python2Packages, expat, glib, nspr, nss, openssl, libssh, libarchive, lzma, bzip2, lz4, lzo
-}:
+{ stdenv, callPackage, fetchFromGitHub, cmake, kodiPlain, libcec_platform
+, tinyxml, rapidxml, steam, libusb, pcre-cpp, jsoncpp, libhdhomerun, zlib
+, python2Packages, expat, glib, nspr, nss, openssl, libssh, libarchive, lzma
+, bzip2, lz4, lzo }:
 
 with stdenv.lib;
 
@@ -69,8 +71,8 @@ let
         '';
       } // args));
 
-    mkKodiABIPlugin = { plugin, namespace, version, extraBuildInputs ?
-      [ ], extraRuntimeDependencies ? [ ], extraInstallPhase ? "", ... }@args:
+    mkKodiABIPlugin = { plugin, namespace, version, extraBuildInputs ? [ ]
+      , extraRuntimeDependencies ? [ ], extraInstallPhase ? "", ... }@args:
       toKodiPlugin (stdenv.mkDerivation (rec {
         name = "kodi-plugin-${plugin}-${version}";
 

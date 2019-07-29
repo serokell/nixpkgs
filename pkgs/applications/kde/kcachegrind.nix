@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, karchive, ki18n, kio, perl, python, php, qttools,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, karchive, ki18n, kio, perl
+, python, php, qttools, }:
 
 mkDerivation {
   name = "kcachegrind";

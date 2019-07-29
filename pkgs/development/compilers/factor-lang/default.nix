@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, glib, git, rlwrap, curl, pkgconfig, perl, makeWrapper, tzdata, ncurses, pango, cairo, gtk2, gdk_pixbuf, gtkglext, mesa, xorg, openssl, unzip
-}:
+{ stdenv, fetchurl, glib, git, rlwrap, curl, pkgconfig, perl, makeWrapper
+, tzdata, ncurses, pango, cairo, gtk2, gdk_pixbuf, gtkglext, mesa, xorg, openssl
+, unzip }:
 
 stdenv.mkDerivation rec {
   name = "factor-lang-${version}";

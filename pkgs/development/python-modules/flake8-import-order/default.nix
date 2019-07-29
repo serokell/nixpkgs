@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, enum34, pycodestyle, pytest, flake8, pylama
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, enum34, pycodestyle, pytest
+, flake8, pylama }:
 
 buildPythonPackage rec {
   pname = "flake8-import-order";

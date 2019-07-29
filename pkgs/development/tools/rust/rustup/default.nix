@@ -1,5 +1,5 @@
-{ stdenv, lib, runCommand, patchelf, fetchFromGitHub, rustPlatform, pkgconfig, curl, Security, CoreServices
-}:
+{ stdenv, lib, runCommand, patchelf, fetchFromGitHub, rustPlatform, pkgconfig
+, curl, Security, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustup";

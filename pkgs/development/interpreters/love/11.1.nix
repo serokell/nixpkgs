@@ -1,5 +1,6 @@
-{ stdenv, fetchFromBitbucket, pkgconfig, SDL2, libGLU_combined, openal, luajit, libdevil, freetype, physfs, libmodplug, mpg123, libvorbis, libogg, libtheora, which, autoconf, automake, libtool
-}:
+{ stdenv, fetchFromBitbucket, pkgconfig, SDL2, libGLU_combined, openal, luajit
+, libdevil, freetype, physfs, libmodplug, mpg123, libvorbis, libogg, libtheora
+, which, autoconf, automake, libtool }:
 
 let
   pname = "love";

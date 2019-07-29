@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, python, pyyaml, fonttools, fontforge
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, python, pyyaml, fonttools
+, fontforge }:
 
 buildPythonApplication rec {
   name = "scfbuild-${version}";

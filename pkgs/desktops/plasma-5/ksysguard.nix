@@ -1,5 +1,6 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, lm_sensors, kconfig, kcoreaddons, kdelibs4support, ki18n, kiconthemes, kitemviews, knewstuff, libksysguard, qtwebkit
-}:
+{ mkDerivation, extra-cmake-modules, kdoctools, lm_sensors, kconfig, kcoreaddons
+, kdelibs4support, ki18n, kiconthemes, kitemviews, knewstuff, libksysguard
+, qtwebkit }:
 
 mkDerivation {
   name = "ksysguard";

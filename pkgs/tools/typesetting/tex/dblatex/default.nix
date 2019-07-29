@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, python2, libxslt, texlive, enableAllFeatures ?
-  false, imagemagick ? null, transfig ? null, inkscape ? null, fontconfig ?
-    null, ghostscript ? null
+{ stdenv, fetchurl, python2, libxslt, texlive, enableAllFeatures ? false
+, imagemagick ? null, transfig ? null, inkscape ? null, fontconfig ? null
+, ghostscript ? null
 
 , tex ? texlive.combine { # satisfy all packages that ./configure mentions
   inherit (texlive)

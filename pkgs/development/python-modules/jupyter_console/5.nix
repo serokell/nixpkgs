@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, nose, jupyter_client, ipython, ipykernel, prompt_toolkit, pygments
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, jupyter_client, ipython, ipykernel
+, prompt_toolkit, pygments }:
 
 buildPythonPackage rec {
   pname = "jupyter_console";

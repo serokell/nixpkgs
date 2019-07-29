@@ -1,5 +1,5 @@
-{ lib, runCommand, R, rstudio, wrapQtAppsHook, recommendedPackages, packages, qtbase
-}:
+{ lib, runCommand, R, rstudio, wrapQtAppsHook, recommendedPackages, packages
+, qtbase }:
 
 let
   qtVersion = with lib.versions;

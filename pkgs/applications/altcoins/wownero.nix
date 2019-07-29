@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, git, boost, miniupnpc_2, openssl, unbound, cppzmq, zeromq, pcsclite, readline, libsodium, rapidjson
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, git, boost, miniupnpc_2, openssl
+, unbound, cppzmq, zeromq, pcsclite, readline, libsodium, rapidjson }:
 
 with stdenv.lib;
 

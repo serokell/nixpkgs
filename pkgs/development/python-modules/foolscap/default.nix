@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, mock, twisted, pyopenssl, service-identity
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, twisted, pyopenssl
+, service-identity }:
 
 buildPythonPackage rec {
   pname = "foolscap";

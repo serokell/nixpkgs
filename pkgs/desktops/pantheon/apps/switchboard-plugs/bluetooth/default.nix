@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, bluez, switchboard
-}:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee
+, granite, gtk3, bluez, switchboard }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-bluetooth";

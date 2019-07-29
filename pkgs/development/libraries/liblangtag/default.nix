@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromBitbucket, autoreconfHook, gtk-doc, gettext, pkgconfig, glib, libxml2, gobject-introspection, gnome-common, unzip
-}:
+{ stdenv, fetchurl, fetchFromBitbucket, autoreconfHook, gtk-doc, gettext
+, pkgconfig, glib, libxml2, gobject-introspection, gnome-common, unzip }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, qmake4Hook, makeDesktopItem, qt4, protobuf, libpcap, wireshark, gzip, diffutils, gawk
-}:
+{ stdenv, fetchFromGitHub, fetchurl, qmake4Hook, makeDesktopItem, qt4, protobuf
+, libpcap, wireshark, gzip, diffutils, gawk }:
 
 stdenv.mkDerivation rec {
   name = "ostinato-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, glib, intltool, libfm, libX11, pango, pkgconfig, wrapGAppsHook, gnome3, withGtk3 ?
-  true, gtk2, gtk3 }:
+{ stdenv, fetchurl, glib, intltool, libfm, libX11, pango, pkgconfig
+, wrapGAppsHook, gnome3, withGtk3 ? true, gtk2, gtk3 }:
 
 let
   libfm' = libfm.override { inherit withGtk3; };

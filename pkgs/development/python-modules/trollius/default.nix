@@ -1,5 +1,5 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, isPy3k, mock, unittest2, six, futures
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, isPy3k, mock, unittest2, six
+, futures }:
 
 buildPythonPackage rec {
   pname = "trollius";

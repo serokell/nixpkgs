@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kcodecs, kconfig, kcoreaddons, kwindowsystem, libdbusmenu, phonon, qttools, qtx11extras
-}:
+{ mkDerivation, lib, extra-cmake-modules, kcodecs, kconfig, kcoreaddons
+, kwindowsystem, libdbusmenu, phonon, qttools, qtx11extras }:
 
 mkDerivation {
   name = "knotifications";

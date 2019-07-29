@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, unzip, libjpeg, libtiff, zlib, postgresql, mysql57, libgeotiff, python, pythonPackages, proj, geos, openssl, libpng
-}:
+{ stdenv, fetchurl, unzip, libjpeg, libtiff, zlib, postgresql, mysql57
+, libgeotiff, python, pythonPackages, proj, geos, openssl, libpng }:
 
 stdenv.mkDerivation rec {
   name = "gdal-${version}";

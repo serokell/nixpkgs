@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, amoeba-data, alsaLib, expat, freetype, gtk2, libvorbis, libGLU, pkgconfig
-}:
+{ stdenv, fetchurl, amoeba-data, alsaLib, expat, freetype, gtk2, libvorbis
+, libGLU, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "amoeba-${version}-${debver}";

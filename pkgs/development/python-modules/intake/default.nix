@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, appdirs, dask, holoviews, jinja2, msgpack-numpy, msgpack-python, numpy, pandas, python-snappy, requests, ruamel_yaml, six, tornado, pytest, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, appdirs, dask, holoviews, jinja2
+, msgpack-numpy, msgpack-python, numpy, pandas, python-snappy, requests
+, ruamel_yaml, six, tornado, pytest, isPy27 }:
 
 buildPythonPackage rec {
   pname = "intake";

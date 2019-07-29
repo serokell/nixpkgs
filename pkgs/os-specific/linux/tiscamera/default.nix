@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, pcre, tinyxml, libusb1, libzip, glib, gobject-introspection, gst_all_1, libwebcam
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, pcre, tinyxml, libusb1, libzip
+, glib, gobject-introspection, gst_all_1, libwebcam }:
 
 stdenv.mkDerivation rec {
   pname = "tiscamera";

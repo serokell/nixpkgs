@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, glib, gtk3, hicolor-icon-theme, json-glib, libgee, meson, ninja, pkgconfig, pantheon, python3, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, glib, gtk3, hicolor-icon-theme, json-glib, libgee
+, meson, ninja, pkgconfig, pantheon, python3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "timetable";

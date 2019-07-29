@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, qtbase, qtscript, qtwebkit, libXfixes, libXtst, qtx11extras, git, webkitSupport ?
-  true }:
+{ stdenv, fetchFromGitHub, cmake, qtbase, qtscript, qtwebkit, libXfixes, libXtst
+, qtx11extras, git, webkitSupport ? true }:
 
 stdenv.mkDerivation rec {
   name = "CopyQ-${version}";

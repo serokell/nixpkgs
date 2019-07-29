@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, xorg, libpng, xineLib, readline, ncurses, curl, lirc, shared-mime-info, libjpeg
-}:
+{ stdenv, fetchurl, pkgconfig, xorg, libpng, xineLib, readline, ncurses, curl
+, lirc, shared-mime-info, libjpeg }:
 
 stdenv.mkDerivation rec {
   name = "xine-ui-0.99.10";

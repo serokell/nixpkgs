@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, which, autoreconfHook, pkgconfig, vala, python, libsearpc, libzdb, libuuid, libevent, sqlite, openssl
-}:
+{ stdenv, fetchurl, which, autoreconfHook, pkgconfig, vala, python, libsearpc
+, libzdb, libuuid, libevent, sqlite, openssl }:
 
 stdenv.mkDerivation rec {
   version = "6.1.8";

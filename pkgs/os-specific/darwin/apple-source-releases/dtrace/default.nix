@@ -1,5 +1,5 @@
-{ appleDerivation, xcbuildHook, CoreSymbolication, xnu, bison, flex, darling, stdenv, fixDarwinDylibNames
-}:
+{ appleDerivation, xcbuildHook, CoreSymbolication, xnu, bison, flex, darling
+, stdenv, fixDarwinDylibNames }:
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook flex bison fixDarwinDylibNames ];

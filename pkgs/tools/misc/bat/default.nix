@@ -1,5 +1,5 @@
-{ stdenv, rustPlatform, fetchFromGitHub, cmake, pkgconfig, zlib, Security, libiconv
-}:
+{ stdenv, rustPlatform, fetchFromGitHub, cmake, pkgconfig, zlib, Security
+, libiconv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bat";

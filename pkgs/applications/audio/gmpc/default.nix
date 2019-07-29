@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libtool, intltool, pkgconfig, glib, gtk2, curl, mpd_clientlib, libsoup, gob2, vala, libunique, libSM, libICE, sqlite, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchurl, libtool, intltool, pkgconfig, glib, gtk2, curl
+, mpd_clientlib, libsoup, gob2, vala, libunique, libSM, libICE, sqlite
+, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "gmpc-${version}";

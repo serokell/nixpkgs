@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, trezor, libagent, ecdsa, ed25519, mnemonic, keepkey, semver
-}:
+{ stdenv, buildPythonPackage, fetchPypi, trezor, libagent, ecdsa, ed25519
+, mnemonic, keepkey, semver }:
 
 buildPythonPackage rec {
   pname = "trezor_agent";

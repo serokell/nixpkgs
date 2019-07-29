@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor, libXrandr, libGLU_combined, libXft, libXfixes, xinput, CoreServices
-}:
+{ stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2
+, libXcursor, libXrandr, libGLU_combined, libXft, libXfixes, xinput
+, CoreServices }:
 
 let version = "1.6.57";
 

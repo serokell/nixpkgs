@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchFromGitHub, nose, pillow, scipy, numpy, imread, stdenv
-}:
+{ buildPythonPackage, fetchFromGitHub, nose, pillow, scipy, numpy, imread
+, stdenv }:
 
 buildPythonPackage rec {
   pname = "mahotas";

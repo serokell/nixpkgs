@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, fuse, openssl, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxml2, libxslt
-}:
+{ fetchurl, stdenv, pkgconfig, fuse, openssl, asciidoc, docbook_xml_dtd_45
+, docbook_xsl, libxml2, libxslt }:
 
 stdenv.mkDerivation rec {
   name = "httpfs2-0.1.5";

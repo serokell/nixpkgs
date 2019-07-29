@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, isPyPy, libgit2, six, cffi
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, isPyPy, libgit2, six
+, cffi }:
 
 buildPythonPackage rec {
   pname = "pygit2";

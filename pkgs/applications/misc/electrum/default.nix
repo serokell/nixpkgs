@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, fetchFromGitHub, python3, python3Packages, zbar, secp256k1, enableQt ?
-  !stdenv.isDarwin
+{ stdenv, fetchurl, fetchFromGitHub, python3, python3Packages, zbar, secp256k1
+, enableQt ? !stdenv.isDarwin
 
   # for updater.nix
-, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg, gnused, nix
-}:
+, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg
+, gnused, nix }:
 
 let
   version = "3.3.8";

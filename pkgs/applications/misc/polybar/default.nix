@@ -1,12 +1,14 @@
-{ cairo, cmake, fetchFromGitHub, libXdmcp, libpthreadstubs, libxcb, pcre, pkgconfig, python2, stdenv, xcbproto, xcbutil, xcbutilcursor, xcbutilimage, xcbutilrenderutil, xcbutilwm, xcbutilxrm, makeWrapper
+{ cairo, cmake, fetchFromGitHub, libXdmcp, libpthreadstubs, libxcb, pcre
+, pkgconfig, python2, stdenv, xcbproto, xcbutil, xcbutilcursor, xcbutilimage
+, xcbutilrenderutil, xcbutilwm, xcbutilxrm, makeWrapper
 
 # optional packages-- override the variables ending in 'Support' to enable or
 # disable modules
-, alsaSupport ? true, alsaLib ? null, githubSupport ? false, curl ?
-  null, mpdSupport ? false, mpd_clientlib ? null, pulseSupport ?
-    false, libpulseaudio ? null, iwSupport ? false, wirelesstools ?
-      null, nlSupport ? true, libnl ? null, i3Support ? false, i3GapsSupport ?
-        false, i3 ? null, i3-gaps ? null, jsoncpp ? null }:
+, alsaSupport ? true, alsaLib ? null, githubSupport ? false, curl ? null
+, mpdSupport ? false, mpd_clientlib ? null, pulseSupport ? false
+, libpulseaudio ? null, iwSupport ? false, wirelesstools ? null
+, nlSupport ? true, libnl ? null, i3Support ? false, i3GapsSupport ? false
+, i3 ? null, i3-gaps ? null, jsoncpp ? null }:
 
 assert alsaSupport -> alsaLib != null;
 assert githubSupport -> curl != null;

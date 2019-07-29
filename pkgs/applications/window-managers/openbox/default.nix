@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, python2, libxml2, libXinerama, libXcursor, libXau, libXrandr, libICE, libSM, imlib2, pango, libstartup_notification, makeWrapper
+{ stdenv, fetchurl, pkgconfig, python2, libxml2, libXinerama, libXcursor, libXau
+, libXrandr, libICE, libSM, imlib2, pango, libstartup_notification, makeWrapper
 }:
 
 stdenv.mkDerivation rec {

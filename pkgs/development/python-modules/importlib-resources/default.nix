@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pathlib2, typing, isPy3k, pythonOlder, python
-}:
+{ lib, buildPythonPackage, fetchPypi, pathlib2, typing, isPy3k, pythonOlder
+, python }:
 
 buildPythonPackage rec {
   pname = "importlib_resources";

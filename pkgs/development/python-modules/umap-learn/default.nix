@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, numpy, scikitlearn, scipy, numba
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, numpy, scikitlearn, scipy
+, numba }:
 
 buildPythonPackage rec {
   pname = "umap-learn";

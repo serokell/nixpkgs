@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, SDL_ttf, SDL_image, libSM, libICE, libGLU_combined, libpng, lua5, autoconf, automake
-}:
+{ stdenv, fetchurl, SDL, SDL_ttf, SDL_image, libSM, libICE, libGLU_combined
+, libpng, lua5, autoconf, automake }:
 
 stdenv.mkDerivation rec {
   name = "gravit-0.5.1";

@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, meson, ninja, gtk3, libexif, libgphoto2, libwebp, libsoup, libxml2, vala, sqlite, webkitgtk, pkgconfig, gnome3, gst_all_1, libgudev, libraw, glib, json-glib, gcr, libgee, gexiv2, librest, gettext, desktop-file-utils, gdk_pixbuf, librsvg, wrapGAppsHook, gobject-introspection, itstool, libgdata, libchamplain, gsettings-desktop-schemas, python3
-}:
+{ stdenv, fetchurl, meson, ninja, gtk3, libexif, libgphoto2, libwebp, libsoup
+, libxml2, vala, sqlite, webkitgtk, pkgconfig, gnome3, gst_all_1, libgudev
+, libraw, glib, json-glib, gcr, libgee, gexiv2, librest, gettext
+, desktop-file-utils, gdk_pixbuf, librsvg, wrapGAppsHook, gobject-introspection
+, itstool, libgdata, libchamplain, gsettings-desktop-schemas, python3 }:
 
 # for dependencies see https://wiki.gnome.org/Apps/Shotwell/BuildingAndInstalling
 

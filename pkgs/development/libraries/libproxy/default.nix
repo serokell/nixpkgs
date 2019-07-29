@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, zlib, fetchpatch, dbus, networkmanager, spidermonkey_38, pcre, python2, python3, SystemConfiguration, CoreFoundation, JavaScriptCore
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, zlib, fetchpatch, dbus
+, networkmanager, spidermonkey_38, pcre, python2, python3, SystemConfiguration
+, CoreFoundation, JavaScriptCore }:
 
 stdenv.mkDerivation rec {
   name = "libproxy-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, pcre, libxkbcommon, epoxy, gtk3, poppler, freetype, libpthreadstubs, libXdmcp, libxshmfence, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, pcre, libxkbcommon
+, epoxy, gtk3, poppler, freetype, libpthreadstubs, libXdmcp, libxshmfence
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   version = "0.1.5";

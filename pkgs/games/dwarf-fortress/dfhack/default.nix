@@ -1,5 +1,6 @@
-{ stdenv, buildEnv, lib, fetchFromGitHub, cmake, writeScriptBin, perl, XMLLibXML, XMLLibXSLT, zlib, enableStoneSense ?
-  false, allegro5, libGLU_combined, enableTWBT ? true, twbt, SDL, dfVersion }:
+{ stdenv, buildEnv, lib, fetchFromGitHub, cmake, writeScriptBin, perl, XMLLibXML
+, XMLLibXSLT, zlib, enableStoneSense ? false, allegro5, libGLU_combined
+, enableTWBT ? true, twbt, SDL, dfVersion }:
 
 with lib;
 

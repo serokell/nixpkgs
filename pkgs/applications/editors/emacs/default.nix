@@ -1,9 +1,12 @@
-{ stdenv, lib, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d, libXcursor, pkgconfig, gettext, libXft, dbus, libpng, libjpeg, libungif, libtiff, librsvg, gconf, libxml2, imagemagick, gnutls, libselinux, alsaLib, cairo, acl, gpm, AppKit, GSS, ImageIO, m17n_lib, libotf, systemd ?
-  null, withX ? !stdenv.isDarwin, withNS ? stdenv.isDarwin, withGTK2 ?
-    false, gtk2-x11 ? null, withGTK3 ? true, gtk3-x11 ?
-      null, gsettings-desktop-schemas ? null, withXwidgets ? false, webkitgtk ?
-        null, wrapGAppsHook ? null, withCsrc ? true, srcRepo ? false, autoconf ?
-          null, automake ? null, texinfo ? null, siteStart ? ./site-start.el }:
+{ stdenv, lib, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d
+, libXcursor, pkgconfig, gettext, libXft, dbus, libpng, libjpeg, libungif
+, libtiff, librsvg, gconf, libxml2, imagemagick, gnutls, libselinux, alsaLib
+, cairo, acl, gpm, AppKit, GSS, ImageIO, m17n_lib, libotf, systemd ? null
+, withX ? !stdenv.isDarwin, withNS ? stdenv.isDarwin, withGTK2 ? false
+, gtk2-x11 ? null, withGTK3 ? true, gtk3-x11 ? null
+, gsettings-desktop-schemas ? null, withXwidgets ? false, webkitgtk ? null
+, wrapGAppsHook ? null, withCsrc ? true, srcRepo ? false, autoconf ? null
+, automake ? null, texinfo ? null, siteStart ? ./site-start.el }:
 
 assert (libXft != null) -> libpng != null; # probably a bug
 assert stdenv.isDarwin -> libXaw != null; # fails to link otherwise

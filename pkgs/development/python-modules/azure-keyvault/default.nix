@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-nspkg, msrest, msrestazure, cryptography
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-common, azure-nspkg, msrest
+, msrestazure, cryptography }:
 
 buildPythonPackage rec {
   pname = "azure-keyvault";

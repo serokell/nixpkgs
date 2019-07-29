@@ -1,12 +1,12 @@
-{ stdenv, callPackage, fetchurl, fetchpatch, fetchgit, ocaml-ng, withInternalQemu ?
-  true, withInternalTraditionalQemu ? true, withInternalSeabios ?
-    true, withSeabios ? !withInternalSeabios, seabios ? null, withInternalOVMF ?
-      false # FIXME: tricky to build
+{ stdenv, callPackage, fetchurl, fetchpatch, fetchgit, ocaml-ng
+, withInternalQemu ? true, withInternalTraditionalQemu ? true
+, withInternalSeabios ? true, withSeabios ? !withInternalSeabios, seabios ? null
+, withInternalOVMF ? false # FIXME: tricky to build
 , withOVMF ? false, OVMF, withLibHVM ? true
 
   # qemu
-, udev, pciutils, xorg, SDL, pixman, acl, glusterfs, spice-protocol, usbredir, alsaLib, ...
-}@args:
+, udev, pciutils, xorg, SDL, pixman, acl, glusterfs, spice-protocol, usbredir
+, alsaLib, ... }@args:
 
 assert withInternalSeabios -> !withSeabios;
 assert withInternalOVMF -> !withOVMF;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, ant, jdk, jre, gtk2, glib, xorg, Cocoa
-}:
+{ stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, ant, jdk, jre, gtk2
+, glib, xorg, Cocoa }:
 
 let
   _version = "2.8.2";

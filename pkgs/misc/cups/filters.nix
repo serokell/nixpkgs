@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, cups, poppler, poppler_utils, fontconfig, libjpeg, libpng, perl, ijs, qpdf, dbus, avahi, makeWrapper, coreutils, gnused, bc, gawk, gnugrep, which, ghostscript, mupdf
-}:
+{ stdenv, fetchurl, pkgconfig, cups, poppler, poppler_utils, fontconfig, libjpeg
+, libpng, perl, ijs, qpdf, dbus, avahi, makeWrapper, coreutils, gnused, bc, gawk
+, gnugrep, which, ghostscript, mupdf }:
 
 let binPath = stdenv.lib.makeBinPath [ coreutils gnused bc gawk gnugrep which ];
 

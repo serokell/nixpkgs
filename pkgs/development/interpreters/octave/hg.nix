@@ -2,8 +2,9 @@ args@{ stdenv, openblas, ghostscript ? null, texinfo
 
 , # These are arguments that shouldn't be passed to the
 # octave package.
-texlive, tex ?
-  texlive.combined.scheme-small, epstool, pstoedit, transfig, lib, fetchhg, callPackage, autoconf, automake, libtool, bison, librsvg, icoutils, gperf
+texlive, tex ? texlive.combined.scheme-small, epstool, pstoedit, transfig, lib
+, fetchhg, callPackage, autoconf, automake, libtool, bison, librsvg, icoutils
+, gperf
 
 , # These are options that can be passed in addition to the ones
 # octave usually takes.

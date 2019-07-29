@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, readline, ncurses, zlib, dataDir ?
-  "/var/lib/softether" }:
+{ stdenv, fetchurl, openssl, readline, ncurses, zlib
+, dataDir ? "/var/lib/softether" }:
 
 stdenv.mkDerivation rec {
   name = "softether-${version}";

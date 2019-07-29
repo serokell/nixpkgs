@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, cython, numpy, msgpack, pytest, python
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, cython, numpy, msgpack
+, pytest, python }:
 
 buildPythonPackage rec {
   pname = "numcodecs";

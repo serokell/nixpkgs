@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, substituteAll, git, gitdb2, mock, nose, ddt
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, substituteAll, git, gitdb2, mock
+, nose, ddt }:
 
 buildPythonPackage rec {
   version = "2.1.11";

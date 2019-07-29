@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, glibmm, cairomm, pangomm, atkmm, epoxy, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, glibmm, cairomm, pangomm, atkmm, epoxy
+, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gtkmm";

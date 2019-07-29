@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, meson, ninja, intltool, gtk-doc, pkgconfig, networkmanager, gnome3, libnotify, libsecret, polkit, isocodes, modemmanager, libxml2, docbook_xsl, docbook_xml_dtd_43, mobile-broadband-provider-info, glib-networking, gsettings-desktop-schemas, libgudev, jansson, wrapGAppsHook, gobject-introspection, python3, gtk3, libappindicator-gtk3, withGnome ?
-  false, gcr }:
+{ stdenv, fetchurl, meson, ninja, intltool, gtk-doc, pkgconfig, networkmanager
+, gnome3, libnotify, libsecret, polkit, isocodes, modemmanager, libxml2
+, docbook_xsl, docbook_xml_dtd_43, mobile-broadband-provider-info
+, glib-networking, gsettings-desktop-schemas, libgudev, jansson, wrapGAppsHook
+, gobject-introspection, python3, gtk3, libappindicator-gtk3, withGnome ? false
+, gcr }:
 
 let
   pname = "network-manager-applet";

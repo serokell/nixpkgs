@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, systemd, boost, libsodium, libedit, re2, net_snmp, lua, protobuf, openssl
-}:
+{ stdenv, fetchurl, pkgconfig, systemd, boost, libsodium, libedit, re2, net_snmp
+, lua, protobuf, openssl }:
 stdenv.mkDerivation rec {
   name = "dnsdist-${version}";
   version = "1.3.2";

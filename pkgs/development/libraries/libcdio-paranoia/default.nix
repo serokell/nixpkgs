@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, libcdio, pkgconfig, libiconv, IOKit, DiskArbitration
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, libcdio, pkgconfig, libiconv, IOKit
+, DiskArbitration }:
 
 stdenv.mkDerivation {
   name = "libcdio-paranoia-0.94+2";

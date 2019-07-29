@@ -1,5 +1,5 @@
-{ stdenv, lib, buildEnv, buildGoPackage, fetchFromGitHub, makeWrapper, runCommand, writeText, terraform-providers
-}:
+{ stdenv, lib, buildEnv, buildGoPackage, fetchFromGitHub, makeWrapper
+, runCommand, writeText, terraform-providers }:
 
 let
   goPackagePath = "github.com/hashicorp/terraform";

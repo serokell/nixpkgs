@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, fetchsvn, jansson, libedit, libxml2, libxslt, ncurses, openssl, sqlite, utillinux, dmidecode, libuuid, newt, lua, speex, srtp, wget, curl, iksemel, pkgconfig
-}:
+{ stdenv, lib, fetchurl, fetchsvn, jansson, libedit, libxml2, libxslt, ncurses
+, openssl, sqlite, utillinux, dmidecode, libuuid, newt, lua, speex, srtp, wget
+, curl, iksemel, pkgconfig }:
 
 let
   common = { version, sha256, externals }:

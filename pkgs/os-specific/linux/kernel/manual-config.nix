@@ -1,5 +1,5 @@
-{ buildPackages, runCommand, nettools, bc, bison, flex, perl, rsync, gmp, libmpc, mpfr, openssl, libelf, cpio, utillinux, writeTextFile
-}:
+{ buildPackages, runCommand, nettools, bc, bison, flex, perl, rsync, gmp, libmpc
+, mpfr, openssl, libelf, cpio, utillinux, writeTextFile }:
 
 let
   readConfig = configfile:

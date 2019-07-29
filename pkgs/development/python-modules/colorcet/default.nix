@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, param, pyct, nbsmoke, flake8, pytest, pytest-mpl
-}:
+{ lib, buildPythonPackage, fetchPypi, param, pyct, nbsmoke, flake8, pytest
+, pytest-mpl }:
 
 buildPythonPackage rec {
   pname = "colorcet";

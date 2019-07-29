@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, cmake, pcre, pkgconfig, python2, libX11, libXpm, libXft, libXext, libGLU_combined, zlib, libxml2, lzma, gsl_1, Cocoa, OpenGL, noSplash ?
-  false }:
+{ stdenv, fetchurl, fetchpatch, cmake, pcre, pkgconfig, python2, libX11, libXpm
+, libXft, libXext, libGLU_combined, zlib, libxml2, lzma, gsl_1, Cocoa, OpenGL
+, noSplash ? false }:
 
 stdenv.mkDerivation rec {
   name = "root-${version}";

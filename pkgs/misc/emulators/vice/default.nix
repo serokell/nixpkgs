@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsaLib, readline, libGLU_combined, libXaw, pkgconfig, gtk2, SDL, autoreconfHook, makeDesktopItem
-}:
+{ stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsaLib
+, readline, libGLU_combined, libXaw, pkgconfig, gtk2, SDL, autoreconfHook
+, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   name = "vice-3.1";

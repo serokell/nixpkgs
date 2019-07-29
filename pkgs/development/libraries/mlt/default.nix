@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, SDL, ffmpeg, frei0r, libjack2, libdv, libsamplerate, libvorbis, libxml2, movit, pkgconfig, sox, gtk2
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, SDL, ffmpeg, frei0r, libjack2, libdv
+, libsamplerate, libvorbis, libxml2, movit, pkgconfig, sox, gtk2 }:
 
 stdenv.mkDerivation rec {
   name = "mlt-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, which, gtk-doc, docbook_xsl, docbook_xml_dtd_412, python3, ncurses, nautilus, gtk3, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, which, gtk-doc, docbook_xsl, docbook_xml_dtd_412
+, python3, ncurses, nautilus, gtk3, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "nautilus-python";

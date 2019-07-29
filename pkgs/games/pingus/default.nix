@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, scons, SDL, SDL_image, boost, libpng, SDL_mixer, pkgconfig, libGLU_combined
-}:
+{ stdenv, fetchurl, fetchpatch, scons, SDL, SDL_image, boost, libpng, SDL_mixer
+, pkgconfig, libGLU_combined }:
 let
   s = # Generated upstream information
   rec {

@@ -1,5 +1,5 @@
-{ pkgsi686Linux, stdenv, fetchurl, dpkg, makeWrapper, coreutils, ghostscript, gnugrep, gnused, which, perl
-}:
+{ pkgsi686Linux, stdenv, fetchurl, dpkg, makeWrapper, coreutils, ghostscript
+, gnugrep, gnused, which, perl }:
 
 stdenv.mkDerivation rec {
   name = "mfcl2740dwlpr-${version}";

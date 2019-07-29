@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, bzip2, freetype, graphviz, ghostscript, libjpeg, libpng, libtiff, libxml2, zlib, libtool, xz, libX11, libwebp, quantumdepth ?
-  8, fixDarwinDylibNames }:
+{ stdenv, fetchurl, bzip2, freetype, graphviz, ghostscript, libjpeg, libpng
+, libtiff, libxml2, zlib, libtool, xz, libX11, libwebp, quantumdepth ? 8
+, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   name = "graphicsmagick-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, scp, pyserial, paramiko, netaddr, ncclient, lxml, jinja2, pyyaml, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, scp, pyserial, paramiko, netaddr
+, ncclient, lxml, jinja2, pyyaml, nose }:
 
 buildPythonPackage rec {
   pname = "junos-eznc";

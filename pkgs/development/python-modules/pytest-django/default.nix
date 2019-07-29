@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, django, setuptools_scm, django-configurations, pytest_xdist, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, django, setuptools_scm
+, django-configurations, pytest_xdist, six }:
 buildPythonPackage rec {
   pname = "pytest-django";
   version = "3.5.1";

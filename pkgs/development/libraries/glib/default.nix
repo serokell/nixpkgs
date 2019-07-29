@@ -1,11 +1,12 @@
-{ config, stdenv, fetchurl, gettext, meson, ninja, pkgconfig, perl, python3, glibcLocales, libiconv, zlib, libffi, pcre, libelf, gnome3, libselinux, bash, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45
+{ config, stdenv, fetchurl, gettext, meson, ninja, pkgconfig, perl, python3
+, glibcLocales, libiconv, zlib, libffi, pcre, libelf, gnome3, libselinux, bash
+, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45
 # use utillinuxMinimal to avoid circular dependency (utillinux, systemd, glib)
 , utillinuxMinimal ? null, buildPackages
 
 # this is just for tests (not in the closure of any regular package)
-, doCheck ?
-  config.doCheckByDefault or false, coreutils, dbus, libxml2, tzdata, desktop-file-utils, shared-mime-info, darwin
-}:
+, doCheck ? config.doCheckByDefault or false, coreutils, dbus, libxml2, tzdata
+, desktop-file-utils, shared-mime-info, darwin }:
 
 with stdenv.lib;
 

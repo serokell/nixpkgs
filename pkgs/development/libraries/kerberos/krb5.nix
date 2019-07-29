@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, perl, yacc, bootstrap_cmds, openssl, openldap, libedit, keyutils
+{ stdenv, fetchurl, pkgconfig, perl, yacc, bootstrap_cmds, openssl, openldap
+, libedit, keyutils
 
 # Extra Arguments
 , type ? ""

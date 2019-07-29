@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, openssl, odbcSupport ?
-  true, unixODBC ? null }:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, openssl, odbcSupport ? true
+, unixODBC ? null }:
 
 assert odbcSupport -> unixODBC != null;
 

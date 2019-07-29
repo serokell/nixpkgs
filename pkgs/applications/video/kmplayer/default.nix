@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchurl, extra-cmake-modules, makeWrapper, libpthreadstubs, libXdmcp, qtsvg, qtx11extras, ki18n, kdelibs4support, kio, kmediaplayer, kwidgetsaddons, phonon, cairo, mplayer
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, makeWrapper, libpthreadstubs
+, libXdmcp, qtsvg, qtx11extras, ki18n, kdelibs4support, kio, kmediaplayer
+, kwidgetsaddons, phonon, cairo, mplayer }:
 
 mkDerivation rec {
   majorMinorVersion = "0.12";

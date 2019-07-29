@@ -1,5 +1,5 @@
-{ stdenv, ocaml, findlib, ocamlbuild, fetchzip, cppo, ppx_tools, ppx_derivers, result, ounit, ocaml-migrate-parsetree
-}:
+{ stdenv, ocaml, findlib, ocamlbuild, fetchzip, cppo, ppx_tools, ppx_derivers
+, result, ounit, ocaml-migrate-parsetree }:
 
 if !stdenv.lib.versionAtLeast ocaml.version "4.02" then
   throw "ppx_deriving is not available for OCaml ${ocaml.version}"

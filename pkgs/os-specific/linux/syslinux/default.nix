@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, nasm, perl, python, libuuid, mtools, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, fetchurl, nasm, perl, python, libuuid, mtools
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "syslinux-2015-11-09";

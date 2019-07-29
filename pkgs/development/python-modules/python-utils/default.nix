@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, pytestcov, pytest-flakes, pytestpep8, sphinx, six
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, pytestcov
+, pytest-flakes, pytestpep8, sphinx, six }:
 
 buildPythonPackage rec {
   pname = "python-utils";

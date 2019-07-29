@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, cairo, gdk_pixbuf, glib, gnome3, wrapGAppsHook, gtk3
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, cairo, gdk_pixbuf, glib
+, gnome3, wrapGAppsHook, gtk3 }:
 
 buildGoPackage rec {
   name = "coyim-${version}";

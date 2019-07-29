@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, ninja, pkgconfig, opencv, openexr, graphicsmagick, fftw, zlib, libjpeg, libtiff, libpng, withGimpPlugin ?
-  true, gimp ? null }:
+{ stdenv, fetchurl, cmake, ninja, pkgconfig, opencv, openexr, graphicsmagick
+, fftw, zlib, libjpeg, libtiff, libpng, withGimpPlugin ? true, gimp ? null }:
 
 assert withGimpPlugin -> gimp != null;
 

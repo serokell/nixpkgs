@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, automake, fftw, ladspaH, libxml2, pkgconfig, perlPackages
-}:
+{ stdenv, fetchurl, autoreconfHook, automake, fftw, ladspaH, libxml2, pkgconfig
+, perlPackages }:
 
 stdenv.mkDerivation rec {
   name = "swh-plugins-${version}";

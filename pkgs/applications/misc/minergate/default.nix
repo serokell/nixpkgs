@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, dpkg, makeWrapper, fontconfig, freetype, openssl, xorg, xkeyboard_config
-}:
+{ fetchurl, stdenv, dpkg, makeWrapper, fontconfig, freetype, openssl, xorg
+, xkeyboard_config }:
 
 stdenv.mkDerivation rec {
   version = "8.1";

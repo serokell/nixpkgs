@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, gtk2, libjack2, libuuid, libxml2, makeWrapper, pkgconfig, readline
-}:
+{ stdenv, fetchurl, alsaLib, gtk2, libjack2, libuuid, libxml2, makeWrapper
+, pkgconfig, readline }:
 
 assert libuuid != null;
 

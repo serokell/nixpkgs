@@ -1,5 +1,5 @@
-{ stdenv, buildOcamlJane, async_kernel, async_unix, bin_prot, core, ppx_custom_printf, fieldslib, herelib, pipebang, sexplib, async_rpc_kernel
-}:
+{ stdenv, buildOcamlJane, async_kernel, async_unix, bin_prot, core
+, ppx_custom_printf, fieldslib, herelib, pipebang, sexplib, async_rpc_kernel }:
 
 buildOcamlJane rec {
   name = "async_extra";

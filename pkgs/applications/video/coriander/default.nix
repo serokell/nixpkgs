@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, gtk2, libgnomeui, libXv, libraw1394, libdc1394, SDL, automake, GConf
-}:
+{ stdenv, fetchurl, pkgconfig, glib, gtk2, libgnomeui, libXv, libraw1394
+, libdc1394, SDL, automake, GConf }:
 
 stdenv.mkDerivation rec {
   name = "coriander-2.0.1";

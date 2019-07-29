@@ -1,5 +1,5 @@
-{ stdenv, bzip2, patchelf, glibc, gcc, fetchurl, version, releaseType, sha256, ncurses, dirName ?
-  null, subdirName ? null }:
+{ stdenv, bzip2, patchelf, glibc, gcc, fetchurl, version, releaseType, sha256
+, ncurses, dirName ? null, subdirName ? null }:
 with stdenv.lib;
 let
   versionParts = splitString "-" version; # 4.7 2013q3 20130916

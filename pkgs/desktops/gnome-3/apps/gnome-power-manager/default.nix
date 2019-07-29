@@ -1,5 +1,5 @@
-{ stdenv, gettext, fetchurl, pkgconfig, gtk3, glib, meson, ninja, upower, python3, desktop-file-utils, wrapGAppsHook, gnome3
-}:
+{ stdenv, gettext, fetchurl, pkgconfig, gtk3, glib, meson, ninja, upower
+, python3, desktop-file-utils, wrapGAppsHook, gnome3 }:
 
 let
   pname = "gnome-power-manager";

@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja, libevdev, mtdev, udev, libwacom, documentationSupport ?
-  false, doxygen ? null, graphviz ? null # Documentation
-, eventGUISupport ? false, cairo ? null, glib ? null, gtk3 ?
-  null # GUI event viewer support
+{ stdenv, fetchurl, pkgconfig, meson, ninja, libevdev, mtdev, udev, libwacom
+, documentationSupport ? false, doxygen ? null, graphviz ? null # Documentation
+, eventGUISupport ? false, cairo ? null, glib ? null
+, gtk3 ? null # GUI event viewer support
 , testsSupport ? false, check ? null, valgrind ? null, python3 ? null }:
 
 assert documentationSupport -> doxygen != null && graphviz != null && python3

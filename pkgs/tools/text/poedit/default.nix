@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, gettext, pkgconfig, wxGTK30, boost, icu, lucenepp, asciidoc, libxslt, xmlto, gtk2, gtkspell2, pugixml, nlohmann_json, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchurl, autoconf, automake, libtool, gettext, pkgconfig, wxGTK30
+, boost, icu, lucenepp, asciidoc, libxslt, xmlto, gtk2, gtkspell2, pugixml
+, nlohmann_json, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "poedit-${version}";

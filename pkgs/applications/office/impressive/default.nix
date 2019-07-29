@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, python2, makeWrapper, lib, SDL, ghostscript, pdftk, dejavu_fonts
-}:
+{ fetchurl, stdenv, python2, makeWrapper, lib, SDL, ghostscript, pdftk
+, dejavu_fonts }:
 
 let
   version = "0.12.0";

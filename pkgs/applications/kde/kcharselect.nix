@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kbookmarks, kconfig, kconfigwidgets, kcrash, kcoreaddons, ki18n, kwidgetsaddons, kxmlgui
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kbookmarks, kconfig
+, kconfigwidgets, kcrash, kcoreaddons, ki18n, kwidgetsaddons, kxmlgui }:
 
 mkDerivation {
   name = "kcharselect";

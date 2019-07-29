@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python3, sass, glib, gdk_pixbuf, libxml2, inkscape, optipng, gtk-engine-murrine
-}:
+{ stdenv, fetchFromGitHub, python3, sass, glib, gdk_pixbuf, libxml2, inkscape
+, optipng, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   version = "20170810";

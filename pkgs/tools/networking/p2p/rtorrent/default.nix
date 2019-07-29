@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, pkgconfig, libtool, autoconf, automake, cppunit, libtorrent, ncurses, libsigcxx, curl, zlib, openssl, xmlrpc_c
+{ stdenv, fetchurl, fetchFromGitHub, pkgconfig, libtool, autoconf, automake
+, cppunit, libtorrent, ncurses, libsigcxx, curl, zlib, openssl, xmlrpc_c
 
 # This no longer works
 , colorSupport ? false }:

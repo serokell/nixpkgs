@@ -1,5 +1,5 @@
-{ stdenv, gcc, jshon, glib, nspr, nss, fetchzip, patchelfUnstable, enablePepperFlash ?
-  false, enableWideVine ? false
+{ stdenv, gcc, jshon, glib, nspr, nss, fetchzip, patchelfUnstable
+, enablePepperFlash ? false, enableWideVine ? false
 
 , upstream-info }:
 

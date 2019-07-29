@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchgit, vdr, alsaLib, fetchFromGitHub, libvdpau, libxcb, xcbutilwm, graphicsmagick, libav, pcre, xorgserver, ffmpeg, libiconv, boost, libgcrypt, perl, utillinux, groff, libva, xorg, ncurses, callPackage
-}:
+{ stdenv, fetchurl, fetchgit, vdr, alsaLib, fetchFromGitHub, libvdpau, libxcb
+, xcbutilwm, graphicsmagick, libav, pcre, xorgserver, ffmpeg, libiconv, boost
+, libgcrypt, perl, utillinux, groff, libva, xorg, ncurses, callPackage }:
 let
   mkPlugin = name:
     stdenv.mkDerivation {

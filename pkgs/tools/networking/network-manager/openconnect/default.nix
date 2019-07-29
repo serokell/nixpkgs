@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, substituteAll, openconnect, intltool, pkgconfig, networkmanager, libsecret, gtk3, withGnome ?
-  true, gnome3, kmod }:
+{ stdenv, fetchurl, substituteAll, openconnect, intltool, pkgconfig
+, networkmanager, libsecret, gtk3, withGnome ? true, gnome3, kmod }:
 
 let
   pname = "NetworkManager-openconnect";

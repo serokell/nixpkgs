@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, django, nose, pillow, sampledata, six, versiontools
-}:
+{ lib, buildPythonPackage, fetchPypi, django, nose, pillow, sampledata, six
+, versiontools }:
 
 buildPythonPackage rec {
   pname = "django-sampledatahelper";

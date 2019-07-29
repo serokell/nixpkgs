@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, buildPackages, pkgconfig, libusb, readline, libewf, perl, zlib, openssl, libuv, file, libzip, xxHash, gtk2 ?
-  null, vte ? null, gtkdialog ? null, python3 ? null, ruby ? null, lua ?
-    null, useX11 ? false, rubyBindings ? false, pythonBindings ?
-      false, luaBindings ? false }:
+{ stdenv, fetchFromGitHub, buildPackages, pkgconfig, libusb, readline, libewf
+, perl, zlib, openssl, libuv, file, libzip, xxHash, gtk2 ? null, vte ? null
+, gtkdialog ? null, python3 ? null, ruby ? null, lua ? null, useX11 ? false
+, rubyBindings ? false, pythonBindings ? false, luaBindings ? false }:
 
 assert useX11 -> (gtk2 != null && vte != null && gtkdialog != null);
 assert rubyBindings -> ruby != null;

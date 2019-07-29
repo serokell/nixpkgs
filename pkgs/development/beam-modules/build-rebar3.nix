@@ -1,9 +1,9 @@
 { stdenv, writeText, erlang, rebar3, openssl, libyaml, pc, lib }:
 
-{ name, version, src, setupHook ? null, buildInputs ? [ ], beamDeps ?
-  [ ], buildPlugins ? [ ], postPatch ? "", compilePorts ? false, installPhase ?
-    null, buildPhase ? null, configurePhase ? null, meta ?
-      { }, enableDebugInfo ? false, ... }@attrs:
+{ name, version, src, setupHook ? null, buildInputs ? [ ], beamDeps ? [ ]
+, buildPlugins ? [ ], postPatch ? "", compilePorts ? false, installPhase ? null
+, buildPhase ? null, configurePhase ? null, meta ? { }, enableDebugInfo ? false
+, ... }@attrs:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, libpng, libtiff, lcms2, mj2Support ?
-  true # MJ2 executables
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libpng, libtiff, lcms2
+, mj2Support ? true # MJ2 executables
 , jpwlLibSupport ? true # JPWL library & executables
 , jpipLibSupport ? false # JPIP library & executables
 , jpipServerSupport ? false, curl ? null, fcgi ? null # JPIP Server

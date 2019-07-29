@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, sbcl, sqlite, freetds, libzip, curl, git, cacert, openssl
-}:
+{ stdenv, fetchurl, makeWrapper, sbcl, sqlite, freetds, libzip, curl, git
+, cacert, openssl }:
 stdenv.mkDerivation rec {
   pname = "pgloader";
   version = "3.6.1";

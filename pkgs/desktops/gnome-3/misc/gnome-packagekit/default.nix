@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja, gettext, gnome3, packagekit, polkit, gtk3, systemd, wrapGAppsHook, desktop-file-utils, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, gettext, gnome3, packagekit, polkit
+, gtk3, systemd, wrapGAppsHook, desktop-file-utils, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   name = "gnome-packagekit-${version}";

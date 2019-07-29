@@ -2,8 +2,8 @@
 # it is exclusively used by the 'plv8' PostgreSQL extension, which requires a
 # very exact version.
 
-{ stdenv, lib, fetchgit, fetchFromGitHub, gn, ninja, python, glib, pkgconfig, doCheck ?
-  false, snapshot ? true }:
+{ stdenv, lib, fetchgit, fetchFromGitHub, gn, ninja, python, glib, pkgconfig
+, doCheck ? false, snapshot ? true }:
 
 let
   arch = if stdenv.isAarch32 then

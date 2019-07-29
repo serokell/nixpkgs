@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, perlPackages, libminc, octave, coreutils, minc_tools
-}:
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, perlPackages, libminc, octave
+, coreutils, minc_tools }:
 
 stdenv.mkDerivation rec {
   pname = "minc-widgets";

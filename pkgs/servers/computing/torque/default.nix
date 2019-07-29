@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, flex, bison, pkgconfig, groff, libxml2, utillinux, file, libtool, which
-}:
+{ stdenv, fetchurl, openssl, flex, bison, pkgconfig, groff, libxml2, utillinux
+, file, libtool, which }:
 
 stdenv.mkDerivation rec {
   name = "torque-4.2.10";

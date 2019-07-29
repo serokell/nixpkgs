@@ -1,7 +1,7 @@
 # Temporaririly avoid dependency on dotnetbuildhelpers to avoid rebuilding many times while working on it
 
-{ stdenv, fetchurl, pkgconfig, autoconf, automake, which, mono, dotnetbuildhelpers, dotnetPackages
-}:
+{ stdenv, fetchurl, pkgconfig, autoconf, automake, which, mono
+, dotnetbuildhelpers, dotnetPackages }:
 
 stdenv.mkDerivation rec {
   name = "fsharp-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, pkgconfig, openexr, zlib, imagemagick, libGLU_combined, freeglut, fftwFloat, fftw, gsl, libexif, perl, opencv, qt5
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, openexr, zlib, imagemagick
+, libGLU_combined, freeglut, fftwFloat, fftw, gsl, libexif, perl, opencv, qt5 }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

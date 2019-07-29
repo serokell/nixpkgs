@@ -1,5 +1,6 @@
-{ stdenv, makeWrapper, fetchurl, cabextract, gettext, glxinfo, gnupg, icoutils, imagemagick, netcat-gnu, p7zip, python2Packages, unzip, wget, wine, xdg-user-dirs, xterm, pkgs, pkgsi686Linux, which, curl, jq, xorg, libGL
-}:
+{ stdenv, makeWrapper, fetchurl, cabextract, gettext, glxinfo, gnupg, icoutils
+, imagemagick, netcat-gnu, p7zip, python2Packages, unzip, wget, wine
+, xdg-user-dirs, xterm, pkgs, pkgsi686Linux, which, curl, jq, xorg, libGL }:
 
 let
   version = "4.3.4";

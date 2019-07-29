@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cargo, rustc, rustPlatform, pkgconfig, glib, openssl, darwin
-}:
+{ stdenv, fetchFromGitHub, cargo, rustc, rustPlatform, pkgconfig, glib, openssl
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   version = "0.2.9";

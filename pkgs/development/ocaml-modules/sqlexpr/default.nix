@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, buildDunePackage, ocaml_lwt, lwt_ppx, ocaml-migrate-parsetree, ppx_tools_versioned, csv, ocaml_sqlite3
-}:
+{ stdenv, fetchurl, buildDunePackage, ocaml_lwt, lwt_ppx
+, ocaml-migrate-parsetree, ppx_tools_versioned, csv, ocaml_sqlite3 }:
 
 buildDunePackage rec {
   pname = "sqlexpr";

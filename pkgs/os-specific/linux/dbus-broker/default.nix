@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, docutils, meson, ninja, pkgconfig, dbus, linuxHeaders, systemd
-}:
+{ stdenv, fetchFromGitHub, docutils, meson, ninja, pkgconfig, dbus, linuxHeaders
+, systemd }:
 
 stdenv.mkDerivation rec {
   name = "dbus-broker-${version}";

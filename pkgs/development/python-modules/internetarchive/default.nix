@@ -1,5 +1,6 @@
-{ buildPythonPackage, fetchFromGitHub, pytest, six, clint, pyyaml, docopt, requests, jsonpatch, args, schema, responses, backports_csv, isPy3k, lib, glibcLocales
-}:
+{ buildPythonPackage, fetchFromGitHub, pytest, six, clint, pyyaml, docopt
+, requests, jsonpatch, args, schema, responses, backports_csv, isPy3k, lib
+, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "internetarchive";

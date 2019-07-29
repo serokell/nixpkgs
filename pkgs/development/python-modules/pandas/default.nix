@@ -1,5 +1,7 @@
-{ buildPythonPackage, fetchPypi, python, stdenv, pytest, glibcLocales, cython, dateutil, scipy, moto, numexpr, pytz, xlrd, bottleneck, sqlalchemy, lxml, html5lib, beautifulsoup4, hypothesis, openpyxl, tables, xlwt, runtimeShell, libcxx ?
-  null }:
+{ buildPythonPackage, fetchPypi, python, stdenv, pytest, glibcLocales, cython
+, dateutil, scipy, moto, numexpr, pytz, xlrd, bottleneck, sqlalchemy, lxml
+, html5lib, beautifulsoup4, hypothesis, openpyxl, tables, xlwt, runtimeShell
+, libcxx ? null }:
 
 let
   inherit (stdenv.lib) optional optionals optionalString;

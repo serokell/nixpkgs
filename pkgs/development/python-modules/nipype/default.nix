@@ -1,7 +1,8 @@
 { stdenv, buildPythonPackage, fetchPypi, isPy3k
 # python dependencies
-, click, configparser ?
-  null, dateutil, funcsigs, future, futures, mock, networkx, nibabel, numpy, packaging, prov, psutil, pydot, pytest, pytest_xdist, pytest-forked, scipy, simplejson, traits, xvfbwrapper, pytestcov, codecov
+, click, configparser ? null, dateutil, funcsigs, future, futures, mock
+, networkx, nibabel, numpy, packaging, prov, psutil, pydot, pytest, pytest_xdist
+, pytest-forked, scipy, simplejson, traits, xvfbwrapper, pytestcov, codecov
 # other dependencies
 , which, bash, glibcLocales, callPackage }:
 

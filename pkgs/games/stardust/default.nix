@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, zlib, libtiff, libxml2, SDL, xorgproto, libX11, libXi, libXmu, libXext, libGLU_combined
-}:
+{ stdenv, fetchurl, zlib, libtiff, libxml2, SDL, xorgproto, libX11, libXi
+, libXmu, libXext, libGLU_combined }:
 
 stdenv.mkDerivation rec {
   name = "stardust-${version}";

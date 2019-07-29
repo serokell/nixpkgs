@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, glib, gstreamer, gst-plugins-base, libdvdnav, libdvdread, orc
-}:
+{ fetchurl, stdenv, pkgconfig, glib, gstreamer, gst-plugins-base, libdvdnav
+, libdvdread, orc }:
 
 stdenv.mkDerivation rec {
   name = "gst-plugins-bad-0.10.23";

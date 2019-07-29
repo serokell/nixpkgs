@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt, libpulseaudio, pcre, qtbase, qttools, qtx11extras
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt, libpulseaudio, pcre, qtbase
+, qttools, qtx11extras }:
 
 stdenv.mkDerivation rec {
   pname = "pavucontrol-qt";

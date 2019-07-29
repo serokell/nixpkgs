@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, qtbase, qtmultimedia, qtquick1, qtquickcontrols, qtimageformats, qtgraphicaleffects, qtwebkit, telegram-qml, libqtelegram-aseman-edition, gst_all_1, makeWrapper, qmake
-}:
+{ stdenv, fetchgit, qtbase, qtmultimedia, qtquick1, qtquickcontrols
+, qtimageformats, qtgraphicaleffects, qtwebkit, telegram-qml
+, libqtelegram-aseman-edition, gst_all_1, makeWrapper, qmake }:
 
 stdenv.mkDerivation rec {
   name = "cutegram-${meta.version}";

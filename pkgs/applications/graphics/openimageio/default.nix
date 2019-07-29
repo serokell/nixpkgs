@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, boost, cmake, ilmbase, libjpeg, libpng, libtiff, opencolorio, openexr, unzip
-}:
+{ stdenv, fetchFromGitHub, boost, cmake, ilmbase, libjpeg, libpng, libtiff
+, opencolorio, openexr, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "openimageio";

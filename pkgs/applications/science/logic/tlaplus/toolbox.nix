@@ -1,5 +1,5 @@
-{ lib, fetchzip, makeWrapper, makeDesktopItem, stdenv, jre, swt, gtk, libXtst, glib
-}:
+{ lib, fetchzip, makeWrapper, makeDesktopItem, stdenv, jre, swt, gtk, libXtst
+, glib }:
 
 let
   version = "1.5.7";

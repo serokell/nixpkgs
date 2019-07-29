@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, requests, pytest, pytestcov, pytest-mock, pytest_xdist
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, pytest, pytestcov, pytest-mock
+, pytest_xdist }:
 
 buildPythonPackage rec {
   pname = "stripe";

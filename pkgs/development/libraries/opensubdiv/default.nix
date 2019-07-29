@@ -1,5 +1,6 @@
-{ config, lib, stdenv, fetchFromGitHub, cmake, pkgconfig, xorg, libGLU, libGL, glew, ocl-icd, python3, cudaSupport ?
-  config.cudaSupport or false, cudatoolkit, darwin }:
+{ config, lib, stdenv, fetchFromGitHub, cmake, pkgconfig, xorg, libGLU, libGL
+, glew, ocl-icd, python3, cudaSupport ? config.cudaSupport or false, cudatoolkit
+, darwin }:
 
 stdenv.mkDerivation rec {
   name = "opensubdiv-${version}";

@@ -1,7 +1,7 @@
-{ stdenv, callPackage, fetchgit, ghcjsSrcJson ? null, ghcjsSrc ? fetchgit
-  (builtins.fromJSON (builtins.readFile
-  ghcjsSrcJson)), bootPkgs, stage0, haskellLib, cabal-install, nodejs, makeWrapper, xorg, gmp, pkgconfig, gcc, lib, nodePackages, ghcjsDepOverrides ?
-    (_: _: { }), haskell }:
+{ stdenv, callPackage, fetchgit, ghcjsSrcJson ? null
+, ghcjsSrc ? fetchgit (builtins.fromJSON (builtins.readFile ghcjsSrcJson))
+, bootPkgs, stage0, haskellLib, cabal-install, nodejs, makeWrapper, xorg, gmp
+, pkgconfig, gcc, lib, nodePackages, ghcjsDepOverrides ? (_: _: { }), haskell }:
 
 let
   passthru = {

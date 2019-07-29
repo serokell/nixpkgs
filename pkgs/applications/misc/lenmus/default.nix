@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, fetchFromGitHub, fetchpatch, cmake, boost, portmidi, sqlite, freetype, libpng, pngpp, zlib, wxGTK30, wxsqlite3
-}:
+{ stdenv, pkgconfig, fetchFromGitHub, fetchpatch, cmake, boost, portmidi, sqlite
+, freetype, libpng, pngpp, zlib, wxGTK30, wxsqlite3 }:
 
 stdenv.mkDerivation rec {
   name = "lenmus-${version}";

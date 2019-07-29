@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, cython, numpy, nine, pytest, pytestrunner, python-utils, enum34
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, numpy, nine, pytest, pytestrunner
+, python-utils, enum34 }:
 
 buildPythonPackage rec {
   pname = "numpy-stl";

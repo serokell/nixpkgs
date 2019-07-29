@@ -1,5 +1,5 @@
-{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, breeze-icons, karchive, kcoreaddons, kconfigwidgets, ki18n, kitemviews, qtbase, qtsvg,
-}:
+{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, breeze-icons
+, karchive, kcoreaddons, kconfigwidgets, ki18n, kitemviews, qtbase, qtsvg, }:
 
 mkDerivation {
   name = "kiconthemes";

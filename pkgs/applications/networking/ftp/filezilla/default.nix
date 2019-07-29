@@ -1,7 +1,7 @@
 { stdenv, fetchurl
 
-, dbus, gettext, gnutls, gtk2, libfilezilla, libidn, nettle, pkgconfig, pugixml, sqlite, tinyxml, wxGTK30, xdg_utils
-}:
+, dbus, gettext, gnutls, gtk2, libfilezilla, libidn, nettle, pkgconfig, pugixml
+, sqlite, tinyxml, wxGTK30, xdg_utils }:
 
 stdenv.mkDerivation rec {
   pname = "filezilla";

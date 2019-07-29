@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gtk2-x11, pkgconfig, python27, gfortran, lesstif, cfitsio, getopt, perl, groff, which
-}:
+{ stdenv, fetchurl, gtk2-x11, pkgconfig, python27, gfortran, lesstif, cfitsio
+, getopt, perl, groff, which }:
 
 let python27Env = python27.withPackages (ps: with ps; [ numpy ]);
 

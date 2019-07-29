@@ -1,8 +1,8 @@
 { stdenv, fetchurl, gpm, openssl, pkgconfig, libev # Misc.
 , libpng, libjpeg, libtiff, librsvg # graphic formats
 , bzip2, zlib, xz # Transfer encodings
-, enableFB ? true, enableDirectFB ? false, directfb, enableX11 ?
-  true, libX11, libXt, libXau # GUI support
+, enableFB ? true, enableDirectFB ? false, directfb, enableX11 ? true, libX11
+, libXt, libXau # GUI support
 }:
 
 stdenv.mkDerivation rec {

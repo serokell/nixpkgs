@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, wrapGAppsHook, glib, intltool, gtk3, gtksourceview, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, wrapGAppsHook, glib, intltool
+, gtk3, gtksourceview, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   name = "xpad-${version}";

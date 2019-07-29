@@ -72,10 +72,9 @@ in rec {
   };
 
   stageFun = step: last:
-    { shell ? "${bootstrapTools}/bin/bash", overrides ?
-      (self: super: { }), extraPreHook ?
-        "", extraNativeBuildInputs, extraBuildInputs, libcxx, allowedRequisites ?
-          null }:
+    { shell ? "${bootstrapTools}/bin/bash", overrides ? (self: super: { })
+    , extraPreHook ? "", extraNativeBuildInputs, extraBuildInputs, libcxx
+    , allowedRequisites ? null }:
     let
       name = "bootstrap-stage${toString step}";
 

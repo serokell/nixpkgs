@@ -1,12 +1,12 @@
-{ config, stdenv, fetchurl, fetchpatch, pkgconfig, libiconv, libintl, expat, zlib, libpng, pixman, fontconfig, freetype, x11Support ?
-  !stdenv.isDarwin, libXext, libXrender, gobjectSupport ?
-    true, glib, xcbSupport ?
-      x11Support, libxcb, xcbutil # no longer experimental since 1.12
-, libGLSupported ? stdenv.lib.elem stdenv.hostPlatform.system
-  stdenv.lib.platforms.mesaPlatforms, glSupport ?
-    config.cairo.gl or (libGLSupported && stdenv.isLinux && !stdenv.isAarch32
-    && !stdenv.isMips), libGL ?
-      null # libGLU_combined is no longer a big dependency
+{ config, stdenv, fetchurl, fetchpatch, pkgconfig, libiconv, libintl, expat
+, zlib, libpng, pixman, fontconfig, freetype, x11Support ? !stdenv.isDarwin
+, libXext, libXrender, gobjectSupport ? true, glib, xcbSupport ? x11Support
+, libxcb, xcbutil # no longer experimental since 1.12
+, libGLSupported ?
+  stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
+, glSupport ? config.cairo.gl or (libGLSupported && stdenv.isLinux
+  && !stdenv.isAarch32 && !stdenv.isMips)
+, libGL ? null # libGLU_combined is no longer a big dependency
 , pdfSupport ? true, darwin }:
 
 assert glSupport -> libGL != null;

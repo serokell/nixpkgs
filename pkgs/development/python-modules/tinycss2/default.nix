@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, webencodings, pytest, pytestrunner, pytestcov, pytest-flake8, pytest-isort
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, webencodings, pytest
+, pytestrunner, pytestcov, pytest-flake8, pytest-isort }:
 
 buildPythonPackage rec {
   pname = "tinycss2";

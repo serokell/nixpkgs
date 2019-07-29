@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, gettext, libxml2, pkgconfig, txt2man, vala_0_40, wrapGAppsHook, gsettings-desktop-schemas, gtk3, keybinder3, ffmpeg
+{ stdenv, fetchFromGitHub, cmake, gettext, libxml2, pkgconfig, txt2man
+, vala_0_40, wrapGAppsHook, gsettings-desktop-schemas, gtk3, keybinder3, ffmpeg
 }:
 
 stdenv.mkDerivation rec {

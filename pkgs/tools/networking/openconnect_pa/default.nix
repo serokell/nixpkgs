@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, vpnc, openssl ? null, gnutls ?
-  null, gmp, libxml2, stoken, zlib, autoreconfHook }:
+{ stdenv, fetchFromGitHub, pkgconfig, vpnc, openssl ? null, gnutls ? null, gmp
+, libxml2, stoken, zlib, autoreconfHook }:
 
 assert (openssl != null) == (gnutls == null);
 

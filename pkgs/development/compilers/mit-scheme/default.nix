@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, makeWrapper, gnum4, texinfo, texLive, automake, enableX11 ?
-  false, xlibsWrapper ? null }:
+{ fetchurl, stdenv, makeWrapper, gnum4, texinfo, texLive, automake
+, enableX11 ? false, xlibsWrapper ? null }:
 
 let
   version = "9.2";

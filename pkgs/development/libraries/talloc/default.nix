@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python, pkgconfig, readline, libxslt, docbook_xsl, docbook_xml_dtd_42, fixDarwinDylibNames, wafHook
-}:
+{ stdenv, fetchurl, python, pkgconfig, readline, libxslt, docbook_xsl
+, docbook_xml_dtd_42, fixDarwinDylibNames, wafHook }:
 
 stdenv.mkDerivation rec {
   name = "talloc-2.1.14";

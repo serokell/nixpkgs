@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, flake8, pytest, pytest-expect, mock, six, webencodings
-}:
+{ lib, buildPythonPackage, fetchPypi, flake8, pytest, pytest-expect, mock, six
+, webencodings }:
 
 buildPythonPackage rec {
   pname = "html5lib";

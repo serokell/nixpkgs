@@ -1,8 +1,7 @@
-{ stdenv, fetchzip, fetchurl, fetchpatch, cmake, pkgconfig, zlib, libpng, enableGSL ?
-  true, gsl, enableGhostScript ? true, ghostscript, enableMuPDF ?
-    true, mupdf, enableJPEG2K ? true, jasper, enableDJVU ?
-      true, djvulibre, enableGOCR ?
-        false, gocr # Disabled by default due to crashes
+{ stdenv, fetchzip, fetchurl, fetchpatch, cmake, pkgconfig, zlib, libpng
+, enableGSL ? true, gsl, enableGhostScript ? true, ghostscript
+, enableMuPDF ? true, mupdf, enableJPEG2K ? true, jasper, enableDJVU ? true
+, djvulibre, enableGOCR ? false, gocr # Disabled by default due to crashes
 , enableTesseract ? true, leptonica, tesseract4 }:
 
 with stdenv.lib;

@@ -1,9 +1,13 @@
-{ config, stdenv, fetchurl, lib, iasl, dev86, pam, libxslt, libxml2, libX11, xorgproto, libXext, libXcursor, libXmu, qt5, libIDL, SDL, libcap, libGL, libpng, glib, lvm2, libXrandr, libXinerama, libopus, pkgconfig, which, docbook_xsl, docbook_xml_dtd_43, alsaLib, curl, libvpx, nettools, dbus, makeself, perl, javaBindings ?
-  true, jdk ? null # Almost doesn't affect closure size
-, pythonBindings ? false, python3 ? null, extensionPack ? null, fakeroot ?
-  null, pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ?
-    null, enableHardening ? false, headless ? false, enable32bitGuests ?
-      true, patchelfUnstable # needed until 0.10 is released
+{ config, stdenv, fetchurl, lib, iasl, dev86, pam, libxslt, libxml2, libX11
+, xorgproto, libXext, libXcursor, libXmu, qt5, libIDL, SDL, libcap, libGL
+, libpng, glib, lvm2, libXrandr, libXinerama, libopus, pkgconfig, which
+, docbook_xsl, docbook_xml_dtd_43, alsaLib, curl, libvpx, nettools, dbus
+, makeself, perl, javaBindings ? true
+, jdk ? null # Almost doesn't affect closure size
+, pythonBindings ? false, python3 ? null, extensionPack ? null, fakeroot ? null
+, pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
+, enableHardening ? false, headless ? false, enable32bitGuests ? true
+, patchelfUnstable # needed until 0.10 is released
 }:
 
 with stdenv.lib;

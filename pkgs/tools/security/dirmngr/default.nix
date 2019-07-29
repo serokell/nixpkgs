@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libgpgerror, libgcrypt, libassuan, libksba, pth, openldap, libiconv
-}:
+{ stdenv, fetchurl, libgpgerror, libgcrypt, libassuan, libksba, pth, openldap
+, libiconv }:
 
 stdenv.mkDerivation rec {
   name = "dirmngr-1.1.1";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, expat, buildsystem, libparserutils, libwapcaplet, libhubbub
-}:
+{ stdenv, fetchurl, pkgconfig, expat, buildsystem, libparserutils, libwapcaplet
+, libhubbub }:
 
 stdenv.mkDerivation rec {
 

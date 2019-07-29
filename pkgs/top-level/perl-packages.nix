@@ -6,8 +6,8 @@
    be almost as much code as the function itself.
 */
 
-{ config, pkgs, fetchurl, fetchFromGitHub, stdenv, gnused, perl, overrides, buildPerl
-}:
+{ config, pkgs, fetchurl, fetchFromGitHub, stdenv, gnused, perl, overrides
+, buildPerl }:
 
 # cpan2nix assumes that perl-packages.nix will be used only with perl 5.28.2 or above
 assert stdenv.lib.versionAtLeast perl.version "5.28.2";

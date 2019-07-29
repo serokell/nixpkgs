@@ -1,5 +1,5 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, kcmutils, kconfig, khtml, ki18n, kiconthemes, kio, kwindowsystem, libpwquality
-}:
+{ mkDerivation, extra-cmake-modules, kdoctools, kcmutils, kconfig, khtml, ki18n
+, kiconthemes, kio, kwindowsystem, libpwquality }:
 
 mkDerivation {
   name = "user-manager";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, unzip, jdk, pkgconfig, gtk2, libXt, libXtst, libXi, libGLU_combined, webkitgtk, libsoup, xorg, pango, gdk_pixbuf, glib
-}:
+{ stdenv, lib, fetchurl, unzip, jdk, pkgconfig, gtk2, libXt, libXtst, libXi
+, libGLU_combined, webkitgtk, libsoup, xorg, pango, gdk_pixbuf, glib }:
 
 let
   platformMap = {

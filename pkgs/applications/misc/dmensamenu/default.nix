@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub, substituteAll, requests, dmenu
-}:
+{ stdenv, buildPythonApplication, fetchFromGitHub, substituteAll, requests
+, dmenu }:
 
 buildPythonApplication rec {
   pname = "dmensamenu";

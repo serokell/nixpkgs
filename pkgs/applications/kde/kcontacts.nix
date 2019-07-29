@@ -1,5 +1,5 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kcoreaddons, kconfig, kcodecs, ki18n, qtbase,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kcoreaddons, kconfig
+, kcodecs, ki18n, qtbase, }:
 
 mkDerivation {
   name = "kcontacts";

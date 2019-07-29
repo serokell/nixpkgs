@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, cloudpickle, numpy, toolz, dill, pandas, partd
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, cloudpickle, numpy, toolz, dill
+, pandas, partd }:
 
 buildPythonPackage rec {
   pname = "dask";

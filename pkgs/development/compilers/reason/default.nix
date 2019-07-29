@@ -1,5 +1,5 @@
-{ stdenv, makeWrapper, fetchFromGitHub, ocaml, findlib, dune, menhir, merlin_extend, ppx_tools_versioned, utop
-}:
+{ stdenv, makeWrapper, fetchFromGitHub, ocaml, findlib, dune, menhir
+, merlin_extend, ppx_tools_versioned, utop }:
 
 stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-reason-${version}";

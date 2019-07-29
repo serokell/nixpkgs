@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, guile, pkgconfig, glib, loudmouth, gmp, libidn, readline, libtool, libunwind, ncurses, curl, jansson, texinfo, automake, autoconf
-}:
+{ stdenv, fetchFromGitHub, guile, pkgconfig, glib, loudmouth, gmp, libidn
+, readline, libtool, libunwind, ncurses, curl, jansson, texinfo, automake
+, autoconf }:
 
 stdenv.mkDerivation rec {
   name = "freetalk-${version}";

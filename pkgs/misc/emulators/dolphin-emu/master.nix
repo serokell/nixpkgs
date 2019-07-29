@@ -1,7 +1,10 @@
-{ stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, pkgconfig, cmake, qt5, bluez, ffmpeg, libao, libGLU_combined, pcre, gettext, libXrandr, libusb, lzo, libpthreadstubs, libXext, libXxf86vm, libXinerama, libSM, libXdmcp, readline, openal, udev, libevdev, portaudio, curl, alsaLib, miniupnpc, enet, mbedtls, soundtouch, sfml, vulkan-loader ?
-  null, libpulseaudio ? null
+{ stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, pkgconfig, cmake, qt5
+, bluez, ffmpeg, libao, libGLU_combined, pcre, gettext, libXrandr, libusb, lzo
+, libpthreadstubs, libXext, libXxf86vm, libXinerama, libSM, libXdmcp, readline
+, openal, udev, libevdev, portaudio, curl, alsaLib, miniupnpc, enet, mbedtls
+, soundtouch, sfml, vulkan-loader ? null, libpulseaudio ? null
 
-    # - Inputs used for Darwin
+  # - Inputs used for Darwin
 , CoreBluetooth, ForceFeedback, IOKit, OpenGL, libpng, hidapi }:
 
 let

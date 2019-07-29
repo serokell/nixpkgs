@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, libclthreads, libclxclient, libX11, libXft, libXrender, fftwFloat, libjack2, zita-alsa-pcmi
-}:
+{ stdenv, fetchurl, alsaLib, libclthreads, libclxclient, libX11, libXft
+, libXrender, fftwFloat, libjack2, zita-alsa-pcmi }:
 
 stdenv.mkDerivation rec {
   name = "jaaa-${version}";

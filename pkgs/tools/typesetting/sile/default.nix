@@ -1,5 +1,5 @@
-{ stdenv, darwin, fetchurl, makeWrapper, pkgconfig, harfbuzz, icu, fontconfig, lua, libiconv, makeFontsConf, gentium, gentium-book-basic, dejavu_fonts
-}:
+{ stdenv, darwin, fetchurl, makeWrapper, pkgconfig, harfbuzz, icu, fontconfig
+, lua, libiconv, makeFontsConf, gentium, gentium-book-basic, dejavu_fonts }:
 
 with stdenv.lib;
 

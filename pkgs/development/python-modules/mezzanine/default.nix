@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, pyflakes, pep8, django, django_contrib_comments, filebrowser_safe, grappelli_safe, bleach, tzlocal, beautifulsoup4, requests, requests_oauthlib, future, pillow, chardet
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, pyflakes, pep8, django
+, django_contrib_comments, filebrowser_safe, grappelli_safe, bleach, tzlocal
+, beautifulsoup4, requests, requests_oauthlib, future, pillow, chardet }:
 
 buildPythonPackage rec {
   version = "4.3.1";

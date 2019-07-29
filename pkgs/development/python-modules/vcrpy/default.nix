@@ -1,5 +1,5 @@
-{ buildPythonPackage, lib, six, fetchPypi, pyyaml, mock, contextlib2, wrapt, pytest, pytest-httpbin, yarl, pythonOlder, pythonAtLeast
-}:
+{ buildPythonPackage, lib, six, fetchPypi, pyyaml, mock, contextlib2, wrapt
+, pytest, pytest-httpbin, yarl, pythonOlder, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "vcrpy";

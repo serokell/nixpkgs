@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, pytest-shutil, pytest-fixture-config, psutil, requests, future, retry
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, pytest-shutil
+, pytest-fixture-config, psutil, requests, future, retry }:
 
 buildPythonPackage rec {
   pname = "pytest-server-fixtures";

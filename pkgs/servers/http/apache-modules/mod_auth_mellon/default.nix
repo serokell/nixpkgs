@@ -1,5 +1,5 @@
-{ stdenv, apacheHttpd, autoconf, automake, autoreconfHook, curl, fetchFromGitHub, glib, lasso, libtool, libxml2, libxslt, openssl, pkgconfig, xmlsec
-}:
+{ stdenv, apacheHttpd, autoconf, automake, autoreconfHook, curl, fetchFromGitHub
+, glib, lasso, libtool, libxml2, libxslt, openssl, pkgconfig, xmlsec }:
 
 stdenv.mkDerivation rec {
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, libX11, libXScrnSaver, libXext, libXft, libXrender, freetype, zlib, fontconfig
-}:
+{ stdenv, fetchzip, libX11, libXScrnSaver, libXext, libXft, libXrender, freetype
+, zlib, fontconfig }:
 
 let
   maybe64 = if stdenv.isx86_64 then "_64" else "";

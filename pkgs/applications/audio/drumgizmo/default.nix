@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, expat, glib, libjack2, libXext, libX11, libpng, libpthreadstubs, libsmf, libsndfile, lv2, pkgconfig, zita-resampler
-}:
+{ stdenv, fetchurl, alsaLib, expat, glib, libjack2, libXext, libX11, libpng
+, libpthreadstubs, libsmf, libsndfile, lv2, pkgconfig, zita-resampler }:
 
 stdenv.mkDerivation rec {
   version = "0.9.17";

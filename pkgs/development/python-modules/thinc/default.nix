@@ -1,4 +1,6 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytest, cython, cymem, darwin, msgpack-numpy, msgpack-python, preshed, numpy, murmurhash, pathlib, hypothesis, tqdm, cytoolz, plac, six, mock, wrapt, dill, blis, srsly, wasabi
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytest, cython, cymem
+, darwin, msgpack-numpy, msgpack-python, preshed, numpy, murmurhash, pathlib
+, hypothesis, tqdm, cytoolz, plac, six, mock, wrapt, dill, blis, srsly, wasabi
 }:
 
 buildPythonPackage rec {

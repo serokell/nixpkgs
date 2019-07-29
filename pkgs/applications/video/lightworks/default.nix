@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, dpkg, makeWrapper, buildFHSUserEnv, gtk3, gdk_pixbuf, cairo, libjpeg_original, glib, gnome2, libGLU, nvidia_cg_toolkit, zlib, openssl, portaudio
-}:
+{ stdenv, fetchurl, dpkg, makeWrapper, buildFHSUserEnv, gtk3, gdk_pixbuf, cairo
+, libjpeg_original, glib, gnome2, libGLU, nvidia_cg_toolkit, zlib, openssl
+, portaudio }:
 let
   fullPath = stdenv.lib.makeLibraryPath [
     stdenv.cc.cc

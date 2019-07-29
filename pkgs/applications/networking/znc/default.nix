@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, openssl, pkgconfig, withPerl ? false, perl, withPython ?
-  false, python3, withTcl ? false, tcl, withCyrus ?
-    true, cyrus_sasl, withUnicode ? true, icu, withZlib ? true, zlib, withIPv6 ?
-      true, withDebug ? false }:
+{ stdenv, fetchurl, openssl, pkgconfig, withPerl ? false, perl
+, withPython ? false, python3, withTcl ? false, tcl, withCyrus ? true
+, cyrus_sasl, withUnicode ? true, icu, withZlib ? true, zlib, withIPv6 ? true
+, withDebug ? false }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, texinfo, perlPackages, groff, libxml2, libxslt, gnused, libiconv, opensp, docbook_xml_dtd_43, makeWrapper
-}:
+{ fetchurl, stdenv, texinfo, perlPackages, groff, libxml2, libxslt, gnused
+, libiconv, opensp, docbook_xml_dtd_43, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "docbook2X-0.8.8";

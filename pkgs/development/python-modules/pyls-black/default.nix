@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, black, toml, pytest, python-language-server, isPy3k
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, black, toml, pytest
+, python-language-server, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pyls-black";

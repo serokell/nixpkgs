@@ -1,7 +1,8 @@
-{ fetchurl, stdenv, substituteAll, aspellWithDicts, at-spi2-core ?
-  null, atspiSupport ?
-    true, bash, glib, glibcLocales, gnome3, gobject-introspection, gsettings-desktop-schemas, gtk3, hunspell, hunspellDicts, hunspellWithDicts, intltool, isocodes, libcanberra-gtk3, mousetweaks, udev, libxkbcommon, pkgconfig, procps, python3, wrapGAppsHook, xorg, yelp
-}:
+{ fetchurl, stdenv, substituteAll, aspellWithDicts, at-spi2-core ? null
+, atspiSupport ? true, bash, glib, glibcLocales, gnome3, gobject-introspection
+, gsettings-desktop-schemas, gtk3, hunspell, hunspellDicts, hunspellWithDicts
+, intltool, isocodes, libcanberra-gtk3, mousetweaks, udev, libxkbcommon
+, pkgconfig, procps, python3, wrapGAppsHook, xorg, yelp }:
 
 let
   customHunspell = hunspellWithDicts [ hunspellDicts.en-us ];

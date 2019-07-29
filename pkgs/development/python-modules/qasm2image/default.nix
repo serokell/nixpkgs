@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cairocffi, cairosvg, cffi, qiskit, svgwrite, colorama, python, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cairocffi, cairosvg, cffi, qiskit
+, svgwrite, colorama, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "qasm2image";

@@ -1,11 +1,12 @@
-{ stdenv, fetchurl, fetchpatch, bzip2, expat, libffi, gdbm, db, ncurses, openssl, readline, sqlite, tcl ?
-  null, tk ? null, tix ? null, xlibsWrapper ? null, libX11 ? null, x11Support ?
-    false, zlib, self, CF, configd, coreutils, python-setup-hook
+{ stdenv, fetchurl, fetchpatch, bzip2, expat, libffi, gdbm, db, ncurses, openssl
+, readline, sqlite, tcl ? null, tk ? null, tix ? null, xlibsWrapper ? null
+, libX11 ? null, x11Support ? false, zlib, self, CF, configd, coreutils
+, python-setup-hook
 # Some proprietary libs assume UCS2 unicode, especially on darwin :(
 , ucsEncoding ? 4
   # For the Python package set
-, packageOverrides ? (self: super:
-  { }), buildPackages, sourceVersion, sha256, passthruFun, static ? false }:
+, packageOverrides ? (self: super: { }), buildPackages, sourceVersion, sha256
+, passthruFun, static ? false }:
 
 assert x11Support -> tcl != null && tk != null && xlibsWrapper != null && libX11
 != null;

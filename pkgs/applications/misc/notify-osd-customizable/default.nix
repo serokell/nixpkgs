@@ -1,5 +1,5 @@
-{ stdenv, dbus-glib, fetchurl, glib, gnome3, libnotify, libtool, libwnck3, makeWrapper, pkgconfig, gsettings-desktop-schemas
-}:
+{ stdenv, dbus-glib, fetchurl, glib, gnome3, libnotify, libtool, libwnck3
+, makeWrapper, pkgconfig, gsettings-desktop-schemas }:
 
 let baseURI = "https://launchpad.net/~leolik/+archive/leolik";
 in stdenv.mkDerivation rec {

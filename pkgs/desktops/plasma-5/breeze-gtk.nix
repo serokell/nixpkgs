@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, gtk2, qtbase, sassc, python3, breeze-qt5
-}:
+{ mkDerivation, lib, extra-cmake-modules, gtk2, qtbase, sassc, python3
+, breeze-qt5 }:
 
 let inherit (lib) getLib;
 

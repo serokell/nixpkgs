@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, which, pkgconfig, libxcb, xcbutilkeysyms, xcbutilimage, pam, libX11, libev, cairo, libxkbcommon, libxkbfile
-}:
+{ fetchurl, stdenv, which, pkgconfig, libxcb, xcbutilkeysyms, xcbutilimage, pam
+, libX11, libev, cairo, libxkbcommon, libxkbfile }:
 
 stdenv.mkDerivation rec {
   name = "i3lock-${version}";

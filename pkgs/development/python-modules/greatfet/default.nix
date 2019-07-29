@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, future, pyusb, ipython, pygreat
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, future, pyusb, ipython
+, pygreat }:
 
 buildPythonPackage rec {
   pname = "GreatFET";

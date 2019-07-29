@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, qt5, libidn, qca2-qt5, libXScrnSaver, hunspell, libgcrypt, libotr, html-tidy, libgpgerror, libsignal-protocol-c
-}:
+{ stdenv, fetchFromGitHub, cmake, qt5, libidn, qca2-qt5, libXScrnSaver, hunspell
+, libgcrypt, libotr, html-tidy, libgpgerror, libsignal-protocol-c }:
 
 stdenv.mkDerivation rec {
   name = "psi-plus-${version}";

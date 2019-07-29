@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, future, isPy3k, python, hypothesis
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, future, isPy3k, python
+, hypothesis }:
 
 buildPythonPackage rec {
   version = "0.1.1";

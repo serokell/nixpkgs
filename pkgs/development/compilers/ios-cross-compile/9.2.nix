@@ -1,5 +1,5 @@
-{ stdenv, git, clang, fetchFromGitHub, requireFile, openssl, xz, gnutar, automake, autoconf, libtool, clangStdenv
-}:
+{ stdenv, git, clang, fetchFromGitHub, requireFile, openssl, xz, gnutar
+, automake, autoconf, libtool, clangStdenv }:
 
 clangStdenv.mkDerivation rec {
   name = "ios-cross-compile-${version}";

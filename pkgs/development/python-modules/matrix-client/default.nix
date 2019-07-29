@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, requests, pytest, pytestrunner, responses
-}:
+{ stdenv, buildPythonPackage, fetchPypi, requests, pytest, pytestrunner
+, responses }:
 
 buildPythonPackage rec {
   pname = "matrix_client";

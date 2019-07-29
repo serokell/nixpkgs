@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, ncurses, mpd_clientlib, gettext, boost
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, ncurses, mpd_clientlib
+, gettext, boost }:
 
 stdenv.mkDerivation rec {
   name = "ncmpc-${version}";

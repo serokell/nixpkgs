@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libotr, automake, autoconf, libtool, glib, pkgconfig, irssi
-}:
+{ stdenv, fetchFromGitHub, libotr, automake, autoconf, libtool, glib, pkgconfig
+, irssi }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, glibc, libGLU_combined, freetype, glib, libSM, libICE, libXi, libXv, libXrender, libXrandr, libXfixes, libXcursor, libXinerama, libXext, libX11, zlib, fontconfig, dpkg, libproxy, libxml2, gstreamer, gst_all_1, dbus
+{ stdenv, fetchurl, glibc, libGLU_combined, freetype, glib, libSM, libICE, libXi
+, libXv, libXrender, libXrandr, libXfixes, libXcursor, libXinerama, libXext
+, libX11, zlib, fontconfig, dpkg, libproxy, libxml2, gstreamer, gst_all_1, dbus
 }:
 
 let

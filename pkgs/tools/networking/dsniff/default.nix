@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, autoreconfHook, libpcap, db, glib, libnet, libnids, symlinkJoin, openssl_1_1
-}:
+{ stdenv, fetchFromGitLab, autoreconfHook, libpcap, db, glib, libnet, libnids
+, symlinkJoin, openssl_1_1 }:
 let
   /* dsniff's build system unconditionnaly wants static libraries and does not
      support multi output derivations. We do some overriding to give it

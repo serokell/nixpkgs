@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, attrs, twisted, pyopenssl, service-identity, autobahn, treq, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, attrs, twisted, pyopenssl
+, service-identity, autobahn, treq, mock }:
 
 buildPythonPackage rec {
   version = "0.3.1";

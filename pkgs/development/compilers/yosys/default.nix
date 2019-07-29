@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, bison, flex, tcl, readline, libffi, python3, protobuf
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, bison, flex, tcl, readline, libffi
+, python3, protobuf }:
 
 with builtins;
 

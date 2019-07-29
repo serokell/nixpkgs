@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, openssl, avahi, alsaLib, libdaemon, popt, pkgconfig, libconfig, libpulseaudio, soxr
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, openssl, avahi, alsaLib, libdaemon
+, popt, pkgconfig, libconfig, libpulseaudio, soxr }:
 
 stdenv.mkDerivation rec {
   version = "3.3.1";

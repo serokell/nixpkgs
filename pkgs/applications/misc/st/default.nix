@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, writeText, libX11, ncurses, libXft, conf ?
-  null, patches ? [ ], extraLibs ? [ ] }:
+{ stdenv, fetchurl, pkgconfig, writeText, libX11, ncurses, libXft, conf ? null
+, patches ? [ ], extraLibs ? [ ] }:
 
 with stdenv.lib;
 

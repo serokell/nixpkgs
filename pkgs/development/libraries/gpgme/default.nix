@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan, file, which, ncurses, texinfo, buildPackages, qtbase ?
-  null, pythonSupport ? false, swig2 ? null, python ? null }:
+{ stdenv, fetchurl, libgpgerror, gnupg, pkgconfig, glib, pth, libassuan, file
+, which, ncurses, texinfo, buildPackages, qtbase ? null, pythonSupport ? false
+, swig2 ? null, python ? null }:
 
 let
   inherit (stdenv) lib;

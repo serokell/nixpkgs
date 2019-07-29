@@ -1,6 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, libpng, openssl, curl, gtk2, check, SDL, libxml2, libidn, perl, nettools, perlPackages, libXcursor, libXrandr, makeWrapper, uilib ?
-  "framebuffer", buildsystem, nsgenbind, libnsfb, libwapcaplet, libparserutils, libcss, libhubbub, libdom, libnsbmp, libnsgif, libnsutils, libutf8proc
-}:
+{ stdenv, fetchurl, pkgconfig, libpng, openssl, curl, gtk2, check, SDL, libxml2
+, libidn, perl, nettools, perlPackages, libXcursor, libXrandr, makeWrapper
+, uilib ? "framebuffer", buildsystem, nsgenbind, libnsfb, libwapcaplet
+, libparserutils, libcss, libhubbub, libdom, libnsbmp, libnsgif, libnsutils
+, libutf8proc }:
 
 stdenv.mkDerivation rec {
 

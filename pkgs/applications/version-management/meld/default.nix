@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, itstool, python3, intltool, wrapGAppsHook, libxml2, gobject-introspection, gtk3, gtksourceview, gnome3, gsettings-desktop-schemas, dbus, xvfb_run
-}:
+{ stdenv, fetchurl, itstool, python3, intltool, wrapGAppsHook, libxml2
+, gobject-introspection, gtk3, gtksourceview, gnome3, gsettings-desktop-schemas
+, dbus, xvfb_run }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "meld";

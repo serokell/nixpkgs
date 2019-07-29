@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, eradicate, mccabe, pycodestyle, pydocstyle, pyflakes, pytest, ipdb
-}:
+{ lib, buildPythonPackage, fetchPypi, eradicate, mccabe, pycodestyle, pydocstyle
+, pyflakes, pytest, ipdb }:
 
 buildPythonPackage rec {
   pname = "pylama";

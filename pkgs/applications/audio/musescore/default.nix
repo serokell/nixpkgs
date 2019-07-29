@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchzip, cmake, pkgconfig, alsaLib, freetype, libjack2, lame, libogg, libpulseaudio, libsndfile, libvorbis, portaudio, portmidi, qtbase, qtdeclarative, qtscript, qtsvg, qttools, qtwebengine, qtxmlpatterns
-}:
+{ stdenv, lib, fetchzip, cmake, pkgconfig, alsaLib, freetype, libjack2, lame
+, libogg, libpulseaudio, libsndfile, libvorbis, portaudio, portmidi, qtbase
+, qtdeclarative, qtscript, qtsvg, qttools, qtwebengine, qtxmlpatterns }:
 
 stdenv.mkDerivation rec {
   name = "musescore-${version}";

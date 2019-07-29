@@ -1,5 +1,5 @@
-{ stdenv, csound, desktop-file-utils, fetchFromGitHub, python, python-qt, qmake, qtwebengine, qtxmlpatterns, rtmidi, fetchpatch
-}:
+{ stdenv, csound, desktop-file-utils, fetchFromGitHub, python, python-qt, qmake
+, qtwebengine, qtxmlpatterns, rtmidi, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "csound-qt-${version}";

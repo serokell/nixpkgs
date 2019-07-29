@@ -1,4 +1,6 @@
-{ fetchPypi, lib, buildPythonPackage, isPy3k, appdirs, attrs, cached-property, defusedxml, isodate, lxml, requests, requests_toolbelt, six, pytz, tornado, aiohttp
+{ fetchPypi, lib, buildPythonPackage, isPy3k, appdirs, attrs, cached-property
+, defusedxml, isodate, lxml, requests, requests_toolbelt, six, pytz, tornado
+, aiohttp
 # test dependencies
 , freezegun, mock, pretend, pytest_3, pytestcov, requests-mock, aioresponses }:
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala, gtk3, libgee, granite, gettext, clutter-gtk, libunity, elementary-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala
+, gtk3, libgee, granite, gettext, clutter-gtk, libunity, elementary-icon-theme
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard";

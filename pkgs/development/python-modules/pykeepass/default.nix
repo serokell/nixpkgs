@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, lxml, pycryptodome, construct, argon2_cffi, dateutil, future
-}:
+{ lib, fetchPypi, buildPythonPackage, lxml, pycryptodome, construct, argon2_cffi
+, dateutil, future }:
 
 buildPythonPackage rec {
   pname = "pykeepass";

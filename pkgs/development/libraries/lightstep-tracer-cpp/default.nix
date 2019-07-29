@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, protobuf, cmake, zlib, opentracing-cpp, enableGrpc ?
-  false }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, protobuf, cmake, zlib
+, opentracing-cpp, enableGrpc ? false }:
 
 let
   # be sure to use the right revision based on the submodule!

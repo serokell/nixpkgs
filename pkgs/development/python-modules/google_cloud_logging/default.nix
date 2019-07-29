@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, google_api_core, google_cloud_core, pytest, mock, webapp2, django, flask
-}:
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, google_cloud_core
+, pytest, mock, webapp2, django, flask }:
 
 buildPythonPackage rec {
   pname = "google-cloud-logging";

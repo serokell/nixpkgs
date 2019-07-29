@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, allegro, openal, libGLU_combined, zlib, hawknl, freeglut, libX11, libXxf86vm, libXcursor, libXpm
-}:
+{ stdenv, fetchurl, allegro, openal, libGLU_combined, zlib, hawknl, freeglut
+, libX11, libXxf86vm, libXcursor, libXpm }:
 
 stdenv.mkDerivation {
   name = "fakenes-0.5.9b3";

@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, gmp, kconfig, kconfigwidgets, kcrash, kguiaddons, ki18n, kinit, knotifications, kxmlgui,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, gmp, kconfig
+, kconfigwidgets, kcrash, kguiaddons, ki18n, kinit, knotifications, kxmlgui, }:
 
 mkDerivation {
   name = "kcalc";

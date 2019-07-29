@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python, pkgconfig, gtk2, pygobject2, pycairo, buildPythonPackage, libglade ?
-  null, isPy3k }:
+{ stdenv, fetchurl, python, pkgconfig, gtk2, pygobject2, pycairo
+, buildPythonPackage, libglade ? null, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pygtk";

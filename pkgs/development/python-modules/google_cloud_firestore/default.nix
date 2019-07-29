@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, google_api_core, google_cloud_core, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, google_api_core, google_cloud_core
+, pytest }:
 
 buildPythonPackage rec {
   pname = "google-cloud-firestore";

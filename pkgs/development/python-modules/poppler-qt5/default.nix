@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, stdenv, sip, qtbase, pyqt5, poppler, pkgconfig, fetchpatch, substituteAll
-}:
+{ buildPythonPackage, fetchPypi, stdenv, sip, qtbase, pyqt5, poppler, pkgconfig
+, fetchpatch, substituteAll }:
 
 buildPythonPackage rec {
   pname = "python-poppler-qt5";

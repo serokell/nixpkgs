@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, hamlib, fltk13, libjpeg, libpng, portaudio, libsndfile, libsamplerate, libpulseaudio, libXinerama, gettext, pkgconfig, alsaLib
-}:
+{ stdenv, fetchurl, hamlib, fltk13, libjpeg, libpng, portaudio, libsndfile
+, libsamplerate, libpulseaudio, libXinerama, gettext, pkgconfig, alsaLib }:
 
 stdenv.mkDerivation rec {
   version = "4.1.04";

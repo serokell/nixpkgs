@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, httplib2, google_auth, google-auth-httplib2, six, uritemplate, oauth2client
-}:
+{ lib, buildPythonPackage, fetchPypi, httplib2, google_auth
+, google-auth-httplib2, six, uritemplate, oauth2client }:
 
 buildPythonPackage rec {
   pname = "google-api-python-client";

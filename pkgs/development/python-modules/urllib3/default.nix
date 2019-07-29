@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, tornado, pyopenssl, cryptography, idna, certifi, ipaddress, pysocks
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, tornado, pyopenssl
+, cryptography, idna, certifi, ipaddress, pysocks }:
 
 buildPythonPackage rec {
   pname = "urllib3";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libjpeg, libGLU_combined, freeglut, zlib, cmake, libX11, libxml2, libpng, libXxf86vm
-}:
+{ stdenv, fetchurl, libjpeg, libGLU_combined, freeglut, zlib, cmake, libX11
+, libxml2, libpng, libXxf86vm }:
 
 stdenv.mkDerivation {
   name = "freepv-0.3.0";

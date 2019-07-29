@@ -1,5 +1,6 @@
-{ stdenv, lib, zlib, glib, alsaLib, dbus, gtk3, atk, pango, freetype, fontconfig, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror, nspr, gconf, nss, xorg, libcap, systemd, libnotify, libsecret
-}:
+{ stdenv, lib, zlib, glib, alsaLib, dbus, gtk3, atk, pango, freetype, fontconfig
+, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror, nspr, gconf
+, nss, xorg, libcap, systemd, libnotify, libsecret }:
 
 let
   packages = [

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, substituteAll, openfortivpn, intltool, pkgconfig, file, gtk3, networkmanager, ppp, libsecret, withGnome ?
-  true, gnome3 }:
+{ stdenv, fetchurl, substituteAll, openfortivpn, intltool, pkgconfig, file, gtk3
+, networkmanager, ppp, libsecret, withGnome ? true, gnome3 }:
 
 let
   pname = "NetworkManager-fortisslvpn";

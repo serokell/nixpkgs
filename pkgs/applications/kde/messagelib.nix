@@ -1,5 +1,9 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-mime, akonadi-notes, akonadi-search, gpgme, grantlee, grantleetheme, karchive, kcodecs, kconfig, kconfigwidgets, kcontacts, kdepim-apps-libs, kiconthemes, kidentitymanagement, kio, kjobwidgets, kldap, kmailtransport, kmbox, kmime, kwindowsystem, libgravatar, libkdepim, libkleo, pimcommon, qtwebengine, qtwebkit, syntax-highlighting
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, akonadi-mime, akonadi-notes, akonadi-search, gpgme, grantlee, grantleetheme
+, karchive, kcodecs, kconfig, kconfigwidgets, kcontacts, kdepim-apps-libs
+, kiconthemes, kidentitymanagement, kio, kjobwidgets, kldap, kmailtransport
+, kmbox, kmime, kwindowsystem, libgravatar, libkdepim, libkleo, pimcommon
+, qtwebengine, qtwebkit, syntax-highlighting }:
 
 mkDerivation {
   name = "messagelib";

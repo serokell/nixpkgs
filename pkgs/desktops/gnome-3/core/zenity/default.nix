@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxml2, libxslt, gnome3, gtk3, gnome-doc-utils, intltool, libX11, which, itstool, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, libxml2, libxslt, gnome3, gtk3, gnome-doc-utils
+, intltool, libX11, which, itstool, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "zenity-${version}";

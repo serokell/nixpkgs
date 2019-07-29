@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python2, cairo, libjpeg, ntk, libjack2, libsndfile, ladspaH, liblrdf, liblo, libsigcxx, wafHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, python2, cairo, libjpeg, ntk, libjack2
+, libsndfile, ladspaH, liblrdf, liblo, libsigcxx, wafHook }:
 
 stdenv.mkDerivation rec {
   name = "non-${version}";

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, cmake, boost, ogre, mygui, ois, SDL2, libvorbis, pkgconfig, makeWrapper, enet, libXcursor, bullet, openal
-}:
+{ fetchurl, stdenv, cmake, boost, ogre, mygui, ois, SDL2, libvorbis, pkgconfig
+, makeWrapper, enet, libXcursor, bullet, openal }:
 
 stdenv.mkDerivation rec {
   name = "stunt-rally-${version}";

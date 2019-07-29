@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, python, fetchFromGitHub, django, pygments, simplejson, dateutil, requests, sqlparse, jinja2, autopep8, pytz, pillow, mock, gprof2dot, freezegun, contextlib2, networkx, pydot, factory_boy
-}:
+{ stdenv, buildPythonPackage, python, fetchFromGitHub, django, pygments
+, simplejson, dateutil, requests, sqlparse, jinja2, autopep8, pytz, pillow, mock
+, gprof2dot, freezegun, contextlib2, networkx, pydot, factory_boy }:
 
 buildPythonPackage rec {
   pname = "django-silk";

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, intltool, pkgconfig, iconnamingutils, imagemagick, librsvg, gtk # any version
+{ stdenv, fetchurl, intltool, pkgconfig, iconnamingutils, imagemagick, librsvg
+, gtk # any version
 }:
 
 stdenv.mkDerivation rec {

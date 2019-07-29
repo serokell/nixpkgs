@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qtscript, qtwebkit, qtserialport, qtsvg, qtdeclarative, qtquickcontrols2, alsaLib, libsndfile, flite, openssl, udev, SDL2
-}:
+{ stdenv, fetchFromGitHub, qmake, qtbase, qtscript, qtwebkit, qtserialport
+, qtsvg, qtdeclarative, qtquickcontrols2, alsaLib, libsndfile, flite, openssl
+, udev, SDL2 }:
 
 stdenv.mkDerivation rec {
   name = "apmplanner2-${version}";

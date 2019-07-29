@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, cmake, libtool, pkgconfig, zlib, openssl, libevent, ncurses, ruby, msgpack, libssh
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, cmake, libtool, pkgconfig, zlib
+, openssl, libevent, ncurses, ruby, msgpack, libssh }:
 
 stdenv.mkDerivation rec {
   name = "tmate-${version}";

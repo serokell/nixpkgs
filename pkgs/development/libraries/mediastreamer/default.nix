@@ -1,5 +1,7 @@
-{ stdenv, pkgconfig, intltool, alsaLib, libpulseaudio, speex, gsm, libopus, ffmpeg, libX11, libXv, libGLU_combined, glew, libtheora, libvpx, SDL, libupnp, ortp, libv4l, libpcap, srtp, fetchFromGitHub, cmake, bctoolbox, doxygen, python, libXext, libmatroska, openssl, fetchpatch
-}:
+{ stdenv, pkgconfig, intltool, alsaLib, libpulseaudio, speex, gsm, libopus
+, ffmpeg, libX11, libXv, libGLU_combined, glew, libtheora, libvpx, SDL, libupnp
+, ortp, libv4l, libpcap, srtp, fetchFromGitHub, cmake, bctoolbox, doxygen
+, python, libXext, libmatroska, openssl, fetchpatch }:
 
 stdenv.mkDerivation rec {
   baseName = "mediastreamer2";

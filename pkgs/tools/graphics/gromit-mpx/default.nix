@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, gtk, glib, pcre, libappindicator, libpthreadstubs, libXdmcp, libxkbcommon, epoxy, at-spi2-core, dbus, libdbusmenu
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, gtk, glib, pcre, libappindicator
+, libpthreadstubs, libXdmcp, libxkbcommon, epoxy, at-spi2-core, dbus
+, libdbusmenu }:
 
 stdenv.mkDerivation rec {
   name = "gromit-mpx-${version}";

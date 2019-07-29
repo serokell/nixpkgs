@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, extra-cmake-modules, karchive, kconfig, ki18n, kiconthemes, kio, kservice, kwindowsystem, kxmlgui, libkipi, qtbase, qtsvg, qtxmlpatterns
+{ stdenv, fetchurl, extra-cmake-modules, karchive, kconfig, ki18n, kiconthemes
+, kio, kservice, kwindowsystem, kxmlgui, libkipi, qtbase, qtsvg, qtxmlpatterns
 }:
 
 stdenv.mkDerivation rec {

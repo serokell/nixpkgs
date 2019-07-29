@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, jre, fetchFromGitHub, cmake, ninja, pkgconfig, libuuid, darwin
-}:
+{ stdenv, fetchurl, jre, fetchFromGitHub, cmake, ninja, pkgconfig, libuuid
+, darwin }:
 
 let
   version = "4.7.1";

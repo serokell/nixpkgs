@@ -1,5 +1,6 @@
-{ stdenv, fetchzip, buildEnv, makeDesktopItem, runCommand, writeText, pkgconfig, cmake, qmake, cacert, jsoncpp, libX11, libXScrnSaver, lua, openssl, poco, qtbase, qtwebengine, qtx11extras, sqlite
-}:
+{ stdenv, fetchzip, buildEnv, makeDesktopItem, runCommand, writeText, pkgconfig
+, cmake, qmake, cacert, jsoncpp, libX11, libXScrnSaver, lua, openssl, poco
+, qtbase, qtwebengine, qtx11extras, sqlite }:
 
 let
   name = "toggldesktop-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lightdm, pkgconfig, intltool, hicolor-icon-theme, makeWrapper, useGTK2 ?
-  false, gtk2, gtk3 # gtk3 seems better supported
+{ stdenv, fetchurl, lightdm, pkgconfig, intltool, hicolor-icon-theme
+, makeWrapper, useGTK2 ? false, gtk2, gtk3 # gtk3 seems better supported
 , exo, at-spi2-core }:
 
 #ToDo: bad icons with gtk2;

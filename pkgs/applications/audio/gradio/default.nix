@@ -1,8 +1,7 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python3, gsettings-desktop-schemas, desktop-file-utils, glib, gtk3, intltool, libsoup, json-glib, wrapGAppsHook, meson, ninja, vala, sqlite, gst_all_1, gst_plugins ?
-  with gst_all_1; [
-    gst-plugins-good
-    gst-plugins-ugly
-  ] }:
+{ stdenv, fetchFromGitHub, pkgconfig, python3, gsettings-desktop-schemas
+, desktop-file-utils, glib, gtk3, intltool, libsoup, json-glib, wrapGAppsHook
+, meson, ninja, vala, sqlite, gst_all_1
+, gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ] }:
 let version = "7.2";
 
 in stdenv.mkDerivation rec {

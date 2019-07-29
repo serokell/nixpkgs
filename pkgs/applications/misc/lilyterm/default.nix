@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, pkgconfig, autoconf, automake, intltool, gettext, gtk, vte
+{ stdenv, lib, fetchurl, fetchFromGitHub, pkgconfig, autoconf, automake
+, intltool, gettext, gtk, vte
 
 , flavour ? "stable" }:
 

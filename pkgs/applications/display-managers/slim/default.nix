@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, cmake, pkgconfig, xorg, libjpeg, libpng, fontconfig, freetype, pam, dbus, makeWrapper
-}:
+{ stdenv, fetchurl, fetchpatch, cmake, pkgconfig, xorg, libjpeg, libpng
+, fontconfig, freetype, pam, dbus, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "slim-1.3.6";

@@ -1,9 +1,16 @@
-{ mkDerivation, lib, broken ?
-  false, test-framework, test-framework-hunit, data-default, ghc-paths, haskell-src-exts, haskell-src-meta, optparse-applicative, system-fileio, system-filepath, text-binary, unordered-containers, cabal-install, wl-pprint-text, base16-bytestring, executable-path, transformers-compat, haddock-api, regex-posix
+{ mkDerivation, lib, broken ? false, test-framework, test-framework-hunit
+, data-default, ghc-paths, haskell-src-exts, haskell-src-meta
+, optparse-applicative, system-fileio, system-filepath, text-binary
+, unordered-containers, cabal-install, wl-pprint-text, base16-bytestring
+, executable-path, transformers-compat, haddock-api, regex-posix
 
 , bootPkgs, gmp
 
-, runCommand, nodejs, stdenv, filepath, HTTP, HUnit, mtl, network, QuickCheck, random, stm, time, zlib, aeson, attoparsec, bzlib, hashable, lens, parallel, safe, shelly, split, stringsearch, syb, tar, terminfo, vector, yaml, alex, happy, git, gnumake, autoconf, patch, automake, libtool, cryptohash, haddock, hspec, xhtml, pkgs, coreutils, libiconv
+, runCommand, nodejs, stdenv, filepath, HTTP, HUnit, mtl, network, QuickCheck
+, random, stm, time, zlib, aeson, attoparsec, bzlib, hashable, lens, parallel
+, safe, shelly, split, stringsearch, syb, tar, terminfo, vector, yaml, alex
+, happy, git, gnumake, autoconf, patch, automake, libtool, cryptohash, haddock
+, hspec, xhtml, pkgs, coreutils, libiconv
 
 , version, ghcjsSrc, ghcjsBootSrc, ghcjsBoot ? import ./ghcjs-boot.nix {
   inherit runCommand;

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, bidict, bitstruct, more-itertools, pprintpp
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, bidict, bitstruct
+, more-itertools, pprintpp }:
 
 buildPythonPackage rec {
   pname = "audio-metadata";

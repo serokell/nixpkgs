@@ -1,5 +1,7 @@
-{ stdenv, buildEnv, makeFontsConf, gnused, writeScript, xorg, bashInteractive, xterm, makeWrapper, ruby, quartz-wm, fontconfig, xlsfonts, xfontsel, ttf_bitstream_vera, freefont_ttf, liberation_ttf, shell ?
-  "${bashInteractive}/bin/bash" }:
+{ stdenv, buildEnv, makeFontsConf, gnused, writeScript, xorg, bashInteractive
+, xterm, makeWrapper, ruby, quartz-wm, fontconfig, xlsfonts, xfontsel
+, ttf_bitstream_vera, freefont_ttf, liberation_ttf
+, shell ? "${bashInteractive}/bin/bash" }:
 
 # ------------
 # Installation

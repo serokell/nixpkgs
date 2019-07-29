@@ -1,5 +1,5 @@
-{ bazel, bazelTest, fetchFromGitHub, fetchurl, gccStdenv, lib, openjdk8, runLocal, runtimeShell, writeScript, writeText
-}:
+{ bazel, bazelTest, fetchFromGitHub, fetchurl, gccStdenv, lib, openjdk8
+, runLocal, runtimeShell, writeScript, writeText }:
 
 let
   com_google_protobuf = fetchFromGitHub {

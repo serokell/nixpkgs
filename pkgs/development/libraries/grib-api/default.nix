@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, cmake, netcdf, gfortran, jasper, libpng, enablePython ?
-  false, pythonPackages }:
+{ fetchurl, stdenv, cmake, netcdf, gfortran, jasper, libpng
+, enablePython ? false, pythonPackages }:
 
 stdenv.mkDerivation rec {
   name = "grib-api-${version}";

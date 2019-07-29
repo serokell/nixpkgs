@@ -1,15 +1,16 @@
 { stdenv, pkgsBuildTarget, targetPackages
 
 # build-tools
-, bootPkgs, autoconf, automake, coreutils, fetchurl, fetchpatch, perl, python3, m4, sphinx, bash
+, bootPkgs, autoconf, automake, coreutils, fetchurl, fetchpatch, perl, python3
+, m4, sphinx, bash
 
 , libiconv ? null, ncurses
 
 , # GHC can be built with system libffi or a bundled one.
 libffi ? null
 
-, useLLVM ?
-  !stdenv.targetPlatform.isx86, # LLVM is conceptually a run-time-only depedendency, but for
+, useLLVM ? !stdenv.targetPlatform.isx86
+, # LLVM is conceptually a run-time-only depedendency, but for
 # non-x86, we need LLVM to bootstrap later stages, so it becomes a
 # build-time dependency too.
 buildLlvmPackages, llvmPackages

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libuuid, e2fsprogs, nilfs-utils, ntfs3g
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libuuid, e2fsprogs
+, nilfs-utils, ntfs3g }:
 
 stdenv.mkDerivation rec {
   name = "partclone-${version}";

@@ -1,5 +1,8 @@
-{ lib, buildPythonPackage, isPy3k, fetchPypi, doit, glibcLocales, pytest, pytestcov, mock, pygments, pillow, dateutil, docutils, Mako, unidecode, lxml, Yapsy, PyRSS2Gen, Logbook, blinker, natsort, requests, piexif, markdown, phpserialize, jinja2, Babel, freezegun, toml, notebook, ruamel_yaml, aiohttp, watchdog
-}:
+{ lib, buildPythonPackage, isPy3k, fetchPypi, doit, glibcLocales, pytest
+, pytestcov, mock, pygments, pillow, dateutil, docutils, Mako, unidecode, lxml
+, Yapsy, PyRSS2Gen, Logbook, blinker, natsort, requests, piexif, markdown
+, phpserialize, jinja2, Babel, freezegun, toml, notebook, ruamel_yaml, aiohttp
+, watchdog }:
 
 buildPythonPackage rec {
   pname = "Nikola";

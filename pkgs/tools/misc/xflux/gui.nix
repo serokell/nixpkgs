@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pythonPackages, gnome_python, libappindicator-gtk2, xflux, librsvg, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pythonPackages, gnome_python, libappindicator-gtk2
+, xflux, librsvg, wrapGAppsHook }:
 pythonPackages.buildPythonApplication rec {
   name = "xflux-gui-${version}";
   version = "1.1.10";

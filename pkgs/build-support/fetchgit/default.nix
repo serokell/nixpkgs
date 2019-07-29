@@ -14,10 +14,10 @@ let
     in "${
       if matched == null then base else builtins.head matched
     }${appendShort}";
-in { url, rev ? "HEAD", md5 ? "", sha256 ? "", leaveDotGit ?
-  deepClone, fetchSubmodules ? true, deepClone ? false, branchName ?
-    null, name ?
-      urlToName url rev, # Shell code executed after the file has been fetched
+in { url, rev ? "HEAD", md5 ? "", sha256 ? "", leaveDotGit ? deepClone
+, fetchSubmodules ? true, deepClone ? false, branchName ? null
+, name ? urlToName url rev
+, # Shell code executed after the file has been fetched
 # successfully. This can do things like check or transform the file.
 postFetch ? "", preferLocalBuild ? true }:
 

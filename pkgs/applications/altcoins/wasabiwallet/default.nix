@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeDesktopItem, openssl_1_1, xorg, curl, fontconfig, krb5, zlib, dotnet-sdk
-}:
+{ stdenv, fetchurl, makeDesktopItem, openssl_1_1, xorg, curl, fontconfig, krb5
+, zlib, dotnet-sdk }:
 
 stdenv.mkDerivation rec {
   pname = "wasabiwallet";

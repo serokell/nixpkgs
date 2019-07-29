@@ -1,5 +1,6 @@
-{ stdenv, fetchzip, cmake, libX11, freetype, libjpeg, openal, flac, libvorbis, glew, libXrandr, libXrender, udev, xcbutilimage, IOKit, Foundation, AppKit, OpenAL
-}:
+{ stdenv, fetchzip, cmake, libX11, freetype, libjpeg, openal, flac, libvorbis
+, glew, libXrandr, libXrender, udev, xcbutilimage, IOKit, Foundation, AppKit
+, OpenAL }:
 
 let version = "2.5.1";
 

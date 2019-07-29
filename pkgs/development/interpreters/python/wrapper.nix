@@ -1,6 +1,6 @@
-{ stdenv, python, buildEnv, makeWrapper, extraLibs ?
-  [ ], extraOutputsToInstall ? [ ], postBuild ? "", ignoreCollisions ?
-    false, permitUserSite ? false, requiredPythonModules
+{ stdenv, python, buildEnv, makeWrapper, extraLibs ? [ ]
+, extraOutputsToInstall ? [ ], postBuild ? "", ignoreCollisions ? false
+, permitUserSite ? false, requiredPythonModules
 # Wrap executables with the given argument.
 , makeWrapperArgs ? [ ], }:
 

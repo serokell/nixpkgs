@@ -1,12 +1,12 @@
 { fetchurl, stdenv, python2
 
-, enableStandardFeatures ? false, sourceHighlight ? null, highlight ?
-  null, pygments ? null, graphviz ? null, texlive ? null, dblatexFull ?
-    null, libxslt ? null, w3m ? null, lynx ? null, imagemagick ?
-      null, lilypond ? null, libxml2 ? null, docbook_xml_dtd_45 ?
-        null, docbook_xsl_ns ? null, docbook_xsl ? null, fop ? null
-          # TODO: Package this:
-          #, epubcheck ? null
+, enableStandardFeatures ? false, sourceHighlight ? null, highlight ? null
+, pygments ? null, graphviz ? null, texlive ? null, dblatexFull ? null
+, libxslt ? null, w3m ? null, lynx ? null, imagemagick ? null, lilypond ? null
+, libxml2 ? null, docbook_xml_dtd_45 ? null, docbook_xsl_ns ? null
+, docbook_xsl ? null, fop ? null
+  # TODO: Package this:
+  #, epubcheck ? null
 , gnused ? null, coreutils ? null
 
   # if true, enable all the below filters and backends
@@ -15,13 +15,12 @@
   # unzip is needed to extract filter and backend plugins
 , unzip ? null
   # filters
-, enableDitaaFilter ? false, jre ? null, enableMscgenFilter ? false, mscgen ?
-  null, enableDiagFilter ? false, blockdiag ? null, seqdiag ? null, actdiag ?
-    null, nwdiag ? null, enableQrcodeFilter ? false, qrencode ?
-      null, enableMatplotlibFilter ? false, matplotlib ? null, numpy ?
-        null, enableAafigureFilter ? false, aafigure ?
-          null, recursivePthLoader ? null
-            # backends
+, enableDitaaFilter ? false, jre ? null, enableMscgenFilter ? false
+, mscgen ? null, enableDiagFilter ? false, blockdiag ? null, seqdiag ? null
+, actdiag ? null, nwdiag ? null, enableQrcodeFilter ? false, qrencode ? null
+, enableMatplotlibFilter ? false, matplotlib ? null, numpy ? null
+, enableAafigureFilter ? false, aafigure ? null, recursivePthLoader ? null
+  # backends
 , enableDeckjsBackend ? false, enableOdfBackend ? false
 
   # java is problematic on some platforms, where it is unfree

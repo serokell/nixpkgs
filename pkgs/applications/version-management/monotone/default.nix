@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, boost, zlib, botan, libidn, lua, pcre, sqlite, perl, pkgconfig, expect, bzip2, gmp, openssl
-}:
+{ stdenv, fetchurl, boost, zlib, botan, libidn, lua, pcre, sqlite, perl
+, pkgconfig, expect, bzip2, gmp, openssl }:
 
 let
   version = "1.1";

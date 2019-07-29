@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, scons, pkgconfig, SDL, SDL_mixer, libGLU_combined, physfs
-}:
+{ stdenv, fetchurl, fetchpatch, scons, pkgconfig, SDL, SDL_mixer
+, libGLU_combined, physfs }:
 
 let
   music = fetchurl {

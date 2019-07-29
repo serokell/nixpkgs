@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, Mako, pytest, numpy, cffi, pytools, decorator, appdirs, six, opencl-headers, ocl-icd, pybind11
-}:
+{ stdenv, fetchPypi, buildPythonPackage, Mako, pytest, numpy, cffi, pytools
+, decorator, appdirs, six, opencl-headers, ocl-icd, pybind11 }:
 
 buildPythonPackage rec {
   pname = "pyopencl";

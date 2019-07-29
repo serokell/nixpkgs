@@ -1,5 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, cmake, perl, file, glib, libevent, luajit, openssl, pcre, pkgconfig, sqlite, ragel, icu, hyperscan, libfann, gd, jemalloc, openblas, withFann ?
-  true, withGd ? false, withBlas ? true, withHyperscan ? stdenv.isx86_64 }:
+{ stdenv, lib, fetchFromGitHub, cmake, perl, file, glib, libevent, luajit
+, openssl, pcre, pkgconfig, sqlite, ragel, icu, hyperscan, libfann, gd, jemalloc
+, openblas, withFann ? true, withGd ? false, withBlas ? true
+, withHyperscan ? stdenv.isx86_64 }:
 
 assert withHyperscan -> stdenv.isx86_64;
 

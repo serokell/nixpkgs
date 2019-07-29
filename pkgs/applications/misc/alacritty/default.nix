@@ -2,7 +2,8 @@
 
 cmake, gzip, makeWrapper, ncurses, pkgconfig, python3,
 
-expat, fontconfig, freetype, libGL, libX11, libXcursor, libXi, libXrandr, libXxf86vm, libxcb, libxkbcommon, wayland,
+expat, fontconfig, freetype, libGL, libX11, libXcursor, libXi, libXrandr
+, libXxf86vm, libxcb, libxkbcommon, wayland,
 
 # Darwin Frameworks
 AppKit, CoreGraphics, CoreServices, CoreText, Foundation, OpenGL }:

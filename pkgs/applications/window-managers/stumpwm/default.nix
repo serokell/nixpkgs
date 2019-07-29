@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, autoconf, sbcl, lispPackages, xdpyinfo, texinfo4, makeWrapper, rlwrap, gnused, gnugrep, coreutils, xprop, extraModulePaths ?
-  [ ], version }:
+{ stdenv, fetchgit, autoconf, sbcl, lispPackages, xdpyinfo, texinfo4
+, makeWrapper, rlwrap, gnused, gnugrep, coreutils, xprop, extraModulePaths ? [ ]
+, version }:
 
 let
   contrib = (fetchgit {

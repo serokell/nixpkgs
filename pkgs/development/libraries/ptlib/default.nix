@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, bison, flex, unixODBC, gnome3, openssl, openldap, cyrus_sasl, kerberos, expat, SDL, libdv, libv4l, alsaLib
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, bison, flex, unixODBC, gnome3
+, openssl, openldap, cyrus_sasl, kerberos, expat, SDL, libdv, libv4l, alsaLib }:
 
 stdenv.mkDerivation rec {
   pname = "ptlib";

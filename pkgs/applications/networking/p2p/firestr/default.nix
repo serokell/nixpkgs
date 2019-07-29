@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, boost, botan, snappy, libopus, libuuid, libXScrnSaver, openssl, qtbase, qtmultimedia
-}:
+{ stdenv, fetchFromGitHub, cmake, boost, botan, snappy, libopus, libuuid
+, libXScrnSaver, openssl, qtbase, qtmultimedia }:
 
 stdenv.mkDerivation {
   name = "firestr-0.8";

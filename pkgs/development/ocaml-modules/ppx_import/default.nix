@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, ounit, ppx_deriving, ppx_tools_versioned
-}:
+{ lib, fetchFromGitHub, buildDunePackage, ocaml, ounit, ppx_deriving
+, ppx_tools_versioned }:
 
 if !lib.versionAtLeast ocaml.version "4.04" then
   throw "ppx_import is not available for OCaml ${ocaml.version}"

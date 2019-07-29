@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, alsaLib, portaudio, portmidi, libsndfile, cmake, libxml2
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, alsaLib, portaudio, portmidi, libsndfile
+, cmake, libxml2 }:
 
 stdenv.mkDerivation rec {
   version = "1.0-beta.1";

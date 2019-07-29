@@ -1,8 +1,9 @@
 let lib = import ../../../lib;
 in lib.makeOverridable (
 
-{ name ? "stdenv", preHook ? "", initialPath, cc, shell, allowedRequisites ?
-  null, extraAttrs ? { }, overrides ? (self: super: { }), config
+{ name ? "stdenv", preHook ? "", initialPath, cc, shell
+, allowedRequisites ? null, extraAttrs ? { }, overrides ? (self: super: { })
+, config
 
 , # The `fetchurl' to use for downloading curl and its dependencies
 # (see all-packages.nix).
@@ -10,22 +11,22 @@ fetchurlBoot
 
 , setupScript ? ./setup.sh
 
-, extraNativeBuildInputs ? [ ], extraBuildInputs ? [ ], __stdenvImpureHostDeps ?
-  [ ], __extraImpureHostDeps ? [ ], stdenvSandboxProfile ?
-    "", extraSandboxProfile ? ""
+, extraNativeBuildInputs ? [ ], extraBuildInputs ? [ ]
+, __stdenvImpureHostDeps ? [ ], __extraImpureHostDeps ? [ ]
+, stdenvSandboxProfile ? "", extraSandboxProfile ? ""
 
-      ## Platform parameters
-      ##
-      ## The "build" "host" "target" terminology below comes from GNU Autotools. See
-      ## its documentation for more information on what those words mean. Note that
-      ## each should always be defined, even when not cross compiling.
-      ##
-      ## For purposes of bootstrapping, think of each stage as a "sliding window"
-      ## over a list of platforms. Specifically, the host platform of the previous
-      ## stage becomes the build platform of the current one, and likewise the
-      ## target platform of the previous stage becomes the host platform of the
-      ## current one.
-      ##
+  ## Platform parameters
+  ##
+  ## The "build" "host" "target" terminology below comes from GNU Autotools. See
+  ## its documentation for more information on what those words mean. Note that
+  ## each should always be defined, even when not cross compiling.
+  ##
+  ## For purposes of bootstrapping, think of each stage as a "sliding window"
+  ## over a list of platforms. Specifically, the host platform of the previous
+  ## stage becomes the build platform of the current one, and likewise the
+  ## target platform of the previous stage becomes the host platform of the
+  ## current one.
+  ##
 
 , # The platform on which packages are built. Consists of `system`, a
 # string (e.g.,`i686-linux') identifying the most import attributes of the

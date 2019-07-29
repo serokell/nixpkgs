@@ -1,10 +1,10 @@
-{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, withPngcrush ?
-  true, pngcrush ? null, withPngout ? true, pngout ? null, withAdvpng ?
-    true, advancecomp ? null, withOptipng ? true, optipng ? null, withPngquant ?
-      true, pngquant ? null, withJhead ? true, jhead ? null, withJpegoptim ?
-        true, jpegoptim ? null, withJpegrecompress ? true, jpeg-archive ?
-          null, withJpegtran ? true, libjpeg ? null, withGifsicle ?
-            true, gifsicle ? null, withSvgo ? true, svgo ? null }:
+{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, withPngcrush ? true
+, pngcrush ? null, withPngout ? true, pngout ? null, withAdvpng ? true
+, advancecomp ? null, withOptipng ? true, optipng ? null, withPngquant ? true
+, pngquant ? null, withJhead ? true, jhead ? null, withJpegoptim ? true
+, jpegoptim ? null, withJpegrecompress ? true, jpeg-archive ? null
+, withJpegtran ? true, libjpeg ? null, withGifsicle ? true, gifsicle ? null
+, withSvgo ? true, svgo ? null }:
 
 assert withPngcrush -> pngcrush != null;
 assert withPngout -> pngout != null;

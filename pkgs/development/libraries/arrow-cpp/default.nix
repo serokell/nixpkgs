@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchFromGitHub, fixDarwinDylibNames, autoconf, boost, brotli, cmake, double-conversion, flatbuffers, gflags, glog, gtest, lz4, perl, python, rapidjson, snappy, thrift, uriparser, which, zlib, zstd
-}:
+{ stdenv, fetchurl, fetchFromGitHub, fixDarwinDylibNames, autoconf, boost
+, brotli, cmake, double-conversion, flatbuffers, gflags, glog, gtest, lz4, perl
+, python, rapidjson, snappy, thrift, uriparser, which, zlib, zstd }:
 
 let
   parquet-testing = fetchFromGitHub {

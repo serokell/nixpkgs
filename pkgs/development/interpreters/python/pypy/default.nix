@@ -1,8 +1,9 @@
-{ stdenv, substituteAll, fetchurl, zlib ? null, zlibSupport ?
-  true, bzip2, pkgconfig, libffi, sqlite, openssl, ncurses, python, expat, tcl, tk, tix, xlibsWrapper, libX11, self, gdbm, db, lzma, python-setup-hook
+{ stdenv, substituteAll, fetchurl, zlib ? null, zlibSupport ? true, bzip2
+, pkgconfig, libffi, sqlite, openssl, ncurses, python, expat, tcl, tk, tix
+, xlibsWrapper, libX11, self, gdbm, db, lzma, python-setup-hook
 # For the Python package set
-, packageOverrides ?
-  (self: super: { }), sourceVersion, pythonVersion, sha256, passthruFun }:
+, packageOverrides ? (self: super: { }), sourceVersion, pythonVersion, sha256
+, passthruFun }:
 
 assert zlibSupport -> zlib != null;
 

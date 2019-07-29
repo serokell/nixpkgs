@@ -1,5 +1,5 @@
-{ mkDerivation, base, Cabal, containers, directory, extra, filepath, mtl, parsec, pretty, stdenv, time, transformers
-}:
+{ mkDerivation, base, Cabal, containers, directory, extra, filepath, mtl, parsec
+, pretty, stdenv, time, transformers }:
 mkDerivation {
   pname = "curry-base";
   version = "1.0.0";

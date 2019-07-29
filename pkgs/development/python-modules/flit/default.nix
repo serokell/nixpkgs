@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, docutils, requests, requests_download, zipfile36, pythonOlder, pytest, testpath, responses, pytoml
+{ lib, buildPythonPackage, fetchPypi, isPy3k, docutils, requests
+, requests_download, zipfile36, pythonOlder, pytest, testpath, responses, pytoml
 }:
 
 # Flit is actually an application to build universal wheels.

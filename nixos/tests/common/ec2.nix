@@ -3,9 +3,8 @@
 with pkgs.lib;
 
 {
-  makeEc2Test =
-    { name, image, userData, script, hostname ? "ec2-instance", sshPublicKey ?
-      null }:
+  makeEc2Test = { name, image, userData, script, hostname ? "ec2-instance"
+    , sshPublicKey ? null }:
     let
       metaData = pkgs.stdenv.mkDerivation {
         name = "metadata";

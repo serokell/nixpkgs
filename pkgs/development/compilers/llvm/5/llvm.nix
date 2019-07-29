@@ -1,5 +1,6 @@
-{ stdenv, fetch, cmake, python, libffi, libbfd, libxml2, ncurses, version, release_version, zlib, debugVersion ?
-  false, enableManpages ? false, enableSharedLibraries ? !enableManpages }:
+{ stdenv, fetch, cmake, python, libffi, libbfd, libxml2, ncurses, version
+, release_version, zlib, debugVersion ? false, enableManpages ? false
+, enableSharedLibraries ? !enableManpages }:
 
 let
   src = fetch "llvm" "0g1bbj2n6xv4p1n6hh17vj3vpvg56wacipc81dgwga9mg2lys8nm";

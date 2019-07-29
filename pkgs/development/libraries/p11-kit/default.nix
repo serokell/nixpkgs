@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkgconfig, which, gettext, libffi, libiconv, libtasn1
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkgconfig, which, gettext
+, libffi, libiconv, libtasn1 }:
 
 stdenv.mkDerivation rec {
   pname = "p11-kit";

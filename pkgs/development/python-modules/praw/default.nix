@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, betamax, betamax-serializers, betamax-matchers, mock, six, pytestrunner, prawcore, pytest, requests-toolbelt, update_checker, websocket_client
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, betamax, betamax-serializers
+, betamax-matchers, mock, six, pytestrunner, prawcore, pytest, requests-toolbelt
+, update_checker, websocket_client }:
 
 buildPythonPackage rec {
   pname = "praw";

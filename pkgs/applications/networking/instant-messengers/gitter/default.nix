@@ -1,5 +1,8 @@
-{ stdenv, alsaLib, atk, cairo, cups, dbus, dpkg, expat, fetchurl, fontconfig, freetype, gdk_pixbuf, glib, gnome2, gtk3, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libappindicator-gtk3, libcxx, libnotify, libpulseaudio, libxcb, makeDesktopItem, makeWrapper, nspr, nss, pango, systemd
-}:
+{ stdenv, alsaLib, atk, cairo, cups, dbus, dpkg, expat, fetchurl, fontconfig
+, freetype, gdk_pixbuf, glib, gnome2, gtk3, libX11, libXScrnSaver, libXcomposite
+, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
+, libXtst, libappindicator-gtk3, libcxx, libnotify, libpulseaudio, libxcb
+, makeDesktopItem, makeWrapper, nspr, nss, pango, systemd }:
 
 let
   gitterDirectorySuffix = "opt/gitter";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, wrapQtAppsHook, qtbase, libuuid, libcap, uwsgi, grantlee, pcre
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, wrapQtAppsHook, qtbase
+, libuuid, libcap, uwsgi, grantlee, pcre }:
 
 stdenv.mkDerivation rec {
   name = "cutelyst-${version}";

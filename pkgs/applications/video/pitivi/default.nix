@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, intltool, itstool, python3, wrapGAppsHook, python3Packages, gst_all_1, gtk3, gobject-introspection, librsvg, gnome3, libnotify, gsound, meson, ninja, gsettings-desktop-schemas
-}:
+{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, intltool, itstool, python3
+, wrapGAppsHook, python3Packages, gst_all_1, gtk3, gobject-introspection
+, librsvg, gnome3, libnotify, gsound, meson, ninja, gsettings-desktop-schemas }:
 
 let
   version = "0.999";

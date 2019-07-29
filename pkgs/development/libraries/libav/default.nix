@@ -1,11 +1,10 @@
-{ stdenv, fetchurl, pkgconfig, yasm, bzip2, zlib, perl, bash, mp3Support ?
-  true, lame ? null, speexSupport ? true, speex ? null, theoraSupport ?
-    true, libtheora ? null, vorbisSupport ? true, libvorbis ? null, vpxSupport ?
-      true, libvpx ? null, x264Support ? false, x264 ? null, xvidSupport ?
-        true, xvidcore ? null, faacSupport ? false, faac ? null, vaapiSupport ?
-          true, libva ? null, vdpauSupport ? true, libvdpau ?
-            null, freetypeSupport ? true, freetype ?
-              null # it's small and almost everywhere
+{ stdenv, fetchurl, pkgconfig, yasm, bzip2, zlib, perl, bash, mp3Support ? true
+, lame ? null, speexSupport ? true, speex ? null, theoraSupport ? true
+, libtheora ? null, vorbisSupport ? true, libvorbis ? null, vpxSupport ? true
+, libvpx ? null, x264Support ? false, x264 ? null, xvidSupport ? true
+, xvidcore ? null, faacSupport ? false, faac ? null, vaapiSupport ? true
+, libva ? null, vdpauSupport ? true, libvdpau ? null, freetypeSupport ? true
+, freetype ? null # it's small and almost everywhere
 , SDL # only for avplay in $bin, adds nontrivial closure to it
 , enableGPL ? true # ToDo: some additional default stuff may need GPL
 , enableUnfree ? faacSupport }:

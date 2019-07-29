@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, libconfig, libevent, openssl, readline, zlib, lua5_2, python, pkgconfig, jansson, runtimeShell
-}:
+{ stdenv, fetchgit, libconfig, libevent, openssl, readline, zlib, lua5_2, python
+, pkgconfig, jansson, runtimeShell }:
 
 stdenv.mkDerivation rec {
   name = "telegram-cli-2016-03-23";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, configobj, terminaltables, tabulate, backports_csv, wcwidth, pytest, mock, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, configobj, terminaltables, tabulate
+, backports_csv, wcwidth, pytest, mock, isPy27 }:
 
 buildPythonPackage rec {
   pname = "cli_helpers";

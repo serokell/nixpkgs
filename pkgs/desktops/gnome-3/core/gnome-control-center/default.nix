@@ -1,5 +1,14 @@
-{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, ibus, gettext, upower, wrapGAppsHook, libcanberra-gtk3, accountsservice, libpwquality, libpulseaudio, gdk_pixbuf, librsvg, libgudev, libsecret, gnome-color-manager, libxml2, polkit, libxslt, libgtop, libsoup, colord, colord-gtk, libkrb5, networkmanagerapplet, networkmanager, glibc, libwacom, samba, shared-mime-info, tzdata, libgnomekbd, docbook_xsl, modemmanager, clutter, clutter-gtk, cheese, gnome-session, fontconfig, sound-theme-freedesktop, grilo, python3, gtk3, glib, glib-networking, gsettings-desktop-schemas, gnome-desktop, gnome-settings-daemon, gnome-online-accounts, vino, gnome-bluetooth, tracker, adwaita-icon-theme, udisks2, gsound, libhandy, cups, mutter
-}:
+{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, ibus
+, gettext, upower, wrapGAppsHook, libcanberra-gtk3, accountsservice
+, libpwquality, libpulseaudio, gdk_pixbuf, librsvg, libgudev, libsecret
+, gnome-color-manager, libxml2, polkit, libxslt, libgtop, libsoup, colord
+, colord-gtk, libkrb5, networkmanagerapplet, networkmanager, glibc, libwacom
+, samba, shared-mime-info, tzdata, libgnomekbd, docbook_xsl, modemmanager
+, clutter, clutter-gtk, cheese, gnome-session, fontconfig
+, sound-theme-freedesktop, grilo, python3, gtk3, glib, glib-networking
+, gsettings-desktop-schemas, gnome-desktop, gnome-settings-daemon
+, gnome-online-accounts, vino, gnome-bluetooth, tracker, adwaita-icon-theme
+, udisks2, gsound, libhandy, cups, mutter }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-control-center";

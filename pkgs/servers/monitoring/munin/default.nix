@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, which, coreutils, rrdtool, perlPackages, python, ruby, jre, nettools, bc
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, which, coreutils, rrdtool, perlPackages
+, python, ruby, jre, nettools, bc }:
 
 stdenv.mkDerivation rec {
   version = "2.0.49";

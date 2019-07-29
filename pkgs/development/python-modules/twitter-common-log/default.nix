@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, twitter-common-options, twitter-common-dirutil
-}:
+{ stdenv, buildPythonPackage, fetchPypi, twitter-common-options
+, twitter-common-dirutil }:
 
 buildPythonPackage rec {
   pname = "twitter.common.log";

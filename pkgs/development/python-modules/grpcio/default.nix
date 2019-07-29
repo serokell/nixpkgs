@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, lib, darwin, six, protobuf, enum34, futures, isPy27, isPy34, pkgconfig, cython
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, lib, darwin, six, protobuf
+, enum34, futures, isPy27, isPy34, pkgconfig, cython }:
 
 with stdenv.lib;
 buildPythonPackage rec {

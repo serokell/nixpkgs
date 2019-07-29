@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, ispc, tbb, glfw, openimageio, libjpeg, libpng, libpthreadstubs, libX11
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, ispc, tbb, glfw, openimageio
+, libjpeg, libpng, libpthreadstubs, libX11 }:
 
 stdenv.mkDerivation rec {
   name = "embree-${version}";

@@ -1,6 +1,7 @@
-{ stdenv, pkgconfig, fetchurl, python3Packages, intltool, itstool, libtool, texinfo, autoreconfHook, glib, dotconf, libsndfile, withLibao ?
-  true, libao, withPulse ? false, libpulseaudio, withAlsa ?
-    false, alsaLib, withOss ? false, withFlite ? true, flite
+{ stdenv, pkgconfig, fetchurl, python3Packages, intltool, itstool, libtool
+, texinfo, autoreconfHook, glib, dotconf, libsndfile, withLibao ? true, libao
+, withPulse ? false, libpulseaudio, withAlsa ? false, alsaLib, withOss ? false
+, withFlite ? true, flite
 # , withFestival ? false, festival-freebsoft-utils
 , withEspeak ? true, espeak, sonic, pcaudiolib, withPico ? true, svox
 # , withIvona ? false, libdumbtts

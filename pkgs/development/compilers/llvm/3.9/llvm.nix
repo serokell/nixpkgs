@@ -1,6 +1,7 @@
-{ stdenv, fetch, fetchpatch, perl, groff, cmake, python, libffi, libbfd, libxml2, ncurses, version, zlib, compiler-rt_src, debugVersion ?
-  false, enableSharedLibraries ?
-    (stdenv.buildPlatform == stdenv.hostPlatform), buildPackages }:
+{ stdenv, fetch, fetchpatch, perl, groff, cmake, python, libffi, libbfd, libxml2
+, ncurses, version, zlib, compiler-rt_src, debugVersion ? false
+, enableSharedLibraries ? (stdenv.buildPlatform == stdenv.hostPlatform)
+, buildPackages }:
 
 assert (stdenv.hostPlatform != stdenv.buildPlatform) -> !enableSharedLibraries;
 

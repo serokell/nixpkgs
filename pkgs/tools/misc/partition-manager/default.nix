@@ -1,5 +1,6 @@
-{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, wrapQtAppsHook, kconfig, kcrash, kinit, kpmcore, eject, libatasmart, utillinux, qtbase
-}:
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
+, wrapQtAppsHook, kconfig, kcrash, kinit, kpmcore, eject, libatasmart, utillinux
+, qtbase }:
 
 let pname = "partitionmanager";
 in mkDerivation rec {

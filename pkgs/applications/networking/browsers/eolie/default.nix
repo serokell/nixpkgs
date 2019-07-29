@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, meson, ninja, pkgconfig, python3, gtk3, libsecret, gst_all_1, webkitgtk, glib-networking, gtkspell3, hunspell, desktop-file-utils, gobject-introspection, wrapGAppsHook
-}:
+{ stdenv, fetchgit, meson, ninja, pkgconfig, python3, gtk3, libsecret, gst_all_1
+, webkitgtk, glib-networking, gtkspell3, hunspell, desktop-file-utils
+, gobject-introspection, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "eolie";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, mpmath, numpy, pipdate, pybind11, pyfma, eigen, pytest, matplotlib, perfplot, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, mpmath, numpy, pipdate, pybind11, pyfma
+, eigen, pytest, matplotlib, perfplot, isPy27 }:
 
 buildPythonPackage rec {
   pname = "accupy";

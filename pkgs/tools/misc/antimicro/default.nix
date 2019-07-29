@@ -1,5 +1,5 @@
-{ mkDerivation, lib, cmake, pkgconfig, SDL2, qtbase, qttools, xorg, fetchFromGitHub
-}:
+{ mkDerivation, lib, cmake, pkgconfig, SDL2, qtbase, qttools, xorg
+, fetchFromGitHub }:
 
 mkDerivation rec {
   name = "antimicro-${version}";

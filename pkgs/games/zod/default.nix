@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, unrar, unzip, SDL, SDL_image, SDL_ttf, SDL_mixer, mysql, makeWrapper
-}:
+{ fetchurl, stdenv, unrar, unzip, SDL, SDL_image, SDL_ttf, SDL_mixer, mysql
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "zod-engine-2011-03-18";

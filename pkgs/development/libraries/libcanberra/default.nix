@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchurl, fetchpatch, pkgconfig, libtool, gtk ?
-  null, libpulseaudio, gst_all_1, libvorbis, libcap, CoreServices, withAlsa ?
-    stdenv.isLinux, alsaLib }:
+{ stdenv, lib, fetchurl, fetchpatch, pkgconfig, libtool, gtk ? null
+, libpulseaudio, gst_all_1, libvorbis, libcap, CoreServices
+, withAlsa ? stdenv.isLinux, alsaLib }:
 
 stdenv.mkDerivation rec {
   name = "libcanberra-0.30";

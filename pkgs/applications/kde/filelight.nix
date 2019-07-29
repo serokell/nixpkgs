@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, kparts, kxmlgui, qtscript, solid
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, kparts, kxmlgui
+, qtscript, solid }:
 
 mkDerivation {
   name = "filelight";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, exo, gtk, libxfce4util, libxfce4ui, xfconf, udev, libgudev, libnotify, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, exo, gtk, libxfce4util, libxfce4ui
+, xfconf, udev, libgudev, libnotify, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   p_name = "thunar-volman";

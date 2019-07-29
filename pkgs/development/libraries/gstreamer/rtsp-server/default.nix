@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gobject-introspection, gst-plugins-base, gst-plugins-bad
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gobject-introspection
+, gst-plugins-base, gst-plugins-bad }:
 
 stdenv.mkDerivation rec {
   name = "gst-rtsp-server-${version}";

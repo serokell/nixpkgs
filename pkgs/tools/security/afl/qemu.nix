@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, afl, python2, zlib, pkgconfig, glib, perl, texinfo, libuuid, flex, bison, pixman, autoconf
-}:
+{ stdenv, fetchurl, afl, python2, zlib, pkgconfig, glib, perl, texinfo, libuuid
+, flex, bison, pixman, autoconf }:
 
 with stdenv.lib;
 

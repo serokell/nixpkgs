@@ -1,5 +1,9 @@
-{ accountsservice, alsaLib, colord, docbook_xsl, fetchgit, fetchurl, geoclue2, geocode-glib, gettext, glib, gnome3, gsettings-desktop-schemas, gtk3, lcms2, libcanberra-gtk3, libgnomekbd, libgudev, libgweather, libnotify, libpulseaudio, libwacom, libxml2, libxslt, meson, mousetweaks, networkmanager, ninja, nss, pantheon, perl, pkgconfig, polkit, python3, stdenv, substituteAll, systemd, tzdata, upower, libXtst, wrapGAppsHook
-}:
+{ accountsservice, alsaLib, colord, docbook_xsl, fetchgit, fetchurl, geoclue2
+, geocode-glib, gettext, glib, gnome3, gsettings-desktop-schemas, gtk3, lcms2
+, libcanberra-gtk3, libgnomekbd, libgudev, libgweather, libnotify, libpulseaudio
+, libwacom, libxml2, libxslt, meson, mousetweaks, networkmanager, ninja, nss
+, pantheon, perl, pkgconfig, polkit, python3, stdenv, substituteAll, systemd
+, tzdata, upower, libXtst, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-settings-daemon";

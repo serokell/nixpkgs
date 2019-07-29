@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, pkgconfig, ninja, docutils, fuse3, glib, which, python3Packages
-}:
+{ stdenv, fetchFromGitHub, meson, pkgconfig, ninja, docutils, fuse3, glib, which
+, python3Packages }:
 
 stdenv.mkDerivation rec {
   version = "3.5.2";

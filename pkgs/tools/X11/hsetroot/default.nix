@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, imlib2, libtool, libX11, pkgconfig, xorgproto
-}:
+{ stdenv, fetchurl, autoconf, automake, imlib2, libtool, libX11, pkgconfig
+, xorgproto }:
 
 stdenv.mkDerivation rec {
   name = "hsetroot-${version}";

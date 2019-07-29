@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, which, autoreconfHook, pkgconfig, curl, vala, python, intltool, fuse, ccnet
-}:
+{ stdenv, fetchFromGitHub, which, autoreconfHook, pkgconfig, curl, vala, python
+, intltool, fuse, ccnet }:
 
 stdenv.mkDerivation rec {
   version = "6.2.11";

@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, perl, makeWrapper, makeDesktopItem, which, perlPackages, boost
-}:
+{ stdenv, fetchgit, perl, makeWrapper, makeDesktopItem, which, perlPackages
+, boost }:
 
 stdenv.mkDerivation rec {
   version = "1.3.0";

@@ -1,5 +1,7 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-mime, karchive, kcodecs, kcompletion, kconfigwidgets, kdbusaddons, kdesignerplugin, kiconthemes, kio, kitemmodels, kldap, kmailtransport, kwindowsystem, mailimporter, messagelib, phonon, libkdepim
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, akonadi-mime, karchive, kcodecs, kcompletion, kconfigwidgets, kdbusaddons
+, kdesignerplugin, kiconthemes, kio, kitemmodels, kldap, kmailtransport
+, kwindowsystem, mailimporter, messagelib, phonon, libkdepim }:
 
 mkDerivation {
   name = "mailcommon";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, bison, flex, pkgconfig, openssl, pcre, libmilter, opendkim, libmemcached, glib
-}:
+{ stdenv, fetchFromGitHub, cmake, bison, flex, pkgconfig, openssl, pcre
+, libmilter, opendkim, libmemcached, glib }:
 
 let
   patchedLibmilter = stdenv.lib.overrideDerivation libmilter

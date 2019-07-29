@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, meson, ninja, gettext, itstool, pkgconfig, libxml2, libjpeg, libpeas, gnome3, gtk3, glib, gsettings-desktop-schemas, adwaita-icon-theme, gnome-desktop, lcms2, gdk_pixbuf, exempi, shared-mime-info, wrapGAppsHook, librsvg, libexif, gobject-introspection, python3
-}:
+{ fetchurl, stdenv, meson, ninja, gettext, itstool, pkgconfig, libxml2, libjpeg
+, libpeas, gnome3, gtk3, glib, gsettings-desktop-schemas, adwaita-icon-theme
+, gnome-desktop, lcms2, gdk_pixbuf, exempi, shared-mime-info, wrapGAppsHook
+, librsvg, libexif, gobject-introspection, python3 }:
 
 let
   pname = "eog";

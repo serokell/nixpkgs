@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, zlib, libusb1, enableGUI ? false, qtbase ?
-  null }:
+{ stdenv, fetchFromGitHub, cmake, zlib, libusb1, enableGUI ? false
+, qtbase ? null }:
 
 stdenv.mkDerivation rec {
   name = "heimdall-${if enableGUI then "gui-" else ""}${version}";

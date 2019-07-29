@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, flake8, invoke, parver, pip, requests, virtualenv, fetchPypi, virtualenv-clone
-}:
+{ lib, buildPythonApplication, flake8, invoke, parver, pip, requests, virtualenv
+, fetchPypi, virtualenv-clone }:
 
 buildPythonApplication rec {
   pname = "pipenv";

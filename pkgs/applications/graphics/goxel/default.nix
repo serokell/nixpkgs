@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, scons, pkgconfig, wrapGAppsHook, glfw3, gtk3, libpng12
-}:
+{ stdenv, fetchFromGitHub, scons, pkgconfig, wrapGAppsHook, glfw3, gtk3
+, libpng12 }:
 
 stdenv.mkDerivation rec {
   name = "goxel-${version}";

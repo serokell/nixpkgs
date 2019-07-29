@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, kernel ?
-  null, which, xorg, makeWrapper, glibc, patchelf, unzip, fontconfig, freetype, libGLU_combined # for fgl_glxgears
+{ stdenv, lib, fetchurl, kernel ? null, which, xorg, makeWrapper, glibc
+, patchelf, unzip, fontconfig, freetype, libGLU_combined # for fgl_glxgears
 , # Whether to build the libraries only (i.e. not the kernel module or
 # driver utils). Used to support 32-bit binaries on 64-bit
 # Linux.

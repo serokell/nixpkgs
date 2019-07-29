@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, buildPythonPackage, isPy3k, fetchurl, rpkg, offtrac, urlgrabber, pyopenssl, python_fedora
-}:
+{ stdenv, buildPythonApplication, buildPythonPackage, isPy3k, fetchurl, rpkg
+, offtrac, urlgrabber, pyopenssl, python_fedora }:
 
 let
   fedora_cert = buildPythonPackage rec {

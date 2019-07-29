@@ -1,5 +1,5 @@
-{ pkgs, stdenv, fetchurl, dpkg, makeWrapper, coreutils, ghostscript, gnugrep, gnused, which, perl
-}:
+{ pkgs, stdenv, fetchurl, dpkg, makeWrapper, coreutils, ghostscript, gnugrep
+, gnused, which, perl }:
 
 stdenv.mkDerivation rec {
   name = "mfcl2720dwlpr-${version}";

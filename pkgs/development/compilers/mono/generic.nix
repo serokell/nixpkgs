@@ -1,6 +1,7 @@
-{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11, callPackage, ncurses, zlib, withLLVM ?
-  false, cacert, Foundation, libobjc, python, version, sha256, autoconf, libtool, automake, cmake, which, enableParallelBuilding ?
-    true }:
+{ stdenv, fetchurl, bison, pkgconfig, glib, gettext, perl, libgdiplus, libX11
+, callPackage, ncurses, zlib, withLLVM ? false, cacert, Foundation, libobjc
+, python, version, sha256, autoconf, libtool, automake, cmake, which
+, enableParallelBuilding ? true }:
 
 let llvm = callPackage ./llvm.nix { };
 in stdenv.mkDerivation rec {

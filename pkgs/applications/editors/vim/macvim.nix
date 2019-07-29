@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, runCommand, ncurses, gettext, pkgconfig, cscope, ruby, tcl, perl, luajit, darwin
+{ stdenv, fetchFromGitHub, runCommand, ncurses, gettext, pkgconfig, cscope, ruby
+, tcl, perl, luajit, darwin
 
 , usePython27 ? false, python27 ? null, python37 ? null }:
 

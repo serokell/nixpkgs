@@ -1,5 +1,5 @@
-{ stdenv, runCommand, fetchFromGitHub, pulseaudio, pkgconfig, ffmpeg_4, patchelf, fdk_aac, libtool, ldacbt, cmake, bluez, dbus, sbc, lib
-}:
+{ stdenv, runCommand, fetchFromGitHub, pulseaudio, pkgconfig, ffmpeg_4, patchelf
+, fdk_aac, libtool, ldacbt, cmake, bluez, dbus, sbc, lib }:
 
 let
   pulseSources = runCommand "pulseaudio-sources" { } ''

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lvm2, libuuid, gettext, readline, utillinux, check, enableStatic ?
-  false }:
+{ stdenv, fetchurl, lvm2, libuuid, gettext, readline, utillinux, check
+, enableStatic ? false }:
 
 stdenv.mkDerivation rec {
   name = "parted-3.1";

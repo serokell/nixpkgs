@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, intltool, itstool, libxml2, libxslt, pkgconfig, gnome-panel, gtk3, glib, libwnck3, libgtop, libnotify, upower, dbus-glib, wirelesstools, linuxPackages, adwaita-icon-theme, libgweather, gucharmap, gnome-settings-daemon, tracker, polkit, gnome3
-}:
+{ stdenv, fetchurl, intltool, itstool, libxml2, libxslt, pkgconfig, gnome-panel
+, gtk3, glib, libwnck3, libgtop, libnotify, upower, dbus-glib, wirelesstools
+, linuxPackages, adwaita-icon-theme, libgweather, gucharmap
+, gnome-settings-daemon, tracker, polkit, gnome3 }:
 
 let
   pname = "gnome-applets";

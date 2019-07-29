@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, yasm, freetype, fribidi, encaSupport ?
-  true, enca ? null # enca support
+{ stdenv, fetchurl, pkgconfig, yasm, freetype, fribidi, encaSupport ? true
+, enca ? null # enca support
 , fontconfigSupport ? true, fontconfig ? null # fontconfig support
 , harfbuzzSupport ? true, harfbuzz ? null # harfbuzz support
 , rasterizerSupport ? false # Internal rasterizer

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, cmake, extra-cmake-modules, qtbase, qtscript, karchive, kcrash, kdnssd, ki18n, kio, knotifications, knotifyconfig, kdoctools, kross, kcmutils, kwindowsystem, libktorrent, taglib, libgcrypt, kplotting
-}:
+{ stdenv, fetchurl, fetchpatch, cmake, extra-cmake-modules, qtbase, qtscript
+, karchive, kcrash, kdnssd, ki18n, kio, knotifications, knotifyconfig, kdoctools
+, kross, kcmutils, kwindowsystem, libktorrent, taglib, libgcrypt, kplotting }:
 
 stdenv.mkDerivation rec {
   name = "ktorrent-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, automake, autoconf, libtool, pkgconfig, autoconf-archive, libxml2, icu, bzip2, libtar, languageMachines
-}:
+{ stdenv, fetchurl, automake, autoconf, libtool, pkgconfig, autoconf-archive
+, libxml2, icu, bzip2, libtar, languageMachines }:
 
 let
   release = builtins.fromJSON

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, flex, bison, libpcap, libdnet, libnfnetlink, libnetfilter_queue
-}:
+{ stdenv, fetchurl, flex, bison, libpcap, libdnet, libnfnetlink
+, libnetfilter_queue }:
 
 stdenv.mkDerivation rec {
   name = "daq-2.2.2";

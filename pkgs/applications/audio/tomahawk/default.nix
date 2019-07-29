@@ -1,7 +1,9 @@
-{ stdenv, fetchurl, cmake, pkgconfig, attica, boost, gnutls, libechonest, liblastfm, lucenepp, phonon, phonon-backend-vlc, qca2, qjson, qt4, qtkeychain, quazip, sparsehash, taglib, websocketpp, makeWrapper
+{ stdenv, fetchurl, cmake, pkgconfig, attica, boost, gnutls, libechonest
+, liblastfm, lucenepp, phonon, phonon-backend-vlc, qca2, qjson, qt4, qtkeychain
+, quazip, sparsehash, taglib, websocketpp, makeWrapper
 
-, enableXMPP ? true, libjreen ? null, enableKDE ? false, kdelibs4 ?
-  null, enableTelepathy ? false, telepathy-qt ? null }:
+, enableXMPP ? true, libjreen ? null, enableKDE ? false, kdelibs4 ? null
+, enableTelepathy ? false, telepathy-qt ? null }:
 
 assert enableXMPP -> libjreen != null;
 assert enableKDE -> kdelibs4 != null;

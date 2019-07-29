@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, pythonOlder, fetchPypi, attrs, hypothesis, py, setuptools_scm, setuptools, six, pluggy, funcsigs, isPy3k, more-itertools, atomicwrites, mock, writeText, pathlib2
-}:
+{ stdenv, buildPythonPackage, pythonOlder, fetchPypi, attrs, hypothesis, py
+, setuptools_scm, setuptools, six, pluggy, funcsigs, isPy3k, more-itertools
+, atomicwrites, mock, writeText, pathlib2 }:
 buildPythonPackage rec {
   version = "3.10.1";
   pname = "pytest";

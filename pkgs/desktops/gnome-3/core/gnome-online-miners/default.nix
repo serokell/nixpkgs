@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, glib, gnome3, libxml2, libgdata, grilo, libzapojit, grilo-plugins, gnome-online-accounts, libmediaart, tracker, gfbgraph, librest, libsoup, json-glib, gmp, openssl, dleyna-server, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, glib, gnome3, libxml2, libgdata, grilo
+, libzapojit, grilo-plugins, gnome-online-accounts, libmediaart, tracker
+, gfbgraph, librest, libsoup, json-glib, gmp, openssl, dleyna-server
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "gnome-online-miners-${version}";

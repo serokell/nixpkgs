@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, openssl, curl, libnotify, libappindicator-gtk3, gst_all_1, gtk3, gnome3, wrapGAppsHook, aria2 ?
-  null }:
+{ stdenv, fetchurl, pkgconfig, intltool, openssl, curl, libnotify
+, libappindicator-gtk3, gst_all_1, gtk3, gnome3, wrapGAppsHook, aria2 ? null }:
 
 stdenv.mkDerivation rec {
   name = "uget-${version}";

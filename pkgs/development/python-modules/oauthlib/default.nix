@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, mock, pytest, cryptography, blinker, pyjwt
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, pytest, cryptography, blinker
+, pyjwt }:
 
 buildPythonPackage rec {
   version = "3.0.1";

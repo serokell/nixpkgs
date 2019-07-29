@@ -1,5 +1,5 @@
-{ mkDerivation, lib, propagate, extra-cmake-modules, kdoctools, kconfig, kcoreaddons, kcrash, kdbusaddons, kinit, kservice, qtbase,
-}:
+{ mkDerivation, lib, propagate, extra-cmake-modules, kdoctools, kconfig
+, kcoreaddons, kcrash, kdbusaddons, kinit, kservice, qtbase, }:
 
 mkDerivation {
   name = "kded";

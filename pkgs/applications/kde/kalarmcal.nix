@@ -1,5 +1,6 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, kcalcore, kdelibs4support, kholidays, kidentitymanagement, kpimtextedit, kcalutils
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, kcalcore, kdelibs4support, kholidays, kidentitymanagement, kpimtextedit
+, kcalutils }:
 
 mkDerivation {
   name = "kalarmcal";

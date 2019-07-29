@@ -1,18 +1,17 @@
 { stdenv, config, fetchurl, pkgconfig, libGLSupported ?
-  stdenv.lib.elem stdenv.hostPlatform.system
-  stdenv.lib.platforms.mesaPlatforms, openglSupport ?
-    libGLSupported, libGL, alsaSupport ? stdenv.isLinux
-      && !stdenv.hostPlatform.isAndroid, alsaLib, x11Support ? !stdenv.isCygwin
-        && !stdenv.hostPlatform.isAndroid, libX11, xorgproto, libICE, libXi, libXScrnSaver, libXcursor, libXinerama, libXext, libXxf86vm, libXrandr, waylandSupport ?
-          stdenv.isLinux
-          && !stdenv.hostPlatform.isAndroid, wayland, wayland-protocols, libxkbcommon, dbusSupport ?
-            stdenv.isLinux
-            && !stdenv.hostPlatform.isAndroid, dbus, udevSupport ?
-              false, udev, ibusSupport ? false, ibus, fcitxSupport ?
-                false, fcitx, pulseaudioSupport ?
-                  config.pulseaudio or stdenv.isLinux
-                  && !stdenv.hostPlatform.isAndroid, libpulseaudio, AudioUnit, Cocoa, CoreAudio, CoreServices, ForceFeedback, OpenGL, audiofile, libiconv
-}:
+  stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
+, openglSupport ? libGLSupported, libGL
+, alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, alsaLib
+, x11Support ? !stdenv.isCygwin && !stdenv.hostPlatform.isAndroid, libX11
+, xorgproto, libICE, libXi, libXScrnSaver, libXcursor, libXinerama, libXext
+, libXxf86vm, libXrandr
+, waylandSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, wayland
+, wayland-protocols, libxkbcommon
+, dbusSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid, dbus
+, udevSupport ? false, udev, ibusSupport ? false, ibus, fcitxSupport ? false
+, fcitx, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
+  && !stdenv.hostPlatform.isAndroid, libpulseaudio, AudioUnit, Cocoa, CoreAudio
+, CoreServices, ForceFeedback, OpenGL, audiofile, libiconv }:
 
 # NOTE: When editing this expression see if the same change applies to
 # SDL expression too

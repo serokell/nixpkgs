@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchurl, openssl, openldap, kerberos, db, gettext, pam, fixDarwinDylibNames, autoreconfHook, enableLdap ?
-  false, buildPackages, pruneLibtoolFiles }:
+{ lib, stdenv, fetchurl, openssl, openldap, kerberos, db, gettext, pam
+, fixDarwinDylibNames, autoreconfHook, enableLdap ? false, buildPackages
+, pruneLibtoolFiles }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

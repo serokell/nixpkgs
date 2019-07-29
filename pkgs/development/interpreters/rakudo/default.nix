@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, perl, icu, zlib, gmp, readline, CoreServices, ApplicationServices
-}:
+{ stdenv, fetchurl, perl, icu, zlib, gmp, readline, CoreServices
+, ApplicationServices }:
 
 stdenv.mkDerivation rec {
   name = "rakudo-star-${version}";

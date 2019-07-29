@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, pythonOlder, paver, python, isPyPy, six, pathlib, python_magic, lib
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, pythonOlder, paver
+, python, isPyPy, six, pathlib, python_magic, lib }:
 
 buildPythonPackage rec {
   version = "0.8.10";

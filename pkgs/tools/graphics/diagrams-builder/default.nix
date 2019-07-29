@@ -9,8 +9,8 @@
    ­~~~
 */
 
-{ stdenv, ghcWithPackages, makeWrapper, diagrams-builder, extraPackages ?
-  (self: [ ]) }:
+{ stdenv, ghcWithPackages, makeWrapper, diagrams-builder
+, extraPackages ? (self: [ ]) }:
 
 let
 

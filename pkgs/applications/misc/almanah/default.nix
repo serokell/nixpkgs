@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libxml2, desktop-file-utils, wrapGAppsHook, evolution-data-server, gtkspell3, gpgme, libcryptui, glib, gtk3, gtksourceview3, sqlite, cairo, atk, gcr, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, libxml2, desktop-file-utils
+, wrapGAppsHook, evolution-data-server, gtkspell3, gpgme, libcryptui, glib, gtk3
+, gtksourceview3, sqlite, cairo, atk, gcr, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "almanah";

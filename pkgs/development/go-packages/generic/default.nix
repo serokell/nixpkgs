@@ -1,10 +1,10 @@
-{ go, govers, lib, fetchgit, fetchhg, fetchbzr, rsync, removeReferencesTo, fetchFromGitHub, stdenv
-}:
+{ go, govers, lib, fetchgit, fetchhg, fetchbzr, rsync, removeReferencesTo
+, fetchFromGitHub, stdenv }:
 
-{ buildInputs ? [ ], nativeBuildInputs ? [ ], passthru ? { }, preFixup ?
-  "", shellHook ? ""
+{ buildInputs ? [ ], nativeBuildInputs ? [ ], passthru ? { }, preFixup ? ""
+, shellHook ? ""
 
-    # We want parallel builds by default
+  # We want parallel builds by default
 , enableParallelBuilding ? true
 
   # Disabled flag

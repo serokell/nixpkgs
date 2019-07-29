@@ -1,5 +1,6 @@
-{ stdenv, lib, pkgArches, name, version, src, monos, geckos, platforms, pkgconfig, fontforge, makeWrapper, flex, bison, supportFlags, buildScript ?
-  null, configureFlags ? [ ] }:
+{ stdenv, lib, pkgArches, name, version, src, monos, geckos, platforms
+, pkgconfig, fontforge, makeWrapper, flex, bison, supportFlags
+, buildScript ? null, configureFlags ? [ ] }:
 
 with import ./util.nix { inherit lib; };
 

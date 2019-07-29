@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, substituteAll, pkgconfig, glib, shadow, gobject-introspection, polkit, systemd, coreutils, meson, dbus, ninja, python3, gettext
-}:
+{ stdenv, fetchurl, fetchpatch, substituteAll, pkgconfig, glib, shadow
+, gobject-introspection, polkit, systemd, coreutils, meson, dbus, ninja, python3
+, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "accountsservice";

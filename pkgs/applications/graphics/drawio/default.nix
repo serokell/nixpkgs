@@ -1,7 +1,10 @@
 { stdenv, lib, fetchurl, rpmextract, autoPatchelfHook, wrapGAppsHook
 
 # Dynamic libraries
-, alsaLib, atk, at-spi2-atk, at-spi2-core, cairo, dbus, cups, expat, gdk_pixbuf, glib, gtk3, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libuuid, nspr, nss, pango
+, alsaLib, atk, at-spi2-atk, at-spi2-core, cairo, dbus, cups, expat, gdk_pixbuf
+, glib, gtk3, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage
+, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libuuid
+, nspr, nss, pango
 
 , systemd }:
 

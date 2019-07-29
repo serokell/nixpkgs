@@ -1,5 +1,5 @@
-{ stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip, atomEnv, libuuid, at-spi2-atk
-}:
+{ stdenv, libXScrnSaver, makeWrapper, fetchurl, wrapGAppsHook, gtk3, unzip
+, atomEnv, libuuid, at-spi2-atk }:
 
 let
   version = "4.1.5";

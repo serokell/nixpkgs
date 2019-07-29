@@ -1,6 +1,11 @@
-{ stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE, libXfixes, libXt, libXi, libXcursor, libXScrnSaver, libXcomposite, libXdamage, libXtst, libXrandr, alsaLib, dbus, cups, libexif, ffmpeg, systemd, freetype, fontconfig, libXft, libXrender, libxcb, expat, libuuid, gstreamer, gst-plugins-base, libxml2, glib, gtk3, pango, gdk_pixbuf, cairo, atk, at-spi2-atk, at-spi2-core, gnome2, nss, nspr, patchelf, makeWrapper, isSnapshot ?
-  false, proprietaryCodecs ? false, vivaldi-ffmpeg-codecs ?
-    null, enableWidevine ? false, vivaldi-widevine ? null }:
+{ stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE, libXfixes, libXt
+, libXi, libXcursor, libXScrnSaver, libXcomposite, libXdamage, libXtst
+, libXrandr, alsaLib, dbus, cups, libexif, ffmpeg, systemd, freetype, fontconfig
+, libXft, libXrender, libxcb, expat, libuuid, gstreamer, gst-plugins-base
+, libxml2, glib, gtk3, pango, gdk_pixbuf, cairo, atk, at-spi2-atk, at-spi2-core
+, gnome2, nss, nspr, patchelf, makeWrapper, isSnapshot ? false
+, proprietaryCodecs ? false, vivaldi-ffmpeg-codecs ? null
+, enableWidevine ? false, vivaldi-widevine ? null }:
 
 let
   branch = if isSnapshot then "snapshot" else "stable";

@@ -1,5 +1,7 @@
-{ lib, stdenv, kernel, elfutils, python, perl, newt, slang, asciidoc, xmlto, makeWrapper, docbook_xsl, docbook_xml_dtd_45, libxslt, flex, bison, pkgconfig, libunwind, binutils, libiberty, audit, libbfd, libopcodes, openssl, systemtap, numactl, zlib, withGtk ?
-  false, gtk2 ? null }:
+{ lib, stdenv, kernel, elfutils, python, perl, newt, slang, asciidoc, xmlto
+, makeWrapper, docbook_xsl, docbook_xml_dtd_45, libxslt, flex, bison, pkgconfig
+, libunwind, binutils, libiberty, audit, libbfd, libopcodes, openssl, systemtap
+, numactl, zlib, withGtk ? false, gtk2 ? null }:
 
 with lib;
 

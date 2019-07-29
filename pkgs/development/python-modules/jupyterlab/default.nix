@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, jupyterlab_server, notebook, pythonOlder, fetchpatch
-}:
+{ lib, buildPythonPackage, fetchPypi, jupyterlab_server, notebook, pythonOlder
+, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "jupyterlab";

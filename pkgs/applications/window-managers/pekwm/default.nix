@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libpng, libjpeg, libXext, libXft, libXpm, libXrandr, libXinerama
-}:
+{ stdenv, fetchurl, pkgconfig, libpng, libjpeg, libXext, libXft, libXpm
+, libXrandr, libXinerama }:
 
 stdenv.mkDerivation rec {
 

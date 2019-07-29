@@ -1,8 +1,11 @@
-{ fetchurl, stdenv, buildPackages, curl, openssl, zlib, expat, perlPackages, python, gettext, cpio, gnugrep, gnused, gawk, coreutils # needed at runtime by git-filter-branch etc
-, openssh, pcre2, asciidoc, texinfo, xmlto, docbook2x, docbook_xsl, docbook_xml_dtd_45, libxslt, tcl, tk, makeWrapper, libiconv, svnSupport, subversionClient, perlLibs, smtpPerlLibs, perlSupport ?
-  true, guiSupport, withManual ? true, pythonSupport ? true, withpcre2 ?
-    true, sendEmailSupport, darwin, withLibsecret ?
-      false, pkgconfig, glib, libsecret }:
+{ fetchurl, stdenv, buildPackages, curl, openssl, zlib, expat, perlPackages
+, python, gettext, cpio, gnugrep, gnused, gawk
+, coreutils # needed at runtime by git-filter-branch etc
+, openssh, pcre2, asciidoc, texinfo, xmlto, docbook2x, docbook_xsl
+, docbook_xml_dtd_45, libxslt, tcl, tk, makeWrapper, libiconv, svnSupport
+, subversionClient, perlLibs, smtpPerlLibs, perlSupport ? true, guiSupport
+, withManual ? true, pythonSupport ? true, withpcre2 ? true, sendEmailSupport
+, darwin, withLibsecret ? false, pkgconfig, glib, libsecret }:
 
 assert sendEmailSupport -> perlSupport;
 assert svnSupport -> perlSupport;

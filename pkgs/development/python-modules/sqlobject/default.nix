@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, FormEncode, PasteDeploy, paste, pydispatcher
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, FormEncode, PasteDeploy, paste
+, pydispatcher }:
 
 buildPythonPackage rec {
   pname = "SQLObject";

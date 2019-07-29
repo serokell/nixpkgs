@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, plib, freeglut, xorgproto, libX11, libXext, libXi, libICE, libSM, libXt, libXmu, libGLU_combined, boost, zlib, libjpeg, freealut, openscenegraph, openal, expat, cmake, apr, curl
-}:
+{ stdenv, fetchurl, plib, freeglut, xorgproto, libX11, libXext, libXi, libICE
+, libSM, libXt, libXmu, libGLU_combined, boost, zlib, libjpeg, freealut
+, openscenegraph, openal, expat, cmake, apr, curl }:
 
 stdenv.mkDerivation rec {
   name = "simgear-${version}";

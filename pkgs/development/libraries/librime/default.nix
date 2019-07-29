@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, boost, glog, leveldb, marisa, opencc, libyamlcpp, gmock
-}:
+{ stdenv, fetchFromGitHub, cmake, boost, glog, leveldb, marisa, opencc
+, libyamlcpp, gmock }:
 
 stdenv.mkDerivation rec {
   pname = "librime";

@@ -1,5 +1,5 @@
-{ stdenv, cmake, extra-cmake-modules, plasma-framework, kwindowsystem, fetchFromGitHub
-}:
+{ stdenv, cmake, extra-cmake-modules, plasma-framework, kwindowsystem
+, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "playbar2-${version}";

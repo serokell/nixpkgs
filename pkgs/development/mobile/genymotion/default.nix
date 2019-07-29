@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, which, zlib, libGL, glib, xorg, libxkbcommon, xdg_utils
+{ stdenv, fetchurl, makeWrapper, which, zlib, libGL, glib, xorg, libxkbcommon
+, xdg_utils
 # For glewinfo
 , libXmu, libXi, libXext }:
 

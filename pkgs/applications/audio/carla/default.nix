@@ -1,6 +1,7 @@
-{ stdenv, fetchFromGitHub, alsaLib, file, fluidsynth, ffmpeg, jack2, liblo, libpulseaudio, libsndfile, pkgconfig, python3Packages, which, withFrontend ?
-  true, withQt ? true, qtbase ? null, wrapQtAppsHook ? null, withGtk2 ?
-    true, gtk2 ? null, withGtk3 ? true, gtk3 ? null }:
+{ stdenv, fetchFromGitHub, alsaLib, file, fluidsynth, ffmpeg, jack2, liblo
+, libpulseaudio, libsndfile, pkgconfig, python3Packages, which
+, withFrontend ? true, withQt ? true, qtbase ? null, wrapQtAppsHook ? null
+, withGtk2 ? true, gtk2 ? null, withGtk3 ? true, gtk3 ? null }:
 
 with stdenv.lib;
 

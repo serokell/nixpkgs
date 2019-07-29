@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, pytestrunner, pbr, glibcLocales, pytestcov, requests, requests_oauthlib, requests_toolbelt, defusedxml, ipython
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, pytestrunner, pbr
+, glibcLocales, pytestcov, requests, requests_oauthlib, requests_toolbelt
+, defusedxml, ipython }:
 
 buildPythonPackage rec {
   pname = "jira";

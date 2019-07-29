@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg, libcanberra-gtk3, gettext, itstool, libxml2, libgnome-games-support, libgee, meson, ninja, python3, desktop-file-utils, hicolor-icon-theme, adwaita-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg
+, libcanberra-gtk3, gettext, itstool, libxml2, libgnome-games-support, libgee
+, meson, ninja, python3, desktop-file-utils, hicolor-icon-theme
+, adwaita-icon-theme }:
 
 stdenv.mkDerivation rec {
   name = "gnome-robots-${version}";

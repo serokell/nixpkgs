@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, gettext, libtool, pandoc, which, attr, libiconv
-}:
+{ stdenv, fetchFromGitHub, automake, autoconf, pkgconfig, gettext, libtool
+, pandoc, which, attr, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "mergerfs";

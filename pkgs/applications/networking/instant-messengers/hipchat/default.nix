@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, xorg, freetype, fontconfig, openssl, glib, nss, nspr, expat, alsaLib, dbus, zlib, libxml2, libxslt, makeWrapper, xkeyboard_config, systemd, libGL, xcbutilkeysyms, xdg_utils, libtool
-}:
+{ stdenv, fetchurl, xorg, freetype, fontconfig, openssl, glib, nss, nspr, expat
+, alsaLib, dbus, zlib, libxml2, libxslt, makeWrapper, xkeyboard_config, systemd
+, libGL, xcbutilkeysyms, xdg_utils, libtool }:
 
 let
   version = "4.30.5.1682";

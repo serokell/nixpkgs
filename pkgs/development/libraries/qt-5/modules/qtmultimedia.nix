@@ -1,5 +1,5 @@
-{ qtModule, stdenv, qtbase, qtdeclarative, pkgconfig, alsaLib, gstreamer, gst-plugins-base, libpulseaudio
-}:
+{ qtModule, stdenv, qtbase, qtdeclarative, pkgconfig, alsaLib, gstreamer
+, gst-plugins-base, libpulseaudio }:
 
 with stdenv.lib;
 

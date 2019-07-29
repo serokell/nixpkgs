@@ -1,5 +1,6 @@
-{ lib, pythonOlder, buildPythonPackage, fetchPypi, betamax, pytest, betamax-matchers, unittest2, mock, requests, uritemplate, dateutil, jwcrypto, pyopenssl, ndg-httpsclient, pyasn1
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchPypi, betamax, pytest
+, betamax-matchers, unittest2, mock, requests, uritemplate, dateutil, jwcrypto
+, pyopenssl, ndg-httpsclient, pyasn1 }:
 
 buildPythonPackage rec {
   pname = "github3.py";

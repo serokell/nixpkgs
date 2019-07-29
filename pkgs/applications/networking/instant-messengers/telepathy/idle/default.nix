@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, glib, gnome3, pkgconfig, dbus-glib, telepathy-glib, libxslt, makeWrapper
-}:
+{ stdenv, fetchurl, glib, gnome3, pkgconfig, dbus-glib, telepathy-glib, libxslt
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-idle";

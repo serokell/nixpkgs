@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, glib, pkgconfig, libxml2, exiv2, imagemagick, version, sha256, rev
-}:
+{ stdenv, fetchgit, autoreconfHook, glib, pkgconfig, libxml2, exiv2, imagemagick
+, version, sha256, rev }:
 
 stdenv.mkDerivation rec {
   inherit version;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, gettext, glibmm, libxmlxx, pango, librsvg, SDL2, glew, boost, libav, portaudio, epoxy
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, gettext, glibmm, libxmlxx, pango
+, librsvg, SDL2, glew, boost, libav, portaudio, epoxy }:
 
 stdenv.mkDerivation rec {
   name = "performous-${version}";

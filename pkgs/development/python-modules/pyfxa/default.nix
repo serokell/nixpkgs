@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, requests, cryptography, pybrowserid, hawkauthlib, six, grequests, mock, responses, unittest2
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, cryptography, pybrowserid
+, hawkauthlib, six, grequests, mock, responses, unittest2 }:
 
 buildPythonPackage rec {
   pname = "PyFxA";

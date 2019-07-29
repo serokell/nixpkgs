@@ -1,5 +1,8 @@
-{ stdenv, gettext, fetchurl, evolution-data-server, fetchpatch, pkgconfig, libxslt, docbook_xsl, docbook_xml_dtd_42, python3, gtk3, glib, cheese, libchamplain, clutter-gtk, geocode-glib, gnome-desktop, gnome-online-accounts, wrapGAppsHook, folks, libxml2, gnome3, telepathy-glib, vala, meson, ninja, libhandy, gsettings-desktop-schemas
-}:
+{ stdenv, gettext, fetchurl, evolution-data-server, fetchpatch, pkgconfig
+, libxslt, docbook_xsl, docbook_xml_dtd_42, python3, gtk3, glib, cheese
+, libchamplain, clutter-gtk, geocode-glib, gnome-desktop, gnome-online-accounts
+, wrapGAppsHook, folks, libxml2, gnome3, telepathy-glib, vala, meson, ninja
+, libhandy, gsettings-desktop-schemas }:
 
 let version = "3.32.1";
 in stdenv.mkDerivation rec {

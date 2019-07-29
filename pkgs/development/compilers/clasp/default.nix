@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchFromGitLab, llvmPackages, cmake, boehmgc, gmp, zlib, ncurses, boost, libelf, python, git, sbcl, wafHook
-}:
+{ stdenv, fetchFromGitHub, fetchFromGitLab, llvmPackages, cmake, boehmgc, gmp
+, zlib, ncurses, boost, libelf, python, git, sbcl, wafHook }:
 let
   sicl = fetchFromGitHub {
     owner = "Bike";

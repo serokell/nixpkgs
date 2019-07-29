@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, neon, libusb, openssl, udev, avahi, freeipmi, libtool, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, neon, libusb, openssl, udev, avahi, freeipmi
+, libtool, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "nut-2.7.4";

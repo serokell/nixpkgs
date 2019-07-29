@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, libxkbcommon, pango, which, git, cairo, libxcb, xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification, bison, flex, librsvg, check
-}:
+{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, libxkbcommon, pango, which
+, git, cairo, libxcb, xcbutil, xcbutilwm, xcbutilxrm, libstartup_notification
+, bison, flex, librsvg, check }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-unwrapped";

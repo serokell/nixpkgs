@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, texlive, zlib, libiconv, libpng, libX11, freetype, gd, libXaw, icu, ghostscript, libXpm, libXmu, libXext, perl, perlPackages, pkgconfig, autoreconfHook, poppler, libpaper, graphite2, zziplib, harfbuzz, potrace, gmp, mpfr, cairo, pixman, xorg, clisp, biber, makeWrapper
-}:
+{ stdenv, fetchurl, texlive, zlib, libiconv, libpng, libX11, freetype, gd
+, libXaw, icu, ghostscript, libXpm, libXmu, libXext, perl, perlPackages
+, pkgconfig, autoreconfHook, poppler, libpaper, graphite2, zziplib, harfbuzz
+, potrace, gmp, mpfr, cairo, pixman, xorg, clisp, biber, makeWrapper }:
 
 # Useful resource covering build options:
 # http://tug.org/texlive/doc/tlbuild.html

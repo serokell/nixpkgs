@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, curl, libiconv, Security
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, curl, libiconv
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-gone";

@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, cmake, qt5, libuchardet, pkgconfig, makeWrapper, shntool, flac, opusTools, vorbis-tools, mp3gain, lame, wavpack, vorbisgain, gtk3
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, qt5, libuchardet, pkgconfig, makeWrapper
+, shntool, flac, opusTools, vorbis-tools, mp3gain, lame, wavpack, vorbisgain
+, gtk3 }:
 
 stdenv.mkDerivation rec {
   name = "flacon-${version}";

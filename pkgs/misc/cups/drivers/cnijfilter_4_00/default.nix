@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchzip, autoconf, automake, libtool, cups, popt, libtiff, libpng, ghostscript, glib, libusb, libxml2
-}:
+{ stdenv, lib, fetchzip, autoconf, automake, libtool, cups, popt, libtiff
+, libpng, ghostscript, glib, libusb, libxml2 }:
 
 /* this derivation is basically just a transcription of the rpm .spec
    file included in the tarball

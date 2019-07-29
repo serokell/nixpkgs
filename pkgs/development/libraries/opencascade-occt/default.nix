@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, cmake, ninja, tcl, tk, libGL, libGLU, libXext, libXmu, libXi
-}:
+{ stdenv, fetchurl, fetchpatch, cmake, ninja, tcl, tk, libGL, libGLU, libXext
+, libXmu, libXi }:
 
 stdenv.mkDerivation rec {
   pname = "opencascade-occt";

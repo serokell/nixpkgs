@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, srptools, aiohttp, zeroconf, ed25519, cryptography, curve25519-donna, pytest, pytestrunner, netifaces, asynctest, virtualenv, toml, filelock, tox
-}:
+{ stdenv, buildPythonPackage, fetchPypi, srptools, aiohttp, zeroconf, ed25519
+, cryptography, curve25519-donna, pytest, pytestrunner, netifaces, asynctest
+, virtualenv, toml, filelock, tox }:
 
 buildPythonPackage rec {
   pname = "pyatv";

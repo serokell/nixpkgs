@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libjpeg, libpng, libtiff, boost, qtbase, qttools
-}:
+{ stdenv, fetchFromGitHub, cmake, libjpeg, libpng, libtiff, boost, qtbase
+, qttools }:
 
 stdenv.mkDerivation rec {
   name = "scantailor-advanced-${version}";

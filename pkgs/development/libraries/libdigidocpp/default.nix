@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, libdigidoc, minizip, pcsclite, opensc, openssl, xercesc, xml-security-c, pkgconfig, xsd, zlib, xalanc, xxd
-}:
+{ stdenv, fetchurl, cmake, libdigidoc, minizip, pcsclite, opensc, openssl
+, xercesc, xml-security-c, pkgconfig, xsd, zlib, xalanc, xxd }:
 
 stdenv.mkDerivation rec {
   version = "3.13.7";

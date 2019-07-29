@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, which, pkgconfig, SDL2, libGL, openalSoft, curl, speex, opusfile, libogg, libvorbis, libopus, libjpeg, mumble, freetype
-}:
+{ stdenv, fetchFromGitHub, which, pkgconfig, SDL2, libGL, openalSoft, curl
+, speex, opusfile, libogg, libvorbis, libopus, libjpeg, mumble, freetype }:
 
 stdenv.mkDerivation rec {
   name = "ioquake3-git-${version}";

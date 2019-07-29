@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, bison, libasr, libevent, zlib, libressl, db, pam, nixosTests
-}:
+{ stdenv, fetchurl, autoconf, automake, libtool, bison, libasr, libevent, zlib
+, libressl, db, pam, nixosTests }:
 
 stdenv.mkDerivation rec {
   name = "opensmtpd-${version}";

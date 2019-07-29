@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, unzip, which, libuuid, attr, xfsprogs, cppunit, rdma-core, zlib, openssl, sqlite, jre, openjdk, ant, openssh, perl, gfortran, influxdb, curl
-}:
+{ stdenv, fetchurl, pkgconfig, unzip, which, libuuid, attr, xfsprogs, cppunit
+, rdma-core, zlib, openssl, sqlite, jre, openjdk, ant, openssh, perl, gfortran
+, influxdb, curl }:
 
 let
   version = "7.0";

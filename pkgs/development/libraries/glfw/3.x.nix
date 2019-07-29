@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libGL, libXrandr, libXinerama, libXcursor, libX11, Cocoa, Kernel, fixDarwinDylibNames
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libGL, libXrandr, libXinerama, libXcursor
+, libX11, Cocoa, Kernel, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   version = "3.2.1";

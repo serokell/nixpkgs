@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja, pkgconfig, vala, libgee, granite, gtk3, polkit, zeitgeist, switchboard, lightlocker
-}:
+{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja, pkgconfig, vala
+, libgee, granite, gtk3, polkit, zeitgeist, switchboard, lightlocker }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-security-privacy";

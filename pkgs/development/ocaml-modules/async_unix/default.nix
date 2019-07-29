@@ -1,5 +1,5 @@
-{ stdenv, buildOcaml, fetchurl, async_kernel_p4, bin_prot_p4, comparelib, core_p4, fieldslib_p4, herelib, pa_ounit, pipebang, pa_test, sexplib_p4
-}:
+{ stdenv, buildOcaml, fetchurl, async_kernel_p4, bin_prot_p4, comparelib
+, core_p4, fieldslib_p4, herelib, pa_ounit, pipebang, pa_test, sexplib_p4 }:
 
 buildOcaml rec {
   name = "async_unix";

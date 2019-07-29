@@ -1,5 +1,5 @@
-{ lib, fetchurl, stdenv, libgcrypt, libevent, libidn, gnutls, libxml2, zlib, guile, texinfo, cppunit, killall
-}:
+{ lib, fetchurl, stdenv, libgcrypt, libevent, libidn, gnutls, libxml2, zlib
+, guile, texinfo, cppunit, killall }:
 
 let version = "0.11";
 

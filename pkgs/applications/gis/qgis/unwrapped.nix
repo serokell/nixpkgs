@@ -1,5 +1,8 @@
-{ stdenv, lib, fetchFromGitHub, cmake, ninja, flex, bison, proj, geos, xlibsWrapper, sqlite, gsl, qwt, fcgi, python3Packages, libspatialindex, libspatialite, postgresql, txt2tags, openssl, libzip, hdf5, netcdf, exiv2, qtbase, qtwebkit, qtsensors, qca-qt5, qtkeychain, qscintilla, qtserialport, qtxmlpatterns, withGrass ?
-  true, grass }:
+{ stdenv, lib, fetchFromGitHub, cmake, ninja, flex, bison, proj, geos
+, xlibsWrapper, sqlite, gsl, qwt, fcgi, python3Packages, libspatialindex
+, libspatialite, postgresql, txt2tags, openssl, libzip, hdf5, netcdf, exiv2
+, qtbase, qtwebkit, qtsensors, qca-qt5, qtkeychain, qscintilla, qtserialport
+, qtxmlpatterns, withGrass ? true, grass }:
 with lib;
 let
   pythonBuildInputs = with python3Packages; [

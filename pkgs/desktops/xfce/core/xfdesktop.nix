@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, intltool, gtk, libxfce4util, libxfce4ui, libwnck, xfconf, libglade, xfce4-panel, thunar, exo, garcon, libnotify, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, intltool, gtk, libxfce4util
+, libxfce4ui, libwnck, xfconf, libglade, xfce4-panel, thunar, exo, garcon
+, libnotify, hicolor-icon-theme }:
 let
   p_name = "xfdesktop";
   ver_maj = "4.12";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, python3, python3Packages, intltool, glibcLocales, gnome3, gtk3, wrapGAppsHook, ipodSupport ?
-  false, libgpod, gobject-introspection }:
+{ stdenv, fetchFromGitHub, python3, python3Packages, intltool, glibcLocales
+, gnome3, gtk3, wrapGAppsHook, ipodSupport ? false, libgpod
+, gobject-introspection }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpodder";

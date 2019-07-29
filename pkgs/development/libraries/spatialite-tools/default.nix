@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, sqlite, expat, zlib, proj, geos, libspatialite, readosm
-}:
+{ stdenv, fetchurl, pkgconfig, sqlite, expat, zlib, proj, geos, libspatialite
+, readosm }:
 
 stdenv.mkDerivation rec {
   name = "spatialite-tools-4.1.1";

@@ -1,5 +1,6 @@
-{ stdenv, fetchPypi, fetchpatch, buildPythonApplication, python, pythonOlder, mock, nose, pathpy, pyhamcrest, pytest, glibcLocales, parse, parse-type, six, traceback2
-}:
+{ stdenv, fetchPypi, fetchpatch, buildPythonApplication, python, pythonOlder
+, mock, nose, pathpy, pyhamcrest, pytest, glibcLocales, parse, parse-type, six
+, traceback2 }:
 buildPythonApplication rec {
   pname = "behave";
   version = "1.2.6";

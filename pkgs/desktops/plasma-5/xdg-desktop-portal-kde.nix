@@ -1,5 +1,6 @@
-{ mkDerivation, extra-cmake-modules, gettext, kdoctools, python, kcoreaddons, knotifications, kwayland, kwidgetsaddons, kwindowsystem, cups, pcre, pipewire, kio
-}:
+{ mkDerivation, extra-cmake-modules, gettext, kdoctools, python, kcoreaddons
+, knotifications, kwayland, kwidgetsaddons, kwindowsystem, cups, pcre, pipewire
+, kio }:
 
 mkDerivation {
   name = "xdg-desktop-portal-kde";

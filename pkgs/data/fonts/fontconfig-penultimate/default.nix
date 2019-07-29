@@ -1,5 +1,5 @@
-{ lib, fetchzip, version ? "0.3.5", sha256 ?
-  "1gfgl7qimp76q4z0nv55vv57yfs4kscdr329np701k0xnhncwvrk" }:
+{ lib, fetchzip, version ? "0.3.5"
+, sha256 ? "1gfgl7qimp76q4z0nv55vv57yfs4kscdr329np701k0xnhncwvrk" }:
 
 fetchzip {
   name = "fontconfig-penultimate-${version}";

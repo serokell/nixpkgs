@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptoolsDarcs, setuptoolsTrial, simplejson, twisted, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptoolsDarcs, setuptoolsTrial
+, simplejson, twisted, isPyPy }:
 
 buildPythonPackage rec {
   pname = "pyutil";

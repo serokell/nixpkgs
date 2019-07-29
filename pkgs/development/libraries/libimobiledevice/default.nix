@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, pkgconfig, gnutls, libgcrypt, libtasn1, glib, libplist, libusbmuxd
-}:
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, pkgconfig, gnutls
+, libgcrypt, libtasn1, glib, libplist, libusbmuxd }:
 
 stdenv.mkDerivation rec {
   pname = "libimobiledevice";

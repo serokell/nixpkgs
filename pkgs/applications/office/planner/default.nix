@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, pkgconfig, intltool, automake111x, autoconf, libtool, gnome2, libxslt, python2
-}:
+{ stdenv, fetchFromGitLab, pkgconfig, intltool, automake111x, autoconf, libtool
+, gnome2, libxslt, python2 }:
 
 let version = "unstable-2019-02-13";
 

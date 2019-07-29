@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, python, pkgconfig, cmake, bluez, libusb1, curl, libiconv, gettext, sqlite, dbiSupport ?
-  false, libdbi ? null, libdbiDrivers ? null, postgresSupport ?
-    false, postgresql ? null }:
+{ stdenv, fetchFromGitHub, python, pkgconfig, cmake, bluez, libusb1, curl
+, libiconv, gettext, sqlite, dbiSupport ? false, libdbi ? null
+, libdbiDrivers ? null, postgresSupport ? false, postgresql ? null }:
 
 with stdenv.lib;
 

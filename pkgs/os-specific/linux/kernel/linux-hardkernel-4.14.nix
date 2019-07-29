@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchFromGitHub, perl, buildLinux, libelf, utillinux, ...
-}@args:
+{ stdenv, buildPackages, fetchFromGitHub, perl, buildLinux, libelf, utillinux
+, ... }@args:
 
 buildLinux (args // rec {
   version = "4.14.120-160";

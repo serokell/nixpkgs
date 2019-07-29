@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, proot, patchelf, fakechroot, runc, simplejson, pycurl, coreutils, nose, mock, buildPythonApplication
-}:
+{ stdenv, fetchFromGitHub, proot, patchelf, fakechroot, runc, simplejson, pycurl
+, coreutils, nose, mock, buildPythonApplication }:
 
 buildPythonApplication rec {
 

@@ -1,5 +1,7 @@
-{ stdenv, runCommand, mutter, elementary-default-settings, nixos-artwork, glib, gala, epiphany, elementary-settings-daemon, gtk3, plank, gsettings-desktop-schemas, extraGSettingsOverrides ?
-  "", extraGSettingsOverridePackages ? [ ] }:
+{ stdenv, runCommand, mutter, elementary-default-settings, nixos-artwork, glib
+, gala, epiphany, elementary-settings-daemon, gtk3, plank
+, gsettings-desktop-schemas, extraGSettingsOverrides ? ""
+, extraGSettingsOverridePackages ? [ ] }:
 
 let
 

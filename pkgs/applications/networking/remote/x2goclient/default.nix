@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, cups, libssh, libXpm, nx-libs, openldap, openssh, makeWrapper, qtbase, qtsvg, qtx11extras, qttools, phonon, pkgconfig
-}:
+{ stdenv, fetchgit, cups, libssh, libXpm, nx-libs, openldap, openssh
+, makeWrapper, qtbase, qtsvg, qtx11extras, qttools, phonon, pkgconfig }:
 
 stdenv.mkDerivation rec {
   pname = "x2goclient";

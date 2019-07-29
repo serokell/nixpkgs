@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, asciidoc, libxml2, libxslt, docbook_xsl
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, asciidoc, libxml2, libxslt
+, docbook_xsl }:
 
 stdenv.mkDerivation rec {
   name = "tinyproxy-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, gawk, procps, gnused, bc, findutils, xdpyinfo, xprop, gnugrep, ncurses, darwin
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, gawk, procps, gnused, bc
+, findutils, xdpyinfo, xprop, gnugrep, ncurses, darwin }:
 
 let
   path = lib.makeBinPath ([ coreutils gawk gnused findutils gnugrep ncurses bc ]

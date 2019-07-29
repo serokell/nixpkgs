@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, gmp, bison, perl, ncurses, readline, coreutils, pkgconfig, lib, fetchpatch, autoreconfHook, file, flint, ntl, cddlib, enableFactory ?
-  true, enableGfanlib ? true }:
+{ stdenv, fetchurl, gmp, bison, perl, ncurses, readline, coreutils, pkgconfig
+, lib, fetchpatch, autoreconfHook, file, flint, ntl, cddlib
+, enableFactory ? true, enableGfanlib ? true }:
 
 stdenv.mkDerivation rec {
   name = "singular-${version}";

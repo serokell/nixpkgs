@@ -1,9 +1,11 @@
 { stdenv, lib, makeDesktopItem, makeWrapper, lndir, config
 
 ## various stuff that can be plugged in
-, flashplayer, hal-flash, MPlayerPlugin, ffmpeg, xorg, libpulseaudio, libcanberra-gtk2, libglvnd, jrePlugin, icedtea_web, bluejeans, djview4, adobe-reader, google_talk_plugin, fribid, gnome3 # .gnome-shell
-, esteidfirefoxplugin, browserpass, chrome-gnome-shell, uget-integrator, plasma-browser-integration, bukubrow, tridactyl-native, udev, kerberos
-}:
+, flashplayer, hal-flash, MPlayerPlugin, ffmpeg, xorg, libpulseaudio
+, libcanberra-gtk2, libglvnd, jrePlugin, icedtea_web, bluejeans, djview4
+, adobe-reader, google_talk_plugin, fribid, gnome3 # .gnome-shell
+, esteidfirefoxplugin, browserpass, chrome-gnome-shell, uget-integrator
+, plasma-browser-integration, bukubrow, tridactyl-native, udev, kerberos }:
 
 ## configurability of the wrapper itself
 
@@ -11,13 +13,13 @@ browser:
 
 let
   wrapper = { browserName ?
-    browser.browserName or (builtins.parseDrvName browser.name).name, name ?
-      (browserName + "-" + (builtins.parseDrvName
-      browser.name).version), desktopName ? # browserName with first letter capitalized
-        (lib.toUpper (lib.substring 0 1 browserName)
-        + lib.substring 1 (-1) browserName), nameSuffix ? "", icon ?
-          browserName, extraPlugins ? [ ], extraNativeMessagingHosts ?
-            [ ], gdkWayland ? false, cfg ? config.${browserName} or { } }:
+    browser.browserName or (builtins.parseDrvName browser.name).name
+    , name ? (browserName + "-" + (builtins.parseDrvName browser.name).version)
+    , desktopName ? # browserName with first letter capitalized
+      (lib.toUpper (lib.substring 0 1 browserName)
+      + lib.substring 1 (-1) browserName), nameSuffix ? "", icon ? browserName
+    , extraPlugins ? [ ], extraNativeMessagingHosts ? [ ], gdkWayland ? false
+    , cfg ? config.${browserName} or { } }:
 
     assert gdkWayland -> (browser
     ? gtk3); # Can only use the wayland backend if gtk3 is being used

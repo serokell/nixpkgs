@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, dpkg, xorg, glib, libGLU_combined, libpulseaudio, zlib, dbus, fontconfig, freetype, gtk3, pango, makeWrapper, python, pythonPackages, lib, lsof, curl, libuuid, cups, mesa
-}:
+{ stdenv, fetchurl, dpkg, xorg, glib, libGLU_combined, libpulseaudio, zlib, dbus
+, fontconfig, freetype, gtk3, pango, makeWrapper, python, pythonPackages, lib
+, lsof, curl, libuuid, cups, mesa }:
 
 let
   all_data = builtins.fromJSON (builtins.readFile ./data.json);

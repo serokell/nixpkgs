@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, lua5, curl, quvi_scripts, libquvi, lua5_sockets, glib, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, lua5, curl, quvi_scripts, libquvi, lua5_sockets
+, glib, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "quvi-${version}";

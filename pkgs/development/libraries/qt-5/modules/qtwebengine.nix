@@ -1,10 +1,13 @@
-{ qtModule, qtCompatVersion, qtdeclarative, qtquickcontrols, qtlocation, qtwebchannel
+{ qtModule, qtCompatVersion, qtdeclarative, qtquickcontrols, qtlocation
+, qtwebchannel
 
 , bison, coreutils, flex, git, gperf, ninja, pkgconfig, python2, which
 
-, xorg, libXcursor, libXScrnSaver, libXrandr, libXtst, fontconfig, freetype, harfbuzz, icu, dbus, libdrm, zlib, minizip, libjpeg, libpng, libtiff, libwebp, libopus, jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent, alsaLib, libcap, pciutils, systemd, enableProprietaryCodecs ?
-  true, gn, cups, darwin, openbsm, runCommand, xcbuild, ffmpeg ?
-    null, lib, stdenv }:
+, xorg, libXcursor, libXScrnSaver, libXrandr, libXtst, fontconfig, freetype
+, harfbuzz, icu, dbus, libdrm, zlib, minizip, libjpeg, libpng, libtiff, libwebp
+, libopus, jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent, alsaLib
+, libcap, pciutils, systemd, enableProprietaryCodecs ? true, gn, cups, darwin
+, openbsm, runCommand, xcbuild, ffmpeg ? null, lib, stdenv }:
 
 with stdenv.lib;
 

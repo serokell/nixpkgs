@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, i2c-tools, udev, libgudev, libusb, libdrm, xorg
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, i2c-tools, udev
+, libgudev, libusb, libdrm, xorg }:
 
 stdenv.mkDerivation rec {
   name = "ddcutil-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, boost, gmp, mpfr, libedit, python, texinfo, gnused, usePython ?
-  true }:
+{ stdenv, fetchFromGitHub, cmake, boost, gmp, mpfr, libedit, python, texinfo
+, gnused, usePython ? true }:
 
 stdenv.mkDerivation rec {
   name = "ledger-${version}";

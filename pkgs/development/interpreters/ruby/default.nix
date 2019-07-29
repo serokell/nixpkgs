@@ -1,5 +1,7 @@
-{ stdenv, buildPackages, lib, fetchurl, fetchFromSavannah, fetchFromGitHub, zlib, openssl, gdbm, ncurses, readline, groff, libyaml, libffi, autoreconfHook, bison, autoconf, libiconv, libobjc, libunwind, Foundation, buildEnv, bundler, bundix
-}@args:
+{ stdenv, buildPackages, lib, fetchurl, fetchFromSavannah, fetchFromGitHub, zlib
+, openssl, gdbm, ncurses, readline, groff, libyaml, libffi, autoreconfHook
+, bison, autoconf, libiconv, libobjc, libunwind, Foundation, buildEnv, bundler
+, bundix }@args:
 
 let
   op = lib.optional;
@@ -27,14 +29,13 @@ let
         useRailsExpress = false;
         docSupport = false;
       };
-      self = lib.makeOverridable
-        ({ stdenv, buildPackages, lib, fetchurl, fetchFromSavannah, fetchFromGitHub, useRailsExpress ?
-          true, zlib, zlibSupport ? true, openssl, opensslSupport ?
-            true, gdbm, gdbmSupport ? true, ncurses, readline, cursesSupport ?
-              true, groff, docSupport ? true, libyaml, yamlSupport ?
-                true, libffi, fiddleSupport ?
-                  true, autoreconfHook, bison, autoconf, buildEnv, bundler, bundix, libiconv, libobjc, libunwind, Foundation
-        }:
+      self = lib.makeOverridable ({ stdenv, buildPackages, lib, fetchurl
+        , fetchFromSavannah, fetchFromGitHub, useRailsExpress ? true, zlib
+        , zlibSupport ? true, openssl, opensslSupport ? true, gdbm
+        , gdbmSupport ? true, ncurses, readline, cursesSupport ? true, groff
+        , docSupport ? true, libyaml, yamlSupport ? true, libffi
+        , fiddleSupport ? true, autoreconfHook, bison, autoconf, buildEnv
+        , bundler, bundix, libiconv, libobjc, libunwind, Foundation }:
         stdenv.mkDerivation rec {
           name = "ruby-${version}";
 

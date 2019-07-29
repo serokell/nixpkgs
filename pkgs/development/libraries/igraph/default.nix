@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, autoreconfHook, flex, yacc, zlib, libxml2
-}:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, autoreconfHook, flex, yacc, zlib
+, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "igraph";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, gfortran, libelf, libiberty, zlib, libbfd, libopcodes, buildPackages
-}:
+{ stdenv, fetchurl, autoconf, gfortran, libelf, libiberty, zlib, libbfd
+, libopcodes, buildPackages }:
 
 stdenv.mkDerivation rec {
   version = "1.1-7";

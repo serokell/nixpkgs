@@ -1,5 +1,5 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub, runCommand, gpgme, libgpgerror, lvm2, btrfs-progs, pkgconfig, ostree, libselinux, go-md2man
-}:
+{ stdenv, lib, buildGoPackage, fetchFromGitHub, runCommand, gpgme, libgpgerror
+, lvm2, btrfs-progs, pkgconfig, ostree, libselinux, go-md2man }:
 
 with stdenv.lib;
 

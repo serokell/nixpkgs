@@ -1,5 +1,5 @@
-{ buildPythonPackage, wrapPython, python, fetchurl, stdenv, cmake, qt5, shiboken2, pyside2
-}:
+{ buildPythonPackage, wrapPython, python, fetchurl, stdenv, cmake, qt5
+, shiboken2, pyside2 }:
 
 stdenv.mkDerivation rec {
   pname = "pyside2-tools";

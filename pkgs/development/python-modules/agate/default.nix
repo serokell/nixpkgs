@@ -1,5 +1,6 @@
-{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, six, pytimeparse, parsedatetime, Babel, isodate, python-slugify, leather, glibcLocales, nose, lxml, cssselect, unittest2
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, isPy3k, six, pytimeparse
+, parsedatetime, Babel, isodate, python-slugify, leather, glibcLocales, nose
+, lxml, cssselect, unittest2 }:
 
 buildPythonPackage rec {
   pname = "agate";

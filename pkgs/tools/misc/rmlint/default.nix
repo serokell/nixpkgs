@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gettext, pkgconfig, scons, glib, json-glib, libelf, sphinx, utillinux
-}:
+{ stdenv, fetchFromGitHub, gettext, pkgconfig, scons, glib, json-glib, libelf
+, sphinx, utillinux }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

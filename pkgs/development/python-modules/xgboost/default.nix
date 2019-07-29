@@ -1,5 +1,5 @@
-{ buildPythonPackage, pytest, nose, scipy, scikitlearn, xgboost, substituteAll, pandas, matplotlib, graphviz, datatable
-}:
+{ buildPythonPackage, pytest, nose, scipy, scikitlearn, xgboost, substituteAll
+, pandas, matplotlib, graphviz, datatable }:
 
 buildPythonPackage rec {
   pname = "xgboost";

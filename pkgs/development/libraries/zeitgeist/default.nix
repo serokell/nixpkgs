@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitLab, pkgconfig, glib, sqlite, gobject-introspection, vala, autoconf, automake, libtool, gettext, dbus, telepathy-glib, gtk3, json-glib, librdf_raptor2, dbus-glib, pythonSupport ?
-  true, python2Packages }:
+{ stdenv, fetchFromGitLab, pkgconfig, glib, sqlite, gobject-introspection, vala
+, autoconf, automake, libtool, gettext, dbus, telepathy-glib, gtk3, json-glib
+, librdf_raptor2, dbus-glib, pythonSupport ? true, python2Packages }:
 
 stdenv.mkDerivation rec {
   pname = "zeitgeist";

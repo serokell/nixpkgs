@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libjpeg, libtiff, libpng, freetype, fltk, gtk, libX11, libXext, libICE, dbus
-}:
+{ stdenv, fetchurl, pkgconfig, libjpeg, libtiff, libpng, freetype, fltk, gtk
+, libX11, libXext, libICE, dbus }:
 
 stdenv.mkDerivation rec {
 

@@ -1,11 +1,10 @@
 { bdbSupport ? true # build support for Berkeley DB repositories
 , httpServer ? false # build Apache DAV module
 , httpSupport ? true # client must support http
-, pythonBindings ? false, perlBindings ? false, javahlBindings ?
-  false, saslSupport ?
-    false, stdenv, fetchurl, apr, aprutil, zlib, sqlite, openssl, lz4, utf8proc, apacheHttpd ?
-      null, expat, swig ? null, jdk ? null, python ? null, perl ? null, sasl ?
-        null, serf ? null }:
+, pythonBindings ? false, perlBindings ? false, javahlBindings ? false
+, saslSupport ? false, stdenv, fetchurl, apr, aprutil, zlib, sqlite, openssl
+, lz4, utf8proc, apacheHttpd ? null, expat, swig ? null, jdk ? null
+, python ? null, perl ? null, sasl ? null, serf ? null }:
 
 assert bdbSupport -> aprutil.bdbSupport;
 assert httpServer -> apacheHttpd != null;

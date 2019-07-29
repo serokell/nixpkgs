@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, gtk-doc, pkgconfig, libuuid, libtool, readline, gobject-introspection, json-glib, lvm2, libxslt, docbook_xsl
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, gtk-doc, pkgconfig, libuuid
+, libtool, readline, gobject-introspection, json-glib, lvm2, libxslt
+, docbook_xsl }:
 
 stdenv.mkDerivation rec {
   name = "ldmtool-${version}";

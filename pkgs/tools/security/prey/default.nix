@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchgit, curl, scrot, imagemagick, xawtv, inetutils, makeWrapper, coreutils, apiKey ?
-  "", deviceKey ? "" }:
+{ stdenv, fetchurl, fetchgit, curl, scrot, imagemagick, xawtv, inetutils
+, makeWrapper, coreutils, apiKey ? "", deviceKey ? "" }:
 
 # TODO: this should assert keys are set, somehow if set through .override assertion fails
 #assert apiKey != "";

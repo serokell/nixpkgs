@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, removeReferencesTo, which, go, go-bindata, makeWrapper, rsync, components ? [
+{ stdenv, lib, fetchFromGitHub, removeReferencesTo, which, go, go-bindata
+, makeWrapper, rsync, components ? [
   "cmd/kubeadm"
   "cmd/kubectl"
   "cmd/kubelet"

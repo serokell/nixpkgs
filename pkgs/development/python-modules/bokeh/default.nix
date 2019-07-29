@@ -1,4 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, mock, pytest, flask, jinja2, markupsafe, werkzeug, itsdangerous, dateutil, requests, six, pygments, pystache, markdown, pyyaml, pyzmq, tornado, colorama, isPy3k, futures, websocket_client, numpy, pandas, greenlet, python, bkcharts, pillow, selenium
+{ lib, buildPythonPackage, fetchPypi, isPyPy, mock, pytest, flask, jinja2
+, markupsafe, werkzeug, itsdangerous, dateutil, requests, six, pygments
+, pystache, markdown, pyyaml, pyzmq, tornado, colorama, isPy3k, futures
+, websocket_client, numpy, pandas, greenlet, python, bkcharts, pillow, selenium
 }:
 
 buildPythonPackage rec {

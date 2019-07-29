@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, perl, python2, swig, gd, libxml2, tcl, libusb, pkgconfig, boost, libtool, perlPackages
-}:
+{ stdenv, fetchurl, perl, python2, swig, gd, libxml2, tcl, libusb, pkgconfig
+, boost, libtool, perlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "hamlib";

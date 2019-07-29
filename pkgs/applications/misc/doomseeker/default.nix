@@ -1,5 +1,5 @@
-{ stdenv, cmake, fetchFromBitbucket, pkgconfig, qtbase, qttools, qtmultimedia, zlib, bzip2, xxd
-}:
+{ stdenv, cmake, fetchFromBitbucket, pkgconfig, qtbase, qttools, qtmultimedia
+, zlib, bzip2, xxd }:
 
 stdenv.mkDerivation rec {
   name = "doomseeker-${version}";

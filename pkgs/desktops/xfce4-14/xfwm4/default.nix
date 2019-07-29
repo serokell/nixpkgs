@@ -1,5 +1,6 @@
-{ mkXfceDerivation, exo, librsvg, dbus-glib, epoxy, gtk3, libXdamage, libstartup_notification, libxfce4ui, libxfce4util, libwnck3, libXpresent, xfconf
-}:
+{ mkXfceDerivation, exo, librsvg, dbus-glib, epoxy, gtk3, libXdamage
+, libstartup_notification, libxfce4ui, libxfce4util, libwnck3, libXpresent
+, xfconf }:
 
 mkXfceDerivation rec {
   category = "xfce";

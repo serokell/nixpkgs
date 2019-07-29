@@ -1,7 +1,8 @@
-{ stdenv, lib, fetchurl, zlib, xz, python2, ncurses, findXMLCatalogs, pythonSupport ?
-  stdenv.buildPlatform
-  == stdenv.hostPlatform, icuSupport ? false, icu ? null, enableShared ?
-    stdenv.hostPlatform.libc != "msvcrt", enableStatic ? !enableShared, }:
+{ stdenv, lib, fetchurl, zlib, xz, python2, ncurses, findXMLCatalogs
+, pythonSupport ? stdenv.buildPlatform == stdenv.hostPlatform
+, icuSupport ? false, icu ? null
+, enableShared ? stdenv.hostPlatform.libc != "msvcrt"
+, enableStatic ? !enableShared, }:
 
 let python = python2;
 

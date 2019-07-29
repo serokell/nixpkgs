@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gdk_pixbuf, gobject-introspection, gnome3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gtk-doc, docbook_xsl
+, docbook_xml_dtd_412, glib, gdk_pixbuf, gobject-introspection, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "libmediaart";

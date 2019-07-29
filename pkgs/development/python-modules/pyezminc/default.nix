@@ -1,5 +1,5 @@
-{ buildPythonPackage, isPy3k, fetchFromGitHub, stdenv, netcdf, hdf5, libminc, ezminc, cython, numpy, scipy
-}:
+{ buildPythonPackage, isPy3k, fetchFromGitHub, stdenv, netcdf, hdf5, libminc
+, ezminc, cython, numpy, scipy }:
 
 buildPythonPackage rec {
   pname = "pyezminc";

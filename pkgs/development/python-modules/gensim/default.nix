@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, six, scipy, smart_open, scikitlearn, testfixtures, unittest2
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, six, scipy, smart_open, scikitlearn
+, testfixtures, unittest2 }:
 
 buildPythonPackage rec {
   pname = "gensim";

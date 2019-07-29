@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, uucp, uutf, cmdliner
-}:
+{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, uucp, uutf
+, cmdliner }:
 
 let
   pname = "uuseg";

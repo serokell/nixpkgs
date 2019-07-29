@@ -1,5 +1,5 @@
-{ stdenv, python3, fetchurl, pkgconfig, intltool, mate, gtk3, glib, wrapGAppsHook, gobject-introspection
-}:
+{ stdenv, python3, fetchurl, pkgconfig, intltool, mate, gtk3, glib
+, wrapGAppsHook, gobject-introspection }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mozo";

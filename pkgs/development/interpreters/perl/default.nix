@@ -1,5 +1,5 @@
-{ config, lib, stdenv, fetchurl, pkgs, buildPackages, callPackage, enableThreading ?
-  stdenv ? glibc, makeWrapper }:
+{ config, lib, stdenv, fetchurl, pkgs, buildPackages, callPackage
+, enableThreading ? stdenv ? glibc, makeWrapper }:
 
 with lib;
 

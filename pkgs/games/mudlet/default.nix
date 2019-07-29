@@ -1,5 +1,5 @@
-{ fetchurl, unzip, stdenv, makeWrapper, qtbase, yajl, libzip, hunspell, boost, lua5_1, luafilesystem, luazip, lrexlib-pcre, luasql-sqlite3, qmake
-}:
+{ fetchurl, unzip, stdenv, makeWrapper, qtbase, yajl, libzip, hunspell, boost
+, lua5_1, luafilesystem, luazip, lrexlib-pcre, luasql-sqlite3, qmake }:
 
 stdenv.mkDerivation rec {
   name = "mudlet-${version}";

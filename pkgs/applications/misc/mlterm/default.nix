@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, autoconf, makeDesktopItem, libX11, gdk_pixbuf, cairo, libXft, gtk3, vte, harfbuzz # substituting glyphs with opentype fonts
+{ stdenv, fetchurl, pkgconfig, autoconf, makeDesktopItem, libX11, gdk_pixbuf
+, cairo, libXft, gtk3, vte, harfbuzz # substituting glyphs with opentype fonts
 , fribidi, m17n_lib # bidi and encoding
 , openssl, libssh2 # build-in ssh
 }:

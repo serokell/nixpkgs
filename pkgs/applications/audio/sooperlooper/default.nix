@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, liblo, libxml2, libjack2, libsndfile, wxGTK, libsigcxx, libsamplerate, rubberband, pkgconfig, libtool, gettext, ncurses, which, autoreconfHook
-}:
+{ stdenv, fetchFromGitHub, liblo, libxml2, libjack2, libsndfile, wxGTK
+, libsigcxx, libsamplerate, rubberband, pkgconfig, libtool, gettext, ncurses
+, which, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "sooperlooper-git-${version}";

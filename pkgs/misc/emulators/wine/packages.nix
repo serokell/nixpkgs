@@ -1,5 +1,5 @@
-{ stdenv_32bit, lib, pkgs, pkgsi686Linux, callPackage, wineRelease ?
-  "stable", supportFlags }:
+{ stdenv_32bit, lib, pkgs, pkgsi686Linux, callPackage, wineRelease ? "stable"
+, supportFlags }:
 
 let src = lib.getAttr wineRelease (callPackage ./sources.nix { });
 in with src; {

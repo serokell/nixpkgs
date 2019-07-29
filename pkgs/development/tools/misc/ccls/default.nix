@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, rapidjson, runtimeShell
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, rapidjson
+, runtimeShell }:
 
 stdenv.mkDerivation rec {
   name = "ccls-${version}";

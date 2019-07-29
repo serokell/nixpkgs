@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python3, qmake, qtbase, qtquickcontrols, qtsvg, ncurses
-}:
+{ stdenv, fetchFromGitHub, python3, qmake, qtbase, qtquickcontrols, qtsvg
+, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "pyotherside";

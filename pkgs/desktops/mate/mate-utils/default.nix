@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, gtk3, libxml2, libgtop, libcanberra-gtk3, inkscape, mate, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, gtk3, libxml2, libgtop
+, libcanberra-gtk3, inkscape, mate, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-utils-${version}";

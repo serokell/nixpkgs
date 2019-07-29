@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, pidgin, json-glib, glib, http-parser, sqlite, olm, libgcrypt
-}:
+{ stdenv, fetchgit, pkgconfig, pidgin, json-glib, glib, http-parser, sqlite, olm
+, libgcrypt }:
 
 let version = "2018-08-03";
 in stdenv.mkDerivation rec {

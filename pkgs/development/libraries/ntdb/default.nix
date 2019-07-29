@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python, pkgconfig, readline, gettext, libxslt, docbook_xsl, docbook_xml_dtd_42
-}:
+{ stdenv, fetchurl, python, pkgconfig, readline, gettext, libxslt, docbook_xsl
+, docbook_xml_dtd_42 }:
 
 stdenv.mkDerivation rec {
   name = "ntdb-1.0";

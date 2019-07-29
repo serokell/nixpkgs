@@ -1,6 +1,6 @@
-{ config, stdenv, lib, fetchgit, cmake, cudaSupport ?
-  config.cudaSupport or false, cudatoolkit, ncclSupport ?
-    false, nccl, llvmPackages }:
+{ config, stdenv, lib, fetchgit, cmake
+, cudaSupport ? config.cudaSupport or false, cudatoolkit, ncclSupport ? false
+, nccl, llvmPackages }:
 
 assert ncclSupport -> cudaSupport;
 

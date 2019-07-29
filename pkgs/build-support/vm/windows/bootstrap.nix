@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, vmTools, writeScript, writeText, runCommand, makeInitrd, python, perl, coreutils, dosfstools, gzip, mtools, netcat-gnu, openssh, qemu, samba, socat, vde2, cdrkit, pathsFromGraph, gnugrep
-}:
+{ stdenv, fetchurl, vmTools, writeScript, writeText, runCommand, makeInitrd
+, python, perl, coreutils, dosfstools, gzip, mtools, netcat-gnu, openssh, qemu
+, samba, socat, vde2, cdrkit, pathsFromGraph, gnugrep }:
 
 { isoFile, productKey, arch ? null }:
 

@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, six, enum34, decorator, nose, gss, krb5Full, darwin
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, six, enum34, decorator, nose, gss
+, krb5Full, darwin }:
 
 buildPythonPackage rec {
   pname = "gssapi";

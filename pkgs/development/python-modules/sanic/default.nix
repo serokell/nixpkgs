@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, httptools, aiofiles, websockets, multidict, uvloop, ujson, pytest, gunicorn, pytestcov, aiohttp, beautifulsoup4, pytest-sanic, pytest-sugar, pytest-benchmark
-}:
+{ lib, buildPythonPackage, fetchPypi, httptools, aiofiles, websockets, multidict
+, uvloop, ujson, pytest, gunicorn, pytestcov, aiohttp, beautifulsoup4
+, pytest-sanic, pytest-sugar, pytest-benchmark }:
 
 buildPythonPackage rec {
   pname = "sanic";

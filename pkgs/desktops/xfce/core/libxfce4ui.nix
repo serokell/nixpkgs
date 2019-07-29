@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, xorg, gtk, libxfce4util, xfconf, libglade, libstartup_notification, hicolor-icon-theme, withGtk3 ?
-  false, gtk3 }:
+{ stdenv, fetchurl, pkgconfig, intltool, xorg, gtk, libxfce4util, xfconf
+, libglade, libstartup_notification, hicolor-icon-theme, withGtk3 ? false, gtk3
+}:
 let
   p_name = "libxfce4ui";
   ver_maj = "4.12";

@@ -4,8 +4,8 @@
 , makeWrapper, file
 
 # Runtime dependencies
-, fontconfig, freetype, libX11, libXext, libXinerama, libXrandr, libXrender, libGL, openal
-}:
+, fontconfig, freetype, libX11, libXext, libXinerama, libXrandr, libXrender
+, libGL, openal }:
 
 let
   version = "1.0";

@@ -1,5 +1,8 @@
-{ stdenv, fetchgit, ghostscript, texinfo, imagemagick, texi2html, guile, python2, gettext, flex, perl, bison, pkgconfig, autoreconfHook, dblatex, fontconfig, freetype, pango, fontforge, help2man, zip, netpbm, groff, makeWrapper, t1utils, texlive, tex ?
-  texlive.combine { inherit (texlive) scheme-small lh metafont epsf; } }:
+{ stdenv, fetchgit, ghostscript, texinfo, imagemagick, texi2html, guile, python2
+, gettext, flex, perl, bison, pkgconfig, autoreconfHook, dblatex, fontconfig
+, freetype, pango, fontforge, help2man, zip, netpbm, groff, makeWrapper, t1utils
+, texlive
+, tex ? texlive.combine { inherit (texlive) scheme-small lh metafont epsf; } }:
 
 let
 

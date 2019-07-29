@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, unixODBC, cmake, postgresql, mysql, mariadb, sqlite, zlib, libxml2, dpkg, lib, openssl, kerberos, curl, libuuid, autoPatchelfHook
-}:
+{ fetchurl, stdenv, unixODBC, cmake, postgresql, mysql, mariadb, sqlite, zlib
+, libxml2, dpkg, lib, openssl, kerberos, curl, libuuid, autoPatchelfHook }:
 
 # I haven't done any parameter tweaking.. So the defaults provided here might be bad
 

@@ -1,5 +1,5 @@
-{ docbook_xml_dtd_412, fetchurl, stdenv, perl, python2, zip, xmlto, zlib, fetchpatch
-}:
+{ docbook_xml_dtd_412, fetchurl, stdenv, perl, python2, zip, xmlto, zlib
+, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "zziplib-${version}";

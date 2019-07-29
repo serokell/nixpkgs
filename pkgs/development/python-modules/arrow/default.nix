@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, chai, simplejson, backports_functools_lru_cache, dateutil, pytz
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, chai, simplejson
+, backports_functools_lru_cache, dateutil, pytz }:
 
 buildPythonPackage rec {
   pname = "arrow";

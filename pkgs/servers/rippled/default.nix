@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchgit, fetchurl, git, cmake, pkgconfig, openssl, boost, zlib
-}:
+{ stdenv, fetchFromGitHub, fetchgit, fetchurl, git, cmake, pkgconfig, openssl
+, boost, zlib }:
 
 let
   sqlite3 = fetchurl {

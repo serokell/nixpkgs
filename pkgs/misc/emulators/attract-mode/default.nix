@@ -1,5 +1,5 @@
-{ expat, fetchFromGitHub, ffmpeg, fontconfig, freetype, libarchive, libjpeg, libGLU_combined, openal, pkgconfig, sfml, stdenv, zlib
-}:
+{ expat, fetchFromGitHub, ffmpeg, fontconfig, freetype, libarchive, libjpeg
+, libGLU_combined, openal, pkgconfig, sfml, stdenv, zlib }:
 
 stdenv.mkDerivation rec {
   name = "attract-mode-${version}";

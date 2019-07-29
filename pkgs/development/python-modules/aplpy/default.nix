@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, astropy, astropy-helpers, matplotlib, reproject, pyavm, pyregion, pillow, scikitimage, shapely
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, astropy, astropy-helpers
+, matplotlib, reproject, pyavm, pyregion, pillow, scikitimage, shapely }:
 
 buildPythonPackage rec {
   pname = "aplpy";

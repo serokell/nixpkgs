@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, glib, vala, dee, gobject-introspection, libdbusmenu, gtk3, intltool, python3, autoreconfHook
-}:
+{ stdenv, fetchgit, pkgconfig, glib, vala, dee, gobject-introspection
+, libdbusmenu, gtk3, intltool, python3, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libunity";

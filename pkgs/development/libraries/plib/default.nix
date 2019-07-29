@@ -1,5 +1,5 @@
-{ fetchurl, fetchpatch, stdenv, libGLU_combined, freeglut, SDL, libXi, libSM, libXmu, libXext, libX11
-}:
+{ fetchurl, fetchpatch, stdenv, libGLU_combined, freeglut, SDL, libXi, libSM
+, libXmu, libXext, libX11 }:
 
 stdenv.mkDerivation rec {
   name = "plib-1.8.5";

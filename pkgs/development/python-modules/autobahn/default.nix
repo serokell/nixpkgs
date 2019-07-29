@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, six, txaio, twisted, zope_interface, cffi, trollius, futures, mock, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, six, txaio, twisted
+, zope_interface, cffi, trollius, futures, mock, pytest }:
 buildPythonPackage rec {
   pname = "autobahn";
   version = "19.1.1";

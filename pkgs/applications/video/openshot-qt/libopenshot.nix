@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, doxygen, libopenshot-audio, imagemagick, ffmpeg, swig, python3, unittest-cpp, cppzmq, czmqpp, qtbase, qtmultimedia
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, doxygen, libopenshot-audio
+, imagemagick, ffmpeg, swig, python3, unittest-cpp, cppzmq, czmqpp, qtbase
+, qtmultimedia }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

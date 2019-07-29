@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, dune, js_of_ocaml-compiler, camlp4, ocsigen_deriving
-}:
+{ stdenv, fetchFromGitHub, ocaml, findlib, dune, js_of_ocaml-compiler, camlp4
+, ocsigen_deriving }:
 
 stdenv.mkDerivation rec {
   version = "3.2.1";

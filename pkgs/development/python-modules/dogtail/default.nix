@@ -1,4 +1,6 @@
-{ lib, buildPythonPackage, python, pygobject3, pyatspi, pycairo, at-spi2-core, gobject-introspection, gtk3, gsettings-desktop-schemas, fetchurl, dbus, xvfb_run
+{ lib, buildPythonPackage, python, pygobject3, pyatspi, pycairo, at-spi2-core
+, gobject-introspection, gtk3, gsettings-desktop-schemas, fetchurl, dbus
+, xvfb_run
 # , fetchPypi
 }:
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, intltool, pkgconfig, gtk3, SDL2, xorg, wrapGAppsHook, libcdio, nasm, ffmpeg, file, fetchpatch
-}:
+{ stdenv, fetchurl, autoreconfHook, intltool, pkgconfig, gtk3, SDL2, xorg
+, wrapGAppsHook, libcdio, nasm, ffmpeg, file, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "pcsxr-${version}";

@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, fetchurl, pythonOlder, pytest, aiodns, slixmpp, pyinotify, potr, mpd2, cffi, pkgconfig
-}:
+{ lib, buildPythonApplication, fetchurl, pythonOlder, pytest, aiodns, slixmpp
+, pyinotify, potr, mpd2, cffi, pkgconfig }:
 buildPythonApplication rec {
   name = "poezio-${version}";
   version = "0.12";

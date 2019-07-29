@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, six, statistics, pythonOlder, nose, psutil, contextlib2, mock, unittest2, isPy27, python
-}:
+{ lib, buildPythonPackage, fetchPypi, six, statistics, pythonOlder, nose, psutil
+, contextlib2, mock, unittest2, isPy27, python }:
 
 buildPythonPackage rec {
   pname = "perf";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, unittest2, robotframework, lxml, requests
-}:
+{ stdenv, buildPythonPackage, fetchPypi, unittest2, robotframework, lxml
+, requests }:
 
 buildPythonPackage rec {
   version = "0.5.0";

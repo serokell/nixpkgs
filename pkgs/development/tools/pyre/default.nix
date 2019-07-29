@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocamlPackages, writeScript, dune, python3, rsync, buck, watchman, sqlite
-}:
+{ stdenv, fetchFromGitHub, ocamlPackages, writeScript, dune, python3, rsync
+, buck, watchman, sqlite }:
 let
   # Manually set version - the setup script requires
   # hg and git + keeping the .git directory around.

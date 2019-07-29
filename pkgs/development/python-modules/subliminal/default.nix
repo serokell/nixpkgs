@@ -1,5 +1,7 @@
-{ lib, fetchPypi, buildPythonPackage, isPy3k, guessit, babelfish, enzyme, beautifulsoup4, requests, click, dogpile_cache, stevedore, chardet, pysrt, six, appdirs, rarfile, pytz, futures, sympy, vcrpy, pytest, pytestpep8, pytest-flakes, pytestcov, pytestrunner
-}:
+{ lib, fetchPypi, buildPythonPackage, isPy3k, guessit, babelfish, enzyme
+, beautifulsoup4, requests, click, dogpile_cache, stevedore, chardet, pysrt, six
+, appdirs, rarfile, pytz, futures, sympy, vcrpy, pytest, pytestpep8
+, pytest-flakes, pytestcov, pytestrunner }:
 
 buildPythonPackage rec {
   pname = "subliminal";

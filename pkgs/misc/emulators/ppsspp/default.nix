@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtmultimedia, glew, libzip, snappy, zlib, withGamepads ?
-  true, SDL2 }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qtmultimedia, glew, libzip
+, snappy, zlib, withGamepads ? true, SDL2 }:
 
 assert withGamepads -> (SDL2 != null);
 with stdenv.lib;

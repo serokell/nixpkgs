@@ -1,5 +1,5 @@
-{ stdenv, stdenvNoCC, fetchcvs, lib, groff, mandoc, zlib, yacc, flex, writeText, buildPackages, splicePackages, symlinkJoin
-}:
+{ stdenv, stdenvNoCC, fetchcvs, lib, groff, mandoc, zlib, yacc, flex, writeText
+, buildPackages, splicePackages, symlinkJoin }:
 
 let
   fetchNetBSD = path: version: sha256:

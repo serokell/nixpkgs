@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gnugrep, fixDarwinDylibNames, file, legacySupport ?
-  false }:
+{ stdenv, fetchFromGitHub, gnugrep, fixDarwinDylibNames, file
+, legacySupport ? false }:
 
 stdenv.mkDerivation rec {
   name = "zstd-${version}";

@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, meson, ninja, wrapGAppsHook, pkgconfig, appstream-glib, desktop-file-utils, python3, gtk, girara, gettext, libxml2, check, sqlite, glib, texlive, libintl, libseccomp, file, librsvg, gtk-mac-integration, synctexSupport ?
-  true }:
+{ stdenv, fetchurl, meson, ninja, wrapGAppsHook, pkgconfig, appstream-glib
+, desktop-file-utils, python3, gtk, girara, gettext, libxml2, check, sqlite
+, glib, texlive, libintl, libseccomp, file, librsvg, gtk-mac-integration
+, synctexSupport ? true }:
 
 assert synctexSupport -> texlive != null;
 

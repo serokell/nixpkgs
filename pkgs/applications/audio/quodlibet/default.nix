@@ -1,9 +1,10 @@
-{ stdenv, fetchurl, python3, wrapGAppsHook, gettext, libsoup, gnome3, gtk3, gdk_pixbuf, tag ?
-  "", xvfb_run, dbus, glibcLocales, glib, glib-networking, gobject-introspection, gst_all_1, withGstPlugins ?
-    true, xineBackend ? false, xineLib, withDbusPython ? false, withPyInotify ?
-      false, withMusicBrainzNgs ? false, withPahoMqtt ? false, webkitgtk ?
-        null, keybinder3 ? null, gtksourceview ? null, libmodplug ?
-          null, kakasi ? null, libappindicator-gtk3 ? null }:
+{ stdenv, fetchurl, python3, wrapGAppsHook, gettext, libsoup, gnome3, gtk3
+, gdk_pixbuf, tag ? "", xvfb_run, dbus, glibcLocales, glib, glib-networking
+, gobject-introspection, gst_all_1, withGstPlugins ? true, xineBackend ? false
+, xineLib, withDbusPython ? false, withPyInotify ? false
+, withMusicBrainzNgs ? false, withPahoMqtt ? false, webkitgtk ? null
+, keybinder3 ? null, gtksourceview ? null, libmodplug ? null, kakasi ? null
+, libappindicator-gtk3 ? null }:
 
 let optionals = stdenv.lib.optionals;
 in python3.pkgs.buildPythonApplication rec {

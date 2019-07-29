@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, flex, bison, linuxHeaders, libtirpc, mount, umount, nfs-utils, e2fsprogs, libxml2, kerberos, kmod, openldap, sssd, cyrus_sasl, openssl
-}:
+{ stdenv, fetchurl, flex, bison, linuxHeaders, libtirpc, mount, umount
+, nfs-utils, e2fsprogs, libxml2, kerberos, kmod, openldap, sssd, cyrus_sasl
+, openssl }:
 
 let
   version = "5.1.5";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, zlib, curl, expat, fuse, openssl, autoreconfHook, python3
-}:
+{ stdenv, fetchFromGitHub, zlib, curl, expat, fuse, openssl, autoreconfHook
+, python3 }:
 
 stdenv.mkDerivation rec {
   version = "3.7.18";

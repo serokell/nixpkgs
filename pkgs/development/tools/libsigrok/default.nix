@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libzip, glib, libusb1, libftdi1, check, libserialport, librevisa, doxygen, glibmm, python, version ?
-  "0.5.1", sha256 ? "171b553dir5gn6w4f7n37waqk62nq2kf1jykx4ifjacdz5xdw3z4" }:
+{ stdenv, fetchurl, pkgconfig, libzip, glib, libusb1, libftdi1, check
+, libserialport, librevisa, doxygen, glibmm, python, version ? "0.5.1"
+, sha256 ? "171b553dir5gn6w4f7n37waqk62nq2kf1jykx4ifjacdz5xdw3z4" }:
 
 stdenv.mkDerivation rec {
   inherit version;

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, mono, gtk-sharp-3_0, dbus-sharp-1_0, dbus-sharp-glib-1_0
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, mono, gtk-sharp-3_0
+, dbus-sharp-1_0, dbus-sharp-glib-1_0 }:
 
 stdenv.mkDerivation rec {
   name = "notify-sharp-${version}";

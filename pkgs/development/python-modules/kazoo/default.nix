@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, eventlet, gevent, nose, mock, coverage, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, eventlet, gevent, nose, mock
+, coverage, pkgs }:
 
 buildPythonPackage rec {
   pname = "kazoo";

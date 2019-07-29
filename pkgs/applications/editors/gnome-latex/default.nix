@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, wrapGAppsHook, gsettings-desktop-schemas, gspell, gtksourceview4, libgee, tepl, amtk, gnome3, glib, pkgconfig, intltool, itstool, libxml2
-}:
+{ stdenv, fetchurl, wrapGAppsHook, gsettings-desktop-schemas, gspell
+, gtksourceview4, libgee, tepl, amtk, gnome3, glib, pkgconfig, intltool, itstool
+, libxml2 }:
 let
   version = "3.32.0";
   pname = "gnome-latex";

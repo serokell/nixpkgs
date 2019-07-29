@@ -1,5 +1,7 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, bluez-qt, kactivities, kauth, kconfig, kdbusaddons, kdelibs4support, kglobalaccel, ki18n, kidletime, kio, knotifyconfig, kwayland, libkscreen, networkmanager-qt, plasma-workspace, qtx11extras, solid, udev
-}:
+{ mkDerivation, extra-cmake-modules, kdoctools, bluez-qt, kactivities, kauth
+, kconfig, kdbusaddons, kdelibs4support, kglobalaccel, ki18n, kidletime, kio
+, knotifyconfig, kwayland, libkscreen, networkmanager-qt, plasma-workspace
+, qtx11extras, solid, udev }:
 
 mkDerivation {
   name = "powerdevil";

@@ -1,7 +1,7 @@
 { stdenv, fetchurl, lib, makeWrapper,
 # build dependencies
-alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, nspr, nss, xorg, glibc, systemd
-}:
+alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib
+, gnome2, nspr, nss, xorg, glibc, systemd }:
 
 stdenv.mkDerivation rec {
 

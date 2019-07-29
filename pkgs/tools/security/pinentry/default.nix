@@ -1,6 +1,6 @@
-{ fetchurl, fetchpatch, stdenv, lib, pkgconfig, libgpgerror, libassuan, libcap ?
-  null, libsecret ? null, ncurses ? null, gtk2 ? null, gcr ? null, qt ?
-    null, enableEmacs ? false }:
+{ fetchurl, fetchpatch, stdenv, lib, pkgconfig, libgpgerror, libassuan
+, libcap ? null, libsecret ? null, ncurses ? null, gtk2 ? null, gcr ? null
+, qt ? null, enableEmacs ? false }:
 
 stdenv.mkDerivation rec {
   name = "pinentry-1.1.0";

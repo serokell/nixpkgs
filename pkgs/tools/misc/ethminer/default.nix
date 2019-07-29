@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, opencl-headers, cmake, jsoncpp, boost, makeWrapper, cudatoolkit, mesa, ethash, opencl-info, ocl-icd, openssl, pkg-config, cli11
-}:
+{ stdenv, fetchFromGitHub, opencl-headers, cmake, jsoncpp, boost, makeWrapper
+, cudatoolkit, mesa, ethash, opencl-info, ocl-icd, openssl, pkg-config, cli11 }:
 
 stdenv.mkDerivation rec {
   pname = "ethminer";

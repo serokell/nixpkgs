@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, lib, file, pkgconfig, intltool, glib, dbus-glib, json-glib, gobject-introspection, vala, gnome-doc-utils, gtkVersion ?
-  null, gtk2 ? null, gtk3 ? null }:
+{ stdenv, fetchurl, lib, file, pkgconfig, intltool, glib, dbus-glib, json-glib
+, gobject-introspection, vala, gnome-doc-utils, gtkVersion ? null, gtk2 ? null
+, gtk3 ? null }:
 
 with lib;
 

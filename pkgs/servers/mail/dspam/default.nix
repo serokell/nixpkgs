@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchurl, makeWrapper, gawk, gnused, gnugrep, coreutils, which, perlPackages, withMySQL ?
-  false, zlib, mysql57, withPgSQL ? false, postgresql, withSQLite ?
-    false, sqlite, withDB ? false, db }:
+{ stdenv, lib, fetchurl, makeWrapper, gawk, gnused, gnugrep, coreutils, which
+, perlPackages, withMySQL ? false, zlib, mysql57, withPgSQL ? false, postgresql
+, withSQLite ? false, sqlite, withDB ? false, db }:
 
 let
   drivers = lib.concatStringsSep "," ([ "hash_drv" ]

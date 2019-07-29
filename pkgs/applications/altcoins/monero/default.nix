@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, cmake, pkgconfig, git, boost, miniupnpc, openssl, unbound, cppzmq, zeromq, pcsclite, readline, libsodium, hidapi, python3Packages, CoreData, IOKit, PCSC
-}:
+{ stdenv, fetchgit, cmake, pkgconfig, git, boost, miniupnpc, openssl, unbound
+, cppzmq, zeromq, pcsclite, readline, libsodium, hidapi, python3Packages
+, CoreData, IOKit, PCSC }:
 
 assert stdenv.isDarwin -> IOKit != null;
 

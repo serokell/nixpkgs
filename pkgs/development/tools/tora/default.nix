@@ -1,4 +1,5 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, makeWrapper, boost, doxygen, openssl, mysql, postgresql, graphviz, loki, qscintilla, qtbase
+{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, makeWrapper
+, boost, doxygen, openssl, mysql, postgresql, graphviz, loki, qscintilla, qtbase
 }:
 
 let qscintillaLib = (qscintilla.override { withQt5 = true; });

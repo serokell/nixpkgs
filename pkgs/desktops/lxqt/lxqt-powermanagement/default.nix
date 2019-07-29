@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtx11extras, qtsvg, kwindowsystem, solid, kidletime, liblxqt, libqtxdg
-}:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtx11extras
+, qtsvg, kwindowsystem, solid, kidletime, liblxqt, libqtxdg }:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-powermanagement";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, kernel, luajit, zlib, ncurses, perl, jsoncpp, libb64, openssl, curl, jq, gcc, elfutils, tbb, c-ares, protobuf, grpc
-}:
+{ stdenv, fetchFromGitHub, cmake, kernel, luajit, zlib, ncurses, perl, jsoncpp
+, libb64, openssl, curl, jq, gcc, elfutils, tbb, c-ares, protobuf, grpc }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

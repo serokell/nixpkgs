@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python3Packages, ffmpeg, mplayer, vcdimager, cdrkit, dvdauthor, gtk3, gettext, wrapGAppsHook, gdk_pixbuf, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, python3Packages, ffmpeg, mplayer, vcdimager, cdrkit
+, dvdauthor, gtk3, gettext, wrapGAppsHook, gdk_pixbuf, gobject-introspection }:
 
 let
   inherit (python3Packages)

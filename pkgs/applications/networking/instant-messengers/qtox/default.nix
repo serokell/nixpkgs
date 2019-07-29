@@ -1,5 +1,7 @@
-{ stdenv, mkDerivation, lib, fetchFromGitHub, cmake, pkgconfig, libtoxcore, libpthreadstubs, libXdmcp, libXScrnSaver, qtbase, qtsvg, qttools, qttranslations, ffmpeg, filter-audio, libexif, libsodium, libopus, libvpx, openal, pcre, qrencode, sqlcipher, AVFoundation ?
-  null }:
+{ stdenv, mkDerivation, lib, fetchFromGitHub, cmake, pkgconfig, libtoxcore
+, libpthreadstubs, libXdmcp, libXScrnSaver, qtbase, qtsvg, qttools
+, qttranslations, ffmpeg, filter-audio, libexif, libsodium, libopus, libvpx
+, openal, pcre, qrencode, sqlcipher, AVFoundation ? null }:
 
 let
   version = "1.16.3";

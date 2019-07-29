@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, fetchFromGitHub, qmake, pkgconfig, qtbase, qtsvg, qtserialport, boost, libgit2
-}:
+{ stdenv, fetchpatch, fetchFromGitHub, qmake, pkgconfig, qtbase, qtsvg
+, qtserialport, boost, libgit2 }:
 
 stdenv.mkDerivation rec {
   name = "fritzing-${version}";

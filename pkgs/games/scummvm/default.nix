@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, nasm, alsaLib, flac, fluidsynth, freetype, libjpeg, libmad, libmpeg2, libogg, libvorbis, libGLU_combined, SDL2, zlib
-}:
+{ stdenv, fetchurl, nasm, alsaLib, flac, fluidsynth, freetype, libjpeg, libmad
+, libmpeg2, libogg, libvorbis, libGLU_combined, SDL2, zlib }:
 
 stdenv.mkDerivation rec {
   name = "scummvm-${version}";

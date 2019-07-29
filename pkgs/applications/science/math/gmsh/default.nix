@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, openblasCompat, gfortran, gmm, fltk, libjpeg, zlib, libGLU_combined, libGLU, xorg
-}:
+{ stdenv, fetchurl, cmake, openblasCompat, gfortran, gmm, fltk, libjpeg, zlib
+, libGLU_combined, libGLU, xorg }:
 
 let version = "4.4.0";
 

@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchFromGitHub, click, click-default-group, sanic, jinja2, hupper, pint, pluggy, pytest, pytestrunner, pytest-asyncio, black, aiohttp, beautifulsoup4
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, click, click-default-group, sanic
+, jinja2, hupper, pint, pluggy, pytest, pytestrunner, pytest-asyncio, black
+, aiohttp, beautifulsoup4 }:
 
 buildPythonPackage rec {
   pname = "datasette";

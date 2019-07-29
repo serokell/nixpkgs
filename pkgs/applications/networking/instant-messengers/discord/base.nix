@@ -1,5 +1,9 @@
-{ pname, version, src, binaryName, desktopName, stdenv, fetchurl, makeDesktopItem, wrapGAppsHook, alsaLib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gtk3, libnotify, libX11, libXcomposite, libXcursor, libXdamage, libuuid, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, nspr, nss, libxcb, pango, systemd, libXScrnSaver, libcxx, libpulseaudio
-}:
+{ pname, version, src, binaryName, desktopName, stdenv, fetchurl
+, makeDesktopItem, wrapGAppsHook, alsaLib, atk, at-spi2-atk, at-spi2-core, cairo
+, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gtk3, libnotify
+, libX11, libXcomposite, libXcursor, libXdamage, libuuid, libXext, libXfixes
+, libXi, libXrandr, libXrender, libXtst, nspr, nss, libxcb, pango, systemd
+, libXScrnSaver, libcxx, libpulseaudio }:
 
 let inherit binaryName;
 in stdenv.mkDerivation rec {

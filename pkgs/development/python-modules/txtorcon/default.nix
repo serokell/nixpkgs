@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, incremental, ipaddress, twisted, automat, zope_interface, idna, pyopenssl, service-identity, pytest, mock, lsof, GeoIP
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, incremental, ipaddress, twisted
+, automat, zope_interface, idna, pyopenssl, service-identity, pytest, mock, lsof
+, GeoIP }:
 
 buildPythonPackage rec {
   pname = "txtorcon";

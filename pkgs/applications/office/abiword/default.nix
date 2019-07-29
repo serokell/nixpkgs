@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, fribidi, libpng, popt, libgsf, enchant, wv, librsvg, bzip2, libjpeg, perl, boost, libxslt, goffice, wrapGAppsHook, gnome3
+{ stdenv, fetchurl, pkgconfig, gtk3, fribidi, libpng, popt, libgsf, enchant, wv
+, librsvg, bzip2, libjpeg, perl, boost, libxslt, goffice, wrapGAppsHook, gnome3
 }:
 
 stdenv.mkDerivation rec {

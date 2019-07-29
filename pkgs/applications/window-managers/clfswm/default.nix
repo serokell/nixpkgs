@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoconf, sbcl, lispPackages, xdpyinfo, texinfo4, makeWrapper
-}:
+{ stdenv, fetchgit, autoconf, sbcl, lispPackages, xdpyinfo, texinfo4
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "clfswm";

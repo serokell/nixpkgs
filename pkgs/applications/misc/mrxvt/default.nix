@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, libXft, libXi, xorgproto, libSM, libICE, freetype, pkgconfig, which
-}:
+{ stdenv, fetchurl, libX11, libXft, libXi, xorgproto, libSM, libICE, freetype
+, pkgconfig, which }:
 
 stdenv.mkDerivation {
   name = "mrxvt-0.5.4";

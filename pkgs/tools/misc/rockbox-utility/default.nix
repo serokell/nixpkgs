@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libusb1, qtbase, qttools, makeWrapper, qmake, withEspeak ?
-  false, espeak ? null }:
+{ stdenv, fetchurl, pkgconfig, libusb1, qtbase, qttools, makeWrapper, qmake
+, withEspeak ? false, espeak ? null }:
 
 let inherit (stdenv.lib) getDev;
 

@@ -1,5 +1,5 @@
-{ stdenv, rustPlatform, fetchFromGitHub, pkgconfig, openssl, Security, CoreServices
-}:
+{ stdenv, rustPlatform, fetchFromGitHub, pkgconfig, openssl, Security
+, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bitwarden_rs";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchdarcs, isPy3k, pkgs, cython, dnspython, dateutil, xcaplib, msrplib, lxml, python-otr
-}:
+{ stdenv, buildPythonPackage, fetchdarcs, isPy3k, pkgs, cython, dnspython
+, dateutil, xcaplib, msrplib, lxml, python-otr }:
 
 buildPythonPackage rec {
   pname = "sipsimple";

@@ -1,7 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, buildGoPackage, which, go-bindata, rsync, utillinux, coreutils, kerberos, clang, components ? [
-  "cmd/oc"
-  "cmd/openshift"
-] }:
+{ stdenv, lib, fetchFromGitHub, buildGoPackage, which, go-bindata, rsync
+, utillinux, coreutils, kerberos, clang
+, components ? [ "cmd/oc" "cmd/openshift" ] }:
 
 with lib;
 

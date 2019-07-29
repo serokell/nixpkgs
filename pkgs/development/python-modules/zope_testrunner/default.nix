@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, zope_interface, zope_exceptions, zope_testing, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_interface, zope_exceptions
+, zope_testing, six }:
 
 buildPythonPackage rec {
   pname = "zope.testrunner";

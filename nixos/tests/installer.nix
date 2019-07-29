@@ -1,5 +1,5 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ?
-  import ../.. { inherit system config; } }:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -7,9 +7,8 @@ with pkgs.lib;
 let
 
   # The configuration to install.
-  makeConfig =
-    { bootLoader, grubVersion, grubDevice, grubIdentifier, grubUseEfi, extraConfig, forceGrubReinstallCount ?
-      0 }:
+  makeConfig = { bootLoader, grubVersion, grubDevice, grubIdentifier, grubUseEfi
+    , extraConfig, forceGrubReinstallCount ? 0 }:
     pkgs.writeText "configuration.nix" ''
       { config, lib, pkgs, modulesPath, ... }:
 
@@ -68,8 +67,8 @@ let
   # disk, and then reboot from the hard disk.  It's parameterized with
   # a test script fragment `createPartitions', which must create
   # partitions and filesystems.
-  testScriptFun =
-    { bootLoader, createPartitions, grubVersion, grubDevice, grubUseEfi, grubIdentifier, preBootCommands, extraConfig, testCloneConfig
+  testScriptFun = { bootLoader, createPartitions, grubVersion, grubDevice
+    , grubUseEfi, grubIdentifier, preBootCommands, extraConfig, testCloneConfig
     }:
     let
       iface = if grubVersion == 1 then "ide" else "virtio";
@@ -248,12 +247,12 @@ let
     '';
 
   makeInstallerTest = name:
-    { createPartitions, preBootCommands ? "", extraConfig ?
-      "", extraInstallerConfig ? { }, bootLoader ?
-        "grub" # either "grub" or "systemd-boot"
-    , grubVersion ? 2, grubDevice ? "/dev/vda", grubIdentifier ?
-      "uuid", grubUseEfi ? false, enableOCR ? false, meta ?
-        { }, testCloneConfig ? false }:
+    { createPartitions, preBootCommands ? "", extraConfig ? ""
+    , extraInstallerConfig ? { }
+    , bootLoader ? "grub" # either "grub" or "systemd-boot"
+    , grubVersion ? 2, grubDevice ? "/dev/vda", grubIdentifier ? "uuid"
+    , grubUseEfi ? false, enableOCR ? false, meta ? { }, testCloneConfig ? false
+    }:
     makeTest {
       inherit enableOCR;
       name = "installer-" + name;

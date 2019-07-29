@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, glib, flex, bison, meson, ninja, pkgconfig, libffi, python3, libintl, cctools, cairo, gnome3, glibcLocales, substituteAll, nixStoreDir ?
-  builtins.storeDir, x11Support ? true }:
+{ stdenv, fetchurl, glib, flex, bison, meson, ninja, pkgconfig, libffi, python3
+, libintl, cctools, cairo, gnome3, glibcLocales, substituteAll
+, nixStoreDir ? builtins.storeDir, x11Support ? true }:
 # now that gobject-introspection creates large .gir files (eg gtk3 case)
 # it may be worth thinking about using multiple derivation outputs
 # In that case its about 6MB which could be separated

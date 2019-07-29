@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gtk3, python3, pantheon, gnome3, libxml2, gettext, gobject-introspection, appstream-glib, desktop-file-utils, magic-wormhole, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, gtk3, python3, pantheon
+, gnome3, libxml2, gettext, gobject-introspection, appstream-glib
+, desktop-file-utils, magic-wormhole, wrapGAppsHook }:
 
 let
   pname = "Transporter";

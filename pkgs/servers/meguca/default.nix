@@ -1,5 +1,6 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, cmake, ffmpeg-full, ghostscript, graphicsmagick, quicktemplate, go-bindata, easyjson, nodePackages, emscripten, opencv, statik
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, pkgconfig, cmake, ffmpeg-full
+, ghostscript, graphicsmagick, quicktemplate, go-bindata, easyjson, nodePackages
+, emscripten, opencv, statik }:
 
 buildGoPackage rec {
   name = "meguca-unstable-${version}";

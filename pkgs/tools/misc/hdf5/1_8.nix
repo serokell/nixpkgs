@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, removeReferencesTo, cpp ? false, gfortran ?
-  null, fortran2003 ? false, zlib ? null, szip ? null, mpi ?
-    null, enableShared ? true }:
+{ stdenv, fetchurl, removeReferencesTo, cpp ? false, gfortran ? null
+, fortran2003 ? false, zlib ? null, szip ? null, mpi ? null, enableShared ? true
+}:
 
 # cpp and mpi options are mutually exclusive
 # (--enable-unsupported could be used to force the build)

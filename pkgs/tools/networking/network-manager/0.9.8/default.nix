@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, pkgconfig, dbus-glib, udev, libnl, libuuid, gnutls, dhcp, libgcrypt, perl, libgudev, avahi, ppp, kmod
-}:
+{ stdenv, fetchurl, intltool, pkgconfig, dbus-glib, udev, libnl, libuuid, gnutls
+, dhcp, libgcrypt, perl, libgudev, avahi, ppp, kmod }:
 
 stdenv.mkDerivation rec {
   name = "network-manager-${version}";

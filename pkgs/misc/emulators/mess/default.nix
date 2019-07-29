@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, unzip, pkgconfig, SDL, gtk2, GConf, libGLU_combined, expat, zlib
-}:
+{ stdenv, fetchurl, unzip, pkgconfig, SDL, gtk2, GConf, libGLU_combined, expat
+, zlib }:
 
 let
 

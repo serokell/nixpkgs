@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytools, pymbolic, genpy, cgen, islpy, six, colorama, mako, pyopencl, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, pytools, pymbolic, genpy, cgen, islpy, six
+, colorama, mako, pyopencl, pytest }:
 
 buildPythonPackage rec {
   pname = "loo-py";

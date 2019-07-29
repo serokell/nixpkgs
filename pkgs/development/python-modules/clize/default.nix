@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, dateutil, sigtools, six, attrs, od, docutils, repeated_test, unittest2, pygments
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dateutil, sigtools, six, attrs, od
+, docutils, repeated_test, unittest2, pygments }:
 
 buildPythonPackage rec {
   pname = "clize";

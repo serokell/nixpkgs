@@ -2,7 +2,8 @@ config:
 { stdenv, cmake, pkgconfig, which
 
 # Xen
-, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib, iasl, libaio, libiconv, libuuid, ncurses, openssl, perl, python2Packages
+, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib, iasl, libaio
+, libiconv, libuuid, ncurses, openssl, perl, python2Packages
 # python2Packages.python
 , xz, yajl, zlib
 
@@ -10,7 +11,9 @@ config:
 , ocamlPackages
 
 # Scripts
-, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools, iproute, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd, lvm2, utillinux, procps, systemd
+, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools, iproute
+, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd, lvm2, utillinux
+, procps, systemd
 
 # Documentation
 # python2Packages.markdown

@@ -1,10 +1,11 @@
-{ lib, stdenv, makeWrapper, fetchurl, requireFile, perl, ncurses5, expat, python27, zlib, gcc48, gcc49, gcc5, gcc6, gcc7, xorg, gtk2, gdk_pixbuf, glib, fontconfig, freetype, unixODBC, alsaLib, glibc, addOpenGLRunpath
-}:
+{ lib, stdenv, makeWrapper, fetchurl, requireFile, perl, ncurses5, expat
+, python27, zlib, gcc48, gcc49, gcc5, gcc6, gcc7, xorg, gtk2, gdk_pixbuf, glib
+, fontconfig, freetype, unixODBC, alsaLib, glibc, addOpenGLRunpath }:
 
 let
 
-  common = args@{ gcc, version, sha256, url ? "", name ? "", developerProgram ?
-    false, python ? python27, runPatches ? [ ] }:
+  common = args@{ gcc, version, sha256, url ? "", name ? ""
+    , developerProgram ? false, python ? python27, runPatches ? [ ] }:
 
     stdenv.mkDerivation rec {
       name = "cudatoolkit-${version}";

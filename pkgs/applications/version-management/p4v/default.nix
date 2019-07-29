@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtscript, qtsensors, qtwebkit, openssl, xkeyboard_config, wrapQtAppsHook
-}:
+{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtscript, qtsensors, qtwebkit
+, openssl, xkeyboard_config, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "p4v-${version}";

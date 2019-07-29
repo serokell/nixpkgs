@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, python3, makeWrapper, webkitgtk, glib-networking, gsettings-desktop-schemas, python2Packages
-}:
+{ stdenv, fetchurl, pkgconfig, python3, makeWrapper, webkitgtk, glib-networking
+, gsettings-desktop-schemas, python2Packages }:
 # This package needs python3 during buildtime,
 # but Python 2 + packages during runtime.
 

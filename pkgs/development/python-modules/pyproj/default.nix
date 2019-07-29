@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, python, pkgs, pythonOlder, substituteAll, aenum, cython, pytest, mock, numpy
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pkgs, pythonOlder, substituteAll
+, aenum, cython, pytest, mock, numpy }:
 
 buildPythonPackage rec {
   pname = "pyproj";

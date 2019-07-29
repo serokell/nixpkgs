@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, lib, bison, qt4, xapian, file, python, perl, djvulibre, groff, libxslt, unzip, poppler_utils, antiword, catdoc, lyx, libwpd, unrtf, untex, ghostscript, gawk, gnugrep, gnused, gnutar, gzip, libiconv, zlib, withGui ?
-  true }:
+{ stdenv, fetchurl, lib, bison, qt4, xapian, file, python, perl, djvulibre
+, groff, libxslt, unzip, poppler_utils, antiword, catdoc, lyx, libwpd, unrtf
+, untex, ghostscript, gawk, gnugrep, gnused, gnutar, gzip, libiconv, zlib
+, withGui ? true }:
 
 assert stdenv.hostPlatform.system != "powerpc-linux";
 

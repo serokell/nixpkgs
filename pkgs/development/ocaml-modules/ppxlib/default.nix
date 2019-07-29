@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-compiler-libs, ocaml-migrate-parsetree, ppx_derivers, stdio
-}:
+{ stdenv, fetchFromGitHub, buildDunePackage, ocaml-compiler-libs
+, ocaml-migrate-parsetree, ppx_derivers, stdio }:
 
 buildDunePackage rec {
   pname = "ppxlib";

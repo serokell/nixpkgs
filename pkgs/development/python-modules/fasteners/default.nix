@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, monotonic, testtools, isPy3k, nose, futures
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, monotonic, testtools, isPy3k, nose
+, futures }:
 
 buildPythonPackage rec {
   pname = "fasteners";

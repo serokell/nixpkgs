@@ -1,5 +1,6 @@
-{ stdenv, python, buildPythonPackage, fetchPypi, pytest, python-utils, sphinx, flake8, pytestpep8, pytest-flakes, pytestcov, pytestcache, pytestrunner, freezegun
-}:
+{ stdenv, python, buildPythonPackage, fetchPypi, pytest, python-utils, sphinx
+, flake8, pytestpep8, pytest-flakes, pytestcov, pytestcache, pytestrunner
+, freezegun }:
 
 buildPythonPackage rec {
   pname = "progressbar2";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, pkgconfig, vala, gtk3, libgee, poppler, libpthreadstubs, gstreamer, gst-plugins-base, librsvg, pcre, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, pkgconfig, vala, gtk3, libgee
+, poppler, libpthreadstubs, gstreamer, gst-plugins-base, librsvg, pcre
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "${product}-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, glib, xorg, gdk_pixbuf, pulseaudio, mobile-broadband-provider-info, deepin
-}:
+{ stdenv, fetchFromGitHub, glib, xorg, gdk_pixbuf, pulseaudio
+, mobile-broadband-provider-info, deepin }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, qmake, qtbase, qtmultimedia, qttranslations
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, qmake, qtbase, qtmultimedia
+, qttranslations }:
 
 stdenv.mkDerivation rec {
   name = "qgo-${version}";

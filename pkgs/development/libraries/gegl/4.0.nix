@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, glib, babl, libpng, cairo, libjpeg, which, librsvg, pango, gtk, bzip2, json-glib, gettext, autoreconfHook, libraw, gexiv2, libwebp, libintl
-}:
+{ stdenv, fetchurl, pkgconfig, glib, babl, libpng, cairo, libjpeg, which
+, librsvg, pango, gtk, bzip2, json-glib, gettext, autoreconfHook, libraw, gexiv2
+, libwebp, libintl }:
 
 stdenv.mkDerivation rec {
   pname = "gegl";

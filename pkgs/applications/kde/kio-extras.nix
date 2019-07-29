@@ -1,5 +1,8 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, shared-mime-info, exiv2, kactivities, karchive, kbookmarks, kconfig, kconfigwidgets, kcoreaddons, kdbusaddons, kguiaddons, kdnssd, kiconthemes, ki18n, kio, khtml, kdelibs4support, kpty, syntax-highlighting, libmtp, libssh, openexr, ilmbase, openslp, phonon, qtsvg, samba, solid, gperf
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, shared-mime-info, exiv2
+, kactivities, karchive, kbookmarks, kconfig, kconfigwidgets, kcoreaddons
+, kdbusaddons, kguiaddons, kdnssd, kiconthemes, ki18n, kio, khtml
+, kdelibs4support, kpty, syntax-highlighting, libmtp, libssh, openexr, ilmbase
+, openslp, phonon, qtsvg, samba, solid, gperf }:
 
 mkDerivation {
   name = "kio-extras";

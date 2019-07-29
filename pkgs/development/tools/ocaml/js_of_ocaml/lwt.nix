@@ -1,4 +1,5 @@
-{ stdenv, ocaml, findlib, dune, js_of_ocaml-compiler, js_of_ocaml-ppx, ocaml-migrate-parsetree, ppx_tools_versioned, js_of_ocaml, ocaml_lwt, lwt_log
+{ stdenv, ocaml, findlib, dune, js_of_ocaml-compiler, js_of_ocaml-ppx
+, ocaml-migrate-parsetree, ppx_tools_versioned, js_of_ocaml, ocaml_lwt, lwt_log
 }:
 
 stdenv.mkDerivation rec {

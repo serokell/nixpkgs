@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, ocamlbuild, findlib, topkg, ppx_tools, ppx_sexp_conv, cstruct, ppx_cstruct, sexplib, rresult, nocrypto, astring
-}:
+{ stdenv, fetchFromGitHub, ocaml, ocamlbuild, findlib, topkg, ppx_tools
+, ppx_sexp_conv, cstruct, ppx_cstruct, sexplib, rresult, nocrypto, astring }:
 
 if !stdenv.lib.versionAtLeast ocaml.version "4.03" then
   throw "otr is not available for OCaml ${ocaml.version}"

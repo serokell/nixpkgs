@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, ipykernel, isPy27, python, pexpect
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, ipykernel, isPy27, python
+, pexpect }:
 
 buildPythonPackage rec {
   pname = "bash_kernel";

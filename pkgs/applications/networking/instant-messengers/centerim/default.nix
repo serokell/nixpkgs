@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gnused, openssl, curl, ncurses, libjpeg, withGpg ?
-  true, gpgme ? null }:
+{ stdenv, fetchurl, gnused, openssl, curl, ncurses, libjpeg, withGpg ? true
+, gpgme ? null }:
 
 stdenv.mkDerivation rec {
   version = "5.0.1";

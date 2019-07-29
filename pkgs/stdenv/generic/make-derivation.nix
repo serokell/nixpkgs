@@ -45,8 +45,8 @@ in rec {
     , checkInputs ? [ ], installCheckInputs ? [ ]
 
       # Configure Phase
-    , configureFlags ? [ ], cmakeFlags ?
-      [ ], # Target is not included by default because most programs don't care.
+    , configureFlags ? [ ], cmakeFlags ? [ ]
+    , # Target is not included by default because most programs don't care.
     # Including it then would cause needless mass rebuilds.
     #
     # TODO(@Ericson2314): Make [ "build" "host" ] always the default.
@@ -65,18 +65,18 @@ in rec {
     , doInstallCheck ? config.doCheckByDefault or false
 
     , # TODO(@Ericson2314): Make always true and remove
-    strictDeps ? stdenv.hostPlatform != stdenv.buildPlatform, meta ?
-      { }, passthru ?
-        { }, pos ? # position used in error messages and for meta.position
-          (if attrs.meta.description or null != null then
-            builtins.unsafeGetAttrPos "description" attrs.meta
-          else if attrs.version or null != null then
-            builtins.unsafeGetAttrPos "version" attrs
-          else
-            builtins.unsafeGetAttrPos "name" attrs), separateDebugInfo ?
-              false, outputs ? [ "out" ], __darwinAllowLocalNetworking ?
-                false, __impureHostDeps ? [ ], __propagatedImpureHostDeps ?
-                  [ ], sandboxProfile ? "", propagatedSandboxProfile ? ""
+    strictDeps ? stdenv.hostPlatform != stdenv.buildPlatform, meta ? { }
+    , passthru ? { }
+    , pos ? # position used in error messages and for meta.position
+      (if attrs.meta.description or null != null then
+        builtins.unsafeGetAttrPos "description" attrs.meta
+      else if attrs.version or null != null then
+        builtins.unsafeGetAttrPos "version" attrs
+      else
+        builtins.unsafeGetAttrPos "name" attrs), separateDebugInfo ? false
+    , outputs ? [ "out" ], __darwinAllowLocalNetworking ? false
+    , __impureHostDeps ? [ ], __propagatedImpureHostDeps ? [ ]
+    , sandboxProfile ? "", propagatedSandboxProfile ? ""
 
     , hardeningEnable ? [ ], hardeningDisable ? [ ]
 

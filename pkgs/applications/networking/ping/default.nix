@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, glib, gtk3, gtksourceview, hicolor-icon-theme, json-glib, libsoup, libgee, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, glib
+, gtk3, gtksourceview, hicolor-icon-theme, json-glib, libsoup, libgee
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "ping";

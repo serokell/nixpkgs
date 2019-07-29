@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libxslt, libaio, systemd, perl, perlPackages, docbook_xsl
-}:
+{ stdenv, fetchFromGitHub, libxslt, libaio, systemd, perl, perlPackages
+, docbook_xsl }:
 
 stdenv.mkDerivation rec {
   pname = "tgt";

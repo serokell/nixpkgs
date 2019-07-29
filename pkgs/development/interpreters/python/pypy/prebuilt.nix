@@ -2,8 +2,8 @@
 # Dependencies
 , bzip2, zlib, openssl, expat, libffi, ncurses, tcl, tk
 # For the Python package set
-, packageOverrides ?
-  (self: super: { }), sourceVersion, pythonVersion, sha256, passthruFun }:
+, packageOverrides ? (self: super: { }), sourceVersion, pythonVersion, sha256
+, passthruFun }:
 
 # This version of PyPy is primarily added to speed-up translation of
 # our PyPy source build when developing that expression.

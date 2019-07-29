@@ -1,5 +1,6 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, qtwebengine, grantlee, kdbusaddons, ki18n, kiconthemes, kio, kitemmodels, ktextwidgets, prison, akonadi, akonadi-mime, kcontacts, kmime,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, qtwebengine, grantlee
+, kdbusaddons, ki18n, kiconthemes, kio, kitemmodels, ktextwidgets, prison
+, akonadi, akonadi-mime, kcontacts, kmime, }:
 
 mkDerivation {
   name = "akonadi-contacts";

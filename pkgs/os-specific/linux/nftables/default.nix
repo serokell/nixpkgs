@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, docbook2x, docbook_xml_dtd_45, flex, bison, libmnl, libnftnl, gmp, readline
-}:
+{ stdenv, fetchurl, pkgconfig, docbook2x, docbook_xml_dtd_45, flex, bison
+, libmnl, libnftnl, gmp, readline }:
 
 stdenv.mkDerivation rec {
   version = "0.9.0";

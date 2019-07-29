@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, gtk3, dbus-glib, libnotify, libxml2, libcanberra-gtk3, mod_dnssd, apacheHttpd, hicolor-icon-theme, mate, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, gtk3, dbus-glib, libnotify
+, libxml2, libcanberra-gtk3, mod_dnssd, apacheHttpd, hicolor-icon-theme, mate
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-user-share-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, fcitx, pkgconfig, qtbase, extra-cmake-modules, fetchpatch
-}:
+{ stdenv, fetchurl, cmake, fcitx, pkgconfig, qtbase, extra-cmake-modules
+, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "fcitx-qt5-${version}";

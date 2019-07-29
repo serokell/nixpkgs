@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, xmltodict, datamodeldict, numpy, matplotlib, scipy, pandas, cython, numericalunits, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, xmltodict, datamodeldict, numpy
+, matplotlib, scipy, pandas, cython, numericalunits, pytest }:
 
 buildPythonPackage rec {
   version = "1.2.6";

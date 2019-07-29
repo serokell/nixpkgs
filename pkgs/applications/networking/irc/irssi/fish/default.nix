@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, irssi, gmp, automake, autoconf, libtool, openssl, glib, pkgconfig
-}:
+{ stdenv, fetchurl, irssi, gmp, automake, autoconf, libtool, openssl, glib
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "fish-irssi-20130413-e98156bebd";

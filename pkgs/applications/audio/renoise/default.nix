@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, libXext, libXcursor, libXrandr, libjack2, alsaLib, mpg123, releasePath ?
-  null }:
+{ stdenv, fetchurl, libX11, libXext, libXcursor, libXrandr, libjack2, alsaLib
+, mpg123, releasePath ? null }:
 
 with stdenv.lib;
 

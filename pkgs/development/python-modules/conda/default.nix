@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pycosat, requests, ruamel_yaml, isPy3k, enum34
-}:
+{ lib, buildPythonPackage, fetchPypi, pycosat, requests, ruamel_yaml, isPy3k
+, enum34 }:
 
 # Note: this installs conda as a library. The application cannot be used.
 # This is likely therefore NOT what you're looking for.

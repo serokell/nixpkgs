@@ -1,5 +1,7 @@
-{ stdenv, fetchgit, gnome3, gtksourceview3, at-spi2-core, gtksourceviewmm, boost, epoxy, cmake, aspell, llvmPackages, libgit2, pkgconfig, pcre, libXdmcp, libxkbcommon, libpthreadstubs, wrapGAppsHook, aspellDicts, gtkmm3, coreutils, glibc, dbus, openssl, libxml2, gnumake, ctags
-}:
+{ stdenv, fetchgit, gnome3, gtksourceview3, at-spi2-core, gtksourceviewmm, boost
+, epoxy, cmake, aspell, llvmPackages, libgit2, pkgconfig, pcre, libXdmcp
+, libxkbcommon, libpthreadstubs, wrapGAppsHook, aspellDicts, gtkmm3, coreutils
+, glibc, dbus, openssl, libxml2, gnumake, ctags }:
 
 with stdenv.lib;
 

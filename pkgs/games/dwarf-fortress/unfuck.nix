@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libGL, libSM, SDL, SDL_image, SDL_ttf, glew, openalSoft, ncurses, glib, gtk2, libsndfile, zlib, dfVersion
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libGL, libSM, SDL, SDL_image, SDL_ttf
+, glew, openalSoft, ncurses, glib, gtk2, libsndfile, zlib, dfVersion }:
 
 with lib;
 

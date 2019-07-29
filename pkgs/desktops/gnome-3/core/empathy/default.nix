@@ -1,5 +1,11 @@
-{ stdenv, intltool, fetchurl, webkitgtk, pkgconfig, gtk3, glib, file, librsvg, gnome3, gdk_pixbuf, python3, telepathy-glib, telepathy-farstream, glibcLocales, clutter-gtk, clutter-gst, gst_all_1, cogl, gnome-online-accounts, gcr, libsecret, folks, libpulseaudio, telepathy-mission-control, telepathy-logger, libnotify, clutter, libsoup, gnutls, evolution-data-server, yelp-xsl, libcanberra-gtk3, p11-kit, farstream, libtool, shared-mime-info, wrapGAppsHook, itstool, libxml2, libxslt, icu, libgee, gsettings-desktop-schemas, isocodes, enchant, libchamplain, geoclue2, geocode-glib, cheese, libgudev
-}:
+{ stdenv, intltool, fetchurl, webkitgtk, pkgconfig, gtk3, glib, file, librsvg
+, gnome3, gdk_pixbuf, python3, telepathy-glib, telepathy-farstream, glibcLocales
+, clutter-gtk, clutter-gst, gst_all_1, cogl, gnome-online-accounts, gcr
+, libsecret, folks, libpulseaudio, telepathy-mission-control, telepathy-logger
+, libnotify, clutter, libsoup, gnutls, evolution-data-server, yelp-xsl
+, libcanberra-gtk3, p11-kit, farstream, libtool, shared-mime-info, wrapGAppsHook
+, itstool, libxml2, libxslt, icu, libgee, gsettings-desktop-schemas, isocodes
+, enchant, libchamplain, geoclue2, geocode-glib, cheese, libgudev }:
 
 stdenv.mkDerivation rec {
   name = "empathy-${version}";

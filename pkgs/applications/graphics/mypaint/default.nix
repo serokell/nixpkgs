@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, gtk3, intltool, json_c, lcms2, libpng, librsvg, gobject-introspection, hicolor-icon-theme, gdk_pixbuf, pkgconfig, python2Packages, scons, swig, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, gtk3, intltool, json_c, lcms2, libpng, librsvg
+, gobject-introspection, hicolor-icon-theme, gdk_pixbuf, pkgconfig
+, python2Packages, scons, swig, wrapGAppsHook }:
 
 let inherit (python2Packages) python pycairo pygobject3 numpy;
 in stdenv.mkDerivation rec {

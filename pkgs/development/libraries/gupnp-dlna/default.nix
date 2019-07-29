@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gobject-introspection, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_412, libxml2, gst_all_1, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, gobject-introspection, vala, gtk-doc, docbook_xsl
+, docbook_xml_dtd_412, libxml2, gst_all_1, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gupnp-dlna";

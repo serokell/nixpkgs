@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, substituteAll, isPy3k, geos, gdal, pytz, sqlparse, withGdal ?
-  false }:
+{ stdenv, buildPythonPackage, fetchPypi, substituteAll, isPy3k, geos, gdal, pytz
+, sqlparse, withGdal ? false }:
 
 buildPythonPackage rec {
   pname = "Django";

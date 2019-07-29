@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocamlPackages, libGLU_combined, freeglut, mysql, mpfr, gmp, libtiff, libjpeg, libpng, giflib
-}:
+{ stdenv, fetchurl, ocamlPackages, libGLU_combined, freeglut, mysql, mpfr, gmp
+, libtiff, libjpeg, libpng, giflib }:
 
 stdenv.mkDerivation {
   name = "glsurf-3.3.1";

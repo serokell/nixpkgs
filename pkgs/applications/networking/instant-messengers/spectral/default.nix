@@ -1,4 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, makeWrapper, qmake, qtbase, qtquickcontrols2, qtmultimedia, libpulseaudio
+{ stdenv, fetchgit, pkgconfig, makeWrapper, qmake, qtbase, qtquickcontrols2
+, qtmultimedia, libpulseaudio
 # Not mentioned but seems needed
 , qtgraphicaleffects, qtdeclarative, qtmacextras }:
 

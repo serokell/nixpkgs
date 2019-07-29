@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, libjack2, alsaLib, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, libjack2, alsaLib
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   version = "4.0.0";

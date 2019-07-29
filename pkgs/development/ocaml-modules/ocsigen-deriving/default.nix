@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, oasis, ocaml_optcomp, camlp4, num
-}:
+{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, oasis, ocaml_optcomp, camlp4
+, num }:
 
 let
   param = if stdenv.lib.versionAtLeast ocaml.version "4.03" then {

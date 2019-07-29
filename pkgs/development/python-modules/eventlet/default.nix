@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, dnspython, enum34, greenlet, monotonic, six, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, dnspython, enum34, greenlet
+, monotonic, six, nose }:
 
 buildPythonPackage rec {
   pname = "eventlet";

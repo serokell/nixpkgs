@@ -1,5 +1,5 @@
-{ stdenv, pkgsBuildBuild, buildPackages, fetchurl, makeWrapper, gawk, pkgconfig, libtool, readline, gmp
-}:
+{ stdenv, pkgsBuildBuild, buildPackages, fetchurl, makeWrapper, gawk, pkgconfig
+, libtool, readline, gmp }:
 
 stdenv.mkDerivation rec {
   name = "guile-1.8.8";

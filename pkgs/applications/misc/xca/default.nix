@@ -1,5 +1,5 @@
-{ mkDerivation, lib, fetchFromGitHub, autoreconfHook, perl, pkgconfig, libtool, openssl, qtbase, qttools
-}:
+{ mkDerivation, lib, fetchFromGitHub, autoreconfHook, perl, pkgconfig, libtool
+, openssl, qtbase, qttools }:
 
 mkDerivation rec {
   name = "xca-${version}";

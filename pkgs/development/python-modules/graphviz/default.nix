@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, graphviz, makeFontsConf, freefont_ttf, mock, pytest, pytest-mock, pytestcov
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, graphviz
+, makeFontsConf, freefont_ttf, mock, pytest, pytest-mock, pytestcov }:
 
 buildPythonPackage rec {
   pname = "graphviz";

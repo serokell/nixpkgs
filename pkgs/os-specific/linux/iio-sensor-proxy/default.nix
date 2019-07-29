@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf-archive, gettext, libtool, intltool, autoconf, automake, glib, gtk3, gtk-doc, libgudev, pkgconfig, systemd
-}:
+{ stdenv, fetchFromGitHub, autoconf-archive, gettext, libtool, intltool
+, autoconf, automake, glib, gtk3, gtk-doc, libgudev, pkgconfig, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "iio-sensor-proxy";

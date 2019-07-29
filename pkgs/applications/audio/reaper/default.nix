@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, alsaLib, xorg, gtk3, pango, gdk_pixbuf, cairo, glib, freetype, libpulseaudio, xdg_utils
-}:
+{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, alsaLib, xorg, gtk3, pango
+, gdk_pixbuf, cairo, glib, freetype, libpulseaudio, xdg_utils }:
 
 stdenv.mkDerivation rec {
   name = "reaper-${version}";

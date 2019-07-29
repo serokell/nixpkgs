@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, expat, fftwFloat, fontconfig, freetype, libjack2, jack2Full, libclthreads, libclxclient, libsndfile, libxcb, xorg
-}:
+{ stdenv, fetchurl, makeWrapper, expat, fftwFloat, fontconfig, freetype
+, libjack2, jack2Full, libclthreads, libclxclient, libsndfile, libxcb, xorg }:
 
 stdenv.mkDerivation rec {
   name = "tetraproc-${version}";

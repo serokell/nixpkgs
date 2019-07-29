@@ -1,5 +1,6 @@
-{ lib, buildPythonApplication, fetchFromGitHub, beautifulsoup4, boto3, configparser, keyring, keyrings-alt, lxml, pillow, requests, six, tabulate, tzlocal, nose, mock, withU2F ?
-  false, python-u2flib-host }:
+{ lib, buildPythonApplication, fetchFromGitHub, beautifulsoup4, boto3
+, configparser, keyring, keyrings-alt, lxml, pillow, requests, six, tabulate
+, tzlocal, nose, mock, withU2F ? false, python-u2flib-host }:
 
 buildPythonApplication rec {
   pname = "aws-google-auth";

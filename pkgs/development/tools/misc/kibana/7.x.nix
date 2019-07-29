@@ -1,5 +1,5 @@
-{ elk7Version, enableUnfree ?
-  true, stdenv, makeWrapper, fetchurl, nodejs-10_x, coreutils, which }:
+{ elk7Version, enableUnfree ? true, stdenv, makeWrapper, fetchurl, nodejs-10_x
+, coreutils, which }:
 
 with stdenv.lib;
 let

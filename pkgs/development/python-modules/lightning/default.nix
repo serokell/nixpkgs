@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, jinja2, matplotlib, numpy, requests, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, jinja2, matplotlib, numpy
+, requests, six }:
 
 buildPythonPackage rec {
   version = "1.2.1";

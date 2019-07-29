@@ -1,8 +1,10 @@
-{ stdenv, fetchurl, cmake, pkgconfig, xlibsWrapper, qtbase, qttools, qtmultimedia, qtx11extras
+{ stdenv, fetchurl, cmake, pkgconfig, xlibsWrapper, qtbase, qttools
+, qtmultimedia, qtx11extras
 # transports
 , curl, libmms
 # input plugins
-, libmad, taglib, libvorbis, libogg, flac, libmpcdec, libmodplug, libsndfile, libcdio, cdparanoia, libcddb, faad2, ffmpeg, wildmidi
+, libmad, taglib, libvorbis, libogg, flac, libmpcdec, libmodplug, libsndfile
+, libcdio, cdparanoia, libcddb, faad2, ffmpeg, wildmidi
 # output plugins
 , alsaLib, libpulseaudio
 # effect plugins

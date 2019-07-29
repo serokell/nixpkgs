@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, wayland, wayland-protocols, cairo, gdk_pixbuf
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, wayland
+, wayland-protocols, cairo, gdk_pixbuf }:
 
 stdenv.mkDerivation rec {
   name = "swaybg-${version}";

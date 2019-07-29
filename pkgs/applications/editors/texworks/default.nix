@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, qt5, libsForQt5, hunspell, withLua ?
-  true, lua, withPython ? true, python3 }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, qt5, libsForQt5, hunspell
+, withLua ? true, lua, withPython ? true, python3 }:
 
 stdenv.mkDerivation rec {
   name = "texworks-${version}";

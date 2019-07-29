@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, gettext, zsh, pinentry, cryptsetup, gnupg, utillinux, e2fsprogs, sudo
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, gettext, zsh, pinentry, cryptsetup
+, gnupg, utillinux, e2fsprogs, sudo }:
 
 stdenv.mkDerivation rec {
   name = "tomb-${version}";

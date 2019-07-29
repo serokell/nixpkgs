@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, openssl, zlib, pcre, libxml2, libxslt, substituteAll, gd, geoip, withDebug ?
-  false, withStream ? true, withMail ? false, modules ?
-    [ ], version, sha256, ... }:
+{ stdenv, fetchurl, fetchpatch, openssl, zlib, pcre, libxml2, libxslt
+, substituteAll, gd, geoip, withDebug ? false, withStream ? true
+, withMail ? false, modules ? [ ], version, sha256, ... }:
 
 with stdenv.lib;
 

@@ -1,5 +1,7 @@
-{ stdenv, cmake, pkgconfig, git, curl, SDL2, xercesc, openal, lua, vlc, libjpeg, wxGTK, cppunit, ftgl, glew, libogg, libvorbis, buildEnv, libpng, fontconfig, freetype, xorg, makeWrapper, bash, which, gnome3, libGLU, glib, fetchFromGitHub
-}:
+{ stdenv, cmake, pkgconfig, git, curl, SDL2, xercesc, openal, lua, vlc, libjpeg
+, wxGTK, cppunit, ftgl, glew, libogg, libvorbis, buildEnv, libpng, fontconfig
+, freetype, xorg, makeWrapper, bash, which, gnome3, libGLU, glib
+, fetchFromGitHub }:
 let
   version = "3.13.0";
   lib-env = buildEnv {

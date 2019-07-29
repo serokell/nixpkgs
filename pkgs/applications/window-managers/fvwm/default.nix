@@ -1,6 +1,6 @@
-{ gestures ?
-  false, stdenv, fetchurl, pkgconfig, cairo, fontconfig, freetype, libXft, libXcursor, libXinerama, libXpm, libXt, librsvg, libpng, fribidi, perl, libstroke ?
-    null }:
+{ gestures ? false, stdenv, fetchurl, pkgconfig, cairo, fontconfig, freetype
+, libXft, libXcursor, libXinerama, libXpm, libXt, librsvg, libpng, fribidi, perl
+, libstroke ? null }:
 
 assert gestures -> libstroke != null;
 

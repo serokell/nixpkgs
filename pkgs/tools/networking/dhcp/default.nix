@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, perl, file, nettools, iputils, iproute, makeWrapper, coreutils, gnused, openldap ?
-  null, buildPackages, lib }:
+{ stdenv, fetchurl, perl, file, nettools, iputils, iproute, makeWrapper
+, coreutils, gnused, openldap ? null, buildPackages, lib }:
 
 stdenv.mkDerivation rec {
   name = "dhcp-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, openssl, cryptography_vectors, darwin, asn1crypto, packaging, six, pythonOlder, enum34, ipaddress, isPyPy, cffi, pytest, pretend, iso8601, pytz, hypothesis
-}:
+{ stdenv, buildPythonPackage, fetchPypi, openssl, cryptography_vectors, darwin
+, asn1crypto, packaging, six, pythonOlder, enum34, ipaddress, isPyPy, cffi
+, pytest, pretend, iso8601, pytz, hypothesis }:
 
 buildPythonPackage rec {
   pname = "cryptography";

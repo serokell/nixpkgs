@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, dbus-glib, gdk_pixbuf, curl, freetype, libgsf, poppler, bzip2
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, dbus-glib, gdk_pixbuf, curl, freetype
+, libgsf, poppler, bzip2 }:
 let
   p_name = "tumbler";
   ver_maj = "0.1";

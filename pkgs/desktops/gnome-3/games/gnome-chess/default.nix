@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, vala, pkgconfig, wrapGAppsHook, gobject-introspection, gettext, itstool, libxml2, python3, gnome3, glib, gtk3, librsvg
-}:
+{ stdenv, fetchurl, meson, ninja, vala, pkgconfig, wrapGAppsHook
+, gobject-introspection, gettext, itstool, libxml2, python3, gnome3, glib, gtk3
+, librsvg }:
 
 stdenv.mkDerivation rec {
   name = "gnome-chess-${version}";

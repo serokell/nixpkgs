@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, pkgconfig, alsaLib, libjack2, libsndfile, fftw, curl, gcc, libXt, qtbase, qttools, qtwebengine, readline, qtwebsockets, useSCEL ?
-  false, emacs }:
+{ stdenv, fetchurl, cmake, pkgconfig, alsaLib, libjack2, libsndfile, fftw, curl
+, gcc, libXt, qtbase, qttools, qtwebengine, readline, qtwebsockets
+, useSCEL ? false, emacs }:
 
 let optional = stdenv.lib.optional;
 

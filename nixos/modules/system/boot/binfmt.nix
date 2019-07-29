@@ -5,8 +5,8 @@ let
   cfg = config.boot.binfmt;
 
   makeBinfmtLine = name:
-    { recognitionType, offset, magicOrExtension, mask, preserveArgvZero, openBinary, matchCredentials, fixBinary, ...
-    }:
+    { recognitionType, offset, magicOrExtension, mask, preserveArgvZero
+    , openBinary, matchCredentials, fixBinary, ... }:
     let
       type = if recognitionType == "magic" then "M" else "E";
       offset' = toString offset;

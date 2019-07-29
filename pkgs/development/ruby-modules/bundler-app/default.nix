@@ -18,10 +18,10 @@ pname
   # Exes is the list of executables provided by the gems in the Gemfile
 , exes ? [ ]
   # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
-, scripts ? [ ], ruby ? defs.ruby, gemfile ? null, lockfile ? null, gemset ?
-  null, preferLocalBuild ? false, allowSubstitutes ? false, installManpages ?
-    true, meta ? { }, buildInputs ? [ ], postBuild ? "", gemConfig ?
-      null, passthru ? { } }@args:
+, scripts ? [ ], ruby ? defs.ruby, gemfile ? null, lockfile ? null
+, gemset ? null, preferLocalBuild ? false, allowSubstitutes ? false
+, installManpages ? true, meta ? { }, buildInputs ? [ ], postBuild ? ""
+, gemConfig ? null, passthru ? { } }@args:
 
 let
   basicEnv = (callPackage ../bundled-common { }) args;

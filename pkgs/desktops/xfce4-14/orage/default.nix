@@ -1,5 +1,5 @@
-{ lib, fetchpatch, mkXfceDerivation, dbus-glib, gtk2, libical, libnotify, tzdata, popt, libxfce4ui ?
-  null, xfce4-panel ? null, withPanelPlugin ? true }:
+{ lib, fetchpatch, mkXfceDerivation, dbus-glib, gtk2, libical, libnotify, tzdata
+, popt, libxfce4ui ? null, xfce4-panel ? null, withPanelPlugin ? true }:
 
 assert withPanelPlugin -> libxfce4ui != null && xfce4-panel != null;
 

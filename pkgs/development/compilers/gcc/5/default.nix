@@ -1,23 +1,23 @@
-{ stdenv, targetPackages, fetchurl, fetchpatch, noSysDirs, langC ?
-  true, langCC ? true, langFortran ? false, langObjC ?
-    stdenv.targetPlatform.isDarwin, langObjCpp ?
-      stdenv.targetPlatform.isDarwin, langJava ? false, langGo ?
-        false, profiledCompiler ? false, staticCompiler ? false, enableShared ?
-          true, texinfo ? null, perl ?
-            null # optional, for texi2pod (then pod2man); required for Java
-, gmp, mpfr, libmpc, gettext, which, libelf # optional, for link-time optimizations (LTO)
+{ stdenv, targetPackages, fetchurl, fetchpatch, noSysDirs, langC ? true
+, langCC ? true, langFortran ? false, langObjC ? stdenv.targetPlatform.isDarwin
+, langObjCpp ? stdenv.targetPlatform.isDarwin, langJava ? false, langGo ? false
+, profiledCompiler ? false, staticCompiler ? false, enableShared ? true
+, texinfo ? null
+, perl ? null # optional, for texi2pod (then pod2man); required for Java
+, gmp, mpfr, libmpc, gettext, which
+, libelf # optional, for link-time optimizations (LTO)
 , isl ? null # optional, for the Graphite optimization framework.
-, zlib ? null, boehmgc ? null, zip ? null, unzip ? null, pkgconfig ?
-  null, gtk2 ? null, libart_lgpl ? null, libX11 ? null, libXt ? null, libSM ?
-    null, libICE ? null, libXtst ? null, libXrender ? null, xorgproto ?
-      null, libXrandr ? null, libXi ? null, x11Support ?
-        langJava, enableMultilib ? false, enablePlugin ? stdenv.hostPlatform
-          == stdenv.buildPlatform # Whether to support user-supplied plug-ins
-, name ? "gcc", libcCross ? null, crossStageStatic ?
-  false, # Strip kills static libs of other archs (hence no cross)
+, zlib ? null, boehmgc ? null, zip ? null, unzip ? null, pkgconfig ? null
+, gtk2 ? null, libart_lgpl ? null, libX11 ? null, libXt ? null, libSM ? null
+, libICE ? null, libXtst ? null, libXrender ? null, xorgproto ? null
+, libXrandr ? null, libXi ? null, x11Support ? langJava, enableMultilib ? false
+, enablePlugin ? stdenv.hostPlatform
+  == stdenv.buildPlatform # Whether to support user-supplied plug-ins
+, name ? "gcc", libcCross ? null, crossStageStatic ? false
+, # Strip kills static libs of other archs (hence no cross)
 stripped ? stdenv.hostPlatform == stdenv.buildPlatform && stdenv.targetPlatform
-  == stdenv.hostPlatform, gnused ?
-    null, cloog # unused; just for compat with gcc4, as we override the parameter on some places
+  == stdenv.hostPlatform, gnused ? null
+, cloog # unused; just for compat with gcc4, as we override the parameter on some places
 , buildPackages }:
 
 assert langJava -> zip != null && unzip != null && zlib != null && boehmgc

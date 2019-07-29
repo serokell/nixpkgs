@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, freetype, SDL2, SDL2_mixer, openal, zlib, libpng, python, libvorbis, libiconv
-}:
+{ stdenv, fetchFromGitHub, cmake, freetype, SDL2, SDL2_mixer, openal, zlib
+, libpng, python, libvorbis, libiconv }:
 
 stdenv.mkDerivation rec {
   name = "gemrb-${version}";

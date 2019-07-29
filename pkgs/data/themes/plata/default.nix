@@ -1,9 +1,10 @@
-{ stdenv, fetchFromGitLab, autoreconfHook, pkgconfig, parallel, sassc, inkscape, libxml2, glib, gdk_pixbuf, librsvg, gtk-engine-murrine, cinnamonSupport ?
-  true, gnomeFlashbackSupport ? true, gnomeShellSupport ? true, openboxSupport ?
-    true, xfceSupport ? true, mateSupport ? true, gtk3, marco, gtkNextSupport ?
-      false, plankSupport ? false, steamSupport ? false, telegramSupport ?
-        false, zip, tweetdeckSupport ? false, selectionColor ?
-          null # Primary color for 'selected-items' (Default: #3F51B5 = Indigo500)
+{ stdenv, fetchFromGitLab, autoreconfHook, pkgconfig, parallel, sassc, inkscape
+, libxml2, glib, gdk_pixbuf, librsvg, gtk-engine-murrine, cinnamonSupport ? true
+, gnomeFlashbackSupport ? true, gnomeShellSupport ? true, openboxSupport ? true
+, xfceSupport ? true, mateSupport ? true, gtk3, marco, gtkNextSupport ? false
+, plankSupport ? false, steamSupport ? false, telegramSupport ? false, zip
+, tweetdeckSupport ? false, selectionColor ?
+  null # Primary color for 'selected-items' (Default: #3F51B5 = Indigo500)
 , accentColor ?
   null # Secondary color for notifications and OSDs (Default: #7986CB = Indigo300)
 , suggestionColor ?

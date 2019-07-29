@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pillow, nose_progressive, nose, mock, blessings
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pillow, nose_progressive, nose, mock
+, blessings }:
 
 buildPythonPackage rec {
   pname = "pilkit";

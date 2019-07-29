@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, boost, icu, libpng, librevenge, zlib, doxygen, pkgconfig, cppunit
-}:
+{ stdenv, fetchurl, boost, icu, libpng, librevenge, zlib, doxygen, pkgconfig
+, cppunit }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

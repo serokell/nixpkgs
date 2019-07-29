@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, futures, backports_functools_lru_cache, mock, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, futures
+, backports_functools_lru_cache, mock, pytest }:
 
 let
   skipTests = [ "test_requirements_finder" "test_pipfile_finder" ]

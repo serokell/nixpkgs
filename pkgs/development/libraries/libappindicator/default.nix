@@ -1,10 +1,10 @@
 # TODO: Resolve the issues with the Mono bindings.
 
-{ stdenv, fetchurl, lib, file, pkgconfig, autoconf, glib, dbus-glib, gtkVersion ?
-  "3", gtk2 ? null, libindicator-gtk2 ? null, libdbusmenu-gtk2 ? null, gtk3 ?
-    null, libindicator-gtk3 ? null, libdbusmenu-gtk3 ?
-      null, python2Packages, gobject-introspection, vala, monoSupport ?
-        false, mono ? null, gtk-sharp-2_0 ? null }:
+{ stdenv, fetchurl, lib, file, pkgconfig, autoconf, glib, dbus-glib
+, gtkVersion ? "3", gtk2 ? null, libindicator-gtk2 ? null
+, libdbusmenu-gtk2 ? null, gtk3 ? null, libindicator-gtk3 ? null
+, libdbusmenu-gtk3 ? null, python2Packages, gobject-introspection, vala
+, monoSupport ? false, mono ? null, gtk-sharp-2_0 ? null }:
 
 with lib;
 

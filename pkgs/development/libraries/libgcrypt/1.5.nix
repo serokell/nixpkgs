@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchpatch, fetchurl, libgpgerror, enableCapabilities ?
-  false, libcap }:
+{ lib, stdenv, fetchpatch, fetchurl, libgpgerror, enableCapabilities ? false
+, libcap }:
 
 assert enableCapabilities -> stdenv.isLinux;
 

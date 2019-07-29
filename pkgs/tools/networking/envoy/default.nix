@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, bazel, c-ares, backward-cpp, libevent, gtest, gperftools, http-parser, lightstep-tracer-cpp, nghttp2, protobuf, tclap, rapidjson, spdlog, boringssl, buildEnv
-}:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, bazel, c-ares, backward-cpp, libevent
+, gtest, gperftools, http-parser, lightstep-tracer-cpp, nghttp2, protobuf, tclap
+, rapidjson, spdlog, boringssl, buildEnv }:
 
 let
   protobuf_bzl = fetchFromGitHub {

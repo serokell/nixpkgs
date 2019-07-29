@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bzip2, bcftools, curl, cython, htslib, lzma, pytest, samtools, zlib
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, bzip2, bcftools, curl, cython
+, htslib, lzma, pytest, samtools, zlib }:
 
 buildPythonPackage rec {
   pname = "pysam";

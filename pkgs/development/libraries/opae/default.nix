@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libuuid, json_c, doxygen, perl, python2, python2Packages
-}:
+{ stdenv, fetchFromGitHub, cmake, libuuid, json_c, doxygen, perl, python2
+, python2Packages }:
 
 stdenv.mkDerivation rec {
   name = "opae-${version}";

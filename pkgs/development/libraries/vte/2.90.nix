@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, pkgconfig, glib, gtk3, ncurses, gobject-introspection
-}:
+{ stdenv, fetchurl, intltool, pkgconfig, glib, gtk3, ncurses
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   versionMajor = "0.36";

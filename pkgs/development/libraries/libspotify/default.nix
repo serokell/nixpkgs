@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libspotify, alsaLib, readline, pkgconfig, apiKey ?
-  null, unzip, gnused }:
+{ stdenv, fetchurl, libspotify, alsaLib, readline, pkgconfig, apiKey ? null
+, unzip, gnused }:
 
 let
   version = "12.1.51";

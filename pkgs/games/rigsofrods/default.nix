@@ -1,5 +1,6 @@
-{ fetchFromGitHub, stdenv, wxGTK30, freeimage, cmake, zziplib, libGLU_combined, boost, pkgconfig, libuuid, openal, ogre, ois, curl, gtk2, mygui, unzip, angelscript, ogrepaged, mysocketw, libxcb
-}:
+{ fetchFromGitHub, stdenv, wxGTK30, freeimage, cmake, zziplib, libGLU_combined
+, boost, pkgconfig, libuuid, openal, ogre, ois, curl, gtk2, mygui, unzip
+, angelscript, ogrepaged, mysocketw, libxcb }:
 
 stdenv.mkDerivation rec {
   version = "0.4.7.0";

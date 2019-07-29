@@ -1,5 +1,7 @@
-{ stdenv, buildPythonPackage, fetchPypi, makeDesktopItem, jedi, pycodestyle, psutil, pyflakes, rope, numpy, scipy, matplotlib, pylint, keyring, numpydoc, qtconsole, qtawesome, nbconvert, mccabe, pyopengl, cloudpickle, pygments, spyder-kernels, qtpy, pyzmq, chardet
-}:
+{ stdenv, buildPythonPackage, fetchPypi, makeDesktopItem, jedi, pycodestyle
+, psutil, pyflakes, rope, numpy, scipy, matplotlib, pylint, keyring, numpydoc
+, qtconsole, qtawesome, nbconvert, mccabe, pyopengl, cloudpickle, pygments
+, spyder-kernels, qtpy, pyzmq, chardet }:
 
 buildPythonPackage rec {
   pname = "spyder";

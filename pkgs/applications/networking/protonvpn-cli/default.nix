@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, openvpn, python, dialog, wget, update-resolv-conf
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, openvpn, python, dialog
+, wget, update-resolv-conf }:
 
 let
   expectedUpdateResolvPath = "/etc/openvpn/update-resolv-conf";

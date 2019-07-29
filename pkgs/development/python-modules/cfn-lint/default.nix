@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pyyaml, six, requests, aws-sam-translator, jsonpatch, jsonschema, pathlib2
-}:
+{ lib, buildPythonPackage, fetchPypi, pyyaml, six, requests, aws-sam-translator
+, jsonpatch, jsonschema, pathlib2 }:
 
 buildPythonPackage rec {
   pname = "cfn-lint";

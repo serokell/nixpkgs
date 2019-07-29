@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, scipy, numba, future, h5py, nose, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, scipy, numba, future, h5py, nose
+, isPy27 }:
 
 buildPythonPackage rec {
   pname = "clifford";

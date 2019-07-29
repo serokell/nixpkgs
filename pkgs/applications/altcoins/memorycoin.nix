@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, openssl, db48, boost, zlib, qt4, qmake4Hook, utillinux, protobuf, qrencode, withGui
-}:
+{ stdenv, fetchurl, pkgconfig, openssl, db48, boost, zlib, qt4, qmake4Hook
+, utillinux, protobuf, qrencode, withGui }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

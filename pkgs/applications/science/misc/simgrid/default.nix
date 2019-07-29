@@ -2,10 +2,10 @@
 # Optional requirements
 # Lua 5.3 needed and not available now
 #, luaSupport ? false, lua5
-, fortranSupport ? false, gfortran, buildDocumentation ?
-  false, transfig, ghostscript, doxygen, buildJavaBindings ?
-    false, openjdk, modelCheckingSupport ?
-      false, libunwind, libevent, elfutils # Inside elfutils: libelf and libdw
+, fortranSupport ? false, gfortran, buildDocumentation ? false, transfig
+, ghostscript, doxygen, buildJavaBindings ? false, openjdk
+, modelCheckingSupport ? false, libunwind, libevent
+, elfutils # Inside elfutils: libelf and libdw
 , debug ? false, moreTests ? false }:
 
 with stdenv.lib;

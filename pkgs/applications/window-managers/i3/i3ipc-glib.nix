@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, xorgproto, libxcb, autoreconfHook, json-glib, gtk-doc, which, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, xorgproto, libxcb, autoreconfHook
+, json-glib, gtk-doc, which, gobject-introspection }:
 
 stdenv.mkDerivation rec {
 

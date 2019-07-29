@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qt4 ? null, withQt5 ?
-  false, qtbase ? null, qttools ? null, darwin ? null, libsecret }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qt4 ? null, withQt5 ? false
+, qtbase ? null, qttools ? null, darwin ? null, libsecret }:
 
 assert withQt5 -> qtbase != null;
 assert withQt5 -> qttools != null;

@@ -1,5 +1,7 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, kcmutils, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kdbusaddons, kdeclarative, kdelibs4support, ki18n, kiconthemes, kio, kpackage, kservice, kwayland, kwidgetsaddons, kxmlgui, libraw1394, libGLU, pciutils, solid
-}:
+{ mkDerivation, extra-cmake-modules, kdoctools, kcmutils, kcompletion, kconfig
+, kconfigwidgets, kcoreaddons, kdbusaddons, kdeclarative, kdelibs4support, ki18n
+, kiconthemes, kio, kpackage, kservice, kwayland, kwidgetsaddons, kxmlgui
+, libraw1394, libGLU, pciutils, solid }:
 
 mkDerivation {
   name = "kinfocenter";

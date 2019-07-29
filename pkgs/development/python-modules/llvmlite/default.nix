@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, python, llvm, pythonOlder, isPyPy, enum34
-}:
+{ stdenv, fetchPypi, buildPythonPackage, python, llvm, pythonOlder, isPyPy
+, enum34 }:
 
 buildPythonPackage rec {
   pname = "llvmlite";

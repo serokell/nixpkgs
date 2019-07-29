@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, fetchzip, alembic, ipython, jinja2, python-oauth2, prometheus_client, async_generator, pamela, sqlalchemy, tornado, traitlets, requests, notebook, pythonOlder, nodePackages
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchzip, alembic, ipython, jinja2
+, python-oauth2, prometheus_client, async_generator, pamela, sqlalchemy, tornado
+, traitlets, requests, notebook, pythonOlder, nodePackages }:
 
 let
   # js/css assets that setup.py tries to fetch via `npm install` when building

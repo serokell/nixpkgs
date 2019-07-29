@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, meson, gettext, gobject-introspection, glib, clutter-gtk, clutter-gst, gnome3, gtksourceview, gjs, webkitgtk, libmusicbrainz5, icu, wrapGAppsHook, gst_all_1, gdk_pixbuf, librsvg, gtk3, harfbuzz, ninja
-}:
+{ stdenv, fetchurl, pkgconfig, meson, gettext, gobject-introspection, glib
+, clutter-gtk, clutter-gst, gnome3, gtksourceview, gjs, webkitgtk
+, libmusicbrainz5, icu, wrapGAppsHook, gst_all_1, gdk_pixbuf, librsvg, gtk3
+, harfbuzz, ninja }:
 
 stdenv.mkDerivation rec {
   name = "sushi-${version}";

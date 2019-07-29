@@ -1,5 +1,6 @@
-{ SDL2_image, SDL2_ttf, SDL2_net, fpc, qt5, ghcWithPackages, ffmpeg, freeglut, stdenv, makeWrapper, fetchurl, cmake, pkgconfig, lua5_1, SDL2, SDL2_mixer, zlib, libpng, libGLU_combined, physfs
-}:
+{ SDL2_image, SDL2_ttf, SDL2_net, fpc, qt5, ghcWithPackages, ffmpeg, freeglut
+, stdenv, makeWrapper, fetchurl, cmake, pkgconfig, lua5_1, SDL2, SDL2_mixer
+, zlib, libpng, libGLU_combined, physfs }:
 
 let
   ghc = ghcWithPackages (pkgs:

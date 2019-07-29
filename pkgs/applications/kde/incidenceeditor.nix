@@ -1,5 +1,6 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-mime, calendarsupport, eventviews, kdepim-apps-libs, kdiagram, kldap, kmime, qtbase,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, akonadi-mime, calendarsupport, eventviews, kdepim-apps-libs, kdiagram, kldap
+, kmime, qtbase, }:
 
 mkDerivation {
   name = "incidenceeditor";

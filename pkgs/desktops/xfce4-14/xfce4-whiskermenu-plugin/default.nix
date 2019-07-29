@@ -1,5 +1,5 @@
-{ mkXfceDerivation, dbus-glib, gtk3, cmake, exo, garcon, libxfce4ui, libxfce4util, xfce4-panel, xfconf
-}:
+{ mkXfceDerivation, dbus-glib, gtk3, cmake, exo, garcon, libxfce4ui
+, libxfce4util, xfce4-panel, xfconf }:
 
 mkXfceDerivation rec {
   category = "panel-plugins";

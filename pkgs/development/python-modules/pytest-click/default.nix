@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, click, pytestcov, isPy27, mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, click, pytestcov, isPy27
+, mock }:
 
 buildPythonPackage rec {
   pname = "pytest-click";

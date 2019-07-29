@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, git, gperf, pcre, unbound, libev, tokyocabinet, pkgconfig, bash, libsrs2
-}:
+{ stdenv, lib, fetchFromGitHub, git, gperf, pcre, unbound, libev, tokyocabinet
+, pkgconfig, bash, libsrs2 }:
 
 let
   version = "0.9";

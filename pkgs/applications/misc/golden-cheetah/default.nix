@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, qtbase, qtsvg, qtserialport, qtwebkit, qtmultimedia, qttools, qtconnectivity, yacc, flex, zlib, qmake, makeDesktopItem, makeWrapper
-}:
+{ stdenv, fetchurl, qtbase, qtsvg, qtserialport, qtwebkit, qtmultimedia, qttools
+, qtconnectivity, yacc, flex, zlib, qmake, makeDesktopItem, makeWrapper }:
 
 let
   desktopItem = makeDesktopItem {

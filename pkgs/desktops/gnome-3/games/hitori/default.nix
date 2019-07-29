@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, glib, gtk3, cairo, wrapGAppsHook, libxml2, python3, gettext, itstool, desktop-file-utils, adwaita-icon-theme
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, glib, gtk3, cairo
+, wrapGAppsHook, libxml2, python3, gettext, itstool, desktop-file-utils
+, adwaita-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "hitori";

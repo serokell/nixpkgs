@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, zlib, c-ares, pkgconfig, openssl, protobuf, gflags
-}:
+{ stdenv, fetchFromGitHub, cmake, zlib, c-ares, pkgconfig, openssl, protobuf
+, gflags }:
 
 stdenv.mkDerivation rec {
   version = "1.19.1";

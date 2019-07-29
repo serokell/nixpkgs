@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, elfutils, xorg, patchelf, openssl, libdrm, udev, libxcb, libxshmfence, epoxy, perl, zlib, ncurses, libsOnly ?
-  false, kernel ? null }:
+{ stdenv, fetchurl, elfutils, xorg, patchelf, openssl, libdrm, udev, libxcb
+, libxshmfence, epoxy, perl, zlib, ncurses, libsOnly ? false, kernel ? null }:
 
 assert (!libsOnly) -> kernel != null;
 

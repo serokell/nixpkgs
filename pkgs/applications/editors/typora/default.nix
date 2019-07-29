@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, electron_3, dpkg, gtk3, glib, gsettings-desktop-schemas, wrapGAppsHook
-}:
+{ stdenv, fetchurl, makeWrapper, electron_3, dpkg, gtk3, glib
+, gsettings-desktop-schemas, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "typora";

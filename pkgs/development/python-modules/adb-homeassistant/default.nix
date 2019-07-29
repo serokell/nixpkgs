@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, libusb1, rsa, pycryptodome, pytest, mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, libusb1, rsa, pycryptodome, pytest
+, mock }:
 buildPythonPackage rec {
   pname = "adb-homeassistant";
   version = "1.3.1";

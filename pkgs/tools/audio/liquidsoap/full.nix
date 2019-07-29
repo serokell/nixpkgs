@@ -1,5 +1,7 @@
-{ stdenv, makeWrapper, fetchurl, which, pkgconfig, ocamlPackages, libao, portaudio, alsaLib, libpulseaudio, libjack2, libsamplerate, libmad, taglib, lame, libogg, libvorbis, speex, libtheora, libopus, fdk_aac, faad2, flac, ladspaH, ffmpeg, frei0r, dssi
-}:
+{ stdenv, makeWrapper, fetchurl, which, pkgconfig, ocamlPackages, libao
+, portaudio, alsaLib, libpulseaudio, libjack2, libsamplerate, libmad, taglib
+, lame, libogg, libvorbis, speex, libtheora, libopus, fdk_aac, faad2, flac
+, ladspaH, ffmpeg, frei0r, dssi }:
 
 let
   pname = "liquidsoap";

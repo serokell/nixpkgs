@@ -1,5 +1,5 @@
-{ stdenv, gettext, fetchurl, vala, desktop-file-utils, meson, ninja, pkgconfig, gtk3, glib, libxml2, wrapGAppsHook, itstool, gnome3
-}:
+{ stdenv, gettext, fetchurl, vala, desktop-file-utils, meson, ninja, pkgconfig
+, gtk3, glib, libxml2, wrapGAppsHook, itstool, gnome3 }:
 
 let
   pname = "baobab";

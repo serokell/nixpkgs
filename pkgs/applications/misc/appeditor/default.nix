@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, gettext, glib, gtk3, hicolor-icon-theme, libgee, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, gettext
+, glib, gtk3, hicolor-icon-theme, libgee, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "appeditor";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, perl, libGLU_combined, xorg, version ?
-  "2.8", # What version
+{ stdenv, fetchurl, makeWrapper, perl, libGLU_combined, xorg, version ? "2.8"
+, # What version
 samples ? false # Should samples be installed
 }:
 

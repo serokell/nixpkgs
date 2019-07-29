@@ -1,5 +1,7 @@
-{ stdenv, lib, makeWrapper, fetchurl, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, gtk2-x11, nspr, nss, libX11, libxcb, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXScrnSaver, libXtst, libudev0-shim
-}:
+{ stdenv, lib, makeWrapper, fetchurl, alsaLib, atk, cairo, cups, dbus, expat
+, fontconfig, freetype, gdk_pixbuf, glib, gnome2, gtk2-x11, nspr, nss, libX11
+, libxcb, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi
+, libXrandr, libXrender, libXScrnSaver, libXtst, libudev0-shim }:
 stdenv.mkDerivation rec {
   name = "sweep-visualizer-${version}";
   version = "0.15.0";

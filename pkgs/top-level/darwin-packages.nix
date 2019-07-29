@@ -1,5 +1,5 @@
-{ buildPackages, pkgs, targetPackages, darwin, stdenv, callPackage, callPackages, newScope
-}:
+{ buildPackages, pkgs, targetPackages, darwin, stdenv, callPackage, callPackages
+, newScope }:
 
 let
   apple-source-releases =

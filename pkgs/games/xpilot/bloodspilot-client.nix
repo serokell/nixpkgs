@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, SDL, libGLU_combined, expat, zlib, SDL_ttf, SDL_image
-}:
+{ stdenv, fetchurl, libX11, SDL, libGLU_combined, expat, zlib, SDL_ttf
+, SDL_image }:
 
 stdenv.mkDerivation rec {
   version = "1.5.0";

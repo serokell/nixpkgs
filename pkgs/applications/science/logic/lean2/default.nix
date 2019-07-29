@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, gmp, mpfr, python, gperftools, ninja, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, cmake, gmp, mpfr, python, gperftools, ninja
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "lean2-${version}";

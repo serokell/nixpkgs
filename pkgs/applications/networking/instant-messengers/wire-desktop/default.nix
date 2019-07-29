@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, dpkg, makeDesktopItem, libuuid, gtk3, atk, cairo, pango, gdk_pixbuf, glib, freetype, fontconfig, dbus, libnotify, libX11, xorg, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev, xdg_utils, hunspell, pulseaudio, pciutils, at-spi2-atk
-}:
+{ stdenv, fetchurl, dpkg, makeDesktopItem, libuuid, gtk3, atk, cairo, pango
+, gdk_pixbuf, glib, freetype, fontconfig, dbus, libnotify, libX11, xorg, libXi
+, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes
+, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, expat, udev
+, xdg_utils, hunspell, pulseaudio, pciutils, at-spi2-atk }:
 
 let
 

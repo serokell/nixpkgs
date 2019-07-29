@@ -1,5 +1,7 @@
-{ stdenv, intltool, fetchFromGitLab, pkgconfig, gtk3, adwaita-icon-theme, glib, desktop-file-utils, gtk-doc, autoconf, automake, libtool, wrapGAppsHook, gnome3, itstool, libxml2, yelp-tools, docbook_xsl, docbook_xml_dtd_412, gsettings-desktop-schemas, callPackage, unzip, gobject-introspection
-}:
+{ stdenv, intltool, fetchFromGitLab, pkgconfig, gtk3, adwaita-icon-theme, glib
+, desktop-file-utils, gtk-doc, autoconf, automake, libtool, wrapGAppsHook
+, gnome3, itstool, libxml2, yelp-tools, docbook_xsl, docbook_xml_dtd_412
+, gsettings-desktop-schemas, callPackage, unzip, gobject-introspection }:
 
 let unicode-data = callPackage ./unicode-data.nix { };
 in stdenv.mkDerivation rec {

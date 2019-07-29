@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, withMySQL ? true, withPSQL ? false, withSQLite ?
-  false, mysql, postgresql, sqlite, gawk, lib }:
+{ stdenv, fetchFromGitHub, withMySQL ? true, withPSQL ? false
+, withSQLite ? false, mysql, postgresql, sqlite, gawk, lib }:
 
 stdenv.mkDerivation rec {
   name = "shmig-${version}";

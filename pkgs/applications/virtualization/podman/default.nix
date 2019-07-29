@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, buildGoPackage, gpgme, lvm2, btrfs-progs, libseccomp, systemd, go-md2man
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, buildGoPackage, gpgme, lvm2, btrfs-progs
+, libseccomp, systemd, go-md2man }:
 
 buildGoPackage rec {
   name = "podman-${version}";

@@ -1,9 +1,9 @@
-{ config, stdenv, lib, fetchFromGitHub, fetchurl, cmake, boost, google-gflags, glog, hdf5-cpp, opencv3, protobuf, doxygen, openblas, Accelerate, CoreGraphics, CoreVideo, lmdbSupport ?
-  true, lmdb, leveldbSupport ? true, leveldb, snappy, cudaSupport ?
-    config.cudaSupport or false, cudatoolkit, cudnnSupport ?
-      cudaSupport, cudnn ? null, ncclSupport ? false, nccl ?
-        null, pythonSupport ? false, python ? null, numpy ? null, substituteAll
-}:
+{ config, stdenv, lib, fetchFromGitHub, fetchurl, cmake, boost, google-gflags
+, glog, hdf5-cpp, opencv3, protobuf, doxygen, openblas, Accelerate, CoreGraphics
+, CoreVideo, lmdbSupport ? true, lmdb, leveldbSupport ? true, leveldb, snappy
+, cudaSupport ? config.cudaSupport or false, cudatoolkit
+, cudnnSupport ? cudaSupport, cudnn ? null, ncclSupport ? false, nccl ? null
+, pythonSupport ? false, python ? null, numpy ? null, substituteAll }:
 
 assert leveldbSupport -> (leveldb != null && snappy != null);
 assert cudnnSupport -> cudaSupport;

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, coreutils, pam, groff, sssd, sendmailPath ?
-  "/run/wrappers/bin/sendmail", withInsults ? false, withSssd ? false }:
+{ stdenv, fetchurl, coreutils, pam, groff, sssd
+, sendmailPath ? "/run/wrappers/bin/sendmail", withInsults ? false
+, withSssd ? false }:
 
 stdenv.mkDerivation rec {
   name = "sudo-1.8.27";

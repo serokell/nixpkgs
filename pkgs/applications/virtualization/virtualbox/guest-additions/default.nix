@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, patchelf, cdrkit, kernel, which, makeWrapper, zlib, xorg, dbus, virtualbox
-}:
+{ stdenv, fetchurl, lib, patchelf, cdrkit, kernel, which, makeWrapper, zlib
+, xorg, dbus, virtualbox }:
 
 let
   version = virtualbox.version;

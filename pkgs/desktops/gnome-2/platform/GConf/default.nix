@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, dbus-glib, glib, ORBit2, libxml2, polkit, python2, intltool
-}:
+{ stdenv, fetchurl, pkgconfig, dbus-glib, glib, ORBit2, libxml2, polkit, python2
+, intltool }:
 
 stdenv.mkDerivation rec {
   name = "gconf-${version}";

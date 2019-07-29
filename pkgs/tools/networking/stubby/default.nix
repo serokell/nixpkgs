@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, getdns, libtool, m4, file, doxygen, autoreconfHook, automake, check, libbsd, libyaml, darwin
-}:
+{ stdenv, fetchFromGitHub, getdns, libtool, m4, file, doxygen, autoreconfHook
+, automake, check, libbsd, libyaml, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "stubby";

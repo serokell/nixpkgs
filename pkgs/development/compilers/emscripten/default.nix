@@ -1,5 +1,5 @@
-{ emscriptenVersion, stdenv, fetchFromGitHub, emscriptenfastcomp, python, nodejs, closurecompiler, jre, binaryen, enableWasm ?
-  true, cmake }:
+{ emscriptenVersion, stdenv, fetchFromGitHub, emscriptenfastcomp, python, nodejs
+, closurecompiler, jre, binaryen, enableWasm ? true, cmake }:
 
 let
   rev = emscriptenVersion;

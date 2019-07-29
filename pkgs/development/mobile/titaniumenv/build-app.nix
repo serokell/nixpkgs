@@ -1,14 +1,12 @@
-{ stdenv, composeAndroidPackages, composeXcodeWrapper, titaniumsdk, titanium, alloy, jdk, python, nodejs, which, file
-}:
-{ name, src, preBuild ? "", target, tiVersion ? null, release ?
-  false, androidKeyStore ? null, androidKeyAlias ?
-    null, androidKeyStorePassword ? null, iosMobileProvisioningProfile ?
-      null, iosCertificateName ? null, iosCertificate ?
-        null, iosCertificatePassword ? null, iosVersion ?
-          "12.1", iosBuildStore ? false, enableWirelessDistribution ?
-            false, installURL ? null, xcodeBaseDir ?
-              "/Applications/Xcode.app", androidsdkArgs ?
-                { }, xcodewrapperArgs ? { }, ... }@args:
+{ stdenv, composeAndroidPackages, composeXcodeWrapper, titaniumsdk, titanium
+, alloy, jdk, python, nodejs, which, file }:
+{ name, src, preBuild ? "", target, tiVersion ? null, release ? false
+, androidKeyStore ? null, androidKeyAlias ? null, androidKeyStorePassword ? null
+, iosMobileProvisioningProfile ? null, iosCertificateName ? null
+, iosCertificate ? null, iosCertificatePassword ? null, iosVersion ? "12.1"
+, iosBuildStore ? false, enableWirelessDistribution ? false, installURL ? null
+, xcodeBaseDir ? "/Applications/Xcode.app", androidsdkArgs ? { }
+, xcodewrapperArgs ? { }, ... }@args:
 
 assert (release && target == "android") -> androidKeyStore != null
 && androidKeyAlias != null && androidKeyStorePassword != null;

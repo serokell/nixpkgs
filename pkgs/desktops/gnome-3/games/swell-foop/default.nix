@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, glib, gtk3, gnome3, desktop-file-utils, clutter, clutter-gtk, gettext, itstool, libxml2, wrapGAppsHook, python3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, glib, gtk3, gnome3
+, desktop-file-utils, clutter, clutter-gtk, gettext, itstool, libxml2
+, wrapGAppsHook, python3 }:
 
 let
   pname = "swell-foop";

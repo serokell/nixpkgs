@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cups, pkgsi686Linux, dpkg, psutils, makeWrapper, ghostscript, bash
-}:
+{ stdenv, fetchurl, cups, pkgsi686Linux, dpkg, psutils, makeWrapper, ghostscript
+, bash }:
 
 let
   version = "1.2-0";

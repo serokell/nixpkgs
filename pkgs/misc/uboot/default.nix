@@ -1,10 +1,10 @@
-{ stdenv, lib, fetchurl, fetchpatch, bc, bison, dtc, flex, openssl, swig, armTrustedFirmwareAllwinner, buildPackages
-}:
+{ stdenv, lib, fetchurl, fetchpatch, bc, bison, dtc, flex, openssl, swig
+, armTrustedFirmwareAllwinner, buildPackages }:
 
 let
-  buildUBoot = { version ? "2019.04", filesToInstall, installDir ?
-    "$out", defconfig, extraConfig ? "", extraPatches ? [ ], extraMakeFlags ?
-      [ ], extraMeta ? { }, ... }@args:
+  buildUBoot = { version ? "2019.04", filesToInstall, installDir ? "$out"
+    , defconfig, extraConfig ? "", extraPatches ? [ ], extraMakeFlags ? [ ]
+    , extraMeta ? { }, ... }@args:
     stdenv.mkDerivation (rec {
 
       pname = "uboot-${defconfig}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchzip, jam, unzip, libX11, libXxf86vm, libXrandr, libXinerama, libXrender, libXext, libtiff, libjpeg, libpng, libXScrnSaver, writeText, libXdmcp, libXau, lib, openssl
-}:
+{ stdenv, fetchzip, jam, unzip, libX11, libXxf86vm, libXrandr, libXinerama
+, libXrender, libXext, libtiff, libjpeg, libpng, libXScrnSaver, writeText
+, libXdmcp, libXau, lib, openssl }:
 let version = "2.1.0";
 in stdenv.mkDerivation rec {
   name = "argyllcms-${version}";

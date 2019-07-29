@@ -2,12 +2,18 @@
 
 extra-cmake-modules, kdoctools,
 
-coreutils, dbus, gnugrep, gnused, isocodes, libdbusmenu, libSM, libXcursor, libXtst, pam, wayland, xmessage, xprop, xrdb, xsetroot,
+coreutils, dbus, gnugrep, gnused, isocodes, libdbusmenu, libSM, libXcursor
+, libXtst, pam, wayland, xmessage, xprop, xrdb, xsetroot,
 
-baloo, kactivities, kcmutils, kconfig, kcrash, kdbusaddons, kdeclarative, kdelibs4support, kdesu, kglobalaccel, kidletime, kinit, kjsembed, knewstuff, knotifyconfig, kpackage, krunner, kscreenlocker, ktexteditor, ktextwidgets, kwallet, kwayland, kwin, kxmlrpcclient, libkscreen, libksysguard, libqalculate, networkmanager-qt, phonon, plasma-framework, prison, solid, kholidays, breeze-qt5,
+baloo, kactivities, kcmutils, kconfig, kcrash, kdbusaddons, kdeclarative
+, kdelibs4support, kdesu, kglobalaccel, kidletime, kinit, kjsembed, knewstuff
+, knotifyconfig, kpackage, krunner, kscreenlocker, ktexteditor, ktextwidgets
+, kwallet, kwayland, kwin, kxmlrpcclient, libkscreen, libksysguard, libqalculate
+, networkmanager-qt, phonon, plasma-framework, prison, solid, kholidays
+, breeze-qt5,
 
-qtgraphicaleffects, qtquickcontrols, qtquickcontrols2, qtscript, qttools, qtwayland, qtx11extras,
-}:
+qtgraphicaleffects, qtquickcontrols, qtquickcontrols2, qtscript, qttools
+, qtwayland, qtx11extras, }:
 
 let inherit (lib) getBin getLib;
 

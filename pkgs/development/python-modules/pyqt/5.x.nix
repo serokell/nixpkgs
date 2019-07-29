@@ -1,6 +1,6 @@
-{ lib, fetchurl, pythonPackages, pkgconfig, qmake, lndir, qtbase, qtsvg, qtwebengine, dbus, withConnectivity ?
-  false, qtconnectivity, withWebKit ? false, qtwebkit, withWebSockets ?
-    false, qtwebsockets }:
+{ lib, fetchurl, pythonPackages, pkgconfig, qmake, lndir, qtbase, qtsvg
+, qtwebengine, dbus, withConnectivity ? false, qtconnectivity
+, withWebKit ? false, qtwebkit, withWebSockets ? false, qtwebsockets }:
 
 let
 

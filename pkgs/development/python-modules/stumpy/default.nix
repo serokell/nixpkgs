@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, numba, pandas, dask, distributed, coverage, flake8, black, pytest, codecov
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, numba, pandas, dask
+, distributed, coverage, flake8, black, pytest, codecov }:
 
 buildPythonPackage rec {
   pname = "stumpy";

@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, gobject-introspection, meson, ninja, python3
+{ stdenv, fetchurl, pkgconfig, glib, gobject-introspection, meson, ninja
+, python3
 # just for passthru
 , gnome3 }:
 

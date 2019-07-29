@@ -1,5 +1,6 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, astroid, six, isort, mccabe, configparser, backports_functools_lru_cache, singledispatch, pytest, pytestrunner, pyenchant
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, astroid, six, isort, mccabe
+, configparser, backports_functools_lru_cache, singledispatch, pytest
+, pytestrunner, pyenchant }:
 
 buildPythonPackage rec {
   pname = "pylint";

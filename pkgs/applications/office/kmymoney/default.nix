@@ -1,6 +1,9 @@
-{ stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools, wrapQtAppsHook
+{ stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools
+, wrapQtAppsHook
 
-, akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive, kcmutils, kcontacts, kdewebkit, kdiagram, kholidays, kidentitymanagement, kitemmodels, libical, libofx, qgpgme
+, akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive, kcmutils
+, kcontacts, kdewebkit, kdiagram, kholidays, kidentitymanagement, kitemmodels
+, libical, libofx, qgpgme
 
 , sqlcipher
 

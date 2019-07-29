@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, makeWrapper, pkgconfig, alsaLib, dbus, libjack2, wafHook, python2Packages
-}:
+{ stdenv, fetchurl, fetchpatch, makeWrapper, pkgconfig, alsaLib, dbus, libjack2
+, wafHook, python2Packages }:
 
 let inherit (python2Packages) python dbus-python;
 in stdenv.mkDerivation rec {

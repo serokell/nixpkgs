@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, itstool, intltool, pkgconfig, libxml2, gnome2, atk, gtk2, glib, mono, mono-addins, dbus-sharp-2_0, dbus-sharp-glib-2_0, gnome-sharp, gtk-sharp-2_0, makeWrapper, lib
-}:
+{ stdenv, fetchurl, itstool, intltool, pkgconfig, libxml2, gnome2, atk, gtk2
+, glib, mono, mono-addins, dbus-sharp-2_0, dbus-sharp-glib-2_0, gnome-sharp
+, gtk-sharp-2_0, makeWrapper, lib }:
 
 let version = "1.15.9";
 

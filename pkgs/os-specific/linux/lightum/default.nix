@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, libX11, libXScrnSaver, libXext, glib, dbus, pkgconfig, systemd
-}:
+{ stdenv, fetchgit, libX11, libXScrnSaver, libXext, glib, dbus, pkgconfig
+, systemd }:
 
 stdenv.mkDerivation {
   name = "lightum-2014-06-07";

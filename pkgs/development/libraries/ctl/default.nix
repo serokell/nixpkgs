@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, ilmbase, libtiff, openexr
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, cmake, pkgconfig, ilmbase, libtiff
+, openexr }:
 
 stdenv.mkDerivation rec {
   pname = "ctl";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, packaging, pluggy, py, six, virtualenv, setuptools_scm, toml, filelock
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, pluggy, py, six, virtualenv
+, setuptools_scm, toml, filelock }:
 
 buildPythonPackage rec {
   pname = "tox";

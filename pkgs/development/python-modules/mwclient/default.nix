@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, requests, requests_oauthlib, six, pytest, pytestpep8, pytestcache, pytestcov, responses, mock
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, requests, requests_oauthlib, six
+, pytest, pytestpep8, pytestcache, pytestcov, responses, mock }:
 
 buildPythonPackage rec {
   version = "0.9.3";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, gjs, gobject-introspection, libgweather, meson, ninja, geoclue2, gnome-desktop, python3, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, gjs
+, gobject-introspection, libgweather, meson, ninja, geoclue2, gnome-desktop
+, python3, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "gnome-weather-${version}";

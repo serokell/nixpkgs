@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, gnutls, openssl, libgcrypt, libgpgerror, pkgconfig, gettext, which
+{ stdenv, fetchurl, gnutls, openssl, libgcrypt, libgpgerror, pkgconfig, gettext
+, which
 
 # GUI support
 , gtk2, gtk3, qt5

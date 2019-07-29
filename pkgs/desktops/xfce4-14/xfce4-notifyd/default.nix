@@ -1,5 +1,5 @@
-{ mkXfceDerivation, dbus-glib, exo, gtk3, libnotify, libxfce4ui, libxfce4util, xfce4-panel, xfconf
-}:
+{ mkXfceDerivation, dbus-glib, exo, gtk3, libnotify, libxfce4ui, libxfce4util
+, xfce4-panel, xfconf }:
 
 mkXfceDerivation rec {
   category = "apps";

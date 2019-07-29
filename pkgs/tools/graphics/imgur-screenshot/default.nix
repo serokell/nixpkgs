@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, curl, gnugrep, libnotify, scrot, which, xclip
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, curl, gnugrep, libnotify, scrot, which
+, xclip }:
 
 let deps = stdenv.lib.makeBinPath [ curl gnugrep libnotify scrot which xclip ];
 in stdenv.mkDerivation rec {

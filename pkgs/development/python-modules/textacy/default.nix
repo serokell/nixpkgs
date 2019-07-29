@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, isPy27, fetchPypi, cachetools, cld2-cffi, cytoolz, ftfy, ijson, matplotlib, networkx, numpy, pyemd, pyphen, python-Levenshtein, requests, scikitlearn, scipy, spacy, tqdm, unidecode
-}:
+{ stdenv, buildPythonPackage, isPy27, fetchPypi, cachetools, cld2-cffi, cytoolz
+, ftfy, ijson, matplotlib, networkx, numpy, pyemd, pyphen, python-Levenshtein
+, requests, scikitlearn, scipy, spacy, tqdm, unidecode }:
 
 buildPythonPackage rec {
   pname = "textacy";

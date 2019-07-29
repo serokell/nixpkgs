@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, numpy, bottle, pyyaml, redis, six, zlib
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, numpy, bottle, pyyaml, redis, six
+, zlib }:
 
 buildPythonPackage rec {
   pname = "Jug";

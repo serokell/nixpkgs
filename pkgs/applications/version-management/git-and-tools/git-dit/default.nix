@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, openssl, zlib, libssh, cmake, perl, pkgconfig, rustPlatform, curl, libiconv, CoreFoundation, Security
-}:
+{ stdenv, fetchFromGitHub, openssl, zlib, libssh, cmake, perl, pkgconfig
+, rustPlatform, curl, libiconv, CoreFoundation, Security }:
 
 with rustPlatform;
 

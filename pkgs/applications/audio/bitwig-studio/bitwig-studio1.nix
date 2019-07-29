@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, alsaLib, bzip2, cairo, dpkg, freetype, gdk_pixbuf, wrapGAppsHook, gtk2, gtk3, harfbuzz, jdk, lib, xorg, libbsd, libjack2, libpng, ffmpeg, libxkbcommon, makeWrapper, pixman, autoPatchelfHook, xdg_utils, zenity, zlib
-}:
+{ stdenv, fetchurl, alsaLib, bzip2, cairo, dpkg, freetype, gdk_pixbuf
+, wrapGAppsHook, gtk2, gtk3, harfbuzz, jdk, lib, xorg, libbsd, libjack2, libpng
+, ffmpeg, libxkbcommon, makeWrapper, pixman, autoPatchelfHook, xdg_utils, zenity
+, zlib }:
 
 stdenv.mkDerivation rec {
   name = "bitwig-studio-${version}";

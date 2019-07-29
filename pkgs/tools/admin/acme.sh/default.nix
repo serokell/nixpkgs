@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, curl, openssl, socat, iproute, unixtools
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, curl, openssl, socat, iproute
+, unixtools }:
 stdenv.mkDerivation rec {
   name = "acme.sh-${version}";
   version = "2.8.1";

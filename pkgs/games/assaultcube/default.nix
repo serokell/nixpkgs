@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, makeDesktopItem, openal, pkgconfig, libogg, libvorbis, SDL, SDL_image, makeWrapper, zlib, file, client ?
-  true, server ? true }:
+{ fetchFromGitHub, stdenv, makeDesktopItem, openal, pkgconfig, libogg, libvorbis
+, SDL, SDL_image, makeWrapper, zlib, file, client ? true, server ? true }:
 
 with stdenv.lib;
 

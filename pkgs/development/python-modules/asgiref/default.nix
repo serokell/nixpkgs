@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, async-timeout, pytest, pytest-asyncio
-}:
+{ stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, async-timeout
+, pytest, pytest-asyncio }:
 buildPythonPackage rec {
   version = "3.1.4";
   pname = "asgiref";

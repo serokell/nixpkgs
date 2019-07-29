@@ -1,5 +1,5 @@
-{ stdenv, cmake, fetchurl, perl, python, flex, bison, qt4, CoreServices, libiconv
-}:
+{ stdenv, cmake, fetchurl, perl, python, flex, bison, qt4, CoreServices
+, libiconv }:
 
 stdenv.mkDerivation rec {
 

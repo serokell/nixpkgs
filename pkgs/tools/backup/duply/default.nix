@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, coreutils, python2, duplicity, gawk, gnupg, bash, gnugrep, txt2man, makeWrapper, which
-}:
+{ stdenv, fetchurl, coreutils, python2, duplicity, gawk, gnupg, bash, gnugrep
+, txt2man, makeWrapper, which }:
 
 stdenv.mkDerivation rec {
   name = "duply-${version}";

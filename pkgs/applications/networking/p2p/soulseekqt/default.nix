@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, dbus, zlib, fontconfig, qtbase, qtmultimedia, libjson, libgpgerror, libX11, libxcb, libXau, libXdmcp, freetype, libbsd, pythonPackages, squashfsTools, desktop-file-utils
-}:
+{ stdenv, fetchurl, dbus, zlib, fontconfig, qtbase, qtmultimedia, libjson
+, libgpgerror, libX11, libxcb, libXau, libXdmcp, freetype, libbsd
+, pythonPackages, squashfsTools, desktop-file-utils }:
 
 with stdenv.lib;
 let

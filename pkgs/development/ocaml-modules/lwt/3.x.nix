@@ -1,5 +1,6 @@
-{ stdenv, fetchzip, pkgconfig, ncurses, libev, dune, ocaml, findlib, cppo, ocaml-migrate-parsetree, ppx_tools_versioned, result, withP4 ?
-  true, camlp4 ? null }:
+{ stdenv, fetchzip, pkgconfig, ncurses, libev, dune, ocaml, findlib, cppo
+, ocaml-migrate-parsetree, ppx_tools_versioned, result, withP4 ? true
+, camlp4 ? null }:
 
 stdenv.mkDerivation rec {
   version = "3.3.0";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, callPackage, libpng12, imagemagick, autoreconfHook, glib, pstoedit, pkgconfig, gettext, gd, darwin, runtimeShell
-}:
+{ stdenv, fetchurl, callPackage, libpng12, imagemagick, autoreconfHook, glib
+, pstoedit, pkgconfig, gettext, gd, darwin, runtimeShell }:
 
 # TODO: Figure out why the resultant binary is somehow linked against
 # libpng16.so.16 rather than libpng12.

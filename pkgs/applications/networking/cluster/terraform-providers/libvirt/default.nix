@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, libvirt, pkgconfig, makeWrapper, cdrtools
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, libvirt, pkgconfig, makeWrapper
+, cdrtools }:
 
 # USAGE:
 # install the following package globally or in nix-shell:

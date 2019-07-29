@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, meson, ninja, gettext, gnome3, wrapGAppsHook, packagekit, ostree, glib, appstream-glib, libsoup, polkit, isocodes, gspell, libxslt, gobject-introspection, flatpak, fwupd, gtk3, gsettings-desktop-schemas, gnome-desktop, libxmlb, gnome-online-accounts, hicolor-icon-theme, json-glib, libsecret, valgrind-light, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_43, gtk-doc, desktop-file-utils
-}:
+{ stdenv, fetchurl, substituteAll, pkgconfig, meson, ninja, gettext, gnome3
+, wrapGAppsHook, packagekit, ostree, glib, appstream-glib, libsoup, polkit
+, isocodes, gspell, libxslt, gobject-introspection, flatpak, fwupd, gtk3
+, gsettings-desktop-schemas, gnome-desktop, libxmlb, gnome-online-accounts
+, hicolor-icon-theme, json-glib, libsecret, valgrind-light, docbook_xsl
+, docbook_xml_dtd_42, docbook_xml_dtd_43, gtk-doc, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "gnome-software-${version}";

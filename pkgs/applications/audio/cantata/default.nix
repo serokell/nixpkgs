@@ -1,14 +1,14 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, vlc, qtbase, qtmultimedia, qtsvg, qttools
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, vlc, qtbase, qtmultimedia, qtsvg
+, qttools
 
 # Cantata doesn't build with cdparanoia enabled so we disable that
 # default for now until I (or someone else) figure it out.
-, withCdda ? false, cdparanoia, withCddb ? false, libcddb, withLame ?
-  false, lame, withMusicbrainz ? false, libmusicbrainz5
+, withCdda ? false, cdparanoia, withCddb ? false, libcddb, withLame ? false
+, lame, withMusicbrainz ? false, libmusicbrainz5
 
-, withTaglib ? true, taglib, taglib_extras, withReplaygain ?
-  true, ffmpeg, speex, mpg123, withMtp ? true, libmtp, withOnlineServices ?
-    true, withDevices ? true, udisks2, withDynamic ? true, withHttpServer ?
-      true, withStreams ? true }:
+, withTaglib ? true, taglib, taglib_extras, withReplaygain ? true, ffmpeg, speex
+, mpg123, withMtp ? true, libmtp, withOnlineServices ? true, withDevices ? true
+, udisks2, withDynamic ? true, withHttpServer ? true, withStreams ? true }:
 
 # Inter-dependencies.
 assert withCddb -> withCdda && withTaglib;

@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, pyyaml, python-dateutil, requests, pymongo, raven, bcrypt, flask, pyjwt, flask-cors, psycopg2, pytz, flask-compress, jinja2
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, pyyaml, python-dateutil
+, requests, pymongo, raven, bcrypt, flask, pyjwt, flask-cors, psycopg2, pytz
+, flask-compress, jinja2 }:
 
 buildPythonPackage rec {
   pname = "alerta-server";

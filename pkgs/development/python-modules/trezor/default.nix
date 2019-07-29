@@ -1,5 +1,6 @@
-{ lib, fetchPypi, buildPythonPackage, isPy3k, python, pytest, typing-extensions, protobuf, hidapi, ecdsa, mnemonic, requests, pyblake2, click, construct, libusb1, rlp
-}:
+{ lib, fetchPypi, buildPythonPackage, isPy3k, python, pytest, typing-extensions
+, protobuf, hidapi, ecdsa, mnemonic, requests, pyblake2, click, construct
+, libusb1, rlp }:
 
 buildPythonPackage rec {
   pname = "trezor";

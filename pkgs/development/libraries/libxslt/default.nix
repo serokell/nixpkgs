@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, libxml2, findXMLCatalogs, python2, libgcrypt, cryptoSupport ?
-  false, pythonSupport ? stdenv.buildPlatform == stdenv.hostPlatform }:
+{ stdenv, fetchurl, fetchpatch, libxml2, findXMLCatalogs, python2, libgcrypt
+, cryptoSupport ? false
+, pythonSupport ? stdenv.buildPlatform == stdenv.hostPlatform }:
 
 assert pythonSupport -> python2 != null;
 assert pythonSupport -> libxml2.pythonSupport;

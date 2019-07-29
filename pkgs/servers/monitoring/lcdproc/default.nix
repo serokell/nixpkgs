@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, pkgconfig, doxygen, freetype, libX11, libftdi, libusb, libusb1, ncurses, perl
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, pkgconfig, doxygen
+, freetype, libX11, libftdi, libusb, libusb1, ncurses, perl }:
 
 stdenv.mkDerivation rec {
   name = "lcdproc-${version}";

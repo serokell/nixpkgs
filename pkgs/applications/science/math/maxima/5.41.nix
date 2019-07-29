@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, sbcl, texinfo, perl, python, makeWrapper, rlwrap ?
-  null, tk ? null, gnuplot ? null, ecl ? null, ecl-fasl ? false }:
+{ stdenv, fetchurl, fetchpatch, sbcl, texinfo, perl, python, makeWrapper
+, rlwrap ? null, tk ? null, gnuplot ? null, ecl ? null, ecl-fasl ? false }:
 
 let
   name = "maxima";

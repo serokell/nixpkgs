@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, openssl, perl, libcap ? null, libseccomp ?
-  null, pps-tools }:
+{ stdenv, lib, fetchurl, openssl, perl, libcap ? null, libseccomp ? null
+, pps-tools }:
 
 assert stdenv.isLinux -> libcap != null;
 assert stdenv.isLinux -> libseccomp != null;

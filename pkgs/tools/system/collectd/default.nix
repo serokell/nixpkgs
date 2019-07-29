@@ -1,5 +1,10 @@
-{ stdenv, fetchurl, fetchpatch, darwin, autoreconfHook, pkgconfig, curl, iptables, jdk, libapparmor, libatasmart, libcap_ng, libcredis, libdbi, libgcrypt, libmemcached, cyrus_sasl, libmicrohttpd, libmodbus, libnotify, gdk_pixbuf, liboping, libpcap, libsigrok, libvirt, libxml2, libtool, lm_sensors, lvm2, mysql, numactl, postgresql, protobufc, python, rabbitmq-c, riemann_c_client, rrdtool, udev, varnish, yajl, net_snmp, hiredis, libmnl, mosquitto, rdkafka, mongoc
-}:
+{ stdenv, fetchurl, fetchpatch, darwin, autoreconfHook, pkgconfig, curl
+, iptables, jdk, libapparmor, libatasmart, libcap_ng, libcredis, libdbi
+, libgcrypt, libmemcached, cyrus_sasl, libmicrohttpd, libmodbus, libnotify
+, gdk_pixbuf, liboping, libpcap, libsigrok, libvirt, libxml2, libtool
+, lm_sensors, lvm2, mysql, numactl, postgresql, protobufc, python, rabbitmq-c
+, riemann_c_client, rrdtool, udev, varnish, yajl, net_snmp, hiredis, libmnl
+, mosquitto, rdkafka, mongoc }:
 stdenv.mkDerivation rec {
   version = "5.8.1";
   name = "collectd-${version}";

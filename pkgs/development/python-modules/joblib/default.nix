@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, sphinx, numpydoc, pytest, python-lz4
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, sphinx, numpydoc, pytest
+, python-lz4 }:
 
 buildPythonPackage rec {
   pname = "joblib";

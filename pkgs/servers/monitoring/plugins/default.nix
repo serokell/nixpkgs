@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, coreutils, gnugrep, gnused, lm_sensors, net_snmp, openssh, openssl, perl, dnsutils, libdbi, mysql, zlib, openldap, procps, runtimeShell
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, coreutils, gnugrep
+, gnused, lm_sensors, net_snmp, openssh, openssl, perl, dnsutils, libdbi, mysql
+, zlib, openldap, procps, runtimeShell }:
 
 with stdenv.lib;
 

@@ -1,9 +1,11 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, openssl, glibcLocales, expect, ncurses, libotr, curl, readline, libuuid, cmocka, libmicrohttpd, stabber, expat, libmesode, autoconf-archive
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, openssl
+, glibcLocales, expect, ncurses, libotr, curl, readline, libuuid, cmocka
+, libmicrohttpd, stabber, expat, libmesode, autoconf-archive
 
-, autoAwaySupport ? true, libXScrnSaver ? null, libX11 ? null, notifySupport ?
-  true, libnotify ? null, gdk_pixbuf ? null, traySupport ? true, gnome2 ?
-    null, pgpSupport ? true, gpgme ? null, pythonPluginSupport ? true, python ?
-      null }:
+, autoAwaySupport ? true, libXScrnSaver ? null, libX11 ? null
+, notifySupport ? true, libnotify ? null, gdk_pixbuf ? null, traySupport ? true
+, gnome2 ? null, pgpSupport ? true, gpgme ? null, pythonPluginSupport ? true
+, python ? null }:
 
 assert autoAwaySupport -> libXScrnSaver != null && libX11 != null;
 assert notifySupport -> libnotify != null && gdk_pixbuf != null;

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, librdf_raptor, librdf_rasqal, glib, libxml2, pcre, avahi, readline, ncurses, expat, autoreconfHook, zlib, pkgconfig, which, perl, libuuid, gmp, mpfr, db_dir ?
-  "/var/lib/4store" }:
+{ stdenv, fetchFromGitHub, librdf_raptor, librdf_rasqal, glib, libxml2, pcre
+, avahi, readline, ncurses, expat, autoreconfHook, zlib, pkgconfig, which, perl
+, libuuid, gmp, mpfr, db_dir ? "/var/lib/4store" }:
 
 stdenv.mkDerivation rec {
   name = "4store-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, six, docutils, pygments, bleach, html5lib
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, six, docutils, pygments, bleach
+, html5lib }:
 
 buildPythonPackage rec {
   pname = "readme";

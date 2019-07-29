@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, isodate, html5lib, SPARQLWrapper, networkx, nose, python
-}:
+{ buildPythonPackage, fetchPypi, isodate, html5lib, SPARQLWrapper, networkx
+, nose, python }:
 
 buildPythonPackage rec {
   pname = "rdflib";

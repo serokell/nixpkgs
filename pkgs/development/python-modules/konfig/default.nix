@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, writeText, configparser, six, pytest, glibcLocales
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, writeText, configparser, six
+, pytest, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "konfig";

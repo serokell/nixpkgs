@@ -1,5 +1,5 @@
-{ stdenv, python3Packages, fetchFromGitHub, fetchpatch, rustPlatform, pkgconfig, openssl, Security
-}:
+{ stdenv, python3Packages, fetchFromGitHub, fetchpatch, rustPlatform, pkgconfig
+, openssl, Security }:
 
 # Packaging documentation at:
 # https://github.com/untitaker/vdirsyncer/blob/master/docs/packaging.rst

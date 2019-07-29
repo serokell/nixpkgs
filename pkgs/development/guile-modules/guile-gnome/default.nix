@@ -1,5 +1,6 @@
-{ fetchurl, stdenv, guile, guile-lib, gwrap, pkgconfig, gconf, glib, gnome_vfs, gtk2, libglade, libgnome, libgnomecanvas, libgnomeui, pango, guile-cairo, texinfo
-}:
+{ fetchurl, stdenv, guile, guile-lib, gwrap, pkgconfig, gconf, glib, gnome_vfs
+, gtk2, libglade, libgnome, libgnomecanvas, libgnomeui, pango, guile-cairo
+, texinfo }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

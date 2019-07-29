@@ -1,5 +1,5 @@
-{ stdenv, lib, buildEnv, pkgsi686Linux, fetchFromGitHub, python27Packages, graphviz, includeGUI ?
-  true, includeProtocols ? true }:
+{ stdenv, lib, buildEnv, pkgsi686Linux, fetchFromGitHub, python27Packages
+, graphviz, includeGUI ? true, includeProtocols ? true }:
 let
   version = "1.1.3";
 

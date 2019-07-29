@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, astroid, isort, mccabe, pytest, pytestrunner
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, astroid, isort
+, mccabe, pytest, pytestrunner }:
 
 buildPythonPackage rec {
   pname = "pylint";

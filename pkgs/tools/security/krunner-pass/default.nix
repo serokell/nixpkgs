@@ -1,5 +1,5 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules, kauth, krunner, pass, pass-otp ?
-  null }:
+{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules
+, kauth, krunner, pass, pass-otp ? null }:
 
 mkDerivation rec {
   pname = "krunner-pass";

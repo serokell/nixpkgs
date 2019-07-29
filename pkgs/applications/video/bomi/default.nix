@@ -1,9 +1,12 @@
-{ config, stdenv, fetchFromGitHub, fetchpatch, pkgconfig, perl, python, which, libX11, libxcb, libGLU_combined, qtbase, qtdeclarative, qtquickcontrols, qttools, qtx11extras, qmake, makeWrapper, libchardet, ffmpeg
+{ config, stdenv, fetchFromGitHub, fetchpatch, pkgconfig, perl, python, which
+, libX11, libxcb, libGLU_combined, qtbase, qtdeclarative, qtquickcontrols
+, qttools, qtx11extras, qmake, makeWrapper, libchardet, ffmpeg
 
-, mpg123, libass, libdvdread, libdvdnav, icu, libquvi, alsaLib, libvdpau, libva, libbluray, jackSupport ?
-  false, jack ? null, portaudioSupport ? false, portaudio ? null, pulseSupport ?
-    config.pulseaudio or stdenv.isLinux, libpulseaudio ? null, cddaSupport ?
-      false, libcdda ? null, youtubeSupport ? true, youtube-dl ? null }:
+, mpg123, libass, libdvdread, libdvdnav, icu, libquvi, alsaLib, libvdpau, libva
+, libbluray, jackSupport ? false, jack ? null, portaudioSupport ? false
+, portaudio ? null, pulseSupport ? config.pulseaudio or stdenv.isLinux
+, libpulseaudio ? null, cddaSupport ? false, libcdda ? null
+, youtubeSupport ? true, youtube-dl ? null }:
 
 with stdenv.lib;
 

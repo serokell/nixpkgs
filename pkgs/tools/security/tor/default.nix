@@ -1,8 +1,9 @@
-{ stdenv, fetchurl, pkgconfig, libevent, openssl, zlib, torsocks, libseccomp, systemd, libcap, lzma, zstd, scrypt
+{ stdenv, fetchurl, pkgconfig, libevent, openssl, zlib, torsocks, libseccomp
+, systemd, libcap, lzma, zstd, scrypt
 
 # for update.nix
-, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg, gnused, nix
-}:
+, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep, gnupg
+, gnused, nix }:
 
 stdenv.mkDerivation rec {
   pname = "tor";

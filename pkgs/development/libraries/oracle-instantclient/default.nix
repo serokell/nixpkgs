@@ -1,5 +1,5 @@
-{ stdenv, requireFile, autoPatchelfHook, fixDarwinDylibNames, unzip, libaio, makeWrapper, odbcSupport ?
-  false, unixODBC }:
+{ stdenv, requireFile, autoPatchelfHook, fixDarwinDylibNames, unzip, libaio
+, makeWrapper, odbcSupport ? false, unixODBC }:
 
 assert odbcSupport -> unixODBC != null;
 

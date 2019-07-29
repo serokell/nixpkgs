@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, qtbase, qttools, python, libGLU_combined, libXt, qtx11extras, qtxmlpatterns
-}:
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, qtbase, qttools, python
+, libGLU_combined, libXt, qtx11extras, qtxmlpatterns }:
 
 stdenv.mkDerivation rec {
   name = "paraview-${version}";

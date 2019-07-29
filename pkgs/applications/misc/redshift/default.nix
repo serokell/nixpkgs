@@ -1,11 +1,13 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, gettext, intltool, libtool, pkgconfig, wrapGAppsHook, wrapPython, gobject-introspection, gtk3, python, pygobject3, hicolor-icon-theme, pyxdg
+{ stdenv, fetchFromGitHub, autoconf, automake, gettext, intltool, libtool
+, pkgconfig, wrapGAppsHook, wrapPython, gobject-introspection, gtk3, python
+, pygobject3, hicolor-icon-theme, pyxdg
 
-, withQuartz ? stdenv.isDarwin, ApplicationServices, withRandr ?
-  stdenv.isLinux, libxcb, withDrm ? stdenv.isLinux, libdrm
+, withQuartz ? stdenv.isDarwin, ApplicationServices, withRandr ? stdenv.isLinux
+, libxcb, withDrm ? stdenv.isLinux, libdrm
 
-, withGeolocation ? true, withCoreLocation ? withGeolocation
-  && stdenv.isDarwin, CoreLocation, Foundation, Cocoa, withGeoclue ?
-    withGeolocation && stdenv.isLinux, geoclue }:
+, withGeolocation ? true, withCoreLocation ? withGeolocation && stdenv.isDarwin
+, CoreLocation, Foundation, Cocoa
+, withGeoclue ? withGeolocation && stdenv.isLinux, geoclue }:
 
 stdenv.mkDerivation rec {
   name = "redshift-${version}";

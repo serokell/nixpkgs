@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, gobject-introspection, gdk_pixbuf, gtk3, mate, python3, dropbox
-}:
+{ stdenv, fetchurl, substituteAll, pkgconfig, gobject-introspection, gdk_pixbuf
+, gtk3, mate, python3, dropbox }:
 
 let dropboxd = "${dropbox}/bin/dropbox";
 in stdenv.mkDerivation rec {

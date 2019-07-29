@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, vim, makeWrapper, jq, rofi, xrandr, xdotool, i3, gawk, libnotify
-}:
+{ stdenv, fetchFromGitHub, vim, makeWrapper, jq, rofi, xrandr, xdotool, i3, gawk
+, libnotify }:
 
 let
   path =

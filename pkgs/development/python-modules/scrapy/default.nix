@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, glibcLocales, mock, pytest, botocore, testfixtures, pillow, six, twisted, w3lib, lxml, queuelib, pyopenssl, service-identity, parsel, pydispatcher, cssselect, lib
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, glibcLocales, mock, pytest
+, botocore, testfixtures, pillow, six, twisted, w3lib, lxml, queuelib, pyopenssl
+, service-identity, parsel, pydispatcher, cssselect, lib }:
 buildPythonPackage rec {
   version = "1.7.1";
   pname = "Scrapy";

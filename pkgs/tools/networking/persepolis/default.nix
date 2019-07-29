@@ -1,5 +1,6 @@
-{ stdenv, lib, buildPythonApplication, fetchFromGitHub, makeWrapper, aria, libnotify, pulseaudio, psutil, pyqt5, requests, setproctitle, sound-theme-freedesktop, youtube-dl
-}:
+{ stdenv, lib, buildPythonApplication, fetchFromGitHub, makeWrapper, aria
+, libnotify, pulseaudio, psutil, pyqt5, requests, setproctitle
+, sound-theme-freedesktop, youtube-dl }:
 
 buildPythonApplication rec {
   pname = "persepolis";

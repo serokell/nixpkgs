@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, glib, gobject-introspection, flex, bison, vala, gettext, gnome3, gtk-doc, docbook_xsl, docbook_xml_dtd_43
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, glib, gobject-introspection, flex
+, bison, vala, gettext, gnome3, gtk-doc, docbook_xsl, docbook_xml_dtd_43 }:
 let
   version = "3.32.0";
   pname = "template-glib";

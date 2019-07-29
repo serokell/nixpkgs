@@ -1,5 +1,5 @@
-{ fetchFromGitHub, fetchurl, lib, python3Packages, coreVersion ?
-  "1.13.3" # the version of the binary espurna image to flash
+{ fetchFromGitHub, fetchurl, lib, python3Packages
+, coreVersion ? "1.13.3" # the version of the binary espurna image to flash
 , coreSize ? "1MB" # size of the binary image to flash
 , coreSha256 ? "0pkb2nmml0blrfiqpc46xpjc2dw927i89k1lfyqx827wanhc704x" }:
 

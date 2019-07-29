@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, guile, buildEnv, SDL, SDL_image, SDL_ttf, SDL_mixer
-}:
+{ stdenv, fetchurl, pkgconfig, guile, buildEnv, SDL, SDL_image, SDL_ttf
+, SDL_mixer }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

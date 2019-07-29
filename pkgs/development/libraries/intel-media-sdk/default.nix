@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoPatchelfHook, cmake, pkgconfig, libdrm, libpciaccess, libva, libX11, libXau, libXdmcp, libpthreadstubs
-}:
+{ stdenv, fetchurl, autoPatchelfHook, cmake, pkgconfig, libdrm, libpciaccess
+, libva, libX11, libXau, libXdmcp, libpthreadstubs }:
 
 stdenv.mkDerivation rec {
   name = "intel-media-sdk-${version}";

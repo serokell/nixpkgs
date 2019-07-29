@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, pkgs-docker, docker, traitlets, python-json-logger, escapism, jinja2, ruamel_yaml, pyyaml, pytest, wheel, pytestcov, pythonAtLeast
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pkgs-docker, docker, traitlets
+, python-json-logger, escapism, jinja2, ruamel_yaml, pyyaml, pytest, wheel
+, pytestcov, pythonAtLeast }:
 
 buildPythonPackage rec {
   version = "0.7.0";

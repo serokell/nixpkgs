@@ -1,7 +1,9 @@
 { stable, version, sha256Hash, archPatchesRevision, archPatchesHash }:
 
-{ mkDerivation, lib, fetchFromGitHub, fetchsvn, pkgconfig, pythonPackages, cmake, wrapGAppsHook, wrapQtAppsHook, gcc8, qtbase, qtimageformats, gtk3, libappindicator-gtk3, libnotify, xdg_utils, dee, ffmpeg, openalSoft, minizip, libopus, alsaLib, libpulseaudio, range-v3
-}:
+{ mkDerivation, lib, fetchFromGitHub, fetchsvn, pkgconfig, pythonPackages, cmake
+, wrapGAppsHook, wrapQtAppsHook, gcc8, qtbase, qtimageformats, gtk3
+, libappindicator-gtk3, libnotify, xdg_utils, dee, ffmpeg, openalSoft, minizip
+, libopus, alsaLib, libpulseaudio, range-v3 }:
 
 with lib;
 

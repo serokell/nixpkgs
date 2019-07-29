@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libX11, libXcomposite, libXft, libXmu, libXrandr, libXext, libXScrnSaver, pam, apacheHttpd, imagemagick, pamtester, xscreensaver, xset
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libX11, libXcomposite
+, libXft, libXmu, libXrandr, libXext, libXScrnSaver, pam, apacheHttpd
+, imagemagick, pamtester, xscreensaver, xset }:
 
 stdenv.mkDerivation rec {
   name = "xsecurelock-${version}";

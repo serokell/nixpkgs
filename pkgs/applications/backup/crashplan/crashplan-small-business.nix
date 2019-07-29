@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, makeWrapper, getopt, jre, cpio, gawk, gnugrep, gnused, procps, which, gtk2, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, dbus, gconf, nss, nspr, alsaLib, cups, expat, udev, libX11, libxcb, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nodePackages, maxRam ?
-  "1024m" }:
+{ stdenv, fetchurl, makeWrapper, getopt, jre, cpio, gawk, gnugrep, gnused
+, procps, which, gtk2, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig
+, dbus, gconf, nss, nspr, alsaLib, cups, expat, udev, libX11, libxcb, libXi
+, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes
+, libXrender, libXtst, libXScrnSaver, nodePackages, maxRam ? "1024m" }:
 
 stdenv.mkDerivation rec {
   version = "6.7.0";

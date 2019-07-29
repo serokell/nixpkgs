@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtool, groff, perl, pkgconfig, python2, zlib, gnutls, libidn2, libunistring, nghttp2
-}:
+{ stdenv, fetchurl, libtool, groff, perl, pkgconfig, python2, zlib, gnutls
+, libidn2, libunistring, nghttp2 }:
 
 stdenv.mkDerivation rec {
   version = "7.64.0";

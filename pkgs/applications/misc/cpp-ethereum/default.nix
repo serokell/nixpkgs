@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, jsoncpp, libjson-rpc-cpp, curl, boost, leveldb, cryptopp, libcpuid, opencl-headers, ocl-icd, miniupnpc, libmicrohttpd, gmp, libGLU_combined, extraCmakeFlags ?
-  [ ] }:
+{ stdenv, fetchFromGitHub, cmake, jsoncpp, libjson-rpc-cpp, curl, boost, leveldb
+, cryptopp, libcpuid, opencl-headers, ocl-icd, miniupnpc, libmicrohttpd, gmp
+, libGLU_combined, extraCmakeFlags ? [ ] }:
 stdenv.mkDerivation rec {
   name = "cpp-ethereum-${version}";
   version = "1.3.0";

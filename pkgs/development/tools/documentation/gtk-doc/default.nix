@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, python3, libxml2Python, docbook_xml_dtd_43, docbook_xsl, libxslt, gettext, gnome3, withDblatex ?
-  false, dblatex }:
+{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, python3, libxml2Python
+, docbook_xml_dtd_43, docbook_xsl, libxslt, gettext, gnome3, withDblatex ? false
+, dblatex }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-doc";

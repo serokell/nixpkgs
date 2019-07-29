@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gtk2, bison, intltool, flex, netpbm, imagemagick, dbus, xlibsWrapper, libGLU_combined, shared-mime-info, tcl, tk, gnome2, pangox_compat, gd, xorg
-}:
+{ stdenv, fetchurl, pkgconfig, gtk2, bison, intltool, flex, netpbm, imagemagick
+, dbus, xlibsWrapper, libGLU_combined, shared-mime-info, tcl, tk, gnome2
+, pangox_compat, gd, xorg }:
 
 stdenv.mkDerivation rec {
   name = "pcb-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, python, pythonPackages, orc, libusb1, boost
-}:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, python, pythonPackages
+, orc, libusb1, boost }:
 
 # You need these udev rules to not have to run as root (copied from
 # ${uhd}/share/uhd/utils/uhd-usrp.rules):

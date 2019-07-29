@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, wrapQtAppsHook, makeDesktopItem, qtbase, qmake, qtmultimedia, qttools, qtgraphicaleffects, qtdeclarative, qtlocation, qtquickcontrols, qtquickcontrols2, qtwebchannel, qtwebengine, qtx11extras, qtxmlpatterns, monero, unbound, readline, boost, libunwind, libsodium, pcsclite, zeromq, cppzmq, pkgconfig, hidapi
-}:
+{ stdenv, fetchFromGitHub, wrapQtAppsHook, makeDesktopItem, qtbase, qmake
+, qtmultimedia, qttools, qtgraphicaleffects, qtdeclarative, qtlocation
+, qtquickcontrols, qtquickcontrols2, qtwebchannel, qtwebengine, qtx11extras
+, qtxmlpatterns, monero, unbound, readline, boost, libunwind, libsodium
+, pcsclite, zeromq, cppzmq, pkgconfig, hidapi }:
 
 with stdenv.lib;
 

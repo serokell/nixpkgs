@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, testtools, testresources, pbr, subunit, fixtures, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, testtools, testresources, pbr, subunit
+, fixtures, python }:
 
 buildPythonPackage rec {
   pname = "testrepository";

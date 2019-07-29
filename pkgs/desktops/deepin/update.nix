@@ -1,5 +1,5 @@
-{ stdenv, lib, writeScript, coreutils, curl, gnugrep, gnused, jq, common-updater-scripts, nix
-}:
+{ stdenv, lib, writeScript, coreutils, curl, gnugrep, gnused, jq
+, common-updater-scripts, nix }:
 { name, ignored-versions ? "^2014(\\.|rc)|^v[0-9]+" }:
 
 let

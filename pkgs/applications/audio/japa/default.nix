@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, libjack2, fftwFloat, libclthreads, libclxclient, libX11, libXft, zita-alsa-pcmi,
-}:
+{ stdenv, fetchurl, alsaLib, libjack2, fftwFloat, libclthreads, libclxclient
+, libX11, libXft, zita-alsa-pcmi, }:
 
 stdenv.mkDerivation rec {
   version = "0.9.2";

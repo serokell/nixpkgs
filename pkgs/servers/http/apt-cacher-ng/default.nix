@@ -1,5 +1,5 @@
-{ stdenv, bzip2, cmake, doxygen, fetchurl, fuse, lzma, openssl, pkgconfig, systemd, tcp_wrappers, zlib
-}:
+{ stdenv, bzip2, cmake, doxygen, fetchurl, fuse, lzma, openssl, pkgconfig
+, systemd, tcp_wrappers, zlib }:
 
 stdenv.mkDerivation rec {
   name = "apt-cacher-ng-${version}";

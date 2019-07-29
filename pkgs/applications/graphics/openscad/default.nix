@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, qt5, libsForQt5, bison, flex, eigen, boost, libGLU_combined, glew, opencsg, cgal, mpfr, gmp, glib, pkgconfig, harfbuzz, gettext, freetype, fontconfig, double-conversion, lib3mf, libzip
-}:
+{ stdenv, fetchFromGitHub, qt5, libsForQt5, bison, flex, eigen, boost
+, libGLU_combined, glew, opencsg, cgal, mpfr, gmp, glib, pkgconfig, harfbuzz
+, gettext, freetype, fontconfig, double-conversion, lib3mf, libzip }:
 
 stdenv.mkDerivation rec {
   pname = "openscad";

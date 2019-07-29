@@ -1,5 +1,5 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, python3, qtbase, qtquickcontrols2, qtgraphicaleffects, curaengine, plugins ?
-  [ ] }:
+{ mkDerivation, lib, fetchFromGitHub, cmake, python3, qtbase, qtquickcontrols2
+, qtgraphicaleffects, curaengine, plugins ? [ ] }:
 
 mkDerivation rec {
   name = "cura-${version}";

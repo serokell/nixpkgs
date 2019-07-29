@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-mgmt-nspkg, msrestazure
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-common, azure-mgmt-nspkg
+, msrestazure }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-cognitiveservices";

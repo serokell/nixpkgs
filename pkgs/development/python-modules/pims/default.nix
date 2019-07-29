@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, slicerator, scikitimage, six, numpy, tifffile, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, slicerator, scikitimage, six, numpy
+, tifffile, nose }:
 
 buildPythonPackage rec {
   version = "0.4.1";

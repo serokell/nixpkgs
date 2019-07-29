@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonApplication, fetchFromGitHub, bottle, click, colorama, lockfile, pyserial, requests, pytest, semantic-version, tox, git
-}:
+{ stdenv, lib, buildPythonApplication, fetchFromGitHub, bottle, click, colorama
+, lockfile, pyserial, requests, pytest, semantic-version, tox, git }:
 
 let
   args = lib.concatStringsSep " " ((map (e: "--deselect tests/${e}") [

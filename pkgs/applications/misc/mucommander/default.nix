@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gradle_3_5, perl, makeWrapper, jre, gsettings-desktop-schemas
-}:
+{ stdenv, fetchFromGitHub, gradle_3_5, perl, makeWrapper, jre
+, gsettings-desktop-schemas }:
 
 let
   version = "0.9.2";

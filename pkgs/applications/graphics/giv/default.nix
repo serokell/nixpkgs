@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gdk_pixbuf, scons, pkgconfig, gtk2, glib, pcre, cfitsio, perl, gob2, vala, libtiff, json-glib
-}:
+{ stdenv, fetchFromGitHub, gdk_pixbuf, scons, pkgconfig, gtk2, glib, pcre
+, cfitsio, perl, gob2, vala, libtiff, json-glib }:
 
 stdenv.mkDerivation rec {
   name = "giv-${version}";

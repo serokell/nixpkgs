@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, mock, scripttest, virtualenv, pretend, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, scripttest, virtualenv, pretend
+, pytest }:
 
 buildPythonPackage rec {
   pname = "pip";

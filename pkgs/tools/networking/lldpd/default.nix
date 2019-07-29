@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, removeReferencesTo, libevent, readline, net_snmp, openssl
-}:
+{ stdenv, lib, fetchurl, pkgconfig, removeReferencesTo, libevent, readline
+, net_snmp, openssl }:
 
 stdenv.mkDerivation rec {
   name = "lldpd-${version}";

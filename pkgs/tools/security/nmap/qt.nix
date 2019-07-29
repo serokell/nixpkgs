@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, makeWrapper, dnsutils, nmap, qtbase, qtscript, qtwebengine
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, makeWrapper, dnsutils, nmap, qtbase
+, qtscript, qtwebengine }:
 
 stdenv.mkDerivation rec {
   name = "nmapsi4-${version}";

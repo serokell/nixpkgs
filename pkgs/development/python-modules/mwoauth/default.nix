@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, six, pyjwt, requests, oauthlib, requests_oauthlib, fetchPypi
-}:
+{ lib, buildPythonPackage, six, pyjwt, requests, oauthlib, requests_oauthlib
+, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "mwoauth";

@@ -1,5 +1,8 @@
-{ stdenv, autoreconfHook, fetchurl, gettext, glib, gnome-bluetooth, gnome-desktop, gnome-panel, gnome-session, gnome3, gsettings-desktop-schemas, gtk3, ibus, libcanberra-gtk3, libpulseaudio, libxkbfile, libxml2, pkgconfig, polkit, upower, wrapGAppsHook, writeTextFile, writeShellScriptBin, xkeyboard_config
-}:
+{ stdenv, autoreconfHook, fetchurl, gettext, glib, gnome-bluetooth
+, gnome-desktop, gnome-panel, gnome-session, gnome3, gsettings-desktop-schemas
+, gtk3, ibus, libcanberra-gtk3, libpulseaudio, libxkbfile, libxml2, pkgconfig
+, polkit, upower, wrapGAppsHook, writeTextFile, writeShellScriptBin
+, xkeyboard_config }:
 
 let
   pname = "gnome-flashback";

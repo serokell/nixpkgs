@@ -1,6 +1,6 @@
-{ stdenv, apple_sdk ? null, cacert, defaultCaFile ?
-  "${cacert}/etc/ssl/certs/ca-bundle.crt", fetchurl, libbsd, libressl, pkgconfig
-}:
+{ stdenv, apple_sdk ? null, cacert
+, defaultCaFile ? "${cacert}/etc/ssl/certs/ca-bundle.crt", fetchurl, libbsd
+, libressl, pkgconfig }:
 
 with stdenv.lib;
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, alsaLib, atk, cairo, cups, udev, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gtk3, libnotify, nspr, nss, pango, systemd, xorg, autoPatchelfHook, wrapGAppsHook, runtimeShell, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, alsaLib, atk, cairo, cups, udev, dbus, expat, fontconfig
+, freetype, gdk_pixbuf, glib, gtk3, libnotify, nspr, nss, pango, systemd, xorg
+, autoPatchelfHook, wrapGAppsHook, runtimeShell, gsettings-desktop-schemas }:
 
 let versionSuffix = "20190612201656.952fee6c59";
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, zlib, expat, cmake, which, libxml2, python3, gettext, doxygen, graphviz, libxslt
-}:
+{ stdenv, fetchFromGitHub, zlib, expat, cmake, which, libxml2, python3, gettext
+, doxygen, graphviz, libxslt }:
 
 stdenv.mkDerivation rec {
   pname = "exiv2";

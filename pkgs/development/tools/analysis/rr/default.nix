@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libpfm, zlib, pkgconfig, python2Packages, which, procps, gdb, capnproto
-}:
+{ stdenv, fetchFromGitHub, cmake, libpfm, zlib, pkgconfig, python2Packages
+, which, procps, gdb, capnproto }:
 
 stdenv.mkDerivation rec {
   version = "5.2.0";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, xdg_utils, dbus, qtbase, qtwebkit, qtx11extras, qtquickcontrols, glibc, libXrandr, libX11
-}:
+{ stdenv, fetchurl, autoPatchelfHook, makeWrapper, xdg_utils, dbus, qtbase
+, qtwebkit, qtx11extras, qtquickcontrols, glibc, libXrandr, libX11 }:
 
 stdenv.mkDerivation rec {
   name = "teamviewer-${version}";

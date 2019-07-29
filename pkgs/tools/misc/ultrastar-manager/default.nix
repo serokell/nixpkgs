@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, symlinkJoin, qmake, diffPlugins, qtbase, qtmultimedia, taglib, libmediainfo, libzen, libbass
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, symlinkJoin, qmake, diffPlugins, qtbase
+, qtmultimedia, taglib, libmediainfo, libzen, libbass }:
 
 let
   version = "2019-04-23";

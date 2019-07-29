@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gettext, ncurses, gtkGUI ? false, pkgconfig ? null, gtk2 ?
-  null }:
+{ stdenv, fetchurl, gettext, ncurses, gtkGUI ? false, pkgconfig ? null
+, gtk2 ? null }:
 
 assert gtkGUI -> pkgconfig != null && gtk2 != null;
 

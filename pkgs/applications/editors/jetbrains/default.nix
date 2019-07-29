@@ -1,5 +1,5 @@
-{ lib, stdenv, callPackage, fetchurl, python, jdk, cmake, libxml2, zlib, python3, ncurses
-}:
+{ lib, stdenv, callPackage, fetchurl, python, jdk, cmake, libxml2, zlib, python3
+, ncurses }:
 
 with stdenv.lib;
 

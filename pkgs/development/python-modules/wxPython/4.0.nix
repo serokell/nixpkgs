@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pkgconfig, gtk3, libjpeg, libtiff, SDL, gst-plugins-base, libnotify, freeglut, xorg, which
-}:
+{ lib, buildPythonPackage, fetchPypi, pkgconfig, gtk3, libjpeg, libtiff, SDL
+, gst-plugins-base, libnotify, freeglut, xorg, which }:
 
 buildPythonPackage rec {
   pname = "wxPython";

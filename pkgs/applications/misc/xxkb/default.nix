@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, libXt, libXext, libXpm, imake, gccmakedep, svgSupport ?
-  false, librsvg, glib, gdk_pixbuf, pkgconfig }:
+{ stdenv, fetchurl, libX11, libXt, libXext, libXpm, imake, gccmakedep
+, svgSupport ? false, librsvg, glib, gdk_pixbuf, pkgconfig }:
 
 assert svgSupport -> librsvg != null && glib != null && gdk_pixbuf != null
 && pkgconfig != null;

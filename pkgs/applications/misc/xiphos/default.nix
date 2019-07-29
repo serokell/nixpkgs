@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python, intltool, docbook2x, docbook_xml_dtd_412, libxslt, sword, clucene_core, biblesync, gnome-doc-utils, libgsf, gconf, gtkhtml, libglade, scrollkeeper, webkitgtk, dbus-glib, enchant, isocodes, libuuid, icu, wrapGAppsHook, wafHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, python, intltool, docbook2x
+, docbook_xml_dtd_412, libxslt, sword, clucene_core, biblesync, gnome-doc-utils
+, libgsf, gconf, gtkhtml, libglade, scrollkeeper, webkitgtk, dbus-glib, enchant
+, isocodes, libuuid, icu, wrapGAppsHook, wafHook }:
 
 stdenv.mkDerivation rec {
   name = "xiphos-${version}";

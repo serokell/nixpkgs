@@ -1,5 +1,6 @@
-{ stdenv, meson, ninja, vala, gettext, itstool, fetchurl, pkgconfig, libxml2, gtk3, glib, gtksourceview4, wrapGAppsHook, gobject-introspection, python3, gnome3, mpfr, gmp, libsoup, libmpc, gsettings-desktop-schemas
-}:
+{ stdenv, meson, ninja, vala, gettext, itstool, fetchurl, pkgconfig, libxml2
+, gtk3, glib, gtksourceview4, wrapGAppsHook, gobject-introspection, python3
+, gnome3, mpfr, gmp, libsoup, libmpc, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "gnome-calculator-${version}";

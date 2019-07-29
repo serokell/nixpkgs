@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, argcomplete, colorama, jmespath, knack, pygments, pyyaml, six, tabulate, mock, vcrpy, pytest
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, argcomplete, colorama, jmespath
+, knack, pygments, pyyaml, six, tabulate, mock, vcrpy, pytest }:
 
 buildPythonPackage rec {
   pname = "knack";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxml2, gtk, libSM, shared-mime-info, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, libxml2, gtk, libSM, shared-mime-info
+, hicolor-icon-theme }:
 
 let
   version = "2.11";

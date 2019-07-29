@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, glibmm, gstreamer, gst-plugins-base, libsigcxx, libxmlxx, pkgconfig
-}:
+{ stdenv, fetchurl, glibmm, gstreamer, gst-plugins-base, libsigcxx, libxmlxx
+, pkgconfig }:
 
 let
   ver_maj = "0.10";

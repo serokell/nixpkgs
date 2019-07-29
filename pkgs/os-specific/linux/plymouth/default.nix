@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, libxslt, docbook_xsl, gtk3, udev, systemd
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, libxslt, docbook_xsl, gtk3, udev
+, systemd }:
 
 stdenv.mkDerivation rec {
   name = "plymouth-${version}";

@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, attica, kconfig, kconfigwidgets, kglobalaccel, ki18n, kiconthemes, kitemviews, ktextwidgets, kwindowsystem, qtbase, sonnet,
-}:
+{ mkDerivation, lib, extra-cmake-modules, attica, kconfig, kconfigwidgets
+, kglobalaccel, ki18n, kiconthemes, kitemviews, ktextwidgets, kwindowsystem
+, qtbase, sonnet, }:
 
 mkDerivation {
   name = "kxmlgui";

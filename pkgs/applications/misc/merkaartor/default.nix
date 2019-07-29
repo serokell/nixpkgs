@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, qmake, pkgconfig, boost, gdal, proj, qtbase, qtsvg, qtwebkit
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, qmake, pkgconfig, boost, gdal, proj
+, qtbase, qtsvg, qtwebkit }:
 
 stdenv.mkDerivation rec {
   name = "merkaartor-${version}";

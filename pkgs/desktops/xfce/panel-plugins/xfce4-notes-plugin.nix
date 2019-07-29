@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, xfce4-panel, libxfce4ui, libxfcegui4, xfconf, gtk, libunique
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, xfce4-panel, libxfce4ui
+, libxfcegui4, xfconf, gtk, libunique }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

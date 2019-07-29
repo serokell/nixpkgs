@@ -1,8 +1,8 @@
 { stdenv, curl }:
 
-{ ipfs, url ? "", curlOpts ? "", outputHash ? "", outputHashAlgo ? "", md5 ?
-  "", sha1 ? "", sha256 ? "", sha512 ? "", meta ? { }, port ?
-    "8080", postFetch ? "", preferLocalBuild ? true }:
+{ ipfs, url ? "", curlOpts ? "", outputHash ? "", outputHashAlgo ? "", md5 ? ""
+, sha1 ? "", sha256 ? "", sha512 ? "", meta ? { }, port ? "8080", postFetch ? ""
+, preferLocalBuild ? true }:
 
 assert sha512 != "" -> builtins.compareVersions "1.11" builtins.nixVersion <= 0;
 

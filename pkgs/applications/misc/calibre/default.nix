@@ -1,6 +1,7 @@
-{ stdenv, fetchurl, poppler_utils, pkgconfig, libpng, imagemagick, libjpeg, fontconfig, podofo, qtbase, qmake, icu, sqlite, makeWrapper, unrarSupport ?
-  false, chmlib, python2Packages, libusb1, libmtp, xdg_utils, makeDesktopItem, wrapGAppsHook, removeReferencesTo
-}:
+{ stdenv, fetchurl, poppler_utils, pkgconfig, libpng, imagemagick, libjpeg
+, fontconfig, podofo, qtbase, qmake, icu, sqlite, makeWrapper
+, unrarSupport ? false, chmlib, python2Packages, libusb1, libmtp, xdg_utils
+, makeDesktopItem, wrapGAppsHook, removeReferencesTo }:
 
 stdenv.mkDerivation rec {
   version = "3.45.2";

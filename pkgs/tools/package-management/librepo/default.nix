@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, python, pkgconfig, libxml2, glib, openssl, curl, check, gpgme
-}:
+{ stdenv, fetchFromGitHub, cmake, python, pkgconfig, libxml2, glib, openssl
+, curl, check, gpgme }:
 
 stdenv.mkDerivation rec {
   version = "1.9.2";

@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, cheroot, contextlib2, portend, routes, six, zc_lockfile, backports_unittest-mock, objgraph, pathpy, pytest, pytestcov, backports_functools_lru_cache, requests_toolbelt
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, cheroot, contextlib2
+, portend, routes, six, zc_lockfile, backports_unittest-mock, objgraph, pathpy
+, pytest, pytestcov, backports_functools_lru_cache, requests_toolbelt }:
 
 buildPythonPackage rec {
   pname = "cherrypy";

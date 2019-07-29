@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk2, sfml, fluidsynth, curl, freeimage, ftgl, glew, zip
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, wxGTK, gtk2, sfml, fluidsynth, curl
+, freeimage, ftgl, glew, zip }:
 
 stdenv.mkDerivation {
   name = "slade-git-3.1.2.2018.01.29";

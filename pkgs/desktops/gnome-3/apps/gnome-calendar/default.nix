@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, wrapGAppsHook, libdazzle, libgweather, geoclue2, geocode-glib, python3, gettext, libxml2, gnome3, gtk3, evolution-data-server, libsoup, glib, gnome-online-accounts, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, wrapGAppsHook, libdazzle
+, libgweather, geoclue2, geocode-glib, python3, gettext, libxml2, gnome3, gtk3
+, evolution-data-server, libsoup, glib, gnome-online-accounts
+, gsettings-desktop-schemas }:
 
 let
   pname = "gnome-calendar";

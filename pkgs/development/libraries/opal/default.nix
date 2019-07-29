@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, ptlib, srtp, libtheora, speex, gnome3, ffmpeg, x264, cyrus_sasl, openldap, openssl, expat, unixODBC
-}:
+{ stdenv, fetchurl, pkgconfig, ptlib, srtp, libtheora, speex, gnome3, ffmpeg
+, x264, cyrus_sasl, openldap, openssl, expat, unixODBC }:
 
 stdenv.mkDerivation rec {
   pname = "opal";

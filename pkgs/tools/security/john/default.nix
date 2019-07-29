@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, nss, nspr, kerberos, gmp, zlib, libpcap, re2, gcc, pythonPackages, perl, perlPackages, makeWrapper
-}:
+{ stdenv, fetchurl, openssl, nss, nspr, kerberos, gmp, zlib, libpcap, re2, gcc
+, pythonPackages, perl, perlPackages, makeWrapper }:
 
 with stdenv.lib;
 

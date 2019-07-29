@@ -1,5 +1,5 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, qtwebengine, kio, kcalcore, kcontacts, cyrus_sasl
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, qtwebengine
+, kio, kcalcore, kcontacts, cyrus_sasl }:
 
 mkDerivation {
   name = "libkgapi";

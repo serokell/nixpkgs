@@ -1,7 +1,9 @@
 # TODO add plugins having various licenses, see http://www.vamp-plugins.org/download.html
 
-{ stdenv, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo, libmad, libogg, librdf, librdf_raptor, librdf_rasqal, libsamplerate, libsndfile, pkgconfig, libpulseaudio, qtbase, redland, qmake, rubberband, serd, sord, vampSDK, fftwFloat
-}:
+{ stdenv, fetchurl, alsaLib, bzip2, fftw, libjack2, libX11, liblo, libmad
+, libogg, librdf, librdf_raptor, librdf_rasqal, libsamplerate, libsndfile
+, pkgconfig, libpulseaudio, qtbase, redland, qmake, rubberband, serd, sord
+, vampSDK, fftwFloat }:
 
 stdenv.mkDerivation rec {
   name = "sonic-visualiser-${version}";

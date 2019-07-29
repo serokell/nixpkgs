@@ -1,5 +1,5 @@
-{ sudo, coreutils, systemd, cryptsetup, mount, umount, buildGoPackage, fetchFromGitHub
-}:
+{ sudo, coreutils, systemd, cryptsetup, mount, umount, buildGoPackage
+, fetchFromGitHub }:
 
 buildGoPackage rec {
   name = "interlock-${version}";

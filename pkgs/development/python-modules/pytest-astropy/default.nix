@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-doctestplus, pytest-remotedata, pytest-openfiles, pytest-arraydiff
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytest-doctestplus
+, pytest-remotedata, pytest-openfiles, pytest-arraydiff }:
 
 buildPythonPackage rec {
   pname = "pytest-astropy";

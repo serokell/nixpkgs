@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, pkgconfig, libxcb, libpthreadstubs, libXdmcp, libXau, qtbase, qtdeclarative, qttools, pam, systemd
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, pkgconfig
+, libxcb, libpthreadstubs, libXdmcp, libXau, qtbase, qtdeclarative, qttools, pam
+, systemd }:
 
 let version = "0.18.1";
 

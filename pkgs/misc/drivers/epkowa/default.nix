@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, makeWrapper, symlinkJoin, pkgconfig, libtool, gtk2, libxml2, libxslt, libusb, sane-backends, rpm, cpio, getopt, patchelf, autoPatchelfHook, gcc
-}:
+{ stdenv, fetchurl, fetchpatch, makeWrapper, symlinkJoin, pkgconfig, libtool
+, gtk2, libxml2, libxslt, libusb, sane-backends, rpm, cpio, getopt, patchelf
+, autoPatchelfHook, gcc }:
 
 let
   common_meta = {

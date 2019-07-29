@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, zlib, glib, xorg, dbus, fontconfig, libGL, freetype, xkeyboard_config, makeDesktopItem, makeWrapper
-}:
+{ stdenv, fetchurl, zlib, glib, xorg, dbus, fontconfig, libGL, freetype
+, xkeyboard_config, makeDesktopItem, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "robo3t-${version}";

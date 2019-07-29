@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, cmake, bison, boost, libedit, libevent, lz4, ncurses, openssl, protobuf, readline, zlib, perl, cctools, CoreServices, developer_cmds
+{ stdenv, fetchurl, cmake, bison, boost, libedit, libevent, lz4, ncurses
+, openssl, protobuf, readline, zlib, perl, cctools, CoreServices, developer_cmds
 }:
 
 # Note: zlib is not required; MySQL can use an internal zlib.

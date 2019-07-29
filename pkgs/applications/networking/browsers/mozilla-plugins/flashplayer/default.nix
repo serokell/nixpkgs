@@ -1,5 +1,9 @@
-{ stdenv, lib, fetchurl, alsaLib, atk, bzip2, cairo, curl, expat, fontconfig, freetype, gdk_pixbuf, glib, glibc, graphite2, gtk2, harfbuzz, libICE, libSM, libX11, libXau, libXcomposite, libXcursor, libXdamage, libXdmcp, libXext, libXfixes, libXi, libXinerama, libXrandr, libXrender, libXt, libXxf86vm, libdrm, libffi, libglvnd, libpng, libvdpau, libxcb, libxshmfence, nspr, nss, pango, pcre, pixman, zlib, unzip, debug ?
-  false
+{ stdenv, lib, fetchurl, alsaLib, atk, bzip2, cairo, curl, expat, fontconfig
+, freetype, gdk_pixbuf, glib, glibc, graphite2, gtk2, harfbuzz, libICE, libSM
+, libX11, libXau, libXcomposite, libXcursor, libXdamage, libXdmcp, libXext
+, libXfixes, libXi, libXinerama, libXrandr, libXrender, libXt, libXxf86vm
+, libdrm, libffi, libglvnd, libpng, libvdpau, libxcb, libxshmfence, nspr, nss
+, pango, pcre, pixman, zlib, unzip, debug ? false
 
   /* you have to add ~/mm.cfg :
 

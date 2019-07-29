@@ -1,5 +1,5 @@
-{ buildPythonPackage, lib, fetchFromGitHub, pytest, typing, funcsigs, pythonOlder
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, pytest, typing, funcsigs
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gentools";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, gettext, alsaLib, gtk3, glib, libnotify, libX11, pcre
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, gettext, alsaLib, gtk3, glib
+, libnotify, libX11, pcre }:
 
 stdenv.mkDerivation rec {
   name = "pnmixer-${version}";

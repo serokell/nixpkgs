@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, fftw, qtbase, qtmultimedia, qmake, alsaSupport ?
-  true, alsaLib ? null, jackSupport ? false, libjack2 ? null, portaudioSupport ?
-    false, portaudio ? null }:
+{ stdenv, fetchFromGitHub, fftw, qtbase, qtmultimedia, qmake, alsaSupport ? true
+, alsaLib ? null, jackSupport ? false, libjack2 ? null, portaudioSupport ? false
+, portaudio ? null }:
 
 assert alsaSupport -> alsaLib != null;
 assert jackSupport -> libjack2 != null;

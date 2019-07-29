@@ -1,5 +1,5 @@
-{ fetchgit, stdenv, pkgconfig, libtool, autoconf, automake, curl, ncurses, ocl-icd, opencl-headers, xorg, jansson
-}:
+{ fetchgit, stdenv, pkgconfig, libtool, autoconf, automake, curl, ncurses
+, ocl-icd, opencl-headers, xorg, jansson }:
 
 stdenv.mkDerivation rec {
   version = "3.7.2";

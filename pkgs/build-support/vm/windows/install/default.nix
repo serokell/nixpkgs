@@ -1,5 +1,5 @@
-{ stdenv, runCommand, openssh, qemu, controller, mkCygwinImage, writeText, dosfstools, mtools
-}:
+{ stdenv, runCommand, openssh, qemu, controller, mkCygwinImage, writeText
+, dosfstools, mtools }:
 
 { isoFile, productKey }:
 

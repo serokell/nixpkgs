@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, SDL_ttf, SDL_image, SDL_mixer, pkgconfig, lua, zlib, unzip
-}:
+{ stdenv, fetchurl, SDL, SDL_ttf, SDL_image, SDL_mixer, pkgconfig, lua, zlib
+, unzip }:
 
 let
   version = "3.3.0";

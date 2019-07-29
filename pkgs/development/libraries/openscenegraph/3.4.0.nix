@@ -1,5 +1,7 @@
-{ stdenv, lib, fetchurl, cmake, pkgconfig, doxygen, unzip, freetype, libjpeg, jasper, libxml2, zlib, gdal, curl, libX11, cairo, poppler, librsvg, libpng, libtiff, libXrandr, xineLib, boost, withApps ?
-  false, withSDL ? false, SDL, withQt4 ? false, qt4 }:
+{ stdenv, lib, fetchurl, cmake, pkgconfig, doxygen, unzip, freetype, libjpeg
+, jasper, libxml2, zlib, gdal, curl, libX11, cairo, poppler, librsvg, libpng
+, libtiff, libXrandr, xineLib, boost, withApps ? false, withSDL ? false, SDL
+, withQt4 ? false, qt4 }:
 
 stdenv.mkDerivation rec {
   name = "openscenegraph-${version}";

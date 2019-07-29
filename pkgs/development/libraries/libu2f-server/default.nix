@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, json_c, openssl, check, file, help2man, which, gengetopt
-}:
+{ stdenv, fetchurl, pkgconfig, json_c, openssl, check, file, help2man, which
+, gengetopt }:
 
 stdenv.mkDerivation rec {
   name = "libu2f-server-1.1.0";

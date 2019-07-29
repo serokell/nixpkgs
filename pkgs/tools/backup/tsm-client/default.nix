@@ -4,8 +4,8 @@
 , jdk8 ? null # Java GUI
 , lvm2 ? null # LVM image backup and restore functions
   # path to `dsm.sys` configuration files
-, dsmSysCli ? "/etc/tsm-client/cli.dsm.sys", dsmSysApi ?
-  "/etc/tsm-client/api.dsm.sys" }:
+, dsmSysCli ? "/etc/tsm-client/cli.dsm.sys"
+, dsmSysApi ? "/etc/tsm-client/api.dsm.sys" }:
 
 # For an explanation of optional packages
 # (features provided by them, version limits), see

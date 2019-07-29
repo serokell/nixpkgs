@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, patchelf, coreutils, pcsclite, zlib, glib, gdk_pixbuf, gtk2, cairo, pango, libX11, atk, openssl, runtimeShell
-}:
+{ stdenv, fetchurl, patchelf, coreutils, pcsclite, zlib, glib, gdk_pixbuf, gtk2
+, cairo, pango, libX11, atk, openssl, runtimeShell }:
 
 let
   libPath = stdenv.lib.makeLibraryPath [

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, autoconf213, pkgconfig, perl, python2, zip, which, readline, zlib, icu
-}:
+{ stdenv, fetchurl, fetchpatch, autoconf213, pkgconfig, perl, python2, zip
+, which, readline, zlib, icu }:
 
 let version = "60.4.0";
 in stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, curl, libnotify, gdk_pixbuf
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, curl, libnotify
+, gdk_pixbuf }:
 
 stdenv.mkDerivation rec {
   version = "2018-10-11";

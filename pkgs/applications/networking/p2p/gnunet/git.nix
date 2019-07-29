@@ -1,5 +1,7 @@
-{ stdenv, fetchgit, libextractor, libmicrohttpd, libgcrypt, zlib, gmp, curl, libtool, adns, sqlite, pkgconfig, libxml2, ncurses, gettext, libunistring, libidn, makeWrapper, autoconf, automake, texinfo, which, withVerbose ?
-  false }:
+{ stdenv, fetchgit, libextractor, libmicrohttpd, libgcrypt, zlib, gmp, curl
+, libtool, adns, sqlite, pkgconfig, libxml2, ncurses, gettext, libunistring
+, libidn, makeWrapper, autoconf, automake, texinfo, which, withVerbose ? false
+}:
 
 let rev = "ce2864cfaa27e55096b480bf35db5f8cee2a5e7e";
 in stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, clang, llvmPackages, rustfmt, writeScriptBin, runtimeShell
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, clang, llvmPackages, rustfmt
+, writeScriptBin, runtimeShell }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-bindgen";

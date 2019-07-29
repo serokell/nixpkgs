@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, cfitsio, libusb, zlib, boost, libnova, curl, libjpeg, gsl
-}:
+{ stdenv, fetchurl, cmake, cfitsio, libusb, zlib, boost, libnova, curl, libjpeg
+, gsl }:
 
 stdenv.mkDerivation {
   name = "indilib-1.1.0";

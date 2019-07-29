@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, vala, glib, liboauth, gtk3, gtk-doc, docbook_xsl, docbook_xml_dtd_43, fetchpatch, libxml2, gnome3, gobject-introspection, libsoup, totem-pl-parser
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, vala, glib, liboauth, gtk3
+, gtk-doc, docbook_xsl, docbook_xml_dtd_43, fetchpatch, libxml2, gnome3
+, gobject-introspection, libsoup, totem-pl-parser }:
 
 let
   pname = "grilo";

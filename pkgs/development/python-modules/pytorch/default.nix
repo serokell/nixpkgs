@@ -1,7 +1,6 @@
-{ stdenv, fetchurl, buildPythonPackage, pythonOlder, cudaSupport ?
-  false, cudatoolkit ? null, cudnn ?
-    null, fetchFromGitHub, lib, numpy, pyyaml, cffi, typing, cmake, hypothesis, numactl, linkFarm, symlinkJoin, utillinux, which
-}:
+{ stdenv, fetchurl, buildPythonPackage, pythonOlder, cudaSupport ? false
+, cudatoolkit ? null, cudnn ? null, fetchFromGitHub, lib, numpy, pyyaml, cffi
+, typing, cmake, hypothesis, numactl, linkFarm, symlinkJoin, utillinux, which }:
 
 assert cudnn == null || cudatoolkit != null;
 assert !cudaSupport || cudatoolkit != null;

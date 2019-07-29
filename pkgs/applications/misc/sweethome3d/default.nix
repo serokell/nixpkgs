@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, fetchsvn, makeWrapper, makeDesktopItem, jdk, jre, ant, gtk3, gsettings-desktop-schemas, p7zip, libXxf86vm
-}:
+{ lib, stdenv, fetchurl, fetchsvn, makeWrapper, makeDesktopItem, jdk, jre, ant
+, gtk3, gsettings-desktop-schemas, p7zip, libXxf86vm }:
 
 let
 

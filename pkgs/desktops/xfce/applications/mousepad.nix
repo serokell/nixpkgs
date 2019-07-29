@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, gtk, gtksourceview, dbus, dbus-glib, makeWrapper, dconf
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, gtk, gtksourceview, dbus
+, dbus-glib, makeWrapper, dconf }:
 
 stdenv.mkDerivation rec {
   p_name = "mousepad";

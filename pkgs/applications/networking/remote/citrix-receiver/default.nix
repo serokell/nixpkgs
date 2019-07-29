@@ -1,5 +1,7 @@
-{ stdenv, lib, fetchurl, requireFile, makeWrapper, libredirect, busybox, file, makeDesktopItem, tzdata, cacert, glib, gtk2, atk, gdk_pixbuf, cairo, pango, gnome3, xorg, libpng12, freetype, fontconfig, gtk_engines, alsaLib, libidn, zlib, version ?
-  "13.10.0" }:
+{ stdenv, lib, fetchurl, requireFile, makeWrapper, libredirect, busybox, file
+, makeDesktopItem, tzdata, cacert, glib, gtk2, atk, gdk_pixbuf, cairo, pango
+, gnome3, xorg, libpng12, freetype, fontconfig, gtk_engines, alsaLib, libidn
+, zlib, version ? "13.10.0" }:
 
 let
   # In 56e1bdc7f9c (libidn: 1.34 -> 1.35), libidn.so.11 became libidn.so.12.

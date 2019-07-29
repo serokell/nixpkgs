@@ -1,4 +1,5 @@
-{ mkDerivation, aeson, async, base, binary, bytestring, containers, directory, filepath, hpack, optparse-applicative, safe-exceptions, stdenv, text, fetchgit
+{ mkDerivation, aeson, async, base, binary, bytestring, containers, directory
+, filepath, hpack, optparse-applicative, safe-exceptions, stdenv, text, fetchgit
 }:
 mkDerivation {
   pname = "elmi-to-json";

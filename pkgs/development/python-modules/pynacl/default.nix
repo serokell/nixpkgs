@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, libsodium, cffi, six, hypothesis
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, libsodium, cffi, six
+, hypothesis }:
 
 buildPythonPackage rec {
   pname = "pynacl";

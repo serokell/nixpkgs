@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, lib, wrapGAppsHook, pkgconfig, gnome3, gtk3, glib, intltool, libXtst, libnotify, libsoup, telepathySupport ?
-  false, dbus-glib ? null, telepathy-glib ?
-    null, libsecret, gnutls, libgcrypt, avahi, zlib, libjpeg, libXdamage, libXfixes, libXext, networkmanager
-}:
+{ stdenv, fetchurl, lib, wrapGAppsHook, pkgconfig, gnome3, gtk3, glib, intltool
+, libXtst, libnotify, libsoup, telepathySupport ? false, dbus-glib ? null
+, telepathy-glib ? null, libsecret, gnutls, libgcrypt, avahi, zlib, libjpeg
+, libXdamage, libXfixes, libXext, networkmanager }:
 
 with lib;
 

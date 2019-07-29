@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gperf, sqlite, librest, libarchive, libsoup, gnome3, libxml2, lua5_3, liboauth, libgdata, libmediaart, grilo, gnome-online-accounts, gmime, json-glib, avahi, tracker, dleyna-server, itstool, totem-pl-parser
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gperf, sqlite, librest
+, libarchive, libsoup, gnome3, libxml2, lua5_3, liboauth, libgdata, libmediaart
+, grilo, gnome-online-accounts, gmime, json-glib, avahi, tracker, dleyna-server
+, itstool, totem-pl-parser }:
 
 stdenv.mkDerivation rec {
   pname = "grilo-plugins";

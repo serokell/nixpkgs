@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, ocaml, findlib, ocamlbuild, topkg, cpuid, ocb-stubblr, cstruct, zarith, ppx_sexp_conv, cstruct-lwt ?
-  null }:
+{ stdenv, fetchurl, fetchpatch, ocaml, findlib, ocamlbuild, topkg, cpuid
+, ocb-stubblr, cstruct, zarith, ppx_sexp_conv, cstruct-lwt ? null }:
 
 with stdenv.lib;
 let withLwt = cstruct-lwt != null;

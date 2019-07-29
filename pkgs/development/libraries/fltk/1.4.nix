@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, xlibsWrapper, xorgproto, libXi, freeglut, libGLU_combined, libjpeg, zlib, libXft, libpng, libtiff, freetype, Cocoa, AGL, GLUT
-}:
+{ stdenv, fetchurl, pkgconfig, xlibsWrapper, xorgproto, libXi, freeglut
+, libGLU_combined, libjpeg, zlib, libXft, libpng, libtiff, freetype, Cocoa, AGL
+, GLUT }:
 
 let version = "1.4.x-r13121";
 

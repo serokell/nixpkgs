@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, lib, cmake, libGLU_combined, freetype, freeimage, zziplib, xorgproto, libXrandr, libXaw, freeglut, libXt, libpng, boost, ois, libX11, libXmu, libSM, pkgconfig, libXxf86vm, libICE, unzip, libXrender, withNvidiaCg ?
-  false, nvidia_cg_toolkit, withSamples ? false }:
+{ fetchurl, stdenv, lib, cmake, libGLU_combined, freetype, freeimage, zziplib
+, xorgproto, libXrandr, libXaw, freeglut, libXt, libpng, boost, ois, libX11
+, libXmu, libSM, pkgconfig, libXxf86vm, libICE, unzip, libXrender
+, withNvidiaCg ? false, nvidia_cg_toolkit, withSamples ? false }:
 
 stdenv.mkDerivation rec {
   name = "ogre-${version}";

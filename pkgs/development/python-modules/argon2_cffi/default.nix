@@ -1,5 +1,5 @@
-{ cffi, six, enum34, hypothesis, pytest, wheel, buildPythonPackage, fetchPypi, isPy3k, lib
-}:
+{ cffi, six, enum34, hypothesis, pytest, wheel, buildPythonPackage, fetchPypi
+, isPy3k, lib }:
 
 buildPythonPackage rec {
   pname = "argon2_cffi";

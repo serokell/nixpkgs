@@ -1,5 +1,5 @@
-{ stdenv, fetchFromRepoOrCz, autoreconfHook, perl, asciidoc, xmlto, docbook_xml_dtd_45, docbook_xsl
-}:
+{ stdenv, fetchFromRepoOrCz, autoreconfHook, perl, asciidoc, xmlto
+, docbook_xml_dtd_45, docbook_xsl }:
 
 stdenv.mkDerivation rec {
   name = "nasm-${version}";

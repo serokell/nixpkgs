@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, attrs, bitstruct, future, pathlib2, typing, lxml, xlwt, xlrd, XlsxWriter, pyyaml, pytest
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, attrs, bitstruct
+, future, pathlib2, typing, lxml, xlwt, xlrd, XlsxWriter, pyyaml, pytest }:
 
 buildPythonPackage rec {
   pname = "canmatrix";

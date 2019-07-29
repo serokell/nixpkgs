@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, spglib, numpy, scipy, matplotlib, ase, netcdf4, pytest, pythonOlder, cython, cmake
-}:
+{ stdenv, buildPythonPackage, fetchPypi, spglib, numpy, scipy, matplotlib, ase
+, netcdf4, pytest, pythonOlder, cython, cmake }:
 
 buildPythonPackage rec {
   version = "19.1.1";

@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchgit, qtbase, qmake, makeWrapper, qtscript, flex, bison, qtdeclarative
-}:
+{ lib, stdenv, fetchgit, qtbase, qmake, makeWrapper, qtscript, flex, bison
+, qtdeclarative }:
 
 let
   version = "5.1";

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, intltool, libpulseaudio, gtkmm3, libcanberra-gtk3, makeWrapper, gnome3
-}:
+{ fetchurl, stdenv, pkgconfig, intltool, libpulseaudio, gtkmm3, libcanberra-gtk3
+, makeWrapper, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "pavucontrol";

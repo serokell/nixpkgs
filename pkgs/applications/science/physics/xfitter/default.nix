@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, apfel, apfelgrid, applgrid, blas, gfortran, lhapdf, liblapack, libyaml, lynx, mela, root5, qcdnum, which
-}:
+{ stdenv, fetchurl, apfel, apfelgrid, applgrid, blas, gfortran, lhapdf
+, liblapack, libyaml, lynx, mela, root5, qcdnum, which }:
 
 stdenv.mkDerivation rec {
   name = "xfitter-${version}";

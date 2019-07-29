@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, iproute, lzo, openssl, pam, useSystemd ?
-  stdenv.isLinux, systemd ? null, utillinux ? null, pkcs11Support ?
-    false, pkcs11helper ? null, }:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, iproute, lzo, openssl, pam
+, useSystemd ? stdenv.isLinux, systemd ? null, utillinux ? null
+, pkcs11Support ? false, pkcs11helper ? null, }:
 
 assert useSystemd -> (systemd != null);
 assert pkcs11Support -> (pkcs11helper != null);

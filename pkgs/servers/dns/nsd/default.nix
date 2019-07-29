@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, libevent, openssl, bind8Stats ? false, checking ?
-  false, ipv6 ? true, mmap ? false, minimalResponses ? true, nsec3 ?
-    true, ratelimit ? false, recvmmsg ? false, rootServer ? false, rrtypes ?
-      false, zoneStats ? false
+{ stdenv, fetchurl, libevent, openssl, bind8Stats ? false, checking ? false
+, ipv6 ? true, mmap ? false, minimalResponses ? true, nsec3 ? true
+, ratelimit ? false, recvmmsg ? false, rootServer ? false, rrtypes ? false
+, zoneStats ? false
 
 , configFile ? "etc/nsd/nsd.conf" }:
 

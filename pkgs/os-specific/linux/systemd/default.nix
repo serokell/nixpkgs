@@ -1,10 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, intltool, gperf, libcap, kmod, xz, pam, acl, libuuid, m4, utillinux, libffi, glib, kbd, libxslt, coreutils, libgcrypt, libgpgerror, libidn2, libapparmor, audit, lz4, bzip2, libmicrohttpd, pcre2, linuxHeaders ?
-  stdenv.cc.libc.linuxHeaders, iptables, gnu-efi, gettext, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45, ninja, meson, python3Packages, glibcLocales, patchelf, getent, buildPackages, perl, withSelinux ?
-    false, libselinux, withLibseccomp ?
-      lib.any (lib.meta.platformMatch stdenv.hostPlatform)
-      libseccomp.meta.platforms, libseccomp, withKexectools ?
-        lib.any (lib.meta.platformMatch stdenv.hostPlatform)
-        kexectools.meta.platforms, kexectools }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, intltool, gperf, libcap, kmod, xz
+, pam, acl, libuuid, m4, utillinux, libffi, glib, kbd, libxslt, coreutils
+, libgcrypt, libgpgerror, libidn2, libapparmor, audit, lz4, bzip2, libmicrohttpd
+, pcre2, linuxHeaders ? stdenv.cc.libc.linuxHeaders, iptables, gnu-efi, gettext
+, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45, ninja, meson
+, python3Packages, glibcLocales, patchelf, getent, buildPackages, perl
+, withSelinux ? false, libselinux, withLibseccomp ?
+  lib.any (lib.meta.platformMatch stdenv.hostPlatform) libseccomp.meta.platforms
+, libseccomp, withKexectools ?
+  lib.any (lib.meta.platformMatch stdenv.hostPlatform) kexectools.meta.platforms
+, kexectools }:
 
 stdenv.mkDerivation rec {
   version = "242";

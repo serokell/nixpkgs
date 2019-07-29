@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, mercurial, makeWrapper, asciidoc, xmlto, docbook_xsl, docbook_xml_dtd_45, libxslt, libxml2
-}:
+{ stdenv, lib, fetchFromGitHub, mercurial, makeWrapper, asciidoc, xmlto
+, docbook_xsl, docbook_xml_dtd_45, libxslt, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "git-remote-hg";

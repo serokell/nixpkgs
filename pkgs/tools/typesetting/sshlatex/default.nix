@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, inotify-tools, openssh, perl, gnutar, bash, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, inotify-tools, openssh, perl, gnutar, bash
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "sshlatex-${version}";

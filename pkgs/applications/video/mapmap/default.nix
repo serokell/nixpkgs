@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qttools, qtmultimedia, liblo, gst_all_1, qmake, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, qttools, qtmultimedia, liblo, gst_all_1, qmake
+, pkgconfig }:
 
 with stdenv;
 

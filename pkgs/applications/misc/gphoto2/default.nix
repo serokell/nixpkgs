@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libgphoto2, libexif, popt, gettext, libjpeg, readline, libtool
-}:
+{ stdenv, fetchurl, pkgconfig, libgphoto2, libexif, popt, gettext, libjpeg
+, readline, libtool }:
 
 stdenv.mkDerivation rec {
   name = "gphoto2-2.5.23";

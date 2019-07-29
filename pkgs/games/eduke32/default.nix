@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, nasm, makeDesktopItem, flac, gtk2, libvorbis, libvpx, libGLU_combined, SDL2, SDL2_mixer
-}:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, nasm, makeDesktopItem, flac, gtk2
+, libvorbis, libvpx, libGLU_combined, SDL2, SDL2_mixer }:
 
 let
   version = "20190330";

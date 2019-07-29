@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, wrapt, typing, pyserial, nose, mock, hypothesis, future, pytest, pytest-timeout
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, wrapt, typing, pyserial
+, nose, mock, hypothesis, future, pytest, pytest-timeout }:
 
 buildPythonPackage rec {
   pname = "python-can";

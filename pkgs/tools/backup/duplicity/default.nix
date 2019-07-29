@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, fetchurl, python2Packages, librsync, ncftp, gnupg, gnutar, par2cmdline, utillinux, rsync, makeWrapper
-}:
+{ stdenv, fetchpatch, fetchurl, python2Packages, librsync, ncftp, gnupg, gnutar
+, par2cmdline, utillinux, rsync, makeWrapper }:
 
 python2Packages.buildPythonApplication rec {
   name = "duplicity-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, git, gtk, gettext, gcc_multi, libressl, gnome3, steam
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, git, gtk, gettext, gcc_multi
+, libressl, gnome3, steam }:
 
 let version = "0.7.3";
 

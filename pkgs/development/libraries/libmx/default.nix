@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtool, pkgconfig, automake, autoconf, intltool, glib, gobject-introspection, gtk2, gtk-doc, clutter, clutter-gtk
-}:
+{ stdenv, fetchurl, libtool, pkgconfig, automake, autoconf, intltool, glib
+, gobject-introspection, gtk2, gtk-doc, clutter, clutter-gtk }:
 
 stdenv.mkDerivation rec {
   name = "libmx-${version}";

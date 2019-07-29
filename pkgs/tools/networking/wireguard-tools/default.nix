@@ -1,7 +1,7 @@
 { stdenv, fetchzip,
 
-iproute ? null, libmnl ? null, makeWrapper ? null, openresolv ? null, procps ?
-  null, wireguard-go ? null, }:
+iproute ? null, libmnl ? null, makeWrapper ? null, openresolv ? null
+, procps ? null, wireguard-go ? null, }:
 
 with stdenv.lib;
 

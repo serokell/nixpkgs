@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, service-identity, requests, six, mock, twisted, incremental, pep8, httpbin
-}:
+{ stdenv, fetchPypi, buildPythonPackage, service-identity, requests, six, mock
+, twisted, incremental, pep8, httpbin }:
 
 buildPythonPackage rec {
   pname = "treq";

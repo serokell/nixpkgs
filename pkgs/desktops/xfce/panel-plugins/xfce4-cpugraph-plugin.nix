@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, exo, libXtst, xorgproto, libxfce4util, xfce4-panel, libxfce4ui, xfconf, gtk, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, exo, libXtst, xorgproto
+, libxfce4util, xfce4-panel, libxfce4ui, xfconf, gtk, hicolor-icon-theme }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

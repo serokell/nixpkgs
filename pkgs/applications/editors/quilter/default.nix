@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, meson, ninja, python3, gtk3, desktop-file-utils, gtksourceview, webkitgtk, gtkspell3, pantheon, libgee, discount, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, meson, ninja, python3, gtk3
+, desktop-file-utils, gtksourceview, webkitgtk, gtkspell3, pantheon, libgee
+, discount, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "quilter";

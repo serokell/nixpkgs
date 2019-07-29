@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, m4, zlib, bzip2, bison, flex, gettext, xz, setupDebugInfoDirs
-}:
+{ lib, stdenv, fetchurl, m4, zlib, bzip2, bison, flex, gettext, xz
+, setupDebugInfoDirs }:
 
 # TODO: Look at the hardcoded paths to kernel, modules etc.
 stdenv.mkDerivation rec {

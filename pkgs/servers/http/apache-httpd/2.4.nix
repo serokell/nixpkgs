@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, perl, zlib, apr, aprutil, pcre, libiconv, lynx, proxySupport ?
-  true, sslSupport ? true, openssl, http2Support ? true, nghttp2, ldapSupport ?
-    true, openldap, libxml2Support ? true, libxml2, brotliSupport ?
-      true, brotli, luaSupport ? false, lua5 }:
+{ stdenv, fetchurl, perl, zlib, apr, aprutil, pcre, libiconv, lynx
+, proxySupport ? true, sslSupport ? true, openssl, http2Support ? true, nghttp2
+, ldapSupport ? true, openldap, libxml2Support ? true, libxml2
+, brotliSupport ? true, brotli, luaSupport ? false, lua5 }:
 
 let inherit (stdenv.lib) optional;
 

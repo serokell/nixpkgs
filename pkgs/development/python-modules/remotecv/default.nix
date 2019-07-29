@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pillow, pyres, nose, preggy, numpy, yanc, nose-focus, mock, opencv
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pillow, pyres, nose, preggy
+, numpy, yanc, nose-focus, mock, opencv }:
 
 buildPythonPackage rec {
   pname = "remotecv";

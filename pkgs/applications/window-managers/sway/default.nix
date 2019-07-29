@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, makeWrapper, meson, ninja, pkgconfig, scdoc, wayland, libxkbcommon, pcre, json_c, dbus, libevdev, pango, cairo, libinput, libcap, pam, gdk_pixbuf, wlroots, wayland-protocols, swaybg
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, meson, ninja, pkgconfig, scdoc, wayland
+, libxkbcommon, pcre, json_c, dbus, libevdev, pango, cairo, libinput, libcap
+, pam, gdk_pixbuf, wlroots, wayland-protocols, swaybg }:
 
 stdenv.mkDerivation rec {
   pname = "sway";

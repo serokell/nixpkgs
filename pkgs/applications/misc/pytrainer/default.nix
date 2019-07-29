@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, perl, python3, sqlite, gpsbabel, gnome3, gobject-introspection, wrapGAppsHook, gtk3, xvfb_run, webkitgtk, glib-networking, glibcLocales, tzdata, substituteAll
-}:
+{ stdenv, fetchFromGitHub, perl, python3, sqlite, gpsbabel, gnome3
+, gobject-introspection, wrapGAppsHook, gtk3, xvfb_run, webkitgtk
+, glib-networking, glibcLocales, tzdata, substituteAll }:
 
 let
   # Pytrainer needs a matplotlib with GTK backend.

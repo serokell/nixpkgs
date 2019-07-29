@@ -1,5 +1,5 @@
-{ llvmPackages, lib, fetchFromGitHub, cmake, libpng, libjpeg, mesa, eigen, openblas
-}:
+{ llvmPackages, lib, fetchFromGitHub, cmake, libpng, libjpeg, mesa, eigen
+, openblas }:
 
 let version = "2018_02_15";
 

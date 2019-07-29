@@ -1,5 +1,8 @@
-{ mkDerivation, fetchgit, ansi-terminal, ansi-wl-pprint, base, binary, bytestring, Cabal, cmark, containers, directory, filepath, free, HUnit, indents, json, mtl, optparse-applicative, parsec, process, QuickCheck, quickcheck-io, split, stdenv, tasty, tasty-golden, tasty-hunit, tasty-quickcheck, text
-}:
+{ mkDerivation, fetchgit, ansi-terminal, ansi-wl-pprint, base, binary
+, bytestring, Cabal, cmark, containers, directory, filepath, free, HUnit
+, indents, json, mtl, optparse-applicative, parsec, process, QuickCheck
+, quickcheck-io, split, stdenv, tasty, tasty-golden, tasty-hunit
+, tasty-quickcheck, text }:
 mkDerivation {
   pname = "elm-format";
   version = "0.8.1";

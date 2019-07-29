@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, coreutils, openssh, gnupg, perl, procps, gnugrep, gawk, findutils, gnused
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, coreutils, openssh, gnupg, perl, procps
+, gnugrep, gawk, findutils, gnused }:
 
 stdenv.mkDerivation rec {
   name = "keychain-${version}";

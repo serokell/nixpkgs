@@ -1,13 +1,15 @@
-{ stdenv, fetchFromGitHub, cmake, irrlicht, libpng, bzip2, curl, libogg, jsoncpp, libjpeg, libXxf86vm, libGLU_combined, openal, libvorbis, sqlite, luajit, freetype, gettext, doxygen, ncurses, graphviz, xorg, leveldb, postgresql, hiredis
-}:
+{ stdenv, fetchFromGitHub, cmake, irrlicht, libpng, bzip2, curl, libogg, jsoncpp
+, libjpeg, libXxf86vm, libGLU_combined, openal, libvorbis, sqlite, luajit
+, freetype, gettext, doxygen, ncurses, graphviz, xorg, leveldb, postgresql
+, hiredis }:
 
 with stdenv.lib;
 
 let
   boolToCMake = b: if b then "ON" else "OFF";
 
-  generic = { version, rev ? version, sha256, dataRev ?
-    version, dataSha256, buildClient ? true, buildServer ? false }:
+  generic = { version, rev ? version, sha256, dataRev ? version, dataSha256
+    , buildClient ? true, buildServer ? false }:
     let
       sources = {
         src = fetchFromGitHub {

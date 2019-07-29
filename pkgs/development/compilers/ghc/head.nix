@@ -1,12 +1,13 @@
 { stdenv, pkgsBuildTarget, targetPackages
 
 # build-tools
-, bootPkgs, autoconf, automake, coreutils, fetchgit, fetchpatch, perl, python3, m4, sphinx, bash
+, bootPkgs, autoconf, automake, coreutils, fetchgit, fetchpatch, perl, python3
+, m4, sphinx, bash
 
 , libiconv ? null, ncurses
 
-, useLLVM ?
-  !stdenv.targetPlatform.isx86, # LLVM is conceptually a run-time-only depedendency, but for
+, useLLVM ? !stdenv.targetPlatform.isx86
+, # LLVM is conceptually a run-time-only depedendency, but for
 # non-x86, we need LLVM to bootstrap later stages, so it becomes a
 # build-time dependency too.
 buildLlvmPackages, llvmPackages
@@ -28,8 +29,8 @@ enableShared ? !stdenv.targetPlatform.isWindows
 , # Whetherto build terminfo.
 enableTerminfo ? !stdenv.targetPlatform.isWindows
 
-, version ?
-  "8.9.20190601", # What flavour to build. An empty string indicates no
+, version ? "8.9.20190601"
+, # What flavour to build. An empty string indicates no
 # specific flavour and falls back to ghc default values.
 ghcFlavour ?
   stdenv.lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)

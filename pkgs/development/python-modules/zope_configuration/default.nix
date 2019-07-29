@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, zope_i18nmessageid, zope_schema, zope_testrunner, manuel
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope_i18nmessageid, zope_schema
+, zope_testrunner, manuel }:
 
 buildPythonPackage rec {
   pname = "zope.configuration";

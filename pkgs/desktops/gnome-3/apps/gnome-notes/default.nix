@@ -1,5 +1,6 @@
-{ stdenv, meson, ninja, gettext, fetchurl, pkgconfig, wrapGAppsHook, itstool, desktop-file-utils, python3, glib, gtk3, evolution-data-server, libuuid, webkitgtk, zeitgeist, gnome3, libxml2, gsettings-desktop-schemas
-}:
+{ stdenv, meson, ninja, gettext, fetchurl, pkgconfig, wrapGAppsHook, itstool
+, desktop-file-utils, python3, glib, gtk3, evolution-data-server, libuuid
+, webkitgtk, zeitgeist, gnome3, libxml2, gsettings-desktop-schemas }:
 
 let version = "3.32.2";
 in stdenv.mkDerivation rec {

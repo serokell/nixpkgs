@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, gtk2, wxGTK30, libpulseaudio, curl, gettext, glib, portaudio
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, gtk2, wxGTK30, libpulseaudio, curl
+, gettext, glib, portaudio }:
 
 stdenv.mkDerivation rec {
   name = "opencpn-${version}";

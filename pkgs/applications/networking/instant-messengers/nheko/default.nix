@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cmark, lmdb, qt5, qtmacextras, mtxclient, boost, spdlog, olm, pkgconfig, nlohmann_json
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, cmark, lmdb, qt5, qtmacextras, mtxclient
+, boost, spdlog, olm, pkgconfig, nlohmann_json }:
 
 # These hashes and revisions are based on those from here:
 # https://github.com/Nheko-Reborn/nheko/blob/v0.6.4/deps/CMakeLists.txt#L52

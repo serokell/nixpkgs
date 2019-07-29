@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, cffi, cryptography, enum34, idna, ipaddress, ndg-httpsclient, pyopenssl, pyasn1, pycparser, pycryptodomex, requests, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cffi, cryptography, enum34, idna
+, ipaddress, ndg-httpsclient, pyopenssl, pyasn1, pycparser, pycryptodomex
+, requests, six }:
 
 buildPythonPackage rec {
   version = "0.4.1";

@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2, desktop-file-utils, python3, wrapGAppsHook, gtk3, gnome3, gnome-autoar, glib-networking, shared-mime-info, libnotify, libexif, libseccomp, exempi, librsvg, tracker, tracker-miners, gexiv2, libselinux, gdk_pixbuf, substituteAll, bubblewrap, gst_all_1, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2
+, desktop-file-utils, python3, wrapGAppsHook, gtk3, gnome3, gnome-autoar
+, glib-networking, shared-mime-info, libnotify, libexif, libseccomp, exempi
+, librsvg, tracker, tracker-miners, gexiv2, libselinux, gdk_pixbuf
+, substituteAll, bubblewrap, gst_all_1, gsettings-desktop-schemas }:
 
 let
   pname = "nautilus";

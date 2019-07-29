@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, ninja, pkgconfig, eigen, zlib, libpng, boost, qt5, guile
-}:
+{ stdenv, fetchFromGitHub, cmake, ninja, pkgconfig, eigen, zlib, libpng, boost
+, qt5, guile }:
 
 stdenv.mkDerivation rec {
   name = "libfive-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, intltool, gobject-introspection, gtk-doc, docbook_xsl, glib, libsoup, libxml2, libxslt, check, curl, perl, hwdata, osinfo-db, vala ?
-  null }:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, intltool, gobject-introspection
+, gtk-doc, docbook_xsl, glib, libsoup, libxml2, libxslt, check, curl, perl
+, hwdata, osinfo-db, vala ? null }:
 
 stdenv.mkDerivation rec {
   pname = "libosinfo";

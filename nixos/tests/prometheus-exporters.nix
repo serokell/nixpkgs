@@ -1,5 +1,5 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ?
-  import ../.. { inherit system config; } }:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 let
   inherit (import ../lib/testing.nix { inherit system pkgs; }) makeTest;

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, makeWrapper, shntool, cuetools, flac, faac, mp4v2, wavpack, mac, imagemagick, libiconv, enca, lame, pythonPackages, vorbis-tools, aacgain, mp3gain, vorbisgain
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, shntool, cuetools, flac, faac, mp4v2
+, wavpack, mac, imagemagick, libiconv, enca, lame, pythonPackages, vorbis-tools
+, aacgain, mp3gain, vorbisgain }:
 
 let
   wrapSplit2flac = format: ''

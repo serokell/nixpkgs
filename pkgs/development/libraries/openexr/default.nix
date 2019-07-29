@@ -1,5 +1,5 @@
-{ lib, stdenv, buildPackages, fetchurl, autoconf, automake, libtool, pkgconfig, zlib, ilmbase,
-}:
+{ lib, stdenv, buildPackages, fetchurl, autoconf, automake, libtool, pkgconfig
+, zlib, ilmbase, }:
 
 let
   # Doesn't really do anything when not crosscompiling

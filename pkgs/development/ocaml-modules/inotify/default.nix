@@ -1,6 +1,7 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, ocaml_lwt # optional lwt support
-, doCheck ? stdenv.lib.versionAtLeast ocaml.version
-  "4.03", ounit, fileutils # only for tests
+{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild
+, ocaml_lwt # optional lwt support
+, doCheck ? stdenv.lib.versionAtLeast ocaml.version "4.03", ounit
+, fileutils # only for tests
 }:
 
 stdenv.mkDerivation rec {

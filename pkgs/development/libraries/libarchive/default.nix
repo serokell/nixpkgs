@@ -1,4 +1,5 @@
-{ fetchurl, fetchpatch, stdenv, pkgconfig, acl, attr, bzip2, e2fsprogs, libxml2, lzo, openssl, sharutils, xz, zlib,
+{ fetchurl, fetchpatch, stdenv, pkgconfig, acl, attr, bzip2, e2fsprogs, libxml2
+, lzo, openssl, sharutils, xz, zlib,
 
 # Optional but increases closure only negligibly.
 xarSupport ? true, }:

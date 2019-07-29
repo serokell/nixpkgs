@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, tornado, toolz, zict, six, pytest, networkx, distributed, confluent-kafka, graphviz
-}:
+{ lib, buildPythonPackage, fetchPypi, tornado, toolz, zict, six, pytest
+, networkx, distributed, confluent-kafka, graphviz }:
 
 buildPythonPackage rec {
   pname = "streamz";

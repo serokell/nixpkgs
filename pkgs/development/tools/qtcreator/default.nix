@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchgit, fetchpatch, makeWrapper, qtbase, qtquickcontrols, qtscript, qtdeclarative, qmake, llvmPackages_8, withDocumentation ?
-  false }:
+{ stdenv, fetchurl, fetchgit, fetchpatch, makeWrapper, qtbase, qtquickcontrols
+, qtscript, qtdeclarative, qmake, llvmPackages_8, withDocumentation ? false }:
 
 with stdenv.lib;
 

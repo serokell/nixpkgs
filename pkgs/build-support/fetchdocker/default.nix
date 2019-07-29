@@ -2,9 +2,9 @@
 let
   stripScheme = builtins.replaceStrings [ "https://" "http://" ] [ "" "" ];
   stripNixStore = s: lib.removePrefix "/nix/store/" s;
-in { name, registry ? "https://registry-1.docker.io/v2/", repository ?
-  "library", imageName, tag, imageLayers, imageConfig, image ?
-    "${stripScheme registry}/${repository}/${imageName}:${tag}" }:
+in { name, registry ? "https://registry-1.docker.io/v2/", repository ? "library"
+, imageName, tag, imageLayers, imageConfig
+, image ? "${stripScheme registry}/${repository}/${imageName}:${tag}" }:
 
 # Make sure there are *no* slashes in the repository or container
 # names since we use these to make the output derivation name for the

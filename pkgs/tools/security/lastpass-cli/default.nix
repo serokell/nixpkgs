@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, asciidoc, cmake, docbook_xsl, pkgconfig, bash-completion, openssl, curl, libxml2, libxslt
-}:
+{ stdenv, lib, fetchFromGitHub, asciidoc, cmake, docbook_xsl, pkgconfig
+, bash-completion, openssl, curl, libxml2, libxslt }:
 
 stdenv.mkDerivation rec {
   pname = "lastpass-cli";

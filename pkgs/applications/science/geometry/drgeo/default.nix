@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libglade, gtk2, guile, libxml2, perl, intltool, libtool, pkgconfig
-}:
+{ stdenv, fetchurl, libglade, gtk2, guile, libxml2, perl, intltool, libtool
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "drgeo-${version}";

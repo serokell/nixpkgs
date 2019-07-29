@@ -38,8 +38,8 @@
 , vp9HighbitdepthSupport ? true # 10/12 bit color support in VP9
   # Experimental features
 , experimentalSpatialSvcSupport ? false # Spatial scalable video coding
-, experimentalFpMbStatsSupport ? false, experimentalEmulateHardwareSupport ?
-  false }:
+, experimentalFpMbStatsSupport ? false
+, experimentalEmulateHardwareSupport ? false }:
 
 let
   inherit (stdenv) is64bit isMips isDarwin isCygwin;

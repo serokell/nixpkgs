@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, config, wrapGAppsHook, alsaLib, atk, cairo, curl, cups, dbus-glib, dbus, fontconfig, freetype, gconf, gdk_pixbuf, glib, glibc, gtk2, gtk3, kerberos, libX11, libXScrnSaver, libxcb, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXinerama, libXrender, libXt, libcanberra-gtk2, libgnome, libgnomeui, libnotify, gnome3, libGLU_combined, nspr, nss, pango, libheimdal, libpulseaudio, systemd, channel, generated, writeScript, writeText, xidel, coreutils, gnused, gnugrep, gnupg, ffmpeg, runtimeShell, systemLocale ?
-  config.i18n.defaultLocale or "en-US" }:
+{ lib, stdenv, fetchurl, config, wrapGAppsHook, alsaLib, atk, cairo, curl, cups
+, dbus-glib, dbus, fontconfig, freetype, gconf, gdk_pixbuf, glib, glibc, gtk2
+, gtk3, kerberos, libX11, libXScrnSaver, libxcb, libXcomposite, libXcursor
+, libXdamage, libXext, libXfixes, libXi, libXinerama, libXrender, libXt
+, libcanberra-gtk2, libgnome, libgnomeui, libnotify, gnome3, libGLU_combined
+, nspr, nss, pango, libheimdal, libpulseaudio, systemd, channel, generated
+, writeScript, writeText, xidel, coreutils, gnused, gnugrep, gnupg, ffmpeg
+, runtimeShell, systemLocale ? config.i18n.defaultLocale or "en-US" }:
 
 let
 

@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, cmake, gst_all_1, phonon, pkgconfig, extra-cmake-modules, qtbase ?
-  null, qtx11extras ? null, qt4 ? null, withQt5 ? false, debug ? false }:
+{ stdenv, lib, fetchurl, cmake, gst_all_1, phonon, pkgconfig
+, extra-cmake-modules, qtbase ? null, qtx11extras ? null, qt4 ? null
+, withQt5 ? false, debug ? false }:
 
 with lib;
 

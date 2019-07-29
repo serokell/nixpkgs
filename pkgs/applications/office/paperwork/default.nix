@@ -1,5 +1,5 @@
-{ lib, python3Packages, gtk3, cairo, aspellDicts, buildEnv, gnome3, hicolor-icon-theme, librsvg, xvfb_run, dbus, libnotify
-}:
+{ lib, python3Packages, gtk3, cairo, aspellDicts, buildEnv, gnome3
+, hicolor-icon-theme, librsvg, xvfb_run, dbus, libnotify }:
 
 python3Packages.buildPythonApplication rec {
   inherit (python3Packages.paperwork-backend) version src;

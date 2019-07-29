@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtool, autoconf, automake, gmp, mpfr, libffi, makeWrapper, noUnicode ?
-  false, gcc, threadSupport ? true, useBoehmgc ? false, boehmgc }:
+{ stdenv, fetchurl, libtool, autoconf, automake, gmp, mpfr, libffi, makeWrapper
+, noUnicode ? false, gcc, threadSupport ? true, useBoehmgc ? false, boehmgc }:
 let
   s = # Generated upstream information
   rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, givaro, pkgconfig, blas, fflas-ffpack, gmpxx, withSage ?
-  false # sage support
+{ stdenv, fetchFromGitHub, autoreconfHook, givaro, pkgconfig, blas, fflas-ffpack
+, gmpxx, withSage ? false # sage support
 }:
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

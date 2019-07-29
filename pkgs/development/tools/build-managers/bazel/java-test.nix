@@ -1,5 +1,5 @@
-{ bazel, bazelTest, bazel-examples, gccStdenv, lib, openjdk8, runLocal, runtimeShell, writeScript, writeText
-}:
+{ bazel, bazelTest, bazel-examples, gccStdenv, lib, openjdk8, runLocal
+, runtimeShell, writeScript, writeText }:
 
 let
 

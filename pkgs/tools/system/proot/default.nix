@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, talloc, docutils, swig, python, coreutils, enablePython ?
-  true }:
+{ stdenv, fetchFromGitHub, talloc, docutils, swig, python, coreutils
+, enablePython ? true }:
 
 stdenv.mkDerivation rec {
   pname = "proot";

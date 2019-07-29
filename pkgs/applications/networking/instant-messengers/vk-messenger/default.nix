@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, rpmextract, autoPatchelfHook, xorg, gtk2, gnome2, nss, alsaLib, udev, libnotify
-}:
+{ stdenv, fetchurl, rpmextract, autoPatchelfHook, xorg, gtk2, gnome2, nss
+, alsaLib, udev, libnotify }:
 
 let version = "4.0.1";
 in stdenv.mkDerivation {

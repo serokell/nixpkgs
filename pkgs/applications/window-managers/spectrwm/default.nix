@@ -1,5 +1,5 @@
-{ fetchurl, libX11, libXrandr, libXcursor, libXft, libXt, libxcb, xcbutil, xcb-util-cursor, xcbutilkeysyms, xcbutilwm, stdenv
-}:
+{ fetchurl, libX11, libXrandr, libXcursor, libXft, libXt, libxcb, xcbutil
+, xcb-util-cursor, xcbutilkeysyms, xcbutilwm, stdenv }:
 
 stdenv.mkDerivation rec {
   name = "spectrwm-${version}";

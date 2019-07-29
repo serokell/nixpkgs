@@ -3,12 +3,12 @@
 , cmake, ninja, mbedtls
 
 , enableCache ? true # Internal cache support.
-, enableIpV6 ? true, enableTls ? true, enableMonitor ?
-  false # Support for the Hiawatha Monitor.
+, enableIpV6 ? true, enableTls ? true
+, enableMonitor ? false # Support for the Hiawatha Monitor.
 , enableRproxy ? true # Reverse proxy support.
 , enableTomahawk ? false # Tomahawk, the Hiawatha command shell.
-, enableXslt ? true, libxml2 ? null, libxslt ? null, enableToolkit ?
-  true # The URL Toolkit.
+, enableXslt ? true, libxml2 ? null, libxslt ? null
+, enableToolkit ? true # The URL Toolkit.
 }:
 
 stdenv.mkDerivation rec {

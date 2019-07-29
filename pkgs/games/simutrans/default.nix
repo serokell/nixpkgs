@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, unzip, zlib, libpng, bzip2, SDL, SDL_mixer, buildEnv, config, runtimeShell
-}:
+{ stdenv, fetchurl, pkgconfig, unzip, zlib, libpng, bzip2, SDL, SDL_mixer
+, buildEnv, config, runtimeShell }:
 
 let
   # Choose your "paksets" of objects, images, text, music, etc.
@@ -64,8 +64,8 @@ let
       */
     };
 
-  mkPak = { sha256, pakName, srcPath ? null, url ?
-    "mirror://sourceforge/simutrans/${pakName}/${srcPath}.zip" }:
+  mkPak = { sha256, pakName, srcPath ? null
+    , url ? "mirror://sourceforge/simutrans/${pakName}/${srcPath}.zip" }:
     stdenv.mkDerivation {
       name = "simutrans-${pakName}";
       dontUnpack = true;

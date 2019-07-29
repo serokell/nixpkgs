@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, libX11, libXext, xorgproto, libjpeg, libungif, libtiff, libpng
-}:
+{ stdenv, fetchurl, fetchpatch, libX11, libXext, xorgproto, libjpeg, libungif
+, libtiff, libpng }:
 
 stdenv.mkDerivation {
   name = "imlib-1.9.15";

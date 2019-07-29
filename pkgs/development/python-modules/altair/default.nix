@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, jinja2, sphinx, vega_datasets, ipython, glibcLocales, entrypoints, jsonschema, numpy, pandas, six, toolz, typing, pythonOlder, recommonmark
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, jinja2, sphinx, vega_datasets
+, ipython, glibcLocales, entrypoints, jsonschema, numpy, pandas, six, toolz
+, typing, pythonOlder, recommonmark }:
 
 buildPythonPackage rec {
   pname = "altair";

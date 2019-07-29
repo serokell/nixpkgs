@@ -2,8 +2,8 @@
 
 # Custom font set options.
 # See https://github.com/be5invis/Iosevka#build-your-own-style
-design ? [ ], upright ? [ ], italic ? [ ], oblique ? [ ], family ?
-  null, weights ? [ ],
+design ? [ ], upright ? [ ], italic ? [ ], oblique ? [ ], family ? null
+, weights ? [ ],
 # Custom font set name. Required if any custom settings above.
 set ? null }:
 

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, which, libtool, pkgconfig, ronn, pcaudiolibSupport ?
-  true, pcaudiolib, sonicSupport ? true, sonic }:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, which, libtool, pkgconfig
+, ronn, pcaudiolibSupport ? true, pcaudiolib, sonicSupport ? true, sonic }:
 
 stdenv.mkDerivation rec {
   name = "espeak-ng-${version}";

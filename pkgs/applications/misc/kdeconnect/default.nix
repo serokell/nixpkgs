@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, extra-cmake-modules, kcmutils, kconfigwidgets, kdbusaddons, kdoctools, kiconthemes, ki18n, knotifications, qca-qt5, libfakekey, libXtst, qtx11extras, sshfs, makeWrapper, kwayland
-}:
+{ stdenv, lib, fetchurl, extra-cmake-modules, kcmutils, kconfigwidgets
+, kdbusaddons, kdoctools, kiconthemes, ki18n, knotifications, qca-qt5
+, libfakekey, libXtst, qtx11extras, sshfs, makeWrapper, kwayland }:
 
 stdenv.mkDerivation rec {
   pname = "kdeconnect";

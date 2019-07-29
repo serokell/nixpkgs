@@ -1,11 +1,11 @@
-{ version, sha256_32bit ?
-  null, sha256_64bit, settingsSha256, persistencedSha256, useGLVND ?
-    true, useProfiles ? true, preferGtk2 ? false, settings32Bit ? false
+{ version, sha256_32bit ? null, sha256_64bit, settingsSha256, persistencedSha256
+, useGLVND ? true, useProfiles ? true, preferGtk2 ? false, settings32Bit ? false
 
 , prePatch ? "", patches ? [ ], broken ? false }:
 
-{ stdenv, callPackage, pkgs, pkgsi686Linux, fetchurl, kernel ?
-  null, perl, nukeReferences, # Whether to build the libraries only (i.e. not the kernel module or
+{ stdenv, callPackage, pkgs, pkgsi686Linux, fetchurl, kernel ? null, perl
+, nukeReferences
+, # Whether to build the libraries only (i.e. not the kernel module or
 # nvidia-settings).  Used to support 32-bit binaries on 64-bit
 # Linux.
 libsOnly ? false }:

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, autoreconfHook, docbook_xsl, docbook_xml_dtd_43, gtk-doc, lzip, libidn2, libunistring, libxslt, pkgconfig, python3, valgrind, publicsuffix-list
-}:
+{ stdenv, fetchurl, autoreconfHook, docbook_xsl, docbook_xml_dtd_43, gtk-doc
+, lzip, libidn2, libunistring, libxslt, pkgconfig, python3, valgrind
+, publicsuffix-list }:
 
 stdenv.mkDerivation rec {
   pname = "libpsl";

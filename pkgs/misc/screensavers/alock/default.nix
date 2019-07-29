@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, autoreconfHook, libX11, pam, libgcrypt, libXrender, imlib2
-}:
+{ stdenv, fetchgit, pkgconfig, autoreconfHook, libX11, pam, libgcrypt
+, libXrender, imlib2 }:
 
 stdenv.mkDerivation rec {
   date = "20170720";

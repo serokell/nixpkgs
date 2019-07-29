@@ -1,7 +1,7 @@
 # Build an idris package
 { stdenv, lib, idrisPackages, gmp }:
-{ idrisDeps ? [ ], noPrelude ? false, noBase ? false, name, version, ipkgName ?
-  name, extraBuildInputs ? [ ], ... }@attrs:
+{ idrisDeps ? [ ], noPrelude ? false, noBase ? false, name, version
+, ipkgName ? name, extraBuildInputs ? [ ], ... }@attrs:
 let
   allIdrisDeps = idrisDeps ++ lib.optional (!noPrelude) idrisPackages.prelude
     ++ lib.optional (!noBase) idrisPackages.base;

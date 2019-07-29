@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, ragel, python3, coreutils, gnused, utillinux, boost, withStatic ?
+{ stdenv, fetchFromGitHub, cmake, ragel, python3, coreutils, gnused, utillinux
+, boost, withStatic ?
   false # build only shared libs by default, build static+shared if true
 }:
 

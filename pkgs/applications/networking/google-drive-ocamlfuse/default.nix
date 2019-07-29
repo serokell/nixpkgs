@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, zlib, ocaml, dune, ocamlfuse, findlib, gapi_ocaml, ocaml_sqlite3, camlidl
-}:
+{ stdenv, fetchFromGitHub, zlib, ocaml, dune, ocamlfuse, findlib, gapi_ocaml
+, ocaml_sqlite3, camlidl }:
 
 stdenv.mkDerivation rec {
   name = "google-drive-ocamlfuse-${version}";

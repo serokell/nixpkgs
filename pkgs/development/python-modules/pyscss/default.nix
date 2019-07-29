@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pytest, six, enum34, pathlib, ordereddict, pythonOlder
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pytest, six, enum34, pathlib
+, ordereddict, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyScss";

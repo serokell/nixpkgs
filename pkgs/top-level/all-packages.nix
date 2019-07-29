@@ -8268,15 +8268,14 @@ in {
 
   wla-dx = callPackage ../development/compilers/wla-dx { };
 
-  wrapCCWith =
-    { cc, # This should be the only bintools runtime dep with this sort of logic. The
+  wrapCCWith = { cc
+    , # This should be the only bintools runtime dep with this sort of logic. The
     # Others should instead delegate to the next stage's choice with
     # `targetPackages.stdenv.cc.bintools`. This one is different just to
     # provide the default choice, avoiding infinite recursion.
-    bintools ? if stdenv.targetPlatform.isDarwin then
-      darwin.binutils
-    else
-      binutils, libc ? bintools.libc, ... }@extraArgs:
+    bintools ?
+      if stdenv.targetPlatform.isDarwin then darwin.binutils else binutils
+    , libc ? bintools.libc, ... }@extraArgs:
     callPackage ../build-support/cc-wrapper (let
       self = {
         nativeTools = stdenv.targetPlatform == stdenv.hostPlatform

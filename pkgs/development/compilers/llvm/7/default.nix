@@ -1,4 +1,6 @@
-{ lowPrio, newScope, pkgs, stdenv, cmake, libstdcxxHook, libxml2, python, isl, fetchurl, overrideCC, wrapCCWith, wrapBintoolsWith, buildLlvmTools # tools, but from the previous stage, for cross
+{ lowPrio, newScope, pkgs, stdenv, cmake, libstdcxxHook, libxml2, python, isl
+, fetchurl, overrideCC, wrapCCWith, wrapBintoolsWith
+, buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
 }:
 

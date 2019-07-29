@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, sphinx, pytestcov, pytest, Mako, numpy, funcsigs, withCuda ?
-  false, pycuda, withOpenCL ? true, pyopencl }:
+{ stdenv, fetchPypi, buildPythonPackage, sphinx, pytestcov, pytest, Mako, numpy
+, funcsigs, withCuda ? false, pycuda, withOpenCL ? true, pyopencl }:
 
 buildPythonPackage rec {
   pname = "reikna";

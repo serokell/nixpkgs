@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, libxml2, libxslt, boost, libarchive, python, antlr, curl
-}:
+{ stdenv, fetchurl, cmake, libxml2, libxslt, boost, libarchive, python, antlr
+, curl }:
 
 with stdenv.lib;
 

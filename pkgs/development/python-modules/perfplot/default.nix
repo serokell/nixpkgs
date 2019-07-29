@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pipdate, tqdm, pytest, isPy27
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pipdate, tqdm
+, pytest, isPy27 }:
 
 buildPythonPackage rec {
   pname = "perfplot";

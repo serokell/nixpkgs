@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, dejagnu, gettext, pkgconfig, gdbm, pam, readline, ncurses, gnutls, guile, texinfo, gnum4, sasl, fribidi, nettools, python, gss, mysql, system-sendmail
-}:
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, dejagnu, gettext, pkgconfig
+, gdbm, pam, readline, ncurses, gnutls, guile, texinfo, gnum4, sasl, fribidi
+, nettools, python, gss, mysql, system-sendmail }:
 
 stdenv.mkDerivation rec {
   name = "${project}-${version}";

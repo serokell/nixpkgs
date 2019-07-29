@@ -12,8 +12,9 @@
    5. Commit the changes and open a pull request.
 */
 
-{ newScope, stdenv, fetchurl, fetchFromGitHub, makeSetupHook, makeWrapper, bison, cups ?
-  null, harfbuzz, libGL, perl, gstreamer, gst-plugins-base, gtk3, dconf, llvmPackages_5,
+{ newScope, stdenv, fetchurl, fetchFromGitHub, makeSetupHook, makeWrapper, bison
+, cups ? null, harfbuzz, libGL, perl, gstreamer, gst-plugins-base, gtk3, dconf
+, llvmPackages_5,
 
 # options
 developerBuild ? false, decryptSslTraffic ? false, debug ? false, }:

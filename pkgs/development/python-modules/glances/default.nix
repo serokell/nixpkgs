@@ -1,4 +1,5 @@
-{ buildPythonPackage, fetchFromGitHub, isPyPy, lib, psutil, setuptools, bottle, batinfo, pysnmp, hddtemp, future
+{ buildPythonPackage, fetchFromGitHub, isPyPy, lib, psutil, setuptools, bottle
+, batinfo, pysnmp, hddtemp, future
 # Optional dependencies:
 , netifaces # IP module
 # Tests:

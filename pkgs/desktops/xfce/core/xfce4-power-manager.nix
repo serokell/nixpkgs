@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, pkgconfig, intltool, glib, gtk, dbus-glib, upower, xfconf, libxfce4ui, libxfce4util, libnotify, xfce4-panel, hicolor-icon-theme, withGtk3 ?
-  false, gtk3, libxfce4ui_gtk3, xfce4panel_gtk3 }:
+{ stdenv, lib, fetchurl, pkgconfig, intltool, glib, gtk, dbus-glib, upower
+, xfconf, libxfce4ui, libxfce4util, libnotify, xfce4-panel, hicolor-icon-theme
+, withGtk3 ? false, gtk3, libxfce4ui_gtk3, xfce4panel_gtk3 }:
 let
   p_name = "xfce4-power-manager";
   ver_maj = if withGtk3 then "1.6" else "1.4";

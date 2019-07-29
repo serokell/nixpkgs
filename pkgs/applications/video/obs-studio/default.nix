@@ -1,9 +1,11 @@
-{ config, stdenv, fetchFromGitHub, cmake, fdk_aac, ffmpeg, jansson, libjack2, libxkbcommon, libpthreadstubs, libXdmcp, qtbase, qtx11extras, qtsvg, speex, libv4l, x264, curl, xorg, makeWrapper, pkgconfig, vlc, mbedtls
+{ config, stdenv, fetchFromGitHub, cmake, fdk_aac, ffmpeg, jansson, libjack2
+, libxkbcommon, libpthreadstubs, libXdmcp, qtbase, qtx11extras, qtsvg, speex
+, libv4l, x264, curl, xorg, makeWrapper, pkgconfig, vlc, mbedtls
 
 , scriptingSupport ? true, luajit, swig, python3
 
-, alsaSupport ? stdenv.isLinux, alsaLib, pulseaudioSupport ?
-  config.pulseaudio or stdenv.isLinux, libpulseaudio }:
+, alsaSupport ? stdenv.isLinux, alsaLib
+, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio }:
 
 let optional = stdenv.lib.optional;
 in stdenv.mkDerivation rec {

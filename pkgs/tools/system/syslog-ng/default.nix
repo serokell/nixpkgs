@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, openssl, libcap, curl, which, eventlog, pkgconfig, glib, python, systemd, perl, riemann_c_client, protobufc, pcre, libnet, json_c, libuuid, libivykis, mongoc, rabbitmq-c, libesmtp
-}:
+{ stdenv, fetchurl, openssl, libcap, curl, which, eventlog, pkgconfig, glib
+, python, systemd, perl, riemann_c_client, protobufc, pcre, libnet, json_c
+, libuuid, libivykis, mongoc, rabbitmq-c, libesmtp }:
 
 let pname = "syslog-ng";
 

@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, zlib, qtbase, qtsvg, qttools, qtmultimedia, qmake, fetchurl, makeWrapper, lib
-}:
+{ stdenv, pkgconfig, zlib, qtbase, qtsvg, qttools, qtmultimedia, qmake, fetchurl
+, makeWrapper, lib }:
 
 stdenv.mkDerivation rec {
   name = "chessx-${version}";

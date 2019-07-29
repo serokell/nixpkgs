@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, python3Packages, gobject-introspection, gtk3, libwnck3, keybinder3, hicolor-icon-theme, wrapGAppsHook, wafHook
-}:
+{ stdenv, fetchurl, intltool, python3Packages, gobject-introspection, gtk3
+, libwnck3, keybinder3, hicolor-icon-theme, wrapGAppsHook, wafHook }:
 
 with python3Packages;
 

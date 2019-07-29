@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, fetchurl, python2, makeWrapper, pkgconfig, gcc, pypy, libffi, libedit, libuv, boost, zlib, variant ?
-  "jit", buildWithPypy ? false }:
+{ stdenv, fetchgit, fetchurl, python2, makeWrapper, pkgconfig, gcc, pypy, libffi
+, libedit, libuv, boost, zlib, variant ? "jit", buildWithPypy ? false }:
 
 let
   commit-count = "1364";

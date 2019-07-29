@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, jsoncpp, argtable, curl, libmicrohttpd, doxygen, catch, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, cmake, jsoncpp, argtable, curl, libmicrohttpd
+, doxygen, catch, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "libjson-rpc-cpp-${version}";

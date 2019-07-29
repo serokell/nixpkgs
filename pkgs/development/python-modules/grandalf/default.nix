@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, future, pytest, pytestrunner
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, future, pytest
+, pytestrunner }:
 
 buildPythonPackage rec {
   pname = "grandalf";

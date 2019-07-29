@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala, desktop-file-utils, gettext, libxml2, gtk3, granite, libgee, bamf, libcanberra, libcanberra-gtk3, gnome-desktop, mutter, clutter, plank, elementary-icon-theme, elementary-settings-daemon, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, python3, ninja, vala
+, desktop-file-utils, gettext, libxml2, gtk3, granite, libgee, bamf, libcanberra
+, libcanberra-gtk3, gnome-desktop, mutter, clutter, plank, elementary-icon-theme
+, elementary-settings-daemon, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gala";

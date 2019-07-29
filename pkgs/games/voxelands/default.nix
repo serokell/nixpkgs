@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, irrlicht, libpng, bzip2, sqlite, libjpeg, libXxf86vm, libGLU_combined, openal, libvorbis, xlibsWrapper, pkgconfig
-}:
+{ stdenv, fetchurl, cmake, irrlicht, libpng, bzip2, sqlite, libjpeg, libXxf86vm
+, libGLU_combined, openal, libvorbis, xlibsWrapper, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "voxelands-${version}";

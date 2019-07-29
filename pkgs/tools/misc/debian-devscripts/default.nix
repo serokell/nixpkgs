@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, unzip, xz, dpkg, libxslt, docbook_xsl, makeWrapper, python3Packages, perlPackages, curl, gnupg, diffutils, sendmailPath ?
-  "/run/wrappers/bin/sendmail" }:
+{ stdenv, fetchurl, unzip, xz, dpkg, libxslt, docbook_xsl, makeWrapper
+, python3Packages, perlPackages, curl, gnupg, diffutils
+, sendmailPath ? "/run/wrappers/bin/sendmail" }:
 
 let inherit (python3Packages) python setuptools;
 in stdenv.mkDerivation rec {

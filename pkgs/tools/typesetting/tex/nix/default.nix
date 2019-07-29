@@ -4,8 +4,8 @@ rec {
 
   runLaTeX = { rootFile, generatePDF ? true # generate PDF, not DVI
     , generatePS ? false # generate PS in addition to DVI
-    , extraFiles ? [ ], compressBlanksInIndex ? true, packages ?
-      [ ], texPackages ? { }, copySources ? false }:
+    , extraFiles ? [ ], compressBlanksInIndex ? true, packages ? [ ]
+    , texPackages ? { }, copySources ? false }:
 
     assert generatePDF -> !generatePS;
 

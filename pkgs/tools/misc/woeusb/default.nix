@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, coreutils, dosfstools, findutils, gawk, gnugrep, grub2_light, ncurses, ntfs3g, parted, p7zip, utillinux, wget, wxGTK30
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, makeWrapper, coreutils, dosfstools
+, findutils, gawk, gnugrep, grub2_light, ncurses, ntfs3g, parted, p7zip
+, utillinux, wget, wxGTK30 }:
 
 stdenv.mkDerivation rec {
   version = "3.3.0";

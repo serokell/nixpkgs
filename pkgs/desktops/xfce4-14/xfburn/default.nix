@@ -1,5 +1,5 @@
-{ mkXfceDerivation, docbook_xsl, exo, gtk2, libburn, libisofs, libxfce4ui, libxslt
-}:
+{ mkXfceDerivation, docbook_xsl, exo, gtk2, libburn, libisofs, libxfce4ui
+, libxslt }:
 
 mkXfceDerivation rec {
   category = "apps";

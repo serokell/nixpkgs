@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, perl, openldap, pam, db, cyrus_sasl, libcap, expat, libxml2, openssl
-}:
+{ stdenv, fetchurl, perl, openldap, pam, db, cyrus_sasl, libcap, expat, libxml2
+, openssl }:
 
 stdenv.mkDerivation rec {
   name = "squid-4.8";

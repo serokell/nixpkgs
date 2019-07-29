@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitLab, autoconf, gtk-doc, automake, libtool, pkgconfig, glib, libsoup, gobject-introspection
-}:
+{ stdenv, lib, fetchFromGitLab, autoconf, gtk-doc, automake, libtool, pkgconfig
+, glib, libsoup, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   version = "0.5.0";

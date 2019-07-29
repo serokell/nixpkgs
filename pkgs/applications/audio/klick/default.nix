@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, sconsPackages, pkgconfig, libsamplerate, libsndfile, liblo, libjack2, boost
-}:
+{ stdenv, fetchurl, sconsPackages, pkgconfig, libsamplerate, libsndfile, liblo
+, libjack2, boost }:
 
 stdenv.mkDerivation rec {
   name = "klick-${version}";

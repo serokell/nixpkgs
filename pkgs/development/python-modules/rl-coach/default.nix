@@ -1,5 +1,6 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchPypi, tensorflow, annoy, pillow, matplotlib, numpy, pandas, pygame, pyopengl, scipy, scikitimage, gym, bokeh, kubernetes, redis, minio, pytest, psutil
-}:
+{ stdenv, lib, buildPythonPackage, pythonOlder, fetchPypi, tensorflow, annoy
+, pillow, matplotlib, numpy, pandas, pygame, pyopengl, scipy, scikitimage, gym
+, bokeh, kubernetes, redis, minio, pytest, psutil }:
 
 buildPythonPackage rec {
   version = "0.12.1";

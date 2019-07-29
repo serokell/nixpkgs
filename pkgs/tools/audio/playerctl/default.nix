@@ -1,5 +1,5 @@
-{ stdenv, meson, ninja, fetchFromGitHub, glib, pkgconfig, gtk-doc, docbook_xsl, gobject-introspection
-}:
+{ stdenv, meson, ninja, fetchFromGitHub, glib, pkgconfig, gtk-doc, docbook_xsl
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "playerctl-${version}";

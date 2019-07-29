@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, glib, dbus-glib, desktopSupport ?
-  "gnomeflashback", xorg, gtk2, gtk3, gnome3, mate, libxfce4util, xfce4-panel }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, glib, dbus-glib
+, desktopSupport ? "gnomeflashback", xorg, gtk2, gtk3, gnome3, mate
+, libxfce4util, xfce4-panel }:
 
 assert desktopSupport == "gnomeflashback" || desktopSupport == "mate"
 || desktopSupport == "xfce4";

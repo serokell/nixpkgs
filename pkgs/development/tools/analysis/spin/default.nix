@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, makeWrapper, yacc, gcc, withISpin ?
-  true, tk, swarm, graphviz }:
+{ stdenv, lib, fetchurl, makeWrapper, yacc, gcc, withISpin ? true, tk, swarm
+, graphviz }:
 
 let
   binPath = stdenv.lib.makeBinPath [ gcc ];

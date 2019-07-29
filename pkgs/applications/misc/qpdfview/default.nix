@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, qmake, qtbase, qtsvg, pkgconfig, poppler, djvulibre, libspectre, cups, file, ghostscript
-}:
+{ stdenv, fetchurl, qmake, qtbase, qtsvg, pkgconfig, poppler, djvulibre
+, libspectre, cups, file, ghostscript }:
 let
   s = # Generated upstream information
   rec {

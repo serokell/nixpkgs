@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, curl, fribidi, rlwrap, gawk, groff, ncurses
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, curl, fribidi, rlwrap, gawk, groff
+, ncurses }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

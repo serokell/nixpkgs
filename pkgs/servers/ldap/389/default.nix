@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, doxygen, perl, pam, nspr, nss, openldap, db, cyrus_sasl, svrcore, icu, net_snmp, kerberos, pcre, perlPackages, libevent, openssl, python
-}:
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, pkgconfig, doxygen, perl, pam
+, nspr, nss, openldap, db, cyrus_sasl, svrcore, icu, net_snmp, kerberos, pcre
+, perlPackages, libevent, openssl, python }:
 
 stdenv.mkDerivation rec {
   pname = "389-ds-base";

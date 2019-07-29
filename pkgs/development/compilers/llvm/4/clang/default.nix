@@ -1,5 +1,5 @@
-{ stdenv, fetch, cmake, libxml2, llvm, version, release_version, clang-tools-extra_src, python, fixDarwinDylibNames, enableManpages ?
-  false }:
+{ stdenv, fetch, cmake, libxml2, llvm, version, release_version
+, clang-tools-extra_src, python, fixDarwinDylibNames, enableManpages ? false }:
 
 let
   gcc = if stdenv.cc.isGNU then stdenv.cc.cc else stdenv.cc.cc.gcc;

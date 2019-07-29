@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, fetchpatch, ncurses, which, perl, gdbm ? null, openssl ?
-  null, cyrus_sasl ? null, gnupg ? null, gpgme ? null, kerberos ?
-    null, headerCache ? true, sslSupport ? true, saslSupport ?
-      true, smimeSupport ? false, gpgSupport ? false, gpgmeSupport ?
-        true, imapSupport ? true, withSidebar ? true, gssSupport ? true }:
+{ stdenv, fetchurl, fetchpatch, ncurses, which, perl, gdbm ? null
+, openssl ? null, cyrus_sasl ? null, gnupg ? null, gpgme ? null, kerberos ? null
+, headerCache ? true, sslSupport ? true, saslSupport ? true
+, smimeSupport ? false, gpgSupport ? false, gpgmeSupport ? true
+, imapSupport ? true, withSidebar ? true, gssSupport ? true }:
 
 assert headerCache -> gdbm != null;
 assert sslSupport -> openssl != null;

@@ -1,5 +1,6 @@
-{ fetchurl, stdenv, pkgconfig, gnome3, glib, gtk3, clutter, dbus, python3, libxml2, libxklavier, libXtst, gtk2, intltool, libxslt, at-spi2-core, autoreconfHook, wrapGAppsHook, libgee
-}:
+{ fetchurl, stdenv, pkgconfig, gnome3, glib, gtk3, clutter, dbus, python3
+, libxml2, libxklavier, libXtst, gtk2, intltool, libxslt, at-spi2-core
+, autoreconfHook, wrapGAppsHook, libgee }:
 
 let
   pname = "caribou";

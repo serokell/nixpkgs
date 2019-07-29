@@ -1,8 +1,8 @@
 { stdenv, lib, buildPackages, fetchurl, zlib, autoreconfHook, gettext
 # Enabling all targets increases output size to a multiple.
-, withAllTargets ? false, libbfd, libopcodes, enableShared ?
-  true, noSysDirs, gold ? !stdenv.buildPlatform.isDarwin || stdenv.hostPlatform
-    == stdenv.targetPlatform, bison ? null }:
+, withAllTargets ? false, libbfd, libopcodes, enableShared ? true, noSysDirs
+, gold ? !stdenv.buildPlatform.isDarwin || stdenv.hostPlatform
+  == stdenv.targetPlatform, bison ? null }:
 
 let
   reuseLibs = enableShared && withAllTargets;

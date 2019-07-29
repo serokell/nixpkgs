@@ -1,9 +1,8 @@
 { stdenv, fetchFromGitHub, pkgsCross, buildPackages }:
 
 let
-  buildArmTrustedFirmware =
-    { filesToInstall, installDir ? "$out", platform, extraMakeFlags ?
-      [ ], extraMeta ? { }, version ? "2.1", ... }@args:
+  buildArmTrustedFirmware = { filesToInstall, installDir ? "$out", platform
+    , extraMakeFlags ? [ ], extraMeta ? { }, version ? "2.1", ... }@args:
     stdenv.mkDerivation (rec {
 
       name = "arm-trusted-firmware-${platform}-${version}";

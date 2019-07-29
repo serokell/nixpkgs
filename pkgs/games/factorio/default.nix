@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, alsaLib, libX11, libXcursor, libXinerama, libXrandr, libXi, libGL, factorio-utils, releaseType, mods ?
-  [ ], username ? "", token ?
-    "" # get/reset token at https://factorio.com/profile
+{ stdenv, fetchurl, makeWrapper, alsaLib, libX11, libXcursor, libXinerama
+, libXrandr, libXi, libGL, factorio-utils, releaseType, mods ? [ ]
+, username ? "", token ? "" # get/reset token at https://factorio.com/profile
 , experimental ? false # true means to always use the latest branch
 }:
 

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, mozdevice, mozfile, mozinfo, mozlog, mozprocess, mozprofile, mozcrash
-}:
+{ lib, buildPythonPackage, fetchPypi, mozdevice, mozfile, mozinfo, mozlog
+, mozprocess, mozprofile, mozcrash }:
 
 buildPythonPackage rec {
   pname = "mozrunner";

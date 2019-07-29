@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, ncurses, withGtk ?
-  false, gtk2 ? null }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, ncurses, withGtk ? false
+, gtk2 ? null }:
 
 assert withGtk -> gtk2 != null;
 

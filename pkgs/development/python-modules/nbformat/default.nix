@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, glibcLocales, ipython_genutils, traitlets, testpath, jsonschema, jupyter_core
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, glibcLocales, ipython_genutils
+, traitlets, testpath, jsonschema, jupyter_core }:
 
 buildPythonPackage rec {
   pname = "nbformat";

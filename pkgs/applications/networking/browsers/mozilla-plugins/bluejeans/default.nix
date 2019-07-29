@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, xorg, gtk2, glib, gdk_pixbuf, dpkg, libXext, libXfixes, libXrender, libuuid, libXrandr, libXcomposite, libpulseaudio
-}:
+{ stdenv, fetchurl, xorg, gtk2, glib, gdk_pixbuf, dpkg, libXext, libXfixes
+, libXrender, libuuid, libXrandr, libXcomposite, libpulseaudio }:
 
 with stdenv.lib;
 

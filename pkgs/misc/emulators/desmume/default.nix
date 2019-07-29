@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, libtool, intltool, libXmu, lua, agg, alsaLib, soundtouch, openal, desktop-file-utils, gtk2, gtkglext, libglade, pangox_compat, libGLU, libpcap, SDL, zziplib
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, libtool, intltool, libXmu, lua, agg
+, alsaLib, soundtouch, openal, desktop-file-utils, gtk2, gtkglext, libglade
+, pangox_compat, libGLU, libpcap, SDL, zziplib }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

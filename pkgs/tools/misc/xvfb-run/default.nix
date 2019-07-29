@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, xorgserver, getopt, xauth, utillinux, which, fontsConf, gawk, coreutils
-}:
+{ stdenv, fetchurl, makeWrapper, xorgserver, getopt, xauth, utillinux, which
+, fontsConf, gawk, coreutils }:
 let
   xvfb_run = fetchurl {
     url =

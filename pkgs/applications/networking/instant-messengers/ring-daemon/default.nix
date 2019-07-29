@@ -1,5 +1,8 @@
-{ stdenv, fetchgit, which, autoreconfHook, pkgconfig, automake, libtool, pjsip, libyamlcpp, alsaLib, libpulseaudio, libsamplerate, libsndfile, dbus, dbus_cplusplus, ffmpeg, udev, pcre, gsm, speex, boost, opendht, msgpack, gnutls, zlib, jsoncpp, xorg, libargon2, cryptopp, openssl, perl, python3, libupnp, speexdsp, fetchFromGitHub, cmake, asio
-}:
+{ stdenv, fetchgit, which, autoreconfHook, pkgconfig, automake, libtool, pjsip
+, libyamlcpp, alsaLib, libpulseaudio, libsamplerate, libsndfile, dbus
+, dbus_cplusplus, ffmpeg, udev, pcre, gsm, speex, boost, opendht, msgpack
+, gnutls, zlib, jsoncpp, xorg, libargon2, cryptopp, openssl, perl, python3
+, libupnp, speexdsp, fetchFromGitHub, cmake, asio }:
 
 let
   myPython = python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);

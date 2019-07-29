@@ -1,5 +1,9 @@
-{ stdenv, lib, fetchurl, dpkg, alsaLib, at-spi2-atk, at-spi2-core, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, gnome3, gsettings-desktop-schemas, gtk3, libpulseaudio, libuuid, libX11, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXScrnSaver, libXtst, nspr, nss, pango, udev, xorg, zlib, xdg_utils, wrapGAppsHook
-}:
+{ stdenv, lib, fetchurl, dpkg, alsaLib, at-spi2-atk, at-spi2-core, atk, cairo
+, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, gnome3
+, gsettings-desktop-schemas, gtk3, libpulseaudio, libuuid, libX11, libXcomposite
+, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
+, libXScrnSaver, libXtst, nspr, nss, pango, udev, xorg, zlib, xdg_utils
+, wrapGAppsHook }:
 
 let
 

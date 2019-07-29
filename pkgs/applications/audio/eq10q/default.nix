@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, cmake, fftw, gtkmm2, libxcb, lv2, pkgconfig, xorg
-}:
+{ stdenv, fetchurl, fetchpatch, cmake, fftw, gtkmm2, libxcb, lv2, pkgconfig
+, xorg }:
 stdenv.mkDerivation rec {
   name = "eq10q-${version}";
   version = "2.2";

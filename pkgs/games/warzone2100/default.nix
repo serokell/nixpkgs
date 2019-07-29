@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, perl, unzip, zip, which, pkgconfig, qtbase, qtscript, SDL2, libtheora, openal, glew, physfs, fribidi, libXrandr, withVideos ?
-  false }:
+{ stdenv, lib, fetchurl, perl, unzip, zip, which, pkgconfig, qtbase, qtscript
+, SDL2, libtheora, openal, glew, physfs, fribidi, libXrandr, withVideos ? false
+}:
 
 let
   pname = "warzone2100";

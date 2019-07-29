@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, glib, gtk-doc, gtk, gobject-introspection
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, glib, gtk-doc, gtk
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "gtk-mac-integration-2.0.8";

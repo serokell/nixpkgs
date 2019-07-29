@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, datashape, numpy, pandas, toolz, multipledispatch, networkx, dask
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, datashape, numpy, pandas
+, toolz, multipledispatch, networkx, dask }:
 
 buildPythonPackage rec {
   pname = "odo";

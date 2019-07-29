@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, repeated_test, sphinx, mock, coverage, unittest2, funcsigs, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, repeated_test, sphinx, mock, coverage
+, unittest2, funcsigs, six }:
 
 buildPythonPackage rec {
   pname = "sigtools";

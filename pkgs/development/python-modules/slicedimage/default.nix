@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, boto3, diskcache, enum34, packaging, pathlib, numpy, requests, scikitimage, six, pytest, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, boto3, diskcache, enum34, packaging
+, pathlib, numpy, requests, scikitimage, six, pytest, isPy27 }:
 
 buildPythonPackage rec {
   pname = "slicedimage";

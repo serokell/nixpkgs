@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, perl, zlib, libjpeg, freetype, libpng, giflib, enableX11 ?
-  true, xorg, enableSDL ? true, SDL }:
+{ stdenv, fetchurl, pkgconfig, perl, zlib, libjpeg, freetype, libpng, giflib
+, enableX11 ? true, xorg, enableSDL ? true, SDL }:
 
 let
   s = rec {

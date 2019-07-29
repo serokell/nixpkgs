@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, file, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL, xorg, alsaLib, fontconfig, freetype, pango, gtk2, cairo, gdk_pixbuf, atk, zlib
+{ stdenv, lib, fetchurl, file, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL
+, xorg, alsaLib, fontconfig, freetype, pango, gtk2, cairo, gdk_pixbuf, atk, zlib
 }:
 
 # TODO: Investigate building from source instead of patching binaries.

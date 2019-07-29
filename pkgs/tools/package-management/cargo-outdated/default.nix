@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, libiconv, curl, darwin
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, libiconv, curl
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-outdated";

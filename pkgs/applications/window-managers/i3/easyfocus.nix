@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, xorgproto, libxcb, xcbutilkeysyms, xorg, i3ipc-glib, glib
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, xorgproto, libxcb, xcbutilkeysyms, xorg
+, i3ipc-glib, glib }:
 
 stdenv.mkDerivation {
   pname = "i3easyfocus";

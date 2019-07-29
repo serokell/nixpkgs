@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, meson, ninja, python3, glib, gtk-doc, docbook_xsl, docbook_xml_dtd_43, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, meson, ninja, python3, glib, gtk-doc
+, docbook_xsl, docbook_xml_dtd_43, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "graphene";

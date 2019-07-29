@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, libxml2, freetype, libGLU_combined, glew, qt4, cmake, makeWrapper, libjpeg, python
-}:
+{ fetchurl, stdenv, libxml2, freetype, libGLU_combined, glew, qt4, cmake
+, makeWrapper, libjpeg, python }:
 
 let version = "5.1.0";
 in stdenv.mkDerivation rec {

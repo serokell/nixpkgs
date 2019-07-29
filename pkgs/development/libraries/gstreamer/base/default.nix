@@ -1,8 +1,10 @@
-{ stdenv, fetchurl, fetchpatch, lib, pkgconfig, meson, ninja, gettext, gobject-introspection, python3, gstreamer, orc, pango, libtheora, libintl, libopus, isocodes, libjpeg, libvisual, tremor # provides 'virbisidec'
-, gtk-doc, docbook_xsl, docbook_xml_dtd_412, enableX11 ?
-  stdenv.isLinux, libXv, enableWayland ? stdenv.isLinux, wayland, enableAlsa ?
-    stdenv.isLinux, alsaLib, enableCocoa ? false, darwin, enableCdparanoia ?
-      (!stdenv.isDarwin), cdparanoia }:
+{ stdenv, fetchurl, fetchpatch, lib, pkgconfig, meson, ninja, gettext
+, gobject-introspection, python3, gstreamer, orc, pango, libtheora, libintl
+, libopus, isocodes, libjpeg, libvisual, tremor # provides 'virbisidec'
+, gtk-doc, docbook_xsl, docbook_xml_dtd_412, enableX11 ? stdenv.isLinux, libXv
+, enableWayland ? stdenv.isLinux, wayland, enableAlsa ? stdenv.isLinux, alsaLib
+, enableCocoa ? false, darwin, enableCdparanoia ? (!stdenv.isDarwin), cdparanoia
+}:
 
 stdenv.mkDerivation rec {
   name = "gst-plugins-base-${version}";

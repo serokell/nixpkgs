@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, perlPackages, flac, faad2, sox, lame, monkeysAudio, wavpack
-}:
+{ stdenv, fetchurl, makeWrapper, perlPackages, flac, faad2, sox, lame
+, monkeysAudio, wavpack }:
 
 perlPackages.buildPerlPackage rec {
   pname = "slimserver";

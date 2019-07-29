@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, gettext, libnl, ncurses, pciutils, pkgconfig, zlib
-}:
+{ stdenv, fetchurl, fetchpatch, gettext, libnl, ncurses, pciutils, pkgconfig
+, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "powertop";

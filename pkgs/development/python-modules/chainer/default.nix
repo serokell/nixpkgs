@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, isPy3k, filelock, protobuf, numpy, pytest, mock, cupy, cudaSupport ?
-  false }:
+{ stdenv, lib, buildPythonPackage, fetchPypi, isPy3k, filelock, protobuf, numpy
+, pytest, mock, cupy, cudaSupport ? false }:
 
 buildPythonPackage rec {
   pname = "chainer";

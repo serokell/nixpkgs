@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, freetype, libpng, libGLU_combined, openssl, perl, libiconv, qtscript, qtserialport, qttools, qtmultimedia, qtlocation, qtbase, wrapQtAppsHook
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, freetype, libpng, libGLU_combined
+, openssl, perl, libiconv, qtscript, qtserialport, qttools, qtmultimedia
+, qtlocation, qtbase, wrapQtAppsHook }:
 
 mkDerivation rec {
   name = "stellarium-${version}";

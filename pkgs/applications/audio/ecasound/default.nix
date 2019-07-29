@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, audiofile, libjack2, liblo, liboil, libsamplerate, libsndfile, lilv, lv2
-}:
+{ stdenv, fetchurl, alsaLib, audiofile, libjack2, liblo, liboil, libsamplerate
+, libsndfile, lilv, lv2 }:
 
 # TODO: fix readline, ncurses, lilv, liblo, liboil and python. See configure log.
 

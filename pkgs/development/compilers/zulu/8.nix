@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, unzip, makeWrapper, setJavaClassPath, zulu, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL, alsaLib, fontconfig, freetype, gnome2, cairo, gdk_pixbuf, atk, xorg, swingSupport ?
-  true }:
+{ stdenv, lib, fetchurl, unzip, makeWrapper, setJavaClassPath, zulu, glib
+, libxml2, libav_0_8, ffmpeg, libxslt, libGL, alsaLib, fontconfig, freetype
+, gnome2, cairo, gdk_pixbuf, atk, xorg, swingSupport ? true }:
 
 let
   version = "8.28.0.1";

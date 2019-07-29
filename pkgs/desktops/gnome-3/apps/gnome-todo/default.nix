@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, python3, wrapGAppsHook, gettext, gnome3, glib, gtk3, libpeas, gnome-online-accounts, gsettings-desktop-schemas, evolution-data-server, libxml2, libsoup, libical, librest, json-glib
-}:
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, python3, wrapGAppsHook
+, gettext, gnome3, glib, gtk3, libpeas, gnome-online-accounts
+, gsettings-desktop-schemas, evolution-data-server, libxml2, libsoup, libical
+, librest, json-glib }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-todo";

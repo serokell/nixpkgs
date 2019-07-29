@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python3Packages, writeText, writeScript, coreutils, sqlite
-}:
+{ stdenv, fetchFromGitHub, python3Packages, writeText, writeScript, coreutils
+, sqlite }:
 
 with python3Packages;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gnused_422, perl, python2, zip, libffi, readline, icu, zlib, nspr, libobjc
-}:
+{ stdenv, fetchurl, pkgconfig, gnused_422, perl, python2, zip, libffi, readline
+, icu, zlib, nspr, libobjc }:
 
 stdenv.mkDerivation rec {
   version = "38.8.0";

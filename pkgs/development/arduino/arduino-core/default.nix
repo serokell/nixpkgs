@@ -1,8 +1,8 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, jdk, ant, libusb, libusb1, unzip, zlib, ncurses, readline, withGui ?
-  false, gtk2 ? null, withTeensyduino ? false
-    # Packages needed for Teensyduino
-, upx, fontconfig, xorg, gcc, atk, glib, pango, gdk_pixbuf, libpng12, expat, freetype,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, jdk, ant, libusb, libusb1, unzip, zlib
+, ncurses, readline, withGui ? false, gtk2 ? null, withTeensyduino ? false
+  # Packages needed for Teensyduino
+, upx, fontconfig, xorg, gcc, atk, glib, pango, gdk_pixbuf, libpng12, expat
+, freetype, }:
 
 assert withGui -> gtk2 != null;
 assert withTeensyduino -> withGui;

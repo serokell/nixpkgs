@@ -1,5 +1,5 @@
-{ deployAndroidPackage, lib, package, os, autoPatchelfHook, makeWrapper, pkgs, platform-tools
-}:
+{ deployAndroidPackage, lib, package, os, autoPatchelfHook, makeWrapper, pkgs
+, platform-tools }:
 
 let
   runtime_paths = lib.makeBinPath [

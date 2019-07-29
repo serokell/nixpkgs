@@ -1,5 +1,5 @@
-{ mkDerivation, fetchurl, lib, extra-cmake-modules, doxygen, graphviz, qtbase, qtwebkit, mpir, kdelibs4support, plasma-framework, knewstuff, kpackage
-}:
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, doxygen, graphviz, qtbase
+, qtwebkit, mpir, kdelibs4support, plasma-framework, knewstuff, kpackage }:
 
 mkDerivation rec {
   name = "alkimia-${version}";

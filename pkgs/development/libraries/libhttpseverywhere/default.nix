@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja, makeFontsConf, vala, fetchpatch, gnome3, glib, json-glib, libarchive, libsoup, gobject-introspection
-}:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, makeFontsConf, vala, fetchpatch
+, gnome3, glib, json-glib, libarchive, libsoup, gobject-introspection }:
 
 let
   pname = "libhttpseverywhere";

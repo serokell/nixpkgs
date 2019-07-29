@@ -1,5 +1,6 @@
-{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdelibs4support, qtdeclarative, kdeclarative, kdnssd, knewstuff, openal, libsndfile, qtquickcontrols
-}:
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, kdelibs4support
+, qtdeclarative, kdeclarative, kdnssd, knewstuff, openal, libsndfile
+, qtquickcontrols }:
 
 mkDerivation {
   name = "libkdegames";

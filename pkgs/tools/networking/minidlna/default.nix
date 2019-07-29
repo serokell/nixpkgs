@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ffmpeg, flac, libvorbis, libogg, libid3tag, libexif, libjpeg, sqlite, gettext
-}:
+{ stdenv, fetchurl, ffmpeg, flac, libvorbis, libogg, libid3tag, libexif, libjpeg
+, sqlite, gettext }:
 
 let version = "1.2.1";
 

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, testfixtures, pyyaml, mock, nbformat, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, testfixtures, pyyaml, mock, nbformat
+, pytest }:
 
 buildPythonPackage rec {
   pname = "jupytext";

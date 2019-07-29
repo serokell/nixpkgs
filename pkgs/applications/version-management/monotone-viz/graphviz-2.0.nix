@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, xlibsWrapper, libpng, libjpeg, expat, libXaw, yacc, libtool, fontconfig, pango, gd, libwebp
-}:
+{ stdenv, fetchurl, pkgconfig, xlibsWrapper, libpng, libjpeg, expat, libXaw
+, yacc, libtool, fontconfig, pango, gd, libwebp }:
 
 assert libpng != null && libjpeg != null && expat != null;
 

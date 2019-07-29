@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, fetchpatch, withGUI ?
-  false, gtk2, pkgconfig, sqlite # compile GUI
+{ stdenv, lib, fetchurl, fetchpatch, withGUI ? false, gtk2, pkgconfig
+, sqlite # compile GUI
 }:
 
 let numVersion = "02.18"; # :(

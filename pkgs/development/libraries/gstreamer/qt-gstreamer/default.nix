@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, gst_all_1, boost, glib, qt4, cmake, automoc4, flex, bison, pkgconfig
-}:
+{ stdenv, fetchurl, fetchpatch, gst_all_1, boost, glib, qt4, cmake, automoc4
+, flex, bison, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-1.2.0";

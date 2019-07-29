@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, fetchFromGitHub, qtbase, qtsvg, qtmultimedia, qmake, boost, openssl
-}:
+{ stdenv, pkgconfig, fetchFromGitHub, qtbase, qtsvg, qtmultimedia, qmake, boost
+, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "chatterino2";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, intltool, json-glib, librest, libsoup, gnome3, gobject-introspection
-}:
+{ stdenv, fetchurl, pkgconfig, glib, intltool, json-glib, librest, libsoup
+, gnome3, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "libzapojit";

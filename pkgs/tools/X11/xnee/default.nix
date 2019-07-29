@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, libX11, xorgproto, libXext, libXtst, gtk2, libXi, pkgconfig, texinfo
-}:
+{ fetchurl, stdenv, libX11, xorgproto, libXext, libXtst, gtk2, libXi, pkgconfig
+, texinfo }:
 
 stdenv.mkDerivation rec {
   version = "3.19";

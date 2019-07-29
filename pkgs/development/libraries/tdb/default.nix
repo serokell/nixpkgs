@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, wafHook, pkgconfig, readline, libxslt, docbook_xsl, docbook_xml_dtd_42
-}:
+{ stdenv, fetchurl, wafHook, pkgconfig, readline, libxslt, docbook_xsl
+, docbook_xml_dtd_42 }:
 
 stdenv.mkDerivation rec {
   name = "tdb-1.3.16";

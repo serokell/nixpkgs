@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, SDL, SDL_net, SDL_sound, libGLU_combined, libpng, graphicsmagick
-}:
+{ stdenv, lib, fetchurl, makeDesktopItem, SDL, SDL_net, SDL_sound
+, libGLU_combined, libpng, graphicsmagick }:
 
 stdenv.mkDerivation rec {
   name = "dosbox-0.74-3";

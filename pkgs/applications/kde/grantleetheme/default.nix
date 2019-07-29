@@ -1,4 +1,5 @@
-{ mkDerivation, copyPathsToStore, lib, kdepimTeam, extra-cmake-modules, kdoctools, grantlee, ki18n, kiconthemes, knewstuff, kservice, kxmlgui, qtbase,
+{ mkDerivation, copyPathsToStore, lib, kdepimTeam, extra-cmake-modules
+, kdoctools, grantlee, ki18n, kiconthemes, knewstuff, kservice, kxmlgui, qtbase,
 }:
 
 mkDerivation {

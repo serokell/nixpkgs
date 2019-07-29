@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, exiv2, graphicsmagick, libraw, fetchpatch, qtbase, qtdeclarative, qtmultimedia, qtquickcontrols, qttools, qtgraphicaleffects, extra-cmake-modules, poppler, kimageformats, libarchive, libdevil
-}:
+{ stdenv, fetchurl, cmake, exiv2, graphicsmagick, libraw, fetchpatch, qtbase
+, qtdeclarative, qtmultimedia, qtquickcontrols, qttools, qtgraphicaleffects
+, extra-cmake-modules, poppler, kimageformats, libarchive, libdevil }:
 
 stdenv.mkDerivation rec {
   pname = "photoqt";

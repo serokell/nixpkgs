@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchurl, pkgconfig, ncurses, gzip, sslSupport ?
-  true, openssl ? null, nukeReferences }:
+{ stdenv, buildPackages, fetchurl, pkgconfig, ncurses, gzip, sslSupport ? true
+, openssl ? null, nukeReferences }:
 
 assert sslSupport -> openssl != null;
 

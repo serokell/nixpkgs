@@ -1,4 +1,15 @@
-{ stdenv, fetchurl, pam, python3, libxslt, perl, ArchiveZip, gettext, IOCompress, zlib, libjpeg, expat, freetype, libwpd, libxml2, db, sablotron, curl, fontconfig, libsndfile, neon, bison, flex, zip, unzip, gtk3, gtk2, libmspack, getopt, file, cairo, which, icu, boost, jdk, ant, cups, xorg, libcmis, fontforge, openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux, librsvg, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, mysql, autoconf, automake, openldap, bash, hunspell, librdf_redland, nss, nspr, libwpg, dbus-glib, qt4, clucene_core, libcdr, lcms, vigra, unixODBC, mdds, sane-backends, mythes, libexttextcat, libvisio, fontsConf, pkgconfig, bluez5, libtool, carlito, libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf, librevenge, libe-book, libmwaw, glm, glew, gst_all_1, gdb, commonsLogging, librdf_rasqal, wrapGAppsHook, gnome3, glib, ncurses, epoxy, gpgme, langs ? [
+{ stdenv, fetchurl, pam, python3, libxslt, perl, ArchiveZip, gettext, IOCompress
+, zlib, libjpeg, expat, freetype, libwpd, libxml2, db, sablotron, curl
+, fontconfig, libsndfile, neon, bison, flex, zip, unzip, gtk3, gtk2, libmspack
+, getopt, file, cairo, which, icu, boost, jdk, ant, cups, xorg, libcmis
+, fontforge, openssl, gperf, cppunit, GConf, ORBit2, poppler, utillinux, librsvg
+, gnome_vfs, libGLU_combined, bsh, CoinMP, libwps, libabw, mysql, autoconf
+, automake, openldap, bash, hunspell, librdf_redland, nss, nspr, libwpg
+, dbus-glib, qt4, clucene_core, libcdr, lcms, vigra, unixODBC, mdds
+, sane-backends, mythes, libexttextcat, libvisio, fontsConf, pkgconfig, bluez5
+, libtool, carlito, libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf
+, librevenge, libe-book, libmwaw, glm, glew, gst_all_1, gdb, commonsLogging
+, librdf_rasqal, wrapGAppsHook, gnome3, glib, ncurses, epoxy, gpgme, langs ? [
   "ca"
   "cs"
   "de"

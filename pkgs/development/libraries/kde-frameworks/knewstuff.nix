@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, attica, karchive, kcompletion, kconfig, kcoreaddons, ki18n, kiconthemes, kio, kitemviews, kservice, ktextwidgets, kwidgetsaddons, kxmlgui, qtbase, qtdeclarative,
-}:
+{ mkDerivation, lib, extra-cmake-modules, attica, karchive, kcompletion, kconfig
+, kcoreaddons, ki18n, kiconthemes, kio, kitemviews, kservice, ktextwidgets
+, kwidgetsaddons, kxmlgui, qtbase, qtdeclarative, }:
 
 mkDerivation {
   name = "knewstuff";

@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchpatch, fetchgit, autoconf, automake, gettext, libtool, pkgconfig, icu, libuuid, readline
-}:
+{ stdenv, buildPackages, fetchpatch, fetchgit, autoconf, automake, gettext
+, libtool, pkgconfig, icu, libuuid, readline }:
 
 let
   gentooPatch = name: sha256:

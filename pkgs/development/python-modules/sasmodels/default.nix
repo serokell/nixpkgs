@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytest, numpy, scipy, matplotlib, docutils, pyopencl, opencl-headers
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytest, numpy, scipy, matplotlib
+, docutils, pyopencl, opencl-headers }:
 
 buildPythonPackage rec {
   pname = "sasmodels";

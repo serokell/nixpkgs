@@ -7,12 +7,11 @@
 , xvfb_run, dbus
 
 # Optional dependencies
-, enableJingle ?
-  true, farstream, gstreamer, gst-plugins-base, gst-libav, gst-plugins-ugly, libnice, enableE2E ?
-    true, enableSecrets ? true, libsecret, enableRST ?
-      true, docutils, enableSpelling ? true, gspell, enableUPnP ?
-        true, gupnp-igd, enableOmemoPluginDependencies ?
-          true, extraPythonPackages ? ps: [ ] }:
+, enableJingle ? true, farstream, gstreamer, gst-plugins-base, gst-libav
+, gst-plugins-ugly, libnice, enableE2E ? true, enableSecrets ? true, libsecret
+, enableRST ? true, docutils, enableSpelling ? true, gspell, enableUPnP ? true
+, gupnp-igd, enableOmemoPluginDependencies ? true, extraPythonPackages ? ps: [ ]
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gajim";

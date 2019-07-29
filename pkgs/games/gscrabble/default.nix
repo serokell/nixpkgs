@@ -1,4 +1,5 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub, gtk3, wrapGAppsHook, gst_all_1, gobject-introspection, python3Packages, gnome3, hicolor-icon-theme
+{ stdenv, buildPythonApplication, fetchFromGitHub, gtk3, wrapGAppsHook
+, gst_all_1, gobject-introspection, python3Packages, gnome3, hicolor-icon-theme
 }:
 
 buildPythonApplication rec {

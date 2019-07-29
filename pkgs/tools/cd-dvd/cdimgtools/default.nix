@@ -1,5 +1,6 @@
-{ stdenv, fetchFromRepoOrCz, autoreconfHook, makeWrapper, libdvdcss, libdvdread, perl, perlPackages, asciidoc, xmlto, sourceHighlight, docbook_xsl, docbook_xml_dtd_45
-}:
+{ stdenv, fetchFromRepoOrCz, autoreconfHook, makeWrapper, libdvdcss, libdvdread
+, perl, perlPackages, asciidoc, xmlto, sourceHighlight, docbook_xsl
+, docbook_xml_dtd_45 }:
 
 stdenv.mkDerivation rec {
   name = "cdimgtools-${version}";

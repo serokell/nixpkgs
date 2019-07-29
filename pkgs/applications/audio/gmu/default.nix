@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, SDL_gfx, SDL_image, tremor, flac, mpg123, libmikmod, speex, ncurses, keymap ?
-  "default", conf ? "unknown" }:
+{ stdenv, fetchurl, SDL, SDL_gfx, SDL_image, tremor, flac, mpg123, libmikmod
+, speex, ncurses, keymap ? "default", conf ? "unknown" }:
 
 stdenv.mkDerivation rec {
   name = "gmu-0.10.1";

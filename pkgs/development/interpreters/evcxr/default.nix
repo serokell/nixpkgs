@@ -1,5 +1,5 @@
-{ cargo, fetchFromGitHub, makeWrapper, pkgconfig, rustPlatform, stdenv, gcc, Security
-}:
+{ cargo, fetchFromGitHub, makeWrapper, pkgconfig, rustPlatform, stdenv, gcc
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   name = "evcxr-${version}";

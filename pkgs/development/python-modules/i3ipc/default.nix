@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, enum-compat, xorgserver, pytest, i3, python
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, enum-compat, xorgserver, pytest
+, i3, python }:
 
 buildPythonPackage rec {
   pname = "i3ipc";

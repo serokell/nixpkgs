@@ -1,6 +1,9 @@
-{ stdenv, fetchurl, fetchpatch, perl, python, ruby, bison, gperf, flex, pkgconfig, which, gettext, gobject-introspection, gtk2, gtk3, wayland, libwebp, enchant, sqlite, libxml2, libsoup, libsecret, libxslt, harfbuzz, xorg, gst-plugins-base, libobjc, withGtk2 ?
-  false, enableIntrospection ? !stdenv.isDarwin, enableCredentialStorage ?
-    !stdenv.isDarwin, readline, libedit }:
+{ stdenv, fetchurl, fetchpatch, perl, python, ruby, bison, gperf, flex
+, pkgconfig, which, gettext, gobject-introspection, gtk2, gtk3, wayland, libwebp
+, enchant, sqlite, libxml2, libsoup, libsecret, libxslt, harfbuzz, xorg
+, gst-plugins-base, libobjc, withGtk2 ? false
+, enableIntrospection ? !stdenv.isDarwin
+, enableCredentialStorage ? !stdenv.isDarwin, readline, libedit }:
 
 assert stdenv.isDarwin -> !enableIntrospection;
 assert stdenv.isDarwin -> !enableCredentialStorage;

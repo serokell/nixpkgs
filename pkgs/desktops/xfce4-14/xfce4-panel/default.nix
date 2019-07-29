@@ -1,5 +1,5 @@
-{ mkXfceDerivation, makeWrapper, tzdata, exo, garcon, gtk2, gtk3, gettext, glib-networking, libxfce4ui, libxfce4util, libwnck3, xfconf
-}:
+{ mkXfceDerivation, makeWrapper, tzdata, exo, garcon, gtk2, gtk3, gettext
+, glib-networking, libxfce4ui, libxfce4util, libwnck3, xfconf }:
 
 mkXfceDerivation rec {
   category = "xfce";

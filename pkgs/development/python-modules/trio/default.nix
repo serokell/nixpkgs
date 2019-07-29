@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, sortedcontainers, async_generator, idna, outcome, contextvars, pytest, pyopenssl, trustme, sniffio, stdenv, jedi, pylint
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, sortedcontainers
+, async_generator, idna, outcome, contextvars, pytest, pyopenssl, trustme
+, sniffio, stdenv, jedi, pylint }:
 
 buildPythonPackage rec {
   pname = "trio";

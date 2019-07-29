@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libX11, procps, python2, libdwarf, qtbase, qtwebkit
-}:
+{ stdenv, fetchFromGitHub, cmake, libX11, procps, python2, libdwarf, qtbase
+, qtwebkit }:
 
 stdenv.mkDerivation rec {
   name = "apitrace-${version}";

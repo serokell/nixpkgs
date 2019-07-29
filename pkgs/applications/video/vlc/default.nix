@@ -1,7 +1,14 @@
-{ stdenv, fetchurl, autoreconfHook, libarchive, perl, xorg, libdvdnav, libbluray, zlib, a52dec, libmad, faad2, ffmpeg, alsaLib, pkgconfig, dbus, fribidi, freefont_ttf, libebml, libmatroska, libvorbis, libtheora, speex, lua5, libgcrypt, libgpgerror, libupnp, libcaca, libpulseaudio, flac, schroedinger, libxml2, librsvg, mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL, SDL_image, libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, liboggz, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libvdpau, libsamplerate, live555, fluidsynth, wayland, wayland-protocols, onlyLibVLC ?
-  false, withQt5 ? true, qtbase ? null, qtsvg ? null, qtx11extras ?
-    null, jackSupport ? false, removeReferencesTo, chromecastSupport ?
-      true, protobuf, libmicrodns }:
+{ stdenv, fetchurl, autoreconfHook, libarchive, perl, xorg, libdvdnav, libbluray
+, zlib, a52dec, libmad, faad2, ffmpeg, alsaLib, pkgconfig, dbus, fribidi
+, freefont_ttf, libebml, libmatroska, libvorbis, libtheora, speex, lua5
+, libgcrypt, libgpgerror, libupnp, libcaca, libpulseaudio, flac, schroedinger
+, libxml2, librsvg, mpeg2dec, systemd, gnutls, avahi, libcddb, libjack2, SDL
+, SDL_image, libmtp, unzip, taglib, libkate, libtiger, libv4l, samba, liboggz
+, libass, libva, libdvbpsi, libdc1394, libraw1394, libopus, libvdpau
+, libsamplerate, live555, fluidsynth, wayland, wayland-protocols
+, onlyLibVLC ? false, withQt5 ? true, qtbase ? null, qtsvg ? null
+, qtx11extras ? null, jackSupport ? false, removeReferencesTo
+, chromecastSupport ? true, protobuf, libmicrodns }:
 
 # chromecastSupport requires TCP port 8010 to be open for it to work.
 # If your firewall is enabled, make sure to have something like:

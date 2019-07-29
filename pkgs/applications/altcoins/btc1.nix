@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, hexdump, openssl, db48, boost, zlib, miniupnpc, qt4, protobuf, qrencode, libevent, AppKit, withGui ?
-  !stdenv.isDarwin }:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, hexdump, openssl, db48, boost
+, zlib, miniupnpc, qt4, protobuf, qrencode, libevent, AppKit
+, withGui ? !stdenv.isDarwin }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

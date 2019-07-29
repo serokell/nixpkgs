@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, doxygen, graphviz, makeWrapper, boost, SDL2, python2, freetype, openal, libogg, libvorbis, zlib, libpng, libtiff, libjpeg, libGLU_combined, glew, libxslt
-}:
+{ stdenv, fetchFromGitHub, cmake, doxygen, graphviz, makeWrapper, boost, SDL2
+, python2, freetype, openal, libogg, libvorbis, zlib, libpng, libtiff, libjpeg
+, libGLU_combined, glew, libxslt }:
 
 stdenv.mkDerivation rec {
   version = "0.4.8";

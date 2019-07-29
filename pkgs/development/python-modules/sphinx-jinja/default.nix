@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, sphinx, sphinx-testing, nose, glibcLocales
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, sphinx, sphinx-testing, nose
+, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "sphinx-jinja";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, wrapGAppsHook, autoPatchelfHook, dpkg, xorg, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, gtk3, gnome2, dbus, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils
-}:
+{ stdenv, fetchurl, makeWrapper, wrapGAppsHook, autoPatchelfHook, dpkg, xorg
+, atk, glib, pango, gdk_pixbuf, cairo, freetype, fontconfig, gtk3, gnome2, dbus
+, nss, nspr, alsaLib, cups, expat, udev, libnotify, xdg_utils }:
 
 let version = "5.2.0";
 in stdenv.mkDerivation rec {

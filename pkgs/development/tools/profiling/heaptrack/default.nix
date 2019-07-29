@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, zlib, boost, libunwind, elfutils, sparsehash, qtbase, kio, kitemmodels, threadweaver, kconfigwidgets, kcoreaddons, kdiagram
-}:
+{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, zlib, boost, libunwind
+, elfutils, sparsehash, qtbase, kio, kitemmodels, threadweaver, kconfigwidgets
+, kcoreaddons, kdiagram }:
 
 stdenv.mkDerivation rec {
   name = "heaptrack-${version}";

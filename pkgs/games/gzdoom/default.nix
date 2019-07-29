@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, openal, fluidsynth_1, soundfont-fluid, libGL, SDL2, bzip2, zlib, libjpeg, libsndfile, mpg123, game-music-emu
-}:
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, openal, fluidsynth_1
+, soundfont-fluid, libGL, SDL2, bzip2, zlib, libjpeg, libsndfile, mpg123
+, game-music-emu }:
 
 stdenv.mkDerivation rec {
   name = "gzdoom-${version}";

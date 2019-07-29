@@ -1,8 +1,8 @@
 { composeAndroidPackages, stdenv }:
-{ name, app ? null, platformVersion ? "16", abiVersion ?
-  "armeabi-v7a", systemImageType ? "default", useGoogleAPIs ? false, enableGPU ?
-    false, extraAVDFiles ? [ ], package ? null, activity ? null, avdHomeDir ?
-      null }@args:
+{ name, app ? null, platformVersion ? "16", abiVersion ? "armeabi-v7a"
+, systemImageType ? "default", useGoogleAPIs ? false, enableGPU ? false
+, extraAVDFiles ? [ ], package ? null, activity ? null, avdHomeDir ? null
+}@args:
 
 let
   androidSdkArgNames =

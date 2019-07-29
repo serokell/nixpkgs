@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, lib, pytorch, contextlib2, graphviz, networkx, six, opt-einsum, tqdm
-}:
+{ buildPythonPackage, fetchPypi, lib, pytorch, contextlib2, graphviz, networkx
+, six, opt-einsum, tqdm }:
 buildPythonPackage rec {
   version = "0.3.3";
   pname = "pyro-ppl";

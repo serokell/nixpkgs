@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gettext, gobject-introspection, pkgconfig, meson, ninja, glibcLocales, git, vala, glib, zlib, gnome3
-}:
+{ stdenv, fetchurl, gettext, gobject-introspection, pkgconfig, meson, ninja
+, glibcLocales, git, vala, glib, zlib, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gcab";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, python3, sphinx, acl, curl, fuse, libselinux, udev, xz, zstd, fuseSupport ?
-  true, selinuxSupport ? true, udevSupport ? true, glibcLocales, rsync }:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, python3, sphinx, acl, curl
+, fuse, libselinux, udev, xz, zstd, fuseSupport ? true, selinuxSupport ? true
+, udevSupport ? true, glibcLocales, rsync }:
 
 stdenv.mkDerivation rec {
   name = "casync-${version}";

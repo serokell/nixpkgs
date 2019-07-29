@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeDesktopItem, makeWrapper, freetype, fontconfig, libX11, libXrender, zlib, glib, gtk3, libXtst, jdk, gsettings-desktop-schemas, webkitgtk ?
-  null # for internal web browser
+{ stdenv, fetchurl, makeDesktopItem, makeWrapper, freetype, fontconfig, libX11
+, libXrender, zlib, glib, gtk3, libXtst, jdk, gsettings-desktop-schemas
+, webkitgtk ? null # for internal web browser
 , buildEnv, runCommand, callPackage }:
 
 assert stdenv ? glibc;

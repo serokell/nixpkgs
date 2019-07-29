@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ncurses, withLibrary ? false, libtool, unicodeSupport ?
-  true, enableShared ? !stdenv.isDarwin }:
+{ stdenv, fetchurl, ncurses, withLibrary ? false, libtool, unicodeSupport ? true
+, enableShared ? !stdenv.isDarwin }:
 
 assert withLibrary -> libtool != null;
 assert unicodeSupport -> ncurses.unicode && ncurses != null;

@@ -1,17 +1,19 @@
-{ stdenv, fetchFromGitHub, writeScript, glibcLocales, diffPlugins, pythonPackages, imagemagick, gobject-introspection, gst_all_1, runtimeShell, fetchpatch
+{ stdenv, fetchFromGitHub, writeScript, glibcLocales, diffPlugins
+, pythonPackages, imagemagick, gobject-introspection, gst_all_1, runtimeShell
+, fetchpatch
 
 # Attributes needed for tests of the external plugins
 , callPackage, beets
 
-, enableAcousticbrainz ? true, enableAcoustid ? true, enableBadfiles ?
-  true, flac ? null, mp3val ? null, enableConvert ? true, ffmpeg ?
-    null, enableDiscogs ? true, enableEmbyupdate ? true, enableFetchart ?
-      true, enableGmusic ? true, enableKeyfinder ? true, keyfinder-cli ?
-        null, enableKodiupdate ? true, enableLastfm ? true, enableMpd ?
-          true, enableReplaygain ? true, bs1770gain ? null, enableSonosUpdate ?
-            true, enableThumbnails ? true, enableWeb ? true
+, enableAcousticbrainz ? true, enableAcoustid ? true, enableBadfiles ? true
+, flac ? null, mp3val ? null, enableConvert ? true, ffmpeg ? null
+, enableDiscogs ? true, enableEmbyupdate ? true, enableFetchart ? true
+, enableGmusic ? true, enableKeyfinder ? true, keyfinder-cli ? null
+, enableKodiupdate ? true, enableLastfm ? true, enableMpd ? true
+, enableReplaygain ? true, bs1770gain ? null, enableSonosUpdate ? true
+, enableThumbnails ? true, enableWeb ? true
 
-              # External plugins
+  # External plugins
 , enableAlternatives ? false, enableCopyArtifacts ? false
 
 , bashInteractive, bash-completion }:

@@ -1,5 +1,5 @@
-{ lib, fetchPypi, isPy3k, buildPythonPackage, numpy, matplotlib, root, root_numpy, tables, pytest
-}:
+{ lib, fetchPypi, isPy3k, buildPythonPackage, numpy, matplotlib, root
+, root_numpy, tables, pytest }:
 
 buildPythonPackage rec {
   pname = "rootpy";

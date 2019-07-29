@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, xfce4-dev-tools, gtk, thunar-bare, exo, libxfce4util, libxfce4ui, xfconf, udev, libnotify, hicolor-icon-theme
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, xfce4-dev-tools, gtk, thunar-bare, exo
+, libxfce4util, libxfce4ui, xfconf, udev, libnotify, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   p_name = "thunar-archive-plugin";

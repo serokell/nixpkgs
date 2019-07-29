@@ -1,5 +1,8 @@
-{ stdenv, lib, writeTextFile, python, sagelib, env-locations, gfortran, bash, coreutils, gnused, gnugrep, binutils, pythonEnv, python3, pkg-config, pari, gap, ecl, maxima-ecl, singular, giac, palp, rWrapper, gfan, cddlib, jmol, tachyon, glpk, eclib, sympow, nauty, sqlite, ppl, ecm, lcalc, rubiks, flintqs, openblasCompat, flint, gmp, mpfr, pynac, zlib, gsl, ntl, jdk
-}:
+{ stdenv, lib, writeTextFile, python, sagelib, env-locations, gfortran, bash
+, coreutils, gnused, gnugrep, binutils, pythonEnv, python3, pkg-config, pari
+, gap, ecl, maxima-ecl, singular, giac, palp, rWrapper, gfan, cddlib, jmol
+, tachyon, glpk, eclib, sympow, nauty, sqlite, ppl, ecm, lcalc, rubiks, flintqs
+, openblasCompat, flint, gmp, mpfr, pynac, zlib, gsl, ntl, jdk }:
 
 # This generates a `sage-env` shell file that will be sourced by sage on startup.
 # It sets up various environment variables, telling sage where to find its

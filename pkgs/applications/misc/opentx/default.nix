@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, gcc-arm-embedded, binutils-arm-embedded, python, qt5, SDL, gtest, dfu-util, avrdude
-}:
+{ stdenv, fetchFromGitHub, cmake, gcc-arm-embedded, binutils-arm-embedded
+, python, qt5, SDL, gtest, dfu-util, avrdude }:
 
 let
 

@@ -2,13 +2,12 @@
 # checkout from a Subversion or CVS repository) into a source tarball
 # by running `autoreconf', `configure' and `make dist'.
 
-{ officialRelease ? false, buildInputs ? [ ], name ? "source-tarball", version ?
-  "0", versionSuffix ? if officialRelease then
-    ""
-  else
-    "pre${
-      toString (src.rev or src.revCount or "")
-    }", src, stdenv, autoconf, automake, libtool, # By default, provide all the GNU Build System as input.
+{ officialRelease ? false, buildInputs ? [ ], name ? "source-tarball"
+, version ? "0", versionSuffix ? if officialRelease then
+  ""
+else
+  "pre${toString (src.rev or src.revCount or "")}", src, stdenv, autoconf
+, automake, libtool, # By default, provide all the GNU Build System as input.
 bootstrapBuildInputs ? [ autoconf automake libtool ], ... }@args:
 
 stdenv.mkDerivation (

@@ -1,5 +1,5 @@
-{ stdenv, appleDerivation, lib, enableStatic ?
-  stdenv.targetPlatform.isiOS, enableShared ? !stdenv.targetPlatform.isiOS }:
+{ stdenv, appleDerivation, lib, enableStatic ? stdenv.targetPlatform.isiOS
+, enableShared ? !stdenv.targetPlatform.isiOS }:
 
 appleDerivation {
   postUnpack = "sourceRoot=$sourceRoot/libiconv";

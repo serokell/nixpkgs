@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, ntfs3g, utillinux, mediaDir ? "/media/", lockDir ?
-  "/var/lock/pmount", whiteList ? "/etc/pmount.allow" }:
+{ stdenv, fetchurl, intltool, ntfs3g, utillinux, mediaDir ? "/media/"
+, lockDir ? "/var/lock/pmount", whiteList ? "/etc/pmount.allow" }:
 
 # constraint mention in the configure.ac
 assert stdenv.lib.hasSuffix "/" mediaDir;

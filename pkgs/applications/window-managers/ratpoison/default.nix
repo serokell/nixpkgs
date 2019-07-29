@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, perl, autoconf, automake, libX11, xorgproto, libXt, libXpm, libXft, libXtst, libXi, libXrandr, fontconfig, freetype, readline
-}:
+{ stdenv, fetchurl, pkgconfig, perl, autoconf, automake, libX11, xorgproto
+, libXt, libXpm, libXft, libXtst, libXi, libXrandr, fontconfig, freetype
+, readline }:
 
 stdenv.mkDerivation rec {
   name = "ratpoison-${version}";

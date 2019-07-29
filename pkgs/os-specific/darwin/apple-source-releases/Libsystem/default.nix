@@ -1,5 +1,7 @@
-{ stdenv, appleDerivation, cpio, xnu, Libc, Libm, libdispatch, cctools, Libinfo, dyld, Csu, architecture, libclosure, CarbonHeaders, ncurses, CommonCrypto, copyfile, removefile, libresolv, Libnotify, libplatform, libpthread, mDNSResponder, launchd, libutil, hfs, darling
-}:
+{ stdenv, appleDerivation, cpio, xnu, Libc, Libm, libdispatch, cctools, Libinfo
+, dyld, Csu, architecture, libclosure, CarbonHeaders, ncurses, CommonCrypto
+, copyfile, removefile, libresolv, Libnotify, libplatform, libpthread
+, mDNSResponder, launchd, libutil, hfs, darling }:
 
 appleDerivation rec {
   dontBuild = true;

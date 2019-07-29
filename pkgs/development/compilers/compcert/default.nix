@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, coq, ocamlPackages, coq2html, tools ?
-  stdenv.cc }:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, coq, ocamlPackages, coq2html
+, tools ? stdenv.cc }:
 
 assert lib.versionAtLeast ocamlPackages.ocaml.version "4.02";
 assert lib.versionAtLeast coq.coq-version "8.6.1";

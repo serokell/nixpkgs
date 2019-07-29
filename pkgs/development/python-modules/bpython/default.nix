@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pygments, greenlet, curtsies, urwid, requests, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pygments, greenlet, curtsies, urwid
+, requests, mock }:
 
 buildPythonPackage rec {
   pname = "bpython";

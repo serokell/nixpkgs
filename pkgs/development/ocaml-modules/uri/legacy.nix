@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, re, stringext, ounit, sexplib, ppx_sexp_conv, legacyVersion ?
-  false, sexplib_p4 }:
+{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, re, stringext, ounit, sexplib
+, ppx_sexp_conv, legacyVersion ? false, sexplib_p4 }:
 
 if !stdenv.lib.versionAtLeast ocaml.version "4" || legacyVersion
 && stdenv.lib.versionAtLeast ocaml.version "4.03" then

@@ -1,5 +1,5 @@
-{ buildPythonPackage, stdenv, fetchurl, pkgconfig, libXext, libXxf86vm, libX11, libXrandr, libXinerama, libXScrnSaver, argyllcms, wxPython, numpy
-}:
+{ buildPythonPackage, stdenv, fetchurl, pkgconfig, libXext, libXxf86vm, libX11
+, libXrandr, libXinerama, libXScrnSaver, argyllcms, wxPython, numpy }:
 buildPythonPackage {
   pname = "displaycal";
   version = "3.5.0.0";

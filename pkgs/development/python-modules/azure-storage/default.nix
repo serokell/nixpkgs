@@ -1,5 +1,5 @@
-{ pkgs, buildPythonPackage, fetchPypi, python, azure-common, futures, dateutil, requests, isPy3k
-}:
+{ pkgs, buildPythonPackage, fetchPypi, python, azure-common, futures, dateutil
+, requests, isPy3k }:
 
 buildPythonPackage rec {
   version = "0.20.3";

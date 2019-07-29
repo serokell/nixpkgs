@@ -1,5 +1,6 @@
-{ mkDerivation, lib, copyPathsToStore, bison, extra-cmake-modules, flex, kconfig, kcoreaddons, kcrash, kdbusaddons, kdoctools, ki18n, kwindowsystem, qtbase, shared-mime-info,
-}:
+{ mkDerivation, lib, copyPathsToStore, bison, extra-cmake-modules, flex, kconfig
+, kcoreaddons, kcrash, kdbusaddons, kdoctools, ki18n, kwindowsystem, qtbase
+, shared-mime-info, }:
 
 mkDerivation {
   name = "kservice";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchurl, cliapp, ttystatus, markdown, isPy3k, isPyPy
-}:
+{ stdenv, buildPythonPackage, fetchurl, cliapp, ttystatus, markdown, isPy3k
+, isPyPy }:
 
 buildPythonPackage rec {
   pname = "cmdtest";

@@ -1,10 +1,9 @@
-{ stdenv, fetchurl, autoreconfHook, talloc, finger_bsd, perl, openssl, linkOpenssl ?
-  true, openldap, withLdap ? true, sqlite, withSqlite ?
-    true, libpcap, withPcap ? true, libcap, withCap ?
-      true, libmemcached, withMemcached ? false, hiredis, withRedis ?
-        false, mysql, withMysql ? false, json_c, withJson ?
-          false, libyubikey, withYubikey ? false, collectd, withCollectd ?
-            false, curl, withRest ? false }:
+{ stdenv, fetchurl, autoreconfHook, talloc, finger_bsd, perl, openssl
+, linkOpenssl ? true, openldap, withLdap ? true, sqlite, withSqlite ? true
+, libpcap, withPcap ? true, libcap, withCap ? true, libmemcached
+, withMemcached ? false, hiredis, withRedis ? false, mysql, withMysql ? false
+, json_c, withJson ? false, libyubikey, withYubikey ? false, collectd
+, withCollectd ? false, curl, withRest ? false }:
 
 assert withSqlite -> sqlite != null;
 assert withLdap -> openldap != null;

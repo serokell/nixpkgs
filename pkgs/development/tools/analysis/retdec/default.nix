@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, fetchzip, lib, callPackage, openssl, cmake, autoconf, automake, libtool, pkgconfig, bison, flex, groff, perl, python3, time, upx, ncurses, libffi, libxml2, zlib, withPEPatterns ?
-  false }:
+{ stdenv, fetchFromGitHub, fetchpatch, fetchzip, lib, callPackage, openssl
+, cmake, autoconf, automake, libtool, pkgconfig, bison, flex, groff, perl
+, python3, time, upx, ncurses, libffi, libxml2, zlib, withPEPatterns ? false }:
 
 let
   capstone = fetchFromGitHub {

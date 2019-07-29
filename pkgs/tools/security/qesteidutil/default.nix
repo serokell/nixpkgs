@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, ccid, qttools, qttranslations, pkgconfig, pcsclite, hicolor-icon-theme
-}:
+{ stdenv, fetchFromGitHub, cmake, ccid, qttools, qttranslations, pkgconfig
+, pcsclite, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   version = "2018-08-21";

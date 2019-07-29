@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, oauth2client, flask, requests, urllib3, pytest-localserver, six, pyasn1-modules, cachetools, rsa
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, oauth2client, flask
+, requests, urllib3, pytest-localserver, six, pyasn1-modules, cachetools, rsa }:
 
 buildPythonPackage rec {
   pname = "google-auth";

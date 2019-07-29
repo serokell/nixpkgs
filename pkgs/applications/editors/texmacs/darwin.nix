@@ -1,6 +1,7 @@
-{ stdenv, callPackage, fetchurl, guile_1_8, qt4, zlib, freetype, CoreFoundation, Cocoa, gettext, libiconv, ghostscript, tex ?
-  null, aspell ? null, netpbm ? null, imagemagick ? null, extraFonts ?
-    false, chineseFonts ? false, japaneseFonts ? false, koreanFonts ? false }:
+{ stdenv, callPackage, fetchurl, guile_1_8, qt4, zlib, freetype, CoreFoundation
+, Cocoa, gettext, libiconv, ghostscript, tex ? null, aspell ? null
+, netpbm ? null, imagemagick ? null, extraFonts ? false, chineseFonts ? false
+, japaneseFonts ? false, koreanFonts ? false }:
 let
   version = "1.99.4";
   common = callPackage ./common.nix {

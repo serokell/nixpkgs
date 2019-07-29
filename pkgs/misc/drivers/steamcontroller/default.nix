@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, python3Packages, libusb1, linuxHeaders, GyroplotSupport ?
-  false }:
+{ stdenv, lib, fetchFromGitHub, python3Packages, libusb1, linuxHeaders
+, GyroplotSupport ? false }:
 
 with python3Packages;
 

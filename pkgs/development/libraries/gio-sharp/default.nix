@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, which, pkgconfig, mono, gtk-sharp-2_0
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, which, pkgconfig, mono
+, gtk-sharp-2_0 }:
 
 stdenv.mkDerivation rec {
   name = "gio-sharp-${version}";

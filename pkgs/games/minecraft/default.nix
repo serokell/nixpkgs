@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeDesktopItem, makeWrapper, jdk, jre, libpulseaudio, libXxf86vm
-}:
+{ stdenv, fetchurl, makeDesktopItem, makeWrapper, jdk, jre, libpulseaudio
+, libXxf86vm }:
 
 let
   desktopItem = makeDesktopItem {

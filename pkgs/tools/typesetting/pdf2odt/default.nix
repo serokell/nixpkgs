@@ -1,5 +1,5 @@
-{ stdenv, lib, makeWrapper, fetchFromGitHub, bc, coreutils, file, gawk, ghostscript, gnused, imagemagick, zip
-}:
+{ stdenv, lib, makeWrapper, fetchFromGitHub, bc, coreutils, file, gawk
+, ghostscript, gnused, imagemagick, zip }:
 
 let
   path = lib.makeBinPath [

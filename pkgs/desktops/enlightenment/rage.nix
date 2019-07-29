@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, efl, gst_all_1, pcre, mesa, wrapGAppsHook
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, efl, gst_all_1, pcre, mesa
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "rage-${version}";

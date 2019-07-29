@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pythonPackages, pkgconfig, autoreconfHook, rsync, swig, qt48Full, fcgi, bitcoin, procps, utillinux
-}:
+{ stdenv, fetchFromGitHub, pythonPackages, pkgconfig, autoreconfHook, rsync
+, swig, qt48Full, fcgi, bitcoin, procps, utillinux }:
 let
 
   version = "0.96.1";

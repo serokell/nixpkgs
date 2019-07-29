@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, robotframework, moretools, pathpy, six, zetup, modeled, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, robotframework, moretools
+, pathpy, six, zetup, modeled, pytest }:
 
 buildPythonPackage rec {
   version = "0.1rc4";

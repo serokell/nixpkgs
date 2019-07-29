@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, libxslt, ninja, libX11, gnome3, gtk3, glib, gettext, libxml2, xkeyboard_config, isocodes, meson, wayland, libseccomp, systemd, bubblewrap, gobject-introspection, gtk-doc, docbook_xsl, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, substituteAll, pkgconfig, libxslt, ninja, libX11, gnome3
+, gtk3, glib, gettext, libxml2, xkeyboard_config, isocodes, meson, wayland
+, libseccomp, systemd, bubblewrap, gobject-introspection, gtk-doc, docbook_xsl
+, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "gnome-desktop-${version}";

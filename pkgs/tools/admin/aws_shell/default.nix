@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, awscli, prompt_toolkit, boto3, configobj, pygments
-}:
+{ stdenv, buildPythonPackage, fetchPypi, awscli, prompt_toolkit, boto3
+, configobj, pygments }:
 
 buildPythonPackage rec {
   pname = "aws-shell";

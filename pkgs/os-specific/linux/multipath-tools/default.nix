@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, perl, lvm2, libaio, gzip, readline, systemd, liburcu, json_c
-}:
+{ stdenv, fetchurl, pkgconfig, perl, lvm2, libaio, gzip, readline, systemd
+, liburcu, json_c }:
 
 stdenv.mkDerivation rec {
   name = "multipath-tools-${version}";

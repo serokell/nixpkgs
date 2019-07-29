@@ -1,5 +1,5 @@
-{ buildPythonPackage, isPyPy, fetchPypi, curl, openssl, bottle, pytest, nose, flaky
-}:
+{ buildPythonPackage, isPyPy, fetchPypi, curl, openssl, bottle, pytest, nose
+, flaky }:
 
 buildPythonPackage rec {
   pname = "pycurl";

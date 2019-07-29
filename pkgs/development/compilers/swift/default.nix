@@ -1,5 +1,7 @@
-{ stdenv, cmake, coreutils, glibc, which, perl, libedit, ninja, pkgconfig, sqlite, swig, bash, libxml2, clang, python, ncurses, libuuid, libbsd, icu, autoconf, libtool, automake, libblocksruntime, curl, rsync, git, libgit2, fetchFromGitHub, findutils, makeWrapper, gnumake, file
-}:
+{ stdenv, cmake, coreutils, glibc, which, perl, libedit, ninja, pkgconfig
+, sqlite, swig, bash, libxml2, clang, python, ncurses, libuuid, libbsd, icu
+, autoconf, libtool, automake, libblocksruntime, curl, rsync, git, libgit2
+, fetchFromGitHub, findutils, makeWrapper, gnumake, file }:
 
 let
   v_base = "5.0.1";

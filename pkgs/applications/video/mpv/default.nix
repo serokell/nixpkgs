@@ -1,38 +1,35 @@
-{ config, stdenv, fetchurl, fetchFromGitHub, makeWrapper, docutils, perl, pkgconfig, python3, which, ffmpeg_4, freefont_ttf, freetype, libass, libpthreadstubs, mujs, nv-codec-headers, lua, libuchardet, libiconv ?
-  null, darwin
+{ config, stdenv, fetchurl, fetchFromGitHub, makeWrapper, docutils, perl
+, pkgconfig, python3, which, ffmpeg_4, freefont_ttf, freetype, libass
+, libpthreadstubs, mujs, nv-codec-headers, lua, libuchardet, libiconv ? null
+, darwin
 
-, waylandSupport ? stdenv.isLinux, wayland ? null, wayland-protocols ?
-  null, libxkbcommon ? null
+, waylandSupport ? stdenv.isLinux, wayland ? null, wayland-protocols ? null
+, libxkbcommon ? null
 
-, x11Support ? stdenv.isLinux, libGLU_combined ? null, libX11 ? null, libXext ?
-  null, libXxf86vm ? null, libXrandr ? null
+, x11Support ? stdenv.isLinux, libGLU_combined ? null, libX11 ? null
+, libXext ? null, libXxf86vm ? null, libXrandr ? null
 
 , cddaSupport ? false, libcdio ? null, libcdio-paranoia ? null
 
-, vulkanSupport ? stdenv.isLinux, shaderc ? null, vulkan-headers ?
-  null, vulkan-loader ? null
+, vulkanSupport ? stdenv.isLinux, shaderc ? null, vulkan-headers ? null
+, vulkan-loader ? null
 
-, alsaSupport ? stdenv.isLinux, alsaLib ? null, bluraySupport ?
-  true, libbluray ? null, bs2bSupport ? true, libbs2b ? null, cacaSupport ?
-    true, libcaca ? null, cmsSupport ? true, lcms2 ? null, drmSupport ?
-      stdenv.isLinux, libdrm ? null, dvdnavSupport ? stdenv.isLinux, libdvdnav ?
-        null, dvdreadSupport ? stdenv.isLinux, libdvdread ?
-          null, libpngSupport ? true, libpng ? null, pulseSupport ?
-            config.pulseaudio or stdenv.isLinux, libpulseaudio ?
-              null, rubberbandSupport ? stdenv.isLinux, rubberband ?
-                null, screenSaverSupport ? true, libXScrnSaver ?
-                  null, sdl2Support ? true, SDL2 ? null, speexSupport ?
-                    true, speex ? null, theoraSupport ? true, libtheora ?
-                      null, vaapiSupport ? stdenv.isLinux, libva ?
-                        null, vdpauSupport ? true, libvdpau ?
-                          null, xineramaSupport ? stdenv.isLinux, libXinerama ?
-                            null, xvSupport ? stdenv.isLinux, libXv ?
-                              null, youtubeSupport ? true, youtube-dl ?
-                                null, archiveSupport ? false, libarchive ?
-                                  null, jackaudioSupport ? false, libjack2 ?
-                                    null, openalSupport ? false, openalSoft ?
-                                      null, vapoursynthSupport ?
-                                        false, vapoursynth ? null }:
+, alsaSupport ? stdenv.isLinux, alsaLib ? null, bluraySupport ? true
+, libbluray ? null, bs2bSupport ? true, libbs2b ? null, cacaSupport ? true
+, libcaca ? null, cmsSupport ? true, lcms2 ? null, drmSupport ? stdenv.isLinux
+, libdrm ? null, dvdnavSupport ? stdenv.isLinux, libdvdnav ? null
+, dvdreadSupport ? stdenv.isLinux, libdvdread ? null, libpngSupport ? true
+, libpng ? null, pulseSupport ? config.pulseaudio or stdenv.isLinux
+, libpulseaudio ? null, rubberbandSupport ? stdenv.isLinux, rubberband ? null
+, screenSaverSupport ? true, libXScrnSaver ? null, sdl2Support ? true
+, SDL2 ? null, speexSupport ? true, speex ? null, theoraSupport ? true
+, libtheora ? null, vaapiSupport ? stdenv.isLinux, libva ? null
+, vdpauSupport ? true, libvdpau ? null, xineramaSupport ? stdenv.isLinux
+, libXinerama ? null, xvSupport ? stdenv.isLinux, libXv ? null
+, youtubeSupport ? true, youtube-dl ? null, archiveSupport ? false
+, libarchive ? null, jackaudioSupport ? false, libjack2 ? null
+, openalSupport ? false, openalSoft ? null, vapoursynthSupport ? false
+, vapoursynth ? null }:
 
 with stdenv.lib;
 

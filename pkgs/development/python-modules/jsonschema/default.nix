@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python, nose, mock, vcversioner, functools32
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, nose, mock, vcversioner
+, functools32 }:
 
 buildPythonPackage rec {
   pname = "jsonschema";

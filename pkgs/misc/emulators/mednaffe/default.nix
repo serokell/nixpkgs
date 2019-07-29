@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, autoreconfHook, pkgconfig, wrapGAppsHook, gtk2 ?
-  null, gtk3 ? null, mednafen }:
+{ stdenv, fetchFromGitHub, makeWrapper, autoreconfHook, pkgconfig, wrapGAppsHook
+, gtk2 ? null, gtk3 ? null, mednafen }:
 
 with stdenv.lib;
 

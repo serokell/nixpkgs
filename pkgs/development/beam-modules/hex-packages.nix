@@ -1080,9 +1080,8 @@ let
 
     absinthe = absinthe_1_1_6;
 
-    absinthe_plug_1_0_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, absinthe_1_0_0
-      }:
+    absinthe_plug_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, plug_1_1_5, absinthe_1_0_0 }:
       buildMix ({
         name = "absinthe_plug";
         version = "1.0.0";
@@ -1103,9 +1102,8 @@ let
         };
       } // packageOverrides)) { };
 
-    absinthe_plug_1_1_3 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, absinthe_1_1_6
-      }:
+    absinthe_plug_1_1_3 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, plug_1_1_5, absinthe_1_1_6 }:
       buildMix ({
         name = "absinthe_plug";
         version = "1.1.3";
@@ -1268,8 +1266,8 @@ let
 
     ahab = ahab_0_1_1;
 
-    airbrakify_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
+    airbrakify_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
       buildMix ({
         name = "airbrakify";
         version = "0.0.1";
@@ -1474,8 +1472,8 @@ let
 
     alexa_plug = alexa_plug_0_2_0;
 
-    alexa_web_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, cowboy_1_0_4, alexa_0_1_14 }:
+    alexa_web_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, cowboy_1_0_4, alexa_0_1_14 }:
       buildMix ({
         name = "alexa_web";
         version = "0.0.2";
@@ -1520,9 +1518,9 @@ let
 
     algae = algae_0_10_0;
 
-    amazon_product_advertising_client_0_1_1 = callPackage
-      ({ buildMix, packageOverrides ?
-        { }, fetchHex, timex_1_0_2, sweet_xml_0_6_1, httpoison_0_8_3 }:
+    amazon_product_advertising_client_0_1_1 = callPackage ({ buildMix
+      , packageOverrides ? { }, fetchHex, timex_1_0_2, sweet_xml_0_6_1
+      , httpoison_0_8_3 }:
       buildMix ({
         name = "amazon_product_advertising_client";
         version = "0.1.1";
@@ -1612,8 +1610,8 @@ let
 
     anaphora = anaphora_0_1_2;
 
-    anilixir_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    anilixir_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "anilixir";
         version = "1.0.0";
@@ -1695,8 +1693,8 @@ let
 
     apix = apix_0_1_0;
 
-    apns_0_9_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, poison_2_1_0, connection_1_0_2 }:
+    apns_0_9_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, poison_2_1_0, connection_1_0_2 }:
       buildMix ({
         name = "apns";
         version = "0.9.2";
@@ -1803,8 +1801,8 @@ let
 
     array = array_1_0_1;
 
-    artifact_0_4_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, porcelain_2_0_1, poolboy_1_5_1, plug_1_1_5 }:
+    artifact_0_4_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , porcelain_2_0_1, poolboy_1_5_1, plug_1_1_5 }:
       buildMix ({
         name = "artifact";
         version = "0.4.0";
@@ -1827,8 +1825,8 @@ let
 
     artifact = artifact_0_4_0;
 
-    aruspex_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, zipper_tree_0_1_1, exyz_1_0_0 }:
+    aruspex_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , zipper_tree_0_1_1, exyz_1_0_0 }:
       buildMix ({
         name = "aruspex";
         version = "0.1.0";
@@ -1873,8 +1871,8 @@ let
 
     ashes = ashes_0_0_3;
 
-    assembla_api_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    assembla_api_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "assembla_api";
         version = "0.1.0";
@@ -2068,8 +2066,8 @@ let
 
     avex = avex_0_2_0;
 
-    aws_0_0_11 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, poison_1_5_2, httpoison_0_8_3 }:
+    aws_0_0_11 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "aws";
         version = "0.0.11";
@@ -2135,8 +2133,8 @@ let
 
     aws_cli = aws_cli_0_1_0;
 
-    azure_push_client_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    azure_push_client_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "azure_push_client";
         version = "0.0.2";
@@ -2157,8 +2155,8 @@ let
 
     azure_push_client = azure_push_client_0_0_2;
 
-    b2_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    b2_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "b2";
         version = "0.0.6";
@@ -2178,8 +2176,8 @@ let
 
     b2 = b2_0_0_6;
 
-    bamboo_0_3_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    bamboo_0_3_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "bamboo";
         version = "0.3.2";
@@ -2202,8 +2200,8 @@ let
         };
       } // packageOverrides)) { };
 
-    bamboo_0_5_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
+    bamboo_0_5_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
       buildMix ({
         name = "bamboo";
         version = "0.5.0";
@@ -2226,8 +2224,8 @@ let
         };
       } // packageOverrides)) { };
 
-    bamboo_0_6_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
+    bamboo_0_6_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
       buildMix ({
         name = "bamboo";
         version = "0.6.0";
@@ -2252,8 +2250,8 @@ let
 
     bamboo = bamboo_0_6_0;
 
-    bamboo_smtp_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, gen_smtp_0_10_0, bamboo_0_5_0 }:
+    bamboo_smtp_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, gen_smtp_0_10_0, bamboo_0_5_0 }:
       buildMix ({
         name = "bamboo_smtp";
         version = "0.0.2";
@@ -2599,8 +2597,8 @@ let
 
     batcher = batcher_0_0_1;
 
-    battlenet_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    battlenet_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "battlenet";
         version = "0.0.2";
@@ -2754,8 +2752,8 @@ let
 
     bear = bear_0_8_3;
 
-    beersearch_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpotion_2_2_2, floki_0_8_1 }:
+    beersearch_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpotion_2_2_2, floki_0_8_1 }:
       buildMix ({
         name = "beersearch";
         version = "0.0.6";
@@ -2778,8 +2776,8 @@ let
 
     beersearch = beersearch_0_0_6;
 
-    bees_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, jsx_2_8_0, httpoison_0_8_3 }:
+    bees_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, plug_1_1_5, jsx_2_8_0, httpoison_0_8_3 }:
       buildMix ({
         name = "bees";
         version = "0.0.2";
@@ -3057,8 +3055,8 @@ let
 
     bert = bert_0_1_0;
 
-    big_query_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, jose_1_4_2, httpoison_0_8_2 }:
+    big_query_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, jose_1_4_2, httpoison_0_8_2 }:
       buildMix ({
         name = "big_query";
         version = "0.0.5";
@@ -3140,8 +3138,8 @@ let
 
     bin_format = bin_format_0_0_1;
 
-    bing_translator_0_2_7 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, poison_1_5_2, httpoison_0_8_3, floki_0_8_1 }:
+    bing_translator_0_2_7 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, timex_2_1_6, poison_1_5_2, httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "bing_translator";
         version = "0.2.7";
@@ -3188,8 +3186,8 @@ let
 
     binstructor = binstructor_0_0_1;
 
-    biometrics_facade_1_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpotion_2_2_2 }:
+    biometrics_facade_1_2_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpotion_2_2_2 }:
       buildMix ({
         name = "biometrics_facade";
         version = "1.2.0";
@@ -3417,8 +3415,8 @@ let
 
     blast_furnace = blast_furnace_0_0_1;
 
-    blaze_cloud_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_0_1, httpoison_0_8_3 }:
+    blaze_cloud_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_0_1, httpoison_0_8_3 }:
       buildMix ({
         name = "blaze_cloud";
         version = "0.0.1";
@@ -3459,8 +3457,8 @@ let
 
     blazon = blazon_0_2_0;
 
-    blockchain_info_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    blockchain_info_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "blockchain_info";
         version = "0.0.2";
@@ -3507,8 +3505,8 @@ let
 
     blocking_queue = blocking_queue_1_3_0;
 
-    bloodhound_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    bloodhound_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "bloodhound";
         version = "0.1.1";
@@ -3643,9 +3641,8 @@ let
 
     bmfont = bmfont_0_0_1;
 
-    bookingsync_api_client_v3_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, json_0_3_3, httpotion_2_2_2
-      }:
+    bookingsync_api_client_v3_0_0_1 = callPackage ({ buildMix
+      , packageOverrides ? { }, fetchHex, json_0_3_3, httpotion_2_2_2 }:
       buildMix ({
         name = "bookingsync_api_client_v3";
         version = "0.0.1";
@@ -3670,8 +3667,8 @@ let
 
     bookingsync_api_client_v3 = bookingsync_api_client_v3_0_0_1;
 
-    botan_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    botan_0_1_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "botan";
         version = "0.1.2";
@@ -3827,8 +3824,8 @@ let
 
     briefly = briefly_0_3_0;
 
-    brighterx_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    brighterx_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "brighterx";
         version = "0.0.2";
@@ -3909,8 +3906,8 @@ let
 
     buffer = buffer_0_3_6;
 
-    bugsnag_1_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    bugsnag_1_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "bugsnag";
         version = "1.2.0";
@@ -4176,9 +4173,8 @@ let
 
     calliope = calliope_0_4_0;
 
-    campminder_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, poison_2_1_0, httpoison_0_8_3, hackney_1_6_0
-      }:
+    campminder_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, poison_2_1_0, httpoison_0_8_3, hackney_1_6_0 }:
       buildMix ({
         name = "campminder";
         version = "0.1.0";
@@ -4199,8 +4195,8 @@ let
 
     campminder = campminder_0_1_0;
 
-    cartel_0_6_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, httpotion_2_2_2, poison_2_1_0 }:
+    cartel_0_6_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, httpotion_2_2_2, poison_2_1_0 }:
       buildMix ({
         name = "cartel";
         version = "0.6.0";
@@ -4242,9 +4238,8 @@ let
 
     cartographer = cartographer_0_0_1;
 
-    cassette_1_2_4 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, exml_0_1_0, httpoison_0_8_3
-      }:
+    cassette_1_2_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , exml_0_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "cassette";
         version = "1.2.4";
@@ -4265,9 +4260,8 @@ let
 
     cassette = cassette_1_2_4;
 
-    cassette_plug_1_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, cassette_1_2_4
-      }:
+    cassette_plug_1_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, plug_1_1_5, cassette_1_2_4 }:
       buildMix ({
         name = "cassette_plug";
         version = "1.0.1";
@@ -4288,8 +4282,8 @@ let
 
     cassette_plug = cassette_plug_1_0_1;
 
-    caylir_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, poison_1_5_2, hackney_1_6_0 }:
+    caylir_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, poison_1_5_2, hackney_1_6_0 }:
       buildMix ({
         name = "caylir";
         version = "0.2.0";
@@ -4310,9 +4304,9 @@ let
 
     caylir = caylir_0_2_0;
 
-    cep_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, sweet_xml_0_6_1, poolboy_1_5_1, poison_2_1_0, httpoison_0_8_3, codepagex_0_1_2
-      }:
+    cep_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , sweet_xml_0_6_1, poolboy_1_5_1, poison_2_1_0, httpoison_0_8_3
+      , codepagex_0_1_2 }:
       buildMix ({
         name = "cep";
         version = "0.0.1";
@@ -4487,9 +4481,8 @@ let
 
     changex = changex_0_1_1;
 
-    chaos_spawn_0_7_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, timex_0_19_5, exactor_2_2_0
-      }:
+    chaos_spawn_0_7_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, timex_0_19_5, exactor_2_2_0 }:
       buildMix ({
         name = "chaos_spawn";
         version = "0.7.0";
@@ -4687,8 +4680,8 @@ let
 
     cirru_parser = cirru_parser_0_0_1;
 
-    ckan_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpotion_2_2_2 }:
+    ckan_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpotion_2_2_2 }:
       buildMix ({
         name = "ckan";
         version = "0.0.2";
@@ -4711,9 +4704,8 @@ let
 
     ckan = ckan_0_0_2;
 
-    clicksign_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, httpoison_0_8_3, exjsx_3_2_0, cowboy_1_0_4, bypass_0_5_1
-      }:
+    clicksign_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, httpoison_0_8_3, exjsx_3_2_0, cowboy_1_0_4, bypass_0_5_1 }:
       buildMix ({
         name = "clicksign";
         version = "0.0.2";
@@ -4734,9 +4726,8 @@ let
 
     clicksign = clicksign_0_0_2;
 
-    clint_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_0_11_3, cowboy_1_0_4
-      }:
+    clint_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_0_11_3, cowboy_1_0_4 }:
       buildMix ({
         name = "clint";
         version = "0.0.1";
@@ -4805,9 +4796,8 @@ let
 
     close_enough = close_enough_0_0_1;
 
-    cloudex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, tzdata_0_5_8, timex_0_19_5, poison_1_5_2, httpoison_0_8_3
-      }:
+    cloudex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , tzdata_0_5_8, timex_0_19_5, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "cloudex";
         version = "0.0.2";
@@ -4832,8 +4822,8 @@ let
 
     cloudex = cloudex_0_0_2;
 
-    cloudinary_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_4_0, httpoison_0_8_3 }:
+    cloudinary_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_4_0, httpoison_0_8_3 }:
       buildMix ({
         name = "cloudinary";
         version = "0.0.2";
@@ -4853,8 +4843,8 @@ let
 
     cloudinary = cloudinary_0_0_2;
 
-    cloudinaryex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_1_0_2, poison_1_5_2, httpoison_0_8_3 }:
+    cloudinaryex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, timex_1_0_2, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "cloudinaryex";
         version = "0.0.2";
@@ -4948,8 +4938,8 @@ let
 
     codepagex = codepagex_0_1_2;
 
-    coincap_io_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3, exconstructor_1_0_2 }:
+    coincap_io_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3, exconstructor_1_0_2 }:
       buildMix ({
         name = "coincap_io";
         version = "0.0.2";
@@ -5297,8 +5287,8 @@ let
 
     commander = commander_0_1_4;
 
-    complex_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, exprintf_0_1_6, earmark_0_2_1 }:
+    complex_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , exprintf_0_1_6, earmark_0_2_1 }:
       buildMix ({
         name = "complex";
         version = "0.2.0";
@@ -5479,9 +5469,8 @@ let
 
     connection = connection_1_0_2;
 
-    conqueuer_0_5_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poolboy_1_5_1, inflex_1_5_0
-      }:
+    conqueuer_0_5_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, inflex_1_5_0 }:
       buildMix ({
         name = "conqueuer";
         version = "0.5.1";
@@ -5526,9 +5515,8 @@ let
 
     console_tree = console_tree_0_0_1;
 
-    consolex_0_1_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, exjsx_3_2_0, cowboy_1_0_4
-      }:
+    consolex_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , exjsx_3_2_0, cowboy_1_0_4 }:
       buildMix ({
         name = "consolex";
         version = "0.1.0";
@@ -5754,9 +5742,8 @@ let
 
     count_buffer = count_buffer_0_1_5;
 
-    courier_0_0_3 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, mail_0_0_4, gen_smtp_0_9_0
-      }:
+    courier_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , mail_0_0_4, gen_smtp_0_9_0 }:
       buildMix ({
         name = "courier";
         version = "0.0.3";
@@ -5798,8 +5785,8 @@ let
 
     cowbell = cowbell_0_1_0;
 
-    cowboy_1_0_4 = callPackage ({ buildErlangMk, packageOverrides ?
-      { }, fetchHex, cowlib_1_0_2, ranch_1_2_1 }:
+    cowboy_1_0_4 = callPackage ({ buildErlangMk, packageOverrides ? { }
+      , fetchHex, cowlib_1_0_2, ranch_1_2_1 }:
       buildErlangMk ({
         name = "cowboy";
         version = "1.0.4";
@@ -5949,9 +5936,9 @@ let
 
     cqex = cqex_0_2_0;
 
-    cqrs_commands_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, vex_0_5_5, uuid_1_1_4, poison_2_0_1, plug_1_1_5, exconstructor_1_0_2
-      }:
+    cqrs_commands_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, vex_0_5_5, uuid_1_1_4, poison_2_0_1, plug_1_1_5
+      , exconstructor_1_0_2 }:
       buildMix ({
         name = "cqrs_commands";
         version = "0.0.6";
@@ -6386,8 +6373,8 @@ let
 
     currency_formatter = currency_formatter_0_0_1;
 
-    current_streak_ex_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    current_streak_ex_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "current_streak_ex";
         version = "0.1.1";
@@ -6571,8 +6558,8 @@ let
 
     custom_base = custom_base_0_2_0;
 
-    cuttlefish_2_0_7 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, lager_3_0_2, getopt_0_8_2 }:
+    cuttlefish_2_0_7 = callPackage ({ buildRebar3, packageOverrides ? { }
+      , fetchHex, lager_3_0_2, getopt_0_8_2 }:
       buildRebar3 ({
         name = "cuttlefish";
         version = "2.0.7";
@@ -6775,8 +6762,8 @@ let
 
     dbux = dbux_1_0_3;
 
-    dealer_0_8_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    dealer_0_8_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "dealer";
         version = "0.8.0";
@@ -6953,8 +6940,8 @@ let
 
     delegate_behaviour = delegate_behaviour_0_1_5;
 
-    deltek_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, sweet_xml_0_6_1, html_entities_0_3_0 }:
+    deltek_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , sweet_xml_0_6_1, html_entities_0_3_0 }:
       buildMix ({
         name = "deltek";
         version = "0.0.4";
@@ -7076,8 +7063,8 @@ let
 
     detergentex = detergentex_0_0_7;
 
-    deviant_elixir_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, feeder_ex_0_0_2 }:
+    deviant_elixir_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, feeder_ex_0_0_2 }:
       buildMix ({
         name = "deviant_elixir";
         version = "0.0.4";
@@ -7122,8 +7109,8 @@ let
 
     dflow = dflow_0_1_5;
 
-    di_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    di_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "di";
         version = "0.1.0";
@@ -7268,8 +7255,8 @@ let
 
     diff = diff_1_0_0;
 
-    digoc_0_3_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_3_1, httpoison_0_8_3 }:
+    digoc_0_3_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_3_1, httpoison_0_8_3 }:
       buildMix ({
         name = "digoc";
         version = "0.3.3";
@@ -7482,8 +7469,8 @@ let
 
     dlist = dlist_0_0_1;
 
-    dnsimple_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    dnsimple_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "dnsimple";
         version = "0.1.0";
@@ -7602,8 +7589,8 @@ let
 
     dogstatsd = dogstatsd_0_0_3;
 
-    dogstatsde_0_6_0 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, worker_pool_1_0_4, stillir_1_0_0 }:
+    dogstatsde_0_6_0 = callPackage ({ buildRebar3, packageOverrides ? { }
+      , fetchHex, worker_pool_1_0_4, stillir_1_0_0 }:
       buildRebar3 ({
         name = "dogstatsde";
         version = "0.6.0";
@@ -7625,8 +7612,8 @@ let
 
     dogstatsde = dogstatsde_0_6_0;
 
-    domainr_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    domainr_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "domainr";
         version = "0.0.1";
@@ -7651,9 +7638,8 @@ let
 
     domainr = domainr_0_0_1;
 
-    doorman_0_0_3 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, comeonin_2_4_0
-      }:
+    doorman_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, comeonin_2_4_0 }:
       buildMix ({
         name = "doorman";
         version = "0.0.3";
@@ -7823,8 +7809,8 @@ let
 
     druuid = druuid_0_3_0;
 
-    dublin_bus_api_0_1_8 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    dublin_bus_api_0_1_8 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "dublin_bus_api";
         version = "0.1.8";
@@ -7847,8 +7833,8 @@ let
 
     dublin_bus_api = dublin_bus_api_0_1_8;
 
-    duckduckgo_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    duckduckgo_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "duckduckgo";
         version = "0.1.0";
@@ -7979,8 +7965,8 @@ let
 
     e_queue = e_queue_1_0_1;
 
-    e_quip_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    e_quip_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "e_quip";
         version = "0.0.1";
@@ -8167,8 +8153,8 @@ let
 
     echo = echo_0_2_0;
 
-    echo_bot_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, telegram_0_0_3, poison_2_1_0, gproc_0_5_0 }:
+    echo_bot_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , telegram_0_0_3, poison_2_1_0, gproc_0_5_0 }:
       buildMix ({
         name = "echo_bot";
         version = "0.0.2";
@@ -8189,8 +8175,8 @@ let
 
     echo_bot = echo_bot_0_0_2;
 
-    echonest_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    echonest_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "echonest_ex";
         version = "0.0.2";
@@ -8366,9 +8352,9 @@ let
 
     edown = edown_0_7_0;
 
-    eeb_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, tzdata_0_1_201603, timex_1_0_2, plug_0_14_0, earmark_0_1_19, cowboy_1_0_4
-      }:
+    eeb_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , tzdata_0_1_201603, timex_1_0_2, plug_0_14_0, earmark_0_1_19
+      , cowboy_1_0_4 }:
       buildMix ({
         name = "eeb";
         version = "0.2.0";
@@ -8416,8 +8402,8 @@ let
 
     efirebirdsql = efirebirdsql_0_1_1;
 
-    egaugex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    egaugex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "egaugex";
         version = "0.0.2";
@@ -8528,8 +8514,8 @@ let
 
     eikon = eikon_0_0_2;
 
-    eio_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
+    eio_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "eio";
         version = "0.1.0";
@@ -8598,8 +8584,8 @@ let
 
     ejwt = ejwt_0_1_0;
 
-    elastex_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    elastex_0_1_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "elastex";
         version = "0.1.2";
@@ -8668,8 +8654,8 @@ let
 
     elixir_ami = elixir_ami_0_0_3;
 
-    elixir_authorizenet_0_2_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, xml_builder_0_0_8, exmerl_0_1_1 }:
+    elixir_authorizenet_0_2_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, xml_builder_0_0_8, exmerl_0_1_1 }:
       buildMix ({
         name = "elixir_authorizenet";
         version = "0.2.2";
@@ -8767,8 +8753,8 @@ let
 
     elixir_feed_parser = elixir_feed_parser_1_1_0;
 
-    elixir_freshbooks_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, xml_builder_0_0_8, exmerl_0_1_1 }:
+    elixir_freshbooks_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, xml_builder_0_0_8, exmerl_0_1_1 }:
       buildMix ({
         name = "elixir_freshbooks";
         version = "0.0.4";
@@ -8988,9 +8974,8 @@ let
 
     elixir_tea = elixir_tea_1_0_0;
 
-    elixir_v8_0_2_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poolboy_1_5_1, exjsx_3_2_0
-      }:
+    elixir_v8_0_2_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, exjsx_3_2_0 }:
       buildMix ({
         name = "elixir_v8";
         version = "0.2.2";
@@ -9011,8 +8996,8 @@ let
 
     elixir_v8 = elixir_v8_0_2_2;
 
-    elixir_wit_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, uuid_1_1_4, poison_2_1_0, httpotion_2_2_2 }:
+    elixir_wit_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , uuid_1_1_4, poison_2_1_0, httpotion_2_2_2 }:
       buildMix ({
         name = "elixir_wit";
         version = "0.1.0";
@@ -9279,8 +9264,8 @@ let
 
     eper = eper_0_94_0;
 
-    epgpool_1_0_1 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, poolboy_1_4_2, lager_3_0_2, epgsql_3_2_0 }:
+    epgpool_1_0_1 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , poolboy_1_4_2, lager_3_0_2, epgsql_3_2_0 }:
       buildRebar3 ({
         name = "epgpool";
         version = "1.0.1";
@@ -9598,8 +9583,8 @@ let
 
     erlaudio = erlaudio_0_2_3;
 
-    erlcloud_0_11_0 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, meck_0_8_3, lhttpc_1_3_0, jsx_2_6_2 }:
+    erlcloud_0_11_0 = callPackage ({ buildRebar3, packageOverrides ? { }
+      , fetchHex, meck_0_8_3, lhttpc_1_3_0, jsx_2_6_2 }:
       buildRebar3 ({
         name = "erlcloud";
         version = "0.11.0";
@@ -9619,9 +9604,8 @@ let
         };
       } // packageOverrides)) { };
 
-    erlcloud_0_13_2 = callPackage
-      ({ buildRebar3, packageOverrides ? { }, fetchHex, lhttpc_1_4_0, jsx_2_8_0
-      }:
+    erlcloud_0_13_2 = callPackage ({ buildRebar3, packageOverrides ? { }
+      , fetchHex, lhttpc_1_4_0, jsx_2_8_0 }:
       buildRebar3 ({
         name = "erlcloud";
         version = "0.13.2";
@@ -10096,8 +10080,8 @@ let
 
     ether = ether_0_0_1;
 
-    etherchain_org_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, vex_0_5_5, poison_2_1_0, httpoison_0_8_3 }:
+    etherchain_org_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, vex_0_5_5, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "etherchain_org";
         version = "0.0.5";
@@ -10299,8 +10283,8 @@ let
 
     event_nanny = event_nanny_0_1_1;
 
-    eventstore_client_0_1_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, uuid_1_1_4, poison_2_1_0, httpoison_0_8_3 }:
+    eventstore_client_0_1_4 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, uuid_1_1_4, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "eventstore_client";
         version = "0.1.4";
@@ -10420,9 +10404,9 @@ let
 
     ex_bcrypt = ex_bcrypt_0_0_1;
 
-    ex_blocktrail_0_2_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, yuri_1_0_0, vex_0_5_5, exconstructor_1_0_2, poison_2_1_0, httpoison_0_8_3
-      }:
+    ex_blocktrail_0_2_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, yuri_1_0_0, vex_0_5_5, exconstructor_1_0_2, poison_2_1_0
+      , httpoison_0_8_3 }:
       buildMix ({
         name = "ex_blocktrail";
         version = "0.2.1";
@@ -10518,8 +10502,8 @@ let
 
     ex_cli = ex_cli_0_1_0;
 
-    ex_closeio_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    ex_closeio_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "ex_closeio";
         version = "0.1.1";
@@ -10716,8 +10700,8 @@ let
 
     ex_ical = ex_ical_0_0_3;
 
-    ex_iss_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    ex_iss_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "ex_iss";
         version = "1.0.0";
@@ -10854,8 +10838,8 @@ let
 
     ex_marshal = ex_marshal_0_0_3;
 
-    ex_microsoftbot_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpotion_2_2_2 }:
+    ex_microsoftbot_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpotion_2_2_2 }:
       buildMix ({
         name = "ex_microsoftbot";
         version = "0.1.0";
@@ -11135,8 +11119,8 @@ let
 
     ex_sider = ex_sider_0_1_0;
 
-    ex_sonar_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, floki_0_8_1, poison_2_1_0, httpoison_0_8_3 }:
+    ex_sonar_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , floki_0_8_1, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "ex_sonar";
         version = "0.0.4";
@@ -11220,8 +11204,8 @@ let
 
     ex_statsd = ex_statsd_0_5_3;
 
-    ex_sync_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, connection_1_0_2 }:
+    ex_sync_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, connection_1_0_2 }:
       buildMix ({
         name = "ex_sync";
         version = "0.0.3";
@@ -11267,8 +11251,8 @@ let
 
     ex_test = ex_test_0_0_2;
 
-    ex_tumblr_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, oauther_1_0_2, httpoison_0_8_3 }:
+    ex_tumblr_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, oauther_1_0_2, httpoison_0_8_3 }:
       buildMix ({
         name = "ex_tumblr";
         version = "0.0.1";
@@ -11288,8 +11272,8 @@ let
 
     ex_tumblr = ex_tumblr_0_0_1;
 
-    ex_twilio_0_1_8 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, inflex_1_5_0, poison_2_1_0, httpotion_2_2_2 }:
+    ex_twilio_0_1_8 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , inflex_1_5_0, poison_2_1_0, httpotion_2_2_2 }:
       buildMix ({
         name = "ex_twilio";
         version = "0.1.8";
@@ -11375,8 +11359,8 @@ let
 
     ex_unit_notifier = ex_unit_notifier_0_1_1;
 
-    ex_victor_ops_0_3_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpotion_2_2_2 }:
+    ex_victor_ops_0_3_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpotion_2_2_2 }:
       buildMix ({
         name = "ex_victor_ops";
         version = "0.3.1";
@@ -11466,8 +11450,8 @@ let
 
     exalgebra = exalgebra_0_0_5;
 
-    exalice_0_0_6_alpha = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, tirexs_0_8_0_beta6, poison_2_1_0, httpoison_0_8_3 }:
+    exalice_0_0_6_alpha = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, tirexs_0_8_0_beta6, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "exalice";
         version = "0.0.6-alpha";
@@ -11609,8 +11593,8 @@ let
 
     excellent = excellent_0_0_1;
 
-    excetera_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    excetera_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "excetera";
         version = "0.0.3";
@@ -11766,8 +11750,8 @@ let
 
     exddb = exddb_0_1_3;
 
-    exdesk_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    exdesk_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "exdesk";
         version = "0.2.0";
@@ -11950,8 +11934,8 @@ let
 
     exexif = exexif_0_0_1;
 
-    exfavicon_0_3_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    exfavicon_0_3_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "exfavicon";
         version = "0.3.3";
@@ -11972,8 +11956,8 @@ let
 
     exfavicon = exfavicon_0_3_3;
 
-    exfirebase_0_4_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpotion_2_2_2, exjsx_3_2_0 }:
+    exfirebase_0_4_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpotion_2_2_2, exjsx_3_2_0 }:
       buildMix ({
         name = "exfirebase";
         version = "0.4.0";
@@ -11996,8 +11980,8 @@ let
 
     exfirebase = exfirebase_0_4_0;
 
-    exfoaas_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    exfoaas_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "exfoaas";
         version = "0.0.2";
@@ -12085,8 +12069,8 @@ let
 
     exfuck = exfuck_0_1_0;
 
-    exgenius_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    exgenius_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "exgenius";
         version = "0.0.5";
@@ -12110,8 +12094,8 @@ let
 
     exgenius = exgenius_0_0_5;
 
-    exgingerapi_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_0_1, httpoison_0_8_3 }:
+    exgingerapi_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_0_1, httpoison_0_8_3 }:
       buildMix ({
         name = "exgingerapi";
         version = "0.0.3";
@@ -12344,8 +12328,8 @@ let
 
     exkanji = exkanji_0_2_6;
 
-    exkismet_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    exkismet_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "exkismet";
         version = "0.0.2";
@@ -12588,8 +12572,8 @@ let
 
     exmoji = exmoji_0_2_2;
 
-    exns_0_3_5_beta = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, uuid_1_1_4, poolboy_1_5_1, poison_1_5_2, msgpax_0_8_2 }:
+    exns_0_3_5_beta = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , uuid_1_1_4, poolboy_1_5_1, poison_1_5_2, msgpax_0_8_2 }:
       buildMix ({
         name = "exns";
         version = "0.3.5-beta";
@@ -12721,8 +12705,8 @@ let
 
     expand = expand_0_0_3;
 
-    exparticle_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    exparticle_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "exparticle";
         version = "0.0.2";
@@ -12768,8 +12752,8 @@ let
 
     experiment = experiment_0_0_3;
 
-    expinboard_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, ibrowse_4_2_2, httpotion_2_2_2, exjsx_3_2_0 }:
+    expinboard_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , ibrowse_4_2_2, httpotion_2_2_2, exjsx_3_2_0 }:
       buildMix ({
         name = "expinboard";
         version = "0.0.1";
@@ -13004,8 +12988,8 @@ let
 
     exref = exref_0_1_1;
 
-    exrequester_0_5_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpotion_2_2_2 }:
+    exrequester_0_5_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpotion_2_2_2 }:
       buildMix ({
         name = "exrequester";
         version = "0.5.2";
@@ -13140,8 +13124,8 @@ let
 
     exscript = exscript_0_0_1;
 
-    exsolr_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    exsolr_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "exsolr";
         version = "0.0.1";
@@ -13235,8 +13219,8 @@ let
 
     exsync = exsync_0_1_2;
 
-    extripe_0_3_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    extripe_0_3_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "extripe";
         version = "0.3.2";
@@ -13301,8 +13285,8 @@ let
 
     extwitter = extwitter_0_7_1;
 
-    exvcr_0_3_9 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, meck_0_8_4, httpotion_2_2_2, httpoison_0_8_3, exjsx_3_2_0, exactor_2_2_0
+    exvcr_0_3_9 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , meck_0_8_4, httpotion_2_2_2, httpoison_0_8_3, exjsx_3_2_0, exactor_2_2_0
       }:
       buildMix ({
         name = "exvcr";
@@ -13330,8 +13314,8 @@ let
         };
       } // packageOverrides)) { };
 
-    exvcr_0_7_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, meck_0_8_4, httpotion_2_2_2, httpoison_0_8_3, exjsx_3_2_0, exactor_2_2_0
+    exvcr_0_7_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , meck_0_8_4, httpotion_2_2_2, httpoison_0_8_3, exjsx_3_2_0, exactor_2_2_0
       }:
       buildMix ({
         name = "exvcr";
@@ -13361,8 +13345,8 @@ let
 
     exvcr = exvcr_0_7_4;
 
-    exyelp_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, oauther_1_0_2, httpoison_0_8_3 }:
+    exyelp_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, oauther_1_0_2, httpoison_0_8_3 }:
       buildMix ({
         name = "exyelp";
         version = "0.0.2";
@@ -13455,8 +13439,8 @@ let
 
     ezcryptex = ezcryptex_0_0_1;
 
-    facebook_messenger_0_3_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, httpotion_2_2_2 }:
+    facebook_messenger_0_3_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, plug_1_1_5, httpotion_2_2_2 }:
       buildMix ({
         name = "facebook_messenger";
         version = "0.3.0";
@@ -13502,8 +13486,8 @@ let
 
     factory_girl_elixir = factory_girl_elixir_0_1_1;
 
-    fake_cas_1_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, cowboy_1_0_4, bypass_0_5_1 }:
+    fake_cas_1_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, cowboy_1_0_4, bypass_0_5_1 }:
       buildMix ({
         name = "fake_cas";
         version = "1.1.0";
@@ -13798,8 +13782,8 @@ let
 
     fernetex = fernetex_0_2_3;
 
-    fifo_s3_0_2_2 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, lager_3_0_2, hackney_1_6_0, erlcloud_0_13_2, base16_1_0_0
+    fifo_s3_0_2_2 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, lager_3_0_2, hackney_1_6_0, erlcloud_0_13_2, base16_1_0_0
       }:
       buildRebar3 ({
         name = "fifo_s3";
@@ -13918,8 +13902,8 @@ let
 
     finance = finance_0_0_1;
 
-    finicity_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, xml_builder_0_0_8, httpotion_2_2_2, floki_0_8_1 }:
+    finicity_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , xml_builder_0_0_8, httpotion_2_2_2, floki_0_8_1 }:
       buildMix ({
         name = "finicity";
         version = "0.0.5";
@@ -14251,8 +14235,8 @@ let
 
     folsomite = folsomite_1_2_8;
 
-    forcex_0_4_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, httpoison_0_8_3, exjsx_3_2_0 }:
+    forcex_0_4_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "forcex";
         version = "0.4.1";
@@ -14275,9 +14259,8 @@ let
 
     forcex = forcex_0_4_1;
 
-    forecast_io_0_2_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, json_0_3_3, httpotion_2_2_2
-      }:
+    forecast_io_0_2_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, json_0_3_3, httpotion_2_2_2 }:
       buildMix ({
         name = "forecast_io";
         version = "0.2.2";
@@ -14323,8 +14306,8 @@ let
 
     fox = fox_1_0_1;
 
-    freegeoip_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    freegeoip_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "freegeoip";
         version = "0.0.4";
@@ -14436,8 +14419,8 @@ let
 
     fugue = fugue_0_1_3;
 
-    fulcrum_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    fulcrum_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "fulcrum";
         version = "0.0.6";
@@ -14486,8 +14469,8 @@ let
 
     fumanchu = fumanchu_0_0_1;
 
-    funchaku_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    funchaku_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "funchaku";
         version = "0.1.0";
@@ -14532,8 +14515,8 @@ let
 
     function_decorating = function_decorating_0_0_6;
 
-    funkspector_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, floki_0_8_1, httpoison_0_8_3 }:
+    funkspector_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, floki_0_8_1, httpoison_0_8_3 }:
       buildMix ({
         name = "funkspector";
         version = "0.0.1";
@@ -14710,8 +14693,8 @@ let
 
     gatekeeper = gatekeeper_0_0_1;
 
-    gateway_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3, fox_1_0_1 }:
+    gateway_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3, fox_1_0_1 }:
       buildMix ({
         name = "gateway";
         version = "0.0.6";
@@ -14804,8 +14787,8 @@ let
 
     gelf_logger = gelf_logger_0_2_0;
 
-    gelfex_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, connection_1_0_2 }:
+    gelfex_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, connection_1_0_2 }:
       buildMix ({
         name = "gelfex";
         version = "0.0.1";
@@ -15283,8 +15266,8 @@ let
 
     gitex = gitex_0_2_0;
 
-    github_oauth_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    github_oauth_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "github_oauth";
         version = "0.1.1";
@@ -15305,8 +15288,8 @@ let
 
     github_oauth = github_oauth_0_1_1;
 
-    github_trend_ex_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    github_trend_ex_0_1_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "github_trend_ex";
         version = "0.1.2";
@@ -15438,8 +15421,8 @@ let
 
     gm = gm_0_0_2;
 
-    gmail_0_1_11 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, poison_2_1_0, httpoison_0_8_3 }:
+    gmail_0_1_11 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "gmail";
         version = "0.1.11";
@@ -15460,8 +15443,8 @@ let
 
     gmail = gmail_0_1_11;
 
-    gold_0_12_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3, decimal_1_1_2 }:
+    gold_0_12_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3, decimal_1_1_2 }:
       buildMix ({
         name = "gold";
         version = "0.12.0";
@@ -15569,9 +15552,9 @@ let
 
     good_times = good_times_1_1_1;
 
-    google_auth_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, module_mocker_0_2_0, cowboy_1_0_4, access_token_extractor_0_1_1
-      }:
+    google_auth_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, plug_1_1_5, module_mocker_0_2_0, cowboy_1_0_4
+      , access_token_extractor_0_1_1 }:
       buildMix ({
         name = "google_auth";
         version = "0.0.2";
@@ -15602,8 +15585,8 @@ let
 
     google_auth = google_auth_0_0_2;
 
-    google_books_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    google_books_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "google_books";
         version = "0.0.2";
@@ -15624,8 +15607,8 @@ let
 
     google_books = google_books_0_0_2;
 
-    google_sheets_2_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, sweet_xml_0_6_1, httpoison_0_8_3, hackney_1_6_0 }:
+    google_sheets_2_0_5 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, sweet_xml_0_6_1, httpoison_0_8_3, hackney_1_6_0 }:
       buildMix ({
         name = "google_sheets";
         version = "2.0.5";
@@ -15671,8 +15654,8 @@ let
 
     goomoji_translator = goomoji_translator_0_0_2;
 
-    goth_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, json_web_token_0_2_5, httpoison_0_8_3 }:
+    goth_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, json_web_token_0_2_5, httpoison_0_8_3 }:
       buildMix ({
         name = "goth";
         version = "0.0.3";
@@ -15694,8 +15677,8 @@ let
         };
       } // packageOverrides)) { };
 
-    goth_0_1_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, json_web_token_0_2_5, httpoison_0_8_3 }:
+    goth_0_1_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, json_web_token_0_2_5, httpoison_0_8_3 }:
       buildMix ({
         name = "goth";
         version = "0.1.3";
@@ -15972,8 +15955,8 @@ let
 
     gray = gray_0_0_2;
 
-    greenhouse_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, httpoison_0_8_3, exjsx_3_2_0 }:
+    greenhouse_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "greenhouse";
         version = "0.0.1";
@@ -16087,8 +16070,8 @@ let
 
     guardsafe = guardsafe_0_5_0;
 
-    gun_1_0_0_pre_1 = callPackage ({ buildErlangMk, packageOverrides ?
-      { }, fetchHex, ranch_1_1_0, cowlib_1_3_0 }:
+    gun_1_0_0_pre_1 = callPackage ({ buildErlangMk, packageOverrides ? { }
+      , fetchHex, ranch_1_1_0, cowlib_1_3_0 }:
       buildErlangMk ({
         name = "gun";
         version = "1.0.0-pre.1";
@@ -16108,8 +16091,8 @@ let
 
     gun = gun_1_0_0_pre_1;
 
-    guri_0_2_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, websocket_client_1_1_0, poison_1_5_2, httpoison_0_8_3 }:
+    guri_0_2_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , websocket_client_1_1_0, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "guri";
         version = "0.2.1";
@@ -16174,9 +16157,9 @@ let
 
     gutenex = gutenex_0_2_0;
 
-    hackney_1_5_7 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, ssl_verify_fun_1_1_0, mimerl_1_0_2, metrics_1_0_1, idna_1_2_0, certifi_0_4_0
-      }:
+    hackney_1_5_7 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , ssl_verify_fun_1_1_0, mimerl_1_0_2, metrics_1_0_1, idna_1_2_0
+      , certifi_0_4_0 }:
       buildMix ({
         name = "hackney";
         version = "1.5.7";
@@ -16201,9 +16184,9 @@ let
         };
       } // packageOverrides)) { };
 
-    hackney_1_6_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, ssl_verify_fun_1_1_0, mimerl_1_0_2, metrics_1_0_1, idna_1_2_0, certifi_0_4_0
-      }:
+    hackney_1_6_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , ssl_verify_fun_1_1_0, mimerl_1_0_2, metrics_1_0_1, idna_1_2_0
+      , certifi_0_4_0 }:
       buildMix ({
         name = "hackney";
         version = "1.6.0";
@@ -16322,8 +16305,8 @@ let
 
     harakiri = harakiri_1_0_1;
 
-    harvest_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    harvest_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "harvest";
         version = "0.0.3";
@@ -16561,8 +16544,8 @@ let
 
     hex_math = hex_math_0_0_2;
 
-    hex_searcher_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, table_rex_0_4_0, ibrowse_4_2_2, httpotion_2_2_2, floki_0_7_2
+    hex_searcher_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, table_rex_0_4_0, ibrowse_4_2_2, httpotion_2_2_2, floki_0_7_2
       }:
       buildMix ({
         name = "hex_searcher";
@@ -16649,8 +16632,8 @@ let
 
     hexdocset = hexdocset_1_0_0;
 
-    hipchat_logger_backend_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    hipchat_logger_backend_0_1_2 = callPackage ({ buildMix
+      , packageOverrides ? { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "hipchat_logger_backend";
         version = "0.1.2";
@@ -16737,8 +16720,8 @@ let
 
     holidays = holidays_0_1_1;
 
-    honeybadger_0_5_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
+    honeybadger_0_5_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
       buildMix ({
         name = "honeybadger";
         version = "0.5.0";
@@ -16783,8 +16766,8 @@ let
 
     hooks = hooks_1_1_1;
 
-    hound_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    hound_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "hound";
         version = "1.0.0";
@@ -17007,8 +16990,8 @@ let
 
     http_params_serializer = http_params_serializer_0_1_1;
 
-    http_proxy_1_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, hackney_1_6_0, exjsx_3_2_0, cowboy_1_0_4 }:
+    http_proxy_1_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, hackney_1_6_0, exjsx_3_2_0, cowboy_1_0_4 }:
       buildMix ({
         name = "http_proxy";
         version = "1.0.2";
@@ -17031,9 +17014,8 @@ let
 
     http_proxy = http_proxy_1_0_2;
 
-    http_router_0_0_8 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, xml_builder_0_0_8, poison_1_5_2, plug_1_1_5, cowboy_1_0_4
-      }:
+    http_router_0_0_8 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, xml_builder_0_0_8, poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "http_router";
         version = "0.0.8";
@@ -17080,9 +17062,8 @@ let
 
     http_signature = http_signature_1_1_0;
 
-    httparrot_0_3_4 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, exjsx_3_2_0, cowboy_1_0_4
-      }:
+    httparrot_0_3_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , exjsx_3_2_0, cowboy_1_0_4 }:
       buildMix ({
         name = "httparrot";
         version = "0.3.4";
@@ -17264,9 +17245,8 @@ let
 
     huami = huami_0_0_1;
 
-    huex_0_5_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, json_0_3_3, httpoison_0_8_3
-      }:
+    huex_0_5_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , json_0_3_3, httpoison_0_8_3 }:
       buildMix ({
         name = "huex";
         version = "0.5.0";
@@ -17377,8 +17357,8 @@ let
 
     hyde = hyde_0_0_1;
 
-    hydra_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, porcelain_2_0_1, poison_1_5_2, plug_1_1_5, httpoison_0_8_3, cowboy_1_0_4
+    hydra_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , porcelain_2_0_1, poison_1_5_2, plug_1_1_5, httpoison_0_8_3, cowboy_1_0_4
       }:
       buildMix ({
         name = "hydra";
@@ -17471,9 +17451,8 @@ let
 
     hypex = hypex_1_1_0;
 
-    i18n_0_0_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, tipo_0_0_3, exprintf_0_1_6
-      }:
+    i18n_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , tipo_0_0_3, exprintf_0_1_6 }:
       buildMix ({
         name = "i18n";
         version = "0.0.2";
@@ -17902,8 +17881,8 @@ let
 
     inflections = inflections_0_0_1;
 
-    inflections_en_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, inflector_0_0_11, inflections_0_0_1 }:
+    inflections_en_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, inflector_0_0_11, inflections_0_0_1 }:
       buildMix ({
         name = "inflections_en";
         version = "0.0.1";
@@ -17924,8 +17903,8 @@ let
 
     inflections_en = inflections_en_0_0_1;
 
-    inflections_es_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, inflector_0_0_11, inflections_0_0_1 }:
+    inflections_es_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, inflector_0_0_11, inflections_0_0_1 }:
       buildMix ({
         name = "inflections_es";
         version = "0.0.1";
@@ -18096,8 +18075,8 @@ let
 
     insert_ordered_set = insert_ordered_set_0_0_1;
 
-    insight_0_1_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    insight_0_1_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "insight";
         version = "0.1.4";
@@ -18213,9 +18192,8 @@ let
 
     ipa = ipa_0_0_3;
 
-    iplist_1_0_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, earmark_0_2_1, cidr_1_0_0
-      }:
+    iplist_1_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , earmark_0_2_1, cidr_1_0_0 }:
       buildMix ({
         name = "iplist";
         version = "1.0.2";
@@ -18373,8 +18351,8 @@ let
 
     isaac = isaac_0_0_1;
 
-    isbndbex_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    isbndbex_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "isbndbex";
         version = "0.1.0";
@@ -18395,9 +18373,8 @@ let
 
     isbndbex = isbndbex_0_1_0;
 
-    iso3166_0_0_4 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poison_2_1_0, floki_0_8_1
-      }:
+    iso3166_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, floki_0_8_1 }:
       buildMix ({
         name = "iso3166";
         version = "0.0.4";
@@ -18470,8 +18447,8 @@ let
 
     japan_municipality_code = japan_municipality_code_1_0_1;
 
-    jc_1_2_0 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, ranch_1_1_0, lager_3_0_1, jwalk_1_1_0, jsone_1_2_0 }:
+    jc_1_2_0 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , ranch_1_1_0, lager_3_0_1, jwalk_1_1_0, jsone_1_2_0 }:
       buildRebar3 ({
         name = "jc";
         version = "1.2.0";
@@ -18539,8 +18516,8 @@ let
 
     jesse = jesse_0_1_3;
 
-    jira_0_0_8 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    jira_0_0_8 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "jira";
         version = "0.0.8";
@@ -18585,8 +18562,8 @@ let
 
     jobspool = jobspool_0_1_0;
 
-    joken_0_16_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_1_1_5, jose_1_7_5 }:
+    joken_0_16_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_1_1_5, jose_1_7_5 }:
       buildMix ({
         name = "joken";
         version = "0.16.1";
@@ -18605,8 +18582,8 @@ let
         };
       } // packageOverrides)) { };
 
-    jolt_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
+    jolt_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "jolt";
         version = "0.1.0";
@@ -19168,8 +19145,8 @@ let
 
     jwalk = jwalk_1_1_2;
 
-    jwt_0_1_2 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, jsx_2_8_0, base64url_0_0_1 }:
+    jwt_0_1_2 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , jsx_2_8_0, base64url_0_0_1 }:
       buildRebar3 ({
         name = "jwt";
         version = "0.1.2";
@@ -19412,8 +19389,8 @@ let
 
     keys1value = keys1value_1_5_1;
 
-    kinja_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    kinja_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "kinja";
         version = "0.0.1";
@@ -19459,8 +19436,8 @@ let
 
     kitsune = kitsune_0_5_2;
 
-    kitto_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, cowboy_1_0_4 }:
+    kitto_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "kitto";
         version = "0.0.1";
@@ -19481,8 +19458,8 @@ let
 
     kitto = kitto_0_0_1;
 
-    kubex_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    kubex_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "kubex";
         version = "0.1.1";
@@ -19729,8 +19706,8 @@ let
 
     leftpad = leftpad_1_0_1;
 
-    lessonly_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    lessonly_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "lessonly";
         version = "0.0.1";
@@ -19958,8 +19935,8 @@ let
 
     liquid = liquid_0_2_2;
 
-    lob_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, chacha20_0_3_2 }:
+    lob_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, chacha20_0_3_2 }:
       buildMix ({
         name = "lob";
         version = "0.1.0";
@@ -20176,8 +20153,8 @@ let
 
     logi_stdlib = logi_stdlib_0_1_0;
 
-    lolcat_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, quickrand_1_5_1, colorful_0_6_0 }:
+    lolcat_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , quickrand_1_5_1, colorful_0_6_0 }:
       buildMix ({
         name = "lolcat";
         version = "0.0.1";
@@ -20366,9 +20343,8 @@ let
 
     lz_string = lz_string_0_0_5;
 
-    m2x_2_0_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, json_0_3_3, hackney_1_6_0
-      }:
+    m2x_2_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , json_0_3_3, hackney_1_6_0 }:
       buildMix ({
         name = "m2x";
         version = "2.0.0";
@@ -20423,8 +20399,8 @@ let
 
     m2x_erlang = m2x_erlang_1_3_1;
 
-    maas_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, poison_2_1_0 }:
+    maas_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, poison_2_1_0 }:
       buildMix ({
         name = "maas";
         version = "1.0.0";
@@ -20447,8 +20423,8 @@ let
 
     maas = maas_1_0_0;
 
-    maester_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    maester_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "maester";
         version = "1.0.0";
@@ -20532,8 +20508,8 @@ let
 
     mail = mail_0_0_4;
 
-    mailer_1_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, gen_smtp_0_10_0 }:
+    mailer_1_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, gen_smtp_0_10_0 }:
       buildMix ({
         name = "mailer";
         version = "1.0.1";
@@ -20624,8 +20600,8 @@ let
 
     mandrake = mandrake_0_0_4;
 
-    mandrill_0_5_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    mandrill_0_5_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "mandrill";
         version = "0.5.0";
@@ -20671,8 +20647,8 @@ let
 
     maptu = maptu_0_1_0;
 
-    marco_polo_0_2_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, decimal_1_1_2, connection_1_0_2 }:
+    marco_polo_0_2_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , decimal_1_1_2, connection_1_0_2 }:
       buildMix ({
         name = "marco_polo";
         version = "0.2.2";
@@ -20734,8 +20710,8 @@ let
 
     marked = marked_0_0_1;
 
-    markit_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    markit_0_1_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "markit";
         version = "0.1.2";
@@ -20756,8 +20732,8 @@ let
 
     markit = markit_0_1_2;
 
-    markit_skill_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, markit_0_1_2, inflex_1_5_0, alexa_0_1_14 }:
+    markit_skill_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, markit_0_1_2, inflex_1_5_0, alexa_0_1_14 }:
       buildMix ({
         name = "markit_skill";
         version = "0.0.2";
@@ -20873,8 +20849,8 @@ let
 
     math = math_0_2_0;
 
-    matrix_0_3_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, exprintf_0_1_6, earmark_0_2_1 }:
+    matrix_0_3_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , exprintf_0_1_6, earmark_0_2_1 }:
       buildMix ({
         name = "matrix";
         version = "0.3.1";
@@ -21010,10 +20986,9 @@ let
 
     mazurka_mediatype = mazurka_mediatype_0_2_0;
 
-    mazurka_mediatype_hyperjson_0_2_3 = callPackage
-      ({ buildMix, packageOverrides ?
-        { }, fetchHex, poison_1_3_1, mazurka_mediatype_0_2_0, etude_1_0_0_beta_2
-      }:
+    mazurka_mediatype_hyperjson_0_2_3 = callPackage ({ buildMix
+      , packageOverrides ? { }, fetchHex, poison_1_3_1, mazurka_mediatype_0_2_0
+      , etude_1_0_0_beta_2 }:
       buildMix ({
         name = "mazurka_mediatype_hyperjson";
         version = "0.2.3";
@@ -21099,8 +21074,8 @@ let
 
     mdns_server = mdns_server_0_2_0;
 
-    mdns_server_lib_0_2_3 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, ranch_1_1_0, mdns_server_0_2_0, lager_3_0_2 }:
+    mdns_server_lib_0_2_3 = callPackage ({ buildRebar3, packageOverrides ? { }
+      , fetchHex, ranch_1_1_0, mdns_server_0_2_0, lager_3_0_2 }:
       buildRebar3 ({
         name = "mdns_server_lib";
         version = "0.2.3";
@@ -21227,8 +21202,8 @@ let
 
     mem = mem_0_2_0;
 
-    memcache_client_1_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, poison_2_1_0, connection_1_0_2 }:
+    memcache_client_1_1_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poolboy_1_5_1, poison_2_1_0, connection_1_0_2 }:
       buildMix ({
         name = "memcache_client";
         version = "1.1.0";
@@ -21299,8 +21274,8 @@ let
 
     messagepack = messagepack_0_4_1;
 
-    messenger_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    messenger_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "messenger";
         version = "0.0.2";
@@ -21320,8 +21295,8 @@ let
 
     messenger = messenger_0_0_2;
 
-    meta_inspector_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    meta_inspector_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "meta_inspector";
         version = "0.0.2";
@@ -21501,8 +21476,8 @@ let
 
     mex = mex_0_0_5;
 
-    microformats2_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpotion_2_2_2, floki_0_7_2 }:
+    microformats2_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpotion_2_2_2, floki_0_7_2 }:
       buildMix ({
         name = "microformats2";
         version = "0.0.5";
@@ -21526,8 +21501,8 @@ let
 
     microformats2 = microformats2_0_0_5;
 
-    milkpotion_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, poison_2_1_0 }:
+    milkpotion_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, poison_2_1_0 }:
       buildMix ({
         name = "milkpotion";
         version = "0.0.2";
@@ -21889,9 +21864,8 @@ let
 
     mix_test_watch = mix_test_watch_0_2_6;
 
-    mixgraph_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, json_0_3_3, httpotion_2_2_2
-      }:
+    mixgraph_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , json_0_3_3, httpotion_2_2_2 }:
       buildMix ({
         name = "mixgraph";
         version = "0.0.1";
@@ -21938,8 +21912,8 @@ let
 
     mixpanel = mixpanel_0_0_3;
 
-    mixpanel_api_ex_0_8_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    mixpanel_api_ex_0_8_3 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "mixpanel_api_ex";
         version = "0.8.3";
@@ -21960,8 +21934,8 @@ let
 
     mixpanel_api_ex = mixpanel_api_ex_0_8_3;
 
-    mixpanel_data_client_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_3_1, httpoison_0_8_3 }:
+    mixpanel_data_client_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_3_1, httpoison_0_8_3 }:
       buildMix ({
         name = "mixpanel_data_client";
         version = "0.0.2";
@@ -22004,9 +21978,8 @@ let
 
     mixunit = mixunit_0_9_2;
 
-    mmExchangeRate_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, jsx_2_8_0, httpotion_2_2_2
-      }:
+    mmExchangeRate_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, jsx_2_8_0, httpotion_2_2_2 }:
       buildMix ({
         name = "mmExchangeRate";
         version = "0.0.1";
@@ -22352,8 +22325,8 @@ let
 
     monadex = monadex_1_0_2;
 
-    mondo_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
+    mondo_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, plug_1_1_5, httpoison_0_8_3 }:
       buildMix ({
         name = "mondo";
         version = "0.1.0";
@@ -22374,8 +22347,8 @@ let
 
     mondo = mondo_0_1_0;
 
-    mongodb_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, connection_1_0_2 }:
+    mongodb_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, connection_1_0_2 }:
       buildMix ({
         name = "mongodb";
         version = "0.1.1";
@@ -22500,8 +22473,8 @@ let
 
     mpinyin = mpinyin_0_0_2;
 
-    mpower_1_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    mpower_1_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "mpower";
         version = "1.0.1";
@@ -22655,8 +22628,8 @@ let
 
     multiset = multiset_0_0_4;
 
-    murdoch_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3, goth_0_0_3 }:
+    murdoch_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3, goth_0_0_3 }:
       buildMix ({
         name = "murdoch";
         version = "0.0.1";
@@ -22834,8 +22807,8 @@ let
 
     n2o = n2o_2_3_0;
 
-    nadia_0_4_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    nadia_0_4_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "nadia";
         version = "0.4.0";
@@ -22967,9 +22940,8 @@ let
 
     nativegen = nativegen_0_4_1;
 
-    nats_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poolboy_1_5_1, json_0_3_3
-      }:
+    nats_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, json_0_3_3 }:
       buildMix ({
         name = "nats";
         version = "0.0.1";
@@ -23106,9 +23078,9 @@ let
 
     navigation_tree = navigation_tree_0_4_4;
 
-    ndc_ex_sdk_0_2_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, httpotion_2_2_2, ibrowse_4_2_2, pipe_0_0_2, xml_builder_0_0_8
-      }:
+    ndc_ex_sdk_0_2_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_2_1_6, httpotion_2_2_2, ibrowse_4_2_2, pipe_0_0_2
+      , xml_builder_0_0_8 }:
       buildMix ({
         name = "ndc_ex_sdk";
         version = "0.2.1";
@@ -23214,8 +23186,8 @@ let
 
     nerves_io_neopixel = nerves_io_neopixel_0_2_0;
 
-    nerves_system_0_1_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, porcelain_2_0_1, httpoison_0_8_3 }:
+    nerves_system_0_1_4 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, porcelain_2_0_1, httpoison_0_8_3 }:
       buildMix ({
         name = "nerves_system";
         version = "0.1.4";
@@ -23487,8 +23459,8 @@ let
 
     nile = nile_0_1_3;
 
-    ninjaproxies_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    ninjaproxies_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "ninjaproxies";
         version = "0.2.0";
@@ -23509,8 +23481,8 @@ let
 
     ninjaproxies = ninjaproxies_0_2_0;
 
-    njord_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    njord_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "njord";
         version = "0.1.1";
@@ -23663,8 +23635,8 @@ let
 
     numerix = numerix_0_0_4;
 
-    oauth2_0_3_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_1_1_5, httpoison_0_8_3, hackney_1_6_0 }:
+    oauth2_0_3_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_1_1_5, httpoison_0_8_3, hackney_1_6_0 }:
       buildMix ({
         name = "oauth2";
         version = "0.3.0";
@@ -23746,8 +23718,8 @@ let
 
     octet = octet_0_0_2;
 
-    octokit_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_1_0_2, poison_2_1_0, httpoison_0_8_3 }:
+    octokit_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_1_0_2, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "octokit";
         version = "0.1.0";
@@ -23900,8 +23872,8 @@ let
 
     ok_jose = ok_jose_2_0_0;
 
-    one_signal_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    one_signal_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "one_signal";
         version = "0.0.6";
@@ -23964,8 +23936,8 @@ let
 
     oop = oop_0_1_0;
 
-    opbeat_0_3_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    opbeat_0_3_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "opbeat";
         version = "0.3.0";
@@ -23986,8 +23958,8 @@ let
 
     opbeat = opbeat_0_3_0;
 
-    open_graphx_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    open_graphx_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "open_graphx";
         version = "0.0.2";
@@ -24008,8 +23980,8 @@ let
 
     open_graphx = open_graphx_0_0_2;
 
-    openmaize_jwt_0_9_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, plug_1_1_5, cowboy_1_0_4 }:
+    openmaize_jwt_0_9_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "openmaize_jwt";
         version = "0.9.0";
@@ -24032,8 +24004,8 @@ let
 
     openmaize_jwt = openmaize_jwt_0_9_0;
 
-    openstack_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, maybe_0_0_1, httpoison_0_8_3 }:
+    openstack_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, maybe_0_0_1, httpoison_0_8_3 }:
       buildMix ({
         name = "openstack";
         version = "0.0.5";
@@ -24054,8 +24026,8 @@ let
 
     openstack = openstack_0_0_5;
 
-    openstax_keystone_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_2_1_6, poison_1_5_2, httpoison_0_8_3, connection_1_0_2
+    openstax_keystone_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, timex_2_1_6, poison_1_5_2, httpoison_0_8_3, connection_1_0_2
       }:
       buildMix ({
         name = "openstax_keystone";
@@ -24078,8 +24050,8 @@ let
 
     openstax_keystone = openstax_keystone_0_1_1;
 
-    openstax_swift_0_1_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    openstax_swift_0_1_4 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "openstax_swift";
         version = "0.1.4";
@@ -24184,8 +24156,8 @@ let
 
     pact = pact_0_2_0;
 
-    pagarmex_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    pagarmex_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "pagarmex";
         version = "0.1.0";
@@ -24206,8 +24178,8 @@ let
 
     pagarmex = pagarmex_0_1_0;
 
-    pagexduty_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_1_0 }:
+    pagexduty_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_1_0 }:
       buildMix ({
         name = "pagexduty";
         version = "0.1.0";
@@ -24429,8 +24401,8 @@ let
 
     paratize = paratize_2_1_3;
 
-    parse_torrent_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, earmark_0_2_1, bencode_0_3_0 }:
+    parse_torrent_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, earmark_0_2_1, bencode_0_3_0 }:
       buildMix ({
         name = "parse_torrent";
         version = "0.2.0";
@@ -24494,8 +24466,8 @@ let
 
     parsey = parsey_0_0_1;
 
-    pass_0_3_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, json_web_token_0_2_5 }:
+    pass_0_3_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, json_web_token_0_2_5 }:
       buildMix ({
         name = "pass";
         version = "0.3.0";
@@ -24679,8 +24651,8 @@ let
 
     pdf2htmlex = pdf2htmlex_0_2_0;
 
-    pdf_generator_0_3_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, porcelain_2_0_1, misc_random_0_2_6 }:
+    pdf_generator_0_3_3 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, porcelain_2_0_1, misc_random_0_2_6 }:
       buildMix ({
         name = "pdf_generator";
         version = "0.3.3";
@@ -24790,8 +24762,8 @@ let
 
     pg2pubsub = pg2pubsub_0_2_13;
 
-    pgapp_0_0_1 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, epgsql_3_1_1 }:
+    pgapp_0_0_1 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, epgsql_3_1_1 }:
       buildRebar3 ({
         name = "pgapp";
         version = "0.0.1";
@@ -24812,8 +24784,8 @@ let
 
     pgapp = pgapp_0_0_1;
 
-    phasedb_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, inflex_1_5_0, heap_1_0_0, calendar_0_12_4 }:
+    phasedb_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, inflex_1_5_0, heap_1_0_0, calendar_0_12_4 }:
       buildMix ({
         name = "phasedb";
         version = "0.0.2";
@@ -24833,9 +24805,9 @@ let
 
     phasedb = phasedb_0_0_2;
 
-    phasedb_client_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, websocket_client_1_1_0, table_rex_0_8_0, poison_2_1_0, phasedb_0_0_2, calendar_0_12_4
-      }:
+    phasedb_client_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, websocket_client_1_1_0, table_rex_0_8_0, poison_2_1_0
+      , phasedb_0_0_2, calendar_0_12_4 }:
       buildMix ({
         name = "phasedb_client";
         version = "0.0.1";
@@ -24863,8 +24835,8 @@ let
 
     phasedb_client = phasedb_client_0_0_1;
 
-    phasedb_server_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, phasedb_0_0_2, cowboy_1_0_4, calendar_0_12_4 }:
+    phasedb_server_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, phasedb_0_0_2, cowboy_1_0_4, calendar_0_12_4 }:
       buildMix ({
         name = "phasedb_server";
         version = "0.0.1";
@@ -24884,8 +24856,8 @@ let
 
     phasedb_server = phasedb_server_0_0_1;
 
-    phoenix_1_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
+    phoenix_1_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "phoenix";
         version = "1.0.4";
@@ -25081,8 +25053,8 @@ let
 
     phst_transform = phst_transform_1_0_0;
 
-    pigeon_0_7_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    pigeon_0_7_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "pigeon";
         version = "0.7.0";
@@ -25128,8 +25100,8 @@ let
 
     piliponi = piliponi_0_0_1;
 
-    pinboardixir_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    pinboardixir_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "pinboardixir";
         version = "0.2.0";
@@ -25150,8 +25122,8 @@ let
 
     pinboardixir = pinboardixir_0_2_0;
 
-    pinglix_1_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_0_19_5, poison_1_4_0, plug_1_1_5 }:
+    pinglix_1_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_0_19_5, poison_1_4_0, plug_1_1_5 }:
       buildMix ({
         name = "pinglix";
         version = "1.1.1";
@@ -25325,8 +25297,8 @@ let
 
     pkcs7 = pkcs7_1_0_2;
 
-    plaid_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    plaid_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "plaid";
         version = "0.0.1";
@@ -25395,8 +25367,8 @@ let
 
     plist = plist_0_0_4;
 
-    plivo_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    plivo_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "plivo";
         version = "0.0.1";
@@ -25616,8 +25588,8 @@ let
 
     plug_accept_language = plug_accept_language_0_1_0;
 
-    plug_accesslog_0_11_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, tzdata_0_5_8, timex_2_1_6, plug_1_1_5, cowboy_1_0_4 }:
+    plug_accesslog_0_11_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, tzdata_0_5_8, timex_2_1_6, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "plug_accesslog";
         version = "0.11.0";
@@ -25735,9 +25707,8 @@ let
 
     plug_fprof = plug_fprof_0_0_1;
 
-    plug_geoip2_0_4_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, geolix_0_10_1
-      }:
+    plug_geoip2_0_4_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, plug_1_1_5, geolix_0_10_1 }:
       buildMix ({
         name = "plug_geoip2";
         version = "0.4.2";
@@ -26018,9 +25989,8 @@ let
 
     plug_runtime = plug_runtime_1_0_0;
 
-    plug_statsd_0_4_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, ex_statsd_0_5_3
-      }:
+    plug_statsd_0_4_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, plug_1_1_5, ex_statsd_0_5_3 }:
       buildMix ({
         name = "plug_statsd";
         version = "0.4.1";
@@ -26087,8 +26057,8 @@ let
 
     plug_utm = plug_utm_0_0_2;
 
-    plug_wait1_0_1_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_3_1, plug_0_13_1, cowboy_1_0_4 }:
+    plug_wait1_0_1_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_3_1, plug_0_13_1, cowboy_1_0_4 }:
       buildMix ({
         name = "plug_wait1";
         version = "0.1.5";
@@ -26265,8 +26235,8 @@ let
 
     pobox = pobox_1_0_2;
 
-    pocketeer_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpotion_2_2_2 }:
+    pocketeer_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpotion_2_2_2 }:
       buildMix ({
         name = "pocketeer";
         version = "0.1.1";
@@ -26287,8 +26257,8 @@ let
 
     pocketeer = pocketeer_0_1_1;
 
-    pocketex_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_3_1, httpoison_0_8_3 }:
+    pocketex_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_3_1, httpoison_0_8_3 }:
       buildMix ({
         name = "pocketex";
         version = "0.1.0";
@@ -26441,9 +26411,8 @@ let
 
     poker = poker_0_0_2;
 
-    poloniex_0_0_8 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, vex_0_5_5, poison_2_1_0, httpoison_0_8_3, exconstructor_1_0_2
-      }:
+    poloniex_0_0_8 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , vex_0_5_5, poison_2_1_0, httpoison_0_8_3, exconstructor_1_0_2 }:
       buildMix ({
         name = "poloniex";
         version = "0.0.8";
@@ -26468,8 +26437,8 @@ let
 
     poloniex = poloniex_0_0_8;
 
-    poly1305_0_4_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, equivalex_0_1_0, chacha20_0_3_2 }:
+    poly1305_0_4_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , equivalex_0_1_0, chacha20_0_3_2 }:
       buildMix ({
         name = "poly1305";
         version = "0.4.1";
@@ -27048,8 +27017,8 @@ let
 
     pretty_hex = pretty_hex_0_0_1;
 
-    pricing_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_1_0_2, porcelain_2_0_1 }:
+    pricing_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_1_0_2, porcelain_2_0_1 }:
       buildMix ({
         name = "pricing";
         version = "0.0.1";
@@ -27160,8 +27129,8 @@ let
 
     prometheus = prometheus_0_2_0;
 
-    prometheus_plugs_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, prometheus_0_2_0, plug_1_1_5, cowboy_1_0_4 }:
+    prometheus_plugs_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, prometheus_0_2_0, plug_1_1_5, cowboy_1_0_4 }:
       buildMix ({
         name = "prometheus_plugs";
         version = "0.0.3";
@@ -27257,9 +27226,8 @@ let
 
     proplist = proplist_1_1_0;
 
-    proto_def_0_0_4 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poison_2_1_0, estree_2_3_0
-      }:
+    proto_def_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, estree_2_3_0 }:
       buildMix ({
         name = "proto_def";
         version = "0.0.4";
@@ -27327,8 +27295,8 @@ let
 
     providers = providers_1_6_0;
 
-    proxy_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, plug_1_1_5, httpoison_0_8_3, cowboy_1_0_4 }:
+    proxy_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, httpoison_0_8_3, cowboy_1_0_4 }:
       buildMix ({
         name = "proxy";
         version = "0.0.1";
@@ -27397,8 +27365,8 @@ let
 
     publicsuffix = publicsuffix_0_0_1;
 
-    pubnub_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    pubnub_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "pubnub_ex";
         version = "0.0.2";
@@ -27439,8 +27407,8 @@ let
 
     pubsub = pubsub_0_0_2;
 
-    qdate_0_4_3 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, erlware_commons_0_20_0, erlang_localtime_1_0_0 }:
+    qdate_0_4_3 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , erlware_commons_0_20_0, erlang_localtime_1_0_0 }:
       buildRebar3 ({
         name = "qdate";
         version = "0.4.3";
@@ -27462,8 +27430,8 @@ let
 
     qdate = qdate_0_4_3;
 
-    qiita_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    qiita_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "qiita_ex";
         version = "0.0.2";
@@ -27484,8 +27452,8 @@ let
 
     qiita_ex = qiita_ex_0_0_2;
 
-    qiniu_0_3_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    qiniu_0_3_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "qiniu";
         version = "0.3.0";
@@ -27769,9 +27737,8 @@ let
 
     ralitobu = ralitobu_0_1_0;
 
-    ralitobu_plug_0_1_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, ralitobu_0_1_0, plug_1_1_5
-      }:
+    ralitobu_plug_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, ralitobu_0_1_0, plug_1_1_5 }:
       buildMix ({
         name = "ralitobu_plug";
         version = "0.1.0";
@@ -27903,8 +27870,8 @@ let
 
     rankmatcher = rankmatcher_0_1_5;
 
-    rapidax_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3, cowboy_1_0_4 }:
+    rapidax_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3, cowboy_1_0_4 }:
       buildMix ({
         name = "rapidax";
         version = "0.0.3";
@@ -28026,8 +27993,8 @@ let
 
     ravel = ravel_0_0_6;
 
-    ravenex_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, uuid_1_1_4, poison_2_1_0, httpoison_0_8_3 }:
+    ravenex_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , uuid_1_1_4, poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "ravenex";
         version = "0.0.5";
@@ -28052,8 +28019,8 @@ let
 
     ravenex = ravenex_0_0_5;
 
-    raxx_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, cowboy_1_0_4 }:
+    raxx_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, cowboy_1_0_4 }:
       buildMix ({
         name = "raxx";
         version = "0.0.1";
@@ -28079,9 +28046,8 @@ let
 
     raxx = raxx_0_0_1;
 
-    react_on_elixir_0_0_4 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poolboy_1_5_1, poison_1_5_2
-      }:
+    react_on_elixir_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poolboy_1_5_1, poison_1_5_2 }:
       buildMix ({
         name = "react_on_elixir";
         version = "0.0.4";
@@ -28123,8 +28089,8 @@ let
 
     read_repos = read_repos_0_0_1;
 
-    readability_0_5_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    readability_0_5_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "readability";
         version = "0.5.0";
@@ -28147,8 +28113,8 @@ let
 
     readability = readability_0_5_0;
 
-    readit_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    readit_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "readit";
         version = "0.0.3";
@@ -28259,9 +28225,8 @@ let
 
     rebar3_asn1_compiler = rebar3_asn1_compiler_1_0_0;
 
-    spell_0_1_0 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poison_1_4_0, msgpax_0_8_2
-      }:
+    spell_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_4_0, msgpax_0_8_2 }:
       buildMix ({
         name = "spell";
         version = "0.1.0";
@@ -28348,8 +28313,8 @@ let
 
     spherical = spherical_0_0_1;
 
-    spotify_ex_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_1_1_5, httpoison_0_8_3 }:
+    spotify_ex_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_1_1_5, httpoison_0_8_3 }:
       buildMix ({
         name = "spotify_ex";
         version = "0.0.4";
@@ -28392,8 +28357,8 @@ let
 
     spout = spout_0_0_1;
 
-    spreedly_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    spreedly_0_1_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "spreedly";
         version = "0.1.2";
@@ -28414,8 +28379,8 @@ let
 
     spreedly = spreedly_0_1_2;
 
-    sqlcx_1_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, esqlcipher_1_0_0, decimal_1_1_2 }:
+    sqlcx_1_1_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , esqlcipher_1_0_0, decimal_1_1_2 }:
       buildMix ({
         name = "sqlcx";
         version = "1.1.0";
@@ -28436,8 +28401,8 @@ let
 
     sqlcx = sqlcx_1_1_0;
 
-    sqlitex_0_8_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, pipe_0_0_2, esqlite_0_2_2, decimal_1_1_2 }:
+    sqlitex_0_8_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , pipe_0_0_2, esqlite_0_2_2, decimal_1_1_2 }:
       buildMix ({
         name = "sqlitex";
         version = "0.8.3";
@@ -28456,8 +28421,8 @@ let
         };
       } // packageOverrides)) { };
 
-    sqlitex_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, esqlite_0_2_2, decimal_1_1_2 }:
+    sqlitex_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , esqlite_0_2_2, decimal_1_1_2 }:
       buildMix ({
         name = "sqlitex";
         version = "1.0.0";
@@ -28643,8 +28608,8 @@ let
 
     statix = statix_0_7_0;
 
-    std_json_io_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, porcelain_2_0_1, poolboy_1_5_1, poison_1_5_2, fs_0_9_2 }:
+    std_json_io_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, porcelain_2_0_1, poolboy_1_5_1, poison_1_5_2, fs_0_9_2 }:
       buildMix ({
         name = "std_json_io";
         version = "0.1.0";
@@ -28666,8 +28631,8 @@ let
 
     std_json_io = std_json_io_0_1_0;
 
-    steamex_0_0_5 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, sweet_xml_0_6_1, httpoison_0_8_3 }:
+    steamex_0_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , sweet_xml_0_6_1, httpoison_0_8_3 }:
       buildMix ({
         name = "steamex";
         version = "0.0.5";
@@ -28737,8 +28702,8 @@ let
 
     stillir = stillir_1_0_0;
 
-    stockastic_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    stockastic_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "stockastic";
         version = "0.0.2";
@@ -28759,8 +28724,8 @@ let
 
     stockastic = stockastic_0_0_2;
 
-    stockfighter_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    stockfighter_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "stockfighter";
         version = "0.0.1";
@@ -29412,8 +29377,8 @@ let
 
     tane = tane_0_3_1;
 
-    tanuki_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    tanuki_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "tanuki";
         version = "0.2.0";
@@ -29476,8 +29441,8 @@ let
 
     tau = tau_0_0_6;
 
-    taxon_search_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpotion_2_2_2 }:
+    taxon_search_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, httpotion_2_2_2 }:
       buildMix ({
         name = "taxon_search";
         version = "0.0.1";
@@ -29563,8 +29528,8 @@ let
 
     teacup = teacup_0_3_4;
 
-    teacup_nats_0_4_0 = callPackage ({ buildRebar3, packageOverrides ?
-      { }, fetchHex, teacup_0_3_4, nats_msg_0_4_1, jsx_2_8_0 }:
+    teacup_nats_0_4_0 = callPackage ({ buildRebar3, packageOverrides ? { }
+      , fetchHex, teacup_0_3_4, nats_msg_0_4_1, jsx_2_8_0 }:
       buildRebar3 ({
         name = "teacup_nats";
         version = "0.4.0";
@@ -29653,8 +29618,8 @@ let
 
     telehashname = telehashname_0_0_2;
 
-    telephonist_0_1_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, immortal_0_2_0, ex_twiml_2_1_0 }:
+    telephonist_0_1_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, immortal_0_2_0, ex_twiml_2_1_0 }:
       buildMix ({
         name = "telephonist";
         version = "0.1.2";
@@ -29764,8 +29729,8 @@ let
 
     temporary_env = temporary_env_1_0_1;
 
-    tentabucket_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    tentabucket_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "tentabucket";
         version = "0.0.1";
@@ -29786,8 +29751,8 @@ let
 
     tentabucket = tentabucket_0_0_1;
 
-    tentacat_0_5_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    tentacat_0_5_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "tentacat";
         version = "0.5.1";
@@ -30132,9 +30097,8 @@ let
 
     time_seer = time_seer_0_0_6;
 
-    timex_0_19_5 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, tzdata_0_5_8, combine_0_8_0
-      }:
+    timex_0_19_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , tzdata_0_5_8, combine_0_8_0 }:
       buildMix ({
         name = "timex";
         version = "0.19.5";
@@ -30158,9 +30122,8 @@ let
         };
       } // packageOverrides)) { };
 
-    timex_1_0_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, tzdata_0_0_1, combine_0_8_0
-      }:
+    timex_1_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , tzdata_0_0_1, combine_0_8_0 }:
       buildMix ({
         name = "timex";
         version = "1.0.2";
@@ -30184,8 +30147,8 @@ let
         };
       } // packageOverrides)) { };
 
-    timex_2_1_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, gettext_0_11_0, combine_0_8_0, tzdata_0_0_1 }:
+    timex_2_1_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , gettext_0_11_0, combine_0_8_0, tzdata_0_0_1 }:
       buildMix ({
         name = "timex";
         version = "2.1.6";
@@ -30317,8 +30280,8 @@ let
 
     tlv = tlv_0_1_0;
 
-    tmdb_0_0_6 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_4_0, httpoison_0_8_3, exjsx_3_1_0 }:
+    tmdb_0_0_6 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_4_0, httpoison_0_8_3, exjsx_3_1_0 }:
       buildMix ({
         name = "tmdb";
         version = "0.0.6";
@@ -30355,8 +30318,8 @@ let
 
     todo = todo_1_2_0;
 
-    togglex_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    togglex_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "togglex";
         version = "0.2.0";
@@ -30377,9 +30340,8 @@ let
 
     togglex = togglex_0_2_0;
 
-    toglx_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, togglex_0_2_0, configparser_ex_0_2_1, argument_parser_0_1_3
-      }:
+    toglx_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , togglex_0_2_0, configparser_ex_0_2_1, argument_parser_0_1_3 }:
       buildMix ({
         name = "toglx";
         version = "0.0.1";
@@ -30423,9 +30385,8 @@ let
 
     tonic = tonic_0_0_1;
 
-    toniq_1_0_5 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, uuid_1_1_4, exredis_0_2_4
-      }:
+    toniq_1_0_5 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , uuid_1_1_4, exredis_0_2_4 }:
       buildMix ({
         name = "toniq";
         version = "1.0.5";
@@ -30518,9 +30479,8 @@ let
 
     tracing_helper = tracing_helper_0_0_3;
 
-    trackline_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, timex_1_0_2, exml_0_1_0, exmerl_0_1_1, erlsom_1_4_1, apex_0_3_7
-      }:
+    trackline_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , timex_1_0_2, exml_0_1_0, exmerl_0_1_1, erlsom_1_4_1, apex_0_3_7 }:
       buildMix ({
         name = "trackline";
         version = "0.0.1";
@@ -30542,9 +30502,8 @@ let
 
     trackline = trackline_0_0_1;
 
-    trackstar_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, poison_2_1_0, erlsom_1_4_1
-      }:
+    trackstar_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, erlsom_1_4_1 }:
       buildMix ({
         name = "trackstar";
         version = "0.0.1";
@@ -30650,8 +30609,8 @@ let
 
     transducer = transducer_0_1_0;
 
-    travis_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    travis_ex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "travis_ex";
         version = "0.0.2";
@@ -30672,8 +30631,8 @@ let
 
     travis_ex = travis_ex_0_0_2;
 
-    trello_1_3_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    trello_1_3_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "trello";
         version = "1.3.0";
@@ -30732,9 +30691,9 @@ let
 
     trie = trie_1_5_1;
 
-    trot_0_5_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, plug_heartbeat_0_2_0, plug_0_14_0, cowboy_1_0_4, calliope_0_3_0
-      }:
+    trot_0_5_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, plug_heartbeat_0_2_0, plug_0_14_0, cowboy_1_0_4
+      , calliope_0_3_0 }:
       buildMix ({
         name = "trot";
         version = "0.5.3";
@@ -30785,8 +30744,8 @@ let
 
     tsuru = tsuru_1_4_0;
 
-    tubex_0_0_7 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    tubex_0_0_7 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "tubex";
         version = "0.0.7";
@@ -30807,9 +30766,8 @@ let
 
     tubex = tubex_0_0_7;
 
-    tunnerl_0_2_2 = callPackage
-      ({ buildRebar3, packageOverrides ? { }, fetchHex, ranch_1_2_1, lager_3_0_2
-      }:
+    tunnerl_0_2_2 = callPackage ({ buildRebar3, packageOverrides ? { }, fetchHex
+      , ranch_1_2_1, lager_3_0_2 }:
       buildRebar3 ({
         name = "tunnerl";
         version = "0.2.2";
@@ -30831,8 +30789,8 @@ let
 
     tunnerl = tunnerl_0_2_2;
 
-    tvdb_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    tvdb_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "tvdb";
         version = "0.0.1";
@@ -30853,8 +30811,8 @@ let
 
     tvdb = tvdb_0_0_1;
 
-    twilex_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    twilex_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "twilex";
         version = "0.0.2";
@@ -30895,8 +30853,8 @@ let
 
     type = type_0_0_2;
 
-    typeformx_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    typeformx_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "typeformx";
         version = "0.0.1";
@@ -31097,9 +31055,8 @@ let
 
     ueberauth = ueberauth_0_2_0;
 
-    ueberauth_identity_0_2_3 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, ueberauth_0_2_0, plug_1_1_5
-      }:
+    ueberauth_identity_0_2_3 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, ueberauth_0_2_0, plug_1_1_5 }:
       buildMix ({
         name = "ueberauth_identity";
         version = "0.2.3";
@@ -31122,8 +31079,8 @@ let
 
     ueberauth_identity = ueberauth_identity_0_2_3;
 
-    ueberauth_twitter_0_2_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, ueberauth_0_2_0, httpoison_0_8_3 }:
+    ueberauth_twitter_0_2_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, ueberauth_0_2_0, httpoison_0_8_3 }:
       buildMix ({
         name = "ueberauth_twitter";
         version = "0.2.2";
@@ -31243,8 +31200,8 @@ let
 
     units = units_1_0_0;
 
-    untappd_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0 }:
+    untappd_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0 }:
       buildMix ({
         name = "untappd";
         version = "0.0.1";
@@ -31595,8 +31552,8 @@ let
 
     vex = vex_0_5_5;
 
-    viktor_0_1_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    viktor_0_1_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "viktor";
         version = "0.1.1";
@@ -31617,9 +31574,8 @@ let
 
     viktor = viktor_0_1_1;
 
-    virus_total_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, jsx_2_8_0, httpoison_0_8_3
-      }:
+    virus_total_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, jsx_2_8_0, httpoison_0_8_3 }:
       buildMix ({
         name = "virus_total";
         version = "0.0.1";
@@ -31685,9 +31641,8 @@ let
 
     voxpop = voxpop_0_0_2;
 
-    wallaby_0_5_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poolboy_1_5_1, poison_2_1_0, httpoison_0_8_3, dialyze_0_2_1
-      }:
+    wallaby_0_5_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poolboy_1_5_1, poison_2_1_0, httpoison_0_8_3, dialyze_0_2_1 }:
       buildMix ({
         name = "wallaby";
         version = "0.5.0";
@@ -31728,9 +31683,8 @@ let
 
     watcher = watcher_1_0_0;
 
-    weather_report_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, trie_1_5_1, sweet_xml_0_6_1, httpoison_0_8_3, feeder_2_0_0
-      }:
+    weather_report_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, trie_1_5_1, sweet_xml_0_6_1, httpoison_0_8_3, feeder_2_0_0 }:
       buildMix ({
         name = "weather_report";
         version = "0.2.0";
@@ -31777,8 +31731,8 @@ let
 
     web_push_encryption = web_push_encryption_0_1_1;
 
-    web_socket_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_4_0, plug_0_12_2, cowboy_1_0_4 }:
+    web_socket_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_4_0, plug_0_12_2, cowboy_1_0_4 }:
       buildMix ({
         name = "web_socket";
         version = "0.0.1";
@@ -31828,8 +31782,8 @@ let
 
     webassembly = webassembly_0_6_1;
 
-    webmentions_0_1_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpotion_2_2_2, floki_0_7_2 }:
+    webmentions_0_1_0 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, httpotion_2_2_2, floki_0_7_2 }:
       buildMix ({
         name = "webmentions";
         version = "0.1.0";
@@ -31853,8 +31807,8 @@ let
 
     webmentions = webmentions_0_1_0;
 
-    webpay_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    webpay_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "webpay";
         version = "0.0.4";
@@ -31917,8 +31871,8 @@ let
 
     wechat_check_signature = wechat_check_signature_0_0_1;
 
-    wechat_mp_auth_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, mimetype_parser_0_1_2, httpoison_0_8_3 }:
+    wechat_mp_auth_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }
+      , fetchHex, poison_2_1_0, mimetype_parser_0_1_2, httpoison_0_8_3 }:
       buildMix ({
         name = "wechat_mp_auth";
         version = "0.0.2";
@@ -31963,8 +31917,8 @@ let
 
     wechatex = wechatex_0_0_1;
 
-    what3words_1_0_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    what3words_1_0_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "what3words";
         version = "1.0.0";
@@ -32029,9 +31983,8 @@ let
 
     whois = whois_0_0_1;
 
-    witchcraft_0_4_2 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, quark_1_0_2, algae_0_10_0
-      }:
+    witchcraft_0_4_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , quark_1_0_2, algae_0_10_0 }:
       buildMix ({
         name = "witchcraft";
         version = "0.4.2";
@@ -32074,9 +32027,8 @@ let
 
     wizard = wizard_0_1_0;
 
-    wizardry_0_0_1 = callPackage
-      ({ buildMix, packageOverrides ? { }, fetchHex, plug_1_1_5, comeonin_1_6_0
-      }:
+    wizardry_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , plug_1_1_5, comeonin_1_6_0 }:
       buildMix ({
         name = "wizardry";
         version = "0.0.1";
@@ -32352,8 +32304,8 @@ let
 
     wx_utils = wx_utils_0_0_2;
 
-    wykop_api_0_0_4 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    wykop_api_0_0_4 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "wykop_api";
         version = "0.0.4";
@@ -32394,8 +32346,8 @@ let
 
     xain = xain_0_5_3;
 
-    xe_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, floki_0_8_1 }:
+    xe_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, floki_0_8_1 }:
       buildMix ({
         name = "xe";
         version = "0.0.1";
@@ -32447,8 +32399,8 @@ let
 
     xepcache = xepcache_1_0_1;
 
-    xfighter_0_2_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    xfighter_0_2_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "xfighter";
         version = "0.2.1";
@@ -32493,8 +32445,8 @@ let
 
     xjs = xjs_0_1_1;
 
-    xkcd_0_0_1 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_2_1_0, httpoison_0_8_3 }:
+    xkcd_0_0_1 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_2_1_0, httpoison_0_8_3 }:
       buildMix ({
         name = "xkcd";
         version = "0.0.1";
@@ -32635,8 +32587,8 @@ let
 
     xmlrpc = xmlrpc_1_0_0;
 
-    xoauth2_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, mock_0_1_3, httpoison_0_8_3 }:
+    xoauth2_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, mock_0_1_3, httpoison_0_8_3 }:
       buildMix ({
         name = "xoauth2";
         version = "0.0.3";
@@ -32700,8 +32652,8 @@ let
 
     y_process = y_process_0_0_1;
 
-    yahoo_fx_0_2_0 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, time_seer_0_0_6, httpoison_0_8_3 }:
+    yahoo_fx_0_2_0 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , time_seer_0_0_6, httpoison_0_8_3 }:
       buildMix ({
         name = "yahoo_fx";
         version = "0.2.0";
@@ -32813,8 +32765,8 @@ let
 
     yes_msg = yes_msg_0_1_0;
 
-    yocingo_0_0_3 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, httpoison_0_8_3, exjsx_3_2_0, earmark_0_2_1 }:
+    yocingo_0_0_3 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , httpoison_0_8_3, exjsx_3_2_0, earmark_0_2_1 }:
       buildMix ({
         name = "yocingo";
         version = "0.0.3";
@@ -33026,8 +32978,8 @@ let
 
     zip_stream = zip_stream_0_1_0;
 
-    zipcloudx_0_0_2 = callPackage ({ buildMix, packageOverrides ?
-      { }, fetchHex, poison_1_5_2, httpoison_0_8_3 }:
+    zipcloudx_0_0_2 = callPackage ({ buildMix, packageOverrides ? { }, fetchHex
+      , poison_1_5_2, httpoison_0_8_3 }:
       buildMix ({
         name = "zipcloudx";
         version = "0.0.2";

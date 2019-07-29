@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchpatch, texlive, bison, flex, liblapack, gmp, mpfr, pari, ntl, gsl, blas, mpfi, ecm, glpk, nauty, readline, gettext, libpng, libao, gfortran, perl, enableGUI ?
-  false, libGLU_combined ? null, xorg ? null, fltk ? null }:
+{ stdenv, fetchurl, fetchpatch, texlive, bison, flex, liblapack, gmp, mpfr, pari
+, ntl, gsl, blas, mpfi, ecm, glpk, nauty, readline, gettext, libpng, libao
+, gfortran, perl, enableGUI ? false, libGLU_combined ? null, xorg ? null
+, fltk ? null }:
 
 assert enableGUI -> libGLU_combined != null && xorg != null && fltk != null;
 

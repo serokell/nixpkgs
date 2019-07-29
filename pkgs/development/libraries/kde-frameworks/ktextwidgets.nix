@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kcompletion, kconfig, kconfigwidgets, ki18n, kiconthemes, kservice, kwindowsystem, qtbase, sonnet,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kcompletion, kconfig, kconfigwidgets
+, ki18n, kiconthemes, kservice, kwindowsystem, qtbase, sonnet, }:
 
 mkDerivation {
   name = "ktextwidgets";

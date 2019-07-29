@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, alsaLib, glib, libjack2, libsndfile, libpulseaudio, AudioUnit, CoreAudio, CoreMIDI, CoreServices, version ?
-  "2" }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, cmake, alsaLib, glib, libjack2
+, libsndfile, libpulseaudio, AudioUnit, CoreAudio, CoreMIDI, CoreServices
+, version ? "2" }:
 
 let
   versionMap = {

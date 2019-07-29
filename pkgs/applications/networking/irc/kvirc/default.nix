@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qtbase, qtmultimedia, qtsvg, qtx11extras, pkgconfig, cmake, gettext
-}:
+{ stdenv, fetchFromGitHub, qtbase, qtmultimedia, qtsvg, qtx11extras, pkgconfig
+, cmake, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "kvirc";

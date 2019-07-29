@@ -1,5 +1,5 @@
-{ stdenv, autoconf, automake, fetchFromGitHub, fetchpatch, glib, intltool, json_c, libtool, pkgconfig
-}:
+{ stdenv, autoconf, automake, fetchFromGitHub, fetchpatch, glib, intltool
+, json_c, libtool, pkgconfig }:
 
 let version = "1.3.0";
 in stdenv.mkDerivation rec {

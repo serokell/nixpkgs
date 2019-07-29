@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gstreamer, gst-plugins-base, python, gobject-introspection, json-glib
-}:
+{ stdenv, fetchurl, pkgconfig, gstreamer, gst-plugins-base, python
+, gobject-introspection, json-glib }:
 
 stdenv.mkDerivation rec {
   name = "gst-validate-${version}";

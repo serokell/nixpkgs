@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, MMA, libjack2, libsmf, python2Packages
-}:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, MMA, libjack2, libsmf
+, python2Packages }:
 
 let inherit (python2Packages) pyGtkGlade pygtksourceview python;
 in stdenv.mkDerivation rec {

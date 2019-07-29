@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, caddy, asciidoctor, file, lessc, sass, multimarkdown, linkchecker, perlPackages, python27
-}:
+{ stdenv, fetchFromGitHub, caddy, asciidoctor, file, lessc, sass, multimarkdown
+, linkchecker, perlPackages, python27 }:
 
 stdenv.mkDerivation rec {
   name = "styx-${version}";

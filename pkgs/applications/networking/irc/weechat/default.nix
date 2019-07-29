@@ -1,7 +1,9 @@
-{ stdenv, fetchurl, lib, ncurses, openssl, aspell, gnutls, zlib, curl, pkgconfig, libgcrypt, cmake, makeWrapper, libobjc, libresolv, libiconv, asciidoctor # manpages
-, guileSupport ? true, guile, luaSupport ? true, lua5, perlSupport ?
-  true, perl, pythonSupport ? true, pythonPackages, rubySupport ?
-    true, ruby, tclSupport ? true, tcl, extraBuildInputs ? [ ] }:
+{ stdenv, fetchurl, lib, ncurses, openssl, aspell, gnutls, zlib, curl, pkgconfig
+, libgcrypt, cmake, makeWrapper, libobjc, libresolv, libiconv
+, asciidoctor # manpages
+, guileSupport ? true, guile, luaSupport ? true, lua5, perlSupport ? true, perl
+, pythonSupport ? true, pythonPackages, rubySupport ? true, ruby
+, tclSupport ? true, tcl, extraBuildInputs ? [ ] }:
 
 let
   inherit (pythonPackages) python;

@@ -8,11 +8,10 @@ rec {
       overrideAttrs = f: buildVimPlugin (attrs // f attrs);
     };
 
-  buildVimPlugin =
-    attrs@{ name ? "${attrs.pname}-${attrs.version}", namePrefix ?
-      "vimplugin-", src, unpackPhase ? "", configurePhase ? "", buildPhase ?
-        "", preInstall ? "", postInstall ? "", path ?
-          (builtins.parseDrvName name).name, addonInfo ? null, ... }:
+  buildVimPlugin = attrs@{ name ? "${attrs.pname}-${attrs.version}"
+    , namePrefix ? "vimplugin-", src, unpackPhase ? "", configurePhase ? ""
+    , buildPhase ? "", preInstall ? "", postInstall ? ""
+    , path ? (builtins.parseDrvName name).name, addonInfo ? null, ... }:
     addRtp "${rtpPath}/${path}" attrs (stdenv.mkDerivation (attrs // {
       name = namePrefix + name;
 

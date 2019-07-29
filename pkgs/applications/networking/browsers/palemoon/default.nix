@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, makeDesktopItem, pkgconfig, autoconf213, alsaLib, bzip2, cairo, dbus, dbus-glib, ffmpeg, file, fontconfig, freetype, gnome2, gnum4, gtk2, hunspell, libevent, libjpeg, libnotify, libstartup_notification, makeWrapper, libGLU_combined, perl, python, libpulseaudio, unzip, xorg, wget, which, yasm, zip, zlib
-}:
+{ stdenv, fetchFromGitHub, makeDesktopItem, pkgconfig, autoconf213, alsaLib
+, bzip2, cairo, dbus, dbus-glib, ffmpeg, file, fontconfig, freetype, gnome2
+, gnum4, gtk2, hunspell, libevent, libjpeg, libnotify, libstartup_notification
+, makeWrapper, libGLU_combined, perl, python, libpulseaudio, unzip, xorg, wget
+, which, yasm, zip, zlib }:
 
 let
 

@@ -1,5 +1,5 @@
-{ stdenv, substituteAll, pkgconfig, fetchurl, python3, dropbox, gtk3, gnome3, gdk_pixbuf, gobject-introspection
-}:
+{ stdenv, substituteAll, pkgconfig, fetchurl, python3, dropbox, gtk3, gnome3
+, gdk_pixbuf, gobject-introspection }:
 
 let
   version = "2019.02.14";

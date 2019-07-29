@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, makeWrapper, kcmutils, kcompletion, kconfig, kdnssd, knotifyconfig, kwallet, kwidgetsaddons, kwindowsystem, libvncserver, freerdp
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, makeWrapper, kcmutils
+, kcompletion, kconfig, kdnssd, knotifyconfig, kwallet, kwidgetsaddons
+, kwindowsystem, libvncserver, freerdp }:
 
 mkDerivation {
   name = "krdc";

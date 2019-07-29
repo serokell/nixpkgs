@@ -1,5 +1,7 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, akonadi-contacts, calendarsupport, kcalcore, kcompletion, kconfigwidgets, kcontacts, kdbusaddons, kitemmodels, kpimtextedit, libkdepim, ktextwidgets, kxmlgui, messagelib, qtbase, akonadi-search, xapian
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, akonadi-contacts, calendarsupport, kcalcore, kcompletion, kconfigwidgets
+, kcontacts, kdbusaddons, kitemmodels, kpimtextedit, libkdepim, ktextwidgets
+, kxmlgui, messagelib, qtbase, akonadi-search, xapian }:
 
 mkDerivation {
   name = "akonadiconsole";

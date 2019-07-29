@@ -1,8 +1,8 @@
 { stdenv, writeText, ocaml, findlib, ocamlbuild, camlp4 }:
 
-{ name, version, buildInputs ? [ ], createFindlibDestdir ? true, dontStrip ?
-  true, minimumSupportedOcamlVersion ? null, hasSharedObjects ?
-    false, setupHook ? null, meta ? { }, ... }@args:
+{ name, version, buildInputs ? [ ], createFindlibDestdir ? true
+, dontStrip ? true, minimumSupportedOcamlVersion ? null
+, hasSharedObjects ? false, setupHook ? null, meta ? { }, ... }@args:
 let defaultMeta = { platforms = ocaml.meta.platforms or [ ]; };
 in assert minimumSupportedOcamlVersion != null
 -> stdenv.lib.versionOlder minimumSupportedOcamlVersion ocaml.version;

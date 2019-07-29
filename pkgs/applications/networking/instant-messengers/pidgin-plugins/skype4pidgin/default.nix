@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, pidgin, libnotify, gdk_pixbuf, glib, dbus, dbus-glib
-}:
+{ stdenv, fetchurl, pkgconfig, pidgin, libnotify, gdk_pixbuf, glib, dbus
+, dbus-glib }:
 
 stdenv.mkDerivation rec {
   name = "skype4pidgin-novas0x2a-20120411-6c53f7c48f";

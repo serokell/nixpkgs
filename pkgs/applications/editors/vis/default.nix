@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, makeDesktopItem, ncurses, libtermkey, lpeg, lua, acl ?
-  null, libselinux ? null }:
+{ stdenv, fetchFromGitHub, pkgconfig, makeWrapper, makeDesktopItem, ncurses
+, libtermkey, lpeg, lua, acl ? null, libselinux ? null }:
 
 stdenv.mkDerivation rec {
   name = "vis-${version}";

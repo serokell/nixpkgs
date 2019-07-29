@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, qt4, perl, bzip2, libxml2, exiv2, clucene_core, fam, zlib, dbus, pkgconfig
-}:
+{ stdenv, fetchurl, cmake, qt4, perl, bzip2, libxml2, exiv2, clucene_core, fam
+, zlib, dbus, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "strigi-${version}";

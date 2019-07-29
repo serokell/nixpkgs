@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, coreutils, cpio, findutils, gzip, makeWrapper, utillinux
-}:
+{ stdenv, fetchFromGitHub, coreutils, cpio, findutils, gzip, makeWrapper
+, utillinux }:
 
 let version = "0.6";
 in stdenv.mkDerivation {

@@ -1,5 +1,5 @@
-{ mkXfceDerivation, gtk3, libXtst, libxfce4ui, libxfce4util, xfce4-panel, xfconf, exo
-}:
+{ mkXfceDerivation, gtk3, libXtst, libxfce4ui, libxfce4util, xfce4-panel, xfconf
+, exo }:
 
 mkXfceDerivation rec {
   category = "panel-plugins";

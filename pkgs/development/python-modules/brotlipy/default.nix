@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, cffi, enum34, construct, pytest, hypothesis
-}:
+{ lib, buildPythonPackage, fetchPypi, cffi, enum34, construct, pytest
+, hypothesis }:
 
 buildPythonPackage rec {
   pname = "brotlipy";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, python3, vala, libxslt, pkgconfig, glib, bash-completion, dbus, gnome3, libxml2, gtk-doc, docbook_xsl, docbook_xml_dtd_42, fetchpatch
-}:
+{ stdenv, fetchurl, meson, ninja, python3, vala, libxslt, pkgconfig, glib
+, bash-completion, dbus, gnome3, libxml2, gtk-doc, docbook_xsl
+, docbook_xml_dtd_42, fetchpatch }:
 
 let pname = "dconf";
 in stdenv.mkDerivation rec {

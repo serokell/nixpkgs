@@ -1,5 +1,5 @@
-{ stdenv, lib, symlinkJoin, gimp, makeWrapper, gimpPlugins, gnome3, plugins ?
-  null }:
+{ stdenv, lib, symlinkJoin, gimp, makeWrapper, gimpPlugins, gnome3
+, plugins ? null }:
 
 let
   allPlugins = lib.filter (pkg:

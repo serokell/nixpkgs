@@ -1,4 +1,7 @@
-{ stdenv, buildPythonApplication, lib, python, fetchurl, fetchFromGitHub, lame, mplayer, libpulseaudio, pyqt5, decorator, beautifulsoup4, sqlalchemy, pyaudio, requests, markdown, matplotlib, pytest, glibcLocales, nose, send2trash, CoreAudio
+{ stdenv, buildPythonApplication, lib, python, fetchurl, fetchFromGitHub, lame
+, mplayer, libpulseaudio, pyqt5, decorator, beautifulsoup4, sqlalchemy, pyaudio
+, requests, markdown, matplotlib, pytest, glibcLocales, nose, send2trash
+, CoreAudio
 # This little flag adds a huge number of dependencies, but we assume that
 # everyone wants Anki to draw plots with statistics by default.
 , plotsSupport ? true

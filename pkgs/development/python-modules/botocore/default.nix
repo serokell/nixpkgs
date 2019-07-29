@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, dateutil, jmespath, docutils, ordereddict, simplejson, mock, nose, urllib3
-}:
+{ buildPythonPackage, fetchPypi, dateutil, jmespath, docutils, ordereddict
+, simplejson, mock, nose, urllib3 }:
 
 buildPythonPackage rec {
   pname = "botocore";

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, xorg, freetype, fontconfig, libGLU_combined, glibc, makeWrapper
-}:
+{ fetchurl, stdenv, xorg, freetype, fontconfig, libGLU_combined, glibc
+, makeWrapper }:
 
 let
   system = if stdenv.hostPlatform.system == "x86_64-linux" then

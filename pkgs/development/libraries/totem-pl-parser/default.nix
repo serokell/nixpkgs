@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2, gobject-introspection, gnome3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, libxml2
+, gobject-introspection, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "totem-pl-parser";

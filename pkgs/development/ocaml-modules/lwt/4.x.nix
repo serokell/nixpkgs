@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, pkgconfig, ncurses, libev, buildDunePackage, ocaml, cppo, ocaml-migrate-parsetree, ppx_tools_versioned, result
-}:
+{ stdenv, fetchzip, pkgconfig, ncurses, libev, buildDunePackage, ocaml, cppo
+, ocaml-migrate-parsetree, ppx_tools_versioned, result }:
 
 let inherit (stdenv.lib) optional versionAtLeast;
 

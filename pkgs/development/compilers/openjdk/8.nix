@@ -1,5 +1,8 @@
-{ stdenv, lib, fetchurl, bash, cpio, pkgconfig, file, which, unzip, zip, cups, freetype, alsaLib, bootjdk, cacert, perl, liberation_ttf, fontconfig, zlib, lndir, libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama, libXcursor, libXrandr, libjpeg, giflib, setJavaClassPath, minimal ?
-  false, enableInfinality ? true # font rendering patch
+{ stdenv, lib, fetchurl, bash, cpio, pkgconfig, file, which, unzip, zip, cups
+, freetype, alsaLib, bootjdk, cacert, perl, liberation_ttf, fontconfig, zlib
+, lndir, libX11, libICE, libXrender, libXext, libXt, libXtst, libXi, libXinerama
+, libXcursor, libXrandr, libjpeg, giflib, setJavaClassPath, minimal ? false
+, enableInfinality ? true # font rendering patch
 , enableGnome2 ? true, gtk2, gnome_vfs, glib, GConf }:
 
 let

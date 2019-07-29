@@ -208,8 +208,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  abs-mode = callPackage ({ emacs, erlang, fetchFromGitHub, fetchurl, flymake ?
-    null, lib, maude-mode, melpaBuild }:
+  abs-mode = callPackage ({ emacs, erlang, fetchFromGitHub, fetchurl
+    , flymake ? null, lib, maude-mode, melpaBuild }:
     melpaBuild {
       pname = "abs-mode";
       ename = "abs-mode";
@@ -256,8 +256,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-alchemist = callPackage ({ alchemist, auto-complete, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  ac-alchemist = callPackage ({ alchemist, auto-complete, cl-lib ? null
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-alchemist";
       ename = "ac-alchemist";
@@ -304,9 +304,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-capf = callPackage
-    ({ auto-complete, cl-lib ? null, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  ac-capf = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-capf";
       ename = "ac-capf";
@@ -329,8 +328,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-cider = callPackage ({ auto-complete, cider, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  ac-cider = callPackage ({ auto-complete, cider, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-cider";
       ename = "ac-cider";
@@ -353,9 +352,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-clang = callPackage ({ auto-complete, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, pos-tip, yasnippet
-    }:
+  ac-clang = callPackage ({ auto-complete, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, pos-tip, yasnippet }:
     melpaBuild {
       pname = "ac-clang";
       ename = "ac-clang";
@@ -378,9 +376,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-dcd = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, flycheck-dmd-dub, lib, melpaBuild
-    }:
+  ac-dcd = callPackage ({ auto-complete, fetchFromGitHub, fetchurl
+    , flycheck-dmd-dub, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-dcd";
       ename = "ac-dcd";
@@ -451,9 +448,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-emoji = callPackage
-    ({ auto-complete, cl-lib ? null, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  ac-emoji = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-emoji";
       ename = "ac-emoji";
@@ -524,9 +520,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-haskell-process = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, haskell-mode, lib, melpaBuild
-    }:
+  ac-haskell-process = callPackage ({ auto-complete, fetchFromGitHub, fetchurl
+    , haskell-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-haskell-process";
       ename = "ac-haskell-process";
@@ -549,8 +544,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-helm = callPackage ({ auto-complete, cl-lib ?
-    null, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, popup }:
+  ac-helm = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild, popup }:
     melpaBuild {
       pname = "ac-helm";
       ename = "ac-helm";
@@ -693,9 +688,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-ispell = callPackage
-    ({ auto-complete, cl-lib ? null, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  ac-ispell = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "ac-ispell";
       ename = "ac-ispell";
@@ -742,9 +736,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-math = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, lib, math-symbol-lists, melpaBuild
-    }:
+  ac-math = callPackage ({ auto-complete, fetchFromGitHub, fetchurl, lib
+    , math-symbol-lists, melpaBuild }:
     melpaBuild {
       pname = "ac-math";
       ename = "ac-math";
@@ -767,8 +760,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-mozc = callPackage ({ auto-complete, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, mozc }:
+  ac-mozc = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, mozc }:
     melpaBuild {
       pname = "ac-mozc";
       ename = "ac-mozc";
@@ -815,9 +808,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-php = callPackage
-    ({ ac-php-core, auto-complete, fetchFromGitHub, fetchurl, lib, melpaBuild, yasnippet
-    }:
+  ac-php = callPackage ({ ac-php-core, auto-complete, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "ac-php";
       ename = "ac-php";
@@ -840,9 +832,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-php-core = callPackage
-    ({ dash, f, fetchFromGitHub, fetchurl, lib, melpaBuild, php-mode, popup, s, xcscope
-    }:
+  ac-php-core = callPackage ({ dash, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, php-mode, popup, s, xcscope }:
     melpaBuild {
       pname = "ac-php-core";
       ename = "ac-php-core";
@@ -865,9 +856,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-racer = callPackage
-    ({ auto-complete, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, racer
-    }:
+  ac-racer = callPackage ({ auto-complete, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, racer }:
     melpaBuild {
       pname = "ac-racer";
       ename = "ac-racer";
@@ -914,8 +904,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-skk = callPackage ({ auto-complete, cl-lib ?
-    null, ddskk, fetchFromGitHub, fetchurl, lib, melpaBuild, tinysegmenter }:
+  ac-skk = callPackage ({ auto-complete, cl-lib ? null, ddskk, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, tinysegmenter }:
     melpaBuild {
       pname = "ac-skk";
       ename = "ac-skk";
@@ -938,8 +928,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-slime = callPackage ({ auto-complete, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, slime }:
+  ac-slime = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, slime }:
     melpaBuild {
       pname = "ac-slime";
       ename = "ac-slime";
@@ -962,8 +952,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ac-sly = callPackage ({ auto-complete, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, sly }:
+  ac-sly = callPackage ({ auto-complete, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, sly }:
     melpaBuild {
       pname = "ac-sly";
       ename = "ac-sly";
@@ -1176,9 +1166,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ace-mc = callPackage
-    ({ ace-jump-mode, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors
-    }:
+  ace-mc = callPackage ({ ace-jump-mode, dash, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, multiple-cursors }:
     melpaBuild {
       pname = "ace-mc";
       ename = "ace-mc";
@@ -1342,9 +1331,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  activity-watch-mode = callPackage
-    ({ cl, emacs, fetchFromGitHub, fetchurl, json ?
-      null, lib, melpaBuild, projectile, request }:
+  activity-watch-mode = callPackage ({ cl, emacs, fetchFromGitHub, fetchurl
+    , json ? null, lib, melpaBuild, projectile, request }:
     melpaBuild {
       pname = "activity-watch-mode";
       ename = "activity-watch-mode";
@@ -1744,9 +1732,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  airplay = callPackage
-    ({ deferred, fetchFromGitHub, fetchurl, lib, melpaBuild, request, simple-httpd
-    }:
+  airplay = callPackage ({ deferred, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , request, simple-httpd }:
     melpaBuild {
       pname = "airplay";
       ename = "airplay";
@@ -1817,9 +1804,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  alchemist = callPackage
-    ({ company, dash, elixir-mode, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, pkg-info, s
-    }:
+  alchemist = callPackage ({ company, dash, elixir-mode, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, pkg-info, s }:
     melpaBuild {
       pname = "alchemist";
       ename = "alchemist";
@@ -2105,9 +2091,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  amd-mode = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, js2-mode, js2-refactor, lib, makey, melpaBuild, projectile, s, seq
-    }:
+  amd-mode = callPackage ({ emacs, f, fetchFromGitHub, fetchurl, js2-mode
+    , js2-refactor, lib, makey, melpaBuild, projectile, s, seq }:
     melpaBuild {
       pname = "amd-mode";
       ename = "amd-mode";
@@ -2270,9 +2255,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  anaconda-mode = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, pythonic, s
-    }:
+  anaconda-mode = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, pythonic, s }:
     melpaBuild {
       pname = "anaconda-mode";
       ename = "anaconda-mode";
@@ -2460,9 +2444,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  anki-mode = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, markdown-mode, melpaBuild, request, s
-    }:
+  anki-mode = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib
+    , markdown-mode, melpaBuild, request, s }:
     melpaBuild {
       pname = "anki-mode";
       ename = "anki-mode";
@@ -3116,9 +3099,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  arduino-mode = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, spinner
-    }:
+  arduino-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, spinner }:
     melpaBuild {
       pname = "arduino-mode";
       ename = "arduino-mode";
@@ -3447,9 +3429,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  atomic-chrome = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, websocket
-    }:
+  atomic-chrome = callPackage ({ emacs, fetchFromGitHub, fetchurl, let-alist
+    , lib, melpaBuild, websocket }:
     melpaBuild {
       pname = "atomic-chrome";
       ename = "atomic-chrome";
@@ -3472,9 +3453,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  attrap = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, s
-    }:
+  attrap = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, flycheck
+    , lib, melpaBuild, s }:
     melpaBuild {
       pname = "attrap";
       ename = "attrap";
@@ -3857,9 +3837,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  auto-complete-distel = callPackage
-    ({ auto-complete, distel-completion-lib, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  auto-complete-distel = callPackage ({ auto-complete, distel-completion-lib
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "auto-complete-distel";
       ename = "auto-complete-distel";
@@ -3930,9 +3909,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  auto-complete-pcmp = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, yaxception
-    }:
+  auto-complete-pcmp = callPackage ({ auto-complete, fetchFromGitHub, fetchurl
+    , lib, log4e, melpaBuild, yaxception }:
     melpaBuild {
       pname = "auto-complete-pcmp";
       ename = "auto-complete-pcmp";
@@ -3979,9 +3957,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  auto-complete-sage = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, lib, melpaBuild, sage-shell-mode
-    }:
+  auto-complete-sage = callPackage ({ auto-complete, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, sage-shell-mode }:
     melpaBuild {
       pname = "auto-complete-sage";
       ename = "auto-complete-sage";
@@ -4339,8 +4316,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  auto-virtualenvwrapper = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, s, virtualenvwrapper }:
+  auto-virtualenvwrapper = callPackage ({ cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s, virtualenvwrapper }:
     melpaBuild {
       pname = "auto-virtualenvwrapper";
       ename = "auto-virtualenvwrapper";
@@ -4885,9 +4862,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  back-button = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, list-utils, melpaBuild, nav-flash, pcache, persistent-soft, smartrep, ucs-utils
-    }:
+  back-button = callPackage ({ fetchFromGitHub, fetchurl, lib, list-utils
+    , melpaBuild, nav-flash, pcache, persistent-soft, smartrep, ucs-utils }:
     melpaBuild {
       pname = "back-button";
       ename = "back-button";
@@ -5312,9 +5288,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  battle-haxe = callPackage ({ async, cl-lib ?
-    null, company, dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, s
-    }:
+  battle-haxe = callPackage ({ async, cl-lib ? null, company, dash
+    , dash-functional, emacs, f, fetchFromGitHub, fetchurl, helm, lib
+    , melpaBuild, s }:
     melpaBuild {
       pname = "battle-haxe";
       ename = "battle-haxe";
@@ -5526,8 +5502,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  bbyac = callPackage ({ browse-kill-ring, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  bbyac = callPackage ({ browse-kill-ring, cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "bbyac";
       ename = "bbyac";
@@ -5923,9 +5899,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  biblio-core = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, seq
-    }:
+  biblio-core = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist
+    , lib, melpaBuild, seq }:
     melpaBuild {
       pname = "biblio-core";
       ename = "biblio-core";
@@ -6513,8 +6488,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  blog-admin = callPackage ({ cl-lib ?
-    null, ctable, f, fetchFromGitHub, fetchurl, lib, melpaBuild, names, s }:
+  blog-admin = callPackage ({ cl-lib ? null, ctable, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, names, s }:
     melpaBuild {
       pname = "blog-admin";
       ename = "blog-admin";
@@ -6537,9 +6512,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  blog-minimal = callPackage
-    ({ fetchFromGitHub, fetchurl, ht, lib, melpaBuild, mustache, org, s, simple-httpd
-    }:
+  blog-minimal = callPackage ({ fetchFromGitHub, fetchurl, ht, lib, melpaBuild
+    , mustache, org, s, simple-httpd }:
     melpaBuild {
       pname = "blog-minimal";
       ename = "blog-minimal";
@@ -6585,8 +6559,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  bmx-mode = callPackage ({ cl-lib ?
-    null, company, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
+  bmx-mode = callPackage ({ cl-lib ? null, company, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "bmx-mode";
       ename = "bmx-mode";
@@ -6751,9 +6725,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  boogie-friends = callPackage ({ cl-lib ?
-    null, company, dash, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, yasnippet
-    }:
+  boogie-friends = callPackage ({ cl-lib ? null, company, dash, fetchFromGitHub
+    , fetchurl, flycheck, lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "boogie-friends";
       ename = "boogie-friends";
@@ -6800,9 +6773,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  boon = callPackage
-    ({ dash, emacs, expand-region, fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors
-    }:
+  boon = callPackage ({ dash, emacs, expand-region, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, multiple-cursors }:
     melpaBuild {
       pname = "boon";
       ename = "boon";
@@ -7182,9 +7154,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  bts = callPackage
-    ({ dash, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, pos-tip, s, widget-mvc, yaxception
-    }:
+  bts = callPackage ({ dash, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild
+    , pos-tip, s, widget-mvc, yaxception }:
     melpaBuild {
       pname = "bts";
       ename = "bts";
@@ -7324,9 +7295,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  buffer-manage = callPackage
-    ({ choice-program, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  buffer-manage = callPackage ({ choice-program, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "buffer-manage";
       ename = "buffer-manage";
@@ -7703,9 +7673,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  butler = callPackage
-    ({ deferred, emacs, fetchFromGitHub, fetchurl, json ? null, lib, melpaBuild
-    }:
+  butler = callPackage ({ deferred, emacs, fetchFromGitHub, fetchurl
+    , json ? null, lib, melpaBuild }:
     melpaBuild {
       pname = "butler";
       ename = "butler";
@@ -8218,9 +8187,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  call-graph = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, hierarchy, ivy, lib, melpaBuild, tree-mode
-    }:
+  call-graph = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , hierarchy, ivy, lib, melpaBuild, tree-mode }:
     melpaBuild {
       pname = "call-graph";
       ename = "call-graph";
@@ -8267,9 +8235,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  camcorder = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, names
-    }:
+  camcorder = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, names }:
     melpaBuild {
       pname = "camcorder";
       ename = "camcorder";
@@ -8386,9 +8353,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cargo = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, markdown-mode, melpaBuild, rust-mode
-    }:
+  cargo = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, markdown-mode
+    , melpaBuild, rust-mode }:
     melpaBuild {
       pname = "cargo";
       ename = "cargo";
@@ -8435,9 +8401,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  caseformat = callPackage
-    ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  caseformat = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "caseformat";
       ename = "caseformat";
@@ -8460,9 +8425,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cask = callPackage ({ ansi, cl-lib ?
-    null, dash, epl, f, fetchFromGitHub, fetchurl, lib, melpaBuild, package-build, s, shut-up
-    }:
+  cask = callPackage ({ ansi, cl-lib ? null, dash, epl, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, package-build, s, shut-up }:
     melpaBuild {
       pname = "cask";
       ename = "cask";
@@ -8509,9 +8473,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cask-package-toolset = callPackage ({ ansi, cl-lib ?
-    null, commander, dash, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s, shut-up
-    }:
+  cask-package-toolset = callPackage ({ ansi, cl-lib ? null, commander, dash
+    , emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s, shut-up }:
     melpaBuild {
       pname = "cask-package-toolset";
       ename = "cask-package-toolset";
@@ -8651,9 +8614,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ccls = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, lsp-mode, melpaBuild, projectile
-    }:
+  ccls = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib, lsp-mode
+    , melpaBuild, projectile }:
     melpaBuild {
       pname = "ccls";
       ename = "ccls";
@@ -8745,9 +8707,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cdnjs = callPackage
-    ({ dash, deferred, f, fetchFromGitHub, fetchurl, lib, melpaBuild, pkg-info
-    }:
+  cdnjs = callPackage ({ dash, deferred, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, pkg-info }:
     melpaBuild {
       pname = "cdnjs";
       ename = "cdnjs";
@@ -8793,9 +8754,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  celery = callPackage
-    ({ dash-functional, deferred, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  celery = callPackage ({ dash-functional, deferred, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "celery";
       ename = "celery";
@@ -9009,9 +8969,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cfml-mode = callPackage
-    ({ cftag-mode, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, mmm-mode
-    }:
+  cfml-mode = callPackage ({ cftag-mode, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, mmm-mode }:
     melpaBuild {
       pname = "cfml-mode";
       ename = "cfml-mode";
@@ -9694,9 +9653,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cider = callPackage
-    ({ clojure-mode, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, parseedn, pkg-info, queue, seq, sesman, spinner
-    }:
+  cider = callPackage ({ clojure-mode, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, parseedn, pkg-info, queue, seq, sesman, spinner }:
     melpaBuild {
       pname = "cider";
       ename = "cider";
@@ -9838,9 +9796,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cinspect = callPackage ({ cl-lib ?
-    null, deferred, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, python-environment
-    }:
+  cinspect = callPackage ({ cl-lib ? null, deferred, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, python-environment }:
     melpaBuild {
       pname = "cinspect";
       ename = "cinspect";
@@ -9935,9 +9892,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  citeproc = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, org, queue, s, string-inflection
-    }:
+  citeproc = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, org, queue, s, string-inflection }:
     melpaBuild {
       pname = "citeproc";
       ename = "citeproc";
@@ -10266,9 +10222,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  clj-refactor = callPackage
-    ({ cider, clojure-mode, edn, emacs, fetchFromGitHub, fetchurl, hydra, inflections, lib, melpaBuild, multiple-cursors, paredit, seq, yasnippet
-    }:
+  clj-refactor = callPackage ({ cider, clojure-mode, edn, emacs, fetchFromGitHub
+    , fetchurl, hydra, inflections, lib, melpaBuild, multiple-cursors, paredit
+    , seq, yasnippet }:
     melpaBuild {
       pname = "clj-refactor";
       ename = "clj-refactor";
@@ -10302,8 +10258,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cljr-helm = callPackage ({ cl-lib ?
-    null, clj-refactor, fetchFromGitHub, fetchurl, helm-core, lib, melpaBuild }:
+  cljr-helm = callPackage ({ cl-lib ? null, clj-refactor, fetchFromGitHub
+    , fetchurl, helm-core, lib, melpaBuild }:
     melpaBuild {
       pname = "cljr-helm";
       ename = "cljr-helm";
@@ -10396,9 +10352,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  clocker = callPackage
-    ({ dash, fetchFromGitHub, fetchurl, lib, melpaBuild, projectile, spaceline
-    }:
+  clocker = callPackage ({ dash, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , projectile, spaceline }:
     melpaBuild {
       pname = "clocker";
       ename = "clocker";
@@ -10541,9 +10496,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  clomacs = callPackage
-    ({ cider, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, simple-httpd
-    }:
+  clomacs = callPackage ({ cider, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, s, simple-httpd }:
     melpaBuild {
       pname = "clomacs";
       ename = "clomacs";
@@ -10710,9 +10664,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cmake-ide = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, levenshtein, lib, melpaBuild, s, seq
-    }:
+  cmake-ide = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , levenshtein, lib, melpaBuild, s, seq }:
     melpaBuild {
       pname = "cmake-ide";
       ename = "cmake-ide";
@@ -10781,9 +10734,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  cmd-to-echo = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, shell-split-string
-    }:
+  cmd-to-echo = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , s, shell-split-string }:
     melpaBuild {
       pname = "cmd-to-echo";
       ename = "cmd-to-echo";
@@ -11755,8 +11707,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-anaconda = callPackage ({ anaconda-mode, cl-lib ?
-    null, company, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
+  company-anaconda = callPackage ({ anaconda-mode, cl-lib ? null, company, dash
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "company-anaconda";
       ename = "company-anaconda";
@@ -11803,9 +11755,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-arduino = callPackage ({ arduino-mode, cl-lib ?
-    null, company, company-c-headers, company-irony, emacs, fetchFromGitHub, fetchurl, irony, lib, melpaBuild
-    }:
+  company-arduino = callPackage ({ arduino-mode, cl-lib ? null, company
+    , company-c-headers, company-irony, emacs, fetchFromGitHub, fetchurl, irony
+    , lib, melpaBuild }:
     melpaBuild {
       pname = "company-arduino";
       ename = "company-arduino";
@@ -11883,8 +11835,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-bibtex = callPackage ({ cl-lib ?
-    null, company, fetchFromGitHub, fetchurl, lib, melpaBuild, parsebib }:
+  company-bibtex = callPackage ({ cl-lib ? null, company, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, parsebib }:
     melpaBuild {
       pname = "company-bibtex";
       ename = "company-bibtex";
@@ -11907,9 +11859,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-box = callPackage
-    ({ company, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  company-box = callPackage ({ company, dash, dash-functional, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "company-box";
       ename = "company-box";
@@ -11956,9 +11907,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-cabal = callPackage
-    ({ cl-lib ? null, company, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  company-cabal = callPackage ({ cl-lib ? null, company, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "company-cabal";
       ename = "company-cabal";
@@ -11981,9 +11931,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-coq = callPackage ({ cl-lib ?
-    null, company, company-math, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, yasnippet
-    }:
+  company-coq = callPackage ({ cl-lib ? null, company, company-math, dash
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "company-coq";
       ename = "company-coq";
@@ -12006,9 +11955,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-dcd = callPackage ({ cl-lib ?
-    null, company, fetchFromGitHub, fetchurl, flycheck-dmd-dub, ivy, lib, melpaBuild, popwin, yasnippet
-    }:
+  company-dcd = callPackage ({ cl-lib ? null, company, fetchFromGitHub, fetchurl
+    , flycheck-dmd-dub, ivy, lib, melpaBuild, popwin, yasnippet }:
     melpaBuild {
       pname = "company-dcd";
       ename = "company-dcd";
@@ -12032,9 +11980,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-dict = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, parent-mode
-    }:
+  company-dict = callPackage ({ company, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, parent-mode }:
     melpaBuild {
       pname = "company-dict";
       ename = "company-dict";
@@ -12081,8 +12028,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-edbi = callPackage ({ cl-lib ?
-    null, company, edbi, fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
+  company-edbi = callPackage ({ cl-lib ? null, company, edbi, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "company-edbi";
       ename = "company-edbi";
@@ -12105,9 +12052,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-emacs-eclim = callPackage
-    ({ cl-lib ? null, company, eclim, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  company-emacs-eclim = callPackage ({ cl-lib ? null, company, eclim
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "company-emacs-eclim";
       ename = "company-emacs-eclim";
@@ -12154,9 +12100,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-erlang = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, ivy-erlang-complete, lib, melpaBuild
-    }:
+  company-erlang = callPackage ({ company, emacs, fetchFromGitHub, fetchurl
+    , ivy-erlang-complete, lib, melpaBuild }:
     melpaBuild {
       pname = "company-erlang";
       ename = "company-erlang";
@@ -12227,8 +12172,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-ghc = callPackage ({ cl-lib ?
-    null, company, emacs, fetchFromGitHub, fetchurl, ghc, lib, melpaBuild }:
+  company-ghc = callPackage ({ cl-lib ? null, company, emacs, fetchFromGitHub
+    , fetchurl, ghc, lib, melpaBuild }:
     melpaBuild {
       pname = "company-ghc";
       ename = "company-ghc";
@@ -12347,8 +12292,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-irony = callPackage ({ cl-lib ?
-    null, company, emacs, fetchFromGitHub, fetchurl, irony, lib, melpaBuild }:
+  company-irony = callPackage ({ cl-lib ? null, company, emacs, fetchFromGitHub
+    , fetchurl, irony, lib, melpaBuild }:
     melpaBuild {
       pname = "company-irony";
       ename = "company-irony";
@@ -12371,9 +12316,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-irony-c-headers = callPackage
-    ({ cl-lib ? null, company, fetchFromGitHub, fetchurl, irony, lib, melpaBuild
-    }:
+  company-irony-c-headers = callPackage ({ cl-lib ? null, company
+    , fetchFromGitHub, fetchurl, irony, lib, melpaBuild }:
     melpaBuild {
       pname = "company-irony-c-headers";
       ename = "company-irony-c-headers";
@@ -12396,9 +12340,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-jedi = callPackage ({ cl-lib ?
-    null, company, emacs, fetchFromGitHub, fetchurl, jedi-core, lib, melpaBuild
-    }:
+  company-jedi = callPackage ({ cl-lib ? null, company, emacs, fetchFromGitHub
+    , fetchurl, jedi-core, lib, melpaBuild }:
     melpaBuild {
       pname = "company-jedi";
       ename = "company-jedi";
@@ -12421,9 +12364,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-lean = callPackage
-    ({ company, dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, lean-mode, lib, melpaBuild, s
-    }:
+  company-lean = callPackage ({ company, dash, dash-functional, emacs, f
+    , fetchFromGitHub, fetchurl, lean-mode, lib, melpaBuild, s }:
     melpaBuild {
       pname = "company-lean";
       ename = "company-lean";
@@ -12446,9 +12388,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-lsp = callPackage
-    ({ company, dash, emacs, fetchFromGitHub, fetchurl, lib, lsp-mode, melpaBuild, s
-    }:
+  company-lsp = callPackage ({ company, dash, emacs, fetchFromGitHub, fetchurl
+    , lib, lsp-mode, melpaBuild, s }:
     melpaBuild {
       pname = "company-lsp";
       ename = "company-lsp";
@@ -12519,8 +12460,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-nand2tetris = callPackage ({ cl-lib ?
-    null, company, fetchFromGitHub, fetchurl, lib, melpaBuild, nand2tetris }:
+  company-nand2tetris = callPackage ({ cl-lib ? null, company, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, nand2tetris }:
     melpaBuild {
       pname = "company-nand2tetris";
       ename = "company-nand2tetris";
@@ -12591,8 +12532,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-nixos-options = callPackage ({ cl-lib ?
-    null, company, fetchFromGitHub, fetchurl, lib, melpaBuild, nixos-options }:
+  company-nixos-options = callPackage ({ cl-lib ? null, company, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, nixos-options }:
     melpaBuild {
       pname = "company-nixos-options";
       ename = "company-nixos-options";
@@ -12615,8 +12556,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-php = callPackage ({ ac-php-core, cl-lib ?
-    null, company, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  company-php = callPackage ({ ac-php-core, cl-lib ? null, company
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "company-php";
       ename = "company-php";
@@ -12663,8 +12604,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-plsense = callPackage ({ cl-lib ?
-    null, company, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
+  company-plsense = callPackage ({ cl-lib ? null, company, dash, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "company-plsense";
       ename = "company-plsense";
@@ -12807,9 +12748,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-racer = callPackage ({ cl-lib ?
-    null, company, deferred, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  company-racer = callPackage ({ cl-lib ? null, company, deferred, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "company-racer";
       ename = "company-racer";
@@ -12856,9 +12796,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-restclient = callPackage ({ cl-lib ?
-    null, company, emacs, fetchFromGitHub, fetchurl, know-your-http-well, lib, melpaBuild, restclient
-    }:
+  company-restclient = callPackage ({ cl-lib ? null, company, emacs
+    , fetchFromGitHub, fetchurl, know-your-http-well, lib, melpaBuild
+    , restclient }:
     melpaBuild {
       pname = "company-restclient";
       ename = "company-restclient";
@@ -12905,8 +12845,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-shell = callPackage ({ cl-lib ?
-    null, company, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  company-shell = callPackage ({ cl-lib ? null, company, dash, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "company-shell";
       ename = "company-shell";
@@ -12929,8 +12869,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-solidity = callPackage ({ cl-lib ?
-    null, company, fetchFromGitHub, fetchurl, lib, melpaBuild, solidity-mode }:
+  company-solidity = callPackage ({ cl-lib ? null, company, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, solidity-mode }:
     melpaBuild {
       pname = "company-solidity";
       ename = "company-solidity";
@@ -12953,9 +12893,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-sourcekit = callPackage
-    ({ company, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, sourcekit
-    }:
+  company-sourcekit = callPackage ({ company, dash, dash-functional, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, sourcekit }:
     melpaBuild {
       pname = "company-sourcekit";
       ename = "company-sourcekit";
@@ -13026,9 +12965,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-tabnine = callPackage ({ cl-lib ?
-    null, company, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, unicode-escape
-    }:
+  company-tabnine = callPackage ({ cl-lib ? null, company, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, s, unicode-escape }:
     melpaBuild {
       pname = "company-tabnine";
       ename = "company-tabnine";
@@ -13051,9 +12989,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-tern = callPackage ({ cl-lib ?
-    null, company, dash, dash-functional, fetchFromGitHub, fetchurl, lib, melpaBuild, s, tern
-    }:
+  company-tern = callPackage ({ cl-lib ? null, company, dash, dash-functional
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, s, tern }:
     melpaBuild {
       pname = "company-tern";
       ename = "company-tern";
@@ -13076,9 +13013,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-terraform = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, terraform-mode
-    }:
+  company-terraform = callPackage ({ company, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, terraform-mode }:
     melpaBuild {
       pname = "company-terraform";
       ename = "company-terraform";
@@ -13125,9 +13061,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-web = callPackage ({ cl-lib ?
-    null, company, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, web-completion-data
-    }:
+  company-web = callPackage ({ cl-lib ? null, company, dash, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, web-completion-data }:
     melpaBuild {
       pname = "company-web";
       ename = "company-web";
@@ -13174,9 +13109,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  company-ycmd = callPackage
-    ({ company, dash, deferred, f, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, s, ycmd
-    }:
+  company-ycmd = callPackage ({ company, dash, deferred, f, fetchFromGitHub
+    , fetchurl, let-alist, lib, melpaBuild, s, ycmd }:
     melpaBuild {
       pname = "company-ycmd";
       ename = "company-ycmd";
@@ -13223,9 +13157,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  composer = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, php-runtime, request, s, seq
-    }:
+  composer = callPackage ({ emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , php-runtime, request, s, seq }:
     melpaBuild {
       pname = "composer";
       ename = "composer";
@@ -13391,9 +13324,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  conllu-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, flycheck, hydra, lib, melpaBuild, s
-    }:
+  conllu-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , flycheck, hydra, lib, melpaBuild, s }:
     melpaBuild {
       pname = "conllu-mode";
       ename = "conllu-mode";
@@ -13772,9 +13704,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  counsel-codesearch = callPackage
-    ({ codesearch, counsel, emacs, fetchFromGitHub, fetchurl, ivy, lib, melpaBuild
-    }:
+  counsel-codesearch = callPackage ({ codesearch, counsel, emacs
+    , fetchFromGitHub, fetchurl, ivy, lib, melpaBuild }:
     melpaBuild {
       pname = "counsel-codesearch";
       ename = "counsel-codesearch";
@@ -13797,9 +13728,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  counsel-css = callPackage
-    ({ cl-lib ? null, counsel, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  counsel-css = callPackage ({ cl-lib ? null, counsel, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "counsel-css";
       ename = "counsel-css";
@@ -13822,9 +13752,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  counsel-dash = callPackage ({ cl-lib ?
-    null, counsel, dash-docs, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  counsel-dash = callPackage ({ cl-lib ? null, counsel, dash-docs, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "counsel-dash";
       ename = "counsel-dash";
@@ -15447,9 +15376,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dante = callPackage
-    ({ company, dash, emacs, f, fetchFromGitHub, fetchurl, flycheck, haskell-mode, lcr, lib, melpaBuild, s
-    }:
+  dante = callPackage ({ company, dash, emacs, f, fetchFromGitHub, fetchurl
+    , flycheck, haskell-mode, lcr, lib, melpaBuild, s }:
     melpaBuild {
       pname = "dante";
       ename = "dante";
@@ -15472,9 +15400,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dap-mode = callPackage
-    ({ bui, dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, lib, lsp-mode, melpaBuild, s, tree-mode
-    }:
+  dap-mode = callPackage ({ bui, dash, dash-functional, emacs, f
+    , fetchFromGitHub, fetchurl, lib, lsp-mode, melpaBuild, s, tree-mode }:
     melpaBuild {
       pname = "dap-mode";
       ename = "dap-mode";
@@ -15707,9 +15634,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dart-mode = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, s
-    }:
+  dart-mode = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, flycheck, lib, melpaBuild, s }:
     melpaBuild {
       pname = "dart-mode";
       ename = "dart-mode";
@@ -15778,9 +15704,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dash-docs = callPackage
-    ({ async, cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  dash-docs = callPackage ({ async, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "dash-docs";
       ename = "dash-docs";
@@ -17096,9 +17021,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dionysos = callPackage ({ alert, cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, lib, libmpdee, melpaBuild, pkg-info, s
-    }:
+  dionysos = callPackage ({ alert, cl-lib ? null, dash, fetchFromGitHub
+    , fetchurl, lib, libmpdee, melpaBuild, pkg-info, s }:
     melpaBuild {
       pname = "dionysos";
       ename = "dionysos";
@@ -17333,9 +17257,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dired-filter = callPackage ({ cl-lib ?
-    null, dash, dired-hacks-utils, f, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  dired-filter = callPackage ({ cl-lib ? null, dash, dired-hacks-utils, f
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "dired-filter";
       ename = "dired-filter";
@@ -18513,9 +18436,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  djangonaut = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, lib, magit-popup, melpaBuild, pythonic, s
-    }:
+  djangonaut = callPackage ({ emacs, f, fetchFromGitHub, fetchurl, lib
+    , magit-popup, melpaBuild, pythonic, s }:
     melpaBuild {
       pname = "djangonaut";
       ename = "djangonaut";
@@ -18727,9 +18649,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  docean = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  docean = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, request }:
     melpaBuild {
       pname = "docean";
       ename = "docean";
@@ -18752,9 +18673,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  docker = callPackage
-    ({ dash, docker-tramp, emacs, fetchFromGitHub, fetchurl, json-mode, lib, magit-popup, melpaBuild, s, tablist
-    }:
+  docker = callPackage ({ dash, docker-tramp, emacs, fetchFromGitHub, fetchurl
+    , json-mode, lib, magit-popup, melpaBuild, s, tablist }:
     melpaBuild {
       pname = "docker";
       ename = "docker";
@@ -19014,9 +18934,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  doom-modeline = callPackage
-    ({ all-the-icons, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, shrink-path
-    }:
+  doom-modeline = callPackage ({ all-the-icons, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, shrink-path }:
     melpaBuild {
       pname = "doom-modeline";
       ename = "doom-modeline";
@@ -19039,8 +18958,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  doom-themes = callPackage ({ all-the-icons, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  doom-themes = callPackage ({ all-the-icons, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "doom-themes";
       ename = "doom-themes";
@@ -19531,8 +19450,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dtk = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, seq }:
+  dtk = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, s, seq }:
     melpaBuild {
       pname = "dtk";
       ename = "dtk";
@@ -19835,9 +19754,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  dynamic-fonts = callPackage
-    ({ fetchFromGitHub, fetchurl, font-utils, lib, melpaBuild, pcache, persistent-soft
-    }:
+  dynamic-fonts = callPackage ({ fetchFromGitHub, fetchurl, font-utils, lib
+    , melpaBuild, pcache, persistent-soft }:
     melpaBuild {
       pname = "dynamic-fonts";
       ename = "dynamic-fonts";
@@ -20334,8 +20252,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ebf = callPackage ({ cl-lib ?
-    null, dash, dash-functional, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  ebf = callPackage ({ cl-lib ? null, dash, dash-functional, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "ebf";
       ename = "ebf";
@@ -20405,8 +20323,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  eclim = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, json ?
-    null, lib, melpaBuild, popup, s, yasnippet }:
+  eclim = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl
+    , json ? null, lib, melpaBuild, popup, s, yasnippet }:
     melpaBuild {
       pname = "eclim";
       ename = "eclim";
@@ -20452,9 +20370,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ecukes = callPackage
-    ({ ansi, commander, dash, espuds, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  ecukes = callPackage ({ ansi, commander, dash, espuds, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "ecukes";
       ename = "ecukes";
@@ -20597,8 +20514,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ede-compdb = callPackage ({ cl-lib ? null, ede ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, semantic ? null }:
+  ede-compdb = callPackage ({ cl-lib ? null, ede ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, semantic ? null }:
     melpaBuild {
       pname = "ede-compdb";
       ename = "ede-compdb";
@@ -20953,9 +20870,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  editorconfig-domain-specific = callPackage
-    ({ cl-lib ? null, editorconfig, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  editorconfig-domain-specific = callPackage ({ cl-lib ? null, editorconfig
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "editorconfig-domain-specific";
       ename = "editorconfig-domain-specific";
@@ -21026,9 +20942,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  edts = callPackage
-    ({ auto-complete, auto-highlight-symbol, dash, erlang, f, fetchFromGitHub, fetchurl, lib, melpaBuild, popup, s
-    }:
+  edts = callPackage ({ auto-complete, auto-highlight-symbol, dash, erlang, f
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, popup, s }:
     melpaBuild {
       pname = "edts";
       ename = "edts";
@@ -21145,8 +21060,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  eglot = callPackage ({ emacs, fetchFromGitHub, fetchurl, flymake ?
-    null, jsonrpc, lib, melpaBuild }:
+  eglot = callPackage ({ emacs, fetchFromGitHub, fetchurl, flymake ? null
+    , jsonrpc, lib, melpaBuild }:
     melpaBuild {
       pname = "eglot";
       ename = "eglot";
@@ -21169,9 +21084,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ego = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, ht, htmlize, lib, melpaBuild, mustache, org, simple-httpd
-    }:
+  ego = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, ht, htmlize, lib
+    , melpaBuild, mustache, org, simple-httpd }:
     melpaBuild {
       pname = "ego";
       ename = "ego";
@@ -21239,9 +21153,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  ein = callPackage
-    ({ auto-complete, dash, deferred, emacs, fetchFromGitHub, fetchurl, lib, markdown-mode, melpaBuild, polymode, request, s, skewer-mode, websocket
-    }:
+  ein = callPackage ({ auto-complete, dash, deferred, emacs, fetchFromGitHub
+    , fetchurl, lib, markdown-mode, melpaBuild, polymode, request, s
+    , skewer-mode, websocket }:
     melpaBuild {
       pname = "ein";
       ename = "ein";
@@ -21321,9 +21235,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ejc-sql = callPackage
-    ({ auto-complete, clomacs, dash, direx, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, spinner
-    }:
+  ejc-sql = callPackage ({ auto-complete, clomacs, dash, direx, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, spinner }:
     melpaBuild {
       pname = "ejc-sql";
       ename = "ejc-sql";
@@ -21416,8 +21329,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  el-init = callPackage ({ anaphora, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  el-init = callPackage ({ anaphora, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "el-init";
       ename = "el-init";
@@ -21440,9 +21353,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  el-init-viewer = callPackage ({ anaphora, cl-lib ?
-    null, ctable, dash, el-init, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  el-init-viewer = callPackage ({ anaphora, cl-lib ? null, ctable, dash, el-init
+    , emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "el-init-viewer";
       ename = "el-init-viewer";
@@ -21721,9 +21633,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elcontext = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, ht, hydra, lib, melpaBuild, osx-location, uuidgen
-    }:
+  elcontext = callPackage ({ emacs, f, fetchFromGitHub, fetchurl, ht, hydra, lib
+    , melpaBuild, osx-location, uuidgen }:
     melpaBuild {
       pname = "elcontext";
       ename = "elcontext";
@@ -21769,9 +21680,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elcouch = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, json-mode, lib, libelcouch, melpaBuild
-    }:
+  elcouch = callPackage ({ emacs, fetchFromGitHub, fetchurl, json-mode, lib
+    , libelcouch, melpaBuild }:
     melpaBuild {
       pname = "elcouch";
       ename = "elcouch";
@@ -21865,9 +21775,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  eldoc-overlay = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, inline-docs, lib, melpaBuild, quick-peek
-    }:
+  eldoc-overlay = callPackage ({ emacs, fetchFromGitHub, fetchurl, inline-docs
+    , lib, melpaBuild, quick-peek }:
     melpaBuild {
       pname = "eldoc-overlay";
       ename = "eldoc-overlay";
@@ -22030,9 +21939,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elfeed-goodies = callPackage ({ ace-jump-mode, cl-lib ?
-    null, elfeed, fetchFromGitHub, fetchurl, lib, melpaBuild, noflet, popwin, powerline
-    }:
+  elfeed-goodies = callPackage ({ ace-jump-mode, cl-lib ? null, elfeed
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, noflet, popwin, powerline }:
     melpaBuild {
       pname = "elfeed-goodies";
       ename = "elfeed-goodies";
@@ -22055,8 +21963,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elfeed-org = callPackage ({ cl-lib ?
-    null, dash, elfeed, fetchFromGitHub, fetchurl, lib, melpaBuild, org, s }:
+  elfeed-org = callPackage ({ cl-lib ? null, dash, elfeed, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, org, s }:
     melpaBuild {
       pname = "elfeed-org";
       ename = "elfeed-org";
@@ -22079,9 +21987,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elfeed-protocol = callPackage
-    ({ cl-lib ? null, elfeed, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  elfeed-protocol = callPackage ({ cl-lib ? null, elfeed, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "elfeed-protocol";
       ename = "elfeed-protocol";
@@ -22104,9 +22011,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elfeed-web = callPackage
-    ({ elfeed, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, simple-httpd
-    }:
+  elfeed-web = callPackage ({ elfeed, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, simple-httpd }:
     melpaBuild {
       pname = "elfeed-web";
       ename = "elfeed-web";
@@ -22437,9 +22343,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elm-mode = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, reformatter, s, seq
-    }:
+  elm-mode = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, let-alist
+    , lib, melpaBuild, reformatter, s, seq }:
     melpaBuild {
       pname = "elm-mode";
       ename = "elm-mode";
@@ -22557,9 +22462,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elnode = callPackage
-    ({ creole, dash, db, fakir, fetchFromGitHub, fetchurl, kv, lib, melpaBuild, noflet, s, web
-    }:
+  elnode = callPackage ({ creole, dash, db, fakir, fetchFromGitHub, fetchurl, kv
+    , lib, melpaBuild, noflet, s, web }:
     melpaBuild {
       pname = "elnode";
       ename = "elnode";
@@ -22747,9 +22651,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  elpy = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, find-file-in-project, highlight-indentation, lib, melpaBuild, pyvenv, s, yasnippet
-    }:
+  elpy = callPackage ({ company, emacs, fetchFromGitHub, fetchurl
+    , find-file-in-project, highlight-indentation, lib, melpaBuild, pyvenv, s
+    , yasnippet }:
     melpaBuild {
       pname = "elpy";
       ename = "elpy";
@@ -22828,8 +22732,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elsa = callPackage ({ cl-lib ?
-    null, dash, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, trinary }:
+  elsa = callPackage ({ cl-lib ? null, dash, emacs, f, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, trinary }:
     melpaBuild {
       pname = "elsa";
       ename = "elsa";
@@ -22875,8 +22779,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elscreen-buffer-group = callPackage ({ cl-lib ?
-    null, elscreen, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  elscreen-buffer-group = callPackage ({ cl-lib ? null, elscreen, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "elscreen-buffer-group";
       ename = "elscreen-buffer-group";
@@ -22947,9 +22851,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  elscreen-multi-term = callPackage
-    ({ elscreen, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, multi-term
-    }:
+  elscreen-multi-term = callPackage ({ elscreen, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, multi-term }:
     melpaBuild {
       pname = "elscreen-multi-term";
       ename = "elscreen-multi-term";
@@ -23419,9 +23322,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  embrace = callPackage
-    ({ cl-lib ? null, expand-region, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  embrace = callPackage ({ cl-lib ? null, expand-region, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "embrace";
       ename = "embrace";
@@ -23444,9 +23346,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  emidje = callPackage
-    ({ cider, emacs, fetchFromGitHub, fetchurl, lib, magit-popup, melpaBuild, seq
-    }:
+  emidje = callPackage ({ cider, emacs, fetchFromGitHub, fetchurl, lib
+    , magit-popup, melpaBuild, seq }:
     melpaBuild {
       pname = "emidje";
       ename = "emidje";
@@ -23634,9 +23535,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  emms-player-mpv-jp-radios = callPackage ({ cl-lib ?
-    null, emacs, emms, emms-player-simple-mpv, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  emms-player-mpv-jp-radios = callPackage ({ cl-lib ? null, emacs, emms
+    , emms-player-simple-mpv, fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "emms-player-mpv-jp-radios";
       ename = "emms-player-mpv-jp-radios";
@@ -23896,9 +23796,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  emr = callPackage ({ cl-lib ?
-    null, clang-format, dash, emacs, fetchFromGitHub, fetchurl, iedit, lib, list-utils, melpaBuild, paredit, popup, projectile, s
-    }:
+  emr = callPackage ({ cl-lib ? null, clang-format, dash, emacs, fetchFromGitHub
+    , fetchurl, iedit, lib, list-utils, melpaBuild, paredit, popup, projectile
+    , s }:
     melpaBuild {
       pname = "emr";
       ename = "emr";
@@ -24097,9 +23997,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ensime = callPackage
-    ({ company, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, popup, s, sbt-mode, scala-mode, yasnippet
-    }:
+  ensime = callPackage ({ company, dash, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, popup, s, sbt-mode, scala-mode, yasnippet }:
     melpaBuild {
       pname = "ensime";
       ename = "ensime";
@@ -24146,9 +24045,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  eopengrok = callPackage
-    ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, lib, magit, melpaBuild, s
-    }:
+  eopengrok = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, lib
+    , magit, melpaBuild, s }:
     melpaBuild {
       pname = "eopengrok";
       ename = "eopengrok";
@@ -24499,9 +24397,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  erc-scrolltoplace = callPackage
-    ({ emacs, fetchFromGitLab, fetchurl, lib, melpaBuild, switch-buffer-functions
-    }:
+  erc-scrolltoplace = callPackage ({ emacs, fetchFromGitLab, fetchurl, lib
+    , melpaBuild, switch-buffer-functions }:
     melpaBuild {
       pname = "erc-scrolltoplace";
       ename = "erc-scrolltoplace";
@@ -24829,8 +24726,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ergoemacs-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, undo-tree }:
+  ergoemacs-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, undo-tree }:
     melpaBuild {
       pname = "ergoemacs-mode";
       ename = "ergoemacs-mode";
@@ -25041,9 +24938,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ert-runner = callPackage
-    ({ ansi, commander, dash, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s, shut-up
-    }:
+  ert-runner = callPackage ({ ansi, commander, dash, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s, shut-up }:
     melpaBuild {
       pname = "ert-runner";
       ename = "ert-runner";
@@ -25090,8 +24986,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  es-mode = callPackage ({ cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, request, s, spark }:
+  es-mode = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, request, s, spark }:
     melpaBuild {
       pname = "es-mode";
       ename = "es-mode";
@@ -25897,9 +25793,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  euslisp-mode = callPackage
-    ({ emacs, exec-path-from-shell, fetchFromGitHub, fetchurl, helm-ag, lib, melpaBuild, s
-    }:
+  euslisp-mode = callPackage ({ emacs, exec-path-from-shell, fetchFromGitHub
+    , fetchurl, helm-ag, lib, melpaBuild, s }:
     melpaBuild {
       pname = "euslisp-mode";
       ename = "euslisp-mode";
@@ -26041,9 +25936,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  eve-mode = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, markdown-mode, melpaBuild, polymode
-    }:
+  eve-mode = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, markdown-mode
+    , melpaBuild, polymode }:
     melpaBuild {
       pname = "eve-mode";
       ename = "eve-mode";
@@ -26066,9 +25960,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, goto-chg, lib, melpaBuild, undo-tree
-    }:
+  evil = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , goto-chg, lib, melpaBuild, undo-tree }:
     melpaBuild {
       pname = "evil";
       ename = "evil";
@@ -26138,8 +26031,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-avy = callPackage ({ avy, cl-lib ?
-    null, emacs, evil, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  evil-avy = callPackage ({ avy, cl-lib ? null, emacs, evil, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "evil-avy";
       ename = "evil-avy";
@@ -26186,9 +26079,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-cleverparens = callPackage
-    ({ dash, emacs, evil, fetchFromGitHub, fetchurl, lib, melpaBuild, paredit, smartparens
-    }:
+  evil-cleverparens = callPackage ({ dash, emacs, evil, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, paredit, smartparens }:
     melpaBuild {
       pname = "evil-cleverparens";
       ename = "evil-cleverparens";
@@ -26379,9 +26271,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-embrace = callPackage
-    ({ emacs, embrace, evil-surround, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  evil-embrace = callPackage ({ emacs, embrace, evil-surround, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "evil-embrace";
       ename = "evil-embrace";
@@ -26571,9 +26462,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-fringe-mark = callPackage
-    ({ emacs, evil, fetchFromGitHub, fetchurl, fringe-helper, goto-chg, lib, melpaBuild
-    }:
+  evil-fringe-mark = callPackage ({ emacs, evil, fetchFromGitHub, fetchurl
+    , fringe-helper, goto-chg, lib, melpaBuild }:
     melpaBuild {
       pname = "evil-fringe-mark";
       ename = "evil-fringe-mark";
@@ -26788,9 +26678,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-lisp-state = callPackage
-    ({ bind-map, evil, fetchFromGitHub, fetchurl, lib, melpaBuild, smartparens
-    }:
+  evil-lisp-state = callPackage ({ bind-map, evil, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, smartparens }:
     melpaBuild {
       pname = "evil-lisp-state";
       ename = "evil-lisp-state";
@@ -26933,9 +26822,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-mc-extras = callPackage ({ cl-lib ?
-    null, emacs, evil, evil-mc, evil-numbers, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  evil-mc-extras = callPackage ({ cl-lib ? null, emacs, evil, evil-mc
+    , evil-numbers, fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "evil-mc-extras";
       ename = "evil-mc-extras";
@@ -26982,8 +26870,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-multiedit = callPackage ({ cl-lib ?
-    null, emacs, evil, fetchFromGitHub, fetchurl, iedit, lib, melpaBuild }:
+  evil-multiedit = callPackage ({ cl-lib ? null, emacs, evil, fetchFromGitHub
+    , fetchurl, iedit, lib, melpaBuild }:
     melpaBuild {
       pname = "evil-multiedit";
       ename = "evil-multiedit";
@@ -27149,9 +27037,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-python-movement = callPackage
-    ({ cl-lib ? null, dash, emacs, evil, fetchgit, fetchurl, lib, melpaBuild, s
-    }:
+  evil-python-movement = callPackage ({ cl-lib ? null, dash, emacs, evil
+    , fetchgit, fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "evil-python-movement";
       ename = "evil-python-movement";
@@ -27388,9 +27275,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  evil-string-inflection = callPackage
-    ({ emacs, evil, fetchFromGitHub, fetchurl, lib, melpaBuild, string-inflection
-    }:
+  evil-string-inflection = callPackage ({ emacs, evil, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, string-inflection }:
     melpaBuild {
       pname = "evil-string-inflection";
       ename = "evil-string-inflection";
@@ -27891,9 +27777,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ewal-spacemacs-themes = callPackage
-    ({ emacs, ewal, fetchFromGitLab, fetchurl, lib, melpaBuild, spacemacs-theme
-    }:
+  ewal-spacemacs-themes = callPackage ({ emacs, ewal, fetchFromGitLab, fetchurl
+    , lib, melpaBuild, spacemacs-theme }:
     melpaBuild {
       pname = "ewal-spacemacs-themes";
       ename = "ewal-spacemacs-themes";
@@ -28340,9 +28225,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  exwm-x = callPackage ({ bind-key, cl-lib ?
-    null, counsel, exwm, fetchFromGitHub, fetchurl, ivy, lib, melpaBuild, swiper, switch-window
-    }:
+  exwm-x = callPackage ({ bind-key, cl-lib ? null, counsel, exwm
+    , fetchFromGitHub, fetchurl, ivy, lib, melpaBuild, swiper, switch-window }:
     melpaBuild {
       pname = "exwm-x";
       ename = "exwm-x";
@@ -29180,8 +29064,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  finalize = callPackage ({ cl-generic, cl-lib ? null, eieio ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  finalize = callPackage ({ cl-generic, cl-lib ? null, eieio ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "finalize";
       ename = "finalize";
@@ -29630,9 +29514,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  fixmee = callPackage
-    ({ back-button, button-lock, fetchFromGitHub, fetchurl, lib, melpaBuild, nav-flash, smartrep, string-utils, tabulated-list ?
-      null }:
+  fixmee = callPackage ({ back-button, button-lock, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, nav-flash, smartrep, string-utils, tabulated-list ? null
+    }:
     melpaBuild {
       pname = "fixmee";
       ename = "fixmee";
@@ -29988,9 +29872,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flow-js2-mode = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, flow-minor-mode, js2-mode, lib, melpaBuild
-    }:
+  flow-js2-mode = callPackage ({ emacs, fetchFromGitHub, fetchurl
+    , flow-minor-mode, js2-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "flow-js2-mode";
       ename = "flow-js2-mode";
@@ -30204,9 +30087,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, pkg-info, seq
-    }:
+  flycheck = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist
+    , lib, melpaBuild, pkg-info, seq }:
     melpaBuild {
       pname = "flycheck";
       ename = "flycheck";
@@ -30445,9 +30327,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-clangcheck = callPackage
-    ({ cl-lib ? null, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, seq
-    }:
+  flycheck-clangcheck = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , flycheck, lib, melpaBuild, seq }:
     melpaBuild {
       pname = "flycheck-clangcheck";
       ename = "flycheck-clangcheck";
@@ -30494,9 +30375,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-clojure = callPackage
-    ({ cider, emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild
-    }:
+  flycheck-clojure = callPackage ({ cider, emacs, fetchFromGitHub, fetchurl
+    , flycheck, let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "flycheck-clojure";
       ename = "flycheck-clojure";
@@ -30927,9 +30807,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-elm = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild, seq
-    }:
+  flycheck-elm = callPackage ({ emacs, fetchFromGitHub, fetchurl, flycheck
+    , let-alist, lib, melpaBuild, seq }:
     melpaBuild {
       pname = "flycheck-elm";
       ename = "flycheck-elm";
@@ -31167,9 +31046,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-haskell = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, flycheck, haskell-mode, let-alist, lib, melpaBuild, seq
-    }:
+  flycheck-haskell = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl
+    , flycheck, haskell-mode, let-alist, lib, melpaBuild, seq }:
     melpaBuild {
       pname = "flycheck-haskell";
       ename = "flycheck-haskell";
@@ -31624,9 +31502,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-ocaml = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild, merlin
-    }:
+  flycheck-ocaml = callPackage ({ emacs, fetchFromGitHub, fetchurl, flycheck
+    , let-alist, lib, melpaBuild, merlin }:
     melpaBuild {
       pname = "flycheck-ocaml";
       ename = "flycheck-ocaml";
@@ -31769,9 +31646,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-plantuml = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, plantuml-mode
-    }:
+  flycheck-plantuml = callPackage ({ emacs, fetchFromGitHub, fetchurl, flycheck
+    , lib, melpaBuild, plantuml-mode }:
     melpaBuild {
       pname = "flycheck-plantuml";
       ename = "flycheck-plantuml";
@@ -31962,8 +31838,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-pyre = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild }:
+  flycheck-pyre = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , flycheck, lib, melpaBuild }:
     melpaBuild {
       pname = "flycheck-pyre";
       ename = "flycheck-pyre";
@@ -32010,9 +31886,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-rust = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild, seq
-    }:
+  flycheck-rust = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl
+    , flycheck, let-alist, lib, melpaBuild, seq }:
     melpaBuild {
       pname = "flycheck-rust";
       ename = "flycheck-rust";
@@ -32083,9 +31958,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-status-emoji = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild
-    }:
+  flycheck-status-emoji = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, flycheck, let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "flycheck-status-emoji";
       ename = "flycheck-status-emoji";
@@ -32372,9 +32246,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flycheck-ycmd = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild, ycmd
-    }:
+  flycheck-ycmd = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl
+    , flycheck, let-alist, lib, melpaBuild, ycmd }:
     melpaBuild {
       pname = "flycheck-ycmd";
       ename = "flycheck-ycmd";
@@ -32849,9 +32722,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  flymake-less = callPackage
-    ({ fetchFromGitHub, fetchurl, flymake-easy, less-css-mode, lib, melpaBuild
-    }:
+  flymake-less = callPackage ({ fetchFromGitHub, fetchurl, flymake-easy
+    , less-css-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "flymake-less";
       ename = "flymake-less";
@@ -33471,9 +33343,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  fn = callPackage ({ cl-lib ?
-    null, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  fn = callPackage ({ cl-lib ? null, dash, dash-functional, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "fn";
       ename = "fn";
@@ -33827,9 +33698,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  foreman-mode = callPackage
-    ({ dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  foreman-mode = callPackage ({ dash, dash-functional, emacs, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "foreman-mode";
       ename = "foreman-mode";
@@ -33876,9 +33746,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  forge = callPackage
-    ({ closql, dash, emacs, emacsql-sqlite, fetchFromGitHub, fetchurl, ghub, let-alist, lib, magit, markdown-mode, melpaBuild, transient
-    }:
+  forge = callPackage ({ closql, dash, emacs, emacsql-sqlite, fetchFromGitHub
+    , fetchurl, ghub, let-alist, lib, magit, markdown-mode, melpaBuild
+    , transient }:
     melpaBuild {
       pname = "forge";
       ename = "forge";
@@ -34028,9 +33898,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  fortpy = callPackage
-    ({ auto-complete, epc, fetchFromGitHub, fetchurl, lib, melpaBuild, pos-tip, python-environment
-    }:
+  fortpy = callPackage ({ auto-complete, epc, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, pos-tip, python-environment }:
     melpaBuild {
       pname = "fortpy";
       ename = "fortpy";
@@ -34148,9 +34017,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  frame-purpose = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  frame-purpose = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "frame-purpose";
       ename = "frame-purpose";
@@ -34412,9 +34280,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  fsharp-mode = callPackage
-    ({ company, company-quickhelp, dash, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, popup, pos-tip, s
-    }:
+  fsharp-mode = callPackage ({ company, company-quickhelp, dash, fetchFromGitHub
+    , fetchurl, flycheck, lib, melpaBuild, popup, pos-tip, s }:
     melpaBuild {
       pname = "fsharp-mode";
       ename = "fsharp-mode";
@@ -34438,9 +34305,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  fstar-mode = callPackage
-    ({ company, company-quickhelp, dash, emacs, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, quick-peek, yasnippet
-    }:
+  fstar-mode = callPackage ({ company, company-quickhelp, dash, emacs
+    , fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, quick-peek
+    , yasnippet }:
     melpaBuild {
       pname = "fstar-mode";
       ename = "fstar-mode";
@@ -34790,9 +34657,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  gams-ac = callPackage
-    ({ auto-complete, emacs, fetchFromGitHub, fetchurl, gams-mode, lib, melpaBuild
-    }:
+  gams-ac = callPackage ({ auto-complete, emacs, fetchFromGitHub, fetchurl
+    , gams-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "gams-ac";
       ename = "gams-ac";
@@ -34978,9 +34844,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  geben-helm-projectile = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, geben, helm-projectile, lib, melpaBuild
-    }:
+  geben-helm-projectile = callPackage ({ emacs, fetchFromGitHub, fetchurl, geben
+    , helm-projectile, lib, melpaBuild }:
     melpaBuild {
       pname = "geben-helm-projectile";
       ename = "geben-helm-projectile";
@@ -35073,9 +34938,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  genrnc = callPackage
-    ({ concurrent, deferred, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, yaxception
-    }:
+  genrnc = callPackage ({ concurrent, deferred, fetchFromGitHub, fetchurl, lib
+    , log4e, melpaBuild, yaxception }:
     melpaBuild {
       pname = "genrnc";
       ename = "genrnc";
@@ -35214,9 +35078,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  gh = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, logito, marshal, melpaBuild, pcache
-    }:
+  gh = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, logito, marshal
+    , melpaBuild, pcache }:
     melpaBuild {
       pname = "gh";
       ename = "gh";
@@ -35404,9 +35267,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ghub = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, treepy
-    }:
+  ghub = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist, lib
+    , melpaBuild, treepy }:
     melpaBuild {
       pname = "ghub";
       ename = "ghub";
@@ -35711,9 +35573,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  git-commit-insert-issue = callPackage
-    ({ bitbucket, fetchFromGitLab, fetchurl, github-issues, gitlab, lib, melpaBuild, projectile, s
-    }:
+  git-commit-insert-issue = callPackage ({ bitbucket, fetchFromGitLab, fetchurl
+    , github-issues, gitlab, lib, melpaBuild, projectile, s }:
     melpaBuild {
       pname = "git-commit-insert-issue";
       ename = "git-commit-insert-issue";
@@ -35783,9 +35644,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  git-gutter-fringe = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, fringe-helper, git-gutter, lib, melpaBuild
-    }:
+  git-gutter-fringe = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, fringe-helper, git-gutter, lib, melpaBuild }:
     melpaBuild {
       pname = "git-gutter-fringe";
       ename = "git-gutter-fringe";
@@ -35808,9 +35668,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  git-gutter-fringe-plus = callPackage
-    ({ fetchFromGitHub, fetchurl, fringe-helper, git-gutter-plus, lib, melpaBuild
-    }:
+  git-gutter-fringe-plus = callPackage ({ fetchFromGitHub, fetchurl
+    , fringe-helper, git-gutter-plus, lib, melpaBuild }:
     melpaBuild {
       pname = "git-gutter-fringe-plus";
       ename = "git-gutter-fringe+";
@@ -36210,9 +36069,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  github-elpa = callPackage
-    ({ commander, fetchFromGitHub, fetchurl, git, lib, melpaBuild, package-build
-    }:
+  github-elpa = callPackage ({ commander, fetchFromGitHub, fetchurl, git, lib
+    , melpaBuild, package-build }:
     melpaBuild {
       pname = "github-elpa";
       ename = "github-elpa";
@@ -36331,9 +36189,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  github-pullrequest = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, magit, melpaBuild, request
-    }:
+  github-pullrequest = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl
+    , lib, magit, melpaBuild, request }:
     melpaBuild {
       pname = "github-pullrequest";
       ename = "github-pullrequest";
@@ -36546,9 +36403,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  gitlab-ci-mode-flycheck = callPackage
-    ({ emacs, fetchFromGitLab, fetchurl, flycheck, gitlab-ci-mode, lib, melpaBuild
-    }:
+  gitlab-ci-mode-flycheck = callPackage ({ emacs, fetchFromGitLab, fetchurl
+    , flycheck, gitlab-ci-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "gitlab-ci-mode-flycheck";
       ename = "gitlab-ci-mode-flycheck";
@@ -37493,8 +37349,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  go-playground-cli = callPackage ({ cl-lib ?
-    null, deferred, emacs, f, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, names, request, s
+  go-playground-cli = callPackage ({ cl-lib ? null, deferred, emacs, f
+    , fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, names, request, s
     }:
     melpaBuild {
       pname = "go-playground-cli";
@@ -37518,9 +37374,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  go-projectile = callPackage
-    ({ fetchFromGitHub, fetchurl, go-eldoc, go-guru, go-mode, go-rename, lib, melpaBuild, projectile
-    }:
+  go-projectile = callPackage ({ fetchFromGitHub, fetchurl, go-eldoc, go-guru
+    , go-mode, go-rename, lib, melpaBuild, projectile }:
     melpaBuild {
       pname = "go-projectile";
       ename = "go-projectile";
@@ -38300,9 +38155,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  govc = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, json-mode, lib, magit-popup, melpaBuild, s
-    }:
+  govc = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, json-mode, lib
+    , magit-popup, melpaBuild, s }:
     melpaBuild {
       pname = "govc";
       ename = "govc";
@@ -38488,8 +38342,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  grails-projectile-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, projectile }:
+  grails-projectile-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, projectile }:
     melpaBuild {
       pname = "grails-projectile-mode";
       ename = "grails-projectile-mode";
@@ -38534,9 +38388,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  graphene = callPackage
-    ({ company, dash, exec-path-from-shell, fetchFromGitHub, fetchurl, flycheck, graphene-meta-theme, ido-completing-read-plus, lib, melpaBuild, ppd-sr-speedbar, smartparens, smex, sr-speedbar, web-mode
-    }:
+  graphene = callPackage ({ company, dash, exec-path-from-shell, fetchFromGitHub
+    , fetchurl, flycheck, graphene-meta-theme, ido-completing-read-plus, lib
+    , melpaBuild, ppd-sr-speedbar, smartparens, smex, sr-speedbar, web-mode }:
     melpaBuild {
       pname = "graphene";
       ename = "graphene";
@@ -39043,8 +38897,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  grunt = callPackage ({ ansi-color ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  grunt = callPackage ({ ansi-color ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "grunt";
       ename = "grunt";
@@ -39257,9 +39111,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  guix = callPackage
-    ({ bui, dash, edit-indirect, emacs, fetchFromGitHub, fetchurl, geiser, lib, magit-popup, melpaBuild
-    }:
+  guix = callPackage ({ bui, dash, edit-indirect, emacs, fetchFromGitHub
+    , fetchurl, geiser, lib, magit-popup, melpaBuild }:
     melpaBuild {
       pname = "guix";
       ename = "guix";
@@ -39565,9 +39418,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ham-mode = callPackage
-    ({ fetchFromGitHub, fetchurl, html-to-markdown, lib, markdown-mode, melpaBuild
-    }:
+  ham-mode = callPackage ({ fetchFromGitHub, fetchurl, html-to-markdown, lib
+    , markdown-mode, melpaBuild }:
     melpaBuild {
       pname = "ham-mode";
       ename = "ham-mode";
@@ -40252,9 +40104,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm = callPackage
-    ({ async, emacs, fetchFromGitHub, fetchurl, helm-core, lib, melpaBuild, popup
-    }:
+  helm = callPackage ({ async, emacs, fetchFromGitHub, fetchurl, helm-core, lib
+    , melpaBuild, popup }:
     melpaBuild {
       pname = "helm";
       ename = "helm";
@@ -40349,8 +40200,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-addressbook = callPackage ({ addressbook-bookmark, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
+  helm-addressbook = callPackage ({ addressbook-bookmark, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-addressbook";
       ename = "helm-addressbook";
@@ -40492,9 +40343,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-bibtex = callPackage ({ biblio, cl-lib ?
-    null, dash, f, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, parsebib, s
-    }:
+  helm-bibtex = callPackage ({ biblio, cl-lib ? null, dash, f, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild, parsebib, s }:
     melpaBuild {
       pname = "helm-bibtex";
       ename = "helm-bibtex";
@@ -40685,8 +40535,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-c-yasnippet = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, yasnippet }:
+  helm-c-yasnippet = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "helm-c-yasnippet";
       ename = "helm-c-yasnippet";
@@ -40853,8 +40703,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-circe = callPackage ({ circe, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
+  helm-circe = callPackage ({ circe, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-circe";
       ename = "helm-circe";
@@ -40924,8 +40774,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-codesearch = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, s }:
+  helm-codesearch = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild, s }:
     melpaBuild {
       pname = "helm-codesearch";
       ename = "helm-codesearch";
@@ -40948,9 +40798,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-commandlinefu = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, helm, json ?
-      null, let-alist, lib, melpaBuild }:
+  helm-commandlinefu = callPackage ({ emacs, fetchFromGitHub, fetchurl, helm
+    , json ? null, let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-commandlinefu";
       ename = "helm-commandlinefu";
@@ -41021,8 +40870,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-cscope = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, xcscope }:
+  helm-cscope = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild, xcscope }:
     melpaBuild {
       pname = "helm-cscope";
       ename = "helm-cscope";
@@ -41093,8 +40942,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-dash = callPackage ({ cl-lib ?
-    null, dash-docs, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
+  helm-dash = callPackage ({ cl-lib ? null, dash-docs, emacs, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-dash";
       ename = "helm-dash";
@@ -41285,8 +41134,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-elscreen = callPackage ({ cl-lib ?
-    null, elscreen, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
+  helm-elscreen = callPackage ({ cl-lib ? null, elscreen, emacs, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-elscreen";
       ename = "helm-elscreen";
@@ -41333,8 +41182,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-emms = callPackage ({ cl-lib ?
-    null, emacs, emms, fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
+  helm-emms = callPackage ({ cl-lib ? null, emacs, emms, fetchFromGitHub
+    , fetchurl, helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-emms";
       ename = "helm-emms";
@@ -41669,8 +41518,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-ghc = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, ghc, helm, lib, melpaBuild }:
+  helm-ghc = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, ghc
+    , helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-ghc";
       ename = "helm-ghc";
@@ -41836,9 +41685,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-gitignore = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, gitignore-mode, helm, lib, melpaBuild, request
-    }:
+  helm-gitignore = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , gitignore-mode, helm, lib, melpaBuild, request }:
     melpaBuild {
       pname = "helm-gitignore";
       ename = "helm-gitignore";
@@ -41885,9 +41733,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-go-package = callPackage
-    ({ deferred, emacs, fetchFromGitHub, fetchurl, go-mode, helm-core, lib, melpaBuild
-    }:
+  helm-go-package = callPackage ({ deferred, emacs, fetchFromGitHub, fetchurl
+    , go-mode, helm-core, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-go-package";
       ename = "helm-go-package";
@@ -42028,9 +41875,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-hayoo = callPackage
-    ({ fetchFromGitHub, fetchurl, haskell-mode, helm, json ?
-      null, lib, melpaBuild }:
+  helm-hayoo = callPackage ({ fetchFromGitHub, fetchurl, haskell-mode, helm
+    , json ? null, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-hayoo";
       ename = "helm-hayoo";
@@ -42293,9 +42139,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-js-codemod = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, helm-core, js-codemod, lib, melpaBuild
-    }:
+  helm-js-codemod = callPackage ({ emacs, fetchFromGitHub, fetchurl, helm-core
+    , js-codemod, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-js-codemod";
       ename = "helm-js-codemod";
@@ -42390,9 +42235,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-lean = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, helm, lean-mode, lib, melpaBuild
-    }:
+  helm-lean = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, helm
+    , lean-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-lean";
       ename = "helm-lean";
@@ -42559,9 +42403,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-lsp = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, helm, lib, lsp-mode, melpaBuild
-    }:
+  helm-lsp = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, helm, lib
+    , lsp-mode, melpaBuild }:
     melpaBuild {
       pname = "helm-lsp";
       ename = "helm-lsp";
@@ -42584,8 +42427,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-lxc = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm, lib, lxc-tramp, melpaBuild }:
+  helm-lxc = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , helm, lib, lxc-tramp, melpaBuild }:
     melpaBuild {
       pname = "helm-lxc";
       ename = "helm-lxc";
@@ -42631,9 +42474,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-migemo = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm-core, lib, melpaBuild, migemo
-    }:
+  helm-migemo = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , helm-core, lib, melpaBuild, migemo }:
     melpaBuild {
       pname = "helm-migemo";
       ename = "helm-migemo";
@@ -42680,8 +42522,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-mt = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, multi-term }:
+  helm-mt = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, helm
+    , lib, melpaBuild, multi-term }:
     melpaBuild {
       pname = "helm-mt";
       ename = "helm-mt";
@@ -42895,9 +42737,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-pass = callPackage
-    ({ auth-source-pass, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, password-store
-    }:
+  helm-pass = callPackage ({ auth-source-pass, emacs, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild, password-store }:
     melpaBuild {
       pname = "helm-pass";
       ename = "helm-pass";
@@ -43063,8 +42904,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-projectile = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, projectile }:
+  helm-projectile = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild, projectile }:
     melpaBuild {
       pname = "helm-projectile";
       ename = "helm-projectile";
@@ -43134,9 +42975,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-purpose = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, window-purpose
-    }:
+  helm-purpose = callPackage ({ emacs, fetchFromGitHub, fetchurl, helm, lib
+    , melpaBuild, window-purpose }:
     melpaBuild {
       pname = "helm-purpose";
       ename = "helm-purpose";
@@ -43327,8 +43167,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-rg = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild }:
+  helm-rg = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild }:
     melpaBuild {
       pname = "helm-rg";
       ename = "helm-rg";
@@ -43398,8 +43238,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-ros = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, xterm-color }:
+  helm-ros = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, helm, lib
+    , melpaBuild, xterm-color }:
     melpaBuild {
       pname = "helm-ros";
       ename = "helm-ros";
@@ -43518,8 +43358,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-sage = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, sage-shell-mode }:
+  helm-sage = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, helm, lib
+    , melpaBuild, sage-shell-mode }:
     melpaBuild {
       pname = "helm-sage";
       ename = "helm-sage";
@@ -43590,8 +43430,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-slime = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm-core, lib, melpaBuild, slime }:
+  helm-slime = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , helm-core, lib, melpaBuild, slime }:
     melpaBuild {
       pname = "helm-slime";
       ename = "helm-slime";
@@ -43950,8 +43790,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-w3m = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, w3m }:
+  helm-w3m = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild, w3m }:
     melpaBuild {
       pname = "helm-w3m";
       ename = "helm-w3m";
@@ -44046,9 +43886,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helm-youtube = callPackage
-    ({ cl-lib ? null, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, request
-    }:
+  helm-youtube = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, helm
+    , lib, melpaBuild, request }:
     melpaBuild {
       pname = "helm-youtube";
       ename = "helm-youtube";
@@ -44142,9 +43981,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  helpful = callPackage
-    ({ dash, dash-functional, elisp-refs, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  helpful = callPackage ({ dash, dash-functional, elisp-refs, emacs, f
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "helpful";
       ename = "helpful";
@@ -45298,9 +45136,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  hledger-mode = callPackage
-    ({ async, emacs, fetchFromGitHub, fetchurl, htmlize, lib, melpaBuild, popup
-    }:
+  hledger-mode = callPackage ({ async, emacs, fetchFromGitHub, fetchurl, htmlize
+    , lib, melpaBuild, popup }:
     melpaBuild {
       pname = "hledger-mode";
       ename = "hledger-mode";
@@ -45464,9 +45301,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  home-end = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, keypress-multi-event, lib, melpaBuild
-    }:
+  home-end = callPackage ({ emacs, fetchFromGitHub, fetchurl
+    , keypress-multi-event, lib, melpaBuild }:
     melpaBuild {
       pname = "home-end";
       ename = "home-end";
@@ -45865,9 +45701,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  http = callPackage
-    ({ edit-indirect, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  http = callPackage ({ edit-indirect, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, request }:
     melpaBuild {
       pname = "http";
       ename = "http";
@@ -46055,9 +45890,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  hy-mode = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  hy-mode = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "hy-mode";
       ename = "hy-mode";
@@ -46692,8 +46526,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ido-completing-read-plus = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, memoize, s }:
+  ido-completing-read-plus = callPackage ({ cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, memoize, s }:
     melpaBuild {
       pname = "ido-completing-read-plus";
       ename = "ido-completing-read+";
@@ -47119,8 +46953,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  idris-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, prop-menu }:
+  idris-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, prop-menu }:
     melpaBuild {
       pname = "idris-mode";
       ename = "idris-mode";
@@ -47586,8 +47420,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  impatient-mode = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, htmlize, lib, melpaBuild, simple-httpd }:
+  impatient-mode = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , htmlize, lib, melpaBuild, simple-httpd }:
     melpaBuild {
       pname = "impatient-mode";
       ename = "impatient-mode";
@@ -47800,9 +47634,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  indium = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, js2-mode, js2-refactor, lib, melpaBuild, seq
-    }:
+  indium = callPackage ({ company, emacs, fetchFromGitHub, fetchurl, js2-mode
+    , js2-refactor, lib, melpaBuild, seq }:
     melpaBuild {
       pname = "indium";
       ename = "indium";
@@ -48431,9 +48264,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  intero = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, flycheck, haskell-mode, lib, melpaBuild
-    }:
+  intero = callPackage ({ company, emacs, fetchFromGitHub, fetchurl, flycheck
+    , haskell-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "intero";
       ename = "intero";
@@ -48807,9 +48639,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  irony-eldoc = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, irony, lib, melpaBuild
-    }:
+  irony-eldoc = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , irony, lib, melpaBuild }:
     melpaBuild {
       pname = "irony-eldoc";
       ename = "irony-eldoc";
@@ -49184,9 +49015,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ivy-bibtex = callPackage ({ biblio, cl-lib ?
-    null, dash, f, fetchFromGitHub, fetchurl, lib, melpaBuild, parsebib, s, swiper
-    }:
+  ivy-bibtex = callPackage ({ biblio, cl-lib ? null, dash, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, parsebib, s, swiper }:
     melpaBuild {
       pname = "ivy-bibtex";
       ename = "ivy-bibtex";
@@ -49209,9 +49039,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ivy-dired-history = callPackage
-    ({ cl-lib ? null, counsel, fetchFromGitHub, fetchurl, ivy, lib, melpaBuild
-    }:
+  ivy-dired-history = callPackage ({ cl-lib ? null, counsel, fetchFromGitHub
+    , fetchurl, ivy, lib, melpaBuild }:
     melpaBuild {
       pname = "ivy-dired-history";
       ename = "ivy-dired-history";
@@ -49234,9 +49063,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ivy-erlang-complete = callPackage
-    ({ async, counsel, emacs, erlang, fetchFromGitHub, fetchurl, ivy, lib, melpaBuild
-    }:
+  ivy-erlang-complete = callPackage ({ async, counsel, emacs, erlang
+    , fetchFromGitHub, fetchurl, ivy, lib, melpaBuild }:
     melpaBuild {
       pname = "ivy-erlang-complete";
       ename = "ivy-erlang-complete";
@@ -49403,9 +49231,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ivy-mpdel = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, ivy, lib, libmpdel, melpaBuild, mpdel
-    }:
+  ivy-mpdel = callPackage ({ emacs, fetchFromGitHub, fetchurl, ivy, lib
+    , libmpdel, melpaBuild, mpdel }:
     melpaBuild {
       pname = "ivy-mpdel";
       ename = "ivy-mpdel";
@@ -49716,9 +49543,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ivy-yasnippet = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, ivy, lib, melpaBuild, yasnippet
-    }:
+  ivy-yasnippet = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, ivy, lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "ivy-yasnippet";
       ename = "ivy-yasnippet";
@@ -49765,9 +49591,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ivy-youtube = callPackage
-    ({ cl-lib ? null, fetchFromGitHub, fetchurl, ivy, lib, melpaBuild, request
-    }:
+  ivy-youtube = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, ivy
+    , lib, melpaBuild, request }:
     melpaBuild {
       pname = "ivy-youtube";
       ename = "ivy-youtube";
@@ -50328,9 +50153,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jdee = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, memoize, s
-    }:
+  jdee = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, flycheck, lib
+    , melpaBuild, memoize, s }:
     melpaBuild {
       pname = "jdee";
       ename = "jdee";
@@ -50353,9 +50177,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jedi = callPackage
-    ({ auto-complete, emacs, fetchFromGitHub, fetchurl, jedi-core, lib, melpaBuild
-    }:
+  jedi = callPackage ({ auto-complete, emacs, fetchFromGitHub, fetchurl
+    , jedi-core, lib, melpaBuild }:
     melpaBuild {
       pname = "jedi";
       ename = "jedi";
@@ -50378,9 +50201,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jedi-core = callPackage ({ cl-lib ?
-    null, emacs, epc, fetchFromGitHub, fetchurl, lib, melpaBuild, python-environment
-    }:
+  jedi-core = callPackage ({ cl-lib ? null, emacs, epc, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, python-environment }:
     melpaBuild {
       pname = "jedi-core";
       ename = "jedi-core";
@@ -50522,9 +50344,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  jest = callPackage ({ cl-lib ?
-    null, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, js2-mode, lib, magit-popup, melpaBuild, projectile, s
-    }:
+  jest = callPackage ({ cl-lib ? null, dash, dash-functional, emacs
+    , fetchFromGitHub, fetchurl, js2-mode, lib, magit-popup, melpaBuild
+    , projectile, s }:
     melpaBuild {
       pname = "jest";
       ename = "jest";
@@ -50643,9 +50465,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jist = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist, lib, magit, melpaBuild, request, seq
-    }:
+  jist = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, let-alist, lib
+    , magit, melpaBuild, request, seq }:
     melpaBuild {
       pname = "jist";
       ename = "jist";
@@ -50691,8 +50512,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jonprl-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, yasnippet }:
+  jonprl-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "jonprl-mode";
       ename = "jonprl-mode";
@@ -51048,9 +50869,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  js2-refactor = callPackage
-    ({ dash, fetchFromGitHub, fetchurl, js2-mode, lib, melpaBuild, multiple-cursors, s, yasnippet
-    }:
+  js2-refactor = callPackage ({ dash, fetchFromGitHub, fetchurl, js2-mode, lib
+    , melpaBuild, multiple-cursors, s, yasnippet }:
     melpaBuild {
       pname = "js2-refactor";
       ename = "js2-refactor";
@@ -51143,9 +50963,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  json-mode = callPackage
-    ({ fetchFromGitHub, fetchurl, json-reformat, json-snatcher, lib, melpaBuild
-    }:
+  json-mode = callPackage ({ fetchFromGitHub, fetchurl, json-reformat
+    , json-snatcher, lib, melpaBuild }:
     melpaBuild {
       pname = "json-mode";
       ename = "json-mode";
@@ -51474,8 +51293,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jump = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, findr, inflections, lib, melpaBuild }:
+  jump = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, findr
+    , inflections, lib, melpaBuild }:
     melpaBuild {
       pname = "jump";
       ename = "jump";
@@ -51591,9 +51410,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  jupyter = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, simple-httpd, websocket, zmq
-    }:
+  jupyter = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, simple-httpd, websocket, zmq }:
     melpaBuild {
       pname = "jupyter";
       ename = "jupyter";
@@ -51760,9 +51578,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  kakoune = callPackage
-    ({ emacs, expand-region, fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors, ryo-modal
-    }:
+  kakoune = callPackage ({ emacs, expand-region, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, multiple-cursors, ryo-modal }:
     melpaBuild {
       pname = "kakoune";
       ename = "kakoune";
@@ -51877,8 +51694,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  kaolin-themes = callPackage ({ autothemer, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  kaolin-themes = callPackage ({ autothemer, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "kaolin-themes";
       ename = "kaolin-themes";
@@ -52679,8 +52496,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  kodi-remote = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, json ?
-    null, let-alist, lib, melpaBuild, request }:
+  kodi-remote = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , json ? null, let-alist, lib, melpaBuild, request }:
     melpaBuild {
       pname = "kodi-remote";
       ename = "kodi-remote";
@@ -52915,9 +52732,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  kubernetes = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, magit, magit-popup, melpaBuild
-    }:
+  kubernetes = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib, magit
+    , magit-popup, melpaBuild }:
     melpaBuild {
       pname = "kubernetes";
       ename = "kubernetes";
@@ -53581,9 +53397,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lean-mode = callPackage
-    ({ dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, s
-    }:
+  lean-mode = callPackage ({ dash, dash-functional, emacs, f, fetchFromGitHub
+    , fetchurl, flycheck, lib, melpaBuild, s }:
     melpaBuild {
       pname = "lean-mode";
       ename = "lean-mode";
@@ -53606,9 +53421,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  leanote = callPackage ({ async, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, pcache, request, s
-    }:
+  leanote = callPackage ({ async, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, let-alist, lib, melpaBuild, pcache, request, s }:
     melpaBuild {
       pname = "leanote";
       ename = "leanote";
@@ -53702,9 +53516,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  leetcode = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, graphql, lib, melpaBuild, request-deferred, spinner
-    }:
+  leetcode = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, graphql, lib
+    , melpaBuild, request-deferred, spinner }:
     melpaBuild {
       pname = "leetcode";
       ename = "leetcode";
@@ -53797,9 +53610,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lentic = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, m-buffer, melpaBuild, s
-    }:
+  lentic = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib
+    , m-buffer, melpaBuild, s }:
     melpaBuild {
       pname = "lentic";
       ename = "lentic";
@@ -54381,9 +54193,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  liquid-types = callPackage
-    ({ button-lock, dash, emacs, fetchFromGitHub, fetchurl, flycheck, flycheck-liquidhs, lib, melpaBuild, popup, pos-tip
-    }:
+  liquid-types = callPackage ({ button-lock, dash, emacs, fetchFromGitHub
+    , fetchurl, flycheck, flycheck-liquidhs, lib, melpaBuild, popup, pos-tip }:
     melpaBuild {
       pname = "liquid-types";
       ename = "liquid-types";
@@ -54477,9 +54288,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lispy = callPackage
-    ({ ace-window, emacs, fetchFromGitHub, fetchurl, hydra, iedit, lib, melpaBuild, swiper, zoutline
-    }:
+  lispy = callPackage ({ ace-window, emacs, fetchFromGitHub, fetchurl, hydra
+    , iedit, lib, melpaBuild, swiper, zoutline }:
     melpaBuild {
       pname = "lispy";
       ename = "lispy";
@@ -54526,8 +54336,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lispyville = callPackage ({ cl-lib ?
-    null, emacs, evil, fetchFromGitHub, fetchurl, lib, lispy, melpaBuild }:
+  lispyville = callPackage ({ cl-lib ? null, emacs, evil, fetchFromGitHub
+    , fetchurl, lib, lispy, melpaBuild }:
     melpaBuild {
       pname = "lispyville";
       ename = "lispyville";
@@ -54811,9 +54621,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  live-code-talks = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, narrowed-page-navigation
-    }:
+  live-code-talks = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, narrowed-page-navigation }:
     melpaBuild {
       pname = "live-code-talks";
       ename = "live-code-talks";
@@ -55606,9 +55415,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lsp-java = callPackage
-    ({ dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, ht, lib, lsp-mode, markdown-mode, melpaBuild, request
-    }:
+  lsp-java = callPackage ({ dash, dash-functional, emacs, f, fetchFromGitHub
+    , fetchurl, ht, lib, lsp-mode, markdown-mode, melpaBuild, request }:
     melpaBuild {
       pname = "lsp-java";
       ename = "lsp-java";
@@ -55656,9 +55464,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lsp-mode = callPackage
-    ({ dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, ht, lib, markdown-mode, melpaBuild, spinner
-    }:
+  lsp-mode = callPackage ({ dash, dash-functional, emacs, f, fetchFromGitHub
+    , fetchurl, ht, lib, markdown-mode, melpaBuild, spinner }:
     melpaBuild {
       pname = "lsp-mode";
       ename = "lsp-mode";
@@ -55754,9 +55561,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lsp-python-ms = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, json ?
-      null, lib, lsp-mode, melpaBuild, python ? null }:
+  lsp-python-ms = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , json ? null, lib, lsp-mode, melpaBuild, python ? null }:
     melpaBuild {
       pname = "lsp-python-ms";
       ename = "lsp-python-ms";
@@ -55827,9 +55633,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lsp-treemacs = callPackage
-    ({ dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, ht, lib, lsp-mode, melpaBuild, treemacs
-    }:
+  lsp-treemacs = callPackage ({ dash, dash-functional, emacs, f, fetchFromGitHub
+    , fetchurl, ht, lib, lsp-mode, melpaBuild, treemacs }:
     melpaBuild {
       pname = "lsp-treemacs";
       ename = "lsp-treemacs";
@@ -55852,9 +55657,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  lsp-ui = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, lsp-mode, markdown-mode, melpaBuild
-    }:
+  lsp-ui = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, lsp-mode, markdown-mode, melpaBuild }:
     melpaBuild {
       pname = "lsp-ui";
       ename = "lsp-ui";
@@ -56326,9 +56130,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  magit = callPackage
-    ({ async, dash, emacs, fetchFromGitHub, fetchurl, git-commit, lib, melpaBuild, transient, with-editor
-    }:
+  magit = callPackage ({ async, dash, emacs, fetchFromGitHub, fetchurl
+    , git-commit, lib, melpaBuild, transient, with-editor }:
     melpaBuild {
       pname = "magit";
       ename = "magit";
@@ -56375,9 +56178,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  magit-diff-flycheck = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, flycheck, lib, magit, melpaBuild, seq
-    }:
+  magit-diff-flycheck = callPackage ({ emacs, fetchFromGitHub, fetchurl
+    , flycheck, lib, magit, melpaBuild, seq }:
     melpaBuild {
       pname = "magit-diff-flycheck";
       ename = "magit-diff-flycheck";
@@ -56472,9 +56274,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  magit-gh-pulls = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, gh, lib, magit, melpaBuild, pcache, s
-    }:
+  magit-gh-pulls = callPackage ({ emacs, fetchFromGitHub, fetchurl, gh, lib
+    , magit, melpaBuild, pcache, s }:
     melpaBuild {
       pname = "magit-gh-pulls";
       ename = "magit-gh-pulls";
@@ -56617,8 +56418,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  magit-p4 = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, magit, magit-popup, melpaBuild, p4 }:
+  magit-p4 = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, lib, magit
+    , magit-popup, melpaBuild, p4 }:
     melpaBuild {
       pname = "magit-p4";
       ename = "magit-p4";
@@ -56784,9 +56585,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  magit-todos = callPackage
-    ({ async, dash, emacs, f, fetchFromGitHub, fetchurl, hl-todo, lib, magit, melpaBuild, pcre2el, s
-    }:
+  magit-todos = callPackage ({ async, dash, emacs, f, fetchFromGitHub, fetchurl
+    , hl-todo, lib, magit, melpaBuild, pcre2el, s }:
     melpaBuild {
       pname = "magit-todos";
       ename = "magit-todos";
@@ -56833,9 +56633,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  magithub = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, ghub-plus, git-commit, lib, magit, markdown-mode, melpaBuild, s
-    }:
+  magithub = callPackage ({ emacs, fetchFromGitHub, fetchurl, ghub-plus
+    , git-commit, lib, magit, markdown-mode, melpaBuild, s }:
     melpaBuild {
       pname = "magithub";
       ename = "magithub";
@@ -56953,9 +56752,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  major-mode-icons = callPackage
-    ({ all-the-icons, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, powerline
-    }:
+  major-mode-icons = callPackage ({ all-the-icons, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, powerline }:
     melpaBuild {
       pname = "major-mode-icons";
       ename = "major-mode-icons";
@@ -57073,9 +56871,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  malinka = callPackage ({ cl-lib ?
-    null, dash, f, fetchFromGitHub, fetchurl, lib, melpaBuild, projectile, rtags, s
-    }:
+  malinka = callPackage ({ cl-lib ? null, dash, f, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, projectile, rtags, s }:
     melpaBuild {
       pname = "malinka";
       ename = "malinka";
@@ -57240,9 +57037,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  mandoku = callPackage
-    ({ fetchFromGitHub, fetchurl, git, github-clone, lib, magit, melpaBuild, org
-    }:
+  mandoku = callPackage ({ fetchFromGitHub, fetchurl, git, github-clone, lib
+    , magit, melpaBuild, org }:
     melpaBuild {
       pname = "mandoku";
       ename = "mandoku";
@@ -57265,9 +57061,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  mandoku-tls = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, github-clone, helm, helm-charinfo, hydra, lib, mandoku, melpaBuild, org
-    }:
+  mandoku-tls = callPackage ({ emacs, fetchFromGitHub, fetchurl, github-clone
+    , helm, helm-charinfo, hydra, lib, mandoku, melpaBuild, org }:
     melpaBuild {
       pname = "mandoku-tls";
       ename = "mandoku-tls";
@@ -57481,9 +57276,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  markdown-preview-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, markdown-mode, melpaBuild, web-server, websocket
-    }:
+  markdown-preview-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, markdown-mode, melpaBuild, web-server, websocket }:
     melpaBuild {
       pname = "markdown-preview-mode";
       ename = "markdown-preview-mode";
@@ -57648,9 +57442,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  marshal = callPackage
-    ({ eieio ? null, fetchFromGitHub, fetchurl, ht, json ? null, lib, melpaBuild
-    }:
+  marshal = callPackage ({ eieio ? null, fetchFromGitHub, fetchurl, ht
+    , json ? null, lib, melpaBuild }:
     melpaBuild {
       pname = "marshal";
       ename = "marshal";
@@ -58026,9 +57819,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  md4rd = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, hierarchy, lib, melpaBuild, request, s, tree-mode
-    }:
+  md4rd = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl
+    , hierarchy, lib, melpaBuild, request, s, tree-mode }:
     melpaBuild {
       pname = "md4rd";
       ename = "md4rd";
@@ -58074,9 +57866,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  meghanada = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, yasnippet
-    }:
+  meghanada = callPackage ({ company, emacs, fetchFromGitHub, fetchurl, flycheck
+    , lib, melpaBuild, yasnippet }:
     melpaBuild {
       pname = "meghanada";
       ename = "meghanada";
@@ -58218,8 +58009,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  mentor = callPackage ({ async, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, seq, xml-rpc }:
+  mentor = callPackage ({ async, cl-lib ? null, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, seq, xml-rpc }:
     melpaBuild {
       pname = "mentor";
       ename = "mentor";
@@ -59934,9 +59725,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  motion-mode = callPackage
-    ({ fetchFromGitHub, fetchurl, flymake-cursor, flymake-easy, lib, melpaBuild
-    }:
+  motion-mode = callPackage ({ fetchFromGitHub, fetchurl, flymake-cursor
+    , flymake-easy, lib, melpaBuild }:
     melpaBuild {
       pname = "motion-mode";
       ename = "motion-mode";
@@ -60264,8 +60054,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  mpv = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, json ?
-    null, lib, melpaBuild, org }:
+  mpv = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , json ? null, lib, melpaBuild, org }:
     melpaBuild {
       pname = "mpv";
       ename = "mpv";
@@ -60359,8 +60149,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  msvc = callPackage ({ ac-clang, cedet ? null, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  msvc = callPackage ({ ac-clang, cedet ? null, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "msvc";
       ename = "msvc";
@@ -60667,8 +60457,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  multi-line = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, shut-up }:
+  multi-line = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s, shut-up }:
     melpaBuild {
       pname = "multi-line";
       ename = "multi-line";
@@ -62171,9 +61961,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  niconama = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  niconama = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, request }:
     melpaBuild {
       pname = "niconama";
       ename = "niconama";
@@ -62242,9 +62031,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nim-mode = callPackage
-    ({ commenter, emacs, epc, fetchFromGitHub, fetchurl, flycheck-nimsuggest, let-alist, lib, melpaBuild
-    }:
+  nim-mode = callPackage ({ commenter, emacs, epc, fetchFromGitHub, fetchurl
+    , flycheck-nimsuggest, let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "nim-mode";
       ename = "nim-mode";
@@ -62339,9 +62127,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nix-haskell-mode = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, haskell-mode, lib, melpaBuild, nix-mode
-    }:
+  nix-haskell-mode = callPackage ({ emacs, fetchFromGitHub, fetchurl
+    , haskell-mode, lib, melpaBuild, nix-mode }:
     melpaBuild {
       pname = "nix-haskell-mode";
       ename = "nix-haskell-mode";
@@ -62459,9 +62246,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nlinum-hl = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, nlinum
-    }:
+  nlinum-hl = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, nlinum }:
     melpaBuild {
       pname = "nlinum-hl";
       ename = "nlinum-hl";
@@ -62508,9 +62294,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nm = callPackage
-    ({ company, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, notmuch, peg
-    }:
+  nm = callPackage ({ company, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , notmuch, peg }:
     melpaBuild {
       pname = "nm";
       ename = "nm";
@@ -62603,8 +62388,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  noaa = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request }:
+  noaa = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, request }:
     melpaBuild {
       pname = "noaa";
       ename = "noaa";
@@ -63071,9 +62856,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nrepl-eval-sexp-fu = callPackage
-    ({ fetchFromGitHub, fetchurl, highlight, lib, melpaBuild, smartparens, thingatpt ?
-      null }:
+  nrepl-eval-sexp-fu = callPackage ({ fetchFromGitHub, fetchurl, highlight, lib
+    , melpaBuild, smartparens, thingatpt ? null }:
     melpaBuild {
       pname = "nrepl-eval-sexp-fu";
       ename = "nrepl-eval-sexp-fu";
@@ -63190,9 +62974,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nu-mode = callPackage
-    ({ ace-window, avy, fetchFromGitHub, fetchurl, lib, lv, melpaBuild, transpose-frame, undo-tree, which-key
-    }:
+  nu-mode = callPackage ({ ace-window, avy, fetchFromGitHub, fetchurl, lib, lv
+    , melpaBuild, transpose-frame, undo-tree, which-key }:
     melpaBuild {
       pname = "nu-mode";
       ename = "nu-mode";
@@ -63355,9 +63138,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  nvm = callPackage
-    ({ dash, dash-functional, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  nvm = callPackage ({ dash, dash-functional, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, s }:
     melpaBuild {
       pname = "nvm";
       ename = "nvm";
@@ -63496,9 +63278,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ob-ammonite = callPackage
-    ({ ammonite-term-repl, fetchFromGitHub, fetchurl, lib, melpaBuild, s, xterm-color
-    }:
+  ob-ammonite = callPackage ({ ammonite-term-repl, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, s, xterm-color }:
     melpaBuild {
       pname = "ob-ammonite";
       ename = "ob-ammonite";
@@ -63755,9 +63536,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ob-cypher = callPackage
-    ({ cypher-mode, dash, dash-functional, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  ob-cypher = callPackage ({ cypher-mode, dash, dash-functional, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "ob-cypher";
       ename = "ob-cypher";
@@ -64013,9 +63793,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ob-ipython = callPackage
-    ({ dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  ob-ipython = callPackage ({ dash, dash-functional, emacs, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "ob-ipython";
       ename = "ob-ipython";
@@ -65026,8 +64805,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  omnisharp = callPackage ({ auto-complete, cl-lib ?
-    null, csharp-mode, dash, emacs, f, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, popup, s
+  omnisharp = callPackage ({ auto-complete, cl-lib ? null, csharp-mode, dash
+    , emacs, f, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, popup, s
     }:
     melpaBuild {
       pname = "omnisharp";
@@ -65076,9 +64855,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  on-parens = callPackage
-    ({ dash, emacs, evil, fetchFromGitHub, fetchurl, lib, melpaBuild, smartparens
-    }:
+  on-parens = callPackage ({ dash, emacs, evil, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, smartparens }:
     melpaBuild {
       pname = "on-parens";
       ename = "on-parens";
@@ -65288,9 +65066,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  opener = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  opener = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, request }:
     melpaBuild {
       pname = "opener";
       ename = "opener";
@@ -65454,9 +65231,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-ac = callPackage
-    ({ auto-complete-pcmp, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, yaxception
-    }:
+  org-ac = callPackage ({ auto-complete-pcmp, fetchFromGitHub, fetchurl, lib
+    , log4e, melpaBuild, yaxception }:
     melpaBuild {
       pname = "org-ac";
       ename = "org-ac";
@@ -65574,9 +65350,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-babel-eval-in-repl = callPackage
-    ({ emacs, ess, eval-in-repl, fetchFromGitHub, fetchurl, lib, matlab-mode, melpaBuild
-    }:
+  org-babel-eval-in-repl = callPackage ({ emacs, ess, eval-in-repl
+    , fetchFromGitHub, fetchurl, lib, matlab-mode, melpaBuild }:
     melpaBuild {
       pname = "org-babel-eval-in-repl";
       ename = "org-babel-eval-in-repl";
@@ -66144,8 +65919,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-drill-table = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, org, s }:
+  org-drill-table = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, org, s }:
     melpaBuild {
       pname = "org-drill-table";
       ename = "org-drill-table";
@@ -66359,9 +66134,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-gcal = callPackage ({ alert, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, org, request-deferred
-    }:
+  org-gcal = callPackage ({ alert, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, org, request-deferred }:
     melpaBuild {
       pname = "org-gcal";
       ename = "org-gcal";
@@ -66384,9 +66158,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-gnome = callPackage
-    ({ alert, fetchFromGitHub, fetchurl, gnome-calendar, lib, melpaBuild, telepathy
-    }:
+  org-gnome = callPackage ({ alert, fetchFromGitHub, fetchurl, gnome-calendar
+    , lib, melpaBuild, telepathy }:
     melpaBuild {
       pname = "org-gnome";
       ename = "org-gnome";
@@ -66480,8 +66253,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-iv = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, impatient-mode, lib, melpaBuild, org }:
+  org-iv = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , impatient-mode, lib, melpaBuild, org }:
     melpaBuild {
       pname = "org-iv";
       ename = "org-iv";
@@ -66504,8 +66277,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-jira = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request, s }:
+  org-jira = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, request, s }:
     melpaBuild {
       pname = "org-jira";
       ename = "org-jira";
@@ -66983,9 +66756,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-outline-numbering = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitLab, fetchurl, lib, melpaBuild, org, ov
-    }:
+  org-outline-numbering = callPackage ({ cl-lib ? null, emacs, fetchFromGitLab
+    , fetchurl, lib, melpaBuild, org, ov }:
     melpaBuild {
       pname = "org-outline-numbering";
       ename = "org-outline-numbering";
@@ -67031,9 +66803,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-page = callPackage ({ cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, git, ht, htmlize, lib, melpaBuild, mustache, org, simple-httpd
-    }:
+  org-page = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, git
+    , ht, htmlize, lib, melpaBuild, mustache, org, simple-httpd }:
     melpaBuild {
       pname = "org-page";
       ename = "org-page";
@@ -67127,9 +66898,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-pivotal = callPackage
-    ({ a, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  org-pivotal = callPackage ({ a, dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, request }:
     melpaBuild {
       pname = "org-pivotal";
       ename = "org-pivotal";
@@ -67272,9 +67042,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-projectile = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, org-category-capture, projectile, s
-    }:
+  org-projectile = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, org-category-capture, projectile, s }:
     melpaBuild {
       pname = "org-projectile";
       ename = "org-projectile";
@@ -67297,9 +67066,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-projectile-helm = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, org-projectile
-    }:
+  org-projectile-helm = callPackage ({ emacs, fetchFromGitHub, fetchurl, helm
+    , lib, melpaBuild, org-projectile }:
     melpaBuild {
       pname = "org-projectile-helm";
       ename = "org-projectile-helm";
@@ -67442,9 +67210,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-re-reveal-ref = callPackage
-    ({ emacs, fetchFromGitLab, fetchurl, lib, melpaBuild, org-re-reveal, org-ref
-    }:
+  org-re-reveal-ref = callPackage ({ emacs, fetchFromGitLab, fetchurl, lib
+    , melpaBuild, org-re-reveal, org-ref }:
     melpaBuild {
       pname = "org-re-reveal-ref";
       ename = "org-re-reveal-ref";
@@ -67538,8 +67305,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-ref = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, helm, helm-bibtex, htmlize, hydra, ivy, key-chord, lib, melpaBuild, pdf-tools, s
+  org-ref = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, helm
+    , helm-bibtex, htmlize, hydra, ivy, key-chord, lib, melpaBuild, pdf-tools, s
     }:
     melpaBuild {
       pname = "org-ref";
@@ -67764,9 +67531,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-starter = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  org-starter = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "org-starter";
       ename = "org-starter";
@@ -68053,8 +67819,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-toodledo = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request-deferred }:
+  org-toodledo = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, request-deferred }:
     melpaBuild {
       pname = "org-toodledo";
       ename = "org-toodledo";
@@ -68148,9 +67914,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-trello = callPackage
-    ({ dash, dash-functional, deferred, fetchFromGitHub, fetchurl, lib, melpaBuild, request-deferred, s
-    }:
+  org-trello = callPackage ({ dash, dash-functional, deferred, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, request-deferred, s }:
     melpaBuild {
       pname = "org-trello";
       ename = "org-trello";
@@ -68243,9 +68008,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-web-tools = callPackage
-    ({ dash, emacs, esxml, fetchFromGitHub, fetchurl, lib, melpaBuild, org, request, s
-    }:
+  org-web-tools = callPackage ({ dash, emacs, esxml, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, org, request, s }:
     melpaBuild {
       pname = "org-web-tools";
       ename = "org-web-tools";
@@ -68268,9 +68032,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-wild-notifier = callPackage
-    ({ alert, async, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  org-wild-notifier = callPackage ({ alert, async, dash, dash-functional, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "org-wild-notifier";
       ename = "org-wild-notifier";
@@ -68293,9 +68056,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org-wunderlist = callPackage ({ alert, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, org, request-deferred, s
-    }:
+  org-wunderlist = callPackage ({ alert, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, org, request-deferred, s }:
     melpaBuild {
       pname = "org-wunderlist";
       ename = "org-wunderlist";
@@ -68318,9 +68080,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org2blog = callPackage
-    ({ fetchFromGitHub, fetchurl, htmlize, hydra, lib, melpaBuild, metaweblog, org, xml-rpc
-    }:
+  org2blog = callPackage ({ fetchFromGitHub, fetchurl, htmlize, hydra, lib
+    , melpaBuild, metaweblog, org, xml-rpc }:
     melpaBuild {
       pname = "org2blog";
       ename = "org2blog";
@@ -68414,9 +68175,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org2jekyll = callPackage
-    ({ dash-functional, deferred, fetchFromGitHub, fetchurl, kv, lib, melpaBuild, s
-    }:
+  org2jekyll = callPackage ({ dash-functional, deferred, fetchFromGitHub
+    , fetchurl, kv, lib, melpaBuild, s }:
     melpaBuild {
       pname = "org2jekyll";
       ename = "org2jekyll";
@@ -68439,9 +68199,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  org2web = callPackage ({ cl-lib ?
-    null, dash, el2org, fetchFromGitHub, fetchurl, ht, htmlize, lib, melpaBuild, mustache, org, simple-httpd
-    }:
+  org2web = callPackage ({ cl-lib ? null, dash, el2org, fetchFromGitHub
+    , fetchurl, ht, htmlize, lib, melpaBuild, mustache, org, simple-httpd }:
     melpaBuild {
       pname = "org2web";
       ename = "org2web";
@@ -68729,9 +68488,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  origami = callPackage
-    ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  origami = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, s }:
     melpaBuild {
       pname = "origami";
       ename = "origami";
@@ -68754,9 +68512,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  osx-browse = callPackage
-    ({ browse-url-dwim, fetchFromGitHub, fetchurl, lib, melpaBuild, string-utils
-    }:
+  osx-browse = callPackage ({ browse-url-dwim, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, string-utils }:
     melpaBuild {
       pname = "osx-browse";
       ename = "osx-browse";
@@ -69274,9 +69031,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  owdriver = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, smartrep, yaxception
-    }:
+  owdriver = callPackage ({ fetchFromGitHub, fetchurl, lib, log4e, melpaBuild
+    , smartrep, yaxception }:
     melpaBuild {
       pname = "owdriver";
       ename = "owdriver";
@@ -69490,8 +69246,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ox-ioslide = callPackage ({ cl-lib ?
-    null, emacs, f, fetchFromGitHub, fetchurl, lib, makey, melpaBuild, org }:
+  ox-ioslide = callPackage ({ cl-lib ? null, emacs, f, fetchFromGitHub, fetchurl
+    , lib, makey, melpaBuild, org }:
     melpaBuild {
       pname = "ox-ioslide";
       ename = "ox-ioslide";
@@ -69656,8 +69412,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ox-pandoc = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, ht, lib, melpaBuild, org }:
+  ox-pandoc = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, ht, lib, melpaBuild, org }:
     melpaBuild {
       pname = "ox-pandoc";
       ename = "ox-pandoc";
@@ -70318,9 +70074,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  pacmacs = callPackage ({ cl-lib ?
-    null, dash, dash-functional, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  pacmacs = callPackage ({ cl-lib ? null, dash, dash-functional, emacs, f
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "pacmacs";
       ename = "pacmacs";
@@ -70698,9 +70453,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  paradox = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, hydra, let-alist, lib, melpaBuild, seq, spinner
-    }:
+  paradox = callPackage ({ emacs, fetchFromGitHub, fetchurl, hydra, let-alist
+    , lib, melpaBuild, seq, spinner }:
     melpaBuild {
       pname = "paradox";
       ename = "paradox";
@@ -71076,9 +70830,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  pass = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, password-store, password-store-otp
-    }:
+  pass = callPackage ({ emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , password-store, password-store-otp }:
     melpaBuild {
       pname = "pass";
       ename = "pass";
@@ -72186,8 +71939,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  persp-mode-projectile-bridge = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, persp-mode, projectile }:
+  persp-mode-projectile-bridge = callPackage ({ cl-lib ? null, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, persp-mode, projectile }:
     melpaBuild {
       pname = "persp-mode-projectile-bridge";
       ename = "persp-mode-projectile-bridge";
@@ -72210,8 +71963,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  persp-projectile = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, perspective, projectile }:
+  persp-projectile = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, perspective, projectile }:
     melpaBuild {
       pname = "persp-projectile";
       ename = "persp-projectile";
@@ -72374,9 +72127,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  phabricator = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, projectile, s
-    }:
+  phabricator = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, projectile, s }:
     melpaBuild {
       pname = "phabricator";
       ename = "phabricator";
@@ -72541,9 +72293,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  phi-search-mc = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors, phi-search
-    }:
+  phi-search-mc = callPackage ({ fetchFromGitHub, fetchurl, lib, melpaBuild
+    , multiple-cursors, phi-search }:
     melpaBuild {
       pname = "phi-search-mc";
       ename = "phi-search-mc";
@@ -72851,9 +72602,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  phpactor = callPackage ({ cl-lib ?
-    null, composer, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, php-runtime
-    }:
+  phpactor = callPackage ({ cl-lib ? null, composer, emacs, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, php-runtime }:
     melpaBuild {
       pname = "phpactor";
       ename = "phpactor";
@@ -72946,8 +72696,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  phpunit = callPackage ({ cl-lib ?
-    null, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, pkg-info, s }:
+  phpunit = callPackage ({ cl-lib ? null, emacs, f, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, pkg-info, s }:
     melpaBuild {
       pname = "phpunit";
       ename = "phpunit";
@@ -73772,9 +73522,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  plsense = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, yaxception
-    }:
+  plsense = callPackage ({ auto-complete, fetchFromGitHub, fetchurl, lib, log4e
+    , melpaBuild, yaxception }:
     melpaBuild {
       pname = "plsense";
       ename = "plsense";
@@ -73797,9 +73546,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  plsense-direx = callPackage
-    ({ direx, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, plsense, yaxception
-    }:
+  plsense-direx = callPackage ({ direx, fetchFromGitHub, fetchurl, lib, log4e
+    , melpaBuild, plsense, yaxception }:
     melpaBuild {
       pname = "plsense-direx";
       ename = "plsense-direx";
@@ -73914,9 +73662,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  pocket-lib = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, kv, lib, melpaBuild, request, s
-    }:
+  pocket-lib = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, kv, lib
+    , melpaBuild, request, s }:
     melpaBuild {
       pname = "pocket-lib";
       ename = "pocket-lib";
@@ -73963,9 +73710,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  pocket-reader = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, ht, kv, lib, melpaBuild, org-web-tools, ov, pocket-lib, rainbow-identifiers, s
-    }:
+  pocket-reader = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, ht, kv
+    , lib, melpaBuild, org-web-tools, ov, pocket-lib, rainbow-identifiers, s }:
     melpaBuild {
       pname = "pocket-reader";
       ename = "pocket-reader";
@@ -74177,9 +73923,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  poly-R = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, poly-markdown, poly-noweb, polymode
-    }:
+  poly-R = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , poly-markdown, poly-noweb, polymode }:
     melpaBuild {
       pname = "poly-R";
       ename = "poly-R";
@@ -74202,9 +73947,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  poly-ansible = callPackage
-    ({ ansible, ansible-doc, fetchFromGitLab, fetchurl, jinja2-mode, lib, melpaBuild, polymode, yaml-mode
-    }:
+  poly-ansible = callPackage ({ ansible, ansible-doc, fetchFromGitLab, fetchurl
+    , jinja2-mode, lib, melpaBuild, polymode, yaml-mode }:
     melpaBuild {
       pname = "poly-ansible";
       ename = "poly-ansible";
@@ -74251,9 +73995,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  poly-markdown = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, markdown-mode, melpaBuild, polymode
-    }:
+  poly-markdown = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib
+    , markdown-mode, melpaBuild, polymode }:
     melpaBuild {
       pname = "poly-markdown";
       ename = "poly-markdown";
@@ -74988,9 +74731,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ppd-sr-speedbar = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, melpaBuild, project-persist-drawer, sr-speedbar
-    }:
+  ppd-sr-speedbar = callPackage ({ fetchFromGitHub, fetchurl, lib, melpaBuild
+    , project-persist-drawer, sr-speedbar }:
     melpaBuild {
       pname = "ppd-sr-speedbar";
       ename = "ppd-sr-speedbar";
@@ -75179,9 +74921,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  pretty-hydra = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, hydra, lib, melpaBuild, s
-    }:
+  pretty-hydra = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, hydra, lib, melpaBuild, s }:
     melpaBuild {
       pname = "pretty-hydra";
       ename = "pretty-hydra";
@@ -75533,9 +75274,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  project-explorer = callPackage ({ cl-lib ?
-    null, emacs, es-lib, es-windows, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  project-explorer = callPackage ({ cl-lib ? null, emacs, es-lib, es-windows
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "project-explorer";
       ename = "project-explorer";
@@ -75747,9 +75487,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  projectile-hanami = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, inf-ruby, lib, melpaBuild, projectile, rake
-    }:
+  projectile-hanami = callPackage ({ emacs, fetchFromGitHub, fetchurl, inf-ruby
+    , lib, melpaBuild, projectile, rake }:
     melpaBuild {
       pname = "projectile-hanami";
       ename = "projectile-hanami";
@@ -75772,9 +75511,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  projectile-rails = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, inf-ruby, inflections, lib, melpaBuild, projectile, rake
-    }:
+  projectile-rails = callPackage ({ emacs, f, fetchFromGitHub, fetchurl
+    , inf-ruby, inflections, lib, melpaBuild, projectile, rake }:
     melpaBuild {
       pname = "projectile-rails";
       ename = "projectile-rails";
@@ -75869,9 +75607,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  projectile-trailblazer = callPackage
-    ({ emacs, f, fetchFromGitHub, fetchurl, inf-ruby, inflections, lib, melpaBuild, projectile, rake
-    }:
+  projectile-trailblazer = callPackage ({ emacs, f, fetchFromGitHub, fetchurl
+    , inf-ruby, inflections, lib, melpaBuild, projectile, rake }:
     melpaBuild {
       pname = "projectile-trailblazer";
       ename = "projectile-trailblazer";
@@ -75918,8 +75655,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  projector = callPackage ({ alert, cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, projectile }:
+  projector = callPackage ({ alert, cl-lib ? null, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, projectile }:
     melpaBuild {
       pname = "projector";
       ename = "projector";
@@ -76249,9 +75986,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  psc-ide = callPackage
-    ({ company, dash, dash-functional, emacs, fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild, s, seq
-    }:
+  psc-ide = callPackage ({ company, dash, dash-functional, emacs
+    , fetchFromGitHub, fetchurl, flycheck, let-alist, lib, melpaBuild, s, seq }:
     melpaBuild {
       pname = "psc-ide";
       ename = "psc-ide";
@@ -76275,9 +76011,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  psci = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, purescript-mode
-    }:
+  psci = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , purescript-mode }:
     melpaBuild {
       pname = "psci";
       ename = "psci";
@@ -76300,9 +76035,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  psession = callPackage
-    ({ async, cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  psession = callPackage ({ async, cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "psession";
       ename = "psession";
@@ -77054,9 +76788,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  pyim = callPackage
-    ({ async, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, popup, pyim-basedict
-    }:
+  pyim = callPackage ({ async, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , popup, pyim-basedict }:
     melpaBuild {
       pname = "pyim";
       ename = "pyim";
@@ -77456,9 +77189,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  python-pytest = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, magit-popup, melpaBuild, projectile, s
-    }:
+  python-pytest = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, magit-popup, melpaBuild, projectile, s }:
     melpaBuild {
       pname = "python-pytest";
       ename = "python-pytest";
@@ -77529,8 +77261,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  python-x = callPackage ({ cl-lib ?
-    null, fetchFromGitLab, fetchurl, folding, lib, melpaBuild, python ? null }:
+  python-x = callPackage ({ cl-lib ? null, fetchFromGitLab, fetchurl, folding
+    , lib, melpaBuild, python ? null }:
     melpaBuild {
       pname = "python-x";
       ename = "python-x";
@@ -78045,9 +77777,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  racer = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, melpaBuild, pos-tip, rust-mode, s
-    }:
+  racer = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, pos-tip, rust-mode, s }:
     melpaBuild {
       pname = "racer";
       ename = "racer";
@@ -78777,9 +78508,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, load-relative, loc-changes, melpaBuild, test-simple
-    }:
+  realgud = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, load-relative
+    , loc-changes, melpaBuild, test-simple }:
     melpaBuild {
       pname = "realgud";
       ename = "realgud";
@@ -78802,9 +78532,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-byebug = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-byebug = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-byebug";
       ename = "realgud-byebug";
@@ -78827,9 +78556,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-ipdb = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-ipdb = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib
+    , load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-ipdb";
       ename = "realgud-ipdb";
@@ -78852,9 +78580,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-jdb = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-jdb = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-jdb";
       ename = "realgud-jdb";
@@ -78877,9 +78604,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-lldb = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-lldb = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib
+    , load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-lldb";
       ename = "realgud-lldb";
@@ -78902,9 +78628,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-node-debug = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-node-debug = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-node-debug";
       ename = "realgud-node-debug";
@@ -78927,9 +78652,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-node-inspect = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-node-inspect = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-node-inspect";
       ename = "realgud-node-inspect";
@@ -78952,9 +78676,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-old-debuggers = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-old-debuggers = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-old-debuggers";
       ename = "realgud-old-debuggers";
@@ -78977,9 +78700,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-pry = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-pry = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-pry";
       ename = "realgud-pry";
@@ -79002,9 +78724,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-rdb2 = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-rdb2 = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-rdb2";
       ename = "realgud-rdb2";
@@ -79027,9 +78748,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud-trepan-ni = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, load-relative, melpaBuild, realgud
-    }:
+  realgud-trepan-ni = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib
+    , load-relative, melpaBuild, realgud }:
     melpaBuild {
       pname = "realgud-trepan-ni";
       ename = "realgud-trepan-ni";
@@ -79359,9 +79079,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  redpen-paragraph = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, json ?
-      null, lib, melpaBuild }:
+  redpen-paragraph = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, json ? null, lib, melpaBuild }:
     melpaBuild {
       pname = "redpen-paragraph";
       ename = "redpen-paragraph";
@@ -79477,9 +79196,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  refine = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, list-utils, loop, melpaBuild, s
-    }:
+  refine = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib
+    , list-utils, loop, melpaBuild, s }:
     melpaBuild {
       pname = "refine";
       ename = "refine";
@@ -79951,9 +79669,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  replace-with-inflections = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, inflections, lib, melpaBuild, string-inflection
-    }:
+  replace-with-inflections = callPackage ({ cl-lib ? null, fetchFromGitHub
+    , fetchurl, inflections, lib, melpaBuild, string-inflection }:
     melpaBuild {
       pname = "replace-with-inflections";
       ename = "replace-with-inflections";
@@ -79999,9 +79716,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  req-package = callPackage
-    ({ dash, fetchFromGitLab, fetchurl, ht, lib, log4e, melpaBuild, use-package
-    }:
+  req-package = callPackage ({ dash, fetchFromGitLab, fetchurl, ht, lib, log4e
+    , melpaBuild, use-package }:
     melpaBuild {
       pname = "req-package";
       ename = "req-package";
@@ -80071,9 +79787,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  requirejs = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, js2-mode, lib, melpaBuild, popup, s, yasnippet
-    }:
+  requirejs = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, js2-mode
+    , lib, melpaBuild, popup, s, yasnippet }:
     melpaBuild {
       pname = "requirejs";
       ename = "requirejs";
@@ -80379,8 +80094,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  rg = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, wgrep }:
+  rg = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, s, wgrep }:
     melpaBuild {
       pname = "rg";
       ename = "rg";
@@ -80473,8 +80188,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  right-click-context = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, ordinal, popup }:
+  right-click-context = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, ordinal, popup }:
     melpaBuild {
       pname = "right-click-context";
       ename = "right-click-context";
@@ -80545,9 +80260,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  rinari = callPackage
-    ({ fetchFromGitHub, fetchurl, inf-ruby, jump, lib, melpaBuild, ruby-compilation, ruby-mode ?
-      null }:
+  rinari = callPackage ({ fetchFromGitHub, fetchurl, inf-ruby, jump, lib
+    , melpaBuild, ruby-compilation, ruby-mode ? null }:
     melpaBuild {
       pname = "rinari";
       ename = "rinari";
@@ -80919,9 +80633,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  rspec-mode = callPackage
-    ({ cl-lib ? null, fetchFromGitHub, fetchurl, lib, melpaBuild, ruby-mode ?
-      null }:
+  rspec-mode = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, ruby-mode ? null }:
     melpaBuild {
       pname = "rspec-mode";
       ename = "rspec-mode";
@@ -81534,9 +81247,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  rustic = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, ht, let-alist, lib, markdown-mode, melpaBuild, projectile, s, seq, spinner, xterm-color
-    }:
+  rustic = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, ht
+    , let-alist, lib, markdown-mode, melpaBuild, projectile, s, seq, spinner
+    , xterm-color }:
     melpaBuild {
       pname = "rustic";
       ename = "rustic";
@@ -81736,9 +81449,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sage-shell-mode = callPackage ({ cl-lib ?
-    null, deferred, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild
-    }:
+  sage-shell-mode = callPackage ({ cl-lib ? null, deferred, emacs
+    , fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "sage-shell-mode";
       ename = "sage-shell-mode";
@@ -81809,9 +81521,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  salt-mode = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, mmm-jinja2, mmm-mode, yaml-mode
-    }:
+  salt-mode = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , mmm-jinja2, mmm-mode, yaml-mode }:
     melpaBuild {
       pname = "salt-mode";
       ename = "salt-mode";
@@ -82230,9 +81941,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sclang-extensions = callPackage
-    ({ auto-complete, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s
-    }:
+  sclang-extensions = callPackage ({ auto-complete, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "sclang-extensions";
       ename = "sclang-extensions";
@@ -82539,8 +82249,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  scrooge = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, thrift }:
+  scrooge = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, thrift }:
     melpaBuild {
       pname = "scrooge";
       ename = "scrooge";
@@ -82586,9 +82296,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sdcv = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, popup, pos-tip, showtip
-    }:
+  sdcv = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, popup, pos-tip, showtip }:
     melpaBuild {
       pname = "sdcv";
       ename = "sdcv";
@@ -82800,8 +82509,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sekka = callPackage ({ cl-lib ?
-    null, concurrent, fetchFromGitHub, fetchurl, lib, melpaBuild, popup }:
+  sekka = callPackage ({ cl-lib ? null, concurrent, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, popup }:
     melpaBuild {
       pname = "sekka";
       ename = "sekka";
@@ -82916,9 +82625,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  seml-mode = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, htmlize, lib, melpaBuild, simple-httpd, web-mode
-    }:
+  seml-mode = callPackage ({ emacs, fetchFromGitHub, fetchurl, htmlize, lib
+    , melpaBuild, simple-httpd, web-mode }:
     melpaBuild {
       pname = "seml-mode";
       ename = "seml-mode";
@@ -82988,8 +82696,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sentence-navigation = callPackage ({ ample-regexps, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  sentence-navigation = callPackage ({ ample-regexps, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "sentence-navigation";
       ename = "sentence-navigation";
@@ -83084,9 +82792,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  servant = callPackage
-    ({ ansi, commander, dash, epl, f, fetchFromGitHub, fetchurl, lib, melpaBuild, s, shut-up, web-server
-    }:
+  servant = callPackage ({ ansi, commander, dash, epl, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, s, shut-up, web-server }:
     melpaBuild {
       pname = "servant";
       ename = "servant";
@@ -83932,8 +83639,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  shroud = callPackage ({ bui, dash, dash-functional, emacs, epg ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
+  shroud = callPackage ({ bui, dash, dash-functional, emacs, epg ? null
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, s }:
     melpaBuild {
       pname = "shroud";
       ename = "shroud";
@@ -84400,9 +84107,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  simplenote2 = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, melpaBuild, request-deferred, unicode-escape, uuidgen
-    }:
+  simplenote2 = callPackage ({ fetchFromGitHub, fetchurl, lib, melpaBuild
+    , request-deferred, unicode-escape, uuidgen }:
     melpaBuild {
       pname = "simplenote2";
       ename = "simplenote2";
@@ -84449,9 +84155,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  skeletor = callPackage ({ cl-lib ?
-    null, dash, emacs, f, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, s
-    }:
+  skeletor = callPackage ({ cl-lib ? null, dash, emacs, f, fetchFromGitHub
+    , fetchurl, let-alist, lib, melpaBuild, s }:
     melpaBuild {
       pname = "skeletor";
       ename = "skeletor";
@@ -84498,9 +84203,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  skewer-mode = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, js2-mode, lib, melpaBuild, simple-httpd
-    }:
+  skewer-mode = callPackage ({ emacs, fetchFromGitHub, fetchurl, js2-mode, lib
+    , melpaBuild, simple-httpd }:
     melpaBuild {
       pname = "skewer-mode";
       ename = "skewer-mode";
@@ -84594,9 +84298,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  slack = callPackage
-    ({ alert, circe, emojify, fetchFromGitHub, fetchurl, lib, melpaBuild, oauth2, request, websocket
-    }:
+  slack = callPackage ({ alert, circe, emojify, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, oauth2, request, websocket }:
     melpaBuild {
       pname = "slack";
       ename = "slack";
@@ -84714,9 +84417,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  slime-docker = callPackage ({ cl-lib ?
-    null, docker-tramp, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, slime
-    }:
+  slime-docker = callPackage ({ cl-lib ? null, docker-tramp, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, slime }:
     melpaBuild {
       pname = "slime-docker";
       ename = "slime-docker";
@@ -85354,9 +85056,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  smart-mode-line-powerline-theme = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, powerline, smart-mode-line
-    }:
+  smart-mode-line-powerline-theme = callPackage ({ emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, powerline, smart-mode-line }:
     melpaBuild {
       pname = "smart-mode-line-powerline-theme";
       ename = "smart-mode-line-powerline-theme";
@@ -85402,9 +85103,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  smart-region = callPackage ({ cl-lib ?
-    null, emacs, expand-region, fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors
-    }:
+  smart-region = callPackage ({ cl-lib ? null, emacs, expand-region
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors }:
     melpaBuild {
       pname = "smart-region";
       ename = "smart-region";
@@ -85914,8 +85614,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  snakemake-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, magit-popup, melpaBuild }:
+  snakemake-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, magit-popup, melpaBuild }:
     melpaBuild {
       pname = "snakemake-mode";
       ename = "snakemake-mode";
@@ -86080,8 +85780,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  socyl = callPackage ({ cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, lib, melpaBuild, pkg-info, s }:
+  socyl = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, pkg-info, s }:
     melpaBuild {
       pname = "socyl";
       ename = "socyl";
@@ -86271,9 +85971,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sonic-pi = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, highlight, lib, melpaBuild, osc
-    }:
+  sonic-pi = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, highlight, lib, melpaBuild, osc }:
     melpaBuild {
       pname = "sonic-pi";
       ename = "sonic-pi";
@@ -86366,9 +86065,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sotclojure = callPackage
-    ({ cider, clojure-mode, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, sotlisp
-    }:
+  sotclojure = callPackage ({ cider, clojure-mode, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, sotlisp }:
     melpaBuild {
       pname = "sotclojure";
       ename = "sotclojure";
@@ -86438,8 +86136,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  soundcloud = callPackage ({ deferred, emms, fetchFromGitHub, fetchurl, json ?
-    null, lib, melpaBuild, request, request-deferred, string-utils }:
+  soundcloud = callPackage ({ deferred, emms, fetchFromGitHub, fetchurl
+    , json ? null, lib, melpaBuild, request, request-deferred, string-utils }:
     melpaBuild {
       pname = "soundcloud";
       ename = "soundcloud";
@@ -86463,9 +86161,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  soundklaus = callPackage ({ cl-lib ?
-    null, dash, emacs, emms, fetchFromGitHub, fetchurl, lib, melpaBuild, pkg-info, request, s
-    }:
+  soundklaus = callPackage ({ cl-lib ? null, dash, emacs, emms, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, pkg-info, request, s }:
     melpaBuild {
       pname = "soundklaus";
       ename = "soundklaus";
@@ -86488,9 +86185,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sourcekit = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  sourcekit = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, request }:
     melpaBuild {
       pname = "sourcekit";
       ename = "sourcekit";
@@ -86608,9 +86304,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  spaceline = callPackage ({ cl-lib ?
-    null, dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, powerline, s
-    }:
+  spaceline = callPackage ({ cl-lib ? null, dash, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, powerline, s }:
     melpaBuild {
       pname = "spaceline";
       ename = "spaceline";
@@ -86633,9 +86328,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  spaceline-all-the-icons = callPackage
-    ({ all-the-icons, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, memoize, spaceline
-    }:
+  spaceline-all-the-icons = callPackage ({ all-the-icons, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, memoize, spaceline }:
     melpaBuild {
       pname = "spaceline-all-the-icons";
       ename = "spaceline-all-the-icons";
@@ -86965,9 +86659,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  spiral = callPackage
-    ({ a, avy, clojure-mode, emacs, fetchFromGitHub, fetchurl, highlight, lib, melpaBuild, treepy
-    }:
+  spiral = callPackage ({ a, avy, clojure-mode, emacs, fetchFromGitHub, fetchurl
+    , highlight, lib, melpaBuild, treepy }:
     melpaBuild {
       pname = "spiral";
       ename = "spiral";
@@ -87603,8 +87296,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  stack-mode = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, flycheck, haskell-mode, lib, melpaBuild }:
+  stack-mode = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, flycheck
+    , haskell-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "stack-mode";
       ename = "stack-mode";
@@ -87697,9 +87390,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  start-menu = callPackage
-    ({ cl-lib ? null, config-parser, fetchFromGitHub, fetchurl, lib, melpaBuild
-    }:
+  start-menu = callPackage ({ cl-lib ? null, config-parser, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "start-menu";
       ename = "start-menu";
@@ -88400,9 +88092,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  suggest = callPackage
-    ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, loop, melpaBuild, s, spinner
-    }:
+  suggest = callPackage ({ dash, emacs, f, fetchFromGitHub, fetchurl, lib, loop
+    , melpaBuild, s, spinner }:
     melpaBuild {
       pname = "suggest";
       ename = "suggest";
@@ -88686,9 +88377,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  swagger-to-org = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, json ?
-      null, lib, melpaBuild }:
+  swagger-to-org = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, json ? null, lib, melpaBuild }:
     melpaBuild {
       pname = "swagger-to-org";
       ename = "swagger-to-org";
@@ -88758,8 +88448,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sweetgreen = callPackage ({ cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, request }:
+  sweetgreen = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl
+    , helm, lib, melpaBuild, request }:
     melpaBuild {
       pname = "sweetgreen";
       ename = "sweetgreen";
@@ -88973,8 +88663,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  sx = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, json ?
-    null, let-alist, lib, markdown-mode, melpaBuild }:
+  sx = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , json ? null, let-alist, lib, markdown-mode, melpaBuild }:
     melpaBuild {
       pname = "sx";
       ename = "sx";
@@ -89138,9 +88828,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  synonymous = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  synonymous = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, request }:
     melpaBuild {
       pname = "synonymous";
       ename = "synonymous";
@@ -89468,9 +89157,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tabbar-ruler = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, lib, melpaBuild, mode-icons, powerline, tabbar
-    }:
+  tabbar-ruler = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, mode-icons, powerline, tabbar }:
     melpaBuild {
       pname = "tabbar-ruler";
       ename = "tabbar-ruler";
@@ -89728,9 +89416,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tblui = callPackage ({ cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, lib, magit-popup, melpaBuild, tablist
-    }:
+  tblui = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, lib
+    , magit-popup, melpaBuild, tablist }:
     melpaBuild {
       pname = "tblui";
       ename = "tblui";
@@ -89918,8 +89605,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  telephone-line = callPackage ({ cl-generic, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, seq }:
+  telephone-line = callPackage ({ cl-generic, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, seq }:
     melpaBuild {
       pname = "telephone-line";
       ename = "telephone-line";
@@ -90158,9 +89845,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  term-projectile = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, projectile, term-manager
-    }:
+  term-projectile = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, projectile, term-manager }:
     melpaBuild {
       pname = "term-projectile";
       ename = "term-projectile";
@@ -90302,8 +89988,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tern = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, json ?
-    null, lib, melpaBuild }:
+  tern = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , json ? null, lib, melpaBuild }:
     melpaBuild {
       pname = "tern";
       ename = "tern";
@@ -90326,8 +90012,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tern-auto-complete = callPackage ({ auto-complete, cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, tern }:
+  tern-auto-complete = callPackage ({ auto-complete, cl-lib ? null, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, tern }:
     melpaBuild {
       pname = "tern-auto-complete";
       ename = "tern-auto-complete";
@@ -90350,9 +90036,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tern-context-coloring = callPackage
-    ({ context-coloring, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, tern
-    }:
+  tern-context-coloring = callPackage ({ context-coloring, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, tern }:
     melpaBuild {
       pname = "tern-context-coloring";
       ename = "tern-context-coloring";
@@ -90963,9 +90648,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tide = callPackage ({ cl-lib ?
-    null, dash, fetchFromGitHub, fetchurl, flycheck, lib, melpaBuild, s, typescript-mode
-    }:
+  tide = callPackage ({ cl-lib ? null, dash, fetchFromGitHub, fetchurl, flycheck
+    , lib, melpaBuild, s, typescript-mode }:
     melpaBuild {
       pname = "tide";
       ename = "tide";
@@ -91035,8 +90719,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  timecop = callPackage ({ cl-lib ?
-    null, datetime-format, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  timecop = callPackage ({ cl-lib ? null, datetime-format, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "timecop";
       ename = "timecop";
@@ -91106,9 +90790,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  timonier = callPackage
-    ({ all-the-icons, dash, emacs, f, fetchFromGitHub, fetchurl, hydra, lib, melpaBuild, pkg-info, request, s
-    }:
+  timonier = callPackage ({ all-the-icons, dash, emacs, f, fetchFromGitHub
+    , fetchurl, hydra, lib, melpaBuild, pkg-info, request, s }:
     melpaBuild {
       pname = "timonier";
       ename = "timonier";
@@ -91131,9 +90814,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  timp = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, fifo-class, lib, melpaBuild, signal
-    }:
+  timp = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , fifo-class, lib, melpaBuild, signal }:
     melpaBuild {
       pname = "timp";
       ename = "timp";
@@ -91367,9 +91049,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  todoist = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, org, transient
-    }:
+  todoist = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, org, transient }:
     melpaBuild {
       pname = "todoist";
       ename = "todoist";
@@ -91811,9 +91492,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  traad = callPackage
-    ({ bind-map, dash, deferred, f, fetchFromGitHub, fetchurl, lib, melpaBuild, popup, request, request-deferred, virtualenvwrapper
-    }:
+  traad = callPackage ({ bind-map, dash, deferred, f, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, popup, request, request-deferred, virtualenvwrapper }:
     melpaBuild {
       pname = "traad";
       ename = "traad";
@@ -92104,9 +91784,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  treemacs = callPackage ({ ace-window, cl-lib ?
-    null, dash, emacs, f, fetchFromGitHub, fetchurl, ht, hydra, lib, melpaBuild, pfuture, s
-    }:
+  treemacs = callPackage ({ ace-window, cl-lib ? null, dash, emacs, f
+    , fetchFromGitHub, fetchurl, ht, hydra, lib, melpaBuild, pfuture, s }:
     melpaBuild {
       pname = "treemacs";
       ename = "treemacs";
@@ -92153,8 +91832,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  treemacs-icons-dired = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, treemacs }:
+  treemacs-icons-dired = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, treemacs }:
     melpaBuild {
       pname = "treemacs-icons-dired";
       ename = "treemacs-icons-dired";
@@ -92177,9 +91856,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  treemacs-magit = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, magit, melpaBuild, pfuture, treemacs
-    }:
+  treemacs-magit = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, magit
+    , melpaBuild, pfuture, treemacs }:
     melpaBuild {
       pname = "treemacs-magit";
       ename = "treemacs-magit";
@@ -92249,9 +91927,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  trident-mode = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, skewer-mode, slime
-    }:
+  trident-mode = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, skewer-mode, slime }:
     melpaBuild {
       pname = "trident-mode";
       ename = "trident-mode";
@@ -92390,9 +92067,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tss = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, json-mode, lib, log4e, melpaBuild, yaxception
-    }:
+  tss = callPackage ({ auto-complete, fetchFromGitHub, fetchurl, json-mode, lib
+    , log4e, melpaBuild, yaxception }:
     melpaBuild {
       pname = "tss";
       ename = "tss";
@@ -92484,8 +92160,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tumble = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, http-post-simple, lib, melpaBuild }:
+  tumble = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl
+    , http-post-simple, lib, melpaBuild }:
     melpaBuild {
       pname = "tumble";
       ename = "tumble";
@@ -92508,9 +92184,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  tumblesocks = callPackage
-    ({ fetchFromGitHub, fetchurl, htmlize, lib, markdown-mode, melpaBuild, oauth
-    }:
+  tumblesocks = callPackage ({ fetchFromGitHub, fetchurl, htmlize, lib
+    , markdown-mode, melpaBuild, oauth }:
     melpaBuild {
       pname = "tumblesocks";
       ename = "tumblesocks";
@@ -92907,9 +92582,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  ucs-utils = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, list-utils, melpaBuild, pcache, persistent-soft
-    }:
+  ucs-utils = callPackage ({ fetchFromGitHub, fetchurl, lib, list-utils
+    , melpaBuild, pcache, persistent-soft }:
     melpaBuild {
       pname = "ucs-utils";
       ename = "ucs-utils";
@@ -93192,9 +92866,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  unicode-enbox = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, list-utils, melpaBuild, pcache, persistent-soft, string-utils, ucs-utils
-    }:
+  unicode-enbox = callPackage ({ fetchFromGitHub, fetchurl, lib, list-utils
+    , melpaBuild, pcache, persistent-soft, string-utils, ucs-utils }:
     melpaBuild {
       pname = "unicode-enbox";
       ename = "unicode-enbox";
@@ -93242,9 +92915,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  unicode-fonts = callPackage
-    ({ fetchFromGitHub, fetchurl, font-utils, lib, list-utils, melpaBuild, pcache, persistent-soft, ucs-utils
-    }:
+  unicode-fonts = callPackage ({ fetchFromGitHub, fetchurl, font-utils, lib
+    , list-utils, melpaBuild, pcache, persistent-soft, ucs-utils }:
     melpaBuild {
       pname = "unicode-fonts";
       ename = "unicode-fonts";
@@ -93314,9 +92986,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  unicode-progress-reporter = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, list-utils, melpaBuild, pcache, persistent-soft, ucs-utils
-    }:
+  unicode-progress-reporter = callPackage ({ emacs, fetchFromGitHub, fetchurl
+    , lib, list-utils, melpaBuild, pcache, persistent-soft, ucs-utils }:
     melpaBuild {
       pname = "unicode-progress-reporter";
       ename = "unicode-progress-reporter";
@@ -93363,9 +93034,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  unicode-whitespace = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, list-utils, melpaBuild, pcache, persistent-soft, ucs-utils
-    }:
+  unicode-whitespace = callPackage ({ fetchFromGitHub, fetchurl, lib, list-utils
+    , melpaBuild, pcache, persistent-soft, ucs-utils }:
     melpaBuild {
       pname = "unicode-whitespace";
       ename = "unicode-whitespace";
@@ -93741,9 +93411,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  use-package-chords = callPackage
-    ({ bind-chord, bind-key, fetchFromGitHub, fetchurl, key-chord, lib, melpaBuild, use-package
-    }:
+  use-package-chords = callPackage ({ bind-chord, bind-key, fetchFromGitHub
+    , fetchurl, key-chord, lib, melpaBuild, use-package }:
     melpaBuild {
       pname = "use-package-chords";
       ename = "use-package-chords";
@@ -93790,9 +93459,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  use-package-ensure-system-package = callPackage
-    ({ fetchFromGitHub, fetchurl, lib, melpaBuild, system-packages, use-package
-    }:
+  use-package-ensure-system-package = callPackage ({ fetchFromGitHub, fetchurl
+    , lib, melpaBuild, system-packages, use-package }:
     melpaBuild {
       pname = "use-package-ensure-system-package";
       ename = "use-package-ensure-system-package";
@@ -93955,8 +93623,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  v2ex-mode = callPackage ({ cl-lib ?
-    null, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, request }:
+  v2ex-mode = callPackage ({ cl-lib ? null, fetchFromGitHub, fetchurl, let-alist
+    , lib, melpaBuild, request }:
     melpaBuild {
       pname = "v2ex-mode";
       ename = "v2ex-mode";
@@ -94073,9 +93741,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  vbasense = callPackage
-    ({ auto-complete, fetchFromGitHub, fetchurl, lib, log4e, melpaBuild, yaxception
-    }:
+  vbasense = callPackage ({ auto-complete, fetchFromGitHub, fetchurl, lib, log4e
+    , melpaBuild, yaxception }:
     melpaBuild {
       pname = "vbasense";
       ename = "vbasense";
@@ -94307,9 +93974,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  vdiff-magit = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, magit, melpaBuild, transient, vdiff
-    }:
+  vdiff-magit = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, magit
+    , melpaBuild, transient, vdiff }:
     melpaBuild {
       pname = "vdiff-magit";
       ename = "vdiff-magit";
@@ -94332,9 +93998,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  vdirel = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, helm, lib, melpaBuild, org-vcard, seq
-    }:
+  vdirel = callPackage ({ emacs, fetchFromGitHub, fetchurl, helm, lib
+    , melpaBuild, org-vcard, seq }:
     melpaBuild {
       pname = "vdirel";
       ename = "vdirel";
@@ -94593,9 +94258,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  vhdl-tools = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, ggtags, helm, helm-rg, lib, melpaBuild, outshine
-    }:
+  vhdl-tools = callPackage ({ emacs, fetchFromGitHub, fetchurl, ggtags, helm
+    , helm-rg, lib, melpaBuild, outshine }:
     melpaBuild {
       pname = "vhdl-tools";
       ename = "vhdl-tools";
@@ -95136,9 +94800,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  vue-mode = callPackage
-    ({ edit-indirect, fetchFromGitHub, fetchurl, lib, melpaBuild, mmm-mode, ssass-mode, vue-html-mode
-    }:
+  vue-mode = callPackage ({ edit-indirect, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, mmm-mode, ssass-mode, vue-html-mode }:
     melpaBuild {
       pname = "vue-mode";
       ename = "vue-mode";
@@ -95867,9 +95530,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  webpaste = callPackage
-    ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, request
-    }:
+  webpaste = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, request }:
     melpaBuild {
       pname = "webpaste";
       ename = "webpaste";
@@ -95939,8 +95601,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  weechat = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, s, tracking }:
+  weechat = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, s, tracking }:
     melpaBuild {
       pname = "weechat";
       ename = "weechat";
@@ -95963,9 +95625,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  weechat-alert = callPackage
-    ({ alert, cl-lib ? null, fetchFromGitHub, fetchurl, lib, melpaBuild, weechat
-    }:
+  weechat-alert = callPackage ({ alert, cl-lib ? null, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, weechat }:
     melpaBuild {
       pname = "weechat-alert";
       ename = "weechat-alert";
@@ -96412,9 +96073,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  widgetjs = callPackage
-    ({ fetchFromGitHub, fetchurl, js2-mode, js2-refactor, lib, makey, melpaBuild, s
-    }:
+  widgetjs = callPackage ({ fetchFromGitHub, fetchurl, js2-mode, js2-refactor
+    , lib, makey, melpaBuild, s }:
     melpaBuild {
       pname = "widgetjs";
       ename = "widgetjs";
@@ -96672,9 +96332,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  window-purpose = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, imenu-list, let-alist, lib, melpaBuild
-    }:
+  window-purpose = callPackage ({ emacs, fetchFromGitHub, fetchurl, imenu-list
+    , let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "window-purpose";
       ename = "window-purpose";
@@ -97049,9 +96708,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  wonderland = callPackage
-    ({ dash, dash-functional, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, multi
-    }:
+  wonderland = callPackage ({ dash, dash-functional, emacs, fetchFromGitHub
+    , fetchurl, lib, melpaBuild, multi }:
     melpaBuild {
       pname = "wonderland";
       ename = "wonderland";
@@ -97144,9 +96802,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  worf = callPackage
-    ({ ace-link, fetchFromGitHub, fetchurl, hydra, lib, melpaBuild, swiper, zoutline
-    }:
+  worf = callPackage ({ ace-link, fetchFromGitHub, fetchurl, hydra, lib
+    , melpaBuild, swiper, zoutline }:
     melpaBuild {
       pname = "worf";
       ename = "worf";
@@ -97192,8 +96849,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  workgroups2 = callPackage ({ anaphora, cl-lib ?
-    null, dash, f, fetchFromGitHub, fetchurl, lib, melpaBuild }:
+  workgroups2 = callPackage ({ anaphora, cl-lib ? null, dash, f, fetchFromGitHub
+    , fetchurl, lib, melpaBuild }:
     melpaBuild {
       pname = "workgroups2";
       ename = "workgroups2";
@@ -97287,9 +96944,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  writefreely = callPackage
-    ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, org, ox-gfm, request
-    }:
+  writefreely = callPackage ({ emacs, fetchFromGitHub, fetchurl, lib, melpaBuild
+    , org, ox-gfm, request }:
     melpaBuild {
       pname = "writefreely";
       ename = "writefreely";
@@ -97833,9 +97489,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  xcode-mode = callPackage
-    ({ dash, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, multiple-cursors, s
-    }:
+  xcode-mode = callPackage ({ dash, emacs, fetchFromGitHub, fetchurl, lib
+    , melpaBuild, multiple-cursors, s }:
     melpaBuild {
       pname = "xcode-mode";
       ename = "xcode-mode";
@@ -98187,8 +97842,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  xterm-keybinder = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild }:
+  xterm-keybinder = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, let-alist, lib, melpaBuild }:
     melpaBuild {
       pname = "xterm-keybinder";
       ename = "xterm-keybinder";
@@ -98819,9 +98474,9 @@
         license = lib.licenses.free;
       };
     }) { };
-  ycmd = callPackage ({ cl-lib ?
-    null, dash, deferred, emacs, fetchFromGitHub, fetchurl, let-alist, lib, melpaBuild, pkg-info, request, request-deferred, s
-    }:
+  ycmd = callPackage ({ cl-lib ? null, dash, deferred, emacs, fetchFromGitHub
+    , fetchurl, let-alist, lib, melpaBuild, pkg-info, request, request-deferred
+    , s }:
     melpaBuild {
       pname = "ycmd";
       ename = "ycmd";
@@ -98971,9 +98626,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  youdao-dictionary = callPackage
-    ({ chinese-word-at-point, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, names, popup, pos-tip
-    }:
+  youdao-dictionary = callPackage ({ chinese-word-at-point, emacs
+    , fetchFromGitHub, fetchurl, lib, melpaBuild, names, popup, pos-tip }:
     melpaBuild {
       pname = "youdao-dictionary";
       ename = "youdao-dictionary";
@@ -99184,8 +98838,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  zephir-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, lib, melpaBuild, pkg-info }:
+  zephir-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub, fetchurl
+    , lib, melpaBuild, pkg-info }:
     melpaBuild {
       pname = "zephir-mode";
       ename = "zephir-mode";
@@ -99349,8 +99003,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  zombie-trellys-mode = callPackage ({ cl-lib ?
-    null, emacs, fetchFromGitHub, fetchurl, haskell-mode, lib, melpaBuild }:
+  zombie-trellys-mode = callPackage ({ cl-lib ? null, emacs, fetchFromGitHub
+    , fetchurl, haskell-mode, lib, melpaBuild }:
     melpaBuild {
       pname = "zombie-trellys-mode";
       ename = "zombie-trellys-mode";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, erlang, icu, openssl, spidermonkey, coreutils, bash, makeWrapper
-}:
+{ stdenv, fetchurl, erlang, icu, openssl, spidermonkey, coreutils, bash
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "couchdb-${version}";

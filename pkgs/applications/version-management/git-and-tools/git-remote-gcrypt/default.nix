@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, docutils, makeWrapper, gnupg, curl, rsync, coreutils, gawk, gnused, gnugrep
-}:
+{ stdenv, fetchFromGitHub, docutils, makeWrapper, gnupg, curl, rsync, coreutils
+, gawk, gnused, gnugrep }:
 
 stdenv.mkDerivation rec {
   name = "git-remote-gcrypt-${version}";

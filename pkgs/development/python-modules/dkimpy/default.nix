@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, openssl, buildPythonPackage, pytest, dnspython, pynacl, authres, python
-}:
+{ stdenv, fetchPypi, openssl, buildPythonPackage, pytest, dnspython, pynacl
+, authres, python }:
 
 buildPythonPackage rec {
   pname = "dkimpy";

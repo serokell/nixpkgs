@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, cmake, xlibsWrapper, libGLU_combined, SDL, openal, freealut, libogg, libvorbis, runtimeShell
-}:
+{ fetchurl, stdenv, cmake, xlibsWrapper, libGLU_combined, SDL, openal, freealut
+, libogg, libvorbis, runtimeShell }:
 
 stdenv.mkDerivation rec {
   version = "1.3.2";

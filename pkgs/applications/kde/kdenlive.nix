@@ -1,5 +1,8 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kconfig, kcrash, kguiaddons, kiconthemes, ki18n, kinit, kdbusaddons, knotifications, knewstuff, karchive, knotifyconfig, kplotting, ktextwidgets, mlt, shared-mime-info, libv4l, kfilemetadata, ffmpeg, phonon-backend-gstreamer, qtdeclarative, qtquickcontrols, qtscript, qtwebkit, rttr, kpurpose, kdeclarative
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kconfig, kcrash, kguiaddons
+, kiconthemes, ki18n, kinit, kdbusaddons, knotifications, knewstuff, karchive
+, knotifyconfig, kplotting, ktextwidgets, mlt, shared-mime-info, libv4l
+, kfilemetadata, ffmpeg, phonon-backend-gstreamer, qtdeclarative
+, qtquickcontrols, qtscript, qtwebkit, rttr, kpurpose, kdeclarative }:
 
 mkDerivation {
   name = "kdenlive";

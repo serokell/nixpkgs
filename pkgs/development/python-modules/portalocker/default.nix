@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, lib, sphinx, flake8, pytest, pytestcov, pytest-flakes, pytestpep8
-}:
+{ buildPythonPackage, fetchPypi, lib, sphinx, flake8, pytest, pytestcov
+, pytest-flakes, pytestpep8 }:
 
 buildPythonPackage rec {
   version = "1.4.0";

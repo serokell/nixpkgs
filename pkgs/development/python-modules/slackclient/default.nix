@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, websocket_client, requests, six, pytest, codecov, coverage, mock, pytestcov, pytest-mock, responses, flake8
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, websocket_client, requests, six
+, pytest, codecov, coverage, mock, pytestcov, pytest-mock, responses, flake8 }:
 
 buildPythonPackage rec {
   pname = "python-slackclient";

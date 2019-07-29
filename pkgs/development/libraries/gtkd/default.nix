@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, atk, cairo, dmd, gdk_pixbuf, gnome3, gst_all_1, librsvg, glib, gtk3, gtksourceview, libgda, libpeas, pango, pkgconfig, which, vte
-}:
+{ stdenv, fetchzip, atk, cairo, dmd, gdk_pixbuf, gnome3, gst_all_1, librsvg
+, glib, gtk3, gtksourceview, libgda, libpeas, pango, pkgconfig, which, vte }:
 
 let inherit (gst_all_1) gstreamer gst-plugins-base;
 in stdenv.mkDerivation rec {

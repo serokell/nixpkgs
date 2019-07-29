@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, mate, gtk2, gtk3, gtk_engines, gtk-engine-murrine, gdk_pixbuf, librsvg
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, mate, gtk2, gtk3, gtk_engines
+, gtk-engine-murrine, gdk_pixbuf, librsvg }:
 
 stdenv.mkDerivation rec {
   name = "mate-themes-${version}";

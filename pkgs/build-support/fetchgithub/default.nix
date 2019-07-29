@@ -1,7 +1,7 @@
 { lib, fetchgit, fetchzip }:
 
-{ owner, repo, rev, name ? "source", fetchSubmodules ? false, private ?
-  false, githubBase ? "github.com", varPrefix ? null, ... # For hash agility
+{ owner, repo, rev, name ? "source", fetchSubmodules ? false, private ? false
+, githubBase ? "github.com", varPrefix ? null, ... # For hash agility
 }@args:
 assert private -> !fetchSubmodules;
 let

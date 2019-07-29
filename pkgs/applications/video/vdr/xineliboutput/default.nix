@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, lib, vdr, libav, libcap, libvdpau, xineLib, libjpeg, libextractor, mesa, libGLU, libX11, libXext, libXrender, libXrandr, makeWrapper
-}:
+{ stdenv, fetchurl, lib, vdr, libav, libcap, libvdpau, xineLib, libjpeg
+, libextractor, mesa, libGLU, libX11, libXext, libXrender, libXrandr
+, makeWrapper }:
 let
   name = "vdr-xineliboutput-2.1.0";
 

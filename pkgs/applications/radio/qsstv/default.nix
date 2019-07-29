@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, qtbase, qmake, makeDesktopItem, openjpeg, pkgconfig, fftw, libpulseaudio, alsaLib, hamlib, libv4l, fftwFloat
-}:
+{ stdenv, fetchurl, qtbase, qmake, makeDesktopItem, openjpeg, pkgconfig, fftw
+, libpulseaudio, alsaLib, hamlib, libv4l, fftwFloat }:
 
 stdenv.mkDerivation rec {
   version = "9.2.6";

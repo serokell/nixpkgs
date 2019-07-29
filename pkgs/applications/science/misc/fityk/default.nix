@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, wxGTK30, boost, lua, zlib, bzip2, xylib, readline, gnuplot, swig3
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, wxGTK30, boost, lua, zlib, bzip2
+, xylib, readline, gnuplot, swig3 }:
 
 let
   name = "fityk";

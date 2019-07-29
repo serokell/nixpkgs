@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, curl, boost, liboauth, jsoncpp, htmlcxx, rhash, tinyxml-2, help2man
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, curl, boost, liboauth, jsoncpp
+, htmlcxx, rhash, tinyxml-2, help2man }:
 
 stdenv.mkDerivation rec {
   name = "lgogdownloader-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools, sqlite, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, qtwebengine, libsecret, libcloudproviders
-}:
+{ stdenv, fetchgit, cmake, pkgconfig, qtbase, qtwebkit, qtkeychain, qttools
+, sqlite, inotify-tools, wrapQtAppsHook, openssl_1_1, pcre, qtwebengine
+, libsecret, libcloudproviders }:
 
 stdenv.mkDerivation rec {
   name = "nextcloud-client-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor, libXrandr, libXft, CoreServices ?
-  null }:
+{ stdenv, fetchurl, xlibsWrapper, libpng, libjpeg, libtiff, zlib, bzip2
+, libXcursor, libXrandr, libXft, CoreServices ? null }:
 
 stdenv.mkDerivation rec {
   name = "fox-${version}";

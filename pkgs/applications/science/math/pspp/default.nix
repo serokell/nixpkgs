@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libxml2, readline, zlib, perl, cairo, gtk3, gsl, pkgconfig, gtksourceview, pango, gettext, makeWrapper, gsettings-desktop-schemas, hicolor-icon-theme, gnome3
-}:
+{ stdenv, fetchurl, libxml2, readline, zlib, perl, cairo, gtk3, gsl, pkgconfig
+, gtksourceview, pango, gettext, makeWrapper, gsettings-desktop-schemas
+, hicolor-icon-theme, gnome3 }:
 
 stdenv.mkDerivation rec {
   name = "pspp-1.0.1";

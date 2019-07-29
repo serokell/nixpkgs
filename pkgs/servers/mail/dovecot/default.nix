@@ -1,7 +1,9 @@
-{ stdenv, lib, fetchurl, perl, pkgconfig, systemd, openssl, bzip2, zlib, lz4, inotify-tools, pam, libcap, clucene_core_2, icu, openldap, libsodium, libstemmer, cyrus_sasl, nixosTests
+{ stdenv, lib, fetchurl, perl, pkgconfig, systemd, openssl, bzip2, zlib, lz4
+, inotify-tools, pam, libcap, clucene_core_2, icu, openldap, libsodium
+, libstemmer, cyrus_sasl, nixosTests
 # Auth modules
-, withMySQL ? false, mysql, withPgSQL ? false, postgresql, withSQLite ?
-  true, sqlite }:
+, withMySQL ? false, mysql, withPgSQL ? false, postgresql, withSQLite ? true
+, sqlite }:
 
 stdenv.mkDerivation rec {
   name = "dovecot-2.3.7";

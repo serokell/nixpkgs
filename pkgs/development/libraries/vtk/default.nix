@@ -1,8 +1,8 @@
 { stdenv, fetchurl, cmake, libGLU_combined, libX11, xorgproto, libXt, qtLib ?
   null
   # Darwin support
-, Cocoa, CoreServices, DiskArbitration, IOKit, CFNetwork, Security, GLUT, OpenGL, ApplicationServices, CoreText, IOSurface, ImageIO, xpc, libobjc
-}:
+, Cocoa, CoreServices, DiskArbitration, IOKit, CFNetwork, Security, GLUT, OpenGL
+, ApplicationServices, CoreText, IOSurface, ImageIO, xpc, libobjc }:
 
 with stdenv.lib;
 

@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, pkgconfig, qtbase, qtmultimedia, qtsvg, qttools, krdc, libvncserver, libvirt, pcre, pixman, qtermwidget, spice-gtk, spice-protocol, libselinux, libsepol, utillinux
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, pkgconfig, qtbase, qtmultimedia
+, qtsvg, qttools, krdc, libvncserver, libvirt, pcre, pixman, qtermwidget
+, spice-gtk, spice-protocol, libselinux, libsepol, utillinux }:
 
 mkDerivation rec {
   name = "virt-manager-qt-${version}";

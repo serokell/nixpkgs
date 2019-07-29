@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, desktop-file-utils, appstream-glib, libxslt, libxml2, gettext, itstool, wrapGAppsHook, docbook_xsl, docbook_xml_dtd_43, gnome3, gtk3, glib, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, desktop-file-utils, appstream-glib
+, libxslt, libxml2, gettext, itstool, wrapGAppsHook, docbook_xsl
+, docbook_xml_dtd_43, gnome3, gtk3, glib, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "gnome-dictionary-${version}";

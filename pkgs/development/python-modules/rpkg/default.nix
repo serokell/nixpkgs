@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, isPy3k, fetchurl, six, pycurl, cccolutils, koji, rpmfluff
-}:
+{ stdenv, buildPythonPackage, isPy3k, fetchurl, six, pycurl, cccolutils, koji
+, rpmfluff }:
 
 buildPythonPackage rec {
   pname = "rpkg";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, m4, cxx ? !stdenv.hostPlatform.useAndroidPrebuilt
-  && !stdenv.hostPlatform.isWasm, buildPackages, withStatic ? false }:
+{ stdenv, fetchurl, m4
+, cxx ? !stdenv.hostPlatform.useAndroidPrebuilt && !stdenv.hostPlatform.isWasm
+, buildPackages, withStatic ? false }:
 
 let inherit (stdenv.lib) optional;
 

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, entrypoints, secretstorage, pytest, pytest-flake8
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, entrypoints
+, secretstorage, pytest, pytest-flake8 }:
 
 buildPythonPackage rec {
   pname = "keyring";

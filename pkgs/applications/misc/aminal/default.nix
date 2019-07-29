@@ -1,5 +1,5 @@
-{ buildGoPackage, Carbon, Cocoa, Kernel, fetchFromGitHub, lib, mesa_glu, stdenv, xorg
-}:
+{ buildGoPackage, Carbon, Cocoa, Kernel, fetchFromGitHub, lib, mesa_glu, stdenv
+, xorg }:
 
 buildGoPackage rec {
   name = "aminal-${version}";

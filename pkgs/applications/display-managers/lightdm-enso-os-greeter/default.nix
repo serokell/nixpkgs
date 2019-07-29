@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, pkgconfig, dbus, pcre, epoxy, libXdmcp, at-spi2-core, libxklavier, libxkbcommon, libpthreadstubs, gtk3, vala, cmake, libgee, libX11, lightdm, gdk_pixbuf, clutter-gtk
-}:
+{ stdenv, fetchgit, pkgconfig, dbus, pcre, epoxy, libXdmcp, at-spi2-core
+, libxklavier, libxkbcommon, libpthreadstubs, gtk3, vala, cmake, libgee, libX11
+, lightdm, gdk_pixbuf, clutter-gtk }:
 
 stdenv.mkDerivation rec {
   version = "0.2.1";

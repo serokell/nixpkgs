@@ -1,5 +1,5 @@
-{ stdenv, makeWrapper, fetchurl, unzip, atomEnv, makeDesktopItem, buildFHSUserEnv, gtk2
-}:
+{ stdenv, makeWrapper, fetchurl, unzip, atomEnv, makeDesktopItem
+, buildFHSUserEnv, gtk2 }:
 
 let
   version = "0.11.1";

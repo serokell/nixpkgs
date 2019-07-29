@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python3Packages, pango, librsvg, libxml2, menu-cache, xorg, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, python3Packages, pango, librsvg, libxml2
+, menu-cache, xorg, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "jgmenu";

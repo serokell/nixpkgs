@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, gettext, gobject-introspection, bison, flex, python3, glib, makeWrapper, libcap, libunwind, darwin, elfutils # for libdw
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, gettext
+, gobject-introspection, bison, flex, python3, glib, makeWrapper, libcap
+, libunwind, darwin, elfutils # for libdw
 , bash-completion, docbook_xsl, docbook_xml_dtd_412, gtk-doc, lib, CoreServices
 }:
 

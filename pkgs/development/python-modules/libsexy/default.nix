@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, buildPythonPackage, libsexy, pkgconfig, libxml2, pygtk, pango, glib, python
-}:
+{ stdenv, fetchurl, buildPythonPackage, libsexy, pkgconfig, libxml2, pygtk
+, pango, glib, python }:
 
 buildPythonPackage rec {
   pname = "libsexy";

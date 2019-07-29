@@ -1,8 +1,8 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, CoreFoundation, IOKit, libossp_uuid, curl, libcap, libuuid, lm_sensors, zlib, withCups ?
-  false, cups, withDBengine ? true, libuv, lz4, judy, withIpmi ?
-    (!stdenv.isDarwin), freeipmi, withNetfilter ?
-      (!stdenv.isDarwin), libmnl, libnetfilter_acct, withSsl ?
-        true, openssl, withDebug ? false }:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, CoreFoundation, IOKit
+, libossp_uuid, curl, libcap, libuuid, lm_sensors, zlib, withCups ? false, cups
+, withDBengine ? true, libuv, lz4, judy, withIpmi ? (!stdenv.isDarwin), freeipmi
+, withNetfilter ? (!stdenv.isDarwin), libmnl, libnetfilter_acct, withSsl ? true
+, openssl, withDebug ? false }:
 
 with stdenv.lib;
 

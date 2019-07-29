@@ -1,5 +1,5 @@
-{ stdenv, callPackage, wine, perl, which, coreutils, zenity, curl, cabextract, unzip, p7zip, gnused, gnugrep, bash
-}:
+{ stdenv, callPackage, wine, perl, which, coreutils, zenity, curl, cabextract
+, unzip, p7zip, gnused, gnugrep, bash }:
 
 stdenv.mkDerivation rec {
   name = "winetricks-${src.version}";

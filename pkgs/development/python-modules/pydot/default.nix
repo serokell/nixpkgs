@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, substituteAll, graphviz, python, chardet, pyparsing
-}:
+{ lib, buildPythonPackage, fetchPypi, substituteAll, graphviz, python, chardet
+, pyparsing }:
 
 buildPythonPackage rec {
   pname = "pydot";

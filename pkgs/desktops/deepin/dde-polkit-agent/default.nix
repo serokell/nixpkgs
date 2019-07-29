@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, polkit-qt, dtkcore, dtkwidget, dde-qt-dbus-factory, deepin
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, qttools, polkit-qt, dtkcore
+, dtkwidget, dde-qt-dbus-factory, deepin }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

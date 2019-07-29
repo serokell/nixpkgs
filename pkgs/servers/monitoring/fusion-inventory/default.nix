@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, perlPackages, nix, dmidecode, pciutils, usbutils, iproute, nettools, fetchFromGitHub, makeWrapper
-}:
+{ stdenv, lib, fetchurl, perlPackages, nix, dmidecode, pciutils, usbutils
+, iproute, nettools, fetchFromGitHub, makeWrapper }:
 
 perlPackages.buildPerlPackage rec {
   pname = "FusionInventory-Agent";

@@ -1,5 +1,5 @@
-{ lib, runCommand, writeScriptBin, buildEnv, pythonPackages, perlPackages, runtimeShell
-}:
+{ lib, runCommand, writeScriptBin, buildEnv, pythonPackages, perlPackages
+, runtimeShell }:
 
 weechat:
 

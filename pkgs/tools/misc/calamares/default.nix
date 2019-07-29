@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore, kservice, libatasmart, libxcb, libyamlcpp, parted, polkit-qt, python, qtbase, qtquickcontrols, qtsvg, qttools, qtwebengine, utillinux, glibc, tzdata, ckbcomp, xkeyboard_config
-}:
+{ stdenv, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore, kservice
+, libatasmart, libxcb, libyamlcpp, parted, polkit-qt, python, qtbase
+, qtquickcontrols, qtsvg, qttools, qtwebengine, utillinux, glibc, tzdata
+, ckbcomp, xkeyboard_config }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

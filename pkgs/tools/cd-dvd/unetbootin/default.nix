@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, qt4, utillinux, coreutils, which, qmake4Hook, p7zip, mtools, syslinux
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, qt4, utillinux, coreutils, which
+, qmake4Hook, p7zip, mtools, syslinux }:
 
 stdenv.mkDerivation rec {
   name = "unetbootin-${version}";

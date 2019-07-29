@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, gnome3, gtk3, gobject-introspection, desktop-file-utils, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, pantheon, python3, gnome3
+, gtk3, gobject-introspection, desktop-file-utils, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "hashit";

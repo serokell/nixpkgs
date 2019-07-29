@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxml2, glib, gtk3, enchant2, isocodes, vala, gobject-introspection, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, libxml2, glib, gtk3, enchant2, isocodes, vala
+, gobject-introspection, gnome3 }:
 
 let
   pname = "gspell";

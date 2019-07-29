@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, chameleon, pyramid, zope_interface, setuptools
-}:
+{ stdenv, buildPythonPackage, fetchPypi, chameleon, pyramid, zope_interface
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyramid_chameleon";

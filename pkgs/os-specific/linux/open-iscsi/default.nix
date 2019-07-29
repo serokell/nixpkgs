@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, gettext, utillinux, openisns, openssl, kmod, perl, systemd, pkgconf
-}:
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, gettext, utillinux
+, openisns, openssl, kmod, perl, systemd, pkgconf }:
 
 stdenv.mkDerivation rec {
   name = "open-iscsi-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, which, libX11, libXt, fontconfig, freetype, xorgproto ?
-  null, libXext ? null, zlib ? null, perl ? null # For building web manuals
+{ stdenv, fetchFromGitHub, which, libX11, libXt, fontconfig, freetype
+, xorgproto ? null, libXext ? null, zlib ? null
+, perl ? null # For building web manuals
 }:
 
 stdenv.mkDerivation rec {

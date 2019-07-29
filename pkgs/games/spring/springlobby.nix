@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, wxGTK30, openal, pkgconfig, curl, libtorrentRasterbar, libpng, libX11, gettext, boost, libnotify, gtk2, doxygen, spring, makeWrapper, glib, minizip, alure, pcre, jsoncpp
-}:
+{ stdenv, fetchurl, cmake, wxGTK30, openal, pkgconfig, curl, libtorrentRasterbar
+, libpng, libX11, gettext, boost, libnotify, gtk2, doxygen, spring, makeWrapper
+, glib, minizip, alure, pcre, jsoncpp }:
 
 stdenv.mkDerivation rec {
   name = "springlobby-${version}";

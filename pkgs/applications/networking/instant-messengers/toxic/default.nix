@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libsodium, ncurses, curl, libtoxcore, openal, libvpx, freealut, libconfig, pkgconfig, libopus, qrencode, gdk_pixbuf, libnotify
-}:
+{ stdenv, fetchFromGitHub, libsodium, ncurses, curl, libtoxcore, openal, libvpx
+, freealut, libconfig, pkgconfig, libopus, qrencode, gdk_pixbuf, libnotify }:
 
 stdenv.mkDerivation rec {
   name = "toxic-${version}";

@@ -1,5 +1,8 @@
-{ buildPythonApplication, lib, fetchFromGitHub, wrapGAppsHook, gobject-introspection, gnome-desktop, libnotify, libgnome-keyring, pango, gdk_pixbuf, atk, webkitgtk, gst_all_1, evdev, pyyaml, pygobject3, requests, pillow, xrandr, pciutils, psmisc, glxinfo, vulkan-tools, xboxdrv, pulseaudio, p7zip, xgamma, libstrangle, wine, fluidsynth, xorgserver
-}:
+{ buildPythonApplication, lib, fetchFromGitHub, wrapGAppsHook
+, gobject-introspection, gnome-desktop, libnotify, libgnome-keyring, pango
+, gdk_pixbuf, atk, webkitgtk, gst_all_1, evdev, pyyaml, pygobject3, requests
+, pillow, xrandr, pciutils, psmisc, glxinfo, vulkan-tools, xboxdrv, pulseaudio
+, p7zip, xgamma, libstrangle, wine, fluidsynth, xorgserver }:
 
 let
   # See lutris/util/linux.py

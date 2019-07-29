@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, fetchurl, itstool, intltool, libxml2, glib, gtk3, python3Packages, wrapGAppsHook, gnome3, libwnck3, gobject-introspection
-}:
+{ stdenv, pkgconfig, fetchurl, itstool, intltool, libxml2, glib, gtk3
+, python3Packages, wrapGAppsHook, gnome3, libwnck3, gobject-introspection }:
 
 let
   pname = "d-feet";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, makeWrapper, glib, gstreamer, gst-plugins-base, gtk, libxfce4util, libxfce4ui, xfce4-panel, xfconf, libunique ?
-  null, pulseaudioSupport ? false, gst-plugins-good }:
+{ stdenv, fetchurl, pkgconfig, intltool, makeWrapper, glib, gstreamer
+, gst-plugins-base, gtk, libxfce4util, libxfce4ui, xfce4-panel, xfconf
+, libunique ? null, pulseaudioSupport ? false, gst-plugins-good }:
 
 let
   # The usual Gstreamer plugins package has a zillion dependencies

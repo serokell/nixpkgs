@@ -1,5 +1,8 @@
-{ stdenv, lib, python, buildPythonPackage, fetchPypi, adal, antlr4-python3-runtime, argcomplete, azure-cli-telemetry, colorama, jmespath, humanfriendly, knack, msrest, msrestazure, paramiko, pygments, pyjwt, pyopenssl, pyyaml, requests, six, tabulate, azure-mgmt-resource, pyperclip, psutil, enum34, futures, antlr4-python2-runtime, ndg-httpsclient, isPy3k
-}:
+{ stdenv, lib, python, buildPythonPackage, fetchPypi, adal
+, antlr4-python3-runtime, argcomplete, azure-cli-telemetry, colorama, jmespath
+, humanfriendly, knack, msrest, msrestazure, paramiko, pygments, pyjwt
+, pyopenssl, pyyaml, requests, six, tabulate, azure-mgmt-resource, pyperclip
+, psutil, enum34, futures, antlr4-python2-runtime, ndg-httpsclient, isPy3k }:
 
 buildPythonPackage rec {
   pname = "azure-cli-core";

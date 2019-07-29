@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, alsaLib, boost, cairo, cmake, fftwSinglePrec, fltk, pcre, libjack2, libsndfile, libXdmcp, readline, lv2, libGLU_combined, minixml, pkgconfig, zlib, xorg
-}:
+{ stdenv, fetchurl, alsaLib, boost, cairo, cmake, fftwSinglePrec, fltk, pcre
+, libjack2, libsndfile, libXdmcp, readline, lv2, libGLU_combined, minixml
+, pkgconfig, zlib, xorg }:
 
 assert stdenv ? glibc;
 

@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchurl, extra-cmake-modules, shared-mime-info, qtsvg, qtxmlpatterns, karchive, kconfig, kcoreaddons, kparts, kio, ki18n, kdiagram, kgraphviewer
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, shared-mime-info, qtsvg
+, qtxmlpatterns, karchive, kconfig, kcoreaddons, kparts, kio, ki18n, kdiagram
+, kgraphviewer }:
 
 mkDerivation rec {
   name = "massif-visualizer-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, dpkg, gawk, perl, wget, coreutils, utillinux, gnugrep, gnutar, gnused, gzip, makeWrapper
-}:
+{ stdenv, fetchurl, dpkg, gawk, perl, wget, coreutils, utillinux, gnugrep
+, gnutar, gnused, gzip, makeWrapper }:
 # USAGE like this: debootstrap sid /tmp/target-chroot-directory
 # There is also cdebootstrap now. Is that easier to maintain?
 let

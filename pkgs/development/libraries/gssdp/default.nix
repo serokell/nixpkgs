@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gobject-introspection, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_412, libsoup, gtk3, glib, gnome3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gobject-introspection, vala
+, gtk-doc, docbook_xsl, docbook_xml_dtd_412, libsoup, gtk3, glib, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gssdp";

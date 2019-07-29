@@ -1,5 +1,5 @@
-{ stdenv, SDL2, fetchFromGitHub, makeWrapper, gzip, libvorbis, libmad, vulkan-headers, vulkan-loader
-}:
+{ stdenv, SDL2, fetchFromGitHub, makeWrapper, gzip, libvorbis, libmad
+, vulkan-headers, vulkan-loader }:
 
 stdenv.mkDerivation rec {
   name = "vkquake-${version}";

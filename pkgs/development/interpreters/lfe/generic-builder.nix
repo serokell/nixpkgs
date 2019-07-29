@@ -1,12 +1,12 @@
-{ stdenv, fetchFromGitHub, erlang, makeWrapper, coreutils, bash, buildRebar3, buildHex
-}:
+{ stdenv, fetchFromGitHub, erlang, makeWrapper, coreutils, bash, buildRebar3
+, buildHex }:
 
-{ baseName ? "lfe", version, maximumOTPVersion, sha256 ? null, rev ?
-  version, src ? fetchFromGitHub {
-    inherit rev sha256;
-    owner = "rvirding";
-    repo = "lfe";
-  } }:
+{ baseName ? "lfe", version, maximumOTPVersion, sha256 ? null, rev ? version
+, src ? fetchFromGitHub {
+  inherit rev sha256;
+  owner = "rvirding";
+  repo = "lfe";
+} }:
 
 let
   inherit (stdenv.lib) getVersion versionAtLeast splitString head;

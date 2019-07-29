@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, pkgconfig, SDL2, SDL2_image, curl, libogg, libvorbis, libGLU_combined, openal, boost, glew, libpng, freetype
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, SDL2, SDL2_image, curl, libogg, libvorbis
+, libGLU_combined, openal, boost, glew, libpng, freetype }:
 
 stdenv.mkDerivation rec {
   name = "supertux-${version}";

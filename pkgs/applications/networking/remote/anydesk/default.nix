@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, makeDesktopItem, atk, cairo, gdk_pixbuf, glib, gnome2, gtk2, libGLU_combined, pango, xorg, lsb-release, freetype, fontconfig, pangox_compat, polkit, polkit_gnome
-}:
+{ stdenv, fetchurl, makeWrapper, makeDesktopItem, atk, cairo, gdk_pixbuf, glib
+, gnome2, gtk2, libGLU_combined, pango, xorg, lsb-release, freetype, fontconfig
+, pangox_compat, polkit, polkit_gnome }:
 
 let
   sha256 = {

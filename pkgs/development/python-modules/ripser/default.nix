@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, cython, numpy, scipy, scikitlearn, persim, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, numpy, scipy, scikitlearn, persim
+, pytest }:
 
 buildPythonPackage rec {
   pname = "ripser";

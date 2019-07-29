@@ -1,5 +1,5 @@
-{ stdenv, requireFile, libX11, libXext, libXau, libxcb, libXdmcp, SDL, SDL_mixer, libvorbis, libGLU_combined, runtimeShell, demo ?
-  false }:
+{ stdenv, requireFile, libX11, libXext, libXau, libxcb, libXdmcp, SDL, SDL_mixer
+, libvorbis, libGLU_combined, runtimeShell, demo ? false }:
 
 # TODO: add i686 support
 

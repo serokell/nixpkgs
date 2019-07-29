@@ -1,5 +1,6 @@
-{ stdenv, gettext, libxml2, fetchurl, pkgconfig, libcanberra-gtk3, gtk3, glib, meson, ninja, python3, wrapGAppsHook, appstream-glib, desktop-file-utils, gnome3, gsettings-desktop-schemas
-}:
+{ stdenv, gettext, libxml2, fetchurl, pkgconfig, libcanberra-gtk3, gtk3, glib
+, meson, ninja, python3, wrapGAppsHook, appstream-glib, desktop-file-utils
+, gnome3, gsettings-desktop-schemas }:
 
 let
   pname = "gnome-screenshot";

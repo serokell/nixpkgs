@@ -2,9 +2,18 @@
 
 {
 
-  ghcjs = callPackage
-    ({ mkDerivation, aeson, array, attoparsec, base, base16-bytestring, base64-bytestring, binary, bytestring, Cabal, containers, cryptohash, data-default, deepseq, directory, executable-path, filepath, ghc-api-ghcjs, ghc-boot, ghc-paths, ghci-ghcjs, ghcjs-th, haddock-api-ghcjs, hashable, haskell-src-exts, haskell-src-meta, http-types, HUnit, lens, lifted-base, mtl, network, optparse-applicative, parallel, parsec, process, random, regex-posix, safe, shelly, split, stdenv, stringsearch, syb, system-fileio, system-filepath, tar, template-haskell, template-haskell-ghcjs, terminfo, test-framework, test-framework-hunit, text, time, transformers, transformers-compat, unix, unix-compat, unordered-containers, vector, wai, wai-app-static, wai-extra, wai-websockets, warp, webdriver, websockets, wl-pprint-text, yaml
-    }:
+  ghcjs = callPackage ({ mkDerivation, aeson, array, attoparsec, base
+    , base16-bytestring, base64-bytestring, binary, bytestring, Cabal
+    , containers, cryptohash, data-default, deepseq, directory, executable-path
+    , filepath, ghc-api-ghcjs, ghc-boot, ghc-paths, ghci-ghcjs, ghcjs-th
+    , haddock-api-ghcjs, hashable, haskell-src-exts, haskell-src-meta
+    , http-types, HUnit, lens, lifted-base, mtl, network, optparse-applicative
+    , parallel, parsec, process, random, regex-posix, safe, shelly, split
+    , stdenv, stringsearch, syb, system-fileio, system-filepath, tar
+    , template-haskell, template-haskell-ghcjs, terminfo, test-framework
+    , test-framework-hunit, text, time, transformers, transformers-compat, unix
+    , unix-compat, unordered-containers, vector, wai, wai-app-static, wai-extra
+    , wai-websockets, warp, webdriver, websockets, wl-pprint-text, yaml }:
     mkDerivation {
       pname = "ghcjs";
       version = "8.4.0.1";
@@ -136,9 +145,10 @@
       license = stdenv.lib.licenses.mit;
     }) { };
 
-  ghc-api-ghcjs = callPackage
-    ({ mkDerivation, array, base, binary, bytestring, containers, deepseq, directory, filepath, ghc-boot, ghc-boot-th, ghci-ghcjs, hpc, process, stdenv, template-haskell-ghcjs, terminfo, time, transformers, unix
-    }:
+  ghc-api-ghcjs = callPackage ({ mkDerivation, array, base, binary, bytestring
+    , containers, deepseq, directory, filepath, ghc-boot, ghc-boot-th
+    , ghci-ghcjs, hpc, process, stdenv, template-haskell-ghcjs, terminfo, time
+    , transformers, unix }:
     mkDerivation {
       pname = "ghc-api-ghcjs";
       version = "8.4.0";
@@ -168,9 +178,9 @@
       license = stdenv.lib.licenses.bsd3;
     }) { };
 
-  ghci-ghcjs = callPackage
-    ({ mkDerivation, array, base, binary, bytestring, containers, deepseq, filepath, ghc-boot, ghc-boot-th, stdenv, template-haskell-ghcjs, transformers, unix
-    }:
+  ghci-ghcjs = callPackage ({ mkDerivation, array, base, binary, bytestring
+    , containers, deepseq, filepath, ghc-boot, ghc-boot-th, stdenv
+    , template-haskell-ghcjs, transformers, unix }:
     mkDerivation {
       pname = "ghci-ghcjs";
       version = "8.4.0";
@@ -194,9 +204,8 @@
       license = stdenv.lib.licenses.bsd3;
     }) { };
 
-  ghcjs-th = callPackage
-    ({ mkDerivation, base, binary, bytestring, containers, ghc-prim, ghci-ghcjs, stdenv, template-haskell-ghcjs
-    }:
+  ghcjs-th = callPackage ({ mkDerivation, base, binary, bytestring, containers
+    , ghc-prim, ghci-ghcjs, stdenv, template-haskell-ghcjs }:
     mkDerivation {
       pname = "ghcjs-th";
       version = "0.1.0.0";
@@ -214,9 +223,10 @@
       license = stdenv.lib.licenses.mit;
     }) { };
 
-  haddock-api-ghcjs = callPackage
-    ({ mkDerivation, array, base, bytestring, Cabal, containers, deepseq, directory, filepath, ghc-api-ghcjs, ghc-boot, ghc-paths, haddock-library-ghcjs, hspec, hspec-discover, QuickCheck, stdenv, transformers, xhtml
-    }:
+  haddock-api-ghcjs = callPackage ({ mkDerivation, array, base, bytestring
+    , Cabal, containers, deepseq, directory, filepath, ghc-api-ghcjs, ghc-boot
+    , ghc-paths, haddock-library-ghcjs, hspec, hspec-discover, QuickCheck
+    , stdenv, transformers, xhtml }:
     mkDerivation {
       pname = "haddock-api-ghcjs";
       version = "2.20.0";
@@ -262,9 +272,10 @@
       license = stdenv.lib.licenses.bsd3;
     }) { };
 
-  haddock-library-ghcjs = callPackage
-    ({ mkDerivation, base, base-compat, bytestring, containers, deepseq, directory, filepath, haddock-library, hspec, hspec-discover, optparse-applicative, QuickCheck, stdenv, transformers, tree-diff
-    }:
+  haddock-library-ghcjs = callPackage ({ mkDerivation, base, base-compat
+    , bytestring, containers, deepseq, directory, filepath, haddock-library
+    , hspec, hspec-discover, optparse-applicative, QuickCheck, stdenv
+    , transformers, tree-diff }:
     mkDerivation {
       pname = "haddock-library-ghcjs";
       version = "1.6.0";

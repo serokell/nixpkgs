@@ -2,7 +2,8 @@
 
 , isPy3k, isPyPy
 
-, pyenchant, simplebayes, pillow, pycountry, whoosh, termcolor, python-Levenshtein, pyinsane2, pygobject3, pyocr, natsort
+, pyenchant, simplebayes, pillow, pycountry, whoosh, termcolor
+, python-Levenshtein, pyinsane2, pygobject3, pyocr, natsort
 
 , pkgs }:
 

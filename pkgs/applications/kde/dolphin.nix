@@ -1,5 +1,8 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, baloo, baloo-widgets, kactivities, kbookmarks, kcmutils, kcompletion, kconfig, kcoreaddons, kdelibs4support, kdbusaddons, kfilemetadata, ki18n, kiconthemes, kinit, kio, knewstuff, knotifications, kparts, ktexteditor, kwindowsystem, phonon, solid, wayland, qtwayland
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, baloo, baloo-widgets
+, kactivities, kbookmarks, kcmutils, kcompletion, kconfig, kcoreaddons
+, kdelibs4support, kdbusaddons, kfilemetadata, ki18n, kiconthemes, kinit, kio
+, knewstuff, knotifications, kparts, ktexteditor, kwindowsystem, phonon, solid
+, wayland, qtwayland }:
 
 mkDerivation {
   name = "dolphin";

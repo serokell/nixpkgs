@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, cython, numpy, scipy, matplotlib, networkx, six, pillow, pywavelets, dask, cloudpickle, pytest
-}:
+{ lib, fetchPypi, buildPythonPackage, cython, numpy, scipy, matplotlib, networkx
+, six, pillow, pywavelets, dask, cloudpickle, pytest }:
 
 buildPythonPackage rec {
   pname = "scikit-image";

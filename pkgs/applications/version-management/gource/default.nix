@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL2, ftgl, pkgconfig, libpng, libjpeg, pcre, SDL2_image, freetype, glew, libGLU_combined, boost, glm
-}:
+{ stdenv, fetchurl, SDL2, ftgl, pkgconfig, libpng, libjpeg, pcre, SDL2_image
+, freetype, glew, libGLU_combined, boost, glm }:
 
 stdenv.mkDerivation rec {
   version = "0.49";

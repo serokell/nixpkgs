@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, intltool, python3Packages, wrapGAppsHook, glib, libxml2, libxslt, sqlite, libsoup, webkitgtk, json-glib, gst_all_1, libnotify, gtk3, gsettings-desktop-schemas, libpeas, dconf, librsvg, gobject-introspection, glib-networking, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, python3Packages, wrapGAppsHook, glib
+, libxml2, libxslt, sqlite, libsoup, webkitgtk, json-glib, gst_all_1, libnotify
+, gtk3, gsettings-desktop-schemas, libpeas, dconf, librsvg
+, gobject-introspection, glib-networking, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "liferea";

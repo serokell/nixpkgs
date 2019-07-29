@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchFromGitHub, stdenv, lib, pythonOlder, requests, enum34
-}:
+{ buildPythonPackage, fetchFromGitHub, stdenv, lib, pythonOlder, requests
+, enum34 }:
 
 buildPythonPackage rec {
   name = "${pname}-${version}";

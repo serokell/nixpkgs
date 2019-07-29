@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, autoreconfHook, gnome2, gtkmm2, libgtop, libxfce4ui, libxfce4util, xfce4-panel, lm_sensors
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, autoreconfHook, gnome2, gtkmm2, libgtop
+, libxfce4ui, libxfce4util, xfce4-panel, lm_sensors }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

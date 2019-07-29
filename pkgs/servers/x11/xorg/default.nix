@@ -35,9 +35,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  bitmap = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXaw, xbitmaps, libXmu, xorgproto, libXt
-    }:
+  bitmap = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXaw, xbitmaps
+    , libXmu, xorgproto, libXt }:
     stdenv.mkDerivation {
       name = "bitmap-1.0.9";
       builder = ./builder.sh;
@@ -846,9 +845,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libXaw = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXext, xorgproto, libXmu, libXpm, libXt
-    }:
+  libXaw = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXext
+    , xorgproto, libXmu, libXpm, libXt }:
     stdenv.mkDerivation {
       name = "libXaw-1.0.13";
       builder = ./builder.sh;
@@ -862,9 +860,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libXaw3d = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXmu, libXpm, xorgproto, libXt
-    }:
+  libXaw3d = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXmu
+    , libXpm, xorgproto, libXt }:
     stdenv.mkDerivation {
       name = "libXaw3d-1.6.3";
       builder = ./builder.sh;
@@ -965,9 +962,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libXfont = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libfontenc, xorgproto, freetype, xtrans, zlib
-    }:
+  libXfont = callPackage ({ stdenv, pkgconfig, fetchurl, libfontenc, xorgproto
+    , freetype, xtrans, zlib }:
     stdenv.mkDerivation {
       name = "libXfont-1.5.4";
       builder = ./builder.sh;
@@ -981,9 +977,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libXfont2 = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libfontenc, xorgproto, freetype, xtrans, zlib
-    }:
+  libXfont2 = callPackage ({ stdenv, pkgconfig, fetchurl, libfontenc, xorgproto
+    , freetype, xtrans, zlib }:
     stdenv.mkDerivation {
       name = "libXfont2-2.0.3";
       builder = ./builder.sh;
@@ -997,9 +992,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libXft = callPackage
-    ({ stdenv, pkgconfig, fetchurl, fontconfig, freetype, libX11, xorgproto, libXrender
-    }:
+  libXft = callPackage ({ stdenv, pkgconfig, fetchurl, fontconfig, freetype
+    , libX11, xorgproto, libXrender }:
     stdenv.mkDerivation {
       name = "libXft-2.3.3";
       builder = ./builder.sh;
@@ -1073,9 +1067,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libXpm = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXext, xorgproto, libXt, gettext
-    }:
+  libXpm = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXext
+    , xorgproto, libXt, gettext }:
     stdenv.mkDerivation {
       name = "libXpm-3.5.12";
       builder = ./builder.sh;
@@ -1309,9 +1302,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  libxcb = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libxslt, libpthreadstubs, libXau, xcbproto, libXdmcp, python
-    }:
+  libxcb = callPackage ({ stdenv, pkgconfig, fetchurl, libxslt, libpthreadstubs
+    , libXau, xcbproto, libXdmcp, python }:
     stdenv.mkDerivation {
       name = "libxcb-1.13.1";
       builder = ./builder.sh;
@@ -1425,9 +1417,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  oclock = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libxkbfile, libX11, libXext, libXmu, libXt
-    }:
+  oclock = callPackage ({ stdenv, pkgconfig, fetchurl, libxkbfile, libX11
+    , libXext, libXmu, libXt }:
     stdenv.mkDerivation {
       name = "oclock-1.0.4";
       builder = ./builder.sh;
@@ -1498,9 +1489,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  twm = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libICE, libSM, libX11, libXext, libXmu, xorgproto, libXt
-    }:
+  twm = callPackage ({ stdenv, pkgconfig, fetchurl, libICE, libSM, libX11
+    , libXext, libXmu, xorgproto, libXt }:
     stdenv.mkDerivation {
       name = "twm-1.0.10";
       builder = ./builder.sh;
@@ -1542,9 +1532,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  x11perf = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXft, libXmu, xorgproto, libXrender
-    }:
+  x11perf = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXft
+    , libXmu, xorgproto, libXrender }:
     stdenv.mkDerivation {
       name = "x11perf-1.6.1";
       builder = ./builder.sh;
@@ -1558,9 +1547,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xauth = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXau, libXext, libXmu, xorgproto
-    }:
+  xauth = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXau, libXext
+    , libXmu, xorgproto }:
     stdenv.mkDerivation {
       name = "xauth-1.0.10";
       builder = ./builder.sh;
@@ -1646,9 +1634,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xcbutilcursor = callPackage
-    ({ stdenv, pkgconfig, fetchurl, gperf, libxcb, xcbutilimage, xcbutilrenderutil, xorgproto, m4
-    }:
+  xcbutilcursor = callPackage ({ stdenv, pkgconfig, fetchurl, gperf, libxcb
+    , xcbutilimage, xcbutilrenderutil, xorgproto, m4 }:
     stdenv.mkDerivation {
       name = "xcb-util-cursor-0.1.3";
       builder = ./builder.sh;
@@ -1738,9 +1725,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xclock = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXaw, libXft, libxkbfile, libXmu, xorgproto, libXrender, libXt
-    }:
+  xclock = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXaw, libXft
+    , libxkbfile, libXmu, xorgproto, libXrender, libXt }:
     stdenv.mkDerivation {
       name = "xclock-1.0.8";
       builder = ./builder.sh;
@@ -1769,9 +1755,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xcompmgr = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libXcomposite, libXdamage, libXext, libXfixes, libXrender
-    }:
+  xcompmgr = callPackage ({ stdenv, pkgconfig, fetchurl, libXcomposite
+    , libXdamage, libXext, libXfixes, libXrender }:
     stdenv.mkDerivation {
       name = "xcompmgr-1.1.8";
       builder = ./builder.sh;
@@ -1829,9 +1814,9 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xdm = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXau, libXaw, libXdmcp, libXext, libXft, libXinerama, libXmu, libXpm, xorgproto, libXrender, libXt
-    }:
+  xdm = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXau, libXaw
+    , libXdmcp, libXext, libXft, libXinerama, libXmu, libXpm, xorgproto
+    , libXrender, libXt }:
     stdenv.mkDerivation {
       name = "xdm-1.1.12";
       builder = ./builder.sh;
@@ -1858,9 +1843,9 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xdpyinfo = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libdmx, libX11, libxcb, libXcomposite, libXext, libXi, libXinerama, xorgproto, libXrender, libXtst, libXxf86dga, libXxf86misc, libXxf86vm
-    }:
+  xdpyinfo = callPackage ({ stdenv, pkgconfig, fetchurl, libdmx, libX11, libxcb
+    , libXcomposite, libXext, libXi, libXinerama, xorgproto, libXrender, libXtst
+    , libXxf86dga, libXxf86misc, libXxf86vm }:
     stdenv.mkDerivation {
       name = "xdpyinfo-1.3.2";
       builder = ./builder.sh;
@@ -1918,9 +1903,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xeyes = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXmu, xorgproto, libXrender, libXt
-    }:
+  xeyes = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXmu
+    , xorgproto, libXrender, libXt }:
     stdenv.mkDerivation {
       name = "xeyes-1.1.2";
       builder = ./builder.sh;
@@ -1934,9 +1918,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86inputevdev = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libevdev, udev, mtdev, xorgserver
-    }:
+  xf86inputevdev = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libevdev, udev, mtdev, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-input-evdev-2.10.6";
       builder = ./builder.sh;
@@ -2013,9 +1996,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86inputsynaptics = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libevdev, libX11, libXi, xorgserver, libXtst
-    }:
+  xf86inputsynaptics = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libevdev, libX11, libXi, xorgserver, libXtst }:
     stdenv.mkDerivation {
       name = "xf86-input-synaptics-1.9.1";
       builder = ./builder.sh;
@@ -2061,9 +2043,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videoamdgpu = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, mesa, libGL, libdrm, udev, xorgserver
-    }:
+  xf86videoamdgpu = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, mesa
+    , libGL, libdrm, udev, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-amdgpu-19.0.1";
       builder = ./builder.sh;
@@ -2123,9 +2104,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videoati = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, mesa, libGL, libdrm, udev, libpciaccess, xorgserver
-    }:
+  xf86videoati = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, mesa
+    , libGL, libdrm, udev, libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-ati-19.0.1";
       builder = ./builder.sh;
@@ -2276,9 +2256,10 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videointel = callPackage
-    ({ stdenv, pkgconfig, fetchurl, cairo, xorgproto, libdrm, libpng, udev, libpciaccess, libX11, xcbutil, libxcb, libXcursor, libXdamage, libXext, libXfixes, xorgserver, libXrandr, libXrender, libxshmfence, libXtst, libXvMC
-    }:
+  xf86videointel = callPackage ({ stdenv, pkgconfig, fetchurl, cairo, xorgproto
+    , libdrm, libpng, udev, libpciaccess, libX11, xcbutil, libxcb, libXcursor
+    , libXdamage, libXext, libXfixes, xorgserver, libXrandr, libXrender
+    , libxshmfence, libXtst, libXvMC }:
     stdenv.mkDerivation {
       name = "xf86-video-intel-2.99.917";
       builder = ./builder.sh;
@@ -2313,9 +2294,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videomach64 = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videomach64 = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libdrm, libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-mach64-6.9.6";
       builder = ./builder.sh;
@@ -2329,9 +2309,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videomga = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videomga = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm
+    , libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-mga-2.0.0";
       builder = ./builder.sh;
@@ -2377,9 +2356,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videonouveau = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, udev, libpciaccess, xorgserver
-    }:
+  xf86videonouveau = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libdrm, udev, libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-nouveau-1.0.15";
       builder = ./builder.sh;
@@ -2424,9 +2402,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videoopenchrome = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, udev, libpciaccess, libX11, libXext, xorgserver, libXvMC
-    }:
+  xf86videoopenchrome = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libdrm, udev, libpciaccess, libX11, libXext, xorgserver, libXvMC }:
     stdenv.mkDerivation {
       name = "xf86-video-openchrome-0.6.0";
       builder = ./builder.sh;
@@ -2450,9 +2427,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videoqxl = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, udev, libpciaccess, xorgserver
-    }:
+  xf86videoqxl = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm
+    , udev, libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-qxl-0.1.5";
       builder = ./builder.sh;
@@ -2466,9 +2442,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videor128 = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videor128 = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm
+    , libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-r128-6.11.0";
       builder = ./builder.sh;
@@ -2514,9 +2489,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videosavage = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videosavage = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libdrm, libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-savage-2.3.9";
       builder = ./builder.sh;
@@ -2546,9 +2520,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videosis = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videosis = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm
+    , libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-sis-0.10.9";
       builder = ./builder.sh;
@@ -2622,9 +2595,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videotdfx = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videotdfx = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm
+    , libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-tdfx-1.5.0";
       builder = ./builder.sh;
@@ -2715,9 +2687,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videovmware = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, udev, libpciaccess, libX11, libXext, xorgserver
-    }:
+  xf86videovmware = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto
+    , libdrm, udev, libpciaccess, libX11, libXext, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-vmware-13.3.0";
       builder = ./builder.sh;
@@ -2763,9 +2734,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xf86videoxgi = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm, libpciaccess, xorgserver
-    }:
+  xf86videoxgi = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libdrm
+    , libpciaccess, xorgserver }:
     stdenv.mkDerivation {
       name = "xf86-video-xgi-1.6.1";
       builder = ./builder.sh;
@@ -2779,9 +2749,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xfd = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libxkbfile, fontconfig, libXaw, libXft, libXmu, xorgproto, libXrender, libXt, gettext
-    }:
+  xfd = callPackage ({ stdenv, pkgconfig, fetchurl, libxkbfile, fontconfig
+    , libXaw, libXft, libXmu, xorgproto, libXrender, libXt, gettext }:
     stdenv.mkDerivation {
       name = "xfd-1.1.3";
       builder = ./builder.sh;
@@ -2906,9 +2875,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xinput = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, libX11, libXext, libXi, libXinerama, libXrandr
-    }:
+  xinput = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, libX11
+    , libXext, libXi, libXinerama, libXrandr }:
     stdenv.mkDerivation {
       name = "xinput-1.6.2";
       builder = ./builder.sh;
@@ -3012,9 +2980,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xload = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXaw, libXmu, xorgproto, libXt, gettext
-    }:
+  xload = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXaw, libXmu
+    , xorgproto, libXt, gettext }:
     stdenv.mkDerivation {
       name = "xload-1.1.3";
       builder = ./builder.sh;
@@ -3169,9 +3136,10 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xorgserver = callPackage
-    ({ stdenv, pkgconfig, fetchurl, xorgproto, openssl, libX11, libXau, libXaw, libxcb, xcbutil, xcbutilwm, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, libXdmcp, libXfixes, libxkbfile, libXmu, libXpm, libXrender, libXres, libXt
-    }:
+  xorgserver = callPackage ({ stdenv, pkgconfig, fetchurl, xorgproto, openssl
+    , libX11, libXau, libXaw, libxcb, xcbutil, xcbutilwm, xcbutilimage
+    , xcbutilkeysyms, xcbutilrenderutil, libXdmcp, libXfixes, libxkbfile, libXmu
+    , libXpm, libXrender, libXres, libXt }:
     stdenv.mkDerivation {
       name = "xorg-server-1.20.5";
       builder = ./builder.sh;
@@ -3291,9 +3259,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xset = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXmu, xorgproto, libXxf86misc
-    }:
+  xset = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, libXext, libXmu
+    , xorgproto, libXxf86misc }:
     stdenv.mkDerivation {
       name = "xset-1.2.4";
       builder = ./builder.sh;
@@ -3307,9 +3274,8 @@ with self; {
       meta.platforms = stdenv.lib.platforms.unix;
     }) { };
 
-  xsetroot = callPackage
-    ({ stdenv, pkgconfig, fetchurl, libX11, xbitmaps, libXcursor, libXmu, xorgproto
-    }:
+  xsetroot = callPackage ({ stdenv, pkgconfig, fetchurl, libX11, xbitmaps
+    , libXcursor, libXmu, xorgproto }:
     stdenv.mkDerivation {
       name = "xsetroot-1.1.2";
       builder = ./builder.sh;

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, openconnect, file, gawk, openvpn, vpnc, glib, dbus, iptables, gnutls, polkit, wpa_supplicant, readline6, pptp, ppp
-}:
+{ stdenv, fetchurl, pkgconfig, openconnect, file, gawk, openvpn, vpnc, glib
+, dbus, iptables, gnutls, polkit, wpa_supplicant, readline6, pptp, ppp }:
 
 stdenv.mkDerivation rec {
   name = "connman-${version}";

@@ -1,6 +1,6 @@
 { stdenv, fetchurl, libpcap, # gnutls, libgcrypt,
-libxml2, glib, geoip, geolite-legacy, sqlite, which, autoreconfHook, git, pkgconfig, groff, curl, json_c, luajit, zeromq, rrdtool
-}:
+libxml2, glib, geoip, geolite-legacy, sqlite, which, autoreconfHook, git
+, pkgconfig, groff, curl, json_c, luajit, zeromq, rrdtool }:
 
 # ntopng includes LuaJIT, mongoose, rrdtool and zeromq in its third-party/
 # directory, but we use luajit, zeromq, and rrdtool from nixpkgs

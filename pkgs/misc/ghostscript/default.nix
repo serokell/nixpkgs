@@ -1,6 +1,9 @@
-{ config, stdenv, lib, fetchurl, pkgconfig, zlib, expat, openssl, autoconf, libjpeg, libpng, libtiff, freetype, fontconfig, libpaper, jbig2dec, libiconv, ijs, lcms2, fetchpatch, cupsSupport ?
-  config.ghostscript.cups or (!stdenv.isDarwin), cups ? null, x11Support ?
-    cupsSupport, xlibsWrapper ? null # with CUPS, X11 only adds very little
+{ config, stdenv, lib, fetchurl, pkgconfig, zlib, expat, openssl, autoconf
+, libjpeg, libpng, libtiff, freetype, fontconfig, libpaper, jbig2dec, libiconv
+, ijs, lcms2, fetchpatch
+, cupsSupport ? config.ghostscript.cups or (!stdenv.isDarwin), cups ? null
+, x11Support ? cupsSupport
+, xlibsWrapper ? null # with CUPS, X11 only adds very little
 }:
 
 assert x11Support -> xlibsWrapper != null;

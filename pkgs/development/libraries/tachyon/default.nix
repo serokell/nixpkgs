@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, Carbon ? null, libjpeg ? null, libpng ?
-  null, withJpegSupport ? true # support jpeg output
+{ stdenv, fetchurl, Carbon ? null, libjpeg ? null, libpng ? null
+, withJpegSupport ? true # support jpeg output
 , withPngSupport ? true # support png output
 }:
 

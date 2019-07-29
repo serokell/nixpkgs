@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, dos2unix, libpgf, freeimage, doxygen
-}:
+{ stdenv, fetchurl, autoconf, automake, libtool, dos2unix, libpgf, freeimage
+, doxygen }:
 
 with stdenv.lib;
 

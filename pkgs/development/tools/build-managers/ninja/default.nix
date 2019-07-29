@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, python, buildDocs ?
-  true, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxslt, re2c }:
+{ stdenv, fetchFromGitHub, fetchpatch, python, buildDocs ? true, asciidoc
+, docbook_xml_dtd_45, docbook_xsl, libxslt, re2c }:
 
 with stdenv.lib;
 

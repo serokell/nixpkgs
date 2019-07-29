@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, readline, texinfo, gdbm, gmp, libffi
-}:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, readline, texinfo, gdbm, gmp
+, libffi }:
 
 with stdenv.lib;
 

@@ -2,7 +2,8 @@ let
 
   generic =
     # dependencies
-    { stdenv, lib, fetchurl, makeWrapper, glibc, zlib, readline, openssl, icu, systemd, libossp_uuid, pkgconfig, libxml2, tzdata
+    { stdenv, lib, fetchurl, makeWrapper, glibc, zlib, readline, openssl, icu
+    , systemd, libossp_uuid, pkgconfig, libxml2, tzdata
 
     # This is important to obtain a version of `libpq` that does not depend on systemd.
     , enableSystemd ? (lib.versionAtLeast version "9.6" && !stdenv.isDarwin)

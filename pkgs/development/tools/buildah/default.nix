@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, gpgme, libgpgerror, lvm2, btrfs-progs, pkgconfig, ostree, libselinux, libseccomp, go-md2man
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, gpgme, libgpgerror, lvm2, btrfs-progs
+, pkgconfig, ostree, libselinux, libseccomp, go-md2man }:
 
 let
   version = "1.9.0";

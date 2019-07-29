@@ -140,8 +140,8 @@ let
   '';
 
   openCommand = name':
-    { name, device, header, keyFile, keyFileSize, keyFileOffset, allowDiscards, yubikey, gpgCard, fallbackToPassword, ...
-    }:
+    { name, device, header, keyFile, keyFileSize, keyFileOffset, allowDiscards
+    , yubikey, gpgCard, fallbackToPassword, ... }:
     assert name' == name;
     let
       csopen = "cryptsetup luksOpen ${device} ${name} ${

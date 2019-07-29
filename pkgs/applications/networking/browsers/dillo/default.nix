@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fltk, openssl, libjpeg, libpng, perl, libXcursor, libXi, libXinerama
-}:
+{ stdenv, fetchurl, fltk, openssl, libjpeg, libpng, perl, libXcursor, libXi
+, libXinerama }:
 
 stdenv.mkDerivation rec {
   version = "3.0.5";

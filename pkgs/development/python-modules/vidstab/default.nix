@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, numpy, pandas, imutils, progress, matplotlib, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, numpy, pandas, imutils, progress
+, matplotlib, pytest }:
 
 buildPythonPackage rec {
   version = "1.5.6";

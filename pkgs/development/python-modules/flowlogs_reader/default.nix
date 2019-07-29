@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, botocore, boto3, docutils, unittest2, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, botocore, boto3, docutils, unittest2
+, mock }:
 
 buildPythonPackage rec {
   pname = "flowlogs_reader";

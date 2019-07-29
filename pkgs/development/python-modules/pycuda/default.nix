@@ -1,5 +1,6 @@
-{ buildPythonPackage, fetchPypi, fetchFromGitHub, Mako, boost, numpy, pytools, pytest, decorator, appdirs, six, cudatoolkit, python, mkDerivation, stdenv, isPy3k
-}:
+{ buildPythonPackage, fetchPypi, fetchFromGitHub, Mako, boost, numpy, pytools
+, pytest, decorator, appdirs, six, cudatoolkit, python, mkDerivation, stdenv
+, isPy3k }:
 let compyte = import ./compyte.nix { inherit mkDerivation fetchFromGitHub; };
 in buildPythonPackage rec {
   pname = "pycuda";

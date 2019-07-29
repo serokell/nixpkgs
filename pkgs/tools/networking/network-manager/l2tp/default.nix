@@ -1,5 +1,6 @@
-{ stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool, pkgconfig, file, findutils, gtk3, networkmanager, ppp, xl2tpd, strongswan, libsecret, withGnome ?
-  true, networkmanagerapplet }:
+{ stdenv, substituteAll, fetchFromGitHub, autoreconfHook, libtool, intltool
+, pkgconfig, file, findutils, gtk3, networkmanager, ppp, xl2tpd, strongswan
+, libsecret, withGnome ? true, networkmanagerapplet }:
 
 stdenv.mkDerivation rec {
   name = "${pname}${if withGnome then "-gnome" else ""}-${version}";

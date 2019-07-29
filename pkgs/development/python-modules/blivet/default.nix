@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildPythonPackage, pykickstart, pyparted, pyblock, pyudev, six, libselinux, cryptsetup, multipath-tools, lsof, utillinux
-}:
+{ stdenv, fetchFromGitHub, buildPythonPackage, pykickstart, pyparted, pyblock
+, pyudev, six, libselinux, cryptsetup, multipath-tools, lsof, utillinux }:
 
 let
   pyenable = { enablePython = true; };

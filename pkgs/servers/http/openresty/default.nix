@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, openssl, zlib, pcre, postgresql, libxml2, libxslt, gd, geoip, perl
-}:
+{ stdenv, fetchurl, openssl, zlib, pcre, postgresql, libxml2, libxslt, gd, geoip
+, perl }:
 
 with stdenv.lib;
 

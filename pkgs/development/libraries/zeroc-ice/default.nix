@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, mcpp, bzip2, expat, openssl, db5, darwin, libiconv, Security
-}:
+{ stdenv, fetchFromGitHub, mcpp, bzip2, expat, openssl, db5, darwin, libiconv
+, Security }:
 
 stdenv.mkDerivation rec {
   name = "zeroc-ice-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, pathpy, nbconvert, pytest_3
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, pathpy, nbconvert
+, pytest_3 }:
 
 buildPythonPackage rec {
   pname = "zetup";

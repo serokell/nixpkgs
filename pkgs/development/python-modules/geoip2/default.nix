@@ -1,5 +1,5 @@
-{ buildPythonPackage, lib, fetchPypi, isPy27, ipaddress, maxminddb, mock, requests, requests-mock
-}:
+{ buildPythonPackage, lib, fetchPypi, isPy27, ipaddress, maxminddb, mock
+, requests, requests-mock }:
 
 buildPythonPackage rec {
   version = "2.9.0";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python2, cdparanoia, cdrdao, flac, sox, accuraterip-checksum, utillinux, substituteAll
-}:
+{ stdenv, fetchFromGitHub, python2, cdparanoia, cdrdao, flac, sox
+, accuraterip-checksum, utillinux, substituteAll }:
 
 python2.pkgs.buildPythonApplication rec {
   name = "whipper-${version}";

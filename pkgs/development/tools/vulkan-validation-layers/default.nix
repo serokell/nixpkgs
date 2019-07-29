@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, writeText, python3, vulkan-headers, vulkan-loader, glslang, pkgconfig, xlibsWrapper, libxcb, libXrandr, wayland
-}:
+{ stdenv, fetchFromGitHub, cmake, writeText, python3, vulkan-headers
+, vulkan-loader, glslang, pkgconfig, xlibsWrapper, libxcb, libXrandr, wayland }:
 stdenv.mkDerivation rec {
   name = "vulkan-validation-layers-${version}";
   version =

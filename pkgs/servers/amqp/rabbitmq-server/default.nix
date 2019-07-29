@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, erlang, elixir, python, libxml2, libxslt, xmlto, docbook_xml_dtd_45, docbook_xsl, zip, unzip, rsync, getconf, socat, AppKit, Carbon, Cocoa
-}:
+{ stdenv, fetchurl, erlang, elixir, python, libxml2, libxslt, xmlto
+, docbook_xml_dtd_45, docbook_xsl, zip, unzip, rsync, getconf, socat, AppKit
+, Carbon, Cocoa }:
 
 stdenv.mkDerivation rec {
   name = "rabbitmq-server-${version}";

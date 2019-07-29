@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, zlib, libpng, libjpeg ? null, libwebp ?
-  null, libtiff ? null, libXpm ? null, fontconfig, freetype }:
+{ stdenv, fetchurl, pkgconfig, zlib, libpng, libjpeg ? null, libwebp ? null
+, libtiff ? null, libXpm ? null, fontconfig, freetype }:
 
 stdenv.mkDerivation rec {
   name = "gd-${version}";

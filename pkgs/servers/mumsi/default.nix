@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, boost, log4cpp, pjsip, openssl, alsaLib, mumlib
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, boost, log4cpp, pjsip, openssl
+, alsaLib, mumlib }:
 with lib;
 stdenv.mkDerivation rec {
   pname = "mumsi";

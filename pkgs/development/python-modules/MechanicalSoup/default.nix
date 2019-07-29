@@ -1,5 +1,5 @@
-{ fetchPypi, buildPythonPackage, lib, requests, beautifulsoup4, six, lxml, pytestrunner, requests-mock, pytestcov, pytest
-}:
+{ fetchPypi, buildPythonPackage, lib, requests, beautifulsoup4, six, lxml
+, pytestrunner, requests-mock, pytestcov, pytest }:
 
 buildPythonPackage rec {
   pname = "MechanicalSoup";

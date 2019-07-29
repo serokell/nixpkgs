@@ -1,5 +1,9 @@
-{ mkDerivation, lib, copyPathsToStore, docbook_xml_dtd_45, extra-cmake-modules, kdoctools, kauth, karchive, kcompletion, kconfig, kconfigwidgets, kcoreaddons, kcrash, kdbusaddons, kded, kdesignerplugin, kemoticons, kglobalaccel, kguiaddons, ki18n, kiconthemes, kio, kitemmodels, kinit, knotifications, kparts, kservice, ktextwidgets, kunitconversion, kwidgetsaddons, kwindowsystem, kxmlgui, networkmanager, qtbase, qtsvg, qttools, qtx11extras, xorg
-}:
+{ mkDerivation, lib, copyPathsToStore, docbook_xml_dtd_45, extra-cmake-modules
+, kdoctools, kauth, karchive, kcompletion, kconfig, kconfigwidgets, kcoreaddons
+, kcrash, kdbusaddons, kded, kdesignerplugin, kemoticons, kglobalaccel
+, kguiaddons, ki18n, kiconthemes, kio, kitemmodels, kinit, knotifications
+, kparts, kservice, ktextwidgets, kunitconversion, kwidgetsaddons, kwindowsystem
+, kxmlgui, networkmanager, qtbase, qtsvg, qttools, qtx11extras, xorg }:
 
 mkDerivation {
   name = "kdelibs4support";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libsodium, ncurses, libopus, msgpack, libvpx, check, libconfig, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, cmake, libsodium, ncurses, libopus, msgpack, libvpx
+, check, libconfig, pkgconfig }:
 
 let
   generic = { version, sha256 }:

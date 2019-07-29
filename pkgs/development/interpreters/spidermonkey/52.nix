@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, autoconf213, pkgconfig, perl, zip, which, readline, icu, zlib, nspr, buildPackages
-}:
+{ stdenv, fetchurl, fetchpatch, autoconf213, pkgconfig, perl, zip, which
+, readline, icu, zlib, nspr, buildPackages }:
 
 let version = "52.9.0";
 in stdenv.mkDerivation rec {

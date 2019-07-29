@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lvm2, libgcrypt, libuuid, pkgconfig, popt, enablePython ?
-  true, python ? null }:
+{ stdenv, fetchurl, lvm2, libgcrypt, libuuid, pkgconfig, popt
+, enablePython ? true, python ? null }:
 
 assert enablePython -> python != null;
 

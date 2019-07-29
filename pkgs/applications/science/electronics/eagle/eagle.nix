@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeDesktopItem, libXrender, libXrandr, libXcursor, libX11, libXext, libXi, libxcb, libGL, glib, nss, nspr, expat, alsaLib, qtbase, qtdeclarative, qtsvg, qtlocation, qtwebchannel, qtwebengine
-}:
+{ stdenv, fetchurl, makeDesktopItem, libXrender, libXrandr, libXcursor, libX11
+, libXext, libXi, libxcb, libGL, glib, nss, nspr, expat, alsaLib, qtbase
+, qtdeclarative, qtsvg, qtlocation, qtwebchannel, qtwebengine }:
 
 let
   libPath = stdenv.lib.makeLibraryPath [

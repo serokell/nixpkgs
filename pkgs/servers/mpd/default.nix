@@ -1,23 +1,18 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, systemd, boost, darwin, alsaSupport ?
-  true, alsaLib, avahiSupport ? true, avahi, dbus, flacSupport ?
-    true, flac, vorbisSupport ? true, libvorbis, madSupport ?
-      true, libmad, id3tagSupport ? true, libid3tag, mikmodSupport ?
-        true, libmikmod, shoutSupport ? true, libshout, sqliteSupport ?
-          true, sqlite, curlSupport ? true, curl, audiofileSupport ?
-            true, audiofile, bzip2Support ? true, bzip2, ffmpegSupport ?
-              true, ffmpeg, fluidsynthSupport ? true, fluidsynth, zipSupport ?
-                true, zziplib, samplerateSupport ?
-                  true, libsamplerate, mmsSupport ?
-                    true, libmms, mpg123Support ? true, mpg123, aacSupport ?
-                      true, faad2, lameSupport ? true, lame, pulseaudioSupport ?
-                        true, libpulseaudio, jackSupport ?
-                          true, libjack2, gmeSupport ?
-                            true, game-music-emu, icuSupport ?
-                              true, icu, clientSupport ?
-                                true, mpd_clientlib, opusSupport ?
-                                  true, libopus, soundcloudSupport ?
-                                    true, yajl, nfsSupport ?
-                                      true, libnfs, smbSupport ? true, samba }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, systemd, boost
+, darwin, alsaSupport ? true, alsaLib, avahiSupport ? true, avahi, dbus
+, flacSupport ? true, flac, vorbisSupport ? true, libvorbis, madSupport ? true
+, libmad, id3tagSupport ? true, libid3tag, mikmodSupport ? true, libmikmod
+, shoutSupport ? true, libshout, sqliteSupport ? true, sqlite
+, curlSupport ? true, curl, audiofileSupport ? true, audiofile
+, bzip2Support ? true, bzip2, ffmpegSupport ? true, ffmpeg
+, fluidsynthSupport ? true, fluidsynth, zipSupport ? true, zziplib
+, samplerateSupport ? true, libsamplerate, mmsSupport ? true, libmms
+, mpg123Support ? true, mpg123, aacSupport ? true, faad2, lameSupport ? true
+, lame, pulseaudioSupport ? true, libpulseaudio, jackSupport ? true, libjack2
+, gmeSupport ? true, game-music-emu, icuSupport ? true, icu
+, clientSupport ? true, mpd_clientlib, opusSupport ? true, libopus
+, soundcloudSupport ? true, yajl, nfsSupport ? true, libnfs, smbSupport ? true
+, samba }:
 
 assert avahiSupport -> avahi != null && dbus != null;
 

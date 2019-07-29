@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, enum34, grpc_google_iam_v1, google_api_core, pytest, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, enum34, grpc_google_iam_v1
+, google_api_core, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "google-cloud-kms";

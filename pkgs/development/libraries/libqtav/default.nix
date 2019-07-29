@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchFromGitHub, extra-cmake-modules, qtbase, qtmultimedia, qtquick1, qttools, libGL, libX11, libass, openal, ffmpeg, libuchardet, alsaLib, libpulseaudio, libva
-}:
+{ mkDerivation, lib, fetchFromGitHub, extra-cmake-modules, qtbase, qtmultimedia
+, qtquick1, qttools, libGL, libX11, libass, openal, ffmpeg, libuchardet, alsaLib
+, libpulseaudio, libva }:
 
 with lib;
 

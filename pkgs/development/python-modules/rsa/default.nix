@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, unittest2, pyasn1, mock, isPy3k, pythonOlder
-}:
+{ stdenv, buildPythonPackage, fetchPypi, unittest2, pyasn1, mock, isPy3k
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rsa";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qmake, pkgconfig, wrapQtAppsHook, qtbase, qttools, qtwebkit, sqlite
-}:
+{ stdenv, fetchFromGitHub, qmake, pkgconfig, wrapQtAppsHook, qtbase, qttools
+, qtwebkit, sqlite }:
 
 stdenv.mkDerivation rec {
   name = "quiterss-${version}";

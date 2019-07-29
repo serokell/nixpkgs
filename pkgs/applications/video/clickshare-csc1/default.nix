@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchurl, alsaLib, autoPatchelfHook, binutils-unwrapped, gnutar, libav_0_8, libnotify, libresample, libusb1, qt4, rpmextract, unzip, xorg, usersGroup ?
-  "clickshare" # for udev access rules
+{ lib, stdenv, fetchurl, alsaLib, autoPatchelfHook, binutils-unwrapped, gnutar
+, libav_0_8, libnotify, libresample, libusb1, qt4, rpmextract, unzip, xorg
+, usersGroup ? "clickshare" # for udev access rules
 }:
 
 # This fetches the latest firmware version that

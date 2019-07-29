@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libnotify, gtk, libxfce4util, libxfce4ui, xfconf, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, libnotify, gtk, libxfce4util
+, libxfce4ui, xfconf, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   p_name = "xfce4-notifyd";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pcre-cpp, sqlite, ncurses, readline, zlib, bzip2, autoconf, automake, curl
-}:
+{ stdenv, fetchFromGitHub, pcre-cpp, sqlite, ncurses, readline, zlib, bzip2
+, autoconf, automake, curl }:
 
 stdenv.mkDerivation rec {
 

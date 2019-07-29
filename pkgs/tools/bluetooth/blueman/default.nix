@@ -1,5 +1,7 @@
-{ config, stdenv, lib, fetchurl, intltool, pkgconfig, python3Packages, bluez, gtk3, obex_data_server, xdg_utils, libnotify, dnsmasq, dhcp, hicolor-icon-theme, librsvg, wrapGAppsHook, gobject-introspection, withPulseAudio ?
-  config.pulseaudio or stdenv.isLinux, libpulseaudio }:
+{ config, stdenv, lib, fetchurl, intltool, pkgconfig, python3Packages, bluez
+, gtk3, obex_data_server, xdg_utils, libnotify, dnsmasq, dhcp
+, hicolor-icon-theme, librsvg, wrapGAppsHook, gobject-introspection
+, withPulseAudio ? config.pulseaudio or stdenv.isLinux, libpulseaudio }:
 
 let
   pythonPackages = python3Packages;

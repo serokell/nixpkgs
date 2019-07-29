@@ -1,5 +1,6 @@
-{ stdenv, meson, ninja, gettext, fetchurl, pkgconfig, gtk3, glib, libsoup, gsettings-desktop-schemas, itstool, libxml2, python3Packages, gnome3, gdk_pixbuf, libnotify, gobject-introspection, wrapGAppsHook
-}:
+{ stdenv, meson, ninja, gettext, fetchurl, pkgconfig, gtk3, glib, libsoup
+, gsettings-desktop-schemas, itstool, libxml2, python3Packages, gnome3
+, gdk_pixbuf, libnotify, gobject-introspection, wrapGAppsHook }:
 
 let
   pname = "gnome-tweaks";

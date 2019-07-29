@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, glib, pkgconfig, gettext, libxslt, python3, docbook_xsl, docbook_xml_dtd_42, libgcrypt, gobject-introspection, vala, gtk-doc, gnome3, libintl, dbus, xvfb_run
-}:
+{ stdenv, fetchurl, glib, pkgconfig, gettext, libxslt, python3, docbook_xsl
+, docbook_xml_dtd_42, libgcrypt, gobject-introspection, vala, gtk-doc, gnome3
+, libintl, dbus, xvfb_run }:
 
 stdenv.mkDerivation rec {
   pname = "libsecret";

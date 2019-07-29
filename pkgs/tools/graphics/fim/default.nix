@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, autoconf, automake, pkgconfig, perl, flex, bison, readline, libexif, x11Support ?
-  true, SDL, svgSupport ? true, inkscape, asciiArtSupport ?
-    true, aalib, gifSupport ? true, giflib, tiffSupport ?
-      true, libtiff, jpegSupport ? true, libjpeg, pngSupport ? true, libpng }:
+{ stdenv, fetchurl, autoconf, automake, pkgconfig, perl, flex, bison, readline
+, libexif, x11Support ? true, SDL, svgSupport ? true, inkscape
+, asciiArtSupport ? true, aalib, gifSupport ? true, giflib, tiffSupport ? true
+, libtiff, jpegSupport ? true, libjpeg, pngSupport ? true, libpng }:
 
 stdenv.mkDerivation rec {
   name = "fim-${version}";

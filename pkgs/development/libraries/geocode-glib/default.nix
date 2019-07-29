@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, meson, ninja, pkgconfig, gettext, gtk-doc, docbook_xsl, gobject-introspection, gnome3, libsoup, json-glib, glib
-}:
+{ fetchurl, stdenv, meson, ninja, pkgconfig, gettext, gtk-doc, docbook_xsl
+, gobject-introspection, gnome3, libsoup, json-glib, glib }:
 
 stdenv.mkDerivation rec {
   pname = "geocode-glib";

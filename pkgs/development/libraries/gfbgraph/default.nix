@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, librest, gnome3, libsoup, json-glib, gobject-introspection
-}:
+{ stdenv, fetchurl, pkgconfig, glib, librest, gnome3, libsoup, json-glib
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "gfbgraph";

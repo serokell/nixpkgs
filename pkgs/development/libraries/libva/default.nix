@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, libXext, libdrm, libXfixes, wayland, libffi, libX11, libGL, mesa, minimal ?
-  false, libva-minimal }:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkgconfig, libXext, libdrm
+, libXfixes, wayland, libffi, libX11, libGL, mesa, minimal ? false
+, libva-minimal }:
 
 stdenv.mkDerivation rec {
   name = "libva-${lib.optionalString minimal "minimal-"}${version}";

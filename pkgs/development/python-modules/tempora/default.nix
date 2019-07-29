@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, freezegun, backports_unittest-mock, six, pytz, jaraco_functools
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, freezegun
+, backports_unittest-mock, six, pytz, jaraco_functools }:
 
 buildPythonPackage rec {
   pname = "tempora";

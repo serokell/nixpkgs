@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, buildPackages, name ?
-  "luajit-${version}", isStable, sha256, version, extraMeta ?
-    { }, callPackage, self, packageOverrides ? (self: super: { }) }:
+{ stdenv, fetchurl, buildPackages, name ? "luajit-${version}", isStable, sha256
+, version, extraMeta ? { }, callPackage, self
+, packageOverrides ? (self: super: { }) }:
 let
   luaPackages = callPackage ../../lua-modules {
     lua = self;

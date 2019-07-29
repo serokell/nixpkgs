@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala, desktop-file-utils, libxml2, gtk3, python3, granite, libgee, elementary-icon-theme, appstream, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, vala
+, desktop-file-utils, libxml2, gtk3, python3, granite, libgee
+, elementary-icon-theme, appstream, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "calculator";

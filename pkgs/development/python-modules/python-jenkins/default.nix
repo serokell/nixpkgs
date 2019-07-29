@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pbr, pyyaml, six, multi_key_dict, testscenarios, requests, unittest2, requests-mock
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pbr, pyyaml, six, multi_key_dict
+, testscenarios, requests, unittest2, requests-mock }:
 
 buildPythonPackage rec {
   pname = "python-jenkins";

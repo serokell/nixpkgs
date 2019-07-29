@@ -1,5 +1,5 @@
-{ coreutils, fetchFromGitHub, libcaca, makeWrapper, python, openssl, qrencode, stdenv, yubikey-manager
-}:
+{ coreutils, fetchFromGitHub, libcaca, makeWrapper, python, openssl, qrencode
+, stdenv, yubikey-manager }:
 
 stdenv.mkDerivation rec {
   name = "gen-oath-safe-${version}";

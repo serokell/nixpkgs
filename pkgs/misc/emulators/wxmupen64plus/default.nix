@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python, wxGTK29, mupen64plus, SDL, libX11, libGLU_combined, wafHook
-}:
+{ stdenv, fetchurl, python, wxGTK29, mupen64plus, SDL, libX11, libGLU_combined
+, wafHook }:
 
 stdenv.mkDerivation {
   name = "wxmupen64plus-0.3";

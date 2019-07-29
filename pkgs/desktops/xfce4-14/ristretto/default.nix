@@ -1,5 +1,5 @@
-{ mkXfceDerivation, automakeAddFlags, exo, dbus-glib, gtk2, libexif, libxfce4ui, libxfce4util, xfconf
-}:
+{ mkXfceDerivation, automakeAddFlags, exo, dbus-glib, gtk2, libexif, libxfce4ui
+, libxfce4util, xfconf }:
 
 mkXfceDerivation rec {
   category = "apps";

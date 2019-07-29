@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, qtscript, qtsvg, qtquickcontrols, qtwebkit, krunner, shared-mime-info, kparts, knewstuff, gpsd, perl
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, qtscript, qtsvg
+, qtquickcontrols, qtwebkit, krunner, shared-mime-info, kparts, knewstuff, gpsd
+, perl }:
 
 mkDerivation {
   name = "marble";

@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, fetchpatch, libnotify, librsvg, killall, gtk3, libappindicator-gtk3, substituteAll, syncthing, wrapGAppsHook, gnome3, buildPythonApplication, dateutil, pyinotify, pygobject3, bcrypt, gobject-introspection, gsettings-desktop-schemas
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, libnotify, librsvg, killall, gtk3
+, libappindicator-gtk3, substituteAll, syncthing, wrapGAppsHook, gnome3
+, buildPythonApplication, dateutil, pyinotify, pygobject3, bcrypt
+, gobject-introspection, gsettings-desktop-schemas }:
 
 buildPythonApplication rec {
   version = "0.9.4";

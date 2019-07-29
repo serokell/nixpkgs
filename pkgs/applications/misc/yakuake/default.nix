@@ -1,5 +1,6 @@
-{ mkDerivation, lib, fetchurl, kdoctools, wrapGAppsHook, extra-cmake-modules, karchive, kcrash, kdbusaddons, ki18n, kiconthemes, knewstuff, knotifications, knotifyconfig, konsole, kparts, kwindowsystem, qtx11extras
-}:
+{ mkDerivation, lib, fetchurl, kdoctools, wrapGAppsHook, extra-cmake-modules
+, karchive, kcrash, kdbusaddons, ki18n, kiconthemes, knewstuff, knotifications
+, knotifyconfig, konsole, kparts, kwindowsystem, qtx11extras }:
 
 mkDerivation rec {
   pname = "yakuake";

@@ -1,6 +1,8 @@
-{ stdenv, fetchurl, lib, autoconf, automake, gnum4, libtool, perl, gnulib, uthash, pkgconfig, gettext, python, freetype, zlib, glib, libungif, libpng, libjpeg, libtiff, libxml2, cairo, pango, readline, woff2, zeromq, withSpiro ?
-  false, libspiro, withGTK ? false, gtk2, withPython ? true, withExtras ?
-    true, Carbon ? null, Cocoa ? null }:
+{ stdenv, fetchurl, lib, autoconf, automake, gnum4, libtool, perl, gnulib
+, uthash, pkgconfig, gettext, python, freetype, zlib, glib, libungif, libpng
+, libjpeg, libtiff, libxml2, cairo, pango, readline, woff2, zeromq
+, withSpiro ? false, libspiro, withGTK ? false, gtk2, withPython ? true
+, withExtras ? true, Carbon ? null, Cocoa ? null }:
 
 stdenv.mkDerivation rec {
   pname = "fontforge";

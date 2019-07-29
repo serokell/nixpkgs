@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, cmake, docbook_xsl, docbook_xml_dtd_45, doxygen, fluidsynth, pkgconfig, qt5
-}:
+{ stdenv, fetchurl, alsaLib, cmake, docbook_xsl, docbook_xml_dtd_45, doxygen
+, fluidsynth, pkgconfig, qt5 }:
 
 stdenv.mkDerivation rec {
   name = "drumstick-${version}";

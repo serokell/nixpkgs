@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, makeWrapper, prettytable, pythonOlder, solc
-}:
+{ lib, buildPythonPackage, fetchPypi, makeWrapper, prettytable, pythonOlder
+, solc }:
 
 buildPythonPackage rec {
   pname = "slither-analyzer";

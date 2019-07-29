@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, ffmpeg, libjpeg, libmicrohttpd
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, ffmpeg, libjpeg
+, libmicrohttpd }:
 
 stdenv.mkDerivation rec {
   name = "motion-${version}";

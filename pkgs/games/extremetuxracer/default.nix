@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libGLU_combined, libX11, xorgproto, tcl, freeglut, freetype, sfml, libXi, libXmu, libXext, libXt, libSM, libICE, libpng, pkgconfig, gettext, intltool
-}:
+{ stdenv, fetchurl, libGLU_combined, libX11, xorgproto, tcl, freeglut, freetype
+, sfml, libXi, libXmu, libXext, libXt, libSM, libICE, libpng, pkgconfig, gettext
+, intltool }:
 
 stdenv.mkDerivation rec {
   version = "0.7.5";

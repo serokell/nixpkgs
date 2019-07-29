@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, traitlets, jupyter_core, pyzmq, dateutil, isPyPy, py, ipykernel, ipython, mock, pytest, tornado
-}:
+{ lib, buildPythonPackage, fetchPypi, traitlets, jupyter_core, pyzmq, dateutil
+, isPyPy, py, ipykernel, ipython, mock, pytest, tornado }:
 
 buildPythonPackage rec {
   pname = "jupyter_client";

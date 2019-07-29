@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, click, mock, pytest, futures, google_auth, requests_oauthlib
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, click, mock, pytest, futures
+, google_auth, requests_oauthlib }:
 
 buildPythonPackage rec {
   pname = "google-auth-oauthlib";

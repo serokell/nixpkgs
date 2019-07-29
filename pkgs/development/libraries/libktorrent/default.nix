@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, extra-cmake-modules, karchive, kcrash, ki18n, kio, solid, boost, gmp, qca-qt5, libgcrypt
-}:
+{ stdenv, fetchurl, cmake, extra-cmake-modules, karchive, kcrash, ki18n, kio
+, solid, boost, gmp, qca-qt5, libgcrypt }:
 
 let mainVersion = "5.1";
 

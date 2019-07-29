@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, flint, gmp, python2, singular
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, flint, gmp, python2
+, singular }:
 
 stdenv.mkDerivation rec {
   version = "0.7.25";

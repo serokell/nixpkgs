@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, itstool, python3, wrapGAppsHook, cairo, gdk_pixbuf, colord, glib, gtk3, gusb, packagekit, libwebp, libxml2, sane-backends, vala, gnome3, gobject-introspection
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, itstool, python3
+, wrapGAppsHook, cairo, gdk_pixbuf, colord, glib, gtk3, gusb, packagekit
+, libwebp, libxml2, sane-backends, vala, gnome3, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "simple-scan-${version}";

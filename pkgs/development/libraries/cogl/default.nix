@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, libGL, glib, gdk_pixbuf, xorg, libintl, pangoSupport ?
-  true, pango, cairo, gobject-introspection, wayland, gnome3, mesa, gstreamerSupport ?
-    true, gst_all_1 }:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, libGL, glib, gdk_pixbuf, xorg
+, libintl, pangoSupport ? true, pango, cairo, gobject-introspection, wayland
+, gnome3, mesa, gstreamerSupport ? true, gst_all_1 }:
 
 let pname = "cogl";
 in stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, pkgconfig, systemd, libyaml, openzwave, cython, six, pydispatcher, urwid
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, pkgconfig, systemd, libyaml
+, openzwave, cython, six, pydispatcher, urwid }:
 
 buildPythonPackage rec {
   pname = "python_openzwave";

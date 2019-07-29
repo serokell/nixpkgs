@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, blas, Accelerate, CoreGraphics, CoreVideo
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, blas, Accelerate
+, CoreGraphics, CoreVideo }:
 
 stdenv.mkDerivation rec {
   version = "1.6.2";

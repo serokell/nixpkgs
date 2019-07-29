@@ -1,5 +1,6 @@
-{ thinkpad ? false, stdenv, fetchurl, pkgconfig, intltool, libfprint-thinkpad ?
-  null, libfprint ? null, glib, dbus-glib, polkit, nss, pam, systemd }:
+{ thinkpad ? false, stdenv, fetchurl, pkgconfig, intltool
+, libfprint-thinkpad ? null, libfprint ? null, glib, dbus-glib, polkit, nss, pam
+, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "fprintd" + stdenv.lib.optionalString thinkpad "-thinkpad";

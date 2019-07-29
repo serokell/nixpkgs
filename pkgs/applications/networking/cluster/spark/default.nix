@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, makeWrapper, jre, pythonPackages, coreutils, hadoop, RSupport ?
-  true, R, mesosSupport ? true, mesos, version }:
+{ stdenv, fetchzip, makeWrapper, jre, pythonPackages, coreutils, hadoop
+, RSupport ? true, R, mesosSupport ? true, mesos, version }:
 
 let
   sha256 = {

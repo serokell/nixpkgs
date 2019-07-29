@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, fetchFromGitHub, assembleReductionMatrix ?
-  false, useCoefficients ? false, indicateProgress ? false, useGoogleHashmap ?
-    false, sparsehash ? null, fileFormat ? "lowerTriangularCsv" }:
+{ stdenv, fetchurl, fetchFromGitHub, assembleReductionMatrix ? false
+, useCoefficients ? false, indicateProgress ? false, useGoogleHashmap ? false
+, sparsehash ? null, fileFormat ? "lowerTriangularCsv" }:
 
 with stdenv.lib;
 

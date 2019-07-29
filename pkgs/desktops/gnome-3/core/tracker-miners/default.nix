@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, substituteAll, intltool, itstool, libxslt, gexiv2, tracker, meson, ninja, pkgconfig, vala, wrapGAppsHook, bzip2, dbus, evolution-data-server, exempi, flac, giflib, glib, gnome3, gst_all_1, icu, json-glib, libcue, libexif, libgrss, libgsf, libgxps, libiptcdata, libjpeg, libosinfo, libpng, libseccomp, libsoup, libtiff, libuuid, libvorbis, libxml2, poppler, taglib, upower, totem-pl-parser
-}:
+{ stdenv, fetchurl, substituteAll, intltool, itstool, libxslt, gexiv2, tracker
+, meson, ninja, pkgconfig, vala, wrapGAppsHook, bzip2, dbus
+, evolution-data-server, exempi, flac, giflib, glib, gnome3, gst_all_1, icu
+, json-glib, libcue, libexif, libgrss, libgsf, libgxps, libiptcdata, libjpeg
+, libosinfo, libpng, libseccomp, libsoup, libtiff, libuuid, libvorbis, libxml2
+, poppler, taglib, upower, totem-pl-parser }:
 
 stdenv.mkDerivation rec {
   pname = "tracker-miners";

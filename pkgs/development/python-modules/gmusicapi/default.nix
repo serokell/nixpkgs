@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, validictory, decorator, mutagen, protobuf, setuptools, requests, dateutil, proboscis, mock, appdirs, oauth2client, pyopenssl, gpsoauth, MechanicalSoup, future
-}:
+{ stdenv, buildPythonPackage, fetchPypi, validictory, decorator, mutagen
+, protobuf, setuptools, requests, dateutil, proboscis, mock, appdirs
+, oauth2client, pyopenssl, gpsoauth, MechanicalSoup, future }:
 
 buildPythonPackage rec {
   pname = "gmusicapi";

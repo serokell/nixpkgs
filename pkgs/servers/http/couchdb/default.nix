@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, erlang, icu, openssl, spidermonkey, curl, help2man, sphinx, which, file, pkgconfig, getopt
-}:
+{ stdenv, fetchurl, erlang, icu, openssl, spidermonkey, curl, help2man, sphinx
+, which, file, pkgconfig, getopt }:
 
 stdenv.mkDerivation rec {
   name = "couchdb-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, desktop-file-utils, fetchurl, gettext, glib, gtk3, itstool, libxml2, meson, ninja, pango, pkgconfig, polkit, shared-mime-info, systemd, wrapGAppsHook, gnome3
-}:
+{ stdenv, desktop-file-utils, fetchurl, gettext, glib, gtk3, itstool, libxml2
+, meson, ninja, pango, pkgconfig, polkit, shared-mime-info, systemd
+, wrapGAppsHook, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "sysprof";

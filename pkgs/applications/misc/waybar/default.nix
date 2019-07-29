@@ -1,7 +1,8 @@
-{ stdenv, fetchFromGitHub, meson, pkgconfig, ninja, wayland, wlroots, gtkmm3, libinput, libsigcxx, jsoncpp, fmt, spdlog, traySupport ?
-  true, libdbusmenu-gtk3, pulseSupport ? false, libpulseaudio, nlSupport ?
-    true, libnl, udevSupport ? true, udev, swaySupport ?
-      true, sway, mpdSupport ? true, mpd_clientlib }:
+{ stdenv, fetchFromGitHub, meson, pkgconfig, ninja, wayland, wlroots, gtkmm3
+, libinput, libsigcxx, jsoncpp, fmt, spdlog, traySupport ? true
+, libdbusmenu-gtk3, pulseSupport ? false, libpulseaudio, nlSupport ? true, libnl
+, udevSupport ? true, udev, swaySupport ? true, sway, mpdSupport ? true
+, mpd_clientlib }:
 stdenv.mkDerivation rec {
   pname = "waybar";
   version = "0.7.1";

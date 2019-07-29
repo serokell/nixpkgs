@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dmd, gnome3, dbus, gsettings-desktop-schemas, desktop-file-utils, gettext, gtkd, libsecret, glib, perlPackages, wrapGAppsHook, xdg_utils
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, dmd, gnome3, dbus
+, gsettings-desktop-schemas, desktop-file-utils, gettext, gtkd, libsecret, glib
+, perlPackages, wrapGAppsHook, xdg_utils }:
 
 stdenv.mkDerivation rec {
   pname = "tilix";

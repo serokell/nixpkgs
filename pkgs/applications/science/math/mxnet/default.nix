@@ -1,6 +1,6 @@
-{ config, stdenv, lib, fetchurl, bash, cmake, opencv3, gtest, openblas, liblapack, perl, cudaSupport ?
-  config.cudaSupport or false, cudatoolkit, nvidia_x11, cudnnSupport ?
-    cudaSupport, cudnn }:
+{ config, stdenv, lib, fetchurl, bash, cmake, opencv3, gtest, openblas
+, liblapack, perl, cudaSupport ? config.cudaSupport or false, cudatoolkit
+, nvidia_x11, cudnnSupport ? cudaSupport, cudnn }:
 
 assert cudnnSupport -> cudaSupport;
 

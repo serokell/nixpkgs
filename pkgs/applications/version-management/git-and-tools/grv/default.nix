@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, curl, libgit2, ncurses, pkgconfig, readline
-}:
+{ stdenv, buildGoPackage, fetchFromGitHub, curl, libgit2, ncurses, pkgconfig
+, readline }:
 let version = "0.3.1";
 in buildGoPackage {
   name = "grv-${version}";

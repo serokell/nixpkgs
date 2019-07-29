@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, fetchpatch, texinfo, libXext, xorgproto, libX11, libXpm, libXt, libXcursor, alsaLib, cmake, zlib, libpng, libvorbis, libXxf86dga, libXxf86misc, libXxf86vm, openal, libGLU_combined, libjpeg, flac, libXi, libXfixes, freetype, libopus, libtheora, physfs, enet, pkgconfig, gtk2, pcre, libpulseaudio, libpthreadstubs, libXdmcp
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, texinfo, libXext, xorgproto, libX11
+, libXpm, libXt, libXcursor, alsaLib, cmake, zlib, libpng, libvorbis
+, libXxf86dga, libXxf86misc, libXxf86vm, openal, libGLU_combined, libjpeg, flac
+, libXi, libXfixes, freetype, libopus, libtheora, physfs, enet, pkgconfig, gtk2
+, pcre, libpulseaudio, libpthreadstubs, libXdmcp }:
 
 stdenv.mkDerivation rec {
   name = "allegro-${version}";

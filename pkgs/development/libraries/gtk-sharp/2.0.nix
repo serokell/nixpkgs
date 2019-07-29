@@ -1,7 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, mono, glib, pango, gtk2, GConf ?
-  null, libglade ? null, libgtkhtml ? null, gtkhtml ? null, libgnomecanvas ?
-    null, libgnomeui ? null, libgnomeprint ? null, libgnomeprintui ?
-      null, libxml2, monoDLLFixer, autoconf, automake, libtool, which }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, mono, glib, pango, gtk2, GConf ? null
+, libglade ? null, libgtkhtml ? null, gtkhtml ? null, libgnomecanvas ? null
+, libgnomeui ? null, libgnomeprint ? null, libgnomeprintui ? null, libxml2
+, monoDLLFixer, autoconf, automake, libtool, which }:
 
 stdenv.mkDerivation rec {
   name = "gtk-sharp-${version}";

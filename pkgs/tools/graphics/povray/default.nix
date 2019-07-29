@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, boost, zlib, libpng, libjpeg, libtiff, xlibsWrapper, SDL
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, boost, zlib, libpng, libjpeg
+, libtiff, xlibsWrapper, SDL }:
 
 stdenv.mkDerivation rec {
   name = "povray-${version}";

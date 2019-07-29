@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchFromGitHub, mock, unittest2, msgpack, requests, flask, gevent, pyzmq
-}:
+{ buildPythonPackage, fetchFromGitHub, mock, unittest2, msgpack, requests, flask
+, gevent, pyzmq }:
 
 buildPythonPackage rec {
   pname = "locustio";

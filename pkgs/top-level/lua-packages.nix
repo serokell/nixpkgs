@@ -6,8 +6,9 @@
    be almost as must code as the function itself.
 */
 
-{ fetchurl, stdenv, lua, unzip, pkgconfig, pcre, oniguruma, gnulib, tre, glibc, sqlite, openssl, expat, autoreconfHook, gnum4, mysql, postgresql, cyrus_sasl, fetchFromGitHub, which, writeText, pkgs, lib
-}:
+{ fetchurl, stdenv, lua, unzip, pkgconfig, pcre, oniguruma, gnulib, tre, glibc
+, sqlite, openssl, expat, autoreconfHook, gnum4, mysql, postgresql, cyrus_sasl
+, fetchFromGitHub, which, writeText, pkgs, lib }:
 
 let
   packages = (self:

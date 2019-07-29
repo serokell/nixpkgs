@@ -1,5 +1,5 @@
-{ lib, pkgs, stdenv, fetchFromGitHub, mypy, python3, nix, git, makeWrapper, runtimeShell
-}:
+{ lib, pkgs, stdenv, fetchFromGitHub, mypy, python3, nix, git, makeWrapper
+, runtimeShell }:
 let
   self = stdenv.mkDerivation rec {
     name = "nix-pin-${version}";

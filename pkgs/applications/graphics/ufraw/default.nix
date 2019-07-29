@@ -1,6 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, gtk2, gettext, bzip2, zlib, withGimpPlugin ?
-  true, gimp ?
-    null, libjpeg, libtiff, cfitsio, exiv2, lcms2, gtkimageview, lensfun }:
+{ fetchurl, stdenv, pkgconfig, gtk2, gettext, bzip2, zlib, withGimpPlugin ? true
+, gimp ? null, libjpeg, libtiff, cfitsio, exiv2, lcms2, gtkimageview, lensfun }:
 
 assert withGimpPlugin -> gimp != null;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, readline, pcre, systemd, udev
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, readline, pcre
+, systemd, udev }:
 
 stdenv.mkDerivation rec {
   name = "miraclecast-${version}";

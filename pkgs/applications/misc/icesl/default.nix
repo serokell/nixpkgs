@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchzip, freeglut, libXmu, libXi, libX11, libICE, libGLU_combined, libSM, libXext, dialog, makeWrapper
-}:
+{ stdenv, lib, fetchzip, freeglut, libXmu, libXi, libX11, libICE
+, libGLU_combined, libSM, libXext, dialog, makeWrapper }:
 let
   lpath = stdenv.lib.makeLibraryPath [
     libXmu

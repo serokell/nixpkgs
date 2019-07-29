@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, buildPythonPackage, pkgconfig, pytest, fuse, attr, which, contextlib2
-}:
+{ stdenv, fetchurl, buildPythonPackage, pkgconfig, pytest, fuse, attr, which
+, contextlib2 }:
 
 buildPythonPackage rec {
   pname = "llfuse";

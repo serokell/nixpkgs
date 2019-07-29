@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, libcanberra, gobject-introspection, libtool, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, glib, libcanberra, gobject-introspection, libtool
+, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gsound";

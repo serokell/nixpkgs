@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, unbound, openssl, boost, libunwind, lmdb, miniupnpc
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, unbound, openssl, boost, libunwind, lmdb
+, miniupnpc }:
 
 stdenv.mkDerivation rec {
   name = "sumokoin-${version}";

@@ -1,6 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, gmp, python, iptables, ldns, unbound, openssl, pcsclite, openresolv, systemd, pam, curl, enableTNC ?
-  false, trousers, sqlite, libxml2, enableNetworkManager ?
-    false, networkmanager, darwin }:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, gmp, python, iptables, ldns
+, unbound, openssl, pcsclite, openresolv, systemd, pam, curl, enableTNC ? false
+, trousers, sqlite, libxml2, enableNetworkManager ? false, networkmanager
+, darwin }:
 
 # Note on curl support: If curl is built with gnutls as its backend, the
 # strongswan curl plugin may break.

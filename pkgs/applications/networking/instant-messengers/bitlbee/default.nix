@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, gnutls, glib, pkgconfig, check, libotr, python, enableLibPurple ?
-  false, pidgin ? null, enablePam ? false, pam ? null }:
+{ fetchurl, stdenv, gnutls, glib, pkgconfig, check, libotr, python
+, enableLibPurple ? false, pidgin ? null, enablePam ? false, pam ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

@@ -1,10 +1,11 @@
-{ config, stdenv, fetchurl, libX11, wxGTK, libiconv, fontconfig, freetype, libGLU_combined, libass, fftw, ffms, ffmpeg, pkgconfig, zlib # Undocumented (?) dependencies
+{ config, stdenv, fetchurl, libX11, wxGTK, libiconv, fontconfig, freetype
+, libGLU_combined, libass, fftw, ffms, ffmpeg, pkgconfig
+, zlib # Undocumented (?) dependencies
 , icu, boost, intltool # New dependencies
-, spellcheckSupport ? true, hunspell ? null, automationSupport ? true, lua ?
-  null, openalSupport ? false, openal ? null, alsaSupport ?
-    stdenv.isLinux, alsaLib ? null, pulseaudioSupport ?
-      config.pulseaudio or stdenv.isLinux, libpulseaudio ?
-        null, portaudioSupport ? false, portaudio ? null }:
+, spellcheckSupport ? true, hunspell ? null, automationSupport ? true
+, lua ? null, openalSupport ? false, openal ? null, alsaSupport ? stdenv.isLinux
+, alsaLib ? null, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
+, libpulseaudio ? null, portaudioSupport ? false, portaudio ? null }:
 
 assert spellcheckSupport -> (hunspell != null);
 assert automationSupport -> (lua != null);

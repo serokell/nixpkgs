@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytest, requests, requests_ntlm, six, xmltodict
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytest, requests, requests_ntlm, six
+, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pywinrm";

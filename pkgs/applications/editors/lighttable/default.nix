@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, zlib, glib, alsaLib, makeDesktopItem, dbus, gtk2, atk, pango, freetype, fontconfig, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror, nspr, gnome2, nss, xorg, systemd, libnotify
-}:
+{ stdenv, fetchurl, zlib, glib, alsaLib, makeDesktopItem, dbus, gtk2, atk, pango
+, freetype, fontconfig, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat
+, libgpgerror, nspr, gnome2, nss, xorg, systemd, libnotify }:
 
 let
   libPath = stdenv.lib.makeLibraryPath [

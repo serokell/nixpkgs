@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, freeglut, ghostscriptX, imagemagick, fftw, boehmgc, libGLU, libGL, mesa, ncurses, readline, gsl, libsigsegv, python, zlib, perl, texLive, texinfo, xz, darwin
-}:
+{ stdenv, fetchurl, fetchpatch, freeglut, ghostscriptX, imagemagick, fftw
+, boehmgc, libGLU, libGL, mesa, ncurses, readline, gsl, libsigsegv, python, zlib
+, perl, texLive, texinfo, xz, darwin }:
 
 let
   s = # Generated upstream information

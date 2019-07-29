@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchgit, cmake, llvmPackages, boost, python, gocode ?
-  null, godef ? null, rustracerd ? null, fixDarwinDylibNames, Cocoa ? null }:
+{ stdenv, lib, fetchgit, cmake, llvmPackages, boost, python, gocode ? null
+, godef ? null, rustracerd ? null, fixDarwinDylibNames, Cocoa ? null }:
 
 stdenv.mkDerivation rec {
   name = "ycmd-${version}";

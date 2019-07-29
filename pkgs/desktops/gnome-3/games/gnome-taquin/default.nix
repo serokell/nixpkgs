@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg, libcanberra-gtk3, gettext, itstool, libxml2, meson, ninja, vala, python3, desktop-file-utils
-}:
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg
+, libcanberra-gtk3, gettext, itstool, libxml2, meson, ninja, vala, python3
+, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "gnome-taquin-${version}";

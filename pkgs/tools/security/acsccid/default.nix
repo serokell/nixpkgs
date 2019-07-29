@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, gettext, flex, perl, pkgconfig, pcsclite, libusb
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, gettext, flex, perl
+, pkgconfig, pcsclite, libusb }:
 
 stdenv.mkDerivation rec {
   version = "1.1.6";

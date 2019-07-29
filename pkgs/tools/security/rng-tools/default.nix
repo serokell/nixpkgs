@@ -6,8 +6,8 @@
 , libgcrypt ? null, withGcrypt ? true
   # Not sure if jitterentropy is safe to use for cryptography
   # and thus a default entropy source
-, jitterentropy ? null, withJitterEntropy ? false, libp11 ? null, opensc ?
-  null, withPkcs11 ? true }:
+, jitterentropy ? null, withJitterEntropy ? false, libp11 ? null, opensc ? null
+, withPkcs11 ? true }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy34, isPy35, isPy27, numpy, pytz, six, enum-compat, sentinel
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy34, isPy35, isPy27, numpy, pytz, six
+, enum-compat, sentinel }:
 
 buildPythonPackage rec {
   pname = "rig";

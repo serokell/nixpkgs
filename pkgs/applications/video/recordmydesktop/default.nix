@@ -1,5 +1,5 @@
-{ stdenv, fetchsvn, autoreconfHook, zlib, popt, alsaLib, libvorbis, libtheora, libICE, libSM, libX11, libXext, libXfixes, libXdamage
-}:
+{ stdenv, fetchsvn, autoreconfHook, zlib, popt, alsaLib, libvorbis, libtheora
+, libICE, libSM, libX11, libXext, libXfixes, libXdamage }:
 
 stdenv.mkDerivation rec {
   name = "recordmydesktop-${version}";

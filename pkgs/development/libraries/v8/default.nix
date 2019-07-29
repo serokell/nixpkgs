@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchgit, fetchFromGitHub, gn, ninja, python, glib, pkgconfig, icu, xcbuild, darwin, fetchpatch
-}:
+{ stdenv, lib, fetchgit, fetchFromGitHub, gn, ninja, python, glib, pkgconfig
+, icu, xcbuild, darwin, fetchpatch }:
 
 let
   git_url = "https://chromium.googlesource.com";

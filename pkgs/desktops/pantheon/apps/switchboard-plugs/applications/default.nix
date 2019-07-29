@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, switchboard
-}:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee
+, granite, gtk3, switchboard }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-applications";

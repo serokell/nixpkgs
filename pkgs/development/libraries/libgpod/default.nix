@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, gettext, perlPackages, intltool, pkgconfig, glib, libxml2, sqlite, zlib, sg3_utils, gdk_pixbuf, taglib, libimobiledevice, pythonPackages, mutagen, monoSupport ?
-  false, mono, gtk-sharp-2_0 }:
+{ stdenv, lib, fetchurl, gettext, perlPackages, intltool, pkgconfig, glib
+, libxml2, sqlite, zlib, sg3_utils, gdk_pixbuf, taglib, libimobiledevice
+, pythonPackages, mutagen, monoSupport ? false, mono, gtk-sharp-2_0 }:
 
 let inherit (pythonPackages) python pygobject2;
 in stdenv.mkDerivation rec {

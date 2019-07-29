@@ -1,14 +1,17 @@
-{ stdenv, fetchurl, pkgconfig, perl, texinfo, yasm, alsaLib, bzip2, fontconfig, freetype, gnutls, libiconv, lame, libass, libogg, libssh, libtheora, libva, libdrm, libvorbis, libvpx, lzma, libpulseaudio, soxr, x264, x265, xvidcore, zlib, libopus, speex, nv-codec-headers, openglSupport ?
-  false, libGLU_combined ? null
-    # Build options
+{ stdenv, fetchurl, pkgconfig, perl, texinfo, yasm, alsaLib, bzip2, fontconfig
+, freetype, gnutls, libiconv, lame, libass, libogg, libssh, libtheora, libva
+, libdrm, libvorbis, libvpx, lzma, libpulseaudio, soxr, x264, x265, xvidcore
+, zlib, libopus, speex, nv-codec-headers, openglSupport ? false
+, libGLU_combined ? null
+  # Build options
 , runtimeCpuDetectBuild ? true # Detect CPU capabilities at runtime
 , multithreadBuild ? true # Multithreading via pthreads/win32 threads
-, sdlSupport ? !stdenv.isAarch32, SDL ? null, SDL2 ? null, vdpauSupport ?
-  !stdenv.isAarch32, libvdpau ? null
-    # Developer options
-, debugDeveloper ? false, optimizationsDeveloper ?
-  true, extraWarningsDeveloper ? false
-    # Darwin frameworks
+, sdlSupport ? !stdenv.isAarch32, SDL ? null, SDL2 ? null
+, vdpauSupport ? !stdenv.isAarch32, libvdpau ? null
+  # Developer options
+, debugDeveloper ? false, optimizationsDeveloper ? true
+, extraWarningsDeveloper ? false
+  # Darwin frameworks
 , Cocoa, darwinFrameworks ? [
   Cocoa
 ]

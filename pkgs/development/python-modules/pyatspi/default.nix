@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, buildPythonPackage, isPy3k, at-spi2-core, pygobject3, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, buildPythonPackage, isPy3k, at-spi2-core
+, pygobject3, gnome3 }:
 
 buildPythonPackage rec {
   pname = "pyatspi";

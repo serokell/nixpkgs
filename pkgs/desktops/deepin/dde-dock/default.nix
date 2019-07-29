@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qttools, qtx11extras, qtsvg, libsForQt5, polkit, gsettings-qt, dtkcore, dtkwidget, dde-qt-dbus-factory, dde-network-utils, dde-daemon, deepin-desktop-schemas, xorg, glib, wrapGAppsHook, deepin, plugins ?
-  [ ], symlinkJoin, makeWrapper }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qttools, qtx11extras, qtsvg
+, libsForQt5, polkit, gsettings-qt, dtkcore, dtkwidget, dde-qt-dbus-factory
+, dde-network-utils, dde-daemon, deepin-desktop-schemas, xorg, glib
+, wrapGAppsHook, deepin, plugins ? [ ], symlinkJoin, makeWrapper }:
 
 let
   unwrapped = stdenv.mkDerivation rec {

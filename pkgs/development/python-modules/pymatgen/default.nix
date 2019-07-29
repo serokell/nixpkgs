@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, glibcLocales, numpy, pydispatcher, sympy, requests, monty, ruamel_yaml, six, scipy, tabulate, enum34, matplotlib, palettable, spglib, pandas, networkx
-}:
+{ stdenv, buildPythonPackage, fetchPypi, glibcLocales, numpy, pydispatcher
+, sympy, requests, monty, ruamel_yaml, six, scipy, tabulate, enum34, matplotlib
+, palettable, spglib, pandas, networkx }:
 
 buildPythonPackage rec {
   pname = "pymatgen";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, eigen, opencv, ceres-solver, cgal, boost, vcg, gmp, mpfr, glog, google-gflags, libjpeg_turbo
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, eigen, opencv, ceres-solver, cgal
+, boost, vcg, gmp, mpfr, glog, google-gflags, libjpeg_turbo }:
 
 stdenv.mkDerivation rec {
   name = "openmvs-unstable-2018-05-26";

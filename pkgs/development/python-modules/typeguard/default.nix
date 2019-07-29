@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, pythonOlder, stdenv, setuptools_scm, pytest, glibcLocales
-}:
+{ buildPythonPackage, fetchPypi, pythonOlder, stdenv, setuptools_scm, pytest
+, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "typeguard";

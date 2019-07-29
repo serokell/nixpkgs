@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, gobject-introspection, pkgconfig, glib, systemd, libgudev, vala
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, gobject-introspection, pkgconfig
+, glib, systemd, libgudev, vala }:
 
 stdenv.mkDerivation rec {
   name = "umockdev-${version}";

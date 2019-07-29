@@ -1,5 +1,5 @@
-{ buildPythonPackage, lib, fetchFromGitHub, glibcLocales, pytest, pytest-mock, gentools, typing, singledispatch, pythonOlder
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, glibcLocales, pytest, pytest-mock
+, gentools, typing, singledispatch, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "snug";

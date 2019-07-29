@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, buildGoPackage, makeWrapper, pythonPackages, pkgconfig, systemd, hostname
-}:
+{ lib, stdenv, fetchFromGitHub, buildGoPackage, makeWrapper, pythonPackages
+, pkgconfig, systemd, hostname }:
 
 let
   # keep this in sync with github.com/DataDog/agent-payload dependency

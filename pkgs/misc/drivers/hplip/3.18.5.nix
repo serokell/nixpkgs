@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, cups, zlib, libjpeg, libusb1, pythonPackages, sane-backends, dbus, file, ghostscript, usbutils, net_snmp, openssl, perl, nettools, bash, coreutils, utillinux, withQt5 ?
-  true, withPlugin ? false, withStaticPPDInstall ? false }:
+{ stdenv, fetchurl, substituteAll, pkgconfig, cups, zlib, libjpeg, libusb1
+, pythonPackages, sane-backends, dbus, file, ghostscript, usbutils, net_snmp
+, openssl, perl, nettools, bash, coreutils, utillinux, withQt5 ? true
+, withPlugin ? false, withStaticPPDInstall ? false }:
 
 let
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qt5, fontconfig, freetype, libpng, zlib, libjpeg, openssl, libX11, libXext, libXrender
-}:
+{ stdenv, fetchFromGitHub, qt5, fontconfig, freetype, libpng, zlib, libjpeg
+, openssl, libX11, libXext, libXrender }:
 
 stdenv.mkDerivation rec {
   version = "0.12.5";

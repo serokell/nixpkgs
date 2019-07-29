@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, vala, gobject-introspection, pkgconfig, gnome3, gtk3, wrapGAppsHook, librsvg, gettext, itstool, python3, libxml2, libgnome-games-support, libgee, desktop-file-utils
-}:
+{ stdenv, fetchurl, meson, ninja, vala, gobject-introspection, pkgconfig, gnome3
+, gtk3, wrapGAppsHook, librsvg, gettext, itstool, python3, libxml2
+, libgnome-games-support, libgee, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "gnome-mines-${version}";

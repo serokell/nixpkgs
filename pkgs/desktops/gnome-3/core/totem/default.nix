@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, meson, ninja, gettext, gst_all_1, clutter-gtk, clutter-gst, python3Packages, shared-mime-info, pkgconfig, gtk3, glib, gobject-introspection, totem-pl-parser, wrapGAppsHook, itstool, libxml2, vala, gnome3, grilo, grilo-plugins, libpeas, adwaita-icon-theme, gnome-desktop, gsettings-desktop-schemas, gdk_pixbuf, tracker, nautilus, xvfb_run
-}:
+{ stdenv, fetchurl, meson, ninja, gettext, gst_all_1, clutter-gtk, clutter-gst
+, python3Packages, shared-mime-info, pkgconfig, gtk3, glib
+, gobject-introspection, totem-pl-parser, wrapGAppsHook, itstool, libxml2, vala
+, gnome3, grilo, grilo-plugins, libpeas, adwaita-icon-theme, gnome-desktop
+, gsettings-desktop-schemas, gdk_pixbuf, tracker, nautilus, xvfb_run }:
 
 stdenv.mkDerivation rec {
   name = "totem-${version}";

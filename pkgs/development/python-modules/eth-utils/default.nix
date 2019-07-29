@@ -1,5 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytest, eth-hash, eth-typing, cytoolz, hypothesis
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytest, eth-hash, eth-typing
+, cytoolz, hypothesis }:
 
 buildPythonPackage rec {
   pname = "eth-utils";

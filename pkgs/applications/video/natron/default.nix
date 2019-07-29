@@ -1,5 +1,7 @@
-{ lib, stdenv, fetchurl, qt4, pkgconfig, boost, expat, cairo, python2Packages, cmake, flex, bison, pango, librsvg, librevenge, libxml2, libcdr, libzip, poppler, imagemagick, openexr, ffmpeg, opencolorio, openimageio, qmake4Hook, libpng, libGL, lndir
-}:
+{ lib, stdenv, fetchurl, qt4, pkgconfig, boost, expat, cairo, python2Packages
+, cmake, flex, bison, pango, librsvg, librevenge, libxml2, libcdr, libzip
+, poppler, imagemagick, openexr, ffmpeg, opencolorio, openimageio, qmake4Hook
+, libpng, libGL, lndir }:
 
 let
   minorVersion = "2.1";
@@ -19,8 +21,8 @@ let
     nativeBuildInputs = [ cmake ];
     buildInputs = [ libpng flex bison ];
   };
-  buildPlugin = { pluginName, sha256, nativeBuildInputs ? [ ], buildInputs ?
-    [ ], preConfigure ? "" }:
+  buildPlugin = { pluginName, sha256, nativeBuildInputs ? [ ], buildInputs ? [ ]
+    , preConfigure ? "" }:
     stdenv.mkDerivation {
       name = "openfx-${pluginName}-${version}";
       src = fetchurl {

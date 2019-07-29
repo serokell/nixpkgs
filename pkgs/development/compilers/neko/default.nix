@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, boehmgc, zlib, sqlite, pcre, cmake, pkgconfig, git, apacheHttpd, apr, aprutil, mysql, mbedtls, openssl, pkgs, gtk2, libpthreadstubs
-}:
+{ stdenv, fetchurl, boehmgc, zlib, sqlite, pcre, cmake, pkgconfig, git
+, apacheHttpd, apr, aprutil, mysql, mbedtls, openssl, pkgs, gtk2
+, libpthreadstubs }:
 
 stdenv.mkDerivation rec {
   name = "neko-${version}";

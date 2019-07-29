@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, darwin, ocaml, findlib, dune, base, stdio, liblapack, blas
-}:
+{ stdenv, fetchFromGitHub, darwin, ocaml, findlib, dune, base, stdio, liblapack
+, blas }:
 
 assert stdenv.lib.versionAtLeast (stdenv.lib.getVersion ocaml) "4.05.0";
 

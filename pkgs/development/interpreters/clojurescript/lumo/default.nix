@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, clojure, nodejs, jre, unzip, nodePackages, python, openssl, pkgs
-}:
+{ stdenv, lib, fetchurl, clojure, nodejs, jre, unzip, nodePackages, python
+, openssl, pkgs }:
 
 let # packageJSON=./package.json;
   version = "1.9.0";

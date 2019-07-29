@@ -1,5 +1,5 @@
-{ lib, fetchurl, cmake, buildPythonPackage, pysideGeneratorrunner, pysideShiboken, qt4, mesa
-}:
+{ lib, fetchurl, cmake, buildPythonPackage, pysideGeneratorrunner
+, pysideShiboken, qt4, mesa }:
 
 # This derivation provides a Python module and should therefore be called via `python-packages.nix`.
 buildPythonPackage rec {

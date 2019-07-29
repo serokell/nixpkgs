@@ -1,6 +1,5 @@
-{ elk7Version, enableUnfree ?
-  true, stdenv, fetchurl, makeWrapper, jre_headless, utillinux, gnugrep, coreutils, autoPatchelfHook, zlib
-}:
+{ elk7Version, enableUnfree ? true, stdenv, fetchurl, makeWrapper, jre_headless
+, utillinux, gnugrep, coreutils, autoPatchelfHook, zlib }:
 
 with stdenv.lib;
 let

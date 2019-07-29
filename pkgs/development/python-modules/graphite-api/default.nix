@@ -1,5 +1,6 @@
-{ buildPythonPackage, fetchFromGitHub, lib, flask, flask-caching, cairocffi, pyparsing, pytz, pyyaml, raven, six, structlog, tzlocal, nose, mock, cairo, isPyPy
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, flask, flask-caching, cairocffi
+, pyparsing, pytz, pyyaml, raven, six, structlog, tzlocal, nose, mock, cairo
+, isPyPy }:
 
 buildPythonPackage rec {
   pname = "graphite-api";

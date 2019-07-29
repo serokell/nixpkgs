@@ -6,8 +6,8 @@
    https://sourceware.org/git/?p=glibc.git;a=blob;f=localedata/SUPPORTED
 */
 
-{ stdenv, buildPackages, callPackage, writeText, allLocales ? true, locales ?
-  [ "en_US.UTF-8/UTF-8" ] }:
+{ stdenv, buildPackages, callPackage, writeText, allLocales ? true
+, locales ? [ "en_US.UTF-8/UTF-8" ] }:
 
 callPackage ./common.nix { inherit stdenv; } {
   name = "glibc-locales";

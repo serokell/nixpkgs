@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, pytest, pytestcov, pytest-mock, hypothesis, glibcLocales, pathlib ?
-  null }:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pytest, pytestcov
+, pytest-mock, hypothesis, glibcLocales, pathlib ? null }:
 
 buildPythonPackage rec {
   pname = "natsort";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, pkgconfig, findlib, SDL, SDL_image, SDL_mixer, SDL_ttf, SDL_gfx, lablgl
-}:
+{ stdenv, fetchurl, ocaml, pkgconfig, findlib, SDL, SDL_image, SDL_mixer
+, SDL_ttf, SDL_gfx, lablgl }:
 
 let pname = "ocamlsdl";
 

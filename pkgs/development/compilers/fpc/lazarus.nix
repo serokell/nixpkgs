@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, fpc, gtk2, glib, pango, atk, gdk_pixbuf, libXi, xorgproto, libX11, libXext
-}:
+{ stdenv, fetchurl, makeWrapper, fpc, gtk2, glib, pango, atk, gdk_pixbuf, libXi
+, xorgproto, libX11, libXext }:
 stdenv.mkDerivation rec {
   name = "lazarus-${version}";
   version = "1.8.4";

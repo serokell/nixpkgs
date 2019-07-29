@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, python2, python2Packages, file, makeWrapper, cups
-}:
+{ stdenv, lib, fetchFromGitHub, python2, python2Packages, file, makeWrapper
+, cups }:
 
 # Setup instructions can be found at https://github.com/simoncadman/CUPS-Cloud-Print#configuration
 # So the nix version is something like:

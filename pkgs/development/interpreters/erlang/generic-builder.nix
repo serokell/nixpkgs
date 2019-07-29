@@ -1,5 +1,5 @@
-{ pkgs, stdenv, fetchFromGitHub, makeWrapper, gawk, gnum4, gnused, libxml2, libxslt, ncurses, openssl, perl, autoconf, openjdk ?
-  null # javacSupport
+{ pkgs, stdenv, fetchFromGitHub, makeWrapper, gawk, gnum4, gnused, libxml2
+, libxslt, ncurses, openssl, perl, autoconf, openjdk ? null # javacSupport
 , unixODBC ? null # odbcSupport
 , libGLU_combined ? null, wxGTK ? null, wxmac ? null, xorg ? null # wxSupport
 , withSystemd ? stdenv.isLinux, systemd # systemd support in epmd
@@ -10,21 +10,16 @@
     inherit rev sha256;
     owner = "erlang";
     repo = "otp";
-  }, enableHipe ? true, enableDebugInfo ? false, enableThreads ?
-    true, enableSmpSupport ? true, enableKernelPoll ? true, javacSupport ?
-      false, javacPackages ? [ openjdk ], odbcSupport ? false, odbcPackages ?
-        [ unixODBC ], wxSupport ? true, wxPackages ? [
-          libGLU_combined
-          wxGTK
-          xorg.libX11
-        ], preUnpack ? "", postUnpack ? "", patches ? [ ], patchPhase ?
-          "", prePatch ? "", postPatch ? "", configureFlags ?
-            [ ], configurePhase ? "", preConfigure ? "", postConfigure ?
-              "", buildPhase ? "", preBuild ? "", postBuild ? "", installPhase ?
-                "", preInstall ? "", postInstall ? "", installTargets ?
-                  "install install-docs", checkPhase ? "", preCheck ?
-                    "", postCheck ? "", fixupPhase ? "", preFixup ?
-                      "", postFixup ? "", meta ? { } }:
+  }, enableHipe ? true, enableDebugInfo ? false, enableThreads ? true
+, enableSmpSupport ? true, enableKernelPoll ? true, javacSupport ? false
+, javacPackages ? [ openjdk ], odbcSupport ? false, odbcPackages ? [ unixODBC ]
+, wxSupport ? true, wxPackages ? [ libGLU_combined wxGTK xorg.libX11 ]
+, preUnpack ? "", postUnpack ? "", patches ? [ ], patchPhase ? "", prePatch ? ""
+, postPatch ? "", configureFlags ? [ ], configurePhase ? "", preConfigure ? ""
+, postConfigure ? "", buildPhase ? "", preBuild ? "", postBuild ? ""
+, installPhase ? "", preInstall ? "", postInstall ? ""
+, installTargets ? "install install-docs", checkPhase ? "", preCheck ? ""
+, postCheck ? "", fixupPhase ? "", preFixup ? "", postFixup ? "", meta ? { } }:
 
 assert wxSupport -> (if stdenv.isDarwin then
   wxmac != null

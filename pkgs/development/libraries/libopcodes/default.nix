@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, autoreconfHook, bison, binutils-unwrapped, libiberty, libbfd
-}:
+{ stdenv, buildPackages, autoreconfHook, bison, binutils-unwrapped, libiberty
+, libbfd }:
 
 stdenv.mkDerivation rec {
   name = "libopcodes-${version}";

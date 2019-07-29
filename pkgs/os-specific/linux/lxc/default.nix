@@ -1,8 +1,9 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, perl, docbook2x, docbook_xml_dtd_45, python3Packages, pam
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, perl, docbook2x
+, docbook_xml_dtd_45, python3Packages, pam
 
 # Optional Dependencies
-, libapparmor ? null, gnutls ? null, libselinux ? null, libseccomp ?
-  null, libcap ? null, systemd ? null }:
+, libapparmor ? null, gnutls ? null, libselinux ? null, libseccomp ? null
+, libcap ? null, systemd ? null }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

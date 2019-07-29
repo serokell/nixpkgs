@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, gfortran, glibcLocales, numpy, scipy, pytest, pillow
-}:
+{ stdenv, buildPythonPackage, fetchPypi, gfortran, glibcLocales, numpy, scipy
+, pytest, pillow }:
 
 # 0.20.x is the last version that maintains python2 compatibility
 

@@ -1,8 +1,8 @@
-{ enableMultiThreading ? true, enableG3toG4 ? false, enableInventor ?
-  false, enableGDML ? false, enableQT ? false, enableXM ?
-    false, enableOpenGLX11 ? true, enableRaytracerX11 ? false
+{ enableMultiThreading ? true, enableG3toG4 ? false, enableInventor ? false
+, enableGDML ? false, enableQT ? false, enableXM ? false, enableOpenGLX11 ? true
+, enableRaytracerX11 ? false
 
-      # Standard build environment with cmake.
+  # Standard build environment with cmake.
 , stdenv, fetchurl, cmake
 
 # Optional system packages, otherwise internal GEANT4 packages are used.

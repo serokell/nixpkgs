@@ -1,7 +1,8 @@
 nvidia_x11: sha256:
 
-{ stdenv, lib, fetchFromGitHub, pkgconfig, m4, jansson, gtk2, dbus, gtk3, libXv, libXrandr, libXext, libXxf86vm, libvdpau, librsvg, wrapGAppsHook, withGtk2 ?
-  false, withGtk3 ? true }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, m4, jansson, gtk2, dbus, gtk3, libXv
+, libXrandr, libXext, libXxf86vm, libvdpau, librsvg, wrapGAppsHook
+, withGtk2 ? false, withGtk3 ? true }:
 
 let
   src = fetchFromGitHub {

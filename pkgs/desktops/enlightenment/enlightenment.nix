@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, efl, xcbutilkeysyms, libXrandr, libXdmcp, libxcb, libffi, pam, alsaLib, luajit, bzip2, libpthreadstubs, gdbm, libcap, mesa, xkeyboard_config, pcre
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, efl, xcbutilkeysyms
+, libXrandr, libXdmcp, libxcb, libffi, pam, alsaLib, luajit, bzip2
+, libpthreadstubs, gdbm, libcap, mesa, xkeyboard_config, pcre }:
 
 stdenv.mkDerivation rec {
   name = "enlightenment-${version}";

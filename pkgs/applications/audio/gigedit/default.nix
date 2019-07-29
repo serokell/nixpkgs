@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, intltool, libtool, pkgconfig, which, docbook_xml_dtd_45, docbook_xsl, gtkmm2, libgig, libsndfile, libxslt
-}:
+{ stdenv, fetchurl, autoconf, automake, intltool, libtool, pkgconfig, which
+, docbook_xml_dtd_45, docbook_xsl, gtkmm2, libgig, libsndfile, libxslt }:
 
 stdenv.mkDerivation rec {
   name = "gigedit-${version}";

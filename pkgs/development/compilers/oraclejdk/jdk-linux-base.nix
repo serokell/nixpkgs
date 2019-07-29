@@ -1,11 +1,11 @@
-{ productVersion, patchVersion, buildVersion, sha256, jceName, releaseToken, sha256JCE
-}:
+{ productVersion, patchVersion, buildVersion, sha256, jceName, releaseToken
+, sha256JCE }:
 
-{ swingSupport ? true, stdenv, fetchurl, makeWrapper, unzip, file, xorg ?
-  null, installjdk ? true, pluginSupport ? true, installjce ?
-    false, config, licenseAccepted ?
-      config.oraclejdk.accept_license or false, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL, freetype, fontconfig, gtk2, pango, cairo, alsaLib, atk, gdk_pixbuf, setJavaClassPath
-}:
+{ swingSupport ? true, stdenv, fetchurl, makeWrapper, unzip, file, xorg ? null
+, installjdk ? true, pluginSupport ? true, installjce ? false, config
+, licenseAccepted ? config.oraclejdk.accept_license or false, glib, libxml2
+, libav_0_8, ffmpeg, libxslt, libGL, freetype, fontconfig, gtk2, pango, cairo
+, alsaLib, atk, gdk_pixbuf, setJavaClassPath }:
 
 assert swingSupport -> xorg != null;
 

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, redis, pytest, process-tests, pkgs, withDjango ?
-  false, django_redis }:
+{ stdenv, buildPythonPackage, fetchPypi, redis, pytest, process-tests, pkgs
+, withDjango ? false, django_redis }:
 
 buildPythonPackage rec {
   pname = "python-redis-lock";

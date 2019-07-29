@@ -1,5 +1,5 @@
-{ coreutils, dpkg, fetchurl, ghostscript, gnugrep, gnused, makeWrapper, perl, stdenv, which
-}:
+{ coreutils, dpkg, fetchurl, ghostscript, gnugrep, gnused, makeWrapper, perl
+, stdenv, which }:
 
 stdenv.mkDerivation rec {
   name = "mfcl2700dnlpr-${version}";

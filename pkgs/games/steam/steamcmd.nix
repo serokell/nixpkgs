@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, steam-run, bash, coreutils, steamRoot ?
-  "~/.local/share/Steam" }:
+{ stdenv, fetchurl, steam-run, bash, coreutils
+, steamRoot ? "~/.local/share/Steam" }:
 
 stdenv.mkDerivation rec {
   name = "steamcmd-${version}";

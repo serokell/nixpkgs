@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, zlib, bzip2, libgcrypt, gdbm, gperf, tdb, gnutls, db, libuuid, lzo, pkgconfig, guile
-}:
+{ fetchurl, stdenv, zlib, bzip2, libgcrypt, gdbm, gperf, tdb, gnutls, db
+, libuuid, lzo, pkgconfig, guile }:
 
 stdenv.mkDerivation rec {
   name = "libchop-0.5.2";

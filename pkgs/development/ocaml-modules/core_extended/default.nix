@@ -1,5 +1,6 @@
-{ stdenv, buildOcaml, fetchurl, bin_prot_p4, comparelib, core_p4, custom_printf, fieldslib_p4, pa_bench, pa_ounit, pipebang, pa_test, textutils_p4, re2_p4, sexplib_p4
-}:
+{ stdenv, buildOcaml, fetchurl, bin_prot_p4, comparelib, core_p4, custom_printf
+, fieldslib_p4, pa_bench, pa_ounit, pipebang, pa_test, textutils_p4, re2_p4
+, sexplib_p4 }:
 
 buildOcaml rec {
   name = "core_extended";

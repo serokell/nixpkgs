@@ -1,5 +1,8 @@
-{ stdenv, gettext, fetchurl, libxml2, libgdata, pkgconfig, gtk3, glib, tracker, tracker-miners, itstool, gegl, babl, libdazzle, gfbgraph, grilo-plugins, grilo, gnome-online-accounts, desktop-file-utils, wrapGAppsHook, gnome3, gdk_pixbuf, gexiv2, geocode-glib, dleyna-renderer, dbus, meson, ninja, python3, gsettings-desktop-schemas
-}:
+{ stdenv, gettext, fetchurl, libxml2, libgdata, pkgconfig, gtk3, glib, tracker
+, tracker-miners, itstool, gegl, babl, libdazzle, gfbgraph, grilo-plugins, grilo
+, gnome-online-accounts, desktop-file-utils, wrapGAppsHook, gnome3, gdk_pixbuf
+, gexiv2, geocode-glib, dleyna-renderer, dbus, meson, ninja, python3
+, gsettings-desktop-schemas }:
 
 let
   pname = "gnome-photos";

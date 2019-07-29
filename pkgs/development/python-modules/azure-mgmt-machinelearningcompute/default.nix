@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common, azure-mgmt-nspkg
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
+, azure-mgmt-nspkg }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-machinelearningcompute";

@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, intltool, meson, ninja, pkgconfig, gobject-introspection, python3, gtk-doc, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_43, glibcLocales, libxml2, upower, glib, wrapGAppsHook, vala, sqlite, libxslt, libstemmer, gnome3, icu, libuuid, networkmanager, libsoup, json-glib, substituteAll
-}:
+{ stdenv, fetchurl, intltool, meson, ninja, pkgconfig, gobject-introspection
+, python3, gtk-doc, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_43
+, glibcLocales, libxml2, upower, glib, wrapGAppsHook, vala, sqlite, libxslt
+, libstemmer, gnome3, icu, libuuid, networkmanager, libsoup, json-glib
+, substituteAll }:
 
 let
   pname = "tracker";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, pytest, setuptools, structlog, pytest-asyncio, flaky, tornado, pycurl
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, pytest, setuptools
+, structlog, pytest-asyncio, flaky, tornado, pycurl }:
 
 buildPythonPackage rec {
   pname = "nvchecker";

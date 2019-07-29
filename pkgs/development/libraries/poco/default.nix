@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, pkgconfig, zlib, pcre, expat, sqlite, openssl, unixODBC, mysql
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, zlib, pcre, expat, sqlite, openssl
+, unixODBC, mysql }:
 
 stdenv.mkDerivation rec {
   name = "poco-${version}";

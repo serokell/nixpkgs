@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, autoconf, automake, intltool, libtool, pkgconfig, encfs, glib, gnome3, gtk3, libgnome-keyring, vala, wrapGAppsHook, xorg, gobject-introspection
-}:
+{ stdenv, fetchurl, autoconf, automake, intltool, libtool, pkgconfig, encfs
+, glib, gnome3, gtk3, libgnome-keyring, vala, wrapGAppsHook, xorg
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   version = "1.8.19";

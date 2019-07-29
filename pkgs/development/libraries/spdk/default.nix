@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, python, cunit, dpdk, libaio, libuuid, numactl, openssl
-}:
+{ stdenv, fetchFromGitHub, python, cunit, dpdk, libaio, libuuid, numactl
+, openssl }:
 
 stdenv.mkDerivation rec {
   name = "spdk-${version}";

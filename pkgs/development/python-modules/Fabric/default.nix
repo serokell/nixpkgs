@@ -1,5 +1,5 @@
-{ pkgs, buildPythonPackage, fetchPypi, invoke, paramiko, cryptography, pytest, mock, pytest-relaxed
-}:
+{ pkgs, buildPythonPackage, fetchPypi, invoke, paramiko, cryptography, pytest
+, mock, pytest-relaxed }:
 
 buildPythonPackage rec {
   pname = "fabric";

@@ -1,6 +1,6 @@
-{ enableGUI ? true, enablePDFtoPPM ? true, useT1Lib ?
-  false, stdenv, fetchurl, zlib, libpng, freetype ? null, t1lib ?
-    null, cmake, qtbase ? null, qtsvg ? null, wrapQtAppsHook }:
+{ enableGUI ? true, enablePDFtoPPM ? true, useT1Lib ? false, stdenv, fetchurl
+, zlib, libpng, freetype ? null, t1lib ? null, cmake, qtbase ? null
+, qtsvg ? null, wrapQtAppsHook }:
 
 assert enableGUI -> qtbase != null && qtsvg != null && freetype != null;
 assert enablePDFtoPPM -> freetype != null;

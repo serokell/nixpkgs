@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, dbus, gtk3, libappindicator-gtk3, gst_all_1, librsvg, wrapGAppsHook, pulseaudioSupport ?
-  true, libpulseaudio ? null }:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, dbus, gtk3, libappindicator-gtk3
+, gst_all_1, librsvg, wrapGAppsHook, pulseaudioSupport ? true
+, libpulseaudio ? null }:
 
 stdenv.mkDerivation rec {
   name = "audio-recorder-${version}";

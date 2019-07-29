@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, cmake, libogg, libvorbis, libtheora, curl, freetype, libjpeg, libpng, SDL2, libGL, openal, zlib
-}:
+{ stdenv, lib, fetchurl, cmake, libogg, libvorbis, libtheora, curl, freetype
+, libjpeg, libpng, SDL2, libGL, openal, zlib }:
 
 let
   # The game loads all those via dlopen().

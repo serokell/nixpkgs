@@ -1,7 +1,8 @@
 # FIXME: Unify with pkgs/development/python-modules/blivet/default.nix.
 
-{ stdenv, fetchurl, buildPythonApplication, pykickstart, pyparted, pyblock, libselinux, cryptsetup, multipath_tools, lsof, utillinux, useNixUdev ?
-  true, systemd ? null }:
+{ stdenv, fetchurl, buildPythonApplication, pykickstart, pyparted, pyblock
+, libselinux, cryptsetup, multipath_tools, lsof, utillinux, useNixUdev ? true
+, systemd ? null }:
 
 assert useNixUdev -> systemd != null;
 

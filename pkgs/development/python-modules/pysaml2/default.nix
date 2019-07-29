@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, substituteAll, xmlsec, cryptography, defusedxml, future, pyopenssl, dateutil, pytz, requests, six, mock, pyasn1, pymongo, pytest, responses
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, substituteAll, xmlsec
+, cryptography, defusedxml, future, pyopenssl, dateutil, pytz, requests, six
+, mock, pyasn1, pymongo, pytest, responses }:
 
 buildPythonPackage rec {
   pname = "pysaml2";

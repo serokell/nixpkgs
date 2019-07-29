@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, zlib, readline, openssl, libiconv, pcsclite, libassuan, libXt, fetchpatch, docbook_xsl, libxslt, docbook_xml_dtd_412, Carbon, PCSC, buildPackages, withApplePCSC ?
-  stdenv.isDarwin }:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, zlib, readline, openssl
+, libiconv, pcsclite, libassuan, libXt, fetchpatch, docbook_xsl, libxslt
+, docbook_xml_dtd_412, Carbon, PCSC, buildPackages
+, withApplePCSC ? stdenv.isDarwin }:
 
 stdenv.mkDerivation rec {
   name = "opensc-${version}";

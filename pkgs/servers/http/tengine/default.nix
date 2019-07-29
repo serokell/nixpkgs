@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, openssl, zlib, pcre, libxml2, libxslt, gd, geoip, gperftools, jemalloc, withDebug ?
-  false, withMail ? false, withStream ? false, modules ? [ ], ... }:
+{ stdenv, fetchurl, openssl, zlib, pcre, libxml2, libxslt, gd, geoip, gperftools
+, jemalloc, withDebug ? false, withMail ? false, withStream ? false
+, modules ? [ ], ... }:
 
 with stdenv.lib;
 

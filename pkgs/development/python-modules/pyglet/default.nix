@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, libGLU_combined, xorg, future, pytest, glibc, gtk2-x11, gdk_pixbuf
-}:
+{ stdenv, buildPythonPackage, fetchPypi, libGLU_combined, xorg, future, pytest
+, glibc, gtk2-x11, gdk_pixbuf }:
 
 buildPythonPackage rec {
   version = "1.3.2";

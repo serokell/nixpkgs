@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, bundlerEnv, ruby, alsaUtils, libnotify, which, wrapGAppsHook, gtk2, atk, gobject-introspection
-}:
+{ stdenv, fetchurl, bundlerEnv, ruby, alsaUtils, libnotify, which, wrapGAppsHook
+, gtk2, atk, gobject-introspection }:
 
 # how to update:
 # find latest version at: http://mikutter.hachune.net/download#download

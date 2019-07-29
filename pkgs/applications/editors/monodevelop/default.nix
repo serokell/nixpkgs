@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, pkgconfig, shared-mime-info, intltool, glib, mono, gtk-sharp-2_0, gnome2, gnome-sharp, unzip, dotnetPackages
-}:
+{ stdenv, fetchurl, autoconf, automake, pkgconfig, shared-mime-info, intltool
+, glib, mono, gtk-sharp-2_0, gnome2, gnome-sharp, unzip, dotnetPackages }:
 
 stdenv.mkDerivation rec {
   version = "5.9.4.5";

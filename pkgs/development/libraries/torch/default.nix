@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, luajit, openblas, imagemagick, cmake, curl, fftw, gnuplot, libjpeg, zeromq3, ncurses, openssl, libpng, qt4, readline, unzip, pkgconfig, zlib, libX11, which
-}:
+{ stdenv, fetchgit, luajit, openblas, imagemagick, cmake, curl, fftw, gnuplot
+, libjpeg, zeromq3, ncurses, openssl, libpng, qt4, readline, unzip, pkgconfig
+, zlib, libX11, which }:
 stdenv.mkDerivation rec {
   version = "0.0pre20160820";
   name = "torch-${version}";

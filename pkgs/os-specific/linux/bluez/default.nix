@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, dbus, glib, alsaLib, python3, readline, udev, libical, systemd, fetchpatch, enableWiimote ?
-  false, enableMidi ? false, enableSixaxis ? false }:
+{ stdenv, fetchurl, pkgconfig, dbus, glib, alsaLib, python3, readline, udev
+, libical, systemd, fetchpatch, enableWiimote ? false, enableMidi ? false
+, enableSixaxis ? false }:
 
 stdenv.mkDerivation rec {
   name = "bluez-5.50";

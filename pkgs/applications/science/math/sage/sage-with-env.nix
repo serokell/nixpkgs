@@ -1,5 +1,6 @@
-{ stdenv, lib, makeWrapper, sage-env, openblasCompat, pkg-config, three, singular, gap, giac, maxima-ecl, pari, gmp, gfan, python2, flintqs, eclib, ntl, ecm, pynac, pythonEnv
-}:
+{ stdenv, lib, makeWrapper, sage-env, openblasCompat, pkg-config, three
+, singular, gap, giac, maxima-ecl, pari, gmp, gfan, python2, flintqs, eclib, ntl
+, ecm, pynac, pythonEnv }:
 
 # Wrapper that combined `sagelib` with `sage-env` to produce an actually
 # executable sage. No tests are run yet and no documentation is built.

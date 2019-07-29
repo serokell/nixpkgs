@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, pyyaml, jsonschema, sphinxcontrib_httpdomain
-}:
+{ stdenv, buildPythonPackage, fetchPypi, setuptools_scm, pyyaml, jsonschema
+, sphinxcontrib_httpdomain }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-openapi";

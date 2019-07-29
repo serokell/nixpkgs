@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, docbook_xsl, dbus, dbus-glib, expat, gsettings-desktop-schemas, gdk_pixbuf, gtk3, hicolor-icon-theme, imagemagick, itstool, librsvg, libtool, libxslt, makeWrapper, pkgconfig, python, pythonPackages, vte, wrapGAppsHook
-}:
+{ stdenv, fetchurl, docbook_xsl, dbus, dbus-glib, expat
+, gsettings-desktop-schemas, gdk_pixbuf, gtk3, hicolor-icon-theme, imagemagick
+, itstool, librsvg, libtool, libxslt, makeWrapper, pkgconfig, python
+, pythonPackages, vte, wrapGAppsHook }:
 
 # TODO: Still getting following warning.
 # WARNING **: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files

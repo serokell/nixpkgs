@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, config, makeWrapper, gconf, alsaLib, at-spi2-atk, atk, cairo, cups, curl, dbus-glib, dbus, fontconfig, freetype, gdk_pixbuf, glib, glibc, gst-plugins-base, gstreamer, gtk2, gtk3, kerberos, libX11, libXScrnSaver, libXcomposite, libXdamage, libXext, libXfixes, libXinerama, libXrender, libXt, libcanberra-gtk2, libgnome, libgnomeui, gnome3, libGLU_combined, nspr, nss, pango, writeScript, xidel, coreutils, gnused, gnugrep, gnupg, runtimeShell
-}:
+{ stdenv, fetchurl, config, makeWrapper, gconf, alsaLib, at-spi2-atk, atk, cairo
+, cups, curl, dbus-glib, dbus, fontconfig, freetype, gdk_pixbuf, glib, glibc
+, gst-plugins-base, gstreamer, gtk2, gtk3, kerberos, libX11, libXScrnSaver
+, libXcomposite, libXdamage, libXext, libXfixes, libXinerama, libXrender, libXt
+, libcanberra-gtk2, libgnome, libgnomeui, gnome3, libGLU_combined, nspr, nss
+, pango, writeScript, xidel, coreutils, gnused, gnugrep, gnupg, runtimeShell }:
 
 # imports `version` and `sources`
 with (import ./release_sources.nix);

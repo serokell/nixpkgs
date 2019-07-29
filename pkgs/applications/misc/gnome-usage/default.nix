@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gettext, libxml2, desktop-file-utils, wrapGAppsHook, glib, gtk3, libgtop, libdazzle, gnome3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, vala, gettext, libxml2
+, desktop-file-utils, wrapGAppsHook, glib, gtk3, libgtop, libdazzle, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-usage";

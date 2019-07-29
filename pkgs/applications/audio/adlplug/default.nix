@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, libjack2, alsaLib, freetype, libX11, libXrandr, libXinerama, libXext, libXcursor, adlplugChip ?
-  "-DADLplug_CHIP=OPL3", pname ? "ADLplug" }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libjack2, alsaLib, freetype, libX11
+, libXrandr, libXinerama, libXext, libXcursor
+, adlplugChip ? "-DADLplug_CHIP=OPL3", pname ? "ADLplug" }:
 
 stdenv.mkDerivation rec {
   inherit pname;

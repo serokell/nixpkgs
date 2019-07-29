@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, substituteAll, vala, libgee, granite, gtk3, networkmanager, networkmanagerapplet, switchboard
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, substituteAll
+, vala, libgee, granite, gtk3, networkmanager, networkmanagerapplet, switchboard
 }:
 
 stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, git, cherrypy, gevent, tornado
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, mock, git, cherrypy, gevent
+, tornado }:
 
 buildPythonPackage rec {
   pname = "ws4py";

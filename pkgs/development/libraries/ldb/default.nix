@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python, pkgconfig, readline, tdb, talloc, tevent, popt, libxslt, docbook_xsl, docbook_xml_dtd_42, cmocka
-}:
+{ stdenv, fetchurl, python, pkgconfig, readline, tdb, talloc, tevent, popt
+, libxslt, docbook_xsl, docbook_xml_dtd_42, cmocka }:
 
 stdenv.mkDerivation rec {
   name = "ldb-1.3.3";

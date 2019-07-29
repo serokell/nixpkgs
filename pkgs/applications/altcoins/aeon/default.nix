@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, git, doxygen, graphviz, boost, miniupnpc, openssl, unbound, cppzmq, zeromq, pcsclite, readline, libsodium
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, git, doxygen, graphviz, boost
+, miniupnpc, openssl, unbound, cppzmq, zeromq, pcsclite, readline, libsodium }:
 
 let version = "0.12.9.0";
 in stdenv.mkDerivation {

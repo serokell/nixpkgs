@@ -1,5 +1,5 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub, AVFoundation, AudioToolbox, ImageIO, CoreMedia, Foundation, CoreGraphics, MediaToolbox
-}:
+{ stdenv, lib, buildGoPackage, fetchFromGitHub, AVFoundation, AudioToolbox
+, ImageIO, CoreMedia, Foundation, CoreGraphics, MediaToolbox }:
 
 buildGoPackage rec {
   name = "keybase-${version}";

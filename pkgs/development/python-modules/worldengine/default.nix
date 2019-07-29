@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, nose, noise, numpy, pyplatec, protobuf, purepng, h5py, gdal
-}:
+{ stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, nose, noise, numpy
+, pyplatec, protobuf, purepng, h5py, gdal }:
 
 buildPythonPackage rec {
   pname = "worldengine";

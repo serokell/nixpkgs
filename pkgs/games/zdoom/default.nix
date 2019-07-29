@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, p7zip, cmake, SDL2, openal, fluidsynth, soundfont-fluid, bzip2, zlib, libjpeg, game-music-emu, libsndfile, mpg123
-}:
+{ stdenv, fetchurl, p7zip, cmake, SDL2, openal, fluidsynth, soundfont-fluid
+, bzip2, zlib, libjpeg, game-music-emu, libsndfile, mpg123 }:
 
 stdenv.mkDerivation rec {
   name = "zdoom-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, protobuf, openssl, libpcap, traceroute, withGUI ?
-  false, qt5 }:
+{ stdenv, fetchurl, pkgconfig, protobuf, openssl, libpcap, traceroute
+, withGUI ? false, qt5 }:
 
 let inherit (stdenv.lib) optional;
 

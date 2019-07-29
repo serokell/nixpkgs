@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, sqlite, botan2, boost, curl, gettext, pkgconfig, libusb, gnutls
-}:
+{ stdenv, fetchFromGitHub, cmake, sqlite, botan2, boost, curl, gettext
+, pkgconfig, libusb, gnutls }:
 
 stdenv.mkDerivation rec {
   name = "neopg-${version}";

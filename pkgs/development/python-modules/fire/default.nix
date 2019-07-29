@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, six, hypothesis, mock, python-Levenshtein, pytest
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, six, hypothesis, mock
+, python-Levenshtein, pytest }:
 
 buildPythonPackage rec {
   pname = "fire";

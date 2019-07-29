@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, unzip, pkgconfig, libixp_hg, txt2tags, dash, python, which, libX11, libXrender, libXext, libXinerama, libXrandr, libXft
-}:
+{ stdenv, fetchurl, unzip, pkgconfig, libixp_hg, txt2tags, dash, python, which
+, libX11, libXrender, libXext, libXinerama, libXrandr, libXft }:
 
 stdenv.mkDerivation rec {
   rev = "2823";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, asciidoc, docbook_xml_dtd_45, docbook_xsl, freetype, judy, libGL, libconfig, libdrm, libxml2, libxslt, libXcomposite, libXdamage, libXext, libXinerama, libXrandr, libXrender, pcre, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, asciidoc, docbook_xml_dtd_45, docbook_xsl, freetype
+, judy, libGL, libconfig, libdrm, libxml2, libxslt, libXcomposite, libXdamage
+, libXext, libXinerama, libXrandr, libXrender, pcre, pkgconfig }:
 let rev = "v0.6-17-g271e784";
 in stdenv.mkDerivation rec {
   name = "neocomp-unstable-${version}";

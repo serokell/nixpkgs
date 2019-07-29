@@ -22,18 +22,17 @@
 
 lib.makeOverridable (
 
-{ name ? null, gemName, version ? null, type ? "gem", document ?
-  [ ] # e.g. [ "ri" "rdoc" ]
+{ name ? null, gemName, version ? null, type ? "gem"
+, document ? [ ] # e.g. [ "ri" "rdoc" ]
 , platform ? "ruby", ruby ? defs.ruby, stdenv ? ruby.stdenv, namePrefix ?
   (let rubyName = builtins.parseDrvName ruby.name;
-  in "${rubyName.name}${rubyName.version}-"), buildInputs ? [ ], meta ?
-    { }, patches ? [ ], gemPath ? [ ], dontStrip ? true
-      # Assume we don't have to build unless strictly necessary (e.g. the source is a
-      # git checkout).
-      # If you need to apply patches, make sure to set `dontBuild = false`;
-, dontBuild ? true, dontInstallManpages ? false, propagatedBuildInputs ?
-  [ ], propagatedUserEnvPkgs ? [ ], buildFlags ? [ ], passthru ? { }, ...
-}@attrs:
+  in "${rubyName.name}${rubyName.version}-"), buildInputs ? [ ], meta ? { }
+, patches ? [ ], gemPath ? [ ], dontStrip ? true
+  # Assume we don't have to build unless strictly necessary (e.g. the source is a
+  # git checkout).
+  # If you need to apply patches, make sure to set `dontBuild = false`;
+, dontBuild ? true, dontInstallManpages ? false, propagatedBuildInputs ? [ ]
+, propagatedUserEnvPkgs ? [ ], buildFlags ? [ ], passthru ? { }, ... }@attrs:
 
 let
   src = attrs.src or (if type == "gem" then

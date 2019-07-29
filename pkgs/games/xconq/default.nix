@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cpio, xorgproto, libX11, libXmu, libXaw, libXt, tcl, tk, libXext, fontconfig, makeWrapper
-}:
+{ stdenv, fetchurl, cpio, xorgproto, libX11, libXmu, libXaw, libXt, tcl, tk
+, libXext, fontconfig, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "${baseName}-${version}";

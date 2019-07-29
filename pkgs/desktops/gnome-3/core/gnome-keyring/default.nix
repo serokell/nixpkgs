@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, dbus, libgcrypt, pam, python2, glib, libxslt, gettext, gcr, libcap_ng, libselinux, p11-kit, openssh, wrapGAppsHook, docbook_xsl, docbook_xml_dtd_43, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, dbus, libgcrypt, pam, python2, glib, libxslt
+, gettext, gcr, libcap_ng, libselinux, p11-kit, openssh, wrapGAppsHook
+, docbook_xsl, docbook_xml_dtd_43, gnome3 }:
 
 stdenv.mkDerivation rec {
   name = "gnome-keyring-${version}";

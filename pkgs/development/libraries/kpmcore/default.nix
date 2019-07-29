@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, extra-cmake-modules, qtbase, kdeFrameworks, libatasmart, parted, utillinux
-}:
+{ stdenv, lib, fetchurl, extra-cmake-modules, qtbase, kdeFrameworks, libatasmart
+, parted, utillinux }:
 
 let pname = "kpmcore";
 

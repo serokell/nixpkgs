@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libtool, gtk3, libpcap, goocanvas2, popt, itstool, libxml2
-}:
+{ stdenv, fetchurl, pkgconfig, libtool, gtk3, libpcap, goocanvas2, popt, itstool
+, libxml2 }:
 
 stdenv.mkDerivation rec {
   name = "etherape-0.9.18";

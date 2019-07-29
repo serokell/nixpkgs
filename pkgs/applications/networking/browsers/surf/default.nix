@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, glib, glib-networking, gsettings-desktop-schemas, gtk, libsoup, webkitgtk, patches ?
-  null }:
+{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, glib, glib-networking
+, gsettings-desktop-schemas, gtk, libsoup, webkitgtk, patches ? null }:
 
 stdenv.mkDerivation rec {
   name = "surf-${version}";

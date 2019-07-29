@@ -1,5 +1,6 @@
-{ config, stdenv, fetchurl, pkgconfig, libtool, zip, libffi, libsigsegv, readline, gmp, gnutls, gnome2, cairo, SDL, sqlite, emacsSupport ?
-  config.emacsSupport or false, emacs ? null }:
+{ config, stdenv, fetchurl, pkgconfig, libtool, zip, libffi, libsigsegv
+, readline, gmp, gnutls, gnome2, cairo, SDL, sqlite
+, emacsSupport ? config.emacsSupport or false, emacs ? null }:
 
 assert emacsSupport -> (emacs != null);
 

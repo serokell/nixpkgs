@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, zlib, libpng, libjpeg, perl, expat, qt3, libX11, libXext, libSM, libICE,
-}:
+{ stdenv, fetchurl, zlib, libpng, libjpeg, perl, expat, qt3, libX11, libXext
+, libSM, libICE, }:
 
 stdenv.mkDerivation rec {
   name = "taskjuggler-2.4.3";

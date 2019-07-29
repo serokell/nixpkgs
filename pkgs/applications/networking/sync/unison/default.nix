@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, lablgtk, fontschumachermisc, xset, makeWrapper, ncurses, enableX11 ?
-  true }:
+{ stdenv, fetchFromGitHub, ocaml, lablgtk, fontschumachermisc, xset, makeWrapper
+, ncurses, enableX11 ? true }:
 
 stdenv.mkDerivation (rec {
 

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, curl, SDL2, libGLU_combined, glew, ncurses, c-ares, Carbon, CoreServices
-}:
+{ stdenv, lib, fetchurl, pkgconfig, curl, SDL2, libGLU_combined, glew, ncurses
+, c-ares, Carbon, CoreServices }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

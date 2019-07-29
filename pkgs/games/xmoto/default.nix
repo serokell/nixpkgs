@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, chipmunk, sqlite, curl, zlib, bzip2, libjpeg, libpng, freeglut, libGLU_combined, SDL, SDL_mixer, SDL_image, SDL_net, SDL_ttf, lua5, ode, libxdg_basedir, libxml2
-}:
+{ stdenv, fetchurl, chipmunk, sqlite, curl, zlib, bzip2, libjpeg, libpng
+, freeglut, libGLU_combined, SDL, SDL_mixer, SDL_image, SDL_net, SDL_ttf, lua5
+, ode, libxdg_basedir, libxml2 }:
 
 stdenv.mkDerivation rec {
   name = "xmoto-${version}";

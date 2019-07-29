@@ -1,5 +1,8 @@
-{ alsaLib, atk, cairo, cups, curl, dbus, dpkg, expat, fetchurl, fontconfig, freetype, gdk_pixbuf, glib, gnome2, gtk3, lib, libX11, libxcb, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libnotify, libpulseaudio, libuuid, nspr, nss, pango, stdenv, systemd, at-spi2-atk, at-spi2-core
-}:
+{ alsaLib, atk, cairo, cups, curl, dbus, dpkg, expat, fetchurl, fontconfig
+, freetype, gdk_pixbuf, glib, gnome2, gtk3, lib, libX11, libxcb, libXScrnSaver
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr
+, libXrender, libXtst, libnotify, libpulseaudio, libuuid, nspr, nss, pango
+, stdenv, systemd, at-spi2-atk, at-spi2-core }:
 
 let
 

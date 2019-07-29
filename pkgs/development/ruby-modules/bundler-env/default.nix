@@ -1,9 +1,9 @@
 { ruby, lib, callPackage, defaultGemConfig, buildEnv, bundler }@defs:
 
-{ name ? null, pname ? null, gemdir ? null, gemfile ? null, lockfile ?
-  null, gemset ? null, groups ? [ "default" ], ruby ? defs.ruby, gemConfig ?
-    defaultGemConfig, postBuild ? null, document ? [ ], meta ?
-      { }, ignoreCollisions ? false, passthru ? { }, ... }@args:
+{ name ? null, pname ? null, gemdir ? null, gemfile ? null, lockfile ? null
+, gemset ? null, groups ? [ "default" ], ruby ? defs.ruby
+, gemConfig ? defaultGemConfig, postBuild ? null, document ? [ ], meta ? { }
+, ignoreCollisions ? false, passthru ? { }, ... }@args:
 
 let
   inherit (import ../bundled-common/functions.nix {

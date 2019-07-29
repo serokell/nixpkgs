@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, ffmpeg, gtk3, imagemagick, libarchive, libspectre, libwebp, poppler
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, ffmpeg, gtk3, imagemagick, libarchive
+, libspectre, libwebp, poppler }:
 
 stdenv.mkDerivation (rec {
   name = "pqiv-${version}";

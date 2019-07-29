@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python-editor, readchar, blessings, pytest, pytestcov, pexpect, pytest-mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python-editor, readchar, blessings
+, pytest, pytestcov, pexpect, pytest-mock }:
 
 buildPythonPackage rec {
   pname = "inquirer";

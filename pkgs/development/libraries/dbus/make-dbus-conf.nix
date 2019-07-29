@@ -1,5 +1,5 @@
-{ runCommand, writeText, libxslt, dbus, serviceDirectories ? [ ], suidHelper ?
-  "/var/setuid-wrappers/dbus-daemon-launch-helper" }:
+{ runCommand, writeText, libxslt, dbus, serviceDirectories ? [ ]
+, suidHelper ? "/var/setuid-wrappers/dbus-daemon-launch-helper" }:
 
 # DBus has two configuration parsers -- normal and "trivial", which is used
 # for suid helper. Unfortunately the latter doesn't support <include>

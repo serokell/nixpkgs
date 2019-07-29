@@ -1,4 +1,7 @@
-{ stdenv, buildPackages, fetchurl, which, autoconf, automake, flex, yacc, glibc, perl, kerberos, libxslt, docbook_xsl, docbook_xml_dtd_43, libtool_2, removeReferencesTo, ncurses # Extra ncurses utilities. Only needed for debugging.
+{ stdenv, buildPackages, fetchurl, which, autoconf, automake, flex, yacc, glibc
+, perl, kerberos, libxslt, docbook_xsl, docbook_xml_dtd_43, libtool_2
+, removeReferencesTo
+, ncurses # Extra ncurses utilities. Only needed for debugging.
 , tsmbac ? null # Tivoli Storage Manager Backup Client from IBM
 }:
 

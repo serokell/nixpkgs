@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, itstool, desktop-file-utils, gnome3, glib, gtk3, libexif, libtiff, colord, colord-gtk, libcanberra-gtk3, lcms2, vte, exiv2
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, itstool
+, desktop-file-utils, gnome3, glib, gtk3, libexif, libtiff, colord, colord-gtk
+, libcanberra-gtk3, lcms2, vte, exiv2 }:
 
 let
   pname = "gnome-color-manager";

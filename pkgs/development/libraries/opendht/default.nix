@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, nettle, gnutls, msgpack, readline, libargon2
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, nettle, gnutls, msgpack
+, readline, libargon2 }:
 
 stdenv.mkDerivation rec {
   name = "opendht-${version}";

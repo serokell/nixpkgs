@@ -1,4 +1,5 @@
-{ stdenv, lib, pkgs, fetchurl, buildEnv, coreutils, gnused, getopt, git, tree, gnupg, openssl, which, procps, qrencode, makeWrapper
+{ stdenv, lib, pkgs, fetchurl, buildEnv, coreutils, gnused, getopt, git, tree
+, gnupg, openssl, which, procps, qrencode, makeWrapper
 
 , xclip ? null, xdotool ? null, dmenu ? null, x11Support ? !stdenv.isDarwin
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libpcap, libnet, zlib, curl, pcre, openssl, ncurses, glib, gtk2, atk, pango, flex, bison, fetchpatch
-}:
+{ stdenv, fetchFromGitHub, cmake, libpcap, libnet, zlib, curl, pcre, openssl
+, ncurses, glib, gtk2, atk, pango, flex, bison, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "ettercap-${version}";

@@ -1,5 +1,5 @@
-{ useLua ? !stdenv.isDarwin, usePcre ?
-  true, stdenv, fetchurl, openssl, zlib, lua5_3 ? null, pcre ? null }:
+{ useLua ? !stdenv.isDarwin, usePcre ? true, stdenv, fetchurl, openssl, zlib
+, lua5_3 ? null, pcre ? null }:
 
 assert useLua -> lua5_3 != null;
 assert usePcre -> pcre != null;

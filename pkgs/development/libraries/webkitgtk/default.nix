@@ -1,6 +1,10 @@
-{ stdenv, fetchurl, perl, python2, ruby, bison, gperf, cmake, ninja, pkgconfig, gettext, gobject-introspection, libnotify, gnutls, libgcrypt, gtk3, wayland, libwebp, enchant2, xorg, libxkbcommon, epoxy, at-spi2-core, libxml2, libsoup, libsecret, libxslt, harfbuzz, libpthreadstubs, pcre, nettle, libtasn1, p11-kit, libidn, libedit, readline, libGLU_combined, libintl, openjpeg, enableGeoLocation ?
-  true, geoclue2, sqlite, enableGtk2Plugins ? false, gtk2 ?
-    null, gst-plugins-base, gst-plugins-bad, woff2 }:
+{ stdenv, fetchurl, perl, python2, ruby, bison, gperf, cmake, ninja, pkgconfig
+, gettext, gobject-introspection, libnotify, gnutls, libgcrypt, gtk3, wayland
+, libwebp, enchant2, xorg, libxkbcommon, epoxy, at-spi2-core, libxml2, libsoup
+, libsecret, libxslt, harfbuzz, libpthreadstubs, pcre, nettle, libtasn1, p11-kit
+, libidn, libedit, readline, libGLU_combined, libintl, openjpeg
+, enableGeoLocation ? true, geoclue2, sqlite, enableGtk2Plugins ? false
+, gtk2 ? null, gst-plugins-base, gst-plugins-bad, woff2 }:
 
 assert enableGeoLocation -> geoclue2 != null;
 assert enableGtk2Plugins -> gtk2 != null;

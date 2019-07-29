@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, cstruct, zarith, ounit, result, topkg, ptime
-}:
+{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, cstruct, zarith, ounit
+, result, topkg, ptime }:
 
 let
   param = if stdenv.lib.versionAtLeast ocaml.version "4.02" then {

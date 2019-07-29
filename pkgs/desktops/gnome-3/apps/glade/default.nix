@@ -1,5 +1,6 @@
-{ stdenv, intltool, fetchurl, python3, pkgconfig, gtk3, glib, gobject-introspection, wrapGAppsHook, itstool, libxml2, docbook_xsl, gnome3, gdk_pixbuf, libxslt, gsettings-desktop-schemas
-}:
+{ stdenv, intltool, fetchurl, python3, pkgconfig, gtk3, glib
+, gobject-introspection, wrapGAppsHook, itstool, libxml2, docbook_xsl, gnome3
+, gdk_pixbuf, libxslt, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "glade-${version}";

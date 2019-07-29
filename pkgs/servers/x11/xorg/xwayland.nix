@@ -1,5 +1,5 @@
-{ stdenv, wayland, wayland-protocols, xorgserver, xkbcomp, xkeyboard_config, epoxy, libxslt, libunwind, makeWrapper
-}:
+{ stdenv, wayland, wayland-protocols, xorgserver, xkbcomp, xkeyboard_config
+, epoxy, libxslt, libunwind, makeWrapper }:
 
 with stdenv.lib;
 

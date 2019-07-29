@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, buildDotnetPackage, substituteAll, makeWrapper, makeDesktopItem, unzip, icoutils, gtk2, xorg, xdotool, xsel, plugins ?
-  [ ] }:
+{ stdenv, lib, fetchurl, buildDotnetPackage, substituteAll, makeWrapper
+, makeDesktopItem, unzip, icoutils, gtk2, xorg, xdotool, xsel, plugins ? [ ] }:
 
 with builtins;
 buildDotnetPackage rec {

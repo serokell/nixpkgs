@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, zope-deferredimport, zope_deprecation, zope_event, zope-hookable, zope_interface, zope_configuration, zope_i18nmessageid
-}:
+{ stdenv, buildPythonPackage, fetchPypi, zope-deferredimport, zope_deprecation
+, zope_event, zope-hookable, zope_interface, zope_configuration
+, zope_i18nmessageid }:
 
 buildPythonPackage rec {
   pname = "zope.component";

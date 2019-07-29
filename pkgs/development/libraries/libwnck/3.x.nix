@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libX11, gtk3, intltool, gobject-introspection, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, libX11, gtk3, intltool, gobject-introspection
+, gnome3 }:
 
 let
   pname = "libwnck";

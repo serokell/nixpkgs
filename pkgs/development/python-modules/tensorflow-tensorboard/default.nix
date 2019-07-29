@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, isPy3k, numpy, werkzeug, protobuf, grpcio, markdown, futures, absl-py
-}:
+{ stdenv, lib, fetchPypi, buildPythonPackage, isPy3k, numpy, werkzeug, protobuf
+, grpcio, markdown, futures, absl-py }:
 
 # tensorflow/tensorboard is built from a downloaded wheel, because
 # https://github.com/tensorflow/tensorboard/issues/719 blocks

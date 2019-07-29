@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, libva, libpciaccess, intel-gmmlib, libX11
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libva, libpciaccess, intel-gmmlib
+, libX11 }:
 
 stdenv.mkDerivation rec {
   name = "intel-media-driver-${version}";

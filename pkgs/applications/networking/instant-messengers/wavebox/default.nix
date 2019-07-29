@@ -1,5 +1,5 @@
-{ alsaLib, autoPatchelfHook, fetchurl, gtk3, libnotify, makeDesktopItem, makeWrapper, nss, stdenv, udev, xdg_utils, xorg
-}:
+{ alsaLib, autoPatchelfHook, fetchurl, gtk3, libnotify, makeDesktopItem
+, makeWrapper, nss, stdenv, udev, xdg_utils, xorg }:
 
 with stdenv.lib;
 

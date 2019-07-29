@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, zlib, pcre, xorg, libjpeg, libtiff, libpng, gtk2, libpaper, makeWrapper, ghostscript
-}:
+{ stdenv, fetchurl, pkgconfig, zlib, pcre, xorg, libjpeg, libtiff, libpng, gtk2
+, libpaper, makeWrapper, ghostscript }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

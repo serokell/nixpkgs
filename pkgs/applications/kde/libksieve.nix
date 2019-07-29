@@ -1,5 +1,7 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi, karchive, kcompletion, kiconthemes, kidentitymanagement, kio, kmailtransport, knewstuff, kwindowsystem, kxmlgui, libkdepim, pimcommon, qtwebengine, syntax-highlighting,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, karchive, kcompletion, kiconthemes, kidentitymanagement, kio, kmailtransport
+, knewstuff, kwindowsystem, kxmlgui, libkdepim, pimcommon, qtwebengine
+, syntax-highlighting, }:
 
 mkDerivation {
   name = "libksieve";

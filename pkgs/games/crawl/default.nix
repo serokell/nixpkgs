@@ -1,5 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, which, sqlite, lua5_1, perl, python3, zlib, pkgconfig, ncurses, dejavu_fonts, libpng, SDL2, SDL2_image, SDL2_mixer, libGLU_combined, freetype, pngcrush, advancecomp, tileMode ?
-  false, enableSound ? tileMode }:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, which, sqlite, lua5_1, perl, python3
+, zlib, pkgconfig, ncurses, dejavu_fonts, libpng, SDL2, SDL2_image, SDL2_mixer
+, libGLU_combined, freetype, pngcrush, advancecomp, tileMode ? false
+, enableSound ? tileMode }:
 
 stdenv.mkDerivation rec {
   name = "crawl-${version}${lib.optionalString tileMode "-tiles"}";

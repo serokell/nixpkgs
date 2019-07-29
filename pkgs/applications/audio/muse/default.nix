@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, libjack2, qt5, cmake, libsndfile, libsamplerate, ladspaH, fluidsynth, alsaLib, rtaudio, lash, dssi, liblo, pkgconfig, gitAndTools
-}:
+{ stdenv, fetchFromGitHub, libjack2, qt5, cmake, libsndfile, libsamplerate
+, ladspaH, fluidsynth, alsaLib, rtaudio, lash, dssi, liblo, pkgconfig
+, gitAndTools }:
 
 stdenv.mkDerivation rec {
   name = "muse-sequencer-${version}";

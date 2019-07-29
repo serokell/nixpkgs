@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, xorgproto, libX11, libXext, pixman, pkgconfig, utilmacros, xorgserver
-}:
+{ stdenv, fetchgit, autoreconfHook, xorgproto, libX11, libXext, pixman
+, pkgconfig, utilmacros, xorgserver }:
 
 stdenv.mkDerivation {
   name = "xf86-video-nested-2017-06-12";

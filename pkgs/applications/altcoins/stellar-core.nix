@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoconf, libtool, automake, pkgconfig, git, bison, flex, postgresql
-}:
+{ stdenv, fetchgit, autoconf, libtool, automake, pkgconfig, git, bison, flex
+, postgresql }:
 
 let
   pname = "stellar-core";

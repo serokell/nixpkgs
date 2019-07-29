@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, patches, libxcb, xcbutilkeysyms, xcbutilwm, libX11, xcbutil, xcbutilxrm
-}:
+{ stdenv, fetchFromGitHub, patches, libxcb, xcbutilkeysyms, xcbutilwm, libX11
+, xcbutil, xcbutilxrm }:
 
 stdenv.mkDerivation rec {
   version = "0.2";

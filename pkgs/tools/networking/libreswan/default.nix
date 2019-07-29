@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, systemd, gmp, unbound, bison, flex, pam, libevent, libcap_ng, curl, nspr, bash, iproute, iptables, procps, coreutils, gnused, gawk, nss, which, python, docs ?
-  false, xmlto }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, systemd, gmp, unbound, bison, flex
+, pam, libevent, libcap_ng, curl, nspr, bash, iproute, iptables, procps
+, coreutils, gnused, gawk, nss, which, python, docs ? false, xmlto }:
 
 let
   optional = stdenv.lib.optional;

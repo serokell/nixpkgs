@@ -1,4 +1,7 @@
-{ lib, buildPythonPackage, fetchFromGitHub, xdg_utils, requests, filetype, pyparsing, configparser, arxiv2bib, pyyaml, chardet, beautifulsoup4, colorama, bibtexparser, pylibgen, click, python-slugify, habanero, isbnlib, prompt_toolkit, pygments
+{ lib, buildPythonPackage, fetchFromGitHub, xdg_utils, requests, filetype
+, pyparsing, configparser, arxiv2bib, pyyaml, chardet, beautifulsoup4, colorama
+, bibtexparser, pylibgen, click, python-slugify, habanero, isbnlib
+, prompt_toolkit, pygments
 #, optional, dependencies
 , jinja2, whoosh, pytest, stdenv }:
 

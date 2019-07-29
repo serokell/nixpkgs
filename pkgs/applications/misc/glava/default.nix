@@ -1,5 +1,6 @@
-{ stdenv, writeScript, fetchFromGitHub, libGL, libX11, libXext, python3, libXrandr, libXrender, libpulseaudio, libXcomposite, enableGlfw ?
-  false, glfw, runtimeShell }:
+{ stdenv, writeScript, fetchFromGitHub, libGL, libX11, libXext, python3
+, libXrandr, libXrender, libpulseaudio, libXcomposite, enableGlfw ? false, glfw
+, runtimeShell }:
 
 let
   inherit (stdenv.lib) optional makeLibraryPath;

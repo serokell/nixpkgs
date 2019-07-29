@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, automake, autoconf, libtool, zimlib, cxxtools, tntnet
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, automake, autoconf, libtool, zimlib
+, cxxtools, tntnet }:
 
 stdenv.mkDerivation rec {
   name = "zimreader-0.92";

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, perl, libarchive, openssl, zlib, bzip2, lzma
-}:
+{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, perl, libarchive, openssl
+, zlib, bzip2, lzma }:
 
 stdenv.mkDerivation rec {
   name = "pacman-${version}";

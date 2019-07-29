@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, makeDesktopItem, unzip, fpc, lazarus, libX11, glib, gtk2, gdk_pixbuf, pango, atk, cairo, openssl
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, makeDesktopItem, unzip, fpc, lazarus
+, libX11, glib, gtk2, gdk_pixbuf, pango, atk, cairo, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "transgui";

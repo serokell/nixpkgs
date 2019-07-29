@@ -1,5 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, chardet, multidict, async-timeout, yarl, idna-ssl, typing-extensions, pytestrunner, pytest, gunicorn, pytest-timeout, async_generator, pytest_xdist, pytestcov, pytest-mock, trustme, brotlipy
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, chardet, multidict
+, async-timeout, yarl, idna-ssl, typing-extensions, pytestrunner, pytest
+, gunicorn, pytest-timeout, async_generator, pytest_xdist, pytestcov
+, pytest-mock, trustme, brotlipy }:
 
 buildPythonPackage rec {
   pname = "aiohttp";

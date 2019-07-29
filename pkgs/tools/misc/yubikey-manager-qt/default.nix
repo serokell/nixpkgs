@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, wrapQtAppsHook, pcsclite, pyotherside, pythonPackages, python3, qmake, qtbase, qtgraphicaleffects, qtquickcontrols, qtquickcontrols2, qtdeclarative, qtsvg, yubikey-manager, yubikey-personalization
-}:
+{ stdenv, fetchurl, wrapQtAppsHook, pcsclite, pyotherside, pythonPackages
+, python3, qmake, qtbase, qtgraphicaleffects, qtquickcontrols, qtquickcontrols2
+, qtdeclarative, qtsvg, yubikey-manager, yubikey-personalization }:
 
 let inherit (stdenv) lib;
 

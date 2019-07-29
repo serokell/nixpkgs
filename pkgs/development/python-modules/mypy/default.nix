@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, typed-ast, psutil, isPy3k, mypy_extensions
-}:
+{ stdenv, fetchPypi, buildPythonPackage, typed-ast, psutil, isPy3k
+, mypy_extensions }:
 
 buildPythonPackage rec {
   pname = "mypy";

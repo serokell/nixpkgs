@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, gdb, future, isort, psutil, pycparser, pyelftools, python-ptrace, ROPGadget, six, unicorn, pygments,
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, gdb, future, isort, psutil, pycparser
+, pyelftools, python-ptrace, ROPGadget, six, unicorn, pygments, }:
 
 stdenv.mkDerivation rec {
   name = "pwndbg-${version}";

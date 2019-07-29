@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, tox, six, dateutil, kitchen, pytz, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, tox, six, dateutil, kitchen, pytz
+, pkgs }:
 
 buildPythonPackage rec {
   version = "1.2.0";

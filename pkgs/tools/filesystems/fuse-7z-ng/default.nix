@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fuse, p7zip, autoconf, automake, pkgconfig, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, fuse, p7zip, autoconf, automake, pkgconfig
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

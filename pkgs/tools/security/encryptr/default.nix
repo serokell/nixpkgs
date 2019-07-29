@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, glib, nss, nspr, gconf, fontconfig, freetype, pango, cairo, libX11, libXi, libXcursor, libXext, libXfixes, libXrender, libXcomposite, alsaLib, libXdamage, libXtst, libXrandr, expat, libcap, systemd, dbus, gtk2, gdk_pixbuf, libnotify
-}:
+{ stdenv, fetchurl, glib, nss, nspr, gconf, fontconfig, freetype, pango, cairo
+, libX11, libXi, libXcursor, libXext, libXfixes, libXrender, libXcomposite
+, alsaLib, libXdamage, libXtst, libXrandr, expat, libcap, systemd, dbus, gtk2
+, gdk_pixbuf, libnotify }:
 
 let
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then

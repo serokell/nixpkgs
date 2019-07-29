@@ -1,5 +1,6 @@
-{ stdenv, pkgsBuildBuild, buildPackages, fetchpatch, fetchurl, makeWrapper, gawk, pkgconfig, libffi, libtool, readline, gmp, boehmgc, libunistring, coverageAnalysis ?
-  null }:
+{ stdenv, pkgsBuildBuild, buildPackages, fetchpatch, fetchurl, makeWrapper, gawk
+, pkgconfig, libffi, libtool, readline, gmp, boehmgc, libunistring
+, coverageAnalysis ? null }:
 
 # Do either a coverage analysis build or a standard build.
 (if coverageAnalysis != null then coverageAnalysis else stdenv.mkDerivation)

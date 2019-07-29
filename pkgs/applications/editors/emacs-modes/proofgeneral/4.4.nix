@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, emacs, texinfo, texLive, which, automake, enableDoc ?
-  false }:
+{ stdenv, fetchFromGitHub, emacs, texinfo, texLive, which, automake
+, enableDoc ? false }:
 
 stdenv.mkDerivation rec {
   name = "ProofGeneral-${version}";

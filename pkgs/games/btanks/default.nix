@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, sconsPackages, pkgconfig, SDL, libGLU_combined, zlib, smpeg, SDL_image, libvorbis, expat, zip, lua5_1
-}:
+{ stdenv, fetchurl, fetchpatch, sconsPackages, pkgconfig, SDL, libGLU_combined
+, zlib, smpeg, SDL_image, libvorbis, expat, zip, lua5_1 }:
 
 stdenv.mkDerivation rec {
   name = "battle-tanks-0.9.8083";

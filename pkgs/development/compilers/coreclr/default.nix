@@ -1,5 +1,6 @@
-{ config, stdenv, fetchFromGitHub, fetchpatch, which, cmake, clang, llvmPackages, libunwind, gettext, openssl, python2, icu, lttng-ust, liburcu, libuuid, libkrb5, debug ?
-  config.coreclr.debug or false }:
+{ config, stdenv, fetchFromGitHub, fetchpatch, which, cmake, clang, llvmPackages
+, libunwind, gettext, openssl, python2, icu, lttng-ust, liburcu, libuuid
+, libkrb5, debug ? config.coreclr.debug or false }:
 
 stdenv.mkDerivation rec {
   name = "coreclr-${version}";

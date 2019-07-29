@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, gtk2, mono, gtk-sharp-2_0, gnome2, autoconf, automake, libtool, which
-}:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, gtk2, mono, gtk-sharp-2_0, gnome2
+, autoconf, automake, libtool, which }:
 
 stdenv.mkDerivation rec {
   name = "gnome-sharp-${version}";

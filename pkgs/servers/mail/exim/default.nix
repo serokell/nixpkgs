@@ -1,6 +1,6 @@
-{ coreutils, db, fetchurl, openssl, pcre, perl, pkgconfig, stdenv, enableLDAP ?
-  false, openldap, enableMySQL ? false, mysql, zlib, enableAuthDovecot ?
-    false, dovecot, enablePAM ? false, pam }:
+{ coreutils, db, fetchurl, openssl, pcre, perl, pkgconfig, stdenv
+, enableLDAP ? false, openldap, enableMySQL ? false, mysql, zlib
+, enableAuthDovecot ? false, dovecot, enablePAM ? false, pam }:
 
 stdenv.mkDerivation rec {
   name = "exim-4.92";

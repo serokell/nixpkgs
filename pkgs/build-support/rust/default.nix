@@ -1,10 +1,10 @@
 { stdenv, cacert, git, cargo, rustc, fetchcargo, buildPackages }:
 
-{ name ? "${args.pname}-${args.version}", cargoSha256 ? "unset", src ?
-  null, srcs ? null, cargoPatches ? [ ], patches ? [ ], sourceRoot ?
-    null, logLevel ? "", buildInputs ? [ ], nativeBuildInputs ?
-      [ ], cargoUpdateHook ? "", cargoDepsHook ? "", cargoBuildFlags ?
-        [ ], buildType ? "release"
+{ name ? "${args.pname}-${args.version}", cargoSha256 ? "unset", src ? null
+, srcs ? null, cargoPatches ? [ ], patches ? [ ], sourceRoot ? null
+, logLevel ? "", buildInputs ? [ ], nativeBuildInputs ? [ ]
+, cargoUpdateHook ? "", cargoDepsHook ? "", cargoBuildFlags ? [ ]
+, buildType ? "release"
 
 , cargoVendorDir ? null, ... }@args:
 

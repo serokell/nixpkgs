@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, fetchzip, pkgconfig, SDL, libpng, zlib, xz, freetype, fontconfig, withOpenGFX ?
-  true, withOpenSFX ? true, withOpenMSX ? true, withFluidSynth ?
-    true, audioDriver ?
-      "alsa", fluidsynth, soundfont-fluid, procps, writeScriptBin, makeWrapper, runtimeShell
-}:
+{ stdenv, fetchurl, fetchzip, pkgconfig, SDL, libpng, zlib, xz, freetype
+, fontconfig, withOpenGFX ? true, withOpenSFX ? true, withOpenMSX ? true
+, withFluidSynth ? true, audioDriver ? "alsa", fluidsynth, soundfont-fluid
+, procps, writeScriptBin, makeWrapper, runtimeShell }:
 
 let
   opengfx = fetchzip {

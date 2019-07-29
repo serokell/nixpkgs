@@ -1,5 +1,7 @@
-{ mkDerivation, async, base, bytestring, connection, containers, directory, hpack, hspec, hspec-discover, hspec-expectations, http-client, http-conduit, lens, lens-aeson, megaparsec, mtl, optparse-applicative, parser-combinators, retry, stdenv, text, unix, unordered-containers, utf8-string, fetchzip
-}:
+{ mkDerivation, async, base, bytestring, connection, containers, directory
+, hpack, hspec, hspec-discover, hspec-expectations, http-client, http-conduit
+, lens, lens-aeson, megaparsec, mtl, optparse-applicative, parser-combinators
+, retry, stdenv, text, unix, unordered-containers, utf8-string, fetchzip }:
 mkDerivation rec {
   pname = "vaultenv";
   version = "0.8.0";

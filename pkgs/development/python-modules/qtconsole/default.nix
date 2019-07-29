@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, nose, isPy27, mock, traitlets, jupyter_core, jupyter_client, pygments, ipykernel, pyqt5
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, isPy27, mock, traitlets
+, jupyter_core, jupyter_client, pygments, ipykernel, pyqt5 }:
 
 buildPythonPackage rec {
   pname = "qtconsole";

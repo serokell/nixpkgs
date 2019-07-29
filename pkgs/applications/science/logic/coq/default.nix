@@ -5,8 +5,8 @@
 # - The exact version can be specified through the `version` argument to
 #   the derivation; it defaults to the latest stable version.
 
-{ stdenv, fetchFromGitHub, writeText, pkgconfig, ocamlPackages, ncurses, buildIde ?
-  true, glib, gnome3, wrapGAppsHook, csdp ? null, version }:
+{ stdenv, fetchFromGitHub, writeText, pkgconfig, ocamlPackages, ncurses
+, buildIde ? true, glib, gnome3, wrapGAppsHook, csdp ? null, version }:
 
 let
   sha256 = {

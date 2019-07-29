@@ -1,5 +1,7 @@
-{ stdenv, buildPythonPackage, fetchPypi, docutils, virtualenv, webtest, zope_component, hupper, PasteDeploy, plaster, plaster-pastedeploy, repoze_lru, repoze_sphinx_autointerface, translationstring, venusian, webob, zope_deprecation, zope_interface, isPy35
-}:
+{ stdenv, buildPythonPackage, fetchPypi, docutils, virtualenv, webtest
+, zope_component, hupper, PasteDeploy, plaster, plaster-pastedeploy, repoze_lru
+, repoze_sphinx_autointerface, translationstring, venusian, webob
+, zope_deprecation, zope_interface, isPy35 }:
 
 buildPythonPackage rec {
   pname = "pyramid";

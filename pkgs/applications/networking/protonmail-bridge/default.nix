@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtsvg, qtdeclarative, qttools, full, libsecret, libGL, libpulseaudio, glib, wrapQtAppsHook, makeDesktopItem
+{ stdenv, fetchurl, lib, qtbase, qtmultimedia, qtsvg, qtdeclarative, qttools
+, full, libsecret, libGL, libpulseaudio, glib, wrapQtAppsHook, makeDesktopItem
 }:
 
 let

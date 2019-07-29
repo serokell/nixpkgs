@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, dbus-glib, intltool, libxslt, docbook_xsl, udev, libgudev, libusb1, gobject-introspection, useSystemd ?
-  true, systemd }:
+{ stdenv, fetchurl, pkgconfig, dbus-glib, intltool, libxslt, docbook_xsl, udev
+, libgudev, libusb1, gobject-introspection, useSystemd ? true, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "upower";

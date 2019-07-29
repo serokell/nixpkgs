@@ -1,5 +1,6 @@
-{ fetchFromGitHub, stdenv, pkgconfig, autoreconfHook, openssl, db48, boost, zlib, miniupnpc, qrencode, glib, protobuf, yasm, libevent, utillinux, enable_Upnp ?
-  false, disable_Wallet ? false, disable_Daemon ? false }:
+{ fetchFromGitHub, stdenv, pkgconfig, autoreconfHook, openssl, db48, boost, zlib
+, miniupnpc, qrencode, glib, protobuf, yasm, libevent, utillinux
+, enable_Upnp ? false, disable_Wallet ? false, disable_Daemon ? false }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

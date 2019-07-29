@@ -1,7 +1,7 @@
 # based on https://github.com/nim-lang/Nim/blob/v0.18.0/.travis.yml
 
-{ stdenv, lib, fetchurl, makeWrapper, nodejs-slim-11_x, openssl, pcre, readline, boehmgc, sfml, tzdata, coreutils, sqlite
-}:
+{ stdenv, lib, fetchurl, makeWrapper, nodejs-slim-11_x, openssl, pcre, readline
+, boehmgc, sfml, tzdata, coreutils, sqlite }:
 
 stdenv.mkDerivation rec {
   name = "nim-${version}";

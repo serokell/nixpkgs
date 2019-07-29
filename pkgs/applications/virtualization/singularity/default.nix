@@ -1,5 +1,5 @@
-{ stdenv, removeReferencesTo, lib, fetchFromGitHub, utillinux, openssl, coreutils, go, which, makeWrapper, squashfsTools, buildGoPackage
-}:
+{ stdenv, removeReferencesTo, lib, fetchFromGitHub, utillinux, openssl
+, coreutils, go, which, makeWrapper, squashfsTools, buildGoPackage }:
 
 with lib;
 

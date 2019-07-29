@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pantheon, pkgconfig, meson, ninja, python3, glib, gsettings-desktop-schemas, gtk3, libgee, json-glib, glib-networking, libsoup, libunity, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, pantheon, pkgconfig, meson, ninja
+, python3, glib, gsettings-desktop-schemas, gtk3, libgee, json-glib
+, glib-networking, libsoup, libunity, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "fondo";

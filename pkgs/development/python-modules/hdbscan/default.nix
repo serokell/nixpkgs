@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, cython, numpy, nose, scipy, scikitlearn, fetchPypi, joblib
-}:
+{ lib, buildPythonPackage, cython, numpy, nose, scipy, scikitlearn, fetchPypi
+, joblib }:
 
 buildPythonPackage rec {
   pname = "hdbscan";

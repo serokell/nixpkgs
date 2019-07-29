@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, which, perl, jdk, ocamlPackages, openssl, coreutils, zlib, ncurses, makeWrapper, gcc, binutils, gnumake, nodejs
-}:
+{ stdenv, fetchFromGitHub, which, perl, jdk, ocamlPackages, openssl, coreutils
+, zlib, ncurses, makeWrapper, gcc, binutils, gnumake, nodejs }:
 
 stdenv.mkDerivation rec {
   pname = "opa";

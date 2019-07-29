@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-mock, pythonOlder, faulthandler
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-mock
+, pythonOlder, faulthandler }:
 
 buildPythonPackage rec {
   pname = "pytest-faulthandler";

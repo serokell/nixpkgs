@@ -1,6 +1,6 @@
-{ stdenv, buildOcaml, fetchurl, ocaml, sexplib_p4, stringext, uri_p4, cstruct, ipaddr_p4, asyncSupport ?
-  stdenv.lib.versionAtLeast ocaml.version "4.02", async_p4 ?
-    null, async_ssl_p4 ? null, lwt ? null }:
+{ stdenv, buildOcaml, fetchurl, ocaml, sexplib_p4, stringext, uri_p4, cstruct
+, ipaddr_p4, asyncSupport ? stdenv.lib.versionAtLeast ocaml.version "4.02"
+, async_p4 ? null, async_ssl_p4 ? null, lwt ? null }:
 
 buildOcaml rec {
   name = "conduit";

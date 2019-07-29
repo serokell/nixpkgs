@@ -17,8 +17,8 @@ let
     '';
     preferLocalBuild = true;
   };
-in { name ?
-  "cargo-deps", src, srcs, patches, sourceRoot, sha256, cargoUpdateHook ? "" }:
+in { name ? "cargo-deps", src, srcs, patches, sourceRoot, sha256
+, cargoUpdateHook ? "" }:
 stdenv.mkDerivation {
   name = "${name}-vendor";
   nativeBuildInputs = [ cacert cargo-vendor git cargo-vendor-normalise cargo ];

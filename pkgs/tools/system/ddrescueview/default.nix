@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, fpc, lazarus, atk, cairo, gdk_pixbuf, glib, gtk2, libX11, pango
-}:
+{ stdenv, lib, fetchurl, fpc, lazarus, atk, cairo, gdk_pixbuf, glib, gtk2
+, libX11, pango }:
 
 stdenv.mkDerivation rec {
   name = "ddrescueview-0.4alpha3";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fftwSinglePrec, ruby, libffi, aubio, cmake, pkgconfig, qt5, libsForQt5, boost, bash, makeWrapper, jack2Full
-}:
+{ stdenv, fetchFromGitHub, fftwSinglePrec, ruby, libffi, aubio, cmake, pkgconfig
+, qt5, libsForQt5, boost, bash, makeWrapper, jack2Full }:
 
 let
   supercollider =

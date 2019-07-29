@@ -1,5 +1,5 @@
-{ stdenv, fetchbzr, pkgconfig, systemd, autoreconfHook, glib, dbus-glib, json-glib, gtk3, libindicator-gtk3, libdbusmenu-gtk3, libappindicator-gtk3
-}:
+{ stdenv, fetchbzr, pkgconfig, systemd, autoreconfHook, glib, dbus-glib
+, json-glib, gtk3, libindicator-gtk3, libdbusmenu-gtk3, libappindicator-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "indicator-application";

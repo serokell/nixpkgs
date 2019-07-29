@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchFromBitbucket, isPy3k, pkgs, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchFromBitbucket, isPy3k, pkgs
+, python }:
 
 buildPythonPackage rec {
   pname = "pyhepmc";

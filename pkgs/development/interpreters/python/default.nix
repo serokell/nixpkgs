@@ -5,9 +5,9 @@ with pkgs;
 (let
 
   # Common passthru for all Python interpreters.
-  passthruFun =
-    { implementation, libPrefix, executable, sourceVersion, pythonVersion, packageOverrides, sitePackages, hasDistutilsCxxPatch, pythonForBuild, self
-    }:
+  passthruFun = { implementation, libPrefix, executable, sourceVersion
+    , pythonVersion, packageOverrides, sitePackages, hasDistutilsCxxPatch
+    , pythonForBuild, self }:
     let
       pythonPackages = callPackage ../../../top-level/python-packages.nix {
         python = self;

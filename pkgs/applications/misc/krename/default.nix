@@ -1,5 +1,5 @@
-{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, kconfig, kinit, kjsembed, taglib, exiv2, podofo, kcrash
-}:
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
+, kconfig, kinit, kjsembed, taglib, exiv2, podofo, kcrash }:
 
 let
   pname = "krename";

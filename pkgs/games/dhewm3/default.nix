@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, SDL2, libGLU_combined, zlib, libjpeg, libogg, libvorbis, openal, curl
-}:
+{ stdenv, fetchFromGitHub, cmake, SDL2, libGLU_combined, zlib, libjpeg, libogg
+, libvorbis, openal, curl }:
 
 stdenv.mkDerivation rec {
   name = "dhewm3-${version}";

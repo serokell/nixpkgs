@@ -1,5 +1,5 @@
-{ lib, fetchurl, buildPythonPackage, lammps-mpi, mpi, mpi4py, numpy, cython, pymatgen, ase, pytestrunner, pytest, pytestcov, isPy3k, openssh
-}:
+{ lib, fetchurl, buildPythonPackage, lammps-mpi, mpi, mpi4py, numpy, cython
+, pymatgen, ase, pytestrunner, pytest, pytestcov, isPy3k, openssh }:
 
 buildPythonPackage rec {
   pname = "lammps-cython";

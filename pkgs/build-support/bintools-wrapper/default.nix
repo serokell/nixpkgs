@@ -5,12 +5,11 @@
 # script that sets up the right environment variables so that the
 # compiler and the linker just "work".
 
-{ name ? "", stdenvNoCC, bintools ? null, libc ? null, coreutils ? null, shell ?
-  stdenvNoCC.shell, gnugrep ? null, nativeTools, noLibc ?
-    false, nativeLibc, nativePrefix ? "", propagateDoc ? bintools != null
-      && bintools
-      ? man, extraPackages ? [ ], extraBuildCommands ? "", buildPackages ?
-        { }, useMacosReexportHack ? false }:
+{ name ? "", stdenvNoCC, bintools ? null, libc ? null, coreutils ? null
+, shell ? stdenvNoCC.shell, gnugrep ? null, nativeTools, noLibc ? false
+, nativeLibc, nativePrefix ? ""
+, propagateDoc ? bintools != null && bintools ? man, extraPackages ? [ ]
+, extraBuildCommands ? "", buildPackages ? { }, useMacosReexportHack ? false }:
 
 with stdenvNoCC.lib;
 

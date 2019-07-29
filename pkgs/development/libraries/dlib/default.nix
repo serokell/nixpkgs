@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, libpng, libjpeg, guiSupport ?
-  false, libX11
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, libpng, libjpeg
+, guiSupport ? false, libX11
 
 # see http://dlib.net/compile.html
 , avxSupport ? true }:

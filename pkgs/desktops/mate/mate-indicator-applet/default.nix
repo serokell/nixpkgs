@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk3, libindicator-gtk3, mate, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk3, libindicator-gtk3, mate
+, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-indicator-applet-${version}";

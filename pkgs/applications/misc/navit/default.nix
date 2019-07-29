@@ -1,8 +1,12 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gtk2, fontconfig, freetype, imlib2, SDL_image, libGLU_combined, libXmu, freeglut, pcre, dbus, dbus-glib, glib, librsvg, freeimage, libxslt, cairo, gdk_pixbuf, pango, atk, patchelf, fetchurl, bzip2, python, gettext, quesoglc, gd, cmake, shapelib, SDL_ttf, fribidi, makeWrapper, qtquickcontrols, qtmultimedia, qtspeech, qtsensors, qtlocation, qtdeclarative, qtsvg, qtSupport ?
-  false, qtbase # need to fix qt_qpainter
-, sdlSupport ? true, SDL, xkbdSupport ? true, xkbd, espeakSupport ?
-  true, espeak, postgresqlSupport ? false, postgresql, speechdSupport ?
-    false, speechd ? null }:
+{ stdenv, fetchFromGitHub, pkgconfig, gtk2, fontconfig, freetype, imlib2
+, SDL_image, libGLU_combined, libXmu, freeglut, pcre, dbus, dbus-glib, glib
+, librsvg, freeimage, libxslt, cairo, gdk_pixbuf, pango, atk, patchelf, fetchurl
+, bzip2, python, gettext, quesoglc, gd, cmake, shapelib, SDL_ttf, fribidi
+, makeWrapper, qtquickcontrols, qtmultimedia, qtspeech, qtsensors, qtlocation
+, qtdeclarative, qtsvg, qtSupport ? false, qtbase # need to fix qt_qpainter
+, sdlSupport ? true, SDL, xkbdSupport ? true, xkbd, espeakSupport ? true, espeak
+, postgresqlSupport ? false, postgresql, speechdSupport ? false, speechd ? null
+}:
 
 assert speechdSupport -> speechd != null;
 

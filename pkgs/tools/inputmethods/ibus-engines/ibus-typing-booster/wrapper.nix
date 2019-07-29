@@ -1,12 +1,5 @@
-{ typing-booster, symlinkJoin, hunspellDicts, lib, makeWrapper, langs ? [
-  "de-de"
-  "en-us"
-  "es-es"
-  "fr-moderne"
-  "it-it"
-  "sv-se"
-  "sv-fi"
-] }:
+{ typing-booster, symlinkJoin, hunspellDicts, lib, makeWrapper
+, langs ? [ "de-de" "en-us" "es-es" "fr-moderne" "it-it" "sv-se" "sv-fi" ] }:
 
 let
 

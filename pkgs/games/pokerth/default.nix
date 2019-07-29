@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, runCommand, fetchpatch, patchutils, qmake, qtbase, SDL, SDL_mixer, boost, curl, gsasl, libgcrypt, libircclient, protobuf, sqlite, tinyxml2, target ?
-  "client" }:
+{ stdenv, fetchFromGitHub, runCommand, fetchpatch, patchutils, qmake, qtbase
+, SDL, SDL_mixer, boost, curl, gsasl, libgcrypt, libircclient, protobuf, sqlite
+, tinyxml2, target ? "client" }:
 
 with stdenv.lib;
 

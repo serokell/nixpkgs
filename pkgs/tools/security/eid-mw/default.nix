@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk3, nssTools, pcsclite, libxml2, libproxy, openssl, curl, makeWrapper, substituteAll
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk3, nssTools, pcsclite
+, libxml2, libproxy, openssl, curl, makeWrapper, substituteAll }:
 
 stdenv.mkDerivation rec {
   name = "eid-mw-${version}";

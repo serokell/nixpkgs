@@ -1,8 +1,9 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, utillinux, nukeReferences, coreutils, perl, configFile ?
-  "all"
+{ stdenv, fetchFromGitHub, autoreconfHook, utillinux, nukeReferences, coreutils
+, perl, configFile ? "all"
 
   # Userspace dependencies
-, zlib, libuuid, python3, attr, openssl, libtirpc, nfs-utils, gawk, gnugrep, gnused, systemd
+, zlib, libuuid, python3, attr, openssl, libtirpc, nfs-utils, gawk, gnugrep
+, gnused, systemd
 
 # Kernel dependencies
 , kernel ? null }:
@@ -12,8 +13,8 @@ let
   buildKernel = any (n: n == configFile) [ "kernel" "all" ];
   buildUser = any (n: n == configFile) [ "user" "all" ];
 
-  common = { version, sha256, extraPatches, rev ? "zfs-${version}", isUnstable ?
-    false, incompatibleKernelVersion ? null }:
+  common = { version, sha256, extraPatches, rev ? "zfs-${version}"
+    , isUnstable ? false, incompatibleKernelVersion ? null }:
     if buildKernel && (incompatibleKernelVersion != null)
     && versionAtLeast kernel.version incompatibleKernelVersion then
       throw ''

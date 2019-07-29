@@ -1,5 +1,5 @@
-{ lib, buildGoPackage, fetchFromGitHub, perl, go-bindata, libxml2, protobuf3_1, libpcap, pkgconfig, go-protobuf
-}:
+{ lib, buildGoPackage, fetchFromGitHub, perl, go-bindata, libxml2, protobuf3_1
+, libpcap, pkgconfig, go-protobuf }:
 
 buildGoPackage rec {
   name = "skydive-${version}";

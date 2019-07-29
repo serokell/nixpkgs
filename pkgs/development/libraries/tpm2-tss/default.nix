@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, cmocka, doxygen, ibm-sw-tpm2, iproute, openssl, perl, pkgconfig, procps, uthash, which
-}:
+{ stdenv, lib, fetchurl, cmocka, doxygen, ibm-sw-tpm2, iproute, openssl, perl
+, pkgconfig, procps, uthash, which }:
 
 stdenv.mkDerivation rec {
   pname = "tpm2-tss";

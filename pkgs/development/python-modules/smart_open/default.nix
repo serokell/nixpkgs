@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, boto, boto3, bz2file, mock, moto, requests, responses
-}:
+{ lib, buildPythonPackage, fetchPypi, boto, boto3, bz2file, mock, moto, requests
+, responses }:
 
 buildPythonPackage rec {
   pname = "smart_open";

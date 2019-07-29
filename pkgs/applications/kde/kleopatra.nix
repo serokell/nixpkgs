@@ -1,5 +1,6 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, boost, gpgme, kcmutils, kdbusaddons, kiconthemes, kitemmodels, kmime, knotifications, kwindowsystem, kxmlgui, libkleo, kcrash
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, boost, gpgme
+, kcmutils, kdbusaddons, kiconthemes, kitemmodels, kmime, knotifications
+, kwindowsystem, kxmlgui, libkleo, kcrash }:
 
 mkDerivation {
   name = "kleopatra";

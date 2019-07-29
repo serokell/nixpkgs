@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cln, gmp, swig, pkgconfig, readline, libantlr3c, boost, jdk, autoreconfHook, python3, antlr3_4
-}:
+{ stdenv, fetchurl, cln, gmp, swig, pkgconfig, readline, libantlr3c, boost, jdk
+, autoreconfHook, python3, antlr3_4 }:
 
 stdenv.mkDerivation rec {
   name = "cvc4-${version}";

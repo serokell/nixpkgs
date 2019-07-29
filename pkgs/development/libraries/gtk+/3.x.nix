@@ -1,8 +1,10 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, gettext, perl, makeWrapper, shared-mime-info, isocodes, expat, glib, cairo, pango, gdk_pixbuf, atk, at-spi2-atk, gobject-introspection, fribidi, xorg, epoxy, json-glib, libxkbcommon, gmp, gnome3, autoreconfHook, gsettings-desktop-schemas, x11Support ?
-  stdenv.isLinux, waylandSupport ?
-    stdenv.isLinux, mesa, wayland, wayland-protocols, xineramaSupport ?
-      stdenv.isLinux, cupsSupport ? stdenv.isLinux, cups ? null, AppKit, Cocoa
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, gettext, perl, makeWrapper
+, shared-mime-info, isocodes, expat, glib, cairo, pango, gdk_pixbuf, atk
+, at-spi2-atk, gobject-introspection, fribidi, xorg, epoxy, json-glib
+, libxkbcommon, gmp, gnome3, autoreconfHook, gsettings-desktop-schemas
+, x11Support ? stdenv.isLinux, waylandSupport ? stdenv.isLinux, mesa, wayland
+, wayland-protocols, xineramaSupport ? stdenv.isLinux
+, cupsSupport ? stdenv.isLinux, cups ? null, AppKit, Cocoa }:
 
 assert cupsSupport -> cups != null;
 

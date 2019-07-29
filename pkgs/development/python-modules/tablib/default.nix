@@ -1,5 +1,5 @@
-{ buildPythonPackage, stdenv, fetchPypi, pytest, unicodecsv, pandas, xlwt, openpyxl, pyyaml, xlrd, odfpy, fetchpatch
-}:
+{ buildPythonPackage, stdenv, fetchPypi, pytest, unicodecsv, pandas, xlwt
+, openpyxl, pyyaml, xlrd, odfpy, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "tablib";

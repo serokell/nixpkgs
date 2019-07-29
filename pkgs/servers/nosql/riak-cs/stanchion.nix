@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, unzip, erlang, git, wget, which, pam, Carbon ?
-  null, Cocoa ? null }:
+{ stdenv, lib, fetchurl, unzip, erlang, git, wget, which, pam, Carbon ? null
+, Cocoa ? null }:
 
 stdenv.mkDerivation rec {
   name = "stanchion-2.1.1";

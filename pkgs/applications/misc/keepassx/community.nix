@@ -1,10 +1,13 @@
 { stdenv, fetchFromGitHub, cmake, makeWrapper, qttools
 
-, curl, glibcLocales, libXi, libXtst, libargon2, libgcrypt, libgpgerror, libmicrohttpd, libsodium, libyubikey, pkg-config, qrencode, qtbase, qtmacextras, qtsvg, qtx11extras, quazip, wrapQtAppsHook, yubikey-personalization, zlib
+, curl, glibcLocales, libXi, libXtst, libargon2, libgcrypt, libgpgerror
+, libmicrohttpd, libsodium, libyubikey, pkg-config, qrencode, qtbase
+, qtmacextras, qtsvg, qtx11extras, quazip, wrapQtAppsHook
+, yubikey-personalization, zlib
 
-, withKeePassBrowser ? true, withKeePassKeeShare ?
-  true, withKeePassKeeShareSecure ? true, withKeePassSSHAgent ?
-    true, withKeePassNetworking ? false }:
+, withKeePassBrowser ? true, withKeePassKeeShare ? true
+, withKeePassKeeShareSecure ? true, withKeePassSSHAgent ? true
+, withKeePassNetworking ? false }:
 
 with stdenv.lib;
 

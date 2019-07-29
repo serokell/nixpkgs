@@ -1,9 +1,11 @@
-{ stdenv, lib, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d, pkgconfig, gettext, libXft, dbus, libpng, libjpeg, libungif, libtiff, librsvg, gconf, libxml2, imagemagick, gnutls, libselinux, alsaLib, cairo, acl, gpm, AppKit, GSS, ImageIO, withX ?
-  !stdenv.isDarwin, withGTK2 ? false, gtk2 ? null, withGTK3 ? true, gtk3 ?
-    null, gsettings-desktop-schemas ? null, withXwidgets ?
-      false, webkitgtk24x-gtk3 ? null, wrapGAppsHook ? null, glib-networking ?
-        null, withCsrc ? true, srcRepo ? false, autoconf ? null, automake ?
-          null, texinfo ? null }:
+{ stdenv, lib, fetchurl, ncurses, xlibsWrapper, libXaw, libXpm, Xaw3d, pkgconfig
+, gettext, libXft, dbus, libpng, libjpeg, libungif, libtiff, librsvg, gconf
+, libxml2, imagemagick, gnutls, libselinux, alsaLib, cairo, acl, gpm, AppKit
+, GSS, ImageIO, withX ? !stdenv.isDarwin, withGTK2 ? false, gtk2 ? null
+, withGTK3 ? true, gtk3 ? null, gsettings-desktop-schemas ? null
+, withXwidgets ? false, webkitgtk24x-gtk3 ? null, wrapGAppsHook ? null
+, glib-networking ? null, withCsrc ? true, srcRepo ? false, autoconf ? null
+, automake ? null, texinfo ? null }:
 
 assert (libXft != null) -> libpng != null; # probably a bug
 assert stdenv.isDarwin -> libXaw != null; # fails to link otherwise

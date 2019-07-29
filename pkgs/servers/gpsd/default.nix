@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, scons, pkgconfig, dbus, dbus-glib, ncurses, libX11, libXt, libXpm, libXaw, libXext, libusb1, docbook_xml_dtd_412, docbook_xsl, bc, libxslt, xmlto, gpsdUser ?
-  "gpsd", gpsdGroup ? "dialout", pps-tools, python2Packages }:
+{ fetchurl, stdenv, scons, pkgconfig, dbus, dbus-glib, ncurses, libX11, libXt
+, libXpm, libXaw, libXext, libusb1, docbook_xml_dtd_412, docbook_xsl, bc
+, libxslt, xmlto, gpsdUser ? "gpsd", gpsdGroup ? "dialout", pps-tools
+, python2Packages }:
 
 # TODO: put the X11 deps behind a guiSupport parameter for headless support
 

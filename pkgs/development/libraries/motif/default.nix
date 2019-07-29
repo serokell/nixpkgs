@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libtool, xlibsWrapper, xbitmaps, libXrender, libXmu, libXt, expat, libjpeg, libpng, libiconv, flex, libXp, libXau, demoSupport ?
-  false }:
+{ stdenv, fetchurl, pkgconfig, libtool, xlibsWrapper, xbitmaps, libXrender
+, libXmu, libXt, expat, libjpeg, libpng, libiconv, flex, libXp, libXau
+, demoSupport ? false }:
 # refer to the gentoo package
 
 stdenv.mkDerivation rec {

@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, freetype, harfbuzz, jbig2dec, libjpeg, libX11, mupdf, ncurses, openjpeg, openssl
+{ stdenv, fetchFromGitHub, freetype, harfbuzz, jbig2dec, libjpeg, libX11, mupdf
+, ncurses, openjpeg, openssl
 
 , imageSupport ? true, imlib2 ? null }:
 

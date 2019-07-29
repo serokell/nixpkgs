@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, mock, unittest2, nose, twiggy, requests, offtrac, bugzilla, taskw, dateutil, pytz, keyring, six, jinja2, pycurl, dogpile_cache, lockfile, click, pyxdg, future
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, unittest2, nose, twiggy, requests
+, offtrac, bugzilla, taskw, dateutil, pytz, keyring, six, jinja2, pycurl
+, dogpile_cache, lockfile, click, pyxdg, future }:
 
 buildPythonPackage rec {
   pname = "bugwarrior";

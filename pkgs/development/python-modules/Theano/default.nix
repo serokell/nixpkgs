@@ -1,5 +1,6 @@
-{ stdenv, runCommandCC, fetchPypi, buildPythonPackage, isPyPy, pythonOlder, isPy3k, nose, numpy, scipy, six, libgpuarray, cudaSupport ?
-  false, cudatoolkit, cudnnSupport ? false, cudnn, nvidia_x11 }:
+{ stdenv, runCommandCC, fetchPypi, buildPythonPackage, isPyPy, pythonOlder
+, isPy3k, nose, numpy, scipy, six, libgpuarray, cudaSupport ? false, cudatoolkit
+, cudnnSupport ? false, cudnn, nvidia_x11 }:
 
 assert cudnnSupport -> cudaSupport;
 

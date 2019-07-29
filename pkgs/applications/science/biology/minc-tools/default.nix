@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, flex, bison, perlPackages, libminc, libjpeg, zlib
-}:
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, flex, bison, perlPackages
+, libminc, libjpeg, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "minc-tools";

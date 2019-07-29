@@ -1,5 +1,9 @@
-{ stdenv, intltool, pkgconfig, readline, openldap, cyrus_sasl, libupnp, zlib, libxml2, gtk2, libnotify, speex, ffmpeg, libX11, libsoup, udev, ortp, mediastreamer, sqlite, belle-sip, libosip, libexosip, bzrtp, mediastreamer-openh264, bctoolbox, makeWrapper, fetchFromGitHub, cmake, libmatroska, bcunit, doxygen, gdk_pixbuf, glib, cairo, pango, polarssl, python, graphviz, belcard, withGui ?
-  true }:
+{ stdenv, intltool, pkgconfig, readline, openldap, cyrus_sasl, libupnp, zlib
+, libxml2, gtk2, libnotify, speex, ffmpeg, libX11, libsoup, udev, ortp
+, mediastreamer, sqlite, belle-sip, libosip, libexosip, bzrtp
+, mediastreamer-openh264, bctoolbox, makeWrapper, fetchFromGitHub, cmake
+, libmatroska, bcunit, doxygen, gdk_pixbuf, glib, cairo, pango, polarssl, python
+, graphviz, belcard, withGui ? true }:
 
 stdenv.mkDerivation rec {
   baseName = "linphone";

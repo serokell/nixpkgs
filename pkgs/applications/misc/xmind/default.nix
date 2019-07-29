@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchzip, fetchurl, gtk2, jre, libXtst, makeWrapper, makeDesktopItem, runtimeShell
-}:
+{ stdenv, lib, fetchzip, fetchurl, gtk2, jre, libXtst, makeWrapper
+, makeDesktopItem, runtimeShell }:
 
 stdenv.mkDerivation rec {
   name = "xmind-${version}";

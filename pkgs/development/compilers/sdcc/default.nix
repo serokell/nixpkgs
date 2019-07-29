@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, bison, boost, flex, texinfo, zlib, gputils ?
-  null, excludePorts ? [ ] }:
+{ stdenv, fetchurl, autoconf, bison, boost, flex, texinfo, zlib, gputils ? null
+, excludePorts ? [ ] }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, unzip, qt4 ? null, qmake4Hook ? null, withQt5 ?
-  false, qtbase ? null, qtmacextras ? null, qmake ? null, fixDarwinDylibNames }:
+{ stdenv, lib, fetchurl, unzip, qt4 ? null, qmake4Hook ? null, withQt5 ? false
+, qtbase ? null, qtmacextras ? null, qmake ? null, fixDarwinDylibNames }:
 
 # Fix Xcode 8 compilation problem
 let

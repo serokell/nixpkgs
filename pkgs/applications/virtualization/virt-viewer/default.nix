@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, gtk3, gtk-vnc, gmp, libgcrypt, gnupg, cyrus_sasl, shared-mime-info, libvirt, yajl, xen, gsettings-desktop-schemas, wrapGAppsHook, libvirt-glib, libcap_ng, numactl, libapparmor, gst_all_1, spiceSupport ?
-  true, spice-gtk ? null, spice-protocol ? null, libcap ? null, gdbm ? null }:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, libxml2, gtk3, gtk-vnc, gmp
+, libgcrypt, gnupg, cyrus_sasl, shared-mime-info, libvirt, yajl, xen
+, gsettings-desktop-schemas, wrapGAppsHook, libvirt-glib, libcap_ng, numactl
+, libapparmor, gst_all_1, spiceSupport ? true, spice-gtk ? null
+, spice-protocol ? null, libcap ? null, gdbm ? null }:
 
 assert spiceSupport -> spice-gtk != null && spice-protocol != null && libcap
 != null && gdbm != null;

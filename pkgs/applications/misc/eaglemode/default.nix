@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, perl, libX11, libXinerama, libjpeg, libpng, libtiff, pkgconfig, librsvg, glib, gtk2, libXext, libXxf86vm, poppler, xineLib, ghostscript, makeWrapper
-}:
+{ stdenv, fetchurl, perl, libX11, libXinerama, libjpeg, libpng, libtiff
+, pkgconfig, librsvg, glib, gtk2, libXext, libXxf86vm, poppler, xineLib
+, ghostscript, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "eaglemode-${version}";

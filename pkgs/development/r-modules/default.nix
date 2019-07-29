@@ -17,9 +17,9 @@ let
   # so that we use xvfb-run if requireX is true.
   mkDerive = { mkHomepage, mkUrls }:
     args:
-    lib.makeOverridable
-    ({ name, version, sha256, depends ? [ ], doCheck ? true, requireX ?
-      false, broken ? false, hydraPlatforms ? R.meta.hydraPlatforms }:
+    lib.makeOverridable ({ name, version, sha256, depends ? [ ], doCheck ? true
+    , requireX ? false, broken ? false, hydraPlatforms ? R.meta.hydraPlatforms
+    }:
     buildRPackage {
       name = "${name}-${version}";
       src = fetchurl {

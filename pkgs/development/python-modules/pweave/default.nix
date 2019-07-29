@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, mock, matplotlib, pkgs, nbconvert, markdown, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, mock, matplotlib, pkgs, nbconvert
+, markdown, isPy3k }:
 
 buildPythonPackage rec {
   pname = "Pweave";

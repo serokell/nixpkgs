@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, fetchpatch, tzdata, iana-etc, libcCross, pkgconfig, pcre, Security
-}:
+{ stdenv, lib, fetchurl, fetchpatch, tzdata, iana-etc, libcCross, pkgconfig
+, pcre, Security }:
 
 let libc = if stdenv ? "cross" then libcCross else stdenv.cc.libc;
 

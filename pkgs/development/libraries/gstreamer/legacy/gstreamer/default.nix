@@ -1,5 +1,5 @@
-{ fetchurl, fetchpatch, stdenv, autoreconfHook, perl, bison2, flex, pkgconfig, glib, libxml2, libintl, libunwind
-}:
+{ fetchurl, fetchpatch, stdenv, autoreconfHook, perl, bison2, flex, pkgconfig
+, glib, libxml2, libintl, libunwind }:
 
 stdenv.mkDerivation rec {
   name = "gstreamer-0.10.36";

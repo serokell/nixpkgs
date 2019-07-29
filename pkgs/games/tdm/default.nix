@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, binutils-unwrapped, scons, gnum4, p7zip, glibc_multi, mesa, xorg, libGLU_combined, openal, lib, makeWrapper, makeDesktopItem
-}:
+{ stdenv, fetchurl, binutils-unwrapped, scons, gnum4, p7zip, glibc_multi, mesa
+, xorg, libGLU_combined, openal, lib, makeWrapper, makeDesktopItem }:
 
 let
   pname = "tdm";

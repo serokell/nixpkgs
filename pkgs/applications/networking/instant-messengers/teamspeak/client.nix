@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, makeWrapper, makeDesktopItem, zlib, glib, libpng, freetype, openssl, xorg, fontconfig, qtbase, qtwebengine, qtwebchannel, qtsvg, xkeyboard_config, alsaLib, libpulseaudio ?
-  null, libredirect, quazip, less, which, unzip, llvmPackages }:
+{ stdenv, fetchurl, makeWrapper, makeDesktopItem, zlib, glib, libpng, freetype
+, openssl, xorg, fontconfig, qtbase, qtwebengine, qtwebchannel, qtsvg
+, xkeyboard_config, alsaLib, libpulseaudio ? null, libredirect, quazip, less
+, which, unzip, llvmPackages }:
 
 let
 

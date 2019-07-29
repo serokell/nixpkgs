@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, Mako, packaging, pysocks, pygments, ROPGadget, capstone, paramiko, pip, psutil, pyelftools, pyserial, dateutil, requests, tox, unicorn, intervaltree, fetchpatch
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, Mako, packaging, pysocks
+, pygments, ROPGadget, capstone, paramiko, pip, psutil, pyelftools, pyserial
+, dateutil, requests, tox, unicorn, intervaltree, fetchpatch }:
 
 buildPythonPackage rec {
   version = "3.12.0";

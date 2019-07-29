@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, ifaddr, typing, pythonOlder, netifaces, six, enum-compat
-}:
+{ stdenv, buildPythonPackage, fetchPypi, ifaddr, typing, pythonOlder, netifaces
+, six, enum-compat }:
 
 buildPythonPackage rec {
   pname = "zeroconf";

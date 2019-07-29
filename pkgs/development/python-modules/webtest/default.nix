@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, webob, six, beautifulsoup4, waitress, mock, pyquery, wsgiproxy2, PasteDeploy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, webob, six, beautifulsoup4
+, waitress, mock, pyquery, wsgiproxy2, PasteDeploy }:
 
 buildPythonPackage rec {
   version = "2.0.32";

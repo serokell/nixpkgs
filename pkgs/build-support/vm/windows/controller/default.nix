@@ -1,8 +1,8 @@
-{ stdenv, writeScript, vmTools, makeInitrd, samba, vde2, openssh, socat, netcat-gnu, coreutils, gnugrep, gzip, runtimeShell
-}:
+{ stdenv, writeScript, vmTools, makeInitrd, samba, vde2, openssh, socat
+, netcat-gnu, coreutils, gnugrep, gzip, runtimeShell }:
 
-{ sshKey, qemuArgs ? [ ], command ? "sync", suspendTo ? null, resumeFrom ?
-  null, installMode ? false }:
+{ sshKey, qemuArgs ? [ ], command ? "sync", suspendTo ? null, resumeFrom ? null
+, installMode ? false }:
 
 with stdenv.lib;
 

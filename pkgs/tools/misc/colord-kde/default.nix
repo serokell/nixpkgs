@@ -1,5 +1,7 @@
-{ stdenv, lib, fetchurl, extra-cmake-modules, ki18n, kconfig, kconfigwidgets, kcoreaddons, kdbusaddons, kiconthemes, kcmutils, kio, knotifications, plasma-framework, kwidgetsaddons, kwindowsystem, kitemviews, lcms2, libXrandr, qtx11extras
-}:
+{ stdenv, lib, fetchurl, extra-cmake-modules, ki18n, kconfig, kconfigwidgets
+, kcoreaddons, kdbusaddons, kiconthemes, kcmutils, kio, knotifications
+, plasma-framework, kwidgetsaddons, kwindowsystem, kitemviews, lcms2, libXrandr
+, qtx11extras }:
 
 stdenv.mkDerivation rec {
   name = "colord-kde-${version}";

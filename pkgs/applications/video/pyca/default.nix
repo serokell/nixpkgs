@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub, pycurl, dateutil, configobj, sqlalchemy, sdnotify, flask
-}:
+{ stdenv, buildPythonApplication, fetchFromGitHub, pycurl, dateutil, configobj
+, sqlalchemy, sdnotify, flask }:
 
 buildPythonApplication rec {
   pname = "pyca";

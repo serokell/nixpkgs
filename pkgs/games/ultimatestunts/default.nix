@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL, libGLU_combined, SDL_image, freealut, openal, libvorbis, pkgconfig
-}:
+{ stdenv, fetchurl, SDL, libGLU_combined, SDL_image, freealut, openal, libvorbis
+, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "ultimate-stunts-0.7.6.1";

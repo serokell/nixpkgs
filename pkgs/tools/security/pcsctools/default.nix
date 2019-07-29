@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, makeWrapper, pkgconfig, udev, dbus, pcsclite, wget, coreutils, perlPackages
-}:
+{ stdenv, lib, fetchurl, makeWrapper, pkgconfig, udev, dbus, pcsclite, wget
+, coreutils, perlPackages }:
 
 let deps = lib.makeBinPath [ wget coreutils ];
 

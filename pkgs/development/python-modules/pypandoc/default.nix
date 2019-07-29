@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pip, pandoc, glibcLocales, haskellPackages, texlive
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pip, pandoc, glibcLocales
+, haskellPackages, texlive }:
 
 buildPythonPackage rec {
   pname = "pypandoc";

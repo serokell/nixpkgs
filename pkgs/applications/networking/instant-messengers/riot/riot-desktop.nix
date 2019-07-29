@@ -1,5 +1,5 @@
-{ pkgs, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, electron, riot-web
-}:
+{ pkgs, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, electron
+, riot-web }:
 
 # Note for maintainers:
 # Versions of `riot-web` and `riot-desktop` should be kept in sync.

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, ocurl, cryptokit, ocaml_extlib, yojson, ocamlnet, xmlm
-}:
+{ stdenv, fetchFromGitHub, buildDunePackage, ocurl, cryptokit, ocaml_extlib
+, yojson, ocamlnet, xmlm }:
 
 buildDunePackage rec {
   pname = "gapi-ocaml";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, python2, boost, libuuid, ruby, buildEnv, buildPythonPackage, qpid-python
-}:
+{ stdenv, fetchurl, cmake, python2, boost, libuuid, ruby, buildEnv
+, buildPythonPackage, qpid-python }:
 
 let
   name = "qpid-cpp-${version}";

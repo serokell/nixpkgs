@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, which, m4, protobuf, boost, zlib, curl, openssl, icu, jemalloc, libtool, python2Packages, makeWrapper
-}:
+{ stdenv, fetchurl, which, m4, protobuf, boost, zlib, curl, openssl, icu
+, jemalloc, libtool, python2Packages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "rethinkdb-${version}";

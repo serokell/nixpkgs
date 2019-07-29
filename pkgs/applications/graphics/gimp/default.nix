@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, substituteAll, pkgconfig, intltool, babl, gegl, gtk2, glib, gdk_pixbuf, isocodes, pango, cairo, freetype, fontconfig, lcms, libpng, libjpeg, poppler, poppler_data, libtiff, libmng, librsvg, libwmf, zlib, libzip, ghostscript, aalib, shared-mime-info, python2Packages, libexif, gettext, xorg, glib-networking, libmypaint, gexiv2, harfbuzz, mypaint-brushes, libwebp, libheif, libgudev, openexr, AppKit, Cocoa, gtk-mac-integration-gtk2
-}:
+{ stdenv, fetchurl, substituteAll, pkgconfig, intltool, babl, gegl, gtk2, glib
+, gdk_pixbuf, isocodes, pango, cairo, freetype, fontconfig, lcms, libpng
+, libjpeg, poppler, poppler_data, libtiff, libmng, librsvg, libwmf, zlib, libzip
+, ghostscript, aalib, shared-mime-info, python2Packages, libexif, gettext, xorg
+, glib-networking, libmypaint, gexiv2, harfbuzz, mypaint-brushes, libwebp
+, libheif, libgudev, openexr, AppKit, Cocoa, gtk-mac-integration-gtk2 }:
 
 let inherit (python2Packages) pygtk wrapPython python;
 in stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, intltool, gobject-introspection, glib, gdk_pixbuf, libxml2, cairo, pango, gnome3
-}:
+{ fetchurl, stdenv, pkgconfig, intltool, gobject-introspection, glib, gdk_pixbuf
+, libxml2, cairo, pango, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "lasem";

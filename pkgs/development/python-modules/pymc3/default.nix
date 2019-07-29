@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, Theano, pandas, patsy, joblib, tqdm, six, h5py, pytest, nose, parameterized
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, Theano, pandas, patsy, joblib
+, tqdm, six, h5py, pytest, nose, parameterized }:
 
 buildPythonPackage rec {
   pname = "pymc3";

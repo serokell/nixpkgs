@@ -1,7 +1,8 @@
-{ stdenv, fetchFromGitHub, gtk3, pythonPackages, intltool, gnome3, pango, gobject-introspection, wrapGAppsHook, gettext,
+{ stdenv, fetchFromGitHub, gtk3, pythonPackages, intltool, gnome3, pango
+, gobject-introspection, wrapGAppsHook, gettext,
 # Optional packages:
-enableOSM ? true, osm-gps-map, enableGraphviz ?
-  true, graphviz, enableGhostscript ? true, ghostscript }:
+enableOSM ? true, osm-gps-map, enableGraphviz ? true, graphviz
+, enableGhostscript ? true, ghostscript }:
 
 let inherit (pythonPackages) python buildPythonApplication;
 in buildPythonApplication rec {

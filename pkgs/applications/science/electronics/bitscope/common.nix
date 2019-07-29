@@ -1,5 +1,5 @@
-{ atk, buildFHSUserEnv, cairo, dpkg, gdk_pixbuf, glib, gtk2-x11, makeWrapper, pango, stdenv, xorg
-}:
+{ atk, buildFHSUserEnv, cairo, dpkg, gdk_pixbuf, glib, gtk2-x11, makeWrapper
+, pango, stdenv, xorg }:
 
 { src, toolName, version, ... }@attrs:
 let

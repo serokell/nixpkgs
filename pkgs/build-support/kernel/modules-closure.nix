@@ -3,8 +3,8 @@
 # the modules identified by `rootModules', plus their dependencies.
 # Also generate an appropriate modules.dep.
 
-{ stdenvNoCC, kernel, firmware, nukeReferences, rootModules, kmod, allowMissing ?
-  false }:
+{ stdenvNoCC, kernel, firmware, nukeReferences, rootModules, kmod
+, allowMissing ? false }:
 
 stdenvNoCC.mkDerivation {
   name = kernel.name + "-shrunk";

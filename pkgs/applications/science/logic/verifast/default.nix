@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gtk2, gdk_pixbuf, atk, pango, glib, cairo, freetype, fontconfig, libxml2, gnome2
-}:
+{ stdenv, fetchurl, gtk2, gdk_pixbuf, atk, pango, glib, cairo, freetype
+, fontconfig, libxml2, gnome2 }:
 
 let
 

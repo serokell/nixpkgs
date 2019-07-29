@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, gmp, mpir, mpfr, ntl, openblas ?
-  null, withBlas ? true }:
+{ stdenv, fetchurl, fetchpatch, gmp, mpir, mpfr, ntl, openblas ? null
+, withBlas ? true }:
 
 assert withBlas -> openblas != null;
 

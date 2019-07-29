@@ -1,13 +1,13 @@
-{ stdenv, fetchurl, xftSupport ? true, libXft ? null, xrenderSupport ?
-  true, libXrender ? null, xrandrSupport ? true, libXrandr ?
-    null, xineramaSupport ? true, libXinerama ? null, cursorSupport ?
-      true, libXcursor ? null, threadSupport ? true, mysqlSupport ?
-        false, mysql ? null, libGLSupported ?
-          stdenv.lib.elem stdenv.hostPlatform.system
-          stdenv.lib.platforms.mesaPlatforms, openglSupport ?
-            stdenv.lib.elem stdenv.hostPlatform.system
-            stdenv.lib.platforms.mesaPlatforms, libGLU_combined ? null, libXmu ?
-              null, xlibsWrapper, xorgproto, zlib, libjpeg, libpng, which }:
+{ stdenv, fetchurl, xftSupport ? true, libXft ? null, xrenderSupport ? true
+, libXrender ? null, xrandrSupport ? true, libXrandr ? null
+, xineramaSupport ? true, libXinerama ? null, cursorSupport ? true
+, libXcursor ? null, threadSupport ? true, mysqlSupport ? false, mysql ? null
+, libGLSupported ?
+  stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
+, openglSupport ?
+  stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
+, libGLU_combined ? null, libXmu ? null, xlibsWrapper, xorgproto, zlib, libjpeg
+, libpng, which }:
 
 assert xftSupport -> libXft != null;
 assert xrenderSupport -> xftSupport && libXrender != null;

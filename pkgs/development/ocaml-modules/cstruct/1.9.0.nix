@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, ocamlbuild, ocplib-endian, sexplib, findlib, ppx_tools, async ?
-  null, lwt ? null }:
+{ stdenv, fetchFromGitHub, ocaml, ocamlbuild, ocplib-endian, sexplib, findlib
+, ppx_tools, async ? null, lwt ? null }:
 
 assert stdenv.lib.versionAtLeast ocaml.version "4.01";
 

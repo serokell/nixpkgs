@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk, dbus-glib, libstartup_notification, libnotify, libexif, pcre, udev, exo, libxfce4util, xfconf, xfce4-panel, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk, dbus-glib, libstartup_notification
+, libnotify, libexif, pcre, udev, exo, libxfce4util, xfconf, xfce4-panel
+, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   p_name = "thunar";

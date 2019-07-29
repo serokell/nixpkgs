@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, stdenv, pytestrunner, pytest, mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, stdenv, pytestrunner, pytest
+, mock }:
 
 buildPythonPackage rec {
   pname = "paho-mqtt";

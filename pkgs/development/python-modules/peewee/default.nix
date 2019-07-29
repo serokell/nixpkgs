@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, sqlite, cython, apsw, flask, withPostgres ?
-  false, psycopg2, withMysql ? false, mysql-connector }:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, sqlite, cython, apsw, flask
+, withPostgres ? false, psycopg2, withMysql ? false, mysql-connector }:
 
 buildPythonPackage rec {
 

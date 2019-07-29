@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libjpeg, libtiff, giflib, libpng, bzip2, pkgconfig, freetype, libid3tag, x11Support ?
-  true, xlibsWrapper ? null }:
+{ stdenv, fetchurl, libjpeg, libtiff, giflib, libpng, bzip2, pkgconfig, freetype
+, libid3tag, x11Support ? true, xlibsWrapper ? null }:
 
 with stdenv.lib;
 

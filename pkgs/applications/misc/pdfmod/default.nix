@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, gnome-doc-utils, intltool, lib, mono, gtk-sharp-2_0, gnome-sharp, hyena, which, makeWrapper, glib, gnome2, poppler, wrapGAppsHook
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, gnome-doc-utils, intltool, lib, mono
+, gtk-sharp-2_0, gnome-sharp, hyena, which, makeWrapper, glib, gnome2, poppler
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "pdfmod";

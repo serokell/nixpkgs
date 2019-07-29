@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, mecab, kytea, libedit, pkgconfig, suggestSupport ?
-  false, zeromq, libevent, msgpack, lz4Support ? false, lz4, zlibSupport ?
-    false, zlib }:
+{ stdenv, fetchurl, mecab, kytea, libedit, pkgconfig, suggestSupport ? false
+, zeromq, libevent, msgpack, lz4Support ? false, lz4, zlibSupport ? false, zlib
+}:
 
 stdenv.mkDerivation rec {
 

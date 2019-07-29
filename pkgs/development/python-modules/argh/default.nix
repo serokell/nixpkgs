@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, py, mock, glibcLocales, iocapture
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, py, mock, glibcLocales
+, iocapture }:
 
 buildPythonPackage rec {
   pname = "argh";

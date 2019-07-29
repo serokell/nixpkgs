@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, asciidoc, libxml2, docbook_xml_dtd_45, libxslt, docbook_xsl, diffutils, coreutils, gnugrep, gnused
-}:
+{ stdenv, fetchurl, asciidoc, libxml2, docbook_xml_dtd_45, libxslt, docbook_xsl
+, diffutils, coreutils, gnugrep, gnused }:
 
 stdenv.mkDerivation rec {
   name = "autorevision-${version}";

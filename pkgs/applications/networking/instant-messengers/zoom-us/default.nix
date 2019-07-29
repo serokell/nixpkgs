@@ -1,9 +1,11 @@
 { stdenv, fetchurl, makeWrapper, makeDesktopItem, autoPatchelfHook, env
 # Dynamic libraries
-, dbus, glib, libGL, libX11, libXfixes, libuuid, libxcb, qtbase, qtdeclarative, qtimageformats, qtlocation, qtquickcontrols, qtquickcontrols2, qtscript, qtsvg, qttools, qtwayland, qtwebchannel, qtwebengine
+, dbus, glib, libGL, libX11, libXfixes, libuuid, libxcb, qtbase, qtdeclarative
+, qtimageformats, qtlocation, qtquickcontrols, qtquickcontrols2, qtscript, qtsvg
+, qttools, qtwayland, qtwebchannel, qtwebengine
 # Runtime
-, coreutils, libjpeg_turbo, pciutils, procps, utillinux, libv4l, pulseaudioSupport ?
-  true, libpulseaudio ? null }:
+, coreutils, libjpeg_turbo, pciutils, procps, utillinux, libv4l
+, pulseaudioSupport ? true, libpulseaudio ? null }:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 

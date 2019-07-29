@@ -1,5 +1,6 @@
-{ stdenv, fetchgit, git, SDL2, udev, doxygen, qtbase, qtlocation, qtserialport, qtdeclarative, qtconnectivity, qtxmlpatterns, qtsvg, qtquick1, qtquickcontrols, qtgraphicaleffects, qmake, qtspeech, makeWrapper, gst_all_1, pkgconfig
-}:
+{ stdenv, fetchgit, git, SDL2, udev, doxygen, qtbase, qtlocation, qtserialport
+, qtdeclarative, qtconnectivity, qtxmlpatterns, qtsvg, qtquick1, qtquickcontrols
+, qtgraphicaleffects, qmake, qtspeech, makeWrapper, gst_all_1, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "qgroundcontrol-${version}";

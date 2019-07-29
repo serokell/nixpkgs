@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, perl, gettext, fuse, openssl, tinyxml2
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, perl, gettext, fuse, openssl
+, tinyxml2 }:
 
 stdenv.mkDerivation rec {
   name = "encfs-${version}";

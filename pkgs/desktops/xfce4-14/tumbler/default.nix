@@ -1,5 +1,5 @@
-{ mkXfceDerivation, gdk_pixbuf ? null, ffmpegthumbnailer ? null, libgsf ?
-  null, poppler ? null }:
+{ mkXfceDerivation, gdk_pixbuf ? null, ffmpegthumbnailer ? null, libgsf ? null
+, poppler ? null }:
 
 # TODO: add libopenraw
 

@@ -1,5 +1,5 @@
-{ stdenv, callPackage, defaultCrateOverrides, fetchFromGitHub, cmake, curl, libssh2, libgit2, openssl, zlib
-}:
+{ stdenv, callPackage, defaultCrateOverrides, fetchFromGitHub, cmake, curl
+, libssh2, libgit2, openssl, zlib }:
 
 ((callPackage ./cargo-update.nix { }).cargo_update { }).override {
   crateOverrides = defaultCrateOverrides // {

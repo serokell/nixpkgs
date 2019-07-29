@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, cmake, glib, boost, libsigrok, libsigrokdecode, libserialport, libzip, udev, libusb1, libftdi1, glibmm, pcre, librevisa, python3, qtbase, qtsvg
-}:
+{ stdenv, fetchurl, pkgconfig, cmake, glib, boost, libsigrok, libsigrokdecode
+, libserialport, libzip, udev, libusb1, libftdi1, glibmm, pcre, librevisa
+, python3, qtbase, qtsvg }:
 
 stdenv.mkDerivation rec {
   name = "pulseview-0.4.1";

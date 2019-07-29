@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-flake8, glibcLocales, packaging, isPy27, backports_os, importlib-metadata
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytest-flake8
+, glibcLocales, packaging, isPy27, backports_os, importlib-metadata }:
 
 buildPythonPackage rec {
   pname = "path.py";

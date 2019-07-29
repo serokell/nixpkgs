@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, future, python-language-server, mypy, configparser, pytest, mock, isPy3k, pytestcov, coverage
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, future, python-language-server, mypy
+, configparser, pytest, mock, isPy3k, pytestcov, coverage }:
 
 buildPythonPackage rec {
   pname = "pyls-mypy";

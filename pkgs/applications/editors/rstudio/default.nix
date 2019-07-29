@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchFromGitHub, makeDesktopItem, cmake, boost, zlib, openssl, R, qtbase, qtxmlpatterns, qtsensors, qtwebengine, qtwebchannel, libuuid, hunspellDicts, unzip, ant, jdk, gnumake, makeWrapper, pandoc, llvmPackages
-}:
+{ stdenv, fetchurl, fetchFromGitHub, makeDesktopItem, cmake, boost, zlib
+, openssl, R, qtbase, qtxmlpatterns, qtsensors, qtwebengine, qtwebchannel
+, libuuid, hunspellDicts, unzip, ant, jdk, gnumake, makeWrapper, pandoc
+, llvmPackages }:
 
 let
   verMajor = "1";

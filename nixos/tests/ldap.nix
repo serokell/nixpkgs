@@ -195,8 +195,8 @@ in {
         };
 
         # NOTE: create a user account using the posixAccount objectClass.
-        posixAccount = { uid, uidNumber ? null, gidNumber ? null, cn ? "", sn ?
-          "", userPassword ? "", loginShell ? "/bin/sh" }: ''
+        posixAccount = { uid, uidNumber ? null, gidNumber ? null, cn ? ""
+          , sn ? "", userPassword ? "", loginShell ? "/bin/sh" }: ''
 
             dn: uid=${uid},ou=accounts,ou=posix,${dbSuffix}
             objectClass: person

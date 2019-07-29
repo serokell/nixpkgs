@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, qttools, kcodecs, kconfig, kconfigwidgets, kcoreaddons, kiconthemes, kwidgetsaddons, kxmlgui, qtbase,
-}:
+{ mkDerivation, lib, extra-cmake-modules, qttools, kcodecs, kconfig
+, kconfigwidgets, kcoreaddons, kiconthemes, kwidgetsaddons, kxmlgui, qtbase, }:
 
 mkDerivation {
   name = "kbookmarks";

@@ -1,5 +1,7 @@
-{ dpkg, fetchurl, lib, pkgs, stdenv, alsaLib, atk, cairo, coreutils, cups, dbus, desktop-file-utils, expat, fontconfig, freetype, gcc-unwrapped, gdk_pixbuf, glib, gnome2, libgnome-keyring, libnotify, makeWrapper, nodejs, nspr, nss, pango, python2, udev, wget, xorg
-}:
+{ dpkg, fetchurl, lib, pkgs, stdenv, alsaLib, atk, cairo, coreutils, cups, dbus
+, desktop-file-utils, expat, fontconfig, freetype, gcc-unwrapped, gdk_pixbuf
+, glib, gnome2, libgnome-keyring, libnotify, makeWrapper, nodejs, nspr, nss
+, pango, python2, udev, wget, xorg }:
 
 stdenv.mkDerivation rec {
   name = "${pkgname}-${version}";

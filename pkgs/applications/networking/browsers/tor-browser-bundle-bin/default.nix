@@ -4,7 +4,8 @@
 , zlib
 
 # libxul run-time dependencies
-, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk_pixbuf, glib, gtk3, libxcb, libX11, libXext, libXrender, libXt, pango
+, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk_pixbuf, glib, gtk3
+, libxcb, libX11, libXext, libXrender, libXt, pango
 
 , audioSupport ? mediaSupport, pulseaudioSupport ? false, libpulseaudio, apulse
 
@@ -17,7 +18,8 @@
 , python27
 
 # Wrapper runtime
-, coreutils, glibcLocales, gnome3, runtimeShell, shared-mime-info, gsettings-desktop-schemas
+, coreutils, glibcLocales, gnome3, runtimeShell, shared-mime-info
+, gsettings-desktop-schemas
 
 # Whether to disable multiprocess support to work around crashing tabs
 # TODO: fix the underlying problem instead of this terrible work-around

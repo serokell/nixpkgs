@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkgconfig, automake, autoconf, zlib, boost, openssl, libtool, python, libiconv, geoip, ncurses
-}:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, automake, autoconf, zlib, boost
+, openssl, libtool, python, libiconv, geoip, ncurses }:
 
 let
   version = "1.1.11";

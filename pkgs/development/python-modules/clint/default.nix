@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python, mock, blessings, nose, nose_progressive, pillow, args, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, mock, blessings, nose
+, nose_progressive, pillow, args, pkgs }:
 
 buildPythonPackage rec {
   pname = "clint";

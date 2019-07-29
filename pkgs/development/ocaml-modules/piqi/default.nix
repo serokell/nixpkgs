@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, which, ulex, easy-format, ocaml_optcomp, xmlm, base64
-}:
+{ stdenv, fetchurl, ocaml, findlib, which, ulex, easy-format, ocaml_optcomp
+, xmlm, base64 }:
 
 stdenv.mkDerivation rec {
   version = "0.6.14";

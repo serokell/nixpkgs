@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, fetchFromGitHub, optipng, cairo, pythonPackages, pkgconfig, pngquant, which, imagemagick
-}:
+{ stdenv, fetchzip, fetchFromGitHub, optipng, cairo, pythonPackages, pkgconfig
+, pngquant, which, imagemagick }:
 
 let
   mkNoto = { name, weights, sha256, }:

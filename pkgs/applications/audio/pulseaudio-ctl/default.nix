@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, bc, dbus, gawk, gnused, libnotify, pulseaudio
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, bc, dbus, gawk, gnused, libnotify
+, pulseaudio }:
 
 let
   path = stdenv.lib.makeBinPath [ bc dbus gawk gnused libnotify pulseaudio ];

@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, openssl, zlib, libpcap, boost, cairo, automake, autoconf, useCairo ?
-  false }:
+{ stdenv, lib, fetchFromGitHub, openssl, zlib, libpcap, boost, cairo, automake
+, autoconf, useCairo ? false }:
 
 stdenv.mkDerivation rec {
   baseName = "tcpflow";

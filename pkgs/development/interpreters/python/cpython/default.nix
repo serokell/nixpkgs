@@ -1,9 +1,10 @@
-{ stdenv, fetchurl, fetchpatch, bzip2, expat, libffi, gdbm, lzma, ncurses, openssl, readline, sqlite, tcl ?
-  null, tk ? null, tix ? null, libX11 ? null, xorgproto ? null, x11Support ?
-    false, zlib, self, CF, configd, python-setup-hook, nukeReferences
+{ stdenv, fetchurl, fetchpatch, bzip2, expat, libffi, gdbm, lzma, ncurses
+, openssl, readline, sqlite, tcl ? null, tk ? null, tix ? null, libX11 ? null
+, xorgproto ? null, x11Support ? false, zlib, self, CF, configd
+, python-setup-hook, nukeReferences
 # For the Python package set
-, packageOverrides ?
-  (self: super: { }), buildPackages, sourceVersion, sha256, passthruFun, bash }:
+, packageOverrides ? (self: super: { }), buildPackages, sourceVersion, sha256
+, passthruFun, bash }:
 
 assert x11Support -> tcl != null && tk != null && xorgproto != null && libX11
 != null;

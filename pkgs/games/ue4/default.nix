@@ -1,5 +1,5 @@
-{ stdenv, writeScript, fetchurl, requireFile, unzip, clang_35, mono, which, xorg, xdg-user-dirs
-}:
+{ stdenv, writeScript, fetchurl, requireFile, unzip, clang_35, mono, which, xorg
+, xdg-user-dirs }:
 
 let
   inherit (stdenv) lib;

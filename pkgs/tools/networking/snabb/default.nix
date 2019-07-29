@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, bash, makeWrapper, git, mysql, diffutils, which, coreutils, procps, nettools, supportOpenstack ?
-  true }:
+{ stdenv, fetchFromGitHub, bash, makeWrapper, git, mysql, diffutils, which
+, coreutils, procps, nettools, supportOpenstack ? true }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, buildPythonPackage, pep8, nose, unittest2, docutils, blockdiag
-}:
+{ stdenv, fetchurl, buildPythonPackage, pep8, nose, unittest2, docutils
+, blockdiag }:
 
 buildPythonPackage rec {
   pname = "nwdiag";

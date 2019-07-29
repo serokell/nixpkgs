@@ -1,5 +1,5 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kconfig, kio, ktextwidgets, kwidgetsaddons, pimcommon
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kconfig, kio
+, ktextwidgets, kwidgetsaddons, pimcommon }:
 
 mkDerivation {
   name = "libgravatar";

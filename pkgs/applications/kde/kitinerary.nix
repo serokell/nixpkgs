@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, qtbase, qtdeclarative, ki18n, kmime, kpkpass, poppler, kcontacts, kcalcore
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtbase, qtdeclarative, ki18n, kmime
+, kpkpass, poppler, kcontacts, kcalcore }:
 
 mkDerivation {
   name = "kitinerary";

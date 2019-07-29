@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, boost, cmake, fftw, fftwSinglePrec, hdf5, ilmbase, libjpeg, libpng, libtiff, openexr, python2Packages
-}:
+{ stdenv, fetchurl, boost, cmake, fftw, fftwSinglePrec, hdf5, ilmbase, libjpeg
+, libpng, libtiff, openexr, python2Packages }:
 
 let
   inherit (python2Packages) python numpy;

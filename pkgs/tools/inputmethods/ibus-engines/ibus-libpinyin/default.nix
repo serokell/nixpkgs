@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, intltool, pkgconfig, sqlite, libpinyin, db, ibus, glib, gtk3, python3
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, intltool, pkgconfig, sqlite
+, libpinyin, db, ibus, glib, gtk3, python3 }:
 
 stdenv.mkDerivation rec {
   name = "ibus-libpinyin-${version}";

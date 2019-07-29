@@ -1,5 +1,5 @@
-{ stdenv, rustPlatform, fetchFromGitHub, pkgconfig, makeWrapper, openssl, curl, nix, Security
-}:
+{ stdenv, rustPlatform, fetchFromGitHub, pkgconfig, makeWrapper, openssl, curl
+, nix, Security }:
 
 rustPlatform.buildRustPackage rec {
   name = "nix-index-${version}";

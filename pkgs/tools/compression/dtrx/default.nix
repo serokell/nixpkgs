@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, pythonPackages, gnutar, unzip, lhasa, rpm, binutils, cpio, gzip, p7zip, cabextract, unrar, unshield, bzip2, xz, lzip
+{ stdenv, lib, fetchurl, pythonPackages, gnutar, unzip, lhasa, rpm, binutils
+, cpio, gzip, p7zip, cabextract, unrar, unshield, bzip2, xz, lzip
 # unzip is handled by p7zip
 , unzipSupport ? false, unrarSupport ? false }:
 

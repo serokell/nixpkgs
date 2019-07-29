@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, openssl, doxygen, boost, sqlite, pkgconfig, python, pythonPackages, wafHook
-}:
+{ stdenv, fetchFromGitHub, openssl, doxygen, boost, sqlite, pkgconfig, python
+, pythonPackages, wafHook }:
 let version = "0.6.3";
 in stdenv.mkDerivation {
   name = "ndn-cxx-${version}";

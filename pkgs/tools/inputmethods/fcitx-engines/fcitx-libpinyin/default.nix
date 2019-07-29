@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, pkgconfig, fcitx, gettext, libpinyin, glib, pcre, dbus, qtwebengine, qtbase, fcitx-qt5
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, fcitx, gettext, libpinyin, glib, pcre
+, dbus, qtwebengine, qtbase, fcitx-qt5 }:
 
 stdenv.mkDerivation rec {
   name = "fcitx-libpinyin-${version}";

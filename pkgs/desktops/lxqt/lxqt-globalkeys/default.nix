@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtx11extras, qtsvg, kwindowsystem, liblxqt, libqtxdg
-}:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtbase, qttools, qtx11extras
+, qtsvg, kwindowsystem, liblxqt, libqtxdg }:
 
 stdenv.mkDerivation rec {
   pname = "lxqt-globalkeys";

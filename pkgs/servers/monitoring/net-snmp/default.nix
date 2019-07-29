@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, autoreconfHook, file, openssl, perl, perlPackages, unzip, nettools, ncurses
-}:
+{ stdenv, fetchurl, fetchpatch, autoreconfHook, file, openssl, perl
+, perlPackages, unzip, nettools, ncurses }:
 
 stdenv.mkDerivation rec {
   name = "net-snmp-5.8";

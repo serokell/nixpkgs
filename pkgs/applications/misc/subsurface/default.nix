@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, cmake, wrapQtAppsHook, pkgconfig, qmake, curl, grantlee, libgit2, libusb, libssh2, libxml2, libxslt, libzip, zlib, qtbase, qtconnectivity, qtlocation, qtsvg, qttools, qtwebkit, libXcomposite
-}:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, cmake, wrapQtAppsHook
+, pkgconfig, qmake, curl, grantlee, libgit2, libusb, libssh2, libxml2, libxslt
+, libzip, zlib, qtbase, qtconnectivity, qtlocation, qtsvg, qttools, qtwebkit
+, libXcomposite }:
 
 let
   version = "4.8.2";

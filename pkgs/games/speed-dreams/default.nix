@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, libGLU_combined, freeglut, libX11, plib, openal, freealut, libXrandr, xorgproto, libXext, libSM, libICE, libXi, libXt, libXrender, libXxf86vm, openscenegraph, expat, libpng, zlib, bash, SDL2, enet, libjpeg, cmake, pkgconfig, libvorbis, runtimeShell
-}:
+{ fetchurl, stdenv, libGLU_combined, freeglut, libX11, plib, openal, freealut
+, libXrandr, xorgproto, libXext, libSM, libICE, libXi, libXt, libXrender
+, libXxf86vm, openscenegraph, expat, libpng, zlib, bash, SDL2, enet, libjpeg
+, cmake, pkgconfig, libvorbis, runtimeShell }:
 
 stdenv.mkDerivation rec {
   version = "2.2.1-r6404";

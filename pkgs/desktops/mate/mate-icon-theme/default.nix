@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, iconnamingutils, librsvg, hicolor-icon-theme, gtk3
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, iconnamingutils, librsvg
+, hicolor-icon-theme, gtk3 }:
 
 stdenv.mkDerivation rec {
   name = "mate-icon-theme-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, xfce4panel_gtk3, xfconf, gtk3, libpulseaudio, hicolor-icon-theme, withKeybinder ?
-  true, keybinder3, withLibnotify ? true, libnotify }:
+{ stdenv, fetchurl, pkgconfig, intltool, libxfce4util, xfce4panel_gtk3, xfconf
+, gtk3, libpulseaudio, hicolor-icon-theme, withKeybinder ? true, keybinder3
+, withLibnotify ? true, libnotify }:
 
 assert withKeybinder -> keybinder3 != null;
 assert withLibnotify -> libnotify != null;

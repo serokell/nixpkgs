@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, paramiko, selectors2, lxml, libxml2, libxslt, nose, rednose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, paramiko, selectors2, lxml, libxml2
+, libxslt, nose, rednose }:
 
 buildPythonPackage rec {
   pname = "ncclient";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, topkg, uri, xmlm, omd, ezjsonm
-}:
+{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, topkg, uri, xmlm, omd
+, ezjsonm }:
 
 stdenv.mkDerivation rec {
   version = "2.2.0";

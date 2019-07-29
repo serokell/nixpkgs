@@ -1,5 +1,7 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, ipaddress, websocket_client, urllib3, pyyaml, requests_oauthlib, python-dateutil, google_auth, adal, isort, pytest, coverage, mock, sphinx, autopep8, pep8, codecov, recommonmark, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, ipaddress
+, websocket_client, urllib3, pyyaml, requests_oauthlib, python-dateutil
+, google_auth, adal, isort, pytest, coverage, mock, sphinx, autopep8, pep8
+, codecov, recommonmark, nose }:
 
 buildPythonPackage rec {
   pname = "kubernetes";

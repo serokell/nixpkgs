@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, gobject-introspection, gnutls, cairo, libtool, glib, pkgconfig, cyrus_sasl, intltool, libpulseaudio, libgcrypt, gtk3, vala, gnome3, python3
-}:
+{ stdenv, fetchurl, gobject-introspection, gnutls, cairo, libtool, glib
+, pkgconfig, cyrus_sasl, intltool, libpulseaudio, libgcrypt, gtk3, vala, gnome3
+, python3 }:
 
 stdenv.mkDerivation rec {
   name = "gtk-vnc-${version}";

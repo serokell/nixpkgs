@@ -1,5 +1,6 @@
-{ stdenv, cmake, fetchFromGitHub, pkgconfig, boost, exiv2, fftwFloat, gsl, ilmbase, lcms2, libraw, libtiff, openexr, qtbase, qtdeclarative, qttools, qtwebengine, eigen
-}:
+{ stdenv, cmake, fetchFromGitHub, pkgconfig, boost, exiv2, fftwFloat, gsl
+, ilmbase, lcms2, libraw, libtiff, openexr, qtbase, qtdeclarative, qttools
+, qtwebengine, eigen }:
 
 stdenv.mkDerivation rec {
   pname = "luminance-hdr";

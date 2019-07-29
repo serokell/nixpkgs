@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, ocaml, findlib, lwt, menhir, ocsigen_deriving, ppx_deriving, camlp4, ocamlbuild, cmdliner, tyxml, reactivedata, cppo, which, base64, uchar, yojson
-}:
+{ stdenv, fetchurl, ocaml, findlib, lwt, menhir, ocsigen_deriving, ppx_deriving
+, camlp4, ocamlbuild, cmdliner, tyxml, reactivedata, cppo, which, base64, uchar
+, yojson }:
 
 let
   version =

@@ -1,5 +1,5 @@
-{ coreutils, dpkg, fetchurl, gnugrep, gnused, makeWrapper, mfcl8690cdwlpr, perl, stdenv
-}:
+{ coreutils, dpkg, fetchurl, gnugrep, gnused, makeWrapper, mfcl8690cdwlpr, perl
+, stdenv }:
 
 stdenv.mkDerivation rec {
   name = "mfcl8690cdwcupswrapper-${version}";

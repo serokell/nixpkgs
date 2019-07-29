@@ -4,15 +4,18 @@ coreutils, bison, flex, gdb, gperf, lndir, perl, pkgconfig, python2, which,
 # darwin support
 darwin, libiconv,
 
-dbus, fontconfig, freetype, glib, harfbuzz, icu, libX11, libXcomposite, libXcursor, libXext, libXi, libXrender, libinput, libjpeg, libpng, libtiff, libxcb, libxkbcommon, libxml2, libxslt, openssl, pcre16, pcre2, sqlite, udev, xcbutil, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm, zlib,
+dbus, fontconfig, freetype, glib, harfbuzz, icu, libX11, libXcomposite
+, libXcursor, libXext, libXi, libXrender, libinput, libjpeg, libpng, libtiff
+, libxcb, libxkbcommon, libxml2, libxslt, openssl, pcre16, pcre2, sqlite, udev
+, xcbutil, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm, zlib,
 
 # optional dependencies
-cups ? null, mysql ? null, postgresql ? null, withGtk3 ? false, dconf ?
-  null, gtk3 ? null,
+cups ? null, mysql ? null, postgresql ? null, withGtk3 ? false, dconf ? null
+, gtk3 ? null,
 
 # options
-libGLSupported ? !stdenv.isDarwin, libGL, buildExamples ? false, buildTests ?
-  false, developerBuild ? false, decryptSslTraffic ? false }:
+libGLSupported ? !stdenv.isDarwin, libGL, buildExamples ? false
+, buildTests ? false, developerBuild ? false, decryptSslTraffic ? false }:
 
 assert withGtk3 -> dconf != null;
 assert withGtk3 -> gtk3 != null;

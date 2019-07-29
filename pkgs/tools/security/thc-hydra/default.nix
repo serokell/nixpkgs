@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, zlib, openssl, ncurses, libidn, pcre, libssh, mysql, postgresql, withGUI ?
-  false, makeWrapper, pkgconfig, gtk2 }:
+{ stdenv, lib, fetchurl, zlib, openssl, ncurses, libidn, pcre, libssh, mysql
+, postgresql, withGUI ? false, makeWrapper, pkgconfig, gtk2 }:
 
 let
   makeDirs = output: subDir: pkgs:

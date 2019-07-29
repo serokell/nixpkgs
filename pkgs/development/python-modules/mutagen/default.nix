@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, hypothesis, pycodestyle, pyflakes, pytest, pkgs
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, hypothesis, pycodestyle
+, pyflakes, pytest, pkgs }:
 
 buildPythonPackage rec {
   pname = "mutagen";

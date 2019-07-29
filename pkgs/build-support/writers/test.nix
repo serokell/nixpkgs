@@ -1,5 +1,5 @@
-{ stdenv, lib, runCommand, haskellPackages, nodePackages, perlPackages, python2Packages, python3Packages, writers, writeText
-}:
+{ stdenv, lib, runCommand, haskellPackages, nodePackages, perlPackages
+, python2Packages, python3Packages, writers, writeText }:
 with writers;
 let
 

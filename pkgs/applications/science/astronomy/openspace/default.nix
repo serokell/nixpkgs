@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, cmake, curl, boost, gdal, glew, soil, libX11, libXi, libXxf86vm, libXcursor, libXrandr, libXinerama
-}:
+{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, cmake, curl, boost, gdal, glew
+, soil, libX11, libXi, libXxf86vm, libXcursor, libXrandr, libXinerama }:
 
 stdenv.mkDerivation rec {
   version = "0.11.1";

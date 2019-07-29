@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, ifaddr, typing, isPy27, pythonOlder, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, ifaddr, typing, isPy27, pythonOlder
+, python }:
 
 buildPythonPackage rec {
   pname = "zeroconf";

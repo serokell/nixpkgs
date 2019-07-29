@@ -1,5 +1,5 @@
-{ lib, fetchurl, buildPythonPackage, numpy, scikitlearn, setuptools_scm, cython, pytest
-}:
+{ lib, fetchurl, buildPythonPackage, numpy, scikitlearn, setuptools_scm, cython
+, pytest }:
 
 buildPythonPackage rec {
   pname = "hmmlearn";

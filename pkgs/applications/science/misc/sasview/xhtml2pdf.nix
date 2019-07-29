@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, html5lib, httplib2, nose, pillow, pypdf2, reportlab
-}:
+{ lib, fetchPypi, buildPythonPackage, html5lib, httplib2, nose, pillow, pypdf2
+, reportlab }:
 
 let
   #xhtml2pdf specifically requires version "1.0b10" of html5lib

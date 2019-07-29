@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, glibc, gnome2, gnome3, gtk3, libnotify, libpulseaudio, libsecret, libv4l, nspr, nss, pango, systemd, wrapGAppsHook, xorg, at-spi2-atk
-}:
+{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, curl, dbus, expat
+, fontconfig, freetype, gdk_pixbuf, glib, glibc, gnome2, gnome3, gtk3, libnotify
+, libpulseaudio, libsecret, libv4l, nspr, nss, pango, systemd, wrapGAppsHook
+, xorg, at-spi2-atk }:
 
 let
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, flex, bison, llvmPackages, kernel, elfutils, libelf, bcc
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, flex, bison, llvmPackages, kernel
+, elfutils, libelf, bcc }:
 
 stdenv.mkDerivation rec {
   name = "bpftrace-${version}";

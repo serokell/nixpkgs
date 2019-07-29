@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, requests, testfixtures, mock, requests_toolbelt, betamax, betamax-serializers, betamax-matchers
-}:
+{ stdenv, buildPythonPackage, fetchPypi, requests, testfixtures, mock
+, requests_toolbelt, betamax, betamax-serializers, betamax-matchers }:
 
 buildPythonPackage rec {
   pname = "prawcore";

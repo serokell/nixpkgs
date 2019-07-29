@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, substituteAll, callPackage, pkgconfig, cmake, vala, libxml2, glib, pcre, gtk2, gtk3, xorg, libxkbcommon, epoxy, at-spi2-core, dbus-glib, bamf, xfce, libwnck3, libdbusmenu, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, substituteAll, callPackage, pkgconfig, cmake, vala
+, libxml2, glib, pcre, gtk2, gtk3, xorg, libxkbcommon, epoxy, at-spi2-core
+, dbus-glib, bamf, xfce, libwnck3, libdbusmenu, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "xfce4-vala-panel-appmenu-plugin-${version}";

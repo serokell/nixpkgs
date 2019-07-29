@@ -1,7 +1,14 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, gettext, config, pkgconfig, python3, gst-plugins-base, orc, gobject-introspection, faacSupport ?
-  false, faac ?
-    null, faad2, libass, libkate, libmms, librdf, ladspaH, libnice, webrtc-audio-processing, lilv, lv2, serd, sord, sratom, libbs2b, libmodplug, mpeg2dec, openjpeg, libopus, librsvg, bluez, chromaprint, curl, directfb, fdk_aac, flite, gsm, libaom, libdc1394, libde265, libdrm, libdvdnav, libdvdread, libgudev, libofa, libsndfile, libusb1, neon, openal, opencv3, openexr, openh264, pango, rtmpdump, sbc, soundtouch, spandsp, srtp, zbar, wayland-protocols, wildmidi, fluidsynth, libvdpau, wayland, libwebp, xvidcore, gnutls, mjpegtools, libGLU_combined, libintl, libgme, openssl, x265, libxml2, srt
-}:
+{ stdenv, fetchurl, fetchpatch, meson, ninja, gettext, config, pkgconfig
+, python3, gst-plugins-base, orc, gobject-introspection, faacSupport ? false
+, faac ? null, faad2, libass, libkate, libmms, librdf, ladspaH, libnice
+, webrtc-audio-processing, lilv, lv2, serd, sord, sratom, libbs2b, libmodplug
+, mpeg2dec, openjpeg, libopus, librsvg, bluez, chromaprint, curl, directfb
+, fdk_aac, flite, gsm, libaom, libdc1394, libde265, libdrm, libdvdnav
+, libdvdread, libgudev, libofa, libsndfile, libusb1, neon, openal, opencv3
+, openexr, openh264, pango, rtmpdump, sbc, soundtouch, spandsp, srtp, zbar
+, wayland-protocols, wildmidi, fluidsynth, libvdpau, wayland, libwebp, xvidcore
+, gnutls, mjpegtools, libGLU_combined, libintl, libgme, openssl, x265, libxml2
+, srt }:
 
 assert faacSupport -> faac != null;
 

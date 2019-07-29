@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja, libpthreadstubs, libpciaccess, valgrind-light
-}:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, libpthreadstubs, libpciaccess
+, valgrind-light }:
 
 stdenv.mkDerivation rec {
   name = "libdrm-2.4.98";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, transitions, websockets, passlib, docopt, pyyaml, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, transitions, websockets
+, passlib, docopt, pyyaml, nose }:
 
 buildPythonPackage rec {
   pname = "hbmqtt";

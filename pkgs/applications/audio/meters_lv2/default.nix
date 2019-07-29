@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, lv2, libGLU_combined, gtk2, cairo, pango, fftwFloat, libjack2
-}:
+{ stdenv, fetchurl, pkgconfig, lv2, libGLU_combined, gtk2, cairo, pango
+, fftwFloat, libjack2 }:
 
 let
   version = "0.9.10";

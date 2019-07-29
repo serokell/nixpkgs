@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, functools32, six, w3lib, lxml, cssselect
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytestrunner, functools32, six
+, w3lib, lxml, cssselect }:
 
 buildPythonPackage rec {
   pname = "parsel";

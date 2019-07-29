@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, SDL2, cmake, curl, fontconfig, freetype, icu, jansson, libiconv, libpng, libpthreadstubs, libzip, libGLU, openssl, pkgconfig, speexdsp, zlib
-}:
+{ stdenv, fetchFromGitHub, SDL2, cmake, curl, fontconfig, freetype, icu, jansson
+, libiconv, libpng, libpthreadstubs, libzip, libGLU, openssl, pkgconfig
+, speexdsp, zlib }:
 
 let
   name = "openrct2-${version}";

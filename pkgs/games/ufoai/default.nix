@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtheora, xvidcore, libGLU_combined, SDL, SDL_ttf, SDL_mixer, curl, libjpeg, libpng, gettext, cunit, enableEditor ?
-  false }:
+{ stdenv, fetchurl, libtheora, xvidcore, libGLU_combined, SDL, SDL_ttf
+, SDL_mixer, curl, libjpeg, libpng, gettext, cunit, enableEditor ? false }:
 
 stdenv.mkDerivation rec {
   name = "ufoai-2.4";

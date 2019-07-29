@@ -1,5 +1,5 @@
-{ stdenv, python, buildPythonPackage, fetchFromGitHub, mathjax, twisted, flask, flask-oldsessions, flask-openid, flask-autoindex, flask-babel
-}:
+{ stdenv, python, buildPythonPackage, fetchFromGitHub, mathjax, twisted, flask
+, flask-oldsessions, flask-openid, flask-autoindex, flask-babel }:
 
 # Has a cyclic dependency with sage (not expressed here) and is not useful outside of sage.
 # Deprecated, hopefully soon to be removed. See

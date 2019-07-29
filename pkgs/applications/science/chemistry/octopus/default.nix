@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, symlinkJoin, gfortran, perl, procps, libyaml, libxc, fftw, openblas, gsl, netcdf, arpack
-}:
+{ stdenv, fetchurl, symlinkJoin, gfortran, perl, procps, libyaml, libxc, fftw
+, openblas, gsl, netcdf, arpack }:
 
 let
   version = "9.0";

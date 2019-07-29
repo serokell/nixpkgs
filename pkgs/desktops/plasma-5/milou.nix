@@ -1,5 +1,5 @@
-{ mkDerivation, extra-cmake-modules, kcoreaddons, kdeclarative, ki18n, krunner, kservice, plasma-framework, qtscript, qtdeclarative
-}:
+{ mkDerivation, extra-cmake-modules, kcoreaddons, kdeclarative, ki18n, krunner
+, kservice, plasma-framework, qtscript, qtdeclarative }:
 
 mkDerivation {
   name = "milou";

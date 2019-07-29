@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, python, zope_interface, incremental, automat, constantly, hyperlink, pyhamcrest, attrs, pyopenssl, service-identity, idna
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, zope_interface, incremental
+, automat, constantly, hyperlink, pyhamcrest, attrs, pyopenssl, service-identity
+, idna }:
 buildPythonPackage rec {
   pname = "Twisted";
   version = "18.9.0";

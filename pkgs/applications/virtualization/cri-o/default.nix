@@ -1,6 +1,6 @@
-{ flavor ? "", ldflags ?
-  "", stdenv, btrfs-progs, buildGoPackage, fetchFromGitHub, glibc, gpgme, libapparmor, libassuan, libgpgerror, libseccomp, libselinux, lvm2, pkgconfig
-}:
+{ flavor ? "", ldflags ? "", stdenv, btrfs-progs, buildGoPackage
+, fetchFromGitHub, glibc, gpgme, libapparmor, libassuan, libgpgerror, libseccomp
+, libselinux, lvm2, pkgconfig }:
 
 buildGoPackage rec {
   project = "cri-o";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, python2, perl, yacc, flex, texinfo, perlPackages, openldap, libcap_ng, sqlite, openssl, db, libedit, pam, CoreFoundation, Security, SystemConfiguration
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, python2, perl, yacc, flex
+, texinfo, perlPackages, openldap, libcap_ng, sqlite, openssl, db, libedit, pam
+, CoreFoundation, Security, SystemConfiguration }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

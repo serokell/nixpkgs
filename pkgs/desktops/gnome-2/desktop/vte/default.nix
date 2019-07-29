@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, intltool, pkgconfig, glib, gtk2, ncurses, pythonSupport ?
-  false, python27Packages }:
+{ stdenv, fetchurl, fetchpatch, intltool, pkgconfig, glib, gtk2, ncurses
+, pythonSupport ? false, python27Packages }:
 
 let inherit (python27Packages) python pygtk;
 in stdenv.mkDerivation rec {

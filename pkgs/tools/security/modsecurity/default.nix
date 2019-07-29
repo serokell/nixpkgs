@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pkgconfig, curl, apacheHttpd, pcre, apr, aprutil, libxml2, luaSupport ?
-  false, lua5 }:
+{ stdenv, lib, fetchurl, pkgconfig, curl, apacheHttpd, pcre, apr, aprutil
+, libxml2, luaSupport ? false, lua5 }:
 
 with lib;
 

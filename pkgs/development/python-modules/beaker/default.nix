@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, pylibmc, memcached, redis, pymongo, mock, webtest, sqlalchemy, pycrypto, cryptography, isPy27, isPy3k, funcsigs, pycryptopp
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pylibmc, memcached, redis
+, pymongo, mock, webtest, sqlalchemy, pycrypto, cryptography, isPy27, isPy3k
+, funcsigs, pycryptopp }:
 
 buildPythonPackage rec {
   pname = "Beaker";

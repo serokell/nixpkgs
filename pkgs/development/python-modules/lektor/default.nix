@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchFromGitHub, click, watchdog, exifread, requests, mistune, inifile, Babel, jinja2, flask, pyopenssl, ndg-httpsclient, pytest, pytestcov, pytest-mock, pytest-pylint, pytest-click, isPy27, functools32
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, click, watchdog, exifread, requests
+, mistune, inifile, Babel, jinja2, flask, pyopenssl, ndg-httpsclient, pytest
+, pytestcov, pytest-mock, pytest-pylint, pytest-click, isPy27, functools32 }:
 
 buildPythonPackage rec {
   pname = "lektor";

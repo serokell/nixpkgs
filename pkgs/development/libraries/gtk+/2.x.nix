@@ -1,7 +1,9 @@
-{ config, stdenv, fetchurl, pkgconfig, gettext, glib, atk, pango, cairo, perl, xorg, gdk_pixbuf, xlibsWrapper, gobject-introspection, xineramaSupport ?
-  stdenv.isLinux, cupsSupport ? config.gtk2.cups or stdenv.isLinux, cups ?
-    null, gdktarget ?
-      if stdenv.isDarwin then "quartz" else "x11", AppKit, Cocoa, fetchpatch }:
+{ config, stdenv, fetchurl, pkgconfig, gettext, glib, atk, pango, cairo, perl
+, xorg, gdk_pixbuf, xlibsWrapper, gobject-introspection
+, xineramaSupport ? stdenv.isLinux
+, cupsSupport ? config.gtk2.cups or stdenv.isLinux, cups ? null
+, gdktarget ? if stdenv.isDarwin then "quartz" else "x11", AppKit, Cocoa
+, fetchpatch }:
 
 assert xineramaSupport -> xorg.libXinerama != null;
 assert cupsSupport -> cups != null;

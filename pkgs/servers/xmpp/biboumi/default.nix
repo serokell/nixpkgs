@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchgit, cmake, libuuid, expat, sqlite, libidn, libiconv, botan2, systemd, pkgconfig, udns, pandoc, coreutils
-}:
+{ stdenv, fetchurl, fetchgit, cmake, libuuid, expat, sqlite, libidn, libiconv
+, botan2, systemd, pkgconfig, udns, pandoc, coreutils }:
 
 stdenv.mkDerivation rec {
   name = "biboumi-${version}";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, six, twisted, werkzeug, incremental, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, six, twisted, werkzeug
+, incremental, mock }:
 
 buildPythonPackage rec {
   pname = "klein";

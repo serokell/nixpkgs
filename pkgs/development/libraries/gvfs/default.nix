@@ -1,6 +1,8 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gnome3, dbus, glib, libgudev, udisks2, libgcrypt, libcap, polkit, libgphoto2, avahi, libarchive, fuse, libcdio, libxml2, libxslt, docbook_xsl, docbook_xml_dtd_42, samba, libmtp, gnomeSupport ?
-  false, gnome, gcr, wrapGAppsHook, libimobiledevice, libbluray, libcdio-paranoia, libnfs, openssh, libsecret, libgdata, python3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gettext, gnome3, dbus, glib
+, libgudev, udisks2, libgcrypt, libcap, polkit, libgphoto2, avahi, libarchive
+, fuse, libcdio, libxml2, libxslt, docbook_xsl, docbook_xml_dtd_42, samba
+, libmtp, gnomeSupport ? false, gnome, gcr, wrapGAppsHook, libimobiledevice
+, libbluray, libcdio-paranoia, libnfs, openssh, libsecret, libgdata, python3 }:
 
 let
   pname = "gvfs";

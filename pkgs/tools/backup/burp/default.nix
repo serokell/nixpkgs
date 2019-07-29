@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, acl, librsync, ncurses, openssl, zlib, uthash
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, acl, librsync, ncurses
+, openssl, zlib, uthash }:
 
 stdenv.mkDerivation rec {
   name = "burp-${version}";

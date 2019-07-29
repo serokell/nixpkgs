@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, openssl, libxslt, perl, curl, pcre, libxml2, librdf_rasqal, gmp, mysql, withMysql ?
-  false, postgresql, withPostgresql ? false, sqlite, withSqlite ?
-    true, db, withBdb ? false }:
+{ stdenv, fetchurl, pkgconfig, openssl, libxslt, perl, curl, pcre, libxml2
+, librdf_rasqal, gmp, mysql, withMysql ? false, postgresql
+, withPostgresql ? false, sqlite, withSqlite ? true, db, withBdb ? false }:
 
 stdenv.mkDerivation rec {
   name = "redland-1.0.17";

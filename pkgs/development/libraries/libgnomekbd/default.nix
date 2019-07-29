@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, file, intltool, glib, gtk3, libxklavier, makeWrapper, gnome3
-}:
+{ stdenv, fetchurl, pkgconfig, file, intltool, glib, gtk3, libxklavier
+, makeWrapper, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "libgnomekbd";

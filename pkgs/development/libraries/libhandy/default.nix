@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, gobject-introspection, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_43, gtk3, gnome3, dbus, xvfb_run, libxml2, hicolor-icon-theme
-}:
+{ stdenv, fetchFromGitLab, meson, ninja, pkgconfig, gobject-introspection, vala
+, gtk-doc, docbook_xsl, docbook_xml_dtd_43, gtk3, gnome3, dbus, xvfb_run
+, libxml2, hicolor-icon-theme }:
 
 let
   pname = "libhandy";

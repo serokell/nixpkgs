@@ -1,5 +1,8 @@
-{ mkDerivation, aeson, array, attoparsec, base, binary, bytestring, containers, deepseq, directory, dlist, fetchgit, ghc-prim, ghcjs-prim, hashable, HUnit, integer-gmp, primitive, QuickCheck, quickcheck-unicode, random, scientific, stdenv, test-framework, test-framework-hunit, test-framework-quickcheck2, text, time, transformers, unordered-containers, vector
-}:
+{ mkDerivation, aeson, array, attoparsec, base, binary, bytestring, containers
+, deepseq, directory, dlist, fetchgit, ghc-prim, ghcjs-prim, hashable, HUnit
+, integer-gmp, primitive, QuickCheck, quickcheck-unicode, random, scientific
+, stdenv, test-framework, test-framework-hunit, test-framework-quickcheck2, text
+, time, transformers, unordered-containers, vector }:
 mkDerivation {
   pname = "ghcjs-base";
   version = "0.2.0.0";

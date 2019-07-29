@@ -1,7 +1,7 @@
 { stdenv, fetchgit, perl, openssl, perlPackages, gettext, python3Packages
 # TODO: Remove extra dependencies once it is clear that they are NOT needed somewhere.
-, extraDependencies1 ? false, extraDependencies2 ? false, extraDependencies3 ?
-  false }:
+, extraDependencies1 ? false, extraDependencies2 ? false
+, extraDependencies3 ? false }:
 
 perlPackages.buildPerlPackage {
   pname = "openxpki";

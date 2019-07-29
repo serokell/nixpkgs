@@ -1,5 +1,5 @@
-{ pkgs, buildPythonPackage, fetchPypi, astropy, requests, keyring, beautifulsoup4, html5lib
-}:
+{ pkgs, buildPythonPackage, fetchPypi, astropy, requests, keyring
+, beautifulsoup4, html5lib }:
 
 buildPythonPackage rec {
   pname = "astroquery";

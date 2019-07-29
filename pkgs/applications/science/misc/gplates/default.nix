@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, qt4, qwt6_qt4, libGLU_combined, glew, gdal_1_11, cgal, proj, boost, cmake, python2, doxygen, graphviz, gmp
-}:
+{ stdenv, fetchurl, qt4, qwt6_qt4, libGLU_combined, glew, gdal_1_11, cgal, proj
+, boost, cmake, python2, doxygen, graphviz, gmp }:
 
 stdenv.mkDerivation rec {
   name = "gplates-${version}";

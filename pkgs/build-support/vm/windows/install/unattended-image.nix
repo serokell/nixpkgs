@@ -1,8 +1,8 @@
 { stdenv, writeText, dosfstools, mtools }:
 
-{ productKey, shExecAfterwards ? "E:\\bootstrap.sh", cygwinRoot ?
-  "C:\\cygwin", cygwinSetup ? "E:\\setup.exe", cygwinRepository ?
-    "E:\\", cygwinPackages ? [ "openssh" ] }:
+{ productKey, shExecAfterwards ? "E:\\bootstrap.sh", cygwinRoot ? "C:\\cygwin"
+, cygwinSetup ? "E:\\setup.exe", cygwinRepository ? "E:\\"
+, cygwinPackages ? [ "openssh" ] }:
 
 let
   afterSetup = [

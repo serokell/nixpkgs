@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, python, autoreconfHook, pkgconfig, makeWrapper, flex, gettext, libedit, glib, imagemagick, libxml2, boost, gnuplot, graphviz, tesseract, gts, libXtst
-}:
+{ stdenv, fetchFromGitHub, python, autoreconfHook, pkgconfig, makeWrapper, flex
+, gettext, libedit, glib, imagemagick, libxml2, boost, gnuplot, graphviz
+, tesseract, gts, libXtst }:
 stdenv.mkDerivation rec {
   version = "0.39";
   name = "fMBT-${version}";

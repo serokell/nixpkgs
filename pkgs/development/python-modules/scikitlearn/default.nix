@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, gfortran, glibcLocales, numpy, scipy, pytest, pillow, cython, joblib, llvmPackages
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, gfortran, glibcLocales, numpy
+, scipy, pytest, pillow, cython, joblib, llvmPackages }:
 
 buildPythonPackage rec {
   pname = "scikit-learn";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, vala, libxslt, pkgconfig, glib, gtk3, gnome3, python3, libxml2, gettext, docbook_xsl, hicolor-icon-theme, wrapGAppsHook, gobject-introspection
-}:
+{ stdenv, fetchurl, meson, ninja, vala, libxslt, pkgconfig, glib, gtk3, gnome3
+, python3, libxml2, gettext, docbook_xsl, hicolor-icon-theme, wrapGAppsHook
+, gobject-introspection }:
 
 let
   pname = "dconf-editor";

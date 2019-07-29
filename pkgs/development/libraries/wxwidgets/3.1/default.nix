@@ -1,10 +1,11 @@
-{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, gtk2, gtk3, libXinerama, libSM, libXxf86vm, xorgproto, gstreamer, gst-plugins-base, GConf, setfile, libGLSupported ?
-  stdenv.lib.elem stdenv.hostPlatform.system
-  stdenv.lib.platforms.mesaPlatforms, withMesa ? libGLSupported, libGLU ?
-    null, libGL ? null, compat28 ? false, compat30 ? true, unicode ?
-      true, withGtk2 ? true, withWebKit ? false, webkitgtk24x-gtk2 ?
-        null, webkitgtk ? null, AGL ? null, Carbon ? null, Cocoa ?
-          null, Kernel ? null, QTKit ? null }:
+{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, gtk2, gtk3, libXinerama, libSM
+, libXxf86vm, xorgproto, gstreamer, gst-plugins-base, GConf, setfile
+, libGLSupported ?
+  stdenv.lib.elem stdenv.hostPlatform.system stdenv.lib.platforms.mesaPlatforms
+, withMesa ? libGLSupported, libGLU ? null, libGL ? null, compat28 ? false
+, compat30 ? true, unicode ? true, withGtk2 ? true, withWebKit ? false
+, webkitgtk24x-gtk2 ? null, webkitgtk ? null, AGL ? null, Carbon ? null
+, Cocoa ? null, Kernel ? null, QTKit ? null }:
 
 assert withMesa -> libGLU != null && libGL != null;
 assert withWebKit -> (if withGtk2 then webkitgtk24x-gtk2 else webkitgtk)

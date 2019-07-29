@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, vala, gnome3, gtk3, wrapGAppsHook, appstream-glib, desktop-file-utils, glib, librsvg, libxml2, gettext, itstool, libgee, libgnome-games-support, meson, ninja, python3
-}:
+{ stdenv, fetchurl, pkgconfig, vala, gnome3, gtk3, wrapGAppsHook, appstream-glib
+, desktop-file-utils, glib, librsvg, libxml2, gettext, itstool, libgee
+, libgnome-games-support, meson, ninja, python3 }:
 
 let
   pname = "gnome-klotski";

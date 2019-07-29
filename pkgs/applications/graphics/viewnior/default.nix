@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk2, libpng, exiv2, lcms, intltool, gettext, shared-mime-info, glib, gdk_pixbuf, perl
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, gtk2, libpng, exiv2, lcms
+, intltool, gettext, shared-mime-info, glib, gdk_pixbuf, perl }:
 
 stdenv.mkDerivation rec {
   name = "viewnior-${version}";

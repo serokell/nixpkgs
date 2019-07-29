@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libGLU_combined, SDL, sconsPackages, SDL_ttf, SDL_image, zlib, SDL_net, speex, libvorbis, libogg, boost, fribidi, bsdiff, fetchpatch
-}:
+{ stdenv, fetchurl, libGLU_combined, SDL, sconsPackages, SDL_ttf, SDL_image
+, zlib, SDL_net, speex, libvorbis, libogg, boost, fribidi, bsdiff, fetchpatch }:
 let
   version = "0.9.4";
   patchlevel = "4";

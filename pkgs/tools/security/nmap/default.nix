@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, libpcap, pkgconfig, openssl, lua5_3, graphicalSupport ?
-  false, libX11 ? null, gtk2 ? null, withPython ?
-    false # required for the `ndiff` binary
+{ stdenv, fetchurl, fetchpatch, libpcap, pkgconfig, openssl, lua5_3
+, graphicalSupport ? false, libX11 ? null, gtk2 ? null
+, withPython ? false # required for the `ndiff` binary
 , python2Packages ? null, makeWrapper ? null, withLua ? true }:
 
 assert withPython -> python2Packages != null;

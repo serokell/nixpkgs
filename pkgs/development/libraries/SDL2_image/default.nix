@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL2, libpng, libjpeg, libtiff, libungif, libwebp, libXpm, zlib, Foundation
-}:
+{ stdenv, fetchurl, SDL2, libpng, libjpeg, libtiff, libungif, libwebp, libXpm
+, zlib, Foundation }:
 
 stdenv.mkDerivation rec {
   name = "SDL2_image-${version}";

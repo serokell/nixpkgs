@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, meson, ninja, python3, gettext, pkgconfig, desktop-file-utils, wrapGAppsHook, appstream-glib, epoxy, glib, gtk3, mpv
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, meson, ninja, python3, gettext, pkgconfig
+, desktop-file-utils, wrapGAppsHook, appstream-glib, epoxy, glib, gtk3, mpv }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-mpv";

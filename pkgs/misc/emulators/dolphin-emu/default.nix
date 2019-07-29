@@ -1,5 +1,7 @@
-{ stdenv, pkgconfig, cmake, bluez, ffmpeg, libao, gtk2, glib, libGLU_combined, gettext, libpthreadstubs, libXrandr, libXext, readline, openal, libXdmcp, portaudio, fetchFromGitHub, libusb, libevdev, wxGTK30, soundtouch, miniupnpc, mbedtls, curl, lzo, sfml, libpulseaudio ?
-  null }:
+{ stdenv, pkgconfig, cmake, bluez, ffmpeg, libao, gtk2, glib, libGLU_combined
+, gettext, libpthreadstubs, libXrandr, libXext, readline, openal, libXdmcp
+, portaudio, fetchFromGitHub, libusb, libevdev, wxGTK30, soundtouch, miniupnpc
+, mbedtls, curl, lzo, sfml, libpulseaudio ? null }:
 
 stdenv.mkDerivation rec {
   name = "dolphin-emu-${version}";

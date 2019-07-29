@@ -1,8 +1,8 @@
 { gtkWidgets ? false # build GTK widgets for libinfinity
 , avahiSupport ? false # build support for Avahi in libinfinity
-, stdenv, fetchurl, pkgconfig, glib, libxml2, gnutls, gsasl, gobject-introspection, gtk3 ?
-  null, gtk-doc, docbook_xsl, docbook_xml_dtd_412, avahi ?
-    null, libdaemon, libidn, gss, libintl }:
+, stdenv, fetchurl, pkgconfig, glib, libxml2, gnutls, gsasl
+, gobject-introspection, gtk3 ? null, gtk-doc, docbook_xsl, docbook_xml_dtd_412
+, avahi ? null, libdaemon, libidn, gss, libintl }:
 
 assert avahiSupport -> avahi != null;
 assert gtkWidgets -> gtk3 != null;

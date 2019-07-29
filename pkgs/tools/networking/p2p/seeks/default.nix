@@ -1,5 +1,6 @@
-{ fetchgit, stdenv, zlib, bzip2, docbook2x, pcre, curl, libxml2, libevent, perl, pkgconfig, protobuf, tokyocabinet, tokyotyrant, opencv, autoconf, automake, libtool, seeks_confDir ?
-  "" }:
+{ fetchgit, stdenv, zlib, bzip2, docbook2x, pcre, curl, libxml2, libevent, perl
+, pkgconfig, protobuf, tokyocabinet, tokyotyrant, opencv, autoconf, automake
+, libtool, seeks_confDir ? "" }:
 
 stdenv.mkDerivation {
   name = "seeks-0.4.1";

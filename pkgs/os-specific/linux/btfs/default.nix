@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, python3, boost, fuse, libtorrentRasterbar, curl
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, python3, boost, fuse
+, libtorrentRasterbar, curl }:
 
 stdenv.mkDerivation rec {
   pname = "btfs";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, sqlite, pkgconfig, autoreconfHook, pmccabe, xapian, glib, gmime3, texinfo, emacs, guile, gtk3, webkitgtk24x-gtk3, libsoup, icu, withMug ?
-  false }:
+{ stdenv, fetchFromGitHub, sqlite, pkgconfig, autoreconfHook, pmccabe, xapian
+, glib, gmime3, texinfo, emacs, guile, gtk3, webkitgtk24x-gtk3, libsoup, icu
+, withMug ? false }:
 
 stdenv.mkDerivation rec {
   name = "mu-${version}";

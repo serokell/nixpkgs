@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchpatch, fetchPypi, unittest2, colander, sqlalchemy
-}:
+{ stdenv, buildPythonPackage, fetchpatch, fetchPypi, unittest2, colander
+, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "ColanderAlchemy";

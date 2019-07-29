@@ -1,7 +1,7 @@
-{ config, lib, stdenv, fetchgit, fetchFromGitHub, cmake, openblas, opencv3, libzip, boost, protobuf, openmpi, onebitSGDSupport ?
-  false, cudaSupport ?
-    config.cudaSupport or false, cudatoolkit, nvidia_x11, cudnnSupport ?
-      cudaSupport, cudnn }:
+{ config, lib, stdenv, fetchgit, fetchFromGitHub, cmake, openblas, opencv3
+, libzip, boost, protobuf, openmpi, onebitSGDSupport ? false
+, cudaSupport ? config.cudaSupport or false, cudatoolkit, nvidia_x11
+, cudnnSupport ? cudaSupport, cudnn }:
 
 assert cudnnSupport -> cudaSupport;
 

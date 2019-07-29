@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, gdal, cmake, ninja, proj, clipper, zlib, qtbase, qttools, qtlocation, qtsensors, doxygen, cups, wrapQtAppsHook, qtimageformats
+{ stdenv, fetchFromGitHub, gdal, cmake, ninja, proj, clipper, zlib, qtbase
+, qttools, qtlocation, qtsensors, doxygen, cups, wrapQtAppsHook, qtimageformats
 }:
 
 stdenv.mkDerivation rec {

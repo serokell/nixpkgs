@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six, mypy_extensions, typing, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six, mypy_extensions
+, typing, pytest }:
 
 buildPythonPackage rec {
   version = "1.0.7";

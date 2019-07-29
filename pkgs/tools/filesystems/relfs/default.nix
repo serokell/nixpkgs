@@ -1,5 +1,5 @@
-{ stdenv, fetchcvs, ocaml, fuse, postgresql, pcre, libuuid, gnome_vfs, pkgconfig, GConf
-}:
+{ stdenv, fetchcvs, ocaml, fuse, postgresql, pcre, libuuid, gnome_vfs, pkgconfig
+, GConf }:
 
 stdenv.mkDerivation rec {
   name = "relfs-2008.03.05";

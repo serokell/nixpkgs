@@ -1,17 +1,17 @@
-{ stdenv, lib, makeWrapper, vimUtils, bundlerEnv, ruby, nodejs, nodePackages, pythonPackages, python3Packages
-}:
+{ stdenv, lib, makeWrapper, vimUtils, bundlerEnv, ruby, nodejs, nodePackages
+, pythonPackages, python3Packages }:
 with stdenv.lib;
 
 neovim:
 
 let
-  wrapper =
-    { extraMakeWrapperArgs ? "", withPython ? true, extraPythonPackages ?
+  wrapper = { extraMakeWrapperArgs ? "", withPython ? true
+    , extraPythonPackages ?
       (_: [ ]) # the function you would have passed to python.withPackages
     , withPython3 ? true, extraPython3Packages ?
       (_: [ ]) # the function you would have passed to python.withPackages
-    , withNodeJs ? false, withRuby ? true, vimAlias ? false, viAlias ?
-      false, configure ? { } }:
+    , withNodeJs ? false, withRuby ? true, vimAlias ? false, viAlias ? false
+    , configure ? { } }:
     let
 
       rubyEnv = bundlerEnv {

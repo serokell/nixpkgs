@@ -1,5 +1,6 @@
-{ stdenv, vim, vimPlugins, vim_configurable, neovim, buildEnv, writeText, writeScriptBin, nix-prefetch-hg, nix-prefetch-git, fetchFromGitHub, runtimeShell
-}:
+{ stdenv, vim, vimPlugins, vim_configurable, neovim, buildEnv, writeText
+, writeScriptBin, nix-prefetch-hg, nix-prefetch-git, fetchFromGitHub
+, runtimeShell }:
 
 /* USAGE EXAMPLE
    =============
@@ -177,9 +178,8 @@ let
 
   rtpPath = "share/vim-plugins";
 
-  vimrcFile =
-    { packages ? null, vam ? null, pathogen ? null, plug ? null, customRC ? ""
-    }:
+  vimrcFile = { packages ? null, vam ? null, pathogen ? null, plug ? null
+    , customRC ? "" }:
 
     let
       # pathogen mostly can set &rtp at startup time. Its used very commonly.
@@ -356,10 +356,9 @@ in rec {
   inherit vimrcFile;
 
   # shell script with custom name passing [-u vimrc] [-U gvimrc] to vim
-  vimWithRC =
-    { vimExecutable, gvimExecutable, vimManPages, wrapManual, wrapGui, name ?
-      "vim", vimrcFile ? null, gvimrcFile ?
-        null, vimExecutableName, gvimExecutableName, }:
+  vimWithRC = { vimExecutable, gvimExecutable, vimManPages, wrapManual, wrapGui
+    , name ? "vim", vimrcFile ? null, gvimrcFile ? null, vimExecutableName
+    , gvimExecutableName, }:
     let
       rcOption = o: file:
         stdenv.lib.optionalString (file != null) "-${o} ${file}";
@@ -384,9 +383,9 @@ in rec {
   # add a customize option to a vim derivation
   makeCustomizable = vim:
     vim // {
-      customize = { name, vimrcConfig, wrapManual ? true, wrapGui ?
-        false, vimExecutableName ? name, gvimExecutableName ?
-          (lib.concatStrings [ "g" name ]), }:
+      customize = { name, vimrcConfig, wrapManual ? true, wrapGui ? false
+        , vimExecutableName ? name
+        , gvimExecutableName ? (lib.concatStrings [ "g" name ]), }:
         vimWithRC {
           vimExecutable = "${vim}/bin/vim";
           gvimExecutable = "${vim}/bin/gvim";
@@ -446,9 +445,8 @@ in rec {
     buildVimPlugin buildVimPluginFrom2Nix;
 
   # used to figure out which python dependencies etc. neovim needs
-  requiredPlugins =
-    { packages ? { }, givenKnownPlugins ? null, vam ? null, pathogen ?
-      null, plug ? null, ... }:
+  requiredPlugins = { packages ? { }, givenKnownPlugins ? null, vam ? null
+    , pathogen ? null, plug ? null, ... }:
     let
       # This is probably overcomplicated, but I don't understand this well enough to know what's necessary.
       knownPlugins = if givenKnownPlugins != null then

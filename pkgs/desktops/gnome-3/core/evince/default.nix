@@ -1,5 +1,9 @@
-{ fetchFromGitLab, stdenv, fetchpatch, meson, ninja, pkgconfig, gettext, libxml2, appstream, glib, gtk3, pango, atk, gdk_pixbuf, shared-mime-info, itstool, gnome3, poppler, ghostscriptX, djvulibre, libspectre, libarchive, libsecret, wrapGAppsHook, librsvg, gobject-introspection, yelp-tools, gspell, adwaita-icon-theme, gsettings-desktop-schemas, gnome-desktop, dbus, python3, texlive, t1lib, gst_all_1, supportMultimedia ?
-  true # PDF multimedia
+{ fetchFromGitLab, stdenv, fetchpatch, meson, ninja, pkgconfig, gettext, libxml2
+, appstream, glib, gtk3, pango, atk, gdk_pixbuf, shared-mime-info, itstool
+, gnome3, poppler, ghostscriptX, djvulibre, libspectre, libarchive, libsecret
+, wrapGAppsHook, librsvg, gobject-introspection, yelp-tools, gspell
+, adwaita-icon-theme, gsettings-desktop-schemas, gnome-desktop, dbus, python3
+, texlive, t1lib, gst_all_1, supportMultimedia ? true # PDF multimedia
 , libgxps, supportXPS ? true # Open XML Paper Specification via libgxps
 }:
 

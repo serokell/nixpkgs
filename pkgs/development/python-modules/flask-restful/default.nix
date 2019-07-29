@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy3k, nose, mock, blinker, flask, six, pytz, aniso8601, pycrypto
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy3k, nose, mock, blinker
+, flask, six, pytz, aniso8601, pycrypto }:
 
 buildPythonPackage rec {
   pname = "Flask-RESTful";

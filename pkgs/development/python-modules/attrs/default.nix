@@ -1,5 +1,5 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pytest, hypothesis, zope_interface, pympler, coverage, six, clang
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pytest, hypothesis, zope_interface
+, pympler, coverage, six, clang }:
 
 buildPythonPackage rec {
   pname = "attrs";

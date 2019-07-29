@@ -1,5 +1,8 @@
-{ stdenv, meson, ninja, gettext, fetchurl, gdk_pixbuf, tracker, libxml2, python3, libnotify, wrapGAppsHook, libmediaart, gobject-introspection, gnome-online-accounts, grilo, grilo-plugins, pkgconfig, gtk3, glib, desktop-file-utils, appstream-glib, itstool, gnome3, gst_all_1, libdazzle, libsoup, gsettings-desktop-schemas
-}:
+{ stdenv, meson, ninja, gettext, fetchurl, gdk_pixbuf, tracker, libxml2, python3
+, libnotify, wrapGAppsHook, libmediaart, gobject-introspection
+, gnome-online-accounts, grilo, grilo-plugins, pkgconfig, gtk3, glib
+, desktop-file-utils, appstream-glib, itstool, gnome3, gst_all_1, libdazzle
+, libsoup, gsettings-desktop-schemas }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-music";

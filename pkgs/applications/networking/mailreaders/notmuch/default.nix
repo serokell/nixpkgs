@@ -1,5 +1,6 @@
-{ fetchurl, stdenv, pkgconfig, gnupg, xapian, gmime, talloc, zlib, doxygen, perl, pythonPackages, bash-completion, emacs, ruby, which, dtach, openssl, bash, gdb, man
-}:
+{ fetchurl, stdenv, pkgconfig, gnupg, xapian, gmime, talloc, zlib, doxygen, perl
+, pythonPackages, bash-completion, emacs, ruby, which, dtach, openssl, bash, gdb
+, man }:
 
 with stdenv.lib;
 

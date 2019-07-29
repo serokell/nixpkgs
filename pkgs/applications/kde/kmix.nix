@@ -1,5 +1,6 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kglobalaccel, kxmlgui, kcoreaddons, kdelibs4support, plasma-framework, libpulseaudio, alsaLib, libcanberra_kde
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kglobalaccel, kxmlgui
+, kcoreaddons, kdelibs4support, plasma-framework, libpulseaudio, alsaLib
+, libcanberra_kde }:
 
 mkDerivation {
   name = "kmix";

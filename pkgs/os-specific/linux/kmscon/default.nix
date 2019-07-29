@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtsm, systemd, libxkbcommon, libdrm, libGLU_combined, pango, pixman, pkgconfig, docbook_xsl, libxslt
-}:
+{ stdenv, fetchurl, libtsm, systemd, libxkbcommon, libdrm, libGLU_combined
+, pango, pixman, pkgconfig, docbook_xsl, libxslt }:
 
 stdenv.mkDerivation rec {
   name = "kmscon-8";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, gnome3, gtk3, gnupg20, gpgme, dbus-glib, libgnome-keyring
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, gnome3, gtk3, gnupg20, gpgme
+, dbus-glib, libgnome-keyring }:
 
 stdenv.mkDerivation rec {
   pname = "libcryptui";

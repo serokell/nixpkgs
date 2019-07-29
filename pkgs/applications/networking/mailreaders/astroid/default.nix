@@ -1,4 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, gnome3, gmime3, webkitgtk, libsass, notmuch, boost, wrapGAppsHook, glib-networking, protobuf, vim_configurable, gtkmm3, libpeas, gsettings-desktop-schemas, python3, python3Packages, vim ?
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, gnome3, gmime3, webkitgtk, libsass
+, notmuch, boost, wrapGAppsHook, glib-networking, protobuf, vim_configurable
+, gtkmm3, libpeas, gsettings-desktop-schemas, python3, python3Packages, vim ?
   vim_configurable.override {
     features = "normal";
     gui = "auto";

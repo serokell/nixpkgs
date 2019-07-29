@@ -1,9 +1,8 @@
 { stdenv, writeText, erlang, rebar3, openssl, lib }:
 
-{ name, version, src, checkouts ? null, releaseType, buildInputs ?
-  [ ], setupHook ? null, profile ? "default", installPhase ? null, buildPhase ?
-    null, configurePhase ? null, meta ? { }, enableDebugInfo ? false, ...
-}@attrs:
+{ name, version, src, checkouts ? null, releaseType, buildInputs ? [ ]
+, setupHook ? null, profile ? "default", installPhase ? null, buildPhase ? null
+, configurePhase ? null, meta ? { }, enableDebugInfo ? false, ... }@attrs:
 
 with stdenv.lib;
 

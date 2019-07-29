@@ -1,11 +1,10 @@
-{ stdenv, lib, fetchurl, pkgconfig, perl, http2Support ?
-  true, nghttp2, idnSupport ? false, libidn ? null, ldapSupport ?
-    false, openldap ? null, zlibSupport ? true, zlib ? null, sslSupport ?
-      zlibSupport, openssl ? null, gnutlsSupport ? false, gnutls ?
-        null, scpSupport ? zlibSupport && !stdenv.isSunOS
-          && !stdenv.isCygwin, libssh2 ? null, gssSupport ?
-            !stdenv.hostPlatform.isWindows, libkrb5 ? null, c-aresSupport ?
-              false, c-ares ? null, brotliSupport ? false, brotli ? null }:
+{ stdenv, lib, fetchurl, pkgconfig, perl, http2Support ? true, nghttp2
+, idnSupport ? false, libidn ? null, ldapSupport ? false, openldap ? null
+, zlibSupport ? true, zlib ? null, sslSupport ? zlibSupport, openssl ? null
+, gnutlsSupport ? false, gnutls ? null
+, scpSupport ? zlibSupport && !stdenv.isSunOS && !stdenv.isCygwin
+, libssh2 ? null, gssSupport ? !stdenv.hostPlatform.isWindows, libkrb5 ? null
+, c-aresSupport ? false, c-ares ? null, brotliSupport ? false, brotli ? null }:
 
 assert http2Support -> nghttp2 != null;
 assert idnSupport -> libidn != null;

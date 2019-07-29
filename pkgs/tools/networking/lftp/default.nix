@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gnutls, pkgconfig, readline, zlib, libidn2, gmp, libiconv, libunistring, gettext
-}:
+{ stdenv, fetchurl, gnutls, pkgconfig, readline, zlib, libidn2, gmp, libiconv
+, libunistring, gettext }:
 
 stdenv.mkDerivation rec {
   name = "lftp-${version}";

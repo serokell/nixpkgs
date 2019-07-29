@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, coreutils, dbus, freetype, glib, gnused, libpthreadstubs, pango, pkgconfig, libpulseaudio, which
-}:
+{ stdenv, fetchurl, cmake, coreutils, dbus, freetype, glib, gnused
+, libpthreadstubs, pango, pkgconfig, libpulseaudio, which }:
 
 stdenv.mkDerivation rec {
   name = "squeak-${version}";

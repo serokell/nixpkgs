@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, hidapi, pycrypto, pillow, protobuf, future, ecpy, python-u2flib-host, pycryptodomex
-}:
+{ stdenv, fetchPypi, buildPythonPackage, hidapi, pycrypto, pillow, protobuf
+, future, ecpy, python-u2flib-host, pycryptodomex }:
 
 buildPythonPackage rec {
   pname = "ledgerblue";

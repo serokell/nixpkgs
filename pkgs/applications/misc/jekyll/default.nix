@@ -1,5 +1,5 @@
-{ lib, bundlerApp, ruby, writeShellScriptBin, makeWrapper, withOptionalDependencies ?
-  false }:
+{ lib, bundlerApp, ruby, writeShellScriptBin, makeWrapper
+, withOptionalDependencies ? false }:
 
 let
   rubyWrapper = writeShellScriptBin "ruby" ''

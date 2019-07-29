@@ -1,5 +1,6 @@
-{ stdenv, fetch, cmake, python, libffi, libbfd, libxml2, ncurses, version, release_version, zlib, buildPackages, fetchpatch, debugVersion ?
-  false, enableManpages ? false, enableSharedLibraries ? true }:
+{ stdenv, fetch, cmake, python, libffi, libbfd, libxml2, ncurses, version
+, release_version, zlib, buildPackages, fetchpatch, debugVersion ? false
+, enableManpages ? false, enableSharedLibraries ? true }:
 
 let
   inherit (stdenv.lib) optional optionals optionalString;

@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, ncurses, pkgconfig, texinfo, libxml2, gnutls, gettext, autoconf, automake, AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore, WebKit, ImageCaptureCore, GSS, ImageIO # These may be optional
+{ stdenv, fetchurl, ncurses, pkgconfig, texinfo, libxml2, gnutls, gettext
+, autoconf, automake, AppKit, Carbon, Cocoa, IOKit, OSAKit, Quartz, QuartzCore
+, WebKit, ImageCaptureCore, GSS, ImageIO # These may be optional
 }:
 
 stdenv.mkDerivation rec {

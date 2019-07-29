@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, glib, python3, sqlite, gdk_pixbuf, gnome3, gobject-introspection
-}:
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, glib, python3, sqlite
+, gdk_pixbuf, gnome3, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "gom";

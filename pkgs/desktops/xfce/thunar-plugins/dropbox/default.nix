@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk, thunar-bare, python2, hicolor-icon-theme, wafHook
-}:
+{ stdenv, fetchurl, pkgconfig, gtk, thunar-bare, python2, hicolor-icon-theme
+, wafHook }:
 
 stdenv.mkDerivation rec {
   p_name = "thunar-dropbox-plugin";

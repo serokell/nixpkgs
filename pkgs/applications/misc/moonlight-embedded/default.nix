@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, perl, alsaLib, libevdev, libopus, udev, SDL2, ffmpeg, pkgconfig, xorg, libvdpau, libpulseaudio, libcec, curl, expat, avahi, enet, libuuid, libva
-}:
+{ stdenv, fetchFromGitHub, cmake, perl, alsaLib, libevdev, libopus, udev, SDL2
+, ffmpeg, pkgconfig, xorg, libvdpau, libpulseaudio, libcec, curl, expat, avahi
+, enet, libuuid, libva }:
 
 stdenv.mkDerivation rec {
   name = "moonlight-embedded-${version}";

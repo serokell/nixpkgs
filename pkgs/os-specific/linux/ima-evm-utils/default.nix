@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, openssl, attr, keyutils, asciidoc, libxslt, docbook_xsl
-}:
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, openssl, attr, keyutils, asciidoc
+, libxslt, docbook_xsl }:
 
 stdenv.mkDerivation rec {
   name = "ima-evm-utils-${version}";

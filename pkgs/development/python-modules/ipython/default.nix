@@ -4,8 +4,8 @@
 # Test dependencies
 , nose, pygments
 # Runtime dependencies
-, jedi, decorator, pickleshare, traitlets, prompt_toolkit, pexpect, appnope, backcall, fetchpatch
-}:
+, jedi, decorator, pickleshare, traitlets, prompt_toolkit, pexpect, appnope
+, backcall, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "ipython";

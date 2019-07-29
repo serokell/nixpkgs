@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, python3, gettext, gobject-introspection, wrapGAppsHook, glibcLocales, gtk3, keybinder3, libnotify, libutempter, vte, libwnck3
-}:
+{ stdenv, fetchFromGitHub, python3, gettext, gobject-introspection
+, wrapGAppsHook, glibcLocales, gtk3, keybinder3, libnotify, libutempter, vte
+, libwnck3 }:
 
 let version = "3.6.3";
 in python3.pkgs.buildPythonApplication rec {

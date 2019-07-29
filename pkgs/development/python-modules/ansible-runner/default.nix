@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, psutil, pexpect, python-daemon, pyyaml, six, ansible, pytest, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil, pexpect, python-daemon, pyyaml
+, six, ansible, pytest, mock }:
 
 buildPythonPackage rec {
   pname = "ansible-runner";

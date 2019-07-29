@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, xorgproto, indent, readline, gsl, freeglut, libGLU_combined, SDL, blas, libbfd, intltool, gettext, zlib, libSM
-}:
+{ stdenv, fetchurl, libX11, xorgproto, indent, readline, gsl, freeglut
+, libGLU_combined, SDL, blas, libbfd, intltool, gettext, zlib, libSM }:
 
 stdenv.mkDerivation rec {
   baseName = "lush";

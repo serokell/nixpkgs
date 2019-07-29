@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, gobject-introspection, itstool, libxml2, python3, at-spi2-core, dbus, gettext, libwnck3, adwaita-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook
+, gobject-introspection, itstool, libxml2, python3, at-spi2-core, dbus, gettext
+, libwnck3, adwaita-icon-theme }:
 
 python3.pkgs.buildPythonApplication rec {
   name = "accerciser-${version}";

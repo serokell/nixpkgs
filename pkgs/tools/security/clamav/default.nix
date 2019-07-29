@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, zlib, bzip2, libiconv, libxml2, openssl, ncurses, curl, libmilter, pcre2, libmspack, systemd
-}:
+{ stdenv, fetchurl, pkgconfig, zlib, bzip2, libiconv, libxml2, openssl, ncurses
+, curl, libmilter, pcre2, libmspack, systemd }:
 
 stdenv.mkDerivation rec {
   name = "clamav-${version}";

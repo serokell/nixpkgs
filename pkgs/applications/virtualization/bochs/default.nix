@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, libtool, gtk2, libGLU_combined, readline, libX11, libXpm, docbook_xml_dtd_45, docbook_xsl, sdlSupport ?
-  true, SDL2 ? null, termSupport ? true, ncurses ? null, wxSupport ?
-    true, wxGTK ? null, wgetSupport ? false, wget ? null, curlSupport ?
-      false, curl ? null }:
+{ stdenv, fetchurl, pkgconfig, libtool, gtk2, libGLU_combined, readline, libX11
+, libXpm, docbook_xml_dtd_45, docbook_xsl, sdlSupport ? true, SDL2 ? null
+, termSupport ? true, ncurses ? null, wxSupport ? true, wxGTK ? null
+, wgetSupport ? false, wget ? null, curlSupport ? false, curl ? null }:
 
 assert sdlSupport -> (SDL2 != null);
 assert termSupport -> (ncurses != null);

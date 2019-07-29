@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, bison, libtool, pkgconfig, which, alsaLib, asio, libjack2, libgig, libsndfile, lv2
-}:
+{ stdenv, fetchurl, autoconf, automake, bison, libtool, pkgconfig, which
+, alsaLib, asio, libjack2, libgig, libsndfile, lv2 }:
 
 stdenv.mkDerivation rec {
   name = "linuxsampler-${version}";

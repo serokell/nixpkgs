@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, docbook_xsl, libxslt, openssl, libuuid, libwebsockets, c-ares, libuv, systemd ?
-  null, withSystemd ? stdenv.isLinux }:
+{ stdenv, lib, fetchFromGitHub, cmake, docbook_xsl, libxslt, openssl, libuuid
+, libwebsockets, c-ares, libuv, systemd ? null, withSystemd ? stdenv.isLinux }:
 
 stdenv.mkDerivation rec {
   name = "mosquitto-${version}";

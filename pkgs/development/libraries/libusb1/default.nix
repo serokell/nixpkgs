@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, systemd ? null, libobjc, IOKit, withStatic ?
-  false }:
+{ stdenv, fetchurl, pkgconfig, systemd ? null, libobjc, IOKit
+, withStatic ? false }:
 
 stdenv.mkDerivation (rec {
   name = "libusb-1.0.22";

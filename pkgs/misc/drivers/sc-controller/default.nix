@@ -1,5 +1,7 @@
-{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, gtk3, gobject-introspection, libappindicator-gtk3, librsvg, evdev, pygobject3, pylibacl, pytest, bluez, linuxHeaders, libX11, libXext, libXfixes, libusb1, udev
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, gtk3
+, gobject-introspection, libappindicator-gtk3, librsvg, evdev, pygobject3
+, pylibacl, pytest, bluez, linuxHeaders, libX11, libXext, libXfixes, libusb1
+, udev }:
 
 buildPythonApplication rec {
   pname = "sc-controller";

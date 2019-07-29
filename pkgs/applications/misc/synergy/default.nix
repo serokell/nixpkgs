@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, fetchurl, cmake, xlibsWrapper, ApplicationServices, Carbon, Cocoa, CoreServices, ScreenSaver, libX11, libXi, libXtst, libXrandr, xinput, curl, openssl, unzip
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, fetchurl, cmake, xlibsWrapper
+, ApplicationServices, Carbon, Cocoa, CoreServices, ScreenSaver, libX11, libXi
+, libXtst, libXrandr, xinput, curl, openssl, unzip }:
 
 stdenv.mkDerivation rec {
   name = "synergy-${version}";

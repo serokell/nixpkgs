@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, pytest, numpy, zlib, netcdf, hdf5, curl, libjpeg, cython, cftime
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, pytest, numpy, zlib, netcdf
+, hdf5, curl, libjpeg, cython, cftime }:
 buildPythonPackage rec {
   pname = "netCDF4";
   version = "1.5.1.2";

@@ -1,5 +1,6 @@
-{ fetchurl, stdenv, lib, zlib, glib, alsaLib, dbus, gtk2, atk, pango, freetype, fontconfig, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror, nspr, nss, xorg, libcap, systemd, libnotify, libXScrnSaver, gnome2
-}:
+{ fetchurl, stdenv, lib, zlib, glib, alsaLib, dbus, gtk2, atk, pango, freetype
+, fontconfig, libgnome-keyring3, gdk_pixbuf, cairo, cups, expat, libgpgerror
+, nspr, nss, xorg, libcap, systemd, libnotify, libXScrnSaver, gnome2 }:
 
 stdenv.mkDerivation rec {
 

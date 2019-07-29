@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, unzip, makeWrapper, setJavaClassPath, zulu, glib, libxml2, libav_0_8, ffmpeg, libxslt, libGL, alsaLib, fontconfig, freetype, gnome2, cairo, gdk_pixbuf, atk, xorg, zlib, swingSupport ?
-  true }:
+{ stdenv, lib, fetchurl, unzip, makeWrapper, setJavaClassPath, zulu, glib
+, libxml2, libav_0_8, ffmpeg, libxslt, libGL, alsaLib, fontconfig, freetype
+, gnome2, cairo, gdk_pixbuf, atk, xorg, zlib, swingSupport ? true }:
 
 let
   version = "10.1+11";

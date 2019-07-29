@@ -1,5 +1,5 @@
-{ stdenv, cmake, extra-cmake-modules, plasma-framework, kwindowsystem, redshift, fetchFromGitHub,
-}:
+{ stdenv, cmake, extra-cmake-modules, plasma-framework, kwindowsystem, redshift
+, fetchFromGitHub, }:
 
 let version = "1.0.18";
 

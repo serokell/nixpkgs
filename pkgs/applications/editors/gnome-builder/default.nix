@@ -1,5 +1,9 @@
-{ gcc8Stdenv, ctags, appstream-glib, desktop-file-utils, docbook_xsl, docbook_xml_dtd_43, fetchurl, flatpak, gnome3, libgit2-glib, gobject-introspection, gspell, gtk-doc, gtk3, gtksourceview4, hicolor-icon-theme, json-glib, jsonrpc-glib, libdazzle, libpeas, libxml2, meson, ninja, ostree, pcre, pkgconfig, python3, sysprof, template-glib, vala, vte, webkitgtk, wrapGAppsHook, dbus, xvfb_run
-}:
+{ gcc8Stdenv, ctags, appstream-glib, desktop-file-utils, docbook_xsl
+, docbook_xml_dtd_43, fetchurl, flatpak, gnome3, libgit2-glib
+, gobject-introspection, gspell, gtk-doc, gtk3, gtksourceview4
+, hicolor-icon-theme, json-glib, jsonrpc-glib, libdazzle, libpeas, libxml2
+, meson, ninja, ostree, pcre, pkgconfig, python3, sysprof, template-glib, vala
+, vte, webkitgtk, wrapGAppsHook, dbus, xvfb_run }:
 
 let
   # Does not build with GCC 7

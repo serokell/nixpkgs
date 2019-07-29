@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, qhull, flann, boost, vtk, eigen, pkgconfig, qtbase, libusb1, libpcap, libXt, libpng, Cocoa, AGL, OpenGL
-}:
+{ stdenv, fetchFromGitHub, cmake, qhull, flann, boost, vtk, eigen, pkgconfig
+, qtbase, libusb1, libpcap, libXt, libpng, Cocoa, AGL, OpenGL }:
 
 stdenv.mkDerivation rec {
   name = "pcl-1.9.1";

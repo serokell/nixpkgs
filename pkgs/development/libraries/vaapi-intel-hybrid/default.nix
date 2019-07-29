@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, cmrt, libdrm, libva, libX11, libGL, wayland
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, cmrt, libdrm, libva, libX11
+, libGL, wayland }:
 
 stdenv.mkDerivation rec {
   name = "intel-hybrid-driver-${version}";

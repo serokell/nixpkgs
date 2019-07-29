@@ -193,8 +193,8 @@ rec {
   # in these cases the first buildPhase will override the second one
   # ! deprecated, use mergeAttrByFunc instead
   mergeAttrsNoOverride =
-    { mergeLists ? [ "buildInputs" "propagatedBuildInputs" ], overrideSnd ?
-      [ "buildPhase" ] }:
+    { mergeLists ? [ "buildInputs" "propagatedBuildInputs" ]
+    , overrideSnd ? [ "buildPhase" ] }:
     attrs1: attrs2:
     fold (n: set:
     setAttr set n (if set ? ${n} then # merge

@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitLab, cmake, ninja, pkgconfig, wrapGAppsHook, glib, gtk3, gettext, libxkbfile, libX11, freerdp, libssh, libgcrypt, gnutls, pcre, libdbusmenu-gtk3, libappindicator-gtk3, libvncserver, libpthreadstubs, libXdmcp, libxkbcommon, libsecret, libsoup, spice-protocol, spice-gtk, epoxy, at-spi2-core, openssl, gsettings-desktop-schemas, json-glib
+{ stdenv, fetchFromGitLab, cmake, ninja, pkgconfig, wrapGAppsHook, glib, gtk3
+, gettext, libxkbfile, libX11, freerdp, libssh, libgcrypt, gnutls, pcre
+, libdbusmenu-gtk3, libappindicator-gtk3, libvncserver, libpthreadstubs
+, libXdmcp, libxkbcommon, libsecret, libsoup, spice-protocol, spice-gtk, epoxy
+, at-spi2-core, openssl, gsettings-desktop-schemas, json-glib
 # The themes here are soft dependencies; only icons are missing without them.
 , hicolor-icon-theme, gnome3 }:
 

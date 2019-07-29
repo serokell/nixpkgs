@@ -1,5 +1,7 @@
-{ stdenv, fetchgit, fetchFromGitLab, cmake, pkgconfig, makeWrapper, python27, retroarch, alsaLib, fluidsynth, curl, hidapi, libGLU_combined, gettext, glib, gtk2, portaudio, SDL, ffmpeg, pcre, libevdev, libpng, libjpeg, udev, libvorbis, miniupnpc, sfml, xorg, zlib
-}:
+{ stdenv, fetchgit, fetchFromGitLab, cmake, pkgconfig, makeWrapper, python27
+, retroarch, alsaLib, fluidsynth, curl, hidapi, libGLU_combined, gettext, glib
+, gtk2, portaudio, SDL, ffmpeg, pcre, libevdev, libpng, libjpeg, udev, libvorbis
+, miniupnpc, sfml, xorg, zlib }:
 
 let
 

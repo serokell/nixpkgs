@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchgit, isPy3k, simplejson, unittest2, nose, pkgs
-}:
+{ stdenv, buildPythonPackage, fetchgit, isPy3k, simplejson, unittest2, nose
+, pkgs }:
 
 buildPythonPackage rec {
   pname = "pycurl2";

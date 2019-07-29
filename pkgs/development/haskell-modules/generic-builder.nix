@@ -1,41 +1,41 @@
-{ stdenv, buildPackages, buildHaskellPackages, ghc, jailbreak-cabal, hscolour, cpphs, nodejs, shellFor
-}:
+{ stdenv, buildPackages, buildHaskellPackages, ghc, jailbreak-cabal, hscolour
+, cpphs, nodejs, shellFor }:
 
 let
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
   inherit (buildPackages)
     fetchurl removeReferencesTo pkgconfig coreutils gnugrep gnused glibcLocales;
 
-in { pname, dontStrip ? (ghc.isGhcjs or false), version, revision ?
-  null, sha256 ? null, src ? fetchurl {
-    url = "mirror://hackage/${pname}-${version}.tar.gz";
-    inherit sha256;
-  }, buildDepends ? [ ], setupHaskellDepends ? [ ], libraryHaskellDepends ?
-    [ ], executableHaskellDepends ? [ ], buildTarget ? "", buildTools ?
-      [ ], libraryToolDepends ? [ ], executableToolDepends ?
-        [ ], testToolDepends ? [ ], benchmarkToolDepends ? [ ], configureFlags ?
-          [ ], buildFlags ? [ ], haddockFlags ? [ ], description ? "", doCheck ?
-            !isCross && stdenv.lib.versionOlder "7.4" ghc.version, doBenchmark ?
-              false, doHoogle ? true, editedCabalFile ?
-                null, enableLibraryProfiling ? true, enableExecutableProfiling ?
-                  false, profilingDetail ? "exported-functions"
-                    # TODO enable shared libs for cross-compiling
-, enableSharedExecutables ? false, enableSharedLibraries ?
-  (ghc.enableShared or false), enableDeadCodeElimination ?
-    (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
+in { pname, dontStrip ? (ghc.isGhcjs or false), version, revision ? null
+, sha256 ? null, src ? fetchurl {
+  url = "mirror://hackage/${pname}-${version}.tar.gz";
+  inherit sha256;
+}, buildDepends ? [ ], setupHaskellDepends ? [ ], libraryHaskellDepends ? [ ]
+, executableHaskellDepends ? [ ], buildTarget ? "", buildTools ? [ ]
+, libraryToolDepends ? [ ], executableToolDepends ? [ ], testToolDepends ? [ ]
+, benchmarkToolDepends ? [ ], configureFlags ? [ ], buildFlags ? [ ]
+, haddockFlags ? [ ], description ? ""
+, doCheck ? !isCross && stdenv.lib.versionOlder "7.4" ghc.version
+, doBenchmark ? false, doHoogle ? true, editedCabalFile ? null
+, enableLibraryProfiling ? true, enableExecutableProfiling ? false
+, profilingDetail ? "exported-functions"
+  # TODO enable shared libs for cross-compiling
+, enableSharedExecutables ? false
+, enableSharedLibraries ? (ghc.enableShared or false)
+, enableDeadCodeElimination ?
+  (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
 , enableStaticLibraries ? !stdenv.hostPlatform.isWindows, enableHsc2hsViaAsm ?
-  stdenv.hostPlatform.isWindows
-  && stdenv.lib.versionAtLeast ghc.version "8.4", extraLibraries ?
-    [ ], librarySystemDepends ? [ ], executableSystemDepends ? [ ]
-      # On macOS, statically linking against system frameworks is not supported;
-      # see https://developer.apple.com/library/content/qa/qa1118/_index.html
-      # They must be propagated to the environment of any executable linking with the library
-, libraryFrameworkDepends ? [ ], executableFrameworkDepends ? [ ], homepage ?
-  "https://hackage.haskell.org/package/${pname}", platforms ?
-    with stdenv.lib.platforms;
-    unix ++ windows # GHC can cross-compile
-, hydraPlatforms ? null, hyperlinkSource ? true, isExecutable ?
-  false, isLibrary ? !isExecutable, jailbreak ? false, license
+  stdenv.hostPlatform.isWindows && stdenv.lib.versionAtLeast ghc.version "8.4"
+, extraLibraries ? [ ], librarySystemDepends ? [ ], executableSystemDepends ?
+  [ ]
+  # On macOS, statically linking against system frameworks is not supported;
+  # see https://developer.apple.com/library/content/qa/qa1118/_index.html
+  # They must be propagated to the environment of any executable linking with the library
+, libraryFrameworkDepends ? [ ], executableFrameworkDepends ? [ ]
+, homepage ? "https://hackage.haskell.org/package/${pname}"
+, platforms ? with stdenv.lib.platforms; unix ++ windows # GHC can cross-compile
+, hydraPlatforms ? null, hyperlinkSource ? true, isExecutable ? false
+, isLibrary ? !isExecutable, jailbreak ? false, license
 # We cannot enable -j<n> parallelism for libraries because GHC is far more
 # likely to generate a non-determistic library ID in that case. Further
 # details are at <https://github.com/peti/ghc-library-id-bug>.
@@ -44,30 +44,24 @@ in { pname, dontStrip ? (ghc.isGhcjs or false), version, revision ?
 , enableParallelBuilding ?
   ((stdenv.lib.versionOlder "7.8" ghc.version && !isLibrary)
   || stdenv.lib.versionOlder "8.0.1" ghc.version)
-  && !(stdenv.buildPlatform.isAarch64), maintainers ? [ ], doCoverage ?
-    false, doHaddock ? !(ghc.isHaLVM or false), passthru ?
-      { }, pkgconfigDepends ? [ ], libraryPkgconfigDepends ?
-        [ ], executablePkgconfigDepends ? [ ], testPkgconfigDepends ?
-          [ ], benchmarkPkgconfigDepends ? [ ], testDepends ?
-            [ ], testHaskellDepends ? [ ], testSystemDepends ?
-              [ ], testFrameworkDepends ? [ ], benchmarkDepends ?
-                [ ], benchmarkHaskellDepends ? [ ], benchmarkSystemDepends ?
-                  [ ], benchmarkFrameworkDepends ? [ ], testTarget ?
-                    "", broken ? false, preCompileBuildDriver ?
-                      "", postCompileBuildDriver ? "", preUnpack ?
-                        "", postUnpack ? "", patches ? [ ], patchPhase ?
-                          "", prePatch ? "", postPatch ? "", preConfigure ?
-                            "", postConfigure ? "", preBuild ? "", postBuild ?
-                              "", installPhase ? "", preInstall ?
-                                "", postInstall ? "", checkPhase ?
-                                  "", preCheck ? "", postCheck ? "", preFixup ?
-                                    "", postFixup ? "", shellHook ?
-                                      "", coreSetup ?
-                                        false # Use only core packages to build Setup.hs.
-, useCpphs ? false, hardeningDisable ?
-  stdenv.lib.optional (ghc.isHaLVM or false) "all", enableSeparateBinOutput ?
-    false, enableSeparateDataOutput ? false, enableSeparateDocOutput ?
-      doHaddock, # Don't fail at configure time if there are multiple versions of the
+  && !(stdenv.buildPlatform.isAarch64), maintainers ? [ ], doCoverage ? false
+, doHaddock ? !(ghc.isHaLVM or false), passthru ? { }, pkgconfigDepends ? [ ]
+, libraryPkgconfigDepends ? [ ], executablePkgconfigDepends ? [ ]
+, testPkgconfigDepends ? [ ], benchmarkPkgconfigDepends ? [ ], testDepends ? [ ]
+, testHaskellDepends ? [ ], testSystemDepends ? [ ], testFrameworkDepends ? [ ]
+, benchmarkDepends ? [ ], benchmarkHaskellDepends ? [ ]
+, benchmarkSystemDepends ? [ ], benchmarkFrameworkDepends ? [ ], testTarget ? ""
+, broken ? false, preCompileBuildDriver ? "", postCompileBuildDriver ? ""
+, preUnpack ? "", postUnpack ? "", patches ? [ ], patchPhase ? "", prePatch ? ""
+, postPatch ? "", preConfigure ? "", postConfigure ? "", preBuild ? ""
+, postBuild ? "", installPhase ? "", preInstall ? "", postInstall ? ""
+, checkPhase ? "", preCheck ? "", postCheck ? "", preFixup ? "", postFixup ? ""
+, shellHook ? "", coreSetup ? false # Use only core packages to build Setup.hs.
+, useCpphs ? false
+, hardeningDisable ? stdenv.lib.optional (ghc.isHaLVM or false) "all"
+, enableSeparateBinOutput ? false, enableSeparateDataOutput ? false
+, enableSeparateDocOutput ? doHaddock
+, # Don't fail at configure time if there are multiple versions of the
 # same package in the (recursive) dependencies of the package being
 # built. Will delay failures, if any, to compile time.
 allowInconsistentDependencies ? false, maxBuildCores ?

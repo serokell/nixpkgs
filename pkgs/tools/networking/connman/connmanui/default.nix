@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoconf, automake, libtool, glib, gtk3, dbus, pkgconfig, file, intltool, connman
-}:
+{ stdenv, fetchgit, autoconf, automake, libtool, glib, gtk3, dbus, pkgconfig
+, file, intltool, connman }:
 
 stdenv.mkDerivation rec {
   name = "connmanui-${version}";

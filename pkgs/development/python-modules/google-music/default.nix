@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, appdirs, audio-metadata, google-music-proto, protobuf, requests_oauthlib, tenacity
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, appdirs, audio-metadata
+, google-music-proto, protobuf, requests_oauthlib, tenacity }:
 
 buildPythonPackage rec {
   pname = "google-music";

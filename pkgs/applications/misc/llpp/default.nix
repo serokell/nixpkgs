@@ -1,5 +1,5 @@
-{ stdenv, lib, substituteAll, makeWrapper, fetchgit, ocaml, mupdf, libX11, libGLU_combined, freetype, xclip, inotify-tools, procps
-}:
+{ stdenv, lib, substituteAll, makeWrapper, fetchgit, ocaml, mupdf, libX11
+, libGLU_combined, freetype, xclip, inotify-tools, procps }:
 
 assert lib.versionAtLeast (lib.getVersion ocaml) "4.07";
 

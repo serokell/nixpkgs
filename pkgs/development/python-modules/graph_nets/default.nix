@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, tensorflow, absl-py, dm-sonnet, networkx, numpy, setuptools, six, future
-}:
+{ lib, buildPythonPackage, fetchPypi, tensorflow, absl-py, dm-sonnet, networkx
+, numpy, setuptools, six, future }:
 
 buildPythonPackage rec {
   pname = "graph_nets";

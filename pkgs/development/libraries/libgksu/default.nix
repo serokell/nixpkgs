@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, gtk2, gnome2, gnome3, libstartup_notification, libgtop, perlPackages, autoreconfHook, intltool, docbook_xsl, xauth
-}:
+{ stdenv, fetchurl, pkgconfig, wrapGAppsHook, gtk2, gnome2, gnome3
+, libstartup_notification, libgtop, perlPackages, autoreconfHook, intltool
+, docbook_xsl, xauth }:
 
 stdenv.mkDerivation rec {
   version = "2.0.12";

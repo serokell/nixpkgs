@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gobject-introspection, vala, gtk-doc, docbook_xsl, glib
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gobject-introspection, vala
+, gtk-doc, docbook_xsl, glib }:
 
 # TODO: Add installed tests once https://gitlab.gnome.org/World/libcloudproviders/issues/4 is fixed
 

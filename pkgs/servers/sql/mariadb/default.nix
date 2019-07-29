@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, ncurses, zlib, xz, lzo, lz4, bzip2, snappy, libiconv, openssl, pcre, boost, judy, bison, libxml2, libkrb5, libaio, libevent, jemalloc, cracklib, systemd, numactl, perl, fixDarwinDylibNames, cctools, CoreServices, asio, buildEnv, check, scons
-}:
+{ stdenv, fetchurl, fetchFromGitHub, cmake, pkgconfig, ncurses, zlib, xz, lzo
+, lz4, bzip2, snappy, libiconv, openssl, pcre, boost, judy, bison, libxml2
+, libkrb5, libaio, libevent, jemalloc, cracklib, systemd, numactl, perl
+, fixDarwinDylibNames, cctools, CoreServices, asio, buildEnv, check, scons }:
 
 with stdenv.lib;
 

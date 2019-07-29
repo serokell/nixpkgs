@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libxslt, docbook_xsl, docbook_xml_dtd_43, dbus, glib
-}:
+{ stdenv, fetchurl, pkgconfig, libxslt, docbook_xsl, docbook_xml_dtd_43, dbus
+, glib }:
 
 stdenv.mkDerivation rec {
   pname = "xdg-dbus-proxy";

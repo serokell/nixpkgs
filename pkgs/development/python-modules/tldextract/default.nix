@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, requests, requests-file, idna, pytest, responses
-}:
+{ lib, fetchPypi, buildPythonPackage, requests, requests-file, idna, pytest
+, responses }:
 
 buildPythonPackage rec {
   pname = "tldextract";

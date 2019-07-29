@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, exo, gtk, garcon, libxfce4util, libxfce4ui, xfconf, libXi, upower ?
-  null, libnotify ? null, libXcursor ? null, xf86inputlibinput ?
-    null, libxklavier ? null }:
+{ stdenv, fetchurl, pkgconfig, intltool, exo, gtk, garcon, libxfce4util
+, libxfce4ui, xfconf, libXi, upower ? null, libnotify ? null, libXcursor ? null
+, xf86inputlibinput ? null, libxklavier ? null }:
 
 let
   p_name = "xfce4-settings";

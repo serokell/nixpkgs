@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, xorg, pcre, gst_all_1, glib, xosd, libnotify, enchant, wrapGAppsHook, gdk_pixbuf
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, xorg, pcre, gst_all_1, glib, xosd
+, libnotify, enchant, wrapGAppsHook, gdk_pixbuf }:
 
 stdenv.mkDerivation rec {
   name = "xneur-${version}";

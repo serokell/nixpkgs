@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, ocaml, findlib, iri, ppx_tools, js_of_ocaml, js_of_ocaml-ppx, re
-}:
+{ stdenv, fetchFromGitLab, ocaml, findlib, iri, ppx_tools, js_of_ocaml
+, js_of_ocaml-ppx, re }:
 
 if stdenv.lib.versionOlder ocaml.version "4.03" then
   throw "xtmpl not supported for ocaml ${ocaml.version}"

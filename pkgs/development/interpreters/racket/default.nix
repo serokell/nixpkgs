@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, makeFontsConf, cacert, cairo, coreutils, fontconfig, freefont_ttf, glib, gmp, gtk3, libedit, libffi, libiconv, libGL, libGLU, libjpeg, libpng, libtool, mpfr, openssl, pango, poppler, readline, sqlite, disableDocs ?
-  false, CoreFoundation, gsettings-desktop-schemas, wrapGAppsHook }:
+{ stdenv, fetchurl, makeFontsConf, cacert, cairo, coreutils, fontconfig
+, freefont_ttf, glib, gmp, gtk3, libedit, libffi, libiconv, libGL, libGLU
+, libjpeg, libpng, libtool, mpfr, openssl, pango, poppler, readline, sqlite
+, disableDocs ? false, CoreFoundation, gsettings-desktop-schemas, wrapGAppsHook
+}:
 
 let
 

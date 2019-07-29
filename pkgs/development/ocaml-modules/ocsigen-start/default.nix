@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, buildOcaml, ocsigen-toolkit, eliom, ocaml_pcre, pgocaml, macaque, safepass, yojson, ocsigen_deriving, ocsigen_server, js_of_ocaml-camlp4, resource-pooling
-}:
+{ stdenv, fetchFromGitHub, buildOcaml, ocsigen-toolkit, eliom, ocaml_pcre
+, pgocaml, macaque, safepass, yojson, ocsigen_deriving, ocsigen_server
+, js_of_ocaml-camlp4, resource-pooling }:
 
 buildOcaml rec {
   name = "ocsigen-start";

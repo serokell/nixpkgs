@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, glib, gobject-introspection, cairo, libarchive, freetype, libjpeg, libtiff, gnome3, lcms2
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, glib, gobject-introspection, cairo
+, libarchive, freetype, libjpeg, libtiff, gnome3, lcms2 }:
 
 stdenv.mkDerivation rec {
   pname = "libgxps";

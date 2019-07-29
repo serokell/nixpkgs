@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, mock, pyopenssl, urllib3, dnspython
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, mock, pyopenssl, urllib3
+, dnspython }:
 
 buildPythonPackage rec {
   pname = "python-etcd";

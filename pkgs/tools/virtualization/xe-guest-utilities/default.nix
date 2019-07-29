@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, bzip2, lzo, zlib, xz, bash, python, gnutar, gnused, gnugrep, which
-}:
+{ stdenv, fetchurl, bzip2, lzo, zlib, xz, bash, python, gnutar, gnused, gnugrep
+, which }:
 
 stdenv.mkDerivation (rec {
   pname = "xe-guest-utilities";

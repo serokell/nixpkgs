@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, cppo, gen, sequence, qtest, ounit, result, qcheck
-}:
+{ stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, cppo, gen, sequence
+, qtest, ounit, result, qcheck }:
 
 let
 

@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, itstool, python3, libxml2, desktop-file-utils, wrapGAppsHook, gst_all_1, pulseaudio, gtk3, glib, glibmm, gtkmm3, lilv, lv2, serd, sord, sratom, libbs2b, libsamplerate, libsndfile, libebur128, boost, dbus, fftwFloat, calf, zita-convolver, zam-plugins, rubberband, mda_lv2, lsp-plugins, hicolor-icon-theme
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, itstool, python3, libxml2
+, desktop-file-utils, wrapGAppsHook, gst_all_1, pulseaudio, gtk3, glib, glibmm
+, gtkmm3, lilv, lv2, serd, sord, sratom, libbs2b, libsamplerate, libsndfile
+, libebur128, boost, dbus, fftwFloat, calf, zita-convolver, zam-plugins
+, rubberband, mda_lv2, lsp-plugins, hicolor-icon-theme }:
 
 let
   lv2Plugins = [

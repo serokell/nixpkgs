@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, attr, acl, zlib, libuuid, e2fsprogs, lzo, asciidoc, xmlto, docbook_xml_dtd_45, docbook_xsl, libxslt, zstd, python3
-}:
+{ stdenv, fetchurl, pkgconfig, attr, acl, zlib, libuuid, e2fsprogs, lzo
+, asciidoc, xmlto, docbook_xml_dtd_45, docbook_xsl, libxslt, zstd, python3 }:
 
 stdenv.mkDerivation rec {
   name = "btrfs-progs-${version}";

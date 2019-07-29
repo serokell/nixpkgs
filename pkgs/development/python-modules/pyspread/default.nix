@@ -1,5 +1,6 @@
-{ buildPythonPackage, fetchPypi, isPy3k, stdenv, numpy, wxPython, matplotlib, pycairo, python-gnupg, xlrd, xlwt, jedi, pyenchant, basemap, pygtk, makeDesktopItem
-}:
+{ buildPythonPackage, fetchPypi, isPy3k, stdenv, numpy, wxPython, matplotlib
+, pycairo, python-gnupg, xlrd, xlwt, jedi, pyenchant, basemap, pygtk
+, makeDesktopItem }:
 
 buildPythonPackage rec {
   pname = "pyspread";

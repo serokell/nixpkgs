@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, flask, mock, six, pytest, pytest-localserver, google_auth, httplib2
+{ lib, buildPythonPackage, fetchPypi, flask, mock, six, pytest
+, pytest-localserver, google_auth, httplib2
 
 }:
 

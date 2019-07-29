@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, pkgconfig, meson, ninja, python3, spice-protocol, gettext, openssl, pixman, gobject-introspection, libjpeg_turbo, zlib, cyrus_sasl, usbredir, libsoup, polkit, acl, usbutils, vala, gtk3, epoxy, libdrm, gst_all_1, phodav, libopus, gtk-doc, json-glib, lz4, libcacard, perl, docbook_xsl, withPolkit ?
-  true }:
+{ stdenv, fetchurl, pkgconfig, meson, ninja, python3, spice-protocol, gettext
+, openssl, pixman, gobject-introspection, libjpeg_turbo, zlib, cyrus_sasl
+, usbredir, libsoup, polkit, acl, usbutils, vala, gtk3, epoxy, libdrm, gst_all_1
+, phodav, libopus, gtk-doc, json-glib, lz4, libcacard, perl, docbook_xsl
+, withPolkit ? true }:
 
 # If this package is built with polkit support (withPolkit=true),
 # usb redirection reqires spice-client-glib-usb-acl-helper to run setuid root.

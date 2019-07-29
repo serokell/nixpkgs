@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glib, libxml2, libxslt, getopt, nixUnstable, dysnomia, libintl, libiconv
-}:
+{ stdenv, fetchurl, pkgconfig, glib, libxml2, libxslt, getopt, nixUnstable
+, dysnomia, libintl, libiconv }:
 
 stdenv.mkDerivation {
   name = "disnix-0.8";

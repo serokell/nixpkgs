@@ -1,4 +1,6 @@
-{ stdenv, fetchgit, flex, bison, python, autoconf, automake, gnulib, libtool, gettext, ncurses, libusb, freetype, qemu, lvm2, unifont, pkgconfig, fuse # only needed for grub-mount
+{ stdenv, fetchgit, flex, bison, python, autoconf, automake, gnulib, libtool
+, gettext, ncurses, libusb, freetype, qemu, lvm2, unifont, pkgconfig
+, fuse # only needed for grub-mount
 , zfs ? null, efiSupport ? false, zfsSupport ? true, xenSupport ? false }:
 
 with stdenv.lib;

@@ -1,5 +1,8 @@
-{ stdenv, lib, makeWrapper, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, gtk3, cairo, gnome2, atk, gdk_pixbuf, glib, at-spi2-atk, dbus, libX11, libxcb, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, fontconfig, expat, libudev0-shim, glibc, curl, openssl, libnghttp2, gnome3
-}:
+{ stdenv, lib, makeWrapper, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook
+, gtk3, cairo, gnome2, atk, gdk_pixbuf, glib, at-spi2-atk, dbus, libX11, libxcb
+, libXi, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes
+, libXrender, libXtst, libXScrnSaver, nss, nspr, alsaLib, cups, fontconfig
+, expat, libudev0-shim, glibc, curl, openssl, libnghttp2, gnome3 }:
 
 stdenv.mkDerivation rec {
   name = "polar-bookshelf-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, usbmuxd, libzip, libimobiledevice
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, usbmuxd, libzip
+, libimobiledevice }:
 
 stdenv.mkDerivation rec {
   pname = "ideviceinstaller";

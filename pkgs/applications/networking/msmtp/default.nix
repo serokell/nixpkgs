@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, netcat-gnu, gnutls, gsasl, libidn2, Security, withKeyring ?
-  true, libsecret ? null, systemd ? null }:
+{ stdenv, lib, fetchurl, autoreconfHook, pkgconfig, netcat-gnu, gnutls, gsasl
+, libidn2, Security, withKeyring ? true, libsecret ? null, systemd ? null }:
 
 let
   tester = "n"; # {x| |p|P|n|s}

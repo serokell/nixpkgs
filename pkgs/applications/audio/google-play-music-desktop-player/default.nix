@@ -1,5 +1,6 @@
-{ stdenv, alsaLib, atk, cairo, cups, dbus, dpkg, expat, fontconfig, freetype, fetchurl, GConf, gdk_pixbuf, glib, gtk2, gtk3, libpulseaudio, makeWrapper, nspr, nss, pango, udev, xorg
-}:
+{ stdenv, alsaLib, atk, cairo, cups, dbus, dpkg, expat, fontconfig, freetype
+, fetchurl, GConf, gdk_pixbuf, glib, gtk2, gtk3, libpulseaudio, makeWrapper
+, nspr, nss, pango, udev, xorg }:
 
 let
   version = "4.6.1";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, cmake, gfortran, perl, openblas, hdf5-cpp, python3, texlive, armadillo, openmpi, globalarrays, openssh, makeWrapper
-}:
+{ stdenv, fetchFromGitLab, cmake, gfortran, perl, openblas, hdf5-cpp, python3
+, texlive, armadillo, openmpi, globalarrays, openssh, makeWrapper }:
 
 let
   version = "18.09";

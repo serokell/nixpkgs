@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, SDL, SDL_mixer, SDL_net, libGLU_combined ? assert false;
-  null, useOpenGL ? stdenv.hostPlatform == stdenv.buildPlatform }:
+{ stdenv, fetchurl, SDL, SDL_mixer, SDL_net
+, libGLU_combined ? assert false; null
+, useOpenGL ? stdenv.hostPlatform == stdenv.buildPlatform }:
 
 stdenv.mkDerivation rec {
   name = "prboom-2.5.0";

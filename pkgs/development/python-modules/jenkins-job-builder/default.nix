@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pbr, mock, python-jenkins, pyyaml, six, stevedore, isPy27, fasteners, jinja2
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pbr, mock, python-jenkins, pyyaml, six
+, stevedore, isPy27, fasteners, jinja2 }:
 
 buildPythonPackage rec {
   pname = "jenkins-job-builder";

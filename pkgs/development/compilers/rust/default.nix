@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPackages, newScope, callPackage, CoreFoundation, Security, llvmPackages_5, pkgsBuildTarget, pkgsBuildBuild
-}: rec {
+{ stdenv, lib, buildPackages, newScope, callPackage, CoreFoundation, Security
+, llvmPackages_5, pkgsBuildTarget, pkgsBuildBuild }: rec {
   makeRustPlatform = { rustc, cargo, ... }: {
     rust = { inherit rustc cargo; };
 

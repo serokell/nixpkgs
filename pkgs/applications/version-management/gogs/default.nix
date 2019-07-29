@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, git, bash, gzip, openssh, pam, sqliteSupport ?
-  true, pamSupport ? true }:
+{ stdenv, buildGoPackage, fetchFromGitHub, makeWrapper, git, bash, gzip, openssh
+, pam, sqliteSupport ? true, pamSupport ? true }:
 
 with stdenv.lib;
 

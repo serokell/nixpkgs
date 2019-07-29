@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk3, gupnp, mate, imagemagick, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk3, gupnp, mate, imagemagick
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "caja-extensions-${version}";

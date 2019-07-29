@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, binutils, patchelf, makeWrapper, expat, xorg, gdk_pixbuf, glib, gnome2, cairo, atk, freetype, fontconfig, dbus, nss, nspr, gtk2-x11, alsaLib, cups, libpulseaudio, udev
-}:
+{ stdenv, fetchurl, binutils, patchelf, makeWrapper, expat, xorg, gdk_pixbuf
+, glib, gnome2, cairo, atk, freetype, fontconfig, dbus, nss, nspr, gtk2-x11
+, alsaLib, cups, libpulseaudio, udev }:
 
 stdenv.mkDerivation rec {
   name = "inboxer-${version}";

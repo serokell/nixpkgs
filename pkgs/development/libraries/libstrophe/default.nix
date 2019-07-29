@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, automake, autoconf, libtool, openssl, expat, pkgconfig, check
-}:
+{ stdenv, fetchFromGitHub, automake, autoconf, libtool, openssl, expat
+, pkgconfig, check }:
 
 stdenv.mkDerivation rec {
   name = "libstrophe-${version}";

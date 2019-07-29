@@ -1,6 +1,6 @@
-{ stdenv, lib, fetchurl, coreutils, ncurses, gzip, flex, bison, less, buildPackages, x11Mode ?
-  false, qtMode ?
-    false, libXaw, libXext, libXpm, bdftopcf, mkfontdir, pkgconfig, qt5 }:
+{ stdenv, lib, fetchurl, coreutils, ncurses, gzip, flex, bison, less
+, buildPackages, x11Mode ? false, qtMode ? false, libXaw, libXext, libXpm
+, bdftopcf, mkfontdir, pkgconfig, qt5 }:
 
 let
   platform = if stdenv.hostPlatform.isUnix then

@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, makeWrapper, coreutils, git, gmp, nettools, openssl, readline, tzdata, libxml2, libyaml, boehmgc, libatomic_ops, pcre, libevent, libiconv, llvm, clang, which, zlib
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, makeWrapper, coreutils, git, gmp
+, nettools, openssl, readline, tzdata, libxml2, libyaml, boehmgc, libatomic_ops
+, pcre, libevent, libiconv, llvm, clang, which, zlib }:
 
 # We need multiple binaries as a given binary isn't always able to build
 # (even slightly) older or newer versions.

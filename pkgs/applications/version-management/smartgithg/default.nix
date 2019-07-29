@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, makeWrapper, substituteAll, jre, gtk2, glib, libXtst, which
-}:
+{ stdenv, fetchurl, lib, makeWrapper, substituteAll, jre, gtk2, glib, libXtst
+, which }:
 
 stdenv.mkDerivation rec {
   name = "smartgithg-${version}";

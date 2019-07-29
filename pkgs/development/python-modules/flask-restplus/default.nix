@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, nose, blinker, tzlocal, mock, rednose, flask, six, jsonschema, pytz, aniso8601, flask-restful, isPy27, enum34
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, blinker, tzlocal, mock, rednose
+, flask, six, jsonschema, pytz, aniso8601, flask-restful, isPy27, enum34 }:
 
 buildPythonPackage rec {
   pname = "flask-restplus";

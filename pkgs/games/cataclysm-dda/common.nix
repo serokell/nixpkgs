@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gettext, ncurses, CoreFoundation, tiles, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, freetype, Cocoa, debug, runtimeShell
+{ stdenv, fetchFromGitHub, pkgconfig, gettext, ncurses, CoreFoundation, tiles
+, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, freetype, Cocoa, debug, runtimeShell
 }:
 
 let

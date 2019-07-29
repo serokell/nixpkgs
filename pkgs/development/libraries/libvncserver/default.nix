@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, libtool, libjpeg, openssl, zlib, libgcrypt, autoreconfHook, pkgconfig, libpng, systemd
-}:
+{ stdenv, fetchurl, fetchpatch, libtool, libjpeg, openssl, zlib, libgcrypt
+, autoreconfHook, pkgconfig, libpng, systemd }:
 
 let
   s = # Generated upstream information

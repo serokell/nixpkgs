@@ -1,9 +1,8 @@
 { stdenv, writeText, erlang, perl, which, gitMinimal, wget, lib }:
 
-{ name, version, src, setupHook ? null, buildInputs ? [ ], beamDeps ?
-  [ ], postPatch ? "", compilePorts ? false, installPhase ? null, buildPhase ?
-    null, configurePhase ? null, meta ? { }, enableDebugInfo ? false, ...
-}@attrs:
+{ name, version, src, setupHook ? null, buildInputs ? [ ], beamDeps ? [ ]
+, postPatch ? "", compilePorts ? false, installPhase ? null, buildPhase ? null
+, configurePhase ? null, meta ? { }, enableDebugInfo ? false, ... }@attrs:
 
 with stdenv.lib;
 

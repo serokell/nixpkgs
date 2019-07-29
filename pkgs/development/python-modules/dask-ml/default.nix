@@ -1,6 +1,6 @@
 { stdenv, buildPythonPackage, fetchPypi, dask, numpy, toolz # dask[array]
-, numba, pandas, scikitlearn, scipy, dask-glm, six, multipledispatch, packaging, pytest, xgboost, tensorflow, joblib, distributed
-}:
+, numba, pandas, scikitlearn, scipy, dask-glm, six, multipledispatch, packaging
+, pytest, xgboost, tensorflow, joblib, distributed }:
 
 buildPythonPackage rec {
   version = "0.11.0";

@@ -1,19 +1,23 @@
-{ pname, ffversion, meta, updateScript ? null, src, unpackPhase ?
-  null, patches ? [ ], extraNativeBuildInputs ? [ ], extraConfigureFlags ?
-    [ ], extraMakeFlags ? [ ], isIceCatLike ? false, icversion ?
-      null, isTorBrowserLike ? false, tbversion ? null }:
+{ pname, ffversion, meta, updateScript ? null, src, unpackPhase ? null
+, patches ? [ ], extraNativeBuildInputs ? [ ], extraConfigureFlags ? [ ]
+, extraMakeFlags ? [ ], isIceCatLike ? false, icversion ? null
+, isTorBrowserLike ? false, tbversion ? null }:
 
-{ lib, stdenv, pkgconfig, pango, perl, python2, python3, zip, libIDL, libjpeg, zlib, dbus, dbus-glib, bzip2, xorg, freetype, fontconfig, file, nspr, nss, libnotify, yasm, libGLU_combined, sqlite, unzip, makeWrapper, hunspell, libXdamage, libevent, libstartup_notification, libvpx, icu, libpng, jemalloc, glib, autoconf213, which, gnused, cargo, rustc, llvmPackages, rust-cbindgen, nodejs, nasm, fetchpatch, debugBuild ?
-  false
+{ lib, stdenv, pkgconfig, pango, perl, python2, python3, zip, libIDL, libjpeg
+, zlib, dbus, dbus-glib, bzip2, xorg, freetype, fontconfig, file, nspr, nss
+, libnotify, yasm, libGLU_combined, sqlite, unzip, makeWrapper, hunspell
+, libXdamage, libevent, libstartup_notification, libvpx, icu, libpng, jemalloc
+, glib, autoconf213, which, gnused, cargo, rustc, llvmPackages, rust-cbindgen
+, nodejs, nasm, fetchpatch, debugBuild ? false
 
   ### optionals
 
   ## optional libraries
 
-, alsaSupport ? stdenv.isLinux, alsaLib, pulseaudioSupport ?
-  stdenv.isLinux, libpulseaudio, ffmpegSupport ? true, gtk3Support ?
-    true, gtk2, gtk3, wrapGAppsHook, waylandSupport ?
-      true, libxkbcommon, gssSupport ? true, kerberos
+, alsaSupport ? stdenv.isLinux, alsaLib, pulseaudioSupport ? stdenv.isLinux
+, libpulseaudio, ffmpegSupport ? true, gtk3Support ? true, gtk2, gtk3
+, wrapGAppsHook, waylandSupport ? true, libxkbcommon, gssSupport ? true
+, kerberos
 
 ## privacy-related options
 
@@ -25,15 +29,15 @@
   # webrtcSupport breaks the aarch64 build on version >= 60, fixed in 63.
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1434589
 , webrtcSupport ? !privacySupport && (!stdenv.isAarch64
-  || !(lib.versionAtLeast ffversion "60"
-  && lib.versionOlder ffversion "63")), geolocationSupport ?
-    !privacySupport, googleAPISupport ?
-      geolocationSupport, crashreporterSupport ? false
+  || !(lib.versionAtLeast ffversion "60" && lib.versionOlder ffversion "63"))
+, geolocationSupport ? !privacySupport, googleAPISupport ? geolocationSupport
+, crashreporterSupport ? false
 
 , safeBrowsingSupport ? false, drmSupport ? false
 
   # macOS dependencies
-, xcbuild, CoreMedia, ExceptionHandling, Kerberos, AVFoundation, MediaToolbox, CoreLocation, Foundation, AddressBook, libobjc, cups, rsync
+, xcbuild, CoreMedia, ExceptionHandling, Kerberos, AVFoundation, MediaToolbox
+, CoreLocation, Foundation, AddressBook, libobjc, cups, rsync
 
 ## other
 

@@ -1,6 +1,8 @@
-{ stdenv, callPackage, lib, fetchurl, fetchFromGitHub, runCommand, runCommandCC, makeWrapper
+{ stdenv, callPackage, lib, fetchurl, fetchFromGitHub, runCommand, runCommandCC
+, makeWrapper
 # this package (through the fixpoint glass)
-, bazel, lr, xe, zip, unzip, bash, writeCBin, coreutils, which, gawk, gnused, gnutar, gnugrep, gzip, findutils
+, bazel, lr, xe, zip, unzip, bash, writeCBin, coreutils, which, gawk, gnused
+, gnutar, gnugrep, gzip, findutils
 # updater
 , python3, writeScript
 # Apple dependencies

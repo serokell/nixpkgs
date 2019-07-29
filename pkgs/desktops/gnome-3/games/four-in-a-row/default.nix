@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, gettext, meson, libcanberra-gtk3, librsvg, itstool, vala, python3, ninja, desktop-file-utils
+{ stdenv, fetchurl, pkgconfig, gnome3, gtk3, wrapGAppsHook, gettext, meson
+, libcanberra-gtk3, librsvg, itstool, vala, python3, ninja, desktop-file-utils
 }:
 
 stdenv.mkDerivation rec {

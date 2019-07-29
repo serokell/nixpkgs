@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, cairo, poppler, wxGTK ?
-  null, wxmac ? null, darwin ? null }:
+{ stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, cairo, poppler
+, wxGTK ? null, wxmac ? null, darwin ? null }:
 
 let
   wxInputs = if stdenv.isDarwin then [

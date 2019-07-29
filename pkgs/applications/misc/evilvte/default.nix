@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, makeWrapper, pkgconfig, gnome2, glib, pango, cairo, gdk_pixbuf, atk, freetype, xorg, configH ?
-  "" }:
+{ stdenv, fetchgit, makeWrapper, pkgconfig, gnome2, glib, pango, cairo
+, gdk_pixbuf, atk, freetype, xorg, configH ? "" }:
 
 stdenv.mkDerivation rec {
   name = "evilvte-${version}";

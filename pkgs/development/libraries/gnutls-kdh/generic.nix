@@ -1,6 +1,7 @@
-{ config, lib, stdenv, zlib, lzo, libtasn1, nettle, pkgconfig, lzip, perl, gmp, autogen, libidn, p11-kit, unbound, libiconv, guileBindings ?
-  config.gnutls.guile or false, guile, tpmSupport ?
-    true, trousers, nettools, gperftools, gperf, gettext, automake, yacc, texinfo
+{ config, lib, stdenv, zlib, lzo, libtasn1, nettle, pkgconfig, lzip, perl, gmp
+, autogen, libidn, p11-kit, unbound, libiconv
+, guileBindings ? config.gnutls.guile or false, guile, tpmSupport ? true
+, trousers, nettools, gperftools, gperf, gettext, automake, yacc, texinfo
 
 # Version dependent args
 , version, src, patches ? [ ], postPatch ? "", nativeBuildInputs ? [ ], ... }:

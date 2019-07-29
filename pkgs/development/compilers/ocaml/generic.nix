@@ -8,8 +8,8 @@ let
     url;
   safeX11 = stdenv: !(stdenv.isAarch32 || stdenv.isMips);
 
-in { stdenv, fetchurl, ncurses, buildEnv, libX11, xorgproto, useX11 ?
-  safeX11 stdenv, flambdaSupport ? false }:
+in { stdenv, fetchurl, ncurses, buildEnv, libX11, xorgproto
+, useX11 ? safeX11 stdenv, flambdaSupport ? false }:
 
 assert useX11 -> !stdenv.isAarch32 && !stdenv.isMips;
 assert flambdaSupport -> stdenv.lib.versionAtLeast version "4.03";

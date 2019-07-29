@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchpatch, bison2, flex, fontconfig, freetype, gperf, icu, openssl, libjpeg, libpng, perl, python, ruby, sqlite, qtwebkit, qmake, qtbase, darwin, writeScriptBin, cups, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, bison2, flex, fontconfig, freetype, gperf
+, icu, openssl, libjpeg, libpng, perl, python, ruby, sqlite, qtwebkit, qmake
+, qtbase, darwin, writeScriptBin, cups, makeWrapper }:
 
 let
   fakeClang = writeScriptBin "clang" ''

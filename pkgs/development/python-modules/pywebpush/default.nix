@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, coverage, flake8, mock, nose, http-ece, py-vapid, requests
-}:
+{ lib, fetchPypi, buildPythonPackage, coverage, flake8, mock, nose, http-ece
+, py-vapid, requests }:
 
 buildPythonPackage rec {
   pname = "pywebpush";

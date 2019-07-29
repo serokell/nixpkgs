@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, gnome3, gtk-doc, gtk3, libX11, libXext, libXrender, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, gnome3
+, gtk-doc, gtk3, libX11, libXext, libXrender, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   name = "keybinder3-${version}";

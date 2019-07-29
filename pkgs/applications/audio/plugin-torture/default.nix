@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, boost, ladspaH, lilv, lv2, pkgconfig, serd, sord, sratom
-}:
+{ stdenv, fetchFromGitHub, boost, ladspaH, lilv, lv2, pkgconfig, serd, sord
+, sratom }:
 
 stdenv.mkDerivation rec {
   name = "plugin-torture-${version}";

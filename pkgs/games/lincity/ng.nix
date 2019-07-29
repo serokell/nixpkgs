@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, jam, pkgconfig, zlib, libxml2, libxslt, xorgproto, libX11, libGLU_combined, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_gfx, physfs
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, jam, pkgconfig, zlib, libxml2
+, libxslt, xorgproto, libX11, libGLU_combined, SDL, SDL_mixer, SDL_image
+, SDL_ttf, SDL_gfx, physfs }:
 
 stdenv.mkDerivation rec {
   name = "lincity-ng-${version}";

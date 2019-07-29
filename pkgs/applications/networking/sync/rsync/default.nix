@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, perl, libiconv, zlib, popt, enableACLs ?
-  !(stdenv.isDarwin || stdenv.isSunOS || stdenv.isFreeBSD), acl ?
-    null, enableCopyDevicesPatch ? false }:
+{ stdenv, fetchurl, perl, libiconv, zlib, popt
+, enableACLs ? !(stdenv.isDarwin || stdenv.isSunOS || stdenv.isFreeBSD)
+, acl ? null, enableCopyDevicesPatch ? false }:
 
 assert enableACLs -> acl != null;
 

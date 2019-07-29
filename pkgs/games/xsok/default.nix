@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, imake, libXt, libXaw, libXpm, libXext, withNethackLevels ?
-  true }:
+{ stdenv, fetchurl, libX11, imake, libXt, libXaw, libXpm, libXext
+, withNethackLevels ? true }:
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "xsok";

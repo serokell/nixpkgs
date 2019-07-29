@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, glibmm, libgda, libxml2, gnome3, mysqlSupport ?
-  false, postgresSupport ? false }:
+{ stdenv, fetchurl, pkgconfig, glibmm, libgda, libxml2, gnome3
+, mysqlSupport ? false, postgresSupport ? false }:
 
 let gda = libgda.override { inherit mysqlSupport postgresSupport; };
 in stdenv.mkDerivation rec {

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, wrapQtAppsHook, poppler, qt5, gnuplot
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, pkgconfig, wrapQtAppsHook, poppler, qt5
+, gnuplot }:
 
 # This package only builds ktikz without KDE integration because KDE4 is
 # deprecated and upstream does not (yet ?) support KDE5.

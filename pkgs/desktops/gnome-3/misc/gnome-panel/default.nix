@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, autoreconfHook, dconf, evolution-data-server, gdm, gettext, glib, gnome-desktop, gnome-flashback, gnome-menus, gnome3, gtk3, itstool, libgweather, libsoup, libwnck3, libxml2, pkgconfig, polkit, systemd, wrapGAppsHook
-}:
+{ stdenv, fetchurl, autoreconfHook, dconf, evolution-data-server, gdm, gettext
+, glib, gnome-desktop, gnome-flashback, gnome-menus, gnome3, gtk3, itstool
+, libgweather, libsoup, libwnck3, libxml2, pkgconfig, polkit, systemd
+, wrapGAppsHook }:
 
 let
   pname = "gnome-panel";

@@ -1,8 +1,8 @@
 sourcePerArch:
 
-{ swingSupport ? true, stdenv, fetchurl, file, xorg ?
-  null, glib, libxml2, ffmpeg_2, libxslt, libGL, freetype, fontconfig, gtk2, pango, cairo, alsaLib, atk, gdk_pixbuf, zlib, elfutils
-}:
+{ swingSupport ? true, stdenv, fetchurl, file, xorg ? null, glib, libxml2
+, ffmpeg_2, libxslt, libGL, freetype, fontconfig, gtk2, pango, cairo, alsaLib
+, atk, gdk_pixbuf, zlib, elfutils }:
 
 assert swingSupport -> xorg != null;
 

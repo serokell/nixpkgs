@@ -1,5 +1,5 @@
-{ stdenv, pkgs, buildEnv, fetchFromGitHub, makeWrapper, fetchpatch, nodejs-8_x, phantomjs2, runtimeShell
-}:
+{ stdenv, pkgs, buildEnv, fetchFromGitHub, makeWrapper, fetchpatch, nodejs-8_x
+, phantomjs2, runtimeShell }:
 let
   nodePackages = let
     # Some packages fail to install with ENOTCACHED due to a mistakenly added

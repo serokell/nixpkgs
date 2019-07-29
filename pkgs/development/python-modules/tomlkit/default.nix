@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, isPy34, enum34, functools32, typing
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, isPy34, enum34, functools32
+, typing }:
 
 buildPythonPackage rec {
   pname = "tomlkit";

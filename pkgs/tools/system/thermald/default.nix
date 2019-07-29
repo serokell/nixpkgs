@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, dbus, dbus-glib, libxml2
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, dbus
+, dbus-glib, libxml2 }:
 
 stdenv.mkDerivation rec {
   name = "thermald-${version}";

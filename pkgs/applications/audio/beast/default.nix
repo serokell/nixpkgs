@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, zlib, guile, libart_lgpl, pkgconfig, intltool, gtk2, glib, libogg, libvorbis, libgnomecanvas, gettext, perl
-}:
+{ stdenv, fetchurl, zlib, guile, libart_lgpl, pkgconfig, intltool, gtk2, glib
+, libogg, libvorbis, libgnomecanvas, gettext, perl }:
 
 stdenv.mkDerivation rec {
   name = "beast-0.7.1";

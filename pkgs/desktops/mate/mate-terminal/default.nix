@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, itstool, libxml2, mate, gnome3, gtk3, vte, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, itstool, libxml2, mate, gnome3
+, gtk3, vte, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-terminal-${version}";

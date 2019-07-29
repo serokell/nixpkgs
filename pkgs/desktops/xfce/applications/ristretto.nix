@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, libexif, gtk, exo, dbus-glib, libxfce4util, libxfce4ui, xfconf, hicolor-icon-theme, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, libexif, gtk, exo, dbus-glib
+, libxfce4util, libxfce4ui, xfconf, hicolor-icon-theme, makeWrapper }:
 
 stdenv.mkDerivation rec {
   p_name = "ristretto";

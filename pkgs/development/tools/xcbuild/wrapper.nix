@@ -1,7 +1,8 @@
-{ stdenv, makeWrapper, writeText, runCommand, CoreServices, ImageIO, CoreGraphics, runtimeShell, callPackage, xcodePlatform ?
-  stdenv.targetPlatform.xcodePlatform or "MacOSX", xcodeVer ?
-    stdenv.targetPlatform.xcodeVer or "9.4.1", sdkVer ?
-      stdenv.targetPlatform.sdkVer or "10.12" }:
+{ stdenv, makeWrapper, writeText, runCommand, CoreServices, ImageIO
+, CoreGraphics, runtimeShell, callPackage
+, xcodePlatform ? stdenv.targetPlatform.xcodePlatform or "MacOSX"
+, xcodeVer ? stdenv.targetPlatform.xcodeVer or "9.4.1"
+, sdkVer ? stdenv.targetPlatform.sdkVer or "10.12" }:
 
 let
 

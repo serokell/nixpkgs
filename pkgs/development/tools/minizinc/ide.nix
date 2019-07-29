@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qtbase, qtwebengine, qtwebkit, qmake, makeWrapper, minizinc
-}:
+{ stdenv, fetchFromGitHub, qtbase, qtwebengine, qtwebkit, qmake, makeWrapper
+, minizinc }:
 let version = "2.3.0";
 in stdenv.mkDerivation {
   name = "minizinc-ide-${version}";

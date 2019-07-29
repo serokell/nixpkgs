@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, cached-property, frozendict, pystache, pyyaml, pytest, pytestrunner
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, cached-property, frozendict
+, pystache, pyyaml, pytest, pytestrunner }:
 
 buildPythonPackage rec {
   pname = "genanki";

@@ -1,5 +1,5 @@
-{ lib, fetchurl, python, buildPythonPackage, pkgconfig, pygobject2, glib, pygtk, gnome2
-}:
+{ lib, fetchurl, python, buildPythonPackage, pkgconfig, pygobject2, glib, pygtk
+, gnome2 }:
 
 buildPythonPackage rec {
   pname = "pygtksourceview";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, influxdb, graphite_api, memcached
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, influxdb, graphite_api
+, memcached }:
 
 buildPythonPackage rec {
   pname = "influxgraph";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, SDL2, ftgl, pkgconfig, libpng, libjpeg, pcre, SDL2_image, glew, libGLU_combined, boost, glm, freetype
-}:
+{ stdenv, fetchurl, SDL2, ftgl, pkgconfig, libpng, libjpeg, pcre, SDL2_image
+, glew, libGLU_combined, boost, glm, freetype }:
 
 stdenv.mkDerivation rec {
   name = "logstalgia-${version}";

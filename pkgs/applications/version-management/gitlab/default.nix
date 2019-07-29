@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, fetchFromGitLab, bundlerEnv, ruby, tzdata, git, nettools, nixosTests, gitlabEnterprise ?
-  false }:
+{ stdenv, lib, fetchurl, fetchFromGitLab, bundlerEnv, ruby, tzdata, git
+, nettools, nixosTests, gitlabEnterprise ? false }:
 
 let
   rubyEnv = bundlerEnv rec {

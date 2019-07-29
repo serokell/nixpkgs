@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libX11, libXrandr, glib, colord
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, libX11, libXrandr, glib
+, colord }:
 
 stdenv.mkDerivation rec {
   name = "xiccd-${version}";

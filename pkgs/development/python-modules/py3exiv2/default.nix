@@ -1,5 +1,5 @@
-{ buildPythonPackage, isPy3k, fetchPypi, stdenv, exiv2, boost, libcxx, substituteAll, python
-}:
+{ buildPythonPackage, isPy3k, fetchPypi, stdenv, exiv2, boost, libcxx
+, substituteAll, python }:
 
 buildPythonPackage rec {
   pname = "py3exiv2";

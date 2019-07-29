@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pillow, html5lib, pypdf2, reportlab, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pillow, html5lib, pypdf2, reportlab
+, six }:
 
 buildPythonPackage rec {
   pname = "xhtml2pdf";

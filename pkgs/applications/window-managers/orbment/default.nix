@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchgit, cmake, pkgconfig, makeWrapper, callPackage, wlc, dbus, wayland, libxkbcommon, pixman, libinput, udev, zlib, libpng, libdrm, libX11, westonLite
-}:
+{ lib, stdenv, fetchgit, cmake, pkgconfig, makeWrapper, callPackage, wlc, dbus
+, wayland, libxkbcommon, pixman, libinput, udev, zlib, libpng, libdrm, libX11
+, westonLite }:
 
 let bemenu = callPackage ./bemenu.nix { };
 in stdenv.mkDerivation rec {

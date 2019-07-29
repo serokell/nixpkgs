@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, locket, numpy, pandas, pyzmq, toolz
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, locket, numpy, pandas, pyzmq
+, toolz }:
 
 buildPythonPackage rec {
   pname = "partd";

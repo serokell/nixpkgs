@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, freetype, ftgl, libjack2, libX11, lv2, libGLU_combined, pkgconfig, ttf_bitstream_vera
-}:
+{ stdenv, fetchurl, alsaLib, freetype, ftgl, libjack2, libX11, lv2
+, libGLU_combined, pkgconfig, ttf_bitstream_vera }:
 
 stdenv.mkDerivation rec {
   name = "setbfree-${version}";

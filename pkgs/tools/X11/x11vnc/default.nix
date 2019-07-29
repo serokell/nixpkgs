@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, openssl, zlib, libjpeg, xorg, coreutils, libvncserver, autoreconfHook, pkgconfig
-}:
+{ stdenv, fetchFromGitHub, openssl, zlib, libjpeg, xorg, coreutils, libvncserver
+, autoreconfHook, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "x11vnc-${version}";

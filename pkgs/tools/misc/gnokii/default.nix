@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, intltool, perl, gettext, libusb, pkgconfig, bluez, readline, pcsclite, libical, gtk2, glib, libXpm
-}:
+{ stdenv, fetchurl, intltool, perl, gettext, libusb, pkgconfig, bluez, readline
+, pcsclite, libical, gtk2, glib, libXpm }:
 
 stdenv.mkDerivation rec {
   name = "gnokii-${version}";

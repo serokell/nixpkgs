@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, pcsclite, talloc, python2, gnutls
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, pcsclite, talloc, python2
+, gnutls }:
 
 stdenv.mkDerivation rec {
   name = "libosmocore-${version}";

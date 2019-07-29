@@ -2,8 +2,8 @@
 #
 # Contact: stdenv.lib.maintainers.fuuzetsu
 
-{ stdenv, Agda, glibcLocales, writeShellScriptBin, extension ?
-  (self: super: { }) }:
+{ stdenv, Agda, glibcLocales, writeShellScriptBin
+, extension ? (self: super: { }) }:
 
 with stdenv.lib.strings;
 

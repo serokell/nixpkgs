@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, ffmpeg, libjack2, libX11, libXext, qtx11extras, libXfixes, libGLU_combined, pkgconfig, libpulseaudio, qtbase, cmake, ninja
-}:
+{ stdenv, fetchurl, alsaLib, ffmpeg, libjack2, libX11, libXext, qtx11extras
+, libXfixes, libGLU_combined, pkgconfig, libpulseaudio, qtbase, cmake, ninja }:
 
 stdenv.mkDerivation rec {
   name = "simplescreenrecorder-${version}";

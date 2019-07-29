@@ -1,5 +1,6 @@
-{ stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, libxslt, libxml2, docbook_xml_dtd_45, docbook_xsl, gnome-doc-utils, flex, bison, pam ?
-  null, glibcCross ? null }:
+{ stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, libxslt, libxml2
+, docbook_xml_dtd_45, docbook_xsl, gnome-doc-utils, flex, bison, pam ? null
+, glibcCross ? null }:
 
 let
 

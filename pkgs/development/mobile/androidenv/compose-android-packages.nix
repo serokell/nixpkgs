@@ -1,13 +1,13 @@
 { requireFile, autoPatchelfHook, pkgs, pkgs_i686, licenseAccepted ? false }:
 
-{ toolsVersion ? "25.2.5", platformToolsVersion ? "28.0.1", buildToolsVersions ?
-  [ "28.0.3" ], includeEmulator ? false, emulatorVersion ?
-    "28.0.14", platformVersions ? [ ], includeSources ? false, includeDocs ?
-      false, includeSystemImages ? false, systemImageTypes ?
-        [ "default" ], abiVersions ? [ "armeabi-v7a" ], lldbVersions ?
-          [ ], cmakeVersions ? [ ], includeNDK ? false, ndkVersion ?
-            "18.1.5063045", useGoogleAPIs ? false, useGoogleTVAddOns ?
-              false, includeExtras ? [ ] }:
+{ toolsVersion ? "25.2.5", platformToolsVersion ? "28.0.1"
+, buildToolsVersions ? [ "28.0.3" ], includeEmulator ? false
+, emulatorVersion ? "28.0.14", platformVersions ? [ ], includeSources ? false
+, includeDocs ? false, includeSystemImages ? false
+, systemImageTypes ? [ "default" ], abiVersions ? [ "armeabi-v7a" ]
+, lldbVersions ? [ ], cmakeVersions ? [ ], includeNDK ? false
+, ndkVersion ? "18.1.5063045", useGoogleAPIs ? false, useGoogleTVAddOns ? false
+, includeExtras ? [ ] }:
 
 let
   inherit (pkgs) stdenv fetchurl makeWrapper unzip;

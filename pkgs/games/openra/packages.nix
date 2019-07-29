@@ -44,9 +44,8 @@ let
 in rec {
   # The whole attribute set is destructered to ensure those (and only those) attributes are given
   # and to provide defaults for those that are optional.
-  buildOpenRAEngine = { name ?
-    null, version, description, homepage, mods, src, installExperimental ? ""
-    }@engine:
+  buildOpenRAEngine = { name ? null, version, description, homepage, mods, src
+    , installExperimental ? "" }@engine:
     # Allow specifying the name at a later point if no name has been given.
     let
       builder = name:

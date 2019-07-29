@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, attrs, pyrsistent, six, functools32, lockfile, setuptools_scm
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, attrs, pyrsistent, six
+, functools32, lockfile, setuptools_scm }:
 
 buildPythonPackage rec {
   pname = "jsonschema";

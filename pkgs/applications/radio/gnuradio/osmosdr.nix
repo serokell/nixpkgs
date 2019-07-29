@@ -1,6 +1,6 @@
-{ stdenv, fetchgit, cmake, pkgconfig, makeWrapper, boost, pythonSupport ?
-  true, python, swig, airspy, gnuradio, hackrf, libbladeRF, rtl-sdr, soapysdr-with-plugins, uhd
-}:
+{ stdenv, fetchgit, cmake, pkgconfig, makeWrapper, boost, pythonSupport ? true
+, python, swig, airspy, gnuradio, hackrf, libbladeRF, rtl-sdr
+, soapysdr-with-plugins, uhd }:
 
 assert pythonSupport -> python != null && swig != null;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libjack2, alsaLib, libsndfile, liblo, lv2, qt5, fftw
-}:
+{ stdenv, fetchurl, pkgconfig, libjack2, alsaLib, libsndfile, liblo, lv2, qt5
+, fftw }:
 
 stdenv.mkDerivation rec {
   name = "padthv1-${version}";

@@ -1,9 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ?
-  import ../.. { inherit system config; }, channelMap ? {
-    stable = pkgs.chromium;
-    beta = pkgs.chromiumBeta;
-    dev = pkgs.chromiumDev;
-  } }:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, channelMap ? {
+  stable = pkgs.chromium;
+  beta = pkgs.chromiumBeta;
+  dev = pkgs.chromiumDev;
+} }:
 
 with import ../lib/testing.nix { inherit system pkgs; };
 with pkgs.lib;

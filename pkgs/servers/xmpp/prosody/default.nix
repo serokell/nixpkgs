@@ -1,8 +1,9 @@
-{ stdenv, fetchurl, libidn, openssl, makeWrapper, fetchhg, lua5, luasocket, luasec, luaexpat, luafilesystem, luabitop, withLibevent ?
-  true, luaevent ? null, withDBI ? true, luadbi ? null
-    # use withExtraLibs to add additional dependencies of community modules
-, withExtraLibs ? [ ], withOnlyInstalledCommunityModules ?
-  [ ], withCommunityModules ? [ ] }:
+{ stdenv, fetchurl, libidn, openssl, makeWrapper, fetchhg, lua5, luasocket
+, luasec, luaexpat, luafilesystem, luabitop, withLibevent ? true
+, luaevent ? null, withDBI ? true, luadbi ? null
+  # use withExtraLibs to add additional dependencies of community modules
+, withExtraLibs ? [ ], withOnlyInstalledCommunityModules ? [ ]
+, withCommunityModules ? [ ] }:
 
 assert withLibevent -> luaevent != null;
 assert withDBI -> luadbi != null;

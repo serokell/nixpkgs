@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, ninja, pkgconfig, intltool, vala, wrapGAppsHook, gcr, libpeas, gtk3, webkitgtk, sqlite, gsettings-desktop-schemas, libsoup, glib-networking
-}:
+{ stdenv, fetchurl, cmake, ninja, pkgconfig, intltool, vala, wrapGAppsHook, gcr
+, libpeas, gtk3, webkitgtk, sqlite, gsettings-desktop-schemas, libsoup
+, glib-networking }:
 
 stdenv.mkDerivation rec {
   pname = "midori";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk3, libwnck3, libfakekey, libXtst, mate, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk3, libwnck3, libfakekey, libXtst
+, mate, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "mate-netbook-${version}";

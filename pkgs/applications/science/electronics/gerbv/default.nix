@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, gettext, libtool, automake, autoconf, cairo, gtk2, autoreconfHook
-}:
+{ stdenv, fetchgit, pkgconfig, gettext, libtool, automake, autoconf, cairo, gtk2
+, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "gerbv-${version}";

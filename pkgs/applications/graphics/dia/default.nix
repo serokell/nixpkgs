@@ -1,5 +1,7 @@
-{ stdenv, fetchgit, autoconf, automake, libtool, gtk2, pkgconfig, perlPackages, libxml2, gettext, python, libxml2Python, docbook5, docbook_xsl, libxslt, intltool, libart_lgpl, withGNOME ?
-  false, libgnomeui, hicolor-icon-theme, gtk-mac-integration-gtk2 }:
+{ stdenv, fetchgit, autoconf, automake, libtool, gtk2, pkgconfig, perlPackages
+, libxml2, gettext, python, libxml2Python, docbook5, docbook_xsl, libxslt
+, intltool, libart_lgpl, withGNOME ? false, libgnomeui, hicolor-icon-theme
+, gtk-mac-integration-gtk2 }:
 
 stdenv.mkDerivation rec {
   name = "dia-${version}";

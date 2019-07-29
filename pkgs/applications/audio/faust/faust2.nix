@@ -1,5 +1,5 @@
-{ stdenv, coreutils, fetchFromGitHub, makeWrapper, pkgconfig, llvm, emscripten, openssl, libsndfile, libmicrohttpd, vim
-}:
+{ stdenv, coreutils, fetchFromGitHub, makeWrapper, pkgconfig, llvm, emscripten
+, openssl, libsndfile, libmicrohttpd, vim }:
 
 with stdenv.lib.strings;
 

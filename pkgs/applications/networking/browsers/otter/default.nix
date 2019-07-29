@@ -1,6 +1,6 @@
-{ stdenv, cmake, fetchFromGitHub, qtbase, qtmultimedia, qtwebengine, qtxmlpatterns, version ?
-  "1.0.01", sourceSha ? "1jw8bj3lcqngr0mqwvz1gf47qjxbwiyda7x4sm96a6ckga7pcwyb"
-}:
+{ stdenv, cmake, fetchFromGitHub, qtbase, qtmultimedia, qtwebengine
+, qtxmlpatterns, version ? "1.0.01"
+, sourceSha ? "1jw8bj3lcqngr0mqwvz1gf47qjxbwiyda7x4sm96a6ckga7pcwyb" }:
 stdenv.mkDerivation {
   name = "otter-browser-${version}";
 

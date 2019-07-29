@@ -1,5 +1,7 @@
-{ stdenv, buildPythonPackage, fetchPypi, spake2, pynacl, six, attrs, twisted, autobahn, automat, hkdf, tqdm, click, humanize, txtorcon, nettools, glibcLocales, mock, magic-wormhole-transit-relay, magic-wormhole-mailbox-server
-}:
+{ stdenv, buildPythonPackage, fetchPypi, spake2, pynacl, six, attrs, twisted
+, autobahn, automat, hkdf, tqdm, click, humanize, txtorcon, nettools
+, glibcLocales, mock, magic-wormhole-transit-relay
+, magic-wormhole-mailbox-server }:
 
 buildPythonPackage rec {
   pname = "magic-wormhole";

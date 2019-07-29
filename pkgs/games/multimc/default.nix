@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, jdk, zlib, file, makeWrapper, xorg, libpulseaudio, qtbase
-}:
+{ stdenv, fetchFromGitHub, cmake, jdk, zlib, file, makeWrapper, xorg
+, libpulseaudio, qtbase }:
 
 let
   libpath = with xorg;

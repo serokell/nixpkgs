@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, httplib2, oauth, oauth2, semantic-version, flask, httpretty, oauthlib, pyflakes, pytest, pytestcache, pytestcov, covCore, pytest-flakes, pytestpep8, sphinx, mock, chalice, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, httplib2, oauth, oauth2, semantic-version
+, flask, httpretty, oauthlib, pyflakes, pytest, pytestcache, pytestcov, covCore
+, pytest-flakes, pytestpep8, sphinx, mock, chalice, isPy27 }:
 
 buildPythonPackage rec {
   pname = "PyLTI";

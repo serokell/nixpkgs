@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee, granite, gtk3, switchboard, elementary-settings-daemon
-}:
+{ stdenv, fetchFromGitHub, pantheon, meson, ninja, pkgconfig, vala, libgee
+, granite, gtk3, switchboard, elementary-settings-daemon }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-mouse-touchpad";

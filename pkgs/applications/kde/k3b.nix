@@ -1,5 +1,9 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, makeWrapper, shared-mime-info, qtwebkit, libkcddb, karchive, kcmutils, kfilemetadata, knewstuff, knotifyconfig, solid, kxmlgui, flac, lame, libmad, libmpcdec, libvorbis, libsamplerate, libsndfile, taglib, cdparanoia, cdrdao, cdrtools, dvdplusrwtools, libburn, libdvdcss, libdvdread, vcdimager, ffmpeg, libmusicbrainz3, normalize, sox, transcode, kinit
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, makeWrapper
+, shared-mime-info, qtwebkit, libkcddb, karchive, kcmutils, kfilemetadata
+, knewstuff, knotifyconfig, solid, kxmlgui, flac, lame, libmad, libmpcdec
+, libvorbis, libsamplerate, libsndfile, taglib, cdparanoia, cdrdao, cdrtools
+, dvdplusrwtools, libburn, libdvdcss, libdvdread, vcdimager, ffmpeg
+, libmusicbrainz3, normalize, sox, transcode, kinit }:
 
 mkDerivation {
   name = "k3b";

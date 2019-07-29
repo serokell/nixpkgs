@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, file, wrapGAppsHook, openssl, curl, libevent, inotify-tools, systemd, zlib, hicolor-icon-theme, enableGTK3 ?
-  false, gtk3, enableSystemd ? stdenv.isLinux, enableDaemon ? true, enableCli ?
-    true }:
+{ stdenv, fetchurl, pkgconfig, intltool, file, wrapGAppsHook, openssl, curl
+, libevent, inotify-tools, systemd, zlib, hicolor-icon-theme, enableGTK3 ? false
+, gtk3, enableSystemd ? stdenv.isLinux, enableDaemon ? true, enableCli ? true }:
 
 let inherit (stdenv.lib) optional optionals optionalString;
 

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, nose, matplotlib, nibabel, numpy, scipy, sympy, python
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, nose, matplotlib, nibabel
+, numpy, scipy, sympy, python }:
 
 buildPythonPackage rec {
   version = "0.4.2";

@@ -1,5 +1,5 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, mock, numpy, pathlib, pytest, pytz
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, mock, numpy, pathlib
+, pytest, pytz }:
 
 buildPythonPackage rec {
   pname = "srsly";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libjpeg, libpng, libmng, lcms1, libtiff, openexr, libGL, libX11, pkgconfig, OpenGL
-}:
+{ stdenv, fetchurl, libjpeg, libpng, libmng, lcms1, libtiff, openexr, libGL
+, libX11, pkgconfig, OpenGL }:
 
 stdenv.mkDerivation rec {
 

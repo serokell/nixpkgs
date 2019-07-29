@@ -1,5 +1,5 @@
-{ stdenv, lib, sage-with-env, makeWrapper, files ?
-  null # "null" means run all tests
+{ stdenv, lib, sage-with-env, makeWrapper
+, files ? null # "null" means run all tests
 , longTests ? true # run tests marked as "long time" (roughly doubles runtime)
   # Run as many tests as possible in approximately n seconds. This will give each
   # file to test a "time budget" and stop tests if it is exceeded. 300 is the

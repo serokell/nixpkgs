@@ -1,5 +1,5 @@
-{ lib, stdenv, pkgs, haskell, nodejs, fetchurl, fetchpatch, makeWrapper, writeScriptBin
-}:
+{ lib, stdenv, pkgs, haskell, nodejs, fetchurl, fetchpatch, makeWrapper
+, writeScriptBin }:
 let
   fetchElmDeps = import ./fetchElmDeps.nix { inherit stdenv lib fetchurl; };
 

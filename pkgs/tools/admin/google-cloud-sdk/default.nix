@@ -7,8 +7,8 @@
 #   3) used by `google-cloud-sdk` only on GCE guests
 #
 
-{ stdenv, lib, fetchurl, makeWrapper, python, cffi, cryptography, pyopenssl, crcmod, google-compute-engine, with-gce ?
-  false }:
+{ stdenv, lib, fetchurl, makeWrapper, python, cffi, cryptography, pyopenssl
+, crcmod, google-compute-engine, with-gce ? false }:
 
 let
   pythonInputs = [ cffi cryptography pyopenssl crcmod ]

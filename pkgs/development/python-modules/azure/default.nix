@@ -1,5 +1,5 @@
-{ pkgs, buildPythonPackage, fetchPypi, dateutil, futures, pyopenssl, requests, isPy3k
-}:
+{ pkgs, buildPythonPackage, fetchPypi, dateutil, futures, pyopenssl, requests
+, isPy3k }:
 
 buildPythonPackage rec {
   version = "4.0.0";

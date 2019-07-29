@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, armadillo, boost, cmake, glog, gmock, openssl, google-gflags, gnuradio, orc, pkgconfig, pythonPackages, uhd
-}:
+{ stdenv, fetchFromGitHub, armadillo, boost, cmake, glog, gmock, openssl
+, google-gflags, gnuradio, orc, pkgconfig, pythonPackages, uhd }:
 
 stdenv.mkDerivation rec {
   name = "gnss-sdr-${version}";

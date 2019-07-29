@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, gmp, mpfr, libmpc, ppl, cython, cysignals, gmpy2, sphinx
-}:
+{ lib, fetchPypi, buildPythonPackage, gmp, mpfr, libmpc, ppl, cython, cysignals
+, gmpy2, sphinx }:
 
 buildPythonPackage rec {
   pname = "pplpy";

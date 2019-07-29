@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, glib, gtk3, json-glib, sqlite, libsoup, gettext, vala_0_40, meson, ninja, pkgconfig, gnome3, gst_all_1, wrapGAppsHook, gobject-introspection, glib-networking, python3
-}:
+{ stdenv, fetchFromGitHub, glib, gtk3, json-glib, sqlite, libsoup, gettext
+, vala_0_40, meson, ninja, pkgconfig, gnome3, gst_all_1, wrapGAppsHook
+, gobject-introspection, glib-networking, python3 }:
 
 stdenv.mkDerivation rec {
   version = "1.7.4";

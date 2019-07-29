@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, fetchpatch, boost, cmake, chromaprint, gettext, gst_all_1, liblastfm, taglib, fftw, glew, qjson, sqlite, libgpod, libplist, usbmuxd, libmtp, libpulseaudio, gvfs, libcdio, libechonest, libspotify, pcre, projectm, protobuf, qca2, pkgconfig, sparsehash, config, makeWrapper, gst_plugins
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, boost, cmake, chromaprint, gettext
+, gst_all_1, liblastfm, taglib, fftw, glew, qjson, sqlite, libgpod, libplist
+, usbmuxd, libmtp, libpulseaudio, gvfs, libcdio, libechonest, libspotify, pcre
+, projectm, protobuf, qca2, pkgconfig, sparsehash, config, makeWrapper
+, gst_plugins }:
 
 let
   withIpod = config.clementine.ipod or false;

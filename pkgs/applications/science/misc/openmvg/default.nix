@@ -1,6 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, cmake, libjpeg ? null, zlib ? null, libpng ?
-  null, eigen ? null, libtiff ? null, enableExamples ? false, enableDocs ? false
-}:
+{ stdenv, fetchgit, pkgconfig, cmake, libjpeg ? null, zlib ? null, libpng ? null
+, eigen ? null, libtiff ? null, enableExamples ? false, enableDocs ? false }:
 
 stdenv.mkDerivation rec {
   version = "1.3";

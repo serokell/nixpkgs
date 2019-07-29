@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, perl, perlPackages, finger_bsd, makeWrapper, abook ?
-  null, gnupg ? null, goobook ? null, khard ? null, mu ? null }:
+{ stdenv, fetchurl, fetchpatch, perl, perlPackages, finger_bsd, makeWrapper
+, abook ? null, gnupg ? null, goobook ? null, khard ? null, mu ? null }:
 
 let version = "0.48.1";
 in with stdenv.lib;

@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, withVoice ?
-  true, libopus, aiohttp, websockets, pynacl }:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, withVoice ? true, libopus
+, aiohttp, websockets, pynacl }:
 
 buildPythonPackage rec {
   pname = "discord.py";

@@ -1,5 +1,5 @@
-{ fetchurl, lib, stdenv, darwin, openglSupport ?
-  true, libX11, wxGTK, wxmac, pkgconfig, buildPythonPackage, pyopengl, isPy3k, isPyPy, python, cairo, pango
+{ fetchurl, lib, stdenv, darwin, openglSupport ? true, libX11, wxGTK, wxmac
+, pkgconfig, buildPythonPackage, pyopengl, isPy3k, isPyPy, python, cairo, pango
 }:
 
 assert wxGTK.unicode;

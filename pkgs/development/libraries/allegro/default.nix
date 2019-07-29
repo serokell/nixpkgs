@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, texinfo, libXext, xorgproto, libX11, libXpm, libXt, libXcursor, alsaLib, cmake, zlib, libpng, libvorbis, libXxf86dga, libXxf86misc, libXxf86vm, openal, libGLU_combined
-}:
+{ stdenv, fetchurl, texinfo, libXext, xorgproto, libX11, libXpm, libXt
+, libXcursor, alsaLib, cmake, zlib, libpng, libvorbis, libXxf86dga, libXxf86misc
+, libXxf86vm, openal, libGLU_combined }:
 
 stdenv.mkDerivation rec {
   name = "allegro-${version}";

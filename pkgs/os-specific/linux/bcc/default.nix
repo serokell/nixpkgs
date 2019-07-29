@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, kernel, flex, bison, elfutils, python, luajit, netperf, iperf, libelf, systemtap
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, kernel, flex, bison
+, elfutils, python, luajit, netperf, iperf, libelf, systemtap }:
 
 python.pkgs.buildPythonApplication rec {
   version = "0.10.0";

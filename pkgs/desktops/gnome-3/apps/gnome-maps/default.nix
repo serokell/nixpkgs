@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, meson, ninja, gettext, python3, pkgconfig, gnome3, gtk3, gobject-introspection, gdk_pixbuf, librsvg, libgweather, geoclue2, wrapGAppsHook, folks, libchamplain, gfbgraph, libsoup, gsettings-desktop-schemas, webkitgtk, gjs, libgee, geocode-glib, evolution-data-server, gnome-online-accounts
-}:
+{ stdenv, fetchurl, meson, ninja, gettext, python3, pkgconfig, gnome3, gtk3
+, gobject-introspection, gdk_pixbuf, librsvg, libgweather, geoclue2
+, wrapGAppsHook, folks, libchamplain, gfbgraph, libsoup
+, gsettings-desktop-schemas, webkitgtk, gjs, libgee, geocode-glib
+, evolution-data-server, gnome-online-accounts }:
 
 let
   pname = "gnome-maps";

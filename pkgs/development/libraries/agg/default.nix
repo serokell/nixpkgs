@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, pkgconfig, freetype, SDL, libX11
-}:
+{ stdenv, fetchurl, autoconf, automake, libtool, pkgconfig, freetype, SDL
+, libX11 }:
 
 stdenv.mkDerivation rec {
   name = "agg-2.5";

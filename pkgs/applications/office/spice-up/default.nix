@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, gdk_pixbuf, gtk3, gettext, ninja, pantheon, pkgconfig, json-glib, libgudev, libevdev, libgee, libsoup, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, cmake, gdk_pixbuf, gtk3, gettext, ninja, pantheon
+, pkgconfig, json-glib, libgudev, libevdev, libgee, libsoup, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "spice-up";

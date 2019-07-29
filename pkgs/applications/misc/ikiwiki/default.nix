@@ -1,9 +1,9 @@
-{ stdenv, fetchurl, perlPackages, gettext, makeWrapper, PerlMagick, which, gitSupport ?
-  false, git ? null, docutilsSupport ? false, python ? null, docutils ?
-    null, monotoneSupport ? false, monotone ? null, bazaarSupport ?
-      false, bazaar ? null, cvsSupport ? false, cvs ? null, cvsps ?
-        null, subversionSupport ? false, subversion ? null, mercurialSupport ?
-          false, mercurial ? null, extraUtils ? [ ] }:
+{ stdenv, fetchurl, perlPackages, gettext, makeWrapper, PerlMagick, which
+, gitSupport ? false, git ? null, docutilsSupport ? false, python ? null
+, docutils ? null, monotoneSupport ? false, monotone ? null
+, bazaarSupport ? false, bazaar ? null, cvsSupport ? false, cvs ? null
+, cvsps ? null, subversionSupport ? false, subversion ? null
+, mercurialSupport ? false, mercurial ? null, extraUtils ? [ ] }:
 
 assert docutilsSupport -> (python != null && docutils != null);
 assert gitSupport -> (git != null);

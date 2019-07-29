@@ -1,5 +1,6 @@
-{ alsaLib, cmake, fetchFromGitHub, glib, gtk2, gettext, libaio, libpng, makeWrapper, perl, pkgconfig, portaudio, SDL2, soundtouch, stdenv, wxGTK30, zlib
-}:
+{ alsaLib, cmake, fetchFromGitHub, glib, gtk2, gettext, libaio, libpng
+, makeWrapper, perl, pkgconfig, portaudio, SDL2, soundtouch, stdenv, wxGTK30
+, zlib }:
 
 stdenv.mkDerivation rec {
   name = "pcsx2-${version}";

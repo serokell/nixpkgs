@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six, pytest, backports_unittest-mock, keyring, setuptools_scm
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pythonOlder, six, pytest
+, backports_unittest-mock, keyring, setuptools_scm }:
 
 buildPythonPackage rec {
   pname = "keyrings.alt";

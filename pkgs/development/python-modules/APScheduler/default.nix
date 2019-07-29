@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytestcov, sqlalchemy, tornado, twisted, mock, trollius, gevent, six, pytz, tzlocal, funcsigs, futures, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools_scm, pytest, pytestcov
+, sqlalchemy, tornado, twisted, mock, trollius, gevent, six, pytz, tzlocal
+, funcsigs, futures, isPy3k }:
 
 buildPythonPackage rec {
   pname = "APScheduler";

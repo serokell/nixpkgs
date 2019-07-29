@@ -1,5 +1,6 @@
-{ stdenv, buildOcamlJane, bin_prot, core_kernel, fieldslib, sexplib, typerep, variantslib, ppx_assert, ppx_bench, ppx_driver, ppx_expect, ppx_inline_test, ppx_jane, rsync
-}:
+{ stdenv, buildOcamlJane, bin_prot, core_kernel, fieldslib, sexplib, typerep
+, variantslib, ppx_assert, ppx_bench, ppx_driver, ppx_expect, ppx_inline_test
+, ppx_jane, rsync }:
 
 buildOcamlJane rec {
   name = "re2";

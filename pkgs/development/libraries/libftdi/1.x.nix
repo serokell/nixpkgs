@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, cmake, pkgconfig, libusb1, libconfuse, cppSupport ?
-  true, boost ? null, pythonSupport ? true, python ? null, swig ?
-    null, docSupport ? true, doxygen ? null }:
+{ stdenv, fetchurl, cmake, pkgconfig, libusb1, libconfuse, cppSupport ? true
+, boost ? null, pythonSupport ? true, python ? null, swig ? null
+, docSupport ? true, doxygen ? null }:
 
 assert cppSupport -> boost != null;
 assert pythonSupport -> python != null && swig != null;

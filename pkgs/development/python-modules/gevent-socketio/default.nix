@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, versiontools, gevent-websocket, mock, pytest, gevent
-}:
+{ stdenv, buildPythonPackage, fetchPypi, versiontools, gevent-websocket, mock
+, pytest, gevent }:
 
 buildPythonPackage rec {
   pname = "gevent-socketio";

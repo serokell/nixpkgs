@@ -51,8 +51,8 @@ name ? ""
 hash ? ""
 
 , # Legacy ways of specifying the hash.
-outputHash ? "", outputHashAlgo ? "", md5 ? "", sha1 ? "", sha256 ? "", sha512 ?
-  ""
+outputHash ? "", outputHashAlgo ? "", md5 ? "", sha1 ? "", sha256 ? ""
+, sha512 ? ""
 
 , recursiveHash ? false
 

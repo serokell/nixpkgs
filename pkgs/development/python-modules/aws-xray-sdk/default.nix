@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, jsonpickle, wrapt, requests, future, botocore
-}:
+{ lib, buildPythonPackage, fetchPypi, jsonpickle, wrapt, requests, future
+, botocore }:
 
 buildPythonPackage rec {
   pname = "aws-xray-sdk";

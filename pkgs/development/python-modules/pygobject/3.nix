@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, buildPythonPackage, pkgconfig, glib, gobject-introspection, pycairo, cairo, which, ncurses, meson, ninja, isPy3k, gnome3
-}:
+{ stdenv, fetchurl, buildPythonPackage, pkgconfig, glib, gobject-introspection
+, pycairo, cairo, which, ncurses, meson, ninja, isPy3k, gnome3 }:
 
 buildPythonPackage rec {
   pname = "pygobject";

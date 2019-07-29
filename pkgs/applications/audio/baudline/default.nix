@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libXmu, libXt, libX11, libXext, libXxf86vm, libjack2, makeWrapper
-}:
+{ stdenv, fetchurl, libXmu, libXt, libX11, libXext, libXxf86vm, libjack2
+, makeWrapper }:
 
 let
   rpath = stdenv.lib.makeLibraryPath [

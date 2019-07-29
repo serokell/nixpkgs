@@ -1,5 +1,5 @@
-{ stdenv, fetchsvn, nettools, libgcrypt, openssl, openresolv, perl, gawk, makeWrapper
-}:
+{ stdenv, fetchsvn, nettools, libgcrypt, openssl, openresolv, perl, gawk
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "vpnc-0.5.3-post-r550";

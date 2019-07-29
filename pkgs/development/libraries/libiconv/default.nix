@@ -1,6 +1,5 @@
-{ fetchurl, stdenv, lib, enableStatic ?
-  stdenv.hostPlatform.useAndroidPrebuilt, enableShared ?
-    !stdenv.hostPlatform.useAndroidPrebuilt }:
+{ fetchurl, stdenv, lib, enableStatic ? stdenv.hostPlatform.useAndroidPrebuilt
+, enableShared ? !stdenv.hostPlatform.useAndroidPrebuilt }:
 
 # assert !stdenv.hostPlatform.isLinux || stdenv.hostPlatform != stdenv.buildPlatform; # TODO: improve on cross
 

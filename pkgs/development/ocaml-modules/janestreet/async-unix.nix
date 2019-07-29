@@ -1,5 +1,5 @@
-{ stdenv, buildOcamlJane, async_kernel, bin_prot, comparelib, core, fieldslib, herelib, pipebang, sexplib
-}:
+{ stdenv, buildOcamlJane, async_kernel, bin_prot, comparelib, core, fieldslib
+, herelib, pipebang, sexplib }:
 
 buildOcamlJane rec {
   name = "async_unix";

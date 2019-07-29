@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, curl, gdk_pixbuf, glib, gtk3, libGLU_combined, libX11, openssl, ncurses5, SDL, SDL_ttf, unzip, zlib, wrapGAppsHook
-}:
+{ stdenv, fetchurl, alsaLib, curl, gdk_pixbuf, glib, gtk3, libGLU_combined
+, libX11, openssl, ncurses5, SDL, SDL_ttf, unzip, zlib, wrapGAppsHook }:
 
 with stdenv.lib;
 

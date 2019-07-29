@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, ninja, libxml2, libxslt, readline, perl, gmp, mpfr, boost, bliss, ppl, singular, cddlib, lrs, nauty, ant, openjdk, perlPackages, makeWrapper
-}:
+{ stdenv, fetchurl, ninja, libxml2, libxslt, readline, perl, gmp, mpfr, boost
+, bliss, ppl, singular, cddlib, lrs, nauty, ant, openjdk, perlPackages
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

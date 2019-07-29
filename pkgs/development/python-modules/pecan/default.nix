@@ -1,7 +1,7 @@
 { stdenv, fetchPypi, buildPythonPackage
 # Python deps
-, singledispatch, logutils, webtest, Mako, genshi, Kajiki, sqlalchemy, gunicorn, jinja2, virtualenv, mock
-}:
+, singledispatch, logutils, webtest, Mako, genshi, Kajiki, sqlalchemy, gunicorn
+, jinja2, virtualenv, mock }:
 
 buildPythonPackage rec {
   pname = "pecan";

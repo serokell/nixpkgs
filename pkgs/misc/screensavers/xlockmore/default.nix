@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, pam ?
-  null, libX11, libXext, libXinerama, libXdmcp, libXt }:
+{ stdenv, lib, fetchurl, pam ? null, libX11, libXext, libXinerama, libXdmcp
+, libXt }:
 
 stdenv.mkDerivation rec {
   name = "xlockmore-5.57";

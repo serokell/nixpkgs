@@ -1,16 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, doxygen, libX11, libXinerama, libXrandr, libGLU_combined, glib, ilmbase, libxml2, pcre, zlib, jpegSupport ?
-  true, libjpeg, jasperSupport ? true, jasper, exrSupport ?
-    false, openexr, gifSupport ? true, giflib, pngSupport ?
-      true, libpng, tiffSupport ? true, libtiff, gdalSupport ?
-        false, gdal, curlSupport ? true, curl, colladaSupport ?
-          false, opencollada, opencascadeSupport ?
-            false, opencascade, ffmpegSupport ? false, ffmpeg, nvttSupport ?
-              false, nvidia-texture-tools, freetypeSupport ?
-                true, freetype, svgSupport ? false, librsvg, pdfSupport ?
-                  false, poppler, vncSupport ? false, libvncserver, lasSupport ?
-                    false, libLAS, luaSupport ? false, lua, sdlSupport ?
-                      false, SDL2, restSupport ? false, asio, boost, withApps ?
-                        false, withExamples ? false, fltk, wxGTK, }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkgconfig, doxygen, libX11, libXinerama
+, libXrandr, libGLU_combined, glib, ilmbase, libxml2, pcre, zlib
+, jpegSupport ? true, libjpeg, jasperSupport ? true, jasper, exrSupport ? false
+, openexr, gifSupport ? true, giflib, pngSupport ? true, libpng
+, tiffSupport ? true, libtiff, gdalSupport ? false, gdal, curlSupport ? true
+, curl, colladaSupport ? false, opencollada, opencascadeSupport ? false
+, opencascade, ffmpegSupport ? false, ffmpeg, nvttSupport ? false
+, nvidia-texture-tools, freetypeSupport ? true, freetype, svgSupport ? false
+, librsvg, pdfSupport ? false, poppler, vncSupport ? false, libvncserver
+, lasSupport ? false, libLAS, luaSupport ? false, lua, sdlSupport ? false, SDL2
+, restSupport ? false, asio, boost, withApps ? false, withExamples ? false, fltk
+, wxGTK, }:
 
 stdenv.mkDerivation rec {
   name = "openscenegraph-${version}";

@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, vala, glib, libxslt, gtk3, wrapGAppsHook, webkitgtk, json-glib, librest, libsecret, gtk-doc, gobject-introspection, gettext, icu, glib-networking, hicolor-icon-theme, libsoup, docbook_xsl, docbook_xml_dtd_412, gnome3, gcr, kerberos
-}:
+{ stdenv, fetchurl, pkgconfig, vala, glib, libxslt, gtk3, wrapGAppsHook
+, webkitgtk, json-glib, librest, libsecret, gtk-doc, gobject-introspection
+, gettext, icu, glib-networking, hicolor-icon-theme, libsoup, docbook_xsl
+, docbook_xml_dtd_412, gnome3, gcr, kerberos }:
 
 let
   pname = "gnome-online-accounts";

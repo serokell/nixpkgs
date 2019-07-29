@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchurl, fetchpatch, pkgconfig, libuuid, gettext, texinfo
-}:
+{ stdenv, buildPackages, fetchurl, fetchpatch, pkgconfig, libuuid, gettext
+, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "e2fsprogs";

@@ -1,5 +1,6 @@
-{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, kconfigwidgets, kcoreaddons, kdeclarative, ki18n, kiconthemes, kitemviews, kpackage, kservice, kxmlgui, qtdeclarative,
-}:
+{ mkDerivation, lib, copyPathsToStore, extra-cmake-modules, kconfigwidgets
+, kcoreaddons, kdeclarative, ki18n, kiconthemes, kitemviews, kpackage, kservice
+, kxmlgui, qtdeclarative, }:
 
 mkDerivation {
   name = "kcmutils";

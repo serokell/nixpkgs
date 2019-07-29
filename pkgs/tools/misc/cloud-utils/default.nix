@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, gawk, gnused, utillinux, file, wget, python3, qemu, euca2ools, e2fsprogs, cdrkit
-}:
+{ stdenv, fetchurl, makeWrapper, gawk, gnused, utillinux, file, wget, python3
+, qemu, euca2ools, e2fsprogs, cdrkit }:
 
 stdenv.mkDerivation rec {
   # NOTICE: if you bump this, make sure to run

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, python2, keybinder3, intltool, file, gtk3, gobject-introspection, libnotify, wrapGAppsHook, vte
-}:
+{ stdenv, fetchurl, python2, keybinder3, intltool, file, gtk3
+, gobject-introspection, libnotify, wrapGAppsHook, vte }:
 
 python2.pkgs.buildPythonApplication rec {
   name = "terminator-${version}";

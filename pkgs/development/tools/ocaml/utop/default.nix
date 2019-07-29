@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, dune, lambdaTerm, cppo, makeWrapper
-}:
+{ stdenv, fetchurl, ocaml, findlib, ocamlbuild, dune, lambdaTerm, cppo
+, makeWrapper }:
 
 if !stdenv.lib.versionAtLeast ocaml.version "4.03" then
   throw "utop is not available for OCaml ${ocaml.version}"

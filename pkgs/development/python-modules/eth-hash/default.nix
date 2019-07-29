@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytest, pysha3, pycrypto, pycryptodome
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytest, pysha3, pycrypto
+, pycryptodome }:
 
 buildPythonPackage rec {
   pname = "eth-hash";

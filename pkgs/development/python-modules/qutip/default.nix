@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchurl, numpy, scipy, matplotlib, pyqt4, cython, pkgs, nose
-}:
+{ stdenv, buildPythonPackage, fetchurl, numpy, scipy, matplotlib, pyqt4, cython
+, pkgs, nose }:
 
 buildPythonPackage rec {
   pname = "qutip";

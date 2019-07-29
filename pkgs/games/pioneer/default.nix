@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, cmake, pkgconfig, curl, libsigcxx, SDL2, SDL2_image, freetype, libvorbis, libpng, assimp, libGLU_combined, glew
-}:
+{ fetchFromGitHub, stdenv, cmake, pkgconfig, curl, libsigcxx, SDL2, SDL2_image
+, freetype, libvorbis, libpng, assimp, libGLU_combined, glew }:
 
 stdenv.mkDerivation rec {
   pname = "pioneer";

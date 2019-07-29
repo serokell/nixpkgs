@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, isPy34, pylev, pastel, typing, enum34
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, isPy34, pylev, pastel, typing
+, enum34 }:
 
 buildPythonPackage rec {
   pname = "clikit";

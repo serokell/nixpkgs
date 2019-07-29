@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, pkgconfig, autoreconfHook, gettext, expat, libconfuse, vte, gtk, makeWrapper
-}:
+{ stdenv, fetchzip, pkgconfig, autoreconfHook, gettext, expat, libconfuse, vte
+, gtk, makeWrapper }:
 
 stdenv.mkDerivation rec {
 

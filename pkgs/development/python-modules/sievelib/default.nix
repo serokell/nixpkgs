@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, mock, future, six, setuptools_scm
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, mock, future, six
+, setuptools_scm }:
 
 buildPythonPackage rec {
   pname = "sievelib";

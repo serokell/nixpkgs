@@ -1,6 +1,7 @@
-{ symlinkJoin, coreutils, docker, e2fsprogs, findutils, go, jshon, jq, lib, pkgs, pigz, nix, runCommand, rsync, shadow, storeDir ?
-  builtins.storeDir, utillinux, vmTools, writeReferencesToFile, referencesByPopularity, writeScript, writeText, closureInfo, substituteAll, runtimeShell
-}:
+{ symlinkJoin, coreutils, docker, e2fsprogs, findutils, go, jshon, jq, lib, pkgs
+, pigz, nix, runCommand, rsync, shadow, storeDir ? builtins.storeDir, utillinux
+, vmTools, writeReferencesToFile, referencesByPopularity, writeScript, writeText
+, closureInfo, substituteAll, runtimeShell }:
 
 # WARNING: this API is unstable and may be subject to backwards-incompatible changes in the future.
 
@@ -110,9 +111,9 @@ rec {
   '';
 
   # Run commands in a virtual machine.
-  runWithOverlay =
-    { name, fromImage ? null, fromImageName ? null, fromImageTag ?
-      null, diskSize ? 1024, preMount ? "", postMount ? "", postUmount ? "" }:
+  runWithOverlay = { name, fromImage ? null, fromImageName ? null
+    , fromImageTag ? null, diskSize ? 1024, preMount ? "", postMount ? ""
+    , postUmount ? "" }:
     vmTools.runInLinuxVM (runCommand name {
       preVM = vmTools.createEmptyImage {
         size = diskSize;
@@ -207,9 +208,8 @@ rec {
       ${postUmount}
     '');
 
-  exportImage =
-    { name ? fromImage.name, fromImage, fromImageName ? null, fromImageTag ?
-      null, diskSize ? 1024 }:
+  exportImage = { name ? fromImage.name, fromImage, fromImageName ? null
+    , fromImageTag ? null, diskSize ? 1024 }:
     runWithOverlay {
       inherit name fromImage fromImageName fromImageTag diskSize;
 

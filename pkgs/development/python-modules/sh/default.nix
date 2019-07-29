@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, python, coverage, lsof, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, python, coverage, lsof
+, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "sh";

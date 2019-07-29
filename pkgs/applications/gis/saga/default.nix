@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, gdal, wxGTK30, proj, libiodbc, lzma, jasper, libharu, opencv, vigra, postgresql, Cocoa, unixODBC, poppler, hdf4, hdf5, netcdf, sqlite, qhull, giflib
-}:
+{ stdenv, fetchurl, gdal, wxGTK30, proj, libiodbc, lzma, jasper, libharu, opencv
+, vigra, postgresql, Cocoa, unixODBC, poppler, hdf4, hdf5, netcdf, sqlite, qhull
+, giflib }:
 
 stdenv.mkDerivation rec {
   pname = "saga";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, gupnp, gssdp, pkgconfig, gtk3, libuuid, gettext, gupnp-av, gtksourceview4, gnome3, wrapGAppsHook
-}:
+{ stdenv, fetchurl, meson, ninja, gupnp, gssdp, pkgconfig, gtk3, libuuid
+, gettext, gupnp-av, gtksourceview4, gnome3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gupnp-tools";

@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, nose, parameterized, mock, glibcLocales, six, jdatetime, dateutil, umalqurra, pytz, tzlocal, regex, ruamel_yaml
-}:
+{ lib, fetchPypi, buildPythonPackage, nose, parameterized, mock, glibcLocales
+, six, jdatetime, dateutil, umalqurra, pytz, tzlocal, regex, ruamel_yaml }:
 
 buildPythonPackage rec {
   pname = "dateparser";

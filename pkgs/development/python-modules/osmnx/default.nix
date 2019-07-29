@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, geopandas, descartes, matplotlib, networkx, numpy, pandas, requests, Rtree, shapely, pytest, coverage, coveralls, folium, scikitlearn, scipy
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, geopandas, descartes, matplotlib
+, networkx, numpy, pandas, requests, Rtree, shapely, pytest, coverage, coveralls
+, folium, scikitlearn, scipy }:
 
 buildPythonPackage rec {
   pname = "osmnx";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, isPyPy, fetchPypi, cffi, pycparser, mock, pytest, py, six
-}:
+{ stdenv, buildPythonPackage, isPyPy, fetchPypi, cffi, pycparser, mock, pytest
+, py, six }:
 
 with stdenv.lib;
 

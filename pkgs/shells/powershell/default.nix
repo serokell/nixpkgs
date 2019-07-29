@@ -1,5 +1,5 @@
-{ stdenv, autoPatchelfHook, fetchzip, libunwind, libuuid, icu, curl, darwin, makeWrapper, less, openssl, pam, lttng-ust
-}:
+{ stdenv, autoPatchelfHook, fetchzip, libunwind, libuuid, icu, curl, darwin
+, makeWrapper, less, openssl, pam, lttng-ust }:
 
 let
   platformString = if stdenv.isDarwin then

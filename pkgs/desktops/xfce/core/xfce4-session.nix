@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk, polkit, libxfce4util, libxfce4ui, xfce4-panel, libwnck, dbus-glib, xfconf, libglade, xorg, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk, polkit, libxfce4util, libxfce4ui
+, xfce4-panel, libwnck, dbus-glib, xfconf, libglade, xorg, hicolor-icon-theme }:
 
 let
   p_name = "xfce4-session";

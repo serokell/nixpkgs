@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libusb, pkgconfig, freeglut, libGLU_combined, libXi, libXmu, GLUT, Cocoa
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libusb, pkgconfig, freeglut
+, libGLU_combined, libXi, libXmu, GLUT, Cocoa }:
 
 stdenv.mkDerivation rec {
   name = "freenect-${version}";

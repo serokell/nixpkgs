@@ -1,5 +1,5 @@
-{ stdenv, buildPythonApplication, fetchPypi, python-slugify, requests, urllib3, six
-}:
+{ stdenv, buildPythonApplication, fetchPypi, python-slugify, requests, urllib3
+, six }:
 
 buildPythonApplication rec {
   pname = "transifex-client";

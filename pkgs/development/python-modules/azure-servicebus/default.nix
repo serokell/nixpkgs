@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, uamqp, azure-common, msrestazure, futures, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, uamqp, azure-common, msrestazure, futures
+, isPy3k }:
 
 buildPythonPackage rec {
   pname = "azure-servicebus";

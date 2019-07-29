@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonPackage, intervaltree, pyflakes, requests, lxml, google-i18n-address, pycountry, html5lib, six, stdenv
-}:
+{ lib, fetchPypi, buildPythonPackage, intervaltree, pyflakes, requests, lxml
+, google-i18n-address, pycountry, html5lib, six, stdenv }:
 
 buildPythonPackage rec {
   pname = "xml2rfc";

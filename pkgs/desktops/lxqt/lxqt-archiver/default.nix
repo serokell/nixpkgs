@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, json-glib, libfm-qt, qtbase, qttools, qtx11extras
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, lxqt-build-tools, json-glib
+, libfm-qt, qtbase, qttools, qtx11extras }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

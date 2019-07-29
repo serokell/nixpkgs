@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, gtk, pkgconfig, libgsf, libofx, intltool, wrapGAppsHook, hicolor-icon-theme, libsoup, gnome3
-}:
+{ fetchurl, stdenv, gtk, pkgconfig, libgsf, libofx, intltool, wrapGAppsHook
+, hicolor-icon-theme, libsoup, gnome3 }:
 
 stdenv.mkDerivation rec {
   name = "grisbi-${version}";

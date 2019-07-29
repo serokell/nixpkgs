@@ -1,5 +1,9 @@
-{ GConf, alsaLib, at-spi2-atk, atk, cairo, cups, dbus, expat, fetchurl, fontconfig, gdk_pixbuf, glib, gtk2, gtk3, lib, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender, libXtst, libappindicator, libdrm, libnotify, libpciaccess, libpng12, libxcb, nspr, nss, pango, pciutils, pulseaudio, stdenv, udev, wrapGAppsHook
-}:
+{ GConf, alsaLib, at-spi2-atk, atk, cairo, cups, dbus, expat, fetchurl
+, fontconfig, gdk_pixbuf, glib, gtk2, gtk3, lib, libX11, libXScrnSaver
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr
+, libXrender, libXtst, libappindicator, libdrm, libnotify, libpciaccess
+, libpng12, libxcb, nspr, nss, pango, pciutils, pulseaudio, stdenv, udev
+, wrapGAppsHook }:
 
 let
   libs = [

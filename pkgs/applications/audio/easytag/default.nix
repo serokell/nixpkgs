@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk3, glib, libid3tag, id3lib, taglib, libvorbis, libogg, opusfile, flac, itstool, libxml2, gsettings-desktop-schemas, gnome3, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk3, glib, libid3tag, id3lib, taglib
+, libvorbis, libogg, opusfile, flac, itstool, libxml2, gsettings-desktop-schemas
+, gnome3, wrapGAppsHook }:
 
 let
   pname = "easytag";

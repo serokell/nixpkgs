@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, pkgconfig, alsaLib, libogg, libpulseaudio ?
-  null, libjack2 ? null }:
+{ stdenv, fetchurl, lib, pkgconfig, alsaLib, libogg, libpulseaudio ? null
+, libjack2 ? null }:
 
 stdenv.mkDerivation rec {
   pname = "alsa-plugins";

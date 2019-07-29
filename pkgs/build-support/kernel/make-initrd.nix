@@ -12,8 +12,8 @@
 # `contents = {object = ...; symlink = /init;}' is a typical
 # argument.
 
-{ stdenv, perl, cpio, contents, ubootTools, name ? "initrd", compressor ?
-  "gzip -9n", prepend ? [ ], lib }:
+{ stdenv, perl, cpio, contents, ubootTools, name ? "initrd"
+, compressor ? "gzip -9n", prepend ? [ ], lib }:
 let
   # !!! Move this into a public lib function, it is probably useful for others
   toValidStoreName = x:

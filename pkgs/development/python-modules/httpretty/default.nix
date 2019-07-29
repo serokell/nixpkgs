@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, tornado, requests, httplib2, sure, nose, nose-exclude, coverage, rednose, nose-randomly, six, mock
-}:
+{ stdenv, buildPythonPackage, fetchPypi, tornado, requests, httplib2, sure, nose
+, nose-exclude, coverage, rednose, nose-randomly, six, mock }:
 
 buildPythonPackage rec {
   pname = "httpretty";

@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, gnu-config, autoreconfHook, bison, binutils-unwrapped, libiberty, zlib
-}:
+{ stdenv, fetchpatch, gnu-config, autoreconfHook, bison, binutils-unwrapped
+, libiberty, zlib }:
 
 stdenv.mkDerivation rec {
   name = "libbfd-${version}";

@@ -1,5 +1,5 @@
-{ pkgs, buildPythonPackage, fetchPypi, cryptography, bcrypt, pynacl, pyasn1, pytest, pytest-relaxed, mock
-}:
+{ pkgs, buildPythonPackage, fetchPypi, cryptography, bcrypt, pynacl, pyasn1
+, pytest, pytest-relaxed, mock }:
 
 buildPythonPackage rec {
   pname = "paramiko";

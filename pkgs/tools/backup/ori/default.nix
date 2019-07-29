@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, boost, pkgconfig, scons, utillinux, fuse, libevent, openssl, zlib
-}:
+{ stdenv, fetchurl, boost, pkgconfig, scons, utillinux, fuse, libevent, openssl
+, zlib }:
 
 stdenv.mkDerivation rec {
   version = "0.8.1";

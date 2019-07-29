@@ -1,19 +1,23 @@
 { stdenv, llvmPackages, gn, ninja, which, nodejs, fetchpatch, gnutar
 
 # default dependencies
-, bzip2, flac, speex, libopus, libevent, expat, libjpeg, snappy, libpng, libcap, xdg_utils, yasm, minizip, libwebp, libusb1, pciutils, nss, re2, zlib
+, bzip2, flac, speex, libopus, libevent, expat, libjpeg, snappy, libpng, libcap
+, xdg_utils, yasm, minizip, libwebp, libusb1, pciutils, nss, re2, zlib
 
-, python2Packages, perl, pkgconfig, nspr, systemd, kerberos, utillinux, alsaLib, bison, gperf, glib, gtk3, dbus-glib, glibc, libXScrnSaver, libXcursor, libXtst, libGLU_combined, protobuf, speechd, libXdamage, cups, ffmpeg, libxslt, libxml2, at-spi2-core, jdk
+, python2Packages, perl, pkgconfig, nspr, systemd, kerberos, utillinux, alsaLib
+, bison, gperf, glib, gtk3, dbus-glib, glibc, libXScrnSaver, libXcursor, libXtst
+, libGLU_combined, protobuf, speechd, libXdamage, cups, ffmpeg, libxslt, libxml2
+, at-spi2-core, jdk
 
 # optional dependencies
 , libgcrypt ? null # gnomeSupport || cupsSupport
 , libva ? null # useVaapi
 
   # package customization
-, enableNaCl ? false, enableWideVine ? false, useVaapi ? false, gnomeSupport ?
-  false, gnome ? null, gnomeKeyringSupport ? false, libgnome-keyring3 ?
-    null, proprietaryCodecs ? true, cupsSupport ? true, pulseSupport ?
-      false, libpulseaudio ? null
+, enableNaCl ? false, enableWideVine ? false, useVaapi ? false
+, gnomeSupport ? false, gnome ? null, gnomeKeyringSupport ? false
+, libgnome-keyring3 ? null, proprietaryCodecs ? true, cupsSupport ? true
+, pulseSupport ? false, libpulseaudio ? null
 
 , upstream-info }:
 

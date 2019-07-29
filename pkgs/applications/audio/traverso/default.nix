@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, pkgconfig, alsaLib, fftw, flac, lame, libjack2, libmad, libpulseaudio, libsamplerate, libsndfile, libvorbis, portaudio, qtbase, wavpack
-}:
+{ stdenv, fetchurl, cmake, pkgconfig, alsaLib, fftw, flac, lame, libjack2
+, libmad, libpulseaudio, libsamplerate, libsndfile, libvorbis, portaudio, qtbase
+, wavpack }:
 stdenv.mkDerivation rec {
   name = "traverso-${version}";
   version = "0.49.6";

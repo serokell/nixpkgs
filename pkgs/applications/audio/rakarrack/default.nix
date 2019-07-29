@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, alsaLib, alsaUtils, fltk, libjack2, libXft, libXpm, libjpeg, libpng, libsamplerate, libsndfile, zlib
-}:
+{ stdenv, fetchurl, alsaLib, alsaUtils, fltk, libjack2, libXft, libXpm, libjpeg
+, libpng, libsamplerate, libsndfile, zlib }:
 
 stdenv.mkDerivation rec {
   name = "rakarrack-${version}";

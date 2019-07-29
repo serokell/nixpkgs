@@ -1,6 +1,7 @@
-{ wxGTK, lib, stdenv, fetchurl, fetchFromGitHub, cmake, libGLU_combined, zlib, libX11, gettext, glew, glm, cairo, curl, openssl, boost, pkgconfig, doxygen, pcre, libpthreadstubs, libXdmcp, wrapGAppsHook, oceSupport ?
-  true, opencascade, ngspiceSupport ?
-    true, libngspice, swig, python, pythonPackages, lndir }:
+{ wxGTK, lib, stdenv, fetchurl, fetchFromGitHub, cmake, libGLU_combined, zlib
+, libX11, gettext, glew, glm, cairo, curl, openssl, boost, pkgconfig, doxygen
+, pcre, libpthreadstubs, libXdmcp, wrapGAppsHook, oceSupport ? true, opencascade
+, ngspiceSupport ? true, libngspice, swig, python, pythonPackages, lndir }:
 
 assert ngspiceSupport -> libngspice != null;
 

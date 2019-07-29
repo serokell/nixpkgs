@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchgit, fetchFromGitHub, gyp, readline, python, which, icu, patchelf, coreutils, xcbuild, doCheck ?
-  false, static ? false }:
+{ stdenv, lib, fetchgit, fetchFromGitHub, gyp, readline, python, which, icu
+, patchelf, coreutils, xcbuild, doCheck ? false, static ? false }:
 
 assert readline != null;
 

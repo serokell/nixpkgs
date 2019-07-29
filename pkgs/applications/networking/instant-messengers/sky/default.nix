@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, file, libX11, libXScrnSaver, libGL, qt5, SDL, libpulseaudio, libXrandr, libXext, libXcursor, libXinerama, libXi, curl, sqlite, openssl, libuuid, openh264, libv4l, libxkbfile, libXv, zlib, libXmu, libXtst, libXdamage, pam, libXfixes, libXrender, libjpeg_original, ffmpeg
-}:
+{ stdenv, fetchurl, file, libX11, libXScrnSaver, libGL, qt5, SDL, libpulseaudio
+, libXrandr, libXext, libXcursor, libXinerama, libXi, curl, sqlite, openssl
+, libuuid, openh264, libv4l, libxkbfile, libXv, zlib, libXmu, libXtst
+, libXdamage, pam, libXfixes, libXrender, libjpeg_original, ffmpeg }:
 let
   # Sky is linked to the libjpeg 8 version and checks for the version number in the code.
   libjpeg_original_fix = libjpeg_original.overrideAttrs (oldAttrs: {

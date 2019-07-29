@@ -1,5 +1,5 @@
-{ fetchFromGitHub, stdenv, bam, pkgconfig, python, alsaLib, libX11, libGLU, SDL2, lua5_3, zlib, freetype, wavpack
-}:
+{ fetchFromGitHub, stdenv, bam, pkgconfig, python, alsaLib, libX11, libGLU, SDL2
+, lua5_3, zlib, freetype, wavpack }:
 
 stdenv.mkDerivation rec {
   pname = "teeworlds";

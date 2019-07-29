@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, zlib, openssl, libre, librem, pkgconfig, gst_all_1, cairo, mpg123, alsaLib, SDL, libv4l, celt, libsndfile, srtp, ffmpeg, gsm, speex, portaudio, spandsp, libuuid, ccache, libvpx
-}:
+{ stdenv, fetchurl, zlib, openssl, libre, librem, pkgconfig, gst_all_1, cairo
+, mpg123, alsaLib, SDL, libv4l, celt, libsndfile, srtp, ffmpeg, gsm, speex
+, portaudio, spandsp, libuuid, ccache, libvpx }:
 stdenv.mkDerivation rec {
   version = "0.6.3";
   name = "baresip-${version}";

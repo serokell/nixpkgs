@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libGLU_combined, glew, pkgconfig, openalSoft, freealut, wxGTK, libogg, freetype, libvorbis, fftwSinglePrec, SDL, SDL_net, expat, libjpeg, libpng
-}:
+{ stdenv, fetchurl, libGLU_combined, glew, pkgconfig, openalSoft, freealut
+, wxGTK, libogg, freetype, libvorbis, fftwSinglePrec, SDL, SDL_net, expat
+, libjpeg, libpng }:
 
 stdenv.mkDerivation rec {
   version = "44";

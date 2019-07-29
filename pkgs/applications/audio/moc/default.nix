@@ -1,19 +1,17 @@
 { stdenv, fetchurl, pkgconfig, ncurses, db, popt, libtool
 # Sound sub-systems
-, alsaSupport ? true, alsaLib, pulseSupport ?
-  true, libpulseaudio, autoreconfHook, jackSupport ?
-    true, libjack2, ossSupport ? true
-      # Audio formats
-, aacSupport ? true, faad2, libid3tag, flacSupport ? true, flac, midiSupport ?
-  true, timidity, modplugSupport ? true, libmodplug, mp3Support ?
-    true, libmad, musepackSupport ?
-      true, libmpc, libmpcdec, taglib, vorbisSupport ?
-        true, libvorbis, speexSupport ? true, speex, ffmpegSupport ?
-          true, ffmpeg, sndfileSupport ? true, libsndfile, wavpackSupport ?
-            true, wavpack
+, alsaSupport ? true, alsaLib, pulseSupport ? true, libpulseaudio
+, autoreconfHook, jackSupport ? true, libjack2, ossSupport ? true
+  # Audio formats
+, aacSupport ? true, faad2, libid3tag, flacSupport ? true, flac
+, midiSupport ? true, timidity, modplugSupport ? true, libmodplug
+, mp3Support ? true, libmad, musepackSupport ? true, libmpc, libmpcdec, taglib
+, vorbisSupport ? true, libvorbis, speexSupport ? true, speex
+, ffmpegSupport ? true, ffmpeg, sndfileSupport ? true, libsndfile
+, wavpackSupport ? true, wavpack
 # Misc
-, withffmpeg4 ? false, ffmpeg_4, curlSupport ? true, curl, samplerateSupport ?
-  true, libsamplerate, withDebug ? false }:
+, withffmpeg4 ? false, ffmpeg_4, curlSupport ? true, curl
+, samplerateSupport ? true, libsamplerate, withDebug ? false }:
 
 let
   opt = stdenv.lib.optional;

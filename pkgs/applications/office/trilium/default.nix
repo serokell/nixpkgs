@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoPatchelfHook, atomEnv, makeWrapper, makeDesktopItem, gtk3, wrapGAppsHook
-}:
+{ stdenv, fetchurl, autoPatchelfHook, atomEnv, makeWrapper, makeDesktopItem
+, gtk3, wrapGAppsHook }:
 
 let
   description =

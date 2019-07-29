@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, doxygen, graphviz, valgrind, glib, dbus, gst_all_1, alsaLib, ffmpeg, libjack2, udev, libva, xorg, sbc, SDL2, makeFontsConf
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, doxygen, graphviz, valgrind
+, glib, dbus, gst_all_1, alsaLib, ffmpeg, libjack2, udev, libva, xorg, sbc, SDL2
+, makeFontsConf }:
 
 let fontsConf = makeFontsConf { fontDirectories = [ ]; };
 in stdenv.mkDerivation rec {

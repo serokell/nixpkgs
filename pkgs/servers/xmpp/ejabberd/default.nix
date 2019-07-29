@@ -1,7 +1,9 @@
-{ stdenv, writeScriptBin, makeWrapper, lib, fetchurl, git, cacert, libpng, libjpeg, libwebp, erlang, openssl, expat, libyaml, bash, gnused, gnugrep, coreutils, utillinux, procps, gd, flock, withMysql ?
-  false, withPgsql ? false, withSqlite ? false, sqlite, withPam ?
-    false, pam, withZlib ? true, zlib, withRiak ? false, withElixir ?
-      false, elixir, withIconv ? true, withTools ? false, withRedis ? false }:
+{ stdenv, writeScriptBin, makeWrapper, lib, fetchurl, git, cacert, libpng
+, libjpeg, libwebp, erlang, openssl, expat, libyaml, bash, gnused, gnugrep
+, coreutils, utillinux, procps, gd, flock, withMysql ? false, withPgsql ? false
+, withSqlite ? false, sqlite, withPam ? false, pam, withZlib ? true, zlib
+, withRiak ? false, withElixir ? false, elixir, withIconv ? true
+, withTools ? false, withRedis ? false }:
 
 let
   fakegit = writeScriptBin "git" ''

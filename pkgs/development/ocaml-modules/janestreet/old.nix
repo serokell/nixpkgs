@@ -1,5 +1,6 @@
-{ stdenv, lib, janePackage, ocaml, ocamlbuild, cryptokit, ctypes, magic-mime, ocaml-migrate-parsetree, octavius, ounit, ppx_deriving, re, zarith, num, openssl
-}:
+{ stdenv, lib, janePackage, ocaml, ocamlbuild, cryptokit, ctypes, magic-mime
+, ocaml-migrate-parsetree, octavius, ounit, ppx_deriving, re, zarith, num
+, openssl }:
 
 rec {
 

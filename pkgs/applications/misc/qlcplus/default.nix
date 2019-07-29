@@ -1,5 +1,5 @@
-{ stdenv, mkDerivation, fetchFromGitHub, qmake, pkgconfig, udev, qtmultimedia, qtscript, alsaLib, ola, libftdi1, libusb, libsndfile, libmad
-}:
+{ stdenv, mkDerivation, fetchFromGitHub, qmake, pkgconfig, udev, qtmultimedia
+, qtscript, alsaLib, ola, libftdi1, libusb, libsndfile, libmad }:
 
 mkDerivation rec {
   name = "qlcplus-${version}";

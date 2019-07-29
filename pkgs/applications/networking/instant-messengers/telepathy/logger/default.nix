@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, dbus-glib, libxml2, sqlite, telepathy-glib, pkgconfig, gnome3, makeWrapper, intltool, libxslt, gobject-introspection, dbus
-}:
+{ stdenv, fetchurl, dbus-glib, libxml2, sqlite, telepathy-glib, pkgconfig
+, gnome3, makeWrapper, intltool, libxslt, gobject-introspection, dbus }:
 
 stdenv.mkDerivation rec {
   project = "telepathy-logger";

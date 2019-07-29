@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, requests, psutil, pytest, subprocess32
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, requests, psutil, pytest
+, subprocess32 }:
 
 buildPythonPackage rec {
   pname = "pytest-services";

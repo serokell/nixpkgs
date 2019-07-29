@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, pkgconfig, meson, ninja, gobject-introspection, clutter, gtk3, gnome3
-}:
+{ fetchurl, stdenv, pkgconfig, meson, ninja, gobject-introspection, clutter
+, gtk3, gnome3 }:
 
 let
   pname = "clutter-gtk";

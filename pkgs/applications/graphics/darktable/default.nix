@@ -1,5 +1,9 @@
-{ stdenv, fetchurl, libsoup, graphicsmagick, json-glib, wrapGAppsHook, cairo, cmake, ninja, curl, perl, llvm, desktop-file-utils, exiv2, glib, ilmbase, gtk3, intltool, lcms2, lensfun, libX11, libexif, libgphoto2, libjpeg, libpng, librsvg, libtiff, openexr, osm-gps-map, pkgconfig, sqlite, libxslt, openjpeg, lua, pugixml, colord, colord-gtk, libwebp, libsecret, gnome3, ocl-icd, pcre, gtk-mac-integration, isocodes
-}:
+{ stdenv, fetchurl, libsoup, graphicsmagick, json-glib, wrapGAppsHook, cairo
+, cmake, ninja, curl, perl, llvm, desktop-file-utils, exiv2, glib, ilmbase, gtk3
+, intltool, lcms2, lensfun, libX11, libexif, libgphoto2, libjpeg, libpng
+, librsvg, libtiff, openexr, osm-gps-map, pkgconfig, sqlite, libxslt, openjpeg
+, lua, pugixml, colord, colord-gtk, libwebp, libsecret, gnome3, ocl-icd, pcre
+, gtk-mac-integration, isocodes }:
 
 stdenv.mkDerivation rec {
   version = "2.6.2";

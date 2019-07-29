@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, omake, ocaml, libtiff, libjpeg, libpng, giflib, findlib, libXpm, freetype, graphicsmagick, ghostscript
-}:
+{ stdenv, fetchurl, omake, ocaml, libtiff, libjpeg, libpng, giflib, findlib
+, libXpm, freetype, graphicsmagick, ghostscript }:
 
 let
   pname = "camlimages";

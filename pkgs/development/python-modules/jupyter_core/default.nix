@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, ipython, traitlets, glibcLocales, mock, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, ipython, traitlets, glibcLocales, mock
+, pytest }:
 
 buildPythonPackage rec {
   pname = "jupyter_core";

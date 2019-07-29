@@ -1088,9 +1088,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  excorporate = callPackage
-    ({ elpaBuild, emacs, fetchurl, fsm, lib, nadvice, soap-client, url-http-ntlm
-    }:
+  excorporate = callPackage ({ elpaBuild, emacs, fetchurl, fsm, lib, nadvice
+    , soap-client, url-http-ntlm }:
     elpaBuild {
       pname = "excorporate";
       ename = "excorporate";
@@ -2490,9 +2489,8 @@
         license = lib.licenses.free;
       };
     }) { };
-  realgud = callPackage
-    ({ elpaBuild, emacs, fetchurl, lib, load-relative, loc-changes, test-simple
-    }:
+  realgud = callPackage ({ elpaBuild, emacs, fetchurl, lib, load-relative
+    , loc-changes, test-simple }:
     elpaBuild {
       pname = "realgud";
       ename = "realgud";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, python, fetchFromGitHub, six, pycryptodome, chardet, nose, pytest, sortedcontainers
-}:
+{ stdenv, buildPythonPackage, python, fetchFromGitHub, six, pycryptodome
+, chardet, nose, pytest, sortedcontainers }:
 
 buildPythonPackage rec {
   pname = "pdfminer_six";

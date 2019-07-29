@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libX11, libXmu, libXpm, gtk2, libpng, libjpeg, libtiff, librsvg
-}:
+{ stdenv, fetchurl, pkgconfig, libX11, libXmu, libXpm, gtk2, libpng, libjpeg
+, libtiff, librsvg }:
 
 stdenv.mkDerivation rec {
   name = "fbpanel-${version}";

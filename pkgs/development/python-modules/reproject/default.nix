@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, astropy, astropy-healpix, astropy-helpers, scipy
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, astropy, astropy-healpix
+, astropy-helpers, scipy }:
 
 buildPythonPackage rec {
   pname = "reproject";

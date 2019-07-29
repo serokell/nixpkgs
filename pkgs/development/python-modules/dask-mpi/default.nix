@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, dask, distributed, mpi4py, pytest, requests
-}:
+{ stdenv, buildPythonPackage, fetchPypi, dask, distributed, mpi4py, pytest
+, requests }:
 
 buildPythonPackage rec {
   version = "1.0.2";

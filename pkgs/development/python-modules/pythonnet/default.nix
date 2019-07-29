@@ -1,5 +1,5 @@
-{ lib, fetchPypi, fetchNuGet, buildPythonPackage, python, pytest, pycparser, pkgconfig, dotnetbuildhelpers, clang, mono
-}:
+{ lib, fetchPypi, fetchNuGet, buildPythonPackage, python, pytest, pycparser
+, pkgconfig, dotnetbuildhelpers, clang, mono }:
 
 let
 

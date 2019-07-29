@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pyramid_mako, nose, django, jinja2, tornado, pyramid, Mako, six
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pyramid_mako, nose, django, jinja2
+, tornado, pyramid, Mako, six }:
 
 buildPythonPackage rec {
   pname = "pyjade";

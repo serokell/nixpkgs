@@ -1,4 +1,7 @@
-{ fetchurl, stdenv, dpkg, which, makeWrapper, alsaLib, desktop-file-utils, dbus, libcap, fontconfig, freetype, gcc, gconf, glib, icu, libxml2, libxslt, orc, nss, nspr, qtbase, qtsvg, qtdeclarative, qtwebchannel, qtquickcontrols, qtwebkit, qtwebengine, sqlite, xorg, zlib
+{ fetchurl, stdenv, dpkg, which, makeWrapper, alsaLib, desktop-file-utils, dbus
+, libcap, fontconfig, freetype, gcc, gconf, glib, icu, libxml2, libxslt, orc
+, nss, nspr, qtbase, qtsvg, qtdeclarative, qtwebchannel, qtquickcontrols
+, qtwebkit, qtwebengine, sqlite, xorg, zlib
 # The provided wrapper does this, but since we don't use it
 # we emulate the behavior.  The downside is that this
 # will leave entries on your system after uninstalling mendeley.

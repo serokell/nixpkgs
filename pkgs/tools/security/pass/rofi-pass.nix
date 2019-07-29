@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pass, rofi, coreutils, utillinux, xdotool, gnugrep, libnotify, pwgen, findutils, gawk, gnused, xclip, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, pass, rofi, coreutils, utillinux, xdotool, gnugrep
+, libnotify, pwgen, findutils, gawk, gnused, xclip, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "rofi-pass-${version}";

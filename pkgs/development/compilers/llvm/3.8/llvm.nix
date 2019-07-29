@@ -1,5 +1,6 @@
-{ stdenv, fetch, fetchpatch, perl, groff, cmake, python, libffi, libbfd, libxml2, ncurses, version, zlib, compiler-rt_src, debugVersion ?
-  false, enableSharedLibraries ? true }:
+{ stdenv, fetch, fetchpatch, perl, groff, cmake, python, libffi, libbfd, libxml2
+, ncurses, version, zlib, compiler-rt_src, debugVersion ? false
+, enableSharedLibraries ? true }:
 
 let src = fetch "llvm" "1ybmnid4pw2hxn12ax5qa5kl1ldfns0njg8533y3mzslvd5cx0kf";
 in stdenv.mkDerivation rec {

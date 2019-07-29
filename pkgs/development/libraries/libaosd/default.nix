@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cairo, pango, libX11, libXcomposite, autoconf, automake
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cairo, pango, libX11, libXcomposite
+, autoconf, automake }:
 
 stdenv.mkDerivation rec {
   version = "0.2.7-9-g177589f";

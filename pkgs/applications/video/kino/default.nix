@@ -49,8 +49,9 @@
 #AMR-WB float support      no
 #AMR-WB IF2 support        no
 
-{ stdenv, fetchurl, gtk2, libglade, libxml2, libraw1394, libsamplerate, libdv, pkgconfig, perlPackages, libavc1394, libiec61883, libXv, gettext, libX11, glib, cairo, intltool, ffmpeg, libv4l
-}:
+{ stdenv, fetchurl, gtk2, libglade, libxml2, libraw1394, libsamplerate, libdv
+, pkgconfig, perlPackages, libavc1394, libiec61883, libXv, gettext, libX11, glib
+, cairo, intltool, ffmpeg, libv4l }:
 
 stdenv.mkDerivation {
   name = "kino-1.3.4";

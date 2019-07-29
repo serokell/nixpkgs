@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, lib, python, serpent, dill, cloudpickle, msgpack, isPy27, isPy33, selectors34
-}:
+{ stdenv, buildPythonPackage, fetchPypi, lib, python, serpent, dill, cloudpickle
+, msgpack, isPy27, isPy33, selectors34 }:
 
 buildPythonPackage rec {
 

@@ -1,5 +1,6 @@
-{ buildGoPackage, deadcode, errcheck, fetchFromGitHub, go, go-check, go-tools, goconst, gocyclo, golint, gosec, gotools, ineffassign, maligned, interfacer, lib, makeWrapper, unconvert
-}:
+{ buildGoPackage, deadcode, errcheck, fetchFromGitHub, go, go-check, go-tools
+, goconst, gocyclo, golint, gosec, gotools, ineffassign, maligned, interfacer
+, lib, makeWrapper, unconvert }:
 
 with lib;
 

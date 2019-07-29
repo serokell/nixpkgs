@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk_pixbuf, glib, gnome2, nspr, nss, pango, udev, xorg
-}:
+{ stdenv, fetchurl, dpkg, alsaLib, atk, cairo, cups, dbus, expat, fontconfig
+, freetype, gdk_pixbuf, glib, gnome2, nspr, nss, pango, udev, xorg }:
 let
   fullPath = stdenv.lib.makeLibraryPath [
     alsaLib

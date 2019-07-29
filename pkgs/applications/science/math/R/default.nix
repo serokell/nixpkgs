@@ -1,6 +1,9 @@
-{ stdenv, fetchurl, bzip2, gfortran, libX11, libXmu, libXt, libjpeg, libpng, libtiff, ncurses, pango, pcre, perl, readline, tcl, texLive, tk, xz, zlib, less, texinfo, graphviz, icu, pkgconfig, bison, imake, which, jdk, openblas, curl, Cocoa, Foundation, libobjc, libcxx, tzdata, fetchpatch, withRecommendedPackages ?
-  true, enableStrictBarrier ? false, javaSupport ?
-    (!stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64) }:
+{ stdenv, fetchurl, bzip2, gfortran, libX11, libXmu, libXt, libjpeg, libpng
+, libtiff, ncurses, pango, pcre, perl, readline, tcl, texLive, tk, xz, zlib
+, less, texinfo, graphviz, icu, pkgconfig, bison, imake, which, jdk, openblas
+, curl, Cocoa, Foundation, libobjc, libcxx, tzdata, fetchpatch
+, withRecommendedPackages ? true, enableStrictBarrier ? false, javaSupport ?
+  (!stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64) }:
 
 stdenv.mkDerivation rec {
   name = "R-3.6.1";

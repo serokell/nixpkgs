@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, makeWrapper, pkgconfig, intltool, gettext, gtk2, expat, curl, gpsd, bc, file, gnome-doc-utils, libexif, libxml2, libxslt, scrollkeeper, docbook_xml_dtd_412, gexiv2, sqlite, gpsbabel, expect, hicolor-icon-theme, geoclue2, liboauth
-}:
+{ fetchurl, stdenv, makeWrapper, pkgconfig, intltool, gettext, gtk2, expat, curl
+, gpsd, bc, file, gnome-doc-utils, libexif, libxml2, libxslt, scrollkeeper
+, docbook_xml_dtd_412, gexiv2, sqlite, gpsbabel, expect, hicolor-icon-theme
+, geoclue2, liboauth }:
 
 stdenv.mkDerivation rec {
   name = "viking-${version}";

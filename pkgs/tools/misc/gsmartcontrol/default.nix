@@ -1,5 +1,5 @@
-{ fetchurl, stdenv, smartmontools, autoreconfHook, gettext, gtkmm3, pkgconfig, wrapGAppsHook, pcre-cpp, gnome3
-}:
+{ fetchurl, stdenv, smartmontools, autoreconfHook, gettext, gtkmm3, pkgconfig
+, wrapGAppsHook, pcre-cpp, gnome3 }:
 
 stdenv.mkDerivation rec {
   version = "1.1.3";

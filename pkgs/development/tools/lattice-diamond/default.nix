@@ -1,5 +1,5 @@
-{ stdenv, rpmextract, patchelf, makeWrapper, file, requireFile, glib, zlib, freetype, fontconfig, xorg
-}:
+{ stdenv, rpmextract, patchelf, makeWrapper, file, requireFile, glib, zlib
+, freetype, fontconfig, xorg }:
 
 stdenv.mkDerivation rec {
   name = "diamond-3.10";

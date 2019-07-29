@@ -1,5 +1,5 @@
-{ stdenv, bash-completion, cmake, fetchFromGitHub, hidapi, libusb1, pkgconfig, qtbase, qttranslations, qtsvg, wrapQtAppsHook
-}:
+{ stdenv, bash-completion, cmake, fetchFromGitHub, hidapi, libusb1, pkgconfig
+, qtbase, qttranslations, qtsvg, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "nitrokey-app-${version}";

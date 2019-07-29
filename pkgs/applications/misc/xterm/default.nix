@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, xorg, ncurses, freetype, fontconfig, pkgconfig, makeWrapper, enableDecLocator ?
-  true }:
+{ stdenv, fetchurl, fetchpatch, xorg, ncurses, freetype, fontconfig, pkgconfig
+, makeWrapper, enableDecLocator ? true }:
 
 stdenv.mkDerivation rec {
   name = "xterm-347";

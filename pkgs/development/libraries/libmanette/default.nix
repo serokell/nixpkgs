@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ninja, meson, pkgconfig, vala, gobject-introspection, glib, libgudev, libevdev, gnome3
-}:
+{ stdenv, fetchurl, ninja, meson, pkgconfig, vala, gobject-introspection, glib
+, libgudev, libevdev, gnome3 }:
 
 let
   version = "0.2.2";

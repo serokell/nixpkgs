@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pythonPackages, wrapGAppsHook, gst_all_1, glib-networking, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, pythonPackages, wrapGAppsHook, gst_all_1
+, glib-networking, gobject-introspection }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy";

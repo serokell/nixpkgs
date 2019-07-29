@@ -1,5 +1,5 @@
-{ stdenv, alsaLib, boost, dbus-glib, fetchsvn, ganv, glibmm, gtkmm2, libjack2, pkgconfig, python2, wafHook
-}:
+{ stdenv, alsaLib, boost, dbus-glib, fetchsvn, ganv, glibmm, gtkmm2, libjack2
+, pkgconfig, python2, wafHook }:
 
 stdenv.mkDerivation rec {
   name = "patchage-${version}";

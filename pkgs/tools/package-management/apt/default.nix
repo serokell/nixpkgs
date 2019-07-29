@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchzip, pkgconfig, cmake, perlPackages, curl, gtest, lzma, bzip2, lz4, db, dpkg, libxslt, docbook_xsl, docbook_xml_dtd_45
+{ stdenv, lib, fetchzip, pkgconfig, cmake, perlPackages, curl, gtest, lzma
+, bzip2, lz4, db, dpkg, libxslt, docbook_xsl, docbook_xml_dtd_45
 
 # used when WITH_DOC=ON
 , w3m, doxygen

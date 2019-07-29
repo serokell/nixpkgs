@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cryptography, ipaddress, pyasn1, pyasn1-modules, idna, attrs, pytest
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cryptography, ipaddress
+, pyasn1, pyasn1-modules, idna, attrs, pytest }:
 
 buildPythonPackage rec {
   pname = "service_identity";

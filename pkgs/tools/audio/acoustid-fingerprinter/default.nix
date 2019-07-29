@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, cmake, pkgconfig, qt4, taglib, chromaprint, ffmpeg
-}:
+{ stdenv, fetchurl, fetchpatch, cmake, pkgconfig, qt4, taglib, chromaprint
+, ffmpeg }:
 
 stdenv.mkDerivation rec {
   name = "acoustid-fingerprinter-${version}";

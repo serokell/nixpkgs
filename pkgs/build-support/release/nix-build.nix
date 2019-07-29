@@ -5,12 +5,12 @@
 # it turns on GCC's coverage analysis feature.  It then runs `make
 # check' and produces a coverage analysis report using `lcov'.
 
-{ buildOutOfSourceTree ? false, preConfigure ? null, doCoverageAnalysis ?
-  false, doClangAnalysis ? false, doCoverityAnalysis ? false, lcovFilter ?
-    [ ], lcovExtraTraceFiles ? [ ], src, stdenv, name ?
-      if doCoverageAnalysis then "nix-coverage" else "nix-build", failureHook ?
-        null, prePhases ? [ ], postPhases ? [ ], buildInputs ? [ ], preHook ?
-          "", postHook ? "", ... }@args:
+{ buildOutOfSourceTree ? false, preConfigure ? null, doCoverageAnalysis ? false
+, doClangAnalysis ? false, doCoverityAnalysis ? false, lcovFilter ? [ ]
+, lcovExtraTraceFiles ? [ ], src, stdenv
+, name ? if doCoverageAnalysis then "nix-coverage" else "nix-build"
+, failureHook ? null, prePhases ? [ ], postPhases ? [ ], buildInputs ? [ ]
+, preHook ? "", postHook ? "", ... }@args:
 
 let doingAnalysis = doCoverageAnalysis || doClangAnalysis || doCoverityAnalysis;
 in stdenv.mkDerivation (

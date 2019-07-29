@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libGLU_combined, libX11, libXext, libXfixes, libXdamage, libXcomposite, libXi, libxcb, cogl, pango, atk, json-glib, gobject-introspection, gtk3, gnome3, libinput, libgudev, libxkbcommon
-}:
+{ stdenv, fetchurl, pkgconfig, libGLU_combined, libX11, libXext, libXfixes
+, libXdamage, libXcomposite, libXi, libxcb, cogl, pango, atk, json-glib
+, gobject-introspection, gtk3, gnome3, libinput, libgudev, libxkbcommon }:
 
 let
   pname = "clutter";

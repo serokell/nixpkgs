@@ -1,6 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, mono, glib, pango, gtk3, GConf ? null, libglade ?
-  null, libgtkhtml ? null, gtkhtml ? null, libgnomecanvas ? null, libgnomeui ?
-    null, libgnomeprint ? null, libgnomeprintui ? null, libxml2, monoDLLFixer }:
+{ stdenv, fetchurl, pkgconfig, mono, glib, pango, gtk3, GConf ? null
+, libglade ? null, libgtkhtml ? null, gtkhtml ? null, libgnomecanvas ? null
+, libgnomeui ? null, libgnomeprint ? null, libgnomeprintui ? null, libxml2
+, monoDLLFixer }:
 
 stdenv.mkDerivation {
   name = "gtk-sharp-2.99.3";

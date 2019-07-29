@@ -1,5 +1,5 @@
-{ CFNetwork, Security, buildPythonPackage, certifi, cmake, enum34, fetchPypi, isPy3k, lib, openssl, stdenv, six
-}:
+{ CFNetwork, Security, buildPythonPackage, certifi, cmake, enum34, fetchPypi
+, isPy3k, lib, openssl, stdenv, six }:
 
 buildPythonPackage rec {
   pname = "uamqp";

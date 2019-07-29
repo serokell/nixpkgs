@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, fetchpatch, plaster, PasteDeploy, pytest, pytestcov
-}:
+{ buildPythonPackage, fetchPypi, fetchpatch, plaster, PasteDeploy, pytest
+, pytestcov }:
 
 buildPythonPackage rec {
   pname = "plaster_pastedeploy";

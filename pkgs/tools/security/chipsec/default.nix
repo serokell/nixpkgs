@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, python27Packages, nasm, libelf, kernel ?
-  null, withDriver ? false }:
+{ stdenv, lib, fetchFromGitHub, python27Packages, nasm, libelf, kernel ? null
+, withDriver ? false }:
 python27Packages.buildPythonApplication rec {
   name = "chipsec-${version}";
   version = "1.3.7";

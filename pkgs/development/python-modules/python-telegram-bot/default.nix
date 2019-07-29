@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, certifi, future, urllib3, tornado, pytest
-}:
+{ stdenv, fetchPypi, buildPythonPackage, certifi, future, urllib3, tornado
+, pytest }:
 
 buildPythonPackage rec {
   pname = "python-telegram-bot";

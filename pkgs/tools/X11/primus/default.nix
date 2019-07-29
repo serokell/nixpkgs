@@ -3,8 +3,8 @@
 # Using steam under wine can involve both 32bit and 64bit process. All of which inherit the
 # same LD_LIBRARY_PATH.
 # Other distributions do the same.
-{ stdenv, stdenv_i686, lib, primusLib, writeScriptBin, runtimeShell, primusLib_i686 ?
-  null, useNvidia ? true }:
+{ stdenv, stdenv_i686, lib, primusLib, writeScriptBin, runtimeShell
+, primusLib_i686 ? null, useNvidia ? true }:
 
 let
   # We override stdenv in case we need different ABI for libGL

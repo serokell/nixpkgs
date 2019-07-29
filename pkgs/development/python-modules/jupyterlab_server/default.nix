@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, notebook, jsonschema, pythonOlder, requests, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, notebook, jsonschema, pythonOlder
+, requests, pytest }:
 
 buildPythonPackage rec {
   pname = "jupyterlab_server";

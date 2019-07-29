@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, openssl, libX11, libgssglue, pkgconfig, autoreconfHook, enableCredssp ?
-  (!stdenv.isDarwin) }:
+{ stdenv, fetchFromGitHub, openssl, libX11, libgssglue, pkgconfig
+, autoreconfHook, enableCredssp ? (!stdenv.isDarwin) }:
 
 stdenv.mkDerivation (rec {
   pname = "rdesktop";

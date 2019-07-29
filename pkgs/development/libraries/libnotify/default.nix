@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, fetchpatch, glib, gdk_pixbuf, gobject-introspection, gnome3
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, fetchpatch, glib, gdk_pixbuf
+, gobject-introspection, gnome3 }:
 
 stdenv.mkDerivation rec {
   pname = "libnotify";

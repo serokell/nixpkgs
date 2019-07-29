@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libjack2, alsaLib, libpulseaudio, faac, lame, libogg, libopus, libvorbis, libsamplerate
-}:
+{ stdenv, fetchurl, pkgconfig, libjack2, alsaLib, libpulseaudio, faac, lame
+, libogg, libopus, libvorbis, libsamplerate }:
 
 stdenv.mkDerivation rec {
   name = "darkice-${version}";

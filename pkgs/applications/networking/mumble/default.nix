@@ -1,6 +1,8 @@
-{ stdenv, fetchurl, fetchFromGitHub, fetchpatch, pkgconfig, qt4, qmake4Hook, qt5, avahi, boost, libopus, libsndfile, protobuf3_6, speex, libcap, alsaLib, python, jackSupport ?
-  false, libjack2 ? null, speechdSupport ? false, speechd ? null, pulseSupport ?
-    false, libpulseaudio ? null, iceSupport ? false, zeroc_ice ? null }:
+{ stdenv, fetchurl, fetchFromGitHub, fetchpatch, pkgconfig, qt4, qmake4Hook, qt5
+, avahi, boost, libopus, libsndfile, protobuf3_6, speex, libcap, alsaLib, python
+, jackSupport ? false, libjack2 ? null, speechdSupport ? false, speechd ? null
+, pulseSupport ? false, libpulseaudio ? null, iceSupport ? false
+, zeroc_ice ? null }:
 
 assert jackSupport -> libjack2 != null;
 assert speechdSupport -> speechd != null;

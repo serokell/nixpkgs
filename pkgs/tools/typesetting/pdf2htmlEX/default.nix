@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, poppler, xorg, pcre, python, glib, fontforge, cairo, pango, openjdk8
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, poppler, xorg, pcre, python, glib
+, fontforge, cairo, pango, openjdk8
 
 }:
 

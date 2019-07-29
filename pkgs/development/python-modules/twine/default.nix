@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pkginfo, requests, requests_toolbelt, tqdm, pyblake2, readme_renderer
-}:
+{ lib, buildPythonPackage, fetchPypi, pkginfo, requests, requests_toolbelt, tqdm
+, pyblake2, readme_renderer }:
 
 buildPythonPackage rec {
   pname = "twine";

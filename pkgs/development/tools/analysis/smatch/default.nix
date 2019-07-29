@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, sqlite, pkgconfig, perl, buildllvmsparse ?
-  true, buildc2xml ? true, llvm ? null, libxml2 ? null }:
+{ stdenv, fetchgit, sqlite, pkgconfig, perl, buildllvmsparse ? true
+, buildc2xml ? true, llvm ? null, libxml2 ? null }:
 
 assert buildllvmsparse -> llvm != null;
 assert buildc2xml -> libxml2 != null;

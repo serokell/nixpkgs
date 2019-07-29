@@ -1,5 +1,5 @@
-{ stdenv, makeWrapper, runCommand, wrapBintoolsWith, wrapCCWith, buildAndroidndk, androidndk, targetAndroidndkPkgs
-}:
+{ stdenv, makeWrapper, runCommand, wrapBintoolsWith, wrapCCWith, buildAndroidndk
+, androidndk, targetAndroidndkPkgs }:
 
 let
   # Mapping from a platform to information needed to unpack NDK stuff for that

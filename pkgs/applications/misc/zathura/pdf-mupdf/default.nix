@@ -1,5 +1,5 @@
-{ stdenv, lib, meson, ninja, fetchFromGitHub, pkgconfig, zathura_core, cairo, gtk-mac-integration, girara, mupdf
-}:
+{ stdenv, lib, meson, ninja, fetchFromGitHub, pkgconfig, zathura_core, cairo
+, gtk-mac-integration, girara, mupdf }:
 
 stdenv.mkDerivation rec {
   version = "0.3.4";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, pathlib, fetchPypi, pillow, psutil, imageio-ffmpeg, pytest, numpy, isPy3k, ffmpeg, futures, enum34
-}:
+{ stdenv, buildPythonPackage, pathlib, fetchPypi, pillow, psutil, imageio-ffmpeg
+, pytest, numpy, isPy3k, ffmpeg, futures, enum34 }:
 
 buildPythonPackage rec {
   pname = "imageio";

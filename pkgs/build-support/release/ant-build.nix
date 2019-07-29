@@ -1,7 +1,8 @@
-{ src, pkgs, stdenv ? pkgs.stdenv, name, antTargets ? [ ], jars ?
-  [ ], jarWrappers ? [ ], antProperties ? [ ], antBuildInputs ? [ ], buildfile ?
-    "build.xml", ant ? pkgs.ant, jre ? pkgs.jdk, hydraAntLogger ?
-      pkgs.hydraAntLogger, zip ? pkgs.zip, unzip ? pkgs.unzip, ... }@args:
+{ src, pkgs, stdenv ? pkgs.stdenv, name, antTargets ? [ ], jars ? [ ]
+, jarWrappers ? [ ], antProperties ? [ ], antBuildInputs ? [ ]
+, buildfile ? "build.xml", ant ? pkgs.ant, jre ? pkgs.jdk
+, hydraAntLogger ? pkgs.hydraAntLogger, zip ? pkgs.zip, unzip ? pkgs.unzip, ...
+}@args:
 
 let
   antFlags = "-f ${buildfile} "

@@ -2,10 +2,10 @@
 
 # A special kind of derivation that is only meant to be consumed by the
 # nix-shell.
-{ inputsFrom ?
-  [ ], # a list of derivations whose inputs will be made available to the environment
-buildInputs ? [ ], nativeBuildInputs ? [ ], propagatedBuildInputs ?
-  [ ], propagatedNativeBuildInputs ? [ ], ... }@attrs:
+{ inputsFrom ? [ ]
+, # a list of derivations whose inputs will be made available to the environment
+buildInputs ? [ ], nativeBuildInputs ? [ ], propagatedBuildInputs ? [ ]
+, propagatedNativeBuildInputs ? [ ], ... }@attrs:
 let
   mergeInputs = name:
     lib.concatLists (lib.catAttrs name ([ attrs ] ++ inputsFrom));

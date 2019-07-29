@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, fetchpatch, unzip, libjpeg, libtiff, zlib, postgresql, mysql, libgeotiff, pythonPackages, proj, geos, openssl, libpng, sqlite, libspatialite, poppler, hdf4, qhull, giflib, expat, libiconv, libxml2, netcdfSupport ?
-  true, netcdf, hdf5, curl }:
+{ stdenv, fetchurl, fetchpatch, unzip, libjpeg, libtiff, zlib, postgresql, mysql
+, libgeotiff, pythonPackages, proj, geos, openssl, libpng, sqlite, libspatialite
+, poppler, hdf4, qhull, giflib, expat, libiconv, libxml2, netcdfSupport ? true
+, netcdf, hdf5, curl }:
 
 with stdenv.lib;
 

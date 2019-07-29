@@ -1,4 +1,7 @@
-{ stdenv, fetchFromGitLab, substituteAll, meson, ninja, pkgconfig, vala_0_40, gettext, gnome3, libnotify, itstool, glib, gtk3, libxml2, coreutils, libpeas, libsecret, pcre, libxkbcommon, wrapGAppsHook, libpthreadstubs, libXdmcp, epoxy, at-spi2-core, dbus, libgpgerror, appstream-glib, desktop-file-utils, duplicity
+{ stdenv, fetchFromGitLab, substituteAll, meson, ninja, pkgconfig, vala_0_40
+, gettext, gnome3, libnotify, itstool, glib, gtk3, libxml2, coreutils, libpeas
+, libsecret, pcre, libxkbcommon, wrapGAppsHook, libpthreadstubs, libXdmcp, epoxy
+, at-spi2-core, dbus, libgpgerror, appstream-glib, desktop-file-utils, duplicity
 }:
 
 stdenv.mkDerivation rec {

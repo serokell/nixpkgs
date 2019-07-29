@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, nose, pkgconfig, libjpeg, libpng, libtiff, libwebp, numpy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, nose, pkgconfig, libjpeg, libpng
+, libtiff, libwebp, numpy }:
 
 buildPythonPackage rec {
   pname = "python-imread";

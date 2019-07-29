@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libelf, libconfig, libevent, which, unzip, perl, python, bison, flex
-}:
+{ stdenv, fetchurl, libelf, libconfig, libevent, which, unzip, perl, python
+, bison, flex }:
 
 stdenv.mkDerivation rec {
   name = "coprthr-${version}";

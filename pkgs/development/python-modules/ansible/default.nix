@@ -1,5 +1,6 @@
-{ lib, fetchurl, buildPythonPackage, pycrypto, paramiko, jinja2, pyyaml, httplib2, boto, six, netaddr, dnspython, jmespath, dopy, windowsSupport ?
-  false, pywinrm }:
+{ lib, fetchurl, buildPythonPackage, pycrypto, paramiko, jinja2, pyyaml
+, httplib2, boto, six, netaddr, dnspython, jmespath, dopy
+, windowsSupport ? false, pywinrm }:
 
 buildPythonPackage rec {
   pname = "ansible";

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, boltons, attrs, face, pytest, pyyaml, isPy37
-}:
+{ stdenv, buildPythonPackage, fetchPypi, boltons, attrs, face, pytest, pyyaml
+, isPy37 }:
 
 buildPythonPackage rec {
   pname = "glom";

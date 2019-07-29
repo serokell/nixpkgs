@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qmake, gsettings-qt, pythonPackages, deepin
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, qmake, gsettings-qt, pythonPackages
+, deepin }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, python3, vala, desktop-file-utils, gtk3, libxml2, granite, libnotify, vte, libgee, elementary-icon-theme, appstream, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, pkgconfig, meson, ninja, python3, vala
+, desktop-file-utils, gtk3, libxml2, granite, libnotify, vte, libgee
+, elementary-icon-theme, appstream, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "terminal";

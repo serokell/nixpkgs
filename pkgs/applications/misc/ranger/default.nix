@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, python3Packages, file, less, highlight, imagePreviewSupport ?
-  true, w3m ? null }:
+{ stdenv, lib, fetchFromGitHub, python3Packages, file, less, highlight
+, imagePreviewSupport ? true, w3m ? null }:
 
 with stdenv.lib;
 

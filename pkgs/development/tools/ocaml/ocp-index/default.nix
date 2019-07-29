@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ocaml, findlib, dune, ocp-build, ocp-indent, cmdliner, re
-}:
+{ stdenv, fetchFromGitHub, ocaml, findlib, dune, ocp-build, ocp-indent, cmdliner
+, re }:
 
 stdenv.mkDerivation rec {
 

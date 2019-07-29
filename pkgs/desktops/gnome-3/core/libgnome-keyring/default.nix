@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, glib, dbus, libgcrypt, pkgconfig, intltool, gobject-introspection, gnome3
-}:
+{ stdenv, fetchurl, glib, dbus, libgcrypt, pkgconfig, intltool
+, gobject-introspection, gnome3 }:
 
 let
   pname = "libgnome-keyring";

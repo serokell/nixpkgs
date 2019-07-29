@@ -1,5 +1,10 @@
-{ mkDerivation, lib, fetchurl, cmake, gettext, pkgconfig, extra-cmake-modules, qtquickcontrols, qtwebkit, qttools, kde-cli-tools, qtbase, kconfig, kdeclarative, kdoctools, kiconthemes, ki18n, kitemmodels, kitemviews, kjobwidgets, kcmutils, kio, knewstuff, knotifyconfig, kparts, ktexteditor, threadweaver, kxmlgui, kwindowsystem, grantlee, kcrash, karchive, kguiaddons, plasma-framework, krunner, kdevelop-pg-qt, shared-mime-info, libkomparediff2, libksysguard, konsole, llvmPackages, makeWrapper, kpurpose, boost
-}:
+{ mkDerivation, lib, fetchurl, cmake, gettext, pkgconfig, extra-cmake-modules
+, qtquickcontrols, qtwebkit, qttools, kde-cli-tools, qtbase, kconfig
+, kdeclarative, kdoctools, kiconthemes, ki18n, kitemmodels, kitemviews
+, kjobwidgets, kcmutils, kio, knewstuff, knotifyconfig, kparts, ktexteditor
+, threadweaver, kxmlgui, kwindowsystem, grantlee, kcrash, karchive, kguiaddons
+, plasma-framework, krunner, kdevelop-pg-qt, shared-mime-info, libkomparediff2
+, libksysguard, konsole, llvmPackages, makeWrapper, kpurpose, boost }:
 
 let qtVersion = "5.${lib.versions.minor qtbase.version}";
 in mkDerivation rec {

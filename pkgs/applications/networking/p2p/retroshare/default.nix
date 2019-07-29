@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, libupnp, gpgme, gnome3, glib, libssh, pkgconfig, protobuf, bzip2, libXScrnSaver, speex, curl, libxml2, libxslt, sqlcipher, libmicrohttpd, opencv, qmake, ffmpeg, qtmultimedia, qtx11extras, qttools
-}:
+{ stdenv, fetchFromGitHub, libupnp, gpgme, gnome3, glib, libssh, pkgconfig
+, protobuf, bzip2, libXScrnSaver, speex, curl, libxml2, libxslt, sqlcipher
+, libmicrohttpd, opencv, qmake, ffmpeg, qtmultimedia, qtx11extras, qttools }:
 
 stdenv.mkDerivation rec {
   name = "retroshare-${version}";

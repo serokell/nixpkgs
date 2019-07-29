@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, ncurses # acinclude.m4 wants headers for tgetent().
+{ stdenv, fetchurl, autoreconfHook
+, ncurses # acinclude.m4 wants headers for tgetent().
 , historySupport ? false, readline ? null }:
 
 stdenv.mkDerivation rec {

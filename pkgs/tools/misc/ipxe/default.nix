@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchgit, perl, cdrkit, syslinux, xz, openssl, gnu-efi, mtools, embedScript ?
-  null, additionalTargets ? { } }:
+{ stdenv, lib, fetchgit, perl, cdrkit, syslinux, xz, openssl, gnu-efi, mtools
+, embedScript ? null, additionalTargets ? { } }:
 
 let
   date = "20190318";

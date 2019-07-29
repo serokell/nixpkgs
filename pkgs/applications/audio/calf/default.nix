@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cairo, expat, fftwSinglePrec, fluidsynth, glib, gtk2, libjack2, ladspaH, libglade, lv2, pkgconfig
-}:
+{ stdenv, fetchurl, cairo, expat, fftwSinglePrec, fluidsynth, glib, gtk2
+, libjack2, ladspaH, libglade, lv2, pkgconfig }:
 
 stdenv.mkDerivation rec {
   name = "calf-${version}";

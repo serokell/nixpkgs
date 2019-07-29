@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, makeWrapper, boost, xercesc, qtbase, qttools, qtwebkit, qtxmlpatterns, python3, python3Packages
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, makeWrapper, boost, xercesc, qtbase
+, qttools, qtwebkit, qtxmlpatterns, python3, python3Packages }:
 
 stdenv.mkDerivation rec {
   name = "sigil-${version}";

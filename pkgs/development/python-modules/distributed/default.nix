@@ -1,5 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-repeat, pytest-faulthandler, pytest-timeout, mock, joblib, click, cloudpickle, dask, msgpack, psutil, six, sortedcontainers, tblib, toolz, tornado, zict, pyyaml, isPy3k, futures, singledispatch, mpi4py, bokeh
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytest-repeat, pytest-faulthandler
+, pytest-timeout, mock, joblib, click, cloudpickle, dask, msgpack, psutil, six
+, sortedcontainers, tblib, toolz, tornado, zict, pyyaml, isPy3k, futures
+, singledispatch, mpi4py, bokeh }:
 
 buildPythonPackage rec {
   pname = "distributed";

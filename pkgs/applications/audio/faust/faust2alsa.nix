@@ -1,5 +1,5 @@
-{ faust, alsaLib, atk, cairo, fontconfig, freetype, gdk_pixbuf, glib, gtk2, pango
-}:
+{ faust, alsaLib, atk, cairo, fontconfig, freetype, gdk_pixbuf, glib, gtk2
+, pango }:
 
 faust.wrapWithBuildEnv {
 

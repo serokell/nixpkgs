@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk2, freeglut, SDL, SDL_mixer, libGLU_combined, libXi, libXmu
-}:
+{ stdenv, fetchurl, pkgconfig, gtk2, freeglut, SDL, SDL_mixer, libGLU_combined
+, libXi, libXmu }:
 
 stdenv.mkDerivation {
   name = "crack-attack-1.1.14";

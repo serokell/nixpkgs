@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, glib, babl, libpng, cairo, libjpeg, which, librsvg, pango, gtk, bzip2, json-glib, intltool, autoreconfHook, libraw, libwebp, gnome3, libintl
-}:
+{ stdenv, fetchurl, pkgconfig, glib, babl, libpng, cairo, libjpeg, which
+, librsvg, pango, gtk, bzip2, json-glib, intltool, autoreconfHook, libraw
+, libwebp, gnome3, libintl }:
 
 stdenv.mkDerivation rec {
   name = "gegl-0.3.34";

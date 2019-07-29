@@ -1,5 +1,7 @@
-{ stdenv, gettext, fetchurl, pkgconfig, udisks2, libsecret, libdvdread, meson, ninja, gtk3, glib, wrapGAppsHook, python3, libnotify, itstool, gnome3, libxml2, gsettings-desktop-schemas, libcanberra-gtk3, libxslt, docbook_xsl, libpwquality
-}:
+{ stdenv, gettext, fetchurl, pkgconfig, udisks2, libsecret, libdvdread, meson
+, ninja, gtk3, glib, wrapGAppsHook, python3, libnotify, itstool, gnome3, libxml2
+, gsettings-desktop-schemas, libcanberra-gtk3, libxslt, docbook_xsl
+, libpwquality }:
 
 stdenv.mkDerivation rec {
   name = "gnome-disk-utility-${version}";

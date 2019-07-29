@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, alsaLib, spice-protocol, glib, libpciaccess, libxcb, libXrandr, libXinerama, libXfixes, dbus, systemd
-}:
+{ stdenv, fetchurl, pkgconfig, alsaLib, spice-protocol, glib, libpciaccess
+, libxcb, libXrandr, libXinerama, libXfixes, dbus, systemd }:
 stdenv.mkDerivation rec {
   name = "spice-vdagent-0.18.0";
   src = fetchurl {

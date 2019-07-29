@@ -1,19 +1,20 @@
-{ stdenv, fetchgit, autoreconfHook, pkgconfig, libtool, boost, SDL, glib, pango, gettext, curl, xorg, libpng, libjpeg, giflib, speex, atk
+{ stdenv, fetchgit, autoreconfHook, pkgconfig, libtool, boost, SDL, glib, pango
+, gettext, curl, xorg, libpng, libjpeg, giflib, speex, atk
 
 # renderers
-, enableAGG ? true, agg ? null, enableCairo ? false, cairo ?
-  null, enableOpenGL ? false, libGLU_combined ? null
+, enableAGG ? true, agg ? null, enableCairo ? false, cairo ? null
+, enableOpenGL ? false, libGLU_combined ? null
 
-    # GUI toolkits
-, enableGTK ? true, gtk2 ? null, gnome2 ? null, enableSDL ? false, enableQt ?
-  false, qt4 ? null
+  # GUI toolkits
+, enableGTK ? true, gtk2 ? null, gnome2 ? null, enableSDL ? false
+, enableQt ? false, qt4 ? null
 
-    # media
+  # media
 , enableFFmpeg ? true, ffmpeg_2 ? null
 
   # misc
-, enableJemalloc ? true, jemalloc ? null, enableHwAccel ? true, enablePlugins ?
-  false, xulrunner ? null, npapi_sdk ? null }:
+, enableJemalloc ? true, jemalloc ? null, enableHwAccel ? true
+, enablePlugins ? false, xulrunner ? null, npapi_sdk ? null }:
 
 with stdenv.lib;
 

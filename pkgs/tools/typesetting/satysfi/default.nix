@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, fetchFromGitHub, ruby, dune, ocamlPackages, ipaexfont, junicode
-}:
+{ stdenv, fetchzip, fetchFromGitHub, ruby, dune, ocamlPackages, ipaexfont
+, junicode }:
 let
   lm = fetchzip {
     url =

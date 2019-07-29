@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchgit, autogen, flex, bison, python, autoconf, automake, gettext, ncurses, libusb, freetype, qemu, lvm2, for_HP_laptop ?
-  false }:
+{ stdenv, fetchurl, fetchgit, autogen, flex, bison, python, autoconf, automake
+, gettext, ncurses, libusb, freetype, qemu, lvm2, for_HP_laptop ? false }:
 
 with stdenv.lib;
 let

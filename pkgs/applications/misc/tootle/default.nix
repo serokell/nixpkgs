@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, python3, libgee, gsettings-desktop-schemas, gnome3, pantheon, gobject-introspection, wrapGAppsHook, gtk3, json-glib, glib, glib-networking, hicolor-icon-theme
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, python3, libgee
+, gsettings-desktop-schemas, gnome3, pantheon, gobject-introspection
+, wrapGAppsHook, gtk3, json-glib, glib, glib-networking, hicolor-icon-theme }:
 
 let
   pname = "tootle";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, itstool, gettext, python3, wrapGAppsHook, libxml2, libgda, gspell, glib, gtk3, gtksourceview4, gnome3, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, itstool, gettext, python3
+, wrapGAppsHook, libxml2, libgda, gspell, glib, gtk3, gtksourceview4, gnome3
+, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   pname = "gtranslator";

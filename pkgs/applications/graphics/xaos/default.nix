@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, aalib, gsl, libpng, libX11, xorgproto, libXext, libXt, zlib, gettext, intltool, perl
-}:
+{ stdenv, fetchurl, aalib, gsl, libpng, libX11, xorgproto, libXext, libXt, zlib
+, gettext, intltool, perl }:
 
 stdenv.mkDerivation rec {
   name = "xaos-${version}";

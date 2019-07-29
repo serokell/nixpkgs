@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, intltool, gst_all_1, gtk, dbus-glib, libxfce4ui, libxfce4util, xfconf, taglib, libnotify, hicolor-icon-theme, withGstPlugins ?
-  true }:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, intltool, gst_all_1, gtk, dbus-glib
+, libxfce4ui, libxfce4util, xfconf, taglib, libnotify, hicolor-icon-theme
+, withGstPlugins ? true }:
 
 stdenv.mkDerivation rec {
   p_name = "parole";

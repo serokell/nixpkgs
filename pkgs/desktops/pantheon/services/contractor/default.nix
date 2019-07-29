@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja, pkgconfig, vala, glib, libgee, dbus, glib-networking, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, pantheon, meson, python3, ninja, pkgconfig, vala
+, glib, libgee, dbus, glib-networking, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "contractor";

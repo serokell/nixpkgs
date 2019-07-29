@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, wayland, wayland-protocols, libxkbcommon, cairo, gdk_pixbuf, pam
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, scdoc, wayland
+, wayland-protocols, libxkbcommon, cairo, gdk_pixbuf, pam }:
 
 stdenv.mkDerivation rec {
   name = "swaylock-${version}";

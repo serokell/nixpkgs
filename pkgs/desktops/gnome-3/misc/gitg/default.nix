@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, fetchpatch, vala, gettext, pkgconfig, gtk3, glib, json-glib, wrapGAppsHook, libpeas, bash, gobject-introspection, libsoup, gtksourceview, gsettings-desktop-schemas, adwaita-icon-theme, gnome3, gtkspell3, shared-mime-info, libgee, libgit2-glib, libsecret, meson, ninja, python3, hicolor-icon-theme, libdazzle
-}:
+{ stdenv, fetchurl, fetchpatch, vala, gettext, pkgconfig, gtk3, glib, json-glib
+, wrapGAppsHook, libpeas, bash, gobject-introspection, libsoup, gtksourceview
+, gsettings-desktop-schemas, adwaita-icon-theme, gnome3, gtkspell3
+, shared-mime-info, libgee, libgit2-glib, libsecret, meson, ninja, python3
+, hicolor-icon-theme, libdazzle }:
 
 stdenv.mkDerivation rec {
   pname = "gitg";

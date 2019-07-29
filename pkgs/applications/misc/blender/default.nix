@@ -1,7 +1,10 @@
-{ config, stdenv, lib, fetchurl, boost, cmake, ffmpeg, gettext, glew, ilmbase, libXi, libX11, libXext, libXrender, libjpeg, libpng, libsamplerate, libsndfile, libtiff, libGLU_combined, openal, opencolorio, openexr, openimageio, openjpeg_1, pythonPackages, zlib, fftw, opensubdiv, freetype, jemalloc, ocl-icd, addOpenGLRunpath, jackaudioSupport ?
-  false, libjack2, cudaSupport ?
-    config.cudaSupport or false, cudatoolkit, colladaSupport ?
-      true, opencollada, enableNumpy ? false, makeWrapper }:
+{ config, stdenv, lib, fetchurl, boost, cmake, ffmpeg, gettext, glew, ilmbase
+, libXi, libX11, libXext, libXrender, libjpeg, libpng, libsamplerate, libsndfile
+, libtiff, libGLU_combined, openal, opencolorio, openexr, openimageio
+, openjpeg_1, pythonPackages, zlib, fftw, opensubdiv, freetype, jemalloc
+, ocl-icd, addOpenGLRunpath, jackaudioSupport ? false, libjack2
+, cudaSupport ? config.cudaSupport or false, cudatoolkit, colladaSupport ? true
+, opencollada, enableNumpy ? false, makeWrapper }:
 
 with lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, thrift, beautifulsoup4, markdown2, sqlalchemy, html2text, evernote
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy27, thrift, beautifulsoup4
+, markdown2, sqlalchemy, html2text, evernote }:
 
 buildPythonPackage rec {
   version = "2015-05-11";

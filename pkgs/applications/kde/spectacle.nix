@@ -1,5 +1,7 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, xcb-util-cursor, kconfig, kcoreaddons, kdbusaddons, kdeclarative, kio, kipi-plugins, knotifications, kscreen, kwidgetsaddons, kwindowsystem, kxmlgui, libkipi, qtx11extras, knewstuff, qttools
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, xcb-util-cursor
+, kconfig, kcoreaddons, kdbusaddons, kdeclarative, kio, kipi-plugins
+, knotifications, kscreen, kwidgetsaddons, kwindowsystem, kxmlgui, libkipi
+, qtx11extras, knewstuff, qttools }:
 
 mkDerivation {
   name = "spectacle";

@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, udev, intltool, pkgconfig, glib, xmlto, wrapGAppsHook, docbook_xml_dtd_412, docbook_xsl, libxml2, desktop-file-utils, libusb1, cups, gdk_pixbuf, pango, atk, libnotify, gobject-introspection, libsecret, cups-filters, pythonPackages
-}:
+{ stdenv, fetchurl, udev, intltool, pkgconfig, glib, xmlto, wrapGAppsHook
+, docbook_xml_dtd_412, docbook_xsl, libxml2, desktop-file-utils, libusb1, cups
+, gdk_pixbuf, pango, atk, libnotify, gobject-introspection, libsecret
+, cups-filters, pythonPackages }:
 
 stdenv.mkDerivation rec {
   name = "system-config-printer-${version}";

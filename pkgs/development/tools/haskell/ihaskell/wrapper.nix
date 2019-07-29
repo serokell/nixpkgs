@@ -1,5 +1,5 @@
-{ stdenv, writeScriptBin, makeWrapper, buildEnv, haskell, ghcWithPackages, jupyter, packages
-}:
+{ stdenv, writeScriptBin, makeWrapper, buildEnv, haskell, ghcWithPackages
+, jupyter, packages }:
 let
   ihaskellEnv = ghcWithPackages (self:
     [

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, dvdauthor, xineLib, libmpeg2, libav, libdvdread, libdvdnav, dvdplusrwtools, phonon, qtx11extras, extra-cmake-modules, kio, kiconthemes, ki18n, kdesu, kdoctools, solid
-}:
+{ stdenv, fetchurl, cmake, dvdauthor, xineLib, libmpeg2, libav, libdvdread
+, libdvdnav, dvdplusrwtools, phonon, qtx11extras, extra-cmake-modules, kio
+, kiconthemes, ki18n, kdesu, kdoctools, solid }:
 
 stdenv.mkDerivation rec {
   version = "3.0.3";

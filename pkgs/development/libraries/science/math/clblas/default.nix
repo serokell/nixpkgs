@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, gfortran, blas, boost, python, ocl-icd, opencl-headers, Accelerate, CoreGraphics, CoreVideo, OpenCL
-}:
+{ stdenv, fetchFromGitHub, cmake, gfortran, blas, boost, python, ocl-icd
+, opencl-headers, Accelerate, CoreGraphics, CoreVideo, OpenCL }:
 
 stdenv.mkDerivation rec {
   name = "clblas-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, zip, love, lua, makeWrapper, makeDesktopItem
-}:
+{ stdenv, fetchurl, fetchFromGitHub, zip, love, lua, makeWrapper
+, makeDesktopItem }:
 
 let
   pname = "orthorobot";

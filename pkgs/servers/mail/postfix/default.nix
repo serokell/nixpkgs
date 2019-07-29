@@ -1,6 +1,7 @@
-{ stdenv, lib, fetchurl, makeWrapper, gnused, db, openssl, cyrus_sasl, libnsl, coreutils, findutils, gnugrep, gawk, icu, pcre, m4, buildPackages, withLDAP ?
-  true, openldap, withPgSQL ? false, postgresql, withMySQL ?
-    false, mysql, withSQLite ? false, sqlite }:
+{ stdenv, lib, fetchurl, makeWrapper, gnused, db, openssl, cyrus_sasl, libnsl
+, coreutils, findutils, gnugrep, gawk, icu, pcre, m4, buildPackages
+, withLDAP ? true, openldap, withPgSQL ? false, postgresql, withMySQL ? false
+, mysql, withSQLite ? false, sqlite }:
 
 let
   ccargs = lib.concatStringsSep " " ([

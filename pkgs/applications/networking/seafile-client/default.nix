@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, seafile-shared, ccnet, makeWrapper, withShibboleth ?
-  true, qtwebengine }:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, seafile-shared
+, ccnet, makeWrapper, withShibboleth ? true, qtwebengine }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, docbook2x, pkgconfig, gtk3, dconf, gobject-introspection, ibus, python3
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, docbook2x, pkgconfig, gtk3, dconf
+, gobject-introspection, ibus, python3 }:
 
 stdenv.mkDerivation rec {
   name = "ibus-table-${version}";

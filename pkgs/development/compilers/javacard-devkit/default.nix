@@ -1,5 +1,5 @@
-{ stdenv, requireFile, unzip, makeWrapper, oraclejdk8, autoPatchelfHook, pcsclite
-}:
+{ stdenv, requireFile, unzip, makeWrapper, oraclejdk8, autoPatchelfHook
+, pcsclite }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

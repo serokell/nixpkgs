@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, pkgconfig, systemd, glib, dbus, libnl, pythonPackages
-}:
+{ stdenv, fetchurl, autoreconfHook, pkgconfig, systemd, glib, dbus, libnl
+, pythonPackages }:
 
 stdenv.mkDerivation rec {
   name = "neard-0.16";

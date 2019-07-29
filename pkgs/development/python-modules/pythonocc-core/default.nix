@@ -1,5 +1,5 @@
-{ stdenv, python, fetchFromGitHub, cmake, swig, ninja, opencascade, smesh, freetype, libGL, libGLU, libX11
-}:
+{ stdenv, python, fetchFromGitHub, cmake, swig, ninja, opencascade, smesh
+, freetype, libGL, libGLU, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "pythonocc-core";

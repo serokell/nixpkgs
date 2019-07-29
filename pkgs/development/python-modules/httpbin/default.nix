@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, flask, flask-common, flask-limiter, markupsafe, decorator, itsdangerous, raven, six, brotlipy
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fetchpatch, flask, flask-common
+, flask-limiter, markupsafe, decorator, itsdangerous, raven, six, brotlipy }:
 
 buildPythonPackage rec {
   pname = "httpbin";

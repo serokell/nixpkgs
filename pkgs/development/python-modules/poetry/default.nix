@@ -1,5 +1,7 @@
-{ lib, buildPythonPackage, fetchPypi, callPackage, isPy27, isPy34, cleo, requests, cachy, requests-toolbelt, pyrsistent, pyparsing, cachecontrol, pkginfo, html5lib, shellingham, tomlkit, typing, pathlib2, virtualenv, functools32, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, callPackage, isPy27, isPy34, cleo
+, requests, cachy, requests-toolbelt, pyrsistent, pyparsing, cachecontrol
+, pkginfo, html5lib, shellingham, tomlkit, typing, pathlib2, virtualenv
+, functools32, pytest }:
 
 let
   cleo6 = cleo.overrideAttrs (oldAttrs: rec {

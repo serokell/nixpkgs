@@ -1,5 +1,6 @@
-{ lib, fetchFromGitHub, buildBazelPackage, buildPythonPackage, python, setuptools, wheel, tensorflow, six, numpy, decorator, cloudpickle, hypothesis, scipy, matplotlib, mock, pytest
-}:
+{ lib, fetchFromGitHub, buildBazelPackage, buildPythonPackage, python
+, setuptools, wheel, tensorflow, six, numpy, decorator, cloudpickle, hypothesis
+, scipy, matplotlib, mock, pytest }:
 
 let
   version = "0.7";

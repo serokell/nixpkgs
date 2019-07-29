@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, qtwebchannel, qtx11extras, gnome2, nss, nspr, alsaLib, atk, cairo, cups, dbus, expat, fontconfig, gdk_pixbuf, glib, gtk2, libxcb, pango, pulseaudio, xorg, deepin
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, qtbase, qttools, qtwebchannel
+, qtx11extras, gnome2, nss, nspr, alsaLib, atk, cairo, cups, dbus, expat
+, fontconfig, gdk_pixbuf, glib, gtk2, libxcb, pango, pulseaudio, xorg, deepin }:
 
 let
   rpahtLibraries = [

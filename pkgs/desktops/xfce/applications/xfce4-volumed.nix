@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, makeWrapper, gstreamer, gtk2, gst-plugins-base, libnotify, keybinder, xfconf
-}:
+{ stdenv, fetchurl, pkgconfig, makeWrapper, gstreamer, gtk2, gst-plugins-base
+, libnotify, keybinder, xfconf }:
 
 let
   # The usual Gstreamer plugins package has a zillion dependencies

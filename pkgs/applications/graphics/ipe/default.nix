@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, pkgconfig, zlib, freetype, cairo, lua5, texlive, ghostscript, libjpeg, libpng, qtbase
-}:
+{ stdenv, fetchurl, makeWrapper, pkgconfig, zlib, freetype, cairo, lua5, texlive
+, ghostscript, libjpeg, libpng, qtbase }:
 
 stdenv.mkDerivation rec {
   name = "ipe-7.2.12";

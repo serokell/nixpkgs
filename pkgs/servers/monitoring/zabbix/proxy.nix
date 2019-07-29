@@ -1,7 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, libevent, libiconv, openssl, pcre, zlib, odbcSupport ?
-  true, unixODBC, snmpSupport ? true, net_snmp, sshSupport ?
-    true, libssh2, sqliteSupport ? false, sqlite, mysqlSupport ?
-      false, mysql, postgresqlSupport ? false, postgresql }:
+{ stdenv, fetchurl, pkgconfig, libevent, libiconv, openssl, pcre, zlib
+, odbcSupport ? true, unixODBC, snmpSupport ? true, net_snmp, sshSupport ? true
+, libssh2, sqliteSupport ? false, sqlite, mysqlSupport ? false, mysql
+, postgresqlSupport ? false, postgresql }:
 
 # ensure exactly one database type is selected
 assert mysqlSupport -> !postgresqlSupport && !sqliteSupport;

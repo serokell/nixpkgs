@@ -1,6 +1,7 @@
 # Generic builder.
 
-{ lib, config, python, wrapPython, setuptools, unzip, ensureNewerSourcesForZipFilesHook
+{ lib, config, python, wrapPython, setuptools, unzip
+, ensureNewerSourcesForZipFilesHook
 # Whether the derivation provides a Python module or not.
 , toPythonModule, namePrefix, update-python-libraries }:
 

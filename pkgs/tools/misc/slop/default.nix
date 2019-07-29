@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, glew, glm, libGLU_combined, libX11, libXext, libXrender, icu, cppcheck
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, glew, glm, libGLU_combined, libX11
+, libXext, libXrender, icu, cppcheck }:
 
 stdenv.mkDerivation rec {
   name = "slop-${version}";

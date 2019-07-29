@@ -1,6 +1,6 @@
-{ stdenv, callPackage, fetchurl, guile_1_8, qt4, xmodmap, which, makeWrapper, freetype, tex ?
-  null, aspell ? null, ghostscriptX ? null, extraFonts ? false, chineseFonts ?
-    false, japaneseFonts ? false, koreanFonts ? false }:
+{ stdenv, callPackage, fetchurl, guile_1_8, qt4, xmodmap, which, makeWrapper
+, freetype, tex ? null, aspell ? null, ghostscriptX ? null, extraFonts ? false
+, chineseFonts ? false, japaneseFonts ? false, koreanFonts ? false }:
 
 let
   pname = "TeXmacs";

@@ -325,9 +325,8 @@ rec {
      of this check and a list of ignored package names that would otherwise
      cause false alarms.
   */
-  checkUnusedPackages =
-    { ignoreEmptyImports ? false, ignoreMainModule ? false, ignorePackages ? [ ]
-    }:
+  checkUnusedPackages = { ignoreEmptyImports ? false, ignoreMainModule ? false
+    , ignorePackages ? [ ] }:
     drv:
     overrideCabal
     (appendConfigureFlag drv "--ghc-option=-ddump-minimal-imports") (_drv: {
@@ -390,10 +389,10 @@ rec {
   # Some information about which phases should be run.
   controlPhases = ghc:
     let inherit (ghcInfo ghc) isCross;
-    in { doCheck ? !isCross
-      && (lib.versionOlder "7.4" ghc.version), doBenchmark ? false, ... }: {
-        inherit doCheck doBenchmark;
-      };
+    in { doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version)
+    , doBenchmark ? false, ... }: {
+      inherit doCheck doBenchmark;
+    };
 
   # Utility to convert a directory full of `cabal2nix`-generated files into a
   # package override set

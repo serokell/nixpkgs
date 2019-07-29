@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, autoconf-archive, appstream-glib, pkgconfig, wrapGAppsHook, libcanberra, gst_all_1, vala, gtk3, gom, sqlite, libxml2, autoreconfHook, glib, gobject-introspection, libpeas, gnome-shell, gsettings-desktop-schemas, adwaita-icon-theme, gettext
-}:
+{ stdenv, fetchFromGitHub, autoconf-archive, appstream-glib, pkgconfig
+, wrapGAppsHook, libcanberra, gst_all_1, vala, gtk3, gom, sqlite, libxml2
+, autoreconfHook, glib, gobject-introspection, libpeas, gnome-shell
+, gsettings-desktop-schemas, adwaita-icon-theme, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-pomodoro";

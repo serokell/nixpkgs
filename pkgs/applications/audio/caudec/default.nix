@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, bash, bc, findutils, flac, lame, opusTools, procps, sox
-}:
+{ stdenv, fetchurl, makeWrapper, bash, bc, findutils, flac, lame, opusTools
+, procps, sox }:
 
 let version = "1.7.5";
 

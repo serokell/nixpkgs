@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libXtst, libvorbis, hunspell, libao, ffmpeg, libeb, lzo, xz, libtiff, qtbase, qtsvg, qtwebkit, qtx11extras, qttools, qmake
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libXtst, libvorbis, hunspell, libao
+, ffmpeg, libeb, lzo, xz, libtiff, qtbase, qtsvg, qtwebkit, qtx11extras, qttools
+, qmake }:
 stdenv.mkDerivation rec {
 
   name = "goldendict-2018-06-13";

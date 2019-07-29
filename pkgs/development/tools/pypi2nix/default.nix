@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, pythonPackages, zip, makeWrapper, nix, nix-prefetch-git, nix-prefetch-hg
-}:
+{ stdenv, fetchFromGitHub, fetchurl, pythonPackages, zip, makeWrapper, nix
+, nix-prefetch-git, nix-prefetch-hg }:
 
 let
 

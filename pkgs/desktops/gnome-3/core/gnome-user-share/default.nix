@@ -1,5 +1,6 @@
-{ stdenv, gettext, fetchurl, apacheHttpd, nautilus, pkgconfig, gtk3, glib, libxml2, systemd, wrapGAppsHook, itstool, libnotify, mod_dnssd, gnome3, libcanberra-gtk3
-}:
+{ stdenv, gettext, fetchurl, apacheHttpd, nautilus, pkgconfig, gtk3, glib
+, libxml2, systemd, wrapGAppsHook, itstool, libnotify, mod_dnssd, gnome3
+, libcanberra-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-user-share";

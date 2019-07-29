@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, python, robotframework, selenium, mockito, robotstatuschecker, approvaltests
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, robotframework, selenium
+, mockito, robotstatuschecker, approvaltests }:
 
 buildPythonPackage rec {
   version = "3.3.1";

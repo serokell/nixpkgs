@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pythonPackages, pkgconfig, SDL2, libpng, ffmpeg, freetype, glew, libGLU_combined, fribidi, zlib, glib
-}:
+{ stdenv, fetchurl, pythonPackages, pkgconfig, SDL2, libpng, ffmpeg, freetype
+, glew, libGLU_combined, fribidi, zlib, glib }:
 
 with pythonPackages;
 

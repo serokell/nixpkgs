@@ -13,11 +13,10 @@ libopus, lame, libvorbis, a52dec, speex, libsamplerate,
 # Text processing
 libiconv, fribidi, fontconfig, freetype, libass, jansson, libxml2, harfbuzz,
 # Optical media
-libdvdread, libdvdnav, libdvdcss, libbluray, useGtk ? true, wrapGAppsHook ?
-  null, intltool ? null, glib ? null, gtk3 ? null, libappindicator-gtk3 ?
-    null, libnotify ? null, gst_all_1 ? null, dbus-glib ? null, udev ?
-      null, libgudev ? null, hicolor-icon-theme ? null, useFdk ?
-        false, fdk_aac ? null }:
+libdvdread, libdvdnav, libdvdcss, libbluray, useGtk ? true, wrapGAppsHook ? null
+, intltool ? null, glib ? null, gtk3 ? null, libappindicator-gtk3 ? null
+, libnotify ? null, gst_all_1 ? null, dbus-glib ? null, udev ? null
+, libgudev ? null, hicolor-icon-theme ? null, useFdk ? false, fdk_aac ? null }:
 
 stdenv.mkDerivation rec {
   pname = "handbrake";

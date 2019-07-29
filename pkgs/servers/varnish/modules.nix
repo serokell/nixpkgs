@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, varnish, python, docutils, removeReferencesTo
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, varnish, python, docutils
+, removeReferencesTo }:
 
 stdenv.mkDerivation rec {
   version = "0.14.0";

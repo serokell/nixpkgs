@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, dbus-glib, glib, gnome-common, gnome-desktop, gnome3, gtk3, pkgconfig, intltool, pam, systemd, wrapGAppsHook
-}:
+{ stdenv, fetchgit, autoreconfHook, dbus-glib, glib, gnome-common, gnome-desktop
+, gnome3, gtk3, pkgconfig, intltool, pam, systemd, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-screensaver";

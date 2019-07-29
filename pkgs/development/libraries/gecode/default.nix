@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, bison, flex, perl, gmp, mpfr, enableGist ?
-  true, qtbase }:
+{ stdenv, fetchFromGitHub, bison, flex, perl, gmp, mpfr, enableGist ? true
+, qtbase }:
 
 stdenv.mkDerivation rec {
   name = "gecode-${version}";

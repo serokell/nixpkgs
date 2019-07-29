@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qmake, coreutils, xdg_utils, bash, makeWrapper, perlPackages
-}:
+{ stdenv, fetchFromGitHub, qmake, coreutils, xdg_utils, bash, makeWrapper
+, perlPackages }:
 
 let version = "1.5.90";
 in stdenv.mkDerivation rec {

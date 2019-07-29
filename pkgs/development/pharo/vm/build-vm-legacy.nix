@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, bash, unzip, glibc, openssl, gcc, libGLU_combined, freetype, xorg, alsaLib, cairo, libuuid, makeWrapper, ...
-}:
+{ stdenv, fetchurl, cmake, bash, unzip, glibc, openssl, gcc, libGLU_combined
+, freetype, xorg, alsaLib, cairo, libuuid, makeWrapper, ... }:
 
 { name, src, ... }:
 

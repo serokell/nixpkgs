@@ -1,5 +1,6 @@
-{ buildPythonPackage, certbot, pytest, cryptography, pyasn1, pyopenssl, pyRFC3339, josepy, pytz, requests, requests-toolbelt, six, werkzeug, mock, ndg-httpsclient
-}:
+{ buildPythonPackage, certbot, pytest, cryptography, pyasn1, pyopenssl
+, pyRFC3339, josepy, pytz, requests, requests-toolbelt, six, werkzeug, mock
+, ndg-httpsclient }:
 
 buildPythonPackage rec {
   inherit (certbot) src version;

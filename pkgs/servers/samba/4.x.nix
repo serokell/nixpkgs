@@ -1,9 +1,13 @@
-{ lib, stdenv, fetchurl, python, pkgconfig, perl, libxslt, docbook_xsl, rpcgen, fixDarwinDylibNames, docbook_xml_dtd_42, readline, popt, iniparser, libbsd, libarchive, libiconv, gettext, krb5Full, zlib, openldap, cups, pam, avahi, acl, libaio, fam, libceph, glusterfs, gnutls, ncurses, libunwind, systemd, jansson, lmdb, gpgme
+{ lib, stdenv, fetchurl, python, pkgconfig, perl, libxslt, docbook_xsl, rpcgen
+, fixDarwinDylibNames, docbook_xml_dtd_42, readline, popt, iniparser, libbsd
+, libarchive, libiconv, gettext, krb5Full, zlib, openldap, cups, pam, avahi, acl
+, libaio, fam, libceph, glusterfs, gnutls, ncurses, libunwind, systemd, jansson
+, lmdb, gpgme
 
-, enableLDAP ? false, enablePrinting ? false, enableMDNS ?
-  false, enableDomainController ? false, enableRegedit ? true, enableCephFS ?
-    false, enableGlusterFS ? false, enableAcl ? (!stdenv.isDarwin), enablePam ?
-      (!stdenv.isDarwin) }:
+, enableLDAP ? false, enablePrinting ? false, enableMDNS ? false
+, enableDomainController ? false, enableRegedit ? true, enableCephFS ? false
+, enableGlusterFS ? false, enableAcl ? (!stdenv.isDarwin)
+, enablePam ? (!stdenv.isDarwin) }:
 
 with lib;
 

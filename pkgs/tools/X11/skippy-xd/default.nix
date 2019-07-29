@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, xorgproto, libX11, libXft, libXcomposite, libXdamage, libXext, libXinerama, libjpeg, giflib, pkgconfig
-}:
+{ stdenv, fetchgit, xorgproto, libX11, libXft, libXcomposite, libXdamage
+, libXext, libXinerama, libjpeg, giflib, pkgconfig }:
 let
   buildInputs = [
     xorgproto

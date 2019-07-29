@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libtool, unbound, libidn, m4, file, openssl, doxygen, autoreconfHook, automake
-}:
+{ stdenv, fetchurl, libtool, unbound, libidn, m4, file, openssl, doxygen
+, autoreconfHook, automake }:
 
 stdenv.mkDerivation rec {
   pname = "getdns";

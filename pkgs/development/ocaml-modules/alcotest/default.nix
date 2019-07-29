@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, topkg, dune, cmdliner, astring, fmt, result, uuidm
-}:
+{ stdenv, fetchzip, ocaml, findlib, ocamlbuild, topkg, dune, cmdliner, astring
+, fmt, result, uuidm }:
 
 let
   param = if stdenv.lib.versionAtLeast ocaml.version "4.02" then {

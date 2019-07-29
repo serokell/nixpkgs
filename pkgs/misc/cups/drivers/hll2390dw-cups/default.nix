@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, cups, dpkg, a2ps, ghostscript, gnugrep, gnused, coreutils, file, perl, which
-}:
+{ stdenv, fetchurl, makeWrapper, cups, dpkg, a2ps, ghostscript, gnugrep, gnused
+, coreutils, file, perl, which }:
 
 stdenv.mkDerivation rec {
   name = "hll2390dw-cups-${version}";

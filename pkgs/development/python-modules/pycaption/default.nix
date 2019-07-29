@@ -1,5 +1,5 @@
-{ lib, fetchpatch, buildPythonPackage, fetchPypi, isPy3k, beautifulsoup4, lxml, cssutils, future, enum34, six
-}:
+{ lib, fetchpatch, buildPythonPackage, fetchPypi, isPy3k, beautifulsoup4, lxml
+, cssutils, future, enum34, six }:
 
 buildPythonPackage rec {
   pname = "pycaption";

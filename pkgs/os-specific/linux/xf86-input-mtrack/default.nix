@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, utilmacros, pkgconfig, mtdev, xorgserver, xorgproto, pixman, autoreconfHook
-}:
+{ stdenv, fetchurl, utilmacros, pkgconfig, mtdev, xorgserver, xorgproto, pixman
+, autoreconfHook }:
 
 stdenv.mkDerivation {
   name = "xf86-input-mtrack-0.3.0";

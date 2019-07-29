@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, mock, numpy, multipledispatch, dateutil
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, mock, numpy
+, multipledispatch, dateutil }:
 
 let
   # Fetcher function looks similar to fetchPypi.

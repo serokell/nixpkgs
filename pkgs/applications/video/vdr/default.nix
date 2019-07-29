@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fontconfig, libjpeg, libcap, freetype, fribidi, pkgconfig, gettext, systemd, perl, lib, enableSystemd ?
-  true, enableBidi ? true }:
+{ stdenv, fetchurl, fontconfig, libjpeg, libcap, freetype, fribidi, pkgconfig
+, gettext, systemd, perl, lib, enableSystemd ? true, enableBidi ? true }:
 stdenv.mkDerivation rec {
 
   pname = "vdr";

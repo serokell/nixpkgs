@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pytest-astropy, semantic-version, pyyaml, jsonschema, six, numpy, isPy27, astropy
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest-astropy, semantic-version, pyyaml
+, jsonschema, six, numpy, isPy27, astropy }:
 
 buildPythonPackage rec {
   pname = "asdf";

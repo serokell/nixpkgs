@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libjpeg, libpng, xorg, libX11, libGL, libdrm, python27, wayland, udev, mesa, wafHook
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libjpeg, libpng, xorg, libX11, libGL
+, libdrm, python27, wayland, udev, mesa, wafHook }:
 
 stdenv.mkDerivation rec {
   name = "glmark2-${version}";

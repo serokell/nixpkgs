@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, cmake, python3, libX11, libXrandr, qtbase, qtwebchannel, qtwebengine, qtx11extras, libvdpau, SDL2, mpv, libGL
-}:
+{ stdenv, fetchFromGitHub, fetchurl, pkgconfig, cmake, python3, libX11
+, libXrandr, qtbase, qtwebchannel, qtwebengine, qtx11extras, libvdpau, SDL2, mpv
+, libGL }:
 let
   # During compilation, a CMake bundle is downloaded from `artifacts.plex.tv`,
   # which then downloads a handful of web client-related files. To enable

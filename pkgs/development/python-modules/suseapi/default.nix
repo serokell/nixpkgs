@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, suds-jurko, ldap, mechanize, beautifulsoup4, pyxdg, dateutil, requests, httpretty
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, suds-jurko, ldap, mechanize
+, beautifulsoup4, pyxdg, dateutil, requests, httpretty }:
 
 buildPythonPackage rec {
   pname = "suseapi";

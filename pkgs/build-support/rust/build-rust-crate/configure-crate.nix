@@ -1,6 +1,8 @@
 { lib, stdenv, echo_build_heading, noisily, makeDeps }:
-{ build, buildDependencies, colors, completeBuildDeps, completeDeps, crateAuthors, crateDescription, crateHomepage, crateFeatures, crateName, crateVersion, extraLinkFlags, extraRustcOpts, libName, libPath, release, target_os, verbose, workspace_member
-}:
+{ build, buildDependencies, colors, completeBuildDeps, completeDeps
+, crateAuthors, crateDescription, crateHomepage, crateFeatures, crateName
+, crateVersion, extraLinkFlags, extraRustcOpts, libName, libPath, release
+, target_os, verbose, workspace_member }:
 let
   version_ = lib.splitString "-" crateVersion;
   versionPre =

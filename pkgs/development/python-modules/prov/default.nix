@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, lxml, networkx, dateutil, six, pydotplus, rdflib, pydot, glibcLocales
-}:
+{ stdenv, buildPythonPackage, fetchPypi, lxml, networkx, dateutil, six
+, pydotplus, rdflib, pydot, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "prov";

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cairo, fontconfig, freetype, gdk_pixbuf, glib, glibc, gtk2, libX11, makeWrapper, nspr, nss, pango, unzip, gconf, libXi, libXrender, libXext
-}:
+{ stdenv, fetchurl, cairo, fontconfig, freetype, gdk_pixbuf, glib, glibc, gtk2
+, libX11, makeWrapper, nspr, nss, pango, unzip, gconf, libXi, libXrender
+, libXext }:
 let
   allSpecs = {
     "x86_64-linux" = {

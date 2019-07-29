@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, sane-backends, qtbase, qtsvg, nss, autoPatchelfHook, lib, wrapQtAppsHook
-}:
+{ stdenv, fetchurl, sane-backends, qtbase, qtsvg, nss, autoPatchelfHook, lib
+, wrapQtAppsHook }:
 
 let version = "5.4.10";
 

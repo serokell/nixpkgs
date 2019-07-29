@@ -1,4 +1,5 @@
-{ stdenv, lib, makeDesktopItem, unzip, libsecret, libXScrnSaver, wrapGAppsHook, gtk2, atomEnv, at-spi2-atk, autoPatchelfHook, systemd, fontconfig
+{ stdenv, lib, makeDesktopItem, unzip, libsecret, libXScrnSaver, wrapGAppsHook
+, gtk2, atomEnv, at-spi2-atk, autoPatchelfHook, systemd, fontconfig
 
 # Attributes inherit from specific versions
 , version, src, meta, sourceRoot, executableName, longName, shortName, pname }:

@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, buildPythonPackage, pkgconfig, gtk3, gobject-introspection, pygtk, pygobject3, goocanvas2, isPy3k
-}:
+{ stdenv, fetchPypi, buildPythonPackage, pkgconfig, gtk3, gobject-introspection
+, pygtk, pygobject3, goocanvas2, isPy3k }:
 
 with stdenv.lib;
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, home ? "/var/lib/crowd", port ? 8092, proxyUrl ?
-  null, openidPassword ? "WILL_NEVER_BE_SET" }:
+{ stdenv, fetchurl, home ? "/var/lib/crowd", port ? 8092, proxyUrl ? null
+, openidPassword ? "WILL_NEVER_BE_SET" }:
 
 stdenv.mkDerivation rec {
   name = "atlassian-crowd-${version}";

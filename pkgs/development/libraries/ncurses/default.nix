@@ -1,8 +1,9 @@
 { lib, stdenv, fetchurl, pkgconfig
 
-, abiVersion ? "6", mouseSupport ? false, unicode ? true, enableStatic ?
-  stdenv.hostPlatform.useAndroidPrebuilt, enableShared ?
-    !enableStatic, withCxx ? !stdenv.hostPlatform.useAndroidPrebuilt
+, abiVersion ? "6", mouseSupport ? false, unicode ? true
+, enableStatic ? stdenv.hostPlatform.useAndroidPrebuilt
+, enableShared ? !enableStatic
+, withCxx ? !stdenv.hostPlatform.useAndroidPrebuilt
 
 , gpm
 

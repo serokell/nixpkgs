@@ -17,11 +17,11 @@
    but the exact set depends on the library version and the configuration.
 */
 
-{ stdenv, lib, buildPackages, fetchurl ? null, linuxHeaders ? null, gd ?
-  null, libpng ? null, bison }:
+{ stdenv, lib, buildPackages, fetchurl ? null, linuxHeaders ? null, gd ? null
+, libpng ? null, bison }:
 
-{ name, withLinuxHeaders ? false, profilingLibraries ? false, withGd ?
-  false, meta, ... }@args:
+{ name, withLinuxHeaders ? false, profilingLibraries ? false, withGd ? false
+, meta, ... }@args:
 
 let
   version = "2.27";

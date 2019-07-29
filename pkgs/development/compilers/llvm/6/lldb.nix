@@ -1,5 +1,5 @@
-{ stdenv, fetch, cmake, zlib, ncurses, swig, which, libedit, libxml2, llvm, clang-unwrapped, python, version, darwin
-}:
+{ stdenv, fetch, cmake, zlib, ncurses, swig, which, libedit, libxml2, llvm
+, clang-unwrapped, python, version, darwin }:
 
 stdenv.mkDerivation {
   name = "lldb-${version}";

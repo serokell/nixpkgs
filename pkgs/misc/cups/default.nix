@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, removeReferencesTo, zlib, libjpeg, libpng, libtiff, pam, dbus, systemd, acl, gmp, darwin, libusb ?
-  null, gnutls ? null, avahi ? null, libpaper ? null, coreutils }:
+{ stdenv, fetchurl, pkgconfig, removeReferencesTo, zlib, libjpeg, libpng
+, libtiff, pam, dbus, systemd, acl, gmp, darwin, libusb ? null, gnutls ? null
+, avahi ? null, libpaper ? null, coreutils }:
 
 ### IMPORTANT: before updating cups, make sure the nixos/tests/printing.nix test
 ### works at least for your platform.

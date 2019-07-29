@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, wrapGAppsHook, python3, gettext, gnome3, glib, gtk3, libgnome-games-support, gdk_pixbuf
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, wrapGAppsHook, python3, gettext
+, gnome3, glib, gtk3, libgnome-games-support, gdk_pixbuf }:
 
 let
   pname = "atomix";

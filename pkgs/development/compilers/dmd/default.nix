@@ -1,8 +1,8 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, unzip, which, writeTextFile, curl, tzdata, gdb, darwin, git, targetPackages, ldc, version ?
-  "2.085.1", dmdSha256 ?
-    "0ccidfcawrcwdpfjwjiln5xwr4ffp8i2hwx52p8zn3xmc5yxm660", druntimeSha256 ?
-      "109f2glsqrlshk06761xlw4r5v22mivp873cq9g5gcax3g00k617", phobosSha256 ?
-        "0giispqqx8j8xg6c0hm7nx77bcahiwic8rvf12sws3sv5pizv8pr" }:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, unzip, which, writeTextFile, curl
+, tzdata, gdb, darwin, git, targetPackages, ldc, version ? "2.085.1"
+, dmdSha256 ? "0ccidfcawrcwdpfjwjiln5xwr4ffp8i2hwx52p8zn3xmc5yxm660"
+, druntimeSha256 ? "109f2glsqrlshk06761xlw4r5v22mivp873cq9g5gcax3g00k617"
+, phobosSha256 ? "0giispqqx8j8xg6c0hm7nx77bcahiwic8rvf12sws3sv5pizv8pr" }:
 
 let
 

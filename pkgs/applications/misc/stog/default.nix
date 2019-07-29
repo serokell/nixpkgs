@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, ocaml, findlib, ocf, ptime, uutf, uri, ppx_blob, xtmpl, ocaml_lwt, higlo, omd
-}:
+{ stdenv, fetchFromGitLab, ocaml, findlib, ocf, ptime, uutf, uri, ppx_blob
+, xtmpl, ocaml_lwt, higlo, omd }:
 
 stdenv.mkDerivation rec {
   name = "stog-${version}";

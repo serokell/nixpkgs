@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, cmake, luajit, SDL2, SDL2_image, SDL2_ttf, physfs, openal, libmodplug, libvorbis, qtbase, qttools
-}:
+{ stdenv, fetchFromGitLab, cmake, luajit, SDL2, SDL2_image, SDL2_ttf, physfs
+, openal, libmodplug, libvorbis, qtbase, qttools }:
 
 stdenv.mkDerivation rec {
   name = "solarus-${version}";

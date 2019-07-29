@@ -1,6 +1,6 @@
 { avahiSupport ? false # build support for Avahi in libinfinity
-, stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, wrapGAppsHook, gtkmm3, gsasl, gtksourceview3, libxmlxx, libinfinity, intltool, itstool, gnome3
-}:
+, stdenv, fetchFromGitHub, autoconf, automake, pkgconfig, wrapGAppsHook, gtkmm3
+, gsasl, gtksourceview3, libxmlxx, libinfinity, intltool, itstool, gnome3 }:
 
 let
   libinf = libinfinity.override {

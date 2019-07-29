@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, autoconf-archive, pkgconfig, kmod, enable-tools ?
-  true }:
+{ stdenv, fetchgit, autoreconfHook, autoconf-archive, pkgconfig, kmod
+, enable-tools ? true }:
 
 stdenv.mkDerivation rec {
   name = "libgpiod-unstable-${version}";

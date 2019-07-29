@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, xorg, alsaLib, libGLU_combined, aalib, libvorbis, libtheora, speex, zlib, perl, ffmpeg, flac, libcaca, libpulseaudio, libmng, libcdio, libv4l, vcdimager, libmpcdec
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, xorg, alsaLib, libGLU_combined, aalib
+, libvorbis, libtheora, speex, zlib, perl, ffmpeg, flac, libcaca, libpulseaudio
+, libmng, libcdio, libv4l, vcdimager, libmpcdec }:
 
 stdenv.mkDerivation rec {
   name = "xine-lib-1.2.9";

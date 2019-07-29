@@ -1,12 +1,13 @@
-{ config, lib, writeScript, buildFHSUserEnv, steam, glxinfo-i686, steam-runtime-wrapped, steam-runtime-wrapped-i686 ?
-  null, extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
+{ config, lib, writeScript, buildFHSUserEnv, steam, glxinfo-i686
+, steam-runtime-wrapped, steam-runtime-wrapped-i686 ? null
+, extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
 , extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
 , extraProfile ? "" # string to append to profile
 , nativeOnly ? false, runtimeOnly ? false, runtimeShell
 
 # DEPRECATED
-, withJava ? config.steam.java or false, withPrimus ?
-  config.steam.primus or false }:
+, withJava ? config.steam.java or false
+, withPrimus ? config.steam.primus or false }:
 
 let
   commonTargetPkgs = pkgs:

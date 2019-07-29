@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, jinja2, markupsafe, pagerduty, pushbullet, python_magic, python-simple-hipchat, pyyaml, redis, requests, six, websocket_client, nose
-}:
+{ stdenv, buildPythonPackage, fetchPypi, jinja2, markupsafe, pagerduty
+, pushbullet, python_magic, python-simple-hipchat, pyyaml, redis, requests, six
+, websocket_client, nose }:
 buildPythonPackage rec {
   pname = "graphitepager";
   version = "0.2.11";

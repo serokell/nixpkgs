@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, zlib, freetype, libjpeg, libtiff, fontconfig, openssl, libpng, lua5, pkgconfig, libidn, expat, fetchpatch
-}:
+{ stdenv, fetchurl, cmake, zlib, freetype, libjpeg, libtiff, fontconfig, openssl
+, libpng, lua5, pkgconfig, libidn, expat, fetchpatch }:
 
 stdenv.mkDerivation rec {
   version = "0.9.6";

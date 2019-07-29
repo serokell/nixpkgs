@@ -1,5 +1,6 @@
-{ stdenv, autoconf, automake, c-ares, cryptopp, curl, doxygen, fetchFromGitHub, ffmpeg, hicolor-icon-theme, libmediainfo, libraw, libsodium, libtool, libuv, libzen, lsb-release, pkgconfig, qt5, sqlite, swig, unzip, wget
-}:
+{ stdenv, autoconf, automake, c-ares, cryptopp, curl, doxygen, fetchFromGitHub
+, ffmpeg, hicolor-icon-theme, libmediainfo, libraw, libsodium, libtool, libuv
+, libzen, lsb-release, pkgconfig, qt5, sqlite, swig, unzip, wget }:
 
 stdenv.mkDerivation rec {
   name = "megasync-${version}";

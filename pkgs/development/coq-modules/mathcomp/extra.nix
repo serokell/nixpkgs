@@ -147,9 +147,9 @@ in let
   # generic package generator
   packageGen = {
     # optional arguments
-    src ? "", owner ? "math-comp", extra-deps ? [ ], ssreflect ?
-      current-ssreflect, core-deps ? null, compatibleCoqVersions ?
-        null, license ? ssreflect.meta.license,
+    src ? "", owner ? "math-comp", extra-deps ? [ ]
+    , ssreflect ? current-ssreflect, core-deps ? null
+    , compatibleCoqVersions ? null, license ? ssreflect.meta.license,
     # mandatory
     package, version ? "broken", version-sha256, description }:
     let

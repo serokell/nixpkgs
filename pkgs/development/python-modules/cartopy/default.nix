@@ -1,4 +1,7 @@
-{ buildPythonPackage, lib, fetchPypi, pytest, filelock, mock, pep8, cython, isPy27, six, pyshp, shapely, geos, numpy, gdal, pillow, matplotlib, pyepsg, pykdtree, scipy, owslib, fiona, xvfb_run, proj_5 # see https://github.com/SciTools/cartopy/pull/1252 for status on proj 6 support
+{ buildPythonPackage, lib, fetchPypi, pytest, filelock, mock, pep8, cython
+, isPy27, six, pyshp, shapely, geos, numpy, gdal, pillow, matplotlib, pyepsg
+, pykdtree, scipy, owslib, fiona, xvfb_run
+, proj_5 # see https://github.com/SciTools/cartopy/pull/1252 for status on proj 6 support
 }:
 
 buildPythonPackage rec {

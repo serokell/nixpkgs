@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, alsaLib, fftwSinglePrec, freetype, libjack2, pkgconfig, ladspa-sdk, premake3, libX11, libXcomposite, libXcursor, libXext, libXinerama, libXrender
-}:
+{ stdenv, fetchFromGitHub, alsaLib, fftwSinglePrec, freetype, libjack2
+, pkgconfig, ladspa-sdk, premake3, libX11, libXcomposite, libXcursor, libXext
+, libXinerama, libXrender }:
 
 let
   premakeos = if stdenv.hostPlatform.isDarwin then

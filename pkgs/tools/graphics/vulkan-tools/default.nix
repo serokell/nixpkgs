@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, python3, vulkan-loader, vulkan-headers, glslang, pkgconfig, xlibsWrapper, libxcb, libXrandr, wayland
-}:
+{ stdenv, fetchFromGitHub, cmake, python3, vulkan-loader, vulkan-headers
+, glslang, pkgconfig, xlibsWrapper, libxcb, libXrandr, wayland }:
 
 stdenv.mkDerivation rec {
   name = "vulkan-tools-${version}";

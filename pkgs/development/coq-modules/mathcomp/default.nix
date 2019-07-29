@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, ncurses, which, graphviz, coq, recurseIntoAttrs, withDoc ?
-  false }:
+{ stdenv, fetchFromGitHub, ncurses, which, graphviz, coq, recurseIntoAttrs
+, withDoc ? false }:
 with builtins // stdenv.lib;
 let
   ####################################

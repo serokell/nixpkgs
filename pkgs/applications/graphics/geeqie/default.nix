@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, autoconf, automake, gettext, intltool, gtk3, lcms2, exiv2, libchamplain, clutter-gtk, ffmpegthumbnailer, fbida, wrapGAppsHook, fetchpatch
-}:
+{ stdenv, fetchurl, pkgconfig, autoconf, automake, gettext, intltool, gtk3
+, lcms2, exiv2, libchamplain, clutter-gtk, ffmpegthumbnailer, fbida
+, wrapGAppsHook, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "geeqie-${version}";

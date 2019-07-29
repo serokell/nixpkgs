@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qttools, qtx11extras, qtsvg, kwindowsystem, libqtxdg, xorg, autoPatchelfHook
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, qtbase, qttools, qtx11extras, qtsvg
+, kwindowsystem, libqtxdg, xorg, autoPatchelfHook }:
 
 stdenv.mkDerivation rec {
   pname = "screengrab";

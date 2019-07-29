@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchurl, autoconf, automake, pkgconfig, libtool, gtk2, halibut, ncurses, perl
-}:
+{ stdenv, lib, fetchurl, autoconf, automake, pkgconfig, libtool, gtk2, halibut
+, ncurses, perl }:
 
 stdenv.mkDerivation rec {
   version = "0.71";

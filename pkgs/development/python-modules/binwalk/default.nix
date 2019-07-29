@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, zlib, xz, ncompress, gzip, bzip2, gnutar, p7zip, cabextract, lzma, pycrypto, pyqtgraph ?
-  null }:
+{ stdenv, buildPythonPackage, fetchFromGitHub, zlib, xz, ncompress, gzip, bzip2
+, gnutar, p7zip, cabextract, lzma, pycrypto, pyqtgraph ? null }:
 
 let visualizationSupport = (pyqtgraph != null);
 in buildPythonPackage rec {

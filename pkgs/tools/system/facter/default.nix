@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, boost, cmake, cpp-hocon, curl, leatherman, libwhereami, libyamlcpp, openssl, ruby, utillinux
-}:
+{ stdenv, fetchFromGitHub, boost, cmake, cpp-hocon, curl, leatherman
+, libwhereami, libyamlcpp, openssl, ruby, utillinux }:
 
 stdenv.mkDerivation rec {
   name = "facter-${version}";

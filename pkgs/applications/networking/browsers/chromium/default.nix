@@ -1,13 +1,13 @@
-{ newScope, config, stdenv, llvmPackages, gcc8Stdenv, llvmPackages_8, makeWrapper, ed, glib, gtk3, gnome3, gsettings-desktop-schemas, libva ?
-  null
+{ newScope, config, stdenv, llvmPackages, gcc8Stdenv, llvmPackages_8
+, makeWrapper, ed, glib, gtk3, gnome3, gsettings-desktop-schemas, libva ? null
 
   # package customization
-, channel ? "stable", enableNaCl ? false, gnomeSupport ? false, gnome ?
-  null, gnomeKeyringSupport ? false, proprietaryCodecs ?
-    true, enablePepperFlash ? false, enableWideVine ? false, useVaapi ?
-      false # test video on radeon, before enabling this
-, cupsSupport ? true, pulseSupport ?
-  config.pulseaudio or stdenv.isLinux, commandLineArgs ? "" }:
+, channel ? "stable", enableNaCl ? false, gnomeSupport ? false, gnome ? null
+, gnomeKeyringSupport ? false, proprietaryCodecs ? true
+, enablePepperFlash ? false, enableWideVine ? false
+, useVaapi ? false # test video on radeon, before enabling this
+, cupsSupport ? true, pulseSupport ? config.pulseaudio or stdenv.isLinux
+, commandLineArgs ? "" }:
 
 let
   stdenv_ = if stdenv.isAarch64 then gcc8Stdenv else llvmPackages_8.stdenv;

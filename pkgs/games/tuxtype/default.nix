@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, librsvg, libxml2, SDL, SDL_image, SDL_mixer, SDL_net, SDL_ttf, t4kcommon
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, librsvg, libxml2, SDL
+, SDL_image, SDL_mixer, SDL_net, SDL_ttf, t4kcommon }:
 
 stdenv.mkDerivation rec {
   version = "1.8.3";

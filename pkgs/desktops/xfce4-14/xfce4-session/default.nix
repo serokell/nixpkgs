@@ -1,5 +1,5 @@
-{ mkXfceDerivation, polkit, exo, libxfce4util, libxfce4ui, xfconf, dbus-glib, dbus, iceauth, gtk3, libwnck3, xorg
-}:
+{ mkXfceDerivation, polkit, exo, libxfce4util, libxfce4ui, xfconf, dbus-glib
+, dbus, iceauth, gtk3, libwnck3, xorg }:
 
 mkXfceDerivation rec {
   category = "xfce";

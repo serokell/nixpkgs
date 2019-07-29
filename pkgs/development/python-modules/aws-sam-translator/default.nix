@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, boto3, enum34, jsonschema, six
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, boto3, enum34, jsonschema
+, six }:
 
 buildPythonPackage rec {
   pname = "aws-sam-translator";

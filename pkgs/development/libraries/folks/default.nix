@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, pkgconfig, meson, ninja, glib, gnome3, nspr, gettext, gobject-introspection, vala, sqlite, libxml2, dbus-glib, libsoup, nss, dbus, libgee, telepathy-glib, evolution-data-server, libsecret, db, python3, python, readline, gtk3
-}:
+{ fetchurl, stdenv, pkgconfig, meson, ninja, glib, gnome3, nspr, gettext
+, gobject-introspection, vala, sqlite, libxml2, dbus-glib, libsoup, nss, dbus
+, libgee, telepathy-glib, evolution-data-server, libsecret, db, python3, python
+, readline, gtk3 }:
 
 # TODO: enable more folks backends
 

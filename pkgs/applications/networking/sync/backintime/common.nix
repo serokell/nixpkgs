@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, makeWrapper, gettext, python3Packages, rsync, cron, openssh, sshfs-fuse, encfs
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, gettext, python3Packages, rsync, cron
+, openssh, sshfs-fuse, encfs }:
 
 let inherit (python3Packages) python dbus-python keyring;
 in stdenv.mkDerivation rec {

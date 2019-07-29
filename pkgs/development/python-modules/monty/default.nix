@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, numpy, six, ruamel_yaml, msgpack-python, coverage, coveralls, pymongo, lsof
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, numpy, six, ruamel_yaml
+, msgpack-python, coverage, coveralls, pymongo, lsof }:
 
 buildPythonPackage rec {
   pname = "monty";

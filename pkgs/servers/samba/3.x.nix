@@ -1,15 +1,15 @@
-{ stdenv, fetchurl, readline, pam ? null, openldap ?
-  null, popt, iniparser, libunwind, fam ? null, acl ? null, cups ?
-    null, useKerberos ? false, kerberos ? null, winbind ? true
+{ stdenv, fetchurl, readline, pam ? null, openldap ? null, popt, iniparser
+, libunwind, fam ? null, acl ? null, cups ? null, useKerberos ? false
+, kerberos ? null, winbind ? true
 
-      # Eg. smbclient and smbspool require a smb.conf file.
-      # If you set configDir to "" an empty configuration file
-      # $out/lib/smb.conf is is created for you.
-      #
-      # configDir defaults to "/etc/samba" so that smbpassword picks up
-      # the location of its passwd db files from the system configuration file
-      # /etc/samba/smb.conf. That's why nixos touches /etc/samba/smb.conf even if you
-      # don't enable the samba upstart service.
+  # Eg. smbclient and smbspool require a smb.conf file.
+  # If you set configDir to "" an empty configuration file
+  # $out/lib/smb.conf is is created for you.
+  #
+  # configDir defaults to "/etc/samba" so that smbpassword picks up
+  # the location of its passwd db files from the system configuration file
+  # /etc/samba/smb.conf. That's why nixos touches /etc/samba/smb.conf even if you
+  # don't enable the samba upstart service.
 , configDir ? "/etc/samba"
 
 }:

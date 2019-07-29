@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchPypi, lib, param, numpy, pyviz-comms, ipython, notebook, pandas, matplotlib, bokeh, scipy, panel
-}:
+{ buildPythonPackage, fetchPypi, lib, param, numpy, pyviz-comms, ipython
+, notebook, pandas, matplotlib, bokeh, scipy, panel }:
 
 buildPythonPackage rec {
   pname = "holoviews";

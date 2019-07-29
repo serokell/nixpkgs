@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme, makeDesktopItem
-}:
+{ stdenv, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme
+, makeDesktopItem }:
 
 let
   description =

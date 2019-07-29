@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, extra-cmake-modules, qtbase, kcoreaddons, kdoctools, ki18n, kio, kxmlgui, ktextwidgets, libksane
-}:
+{ stdenv, fetchurl, cmake, extra-cmake-modules, qtbase, kcoreaddons, kdoctools
+, ki18n, kio, kxmlgui, ktextwidgets, libksane }:
 
 let minorVersion = "2.0";
 in stdenv.mkDerivation rec {

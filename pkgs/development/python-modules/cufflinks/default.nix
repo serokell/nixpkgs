@@ -1,5 +1,5 @@
-{ buildPythonPackage, stdenv, fetchPypi, fetchpatch, numpy, pandas, plotly, six, colorlover, ipython, ipywidgets, nose
-}:
+{ buildPythonPackage, stdenv, fetchPypi, fetchpatch, numpy, pandas, plotly, six
+, colorlover, ipython, ipywidgets, nose }:
 
 buildPythonPackage rec {
   pname = "cufflinks";

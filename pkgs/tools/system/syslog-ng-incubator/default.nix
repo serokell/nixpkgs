@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, syslogng, eventlog, perl, python, yacc, protobufc, libivykis, libcap, czmq
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, glib, syslogng, eventlog
+, perl, python, yacc, protobufc, libivykis, libcap, czmq }:
 
 stdenv.mkDerivation rec {
   name = "syslog-ng-incubator-${version}";

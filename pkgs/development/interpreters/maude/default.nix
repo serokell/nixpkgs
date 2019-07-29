@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, unzip, makeWrapper, flex, bison, ncurses, buddy, tecla, libsigsegv, gmpxx, cln
-}:
+{ stdenv, fetchurl, unzip, makeWrapper, flex, bison, ncurses, buddy, tecla
+, libsigsegv, gmpxx, cln }:
 
 let
 

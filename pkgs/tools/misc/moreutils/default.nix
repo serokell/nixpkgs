@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, libxml2, libxslt, docbook-xsl, docbook_xml_dtd_44, perlPackages, makeWrapper, darwin
-}:
+{ stdenv, fetchgit, libxml2, libxslt, docbook-xsl, docbook_xml_dtd_44
+, perlPackages, makeWrapper, darwin }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

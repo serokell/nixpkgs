@@ -1,5 +1,5 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, cmake, curl, libiconv, darwin
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, cmake, curl, libiconv
+, darwin }:
 rustPlatform.buildRustPackage rec {
   name = "cargo-tree-${version}";
   version = "0.26.0";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, requests, requests-mock, pytest
-}:
+{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, requests, requests-mock
+, pytest }:
 
 buildPythonPackage rec {
   pname = "pyairvisual";

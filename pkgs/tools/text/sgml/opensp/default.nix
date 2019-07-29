@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, xmlto, docbook_xml_dtd_412, libxslt, docbook_xsl, autoconf, automake, gettext, libiconv, libtool
-}:
+{ stdenv, fetchurl, fetchpatch, xmlto, docbook_xml_dtd_412, libxslt, docbook_xsl
+, autoconf, automake, gettext, libiconv, libtool }:
 
 stdenv.mkDerivation {
   name = "opensp-1.5.2";

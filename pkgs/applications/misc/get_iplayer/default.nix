@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, atomicparsley, flvstreamer, ffmpeg, makeWrapper, perl, perlPackages, rtmpdump
-}:
+{ stdenv, fetchFromGitHub, atomicparsley, flvstreamer, ffmpeg, makeWrapper, perl
+, perlPackages, rtmpdump }:
 
 with stdenv.lib;
 

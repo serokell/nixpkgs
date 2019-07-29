@@ -1,7 +1,8 @@
 { stdenv, lib }:
-{ name, type ? "Application", exec, icon ? null, comment ? null, terminal ?
-  "false", desktopName, genericName ? null, mimeType ? null, categories ?
-    "Application;Other;", startupNotify ? null, extraEntries ? null }:
+{ name, type ? "Application", exec, icon ? null, comment ? null
+, terminal ? "false", desktopName, genericName ? null, mimeType ? null
+, categories ? "Application;Other;", startupNotify ? null, extraEntries ? null
+}:
 
 stdenv.mkDerivation {
   name = "${name}.desktop";

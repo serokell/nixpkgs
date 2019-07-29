@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, python, fetchFromGitHub, fetchpatch, cython ?
-  null, numpy ? null }:
+{ stdenv, buildPythonPackage, python, fetchFromGitHub, fetchpatch, cython ? null
+, numpy ? null }:
 
 buildPythonPackage rec {
   pname = "purepng";

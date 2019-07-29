@@ -1,4 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, fetchzip, fetchgit, mercurial, python27, zlib, makeWrapper, openjdk, unzip, git, clang, llvm, which, icu, ruby, bzip2
+{ stdenv, lib, fetchFromGitHub, fetchurl, fetchzip, fetchgit, mercurial
+, python27, zlib, makeWrapper, openjdk, unzip, git, clang, llvm, which, icu
+, ruby, bzip2
 # gfortran, readline, bzip2, lzma, pcre, curl, ed, tree ## WIP: fastr deps
 }:
 

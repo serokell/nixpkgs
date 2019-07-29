@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, doxygen, alsaLib, libX11, libXft, libXrandr, libXinerama, libXext, libXcursor
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, doxygen, alsaLib, libX11, libXft
+, libXrandr, libXinerama, libXext, libXcursor }:
 
 with stdenv.lib;
 stdenv.mkDerivation rec {

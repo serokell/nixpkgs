@@ -4,7 +4,8 @@
 # Libraries
 , boost, jsoncpp, libbsd, pcre
 # GUI/Desktop
-, dbus, glibmm, gsettings-desktop-schemas, hicolor-icon-theme, libappindicator-gtk3, libnotify, libxdg_basedir, wxGTK
+, dbus, glibmm, gsettings-desktop-schemas, hicolor-icon-theme
+, libappindicator-gtk3, libnotify, libxdg_basedir, wxGTK
 # GStreamer
 , gst_all_1
 # User-agent info

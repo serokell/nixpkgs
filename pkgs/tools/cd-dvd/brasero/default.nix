@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, pkgconfig, gtk3, itstool, gst_all_1, libxml2, libnotify, libcanberra-gtk3, intltool, dvdauthor, libburn, libisofs, vcdimager, wrapGAppsHook, hicolor-icon-theme
-}:
+{ stdenv, lib, fetchurl, pkgconfig, gtk3, itstool, gst_all_1, libxml2, libnotify
+, libcanberra-gtk3, intltool, dvdauthor, libburn, libisofs, vcdimager
+, wrapGAppsHook, hicolor-icon-theme }:
 
 let
   major = "3.12";

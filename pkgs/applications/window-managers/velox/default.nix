@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, makeWrapper, newScope, libxkbcommon, wayland, pixman, fontconfig, stConf ?
-  null, stPatches ? [ ] }:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, makeWrapper, newScope, libxkbcommon
+, wayland, pixman, fontconfig, stConf ? null, stPatches ? [ ] }:
 
 let
   callPackage = newScope self;

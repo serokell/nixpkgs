@@ -37,9 +37,8 @@ let
 
     ${cfg.extraConfig}
 
-    ${concatMapStrings
-    ({ name, file, master ? true, slaves ? [ ], masters ? [ ], extraConfig ? ""
-    }: ''
+    ${concatMapStrings ({ name, file, master ? true, slaves ? [ ], masters ? [ ]
+    , extraConfig ? "" }: ''
       zone "${name}" {
         type ${if master then "master" else "slave"};
         file "${file}";

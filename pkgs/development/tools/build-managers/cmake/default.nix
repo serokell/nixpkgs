@@ -1,8 +1,9 @@
-{ stdenv, lib, fetchurl, pkgconfig, bzip2, curl, expat, libarchive, xz, zlib, libuv, rhash, buildPackages
+{ stdenv, lib, fetchurl, pkgconfig, bzip2, curl, expat, libarchive, xz, zlib
+, libuv, rhash, buildPackages
 # darwin attributes
-, ps, isBootstrap ? false, useSharedLibraries ?
-  (!isBootstrap && !stdenv.isCygwin), useNcurses ? false, ncurses, useQt4 ?
-    false, qt4, withQt5 ? false, qtbase }:
+, ps, isBootstrap ? false
+, useSharedLibraries ? (!isBootstrap && !stdenv.isCygwin), useNcurses ? false
+, ncurses, useQt4 ? false, qt4, withQt5 ? false, qtbase }:
 
 assert withQt5 -> useQt4 == false;
 assert useQt4 -> withQt5 == false;

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, docutils, six, chardet, stevedore, restructuredtext_lint
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, docutils, six, chardet, stevedore
+, restructuredtext_lint }:
 
 buildPythonPackage rec {
   pname = "doc8";

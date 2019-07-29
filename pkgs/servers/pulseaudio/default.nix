@@ -1,4 +1,7 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkgconfig, intltool, autoreconfHook, libsndfile, libtool, makeWrapper, xorg, libcap, alsaLib, glib, gnome3, avahi, libjack2, libasyncns, lirc, dbus, sbc, bluez5, udev, openssl, fftwFloat, speexdsp, systemd, webrtc-audio-processing
+{ lib, stdenv, fetchurl, fetchpatch, pkgconfig, intltool, autoreconfHook
+, libsndfile, libtool, makeWrapper, xorg, libcap, alsaLib, glib, gnome3, avahi
+, libjack2, libasyncns, lirc, dbus, sbc, bluez5, udev, openssl, fftwFloat
+, speexdsp, systemd, webrtc-audio-processing
 
 , x11Support ? false
 

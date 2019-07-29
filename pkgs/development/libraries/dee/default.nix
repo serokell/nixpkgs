@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, glib, icu, gobject-introspection, dbus-glib, vala, python3, autoreconfHook
-}:
+{ stdenv, fetchgit, pkgconfig, glib, icu, gobject-introspection, dbus-glib, vala
+, python3, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "dee";

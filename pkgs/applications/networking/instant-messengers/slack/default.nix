@@ -1,6 +1,7 @@
-{ theme ?
-  null, stdenv, fetchurl, dpkg, makeWrapper, alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, glib, gnome2, gtk3, gdk_pixbuf, libappindicator-gtk3, libnotify, libxcb, nspr, nss, pango, systemd, xorg, at-spi2-atk, libuuid, nodePackages
-}:
+{ theme ? null, stdenv, fetchurl, dpkg, makeWrapper, alsaLib, atk, cairo, cups
+, curl, dbus, expat, fontconfig, freetype, glib, gnome2, gtk3, gdk_pixbuf
+, libappindicator-gtk3, libnotify, libxcb, nspr, nss, pango, systemd, xorg
+, at-spi2-atk, libuuid, nodePackages }:
 
 let
 

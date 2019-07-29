@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, autoreconfHook, glib, libzip, libserialport, check, libusb, libftdi, systemd, alsaLib, dsview
-}:
+{ stdenv, pkgconfig, autoreconfHook, glib, libzip, libserialport, check, libusb
+, libftdi, systemd, alsaLib, dsview }:
 
 stdenv.mkDerivation rec {
   inherit (dsview) version src;

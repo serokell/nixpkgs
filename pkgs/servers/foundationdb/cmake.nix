@@ -11,8 +11,8 @@ let
     builtins.replaceStrings [ "\n" ] [ " " ] (lib.fileContents ./test-list.txt);
 
   makeFdb = { version, branch # unused
-    , sha256, rev ? "refs/tags/${version}", officialRelease ? true, patches ?
-      [ ] }:
+    , sha256, rev ? "refs/tags/${version}", officialRelease ? true
+    , patches ? [ ] }:
     stdenv.mkDerivation rec {
       name = "foundationdb-${version}";
       inherit version;

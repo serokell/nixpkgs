@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libX11, xorgproto, imake, gccmakedep, libXt, libXmu, libXaw, libXext, libSM, libICE, libXpm, libXp
-}:
+{ stdenv, fetchurl, libX11, xorgproto, imake, gccmakedep, libXt, libXmu, libXaw
+, libXext, libSM, libICE, libXpm, libXp }:
 
 stdenv.mkDerivation rec {
   name = "vncrec-0.2"; # version taken from Arch AUR

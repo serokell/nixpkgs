@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, six, attrs, pytest, hypothesis, pretend, arpeggio
-}:
+{ lib, buildPythonPackage, fetchPypi, six, attrs, pytest, hypothesis, pretend
+, arpeggio }:
 
 buildPythonPackage rec {
   pname = "parver";

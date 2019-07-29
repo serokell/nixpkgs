@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, xorg, imlib2, libjpeg, libpng, curl, libexif, perlPackages
-}:
+{ stdenv, fetchurl, makeWrapper, xorg, imlib2, libjpeg, libpng, curl, libexif
+, perlPackages }:
 
 with stdenv.lib;
 

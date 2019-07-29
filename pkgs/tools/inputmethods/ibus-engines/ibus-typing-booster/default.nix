@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, python3, ibus, pkgconfig, gtk3, m17n_lib, wrapGAppsHook, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, python3, ibus, pkgconfig, gtk3
+, m17n_lib, wrapGAppsHook, gobject-introspection }:
 
 let
 

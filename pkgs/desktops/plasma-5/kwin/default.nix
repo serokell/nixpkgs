@@ -1,11 +1,15 @@
 { mkDerivation, lib, copyPathsToStore, extra-cmake-modules, kdoctools,
 
-epoxy, libICE, libSM, libinput, libxkbcommon, udev, wayland, xcb-util-cursor, xwayland,
+epoxy, libICE, libSM, libinput, libxkbcommon, udev, wayland, xcb-util-cursor
+, xwayland,
 
 qtdeclarative, qtmultimedia, qtscript, qtx11extras,
 
-breeze-qt5, kactivities, kcompletion, kcmutils, kconfig, kconfigwidgets, kcoreaddons, kcrash, kdeclarative, kdecoration, kglobalaccel, ki18n, kiconthemes, kidletime, kinit, kio, knewstuff, knotifications, kpackage, kscreenlocker, kservice, kwayland, kwidgetsaddons, kwindowsystem, kxmlgui, plasma-framework, qtsensors, libcap, libdrm
-}:
+breeze-qt5, kactivities, kcompletion, kcmutils, kconfig, kconfigwidgets
+, kcoreaddons, kcrash, kdeclarative, kdecoration, kglobalaccel, ki18n
+, kiconthemes, kidletime, kinit, kio, knewstuff, knotifications, kpackage
+, kscreenlocker, kservice, kwayland, kwidgetsaddons, kwindowsystem, kxmlgui
+, plasma-framework, qtsensors, libcap, libdrm }:
 
 mkDerivation {
   name = "kwin";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, libGLU_combined, zlib, openssl, libyamlcpp, boost, SDL, SDL_image, SDL_mixer, SDL_gfx
-}:
+{ stdenv, fetchFromGitHub, cmake, libGLU_combined, zlib, openssl, libyamlcpp
+, boost, SDL, SDL_image, SDL_mixer, SDL_gfx }:
 
 let version = "1.0.0.2018.10.08";
 in stdenv.mkDerivation {

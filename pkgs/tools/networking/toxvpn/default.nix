@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, nlohmann_json, libtoxcore, libsodium, libcap, zeromq, systemd ?
-  null }:
+{ stdenv, fetchFromGitHub, cmake, nlohmann_json, libtoxcore, libsodium, libcap
+, zeromq, systemd ? null }:
 
 with stdenv.lib;
 

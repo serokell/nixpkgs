@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, wayland, pixman, libxkbcommon, libinput, xcbutilwm, xcbutilimage, libGL, libX11, dbus, wayland-protocols, libdrm, mesa, libpthreadstubs, libXdmcp, libXext, libXfixes, withOptionalPackages ?
-  true, zlib, valgrind, doxygen }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, wayland, pixman, libxkbcommon
+, libinput, xcbutilwm, xcbutilimage, libGL, libX11, dbus, wayland-protocols
+, libdrm, mesa, libpthreadstubs, libXdmcp, libXext, libXfixes
+, withOptionalPackages ? true, zlib, valgrind, doxygen }:
 
 stdenv.mkDerivation rec {
   name = "wlc-${version}";

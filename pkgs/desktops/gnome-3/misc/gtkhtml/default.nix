@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, intltool, gnome3, enchant, isocodes, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, intltool, gnome3, enchant, isocodes
+, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "gtkhtml-${version}";

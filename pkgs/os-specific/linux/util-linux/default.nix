@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, pkgconfig, zlib, shadow, ncurses ? null, perl ?
-  null, pam, systemd ? null, minimal ? false }:
+{ lib, stdenv, fetchurl, pkgconfig, zlib, shadow, ncurses ? null, perl ? null
+, pam, systemd ? null, minimal ? false }:
 
 let
   version = lib.concatStringsSep "."

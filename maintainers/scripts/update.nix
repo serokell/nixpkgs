@@ -1,5 +1,5 @@
-{ package ? null, maintainer ? null, path ? null, max-workers ?
-  null, keep-going ? null }:
+{ package ? null, maintainer ? null, path ? null, max-workers ? null
+, keep-going ? null }:
 
 # TODO: add assert statements
 

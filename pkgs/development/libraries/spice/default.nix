@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, pixman, alsaLib, openssl, libXrandr, libXfixes, libXext, libXrender, libXinerama, libjpeg, zlib, spice-protocol, python3, glib, cyrus_sasl, libcacard, lz4, libopus, gst_all_1, orc
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, pixman, alsaLib, openssl, libXrandr
+, libXfixes, libXext, libXrender, libXinerama, libjpeg, zlib, spice-protocol
+, python3, glib, cyrus_sasl, libcacard, lz4, libopus, gst_all_1, orc }:
 
 stdenv.mkDerivation rec {
   pname = "spice";

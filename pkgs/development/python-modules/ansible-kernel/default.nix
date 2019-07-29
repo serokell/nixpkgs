@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, writeText, ipywidgets, six, docopt, tqdm, jupyter, psutil, pyyaml, ansible-runner, ansible, python
-}:
+{ lib, buildPythonPackage, fetchPypi, writeText, ipywidgets, six, docopt, tqdm
+, jupyter, psutil, pyyaml, ansible-runner, ansible, python }:
 
 let
   kernelSpecFile = writeText "kernel.json" (builtins.toJSON {

@@ -1,8 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, python3, perl, perlPackages, gtk3, intltool, libpeas, libsoup, gnome3, totem-pl-parser, tdb, json-glib, itstool, wrapGAppsHook, gst_all_1, gst_plugins ?
-  with gst_all_1; [
-    gst-plugins-good
-    gst-plugins-ugly
-  ] }:
+{ stdenv, fetchurl, pkgconfig, python3, perl, perlPackages, gtk3, intltool
+, libpeas, libsoup, gnome3, totem-pl-parser, tdb, json-glib, itstool
+, wrapGAppsHook, gst_all_1
+, gst_plugins ? with gst_all_1; [ gst-plugins-good gst-plugins-ugly ] }:
 let
   pname = "rhythmbox";
   version = "3.4.3";

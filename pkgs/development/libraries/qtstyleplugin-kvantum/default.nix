@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qtsvg, qtx11extras, kwindowsystem, libX11, libXext, qttools
-}:
+{ stdenv, fetchFromGitHub, qmake, qtbase, qtsvg, qtx11extras, kwindowsystem
+, libX11, libXext, qttools }:
 
 stdenv.mkDerivation rec {
   pname = "qtstyleplugin-kvantum";

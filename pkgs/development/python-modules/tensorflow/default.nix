@@ -1,6 +1,9 @@
-{ stdenv, buildBazelPackage, lib, fetchFromGitHub, fetchpatch, symlinkJoin, buildPythonPackage, isPy3k, pythonOlder, pythonAtLeast, which, swig, binutils, glibcLocales, python, jemalloc, openmpi, numpy, six, protobuf, tensorflow-tensorboard, backports_weakref, mock, enum34, absl-py, cudaSupport ?
-  false, nvidia_x11 ? null, cudatoolkit ? null, cudnn ? null
-    # XLA without CUDA is broken
+{ stdenv, buildBazelPackage, lib, fetchFromGitHub, fetchpatch, symlinkJoin
+, buildPythonPackage, isPy3k, pythonOlder, pythonAtLeast, which, swig, binutils
+, glibcLocales, python, jemalloc, openmpi, numpy, six, protobuf
+, tensorflow-tensorboard, backports_weakref, mock, enum34, absl-py
+, cudaSupport ? false, nvidia_x11 ? null, cudatoolkit ? null, cudnn ? null
+  # XLA without CUDA is broken
 , xlaSupport ? cudaSupport
   # Default from ./configure script
 , cudaCapabilities ? [ "3.5" "5.2" ], sse42Support ?

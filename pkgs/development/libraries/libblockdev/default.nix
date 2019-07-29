@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, gtk-doc, libxslt, docbook_xsl, docbook_xml_dtd_43, python3, gobject-introspection, glib, udev, kmod, parted, gptfdisk, libyaml, cryptsetup, lvm2, dmraid, utillinux, libbytesize, libndctl, nss, volume_key
-}:
+{ stdenv, fetchFromGitHub, substituteAll, autoreconfHook, pkgconfig, gtk-doc
+, libxslt, docbook_xsl, docbook_xml_dtd_43, python3, gobject-introspection, glib
+, udev, kmod, parted, gptfdisk, libyaml, cryptsetup, lvm2, dmraid, utillinux
+, libbytesize, libndctl, nss, volume_key }:
 
 let version = "2.20";
 in stdenv.mkDerivation rec {

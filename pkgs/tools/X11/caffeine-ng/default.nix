@@ -1,5 +1,5 @@
-{ gdk_pixbuf, glib, gobject-introspection, gtk3, lib, libnotify, pythonPackages, wrapGAppsHook
-}:
+{ gdk_pixbuf, glib, gobject-introspection, gtk3, lib, libnotify, pythonPackages
+, wrapGAppsHook }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "caffeine-ng";

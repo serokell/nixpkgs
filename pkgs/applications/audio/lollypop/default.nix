@@ -1,5 +1,7 @@
-{ lib, fetchgit, meson, ninja, pkgconfig, python3, gtk3, gst_all_1, libsecret, libsoup, appstream-glib, desktop-file-utils, totem-pl-parser, hicolor-icon-theme, gobject-introspection, wrapGAppsHook, lastFMSupport ?
-  true, wikipediaSupport ? true, youtubeSupport ? true, youtube-dl }:
+{ lib, fetchgit, meson, ninja, pkgconfig, python3, gtk3, gst_all_1, libsecret
+, libsoup, appstream-glib, desktop-file-utils, totem-pl-parser
+, hicolor-icon-theme, gobject-introspection, wrapGAppsHook, lastFMSupport ? true
+, wikipediaSupport ? true, youtubeSupport ? true, youtube-dl }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "lollypop";

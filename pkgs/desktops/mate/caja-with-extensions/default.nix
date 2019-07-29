@@ -1,5 +1,5 @@
-{ stdenv, lib, makeWrapper, caja-extensions, caja, extensions ?
-  [ caja-extensions ] }:
+{ stdenv, lib, makeWrapper, caja-extensions, caja
+, extensions ? [ caja-extensions ] }:
 
 stdenv.mkDerivation {
   pname = "${caja.pname}-with-extensions";

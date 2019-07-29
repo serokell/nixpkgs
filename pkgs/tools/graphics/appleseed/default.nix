@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, boost165, pkgconfig, guile, eigen, libpng, python, libGLU, qt4, openexr, openimageio, opencolorio, xercesc, ilmbase, osl, seexpr, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, cmake, boost165, pkgconfig, guile, eigen, libpng
+, python, libGLU, qt4, openexr, openimageio, opencolorio, xercesc, ilmbase, osl
+, seexpr, makeWrapper }:
 
 let
   boost_static = boost165.override {

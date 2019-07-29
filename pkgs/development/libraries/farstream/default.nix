@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libnice, pkgconfig, pythonPackages, gstreamer, gst-plugins-base, gst-python, gupnp-igd, gobject-introspection, gst-plugins-good, gst-plugins-bad, gst-libav
-}:
+{ stdenv, fetchurl, libnice, pkgconfig, pythonPackages, gstreamer
+, gst-plugins-base, gst-python, gupnp-igd, gobject-introspection
+, gst-plugins-good, gst-plugins-bad, gst-libav }:
 
 let inherit (pythonPackages) python pygobject2;
 in stdenv.mkDerivation rec {

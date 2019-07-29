@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, lib, libX11, libXext, alsaLib, freetype, brand, type, version, homepage, sha256, ...
-}:
+{ stdenv, fetchurl, lib, libX11, libXext, alsaLib, freetype, brand, type
+, version, homepage, sha256, ... }:
 stdenv.mkDerivation rec {
   inherit type;
   baseName = "${type}-Edit";

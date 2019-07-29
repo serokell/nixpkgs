@@ -1,4 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, python2Packages, makeWrapper, fetchpatch, bash, libsamplerate, libsndfile, readline, eigen, celt, wafHook
+{ stdenv, fetchFromGitHub, pkgconfig, python2Packages, makeWrapper, fetchpatch
+, bash, libsamplerate, libsndfile, readline, eigen, celt, wafHook
 # Darwin Dependencies
 , aften, AudioUnit, CoreAudio, libobjc, Accelerate
 

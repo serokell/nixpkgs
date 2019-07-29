@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, SDL, SDL_image, libjpeg, libpng, libtiff
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, SDL, SDL_image, libjpeg, libpng
+, libtiff }:
 
 stdenv.mkDerivation rec {
   name = "zgv-${version}";

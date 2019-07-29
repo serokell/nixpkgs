@@ -1,11 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, makeWrapper, pkgconfig, cmake, gnumake, yasm, python2Packages, libgcrypt, libgpgerror, libunistring, boost, avahi, lame, autoreconfHook, gettext, pcre-cpp, yajl, fribidi, which, openssl, gperf, tinyxml2, taglib, libssh, swig, jre, libX11, xorgproto, libxml2, libXt, libXmu, libXext, libXinerama, libXrandr, libXtst, libXfixes, systemd, alsaLib, libGLU_combined, glew, fontconfig, freetype, ftgl, libjpeg, jasper, libpng, libtiff, libmpeg2, libsamplerate, libmad, libogg, libvorbis, flac, libxslt, lzo, libcdio, libmodplug, libass, libbluray, sqlite, mysql, nasm, gnutls, libva, libdrm, curl, bzip2, zip, unzip, glxinfo, xdpyinfo, libcec, libcec_platform, dcadec, libuuid, libcrossguid, libmicrohttpd, bluez, doxygen, giflib, glib, harfbuzz, lcms2, libidn, libpthreadstubs, libtasn1, libXdmcp, libplist, p11-kit, zlib, flatbuffers, fmt, fstrcmp, rapidjson, dbusSupport ?
-  true, dbus ? null, joystickSupport ? true, cwiid ? null, nfsSupport ?
-    true, libnfs ? null, pulseSupport ? true, libpulseaudio ?
-      null, rtmpSupport ? true, rtmpdump ? null, sambaSupport ? true, samba ?
-        null, udevSupport ? true, udev ? null, usbSupport ? false, libusb ?
-          null, vdpauSupport ? true, libvdpau ? null, useWayland ?
-            false, wayland ? null, wayland-protocols ? null, waylandpp ?
-              null, libxkbcommon ? null }:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, makeWrapper
+, pkgconfig, cmake, gnumake, yasm, python2Packages, libgcrypt, libgpgerror
+, libunistring, boost, avahi, lame, autoreconfHook, gettext, pcre-cpp, yajl
+, fribidi, which, openssl, gperf, tinyxml2, taglib, libssh, swig, jre, libX11
+, xorgproto, libxml2, libXt, libXmu, libXext, libXinerama, libXrandr, libXtst
+, libXfixes, systemd, alsaLib, libGLU_combined, glew, fontconfig, freetype, ftgl
+, libjpeg, jasper, libpng, libtiff, libmpeg2, libsamplerate, libmad, libogg
+, libvorbis, flac, libxslt, lzo, libcdio, libmodplug, libass, libbluray, sqlite
+, mysql, nasm, gnutls, libva, libdrm, curl, bzip2, zip, unzip, glxinfo, xdpyinfo
+, libcec, libcec_platform, dcadec, libuuid, libcrossguid, libmicrohttpd, bluez
+, doxygen, giflib, glib, harfbuzz, lcms2, libidn, libpthreadstubs, libtasn1
+, libXdmcp, libplist, p11-kit, zlib, flatbuffers, fmt, fstrcmp, rapidjson
+, dbusSupport ? true, dbus ? null, joystickSupport ? true, cwiid ? null
+, nfsSupport ? true, libnfs ? null, pulseSupport ? true, libpulseaudio ? null
+, rtmpSupport ? true, rtmpdump ? null, sambaSupport ? true, samba ? null
+, udevSupport ? true, udev ? null, usbSupport ? false, libusb ? null
+, vdpauSupport ? true, libvdpau ? null, useWayland ? false, wayland ? null
+, wayland-protocols ? null, waylandpp ? null, libxkbcommon ? null }:
 
 assert dbusSupport -> dbus != null;
 assert nfsSupport -> libnfs != null;

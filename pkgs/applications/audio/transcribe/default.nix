@@ -1,5 +1,5 @@
-{ stdenv, fetchzip, wrapGAppsHook, alsaLib, atk, cairo, gdk_pixbuf, glib, gst_all_1, gtk3, libSM, libX11, libpng12, pango, zlib
-}:
+{ stdenv, fetchzip, wrapGAppsHook, alsaLib, atk, cairo, gdk_pixbuf, glib
+, gst_all_1, gtk3, libSM, libX11, libpng12, pango, zlib }:
 
 stdenv.mkDerivation rec {
   name = "transcribe-${version}";

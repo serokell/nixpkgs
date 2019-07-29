@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, lv2, pkgconfig, libGLU_combined, cairo, pango, libjack2
-}:
+{ stdenv, fetchFromGitHub, lv2, pkgconfig, libGLU_combined, cairo, pango
+, libjack2 }:
 
 let
   name = "sisco.lv2-${version}";

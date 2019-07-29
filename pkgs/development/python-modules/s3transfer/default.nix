@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, pythonOlder, buildPythonPackage, docutils, mock, nose, coverage, wheel, unittest2, botocore, futures
-}:
+{ stdenv, fetchPypi, pythonOlder, buildPythonPackage, docutils, mock, nose
+, coverage, wheel, unittest2, botocore, futures }:
 
 buildPythonPackage rec {
   pname = "s3transfer";

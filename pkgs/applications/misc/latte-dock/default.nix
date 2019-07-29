@@ -1,4 +1,5 @@
-{ mkDerivation, lib, cmake, xorg, plasma-framework, fetchurl, extra-cmake-modules, karchive, kwindowsystem, qtx11extras, kcrash, knewstuff
+{ mkDerivation, lib, cmake, xorg, plasma-framework, fetchurl
+, extra-cmake-modules, karchive, kwindowsystem, qtx11extras, kcrash, knewstuff
 }:
 
 mkDerivation rec {

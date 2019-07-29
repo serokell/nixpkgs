@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, nix-update-source, lib, python, which, runtimeShell, pychecker ?
-  null }:
+{ stdenv, fetchFromGitHub, nix-update-source, lib, python, which, runtimeShell
+, pychecker ? null }:
 stdenv.mkDerivation rec {
   version = "0.7.0";
   src = fetchFromGitHub {

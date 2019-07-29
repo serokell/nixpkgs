@@ -1,5 +1,5 @@
-{ lib, fetchurl, buildPythonPackage, python, pkgconfig, dbus, dbus-glib, isPyPy, ncurses, pygobject3
-}:
+{ lib, fetchurl, buildPythonPackage, python, pkgconfig, dbus, dbus-glib, isPyPy
+, ncurses, pygobject3 }:
 
 if isPyPy then
   throw "dbus-python not supported for interpreter ${python.executable}"

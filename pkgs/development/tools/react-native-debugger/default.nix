@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, unzip, cairo, xorg, gdk_pixbuf, fontconfig, pango, gnome2, atk, gtk2, glib, freetype, dbus, nss, nspr, alsaLib, cups, expat, udev, makeDesktopItem
-}:
+{ stdenv, fetchurl, unzip, cairo, xorg, gdk_pixbuf, fontconfig, pango, gnome2
+, atk, gtk2, glib, freetype, dbus, nss, nspr, alsaLib, cups, expat, udev
+, makeDesktopItem }:
 
 let
   rpath = stdenv.lib.makeLibraryPath [

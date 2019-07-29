@@ -60,7 +60,9 @@ let
       xml_int.scgi
     ];
 
-in { fetchurl, stdenv, lib, ncurses, curl, pkgconfig, gnutls, readline, openssl, perl, sqlite, libjpeg, speex, pcre, ldns, libedit, yasm, which, lua, libopus, libsndfile, libtiff
+in { fetchurl, stdenv, lib, ncurses, curl, pkgconfig, gnutls, readline, openssl
+, perl, sqlite, libjpeg, speex, pcre, ldns, libedit, yasm, which, lua, libopus
+, libsndfile, libtiff
 
 , modules ? defaultModules, postgresql, enablePostgres ? true
 

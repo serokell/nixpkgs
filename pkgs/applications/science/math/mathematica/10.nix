@@ -1,5 +1,5 @@
-{ stdenv, coreutils, patchelf, requireFile, alsaLib, fontconfig, freetype, gcc, glib, ncurses, opencv, openssl, unixODBC, xorg, libxml2, libuuid
-}:
+{ stdenv, coreutils, patchelf, requireFile, alsaLib, fontconfig, freetype, gcc
+, glib, ncurses, opencv, openssl, unixODBC, xorg, libxml2, libuuid }:
 
 let
   platform = if stdenv.hostPlatform.system == "i686-linux"

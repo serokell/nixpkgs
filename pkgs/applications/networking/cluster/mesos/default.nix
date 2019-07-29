@@ -1,5 +1,8 @@
-{ stdenv, lib, makeWrapper, fetchurl, curl, sasl, openssh, unzip, gnutar, jdk, python, wrapPython, setuptools, boto, pythonProtobuf, apr, subversion, gzip, leveldb, glog, perf, utillinux, libnl, iproute, openssl, libevent, ethtool, coreutils, which, iptables, maven, bash, autoreconfHook, utf8proc, lz4, withJava ?
-  !stdenv.isDarwin }:
+{ stdenv, lib, makeWrapper, fetchurl, curl, sasl, openssh, unzip, gnutar, jdk
+, python, wrapPython, setuptools, boto, pythonProtobuf, apr, subversion, gzip
+, leveldb, glog, perf, utillinux, libnl, iproute, openssl, libevent, ethtool
+, coreutils, which, iptables, maven, bash, autoreconfHook, utf8proc, lz4
+, withJava ? !stdenv.isDarwin }:
 
 let
   mavenRepo = import ./mesos-deps.nix { inherit stdenv curl; };

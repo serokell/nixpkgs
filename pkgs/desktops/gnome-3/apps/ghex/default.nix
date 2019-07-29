@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, pkgconfig, meson, ninja, python3, gnome3, hicolor-icon-theme, desktop-file-utils, appstream-glib, gettext, itstool, libxml2, gtk3, glib, atk, wrapGAppsHook
-}:
+{ stdenv, fetchurl, fetchpatch, pkgconfig, meson, ninja, python3, gnome3
+, hicolor-icon-theme, desktop-file-utils, appstream-glib, gettext, itstool
+, libxml2, gtk3, glib, atk, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "ghex";

@@ -1,5 +1,6 @@
-{ fetchFromGitHub, stdenv, autoconf, automake, pkgconfig, m4, curl, libGLU_combined, libXmu, libXi, freeglut, libjpeg, libtool, wxGTK30, xcbutil, sqlite, gtk2, patchelf, libXScrnSaver, libnotify, libX11, libxcb
-}:
+{ fetchFromGitHub, stdenv, autoconf, automake, pkgconfig, m4, curl
+, libGLU_combined, libXmu, libXi, freeglut, libjpeg, libtool, wxGTK30, xcbutil
+, sqlite, gtk2, patchelf, libXScrnSaver, libnotify, libX11, libxcb }:
 
 let
   majorVersion = "7.14";

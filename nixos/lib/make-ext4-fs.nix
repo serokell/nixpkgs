@@ -8,8 +8,9 @@
 , storePaths
 # Shell commands to populate the ./files directory.
 # All files in that directory are copied to the root of the FS.
-, populateImageCommands ? "", volumeLabel, uuid ?
-  "44444444-4444-4444-8888-888888888888", e2fsprogs, libfaketime, perl, lkl }:
+, populateImageCommands ? "", volumeLabel
+, uuid ? "44444444-4444-4444-8888-888888888888", e2fsprogs, libfaketime, perl
+, lkl }:
 
 let sdClosureInfo = pkgs.buildPackages.closureInfo { rootPaths = storePaths; };
 

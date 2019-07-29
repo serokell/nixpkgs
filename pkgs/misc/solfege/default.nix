@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, pythonPackages, gettext, texinfo, ghostscript, librsvg, gdk_pixbuf, txt2man, timidity, mpg123, alsaUtils, vorbis-tools, csound, lilypond, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, pythonPackages, gettext, texinfo, ghostscript
+, librsvg, gdk_pixbuf, txt2man, timidity, mpg123, alsaUtils, vorbis-tools
+, csound, lilypond, makeWrapper }:
 
 let inherit (pythonPackages) python pygtk;
 in stdenv.mkDerivation rec {

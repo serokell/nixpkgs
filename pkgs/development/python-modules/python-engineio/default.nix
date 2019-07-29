@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, six, eventlet, mock, iana-etc, libredirect, aiohttp, websockets, websocket_client, requests, tornado
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, six, eventlet, mock, iana-etc
+, libredirect, aiohttp, websockets, websocket_client, requests, tornado }:
 
 buildPythonPackage rec {
   pname = "python-engineio";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, valgrind, fetchpatch, enableStatic ?
-  false, enableShared ? true }:
+{ stdenv, fetchFromGitHub, valgrind, fetchpatch, enableStatic ? false
+, enableShared ? true }:
 
 stdenv.mkDerivation rec {
   pname = "lz4";

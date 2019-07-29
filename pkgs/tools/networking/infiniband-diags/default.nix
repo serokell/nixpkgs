@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, rdma-core, opensm, perl, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, pkgconfig, rdma-core
+, opensm, perl, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "infiniband-diags-${version}";

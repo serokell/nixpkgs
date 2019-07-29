@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchPypi, fetchFromGitHub, buildPythonPackage, geckodriver, urllib3, xorg
-}:
+{ lib, stdenv, fetchPypi, fetchFromGitHub, buildPythonPackage, geckodriver
+, urllib3, xorg }:
 
 let
   # Recompiling x_ignore_nofocus.so as the original one dlopen's libX11.so.6 by some

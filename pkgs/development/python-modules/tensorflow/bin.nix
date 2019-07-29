@@ -1,6 +1,8 @@
-{ stdenv, lib, fetchurl, buildPythonPackage, isPy3k, pythonOlder, astor, gast, google-pasta, wrapt, numpy, six, termcolor, protobuf, absl-py, grpcio, mock, backports_weakref, tensorflow-estimator, tensorflow-tensorboard, cudaSupport ?
-  false, cudatoolkit ? null, cudnn ? null, nvidia_x11 ?
-    null, zlib, python, symlinkJoin, keras-applications, keras-preprocessing }:
+{ stdenv, lib, fetchurl, buildPythonPackage, isPy3k, pythonOlder, astor, gast
+, google-pasta, wrapt, numpy, six, termcolor, protobuf, absl-py, grpcio, mock
+, backports_weakref, tensorflow-estimator, tensorflow-tensorboard
+, cudaSupport ? false, cudatoolkit ? null, cudnn ? null, nvidia_x11 ? null, zlib
+, python, symlinkJoin, keras-applications, keras-preprocessing }:
 
 # We keep this binary build for two reasons:
 # - the source build doesn't work on Darwin.

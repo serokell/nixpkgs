@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, python, fetchPypi, pythonOlder, django, mock, isort
-}:
+{ stdenv, buildPythonPackage, python, fetchPypi, pythonOlder, django, mock
+, isort }:
 
 buildPythonPackage rec {
   pname = "django-taggit";

@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, botocore, click, enum-compat, jmespath, pip, setuptools, six, typing, wheel, watchdog, pytest, hypothesis, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, attrs, botocore, click, enum-compat
+, jmespath, pip, setuptools, six, typing, wheel, watchdog, pytest, hypothesis
+, mock }:
 
 buildPythonPackage rec {
   pname = "chalice";

@@ -1,5 +1,7 @@
-{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, glib, gtk3, gsettings-desktop-schemas, gnome-desktop, dbus, json-glib, libICE, xmlto, docbook_xsl, docbook_xml_dtd_412, python3, libxslt, gettext, makeWrapper, systemd, xorg, epoxy, gnugrep, bash
-}:
+{ fetchurl, stdenv, substituteAll, meson, ninja, pkgconfig, gnome3, glib, gtk3
+, gsettings-desktop-schemas, gnome-desktop, dbus, json-glib, libICE, xmlto
+, docbook_xsl, docbook_xml_dtd_412, python3, libxslt, gettext, makeWrapper
+, systemd, xorg, epoxy, gnugrep, bash }:
 
 stdenv.mkDerivation rec {
   name = "gnome-session-${version}";

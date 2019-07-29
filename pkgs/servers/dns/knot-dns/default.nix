@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, gnutls, liburcu, lmdb, libcap_ng, libidn2, libunistring, systemd, nettle, libedit, zlib, libiconv, libintl
-}:
+{ stdenv, fetchurl, pkgconfig, gnutls, liburcu, lmdb, libcap_ng, libidn2
+, libunistring, systemd, nettle, libedit, zlib, libiconv, libintl }:
 
 let
   inherit (stdenv.lib) optional optionals;

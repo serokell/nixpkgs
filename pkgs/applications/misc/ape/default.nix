@@ -1,7 +1,7 @@
-{ stdenv, swiProlog, makeWrapper, fetchFromGitHub, lexicon ?
-  "lexicon/clex_lexicon.pl", pname ? "ape", description ?
-    "Parser for Attempto Controlled English (ACE)", license ? with stdenv.lib;
-      licenses.lgpl3 }:
+{ stdenv, swiProlog, makeWrapper, fetchFromGitHub
+, lexicon ? "lexicon/clex_lexicon.pl", pname ? "ape"
+, description ? "Parser for Attempto Controlled English (ACE)"
+, license ? with stdenv.lib; licenses.lgpl3 }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

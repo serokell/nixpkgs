@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, pkgconfig, qt4, SDL, SDL_image, libvorbis, libtar, libxml2, gamin, qmake4Hook
-}:
+{ stdenv, fetchgit, pkgconfig, qt4, SDL, SDL_image, libvorbis, libtar, libxml2
+, gamin, qmake4Hook }:
 
 stdenv.mkDerivation rec {
   version = "0.8";

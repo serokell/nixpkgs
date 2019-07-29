@@ -1,5 +1,5 @@
-{ mkDerivation, fetchFromGitHub, lib, makeWrapper, pkgconfig, kcoreaddons, ki18n, kwallet, mksh, pinentry_qt5
-}:
+{ mkDerivation, fetchFromGitHub, lib, makeWrapper, pkgconfig, kcoreaddons, ki18n
+, kwallet, mksh, pinentry_qt5 }:
 
 mkDerivation rec {
   pname = "kwalletcli";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, libGLU_combined, freeglut, libX11, libXt, libXmu, libXi, libXext
-}:
+{ stdenv, fetchurl, libGLU_combined, freeglut, libX11, libXt, libXmu, libXi
+, libXext }:
 stdenv.mkDerivation {
   name = "gle-3.1.0";
   buildInputs = [ libGLU_combined freeglut libX11 libXt libXmu libXi libXext ];

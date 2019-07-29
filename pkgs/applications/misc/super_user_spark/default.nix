@@ -1,5 +1,6 @@
-{ mkDerivation, fetchgit, aeson, aeson-pretty, base, bytestring, directory, filepath, hspec, hspec-core, HUnit, mtl, optparse-applicative, parsec, process, pureMD5, QuickCheck, shelly, stdenv, text, transformers, unix
-}:
+{ mkDerivation, fetchgit, aeson, aeson-pretty, base, bytestring, directory
+, filepath, hspec, hspec-core, HUnit, mtl, optparse-applicative, parsec, process
+, pureMD5, QuickCheck, shelly, stdenv, text, transformers, unix }:
 mkDerivation {
   pname = "super-user-spark";
   version = "0.3.2.0-dev";

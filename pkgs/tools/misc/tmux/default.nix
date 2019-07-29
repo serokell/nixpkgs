@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, ncurses, libevent, pkgconfig, makeWrapper
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, ncurses, libevent, pkgconfig
+, makeWrapper }:
 
 let
 

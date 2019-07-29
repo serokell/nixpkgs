@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, audio-metadata, multidict, wrapt, pytest
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, audio-metadata
+, multidict, wrapt, pytest }:
 
 buildPythonPackage rec {
   pname = "google-music-utils";

@@ -1,6 +1,6 @@
-{ lib, stdenv, ghc, llvmPackages, packages, symlinkJoin, makeWrapper, withLLVM ?
-  false, postBuild ? "", ghcLibdir ?
-    null # only used by ghcjs, when resolving plugins
+{ lib, stdenv, ghc, llvmPackages, packages, symlinkJoin, makeWrapper
+, withLLVM ? false, postBuild ? ""
+, ghcLibdir ? null # only used by ghcjs, when resolving plugins
 }:
 
 assert ghcLibdir != null -> (ghc.isGhcjs or false);

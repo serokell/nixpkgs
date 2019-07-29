@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchurl, bison, m4, fetchpatch, autoreconfHook, help2man
-}:
+{ stdenv, buildPackages, fetchurl, bison, m4, fetchpatch, autoreconfHook
+, help2man }:
 
 stdenv.mkDerivation rec {
   name = "flex-${version}";

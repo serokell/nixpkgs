@@ -1,6 +1,7 @@
 { stdenv, lib, fakeroot, fetchurl, libfaketime, substituteAll
 ## runtime dependencies
-, coreutils, file, findutils, gawk, ghostscript, gnugrep, gnused, libtiff, psmisc, sharutils, utillinux, zlib
+, coreutils, file, findutils, gawk, ghostscript, gnugrep, gnused, libtiff
+, psmisc, sharutils, utillinux, zlib
 ## optional packages (using `null` disables some functionality)
 , jbigkit ? null, lcms2 ? null # for colored faxes
 , openldap ? null, pam ? null

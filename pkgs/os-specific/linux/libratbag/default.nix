@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, systemd, udev, libevdev, gitMinimal, check, valgrind, swig, python3
-}:
+{ stdenv, fetchFromGitHub, meson, ninja, pkgconfig, glib, systemd, udev
+, libevdev, gitMinimal, check, valgrind, swig, python3 }:
 
 stdenv.mkDerivation rec {
   name = "libratbag-${version}";

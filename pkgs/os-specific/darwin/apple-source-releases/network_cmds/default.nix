@@ -1,5 +1,5 @@
-{ stdenv, appleDerivation, xcbuildHook, openssl, Librpcsvc, xnu, libpcap, developer_cmds
-}:
+{ stdenv, appleDerivation, xcbuildHook, openssl, Librpcsvc, xnu, libpcap
+, developer_cmds }:
 
 appleDerivation rec {
   nativeBuildInputs = [ xcbuildHook ];

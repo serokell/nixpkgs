@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, boost, openssl, systemd, lua, luajit, protobuf, enableProtoBuf ?
-  false }:
+{ stdenv, fetchurl, pkgconfig, boost, openssl, systemd, lua, luajit, protobuf
+, enableProtoBuf ? false }:
 assert enableProtoBuf -> protobuf != null;
 
 with stdenv.lib;

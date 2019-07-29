@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-mgmt-nspkg, msrestazure, python, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-common, azure-mgmt-nspkg
+, msrestazure, python, isPy3k }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-batchai";

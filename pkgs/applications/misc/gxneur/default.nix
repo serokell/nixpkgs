@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, gtk2, xorg, glib, xneur, libglade, GConf, libappindicator-gtk2, pcre
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, gtk2, xorg, glib, xneur, libglade
+, GConf, libappindicator-gtk2, pcre }:
 
 stdenv.mkDerivation {
   name = "gxneur-0.20.0";

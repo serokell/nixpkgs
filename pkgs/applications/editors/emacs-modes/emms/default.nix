@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, emacs, texinfo, mpg321, vorbis-tools, taglib, mp3info, alsaUtils
-}:
+{ stdenv, fetchurl, emacs, texinfo, mpg321, vorbis-tools, taglib, mp3info
+, alsaUtils }:
 
 # XXX: EMMS also supports Xine, MPlayer, Jack, etc.
 

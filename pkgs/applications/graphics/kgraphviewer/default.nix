@@ -1,5 +1,6 @@
-{ stdenv, mkDerivation, fetchurl, cmake, extra-cmake-modules, pkgconfig, wrapGAppsHook, kconfig, kinit, kdoctools, kio, kparts, kwidgetsaddons, qtbase, qtsvg, boost, graphviz
-}:
+{ stdenv, mkDerivation, fetchurl, cmake, extra-cmake-modules, pkgconfig
+, wrapGAppsHook, kconfig, kinit, kdoctools, kio, kparts, kwidgetsaddons, qtbase
+, qtsvg, boost, graphviz }:
 
 mkDerivation rec {
   name = "kgraphviewer-${version}";

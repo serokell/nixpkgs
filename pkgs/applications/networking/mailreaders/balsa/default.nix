@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, intltool, glib, gtk3, gmime, gnutls, webkitgtk, libesmtp, openssl, libnotify, gtkspell3, gpgme, libcanberra-gtk3, libsecret, gtksourceview, gobject-introspection, hicolor-icon-theme, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, glib, gtk3, gmime, gnutls, webkitgtk
+, libesmtp, openssl, libnotify, gtkspell3, gpgme, libcanberra-gtk3, libsecret
+, gtksourceview, gobject-introspection, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "balsa-${version}";

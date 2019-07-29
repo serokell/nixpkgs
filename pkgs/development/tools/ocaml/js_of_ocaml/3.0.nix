@@ -1,5 +1,5 @@
-{ stdenv, ocaml, findlib, dune, js_of_ocaml-compiler, ocaml-migrate-parsetree, ppx_tools_versioned, uchar
-}:
+{ stdenv, ocaml, findlib, dune, js_of_ocaml-compiler, ocaml-migrate-parsetree
+, ppx_tools_versioned, uchar }:
 
 stdenv.mkDerivation rec {
   name = "js_of_ocaml-${version}";

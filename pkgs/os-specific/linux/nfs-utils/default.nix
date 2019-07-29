@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, fetchpatch, lib, pkgconfig, utillinux, libcap, libtirpc, libevent, sqlite, kerberos, kmod, libuuid, keyutils, lvm2, systemd, coreutils, tcp_wrappers, python3
-}:
+{ stdenv, fetchurl, fetchpatch, lib, pkgconfig, utillinux, libcap, libtirpc
+, libevent, sqlite, kerberos, kmod, libuuid, keyutils, lvm2, systemd, coreutils
+, tcp_wrappers, python3 }:
 
 let statdPath = lib.makeBinPath [ systemd utillinux coreutils ];
 

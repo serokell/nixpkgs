@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, gcc-arm-embedded, binutils-arm-embedded, libftdi, python, pythonPackages
-}:
+{ stdenv, lib, fetchFromGitHub, gcc-arm-embedded, binutils-arm-embedded, libftdi
+, python, pythonPackages }:
 
 with lib;
 

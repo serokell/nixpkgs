@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, lib, bzip2, cmake, gflags, lz4, snappy, zlib, zstd, enableLite ?
-  false }:
+{ stdenv, fetchFromGitHub, lib, bzip2, cmake, gflags, lz4, snappy, zlib, zstd
+, enableLite ? false }:
 
 stdenv.mkDerivation rec {
   pname = "rocksdb";

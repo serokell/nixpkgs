@@ -1,5 +1,5 @@
-{ stdenv, callPackage, withLinuxHeaders ? true, profilingLibraries ?
-  false, withGd ? false, buildPackages }:
+{ stdenv, callPackage, withLinuxHeaders ? true, profilingLibraries ? false
+, withGd ? false, buildPackages }:
 
 callPackage ./common.nix { inherit stdenv; } {
   name = "glibc" + stdenv.lib.optionalString withGd "-gd";

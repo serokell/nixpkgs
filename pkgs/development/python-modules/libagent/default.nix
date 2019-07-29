@@ -1,5 +1,6 @@
-{ stdenv, fetchPypi, buildPythonPackage, ed25519, ecdsa, semver, mnemonic, unidecode, mock, pytest, backports-shutil-which, ConfigArgParse, python-daemon, pymsgbox
-}:
+{ stdenv, fetchPypi, buildPythonPackage, ed25519, ecdsa, semver, mnemonic
+, unidecode, mock, pytest, backports-shutil-which, ConfigArgParse, python-daemon
+, pymsgbox }:
 
 buildPythonPackage rec {
   pname = "libagent";

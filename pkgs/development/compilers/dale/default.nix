@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, libffi, llvm_35, doCheck ?
-  false, perl }:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, libffi, llvm_35, doCheck ? false
+, perl }:
 
 let version = "20170519";
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, makeWrapper, bison, flex, geoip, geolite-legacy, libcli, libnet, libnetfilter_conntrack, libnl, libpcap, libsodium, liburcu, ncurses, pkgconfig, zlib
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, bison, flex, geoip, geolite-legacy
+, libcli, libnet, libnetfilter_conntrack, libnl, libpcap, libsodium, liburcu
+, ncurses, pkgconfig, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "netsniff-ng";

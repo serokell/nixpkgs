@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, gdk_pixbuf, librsvg, wrapGAppsHook, itstool, libcanberra-gtk3, libxml2, meson, ninja, python3, vala, desktop-file-utils
-}:
+{ stdenv, fetchurl, pkgconfig, gtk3, gnome3, gdk_pixbuf, librsvg, wrapGAppsHook
+, itstool, libcanberra-gtk3, libxml2, meson, ninja, python3, vala
+, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   name = "iagno-${version}";

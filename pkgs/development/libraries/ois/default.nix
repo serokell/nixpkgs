@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoconf, automake, libtool, libX11, xorgproto, libXi, libXaw, libXmu, libXt
-}:
+{ stdenv, fetchurl, autoconf, automake, libtool, libX11, xorgproto, libXi
+, libXaw, libXmu, libXt }:
 
 let
   majorVersion = "1";

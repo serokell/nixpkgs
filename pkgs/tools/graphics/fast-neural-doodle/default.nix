@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, torch, torch-hdf5, loadcaffe, bash, python, numpy, scipy, h5py, scikitlearn, pillow
-}:
+{ stdenv, fetchFromGitHub, fetchurl, torch, torch-hdf5, loadcaffe, bash, python
+, numpy, scipy, h5py, scikitlearn, pillow }:
 stdenv.mkDerivation rec {
   name = "fast-neural-doodle-${version}";
   version = "0.0pre2016-07-01";

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, yacc, xkeyboard_config, libxcb, libX11, doxygen
-}:
+{ stdenv, fetchurl, fetchpatch, meson, ninja, pkgconfig, yacc, xkeyboard_config
+, libxcb, libX11, doxygen }:
 
 stdenv.mkDerivation rec {
   pname = "libxkbcommon";

@@ -238,10 +238,9 @@ in package-set { inherit pkgs stdenv callPackage; } self // {
   # optional set of arbitrary overrides, and an optional haskell package
   # modifier, return a derivation appropriate for nix-build or nix-shell to
   # build that package.
-  developPackage =
-    { root, name ? builtins.baseNameOf root, source-overrides ? { }, overrides ?
-      self: super:
-      { }, modifier ? drv: drv, returnShellEnv ? pkgs.lib.inNixShell }:
+  developPackage = { root, name ? builtins.baseNameOf root
+    , source-overrides ? { }, overrides ? self: super: { }, modifier ? drv: drv
+    , returnShellEnv ? pkgs.lib.inNixShell }:
     let
       drv = (extensible-self.extend (pkgs.lib.composeExtensions
         (self.packageSourceOverrides source-overrides) overrides)).callCabal2nix

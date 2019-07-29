@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, pytest, gevent, certifi, six, backports_ssl_match_hostname
-}:
+{ stdenv, buildPythonPackage, fetchPypi, pytest, gevent, certifi, six
+, backports_ssl_match_hostname }:
 
 buildPythonPackage rec {
   pname = "geventhttpclient";

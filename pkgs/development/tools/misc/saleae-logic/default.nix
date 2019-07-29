@@ -6,8 +6,10 @@
 #
 # In NixOS, simply add this package to services.udev.packages.
 
-{ stdenv, fetchurl, unzip, glib, libSM, libICE, gtk2, libXext, libXft, fontconfig, libXrender, libXfixes, libX11, libXi, libXrandr, libXcursor, freetype, libXinerama, libxcb, zlib, pciutils, makeDesktopItem, xkeyboardconfig, dbus, runtimeShell, libGL
-}:
+{ stdenv, fetchurl, unzip, glib, libSM, libICE, gtk2, libXext, libXft
+, fontconfig, libXrender, libXfixes, libX11, libXi, libXrandr, libXcursor
+, freetype, libXinerama, libxcb, zlib, pciutils, makeDesktopItem
+, xkeyboardconfig, dbus, runtimeShell, libGL }:
 
 let
 

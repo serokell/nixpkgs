@@ -1,5 +1,6 @@
-{ aspell, audiofile, gsmakeDerivation, cups, fetchurl, gmp, gnutls, libffi, libbfd, libjpeg, libtiff, libpng, giflib, libungif, libxml2, libxslt, libiconv, libobjc, libgcrypt, icu, pkgconfig, portaudio
-}:
+{ aspell, audiofile, gsmakeDerivation, cups, fetchurl, gmp, gnutls, libffi
+, libbfd, libjpeg, libtiff, libpng, giflib, libungif, libxml2, libxslt, libiconv
+, libobjc, libgcrypt, icu, pkgconfig, portaudio }:
 let version = "1.26.0";
 in gsmakeDerivation {
   name = "gnustep-base-${version}";

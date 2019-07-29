@@ -1,5 +1,9 @@
-{ stdenv, lib, fetchurl, makeWrapper, file, getopt, gtk2, gtk3, gdk_pixbuf, glib, libGL, libGLU, nss, nspr, udev, tbb, alsaLib, GConf, cups, libcap, fontconfig, freetype, pango, cairo, dbus, expat, zlib, libpng12, nodejs, gnutar, gcc, gcc_32bit, libX11, libXcursor, libXdamage, libXfixes, libXrender, libXi, libXcomposite, libXext, libXrandr, libXtst, libSM, libICE, libxcb, chromium, libpqxx
-}:
+{ stdenv, lib, fetchurl, makeWrapper, file, getopt, gtk2, gtk3, gdk_pixbuf, glib
+, libGL, libGLU, nss, nspr, udev, tbb, alsaLib, GConf, cups, libcap, fontconfig
+, freetype, pango, cairo, dbus, expat, zlib, libpng12, nodejs, gnutar, gcc
+, gcc_32bit, libX11, libXcursor, libXdamage, libXfixes, libXrender, libXi
+, libXcomposite, libXext, libXrandr, libXtst, libSM, libICE, libxcb, chromium
+, libpqxx }:
 
 let
   libPath64 = lib.makeLibraryPath [

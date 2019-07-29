@@ -1,5 +1,7 @@
-{ stdenv, fetchFromGitLab, pkgconfig, autoconf, automake, libiconv, drake, ruby, docbook_xsl, file, xdg_utils, gettext, expat, boost, libebml, zlib, fmt, libmatroska, libogg, libvorbis, flac, libxslt, cmark, withGUI ?
-  true, qtbase ? null, qtmultimedia ? null }:
+{ stdenv, fetchFromGitLab, pkgconfig, autoconf, automake, libiconv, drake, ruby
+, docbook_xsl, file, xdg_utils, gettext, expat, boost, libebml, zlib, fmt
+, libmatroska, libogg, libvorbis, flac, libxslt, cmark, withGUI ? true
+, qtbase ? null, qtmultimedia ? null }:
 
 assert withGUI -> qtbase != null && qtmultimedia != null;
 

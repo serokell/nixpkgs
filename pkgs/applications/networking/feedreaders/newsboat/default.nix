@@ -1,5 +1,6 @@
-{ stdenv, rustPlatform, fetchurl, stfl, sqlite, curl, gettext, pkgconfig, libxml2, json_c, ncurses, asciidoc, docbook_xml_dtd_45, libxslt, docbook_xsl, libiconv, Security, makeWrapper
-}:
+{ stdenv, rustPlatform, fetchurl, stfl, sqlite, curl, gettext, pkgconfig
+, libxml2, json_c, ncurses, asciidoc, docbook_xml_dtd_45, libxslt, docbook_xsl
+, libiconv, Security, makeWrapper }:
 
 rustPlatform.buildRustPackage rec {
   name = "newsboat-${version}";

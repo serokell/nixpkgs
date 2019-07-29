@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, twisted, pycrypto, pyopenssl, pyparsing, zope_interface, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, twisted, pycrypto, pyopenssl, pyparsing
+, zope_interface, isPy3k }:
 
 buildPythonPackage rec {
   pname = "ldaptor";

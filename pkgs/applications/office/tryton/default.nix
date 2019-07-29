@@ -1,5 +1,5 @@
-{ stdenv, python2Packages, pkgconfig, librsvg, gobject-introspection, atk, gtk3, gtkspell3, gnome3, goocanvas2
-}:
+{ stdenv, python2Packages, pkgconfig, librsvg, gobject-introspection, atk, gtk3
+, gtkspell3, gnome3, goocanvas2 }:
 
 with stdenv.lib;
 

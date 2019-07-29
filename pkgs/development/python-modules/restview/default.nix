@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, docutils, readme_renderer, pygments, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, docutils, readme_renderer
+, pygments, mock }:
 
 buildPythonPackage rec {
   pname = "restview";

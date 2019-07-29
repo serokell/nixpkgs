@@ -1,5 +1,5 @@
-{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, docker, git, gnutar, gzip
-}:
+{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, docker, git, gnutar
+, gzip }:
 
 stdenv.mkDerivation rec {
   name = "cide-${version}";

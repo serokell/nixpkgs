@@ -1,5 +1,5 @@
-{ stdenv, fetchpatch, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, c-ares, libxml2, sqlite, zlib, libssh2, cppunit, sphinx, Security
-}:
+{ stdenv, fetchpatch, fetchFromGitHub, pkgconfig, autoreconfHook, openssl
+, c-ares, libxml2, sqlite, zlib, libssh2, cppunit, sphinx, Security }:
 
 stdenv.mkDerivation rec {
   name = "aria2-${version}";

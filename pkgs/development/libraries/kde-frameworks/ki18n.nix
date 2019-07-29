@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, gettext, python, qtbase, qtdeclarative, qtscript,
-}:
+{ mkDerivation, lib, extra-cmake-modules, gettext, python, qtbase, qtdeclarative
+, qtscript, }:
 
 mkDerivation {
   name = "ki18n";

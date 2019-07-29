@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, modestmaps, pillow, pycairo, python-mapnik, simplejson, werkzeug, isPy27
-}:
+{ stdenv, buildPythonPackage, fetchPypi, modestmaps, pillow, pycairo
+, python-mapnik, simplejson, werkzeug, isPy27 }:
 
 buildPythonPackage rec {
   pname = "tilestache";

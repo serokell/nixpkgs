@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, wrapGAppsHook, makeDesktopItem, atk, cairo, curl, cups, dbus-glib, dbus, fontconfig, freetype, gdk_pixbuf, glib, glibc, gtk3, libX11, libXScrnSaver, libxcb, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXinerama, libXrender, libXt, libnotify, gnome3, libGLU_combined, nspr, nss, pango, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, wrapGAppsHook, makeDesktopItem, atk, cairo, curl, cups
+, dbus-glib, dbus, fontconfig, freetype, gdk_pixbuf, glib, glibc, gtk3, libX11
+, libXScrnSaver, libxcb, libXcomposite, libXcursor, libXdamage, libXext
+, libXfixes, libXi, libXinerama, libXrender, libXt, libnotify, gnome3
+, libGLU_combined, nspr, nss, pango, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   name = "zotero-${version}";

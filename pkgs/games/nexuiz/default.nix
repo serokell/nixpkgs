@@ -1,6 +1,8 @@
 { stdenv, fetchurl, # required for both
-unzip, zlib, curl, libjpeg, libpng, libvorbis, libtheora, libogg, libmodplug, # glx
-libX11, libGLU_combined, libXpm, libXext, libXxf86vm, libXxf86dga, alsaLib, # sdl
+unzip, zlib, curl, libjpeg, libpng, libvorbis, libtheora, libogg, libmodplug
+, # glx
+libX11, libGLU_combined, libXpm, libXext, libXxf86vm, libXxf86dga, alsaLib
+, # sdl
 SDL }:
 
 let

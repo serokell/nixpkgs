@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, intltool, itstool, libxml2, libcanberra-gtk3, libgtop, libstartup_notification, gnome3, gtk3, wrapGAppsHook
-}:
+{ stdenv, fetchurl, pkgconfig, intltool, itstool, libxml2, libcanberra-gtk3
+, libgtop, libstartup_notification, gnome3, gtk3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "marco-${version}";

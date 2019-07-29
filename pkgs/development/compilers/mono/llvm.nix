@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, groff, cmake, python2, perl, libffi, libbfd, libxml2, valgrind, ncurses, zlib
-}:
+{ stdenv, lib, fetchFromGitHub, groff, cmake, python2, perl, libffi, libbfd
+, libxml2, valgrind, ncurses, zlib }:
 
 stdenv.mkDerivation rec {
   name = "llvm-${version}";

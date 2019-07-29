@@ -1,5 +1,5 @@
-{ stdenv, buildGoPackage, trousers, dclxvi, wrapGAppsHook, pkgconfig, gtk3, gtkspell3, fetchgit
-}:
+{ stdenv, buildGoPackage, trousers, dclxvi, wrapGAppsHook, pkgconfig, gtk3
+, gtkspell3, fetchgit }:
 
 let gui = true; # Might be implemented with nixpkgs config.
 in buildGoPackage rec {

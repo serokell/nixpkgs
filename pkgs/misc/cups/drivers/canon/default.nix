@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, unzip, autoreconfHook, libtool, makeWrapper, cups, ghostscript, pkgsi686Linux
-}:
+{ stdenv, fetchurl, unzip, autoreconfHook, libtool, makeWrapper, cups
+, ghostscript, pkgsi686Linux }:
 
 let
 

@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, ninja, meson, pkgconfig, wrapGAppsHook, appstream-glib, desktop-file-utils, gtk3, gst_all_1, gobject-introspection, python3Packages, file, cairo, gettext, gnome3
-}:
+{ stdenv, fetchFromGitHub, ninja, meson, pkgconfig, wrapGAppsHook
+, appstream-glib, desktop-file-utils, gtk3, gst_all_1, gobject-introspection
+, python3Packages, file, cairo, gettext, gnome3 }:
 
 python3Packages.buildPythonApplication rec {
 

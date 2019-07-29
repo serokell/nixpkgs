@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, desktop-file-utils, gettext, itstool, python3, wrapGAppsHook, gtk3, glib, libsoup, gnome-online-accounts, librest, json-glib, gnome-autoar, gspell, libcanberra
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gnome3, desktop-file-utils, gettext
+, itstool, python3, wrapGAppsHook, gtk3, glib, libsoup, gnome-online-accounts
+, librest, json-glib, gnome-autoar, gspell, libcanberra }:
 
 let
   pname = "gnome-recipes";

@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy3k, pytest, mock, setuptools_scm
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, isPy3k, pytest, mock
+, setuptools_scm }:
 
 buildPythonPackage rec {
   pname = "pytest-mock";

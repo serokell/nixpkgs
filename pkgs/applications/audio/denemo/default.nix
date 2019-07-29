@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, pkgconfig, libjack2, gettext, intltool, guile_2_0, lilypond, glib, libxml2, librsvg, libsndfile, aubio, gtk3, gtksourceview, evince, fluidsynth, rubberband, portaudio, portmidi, fftw, makeWrapper
-}:
+{ stdenv, fetchurl, pkgconfig, libjack2, gettext, intltool, guile_2_0, lilypond
+, glib, libxml2, librsvg, libsndfile, aubio, gtk3, gtksourceview, evince
+, fluidsynth, rubberband, portaudio, portmidi, fftw, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "denemo-${version}";

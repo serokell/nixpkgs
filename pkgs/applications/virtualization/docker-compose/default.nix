@@ -1,5 +1,7 @@
-{ stdenv, buildPythonApplication, fetchPypi, pythonOlder, mock, pytest, nose, pyyaml, backports_ssl_match_hostname, colorama, docopt, dockerpty, docker, ipaddress, jsonschema, requests, six, texttable, websocket_client, cached-property, enum34, functools32, paramiko
-}:
+{ stdenv, buildPythonApplication, fetchPypi, pythonOlder, mock, pytest, nose
+, pyyaml, backports_ssl_match_hostname, colorama, docopt, dockerpty, docker
+, ipaddress, jsonschema, requests, six, texttable, websocket_client
+, cached-property, enum34, functools32, paramiko }:
 buildPythonApplication rec {
   version = "1.24.1";
   pname = "docker-compose";

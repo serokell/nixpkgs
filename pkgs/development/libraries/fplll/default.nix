@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, gettext, autoreconfHook, gmp, mpfr
-}:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, gettext, autoreconfHook
+, gmp, mpfr }:
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "fplll";

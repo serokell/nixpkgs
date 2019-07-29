@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, ofxhome, ofxparse, beautifulsoup4, lxml, keyring
-}:
+{ stdenv, buildPythonPackage, fetchPypi, ofxhome, ofxparse, beautifulsoup4, lxml
+, keyring }:
 
 buildPythonPackage rec {
   version = "2.0.3";

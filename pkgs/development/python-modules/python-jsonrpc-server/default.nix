@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest, mock, pytestcov, coverage, future, futures
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest, mock
+, pytestcov, coverage, future, futures }:
 
 buildPythonPackage rec {
   pname = "python-jsonrpc-server";

@@ -1,5 +1,5 @@
-{ stdenv, pkgconfig, autoreconfHook, fetchurl, cpio, zlib, bzip2, file, elfutils, libbfd, libarchive, nspr, nss, popt, db, xz, python, lua
-}:
+{ stdenv, pkgconfig, autoreconfHook, fetchurl, cpio, zlib, bzip2, file, elfutils
+, libbfd, libarchive, nspr, nss, popt, db, xz, python, lua }:
 
 stdenv.mkDerivation rec {
   name = "rpm-${version}";

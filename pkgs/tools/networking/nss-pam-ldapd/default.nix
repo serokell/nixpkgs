@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, makeWrapper, autoreconfHook, openldap, python, pam
-}:
+{ stdenv, fetchurl, pkgconfig, makeWrapper, autoreconfHook, openldap, python
+, pam }:
 
 stdenv.mkDerivation rec {
   name = "nss-pam-ldapd-${version}";

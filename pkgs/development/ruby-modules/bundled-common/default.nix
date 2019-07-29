@@ -1,10 +1,10 @@
-{ stdenv, runCommand, ruby, lib, defaultGemConfig, buildRubyGem, buildEnv, makeWrapper, bundler
-}@defs:
+{ stdenv, runCommand, ruby, lib, defaultGemConfig, buildRubyGem, buildEnv
+, makeWrapper, bundler }@defs:
 
-{ name ? null, pname ? null, mainGemName ? null, gemdir ? null, gemfile ?
-  null, lockfile ? null, gemset ? null, ruby ? defs.ruby, gemConfig ?
-    defaultGemConfig, postBuild ? null, document ? [ ], meta ? { }, groups ?
-      null, ignoreCollisions ? false, buildInputs ? [ ], ... }@args:
+{ name ? null, pname ? null, mainGemName ? null, gemdir ? null, gemfile ? null
+, lockfile ? null, gemset ? null, ruby ? defs.ruby, gemConfig ? defaultGemConfig
+, postBuild ? null, document ? [ ], meta ? { }, groups ? null
+, ignoreCollisions ? false, buildInputs ? [ ], ... }@args:
 
 assert name == null -> pname != null;
 

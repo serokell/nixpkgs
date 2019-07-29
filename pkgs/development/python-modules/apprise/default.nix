@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, Babel, decorator, requests, requests_oauthlib, oauthlib, urllib3, six, click, markdown, pyyaml, pytestrunner, coverage, flake8, mock, pytest, pytestcov, tox
-}:
+{ lib, buildPythonPackage, fetchPypi, Babel, decorator, requests
+, requests_oauthlib, oauthlib, urllib3, six, click, markdown, pyyaml
+, pytestrunner, coverage, flake8, mock, pytest, pytestcov, tox }:
 
 buildPythonPackage rec {
   pname = "apprise";

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, doxygen, makeWrapper, msgpack, neovim, pythonPackages, qtbase
-}:
+{ stdenv, fetchFromGitHub, cmake, doxygen, makeWrapper, msgpack, neovim
+, pythonPackages, qtbase }:
 
 let
   unwrapped = stdenv.mkDerivation rec {

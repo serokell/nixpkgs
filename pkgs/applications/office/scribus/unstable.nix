@@ -1,5 +1,6 @@
-{ stdenv, fetchsvn, wrapQtAppsHook, pkgconfig, cmake, qtbase, cairo, pixman, boost, cups, fontconfig, freetype, hunspell, libjpeg, libtiff, libxml2, lcms2, podofo, poppler, poppler_data, python2, harfbuzz, qtimageformats, qttools
-}:
+{ stdenv, fetchsvn, wrapQtAppsHook, pkgconfig, cmake, qtbase, cairo, pixman
+, boost, cups, fontconfig, freetype, hunspell, libjpeg, libtiff, libxml2, lcms2
+, podofo, poppler, poppler_data, python2, harfbuzz, qtimageformats, qttools }:
 
 let
   pythonEnv = python2.withPackages (ps: [ ps.tkinter ps.pillow ]);

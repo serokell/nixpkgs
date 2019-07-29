@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, fetchurl, cmake, protobuf, libunwind, openssl, glog, google-gflags, gmock, gtest
-}:
+{ stdenv, fetchgit, fetchurl, cmake, protobuf, libunwind, openssl, glog
+, google-gflags, gmock, gtest }:
 
 let
   protoTar = fetchurl {

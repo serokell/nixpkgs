@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, knotifications, kwindowsystem, kxmlgui, qtx11extras
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, knotifications
+, kwindowsystem, kxmlgui, qtx11extras }:
 
 mkDerivation {
   name = "kruler";

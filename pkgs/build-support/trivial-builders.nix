@@ -210,8 +210,8 @@ in rec {
   # # adds symlinks of hello to current build and prints "links added"
   # { symlinkJoin, hello }:
   # symlinkJoin { name = "myhello"; paths = [ hello ]; postBuild = "echo links added"; }
-  symlinkJoin = args_@{ name, paths, preferLocalBuild ? true, allowSubstitutes ?
-    false, postBuild ? "", ... }:
+  symlinkJoin = args_@{ name, paths, preferLocalBuild ? true
+    , allowSubstitutes ? false, postBuild ? "", ... }:
     let
       args = removeAttrs args_ [ "name" "postBuild" ] // {
         inherit preferLocalBuild allowSubstitutes;
@@ -300,8 +300,8 @@ in rec {
   #   url = "http://example.com/download/";
   #   sha256 = "ffffffffffffffffffffffffffffffffffffffffffffffffffff";
   # }
-  requireFile = { name ? null, sha256 ? null, sha1 ? null, url ? null, message ?
-    null, hashMode ? "flat" }:
+  requireFile = { name ? null, sha256 ? null, sha1 ? null, url ? null
+    , message ? null, hashMode ? "flat" }:
     assert (message != null) || (url != null);
     assert (sha256 != null) || (sha1 != null);
     assert (name != null) || (url != null);

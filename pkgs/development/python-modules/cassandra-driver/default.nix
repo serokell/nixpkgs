@@ -1,4 +1,5 @@
-{ stdenv, libev, buildPythonPackage, fetchPypi, cython, futures, six, python, scales, eventlet, twisted, mock, gevent, nose, pytz, pyyaml, sure, pythonOlder
+{ stdenv, libev, buildPythonPackage, fetchPypi, cython, futures, six, python
+, scales, eventlet, twisted, mock, gevent, nose, pytz, pyyaml, sure, pythonOlder
 }:
 
 buildPythonPackage rec {

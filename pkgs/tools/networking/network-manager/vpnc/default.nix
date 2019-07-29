@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, substituteAll, vpnc, intltool, pkgconfig, networkmanager, libsecret, gtk3, withGnome ?
-  true, gnome3, kmod, file }:
+{ stdenv, fetchurl, substituteAll, vpnc, intltool, pkgconfig, networkmanager
+, libsecret, gtk3, withGnome ? true, gnome3, kmod, file }:
 let
   pname = "NetworkManager-vpnc";
   version = "1.2.6";

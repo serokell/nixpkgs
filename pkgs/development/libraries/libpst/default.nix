@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, autoreconfHook, boost, libgsf, pkgconfig, bzip2, xmlto, gettext, imagemagick, doxygen
-}:
+{ stdenv, fetchurl, autoreconfHook, boost, libgsf, pkgconfig, bzip2, xmlto
+, gettext, imagemagick, doxygen }:
 
 stdenv.mkDerivation rec {
   name = "libpst-0.6.72";

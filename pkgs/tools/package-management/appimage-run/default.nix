@@ -1,6 +1,5 @@
-{ writeScript, buildFHSUserEnv, coreutils, file, libarchive, runtimeShell, extraPkgs ?
-  pkgs:
-  [ ], appimageTools }:
+{ writeScript, buildFHSUserEnv, coreutils, file, libarchive, runtimeShell
+, extraPkgs ? pkgs: [ ], appimageTools }:
 
 let fhsArgs = appimageTools.defaultFhsEnvArgs;
 in buildFHSUserEnv (fhsArgs // {

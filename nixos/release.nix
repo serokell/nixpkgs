@@ -4,10 +4,8 @@ with import ../lib;
   outPath = cleanSource ./..;
   revCount = 130979;
   shortRev = "gfedcba";
-}, stableBranch ? false, supportedSystems ? [
-  "x86_64-linux"
-  "aarch64-linux"
-], configuration ? { } }:
+}, stableBranch ? false, supportedSystems ? [ "x86_64-linux" "aarch64-linux" ]
+, configuration ? { } }:
 
 with import ../pkgs/top-level/release-lib.nix { inherit supportedSystems; };
 

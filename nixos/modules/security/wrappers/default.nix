@@ -21,8 +21,8 @@ let
   };
 
   ###### Activation script for the setcap wrappers
-  mkSetcapProgram = { program, capabilities, source, owner ? "nobody", group ?
-    "nogroup", permissions ? "u+rx,g+x,o+x", ... }:
+  mkSetcapProgram = { program, capabilities, source, owner ? "nobody"
+    , group ? "nogroup", permissions ? "u+rx,g+x,o+x", ... }:
     assert (lib.versionAtLeast
     (lib.getVersion config.boot.kernelPackages.kernel) "4.3");
     ''
@@ -43,20 +43,19 @@ let
     '';
 
   ###### Activation script for the setuid wrappers
-  mkSetuidProgram =
-    { program, source, owner ? "nobody", group ? "nogroup", setuid ?
-      false, setgid ? false, permissions ? "u+rx,g+x,o+x", ... }: ''
-        cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
-        echo -n "${source}" > $wrapperDir/${program}.real
+  mkSetuidProgram = { program, source, owner ? "nobody", group ? "nogroup"
+    , setuid ? false, setgid ? false, permissions ? "u+rx,g+x,o+x", ... }: ''
+      cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
+      echo -n "${source}" > $wrapperDir/${program}.real
 
-        # Prevent races
-        chmod 0000 $wrapperDir/${program}
-        chown ${owner}.${group} $wrapperDir/${program}
+      # Prevent races
+      chmod 0000 $wrapperDir/${program}
+      chown ${owner}.${group} $wrapperDir/${program}
 
-        chmod "u${if setuid then "+" else "-"}s,g${
-          if setgid then "+" else "-"
-        }s,${permissions}" $wrapperDir/${program}
-      '';
+      chmod "u${if setuid then "+" else "-"}s,g${
+        if setgid then "+" else "-"
+      }s,${permissions}" $wrapperDir/${program}
+    '';
 
   mkWrappedPrograms = builtins.map (s:
     if (s ? "capabilities") then

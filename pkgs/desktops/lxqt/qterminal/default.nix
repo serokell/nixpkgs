@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtermwidget, qtbase, qttools, qtx11extras
-}:
+{ stdenv, fetchFromGitHub, cmake, lxqt-build-tools, qtermwidget, qtbase, qttools
+, qtx11extras }:
 
 stdenv.mkDerivation rec {
   pname = "qterminal";

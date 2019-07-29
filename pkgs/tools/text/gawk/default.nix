@@ -1,7 +1,7 @@
 { stdenv, fetchurl
 # TODO: links -lsigsegv but loses the reference for some reason
-, withSigsegv ? (false && stdenv.hostPlatform.system
-  != "x86_64-cygwin"), libsigsegv, interactive ? false, readline
+, withSigsegv ? (false && stdenv.hostPlatform.system != "x86_64-cygwin")
+, libsigsegv, interactive ? false, readline
 
 /* Test suite broke on:
        stdenv.isCygwin # XXX: `test-dup2' segfaults on Cygwin 6.1

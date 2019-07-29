@@ -1,4 +1,5 @@
-{ stdenv, gcc-arm-embedded, binutils-arm-embedded, makeWrapper, python, pythonPackages
+{ stdenv, gcc-arm-embedded, binutils-arm-embedded, makeWrapper, python
+, pythonPackages
 
 # Extra options
 , device ? "fsij", vid ? "234b", pid ? "0000"

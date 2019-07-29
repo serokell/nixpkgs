@@ -1,5 +1,6 @@
-{ stdenv, meson, ninja, pkgconfig, gettext, fetchFromGitHub, python3, wrapGAppsHook, gtk3, glib, desktop-file-utils, appstream-glib, gnome3, gobject-introspection
-}:
+{ stdenv, meson, ninja, pkgconfig, gettext, fetchFromGitHub, python3
+, wrapGAppsHook, gtk3, glib, desktop-file-utils, appstream-glib, gnome3
+, gobject-introspection }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "piper";

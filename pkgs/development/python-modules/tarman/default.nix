@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, unittest2, nose, mock, libarchive
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, unittest2, nose, mock
+, libarchive }:
 
 buildPythonPackage rec {
   version = "0.1.3";

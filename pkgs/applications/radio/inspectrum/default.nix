@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, boost, fftwFloat, qt5, gnuradio, liquid-dsp
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, boost, fftwFloat, qt5, gnuradio
+, liquid-dsp }:
 
 stdenv.mkDerivation rec {
   name = "inspectrum-unstable-2017-05-31";

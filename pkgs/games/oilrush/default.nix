@@ -1,5 +1,5 @@
-{ stdenv, config, fetchurl, libX11, libXext, libXinerama, libXrandr, libXrender, fontconfig, freetype, openal, runtimeShell
-}:
+{ stdenv, config, fetchurl, libX11, libXext, libXinerama, libXrandr, libXrender
+, fontconfig, freetype, openal, runtimeShell }:
 
 let inherit (stdenv.lib) makeLibraryPath;
 

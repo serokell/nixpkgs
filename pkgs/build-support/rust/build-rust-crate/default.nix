@@ -65,9 +65,10 @@ let
   installCrate = import ./install-crate.nix;
 
 in crate_:
-lib.makeOverridable
-({ rust, release, verbose, features, buildInputs, crateOverrides, dependencies, buildDependencies, extraRustcOpts, preUnpack, postUnpack, prePatch, patches, postPatch, preConfigure, postConfigure, preBuild, postBuild, preInstall, postInstall
-}:
+lib.makeOverridable ({ rust, release, verbose, features, buildInputs
+, crateOverrides, dependencies, buildDependencies, extraRustcOpts, preUnpack
+, postUnpack, prePatch, patches, postPatch, preConfigure, postConfigure
+, preBuild, postBuild, preInstall, postInstall }:
 
 let
   crate = crate_

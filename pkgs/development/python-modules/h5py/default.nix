@@ -1,5 +1,5 @@
-{ stdenv, fetchPypi, isPy27, python, buildPythonPackage, numpy, hdf5, cython, six, pkgconfig, unittest2, fetchpatch, mpi4py ?
-  null, openssh }:
+{ stdenv, fetchPypi, isPy27, python, buildPythonPackage, numpy, hdf5, cython
+, six, pkgconfig, unittest2, fetchpatch, mpi4py ? null, openssh }:
 
 assert hdf5.mpiSupport -> mpi4py != null && hdf5.mpi == mpi4py.mpi;
 

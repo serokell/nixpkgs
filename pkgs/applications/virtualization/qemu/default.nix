@@ -1,23 +1,20 @@
-{ stdenv, fetchurl, fetchpatch, python, zlib, pkgconfig, glib, ncurses, perl, pixman, vde2, alsaLib, texinfo, flex, bison, lzo, snappy, libaio, gnutls, nettle, curl, makeWrapper, attr, libcap, libcap_ng, CoreServices, Cocoa, Hypervisor, rez, setfile, numaSupport ?
-  stdenv.isLinux && !stdenv.isAarch32, numactl, seccompSupport ?
-    stdenv.isLinux, libseccomp, pulseSupport ?
-      !stdenv.isDarwin, libpulseaudio, sdlSupport ?
-        !stdenv.isDarwin, SDL2, gtkSupport ? !stdenv.isDarwin
-          && !xenSupport, gtk3, gettext, vte, vncSupport ?
-            true, libjpeg, libpng, smartcardSupport ?
-              true, libcacard, spiceSupport ?
-                !stdenv.isDarwin, spice, spice-protocol, usbredirSupport ?
-                  spiceSupport, usbredir, xenSupport ? false, xen, cephSupport ?
-                    false, ceph, openGLSupport ?
-                      sdlSupport, mesa, epoxy, libdrm, virglSupport ?
-                        openGLSupport, virglrenderer, smbdSupport ?
-                          false, samba, hostCpuOnly ? false, hostCpuTargets ?
-                            (if hostCpuOnly then
-                              (stdenv.lib.optional stdenv.isx86_64
-                              "i386-softmmu"
-                              ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
-                            else
-                              null), nixosTestRunner ? false }:
+{ stdenv, fetchurl, fetchpatch, python, zlib, pkgconfig, glib, ncurses, perl
+, pixman, vde2, alsaLib, texinfo, flex, bison, lzo, snappy, libaio, gnutls
+, nettle, curl, makeWrapper, attr, libcap, libcap_ng, CoreServices, Cocoa
+, Hypervisor, rez, setfile, numaSupport ? stdenv.isLinux && !stdenv.isAarch32
+, numactl, seccompSupport ? stdenv.isLinux, libseccomp
+, pulseSupport ? !stdenv.isDarwin, libpulseaudio, sdlSupport ? !stdenv.isDarwin
+, SDL2, gtkSupport ? !stdenv.isDarwin && !xenSupport, gtk3, gettext, vte
+, vncSupport ? true, libjpeg, libpng, smartcardSupport ? true, libcacard
+, spiceSupport ? !stdenv.isDarwin, spice, spice-protocol
+, usbredirSupport ? spiceSupport, usbredir, xenSupport ? false, xen
+, cephSupport ? false, ceph, openGLSupport ? sdlSupport, mesa, epoxy, libdrm
+, virglSupport ? openGLSupport, virglrenderer, smbdSupport ? false, samba
+, hostCpuOnly ? false, hostCpuTargets ? (if hostCpuOnly then
+  (stdenv.lib.optional stdenv.isx86_64 "i386-softmmu"
+  ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
+else
+  null), nixosTestRunner ? false }:
 
 with stdenv.lib;
 let

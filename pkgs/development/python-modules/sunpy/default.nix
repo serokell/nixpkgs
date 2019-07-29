@@ -1,5 +1,7 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, matplotlib, pandas, astropy, parfive, pythonOlder, sqlalchemy, scikitimage, glymur, beautifulsoup4, drms, python-dateutil, zeep, tqdm, asdf, astropy-helpers, hypothesis, pytest-astropy, pytestcov, pytest-mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, matplotlib, pandas
+, astropy, parfive, pythonOlder, sqlalchemy, scikitimage, glymur, beautifulsoup4
+, drms, python-dateutil, zeep, tqdm, asdf, astropy-helpers, hypothesis
+, pytest-astropy, pytestcov, pytest-mock }:
 
 buildPythonPackage rec {
   pname = "sunpy";

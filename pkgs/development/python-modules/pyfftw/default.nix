@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, fftw, fftwFloat, fftwLongDouble, numpy, scipy, cython, dask
-}:
+{ stdenv, buildPythonPackage, fetchPypi, fftw, fftwFloat, fftwLongDouble, numpy
+, scipy, cython, dask }:
 
 buildPythonPackage rec {
   version = "0.11.1";

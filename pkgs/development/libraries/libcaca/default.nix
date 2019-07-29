@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, ncurses, zlib, pkgconfig, imlib2, x11Support ?
-  !stdenv.isDarwin, libX11, libXext }:
+{ stdenv, fetchurl, ncurses, zlib, pkgconfig, imlib2
+, x11Support ? !stdenv.isDarwin, libX11, libXext }:
 
 stdenv.mkDerivation rec {
   name = "libcaca-0.99.beta19";

@@ -1,5 +1,5 @@
-{ buildPythonApplication, lib, fetchFromGitHub, dateutil, pyyaml, openpyxl, xlrd, h5py, fonttools, lxml, pandas, pyshp
-}:
+{ buildPythonApplication, lib, fetchFromGitHub, dateutil, pyyaml, openpyxl, xlrd
+, h5py, fonttools, lxml, pandas, pyshp }:
 buildPythonApplication rec {
   name = "${pname}-${version}";
   pname = "visidata";

@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, fetchurl, trousers, leveldb, unzip, scons, pkgconfig, glib, dbus_cplusplus, dbus, protobuf, openssl, snappy, pam
-}:
+{ stdenv, fetchgit, fetchurl, trousers, leveldb, unzip, scons, pkgconfig, glib
+, dbus_cplusplus, dbus, protobuf, openssl, snappy, pam }:
 
 let
   src_chromebase = fetchgit {

@@ -1,5 +1,5 @@
-{ lib, python2Packages, libxslt, docbook_xsl_ns, openssh, cacert, nixopsAzurePackages ?
-  [ ]
+{ lib, python2Packages, libxslt, docbook_xsl_ns, openssh, cacert
+, nixopsAzurePackages ? [ ]
   # version args
 , src, version, meta ? { } }:
 

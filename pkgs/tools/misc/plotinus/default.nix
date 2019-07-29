@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, gettext, libxml2, pkgconfig, gtk3, cmake, ninja, vala, wrapGAppsHook
-}:
+{ stdenv, fetchFromGitHub, gettext, libxml2, pkgconfig, gtk3, cmake, ninja, vala
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   name = "plotinus-${version}";

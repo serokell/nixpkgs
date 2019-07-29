@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, CoreServices, Security
-}:
+{ stdenv, fetchFromGitHub, rustPlatform, pkgconfig, openssl, CoreServices
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "synapse-bt";

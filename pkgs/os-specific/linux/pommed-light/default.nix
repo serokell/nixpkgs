@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pciutils, libconfuse, alsaLib, audiofile, pkgconfig, zlib, eject
-}:
+{ stdenv, fetchFromGitHub, pciutils, libconfuse, alsaLib, audiofile, pkgconfig
+, zlib, eject }:
 
 stdenv.mkDerivation rec {
   pkgname = "pommed-light";

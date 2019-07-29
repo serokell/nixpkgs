@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, six, pytest, pytestrunner, pytestcov, coverage
-}:
+{ stdenv, buildPythonPackage, fetchPypi, six, pytest, pytestrunner, pytestcov
+, coverage }:
 buildPythonPackage rec {
   pname = "libais";
   version = "0.17";

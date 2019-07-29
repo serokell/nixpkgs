@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, python, fetchPypi, flask, Babel, jinja2, pytz, speaklater
-}:
+{ stdenv, buildPythonPackage, python, fetchPypi, flask, Babel, jinja2, pytz
+, speaklater }:
 
 buildPythonPackage rec {
   pname = "Flask-Babel";

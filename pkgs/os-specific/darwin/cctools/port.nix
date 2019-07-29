@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, autoconf, automake, libtool, autoreconfHook, libcxxabi, libuuid, libobjc ?
-  null, maloader ? null, enableTapiSupport ? true, libtapi }:
+{ stdenv, fetchFromGitHub, autoconf, automake, libtool, autoreconfHook
+, libcxxabi, libuuid, libobjc ? null, maloader ? null, enableTapiSupport ? true
+, libtapi }:
 
 let
 

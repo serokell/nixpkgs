@@ -1,12 +1,12 @@
 { stdenv, lib, makeWrapper, pkgconfig, mono, dotnetbuildhelpers }:
 
-attrsOrig@{ baseName, version, buildInputs ? [ ], xBuildFiles ?
-  [ ], xBuildFlags ? [ "/p:Configuration=Release" ], outputFiles ?
-    [ "bin/Release/*" ], dllFiles ? [ "*.dll" ], exeFiles ? [
-      "*.exe"
-    ]
-    # Additional arguments to pass to the makeWrapper function, which wraps
-    # generated binaries.
+attrsOrig@{ baseName, version, buildInputs ? [ ], xBuildFiles ? [ ]
+, xBuildFlags ? [ "/p:Configuration=Release" ]
+, outputFiles ? [ "bin/Release/*" ], dllFiles ? [ "*.dll" ], exeFiles ? [
+  "*.exe"
+]
+# Additional arguments to pass to the makeWrapper function, which wraps
+# generated binaries.
 , makeWrapperArgs ? [ ], ... }:
 let
   arrayToShell =

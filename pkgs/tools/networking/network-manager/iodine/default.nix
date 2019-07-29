@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, substituteAll, iodine, intltool, pkgconfig, networkmanager, libsecret, gtk3, withGnome ?
-  true, gnome3 }:
+{ stdenv, fetchurl, substituteAll, iodine, intltool, pkgconfig, networkmanager
+, libsecret, gtk3, withGnome ? true, gnome3 }:
 
 let
   pname = "NetworkManager-iodine";

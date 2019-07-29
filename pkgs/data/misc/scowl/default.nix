@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, unzip, zip, libiconv, perl, aspell, dos2unix, singleWordlist ?
-  null }:
+{ stdenv, fetchFromGitHub, unzip, zip, libiconv, perl, aspell, dos2unix
+, singleWordlist ? null }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";

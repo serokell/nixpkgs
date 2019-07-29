@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, makeWrapper, glib-networking, gtk2, libsoup, libX11, perl, pkgconfig, webkitgtk, gsettings-desktop-schemas
-}:
+{ stdenv, fetchurl, makeWrapper, glib-networking, gtk2, libsoup, libX11, perl
+, pkgconfig, webkitgtk, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";

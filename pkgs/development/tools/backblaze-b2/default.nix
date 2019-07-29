@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, arrow, futures, logfury, requests, six, tqdm
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, arrow, futures, logfury
+, requests, six, tqdm }:
 
 buildPythonApplication rec {
   pname = "backblaze-b2";

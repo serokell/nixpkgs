@@ -1,5 +1,7 @@
-{ stdenv, fetchurl, pkgconfig, glib, expat, pam, perl, intltool, spidermonkey_60, gobject-introspection, libxslt, docbook_xsl, dbus, docbook_xml_dtd_412, gtk-doc, coreutils, useSystemd ?
-  stdenv.isLinux, systemd, withGnome ? true, doCheck ? stdenv.isLinux }:
+{ stdenv, fetchurl, pkgconfig, glib, expat, pam, perl, intltool, spidermonkey_60
+, gobject-introspection, libxslt, docbook_xsl, dbus, docbook_xml_dtd_412
+, gtk-doc, coreutils, useSystemd ? stdenv.isLinux, systemd, withGnome ? true
+, doCheck ? stdenv.isLinux }:
 
 let
 

@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, cmake, qtbase, pkgconfig, python2Packages, dbus-glib, dbus, telepathy-farstream, telepathy-glib, fetchpatch
-}:
+{ stdenv, fetchurl, cmake, qtbase, pkgconfig, python2Packages, dbus-glib, dbus
+, telepathy-farstream, telepathy-glib, fetchpatch }:
 
 let inherit (python2Packages) python dbus-python;
 in stdenv.mkDerivation rec {

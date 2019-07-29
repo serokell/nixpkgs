@@ -45,9 +45,9 @@ in rec {
   defaultYarnFlags =
     [ "--offline" "--frozen-lockfile" "--ignore-engines" "--ignore-scripts" ];
 
-  mkYarnModules = { name, pname, packageJSON, yarnLock, yarnNix ?
-    mkYarnNix yarnLock, yarnFlags ? defaultYarnFlags, pkgConfig ?
-      { }, preBuild ? "", workspaceDependencies ? [ ], }:
+  mkYarnModules = { name, pname, packageJSON, yarnLock
+    , yarnNix ? mkYarnNix yarnLock, yarnFlags ? defaultYarnFlags
+    , pkgConfig ? { }, preBuild ? "", workspaceDependencies ? [ ], }:
     let
       offlineCache = importOfflineCache yarnNix;
       extraBuildInputs = (lib.flatten
@@ -117,8 +117,8 @@ in rec {
     ln -s "$node_modules" node_modules
   '';
 
-  mkYarnWorkspace = { src, packageJSON ? src + "/package.json", yarnLock ? src
-    + "/yarn.lock", packageOverrides ? { }, ... }@attrs:
+  mkYarnWorkspace = { src, packageJSON ? src + "/package.json"
+    , yarnLock ? src + "/yarn.lock", packageOverrides ? { }, ... }@attrs:
     let
       package = lib.importJSON packageJSON;
       packageGlobs = package.workspaces;
@@ -166,11 +166,11 @@ in rec {
         }) packagePaths);
     in packages;
 
-  mkYarnPackage =
-    { name ? null, src, packageJSON ? src + "/package.json", yarnLock ? src
-      + "/yarn.lock", yarnNix ? mkYarnNix yarnLock, yarnFlags ?
-        defaultYarnFlags, yarnPreBuild ? "", pkgConfig ? { }, extraBuildInputs ?
-          [ ], publishBinsFor ? null, workspaceDependencies ? [ ], ... }@attrs:
+  mkYarnPackage = { name ? null, src, packageJSON ? src + "/package.json"
+    , yarnLock ? src + "/yarn.lock", yarnNix ? mkYarnNix yarnLock
+    , yarnFlags ? defaultYarnFlags, yarnPreBuild ? "", pkgConfig ? { }
+    , extraBuildInputs ? [ ], publishBinsFor ? null, workspaceDependencies ? [ ]
+    , ... }@attrs:
     let
       package = lib.importJSON packageJSON;
       pname = package.name;

@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, cmake, ninja, coin3d, xercesc, ode, eigen, qt5, opencascade-occt, gts, hdf5, vtk, medfile, zlib, python3Packages, swig, gfortran, libXmu, soqt, libf2c, libGLU, makeWrapper, pkgconfig, mpi ?
-  null }:
+{ stdenv, fetchurl, cmake, ninja, coin3d, xercesc, ode, eigen, qt5
+, opencascade-occt, gts, hdf5, vtk, medfile, zlib, python3Packages, swig
+, gfortran, libXmu, soqt, libf2c, libGLU, makeWrapper, pkgconfig, mpi ? null }:
 
 assert mpi != null;
 

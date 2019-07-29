@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, omake, ocaml, libtiff, libjpeg, libpng, giflib, findlib, libXpm, freetype, graphicsmagick, ghostscript
-}:
+{ stdenv, fetchurl, omake, ocaml, libtiff, libjpeg, libpng, giflib, findlib
+, libXpm, freetype, graphicsmagick, ghostscript }:
 
 assert stdenv.lib.versionAtLeast (stdenv.lib.getVersion ocaml) "4.00";
 

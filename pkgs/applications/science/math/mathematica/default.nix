@@ -1,5 +1,6 @@
-{ stdenv, coreutils, patchelf, callPackage, alsaLib, dbus, fontconfig, freetype, gcc, glib, ncurses, opencv, openssl, unixODBC, xkeyboard_config, xorg, zlib, libxml2, libuuid, lang ?
-  "en", libGL, libGLU }:
+{ stdenv, coreutils, patchelf, callPackage, alsaLib, dbus, fontconfig, freetype
+, gcc, glib, ncurses, opencv, openssl, unixODBC, xkeyboard_config, xorg, zlib
+, libxml2, libuuid, lang ? "en", libGL, libGLU }:
 
 let
   l10n = with stdenv.lib;

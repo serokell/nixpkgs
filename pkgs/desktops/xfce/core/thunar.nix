@@ -1,5 +1,5 @@
-{ stdenv, buildEnv, runCommand, makeWrapper, lndir, thunar-bare, thunarPlugins ?
-  [ ] }:
+{ stdenv, buildEnv, runCommand, makeWrapper, lndir, thunar-bare
+, thunarPlugins ? [ ] }:
 
 with stdenv.lib;
 

@@ -1,5 +1,9 @@
-{ fetchurl, substituteAll, stdenv, pkgconfig, gnome3, gettext, gobject-introspection, upower, cairo, pango, cogl, clutter, libstartup_notification, zenity, libcanberra-gtk3, ninja, xkeyboard_config, libxkbfile, libxkbcommon, libXtst, libinput, gsettings-desktop-schemas, glib, gtk3, gnome-desktop, geocode-glib, pipewire, libgudev, libwacom, xwayland, meson, gnome-settings-daemon, xorgserver, python3, wrapGAppsHook
-}:
+{ fetchurl, substituteAll, stdenv, pkgconfig, gnome3, gettext
+, gobject-introspection, upower, cairo, pango, cogl, clutter
+, libstartup_notification, zenity, libcanberra-gtk3, ninja, xkeyboard_config
+, libxkbfile, libxkbcommon, libXtst, libinput, gsettings-desktop-schemas, glib
+, gtk3, gnome-desktop, geocode-glib, pipewire, libgudev, libwacom, xwayland
+, meson, gnome-settings-daemon, xorgserver, python3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "mutter";

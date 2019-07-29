@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, libtool, fuse, pkgconfig, lz4, xz, zlib, lzo, zstd
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, libtool, fuse, pkgconfig, lz4, xz
+, zlib, lzo, zstd }:
 
 with stdenv.lib;
 

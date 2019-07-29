@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, libpcap, odp-dpdk, dpdk
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, openssl, libpcap, odp-dpdk
+, dpdk }:
 
 stdenv.mkDerivation rec {
   name = "ofp-${version}";

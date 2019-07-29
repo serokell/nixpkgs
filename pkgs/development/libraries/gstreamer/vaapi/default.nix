@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, meson, ninja, pkgconfig, gst-plugins-base, bzip2, libva, wayland, libdrm, udev, xorg, libGLU_combined, gstreamer, gst-plugins-bad, nasm, libvpx, python
-}:
+{ stdenv, fetchurl, meson, ninja, pkgconfig, gst-plugins-base, bzip2, libva
+, wayland, libdrm, udev, xorg, libGLU_combined, gstreamer, gst-plugins-bad, nasm
+, libvpx, python }:
 
 stdenv.mkDerivation rec {
   name = "gst-vaapi-${version}";

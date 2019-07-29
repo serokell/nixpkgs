@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, autoreconfHook, makeWrapper, perlPackages, libxml2, libiconv
-}:
+{ stdenv, fetchurl, pkgconfig, autoreconfHook, makeWrapper, perlPackages
+, libxml2, libiconv }:
 
 stdenv.mkDerivation rec {
   name = "hivex-${version}";

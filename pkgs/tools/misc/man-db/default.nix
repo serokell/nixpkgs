@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper, buildPackages
-}:
+{ stdenv, fetchurl, pkgconfig, libpipeline, db, groff, libiconv, makeWrapper
+, buildPackages }:
 
 stdenv.mkDerivation rec {
   name = "man-db-2.7.5";

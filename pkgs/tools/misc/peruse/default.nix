@@ -1,5 +1,6 @@
-{ mkDerivation, fetchFromGitHub, lib, extra-cmake-modules, kdoctools, wrapGAppsHook, baloo, karchive, kconfig, kcrash, kfilemetadata, kinit, kirigami2, knewstuff, plasma-framework
-}:
+{ mkDerivation, fetchFromGitHub, lib, extra-cmake-modules, kdoctools
+, wrapGAppsHook, baloo, karchive, kconfig, kcrash, kfilemetadata, kinit
+, kirigami2, knewstuff, plasma-framework }:
 
 let
   pname = "peruse";

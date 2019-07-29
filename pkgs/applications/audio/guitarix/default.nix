@@ -1,5 +1,8 @@
-{ stdenv, fetchurl, gettext, intltool, pkgconfig, python2, avahi, bluez, boost, eigen, fftw, glib, glib-networking, glibmm, gsettings-desktop-schemas, gtkmm2, libjack2, ladspaH, libav, librdf, libsndfile, lilv, lv2, serd, sord, sratom, wrapGAppsHook, zita-convolver, zita-resampler, curl, wafHook, optimizationSupport ?
-  false # Enable support for native CPU extensions
+{ stdenv, fetchurl, gettext, intltool, pkgconfig, python2, avahi, bluez, boost
+, eigen, fftw, glib, glib-networking, glibmm, gsettings-desktop-schemas, gtkmm2
+, libjack2, ladspaH, libav, librdf, libsndfile, lilv, lv2, serd, sord, sratom
+, wrapGAppsHook, zita-convolver, zita-resampler, curl, wafHook
+, optimizationSupport ? false # Enable support for native CPU extensions
 }:
 
 let inherit (stdenv.lib) optional;

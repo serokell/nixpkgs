@@ -64,9 +64,8 @@ in pkgs.recurseIntoAttrs rec {
     in if name == null then builder else builder name;
 
   # See `buildOpenRAEngine`.
-  buildOpenRAMod = { name ?
-    null, version, title, description, homepage, src, engine, assetsError ? ""
-    }@mod:
+  buildOpenRAMod = { name ? null, version, title, description, homepage, src
+    , engine, assetsError ? "" }@mod:
     ({ version, mods ? [ ], src }@engine:
     let
       builder = name:

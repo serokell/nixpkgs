@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, libxml2, pkgconfig, perl, compressionSupport ? true, zlib ?
-  null, sslSupport ? true, openssl ? null, static ? false, shared ? true }:
+{ stdenv, fetchurl, libxml2, pkgconfig, perl, compressionSupport ? true
+, zlib ? null, sslSupport ? true, openssl ? null, static ? false, shared ? true
+}:
 
 assert compressionSupport -> zlib != null;
 assert sslSupport -> openssl != null;

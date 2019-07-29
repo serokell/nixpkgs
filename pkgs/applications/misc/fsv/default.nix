@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, libtool, pkgconfig, gtk2, libGLU, file
-}:
+{ stdenv, fetchurl, fetchFromGitHub, autoreconfHook, libtool, pkgconfig, gtk2
+, libGLU, file }:
 
 let
   gtkglarea = stdenv.mkDerivation rec {

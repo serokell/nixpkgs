@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, pkgconfig, ncurses, ocaml, findlib, ocaml_pcre, camlzip, gnutls, nettle
-}:
+{ stdenv, fetchurl, pkgconfig, ncurses, ocaml, findlib, ocaml_pcre, camlzip
+, gnutls, nettle }:
 
 let version = "4.1.6";
 

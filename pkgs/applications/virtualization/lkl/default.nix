@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, bc, python, bison, flex, fuse, libarchive, buildPackages
-}:
+{ stdenv, fetchFromGitHub, bc, python, bison, flex, fuse, libarchive
+, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "lkl";

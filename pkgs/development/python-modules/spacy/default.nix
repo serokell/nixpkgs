@@ -1,5 +1,6 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytest, preshed, ftfy, numpy, murmurhash, plac, ujson, dill, requests, thinc, regex, cymem, pathlib, msgpack-python, msgpack-numpy, jsonschema, blis, wasabi, srsly
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytest, preshed, ftfy, numpy
+, murmurhash, plac, ujson, dill, requests, thinc, regex, cymem, pathlib
+, msgpack-python, msgpack-numpy, jsonschema, blis, wasabi, srsly }:
 
 buildPythonPackage rec {
   pname = "spacy";

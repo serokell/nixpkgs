@@ -1,5 +1,5 @@
-{ mkDerivation, lib, extra-cmake-modules, boost, kconfig, kcoreaddons, kio, kwindowsystem, qtbase, qtdeclarative,
-}:
+{ mkDerivation, lib, extra-cmake-modules, boost, kconfig, kcoreaddons, kio
+, kwindowsystem, qtbase, qtdeclarative, }:
 
 mkDerivation {
   name = "kactivities";

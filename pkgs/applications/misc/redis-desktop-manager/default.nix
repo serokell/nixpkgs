@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchgit, pkgconfig, libssh2, qtbase, qtdeclarative, qtgraphicaleffects, qtimageformats, qtquickcontrols, qtsvg, qttools, qtquick1, qtcharts, qmake
-}:
+{ stdenv, lib, fetchgit, pkgconfig, libssh2, qtbase, qtdeclarative
+, qtgraphicaleffects, qtimageformats, qtquickcontrols, qtsvg, qttools, qtquick1
+, qtcharts, qmake }:
 
 let
   breakpad_lss = fetchgit {

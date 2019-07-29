@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, libX11, ncurses, libXext, libXft, fontconfig
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, libX11, ncurses, libXext, libXft
+, fontconfig }:
 
 with stdenv.lib;
 

@@ -1,5 +1,9 @@
-{ mkDerivation, substituteAll, extra-cmake-modules, kdoctools, kcompletion, kconfigwidgets, kcoreaddons, kdbusaddons, kdeclarative, kdelibs4support, ki18n, kiconthemes, kinit, kio, kitemviews, knotifications, kservice, kwallet, kwidgetsaddons, kwindowsystem, kxmlgui, mobile-broadband-provider-info, modemmanager-qt, networkmanager-qt, openconnect, openvpn, plasma-framework, qca-qt5, qtdeclarative, qttools, solid
-}:
+{ mkDerivation, substituteAll, extra-cmake-modules, kdoctools, kcompletion
+, kconfigwidgets, kcoreaddons, kdbusaddons, kdeclarative, kdelibs4support, ki18n
+, kiconthemes, kinit, kio, kitemviews, knotifications, kservice, kwallet
+, kwidgetsaddons, kwindowsystem, kxmlgui, mobile-broadband-provider-info
+, modemmanager-qt, networkmanager-qt, openconnect, openvpn, plasma-framework
+, qca-qt5, qtdeclarative, qttools, solid }:
 
 mkDerivation {
   name = "plasma-nm";

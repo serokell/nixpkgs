@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, cython, lockfile, cachecontrol, decorator, ipython, matplotlib, natsort, numpy, pandas, scipy, hdmedians, scikitlearn, coverage, python, isPy3k
-}:
+{ stdenv, buildPythonPackage, fetchPypi, cython, lockfile, cachecontrol
+, decorator, ipython, matplotlib, natsort, numpy, pandas, scipy, hdmedians
+, scikitlearn, coverage, python, isPy3k }:
 
 buildPythonPackage rec {
   version = "0.5.5";

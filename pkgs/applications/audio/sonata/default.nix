@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, gettext, intltool, wrapGAppsHook, python3Packages, gnome3, gtk3, gsettings-desktop-schemas, gobject-introspection
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, gettext, intltool, wrapGAppsHook
+, python3Packages, gnome3, gtk3, gsettings-desktop-schemas
+, gobject-introspection }:
 
 let
   inherit (python3Packages)

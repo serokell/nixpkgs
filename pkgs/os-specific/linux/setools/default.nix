@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, bison, flex, python3, swig, libsepol, libselinux, checkpolicy, withGraphics ?
-  false }:
+{ stdenv, fetchFromGitHub, bison, flex, python3, swig, libsepol, libselinux
+, checkpolicy, withGraphics ? false }:
 
 with stdenv.lib;
 with python3.pkgs;

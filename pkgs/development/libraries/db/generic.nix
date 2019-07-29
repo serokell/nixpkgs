@@ -1,8 +1,8 @@
 { stdenv, fetchurl, cxxSupport ? true, compat185 ? true, dbmSupport ? false
 
   # Options from inherited versions
-, version, sha256, extraPatches ? [ ], license ?
-  stdenv.lib.licenses.sleepycat, drvArgs ? { } }:
+, version, sha256, extraPatches ? [ ], license ? stdenv.lib.licenses.sleepycat
+, drvArgs ? { } }:
 
 stdenv.mkDerivation (rec {
   name = "db-${version}";

@@ -1,5 +1,5 @@
-{ stdenv, buildDunePackage, cohttp-lwt, conduit-lwt-unix, ppx_sexp_conv, cmdliner, fmt, magic-mime
-}:
+{ stdenv, buildDunePackage, cohttp-lwt, conduit-lwt-unix, ppx_sexp_conv
+, cmdliner, fmt, magic-mime }:
 
 if !stdenv.lib.versionAtLeast cohttp-lwt.version "0.99" then
   cohttp-lwt

@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, makeWrapper, pkgconfig, zlib, lzma, bzip2, mtools, dosfstools, zip, unzip, libconfuse, libsodium, libarchive, darwin, coreutils
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, makeWrapper, pkgconfig, zlib
+, lzma, bzip2, mtools, dosfstools, zip, unzip, libconfuse, libsodium, libarchive
+, darwin, coreutils }:
 
 stdenv.mkDerivation rec {
   name = "fwup-${version}";

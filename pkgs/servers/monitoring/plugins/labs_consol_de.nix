@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchurl, autoreconfHook, makeWrapper, perlPackages, coreutils, gnused, gnugrep
-}:
+{ stdenv, fetchFromGitHub, fetchurl, autoreconfHook, makeWrapper, perlPackages
+, coreutils, gnused, gnugrep }:
 
 let
   glplugin = fetchFromGitHub {

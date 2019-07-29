@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, pytest, mock, parameterized, isPy35
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, pytest, mock, parameterized
+, isPy35 }:
 
 buildPythonPackage rec {
   pname = "aws-lambda-builders";

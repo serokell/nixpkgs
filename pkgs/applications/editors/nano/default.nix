@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, fetchFromGitHub, ncurses, texinfo, gettext ?
-  null, enableNls ? true, enableTiny ? false }:
+{ stdenv, fetchurl, fetchFromGitHub, ncurses, texinfo, gettext ? null
+, enableNls ? true, enableTiny ? false }:
 
 assert enableNls -> (gettext != null);
 

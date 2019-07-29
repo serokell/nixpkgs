@@ -4,8 +4,8 @@
 # Test dependencies
 , nose, pygments, testpath, isPy27, mock
 # Runtime dependencies
-, backports_shutil_get_terminal_size, decorator, pathlib2, pickleshare, requests, simplegeneric, traitlets, prompt_toolkit, pexpect, appnope
-}:
+, backports_shutil_get_terminal_size, decorator, pathlib2, pickleshare, requests
+, simplegeneric, traitlets, prompt_toolkit, pexpect, appnope }:
 
 buildPythonPackage rec {
   pname = "ipython";

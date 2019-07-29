@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, pkgconfig, qtbase, qttools, qmake, qtmultimedia, qtx11extras, alsaLib, libv4l, libXrandr, ffmpeg
-}:
+{ stdenv, fetchFromGitHub, pkgconfig, qtbase, qttools, qmake, qtmultimedia
+, qtx11extras, alsaLib, libv4l, libXrandr, ffmpeg }:
 
 stdenv.mkDerivation rec {
 

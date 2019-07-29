@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, clang, libclang, pkgconfig
-}:
+{ stdenv, fetchurl, rustPlatform, darwin, openssl, libsodium, nettle, clang
+, libclang, pkgconfig }:
 
 rustPlatform.buildRustPackage rec {
   name = "pijul-${version}";

@@ -2,8 +2,8 @@
 # Build inputs
 dateutil, six, text-unidecode, ipaddress ? null
   # Test inputs
-, email_validator, freezegun, mock, more-itertools, pytest, pytestrunner, random2, ukpostcodeparser
-}:
+, email_validator, freezegun, mock, more-itertools, pytest, pytestrunner
+, random2, ukpostcodeparser }:
 
 assert pythonOlder "3.3" -> ipaddress != null;
 

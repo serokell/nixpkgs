@@ -85,8 +85,8 @@ in rec {
       '';
     };
 
-  makeTest = { testScript, makeCoverageReport ? false, enableOCR ? false, name ?
-    "unnamed", ... }@t:
+  makeTest = { testScript, makeCoverageReport ? false, enableOCR ? false
+    , name ? "unnamed", ... }@t:
 
     let
       # A standard store path to the vm monitor is built like this:

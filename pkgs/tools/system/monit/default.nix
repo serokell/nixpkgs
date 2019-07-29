@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, bison, flex, zlib, usePAM ?
-  stdenv.hostPlatform.isLinux, pam, useSSL ? true, openssl }:
+{ stdenv, fetchurl, bison, flex, zlib, usePAM ? stdenv.hostPlatform.isLinux, pam
+, useSSL ? true, openssl }:
 
 stdenv.mkDerivation rec {
   name = "monit-5.26.0";

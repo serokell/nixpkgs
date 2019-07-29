@@ -17,8 +17,15 @@
 # This seperates "what to build" (the exact gem versions) from "how to build"
 # (to make gems behave if necessary).
 
-{ lib, fetchurl, writeScript, ruby, kerberos, libxml2, libxslt, python, stdenv, which, libiconv, postgresql, v8_3_16_14, clang, sqlite, zlib, imagemagick, pkgconfig, ncurses, xapian_1_2_22, gpgme, utillinux, fetchpatch, tzdata, icu, libffi, cmake, libssh2, openssl, mysql, darwin, git, perl, pcre, gecode_3, curl, msgpack, qt59, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg, gtk2, buildRubyGem, cairo, re2, rake, gobject-introspection, gdk_pixbuf, zeromq, czmq, graphicsmagick, libcxx, file, libvirt, glib, vips, taglib, libopus, linux-pam, libidn, protobuf, fribidi, harfbuzz, bison, flex, pango, python3, patchelf, libselinux ?
-  null, libsepol ? null }@args:
+{ lib, fetchurl, writeScript, ruby, kerberos, libxml2, libxslt, python, stdenv
+, which, libiconv, postgresql, v8_3_16_14, clang, sqlite, zlib, imagemagick
+, pkgconfig, ncurses, xapian_1_2_22, gpgme, utillinux, fetchpatch, tzdata, icu
+, libffi, cmake, libssh2, openssl, mysql, darwin, git, perl, pcre, gecode_3
+, curl, msgpack, qt59, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg, gtk2
+, buildRubyGem, cairo, re2, rake, gobject-introspection, gdk_pixbuf, zeromq
+, czmq, graphicsmagick, libcxx, file, libvirt, glib, vips, taglib, libopus
+, linux-pam, libidn, protobuf, fribidi, harfbuzz, bison, flex, pango, python3
+, patchelf, libselinux ? null, libsepol ? null }@args:
 
 let
   v8 = v8_3_16_14;

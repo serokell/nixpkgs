@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, duktape, curl, pcre, readline, openssl, perl, html-tidy
-}:
+{ stdenv, fetchFromGitHub, fetchpatch, duktape, curl, pcre, readline, openssl
+, perl, html-tidy }:
 
 stdenv.mkDerivation rec {
   name = "edbrowse-${version}";

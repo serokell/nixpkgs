@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, isPy3k, pkgs, urlgrabber, m2crypto, pyyaml, lxml
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, isPy3k, pkgs, urlgrabber
+, m2crypto, pyyaml, lxml }:
 
 buildPythonPackage {
   pname = "osc";

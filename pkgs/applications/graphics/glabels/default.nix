@@ -1,5 +1,6 @@
-{ stdenv, fetchurl, barcode, gnome3, autoreconfHook, gtk3, gtk-doc, libxml2, librsvg, libtool, libe-book, gsettings-desktop-schemas, intltool, itstool, makeWrapper, pkgconfig, hicolor-icon-theme
-}:
+{ stdenv, fetchurl, barcode, gnome3, autoreconfHook, gtk3, gtk-doc, libxml2
+, librsvg, libtool, libe-book, gsettings-desktop-schemas, intltool, itstool
+, makeWrapper, pkgconfig, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "glabels";

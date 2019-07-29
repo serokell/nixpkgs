@@ -1,5 +1,5 @@
-{ buildPythonPackage, fetchurl, meson, ninja, stdenv, pkgconfig, python, pygobject3, gobject-introspection, gst-plugins-base, isPy3k
-}:
+{ buildPythonPackage, fetchurl, meson, ninja, stdenv, pkgconfig, python
+, pygobject3, gobject-introspection, gst-plugins-base, isPy3k }:
 
 let
   pname = "gst-python";

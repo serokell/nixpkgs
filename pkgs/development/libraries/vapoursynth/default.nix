@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, makeWrapper, zimg, libass, python3, libiconv, ApplicationServices, nasm, ocrSupport ?
-  false, tesseract ? null, imwriSupport ? true, imagemagick7 ? null }:
+{ stdenv, fetchFromGitHub, pkgconfig, autoreconfHook, makeWrapper, zimg, libass
+, python3, libiconv, ApplicationServices, nasm, ocrSupport ? false
+, tesseract ? null, imwriSupport ? true, imagemagick7 ? null }:
 
 assert ocrSupport -> tesseract != null;
 assert imwriSupport -> imagemagick7 != null;

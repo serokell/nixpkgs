@@ -1,5 +1,7 @@
-{ stdenv, fetchPypi, buildPythonPackage, more-itertools, six, setuptools_scm, setuptools-scm-git-archive, pytest, pytestcov, portend, pytest-testmon, pytest-mock, backports_unittest-mock, pyopenssl, requests, trustme, requests-unixsocket, backports_functools_lru_cache
-}:
+{ stdenv, fetchPypi, buildPythonPackage, more-itertools, six, setuptools_scm
+, setuptools-scm-git-archive, pytest, pytestcov, portend, pytest-testmon
+, pytest-mock, backports_unittest-mock, pyopenssl, requests, trustme
+, requests-unixsocket, backports_functools_lru_cache }:
 
 buildPythonPackage rec {
   pname = "cheroot";

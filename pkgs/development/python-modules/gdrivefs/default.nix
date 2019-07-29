@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchurl, isPy3k, gipc, greenlet, httplib2, six, dateutil, fusepy, google_api_python_client
-}:
+{ stdenv, buildPythonPackage, fetchurl, isPy3k, gipc, greenlet, httplib2, six
+, dateutil, fusepy, google_api_python_client }:
 
 buildPythonPackage rec {
   version = "0.14.12";

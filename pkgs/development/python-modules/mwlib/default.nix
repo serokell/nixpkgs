@@ -1,5 +1,6 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPy3k, apipkg, bottle, gevent, lxml, odfpy, pillow, py, pyPdf, pyparsing, qserve, roman, simplejson, sqlite3dbm, timelib, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPy3k, apipkg, bottle, gevent, lxml
+, odfpy, pillow, py, pyPdf, pyparsing, qserve, roman, simplejson, sqlite3dbm
+, timelib, pytest }:
 
 buildPythonPackage rec {
   version = "0.16.1";

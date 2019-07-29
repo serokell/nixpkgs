@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, coverage, ddt, nose, pyyaml, requests, testtools
-}:
+{ stdenv, buildPythonPackage, fetchPypi, coverage, ddt, nose, pyyaml, requests
+, testtools }:
 
 buildPythonPackage rec {
   pname = "falcon";

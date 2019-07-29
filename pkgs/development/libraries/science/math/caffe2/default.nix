@@ -1,13 +1,14 @@
-{ stdenv, lib, config, fetchFromGitHub, cmake, glog, google-gflags, gtest, protobuf, snappy, python, future, six, python-protobuf, numpy, pydot, eigen, doxygen, useCuda ?
-  (config.cudaSupport or false), cudatoolkit ? null, useCudnn ?
-    (config.cudnnSupport or false), cudnn ? null, useOpenmp ? false, openmp ?
-      null, useOpencv3 ? true, opencv3 ? null, useLeveldb ? false, leveldb ?
-        null, useLmdb ? true, lmdb ? null, useRocksdb ? false, rocksdb ?
-          null, useZeromq ? false, zeromq ? null, useMpi ? false, mpi ? null
-            # TODO: distributed computations
-            #, useGloo ? false
-            #, useNccl ? false
-            #, useNnpack ? false
+{ stdenv, lib, config, fetchFromGitHub, cmake, glog, google-gflags, gtest
+, protobuf, snappy, python, future, six, python-protobuf, numpy, pydot, eigen
+, doxygen, useCuda ? (config.cudaSupport or false), cudatoolkit ? null
+, useCudnn ? (config.cudnnSupport or false), cudnn ? null, useOpenmp ? false
+, openmp ? null, useOpencv3 ? true, opencv3 ? null, useLeveldb ? false
+, leveldb ? null, useLmdb ? true, lmdb ? null, useRocksdb ? false
+, rocksdb ? null, useZeromq ? false, zeromq ? null, useMpi ? false, mpi ? null
+  # TODO: distributed computations
+  #, useGloo ? false
+  #, useNccl ? false
+  #, useNnpack ? false
 }:
 
 assert useCuda -> cudatoolkit != null;

@@ -1,6 +1,6 @@
-{ stdenv, fetchFromGitHub, cmake, alsaSupport ? !stdenv.isDarwin, alsaLib ?
-  null, pulseSupport ? !stdenv.isDarwin, libpulseaudio ?
-    null, CoreServices, AudioUnit, AudioToolbox }:
+{ stdenv, fetchFromGitHub, cmake, alsaSupport ? !stdenv.isDarwin, alsaLib ? null
+, pulseSupport ? !stdenv.isDarwin, libpulseaudio ? null, CoreServices, AudioUnit
+, AudioToolbox }:
 
 with stdenv.lib;
 

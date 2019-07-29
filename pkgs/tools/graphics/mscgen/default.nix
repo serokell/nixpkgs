@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, flex, bison, gd, libpng, libjpeg, freetype, zlib, libwebp, runtimeShell
-}:
+{ stdenv, fetchurl, flex, bison, gd, libpng, libjpeg, freetype, zlib, libwebp
+, runtimeShell }:
 
 let version = "0.20";
 in stdenv.mkDerivation {

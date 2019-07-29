@@ -1,5 +1,5 @@
-{ stdenv, buildPackages, fetchurl, fetchpatch, runCommand, autoconf, automake, libtool, enablePython ?
-  false, python ? null, }:
+{ stdenv, buildPackages, fetchurl, fetchpatch, runCommand, autoconf, automake
+, libtool, enablePython ? false, python ? null, }:
 
 assert enablePython -> python != null;
 

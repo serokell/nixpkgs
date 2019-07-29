@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, fetchpatch, libX11, libGL, mesa, nvidia_x11 ?
-  null, libglvnd }:
+{ stdenv, fetchFromGitHub, fetchpatch, libX11, libGL, mesa, nvidia_x11 ? null
+, libglvnd }:
 
 let
   aPackage = if nvidia_x11 == null then

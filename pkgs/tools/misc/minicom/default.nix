@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, autoreconfHook, makeWrapper, pkgconfig, lrzsz, ncurses, libiconv
-}:
+{ stdenv, fetchgit, autoreconfHook, makeWrapper, pkgconfig, lrzsz, ncurses
+, libiconv }:
 
 stdenv.mkDerivation rec {
   name = "minicom-${version}";

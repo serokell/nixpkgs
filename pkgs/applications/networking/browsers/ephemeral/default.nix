@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, desktop-file-utils, gettext, glib, gtk3, hicolor-icon-theme, libgee, libdazzle, meson, ninja, pantheon, pkgconfig, python3, webkitgtk, wrapGAppsHook, glib-networking
-}:
+{ stdenv, fetchFromGitHub, desktop-file-utils, gettext, glib, gtk3
+, hicolor-icon-theme, libgee, libdazzle, meson, ninja, pantheon, pkgconfig
+, python3, webkitgtk, wrapGAppsHook, glib-networking }:
 
 stdenv.mkDerivation rec {
   pname = "ephemeral";

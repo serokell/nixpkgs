@@ -1,5 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, alex, happy, Agda, buildPlatform, buildPackages, ghcWithPackages
-}:
+{ stdenv, lib, fetchFromGitHub, alex, happy, Agda, buildPlatform, buildPackages
+, ghcWithPackages }:
 
 stdenv.mkDerivation rec {
   version = "1.1.1";

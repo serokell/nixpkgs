@@ -1,5 +1,5 @@
-{ mkXfceDerivation, exo, wrapGAppsHook, gtk3, libxfce4ui, libxfce4util, libwnck3, xfconf
-}:
+{ mkXfceDerivation, exo, wrapGAppsHook, gtk3, libxfce4ui, libxfce4util, libwnck3
+, xfconf }:
 
 mkXfceDerivation rec {
   category = "xfce";

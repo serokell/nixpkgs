@@ -1,4 +1,6 @@
-{ stdenv, fetchFromGitHub, pkgconfig, cmake, autoconf, automake, libtool, makeWrapper, wget, xxd, desktop-file-utils, file, gnupg, glib, zlib, cairo, openssl, fuse, xz, squashfuse, inotify-tools, libarchive, squashfsTools, gtest
+{ stdenv, fetchFromGitHub, pkgconfig, cmake, autoconf, automake, libtool
+, makeWrapper, wget, xxd, desktop-file-utils, file, gnupg, glib, zlib, cairo
+, openssl, fuse, xz, squashfuse, inotify-tools, libarchive, squashfsTools, gtest
 }:
 
 let

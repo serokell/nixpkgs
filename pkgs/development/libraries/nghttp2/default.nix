@@ -1,10 +1,10 @@
 { stdenv, fetchurl, pkgconfig
 
 # Optional Dependencies
-, openssl ? null, libev ? null, zlib ? null, c-ares ? null, enableHpack ?
-  false, jansson ? null, enableAsioLib ? false, boost ? null, enableGetAssets ?
-    false, libxml2 ? null, enableJemalloc ? false, jemalloc ? null, enableApp ?
-      !stdenv.hostPlatform.isWindows }:
+, openssl ? null, libev ? null, zlib ? null, c-ares ? null, enableHpack ? false
+, jansson ? null, enableAsioLib ? false, boost ? null, enableGetAssets ? false
+, libxml2 ? null, enableJemalloc ? false, jemalloc ? null
+, enableApp ? !stdenv.hostPlatform.isWindows }:
 
 assert enableHpack -> jansson != null;
 assert enableAsioLib -> boost != null;

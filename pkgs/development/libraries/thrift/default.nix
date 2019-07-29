@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, boost, zlib, libevent, openssl, python, pkgconfig, bison, flex, twisted
-}:
+{ stdenv, fetchurl, boost, zlib, libevent, openssl, python, pkgconfig, bison
+, flex, twisted }:
 
 stdenv.mkDerivation rec {
   name = "thrift-${version}";

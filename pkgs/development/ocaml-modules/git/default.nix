@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, buildDunePackage, astring, decompress, fmt, hex, logs, mstruct, ocaml_lwt, ocamlgraph, uri, alcotest, mtime, nocrypto
-}:
+{ stdenv, fetchFromGitHub, buildDunePackage, astring, decompress, fmt, hex, logs
+, mstruct, ocaml_lwt, ocamlgraph, uri, alcotest, mtime, nocrypto }:
 
 buildDunePackage rec {
   pname = "git";

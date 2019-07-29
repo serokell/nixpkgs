@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, python, subunit, testrepository, testtools, six, pbr, fixtures, isPy36
-}:
+{ stdenv, buildPythonPackage, fetchPypi, python, subunit, testrepository
+, testtools, six, pbr, fixtures, isPy36 }:
 
 buildPythonPackage rec {
   pname = "mox3";

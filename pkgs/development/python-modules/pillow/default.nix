@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, isPyPy, olefile, freetype, libjpeg, zlib, libtiff, libwebp, tcl, lcms2, tk, libX11, pytestrunner, pytest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, isPyPy, olefile, freetype, libjpeg
+, zlib, libtiff, libwebp, tcl, lcms2, tk, libX11, pytestrunner, pytest }:
 buildPythonPackage rec {
   pname = "Pillow";
   version = "5.4.1";

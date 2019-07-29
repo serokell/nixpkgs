@@ -1,5 +1,5 @@
-{ stdenv, lib, makeWrapper, p7zip, gawk, utillinux, xorg, glib, dbus-glib, zlib, kernel ?
-  null, libsOnly ? false, undmg, fetchurl }:
+{ stdenv, lib, makeWrapper, p7zip, gawk, utillinux, xorg, glib, dbus-glib, zlib
+, kernel ? null, libsOnly ? false, undmg, fetchurl }:
 
 assert (!libsOnly) -> kernel != null;
 # Disable for kernels 4.15 and above due to compatibility issues

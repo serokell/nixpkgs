@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, SDL2, SDL2_ttf, gettext, zlib, SDL2_mixer, SDL2_image, guile, libGLU_combined
-}:
+{ stdenv, fetchFromGitHub, cmake, SDL2, SDL2_ttf, gettext, zlib, SDL2_mixer
+, SDL2_image, guile, libGLU_combined }:
 
 with stdenv.lib;
 

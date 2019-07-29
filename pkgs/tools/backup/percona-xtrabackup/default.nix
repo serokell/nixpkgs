@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, bison, curl, ncurses, openssl, xxd, libaio, libev, libgcrypt, libgpgerror, libtool, zlib
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, boost, bison, curl, ncurses
+, openssl, xxd, libaio, libev, libgcrypt, libgpgerror, libtool, zlib }:
 
 stdenv.mkDerivation rec {
   name = "percona-xtrabackup-${version}";

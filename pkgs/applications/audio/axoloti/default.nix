@@ -1,5 +1,6 @@
-{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, unzip, gnumake, gcc-arm-embedded, binutils-arm-embedded, dfu-util-axoloti, jdk, ant, libfaketime
-}:
+{ stdenv, fetchFromGitHub, fetchurl, makeWrapper, unzip, gnumake
+, gcc-arm-embedded, binutils-arm-embedded, dfu-util-axoloti, jdk, ant
+, libfaketime }:
 
 stdenv.mkDerivation rec {
   version = "1.0.12-2";

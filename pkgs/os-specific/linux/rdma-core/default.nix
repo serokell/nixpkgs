@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, cmake, pkgconfig, pandoc, ethtool, iproute, libnl, udev, python, perl
-}:
+{ stdenv, fetchFromGitHub, cmake, pkgconfig, pandoc, ethtool, iproute, libnl
+, udev, python, perl }:
 
 let version = "24.0";
 

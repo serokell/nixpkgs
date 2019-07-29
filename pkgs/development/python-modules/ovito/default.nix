@@ -1,5 +1,5 @@
-{ stdenv, fetchgit, cmake, libav, netcdf, qscintilla, zlib, boost, git, fftw, hdf5, libssh, pythonPackages
-}:
+{ stdenv, fetchgit, cmake, libav, netcdf, qscintilla, zlib, boost, git, fftw
+, hdf5, libssh, pythonPackages }:
 
 stdenv.mkDerivation rec {
   # compilation error in 2.9.0 https://gitlab.com/stuko/ovito/issues/40

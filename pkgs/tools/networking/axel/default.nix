@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkgconfig, gettext, libssl
-}:
+{ stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkgconfig, gettext
+, libssl }:
 
 stdenv.mkDerivation rec {
   pname = "axel";

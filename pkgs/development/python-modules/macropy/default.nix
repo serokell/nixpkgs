@@ -1,5 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, isPy27, pinqSupport ?
-  false, sqlalchemy, pyxlSupport ? false, pyxl3 }:
+{ lib, buildPythonPackage, fetchFromGitHub, python, isPy27, pinqSupport ? false
+, sqlalchemy, pyxlSupport ? false, pyxl3 }:
 
 buildPythonPackage rec {
   # https://github.com/lihaoyi/macropy/issues/94

@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchsvn, pkgconfig, libjpeg, libpng, flex, zlib, perl, libxml2, makeWrapper, libtiff, enableX11 ?
-  false, libX11 }:
+{ lib, stdenv, fetchsvn, pkgconfig, libjpeg, libpng, flex, zlib, perl, libxml2
+, makeWrapper, libtiff, enableX11 ? false, libX11 }:
 
 stdenv.mkDerivation rec {
   # Determine version and revision from:

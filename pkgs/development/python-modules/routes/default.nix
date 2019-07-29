@@ -1,5 +1,5 @@
-{ stdenv, buildPythonPackage, fetchPypi, repoze_lru, six, webob, coverage, webtest
-}:
+{ stdenv, buildPythonPackage, fetchPypi, repoze_lru, six, webob, coverage
+, webtest }:
 
 buildPythonPackage rec {
   pname = "Routes";

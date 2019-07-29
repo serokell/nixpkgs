@@ -1,5 +1,5 @@
-{ stdenv, fetchurl, gmp, gwenhywfar, libtool, libxml2, libxslt, pkgconfig, gettext, xmlsec, zlib
-}:
+{ stdenv, fetchurl, gmp, gwenhywfar, libtool, libxml2, libxslt, pkgconfig
+, gettext, xmlsec, zlib }:
 
 let inherit ((import ./sources.nix).aqbanking) sha256 releaseId version;
 in stdenv.mkDerivation rec {

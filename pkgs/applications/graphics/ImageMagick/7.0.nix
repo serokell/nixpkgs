@@ -1,5 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, pkgconfig, libtool, bzip2, zlib, libX11, libXext, libXt, fontconfig, freetype, ghostscript, libjpeg, djvulibre, lcms2, openexr, libpng, librsvg, libtiff, libxml2, openjpeg, libwebp, libheif, ApplicationServices
-}:
+{ lib, stdenv, fetchFromGitHub, pkgconfig, libtool, bzip2, zlib, libX11, libXext
+, libXt, fontconfig, freetype, ghostscript, libjpeg, djvulibre, lcms2, openexr
+, libpng, librsvg, libtiff, libxml2, openjpeg, libwebp, libheif
+, ApplicationServices }:
 
 let
   arch = if stdenv.hostPlatform.system == "i686-linux" then

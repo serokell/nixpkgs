@@ -19,8 +19,8 @@
 # Start web interface
 # ./paperless runserver --noreload localhost:8000
 
-{ config ? { }, dataDir ? null, ocrLanguages ? null, paperlessPkg ?
-  paperless, extraCmds ? "" }:
+{ config ? { }, dataDir ? null, ocrLanguages ? null, paperlessPkg ? paperless
+, extraCmds ? "" }:
 with lib;
 let
   paperless = if ocrLanguages == null then

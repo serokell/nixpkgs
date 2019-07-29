@@ -1,5 +1,5 @@
-{ stdenv, libiconv, fetchurl, zlib, openssl, tcl, readline, sqlite, ed, which, tcllib, withJson ?
-  true }:
+{ stdenv, libiconv, fetchurl, zlib, openssl, tcl, readline, sqlite, ed, which
+, tcllib, withJson ? true }:
 
 stdenv.mkDerivation rec {
   name = "fossil-${version}";

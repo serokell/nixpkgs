@@ -4,11 +4,12 @@
 , tag ? "-kf5" # tag added to the package name
 , static ? false # link statically
 
-, stdenv, fetchFromGitHub, cmake, makeWrapper, dconf, qtbase, qtscript, phonon, libdbusmenu, qca-qt5
+, stdenv, fetchFromGitHub, cmake, makeWrapper, dconf, qtbase, qtscript, phonon
+, libdbusmenu, qca-qt5
 
 , withKDE ? true # enable KDE integration
-, extra-cmake-modules, kconfigwidgets, kcoreaddons, knotifications, knotifyconfig, ktextwidgets, kwidgetsaddons, kxmlgui
-}:
+, extra-cmake-modules, kconfigwidgets, kcoreaddons, knotifications
+, knotifyconfig, ktextwidgets, kwidgetsaddons, kxmlgui }:
 
 let
   buildClient = monolithic || client;
