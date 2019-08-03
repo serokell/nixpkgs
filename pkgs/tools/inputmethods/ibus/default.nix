@@ -116,7 +116,7 @@ in stdenv.mkDerivation rec {
     (enableFeature withWayland "wayland")
     (enableFeature enablePython2Library "python-library")
     (enableFeature enablePython2Library
-    "python2") # XXX: python2 library does not work anyway
+      "python2") # XXX: python2 library does not work anyway
     (enableFeature enableUI "ui")
     "--with-unicode-emoji-dir=${emojiData}"
     "--with-emoji-annotation-dir=${cldrEmojiAnnotation}/share/unicode/cldr/common/annotations"

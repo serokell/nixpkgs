@@ -123,7 +123,7 @@ in {
           ${
           concatStringsSep " \\\n"
           (mapAttrsToList (name: value: "-D${name}=${value}")
-          cfg.javaProperties)
+            cfg.javaProperties)
           } \
           ${cfg.extraJavaOptions} ActiveMQBroker "${cfg.configurationURI}"
       '';

@@ -178,7 +178,7 @@ let
       ] ++ optional (container.entrypoint != null)
         "--entrypoint=${escapeShellArg container.entrypoint}"
         ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
-        container.environment)
+          container.environment)
         ++ map (p: "-p ${escapeShellArg p}") container.ports
         ++ optional (container.user != null)
         "-u ${escapeShellArg container.user}"

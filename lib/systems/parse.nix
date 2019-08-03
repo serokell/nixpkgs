@@ -26,8 +26,8 @@ let
 
   setTypes = type:
     mapAttrs (name: value:
-    assert type.check value;
-    setType type.name ({ inherit name; } // value));
+      assert type.check value;
+      setType type.name ({ inherit name; } // value));
 
 in rec {
 

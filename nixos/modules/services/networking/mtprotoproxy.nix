@@ -22,7 +22,7 @@ let
       "[" + concatMapStringsSep "," convertOption opt + "]"
     else if isAttrs opt then
       "{" + concatStringsSep "," (mapAttrsToList
-      (name: opt: "${builtins.toJSON name}: ${convertOption opt}") opt) + "}"
+        (name: opt: "${builtins.toJSON name}: ${convertOption opt}") opt) + "}"
     else
       throw "Invalid option type";
 

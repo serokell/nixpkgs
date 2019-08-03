@@ -27,7 +27,7 @@ let
     requiredPerlModules = drvs:
       let modules = stdenv.lib.filter hasPerlModule drvs;
       in stdenv.lib.unique ([ perl ] ++ modules ++ stdenv.lib.concatLists
-      (stdenv.lib.catAttrs "requiredPerlModules" modules));
+        (stdenv.lib.catAttrs "requiredPerlModules" modules));
 
     # Convert derivation to a perl module.
     toPerlModule = drv:

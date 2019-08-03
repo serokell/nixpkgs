@@ -14,7 +14,7 @@ let
     let
       mkLines = conf:
         (lib.concatLists
-        (lib.flip lib.mapAttrsToList conf (k: map (v: "${k}: ${v}"))));
+          (lib.flip lib.mapAttrsToList conf (k: map (v: "${k}: ${v}"))));
       include = mkLines { Include = conf.Include or [ ]; };
       other = mkLines (conf // { Include = [ ]; });
     in pkgs.writeText "hylafax-config${name}"

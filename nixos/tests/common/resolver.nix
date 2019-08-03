@@ -141,12 +141,12 @@
           ns.fakedns. IN A ${config.networking.primaryIPAddress}
           . IN NS ns.fakedns.
           ${lib.concatImapStrings (num:
-          { ip, zones }: ''
-            ns${toString num}.fakedns. IN A ${ip}
-            ${lib.concatMapStrings (zone: ''
-              ${zone} IN NS ns${toString num}.fakedns.
-            '') zones}
-          '') (lib.filter (zi: zi.zones != [ ]) filteredZoneInfo)}
+            { ip, zones }: ''
+              ns${toString num}.fakedns. IN A ${ip}
+              ${lib.concatMapStrings (zone: ''
+                ${zone} IN NS ns${toString num}.fakedns.
+              '') zones}
+            '') (lib.filter (zi: zi.zones != [ ]) filteredZoneInfo)}
           ${recordsFromExtraHosts}
         '';
     };

@@ -455,7 +455,7 @@ in {
         pools.nextcloud = let
           phpAdminValues = (toKeyValue (foldr (a: b: a // b) { }
             (mapAttrsToList (k: v: { "php_admin_value[${k}]" = v; })
-            phpOptions)));
+              phpOptions)));
           in {
             phpOptions = phpOptionsExtensions;
             phpPackage = phpPackage;

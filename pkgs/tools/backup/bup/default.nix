@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
   buildInputs = [
     git
     (python2Packages.python.withPackages (p:
-    with p;
-    [ setuptools tornado ]
-    ++ stdenv.lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ]))
+      with p;
+      [ setuptools tornado ]
+      ++ stdenv.lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ]))
   ];
   nativeBuildInputs = [ pandoc perl makeWrapper ];
 

@@ -166,17 +166,17 @@ in rec {
     # Tests to run
     tests:
     lib.concatLists (lib.attrValues (lib.mapAttrs (name: test:
-    let testsToRun = if tests ? tests then tests.tests else [ ];
-    in if (substring 0 4 name == "test" || elem name testsToRun)
-    && ((testsToRun == [ ]) || elem name tests.tests)
-    && (test.expr != test.expected)
+      let testsToRun = if tests ? tests then tests.tests else [ ];
+      in if (substring 0 4 name == "test" || elem name testsToRun)
+      && ((testsToRun == [ ]) || elem name tests.tests)
+      && (test.expr != test.expected)
 
-    then [{
-      inherit name;
-      expected = test.expected;
-      result = test.expr;
-    }] else
-      [ ]) tests));
+      then [{
+        inherit name;
+        expected = test.expected;
+        result = test.expr;
+      }] else
+        [ ]) tests));
 
   /* Create a test assuming that list elements are `true`.
 
@@ -195,14 +195,14 @@ in rec {
 
   attrNamesToStr = a:
     trace ("Warning: `attrNamesToStr` is deprecated "
-    + "and will be removed in the next release. "
-    + "Please use more specific concatenation "
-    + "for your uses (`lib.concat(Map)StringsSep`).")
+      + "and will be removed in the next release. "
+      + "Please use more specific concatenation "
+      + "for your uses (`lib.concat(Map)StringsSep`).")
     (lib.concatStringsSep "; " (map (x: "${x}=") (attrNames a)));
 
   showVal = with lib;
     trace ("Warning: `showVal` is deprecated "
-    + "and will be removed in the next release, " + "please use `traceSeqN`")
+      + "and will be removed in the next release, " + "please use `traceSeqN`")
     (let
       modify = v:
         let
@@ -221,16 +221,16 @@ in rec {
         else
           v;
       go = x: generators.toPretty { allowPrettyValues = true; } (modify x);
-    in go);
+      in go);
 
   traceXMLVal = x:
     trace ("Warning: `traceXMLVal` is deprecated "
-    + "and will be removed in the next release. "
-    + "Please use `traceValFn builtins.toXML`.") (trace (builtins.toXML x) x);
+      + "and will be removed in the next release. "
+      + "Please use `traceValFn builtins.toXML`.") (trace (builtins.toXML x) x);
   traceXMLValMarked = str: x:
     trace ("Warning: `traceXMLValMarked` is deprecated "
-    + "and will be removed in the next release. "
-    + "Please use `traceValFn (x: str + builtins.toXML x)`.")
+      + "and will be removed in the next release. "
+      + "Please use `traceValFn (x: str + builtins.toXML x)`.")
     (trace (str + builtins.toXML x) x);
 
   # trace the arguments passed to function and its result
@@ -247,14 +247,14 @@ in rec {
 
   traceValIfNot = c: x:
     trace ("Warning: `traceValIfNot` is deprecated "
-    + "and will be removed in the next release. "
-    + "Please use `if/then/else` and `traceValSeq 1`.")
+      + "and will be removed in the next release. "
+      + "Please use `if/then/else` and `traceValSeq 1`.")
     (if c x then true else traceSeq (showVal x) false);
 
   addErrorContextToAttrs = attrs:
     trace ("Warning: `addErrorContextToAttrs` is deprecated "
-    + "and will be removed in the next release. "
-    + "Please use `builtins.addErrorContext` directly.")
+      + "and will be removed in the next release. "
+      + "Please use `builtins.addErrorContext` directly.")
     (lib.mapAttrs (a: v: lib.addErrorContext "while evaluating ${a}" v) attrs);
 
   # example: (traceCallXml "myfun" id 3) will output something like
@@ -264,24 +264,24 @@ in rec {
   #       args should be printed in any case
   traceCallXml = a:
     trace ("Warning: `traceCallXml` is deprecated "
-    + "and will be removed in the next release. "
-    + "Please complain if you use the function regularly.") (if !isInt a then
-      traceCallXml 1 ''
-        calling ${a}
-      ''
-    else
-      let nr = a;
-      in (str: expr:
-      if isFunction expr then
-        (arg:
-        traceCallXml (builtins.add 1 nr) ''
-          ${str}
-           arg ${builtins.toString nr} is 
-           ${builtins.toXML (builtins.seq arg arg)}'' (expr arg))
+      + "and will be removed in the next release. "
+      + "Please complain if you use the function regularly.") (if !isInt a then
+        traceCallXml 1 ''
+          calling ${a}
+        ''
       else
-        let r = builtins.seq expr expr;
-        in trace ''
-          ${str}
-           result:
-          ${builtins.toXML r}'' r));
+        let nr = a;
+        in (str: expr:
+          if isFunction expr then
+            (arg:
+              traceCallXml (builtins.add 1 nr) ''
+                ${str}
+                 arg ${builtins.toString nr} is 
+                 ${builtins.toXML (builtins.seq arg arg)}'' (expr arg))
+          else
+            let r = builtins.seq expr expr;
+            in trace ''
+              ${str}
+               result:
+              ${builtins.toXML r}'' r));
 }

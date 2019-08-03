@@ -315,18 +315,19 @@ in {
       "dnscrypt-proxy"
       "extraArgs"
     ] (config:
-    let val = getAttrFromPath [ "services" "dnscrypt-proxy" "tcpOnly" ] config;
-    in optional val "-T"))
+      let
+        val = getAttrFromPath [ "services" "dnscrypt-proxy" "tcpOnly" ] config;
+      in optional val "-T"))
 
     (mkChangedOptionModule [ "services" "dnscrypt-proxy" "ephemeralKeys" ] [
       "services"
       "dnscrypt-proxy"
       "extraArgs"
     ] (config:
-    let
-      val =
-        getAttrFromPath [ "services" "dnscrypt-proxy" "ephemeralKeys" ] config;
-    in optional val "-E"))
+      let
+        val = getAttrFromPath [ "services" "dnscrypt-proxy" "ephemeralKeys" ]
+          config;
+      in optional val "-E"))
 
     (mkRemovedOptionModule [ "services" "dnscrypt-proxy" "resolverList" ] ''
       The current resolver listing from upstream is always used

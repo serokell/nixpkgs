@@ -46,14 +46,14 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ glib dbus ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices AudioUnit Cocoa ]
     ++ lib.optionals (!libOnly) ([ libasyncns webrtc-audio-processing ]
-    ++ lib.optional jackaudioSupport libjack2
-    ++ lib.optionals x11Support [ xorg.xlibsWrapper xorg.libXtst xorg.libXi ]
-    ++ lib.optional useSystemd systemd
-    ++ lib.optionals stdenv.isLinux [ alsaLib udev ]
-    ++ lib.optional airtunesSupport openssl
-    ++ lib.optionals bluetoothSupport [ bluez5 sbc ]
-    ++ lib.optional remoteControlSupport lirc
-    ++ lib.optional zeroconfSupport avahi);
+      ++ lib.optional jackaudioSupport libjack2
+      ++ lib.optionals x11Support [ xorg.xlibsWrapper xorg.libXtst xorg.libXi ]
+      ++ lib.optional useSystemd systemd
+      ++ lib.optionals stdenv.isLinux [ alsaLib udev ]
+      ++ lib.optional airtunesSupport openssl
+      ++ lib.optionals bluetoothSupport [ bluez5 sbc ]
+      ++ lib.optional remoteControlSupport lirc
+      ++ lib.optional zeroconfSupport avahi);
 
   patches = [
     # The following two patches fix alsalib headers move, remove after the next release

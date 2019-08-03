@@ -31,7 +31,7 @@ let
 
   nvidia_x11s = [ nvidia_x11 ] ++ lib.optional nvidia_x11.useGLVND libglvnd
     ++ lib.optionals (nvidia_x11_i686 != null) ([ nvidia_x11_i686 ]
-    ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686);
+      ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686);
 
   nvidiaLibs = lib.makeLibraryPath nvidia_x11s;
 

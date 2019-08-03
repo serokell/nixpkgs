@@ -78,13 +78,13 @@ rec {
             set) [ "_definedNames" ];
         in if options._module.check.value && set ? _definedNames then
           foldl' (res: m:
-          foldl' (res: name:
-          if set ? ${name} then
-            res
-          else
-            throw "The option `${
-              showOption (prefix ++ [ name ])
-            }' defined in `${m.file}' does not exist.") res m.names) res
+            foldl' (res: name:
+              if set ? ${name} then
+                res
+              else
+                throw "The option `${
+                  showOption (prefix ++ [ name ])
+                }' defined in `${m.file}' does not exist.") res m.names) res
           set._definedNames
         else
           res;
@@ -105,15 +105,16 @@ rec {
     let
       toClosureList = file: parentKey:
         imap1 (n: x:
-        if isAttrs x || isFunction x then
-          let key = "${parentKey}:anon-${toString n}";
-          in unifyModuleSyntax file key
-          (unpackSubmodule (applyIfFunction key) x args)
-        else
-          let
-            file = toString x;
-            key = toString x;
-          in unifyModuleSyntax file key (applyIfFunction key (import x) args));
+          if isAttrs x || isFunction x then
+            let key = "${parentKey}:anon-${toString n}";
+            in unifyModuleSyntax file key
+            (unpackSubmodule (applyIfFunction key) x args)
+          else
+            let
+              file = toString x;
+              key = toString x;
+            in unifyModuleSyntax file key
+            (applyIfFunction key (import x) args));
     in builtins.genericClosure {
       startSet = toClosureList unknownModule "" modules;
       operator = m: toClosureList m.file m.key m.imports;
@@ -216,10 +217,10 @@ rec {
   */
   mergeModules = prefix: modules:
     mergeModules' prefix modules (concatMap (m:
-    map (config: {
-      inherit (m) file;
-      inherit config;
-    }) (pushDownProperties m.config)) modules);
+      map (config: {
+        inherit (m) file;
+        inherit config;
+      }) (pushDownProperties m.config)) modules);
 
   mergeModules' = prefix: options: configs:
     let
@@ -246,8 +247,8 @@ rec {
       */
       byName = attr: f: modules:
         foldl' (acc: module:
-        acc
-        // (mapAttrs (n: v: (acc.${n} or [ ]) ++ f module v) module.${attr}))
+          acc
+          // (mapAttrs (n: v: (acc.${n} or [ ]) ++ f module v) module.${attr}))
         { } modules;
       # an attrset 'name' => list of submodules that declare ‘name’.
       declsByName = byName "options" (module: option: [{
@@ -266,29 +267,29 @@ rec {
         inherit value;
       }]) configs;
     in (flip mapAttrs declsByName (name: decls:
-    # We're descending into attribute ‘name’.
-    let
-      loc = prefix ++ [ name ];
-      defns = defnsByName.${name} or [ ];
-      defns' = defnsByName'.${name} or [ ];
-      nrOptions = count (m: isOption m.options) decls;
-    in if nrOptions == length decls then
-      let opt = fixupOptionType loc (mergeOptionDecls loc decls);
-      in evalOptionValue loc opt defns'
-    else if nrOptions != 0 then
+      # We're descending into attribute ‘name’.
       let
-        firstOption = findFirst (m: isOption m.options) "" decls;
-        firstNonOption = findFirst (m: !isOption m.options) "" decls;
-      in throw "The option `${
-        showOption loc
-      }' in `${firstOption.file}' is a prefix of options in `${firstNonOption.file}'."
-    else
-      mergeModules' loc decls defns)) // {
-        _definedNames = map (m: {
-          inherit (m) file;
-          names = attrNames m.config;
-        }) configs;
-      };
+        loc = prefix ++ [ name ];
+        defns = defnsByName.${name} or [ ];
+        defns' = defnsByName'.${name} or [ ];
+        nrOptions = count (m: isOption m.options) decls;
+      in if nrOptions == length decls then
+        let opt = fixupOptionType loc (mergeOptionDecls loc decls);
+        in evalOptionValue loc opt defns'
+      else if nrOptions != 0 then
+        let
+          firstOption = findFirst (m: isOption m.options) "" decls;
+          firstNonOption = findFirst (m: !isOption m.options) "" decls;
+        in throw "The option `${
+          showOption loc
+        }' in `${firstOption.file}' is a prefix of options in `${firstNonOption.file}'."
+      else
+        mergeModules' loc decls defns)) // {
+          _definedNames = map (m: {
+            inherit (m) file;
+            names = attrNames m.config;
+          }) configs;
+        };
 
   /* Merge multiple option declarations into a single declaration.  In
      general, there should be only one declaration of each option.
@@ -304,51 +305,52 @@ rec {
   */
   mergeOptionDecls = loc: opts:
     foldl' (res: opt:
-    let
-      t = res.type;
-      t' = opt.options.type;
-      mergedType = t.typeMerge t'.functor;
-      typesMergeable = mergedType != null;
-      typeSet = if (bothHave "type") && typesMergeable then {
-        type = mergedType;
-      } else
-        { };
-      bothHave = k: opt.options ? ${k} && res ? ${k};
-    in if bothHave "default" || bothHave "example" || bothHave "description"
-    || bothHave "apply" || (bothHave "type" && (!typesMergeable)) then
-      throw
-      "The option `${showOption loc}' in `${opt.file}' is already declared in ${
-        showFiles res.declarations
-      }."
-    else
       let
-        /* Add the modules of the current option to the list of modules
-           already collected.  The options attribute except either a list of
-           submodules or a submodule. For each submodule, we add the file of the
-           current option declaration as the file use for the submodule.  If the
-           submodule defines any filename, then we ignore the enclosing option file.
-        */
-        options' = toList opt.options.options;
-        coerceOption = file: opt:
-          if isFunction opt then
-            packSubmodule file opt
+        t = res.type;
+        t' = opt.options.type;
+        mergedType = t.typeMerge t'.functor;
+        typesMergeable = mergedType != null;
+        typeSet = if (bothHave "type") && typesMergeable then {
+          type = mergedType;
+        } else
+          { };
+        bothHave = k: opt.options ? ${k} && res ? ${k};
+      in if bothHave "default" || bothHave "example" || bothHave "description"
+      || bothHave "apply" || (bothHave "type" && (!typesMergeable)) then
+        throw "The option `${
+          showOption loc
+        }' in `${opt.file}' is already declared in ${
+          showFiles res.declarations
+        }."
+      else
+        let
+          /* Add the modules of the current option to the list of modules
+             already collected.  The options attribute except either a list of
+             submodules or a submodule. For each submodule, we add the file of the
+             current option declaration as the file use for the submodule.  If the
+             submodule defines any filename, then we ignore the enclosing option file.
+          */
+          options' = toList opt.options.options;
+          coerceOption = file: opt:
+            if isFunction opt then
+              packSubmodule file opt
+            else
+              packSubmodule file { options = opt; };
+          getSubModules = opt.options.type.getSubModules or null;
+          submodules = if getSubModules != null then
+            map (packSubmodule opt.file) getSubModules ++ res.options
+          else if opt.options ? options then
+            map (coerceOption opt.file) options' ++ res.options
           else
-            packSubmodule file { options = opt; };
-        getSubModules = opt.options.type.getSubModules or null;
-        submodules = if getSubModules != null then
-          map (packSubmodule opt.file) getSubModules ++ res.options
-        else if opt.options ? options then
-          map (coerceOption opt.file) options' ++ res.options
-        else
-          res.options;
-      in opt.options // res // {
-        declarations = res.declarations ++ [ opt.file ];
-        options = submodules;
-      } // typeSet) {
-        inherit loc;
-        declarations = [ ];
-        options = [ ];
-      } opts;
+            res.options;
+        in opt.options // res // {
+          declarations = res.declarations ++ [ opt.file ];
+          options = submodules;
+        } // typeSet) {
+          inherit loc;
+          declarations = [ ];
+          options = [ ];
+        } opts;
 
   /* Merge all the definitions of an option to produce the final
      config value.

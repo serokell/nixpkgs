@@ -180,8 +180,8 @@ let
       # fork -> pattern
     else
       zipAttrsWith (name: head) (mapAttrsToList (name: child:
-      zoneConfigs' (parent // zone // { children = { }; }) name child)
-      zone.children);
+        zoneConfigs' (parent // zone // { children = { }; }) name child)
+        zone.children);
 
   # fighting infinite recursion
   zoneOptions = zoneOptionsRaw // childConfig zoneOptions1 true;

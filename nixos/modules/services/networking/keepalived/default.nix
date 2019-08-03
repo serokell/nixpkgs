@@ -57,7 +57,7 @@ let
 
       ${
       optionalString i.useVmac ("use_vmac"
-      + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
+        + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
       }
       ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 

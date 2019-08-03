@@ -118,7 +118,7 @@ in {
 
       dropbear -s -j -k -E -p ${toString cfg.port} ${
         optionalString (cfg.hostRSAKey == null && cfg.hostDSSKey == null
-        && cfg.hostECDSAKey == null) "-R"
+          && cfg.hostECDSAKey == null) "-R"
       }
     '';
 

@@ -249,7 +249,7 @@ in stdenv.mkDerivation rec {
         --prefix LD_LIBRARY_PATH ":" "${
       lib.makeLibraryPath
       ([ curl systemd libmad libvdpau libcec libcec_platform rtmpdump libass ]
-      ++ lib.optional nfsSupport libnfs)
+        ++ lib.optional nfsSupport libnfs)
         }"
     done
 

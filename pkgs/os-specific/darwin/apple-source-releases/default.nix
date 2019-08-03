@@ -140,9 +140,11 @@ let
       name = "${name}-${version}";
       enableParallelBuilding = true;
       meta = { platforms = stdenv.lib.platforms.darwin; };
-    }
-    // (if attrs ? srcs then { } else { src = fetchApple version sha256 name; })
-    // attrs);
+    } // (if attrs ? srcs then
+      { }
+    else {
+      src = fetchApple version sha256 name;
+    }) // attrs);
 
   applePackage = namePath: version: sha256:
     let

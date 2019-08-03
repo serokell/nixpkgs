@@ -13,10 +13,10 @@ let
       callPackage ./mk-stage0.nix { inherit (passthru) configuredSrc; };
     bootPkgs = bootPkgs.extend (lib.foldr lib.composeExtensions (_: _: { }) [
       (self: _:
-      import stage0 {
-        inherit (passthru) configuredSrc;
-        inherit (self) callPackage;
-      })
+        import stage0 {
+          inherit (passthru) configuredSrc;
+          inherit (self) callPackage;
+        })
 
       (callPackage ./common-overrides.nix {
         inherit haskellLib;

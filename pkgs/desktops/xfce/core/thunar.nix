@@ -54,14 +54,14 @@ in runCommand name {
     paths = [ build ] ++ thunarPlugins;
   };
 
-in ''
-  mkdir -p $out
-  pushd ${buildWithPlugins} > /dev/null
-  for d in `find . -maxdepth 1 -name "*" -printf "%f\n" | tail -n+2`; do
-    ln -s "${buildWithPlugins}/$d" "$out/$d"
-  done
-  popd > /dev/null
+  in ''
+    mkdir -p $out
+    pushd ${buildWithPlugins} > /dev/null
+    for d in `find . -maxdepth 1 -name "*" -printf "%f\n" | tail -n+2`; do
+      ln -s "${buildWithPlugins}/$d" "$out/$d"
+    done
+    popd > /dev/null
 
-  ${replaceLnExeListWithWrapped "$out/bin" [ "thunar" "thunar-settings" ]
-  [ ''--set THUNARX_MODULE_DIR "${buildWithPlugins}/lib/thunarx-2"'' ]}
-'')
+    ${replaceLnExeListWithWrapped "$out/bin" [ "thunar" "thunar-settings" ]
+    [ ''--set THUNARX_MODULE_DIR "${buildWithPlugins}/lib/thunarx-2"'' ]}
+  '')

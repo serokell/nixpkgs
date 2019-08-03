@@ -81,13 +81,13 @@ in {
 
     environment.systemPackages = pkgs.mate.basePackages
       ++ (pkgs.gnome3.removePackagesByName pkgs.mate.extraPackages
-      config.environment.mate.excludePackages) ++ [
-        pkgs.desktop-file-utils
-        pkgs.glib
-        pkgs.gtk3.out
-        pkgs.shared-mime-info
-        pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
-      ];
+        config.environment.mate.excludePackages) ++ [
+          pkgs.desktop-file-utils
+          pkgs.glib
+          pkgs.gtk3.out
+          pkgs.shared-mime-info
+          pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
+        ];
 
     programs.dconf.enable = true;
     services.gnome3.at-spi2-core.enable = true;

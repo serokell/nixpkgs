@@ -14,8 +14,8 @@ let
 in rec {
   makePaths = { extraClasspaths ? [ ] }:
     (builtins.map
-    (dep: if builtins.hasAttr "jar" dep.path then dep.path.jar else dep.path)
-    packages) ++ extraClasspaths;
+      (dep: if builtins.hasAttr "jar" dep.path then dep.path.jar else dep.path)
+      packages) ++ extraClasspaths;
   makeClasspaths = { extraClasspaths ? [ ] }:
     builtins.concatStringsSep ":" (makePaths { inherit extraClasspaths; });
 

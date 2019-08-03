@@ -41,7 +41,7 @@ let
     deprecated = [ "lacp_rate" "miimon" "mode" "xmit_hash_policy" ];
     filterDeprecated = bond:
       (filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
-      bond);
+        bond);
   };
 
   bondWarnings = let
@@ -71,7 +71,7 @@ let
       hasDefaultGatewaySet =
         (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
         || (cfg.enableIPv6 && cfg.defaultGateway6 != null
-        && cfg.defaultGateway6.address != "");
+          && cfg.defaultGateway6.address != "");
 
       networkLocalCommands = {
         after = [ "network-setup.service" ];
@@ -196,37 +196,37 @@ let
             mkdir -p $(dirname "$state")
 
             ${flip concatMapStrings ips (ip:
-            let cidr = "${ip.address}/${toString ip.prefixLength}";
-            in ''
-              echo "${cidr}" >> $state
-              echo -n "adding address ${cidr}... "
-              if out=$(ip addr add "${cidr}" dev "${i.name}" 2>&1); then
-                echo "done"
-              elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
-                echo "'ip addr add "${cidr}" dev "${i.name}"' failed: $out"
-                exit 1
-              fi
-            '')}
+              let cidr = "${ip.address}/${toString ip.prefixLength}";
+              in ''
+                echo "${cidr}" >> $state
+                echo -n "adding address ${cidr}... "
+                if out=$(ip addr add "${cidr}" dev "${i.name}" 2>&1); then
+                  echo "done"
+                elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
+                  echo "'ip addr add "${cidr}" dev "${i.name}"' failed: $out"
+                  exit 1
+                fi
+              '')}
 
             state="/run/nixos/network/routes/${i.name}"
             mkdir -p $(dirname "$state")
 
             ${flip concatMapStrings (i.ipv4.routes ++ i.ipv6.routes) (route:
-            let
-              cidr = "${route.address}/${toString route.prefixLength}";
-              via = optionalString (route.via != null) ''via "${route.via}"'';
-              options = concatStrings
-                (mapAttrsToList (name: val: "${name} ${val} ") route.options);
-            in ''
-              echo "${cidr}" >> $state
-              echo -n "adding route ${cidr}... "
-              if out=$(ip route add "${cidr}" ${options} ${via} dev "${i.name}" proto static 2>&1); then
-                echo "done"
-              elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
-                echo "'ip route add "${cidr}" ${options} ${via} dev "${i.name}"' failed: $out"
-                exit 1
-              fi
-            '')}
+              let
+                cidr = "${route.address}/${toString route.prefixLength}";
+                via = optionalString (route.via != null) ''via "${route.via}"'';
+                options = concatStrings
+                  (mapAttrsToList (name: val: "${name} ${val} ") route.options);
+              in ''
+                echo "${cidr}" >> $state
+                echo -n "adding route ${cidr}... "
+                if out=$(ip route add "${cidr}" ${options} ${via} dev "${i.name}" proto static 2>&1); then
+                  echo "done"
+                elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
+                  echo "'ip route add "${cidr}" ${options} ${via} dev "${i.name}"' failed: $out"
+                  exit 1
+                fi
+              '')}
           '';
           preStop = ''
             state="/run/nixos/network/routes/${i.name}"
@@ -269,255 +269,255 @@ let
       createBridgeDevice = n: v:
         nameValuePair "${n}-netdev"
         (let deps = concatLists (map deviceDependency v.interfaces);
-        in {
-          description = "Bridge Interface ${n}";
-          wantedBy = [ "network-setup.service" (subsystemDevice n) ];
-          bindsTo = deps ++ optional v.rstp "mstpd.service";
-          partOf = [ "network-setup.service" ]
-            ++ optional v.rstp "mstpd.service";
-          after = [ "network-pre.target" ] ++ deps
-            ++ optional v.rstp "mstpd.service" ++ concatMap (i: [
-              "network-addresses-${i}.service"
-              "network-link-${i}.service"
-            ]) v.interfaces;
-          before = [ "network-setup.service" ];
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          path = [ pkgs.iproute ];
-          script = ''
-            # Remove Dead Interfaces
-            echo "Removing old bridge ${n}..."
-            ip link show "${n}" >/dev/null 2>&1 && ip link del "${n}"
+          in {
+            description = "Bridge Interface ${n}";
+            wantedBy = [ "network-setup.service" (subsystemDevice n) ];
+            bindsTo = deps ++ optional v.rstp "mstpd.service";
+            partOf = [ "network-setup.service" ]
+              ++ optional v.rstp "mstpd.service";
+            after = [ "network-pre.target" ] ++ deps
+              ++ optional v.rstp "mstpd.service" ++ concatMap (i: [
+                "network-addresses-${i}.service"
+                "network-link-${i}.service"
+              ]) v.interfaces;
+            before = [ "network-setup.service" ];
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            path = [ pkgs.iproute ];
+            script = ''
+              # Remove Dead Interfaces
+              echo "Removing old bridge ${n}..."
+              ip link show "${n}" >/dev/null 2>&1 && ip link del "${n}"
 
-            echo "Adding bridge ${n}..."
-            ip link add name "${n}" type bridge
+              echo "Adding bridge ${n}..."
+              ip link add name "${n}" type bridge
 
-            # Enslave child interfaces
-            ${flip concatMapStrings v.interfaces (i: ''
-              ip link set "${i}" master "${n}"
-              ip link set "${i}" up
-            '')}
-            # Save list of enslaved interfaces
-            echo "${
-              flip concatMapStrings v.interfaces (i: ''
-                ${i}
-              '')
-            }" > /run/${n}.interfaces
+              # Enslave child interfaces
+              ${flip concatMapStrings v.interfaces (i: ''
+                ip link set "${i}" master "${n}"
+                ip link set "${i}" up
+              '')}
+              # Save list of enslaved interfaces
+              echo "${
+                flip concatMapStrings v.interfaces (i: ''
+                  ${i}
+                '')
+              }" > /run/${n}.interfaces
 
-            ${optionalString config.virtualisation.libvirtd.enable ''
-              # Enslave dynamically added interfaces which may be lost on nixos-rebuild
-              for uri in qemu:///system lxc:///; do
-                for dom in $(${pkgs.libvirt}/bin/virsh -c $uri list --name); do
-                  ${pkgs.libvirt}/bin/virsh -c $uri dumpxml "$dom" | \
-                  ${pkgs.xmlstarlet}/bin/xmlstarlet sel -t -m "//domain/devices/interface[@type='bridge'][source/@bridge='${n}'][target/@dev]" -v "concat('ip link set ',target/@dev,' master ',source/@bridge,';')" | \
-                  ${pkgs.bash}/bin/bash
+              ${optionalString config.virtualisation.libvirtd.enable ''
+                # Enslave dynamically added interfaces which may be lost on nixos-rebuild
+                for uri in qemu:///system lxc:///; do
+                  for dom in $(${pkgs.libvirt}/bin/virsh -c $uri list --name); do
+                    ${pkgs.libvirt}/bin/virsh -c $uri dumpxml "$dom" | \
+                    ${pkgs.xmlstarlet}/bin/xmlstarlet sel -t -m "//domain/devices/interface[@type='bridge'][source/@bridge='${n}'][target/@dev]" -v "concat('ip link set ',target/@dev,' master ',source/@bridge,';')" | \
+                    ${pkgs.bash}/bin/bash
+                  done
                 done
+              ''}
+
+              # Enable stp on the interface
+              ${optionalString v.rstp ''
+                echo 2 >/sys/class/net/${n}/bridge/stp_state
+              ''}
+
+              ip link set "${n}" up
+            '';
+            postStop = ''
+              ip link set "${n}" down || true
+              ip link del "${n}" || true
+              rm -f /run/${n}.interfaces
+            '';
+            reload = ''
+              # Un-enslave child interfaces (old list of interfaces)
+              for interface in `cat /run/${n}.interfaces`; do
+                ip link set "$interface" nomaster up
               done
-            ''}
 
-            # Enable stp on the interface
-            ${optionalString v.rstp ''
-              echo 2 >/sys/class/net/${n}/bridge/stp_state
-            ''}
+              # Enslave child interfaces (new list of interfaces)
+              ${flip concatMapStrings v.interfaces (i: ''
+                ip link set "${i}" master "${n}"
+                ip link set "${i}" up
+              '')}
+              # Save list of enslaved interfaces
+              echo "${
+                flip concatMapStrings v.interfaces (i: ''
+                  ${i}
+                '')
+              }" > /run/${n}.interfaces
 
-            ip link set "${n}" up
-          '';
-          postStop = ''
-            ip link set "${n}" down || true
-            ip link del "${n}" || true
-            rm -f /run/${n}.interfaces
-          '';
-          reload = ''
-            # Un-enslave child interfaces (old list of interfaces)
-            for interface in `cat /run/${n}.interfaces`; do
-              ip link set "$interface" nomaster up
-            done
-
-            # Enslave child interfaces (new list of interfaces)
-            ${flip concatMapStrings v.interfaces (i: ''
-              ip link set "${i}" master "${n}"
-              ip link set "${i}" up
-            '')}
-            # Save list of enslaved interfaces
-            echo "${
-              flip concatMapStrings v.interfaces (i: ''
-                ${i}
-              '')
-            }" > /run/${n}.interfaces
-
-            # (Un-)set stp on the bridge
-            echo ${
-              if v.rstp then "2" else "0"
-            } > /sys/class/net/${n}/bridge/stp_state
-          '';
-          reloadIfChanged = true;
-        });
+              # (Un-)set stp on the bridge
+              echo ${
+                if v.rstp then "2" else "0"
+              } > /sys/class/net/${n}/bridge/stp_state
+            '';
+            reloadIfChanged = true;
+          });
 
       createVswitchDevice = n: v:
         nameValuePair "${n}-netdev" (let
           deps = concatLists (map deviceDependency v.interfaces);
           ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
-        in {
-          description = "Open vSwitch Interface ${n}";
-          wantedBy = [ "network-setup.service" "vswitchd.service" ] ++ deps;
-          bindsTo = [ "vswitchd.service" (subsystemDevice n) ] ++ deps;
-          partOf = [ "network-setup.service" "vswitchd.service" ];
-          after = [ "network-pre.target" "vswitchd.service" ] ++ deps;
-          before = [ "network-setup.service" ];
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          path = [ pkgs.iproute config.virtualisation.vswitch.package ];
-          script = ''
-            echo "Removing old Open vSwitch ${n}..."
-            ovs-vsctl --if-exists del-br ${n}
+          in {
+            description = "Open vSwitch Interface ${n}";
+            wantedBy = [ "network-setup.service" "vswitchd.service" ] ++ deps;
+            bindsTo = [ "vswitchd.service" (subsystemDevice n) ] ++ deps;
+            partOf = [ "network-setup.service" "vswitchd.service" ];
+            after = [ "network-pre.target" "vswitchd.service" ] ++ deps;
+            before = [ "network-setup.service" ];
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            path = [ pkgs.iproute config.virtualisation.vswitch.package ];
+            script = ''
+              echo "Removing old Open vSwitch ${n}..."
+              ovs-vsctl --if-exists del-br ${n}
 
-            echo "Adding Open vSwitch ${n}..."
-            ovs-vsctl -- add-br ${n} ${
-              concatMapStrings (i: " -- add-port ${n} ${i}") v.interfaces
-            } \
-              ${
-              concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers
+              echo "Adding Open vSwitch ${n}..."
+              ovs-vsctl -- add-br ${n} ${
+                concatMapStrings (i: " -- add-port ${n} ${i}") v.interfaces
               } \
-              ${
-              concatMapStrings (x: " -- " + x)
-              (splitString "\n" v.extraOvsctlCmds)
-              }
+                ${
+                concatMapStrings (x: " -- set-controller ${n} " + x)
+                v.controllers
+                } \
+                ${
+                concatMapStrings (x: " -- " + x)
+                (splitString "\n" v.extraOvsctlCmds)
+                }
 
-            echo "Adding OpenFlow rules for Open vSwitch ${n}..."
-            ovs-ofctl add-flows ${n} ${ofRules}
-          '';
-          postStop = ''
-            ip link set ${n} down || true
-            ovs-ofctl del-flows ${n} || true
-            ovs-vsctl --if-exists del-br ${n}
-          '';
-        });
+              echo "Adding OpenFlow rules for Open vSwitch ${n}..."
+              ovs-ofctl add-flows ${n} ${ofRules}
+            '';
+            postStop = ''
+              ip link set ${n} down || true
+              ovs-ofctl del-flows ${n} || true
+              ovs-vsctl --if-exists del-br ${n}
+            '';
+          });
 
       createBondDevice = n: v:
         nameValuePair "${n}-netdev"
         (let deps = concatLists (map deviceDependency v.interfaces);
-        in {
-          description = "Bond Interface ${n}";
-          wantedBy = [ "network-setup.service" (subsystemDevice n) ];
-          bindsTo = deps;
-          partOf = [ "network-setup.service" ];
-          after = [ "network-pre.target" ] ++ deps ++ concatMap (i: [
-            "network-addresses-${i}.service"
-            "network-link-${i}.service"
-          ]) v.interfaces;
-          before = [ "network-setup.service" ];
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          path = [ pkgs.iproute pkgs.gawk ];
-          script = ''
-            echo "Destroying old bond ${n}..."
-            ${destroyBond n}
+          in {
+            description = "Bond Interface ${n}";
+            wantedBy = [ "network-setup.service" (subsystemDevice n) ];
+            bindsTo = deps;
+            partOf = [ "network-setup.service" ];
+            after = [ "network-pre.target" ] ++ deps ++ concatMap (i: [
+              "network-addresses-${i}.service"
+              "network-link-${i}.service"
+            ]) v.interfaces;
+            before = [ "network-setup.service" ];
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            path = [ pkgs.iproute pkgs.gawk ];
+            script = ''
+              echo "Destroying old bond ${n}..."
+              ${destroyBond n}
 
-            echo "Creating new bond ${n}..."
-            ip link add name "${n}" type bond \
-            ${let
-              opts =
-                (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
-                // v.driverOptions;
-            in concatStringsSep "\n"
-            (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
+              echo "Creating new bond ${n}..."
+              ip link add name "${n}" type bond \
+              ${let
+                opts = (mapAttrs (const toString)
+                  (bondDeprecation.filterDeprecated v)) // v.driverOptions;
+              in concatStringsSep "\n"
+              (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
 
-            # !!! There must be a better way to wait for the interface
-            while [ ! -d "/sys/class/net/${n}" ]; do sleep 0.1; done;
+              # !!! There must be a better way to wait for the interface
+              while [ ! -d "/sys/class/net/${n}" ]; do sleep 0.1; done;
 
-            # Bring up the bond and enslave the specified interfaces
-            ip link set "${n}" up
-            ${flip concatMapStrings v.interfaces (i: ''
-              ip link set "${i}" down
-              ip link set "${i}" master "${n}"
-            '')}
-          '';
-          postStop = destroyBond n;
-        });
+              # Bring up the bond and enslave the specified interfaces
+              ip link set "${n}" up
+              ${flip concatMapStrings v.interfaces (i: ''
+                ip link set "${i}" down
+                ip link set "${i}" master "${n}"
+              '')}
+            '';
+            postStop = destroyBond n;
+          });
 
       createMacvlanDevice = n: v:
         nameValuePair "${n}-netdev" (let deps = deviceDependency v.interface;
-        in {
-          description = "Vlan Interface ${n}";
-          wantedBy = [ "network-setup.service" (subsystemDevice n) ];
-          bindsTo = deps;
-          partOf = [ "network-setup.service" ];
-          after = [ "network-pre.target" ] ++ deps;
-          before = [ "network-setup.service" ];
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          path = [ pkgs.iproute ];
-          script = ''
-            # Remove Dead Interfaces
-            ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
-            ip link add link "${v.interface}" name "${n}" type macvlan \
-              ${optionalString (v.mode != null) "mode ${v.mode}"}
-            ip link set "${n}" up
-          '';
-          postStop = ''
-            ip link delete "${n}" || true
-          '';
-        });
+          in {
+            description = "Vlan Interface ${n}";
+            wantedBy = [ "network-setup.service" (subsystemDevice n) ];
+            bindsTo = deps;
+            partOf = [ "network-setup.service" ];
+            after = [ "network-pre.target" ] ++ deps;
+            before = [ "network-setup.service" ];
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            path = [ pkgs.iproute ];
+            script = ''
+              # Remove Dead Interfaces
+              ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
+              ip link add link "${v.interface}" name "${n}" type macvlan \
+                ${optionalString (v.mode != null) "mode ${v.mode}"}
+              ip link set "${n}" up
+            '';
+            postStop = ''
+              ip link delete "${n}" || true
+            '';
+          });
 
       createSitDevice = n: v:
         nameValuePair "${n}-netdev" (let deps = deviceDependency v.dev;
-        in {
-          description = "6-to-4 Tunnel Interface ${n}";
-          wantedBy = [ "network-setup.service" (subsystemDevice n) ];
-          bindsTo = deps;
-          partOf = [ "network-setup.service" ];
-          after = [ "network-pre.target" ] ++ deps;
-          before = [ "network-setup.service" ];
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          path = [ pkgs.iproute ];
-          script = ''
-            # Remove Dead Interfaces
-            ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
-            ip link add name "${n}" type sit \
-              ${optionalString (v.remote != null) ''remote "${v.remote}"''} \
-              ${optionalString (v.local != null) ''local "${v.local}"''} \
-              ${optionalString (v.ttl != null) "ttl ${toString v.ttl}"} \
-              ${optionalString (v.dev != null) ''dev "${v.dev}"''}
-            ip link set "${n}" up
-          '';
-          postStop = ''
-            ip link delete "${n}" || true
-          '';
-        });
+          in {
+            description = "6-to-4 Tunnel Interface ${n}";
+            wantedBy = [ "network-setup.service" (subsystemDevice n) ];
+            bindsTo = deps;
+            partOf = [ "network-setup.service" ];
+            after = [ "network-pre.target" ] ++ deps;
+            before = [ "network-setup.service" ];
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            path = [ pkgs.iproute ];
+            script = ''
+              # Remove Dead Interfaces
+              ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
+              ip link add name "${n}" type sit \
+                ${optionalString (v.remote != null) ''remote "${v.remote}"''} \
+                ${optionalString (v.local != null) ''local "${v.local}"''} \
+                ${optionalString (v.ttl != null) "ttl ${toString v.ttl}"} \
+                ${optionalString (v.dev != null) ''dev "${v.dev}"''}
+              ip link set "${n}" up
+            '';
+            postStop = ''
+              ip link delete "${n}" || true
+            '';
+          });
 
       createVlanDevice = n: v:
         nameValuePair "${n}-netdev" (let deps = deviceDependency v.interface;
-        in {
-          description = "Vlan Interface ${n}";
-          wantedBy = [ "network-setup.service" (subsystemDevice n) ];
-          bindsTo = deps;
-          partOf = [ "network-setup.service" ];
-          after = [ "network-pre.target" ] ++ deps;
-          before = [ "network-setup.service" ];
-          serviceConfig.Type = "oneshot";
-          serviceConfig.RemainAfterExit = true;
-          path = [ pkgs.iproute ];
-          script = ''
-            # Remove Dead Interfaces
-            ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
-            ip link add link "${v.interface}" name "${n}" type vlan id "${
-              toString v.id
-            }"
+          in {
+            description = "Vlan Interface ${n}";
+            wantedBy = [ "network-setup.service" (subsystemDevice n) ];
+            bindsTo = deps;
+            partOf = [ "network-setup.service" ];
+            after = [ "network-pre.target" ] ++ deps;
+            before = [ "network-setup.service" ];
+            serviceConfig.Type = "oneshot";
+            serviceConfig.RemainAfterExit = true;
+            path = [ pkgs.iproute ];
+            script = ''
+              # Remove Dead Interfaces
+              ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
+              ip link add link "${v.interface}" name "${n}" type vlan id "${
+                toString v.id
+              }"
 
-            # We try to bring up the logical VLAN interface. If the master 
-            # interface the logical interface is dependent upon is not up yet we will 
-            # fail to immediately bring up the logical interface. The resulting logical
-            # interface will brought up later when the master interface is up.
-            ip link set "${n}" up || true
-          '';
-          postStop = ''
-            ip link delete "${n}" || true
-          '';
-        });
+              # We try to bring up the logical VLAN interface. If the master 
+              # interface the logical interface is dependent upon is not up yet we will 
+              # fail to immediately bring up the logical interface. The resulting logical
+              # interface will brought up later when the master interface is up.
+              ip link set "${n}" up || true
+            '';
+            postStop = ''
+              ip link delete "${n}" || true
+            '';
+          });
 
       in listToAttrs (map configureAddrs interfaces
-      ++ map createTunDevice (filter (i: i.virtual) interfaces))
+        ++ map createTunDevice (filter (i: i.virtual) interfaces))
       // mapAttrs' createBridgeDevice cfg.bridges
       // mapAttrs' createVswitchDevice cfg.vswitches
       // mapAttrs' createBondDevice cfg.bonds

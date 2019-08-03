@@ -124,9 +124,9 @@ in {
     systemd.tmpfiles.rules =
       [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.user} - -" ]
       ++ (optional cfg.consumptionDirIsPublic
-      "d '${cfg.consumptionDir}' 777 ${cfg.user} ${cfg.user} - -"
-      # If the consumption dir is not created here, it's automatically created by
-      # 'manage' with the default permissions.
+        "d '${cfg.consumptionDir}' 777 ${cfg.user} ${cfg.user} - -"
+        # If the consumption dir is not created here, it's automatically created by
+        # 'manage' with the default permissions.
       );
 
     systemd.services.paperless-consumer = {

@@ -37,7 +37,7 @@ let
         type = types.str;
         apply = x:
           assert (builtins.stringLength x < 32 || abort
-          "Username '${x}' is longer than 31 characters which is not allowed!");
+            "Username '${x}' is longer than 31 characters which is not allowed!");
           x;
         description = ''
           The name of the user account. If undefined, the name of the
@@ -97,7 +97,7 @@ let
         type = types.str;
         apply = x:
           assert (builtins.stringLength x < 32 || abort
-          "Group name '${x}' is longer than 31 characters which is not allowed!");
+            "Group name '${x}' is longer than 31 characters which is not allowed!");
           x;
         default = "nogroup";
         description = "The user's primary group.";
@@ -387,29 +387,29 @@ let
 
   idsAreUnique = set: idAttr:
     !(fold (name:
-    args@{ dup, acc }:
-    let
-      id =
-        builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
-      exists = builtins.hasAttr id acc;
-      newAcc = acc // (builtins.listToAttrs [{
-        name = id;
-        value = true;
-      }]);
-    in if dup then
-      args
-    else if exists then
-      builtins.trace "Duplicate ${idAttr} ${id}" {
-        dup = true;
-        acc = null;
-      }
-    else {
-      dup = false;
-      acc = newAcc;
-    }) {
-      dup = false;
-      acc = { };
-    } (builtins.attrNames set)).dup;
+      args@{ dup, acc }:
+      let
+        id = builtins.toString
+          (builtins.getAttr idAttr (builtins.getAttr name set));
+        exists = builtins.hasAttr id acc;
+        newAcc = acc // (builtins.listToAttrs [{
+          name = id;
+          value = true;
+        }]);
+      in if dup then
+        args
+      else if exists then
+        builtins.trace "Duplicate ${idAttr} ${id}" {
+          dup = true;
+          acc = null;
+        }
+      else {
+        dup = false;
+        acc = newAcc;
+      }) {
+        dup = false;
+        acc = { };
+      } (builtins.attrNames set)).dup;
 
   uidsAreUnique =
     idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
@@ -610,11 +610,11 @@ in {
         # root and users in the wheel group.
         assertion = !cfg.mutableUsers -> any id (mapAttrsToList (name: cfg:
           (name == "root" || cfg.group == "wheel"
-          || elem "wheel" cfg.extraGroups)
+            || elem "wheel" cfg.extraGroups)
           && ((cfg.hashedPassword != null && cfg.hashedPassword != "!")
-          || cfg.password != null || cfg.passwordFile != null
-          || cfg.openssh.authorizedKeys.keys != [ ]
-          || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users);
+            || cfg.password != null || cfg.passwordFile != null
+            || cfg.openssh.authorizedKeys.keys != [ ]
+            || cfg.openssh.authorizedKeys.keyFiles != [ ])) cfg.users);
         message = ''
           Neither the root account nor any wheel user has a password or SSH authorized key.
           You must set one to prevent being locked out of your system.'';

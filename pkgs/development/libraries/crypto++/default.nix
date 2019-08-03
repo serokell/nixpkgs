@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
 
   patches = stdenv.lib.concatLists [
     (stdenv.lib.optional (stdenv.hostPlatform.system != "i686-cygwin")
-    ./dll.patch)
+      ./dll.patch)
     (stdenv.lib.optional stdenv.hostPlatform.isDarwin
-    ./GNUmakefile-darwin.patch)
+      ./GNUmakefile-darwin.patch)
   ];
 
   configurePhase = ''

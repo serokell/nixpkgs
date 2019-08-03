@@ -60,17 +60,18 @@ let
       nodejs.meta.platforms
     else
       fold (entry: platforms:
-      let
-        filterPlatforms = stdenv.lib.platforms.${removePrefix "!" entry} or [ ];
-        # Ignore unknown platforms
-      in if filterPlatforms == [ ] then
-        (if platforms == [ ] then nodejs.meta.platforms else platforms)
-      else if hasPrefix "!" entry then
-        subtractLists (intersectLists filterPlatforms nodejs.meta.platforms)
-        platforms
-      else
-        platforms ++ (intersectLists filterPlatforms nodejs.meta.platforms)) [ ]
-      os;
+        let
+          filterPlatforms =
+            stdenv.lib.platforms.${removePrefix "!" entry} or [ ];
+          # Ignore unknown platforms
+        in if filterPlatforms == [ ] then
+          (if platforms == [ ] then nodejs.meta.platforms else platforms)
+        else if hasPrefix "!" entry then
+          subtractLists (intersectLists filterPlatforms nodejs.meta.platforms)
+          platforms
+        else
+          platforms ++ (intersectLists filterPlatforms nodejs.meta.platforms))
+      [ ] os;
 
     mapDependencies = deps: f: rec {
       # Convert deps to attribute set
@@ -199,11 +200,11 @@ let
           # because node can't follow symlinks while resolving recursive deps.
           ${
           concatMapStrings (dep:
-          if dep.recursiveDeps == [ ] then ''
-            ln -sv ${dep}/lib/node_modules/${dep.pkgName} node_modules/
-          '' else ''
-            cp -R ${dep}/lib/node_modules/${dep.pkgName} node_modules/
-          '') (attrValues requiredDependencies)
+            if dep.recursiveDeps == [ ] then ''
+              ln -sv ${dep}/lib/node_modules/${dep.pkgName} node_modules/
+            '' else ''
+              cp -R ${dep}/lib/node_modules/${dep.pkgName} node_modules/
+            '') (attrValues requiredDependencies)
           }
 
           # Create shims for recursive dependenceies
@@ -314,22 +315,22 @@ let
 
       passthru.pkgName = pkgName;
     } // (filterAttrs
-    (n: v: all (k: n != k) [ "deps" "resolvedDeps" "optionalDependencies" ])
-    args) // {
-      name = namePrefix + name;
+      (n: v: all (k: n != k) [ "deps" "resolvedDeps" "optionalDependencies" ])
+      args) // {
+        name = namePrefix + name;
 
-      # Run the node setup hook when this package is a build input
-      propagatedNativeBuildInputs = (args.propagatedNativeBuildInputs or [ ])
-        ++ [ nodejs ];
+        # Run the node setup hook when this package is a build input
+        propagatedNativeBuildInputs = (args.propagatedNativeBuildInputs or [ ])
+          ++ [ nodejs ];
 
-      nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ neededNatives
-        ++ (attrValues requiredDependencies);
+        nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ neededNatives
+          ++ (attrValues requiredDependencies);
 
-      # Expose list of recursive dependencies upstream, up to the package that
-      # caused recursive dependency
-      recursiveDeps = (flatten (map (dep: remove name dep.recursiveDeps)
-        (attrValues requiredDependencies)))
-        ++ (attrNames recursiveDependencies);
-    });
+        # Expose list of recursive dependencies upstream, up to the package that
+        # caused recursive dependency
+        recursiveDeps = (flatten (map (dep: remove name dep.recursiveDeps)
+          (attrValues requiredDependencies)))
+          ++ (attrNames recursiveDependencies);
+      });
 
 in self

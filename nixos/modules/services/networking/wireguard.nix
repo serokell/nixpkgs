@@ -268,8 +268,8 @@ let
           " allowed-ips ${concatStringsSep "," peer.allowedIPs}";
         route_setup = optionalString (interfaceCfg.allowedIPsAsRoutes != false)
           (concatMapStringsSep "\n" (allowedIP:
-          "ip route replace ${allowedIP} dev ${interfaceName} table ${interfaceCfg.table}")
-          peer.allowedIPs);
+            "ip route replace ${allowedIP} dev ${interfaceName} table ${interfaceCfg.table}")
+            peer.allowedIPs);
         in ''
           ${wg_setup}
           ${route_setup}
@@ -279,8 +279,8 @@ let
         route_destroy =
           optionalString (interfaceCfg.allowedIPsAsRoutes != false)
           (concatMapStringsSep "\n" (allowedIP:
-          "ip route delete ${allowedIP} dev ${interfaceName} table ${interfaceCfg.table}")
-          peer.allowedIPs);
+            "ip route delete ${allowedIP} dev ${interfaceName} table ${interfaceCfg.table}")
+            peer.allowedIPs);
         in ''
           wg set ${interfaceName} peer ${peer.publicKey} remove
           ${route_destroy}
@@ -402,12 +402,12 @@ in {
       systemd.services = (mapAttrs' generateInterfaceUnit cfg.interfaces)
         // (listToAttrs (map generatePeerUnit all_peers))
         // (mapAttrs' generateKeyServiceUnit
-        (filterAttrs (name: value: value.generatePrivateKeyFile)
-        cfg.interfaces));
+          (filterAttrs (name: value: value.generatePrivateKeyFile)
+            cfg.interfaces));
 
       systemd.paths = mapAttrs' generatePathUnit
         (filterAttrs (name: value: value.privateKeyFile != null)
-        cfg.interfaces);
+          cfg.interfaces);
 
     });
 

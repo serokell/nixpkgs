@@ -5,20 +5,20 @@ let
   abi = buildPlatform.parsed.abi.name;
   include = includedFiles: src:
     builtins.filterSource (path: type:
-    lib.lists.any (f:
-    let p = toString (src + ("/" + f));
-    in (path == p) || (type == "directory" && lib.strings.hasPrefix path p))
-    includedFiles) src;
+      lib.lists.any (f:
+        let p = toString (src + ("/" + f));
+        in (path == p) || (type == "directory" && lib.strings.hasPrefix path p))
+      includedFiles) src;
   updateFeatures = f: up: functions:
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features)
-    (lib.attrsets.recursiveUpdate f up) functions);
+      (lib.attrsets.recursiveUpdate f up) functions);
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures = feat:
     lib.lists.foldl (features: featureName:
-    if feat.${featureName} or false then
-      [ featureName ] ++ features
-    else
-      features) [ ] (builtins.attrNames feat);
+      if feat.${featureName} or false then
+        [ featureName ] ++ features
+      else
+        features) [ ] (builtins.attrNames feat);
 in rec {
   cargo_download = f:
     cargo_download_0_1_1 {
@@ -1813,21 +1813,23 @@ in rec {
     clap_2_32_0_ {
       dependencies = mapFeatures features
         ([ bitflags_1_0_3 textwrap_0_10_0 unicode_width_0_1_5 ]
-        ++ (if features.clap_2_32_0.atty or false then [ atty_0_2_11 ] else [ ])
-        ++ (if features.clap_2_32_0.strsim or false then
-          [ strsim_0_7_0 ]
-        else
-          [ ]) ++ (if features.clap_2_32_0.vec_map or false then
-            [ vec_map_0_8_1 ]
+          ++ (if features.clap_2_32_0.atty or false then
+            [ atty_0_2_11 ]
           else
-            [ ])) ++ (if !(kernel == "windows") then
-              mapFeatures features ([ ]
-              ++ (if features.clap_2_32_0.ansi_term or false then
-                [ ansi_term_0_11_0 ]
-              else
-                [ ]))
+            [ ]) ++ (if features.clap_2_32_0.strsim or false then
+              [ strsim_0_7_0 ]
             else
-              [ ]);
+              [ ]) ++ (if features.clap_2_32_0.vec_map or false then
+                [ vec_map_0_8_1 ]
+              else
+                [ ])) ++ (if !(kernel == "windows") then
+                  mapFeatures features ([ ]
+                    ++ (if features.clap_2_32_0.ansi_term or false then
+                      [ ansi_term_0_11_0 ]
+                    else
+                      [ ]))
+                else
+                  [ ]);
       features = mkFeatures (features.clap_2_32_0 or { });
     };
   clap_2_32_0_features = f:
@@ -2684,8 +2686,8 @@ in rec {
           ])
         else
           [ ]) ++ (if !(kernel == "windows" || kernel == "darwin" || kernel
-          == "ios") then
-            mapFeatures features ([ openssl_0_9_24 ])
+            == "ios") then
+              mapFeatures features ([ openssl_0_9_24 ])
           else
             [ ]) ++ (if kernel == "windows" then
               mapFeatures features ([ schannel_0_1_13 ])
@@ -2984,10 +2986,10 @@ in rec {
       else
         [ ]) ++ (if (kernel == "linux" || kernel == "darwin") then
           mapFeatures features ([ ]
-          ++ (if features.rand_0_4_2.libc or false then
-            [ libc_0_2_42 ]
-          else
-            [ ]))
+            ++ (if features.rand_0_4_2.libc or false then
+              [ libc_0_2_42 ]
+            else
+              [ ]))
         else
           [ ]) ++ (if kernel == "windows" then
             mapFeatures features ([ winapi_0_3_5 ])
@@ -3551,10 +3553,10 @@ in rec {
         else
           [ ]) ++ (if (kernel == "linux" || kernel == "darwin") then
             mapFeatures features ([ libc_0_2_42 ]
-            ++ (if features.tar_0_4_16.xattr or false then
-              [ xattr_0_2_2 ]
-            else
-              [ ]))
+              ++ (if features.tar_0_4_16.xattr or false then
+                [ xattr_0_2_2 ]
+              else
+                [ ]))
           else
             [ ]);
       features = mkFeatures (features.tar_0_4_16 or { });

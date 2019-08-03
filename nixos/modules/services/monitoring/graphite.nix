@@ -471,9 +471,9 @@ in {
     })
 
     (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator
-    || cfg.carbon.enableRelay) {
-      environment.systemPackages = [ pkgs.pythonPackages.carbon ];
-    })
+      || cfg.carbon.enableRelay) {
+        environment.systemPackages = [ pkgs.pythonPackages.carbon ];
+      })
 
     (mkIf cfg.web.enable (let
       python27' = pkgs.python27.override {
@@ -483,64 +483,64 @@ in {
         };
       };
       pythonPackages = python27'.pkgs;
-    in {
-      systemd.services.graphiteWeb = {
-        description = "Graphite Web Interface";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        path = [ pkgs.perl ];
-        environment = {
-          PYTHONPATH = let
-            penv = pkgs.python.buildEnv.override {
-              extraLibs =
-                [ pythonPackages.graphite-web pythonPackages.pysqlite ];
-            };
-            penvPack = "${penv}/${pkgs.python.sitePackages}";
-            in concatStringsSep ":" [
-              "${graphiteLocalSettingsDir}"
-              "${penvPack}/opt/graphite/webapp"
-              "${penvPack}"
-              # explicitly adding pycairo in path because it cannot be imported via buildEnv
-              "${pkgs.pythonPackages.pycairo}/${pkgs.python.sitePackages}"
-            ];
-          DJANGO_SETTINGS_MODULE = "graphite.settings";
-          GRAPHITE_CONF_DIR = configDir;
-          GRAPHITE_STORAGE_DIR = dataDir;
-          LD_LIBRARY_PATH = "${pkgs.cairo.out}/lib";
-        };
-        serviceConfig = {
-          ExecStart = ''
-            ${pkgs.python27Packages.waitress-django}/bin/waitress-serve-django \
-              --host=${cfg.web.listenAddress} --port=${toString cfg.web.port}
+      in {
+        systemd.services.graphiteWeb = {
+          description = "Graphite Web Interface";
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          path = [ pkgs.perl ];
+          environment = {
+            PYTHONPATH = let
+              penv = pkgs.python.buildEnv.override {
+                extraLibs =
+                  [ pythonPackages.graphite-web pythonPackages.pysqlite ];
+              };
+              penvPack = "${penv}/${pkgs.python.sitePackages}";
+              in concatStringsSep ":" [
+                "${graphiteLocalSettingsDir}"
+                "${penvPack}/opt/graphite/webapp"
+                "${penvPack}"
+                # explicitly adding pycairo in path because it cannot be imported via buildEnv
+                "${pkgs.pythonPackages.pycairo}/${pkgs.python.sitePackages}"
+              ];
+            DJANGO_SETTINGS_MODULE = "graphite.settings";
+            GRAPHITE_CONF_DIR = configDir;
+            GRAPHITE_STORAGE_DIR = dataDir;
+            LD_LIBRARY_PATH = "${pkgs.cairo.out}/lib";
+          };
+          serviceConfig = {
+            ExecStart = ''
+              ${pkgs.python27Packages.waitress-django}/bin/waitress-serve-django \
+                --host=${cfg.web.listenAddress} --port=${toString cfg.web.port}
+            '';
+            User = "graphite";
+            Group = "graphite";
+            PermissionsStartOnly = true;
+          };
+          preStart = ''
+            if ! test -e ${dataDir}/db-created; then
+              mkdir -p ${dataDir}/{whisper/,log/webapp/}
+              chmod 0700 ${dataDir}/{whisper/,log/webapp/}
+
+              ${pkgs.pythonPackages.django_1_8}/bin/django-admin.py migrate --noinput
+
+              chown -R graphite:graphite ${dataDir}
+
+              touch ${dataDir}/db-created
+            fi
+
+            # Only collect static files when graphite_web changes.
+            if ! [ "${dataDir}/current_graphite_web" -ef "${pythonPackages.graphite-web}" ]; then
+              mkdir -p ${staticDir}
+              ${pkgs.pythonPackages.django_1_8}/bin/django-admin.py collectstatic  --noinput --clear
+              chown -R graphite:graphite ${staticDir}
+              ln -sfT "${pythonPackages.graphite-web}" "${dataDir}/current_graphite_web"
+            fi
           '';
-          User = "graphite";
-          Group = "graphite";
-          PermissionsStartOnly = true;
         };
-        preStart = ''
-          if ! test -e ${dataDir}/db-created; then
-            mkdir -p ${dataDir}/{whisper/,log/webapp/}
-            chmod 0700 ${dataDir}/{whisper/,log/webapp/}
 
-            ${pkgs.pythonPackages.django_1_8}/bin/django-admin.py migrate --noinput
-
-            chown -R graphite:graphite ${dataDir}
-
-            touch ${dataDir}/db-created
-          fi
-
-          # Only collect static files when graphite_web changes.
-          if ! [ "${dataDir}/current_graphite_web" -ef "${pythonPackages.graphite-web}" ]; then
-            mkdir -p ${staticDir}
-            ${pkgs.pythonPackages.django_1_8}/bin/django-admin.py collectstatic  --noinput --clear
-            chown -R graphite:graphite ${staticDir}
-            ln -sfT "${pythonPackages.graphite-web}" "${dataDir}/current_graphite_web"
-          fi
-        '';
-      };
-
-      environment.systemPackages = [ pythonPackages.graphite-web ];
-    }))
+        environment.systemPackages = [ pythonPackages.graphite-web ];
+      }))
 
     (mkIf cfg.api.enable {
       systemd.services.graphiteApi = {
@@ -647,15 +647,15 @@ in {
     })
 
     (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator
-    || cfg.carbon.enableRelay || cfg.web.enable || cfg.api.enable
-    || cfg.seyren.enable || cfg.pager.enable || cfg.beacon.enable) {
-      users.users = singleton {
-        name = "graphite";
-        uid = config.ids.uids.graphite;
-        description = "Graphite daemon user";
-        home = dataDir;
-      };
-      users.groups.graphite.gid = config.ids.gids.graphite;
-    })
+      || cfg.carbon.enableRelay || cfg.web.enable || cfg.api.enable
+      || cfg.seyren.enable || cfg.pager.enable || cfg.beacon.enable) {
+        users.users = singleton {
+          name = "graphite";
+          uid = config.ids.uids.graphite;
+          description = "Graphite daemon user";
+          home = dataDir;
+        };
+        users.groups.graphite.gid = config.ids.gids.graphite;
+      })
   ];
 }

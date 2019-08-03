@@ -129,12 +129,13 @@ rec {
       abort "This case should never happen."
     else
       foldl' (val: def:
-      if def.value != val then
-        throw "The option `${showOption loc}' has conflicting definitions, in ${
-          showFiles (getFiles defs)
-        }."
-      else
-        val) (head defs).value defs;
+        if def.value != val then
+          throw
+          "The option `${showOption loc}' has conflicting definitions, in ${
+            showFiles (getFiles defs)
+          }."
+        else
+          val) (head defs).value defs;
 
   /* Extracts values of all "value" keys of the given list.
 
@@ -162,31 +163,31 @@ rec {
 
   optionAttrSetToDocList' = prefix: options:
     concatMap (opt:
-    let
-      docOption = rec {
-        loc = opt.loc;
-        name = showOption opt.loc;
-        description =
-          opt.description or (lib.warn "Option `${name}' has no description."
-          "This option has no description.");
-        declarations = filter (x: x != unknownModule) opt.declarations;
-        internal = opt.internal or false;
-        visible = opt.visible or true;
-        readOnly = opt.readOnly or false;
-        type = opt.type.description or null;
-      } // optionalAttrs (opt ? example) {
-        example = scrubOptionValue opt.example;
-      } // optionalAttrs (opt ? default) {
-        default = scrubOptionValue opt.default;
-      } // optionalAttrs (opt ? defaultText) { default = opt.defaultText; }
-        // optionalAttrs
-        (opt ? relatedPackages && opt.relatedPackages != null) {
-          inherit (opt) relatedPackages;
-        };
+      let
+        docOption = rec {
+          loc = opt.loc;
+          name = showOption opt.loc;
+          description =
+            opt.description or (lib.warn "Option `${name}' has no description."
+              "This option has no description.");
+          declarations = filter (x: x != unknownModule) opt.declarations;
+          internal = opt.internal or false;
+          visible = opt.visible or true;
+          readOnly = opt.readOnly or false;
+          type = opt.type.description or null;
+        } // optionalAttrs (opt ? example) {
+          example = scrubOptionValue opt.example;
+        } // optionalAttrs (opt ? default) {
+          default = scrubOptionValue opt.default;
+        } // optionalAttrs (opt ? defaultText) { default = opt.defaultText; }
+          // optionalAttrs
+          (opt ? relatedPackages && opt.relatedPackages != null) {
+            inherit (opt) relatedPackages;
+          };
 
-      subOptions = let ss = opt.type.getSubOptions opt.loc;
-        in if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
-    in [ docOption ] ++ subOptions) (collect isOption options);
+        subOptions = let ss = opt.type.getSubOptions opt.loc;
+          in if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
+      in [ docOption ] ++ subOptions) (collect isOption options);
 
   /* This function recursively removes all derivation attributes from
      `x` except for the `name` attribute.

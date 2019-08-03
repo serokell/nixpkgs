@@ -26,11 +26,11 @@ let
 
         luadeps_ = luadeps
           ++ (lib.concatMap (d: if d ? luadeps then d.luadeps else [ ])
-          luadeps);
+            luadeps);
 
         runtimeDeps_ = runtimeDeps
           ++ (lib.concatMap (d: if d ? runtimeDeps then d.runtimeDeps else [ ])
-          luadeps) ++ [ lua coreutils ];
+            luadeps) ++ [ lua coreutils ];
 
         mkcfg = ''
           export LUAROCKS_CONFIG=config.lua

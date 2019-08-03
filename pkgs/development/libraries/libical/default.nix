@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     vala
     gobject-introspection
     (python3.withPackages
-    (pkgs: with pkgs; [ pygobject3 ])) # running libical-glib tests
+      (pkgs: with pkgs; [ pygobject3 ])) # running libical-glib tests
     # Docs building fails: https://github.com/NixOS/nixpkgs/pull/61657#issuecomment-495579489
     #    gtk-doc docbook_xsl docbook_xml_dtd_43 # docs
   ];

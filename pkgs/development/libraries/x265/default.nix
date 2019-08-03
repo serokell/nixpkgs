@@ -1,6 +1,6 @@
 { stdenv, fetchurl, fetchpatch, cmake, nasm, numactl, numaSupport ?
   stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isx86
-  || stdenv.hostPlatform.isAarch64) # Enabled by default on NUMA platforms
+    || stdenv.hostPlatform.isAarch64) # Enabled by default on NUMA platforms
 , debugSupport ? false # Run-time sanity checks (debugging)
 , highbitdepthSupport ?
   false # false=8bits per channel, true=10/12bits per channel

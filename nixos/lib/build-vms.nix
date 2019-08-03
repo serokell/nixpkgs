@@ -59,45 +59,45 @@ rec {
       nodes_ = flip map machinesNumbered (m:
         nameValuePair m.fst [
           ({ config, nodes, ... }:
-          let
-            interfacesNumbered =
-              zipLists config.virtualisation.vlans (range 1 255);
-            interfaces = flip map interfacesNumbered ({ fst, snd }:
-              nameValuePair "eth${toString snd}" {
-                ipv4.addresses = [{
-                  address = "192.168.${toString fst}.${toString m.snd}";
-                  prefixLength = 24;
-                }];
-              });
-          in {
-            key = "ip-address";
-            config = {
-              networking.hostName = m.fst;
+            let
+              interfacesNumbered =
+                zipLists config.virtualisation.vlans (range 1 255);
+              interfaces = flip map interfacesNumbered ({ fst, snd }:
+                nameValuePair "eth${toString snd}" {
+                  ipv4.addresses = [{
+                    address = "192.168.${toString fst}.${toString m.snd}";
+                    prefixLength = 24;
+                  }];
+                });
+            in {
+              key = "ip-address";
+              config = {
+                networking.hostName = m.fst;
 
-              networking.interfaces = listToAttrs interfaces;
+                networking.interfaces = listToAttrs interfaces;
 
-              networking.primaryIPAddress = optionalString (interfaces != [ ])
-                (head (head interfaces).value.ipv4.addresses).address;
+                networking.primaryIPAddress = optionalString (interfaces != [ ])
+                  (head (head interfaces).value.ipv4.addresses).address;
 
-              # Put the IP addresses of all VMs in this machine's
-              # /etc/hosts file.  If a machine has multiple
-              # interfaces, use the IP address corresponding to
-              # the first interface (i.e. the first network in its
-              # virtualisation.vlans option).
-              networking.extraHosts = flip concatMapStrings machines (m':
-                let config = (getAttr m' nodes).config;
-                in optionalString (config.networking.primaryIPAddress != "")
-                ("${config.networking.primaryIPAddress} "
-                + optionalString (config.networking.domain != null)
-                "${config.networking.hostName}.${config.networking.domain} "
-                + ''
-                  ${config.networking.hostName}
-                ''));
+                # Put the IP addresses of all VMs in this machine's
+                # /etc/hosts file.  If a machine has multiple
+                # interfaces, use the IP address corresponding to
+                # the first interface (i.e. the first network in its
+                # virtualisation.vlans option).
+                networking.extraHosts = flip concatMapStrings machines (m':
+                  let config = (getAttr m' nodes).config;
+                  in optionalString (config.networking.primaryIPAddress != "")
+                  ("${config.networking.primaryIPAddress} "
+                    + optionalString (config.networking.domain != null)
+                    "${config.networking.hostName}.${config.networking.domain} "
+                    + ''
+                      ${config.networking.hostName}
+                    ''));
 
-              virtualisation.qemu.options = flip map interfacesNumbered
-                ({ fst, snd }: qemuNICFlags snd fst m.snd);
-            };
-          })
+                virtualisation.qemu.options = flip map interfacesNumbered
+                  ({ fst, snd }: qemuNICFlags snd fst m.snd);
+              };
+            })
           (getAttr m.fst nodes)
         ]);
 

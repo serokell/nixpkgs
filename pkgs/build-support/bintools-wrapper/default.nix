@@ -84,7 +84,7 @@ in stdenv.mkDerivation {
   else
     stdenv.lib.removePrefix targetPrefix "${bintoolsName}-wrapper")
     + (stdenv.lib.optionalString (bintools != null && bintoolsVersion != "")
-    "-${bintoolsVersion}");
+      "-${bintoolsVersion}");
 
   preferLocalBuild = true;
 

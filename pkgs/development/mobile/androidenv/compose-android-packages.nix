@@ -48,10 +48,10 @@ let
   system-images-packages =
     stdenv.lib.recursiveUpdate system-images-packages-android
     (stdenv.lib.recursiveUpdate system-images-packages-android-tv
-    (stdenv.lib.recursiveUpdate system-images-packages-android-wear
-    (stdenv.lib.recursiveUpdate system-images-packages-android-wear-cn
-    (stdenv.lib.recursiveUpdate system-images-packages-google_apis
-    system-images-packages-google_apis_playstore))));
+      (stdenv.lib.recursiveUpdate system-images-packages-android-wear
+        (stdenv.lib.recursiveUpdate system-images-packages-android-wear-cn
+          (stdenv.lib.recursiveUpdate system-images-packages-google_apis
+            system-images-packages-google_apis_playstore))));
 
   # Generated addons
   addons = import ./generated/addons.nix { inherit fetchurl; };
@@ -98,11 +98,11 @@ in rec {
 
   system-images = stdenv.lib.flatten (map (apiVersion:
     map (type:
-    map (abiVersion:
-    deployAndroidPackage {
-      inherit os;
-      package = system-images-packages.${apiVersion}.${type}.${abiVersion};
-    }) abiVersions) systemImageTypes) platformVersions);
+      map (abiVersion:
+        deployAndroidPackage {
+          inherit os;
+          package = system-images-packages.${apiVersion}.${type}.${abiVersion};
+        }) abiVersions) systemImageTypes) platformVersions);
 
   lldb = map (version:
     import ./lldb.nix {
@@ -130,7 +130,7 @@ in rec {
       inherit os;
       package = addons.addons."${version}".google_apis;
     }) (builtins.filter (platformVersion: platformVersion < "26")
-    platformVersions); # API level 26 and higher include Google APIs by default
+      platformVersions); # API level 26 and higher include Google APIs by default
 
   google-tv-addons = map (version:
     deployAndroidPackage {
@@ -244,17 +244,17 @@ in rec {
 
         # Link extras
         ${stdenv.lib.concatMapStrings (identifier:
-        let
-          path = addons.extras."${identifier}".path;
-          addon = deployAndroidPackage {
-            inherit os;
-            package = addons.extras."${identifier}";
-          };
-        in ''
-          targetDir=$(dirname ${path})
-          mkdir -p $targetDir
-          ln -s ${addon}/libexec/android-sdk/${path} $targetDir
-        '') includeExtras}
+          let
+            path = addons.extras."${identifier}".path;
+            addon = deployAndroidPackage {
+              inherit os;
+              package = addons.extras."${identifier}";
+            };
+          in ''
+            targetDir=$(dirname ${path})
+            mkdir -p $targetDir
+            ln -s ${addon}/libexec/android-sdk/${path} $targetDir
+          '') includeExtras}
 
         # Expose common executables in bin/
         mkdir -p $out/bin

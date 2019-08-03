@@ -413,9 +413,9 @@ in {
                 };"
                   ${
                   concatStringsSep "\n" (mapAttrsToList
-                  (database: permission: ''
-                    echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                  '') user.ensurePermissions)
+                    (database: permission: ''
+                      echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+                    '') user.ensurePermissions)
                   }
                 ) | ${mysql}/bin/mysql -u root -N
               '') cfg.ensureUsers}

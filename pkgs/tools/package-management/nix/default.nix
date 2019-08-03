@@ -86,7 +86,7 @@ let
         ] ++ lib.optionals (is20 && stdenv.isLinux)
           [ "--with-sandbox-shell=${sh}/bin/busybox" ] ++ lib.optional
           (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform
-          ? nix && stdenv.hostPlatform.nix ? system)
+            ? nix && stdenv.hostPlatform.nix ? system)
           "--with-system=${stdenv.hostPlatform.nix.system}"
           # RISC-V support in progress https://github.com/seccomp/libseccomp/pull/50
           ++ lib.optional (!withLibseccomp) "--disable-seccomp-sandboxing";

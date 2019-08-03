@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${jdk}/bin \
       --prefix LD_LIBRARY_PATH : ${
       stdenv.lib.makeLibraryPath ([ glib gtk3 libXtst ]
-      ++ stdenv.lib.optional (webkitgtk != null) webkitgtk)
+        ++ stdenv.lib.optional (webkitgtk != null) webkitgtk)
       } \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
       --add-flags "-configuration \$HOME/.eclipse/''${productId}_$productVersion/configuration"

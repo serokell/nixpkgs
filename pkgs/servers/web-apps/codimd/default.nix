@@ -24,9 +24,9 @@ let
 
   addPhantomjs = (pkgs:
     map (pkg:
-    pkg.override (oldAttrs: {
-      buildInputs = oldAttrs.buildInputs or [ ] ++ [ phantomjs2 ];
-    })) pkgs);
+      pkg.override (oldAttrs: {
+        buildInputs = oldAttrs.buildInputs or [ ] ++ [ phantomjs2 ];
+      })) pkgs);
 
   drvName = drv: (builtins.parseDrvName drv).name;
 
@@ -45,7 +45,7 @@ let
   filterNodePackagesToList = (filterPkgs: allPkgs:
     stdenv.lib.mapAttrsToList (_: v: v)
     (stdenv.lib.filterAttrs (n: _: !builtins.elem (drvName n) filterPkgs)
-    allPkgs));
+      allPkgs));
 
   # add phantomjs to buildInputs
   pkgsWithPhantomjs = (addPhantomjs

@@ -14,7 +14,7 @@ let
       subsetname = subsetname;
       functions = libDefPos toplib."${subsetname}";
     }) (builtins.filter (name: builtins.isAttrs toplib."${name}")
-    (builtins.attrNames toplib));
+      (builtins.attrNames toplib));
 
   nixpkgsLib = pkgs.lib;
 

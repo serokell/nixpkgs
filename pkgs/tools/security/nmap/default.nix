@@ -28,11 +28,11 @@ in stdenv.mkDerivation rec {
     # nping/EchoServer.cc, which is otherwise resolved to std::bind.
     # Also fixes a missing include.
     # https://github.com/nmap/nmap/pull/1363
-    fetchpatch {
-      url =
-        "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
-      sha256 = "088r8ylpc9hachsxs4r17cqfa1ncyspbjvkc573lill7rk1r9m0s";
-    })
+      fetchpatch {
+        url =
+          "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
+        sha256 = "088r8ylpc9hachsxs4r17cqfa1ncyspbjvkc573lill7rk1r9m0s";
+      })
   ];
 
   prePatch = optionalString stdenv.isDarwin ''

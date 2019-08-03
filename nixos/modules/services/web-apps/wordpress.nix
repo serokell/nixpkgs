@@ -36,10 +36,10 @@ let
 
         # copy additional plugin(s) and theme(s)
         ${concatMapStringsSep "\n" (theme:
-        "cp -r ${theme} $out/share/wordpress/wp-content/themes/${theme.name}")
+          "cp -r ${theme} $out/share/wordpress/wp-content/themes/${theme.name}")
         cfg.themes}
         ${concatMapStringsSep "\n" (plugin:
-        "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${plugin.name}")
+          "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${plugin.name}")
         cfg.plugins}
       '';
     };
@@ -356,27 +356,27 @@ in {
 
     systemd.services = mkMerge [
       (mapAttrs' (hostName: cfg:
-      (nameValuePair "wordpress-init-${hostName}" {
-        wantedBy = [ "multi-user.target" ];
-        before = [ "phpfpm-wordpress-${hostName}.service" ];
-        after = optional cfg.database.createLocally "mysql.service";
-        script = ''
-          if ! test -e "${stateDir hostName}/secret-keys.php"; then
-            echo "<?php" >> "${stateDir hostName}/secret-keys.php"
-            ${pkgs.curl}/bin/curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> "${
-            stateDir hostName
-            }/secret-keys.php"
-            echo "?>" >> "${stateDir hostName}/secret-keys.php"
-            chmod 440 "${stateDir hostName}/secret-keys.php"
-          fi
-        '';
+        (nameValuePair "wordpress-init-${hostName}" {
+          wantedBy = [ "multi-user.target" ];
+          before = [ "phpfpm-wordpress-${hostName}.service" ];
+          after = optional cfg.database.createLocally "mysql.service";
+          script = ''
+            if ! test -e "${stateDir hostName}/secret-keys.php"; then
+              echo "<?php" >> "${stateDir hostName}/secret-keys.php"
+              ${pkgs.curl}/bin/curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> "${
+              stateDir hostName
+              }/secret-keys.php"
+              echo "?>" >> "${stateDir hostName}/secret-keys.php"
+              chmod 440 "${stateDir hostName}/secret-keys.php"
+            fi
+          '';
 
-        serviceConfig = {
-          Type = "oneshot";
-          User = user;
-          Group = group;
-        };
-      })) eachSite)
+          serviceConfig = {
+            Type = "oneshot";
+            User = user;
+            Group = group;
+          };
+        })) eachSite)
 
       (optionalAttrs (any (v: v.database.createLocally) (attrValues eachSite)) {
         httpd.after = [ "mysql.service" ];

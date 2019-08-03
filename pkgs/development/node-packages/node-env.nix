@@ -38,19 +38,19 @@ let
 
   includeDependencies = { dependencies }:
     stdenv.lib.optionalString (dependencies != [ ]) (stdenv.lib.concatMapStrings
-    (dependency: ''
-      # Bundle the dependencies of the package
-      mkdir -p node_modules
-      cd node_modules
+      (dependency: ''
+        # Bundle the dependencies of the package
+        mkdir -p node_modules
+        cd node_modules
 
-      # Only include dependencies if they don't exist. They may also be bundled in the package.
-      if [ ! -e "${dependency.name}" ]
-      then
-          ${composePackage dependency}
-      fi
+        # Only include dependencies if they don't exist. They may also be bundled in the package.
+        if [ ! -e "${dependency.name}" ]
+        then
+            ${composePackage dependency}
+        fi
 
-      cd ..
-    '') dependencies);
+        cd ..
+      '') dependencies);
 
   # Recursively composes the dependencies of a package
   composePackage = { name, packageName, src, dependencies ? [ ], ... }@args: ''

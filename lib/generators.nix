@@ -33,7 +33,7 @@ in rec {
     let
       err = t: v:
         abort ("generators.mkValueStringDefault: "
-        + "${t} not supported: ${toPretty { } v}");
+          + "${t} not supported: ${toPretty { } v}");
     in if isInt v then
       toString v
       # we default to not quoting strings
@@ -163,7 +163,7 @@ in rec {
         # "<δ:${concatStringsSep "," (builtins.attrNames v)}>"
       else
         "{ " + libStr.concatStringsSep " " (libAttr.mapAttrsToList
-        (name: value: "${toPretty args name} = ${toPretty args value};") v)
+          (name: value: "${toPretty args name} = ${toPretty args value};") v)
         + " }"
     else if isFunction v then
       let
@@ -227,11 +227,11 @@ in rec {
       attr = let attrFilter = name: value: name != "_module" && value != null;
         in ind: x:
         libStr.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList
-        (name: value:
-        lib.optional (attrFilter name value) [
-          (key "	${ind}" name)
-          (expr "	${ind}" value)
-        ]) x));
+          (name: value:
+            lib.optional (attrFilter name value) [
+              (key "	${ind}" name)
+              (expr "	${ind}" value)
+            ]) x));
 
     in ''
       <?xml version="1.0" encoding="UTF-8"?>

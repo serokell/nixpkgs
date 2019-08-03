@@ -378,103 +378,103 @@ let
           # earlier point and it will run again with 'sufficient' further down.
           # We use try_first_pass the second time to avoid prompting password twice
           (optionalString (cfg.unixAuth && (config.security.pam.enableEcryptfs
-          || cfg.pamMount || cfg.enableKwallet || cfg.enableGnomeKeyring
-          || cfg.googleAuthenticator.enable || cfg.duoSecurity.enable)) ''
-            auth required pam_unix.so ${
-              optionalString cfg.allowNullPassword "nullok"
-            } likeauth
-            ${optionalString config.security.pam.enableEcryptfs
-            "auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap"}
-            ${optionalString cfg.pamMount
-            "auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so"}
-            ${optionalString cfg.enableKwallet
-            ("auth optional ${pkgs.plasma5.kwallet-pam}/lib/security/pam_kwallet5.so"
-            + " kwalletd=${pkgs.libsForQt5.kwallet.bin}/bin/kwalletd5")}
-            ${optionalString cfg.enableGnomeKeyring
-            "auth optional ${pkgs.gnome3.gnome-keyring}/lib/security/pam_gnome_keyring.so"}
-            ${optionalString cfg.googleAuthenticator.enable
-            "auth required ${pkgs.googleAuthenticator}/lib/security/pam_google_authenticator.so no_increment_hotp"}
-            ${optionalString cfg.duoSecurity.enable
-            "auth required ${pkgs.duo-unix}/lib/security/pam_duo.so"}
-          '') + ''
-            ${optionalString cfg.unixAuth "auth sufficient pam_unix.so ${
-              optionalString cfg.allowNullPassword "nullok"
-            } likeauth try_first_pass"}
-            ${optionalString cfg.otpwAuth
-            "auth sufficient ${pkgs.otpw}/lib/security/pam_otpw.so"}
-            ${optionalString use_ldap
-            "auth sufficient ${pam_ldap}/lib/security/pam_ldap.so use_first_pass"}
-            ${optionalString config.services.sssd.enable
-            "auth sufficient ${pkgs.sssd}/lib/security/pam_sss.so use_first_pass"}
-            ${optionalString config.krb5.enable ''
-              auth [default=ignore success=1 service_err=reset] ${pam_krb5}/lib/security/pam_krb5.so use_first_pass
-              auth [default=die success=done] ${pam_ccreds}/lib/security/pam_ccreds.so action=validate use_first_pass
-              auth sufficient ${pam_ccreds}/lib/security/pam_ccreds.so action=store use_first_pass
-            ''}
-            auth required pam_deny.so
+            || cfg.pamMount || cfg.enableKwallet || cfg.enableGnomeKeyring
+            || cfg.googleAuthenticator.enable || cfg.duoSecurity.enable)) ''
+              auth required pam_unix.so ${
+                optionalString cfg.allowNullPassword "nullok"
+              } likeauth
+              ${optionalString config.security.pam.enableEcryptfs
+              "auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap"}
+              ${optionalString cfg.pamMount
+              "auth optional ${pkgs.pam_mount}/lib/security/pam_mount.so"}
+              ${optionalString cfg.enableKwallet
+              ("auth optional ${pkgs.plasma5.kwallet-pam}/lib/security/pam_kwallet5.so"
+                + " kwalletd=${pkgs.libsForQt5.kwallet.bin}/bin/kwalletd5")}
+              ${optionalString cfg.enableGnomeKeyring
+              "auth optional ${pkgs.gnome3.gnome-keyring}/lib/security/pam_gnome_keyring.so"}
+              ${optionalString cfg.googleAuthenticator.enable
+              "auth required ${pkgs.googleAuthenticator}/lib/security/pam_google_authenticator.so no_increment_hotp"}
+              ${optionalString cfg.duoSecurity.enable
+              "auth required ${pkgs.duo-unix}/lib/security/pam_duo.so"}
+            '') + ''
+              ${optionalString cfg.unixAuth "auth sufficient pam_unix.so ${
+                optionalString cfg.allowNullPassword "nullok"
+              } likeauth try_first_pass"}
+              ${optionalString cfg.otpwAuth
+              "auth sufficient ${pkgs.otpw}/lib/security/pam_otpw.so"}
+              ${optionalString use_ldap
+              "auth sufficient ${pam_ldap}/lib/security/pam_ldap.so use_first_pass"}
+              ${optionalString config.services.sssd.enable
+              "auth sufficient ${pkgs.sssd}/lib/security/pam_sss.so use_first_pass"}
+              ${optionalString config.krb5.enable ''
+                auth [default=ignore success=1 service_err=reset] ${pam_krb5}/lib/security/pam_krb5.so use_first_pass
+                auth [default=die success=done] ${pam_ccreds}/lib/security/pam_ccreds.so action=validate use_first_pass
+                auth sufficient ${pam_ccreds}/lib/security/pam_ccreds.so action=store use_first_pass
+              ''}
+              auth required pam_deny.so
 
-            # Password management.
-            password sufficient pam_unix.so nullok sha512
-            ${optionalString config.security.pam.enableEcryptfs
-            "password optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so"}
-            ${optionalString cfg.pamMount
-            "password optional ${pkgs.pam_mount}/lib/security/pam_mount.so"}
-            ${optionalString use_ldap
-            "password sufficient ${pam_ldap}/lib/security/pam_ldap.so"}
-            ${optionalString config.services.sssd.enable
-            "password sufficient ${pkgs.sssd}/lib/security/pam_sss.so use_authtok"}
-            ${optionalString config.krb5.enable
-            "password sufficient ${pam_krb5}/lib/security/pam_krb5.so use_first_pass"}
-            ${optionalString config.services.samba.syncPasswordsByPam
-            "password optional ${pkgs.samba}/lib/security/pam_smbpass.so nullok use_authtok try_first_pass"}
-            ${optionalString cfg.enableGnomeKeyring
-            "password optional ${pkgs.gnome3.gnome-keyring}/lib/security/pam_gnome_keyring.so use_authtok"}
+              # Password management.
+              password sufficient pam_unix.so nullok sha512
+              ${optionalString config.security.pam.enableEcryptfs
+              "password optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so"}
+              ${optionalString cfg.pamMount
+              "password optional ${pkgs.pam_mount}/lib/security/pam_mount.so"}
+              ${optionalString use_ldap
+              "password sufficient ${pam_ldap}/lib/security/pam_ldap.so"}
+              ${optionalString config.services.sssd.enable
+              "password sufficient ${pkgs.sssd}/lib/security/pam_sss.so use_authtok"}
+              ${optionalString config.krb5.enable
+              "password sufficient ${pam_krb5}/lib/security/pam_krb5.so use_first_pass"}
+              ${optionalString config.services.samba.syncPasswordsByPam
+              "password optional ${pkgs.samba}/lib/security/pam_smbpass.so nullok use_authtok try_first_pass"}
+              ${optionalString cfg.enableGnomeKeyring
+              "password optional ${pkgs.gnome3.gnome-keyring}/lib/security/pam_gnome_keyring.so use_authtok"}
 
-            # Session management.
-            ${optionalString cfg.setEnvironment ''
-              session required pam_env.so envfile=${config.system.build.pamEnvironment}
-            ''}
-            session required pam_unix.so
-            ${optionalString cfg.setLoginUid "session ${
-              if config.boot.isContainer then "optional" else "required"
-            } pam_loginuid.so"}
-            ${optionalString cfg.makeHomeDir
-            "session required ${pkgs.pam}/lib/security/pam_mkhomedir.so silent skel=${config.security.pam.makeHomeDir.skelDirectory} umask=0022"}
-            ${optionalString cfg.updateWtmp
-            "session required ${pkgs.pam}/lib/security/pam_lastlog.so silent"}
-            ${optionalString config.security.pam.enableEcryptfs
-            "session optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so"}
-            ${optionalString use_ldap
-            "session optional ${pam_ldap}/lib/security/pam_ldap.so"}
-            ${optionalString config.services.sssd.enable
-            "session optional ${pkgs.sssd}/lib/security/pam_sss.so"}
-            ${optionalString config.krb5.enable
-            "session optional ${pam_krb5}/lib/security/pam_krb5.so"}
-            ${optionalString cfg.otpwAuth
-            "session optional ${pkgs.otpw}/lib/security/pam_otpw.so"}
-            ${optionalString cfg.startSession
-            "session optional ${pkgs.systemd}/lib/security/pam_systemd.so"}
-            ${optionalString cfg.forwardXAuth
-            "session optional pam_xauth.so xauthpath=${pkgs.xorg.xauth}/bin/xauth systemuser=99"}
-            ${optionalString (cfg.limits != [ ])
-            "session required ${pkgs.pam}/lib/security/pam_limits.so conf=${
-              makeLimitsConf cfg.limits
-            }"}
-            ${optionalString (cfg.showMotd && config.users.motd != null)
-            "session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}"}
-            ${optionalString cfg.pamMount
-            "session optional ${pkgs.pam_mount}/lib/security/pam_mount.so"}
-            ${optionalString
-            (cfg.enableAppArmor && config.security.apparmor.enable)
-            "session optional ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so order=user,group,default debug"}
-            ${optionalString (cfg.enableKwallet)
-            ("session optional ${pkgs.plasma5.kwallet-pam}/lib/security/pam_kwallet5.so"
-            + " kwalletd=${pkgs.libsForQt5.kwallet.bin}/bin/kwalletd5")}
-            ${optionalString (cfg.enableGnomeKeyring)
-            "session optional ${pkgs.gnome3.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start"}
-            ${optionalString (config.virtualisation.lxc.lxcfs.enable)
-            "session optional ${pkgs.lxc}/lib/security/pam_cgfs.so -c all"}
-          '');
+              # Session management.
+              ${optionalString cfg.setEnvironment ''
+                session required pam_env.so envfile=${config.system.build.pamEnvironment}
+              ''}
+              session required pam_unix.so
+              ${optionalString cfg.setLoginUid "session ${
+                if config.boot.isContainer then "optional" else "required"
+              } pam_loginuid.so"}
+              ${optionalString cfg.makeHomeDir
+              "session required ${pkgs.pam}/lib/security/pam_mkhomedir.so silent skel=${config.security.pam.makeHomeDir.skelDirectory} umask=0022"}
+              ${optionalString cfg.updateWtmp
+              "session required ${pkgs.pam}/lib/security/pam_lastlog.so silent"}
+              ${optionalString config.security.pam.enableEcryptfs
+              "session optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so"}
+              ${optionalString use_ldap
+              "session optional ${pam_ldap}/lib/security/pam_ldap.so"}
+              ${optionalString config.services.sssd.enable
+              "session optional ${pkgs.sssd}/lib/security/pam_sss.so"}
+              ${optionalString config.krb5.enable
+              "session optional ${pam_krb5}/lib/security/pam_krb5.so"}
+              ${optionalString cfg.otpwAuth
+              "session optional ${pkgs.otpw}/lib/security/pam_otpw.so"}
+              ${optionalString cfg.startSession
+              "session optional ${pkgs.systemd}/lib/security/pam_systemd.so"}
+              ${optionalString cfg.forwardXAuth
+              "session optional pam_xauth.so xauthpath=${pkgs.xorg.xauth}/bin/xauth systemuser=99"}
+              ${optionalString (cfg.limits != [ ])
+              "session required ${pkgs.pam}/lib/security/pam_limits.so conf=${
+                makeLimitsConf cfg.limits
+              }"}
+              ${optionalString (cfg.showMotd && config.users.motd != null)
+              "session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}"}
+              ${optionalString cfg.pamMount
+              "session optional ${pkgs.pam_mount}/lib/security/pam_mount.so"}
+              ${optionalString
+              (cfg.enableAppArmor && config.security.apparmor.enable)
+              "session optional ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so order=user,group,default debug"}
+              ${optionalString (cfg.enableKwallet)
+              ("session optional ${pkgs.plasma5.kwallet-pam}/lib/security/pam_kwallet5.so"
+                + " kwalletd=${pkgs.libsForQt5.kwallet.bin}/bin/kwalletd5")}
+              ${optionalString (cfg.enableGnomeKeyring)
+              "session optional ${pkgs.gnome3.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start"}
+              ${optionalString (config.virtualisation.lxc.lxcfs.enable)
+              "session optional ${pkgs.lxc}/lib/security/pam_cgfs.so -c all"}
+            '');
       };
 
     };
@@ -490,9 +490,9 @@ let
   # Create a limits.conf(5) file.
   makeLimitsConf = limits:
     pkgs.writeText "limits.conf" (concatMapStrings
-    ({ domain, type, item, value }: ''
-      ${domain} ${type} ${item} ${toString value}
-    '') limits);
+      ({ domain, type, item, value }: ''
+        ${domain} ${type} ${item} ${toString value}
+      '') limits);
 
   motd = pkgs.writeText "motd" config.users.motd;
 

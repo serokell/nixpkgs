@@ -21,15 +21,15 @@ let
 
     sortedAttrs = set:
       sort (l: r:
-      if l == "extraConfig" then
-        false # Always put extraConfig last
-      else if isAttrs set.${l} == isAttrs set.${r} then
-        l < r
-      else
-        isAttrs set.${r} # Attrsets should be last, makes for a nice config
-        # This last case occurs when any side (but not both) is an attrset
-        # The order of these is correct when the attrset is on the right
-        # which we're just returning
+        if l == "extraConfig" then
+          false # Always put extraConfig last
+        else if isAttrs set.${l} == isAttrs set.${r} then
+          l < r
+        else
+          isAttrs set.${r} # Attrsets should be last, makes for a nice config
+          # This last case occurs when any side (but not both) is an attrset
+          # The order of these is correct when the attrset is on the right
+          # which we're just returning
       ) (attrNames set);
 
     # Specifies an attrset that encodes the value according to its type
@@ -55,8 +55,8 @@ let
       #   </Foo>
       set = concatMap (subname:
         optionals (value.${subname} != null) ([ "<${name} ${subname}>" ]
-        ++ map (line: "	${line}") (toLines value.${subname})
-        ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
+          ++ map (line: "	${line}") (toLines value.${subname})
+          ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
 
     }.${builtins.typeOf value};
 

@@ -110,8 +110,8 @@ stdenv.mkDerivation ({
     "--enable-kernel=3.2.0" # can't get below with glibc >= 2.26
   ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     (lib.flip lib.withFeature "fp"
-    (stdenv.hostPlatform.platform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
-    == "soft"))
+      (stdenv.hostPlatform.platform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
+        == "soft"))
     "--with-__thread"
   ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform
     && stdenv.hostPlatform.isAarch32) [
@@ -139,73 +139,73 @@ stdenv.mkDerivation ({
   passthru = { inherit version; };
 }
 
-// (removeAttrs args [ "withLinuxHeaders" "withGd" ]) //
+  // (removeAttrs args [ "withLinuxHeaders" "withGd" ]) //
 
-{
-  name = name + "-${version}${patchSuffix}";
+  {
+    name = name + "-${version}${patchSuffix}";
 
-  src = fetchurl {
-    url = "mirror://gnu/glibc/glibc-${version}.tar.xz";
-    inherit sha256;
-  };
+    src = fetchurl {
+      url = "mirror://gnu/glibc/glibc-${version}.tar.xz";
+      inherit sha256;
+    };
 
-  # Remove absolute paths from `configure' & co.; build out-of-tree.
-  preConfigure = ''
-    export PWD_P=$(type -tP pwd)
-    for i in configure io/ftwtest-sh; do
-        # Can't use substituteInPlace here because replace hasn't been
-        # built yet in the bootstrap.
-        sed -i "$i" -e "s^/bin/pwd^$PWD_P^g"
-    done
+    # Remove absolute paths from `configure' & co.; build out-of-tree.
+    preConfigure = ''
+      export PWD_P=$(type -tP pwd)
+      for i in configure io/ftwtest-sh; do
+          # Can't use substituteInPlace here because replace hasn't been
+          # built yet in the bootstrap.
+          sed -i "$i" -e "s^/bin/pwd^$PWD_P^g"
+      done
 
-    mkdir ../build
-    cd ../build
+      mkdir ../build
+      cd ../build
 
-    configureScript="`pwd`/../$sourceRoot/configure"
+      configureScript="`pwd`/../$sourceRoot/configure"
 
-    ${lib.optionalString (stdenv.cc.libc != null)
-    ''makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib"''}
+      ${lib.optionalString (stdenv.cc.libc != null)
+      ''makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib"''}
 
 
-  '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    sed -i s/-lgcc_eh//g "../$sourceRoot/Makeconfig"
+    '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      sed -i s/-lgcc_eh//g "../$sourceRoot/Makeconfig"
 
-    cat > config.cache << "EOF"
-    libc_cv_forced_unwind=yes
-    libc_cv_c_cleanup=yes
-    libc_cv_gnu89_inline=yes
-    EOF
-  '';
+      cat > config.cache << "EOF"
+      libc_cv_forced_unwind=yes
+      libc_cv_c_cleanup=yes
+      libc_cv_gnu89_inline=yes
+      EOF
+    '';
 
-  preBuild = lib.optionalString withGd "unset NIX_DONT_SET_RPATH";
+    preBuild = lib.optionalString withGd "unset NIX_DONT_SET_RPATH";
 
-  doCheck = false; # fails
+    doCheck = false; # fails
 
-  meta = {
-    homepage = "https://www.gnu.org/software/libc/";
-    description = "The GNU C Library";
+    meta = {
+      homepage = "https://www.gnu.org/software/libc/";
+      description = "The GNU C Library";
 
-    longDescription = ''
-      Any Unix-like operating system needs a C library: the library which
-              defines the "system calls" and other basic facilities such as
-              open, malloc, printf, exit...
+      longDescription = ''
+        Any Unix-like operating system needs a C library: the library which
+                defines the "system calls" and other basic facilities such as
+                open, malloc, printf, exit...
 
-              The GNU C library is used as the C library in the GNU system and
-              most systems with the Linux kernel.
-           '';
+                The GNU C library is used as the C library in the GNU system and
+                most systems with the Linux kernel.
+             '';
 
-    license = lib.licenses.lgpl2Plus;
+      license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ lib.maintainers.eelco ];
-    platforms = lib.platforms.linux;
-  } // meta;
-}
+      maintainers = [ lib.maintainers.eelco ];
+      platforms = lib.platforms.linux;
+    } // meta;
+  }
 
-// lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
-  preInstall = null; # clobber the native hook
+  // lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
+    preInstall = null; # clobber the native hook
 
-  # To avoid a dependency on the build system 'bash'.
-  preFixup = ''
-    rm -f $bin/bin/{ldd,tzselect,catchsegv,xtrace}
-  '';
-})
+    # To avoid a dependency on the build system 'bash'.
+    preFixup = ''
+      rm -f $bin/bin/{ldd,tzselect,catchsegv,xtrace}
+    '';
+  })

@@ -313,17 +313,17 @@ let
       [Service]
       ${let env = cfg.globalEnvironment // def.environment;
       in concatMapStrings (n:
-      let
-        s = optionalString (env."${n}" != null) ''
-          Environment=${builtins.toJSON "${n}=${env.${n}}"}
-        '';
-        # systemd max line length is now 1MiB
-        # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-      in if stringLength s >= 1048576 then
-        throw
-        "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
-      else
-        s) (attrNames env)}
+        let
+          s = optionalString (env."${n}" != null) ''
+            Environment=${builtins.toJSON "${n}=${env.${n}}"}
+          '';
+          # systemd max line length is now 1MiB
+          # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
+        in if stringLength s >= 1048576 then
+          throw
+          "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+        else
+          s) (attrNames env)}
       ${if def.reloadIfChanged then ''
         X-ReloadIfChanged=true
       '' else if !def.restartIfChanged then ''
@@ -770,7 +770,7 @@ in {
 
     warnings = concatLists (mapAttrsToList (name: service:
       optional (service.serviceConfig.Type or "" == "oneshot"
-      && service.serviceConfig.Restart or "no" != "no")
+        && service.serviceConfig.Restart or "no" != "no")
       "Service ‘${name}.service’ with ‘Type=oneshot’ must have ‘Restart=no’")
       cfg.services);
 
@@ -890,11 +890,12 @@ in {
       cfg.targets
       // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
       cfg.timers // listToAttrs (map (v:
-      let n = escapeSystemdPath v.where;
-      in nameValuePair "${n}.mount" (mountToUnit n v)) cfg.mounts)
+        let n = escapeSystemdPath v.where;
+        in nameValuePair "${n}.mount" (mountToUnit n v)) cfg.mounts)
       // listToAttrs (map (v:
-      let n = escapeSystemdPath v.where;
-      in nameValuePair "${n}.automount" (automountToUnit n v)) cfg.automounts);
+        let n = escapeSystemdPath v.where;
+        in nameValuePair "${n}.automount" (automountToUnit n v))
+        cfg.automounts);
 
     systemd.user.units =
       mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v))

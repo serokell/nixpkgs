@@ -52,7 +52,7 @@ let
       concatStringsSep ''
         ,
             '' (mapAttrsToList (n: v: ''"${n}": ${builtins.toJSON v}'')
-      cfg.database_args)
+          cfg.database_args)
         }
       }
     }

@@ -105,9 +105,9 @@ in rec {
 
   attrsToSection = as:
     concatStrings (concatLists (mapAttrsToList (name: value:
-    map (x: ''
-      ${name}=${toOption x}
-    '') (if isList value then value else [ value ])) as));
+      map (x: ''
+        ${name}=${toOption x}
+      '') (if isList value then value else [ value ])) as));
 
   generateUnits = type: units: upstreamUnits: upstreamWants:
     pkgs.runCommand "${type}-units" {
@@ -181,23 +181,23 @@ in rec {
 
       # Create service aliases from aliases option.
       ${concatStrings (mapAttrsToList (name: unit:
-      concatMapStrings (name2: ''
-        ln -sfn '${name}' $out/'${name2}'
-      '') unit.aliases) units)}
+        concatMapStrings (name2: ''
+          ln -sfn '${name}' $out/'${name2}'
+        '') unit.aliases) units)}
 
       # Create .wants and .requires symlinks from the wantedBy and
       # requiredBy options.
       ${concatStrings (mapAttrsToList (name: unit:
-      concatMapStrings (name2: ''
-        mkdir -p $out/'${name2}.wants'
-        ln -sfn '../${name}' $out/'${name2}.wants'/
-      '') unit.wantedBy) units)}
+        concatMapStrings (name2: ''
+          mkdir -p $out/'${name2}.wants'
+          ln -sfn '../${name}' $out/'${name2}.wants'/
+        '') unit.wantedBy) units)}
 
       ${concatStrings (mapAttrsToList (name: unit:
-      concatMapStrings (name2: ''
-        mkdir -p $out/'${name2}.requires'
-        ln -sfn '../${name}' $out/'${name2}.requires'/
-      '') unit.requiredBy) units)}
+        concatMapStrings (name2: ''
+          mkdir -p $out/'${name2}.requires'
+          ln -sfn '../${name}' $out/'${name2}.requires'/
+        '') unit.requiredBy) units)}
 
       ${optionalString (type == "system") ''
         # Stupid misc. symlinks.

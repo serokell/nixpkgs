@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ curl openssl zlib aws-c-common aws-c-event-stream aws-checksums ]
     ++ lib.optionals (stdenv.isDarwin
-    && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))) [
-      CoreAudio
-      AudioToolbox
-    ];
+      && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis))) [
+        CoreAudio
+        AudioToolbox
+      ];
 
   cmakeFlags = [ "-DBUILD_DEPS=OFF" "-DCMAKE_SKIP_BUILD_RPATH=OFF" ]
     ++ lib.optional (!customMemoryManagement) "-DCUSTOM_MEMORY_MANAGEMENT=0"

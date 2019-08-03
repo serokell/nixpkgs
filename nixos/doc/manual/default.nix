@@ -262,10 +262,10 @@ in rec {
 
     cp ${
       builtins.toFile "options.json" (builtins.unsafeDiscardStringContext
-      (builtins.toJSON (builtins.listToAttrs (map (o: {
-        name = o.name;
-        value = removeAttrs o [ "name" "visible" "internal" ];
-      }) optionsList))))
+        (builtins.toJSON (builtins.listToAttrs (map (o: {
+          name = o.name;
+          value = removeAttrs o [ "name" "visible" "internal" ];
+        }) optionsList))))
     } $dst/options.json
 
     mkdir -p $out/nix-support

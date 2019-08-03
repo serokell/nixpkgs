@@ -171,7 +171,7 @@ in {
       hasDefaultGatewaySet =
         (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
         && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
-        && cfgN.defaultGateway6.address != ""));
+          && cfgN.defaultGateway6.address != ""));
       in {
         description = "DHCP Client";
 

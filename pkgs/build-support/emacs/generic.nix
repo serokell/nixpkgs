@@ -51,4 +51,4 @@ in stdenv.mkDerivation ({
   meta = defaultMeta // meta;
 }
 
-// removeAttrs args [ "buildInputs" "packageRequires" "meta" ])
+  // removeAttrs args [ "buildInputs" "packageRequires" "meta" ])

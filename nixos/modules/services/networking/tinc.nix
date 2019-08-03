@@ -127,28 +127,28 @@ in {
 
     environment.etc = fold (a: b: a // b) { } (flip mapAttrsToList cfg.networks
       (network: data:
-      flip mapAttrs' data.hosts (host: text:
-      nameValuePair ("tinc/${network}/hosts/${host}") ({
-        mode = "0644";
-        user = "tinc.${network}";
-        inherit text;
-      })) // {
-        "tinc/${network}/tinc.conf" = {
-          mode = "0444";
-          text = ''
-            Name = ${if data.name == null then "$HOST" else data.name}
-            DeviceType = ${data.interfaceType}
-            ${optionalString (data.ed25519PrivateKeyFile != null)
-            "Ed25519PrivateKeyFile = ${data.ed25519PrivateKeyFile}"}
-            ${optionalString (data.listenAddress != null)
-            "ListenAddress = ${data.listenAddress}"}
-            ${optionalString (data.bindToAddress != null)
-            "BindToAddress = ${data.bindToAddress}"}
-            Interface = tinc.${network}
-            ${data.extraConfig}
-          '';
-        };
-      }));
+        flip mapAttrs' data.hosts (host: text:
+          nameValuePair ("tinc/${network}/hosts/${host}") ({
+            mode = "0644";
+            user = "tinc.${network}";
+            inherit text;
+          })) // {
+            "tinc/${network}/tinc.conf" = {
+              mode = "0444";
+              text = ''
+                Name = ${if data.name == null then "$HOST" else data.name}
+                DeviceType = ${data.interfaceType}
+                ${optionalString (data.ed25519PrivateKeyFile != null)
+                "Ed25519PrivateKeyFile = ${data.ed25519PrivateKeyFile}"}
+                ${optionalString (data.listenAddress != null)
+                "ListenAddress = ${data.listenAddress}"}
+                ${optionalString (data.bindToAddress != null)
+                "BindToAddress = ${data.bindToAddress}"}
+                Interface = tinc.${network}
+                ${data.extraConfig}
+              '';
+            };
+          }));
 
     systemd.services = flip mapAttrs' cfg.networks (network: data:
       nameValuePair ("tinc.${network}") ({
@@ -199,11 +199,11 @@ in {
         buildCommand = ''
           mkdir -p $out/bin
           ${concatStringsSep "\n" (mapAttrsToList (network: data:
-          optionalString (versionAtLeast data.package.version "1.1pre") ''
-            makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
-              --add-flags "--pidfile=/run/tinc.${network}.pid" \
-              --add-flags "--config=/etc/tinc/${network}"
-          '') cfg.networks)}
+            optionalString (versionAtLeast data.package.version "1.1pre") ''
+              makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
+                --add-flags "--pidfile=/run/tinc.${network}.pid" \
+                --add-flags "--config=/etc/tinc/${network}"
+            '') cfg.networks)}
         '';
       };
       in [ cli-wrappers ];

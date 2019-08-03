@@ -132,7 +132,7 @@ in {
             target = mkDefault name;
             source = mkIf (config.text != null)
               (let name' = "etc-" + baseNameOf name;
-              in mkDefault (pkgs.writeText name' config.text));
+                in mkDefault (pkgs.writeText name' config.text));
           };
 
         }));

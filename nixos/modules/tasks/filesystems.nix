@@ -270,20 +270,20 @@ in {
 
         # Filesystems.
         ${concatMapStrings (fs:
-        (if fs.device != null then
-          escape fs.device
-        else if fs.label != null then
-          "/dev/disk/by-label/${escape fs.label}"
-        else
-          throw "No device specified for mount point ‘${fs.mountPoint}’.") + " "
-        + escape fs.mountPoint + " " + fs.fsType + " "
-        + builtins.concatStringsSep "," fs.options + " 0" + " "
-        + (if skipCheck fs then
-          "0"
-        else if fs.mountPoint == "/" then
-          "1"
-        else
-          "2") + "\n") fileSystems}
+          (if fs.device != null then
+            escape fs.device
+          else if fs.label != null then
+            "/dev/disk/by-label/${escape fs.label}"
+          else
+            throw "No device specified for mount point ‘${fs.mountPoint}’.")
+          + " " + escape fs.mountPoint + " " + fs.fsType + " "
+          + builtins.concatStringsSep "," fs.options + " 0" + " "
+          + (if skipCheck fs then
+            "0"
+          else if fs.mountPoint == "/" then
+            "1"
+          else
+            "2") + "\n") fileSystems}
 
         # Swap devices.
         ${flip concatMapStrings config.swapDevices (sw: ''

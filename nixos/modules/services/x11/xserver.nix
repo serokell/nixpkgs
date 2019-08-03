@@ -424,7 +424,7 @@ in {
         ];
         type = with types;
           listOf (coercedTo str (output: { inherit output; })
-          (submodule { options = xrandrOptions; }));
+            (submodule { options = xrandrOptions; }));
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply = heads:
@@ -610,13 +610,13 @@ in {
           "X11 requires Polkit to be enabled (‘security.polkit.enable = true’).";
       }
       (let primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
-      in {
-        assertion = length primaryHeads < 2;
-        message = "Only one head is allowed to be primary in "
-          + "‘services.xserver.xrandrHeads’, but there are "
-          + "${toString (length primaryHeads)} heads set to primary: "
-          + concatMapStringsSep ", " (x: x.output) primaryHeads;
-      })
+        in {
+          assertion = length primaryHeads < 2;
+          message = "Only one head is allowed to be primary in "
+            + "‘services.xserver.xrandrHeads’, but there are "
+            + "${toString (length primaryHeads)} heads set to primary: "
+            + concatMapStringsSep ", " (x: x.output) primaryHeads;
+        })
     ];
 
     environment.etc = (optionals cfg.exportConfiguration [
@@ -646,10 +646,10 @@ in {
       }]
       # Needed since 1.18; see https://bugs.freedesktop.org/show_bug.cgi?id=89023#c5
       ++ (let cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
-      in [{
-        source = xorg.xf86inputevdev.out + "/share" + cfgPath;
-        target = cfgPath;
-      }]);
+        in [{
+          source = xorg.xf86inputevdev.out + "/share" + cfgPath;
+          target = cfgPath;
+        }]);
 
     environment.systemPackages = [
       xorg.xorgserver.out
@@ -827,7 +827,8 @@ in {
 
           ${
           optionalString (driver.name != "virtualbox" && (cfg.resolutions != [ ]
-          || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)) (let
+            || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null))
+          (let
             f = depth: ''
               SubSection "Display"
                 Depth ${toString depth}
@@ -847,7 +848,7 @@ in {
                 }
               EndSubSection
             '';
-          in concatMapStrings f [ 8 16 24 ])
+            in concatMapStrings f [ 8 16 24 ])
           }
 
         EndSection

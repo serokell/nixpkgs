@@ -4,14 +4,14 @@ let
   kernel = stdenv.hostPlatform.parsed.kernel.name;
   updateFeatures = f: up: functions:
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features)
-    (lib.attrsets.recursiveUpdate f up) functions);
+      (lib.attrsets.recursiveUpdate f up) functions);
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures = feat:
     lib.lists.foldl (features: featureName:
-    if feat.${featureName} or false then
-      [ featureName ] ++ features
-    else
-      features) [ ] (builtins.attrNames feat);
+      if feat.${featureName} or false then
+        [ featureName ] ++ features
+      else
+        features) [ ] (builtins.attrNames feat);
 in rec {
   wc_lock = f:
     wc_lock_0_2_1 { features = wc_lock_0_2_1_features { wc_lock_0_2_1 = f; }; };
@@ -1277,13 +1277,13 @@ in rec {
     num_bigint_0_1_40_ {
       dependencies = mapFeatures features
         ([ num_integer_0_1_35 num_traits_0_1_37 ]
-        ++ (if features.num_bigint_0_1_40.rand or false then
-          [ rand_0_3_15 ]
-        else
-          [ ]) ++ (if features.num_bigint_0_1_40.rustc-serialize or false then
-            [ rustc_serialize_0_3_24 ]
+          ++ (if features.num_bigint_0_1_40.rand or false then
+            [ rand_0_3_15 ]
           else
-            [ ]));
+            [ ]) ++ (if features.num_bigint_0_1_40.rustc-serialize or false then
+              [ rustc_serialize_0_3_24 ]
+            else
+              [ ]));
       features = mkFeatures (features.num_bigint_0_1_40 or { });
     };
   num_bigint_0_1_40_features = f:
@@ -1330,10 +1330,11 @@ in rec {
     num_rational_0_1_39_ {
       dependencies = mapFeatures features
         ([ num_integer_0_1_35 num_traits_0_1_37 ]
-        ++ (if features.num_rational_0_1_39.num-bigint or false then
-          [ num_bigint_0_1_40 ]
-        else
-          [ ]) ++ (if features.num_rational_0_1_39.rustc-serialize or false then
+          ++ (if features.num_rational_0_1_39.num-bigint or false then
+            [ num_bigint_0_1_40 ]
+          else
+            [ ])
+          ++ (if features.num_rational_0_1_39.rustc-serialize or false then
             [ rustc_serialize_0_3_24 ]
           else
             [ ]));
@@ -1431,10 +1432,10 @@ in rec {
     png_0_5_2_ {
       dependencies = mapFeatures features
         ([ bitflags_0_7_0 inflate_0_1_1 num_iter_0_1_34 ]
-        ++ (if features.png_0_5_2.flate2 or false then
-          [ flate2_0_2_20 ]
-        else
-          [ ]));
+          ++ (if features.png_0_5_2.flate2 or false then
+            [ flate2_0_2_20 ]
+          else
+            [ ]));
       features = mkFeatures (features.png_0_5_2 or { });
     };
   png_0_5_2_features = f:

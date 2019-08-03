@@ -34,15 +34,16 @@ with lib;
       "printing"
       "drivers"
     ] (config:
-    let enabled = getAttrFromPath [ "services" "printing" "gutenprint" ] config;
-    in if enabled then [ pkgs.gutenprint ] else [ ]))
+      let
+        enabled = getAttrFromPath [ "services" "printing" "gutenprint" ] config;
+      in if enabled then [ pkgs.gutenprint ] else [ ]))
     (mkChangedOptionModule [ "services" "ddclient" "domain" ] [
       "services"
       "ddclient"
       "domains"
     ] (config:
-    let value = getAttrFromPath [ "services" "ddclient" "domain" ] config;
-    in if value != "" then [ value ] else [ ]))
+      let value = getAttrFromPath [ "services" "ddclient" "domain" ] config;
+      in if value != "" then [ value ] else [ ]))
     (mkRemovedOptionModule [ "services" "ddclient" "homeDir" ] "")
     (mkRenamedOptionModule [ "services" "flatpak" "extraPortals" ] [
       "xdg"
@@ -132,7 +133,7 @@ with lib;
       "applyManifests"
     ] "")
     (mkRemovedOptionModule [ "services" "kubernetes" "kubelet" "cadvisorPort" ]
-    "")
+      "")
     (mkRenamedOptionModule [ "services" "kubernetes" "proxy" "address" ] [
       "services"
       "kubernetes"
@@ -180,21 +181,21 @@ with lib;
       "home"
     ])
     (mkRemovedOptionModule [ "services" "neo4j" "port" ]
-    "Use services.neo4j.http.listenAddress instead.")
+      "Use services.neo4j.http.listenAddress instead.")
     (mkRemovedOptionModule [ "services" "neo4j" "boltPort" ]
-    "Use services.neo4j.bolt.listenAddress instead.")
+      "Use services.neo4j.bolt.listenAddress instead.")
     (mkRemovedOptionModule [ "services" "neo4j" "httpsPort" ]
-    "Use services.neo4j.https.listenAddress instead.")
+      "Use services.neo4j.https.listenAddress instead.")
     (mkRemovedOptionModule [ "services" "misc" "nzbget" "configFile" ]
-    "The configuration of nzbget is now managed by users through the web interface.")
+      "The configuration of nzbget is now managed by users through the web interface.")
     (mkRemovedOptionModule [ "services" "misc" "nzbget" "dataDir" ]
-    "The data directory for nzbget is now /var/lib/nzbget.")
+      "The data directory for nzbget is now /var/lib/nzbget.")
     (mkRemovedOptionModule [ "services" "misc" "nzbget" "openFirewall" ]
-    "The port used by nzbget is managed through the web interface so you should adjust your firewall rules accordingly.")
+      "The port used by nzbget is managed through the web interface so you should adjust your firewall rules accordingly.")
     (mkRemovedOptionModule [ "services" "prometheus" "alertmanager" "user" ]
-    "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting.")
+      "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting.")
     (mkRemovedOptionModule [ "services" "prometheus" "alertmanager" "group" ]
-    "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting.")
+      "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting.")
     (mkRenamedOptionModule [ "services" "tor" "relay" "portSpec" ] [
       "services"
       "tor"
@@ -223,9 +224,9 @@ with lib;
     ])
 
     (mkRemovedOptionModule [ "security" "setuidOwners" ]
-    "Use security.wrappers instead")
+      "Use security.wrappers instead")
     (mkRemovedOptionModule [ "security" "setuidPrograms" ]
-    "Use security.wrappers instead")
+      "Use security.wrappers instead")
 
     (mkRenamedOptionModule [ "security" "virtualization" "flushL1DataCache" ] [
       "security"
@@ -242,9 +243,9 @@ with lib;
     ])
 
     (mkRemovedOptionModule [ "services" "rmilter" "bindInetSockets" ]
-    "Use services.rmilter.bindSocket.* instead")
+      "Use services.rmilter.bindSocket.* instead")
     (mkRemovedOptionModule [ "services" "rmilter" "bindUnixSockets" ]
-    "Use services.rmilter.bindSocket.* instead")
+      "Use services.rmilter.bindSocket.* instead")
 
     # Xsession script
     (mkRenamedOptionModule [
@@ -287,7 +288,7 @@ with lib;
 
     # libvirtd
     (mkRemovedOptionModule [ "virtualisation" "libvirtd" "enableKVM" ]
-    "Set the option `virtualisation.libvirtd.qemuPackage' instead.")
+      "Set the option `virtualisation.libvirtd.qemuPackage' instead.")
 
     # ibus
     (mkRenamedOptionModule [ "programs" "ibus" "plugins" ] [
@@ -369,11 +370,11 @@ with lib;
       "welcometext"
     ])
     (mkRemovedOptionModule [ "services" "murmur" "pidfile" ]
-    "Hardcoded to /run/murmur/murmurd.pid now")
+      "Hardcoded to /run/murmur/murmurd.pid now")
 
     # parsoid
     (mkRemovedOptionModule [ "services" "parsoid" "interwikis" ]
-    "Use services.parsoid.wikis instead")
+      "Use services.parsoid.wikis instead")
 
     # plexpy / tautulli
     (mkRenamedOptionModule [ "services" "plexpy" ] [ "services" "tautulli" ])
@@ -402,7 +403,7 @@ with lib;
 
     # tarsnap
     (mkRemovedOptionModule [ "services" "tarsnap" "cachedir" ]
-    "Use services.tarsnap.archives.<name>.cachedir")
+      "Use services.tarsnap.archives.<name>.cachedir")
 
     # alsa
     (mkRenamedOptionModule [ "sound" "enableMediaKeys" ] [
@@ -416,16 +417,16 @@ with lib;
       [ "services" "postgrey" "inetAddr" ]
       [ "services" "postgrey" "inetPort" ]
     ] [ "services" "postgrey" "socket" ] (config:
-    let
-      value = p: getAttrFromPath p config;
-      inetAddr = [ "services" "postgrey" "inetAddr" ];
-      inetPort = [ "services" "postgrey" "inetPort" ];
-    in if value inetAddr == null then {
-      path = "/run/postgrey.sock";
-    } else {
-      addr = value inetAddr;
-      port = value inetPort;
-    }))
+      let
+        value = p: getAttrFromPath p config;
+        inetAddr = [ "services" "postgrey" "inetAddr" ];
+        inetPort = [ "services" "postgrey" "inetPort" ];
+      in if value inetAddr == null then {
+        path = "/run/postgrey.sock";
+      } else {
+        addr = value inetAddr;
+        port = value inetPort;
+      }))
 
     # dhcpd
     (mkRenamedOptionModule [ "services" "dhcpd" ] [ "services" "dhcpd4" ])
@@ -437,7 +438,7 @@ with lib;
       "interval"
     ])
     (mkRemovedOptionModule [ "services" "locate" "includeStore" ]
-    "Use services.locate.prunePaths")
+      "Use services.locate.prunePaths")
 
     # nfs
     (mkRenamedOptionModule [ "services" "nfs" "lockdPort" ] [
@@ -547,11 +548,11 @@ with lib;
     (mkRemovedOptionModule [ "services" "printing" "cupsFilesConf" ] "")
     (mkRemovedOptionModule [ "services" "printing" "cupsdConf" ] "")
     (mkRemovedOptionModule [ "services" "tor" "relay" "isBridge" ]
-    "Use services.tor.relay.role instead.")
+      "Use services.tor.relay.role instead.")
     (mkRemovedOptionModule [ "services" "tor" "relay" "isExit" ]
-    "Use services.tor.relay.role instead.")
+      "Use services.tor.relay.role instead.")
     (mkRemovedOptionModule [ "services" "xserver" "startGnuPGAgent" ]
-    "See the 16.09 release notes for more information.")
+      "See the 16.09 release notes for more information.")
     (mkRemovedOptionModule [ "services" "phpfpm" "phpIni" ] "")
     (mkRemovedOptionModule [ "services" "dovecot2" "package" ] "")
     (mkRemovedOptionModule [ "services" "firefox" "syncserver" "user" ] "")
@@ -574,19 +575,19 @@ with lib;
     (mkRemovedOptionModule [ "fonts" "fontconfig" "forceAutohint" ] "")
     (mkRemovedOptionModule [ "fonts" "fontconfig" "renderMonoTTFAsBitmap" ] "")
     (mkRemovedOptionModule [ "virtualisation" "xen" "qemu" ]
-    "You don't need this option anymore, it will work without it.")
+      "You don't need this option anymore, it will work without it.")
     (mkRemovedOptionModule [ "services" "logstash" "enableWeb" ]
-    "The web interface was removed from logstash")
+      "The web interface was removed from logstash")
     (mkRemovedOptionModule [ "boot" "zfs" "enableLegacyCrypto" ]
-    "The corresponding package was removed from nixpkgs.")
+      "The corresponding package was removed from nixpkgs.")
     (mkRemovedOptionModule [ "services" "winstone" ]
-    "The corresponding package was removed from nixpkgs.")
+      "The corresponding package was removed from nixpkgs.")
     (mkRemovedOptionModule [ "services" "mysql" "pidDir" ]
-    "Don't wait for pidfiles, describe dependencies through systemd")
+      "Don't wait for pidfiles, describe dependencies through systemd")
     (mkRemovedOptionModule [ "services" "mysql" "rootPassword" ]
-    "Use socket authentication or set the password outside of the nix store.")
+      "Use socket authentication or set the password outside of the nix store.")
     (mkRemovedOptionModule [ "services" "zabbixServer" "dbPassword" ]
-    "Use services.zabbixServer.database.passwordFile instead.")
+      "Use services.zabbixServer.database.passwordFile instead.")
 
     # ZSH
     (mkRenamedOptionModule [ "programs" "zsh" "enableSyntaxHighlighting" ] [

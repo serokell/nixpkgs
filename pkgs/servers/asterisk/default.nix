@@ -59,7 +59,7 @@ let
 
         ${lib.concatStringsSep "\n"
         (lib.mapAttrsToList (dst: src: "cp -r --no-preserve=mode ${src} ${dst}")
-        externals)}
+          externals)}
 
         ${lib.optionalString (externals ? "addons/mp3")
         "bash contrib/scripts/get_mp3_source.sh || true"}

@@ -332,20 +332,20 @@ let
           "ipv4"
           "addresses"
         ] (cfg:
-        with cfg;
-        optional (defined ipAddress && defined prefixLength) {
-          address = ipAddress;
-          prefixLength = prefixLength;
-        }))
+          with cfg;
+          optional (defined ipAddress && defined prefixLength) {
+            address = ipAddress;
+            prefixLength = prefixLength;
+          }))
         (mkMergedOptionModule [ [ "ipv6Address" ] [ "ipv6PrefixLength" ] ] [
           "ipv6"
           "addresses"
         ] (cfg:
-        with cfg;
-        optional (defined ipv6Address && defined ipv6PrefixLength) {
-          address = ipv6Address;
-          prefixLength = ipv6PrefixLength;
-        }))
+          with cfg;
+          optional (defined ipv6Address && defined ipv6PrefixLength) {
+            address = ipv6Address;
+            prefixLength = ipv6PrefixLength;
+          }))
 
         ({ options.warnings = options.warnings; })
       ];
@@ -1022,20 +1022,20 @@ in {
       flip map [ "4" "6" ]
       (v: nameValuePair "net.ipv${v}.conf.${i.name}.proxy_arp" true)))
       // listToAttrs (flip map (filter (i: i.preferTempAddress) interfaces)
-      (i: nameValuePair "net.ipv6.conf.${i.name}.use_tempaddr" 2));
+        (i: nameValuePair "net.ipv6.conf.${i.name}.use_tempaddr" 2));
 
     # Capabilities won't work unless we have at-least a 4.3 Linux
     # kernel because we need the ambient capability
     security.wrappers =
       if (versionAtLeast (getVersion config.boot.kernelPackages.kernel)
-      "4.3") then {
-        ping = {
-          source = "${pkgs.iputils.out}/bin/ping";
-          capabilities = "cap_net_raw+p";
+        "4.3") then {
+          ping = {
+            source = "${pkgs.iputils.out}/bin/ping";
+            capabilities = "cap_net_raw+p";
+          };
+        } else {
+          ping.source = "${pkgs.iputils.out}/bin/ping";
         };
-      } else {
-        ping.source = "${pkgs.iputils.out}/bin/ping";
-      };
 
     # Set the host and domain names in the activation script.  Don't
     # clear it if it's not configured in the NixOS configuration,
@@ -1226,32 +1226,32 @@ in {
             NAME:="${n}", ENV{INTERFACE}:="${n}", ENV{SYSTEMD_ALIAS}:="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
         in flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces)
         (device:
-        let
-          interfaces =
-            wlanListDeviceFirst device wlanDeviceInterfaces."${device}";
-          curInterface = elemAt interfaces 0;
-          newInterfaces = drop 1 interfaces;
-        in ''
-          # It is important to have that rule first as overwriting the NAME attribute also prevents the
-          # next rules from matching.
-          ${flip (concatMapStringsSep "\n")
-          (wlanListDeviceFirst device wlanDeviceInterfaces."${device}")
-          (interface:
-          ''
-            ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-              systemdAttrs interface._iName
-            }, RUN+="${newInterfaceScript device interface}"'')}
+          let
+            interfaces =
+              wlanListDeviceFirst device wlanDeviceInterfaces."${device}";
+            curInterface = elemAt interfaces 0;
+            newInterfaces = drop 1 interfaces;
+          in ''
+            # It is important to have that rule first as overwriting the NAME attribute also prevents the
+            # next rules from matching.
+            ${flip (concatMapStringsSep "\n")
+            (wlanListDeviceFirst device wlanDeviceInterfaces."${device}")
+            (interface:
+              ''
+                ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
+                  systemdAttrs interface._iName
+                }, RUN+="${newInterfaceScript device interface}"'')}
 
-          # Add the required, new WLAN interfaces to the default WLAN interface with the
-          # persistent, default name as assigned by udev.
-          ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
-            systemdAttrs curInterface._iName
-          }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
-          # Generate the same systemd events for both 'add' and 'move' udev events.
-          ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
-            systemdAttrs curInterface._iName
-          }
-        '');
+            # Add the required, new WLAN interfaces to the default WLAN interface with the
+            # persistent, default name as assigned by udev.
+            ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
+              systemdAttrs curInterface._iName
+            }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
+            # Generate the same systemd events for both 'add' and 'move' udev events.
+            ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
+              systemdAttrs curInterface._iName
+            }
+          '');
     });
   };
 

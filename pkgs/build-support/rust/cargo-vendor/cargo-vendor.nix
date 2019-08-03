@@ -23,22 +23,22 @@ in rec {
         src = exclude [ ".git" "target" ] ./.;
         dependencies = mapFeatures features ([
           (cratesIO.crates."cargo"."${deps."cargo_vendor"."0.1.23"."cargo"}"
-          deps)
+            deps)
           (cratesIO.crates."docopt"."${deps."cargo_vendor"."0.1.23"."docopt"}"
-          deps)
+            deps)
           (cratesIO.crates."env_logger"."${deps."cargo_vendor"."0.1.23"."env_logger"}"
-          deps)
+            deps)
           (cratesIO.crates."failure"."${deps."cargo_vendor"."0.1.23"."failure"}"
-          deps)
+            deps)
           (cratesIO.crates."serde"."${deps."cargo_vendor"."0.1.23"."serde"}"
-          deps)
+            deps)
           (cratesIO.crates."serde_json"."${deps."cargo_vendor"."0.1.23"."serde_json"}"
-          deps)
+            deps)
           (cratesIO.crates."toml"."${deps."cargo_vendor"."0.1.23"."toml"}" deps)
         ] ++ (if features.cargo_vendor."0.1.23".openssl or false then
           [
             (cratesIO.crates.openssl."${deps."cargo_vendor"."0.1.23".openssl}"
-            deps)
+              deps)
           ]
         else
           [ ]));
@@ -69,19 +69,19 @@ in rec {
         toml."${deps.cargo_vendor."0.1.23".toml}".default = true;
       }) [
         (cratesIO.features_.cargo."${deps."cargo_vendor"."0.1.23"."cargo"}"
-        deps)
+          deps)
         (cratesIO.features_.docopt."${deps."cargo_vendor"."0.1.23"."docopt"}"
-        deps)
+          deps)
         (cratesIO.features_.env_logger."${deps."cargo_vendor"."0.1.23"."env_logger"}"
-        deps)
+          deps)
         (cratesIO.features_.failure."${deps."cargo_vendor"."0.1.23"."failure"}"
-        deps)
+          deps)
         (cratesIO.features_.openssl."${deps."cargo_vendor"."0.1.23"."openssl"}"
-        deps)
+          deps)
         (cratesIO.features_.serde."${deps."cargo_vendor"."0.1.23"."serde"}"
-        deps)
+          deps)
         (cratesIO.features_.serde_json."${deps."cargo_vendor"."0.1.23"."serde_json"}"
-        deps)
+          deps)
         (cratesIO.features_.toml."${deps."cargo_vendor"."0.1.23"."toml"}" deps)
       ];
 

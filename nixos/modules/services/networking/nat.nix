@@ -64,38 +64,38 @@ let
         -j DNAT --to-destination ${fwd.destination}
 
       ${concatMapStrings (loopbackip:
-      let
-        m = builtins.match "([0-9.]+):([0-9-]+)" fwd.destination;
-        destinationIP = if (m == null) then
-          throw "bad ip:ports `${fwd.destination}'"
-        else
-          elemAt m 0;
-        destinationPorts = if (m == null) then
-          throw "bad ip:ports `${fwd.destination}'"
-        else
-          elemAt m 1;
-      in ''
-        # Allow connections to ${loopbackip}:${
-          toString fwd.sourcePort
-        } from the host itself
-        iptables -w -t nat -A OUTPUT \
-          -d ${loopbackip} -p ${fwd.proto} \
-          --dport ${builtins.toString fwd.sourcePort} \
-          -j DNAT --to-destination ${fwd.destination}
+        let
+          m = builtins.match "([0-9.]+):([0-9-]+)" fwd.destination;
+          destinationIP = if (m == null) then
+            throw "bad ip:ports `${fwd.destination}'"
+          else
+            elemAt m 0;
+          destinationPorts = if (m == null) then
+            throw "bad ip:ports `${fwd.destination}'"
+          else
+            elemAt m 1;
+        in ''
+          # Allow connections to ${loopbackip}:${
+            toString fwd.sourcePort
+          } from the host itself
+          iptables -w -t nat -A OUTPUT \
+            -d ${loopbackip} -p ${fwd.proto} \
+            --dport ${builtins.toString fwd.sourcePort} \
+            -j DNAT --to-destination ${fwd.destination}
 
-        # Allow connections to ${loopbackip}:${
-          toString fwd.sourcePort
-        } from other hosts behind NAT
-        iptables -w -t nat -A nixos-nat-pre \
-          -d ${loopbackip} -p ${fwd.proto} \
-          --dport ${builtins.toString fwd.sourcePort} \
-          -j DNAT --to-destination ${fwd.destination}
+          # Allow connections to ${loopbackip}:${
+            toString fwd.sourcePort
+          } from other hosts behind NAT
+          iptables -w -t nat -A nixos-nat-pre \
+            -d ${loopbackip} -p ${fwd.proto} \
+            --dport ${builtins.toString fwd.sourcePort} \
+            -j DNAT --to-destination ${fwd.destination}
 
-        iptables -w -t nat -A nixos-nat-post \
-          -d ${destinationIP} -p ${fwd.proto} \
-          --dport ${destinationPorts} \
-          -j SNAT --to-source ${loopbackip}
-      '') fwd.loopbackIPs}
+          iptables -w -t nat -A nixos-nat-post \
+            -d ${destinationIP} -p ${fwd.proto} \
+            --dport ${destinationPorts} \
+            -j SNAT --to-source ${loopbackip}
+        '') fwd.loopbackIPs}
     '') cfg.forwardPorts}
 
     ${optionalString (cfg.dmzHost != null) ''

@@ -44,10 +44,10 @@ let
     ''
       find pkg -type d -maxdepth 1 -mindepth 1 \
     '' + (lib.concatStringsSep "\n"
-    (map (str: "-not -name '${str}' \\") whitelist)) + ''
-      -exec echo "Removing package {}" \; \
-      -exec rm -r '{}' \;
-    '';
+      (map (str: "-not -name '${str}' \\") whitelist)) + ''
+        -exec echo "Removing package {}" \; \
+        -exec rm -r '{}' \;
+      '';
 in stdenv.mkDerivation rec {
   pname = "gap";
   # https://www.gap-system.org/Releases/

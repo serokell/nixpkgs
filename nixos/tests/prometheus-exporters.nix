@@ -327,21 +327,21 @@ let
       };
   };
 in mapAttrs (exporter: testConfig:
-(makeTest {
-  name = "prometheus-${exporter}-exporter";
+  (makeTest {
+    name = "prometheus-${exporter}-exporter";
 
-  nodes.${exporter} = mkMerge [
-    { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
-    testConfig.metricProvider or { }
-  ];
+    nodes.${exporter} = mkMerge [
+      { services.prometheus.exporters.${exporter} = testConfig.exporterConfig; }
+      testConfig.metricProvider or { }
+    ];
 
-  testScript = ''
-    ${"$" + exporter}->start();
-    ${concatStringsSep "  " (map (line: ''
-      ${"$" + exporter}->${line};
-    '') (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
-    ${"$" + exporter}->shutdown();
-  '';
+    testScript = ''
+      ${"$" + exporter}->start();
+      ${concatStringsSep "  " (map (line: ''
+        ${"$" + exporter}->${line};
+      '') (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
+      ${"$" + exporter}->shutdown();
+    '';
 
-  meta = with maintainers; { maintainers = [ willibutz ]; };
-})) exporterTests
+    meta = with maintainers; { maintainers = [ willibutz ]; };
+  })) exporterTests

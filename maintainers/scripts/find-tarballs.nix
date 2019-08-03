@@ -42,7 +42,8 @@ let
       concatLists (map derivationsIn' x)
     else if isAttrs x then
       concatLists (mapAttrsToList (n: v:
-      addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)) x)
+        addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v))
+        x)
     else
       [ ];
 
@@ -55,7 +56,7 @@ let
 
   immediateDependenciesOf = drv:
     concatLists (mapAttrsToList (n: v: derivationsIn v)
-    (removeAttrs drv [ "meta" "passthru" ]));
+      (removeAttrs drv [ "meta" "passthru" ]));
 
   derivationsIn = x:
     if !canEval x then

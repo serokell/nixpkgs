@@ -70,10 +70,10 @@ rec {
   pkgsForCross = let
     examplesByConfig = lib.flip lib.mapAttrs' lib.systems.examples
       (_: crossSystem:
-      nameValuePair crossSystem.config {
-        inherit crossSystem;
-        pkgsFor = mkPkgsFor crossSystem;
-      });
+        nameValuePair crossSystem.config {
+          inherit crossSystem;
+          pkgsFor = mkPkgsFor crossSystem;
+        });
     native = mkPkgsFor null;
     in crossSystem:
     let candidate = examplesByConfig.${crossSystem.config} or null;
@@ -143,7 +143,8 @@ rec {
 
   _mapTestOnHelper = f: crossSystem:
     mapAttrsRecursive (path: metaPatterns:
-    testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs)));
+      testOnCross crossSystem metaPatterns
+      (pkgs: f (getAttrFromPath path pkgs)));
 
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,
@@ -158,7 +159,7 @@ rec {
     let
       res = builtins.tryEval (if isDerivation value then
         value.meta.hydraPlatforms or (supportedMatches
-        (value.meta.platforms or [ "x86_64-linux" ]))
+          (value.meta.platforms or [ "x86_64-linux" ]))
       else if value.recurseForDerivations or false
       || value.recurseForRelease or false then
         packagePlatforms value

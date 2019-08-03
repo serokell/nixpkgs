@@ -22,6 +22,7 @@ let
 
   extensible-self = makeExtensible (extends overrides (extends packageSetConfig
     (extends compilerConfig (extends commonConfiguration
-    (extends nixConfiguration (extends nonHackagePackages haskellPackages))))));
+      (extends nixConfiguration
+        (extends nonHackagePackages haskellPackages))))));
 
 in extensible-self

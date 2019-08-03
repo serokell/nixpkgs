@@ -114,11 +114,11 @@ let
   filterAttrsListRecursive = pred: x:
     if isAttrs x then
       listToAttrs (concatMap (name:
-      let v = x.${name};
-      in if pred name v then
-        [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
-      else
-        [ ]) (attrNames x))
+        let v = x.${name};
+        in if pred name v then
+          [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
+        else
+          [ ]) (attrNames x))
     else if isList x then
       map (filterAttrsListRecursive pred) x
     else

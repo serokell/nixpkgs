@@ -4,14 +4,14 @@ let
   kernel = stdenv.hostPlatform.parsed.kernel.name;
   updateFeatures = f: up: functions:
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features)
-    (lib.attrsets.recursiveUpdate f up) functions);
+      (lib.attrsets.recursiveUpdate f up) functions);
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures = feat:
     lib.lists.foldl (features: featureName:
-    if feat.${featureName} or false then
-      [ featureName ] ++ features
-    else
-      features) [ ] (builtins.attrNames feat);
+      if feat.${featureName} or false then
+        [ featureName ] ++ features
+      else
+        features) [ ] (builtins.attrNames feat);
 in rec {
   wc_grab = f:
     wc_grab_0_3_0 { features = wc_grab_0_3_0_features { wc_grab_0_3_0 = f; }; };
@@ -843,10 +843,10 @@ in rec {
     png_0_6_2_ {
       dependencies = mapFeatures features
         ([ bitflags_0_7_0 inflate_0_1_1 num_iter_0_1_33 ]
-        ++ (if features.png_0_6_2.deflate or false then
-          [ deflate_0_7_5 ]
-        else
-          [ ]));
+          ++ (if features.png_0_6_2.deflate or false then
+            [ deflate_0_7_5 ]
+          else
+            [ ]));
       features = mkFeatures (features.png_0_6_2 or { });
     };
   png_0_6_2_features = f:

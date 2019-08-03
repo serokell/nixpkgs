@@ -145,7 +145,7 @@ in pythonPackages.buildPythonApplication rec {
     gobject-introspection
   ] ++ optional enableAcoustid pythonPackages.pyacoustid ++ optional
     (enableFetchart || enableEmbyupdate || enableKodiupdate
-    || enableAcousticbrainz) pythonPackages.requests
+      || enableAcousticbrainz) pythonPackages.requests
     ++ optional enableConvert ffmpeg
     ++ optional enableDiscogs pythonPackages.discogs_client
     ++ optional enableGmusic pythonPackages.gmusicapi

@@ -164,8 +164,8 @@ let
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure = plugin:
-    [ plugin ] ++ (lib.unique
-    (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
+    [ plugin ] ++ (lib.unique (builtins.concatLists
+      (map transitiveClosure plugin.dependencies or [ ])));
 
   findDependenciesRecursively = plugins:
     lib.concatMap transitiveClosure plugins;
@@ -314,7 +314,7 @@ let
           # To avoid confusion, even dependencies of optional plugins are added
           # to `start` (except if they are explicitly listed as optional plugins).
           ++ (builtins.map (link packageName "start")
-          (lib.unique (startWithDeps ++ depsOfOptionalPlugins)))
+            (lib.unique (startWithDeps ++ depsOfOptionalPlugins)))
           ++ [ "mkdir -p $out/pack/${packageName}/opt" ]
           ++ (builtins.map (link packageName "opt") opt));
         packDir = (packages:

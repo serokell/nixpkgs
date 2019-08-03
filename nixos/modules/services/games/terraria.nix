@@ -20,7 +20,7 @@ let
     (valFlag "motd" cfg.messageOfTheDay)
     (valFlag "world" cfg.worldPath)
     (valFlag "autocreate"
-    (builtins.getAttr cfg.autoCreatedWorldSize worldSizeMap))
+      (builtins.getAttr cfg.autoCreatedWorldSize worldSizeMap))
     (valFlag "banlist" cfg.banListPath)
     (boolFlag "secure" cfg.secure)
     (boolFlag "noupnp" cfg.noUPnP)

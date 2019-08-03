@@ -351,46 +351,46 @@ in {
       }) gcfg.archives) //
 
       (mapAttrs' (name: cfg:
-      nameValuePair "tarsnap-restore-${name}" {
-        description = "Tarsnap restore '${name}'";
-        requires = [ "network-online.target" ];
+        nameValuePair "tarsnap-restore-${name}" {
+          description = "Tarsnap restore '${name}'";
+          requires = [ "network-online.target" ];
 
-        path = with pkgs; [ iputils tarsnap utillinux ];
+          path = with pkgs; [ iputils tarsnap utillinux ];
 
-        script = let
-          tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
-          lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
-          run = ''
-            ${tarsnap} -x -f "${lastArchive}" ${
-              optionalString cfg.verbose "-v"
-            }'';
+          script = let
+            tarsnap = ''tarsnap --configfile "/etc/tarsnap/${name}.conf"'';
+            lastArchive = "$(${tarsnap} --list-archives | sort | tail -1)";
+            run = ''
+              ${tarsnap} -x -f "${lastArchive}" ${
+                optionalString cfg.verbose "-v"
+              }'';
 
-          in if (cfg.cachedir != null) then ''
-            mkdir -p ${cfg.cachedir}
-            chmod 0700 ${cfg.cachedir}
+            in if (cfg.cachedir != null) then ''
+              mkdir -p ${cfg.cachedir}
+              chmod 0700 ${cfg.cachedir}
 
-            ( flock 9
-              if [ ! -e ${cfg.cachedir}/firstrun ]; then
-                ( flock 10
-                  flock -u 9
-                  ${tarsnap} --fsck
-                  flock 9
-                ) 10>${cfg.cachedir}/firstrun
-              fi
-            ) 9>${cfg.cachedir}/lockf
+              ( flock 9
+                if [ ! -e ${cfg.cachedir}/firstrun ]; then
+                  ( flock 10
+                    flock -u 9
+                    ${tarsnap} --fsck
+                    flock 9
+                  ) 10>${cfg.cachedir}/firstrun
+                fi
+              ) 9>${cfg.cachedir}/lockf
 
-             exec flock ${cfg.cachedir}/firstrun ${run}
-          '' else
-            "exec ${run}";
+               exec flock ${cfg.cachedir}/firstrun ${run}
+            '' else
+              "exec ${run}";
 
-        serviceConfig = {
-          Type = "oneshot";
-          IOSchedulingClass = "idle";
-          NoNewPrivileges = "true";
-          CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
-          PermissionsStartOnly = "true";
-        };
-      }) gcfg.archives);
+          serviceConfig = {
+            Type = "oneshot";
+            IOSchedulingClass = "idle";
+            NoNewPrivileges = "true";
+            CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
+            PermissionsStartOnly = "true";
+          };
+        }) gcfg.archives);
 
     # Note: the timer must be Persistent=true, so that systemd will start it even
     # if e.g. your laptop was asleep while the latest interval occurred.

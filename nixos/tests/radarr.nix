@@ -1,16 +1,16 @@
 import ./make-test.nix ({ lib, ... }:
 
-with lib;
+  with lib;
 
-rec {
-  name = "radarr";
-  meta.maintainers = with maintainers; [ etu ];
+  rec {
+    name = "radarr";
+    meta.maintainers = with maintainers; [ etu ];
 
-  nodes.machine = { pkgs, ... }: { services.radarr.enable = true; };
+    nodes.machine = { pkgs, ... }: { services.radarr.enable = true; };
 
-  testScript = ''
-    $machine->waitForUnit('radarr.service');
-    $machine->waitForOpenPort('7878');
-    $machine->succeed("curl --fail http://localhost:7878/");
-  '';
-})
+    testScript = ''
+      $machine->waitForUnit('radarr.service');
+      $machine->waitForOpenPort('7878');
+      $machine->succeed("curl --fail http://localhost:7878/");
+    '';
+  })

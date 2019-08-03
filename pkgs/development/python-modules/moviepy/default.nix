@@ -5,8 +5,8 @@
 , scikitlearn ? null, scipy ? null, matplotlib ? null, youtube-dl ? null }:
 
 assert advancedProcessing -> (opencv != null && scikitimage != null
-&& scikitlearn != null && scipy != null && matplotlib != null && youtube-dl
-!= null);
+  && scikitlearn != null && scipy != null && matplotlib != null && youtube-dl
+  != null);
 
 buildPythonPackage rec {
   pname = "moviepy";

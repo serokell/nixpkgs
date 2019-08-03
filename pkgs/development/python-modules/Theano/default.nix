@@ -23,7 +23,7 @@ let
   # Theano spews warnings and disabled flags if the compiler isn't named g++
   cxx_compiler = wrapped "g++" "\\$HOME/.theano"
     (stdenv.lib.optional cudaSupport libgpuarray_
-    ++ stdenv.lib.optional cudnnSupport cudnn);
+      ++ stdenv.lib.optional cudnnSupport cudnn);
 
   libgpuarray_ = libgpuarray.override { inherit cudaSupport cudatoolkit; };
 

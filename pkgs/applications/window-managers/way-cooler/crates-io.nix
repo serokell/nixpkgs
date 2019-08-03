@@ -466,7 +466,7 @@ in rec {
         (crates."bitflags"."${deps."dummy_rustwlc"."0.7.1"."bitflags"}" deps)
         (crates."libc"."${deps."dummy_rustwlc"."0.7.1"."libc"}" deps)
         (crates."wayland_sys"."${deps."dummy_rustwlc"."0.7.1"."wayland_sys"}"
-        deps)
+          deps)
       ]);
     };
   features_.dummy_rustwlc."0.7.1" = deps: f:
@@ -483,7 +483,7 @@ in rec {
       (features_.bitflags."${deps."dummy_rustwlc"."0.7.1"."bitflags"}" deps)
       (features_.libc."${deps."dummy_rustwlc"."0.7.1"."libc"}" deps)
       (features_.wayland_sys."${deps."dummy_rustwlc"."0.7.1"."wayland_sys"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -498,10 +498,10 @@ in rec {
       sha256 = "1mvxiaaqsyjliv1mm1qaagjqiccw11mdyi3n9h9rf8y6wj15zycw";
       dependencies = mapFeatures features
         ([ (crates."log"."${deps."env_logger"."0.3.5"."log"}" deps) ]
-        ++ (if features.env_logger."0.3.5".regex or false then
-          [ (crates.regex."${deps."env_logger"."0.3.5".regex}" deps) ]
-        else
-          [ ]));
+          ++ (if features.env_logger."0.3.5".regex or false then
+            [ (crates.regex."${deps."env_logger"."0.3.5".regex}" deps) ]
+          else
+            [ ]));
       features = mkFeatures (features."env_logger"."0.3.5" or { });
     };
   features_.env_logger."0.3.5" = deps: f:
@@ -550,7 +550,7 @@ in rec {
       dependencies = mapFeatures features ([
         (crates."bitflags"."${deps."fuchsia_zircon"."0.3.3"."bitflags"}" deps)
         (crates."fuchsia_zircon_sys"."${deps."fuchsia_zircon"."0.3.3"."fuchsia_zircon_sys"}"
-        deps)
+          deps)
       ]);
     };
   features_.fuchsia_zircon."0.3.3" = deps: f:
@@ -563,7 +563,7 @@ in rec {
     }) [
       (features_.bitflags."${deps."fuchsia_zircon"."0.3.3"."bitflags"}" deps)
       (features_.fuchsia_zircon_sys."${deps."fuchsia_zircon"."0.3.3"."fuchsia_zircon_sys"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -622,7 +622,7 @@ in rec {
       build = "build.rs";
       dependencies = mapFeatures features ([
         (crates."gdk_pixbuf_sys"."${deps."gdk_pixbuf"."0.2.0"."gdk_pixbuf_sys"}"
-        deps)
+          deps)
         (crates."glib"."${deps."gdk_pixbuf"."0.2.0"."glib"}" deps)
         (crates."glib_sys"."${deps."gdk_pixbuf"."0.2.0"."glib_sys"}" deps)
         (crates."gobject_sys"."${deps."gdk_pixbuf"."0.2.0"."gobject_sys"}" deps)
@@ -693,7 +693,7 @@ in rec {
       libc."${deps.gdk_pixbuf."0.2.0".libc}".default = true;
     }) [
       (features_.gdk_pixbuf_sys."${deps."gdk_pixbuf"."0.2.0"."gdk_pixbuf_sys"}"
-      deps)
+        deps)
       (features_.glib."${deps."gdk_pixbuf"."0.2.0"."glib"}" deps)
       (features_.glib_sys."${deps."gdk_pixbuf"."0.2.0"."glib_sys"}" deps)
       (features_.gobject_sys."${deps."gdk_pixbuf"."0.2.0"."gobject_sys"}" deps)
@@ -717,13 +717,13 @@ in rec {
         (crates."gio_sys"."${deps."gdk_pixbuf_sys"."0.4.0"."gio_sys"}" deps)
         (crates."glib_sys"."${deps."gdk_pixbuf_sys"."0.4.0"."glib_sys"}" deps)
         (crates."gobject_sys"."${deps."gdk_pixbuf_sys"."0.4.0"."gobject_sys"}"
-        deps)
+          deps)
         (crates."libc"."${deps."gdk_pixbuf_sys"."0.4.0"."libc"}" deps)
       ]);
 
       buildDependencies = mapFeatures features ([
         (crates."pkg_config"."${deps."gdk_pixbuf_sys"."0.4.0"."pkg_config"}"
-        deps)
+          deps)
       ]);
       features = mkFeatures (features."gdk_pixbuf_sys"."0.4.0" or { });
     };
@@ -758,10 +758,10 @@ in rec {
       (features_.gio_sys."${deps."gdk_pixbuf_sys"."0.4.0"."gio_sys"}" deps)
       (features_.glib_sys."${deps."gdk_pixbuf_sys"."0.4.0"."glib_sys"}" deps)
       (features_.gobject_sys."${deps."gdk_pixbuf_sys"."0.4.0"."gobject_sys"}"
-      deps)
+        deps)
       (features_.libc."${deps."gdk_pixbuf_sys"."0.4.0"."libc"}" deps)
       (features_.pkg_config."${deps."gdk_pixbuf_sys"."0.4.0"."pkg_config"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -776,7 +776,7 @@ in rec {
       sha256 = "0c1m95wg8pkvdq4mwcd2v78r1lb6a5s3ljm7158dsl56mvzcwd5y";
       dependencies = mapFeatures features ([
         (crates."unicode_width"."${deps."getopts"."0.2.18"."unicode_width"}"
-        deps)
+          deps)
       ]);
     };
   features_.getopts."0.2.18" = deps: f:
@@ -785,7 +785,7 @@ in rec {
       unicode_width."${deps.getopts."0.2.18".unicode_width}".default = true;
     }) [
       (features_.unicode_width."${deps."getopts"."0.2.18"."unicode_width"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -1171,7 +1171,7 @@ in rec {
       sha256 = "0hl2934shpwqbszrq035valbdz9y8p7dza183brygy5dbvivcyqy";
       dependencies = mapFeatures features ([
         (crates."rustc_serialize"."${deps."json_macro"."0.1.1"."rustc_serialize"}"
-        deps)
+          deps)
       ]);
     };
   features_.json_macro."0.1.1" = deps: f:
@@ -1181,7 +1181,7 @@ in rec {
         true;
     }) [
       (features_.rustc_serialize."${deps."json_macro"."0.1.1"."rustc_serialize"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -1201,7 +1201,7 @@ in rec {
 
       buildDependencies = mapFeatures features ([
         (crates."winapi_build"."${deps."kernel32_sys"."0.2.2"."winapi_build"}"
-        deps)
+          deps)
       ]);
     };
   features_.kernel32_sys."0.2.2" = deps: f:
@@ -1212,7 +1212,7 @@ in rec {
     }) [
       (features_.winapi."${deps."kernel32_sys"."0.2.2"."winapi"}" deps)
       (features_.winapi_build."${deps."kernel32_sys"."0.2.2"."winapi_build"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -1329,7 +1329,7 @@ in rec {
       ]) ++ (if kernel == "windows" then
         mapFeatures features ([
           (crates."kernel32_sys"."${deps."libloading"."0.3.4"."kernel32_sys"}"
-          deps)
+            deps)
           (crates."winapi"."${deps."libloading"."0.3.4"."winapi"}" deps)
         ])
       else
@@ -1337,7 +1337,7 @@ in rec {
 
       buildDependencies = mapFeatures features ([
         (crates."target_build_utils"."${deps."libloading"."0.3.4"."target_build_utils"}"
-        deps)
+          deps)
       ]);
     };
   features_.libloading."0.3.4" = deps: f:
@@ -1351,9 +1351,9 @@ in rec {
     }) [
       (features_.lazy_static."${deps."libloading"."0.3.4"."lazy_static"}" deps)
       (features_.target_build_utils."${deps."libloading"."0.3.4"."target_build_utils"}"
-      deps)
+        deps)
       (features_.kernel32_sys."${deps."libloading"."0.3.4"."kernel32_sys"}"
-      deps)
+        deps)
       (features_.winapi."${deps."libloading"."0.3.4"."winapi"}" deps)
     ];
 
@@ -1804,7 +1804,7 @@ in rec {
       sha256 = "0k5ly0qykw56fxd19iy236wzghqdxq9zxnzcg8nm22cfzw4a35n0";
       dependencies = mapFeatures features ([
         (crates."phf_generator"."${deps."phf_codegen"."0.7.23"."phf_generator"}"
-        deps)
+          deps)
         (crates."phf_shared"."${deps."phf_codegen"."0.7.23"."phf_shared"}" deps)
       ]);
     };
@@ -1815,7 +1815,7 @@ in rec {
       phf_shared."${deps.phf_codegen."0.7.23".phf_shared}".default = true;
     }) [
       (features_.phf_generator."${deps."phf_codegen"."0.7.23"."phf_generator"}"
-      deps)
+        deps)
       (features_.phf_shared."${deps."phf_codegen"."0.7.23"."phf_shared"}" deps)
     ];
 
@@ -1831,7 +1831,7 @@ in rec {
       sha256 = "106cd0bx3jf7mf2gaa8nx62c1las1w95c5gwsd4yqm5lj2rj4mza";
       dependencies = mapFeatures features ([
         (crates."phf_shared"."${deps."phf_generator"."0.7.23"."phf_shared"}"
-        deps)
+          deps)
         (crates."rand"."${deps."phf_generator"."0.7.23"."rand"}" deps)
       ]);
     };
@@ -1843,7 +1843,7 @@ in rec {
       rand."${deps.phf_generator."0.7.23".rand}".default = true;
     }) [
       (features_.phf_shared."${deps."phf_generator"."0.7.23"."phf_shared"}"
-      deps)
+        deps)
       (features_.rand."${deps."phf_generator"."0.7.23"."rand"}" deps)
     ];
 
@@ -1902,7 +1902,7 @@ in rec {
       ]) ++ (if kernel == "fuchsia" then
         mapFeatures features ([
           (crates."fuchsia_zircon"."${deps."rand"."0.3.22"."fuchsia_zircon"}"
-          deps)
+            deps)
         ])
       else
         [ ]);
@@ -1940,15 +1940,15 @@ in rec {
       dependencies = (if kernel == "fuchsia" then
         mapFeatures features ([
           (crates."fuchsia_zircon"."${deps."rand"."0.4.3"."fuchsia_zircon"}"
-          deps)
+            deps)
         ])
       else
         [ ]) ++ (if (kernel == "linux" || kernel == "darwin") then
           mapFeatures features ([ ]
-          ++ (if features.rand."0.4.3".libc or false then
-            [ (crates.libc."${deps."rand"."0.4.3".libc}" deps) ]
-          else
-            [ ]))
+            ++ (if features.rand."0.4.3".libc or false then
+              [ (crates.libc."${deps."rand"."0.4.3".libc}" deps) ]
+            else
+              [ ]))
         else
           [ ]) ++ (if kernel == "windows" then
             mapFeatures features
@@ -2005,34 +2005,34 @@ in rec {
         ([ (crates."rand_core"."${deps."rand"."0.5.5"."rand_core"}" deps) ])
         ++ (if kernel == "cloudabi" then
           mapFeatures features ([ ]
-          ++ (if features.rand."0.5.5".cloudabi or false then
-            [ (crates.cloudabi."${deps."rand"."0.5.5".cloudabi}" deps) ]
-          else
-            [ ]))
+            ++ (if features.rand."0.5.5".cloudabi or false then
+              [ (crates.cloudabi."${deps."rand"."0.5.5".cloudabi}" deps) ]
+            else
+              [ ]))
         else
           [ ]) ++ (if kernel == "fuchsia" then
             mapFeatures features ([ ]
-            ++ (if features.rand."0.5.5".fuchsia-zircon or false then
-              [
-                (crates.fuchsia_zircon."${deps."rand"."0.5.5".fuchsia_zircon}"
-                deps)
-              ]
-            else
-              [ ]))
+              ++ (if features.rand."0.5.5".fuchsia-zircon or false then
+                [
+                  (crates.fuchsia_zircon."${deps."rand"."0.5.5".fuchsia_zircon}"
+                    deps)
+                ]
+              else
+                [ ]))
           else
             [ ]) ++ (if (kernel == "linux" || kernel == "darwin") then
               mapFeatures features ([ ]
-              ++ (if features.rand."0.5.5".libc or false then
-                [ (crates.libc."${deps."rand"."0.5.5".libc}" deps) ]
-              else
-                [ ]))
+                ++ (if features.rand."0.5.5".libc or false then
+                  [ (crates.libc."${deps."rand"."0.5.5".libc}" deps) ]
+                else
+                  [ ]))
             else
               [ ]) ++ (if kernel == "windows" then
                 mapFeatures features ([ ]
-                ++ (if features.rand."0.5.5".winapi or false then
-                  [ (crates.winapi."${deps."rand"."0.5.5".winapi}" deps) ]
-                else
-                  [ ]))
+                  ++ (if features.rand."0.5.5".winapi or false then
+                    [ (crates.winapi."${deps."rand"."0.5.5".winapi}" deps) ]
+                  else
+                    [ ]))
               else
                 [ ]) ++ (if kernel == "wasm32-unknown-unknown" then
                   mapFeatures features ([ ])
@@ -2523,17 +2523,17 @@ in rec {
       build = "build.rs";
       dependencies = mapFeatures features
         ([ (crates."phf"."${deps."target_build_utils"."0.3.1"."phf"}" deps) ]
-        ++ (if features.target_build_utils."0.3.1".serde_json or false then
-          [
-            (crates.serde_json."${deps."target_build_utils"."0.3.1".serde_json}"
-            deps)
-          ]
-        else
-          [ ]));
+          ++ (if features.target_build_utils."0.3.1".serde_json or false then
+            [
+              (crates.serde_json."${deps."target_build_utils"."0.3.1".serde_json}"
+                deps)
+            ]
+          else
+            [ ]));
 
       buildDependencies = mapFeatures features ([
         (crates."phf_codegen"."${deps."target_build_utils"."0.3.1"."phf_codegen"}"
-        deps)
+          deps)
       ]);
       features = mkFeatures (features."target_build_utils"."0.3.1" or { });
     };
@@ -2555,9 +2555,9 @@ in rec {
     }) [
       (features_.phf."${deps."target_build_utils"."0.3.1"."phf"}" deps)
       (features_.serde_json."${deps."target_build_utils"."0.3.1"."serde_json"}"
-      deps)
+        deps)
       (features_.phf_codegen."${deps."target_build_utils"."0.3.1"."phf_codegen"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -2572,7 +2572,7 @@ in rec {
       sha256 = "06i3c8ckn97i5rp16civ2vpqbknlkx66dkrl070iw60nawi0kjc3";
       dependencies = mapFeatures features ([
         (crates."kernel32_sys"."${deps."thread_id"."2.0.0"."kernel32_sys"}"
-        deps)
+          deps)
         (crates."libc"."${deps."thread_id"."2.0.0"."libc"}" deps)
       ]);
     };
@@ -2673,7 +2673,7 @@ in rec {
           [ ]) ++ (if features.uuid."0.3.1".rustc-serialize or false then
             [
               (crates.rustc_serialize."${deps."uuid"."0.3.1".rustc_serialize}"
-              deps)
+                deps)
             ]
           else
             [ ]));
@@ -2697,7 +2697,7 @@ in rec {
     }) [
       (features_.rand."${deps."uuid"."0.3.1"."rand"}" deps)
       (features_.rustc_serialize."${deps."uuid"."0.3.1"."rustc_serialize"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -2742,7 +2742,7 @@ in rec {
         (crates."bitflags"."${deps."way_cooler"."0.8.1"."bitflags"}" deps)
         (crates."cairo_rs"."${deps."way_cooler"."0.8.1"."cairo_rs"}" deps)
         (crates."cairo_sys_rs"."${deps."way_cooler"."0.8.1"."cairo_sys_rs"}"
-        deps)
+          deps)
         (crates."dbus"."${deps."way_cooler"."0.8.1"."dbus"}" deps)
         (crates."dbus_macros"."${deps."way_cooler"."0.8.1"."dbus_macros"}" deps)
         (crates."env_logger"."${deps."way_cooler"."0.8.1"."env_logger"}" deps)
@@ -2756,18 +2756,18 @@ in rec {
         (crates."petgraph"."${deps."way_cooler"."0.8.1"."petgraph"}" deps)
         (crates."rlua"."${deps."way_cooler"."0.8.1"."rlua"}" deps)
         (crates."rustc_serialize"."${deps."way_cooler"."0.8.1"."rustc_serialize"}"
-        deps)
+          deps)
         (crates."rustwlc"."${deps."way_cooler"."0.8.1"."rustwlc"}" deps)
         (crates."uuid"."${deps."way_cooler"."0.8.1"."uuid"}" deps)
         (crates."wayland_server"."${deps."way_cooler"."0.8.1"."wayland_server"}"
-        deps)
+          deps)
         (crates."wayland_sys"."${deps."way_cooler"."0.8.1"."wayland_sys"}" deps)
         (crates."xcb"."${deps."way_cooler"."0.8.1"."xcb"}" deps)
       ]);
 
       buildDependencies = mapFeatures features ([
         (crates."wayland_scanner"."${deps."way_cooler"."0.8.1"."wayland_scanner"}"
-        deps)
+          deps)
       ]);
       features = mkFeatures (features."way_cooler"."0.8.1" or { });
     };
@@ -2833,7 +2833,7 @@ in rec {
       (features_.bitflags."${deps."way_cooler"."0.8.1"."bitflags"}" deps)
       (features_.cairo_rs."${deps."way_cooler"."0.8.1"."cairo_rs"}" deps)
       (features_.cairo_sys_rs."${deps."way_cooler"."0.8.1"."cairo_sys_rs"}"
-      deps)
+        deps)
       (features_.dbus."${deps."way_cooler"."0.8.1"."dbus"}" deps)
       (features_.dbus_macros."${deps."way_cooler"."0.8.1"."dbus_macros"}" deps)
       (features_.env_logger."${deps."way_cooler"."0.8.1"."env_logger"}" deps)
@@ -2847,15 +2847,15 @@ in rec {
       (features_.petgraph."${deps."way_cooler"."0.8.1"."petgraph"}" deps)
       (features_.rlua."${deps."way_cooler"."0.8.1"."rlua"}" deps)
       (features_.rustc_serialize."${deps."way_cooler"."0.8.1"."rustc_serialize"}"
-      deps)
+        deps)
       (features_.rustwlc."${deps."way_cooler"."0.8.1"."rustwlc"}" deps)
       (features_.uuid."${deps."way_cooler"."0.8.1"."uuid"}" deps)
       (features_.wayland_server."${deps."way_cooler"."0.8.1"."wayland_server"}"
-      deps)
+        deps)
       (features_.wayland_sys."${deps."way_cooler"."0.8.1"."wayland_sys"}" deps)
       (features_.xcb."${deps."way_cooler"."0.8.1"."xcb"}" deps)
       (features_.wayland_scanner."${deps."way_cooler"."0.8.1"."wayland_scanner"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -2896,14 +2896,14 @@ in rec {
         (crates."libc"."${deps."wayland_server"."0.12.5"."libc"}" deps)
         (crates."nix"."${deps."wayland_server"."0.12.5"."nix"}" deps)
         (crates."token_store"."${deps."wayland_server"."0.12.5"."token_store"}"
-        deps)
+          deps)
         (crates."wayland_sys"."${deps."wayland_server"."0.12.5"."wayland_sys"}"
-        deps)
+          deps)
       ]);
 
       buildDependencies = mapFeatures features ([
         (crates."wayland_scanner"."${deps."wayland_server"."0.12.5"."wayland_scanner"}"
-        deps)
+          deps)
       ]);
       features = mkFeatures (features."wayland_server"."0.12.5" or { });
     };
@@ -2932,11 +2932,11 @@ in rec {
       (features_.libc."${deps."wayland_server"."0.12.5"."libc"}" deps)
       (features_.nix."${deps."wayland_server"."0.12.5"."nix"}" deps)
       (features_.token_store."${deps."wayland_server"."0.12.5"."token_store"}"
-      deps)
+        deps)
       (features_.wayland_sys."${deps."wayland_server"."0.12.5"."wayland_sys"}"
-      deps)
+        deps)
       (features_.wayland_scanner."${deps."wayland_server"."0.12.5"."wayland_scanner"}"
-      deps)
+        deps)
     ];
 
   # end
@@ -2951,10 +2951,10 @@ in rec {
       sha256 = "0m6db0kld2d4xv4ai9kxlqrh362hwi0030b4zbss0sfha1hx5mfl";
       dependencies = mapFeatures features
         ([ (crates."dlib"."${deps."wayland_sys"."0.6.0"."dlib"}" deps) ]
-        ++ (if features.wayland_sys."0.6.0".libc or false then
-          [ (crates.libc."${deps."wayland_sys"."0.6.0".libc}" deps) ]
-        else
-          [ ]));
+          ++ (if features.wayland_sys."0.6.0".libc or false then
+            [ (crates.libc."${deps."wayland_sys"."0.6.0".libc}" deps) ]
+          else
+            [ ]));
       features = mkFeatures (features."wayland_sys"."0.6.0" or { });
     };
   features_.wayland_sys."0.6.0" = deps: f:
@@ -2999,16 +2999,16 @@ in rec {
       sha256 = "011q7lfii222whvif39asvryl1sf3rc1fxp8qs8gh84kr4mna0k8";
       dependencies = mapFeatures features
         ([ (crates."dlib"."${deps."wayland_sys"."0.9.10"."dlib"}" deps) ]
-        ++ (if features.wayland_sys."0.9.10".lazy_static or false then
-          [
-            (crates.lazy_static."${deps."wayland_sys"."0.9.10".lazy_static}"
-            deps)
-          ]
-        else
-          [ ]) ++ (if features.wayland_sys."0.9.10".libc or false then
-            [ (crates.libc."${deps."wayland_sys"."0.9.10".libc}" deps) ]
+          ++ (if features.wayland_sys."0.9.10".lazy_static or false then
+            [
+              (crates.lazy_static."${deps."wayland_sys"."0.9.10".lazy_static}"
+                deps)
+            ]
           else
-            [ ]));
+            [ ]) ++ (if features.wayland_sys."0.9.10".libc or false then
+              [ (crates.libc."${deps."wayland_sys"."0.9.10".libc}" deps) ]
+            else
+              [ ]));
       features = mkFeatures (features."wayland_sys"."0.9.10" or { });
     };
   features_.wayland_sys."0.9.10" = deps: f:
@@ -3040,7 +3040,7 @@ in rec {
     }) [
       (features_.dlib."${deps."wayland_sys"."0.9.10"."dlib"}" deps)
       (features_.lazy_static."${deps."wayland_sys"."0.9.10"."lazy_static"}"
-      deps)
+        deps)
       (features_.libc."${deps."wayland_sys"."0.9.10"."libc"}" deps)
     ];
 
@@ -3056,16 +3056,16 @@ in rec {
       sha256 = "0mwk5vc7mibxka5w66vy2qj32b72d1srqvp36nr15xfl9lwf3dc4";
       dependencies = mapFeatures features
         ([ (crates."dlib"."${deps."wayland_sys"."0.12.5"."dlib"}" deps) ]
-        ++ (if features.wayland_sys."0.12.5".lazy_static or false then
-          [
-            (crates.lazy_static."${deps."wayland_sys"."0.12.5".lazy_static}"
-            deps)
-          ]
-        else
-          [ ]) ++ (if features.wayland_sys."0.12.5".libc or false then
-            [ (crates.libc."${deps."wayland_sys"."0.12.5".libc}" deps) ]
+          ++ (if features.wayland_sys."0.12.5".lazy_static or false then
+            [
+              (crates.lazy_static."${deps."wayland_sys"."0.12.5".lazy_static}"
+                deps)
+            ]
           else
-            [ ]));
+            [ ]) ++ (if features.wayland_sys."0.12.5".libc or false then
+              [ (crates.libc."${deps."wayland_sys"."0.12.5".libc}" deps) ]
+            else
+              [ ]));
       features = mkFeatures (features."wayland_sys"."0.12.5" or { });
     };
   features_.wayland_sys."0.12.5" = deps: f:
@@ -3097,7 +3097,7 @@ in rec {
     }) [
       (features_.dlib."${deps."wayland_sys"."0.12.5"."dlib"}" deps)
       (features_.lazy_static."${deps."wayland_sys"."0.12.5"."lazy_static"}"
-      deps)
+        deps)
       (features_.libc."${deps."wayland_sys"."0.12.5"."libc"}" deps)
     ];
 
@@ -3131,13 +3131,13 @@ in rec {
       dependencies = (if kernel == "i686-pc-windows-gnu" then
         mapFeatures features ([
           (crates."winapi_i686_pc_windows_gnu"."${deps."winapi"."0.3.6"."winapi_i686_pc_windows_gnu"}"
-          deps)
+            deps)
         ])
       else
         [ ]) ++ (if kernel == "x86_64-pc-windows-gnu" then
           mapFeatures features ([
             (crates."winapi_x86_64_pc_windows_gnu"."${deps."winapi"."0.3.6"."winapi_x86_64_pc_windows_gnu"}"
-            deps)
+              deps)
           ])
         else
           [ ]);
@@ -3152,9 +3152,9 @@ in rec {
         true;
     }) [
       (features_.winapi_i686_pc_windows_gnu."${deps."winapi"."0.3.6"."winapi_i686_pc_windows_gnu"}"
-      deps)
+        deps)
       (features_.winapi_x86_64_pc_windows_gnu."${deps."winapi"."0.3.6"."winapi_x86_64_pc_windows_gnu"}"
-      deps)
+        deps)
     ];
 
   # end

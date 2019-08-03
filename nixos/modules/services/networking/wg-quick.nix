@@ -221,9 +221,9 @@ let
       postUp = optional (values.privateKeyFile != null)
         "wg set ${name} private-key <(cat ${values.privateKeyFile})"
         ++ (concatMap (peer:
-        optional (peer.presharedKeyFile != null)
-        "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
-        values.peers) ++ optional (values.postUp != null) values.postUp;
+          optional (peer.presharedKeyFile != null)
+          "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
+          values.peers) ++ optional (values.postUp != null) values.postUp;
       postUpFile = if postUp != [ ] then
         writeScriptFile "postUp.sh"
         (concatMapStringsSep "\n" (line: line) postUp)

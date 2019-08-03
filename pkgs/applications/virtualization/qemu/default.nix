@@ -12,7 +12,7 @@
 , virglSupport ? openGLSupport, virglrenderer, smbdSupport ? false, samba
 , hostCpuOnly ? false, hostCpuTargets ? (if hostCpuOnly then
   (stdenv.lib.optional stdenv.isx86_64 "i386-softmmu"
-  ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
+    ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
 else
   null), nixosTestRunner ? false }:
 

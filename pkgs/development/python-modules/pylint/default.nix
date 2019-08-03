@@ -27,12 +27,12 @@ buildPythonPackage rec {
     pytest pylint/test -k "not ${
       lib.concatStringsSep " and not " (
       # Broken tests
-      [ "member_checks_py37" "iterable_context_py36" ] ++
-      # Disable broken darwin tests
-      lib.optionals stdenv.isDarwin [
-        "test_parallel_execution"
-        "test_py3k_jobs_option"
-      ])
+        [ "member_checks_py37" "iterable_context_py36" ] ++
+        # Disable broken darwin tests
+        lib.optionals stdenv.isDarwin [
+          "test_parallel_execution"
+          "test_py3k_jobs_option"
+        ])
     }"
   '';
 

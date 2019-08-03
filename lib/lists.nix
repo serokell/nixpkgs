@@ -288,16 +288,16 @@ in rec {
   */
   partition = builtins.partition or (pred:
     foldr (h: t:
-    if pred h then {
-      right = [ h ] ++ t.right;
-      wrong = t.wrong;
-    } else {
-      right = t.right;
-      wrong = [ h ] ++ t.wrong;
-    }) {
-      right = [ ];
-      wrong = [ ];
-    });
+      if pred h then {
+        right = [ h ] ++ t.right;
+        wrong = t.wrong;
+      } else {
+        right = t.right;
+        wrong = [ h ] ++ t.wrong;
+      }) {
+        right = [ ];
+        wrong = [ ];
+      });
 
   /* Splits the elements of a list into many lists, using the return value of a predicate.
      Predicate should return a string which becomes keys of attrset `groupBy' returns.
@@ -659,6 +659,6 @@ in rec {
   */
   mutuallyExclusive = a: b:
     (builtins.length a) == 0 || (!(builtins.elem (builtins.head a) b)
-    && mutuallyExclusive (builtins.tail a) b);
+      && mutuallyExclusive (builtins.tail a) b);
 
 }

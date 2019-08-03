@@ -48,14 +48,14 @@ let
 
   withTools = a: f:
     withXenfiles (name: x:
-    optionalString (hasAttr a x) ''
-      echo "processing ${name}"
-      __do() {
-        cd "tools/${name}"
-        ${f name x}
-      }
-      ( __do )
-    '');
+      optionalString (hasAttr a x) ''
+        echo "processing ${name}"
+        __do() {
+          cd "tools/${name}"
+          ${f name x}
+        }
+        ( __do )
+      '');
 
 in stdenv.mkDerivation (rec {
   inherit (config) version;
@@ -278,5 +278,10 @@ in stdenv.mkDerivation (rec {
     maintainers = with stdenv.lib.maintainers; [ eelco tstrobel oxij ];
     license = stdenv.lib.licenses.gpl2;
   } // (config.meta or { });
-}
-// removeAttrs config [ "xenfiles" "buildInputs" "patches" "postPatch" "meta" ])
+} // removeAttrs config [
+  "xenfiles"
+  "buildInputs"
+  "patches"
+  "postPatch"
+  "meta"
+])

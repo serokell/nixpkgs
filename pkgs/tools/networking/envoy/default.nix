@@ -133,17 +133,17 @@ let
       package(default_visibility = ["//visibility:public"])
 
     '' + lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: value:
-    ''
-      cc_library(
-    '' + "    name = \"${name}\",\n" + field "srcs" value + field "hdrs" value
-    + field "deps" value + field "includes" value
-    + field "strip_include_prefix" value + ")") ccTargets) + ''
+      ''
+        cc_library(
+      '' + "    name = \"${name}\",\n" + field "srcs" value + field "hdrs" value
+      + field "deps" value + field "includes" value
+      + field "strip_include_prefix" value + ")") ccTargets) + ''
 
-      filegroup(
-          name = "protoc",
-          srcs = ["bin/protoc"],
-      )
-    '';
+        filegroup(
+            name = "protoc",
+            srcs = ["bin/protoc"],
+        )
+      '';
 
   workspaceFile = ''
     workspace(name = "nix")

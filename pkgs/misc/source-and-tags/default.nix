@@ -2,7 +2,7 @@
   # optional srcDir
   annotatedWithSourceAndTagInfo = x:
     (x ? passthru && x.passthru ? sourceWithTags || x ? meta && x.meta
-    ? sourceWithTags);
+      ? sourceWithTags);
   # hack because passthru doesn't work the way I'd expect. Don't have time to spend on this right now
   # that's why I'm abusing meta for the same purpose in ghcsAndLibs
   sourceWithTagsFromDerivation = x:

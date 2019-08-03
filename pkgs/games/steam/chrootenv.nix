@@ -37,7 +37,7 @@ let
     steam-runtime-wrapped.libs
     ++ lib.optionals (steam-runtime-wrapped-i686 != null)
     (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
-    steam-runtime-wrapped-i686.libs);
+      steam-runtime-wrapped-i686.libs);
 
   setupSh = writeScript "setup.sh" ''
     #!${runtimeShell}

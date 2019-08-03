@@ -214,10 +214,10 @@ in let
 
   all = (for-version "1.7.0" "1_7") // (for-version "1.8.0" "1_8")
     // (for-version "1.9.0" "1_9") // (recurseIntoAttrs
-    (mapDerivationAttrset dontDistribute (mapAttrs' (n: pkg: {
-      name = "mathcomp-${n}";
-      value = (packageGen pkg)."${n}";
-    }) (select current-versions))));
+      (mapDerivationAttrset dontDistribute (mapAttrs' (n: pkg: {
+        name = "mathcomp-${n}";
+        value = (packageGen pkg)."${n}";
+      }) (select current-versions))));
 in {
   mathcompExtraGen = packageGen;
   mathcomp_1_7-finmap_1_0 = (packageGen (select {

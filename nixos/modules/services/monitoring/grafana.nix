@@ -500,12 +500,12 @@ in {
   config = mkIf cfg.enable {
     warnings = flatten [
       (optional (cfg.database.password != opt.database.password.default
-      || cfg.security.adminPassword != opt.security.adminPassword.default)
-      "Grafana passwords will be stored as plaintext in the Nix store!")
+        || cfg.security.adminPassword != opt.security.adminPassword.default)
+        "Grafana passwords will be stored as plaintext in the Nix store!")
       (optional (any (x:
-      x.password != null || x.basicAuthPassword != null || x.secureJsonData
-      != null) cfg.provision.datasources)
-      "Datasource passwords will be stored as plaintext in the Nix store!")
+        x.password != null || x.basicAuthPassword != null || x.secureJsonData
+        != null) cfg.provision.datasources)
+        "Datasource passwords will be stored as plaintext in the Nix store!")
     ];
 
     environment.systemPackages = [ cfg.package ];

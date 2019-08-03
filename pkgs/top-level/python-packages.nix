@@ -49,20 +49,20 @@ let
 
       buildPythonPackage = makeOverridablePythonPackage (makeOverridable
         (callPackage
-        ../development/interpreters/python/build-python-package.nix {
-          flit = self.flit;
-          # We want Python libraries to be named like e.g. "python3.6-${name}"
-          inherit namePrefix;
-          inherit toPythonModule;
-        }));
+          ../development/interpreters/python/build-python-package.nix {
+            flit = self.flit;
+            # We want Python libraries to be named like e.g. "python3.6-${name}"
+            inherit namePrefix;
+            inherit toPythonModule;
+          }));
 
       buildPythonApplication = makeOverridablePythonPackage (makeOverridable
         (callPackage
-        ../development/interpreters/python/build-python-package.nix {
-          flit = self.flit;
-          namePrefix = "";
-          toPythonModule = x: x; # Application does not provide modules.
-        }));
+          ../development/interpreters/python/build-python-package.nix {
+            flit = self.flit;
+            namePrefix = "";
+            toPythonModule = x: x; # Application does not provide modules.
+          }));
 
       # See build-setupcfg/default.nix for documentation.
       buildSetupcfg = import ../build-support/build-setupcfg self;
@@ -77,7 +77,7 @@ let
       requiredPythonModules = drvs:
         let modules = filter hasPythonModule drvs;
         in unique ([ python ] ++ modules
-        ++ concatLists (catAttrs "requiredPythonModules" modules));
+          ++ concatLists (catAttrs "requiredPythonModules" modules));
 
       # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
       # providing Python modules.
@@ -3161,16 +3161,16 @@ let
         throw "django_tagging_0_4_3 should be build with django_1_8"
       else
         (callPackage ../development/python-modules/django_tagging
-        { }).overrideAttrs (attrs: rec {
-          pname = "django-tagging";
-          version = "0.4.3";
+          { }).overrideAttrs (attrs: rec {
+            pname = "django-tagging";
+            version = "0.4.3";
 
-          src = fetchPypi {
-            inherit pname version;
-            sha256 = "0617azpmp6jpg3d88v2ir97qrc9aqcs2s9gyvv9bgf2cp55khxhs";
-          };
-          propagatedBuildInputs = with self; [ django ];
-        });
+            src = fetchPypi {
+              inherit pname version;
+              sha256 = "0617azpmp6jpg3d88v2ir97qrc9aqcs2s9gyvv9bgf2cp55khxhs";
+            };
+            propagatedBuildInputs = with self; [ django ];
+          });
 
       django_classytags =
         callPackage ../development/python-modules/django_classytags { };

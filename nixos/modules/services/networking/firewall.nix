@@ -161,39 +161,43 @@ let
 
     # Accept connections to the allowed TCP ports.
     ${concatStrings (mapAttrsToList (iface: cfg:
-    concatMapStrings (port: ''
-      ip46tables -A nixos-fw -p tcp --dport ${
-        toString port
-      } -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
-    '') cfg.allowedTCPPorts) allInterfaces)}
+      concatMapStrings (port: ''
+        ip46tables -A nixos-fw -p tcp --dport ${
+          toString port
+        } -j nixos-fw-accept ${
+          optionalString (iface != "default") "-i ${iface}"
+        }
+      '') cfg.allowedTCPPorts) allInterfaces)}
 
     # Accept connections to the allowed TCP port ranges.
     ${concatStrings (mapAttrsToList (iface: cfg:
-    concatMapStrings (rangeAttr:
-    let range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-    in ''
-      ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
-        optionalString (iface != "default") "-i ${iface}"
-      }
-    '') cfg.allowedTCPPortRanges) allInterfaces)}
+      concatMapStrings (rangeAttr:
+        let range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+        in ''
+          ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
+            optionalString (iface != "default") "-i ${iface}"
+          }
+        '') cfg.allowedTCPPortRanges) allInterfaces)}
 
     # Accept packets on the allowed UDP ports.
     ${concatStrings (mapAttrsToList (iface: cfg:
-    concatMapStrings (port: ''
-      ip46tables -A nixos-fw -p udp --dport ${
-        toString port
-      } -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
-    '') cfg.allowedUDPPorts) allInterfaces)}
+      concatMapStrings (port: ''
+        ip46tables -A nixos-fw -p udp --dport ${
+          toString port
+        } -j nixos-fw-accept ${
+          optionalString (iface != "default") "-i ${iface}"
+        }
+      '') cfg.allowedUDPPorts) allInterfaces)}
 
     # Accept packets on the allowed UDP port ranges.
     ${concatStrings (mapAttrsToList (iface: cfg:
-    concatMapStrings (rangeAttr:
-    let range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-    in ''
-      ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
-        optionalString (iface != "default") "-i ${iface}"
-      }
-    '') cfg.allowedUDPPortRanges) allInterfaces)}
+      concatMapStrings (rangeAttr:
+        let range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+        in ''
+          ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
+            optionalString (iface != "default") "-i ${iface}"
+          }
+        '') cfg.allowedUDPPortRanges) allInterfaces)}
 
     # Accept IPv4 multicast.  Not a big security risk since
     # probably nobody is listening anyway.

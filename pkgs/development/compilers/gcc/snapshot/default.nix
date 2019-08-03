@@ -221,10 +221,10 @@ in stdenv.mkDerivation ({
       "--enable-static"
       "--enable-languages=${
         concatStrings (intersperse "," (optional langC "c"
-        ++ optional langCC "c++" ++ optional langFortran "fortran"
-        ++ optional langGo "go" ++ optional langObjC "objc"
-        ++ optional langObjCpp "obj-c++"
-        ++ optionals crossDarwin [ "objc" "obj-c++" ]))
+          ++ optional langCC "c++" ++ optional langFortran "fortran"
+          ++ optional langGo "go" ++ optional langObjC "objc"
+          ++ optional langObjCpp "obj-c++"
+          ++ optionals crossDarwin [ "objc" "obj-c++" ]))
       }"
     ] ++
 
@@ -285,7 +285,7 @@ in stdenv.mkDerivation ({
 
   CPATH = optionals (targetPlatform == hostPlatform)
     (makeSearchPathOutput "dev" "include"
-    ([ ] ++ optional (zlib != null) zlib));
+      ([ ] ++ optional (zlib != null) zlib));
 
   LIBRARY_PATH = optionals (targetPlatform == hostPlatform)
     (makeLibraryPath (optional (zlib != null) zlib));
@@ -293,18 +293,18 @@ in stdenv.mkDerivation ({
   EXTRA_TARGET_FLAGS =
     optionals (targetPlatform != hostPlatform && libcCross != null)
     ([ "-idirafter ${getDev libcCross}${libcCross.incdir or "/include"}" ]
-    ++ optionals (!crossStageStatic)
-    [ "-B${libcCross.out}${libcCross.libdir or "/lib"}" ]);
+      ++ optionals (!crossStageStatic)
+      [ "-B${libcCross.out}${libcCross.libdir or "/lib"}" ]);
 
   EXTRA_TARGET_LDFLAGS =
     optionals (targetPlatform != hostPlatform && libcCross != null)
     ([ "-Wl,-L${libcCross.out}${libcCross.libdir or "/lib"}" ]
-    ++ (if crossStageStatic then
-      [ "-B${libcCross.out}${libcCross.libdir or "/lib"}" ]
-    else [
-      "-Wl,-rpath,${libcCross.out}${libcCross.libdir or "/lib"}"
-      "-Wl,-rpath-link,${libcCross.out}${libcCross.libdir or "/lib"}"
-    ]));
+      ++ (if crossStageStatic then
+        [ "-B${libcCross.out}${libcCross.libdir or "/lib"}" ]
+      else [
+        "-Wl,-rpath,${libcCross.out}${libcCross.libdir or "/lib"}"
+        "-Wl,-rpath-link,${libcCross.out}${libcCross.libdir or "/lib"}"
+      ]));
 
   passthru = {
     inherit langC langCC langObjC langObjCpp langFortran langGo version;
@@ -341,10 +341,10 @@ in stdenv.mkDerivation ({
   };
 }
 
-// optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-== "msvcrt" && crossStageStatic) {
-  makeFlags = [ "all-gcc" "all-target-libgcc" ];
-  installTargets = "install-gcc install-target-libgcc";
-}
+  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
+    == "msvcrt" && crossStageStatic) {
+      makeFlags = [ "all-gcc" "all-target-libgcc" ];
+      installTargets = "install-gcc install-target-libgcc";
+    }
 
-// optionalAttrs (enableMultilib) { dontMoveLib64 = true; })
+  // optionalAttrs (enableMultilib) { dontMoveLib64 = true; })

@@ -28,14 +28,14 @@ let
       };
       scrubDerivations = namePrefix: pkgSet:
         mapAttrs (name: value:
-        let wholeName = "${namePrefix}.${name}";
-        in if isAttrs value then
-          scrubDerivations wholeName value
-          // (optionalAttrs (isDerivation value) {
-            outPath = "\${${wholeName}}";
-          })
-        else
-          value) pkgSet;
+          let wholeName = "${namePrefix}.${name}";
+          in if isAttrs value then
+            scrubDerivations wholeName value
+            // (optionalAttrs (isDerivation value) {
+              outPath = "\${${wholeName}}";
+            })
+          else
+            value) pkgSet;
       in scrubbedEval.options;
   };
 
@@ -196,10 +196,10 @@ in {
       environment.systemPackages = [ ]
         ++ optional cfg.man.enable manual.manpages ++ optionals cfg.doc.enable
         ([ manual.manualHTML helpScript ]
-        ++ optionals config.services.xserver.enable [
-          desktopItem
-          pkgs.nixos-icons
-        ]);
+          ++ optionals config.services.xserver.enable [
+            desktopItem
+            pkgs.nixos-icons
+          ]);
 
       services.mingetty.helpLine = mkIf cfg.doc.enable (''
 

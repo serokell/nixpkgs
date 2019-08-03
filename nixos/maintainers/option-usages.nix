@@ -125,13 +125,14 @@ let
     checkList = if testOption != null then [ testOption ] else testOptions;
     checkAll = checkList == [ ];
     in flip filter graph ({ option, ... }:
-    (checkAll || elem option checkList) && !(elem option excludedTestOptions));
+      (checkAll || elem option checkList)
+      && !(elem option excludedTestOptions));
 
   graphToDot = graph: ''
     digraph "Option Usages" {
       ${
       concatMapStrings ({ option, usedBy }:
-      concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
+        concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
       displayOptionsGraph
       }
     }
@@ -139,9 +140,9 @@ let
 
   graphToText = graph:
     concatMapStrings ({ usedBy, ... }:
-    concatMapStrings (user: ''
-      ${user}
-    '') usedBy) displayOptionsGraph;
+      concatMapStrings (user: ''
+        ${user}
+      '') usedBy) displayOptionsGraph;
 
 in rec {
   dotContent = graphToDot graph;

@@ -61,8 +61,8 @@ in stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     ${lib.concatStringsSep "\n" (lib.mapAttrsToList (from: to:
-    if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}")
-    targets)}
+      if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}")
+      targets)}
 
     # Some PXE constellations especially with dnsmasq are looking for the file with .0 ending
     # let's provide it as a symlink to be compatible in this case.

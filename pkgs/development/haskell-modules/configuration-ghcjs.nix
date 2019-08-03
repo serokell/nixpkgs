@@ -27,12 +27,12 @@ in stage1 // stage2 // {
 
   network = addBuildTools super.network
     (pkgs.lib.optional pkgs.buildPlatform.isDarwin
-    pkgs.buildPackages.darwin.libiconv);
+      pkgs.buildPackages.darwin.libiconv);
   zlib = addBuildTools super.zlib (pkgs.lib.optional pkgs.buildPlatform.isDarwin
     pkgs.buildPackages.darwin.libiconv);
   unix-compat = addBuildTools super.unix-compat
     (pkgs.lib.optional pkgs.buildPlatform.isDarwin
-    pkgs.buildPackages.darwin.libiconv);
+      pkgs.buildPackages.darwin.libiconv);
 
   # LLVM is not supported on this GHC; use the latest one.
   inherit (pkgs) llvmPackages;

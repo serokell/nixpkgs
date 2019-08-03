@@ -10,7 +10,7 @@ let
 
   fishAliases = concatStringsSep "\n"
     (mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}")
-    (filterAttrs (k: v: v != null) cfg.shellAliases));
+      (filterAttrs (k: v: v != null) cfg.shellAliases));
 
 in {
 

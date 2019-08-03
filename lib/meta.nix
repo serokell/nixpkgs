@@ -37,7 +37,8 @@ rec {
   */
   appendToName = suffix:
     updateName (name:
-    let x = builtins.parseDrvName name; in "${x.name}-${suffix}-${x.version}");
+      let x = builtins.parseDrvName name;
+      in "${x.name}-${suffix}-${x.version}");
 
   # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset = f: set:

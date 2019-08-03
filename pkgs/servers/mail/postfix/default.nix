@@ -18,8 +18,8 @@ let
     ++ lib.optionals withLDAP [ "-DHAS_LDAP" "-DUSE_LDAP_SASL" ]);
   auxlibs = lib.concatStringsSep " "
     ([ "-ldb" "-lnsl" "-lresolv" "-lsasl2" "-lcrypto" "-lssl" ]
-    ++ lib.optional withPgSQL "-lpq" ++ lib.optional withMySQL "-lmysqlclient"
-    ++ lib.optional withSQLite "-lsqlite3" ++ lib.optional withLDAP "-lldap");
+      ++ lib.optional withPgSQL "-lpq" ++ lib.optional withMySQL "-lmysqlclient"
+      ++ lib.optional withSQLite "-lsqlite3" ++ lib.optional withLDAP "-lldap");
 
 in stdenv.mkDerivation rec {
 

@@ -71,16 +71,16 @@ stdenv.mkDerivation rec {
     ]; # due to patch
   configureFlags = [ "--with-packager=https://NixOS.org" ]
     ++ optional (singleBinary != false) ("--enable-single-binary"
-    + optionalString (isString singleBinary) "=${singleBinary}")
+      + optionalString (isString singleBinary) "=${singleBinary}")
     ++ optional withOpenssl "--with-openssl"
     ++ optional stdenv.hostPlatform.isSunOS "ac_cv_func_inotify_init=no"
     ++ optional withPrefix "--program-prefix=g" ++ optionals
     (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.libc
-    == "glibc") [
-      # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
-      # don't know why it is not properly detected cross building with glibc.
-      "fu_cv_sys_stat_statfs2_bsize=yes"
-    ];
+      == "glibc") [
+        # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
+        # don't know why it is not properly detected cross building with glibc.
+        "fu_cv_sys_stat_statfs2_bsize=yes"
+      ];
 
   buildInputs = [ gmp ] ++ optional aclSupport acl ++ optional attrSupport attr
     ++ optional withOpenssl openssl ++ optionals selinuxSupport [
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     ]
     # TODO(@Ericson2314): Investigate whether Darwin could benefit too
     ++ optional (stdenv.hostPlatform != stdenv.buildPlatform
-    && stdenv.hostPlatform.libc != "glibc") libiconv;
+      && stdenv.hostPlatform.libc != "glibc") libiconv;
 
   # The tests are known broken on Cygwin
   # (http://article.gmane.org/gmane.comp.gnu.core-utils.bugs/19025),

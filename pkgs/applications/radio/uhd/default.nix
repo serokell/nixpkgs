@@ -39,7 +39,7 @@ in stdenv.mkDerivation {
   cmakeFlags = [ "-DLIBUSB_INCLUDE_DIRS=${libusb1.dev}/include/libusb-1.0" ]
     ++ [
       (stdenv.lib.optionalString stdenv.isAarch32
-      "-DCMAKE_CXX_FLAGS=-Wno-psabi")
+        "-DCMAKE_CXX_FLAGS=-Wno-psabi")
     ];
 
   nativeBuildInputs = [ cmake pkgconfig ];

@@ -228,8 +228,8 @@ in {
       in { }
       # Module packages
       // (mapAttrs'
-      (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
-      cfg.modulePackages)
+        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
+        cfg.modulePackages)
       # Built-in modules
       // doModule "doc" // doModule "migrate" // doModule "setup"
       // doModule "test" // doModule "translation"

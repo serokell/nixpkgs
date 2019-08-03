@@ -9,9 +9,9 @@ let
   aclFiles = mapAttrs (name:
     { acl, ... }:
     pkgs.writeText "${name}.acl" (concatMapStrings
-    (({ principal, access, target, ... }: ''
-      ${principal}	${concatStringsSep "," (toList access)}	${target}
-    '')) acl)) cfg.realms;
+      (({ principal, access, target, ... }: ''
+        ${principal}	${concatStringsSep "," (toList access)}	${target}
+      '')) acl)) cfg.realms;
 
   kdcConfigs = mapAttrsToList (name: value: ''
     database = {

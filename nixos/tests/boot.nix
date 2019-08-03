@@ -18,7 +18,7 @@ let
     "{ ${
       concatStringsSep ", "
       (mapAttrsToList (name: param: "${name} => ${builtins.toJSON param}")
-      params)
+        params)
     } }";
 
   makeBootTest = name: extraConfig:

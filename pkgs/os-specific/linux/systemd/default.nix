@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     perl # to patch the libsystemd.so and remove dependencies on aarch64
 
     (buildPackages.python3Packages.python.withPackages
-    (ps: with ps; [ python3Packages.lxml ]))
+      (ps: with ps; [ python3Packages.lxml ]))
   ];
   buildInputs = [
     linuxHeaders

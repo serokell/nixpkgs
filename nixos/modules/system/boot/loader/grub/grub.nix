@@ -89,7 +89,7 @@ let
           utillinux
           mdadm
         ] ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
-        ++ optionals cfg.useOSProber [ busybox os-prober ]);
+          ++ optionals cfg.useOSProber [ busybox os-prober ]);
       font = if cfg.font == null then
         ""
       else
@@ -105,8 +105,9 @@ let
 
   convertedFont = (pkgs.runCommand "grub-font-converted.pf2" { }
     (builtins.concatStringsSep " "
-    ([ "${realGrub}/bin/grub-mkfont" cfg.font "--output" "$out" ]
-    ++ (optional (cfg.fontSize != null) "--size ${toString cfg.fontSize}"))));
+      ([ "${realGrub}/bin/grub-mkfont" cfg.font "--output" "$out" ]
+        ++ (optional (cfg.fontSize != null)
+          "--size ${toString cfg.fontSize}"))));
 
   defaultSplash =
     "${pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader}/share/artwork/gnome/nix-wallpaper-simple-dark-gray_bootloader.png";

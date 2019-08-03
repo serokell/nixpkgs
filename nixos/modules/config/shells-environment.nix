@@ -14,8 +14,8 @@ let
 
     suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars
       (envVar: listSuffixes:
-      concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
-      cfg.profiles);
+        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+        cfg.profiles);
 
     allVariables =
       zipAttrsWith (n: concatLists) [ absoluteVariables suffixedVariables ];

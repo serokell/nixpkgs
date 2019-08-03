@@ -107,7 +107,7 @@ in {
         pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes)
         (pkgs.lib.attrNames compiler);
       in pkgs.recurseIntoAttrs (pkgs.lib.genAttrs integerSimpleGhcNames
-      (name: compiler."${name}".override { enableIntegerSimple = true; }));
+        (name: compiler."${name}".override { enableIntegerSimple = true; }));
   };
 
   # Default overrides that are applied to all package sets.
@@ -204,14 +204,14 @@ in {
           pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes)
           (pkgs.lib.attrNames packages);
         in pkgs.lib.genAttrs integerSimpleGhcNames (name:
-        packages."${name}".override {
-          ghc = bh.compiler.integer-simple."${name}";
-          buildHaskellPackages = bh.packages.integer-simple."${name}";
-          overrides = _self: _super: {
-            integer-simple = null;
-            integer-gmp = null;
-          };
-        });
+          packages."${name}".override {
+            ghc = bh.compiler.integer-simple."${name}";
+            buildHaskellPackages = bh.packages.integer-simple."${name}";
+            overrides = _self: _super: {
+              integer-simple = null;
+              integer-gmp = null;
+            };
+          });
 
     };
 }

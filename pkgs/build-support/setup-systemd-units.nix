@@ -22,7 +22,7 @@ let
     mkdir -p $out
     ${lib.concatStringsSep "\n"
     (lib.mapAttrsToList (nm: file: "ln -sv ${file.path or file} $out/${nm}")
-    units)}
+      units)}
   '';
   add-unit-snippet = name: file: ''
     oldUnit=$(readlink -f "$unitDir/${name}" || echo "$unitDir/${name}")

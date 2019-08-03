@@ -114,7 +114,7 @@ in stdenv.mkDerivation rec {
     ++ optional vdpauSupport libvdpau ++ optional speexSupport speex
     ++ optional libpngSupport libpng ++ optional libjpegSupport libjpeg
     ++ optional bs2bSupport libbs2b ++ (with darwin.apple_sdk.frameworks;
-    optionals stdenv.isDarwin [ Cocoa OpenGL ]);
+      optionals stdenv.isDarwin [ Cocoa OpenGL ]);
 
   configurePlatforms = [ ];
   configureFlags = with stdenv.lib;
@@ -164,7 +164,7 @@ in stdenv.mkDerivation rec {
     ] ++ optional (useUnfreeCodecs && codecs != null && !crossBuild)
     "--codecsdir=${codecs}" ++ optional
     ((stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64)
-    && !crossBuild) "--enable-runtime-cpudetection"
+      && !crossBuild) "--enable-runtime-cpudetection"
     ++ optional fribidiSupport "--enable-fribidi"
     ++ optional stdenv.isLinux "--enable-vidix"
     ++ optional stdenv.isLinux "--enable-fbdev" ++ optionals (crossBuild) [

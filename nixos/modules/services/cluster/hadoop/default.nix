@@ -39,9 +39,9 @@ with lib; {
 
   config = mkMerge [
     (mkIf (builtins.hasAttr "yarn" config.users.users
-    || builtins.hasAttr "hdfs" config.users.users) {
-      users.groups.hadoop = { gid = config.ids.gids.hadoop; };
-    })
+      || builtins.hasAttr "hdfs" config.users.users) {
+        users.groups.hadoop = { gid = config.ids.gids.hadoop; };
+      })
 
   ];
 }

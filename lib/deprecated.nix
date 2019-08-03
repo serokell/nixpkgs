@@ -75,11 +75,11 @@ rec {
   # Output : are reqs satisfied? It's asserted.
   checkReqs = attrSet: argList: condList:
     (fold lib.and true (map (x:
-    let name = (head x);
+      let name = (head x);
 
-    in ((checkFlag attrSet name) -> (fold lib.and true (map (y:
-    let val = (getValue attrSet argList y); in (val != null) && (val != false))
-    (tail x))))) condList));
+      in ((checkFlag attrSet name) -> (fold lib.and true (map (y:
+        let val = (getValue attrSet argList y);
+        in (val != null) && (val != false)) (tail x))))) condList));
 
   # This function has O(n^2) performance.
   uniqList = { inputList, acc ? [ ] }:
@@ -197,19 +197,19 @@ rec {
     , overrideSnd ? [ "buildPhase" ] }:
     attrs1: attrs2:
     fold (n: set:
-    setAttr set n (if set ? ${n} then # merge
-      if elem n
-      mergeLists # attribute contains list, merge them by concatenating
-      then
-        attrs2.${n} ++ attrs1.${n}
-      else if elem n overrideSnd then
-        attrs1.${n}
+      setAttr set n (if set ? ${n} then # merge
+        if elem n
+        mergeLists # attribute contains list, merge them by concatenating
+        then
+          attrs2.${n} ++ attrs1.${n}
+        else if elem n overrideSnd then
+          attrs1.${n}
+        else
+          throw
+          "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
       else
-        throw
-        "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
-    else
-      attrs2.${n} # add attribute not existing in attr1
-    )) attrs1 (attrNames attrs2);
+        attrs2.${n} # add attribute not existing in attr1
+      )) attrs1 (attrNames attrs2);
 
   # example usage:
   # mergeAttrByFunc  {
@@ -231,16 +231,16 @@ rec {
       x
       y
       (mapAttrs (a: v: # merge special names using given functions
-      if x ? ${a} then
-        if y ? ${a} then
-          v x.${a} y.${a} # both have attr, use merge func
+        if x ? ${a} then
+          if y ? ${a} then
+            v x.${a} y.${a} # both have attr, use merge func
+          else
+            x.${a} # only x has attr
         else
-          x.${a} # only x has attr
-      else
-        y.${a} # only y has attr)
-      ) (removeAttrs mergeAttrBy2
-      # don't merge attrs which are neither in x nor y
-      (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
+          y.${a} # only y has attr)
+        ) (removeAttrs mergeAttrBy2
+          # don't merge attrs which are neither in x nor y
+          (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
     ];
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
   mergeAttrsByFuncDefaultsClean = list:
@@ -262,9 +262,9 @@ rec {
       "cfg"
       "flags"
     ]) // listToAttrs (map (n:
-    nameValuePair n (a: b: ''
-      ${a}
-      ${b}'')) [ "preConfigure" "postInstall" ]);
+      nameValuePair n (a: b: ''
+        ${a}
+        ${b}'')) [ "preConfigure" "postInstall" ]);
 
   nixType = x:
     if isAttrs x then

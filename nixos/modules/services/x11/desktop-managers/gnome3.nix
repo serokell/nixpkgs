@@ -179,13 +179,13 @@ in {
 
     services.xserver.displayManager.extraSessionFilePackages =
       [ pkgs.gnome3.gnome-session ] ++ map (wm:
-      pkgs.gnome3.gnome-flashback.mkSessionForWm {
-        inherit (wm) wmName wmLabel wmCommand;
-      }) (optional cfg.flashback.enableMetacity {
-        wmName = "metacity";
-        wmLabel = "Metacity";
-        wmCommand = "${pkgs.gnome3.metacity}/bin/metacity";
-      } ++ cfg.flashback.customSessions);
+        pkgs.gnome3.gnome-flashback.mkSessionForWm {
+          inherit (wm) wmName wmLabel wmCommand;
+        }) (optional cfg.flashback.enableMetacity {
+          wmName = "metacity";
+          wmLabel = "Metacity";
+          wmCommand = "${pkgs.gnome3.metacity}/bin/metacity";
+        } ++ cfg.flashback.customSessions);
 
     environment.extraInit = ''
       ${concatMapStrings (p: ''
@@ -239,9 +239,9 @@ in {
     ];
     environment.systemPackages = pkgs.gnome3.corePackages ++ cfg.sessionPath
       ++ (pkgs.gnome3.removePackagesByName pkgs.gnome3.optionalPackages
-      config.environment.gnome3.excludePackages) ++ [
-        pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-      ];
+        config.environment.gnome3.excludePackages) ++ [
+          pkgs.xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+        ];
 
     # Use the correct gnome3 packageSet
     networking.networkmanager.basePackages = {

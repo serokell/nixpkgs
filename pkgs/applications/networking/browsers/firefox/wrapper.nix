@@ -17,12 +17,12 @@ let
     , name ? (browserName + "-" + (builtins.parseDrvName browser.name).version)
     , desktopName ? # browserName with first letter capitalized
       (lib.toUpper (lib.substring 0 1 browserName)
-      + lib.substring 1 (-1) browserName), nameSuffix ? "", icon ? browserName
+        + lib.substring 1 (-1) browserName), nameSuffix ? "", icon ? browserName
     , extraPlugins ? [ ], extraNativeMessagingHosts ? [ ], gdkWayland ? false
     , cfg ? config.${browserName} or { } }:
 
     assert gdkWayland -> (browser
-    ? gtk3); # Can only use the wayland backend if gtk3 is being used
+      ? gtk3); # Can only use the wayland backend if gtk3 is being used
 
     let
       enableAdobeFlash = cfg.enableAdobeFlash or false;
@@ -41,19 +41,19 @@ let
             The option "${browserName}.enableVLC" has been removed since Firefox no longer supports npapi plugins''
         else
           ([ ] ++ lib.optional enableAdobeFlash flashplayer
-          ++ lib.optional (cfg.enableDjvu or false) (djview4)
-          ++ lib.optional (cfg.enableMPlayer or false) (MPlayerPlugin browser)
-          ++ lib.optional (supportsJDK && jre && jrePlugin ? mozillaPlugin)
-          jrePlugin ++ lib.optional icedtea icedtea_web
-          ++ lib.optional (cfg.enableGoogleTalkPlugin or false)
-          google_talk_plugin
-          ++ lib.optional (cfg.enableFriBIDPlugin or false) fribid
-          ++ lib.optional (cfg.enableGnomeExtensions or false)
-          gnome3.gnome-shell
-          ++ lib.optional (cfg.enableBluejeans or false) bluejeans
-          ++ lib.optional (cfg.enableAdobeReader or false) adobe-reader
-          ++ lib.optional (cfg.enableEsteid or false) esteidfirefoxplugin
-          ++ extraPlugins);
+            ++ lib.optional (cfg.enableDjvu or false) (djview4)
+            ++ lib.optional (cfg.enableMPlayer or false) (MPlayerPlugin browser)
+            ++ lib.optional (supportsJDK && jre && jrePlugin ? mozillaPlugin)
+            jrePlugin ++ lib.optional icedtea icedtea_web
+            ++ lib.optional (cfg.enableGoogleTalkPlugin or false)
+            google_talk_plugin
+            ++ lib.optional (cfg.enableFriBIDPlugin or false) fribid
+            ++ lib.optional (cfg.enableGnomeExtensions or false)
+            gnome3.gnome-shell
+            ++ lib.optional (cfg.enableBluejeans or false) bluejeans
+            ++ lib.optional (cfg.enableAdobeReader or false) adobe-reader
+            ++ lib.optional (cfg.enableEsteid or false) esteidfirefoxplugin
+            ++ extraPlugins);
       nativeMessagingHosts = ([ ]
         ++ lib.optional (cfg.enableBrowserpass or false)
         (lib.getBin browserpass)

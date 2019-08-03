@@ -7,10 +7,10 @@ let
     || stdenv.hostPlatform.system == "i686-linux");
 
 in if (stdenv.hostPlatform.system != "x86_64-linux"
-&& stdenv.hostPlatform.system != "x86_64-darwin" && stdenv.hostPlatform.system
-!= "i686-linux") then
-  throw
-  "Check https://developer.spotify.com/technologies/libspotify/ for a tarball for your system and add it here"
+  && stdenv.hostPlatform.system != "x86_64-darwin" && stdenv.hostPlatform.system
+  != "i686-linux") then
+    throw
+    "Check https://developer.spotify.com/technologies/libspotify/ for a tarball for your system and add it here"
 else
   stdenv.mkDerivation {
     name = "libspotify-${version}";

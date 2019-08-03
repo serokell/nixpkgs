@@ -8,10 +8,10 @@ in rec {
     ''
       >${cellName}
     '' + (concatStringsSep "\n" (map (dbm:
-    if (dbm.ip != "" && dbm.dnsname != "") then
-      dbm.ip + " #" + dbm.dnsname
-    else
-      "") db)) + "\n";
+      if (dbm.ip != "" && dbm.dnsname != "") then
+        dbm.ip + " #" + dbm.dnsname
+      else
+        "") db)) + "\n";
 
   # CellServDB configuration type
   cellServDBConfig = {

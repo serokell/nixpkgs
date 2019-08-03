@@ -24,7 +24,7 @@ let
   mkSetcapProgram = { program, capabilities, source, owner ? "nobody"
     , group ? "nogroup", permissions ? "u+rx,g+x,o+x", ... }:
     assert (lib.versionAtLeast
-    (lib.getVersion config.boot.kernelPackages.kernel) "4.3");
+      (lib.getVersion config.boot.kernelPackages.kernel) "4.3");
     ''
       cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
       echo -n "${source}" > $wrapperDir/${program}.real

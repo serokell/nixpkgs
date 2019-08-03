@@ -438,7 +438,7 @@ in {
         Group = cfg.group;
         ExecStart = lib.concatStringsSep " "
           ([ "${cfg.package}/bin/nodetool" "repair" "--full" ]
-          ++ cfg.fullRepairOptions);
+            ++ cfg.fullRepairOptions);
       };
     };
     systemd.timers.cassandra-full-repair =
@@ -461,7 +461,7 @@ in {
         Group = cfg.group;
         ExecStart = lib.concatStringsSep " "
           ([ "${cfg.package}/bin/nodetool" "repair" ]
-          ++ cfg.incrementalRepairOptions);
+            ++ cfg.incrementalRepairOptions);
       };
     };
     systemd.timers.cassandra-incremental-repair =

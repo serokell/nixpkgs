@@ -54,7 +54,7 @@ in rec {
     in runInVM "winvm.img" {
       command = concatStringsSep " && "
         ([ "net config server /autodisconnect:-1" ]
-        ++ concatLists (mapAttrsToList genDriveCmds drives));
+          ++ concatLists (mapAttrsToList genDriveCmds drives));
       suspendTo = "state.gz";
     };
 

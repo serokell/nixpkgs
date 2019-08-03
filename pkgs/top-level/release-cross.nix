@@ -95,7 +95,7 @@ in {
           builtins.toString
           (lib.getAttrFromPath path (pkgsForCross crossSystem system));
       in assertTrue (f path null system
-      == f ([ "buildPackages" ] ++ path) crossSystem system);
+        == f ([ "buildPackages" ] ++ path) crossSystem system);
 
     testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 

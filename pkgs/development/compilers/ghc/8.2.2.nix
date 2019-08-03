@@ -17,7 +17,7 @@ buildLlvmPackages, llvmPackages
 # library instead of the faster but GPLed integer-gmp library.
 enableIntegerSimple ?
   !(stdenv.lib.any (stdenv.lib.meta.platformMatch stdenv.hostPlatform)
-  gmp.meta.platforms), gmp
+    gmp.meta.platforms), gmp
 
 , # If enabled, use -fPIC when compiling static libs.
 enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform

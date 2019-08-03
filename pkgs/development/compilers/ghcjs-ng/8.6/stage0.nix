@@ -309,14 +309,14 @@
 
   template-haskell-ghcjs = callPackage
     ({ mkDerivation, base, ghc-boot-th, pretty, stdenv }:
-    mkDerivation {
-      pname = "template-haskell-ghcjs";
-      version = "2.14.0.0";
-      src = configuredSrc + /lib/template-haskell-ghcjs;
-      libraryHaskellDepends = [ base ghc-boot-th pretty ];
-      description =
-        "Support library for Template Haskell (customized for GHCJS)";
-      license = stdenv.lib.licenses.bsd3;
-    }) { };
+      mkDerivation {
+        pname = "template-haskell-ghcjs";
+        version = "2.14.0.0";
+        src = configuredSrc + /lib/template-haskell-ghcjs;
+        libraryHaskellDepends = [ base ghc-boot-th pretty ];
+        description =
+          "Support library for Template Haskell (customized for GHCJS)";
+        license = stdenv.lib.licenses.bsd3;
+      }) { };
 
 }

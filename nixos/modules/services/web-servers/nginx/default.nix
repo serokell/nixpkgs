@@ -337,13 +337,13 @@ let
         "include ${recommendedProxyConfig};"
         }
       }
-    '')
-    (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations)));
+    '') (sortProperties
+      (mapAttrsToList (k: v: v // { location = k; }) locations)));
   mkHtpasswd = vhostName: authDef:
     pkgs.writeText "${vhostName}.htpasswd" (concatStringsSep "\n"
-    (mapAttrsToList (user: password: ''
-      ${user}:{PLAIN}${password}
-    '') authDef));
+      (mapAttrsToList (user: password: ''
+        ${user}:{PLAIN}${password}
+      '') authDef));
 
 in {
   options = {

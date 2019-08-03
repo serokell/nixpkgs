@@ -188,7 +188,7 @@ in {
     systemd.tmpfiles.rules = optional config.virtualisation.docker.enableNvidia
       "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin" ++ optional
       (nvidia_x11.persistenced != null
-      && config.virtualisation.docker.enableNvidia)
+        && config.virtualisation.docker.enableNvidia)
       "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
     boot.extraModulePackages = [ nvidia_x11.bin ];

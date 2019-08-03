@@ -90,10 +90,10 @@ in {
     {
       services.cadvisor.storageDriverPasswordFile =
         mkIf (cfg.storageDriverPassword != "") (mkDefault (toString
-        (pkgs.writeTextFile {
-          name = "cadvisor-storage-driver-password";
-          text = cfg.storageDriverPassword;
-        })));
+          (pkgs.writeTextFile {
+            name = "cadvisor-storage-driver-password";
+            text = cfg.storageDriverPassword;
+          })));
     }
 
     (mkIf cfg.enable {

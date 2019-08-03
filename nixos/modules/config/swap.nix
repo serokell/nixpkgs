@@ -180,9 +180,9 @@ in {
       createSwapDevice = sw:
         assert sw.device != "";
         assert !(sw.randomEncryption.enable
-        && lib.hasPrefix "/dev/disk/by-uuid" sw.device);
+          && lib.hasPrefix "/dev/disk/by-uuid" sw.device);
         assert !(sw.randomEncryption.enable
-        && lib.hasPrefix "/dev/disk/by-label" sw.device);
+          && lib.hasPrefix "/dev/disk/by-label" sw.device);
         let realDevice' = escapeSystemdPath sw.realDevice;
         in nameValuePair "mkswap-${sw.deviceName}" {
           description = "Initialisation of swap device ${sw.device}";
@@ -225,8 +225,8 @@ in {
         };
 
       in listToAttrs (map createSwapDevice
-      (filter (sw: sw.size != null || sw.randomEncryption.enable)
-      config.swapDevices));
+        (filter (sw: sw.size != null || sw.randomEncryption.enable)
+          config.swapDevices));
 
   };
 

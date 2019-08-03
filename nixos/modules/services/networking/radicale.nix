@@ -78,7 +78,7 @@ in {
       serviceConfig = {
         ExecStart = concatStringsSep " "
           ([ "${cfg.package}/bin/radicale" "-C" confFile ]
-          ++ (map escapeShellArg cfg.extraArgs));
+            ++ (map escapeShellArg cfg.extraArgs));
         User = "radicale";
         Group = "radicale";
       };

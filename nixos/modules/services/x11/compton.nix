@@ -14,9 +14,9 @@ let
       ''
         {
       '' + concatStringsSep "\n" (mapAttrsToList
-      (name: value: "${literalAttrs name} = ${literalAttrs value};") v) + ''
+        (name: value: "${literalAttrs name} = ${literalAttrs value};") v) + ''
 
-        }''
+          }''
     else
       generators.toPretty { } v;
 

@@ -34,7 +34,7 @@ import ../make-test.nix ({ lib, ... }:
           "server,"
           "${
             toString (head (splitString " " (toString
-            (elemAt (splitString "\n" config.networking.extraHosts) 2))))
+              (elemAt (splitString "\n" config.networking.extraHosts) 2))))
           } "
           "${readFile ./dropbear.pub}"
         ];

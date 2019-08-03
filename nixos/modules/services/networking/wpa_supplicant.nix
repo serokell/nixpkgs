@@ -11,19 +11,19 @@ let
         update_config=1''}
       ${cfg.extraConfig}
       ${concatStringsSep "\n" (mapAttrsToList (ssid: config:
-      with config;
-      let
-        key = if psk != null then ''"${psk}"'' else pskRaw;
-        baseAuth = if key != null then "psk=${key}" else "key_mgmt=NONE";
-      in ''
-        network={
-          ssid="${ssid}"
-          ${optionalString (priority != null) "priority=${toString priority}"}
-          ${optionalString hidden "scan_ssid=1"}
-          ${if (auth != null) then auth else baseAuth}
-          ${extraConfig}
-        }
-      '') cfg.networks)}
+        with config;
+        let
+          key = if psk != null then ''"${psk}"'' else pskRaw;
+          baseAuth = if key != null then "psk=${key}" else "key_mgmt=NONE";
+        in ''
+          network={
+            ssid="${ssid}"
+            ${optionalString (priority != null) "priority=${toString priority}"}
+            ${optionalString hidden "scan_ssid=1"}
+            ${if (auth != null) then auth else baseAuth}
+            ${extraConfig}
+          }
+        '') cfg.networks)}
     ''
   else
     "/etc/wpa_supplicant.conf";

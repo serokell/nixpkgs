@@ -38,41 +38,41 @@ in {
         mkdir kernels
 
         ${concatStringsSep "\n" (mapAttrsToList (kernelName: unfilteredKernel:
-        let
-          allowedKernelKeys = [
-            "argv"
-            "displayName"
-            "language"
-            "interruptMode"
-            "env"
-            "metadata"
-            "logo32"
-            "logo64"
-          ];
-          kernel = filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
-            unfilteredKernel;
-          config = builtins.toJSON (kernel // {
-            display_name = if (kernel.displayName != "") then
-              kernel.displayName
+          let
+            allowedKernelKeys = [
+              "argv"
+              "displayName"
+              "language"
+              "interruptMode"
+              "env"
+              "metadata"
+              "logo32"
+              "logo64"
+            ];
+            kernel = filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
+              unfilteredKernel;
+            config = builtins.toJSON (kernel // {
+              display_name = if (kernel.displayName != "") then
+                kernel.displayName
+              else
+                kernelName;
+            } // (optionalAttrs (kernel ? interruptMode) {
+              interrupt_mode = kernel.interruptMode;
+            }));
+            logo32 = if (kernel.logo32 != null) then
+              "ln -s ${kernel.logo32} 'kernels/${kernelName}/logo-32x32.png';"
             else
-              kernelName;
-          } // (optionalAttrs (kernel ? interruptMode) {
-            interrupt_mode = kernel.interruptMode;
-          }));
-          logo32 = if (kernel.logo32 != null) then
-            "ln -s ${kernel.logo32} 'kernels/${kernelName}/logo-32x32.png';"
-          else
-            "";
-          logo64 = if (kernel.logo64 != null) then
-            "ln -s ${kernel.logo64} 'kernels/${kernelName}/logo-64x64.png';"
-          else
-            "";
-        in ''
-          mkdir 'kernels/${kernelName}';
-          echo '${config}' > 'kernels/${kernelName}/kernel.json';
-          ${logo32}
-          ${logo64}
-        '') definitions)}
+              "";
+            logo64 = if (kernel.logo64 != null) then
+              "ln -s ${kernel.logo64} 'kernels/${kernelName}/logo-64x64.png';"
+            else
+              "";
+          in ''
+            mkdir 'kernels/${kernelName}';
+            echo '${config}' > 'kernels/${kernelName}/kernel.json';
+            ${logo32}
+            ${logo64}
+          '') definitions)}
 
         mkdir $out
         cp -r kernels $out

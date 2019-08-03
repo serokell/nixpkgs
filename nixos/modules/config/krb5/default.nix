@@ -40,7 +40,7 @@ let
   filterEmbeddedMetadata = value:
     if isAttrs value then
       (filterAttrs
-      (attrName: attrValue: attrName != "_module" && attrValue != null) value)
+        (attrName: attrValue: attrName != "_module" && attrValue != null) value)
     else
       value;
 
@@ -61,21 +61,21 @@ let
       (concatStringsSep ''
 
         ${mkIndent (depth + 1)}'' ([ "{" ] ++ (mapAttrsToList
-      (attrName: attrValue:
-      let
-        mappedAttrValue = mkVal {
-          value = attrValue;
-          depth = depth + 1;
-        };
-      in "${attrName} = ${mappedAttrValue}") value))) + ''
+          (attrName: attrValue:
+            let
+              mappedAttrValue = mkVal {
+                value = attrValue;
+                depth = depth + 1;
+              };
+            in "${attrName} = ${mappedAttrValue}") value))) + ''
 
-        ${mkIndent depth}}''
+              ${mkIndent depth}}''
     else
       value;
 
   mkMappedAttrsOrString = value:
     concatMapStringsSep "\n" (line:
-    if builtins.stringLength line > 0 then "${mkIndent 1}${line}" else line)
+      if builtins.stringLength line > 0 then "${mkIndent 1}${line}" else line)
     (splitString "\n" (if isAttrs value then
       concatStringsSep "\n" (mapAttrsToList mkRelation value)
     else
@@ -323,7 +323,7 @@ in {
         [plugins]
         ${mkMappedAttrsOrString mergedConfig.plugins}
       '' + optionalString (mergedConfig.extraConfig != null)
-      ("\n" + mergedConfig.extraConfig));
+        ("\n" + mergedConfig.extraConfig));
 
     warnings = flatten [
       (optional (cfg.defaultRealm != null) ''

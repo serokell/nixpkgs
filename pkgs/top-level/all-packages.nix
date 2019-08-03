@@ -1099,8 +1099,8 @@ in {
     libqmatrixclient_0_4 libqmatrixclient_0_5 libqmatrixclient;
 
   inherit (libsForQt5.callPackage
-  ../applications/networking/instant-messengers/quaternion { })
-    quaternion quaternion-git;
+    ../applications/networking/instant-messengers/quaternion { })
+      quaternion quaternion-git;
 
   tensor =
     libsForQt5.callPackage ../applications/networking/instant-messengers/tensor
@@ -1215,20 +1215,20 @@ in {
 
   cabal2nix = haskell.lib.overrideCabal
     (haskell.lib.generateOptparseApplicativeCompletion "cabal2nix"
-    haskellPackages.cabal2nix) (drv: {
-      isLibrary = false;
-      enableSharedExecutables = false;
-      executableToolDepends = (drv.executableToolDepends or [ ])
-        ++ [ makeWrapper ];
-      postInstall = ''
-        exe=$out/libexec/${drv.pname}-${drv.version}/${drv.pname}
-        install -D $out/bin/${drv.pname} $exe
-        rm -rf $out/{bin,lib,share}
-        makeWrapper $exe $out/bin/${drv.pname} \
-          --prefix PATH ":" "${nix}/bin" \
-          --prefix PATH ":" "${nix-prefetch-scripts}/bin"
-      '' + (drv.postInstall or "");
-    });
+      haskellPackages.cabal2nix) (drv: {
+        isLibrary = false;
+        enableSharedExecutables = false;
+        executableToolDepends = (drv.executableToolDepends or [ ])
+          ++ [ makeWrapper ];
+        postInstall = ''
+          exe=$out/libexec/${drv.pname}-${drv.version}/${drv.pname}
+          install -D $out/bin/${drv.pname} $exe
+          rm -rf $out/{bin,lib,share}
+          makeWrapper $exe $out/bin/${drv.pname} \
+            --prefix PATH ":" "${nix}/bin" \
+            --prefix PATH ":" "${nix-prefetch-scripts}/bin"
+        '' + (drv.postInstall or "");
+      });
 
   stack2nix = with haskell.lib;
     overrideCabal (justStaticExecutables haskellPackages.stack2nix) (drv: {
@@ -7645,7 +7645,7 @@ in {
 
   psc-package = haskell.lib.justStaticExecutables
     (haskellPackages.callPackage ../development/compilers/purescript/psc-package
-    { });
+      { });
 
   tamarin-prover =
     (haskellPackages.callPackage ../applications/science/logic/tamarin-prover {
@@ -7797,7 +7797,7 @@ in {
   else
     lib.setName "openjre-${lib.getVersion pkgs.openjdk8.jre}"
     (lib.addMetaAttrs { outputsToInstall = [ "jre" ]; }
-    (openjdk8.jre // { outputs = [ "jre" ]; }));
+      (openjdk8.jre // { outputs = [ "jre" ]; }));
   jre8_headless = if stdenv.isAarch32 || stdenv.isAarch64 then
     oraclejre8
   else if stdenv.isDarwin then
@@ -7805,7 +7805,9 @@ in {
   else
     lib.setName "openjre-${lib.getVersion pkgs.openjdk8.jre}-headless"
     (lib.addMetaAttrs { outputsToInstall = [ "jre" ]; }
-    ((openjdk8.override { minimal = true; }).jre // { outputs = [ "jre" ]; }));
+      ((openjdk8.override { minimal = true; }).jre // {
+        outputs = [ "jre" ];
+      }));
 
   jdk11 = openjdk11 // { outputs = [ "out" ]; };
   jdk11_headless = if stdenv.isDarwin then
@@ -8290,7 +8292,7 @@ in {
 
         inherit cc bintools libc;
       } // extraArgs;
-    in self);
+      in self);
 
   wrapCC = cc: wrapCCWith { inherit cc; };
 
@@ -8311,7 +8313,7 @@ in {
 
         inherit bintools libc;
       } // extraArgs;
-    in self);
+      in self);
 
   # prolog
   yap = callPackage ../development/compilers/yap { };
@@ -8508,13 +8510,13 @@ in {
     hgOctaveOptions = (removeAttrs defaultOctaveOptions [ "ghostscript" ]) // {
       overridePlatforms = stdenv.lib.platforms.none;
     };
-  in {
-    octave =
-      callPackage ../development/interpreters/octave defaultOctaveOptions;
-    octaveHg = lowPrio
-      (callPackage ../development/interpreters/octave/hg.nix hgOctaveOptions);
-  })
-    octave octaveHg;
+    in {
+      octave =
+        callPackage ../development/interpreters/octave defaultOctaveOptions;
+      octaveHg = lowPrio
+        (callPackage ../development/interpreters/octave/hg.nix hgOctaveOptions);
+    })
+      octave octaveHg;
 
   octaveFull = (lowPrio (octave.override {
     qt = qt4;
@@ -8740,9 +8742,9 @@ in {
     ({
       inherit (darwin) libobjc;
     } // (stdenv.lib.optionalAttrs
-    (stdenv.cc.isGNU && stdenv.hostPlatform.isi686) {
-      stdenv = gcc6Stdenv; # with gcc-7: undefined reference to `__divmoddi4'
-    }));
+      (stdenv.cc.isGNU && stdenv.hostPlatform.isi686) {
+        stdenv = gcc6Stdenv; # with gcc-7: undefined reference to `__divmoddi4'
+      }));
   spidermonkey_52 =
     callPackage ../development/interpreters/spidermonkey/52.nix { };
   spidermonkey_60 =
@@ -9068,7 +9070,7 @@ in {
   # should be owned by user root, group nixbld with permissions 0770.
   ccacheWrapper = makeOverridable
     ({ extraConfig ? "", unwrappedCC ? stdenv.cc.cc }:
-    wrapCC (ccache.links { inherit unwrappedCC extraConfig; })) { };
+      wrapCC (ccache.links { inherit unwrappedCC extraConfig; })) { };
   ccacheStdenv = lowPrio (overrideCC stdenv buildPackages.ccacheWrapper);
 
   cccc = callPackage ../development/tools/analysis/cccc { };
@@ -10924,14 +10926,14 @@ in {
 
   glib = callPackage ../development/libraries/glib
     (let glib-untested = glib.override { doCheck = false; };
-    in {
-      # break dependency cycles
-      # these things are only used for tests, they don't get into the closure
-      shared-mime-info = shared-mime-info.override { glib = glib-untested; };
-      desktop-file-utils =
-        desktop-file-utils.override { glib = glib-untested; };
-      dbus = dbus.override { systemd = null; };
-    });
+      in {
+        # break dependency cycles
+        # these things are only used for tests, they don't get into the closure
+        shared-mime-info = shared-mime-info.override { glib = glib-untested; };
+        desktop-file-utils =
+          desktop-file-utils.override { glib = glib-untested; };
+        dbus = dbus.override { systemd = null; };
+      });
 
   glibmm = callPackage ../development/libraries/glibmm { };
 
@@ -15184,22 +15186,22 @@ in {
   # have created a cycle.
   xorg = recurseIntoAttrs
     ((lib.callPackageWith __splicedPackages ../servers/x11/xorg
-    { }).overrideScope'
-    (lib.callPackageWith __splicedPackages ../servers/x11/xorg/overrides.nix {
-      inherit (darwin.apple_sdk.frameworks) ApplicationServices Carbon Cocoa;
-      inherit (darwin.apple_sdk.libs) Xplugin;
-      inherit (buildPackages.darwin) bootstrap_cmds;
-      udev = if stdenv.isLinux then udev else null;
-      libdrm = if stdenv.isLinux then libdrm else null;
-      abiCompat =
-        config.xorg.abiCompat # `config` because we have no `xorg.override`
-        or (if stdenv.isDarwin then
-          "1.18"
-        else
-          null); # 1.19 needs fixing on Darwin
-    }) // {
-      inherit xlibsWrapper;
-    });
+      { }).overrideScope'
+      (lib.callPackageWith __splicedPackages ../servers/x11/xorg/overrides.nix {
+        inherit (darwin.apple_sdk.frameworks) ApplicationServices Carbon Cocoa;
+        inherit (darwin.apple_sdk.libs) Xplugin;
+        inherit (buildPackages.darwin) bootstrap_cmds;
+        udev = if stdenv.isLinux then udev else null;
+        libdrm = if stdenv.isLinux then libdrm else null;
+        abiCompat =
+          config.xorg.abiCompat # `config` because we have no `xorg.override`
+          or (if stdenv.isDarwin then
+            "1.18"
+          else
+            null); # 1.19 needs fixing on Darwin
+      }) // {
+        inherit xlibsWrapper;
+      });
 
   xwayland = callPackage ../servers/x11/xorg/xwayland.nix { };
 
@@ -15684,166 +15686,167 @@ in {
 
   linuxPackagesFor = kernel:
     lib.makeExtensible (self:
-    with self; {
-      callPackage = newScope self;
+      with self; {
+        callPackage = newScope self;
 
-      inherit kernel;
-      inherit (kernel) stdenv; # in particular, use the same compiler by default
-
-      # Obsolete aliases (these packages do not depend on the kernel).
-      inherit (pkgs) odp-dpdk pktgen; # added 2018-05
-
-      acpi_call = callPackage ../os-specific/linux/acpi-call { };
-
-      amdgpu-pro = callPackage ../os-specific/linux/amdgpu-pro { };
-
-      anbox = callPackage ../os-specific/linux/anbox/kmod.nix { };
-
-      batman_adv = callPackage ../os-specific/linux/batman-adv { };
-
-      bcc = callPackage ../os-specific/linux/bcc { python = python3; };
-
-      bpftrace = callPackage ../os-specific/linux/bpftrace { };
-
-      bbswitch = callPackage ../os-specific/linux/bbswitch { };
-
-      beegfs-module =
-        callPackage ../os-specific/linux/beegfs/kernel-module.nix { };
-
-      ati_drivers_x11 = callPackage ../os-specific/linux/ati-drivers { };
-
-      blcr = callPackage ../os-specific/linux/blcr { };
-
-      chipsec = callPackage ../tools/security/chipsec {
         inherit kernel;
-        withDriver = true;
-      };
+        inherit (kernel)
+          stdenv; # in particular, use the same compiler by default
 
-      cryptodev = callPackage ../os-specific/linux/cryptodev { };
+        # Obsolete aliases (these packages do not depend on the kernel).
+        inherit (pkgs) odp-dpdk pktgen; # added 2018-05
 
-      cpupower = callPackage ../os-specific/linux/cpupower { };
+        acpi_call = callPackage ../os-specific/linux/acpi-call { };
 
-      deepin-anything = callPackage ../os-specific/linux/deepin-anything { };
+        amdgpu-pro = callPackage ../os-specific/linux/amdgpu-pro { };
 
-      dpdk = callPackage ../os-specific/linux/dpdk { };
+        anbox = callPackage ../os-specific/linux/anbox/kmod.nix { };
 
-      exfat-nofuse = callPackage ../os-specific/linux/exfat { };
+        batman_adv = callPackage ../os-specific/linux/batman-adv { };
 
-      evdi = callPackage ../os-specific/linux/evdi { };
+        bcc = callPackage ../os-specific/linux/bcc { python = python3; };
 
-      hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
+        bpftrace = callPackage ../os-specific/linux/bpftrace { };
 
-      e1000e = callPackage ../os-specific/linux/e1000e { };
+        bbswitch = callPackage ../os-specific/linux/bbswitch { };
 
-      ixgbevf = callPackage ../os-specific/linux/ixgbevf { };
+        beegfs-module =
+          callPackage ../os-specific/linux/beegfs/kernel-module.nix { };
 
-      it87 = callPackage ../os-specific/linux/it87 { };
+        ati_drivers_x11 = callPackage ../os-specific/linux/ati-drivers { };
 
-      ena = callPackage ../os-specific/linux/ena { };
+        blcr = callPackage ../os-specific/linux/blcr { };
 
-      v4l2loopback = callPackage ../os-specific/linux/v4l2loopback { };
+        chipsec = callPackage ../tools/security/chipsec {
+          inherit kernel;
+          withDriver = true;
+        };
 
-      lttng-modules = callPackage ../os-specific/linux/lttng-modules { };
+        cryptodev = callPackage ../os-specific/linux/cryptodev { };
 
-      broadcom_sta = callPackage ../os-specific/linux/broadcom-sta { };
+        cpupower = callPackage ../os-specific/linux/cpupower { };
 
-      tbs = callPackage ../os-specific/linux/tbs { };
+        deepin-anything = callPackage ../os-specific/linux/deepin-anything { };
 
-      nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
+        dpdk = callPackage ../os-specific/linux/dpdk { };
 
-      nvidiaPackages =
-        dontRecurseIntoAttrs (callPackage ../os-specific/linux/nvidia-x11 { });
+        exfat-nofuse = callPackage ../os-specific/linux/exfat { };
 
-      nvidia_x11_legacy304 = nvidiaPackages.legacy_304;
-      nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
-      nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
-      nvidia_x11_beta = nvidiaPackages.beta;
-      nvidia_x11 = nvidiaPackages.stable;
+        evdi = callPackage ../os-specific/linux/evdi { };
 
-      ply = callPackage ../os-specific/linux/ply { };
+        hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
 
-      r8168 = callPackage ../os-specific/linux/r8168 { };
+        e1000e = callPackage ../os-specific/linux/e1000e { };
 
-      rtl8192eu = callPackage ../os-specific/linux/rtl8192eu { };
+        ixgbevf = callPackage ../os-specific/linux/ixgbevf { };
 
-      rtl8723bs = callPackage ../os-specific/linux/rtl8723bs { };
+        it87 = callPackage ../os-specific/linux/it87 { };
 
-      rtl8812au = callPackage ../os-specific/linux/rtl8812au { };
+        ena = callPackage ../os-specific/linux/ena { };
 
-      rtl8814au = callPackage ../os-specific/linux/rtl8814au { };
+        v4l2loopback = callPackage ../os-specific/linux/v4l2loopback { };
 
-      rtl8821au = callPackage ../os-specific/linux/rtl8821au { };
+        lttng-modules = callPackage ../os-specific/linux/lttng-modules { };
 
-      rtl8821ce = callPackage ../os-specific/linux/rtl8821ce { };
+        broadcom_sta = callPackage ../os-specific/linux/broadcom-sta { };
 
-      rtlwifi_new = callPackage ../os-specific/linux/rtlwifi_new { };
+        tbs = callPackage ../os-specific/linux/tbs { };
 
-      openafs = callPackage ../servers/openafs/1.6/module.nix { };
-      openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
+        nvidiabl = callPackage ../os-specific/linux/nvidiabl { };
 
-      facetimehd = callPackage ../os-specific/linux/facetimehd { };
+        nvidiaPackages = dontRecurseIntoAttrs
+          (callPackage ../os-specific/linux/nvidia-x11 { });
 
-      jool = callPackage ../os-specific/linux/jool { };
+        nvidia_x11_legacy304 = nvidiaPackages.legacy_304;
+        nvidia_x11_legacy340 = nvidiaPackages.legacy_340;
+        nvidia_x11_legacy390 = nvidiaPackages.legacy_390;
+        nvidia_x11_beta = nvidiaPackages.beta;
+        nvidia_x11 = nvidiaPackages.stable;
 
-      mba6x_bl = callPackage ../os-specific/linux/mba6x_bl { };
+        ply = callPackage ../os-specific/linux/ply { };
 
-      mwprocapture = callPackage ../os-specific/linux/mwprocapture { };
+        r8168 = callPackage ../os-specific/linux/r8168 { };
 
-      mxu11x0 = callPackage ../os-specific/linux/mxu11x0 { };
+        rtl8192eu = callPackage ../os-specific/linux/rtl8192eu { };
 
-      /* compiles but has to be integrated into the kernel somehow
-         Let's have it uncommented and finish it..
-      */
-      ndiswrapper = callPackage ../os-specific/linux/ndiswrapper { };
+        rtl8723bs = callPackage ../os-specific/linux/rtl8723bs { };
 
-      netatop = callPackage ../os-specific/linux/netatop { };
+        rtl8812au = callPackage ../os-specific/linux/rtl8812au { };
 
-      perf = callPackage ../os-specific/linux/kernel/perf.nix { };
+        rtl8814au = callPackage ../os-specific/linux/rtl8814au { };
 
-      phc-intel = callPackage ../os-specific/linux/phc-intel { };
+        rtl8821au = callPackage ../os-specific/linux/rtl8821au { };
 
-      prl-tools = callPackage ../os-specific/linux/prl-tools { };
+        rtl8821ce = callPackage ../os-specific/linux/rtl8821ce { };
 
-      sch_cake = callPackage ../os-specific/linux/sch_cake { };
+        rtlwifi_new = callPackage ../os-specific/linux/rtlwifi_new { };
 
-      sysdig = callPackage ../os-specific/linux/sysdig { };
+        openafs = callPackage ../servers/openafs/1.6/module.nix { };
+        openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
 
-      systemtap = callPackage ../development/tools/profiling/systemtap { };
+        facetimehd = callPackage ../os-specific/linux/facetimehd { };
 
-      tmon = callPackage ../os-specific/linux/tmon { };
+        jool = callPackage ../os-specific/linux/jool { };
 
-      tp_smapi = callPackage ../os-specific/linux/tp_smapi { };
+        mba6x_bl = callPackage ../os-specific/linux/mba6x_bl { };
 
-      usbip = callPackage ../os-specific/linux/usbip { };
+        mwprocapture = callPackage ../os-specific/linux/mwprocapture { };
 
-      v86d = callPackage ../os-specific/linux/v86d { };
+        mxu11x0 = callPackage ../os-specific/linux/mxu11x0 { };
 
-      vhba = callPackage ../misc/emulators/cdemu/vhba.nix { };
+        /* compiles but has to be integrated into the kernel somehow
+           Let's have it uncommented and finish it..
+        */
+        ndiswrapper = callPackage ../os-specific/linux/ndiswrapper { };
 
-      virtualbox = callPackage ../os-specific/linux/virtualbox {
-        virtualbox = pkgs.virtualboxHardened;
-      };
+        netatop = callPackage ../os-specific/linux/netatop { };
 
-      virtualboxGuestAdditions =
-        callPackage ../applications/virtualization/virtualbox/guest-additions {
+        perf = callPackage ../os-specific/linux/kernel/perf.nix { };
+
+        phc-intel = callPackage ../os-specific/linux/phc-intel { };
+
+        prl-tools = callPackage ../os-specific/linux/prl-tools { };
+
+        sch_cake = callPackage ../os-specific/linux/sch_cake { };
+
+        sysdig = callPackage ../os-specific/linux/sysdig { };
+
+        systemtap = callPackage ../development/tools/profiling/systemtap { };
+
+        tmon = callPackage ../os-specific/linux/tmon { };
+
+        tp_smapi = callPackage ../os-specific/linux/tp_smapi { };
+
+        usbip = callPackage ../os-specific/linux/usbip { };
+
+        v86d = callPackage ../os-specific/linux/v86d { };
+
+        vhba = callPackage ../misc/emulators/cdemu/vhba.nix { };
+
+        virtualbox = callPackage ../os-specific/linux/virtualbox {
           virtualbox = pkgs.virtualboxHardened;
         };
 
-      wireguard = callPackage ../os-specific/linux/wireguard { };
+        virtualboxGuestAdditions = callPackage
+          ../applications/virtualization/virtualbox/guest-additions {
+            virtualbox = pkgs.virtualboxHardened;
+          };
 
-      x86_energy_perf_policy =
-        callPackage ../os-specific/linux/x86_energy_perf_policy { };
+        wireguard = callPackage ../os-specific/linux/wireguard { };
 
-      inherit (callPackage ../os-specific/linux/zfs {
-        configFile = "kernel";
-        inherit kernel;
-      })
-        zfsStable zfsUnstable;
+        x86_energy_perf_policy =
+          callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
-      zfs = zfsStable;
+        inherit (callPackage ../os-specific/linux/zfs {
+          configFile = "kernel";
+          inherit kernel;
+        })
+          zfsStable zfsUnstable;
 
-      can-isotp = callPackage ../os-specific/linux/can-isotp { };
-    });
+        zfs = zfsStable;
+
+        can-isotp = callPackage ../os-specific/linux/can-isotp { };
+      });
 
   # The current default kernel / kernel modules.
   linuxPackages = linuxPackages_4_19;
@@ -15930,7 +15933,7 @@ in {
 
   linuxPackages_latest_xen_dom0_hardened = recurseIntoAttrs
     (hardenedLinuxPackagesFor
-    (pkgs.linux_latest.override { features.xen_dom0 = true; }));
+      (pkgs.linux_latest.override { features.xen_dom0 = true; }));
 
   # Hardkernel (Odroid) kernels.
   linuxPackages_hardkernel_4_14 =
@@ -20757,9 +20760,9 @@ in {
 
   sweethome3d = recurseIntoAttrs
     ((callPackage ../applications/misc/sweethome3d { })
-    // (callPackage ../applications/misc/sweethome3d/editors.nix {
-      sweethome3dApp = sweethome3d.application;
-    }));
+      // (callPackage ../applications/misc/sweethome3d/editors.nix {
+        sweethome3dApp = sweethome3d.application;
+      }));
 
   swingsane = callPackage ../applications/graphics/swingsane { };
 
@@ -21012,7 +21015,7 @@ in {
 
   tdesktopPackages = dontRecurseIntoAttrs
     (callPackage ../applications/networking/instant-messengers/telegram/tdesktop
-    { });
+      { });
   tdesktop = tdesktopPackages.stable;
 
   telegram-cli = callPackage
@@ -21548,41 +21551,41 @@ in {
     inherit (lib) optional;
     in with libretro;
     ([ ] ++ optional (cfg.enable4do or false) _4do
-    ++ optional (cfg.enableBeetlePCEFast or false) beetle-pce-fast
-    ++ optional (cfg.enableBeetlePSX or false) beetle-psx
-    ++ optional (cfg.enableBeetleSaturn or false) beetle-saturn
-    ++ optional (cfg.enableBsnesMercury or false) bsnes-mercury
-    ++ optional (cfg.enableDesmume or false) desmume
-    ++ optional (cfg.enableDolphin or false) dolphin
-    ++ optional (cfg.enableFBA or false) fba
-    ++ optional (cfg.enableFceumm or false) fceumm
-    ++ optional (cfg.enableGambatte or false) gambatte
-    ++ optional (cfg.enableGenesisPlusGX or false) genesis-plus-gx
-    ++ optional (cfg.enableHiganSFC or false) higan-sfc
-    ++ optional (cfg.enableMAME or false) mame
-    ++ optional (cfg.enableMGBA or false) mgba
-    ++ optional (cfg.enableMupen64Plus or false) mupen64plus
-    ++ optional (cfg.enableNestopia or false) nestopia
-    ++ optional (cfg.enableParallelN64 or false) parallel-n64
-    ++ optional (cfg.enablePicodrive or false) picodrive
-    ++ optional (cfg.enablePrboom or false) prboom
-    ++ optional (cfg.enablePPSSPP or false) ppsspp
-    ++ optional (cfg.enableQuickNES or false) quicknes
-    ++ optional (cfg.enableReicast or false) reicast
-    ++ optional (cfg.enableScummVM or false) scummvm
-    ++ optional (cfg.enableSnes9x or false) snes9x
-    ++ optional (cfg.enableSnes9xNext or false) snes9x-next
-    ++ optional (cfg.enableStella or false) stella
-    ++ optional (cfg.enableVbaNext or false) vba-next
-    ++ optional (cfg.enableVbaM or false) vba-m
+      ++ optional (cfg.enableBeetlePCEFast or false) beetle-pce-fast
+      ++ optional (cfg.enableBeetlePSX or false) beetle-psx
+      ++ optional (cfg.enableBeetleSaturn or false) beetle-saturn
+      ++ optional (cfg.enableBsnesMercury or false) bsnes-mercury
+      ++ optional (cfg.enableDesmume or false) desmume
+      ++ optional (cfg.enableDolphin or false) dolphin
+      ++ optional (cfg.enableFBA or false) fba
+      ++ optional (cfg.enableFceumm or false) fceumm
+      ++ optional (cfg.enableGambatte or false) gambatte
+      ++ optional (cfg.enableGenesisPlusGX or false) genesis-plus-gx
+      ++ optional (cfg.enableHiganSFC or false) higan-sfc
+      ++ optional (cfg.enableMAME or false) mame
+      ++ optional (cfg.enableMGBA or false) mgba
+      ++ optional (cfg.enableMupen64Plus or false) mupen64plus
+      ++ optional (cfg.enableNestopia or false) nestopia
+      ++ optional (cfg.enableParallelN64 or false) parallel-n64
+      ++ optional (cfg.enablePicodrive or false) picodrive
+      ++ optional (cfg.enablePrboom or false) prboom
+      ++ optional (cfg.enablePPSSPP or false) ppsspp
+      ++ optional (cfg.enableQuickNES or false) quicknes
+      ++ optional (cfg.enableReicast or false) reicast
+      ++ optional (cfg.enableScummVM or false) scummvm
+      ++ optional (cfg.enableSnes9x or false) snes9x
+      ++ optional (cfg.enableSnes9xNext or false) snes9x-next
+      ++ optional (cfg.enableStella or false) stella
+      ++ optional (cfg.enableVbaNext or false) vba-next
+      ++ optional (cfg.enableVbaM or false) vba-m
 
-    # added on 2017-02-25 due #23163
-    ++ optional (cfg.enableMednafenPCEFast or false) (throw
-    "nix config option enableMednafenPCEFast has been renamed to enableBeetlePCEFast")
-    ++ optional (cfg.enableMednafenPSX or false) (throw
-    "nix config option enableMednafenPSX has been renamed to enableBeetlePSX")
-    ++ optional (cfg.enableMednafenSaturn or false) (throw
-    "nix config option enableMednafenSaturn has been renamed to enableBeetleSaturn"));
+      # added on 2017-02-25 due #23163
+      ++ optional (cfg.enableMednafenPCEFast or false) (throw
+        "nix config option enableMednafenPCEFast has been renamed to enableBeetlePCEFast")
+      ++ optional (cfg.enableMednafenPSX or false) (throw
+        "nix config option enableMednafenPSX has been renamed to enableBeetlePSX")
+      ++ optional (cfg.enableMednafenSaturn or false) (throw
+        "nix config option enableMednafenSaturn has been renamed to enableBeetleSaturn"));
 
   wrapRetroArch = { retroarch }:
     callPackage ../misc/emulators/retroarch/wrapper.nix {
@@ -21596,36 +21599,37 @@ in {
       plugins = let inherit (lib) optional optionals;
         in with kodiPlugins;
         ([ ] ++ optional (config.kodi.enableAdvancedLauncher or false)
-        advanced-launcher
-        ++ optional (config.kodi.enableAdvancedEmulatorLauncher or false)
-        advanced-emulator-launcher
-        ++ optionals (config.kodi.enableControllers or false)
-        (with controllers; [
-          default
-          dreamcast
-          gba
-          genesis
-          mouse
-          n64
-          nes
-          ps
-          snes
-        ]) ++ optional (config.kodi.enableExodus or false) exodus
-        ++ optionals (config.kodi.enableHyperLauncher or false)
-        (with hyper-launcher; [ plugin service pdfreader ])
-        ++ optional (config.kodi.enableJoystick or false) joystick
-        ++ optional (config.kodi.enableOSMCskin or false) osmc-skin
-        ++ optional (config.kodi.enableSVTPlay or false) svtplay
-        ++ optional (config.kodi.enableSteamController or false)
-        steam-controller
-        ++ optional (config.kodi.enableSteamLauncher or false) steam-launcher
-        ++ optional (config.kodi.enablePVRHTS or false) pvr-hts
-        ++ optional (config.kodi.enablePVRHDHomeRun or false) pvr-hdhomerun
-        ++ optional (config.kodi.enablePVRIPTVSimple or false) pvr-iptvsimple
-        ++ optional (config.kodi.enableInputStreamAdaptive or false)
-        inputstream-adaptive
-        ++ optional (config.kodi.enableVFSSFTP or false) vfs-sftp
-        ++ optional (config.kodi.enableVFSLibarchive or false) vfs-libarchive);
+          advanced-launcher
+          ++ optional (config.kodi.enableAdvancedEmulatorLauncher or false)
+          advanced-emulator-launcher
+          ++ optionals (config.kodi.enableControllers or false)
+          (with controllers; [
+            default
+            dreamcast
+            gba
+            genesis
+            mouse
+            n64
+            nes
+            ps
+            snes
+          ]) ++ optional (config.kodi.enableExodus or false) exodus
+          ++ optionals (config.kodi.enableHyperLauncher or false)
+          (with hyper-launcher; [ plugin service pdfreader ])
+          ++ optional (config.kodi.enableJoystick or false) joystick
+          ++ optional (config.kodi.enableOSMCskin or false) osmc-skin
+          ++ optional (config.kodi.enableSVTPlay or false) svtplay
+          ++ optional (config.kodi.enableSteamController or false)
+          steam-controller
+          ++ optional (config.kodi.enableSteamLauncher or false) steam-launcher
+          ++ optional (config.kodi.enablePVRHTS or false) pvr-hts
+          ++ optional (config.kodi.enablePVRHDHomeRun or false) pvr-hdhomerun
+          ++ optional (config.kodi.enablePVRIPTVSimple or false) pvr-iptvsimple
+          ++ optional (config.kodi.enableInputStreamAdaptive or false)
+          inputstream-adaptive
+          ++ optional (config.kodi.enableVFSSFTP or false) vfs-sftp
+          ++ optional (config.kodi.enableVFSLibarchive or false)
+          vfs-libarchive);
     };
 
   wsjtx = qt5.callPackage ../applications/radio/wsjtx { };
@@ -24232,11 +24236,11 @@ in {
 
   nix-repl = throw
     ("nix-repl has been removed because it's not maintained anymore, "
-    + (lib.optionalString
-    (!lib.versionAtLeast "2" (lib.versions.major builtins.nixVersion))
-    "ugrade your Nix installation to a newer version and ")
-    + "use `nix repl` instead. "
-    + "Also see https://github.com/NixOS/nixpkgs/pull/44903");
+      + (lib.optionalString
+        (!lib.versionAtLeast "2" (lib.versions.major builtins.nixVersion))
+        "ugrade your Nix installation to a newer version and ")
+      + "use `nix repl` instead. "
+      + "Also see https://github.com/NixOS/nixpkgs/pull/44903");
 
   nix-review = callPackage ../tools/package-management/nix-review { };
 
@@ -24275,11 +24279,11 @@ in {
 
   mysql-workbench = callPackage ../applications/misc/mysql-workbench
     (let mysql = mysql57;
-    in {
-      gdal = gdal.override { mysql = mysql // { lib = { dev = mysql; }; }; };
-      mysql = mysql;
-      pcre = pcre-cpp;
-    });
+      in {
+        gdal = gdal.override { mysql = mysql // { lib = { dev = mysql; }; }; };
+        mysql = mysql;
+        pcre = pcre-cpp;
+      });
 
   redis-desktop-manager =
     libsForQt5.callPackage ../applications/misc/redis-desktop-manager { };
@@ -24614,14 +24618,14 @@ in {
 
   winePackagesFor = wineBuild:
     lib.makeExtensible (self:
-    with self; {
-      callPackage = newScope self;
+      with self; {
+        callPackage = newScope self;
 
-      inherit wineBuild;
+        inherit wineBuild;
 
-      inherit (callPackage ./wine-packages.nix { })
-        minimal base full stable unstable staging fonts;
-    });
+        inherit (callPackage ./wine-packages.nix { })
+          minimal base full stable unstable staging fonts;
+      });
 
   winePackages =
     recurseIntoAttrs (winePackagesFor (config.wine.build or "wine32"));

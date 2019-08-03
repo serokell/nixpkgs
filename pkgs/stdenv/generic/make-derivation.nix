@@ -125,10 +125,10 @@ in rec {
         (hardeningEnable ++ lib.remove "all" hardeningDisable);
     in if builtins.length erroneousHardeningFlags != 0 then
       abort ("mkDerivation was called with unsupported hardening flags: "
-      + lib.generators.toPretty { } {
-        inherit erroneousHardeningFlags hardeningDisable hardeningEnable
-          supportedHardeningFlags;
-      })
+        + lib.generators.toPretty { } {
+          inherit erroneousHardeningFlags hardeningDisable hardeningEnable
+            supportedHardeningFlags;
+        })
     else
       let
         doCheck = doCheck';
@@ -143,12 +143,12 @@ in rec {
           [
             (map (drv: drv.__spliced.buildBuild or drv) depsBuildBuild)
             (map (drv: drv.nativeDrv or drv) nativeBuildInputs
-            ++ lib.optional separateDebugInfo'
-            ../../build-support/setup-hooks/separate-debug-info.sh
-            ++ lib.optional stdenv.hostPlatform.isWindows
-            ../../build-support/setup-hooks/win-dll-link.sh
-            ++ lib.optionals doCheck checkInputs
-            ++ lib.optionals doInstallCheck' installCheckInputs)
+              ++ lib.optional separateDebugInfo'
+              ../../build-support/setup-hooks/separate-debug-info.sh
+              ++ lib.optional stdenv.hostPlatform.isWindows
+              ../../build-support/setup-hooks/win-dll-link.sh
+              ++ lib.optionals doCheck checkInputs
+              ++ lib.optionals doInstallCheck' installCheckInputs)
             (map (drv: drv.__spliced.buildTarget or drv) depsBuildTarget)
           ]
           [
@@ -160,10 +160,10 @@ in rec {
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
             (map (drv: drv.__spliced.buildBuild or drv)
-            depsBuildBuildPropagated)
+              depsBuildBuildPropagated)
             (map (drv: drv.nativeDrv or drv) propagatedNativeBuildInputs)
             (map (drv: drv.__spliced.buildTarget or drv)
-            depsBuildTargetPropagated)
+              depsBuildTargetPropagated)
           ]
           [
             (map (drv: drv.__spliced.hostHost or drv) depsHostHostPropagated)
@@ -171,14 +171,14 @@ in rec {
           ]
           [
             (map (drv: drv.__spliced.targetTarget or drv)
-            depsTargetTargetPropagated)
+              depsTargetTargetPropagated)
           ]
         ];
 
         computedSandboxProfile =
           lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
           (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs
-          ++ lib.concatLists dependencies);
+            ++ lib.concatLists dependencies);
 
         computedPropagatedSandboxProfile =
           lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
@@ -186,12 +186,12 @@ in rec {
 
         computedImpureHostDeps = lib.unique
           (lib.concatMap (input: input.__propagatedImpureHostDeps or [ ])
-          (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs
-          ++ lib.concatLists dependencies));
+            (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs
+              ++ lib.concatLists dependencies));
 
         computedPropagatedImpureHostDeps = lib.unique
           (lib.concatMap (input: input.__propagatedImpureHostDeps or [ ])
-          (lib.concatLists propagatedDependencies));
+            (lib.concatLists propagatedDependencies));
 
         derivationArg = (removeAttrs attrs [
           "meta"
@@ -208,74 +208,75 @@ in rec {
           (!(attrs ? name) && attrs ? pname && attrs ? version)) {
             name = "${attrs.pname}-${attrs.version}";
           } // (lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform
-          && !dontAddHostSuffix
-          && (attrs ? name || (attrs ? pname && attrs ? version)))) {
-            # Fixed-output derivations like source tarballs shouldn't get a host
-            # suffix. But we have some weird ones with run-time deps that are
-            # just used for their side-affects. Those might as well since the
-            # hash can't be the same. See #32986.
-            name = "${
-              attrs.name or "${attrs.pname}-${attrs.version}"
-              }-${stdenv.hostPlatform.config}";
-          } // {
-            builder = attrs.realBuilder or stdenv.shell;
-            args =
-              attrs.args or [ "-e" (attrs.builder or ./default-builder.sh) ];
-            inherit stdenv;
+            && !dontAddHostSuffix
+            && (attrs ? name || (attrs ? pname && attrs ? version)))) {
+              # Fixed-output derivations like source tarballs shouldn't get a host
+              # suffix. But we have some weird ones with run-time deps that are
+              # just used for their side-affects. Those might as well since the
+              # hash can't be the same. See #32986.
+              name = "${
+                attrs.name or "${attrs.pname}-${attrs.version}"
+                }-${stdenv.hostPlatform.config}";
+            } // {
+              builder = attrs.realBuilder or stdenv.shell;
+              args =
+                attrs.args or [ "-e" (attrs.builder or ./default-builder.sh) ];
+              inherit stdenv;
 
-            # The `system` attribute of a derivation has special meaning to Nix.
-            # Derivations set it to choose what sort of machine could be used to
-            # execute the build, The build platform entirely determines this,
-            # indeed more finely than Nix knows or cares about. The `system`
-            # attribute of `buildPlatfom` matches Nix's degree of specificity.
-            # exactly.
-            inherit (stdenv.buildPlatform) system;
+              # The `system` attribute of a derivation has special meaning to Nix.
+              # Derivations set it to choose what sort of machine could be used to
+              # execute the build, The build platform entirely determines this,
+              # indeed more finely than Nix knows or cares about. The `system`
+              # attribute of `buildPlatfom` matches Nix's degree of specificity.
+              # exactly.
+              inherit (stdenv.buildPlatform) system;
 
-            userHook = config.stdenv.userHook or null;
-            __ignoreNulls = true;
+              userHook = config.stdenv.userHook or null;
+              __ignoreNulls = true;
 
-            inherit strictDeps;
+              inherit strictDeps;
 
-            depsBuildBuild = lib.elemAt (lib.elemAt dependencies 0) 0;
-            nativeBuildInputs = lib.elemAt (lib.elemAt dependencies 0) 1;
-            depsBuildTarget = lib.elemAt (lib.elemAt dependencies 0) 2;
-            depsHostHost = lib.elemAt (lib.elemAt dependencies 1) 0;
-            buildInputs = lib.elemAt (lib.elemAt dependencies 1) 1;
-            depsTargetTarget = lib.elemAt (lib.elemAt dependencies 2) 0;
+              depsBuildBuild = lib.elemAt (lib.elemAt dependencies 0) 0;
+              nativeBuildInputs = lib.elemAt (lib.elemAt dependencies 0) 1;
+              depsBuildTarget = lib.elemAt (lib.elemAt dependencies 0) 2;
+              depsHostHost = lib.elemAt (lib.elemAt dependencies 1) 0;
+              buildInputs = lib.elemAt (lib.elemAt dependencies 1) 1;
+              depsTargetTarget = lib.elemAt (lib.elemAt dependencies 2) 0;
 
-            depsBuildBuildPropagated =
-              lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
-            propagatedNativeBuildInputs =
-              lib.elemAt (lib.elemAt propagatedDependencies 0) 1;
-            depsBuildTargetPropagated =
-              lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
-            depsHostHostPropagated =
-              lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
-            propagatedBuildInputs =
-              lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
-            depsTargetTargetPropagated =
-              lib.elemAt (lib.elemAt propagatedDependencies 2) 0;
+              depsBuildBuildPropagated =
+                lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
+              propagatedNativeBuildInputs =
+                lib.elemAt (lib.elemAt propagatedDependencies 0) 1;
+              depsBuildTargetPropagated =
+                lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
+              depsHostHostPropagated =
+                lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
+              propagatedBuildInputs =
+                lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
+              depsTargetTargetPropagated =
+                lib.elemAt (lib.elemAt propagatedDependencies 2) 0;
 
-            # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
-            configureFlags = let inherit (lib) optional elem;
-              in (if lib.isString configureFlags then
-                [ configureFlags ]
-              else if configureFlags == null then
-                [ ]
-              else
-                configureFlags) ++ optional (elem "build" configurePlatforms)
-              "--build=${stdenv.buildPlatform.config}"
-              ++ optional (elem "host" configurePlatforms)
-              "--host=${stdenv.hostPlatform.config}"
-              ++ optional (elem "target" configurePlatforms)
-              "--target=${stdenv.targetPlatform.config}";
+              # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
+              configureFlags = let inherit (lib) optional elem;
+                in (if lib.isString configureFlags then
+                  [ configureFlags ]
+                else if configureFlags == null then
+                  [ ]
+                else
+                  configureFlags) ++ optional (elem "build" configurePlatforms)
+                "--build=${stdenv.buildPlatform.config}"
+                ++ optional (elem "host" configurePlatforms)
+                "--host=${stdenv.hostPlatform.config}"
+                ++ optional (elem "target" configurePlatforms)
+                "--target=${stdenv.targetPlatform.config}";
 
-            inherit patches;
+              inherit patches;
 
-            inherit doCheck doInstallCheck;
+              inherit doCheck doInstallCheck;
 
-            inherit outputs;
-          } // lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
+              inherit outputs;
+            }
+          // lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
             cmakeFlags = (if lib.isString cmakeFlags then
               [ cmakeFlags ]
             else if cmakeFlags == null then
@@ -300,29 +301,30 @@ in rec {
           (hardeningDisable != [ ] || hardeningEnable != [ ]) {
             NIX_HARDENING_ENABLE = enabledHardeningOptions;
           } // lib.optionalAttrs (stdenv.hostPlatform.isx86_64
-          && stdenv.hostPlatform ? platform.gcc.arch) {
-            requiredSystemFeatures = attrs.requiredSystemFeatures or [ ]
-              ++ [ "gccarch-${stdenv.hostPlatform.platform.gcc.arch}" ];
-          } // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
-            inherit __darwinAllowLocalNetworking;
-            # TODO: remove lib.unique once nix has a list canonicalization primitive
-            __sandboxProfile = let
-              profiles = [ stdenv.extraSandboxProfile ]
-                ++ computedSandboxProfile ++ computedPropagatedSandboxProfile
-                ++ [ propagatedSandboxProfile sandboxProfile ];
-              final = lib.concatStringsSep "\n"
-                (lib.filter (x: x != "") (lib.unique profiles));
-              in final;
-            __propagatedSandboxProfile = lib.unique
-              (computedPropagatedSandboxProfile
-              ++ [ propagatedSandboxProfile ]);
-            __impureHostDeps = computedImpureHostDeps
-              ++ computedPropagatedImpureHostDeps ++ __propagatedImpureHostDeps
-              ++ __impureHostDeps ++ stdenv.__extraImpureHostDeps
-              ++ [ "/dev/zero" "/dev/random" "/dev/urandom" "/bin/sh" ];
-            __propagatedImpureHostDeps = computedPropagatedImpureHostDeps
-              ++ __propagatedImpureHostDeps;
-          };
+            && stdenv.hostPlatform ? platform.gcc.arch) {
+              requiredSystemFeatures = attrs.requiredSystemFeatures or [ ]
+                ++ [ "gccarch-${stdenv.hostPlatform.platform.gcc.arch}" ];
+            } // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
+              inherit __darwinAllowLocalNetworking;
+              # TODO: remove lib.unique once nix has a list canonicalization primitive
+              __sandboxProfile = let
+                profiles = [ stdenv.extraSandboxProfile ]
+                  ++ computedSandboxProfile ++ computedPropagatedSandboxProfile
+                  ++ [ propagatedSandboxProfile sandboxProfile ];
+                final = lib.concatStringsSep "\n"
+                  (lib.filter (x: x != "") (lib.unique profiles));
+                in final;
+              __propagatedSandboxProfile = lib.unique
+                (computedPropagatedSandboxProfile
+                  ++ [ propagatedSandboxProfile ]);
+              __impureHostDeps = computedImpureHostDeps
+                ++ computedPropagatedImpureHostDeps
+                ++ __propagatedImpureHostDeps ++ __impureHostDeps
+                ++ stdenv.__extraImpureHostDeps
+                ++ [ "/dev/zero" "/dev/random" "/dev/urandom" "/bin/sh" ];
+              __propagatedImpureHostDeps = computedPropagatedImpureHostDeps
+                ++ __propagatedImpureHostDeps;
+            };
 
         validity = checkMeta { inherit meta attrs; };
 
@@ -361,9 +363,9 @@ in rec {
         overrideAttrs = f: mkDerivation (attrs // (f attrs));
         inherit meta passthru;
       } //
-      # Pass through extra attributes that are not inputs, but
-      # should be made available to Nix expressions using the
-      # derivation (e.g., in assertions).
-      passthru) (derivation derivationArg);
+        # Pass through extra attributes that are not inputs, but
+        # should be made available to Nix expressions using the
+        # derivation (e.g., in assertions).
+        passthru) (derivation derivationArg);
 
 }

@@ -32,7 +32,7 @@ in stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ perl libassuan libgcrypt ] ++ stdenv.lib.optional doCheck
     ([ gnupg opensshUnsafe which socat cpio hexdump procps lockfileProgs ]
-    ++ (with perlPackages; [ CryptOpenSSLRSA CryptOpenSSLBignum ]));
+      ++ (with perlPackages; [ CryptOpenSSLRSA CryptOpenSSLBignum ]));
 
   makeFlags = ''
     PREFIX=/
@@ -58,10 +58,10 @@ in stdenv.mkDerivation rec {
   postFixup = let
     wrapperArgs = runtimeDeps:
       "--prefix PERL5LIB : " + (with perlPackages;
-      makePerlPath [ # Optional (only required for keytrans)
-        CryptOpenSSLRSA
-        CryptOpenSSLBignum
-      ]) + stdenv.lib.optionalString (builtins.length runtimeDeps > 0)
+        makePerlPath [ # Optional (only required for keytrans)
+          CryptOpenSSLRSA
+          CryptOpenSSLBignum
+        ]) + stdenv.lib.optionalString (builtins.length runtimeDeps > 0)
       " --prefix PATH : ${stdenv.lib.makeBinPath runtimeDeps}";
     wrapMonkeysphere = runtimeDeps: program: ''
       wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}

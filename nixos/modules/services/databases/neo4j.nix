@@ -551,7 +551,7 @@ in {
 
           config.directoriesToCreate = optionals (certDirOpt.highestPrio >= 1500
             && options.baseDirectory.highestPrio >= 1500) (map (opt: opt.value)
-            (filter isDefaultPathOption (attrValues options)));
+              (filter isDefaultPathOption (attrValues options)));
 
         }));
       default = { };
@@ -591,7 +591,7 @@ in {
     # Capture various directories left at their default so they can be created.
     defaultDirectoriesToCreate = map (opt: opt.value)
       (filter isDefaultPathOption
-      (attrValues options.services.neo4j.directories));
+        (attrValues options.services.neo4j.directories));
     policyDirectoriesToCreate =
       concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
 

@@ -20,11 +20,11 @@ let
 
   onlyLicenses = list:
     lib.lists.all (license:
-    let l = lib.licenses.${license.shortName or "BROKEN"} or false;
-    in if license == l then
-      true
-    else
-      throw "‘${showLicense license}’ is not an attribute of lib.licenses")
+      let l = lib.licenses.${license.shortName or "BROKEN"} or false;
+      in if license == l then
+        true
+      else
+        throw "‘${showLicense license}’ is not an attribute of lib.licenses")
     list;
 
   areLicenseListsValid = if lib.mutuallyExclusive whitelist blacklist then
@@ -106,32 +106,34 @@ let
 
       Known issues:
     '' + (lib.concatStrings
-    (map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities)) + ''
+      (map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities)) + ''
 
-      You can install it anyway by whitelisting this package, using the
-      following methods:
+        You can install it anyway by whitelisting this package, using the
+        following methods:
 
-      a) for `nixos-rebuild` you can add ‘${attrs.name or "«name-missing»"}’ to
-         `nixpkgs.config.permittedInsecurePackages` in the configuration.nix,
-         like so:
+        a) for `nixos-rebuild` you can add ‘${
+          attrs.name or "«name-missing»"
+        }’ to
+           `nixpkgs.config.permittedInsecurePackages` in the configuration.nix,
+           like so:
 
-           {
-             nixpkgs.config.permittedInsecurePackages = [
-               "${attrs.name or "«name-missing»"}"
-             ];
-           }
+             {
+               nixpkgs.config.permittedInsecurePackages = [
+                 "${attrs.name or "«name-missing»"}"
+               ];
+             }
 
-      b) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
-      ‘${attrs.name or "«name-missing»"}’ to `permittedInsecurePackages` in
-      ~/.config/nixpkgs/config.nix, like so:
+        b) For `nix-env`, `nix-build`, `nix-shell` or any other Nix command you can add
+        ‘${attrs.name or "«name-missing»"}’ to `permittedInsecurePackages` in
+        ~/.config/nixpkgs/config.nix, like so:
 
-           {
-             permittedInsecurePackages = [
-               "${attrs.name or "«name-missing»"}"
-             ];
-           }
+             {
+               permittedInsecurePackages = [
+                 "${attrs.name or "«name-missing»"}"
+               ];
+             }
 
-    '';
+      '';
 
   remediateOutputsToInstall = attrs:
     let
@@ -196,7 +198,7 @@ let
       name = "test";
       check = x:
         x == { } || ( # Accept {} for tests that are unsupported
-        isDerivation x && x ? meta.timeout);
+          isDerivation x && x ? meta.timeout);
       merge = lib.options.mergeOneOption;
     });
     timeout = int;
@@ -270,31 +272,31 @@ let
       reason = "broken";
       errormsg = "is marked as broken";
     } else if !allowUnsupportedSystem && (!lib.lists.elem hostPlatform.system
-    (attrs.meta.platforms or lib.platforms.all)
-    || lib.lists.elem hostPlatform.system
-    (attrs.meta.badPlatforms or [ ])) then {
-      valid = false;
-      reason = "unsupported";
-      errormsg = "is not supported on ‘${hostPlatform.system}’";
-    } else if !(hasAllowedInsecure attrs) then {
-      valid = false;
-      reason = "insecure";
-      errormsg = "is marked as insecure";
-    } else if checkOutputsToInstall attrs then {
-      valid = false;
-      reason = "broken-outputs";
-      errormsg = "has invalid meta.outputsToInstall";
-    } else
-      let res = checkMeta (attrs.meta or { });
-      in if res != [ ] then {
+      (attrs.meta.platforms or lib.platforms.all)
+      || lib.lists.elem hostPlatform.system
+      (attrs.meta.badPlatforms or [ ])) then {
         valid = false;
-        reason = "unknown-meta";
-        errormsg = "has an invalid meta attrset:${
-          lib.concatMapStrings (x: "\n	 - " + x) res
-        }";
-      } else {
-        valid = true;
-      };
+        reason = "unsupported";
+        errormsg = "is not supported on ‘${hostPlatform.system}’";
+      } else if !(hasAllowedInsecure attrs) then {
+        valid = false;
+        reason = "insecure";
+        errormsg = "is marked as insecure";
+      } else if checkOutputsToInstall attrs then {
+        valid = false;
+        reason = "broken-outputs";
+        errormsg = "has invalid meta.outputsToInstall";
+      } else
+        let res = checkMeta (attrs.meta or { });
+        in if res != [ ] then {
+          valid = false;
+          reason = "unknown-meta";
+          errormsg = "has an invalid meta attrset:${
+            lib.concatMapStrings (x: "\n	 - " + x) res
+          }";
+        } else {
+          valid = true;
+        };
 
   assertValidity = { meta, attrs }:
     let validity = checkValidity attrs;

@@ -35,7 +35,8 @@ let
     # an "attribute name not found" error to avoid confusion.
     deprecatedVersions = let versions = [ "13.8.0" "13.9.0" "13.9.1" ];
       in lib.listToAttrs (lib.flip map versions (v:
-      lib.nameValuePair v (throw "Unsupported citrix_receiver version: ${v}")));
+        lib.nameValuePair v
+        (throw "Unsupported citrix_receiver version: ${v}")));
     in deprecatedVersions // supportedVersions;
 
   citrixReceiverForVersion =

@@ -122,9 +122,9 @@ in rec {
   */
   filterAttrs = pred: set:
     listToAttrs (concatMap (name:
-    let v = set.${name};
-    in if pred name v then [ (nameValuePair name v) ] else [ ])
-    (attrNames set));
+      let v = set.${name};
+      in if pred name v then [ (nameValuePair name v) ] else [ ])
+      (attrNames set));
 
   /* Filter an attribute set recursively by removing all attributes for
      which the given predicate return false.
@@ -135,14 +135,14 @@ in rec {
   */
   filterAttrsRecursive = pred: set:
     listToAttrs (concatMap (name:
-    let v = set.${name};
-    in if pred name v then
-      [
-        (nameValuePair name
-        (if isAttrs v then filterAttrsRecursive pred v else v))
-      ]
-    else
-      [ ]) (attrNames set));
+      let v = set.${name};
+      in if pred name v then
+        [
+          (nameValuePair name
+            (if isAttrs v then filterAttrsRecursive pred v else v))
+        ]
+      else
+        [ ]) (attrNames set));
 
   /* Apply fold functions to values grouped by key.
 
@@ -152,8 +152,8 @@ in rec {
   */
   foldAttrs = op: nul: list_of_attrs:
     fold (n: a:
-    fold (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a
-    (attrNames n)) { } list_of_attrs;
+      fold (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a
+      (attrNames n)) { } list_of_attrs;
 
   /* Recursively collect sets that verify a given predicate named `pred'
      from the set `attrs'.  The recursion is stopped when the predicate is
@@ -380,12 +380,12 @@ in rec {
     let
       f = attrPath:
         zipAttrsWith (n: values:
-        let here = attrPath ++ [ n ];
-        in if tail values == [ ]
-        || pred here (head (tail values)) (head values) then
-          head values
-        else
-          f here values);
+          let here = attrPath ++ [ n ];
+          in if tail values == [ ]
+          || pred here (head (tail values)) (head values) then
+            head values
+          else
+            f here values);
     in f [ ] [ rhs lhs ];
 
   /* A recursive variant of the update operator ‘//’.  The recursion
@@ -419,15 +419,15 @@ in rec {
   matchAttrs = pattern: attrs:
     assert isAttrs pattern;
     fold and true (attrValues (zipAttrsWithNames (attrNames pattern) (n: values:
-    let
-      pat = head values;
-      val = head (tail values);
-    in if length values == 1 then
-      false
-    else if isAttrs pat then
-      isAttrs val && matchAttrs pat val
-    else
-      pat == val) [ pattern attrs ]));
+      let
+        pat = head values;
+        val = head (tail values);
+      in if length values == 1 then
+        false
+      else if isAttrs pat then
+        isAttrs val && matchAttrs pat val
+      else
+        pat == val) [ pattern attrs ]));
 
   /* Override only the attributes that are already present in the old set
      useful for deep-overriding.

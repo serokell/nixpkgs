@@ -77,32 +77,32 @@ in {
     systemd.services =
 
       lib.fold (s: acc:
-      acc // {
-        "autossh-${s.name}" =
-          let mport = if s ? monitoringPort then s.monitoringPort else 0;
-          in {
-            description = "AutoSSH session (" + s.name + ")";
+        acc // {
+          "autossh-${s.name}" =
+            let mport = if s ? monitoringPort then s.monitoringPort else 0;
+            in {
+              description = "AutoSSH session (" + s.name + ")";
 
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
+              after = [ "network.target" ];
+              wantedBy = [ "multi-user.target" ];
 
-            # To be able to start the service with no network connection
-            environment.AUTOSSH_GATETIME = "0";
+              # To be able to start the service with no network connection
+              environment.AUTOSSH_GATETIME = "0";
 
-            # How often AutoSSH checks the network, in seconds
-            environment.AUTOSSH_POLL = "30";
+              # How often AutoSSH checks the network, in seconds
+              environment.AUTOSSH_POLL = "30";
 
-            serviceConfig = {
-              User = "${s.user}";
-              # AutoSSH may exit with 0 code if the SSH session was
-              # gracefully terminated by either local or remote side.
-              Restart = "on-success";
-              ExecStart = "${pkgs.autossh}/bin/autossh -M ${
-                toString mport
-                } ${s.extraArguments}";
+              serviceConfig = {
+                User = "${s.user}";
+                # AutoSSH may exit with 0 code if the SSH session was
+                # gracefully terminated by either local or remote side.
+                Restart = "on-success";
+                ExecStart = "${pkgs.autossh}/bin/autossh -M ${
+                  toString mport
+                  } ${s.extraArguments}";
+              };
             };
-          };
-      }) { } cfg.sessions;
+        }) { } cfg.sessions;
 
     environment.systemPackages = [ pkgs.autossh ];
 

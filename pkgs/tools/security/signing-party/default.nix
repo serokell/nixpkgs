@@ -136,7 +136,7 @@ in stdenv.mkDerivation rec {
           ${
       with perlPackages;
       makePerlPath ([ TextTemplate MIMETools MailTools TimeDate NetIDNEncode ]
-      ++ GnuPGInterfaceRuntimeDependencies)
+        ++ GnuPGInterfaceRuntimeDependencies)
           } \
           --prefix PATH ":" \
           "${stdenv.lib.makeBinPath [ nettools gnupg ]}"

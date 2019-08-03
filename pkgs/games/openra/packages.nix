@@ -58,13 +58,13 @@ in rec {
   buildOpenRAMod =
     { name ? null, version, title, description, homepage, src, engine }@mod:
     ({ version, mods ? [ ], src }@engine:
-    let
-      builder = name:
-        pkgs.callPackage ./mod.nix (common // {
-          mod = mod // { inherit name; };
-          engine = engine // { inherit mods; };
-        });
-    in if name == null then builder else builder name) engine;
+      let
+        builder = name:
+          pkgs.callPackage ./mod.nix (common // {
+            mod = mod // { inherit name; };
+            engine = engine // { inherit mods; };
+          });
+      in if name == null then builder else builder name) engine;
 
   # See `buildOpenRASet`.
   engines =

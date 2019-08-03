@@ -68,27 +68,27 @@ in stdenv.mkDerivation rec {
 
   buildInputs = with llvmPackages;
     (builtins.map (x:
-    stdenv.lib.overrideDerivation x
-    (x: { NIX_CFLAGS_COMPILE = (x.NIX_CFLAGS_COMPILE or "") + " -frtti"; })) [
-      llvm
-      clang
-      clang-unwrapped
-      clang
-    ]) ++ [
-      gmp
-      zlib
-      ncurses
-      boost
-      boehmgc
-      libelf
-      (boost.override {
-        enableStatic = true;
-        enableShared = false;
-      })
-      (stdenv.lib.overrideDerivation boehmgc (x: {
-        configureFlags = (x.configureFlags or [ ]) ++ [ "--enable-static" ];
-      }))
-    ];
+      stdenv.lib.overrideDerivation x
+      (x: { NIX_CFLAGS_COMPILE = (x.NIX_CFLAGS_COMPILE or "") + " -frtti"; })) [
+        llvm
+        clang
+        clang-unwrapped
+        clang
+      ]) ++ [
+        gmp
+        zlib
+        ncurses
+        boost
+        boehmgc
+        libelf
+        (boost.override {
+          enableStatic = true;
+          enableShared = false;
+        })
+        (stdenv.lib.overrideDerivation boehmgc (x: {
+          configureFlags = (x.configureFlags or [ ]) ++ [ "--enable-static" ];
+        }))
+      ];
 
   NIX_CXXSTDLIB_COMPILE = " -frtti ";
 

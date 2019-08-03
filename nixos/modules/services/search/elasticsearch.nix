@@ -149,7 +149,7 @@ in {
         ES_HOME = cfg.dataDir;
         ES_JAVA_OPTS = toString
           (optional (!es6) [ "-Des.path.conf=${configDir}" ]
-          ++ cfg.extraJavaOptions);
+            ++ cfg.extraJavaOptions);
       } // optionalAttrs es6 { ES_PATH_CONF = configDir; };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/elasticsearch ${

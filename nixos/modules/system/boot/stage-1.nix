@@ -139,11 +139,11 @@ let
     # Copy secrets if needed.
     ${optionalString (!config.boot.loader.supportsInitrdSecrets)
     (concatStringsSep "\n" (mapAttrsToList (dest: source:
-    let source' = if source == null then dest else source;
-    in ''
-      mkdir -p $(dirname "$out/secrets/${dest}")
-      cp -a ${source'} "$out/secrets/${dest}"
-    '') config.boot.initrd.secrets))}
+      let source' = if source == null then dest else source;
+      in ''
+        mkdir -p $(dirname "$out/secrets/${dest}")
+        cp -a ${source'} "$out/secrets/${dest}"
+      '') config.boot.initrd.secrets))}
 
     ${config.boot.initrd.extraUtilsCommands}
 
@@ -271,9 +271,9 @@ let
     resumeDevices = map
       (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}")
       (filter (sd:
-      hasPrefix "/dev/" sd.device && !sd.randomEncryption.enable
-      # Don't include zram devices
-      && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
+        hasPrefix "/dev/" sd.device && !sd.randomEncryption.enable
+        # Don't include zram devices
+        && !(hasPrefix "/dev/zram" sd.device)) config.swapDevices);
 
     fsInfo = let
       f = fs: [
@@ -362,11 +362,11 @@ let
     tmp=$(mktemp -d initrd-secrets.XXXXXXXXXX)
 
     ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
-    let source' = if source == null then dest else toString source;
-    in ''
-      mkdir -p $(dirname "$tmp/${dest}")
-      cp -a ${source'} "$tmp/${dest}"
-    '') config.boot.initrd.secrets)}
+      let source' = if source == null then dest else toString source;
+      in ''
+        mkdir -p $(dirname "$tmp/${dest}")
+        cp -a ${source'} "$tmp/${dest}"
+      '') config.boot.initrd.secrets)}
 
     (cd "$tmp" && find . | cpio -H newc -o) | gzip >>"$1"
   '';

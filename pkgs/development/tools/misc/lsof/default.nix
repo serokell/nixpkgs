@@ -17,19 +17,19 @@ in stdenv.mkDerivation rec {
         "ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/lsof_${version}.tar.bz2"
       ] ++ map (
       # the tarball is moved after new version is released
-      isOld:
-      "ftp://sunsite.ualberta.ca/pub/Mirror/lsof/"
-      + "${stdenv.lib.optionalString isOld "OLD/"}lsof_${version}.tar.bz2") [
-        false
-        true
-      ] ++ map (
+        isOld:
+        "ftp://sunsite.ualberta.ca/pub/Mirror/lsof/"
+        + "${stdenv.lib.optionalString isOld "OLD/"}lsof_${version}.tar.bz2") [
+          false
+          true
+        ] ++ map (
       # the tarball is moved after new version is released
-      isOld:
-      "http://www.mirrorservice.org/sites/lsof.itap.purdue.edu/pub/tools/unix/lsof/"
-      + "${stdenv.lib.optionalString isOld "OLD/"}lsof_${version}.tar.bz2") [
-        false
-        true
-      ];
+        isOld:
+        "http://www.mirrorservice.org/sites/lsof.itap.purdue.edu/pub/tools/unix/lsof/"
+        + "${stdenv.lib.optionalString isOld "OLD/"}lsof_${version}.tar.bz2") [
+          false
+          true
+        ];
     sha256 = "18sh4hbl9jw2szkf0gvgan8g13f3g4c6s2q9h3zq5gsza9m99nn9";
   };
 

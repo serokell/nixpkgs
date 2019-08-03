@@ -41,9 +41,9 @@ in {
 
     environment.etc."sysctl.d/nixos.conf".text = concatStrings (mapAttrsToList
       (n: v:
-      optionalString (v != null) ''
-        ${n}=${if v == false then "0" else toString v}
-      '') config.boot.kernel.sysctl);
+        optionalString (v != null) ''
+          ${n}=${if v == false then "0" else toString v}
+        '') config.boot.kernel.sysctl);
 
     systemd.services.systemd-sysctl = {
       wantedBy = [ "multi-user.target" ];

@@ -251,18 +251,18 @@ let
           check = isList;
           merge = loc: defs:
             map (x: x.value) (filter (x: x ? value) (concatLists (imap1 (n: def:
-            if isList def.value then
-              imap1 (m: def':
-              (mergeDefinitions
-              (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ])
-              elemType [{
-                inherit (def) file;
-                value = def';
-              }]).optionalValue) def.value
-            else
-              throw "The option value `${
-                showOption loc
-              }` in `${def.file}` is not a list.") defs)));
+              if isList def.value then
+                imap1 (m: def':
+                  (mergeDefinitions (loc
+                    ++ [ "[definition ${toString n}-entry ${toString m}]" ])
+                    elemType [{
+                      inherit (def) file;
+                      value = def';
+                    }]).optionalValue) def.value
+              else
+                throw "The option value `${
+                  showOption loc
+                }` in `${def.file}` is not a list.") defs)));
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: listOf (elemType.substSubModules m);
@@ -280,14 +280,15 @@ let
           check = isAttrs;
           merge = loc: defs:
             mapAttrs (n: v: v.value) (filterAttrs (n: v: v ? value)
-            (zipAttrsWith (name: defs:
-            (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue)
-            # Push down position info.
-            (map (def:
-            mapAttrs (n: v: {
-              inherit (def) file;
-              value = v;
-            }) def.value) defs)));
+              (zipAttrsWith (name: defs:
+                (mergeDefinitions (loc ++ [ name ]) elemType
+                  defs).optionalValue)
+                # Push down position info.
+                (map (def:
+                  mapAttrs (n: v: {
+                    inherit (def) file;
+                    value = v;
+                  }) def.value) defs)));
           getSubOptions = prefix:
             elemType.getSubOptions (prefix ++ [ "<name>" ]);
           getSubModules = elemType.getSubModules;

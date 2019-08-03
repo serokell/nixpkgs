@@ -10,15 +10,15 @@ with stdenv.lib;
 let
   neovimLuaEnv = lua.withPackages (ps:
     (with ps;
-    [ mpack lpeg luabitop ] ++ optionals doCheck [
-      nvim-client
-      luv
-      coxpcall
-      busted
-      luafilesystem
-      penlight
-      inspect
-    ]));
+      [ mpack lpeg luabitop ] ++ optionals doCheck [
+        nvim-client
+        luv
+        coxpcall
+        busted
+        luafilesystem
+        penlight
+        inspect
+      ]));
 in stdenv.mkDerivation rec {
   name = "neovim-unwrapped-${version}";
   version = "0.3.8";

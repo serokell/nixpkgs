@@ -452,8 +452,8 @@ in {
           };
 
         in listToAttrs (map createImportService dataPools
-        ++ map createSyncService allPools
-        ++ map createZfsService [ "zfs-mount" "zfs-share" "zfs-zed" ]);
+          ++ map createSyncService allPools
+          ++ map createZfsService [ "zfs-mount" "zfs-share" "zfs-zed" ]);
 
       systemd.targets."zfs-import" =
         let services = map (pool: "zfs-import-${pool}.service") dataPools;

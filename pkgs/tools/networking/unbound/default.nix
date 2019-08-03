@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     # get rid of runtime dependencies on $dev outputs
     + ''substituteInPlace "$lib/lib/libunbound.la" ''
     + stdenv.lib.concatMapStrings (pkg:
-    " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'")
+      " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'")
     buildInputs;
 
   meta = with stdenv.lib; {

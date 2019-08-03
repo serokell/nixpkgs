@@ -149,7 +149,7 @@ in rec { # un-indented
         "bibtex-x"
         "upmendex" # ICU isn't small
       ] ++ stdenv.lib.optional
-      (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
+        (stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit) "mfluajit")
       ++ [
         "--without-system-harfbuzz"
         "--without-system-icu"
@@ -187,10 +187,10 @@ in rec { # un-indented
           tex4ht/mk4ht.pl
           tex4ht/xhlatex.sh
         '';
-      in ''
-        echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
-          >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
-      '') + # doc location identical with individual TeX pkgs
+        in ''
+          echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
+            >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
+        '') + # doc location identical with individual TeX pkgs
       ''
         mkdir -p "$doc/doc"
         mv "$out"/share/{man,info} "$doc"/doc

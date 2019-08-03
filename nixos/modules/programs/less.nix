@@ -17,12 +17,12 @@ let
     #line-edit
     ${concatStringsSep "\n"
     (mapAttrsToList (command: action: "${command} ${action}")
-    cfg.lineEditingKeys)}
+      cfg.lineEditingKeys)}
 
     #env
     ${concatStringsSep "\n"
     (mapAttrsToList (variable: values: "${variable}=${values}")
-    cfg.envVariables)}
+      cfg.envVariables)}
   '';
 
   lessKey = pkgs.runCommand "lesskey" {

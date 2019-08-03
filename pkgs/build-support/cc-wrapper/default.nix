@@ -40,7 +40,7 @@ let
   coreutils_bin = if nativeTools then "" else getBin coreutils;
 
   default_cxx_stdlib_compile = if (targetPlatform.isLinux
-  && !(cc.isGNU or false) && !nativeTools && cc ? gcc)
+    && !(cc.isGNU or false) && !nativeTools && cc ? gcc)
   && !(targetPlatform.useLLVM or false) then
     "-isystem $(echo -n ${cc.gcc}/include/c++/*) -isystem $(echo -n ${cc.gcc}/include/c++/*)/$(${cc.gcc}/bin/gcc -dumpmachine)"
   else if targetPlatform.isDarwin && (libcxx != null) && (cc.isClang or false)
@@ -97,7 +97,7 @@ stdenv.mkDerivation {
   else
     stdenv.lib.removePrefix targetPrefix "${ccName}-wrapper")
     + (stdenv.lib.optionalString (cc != null && ccVersion != "")
-    "-${ccVersion}");
+      "-${ccVersion}");
 
   preferLocalBuild = true;
 
@@ -316,9 +316,9 @@ stdenv.mkDerivation {
     # discrepency (x86_64 vs. x86-64), so we provide an "arch" arg in
     # that case.
     + optionalString ((targetPlatform ? platform.gcc.arch)
-    && isGccArchSupported targetPlatform.platform.gcc.arch) ''
-      echo "-march=${targetPlatform.platform.gcc.arch}" >> $out/nix-support/cc-cflags-before
-    ''
+      && isGccArchSupported targetPlatform.platform.gcc.arch) ''
+        echo "-march=${targetPlatform.platform.gcc.arch}" >> $out/nix-support/cc-cflags-before
+      ''
 
     # -mcpu is not very useful. You should use mtune and march
     # instead. It’s provided here for backwards compatibility.
@@ -336,9 +336,9 @@ stdenv.mkDerivation {
     '' + optionalString (targetPlatform ? platform.gcc.mode) ''
       echo "-mmode=${targetPlatform.platform.gcc.mode}" >> $out/nix-support/cc-cflags-before
     '' + optionalString (targetPlatform ? platform.gcc.tune
-    && isGccArchSupported targetPlatform.platform.gcc.tune) ''
-      echo "-mtune=${targetPlatform.platform.gcc.tune}" >> $out/nix-support/cc-cflags-before
-    ''
+      && isGccArchSupported targetPlatform.platform.gcc.tune) ''
+        echo "-mtune=${targetPlatform.platform.gcc.tune}" >> $out/nix-support/cc-cflags-before
+      ''
 
     # TODO: categorize these and figure out a better place for them
     + optionalString hostPlatform.isCygwin ''

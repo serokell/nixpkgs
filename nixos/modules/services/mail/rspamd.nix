@@ -101,19 +101,19 @@ let
         ];
         apply = value:
           map (each:
-          if (isString each) then
-            if (isUnixSocket each) then {
-              socket = each;
-              owner = cfg.user;
-              group = cfg.group;
-              mode = "0644";
-              rawEntry = "${each}";
-            } else {
-              socket = each;
-              rawEntry = "${each}";
-            }
-          else
-            each) value;
+            if (isString each) then
+              if (isUnixSocket each) then {
+                socket = each;
+                owner = cfg.user;
+                group = cfg.group;
+                mode = "0644";
+                rawEntry = "${each}";
+              } else {
+                socket = each;
+                rawEntry = "${each}";
+              }
+            else
+              each) value;
       };
       count = mkOption {
         type = types.nullOr types.int;
@@ -187,28 +187,29 @@ let
     }
 
     ${concatStringsSep "\n" (mapAttrsToList (name: value:
-    let
-      includeName = if name == "rspamd_proxy" then "proxy" else name;
-      tryOverride = if value.extraConfig == "" then "true" else "false";
-    in ''
-      worker "${value.type}" {
-        type = "${value.type}";
-        ${
-        optionalString (value.enable != null)
-        "enabled = ${if value.enable != false then "yes" else "no"};"
+      let
+        includeName = if name == "rspamd_proxy" then "proxy" else name;
+        tryOverride = if value.extraConfig == "" then "true" else "false";
+      in ''
+        worker "${value.type}" {
+          type = "${value.type}";
+          ${
+          optionalString (value.enable != null)
+          "enabled = ${if value.enable != false then "yes" else "no"};"
+          }
+          ${mkBindSockets value.enable value.bindSockets}
+          ${
+          optionalString (value.count != null)
+          "count = ${toString value.count};"
+          }
+          ${
+          concatStringsSep "\n  "
+          (map (each: ''.include "${each}"'') value.includes)
+          }
+          .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
+          .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
         }
-        ${mkBindSockets value.enable value.bindSockets}
-        ${
-        optionalString (value.count != null) "count = ${toString value.count};"
-        }
-        ${
-        concatStringsSep "\n  "
-        (map (each: ''.include "${each}"'') value.includes)
-        }
-        .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
-        .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
-      }
-    '') cfg.workers)}
+      '') cfg.workers)}
 
     ${optionalString (cfg.extraConfig != "") ''
       .include(priority=10) "$LOCAL_CONFDIR/override.d/extra-config.inc"
@@ -256,7 +257,7 @@ let
       config = {
         source = mkIf (config.text != null)
           (let name' = "rspamd-${prefix}-" + baseNameOf name;
-          in mkDefault (pkgs.writeText name' config.text));
+            in mkDefault (pkgs.writeText name' config.text));
       };
     };
 
@@ -463,7 +464,7 @@ in {
   };
   imports = [
     (mkRemovedOptionModule [ "services" "rspamd" "socketActivation" ]
-    "Socket activation never worked correctly and could at this time not be fixed and so was removed")
+      "Socket activation never worked correctly and could at this time not be fixed and so was removed")
     (mkRenamedOptionModule [ "services" "rspamd" "bindSocket" ] [
       "services"
       "rspamd"

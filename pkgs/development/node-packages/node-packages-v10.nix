@@ -49991,17 +49991,17 @@ in {
       sources."ms-0.7.0"
       sources."nan-2.14.0"
       (sources."native-dns-git+https://github.com/okTurtles/node-dns.git#08433ec98f517eed3c6d5e47bdf62603539cd402"
-      // {
-        dependencies = [
-          sources."native-dns-packet-git+https://github.com/okTurtles/native-dns-packet.git#8bf2714c318cfe7d31bca2006385882ccbf503e4"
-        ];
-      })
+        // {
+          dependencies = [
+            sources."native-dns-packet-git+https://github.com/okTurtles/native-dns-packet.git#8bf2714c318cfe7d31bca2006385882ccbf503e4"
+          ];
+        })
       (sources."native-dns-cache-git+https://github.com/okTurtles/native-dns-cache.git#8714196bb9223cc9a4064a4fddf9e82ec50b7d4d"
-      // {
-        dependencies = [
-          sources."native-dns-packet-git+https://github.com/okTurtles/native-dns-packet.git#307e77a47ebba57a5ae9118a284e916e5ebb305a"
-        ];
-      })
+        // {
+          dependencies = [
+            sources."native-dns-packet-git+https://github.com/okTurtles/native-dns-packet.git#307e77a47ebba57a5ae9118a284e916e5ebb305a"
+          ];
+        })
       sources."native-dns-packet-0.1.1"
       sources."nconf-0.7.1"
       sources."negotiator-0.5.3"

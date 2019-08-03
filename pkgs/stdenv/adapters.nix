@@ -159,7 +159,7 @@ rec {
             # Fixed-output derivations such as source tarballs usually
             # don't have licensing information, but that's OK.
             (pkg.outputHash or (builtins.trace
-            "warning: ${drv} lacks licensing information" null));
+              "warning: ${drv} lacks licensing information" null));
 
           validate = arg:
             if licensePred license then

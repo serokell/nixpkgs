@@ -30,7 +30,7 @@ let
 
   mapAliases = aliases:
     lib.mapAttrs (n: alias:
-    removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
     aliases;
 
 in mapAliases {

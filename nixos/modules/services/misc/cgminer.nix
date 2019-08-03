@@ -11,10 +11,10 @@ let
     (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
   mergedConfig = with builtins;
     mapAttrsToList (n: v:
-    ''
-      "${n}":  ${if isBool v then "" else ''"''}${convType v}${
-        if isBool v then "" else ''"''
-      }'') cfg.config;
+      ''
+        "${n}":  ${if isBool v then "" else ''"''}${convType v}${
+          if isBool v then "" else ''"''
+        }'') cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {
@@ -33,8 +33,8 @@ let
       concatStringsSep ''
         ,
       '' (map
-      (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
-      cfg.pools)
+        (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
+        cfg.pools)
     }]
     }
   '';

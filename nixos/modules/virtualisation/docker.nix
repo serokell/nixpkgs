@@ -228,7 +228,7 @@ in {
 
   imports = [
     (mkRemovedOptionModule [ "virtualisation" "docker" "socketActivation" ]
-    "This option was removed in favor of starting docker at boot")
+      "This option was removed in favor of starting docker at boot")
   ];
 
 }

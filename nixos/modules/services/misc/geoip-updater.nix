@@ -247,7 +247,7 @@ in {
         ${
           toString
           (builtins.filter (x: builtins.match ".*\\.(gz|xz)$" x == null)
-          cfg.databases)
+            cfg.databases)
         };
       '';
     }];

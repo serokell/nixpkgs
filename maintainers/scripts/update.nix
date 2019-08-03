@@ -18,17 +18,17 @@ let
 
   packagesWith = cond: return: set:
     nubOn (pkg: pkg.updateScript) (pkgs.lib.flatten (pkgs.lib.mapAttrsToList
-    (name: pkg:
-    let
-      result = builtins.tryEval
-        (if pkgs.lib.isDerivation pkg && cond name pkg then
-          [ (return name pkg) ]
-        else if pkg.recurseForDerivations or false
-        || pkg.recurseForRelease or false then
-          packagesWith cond return pkg
-        else
-          [ ]);
-    in if result.success then result.value else [ ]) set));
+      (name: pkg:
+        let
+          result = builtins.tryEval
+            (if pkgs.lib.isDerivation pkg && cond name pkg then
+              [ (return name pkg) ]
+            else if pkg.recurseForDerivations or false
+            || pkg.recurseForRelease or false then
+              packagesWith cond return pkg
+            else
+              [ ]);
+        in if result.success then result.value else [ ]) set));
 
   packagesWithUpdateScriptAndMaintainer = maintainer':
     let
@@ -38,14 +38,14 @@ let
       else
         builtins.getAttr maintainer' pkgs.lib.maintainers;
     in packagesWith (name: pkg:
-    builtins.hasAttr "updateScript" pkg
-    && (if builtins.hasAttr "maintainers" pkg.meta then
-      (if builtins.isList pkg.meta.maintainers then
-        builtins.elem maintainer pkg.meta.maintainers
+      builtins.hasAttr "updateScript" pkg
+      && (if builtins.hasAttr "maintainers" pkg.meta then
+        (if builtins.isList pkg.meta.maintainers then
+          builtins.elem maintainer pkg.meta.maintainers
+        else
+          maintainer == pkg.meta.maintainers)
       else
-        maintainer == pkg.meta.maintainers)
-    else
-      false)) (name: pkg: pkg) pkgs;
+        false)) (name: pkg: pkg) pkgs;
 
   packagesWithUpdateScript = path:
     let attrSet = pkgs.lib.attrByPath (pkgs.lib.splitString "." path) null pkgs;

@@ -167,124 +167,124 @@ in rec {
       };
     });
 
-in rec {
+  in rec {
 
-  icecat = iccommon rec {
-    ffversion = "60.3.0";
-    icversion = "${ffversion}-gnu1";
+    icecat = iccommon rec {
+      ffversion = "60.3.0";
+      icversion = "${ffversion}-gnu1";
 
-    src = fetchurl {
-      url = "mirror://gnu/gnuzilla/${ffversion}/icecat-${icversion}.tar.bz2";
-      sha256 = "0icnl64nxcyf7dprpdpygxhabsvyhps8c3ixysj9bcdlj9q34ib1";
-    };
-
-    patches = [ ./no-buildconfig.patch missing-documentation-patch ];
-  };
-
-  # Similarly to firefox-esr-52 above.
-  icecat-52 = iccommon rec {
-    ffversion = "52.6.0";
-    icversion = "${ffversion}-gnu1";
-
-    src = fetchurl {
-      url = "mirror://gnu/gnuzilla/${ffversion}/icecat-${icversion}.tar.bz2";
-      sha256 = "09fn54glqg1aa93hnz5zdcy07cps09dbni2b4200azh6nang630a";
-    };
-
-    patches = [
-      # this one is actually an omnipresent bug
-      # https://bugzilla.mozilla.org/show_bug.cgi?id=1444519
-      ./fix-pa-context-connect-retval.patch
-    ];
-
-    meta.knownVulnerabilities = [ "Support ended in August 2018." ];
-  };
-
-}) // (let
-
-  tbcommon = args:
-    common (args // {
-      pname = "tor-browser";
-      isTorBrowserLike = true;
-
-      unpackPhase = ''
-        # fetchFromGitHub produces ro sources, root dir gets a name that
-        # is too long for shebangs. fixing
-        cp -a $src tor-browser
-        chmod -R +w tor-browser
-        cd tor-browser
-
-        # set times for xpi archives
-        find . -exec touch -d'2010-01-01 00:00' {} \;
-      '';
-
-      meta = (args.meta or { }) // {
-        description = "A web browser built from TorBrowser source tree";
-        longDescription = ''
-          This is a version of TorBrowser with bundle-related patches
-          reverted.
-
-          I.e. it's a variant of Firefox with less fingerprinting and
-          some isolation features you can't get with any extensions.
-
-          Or, alternatively, a variant of TorBrowser that works like any
-          other UNIX program and doesn't expect you to run it from a
-          bundle.
-
-          It will use your default Firefox profile if you're not careful
-          even! Be careful!
-
-          It will clash with firefox binary if you install both. But it
-          should not be a problem because you should run browsers in
-          separate users/VMs anyway.
-
-          Create new profile by starting it as
-
-          $ firefox -ProfileManager
-
-          and then configure it to use your tor instance.
-
-          Or just use `tor-browser-bundle` package that packs this
-          `tor-browser` back into a sanely-built bundle.
-        '';
-        homepage = "https://www.torproject.org/projects/torbrowser.html";
-        platforms = lib.platforms.unix;
-        license = with lib.licenses; [ mpl20 bsd3 ];
+      src = fetchurl {
+        url = "mirror://gnu/gnuzilla/${ffversion}/icecat-${icversion}.tar.bz2";
+        sha256 = "0icnl64nxcyf7dprpdpygxhabsvyhps8c3ixysj9bcdlj9q34ib1";
       };
-    });
 
-in rec {
-
-  tor-browser-7-5 = (tbcommon rec {
-    ffversion = "52.9.0esr";
-    tbversion = "7.5.6";
-
-    # FIXME: fetchFromGitHub is not ideal, unpacked source is >900Mb
-    src = fetchFromGitHub {
-      owner = "SLNOS";
-      repo = "tor-browser";
-      # branch "tor-browser-52.9.0esr-7.5-2-slnos"
-      rev = "95bb92d552876a1f4260edf68fda5faa3eb36ad8";
-      sha256 = "1ykn3yg4s36g2cpzxbz7s995c33ij8kgyvghx38z4i8siaqxdddy";
-    };
-  }).override { gtk3Support = false; };
-
-  tor-browser-8-5 = tbcommon rec {
-    ffversion = "60.8.0esr";
-    tbversion = "8.5.4";
-
-    # FIXME: fetchFromGitHub is not ideal, unpacked source is >900Mb
-    src = fetchFromGitHub {
-      owner = "SLNOS";
-      repo = "tor-browser";
-      # branch "tor-browser-60.8.0esr-8.5-1-slnos"
-      rev = "9ec7e4832a68ba3a77f5e8e21dc930a25757f55d";
-      sha256 = "10x9h2nm1p8cs0qnd8yjp7ly5raxagqyfjn4sj2y3i86ya5zygb9";
+      patches = [ ./no-buildconfig.patch missing-documentation-patch ];
     };
 
-    patches = [ missing-documentation-patch ];
-  };
+    # Similarly to firefox-esr-52 above.
+    icecat-52 = iccommon rec {
+      ffversion = "52.6.0";
+      icversion = "${ffversion}-gnu1";
 
-  tor-browser = tor-browser-8-5;
+      src = fetchurl {
+        url = "mirror://gnu/gnuzilla/${ffversion}/icecat-${icversion}.tar.bz2";
+        sha256 = "09fn54glqg1aa93hnz5zdcy07cps09dbni2b4200azh6nang630a";
+      };
 
-})
+      patches = [
+        # this one is actually an omnipresent bug
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1444519
+        ./fix-pa-context-connect-retval.patch
+      ];
+
+      meta.knownVulnerabilities = [ "Support ended in August 2018." ];
+    };
+
+  }) // (let
+
+    tbcommon = args:
+      common (args // {
+        pname = "tor-browser";
+        isTorBrowserLike = true;
+
+        unpackPhase = ''
+          # fetchFromGitHub produces ro sources, root dir gets a name that
+          # is too long for shebangs. fixing
+          cp -a $src tor-browser
+          chmod -R +w tor-browser
+          cd tor-browser
+
+          # set times for xpi archives
+          find . -exec touch -d'2010-01-01 00:00' {} \;
+        '';
+
+        meta = (args.meta or { }) // {
+          description = "A web browser built from TorBrowser source tree";
+          longDescription = ''
+            This is a version of TorBrowser with bundle-related patches
+            reverted.
+
+            I.e. it's a variant of Firefox with less fingerprinting and
+            some isolation features you can't get with any extensions.
+
+            Or, alternatively, a variant of TorBrowser that works like any
+            other UNIX program and doesn't expect you to run it from a
+            bundle.
+
+            It will use your default Firefox profile if you're not careful
+            even! Be careful!
+
+            It will clash with firefox binary if you install both. But it
+            should not be a problem because you should run browsers in
+            separate users/VMs anyway.
+
+            Create new profile by starting it as
+
+            $ firefox -ProfileManager
+
+            and then configure it to use your tor instance.
+
+            Or just use `tor-browser-bundle` package that packs this
+            `tor-browser` back into a sanely-built bundle.
+          '';
+          homepage = "https://www.torproject.org/projects/torbrowser.html";
+          platforms = lib.platforms.unix;
+          license = with lib.licenses; [ mpl20 bsd3 ];
+        };
+      });
+
+    in rec {
+
+      tor-browser-7-5 = (tbcommon rec {
+        ffversion = "52.9.0esr";
+        tbversion = "7.5.6";
+
+        # FIXME: fetchFromGitHub is not ideal, unpacked source is >900Mb
+        src = fetchFromGitHub {
+          owner = "SLNOS";
+          repo = "tor-browser";
+          # branch "tor-browser-52.9.0esr-7.5-2-slnos"
+          rev = "95bb92d552876a1f4260edf68fda5faa3eb36ad8";
+          sha256 = "1ykn3yg4s36g2cpzxbz7s995c33ij8kgyvghx38z4i8siaqxdddy";
+        };
+      }).override { gtk3Support = false; };
+
+      tor-browser-8-5 = tbcommon rec {
+        ffversion = "60.8.0esr";
+        tbversion = "8.5.4";
+
+        # FIXME: fetchFromGitHub is not ideal, unpacked source is >900Mb
+        src = fetchFromGitHub {
+          owner = "SLNOS";
+          repo = "tor-browser";
+          # branch "tor-browser-60.8.0esr-8.5-1-slnos"
+          rev = "9ec7e4832a68ba3a77f5e8e21dc930a25757f55d";
+          sha256 = "10x9h2nm1p8cs0qnd8yjp7ly5raxagqyfjn4sj2y3i86ya5zygb9";
+        };
+
+        patches = [ missing-documentation-patch ];
+      };
+
+      tor-browser = tor-browser-8-5;
+
+    })

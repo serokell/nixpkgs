@@ -42,7 +42,7 @@ let
       configureFlags = [
         (stdenv.lib.withFeature bdbSupport "berkeley-db")
         (stdenv.lib.withFeatureAs httpServer "apxs"
-        "${apacheHttpd.dev}/bin/apxs")
+          "${apacheHttpd.dev}/bin/apxs")
         (stdenv.lib.withFeatureAs (pythonBindings || perlBindings) "swig" swig)
         (stdenv.lib.withFeatureAs saslSupport "sasl" sasl)
         (stdenv.lib.withFeatureAs httpSupport "serf" serf)

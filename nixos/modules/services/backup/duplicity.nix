@@ -106,8 +106,9 @@ in {
             ${pkgs.duplicity}/bin/duplicity ${
               escapeShellArgs
               ([ cfg.root cfg.targetUrl "--archive-dir" stateDirectory ]
-              ++ concatMap (p: [ "--include" p ]) cfg.include
-              ++ concatMap (p: [ "--exclude" p ]) cfg.exclude ++ cfg.extraFlags)
+                ++ concatMap (p: [ "--include" p ]) cfg.include
+                ++ concatMap (p: [ "--exclude" p ]) cfg.exclude
+                ++ cfg.extraFlags)
             }
           '';
           PrivateTmp = true;

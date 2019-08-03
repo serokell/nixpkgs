@@ -15,10 +15,10 @@ in lib.init bootStages ++ [
 
   # Regular native packages
   (somePrevStage:
-  lib.last bootStages somePrevStage // {
-    # It's OK to change the built-time dependencies
-    allowCustomOverrides = true;
-  })
+    lib.last bootStages somePrevStage // {
+      # It's OK to change the built-time dependencies
+      allowCustomOverrides = true;
+    })
 
   # Build tool Packages
   (vanillaPackages: {
@@ -65,7 +65,7 @@ in lib.init bootStages ++ [
         [ buildPackages.patchelf ] ++ lib.optional (let
           f = p:
             !p.isx86 || p.libc == "musl" || p.libc == "wasilibc" || p.isiOS;
-        in f hostPlatform && !(f buildPlatform))
+          in f hostPlatform && !(f buildPlatform))
         buildPackages.updateAutotoolsGnuConfigScriptsHook
         # without proper `file` command, libtool sometimes fails
         # to recognize 64-bit DLLs

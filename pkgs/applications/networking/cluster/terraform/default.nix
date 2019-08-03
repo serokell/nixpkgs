@@ -49,7 +49,7 @@ let
           # Wrap PATH of plugins propagatedBuildInputs, plugins may have runtime dependencies on external binaries
           wrapperInputs = lib.unique (lib.flatten
             (lib.catAttrs "propagatedBuildInputs"
-            (builtins.filter (x: x != null) actualPlugins)));
+              (builtins.filter (x: x != null) actualPlugins)));
 
           passthru = {
             withPlugins = newplugins:

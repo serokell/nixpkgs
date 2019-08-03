@@ -171,7 +171,7 @@ let
 
     ${concatStringsSep "\n"
     (mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
-    cfg.extraVeths)}
+      cfg.extraVeths)}
   '';
 
   postStartScript = (cfg:
@@ -684,38 +684,38 @@ in {
 
       systemd.services = listToAttrs (filter (x: x.value != null) (
         # The generic container template used by imperative containers
-        [{
-          name = "container@";
-          value = unit;
-        }]
-        # declarative containers
-        ++ (mapAttrsToList (name: cfg:
-        nameValuePair "container@${name}" (let
-          containerConfig = cfg // (if cfg.enableTun then {
-            allowedDevices = cfg.allowedDevices ++ [{
-              node = "/dev/net/tun";
-              modifier = "rw";
-            }];
-            additionalCapabilities = cfg.additionalCapabilities
-              ++ [ "CAP_NET_ADMIN" ];
-          } else
-            { });
-        in unit // {
-          preStart = preStartScript containerConfig;
-          script = startScript containerConfig;
-          postStart = postStartScript containerConfig;
-          serviceConfig = serviceDirectives containerConfig;
-        } // (if containerConfig.autoStart then {
-          wantedBy = [ "machines.target" ];
-          wants = [ "network.target" ];
-          after = [ "network.target" ];
-          restartTriggers = [
-            containerConfig.path
-            config.environment.etc."containers/${name}.conf".source
-          ];
-          restartIfChanged = true;
-        } else
-          { }))) config.containers)));
+          [{
+            name = "container@";
+            value = unit;
+          }]
+          # declarative containers
+          ++ (mapAttrsToList (name: cfg:
+            nameValuePair "container@${name}" (let
+              containerConfig = cfg // (if cfg.enableTun then {
+                allowedDevices = cfg.allowedDevices ++ [{
+                  node = "/dev/net/tun";
+                  modifier = "rw";
+                }];
+                additionalCapabilities = cfg.additionalCapabilities
+                  ++ [ "CAP_NET_ADMIN" ];
+              } else
+                { });
+              in unit // {
+                preStart = preStartScript containerConfig;
+                script = startScript containerConfig;
+                postStart = postStartScript containerConfig;
+                serviceConfig = serviceDirectives containerConfig;
+              } // (if containerConfig.autoStart then {
+                wantedBy = [ "machines.target" ];
+                wants = [ "network.target" ];
+                after = [ "network.target" ];
+                restartTriggers = [
+                  containerConfig.path
+                  config.environment.etc."containers/${name}.conf".source
+                ];
+                restartIfChanged = true;
+              } else
+                { }))) config.containers)));
 
       # Generate a configuration file in /etc/containers for each
       # container so that container@.target can get the container
@@ -728,44 +728,44 @@ in {
           else
             toString p.containerPort);
         in mapAttrs' (name: cfg:
-        nameValuePair "containers/${name}.conf" {
-          text = ''
-            SYSTEM_PATH=${cfg.path}
-            ${optionalString cfg.privateNetwork ''
-              PRIVATE_NETWORK=1
-              ${optionalString (cfg.hostBridge != null) ''
-                HOST_BRIDGE=${cfg.hostBridge}
+          nameValuePair "containers/${name}.conf" {
+            text = ''
+              SYSTEM_PATH=${cfg.path}
+              ${optionalString cfg.privateNetwork ''
+                PRIVATE_NETWORK=1
+                ${optionalString (cfg.hostBridge != null) ''
+                  HOST_BRIDGE=${cfg.hostBridge}
+                ''}
+                ${optionalString (length cfg.forwardPorts > 0) ''
+                  HOST_PORT=${
+                    concatStringsSep "," (map mkPortStr cfg.forwardPorts)
+                  }
+                ''}
+                ${optionalString (cfg.hostAddress != null) ''
+                  HOST_ADDRESS=${cfg.hostAddress}
+                ''}
+                ${optionalString (cfg.hostAddress6 != null) ''
+                  HOST_ADDRESS6=${cfg.hostAddress6}
+                ''}
+                ${optionalString (cfg.localAddress != null) ''
+                  LOCAL_ADDRESS=${cfg.localAddress}
+                ''}
+                ${optionalString (cfg.localAddress6 != null) ''
+                  LOCAL_ADDRESS6=${cfg.localAddress6}
+                ''}
               ''}
-              ${optionalString (length cfg.forwardPorts > 0) ''
-                HOST_PORT=${
-                  concatStringsSep "," (map mkPortStr cfg.forwardPorts)
-                }
+              INTERFACES="${toString cfg.interfaces}"
+              MACVLANS="${toString cfg.macvlans}"
+              ${optionalString cfg.autoStart ''
+                AUTO_START=1
               ''}
-              ${optionalString (cfg.hostAddress != null) ''
-                HOST_ADDRESS=${cfg.hostAddress}
-              ''}
-              ${optionalString (cfg.hostAddress6 != null) ''
-                HOST_ADDRESS6=${cfg.hostAddress6}
-              ''}
-              ${optionalString (cfg.localAddress != null) ''
-                LOCAL_ADDRESS=${cfg.localAddress}
-              ''}
-              ${optionalString (cfg.localAddress6 != null) ''
-                LOCAL_ADDRESS6=${cfg.localAddress6}
-              ''}
-            ''}
-            INTERFACES="${toString cfg.interfaces}"
-            MACVLANS="${toString cfg.macvlans}"
-            ${optionalString cfg.autoStart ''
-              AUTO_START=1
-            ''}
-            EXTRA_NSPAWN_FLAGS="${
-              mkBindFlags cfg.bindMounts
-              + optionalString (cfg.extraFlags != [ ])
-              (" " + concatStringsSep " " cfg.extraFlags)
-            }"
-          '';
-        }) config.containers;
+              EXTRA_NSPAWN_FLAGS="${
+                mkBindFlags cfg.bindMounts
+                + optionalString (cfg.extraFlags != [ ])
+                (" " + concatStringsSep " " cfg.extraFlags)
+              }"
+            '';
+          }) config.containers;
 
       # Generate /etc/hosts entries for the containers.
       networking.extraHosts = concatStrings (mapAttrsToList (name: cfg:

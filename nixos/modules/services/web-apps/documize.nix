@@ -7,10 +7,10 @@ let
 
   mkParams = optional:
     concatMapStrings (name:
-    let
-      predicate = optional -> cfg.${name} != null;
-      template = " -${name} '${toString cfg.${name}}'";
-    in optionalString predicate template);
+      let
+        predicate = optional -> cfg.${name} != null;
+        template = " -${name} '${toString cfg.${name}}'";
+      in optionalString predicate template);
 
 in {
   options.services.documize = {

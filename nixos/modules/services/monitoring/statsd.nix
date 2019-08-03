@@ -25,10 +25,10 @@ let
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
       concatMapStringsSep "," (name:
-      if (isBuiltinBackend name) then
-        ''"./backends/${name}"''
-      else
-        ''"${name}"'') cfg.backends
+        if (isBuiltinBackend name) then
+          ''"./backends/${name}"''
+        else
+          ''"${name}"'') cfg.backends
       }],
       ${
       optionalString (cfg.graphiteHost != null)

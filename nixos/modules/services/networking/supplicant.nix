@@ -262,11 +262,11 @@ in {
           ${flip (concatMapStringsSep "\n")
           (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
           (iface:
-          flip (concatMapStringsSep "\n") (splitString " " iface) (i:
-          ''
-            ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-              replaceChars [ " " ] [ "-" ] iface
-            }.service", TAG+="SUPPLICANT_ASSIGNED"''))}
+            flip (concatMapStringsSep "\n") (splitString " " iface) (i:
+              ''
+                ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
+                  replaceChars [ " " ] [ "-" ] iface
+                }.service", TAG+="SUPPLICANT_ASSIGNED"''))}
 
           ${optionalString (hasAttr "WLAN" cfg) ''
             ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="${pkgs.systemd}/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"

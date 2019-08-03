@@ -54,7 +54,7 @@ in {
 
       ${concatStringsSep "\n"
       (mapAttrsToList (key: value: ''export ${key}="${value}"'')
-      cfg.extraConfig)}
+        cfg.extraConfig)}
     '';
 
   };

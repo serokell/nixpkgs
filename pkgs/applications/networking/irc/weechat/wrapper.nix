@@ -68,7 +68,7 @@ let
 
         scripts = builtins.concatStringsSep ";"
           (lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ]
-          (config.scripts or [ ]));
+            (config.scripts or [ ]));
         in "${scripts};${init}";
 
       mkWeechat = bin:

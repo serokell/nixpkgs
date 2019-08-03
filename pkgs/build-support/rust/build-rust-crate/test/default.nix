@@ -107,8 +107,8 @@ in rec {
     };
     brotliCrates = (callPackage ./brotli-crates.nix { });
     in lib.mapAttrs (key: value:
-    mkTest
-    (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
+      mkTest
+      (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
     cases // {
       brotliTest = let pkg = brotliCrates.brotli_2_5_0 { };
         in runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; } ''

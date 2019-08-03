@@ -233,7 +233,7 @@ in {
       agent = {
         whitelist = concatStringsSep ";"
           (optional cfg.enableDemoAgent "geoclue-demo-agent"
-          ++ defaultWhitelist);
+            ++ defaultWhitelist);
       };
       network-nmea = { enable = cfg.enableNmea; };
       "3g" = { enable = cfg.enable3G; };

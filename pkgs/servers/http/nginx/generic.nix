@@ -8,13 +8,13 @@ let
 
   mapModules = attrPath:
     flip concatMap modules (mod:
-    let supports = mod.supports or (_: true);
-    in if supports version then
-      mod.${attrPath} or [ ]
-    else
-      throw "Module at ${
-        toString mod.src
-      } does not support nginx version ${version}!");
+      let supports = mod.supports or (_: true);
+      in if supports version then
+        mod.${attrPath} or [ ]
+      else
+        throw "Module at ${
+          toString mod.src
+        } does not support nginx version ${version}!");
 
 in stdenv.mkDerivation {
   name = "nginx-${version}";

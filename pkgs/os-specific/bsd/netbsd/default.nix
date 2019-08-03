@@ -67,16 +67,16 @@ let
           license = licenses.bsd2;
         };
       } // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
-      // lib.optionalAttrs (stdenv'.cc.isClang or false) {
-        HAVE_LLVM =
-          lib.head (lib.splitString "." (lib.getVersion stdenv'.cc.cc));
-      } // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
-        HAVE_GCC =
-          lib.head (lib.splitString "." (lib.getVersion stdenv'.cc.cc));
-      } // lib.optionalAttrs (attrs.headersOnly or false) {
-        installPhase = "includesPhase";
-        dontBuild = true;
-      } // attrs));
+        // lib.optionalAttrs (stdenv'.cc.isClang or false) {
+          HAVE_LLVM =
+            lib.head (lib.splitString "." (lib.getVersion stdenv'.cc.cc));
+        } // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
+          HAVE_GCC =
+            lib.head (lib.splitString "." (lib.getVersion stdenv'.cc.cc));
+        } // lib.optionalAttrs (attrs.headersOnly or false) {
+          installPhase = "includesPhase";
+          dontBuild = true;
+        } // attrs));
 
     ##
     ## START BOOTSTRAPPING
@@ -179,11 +179,11 @@ let
           libc.src
           libutil.src
           (fetchNetBSD "include" "8.0"
-          "128m77k16i7frvk8kifhmxzk7a37m7z1s0bbmja3ywga6sx6v6sq")
+            "128m77k16i7frvk8kifhmxzk7a37m7z1s0bbmja3ywga6sx6v6sq")
           (fetchNetBSD "external/bsd/flex" "8.0"
-          "0yxcjshz9nj827qhmjwwjmzvmmqgaf0d25b42k7lj84vliwrgyr6")
+            "0yxcjshz9nj827qhmjwwjmzvmmqgaf0d25b42k7lj84vliwrgyr6")
           (fetchNetBSD "sys/sys" "8.0"
-          "0b0yjjy0c0cvk5nyffppqwxlwh2s1qr2xzl97a9ldck00dibar94")
+            "0b0yjjy0c0cvk5nyffppqwxlwh2s1qr2xzl97a9ldck00dibar94")
         ] ++ libutil.extraPaths ++ libc.extraPaths;
       };
 
@@ -225,11 +225,11 @@ let
       propagatedBuildInputs = [ compat ];
       extraPaths = [
         (fetchNetBSD "lib/libc/gen/fts.c" "8.0"
-        "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7")
+          "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7")
         (fetchNetBSD "lib/libc/include/namespace.h" "8.0"
-        "1sjvh9nw3prnk4rmdwrfsxh6gdb9lmilkn46jcfh3q5c8glqzrd7")
+          "1sjvh9nw3prnk4rmdwrfsxh6gdb9lmilkn46jcfh3q5c8glqzrd7")
         (fetchNetBSD "lib/libc/gen/fts.3" "8.0"
-        "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1")
+          "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1")
       ];
       skipIncludesPhase = true;
       buildPhase = ''
@@ -300,7 +300,7 @@ let
       '';
       extraPaths = [
         (fetchNetBSD "share/mk" "8.0"
-        "033q4w3rmvwznz6m7fn9xcf13chyhwwl8ijj3a9mrn80fkwm55qs")
+          "033q4w3rmvwznz6m7fn9xcf13chyhwwl8ijj3a9mrn80fkwm55qs")
       ];
     };
 
@@ -373,9 +373,9 @@ let
       extraPaths = [
         libterminfo.src
         (fetchNetBSD "usr.bin/tic" "8.0"
-        "0diirnzmdnpc5bixyb34c9rid9paw2a4zfczqrpqrfvjsf1nnljf")
+          "0diirnzmdnpc5bixyb34c9rid9paw2a4zfczqrpqrfvjsf1nnljf")
         (fetchNetBSD "tools/Makefile.host" "8.0"
-        "1p23dsc4qrv93vc6gzid9w2479jwswry9qfn88505s0pdd7h6nvp")
+          "1p23dsc4qrv93vc6gzid9w2479jwswry9qfn88505s0pdd7h6nvp")
       ];
     };
     ##
@@ -469,7 +469,7 @@ let
       '';
       extraPaths = [
         (fetchNetBSD "share/terminfo" "8.0"
-        "18db0fk1dw691vk6lsm6dksm4cf08g8kdm0gc4052ysdagg2m6sm")
+          "18db0fk1dw691vk6lsm6dksm4cf08g8kdm0gc4052ysdagg2m6sm")
       ];
     };
 

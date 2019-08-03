@@ -18,7 +18,7 @@ let
 
       patches = [
         (./.
-        + "/dont-create-sysconfdir-${builtins.substring 0 1 version}.patch")
+          + "/dont-create-sysconfdir-${builtins.substring 0 1 version}.patch")
       ] ++ optional (lib.versionOlder version "2")
         # https://github.com/BIRD/bird/pull/4
         (fetchpatch {

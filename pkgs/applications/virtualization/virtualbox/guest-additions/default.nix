@@ -46,7 +46,7 @@ in stdenv.mkDerivation {
       ./VBoxLinuxAdditions.run --noexec --keep
     '' else
       throw ("Architecture: " + stdenv.hostPlatform.system
-      + " not supported for VirtualBox guest additions")}
+        + " not supported for VirtualBox guest additions")}
 
     # Unpack files
     cd install
@@ -56,7 +56,7 @@ in stdenv.mkDerivation {
       tar xfvj VBoxGuestAdditions-amd64.tar.bz2
     '' else
       throw ("Architecture: " + stdenv.hostPlatform.system
-      + " not supported for VirtualBox guest additions")}
+        + " not supported for VirtualBox guest additions")}
   '';
 
   doConfigure = false;

@@ -35,9 +35,9 @@ stdenv.mkDerivation (rec {
   };
 }
 
-// stdenv.lib.optionalAttrs stdenv.isDarwin {
-  preBuild = ''
-    sed -i 's/,--version-script=.*$/\\/' libgamin/Makefile
-  '';
-})
+  // stdenv.lib.optionalAttrs stdenv.isDarwin {
+    preBuild = ''
+      sed -i 's/,--version-script=.*$/\\/' libgamin/Makefile
+    '';
+  })
 

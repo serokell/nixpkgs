@@ -11,11 +11,11 @@ let
   py = python2.override {
     packageOverrides = lib.foldr lib.composeExtensions (self: super: { }) ([
       (mkOverride "flask" "0.10.1"
-      "0wrkavjdjndknhp8ya8j850jq7a1cli4g5a93mg8nh1xz2gq50sc")
+        "0wrkavjdjndknhp8ya8j850jq7a1cli4g5a93mg8nh1xz2gq50sc")
       (mkOverride "flask_login" "0.2.11"
-      "1rg3rsjs1gwi2pw6vr9jmhaqm9b3vc9c4hfcsvp4y8agbh7g3mc3")
+        "1rg3rsjs1gwi2pw6vr9jmhaqm9b3vc9c4hfcsvp4y8agbh7g3mc3")
       (mkOverride "tornado" "4.5.3"
-      "02jzd23l4r6fswmwxaica9ldlyc2p6q8dk6dyff7j58fmdzf853d")
+        "02jzd23l4r6fswmwxaica9ldlyc2p6q8dk6dyff7j58fmdzf853d")
 
       # Octoprint holds back jinja2 to 2.8.1 due to breaking changes.
       # This old version does not have updated test config for pytest 4,

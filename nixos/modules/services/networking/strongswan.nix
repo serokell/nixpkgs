@@ -18,11 +18,10 @@ let
       # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
       makeSections = type: sections:
         concatStringsSep "\n\n" (mapAttrsToList (sec: attrs:
-        ''
-          ${type} ${sec}
-        ''
-        + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs)))
-        sections);
+          ''
+            ${type} ${sec}
+          '' + (concatStringsSep "\n"
+            (mapAttrsToList (k: v: "  ${k}=${v}") attrs))) sections);
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;

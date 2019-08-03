@@ -176,9 +176,9 @@ in {
 
     environment.systemPackages = pkgs.pantheon.artwork ++ pkgs.pantheon.desktop
       ++ pkgs.pantheon.services ++ cfg.sessionPath ++ (with pkgs;
-      gnome3.removePackagesByName
-      ([ gnome3.geary gnome3.epiphany gnome3.gnome-font-viewer ]
-      ++ pantheon.apps) config.environment.pantheon.excludePackages)
+        gnome3.removePackagesByName
+        ([ gnome3.geary gnome3.epiphany gnome3.gnome-font-viewer ]
+          ++ pantheon.apps) config.environment.pantheon.excludePackages)
       ++ (with pkgs; [
         adwaita-qt
         desktop-file-utils

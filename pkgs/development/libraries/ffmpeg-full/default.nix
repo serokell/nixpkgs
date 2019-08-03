@@ -263,7 +263,7 @@ stdenv.mkDerivation rec {
     (enableFeature swscaleLibrary "swscale")
     # *  Documentation flags
     (enableFeature (htmlpagesDocumentation || manpagesDocumentation
-    || podpagesDocumentation || txtpagesDocumentation) "doc")
+      || podpagesDocumentation || txtpagesDocumentation) "doc")
     (enableFeature htmlpagesDocumentation "htmlpages")
     (enableFeature manpagesDocumentation "manpages")
     (enableFeature podpagesDocumentation "podpages")
@@ -295,8 +295,8 @@ stdenv.mkDerivation rec {
     #(enableFeature (libcaca != null) "libcaca")
     #(enableFeature (cdio-paranoia != null && gplLicensing) "libcdio")
     (enableFeature
-    (if isLinux then libdc1394 != null && libraw1394 != null else false)
-    "libdc1394")
+      (if isLinux then libdc1394 != null && libraw1394 != null else false)
+      "libdc1394")
     (enableFeature (libiconv != null) "iconv")
     #(enableFeature (if isLinux then libiec61883 != null && libavc1394 != null && libraw1394 != null else false) "libiec61883")
     (enableFeature (if isLinux then libmfx != null else false) "libmfx")
@@ -322,7 +322,7 @@ stdenv.mkDerivation rec {
     (enableFeature (openal != null) "openal")
     #(enableFeature opencl "opencl")
     (enableFeature (opencore-amr != null && version3Licensing)
-    "libopencore-amrnb")
+      "libopencore-amrnb")
     #(enableFeature (opencv != null) "libopencv")
     (enableFeature openglExtlib "opengl")
     #(enableFeature (openh264 != null) "openh264")
@@ -338,7 +338,7 @@ stdenv.mkDerivation rec {
     #(enableFeature (twolame != null) "libtwolame")
     #(enableFeature (utvideo != null && gplLicensing) "libutvideo")
     (enableFeature (vid-stab != null && gplLicensing)
-    "libvidstab") # Actual min. version 2.0
+      "libvidstab") # Actual min. version 2.0
     #(enableFeature (vo-aacenc != null && version3Licensing) "libvo-aacenc")
     (enableFeature (vo-amrwbenc != null && version3Licensing) "libvo-amrwbenc")
     (enableFeature (wavpack != null) "libwavpack")

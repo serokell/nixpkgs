@@ -20,11 +20,11 @@ let
   aclFiles = mapAttrs (name:
     { acl, ... }:
     (pkgs.writeText "${name}.acl" (concatMapStrings
-    ({ principal, access, target, ... }:
-    let access_code = map (a: aclMap.${a}) (toList access);
-    in ''
-      ${principal} ${concatStrings access_code} ${target}
-    '') acl))) cfg.realms;
+      ({ principal, access, target, ... }:
+        let access_code = map (a: aclMap.${a}) (toList access);
+        in ''
+          ${principal} ${concatStrings access_code} ${target}
+        '') acl))) cfg.realms;
   kdcConfigs = mapAttrsToList (name: value: ''
     ${name} = {
       acl_file = ${value}

@@ -123,7 +123,7 @@ in {
             "-p ${toString cfg.blocktime}"
             "-s ${toString cfg.detection_time}"
             (optionalString (cfg.blacklist_threshold != null)
-            "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
+              "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
           ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
           in "${pkgs.sshguard}/bin/sshguard ${args}";
         Restart = "always";

@@ -33,7 +33,7 @@ in let
       #
       # no darwin because gmp uses ASM that clang doesn't like
       (stdenv.lib.enableFeature (!stdenv.isSunOS && stdenv.hostPlatform.isx86)
-      "fat")
+        "fat")
       # The config.guess in GMP tries to runtime-detect various
       # ARM optimization flags via /proc/cpuinfo (and is also
       # broken on multicore CPUs). Avoid this impurity.

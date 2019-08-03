@@ -52,7 +52,7 @@ in rec {
       offlineCache = importOfflineCache yarnNix;
       extraBuildInputs = (lib.flatten
         (builtins.map (key: pkgConfig.${key}.buildInputs or [ ])
-        (builtins.attrNames pkgConfig)));
+          (builtins.attrNames pkgConfig)));
       postInstall = (builtins.map (key:
         if (pkgConfig.${key} ? postInstall) then ''
           for f in $(find -L -path '*/node_modules/${key}' -type d); do
@@ -133,7 +133,7 @@ in rec {
           rest = lib.tail globElems;
           children = lib.attrNames
             (lib.filterAttrs (name: type: type == "directory")
-            (builtins.readDir base));
+              (builtins.readDir base));
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null) children;
         in if globElems == [ ] then
@@ -161,7 +161,7 @@ in rec {
               workspaceDependencies =
                 lib.mapAttrsToList (name: version: packages.${name})
                 (lib.filterAttrs (name: version: packages ? ${name})
-                allDependencies);
+                  allDependencies);
             } // lib.attrByPath [ name ] { } packageOverrides);
         }) packagePaths);
     in packages;

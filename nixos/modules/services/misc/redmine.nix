@@ -52,15 +52,15 @@ let
   unpackPlugin = unpack "plugin";
   unpack = id:
     (name: source:
-    pkgs.stdenv.mkDerivation {
-      name = "redmine-${id}-${name}";
-      buildInputs = [ pkgs.unzip ];
-      buildCommand = ''
-        mkdir -p $out
-        cd $out
-        unpackFile ${source}
-      '';
-    });
+      pkgs.stdenv.mkDerivation {
+        name = "redmine-${id}-${name}";
+        buildInputs = [ pkgs.unzip ];
+        buildCommand = ''
+          mkdir -p $out
+          cd $out
+          unpackFile ${source}
+        '';
+      });
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";

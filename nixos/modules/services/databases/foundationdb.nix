@@ -13,7 +13,7 @@ let
   fdbServers = n:
     concatStringsSep "\n"
     (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]")
-    (range 0 (n - 1)));
+      (range 0 (n - 1)));
 
   backupAgents = n:
     concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));

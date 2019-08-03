@@ -51,9 +51,9 @@ in stdenv.mkDerivation rec {
     "-DSHIBOKEN_INCLUDE_DIR=${pythonPackages.shiboken2}/include"
     "-DSHIBOKEN_LIBRARY=Shiboken2::libshiboken"
     ("-DPYSIDE_INCLUDE_DIR=${pythonPackages.pyside2}/include"
-    + ";${pythonPackages.pyside2}/include/PySide2/QtCore"
-    + ";${pythonPackages.pyside2}/include/PySide2/QtWidgets"
-    + ";${pythonPackages.pyside2}/include/PySide2/QtGui")
+      + ";${pythonPackages.pyside2}/include/PySide2/QtCore"
+      + ";${pythonPackages.pyside2}/include/PySide2/QtWidgets"
+      + ";${pythonPackages.pyside2}/include/PySide2/QtGui")
     "-DPYSIDE_LIBRARY=PySide2::pyside2"
   ];
 

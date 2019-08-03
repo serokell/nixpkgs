@@ -18,22 +18,22 @@ let
   mkDerive = { mkHomepage, mkUrls }:
     args:
     lib.makeOverridable ({ name, version, sha256, depends ? [ ], doCheck ? true
-    , requireX ? false, broken ? false, hydraPlatforms ? R.meta.hydraPlatforms
-    }:
-    buildRPackage {
-      name = "${name}-${version}";
-      src = fetchurl {
-        inherit sha256;
-        urls = mkUrls (args // { inherit name version; });
-      };
-      inherit doCheck requireX;
-      propagatedBuildInputs = depends;
-      nativeBuildInputs = depends;
-      meta.homepage = mkHomepage (args // { inherit name; });
-      meta.platforms = R.meta.platforms;
-      meta.hydraPlatforms = hydraPlatforms;
-      meta.broken = broken;
-    });
+      , requireX ? false, broken ? false, hydraPlatforms ? R.meta.hydraPlatforms
+      }:
+      buildRPackage {
+        name = "${name}-${version}";
+        src = fetchurl {
+          inherit sha256;
+          urls = mkUrls (args // { inherit name version; });
+        };
+        inherit doCheck requireX;
+        propagatedBuildInputs = depends;
+        nativeBuildInputs = depends;
+        meta.homepage = mkHomepage (args // { inherit name; });
+        meta.platforms = R.meta.platforms;
+        meta.hydraPlatforms = hydraPlatforms;
+        meta.broken = broken;
+      });
 
   # Templates for generating Bioconductor and CRAN packages
   # from the name, version, sha256, and optional per-package arguments above
@@ -87,8 +87,8 @@ let
   # }
   overrideNativeBuildInputs = overrides: old:
     lib.mapAttrs (name: value:
-    (builtins.getAttr name old).overrideDerivation
-    (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
+      (builtins.getAttr name old).overrideDerivation
+      (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
     overrides;
 
   # Overrides package definitions with buildInputs.
@@ -107,8 +107,8 @@ let
   # }
   overrideBuildInputs = overrides: old:
     lib.mapAttrs (name: value:
-    (builtins.getAttr name old).overrideDerivation
-    (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
+      (builtins.getAttr name old).overrideDerivation
+      (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
 
   # Overrides package definitions with new R dependencies.
   # For example,
@@ -127,10 +127,11 @@ let
   # }
   overrideRDepends = overrides: old:
     lib.mapAttrs (name: value:
-    (builtins.getAttr name old).overrideDerivation (attrs: {
-      nativeBuildInputs = attrs.nativeBuildInputs ++ value;
-      propagatedNativeBuildInputs = attrs.propagatedNativeBuildInputs ++ value;
-    })) overrides;
+      (builtins.getAttr name old).overrideDerivation (attrs: {
+        nativeBuildInputs = attrs.nativeBuildInputs ++ value;
+        propagatedNativeBuildInputs = attrs.propagatedNativeBuildInputs
+          ++ value;
+      })) overrides;
 
   # Overrides package definition requiring X running to install.
   # For example,

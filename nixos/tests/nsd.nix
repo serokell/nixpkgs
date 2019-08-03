@@ -14,7 +14,7 @@ in import ./make-test.nix ({ pkgs, ... }: {
       imports = [ common ];
       networking.nameservers = lib.mkForce [
         (lib.head
-        nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
+          nodes.server.config.networking.interfaces.eth1.ipv4.addresses).address
       ];
       networking.interfaces.eth1.ipv4.addresses = [{
         address = "192.168.0.2";
@@ -26,7 +26,7 @@ in import ./make-test.nix ({ pkgs, ... }: {
       imports = [ common ];
       networking.nameservers = lib.mkForce [
         (lib.head
-        nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
+          nodes.server.config.networking.interfaces.eth1.ipv6.addresses).address
       ];
       networking.interfaces.eth1.ipv4.addresses = [{
         address = "dead:beef::2";

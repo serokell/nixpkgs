@@ -50,7 +50,7 @@ rec {
         exec ./AppRun "$@"
       '';
     } // (removeAttrs args
-    (builtins.attrNames (builtins.functionArgs wrapAppImage))));
+      (builtins.attrNames (builtins.functionArgs wrapAppImage))));
 
   wrapType1 = args@{ name, src, extraPkgs ? pkgs: [ ], ... }:
     wrapAppImage (args // {

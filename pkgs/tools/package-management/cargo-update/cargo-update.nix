@@ -5,20 +5,20 @@ let
   abi = stdenv.hostPlatform.parsed.abi.name;
   include = includedFiles: src:
     builtins.filterSource (path: type:
-    lib.lists.any (f:
-    let p = toString (src + ("/" + f));
-    in (path == p) || (type == "directory" && lib.strings.hasPrefix path p))
-    includedFiles) src;
+      lib.lists.any (f:
+        let p = toString (src + ("/" + f));
+        in (path == p) || (type == "directory" && lib.strings.hasPrefix path p))
+      includedFiles) src;
   updateFeatures = f: up: functions:
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features)
-    (lib.attrsets.recursiveUpdate f up) functions);
+      (lib.attrsets.recursiveUpdate f up) functions);
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures = feat:
     lib.lists.foldl (features: featureName:
-    if feat.${featureName} or false then
-      [ featureName ] ++ features
-    else
-      features) [ ] (builtins.attrNames feat);
+      if feat.${featureName} or false then
+        [ featureName ] ++ features
+      else
+        features) [ ] (builtins.attrNames feat);
 in rec {
   cargo_update = f:
     cargo_update_1_5_2 {
@@ -881,21 +881,23 @@ in rec {
     clap_2_31_2_ {
       dependencies = mapFeatures features
         ([ bitflags_1_0_3 textwrap_0_9_0 unicode_width_0_1_4 ]
-        ++ (if features.clap_2_31_2.atty or false then [ atty_0_2_10 ] else [ ])
-        ++ (if features.clap_2_31_2.strsim or false then
-          [ strsim_0_7_0 ]
-        else
-          [ ]) ++ (if features.clap_2_31_2.vec_map or false then
-            [ vec_map_0_8_1 ]
+          ++ (if features.clap_2_31_2.atty or false then
+            [ atty_0_2_10 ]
           else
-            [ ])) ++ (if !(kernel == "windows") then
-              mapFeatures features ([ ]
-              ++ (if features.clap_2_31_2.ansi_term or false then
-                [ ansi_term_0_11_0 ]
-              else
-                [ ]))
+            [ ]) ++ (if features.clap_2_31_2.strsim or false then
+              [ strsim_0_7_0 ]
             else
-              [ ]);
+              [ ]) ++ (if features.clap_2_31_2.vec_map or false then
+                [ vec_map_0_8_1 ]
+              else
+                [ ])) ++ (if !(kernel == "windows") then
+                  mapFeatures features ([ ]
+                    ++ (if features.clap_2_31_2.ansi_term or false then
+                      [ ansi_term_0_11_0 ]
+                    else
+                      [ ]))
+                else
+                  [ ]);
       features = mkFeatures (features.clap_2_31_2 or { });
     };
   clap_2_31_2_features = f:
@@ -1024,13 +1026,13 @@ in rec {
       ]) ++ (if (kernel == "linux" || kernel == "darwin")
       && !(kernel == "darwin") then
         mapFeatures features ([ ]
-        ++ (if features.git2_0_6_11.openssl-probe or false then
-          [ openssl_probe_0_1_2 ]
-        else
-          [ ]) ++ (if features.git2_0_6_11.openssl-sys or false then
-            [ openssl_sys_0_9_30 ]
+          ++ (if features.git2_0_6_11.openssl-probe or false then
+            [ openssl_probe_0_1_2 ]
           else
-            [ ]))
+            [ ]) ++ (if features.git2_0_6_11.openssl-sys or false then
+              [ openssl_sys_0_9_30 ]
+            else
+              [ ]))
       else
         [ ]);
       features = mkFeatures (features.git2_0_6_11 or { });
@@ -1151,10 +1153,10 @@ in rec {
           else
             [ ])) ++ (if (kernel == "linux" || kernel == "darwin") then
               mapFeatures features ([ ]
-              ++ (if features.libgit2_sys_0_6_19.openssl-sys or false then
-                [ openssl_sys_0_9_30 ]
-              else
-                [ ]))
+                ++ (if features.libgit2_sys_0_6_19.openssl-sys or false then
+                  [ openssl_sys_0_9_30 ]
+                else
+                  [ ]))
             else
               [ ]);
       buildDependencies =
@@ -1352,10 +1354,10 @@ in rec {
       else
         [ ]) ++ (if (kernel == "linux" || kernel == "darwin") then
           mapFeatures features ([ ]
-          ++ (if features.rand_0_4_2.libc or false then
-            [ libc_0_2_40 ]
-          else
-            [ ]))
+            ++ (if features.rand_0_4_2.libc or false then
+              [ libc_0_2_40 ]
+            else
+              [ ]))
         else
           [ ]) ++ (if kernel == "windows" then
             mapFeatures features ([ winapi_0_3_4 ])
@@ -1498,10 +1500,10 @@ in rec {
     syn_0_13_10_ {
       dependencies = mapFeatures features
         ([ proc_macro2_0_3_8 unicode_xid_0_1_0 ]
-        ++ (if features.syn_0_13_10.quote or false then
-          [ quote_0_5_2 ]
-        else
-          [ ]));
+          ++ (if features.syn_0_13_10.quote or false then
+            [ quote_0_5_2 ]
+          else
+            [ ]));
       features = mkFeatures (features.syn_0_13_10 or { });
     };
   syn_0_13_10_features = f:

@@ -34,8 +34,8 @@ let
     # for ease of future maintenance
     deprecatedVersions = let versions = [ ];
       in lib.listToAttrs (lib.flip map versions (v:
-      lib.nameValuePair v
-      (throw "Unsupported citrix_workspace version: ${v}")));
+        lib.nameValuePair v
+        (throw "Unsupported citrix_workspace version: ${v}")));
     in deprecatedVersions // supportedVersions;
 
   citrixWorkspaceForVersion =

@@ -226,12 +226,12 @@ in {
 
     networking.firewall = mkMerge [
       (mkIf (cfg.declarative && cfg.openFirewall
-      && !(cfg.config.random_port or true)) {
-        allowedTCPPortRanges = singleton
-          (listToRange (cfg.config.listen_ports or listenPortsDefault));
-        allowedUDPPortRanges = singleton
-          (listToRange (cfg.config.listen_ports or listenPortsDefault));
-      })
+        && !(cfg.config.random_port or true)) {
+          allowedTCPPortRanges = singleton
+            (listToRange (cfg.config.listen_ports or listenPortsDefault));
+          allowedUDPPortRanges = singleton
+            (listToRange (cfg.config.listen_ports or listenPortsDefault));
+        })
       (mkIf (cfg.web.openFirewall) { allowedTCPPorts = [ cfg.web.port ]; })
     ];
 

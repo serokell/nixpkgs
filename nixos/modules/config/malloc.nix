@@ -64,8 +64,8 @@ in {
         <itemizedlist>
         <listitem><para><literal>libc</literal>: the standard allocator provided by libc</para></listitem>
         ${toString (mapAttrsToList (name: value:
-        "<listitem><para><literal>${name}</literal>: ${value.description}</para></listitem>")
-        providers)}
+          "<listitem><para><literal>${name}</literal>: ${value.description}</para></listitem>")
+          providers)}
         </itemizedlist>
 
         <warning>

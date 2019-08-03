@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     "-DWITH_ZLIB=1"
     "-DWITH_ZSTD=1"
     (lib.optional (stdenv.hostPlatform.system == "i686-linux"
-    || stdenv.hostPlatform.system == "x86_64-linux") "-DFORCE_SSE42=1")
+      || stdenv.hostPlatform.system == "x86_64-linux") "-DFORCE_SSE42=1")
     (lib.optional enableLite "-DROCKSDB_LITE=1")
   ];
 

@@ -235,7 +235,7 @@ in {
         doNotRedirect = concatMapStringsSep "\n" (f:
           "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true")
           (block.doNotRedirect
-          ++ (optionals block.redirectInternetOnly internetOnly));
+            ++ (optionals block.redirectInternetOnly internetOnly));
       in optionalString (block.redirectCondition != false) ''
         ip46tables -t nat -F ${chain} 2>/dev/null || true
         ip46tables -t nat -N ${chain} 2>/dev/null || true
@@ -269,11 +269,11 @@ in {
 
       networking.firewall.extraStopCommands = concatImapStringsSep "\n"
         (idx: block:
-        let chain = "REDSOCKS${toString idx}";
-        in optionalString (block.redirectCondition != false)
-        "ip46tables -t nat -D OUTPUT -p tcp ${
-          redCond block
-        } -j ${chain} 2>/dev/null || true") cfg.redsocks;
+          let chain = "REDSOCKS${toString idx}";
+          in optionalString (block.redirectCondition != false)
+          "ip46tables -t nat -D OUTPUT -p tcp ${
+            redCond block
+          } -j ${chain} 2>/dev/null || true") cfg.redsocks;
     };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];

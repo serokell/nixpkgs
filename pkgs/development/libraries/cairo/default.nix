@@ -69,7 +69,8 @@ in stdenv.mkDerivation rec {
     "--enable-ft"
   ] else
     ([ "--enable-tee" ] ++ optional xcbSupport "--enable-xcb"
-    ++ optional glSupport "--enable-gl" ++ optional pdfSupport "--enable-pdf");
+      ++ optional glSupport "--enable-gl"
+      ++ optional pdfSupport "--enable-pdf");
 
   preConfigure =
     # On FreeBSD, `-ldl' doesn't exist.

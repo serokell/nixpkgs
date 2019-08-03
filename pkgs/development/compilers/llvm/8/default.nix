@@ -31,10 +31,10 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
         '' + stdenv.lib.optionalString (stdenv.targetPlatform.isLinux
-        && tools.clang-unwrapped ? gcc
-        && !(stdenv.targetPlatform.useLLVM or false)) ''
-          echo "--gcc-toolchain=${tools.clang-unwrapped.gcc}" >> $out/nix-support/cc-cflags
-        '';
+          && tools.clang-unwrapped ? gcc
+          && !(stdenv.targetPlatform.useLLVM or false)) ''
+            echo "--gcc-toolchain=${tools.clang-unwrapped.gcc}" >> $out/nix-support/cc-cflags
+          '';
     in {
 
       llvm = callPackage ./llvm.nix { };

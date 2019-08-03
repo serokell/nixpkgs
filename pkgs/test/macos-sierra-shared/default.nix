@@ -37,7 +37,7 @@ let
 
         ${toString
         (lib.genList (i: ''extern "C" unsigned int asdf_${toString i}(void); '')
-        count)}
+          count)}
 
         unsigned int (*funs[])(void) = {
           ${toString (lib.genList (i: "asdf_${toString i},") count)}

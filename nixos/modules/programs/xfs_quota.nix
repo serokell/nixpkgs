@@ -11,9 +11,9 @@ let
   limitOptions = opts:
     concatStringsSep " " [
       (optionalString (opts.sizeSoftLimit != null)
-      "bsoft=${opts.sizeSoftLimit}")
+        "bsoft=${opts.sizeSoftLimit}")
       (optionalString (opts.sizeHardLimit != null)
-      "bhard=${opts.sizeHardLimit}")
+        "bhard=${opts.sizeHardLimit}")
     ];
 
 in {
@@ -80,13 +80,13 @@ in {
 
     environment.etc.projects.source = pkgs.writeText "etc-project"
       (concatStringsSep "\n"
-      (mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}")
-      cfg.projects));
+        (mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}")
+          cfg.projects));
 
     environment.etc.projid.source = pkgs.writeText "etc-projid"
       (concatStringsSep "\n"
-      (mapAttrsToList (name: opts: "${name}:${toString opts.id}")
-      cfg.projects));
+        (mapAttrsToList (name: opts: "${name}:${toString opts.id}")
+          cfg.projects));
 
     systemd.services = mapAttrs' (name: opts:
       nameValuePair "xfs_quota-${name}" {

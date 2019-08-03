@@ -80,10 +80,10 @@ in {
       listenStreams = map
         # Syntax depends on being IPv6 or IPv4.
         (iface:
-        if elem ":" (stringToCharacters iface) then
-          "[${iface}]:53"
-        else
-          "${iface}:53") cfg.interfaces;
+          if elem ":" (stringToCharacters iface) then
+            "[${iface}]:53"
+          else
+            "${iface}:53") cfg.interfaces;
       socketConfig = {
         ListenDatagram = listenStreams;
         FreeBind = true;

@@ -61,7 +61,7 @@ let
 
   drvName = drv:
     discard (substring 33 (stringLength (builtins.baseNameOf drv))
-    (builtins.baseNameOf drv));
+      (builtins.baseNameOf drv));
 
   rewriteHashes = drv: hashes:
     runCommand (drvName drv) { nixStore = "${nix.out}/bin/nix-store"; } ''
@@ -69,7 +69,7 @@ let
         baseNameOf drv
       }|'$(basename $out)'|g' | sed -e ${
         concatStringsSep " -e " (mapAttrsToList
-        (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'") hashes)
+          (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'") hashes)
       } | $nixStore --restore $out
     '';
 
@@ -87,8 +87,8 @@ let
 
   drvHash = discard (toString drv);
 in assert (stringLength (drvName (toString oldDependency))
-== stringLength (drvName (toString newDependency)));
+  == stringLength (drvName (toString newDependency)));
 rewriteMemo.${drvHash} or (warn
-"replace-dependency.nix: Derivation ${drvHash} does not depend on ${
-  discard (toString oldDependency)
-}" drv)
+  "replace-dependency.nix: Derivation ${drvHash} does not depend on ${
+    discard (toString oldDependency)
+  }" drv)

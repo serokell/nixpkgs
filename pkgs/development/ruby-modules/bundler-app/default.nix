@@ -42,13 +42,13 @@ in runCommand basicEnv.name cmdArgs ''
     ln -s '${basicEnv}/bin/${x}' $out/bin/${x};
   '') exes)}
   ${(lib.concatMapStrings (s:
-  "makeWrapper $out/bin/$(basename ${s}) $srcdir/${s} "
-  + "--set BUNDLE_GEMFILE ${basicEnv.confFiles}/Gemfile "
-  + "--set BUNDLE_PATH ${basicEnv}/${ruby.gemPath} " + "--set BUNDLE_FROZEN 1 "
-  + "--set GEM_HOME ${basicEnv}/${ruby.gemPath} "
-  + "--set GEM_PATH ${basicEnv}/${ruby.gemPath} " + ''
-    --run "cd $srcdir";
-  '') scripts)}
+    "makeWrapper $out/bin/$(basename ${s}) $srcdir/${s} "
+    + "--set BUNDLE_GEMFILE ${basicEnv.confFiles}/Gemfile "
+    + "--set BUNDLE_PATH ${basicEnv}/${ruby.gemPath} "
+    + "--set BUNDLE_FROZEN 1 " + "--set GEM_HOME ${basicEnv}/${ruby.gemPath} "
+    + "--set GEM_PATH ${basicEnv}/${ruby.gemPath} " + ''
+      --run "cd $srcdir";
+    '') scripts)}
 
   ${lib.optionalString installManpages ''
     for section in {1..9}; do

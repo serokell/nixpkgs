@@ -29,6 +29,6 @@ in nodeEnv.buildNodePackage {
 
   postInstall = builtins.concatStringsSep "\n" (pkgs.lib.mapAttrsToList
     (name: pkg:
-    "ln -s ${pkg}/lib/node_modules/${name} $out/lib/node_modules/${name}")
+      "ln -s ${pkg}/lib/node_modules/${name} $out/lib/node_modules/${name}")
     extraNodePackages);
 }

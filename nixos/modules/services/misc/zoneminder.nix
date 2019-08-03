@@ -293,7 +293,7 @@ in {
 
             ${lib.concatStringsSep "\n"
             (map (e: "extension=${e.pkg}/lib/php/extensions/${e.name}.so")
-            phpExtensions)}
+              phpExtensions)}
           '';
           extraConfig = ''
             user = ${user}

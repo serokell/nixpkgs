@@ -48,17 +48,17 @@ let
       ipfs --local config Mounts.IPNS ${cfg.ipnsMountDir}
     '' + concatStringsSep "\n" (collect isString (mapAttrsRecursive
       (path: value:
-      # Using heredoc below so that the value is never improperly quoted
-      ''
-        read value <<EOF
-        ${builtins.toJSON value}
-        EOF
-        ipfs --local config --json "${concatStringsSep "." path}" "$value"
-      '') ({
-        Addresses.API = cfg.apiAddress;
-        Addresses.Gateway = cfg.gatewayAddress;
-        Addresses.Swarm = cfg.swarmAddress;
-      } // cfg.extraConfig)));
+        # Using heredoc below so that the value is never improperly quoted
+        ''
+          read value <<EOF
+          ${builtins.toJSON value}
+          EOF
+          ipfs --local config --json "${concatStringsSep "." path}" "$value"
+        '') ({
+          Addresses.API = cfg.apiAddress;
+          Addresses.Gateway = cfg.gatewayAddress;
+          Addresses.Swarm = cfg.swarmAddress;
+        } // cfg.extraConfig)));
     serviceConfig = {
       ExecStart = "${wrapped}/bin/ipfs daemon ${ipfsFlags}";
       Restart = "on-failure";

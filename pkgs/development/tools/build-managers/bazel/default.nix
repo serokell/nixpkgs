@@ -176,27 +176,27 @@ in stdenv.mkDerivation rec {
       let be = extracted bazelPkg;
       in runLocal name { inherit buildInputs; } (
       # skip extraction caching on Darwin, because nobody knows how Darwin works
-      (lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-        # set up home with pre-unpacked bazel
-        export HOME=$(mktemp -d)
-        mkdir -p ${be.install_dir}
-        cp -R ${be}/install ${be.install_dir}
+        (lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+          # set up home with pre-unpacked bazel
+          export HOME=$(mktemp -d)
+          mkdir -p ${be.install_dir}
+          cp -R ${be}/install ${be.install_dir}
 
-        # https://stackoverflow.com/questions/47775668/bazel-how-to-skip-corrupt-installation-on-centos6
-        # Bazel checks whether the mtime of the install dir files
-        # is >9 years in the future, otherwise it extracts itself again.
-        # see PosixFileMTime::IsUntampered in src/main/cpp/util
-        # What the hell bazel.
-        ${lr}/bin/lr -0 -U ${be.install_dir} | ${xe}/bin/xe -N0 -0 touch --date="9 years 6 months" {}
-      '') + ''
-        # Note https://github.com/bazelbuild/bazel/issues/5763#issuecomment-456374609
-        # about why to create a subdir for the workspace.
-        cp -r ${workspaceDir} wd && chmod u+w wd && cd wd
+          # https://stackoverflow.com/questions/47775668/bazel-how-to-skip-corrupt-installation-on-centos6
+          # Bazel checks whether the mtime of the install dir files
+          # is >9 years in the future, otherwise it extracts itself again.
+          # see PosixFileMTime::IsUntampered in src/main/cpp/util
+          # What the hell bazel.
+          ${lr}/bin/lr -0 -U ${be.install_dir} | ${xe}/bin/xe -N0 -0 touch --date="9 years 6 months" {}
+        '') + ''
+          # Note https://github.com/bazelbuild/bazel/issues/5763#issuecomment-456374609
+          # about why to create a subdir for the workspace.
+          cp -r ${workspaceDir} wd && chmod u+w wd && cd wd
 
-        ${bazelScript}
+          ${bazelScript}
 
-        touch $out
-      '');
+          touch $out
+        '');
 
     bazelWithNixHacks = bazel.override { enableNixHacks = true; };
 

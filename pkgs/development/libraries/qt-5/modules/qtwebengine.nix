@@ -186,27 +186,27 @@ in qtModule {
     # FIXME These dependencies shouldn't be needed but can't find a way
     # around it. Chromium pulls this in while bootstrapping GN.
     ++ lib.optionals stdenv.isDarwin (with darwin;
-    with apple_sdk.frameworks; [
-      libobjc
-      cctools
+      with apple_sdk.frameworks; [
+        libobjc
+        cctools
 
-      # frameworks
-      ApplicationServices
-      AVFoundation
-      Foundation
-      ForceFeedback
-      GameController
-      AppKit
-      ImageCaptureCore
-      CoreBluetooth
-      IOBluetooth
-      CoreWLAN
-      Quartz
-      Cocoa
+        # frameworks
+        ApplicationServices
+        AVFoundation
+        Foundation
+        ForceFeedback
+        GameController
+        AppKit
+        ImageCaptureCore
+        CoreBluetooth
+        IOBluetooth
+        CoreWLAN
+        Quartz
+        Cocoa
 
-      openbsm
-      libunwind
-    ]);
+        openbsm
+        libunwind
+      ]);
 
   buildInputs = optionals stdenv.isDarwin (with darwin; [
     cups

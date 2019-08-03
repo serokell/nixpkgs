@@ -16,7 +16,7 @@ buildLlvmPackages, llvmPackages
 # library instead of the faster but GPLed integer-gmp library.
 enableIntegerSimple ?
   !(stdenv.lib.any (stdenv.lib.meta.platformMatch stdenv.hostPlatform)
-  gmp.meta.platforms), gmp
+    gmp.meta.platforms), gmp
 
 , # If enabled, use -fPIC when compiling static libs.
 enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
@@ -177,10 +177,10 @@ in stdenv.mkDerivation (rec {
       "--with-gmp-includes=${targetPackages.gmp.dev}/include"
       "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
     ] ++ stdenv.lib.optional (targetPlatform == hostPlatform
-    && hostPlatform.libc != "glibc" && !targetPlatform.isWindows) [
-      "--with-iconv-includes=${libiconv}/include"
-      "--with-iconv-libraries=${libiconv}/lib"
-    ] ++ stdenv.lib.optionals (targetPlatform != hostPlatform)
+      && hostPlatform.libc != "glibc" && !targetPlatform.isWindows) [
+        "--with-iconv-includes=${libiconv}/include"
+        "--with-iconv-libraries=${libiconv}/lib"
+      ] ++ stdenv.lib.optionals (targetPlatform != hostPlatform)
     [ "--enable-bootstrap-with-devel-snapshot" ]
     ++ stdenv.lib.optionals (targetPlatform.isAarch32) [
       "CFLAGS=-fuse-ld=gold"

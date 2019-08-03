@@ -81,13 +81,13 @@ let
 
   buildFromConfig = module: sel:
     forAllSystems (system:
-    hydraJob (sel (import ./lib/eval-config.nix {
-      inherit system;
-      modules = makeModules module ({ ... }: {
-        fileSystems."/".device = mkDefault "/dev/sda1";
-        boot.loader.grub.device = mkDefault "/dev/sda";
-      });
-    }).config));
+      hydraJob (sel (import ./lib/eval-config.nix {
+        inherit system;
+        modules = makeModules module ({ ... }: {
+          fileSystems."/".device = mkDefault "/dev/sda1";
+          boot.loader.grub.device = mkDefault "/dev/sda";
+        });
+      }).config));
 
   makeNetboot = { module, system, ... }:
     let
@@ -155,25 +155,25 @@ in rec {
   # that might support more hardware.
   iso_minimal_new_kernel = forMatchingSystems [ "x86_64-linux" "aarch64-linux" ]
     (system:
-    makeIso {
-      module =
-        ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix;
-      type = "minimal-new-kernel";
-      inherit system;
-    });
+      makeIso {
+        module =
+          ./modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix;
+        type = "minimal-new-kernel";
+        inherit system;
+      });
 
   sd_image =
     forMatchingSystems [ "armv6l-linux" "armv7l-linux" "aarch64-linux" ]
     (system:
-    makeSdImage {
-      module = {
-        armv6l-linux = ./modules/installer/cd-dvd/sd-image-raspberrypi.nix;
-        armv7l-linux =
-          ./modules/installer/cd-dvd/sd-image-armv7l-multiplatform.nix;
-        aarch64-linux = ./modules/installer/cd-dvd/sd-image-aarch64.nix;
-      }.${system};
-      inherit system;
-    });
+      makeSdImage {
+        module = {
+          armv6l-linux = ./modules/installer/cd-dvd/sd-image-raspberrypi.nix;
+          armv7l-linux =
+            ./modules/installer/cd-dvd/sd-image-armv7l-multiplatform.nix;
+          aarch64-linux = ./modules/installer/cd-dvd/sd-image-aarch64.nix;
+        }.${system};
+        inherit system;
+      });
 
   sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (system:
     makeSdImage {

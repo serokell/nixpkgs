@@ -16,16 +16,16 @@ rec {
     let baseName = baseNameOf (toString name);
     in !(
     # Filter out version control software files/directories
-    (baseName == ".git" || type == "directory"
-    && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")) ||
-    # Filter out editor backup / swap files.
-    lib.hasSuffix "~" baseName || builtins.match "^\\.sw[a-z]$" baseName != null
-    || builtins.match "^\\..*\\.sw[a-z]$" baseName != null ||
+      (baseName == ".git" || type == "directory"
+        && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")) ||
+      # Filter out editor backup / swap files.
+      lib.hasSuffix "~" baseName || builtins.match "^\\.sw[a-z]$" baseName
+      != null || builtins.match "^\\..*\\.sw[a-z]$" baseName != null ||
 
-    # Filter out generates files.
-    lib.hasSuffix ".o" baseName || lib.hasSuffix ".so" baseName ||
-    # Filter out nix-build result symlinks
-    (type == "symlink" && lib.hasPrefix "result" baseName));
+      # Filter out generates files.
+      lib.hasSuffix ".o" baseName || lib.hasSuffix ".so" baseName ||
+      # Filter out nix-build result symlinks
+      (type == "symlink" && lib.hasPrefix "result" baseName));
 
   # Filters a source tree removing version control files and directories using cleanSourceWith
   #

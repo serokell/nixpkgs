@@ -172,14 +172,14 @@ in {
               assertNoUnknownOption = let
                 knownOptions = flatten
                   (mapAttrsToList (_: kOpts: kOpts.optNames)
-                  driverOptionMapping);
+                    driverOptionMapping);
                 # options that apparently don’t exist in the networkd config
                 unknownOptions = [ "primary" ];
                 assertTrace = bool: msg:
                   if bool then true else builtins.trace msg false;
                 in assert all (driverOpt:
-                assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
-                "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd.")
+                  assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
+                  "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd.")
                 (mapAttrsToList (k: _: k) do);
                 "";
               # get those driverOptions that have been set
@@ -191,8 +191,8 @@ in {
                 # we simply take the first set kernel bond option
                 # (one option has multiple names, which is silly)
                 head (map (optN: valTransform (do."${optN}"))
-                # only map those that exist
-                (filter (o: do ? "${o}") optNames)));
+                  # only map those that exist
+                  (filter (o: do ? "${o}") optNames)));
               in seq assertNoUnknownOption
               (buildOptionSet (filterSystemdOptions driverOptionMapping));
 

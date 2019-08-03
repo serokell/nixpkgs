@@ -35,11 +35,11 @@ buildPythonPackage rec {
         # See PyCQA/pylint#2535
         "test_libmodule"
       ] ++
-      # Disable broken darwin tests
-      lib.optionals stdenv.isDarwin [
-        "test_parallel_execution"
-        "test_py3k_jobs_option"
-      ])
+        # Disable broken darwin tests
+        lib.optionals stdenv.isDarwin [
+          "test_parallel_execution"
+          "test_py3k_jobs_option"
+        ])
     }"
   '';
 

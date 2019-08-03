@@ -72,7 +72,7 @@ in python.pkgs.buildPythonPackage {
       raven
       jsonschema
       (python.pkgs.callPackage
-      ../../../development/python-modules/prompt_toolkit/1.nix { })
+        ../../../development/python-modules/prompt_toolkit/1.nix { })
     ] ++ stdenv.lib.optional (!stable) [ distro async_generator aiofiles ];
 
   # Requires network access

@@ -87,20 +87,20 @@ let
 
   systemdEntry = service: cfgFile:
     (mapAttrs' (name: cfg:
-    (nameValuePair "beegfs-${service}-${name}" (mkIf cfg."${service}".enable {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      serviceConfig = rec {
-        ExecStart = ''
-          ${pkgs.beegfs}/bin/beegfs-${service} \
-            cfgFile=${cfgFile name cfg} \
-            pidFile=${PIDFile}
-        '';
-        PIDFile = "/run/beegfs-${service}-${name}.pid";
-        TimeoutStopSec = "300";
-      };
-    }))) cfg);
+      (nameValuePair "beegfs-${service}-${name}" (mkIf cfg."${service}".enable {
+        wantedBy = [ "multi-user.target" ];
+        requires = [ "network-online.target" ];
+        after = [ "network-online.target" ];
+        serviceConfig = rec {
+          ExecStart = ''
+            ${pkgs.beegfs}/bin/beegfs-${service} \
+              cfgFile=${cfgFile name cfg} \
+              pidFile=${PIDFile}
+          '';
+          PIDFile = "/run/beegfs-${service}-${name}.pid";
+          TimeoutStopSec = "300";
+        };
+      }))) cfg);
 
   systemdHelperd = mapAttrs' (name: cfg:
     (nameValuePair "beegfs-helperd-${name}" (mkIf cfg.client.enable {
@@ -356,12 +356,12 @@ in {
     # generate fstab entries
     fileSystems = mapAttrs' (name: cfg:
       (nameValuePair cfg.client.mountPoint (optionalAttrs cfg.client.mount
-      (mkIf cfg.client.enable {
-        device = "beegfs_nodev";
-        fsType = "beegfs";
-        mountPoint = cfg.client.mountPoint;
-        options = [ "cfgFile=${configClientFilename name}" "_netdev" ];
-      })))) cfg;
+        (mkIf cfg.client.enable {
+          device = "beegfs_nodev";
+          fsType = "beegfs";
+          mountPoint = cfg.client.mountPoint;
+          options = [ "cfgFile=${configClientFilename name}" "_netdev" ];
+        })))) cfg;
 
     # generate systemd services
     systemd.services = systemdHelperd // foldr (a: b: a // b) { }

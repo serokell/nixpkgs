@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
     (ifMinVer "2.4" "--enable-lzma")
     (ifMinVer "2.2" (enableFeature openglSupport "opengl"))
     (disDarwinOrArmFix (ifMinVer "0.9" "--enable-libpulse") "0.9"
-    "--disable-libpulse")
+      "--disable-libpulse")
     (ifMinVer "2.5" (if sdlSupport && reqMin "3.2" then
       "--enable-sdl2"
     else if sdlSupport then

@@ -2,8 +2,8 @@
 
 let
   configfile = builtins.storePath (builtins.toFile "config"
-    (lib.concatStringsSep "\n"
-    (map (builtins.getAttr "configLine") config.system.requiredKernelConfig)));
+    (lib.concatStringsSep "\n" (map (builtins.getAttr "configLine")
+      config.system.requiredKernelConfig)));
 
   origKernel = pkgs.buildLinux {
     inherit (pkgs.linux) src version stdenv;

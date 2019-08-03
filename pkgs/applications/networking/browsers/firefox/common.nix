@@ -102,18 +102,18 @@ let
         "https://hg.mozilla.org/mozilla-central/raw-diff/562655fe/python/mozbuild/mozbuild/action/node.py";
       sha256 = "11d7rgzinb4mwl7yzhidjkajynmxgmffr4l9isgskfapyax9p88y";
     }) ++ lib.optionals (stdenv.isAarch64 && lib.versionAtLeast ffversion "66"
-    && lib.versionOlder ffversion "67") [
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/arm.patch";
-        sha256 = "1vbpih23imhv5r3g21m3m541z08n9n9j1nvmqax76bmyhn7mxp32";
-      })
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/build-arm-libopus.patch";
-        sha256 = "1zg56v3lc346fkzcjjx21vjip2s9hb2xw4pvza1dsfdnhsnzppfp";
-      })
-    ] ++ patches;
+      && lib.versionOlder ffversion "67") [
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/arm.patch";
+          sha256 = "1vbpih23imhv5r3g21m3m541z08n9n9j1nvmqax76bmyhn7mxp32";
+        })
+        (fetchpatch {
+          url =
+            "https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/09c7fa0dc1d87922e3b464c0fa084df1227fca79/extra/firefox/build-arm-libopus.patch";
+          sha256 = "1zg56v3lc346fkzcjjx21vjip2s9hb2xw4pvza1dsfdnhsnzppfp";
+        })
+      ] ++ patches;
 
 in stdenv.mkDerivation rec {
   name = "${pname}-unwrapped-${version}";
@@ -261,7 +261,7 @@ in stdenv.mkDerivation rec {
     echo "AIzaSyDGi15Zwl11UNe6Y-5XW_upsfyw31qwZPI" > $TMPDIR/ga
     # 60.5+ & 66+ did split the google API key arguments: https://bugzilla.mozilla.org/show_bug.cgi?id=1531176
     ${if (lib.versionAtLeast ffversion "60.6"
-    && lib.versionOlder ffversion "61")
+      && lib.versionOlder ffversion "61")
     || (lib.versionAtLeast ffversion "66") then ''
       configureFlagsArray+=("--with-google-location-service-api-keyfile=$TMPDIR/ga")
       configureFlagsArray+=("--with-google-safebrowsing-api-keyfile=$TMPDIR/ga")
@@ -330,8 +330,8 @@ in stdenv.mkDerivation rec {
     ++ lib.optional drmSupport "--enable-eme=widevine"
 
     ++ lib.optionals (lib.versionOlder ffversion "60") ([ ]
-    ++ flag geolocationSupport "mozril-geoloc"
-    ++ flag safeBrowsingSupport "safe-browsing")
+      ++ flag geolocationSupport "mozril-geoloc"
+      ++ flag safeBrowsingSupport "safe-browsing")
 
     ++ (if debugBuild then [
       "--enable-debug"

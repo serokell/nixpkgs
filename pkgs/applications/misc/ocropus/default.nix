@@ -11,9 +11,9 @@ let
 
   models = [
     (getmodel "en-default.pyrnn.gz"
-    "1xyi3k3p81mfw0491gb1haisazfyi2i18f1wjs1m34ak39qfqjdp")
+      "1xyi3k3p81mfw0491gb1haisazfyi2i18f1wjs1m34ak39qfqjdp")
     (getmodel "fraktur.pyrnn.gz"
-    "1wlwvxn91ilgmlri1hj81arl3mbzxc24ycdnkf5icq4hdi4c6y8b")
+      "1wlwvxn91ilgmlri1hj81arl3mbzxc24ycdnkf5icq4hdi4c6y8b")
   ];
 
 in pythonPackages.buildPythonApplication rec {

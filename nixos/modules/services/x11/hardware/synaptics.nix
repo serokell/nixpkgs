@@ -226,7 +226,7 @@ in {
           ''Option "HorizScrollDelta" "0"''
         else
           (optionalString (cfg.scrollDelta != null)
-          ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
+            ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
         }
         ${cfg.additionalOptions}
       EndSection

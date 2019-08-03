@@ -38,7 +38,7 @@ let
     attr
     makeWrapper
     (python2.withPackages
-    (pkgs: [ pkgs.flask pkgs.prettytable pkgs.requests pkgs.pyxattr ]))
+      (pkgs: [ pkgs.flask pkgs.prettytable pkgs.requests pkgs.pyxattr ]))
     # NOTE: `python2` has to be *AFTER* the above `python2.withPackages`,
     #       to ensure that the packages are available but the `toPythonPath`
     #       shell function used in `postFixup` is also still available.

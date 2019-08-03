@@ -185,7 +185,7 @@ let
       ./patches/chromium-vaapi.patch
     ] ++ optionals (!stdenv.cc.isClang && (versionRange "71" "72")) [
       (githubPatch "65be571f6ac2f7942b4df9e50b24da517f829eec"
-      "1sqv0aba0mpdi4x4f21zdkxz2cf8ji55ffgbfcr88c5gcg0qn2jh")
+        "1sqv0aba0mpdi4x4f21zdkxz2cf8ji55ffgbfcr88c5gcg0qn2jh")
     ] ++ optional stdenv.isAarch64 (if (versionOlder version "71") then
       fetchpatch {
         url =

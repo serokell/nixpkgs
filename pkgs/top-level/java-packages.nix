@@ -58,10 +58,10 @@ in {
     commonsLang3_3_1;
 
   inherit (callPackage
-  ../development/java-modules/apache/commons-logging-api.nix {
-    inherit fetchMaven;
-  })
-    commonsLoggingApi_1_1;
+    ../development/java-modules/apache/commons-logging-api.nix {
+      inherit fetchMaven;
+    })
+      commonsLoggingApi_1_1;
 
   inherit (callPackage ../development/java-modules/findbugs/jsr305.nix {
     inherit fetchMaven;
@@ -113,11 +113,11 @@ in {
     mavenArtifactManager_2_0_9 mavenArtifactManager_2_2_1;
 
   inherit (callPackage
-  ../development/java-modules/maven/common-artifact-filters.nix {
-    inherit fetchMaven;
-  })
-    mavenCommonArtifactFilters_1_2 mavenCommonArtifactFilters_1_3
-    mavenCommonArtifactFilters_1_4;
+    ../development/java-modules/maven/common-artifact-filters.nix {
+      inherit fetchMaven;
+    })
+      mavenCommonArtifactFilters_1_2 mavenCommonArtifactFilters_1_3
+      mavenCommonArtifactFilters_1_4;
 
   inherit (callPackage ../development/java-modules/maven/core.nix {
     inherit fetchMaven;
@@ -168,10 +168,10 @@ in {
     mavenMonitor_2_0_1 mavenMonitor_2_0_6 mavenMonitor_2_0_9 mavenMonitor_2_2_1;
 
   inherit (callPackage
-  ../development/java-modules/maven/plugin-annotations.nix {
-    inherit fetchMaven;
-  })
-    mavenPluginAnnotations_3_1 mavenPluginAnnotations_3_2;
+    ../development/java-modules/maven/plugin-annotations.nix {
+      inherit fetchMaven;
+    })
+      mavenPluginAnnotations_3_1 mavenPluginAnnotations_3_2;
 
   inherit (callPackage ../development/java-modules/maven/plugin-api.nix {
     inherit fetchMaven;
@@ -186,11 +186,11 @@ in {
     mavenPluginDescriptor_2_0_9 mavenPluginDescriptor_2_2_1;
 
   inherit (callPackage
-  ../development/java-modules/maven/plugin-parameter-documenter.nix {
-    inherit fetchMaven;
-  })
-    mavenPluginParameterDocumenter_2_0_1 mavenPluginParameterDocumenter_2_0_6
-    mavenPluginParameterDocumenter_2_0_9 mavenPluginParameterDocumenter_2_2_1;
+    ../development/java-modules/maven/plugin-parameter-documenter.nix {
+      inherit fetchMaven;
+    })
+      mavenPluginParameterDocumenter_2_0_1 mavenPluginParameterDocumenter_2_0_6
+      mavenPluginParameterDocumenter_2_0_9 mavenPluginParameterDocumenter_2_2_1;
 
   inherit (callPackage ../development/java-modules/maven/plugin-registry.nix {
     inherit fetchMaven;
@@ -199,10 +199,10 @@ in {
     mavenPluginRegistry_2_0_9 mavenPluginRegistry_2_2_1;
 
   inherit (callPackage
-  ../development/java-modules/maven/plugin-testing-harness.nix {
-    inherit fetchMaven;
-  })
-    mavenPluginTestingHarness_1_1;
+    ../development/java-modules/maven/plugin-testing-harness.nix {
+      inherit fetchMaven;
+    })
+      mavenPluginTestingHarness_1_1;
 
   inherit (callPackage ../development/java-modules/maven/profile.nix {
     inherit fetchMaven;
@@ -222,11 +222,11 @@ in {
     mavenReportingApi_2_2_1;
 
   inherit (callPackage
-  ../development/java-modules/maven/repository-metadata.nix {
-    inherit fetchMaven;
-  })
-    mavenRepositoryMetadata_2_0_1 mavenRepositoryMetadata_2_0_6
-    mavenRepositoryMetadata_2_0_9 mavenRepositoryMetadata_2_2_1;
+    ../development/java-modules/maven/repository-metadata.nix {
+      inherit fetchMaven;
+    })
+      mavenRepositoryMetadata_2_0_1 mavenRepositoryMetadata_2_0_6
+      mavenRepositoryMetadata_2_0_9 mavenRepositoryMetadata_2_2_1;
 
   inherit (callPackage ../development/java-modules/maven/settings.nix {
     inherit fetchMaven;
@@ -235,10 +235,10 @@ in {
     mavenSettings_2_2_1;
 
   inherit (callPackage
-  ../development/java-modules/maven/shared-incremental.nix {
-    inherit fetchMaven;
-  })
-    mavenSharedIncremental_1_1;
+    ../development/java-modules/maven/shared-incremental.nix {
+      inherit fetchMaven;
+    })
+      mavenSharedIncremental_1_1;
 
   inherit (callPackage ../development/java-modules/maven/shared-utils.nix {
     inherit fetchMaven;
@@ -276,10 +276,10 @@ in {
     mojoAnimalSniffer_1_11;
 
   inherit (callPackage
-  ../development/java-modules/mojo/java-boot-classpath-detector.nix {
-    inherit fetchMaven;
-  })
-    mojoJavaBootClasspathDetector_1_11;
+    ../development/java-modules/mojo/java-boot-classpath-detector.nix {
+      inherit fetchMaven;
+    })
+      mojoJavaBootClasspathDetector_1_11;
 
   inherit (callPackage ../development/java-modules/ow2/asm-all.nix {
     inherit fetchMaven;
@@ -317,17 +317,17 @@ in {
     plexusCompilerManager_2_2;
 
   inherit (callPackage
-  ../development/java-modules/plexus/component-annotations.nix {
-    inherit fetchMaven;
-  })
-    plexusComponentAnnotations_1_5_5;
+    ../development/java-modules/plexus/component-annotations.nix {
+      inherit fetchMaven;
+    })
+      plexusComponentAnnotations_1_5_5;
 
   inherit (callPackage
-  ../development/java-modules/plexus/container-default.nix {
-    inherit fetchMaven;
-  })
-    plexusContainerDefault_1_0_alpha9 plexusContainerDefault_1_0_alpha9_stable1
-    plexusContainerDefault_1_5_5;
+    ../development/java-modules/plexus/container-default.nix {
+      inherit fetchMaven;
+    })
+      plexusContainerDefault_1_0_alpha9
+      plexusContainerDefault_1_0_alpha9_stable1 plexusContainerDefault_1_5_5;
 
   inherit (callPackage ../development/java-modules/plexus/digest.nix {
     inherit fetchMaven;
@@ -340,10 +340,10 @@ in {
     plexusI18n_1_0_beta6;
 
   inherit (callPackage
-  ../development/java-modules/plexus/interactivity-api.nix {
-    inherit fetchMaven;
-  })
-    plexusInteractivityApi_1_0_alpha4;
+    ../development/java-modules/plexus/interactivity-api.nix {
+      inherit fetchMaven;
+    })
+      plexusInteractivityApi_1_0_alpha4;
 
   inherit (callPackage ../development/java-modules/plexus/interpolation.nix {
     inherit fetchMaven;

@@ -21,7 +21,7 @@ let
   # using 32bit alsa on 64bit linux.
   enable32BitAlsaPlugins = cfg.support32Bit && stdenv.isx86_64
     && (pkgs.pkgsi686Linux.alsaLib != null && pkgs.pkgsi686Linux.libpulseaudio
-    != null);
+      != null);
 
   myConfigFile = let
     addModuleIf = cond: mod: optionalString cond "load-module ${mod}";
@@ -35,7 +35,7 @@ let
         ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
         ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
         ${addModuleIf cfg.tcp.enable (concatStringsSep " "
-        ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
+          ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
         ${cfg.extraConfig}
       '';
     };

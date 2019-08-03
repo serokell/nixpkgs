@@ -59,7 +59,7 @@ in let
     (
     # Allow setting the platform in the config file. This take precedence over
     # the inferred platform, but not over an explicitly passed-in one.
-    builtins.intersectAttrs { platform = null; } config1 // args.localSystem)
+      builtins.intersectAttrs { platform = null; } config1 // args.localSystem)
   else
     args.localSystem);
 

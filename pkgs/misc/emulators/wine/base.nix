@@ -12,77 +12,77 @@ stdenv.mkDerivation
 
   buildInputs = toBuildInputs pkgArches (with supportFlags;
     (pkgs:
-    [ pkgs.freetype ] ++ lib.optional stdenv.isLinux pkgs.libcap
-    ++ lib.optional pngSupport pkgs.libpng
-    ++ lib.optional jpegSupport pkgs.libjpeg
-    ++ lib.optional cupsSupport pkgs.cups
-    ++ lib.optional colorManagementSupport pkgs.lcms2
-    ++ lib.optional gettextSupport pkgs.gettext
-    ++ lib.optional dbusSupport pkgs.dbus
-    ++ lib.optional mpg123Support pkgs.mpg123
-    ++ lib.optional openalSupport pkgs.openal
-    ++ lib.optional cairoSupport pkgs.cairo
-    ++ lib.optional tiffSupport pkgs.libtiff
-    ++ lib.optional odbcSupport pkgs.unixODBC
-    ++ lib.optional netapiSupport pkgs.samba4
-    ++ lib.optional cursesSupport pkgs.ncurses
-    ++ lib.optional vaSupport pkgs.libva
-    ++ lib.optional pcapSupport pkgs.libpcap
-    ++ lib.optional v4lSupport pkgs.libv4l
-    ++ lib.optional saneSupport pkgs.sane-backends
-    ++ lib.optional gsmSupport pkgs.gsm
-    ++ lib.optional gphoto2Support pkgs.libgphoto2
-    ++ lib.optional ldapSupport pkgs.openldap
-    ++ lib.optional fontconfigSupport pkgs.fontconfig
-    ++ lib.optional alsaSupport pkgs.alsaLib
-    ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
-    ++ lib.optional xineramaSupport pkgs.xorg.libXinerama
-    ++ lib.optional udevSupport pkgs.udev
-    ++ lib.optional vulkanSupport pkgs.vulkan-loader
-    ++ lib.optional sdlSupport pkgs.SDL2 ++ lib.optionals gstreamerSupport
-    (with pkgs.gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-      gst-libav
-    ]) ++ lib.optionals gtkSupport [ pkgs.gtk3 pkgs.glib ]
-    ++ lib.optionals openclSupport [ pkgs.opencl-headers pkgs.ocl-icd ]
-    ++ lib.optionals xmlSupport [ pkgs.libxml2 pkgs.libxslt ]
-    ++ lib.optionals tlsSupport [ pkgs.openssl pkgs.gnutls ]
-    ++ lib.optionals openglSupport [
-      pkgs.libGLU_combined
-      pkgs.mesa.osmesa
-      pkgs.libdrm
-    ] ++ lib.optionals stdenv.isDarwin
-    (with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
-      CoreServices
-      Foundation
-      ForceFeedback
-      AppKit
-      OpenGL
-      IOKit
-      DiskArbitration
-      Security
-      ApplicationServices
-      AudioToolbox
-      CoreAudio
-      AudioUnit
-      CoreMIDI
-      OpenAL
-      OpenCL
-      Cocoa
-      Carbon
-    ]) ++ lib.optionals stdenv.isLinux (with pkgs.xorg; [
-      libXi
-      libXcursor
-      libXrandr
-      libXrender
-      libXxf86vm
-      libXcomposite
-      libXext
-    ]) ++ [ pkgs.xorg.libX11 pkgs.perl ]));
+      [ pkgs.freetype ] ++ lib.optional stdenv.isLinux pkgs.libcap
+      ++ lib.optional pngSupport pkgs.libpng
+      ++ lib.optional jpegSupport pkgs.libjpeg
+      ++ lib.optional cupsSupport pkgs.cups
+      ++ lib.optional colorManagementSupport pkgs.lcms2
+      ++ lib.optional gettextSupport pkgs.gettext
+      ++ lib.optional dbusSupport pkgs.dbus
+      ++ lib.optional mpg123Support pkgs.mpg123
+      ++ lib.optional openalSupport pkgs.openal
+      ++ lib.optional cairoSupport pkgs.cairo
+      ++ lib.optional tiffSupport pkgs.libtiff
+      ++ lib.optional odbcSupport pkgs.unixODBC
+      ++ lib.optional netapiSupport pkgs.samba4
+      ++ lib.optional cursesSupport pkgs.ncurses
+      ++ lib.optional vaSupport pkgs.libva
+      ++ lib.optional pcapSupport pkgs.libpcap
+      ++ lib.optional v4lSupport pkgs.libv4l
+      ++ lib.optional saneSupport pkgs.sane-backends
+      ++ lib.optional gsmSupport pkgs.gsm
+      ++ lib.optional gphoto2Support pkgs.libgphoto2
+      ++ lib.optional ldapSupport pkgs.openldap
+      ++ lib.optional fontconfigSupport pkgs.fontconfig
+      ++ lib.optional alsaSupport pkgs.alsaLib
+      ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
+      ++ lib.optional xineramaSupport pkgs.xorg.libXinerama
+      ++ lib.optional udevSupport pkgs.udev
+      ++ lib.optional vulkanSupport pkgs.vulkan-loader
+      ++ lib.optional sdlSupport pkgs.SDL2 ++ lib.optionals gstreamerSupport
+      (with pkgs.gst_all_1; [
+        gstreamer
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+        gst-libav
+      ]) ++ lib.optionals gtkSupport [ pkgs.gtk3 pkgs.glib ]
+      ++ lib.optionals openclSupport [ pkgs.opencl-headers pkgs.ocl-icd ]
+      ++ lib.optionals xmlSupport [ pkgs.libxml2 pkgs.libxslt ]
+      ++ lib.optionals tlsSupport [ pkgs.openssl pkgs.gnutls ]
+      ++ lib.optionals openglSupport [
+        pkgs.libGLU_combined
+        pkgs.mesa.osmesa
+        pkgs.libdrm
+      ] ++ lib.optionals stdenv.isDarwin
+      (with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
+        CoreServices
+        Foundation
+        ForceFeedback
+        AppKit
+        OpenGL
+        IOKit
+        DiskArbitration
+        Security
+        ApplicationServices
+        AudioToolbox
+        CoreAudio
+        AudioUnit
+        CoreMIDI
+        OpenAL
+        OpenCL
+        Cocoa
+        Carbon
+      ]) ++ lib.optionals stdenv.isLinux (with pkgs.xorg; [
+        libXi
+        libXcursor
+        libXrandr
+        libXrender
+        libXxf86vm
+        libXcomposite
+        libXext
+      ]) ++ [ pkgs.xorg.libX11 pkgs.perl ]));
 
   # Wine locates a lot of libraries dynamically through dlopen().  Add
   # them to the RPATH so that the user doesn't have to set them in
@@ -92,7 +92,7 @@ stdenv.mkDerivation
     # libpulsecommon.so is linked but not found otherwise
     ++ lib.optionals supportFlags.pulseaudioSupport
     (map (x: "${lib.getLib x}/lib/pulseaudio")
-    (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ]))));
+      (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ]))));
 
   # Don't shrink the ELF RPATHs in order to keep the extra RPATH
   # elements specified above.
@@ -116,7 +116,7 @@ stdenv.mkDerivation
       mkdir -p $out/share/wine/gecko $out/share/wine/mono/
       ${lib.strings.concatStringsSep "\n"
       ((map (links "share/wine/gecko") geckos)
-      ++ (map (links "share/wine/mono") monos))}
+        ++ (map (links "share/wine/mono") monos))}
     '' + lib.optionalString supportFlags.gstreamerSupport ''
       # Wrapping Wine is tricky.
       # https://github.com/NixOS/nixpkgs/issues/63170

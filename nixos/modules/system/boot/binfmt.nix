@@ -294,16 +294,16 @@ in {
     nix.extraOptions = lib.mkIf (cfg.emulatedSystems != [ ]) ''
       extra-platforms = ${
         toString (cfg.emulatedSystems
-        ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux")
+          ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux")
       }
     '';
     nix.sandboxPaths = lib.mkIf (cfg.emulatedSystems != [ ]) ([ "/run/binfmt" ]
       ++ (map (system: dirOf (dirOf (getEmulator system)))
-      cfg.emulatedSystems));
+        cfg.emulatedSystems));
 
     environment.etc."binfmt.d/nixos.conf".source =
       builtins.toFile "binfmt_nixos.conf" (lib.concatStringsSep "\n"
-      (lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations));
+        (lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations));
     system.activationScripts.binfmt = ''
       mkdir -p -m 0755 /run/binfmt
       ${lib.concatStringsSep "\n"

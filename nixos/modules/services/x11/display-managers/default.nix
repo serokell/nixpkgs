@@ -374,7 +374,7 @@ in {
       "displayManager"
       "desktopManagerHandlesLidAndPower"
     ]
-    "The option is no longer necessary because all display managers have already delegated lid management to systemd.")
+      "The option is no longer necessary because all display managers have already delegated lid management to systemd.")
   ];
 
 }

@@ -250,183 +250,185 @@ in {
         cfg.tlsKeyFile
       ];
 
-    in mkIf cfg.enable {
-      services.kubernetes.kubelet.seedDockerImages = [ infraContainer ];
+      in mkIf cfg.enable {
+        services.kubernetes.kubelet.seedDockerImages = [ infraContainer ];
 
-      systemd.services.kubelet = {
-        description = "Kubernetes Kubelet Service";
-        wantedBy = [ "kubelet.target" ];
-        after = [ "kube-control-plane-online.target" ];
-        before = [ "kubelet.target" ];
-        path = with pkgs;
-          [
-            gitMinimal
-            openssh
-            docker
-            utillinux
-            iproute
-            ethtool
-            thin-provisioning-tools
-            iptables
-            socat
-          ] ++ top.path;
-        preStart = ''
-          rm -f /opt/cni/bin/* || true
-          ${concatMapStrings (package: ''
-            echo "Linking cni package: ${package}"
-            ln -fs ${package}/bin/* /opt/cni/bin
-          '') cfg.cni.packages}
-        '';
-        serviceConfig = {
-          Slice = "kubernetes.slice";
-          CPUAccounting = true;
-          MemoryAccounting = true;
-          Restart = "on-failure";
-          RestartSec = "1000ms";
-          ExecStart = ''
-            ${top.package}/bin/kubelet \
-                        --address=${cfg.address} \
-                        --allow-privileged=${boolToString cfg.allowPrivileged} \
-                        --authentication-token-webhook \
-                        --authentication-token-webhook-cache-ttl="10s" \
-                        --authorization-mode=Webhook \
-                        ${
-              optionalString (cfg.clientCaFile != null)
-              "--client-ca-file=${cfg.clientCaFile}"
-                        } \
-                        ${
-              optionalString (cfg.clusterDns != "")
-              "--cluster-dns=${cfg.clusterDns}"
-                        } \
-                        ${
-              optionalString (cfg.clusterDomain != "")
-              "--cluster-domain=${cfg.clusterDomain}"
-                        } \
-                        --cni-conf-dir=${cniConfig} \
-                        ${
-              optionalString (cfg.featureGates != [ ]) "--feature-gates=${
-                concatMapStringsSep "," (feature: "${feature}=true")
-                cfg.featureGates
-              }"
-                        } \
-                        --hairpin-mode=hairpin-veth \
-                        --healthz-bind-address=${cfg.healthz.bind} \
-                        --healthz-port=${toString cfg.healthz.port} \
-                        --hostname-override=${cfg.hostname} \
-                        --kubeconfig=${kubeconfig} \
-                        ${
-              optionalString (cfg.networkPlugin != null)
-              "--network-plugin=${cfg.networkPlugin}"
-                        } \
-                        ${
-              optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"
-                        } \
-                        --pod-infra-container-image=pause \
-                        ${
-              optionalString (cfg.manifests != { })
-              "--pod-manifest-path=/etc/${manifestPath}"
-                        } \
-                        --port=${toString cfg.port} \
-                        --register-node=${boolToString cfg.registerNode} \
-                        ${
-              optionalString (taints != "") "--register-with-taints=${taints}"
-                        } \
-                        --root-dir=${top.dataDir} \
-                        ${
-              optionalString (cfg.tlsCertFile != null)
-              "--tls-cert-file=${cfg.tlsCertFile}"
-                        } \
-                        ${
-              optionalString (cfg.tlsKeyFile != null)
-              "--tls-private-key-file=${cfg.tlsKeyFile}"
-                        } \
-                        ${
-              optionalString (cfg.verbosity != null)
-              "--v=${toString cfg.verbosity}"
-                        } \
-                        ${cfg.extraOpts}
-                      '';
-          WorkingDirectory = top.dataDir;
-        };
-        unitConfig.ConditionPathExists = kubeletPaths;
-      };
-
-      systemd.paths.kubelet = {
-        wantedBy = [ "kubelet.service" ];
-        pathConfig = {
-          PathExists = kubeletPaths;
-          PathChanged = kubeletPaths;
-        };
-      };
-
-      systemd.services.docker.before = [ "kubelet.service" ];
-
-      systemd.services.docker-seed-images = {
-        wantedBy = [ "docker.service" ];
-        after = [ "docker.service" ];
-        before = [ "kubelet.service" ];
-        path = with pkgs; [ docker ];
-        preStart = ''
-          ${concatMapStrings (img: ''
-            echo "Seeding docker image: ${img}"
-            docker load <${img}
-          '') cfg.seedDockerImages}
-        '';
-        script = "echo Ok";
-        serviceConfig.Type = "oneshot";
-        serviceConfig.RemainAfterExit = true;
-        serviceConfig.Slice = "kubernetes.slice";
-      };
-
-      systemd.services.kubelet-online = {
-        wantedBy = [ "kube-node-online.target" ];
-        after = [ "flannel.target" "kubelet.target" ];
-        before = [ "kube-node-online.target" ];
-        # it is complicated. flannel needs kubelet to run the pause container before
-        # it discusses the node CIDR with apiserver and afterwards configures and restarts
-        # dockerd. Until then prevent creating any pods because they have to be recreated anyway
-        # because the network of docker0 has been changed by flannel.
-        script = let
-          docker-env = "/run/flannel/docker";
-          flannel-date = "stat --print=%Y ${docker-env}";
-          docker-date =
-            "systemctl show --property=ActiveEnterTimestamp --value docker";
-          in ''
-            until test -f ${docker-env} ; do sleep 1 ; done
-            while test `${flannel-date}` -gt `date +%s --date="$(${docker-date})"` ; do
-              sleep 1
-            done
+        systemd.services.kubelet = {
+          description = "Kubernetes Kubelet Service";
+          wantedBy = [ "kubelet.target" ];
+          after = [ "kube-control-plane-online.target" ];
+          before = [ "kubelet.target" ];
+          path = with pkgs;
+            [
+              gitMinimal
+              openssh
+              docker
+              utillinux
+              iproute
+              ethtool
+              thin-provisioning-tools
+              iptables
+              socat
+            ] ++ top.path;
+          preStart = ''
+            rm -f /opt/cni/bin/* || true
+            ${concatMapStrings (package: ''
+              echo "Linking cni package: ${package}"
+              ln -fs ${package}/bin/* /opt/cni/bin
+            '') cfg.cni.packages}
           '';
-        serviceConfig.Type = "oneshot";
-        serviceConfig.Slice = "kubernetes.slice";
-      };
-
-      # Allways include cni plugins
-      services.kubernetes.kubelet.cni.packages = [ pkgs.cni-plugins ];
-
-      boot.kernelModules = [ "br_netfilter" ];
-
-      services.kubernetes.kubelet.hostname = with config.networking;
-        mkDefault (hostName + optionalString (domain != null) ".${domain}");
-
-      services.kubernetes.pki.certs = with top.lib; {
-        kubelet = mkCert {
-          name = "kubelet";
-          CN = top.kubelet.hostname;
-          action = "systemctl restart kubelet.service";
-
+          serviceConfig = {
+            Slice = "kubernetes.slice";
+            CPUAccounting = true;
+            MemoryAccounting = true;
+            Restart = "on-failure";
+            RestartSec = "1000ms";
+            ExecStart = ''
+              ${top.package}/bin/kubelet \
+                          --address=${cfg.address} \
+                          --allow-privileged=${
+                boolToString cfg.allowPrivileged
+                          } \
+                          --authentication-token-webhook \
+                          --authentication-token-webhook-cache-ttl="10s" \
+                          --authorization-mode=Webhook \
+                          ${
+                optionalString (cfg.clientCaFile != null)
+                "--client-ca-file=${cfg.clientCaFile}"
+                          } \
+                          ${
+                optionalString (cfg.clusterDns != "")
+                "--cluster-dns=${cfg.clusterDns}"
+                          } \
+                          ${
+                optionalString (cfg.clusterDomain != "")
+                "--cluster-domain=${cfg.clusterDomain}"
+                          } \
+                          --cni-conf-dir=${cniConfig} \
+                          ${
+                optionalString (cfg.featureGates != [ ]) "--feature-gates=${
+                  concatMapStringsSep "," (feature: "${feature}=true")
+                  cfg.featureGates
+                }"
+                          } \
+                          --hairpin-mode=hairpin-veth \
+                          --healthz-bind-address=${cfg.healthz.bind} \
+                          --healthz-port=${toString cfg.healthz.port} \
+                          --hostname-override=${cfg.hostname} \
+                          --kubeconfig=${kubeconfig} \
+                          ${
+                optionalString (cfg.networkPlugin != null)
+                "--network-plugin=${cfg.networkPlugin}"
+                          } \
+                          ${
+                optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"
+                          } \
+                          --pod-infra-container-image=pause \
+                          ${
+                optionalString (cfg.manifests != { })
+                "--pod-manifest-path=/etc/${manifestPath}"
+                          } \
+                          --port=${toString cfg.port} \
+                          --register-node=${boolToString cfg.registerNode} \
+                          ${
+                optionalString (taints != "") "--register-with-taints=${taints}"
+                          } \
+                          --root-dir=${top.dataDir} \
+                          ${
+                optionalString (cfg.tlsCertFile != null)
+                "--tls-cert-file=${cfg.tlsCertFile}"
+                          } \
+                          ${
+                optionalString (cfg.tlsKeyFile != null)
+                "--tls-private-key-file=${cfg.tlsKeyFile}"
+                          } \
+                          ${
+                optionalString (cfg.verbosity != null)
+                "--v=${toString cfg.verbosity}"
+                          } \
+                          ${cfg.extraOpts}
+                        '';
+            WorkingDirectory = top.dataDir;
+          };
+          unitConfig.ConditionPathExists = kubeletPaths;
         };
-        kubeletClient = mkCert {
-          name = "kubelet-client";
-          CN = "system:node:${top.kubelet.hostname}";
-          fields = { O = "system:nodes"; };
-          action = "systemctl restart kubelet.service";
-        };
-      };
 
-      services.kubernetes.kubelet.kubeconfig.server =
-        mkDefault top.apiserverAddress;
-    })
+        systemd.paths.kubelet = {
+          wantedBy = [ "kubelet.service" ];
+          pathConfig = {
+            PathExists = kubeletPaths;
+            PathChanged = kubeletPaths;
+          };
+        };
+
+        systemd.services.docker.before = [ "kubelet.service" ];
+
+        systemd.services.docker-seed-images = {
+          wantedBy = [ "docker.service" ];
+          after = [ "docker.service" ];
+          before = [ "kubelet.service" ];
+          path = with pkgs; [ docker ];
+          preStart = ''
+            ${concatMapStrings (img: ''
+              echo "Seeding docker image: ${img}"
+              docker load <${img}
+            '') cfg.seedDockerImages}
+          '';
+          script = "echo Ok";
+          serviceConfig.Type = "oneshot";
+          serviceConfig.RemainAfterExit = true;
+          serviceConfig.Slice = "kubernetes.slice";
+        };
+
+        systemd.services.kubelet-online = {
+          wantedBy = [ "kube-node-online.target" ];
+          after = [ "flannel.target" "kubelet.target" ];
+          before = [ "kube-node-online.target" ];
+          # it is complicated. flannel needs kubelet to run the pause container before
+          # it discusses the node CIDR with apiserver and afterwards configures and restarts
+          # dockerd. Until then prevent creating any pods because they have to be recreated anyway
+          # because the network of docker0 has been changed by flannel.
+          script = let
+            docker-env = "/run/flannel/docker";
+            flannel-date = "stat --print=%Y ${docker-env}";
+            docker-date =
+              "systemctl show --property=ActiveEnterTimestamp --value docker";
+            in ''
+              until test -f ${docker-env} ; do sleep 1 ; done
+              while test `${flannel-date}` -gt `date +%s --date="$(${docker-date})"` ; do
+                sleep 1
+              done
+            '';
+          serviceConfig.Type = "oneshot";
+          serviceConfig.Slice = "kubernetes.slice";
+        };
+
+        # Allways include cni plugins
+        services.kubernetes.kubelet.cni.packages = [ pkgs.cni-plugins ];
+
+        boot.kernelModules = [ "br_netfilter" ];
+
+        services.kubernetes.kubelet.hostname = with config.networking;
+          mkDefault (hostName + optionalString (domain != null) ".${domain}");
+
+        services.kubernetes.pki.certs = with top.lib; {
+          kubelet = mkCert {
+            name = "kubelet";
+            CN = top.kubelet.hostname;
+            action = "systemctl restart kubelet.service";
+
+          };
+          kubeletClient = mkCert {
+            name = "kubelet-client";
+            CN = "system:node:${top.kubelet.hostname}";
+            fields = { O = "system:nodes"; };
+            action = "systemctl restart kubelet.service";
+          };
+        };
+
+        services.kubernetes.kubelet.kubeconfig.server =
+          mkDefault top.apiserverAddress;
+      })
 
     (mkIf (cfg.enable && cfg.manifests != { }) {
       environment.etc = mapAttrs' (name: manifest:

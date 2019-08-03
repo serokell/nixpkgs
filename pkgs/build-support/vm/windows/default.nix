@@ -24,25 +24,25 @@ in {
   runInWindowsVM = drv:
     let
     in pkgs.lib.overrideDerivation drv (attrs:
-    let bootstrap = bootstrapper attrs.windowsImage;
-    in {
-      requiredSystemFeatures = [ "kvm" ];
-      builder = "${pkgs.stdenv.shell}";
-      args = [ "-e" (bootstrap.resumeAndRun builder) ];
-      windowsImage = bootstrap.suspendedVM;
-      origArgs = attrs.args;
-      origBuilder = if attrs.builder == attrs.stdenv.shell then
-        "/bin/sh"
-      else
-        attrs.builder;
+      let bootstrap = bootstrapper attrs.windowsImage;
+      in {
+        requiredSystemFeatures = [ "kvm" ];
+        builder = "${pkgs.stdenv.shell}";
+        args = [ "-e" (bootstrap.resumeAndRun builder) ];
+        windowsImage = bootstrap.suspendedVM;
+        origArgs = attrs.args;
+        origBuilder = if attrs.builder == attrs.stdenv.shell then
+          "/bin/sh"
+        else
+          attrs.builder;
 
-      postHook = ''
-        PATH=/usr/bin:/bin:/usr/sbin:/sbin
-        SHELL=/bin/sh
-        eval "$origPostHook"
-      '';
+        postHook = ''
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin
+          SHELL=/bin/sh
+          eval "$origPostHook"
+        '';
 
-      origPostHook = attrs.postHook or "";
-      fixupPhase = ":";
-    });
+        origPostHook = attrs.postHook or "";
+        fixupPhase = ":";
+      });
 }

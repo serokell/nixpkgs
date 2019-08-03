@@ -33,7 +33,7 @@ let
         with stdenv.lib;
         let modules = filter hasLuaModule drvs;
         in unique ([ lua ] ++ modules
-        ++ concatLists (catAttrs "requiredLuaModules" modules));
+          ++ concatLists (catAttrs "requiredLuaModules" modules));
 
       # Convert derivation to a lua module.
       toLuaModule = drv:

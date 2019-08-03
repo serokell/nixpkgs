@@ -55,8 +55,8 @@ let
       wrapperPath = with stdenv.lib;
         makeBinPath
         ([ coreutils getopt git gnupg gnused tree which qrencode procps ]
-        ++ optional stdenv.isDarwin openssl
-        ++ ifEnable x11Support [ dmenu xclip xdotool ]);
+          ++ optional stdenv.isDarwin openssl
+          ++ ifEnable x11Support [ dmenu xclip xdotool ]);
 
       postFixup = ''
         # Link extensions env

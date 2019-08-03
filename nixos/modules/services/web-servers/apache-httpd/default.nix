@@ -46,8 +46,8 @@ let
     # Canonical name must not include a trailing slash.
     canonicalNames = let defaultPort = (head (defaultListen cfg)).port;
       in map (port:
-      (if cfg.enableSSL then "https" else "http") + "://" + cfg.hostName
-      + (if port != defaultPort then ":${toString port}" else ""))
+        (if cfg.enableSSL then "https" else "http") + "://" + cfg.hostName
+        + (if port != defaultPort then ":${toString port}" else ""))
       (map (x: x.port) (getListen cfg));
 
     # Admin address: inherit from the main server if not specified for
@@ -74,7 +74,7 @@ let
           else
             import (toString "${toString ./.}/${
               if svc ? serviceType then svc.serviceType else svc.serviceName
-            }.nix");
+              }.nix");
           config = (evalModules {
             modules = [{
               options = res.options;
@@ -258,13 +258,13 @@ let
 
       robotsTxt = concatStringsSep "\n" (filter (x: x != "") (
         # If this is a vhost, the include the entries for the main server as well.
-        (if isMainServer then
-          [ ]
-        else
-          [ mainCfg.robotsEntries ]
-          ++ map (svc: svc.robotsEntries) mainSubservices)
-        ++ [ cfg.robotsEntries ]
-        ++ (map (svc: svc.robotsEntries) subservices)));
+          (if isMainServer then
+            [ ]
+          else
+            [ mainCfg.robotsEntries ]
+            ++ map (svc: svc.robotsEntries) mainSubservices)
+          ++ [ cfg.robotsEntries ]
+          ++ (map (svc: svc.robotsEntries) subservices)));
 
     in ''
       ${concatStringsSep "\n"

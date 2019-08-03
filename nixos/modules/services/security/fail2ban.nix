@@ -10,10 +10,10 @@ let
 
   jailConf = pkgs.writeText "jail.conf" (concatStringsSep "\n" (attrValues
     (flip mapAttrs cfg.jails (name: def:
-    optionalString (def != "") ''
-      [${name}]
-      ${def}
-    ''))));
+      optionalString (def != "") ''
+        [${name}]
+        ${def}
+      ''))));
 
 in {
 

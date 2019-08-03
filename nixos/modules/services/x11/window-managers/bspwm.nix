@@ -77,7 +77,7 @@ in {
       "bspwm-unstable"
       "enable"
     ]
-    "Use services.xserver.windowManager.bspwm.enable and set services.xserver.windowManager.bspwm.package to pkgs.bspwm-unstable to use the unstable version of bspwm.")
+      "Use services.xserver.windowManager.bspwm.enable and set services.xserver.windowManager.bspwm.package to pkgs.bspwm-unstable to use the unstable version of bspwm.")
     (mkRemovedOptionModule [
       "services"
       "xserver"

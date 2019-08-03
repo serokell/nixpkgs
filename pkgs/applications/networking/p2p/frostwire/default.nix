@@ -80,7 +80,7 @@ in stdenv.mkDerivation {
         i686-linux =
           "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
       }.${stdenv.hostPlatform.system} or (throw
-      "unsupported system ${stdenv.hostPlatform.system}")
+        "unsupported system ${stdenv.hostPlatform.system}")
     } $out/lib
 
     cp -dpR ${desktopItem}/share $out

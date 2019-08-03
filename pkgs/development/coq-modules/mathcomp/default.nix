@@ -113,7 +113,7 @@ let
           ++ (with coq.ocamlPackages; [ ocaml findlib camlp5 ]);
         propagatedBuildInputs = [ coq ] ++ attrValues
           (mkMathcompGenFrom overrides (mathcomp-deps mathcomp-pkg)
-          mathcomp-version);
+            mathcomp-version);
         enableParallelBuilding = true;
 
         buildFlags = optionalString withDoc "doc";
@@ -143,12 +143,12 @@ let
           currentOverrides = overrides;
           overrideMathcomp = moreOverrides:
             (mkMathcompGen
-            (old: let new = overrides old; in new // moreOverrides new)
-            mathcomp-pkg mathcomp-version).${mathcomp-pkg};
+              (old: let new = overrides old; in new // moreOverrides new)
+              mathcomp-pkg mathcomp-version).${mathcomp-pkg};
           mathcompGen = moreOverrides:
             (mkMathcompGenFrom
-            (old: let new = overrides old; in new // moreOverrides new)
-            mathcomp-packages mathcomp-version);
+              (old: let new = overrides old; in new // moreOverrides new)
+              mathcomp-packages mathcomp-version);
         };
       };
     in { "${mathcomp-pkg}" = stdenv.mkDerivation (attrs // overrides attrs); };

@@ -82,4 +82,4 @@ in import ./generic.nix { inherit lib stdenv emacs texinfo; } ({
   meta = defaultMeta // meta;
 }
 
-// removeAttrs args [ "meta" ])
+  // removeAttrs args [ "meta" ])

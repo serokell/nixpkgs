@@ -174,19 +174,19 @@ in tl // {
   # to make nix-env usage more comfortable and build selected on Hydra.
   combined = with lib;
     recurseIntoAttrs (mapAttrs (pname: attrs:
-    addMetaAttrs rec {
-      description = "TeX Live environment for ${pname}";
-      platforms = lib.platforms.all;
-      hydraPlatforms =
-        lib.optionals (lib.elem pname [ "scheme-small" "scheme-basic" ])
-        platforms;
-      maintainers = with lib.maintainers; [ vcunat veprbl ];
-    } (combine {
-      ${pname} = attrs;
-      extraName = "combined" + lib.removePrefix "scheme" pname;
-    })) {
-      inherit (tl)
-        scheme-basic scheme-context scheme-full scheme-gust scheme-medium
-        scheme-minimal scheme-small scheme-tetex;
-    });
+      addMetaAttrs rec {
+        description = "TeX Live environment for ${pname}";
+        platforms = lib.platforms.all;
+        hydraPlatforms =
+          lib.optionals (lib.elem pname [ "scheme-small" "scheme-basic" ])
+          platforms;
+        maintainers = with lib.maintainers; [ vcunat veprbl ];
+      } (combine {
+        ${pname} = attrs;
+        extraName = "combined" + lib.removePrefix "scheme" pname;
+      })) {
+        inherit (tl)
+          scheme-basic scheme-context scheme-full scheme-gust scheme-medium
+          scheme-minimal scheme-small scheme-tetex;
+      });
 }

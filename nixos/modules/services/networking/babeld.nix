@@ -25,7 +25,7 @@ let
     ((optionalString (cfg.interfaceDefaults != null) ''
       default ${paramsString cfg.interfaceDefaults}
     '') + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
-    + extraConfig);
+      + extraConfig);
 
 in {
 

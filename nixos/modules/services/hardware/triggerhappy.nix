@@ -10,13 +10,13 @@ let
 
   configFile = pkgs.writeText "triggerhappy.conf" ''
     ${concatMapStringsSep "\n" ({ keys, event, cmd, ... }:
-    "${concatMapStringsSep "+" (x: "KEY_" + x) keys} ${
-      toString {
-        press = 1;
-        hold = 2;
-        release = 0;
-      }.${event}
-    } ${cmd}") cfg.bindings}
+      "${concatMapStringsSep "+" (x: "KEY_" + x) keys} ${
+        toString {
+          press = 1;
+          hold = 2;
+          release = 0;
+        }.${event}
+      } ${cmd}") cfg.bindings}
     ${cfg.extraConfig}
   '';
 

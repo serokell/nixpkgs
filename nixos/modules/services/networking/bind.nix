@@ -38,33 +38,33 @@ let
     ${cfg.extraConfig}
 
     ${concatMapStrings ({ name, file, master ? true, slaves ? [ ], masters ? [ ]
-    , extraConfig ? "" }: ''
-      zone "${name}" {
-        type ${if master then "master" else "slave"};
-        file "${file}";
-        ${
-        if master then ''
-          allow-transfer {
-            ${
-            concatMapStrings (ip: ''
-              ${ip};
-            '') slaves
-            }
-          };
-        '' else ''
-          masters {
-            ${
-            concatMapStrings (ip: ''
-              ${ip};
-            '') masters
-            }
-          };
-        ''
-        }
-        allow-query { any; };
-        ${extraConfig}
-      };
-    '') cfg.zones}
+      , extraConfig ? "" }: ''
+        zone "${name}" {
+          type ${if master then "master" else "slave"};
+          file "${file}";
+          ${
+          if master then ''
+            allow-transfer {
+              ${
+              concatMapStrings (ip: ''
+                ${ip};
+              '') slaves
+              }
+            };
+          '' else ''
+            masters {
+              ${
+              concatMapStrings (ip: ''
+                ${ip};
+              '') masters
+              }
+            };
+          ''
+          }
+          allow-query { any; };
+          ${extraConfig}
+        };
+      '') cfg.zones}
   '';
 
 in {

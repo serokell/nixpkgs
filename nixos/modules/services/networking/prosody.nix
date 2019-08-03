@@ -479,7 +479,7 @@ in {
         ${
         lib.concatStringsSep "\n  "
         (lib.mapAttrsToList (name: val: optionalString val "${toLua name};")
-        cfg.modules)
+          cfg.modules)
         }
         ${
         lib.concatStringsSep "\n"

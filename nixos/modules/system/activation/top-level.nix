@@ -12,11 +12,11 @@ let
   # !!! fix this
   cloner = inheritParent: list:
     map (childConfig:
-    (import ../../../lib/eval-config.nix {
-      inherit baseModules;
-      modules = (optionals inheritParent modules) ++ [ ./no-clone.nix ]
-        ++ [ childConfig ];
-    }).config.system.build.toplevel) list;
+      (import ../../../lib/eval-config.nix {
+        inherit baseModules;
+        modules = (optionals inheritParent modules) ++ [ ./no-clone.nix ]
+          ++ [ childConfig ];
+      }).config.system.build.toplevel) list;
 
   children = cloner false config.nesting.children
     ++ cloner true config.nesting.clone;
@@ -126,7 +126,7 @@ let
 
     perl = "${pkgs.perl}/bin/perl "
       + (concatMapStringsSep " " (lib: "-I${lib}/${pkgs.perl.libPrefix}")
-      (with pkgs.perlPackages; [ FileSlurp NetDBus XMLParser XMLTwig ]));
+        (with pkgs.perlPackages; [ FileSlurp NetDBus XMLParser XMLTwig ]));
   };
 
   # Handle assertions and warnings

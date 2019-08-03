@@ -38,11 +38,11 @@ in stdenv.mkDerivation rec {
   # Why is all this garbage needed? Why? Why?
   patches = [
     (gentooPatch "xfsprogs-4.15.0-sharedlibs.patch"
-    "0bv2naxpiw7vcsg8p1v2i47wgfda91z1xy1kfwydbp4wmb4nbyyv")
+      "0bv2naxpiw7vcsg8p1v2i47wgfda91z1xy1kfwydbp4wmb4nbyyv")
     (gentooPatch "xfsprogs-4.15.0-docdir.patch"
-    "1srgdidvq2ka0rmfdwpqp92fapgh53w1h7rajm4nnby5vp2v8dfr")
+      "1srgdidvq2ka0rmfdwpqp92fapgh53w1h7rajm4nnby5vp2v8dfr")
     (gentooPatch "xfsprogs-4.9.0-underlinking.patch"
-    "1r7l8jphspy14i43zbfnjrnyrdm4cpgyfchblascxylmans0gci7")
+      "1r7l8jphspy14i43zbfnjrnyrdm4cpgyfchblascxylmans0gci7")
   ];
 
   preConfigure = ''

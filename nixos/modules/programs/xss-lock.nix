@@ -32,7 +32,8 @@ in {
       partOf = [ "graphical-session.target" ];
       serviceConfig.ExecStart = with lib;
         strings.concatStringsSep " " ([ "${pkgs.xss-lock}/bin/xss-lock" ]
-        ++ (map escapeShellArg cfg.extraOptions) ++ [ "--" cfg.lockerCommand ]);
+          ++ (map escapeShellArg cfg.extraOptions)
+          ++ [ "--" cfg.lockerCommand ]);
     };
   };
 }

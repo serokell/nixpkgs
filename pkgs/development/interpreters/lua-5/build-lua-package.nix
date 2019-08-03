@@ -144,99 +144,99 @@ let
   # example externalDeps': [ { name = "CRYPTO"; dep = pkgs.openssl; } ]
   externalDeps' = lib.filter (dep: !lib.isDerivation dep) externalDeps;
 in toLuaModule (lua.stdenv.mkDerivation
-(builtins.removeAttrs attrs [ "disabled" "checkInputs" "externalDeps" ] // {
+  (builtins.removeAttrs attrs [ "disabled" "checkInputs" "externalDeps" ] // {
 
-  name = namePrefix + name;
+    name = namePrefix + name;
 
-  buildInputs = [ wrapLua lua.pkgs.luarocks ] ++ buildInputs
-    ++ lib.optionals doCheck checkInputs ++ (map (d: d.dep) externalDeps');
+    buildInputs = [ wrapLua lua.pkgs.luarocks ] ++ buildInputs
+      ++ lib.optionals doCheck checkInputs ++ (map (d: d.dep) externalDeps');
 
-  # propagate lua to active setup-hook in nix-shell
-  propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
-  inherit doCheck;
+    # propagate lua to active setup-hook in nix-shell
+    propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
+    inherit doCheck;
 
-  # @-patterns do not capture formal argument default values, so we need to
-  # explicitly inherit this for it to be available as a shell variable in the
-  # builder
-  inherit rockspecFilename;
-  inherit rocksSubdir;
+    # @-patterns do not capture formal argument default values, so we need to
+    # explicitly inherit this for it to be available as a shell variable in the
+    # builder
+    inherit rockspecFilename;
+    inherit rocksSubdir;
 
-  # enabled only for src.rock
-  setSourceRoot = let name_only = (builtins.parseDrvName name).name;
-    in lib.optionalString (knownRockspec == null) ''
-      # format is rockspec_basename/source_basename
-      # rockspec can set it via spec.source.dir
-      folder=$(find . -mindepth 2 -maxdepth 2 -type d -path '*${name_only}*/*'|head -n1)
-      sourceRoot="$folder"
+    # enabled only for src.rock
+    setSourceRoot = let name_only = (builtins.parseDrvName name).name;
+      in lib.optionalString (knownRockspec == null) ''
+        # format is rockspec_basename/source_basename
+        # rockspec can set it via spec.source.dir
+        folder=$(find . -mindepth 2 -maxdepth 2 -type d -path '*${name_only}*/*'|head -n1)
+        sourceRoot="$folder"
+      '';
+
+    configurePhase = ''
+      runHook preConfigure
+
+      cat > ${luarocks_config} <<EOF
+      ${luarocks_content}
+      EOF
+      export LUAROCKS_CONFIG="$PWD/${luarocks_config}";
+    '' + lib.optionalString (knownRockspec != null) ''
+
+      # prevents the following type of error:
+      # Inconsistency between rockspec filename (42fm1b3d7iv6fcbhgm9674as3jh6y2sh-luv-1.22.0-1.rockspec) and its contents (luv-1.22.0-1.rockspec)
+      rockspecFilename="$TMP/$(stripHash ''${knownRockspec})"
+      cp ''${knownRockspec} "$rockspecFilename"
+    '' + ''
+      runHook postConfigure
     '';
 
-  configurePhase = ''
-    runHook preConfigure
+    buildPhase = ''
+      runHook preBuild
 
-    cat > ${luarocks_config} <<EOF
-    ${luarocks_content}
-    EOF
-    export LUAROCKS_CONFIG="$PWD/${luarocks_config}";
-  '' + lib.optionalString (knownRockspec != null) ''
+      nix_debug "Using LUAROCKS_CONFIG=$LUAROCKS_CONFIG"
 
-    # prevents the following type of error:
-    # Inconsistency between rockspec filename (42fm1b3d7iv6fcbhgm9674as3jh6y2sh-luv-1.22.0-1.rockspec) and its contents (luv-1.22.0-1.rockspec)
-    rockspecFilename="$TMP/$(stripHash ''${knownRockspec})"
-    cp ''${knownRockspec} "$rockspecFilename"
-  '' + ''
-    runHook postConfigure
-  '';
+      LUAROCKS=luarocks
+      if (( ''${NIX_DEBUG:-0} >= 1 )); then
+          LUAROCKS="$LUAROCKS --verbose"
+      fi
 
-  buildPhase = ''
-    runHook preBuild
+      patchShebangs .
 
-    nix_debug "Using LUAROCKS_CONFIG=$LUAROCKS_CONFIG"
+      runHook postBuild
+    '';
 
-    LUAROCKS=luarocks
-    if (( ''${NIX_DEBUG:-0} >= 1 )); then
-        LUAROCKS="$LUAROCKS --verbose"
-    fi
+    postFixup = lib.optionalString (!dontWrapLuaPrograms) ''
+      wrapLuaPrograms
+    '' + attrs.postFixup or "";
 
-    patchShebangs .
+    installPhase = attrs.installPhase or ''
+      runHook preInstall
 
-    runHook postBuild
-  '';
+      # work around failing luarocks test for Write access
+      mkdir -p $out
 
-  postFixup = lib.optionalString (!dontWrapLuaPrograms) ''
-    wrapLuaPrograms
-  '' + attrs.postFixup or "";
+      # luarocks make assumes sources are available in cwd
+      # After the build is complete, it also installs the rock.
+      # If no argument is given, it looks for a rockspec in the current directory
+      # but some packages have several rockspecs in their source directory so
+      # we force the use of the upper level since it is
+      # the sole rockspec in that folder
+      # maybe we could reestablish dependency checking via passing --rock-trees
 
-  installPhase = attrs.installPhase or ''
-    runHook preInstall
+      nix_debug "ROCKSPEC $rockspecFilename"
+      nix_debug "cwd: $PWD"
+      $LUAROCKS make --deps-mode=all --tree=$out ''${rockspecFilename}
 
-    # work around failing luarocks test for Write access
-    mkdir -p $out
+      runHook postInstall
+    '';
 
-    # luarocks make assumes sources are available in cwd
-    # After the build is complete, it also installs the rock.
-    # If no argument is given, it looks for a rockspec in the current directory
-    # but some packages have several rockspecs in their source directory so
-    # we force the use of the upper level since it is
-    # the sole rockspec in that folder
-    # maybe we could reestablish dependency checking via passing --rock-trees
+    passthru = {
+      inherit lua; # The lua interpreter
+      inherit externalDeps;
+    } // passthru;
 
-    nix_debug "ROCKSPEC $rockspecFilename"
-    nix_debug "cwd: $PWD"
-    $LUAROCKS make --deps-mode=all --tree=$out ''${rockspecFilename}
-
-    runHook postInstall
-  '';
-
-  passthru = {
-    inherit lua; # The lua interpreter
-    inherit externalDeps;
-  } // passthru;
-
-  meta = with lib.maintainers;
-  {
-    platforms = lua.meta.platforms;
-    # add extra maintainer(s) to every package
-    maintainers = (meta.maintainers or [ ]) ++ [ ];
-    broken = disabled;
-  } // meta;
-}))
+    meta = with lib.maintainers;
+    {
+      platforms = lua.meta.platforms;
+      # add extra maintainer(s) to every package
+      maintainers = (meta.maintainers or [ ]) ++ [ ];
+      broken = disabled;
+    } // meta;
+  }))

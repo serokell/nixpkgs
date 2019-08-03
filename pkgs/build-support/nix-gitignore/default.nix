@@ -22,11 +22,11 @@ in rec {
   # [["good/relative/source/file" true] ["bad.tmpfile" false]] -> root -> path
   filterPattern = patterns: root:
     (name: _type:
-    let
-      relPath = lib.removePrefix ((toString root) + "/") name;
-      matches = pair: (match (head pair) relPath) != null;
-      matched = map (pair: [ (matches pair) (last pair) ]) patterns;
-    in last (last ([[ true true ]] ++ (filter head matched))));
+      let
+        relPath = lib.removePrefix ((toString root) + "/") name;
+        matches = pair: (match (head pair) relPath) != null;
+        matched = map (pair: [ (matches pair) (last pair) ]) patterns;
+      in last (last ([[ true true ]] ++ (filter head matched))));
 
   # string -> [[regex bool]]
   gitignoreToPatterns = gitignore:
@@ -62,7 +62,7 @@ in rec {
         let slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in concatStringsSep ""
         (map (rl: if isList rl then slightFix (elemAt rl 0) else f rl)
-        (split "(\\[([^\\\\]|\\\\.)+])" r));
+          (split "(\\[([^\\\\]|\\\\.)+])" r));
 
       # regex -> regex
       handleSlashPrefix = l:
@@ -81,9 +81,10 @@ in rec {
       # (regex -> regex) -> [regex, bool] -> [regex, bool]
       mapPat = f: l: [ (f (head l)) (last l) ];
     in map (l: # `l' for "line"
-    mapPat (l:
-    handleSlashSuffix (handleSlashPrefix (mapAroundCharclass substWildcards l)))
-    (computeNegation l))
+      mapPat (l:
+        handleSlashSuffix
+        (handleSlashPrefix (mapAroundCharclass substWildcards l)))
+      (computeNegation l))
     (filter (l: !isList l && !isComment l) (split "\n" gitignore));
 
   gitignoreFilter = ign: root: filterPattern (gitignoreToPatterns ign) root;

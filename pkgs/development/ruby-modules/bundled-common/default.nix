@@ -73,10 +73,10 @@ let
 
   buildGem = name: attrs:
     (let gemAttrs = composeGemAttrs ruby gems name attrs;
-    in if gemAttrs.type == "path" then
-      pathDerivation (gemAttrs.source // gemAttrs)
-    else
-      buildRubyGem gemAttrs);
+      in if gemAttrs.type == "path" then
+        pathDerivation (gemAttrs.source // gemAttrs)
+      else
+        buildRubyGem gemAttrs);
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 

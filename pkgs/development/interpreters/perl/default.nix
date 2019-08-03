@@ -178,27 +178,28 @@ let
           6; # in `buildEnv' (including the one inside `perl.withPackages') the library files will have priority over files in `perl`
       };
     } // stdenv.lib.optionalAttrs
-    (stdenv.buildPlatform != stdenv.hostPlatform) rec {
-      crossVersion = "2152db1ea241f796206ab309036be1a7d127b370"; # May 25, 2019
+      (stdenv.buildPlatform != stdenv.hostPlatform) rec {
+        crossVersion =
+          "2152db1ea241f796206ab309036be1a7d127b370"; # May 25, 2019
 
-      perl-cross-src = fetchurl {
-        url =
-          "https://github.com/arsv/perl-cross/archive/${crossVersion}.tar.gz";
-        sha256 = "1k08iqdkf9q00hbcq2b933w3vmds7xkfr90phhk0qf64l18wdrkf";
-      };
+        perl-cross-src = fetchurl {
+          url =
+            "https://github.com/arsv/perl-cross/archive/${crossVersion}.tar.gz";
+          sha256 = "1k08iqdkf9q00hbcq2b933w3vmds7xkfr90phhk0qf64l18wdrkf";
+        };
 
-      depsBuildBuild = [ buildPackages.stdenv.cc makeWrapper ];
+        depsBuildBuild = [ buildPackages.stdenv.cc makeWrapper ];
 
-      postUnpack = ''
-        unpackFile ${perl-cross-src}
-        cp -R perl-cross-${crossVersion}/* perl-${version}/
-      '';
+        postUnpack = ''
+          unpackFile ${perl-cross-src}
+          cp -R perl-cross-${crossVersion}/* perl-${version}/
+        '';
 
-      configurePlatforms = [ "build" "host" "target" ];
+        configurePlatforms = [ "build" "host" "target" ];
 
-      # TODO merge setup hooks
-      setupHook = ./setup-hook-cross.sh;
-    });
+        # TODO merge setup hooks
+        setupHook = ./setup-hook-cross.sh;
+      });
 in {
   # the latest Maint version
   perl528 = common {
