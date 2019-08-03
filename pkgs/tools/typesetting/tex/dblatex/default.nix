@@ -15,7 +15,7 @@
 # enable any extra features.
 
 assert enableAllFeatures -> imagemagick != null && transfig != null && inkscape
-!= null && fontconfig != null && ghostscript != null;
+  != null && fontconfig != null && ghostscript != null;
 
 stdenv.mkDerivation rec {
   name = "dblatex-0.3.10";

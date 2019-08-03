@@ -7,7 +7,7 @@
 , useRemixPacks ? false }:
 
 assert use3DOVideos -> requireFile != null && writeText != null
-&& haskellPackages != null;
+  && haskellPackages != null;
 
 let
   videos = import ./3dovideo.nix {

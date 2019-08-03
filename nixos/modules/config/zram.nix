@@ -15,8 +15,8 @@ let
 
   modprobe = "${pkgs.kmod}/bin/modprobe";
 
-  warnings = assert cfg.swapDevices != null -> cfg.numDevices
-    >= cfg.swapDevices;
+  warnings =
+    assert cfg.swapDevices != null -> cfg.numDevices >= cfg.swapDevices;
     flatten [
       (optional (cfg.numDevices > 1 && cfg.swapDevices == null) ''
         Using several small zram devices as swap is no better than using one large.

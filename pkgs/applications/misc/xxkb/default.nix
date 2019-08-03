@@ -2,7 +2,7 @@
 , svgSupport ? false, librsvg, glib, gdk_pixbuf, pkgconfig }:
 
 assert svgSupport -> librsvg != null && glib != null && gdk_pixbuf != null
-&& pkgconfig != null;
+  && pkgconfig != null;
 
 stdenv.mkDerivation rec {
   name = "xxkb-1.11.1";

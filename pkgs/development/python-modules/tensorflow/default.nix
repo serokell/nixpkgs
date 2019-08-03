@@ -30,7 +30,7 @@
       ] }:
 
 assert cudaSupport -> nvidia_x11 != null && cudatoolkit != null && cudnn
-!= null;
+  != null;
 
 # unsupported combination
 assert !(stdenv.isDarwin && cudaSupport);

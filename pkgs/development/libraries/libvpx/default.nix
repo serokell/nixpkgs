@@ -46,9 +46,9 @@ let
   inherit (stdenv.lib) enableFeature optional optionals;
 
 in assert vp8DecoderSupport || vp8EncoderSupport || vp9DecoderSupport
-|| vp9EncoderSupport;
+  || vp9EncoderSupport;
 assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport)
--> postprocSupport;
+  -> postprocSupport;
 /* If spatialResamplingSupport not enabled, build will fail with undeclared variable errors.
    Variables called in vpx_scale/generic/vpx_scale.c are declared by vpx_scale/vpx_scale_rtcd.pl,
    but is only executed if spatialResamplingSupport is enabled

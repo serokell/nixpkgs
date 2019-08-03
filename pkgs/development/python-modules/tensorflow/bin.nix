@@ -9,7 +9,7 @@
 # - the source build is currently brittle and not easy to maintain
 
 assert cudaSupport -> cudatoolkit != null && cudnn != null && nvidia_x11
-!= null;
+  != null;
 let
   cudatoolkit_joined = symlinkJoin {
     name = "unsplit_cudatoolkit";

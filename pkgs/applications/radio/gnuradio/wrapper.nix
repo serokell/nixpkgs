@@ -1,8 +1,6 @@
 { stdenv, gnuradio, makeWrapper, python, extraPackages ? [ ] }:
 
-with {
-  inherit (stdenv.lib) appendToName makeSearchPath;
-};
+with { inherit (stdenv.lib) appendToName makeSearchPath; };
 
 stdenv.mkDerivation {
   name = (appendToName "with-packages" gnuradio).name;

@@ -5,7 +5,7 @@
 assert cudnnSupport -> cudaSupport;
 
 assert cudaSupport -> nvidia_x11 != null && cudatoolkit != null && cudnn
-!= null;
+  != null;
 
 let
   wrapped = command: buildTop: buildInputs:

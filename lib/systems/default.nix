@@ -147,6 +147,6 @@ in rec {
     assert lib.foldl (pass:
       { assertion, message }:
       if assertion final then pass else throw message) true
-    (final.parsed.abi.assertions or [ ]);
+      (final.parsed.abi.assertions or [ ]);
     final;
 }

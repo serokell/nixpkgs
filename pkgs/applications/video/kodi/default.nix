@@ -24,10 +24,10 @@ assert rtmpSupport -> rtmpdump != null;
 assert sambaSupport -> samba != null;
 assert udevSupport -> udev != null;
 assert usbSupport -> libusb != null
-&& !udevSupport; # libusb won't be used if udev is avaliable
+  && !udevSupport; # libusb won't be used if udev is avaliable
 assert vdpauSupport -> libvdpau != null;
 assert useWayland -> wayland != null && wayland-protocols != null && waylandpp
-!= null && libxkbcommon != null;
+  != null && libxkbcommon != null;
 
 # TODO for Kodi 18.0
 # - check if dbus support PR has been merged and add dbus as a buildInput

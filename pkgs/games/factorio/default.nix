@@ -5,7 +5,7 @@
 }:
 
 assert releaseType == "alpha" || releaseType == "headless" || releaseType
-== "demo";
+  == "demo";
 
 let
 

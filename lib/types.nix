@@ -113,7 +113,7 @@ let
           "${toString lowest} and ${toString highest} (both inclusive)";
         between = lowest: highest:
           assert lib.assertMsg (lowest <= highest)
-          "ints.between: lowest must be smaller than highest";
+            "ints.between: lowest must be smaller than highest";
           addCheck int (x: x >= lowest && x <= highest) // {
             name = "intBetween";
             description = "integer between ${betweenDesc lowest highest}";
@@ -469,7 +469,7 @@ let
       # converted to `finalType` using `coerceFunc`.
       coercedTo = coercedType: coerceFunc: finalType:
         assert lib.assertMsg (coercedType.getSubModules == null)
-        "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
+          "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
           description =

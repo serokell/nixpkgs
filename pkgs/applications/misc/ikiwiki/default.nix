@@ -10,7 +10,7 @@ assert gitSupport -> (git != null);
 assert monotoneSupport -> (monotone != null);
 assert bazaarSupport -> (bazaar != null);
 assert cvsSupport
--> (cvs != null && cvsps != null && perlPackages.Filechdir != null);
+  -> (cvs != null && cvsps != null && perlPackages.Filechdir != null);
 assert subversionSupport -> (subversion != null);
 assert mercurialSupport -> (mercurial != null);
 

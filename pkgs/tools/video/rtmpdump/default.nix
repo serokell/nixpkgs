@@ -4,7 +4,7 @@
 # Must have an ssl library enabled
 assert (gnutlsSupport || opensslSupport);
 assert gnutlsSupport -> gnutlsSupport != null && nettle != null
-&& !opensslSupport;
+  && !opensslSupport;
 assert opensslSupport -> openssl != null && !gnutlsSupport;
 
 with stdenv.lib;

@@ -7,10 +7,10 @@
 , installURL ? null, bundleId ? null, appVersion ? null, ... }@args:
 
 assert release -> certificateFile != null && certificatePassword != null
-&& provisioningProfile != null && signMethod != null && codeSignIdentity
-!= null;
+  && provisioningProfile != null && signMethod != null && codeSignIdentity
+  != null;
 assert enableWirelessDistribution -> installURL != null && bundleId != null
-&& appVersion != null;
+  && appVersion != null;
 
 let
   # Set some default values here

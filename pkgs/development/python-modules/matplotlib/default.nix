@@ -11,7 +11,7 @@
 assert enableGhostscript -> ghostscript != null;
 assert enableGtk2 -> pygtk != null;
 assert enableTk -> (tcl != null) && (tk != null) && (tkinter != null)
-&& (libX11 != null);
+  && (libX11 != null);
 assert enableQt -> pyqt4 != null;
 
 buildPythonPackage rec {

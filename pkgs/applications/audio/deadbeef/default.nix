@@ -25,7 +25,7 @@
 assert gtk2Support || gtk3Support;
 assert gtk2Support -> gtk2 != null;
 assert gtk3Support -> gtk3 != null && gsettings-desktop-schemas != null
-&& wrapGAppsHook != null;
+  && wrapGAppsHook != null;
 assert vorbisSupport -> libvorbis != null;
 assert mp123Support -> libmad != null;
 assert flacSupport -> flac != null;

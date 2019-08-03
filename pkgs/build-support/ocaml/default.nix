@@ -5,7 +5,7 @@
 , hasSharedObjects ? false, setupHook ? null, meta ? { }, ... }@args:
 let defaultMeta = { platforms = ocaml.meta.platforms or [ ]; };
 in assert minimumSupportedOcamlVersion != null
--> stdenv.lib.versionOlder minimumSupportedOcamlVersion ocaml.version;
+  -> stdenv.lib.versionOlder minimumSupportedOcamlVersion ocaml.version;
 
 stdenv.mkDerivation (args // {
   name = "ocaml-${name}-${version}";

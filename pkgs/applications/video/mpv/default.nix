@@ -57,9 +57,9 @@ assert vaapiSupport -> available libva;
 assert vapoursynthSupport -> available vapoursynth;
 assert vdpauSupport -> available libvdpau;
 assert waylandSupport
--> all available [ wayland wayland-protocols libxkbcommon ];
+  -> all available [ wayland wayland-protocols libxkbcommon ];
 assert x11Support
--> all available [ libGLU_combined libX11 libXext libXxf86vm libXrandr ];
+  -> all available [ libGLU_combined libX11 libXext libXxf86vm libXrandr ];
 assert xineramaSupport -> x11Support && available libXinerama;
 assert xvSupport -> x11Support && available libXv;
 assert youtubeSupport -> available youtube-dl;

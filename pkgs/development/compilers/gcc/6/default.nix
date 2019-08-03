@@ -21,7 +21,7 @@ stripped ? stdenv.hostPlatform == stdenv.buildPlatform && stdenv.targetPlatform
 , buildPackages }:
 
 assert langJava -> zip != null && unzip != null && zlib != null && boehmgc
-!= null && perl != null; # for `--enable-java-home'
+  != null && perl != null; # for `--enable-java-home'
 
 # LTO needs libelf and zlib.
 assert libelf != null -> zlib != null;
@@ -153,7 +153,7 @@ let
 
   # We need all these X libraries when building AWT with GTK+.
 in assert x11Support -> (filter (x: x == null) ([ gtk2 libart_lgpl ] ++ xlibs))
-== [ ];
+  == [ ];
 
 stdenv.mkDerivation ({
   name = crossNameAddon

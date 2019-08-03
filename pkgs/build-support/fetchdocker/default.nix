@@ -10,9 +10,9 @@ in { name, registry ? "https://registry-1.docker.io/v2/", repository ? "library"
 # names since we use these to make the output derivation name for the
 # nix-store path.
 assert null
-== lib.findFirst (c: "/" == c) null (lib.stringToCharacters repository);
+  == lib.findFirst (c: "/" == c) null (lib.stringToCharacters repository);
 assert null
-== lib.findFirst (c: "/" == c) null (lib.stringToCharacters imageName);
+  == lib.findFirst (c: "/" == c) null (lib.stringToCharacters imageName);
 
 let
   # Abuse paths to collapse possible double slashes

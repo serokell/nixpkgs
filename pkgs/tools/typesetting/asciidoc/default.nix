@@ -27,30 +27,30 @@
 , enableJava ? true }:
 
 assert enableStandardFeatures -> sourceHighlight != null && highlight != null
-&& pygments != null && graphviz != null && texlive != null && dblatexFull
-!= null && libxslt != null && w3m != null && lynx != null && imagemagick != null
-&& lilypond != null && libxml2 != null && docbook_xml_dtd_45 != null
-&& docbook_xsl_ns != null && docbook_xsl != null && (fop != null || !enableJava)
-&&
-# TODO: Package this:
-#  epubcheck != null &&
-gnused != null && coreutils != null;
+  && pygments != null && graphviz != null && texlive != null && dblatexFull
+  != null && libxslt != null && w3m != null && lynx != null && imagemagick
+  != null && lilypond != null && libxml2 != null && docbook_xml_dtd_45 != null
+  && docbook_xsl_ns != null && docbook_xsl != null
+  && (fop != null || !enableJava) &&
+  # TODO: Package this:
+  #  epubcheck != null &&
+  gnused != null && coreutils != null;
 
 # filters
 assert enableExtraPlugins || enableDitaaFilter || enableMscgenFilter
-|| enableDiagFilter || enableQrcodeFilter || enableAafigureFilter -> unzip
-!= null;
+  || enableDiagFilter || enableQrcodeFilter || enableAafigureFilter -> unzip
+  != null;
 assert (enableExtraPlugins && enableJava) || enableDitaaFilter -> jre != null;
 assert enableExtraPlugins || enableMscgenFilter -> mscgen != null;
 assert enableExtraPlugins || enableDiagFilter -> blockdiag != null && seqdiag
-!= null && actdiag != null && nwdiag != null;
+  != null && actdiag != null && nwdiag != null;
 assert enableExtraPlugins || enableMatplotlibFilter -> matplotlib != null
-&& numpy != null;
+  && numpy != null;
 assert enableExtraPlugins || enableAafigureFilter -> aafigure != null
-&& recursivePthLoader != null;
+  && recursivePthLoader != null;
 # backends
 assert enableExtraPlugins || enableDeckjsBackend || enableOdfBackend -> unzip
-!= null;
+  != null;
 
 let
 

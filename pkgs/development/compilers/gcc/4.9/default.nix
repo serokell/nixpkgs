@@ -19,7 +19,7 @@ stripped ? stdenv.hostPlatform == stdenv.buildPlatform && stdenv.targetPlatform
   == stdenv.hostPlatform, gnused ? null, buildPackages }:
 
 assert langJava -> zip != null && unzip != null && zlib != null && boehmgc
-!= null && perl != null; # for `--enable-java-home'
+  != null && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -215,7 +215,7 @@ let
 
   # We need all these X libraries when building AWT with GTK+.
 in assert x11Support -> (filter (x: x == null) ([ gtk2 libart_lgpl ] ++ xlibs))
-== [ ];
+  == [ ];
 
 stdenv.mkDerivation ({
   name = crossNameAddon

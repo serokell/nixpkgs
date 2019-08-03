@@ -10,7 +10,7 @@ with lib; rec {
   makeScriptWriter = { interpreter, check ? "" }:
     nameOrPath: content:
     assert lib.or (types.path.check nameOrPath)
-    (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
+      (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
     assert lib.or (types.path.check content) (types.string.check content);
     let name = last (builtins.split "/" nameOrPath);
 
@@ -42,7 +42,7 @@ with lib; rec {
   makeBinWriter = { compileScript }:
     nameOrPath: content:
     assert lib.or (types.path.check nameOrPath)
-    (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
+      (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
     assert lib.or (types.path.check content) (types.string.check content);
     let name = last (builtins.split "/" nameOrPath);
     in pkgs.runCommand name (if (types.string.check content) then {

@@ -5,7 +5,7 @@
 , testsSupport ? false, check ? null, valgrind ? null, python3 ? null }:
 
 assert documentationSupport -> doxygen != null && graphviz != null && python3
-!= null;
+  != null;
 assert eventGUISupport -> cairo != null && glib != null && gtk3 != null;
 assert testsSupport -> check != null && valgrind != null && python3 != null;
 

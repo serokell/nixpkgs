@@ -9,7 +9,7 @@
 
 assert withMesa -> libGLU != null && libGL != null;
 assert withWebKit -> (if withGtk2 then webkitgtk24x-gtk2 else webkitgtk)
-!= null;
+  != null;
 
 with stdenv.lib;
 

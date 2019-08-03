@@ -28,7 +28,7 @@
 , journalSupport ? true, systemd ? null, libxml2 ? null }:
 
 assert docsSupport -> docbook2x != null && libxslt != null && man != null
-&& less != null && docbook_xsl != null && docbook_xml_dtd_44 != null;
+  && less != null && docbook_xsl != null && docbook_xml_dtd_44 != null;
 
 assert ncursesSupport -> ncurses != null;
 

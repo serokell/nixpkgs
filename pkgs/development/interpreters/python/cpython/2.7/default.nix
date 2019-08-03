@@ -9,7 +9,7 @@
 , passthruFun, static ? false }:
 
 assert x11Support -> tcl != null && tk != null && xlibsWrapper != null && libX11
-!= null;
+  != null;
 
 with stdenv.lib;
 

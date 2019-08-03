@@ -42,7 +42,7 @@ postVM ? ""
 format ? "raw" }:
 
 assert partitionTableType == "legacy" || partitionTableType == "efi"
-|| partitionTableType == "none";
+  || partitionTableType == "none";
 # We use -E offset=X below, which is only supported by e2fsprogs
 assert partitionTableType != "none" -> fsType == "ext4";
 

@@ -211,8 +211,8 @@ let
 
   generateUnit = name: values:
     assert assertMsg
-    ((values.privateKey != null) != (values.privateKeyFile != null))
-    "Only one of privateKey or privateKeyFile may be set";
+      ((values.privateKey != null) != (values.privateKeyFile != null))
+      "Only one of privateKey or privateKeyFile may be set";
     let
       preUpFile = if values.preUp != "" then
         writeScriptFile "preUp.sh" values.preUp
@@ -264,8 +264,8 @@ let
           PostDown = ${postDownFile}
         '' + concatMapStringsSep "\n" (peer:
           assert assertMsg
-          (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
-          "Only one of presharedKey or presharedKeyFile may be set";
+            (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
+            "Only one of presharedKey or presharedKeyFile may be set";
           ''
             [Peer]
           '' + ''

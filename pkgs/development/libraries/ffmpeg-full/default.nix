@@ -171,16 +171,16 @@ assert pixelutilsBuild -> avutilLibrary;
 assert isDarwin -> !nvenc;
 # *  Program dependencies
 assert ffmpegProgram -> avcodecLibrary && avfilterLibrary && avformatLibrary
-&& swresampleLibrary;
+  && swresampleLibrary;
 assert ffplayProgram -> avcodecLibrary && avformatLibrary && swscaleLibrary
-&& swresampleLibrary && SDL2 != null;
+  && swresampleLibrary && SDL2 != null;
 assert ffprobeProgram -> avcodecLibrary && avformatLibrary;
 # *  Library dependencies
 assert avcodecLibrary -> avutilLibrary; # configure flag since 0.6
 assert avdeviceLibrary -> avformatLibrary && avcodecLibrary
-&& avutilLibrary; # configure flag since 0.6
+  && avutilLibrary; # configure flag since 0.6
 assert avformatLibrary -> avcodecLibrary
-&& avutilLibrary; # configure flag since 0.6
+  && avutilLibrary; # configure flag since 0.6
 assert avresampleLibrary -> avutilLibrary;
 assert postprocLibrary -> avutilLibrary;
 assert swresampleLibrary -> soxr != null;

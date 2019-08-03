@@ -5,7 +5,7 @@
 , coreutils ? null, withQt ? false, qttools, qtbase, qtsvg }:
 
 assert libX11 != null
--> (fontconfig != null && gnused != null && coreutils != null);
+  -> (fontconfig != null && gnused != null && coreutils != null);
 let withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in stdenv.mkDerivation rec {
   name = "gnuplot-5.2.7";

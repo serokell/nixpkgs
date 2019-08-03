@@ -37,7 +37,7 @@ let
   pluginArches = [ "x86_32" "x86_64" "arm32" "arm64" ];
 
 in assert withPlugin -> builtins.elem hplipArch pluginArches
-|| throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
+  || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 pythonPackages.buildPythonApplication {
   inherit name src;

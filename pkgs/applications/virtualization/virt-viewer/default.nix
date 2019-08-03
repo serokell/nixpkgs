@@ -5,7 +5,7 @@
 , spice-protocol ? null, libcap ? null, gdbm ? null }:
 
 assert spiceSupport -> spice-gtk != null && spice-protocol != null && libcap
-!= null && gdbm != null;
+  != null && gdbm != null;
 
 with stdenv.lib;
 

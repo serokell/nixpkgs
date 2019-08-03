@@ -22,7 +22,7 @@ assert fontconfigSupport -> (fontconfig != null);
 assert (!fontconfigSupport) -> (freefont_ttf != null);
 assert fribidiSupport -> (fribidi != null);
 assert x11Support
--> (libX11 != null && libXext != null && libGLU_combined != null);
+  -> (libX11 != null && libXext != null && libGLU_combined != null);
 assert xineramaSupport -> (libXinerama != null && x11Support);
 assert xvSupport -> (libXv != null && x11Support);
 assert alsaSupport -> alsaLib != null;

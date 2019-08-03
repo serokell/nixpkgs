@@ -4,7 +4,7 @@
 , keyStorePassword ? null, keyAliasPassword ? null, antFlags ? "", ... }@args:
 
 assert release -> keyStore != null && keyAlias != null && keyStorePassword
-!= null && keyAliasPassword != null;
+  != null && keyAliasPassword != null;
 
 let
   androidSdkFormalArgs = builtins.functionArgs composeAndroidPackages;
