@@ -52,25 +52,25 @@ let
 
 in rec {
   alloy4 = let version = "4.2_2015-02-22";
-    in generic {
-      major = "4";
-      inherit version;
-      src = fetchurl {
-        sha256 = "0p93v8jwx9prijpikkgmfdzb9qn8ljmvga5d9wvrkxddccjx9k28";
-        url = "http://alloytools.org/download/alloy${version}.jar";
-      };
+  in generic {
+    major = "4";
+    inherit version;
+    src = fetchurl {
+      sha256 = "0p93v8jwx9prijpikkgmfdzb9qn8ljmvga5d9wvrkxddccjx9k28";
+      url = "http://alloytools.org/download/alloy${version}.jar";
     };
+  };
 
   alloy5 = let version = "5.0.0.1";
-    in generic {
-      major = "5";
-      inherit version;
-      src = fetchurl {
-        sha256 = "0kz6i9av9ksjk62lx0dxx8xr542iqvbqd14m1f9h8xpf72c25xw4";
-        url =
-          "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/Alloy-${version}.jar";
-      };
+  in generic {
+    major = "5";
+    inherit version;
+    src = fetchurl {
+      sha256 = "0kz6i9av9ksjk62lx0dxx8xr542iqvbqd14m1f9h8xpf72c25xw4";
+      url =
+        "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/Alloy-${version}.jar";
     };
+  };
 
   alloy = alloy4;
 }

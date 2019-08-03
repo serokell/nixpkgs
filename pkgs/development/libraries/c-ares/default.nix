@@ -27,8 +27,8 @@ let
       set_target_properties(c-ares::cares PROPERTIES
         INTERFACE_INCLUDE_DIRECTORIES "${self}/include"
         ${
-        stdenv.lib.optionalString stdenv.isLinux
-        ''INTERFACE_LINK_LIBRARIES "nsl;rt"''
+          stdenv.lib.optionalString stdenv.isLinux
+          ''INTERFACE_LINK_LIBRARIES "nsl;rt"''
         }
       )
       set_property(TARGET c-ares::cares APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)

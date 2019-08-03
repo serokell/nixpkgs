@@ -187,10 +187,10 @@ in rec { # un-indented
           tex4ht/mk4ht.pl
           tex4ht/xhlatex.sh
         '';
-        in ''
-          echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
-            >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
-        '') + # doc location identical with individual TeX pkgs
+      in ''
+        echo -e 'texmf_scripts="$texmf_scripts\n${extraScripts}"' \
+          >> "$out/share/texmf-dist/scripts/texlive/scripts.lst"
+      '') + # doc location identical with individual TeX pkgs
       ''
         mkdir -p "$doc/doc"
         mv "$out"/share/{man,info} "$doc"/doc

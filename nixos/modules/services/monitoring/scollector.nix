@@ -115,7 +115,7 @@ in {
         User = cfg.user;
         Group = cfg.group;
         ExecStart = "${cfg.package.bin}/bin/scollector -conf=${conf} ${
-          lib.concatStringsSep " " cfg.extraOpts
+            lib.concatStringsSep " " cfg.extraOpts
           }";
       };
     };

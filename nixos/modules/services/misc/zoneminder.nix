@@ -232,55 +232,55 @@ in {
               inherit (cfg) port;
             }];
             extraConfig = let fcgi = config.services.fcgiwrap;
-              in ''
-                index index.php;
+            in ''
+              index index.php;
 
-                location / {
-                  try_files $uri $uri/ /index.php?$args =404;
+              location / {
+                try_files $uri $uri/ /index.php?$args =404;
 
-                  rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
+                rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
 
-                  location ~ /api/(css|img|ico) {
-                    rewrite ^/api(.+)$ /api/app/webroot/$1 break;
-                    try_files $uri $uri/ =404;
-                  }
-
-                  location ~ \.(gif|ico|jpg|jpeg|png)$ {
-                    access_log off;
-                    expires 30d;
-                  }
-
-                  location /api {
-                    rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
-                  }
-
-                  location /cgi-bin {
-                    gzip off;
-
-                    include ${pkgs.nginx}/conf/fastcgi_params;
-                    fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
-                    fastcgi_param HTTP_PROXY "";
-                    fastcgi_intercept_errors on;
-
-                    fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
-                  }
-
-                  location /cache/ {
-                    alias /var/cache/${dirName};
-                  }
-
-                  location ~ \.php$ {
-                    try_files $uri =404;
-                    fastcgi_index index.php;
-
-                    include ${pkgs.nginx}/conf/fastcgi_params;
-                    fastcgi_param SCRIPT_FILENAME $request_filename;
-                    fastcgi_param HTTP_PROXY "";
-
-                    fastcgi_pass unix:${socket};
-                  }
+                location ~ /api/(css|img|ico) {
+                  rewrite ^/api(.+)$ /api/app/webroot/$1 break;
+                  try_files $uri $uri/ =404;
                 }
-              '';
+
+                location ~ \.(gif|ico|jpg|jpeg|png)$ {
+                  access_log off;
+                  expires 30d;
+                }
+
+                location /api {
+                  rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
+                }
+
+                location /cgi-bin {
+                  gzip off;
+
+                  include ${pkgs.nginx}/conf/fastcgi_params;
+                  fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
+                  fastcgi_param HTTP_PROXY "";
+                  fastcgi_intercept_errors on;
+
+                  fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
+                }
+
+                location /cache/ {
+                  alias /var/cache/${dirName};
+                }
+
+                location ~ \.php$ {
+                  try_files $uri =404;
+                  fastcgi_index index.php;
+
+                  include ${pkgs.nginx}/conf/fastcgi_params;
+                  fastcgi_param SCRIPT_FILENAME $request_filename;
+                  fastcgi_param HTTP_PROXY "";
+
+                  fastcgi_pass unix:${socket};
+                }
+              }
+            '';
           };
         };
       };

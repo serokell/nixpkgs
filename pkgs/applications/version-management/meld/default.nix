@@ -8,8 +8,8 @@ python3.pkgs.buildPythonApplication rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "0jdj7kd6vj1mdc16gvrj1kar88b2j5875ajq18fx7cbc9ny46j55";
   };
 

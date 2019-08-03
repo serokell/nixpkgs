@@ -75,7 +75,7 @@ in stdenv.mkDerivation rec {
     } \
         static/*.o                                                                     \
         ${
-      if stdenv.isDarwin then "-dynamiclib" else "--shared"
+          if stdenv.isDarwin then "-dynamiclib" else "--shared"
         }                       \
         -o "lib/libsuitesparse${SHLIB_EXT}"                                            \
         -lopenblas                                                                     \
@@ -115,7 +115,7 @@ in stdenv.mkDerivation rec {
     cd $out
     find -name \*.so\* -type f -exec \
       patchelf --set-rpath "$out/lib:${
-      stdenv.lib.makeLibraryPath buildInputs
+        stdenv.lib.makeLibraryPath buildInputs
       }" {} \;
   '' + ''
     runHook postInstall

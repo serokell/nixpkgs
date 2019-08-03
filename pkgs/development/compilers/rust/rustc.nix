@@ -72,33 +72,33 @@ in stdenv.mkDerivation rec {
       "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}cc";
     cxxForTarget =
       "${pkgsBuildTarget.targetPackages.stdenv.cc}/bin/${pkgsBuildTarget.targetPackages.stdenv.cc.targetPrefix}c++";
-    in [
-      "--release-channel=stable"
-      "--set=build.rustc=${rustPlatform.rust.rustc}/bin/rustc"
-      "--set=build.cargo=${rustPlatform.rust.cargo}/bin/cargo"
-      "--enable-rpath"
-      "--enable-vendor"
-      "--build=${stdenv.buildPlatform.config}"
-      "--host=${stdenv.hostPlatform.config}"
-      "--target=${stdenv.targetPlatform.config}"
+  in [
+    "--release-channel=stable"
+    "--set=build.rustc=${rustPlatform.rust.rustc}/bin/rustc"
+    "--set=build.cargo=${rustPlatform.rust.cargo}/bin/cargo"
+    "--enable-rpath"
+    "--enable-vendor"
+    "--build=${stdenv.buildPlatform.config}"
+    "--host=${stdenv.hostPlatform.config}"
+    "--target=${stdenv.targetPlatform.config}"
 
-      "${setBuild}.cc=${ccForBuild}"
-      "${setHost}.cc=${ccForHost}"
-      "${setTarget}.cc=${ccForTarget}"
+    "${setBuild}.cc=${ccForBuild}"
+    "${setHost}.cc=${ccForHost}"
+    "${setTarget}.cc=${ccForTarget}"
 
-      "${setBuild}.linker=${ccForBuild}"
-      "${setHost}.linker=${ccForHost}"
-      "${setTarget}.linker=${ccForTarget}"
+    "${setBuild}.linker=${ccForBuild}"
+    "${setHost}.linker=${ccForHost}"
+    "${setTarget}.linker=${ccForTarget}"
 
-      "${setBuild}.cxx=${cxxForBuild}"
-      "${setHost}.cxx=${cxxForHost}"
-      "${setTarget}.cxx=${cxxForTarget}"
-    ] ++ optional (!withBundledLLVM) [
-      "--enable-llvm-link-shared"
-      "${setBuild}.llvm-config=${llvmSharedForBuild}/bin/llvm-config"
-      "${setHost}.llvm-config=${llvmSharedForHost}/bin/llvm-config"
-      "${setTarget}.llvm-config=${llvmSharedForTarget}/bin/llvm-config"
-    ];
+    "${setBuild}.cxx=${cxxForBuild}"
+    "${setHost}.cxx=${cxxForHost}"
+    "${setTarget}.cxx=${cxxForTarget}"
+  ] ++ optional (!withBundledLLVM) [
+    "--enable-llvm-link-shared"
+    "${setBuild}.llvm-config=${llvmSharedForBuild}/bin/llvm-config"
+    "${setHost}.llvm-config=${llvmSharedForHost}/bin/llvm-config"
+    "${setTarget}.llvm-config=${llvmSharedForTarget}/bin/llvm-config"
+  ];
 
   # The bootstrap.py will generated a Makefile that then executes the build.
   # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass

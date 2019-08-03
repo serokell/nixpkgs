@@ -7,7 +7,7 @@ runCommand "openssl-lib-marked" { } ''
     version="$(echo "$version" | sed -re 's/[a-z]+$//')"
     while test -n "$version"; do
       ln -sfT "${
-    lib.getLib openssl
+        lib.getLib openssl
       }/lib/lib$lib.so" "$out/lib/lib$lib.so.$version"
       nextversion="''${version%.*}"
       if test "$version" = "$nextversion"; then

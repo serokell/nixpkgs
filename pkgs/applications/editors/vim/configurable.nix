@@ -154,7 +154,7 @@ in stdenv.mkDerivation rec {
   postInstall = "" + stdenv.lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath \
       "$(patchelf --print-rpath $out/bin/vim):${
-      stdenv.lib.makeLibraryPath buildInputs
+        stdenv.lib.makeLibraryPath buildInputs
       }" \
       "$out"/bin/{vim,gvim}
 

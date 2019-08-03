@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     substituteInPlace sandboxX.sh \
       --replace "#!/bin/sh" "#!${bash}/bin/sh" \
       --replace "/usr/share/sandbox/start" "${
-      placeholder "out"
+        placeholder "out"
       }/share/sandbox/start" \
       --replace "/usr/bin/cut" "${coreutils}/bin/cut" \
       --replace "/usr/bin/Xephyr" "${xorgserver}/bin/Xepyhr" \

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       patchelf $f > /dev/null 2>&1 || continue
       patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f" || true
       patchelf --set-rpath ${
-      stdenv.lib.makeLibraryPath [ "$out" stdenv.cc.cc ncurses5 python27 ]
+        stdenv.lib.makeLibraryPath [ "$out" stdenv.cc.cc ncurses5 python27 ]
       } "$f" || true
     done
   '';

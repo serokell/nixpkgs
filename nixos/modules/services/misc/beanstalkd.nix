@@ -45,7 +45,7 @@ in {
         DynamicUser = true;
         Restart = "always";
         ExecStart = "${pkg}/bin/beanstalkd -l ${cfg.listen.address} -p ${
-          toString cfg.listen.port
+            toString cfg.listen.port
           }";
       };
     };

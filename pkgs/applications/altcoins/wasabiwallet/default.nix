@@ -30,16 +30,16 @@ stdenv.mkDerivation rec {
     for i in $(find . -type f -name '*.so') wassabee
     	do
     		patchelf --set-rpath ${
-      stdenv.lib.makeLibraryPath [
-        openssl_1_1
-        stdenv.cc.cc.lib
-        xorg.libX11
-        curl
-        fontconfig.lib
-        krb5
-        zlib
-        dotnet-sdk
-      ]
+        stdenv.lib.makeLibraryPath [
+          openssl_1_1
+          stdenv.cc.cc.lib
+          xorg.libX11
+          curl
+          fontconfig.lib
+          krb5
+          zlib
+          dotnet-sdk
+        ]
       } $i
     	done
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" wassabee

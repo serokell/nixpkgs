@@ -56,14 +56,14 @@ in writeTextFile rec {
   destination = "/${name}";
   text = ''
       export PKG_CONFIG_PATH='${
-      lib.concatStringsSep ":" (map (pkg: "${pkg}/lib/pkgconfig") [
-        # This is only needed in the src/sage/misc/cython.py test and I'm not
-        # sure if there's really a usecase for it outside of the tests. However
-        # since singular and openblas are runtime dependencies anyways, it doesn't
-        # really hurt to include.
-        singular
-        openblasCompat
-      ])
+        lib.concatStringsSep ":" (map (pkg: "${pkg}/lib/pkgconfig") [
+          # This is only needed in the src/sage/misc/cython.py test and I'm not
+          # sure if there's really a usecase for it outside of the tests. However
+          # since singular and openblas are runtime dependencies anyways, it doesn't
+          # really hurt to include.
+          singular
+          openblasCompat
+        ])
       }'
       export SAGE_ROOT='${sagelib.src}'
       export SAGE_LOCAL='@sage-local@'
@@ -86,32 +86,32 @@ in writeTextFile rec {
       export CC='${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc'
       # cython needs to find these libraries, otherwise will fail with `ld: cannot find -lflint` or similar
       export LDFLAGS='${
-      lib.concatStringsSep " " (map (pkg: "-L${pkg}/lib") [
-        flint
-        gap
-        glpk
-        gmp
-        mpfr
-        pari
-        pynac
-        zlib
-        eclib
-        gsl
-        ntl
-        jmol
-        sympow
-      ])
+        lib.concatStringsSep " " (map (pkg: "-L${pkg}/lib") [
+          flint
+          gap
+          glpk
+          gmp
+          mpfr
+          pari
+          pynac
+          zlib
+          eclib
+          gsl
+          ntl
+          jmol
+          sympow
+        ])
       }'
       export CFLAGS='${
-      lib.concatStringsSep " " (map (pkg: "-isystem ${pkg}/include") [
-        singular
-        gmp.dev
-        glpk
-        flint
-        gap
-        pynac
-        mpfr.dev
-      ])
+        lib.concatStringsSep " " (map (pkg: "-isystem ${pkg}/include") [
+          singular
+          gmp.dev
+          glpk
+          flint
+          gap
+          pynac
+          mpfr.dev
+        ])
       }'
 
       export SAGE_LIB='${sagelib}/${python.sitePackages}'
@@ -120,7 +120,7 @@ in writeTextFile rec {
 
     # for find_library
       export DYLD_LIBRARY_PATH="${
-      lib.makeLibraryPath [ stdenv.cc.libc singular ]
+        lib.makeLibraryPath [ stdenv.cc.libc singular ]
       }:$DYLD_LIBRARY_PATH"
   '';
 } // {

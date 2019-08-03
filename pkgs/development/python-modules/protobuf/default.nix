@@ -18,7 +18,7 @@ buildPythonPackage rec {
   buildInputs = [ protobuf ];
 
   patches = optional (isPy37 && (versionOlder protobuf.version "3.6.1.2"))
-    # Python 3.7 compatibility (not needed for protobuf >= 3.6.1.2)
+  # Python 3.7 compatibility (not needed for protobuf >= 3.6.1.2)
     (fetchpatch {
       url =
         "https://github.com/protocolbuffers/protobuf/commit/0a59054c30e4f0ba10f10acfc1d7f3814c63e1a7.patch";

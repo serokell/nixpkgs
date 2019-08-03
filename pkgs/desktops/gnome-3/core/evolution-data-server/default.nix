@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/evolution-data-server/${
-      stdenv.lib.versions.majorMinor version
-    }/${name}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${name}.tar.xz";
     sha256 = "0zsc9xwy6ixk3x0dx69ax5isrdw8qxjdxg2i5fr95s40nss7rxl3";
   };
 

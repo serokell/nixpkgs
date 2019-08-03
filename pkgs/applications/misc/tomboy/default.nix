@@ -39,7 +39,12 @@ in stdenv.mkDerivation {
       --prefix MONO_GAC_PREFIX : ${gnome-sharp} \
       --prefix MONO_GAC_PREFIX : ${mono-addins} \
       --prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ glib gtk-sharp-2_0 gtk-sharp-2_0.gtk gnome2.GConf ]
+        lib.makeLibraryPath [
+          glib
+          gtk-sharp-2_0
+          gtk-sharp-2_0.gtk
+          gnome2.GConf
+        ]
       }
   '';
 

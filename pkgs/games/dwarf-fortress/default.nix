@@ -82,14 +82,14 @@ let
         inherit dwarf-fortress;
         dwarf-therapist = dwarf-therapist-original;
       };
-      in callPackage ./wrapper {
-        inherit (self) themes;
+    in callPackage ./wrapper {
+      inherit (self) themes;
 
-        dwarf-fortress = dwarf-fortress;
-        twbt = twbt;
-        dfhack = dfhack;
-        dwarf-therapist = dwarf-therapist;
-      };
+      dwarf-fortress = dwarf-fortress;
+      twbt = twbt;
+      dfhack = dfhack;
+      dwarf-therapist = dwarf-therapist;
+    };
   }) (lib.attrNames self.df-hashes));
 
   self = rec {

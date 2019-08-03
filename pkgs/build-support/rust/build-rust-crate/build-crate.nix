@@ -62,10 +62,10 @@ in ''
       $LINK ${deps}$EXTRA_LIB --cap-lints allow \
       $BUILD_OUT_DIR $EXTRA_BUILD $EXTRA_FEATURES --color ${colors} \
       ${
-    if stdenv.hostPlatform != stdenv.buildPlatform then
-      "--target ${rustPlatform} -C linker=${stdenv.hostPlatform.config}-gcc"
-    else
-      ""
+        if stdenv.hostPlatform != stdenv.buildPlatform then
+          "--target ${rustPlatform} -C linker=${stdenv.hostPlatform.config}-gcc"
+        else
+          ""
       }
     if [ "$crate_name_" != "$crate_name" ]; then
       mv target/bin/$crate_name_ target/bin/$crate_name

@@ -95,51 +95,51 @@ let
     rev = "8488cc47d90c8a502b1c41a462a6d9cc8ee0a895";
     version = "20150116";
 
-    in pkgs.buildGoPackage rec {
-      name = "${repo}-${version}";
+  in pkgs.buildGoPackage rec {
+    name = "${repo}-${version}";
 
-      src = pkgs.fetchFromBitbucket {
-        name = "${name}-src";
-        inherit rev owner repo;
-        sha256 = "1jy0pscxjnxjdg3hj111w21g8079rq9ah2ix5ycxxhbbi3f0wdhs";
-      };
-
-      goPackagePath = "bitbucket.org/${owner}/${repo}";
-      subPackages = [ "cmd/goose" ];
-      extraSrcs = map mkGoDep [
-        {
-          goPackagePath = "github.com/go-sql-driver/mysql";
-          rev = "2e00b5cd70399450106cec6431c2e2ce3cae5034";
-          sha256 = "085g48jq9hzmlcxg122n0c4pi41sc1nn2qpx1vrl2jfa8crsppa5";
-        }
-        {
-          goPackagePath = "github.com/kylelemons/go-gypsy";
-          rev = "08cad365cd28a7fba23bb1e57aa43c5e18ad8bb8";
-          sha256 = "1djv7nii3hy451n5jlslk0dblqzb1hia1cbqpdwhnps1g8hqjy8q";
-        }
-        {
-          goPackagePath = "github.com/lib/pq";
-          rev = "ba5d4f7a35561e22fbdf7a39aa0070f4d460cfc0";
-          sha256 = "1mfbqw9g00bk24bfmf53wri5c2wqmgl0qh4sh1qv2da13a7cwwg3";
-        }
-        {
-          goPackagePath = "github.com/mattn/go-sqlite3";
-          rev = "2acfafad5870400156f6fceb12852c281cbba4d5";
-          sha256 = "1rpgil3w4hh1cibidskv1js898hwz83ps06gh0hm3mym7ki8d5h7";
-        }
-        {
-          goPackagePath = "github.com/ziutek/mymysql";
-          rev = "0582bcf675f52c0c2045c027fd135bd726048f45";
-          sha256 = "0bkc9x8sgqbzgdimsmsnhb0qrzlzfv33fgajmmjxl4hcb21qz3rf";
-        }
-        {
-          goPackagePath = "golang.org/x/net";
-          url = "https://go.googlesource.com/net";
-          rev = "10c134ea0df15f7e34d789338c7a2d76cc7a3ab9";
-          sha256 = "14cbr2shl08gyg85n5gj7nbjhrhhgrd52h073qd14j97qcxsakcz";
-        }
-      ];
+    src = pkgs.fetchFromBitbucket {
+      name = "${name}-src";
+      inherit rev owner repo;
+      sha256 = "1jy0pscxjnxjdg3hj111w21g8079rq9ah2ix5ycxxhbbi3f0wdhs";
     };
+
+    goPackagePath = "bitbucket.org/${owner}/${repo}";
+    subPackages = [ "cmd/goose" ];
+    extraSrcs = map mkGoDep [
+      {
+        goPackagePath = "github.com/go-sql-driver/mysql";
+        rev = "2e00b5cd70399450106cec6431c2e2ce3cae5034";
+        sha256 = "085g48jq9hzmlcxg122n0c4pi41sc1nn2qpx1vrl2jfa8crsppa5";
+      }
+      {
+        goPackagePath = "github.com/kylelemons/go-gypsy";
+        rev = "08cad365cd28a7fba23bb1e57aa43c5e18ad8bb8";
+        sha256 = "1djv7nii3hy451n5jlslk0dblqzb1hia1cbqpdwhnps1g8hqjy8q";
+      }
+      {
+        goPackagePath = "github.com/lib/pq";
+        rev = "ba5d4f7a35561e22fbdf7a39aa0070f4d460cfc0";
+        sha256 = "1mfbqw9g00bk24bfmf53wri5c2wqmgl0qh4sh1qv2da13a7cwwg3";
+      }
+      {
+        goPackagePath = "github.com/mattn/go-sqlite3";
+        rev = "2acfafad5870400156f6fceb12852c281cbba4d5";
+        sha256 = "1rpgil3w4hh1cibidskv1js898hwz83ps06gh0hm3mym7ki8d5h7";
+      }
+      {
+        goPackagePath = "github.com/ziutek/mymysql";
+        rev = "0582bcf675f52c0c2045c027fd135bd726048f45";
+        sha256 = "0bkc9x8sgqbzgdimsmsnhb0qrzlzfv33fgajmmjxl4hcb21qz3rf";
+      }
+      {
+        goPackagePath = "golang.org/x/net";
+        url = "https://go.googlesource.com/net";
+        rev = "10c134ea0df15f7e34d789338c7a2d76cc7a3ab9";
+        sha256 = "14cbr2shl08gyg85n5gj7nbjhrhhgrd52h073qd14j97qcxsakcz";
+      }
+    ];
+  };
 
   boulder = let
     owner = "letsencrypt";
@@ -147,62 +147,62 @@ let
     rev = "9c6a1f2adc4c26d925588f5ae366cfd4efb7813a";
     version = "20180129";
 
-    in pkgs.buildGoPackage rec {
-      name = "${repo}-${version}";
+  in pkgs.buildGoPackage rec {
+    name = "${repo}-${version}";
 
-      src = pkgs.fetchFromGitHub {
-        name = "${name}-src";
-        inherit rev owner repo;
-        sha256 = "09kszswrifm9rc6idfaq0p1mz5w21as2qbc8gd5pphrq9cf9pn55";
-      };
-
-      postPatch = ''
-        # compat for go < 1.8
-        sed -i -e 's/time\.Until(\([^)]\+\))/\1.Sub(time.Now())/' \
-          test/ocsp/helper/helper.go
-
-        find test -type f -exec sed -i -e '/libpkcs11-proxy.so/ {
-          s,/usr/local,${pkcs11-proxy},
-        }' {} +
-
-        sed -i -r \
-          -e '/^def +install/a \    return True' \
-          -e 's,exec \./bin/,,' \
-          test/startservers.py
-
-        cat ${lib.escapeShellArg snakeOilCerts.ca.key} > test/test-ca.key
-        cat ${lib.escapeShellArg snakeOilCerts.ca.cert} > test/test-ca.pem
-      '';
-
-      # Until vendored pkcs11 is go 1.9 compatible
-      preBuild = ''
-        rm -r go/src/github.com/letsencrypt/boulder/vendor/github.com/miekg/pkcs11
-      '';
-
-      # XXX: Temporarily brought back putting the source code in the output,
-      # since e95f17e2720e67e2eabd59d7754c814d3e27a0b2 was removing that from
-      # buildGoPackage.
-      preInstall = ''
-        mkdir -p $out
-        pushd "$NIX_BUILD_TOP/go"
-        while read f; do
-          echo "$f" | grep -q '^./\(src\|pkg/[^/]*\)/${goPackagePath}' \
-            || continue
-          mkdir -p "$(dirname "$out/share/go/$f")"
-          cp "$NIX_BUILD_TOP/go/$f" "$out/share/go/$f"
-        done < <(find . -type f)
-        popd
-      '';
-
-      extraSrcs = map mkGoDep [{
-        goPackagePath = "github.com/miekg/pkcs11";
-        rev = "6dbd569b952ec150d1425722dbbe80f2c6193f83";
-        sha256 = "1m8g6fx7df6hf6q6zsbyw1icjmm52dmsx28rgb0h930wagvngfwb";
-      }];
-
-      goPackagePath = "github.com/${owner}/${repo}";
-      buildInputs = [ pkgs.libtool ];
+    src = pkgs.fetchFromGitHub {
+      name = "${name}-src";
+      inherit rev owner repo;
+      sha256 = "09kszswrifm9rc6idfaq0p1mz5w21as2qbc8gd5pphrq9cf9pn55";
     };
+
+    postPatch = ''
+      # compat for go < 1.8
+      sed -i -e 's/time\.Until(\([^)]\+\))/\1.Sub(time.Now())/' \
+        test/ocsp/helper/helper.go
+
+      find test -type f -exec sed -i -e '/libpkcs11-proxy.so/ {
+        s,/usr/local,${pkcs11-proxy},
+      }' {} +
+
+      sed -i -r \
+        -e '/^def +install/a \    return True' \
+        -e 's,exec \./bin/,,' \
+        test/startservers.py
+
+      cat ${lib.escapeShellArg snakeOilCerts.ca.key} > test/test-ca.key
+      cat ${lib.escapeShellArg snakeOilCerts.ca.cert} > test/test-ca.pem
+    '';
+
+    # Until vendored pkcs11 is go 1.9 compatible
+    preBuild = ''
+      rm -r go/src/github.com/letsencrypt/boulder/vendor/github.com/miekg/pkcs11
+    '';
+
+    # XXX: Temporarily brought back putting the source code in the output,
+    # since e95f17e2720e67e2eabd59d7754c814d3e27a0b2 was removing that from
+    # buildGoPackage.
+    preInstall = ''
+      mkdir -p $out
+      pushd "$NIX_BUILD_TOP/go"
+      while read f; do
+        echo "$f" | grep -q '^./\(src\|pkg/[^/]*\)/${goPackagePath}' \
+          || continue
+        mkdir -p "$(dirname "$out/share/go/$f")"
+        cp "$NIX_BUILD_TOP/go/$f" "$out/share/go/$f"
+      done < <(find . -type f)
+      popd
+    '';
+
+    extraSrcs = map mkGoDep [{
+      goPackagePath = "github.com/miekg/pkcs11";
+      rev = "6dbd569b952ec150d1425722dbbe80f2c6193f83";
+      sha256 = "1m8g6fx7df6hf6q6zsbyw1icjmm52dmsx28rgb0h930wagvngfwb";
+    }];
+
+    goPackagePath = "github.com/${owner}/${repo}";
+    buildInputs = [ pkgs.libtool ];
+  };
 
   boulderSource = "${boulder.out}/share/go/src/${boulder.goPackagePath}";
 
@@ -235,7 +235,7 @@ let
   resolver = let
     message = "You need to define a resolver for the letsencrypt test module.";
     firstNS = lib.head config.networking.nameservers;
-    in if config.networking.nameservers == [ ] then throw message else firstNS;
+  in if config.networking.nameservers == [ ] then throw message else firstNS;
 
   cfgDir = pkgs.stdenv.mkDerivation {
     name = "boulder-config";
@@ -283,7 +283,7 @@ let
     mail-test-srv.args = let
       key = "${boulderSource}/test/mail-test-srv/minica-key.pem";
       crt = "${boulderSource}/test/mail-test-srv/minica.pem";
-      in "--closeFirst 5 --cert ${crt} --key ${key}";
+    in "--closeFirst 5 --cert ${crt} --key ${key}";
   };
 
   commonPath = [ softhsm pkgs.mariadb goose boulder ];
@@ -312,7 +312,7 @@ let
           script = let
             netcat = "${pkgs.libressl.nc}/bin/nc";
             portCheck = "${netcat} -z 127.0.0.1 ${toString attrs.waitForPort}";
-            in "while ! ${portCheck}; do :; done";
+          in "while ! ${portCheck}; do :; done";
         };
       };
     in lib.optional needsPort portWaiter ++ lib.singleton {
@@ -454,7 +454,7 @@ in {
           netcat = "${pkgs.libressl.nc}/bin/nc";
           mkPortCheck = port: "${netcat} -z 127.0.0.1 ${toString port}";
           checks = "(${lib.concatMapStringsSep " && " mkPortCheck ports})";
-          in "while ! ${checks}; do :; done";
+        in "while ! ${checks}; do :; done";
       };
     } // componentServices;
   };

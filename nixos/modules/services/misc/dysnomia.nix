@@ -135,11 +135,12 @@ in {
     environment.variables = {
       DYSNOMIA_STATEDIR = "/var/state/dysnomia-nixos";
       DYSNOMIA_CONTAINERS_PATH = "${
-        lib.concatMapStrings (containerPath: "${containerPath}:")
-        cfg.extraContainerPaths
+          lib.concatMapStrings (containerPath: "${containerPath}:")
+          cfg.extraContainerPaths
         }/etc/dysnomia/containers";
       DYSNOMIA_MODULES_PATH = "${
-        lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths
+          lib.concatMapStrings (modulePath: "${modulePath}:")
+          cfg.extraModulePaths
         }/etc/dysnomia/modules";
     };
 

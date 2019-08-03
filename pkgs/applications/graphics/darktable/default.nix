@@ -74,11 +74,11 @@ stdenv.mkDerivation rec {
       if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     libPathPrefix = "$out/lib/darktable"
       + stdenv.lib.optionalString stdenv.isLinux ":${ocl-icd}/lib";
-    in ''
-      gappsWrapperArgs+=(
-        --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
-      )
-    '';
+  in ''
+    gappsWrapperArgs+=(
+      --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
+    )
+  '';
 
   meta = with stdenv.lib; {
     description = "Virtual lighttable and darkroom for photographers";

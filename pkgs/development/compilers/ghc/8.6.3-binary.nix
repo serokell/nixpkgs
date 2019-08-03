@@ -93,7 +93,7 @@ in stdenv.mkDerivation rec {
     stdenv.lib.optionalString stdenv.isLinux ''
       find . -type f -perm -0100 -exec patchelf \
           --replace-needed libncurses${
-        stdenv.lib.optionalString stdenv.is64bit "w"
+            stdenv.lib.optionalString stdenv.is64bit "w"
           }.so.5 libncurses.so \
           --replace-needed libtinfo.so libtinfo.so.5 \
           --interpreter ${glibcDynLinker} {} \;

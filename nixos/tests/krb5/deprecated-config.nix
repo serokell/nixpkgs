@@ -39,7 +39,7 @@ import ../make-test.nix ({ pkgs, ... }: {
       [plugins]
 
     '';
-    in ''
-      $machine->succeed("diff /etc/krb5.conf ${snapshot}");
-    '';
+  in ''
+    $machine->succeed("diff /etc/krb5.conf ${snapshot}");
+  '';
 })

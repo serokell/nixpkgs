@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/empathy/${
-      stdenv.lib.versions.majorMinor version
-    }/${name}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${name}.tar.xz";
     sha256 = "0sn10fcymc6lyrabk7vx8lpvlaxxkqnmcwj9zdkfa8qf3388k4nc";
   };
 

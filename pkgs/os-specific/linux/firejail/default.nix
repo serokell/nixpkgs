@@ -1,13 +1,13 @@
 { stdenv, fetchurl, which }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "firejail";
-    version = "0.9.60";
-    name = "${baseName}-${version}";
-    url = "mirror://sourceforge/firejail/firejail/firejail-${version}.tar.xz";
-    sha256 = "1mw2s040wbxaj4lqfm6033wxrxlnix40mqc2bsfran5sj2gxd3sh";
-  };
+    rec {
+      baseName = "firejail";
+      version = "0.9.60";
+      name = "${baseName}-${version}";
+      url = "mirror://sourceforge/firejail/firejail/firejail-${version}.tar.xz";
+      sha256 = "1mw2s040wbxaj4lqfm6033wxrxlnix40mqc2bsfran5sj2gxd3sh";
+    };
   buildInputs = [ which ];
 in stdenv.mkDerivation {
   inherit (s) name version;

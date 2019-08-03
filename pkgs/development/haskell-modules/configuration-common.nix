@@ -359,7 +359,7 @@ self: super:
   language-slice = dontCheck super.language-slice;
   language-nix = if (pkgs.stdenv.hostPlatform.isAarch64
     || pkgs.stdenv.hostPlatform.isi686) then
-      dontCheck super.language-nix
+    dontCheck super.language-nix
   else
     super.language-nix; # aarch64: https://ghc.haskell.org/trac/ghc/ticket/15275
   ldap-client = dontCheck super.ldap-client;
@@ -795,12 +795,12 @@ self: super:
     docs = pkgs.stdenv.mkDerivation {
       name = "servant-sphinx-documentation-${ver}";
       src = "${
-        pkgs.fetchFromGitHub {
-          owner = "haskell-servant";
-          repo = "servant";
-          rev = "v${ver}";
-          sha256 = "0kqglih3rv12nmkzxvalhfaaafk4b2irvv9x5xmc48i1ns71y23l";
-        }
+          pkgs.fetchFromGitHub {
+            owner = "haskell-servant";
+            repo = "servant";
+            rev = "v${ver}";
+            sha256 = "0kqglih3rv12nmkzxvalhfaaafk4b2irvv9x5xmc48i1ns71y23l";
+          }
         }/doc";
       # Needed after sphinx 1.7.9 -> 1.8.3
       postPatch = ''
@@ -816,11 +816,11 @@ self: super:
         mv _build/html $out
       '';
     };
-    in overrideCabal super.servant (old: {
-      postInstall = old.postInstall or "" + ''
-        ln -s ${docs} ''${!outputDoc}/share/doc/servant
-      '';
-    });
+  in overrideCabal super.servant (old: {
+    postInstall = old.postInstall or "" + ''
+      ln -s ${docs} ''${!outputDoc}/share/doc/servant
+    '';
+  });
 
   # https://github.com/pontarius/pontarius-xmpp/issues/105
   pontarius-xmpp = dontCheck super.pontarius-xmpp;
@@ -1007,25 +1007,25 @@ self: super:
   # aarch64 and armv7l fixes.
   happy = if (pkgs.stdenv.hostPlatform.isAarch32
     || pkgs.stdenv.hostPlatform.isAarch64) then
-      dontCheck super.happy
+    dontCheck super.happy
   else
     super.happy; # Similar to https://ghc.haskell.org/trac/ghc/ticket/13062
   hashable = if (pkgs.stdenv.hostPlatform.isAarch32
     || pkgs.stdenv.hostPlatform.isAarch64) then
-      dontCheck super.hashable
+    dontCheck super.hashable
   else
     super.hashable; # https://github.com/tibbe/hashable/issues/95
   servant-docs = let
     f = if (pkgs.stdenv.hostPlatform.isAarch32
       || pkgs.stdenv.hostPlatform.isAarch64) then
-        dontCheck
+      dontCheck
     else
       pkgs.lib.id;
-    in doJailbreak (f
-      super.servant-docs); # jailbreak tasty < 1.2 until servant-docs > 0.11.3 is on hackage.
+  in doJailbreak (f
+    super.servant-docs); # jailbreak tasty < 1.2 until servant-docs > 0.11.3 is on hackage.
   swagger2 = if (pkgs.stdenv.hostPlatform.isAarch32
     || pkgs.stdenv.hostPlatform.isAarch64) then
-      dontHaddock (dontCheck super.swagger2)
+    dontHaddock (dontCheck super.swagger2)
   else
     super.swagger2;
 

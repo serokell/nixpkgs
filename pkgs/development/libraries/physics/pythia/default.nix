@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://home.thep.lu.se/~torbjorn/pythia8/pythia${
-      builtins.replaceStrings [ "." ] [ "" ] version
-    }.tgz";
+        builtins.replaceStrings [ "." ] [ "" ] version
+      }.tgz";
     sha256 = "13cd86030j1f00n4xw30g26cgir3a5lsn9n0z13dh1vprbc9ax6j";
   };
 

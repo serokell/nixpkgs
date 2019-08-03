@@ -7,8 +7,8 @@ in stdenv.mkDerivation {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1zriix7bdwcg0868mfc7jy6zbwjwdmjwbh0ah6dbddrhiabrda8j";
   };
 

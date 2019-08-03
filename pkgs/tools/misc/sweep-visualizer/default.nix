@@ -60,16 +60,16 @@ stdenv.mkDerivation rec {
       libXtst
     ];
     runtimeLibs = lib.makeLibraryPath [ libudev0-shim ];
-    in ''
-      for lib in $out/share/sweep-visualizer/*.so; do
-        patchelf --set-rpath "$out/share/sweep-visualizer:${libPath}" $lib
-      done
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "$out/share/sweep-visualizer:${libPath}" \
-        $out/share/sweep-visualizer/sweep_visualizer
-      wrapProgram "$out/bin/sweep_visualizer" --prefix LD_LIBRARY_PATH : ${runtimeLibs}
-    '';
+  in ''
+    for lib in $out/share/sweep-visualizer/*.so; do
+      patchelf --set-rpath "$out/share/sweep-visualizer:${libPath}" $lib
+    done
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "$out/share/sweep-visualizer:${libPath}" \
+      $out/share/sweep-visualizer/sweep_visualizer
+    wrapProgram "$out/bin/sweep_visualizer" --prefix LD_LIBRARY_PATH : ${runtimeLibs}
+  '';
 
   meta = with stdenv.lib; {
     homepage =

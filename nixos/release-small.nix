@@ -55,8 +55,8 @@ in rec {
       maintainers = [ lib.maintainers.eelco ];
     };
     constituents = let all = x: map (system: x.${system}) supportedSystems;
-      in [ nixpkgs.tarball (all nixpkgs.jdk) ]
-      ++ lib.collect lib.isDerivation nixos;
+    in [ nixpkgs.tarball (all nixpkgs.jdk) ]
+    ++ lib.collect lib.isDerivation nixos;
   });
 
 }

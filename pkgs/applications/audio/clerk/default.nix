@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     DESTDIR=$out PREFIX=/ make install
     wrapProgram $out/bin/clerk \
       --prefix PATH : "${
-      stdenv.lib.makeBinPath [ rofi mpc_cli perl utillinux libnotify ]
+        stdenv.lib.makeBinPath [ rofi mpc_cli perl utillinux libnotify ]
       }"
   '';
 

@@ -9,29 +9,29 @@
       inherit (localSystem) system;
       inherit sha256 executable;
     };
-  in {
-    sh = fetch {
-      file = "sh";
-      sha256 = "07wm33f1yzfpcd3rh42f8g096k4cvv7g65p968j28agzmm2s7s8m";
-    };
-    bzip2 = fetch {
-      file = "bzip2";
-      sha256 = "0y9ri2aprkrp2dkzm6229l0mw4rxr2jy7vvh3d8mxv2698v2kdbm";
-    };
-    mkdir = fetch {
-      file = "mkdir";
-      sha256 = "0sb07xpy66ws6f2jfnpjibyimzb71al8n8c6y4nr8h50al3g90nr";
-    };
-    cpio = fetch {
-      file = "cpio";
-      sha256 = "0r5c54hg678w7zydx27bzl9p3v9fs25y5ix6vdfi1ilqim7xh65n";
-    };
-    tarball = fetch {
-      file = "bootstrap-tools.cpio.bz2";
-      sha256 = "18hp5w6klr8g307ap4368r255qpzg9r0vwg9vqvj8f2zy1xilcjf";
-      executable = false;
-    };
-  } }:
+in {
+  sh = fetch {
+    file = "sh";
+    sha256 = "07wm33f1yzfpcd3rh42f8g096k4cvv7g65p968j28agzmm2s7s8m";
+  };
+  bzip2 = fetch {
+    file = "bzip2";
+    sha256 = "0y9ri2aprkrp2dkzm6229l0mw4rxr2jy7vvh3d8mxv2698v2kdbm";
+  };
+  mkdir = fetch {
+    file = "mkdir";
+    sha256 = "0sb07xpy66ws6f2jfnpjibyimzb71al8n8c6y4nr8h50al3g90nr";
+  };
+  cpio = fetch {
+    file = "cpio";
+    sha256 = "0r5c54hg678w7zydx27bzl9p3v9fs25y5ix6vdfi1ilqim7xh65n";
+  };
+  tarball = fetch {
+    file = "bootstrap-tools.cpio.bz2";
+    sha256 = "18hp5w6klr8g307ap4368r255qpzg9r0vwg9vqvj8f2zy1xilcjf";
+    executable = false;
+  };
+} }:
 
 assert crossSystem == localSystem;
 
@@ -313,7 +313,7 @@ in rec {
           llvmPackages_7 = super.llvmPackages_7 // (let
             libraries = super.llvmPackages_7.libraries.extend
               (_: _: { inherit (llvmPackages_7) libcxx libcxxabi; });
-            in { inherit libraries; } // libraries);
+          in { inherit libraries; } // libraries);
 
           darwin = super.darwin // {
             inherit (darwin)
@@ -383,7 +383,7 @@ in rec {
             libraries = super.llvmPackages_7.libraries.extend (llvmSelf: _: {
               inherit (llvmPackages_7) libcxx libcxxabi compiler-rt;
             });
-            in { inherit tools libraries; } // tools // libraries);
+          in { inherit tools libraries; } // tools // libraries);
 
           darwin = super.darwin // rec {
             inherit (darwin) dyld Libsystem libiconv locale;
@@ -426,7 +426,7 @@ in rec {
             libraries = super.llvmPackages_7.libraries.extend (_: _: {
               inherit (llvmPackages_7) compiler-rt libcxx libcxxabi;
             });
-            in { inherit tools libraries; } // tools // libraries);
+          in { inherit tools libraries; } // tools // libraries);
 
           # N.B: the important thing here is to ensure that python == python2
           # == python27 or you get weird issues with inconsistent package sets.

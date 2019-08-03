@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/GConf/${
-      stdenv.lib.versions.majorMinor version
-    }/GConf-${version}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/GConf-${version}.tar.xz";
     sha256 = "0k3q9nh53yhc9qxf1zaicz4sk8p3kzq4ndjdsgpaa2db0ccbj4hr";
   };
 

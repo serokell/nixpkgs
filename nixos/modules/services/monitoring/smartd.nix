@@ -242,7 +242,7 @@ in {
       path = [ pkgs.nettools ]; # for hostname and dnsdomanname calls in smartd
 
       serviceConfig.ExecStart = "${pkgs.smartmontools}/sbin/smartd ${
-        lib.concatStringsSep " " cfg.extraOptions
+          lib.concatStringsSep " " cfg.extraOptions
         } --no-fork --configfile=${smartdConf}";
     };
 

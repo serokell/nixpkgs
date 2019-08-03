@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
     wrapProgram $out/bin/pdfread.py --prefix PYTHONPATH : $PYTHONPATH:${pillow}/$LIBSUFFIX/PIL:$PYDIR \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath [ ghostscript pngnq djvulibre unrar optipng ]
+        stdenv.lib.makeBinPath [ ghostscript pngnq djvulibre unrar optipng ]
       }
   '';
 

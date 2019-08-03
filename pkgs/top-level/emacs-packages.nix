@@ -193,7 +193,7 @@ let
              substituteInPlace $file \
                  --replace "company \"0.8.2\"" "company \"${company.version}\"" \
                  --replace "find-file-in-project \"3.3\"" "find-file-in-project \"${
-            (melpaPackages self).find-file-in-project.version
+                   (melpaPackages self).find-file-in-project.version
                  }\"" \
                  --replace "highlight-indentation \"0.5.0\"" "highlight-indentation \"${highlight-indentation.version}\"" \
                  --replace "pyvenv \"1.3\"" "pyvenv \"${pyvenv.version}\"" \

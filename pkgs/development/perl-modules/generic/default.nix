@@ -32,13 +32,13 @@ else
     PERL_USE_UNSAFE_INC = "1";
 
     meta.homepage = "https://metacpan.org/release/${
-      attrs.pname or (builtins.parseDrvName attrs.name).name
-    }"; # TODO: phase-out `attrs.name`
+        attrs.pname or (builtins.parseDrvName attrs.name).name
+      }"; # TODO: phase-out `attrs.name`
     meta.platforms = perl.meta.platforms;
   } attrs) // {
     pname = "perl${perl.version}-${
-      attrs.pname or (builtins.parseDrvName attrs.name).name
-    }"; # TODO: phase-out `attrs.name`
+        attrs.pname or (builtins.parseDrvName attrs.name).name
+      }"; # TODO: phase-out `attrs.name`
     version = attrs.version or (builtins.parseDrvName
       attrs.name).version; # TODO: phase-out `attrs.name`
     builder = ./builder.sh;

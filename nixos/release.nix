@@ -195,7 +195,7 @@ in rec {
       modules = [ versionModule ./modules/installer/virtualbox-demo.nix ];
     }).config.system.build.virtualBoxOVA)
 
-    );
+  );
 
   # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (system:

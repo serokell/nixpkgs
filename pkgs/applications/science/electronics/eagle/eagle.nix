@@ -30,8 +30,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://eagle-updates.circuits.io/downloads/${
-      builtins.replaceStrings [ "." ] [ "_" ] version
-    }/Autodesk_EAGLE_${version}_English_Linux_64bit.tar.gz";
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }/Autodesk_EAGLE_${version}_English_Linux_64bit.tar.gz";
     sha256 = "0p3kxryvk853rx24phcadvmqn6f37rnnql8sf6cqn9cqhrrkbvlq";
   };
 

@@ -43,8 +43,8 @@ in {
             --no-daemon \
             ${optionalString cfg.debug "--loglevel=debug"} \
             ${
-            optionalString (cfg.configFile != null)
-            "--config-file ${cfg.configFile}"
+              optionalString (cfg.configFile != null)
+              "--config-file ${cfg.configFile}"
             } \
             --dbus-enable
         '';

@@ -119,12 +119,12 @@ in stdenv.mkDerivation rec {
   '';
 
   postFixup = let libPath = lib.makeLibraryPath [ libXcursor ];
-    in lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
-      patchelf --set-rpath \
-        "$(patchelf --print-rpath "$out/bin/emacs"):${libPath}" \
-        "$out/bin/emacs"
-      patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
-    '';
+  in lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
+    patchelf --set-rpath \
+      "$(patchelf --print-rpath "$out/bin/emacs"):${libPath}" \
+      "$out/bin/emacs"
+    patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
+  '';
 
   meta = with stdenv.lib; {
     description = "The extensible, customizable GNU text editor";

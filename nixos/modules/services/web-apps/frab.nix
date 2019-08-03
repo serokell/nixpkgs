@@ -27,11 +27,11 @@ let
       mkdir -p $out/bin
       makeWrapper ${package.env}/bin/bundle $out/bin/frab-bundle \
           ${
-        concatStrings
-        (mapAttrsToList (name: value: "--set ${name} '${value}' ") frabEnv)
+            concatStrings
+            (mapAttrsToList (name: value: "--set ${name} '${value}' ") frabEnv)
           } \
           --set PATH '${
-        lib.makeBinPath (with pkgs; [ nodejs file imagemagick ])
+            lib.makeBinPath (with pkgs; [ nodejs file imagemagick ])
           }:$PATH' \
           --set RAKEOPT '-f ${package}/share/frab/Rakefile' \
           --run 'cd ${package}/share/frab'

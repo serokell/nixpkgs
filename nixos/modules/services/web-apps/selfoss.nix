@@ -11,23 +11,23 @@ let
   selfoss-config = let
     db_type = cfg.database.type;
     default_port = if (db_type == "mysql") then 3306 else 5342;
-    in pkgs.writeText "selfoss-config.ini" ''
-      [globals]
-      ${lib.optionalString (db_type != "sqlite") ''
-        db_type=${db_type}
-        db_host=${cfg.database.host}
-        db_database=${cfg.database.name}
-        db_username=${cfg.database.user}
-        db_password=${cfg.database.password}
-        db_port=${
-          toString (if (cfg.database.port != null) then
-            cfg.database.port
-          else
-            default_port)
-        }
-      ''}
-      ${cfg.extraConfig}
-    '';
+  in pkgs.writeText "selfoss-config.ini" ''
+    [globals]
+    ${lib.optionalString (db_type != "sqlite") ''
+      db_type=${db_type}
+      db_host=${cfg.database.host}
+      db_database=${cfg.database.name}
+      db_username=${cfg.database.user}
+      db_password=${cfg.database.password}
+      db_port=${
+        toString (if (cfg.database.port != null) then
+          cfg.database.port
+        else
+          default_port)
+      }
+    ''}
+    ${cfg.extraConfig}
+  '';
 in {
   options = {
     services.selfoss = {

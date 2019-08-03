@@ -76,16 +76,16 @@ in stdenv.mkDerivation {
         yes "" | ${androidsdkComposition}/libexec/android-sdk/tools/android create avd -n device -t 1 --abi ${systemImageType}/${abiVersion} $NIX_ANDROID_AVD_FLAGS
 
         ${
-      stdenv.lib.optionalString enableGPU ''
-        # Enable GPU acceleration
-        echo "hw.gpu.enabled=yes" >> $ANDROID_SDK_HOME/.android/avd/device.avd/config.ini
-      ''
+          stdenv.lib.optionalString enableGPU ''
+            # Enable GPU acceleration
+            echo "hw.gpu.enabled=yes" >> $ANDROID_SDK_HOME/.android/avd/device.avd/config.ini
+          ''
         }
 
         ${
-      stdenv.lib.concatMapStrings (extraAVDFile: ''
-        ln -sf ${extraAVDFile} $ANDROID_SDK_HOME/.android/avd/device.avd
-      '') extraAVDFiles
+          stdenv.lib.concatMapStrings (extraAVDFile: ''
+            ln -sf ${extraAVDFile} $ANDROID_SDK_HOME/.android/avd/device.avd
+          '') extraAVDFiles
         }
     fi
 

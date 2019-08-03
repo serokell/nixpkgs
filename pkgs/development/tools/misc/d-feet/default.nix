@@ -10,8 +10,8 @@ in python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/d-feet/${
-      stdenv.lib.versions.majorMinor version
-    }/${name}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${name}.tar.xz";
     sha256 = "1m8lwiwl5jhi0x7y6x5zmd3hjplgvdjrb8a8jg74rvkygslj1p7f";
   };
 

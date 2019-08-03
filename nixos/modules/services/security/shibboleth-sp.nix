@@ -60,7 +60,7 @@ in {
       environment.SHIBSP_CONFIG = "${cfg.configFile}";
       serviceConfig = {
         ExecStart = "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${
-          toString cfg.fastcgi.shibResponderPort
+            toString cfg.fastcgi.shibResponderPort
           } ${pkgs.shibboleth-sp}/lib/shibboleth/shibresponder";
       };
     };
@@ -73,7 +73,7 @@ in {
       environment.SHIBSP_CONFIG = "${cfg.configFile}";
       serviceConfig = {
         ExecStart = "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${
-          toString cfg.fastcgi.shibAuthorizerPort
+            toString cfg.fastcgi.shibAuthorizerPort
           } ${pkgs.shibboleth-sp}/lib/shibboleth/shibauthorizer";
       };
     };

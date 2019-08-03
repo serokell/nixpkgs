@@ -18,8 +18,8 @@ with lib;
   config = mkIf config.gnu {
 
     environment.systemPackages = with pkgs;
-      # TODO: Adjust `requiredPackages' from `system-path.nix'.
-      # TODO: Add Inetutils once it has the new `ifconfig'.
+    # TODO: Adjust `requiredPackages' from `system-path.nix'.
+    # TODO: Add Inetutils once it has the new `ifconfig'.
       [
         parted
         #fdisk  # XXX: GNU fdisk currently fails to build and it's redundant

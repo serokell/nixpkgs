@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     CPPFLAGS = with stdenv;
       "" + (lib.optionalString (!isi686 && !isx86_64) "-DNOJIT ") + "-Dunix";
     CXXFLAGS = "-O3 -DNDEBUG";
-    in ''
-      buildFlagsArray=( "CPPFLAGS=${CPPFLAGS}" "CXXFLAGS=${CXXFLAGS}" )
-    '';
+  in ''
+    buildFlagsArray=( "CPPFLAGS=${CPPFLAGS}" "CXXFLAGS=${CXXFLAGS}" )
+  '';
 
   enableParallelBuilding = true;
 

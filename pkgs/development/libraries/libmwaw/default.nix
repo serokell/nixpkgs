@@ -2,15 +2,15 @@
 }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "libmwaw";
-    version = "0.3.15";
-    name = "${baseName}-${version}";
-    hash = "1cdhm9yhanyv3w4vr73zhgyynmkhhkp3dyld7m11jd2yy04vnh04";
-    url =
-      "mirror://sourceforge/libmwaw/libmwaw/libmwaw-0.3.15/libmwaw-0.3.15.tar.xz";
-    sha256 = "1cdhm9yhanyv3w4vr73zhgyynmkhhkp3dyld7m11jd2yy04vnh04";
-  };
+    rec {
+      baseName = "libmwaw";
+      version = "0.3.15";
+      name = "${baseName}-${version}";
+      hash = "1cdhm9yhanyv3w4vr73zhgyynmkhhkp3dyld7m11jd2yy04vnh04";
+      url =
+        "mirror://sourceforge/libmwaw/libmwaw/libmwaw-0.3.15/libmwaw-0.3.15.tar.xz";
+      sha256 = "1cdhm9yhanyv3w4vr73zhgyynmkhhkp3dyld7m11jd2yy04vnh04";
+    };
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ boost cppunit zlib libwpg libwpd librevenge ];

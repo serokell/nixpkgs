@@ -381,10 +381,10 @@ stdenv.mkDerivation {
   expandResponseParams = "${expand-response-params}/bin/expand-response-params";
 
   meta = let cc_ = if cc != null then cc else { };
-    in (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { }) // {
-      description =
-        stdenv.lib.attrByPath [ "meta" "description" ] "System C compiler" cc_
-        + " (wrapper script)";
-      priority = 10;
-    };
+  in (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { }) // {
+    description =
+      stdenv.lib.attrByPath [ "meta" "description" ] "System C compiler" cc_
+      + " (wrapper script)";
+    priority = 10;
+  };
 }

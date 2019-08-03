@@ -25,8 +25,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.mersenne.org/ftp_root/gimps/p95v${
-      lib.replaceStrings [ "." ] [ "" ] version
-    }.source.zip";
+        lib.replaceStrings [ "." ] [ "" ] version
+      }.source.zip";
     sha256 = "0idaqm46m4yis7vl014scx57lpccvjbnyy79gmj8caxghyajws0m";
   };
 

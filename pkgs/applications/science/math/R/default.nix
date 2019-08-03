@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     configureFlagsArray=(
       --disable-lto
       --with${
-      stdenv.lib.optionalString (!withRecommendedPackages) "out"
+        stdenv.lib.optionalString (!withRecommendedPackages) "out"
       }-recommended-packages
       --with-blas="-L${openblas}/lib -lopenblas"
       --with-lapack="-L${openblas}/lib -lopenblas"

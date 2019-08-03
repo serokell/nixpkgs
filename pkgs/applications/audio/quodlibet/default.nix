@@ -71,8 +71,8 @@ in python3.pkgs.buildPythonApplication rec {
       xvfb-run -s '-screen 0 800x600x24' dbus-run-session \
         --config-file=${dbus.daemon}/share/dbus-1/session.conf \
         py.test${
-      stdenv.lib.optionalString (xineBackend || !withGstPlugins)
-      " --ignore=tests/plugin/test_replaygain.py"
+          stdenv.lib.optionalString (xineBackend || !withGstPlugins)
+          " --ignore=tests/plugin/test_replaygain.py"
         }
     runHook postCheck
   '';

@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.haproxy.org/download/${
-      stdenv.lib.versions.majorMinor version
-    }/src/${name}.tar.gz";
+        stdenv.lib.versions.majorMinor version
+      }/src/${name}.tar.gz";
     sha256 = "1via9k84ycrdr8qh4qchcbqgpv0gynm3ra23nwsvqwfqvc0376id";
   };
 

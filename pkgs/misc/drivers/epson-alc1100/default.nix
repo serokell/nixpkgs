@@ -35,7 +35,7 @@ in stdenv.mkDerivation {
   postFixup = ''
     patchelf --set-interpreter ${pkgsi686Linux.glibc}/lib/ld-linux.so.2 \
       --set-rpath "${
-      stdenv.lib.makeLibraryPath [ pkgsi686Linux.glibc "$out" ]
+        stdenv.lib.makeLibraryPath [ pkgsi686Linux.glibc "$out" ]
       }" $out/bin/alc1100
 
     patchelf --set-rpath "${

@@ -165,40 +165,40 @@ in {
           crumb=$(curl $curl_opts "$jenkins_url"'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
           curl $curl_opts -X POST -H "$crumb" "$jenkins_url"/reload
         '';
-        in ''
-          rm -rf ${jobBuilderOutputDir}
-          cur_decl_jobs=/run/jenkins-job-builder/declarative-jobs
-          rm -f "$cur_decl_jobs"
+      in ''
+        rm -rf ${jobBuilderOutputDir}
+        cur_decl_jobs=/run/jenkins-job-builder/declarative-jobs
+        rm -f "$cur_decl_jobs"
 
-          # Create / update jobs
-          mkdir -p ${jobBuilderOutputDir}
-          for inputFile in ${yamlJobsFile} ${
-            concatStringsSep " " jsonJobsFiles
-          }; do
-              HOME="${jenkinsCfg.home}" "${pkgs.jenkins-job-builder}/bin/jenkins-jobs" --ignore-cache test -o "${jobBuilderOutputDir}" "$inputFile"
-          done
+        # Create / update jobs
+        mkdir -p ${jobBuilderOutputDir}
+        for inputFile in ${yamlJobsFile} ${
+          concatStringsSep " " jsonJobsFiles
+        }; do
+            HOME="${jenkinsCfg.home}" "${pkgs.jenkins-job-builder}/bin/jenkins-jobs" --ignore-cache test -o "${jobBuilderOutputDir}" "$inputFile"
+        done
 
-          for file in "${jobBuilderOutputDir}/"*; do
-              test -f "$file" || continue
-              jobname="$(basename $file)"
-              jobdir="${jenkinsCfg.home}/jobs/$jobname"
-              echo "Creating / updating job \"$jobname\""
-              mkdir -p "$jobdir"
-              touch "$jobdir/${ownerStamp}"
-              cp "$file" "$jobdir/config.xml"
-              echo "$jobname" >> "$cur_decl_jobs"
-          done
+        for file in "${jobBuilderOutputDir}/"*; do
+            test -f "$file" || continue
+            jobname="$(basename $file)"
+            jobdir="${jenkinsCfg.home}/jobs/$jobname"
+            echo "Creating / updating job \"$jobname\""
+            mkdir -p "$jobdir"
+            touch "$jobdir/${ownerStamp}"
+            cp "$file" "$jobdir/config.xml"
+            echo "$jobname" >> "$cur_decl_jobs"
+        done
 
-          # Remove stale jobs
-          for file in "${jenkinsCfg.home}"/jobs/*/${ownerStamp}; do
-              test -f "$file" || continue
-              jobdir="$(dirname $file)"
-              jobname="$(basename "$jobdir")"
-              grep --quiet --line-regexp "$jobname" "$cur_decl_jobs" 2>/dev/null && continue
-              echo "Deleting stale job \"$jobname\""
-              rm -rf "$jobdir"
-          done
-        '' + (if cfg.accessUser != "" then reloadScript else "");
+        # Remove stale jobs
+        for file in "${jenkinsCfg.home}"/jobs/*/${ownerStamp}; do
+            test -f "$file" || continue
+            jobdir="$(dirname $file)"
+            jobname="$(basename "$jobdir")"
+            grep --quiet --line-regexp "$jobname" "$cur_decl_jobs" 2>/dev/null && continue
+            echo "Deleting stale job \"$jobname\""
+            rm -rf "$jobdir"
+        done
+      '' + (if cfg.accessUser != "" then reloadScript else "");
       serviceConfig = {
         User = jenkinsCfg.user;
         RuntimeDirectory = "jenkins-job-builder";

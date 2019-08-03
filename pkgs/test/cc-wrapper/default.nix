@@ -42,7 +42,7 @@ in stdenv.mkDerivation {
     mkdir -p foo/lib
     $CC -shared \
       ${
-      optionalString stdenv.isDarwin "-Wl,-install_name,@rpath/libfoo.dylib"
+        optionalString stdenv.isDarwin "-Wl,-install_name,@rpath/libfoo.dylib"
       } \
       -DVALUE=42 \
       -o foo/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \

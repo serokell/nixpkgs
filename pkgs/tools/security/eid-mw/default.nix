@@ -34,14 +34,14 @@ stdenv.mkDerivation rec {
       isExecutable = true;
       src = ./eid-nssdb.in;
     };
-    in ''
-      install -D ${eid-nssdb-in} $out/bin/eid-nssdb
-      substituteInPlace $out/bin/eid-nssdb \
-        --replace "modutil" "${nssTools}/bin/modutil"
+  in ''
+    install -D ${eid-nssdb-in} $out/bin/eid-nssdb
+    substituteInPlace $out/bin/eid-nssdb \
+      --replace "modutil" "${nssTools}/bin/modutil"
 
-      rm $out/bin/about-eid-mw
-      wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name" 
-    '';
+    rm $out/bin/about-eid-mw
+    wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name" 
+  '';
 
   enableParallelBuilding = true;
 

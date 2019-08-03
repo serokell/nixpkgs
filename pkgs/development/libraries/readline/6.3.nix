@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
           url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
           inherit sha256;
         };
-      in import ./readline-6.3-patches.nix patch);
+    in import ./readline-6.3-patches.nix patch);
 
   # Don't run the native `strip' when cross-compiling.
   dontStrip = stdenv.hostPlatform != stdenv.buildPlatform;

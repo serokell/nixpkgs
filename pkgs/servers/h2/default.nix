@@ -22,16 +22,16 @@ stdenv.mkDerivation rec {
         echo "You have to provide the full java class path for the h2 tool you want to run. E.g. 'org.h2.tools.Server'"
       fi
     '';
-    in ''
-      mkdir -p $out
-      cp -R * $out
+  in ''
+    mkdir -p $out
+    cp -R * $out
 
-      echo '${h2ToolScript}' > $out/bin/h2tool.sh
+    echo '${h2ToolScript}' > $out/bin/h2tool.sh
 
-      substituteInPlace $out/bin/h2.sh --replace "java" "${jre}/bin/java"
+    substituteInPlace $out/bin/h2.sh --replace "java" "${jre}/bin/java"
 
-      chmod +x $out/bin/*.sh
-    '';
+    chmod +x $out/bin/*.sh
+  '';
 
   meta = with stdenv.lib; {
     description = "The Java SQL database";

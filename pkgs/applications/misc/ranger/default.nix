@@ -37,7 +37,7 @@ python3Packages.buildPythonApplication rec {
 
     substituteInPlace ranger/__init__.py \
       --replace "DEFAULT_PAGER = 'less'" "DEFAULT_PAGER = '${
-      stdenv.lib.getBin less
+        stdenv.lib.getBin less
       }/bin/less'"
 
     for i in ranger/config/rc.conf doc/config/rc.conf ; do

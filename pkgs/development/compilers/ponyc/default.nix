@@ -32,7 +32,7 @@ stdenv.mkDerivation (rec {
 
     for file in `grep -irl '/usr/local/opt/libressl/lib' ./*`; do
       substituteInPlace $file  --replace '/usr/local/opt/libressl/lib' "${
-      stdenv.lib.getLib libressl
+        stdenv.lib.getLib libressl
       }/lib"
     done
 
@@ -66,7 +66,7 @@ stdenv.mkDerivation (rec {
            --prefix PATH ":" "${stdenv.cc}/bin" \
            --set-default CC "$CC" \
            --prefix PONYPATH : "${
-        stdenv.lib.makeLibraryPath [ pcre2 libressl (placeholder "out") ]
+             stdenv.lib.makeLibraryPath [ pcre2 libressl (placeholder "out") ]
            }"
        '';
 

@@ -13,7 +13,7 @@ args@{ fetchgit, stdenv, ncurses, pkgconfig, gettext, lib, config, python, perl
   # allow this to be disabled by setting config.vim.darwin to false
 , darwinSupport ? stdenv.isDarwin && (config.vim.darwin or true)
 
-  # add .nix filetype detection and minimal syntax highlighting support
+# add .nix filetype detection and minimal syntax highlighting support
 , ftNixSupport ? config.vim.ftNix or true
 
 , ... }:

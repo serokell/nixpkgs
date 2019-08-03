@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/tsung_stats.pl \
         --prefix PATH : ${lib.makeBinPath [ gnuplot ]} \
         --set PERL5LIB "${
-      perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]
+          perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]
         }"
   '';
 

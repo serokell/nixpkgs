@@ -93,35 +93,35 @@ with lib;
             --set NIX_REDIRECTS "/etc/ppp=/etc/ppp-pptpd"
         '';
       };
-      in {
-        description = "pptpd server";
+    in {
+      description = "pptpd server";
 
-        requires = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+      requires = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
 
-        preStart = ''
-          mkdir -p -m 700 /etc/ppp-pptpd
+      preStart = ''
+        mkdir -p -m 700 /etc/ppp-pptpd
 
-          secrets="/etc/ppp-pptpd/chap-secrets"
+        secrets="/etc/ppp-pptpd/chap-secrets"
 
-          [ -f "$secrets" ] || cat > "$secrets" << EOF
-          # From: pptpd-1.4.0/samples/chap-secrets
-          # Secrets for authentication using CHAP
-          # client	server	secret		IP addresses
-          #username	pptpd	password	*
-          EOF
+        [ -f "$secrets" ] || cat > "$secrets" << EOF
+        # From: pptpd-1.4.0/samples/chap-secrets
+        # Secrets for authentication using CHAP
+        # client	server	secret		IP addresses
+        #username	pptpd	password	*
+        EOF
 
-          chown root.root "$secrets"
-          chmod 600 "$secrets"
-        '';
+        chown root.root "$secrets"
+        chmod 600 "$secrets"
+      '';
 
-        serviceConfig = {
-          ExecStart = "${pkgs.pptpd}/bin/pptpd --conf ${pptpd-conf}";
-          KillMode = "process";
-          Restart = "on-success";
-          Type = "forking";
-          PIDFile = "/run/pptpd.pid";
-        };
+      serviceConfig = {
+        ExecStart = "${pkgs.pptpd}/bin/pptpd --conf ${pptpd-conf}";
+        KillMode = "process";
+        Restart = "on-success";
+        Type = "forking";
+        PIDFile = "/run/pptpd.pid";
       };
+    };
   };
 }

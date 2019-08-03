@@ -271,7 +271,7 @@ in {
         ExecStart = let
           # FIXME: This doesn't account for arguments with spaces
           argString = concatStringsSep " " cfg.extraArguments;
-          in "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
+        in "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
         ExecReload = ''
           ${cfg.package}/bin/asterisk -x "core reload"
                     '';

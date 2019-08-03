@@ -40,21 +40,21 @@ stdenv.mkDerivation {
       libXt
       libGLU_combined
     ];
-    in ''
-      ${patchelf}/bin/patchelf \
-        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $out/bin/aliza
+  in ''
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      $out/bin/aliza
 
-      ${patchelf}/bin/patchelf \
-        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $out/bin/aliza-vtkvol
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      $out/bin/aliza-vtkvol
 
-      wrapProgram $out/bin/aliza \
-        --prefix LD_LIBRARY_PATH : ${libs}
+    wrapProgram $out/bin/aliza \
+      --prefix LD_LIBRARY_PATH : ${libs}
 
-      wrapProgram $out/bin/aliza-vtkvol \
-        --prefix LD_LIBRARY_PATH : ${libs}
-    '';
+    wrapProgram $out/bin/aliza-vtkvol \
+      --prefix LD_LIBRARY_PATH : ${libs}
+  '';
 
   meta = {
     description = "Medical imaging software with 2D, 3D and 4D capabilities";

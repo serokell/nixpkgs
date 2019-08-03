@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
       categories = "Application;Development;";
       mimeType = "text/html";
     };
-    in ''
-      mkdir -p $out/share/pixmaps;
-      cp pgadmin/include/images/pgAdmin3.png $out/share/pixmaps/;
-      cp -rv ${desktopItem}/share/applications $out/share/
-    '';
+  in ''
+    mkdir -p $out/share/pixmaps;
+    cp pgadmin/include/images/pgAdmin3.png $out/share/pixmaps/;
+    cp -rv ${desktopItem}/share/applications $out/share/
+  '';
 }

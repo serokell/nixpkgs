@@ -61,7 +61,7 @@ let
       pkgs.writeText "prometheus.yml" cfg.configText
     else
       generatedPrometheusYml;
-    in promtoolCheck "check-config" "prometheus.yml" yml;
+  in promtoolCheck "check-config" "prometheus.yml" yml;
 
   cmdlineArgs = cfg.extraFlags ++ [
     "-storage.local.path=${workingDir}/metrics"
@@ -96,7 +96,7 @@ let
       pkgs.writeText "prometheus.yml" cfg2.configText
     else
       generatedPrometheus2Yml;
-    in prom2toolCheck "check config" "prometheus.yml" yml;
+  in prom2toolCheck "check config" "prometheus.yml" yml;
 
   cmdlineArgs2 = cfg2.extraFlags ++ [
     "--storage.tsdb.path=${workingDir2}/data/"

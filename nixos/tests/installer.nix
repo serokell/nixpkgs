@@ -21,32 +21,32 @@ let
         system.extraDependencies = with pkgs; [ stdenvNoCC ];
 
         ${
-        optionalString (bootLoader == "grub") ''
-          boot.loader.grub.version = ${toString grubVersion};
-          ${optionalString (grubVersion == 1) ''
-            boot.loader.grub.splashImage = null;
-          ''}
+          optionalString (bootLoader == "grub") ''
+            boot.loader.grub.version = ${toString grubVersion};
+            ${optionalString (grubVersion == 1) ''
+              boot.loader.grub.splashImage = null;
+            ''}
 
-          boot.loader.grub.extraConfig = "serial; terminal_output.serial";
-          ${if grubUseEfi then ''
-            boot.loader.grub.device = "nodev";
-            boot.loader.grub.efiSupport = true;
-            boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
-          '' else ''
-            boot.loader.grub.device = "${grubDevice}";
-            boot.loader.grub.fsIdentifier = "${grubIdentifier}";
-          ''}
+            boot.loader.grub.extraConfig = "serial; terminal_output.serial";
+            ${if grubUseEfi then ''
+              boot.loader.grub.device = "nodev";
+              boot.loader.grub.efiSupport = true;
+              boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
+            '' else ''
+              boot.loader.grub.device = "${grubDevice}";
+              boot.loader.grub.fsIdentifier = "${grubIdentifier}";
+            ''}
 
-          boot.loader.grub.configurationLimit = 100 + ${
-            toString forceGrubReinstallCount
-          };
-        ''
+            boot.loader.grub.configurationLimit = 100 + ${
+              toString forceGrubReinstallCount
+            };
+          ''
         }
 
         ${
-        optionalString (bootLoader == "systemd-boot") ''
-          boot.loader.systemd-boot.enable = true;
-        ''
+          optionalString (bootLoader == "systemd-boot") ''
+            boot.loader.systemd-boot.enable = true;
+          ''
         }
 
         users.users.alice = {
@@ -112,10 +112,10 @@ let
 
       $machine->copyFileFromHost(
           "${
-        makeConfig {
-          inherit bootLoader grubVersion grubDevice grubIdentifier grubUseEfi
-            extraConfig;
-        }
+            makeConfig {
+              inherit bootLoader grubVersion grubDevice grubIdentifier
+                grubUseEfi extraConfig;
+            }
           }",
           "/mnt/etc/nixos/configuration.nix");
 
@@ -167,11 +167,11 @@ let
       # We need a writable Nix store on next boot.
       $machine->copyFileFromHost(
           "${
-        makeConfig {
-          inherit bootLoader grubVersion grubDevice grubIdentifier grubUseEfi
-            extraConfig;
-          forceGrubReinstallCount = 1;
-        }
+            makeConfig {
+              inherit bootLoader grubVersion grubDevice grubIdentifier
+                grubUseEfi extraConfig;
+              forceGrubReinstallCount = 1;
+            }
           }",
           "/etc/nixos/configuration.nix");
 
@@ -191,11 +191,11 @@ let
       $machine->waitForUnit("multi-user.target");
       $machine->copyFileFromHost(
           "${
-        makeConfig {
-          inherit bootLoader grubVersion grubDevice grubIdentifier grubUseEfi
-            extraConfig;
-          forceGrubReinstallCount = 2;
-        }
+            makeConfig {
+              inherit bootLoader grubVersion grubDevice grubIdentifier
+                grubUseEfi extraConfig;
+              forceGrubReinstallCount = 2;
+            }
           }",
           "/etc/nixos/configuration.nix");
       $machine->succeed("nixos-rebuild boot >&2");
@@ -265,66 +265,66 @@ let
         # The configuration of the machine used to run "nixos-install".
         machine = { pkgs, ... }:
 
-        {
-          imports = [
-            ../modules/profiles/installation-device.nix
-            ../modules/profiles/base.nix
-            extraInstallerConfig
-          ];
-
-          virtualisation.diskSize = 8 * 1024;
-          virtualisation.memorySize = 1024;
-
-          # Use a small /dev/vdb as the root disk for the
-          # installer. This ensures the target disk (/dev/vda) is
-          # the same during and after installation.
-          virtualisation.emptyDiskImages = [ 512 ];
-          virtualisation.bootDevice =
-            if grubVersion == 1 then "/dev/sdb" else "/dev/vdb";
-          virtualisation.qemu.diskInterface =
-            if grubVersion == 1 then "scsi" else "virtio";
-
-          boot.loader.systemd-boot.enable =
-            mkIf (bootLoader == "systemd-boot") true;
-
-          hardware.enableAllFirmware = mkForce false;
-
-          # The test cannot access the network, so any packages we
-          # need must be included in the VM.
-          system.extraDependencies = with pkgs;
-            [
-              sudo
-              libxml2.bin
-              libxslt.bin
-              desktop-file-utils
-              docbook5
-              docbook_xsl_ns
-              unionfs-fuse
-              ntp
-              nixos-artwork.wallpapers.simple-dark-gray-bottom
-              perlPackages.XMLLibXML
-              perlPackages.ListCompare
-              shared-mime-info
-              texinfo
-              xorg.lndir
-
-              # add curl so that rather than seeing the test attempt to download
-              # curl's tarball, we see what it's trying to download
-              curl
-            ] ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
-            ++ optionals (bootLoader == "grub" && grubVersion == 2) [
-              pkgs.grub2
-              pkgs.grub2_efi
+          {
+            imports = [
+              ../modules/profiles/installation-device.nix
+              ../modules/profiles/base.nix
+              extraInstallerConfig
             ];
 
-          services.udisks2.enable = mkDefault false;
+            virtualisation.diskSize = 8 * 1024;
+            virtualisation.memorySize = 1024;
 
-          nix.binaryCaches = mkForce [ ];
-          nix.extraOptions = ''
-            hashed-mirrors =
-            connect-timeout = 1
-          '';
-        };
+            # Use a small /dev/vdb as the root disk for the
+            # installer. This ensures the target disk (/dev/vda) is
+            # the same during and after installation.
+            virtualisation.emptyDiskImages = [ 512 ];
+            virtualisation.bootDevice =
+              if grubVersion == 1 then "/dev/sdb" else "/dev/vdb";
+            virtualisation.qemu.diskInterface =
+              if grubVersion == 1 then "scsi" else "virtio";
+
+            boot.loader.systemd-boot.enable =
+              mkIf (bootLoader == "systemd-boot") true;
+
+            hardware.enableAllFirmware = mkForce false;
+
+            # The test cannot access the network, so any packages we
+            # need must be included in the VM.
+            system.extraDependencies = with pkgs;
+              [
+                sudo
+                libxml2.bin
+                libxslt.bin
+                desktop-file-utils
+                docbook5
+                docbook_xsl_ns
+                unionfs-fuse
+                ntp
+                nixos-artwork.wallpapers.simple-dark-gray-bottom
+                perlPackages.XMLLibXML
+                perlPackages.ListCompare
+                shared-mime-info
+                texinfo
+                xorg.lndir
+
+                # add curl so that rather than seeing the test attempt to download
+                # curl's tarball, we see what it's trying to download
+                curl
+              ] ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
+              ++ optionals (bootLoader == "grub" && grubVersion == 2) [
+                pkgs.grub2
+                pkgs.grub2_efi
+              ];
+
+            services.udisks2.enable = mkDefault false;
+
+            nix.binaryCaches = mkForce [ ];
+            nix.extraOptions = ''
+              hashed-mirrors =
+              connect-timeout = 1
+            '';
+          };
 
       };
 

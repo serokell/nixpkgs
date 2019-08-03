@@ -28,7 +28,7 @@ in pythonPackages.buildPythonApplication rec {
         "https://patch-diff.githubusercontent.com/raw/pyload/pyload/pull/2638.diff";
       sha256 = "006g4qbl582262ariflbyfrszcx8ck2ac1cpry1f82f76p4cgf6z";
     };
-    in [ configParserPatch setupPyPatch ];
+  in [ configParserPatch setupPyPatch ];
 
   buildInputs = [ unrar rhino spidermonkey gocr pythonPackages.paver ];
 

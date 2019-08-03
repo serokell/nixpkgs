@@ -49,10 +49,10 @@ let
       name: "${cfg.database_type}",
       args: {
         ${
-      concatStringsSep ''
-        ,
-            '' (mapAttrsToList (n: v: ''"${n}": ${builtins.toJSON v}'')
-          cfg.database_args)
+          concatStringsSep ''
+            ,
+                '' (mapAttrsToList (n: v: ''"${n}": ${builtins.toJSON v}'')
+              cfg.database_args)
         }
       }
     }
@@ -112,21 +112,21 @@ let
     perspectives:
       servers: {
         ${
-      concatStringsSep ''
-        },
-      '' (mapAttrsToList (n: v: ''
-        "${n}": {
-          "verify_keys": {
-            ${
           concatStringsSep ''
             },
           '' (mapAttrsToList (n: v: ''
             "${n}": {
-              "key": "${v}"
-            }'') v)
-            }
-          }
-      '') cfg.servers)
+              "verify_keys": {
+                ${
+                  concatStringsSep ''
+                    },
+                  '' (mapAttrsToList (n: v: ''
+                    "${n}": {
+                      "key": "${v}"
+                    }'') v)
+                }
+              }
+          '') cfg.servers)
         }
         }
       }
@@ -730,8 +730,8 @@ in {
         ExecStart = ''
           ${cfg.package}/bin/homeserver \
             ${
-            concatMapStringsSep "\n  " (x: "--config-path ${x} \\")
-            ([ configFile ] ++ cfg.extraConfigFiles)
+              concatMapStringsSep "\n  " (x: "--config-path ${x} \\")
+              ([ configFile ] ++ cfg.extraConfigFiles)
             }
             --keys-directory ${cfg.dataDir}
         '';

@@ -56,18 +56,18 @@ self: super: {
         export NIX_LDFLAGS="-F${CoreFoundation}/Library/Frameworks -framework CoreFoundation $NIX_LDFLAGS"
       '';
     };
-    in buildVimPluginFrom2Nix {
-      pname = "LanguageClient-neovim";
-      inherit version;
-      src = LanguageClient-neovim-src;
+  in buildVimPluginFrom2Nix {
+    pname = "LanguageClient-neovim";
+    inherit version;
+    src = LanguageClient-neovim-src;
 
-      propagatedBuildInputs = [ LanguageClient-neovim-bin ];
+    propagatedBuildInputs = [ LanguageClient-neovim-bin ];
 
-      preFixup = ''
-        substituteInPlace "$out"/share/vim-plugins/LanguageClient-neovim/autoload/LanguageClient.vim \
-          --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
-      '';
-    };
+    preFixup = ''
+      substituteInPlace "$out"/share/vim-plugins/LanguageClient-neovim/autoload/LanguageClient.vim \
+        --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
+    '';
+  };
 
   # do not auto-update this one, as the name clashes with vim-snippets
   vim-docbk-snippets = buildVimPluginFrom2Nix {
@@ -221,14 +221,14 @@ self: super: {
         install -Dt $out/bin ftplugin/evinceSync.py
       '';
     };
-    in super.sved.overrideAttrs (old: {
-      preferLocalBuild = true;
-      postPatch = ''
-        rm ftplugin/evinceSync.py
-        ln -s ${svedbackend}/bin/evinceSync.py ftplugin/evinceSync.py
-      '';
-      meta = { description = "synctex support between vim/neovim and evince"; };
-    });
+  in super.sved.overrideAttrs (old: {
+    preferLocalBuild = true;
+    postPatch = ''
+      rm ftplugin/evinceSync.py
+      ln -s ${svedbackend}/bin/evinceSync.py ftplugin/evinceSync.py
+    '';
+    meta = { description = "synctex support between vim/neovim and evince"; };
+  });
 
   vimshell-vim = super.vimshell-vim.overrideAttrs
     (old: { dependencies = with super; [ vimproc-vim ]; });
@@ -440,13 +440,13 @@ self: super: {
       url = "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
       sha256 = "16b0jzvvzarnlxdvs2izd5ia0ipbd87md143dc6lv6xpdqcs75s9";
     };
-    in super.unicode-vim.overrideAttrs (old: {
+  in super.unicode-vim.overrideAttrs (old: {
 
-      # redirect to /dev/null else changes terminal color
-      buildPhase = ''
-        cp "${unicode-data}" autoload/unicode/UnicodeData.txt
-        echo "Building unicode cache"
-        ${vim}/bin/vim --cmd ":set rtp^=$PWD" -c 'ru plugin/unicode.vim' -c 'UnicodeCache' -c ':echohl Normal' -c ':q' > /dev/null
-      '';
-    });
+    # redirect to /dev/null else changes terminal color
+    buildPhase = ''
+      cp "${unicode-data}" autoload/unicode/UnicodeData.txt
+      echo "Building unicode cache"
+      ${vim}/bin/vim --cmd ":set rtp^=$PWD" -c 'ru plugin/unicode.vim' -c 'UnicodeCache' -c ':echohl Normal' -c ':q' > /dev/null
+    '';
+  });
 }

@@ -20,7 +20,7 @@ let
         (./.
           + "/dont-create-sysconfdir-${builtins.substring 0 1 version}.patch")
       ] ++ optional (lib.versionOlder version "2")
-        # https://github.com/BIRD/bird/pull/4
+      # https://github.com/BIRD/bird/pull/4
         (fetchpatch {
           url =
             "https://github.com/BIRD/bird/commit/fca9ab48e3823c734886f47156a92f6b804c16e9.patch";

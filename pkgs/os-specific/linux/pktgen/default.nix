@@ -35,14 +35,14 @@ in stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = [ "-msse3" ];
 
   postPatch = let dpdkMajor = lib.versions.major dpdk.version;
-    in ''
-      substituteInPlace app/Makefile --replace 'yy :=' 'yy := ${dpdkMajor} #'
-      substituteInPlace lib/common/lscpu.h --replace /usr/bin/lscpu ${utillinux}/bin/lscpu
+  in ''
+    substituteInPlace app/Makefile --replace 'yy :=' 'yy := ${dpdkMajor} #'
+    substituteInPlace lib/common/lscpu.h --replace /usr/bin/lscpu ${utillinux}/bin/lscpu
 
-      ln -s ${lua.src} lib/lua/${lua.basename}
-      make -C lib/lua get_tarball # unpack and patch
-      substituteInPlace lib/lua/${lua.name}/src/luaconf.h --replace /usr/local $out
-    '';
+    ln -s ${lua.src} lib/lua/${lua.basename}
+    make -C lib/lua get_tarball # unpack and patch
+    substituteInPlace lib/lua/${lua.name}/src/luaconf.h --replace /usr/local $out
+  '';
 
   installPhase = ''
     install -d $out/bin

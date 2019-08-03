@@ -57,9 +57,9 @@ import ./make-test.nix ({ pkgs, ... }: {
         ST = "California";
       }];
     });
-    in ''
-      $machine->waitForUnit('cfssl.service');
-      $machine->waitUntilSucceeds('${cfsslrequest}');
-      $machine->succeed('ls /tmp/certificate-key.pem');
-    '';
+  in ''
+    $machine->waitForUnit('cfssl.service');
+    $machine->waitUntilSucceeds('${cfsslrequest}');
+    $machine->succeed('ls /tmp/certificate-key.pem');
+  '';
 })

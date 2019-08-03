@@ -47,10 +47,10 @@ let
 
       installFlagsArray=( TO_BIN="lua luac" INSTALL_DATA='cp -d' \
         TO_LIB="${
-        if stdenv.isDarwin then
-          "liblua.${version}.dylib"
-        else
-          "liblua.a liblua.so liblua.so.${luaversion} liblua.so.${version}"
+          if stdenv.isDarwin then
+            "liblua.${version}.dylib"
+          else
+            "liblua.a liblua.so liblua.so.${luaversion} liblua.so.${version}"
         }" )
 
       runHook postConfigure

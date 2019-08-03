@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     wrapProgram "$out/libexec/telepathy-idle" \
       --prefix GIO_EXTRA_MODULES : "${
-      stdenv.lib.getLib gnome3.dconf
+        stdenv.lib.getLib gnome3.dconf
       }/lib/gio/modules"
   '';
 

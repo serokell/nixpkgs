@@ -38,7 +38,7 @@ let
       echo ${listAddress d l} > '${ctlDir}/listaddress'
       [ ! -e ${ctlDir}/customheaders ] && \
           echo "${
-        lib.concatStringsSep "\n" (customHeaders d l)
+            lib.concatStringsSep "\n" (customHeaders d l)
           }" > '${ctlDir}/customheaders'
       [ ! -e ${ctlDir}/footer ] && \
           echo ${footer d l} > '${ctlDir}/footer'

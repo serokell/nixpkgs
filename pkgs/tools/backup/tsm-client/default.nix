@@ -140,7 +140,7 @@ in buildEnv {
       rm "$bin"
       makeWrapper "$target" "$bin" \
         --prefix PATH : "$out/dsm_dir:${
-      lib.strings.makeBinPath [ procps acl jdk8 ]
+          lib.strings.makeBinPath [ procps acl jdk8 ]
         }" \
         --set DSM_DIR $out/dsm_dir
     done

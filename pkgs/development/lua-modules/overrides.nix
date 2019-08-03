@@ -55,17 +55,17 @@ with super; {
     # Upstream rockspec is pointlessly broken into separate rockspecs, per Lua
     # version, which doesn't work well for us, so modify it
     postConfigure = let inherit (super.cqueues) pname;
-      in ''
-        # 'all' target auto-detects correct Lua version, which is fine for us as
-        # we only have the right one available :)
-        sed -Ei ''${rockspecFilename} \
-          -e 's|lua == 5.[[:digit:]]|lua >= 5.1, <= 5.3|' \
-          -e 's|build_target = "[^"]+"|build_target = "all"|' \
-          -e 's|version = "[^"]+"|version = "${version}"|'
-        specDir=$(dirname ''${rockspecFilename})
-        cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
-        rockspecFilename="$specDir/${pname}-${version}.rockspec"
-      '';
+    in ''
+      # 'all' target auto-detects correct Lua version, which is fine for us as
+      # we only have the right one available :)
+      sed -Ei ''${rockspecFilename} \
+        -e 's|lua == 5.[[:digit:]]|lua >= 5.1, <= 5.3|' \
+        -e 's|build_target = "[^"]+"|build_target = "all"|' \
+        -e 's|version = "[^"]+"|version = "${version}"|'
+      specDir=$(dirname ''${rockspecFilename})
+      cp ''${rockspecFilename} "$specDir/${pname}-${version}.rockspec"
+      rockspecFilename="$specDir/${pname}-${version}.rockspec"
+    '';
   });
 
   cyrussasl = super.cyrussasl.override ({
@@ -217,9 +217,9 @@ with super; {
     patchFlags = "-p2";
     patches = [ ./luuid.patch ];
     postConfigure = let inherit (super.luuid) version pname;
-      in ''
-        sed -Ei ''${rockspecFilename} -e 's|lua >= 5.2|lua >= 5.1,|'
-      '';
+    in ''
+      sed -Ei ''${rockspecFilename} -e 's|lua >= 5.2|lua >= 5.1,|'
+    '';
     disabled = luaOlder "5.1" || (luaAtLeast "5.4");
   });
 

@@ -99,8 +99,8 @@ stdenv.mkDerivation rec {
             --prefix PYTHONPATH : $PYTHONPATH:$(toPythonPath "$out") \
             --set MATPLOTLIBRC "$out/share/gnuradio" \
             ${
-      stdenv.lib.optionalString stdenv.isDarwin
-      "--set DYLD_FRAMEWORK_PATH /System/Library/Frameworks"
+              stdenv.lib.optionalString stdenv.isDarwin
+              "--set DYLD_FRAMEWORK_PATH /System/Library/Frameworks"
             }
     done
   '';

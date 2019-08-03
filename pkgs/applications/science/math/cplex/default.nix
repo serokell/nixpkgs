@@ -50,25 +50,25 @@ stdenv.mkDerivation rec {
 
   fixupPhase = let
     libraryPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc gtk2 xorg.libXtst ];
-    in ''
-      interpreter=${stdenv.glibc}/lib/ld-linux-x86-64.so.2
+  in ''
+    interpreter=${stdenv.glibc}/lib/ld-linux-x86-64.so.2
 
-      for pgm in $out/opl/bin/x86-64_linux/oplrun $out/opl/bin/x86-64_linux/oplrunjava $out/opl/oplide/oplide;
-      do
+    for pgm in $out/opl/bin/x86-64_linux/oplrun $out/opl/bin/x86-64_linux/oplrunjava $out/opl/oplide/oplide;
+    do
+      patchelf --set-interpreter "$interpreter" $pgm;
+      wrapProgram $pgm \
+        --prefix LD_LIBRARY_PATH : $out/opl/bin/x86-64_linux:${libraryPath} \
+        --set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive;
+    done
+
+    for pgm in $out/cplex/bin/x86-64_linux/cplex $out/cpoptimizer/bin/x86-64_linux/cpoptimizer $out/opl/oplide/jre/bin/*; 
+    do
+      if grep ELF $pgm > /dev/null;
+      then
         patchelf --set-interpreter "$interpreter" $pgm;
-        wrapProgram $pgm \
-          --prefix LD_LIBRARY_PATH : $out/opl/bin/x86-64_linux:${libraryPath} \
-          --set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive;
-      done
-
-      for pgm in $out/cplex/bin/x86-64_linux/cplex $out/cpoptimizer/bin/x86-64_linux/cpoptimizer $out/opl/oplide/jre/bin/*; 
-      do
-        if grep ELF $pgm > /dev/null;
-        then
-          patchelf --set-interpreter "$interpreter" $pgm;
-        fi
-      done
-    '';
+      fi
+    done
+  '';
 
   passthru = {
     libArch = "x86-64_linux";

@@ -794,74 +794,74 @@ in {
           ln -s ${target} $out/${generator};
         '') cfg.generators)}
       '';
-      in ({
-        "systemd/system".source =
-          generateUnits "system" cfg.units upstreamSystemUnits
-          upstreamSystemWants;
+    in ({
+      "systemd/system".source =
+        generateUnits "system" cfg.units upstreamSystemUnits
+        upstreamSystemWants;
 
-        "systemd/user".source =
-          generateUnits "user" cfg.user.units upstreamUserUnits [ ];
+      "systemd/user".source =
+        generateUnits "user" cfg.user.units upstreamUserUnits [ ];
 
-        "systemd/system.conf".text = ''
-          [Manager]
-          ${optionalString config.systemd.enableCgroupAccounting ''
-            DefaultCPUAccounting=yes
-            DefaultIOAccounting=yes
-            DefaultBlockIOAccounting=yes
-            DefaultMemoryAccounting=yes
-            DefaultTasksAccounting=yes
-          ''}
-          ${config.systemd.extraConfig}
-        '';
+      "systemd/system.conf".text = ''
+        [Manager]
+        ${optionalString config.systemd.enableCgroupAccounting ''
+          DefaultCPUAccounting=yes
+          DefaultIOAccounting=yes
+          DefaultBlockIOAccounting=yes
+          DefaultMemoryAccounting=yes
+          DefaultTasksAccounting=yes
+        ''}
+        ${config.systemd.extraConfig}
+      '';
 
-        "systemd/user.conf".text = ''
-          [Manager]
-          ${config.systemd.user.extraConfig}
-        '';
+      "systemd/user.conf".text = ''
+        [Manager]
+        ${config.systemd.user.extraConfig}
+      '';
 
-        "systemd/journald.conf".text = ''
-          [Journal]
-          Storage=persistent
-          RateLimitInterval=${config.services.journald.rateLimitInterval}
-          RateLimitBurst=${toString config.services.journald.rateLimitBurst}
-          ${optionalString (config.services.journald.console != "") ''
-            ForwardToConsole=yes
-            TTYPath=${config.services.journald.console}
-          ''}
-          ${optionalString (config.services.journald.forwardToSyslog) ''
-            ForwardToSyslog=yes
-          ''}
-          ${config.services.journald.extraConfig}
-        '';
+      "systemd/journald.conf".text = ''
+        [Journal]
+        Storage=persistent
+        RateLimitInterval=${config.services.journald.rateLimitInterval}
+        RateLimitBurst=${toString config.services.journald.rateLimitBurst}
+        ${optionalString (config.services.journald.console != "") ''
+          ForwardToConsole=yes
+          TTYPath=${config.services.journald.console}
+        ''}
+        ${optionalString (config.services.journald.forwardToSyslog) ''
+          ForwardToSyslog=yes
+        ''}
+        ${config.services.journald.extraConfig}
+      '';
 
-        "systemd/logind.conf".text = ''
-          [Login]
-          KillUserProcesses=${
-            if config.services.logind.killUserProcesses then "yes" else "no"
-          }
-          HandleLidSwitch=${config.services.logind.lidSwitch}
-          HandleLidSwitchDocked=${config.services.logind.lidSwitchDocked}
-          HandleLidSwitchExternalPower=${config.services.logind.lidSwitchExternalPower}
-          ${config.services.logind.extraConfig}
-        '';
+      "systemd/logind.conf".text = ''
+        [Login]
+        KillUserProcesses=${
+          if config.services.logind.killUserProcesses then "yes" else "no"
+        }
+        HandleLidSwitch=${config.services.logind.lidSwitch}
+        HandleLidSwitchDocked=${config.services.logind.lidSwitchDocked}
+        HandleLidSwitchExternalPower=${config.services.logind.lidSwitchExternalPower}
+        ${config.services.logind.extraConfig}
+      '';
 
-        "systemd/sleep.conf".text = ''
-          [Sleep]
-        '';
+      "systemd/sleep.conf".text = ''
+        [Sleep]
+      '';
 
-        "tmpfiles.d/systemd.conf".source =
-          "${systemd}/example/tmpfiles.d/systemd.conf";
-        "tmpfiles.d/x11.conf".source = "${systemd}/example/tmpfiles.d/x11.conf";
+      "tmpfiles.d/systemd.conf".source =
+        "${systemd}/example/tmpfiles.d/systemd.conf";
+      "tmpfiles.d/x11.conf".source = "${systemd}/example/tmpfiles.d/x11.conf";
 
-        "tmpfiles.d/nixos.conf".text = ''
-          # This file is created automatically and should not be modified.
-          # Please change the option ‘systemd.tmpfiles.rules’ instead.
+      "tmpfiles.d/nixos.conf".text = ''
+        # This file is created automatically and should not be modified.
+        # Please change the option ‘systemd.tmpfiles.rules’ instead.
 
-          ${concatStringsSep "\n" cfg.tmpfiles.rules}
-        '';
+        ${concatStringsSep "\n" cfg.tmpfiles.rules}
+      '';
 
-        "systemd/system-generators" = { source = generators; };
-      });
+      "systemd/system-generators" = { source = generators; };
+    });
 
     services.dbus.enable = true;
 
@@ -957,10 +957,10 @@ in {
     # Provide the systemd-user PAM service, required to run systemd
     # user instances.
     security.pam.services.systemd-user =
-    { # Ensure that pam_systemd gets included. This is special-cased
-      # in systemd to provide XDG_RUNTIME_DIR.
-      startSession = true;
-    };
+      { # Ensure that pam_systemd gets included. This is special-cased
+        # in systemd to provide XDG_RUNTIME_DIR.
+        startSession = true;
+      };
 
     # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;

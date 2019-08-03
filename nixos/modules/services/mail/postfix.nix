@@ -40,8 +40,8 @@ let
         else
           toString value);
     mkEntry = name: value: "${escape name} =${mkVal value}";
-    in concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
-    + cfg.extraConfig;
+  in concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
+  + cfg.extraConfig;
 
   masterCfOptions = { options, config, name, ... }: {
     options = {
@@ -164,18 +164,18 @@ let
         finalValue = toString config.wakeup
           + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent)
           "?";
-        in if wakeupDefined then finalValue else "-";
+      in if wakeupDefined then finalValue else "-";
 
-      in [
-        config.name
-        config.type
-        (maybeOption mkBool "private")
-        (maybeOption (b: mkBool (!b)) "privileged")
-        (maybeOption mkBool "chroot")
-        wakeup
-        (maybeOption toString "maxproc")
-        (config.command + " " + concatMapStringsSep " " mkArg config.args)
-      ];
+    in [
+      config.name
+      config.type
+      (maybeOption mkBool "private")
+      (maybeOption (b: mkBool (!b)) "privileged")
+      (maybeOption mkBool "chroot")
+      wakeup
+      (maybeOption toString "maxproc")
+      (config.command + " " + concatMapStringsSep " " mkArg config.args)
+    ];
   };
 
   masterCfContent = let
@@ -203,7 +203,7 @@ let
       # We need to handle the last column specially here, because it's
       # open-ended (command + args).
       lines = [ labels labelDefaults ] ++ (map (l: init l ++ [ "" ]) masterCf);
-      in fold foldLine (genList (const 0) (length labels)) lines;
+    in fold foldLine (genList (const 0) (length labels)) lines;
 
     # Pad a string with spaces from the right (opposite of fixedWidthString).
     pad = width: str:
@@ -220,10 +220,10 @@ let
     formattedLabels = let
       sep = "# " + concatStrings (genList (const "=") (fullWidth + 5));
       lines = [ sep (formatLine labels) (formatLine labelDefaults) sep ];
-      in concatStringsSep "\n" lines;
+    in concatStringsSep "\n" lines;
 
-    in formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf
-    + "\n" + cfg.extraMasterConf;
+  in formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf
+  + "\n" + cfg.extraMasterConf;
 
   headerCheckOptions = { ... }: {
     options = {
@@ -247,11 +247,11 @@ let
     + cfg.extraHeaderChecks;
 
   aliases = let seperator = if cfg.aliasMapType == "hash" then ":" else "";
-    in optionalString (cfg.postmasterAlias != "") ''
-      postmaster${seperator} ${cfg.postmasterAlias}
-    '' + optionalString (cfg.rootAlias != "") ''
-      root${seperator} ${cfg.rootAlias}
-    '' + cfg.extraAliases;
+  in optionalString (cfg.postmasterAlias != "") ''
+    postmaster${seperator} ${cfg.postmasterAlias}
+  '' + optionalString (cfg.rootAlias != "") ''
+    root${seperator} ${cfg.rootAlias}
+  '' + cfg.extraAliases;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
   virtualFile = pkgs.writeText "postfix-virtual" cfg.virtual;
@@ -873,7 +873,7 @@ in {
           private = false;
           command = "smtpd";
           args = let mkKeyVal = opt: val: [ "-o" (opt + "=" + val) ];
-            in concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions);
+          in concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions);
         };
       } // optionalAttrs cfg.enableSmtp {
         smtp = { };

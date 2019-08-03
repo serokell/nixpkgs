@@ -76,7 +76,7 @@ in {
       serviceConfig = {
         TimeoutStartSec = "infinity";
         ExecStart = "${pkgs.osquery}/bin/osqueryd --logger_path ${
-          escapeShellArg cfg.loggerPath
+            escapeShellArg cfg.loggerPath
           } --pidfile ${escapeShellArg cfg.pidfile} --database_path ${
             escapeShellArg cfg.databasePath
           }";

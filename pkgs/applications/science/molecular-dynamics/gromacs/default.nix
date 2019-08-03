@@ -21,7 +21,7 @@ stdenv.mkDerivation {
                                 -DGMX_CPU_ACCELERATION:STRING=SSE4.1 
                                 -DGMX_OPENMP:BOOL=TRUE
                                 -DGMX_THREAD_MPI:BOOL=FALSE'' else
-        "-DGMX_MPI:BOOL=FALSE"}
+      "-DGMX_MPI:BOOL=FALSE"}
   '';
 
   meta = with stdenv.lib; {

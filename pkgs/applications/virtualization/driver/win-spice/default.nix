@@ -69,7 +69,7 @@ in stdenv.mkDerivation {
     copy = arch: version:
       (copy_qxl arch version) + (copy_usbdk arch) + (copy_vdagent arch)
       + (copy_vioserial arch);
-    in (copy "amd64" "w8.1") + (copy "x86" "w8.1");
+  in (copy "amd64" "w8.1") + (copy "x86" "w8.1");
 
   meta = with stdenv.lib; {
     description = "Windows SPICE Drivers";

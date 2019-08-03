@@ -59,12 +59,12 @@ let
     installPhase = let
       srcFiles = self.sourceDirectories
         ++ map (x: x + "/*") self.topSourceDirectories;
-      in ''
-        runHook preInstall
-        mkdir -p $out/share/agda
-        cp -pR ${concatStringsSep " " srcFiles} $out/share/agda
-        runHook postInstall
-      '';
+    in ''
+      runHook preInstall
+      mkdir -p $out/share/agda
+      cp -pR ${concatStringsSep " " srcFiles} $out/share/agda
+      runHook postInstall
+    '';
 
     passthru = {
       env = stdenv.mkDerivation {
@@ -78,7 +78,7 @@ let
           agdaWrapper = writeShellScriptBin "agda" ''
             exec ${self.agdaWithArgs} "$@"
           '';
-          in [ agdaWrapper ] ++ self.buildDepends;
+        in [ agdaWrapper ] ++ self.buildDepends;
       };
     };
   };

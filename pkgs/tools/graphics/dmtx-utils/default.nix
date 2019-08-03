@@ -1,15 +1,15 @@
 { stdenv, fetchurl, libdmtx, pkgconfig, imagemagick }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "dmtx-utils";
-    version = "0.7.4";
-    name = "${baseName}-${version}";
-    hash = "1di8ymlziy9856abd6rb72z0zqzmrff4r3vql0q9r5sk5ax4s417";
-    url =
-      "mirror://sourceforge/project/libdmtx/libdmtx/0.7.4/dmtx-utils-0.7.4.tar.gz";
-    sha256 = "1di8ymlziy9856abd6rb72z0zqzmrff4r3vql0q9r5sk5ax4s417";
-  };
+    rec {
+      baseName = "dmtx-utils";
+      version = "0.7.4";
+      name = "${baseName}-${version}";
+      hash = "1di8ymlziy9856abd6rb72z0zqzmrff4r3vql0q9r5sk5ax4s417";
+      url =
+        "mirror://sourceforge/project/libdmtx/libdmtx/0.7.4/dmtx-utils-0.7.4.tar.gz";
+      sha256 = "1di8ymlziy9856abd6rb72z0zqzmrff4r3vql0q9r5sk5ax4s417";
+    };
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ libdmtx imagemagick ];
 in stdenv.mkDerivation {

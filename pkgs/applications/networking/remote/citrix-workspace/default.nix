@@ -33,10 +33,10 @@ let
     # Leaving this here even though there are no deprecations yet
     # for ease of future maintenance
     deprecatedVersions = let versions = [ ];
-      in lib.listToAttrs (lib.flip map versions (v:
-        lib.nameValuePair v
-        (throw "Unsupported citrix_workspace version: ${v}")));
-    in deprecatedVersions // supportedVersions;
+    in lib.listToAttrs (lib.flip map versions (v:
+      lib.nameValuePair v
+      (throw "Unsupported citrix_workspace version: ${v}")));
+  in deprecatedVersions // supportedVersions;
 
   citrixWorkspaceForVersion =
     { major, minor, patch, x64hash, x86hash, x64suffix, x86suffix, homepage }:

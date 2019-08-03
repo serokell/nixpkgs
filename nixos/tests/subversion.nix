@@ -34,24 +34,24 @@ import ./make-test.nix ({ pkgs, ... }:
     nodes = {
       webserver = { ... }:
 
-      {
-        services.httpd.enable = true;
-        services.httpd.adminAddr = "e.dolstra@tudelft.nl";
-        services.httpd.extraSubservices = [{
-          function = import <services/subversion>;
-          urlPrefix = "";
-          dataDir = "/data/subversion";
-          userCreationDomain = "192.168.0.0/16";
-        }];
-        nixpkgs.config.packageOverrides = overrides;
-      };
+        {
+          services.httpd.enable = true;
+          services.httpd.adminAddr = "e.dolstra@tudelft.nl";
+          services.httpd.extraSubservices = [{
+            function = import <services/subversion>;
+            urlPrefix = "";
+            dataDir = "/data/subversion";
+            userCreationDomain = "192.168.0.0/16";
+          }];
+          nixpkgs.config.packageOverrides = overrides;
+        };
 
       client = { pkgs, ... }:
 
-      {
-        environment.systemPackages = [ pkgs.subversion ];
-        nixpkgs.config.packageOverrides = overrides;
-      };
+        {
+          environment.systemPackages = [ pkgs.subversion ];
+          nixpkgs.config.packageOverrides = overrides;
+        };
 
     };
 

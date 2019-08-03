@@ -105,7 +105,7 @@ in {
               Persistent = true;
             };
           };
-        in listToAttrs (map scrubTimer cfgScrub.fileSystems);
+      in listToAttrs (map scrubTimer cfgScrub.fileSystems);
 
       systemd.services = let
         scrubService = fs:
@@ -120,7 +120,7 @@ in {
               ExecStart = "${pkgs.btrfs-progs}/bin/btrfs scrub start -B ${fs}";
             };
           };
-        in listToAttrs (map scrubService cfgScrub.fileSystems);
+      in listToAttrs (map scrubService cfgScrub.fileSystems);
     })
   ];
 }

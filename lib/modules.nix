@@ -410,10 +410,10 @@ rec {
           sortProperties defs''.values
         else
           defs''.values;
-      in {
-        values = defs''';
-        inherit (defs'') highestPrio;
-      };
+    in {
+      values = defs''';
+      inherit (defs'') highestPrio;
+    };
     defsFinal = defsFinal'.values;
 
     # Type-check the remaining definitions, and merge them.
@@ -544,10 +544,10 @@ rec {
   fixupOptionType = loc: opt:
     let
       options = opt.options or (throw "Option `${
-        showOption loc'
-      }' has type optionSet but has no option attribute, in ${
-        showFiles opt.declarations
-      }.");
+          showOption loc'
+        }' has type optionSet but has no option attribute, in ${
+          showFiles opt.declarations
+        }.");
       f = tp:
         let
           optionSetIn = type:
@@ -682,11 +682,11 @@ rec {
     { options, ... }: {
       options = setAttrByPath optionName (mkOption { visible = false; });
       config.warnings = let opt = getAttrFromPath optionName options;
-        in optional opt.isDefined ''
-          The option definition `${showOption optionName}' in ${
-            showFiles opt.files
-          } no longer has any effect; please remove it.
-          ${replacementInstructions}'';
+      in optional opt.isDefined ''
+        The option definition `${showOption optionName}' in ${
+          showFiles opt.files
+        } no longer has any effect; please remove it.
+        ${replacementInstructions}'';
     };
 
   /* Return a module that causes a warning to be shown if the

@@ -217,10 +217,10 @@ in stdenv.mkDerivation {
       "alpha"
     else
       throw "unknown emulation for platform: ${targetPlatform.config}";
-    in if targetPlatform.useLLVM or false then
-      ""
-    else
-      targetPlatform.platform.bfdEmulation or (fmt + sep + arch);
+  in if targetPlatform.useLLVM or false then
+    ""
+  else
+    targetPlatform.platform.bfdEmulation or (fmt + sep + arch);
 
   strictDeps = true;
   depsTargetTargetPropagated = extraPackages;
@@ -353,14 +353,15 @@ in stdenv.mkDerivation {
   expandResponseParams = "${expand-response-params}/bin/expand-response-params";
 
   meta = let bintools_ = if bintools != null then bintools else { };
-    in (if bintools_ ? meta then
-      removeAttrs bintools.meta [ "priority" ]
-    else
-      { }) // {
-        description = stdenv.lib.attrByPath [ "meta" "description" ]
-          "System binary utilities" bintools_ + " (wrapper script)";
-        priority = 10;
-      } // optionalAttrs useMacosReexportHack {
-        platforms = stdenv.lib.platforms.darwin;
-      };
+  in (if bintools_ ? meta then
+    removeAttrs bintools.meta [ "priority" ]
+  else
+    { }) // {
+      description =
+        stdenv.lib.attrByPath [ "meta" "description" ] "System binary utilities"
+        bintools_ + " (wrapper script)";
+      priority = 10;
+    } // optionalAttrs useMacosReexportHack {
+      platforms = stdenv.lib.platforms.darwin;
+    };
 }

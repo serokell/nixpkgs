@@ -71,7 +71,7 @@ in stdenv.mkDerivation rec {
     gappsWrapperArgs+=(
       --set LV2_PATH "${stdenv.lib.makeSearchPath "lib/lv2" lv2Plugins}"
       --set LADSPA_PATH "${
-      stdenv.lib.makeSearchPath "lib/ladspa" ladspaPlugins
+        stdenv.lib.makeSearchPath "lib/ladspa" ladspaPlugins
       }"
     )
   '';

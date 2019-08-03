@@ -108,7 +108,7 @@ in {
         serviceConfig = {
           Type = "forking";
           ExecStart = "${pkgs.physlock}/bin/physlock -d${
-            optionalString cfg.disableSysRq "s"
+              optionalString cfg.disableSysRq "s"
             }";
         };
       };

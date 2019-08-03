@@ -20,20 +20,20 @@ let
   # Partition module files because between NixOS and non-NixOS files.  NixOS
   # files may change if the repository is updated.
   partitionedModuleFiles = let p = partition isNixOSFile moduleFiles;
-    in {
-      nixos = p.right;
-      others = p.wrong;
-    };
+  in {
+    nixos = p.right;
+    others = p.wrong;
+  };
 
   # Path transformed to be valid on the installation device.  Thus the
   # device configuration could be rebuild.
   relocatedModuleFiles = let
     relocateNixOS = path:
       "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
-    in {
-      nixos = map relocateNixOS partitionedModuleFiles.nixos;
-      others = [ ]; # TODO: copy the modules to the install-device repository.
-    };
+  in {
+    nixos = map relocateNixOS partitionedModuleFiles.nixos;
+    others = [ ]; # TODO: copy the modules to the install-device repository.
+  };
 
   # A dummy /etc/nixos/configuration.nix in the booted CD that
   # rebuilds the CD's configuration (and allows the configuration to

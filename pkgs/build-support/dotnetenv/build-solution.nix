@@ -61,7 +61,7 @@ stdenv.mkDerivation {
         
         mkdir -p $out
         MSBuild.exe ${
-      toString slnFile
+          toString slnFile
         } /nologo /t:${targets} /p:IntermediateOutputPath=$(cygpath --windows $out)\\ /p:OutputPath=$(cygpath --windows $out)\\ /verbosity:${verbosity} ${options}
         
         # Because .NET assemblies store strings as UTF-16 internally, we cannot detect

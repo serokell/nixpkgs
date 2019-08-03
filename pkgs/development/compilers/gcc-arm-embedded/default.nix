@@ -39,7 +39,7 @@ in stdenv.mkDerivation {
       if [ -f "$f" ] && patchelf "$f" 2> /dev/null; then
         patchelf --set-interpreter ${getLib glibc}/lib/ld-linux.so.2 \
                  --set-rpath ${
-      stdenv.lib.makeLibraryPath [ "$out" gcc ncurses ]
+                   stdenv.lib.makeLibraryPath [ "$out" gcc ncurses ]
                  } \
                  "$f" || true
       fi

@@ -18,21 +18,21 @@ stdenv.mkDerivation rec {
     interpreter = ''$(< "$NIX_CC/nix-support/dynamic-linker")'';
     libPath =
       stdenv.lib.makeLibraryPath [ SDL libglvnd libogg libvorbis curl openal ];
-    in ''
-      mkdir -pv $out/bin
-      cd $out
-      unzip $src
+  in ''
+    mkdir -pv $out/bin
+    cd $out
+    unzip $src
 
-      ${if stdenv.hostPlatform.system == "x86_64-linux" then ''
-        patchelf --set-interpreter "${interpreter}" "${gameDir}/openarena.x86_64"
-        makeWrapper "${gameDir}/openarena.x86_64" "$out/bin/openarena" \
-          --prefix LD_LIBRARY_PATH : "${libPath}"
-      '' else ''
-        patchelf --set-interpreter "${interpreter}" "${gameDir}/openarena.i386"
-        makeWrapper "${gameDir}/openarena.i386" "$out/bin/openarena" \
-          --prefix LD_LIBRARY_PATH : "${libPath}"
-      ''}
-    '';
+    ${if stdenv.hostPlatform.system == "x86_64-linux" then ''
+      patchelf --set-interpreter "${interpreter}" "${gameDir}/openarena.x86_64"
+      makeWrapper "${gameDir}/openarena.x86_64" "$out/bin/openarena" \
+        --prefix LD_LIBRARY_PATH : "${libPath}"
+    '' else ''
+      patchelf --set-interpreter "${interpreter}" "${gameDir}/openarena.i386"
+      makeWrapper "${gameDir}/openarena.i386" "$out/bin/openarena" \
+        --prefix LD_LIBRARY_PATH : "${libPath}"
+    ''}
+  '';
 
   meta = {
     description = "Crossplatform openarena client";

@@ -3,13 +3,13 @@ import ./make-test.nix ({ pkgs, ... }: {
 
   machine = { pkgs, ... }:
 
-  {
-    programs.fish.enable = true;
-    environment.systemPackages = with pkgs; [
-      coreutils
-      procps # kill collides with coreutils' to test https://github.com/NixOS/nixpkgs/issues/56432
-    ];
-  };
+    {
+      programs.fish.enable = true;
+      environment.systemPackages = with pkgs; [
+        coreutils
+        procps # kill collides with coreutils' to test https://github.com/NixOS/nixpkgs/issues/56432
+      ];
+    };
 
   testScript = ''
     $machine->waitForFile("/etc/fish/generated_completions/coreutils.fish");

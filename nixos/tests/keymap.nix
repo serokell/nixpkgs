@@ -34,8 +34,8 @@ let
       lq = length combinedTests.qwerty;
       le = length combinedTests.expect;
       msg = "length mismatch between qwerty (${toString lq}) and expect (${
-        toString le
-      }) lists!";
+          toString le
+        }) lists!";
       send = concatMapStringsSep ", " perlStr combinedTests.qwerty;
       expect =
         if (lq == le) then concatStrings combinedTests.expect else throw msg;
@@ -57,7 +57,7 @@ let
             # prepare and start testReader
             $machine->execute("rm -f ${readyFile} ${resultFile}");
             $machine->succeed("$cmd ${testReader} ${toString le} ".q(${
-          escapeShellArg expect
+              escapeShellArg expect
             } & ));
 
             if ($desc eq "Xorg keymap") {

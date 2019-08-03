@@ -244,12 +244,19 @@ in stdenv.mkDerivation rec {
     for p in $(ls $out/bin/) ; do
       wrapProgram $out/bin/$p \
         --prefix PATH            ":" "${
-      lib.makeBinPath [ python2Packages.python glxinfo xdpyinfo ]
+          lib.makeBinPath [ python2Packages.python glxinfo xdpyinfo ]
         }" \
         --prefix LD_LIBRARY_PATH ":" "${
-      lib.makeLibraryPath
-      ([ curl systemd libmad libvdpau libcec libcec_platform rtmpdump libass ]
-        ++ lib.optional nfsSupport libnfs)
+          lib.makeLibraryPath ([
+            curl
+            systemd
+            libmad
+            libvdpau
+            libcec
+            libcec_platform
+            rtmpdump
+            libass
+          ] ++ lib.optional nfsSupport libnfs)
         }"
     done
 

@@ -72,11 +72,11 @@ callPackage ./common.nix { inherit stdenv; } {
         -f charmaps/UTF-8 \
         --prefix $NIX_BUILD_TOP \
         ${
-        if stdenv.hostPlatform.parsed.cpu.significantByte.name
-        == "littleEndian" then
-          "--little-endian"
-        else
-          "--big-endian"
+          if stdenv.hostPlatform.parsed.cpu.significantByte.name
+          == "littleEndian" then
+            "--little-endian"
+          else
+            "--big-endian"
         } \
         C.UTF-8
       cp -r $NIX_BUILD_TOP/${buildPackages.glibc}/lib/locale $out/lib

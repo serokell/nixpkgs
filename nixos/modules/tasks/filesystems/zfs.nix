@@ -420,8 +420,8 @@ in {
               poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
               if poolImported "${pool}"; then
                 ${
-                optionalString cfgZfs.requestEncryptionCredentials
-                ''"${packages.zfsUser}/sbin/zfs" load-key -r "${pool}"''
+                  optionalString cfgZfs.requestEncryptionCredentials
+                  ''"${packages.zfsUser}/sbin/zfs" load-key -r "${pool}"''
                 }
                 echo "Successfully imported ${pool}"
               else
@@ -451,9 +451,9 @@ in {
             wantedBy = [ "zfs.target" ];
           };
 
-        in listToAttrs (map createImportService dataPools
-          ++ map createSyncService allPools
-          ++ map createZfsService [ "zfs-mount" "zfs-share" "zfs-zed" ]);
+      in listToAttrs (map createImportService dataPools
+        ++ map createSyncService allPools
+        ++ map createZfsService [ "zfs-mount" "zfs-share" "zfs-zed" ]);
 
       systemd.targets."zfs-import" =
         let services = map (pool: "zfs-import-${pool}.service") dataPools;
@@ -482,20 +482,20 @@ in {
           else
             throw "unknown snapshot name";
         numSnapshots = name: builtins.getAttr name cfgSnapshots;
-        in builtins.listToAttrs (map (snapName: {
-          name = "zfs-snapshot-${snapName}";
-          value = {
-            description = "ZFS auto-snapshotting every ${descr snapName}";
-            after = [ "zfs-import.target" ];
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
+      in builtins.listToAttrs (map (snapName: {
+        name = "zfs-snapshot-${snapName}";
+        value = {
+          description = "ZFS auto-snapshotting every ${descr snapName}";
+          after = [ "zfs-import.target" ];
+          serviceConfig = {
+            Type = "oneshot";
+            ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
                 toString (numSnapshots snapName)
-                }";
-            };
-            restartIfChanged = false;
+              }";
           };
-        }) snapshotNames);
+          restartIfChanged = false;
+        };
+      }) snapshotNames);
 
       systemd.timers =
         let timer = name: if name == "frequent" then "*:0,15,30,45" else name;

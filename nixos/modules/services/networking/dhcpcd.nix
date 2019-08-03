@@ -172,34 +172,34 @@ in {
         (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
         && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null
           && cfgN.defaultGateway6.address != ""));
-      in {
-        description = "DHCP Client";
+    in {
+      description = "DHCP Client";
 
-        wantedBy = [ "multi-user.target" ]
-          ++ optional (!hasDefaultGatewaySet) "network-online.target";
-        wants = [ "network.target" "systemd-udev-settle.service" ];
-        before = [ "network-online.target" ];
-        after = [ "systemd-udev-settle.service" ];
+      wantedBy = [ "multi-user.target" ]
+        ++ optional (!hasDefaultGatewaySet) "network-online.target";
+      wants = [ "network.target" "systemd-udev-settle.service" ];
+      before = [ "network-online.target" ];
+      after = [ "systemd-udev-settle.service" ];
 
-        # Stopping dhcpcd during a reconfiguration is undesirable
-        # because it brings down the network interfaces configured by
-        # dhcpcd.  So do a "systemctl restart" instead.
-        stopIfChanged = false;
+      # Stopping dhcpcd during a reconfiguration is undesirable
+      # because it brings down the network interfaces configured by
+      # dhcpcd.  So do a "systemctl restart" instead.
+      stopIfChanged = false;
 
-        path = [ dhcpcd pkgs.nettools pkgs.openresolv ];
+      path = [ dhcpcd pkgs.nettools pkgs.openresolv ];
 
-        unitConfig.ConditionCapability = "CAP_NET_ADMIN";
+      unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
-        serviceConfig = {
-          Type = "forking";
-          PIDFile = "/run/dhcpcd.pid";
-          ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd -w --quiet ${
+      serviceConfig = {
+        Type = "forking";
+        PIDFile = "/run/dhcpcd.pid";
+        ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd -w --quiet ${
             optionalString cfg.persistent "--persistent"
           } --config ${dhcpcdConf}";
-          ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
-          Restart = "always";
-        };
+        ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
+        Restart = "always";
       };
+    };
 
     environment.systemPackages = [ dhcpcd ];
 

@@ -373,19 +373,19 @@ import ./make-test.nix ({ pkgs, lib, ... }:
 
       subtest "NSS", sub {
           $client1->succeed("test \"\$(id -u '${ldapUser}')\" -eq ${
-        toString ldapUserId
+            toString ldapUserId
           }");
           $client1->succeed("test \"\$(id -u -n '${ldapUser}')\" = '${ldapUser}'");
           $client1->succeed("test \"\$(id -g '${ldapUser}')\" -eq ${
-        toString ldapGroupId
+            toString ldapGroupId
           }");
           $client1->succeed("test \"\$(id -g -n '${ldapUser}')\" = '${ldapGroup}'");
           $client2->succeed("test \"\$(id -u '${ldapUser}')\" -eq ${
-        toString ldapUserId
+            toString ldapUserId
           }");
           $client2->succeed("test \"\$(id -u -n '${ldapUser}')\" = '${ldapUser}'");
           $client2->succeed("test \"\$(id -g '${ldapUser}')\" -eq ${
-        toString ldapGroupId
+            toString ldapGroupId
           }");
           $client2->succeed("test \"\$(id -g -n '${ldapUser}')\" = '${ldapGroup}'");
       };

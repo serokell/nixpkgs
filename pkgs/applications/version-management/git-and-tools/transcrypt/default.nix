@@ -25,15 +25,15 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/transcrypt \
       --prefix PATH : "${
-      stdenv.lib.makeBinPath [
-        git
-        openssl
-        coreutils
-        utillinux
-        gnugrep
-        gnused
-        gawk
-      ]
+        stdenv.lib.makeBinPath [
+          git
+          openssl
+          coreutils
+          utillinux
+          gnugrep
+          gnused
+          gawk
+        ]
       }"
 
     cat > $out/bin/transcrypt-depspathprefix << EOF

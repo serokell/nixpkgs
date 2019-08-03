@@ -31,7 +31,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/tomb \
       --prefix PATH : $out/bin:${
-      lib.makeBinPath [ cryptsetup gettext gnupg pinentry utillinux e2fsprogs ]
+        lib.makeBinPath [
+          cryptsetup
+          gettext
+          gnupg
+          pinentry
+          utillinux
+          e2fsprogs
+        ]
       }
   '';
 

@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram "$out/bin/spring" \
       --prefix LD_LIBRARY_PATH : "${
-      stdenv.lib.makeLibraryPath [ stdenv.cc.cc systemd ]
+        stdenv.lib.makeLibraryPath [ stdenv.cc.cc systemd ]
       }"
   '';
 

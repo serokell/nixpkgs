@@ -10,6 +10,6 @@ in lib.concatLists [
   (lib.optional (p ? float) "--with-float=${p.float}")
   (lib.optional (p ? mode) "--with-mode=${p.mode}")
   (lib.optional (let tp = targetPlatform;
-    in tp.isPower && tp.libc == "glibc" && tp.is64bit && tp.isLittleEndian)
+  in tp.isPower && tp.libc == "glibc" && tp.is64bit && tp.isLittleEndian)
     "--with-long-double-128")
 ]

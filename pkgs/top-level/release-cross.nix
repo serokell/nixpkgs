@@ -101,16 +101,16 @@ in {
 
     mapTestEqual = lib.mapAttrsRecursive testEqual;
 
-    in mapTestEqual {
-      boehmgc = nativePlatforms;
-      libffi = nativePlatforms;
-      libiconv = nativePlatforms;
-      libtool = nativePlatforms;
-      zlib = nativePlatforms;
-      readline = nativePlatforms;
-      libxml2 = nativePlatforms;
-      guile = nativePlatforms;
-    };
+  in mapTestEqual {
+    boehmgc = nativePlatforms;
+    libffi = nativePlatforms;
+    libiconv = nativePlatforms;
+    libtool = nativePlatforms;
+    zlib = nativePlatforms;
+    readline = nativePlatforms;
+    libxml2 = nativePlatforms;
+    guile = nativePlatforms;
+  };
 
   crossIphone64 = mapTestOnCross lib.systems.examples.iphone64 darwinCommon;
 
@@ -163,6 +163,6 @@ in {
     mkBootstrapToolsJob = drv:
       assert lib.elem drv.system supportedSystems;
       hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
-    in lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
-    (name: mkBootstrapToolsJob) tools;
+  in lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
+  (name: mkBootstrapToolsJob) tools;
 }

@@ -115,7 +115,7 @@ in {
 
         Restart = "on-failure";
         ExecStart = "${pkgs.syncthing-relay}/bin/strelaysrv ${
-          concatStringsSep " " relayOptions
+            concatStringsSep " " relayOptions
           }";
       };
     };

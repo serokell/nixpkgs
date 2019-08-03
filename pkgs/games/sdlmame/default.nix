@@ -25,17 +25,17 @@ stdenv.mkDerivation rec {
     patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${
-      stdenv.lib.makeLibraryPath [
-        alsaLib
-        qt48
-        SDL
-        fontconfig
-        freetype
-        SDL_ttf
-        xorg.libX11
-        xorg.libXinerama
-        stdenv.cc.cc
-      ]
+        stdenv.lib.makeLibraryPath [
+          alsaLib
+          qt48
+          SDL
+          fontconfig
+          freetype
+          SDL_ttf
+          xorg.libX11
+          xorg.libXinerama
+          stdenv.cc.cc
+        ]
       }" \
       share/sdlmame/sdlmame
 

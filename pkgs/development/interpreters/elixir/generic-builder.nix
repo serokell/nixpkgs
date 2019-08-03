@@ -48,7 +48,7 @@ stdenv.mkDerivation ({
       if [ "$b" = mix ]; then continue; fi
       wrapProgram $f \
         --prefix PATH ":" "${
-      stdenv.lib.makeBinPath [ erlang coreutils curl bash ]
+          stdenv.lib.makeBinPath [ erlang coreutils curl bash ]
         }" \
         --set CURL_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
     done

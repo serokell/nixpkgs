@@ -11,8 +11,8 @@ import ./make-test.nix ({ pkgs, lib, ... }:
     }];
     jmxRolesFile = ./cassandra-jmx-roles;
     jmxAuthArgs = "-u ${(builtins.elemAt jmxRoles 0).username} -pw ${
-      (builtins.elemAt jmxRoles 0).password
-    }";
+        (builtins.elemAt jmxRoles 0).password
+      }";
 
     # Would usually be assigned to 512M
     numMaxHeapSize = "400";

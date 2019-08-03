@@ -96,7 +96,7 @@ in stdenv.mkDerivation rec {
       do
         wrapProgram "$f" --prefix PATH ":" "${stdenv.cc}/bin"
       done'' else
-        ""}
+      ""}
 
     # Create wrappers
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/clinfo

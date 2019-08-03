@@ -145,43 +145,43 @@ in stdenv.mkDerivation rec {
       "x86_64" = "x86-64";
       "i686" = "pentium4";
     }."${arch}" or (throw "unsupported architecture: ${arch}");
-    in [
-      "ARCH=${arch}"
-      "MARCH=${march}"
-      "JULIA_CPU_TARGET=${cpuTarget}"
-      "PREFIX=$(out)"
-      "prefix=$(out)"
-      "SHELL=${stdenv.shell}"
+  in [
+    "ARCH=${arch}"
+    "MARCH=${march}"
+    "JULIA_CPU_TARGET=${cpuTarget}"
+    "PREFIX=$(out)"
+    "prefix=$(out)"
+    "SHELL=${stdenv.shell}"
 
-      "USE_SYSTEM_BLAS=1"
-      "USE_BLAS64=${if openblas.blas64 then "1" else "0"}"
-      "LIBBLAS=-lopenblas"
-      "LIBBLASNAME=libopenblas"
+    "USE_SYSTEM_BLAS=1"
+    "USE_BLAS64=${if openblas.blas64 then "1" else "0"}"
+    "LIBBLAS=-lopenblas"
+    "LIBBLASNAME=libopenblas"
 
-      "USE_SYSTEM_LAPACK=1"
-      "LIBLAPACK=-lopenblas"
-      "LIBLAPACKNAME=libopenblas"
+    "USE_SYSTEM_LAPACK=1"
+    "LIBLAPACK=-lopenblas"
+    "LIBLAPACKNAME=libopenblas"
 
-      "USE_SYSTEM_ARPACK=1"
-      "USE_SYSTEM_FFTW=1"
-      "USE_SYSTEM_GMP=1"
-      "USE_SYSTEM_LIBGIT2=1"
-      "USE_SYSTEM_LIBUNWIND=1"
+    "USE_SYSTEM_ARPACK=1"
+    "USE_SYSTEM_FFTW=1"
+    "USE_SYSTEM_GMP=1"
+    "USE_SYSTEM_LIBGIT2=1"
+    "USE_SYSTEM_LIBUNWIND=1"
 
-      #"USE_SYSTEM_LLVM=1"
-      "LLVM_VER=6.0.0"
+    #"USE_SYSTEM_LLVM=1"
+    "LLVM_VER=6.0.0"
 
-      "USE_SYSTEM_MPFR=1"
-      "USE_SYSTEM_OPENLIBM=1"
-      "USE_SYSTEM_OPENSPECFUN=1"
-      "USE_SYSTEM_PATCHELF=1"
-      "USE_SYSTEM_PCRE=1"
-      "PCRE_CONFIG=${pcre2.dev}/bin/pcre2-config"
-      "PCRE_INCL_PATH=${pcre2.dev}/include/pcre2.h"
-      "USE_SYSTEM_READLINE=1"
-      "USE_SYSTEM_UTF8PROC=1"
-      "USE_SYSTEM_ZLIB=1"
-    ];
+    "USE_SYSTEM_MPFR=1"
+    "USE_SYSTEM_OPENLIBM=1"
+    "USE_SYSTEM_OPENSPECFUN=1"
+    "USE_SYSTEM_PATCHELF=1"
+    "USE_SYSTEM_PCRE=1"
+    "PCRE_CONFIG=${pcre2.dev}/bin/pcre2-config"
+    "PCRE_INCL_PATH=${pcre2.dev}/include/pcre2.h"
+    "USE_SYSTEM_READLINE=1"
+    "USE_SYSTEM_UTF8PROC=1"
+    "USE_SYSTEM_ZLIB=1"
+  ];
 
   LD_LIBRARY_PATH = makeLibraryPath [
     arpack

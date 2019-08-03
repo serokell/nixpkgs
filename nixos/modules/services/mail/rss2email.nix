@@ -102,20 +102,20 @@ in {
           inherit (feed) url;
         } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }))
         cfg.feeds));
-      in {
-        preStart = ''
-          cp ${conf} /var/rss2email/conf.cfg
-          if [ ! -f /var/rss2email/db.json ]; then
-            echo '{"version":2,"feeds":[]}' > /var/rss2email/db.json
-          fi
-        '';
-        path = [ pkgs.system-sendmail ];
-        serviceConfig = {
-          ExecStart =
-            "${pkgs.rss2email}/bin/r2e -c /var/rss2email/conf.cfg -d /var/rss2email/db.json run";
-          User = "rss2email";
-        };
+    in {
+      preStart = ''
+        cp ${conf} /var/rss2email/conf.cfg
+        if [ ! -f /var/rss2email/db.json ]; then
+          echo '{"version":2,"feeds":[]}' > /var/rss2email/db.json
+        fi
+      '';
+      path = [ pkgs.system-sendmail ];
+      serviceConfig = {
+        ExecStart =
+          "${pkgs.rss2email}/bin/r2e -c /var/rss2email/conf.cfg -d /var/rss2email/db.json run";
+        User = "rss2email";
       };
+    };
 
     systemd.timers.rss2email = {
       partOf = [ "rss2email.service" ];

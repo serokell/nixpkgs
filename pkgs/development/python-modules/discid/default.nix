@@ -10,11 +10,11 @@ buildPythonPackage rec {
   };
 
   patchPhase = let extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
-      substituteInPlace discid/libdiscid.py \
-        --replace "_open_library(_LIB_NAME)" \
-                  "_open_library('${libdiscid}/lib/libdiscid${extension}')"
-    '';
+  in ''
+    substituteInPlace discid/libdiscid.py \
+      --replace "_open_library(_LIB_NAME)" \
+                "_open_library('${libdiscid}/lib/libdiscid${extension}')"
+  '';
 
   meta = with stdenv.lib; {
     description = "Python binding of libdiscid";

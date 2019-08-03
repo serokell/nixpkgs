@@ -55,17 +55,17 @@ in {
     else
       "${pkgs.writeText "snmp-eporter-conf.yml"
       (builtins.toJSON cfg.configuration)}";
-    in {
-      serviceConfig = {
-        DynamicUser = true;
-        ExecStart = ''
-          ${pkgs.prometheus-snmp-exporter.bin}/bin/snmp_exporter \
-            --config.file=${configFile} \
-            --log.format=${cfg.logFormat} \
-            --log.level=${cfg.logLevel} \
-            --web.listen-address=${cfg.listenAddress}:${toString cfg.port} \
-            ${concatStringsSep " \\\n  " cfg.extraFlags}
-        '';
-      };
+  in {
+    serviceConfig = {
+      DynamicUser = true;
+      ExecStart = ''
+        ${pkgs.prometheus-snmp-exporter.bin}/bin/snmp_exporter \
+          --config.file=${configFile} \
+          --log.format=${cfg.logFormat} \
+          --log.level=${cfg.logLevel} \
+          --web.listen-address=${cfg.listenAddress}:${toString cfg.port} \
+          ${concatStringsSep " \\\n  " cfg.extraFlags}
+      '';
     };
+  };
 }

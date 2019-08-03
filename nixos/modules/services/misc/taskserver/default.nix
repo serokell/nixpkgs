@@ -86,7 +86,7 @@ let
           else
             findPkiDefinitions newPath val;
       in flatten (mapAttrsToList mkSublist attrs);
-    in all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
+  in all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
 
   orgOptions = { ... }: {
     options.users = mkOption {
@@ -364,7 +364,7 @@ in {
                 else
                   [ "${mkKey newPath}=${scalar}" ];
             in concatLists (mapAttrsToList mapper attrs);
-          in recurse [ ];
+        in recurse [ ];
       };
     };
   };
@@ -476,13 +476,13 @@ in {
           jsonOrgs = builtins.toJSON cfg.organisations;
           jsonFile = pkgs.writeText "orgs.json" jsonOrgs;
           helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
-          in "${helperTool} process-json '${jsonFile}'";
+        in "${helperTool} process-json '${jsonFile}'";
 
         serviceConfig = {
           ExecStart = let
             mkCfgFlag = flag: escapeShellArg "--${flag}";
             cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
-            in "@${taskd} taskd server ${cfgFlags}";
+          in "@${taskd} taskd server ${cfgFlags}";
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           Restart = "on-failure";
           PermissionsStartOnly = true;
@@ -521,12 +521,12 @@ in {
               --outfile "${cfg.dataDir}/keys/ca.key"
             silent_certtool -s \
               --template "${
-            pkgs.writeText "taskserver-ca.template" ''
-              cn = ${cfg.fqdn}
-              expiration_days = ${toString cfg.pki.auto.expiration.ca}
-              cert_signing_key
-              ca
-            ''
+                pkgs.writeText "taskserver-ca.template" ''
+                  cn = ${cfg.fqdn}
+                  expiration_days = ${toString cfg.pki.auto.expiration.ca}
+                  cert_signing_key
+                  ca
+                ''
               }" \
               --load-privkey "${cfg.dataDir}/keys/ca.key" \
               --outfile "${cfg.dataDir}/keys/ca.cert"
@@ -542,13 +542,13 @@ in {
 
             silent_certtool -c \
               --template "${
-            pkgs.writeText "taskserver-cert.template" ''
-              cn = ${cfg.fqdn}
-              expiration_days = ${toString cfg.pki.auto.expiration.server}
-              tls_www_server
-              encryption_key
-              signing_key
-            ''
+                pkgs.writeText "taskserver-cert.template" ''
+                  cn = ${cfg.fqdn}
+                  expiration_days = ${toString cfg.pki.auto.expiration.server}
+                  tls_www_server
+                  encryption_key
+                  signing_key
+                ''
               }" \
               --load-ca-privkey "${cfg.dataDir}/keys/ca.key" \
               --load-ca-certificate "${cfg.dataDir}/keys/ca.cert" \
@@ -567,9 +567,9 @@ in {
           if [ ! -e "${cfg.dataDir}/keys/server.crl" ]; then
             silent_certtool --generate-crl \
               --template "${
-            pkgs.writeText "taskserver-crl.template" ''
-              expiration_days = ${toString cfg.pki.auto.expiration.crl}
-            ''
+                pkgs.writeText "taskserver-crl.template" ''
+                  expiration_days = ${toString cfg.pki.auto.expiration.crl}
+                ''
               }" \
               --load-ca-privkey "${cfg.dataDir}/keys/ca.key" \
               --load-ca-certificate "${cfg.dataDir}/keys/ca.cert" \

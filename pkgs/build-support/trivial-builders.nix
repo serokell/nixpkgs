@@ -280,10 +280,10 @@ in rec {
       mkdir -p $out
             cd $out
             ${
-        lib.concatMapStrings (x: ''
-          mkdir -p "$(dirname ${lib.escapeShellArg x.name})"
-          ln -s ${lib.escapeShellArg x.path} ${lib.escapeShellArg x.name}
-        '') entries
+              lib.concatMapStrings (x: ''
+                mkdir -p "$(dirname ${lib.escapeShellArg x.name})"
+                ln -s ${lib.escapeShellArg x.path} ${lib.escapeShellArg x.name}
+              '') entries
             }
           '';
 

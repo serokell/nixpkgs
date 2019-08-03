@@ -76,14 +76,14 @@ stdenv.mkDerivation {
 
     for f in $out/lib/*; do
       patchelf --set-rpath "${
-      stdenv.lib.makeLibraryPath [
-        stdenv.cc.cc.lib
-        curl
-        xorg.libX11
-        stdenv.glibc.out
-        xorg.libXcursor
-        "$out"
-      ]
+        stdenv.lib.makeLibraryPath [
+          stdenv.cc.cc.lib
+          curl
+          xorg.libX11
+          stdenv.glibc.out
+          xorg.libXcursor
+          "$out"
+        ]
       }:${stdenv.cc.cc.lib}/lib64:${stdenv.glibc.out}/lib64" $f
     done
   '';

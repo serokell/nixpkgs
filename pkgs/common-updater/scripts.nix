@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
     for f in $out/bin/*; do
       wrapProgram $f --prefix PATH : ${
-      stdenv.lib.makeBinPath [ coreutils gawk gnused gnugrep nix diffutils ]
+        stdenv.lib.makeBinPath [ coreutils gawk gnused gnugrep nix diffutils ]
       }
     done
   '';

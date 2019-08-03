@@ -1,14 +1,14 @@
 { stdenv, fetchurl, unzip }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "angelscript";
-    version = "2.22.2";
-    name = "${baseName}-${version}";
-    url =
-      "http://www.angelcode.com/angelscript/sdk/files/angelscript_${version}.zip";
-    sha256 = "1pp853lbnz383ilp9wbgc3wv1dn7lpx3idz8dmzda94rckl7sd43";
-  };
+    rec {
+      baseName = "angelscript";
+      version = "2.22.2";
+      name = "${baseName}-${version}";
+      url =
+        "http://www.angelcode.com/angelscript/sdk/files/angelscript_${version}.zip";
+      sha256 = "1pp853lbnz383ilp9wbgc3wv1dn7lpx3idz8dmzda94rckl7sd43";
+    };
   buildInputs = [ unzip ];
 in stdenv.mkDerivation {
   inherit (s) name version;

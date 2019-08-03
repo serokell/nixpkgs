@@ -42,23 +42,23 @@ else
       };
 
       get = key: ''$(cat "${runtime}/${path}/${key}")'';
-      in ''
-        for prog in "$out"/bin/*
-        do
+    in ''
+      for prog in "$out"/bin/*
+      do
 
-         # Note: wrapProgram by default calls 'exec -a $0 ...', but this
-         # breaks utop on Linux with OCaml 4.04, and is disabled with
-         # '--argv0 ""' flag. See https://github.com/NixOS/nixpkgs/issues/24496
-         wrapProgram "$prog" \
-           --argv0 "" \
-           --prefix CAML_LD_LIBRARY_PATH ":" "${get "CAML_LD_LIBRARY_PATH"}" \
-           --prefix OCAMLPATH ":" "${get "OCAMLPATH"}" \
-           --prefix OCAMLPATH ":" $(unset OCAMLPATH; addOCamlPath "$out"; printf %s "$OCAMLPATH") \
-           --add-flags "-I ${findlib}/lib/ocaml/${
-          stdenv.lib.getVersion ocaml
-           }/site-lib"
-        done
-      '';
+       # Note: wrapProgram by default calls 'exec -a $0 ...', but this
+       # breaks utop on Linux with OCaml 4.04, and is disabled with
+       # '--argv0 ""' flag. See https://github.com/NixOS/nixpkgs/issues/24496
+       wrapProgram "$prog" \
+         --argv0 "" \
+         --prefix CAML_LD_LIBRARY_PATH ":" "${get "CAML_LD_LIBRARY_PATH"}" \
+         --prefix OCAMLPATH ":" "${get "OCAMLPATH"}" \
+         --prefix OCAMLPATH ":" $(unset OCAMLPATH; addOCamlPath "$out"; printf %s "$OCAMLPATH") \
+         --add-flags "-I ${findlib}/lib/ocaml/${
+           stdenv.lib.getVersion ocaml
+         }/site-lib"
+      done
+    '';
 
     meta = {
       description = "Universal toplevel for OCaml";

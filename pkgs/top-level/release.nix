@@ -190,12 +190,12 @@ let
           bootstrap = import ../stdenv/darwin/make-bootstrap-tools.nix {
             system = "x86_64-darwin";
           };
-          in {
-            # Lightweight distribution and test
-            inherit (bootstrap) dist test;
-            # Test a full stdenv bootstrap from the bootstrap tools definition
-            inherit (bootstrap.test-pkgs) stdenv;
-          };
+        in {
+          # Lightweight distribution and test
+          inherit (bootstrap) dist test;
+          # Test a full stdenv bootstrap from the bootstrap tools definition
+          inherit (bootstrap.test-pkgs) stdenv;
+        };
       };
 
   } // (mapTestOn ((packagePlatforms pkgs) // rec {

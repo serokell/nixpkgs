@@ -13,12 +13,12 @@ stdenv.mkDerivation {
   postPatch = let
     t = k: v: '''local ${k} = "${v}"' '';
     subs = var: orig: repl: "--replace " + t var orig + t var repl;
-    in ''
-      substituteInPlace convert_script.lua \
-        ${subs "NOTIFY_CMD" "notify-send" "${libnotify}/bin/notify-send"} \
-        ${subs "YAD_CMD" "yad" "${yad}/bin/yad"} \
-        ${subs "MKVMERGE_CMD" "mkvmerge" "${mkvtoolnix-cli}/bin/mkvmerge"}
-    '';
+  in ''
+    substituteInPlace convert_script.lua \
+      ${subs "NOTIFY_CMD" "notify-send" "${libnotify}/bin/notify-send"} \
+      ${subs "YAD_CMD" "yad" "${yad}/bin/yad"} \
+      ${subs "MKVMERGE_CMD" "mkvmerge" "${mkvtoolnix-cli}/bin/mkvmerge"}
+  '';
 
   dontBuild = true;
   installPhase = ''

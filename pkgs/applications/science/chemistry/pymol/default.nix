@@ -41,7 +41,7 @@ in python3Packages.buildPythonApplication {
   postInstall = with python3Packages; ''
     wrapProgram $out/bin/pymol \
       --prefix PYTHONPATH : ${
-      makeSearchPathOutput "lib" python3.sitePackages [ Pmw tkinter ]
+        makeSearchPathOutput "lib" python3.sitePackages [ Pmw tkinter ]
       }
   '';
 

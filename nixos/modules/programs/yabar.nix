@@ -24,20 +24,20 @@ let
         block-list: [${listKeys cfg.indicators}]
 
         ${
-        concatStringsSep "\n" (mapAttrsToList (name: cfg: ''
-          ${name}: {
-            exec: "${cfg.exec}";
-            align: "${cfg.align}";
-            ${mapExtra cfg.extra}
-          };
-        '') cfg.indicators)
+          concatStringsSep "\n" (mapAttrsToList (name: cfg: ''
+            ${name}: {
+              exec: "${cfg.exec}";
+              align: "${cfg.align}";
+              ${mapExtra cfg.extra}
+            };
+          '') cfg.indicators)
         }
       };
     '') cfg.bars;
-    in pkgs.writeText "yabar.conf" ''
-      bar-list = [${listKeys cfg.bars}];
-      ${concatStringsSep "\n" bars}
-    '';
+  in pkgs.writeText "yabar.conf" ''
+    bar-list = [${listKeys cfg.bars}];
+    ${concatStringsSep "\n" bars}
+  '';
 in {
   options.programs.yabar = {
     enable = mkEnableOption "yabar";

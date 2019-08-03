@@ -92,7 +92,7 @@ in {
         StandardOutput = "null";
         Restart = "on-failure";
         ExecStart = "${cfg.package}/sbin/syslog-ng ${
-          concatStringsSep " " syslogngOptions
+            concatStringsSep " " syslogngOptions
           }";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };

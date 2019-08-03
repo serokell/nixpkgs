@@ -98,7 +98,7 @@ in {
                 # gracefully terminated by either local or remote side.
                 Restart = "on-success";
                 ExecStart = "${pkgs.autossh}/bin/autossh -M ${
-                  toString mport
+                    toString mport
                   } ${s.extraArguments}";
               };
             };

@@ -32,15 +32,15 @@ stdenv.mkDerivation rec {
     luaFileSystemPath = "${luafilesystem}/lib/lua/5.1/?.so";
     lrexlibPath = "${lrexlib-pcre}/lib/lua/5.1/?.so";
     luasqlitePath = "${luasql-sqlite3}/lib/lua/5.1/?.so";
-    in ''
-      mkdir -pv $out/bin
-      cp mudlet $out
-      cp -r mudlet-lua $out
+  in ''
+    mkdir -pv $out/bin
+    cp mudlet $out
+    cp -r mudlet-lua $out
 
-      makeWrapper $out/mudlet $out/bin/mudlet \
-        --set LUA_CPATH "${luaFileSystemPath};${luaZipPath};${lrexlibPath};${luasqlitePath}" \
-        --run "cd $out";
-    '';
+    makeWrapper $out/mudlet $out/bin/mudlet \
+      --set LUA_CPATH "${luaFileSystemPath};${luaZipPath};${lrexlibPath};${luasqlitePath}" \
+      --run "cd $out";
+  '';
 
   patches = [ ./libs.patch ];
 

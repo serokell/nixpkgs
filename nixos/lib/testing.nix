@@ -42,11 +42,11 @@ in rec {
 
       wrapProgram $out/bin/nixos-test-driver \
         --prefix PATH : "${
-        lib.makeBinPath [ qemu_test vde2 netpbm coreutils ]
+          lib.makeBinPath [ qemu_test vde2 netpbm coreutils ]
         }" \
         --prefix PERL5LIB : "${
-        with perlPackages;
-        makePerlPath [ TermReadLineGnu XMLWriter IOTty FileSlurp ]
+          with perlPackages;
+          makePerlPath [ TermReadLineGnu XMLWriter IOTty FileSlurp ]
         }:$out/${perl.libPrefix}"
     '';
   };
@@ -99,8 +99,8 @@ in rec {
       testDriverName = with builtins;
         if testNameLen > maxTestNameLen then
           abort ("The name of the test '${name}' must not be longer than ${
-            toString maxTestNameLen
-          } " + "it's currently ${toString testNameLen} characters long.")
+              toString maxTestNameLen
+            } " + "it's currently ${toString testNameLen} characters long.")
         else
           "nixos-test-driver-${name}";
 
@@ -138,8 +138,8 @@ in rec {
         wrapProgram $out/bin/nixos-test-driver \
           --add-flags "''${vms[*]}" \
           ${
-          lib.optionalString enableOCR
-          "--prefix PATH : '${ocrProg}/bin:${imagemagick_tiff}/bin'"
+            lib.optionalString enableOCR
+            "--prefix PATH : '${ocrProg}/bin:${imagemagick_tiff}/bin'"
           } \
           --run "export testScript=\"\$(cat $out/test-script)\"" \
           --set VLANS '${toString vlans}'

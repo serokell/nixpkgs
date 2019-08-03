@@ -121,22 +121,22 @@ in {
           Restart = "always";
         };
       };
-      in listToAttrs (mapAttrsToList (name: value:
-        nameValuePair "hans-${name}" (createHansClientService name value))
-        cfg.clients) // {
-          hans = mkIf (cfg.server.enable) {
-            description = "hans, ip over icmp server daemon";
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-            script =
-              "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
-                optionalString cfg.server.respondToSystemPings "-r"
-              } ${
-                optionalString (cfg.server.passwordFile != "")
-                ''-p $(cat "${cfg.server.passwordFile}")''
-              }";
-          };
+    in listToAttrs (mapAttrsToList (name: value:
+      nameValuePair "hans-${name}" (createHansClientService name value))
+      cfg.clients) // {
+        hans = mkIf (cfg.server.enable) {
+          description = "hans, ip over icmp server daemon";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+          script =
+            "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
+              optionalString cfg.server.respondToSystemPings "-r"
+            } ${
+              optionalString (cfg.server.passwordFile != "")
+              ''-p $(cat "${cfg.server.passwordFile}")''
+            }";
         };
+      };
 
     users.users = singleton {
       name = hansUser;

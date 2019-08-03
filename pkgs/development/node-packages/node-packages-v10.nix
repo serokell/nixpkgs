@@ -28026,29 +28026,29 @@ let
       };
     };
     "native-dns-cache-git+https://github.com/okTurtles/native-dns-cache.git#8714196bb9223cc9a4064a4fddf9e82ec50b7d4d" =
-    {
-      name = "native-dns-cache";
-      packageName = "native-dns-cache";
-      version = "0.0.2";
-      src = fetchgit {
-        url = "https://github.com/okTurtles/native-dns-cache.git";
-        rev = "8714196bb9223cc9a4064a4fddf9e82ec50b7d4d";
-        sha256 =
-          "3f06b2577afc3c1e428533baae3c51bad44a2e1e02fca147a1303943c214f841";
+      {
+        name = "native-dns-cache";
+        packageName = "native-dns-cache";
+        version = "0.0.2";
+        src = fetchgit {
+          url = "https://github.com/okTurtles/native-dns-cache.git";
+          rev = "8714196bb9223cc9a4064a4fddf9e82ec50b7d4d";
+          sha256 =
+            "3f06b2577afc3c1e428533baae3c51bad44a2e1e02fca147a1303943c214f841";
+        };
       };
-    };
     "native-dns-git+https://github.com/okTurtles/node-dns.git#08433ec98f517eed3c6d5e47bdf62603539cd402" =
-    {
-      name = "native-dns";
-      packageName = "native-dns";
-      version = "0.6.1";
-      src = fetchgit {
-        url = "https://github.com/okTurtles/node-dns.git";
-        rev = "08433ec98f517eed3c6d5e47bdf62603539cd402";
-        sha256 =
-          "a7342bfd4e952490a8a25a68efcb1d16ecc2391f1044109ebeace89ad284f7a2";
+      {
+        name = "native-dns";
+        packageName = "native-dns";
+        version = "0.6.1";
+        src = fetchgit {
+          url = "https://github.com/okTurtles/node-dns.git";
+          rev = "08433ec98f517eed3c6d5e47bdf62603539cd402";
+          sha256 =
+            "a7342bfd4e952490a8a25a68efcb1d16ecc2391f1044109ebeace89ad284f7a2";
+        };
       };
-    };
     "native-dns-packet-0.1.1" = {
       name = "native-dns-packet";
       packageName = "native-dns-packet";
@@ -28060,29 +28060,29 @@ let
       };
     };
     "native-dns-packet-git+https://github.com/okTurtles/native-dns-packet.git#307e77a47ebba57a5ae9118a284e916e5ebb305a" =
-    {
-      name = "native-dns-packet";
-      packageName = "native-dns-packet";
-      version = "0.0.3";
-      src = fetchgit {
-        url = "https://github.com/okTurtles/native-dns-packet.git";
-        rev = "307e77a47ebba57a5ae9118a284e916e5ebb305a";
-        sha256 =
-          "f8aaa7bb3b2a652e52bfe5c13a6531c71d690f621ef4d86d0787838708a50358";
+      {
+        name = "native-dns-packet";
+        packageName = "native-dns-packet";
+        version = "0.0.3";
+        src = fetchgit {
+          url = "https://github.com/okTurtles/native-dns-packet.git";
+          rev = "307e77a47ebba57a5ae9118a284e916e5ebb305a";
+          sha256 =
+            "f8aaa7bb3b2a652e52bfe5c13a6531c71d690f621ef4d86d0787838708a50358";
+        };
       };
-    };
     "native-dns-packet-git+https://github.com/okTurtles/native-dns-packet.git#8bf2714c318cfe7d31bca2006385882ccbf503e4" =
-    {
-      name = "native-dns-packet";
-      packageName = "native-dns-packet";
-      version = "0.0.4";
-      src = fetchgit {
-        url = "https://github.com/okTurtles/native-dns-packet.git";
-        rev = "8bf2714c318cfe7d31bca2006385882ccbf503e4";
-        sha256 =
-          "1f39a4bd88978a0b51d45c32c777fb7f75b12e220cf7d206aa5a12d1e4e80f9d";
+      {
+        name = "native-dns-packet";
+        packageName = "native-dns-packet";
+        version = "0.0.4";
+        src = fetchgit {
+          url = "https://github.com/okTurtles/native-dns-packet.git";
+          rev = "8bf2714c318cfe7d31bca2006385882ccbf503e4";
+          sha256 =
+            "1f39a4bd88978a0b51d45c32c777fb7f75b12e220cf7d206aa5a12d1e4e80f9d";
+        };
       };
-    };
     "native-promise-only-0.8.1" = {
       name = "native-promise-only";
       packageName = "native-promise-only";
@@ -45660,18 +45660,18 @@ let
       };
     };
     "xmlhttprequest-https://github.com/LearnBoost/node-XMLHttpRequest/archive/0f36d0b5ebc03d85f860d42a64ae9791e1daa433.tar.gz" =
-    {
-      name = "xmlhttprequest";
-      packageName = "xmlhttprequest";
-      version = "1.5.0";
-      src = fetchurl {
-        name = "xmlhttprequest-1.5.0.tar.gz";
-        url =
-          "https://codeload.github.com/LearnBoost/node-XMLHttpRequest/tar.gz/0f36d0b5ebc03d85f860d42a64ae9791e1daa433";
-        sha256 =
-          "28dd0394d85befe8be4e9cd9f6803102780c62cbb09298cb174b52ff9777624f";
+      {
+        name = "xmlhttprequest";
+        packageName = "xmlhttprequest";
+        version = "1.5.0";
+        src = fetchurl {
+          name = "xmlhttprequest-1.5.0.tar.gz";
+          url =
+            "https://codeload.github.com/LearnBoost/node-XMLHttpRequest/tar.gz/0f36d0b5ebc03d85f860d42a64ae9791e1daa433";
+          sha256 =
+            "28dd0394d85befe8be4e9cd9f6803102780c62cbb09298cb174b52ff9777624f";
+        };
       };
-    };
     "xmlhttprequest-ssl-1.5.3" = {
       name = "xmlhttprequest-ssl";
       packageName = "xmlhttprequest-ssl";

@@ -7,8 +7,8 @@ python2Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url = "https://code.launchpad.net/duplicity/${
-      stdenv.lib.versions.majorMinor version
-    }-series/${version}/+download/${name}.tar.gz";
+        stdenv.lib.versions.majorMinor version
+      }-series/${version}/+download/${name}.tar.gz";
     sha256 = "0ag9dknslxlasslwfjhqgcqbkb1mvzzx93ry7lch2lfzcdd91am6";
   };
   patches = [

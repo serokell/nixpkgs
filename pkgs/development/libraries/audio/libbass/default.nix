@@ -45,11 +45,11 @@ let
           bass.so.${stdenv.hostPlatform.system}
         else
           throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";
-        in ''
-          mkdir -p $out/{lib,include}
-          install -m644 -t $out/lib/ ${so}
-          install -m644 -t $out/include/ ${bass.h}
-        '';
+      in ''
+        mkdir -p $out/{lib,include}
+        install -m644 -t $out/lib/ ${so}
+        install -m644 -t $out/include/ ${bass.h}
+      '';
 
       meta = with stdenv.lib; {
         description = "Shareware audio library";

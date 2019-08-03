@@ -47,10 +47,10 @@ let
               end="$(printf '\033[0m')" #returns to "normal"
             fi
     	${
-      lib.optionalString verbose ''
-        echo -n "$start"Running "$end"
-        echo $@
-      ''
+       lib.optionalString verbose ''
+         echo -n "$start"Running "$end"
+         echo $@
+       ''
      }
     	$@
           }

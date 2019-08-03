@@ -70,16 +70,16 @@ in {
         vmName="${cfg.vmName}";
         VBoxManage createvm --name "$vmName" --register \
           --ostype ${
-          if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
-            "Linux26_64"
-          else
-            "Linux26"
+            if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
+              "Linux26_64"
+            else
+              "Linux26"
           }
         VBoxManage modifyvm "$vmName" \
           --memory ${toString cfg.memorySize} --acpi on --vram 32 \
           ${
-          optionalString (pkgs.stdenv.hostPlatform.system == "i686-linux")
-          "--pae on"
+            optionalString (pkgs.stdenv.hostPlatform.system == "i686-linux")
+            "--pae on"
           } \
           --nictype1 virtio --nic1 nat \
           --audiocontroller ac97 --audio alsa --audioout on \

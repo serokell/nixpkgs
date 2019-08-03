@@ -38,7 +38,7 @@ pythonPackages.buildPythonApplication rec {
   preBuild = with stdenv.lib.versions; ''
     substituteInPlace setup.py \
       --replace boost_python "boost_python${
-      major pythonPackages.python.version
+        major pythonPackages.python.version
       }${minor pythonPackages.python.version}"
   '';
 

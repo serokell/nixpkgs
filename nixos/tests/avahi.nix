@@ -16,10 +16,10 @@ import ./make-test.nix ({ pkgs, ... }: {
         extraServiceFiles.ssh = "${pkgs.avahi}/etc/avahi/services/ssh.service";
       };
     };
-    in {
-      one = cfg;
-      two = cfg;
-    };
+  in {
+    one = cfg;
+    two = cfg;
+  };
 
   testScript = ''
     startAll;

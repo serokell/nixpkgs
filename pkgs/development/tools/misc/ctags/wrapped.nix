@@ -21,14 +21,14 @@ with pkgs.stdenv.lib;
       } "$@"
     '') {
       args = let x = pkgs.ctagsWrapped;
-        in concatLists [
-          x.defaultArgs
-          x.phpLang
-          x.jsLang
-          x.nixLang
-          x.asLang
-          x.rubyLang
-        ];
+      in concatLists [
+        x.defaultArgs
+        x.phpLang
+        x.jsLang
+        x.nixLang
+        x.asLang
+        x.rubyLang
+      ];
       name = "${ctags.name}-wrapped";
     };
 

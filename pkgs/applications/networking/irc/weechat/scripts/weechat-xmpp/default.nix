@@ -19,10 +19,10 @@ stdenv.mkDerivation {
     (substituteAll {
       src = ./libpath.patch;
       env = "${
-        buildEnv {
-          name = "weechat-xmpp-env";
-          paths = [ pydns xmpppy ];
-        }
+          buildEnv {
+            name = "weechat-xmpp-env";
+            paths = [ pydns xmpppy ];
+          }
         }/lib/python2.7/site-packages";
     })
   ];

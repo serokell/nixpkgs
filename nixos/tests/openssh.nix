@@ -11,57 +11,57 @@ import ./make-test.nix ({ pkgs, ... }:
 
       server = { ... }:
 
-      {
-        services.openssh.enable = true;
-        security.pam.services.sshd.limits = [{
-          domain = "*";
-          item = "memlock";
-          type = "-";
-          value = 1024;
-        }];
-        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-      };
+        {
+          services.openssh.enable = true;
+          security.pam.services.sshd.limits = [{
+            domain = "*";
+            item = "memlock";
+            type = "-";
+            value = 1024;
+          }];
+          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+        };
 
       server_lazy = { ... }:
 
-      {
-        services.openssh = {
-          enable = true;
-          startWhenNeeded = true;
+        {
+          services.openssh = {
+            enable = true;
+            startWhenNeeded = true;
+          };
+          security.pam.services.sshd.limits = [{
+            domain = "*";
+            item = "memlock";
+            type = "-";
+            value = 1024;
+          }];
+          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
-        security.pam.services.sshd.limits = [{
-          domain = "*";
-          item = "memlock";
-          type = "-";
-          value = 1024;
-        }];
-        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-      };
 
       server_localhost_only = { ... }:
 
-      {
-        services.openssh = {
-          enable = true;
-          listenAddresses = [{
-            addr = "127.0.0.1";
-            port = 22;
-          }];
+        {
+          services.openssh = {
+            enable = true;
+            listenAddresses = [{
+              addr = "127.0.0.1";
+              port = 22;
+            }];
+          };
         };
-      };
 
       server_localhost_only_lazy = { ... }:
 
-      {
-        services.openssh = {
-          enable = true;
-          startWhenNeeded = true;
-          listenAddresses = [{
-            addr = "127.0.0.1";
-            port = 22;
-          }];
+        {
+          services.openssh = {
+            enable = true;
+            startWhenNeeded = true;
+            listenAddresses = [{
+              addr = "127.0.0.1";
+              port = 22;
+            }];
+          };
         };
-      };
 
       client = { ... }: { };
 

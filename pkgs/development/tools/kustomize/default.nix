@@ -10,12 +10,12 @@ buildGoModule rec {
   subPackages = [ "cmd/kustomize" ];
 
   buildFlagsArray = let t = "${goPackagePath}/pkg/commands/misc";
-    in ''
-      -ldflags=
-        -s -X ${t}.kustomizeVersion=${version}
-           -X ${t}.gitCommit=${rev}
-           -X ${t}.buildDate=unknown
-    '';
+  in ''
+    -ldflags=
+      -s -X ${t}.kustomizeVersion=${version}
+         -X ${t}.gitCommit=${rev}
+         -X ${t}.buildDate=unknown
+  '';
 
   src = fetchFromGitHub {
     sha256 = "1ywppn97gfgrwlq1nrj4kdvrdanq5ahqaa636ynyp9yiv9ibziq6";

@@ -88,12 +88,12 @@ let
       NIX_LISP="$NIX_LISP" \
       NIX_LISP_PRELAUNCH_HOOK='nix_lisp_run_single_form "(progn
             ${
-        stdenv.lib.concatMapStrings (system: ''
-          (asdf:compile-system :${system})
-          (asdf:load-system :${system})
-          (asdf:operate (quote asdf::compile-bundle-op) :${system})
-          (ignore-errors (asdf:operate (quote asdf::deploy-asd-op) :${system}))
-        '') buildSystems
+              stdenv.lib.concatMapStrings (system: ''
+                (asdf:compile-system :${system})
+                (asdf:load-system :${system})
+                (asdf:operate (quote asdf::compile-bundle-op) :${system})
+                (ignore-errors (asdf:operate (quote asdf::deploy-asd-op) :${system}))
+              '') buildSystems
             }
             )"' \
          "$out/bin/${args.baseName}-lisp-launcher.sh"

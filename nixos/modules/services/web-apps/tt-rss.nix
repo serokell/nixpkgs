@@ -35,17 +35,17 @@ let
 
       define('DB_TYPE', '${cfg.database.type}');
       define('DB_HOST', '${
-      optionalString (cfg.database.host != null) cfg.database.host
+        optionalString (cfg.database.host != null) cfg.database.host
       }');
       define('DB_USER', '${cfg.database.user}');
       define('DB_NAME', '${cfg.database.name}');
       define('DB_PASS', ${
-      if (cfg.database.password != null) then
-        "'${(escape [ "'" "\\" ] cfg.database.password)}'"
-      else if (cfg.database.passwordFile != null) then
-        "file_get_contents('${cfg.database.passwordFile}')"
-      else
-        "''"
+        if (cfg.database.password != null) then
+          "'${(escape [ "'" "\\" ] cfg.database.password)}'"
+        else if (cfg.database.passwordFile != null) then
+          "file_get_contents('${cfg.database.passwordFile}')"
+        else
+          "''"
       });
       define('DB_PORT', '${toString dbPort}');
 
@@ -85,7 +85,7 @@ let
 
       define('SPHINX_SERVER', '${cfg.sphinx.server}');
       define('SPHINX_INDEX', '${
-      builtins.concatStringsSep "," cfg.sphinx.index
+        builtins.concatStringsSep "," cfg.sphinx.index
       }');
 
       define('ENABLE_REGISTRATION', ${boolToString cfg.registration.enable});
@@ -99,10 +99,10 @@ let
 
       define('SMTP_FROM_NAME', '${escape [ "'" "\\" ] cfg.email.fromName}');
       define('SMTP_FROM_ADDRESS', '${
-      escape [ "'" "\\" ] cfg.email.fromAddress
+        escape [ "'" "\\" ] cfg.email.fromAddress
       }');
       define('DIGEST_SUBJECT', '${
-      escape [ "'" "\\" ] cfg.email.digestSubject
+        escape [ "'" "\\" ] cfg.email.digestSubject
       }');
 
       ${cfg.extraConfig}
@@ -591,8 +591,8 @@ in {
             ${config.services.postgresql.package}/bin/psql \
               -U ${cfg.database.user} \
               ${
-              optionalString (cfg.database.host != null)
-              "-h ${cfg.database.host} --port ${toString dbPort}"
+                optionalString (cfg.database.host != null)
+                "-h ${cfg.database.host} --port ${toString dbPort}"
               } \
               -c '${e}' \
               ${cfg.database.name}''
@@ -601,67 +601,67 @@ in {
             echo '${e}' | ${config.services.mysql.package}/bin/mysql \
               -u ${cfg.database.user} \
               ${
-              optionalString (cfg.database.password != null)
-              "-p${cfg.database.password}"
+                optionalString (cfg.database.password != null)
+                "-p${cfg.database.password}"
               } \
               ${
-              optionalString (cfg.database.host != null)
-              "-h ${cfg.database.host} -P ${toString dbPort}"
+                optionalString (cfg.database.host != null)
+                "-h ${cfg.database.host} -P ${toString dbPort}"
               } \
               ${cfg.database.name}''
 
           else
             "";
 
-        in ''
-          rm -rf "${cfg.root}/*"
-          cp -r "${pkgs.tt-rss}/"* "${cfg.root}"
-          ${optionalString (cfg.pluginPackages != [ ]) ''
-            for plugin in ${concatStringsSep " " cfg.pluginPackages}; do
-              cp -r "$plugin"/* "${cfg.root}/plugins.local/"
-            done
-          ''}
-          ${optionalString (cfg.themePackages != [ ]) ''
-            for theme in ${concatStringsSep " " cfg.themePackages}; do
-              cp -r "$theme"/* "${cfg.root}/themes.local/"
-            done
-          ''}
-          ln -sf "${tt-rss-config}" "${cfg.root}/config.php"
-          chmod -R 755 "${cfg.root}"
-        ''
+      in ''
+        rm -rf "${cfg.root}/*"
+        cp -r "${pkgs.tt-rss}/"* "${cfg.root}"
+        ${optionalString (cfg.pluginPackages != [ ]) ''
+          for plugin in ${concatStringsSep " " cfg.pluginPackages}; do
+            cp -r "$plugin"/* "${cfg.root}/plugins.local/"
+          done
+        ''}
+        ${optionalString (cfg.themePackages != [ ]) ''
+          for theme in ${concatStringsSep " " cfg.themePackages}; do
+            cp -r "$theme"/* "${cfg.root}/themes.local/"
+          done
+        ''}
+        ln -sf "${tt-rss-config}" "${cfg.root}/config.php"
+        chmod -R 755 "${cfg.root}"
+      ''
 
-        + (optionalString (cfg.database.type == "pgsql") ''
-          exists=$(${
-            callSql "select count(*) > 0 from pg_tables where tableowner = user"
-          } \
-          | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
+      + (optionalString (cfg.database.type == "pgsql") ''
+        exists=$(${
+          callSql "select count(*) > 0 from pg_tables where tableowner = user"
+        } \
+        | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
 
-          if [ "$exists" == 'f' ]; then
-            ${
+        if [ "$exists" == 'f' ]; then
+          ${
             callSql
             "\\i ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
-            }
-          else
-            echo 'The database contains some data. Leaving it as it is.'
-          fi;
-        '')
+          }
+        else
+          echo 'The database contains some data. Leaving it as it is.'
+        fi;
+      '')
 
-        + (optionalString (cfg.database.type == "mysql") ''
-          exists=$(${
-            callSql
-            "select count(*) > 0 from information_schema.tables where table_schema = schema()"
-          } \
-          | tail -n+2 | sed -e 's/[ \n\t]*//')
+      + (optionalString (cfg.database.type == "mysql") ''
+        exists=$(${
+          callSql
+          "select count(*) > 0 from information_schema.tables where table_schema = schema()"
+        } \
+        | tail -n+2 | sed -e 's/[ \n\t]*//')
 
-          if [ "$exists" == '0' ]; then
-            ${
+        if [ "$exists" == '0' ]; then
+          ${
             callSql
             "\\. ${pkgs.tt-rss}/schema/ttrss_schema_${cfg.database.type}.sql"
-            }
-          else
-            echo 'The database contains some data. Leaving it as it is.'
-          fi;
-        '');
+          }
+        else
+          echo 'The database contains some data. Leaving it as it is.'
+        fi;
+      '');
 
       serviceConfig = {
         User = "${cfg.user}";

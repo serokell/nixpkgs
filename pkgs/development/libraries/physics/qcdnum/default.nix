@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://www.nikhef.nl/user/h24/qcdnum-files/download/qcdnum${
-      builtins.replaceStrings [ "-" ] [ "" ] version
-    }.tar.gz";
+        builtins.replaceStrings [ "-" ] [ "" ] version
+      }.tar.gz";
     sha256 = "0568rjviwvjkfihq2ka7g91vmialr31ryn7c69iqf13rcv5vzcw7";
   };
 

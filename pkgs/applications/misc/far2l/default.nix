@@ -45,12 +45,12 @@ stdenv.mkDerivation rec {
 
     ( cd colorer/configs/base
       patch -p2 <  ${
-      fetchpatch {
-        name = "nix-language-highlighting.patch";
-        url =
-          "https://github.com/colorer/Colorer-schemes/commit/64bd06de0a63224b431cd8fc42cd9fa84b8ba7c0.patch";
-        sha256 = "1mrj1wyxmk7sll9j1jzw6miwi0sfavf654klms24wngnh6hadsch";
-      }
+        fetchpatch {
+          name = "nix-language-highlighting.patch";
+          url =
+            "https://github.com/colorer/Colorer-schemes/commit/64bd06de0a63224b431cd8fc42cd9fa84b8ba7c0.patch";
+          sha256 = "1mrj1wyxmk7sll9j1jzw6miwi0sfavf654klms24wngnh6hadsch";
+        }
       }
     )
   '';

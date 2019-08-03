@@ -34,10 +34,9 @@ let
     # break an evaluation for old Citrix versions rather than exiting with
     # an "attribute name not found" error to avoid confusion.
     deprecatedVersions = let versions = [ "13.8.0" "13.9.0" "13.9.1" ];
-      in lib.listToAttrs (lib.flip map versions (v:
-        lib.nameValuePair v
-        (throw "Unsupported citrix_receiver version: ${v}")));
-    in deprecatedVersions // supportedVersions;
+    in lib.listToAttrs (lib.flip map versions (v:
+      lib.nameValuePair v (throw "Unsupported citrix_receiver version: ${v}")));
+  in deprecatedVersions // supportedVersions;
 
   citrixReceiverForVersion =
     { major, minor, patch, x86hash, x64hash, x86suffix, x64suffix, homepage }:

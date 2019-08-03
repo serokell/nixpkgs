@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://launchpad.net/gnuclad/trunk/${
-      lib.versions.majorMinor version
-    }/+download/${name}.tar.gz";
+        lib.versions.majorMinor version
+      }/+download/${name}.tar.gz";
     sha256 = "0ka2kscpjff7gflsargv3r9fdaxhkf3nym9mfaln3pnq6q7fwdki";
   };
 

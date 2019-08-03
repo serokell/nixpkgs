@@ -50,8 +50,8 @@ in {
         )
         setenv.add-environment = (
           "PERL5LIB" => "${
-        with pkgs.perlPackages;
-        makePerlPath [ CGI HTMLParser URI pkgs.rrdtool ]
+            with pkgs.perlPackages;
+            makePerlPath [ CGI HTMLParser URI pkgs.rrdtool ]
           }",
           "COLLECTION_CONF" => "${collectionConf}"
         )

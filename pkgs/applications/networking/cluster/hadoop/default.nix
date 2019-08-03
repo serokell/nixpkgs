@@ -91,10 +91,10 @@ let
             mv $n $out/bin.wrapped/
             makeWrapper $out/bin.wrapped/$(basename $n) $n \
               --prefix PATH : "${
-          stdenv.lib.makeBinPath [ which jre bash coreutils ]
+                stdenv.lib.makeBinPath [ which jre bash coreutils ]
               }" \
               --prefix JAVA_LIBRARY_PATH : "${
-          stdenv.lib.makeLibraryPath [ openssl snappy zlib bzip2 ]
+                stdenv.lib.makeLibraryPath [ openssl snappy zlib bzip2 ]
               }" \
               --set JAVA_HOME "${jre}" \
               --set HADOOP_PREFIX "$out"

@@ -87,7 +87,7 @@ import ../make-test.nix ({ pkgs, ... }: {
         admin_server = SYSLOG:NOTICE
         default      = SYSLOG:NOTICE
     '';
-    in ''
-      $machine->succeed("diff /etc/krb5.conf ${snapshot}");
-    '';
+  in ''
+    $machine->succeed("diff /etc/krb5.conf ${snapshot}");
+  '';
 })

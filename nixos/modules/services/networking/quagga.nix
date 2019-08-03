@@ -63,7 +63,7 @@ let
               neighbor 10.0.0.1 remote-as 65001
           '';
         };
-        in examples.${service} or "";
+      in examples.${service} or "";
       description = ''
         ${daemonName service} configuration statements.
       '';
@@ -166,7 +166,7 @@ in {
           bindsTo = [ "zebra.service" ];
           after = [ "network.target" "zebra.service" ];
         }));
-      in listToAttrs (map quaggaService (filter isEnabled allServices));
+    in listToAttrs (map quaggaService (filter isEnabled allServices));
 
   };
 

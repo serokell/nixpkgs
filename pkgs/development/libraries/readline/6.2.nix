@@ -18,7 +18,7 @@ stdenv.mkDerivation (rec {
           url = "mirror://gnu/readline/${name}-patches/readline62-${nr}";
           inherit sha256;
         };
-      in import ./readline-6.2-patches.nix patch);
+    in import ./readline-6.2-patches.nix patch);
 
   meta = {
     description = "Library for interactive line editing";

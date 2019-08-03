@@ -47,8 +47,8 @@ in {
   freeformCheck = let
     res = builtins.tryEval
       ((kernelTestConfig freeformConfig).MMC_BLOCK_MINORS.freeform);
-    in assertTrue (res.success == false);
+  in assertTrue (res.success == false);
 
   yesVsNoCheck = let res = kernelTestConfig yesWinsOverNoConfig;
-    in assertTrue (res."8139TOO_PIO".tristate == "y");
+  in assertTrue (res."8139TOO_PIO".tristate == "y");
 }

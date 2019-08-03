@@ -61,7 +61,7 @@ in stdenv.mkDerivation {
           ar -x $i
         done
         ${if enableCuda then cudatoolkit else stdenv.cc.outPath}/bin/${
-      if enableCuda then "nvcc" else "cc"
+          if enableCuda then "nvcc" else "cc"
         } *.o ${
           if stdenv.isDarwin then "-dynamiclib" else "--shared"
         } -o "$out/lib/libsuitesparse${SHLIB_EXT}" -lopenblas ${

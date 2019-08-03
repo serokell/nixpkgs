@@ -52,12 +52,12 @@ let
         "chrome"
       else
         "chrome-${upstream-info.channel}";
-      in ''
-        mkdir -p plugins
-        ar p "$src" data.tar.xz | tar xJ -C plugins --strip-components=4 \
-          ./opt/google/${chan}/libwidevinecdm.so \
-          ./opt/google/${chan}/libwidevinecdmadapter.so
-      '';
+    in ''
+      mkdir -p plugins
+      ar p "$src" data.tar.xz | tar xJ -C plugins --strip-components=4 \
+        ./opt/google/${chan}/libwidevinecdm.so \
+        ./opt/google/${chan}/libwidevinecdmadapter.so
+    '';
 
     doCheck = true;
     checkPhase = ''
@@ -78,17 +78,17 @@ let
       wvMimeTypes = "application/x-ppapi-widevine-cdm";
       wvModule = "@out@/lib/libwidevinecdmadapter.so";
       wvInfo = "#${wvName}#${wvDescription};${wvMimeTypes}";
-      in ''
-        install -vD libwidevinecdm.so \
-          "$out/lib/libwidevinecdm.so"
-        install -vD libwidevinecdmadapter.so \
-          "$out/lib/libwidevinecdmadapter.so"
+    in ''
+      install -vD libwidevinecdm.so \
+        "$out/lib/libwidevinecdm.so"
+      install -vD libwidevinecdmadapter.so \
+        "$out/lib/libwidevinecdmadapter.so"
 
-        ${mkPluginInfo {
-          flags = [ "--register-pepper-plugins=${wvModule}${wvInfo}" ];
-          envVars.NIX_CHROMIUM_PLUGIN_PATH_WIDEVINE = "@out@/lib";
-        }}
-      '';
+      ${mkPluginInfo {
+        flags = [ "--register-pepper-plugins=${wvModule}${wvInfo}" ];
+        envVars.NIX_CHROMIUM_PLUGIN_PATH_WIDEVINE = "@out@/lib";
+      }}
+    '';
 
     meta.platforms = platforms.x86_64;
   };

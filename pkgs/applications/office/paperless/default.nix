@@ -52,18 +52,18 @@ let
       # Paperless has explicit runtime checks that expect these binaries to be in PATH
       extraBin =
         lib.makeBinPath [ imagemagick7 ghostscript optipng tesseract unpaper ];
-      in ''
-        ${python.interpreter} -m compileall $srcDir
+    in ''
+      ${python.interpreter} -m compileall $srcDir
 
-        makeWrapper $pythonEnv/bin/python $out/bin/paperless \
-          --set PATH ${extraBin} --add-flags $out/share/paperless/manage.py
+      makeWrapper $pythonEnv/bin/python $out/bin/paperless \
+        --set PATH ${extraBin} --add-flags $out/share/paperless/manage.py
 
-        # A shell snippet that can be sourced to setup a paperless env
-        cat > $out/share/paperless/setup-env.sh <<EOF
-        export PATH="$pythonEnv/bin:${extraBin}''${PATH:+:}$PATH"
-        export paperlessSrc=$out/share/paperless
-        EOF
-      '';
+      # A shell snippet that can be sourced to setup a paperless env
+      cat > $out/share/paperless/setup-env.sh <<EOF
+      export PATH="$pythonEnv/bin:${extraBin}''${PATH:+:}$PATH"
+      export paperlessSrc=$out/share/paperless
+      EOF
+    '';
 
     checkPhase = ''
       source $out/share/paperless/setup-env.sh

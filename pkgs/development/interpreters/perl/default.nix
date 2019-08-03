@@ -47,7 +47,7 @@ let
         else
           ./no-sys-dirs-5.29.patch)
       ] ++ optional (versionOlder version "5.29.6")
-        # Fix parallel building: https://rt.perl.org/Public/Bug/Display.html?id=132360
+      # Fix parallel building: https://rt.perl.org/Public/Bug/Display.html?id=132360
         (fetchurl {
           url =
             "https://rt.perl.org/Public/Ticket/Attachment/1502646/807252/0001-Fix-missing-build-dependency-for-pods.patch";
@@ -140,7 +140,10 @@ let
         substituteInPlace "$out"/lib/perl5/*/*/Config_heavy.pl \
           --replace "${libcInc}" /no-such-path \
           --replace "${
-          if stdenv.cc.cc or null != null then stdenv.cc.cc else "/no-such-path"
+            if stdenv.cc.cc or null != null then
+              stdenv.cc.cc
+            else
+              "/no-such-path"
           }" /no-such-path \
           --replace "${stdenv.cc}" /no-such-path \
           --replace "$man" /no-such-path

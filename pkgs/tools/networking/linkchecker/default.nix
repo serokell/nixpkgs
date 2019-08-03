@@ -38,7 +38,7 @@ in python2Packages.buildPythonApplication rec {
       url = "https://github.com/linkcheck/linkchecker/commit/e62e630.patch";
       sha256 = "046q1whg715w2yv33xx6rkj7fspvvz60cl978ax92lnf8j101czx";
     };
-    in [ ./add-no-robots-flag.patch fix-setup-py ];
+  in [ ./add-no-robots-flag.patch fix-setup-py ];
 
   postInstall = ''
     rm $out/bin/linkchecker-gui

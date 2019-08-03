@@ -9,7 +9,8 @@ rec {
 
   # returns default if env var is not set
   maybeEnv = name: default:
-    let value = builtins.getEnv name; in if value == "" then default else value;
+    let value = builtins.getEnv name;
+    in if value == "" then default else value;
 
   defaultMergeArg = x: y: if builtins.isAttrs y then y else (y x);
   defaultMerge = x: y: x // (defaultMergeArg x y);
@@ -238,9 +239,9 @@ rec {
             x.${a} # only x has attr
         else
           y.${a} # only y has attr)
-        ) (removeAttrs mergeAttrBy2
-          # don't merge attrs which are neither in x nor y
-          (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
+      ) (removeAttrs mergeAttrBy2
+        # don't merge attrs which are neither in x nor y
+        (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
     ];
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
   mergeAttrsByFuncDefaultsClean = list:

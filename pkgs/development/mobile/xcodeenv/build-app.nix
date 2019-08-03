@@ -128,11 +128,11 @@ in stdenv.mkDerivation ({
             <key>method</key>
             <string>${signMethod}</string>
             ${
-          stdenv.lib.optionalString
-          (signMethod == "enterprise" || signMethod == "ad-hoc") ''
-            <key>compileBitcode</key>
-            <false/>
-          ''
+              stdenv.lib.optionalString
+              (signMethod == "enterprise" || signMethod == "ad-hoc") ''
+                <key>compileBitcode</key>
+                <false/>
+              ''
             }
         </dict>
         </plist>

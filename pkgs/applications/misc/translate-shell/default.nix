@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/trans \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath [ gawk curl ncurses rlwrap groff fribidi ]
+        stdenv.lib.makeBinPath [ gawk curl ncurses rlwrap groff fribidi ]
       }
   '';
 

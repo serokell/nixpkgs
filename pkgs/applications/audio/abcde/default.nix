@@ -35,19 +35,19 @@ in stdenv.mkDerivation {
       wrapProgram "$out/bin/$cmd" \
         --prefix PERL5LIB : "$PERL5LIB" \
         --prefix PATH ":" ${
-      stdenv.lib.makeBinPath [
-        "$out"
-        which
-        libcdio-paranoia
-        cddiscid
-        wget
-        vorbis-tools
-        id3v2
-        eyeD3
-        lame
-        flac
-        glyr
-      ]
+          stdenv.lib.makeBinPath [
+            "$out"
+            which
+            libcdio-paranoia
+            cddiscid
+            wget
+            vorbis-tools
+            id3v2
+            eyeD3
+            lame
+            flac
+            glyr
+          ]
         }
     done
   '';

@@ -679,61 +679,61 @@ in {
     systemd.services.gitit = let
       uid = toString config.ids.uids.gitit;
       gid = toString config.ids.gids.gitit;
-      in {
-        description = "Git and Pandoc Powered Wiki";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        path = with pkgs;
-          [ curl ] ++ optional cfg.pdfExport texlive.combined.scheme-basic
-          ++ optional (cfg.repositoryType == "darcs") darcs
-          ++ optional (cfg.repositoryType == "mercurial") mercurial
-          ++ optional (cfg.repositoryType == "git") git;
+    in {
+      description = "Git and Pandoc Powered Wiki";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      path = with pkgs;
+        [ curl ] ++ optional cfg.pdfExport texlive.combined.scheme-basic
+        ++ optional (cfg.repositoryType == "darcs") darcs
+        ++ optional (cfg.repositoryType == "mercurial") mercurial
+        ++ optional (cfg.repositoryType == "git") git;
 
-        preStart = let gm = "gitit@${config.networking.hostName}";
-          in with cfg; ''
-                    chown ${uid}:${gid} -R ${homeDir}
-                    for dir in ${repositoryPath} ${staticDir} ${templatesDir} ${cacheDir}
-                    do
-                      if [ ! -d $dir ]
-                      then
-                        mkdir -p $dir
-                        find $dir -type d -exec chmod 0750 {} +
-                        find $dir -type f -exec chmod 0640 {} +
-                      fi
-                    done
-                    cd ${repositoryPath}
-            	${
-              if repositoryType == "darcs" then ''
-                if [ ! -d _darcs ]
-                then
-                  ${pkgs.darcs}/bin/darcs initialize
-                  echo "${gm}" > _darcs/prefs/email
-              '' else if repositoryType == "mercurial" then ''
-                	  if [ ! -d .hg ]
-                	  then
-                	    ${pkgs.mercurial}/bin/hg init
-                	    cat >> .hg/hgrc <<NAMED
-                [ui]
-                username = gitit ${gm}
-                NAMED
-                	  '' else ''
-                  	  if [ ! -d  .git ]
-                            then
-                              ${pkgs.git}/bin/git init
-                              ${pkgs.git}/bin/git config user.email "${gm}"
-                              ${pkgs.git}/bin/git config user.name "gitit"
-                  	  ''
-             }
-                      chown ${uid}:${gid} -R ${repositoryPath}
-                      fi
-            	cd -
-                  '';
+      preStart = let gm = "gitit@${config.networking.hostName}";
+      in with cfg; ''
+                chown ${uid}:${gid} -R ${homeDir}
+                for dir in ${repositoryPath} ${staticDir} ${templatesDir} ${cacheDir}
+                do
+                  if [ ! -d $dir ]
+                  then
+                    mkdir -p $dir
+                    find $dir -type d -exec chmod 0750 {} +
+                    find $dir -type f -exec chmod 0640 {} +
+                  fi
+                done
+                cd ${repositoryPath}
+        	${
+           if repositoryType == "darcs" then ''
+             if [ ! -d _darcs ]
+             then
+               ${pkgs.darcs}/bin/darcs initialize
+               echo "${gm}" > _darcs/prefs/email
+           '' else if repositoryType == "mercurial" then ''
+             	  if [ ! -d .hg ]
+             	  then
+             	    ${pkgs.mercurial}/bin/hg init
+             	    cat >> .hg/hgrc <<NAMED
+             [ui]
+             username = gitit ${gm}
+             NAMED
+             	  '' else ''
+               	  if [ ! -d  .git ]
+                         then
+                           ${pkgs.git}/bin/git init
+                           ${pkgs.git}/bin/git config user.email "${gm}"
+                           ${pkgs.git}/bin/git config user.name "gitit"
+               	  ''
+         }
+                  chown ${uid}:${gid} -R ${repositoryPath}
+                  fi
+        	cd -
+              '';
 
-        serviceConfig = {
-          User = config.users.users.gitit.name;
-          Group = config.users.groups.gitit.name;
-          ExecStart = with cfg; gititSh haskellPackages extraPackages;
-        };
+      serviceConfig = {
+        User = config.users.users.gitit.name;
+        Group = config.users.groups.gitit.name;
+        ExecStart = with cfg; gititSh haskellPackages extraPackages;
       };
+    };
   };
 }

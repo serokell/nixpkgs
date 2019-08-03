@@ -647,618 +647,618 @@
     };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0.zip";
-          sha1 = "b621b9d5adf273bb0725948589863e60e96eeaf1";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0.zip";
+            sha1 = "b621b9d5adf273bb0725948589863e60e96eeaf1";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha2" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha2";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha2";
-      revision = "1";
-      displayName =
-        "com.android.support.constraint:constraint-layout-solver:1.0.0-alpha2";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha2";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha2";
+        revision = "1";
+        displayName =
+          "com.android.support.constraint:constraint-layout-solver:1.0.0-alpha2";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha2.zip";
-          sha1 = "2e7fd5d8d158f4517ba52af824f84466ffede879";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha2.zip";
+            sha1 = "2e7fd5d8d158f4517ba52af824f84466ffede879";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha3" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha3";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha3";
-      revision = "1";
-      displayName =
-        "com.android.support.constraint:constraint-layout-solver:1.0.0-alpha3";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha3";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha3";
+        revision = "1";
+        displayName =
+          "com.android.support.constraint:constraint-layout-solver:1.0.0-alpha3";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha3.zip";
-          sha1 = "cd1cbbb2621c9034b835e9b69243dc558cdee4dc";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha3.zip";
+            sha1 = "cd1cbbb2621c9034b835e9b69243dc558cdee4dc";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha4" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha4";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha4";
-      revision = "1";
-      displayName =
-        "com.android.support.constraint:constraint-layout-solver:1.0.0-alpha4";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha4";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha4";
+        revision = "1";
+        displayName =
+          "com.android.support.constraint:constraint-layout-solver:1.0.0-alpha4";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha4.zip";
-          sha1 = "2aa2aceecc6ba172742d0af0b43f11d03924eeb8";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha4.zip";
+            sha1 = "2aa2aceecc6ba172742d0af0b43f11d03924eeb8";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha5" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha5";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha5";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-alpha5";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha5";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha5";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-alpha5";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha5.zip";
-          sha1 = "7ba6c82c7645ac023cf45c1e27a6ae3added308a";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha5.zip";
+            sha1 = "7ba6c82c7645ac023cf45c1e27a6ae3added308a";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha6" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha6";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha6";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-alpha6";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha6";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha6";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-alpha6";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha6.zip";
-          sha1 = "b7e390f940704f4f78e1eaa5f5a5dba3bc3e81ad";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha6.zip";
+            sha1 = "b7e390f940704f4f78e1eaa5f5a5dba3bc3e81ad";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha7" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha7";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha7";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-alpha7";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha7";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha7";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-alpha7";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha7.zip";
-          sha1 = "f08be3c306bf878de31c465e46a266c52014a13f";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha7.zip";
+            sha1 = "f08be3c306bf878de31c465e46a266c52014a13f";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha8" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha8";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha8";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-alpha8";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha8";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha8";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-alpha8";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha8.zip";
-          sha1 = "cd13d16a8f0198c1d6040ec8b1d0d4e5bb7feb6a";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha8.zip";
+            sha1 = "cd13d16a8f0198c1d6040ec8b1d0d4e5bb7feb6a";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-alpha9" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha9";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha9";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-alpha9";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-alpha9";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-alpha9";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-alpha9";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha9.zip";
-          sha1 = "2c52ddd883d83230a17042b8f4ba03669f0f5f40";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-alpha9.zip";
+            sha1 = "2c52ddd883d83230a17042b8f4ba03669f0f5f40";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta1" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta1";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta1";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-beta1";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta1";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta1";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-beta1";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta1.zip";
-          sha1 = "042c25575e7650e96f0f5f5d1d3c54ed38eb821a";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta1.zip";
+            sha1 = "042c25575e7650e96f0f5f5d1d3c54ed38eb821a";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta2" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta2";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta2";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-beta2";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta2";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta2";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-beta2";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta2.zip";
-          sha1 = "28492fd42b20ae1586591ff906556d459cfdaae8";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta2.zip";
+            sha1 = "28492fd42b20ae1586591ff906556d459cfdaae8";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta3" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta3";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta3";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-beta3";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta3";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta3";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-beta3";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta3.zip";
-          sha1 = "268e763fa64bd217d8d830e59ce76be19aaba631";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta3.zip";
+            sha1 = "268e763fa64bd217d8d830e59ce76be19aaba631";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta4" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta4";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta4";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-beta4";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta4";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta4";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-beta4";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta4.zip";
-          sha1 = "2213bf37e7a2869db2635895b8e90ca6841e79d2";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta4.zip";
+            sha1 = "2213bf37e7a2869db2635895b8e90ca6841e79d2";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta5" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta5";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta5";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.0-beta5";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.0-beta5";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta5";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.0-beta5";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta5.zip";
-          sha1 = "3918cfef73e64048d0b3e048068e208b414e7e91";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta5.zip";
+            sha1 = "3918cfef73e64048d0b3e048068e208b414e7e91";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.1" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.1";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.1";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.1";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.1";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.1";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.1";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.1.zip";
-          sha1 = "76f8823def9a6da8954a54737762a6820bc1d043";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.1.zip";
+            sha1 = "76f8823def9a6da8954a54737762a6820bc1d043";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.2";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2";
-      revision = "1";
-      displayName = "Solver for ConstraintLayout 1.0.2";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-solver-1.0.2";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2";
+        revision = "1";
+        displayName = "Solver for ConstraintLayout 1.0.2";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.2.zip";
-          sha1 = "96d7ff669f0e808e9833b2c2e320702826ccc8be";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.2.zip";
+            sha1 = "96d7ff669f0e808e9833b2c2e320702826ccc8be";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0.zip";
-          sha1 = "70acf99689b933bc6735645d5c3d92b91954b6cb";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0.zip";
+            sha1 = "70acf99689b933bc6735645d5c3d92b91954b6cb";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha2" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha2";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha2";
-      revision = "1";
-      displayName =
-        "com.android.support.constraint:constraint-layout:1.0.0-alpha2";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha2";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha2";
+        revision = "1";
+        displayName =
+          "com.android.support.constraint:constraint-layout:1.0.0-alpha2";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha2.zip";
-          sha1 = "2edb4fc33745cc9d69d985f29fd48fefcd0aa9f0";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha2.zip";
+            sha1 = "2edb4fc33745cc9d69d985f29fd48fefcd0aa9f0";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha3" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha3";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha3";
-      revision = "1";
-      displayName =
-        "com.android.support.constraint:constraint-layout:1.0.0-alpha3";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha3";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha3";
+        revision = "1";
+        displayName =
+          "com.android.support.constraint:constraint-layout:1.0.0-alpha3";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha3.zip";
-          sha1 = "1a26fb79d98421f315ead7ad15be167727533026";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha3.zip";
+            sha1 = "1a26fb79d98421f315ead7ad15be167727533026";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha4" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha4";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha4";
-      revision = "1";
-      displayName =
-        "com.android.support.constraint:constraint-layout:1.0.0-alpha4";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha4";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha4";
+        revision = "1";
+        displayName =
+          "com.android.support.constraint:constraint-layout:1.0.0-alpha4";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha4.zip";
-          sha1 = "645a9be1f0c1177301e71cd0ddccf1dd67c554fe";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha4.zip";
+            sha1 = "645a9be1f0c1177301e71cd0ddccf1dd67c554fe";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha5" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha5";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha5";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-alpha5";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha5";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha5";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-alpha5";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha5.zip";
-          sha1 = "24f78daf491dcad74bcb2acfa79ea2d8e906f53b";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha5.zip";
+            sha1 = "24f78daf491dcad74bcb2acfa79ea2d8e906f53b";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha6" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha6";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha6";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-alpha6";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha6";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha6";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-alpha6";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha6.zip";
-          sha1 = "cb60e9ad4f6d3cc3c5b1b98cd3610c8d3204e651";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha6.zip";
+            sha1 = "cb60e9ad4f6d3cc3c5b1b98cd3610c8d3204e651";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha7" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha7";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha7";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-alpha7";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha7";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha7";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-alpha7";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha7.zip";
-          sha1 = "17ac210c85d24d7e8ace62847f05e4e45b640b73";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha7.zip";
+            sha1 = "17ac210c85d24d7e8ace62847f05e4e45b640b73";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha8" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha8";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha8";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-alpha8";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha8";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha8";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-alpha8";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha8.zip";
-          sha1 = "7912ba03b04831f918f523648f118c4ee4da7604";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha8.zip";
+            sha1 = "7912ba03b04831f918f523648f118c4ee4da7604";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-alpha9" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha9";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha9";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-alpha9";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-alpha9";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-alpha9";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-alpha9";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha9.zip";
-          sha1 = "89c2bbc005d4731c7a830a4d5aa98dae121a46a4";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-alpha9.zip";
+            sha1 = "89c2bbc005d4731c7a830a4d5aa98dae121a46a4";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta1" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta1";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta1";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-beta1";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta1";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta1";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-beta1";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta1.zip";
-          sha1 = "11f2f5cec4ff02986bad75435e5be77b704b4c64";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta1.zip";
+            sha1 = "11f2f5cec4ff02986bad75435e5be77b704b4c64";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta2" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta2";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta2";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-beta2";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta2";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta2";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-beta2";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta2.zip";
-          sha1 = "623939865ede2e5c2c975dc55963e0d182bcce95";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta2.zip";
+            sha1 = "623939865ede2e5c2c975dc55963e0d182bcce95";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta3" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta3";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta3";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-beta3";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta3";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta3";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-beta3";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta3.zip";
-          sha1 = "d78bb6a8ce92005fb1e4ed55d892a65b4258c60b";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta3.zip";
+            sha1 = "d78bb6a8ce92005fb1e4ed55d892a65b4258c60b";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta4" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta4";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta4";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-beta4";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta4";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta4";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-beta4";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta4.zip";
-          sha1 = "dc60844aab93a09a54a3c107685a77b18d7c1c39";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta4.zip";
+            sha1 = "dc60844aab93a09a54a3c107685a77b18d7c1c39";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta5" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta5";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta5";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.0-beta5";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.0-beta5";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta5";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.0-beta5";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta5.zip";
-          sha1 = "4660f6c7a576ea1364f0c3225db71c29ca660d9a";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta5.zip";
+            sha1 = "4660f6c7a576ea1364f0c3225db71c29ca660d9a";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.1" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.1";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.1";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.1";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.1";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.1";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.1";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.1.zip";
-          sha1 = "342b0894b8651fff37586f80f383733e97aba9f9";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.1.zip";
+            sha1 = "342b0894b8651fff37586f80f383733e97aba9f9";
+          };
+
         };
-
       };
-    };
 
     "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" =
-    {
-      name =
-        "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.2";
-      path =
-        "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.2";
-      revision = "1";
-      displayName = "ConstraintLayout for Android 1.0.2";
-      archives = {
+      {
+        name =
+          "extras-m2repository-com-android-support-constraint-constraint-layout-1.0.2";
+        path =
+          "extras/m2repository/com/android/support/constraint/constraint-layout/1.0.2";
+        revision = "1";
+        displayName = "ConstraintLayout for Android 1.0.2";
+        archives = {
 
-        all = fetchurl {
-          url =
-            "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.2.zip";
-          sha1 = "3d9688a50fe0ed7348275f85d1b02278f616d8a4";
+          all = fetchurl {
+            url =
+              "https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.2.zip";
+            sha1 = "3d9688a50fe0ed7348275f85d1b02278f616d8a4";
+          };
+
         };
-
       };
-    };
 
   };
 }

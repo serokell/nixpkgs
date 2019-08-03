@@ -27,7 +27,7 @@ in {
       start = let
         configFileClause =
           optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
-        in "${pkgs.herbstluftwm}/bin/herbstluftwm ${configFileClause}";
+      in "${pkgs.herbstluftwm}/bin/herbstluftwm ${configFileClause}";
     };
     environment.systemPackages = [ pkgs.herbstluftwm ];
   };

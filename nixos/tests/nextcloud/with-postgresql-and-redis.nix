@@ -110,13 +110,13 @@ import ../make-test.nix ({ pkgs, ... }:
         #!${pkgs.stdenv.shell}
         diff <(echo 'hi') <(${pkgs.rclone}/bin/rclone cat nextcloud:test-shared-file)
       '';
-      in ''
-        startAll();
-        $nextcloud->waitForUnit("multi-user.target");
-        $nextcloud->succeed("${configureRedis}");
-        $nextcloud->succeed("curl -sSf http://nextcloud/login");
-        $nextcloud->succeed("${withRcloneEnv} ${copySharedFile}");
-        $client->waitForUnit("multi-user.target");
-        $client->succeed("${withRcloneEnv} ${diffSharedFile}");
-      '';
+    in ''
+      startAll();
+      $nextcloud->waitForUnit("multi-user.target");
+      $nextcloud->succeed("${configureRedis}");
+      $nextcloud->succeed("curl -sSf http://nextcloud/login");
+      $nextcloud->succeed("${withRcloneEnv} ${copySharedFile}");
+      $client->waitForUnit("multi-user.target");
+      $client->succeed("${withRcloneEnv} ${diffSharedFile}");
+    '';
   })

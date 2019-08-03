@@ -174,12 +174,11 @@ in {
           "${toString cfg.minLedger} ${toString cfg.maxLedger}"
         else
           cfg.importMode;
-        in {
-          ExecStart =
-            "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
-          Restart = "always";
-          User = "ripple-data-api";
-        };
+      in {
+        ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
+        Restart = "always";
+        User = "ripple-data-api";
+      };
 
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''

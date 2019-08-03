@@ -18,10 +18,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace src/donate.h \
       --replace "kDefaultDonateLevel = 5;" "kDefaultDonateLevel = ${
-      toString donateLevel
+        toString donateLevel
       };" \
       --replace "kMinimumDonateLevel = 1;" "kMinimumDonateLevel = ${
-      toString donateLevel
+        toString donateLevel
       };"
   '';
 

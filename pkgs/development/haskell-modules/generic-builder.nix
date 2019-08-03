@@ -411,7 +411,7 @@ in stdenv.lib.fix (drv:
         ${setupCommand} haddock --html \
           ${optionalString doHoogle "--hoogle"} \
           ${
-          optionalString (isLibrary && hyperlinkSource) "--hyperlink-source"
+            optionalString (isLibrary && hyperlinkSource) "--hyperlink-source"
           } \
           ${stdenv.lib.concatStringsSep " " haddockFlags}
       ''}

@@ -15,17 +15,17 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "prefix" ];
 
   installPhase = let binPath = stdenv.lib.makeBinPath [ rlwrap jdk11 ];
-    in ''
-      mkdir -p $prefix/libexec
-      cp clojure-tools-${version}.jar $prefix/libexec
-      cp example-deps.edn $prefix
+  in ''
+    mkdir -p $prefix/libexec
+    cp clojure-tools-${version}.jar $prefix/libexec
+    cp example-deps.edn $prefix
 
-      substituteInPlace clojure --replace PREFIX $prefix
+    substituteInPlace clojure --replace PREFIX $prefix
 
-      install -Dt $out/bin clj clojure
-      wrapProgram $out/bin/clj --prefix PATH : $out/bin:${binPath}
-      wrapProgram $out/bin/clojure --prefix PATH : $out/bin:${binPath}
-    '';
+    install -Dt $out/bin clj clojure
+    wrapProgram $out/bin/clj --prefix PATH : $out/bin:${binPath}
+    wrapProgram $out/bin/clojure --prefix PATH : $out/bin:${binPath}
+  '';
 
   meta = with stdenv.lib; {
     description = "A Lisp dialect for the JVM";

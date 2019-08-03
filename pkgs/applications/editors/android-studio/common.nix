@@ -23,62 +23,62 @@ let
       wrapProgram $out/bin/studio.sh \
         --set ANDROID_EMULATOR_USE_SYSTEM_LIBS 1 \
         --prefix PATH : "${
-        stdenv.lib.makeBinPath [
+          stdenv.lib.makeBinPath [
 
-          # Checked in studio.sh
-          coreutils
-          findutils
-          gnugrep
-          which
-          gnused
+            # Checked in studio.sh
+            coreutils
+            findutils
+            gnugrep
+            which
+            gnused
 
-          # For Android emulator
-          file
-          glxinfo
-          pciutils
-          setxkbmap
+            # For Android emulator
+            file
+            glxinfo
+            pciutils
+            setxkbmap
 
-          # Used during setup wizard
-          gnutar
-          gzip
+            # Used during setup wizard
+            gnutar
+            gzip
 
-          # Runtime stuff
-          git
-        ]
+            # Runtime stuff
+            git
+          ]
         }" \
         --prefix LD_LIBRARY_PATH : "${
-        stdenv.lib.makeLibraryPath [
+          stdenv.lib.makeLibraryPath [
 
-          # Crash at startup without these
-          fontconfig
-          freetype
-          libXext
-          libXi
-          libXrender
-          libXtst
+            # Crash at startup without these
+            fontconfig
+            freetype
+            libXext
+            libXi
+            libXrender
+            libXtst
 
-          # Gradle wants libstdc++.so.6
-          stdenv.cc.cc.lib
-          # mksdcard wants 32 bit libstdc++.so.6
-          pkgsi686Linux.stdenv.cc.cc.lib
+            # Gradle wants libstdc++.so.6
+            stdenv.cc.cc.lib
+            # mksdcard wants 32 bit libstdc++.so.6
+            pkgsi686Linux.stdenv.cc.cc.lib
 
-          # aapt wants libz.so.1
-          zlib
-          pkgsi686Linux.zlib
-          # Support multiple monitors
-          libXrandr
+            # aapt wants libz.so.1
+            zlib
+            pkgsi686Linux.zlib
+            # Support multiple monitors
+            libXrandr
 
-          # For Android emulator
-          libpulseaudio
-          libX11
-          libGL
+            # For Android emulator
+            libpulseaudio
+            libX11
+            libGL
 
-          # For GTKLookAndFeel
-          gtk2
-          gnome_vfs
-          glib
-          GConf
-        ]
+            # For GTKLookAndFeel
+            gtk2
+            gnome_vfs
+            glib
+            GConf
+          ]
         }" \
         --set QT_XKB_CONFIG_ROOT "${xkeyboard_config}/share/X11/xkb" \
         --set FONTCONFIG_FILE ${fontsConf}

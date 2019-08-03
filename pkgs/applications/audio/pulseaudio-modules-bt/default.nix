@@ -42,7 +42,7 @@ in stdenv.mkDerivation rec {
       orig_rpath=$(patchelf --print-rpath "$so")
       patchelf \
         --set-rpath "${ldacbt}/lib:${
-      lib.getLib ffmpeg_4
+          lib.getLib ffmpeg_4
         }/lib:$out/lib/pulse-${pulseaudio.version}/modules:$orig_rpath" \
         "$so"
     done

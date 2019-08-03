@@ -19,13 +19,13 @@ in import ./make-test.nix ({ ... }: {
                 var_dump($result);
               ?>
             '';
-            in ''
-              Alias / ${testRoot}/
+          in ''
+            Alias / ${testRoot}/
 
-              <Directory ${testRoot}>
-                Require all granted
-              </Directory>
-            '';
+            <Directory ${testRoot}>
+              Require all granted
+            </Directory>
+          '';
         };
       };
     };
@@ -35,7 +35,7 @@ in import ./make-test.nix ({ ... }: {
     # Ensure php evaluation by matching on the var_dump syntax
     $machine->succeed('curl -vvv -s http://127.0.0.1:80/index.php \
       | grep "string(${
-      toString (builtins.stringLength testString)
+        toString (builtins.stringLength testString)
       }) \"${testString}\""');
   '';
 })

@@ -11,12 +11,12 @@ let
   '';
 
   backendsIni = let formatBool = b: if b then "1" else "0";
-    in concatStringsSep "\n" (mapAttrsToList (name: config: ''
-      [${name}]
-      type = "ido"
-      resource = "${config.resource}"
-      disabled = "${formatBool config.disabled}"
-    '') cfg.backends);
+  in concatStringsSep "\n" (mapAttrsToList (name: config: ''
+    [${name}]
+    type = "ido"
+    resource = "${config.resource}"
+    disabled = "${formatBool config.disabled}"
+  '') cfg.backends);
 
   transportsIni = concatStringsSep "\n" (mapAttrsToList (name: config: ''
     [${name}]

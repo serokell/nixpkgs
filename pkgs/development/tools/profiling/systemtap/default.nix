@@ -54,7 +54,7 @@ in runCommand "systemtap-${kernel.version}-${version}" {
   makeWrapper $stapBuild/bin/stap $out/bin/stap \
     --add-flags "-r $kernelBuildDir" \
     --prefix PATH : ${
-    lib.makeBinPath [ stdenv.cc.cc stdenv.cc.bintools elfutils gnumake ]
+      lib.makeBinPath [ stdenv.cc.cc stdenv.cc.bintools elfutils gnumake ]
     }
   makeWrapper $stapBuild/bin/dtrace $out/bin/dtrace \
     --prefix PYTHONPATH : ${pypkgs}

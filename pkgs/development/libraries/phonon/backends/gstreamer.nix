@@ -41,12 +41,12 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
         gst-libav
       ]);
-    in [
-      # This flag should be picked up through pkgconfig, but it isn't.
-      "-I${gst_all_1.gstreamer.dev}/lib/gstreamer-1.0/include"
+  in [
+    # This flag should be picked up through pkgconfig, but it isn't.
+    "-I${gst_all_1.gstreamer.dev}/lib/gstreamer-1.0/include"
 
-      ''-DGST_PLUGIN_PATH_1_0="${gstPluginPaths}"''
-    ];
+    ''-DGST_PLUGIN_PATH_1_0="${gstPluginPaths}"''
+  ];
 
   buildInputs = with gst_all_1;
     [ gstreamer gst-plugins-base phonon ]

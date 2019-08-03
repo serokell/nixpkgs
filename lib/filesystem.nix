@@ -40,6 +40,6 @@
       isDir = let
         base = baseNameOf file;
         type = (builtins.readDir parent).${base} or null;
-        in file == /. || type == "directory";
+      in file == /. || type == "directory";
     in go (if isDir then file else parent);
 }

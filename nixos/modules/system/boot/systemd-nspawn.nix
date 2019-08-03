@@ -158,12 +158,12 @@ in {
     units = mapAttrs' (n: v:
       let nspawnFile = "${n}.nspawn";
       in nameValuePair nspawnFile (instanceToUnit nspawnFile v)) cfg;
-    in mkIf (cfg != { }) {
+  in mkIf (cfg != { }) {
 
-      environment.etc."systemd/nspawn".source =
-        generateUnits "nspawn" units [ ] [ ];
+    environment.etc."systemd/nspawn".source =
+      generateUnits "nspawn" units [ ] [ ];
 
-      systemd.targets."multi-user".wants = [ "machines.target" ];
-    };
+    systemd.targets."multi-user".wants = [ "machines.target" ];
+  };
 
 }

@@ -46,15 +46,15 @@ let
       sha256 = "19w9f0r16072s59diqxsr5q6nmwyz9gnxjs49nglzhd66p3ddbkp";
     } + "/ippicv";
     files = let name = platform: "ippicv_2019_${platform}_general_20180723.tgz";
-      in if stdenv.hostPlatform.system == "x86_64-linux" then {
-        ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607";
-      } else if stdenv.hostPlatform.system == "i686-linux" then {
-        ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0";
-      } else if stdenv.hostPlatform.system == "x86_64-darwin" then {
-        ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2";
-      } else
-        throw
-        "ICV is not available for this platform (or not yet supported by this package)";
+    in if stdenv.hostPlatform.system == "x86_64-linux" then {
+      ${name "lnx_intel64"} = "c0bd78adb4156bbf552c1dfe90599607";
+    } else if stdenv.hostPlatform.system == "i686-linux" then {
+      ${name "lnx_ia32"} = "4f38432c30bfd6423164b7a24bbc98a0";
+    } else if stdenv.hostPlatform.system == "x86_64-darwin" then {
+      ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2";
+    } else
+      throw
+      "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 

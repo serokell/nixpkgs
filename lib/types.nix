@@ -130,37 +130,37 @@ let
           ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
           "${toString bit} bit signed integer";
 
-        in rec {
-          # An int with a fixed range.
-          #
-          # Example:
-          #   (ints.between 0 100).check (-1)
-          #   => false
-          #   (ints.between 0 100).check (101)
-          #   => false
-          #   (ints.between 0 0).check 0
-          #   => true
-          inherit between;
+      in rec {
+        # An int with a fixed range.
+        #
+        # Example:
+        #   (ints.between 0 100).check (-1)
+        #   => false
+        #   (ints.between 0 100).check (101)
+        #   => false
+        #   (ints.between 0 0).check 0
+        #   => true
+        inherit between;
 
-          unsigned = addCheck types.int (x: x >= 0) // {
-            name = "unsignedInt";
-            description = "unsigned integer, meaning >=0";
-          };
-          positive = addCheck types.int (x: x > 0) // {
-            name = "positiveInt";
-            description = "positive integer, meaning >0";
-          };
-          u8 = unsign 8 256;
-          u16 = unsign 16 65536;
-          # the biggest int a 64-bit Nix accepts is 2^63 - 1 (9223372036854775808), for a 32-bit Nix it is 2^31 - 1 (2147483647)
-          # the smallest int a 64-bit Nix accepts is -2^63 (-9223372036854775807), for a 32-bit Nix it is -2^31 (-2147483648)
-          # u32 = unsign 32 4294967296;
-          # u64 = unsign 64 18446744073709551616;
-
-          s8 = sign 8 256;
-          s16 = sign 16 65536;
-          # s32 = sign 32 4294967296;
+        unsigned = addCheck types.int (x: x >= 0) // {
+          name = "unsignedInt";
+          description = "unsigned integer, meaning >=0";
         };
+        positive = addCheck types.int (x: x > 0) // {
+          name = "positiveInt";
+          description = "positive integer, meaning >0";
+        };
+        u8 = unsign 8 256;
+        u16 = unsign 16 65536;
+        # the biggest int a 64-bit Nix accepts is 2^63 - 1 (9223372036854775808), for a 32-bit Nix it is 2^31 - 1 (2147483647)
+        # the smallest int a 64-bit Nix accepts is -2^63 (-9223372036854775807), for a 32-bit Nix it is -2^31 (-2147483648)
+        # u32 = unsign 32 4294967296;
+        # u64 = unsign 64 18446744073709551616;
+
+        s8 = sign 8 256;
+        s16 = sign 16 65536;
+        # s32 = sign 32 4294967296;
+      };
 
       # Alias of u16 for a port number
       port = ints.u16;
@@ -283,7 +283,7 @@ let
               (zipAttrsWith (name: defs:
                 (mergeDefinitions (loc ++ [ name ]) elemType
                   defs).optionalValue)
-                # Push down position info.
+              # Push down position info.
                 (map (def:
                   mapAttrs (n: v: {
                     inherit (def) file;

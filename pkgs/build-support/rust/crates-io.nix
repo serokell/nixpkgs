@@ -5682,10 +5682,9 @@ in rec {
         else
           [ ]) ++ (if !(kernel == "windows" || kernel == "darwin" || kernel
             == "ios") then
-              mapFeatures features ([
-                (crates."openssl"."${deps."crypto_hash"."0.3.3"."openssl"}"
-                  deps)
-              ])
+            mapFeatures features ([
+              (crates."openssl"."${deps."crypto_hash"."0.3.3"."openssl"}" deps)
+            ])
           else
             [ ]) ++ (if kernel == "windows" then
               mapFeatures features ([

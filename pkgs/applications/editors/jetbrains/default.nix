@@ -36,27 +36,27 @@ let
 
           patchelf --set-interpreter $interp \
             --set-rpath "${
-          lib.makeLibraryPath [ libxml2 zlib stdenv.cc.cc.lib ]
+              lib.makeLibraryPath [ libxml2 zlib stdenv.cc.cc.lib ]
             }:$lldbLibPath" \
             bin/lldb/linux/bin/lldb-server
 
           for i in LLDBFrontend lldb lldb-argdumper; do
             patchelf --set-interpreter $interp \
               --set-rpath "${
-          lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+                lib.makeLibraryPath [ stdenv.cc.cc.lib ]
               }:$lldbLibPath" \
               "bin/lldb/linux/bin/$i"
           done
 
           patchelf \
             --set-rpath "${
-          lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+              lib.makeLibraryPath [ stdenv.cc.cc.lib ]
             }:$lldbLibPath" \
             bin/lldb/linux/lib/python3.*/lib-dynload/zlib.cpython-*m-x86_64-linux-gnu.so
 
           patchelf \
             --set-rpath "${
-          lib.makeLibraryPath [ libxml2 zlib stdenv.cc.cc.lib python3 ]
+              lib.makeLibraryPath [ libxml2 zlib stdenv.cc.cc.lib python3 ]
             }:$lldbLibPath" \
             bin/lldb/linux/lib/liblldb.so
 
@@ -66,12 +66,12 @@ let
             bin/gdb/linux/lib/python3.*/lib-dynload/zlib.cpython-*m-x86_64-linux-gnu.so
           patchelf --set-interpreter $interp \
             --set-rpath "${
-          lib.makeLibraryPath [ stdenv.cc.cc.lib zlib ]
+              lib.makeLibraryPath [ stdenv.cc.cc.lib zlib ]
             }:$gdbLibPath" \
             bin/gdb/linux/bin/gdb
           patchelf --set-interpreter $interp \
             --set-rpath "${
-          lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+              lib.makeLibraryPath [ stdenv.cc.cc.lib ]
             }:$gdbLibPath" \
             bin/gdb/linux/bin/gdbserver
 

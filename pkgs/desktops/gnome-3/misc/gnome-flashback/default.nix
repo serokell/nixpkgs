@@ -14,8 +14,8 @@ let
 
     src = fetchurl {
       url = "mirror://gnome/sources/${pname}/${
-        stdenv.lib.versions.majorMinor version
-      }/${name}.tar.xz";
+          stdenv.lib.versions.majorMinor version
+        }/${name}.tar.xz";
       sha256 = "0jfzr7vdmnxpxqqa38ni1p3c508xhlnxqpmmqshk3rvrf0afqn62";
     };
 

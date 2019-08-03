@@ -62,12 +62,12 @@ stdenv.mkDerivation rec {
       systemd
       vivaldi-ffmpeg-codecs
     ];
-    in ''
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}" \
-        $out/Exodus
-    '';
+  in ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}" \
+      $out/Exodus
+  '';
 
   meta = with stdenv.lib; {
     homepage = "https://www.exodus.io/";

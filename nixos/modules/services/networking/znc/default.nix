@@ -34,36 +34,36 @@ let
 
     # Specifies an attrset that encodes the value according to its type
     encode = name: value:
-    {
-      null = [ ];
-      bool = [ "${name} = ${boolToString value}" ];
-      int = [ "${name} = ${toString value}" ];
+      {
+        null = [ ];
+        bool = [ "${name} = ${boolToString value}" ];
+        int = [ "${name} = ${toString value}" ];
 
-      # extraConfig should be inserted verbatim
-      string =
-        [ (if name == "extraConfig" then value else "${name} = ${value}") ];
+        # extraConfig should be inserted verbatim
+        string =
+          [ (if name == "extraConfig" then value else "${name} = ${value}") ];
 
-      # Values like `Foo = [ "bar" "baz" ];` should be transformed into
-      #   Foo=bar
-      #   Foo=baz
-      list = concatMap (encode name) value;
+        # Values like `Foo = [ "bar" "baz" ];` should be transformed into
+        #   Foo=bar
+        #   Foo=baz
+        list = concatMap (encode name) value;
 
-      # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
-      #   <Foo bar>
-      #     Baz=baz
-      #     Qux=qux
-      #   </Foo>
-      set = concatMap (subname:
-        optionals (value.${subname} != null) ([ "<${name} ${subname}>" ]
-          ++ map (line: "	${line}") (toLines value.${subname})
-          ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
+        # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
+        #   <Foo bar>
+        #     Baz=baz
+        #     Qux=qux
+        #   </Foo>
+        set = concatMap (subname:
+          optionals (value.${subname} != null) ([ "<${name} ${subname}>" ]
+            ++ map (line: "	${line}") (toLines value.${subname})
+            ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
 
-    }.${builtins.typeOf value};
+      }.${builtins.typeOf value};
 
     # One level "above" encode, acts upon a set and uses encode on each name,value pair
     toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
 
-    in concatStringsSep "\n" (toLines cfg.config);
+  in concatStringsSep "\n" (toLines cfg.config);
 
   semanticTypes = with types; rec {
     zncAtom = nullOr (either (either int bool) str);

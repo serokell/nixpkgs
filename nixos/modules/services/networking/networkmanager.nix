@@ -450,8 +450,8 @@ in {
       } ++ lib.imap1 (i: s: {
         inherit (s) source;
         target = "NetworkManager/dispatcher.d/${
-          dispatcherTypesSubdirMap.${s.type}
-        }03userscript${lib.fixedWidthNumber 4 i}";
+            dispatcherTypesSubdirMap.${s.type}
+          }03userscript${lib.fixedWidthNumber 4 i}";
         mode = "0544";
       }) cfg.dispatcherScripts ++ optional dynamicHostsEnabled {
         target = "NetworkManager/dnsmasq.d/dyndns.conf";

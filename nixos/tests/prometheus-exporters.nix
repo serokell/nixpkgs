@@ -107,12 +107,12 @@ let
             "time":$(date +%s)
           }]
         '';
-        in ''
-          waitForUnit("prometheus-collectd-exporter.service");
-          waitForOpenPort(9103);
-          succeed("curl -sSfH 'Content-Type: application/json' -X POST --data \"${postData}\" localhost:9103/collectd");
-          succeed("curl -sSf localhost:9103/metrics | grep -q 'collectd_testplugin_gauge{instance=\"testhost\"} 23'");
-        '';
+      in ''
+        waitForUnit("prometheus-collectd-exporter.service");
+        waitForOpenPort(9103);
+        succeed("curl -sSfH 'Content-Type: application/json' -X POST --data \"${postData}\" localhost:9103/collectd");
+        succeed("curl -sSf localhost:9103/metrics | grep -q 'collectd_testplugin_gauge{instance=\"testhost\"} 23'");
+      '';
     };
 
     dnsmasq = {
@@ -301,30 +301,30 @@ let
     };
 
     wireguard = let snakeoil = import ./wireguard/snakeoil-keys.nix;
-      in {
-        exporterConfig.enable = true;
-        metricProvider = {
-          networking.wireguard.interfaces.wg0 = {
-            ips = [ "10.23.42.1/32" "fc00::1/128" ];
-            listenPort = 23542;
+    in {
+      exporterConfig.enable = true;
+      metricProvider = {
+        networking.wireguard.interfaces.wg0 = {
+          ips = [ "10.23.42.1/32" "fc00::1/128" ];
+          listenPort = 23542;
 
-            inherit (snakeoil.peer0) privateKey;
+          inherit (snakeoil.peer0) privateKey;
 
-            peers = singleton {
-              allowedIPs = [ "10.23.42.2/32" "fc00::2/128" ];
+          peers = singleton {
+            allowedIPs = [ "10.23.42.2/32" "fc00::2/128" ];
 
-              inherit (snakeoil.peer1) publicKey;
-            };
+            inherit (snakeoil.peer1) publicKey;
           };
-          systemd.services.prometheus-wireguard-exporter.after =
-            [ "wireguard-wg0.service" ];
         };
-        exporterTest = ''
-          waitForUnit("prometheus-wireguard-exporter.service");
-          waitForOpenPort(9586);
-          waitUntilSucceeds("curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'");
-        '';
+        systemd.services.prometheus-wireguard-exporter.after =
+          [ "wireguard-wg0.service" ];
       };
+      exporterTest = ''
+        waitForUnit("prometheus-wireguard-exporter.service");
+        waitForOpenPort(9586);
+        waitUntilSucceeds("curl -sSf http://localhost:9586/metrics | grep '${snakeoil.peer1.publicKey}'");
+      '';
+    };
   };
 in mapAttrs (exporter: testConfig:
   (makeTest {

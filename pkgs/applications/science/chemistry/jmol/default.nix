@@ -16,11 +16,11 @@ in stdenv.mkDerivation rec {
 
   src = let
     baseVersion = "${lib.versions.major version}.${lib.versions.minor version}";
-    in fetchurl {
-      url =
-        "mirror://sourceforge/jmol/Jmol/Version%20${baseVersion}/Jmol%20${version}/Jmol-${version}-binary.tar.gz";
-      sha256 = "00ig1f1fz5qbkam0h06vs1gsb95hdqa0iyhsp4qbyjjfxir7m59l";
-    };
+  in fetchurl {
+    url =
+      "mirror://sourceforge/jmol/Jmol/Version%20${baseVersion}/Jmol%20${version}/Jmol-${version}-binary.tar.gz";
+    sha256 = "00ig1f1fz5qbkam0h06vs1gsb95hdqa0iyhsp4qbyjjfxir7m59l";
+  };
 
   patchPhase = ''
     sed -i -e "4s:.*:command=${jre}/bin/java:" -e "10s:.*:jarpath=$out/share/jmol/Jmol.jar:" -e "11,21d" jmol

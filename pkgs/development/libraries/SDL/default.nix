@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
     for lib in $out/lib/*.so* ; do
       if [[ -L "$lib" ]]; then
         patchelf --set-rpath "$(patchelf --print-rpath $lib):${
-      makeLibraryPath propagatedBuildInputs
+          makeLibraryPath propagatedBuildInputs
         }" "$lib"
       fi
     done

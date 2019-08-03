@@ -213,7 +213,7 @@ let
         cd $jre/lib/openjdk/jre/lib/security
         rm cacerts
         perl ${
-        ./generate-cacerts.pl
+          ./generate-cacerts.pl
         } $jre/lib/openjdk/jre/bin/keytool ${cacert}/etc/ssl/certs/ca-bundle.crt
       )
 

@@ -134,9 +134,10 @@ in stdenv.mkDerivation rec {
 
         wrapProgram $out/bin/caff --set PERL5LIB \
           ${
-      with perlPackages;
-      makePerlPath ([ TextTemplate MIMETools MailTools TimeDate NetIDNEncode ]
-        ++ GnuPGInterfaceRuntimeDependencies)
+            with perlPackages;
+            makePerlPath
+            ([ TextTemplate MIMETools MailTools TimeDate NetIDNEncode ]
+              ++ GnuPGInterfaceRuntimeDependencies)
           } \
           --prefix PATH ":" \
           "${stdenv.lib.makeBinPath [ nettools gnupg ]}"
@@ -154,8 +155,8 @@ in stdenv.mkDerivation rec {
 
         wrapProgram $out/bin/gpgdir --set PERL5LIB \
           ${
-      with perlPackages;
-      makePerlPath ([ TermReadKey ] ++ GnuPGInterfaceRuntimeDependencies)
+            with perlPackages;
+            makePerlPath ([ TermReadKey ] ++ GnuPGInterfaceRuntimeDependencies)
           } \
           --prefix PATH ":" \
           "${stdenv.lib.makeBinPath [ gnupg ]}"

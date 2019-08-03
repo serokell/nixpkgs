@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       --prefix QML2_IMPORT_PATH : "${pyotherside}/${qtbase.qtQmlPrefix}" \
       --prefix LD_PRELOAD : "${yubikey-personalization}/lib/libykpers-1.so" \
       --prefix LD_LIBRARY_PATH : "${
-      stdenv.lib.getLib pcsclite
+        stdenv.lib.getLib pcsclite
       }/lib:${yubikey-personalization}/lib"
 
       mkdir -p $out/share/applications

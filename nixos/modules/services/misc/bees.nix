@@ -109,29 +109,28 @@ in {
             "workDir=${fs.workDir}"
           ];
           configOptsStr = escapeShellArgs configOpts;
-          in {
-            # Values from https://github.com/Zygo/bees/blob/v0.6.1/scripts/beesd%40.service.in
-            ExecStart =
-              "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${
-                escapeShellArgs fs.extraOptions
-              }";
-            ExecStopPost =
-              "${pkgs.bees}/bin/bees-service-wrapper cleanup ${configOptsStr}";
-            CPUAccounting = true;
-            CPUWeight = 12;
-            IOSchedulingClass = "idle";
-            IOSchedulingPriority = 7;
-            IOWeight = 10;
-            KillMode = "control-group";
-            KillSignal = "SIGTERM";
-            MemoryAccounting = true;
-            Nice = 19;
-            Restart = "on-abnormal";
-            StartupCPUWeight = 25;
-            StartupIOWeight = 25;
-            SyslogIdentifier =
-              "bees"; # would otherwise be "bees-service-wrapper"
-          };
+        in {
+          # Values from https://github.com/Zygo/bees/blob/v0.6.1/scripts/beesd%40.service.in
+          ExecStart =
+            "${pkgs.bees}/bin/bees-service-wrapper run ${configOptsStr} -- --no-timestamps ${
+              escapeShellArgs fs.extraOptions
+            }";
+          ExecStopPost =
+            "${pkgs.bees}/bin/bees-service-wrapper cleanup ${configOptsStr}";
+          CPUAccounting = true;
+          CPUWeight = 12;
+          IOSchedulingClass = "idle";
+          IOSchedulingPriority = 7;
+          IOWeight = 10;
+          KillMode = "control-group";
+          KillSignal = "SIGTERM";
+          MemoryAccounting = true;
+          Nice = 19;
+          Restart = "on-abnormal";
+          StartupCPUWeight = 25;
+          StartupIOWeight = 25;
+          SyslogIdentifier = "bees"; # would otherwise be "bees-service-wrapper"
+        };
         wantedBy = [ "multi-user.target" ];
       }) cfg.filesystems;
   };

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
           "mirror://gnu/readline/readline-${meta.branch}-patches/readline80-${nr}";
         inherit sha256;
       };
-    in import ./readline-8.0-patches.nix patch);
+  in import ./readline-8.0-patches.nix patch);
 
   patches = [ ./link-against-ncurses.patch ./no-arch_only-6.3.patch ]
     ++ upstreamPatches;

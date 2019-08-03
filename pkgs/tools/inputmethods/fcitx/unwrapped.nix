@@ -11,26 +11,25 @@ let
   # src/module/*/data/CMakeLists.txt files
   # fcitx_download tgt_name url output)
   dicts = let SPELL_EN_DICT_VER = "20121020";
-    in fetchurl {
-      url =
-        "http://download.fcitx-im.org/data/en_dict-${SPELL_EN_DICT_VER}.tar.gz";
-      sha256 = "1svcb97sq7nrywp5f2ws57cqvlic8j6p811d9ngflplj8xw5sjn4";
-    };
+  in fetchurl {
+    url =
+      "http://download.fcitx-im.org/data/en_dict-${SPELL_EN_DICT_VER}.tar.gz";
+    sha256 = "1svcb97sq7nrywp5f2ws57cqvlic8j6p811d9ngflplj8xw5sjn4";
+  };
   table = fetchurl {
     url = "http://download.fcitx-im.org/data/table.tar.gz";
     sha256 = "1dw7mgbaidv3vqy0sh8dbfv8631d2zwv5mlb7npf69a1f8y0b5k1";
   };
   pystroke-data = let PY_STROKE_VER = "20121124";
-    in fetchurl {
-      url =
-        "http://download.fcitx-im.org/data/py_stroke-${PY_STROKE_VER}.tar.gz";
-      sha256 = "0j72ckmza5d671n2zg0psg7z9iils4gyxz7jgkk54fd4pyljiccf";
-    };
+  in fetchurl {
+    url = "http://download.fcitx-im.org/data/py_stroke-${PY_STROKE_VER}.tar.gz";
+    sha256 = "0j72ckmza5d671n2zg0psg7z9iils4gyxz7jgkk54fd4pyljiccf";
+  };
   pytable-data = let PY_TABLE_VER = "20121124";
-    in fetchurl {
-      url = "http://download.fcitx-im.org/data/py_table-${PY_TABLE_VER}.tar.gz";
-      sha256 = "011cg7wssssm6hm564cwkrrnck2zj5rxi7p9z5akvhg6gp4nl522";
-    };
+  in fetchurl {
+    url = "http://download.fcitx-im.org/data/py_table-${PY_TABLE_VER}.tar.gz";
+    sha256 = "011cg7wssssm6hm564cwkrrnck2zj5rxi7p9z5akvhg6gp4nl522";
+  };
   pinyin-data = fetchurl {
     url = "http://download.fcitx-im.org/data/pinyin.tar.gz";
     sha256 = "1qfq5dy4czvd1lvdnxzyaiir9x8b1m46jjny11y0i33m9ar2jf2q";

@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
 
       wrapProgram $out/bin/$script \
         --set PERL5LIB "${
-      perlPackages.makePerlPath [ perlPackages.CDDB_get ]
+          perlPackages.makePerlPath [ perlPackages.CDDB_get ]
         }" \
         --set PATH "${toolDeps}"
     done

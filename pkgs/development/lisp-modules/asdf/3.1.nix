@@ -1,13 +1,14 @@
 { stdenv, fetchurl, texinfo, texLive, perl }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "asdf";
-    version = "3.1.7";
-    name = "${baseName}-${version}";
-    url = "http://common-lisp.net/project/asdf/archives/asdf-${version}.tar.gz";
-    sha256 = "1g8wp3vi7gwrs22gnjy9lvrxqag3m8apxnryfs8n5bv6rln8bzzq";
-  };
+    rec {
+      baseName = "asdf";
+      version = "3.1.7";
+      name = "${baseName}-${version}";
+      url =
+        "http://common-lisp.net/project/asdf/archives/asdf-${version}.tar.gz";
+      sha256 = "1g8wp3vi7gwrs22gnjy9lvrxqag3m8apxnryfs8n5bv6rln8bzzq";
+    };
   buildInputs = [ texinfo texLive perl ];
 in stdenv.mkDerivation {
   inherit (s) name version;

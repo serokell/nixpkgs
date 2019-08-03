@@ -47,9 +47,9 @@ buildPythonPackage rec {
     fullTestPaths = map (testfile: "rl_coach/tests/${testfile}") testsToRun;
     escapedPaths = map lib.escapeShellArg fullTestPaths;
     pytestArgs = builtins.concatStringsSep " " escapedPaths;
-    in ''
-      pytest ${pytestArgs}
-    '';
+  in ''
+    pytest ${pytestArgs}
+  '';
 
   postPatch = ''
     # pinned to 8.0.1 for unknown reason, at least basic functionallity seems to work without it

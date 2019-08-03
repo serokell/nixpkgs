@@ -41,23 +41,23 @@ stdenv.mkDerivation rec {
     inherit (stdenv.lib) enableFeature optional;
     withOptional = value: feat:
       optional (value != null) "--with-${feat}=${value}";
-    in [
-      "--enable-parallel"
-      (enableFeature cinnamonSupport "cinnamon")
-      (enableFeature gnomeFlashbackSupport "flashback")
-      (enableFeature gnomeShellSupport "gnome")
-      (enableFeature openboxSupport "openbox")
-      (enableFeature xfceSupport "xfce")
-      (enableFeature mateSupport "mate")
-      (enableFeature gtkNextSupport "gtk_next")
-      (enableFeature plankSupport "plank")
-      (enableFeature steamSupport "airforsteam")
-      (enableFeature telegramSupport "telegram")
-      (enableFeature tweetdeckSupport "tweetdeck")
-    ] ++ (withOptional selectionColor "selection_color")
-    ++ (withOptional accentColor "accent_color")
-    ++ (withOptional suggestionColor "suggestion_color")
-    ++ (withOptional destructionColor "destruction_color");
+  in [
+    "--enable-parallel"
+    (enableFeature cinnamonSupport "cinnamon")
+    (enableFeature gnomeFlashbackSupport "flashback")
+    (enableFeature gnomeShellSupport "gnome")
+    (enableFeature openboxSupport "openbox")
+    (enableFeature xfceSupport "xfce")
+    (enableFeature mateSupport "mate")
+    (enableFeature gtkNextSupport "gtk_next")
+    (enableFeature plankSupport "plank")
+    (enableFeature steamSupport "airforsteam")
+    (enableFeature telegramSupport "telegram")
+    (enableFeature tweetdeckSupport "tweetdeck")
+  ] ++ (withOptional selectionColor "selection_color")
+  ++ (withOptional accentColor "accent_color")
+  ++ (withOptional suggestionColor "suggestion_color")
+  ++ (withOptional destructionColor "destruction_color");
 
   postInstall = ''
     for dest in $out/share/gtksourceview-{3.0,4}/styles; do

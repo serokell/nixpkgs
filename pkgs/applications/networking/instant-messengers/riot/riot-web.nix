@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
       writeText "riot-config.json" conf
     else
       "$out/config.sample.json";
-    in ''
-      mkdir -p $out/
-      cp -R . $out/
-      ln -s ${configFile} $out/config.json
-    '';
+  in ''
+    mkdir -p $out/
+    cp -R . $out/
+    ln -s ${configFile} $out/config.json
+  '';
 
   meta = {
     description = "A glossy Matrix collaboration client for the web";

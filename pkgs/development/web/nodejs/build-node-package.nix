@@ -115,100 +115,100 @@ let
           -e 's@#!/.*/coffee@#!'"$coffee"'@' || true
     '';
 
-    in stdenv.mkDerivation ({
-      inherit src;
+  in stdenv.mkDerivation ({
+    inherit src;
 
-      configurePhase = ''
-        runHook preConfigure
+    configurePhase = ''
+      runHook preConfigure
 
-        ${patchShebangs "./"}
+      ${patchShebangs "./"}
 
-        # Some version specifiers (latest, unstable, URLs, file paths) force NPM
-        # to make remote connections or consult paths outside the Nix store.
-        # The following JavaScript replaces these by * to prevent that:
-        # Also some packages require a specific npm version because npm may
-        # resovle dependencies differently, but npm is not used by Nix for dependency
-        # reslution, so these requirements are dropped.
+      # Some version specifiers (latest, unstable, URLs, file paths) force NPM
+      # to make remote connections or consult paths outside the Nix store.
+      # The following JavaScript replaces these by * to prevent that:
+      # Also some packages require a specific npm version because npm may
+      # resovle dependencies differently, but npm is not used by Nix for dependency
+      # reslution, so these requirements are dropped.
 
-        (
-        cat <<EOF
-          var fs = require('fs');
-          var url = require('url');
+      (
+      cat <<EOF
+        var fs = require('fs');
+        var url = require('url');
 
-          /*
-          * Replaces an impure version specification by *
-          */
-          function replaceImpureVersionSpec(versionSpec) {
-              var parsedUrl = url.parse(versionSpec);
+        /*
+        * Replaces an impure version specification by *
+        */
+        function replaceImpureVersionSpec(versionSpec) {
+            var parsedUrl = url.parse(versionSpec);
 
-              if(versionSpec == "" || versionSpec == "latest" || versionSpec == "unstable" ||
-                  versionSpec.substr(0, 2) == ".." || dependency.substr(0, 2) == "./" || dependency.substr(0, 2) == "~/" || dependency.substr(0, 1) == '/' || /^[^/]+\/[^/]+$/.test(versionSpec))
-                  return '*';
-              else if(parsedUrl.protocol == "git:" || parsedUrl.protocol == "git+ssh:" || parsedUrl.protocol == "git+http:" || parsedUrl.protocol == "git+https:" ||
-                  parsedUrl.protocol == "http:" || parsedUrl.protocol == "https:")
-                  return '*';
-              else
-                  return versionSpec;
-          }
+            if(versionSpec == "" || versionSpec == "latest" || versionSpec == "unstable" ||
+                versionSpec.substr(0, 2) == ".." || dependency.substr(0, 2) == "./" || dependency.substr(0, 2) == "~/" || dependency.substr(0, 1) == '/' || /^[^/]+\/[^/]+$/.test(versionSpec))
+                return '*';
+            else if(parsedUrl.protocol == "git:" || parsedUrl.protocol == "git+ssh:" || parsedUrl.protocol == "git+http:" || parsedUrl.protocol == "git+https:" ||
+                parsedUrl.protocol == "http:" || parsedUrl.protocol == "https:")
+                return '*';
+            else
+                return versionSpec;
+        }
 
-          var packageObj = JSON.parse(fs.readFileSync('./package.json'));
+        var packageObj = JSON.parse(fs.readFileSync('./package.json'));
 
-          /* Replace dependencies */
-          if(packageObj.dependencies !== undefined) {
-              for(var dependency in packageObj.dependencies) {
-                  var versionSpec = packageObj.dependencies[dependency];
-                  packageObj.dependencies[dependency] = replaceImpureVersionSpec(versionSpec);
-              }
-          }
+        /* Replace dependencies */
+        if(packageObj.dependencies !== undefined) {
+            for(var dependency in packageObj.dependencies) {
+                var versionSpec = packageObj.dependencies[dependency];
+                packageObj.dependencies[dependency] = replaceImpureVersionSpec(versionSpec);
+            }
+        }
 
-          /* Replace development dependencies */
-          if(packageObj.devDependencies !== undefined) {
-              for(var dependency in packageObj.devDependencies) {
-                  var versionSpec = packageObj.devDependencies[dependency];
-                  packageObj.devDependencies[dependency] = replaceImpureVersionSpec(versionSpec);
-              }
-          }
+        /* Replace development dependencies */
+        if(packageObj.devDependencies !== undefined) {
+            for(var dependency in packageObj.devDependencies) {
+                var versionSpec = packageObj.devDependencies[dependency];
+                packageObj.devDependencies[dependency] = replaceImpureVersionSpec(versionSpec);
+            }
+        }
 
-          /* Replace optional dependencies */
-          if(packageObj.optionalDependencies !== undefined) {
-              for(var dependency in packageObj.optionalDependencies) {
-                  var versionSpec = packageObj.optionalDependencies[dependency];
-                  packageObj.optionalDependencies[dependency] = replaceImpureVersionSpec(versionSpec);
-              }
-          }
+        /* Replace optional dependencies */
+        if(packageObj.optionalDependencies !== undefined) {
+            for(var dependency in packageObj.optionalDependencies) {
+                var versionSpec = packageObj.optionalDependencies[dependency];
+                packageObj.optionalDependencies[dependency] = replaceImpureVersionSpec(versionSpec);
+            }
+        }
 
-          /* Ignore npm version requirement */
-          if(packageObj.engines) {
-              delete packageObj.engines.npm;
-          }
+        /* Ignore npm version requirement */
+        if(packageObj.engines) {
+            delete packageObj.engines.npm;
+        }
 
-          /* Write the fixed JSON file */
-          fs.writeFileSync("package.json", JSON.stringify(packageObj));
-        EOF
-        ) | node
+        /* Write the fixed JSON file */
+        fs.writeFileSync("package.json", JSON.stringify(packageObj));
+      EOF
+      ) | node
 
-        # We do not handle shrinkwraps yet
-        rm npm-shrinkwrap.json 2>/dev/null || true
+      # We do not handle shrinkwraps yet
+      rm npm-shrinkwrap.json 2>/dev/null || true
 
-        mkdir ../build-dir
-        (
-          cd ../build-dir
-          mkdir node_modules
+      mkdir ../build-dir
+      (
+        cd ../build-dir
+        mkdir node_modules
 
-          # Symlink or copy dependencies for node modules
-          # copy is needed if dependency has recursive dependencies,
-          # because node can't follow symlinks while resolving recursive deps.
-          ${
+        # Symlink or copy dependencies for node modules
+        # copy is needed if dependency has recursive dependencies,
+        # because node can't follow symlinks while resolving recursive deps.
+        ${
           concatMapStrings (dep:
             if dep.recursiveDeps == [ ] then ''
               ln -sv ${dep}/lib/node_modules/${dep.pkgName} node_modules/
             '' else ''
               cp -R ${dep}/lib/node_modules/${dep.pkgName} node_modules/
             '') (attrValues requiredDependencies)
-          }
+        }
 
-          # Create shims for recursive dependenceies
-          ${
+        # Create shims for recursive dependenceies
+        ${
           concatMapStrings (dep: ''
             mkdir -p node_modules/${dep.pkgName}
             cat > node_modules/${dep.pkgName}/package.json <<EOF
@@ -218,119 +218,119 @@ let
             }
             EOF
           '') (attrValues recursiveDependencies)
-          }
-        )
+        }
+      )
 
-        export HOME=$PWD/../build-dir
-        runHook postConfigure
-      '';
+      export HOME=$PWD/../build-dir
+      runHook postConfigure
+    '';
 
-      buildPhase = ''
-        runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-        # If source was a file, repackage it, so npm pre/post publish hooks are not triggered,
-        if [[ -f $src ]]; then
-          GZIP=-1 tar -czf ../build-dir/package.tgz ./
-          export src=$HOME/package.tgz
-        else
-          export src=$PWD
-        fi
+      # If source was a file, repackage it, so npm pre/post publish hooks are not triggered,
+      if [[ -f $src ]]; then
+        GZIP=-1 tar -czf ../build-dir/package.tgz ./
+        export src=$HOME/package.tgz
+      else
+        export src=$PWD
+      fi
 
-        # Install package
-        (cd $HOME && npm --registry http://www.example.com --nodedir=${sources} install $src --fetch-retries 0 ${flags})
+      # Install package
+      (cd $HOME && npm --registry http://www.example.com --nodedir=${sources} install $src --fetch-retries 0 ${flags})
 
-        runHook postBuild
-      '';
+      runHook postBuild
+    '';
 
-      installPhase = ''
-        runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-        (
-          cd $HOME
+      (
+        cd $HOME
 
-          # Remove shims
-          ${
+        # Remove shims
+        ${
           concatMapStrings (dep: ''
             rm node_modules/${dep.pkgName}/package.json
             rmdir node_modules/${dep.pkgName}
           '') (attrValues recursiveDependencies)
-          }
+        }
 
-          mkdir -p $out/lib/node_modules
+        mkdir -p $out/lib/node_modules
 
-          # Install manual
-          mv node_modules/${pkgName} $out/lib/node_modules
-          rm -fR $out/lib/node_modules/${pkgName}/node_modules
-          cp -r node_modules $out/lib/node_modules/${pkgName}/node_modules
+        # Install manual
+        mv node_modules/${pkgName} $out/lib/node_modules
+        rm -fR $out/lib/node_modules/${pkgName}/node_modules
+        cp -r node_modules $out/lib/node_modules/${pkgName}/node_modules
 
-          if [ -e "$out/lib/node_modules/${pkgName}/man" ]; then
-            mkdir -p $out/share
-            for dir in "$out/lib/node_modules/${pkgName}/man/"*; do
-              mkdir -p $out/share/man/$(basename "$dir")
-              for page in "$dir"/*; do
-                ln -sv $page $out/share/man/$(basename "$dir")
-              done
+        if [ -e "$out/lib/node_modules/${pkgName}/man" ]; then
+          mkdir -p $out/share
+          for dir in "$out/lib/node_modules/${pkgName}/man/"*; do
+            mkdir -p $out/share/man/$(basename "$dir")
+            for page in "$dir"/*; do
+              ln -sv $page $out/share/man/$(basename "$dir")
             done
-          fi
+          done
+        fi
 
-          # Move peer dependencies to node_modules
-          ${
+        # Move peer dependencies to node_modules
+        ${
           concatMapStrings (dep: ''
             mv node_modules/${dep.pkgName} $out/lib/node_modules
           '') (attrValues _peerDependencies.requiredDeps)
-          }
+        }
 
-          # Install binaries and patch shebangs
-          mv node_modules/.bin $out/lib/node_modules 2>/dev/null || true
-          if [ -d "$out/lib/node_modules/.bin" ]; then
-            ln -sv $out/lib/node_modules/.bin $out/bin
-            ${patchShebangs "$out/lib/node_modules/.bin/*"}
-          fi
-        )
+        # Install binaries and patch shebangs
+        mv node_modules/.bin $out/lib/node_modules 2>/dev/null || true
+        if [ -d "$out/lib/node_modules/.bin" ]; then
+          ln -sv $out/lib/node_modules/.bin $out/bin
+          ${patchShebangs "$out/lib/node_modules/.bin/*"}
+        fi
+      )
 
-        runHook postInstall
-      '';
+      runHook postInstall
+    '';
 
-      preFixup = ''
-        find $out -type f -print0 | xargs -0 sed -i 's|${src}|${src.name}|g'
-      '';
+    preFixup = ''
+      find $out -type f -print0 | xargs -0 sed -i 's|${src}|${src.name}|g'
+    '';
 
-      shellHook = ''
-        ${preShellHook}
-        export PATH=${nodejs}/bin:$(pwd)/node_modules/.bin:$PATH
-        mkdir -p node_modules
-        ${concatMapStrings (dep: ''
-          ln -sfv ${dep}/lib/node_modules/${dep.pkgName} node_modules/
-        '') (attrValues requiredDependencies)}
-        ${postShellHook}
-      '';
+    shellHook = ''
+      ${preShellHook}
+      export PATH=${nodejs}/bin:$(pwd)/node_modules/.bin:$PATH
+      mkdir -p node_modules
+      ${concatMapStrings (dep: ''
+        ln -sfv ${dep}/lib/node_modules/${dep.pkgName} node_modules/
+      '') (attrValues requiredDependencies)}
+      ${postShellHook}
+    '';
 
-      # Stipping does not make a lot of sense in node packages
-      dontStrip = true;
+    # Stipping does not make a lot of sense in node packages
+    dontStrip = true;
 
-      meta = {
-        inherit platforms;
-        maintainers = [ stdenv.lib.maintainers.offline ];
-      };
+    meta = {
+      inherit platforms;
+      maintainers = [ stdenv.lib.maintainers.offline ];
+    };
 
-      passthru.pkgName = pkgName;
-    } // (filterAttrs
-      (n: v: all (k: n != k) [ "deps" "resolvedDeps" "optionalDependencies" ])
-      args) // {
-        name = namePrefix + name;
+    passthru.pkgName = pkgName;
+  } // (filterAttrs
+    (n: v: all (k: n != k) [ "deps" "resolvedDeps" "optionalDependencies" ])
+    args) // {
+      name = namePrefix + name;
 
-        # Run the node setup hook when this package is a build input
-        propagatedNativeBuildInputs = (args.propagatedNativeBuildInputs or [ ])
-          ++ [ nodejs ];
+      # Run the node setup hook when this package is a build input
+      propagatedNativeBuildInputs = (args.propagatedNativeBuildInputs or [ ])
+        ++ [ nodejs ];
 
-        nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ neededNatives
-          ++ (attrValues requiredDependencies);
+      nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ neededNatives
+        ++ (attrValues requiredDependencies);
 
-        # Expose list of recursive dependencies upstream, up to the package that
-        # caused recursive dependency
-        recursiveDeps = (flatten (map (dep: remove name dep.recursiveDeps)
-          (attrValues requiredDependencies)))
-          ++ (attrNames recursiveDependencies);
-      });
+      # Expose list of recursive dependencies upstream, up to the package that
+      # caused recursive dependency
+      recursiveDeps = (flatten (map (dep: remove name dep.recursiveDeps)
+        (attrValues requiredDependencies)))
+        ++ (attrNames recursiveDependencies);
+    });
 
 in self

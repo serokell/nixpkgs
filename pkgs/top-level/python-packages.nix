@@ -3526,17 +3526,17 @@ let
         google_api_python_client =
           callPackage ../development/python-modules/google-api-python-client
           { };
-        in if isPy3k then
-          google_api_python_client
-        else
-        # Python 2.7 support was deprecated but is still needed by weboob
-          google_api_python_client.overridePythonAttrs (old: rec {
-            version = "1.7.6";
-            src = old.src.override {
-              inherit version;
-              sha256 = "14w5sdrp0bk9n0r2lmpqmrbf2zclpfq6q7giyahnskkfzdkb165z";
-            };
-          });
+      in if isPy3k then
+        google_api_python_client
+      else
+      # Python 2.7 support was deprecated but is still needed by weboob
+        google_api_python_client.overridePythonAttrs (old: rec {
+          version = "1.7.6";
+          src = old.src.override {
+            inherit version;
+            sha256 = "14w5sdrp0bk9n0r2lmpqmrbf2zclpfq6q7giyahnskkfzdkb165z";
+          };
+        });
 
       google_apputils =
         callPackage ../development/python-modules/google_apputils { };
@@ -4079,11 +4079,11 @@ let
           ../development/python-modules/matplotlib/default.nix
         else
           ../development/python-modules/matplotlib/2.nix;
-        in callPackage path {
-          stdenv = if stdenv.isDarwin then pkgs.clangStdenv else pkgs.stdenv;
-          inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-          inherit (pkgs) pkgconfig;
-        };
+      in callPackage path {
+        stdenv = if stdenv.isDarwin then pkgs.clangStdenv else pkgs.stdenv;
+        inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
+        inherit (pkgs) pkgconfig;
+      };
 
       matrix-client =
         callPackage ../development/python-modules/matrix-client { };
@@ -4657,7 +4657,7 @@ let
           ../development/python-modules/prompt_toolkit
         else
           ../development/python-modules/prompt_toolkit/1.nix;
-        in callPackage filename { };
+      in callPackage filename { };
 
       protobuf = callPackage ../development/python-modules/protobuf {
         disabled = isPyPy;
@@ -5222,15 +5222,15 @@ let
             sha256 = "0g5a03jkjiqlh6h9yz508p5c9ni43735m01fivjvn6dlpjxd31g0";
           };
         });
-        in if pythonOlder "3.5" then scipy_1_2 else scipy_;
+      in if pythonOlder "3.5" then scipy_1_2 else scipy_;
 
       scikitimage = callPackage ../development/python-modules/scikit-image { };
 
       scikitlearn = let args = { inherit (pkgs) gfortran glibcLocales; };
-        in if isPy3k then
-          callPackage ../development/python-modules/scikitlearn args
-        else
-          callPackage ../development/python-modules/scikitlearn/0.20.nix args;
+      in if isPy3k then
+        callPackage ../development/python-modules/scikitlearn args
+      else
+        callPackage ../development/python-modules/scikitlearn/0.20.nix args;
 
       scikit-bio = callPackage ../development/python-modules/scikit-bio { };
 
@@ -5658,7 +5658,7 @@ let
         py3 = callPackage ../development/python-modules/py3dns { };
 
         py2 = callPackage ../development/python-modules/pydns { };
-        in if isPy3k then py3 else py2;
+      in if isPy3k then py3 else py2;
 
       python-daemon =
         callPackage ../development/python-modules/python-daemon { };
@@ -5803,7 +5803,7 @@ let
       # To make the module available, we make it available as any other
       # Python package.
       tkinter = let py = python.override { x11Support = true; };
-        in callPackage ../development/python-modules/tkinter { py = py; };
+      in callPackage ../development/python-modules/tkinter { py = py; };
 
       tlslite-ng = callPackage ../development/python-modules/tlslite-ng { };
 

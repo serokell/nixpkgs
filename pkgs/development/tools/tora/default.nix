@@ -31,7 +31,7 @@ in mkDerivation rec {
   preConfigure = ''
     sed -i \
       's|defaultGvHome = "/usr/bin"|defaultGvHome = "${
-      lib.getBin graphviz
+        lib.getBin graphviz
       }/bin"|' \
       src/widgets/toglobalsetting.cpp
 

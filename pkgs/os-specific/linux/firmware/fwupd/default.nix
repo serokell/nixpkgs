@@ -100,7 +100,7 @@ in stdenv.mkDerivation rec {
     substituteInPlace meson.build \
       --replace "plugin_dir = join_paths(libdir, 'fwupd-plugins-3')" \
                 "plugin_dir = join_paths('${
-      placeholder "out"
+                  placeholder "out"
                 }', 'fwupd_plugins-3')"
 
     substituteInPlace data/meson.build --replace \

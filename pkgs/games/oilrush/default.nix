@@ -8,7 +8,7 @@ in stdenv.mkDerivation {
   src = let
     url = config.oilrush.url or null;
     sha256 = config.oilrush.sha256 or null;
-    in assert url != null && sha256 != null; fetchurl { inherit url sha256; };
+  in assert url != null && sha256 != null; fetchurl { inherit url sha256; };
   shell = stdenv.shell;
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "x64"

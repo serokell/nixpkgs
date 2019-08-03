@@ -7,8 +7,8 @@
 
     src = fetchurl {
       url = "http://kaufmann.no/downloads/linux/dvp-${
-        lib.replaceStrings [ "." ] [ "_" ] version
-      }.map.gz";
+          lib.replaceStrings [ "." ] [ "_" ] version
+        }.map.gz";
       sha256 =
         "0e859211cfe16a18a3b9cbf2ca3e280a23a79b4e40b60d8d01d0fde7336b6d50";
     };

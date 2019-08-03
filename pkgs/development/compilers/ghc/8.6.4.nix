@@ -250,7 +250,7 @@ in stdenv.mkDerivation (rec {
       test ! -h $i || continue
       egrep --quiet '^#!' <(head -n 1 $i) || continue
       sed -i -e '2i export PATH="$PATH:${
-      stdenv.lib.makeBinPath [ targetPackages.stdenv.cc.bintools coreutils ]
+        stdenv.lib.makeBinPath [ targetPackages.stdenv.cc.bintools coreutils ]
       }"' $i
     done
   '';

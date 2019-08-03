@@ -32,20 +32,20 @@ let
         urls = d.urls;
         sha256 = d.sha256;
       });
-    in builtins.listToAttrs (map toFetchurl [
-      srcs.desugar_jdk_libs
-      srcs.io_bazel_skydoc
-      srcs.bazel_skylib
-      srcs.io_bazel_rules_sass
-      srcs.platforms
-      (if stdenv.hostPlatform.isDarwin then
-        srcs.${"java_tools_javac11_darwin-v2.0.zip"}
-      else
-        srcs.${"java_tools_javac11_linux-v2.0.zip"})
-      srcs.${"coverage_output_generator-v1.0.zip"}
-      srcs.build_bazel_rules_nodejs
-      srcs.${"android_tools_pkg-0.7.tar.gz"}
-    ]);
+  in builtins.listToAttrs (map toFetchurl [
+    srcs.desugar_jdk_libs
+    srcs.io_bazel_skydoc
+    srcs.bazel_skylib
+    srcs.io_bazel_rules_sass
+    srcs.platforms
+    (if stdenv.hostPlatform.isDarwin then
+      srcs.${"java_tools_javac11_darwin-v2.0.zip"}
+    else
+      srcs.${"java_tools_javac11_linux-v2.0.zip"})
+    srcs.${"coverage_output_generator-v1.0.zip"}
+    srcs.build_bazel_rules_nodejs
+    srcs.${"android_tools_pkg-0.7.tar.gz"}
+  ]);
 
   distDir = runCommand "bazel-deps" { } ''
     mkdir -p $out
@@ -207,41 +207,39 @@ in stdenv.mkDerivation rec {
       sha256 = "03c1bwlq5bs3hg96v4g4pg2vqwhqq6w538h66rcpw02f83yy7fs8";
     };
 
-    in {
-      bashTools =
-        callPackage ./bash-tools-test.nix { inherit runLocal bazelTest; };
-      cpp = callPackage ./cpp-test.nix {
-        inherit runLocal bazelTest bazel-examples;
-      };
-      java = callPackage ./java-test.nix {
-        inherit runLocal bazelTest bazel-examples;
-      };
-      protobuf =
-        callPackage ./protobuf-test.nix { inherit runLocal bazelTest; };
-      pythonBinPath =
-        callPackage ./python-bin-path-test.nix { inherit runLocal bazelTest; };
-
-      bashToolsWithNixHacks = callPackage ./bash-tools-test.nix {
-        inherit runLocal bazelTest;
-        bazel = bazelWithNixHacks;
-      };
-      cppWithNixHacks = callPackage ./cpp-test.nix {
-        inherit runLocal bazelTest bazel-examples;
-        bazel = bazelWithNixHacks;
-      };
-      javaWithNixHacks = callPackage ./java-test.nix {
-        inherit runLocal bazelTest bazel-examples;
-        bazel = bazelWithNixHacks;
-      };
-      protobufWithNixHacks = callPackage ./protobuf-test.nix {
-        inherit runLocal bazelTest;
-        bazel = bazelWithNixHacks;
-      };
-      pythonBinPathWithNixHacks = callPackage ./python-bin-path-test.nix {
-        inherit runLocal bazelTest;
-        bazel = bazelWithNixHacks;
-      };
+  in {
+    bashTools =
+      callPackage ./bash-tools-test.nix { inherit runLocal bazelTest; };
+    cpp =
+      callPackage ./cpp-test.nix { inherit runLocal bazelTest bazel-examples; };
+    java = callPackage ./java-test.nix {
+      inherit runLocal bazelTest bazel-examples;
     };
+    protobuf = callPackage ./protobuf-test.nix { inherit runLocal bazelTest; };
+    pythonBinPath =
+      callPackage ./python-bin-path-test.nix { inherit runLocal bazelTest; };
+
+    bashToolsWithNixHacks = callPackage ./bash-tools-test.nix {
+      inherit runLocal bazelTest;
+      bazel = bazelWithNixHacks;
+    };
+    cppWithNixHacks = callPackage ./cpp-test.nix {
+      inherit runLocal bazelTest bazel-examples;
+      bazel = bazelWithNixHacks;
+    };
+    javaWithNixHacks = callPackage ./java-test.nix {
+      inherit runLocal bazelTest bazel-examples;
+      bazel = bazelWithNixHacks;
+    };
+    protobufWithNixHacks = callPackage ./protobuf-test.nix {
+      inherit runLocal bazelTest;
+      bazel = bazelWithNixHacks;
+    };
+    pythonBinPathWithNixHacks = callPackage ./python-bin-path-test.nix {
+      inherit runLocal bazelTest;
+      bazel = bazelWithNixHacks;
+    };
+  };
 
   # update the list of workspace dependencies
   passthru.updater = writeScript "update-bazel-deps.sh" ''
@@ -408,8 +406,8 @@ in stdenv.mkDerivation rec {
         src/main/cpp/option_processor.cc \
         --replace BAZEL_SYSTEM_BAZELRC_PATH "\"$out/etc/bazelrc\""
     '';
-    in lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
-    + genericPatches;
+  in lib.optionalString stdenv.hostPlatform.isDarwin darwinPatches
+  + genericPatches;
 
   buildInputs = [ buildJdk python3 ];
 

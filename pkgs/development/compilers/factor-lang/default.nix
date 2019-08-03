@@ -99,21 +99,21 @@ stdenv.mkDerivation rec {
     cp ./factor $out/bin
     wrapProgram $out/bin/factor --prefix LD_LIBRARY_PATH : \
       "${
-      stdenv.lib.makeLibraryPath (with xorg; [
-        glib
-        libX11
-        pango
-        cairo
-        gtk2
-        gdk_pixbuf
-        gtkglext
-        mesa
-        libXmu
-        libXt
-        libICE
-        libSM
-        openssl
-      ])
+        stdenv.lib.makeLibraryPath (with xorg; [
+          glib
+          libX11
+          pango
+          cairo
+          gtk2
+          gdk_pixbuf
+          gtkglext
+          mesa
+          libXmu
+          libXt
+          libICE
+          libSM
+          openssl
+        ])
       }"
 
     sed -ie 's#/bin/.factor-wrapped#/lib/factor/factor#g' $out/bin/factor

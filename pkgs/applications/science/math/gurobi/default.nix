@@ -8,8 +8,8 @@ in stdenv.mkDerivation rec {
   src = with stdenv.lib;
     fetchurl {
       url = "http://packages.gurobi.com/${
-        versions.majorMinor version
-      }/gurobi${version}_linux64.tar.gz";
+          versions.majorMinor version
+        }/gurobi${version}_linux64.tar.gz";
       sha256 = "1yjqbzqnq4jjkjm616d36bgd3rmqr0a1ii17n0prpdjzmdlq63dz";
     };
 

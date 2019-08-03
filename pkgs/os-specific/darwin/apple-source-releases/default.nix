@@ -129,8 +129,8 @@ let
       fetch = if name == "libiconv" then stdenv.fetchurlBoot else fetchurl;
     in fetch {
       url = "http://www.opensource.apple.com/tarballs/${name}/${name}-${
-        versions.${version}.${name}
-      }.tar.gz";
+          versions.${version}.${name}
+        }.tar.gz";
       inherit sha256;
     };
 

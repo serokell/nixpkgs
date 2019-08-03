@@ -197,15 +197,15 @@ in {
               if [ "${toString sw.size}" != "$currentSize" ]; then
                 fallocate -l ${toString sw.size}M "${sw.device}" ||
                   dd if=/dev/zero of="${sw.device}" bs=1M count=${
-                toString sw.size
+                    toString sw.size
                   }
                 if [ "${toString sw.size}" -lt "$currentSize" ]; then
                   truncate --size "${toString sw.size}M" "${sw.device}"
                 fi
                 chmod 0600 ${sw.device}
                 ${
-                optionalString (!sw.randomEncryption.enable)
-                "mkswap ${sw.realDevice}"
+                  optionalString (!sw.randomEncryption.enable)
+                  "mkswap ${sw.realDevice}"
                 }
               fi
             ''}
@@ -224,9 +224,9 @@ in {
           restartIfChanged = false;
         };
 
-      in listToAttrs (map createSwapDevice
-        (filter (sw: sw.size != null || sw.randomEncryption.enable)
-          config.swapDevices));
+    in listToAttrs (map createSwapDevice
+      (filter (sw: sw.size != null || sw.randomEncryption.enable)
+        config.swapDevices));
 
   };
 

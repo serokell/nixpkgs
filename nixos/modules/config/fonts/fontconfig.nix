@@ -62,15 +62,15 @@ let
       <fontconfig>
         <!-- Font directories -->
         ${
-        concatStringsSep "\n"
-        (map (font: "<dir>${font}</dir>") config.fonts.fonts)
+          concatStringsSep "\n"
+          (map (font: "<dir>${font}</dir>") config.fonts.fonts)
         }
         <!-- Pre-generated font caches -->
         <cachedir>${cache}</cachedir>
         ${
-        optionalString (pkgs.stdenv.isx86_64 && cfg.cache32Bit) ''
-          <cachedir>${cache32}</cachedir>
-        ''
+          optionalString (pkgs.stdenv.isx86_64 && cfg.cache32Bit) ''
+            <cachedir>${cache32}</cachedir>
+          ''
         }
       </fontconfig>
     '';
@@ -105,13 +105,13 @@ let
       </match>
 
       ${
-      optionalString (cfg.dpi != 0) ''
-        <match target="pattern">
-          <edit name="dpi" mode="assign">
-            <double>${toString cfg.dpi}</double>
-          </edit>
-        </match>
-      ''
+        optionalString (cfg.dpi != 0) ''
+          <match target="pattern">
+            <edit name="dpi" mode="assign">
+              <double>${toString cfg.dpi}</double>
+            </edit>
+          </match>
+        ''
       }
 
     </fontconfig>
@@ -130,27 +130,27 @@ let
           <family>${name}</family>
           <prefer>
           ${
-          concatStringsSep "" (map (font: ''
-            <family>${font}</family>
-          '') fonts)
+            concatStringsSep "" (map (font: ''
+              <family>${font}</family>
+            '') fonts)
           }
           </prefer>
         </alias>
       '';
-    in pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
-      <?xml version='1.0'?>
-      <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
-      <fontconfig>
+  in pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
+    <?xml version='1.0'?>
+    <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
+    <fontconfig>
 
-        <!-- Default fonts -->
-        ${genDefault cfg.defaultFonts.sansSerif "sans-serif"}
+      <!-- Default fonts -->
+      ${genDefault cfg.defaultFonts.sansSerif "sans-serif"}
 
-        ${genDefault cfg.defaultFonts.serif "serif"}
+      ${genDefault cfg.defaultFonts.serif "serif"}
 
-        ${genDefault cfg.defaultFonts.monospace "monospace"}
+      ${genDefault cfg.defaultFonts.monospace "monospace"}
 
-      </fontconfig>
-    '';
+    </fontconfig>
+  '';
 
   # bitmap font options
   # priority 53

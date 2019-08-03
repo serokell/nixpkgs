@@ -22,11 +22,11 @@ in buildGoPackage {
     # These are runtime dependencies
     wrapProgram $bin/bin/buildkite-agent \
       ${
-      stdenv.lib.optionalString hasBootstrapScript
-      "--set BUILDKITE_BOOTSTRAP_SCRIPT_PATH $bin/libexec/buildkite-agent/bootstrap.sh"
+        stdenv.lib.optionalString hasBootstrapScript
+        "--set BUILDKITE_BOOTSTRAP_SCRIPT_PATH $bin/libexec/buildkite-agent/bootstrap.sh"
       } \
       --prefix PATH : '${
-      stdenv.lib.makeBinPath [ openssh git coreutils gnused gnugrep ]
+        stdenv.lib.makeBinPath [ openssh git coreutils gnused gnugrep ]
       }'
   '';
 

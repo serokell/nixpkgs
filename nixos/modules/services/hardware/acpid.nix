@@ -154,8 +154,8 @@ in {
       };
 
       script = "acpid ${
-        optionalString config.services.acpid.logEvents "--logevents"
-      } --confdir ${acpiConfDir}";
+          optionalString config.services.acpid.logEvents "--logevents"
+        } --confdir ${acpiConfDir}";
     };
 
   };

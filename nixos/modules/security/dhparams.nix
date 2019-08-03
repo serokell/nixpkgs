@@ -34,7 +34,7 @@ let
       generated = pkgs.runCommand "dhparams-${name}.pem" {
         nativeBuildInputs = [ pkgs.openssl ];
       } ''openssl dhparam -out "$out" ${toString config.bits}'';
-      in if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
+    in if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
   };
 
 in {
@@ -141,14 +141,16 @@ in {
               continue
             fi
             ${
-            lib.concatStrings (lib.mapAttrsToList (name:
-              { bits, path, ... }: ''
-                if [ "$file" = ${lib.escapeShellArg path} ] && \
-                   ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
-                   | head -n 1 | grep "(${toString bits} bit)" > /dev/null; then
-                  continue
-                fi
-              '') cfg.params)
+              lib.concatStrings (lib.mapAttrsToList (name:
+                { bits, path, ... }: ''
+                  if [ "$file" = ${lib.escapeShellArg path} ] && \
+                     ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
+                     | head -n 1 | grep "(${
+                       toString bits
+                     } bit)" > /dev/null; then
+                    continue
+                  fi
+                '') cfg.params)
             }
             rm $file
           done

@@ -127,23 +127,23 @@ let
   buildFile = let
     field = name: attrs:
       if attrs ? "${name}" then "    ${name} = ${attrs.${name}},\n" else "";
-    in ''
-      licenses(["notice"])  # Apache 2
+  in ''
+    licenses(["notice"])  # Apache 2
 
-      package(default_visibility = ["//visibility:public"])
+    package(default_visibility = ["//visibility:public"])
 
-    '' + lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: value:
-      ''
-        cc_library(
-      '' + "    name = \"${name}\",\n" + field "srcs" value + field "hdrs" value
-      + field "deps" value + field "includes" value
-      + field "strip_include_prefix" value + ")") ccTargets) + ''
+  '' + lib.concatStringsSep "\n\n" (lib.mapAttrsToList (name: value:
+    ''
+      cc_library(
+    '' + "    name = \"${name}\",\n" + field "srcs" value + field "hdrs" value
+    + field "deps" value + field "includes" value
+    + field "strip_include_prefix" value + ")") ccTargets) + ''
 
-        filegroup(
-            name = "protoc",
-            srcs = ["bin/protoc"],
-        )
-      '';
+      filegroup(
+          name = "protoc",
+          srcs = ["bin/protoc"],
+      )
+    '';
 
   workspaceFile = ''
     workspace(name = "nix")

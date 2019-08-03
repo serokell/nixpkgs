@@ -57,7 +57,7 @@ let
     postFixup = ''
       makeWrapper $out/bin/wc-lock $out/bin/wc-lock \
         --prefix LD_LIBRARY_PATH : "${
-        stdenv.lib.makeLibraryPath [ libxkbcommon wayland ]
+          stdenv.lib.makeLibraryPath [ libxkbcommon wayland ]
         }"
     '';
   });

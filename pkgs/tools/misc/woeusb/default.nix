@@ -38,20 +38,20 @@ stdenv.mkDerivation rec {
     # we add everything we need manually.
     wrapProgram "$out/bin/woeusb" \
       --set PATH '${
-      stdenv.lib.makeBinPath [
-        coreutils
-        dosfstools
-        findutils
-        gawk
-        gnugrep
-        grub2_light
-        ncurses
-        ntfs3g
-        parted
-        utillinux
-        wget
-        p7zip
-      ]
+        stdenv.lib.makeBinPath [
+          coreutils
+          dosfstools
+          findutils
+          gawk
+          gnugrep
+          grub2_light
+          ncurses
+          ntfs3g
+          parted
+          utillinux
+          wget
+          p7zip
+        ]
       }'
   '';
 

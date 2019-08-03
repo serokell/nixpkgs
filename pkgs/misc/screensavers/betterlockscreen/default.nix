@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
       procps
       xrdb
     ];
-    in ''
-      mkdir -p $out/bin
-      cp betterlockscreen $out/bin/betterlockscreen
-      wrapProgram "$out/bin/betterlockscreen" --prefix PATH : "$out/bin:${PATH}"
-    '';
+  in ''
+    mkdir -p $out/bin
+    cp betterlockscreen $out/bin/betterlockscreen
+    wrapProgram "$out/bin/betterlockscreen" --prefix PATH : "$out/bin:${PATH}"
+  '';
 
   meta = with stdenv.lib; {
     description =

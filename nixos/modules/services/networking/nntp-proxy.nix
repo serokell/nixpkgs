@@ -42,15 +42,15 @@ let
       verbose = "${toUpper cfg.verbosity}";
       # Password is made with: 'mkpasswd -m sha-512 <password>'
       users = (${
-      concatStringsSep ''
-        ,
-      '' (mapAttrsToList (username: userConfig: ''
-        {
-            username = "${username}";
-            password = "${userConfig.passwordHash}";
-            max_connections = ${toString userConfig.maxConnections};
-        }
-      '') cfg.users)
+        concatStringsSep ''
+          ,
+        '' (mapAttrsToList (username: userConfig: ''
+          {
+              username = "${username}";
+              password = "${userConfig.passwordHash}";
+              max_connections = ${toString userConfig.maxConnections};
+          }
+        '') cfg.users)
       });
     };
   '';

@@ -14,16 +14,16 @@ stdenv.mkDerivation rec {
   installPhase = ''
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
              --set-rpath ${
-      stdenv.lib.makeLibraryPath [
-        glib
-        zlib
-        dbus
-        dbus-glib
-        gtk2
-        gdk_pixbuf
-        cairo
-        pango
-      ]
+               stdenv.lib.makeLibraryPath [
+                 glib
+                 zlib
+                 dbus
+                 dbus-glib
+                 gtk2
+                 gdk_pixbuf
+                 cairo
+                 pango
+               ]
              } \
              tixati
     install -D tixati         $out/bin/tixati

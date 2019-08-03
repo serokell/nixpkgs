@@ -40,12 +40,12 @@ let
       maybeOption = option:
         optionalString options.${option}.isDefined
         " ${option}=${config.${option}}";
-      in if (!(hasPrefix "/" config.socket)) then
-        "${config.socket}"
-      else
-        "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
-          maybeOption "group"
-        }";
+    in if (!(hasPrefix "/" config.socket)) then
+      "${config.socket}"
+    else
+      "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
+        maybeOption "group"
+      }";
   };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
@@ -80,9 +80,9 @@ let
           from = ''services.rspamd.workers.”${name}".type'';
           files = options.type.files;
           warning = "The option `${from}` defined in ${
-            showFiles files
-          } has enum value `proxy` which has been renamed to `rspamd_proxy`";
-          in x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
+              showFiles files
+            } has enum value `proxy` which has been renamed to `rspamd_proxy`";
+        in x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
       };
       bindSockets = mkOption {
         type = types.listOf
@@ -151,14 +151,14 @@ let
             owner = cfg.user;
             group = cfg.group;
           };
-          in mkDefault (if name == "normal" then
-            [ (unixSocket "rspamd") ]
-          else if name == "controller" then
-            [ "localhost:11334" ]
-          else if name == "rspamd_proxy" then
-            [ (unixSocket "proxy") ]
-          else
-            [ ]);
+        in mkDefault (if name == "normal" then
+          [ (unixSocket "rspamd") ]
+        else if name == "controller" then
+          [ "localhost:11334" ]
+        else if name == "rspamd_proxy" then
+          [ (unixSocket "proxy") ]
+        else
+          [ ]);
       };
   };
 
@@ -194,17 +194,17 @@ let
         worker "${value.type}" {
           type = "${value.type}";
           ${
-          optionalString (value.enable != null)
-          "enabled = ${if value.enable != false then "yes" else "no"};"
+            optionalString (value.enable != null)
+            "enabled = ${if value.enable != false then "yes" else "no"};"
           }
           ${mkBindSockets value.enable value.bindSockets}
           ${
-          optionalString (value.count != null)
-          "count = ${toString value.count};"
+            optionalString (value.count != null)
+            "count = ${toString value.count};"
           }
           ${
-          concatStringsSep "\n  "
-          (map (each: ''.include "${each}"'') value.includes)
+            concatStringsSep "\n  "
+            (map (each: ''.include "${each}"'') value.includes)
           }
           .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
           .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
@@ -257,7 +257,7 @@ let
       config = {
         source = mkIf (config.text != null)
           (let name' = "rspamd-${prefix}-" + baseNameOf name;
-            in mkDefault (pkgs.writeText name' config.text));
+          in mkDefault (pkgs.writeText name' config.text));
       };
     };
 
@@ -449,7 +449,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.rspamd}/bin/rspamd ${
-          optionalString cfg.debug "-d"
+            optionalString cfg.debug "-d"
           } --user=${cfg.user} --group=${cfg.group} --pid=/run/rspamd.pid -c /etc/rspamd/rspamd.conf -f";
         Restart = "always";
         RuntimeDirectory = "rspamd";

@@ -39,8 +39,8 @@ in buildPythonPackage rec {
     ${python.interpreter} runtests.py -j$NIX_BUILD_CORES \
       --no-code-style \
       ${
-      stdenv.lib.optionalString (builtins.length excludedTests != 0)
-      ''--exclude="(${builtins.concatStringsSep "|" excludedTests})"''
+        stdenv.lib.optionalString (builtins.length excludedTests != 0)
+        ''--exclude="(${builtins.concatStringsSep "|" excludedTests})"''
       }
   '';
 

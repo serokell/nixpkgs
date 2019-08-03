@@ -13,7 +13,7 @@ browser:
 
 let
   wrapper = { browserName ?
-    browser.browserName or (builtins.parseDrvName browser.name).name
+      browser.browserName or (builtins.parseDrvName browser.name).name
     , name ? (browserName + "-" + (builtins.parseDrvName browser.name).version)
     , desktopName ? # browserName with first letter capitalized
       (lib.toUpper (lib.substring 0 1 browserName)
@@ -89,7 +89,7 @@ let
         inherit icon;
         comment = "";
         desktopName = "${desktopName}${nameSuffix}${
-          lib.optionalString gdkWayland " (Wayland)"
+            lib.optionalString gdkWayland " (Wayland)"
           }";
         genericName = "Web Browser";
         categories = "Application;Network;WebBrowser;";
@@ -115,7 +115,7 @@ let
         if [ ! -x "${browser}${browser.execdir or "/bin"}/${browserName}" ]
         then
             echo "cannot find executable file \`${browser}${
-          browser.execdir or "/bin"
+              browser.execdir or "/bin"
             }/${browserName}'"
             exit 1
         fi
@@ -134,9 +134,9 @@ let
             --set MOZ_SYSTEM_DIR "$out/lib/mozilla" \
             --set SNAP_NAME "firefox" \
             ${
-          lib.optionalString gdkWayland ''
-            --set GDK_BACKEND "wayland" \
-          ''
+              lib.optionalString gdkWayland ''
+                --set GDK_BACKEND "wayland" \
+              ''
             }${
               lib.optionalString (browser ? gtk3) ''
                 --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \

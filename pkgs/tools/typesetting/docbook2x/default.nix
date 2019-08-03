@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
       # spaces below by inserting escaped backslashes.
       wrapProgram $out/bin/$i \
         --prefix PERL5LIB : ${
-      with perlPackages;
-      makeFullPerlPath [ XMLSAX XMLParser XMLNamespaceSupport ]
+          with perlPackages;
+          makeFullPerlPath [ XMLSAX XMLParser XMLNamespaceSupport ]
         } \
         --prefix XML_CATALOG_FILES "\ " \
         "$out/share/docbook2X/dtd/catalog.xml\ $out/share/docbook2X/xslt/catalog.xml\ ${docbook_xml_dtd_43}/xml/dtd/docbook/catalog.xml"

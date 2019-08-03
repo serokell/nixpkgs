@@ -36,7 +36,7 @@ let
             })
           else
             value) pkgSet;
-      in scrubbedEval.options;
+    in scrubbedEval.options;
   };
 
   helpScript = pkgs.writeScriptBin "nixos-help" ''

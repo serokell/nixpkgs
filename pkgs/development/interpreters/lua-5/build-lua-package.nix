@@ -81,9 +81,9 @@ let
     -- dependency
     rocks_trees = {
       ${
-      lib.concatStringsSep ''
+        lib.concatStringsSep ''
 
-        , '' rocksTrees
+          , '' rocksTrees
       }
     }
   '' + lib.optionalString lua.pkgs.isLuaJIT ''
@@ -99,17 +99,17 @@ let
     -- For single-output external dependencies
     external_deps_dirs = {
       ${
-      lib.concatStringsSep ''
+        lib.concatStringsSep ''
 
-        , '' externalDepsDirs
+          , '' externalDepsDirs
       }
     }
     variables = {
       -- Some needed machinery to handle multiple-output external dependencies,
       -- as per https://github.com/luarocks/luarocks/issues/766
       ${
-      lib.optionalString (lib.length depVariables > 0)
-      "${lib.concatStringsSep "\n  " depVariables}"
+        lib.optionalString (lib.length depVariables > 0)
+        "${lib.concatStringsSep "\n  " depVariables}"
       }
       ${extraVariables}
     }
@@ -163,12 +163,12 @@ in toLuaModule (lua.stdenv.mkDerivation
 
     # enabled only for src.rock
     setSourceRoot = let name_only = (builtins.parseDrvName name).name;
-      in lib.optionalString (knownRockspec == null) ''
-        # format is rockspec_basename/source_basename
-        # rockspec can set it via spec.source.dir
-        folder=$(find . -mindepth 2 -maxdepth 2 -type d -path '*${name_only}*/*'|head -n1)
-        sourceRoot="$folder"
-      '';
+    in lib.optionalString (knownRockspec == null) ''
+      # format is rockspec_basename/source_basename
+      # rockspec can set it via spec.source.dir
+      folder=$(find . -mindepth 2 -maxdepth 2 -type d -path '*${name_only}*/*'|head -n1)
+      sourceRoot="$folder"
+    '';
 
     configurePhase = ''
       runHook preConfigure
@@ -233,10 +233,10 @@ in toLuaModule (lua.stdenv.mkDerivation
     } // passthru;
 
     meta = with lib.maintainers;
-    {
-      platforms = lua.meta.platforms;
-      # add extra maintainer(s) to every package
-      maintainers = (meta.maintainers or [ ]) ++ [ ];
-      broken = disabled;
-    } // meta;
+      {
+        platforms = lua.meta.platforms;
+        # add extra maintainer(s) to every package
+        maintainers = (meta.maintainers or [ ]) ++ [ ];
+        broken = disabled;
+      } // meta;
   }))

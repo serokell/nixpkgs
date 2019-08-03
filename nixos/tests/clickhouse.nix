@@ -11,13 +11,13 @@ import ./make-test.nix ({ pkgs, ... }: {
     insertQuery = pkgs.writeText "insert.sql"
       "INSERT INTO `demo` (`value`) VALUES ('foo');";
     selectQuery = pkgs.writeText "select.sql" "SELECT * from `demo`";
-    in ''
-      $machine->start();
-      $machine->waitForUnit("clickhouse.service");
-      $machine->waitForOpenPort(9000);
+  in ''
+    $machine->start();
+    $machine->waitForUnit("clickhouse.service");
+    $machine->waitForOpenPort(9000);
 
-      $machine->succeed("cat ${tableDDL} | clickhouse-client");
-      $machine->succeed("cat ${insertQuery} | clickhouse-client");
-      $machine->succeed("cat ${selectQuery} | clickhouse-client | grep foo");
-    '';
+    $machine->succeed("cat ${tableDDL} | clickhouse-client");
+    $machine->succeed("cat ${insertQuery} | clickhouse-client");
+    $machine->succeed("cat ${selectQuery} | clickhouse-client | grep foo");
+  '';
 })

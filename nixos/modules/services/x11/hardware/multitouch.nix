@@ -81,12 +81,12 @@ in {
         Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
         ${optionalString (!cfg.tapButtons) disabledTapConfig}
         ${
-        optionalString cfg.invertScroll ''
-          Option "ScrollUpButton" "5"
-          Option "ScrollDownButton" "4"
-          Option "ScrollLeftButton" "7"
-          Option "ScrollRightButton" "6"
-        ''
+          optionalString cfg.invertScroll ''
+            Option "ScrollUpButton" "5"
+            Option "ScrollDownButton" "4"
+            Option "ScrollLeftButton" "7"
+            Option "ScrollRightButton" "6"
+          ''
         }
         ${cfg.additionalOptions}
       EndSection

@@ -8,11 +8,11 @@ in stdenv.mkDerivation rec {
   src = let
     qstring = "package=02&release=${releaseId}&file=01";
     mkURLs = map (base: "${base}/sites/download/download.php?${qstring}");
-    in fetchurl {
-      name = "${name}.tar.gz";
-      urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
-      inherit sha256;
-    };
+  in fetchurl {
+    name = "${name}.tar.gz";
+    urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
+    inherit sha256;
+  };
 
   nativeBuildInputs = [ pkgconfig ];
 

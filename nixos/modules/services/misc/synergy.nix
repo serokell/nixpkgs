@@ -89,7 +89,7 @@ in {
         wantedBy = optional cfgC.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
         serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergyc -f ${
-          optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
+            optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
           } ${cfgC.serverAddress}";
         serviceConfig.Restart = "on-failure";
       };

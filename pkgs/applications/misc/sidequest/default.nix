@@ -37,7 +37,7 @@ let
       patchelf \
       	--set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       	--set-rpath "${atomEnv.libPath}/lib:${
-        lib.makeLibraryPath [ libuuid at-spi2-atk ]
+         lib.makeLibraryPath [ libuuid at-spi2-atk ]
        }:$out/lib/SideQuest" \
       	"$out/lib/SideQuest/SideQuest"
     '';

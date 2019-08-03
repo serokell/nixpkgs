@@ -30,12 +30,12 @@ buildPythonApplication rec {
   postInstall = let
     pythonPath = (stdenv.lib.concatMapStringsSep ":"
       (m: "${m}/lib/${python.libPrefix}/site-packages") propagatedBuildInputs);
-    in ''
-      gappsWrapperArgs+=(
-        "--prefix" "PYTHONPATH" : "${pythonPath}"
-        "--set" "PYTHONNOUSERSITE" "1"
-      )
-    '';
+  in ''
+    gappsWrapperArgs+=(
+      "--prefix" "PYTHONPATH" : "${pythonPath}"
+      "--set" "PYTHONNOUSERSITE" "1"
+    )
+  '';
 
   doCheck = false; # no tests
 

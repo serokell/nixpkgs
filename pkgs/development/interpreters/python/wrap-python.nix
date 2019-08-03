@@ -38,13 +38,13 @@ makeSetupHook {
       functools.reduce(lambda k, p: site.addsitedir(p, k), ['"$([ -n "$program_PYTHONPATH" ] && (echo "'$program_PYTHONPATH'" | sed "s|:|','|g") || true)"'], site._init_pathinfo())
     '';
 
-    in ''
-      1 {
-        :r
-        /\\$|,$/{N;br}
-        /__future__|^ |^ *(#.*)?$/{n;br}
-        ${concatImapStrings mkStringSkipper quoteVariants}
-        /^[^# ]/i ${replaceStrings [ "\n" ] [ ";" ] preamble}
-      }
-    '';
+  in ''
+    1 {
+      :r
+      /\\$|,$/{N;br}
+      /__future__|^ |^ *(#.*)?$/{n;br}
+      ${concatImapStrings mkStringSkipper quoteVariants}
+      /^[^# ]/i ${replaceStrings [ "\n" ] [ ";" ] preamble}
+    }
+  '';
 } ./wrap.sh

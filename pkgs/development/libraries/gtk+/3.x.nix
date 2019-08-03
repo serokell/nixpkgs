@@ -16,8 +16,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/gtk+/${
-      stdenv.lib.versions.majorMinor version
-    }/gtk+-${version}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/gtk+-${version}.tar.xz";
     sha256 = "16f71bbkhwhndcsrpyhjia3b77cb5ksf5c45lyfgws4pkgg64sb6";
   };
 

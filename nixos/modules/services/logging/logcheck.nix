@@ -240,7 +240,7 @@ in {
         { user, cmdline, timeArgs, ... }: ''
           ${timeArgs} ${user} ${cmdline}
         '';
-      in mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron)
-      ++ [ cronJob ];
+    in mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron)
+    ++ [ cronJob ];
   };
 }

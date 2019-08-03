@@ -73,10 +73,10 @@ let
 
   buildGem = name: attrs:
     (let gemAttrs = composeGemAttrs ruby gems name attrs;
-      in if gemAttrs.type == "path" then
-        pathDerivation (gemAttrs.source // gemAttrs)
-      else
-        buildRubyGem gemAttrs);
+    in if gemAttrs.type == "path" then
+      pathDerivation (gemAttrs.source // gemAttrs)
+    else
+      buildRubyGem gemAttrs);
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 
@@ -122,20 +122,20 @@ let
           require 'rubygems'
           require 'bundler/setup'
         '';
-        in stdenv.mkDerivation {
-          name = "${pname'}-interactive-environment";
-          nativeBuildInputs = [ wrappedRuby basicEnv ];
-          shellHook = ''
-            export OLD_IRBRC=$IRBRC
-            export IRBRC=${irbrc}
-          '';
-          buildCommand = ''
-            echo >&2 ""
-            echo >&2 "*** Ruby 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-            echo >&2 ""
-            exit 1
-          '';
-        };
+      in stdenv.mkDerivation {
+        name = "${pname'}-interactive-environment";
+        nativeBuildInputs = [ wrappedRuby basicEnv ];
+        shellHook = ''
+          export OLD_IRBRC=$IRBRC
+          export IRBRC=${irbrc}
+        '';
+        buildCommand = ''
+          echo >&2 ""
+          echo >&2 "*** Ruby 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+          echo >&2 ""
+          exit 1
+        '';
+      };
     };
   };
 in basicEnv

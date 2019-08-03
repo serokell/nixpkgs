@@ -11,7 +11,7 @@ let
     };
 
   mkDerivation = a@{ pluginName, rtpFilePath ?
-    (builtins.replaceStrings [ "-" ] [ "_" ] pluginName) + ".tmux"
+      (builtins.replaceStrings [ "-" ] [ "_" ] pluginName) + ".tmux"
     , namePrefix ? "tmuxplugin-", src, unpackPhase ? "", configurePhase ? ":"
     , buildPhase ? ":", addonInfo ? null, preInstall ? "", postInstall ? ""
     , path ? (builtins.parseDrvName pluginName).name, dependencies ? [ ], ... }:

@@ -64,9 +64,9 @@ stdenv.mkDerivation rec {
         --run 'cd $_TRIBLERPATH' \
         --add-flags "-O $out/run_tribler.py" \
         ${
-      stdenv.lib.optionalString enablePlayer ''
-        --prefix LD_LIBRARY_PATH : ${vlc}/lib
-      ''
+          stdenv.lib.optionalString enablePlayer ''
+            --prefix LD_LIBRARY_PATH : ${vlc}/lib
+          ''
         }
   '';
 

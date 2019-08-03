@@ -6,13 +6,13 @@ assert withMediaPlayback -> gst_all_1 != null;
 
 let
   pdfjs = let version = "1.10.100";
-    in fetchzip rec {
-      name = "pdfjs-${version}";
-      url =
-        "https://github.com/mozilla/pdf.js/releases/download/v${version}/${name}-dist.zip";
-      sha256 = "04df4cf6i6chnggfjn6m1z9vb89f01a0l9fj5rk21yr9iirq9rkq";
-      stripRoot = false;
-    };
+  in fetchzip rec {
+    name = "pdfjs-${version}";
+    url =
+      "https://github.com/mozilla/pdf.js/releases/download/v${version}/${name}-dist.zip";
+    sha256 = "04df4cf6i6chnggfjn6m1z9vb89f01a0l9fj5rk21yr9iirq9rkq";
+    stripRoot = false;
+  };
 
 in python3Packages.buildPythonApplication rec {
   pname = "qutebrowser";

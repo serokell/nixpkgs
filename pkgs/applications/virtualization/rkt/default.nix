@@ -52,14 +52,14 @@ in stdenv.mkDerivation rec {
     configureFlagsArray=(
       --with-stage1-flavors=${builtins.concatStringsSep "," stage1Flavours}
       ${
-      if lib.findFirst (p: p == "coreos") null stage1Flavours != null then ''
-        --with-coreos-local-pxe-image-path=${stage1BaseImage}
-        --with-coreos-local-pxe-image-systemd-version=v${coreosImageSystemdVersion}
-      '' else
-        ""
+        if lib.findFirst (p: p == "coreos") null stage1Flavours != null then ''
+          --with-coreos-local-pxe-image-path=${stage1BaseImage}
+          --with-coreos-local-pxe-image-systemd-version=v${coreosImageSystemdVersion}
+        '' else
+          ""
       }
       --with-stage1-default-location=$out/${stage1Dir}/stage1-${
-      builtins.elemAt stage1Flavours 0
+        builtins.elemAt stage1Flavours 0
       }.aci
     );
   '';

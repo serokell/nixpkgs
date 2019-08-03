@@ -75,7 +75,7 @@ let
     usersWithKeys = attrValues (flip filterAttrs config.users.users (n: u:
       length u.openssh.authorizedKeys.keys != 0
       || length u.openssh.authorizedKeys.keyFiles != 0));
-    in listToAttrs (map mkAuthKeyFile usersWithKeys);
+  in listToAttrs (map mkAuthKeyFile usersWithKeys);
 
 in {
 
@@ -454,27 +454,27 @@ in {
 
       };
 
-      in if cfg.startWhenNeeded then {
+    in if cfg.startWhenNeeded then {
 
-        sockets.sshd = {
-          description = "SSH Socket";
-          wantedBy = [ "sockets.target" ];
-          socketConfig.ListenStream = if cfg.listenAddresses != [ ] then
-            map
-            (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}")
-            cfg.listenAddresses
-          else
-            cfg.ports;
-          socketConfig.Accept = true;
-        };
-
-        services."sshd@" = service;
-
-      } else {
-
-        services.sshd = service;
-
+      sockets.sshd = {
+        description = "SSH Socket";
+        wantedBy = [ "sockets.target" ];
+        socketConfig.ListenStream = if cfg.listenAddresses != [ ] then
+          map
+          (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}")
+          cfg.listenAddresses
+        else
+          cfg.ports;
+        socketConfig.Accept = true;
       };
+
+      services."sshd@" = service;
+
+    } else {
+
+      services.sshd = service;
+
+    };
 
     networking.firewall.allowedTCPPorts =
       if cfg.openFirewall then cfg.ports else [ ];

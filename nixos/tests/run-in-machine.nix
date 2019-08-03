@@ -7,8 +7,8 @@ let
   output = runInMachine {
     drv = pkgs.hello;
     machine = { ... }:
-    { # services.sshd.enable = true;
-    };
+      { # services.sshd.enable = true;
+      };
   };
 
   test = pkgs.runCommand "verify-output" { inherit output; } ''

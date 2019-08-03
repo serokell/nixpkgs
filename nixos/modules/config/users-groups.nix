@@ -432,7 +432,7 @@ let
   });
 
   systemShells = let shells = mapAttrsToList (_: u: u.shell) cfg.users;
-    in filter types.shellPackage.check shells;
+  in filter types.shellPackage.check shells;
 
 in {
 

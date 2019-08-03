@@ -17,7 +17,7 @@ let
   fqdn = let
     join = hostName: domain:
       hostName + optionalString (domain != null) ".${domain}";
-    in join config.networking.hostName config.networking.domain;
+  in join config.networking.hostName config.networking.domain;
 
 in {
   options = {
@@ -236,17 +236,17 @@ in {
         cfg.webServerUser
       else
         "";
-      in {
-        ${pool} = ''
-          listen = "${phpSocket}"
-          listen.owner = ${socketOwner}
-          listen.group = root
-          listen.mode = 0600
-          user = ${user}
-          env[PIWIK_USER_PATH] = ${dataDir}
-          ${cfg.phpfpmProcessManagerConfig}
-        '';
-      };
+    in {
+      ${pool} = ''
+        listen = "${phpSocket}"
+        listen.owner = ${socketOwner}
+        listen.group = root
+        listen.mode = 0600
+        user = ${user}
+        env[PIWIK_USER_PATH] = ${dataDir}
+        ${cfg.phpfpmProcessManagerConfig}
+      '';
+    };
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       # References:

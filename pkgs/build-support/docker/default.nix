@@ -334,7 +334,7 @@ rec {
         for item in $contents; do
           echo "Adding $item"
           rsync -a${
-        if keepContentsDirlinks then "K" else "k"
+            if keepContentsDirlinks then "K" else "k"
           } --chown=0:0 $item/ layer/
         done
       else
@@ -408,7 +408,7 @@ rec {
         for item in ${toString contents}; do
           echo "Adding $item..."
           rsync -a${
-          if keepContentsDirlinks then "K" else "k"
+            if keepContentsDirlinks then "K" else "k"
           } --chown=0:0 $item/ layer/
         done
 
@@ -491,7 +491,7 @@ rec {
         } ''
           jq ".created = \"$(TZ=utc date --iso-8601="seconds")\"" ${pure} > $out
         '';
-        in if created == "now" then impure else pure;
+      in if created == "now" then impure else pure;
 
       bulkLayers = mkManyPureLayers {
         name = baseName;
@@ -607,7 +607,7 @@ rec {
         } ''
           jq ".created = \"$(TZ=utc date --iso-8601="seconds")\"" ${pure} > $out
         '';
-        in if created == "now" then impure else pure;
+      in if created == "now" then impure else pure;
 
       layer = if runAsRoot == null then
         mkPureLayer {

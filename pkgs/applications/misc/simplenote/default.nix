@@ -56,33 +56,33 @@ stdenv.mkDerivation rec {
     libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
     libPath = "${libPathNative}:${libPath64}";
 
-    in ''
-      mkdir -p $out/share/
-      mkdir -p $out/bin
-      tar xvzf $src -C $out/share/
-      mv $out/share/Simplenote-linux-x64 $out/share/simplenote
-      mv $out/share/simplenote/Simplenote $out/share/simplenote/simplenote
-      mkdir -p $out/share/applications
+  in ''
+    mkdir -p $out/share/
+    mkdir -p $out/bin
+    tar xvzf $src -C $out/share/
+    mv $out/share/Simplenote-linux-x64 $out/share/simplenote
+    mv $out/share/simplenote/Simplenote $out/share/simplenote/simplenote
+    mkdir -p $out/share/applications
 
-      cat > $out/share/applications/simplenote.desktop << EOF
-      [Desktop Entry]
-      Name=Simplenote
-      Comment=Simplenote for Linux
-      Exec=$out/bin/simplenote
-      Icon=$out/share/simplenote/Simplenote.png
-      Type=Application
-      StartupNotify=true
-      Categories=Development;
-      EOF
+    cat > $out/share/applications/simplenote.desktop << EOF
+    [Desktop Entry]
+    Name=Simplenote
+    Comment=Simplenote for Linux
+    Exec=$out/bin/simplenote
+    Icon=$out/share/simplenote/Simplenote.png
+    Type=Application
+    StartupNotify=true
+    Categories=Development;
+    EOF
 
-      fixupPhase
+    fixupPhase
 
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}:$out/share/simplenote" \
-        $out/share/simplenote/simplenote
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}:$out/share/simplenote" \
+      $out/share/simplenote/simplenote
 
-      ln -s $out/share/simplenote/simplenote $out/bin/simplenote
-    '';
+    ln -s $out/share/simplenote/simplenote $out/bin/simplenote
+  '';
 
   meta = with stdenv.lib; {
     description = "The simplest way to keep notes";

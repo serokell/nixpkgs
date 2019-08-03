@@ -53,7 +53,14 @@ stdenv.mkDerivation rec {
     for file in $out/bin/*; do
       wrapProgram $file \
         --suffix PATH : ${
-      stdenv.lib.makeBinPath [ grub2 udev coreutils cryptsetup libuuid ntfs3g ]
+          stdenv.lib.makeBinPath [
+            grub2
+            udev
+            coreutils
+            cryptsetup
+            libuuid
+            ntfs3g
+          ]
         } \
         --run "[ -d /var/lib/os-prober ] || mkdir /var/lib/os-prober"
     done;

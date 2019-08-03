@@ -8,7 +8,7 @@
   || (enableSingleThreaded && enableMultiThreaded)
   || (enableShared && enableStatic)), patches ? [ ], mpi ? null
 
-    # Attributes inherit from specific versions
+  # Attributes inherit from specific versions
 , version, src, ... }:
 
 # We must build at least one type of libraries

@@ -221,7 +221,7 @@ in {
           User = "nobody";
           Group = "nogroup";
           ExecStart = "${pkgs.matterircd.bin}/bin/matterircd ${
-            concatStringsSep " " cfg.matterircd.parameters
+              concatStringsSep " " cfg.matterircd.parameters
             }";
           WorkingDirectory = "/tmp";
           PrivateTmp = true;

@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
         + "dnsperf-src-2.1.0.0-1.tar.gz";
       sha256 = "03kfc65s5a9csa5i7xjsv0psq144k8d9yw7xlny61bg1h2kg1db4";
     };
-    in ''
-      tar xf '${src-doc}'
-      cp ./dnsperf-src-*/doc/*.pdf "$doc/share/doc/dnsperf/"
-    '';
+  in ''
+    tar xf '${src-doc}'
+    cp ./dnsperf-src-*/doc/*.pdf "$doc/share/doc/dnsperf/"
+  '';
 
   meta = with stdenv.lib; {
     outputsToInstall =

@@ -6,11 +6,11 @@ let
   minSdkVersion = "9.0";
 
   iosPlatformArch = { parsed, ... }:
-  {
-    "armv7a" = "armv7";
-    "aarch64" = "arm64";
-    "x86_64" = "x86_64";
-  }.${parsed.cpu.name};
+    {
+      "armv7a" = "armv7";
+      "aarch64" = "arm64";
+      "x86_64" = "x86_64";
+    }.${parsed.cpu.name};
 
 in rec {
   sdk = rec {
@@ -55,11 +55,11 @@ in rec {
   };
 
   libraries = let sdk = buildIosSdk;
-    in runCommand "libSystem-prebuilt" { passthru = { inherit sdk; }; } ''
-      if ! [ -d ${sdk} ]; then
-          echo "You must have version ${sdk.version} of the ${sdk.platform} sdk installed at ${sdk}" >&2
-          exit 1
-      fi
-      ln -s ${sdk}/usr $out
-    '';
+  in runCommand "libSystem-prebuilt" { passthru = { inherit sdk; }; } ''
+    if ! [ -d ${sdk} ]; then
+        echo "You must have version ${sdk.version} of the ${sdk.platform} sdk installed at ${sdk}" >&2
+        exit 1
+    fi
+    ln -s ${sdk}/usr $out
+  '';
 }

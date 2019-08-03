@@ -60,7 +60,7 @@ in {
       serviceConfig = {
         Restart = "always";
         ExecStart = "${hoogleEnv}/bin/hoogle server --local --port ${
-          toString cfg.port
+            toString cfg.port
           } --home ${cfg.home}";
 
         User = "nobody";

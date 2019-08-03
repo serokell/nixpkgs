@@ -319,27 +319,27 @@ in {
             ${tarsnap} -c -f "${name}-$(date +"%Y%m%d%H%M%S")" \
                                     ${optionalString cfg.verbose "-v"} \
                                     ${
-              optionalString cfg.explicitSymlinks "-H"
+                                      optionalString cfg.explicitSymlinks "-H"
                                     } \
                                     ${optionalString cfg.followSymlinks "-L"} \
                                     ${concatStringsSep " " cfg.directories}'';
-          in if (cfg.cachedir != null) then ''
-            mkdir -p ${cfg.cachedir}
-            chmod 0700 ${cfg.cachedir}
+        in if (cfg.cachedir != null) then ''
+          mkdir -p ${cfg.cachedir}
+          chmod 0700 ${cfg.cachedir}
 
-            ( flock 9
-              if [ ! -e ${cfg.cachedir}/firstrun ]; then
-                ( flock 10
-                  flock -u 9
-                  ${tarsnap} --fsck
-                  flock 9
-                ) 10>${cfg.cachedir}/firstrun
-              fi
-            ) 9>${cfg.cachedir}/lockf
+          ( flock 9
+            if [ ! -e ${cfg.cachedir}/firstrun ]; then
+              ( flock 10
+                flock -u 9
+                ${tarsnap} --fsck
+                flock 9
+              ) 10>${cfg.cachedir}/firstrun
+            fi
+          ) 9>${cfg.cachedir}/lockf
 
-             exec flock ${cfg.cachedir}/firstrun ${run}
-          '' else
-            "exec ${run}";
+           exec flock ${cfg.cachedir}/firstrun ${run}
+        '' else
+          "exec ${run}";
 
         serviceConfig = {
           Type = "oneshot";
@@ -365,23 +365,23 @@ in {
                 optionalString cfg.verbose "-v"
               }'';
 
-            in if (cfg.cachedir != null) then ''
-              mkdir -p ${cfg.cachedir}
-              chmod 0700 ${cfg.cachedir}
+          in if (cfg.cachedir != null) then ''
+            mkdir -p ${cfg.cachedir}
+            chmod 0700 ${cfg.cachedir}
 
-              ( flock 9
-                if [ ! -e ${cfg.cachedir}/firstrun ]; then
-                  ( flock 10
-                    flock -u 9
-                    ${tarsnap} --fsck
-                    flock 9
-                  ) 10>${cfg.cachedir}/firstrun
-                fi
-              ) 9>${cfg.cachedir}/lockf
+            ( flock 9
+              if [ ! -e ${cfg.cachedir}/firstrun ]; then
+                ( flock 10
+                  flock -u 9
+                  ${tarsnap} --fsck
+                  flock 9
+                ) 10>${cfg.cachedir}/firstrun
+              fi
+            ) 9>${cfg.cachedir}/lockf
 
-               exec flock ${cfg.cachedir}/firstrun ${run}
-            '' else
-              "exec ${run}";
+             exec flock ${cfg.cachedir}/firstrun ${run}
+          '' else
+            "exec ${run}";
 
           serviceConfig = {
             Type = "oneshot";

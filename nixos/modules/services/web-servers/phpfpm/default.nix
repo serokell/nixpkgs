@@ -159,18 +159,18 @@ in {
         serviceConfig = let
           cfgFile = fpmCfgFile pool poolConfig.config;
           iniFile = phpIni poolConfig;
-          in {
-            Slice = "phpfpm.slice";
-            PrivateDevices = true;
-            ProtectSystem = "full";
-            ProtectHome = true;
-            # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
-            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-            Type = "notify";
-            ExecStart =
-              "${poolConfig.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
-            ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
-          };
+        in {
+          Slice = "phpfpm.slice";
+          PrivateDevices = true;
+          ProtectSystem = "full";
+          ProtectHome = true;
+          # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
+          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+          Type = "notify";
+          ExecStart =
+            "${poolConfig.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
+          ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
+        };
       });
   };
 }

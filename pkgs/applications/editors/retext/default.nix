@@ -25,7 +25,7 @@ let
         };
       });
     };
-    in python3.override { inherit packageOverrides; };
+  in python3.override { inherit packageOverrides; };
   pythonEnv = python.withPackages (ps:
     with ps; [
       pyqt5
@@ -56,10 +56,10 @@ in python.pkgs.buildPythonApplication {
     mv $out/bin/retext $out/bin/.retext
     makeWrapper "$out/bin/.retext" "$out/bin/retext" \
       --set ASPELL_CONF "dict-dir ${
-      buildEnv {
-        name = "aspell-all-dicts";
-        paths = map (path: "${path}/lib/aspell") enchantAspellDicts;
-      }
+        buildEnv {
+          name = "aspell-all-dicts";
+          paths = map (path: "${path}/lib/aspell") enchantAspellDicts;
+        }
       }"
   '';
 

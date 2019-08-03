@@ -79,7 +79,7 @@ perlPackages.buildPerlPackage rec {
       if [ -x "$cur" ]; then
         sed -e "s|./lib|$out/lib|" -i "$cur"
         wrapProgram "$cur" --prefix PATH : ${
-      lib.makeBinPath [ nix dmidecode pciutils usbutils nettools iproute ]
+          lib.makeBinPath [ nix dmidecode pciutils usbutils nettools iproute ]
         }
       fi
     done

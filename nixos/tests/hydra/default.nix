@@ -18,8 +18,8 @@ let
     dontUnpack = true;
     buildInputs = [ pkgs.makeWrapper ];
     installPhase = "install -m755 -D ${
-      ./create-trivial-project.sh
-    } $out/bin/create-trivial-project.sh";
+        ./create-trivial-project.sh
+      } $out/bin/create-trivial-project.sh";
     postFixup = ''
       wrapProgram "$out/bin/create-trivial-project.sh" --prefix PATH ":" ${
         pkgs.stdenv.lib.makeBinPath [ pkgs.curl ]

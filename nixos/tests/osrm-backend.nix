@@ -36,7 +36,7 @@ import ./make-test.nix ({ pkgs, lib, ... }:
               cp ${filename}* $out/
             '';
           };
-          in "${osrm-data}/${filename}.osrm";
+        in "${osrm-data}/${filename}.osrm";
       };
 
       environment.systemPackages = [ pkgs.jq ];
@@ -44,12 +44,12 @@ import ./make-test.nix ({ pkgs, lib, ... }:
 
     testScript = let
       query = "http://localhost:${
-        toString port
-      }/route/v1/driving/7.41720,43.73304;7.42463,43.73886?steps=true";
-      in ''
-        $machine->waitForUnit("osrm.service");
-        $machine->waitForOpenPort(${toString port});
-        $machine->succeed("curl --silent '${query}' | jq .waypoints[0].name | grep -F 'Boulevard Rainier III'");
-        $machine->succeed("curl --silent '${query}' | jq .waypoints[1].name | grep -F 'Avenue de la Costa'");
-      '';
+          toString port
+        }/route/v1/driving/7.41720,43.73304;7.42463,43.73886?steps=true";
+    in ''
+      $machine->waitForUnit("osrm.service");
+      $machine->waitForOpenPort(${toString port});
+      $machine->succeed("curl --silent '${query}' | jq .waypoints[0].name | grep -F 'Boulevard Rainier III'");
+      $machine->succeed("curl --silent '${query}' | jq .waypoints[1].name | grep -F 'Avenue de la Costa'");
+    '';
   })

@@ -115,14 +115,15 @@ in {
             -listen_ip="${cfg.listenAddress}" \
             -port="${toString cfg.port}" \
             ${
-            optionalString (cfg.storageDriver != null) ''
-              -storage_driver "${cfg.storageDriver}" \
-              -storage_driver_user "${cfg.storageDriverHost}" \
-              -storage_driver_db "${cfg.storageDriverDb}" \
-              -storage_driver_user "${cfg.storageDriverUser}" \
-              -storage_driver_password "$(cat "${cfg.storageDriverPasswordFile}")" \
-              ${optionalString cfg.storageDriverSecure "-storage_driver_secure"}
-            ''
+              optionalString (cfg.storageDriver != null) ''
+                -storage_driver "${cfg.storageDriver}" \
+                -storage_driver_user "${cfg.storageDriverHost}" \
+                -storage_driver_db "${cfg.storageDriverDb}" \
+                -storage_driver_user "${cfg.storageDriverUser}" \
+                -storage_driver_password "$(cat "${cfg.storageDriverPasswordFile}")" \
+                ${optionalString cfg.storageDriverSecure
+                "-storage_driver_secure"}
+              ''
             }
         '';
 

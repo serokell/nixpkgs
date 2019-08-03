@@ -133,7 +133,7 @@ in {
 
     assertions = [{
       assertion = let hooknames = builtins.attrNames cfg.hooks;
-        in all (x: elem x eventList) hooknames;
+      in all (x: elem x eventList) hooknames;
       message = ''
         One (or more) attribute names in services.apcupsd.hooks are invalid.
         Current attribute names: ${toString (builtins.attrNames cfg.hooks)}

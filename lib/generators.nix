@@ -225,13 +225,13 @@ in rec {
         ];
 
       attr = let attrFilter = name: value: name != "_module" && value != null;
-        in ind: x:
-        libStr.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList
-          (name: value:
-            lib.optional (attrFilter name value) [
-              (key "	${ind}" name)
-              (expr "	${ind}" value)
-            ]) x));
+      in ind: x:
+      libStr.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList
+        (name: value:
+          lib.optional (attrFilter name value) [
+            (key "	${ind}" name)
+            (expr "	${ind}" value)
+          ]) x));
 
     in ''
       <?xml version="1.0" encoding="UTF-8"?>

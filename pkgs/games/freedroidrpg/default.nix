@@ -7,8 +7,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "ftp://ftp.osuosl.org/pub/freedroid/freedroidRPG-${
-      stdenv.lib.versions.majorMinor version
-    }/freedroidRPG-${version}.tar.gz";
+        stdenv.lib.versions.majorMinor version
+      }/freedroidRPG-${version}.tar.gz";
     sha256 = "0n4kn38ncmcy3lrxmq8fjry6c1z50z4q1zcqfig0j4jb0dsz2va2";
   };
 

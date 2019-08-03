@@ -73,7 +73,7 @@ rec {
         filtered = builtins.filter (name:
           lib.hasPrefix (toString (project-root + "/${name}")) (toString root))
           (builtins.attrNames haskell-paths);
-        in if filtered == [ ] then null else builtins.head filtered;
+      in if filtered == [ ] then null else builtins.head filtered;
       # We're in the directory of a haskell package
       is-haskell-package = haskell-path-parent != null;
       haskell-package = haskellPackages.${haskell-path-parent};

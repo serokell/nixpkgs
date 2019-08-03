@@ -4,15 +4,15 @@
 
 let
   s = # Generated upstream information
-  rec {
-    baseName = "asymptote";
-    version = "2.47";
-    name = "${baseName}-${version}";
-    hash = "0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
-    url =
-      "https://freefr.dl.sourceforge.net/project/asymptote/2.47/asymptote-2.47.src.tgz";
-    sha256 = "0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
-  };
+    rec {
+      baseName = "asymptote";
+      version = "2.47";
+      name = "${baseName}-${version}";
+      hash = "0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
+      url =
+        "https://freefr.dl.sourceforge.net/project/asymptote/2.47/asymptote-2.47.src.tgz";
+      sha256 = "0zc24n2vwzxdfmcppqfk3fkqlb4jmvswzi3bz232kxl7dyiyb971";
+    };
   buildInputs = [
     ghostscriptX
     imagemagick

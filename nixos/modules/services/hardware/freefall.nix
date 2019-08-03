@@ -53,12 +53,12 @@ in {
         };
       };
 
-    in mkIf cfg.enable {
+  in mkIf cfg.enable {
 
-      environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [ cfg.package ];
 
-      systemd.services = builtins.listToAttrs (map mkService cfg.devices);
+    systemd.services = builtins.listToAttrs (map mkService cfg.devices);
 
-    };
+  };
 
 }

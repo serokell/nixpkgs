@@ -18,8 +18,8 @@ let
 
       meta = with stdenv.lib; {
         description = "Descent ${
-          toString ver
-        } using the DXX-Rebirth project engine and game assets from GOG";
+            toString ver
+          } using the DXX-Rebirth project engine and game assets from GOG";
         homepage = "https://www.dxx-rebirth.com/";
         license = with licenses; [ free unfree ];
         maintainers = with maintainers; [ peterhoeg ];

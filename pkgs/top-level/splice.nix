@@ -73,29 +73,29 @@ let
             (output: value.${output});
           # The derivation along with its outputs, which we recur
           # on to splice them together.
-          in if lib.isDerivation defaultValue then
-            augmentedValue // spliceReal {
-              pkgsBuildBuild = tryGetOutputs valueBuildBuild;
-              pkgsBuildHost = tryGetOutputs valueBuildHost;
-              pkgsBuildTarget = tryGetOutputs valueBuildTarget;
-              pkgsHostHost = tryGetOutputs valueHostHost;
-              pkgsHostTarget = getOutputs valueHostTarget;
-              pkgsTargetTarget = tryGetOutputs valueTargetTarget;
-              # Just recur on plain attrsets
-            }
-          else if lib.isAttrs defaultValue then
-            spliceReal {
-              pkgsBuildBuild = valueBuildBuild;
-              pkgsBuildHost = valueBuildHost;
-              pkgsBuildTarget = valueBuildTarget;
-              pkgsHostHost = { };
-              pkgsHostTarget = valueHostTarget;
-              pkgsTargetTarget = valueTargetTarget;
-              # Don't be fancy about non-derivations. But we could have used used
-              # `__functor__` for functions instead.
-            }
-          else
-            defaultValue;
+        in if lib.isDerivation defaultValue then
+          augmentedValue // spliceReal {
+            pkgsBuildBuild = tryGetOutputs valueBuildBuild;
+            pkgsBuildHost = tryGetOutputs valueBuildHost;
+            pkgsBuildTarget = tryGetOutputs valueBuildTarget;
+            pkgsHostHost = tryGetOutputs valueHostHost;
+            pkgsHostTarget = getOutputs valueHostTarget;
+            pkgsTargetTarget = tryGetOutputs valueTargetTarget;
+            # Just recur on plain attrsets
+          }
+        else if lib.isAttrs defaultValue then
+          spliceReal {
+            pkgsBuildBuild = valueBuildBuild;
+            pkgsBuildHost = valueBuildHost;
+            pkgsBuildTarget = valueBuildTarget;
+            pkgsHostHost = { };
+            pkgsHostTarget = valueHostTarget;
+            pkgsTargetTarget = valueTargetTarget;
+            # Don't be fancy about non-derivations. But we could have used used
+            # `__functor__` for functions instead.
+          }
+        else
+          defaultValue;
       };
     in lib.listToAttrs (map merge (lib.attrNames mash));
 

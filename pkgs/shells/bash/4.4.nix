@@ -19,8 +19,8 @@ let
 
 in stdenv.mkDerivation rec {
   name = "bash-${optionalString interactive "interactive-"}${version}-p${
-    toString (builtins.length upstreamPatches)
-  }";
+      toString (builtins.length upstreamPatches)
+    }";
   version = "4.4";
 
   src = fetchurl {

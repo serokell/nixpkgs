@@ -27,13 +27,16 @@ let
         ${cfg.extraConfig}
 
         ${
-      if cfg.homes.enable then ''
-        [Homes]
-            ${optionalString (cfg.homes.path != "") "path = ${cfg.homes.path}"}
-            basedir regex = ${cfg.homes.basedirRegex}
-            ${cfg.homes.extraConfig}
-            '' else
-          ""
+          if cfg.homes.enable then ''
+            [Homes]
+                ${
+                  optionalString (cfg.homes.path != "")
+                  "path = ${cfg.homes.path}"
+                }
+                basedir regex = ${cfg.homes.basedirRegex}
+                ${cfg.homes.extraConfig}
+                '' else
+            ""
         }
 
          ${toString (map volumeConfig (attrNames cfg.volumes))}

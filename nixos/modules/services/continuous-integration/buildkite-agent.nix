@@ -24,11 +24,11 @@ let
       EOF
       chmod 755 $out/${name}
     '';
-    in pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
-      mkdir $out
-      ${concatStringsSep "\n"
-      (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
-    '';
+  in pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
+    mkdir $out
+    ${concatStringsSep "\n"
+    (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
+  '';
 
 in {
   options = {
@@ -227,21 +227,21 @@ in {
       ## NB: maximum care is taken so that secrets (ssh keys and the CI token)
       ##     don't end up in the Nix store.
       preStart = let sshDir = "${cfg.dataDir}/.ssh";
-        in ''
-          mkdir -m 0700 -p "${sshDir}"
-          cp -f "${toString cfg.openssh.privateKeyPath}" "${sshDir}/id_rsa"
-          cp -f "${toString cfg.openssh.publicKeyPath}"  "${sshDir}/id_rsa.pub"
-          chmod 600 "${sshDir}"/id_rsa*
+      in ''
+        mkdir -m 0700 -p "${sshDir}"
+        cp -f "${toString cfg.openssh.privateKeyPath}" "${sshDir}/id_rsa"
+        cp -f "${toString cfg.openssh.publicKeyPath}"  "${sshDir}/id_rsa.pub"
+        chmod 600 "${sshDir}"/id_rsa*
 
-          cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
-          token="$(cat ${toString cfg.tokenPath})"
-          name="${cfg.name}"
-          meta-data="${cfg.meta-data}"
-          build-path="${cfg.dataDir}/builds"
-          hooks-path="${cfg.hooksPath}"
-          ${cfg.extraConfig}
-          EOF
-        '';
+        cat > "${cfg.dataDir}/buildkite-agent.cfg" <<EOF
+        token="$(cat ${toString cfg.tokenPath})"
+        name="${cfg.name}"
+        meta-data="${cfg.meta-data}"
+        build-path="${cfg.dataDir}/builds"
+        hooks-path="${cfg.hooksPath}"
+        ${cfg.extraConfig}
+        EOF
+      '';
 
       serviceConfig = {
         ExecStart =

@@ -179,10 +179,10 @@ in {
         selectedSessionVars =
           lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
           config.environment.sessionVariables;
-        in selectedSessionVars // {
-          JENKINS_HOME = cfg.home;
-          NIX_REMOTE = "daemon";
-        } // cfg.environment;
+      in selectedSessionVars // {
+        JENKINS_HOME = cfg.home;
+        NIX_REMOTE = "daemon";
+      } // cfg.environment;
 
       path = cfg.packages;
 
@@ -200,10 +200,10 @@ in {
             mkdir -p ${cfg.home}/plugins
             ${lib.strings.concatStringsSep "\n" pluginCmds}
           '';
-        in ''
-          rm -rf ${cfg.home}/war
-          ${replacePlugins}
-        '';
+      in ''
+        rm -rf ${cfg.home}/war
+        ${replacePlugins}
+      '';
 
       # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''
@@ -211,12 +211,13 @@ in {
           concatStringsSep " " cfg.extraJavaOptions
         } -jar ${cfg.package}/webapps/jenkins.war --httpListenAddress=${cfg.listenAddress} \
                                                   --httpPort=${
-          toString cfg.port
+                                                    toString cfg.port
                                                   } \
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
                                                   ${
-          concatStringsSep " " cfg.extraOptions
+                                                    concatStringsSep " "
+                                                    cfg.extraOptions
                                                   }
       '';
 

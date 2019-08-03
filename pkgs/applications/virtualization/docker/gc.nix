@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/docker-gc
     wrapProgram $out/bin/docker-gc \
         --prefix PATH : "${
-      stdenv.lib.makeBinPath [
-        docker
-        coreutils
-        procps
-        gnused
-        findutils
-        gnugrep
-      ]
+          stdenv.lib.makeBinPath [
+            docker
+            coreutils
+            procps
+            gnused
+            findutils
+            gnugrep
+          ]
         }"
   '';
 

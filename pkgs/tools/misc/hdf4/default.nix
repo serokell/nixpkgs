@@ -20,14 +20,14 @@ stdenv.mkDerivation rec {
           "https://salsa.debian.org/debian-gis-team/hdf4/raw/debian/${patchRev}/debian/patches/${name}";
       };
 
-    in [
-      (getPatch "64bit" "1xqk9zpch4m6ipa0f3x2cm8rwaz4p0ppp1vqglvz18j6q91p8b5y")
-      (getPatch "hdfi.h" "01fr9csylnvk9jd9jn9y23bvxy192s07p32pr76mm3gwhgs9h7r4")
-      (getPatch "hdf-4.2.10-aarch64.patch"
-        "1hl0xw5pd9xhpq49xpwgg7c4z6vv5p19x6qayixw0myvgwj1r4zn")
-      (getPatch "reproducible-builds.patch"
-        "02j639w26xkxpxx3pdhbi18ywz8w3qmjpqjb83n47gq29y4g13hc")
-    ];
+  in [
+    (getPatch "64bit" "1xqk9zpch4m6ipa0f3x2cm8rwaz4p0ppp1vqglvz18j6q91p8b5y")
+    (getPatch "hdfi.h" "01fr9csylnvk9jd9jn9y23bvxy192s07p32pr76mm3gwhgs9h7r4")
+    (getPatch "hdf-4.2.10-aarch64.patch"
+      "1hl0xw5pd9xhpq49xpwgg7c4z6vv5p19x6qayixw0myvgwj1r4zn")
+    (getPatch "reproducible-builds.patch"
+      "02j639w26xkxpxx3pdhbi18ywz8w3qmjpqjb83n47gq29y4g13hc")
+  ];
 
   buildInputs = [ cmake libjpeg szip zlib ];
 
@@ -69,11 +69,11 @@ stdenv.mkDerivation rec {
       "(" + (stdenv.lib.concatStringsSep "|" excludedTests) + ")"
     else
       "";
-    in ''
-      runHook preCheck
-      ctest -E "${excludedTestsRegex}" --output-on-failure
-      runHook postCheck
-    '';
+  in ''
+    runHook preCheck
+    ctest -E "${excludedTestsRegex}" --output-on-failure
+    runHook postCheck
+  '';
 
   outputs = [ "bin" "dev" "out" ];
 

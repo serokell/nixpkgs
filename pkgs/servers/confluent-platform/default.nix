@@ -7,8 +7,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://packages.confluent.io/archive/${
-      lib.versions.majorMinor version
-    }/confluent-${version}-${scalaVersion}.tar.gz";
+        lib.versions.majorMinor version
+      }/confluent-${version}-${scalaVersion}.tar.gz";
     sha256 = "11fdcc557aca782e87352ed6e655c37c71fb7b3a003796ee956970b01dedbbb1";
   };
 

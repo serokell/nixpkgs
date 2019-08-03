@@ -98,8 +98,8 @@ in {
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
       preStart = "ln -sf ${
-        pkgs.writeText "config.js" finalConfigFile
-      } ${shoutHome}/config.js";
+          pkgs.writeText "config.js" finalConfigFile
+        } ${shoutHome}/config.js";
       script = concatStringsSep " " [
         "${pkgs.shout}/bin/shout"
         (if cfg.private then "--private" else "--public")

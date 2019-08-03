@@ -476,36 +476,36 @@ rec {
             "https://boothen.github.io/Json-Eclipse-Plugin/plugins/jsonedit-${n}_${version}.jar";
           sha256 = h;
         };
-      in map fetch [
-        {
-          n = "core";
-          h = "0svs0aswnhl26cqw6bmw30cisx4cr50kc5njg272sy5c1dqjm1zq";
-        }
-        {
-          n = "editor";
-          h = "1q62dinrbb18aywbvii4mlr7rxa20rdsxxd6grix9y8h9776q4l5";
-        }
-        {
-          n = "folding";
-          h = "1qh4ijfb1gl9xza5ydi87v1kyima3a9sh7lncwdy1way3pdhln1y";
-        }
-        {
-          n = "model";
-          h = "1pr6k2pdfdwx8jqs7gx7wzn3gxsql3sk6lnjha8m15lv4al6d4kj";
-        }
-        {
-          n = "outline";
-          h = "1jgr2g16j3id8v367jbgd6kx6g2w636fbzmd8jvkvkh7y1jgjqxm";
-        }
-        {
-          n = "preferences";
-          h = "027fhaqa5xbil6dmhvkbpha3pgw6dpmc2im3nlliyds57mdmdb1h";
-        }
-        {
-          n = "text";
-          h = "0clywylyidrxlqs0n816nhgjmk1c3xl7sn904ki4q050amfy0wb2";
-        }
-      ];
+    in map fetch [
+      {
+        n = "core";
+        h = "0svs0aswnhl26cqw6bmw30cisx4cr50kc5njg272sy5c1dqjm1zq";
+      }
+      {
+        n = "editor";
+        h = "1q62dinrbb18aywbvii4mlr7rxa20rdsxxd6grix9y8h9776q4l5";
+      }
+      {
+        n = "folding";
+        h = "1qh4ijfb1gl9xza5ydi87v1kyima3a9sh7lncwdy1way3pdhln1y";
+      }
+      {
+        n = "model";
+        h = "1pr6k2pdfdwx8jqs7gx7wzn3gxsql3sk6lnjha8m15lv4al6d4kj";
+      }
+      {
+        n = "outline";
+        h = "1jgr2g16j3id8v367jbgd6kx6g2w636fbzmd8jvkvkh7y1jgjqxm";
+      }
+      {
+        n = "preferences";
+        h = "027fhaqa5xbil6dmhvkbpha3pgw6dpmc2im3nlliyds57mdmdb1h";
+      }
+      {
+        n = "text";
+        h = "0clywylyidrxlqs0n816nhgjmk1c3xl7sn904ki4q050amfy0wb2";
+      }
+    ];
 
     propagatedBuildInputs = [ antlr-runtime_4_7 ];
 

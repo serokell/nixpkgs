@@ -595,67 +595,67 @@ in {
     policyDirectoriesToCreate =
       concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
 
-    in mkIf cfg.enable {
-      assertions = [
-        {
-          assertion = !elem "legacy" policyNameList;
-          message =
-            "The policy 'legacy' is special to Neo4j, and its name is reserved.";
-        }
-        {
-          assertion = elem cfg.bolt.sslPolicy validPolicyNameList;
-          message = ''
-            Invalid policy assigned: `services.neo4j.bolt.sslPolicy = "${cfg.bolt.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
-        }
-        {
-          assertion = elem cfg.https.sslPolicy validPolicyNameList;
-          message = ''
-            Invalid policy assigned: `services.neo4j.https.sslPolicy = "${cfg.https.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
-        }
-      ];
+  in mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = !elem "legacy" policyNameList;
+        message =
+          "The policy 'legacy' is special to Neo4j, and its name is reserved.";
+      }
+      {
+        assertion = elem cfg.bolt.sslPolicy validPolicyNameList;
+        message = ''
+          Invalid policy assigned: `services.neo4j.bolt.sslPolicy = "${cfg.bolt.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
+      }
+      {
+        assertion = elem cfg.https.sslPolicy validPolicyNameList;
+        message = ''
+          Invalid policy assigned: `services.neo4j.https.sslPolicy = "${cfg.https.sslPolicy}"`, defined policies are: ${validPolicyNameString}'';
+      }
+    ];
 
-      systemd.services.neo4j = {
-        description = "Neo4j Daemon";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        environment = {
-          NEO4J_HOME = "${cfg.package}/share/neo4j";
-          NEO4J_CONF = "${cfg.directories.home}/conf";
-        };
-        serviceConfig = {
-          ExecStart = "${cfg.package}/bin/neo4j console";
-          User = "neo4j";
-          PermissionsStartOnly = true;
-          LimitNOFILE = 40000;
-        };
-
-        preStart = ''
-          # Directories Setup
-          #   Always ensure home exists with nested conf, logs directories.
-          mkdir -m 0700 -p ${cfg.directories.home}/{conf,logs}
-
-          #   Create other sub-directories and policy directories that have been left at their default.
-          ${concatMapStringsSep "\n" (dir: ''
-            mkdir -m 0700 -p ${dir}
-          '') (defaultDirectoriesToCreate ++ policyDirectoriesToCreate)}
-
-          # Place the configuration where Neo4j can find it.
-          ln -fs ${serverConfig} ${cfg.directories.home}/conf/neo4j.conf
-
-          # Ensure neo4j user ownership
-          chown -R neo4j ${cfg.directories.home}
-        '';
+    systemd.services.neo4j = {
+      description = "Neo4j Daemon";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      environment = {
+        NEO4J_HOME = "${cfg.package}/share/neo4j";
+        NEO4J_CONF = "${cfg.directories.home}/conf";
+      };
+      serviceConfig = {
+        ExecStart = "${cfg.package}/bin/neo4j console";
+        User = "neo4j";
+        PermissionsStartOnly = true;
+        LimitNOFILE = 40000;
       };
 
-      environment.systemPackages = [ cfg.package ];
+      preStart = ''
+        # Directories Setup
+        #   Always ensure home exists with nested conf, logs directories.
+        mkdir -m 0700 -p ${cfg.directories.home}/{conf,logs}
 
-      users.users = singleton {
-        name = "neo4j";
-        uid = config.ids.uids.neo4j;
-        description = "Neo4j daemon user";
-        home = cfg.directories.home;
-      };
+        #   Create other sub-directories and policy directories that have been left at their default.
+        ${concatMapStringsSep "\n" (dir: ''
+          mkdir -m 0700 -p ${dir}
+        '') (defaultDirectoriesToCreate ++ policyDirectoriesToCreate)}
+
+        # Place the configuration where Neo4j can find it.
+        ln -fs ${serverConfig} ${cfg.directories.home}/conf/neo4j.conf
+
+        # Ensure neo4j user ownership
+        chown -R neo4j ${cfg.directories.home}
+      '';
     };
+
+    environment.systemPackages = [ cfg.package ];
+
+    users.users = singleton {
+      name = "neo4j";
+      uid = config.ids.uids.neo4j;
+      description = "Neo4j daemon user";
+      home = cfg.directories.home;
+    };
+  };
 
   meta = { maintainers = with lib.maintainers; [ patternspandemic ]; };
 }

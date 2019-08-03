@@ -30,7 +30,7 @@ let
       for f in $out/bin/*; do
         wrapProgram $f \
           --prefix XINE_PLUGIN_PATH ":" "${
-        makeXinePluginPath [ "$out" xineLib ]
+            makeXinePluginPath [ "$out" xineLib ]
           }"
       done
     '';

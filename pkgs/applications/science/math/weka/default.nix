@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/weka/${
-      stdenv.lib.replaceChars [ "." ] [ "-" ] name
-    }.zip";
+        stdenv.lib.replaceChars [ "." ] [ "-" ] name
+      }.zip";
     sha256 = "0zwmhspmqb0a7cm6k6i0s6q3w19ws1g9dx3cp2v3g3vsif6cdh31";
   };
 

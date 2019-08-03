@@ -7,14 +7,14 @@ let
     inherit ruby;
     gemdir = ./.;
     gemset = let x = import (gemdir + "/gemset.nix");
-      in x // {
-        # grpc expects the AR environment variable to contain `ar rpc`. See the
-        # discussion in nixpkgs #63056.
-        grpc = x.grpc // {
-          patches = [ ../fix-grpc-ar.patch ];
-          dontBuild = false;
-        };
+    in x // {
+      # grpc expects the AR environment variable to contain `ar rpc`. See the
+      # discussion in nixpkgs #63056.
+      grpc = x.grpc // {
+        patches = [ ../fix-grpc-ar.patch ];
+        dontBuild = false;
       };
+    };
   };
 in buildGoPackage rec {
   version = "1.47.0";

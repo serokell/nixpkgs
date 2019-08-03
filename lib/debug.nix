@@ -221,7 +221,7 @@ in rec {
         else
           v;
       go = x: generators.toPretty { allowPrettyValues = true; } (modify x);
-      in go);
+    in go);
 
   traceXMLVal = x:
     trace ("Warning: `traceXMLVal` is deprecated "

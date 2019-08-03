@@ -14,18 +14,19 @@ let
       adapter: ${cfg.database.type}
       database: ${cfg.database.name}
       host: ${
-      if (cfg.database.type == "postgresql" && cfg.database.socket != null) then
-        cfg.database.socket
-      else
-        cfg.database.host
+        if (cfg.database.type == "postgresql" && cfg.database.socket
+          != null) then
+          cfg.database.socket
+        else
+          cfg.database.host
       }
       port: ${toString cfg.database.port}
       username: ${cfg.database.user}
       password: #dbpass#
       ${
-      optionalString
-      (cfg.database.type == "mysql2" && cfg.database.socket != null)
-      "socket: ${cfg.database.socket}"
+        optionalString
+        (cfg.database.type == "mysql2" && cfg.database.socket != null)
+        "socket: ${cfg.database.socket}"
       }
   '';
 
@@ -398,7 +399,7 @@ in {
         TimeoutSec = "300";
         WorkingDirectory = "${cfg.package}/share/redmine";
         ExecStart = "${bundle} exec rails server webrick -e production -p ${
-          toString cfg.port
+            toString cfg.port
           } -P '${cfg.stateDir}/redmine.pid'";
       };
 

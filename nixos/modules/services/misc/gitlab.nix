@@ -150,19 +150,20 @@ let
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
           ${
-        concatStrings
-        (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
+            concatStrings
+            (mapAttrsToList (name: value: "--set ${name} '${value}' ")
+              gitlabEnv)
           } \
           --set PATH '${
-        lib.makeBinPath [
-          pkgs.nodejs
-          pkgs.gzip
-          pkgs.git
-          pkgs.gnutar
-          config.services.postgresql.package
-          pkgs.coreutils
-          pkgs.procps
-        ]
+            lib.makeBinPath [
+              pkgs.nodejs
+              pkgs.gzip
+              pkgs.git
+              pkgs.gnutar
+              config.services.postgresql.package
+              pkgs.coreutils
+              pkgs.procps
+            ]
           }:$PATH' \
           --set RAKEOPT '-f ${cfg.packages.gitlab}/share/gitlab/Rakefile' \
           --run 'cd ${cfg.packages.gitlab}/share/gitlab'
@@ -178,19 +179,20 @@ let
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
           ${
-        concatStrings
-        (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
+            concatStrings
+            (mapAttrsToList (name: value: "--set ${name} '${value}' ")
+              gitlabEnv)
           } \
           --set PATH '${
-        lib.makeBinPath [
-          pkgs.nodejs
-          pkgs.gzip
-          pkgs.git
-          pkgs.gnutar
-          config.services.postgresql.package
-          pkgs.coreutils
-          pkgs.procps
-        ]
+            lib.makeBinPath [
+              pkgs.nodejs
+              pkgs.gzip
+              pkgs.git
+              pkgs.gnutar
+              config.services.postgresql.package
+              pkgs.coreutils
+              pkgs.procps
+            ]
           }:$PATH' \
           --run 'cd ${cfg.packages.gitlab}/share/gitlab'
     '';
@@ -207,17 +209,17 @@ let
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
         ${
-      optionalString (cfg.smtp.username != null)
-      ''user_name: "${cfg.smtp.username}",''
+          optionalString (cfg.smtp.username != null)
+          ''user_name: "${cfg.smtp.username}",''
         }
         ${
-      optionalString (cfg.smtp.password != null)
-      ''password: "${cfg.smtp.password}",''
+          optionalString (cfg.smtp.password != null)
+          ''password: "${cfg.smtp.password}",''
         }
         domain: "${cfg.smtp.domain}",
         ${
-      optionalString (cfg.smtp.authentication != null)
-      "authentication: :${cfg.smtp.authentication},"
+          optionalString (cfg.smtp.authentication != null)
+          "authentication: :${cfg.smtp.authentication},"
         }
         enable_starttls_auto: ${toString cfg.smtp.enableStartTLSAuto},
         openssl_verify_mode: '${cfg.smtp.opensslVerifyMode}'

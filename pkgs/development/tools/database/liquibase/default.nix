@@ -44,36 +44,36 @@ in stdenv.mkDerivation rec {
         CP="\$CP":"\$jar"
       done
     '';
-    in ''
-      mkdir -p $out/{bin,lib,sdk}
-      mv ./* $out/
-      cp ${logback-core} ${logback-classic} ${slf4j} $out/lib
+  in ''
+    mkdir -p $out/{bin,lib,sdk}
+    mv ./* $out/
+    cp ${logback-core} ${logback-classic} ${slf4j} $out/lib
 
-      # Clean up documentation.
-      mkdir -p $out/share/doc/${name}
-      mv $out/LICENSE.txt \
-         $out/README.txt \
-         $out/share/doc/${name}
+    # Clean up documentation.
+    mkdir -p $out/share/doc/${name}
+    mv $out/LICENSE.txt \
+       $out/README.txt \
+       $out/share/doc/${name}
 
-      # Remove silly files.
-      rm $out/liquibase.bat $out/liquibase.spec
+    # Remove silly files.
+    rm $out/liquibase.bat $out/liquibase.spec
 
-      # we provide our own script
-      rm $out/liquibase
+    # we provide our own script
+    rm $out/liquibase
 
-      # there’s a lot of escaping, but I’m not sure how to improve that
-      cat > $out/bin/liquibase <<EOF
-      #!/usr/bin/env bash
-      # taken from the executable script in the source
-      CP="$out/liquibase.jar"
-      ${addJars "$out/lib"}
-      ${concatStringsSep "\n" (map (p: addJars "${p}/share/java") extraJars)}
+    # there’s a lot of escaping, but I’m not sure how to improve that
+    cat > $out/bin/liquibase <<EOF
+    #!/usr/bin/env bash
+    # taken from the executable script in the source
+    CP="$out/liquibase.jar"
+    ${addJars "$out/lib"}
+    ${concatStringsSep "\n" (map (p: addJars "${p}/share/java") extraJars)}
 
-      ${getBin jre}/bin/java -cp "\$CP" \$JAVA_OPTS \
-        liquibase.integration.commandline.Main \''${1+"\$@"}
-      EOF
-      chmod +x $out/bin/liquibase
-    '';
+    ${getBin jre}/bin/java -cp "\$CP" \$JAVA_OPTS \
+      liquibase.integration.commandline.Main \''${1+"\$@"}
+    EOF
+    chmod +x $out/bin/liquibase
+  '';
 
   meta = {
     description = "Version Control for your database";

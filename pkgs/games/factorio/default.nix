@@ -51,51 +51,51 @@ let
         inUrl = "linux64";
         inTar = "x64";
       };
-      in {
-        alpha = {
-          stable = bdist {
-            sha256 = "0b4hbpdcrh5hgip9q5dkmw22p66lcdhnr0kmb0w5dw6yi7fnxxh0";
-            version = "0.16.51";
-            withAuth = true;
-          };
-          experimental = bdist {
-            sha256 = "1q66chnxsdlaz1bj3al62iikyxvknj1vkwh5bcc46favy4wpqpzz";
-            version = "0.17.52";
-            withAuth = true;
-          };
+    in {
+      alpha = {
+        stable = bdist {
+          sha256 = "0b4hbpdcrh5hgip9q5dkmw22p66lcdhnr0kmb0w5dw6yi7fnxxh0";
+          version = "0.16.51";
+          withAuth = true;
         };
-        headless = {
-          stable = bdist {
-            sha256 = "0zrnpg2js0ysvx9y50h3gajldk16mv02dvrwnkazh5kzr1d9zc3c";
-            version = "0.16.51";
-          };
-          experimental = bdist {
-            sha256 = "03nv0qagv5pmqqbisf0hq6cb5rg2ih37lzkvcxihnnw72r78li94";
-            version = "0.17.52";
-          };
-        };
-        demo = {
-          stable = bdist {
-            sha256 = "0zf61z8937yd8pyrjrqdjgd0rjl7snwrm3xw86vv7s7p835san6a";
-            version = "0.16.51";
-          };
+        experimental = bdist {
+          sha256 = "1q66chnxsdlaz1bj3al62iikyxvknj1vkwh5bcc46favy4wpqpzz";
+          version = "0.17.52";
+          withAuth = true;
         };
       };
+      headless = {
+        stable = bdist {
+          sha256 = "0zrnpg2js0ysvx9y50h3gajldk16mv02dvrwnkazh5kzr1d9zc3c";
+          version = "0.16.51";
+        };
+        experimental = bdist {
+          sha256 = "03nv0qagv5pmqqbisf0hq6cb5rg2ih37lzkvcxihnnw72r78li94";
+          version = "0.17.52";
+        };
+      };
+      demo = {
+        stable = bdist {
+          sha256 = "0zf61z8937yd8pyrjrqdjgd0rjl7snwrm3xw86vv7s7p835san6a";
+          version = "0.16.51";
+        };
+      };
+    };
     i686-linux = let
       bdist = bdistForArch {
         inUrl = "linux32";
         inTar = "i386";
       };
-      in {
-        alpha = {
-          stable = bdist {
-            sha256 = "0nnfkxxqnywx1z05xnndgh71gp4izmwdk026nnjih74m2k5j086l";
-            version = "0.14.23";
-            withAuth = true;
-            nameMut = asGz;
-          };
+    in {
+      alpha = {
+        stable = bdist {
+          sha256 = "0nnfkxxqnywx1z05xnndgh71gp4izmwdk026nnjih74m2k5j086l";
+          version = "0.14.23";
+          withAuth = true;
+          nameMut = asGz;
         };
       };
+    };
   };
 
   actual =

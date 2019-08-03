@@ -29,14 +29,15 @@ in {
       ExecStart = ''
         ${pkgs.prometheus-node-exporter}/bin/node_exporter \
           ${
-          concatMapStringsSep " " (x: "--collector." + x) cfg.enabledCollectors
+            concatMapStringsSep " " (x: "--collector." + x)
+            cfg.enabledCollectors
           } \
           ${
-          concatMapStringsSep " " (x: "--no-collector." + x)
-          cfg.disabledCollectors
+            concatMapStringsSep " " (x: "--no-collector." + x)
+            cfg.disabledCollectors
           } \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} ${
-          concatStringsSep " " cfg.extraFlags
+            concatStringsSep " " cfg.extraFlags
           }
       '';
     };

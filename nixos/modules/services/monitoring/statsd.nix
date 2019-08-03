@@ -15,7 +15,7 @@ let
         list
       else
         list ++ [ pkgs.nodePackages.${name} ];
-    in foldl mkMap [ ];
+  in foldl mkMap [ ];
 
   configFile = pkgs.writeText "statsd.conf" ''
     {
@@ -24,19 +24,19 @@ let
       mgmt_address: "${cfg.mgmt_address}",
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
-      concatMapStringsSep "," (name:
-        if (isBuiltinBackend name) then
-          ''"./backends/${name}"''
-        else
-          ''"${name}"'') cfg.backends
+        concatMapStringsSep "," (name:
+          if (isBuiltinBackend name) then
+            ''"./backends/${name}"''
+          else
+            ''"${name}"'') cfg.backends
       }],
       ${
-      optionalString (cfg.graphiteHost != null)
-      ''graphiteHost: "${cfg.graphiteHost}",''
+        optionalString (cfg.graphiteHost != null)
+        ''graphiteHost: "${cfg.graphiteHost}",''
       }
       ${
-      optionalString (cfg.graphitePort != null)
-      ''graphitePort: "${toString cfg.graphitePort}",''
+        optionalString (cfg.graphitePort != null)
+        ''graphitePort: "${toString cfg.graphitePort}",''
       }
       console: {
         prettyprint: false
@@ -45,7 +45,7 @@ let
         backend: "stdout"
       },
       automaticConfigReload: false${
-      optionalString (cfg.extraConfig != null) ","
+        optionalString (cfg.extraConfig != null) ","
       }
       ${cfg.extraConfig}
     }

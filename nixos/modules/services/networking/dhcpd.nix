@@ -57,13 +57,13 @@ let
             "nogroup"
           ] ++ cfg.extraFlags ++ cfg.interfaces;
 
-          in {
-            ExecStart = concatMapStringsSep " " escapeShellArg args;
-            Type = "forking";
-            Restart = "always";
-            RuntimeDirectory = [ "dhcpd${postfix}" ];
-            PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
-          };
+        in {
+          ExecStart = concatMapStringsSep " " escapeShellArg args;
+          Type = "forking";
+          Restart = "always";
+          RuntimeDirectory = [ "dhcpd${postfix}" ];
+          PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
+        };
       };
     };
 

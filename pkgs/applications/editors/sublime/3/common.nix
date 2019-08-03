@@ -60,7 +60,7 @@ in let
         patchelf \
           --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
           --set-rpath ${libPath}:${stdenv.cc.cc.lib}/lib${
-        stdenv.lib.optionalString stdenv.is64bit "64"
+            stdenv.lib.optionalString stdenv.is64bit "64"
           } \
           $binary
       done
@@ -90,7 +90,7 @@ in let
     postFixup = ''
       wrapProgram $out/sublime_bash \
         --set LD_PRELOAD "${stdenv.cc.cc.lib}/lib${
-        stdenv.lib.optionalString stdenv.is64bit "64"
+          stdenv.lib.optionalString stdenv.is64bit "64"
         }/libgcc_s.so.1"
 
       wrapProgram $out/${primaryBinary} \

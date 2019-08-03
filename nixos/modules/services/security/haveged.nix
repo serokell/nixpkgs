@@ -49,7 +49,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.haveged}/bin/haveged -F -w ${
-          toString cfg.refill_threshold
+            toString cfg.refill_threshold
           } -v 1";
         SuccessExitStatus = 143;
         PrivateTmp = true;

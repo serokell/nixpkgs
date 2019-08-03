@@ -81,7 +81,7 @@ in stdenv.mkDerivation rec {
     chmod +x $out/bin/stumpish
     wrapProgram $out/bin/stumpish \
       --prefix PATH ":" "${
-      stdenv.lib.makeBinPath [ rlwrap gnused gnugrep coreutils xprop ]
+        stdenv.lib.makeBinPath [ rlwrap gnused gnugrep coreutils xprop ]
       }"
 
     # Paths in the compressed image $out/bin/stumpwm are not

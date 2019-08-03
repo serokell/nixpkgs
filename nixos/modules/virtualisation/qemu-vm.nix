@@ -83,7 +83,7 @@ let
     ${flip concatMapStrings cfg.emptyDiskImages (size: ''
       if ! test -e "empty$idx.qcow2"; then
           ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${
-        toString size
+            toString size
           }M"
       fi
       extraDisks="$extraDisks ${
@@ -103,25 +103,25 @@ let
         -virtfs local,path=$TMPDIR/xchg,security_model=none,mount_tag=xchg \
         -virtfs local,path=''${SHARED_DIR:-$TMPDIR/xchg},security_model=none,mount_tag=shared \
         ${
-      if cfg.useBootLoader then ''
-        ${
-          mkDiskIfaceDriveFlag "0"
-          "file=$NIX_DISK_IMAGE,cache=writeback,werror=report"
-        } \
-        ${mkDiskIfaceDriveFlag "1" "file=$TMPDIR/disk.img,media=disk"} \
-        ${if cfg.useEFIBoot then ''
-          -pflash $TMPDIR/bios.bin \
-        '' else
-          ""}
-      '' else ''
-        ${
-          mkDiskIfaceDriveFlag "0"
-          "file=$NIX_DISK_IMAGE,cache=writeback,werror=report"
-        } \
-        -kernel ${config.system.build.toplevel}/kernel \
-        -initrd ${config.system.build.toplevel}/initrd \
-        -append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS" \
-      ''
+          if cfg.useBootLoader then ''
+            ${
+              mkDiskIfaceDriveFlag "0"
+              "file=$NIX_DISK_IMAGE,cache=writeback,werror=report"
+            } \
+            ${mkDiskIfaceDriveFlag "1" "file=$TMPDIR/disk.img,media=disk"} \
+            ${if cfg.useEFIBoot then ''
+              -pflash $TMPDIR/bios.bin \
+            '' else
+              ""}
+          '' else ''
+            ${
+              mkDiskIfaceDriveFlag "0"
+              "file=$NIX_DISK_IMAGE,cache=writeback,werror=report"
+            } \
+            -kernel ${config.system.build.toplevel}/kernel \
+            -initrd ${config.system.build.toplevel}/initrd \
+            -append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS" \
+          ''
         } \
         $extraDisks \
         ${qemuGraphics} \
@@ -189,7 +189,7 @@ let
 
     umount /boot
   '' # */
-    );
+  );
 
 in {
   imports = [ ../profiles/qemu-guest.nix ./docker-preloader.nix ];
@@ -316,7 +316,7 @@ in {
       consoles = mkOption {
         type = types.listOf types.str;
         default = let consoles = [ "${qemuSerialDevice},115200n8" "tty0" ];
-          in if cfg.graphics then consoles else reverseList consoles;
+        in if cfg.graphics then consoles else reverseList consoles;
         example = [ "console=tty1" ];
         description = ''
           The output console devices to pass to the kernel command line via the

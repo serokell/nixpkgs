@@ -68,18 +68,18 @@ in stdenv.mkDerivation rec {
     '';
     wrapPrograms = runtimeDeps: programs:
       stdenv.lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
-    in wrapPrograms [ gnupg ] [
-      "monkeysphere-authentication"
-      "monkeysphere-host"
-    ] + wrapPrograms [ gnupg lockfileProgs ] [ "monkeysphere" ] + ''
-      # These 4 programs depend on the program name ($0):
-      for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
-        rm $out/bin/$program
-        ln -sf keytrans $out/share/monkeysphere/$program
-        makeWrapper $out/share/monkeysphere/$program $out/bin/$program \
-          ${wrapperArgs [ ]}
-      done
-    '';
+  in wrapPrograms [ gnupg ] [
+    "monkeysphere-authentication"
+    "monkeysphere-host"
+  ] + wrapPrograms [ gnupg lockfileProgs ] [ "monkeysphere" ] + ''
+    # These 4 programs depend on the program name ($0):
+    for program in openpgp2pem openpgp2spki openpgp2ssh pem2openpgp; do
+      rm $out/bin/$program
+      ln -sf keytrans $out/share/monkeysphere/$program
+      makeWrapper $out/share/monkeysphere/$program $out/bin/$program \
+        ${wrapperArgs [ ]}
+    done
+  '';
 
   meta = with stdenv.lib; {
     homepage = "http://web.monkeysphere.info/";

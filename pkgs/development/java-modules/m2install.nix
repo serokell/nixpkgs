@@ -4,7 +4,7 @@
 let
   name = "${artifactId}-${version}";
   m2Path = "${
-    builtins.replaceStrings [ "." ] [ "/" ] groupId
+      builtins.replaceStrings [ "." ] [ "/" ] groupId
     }/${artifactId}/${version}";
   m2File = "${name}${suffix}.${type}";
   src = fetchurl rec {

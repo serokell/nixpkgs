@@ -77,7 +77,7 @@ in stdenv.mkDerivation rec {
       stdenv.lib.getLib pcsclite
     }/lib/libpcsclite.so.1" ]; then
         ${coreutils}/bin/ln -sf "${
-      stdenv.lib.getLib pcsclite
+          stdenv.lib.getLib pcsclite
         }/lib/libpcsclite.so.1" "\$MDIR/pcsc/libpcsclite.so.1"
     fi
 

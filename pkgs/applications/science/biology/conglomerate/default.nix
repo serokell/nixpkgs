@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for p in $out/bin/*; do
       wrapProgram $p --prefix PERL5LIB : $PERL5LIB --set PATH "${
-      stdenv.lib.makeBinPath [ coreutils minc_tools ]
+        stdenv.lib.makeBinPath [ coreutils minc_tools ]
       }";
     done
   '';

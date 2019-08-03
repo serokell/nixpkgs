@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
       url = "https://download.fcitx-im.org/data/${ZHUYIN_DATA_FILE_NAME}";
       sha256 = "017p11si1b7bkwx36xaybq5a9icq1pd7x1jbymqw92akfgjj8w2w";
     };
-    in ''
-      cp -rv ${store_path} $NIX_BUILD_TOP/$name/data/${ZHUYIN_DATA_FILE_NAME}
-    '';
+  in ''
+    cp -rv ${store_path} $NIX_BUILD_TOP/$name/data/${ZHUYIN_DATA_FILE_NAME}
+  '';
 
   meta = with stdenv.lib; {
     isFcitxEngine = true;

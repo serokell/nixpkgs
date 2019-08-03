@@ -25,8 +25,8 @@ let
     else
       stdenv.mkDerivation rec {
         name = "zfs-${configFile}-${version}${
-          optionalString buildKernel "-${kernel.version}"
-        }";
+            optionalString buildKernel "-${kernel.version}"
+          }";
 
         src = fetchFromGitHub {
           owner = "zfsonlinux";

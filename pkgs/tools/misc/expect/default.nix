@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
         --prefix PATH : "${tcl}/bin" \
         --prefix TCLLIBPATH ' ' $out/lib/* \
         ${
-      stdenv.lib.optionalString stdenv.isDarwin
-      "--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version}"
+          stdenv.lib.optionalString stdenv.isDarwin
+          "--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version}"
         }
     done
   '';

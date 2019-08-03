@@ -55,7 +55,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
-          builtins.toString cfg.preforkProcesses
+            builtins.toString cfg.preforkProcesses
           } ${
             if (cfg.socketType != "unix") then
               "-s ${cfg.socketType}:${cfg.socketAddress}"

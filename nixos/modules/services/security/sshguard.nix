@@ -87,10 +87,10 @@ in {
     environment.etc."sshguard.conf".text = let
       args = lib.concatStringsSep " " ([ "-afb" "-p info" "-o cat" "-n1" ]
         ++ (map (name: "-t ${escapeShellArg name}") cfg.services));
-      in ''
-        BACKEND="${pkgs.sshguard}/libexec/sshg-fw-ipset"
-        LOGREADER="LANG=C ${pkgs.systemd}/bin/journalctl ${args}"
-      '';
+    in ''
+      BACKEND="${pkgs.sshguard}/libexec/sshg-fw-ipset"
+      LOGREADER="LANG=C ${pkgs.systemd}/bin/journalctl ${args}"
+    '';
 
     systemd.services.sshguard = {
       description = "SSHGuard brute-force attacks protection system";
@@ -125,7 +125,7 @@ in {
             (optionalString (cfg.blacklist_threshold != null)
               "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
           ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
-          in "${pkgs.sshguard}/bin/sshguard ${args}";
+        in "${pkgs.sshguard}/bin/sshguard ${args}";
         Restart = "always";
         ProtectSystem = "strict";
         ProtectHome = "tmpfs";

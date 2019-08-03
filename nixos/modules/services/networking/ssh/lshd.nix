@@ -148,31 +148,34 @@ in {
           --password-helper="${lsh}/sbin/lsh-pam-checkpw" \
           -p ${toString portNumber} \
           ${
-          if interfaces == [ ] then
-            ""
-          else
-            (concatStrings (map (i: ''--interface="${i}"'') interfaces))
+            if interfaces == [ ] then
+              ""
+            else
+              (concatStrings (map (i: ''--interface="${i}"'') interfaces))
           } \
           -h "${hostKey}" \
           ${if !syslog then "--no-syslog" else ""} \
           ${if passwordAuthentication then "--password" else "--no-password"} \
           ${
-          if publicKeyAuthentication then "--publickey" else "--no-publickey"
+            if publicKeyAuthentication then "--publickey" else "--no-publickey"
           } \
           ${if rootLogin then "--root-login" else "--no-root-login"} \
           ${
-          if loginShell != null then ''--login-shell="${loginShell}"'' else ""
+            if loginShell != null then ''--login-shell="${loginShell}"'' else ""
           } \
           ${
-          if srpKeyExchange then "--srp-keyexchange" else "--no-srp-keyexchange"
+            if srpKeyExchange then
+              "--srp-keyexchange"
+            else
+              "--no-srp-keyexchange"
           } \
           ${
-          if !tcpForwarding then "--no-tcpip-forward" else "--tcpip-forward"
+            if !tcpForwarding then "--no-tcpip-forward" else "--tcpip-forward"
           } \
           ${if x11Forwarding then "--x11-forward" else "--no-x11-forward"} \
           --subsystems=${
-          concatStringsSep ","
-          (map (pair: (head pair) + "=" + (head (tail pair))) subsystems)
+            concatStringsSep ","
+            (map (pair: (head pair) + "=" + (head (tail pair))) subsystems)
           }
       '';
     };

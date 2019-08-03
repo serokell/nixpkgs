@@ -66,12 +66,12 @@ stdenv.mkDerivation rec {
         sha256 = "07razp9rlq3s92j8a3iak3qk2h4x4xwz4y915h52ivvnxayscj89";
       })
     ];
-    in stdenv.lib.concatLists [
-      py37-support
-      # Without this, tests will leak memory and run forever.
-      separate-code-support
-      full-ptrace-seize-errors
-    ];
+  in stdenv.lib.concatLists [
+    py37-support
+    # Without this, tests will leak memory and run forever.
+    separate-code-support
+    full-ptrace-seize-errors
+  ];
 
   nativeBuildInputs = [ autoreconfHook pkgconfig ];
   buildInputs = [ python37 python36 python2 python35 ];
@@ -95,14 +95,14 @@ stdenv.mkDerivation rec {
   # reproduces the logic of their test script, but without downloading pytest
   # from the internet with pip
   checkPhase = let inherit (stdenv) lib;
-    in lib.concatMapStringsSep "\n" (python: ''
-      set -x
-      PYMAJORVERSION=${lib.substring 0 1 python.version} \
-        PATH=${lib.makeBinPath [ coreutils ]}\
-        PYTHONPATH= \
-        ${python.pkgs.pytest}/bin/pytest tests/
-      set +x
-    '') (lib.filter (x: x != null) buildInputs);
+  in lib.concatMapStringsSep "\n" (python: ''
+    set -x
+    PYMAJORVERSION=${lib.substring 0 1 python.version} \
+      PATH=${lib.makeBinPath [ coreutils ]}\
+      PYTHONPATH= \
+      ${python.pkgs.pytest}/bin/pytest tests/
+    set +x
+  '') (lib.filter (x: x != null) buildInputs);
 
   meta = with stdenv.lib; {
     description = "A ptracing profiler for Python ";

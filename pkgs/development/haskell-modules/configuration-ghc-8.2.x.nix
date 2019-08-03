@@ -70,7 +70,7 @@ self: super: {
       sha256 = "09ls54zy6gx84fmzwgvx18ssgm740cwq6ds70p0p125phi54agcp";
       stripLen = 1;
     };
-    in appendPatch super.hadoop-rpc patch;
+  in appendPatch super.hadoop-rpc patch;
 
   # Custom Setup.hs breaks with Cabal 2
   # https://github.com/NICTA/coordinate/pull/4
@@ -79,7 +79,7 @@ self: super: {
       url = "https://github.com/NICTA/coordinate/pull/4.patch";
       sha256 = "06sfxk5cyd8nqgjyb95jkihxxk8m6dw9m3mlv94sm2qwylj86gqy";
     };
-    in appendPatch super.coordinate patch;
+  in appendPatch super.coordinate patch;
 
   # https://github.com/purescript/purescript/issues/3189
   purescript = doJailbreak (super.purescript);

@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   # The upstream unit both assumes the install location, and tries to run in a virtualenv 
   postPatch = "sed -e 's|ExecStart=.*|ExecStart=${
-    placeholder "out"
-  }/bin/lenovo_fix.py|' -i systemd/lenovo_fix.service";
+      placeholder "out"
+    }/bin/lenovo_fix.py|' -i systemd/lenovo_fix.service";
 
   installPhase = ''
     runHook preInstall

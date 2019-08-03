@@ -22,14 +22,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/xscast" \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath [
-        ffmpeg
-        dzen2
-        xorg.xwininfo
-        xorg.xinput
-        xorg.xmodmap
-        imagemagick
-      ]
+        stdenv.lib.makeBinPath [
+          ffmpeg
+          dzen2
+          xorg.xwininfo
+          xorg.xinput
+          xorg.xmodmap
+          imagemagick
+        ]
       }
 
     runHook postInstall

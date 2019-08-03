@@ -192,10 +192,10 @@ let
 
         # cannot test the http server because it needs a localhost port
       '';
-      in ''
-        HOME=$(mktemp -d)
-        ${fish}/bin/fish ${fishScript}
-      '';
+    in ''
+      HOME=$(mktemp -d)
+      ${fish}/bin/fish ${fishScript}
+    '';
   };
 
   # FIXME(Profpatsch) replace withTests stub

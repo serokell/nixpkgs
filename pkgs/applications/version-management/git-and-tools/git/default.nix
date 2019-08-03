@@ -161,7 +161,8 @@ in stdenv.mkDerivation {
           '${coreutils}/bin/cut', '${coreutils}/bin/basename', '${coreutils}/bin/dirname',
           '${coreutils}/bin/wc', '${coreutils}/bin/tr'
           ${
-      stdenv.lib.optionalString perlSupport ", '${perlPackages.perl}/bin/perl'"
+            stdenv.lib.optionalString perlSupport
+            ", '${perlPackages.perl}/bin/perl'"
           }
         );
       }
@@ -185,27 +186,27 @@ in stdenv.mkDerivation {
     # wrap perl commands
     makeWrapper "$out/share/git/contrib/credential/netrc/git-credential-netrc" $out/bin/git-credential-netrc \
                 --set PERL5LIB   "$out/${perlPackages.perl.libPrefix}:${
-      perlPackages.makePerlPath perlLibs
+                  perlPackages.makePerlPath perlLibs
                 }"
     wrapProgram $out/libexec/git-core/git-cvsimport \
                 --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-      perlPackages.makePerlPath perlLibs
+                  perlPackages.makePerlPath perlLibs
                 }"
     wrapProgram $out/libexec/git-core/git-add--interactive \
                 --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-      perlPackages.makePerlPath perlLibs
+                  perlPackages.makePerlPath perlLibs
                 }"
     wrapProgram $out/libexec/git-core/git-archimport \
                 --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-      perlPackages.makePerlPath perlLibs
+                  perlPackages.makePerlPath perlLibs
                 }"
     wrapProgram $out/libexec/git-core/git-instaweb \
                 --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-      perlPackages.makePerlPath perlLibs
+                  perlPackages.makePerlPath perlLibs
                 }"
     wrapProgram $out/libexec/git-core/git-cvsexportcommit \
                 --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-      perlPackages.makePerlPath perlLibs
+                  perlPackages.makePerlPath perlLibs
                 }"
   ''
 
@@ -213,7 +214,7 @@ in stdenv.mkDerivation {
       # wrap git-svn
       wrapProgram $out/libexec/git-core/git-svn                                                                                \
                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-        perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
+                     perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
                    }" \
                    --prefix PATH : "${svn.out}/bin" '' else ''
         # replace git-svn by notification script
@@ -224,7 +225,7 @@ in stdenv.mkDerivation {
       # wrap git-send-email
       wrapProgram $out/libexec/git-core/git-send-email \
                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-        perlPackages.makePerlPath smtpPerlLibs
+                     perlPackages.makePerlPath smtpPerlLibs
                    }"
     '' else ''
       # replace git-send-email by notification script

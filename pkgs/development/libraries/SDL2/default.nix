@@ -94,13 +94,13 @@ stdenv.mkDerivation rec {
   # list the symbols used in this way.
   postFixup = let
     rpath = makeLibraryPath (dlopenPropagatedBuildInputs ++ dlopenBuildInputs);
-    in optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
-      for lib in $out/lib/*.so* ; do
-        if ! [[ -L "$lib" ]]; then
-          patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
-        fi
-      done
-    '';
+  in optionalString (stdenv.hostPlatform.extensions.sharedLibrary == ".so") ''
+    for lib in $out/lib/*.so* ; do
+      if ! [[ -L "$lib" ]]; then
+        patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
+      fi
+    done
+  '';
 
   setupHook = ./setup-hook.sh;
 

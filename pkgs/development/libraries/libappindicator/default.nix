@@ -13,7 +13,7 @@ in stdenv.mkDerivation rec {
   name = let
     postfix =
       if gtkVersion == "2" && monoSupport then "sharp" else "gtk${gtkVersion}";
-    in "libappindicator-${postfix}-${version}";
+  in "libappindicator-${postfix}-${version}";
   version = "${versionMajor}.${versionMinor}";
   versionMajor = "12.10";
   versionMinor = "0";

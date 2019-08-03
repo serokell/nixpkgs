@@ -22,39 +22,39 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = let libs = makeLibraryPath [ libaio ];
-    in ''
-      basedir="u01/app/oracle/product/${version}/xe"
-      cat > "$basedir/network/admin/listener.ora" <<SQL
-      # listener.ora Network Configuration File:
+  in ''
+    basedir="u01/app/oracle/product/${version}/xe"
+    cat > "$basedir/network/admin/listener.ora" <<SQL
+    # listener.ora Network Configuration File:
 
-      SID_LIST_LISTENER =
-        (SID_LIST =
-          (SID_DESC =
-            (SID_NAME = PLSExtProc)
-            (ORACLE_HOME = ''${out}/libexec/oracle)
-            (PROGRAM = extproc)
-          )
+    SID_LIST_LISTENER =
+      (SID_LIST =
+        (SID_DESC =
+          (SID_NAME = PLSExtProc)
+          (ORACLE_HOME = ''${out}/libexec/oracle)
+          (PROGRAM = extproc)
         )
+      )
 
-      LISTENER =
-        (DESCRIPTION_LIST =
-          (DESCRIPTION =
-            (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC_FOR_XE))
-            (ADDRESS = (PROTOCOL = TCP)(HOST = %hostname%)(PORT = %port%))
-          )
+    LISTENER =
+      (DESCRIPTION_LIST =
+        (DESCRIPTION =
+          (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC_FOR_XE))
+          (ADDRESS = (PROTOCOL = TCP)(HOST = %hostname%)(PORT = %port%))
         )
+      )
 
-      DEFAULT_SERVICE_LISTENER = (XE)
-      SQL
+    DEFAULT_SERVICE_LISTENER = (XE)
+    SQL
 
-      find u01 \
-        \( -name '*.sh' \
-        -o -path "$basedir/bin/*" \
-        \) -print -exec "${patchelf}/bin/patchelf" \
-             --interpreter "$(cat "$NIX_CC/nix-support/dynamic-linker")" \
-             --set-rpath "${libs}:$out/libexec/oracle/lib" \
-             --force-rpath '{}' \;
-    '';
+    find u01 \
+      \( -name '*.sh' \
+      -o -path "$basedir/bin/*" \
+      \) -print -exec "${patchelf}/bin/patchelf" \
+           --interpreter "$(cat "$NIX_CC/nix-support/dynamic-linker")" \
+           --set-rpath "${libs}:$out/libexec/oracle/lib" \
+           --force-rpath '{}' \;
+  '';
 
   dontStrip = true;
   dontPatchELF = true;

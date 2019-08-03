@@ -92,7 +92,7 @@ in vscode-utils.buildVscodeMarketplaceExtension {
     # 2. Patch `package.json` so that nix's *gdb* is used as default value for `miDebuggerPath`.
     cat ./package_ori.json | \
       jq --slurpfile actEvts ${
-      ./package-activation-events.json
+        ./package-activation-events.json
       } '(.activationEvents) = $actEvts[0]' | \
       jq '(.contributes.debuggers[].configurationAttributes | .attach , .launch | .properties.miDebuggerPath | select(. != null) | select(.default == "/usr/bin/gdb") | .default) = "${gdbDefaultsTo}"' > \
       ./package.json

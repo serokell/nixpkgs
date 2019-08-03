@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://ftp.gtk.org/pub/babl/${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.bz2";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "0qx1dwbinxihwl2lmxi60qiqi402jlrdcnixx14kk6j88n9xi79n";
   };
 

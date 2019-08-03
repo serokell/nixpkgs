@@ -51,8 +51,8 @@ let
         '';
     in {
       description = "Supplicant ${iface}${
-        optionalString (iface == "WLAN" || iface == "LAN") " %I"
-      }";
+          optionalString (iface == "WLAN" || iface == "LAN") " %I"
+        }";
       wantedBy = [ "multi-user.target" ] ++ deps;
       wants = [ "network.target" ];
       bindsTo = deps;

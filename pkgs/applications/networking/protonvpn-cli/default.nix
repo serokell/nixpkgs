@@ -35,14 +35,14 @@ in stdenv.mkDerivation rec {
   postInstallPhase = ''
     wrapProgram $out/protonvpn-cli \
       --prefix PATH : ${
-      lib.makeBinPath [
-        coreutils
-        openvpn
-        python
-        dialog
-        wget
-        update-resolv-conf
-      ]
+        lib.makeBinPath [
+          coreutils
+          openvpn
+          python
+          dialog
+          wget
+          update-resolv-conf
+        ]
       }
   '';
 

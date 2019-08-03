@@ -139,23 +139,23 @@ in buildEnv {
     (let
       pnames = uniqueStrings (map (p: p.pname) pkgList.splitBin.wrong);
       script = writeText "hyphens.sed" (
-        # pick up the header
-          "1,/^% from/p;"
-          # pick up all sections matching packages that we combine
-          + lib.concatMapStrings (pname: ''
-            /^% from ${pname}:$/,/^%/p;
-          '') pnames);
-      in ''
-        (
-          cd ./share/texmf/tex/generic/config/
-          for fname in language.dat language.def; do
-            [ -e $fname ] || continue;
-            cnfOrig="$(realpath ./$fname)"
-            rm ./$fname
-            cat "$cnfOrig" | sed -n -f '${script}' > ./$fname
-          done
-        )
-      '') +
+      # pick up the header
+        "1,/^% from/p;"
+        # pick up all sections matching packages that we combine
+        + lib.concatMapStrings (pname: ''
+          /^% from ${pname}:$/,/^%/p;
+        '') pnames);
+    in ''
+      (
+        cd ./share/texmf/tex/generic/config/
+        for fname in language.dat language.def; do
+          [ -e $fname ] || continue;
+          cnfOrig="$(realpath ./$fname)"
+          rm ./$fname
+          cat "$cnfOrig" | sed -n -f '${script}' > ./$fname
+        done
+      )
+    '') +
 
     # function to wrap created executables with required env vars
     ''

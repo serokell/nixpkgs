@@ -334,7 +334,7 @@ rec {
           lib.optionalString (fs != null) "-t ${fs} "
         }${file} tmp ||
           mount -o loop,ro ${
-          lib.optionalString (fs != null) "-t ${fs} "
+            lib.optionalString (fs != null) "-t ${fs} "
           }${file} tmp
         cp -Rv tmp/* $out/ || exit 0
       '';
@@ -452,7 +452,7 @@ rec {
         echo "installing RPMs..."
         PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
           rpm -iv --nosignature ${
-          if runScripts then "" else "--noscripts"
+            if runScripts then "" else "--noscripts"
           } $rpms
 
         echo "running post-install script..."
@@ -668,8 +668,9 @@ rec {
       '') packagesLists}
       perl -w ${rpm/rpm-closure.pl} \
         ${
-        lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
-        (lib.zipLists packagesLists urlPrefixes)
+          lib.concatImapStrings
+          (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
+          (lib.zipLists packagesLists urlPrefixes)
         } \
         ${toString packages} > $out
     '';
@@ -752,87 +753,87 @@ rec {
 
     # Note: no i386 release for Fedora >= 26
     fedora26x86_64 = let version = "26";
-      in rec {
-        name = "fedora-${version}-x86_64";
-        fullName = "Fedora ${version} (x86_64)";
-        packagesList = fetchurl rec {
-          url =
-            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
-        };
-        urlPrefix =
-          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
-        archs = [ "noarch" "x86_64" ];
-        packages = commonFedoraPackages ++ [ "cronie" "util-linux" ];
-        unifiedSystemDir = true;
+    in rec {
+      name = "fedora-${version}-x86_64";
+      fullName = "Fedora ${version} (x86_64)";
+      packagesList = fetchurl rec {
+        url =
+          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
       };
+      urlPrefix =
+        "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
+      archs = [ "noarch" "x86_64" ];
+      packages = commonFedoraPackages ++ [ "cronie" "util-linux" ];
+      unifiedSystemDir = true;
+    };
 
     fedora27x86_64 = let version = "27";
-      in rec {
-        name = "fedora-${version}-x86_64";
-        fullName = "Fedora ${version} (x86_64)";
-        packagesList = fetchurl rec {
-          url =
-            "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
-        };
-        urlPrefix =
-          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
-        archs = [ "noarch" "x86_64" ];
-        packages = commonFedoraPackages ++ [ "cronie" "util-linux" ];
-        unifiedSystemDir = true;
+    in rec {
+      name = "fedora-${version}-x86_64";
+      fullName = "Fedora ${version} (x86_64)";
+      packagesList = fetchurl rec {
+        url =
+          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
       };
+      urlPrefix =
+        "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
+      archs = [ "noarch" "x86_64" ];
+      packages = commonFedoraPackages ++ [ "cronie" "util-linux" ];
+      unifiedSystemDir = true;
+    };
 
     centos6i386 = let version = "6.9";
-      in rec {
-        name = "centos-${version}-i386";
-        fullName = "CentOS ${version} (i386)";
-        # N.B. Switch to vault.centos.org when the next release comes out
-        # urlPrefix = "http://vault.centos.org/${version}/os/i386";
-        urlPrefix = "http://mirror.centos.org/centos-6/${version}/os/i386";
-        packagesList = fetchurl rec {
-          url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "b826a45082ef68340325c0855f3d2e5d5a4d0f77d28ba3b871791d6f14a97aeb";
-        };
-        archs = [ "noarch" "i386" ];
-        packages = commonCentOSPackages ++ [ "procps" ];
+    in rec {
+      name = "centos-${version}-i386";
+      fullName = "CentOS ${version} (i386)";
+      # N.B. Switch to vault.centos.org when the next release comes out
+      # urlPrefix = "http://vault.centos.org/${version}/os/i386";
+      urlPrefix = "http://mirror.centos.org/centos-6/${version}/os/i386";
+      packagesList = fetchurl rec {
+        url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "b826a45082ef68340325c0855f3d2e5d5a4d0f77d28ba3b871791d6f14a97aeb";
       };
+      archs = [ "noarch" "i386" ];
+      packages = commonCentOSPackages ++ [ "procps" ];
+    };
 
     centos6x86_64 = let version = "6.9";
-      in rec {
-        name = "centos-${version}-x86_64";
-        fullName = "CentOS ${version} (x86_64)";
-        # N.B. Switch to vault.centos.org when the next release comes out
-        # urlPrefix = "http://vault.centos.org/${version}/os/x86_64";
-        urlPrefix = "http://mirror.centos.org/centos-6/${version}/os/x86_64";
-        packagesList = fetchurl rec {
-          url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "ed2b2d4ac98d774d4cd3e91467e1532f7e8b0275cfc91a0d214b532dcaf1e979";
-        };
-        archs = [ "noarch" "x86_64" ];
-        packages = commonCentOSPackages ++ [ "procps" ];
+    in rec {
+      name = "centos-${version}-x86_64";
+      fullName = "CentOS ${version} (x86_64)";
+      # N.B. Switch to vault.centos.org when the next release comes out
+      # urlPrefix = "http://vault.centos.org/${version}/os/x86_64";
+      urlPrefix = "http://mirror.centos.org/centos-6/${version}/os/x86_64";
+      packagesList = fetchurl rec {
+        url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "ed2b2d4ac98d774d4cd3e91467e1532f7e8b0275cfc91a0d214b532dcaf1e979";
       };
+      archs = [ "noarch" "x86_64" ];
+      packages = commonCentOSPackages ++ [ "procps" ];
+    };
 
     # Note: no i386 release for 7.x
     centos7x86_64 = let version = "7.4.1708";
-      in rec {
-        name = "centos-${version}-x86_64";
-        fullName = "CentOS ${version} (x86_64)";
-        # N.B. Switch to vault.centos.org when the next release comes out
-        # urlPrefix = "http://vault.centos.org/${version}/os/x86_64";
-        urlPrefix = "http://mirror.centos.org/centos-7/${version}/os/x86_64";
-        packagesList = fetchurl rec {
-          url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 =
-            "b686d3a0f337323e656d9387b9a76ce6808b26255fc3a138b1a87d3b1cb95ed5";
-        };
-        archs = [ "noarch" "x86_64" ];
-        packages = commonCentOSPackages ++ [ "procps-ng" ];
+    in rec {
+      name = "centos-${version}-x86_64";
+      fullName = "CentOS ${version} (x86_64)";
+      # N.B. Switch to vault.centos.org when the next release comes out
+      # urlPrefix = "http://vault.centos.org/${version}/os/x86_64";
+      urlPrefix = "http://mirror.centos.org/centos-7/${version}/os/x86_64";
+      packagesList = fetchurl rec {
+        url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "b686d3a0f337323e656d9387b9a76ce6808b26255fc3a138b1a87d3b1cb95ed5";
       };
+      archs = [ "noarch" "x86_64" ];
+      packages = commonCentOSPackages ++ [ "procps-ng" ];
+    };
   };
 
   # The set of supported Dpkg-based distributions.

@@ -31,17 +31,17 @@
           ${a.tagCmd}
           TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
         '') createTagFiles);
-        in ''
-          SRC_DEST=$out/src/$name
-          mkdir -p $SRC_DEST
-          pwd; ls
-          cp -r $srcDir $SRC_DEST
-          cd $SRC_DEST
-          ${createTags}
+      in ''
+        SRC_DEST=$out/src/$name
+        mkdir -p $SRC_DEST
+        pwd; ls
+        cp -r $srcDir $SRC_DEST
+        cd $SRC_DEST
+        ${createTags}
 
-          mkdir -p $out/nix-support
-          echo "TAG_FILES=\"\$TAG_FILES\''${TAG_FILES:+:}$TAG_FILES\"" >> $out/nix-support/setup-hook
-        '';
+        mkdir -p $out/nix-support
+        echo "TAG_FILES=\"\$TAG_FILES\''${TAG_FILES:+:}$TAG_FILES\"" >> $out/nix-support/setup-hook
+      '';
     };
   # example usage
   #testSourceWithTags = sourceWithTagsDerivation (ghc68extraLibs ghcsAndLibs.ghc68).happs_server_darcs.passthru.sourceWithTags;
@@ -65,14 +65,14 @@
                 export LC_ALL=en_US.UTF-8
                 export LANG=en_US.UTF-8
                 ${
-                if stdenv.isLinux then
-                  "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
-                else
-                  ""
+                  if stdenv.isLinux then
+                    "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
+                  else
+                    ""
                 }
 
                 ${
-                toString hasktags
+                  toString hasktags
                 }/bin/hasktags --ignore-close-implementation --ctags .
                 mv tags $TAG_FILE
               }

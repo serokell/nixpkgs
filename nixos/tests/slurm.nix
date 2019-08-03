@@ -24,42 +24,42 @@ import ./make-test.nix ({ lib, ... }:
         networking.firewall.enable = false;
         services.slurm = { client.enable = true; } // slurmconfig;
       };
-      in {
+    in {
 
-        control = { ... }: {
-          networking.firewall.enable = false;
-          services.slurm = { server.enable = true; } // slurmconfig;
-        };
-
-        submit = { ... }: {
-          networking.firewall.enable = false;
-          services.slurm = { enableStools = true; } // slurmconfig;
-        };
-
-        dbd = { pkgs, ... }: {
-          networking.firewall.enable = false;
-          services.slurm.dbdserver = { enable = true; };
-          services.mysql = {
-            enable = true;
-            package = pkgs.mysql;
-            ensureDatabases = [ "slurm_acct_db" ];
-            ensureUsers = [{
-              ensurePermissions = { "slurm_acct_db.*" = "ALL PRIVILEGES"; };
-              name = "slurm";
-            }];
-            extraOptions = ''
-              # recommendations from: https://slurm.schedmd.com/accounting.html#mysql-configuration
-              innodb_buffer_pool_size=1024M
-              innodb_log_file_size=64M
-              innodb_lock_wait_timeout=900
-            '';
-          };
-        };
-
-        node1 = computeNode;
-        node2 = computeNode;
-        node3 = computeNode;
+      control = { ... }: {
+        networking.firewall.enable = false;
+        services.slurm = { server.enable = true; } // slurmconfig;
       };
+
+      submit = { ... }: {
+        networking.firewall.enable = false;
+        services.slurm = { enableStools = true; } // slurmconfig;
+      };
+
+      dbd = { pkgs, ... }: {
+        networking.firewall.enable = false;
+        services.slurm.dbdserver = { enable = true; };
+        services.mysql = {
+          enable = true;
+          package = pkgs.mysql;
+          ensureDatabases = [ "slurm_acct_db" ];
+          ensureUsers = [{
+            ensurePermissions = { "slurm_acct_db.*" = "ALL PRIVILEGES"; };
+            name = "slurm";
+          }];
+          extraOptions = ''
+            # recommendations from: https://slurm.schedmd.com/accounting.html#mysql-configuration
+            innodb_buffer_pool_size=1024M
+            innodb_log_file_size=64M
+            innodb_lock_wait_timeout=900
+          '';
+        };
+      };
+
+      node1 = computeNode;
+      node2 = computeNode;
+      node3 = computeNode;
+    };
 
     testScript = ''
       startAll;

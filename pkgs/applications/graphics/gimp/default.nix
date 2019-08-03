@@ -12,8 +12,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://download.gimp.org/pub/gimp/v${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.bz2";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "0wdcr8d2ink4swn5r4v13bsiya6s3xm4ya97sdbhs4l40y7bb03x";
   };
 

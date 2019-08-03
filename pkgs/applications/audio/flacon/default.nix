@@ -20,16 +20,16 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/flacon \
       --suffix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}" \
       --prefix PATH : "${
-      lib.makeBinPath [
-        shntool
-        flac
-        opusTools
-        vorbis-tools
-        mp3gain
-        lame
-        wavpack
-        vorbisgain
-      ]
+        lib.makeBinPath [
+          shntool
+          flac
+          opusTools
+          vorbis-tools
+          mp3gain
+          lame
+          wavpack
+          vorbisgain
+        ]
       }"
   '';
 

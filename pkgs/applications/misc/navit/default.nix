@@ -97,8 +97,8 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/navit \
       --prefix PATH : ${
-      makeBinPath (optional xkbdSupport xkbd ++ optional espeakSupport espeak
-        ++ optional speechdSupport speechd)
+        makeBinPath (optional xkbdSupport xkbd ++ optional espeakSupport espeak
+          ++ optional speechdSupport speechd)
       }
   '';
 

@@ -30,16 +30,16 @@ mkDerivation rec {
       url = "https://www.erlang.org/download/otp_doc_man_R16B02.tar.gz";
       sha256 = "12apxjmmd591y9g9bhr97z5jbd1jarqg7wj0y2sqhl21hc1yp75p";
     };
-    in ''
-      sed -e s@$(pwd)/bootstrap/bin/escript@$out/bin/escript@g -i $out/lib/erlang/lib/diameter-1.4.3/bin/diameterc
+  in ''
+    sed -e s@$(pwd)/bootstrap/bin/escript@$out/bin/escript@g -i $out/lib/erlang/lib/diameter-1.4.3/bin/diameterc
 
-      tar xf "${manpages}" -C "$out/lib/erlang"
-      for i in "$out"/lib/erlang/man/man[0-9]/*.[0-9]; do
-        prefix="''${i%/*}"
-        mkdir -p "$out/share/man/''${prefix##*/}"
-        ln -s "$i" "$out/share/man/''${prefix##*/}/''${i##*/}erl"
-      done
-    '';
+    tar xf "${manpages}" -C "$out/lib/erlang"
+    for i in "$out"/lib/erlang/man/man[0-9]/*.[0-9]; do
+      prefix="''${i%/*}"
+      mkdir -p "$out/share/man/''${prefix##*/}"
+      ln -s "$i" "$out/share/man/''${prefix##*/}/''${i##*/}erl"
+    done
+  '';
 
   meta = {
     homepage = "https://github.com/basho/otp/";

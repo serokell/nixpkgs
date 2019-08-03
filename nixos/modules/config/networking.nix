@@ -181,10 +181,10 @@ in {
         oneToString = set: ip: ip + " " + concatStringsSep " " set.${ip};
         allToString = set:
           concatMapStringsSep "\n" (oneToString set) (attrNames set);
-        in ''
-          ${allToString (filterAttrs (_: v: v != [ ]) cfg.hosts)}
-          ${cfg.extraHosts}
-        '';
+      in ''
+        ${allToString (filterAttrs (_: v: v != [ ]) cfg.hosts)}
+        ${cfg.extraHosts}
+      '';
 
       # /etc/host.conf: resolver configuration file
       "host.conf".text = cfg.hostConf;

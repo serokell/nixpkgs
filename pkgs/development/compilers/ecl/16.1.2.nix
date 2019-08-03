@@ -6,14 +6,14 @@ assert useBoehmgc -> boehmgc != null;
 
 let
   s = # Generated upstream information
-  rec {
-    baseName = "ecl";
-    version = "16.1.2";
-    name = "${baseName}-${version}";
-    url =
-      "https://common-lisp.net/project/ecl/static/files/release/ecl-16.1.2.tgz";
-    sha256 = "16ab8qs3awvdxy8xs8jy82v8r04x4wr70l9l2j45vgag18d2nj1d";
-  };
+    rec {
+      baseName = "ecl";
+      version = "16.1.2";
+      name = "${baseName}-${version}";
+      url =
+        "https://common-lisp.net/project/ecl/static/files/release/ecl-16.1.2.tgz";
+      sha256 = "16ab8qs3awvdxy8xs8jy82v8r04x4wr70l9l2j45vgag18d2nj1d";
+    };
   buildInputs = [ libtool autoconf automake makeWrapper ];
   propagatedBuildInputs = [ libffi gmp mpfr gcc ]
     ++ stdenv.lib.optionals useBoehmgc [

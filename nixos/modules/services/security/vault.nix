@@ -9,18 +9,18 @@ let
     listener "tcp" {
       address = "${cfg.address}"
       ${
-      if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null) then ''
-        tls_disable = "true"
-      '' else ''
-        tls_cert_file = "${cfg.tlsCertFile}"
-        tls_key_file = "${cfg.tlsKeyFile}"
-      ''
+        if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null) then ''
+          tls_disable = "true"
+        '' else ''
+          tls_cert_file = "${cfg.tlsCertFile}"
+          tls_key_file = "${cfg.tlsKeyFile}"
+        ''
       }
       ${cfg.listenerExtraConfig}
     }
     storage "${cfg.storageBackend}" {
       ${
-      optionalString (cfg.storagePath != null) ''path = "${cfg.storagePath}"''
+        optionalString (cfg.storagePath != null) ''path = "${cfg.storagePath}"''
       }
       ${optionalString (cfg.storageConfig != null) cfg.storageConfig}
     }

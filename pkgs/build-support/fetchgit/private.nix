@@ -18,12 +18,12 @@ derivation ((fetchgit args).drvAttrs // {
 
           You may need StrictHostKeyChecking=no in the config file. Since ssh will refuse to use a group-readable private key, if using build-users you will likely want to use something like IdentityFile /some/directory/%u/key and have a directory for each build user accessible to that user.
         '' "/var/lib/empty/config";
-      in builtins.toString sshConfigFile}";
+    in builtins.toString sshConfigFile}";
 
     ssh-wrapped =
       runCommand "fetchgit-ssh" { nativeBuildInputs = [ makeWrapper ]; } ''
         mkdir -p $out/bin
         makeWrapper ${openssh}/bin/ssh $out/bin/ssh --prefix PATH : "$out/bin" --add-flags "-F ${config}" "$@"
       '';
-    in "${ssh-wrapped}/bin/ssh";
+  in "${ssh-wrapped}/bin/ssh";
 })

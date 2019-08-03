@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
       echo "Patching:" $exe
       patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $exe
       patchelf --set-rpath "${
-      stdenv.lib.makeLibraryPath [ stdenv.cc.cc ncurses5 ]
+        stdenv.lib.makeLibraryPath [ stdenv.cc.cc ncurses5 ]
       }" $exe
     done
     cd ../

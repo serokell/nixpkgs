@@ -52,8 +52,7 @@ let
     "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
 
   addrOpts = v:
-    assert v == 4 || v == 6;
-    {
+    assert v == 4 || v == 6; {
       options = {
         address = mkOption {
           type = types.str;
@@ -322,33 +321,33 @@ let
 
     # Renamed or removed options
     imports = let defined = x: x != "_mkMergedOptionModule";
-      in [
-        (mkRenamedOptionModule [ "ip4" ] [ "ipv4" "addresses" ])
-        (mkRenamedOptionModule [ "ip6" ] [ "ipv6" "addresses" ])
-        (mkRemovedOptionModule [ "subnetMask" ] ''
-          Supply a prefix length instead; use option
-          networking.interfaces.<name>.ipv{4,6}.addresses'')
-        (mkMergedOptionModule [ [ "ipAddress" ] [ "prefixLength" ] ] [
-          "ipv4"
-          "addresses"
-        ] (cfg:
-          with cfg;
-          optional (defined ipAddress && defined prefixLength) {
-            address = ipAddress;
-            prefixLength = prefixLength;
-          }))
-        (mkMergedOptionModule [ [ "ipv6Address" ] [ "ipv6PrefixLength" ] ] [
-          "ipv6"
-          "addresses"
-        ] (cfg:
-          with cfg;
-          optional (defined ipv6Address && defined ipv6PrefixLength) {
-            address = ipv6Address;
-            prefixLength = ipv6PrefixLength;
-          }))
+    in [
+      (mkRenamedOptionModule [ "ip4" ] [ "ipv4" "addresses" ])
+      (mkRenamedOptionModule [ "ip6" ] [ "ipv6" "addresses" ])
+      (mkRemovedOptionModule [ "subnetMask" ] ''
+        Supply a prefix length instead; use option
+        networking.interfaces.<name>.ipv{4,6}.addresses'')
+      (mkMergedOptionModule [ [ "ipAddress" ] [ "prefixLength" ] ] [
+        "ipv4"
+        "addresses"
+      ] (cfg:
+        with cfg;
+        optional (defined ipAddress && defined prefixLength) {
+          address = ipAddress;
+          prefixLength = prefixLength;
+        }))
+      (mkMergedOptionModule [ [ "ipv6Address" ] [ "ipv6PrefixLength" ] ] [
+        "ipv6"
+        "addresses"
+      ] (cfg:
+        with cfg;
+        optional (defined ipv6Address && defined ipv6PrefixLength) {
+          address = ipv6Address;
+          prefixLength = ipv6PrefixLength;
+        }))
 
-        ({ options.warnings = options.warnings; })
-      ];
+      ({ options.warnings = options.warnings; })
+    ];
 
   };
 
@@ -609,98 +608,98 @@ in {
         miimon = "100";
         mode = "active-backup";
       };
-      in mkOption {
-        default = { };
-        example = literalExample {
-          bond0 = {
-            interfaces = [ "eth0" "wlan0" ];
-            driverOptions = driverOptionsExample;
-          };
-          anotherBond.interfaces =
-            [ "enp4s0f0" "enp4s0f1" "enp5s0f0" "enp5s0f1" ];
+    in mkOption {
+      default = { };
+      example = literalExample {
+        bond0 = {
+          interfaces = [ "eth0" "wlan0" ];
+          driverOptions = driverOptionsExample;
         };
-        description = ''
-          This option allows you to define bond devices that aggregate multiple,
-          underlying networking interfaces together. The value of this option is
-          an attribute set. Each attribute specifies a bond, with the attribute
-          name specifying the name of the bond's network interface
-        '';
+        anotherBond.interfaces =
+          [ "enp4s0f0" "enp4s0f1" "enp5s0f0" "enp5s0f1" ];
+      };
+      description = ''
+        This option allows you to define bond devices that aggregate multiple,
+        underlying networking interfaces together. The value of this option is
+        an attribute set. Each attribute specifies a bond, with the attribute
+        name specifying the name of the bond's network interface
+      '';
 
-        type = with types;
-          attrsOf (submodule {
+      type = with types;
+        attrsOf (submodule {
 
-            options = {
+          options = {
 
-              interfaces = mkOption {
-                example = [ "enp4s0f0" "enp4s0f1" "wlan0" ];
-                type = types.listOf types.str;
-                description = "The interfaces to bond together";
-              };
+            interfaces = mkOption {
+              example = [ "enp4s0f0" "enp4s0f1" "wlan0" ];
+              type = types.listOf types.str;
+              description = "The interfaces to bond together";
+            };
 
-              driverOptions = mkOption {
-                type = types.attrsOf types.str;
-                default = { };
-                example = literalExample driverOptionsExample;
-                description = ''
-                  Options for the bonding driver.
-                  Documentation can be found in
-                  <link xlink:href="https://www.kernel.org/doc/Documentation/networking/bonding.txt" />
-                '';
-
-              };
-
-              lacp_rate = mkOption {
-                default = null;
-                example = "fast";
-                type = types.nullOr types.str;
-                description = ''
-                  DEPRECATED, use `driverOptions`.
-                  Option specifying the rate in which we'll ask our link partner
-                  to transmit LACPDU packets in 802.3ad mode.
-                '';
-              };
-
-              miimon = mkOption {
-                default = null;
-                example = 100;
-                type = types.nullOr types.int;
-                description = ''
-                  DEPRECATED, use `driverOptions`.
-                  Miimon is the number of millisecond in between each round of polling
-                  by the device driver for failed links. By default polling is not
-                  enabled and the driver is trusted to properly detect and handle
-                  failure scenarios.
-                '';
-              };
-
-              mode = mkOption {
-                default = null;
-                example = "active-backup";
-                type = types.nullOr types.str;
-                description = ''
-                  DEPRECATED, use `driverOptions`.
-                  The mode which the bond will be running. The default mode for
-                  the bonding driver is balance-rr, optimizing for throughput.
-                  More information about valid modes can be found at
-                  https://www.kernel.org/doc/Documentation/networking/bonding.txt
-                '';
-              };
-
-              xmit_hash_policy = mkOption {
-                default = null;
-                example = "layer2+3";
-                type = types.nullOr types.str;
-                description = ''
-                  DEPRECATED, use `driverOptions`.
-                  Selects the transmit hash policy to use for slave selection in
-                  balance-xor, 802.3ad, and tlb modes.
-                '';
-              };
+            driverOptions = mkOption {
+              type = types.attrsOf types.str;
+              default = { };
+              example = literalExample driverOptionsExample;
+              description = ''
+                Options for the bonding driver.
+                Documentation can be found in
+                <link xlink:href="https://www.kernel.org/doc/Documentation/networking/bonding.txt" />
+              '';
 
             };
 
-          });
-      };
+            lacp_rate = mkOption {
+              default = null;
+              example = "fast";
+              type = types.nullOr types.str;
+              description = ''
+                DEPRECATED, use `driverOptions`.
+                Option specifying the rate in which we'll ask our link partner
+                to transmit LACPDU packets in 802.3ad mode.
+              '';
+            };
+
+            miimon = mkOption {
+              default = null;
+              example = 100;
+              type = types.nullOr types.int;
+              description = ''
+                DEPRECATED, use `driverOptions`.
+                Miimon is the number of millisecond in between each round of polling
+                by the device driver for failed links. By default polling is not
+                enabled and the driver is trusted to properly detect and handle
+                failure scenarios.
+              '';
+            };
+
+            mode = mkOption {
+              default = null;
+              example = "active-backup";
+              type = types.nullOr types.str;
+              description = ''
+                DEPRECATED, use `driverOptions`.
+                The mode which the bond will be running. The default mode for
+                the bonding driver is balance-rr, optimizing for throughput.
+                More information about valid modes can be found at
+                https://www.kernel.org/doc/Documentation/networking/bonding.txt
+              '';
+            };
+
+            xmit_hash_policy = mkOption {
+              default = null;
+              example = "layer2+3";
+              type = types.nullOr types.str;
+              description = ''
+                DEPRECATED, use `driverOptions`.
+                Selects the transmit hash policy to use for slave selection in
+                balance-xor, 802.3ad, and tlb modes.
+              '';
+            };
+
+          };
+
+        });
+    };
 
     networking.macvlans = mkOption {
       default = { };
@@ -1159,7 +1158,7 @@ in {
             unique (mapAttrsToList (_: v: v.device) cfg.wlanInterfaces);
           interfacesOfDevice = d:
             filterAttrs (_: v: v.device == d) cfg.wlanInterfaces;
-          in genAttrs allDevices (d: interfacesOfDevice d);
+        in genAttrs allDevices (d: interfacesOfDevice d);
 
         # Convert device:interface key:value pairs into a list, and if it exists,
         # place the interface which is named after the device at the beginning.
@@ -1224,34 +1223,34 @@ in {
         systemdAttrs = n:
           ''
             NAME:="${n}", ENV{INTERFACE}:="${n}", ENV{SYSTEMD_ALIAS}:="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
-        in flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces)
-        (device:
-          let
-            interfaces =
-              wlanListDeviceFirst device wlanDeviceInterfaces."${device}";
-            curInterface = elemAt interfaces 0;
-            newInterfaces = drop 1 interfaces;
-          in ''
-            # It is important to have that rule first as overwriting the NAME attribute also prevents the
-            # next rules from matching.
-            ${flip (concatMapStringsSep "\n")
-            (wlanListDeviceFirst device wlanDeviceInterfaces."${device}")
-            (interface:
-              ''
-                ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-                  systemdAttrs interface._iName
-                }, RUN+="${newInterfaceScript device interface}"'')}
+      in flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces)
+      (device:
+        let
+          interfaces =
+            wlanListDeviceFirst device wlanDeviceInterfaces."${device}";
+          curInterface = elemAt interfaces 0;
+          newInterfaces = drop 1 interfaces;
+        in ''
+          # It is important to have that rule first as overwriting the NAME attribute also prevents the
+          # next rules from matching.
+          ${flip (concatMapStringsSep "\n")
+          (wlanListDeviceFirst device wlanDeviceInterfaces."${device}")
+          (interface:
+            ''
+              ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
+                systemdAttrs interface._iName
+              }, RUN+="${newInterfaceScript device interface}"'')}
 
-            # Add the required, new WLAN interfaces to the default WLAN interface with the
-            # persistent, default name as assigned by udev.
-            ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
-              systemdAttrs curInterface._iName
-            }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
-            # Generate the same systemd events for both 'add' and 'move' udev events.
-            ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
-              systemdAttrs curInterface._iName
-            }
-          '');
+          # Add the required, new WLAN interfaces to the default WLAN interface with the
+          # persistent, default name as assigned by udev.
+          ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
+            systemdAttrs curInterface._iName
+          }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
+          # Generate the same systemd events for both 'add' and 'move' udev events.
+          ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
+            systemdAttrs curInterface._iName
+          }
+        '');
     });
   };
 

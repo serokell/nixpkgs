@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = let libSuff = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
-      mkdir -p $out/lib $out/bin $out/include
-      cp liblinear.so.3 $out/lib/liblinear.3${libSuff}
-      ln -s $out/lib/liblinear.3${libSuff} $out/lib/liblinear${libSuff}
-      cp train $out/bin/liblinear-train
-      cp predict $out/bin/liblinear-predict
-      cp linear.h $out/include
-    '';
+  in ''
+    mkdir -p $out/lib $out/bin $out/include
+    cp liblinear.so.3 $out/lib/liblinear.3${libSuff}
+    ln -s $out/lib/liblinear.3${libSuff} $out/lib/liblinear${libSuff}
+    cp train $out/bin/liblinear-train
+    cp predict $out/bin/liblinear-predict
+    cp linear.h $out/include
+  '';
 
   postFixup = stdenv.lib.optionalString stdenv.isDarwin ''
     install_name_tool -id liblinear.3.dylib $out/lib/liblinear.3.dylib

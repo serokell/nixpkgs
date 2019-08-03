@@ -24,23 +24,22 @@ let
   mkSetcapProgram = { program, capabilities, source, owner ? "nobody"
     , group ? "nogroup", permissions ? "u+rx,g+x,o+x", ... }:
     assert (lib.versionAtLeast
-      (lib.getVersion config.boot.kernelPackages.kernel) "4.3");
-    ''
-      cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
-      echo -n "${source}" > $wrapperDir/${program}.real
+      (lib.getVersion config.boot.kernelPackages.kernel) "4.3"); ''
+        cp ${securityWrapper}/bin/security-wrapper $wrapperDir/${program}
+        echo -n "${source}" > $wrapperDir/${program}.real
 
-      # Prevent races
-      chmod 0000 $wrapperDir/${program}
-      chown ${owner}.${group} $wrapperDir/${program}
+        # Prevent races
+        chmod 0000 $wrapperDir/${program}
+        chown ${owner}.${group} $wrapperDir/${program}
 
-      # Set desired capabilities on the file plus cap_setpcap so
-      # the wrapper program can elevate the capabilities set on
-      # its file into the Ambient set.
-      ${pkgs.libcap.out}/bin/setcap "cap_setpcap,${capabilities}" $wrapperDir/${program}
+        # Set desired capabilities on the file plus cap_setpcap so
+        # the wrapper program can elevate the capabilities set on
+        # its file into the Ambient set.
+        ${pkgs.libcap.out}/bin/setcap "cap_setpcap,${capabilities}" $wrapperDir/${program}
 
-      # Set the executable bit
-      chmod ${permissions} $wrapperDir/${program}
-    '';
+        # Set the executable bit
+        chmod ${permissions} $wrapperDir/${program}
+      '';
 
   ###### Activation script for the setuid wrappers
   mkSetuidProgram = { program, source, owner ? "nobody", group ? "nogroup"

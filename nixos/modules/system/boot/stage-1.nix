@@ -285,8 +285,8 @@ let
         fs.fsType
         (builtins.concatStringsSep "," fs.options)
       ];
-      in pkgs.writeText "initrd-fsinfo"
-      (concatStringsSep "\n" (concatMap f fileSystems));
+    in pkgs.writeText "initrd-fsinfo"
+    (concatStringsSep "\n" (concatMap f fileSystems));
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -560,7 +560,7 @@ in {
       }
       {
         assertion = let inherit (config.boot) resumeDevice;
-          in resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
+        in resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
         message = "boot.resumeDevice has to be an absolute path."
           + " Old \"x:y\" style is no longer supported.";
       }

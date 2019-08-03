@@ -33,8 +33,8 @@ in stdenv.mkDerivation rec {
     "-DBUILD_PLUGIN=${if withGimpPlugin then "ON" else "OFF"}"
     "-DENABLE_DYNAMIC_LINKING=ON"
   ] ++ stdenv.lib.optional withGimpPlugin "-DPLUGIN_INSTALL_PREFIX=${
-    placeholder "gimpPlugin"
-  }/${gimp.targetPluginDir}";
+      placeholder "gimpPlugin"
+    }/${gimp.targetPluginDir}";
 
   postPatch = ''
     cp ${CMakeLists} CMakeLists.txt

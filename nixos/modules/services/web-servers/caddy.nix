@@ -74,7 +74,7 @@ in {
         ExecStart = ''
           ${cfg.package.bin}/bin/caddy -root=/var/tmp -conf=${configFile} \
             -ca=${cfg.ca} -email=${cfg.email} ${
-            optionalString cfg.agree "-agree"
+              optionalString cfg.agree "-agree"
             }
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

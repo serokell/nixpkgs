@@ -145,11 +145,11 @@ let
     assert name' == name;
     let
       csopen = "cryptsetup luksOpen ${device} ${name} ${
-        optionalString allowDiscards "--allow-discards"
-      } ${optionalString (header != null) "--header=${header}"}";
+          optionalString allowDiscards "--allow-discards"
+        } ${optionalString (header != null) "--header=${header}"}";
       cschange = "cryptsetup luksChangeKey ${device} ${
-        optionalString (header != null) "--header=${header}"
-      }";
+          optionalString (header != null) "--header=${header}"
+        }";
     in ''
       # Wait for luksRoot (and optionally keyFile and/or header) to appear, e.g.
       # if on a USB drive.
@@ -178,12 +178,12 @@ let
                       IFS= read -t 1 -r passphrase
                       if [ -n "$passphrase" ]; then
                          ${
-        if luks.reusePassphrases then ''
-          # remember it for the next device
-          echo -n "$passphrase" > /crypt-ramfs/passphrase
-        '' else ''
-          # Don't save it to ramfs. We are very paranoid
-        ''
+                           if luks.reusePassphrases then ''
+                             # remember it for the next device
+                             echo -n "$passphrase" > /crypt-ramfs/passphrase
+                           '' else ''
+                             # Don't save it to ramfs. We are very paranoid
+                           ''
                          }
                          echo
                          break
@@ -195,11 +195,11 @@ let
               if [ $? == 0 ]; then
                   echo " - success"
                   ${
-        if luks.reusePassphrases then ''
-          # we don't rm here because we might reuse it for the next device
-        '' else ''
-          rm -f /crypt-ramfs/passphrase
-        ''
+                    if luks.reusePassphrases then ''
+                      # we don't rm here because we might reuse it for the next device
+                    '' else ''
+                      rm -f /crypt-ramfs/passphrase
+                    ''
                   }
                   break
               else
@@ -213,27 +213,27 @@ let
       # LUKS
       open_normally() {
           ${
-        if (keyFile != null) then ''
-          if wait_target "key file" ${keyFile}; then
-              ${csopen} --key-file=${keyFile} \
-                ${
-            optionalString (keyFileSize != null)
-            "--keyfile-size=${toString keyFileSize}"
-                } \
-                ${
-            optionalString (keyFileOffset != null)
-            "--keyfile-offset=${toString keyFileOffset}"
-                }
-          else
-              ${
-            if fallbackToPassword then "echo" else "die"
-              } "${keyFile} is unavailable"
-              echo " - failing back to interactive password prompt"
+            if (keyFile != null) then ''
+              if wait_target "key file" ${keyFile}; then
+                  ${csopen} --key-file=${keyFile} \
+                    ${
+                      optionalString (keyFileSize != null)
+                      "--keyfile-size=${toString keyFileSize}"
+                    } \
+                    ${
+                      optionalString (keyFileOffset != null)
+                      "--keyfile-offset=${toString keyFileOffset}"
+                    }
+              else
+                  ${
+                    if fallbackToPassword then "echo" else "die"
+                  } "${keyFile} is unavailable"
+                  echo " - failing back to interactive password prompt"
+                  do_open_passphrase
+              fi
+            '' else ''
               do_open_passphrase
-          fi
-        '' else ''
-          do_open_passphrase
-        ''
+            ''
           }
       }
 
@@ -270,25 +270,25 @@ let
             iterations="$(cat /crypt-storage${yubikey.storage.path} | sed -n 2p | tr -d '\n')"
             challenge="$(echo -n $salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
             response="$(ykchalresp -${
-          toString yubikey.slot
+              toString yubikey.slot
             } -x $challenge 2>/dev/null)"
 
             for try in $(seq 3); do
                 ${
-          optionalString yubikey.twoFactor ''
-            echo -n "Enter two-factor passphrase: "
-            read -r k_user
-            echo
-          ''
+                  optionalString yubikey.twoFactor ''
+                    echo -n "Enter two-factor passphrase: "
+                    read -r k_user
+                    echo
+                  ''
                 }
 
                 if [ ! -z "$k_user" ]; then
                     k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
-          toString yubikey.keyLength
+                      toString yubikey.keyLength
                     } $iterations $response | rbtohex)"
                 else
                     k_luks="$(echo | pbkdf2-sha512 ${
-          toString yubikey.keyLength
+                      toString yubikey.keyLength
                     } $iterations $response | rbtohex)"
                 fi
 
@@ -315,26 +315,26 @@ let
 
             new_iterations="$iterations"
             ${
-          optionalString (yubikey.iterationStep > 0) ''
-            new_iterations="$(($new_iterations + ${
-              toString yubikey.iterationStep
-            }))"
-          ''
+              optionalString (yubikey.iterationStep > 0) ''
+                new_iterations="$(($new_iterations + ${
+                  toString yubikey.iterationStep
+                }))"
+              ''
             }
 
             new_challenge="$(echo -n $new_salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
 
             new_response="$(ykchalresp -${
-          toString yubikey.slot
+              toString yubikey.slot
             } -x $new_challenge 2>/dev/null)"
 
             if [ ! -z "$k_user" ]; then
                 new_k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
-          toString yubikey.keyLength
+                  toString yubikey.keyLength
                 } $new_iterations $new_response | rbtohex)"
             else
                 new_k_luks="$(echo | pbkdf2-sha512 ${
-          toString yubikey.keyLength
+                  toString yubikey.keyLength
                 } $new_iterations $new_response | rbtohex)"
             fi
 
@@ -386,12 +386,12 @@ let
                         IFS= read -t 1 -r pin
                         if [ -n "$pin" ]; then
                            ${
-          if luks.reusePassphrases then ''
-            # remember it for the next device
-            echo -n "$pin" > /crypt-ramfs/passphrase
-          '' else ''
-            # Don't save it to ramfs. We are very paranoid
-          ''
+                             if luks.reusePassphrases then ''
+                               # remember it for the next device
+                               echo -n "$pin" > /crypt-ramfs/passphrase
+                             '' else ''
+                               # Don't save it to ramfs. We are very paranoid
+                             ''
                            }
                            echo
                            break
@@ -403,11 +403,11 @@ let
                 if [ $? == 0 ]; then
                     echo " - success"
                     ${
-          if luks.reusePassphrases then ''
-            # we don't rm here because we might reuse it for the next device
-          '' else ''
-            rm -f /crypt-ramfs/passphrase
-          ''
+                      if luks.reusePassphrases then ''
+                        # we don't rm here because we might reuse it for the next device
+                      '' else ''
+                        rm -f /crypt-ramfs/passphrase
+                      ''
                     }
                     break
                 else

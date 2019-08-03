@@ -33,7 +33,13 @@ stdenv.mkDerivation rec {
     make install
     for file in "$out"/bin/* "$out"/sbin/*; do
         wrapProgram $file --prefix LD_LIBRARY_PATH ":" "$out/lib:${
-      stdenv.lib.makeLibraryPath [ openssl gcc.cc stdenv.cc.libc libedit qt4 ]
+          stdenv.lib.makeLibraryPath [
+            openssl
+            gcc.cc
+            stdenv.cc.libc
+            libedit
+            qt4
+          ]
         }"
     done
   '';

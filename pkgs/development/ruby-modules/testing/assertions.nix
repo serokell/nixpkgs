@@ -21,8 +21,8 @@
       (test.passed "has expected keys")
     else
       (test.failed "keys differ: expected: [${
-        lib.concatStringsSep ";" expected
-      }] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]");
+          lib.concatStringsSep ";" expected
+        }] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]");
 
   havePrefix = expected: actual:
     if lib.hasPrefix expected actual then

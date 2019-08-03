@@ -117,7 +117,7 @@ rec {
           lib.head matchRef
       else
         throw ("Not a .git directory: " + path);
-    in readCommitFromFile "HEAD";
+  in readCommitFromFile "HEAD";
 
   pathHasContext = builtins.hasContext or (lib.hasPrefix builtins.storeDir);
 

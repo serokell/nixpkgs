@@ -191,7 +191,7 @@ in {
           toString config.ids.uids.namecoin
         }" \
            -o "$(stat --printf '%g' ${cfg.wallet})" != "${
-          toString config.ids.gids.namecoin
+             toString config.ids.gids.namecoin
            }" \
            -o "$(stat --printf '%a' ${cfg.wallet})" != "640" ]; then
            echo "ERROR: bad ownership or rights on ${cfg.wallet}" >&2

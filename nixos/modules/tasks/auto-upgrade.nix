@@ -107,18 +107,18 @@ in {
       script = let
         nixos-rebuild =
           "${config.system.build.nixos-rebuild}/bin/nixos-rebuild";
-        in if cfg.allowReboot then ''
-          ${nixos-rebuild} boot ${toString cfg.flags}
-          booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
-          built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
-          if [ "$booted" = "$built" ]; then
-            ${nixos-rebuild} switch ${toString cfg.flags}
-          else
-            /run/current-system/sw/bin/shutdown -r +1
-          fi
-        '' else ''
+      in if cfg.allowReboot then ''
+        ${nixos-rebuild} boot ${toString cfg.flags}
+        booted="$(readlink /run/booted-system/{initrd,kernel,kernel-modules})"
+        built="$(readlink /nix/var/nix/profiles/system/{initrd,kernel,kernel-modules})"
+        if [ "$booted" = "$built" ]; then
           ${nixos-rebuild} switch ${toString cfg.flags}
-        '';
+        else
+          /run/current-system/sw/bin/shutdown -r +1
+        fi
+      '' else ''
+        ${nixos-rebuild} switch ${toString cfg.flags}
+      '';
 
       startAt = cfg.dates;
     };

@@ -3,18 +3,18 @@
 
 let
   param = let check = stdenv.lib.versionAtLeast ocaml.version;
-    in if check "4.06" then {
-      version = "2.18.6";
-      url =
-        "https://forge.ocamlcore.org/frs/download.php/1726/lablgtk-2.18.6.tar.gz";
-      sha256 = "1y38fdvswy6hmppm65qvgdk4pb3ghhnvz7n4ialf46340r1s5p2d";
-    } else if check "3.12" then {
-      version = "2.18.5";
-      url =
-        "https://forge.ocamlcore.org/frs/download.php/1627/lablgtk-2.18.5.tar.gz";
-      sha256 = "0cyj6sfdvzx8hw7553lhgwc0krlgvlza0ph3dk9gsxy047dm3wib";
-    } else
-      throw "lablgtk is not available for OCaml ${ocaml.version}";
+  in if check "4.06" then {
+    version = "2.18.6";
+    url =
+      "https://forge.ocamlcore.org/frs/download.php/1726/lablgtk-2.18.6.tar.gz";
+    sha256 = "1y38fdvswy6hmppm65qvgdk4pb3ghhnvz7n4ialf46340r1s5p2d";
+  } else if check "3.12" then {
+    version = "2.18.5";
+    url =
+      "https://forge.ocamlcore.org/frs/download.php/1627/lablgtk-2.18.5.tar.gz";
+    sha256 = "0cyj6sfdvzx8hw7553lhgwc0krlgvlza0ph3dk9gsxy047dm3wib";
+  } else
+    throw "lablgtk is not available for OCaml ${ocaml.version}";
 
 in stdenv.mkDerivation rec {
   name = "lablgtk-${version}";

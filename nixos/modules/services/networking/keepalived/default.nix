@@ -56,13 +56,14 @@ let
       ${optionalString i.noPreempt "nopreempt"}
 
       ${
-      optionalString i.useVmac ("use_vmac"
-        + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
+        optionalString i.useVmac ("use_vmac"
+          + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
       }
       ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 
       ${
-      optionalString (i.unicastSrcIp != null) "unicast_src_ip ${i.unicastSrcIp}"
+        optionalString (i.unicastSrcIp != null)
+        "unicast_src_ip ${i.unicastSrcIp}"
       }
       unicast_peer {
         ${concatStringsSep "\n" i.unicastPeers}
@@ -73,19 +74,19 @@ let
       }
 
       ${
-      optionalString (builtins.length i.trackScripts > 0) ''
-        track_script {
-          ${concatStringsSep "\n" i.trackScripts}
-        }
-      ''
+        optionalString (builtins.length i.trackScripts > 0) ''
+          track_script {
+            ${concatStringsSep "\n" i.trackScripts}
+          }
+        ''
       }
 
       ${
-      optionalString (builtins.length i.trackInterfaces > 0) ''
-        track_interface {
-          ${concatStringsSep "\n" i.trackInterfaces}
-        }
-      ''
+        optionalString (builtins.length i.trackInterfaces > 0) ''
+          track_interface {
+            ${concatStringsSep "\n" i.trackInterfaces}
+          }
+        ''
       }
 
       ${i.extraConfig}

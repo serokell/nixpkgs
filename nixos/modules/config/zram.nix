@@ -145,7 +145,7 @@ in {
             # Calculate memory to use for zram
             mem=$(${pkgs.gawk}/bin/awk '/MemTotal: / {
                 print int($2*${toString cfg.memoryPercent}/100.0/${
-              toString devicesCount
+                  toString devicesCount
                 }*1024)
             }' /proc/meminfo)
 
@@ -154,31 +154,31 @@ in {
           '';
           restartIfChanged = false;
         };
-      in listToAttrs ((map createZramInitService devices) ++ [
-        (nameValuePair "zram-reloader" {
-          description =
-            "Reload zram kernel module when number of devices changes";
-          wants = [ "systemd-udevd.service" ];
-          after = [ "systemd-udevd.service" ];
-          unitConfig.DefaultDependencies = false; # needed to prevent a cycle
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-            ExecStartPre = "${modprobe} -r zram";
-            ExecStart = "${modprobe} zram";
-            ExecStop = "${modprobe} -r zram";
-          };
-          restartTriggers = [ cfg.numDevices cfg.algorithm cfg.memoryPercent ];
-          restartIfChanged = true;
-        })
-      ]);
+    in listToAttrs ((map createZramInitService devices) ++ [
+      (nameValuePair "zram-reloader" {
+        description =
+          "Reload zram kernel module when number of devices changes";
+        wants = [ "systemd-udevd.service" ];
+        after = [ "systemd-udevd.service" ];
+        unitConfig.DefaultDependencies = false; # needed to prevent a cycle
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStartPre = "${modprobe} -r zram";
+          ExecStart = "${modprobe} zram";
+          ExecStop = "${modprobe} -r zram";
+        };
+        restartTriggers = [ cfg.numDevices cfg.algorithm cfg.memoryPercent ];
+        restartIfChanged = true;
+      })
+    ]);
 
     swapDevices = let
       useZramSwap = dev: {
         device = "/dev/${dev}";
         priority = cfg.priority;
       };
-      in map useZramSwap devices;
+    in map useZramSwap devices;
 
   };
 

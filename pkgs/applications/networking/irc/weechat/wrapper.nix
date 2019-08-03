@@ -14,37 +14,37 @@ let
         simplePlugin = name: {
           pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";
         };
-        in rec {
-          python = {
-            pluginFile = "${weechat.python}/lib/weechat/plugins/python.so";
-            withPackages = pkgsFun:
-              (python // {
-                extraEnv = ''
-                  export PYTHONHOME="${
-                    pythonPackages.python.withPackages pkgsFun
-                  }"
-                '';
-              });
-          };
-          perl = (simplePlugin "perl") // {
-            extraEnv = ''
-              export PATH="${perlInterpreter}/bin:$PATH"
-            '';
-            withPackages = pkgsFun:
-              (perl // {
-                extraEnv = ''
-                  ${perl.extraEnv}
-                  export PERL5LIB=${
-                    perlPackages.makeFullPerlPath (pkgsFun perlPackages)
-                  }
-                '';
-              });
-          };
-          tcl = simplePlugin "tcl";
-          ruby = simplePlugin "ruby";
-          guile = simplePlugin "guile";
-          lua = simplePlugin "lua";
+      in rec {
+        python = {
+          pluginFile = "${weechat.python}/lib/weechat/plugins/python.so";
+          withPackages = pkgsFun:
+            (python // {
+              extraEnv = ''
+                export PYTHONHOME="${
+                  pythonPackages.python.withPackages pkgsFun
+                }"
+              '';
+            });
         };
+        perl = (simplePlugin "perl") // {
+          extraEnv = ''
+            export PATH="${perlInterpreter}/bin:$PATH"
+          '';
+          withPackages = pkgsFun:
+            (perl // {
+              extraEnv = ''
+                ${perl.extraEnv}
+                export PERL5LIB=${
+                  perlPackages.makeFullPerlPath (pkgsFun perlPackages)
+                }
+              '';
+            });
+        };
+        tcl = simplePlugin "tcl";
+        ruby = simplePlugin "ruby";
+        guile = simplePlugin "guile";
+        lua = simplePlugin "lua";
+      };
 
       config = configure { inherit availablePlugins; };
 
@@ -69,7 +69,7 @@ let
         scripts = builtins.concatStringsSep ";"
           (lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ]
             (config.scripts or [ ]));
-        in "${scripts};${init}";
+      in "${scripts};${init}";
 
       mkWeechat = bin:
         (writeScriptBin bin ''

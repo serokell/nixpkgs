@@ -35,8 +35,8 @@ let
         maxerrors = 10;
         reject_message = "${rejectMessage}";
         ${
-        optionalString (length whitelist != 0)
-        "whitelist = ${concatStringsSep ", " whitelist};"
+          optionalString (length whitelist != 0)
+          "whitelist = ${concatStringsSep ", " whitelist};"
         }
 
         # rspamd_metric - metric for using with rspamd
@@ -224,7 +224,7 @@ in {
 
         serviceConfig = {
           ExecStart = "${pkgs.rmilter}/bin/rmilter ${
-            optionalString cfg.debug "-d"
+              optionalString cfg.debug "-d"
             } -n -c ${rmilterConfigFile}";
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           User = cfg.user;

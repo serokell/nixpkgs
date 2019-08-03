@@ -175,7 +175,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.spamassassin}/bin/spamd ${
-          optionalString cfg.debug "-D"
+            optionalString cfg.debug "-D"
           } --username=spamd --groupname=spamd --siteconfigpath=${spamdEnv} --virtual-config-dir=/var/lib/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };

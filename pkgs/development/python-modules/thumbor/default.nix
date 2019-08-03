@@ -30,7 +30,7 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace "setup.py" \
       --replace '"argparse",' "" ${
-      lib.optionalString isPy3k ''--replace '"futures",' ""''
+        lib.optionalString isPy3k ''--replace '"futures",' ""''
       }
     sed -i setup.py \
         -e 's/piexif[^"]*/piexif/;s/Pillow[^"]*/Pillow/'

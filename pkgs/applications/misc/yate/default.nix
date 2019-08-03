@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://voip.null.ro/tarballs/yate${
-      lib.versions.major version
-    }/${name}.tar.gz";
+        lib.versions.major version
+      }/${name}.tar.gz";
     sha256 = "05qqdhi3rp5660gq1484jkmxkm9vq81j0yr765h0gf0xclan1dqa";
   };
 

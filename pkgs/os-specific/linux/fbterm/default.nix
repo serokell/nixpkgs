@@ -2,15 +2,15 @@
 }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "fbterm";
-    version = "1.7.0";
-    name = "fbterm-1.7.0";
-    hash = "0pciv5by989vzvjxsv1jsv4bdp4m8j0nfbl29jm5fwi12w4603vj";
-    url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/fbterm/fbterm-1.7.0.tar.gz";
-    sha256 = "0pciv5by989vzvjxsv1jsv4bdp4m8j0nfbl29jm5fwi12w4603vj";
-  };
+    rec {
+      baseName = "fbterm";
+      version = "1.7.0";
+      name = "fbterm-1.7.0";
+      hash = "0pciv5by989vzvjxsv1jsv4bdp4m8j0nfbl29jm5fwi12w4603vj";
+      url =
+        "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/fbterm/fbterm-1.7.0.tar.gz";
+      sha256 = "0pciv5by989vzvjxsv1jsv4bdp4m8j0nfbl29jm5fwi12w4603vj";
+    };
   buildInputs = [ gpm freetype fontconfig ncurses ]
     ++ lib.optional (stdenv.isi686 || stdenv.isx86_64) libx86;
 in stdenv.mkDerivation {

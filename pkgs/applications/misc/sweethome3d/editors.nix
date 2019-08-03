@@ -44,7 +44,7 @@ let
         makeWrapper ${jre}/bin/java $out/bin/$exec \
           --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
           --add-flags "-jar $out/share/java/${module}-${version}.jar -d${
-          toString stdenv.hostPlatform.parsed.cpu.bits
+            toString stdenv.hostPlatform.parsed.cpu.bits
           }"
       '';
 

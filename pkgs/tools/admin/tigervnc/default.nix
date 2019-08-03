@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/vncserver \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath (with xorg; [ xterm twm xsetroot ])
+        stdenv.lib.makeBinPath (with xorg; [ xterm twm xsetroot ])
       }
   '';
 

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       #substituteInPlace $f \
       wrapProgram $f \
         --prefix PATH : ${
-      stdenv.lib.makeBinPath [ coreutils ghostscript gnugrep gnused ]
+          stdenv.lib.makeBinPath [ coreutils ghostscript gnugrep gnused ]
         }
     done
 
@@ -55,15 +55,15 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/opt/brother/Printers/HLL2390DW/lpd/lpdfilter \
       --prefix PATH ":" ${
-      stdenv.lib.makeBinPath [
-        ghostscript
-        a2ps
-        file
-        gnused
-        gnugrep
-        coreutils
-        which
-      ]
+        stdenv.lib.makeBinPath [
+          ghostscript
+          a2ps
+          file
+          gnused
+          gnugrep
+          coreutils
+          which
+        ]
       }
   '';
 

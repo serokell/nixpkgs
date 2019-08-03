@@ -186,7 +186,7 @@ rec {
           };
 
         subOptions = let ss = opt.type.getSubOptions opt.loc;
-          in if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
+        in if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
       in [ docOption ] ++ subOptions) (collect isOption options);
 
   /* This function recursively removes all derivation attributes from

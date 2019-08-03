@@ -10,13 +10,13 @@ buildGoPackage rec {
 
   excludedPackages = "\\(doctl-gen-doc\\|install-doctl\\|release-doctl\\)";
   buildFlagsArray = let t = "${goPackagePath}";
-    in ''
-      -ldflags=
-         -X ${t}.Major=${major}
-         -X ${t}.Minor=${minor}
-         -X ${t}.Patch=${patch}
-         -X ${t}.Label=release
-    '';
+  in ''
+    -ldflags=
+       -X ${t}.Major=${major}
+       -X ${t}.Minor=${minor}
+       -X ${t}.Patch=${patch}
+       -X ${t}.Label=release
+  '';
 
   src = fetchFromGitHub {
     owner = "digitalocean";

@@ -138,76 +138,76 @@ in stdenv.mkDerivation rec {
       "-xplatform"
     else
       "-platform";
-    in (if stdenv.hostPlatform != stdenv.buildPlatform then [
-      # I've not tried any case other than i686-pc-mingw32.
-      # -nomake tools: it fails linking some asian language symbols
-      # -no-svg: it fails to build on mingw64
-      "-static"
-      "-release"
-      "-confirm-license"
-      "-opensource"
-      "-no-opengl"
-      "-no-phonon"
-      "-no-svg"
-      "-make"
-      "qmake"
-      "-make"
-      "libs"
-      "-nomake"
-      "tools"
-    ] else [
-      "-v"
-      "-no-separate-debug-info"
-      "-release"
-      "-fast"
-      "-confirm-license"
-      "-opensource"
+  in (if stdenv.hostPlatform != stdenv.buildPlatform then [
+    # I've not tried any case other than i686-pc-mingw32.
+    # -nomake tools: it fails linking some asian language symbols
+    # -no-svg: it fails to build on mingw64
+    "-static"
+    "-release"
+    "-confirm-license"
+    "-opensource"
+    "-no-opengl"
+    "-no-phonon"
+    "-no-svg"
+    "-make"
+    "qmake"
+    "-make"
+    "libs"
+    "-nomake"
+    "tools"
+  ] else [
+    "-v"
+    "-no-separate-debug-info"
+    "-release"
+    "-fast"
+    "-confirm-license"
+    "-opensource"
 
-      (mk (!stdenv.isFreeBSD) "opengl")
-      "-xrender"
-      "-xrandr"
-      "-xinerama"
-      "-xcursor"
-      "-xinput"
-      "-xfixes"
-      "-fontconfig"
-      "-qdbus"
-      (mk (cups != null) "cups")
-      "-glib"
-      "-dbus-linked"
-      "-openssl-linked"
+    (mk (!stdenv.isFreeBSD) "opengl")
+    "-xrender"
+    "-xrandr"
+    "-xinerama"
+    "-xcursor"
+    "-xinput"
+    "-xfixes"
+    "-fontconfig"
+    "-qdbus"
+    (mk (cups != null) "cups")
+    "-glib"
+    "-dbus-linked"
+    "-openssl-linked"
 
-      "-${if mysql != null then "plugin" else "no"}-sql-mysql"
-      "-system-sqlite"
+    "-${if mysql != null then "plugin" else "no"}-sql-mysql"
+    "-system-sqlite"
 
-      "-exceptions"
-      "-xmlpatterns"
+    "-exceptions"
+    "-xmlpatterns"
 
-      "-make"
-      "libs"
-      "-make"
-      "tools"
-      "-make"
-      "translations"
-      "-no-phonon"
-      (mk buildWebkit "webkit")
-      (mk buildMultimedia "multimedia")
-      "-audio-backend"
-    ]) ++ [
-      "-${if demos then "" else "no"}make"
-      "demos"
-      "-${if examples then "" else "no"}make"
-      "examples"
-      "-${if docs then "" else "no"}make"
-      "docs"
-    ] ++ lib.optional developerBuild "-developer-build"
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      platformFlag
-      "unsupported/macx-clang-libc++"
-    ] ++ lib.optionals stdenv.hostPlatform.isWindows [
-      platformFlag
-      "win32-g++-4.6"
-    ];
+    "-make"
+    "libs"
+    "-make"
+    "tools"
+    "-make"
+    "translations"
+    "-no-phonon"
+    (mk buildWebkit "webkit")
+    (mk buildMultimedia "multimedia")
+    "-audio-backend"
+  ]) ++ [
+    "-${if demos then "" else "no"}make"
+    "demos"
+    "-${if examples then "" else "no"}make"
+    "examples"
+    "-${if docs then "" else "no"}make"
+    "docs"
+  ] ++ lib.optional developerBuild "-developer-build"
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    platformFlag
+    "unsupported/macx-clang-libc++"
+  ] ++ lib.optionals stdenv.hostPlatform.isWindows [
+    platformFlag
+    "win32-g++-4.6"
+  ];
 
   propagatedBuildInputs = [
     libXrender

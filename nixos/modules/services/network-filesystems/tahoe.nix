@@ -352,7 +352,7 @@ in {
             if [ ! -d ${lib.escapeShellArg nodedir} ]; then
               mkdir -p /var/db/tahoe-lafs
               tahoe create-node --hostname=localhost ${
-              lib.escapeShellArg nodedir
+                lib.escapeShellArg nodedir
               }
             fi
 

@@ -361,7 +361,7 @@ let
         imports = let
           mkVMConf = name: val: val.machine // { key = "${name}-config"; };
           vmConfigs = mapAttrsToList mkVMConf vms;
-          in [ ./common/user-account.nix ./common/x11.nix ] ++ vmConfigs;
+        in [ ./common/user-account.nix ./common/x11.nix ] ++ vmConfigs;
         virtualisation.memorySize = 2048;
         virtualisation.qemu.options =
           if useKvmNestedVirt then [ "-cpu" "kvm64,vmx=on" ] else [ ];

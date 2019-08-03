@@ -93,11 +93,11 @@ let
 
   # there are no archives or tags, using latest commit in master branch as per 2013-09-22
   matplotlibFilterSrc = let commit = "75f0d009629f93f33fab04b83faca20cc35dd358";
-    in fetchurl rec {
-      name = "mplw-${commit}.tar.gz";
-      url = "https://api.github.com/repos/lvv/mplw/tarball/${commit}";
-      sha256 = "0yfhkm2dr8gnp0fcg25x89hwiymkri2m5cyqzmzragzwj0hbmcf1";
-    };
+  in fetchurl rec {
+    name = "mplw-${commit}.tar.gz";
+    url = "https://api.github.com/repos/lvv/mplw/tarball/${commit}";
+    sha256 = "0yfhkm2dr8gnp0fcg25x89hwiymkri2m5cyqzmzragzwj0hbmcf1";
+  };
 
   aafigureFilterSrc = fetchurl {
     url =
@@ -230,7 +230,8 @@ in stdenv.mkDerivation rec {
           -e "s|^XSLTPROC =.*|XSLTPROC = '${libxslt.bin}/bin/xsltproc'|" \
           -e "s|^DBLATEX =.*|DBLATEX = '${dblatexFull}/bin/dblatex'|" \
           ${
-        optionalString enableJava ''-e "s|^FOP =.*|FOP = '${fop}/bin/fop'|"''
+            optionalString enableJava
+            ''-e "s|^FOP =.*|FOP = '${fop}/bin/fop'|"''
           } \
           -e "s|^W3M =.*|W3M = '${w3m}/bin/w3m'|" \
           -e "s|^LYNX =.*|LYNX = '${lynx}/bin/lynx'|" \

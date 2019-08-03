@@ -4,10 +4,10 @@ import ./make-test.nix {
   nodes = {
     master = { pkgs, ... }:
 
-    {
-      services.riak.enable = true;
-      services.riak.package = pkgs.riak;
-    };
+      {
+        services.riak.enable = true;
+        services.riak.package = pkgs.riak;
+      };
   };
 
   testScript = ''

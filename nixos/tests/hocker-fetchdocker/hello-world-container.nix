@@ -16,5 +16,5 @@ fetchdocker rec {
         "ca4f61b1923c10e9eb81228bd46bee1dfba02b9c7dac1844527a734752688ede";
       sha256 = "1plfd194fwvsa921ib3xkhms1yqxxrmx92r2h7myj41wjaqn2kya";
     };
-    in [ layer0 ];
+  in [ layer0 ];
 }

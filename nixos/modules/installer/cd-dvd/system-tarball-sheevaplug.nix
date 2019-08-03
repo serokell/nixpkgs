@@ -33,7 +33,7 @@ let
   kernelParams = pkgs.writeText "kernel-params.txt" ''
     Kernel Parameters:
       init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
+        toString config.boot.kernelParams
       }
   '';
 
@@ -127,7 +127,7 @@ in {
         if config.services.xserver.enable then ''
           Type `start xserver' to start
           the graphical user interface.'' else
-            ""
+          ""
       }
     '';
   };

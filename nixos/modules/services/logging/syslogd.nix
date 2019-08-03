@@ -119,7 +119,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${
-          toString cfg.extraParams
+            toString cfg.extraParams
           } -f ${syslogConf} -n";
         # Prevent syslogd output looping back through journald.
         StandardOutput = "null";

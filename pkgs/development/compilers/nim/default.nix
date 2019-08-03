@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
     ./koch boot  -d:release \
                  -d:useGnuReadline \
                  ${
-      lib.optionals (stdenv.isDarwin || stdenv.isLinux) "-d:nativeStacktrace"
+                   lib.optionals (stdenv.isDarwin || stdenv.isLinux)
+                   "-d:nativeStacktrace"
                  }
     ./koch tools -d:release
 
@@ -50,27 +51,27 @@ stdenv.mkDerivation rec {
     disableTest = ''sed -i '1i discard \"\"\"\n  disabled: true\n\"\"\"\n\n' '';
     disableStdLibTest = "sed -i -e '/^when isMainModule/,/^END$/{s/^/#/}' ";
     disableCompile = "sed -i -e 's/^/#/' ";
-    in ''
-      substituteInPlace ./tests/osproc/tworkingdir.nim --replace "/usr/bin" "${coreutils}/bin"
-      substituteInPlace ./tests/stdlib/ttimes.nim --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
+  in ''
+    substituteInPlace ./tests/osproc/tworkingdir.nim --replace "/usr/bin" "${coreutils}/bin"
+    substituteInPlace ./tests/stdlib/ttimes.nim --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
 
-      # reported upstream: https://github.com/nim-lang/Nim/issues/11435
-      ${disableTest} ./tests/misc/tstrace.nim
+    # reported upstream: https://github.com/nim-lang/Nim/issues/11435
+    ${disableTest} ./tests/misc/tstrace.nim
 
-      # runs out of memory on a machine with 8GB RAM
-      ${disableTest} ./tests/system/t7894.nim
+    # runs out of memory on a machine with 8GB RAM
+    ${disableTest} ./tests/system/t7894.nim
 
-      # requires network access (not available in the build container)
-      ${disableTest} ./tests/stdlib/thttpclient.nim
-    '' + lib.optionalString stdenv.isAarch64 ''
-      # supposedly broken on aarch64
-      ${disableStdLibTest} ./lib/pure/stats.nim
+    # requires network access (not available in the build container)
+    ${disableTest} ./tests/stdlib/thttpclient.nim
+  '' + lib.optionalString stdenv.isAarch64 ''
+    # supposedly broken on aarch64
+    ${disableStdLibTest} ./lib/pure/stats.nim
 
-      # reported upstream: https://github.com/nim-lang/Nim/issues/11463
-      ${disableCompile} ./lib/nimhcr.nim
-      ${disableTest} ./tests/dll/nimhcr_unit.nim
-      ${disableTest} ./tests/dll/nimhcr_integration.nim
-    '';
+    # reported upstream: https://github.com/nim-lang/Nim/issues/11463
+    ${disableCompile} ./lib/nimhcr.nim
+    ${disableTest} ./tests/dll/nimhcr_unit.nim
+    ${disableTest} ./tests/dll/nimhcr_integration.nim
+  '';
 
   checkPhase = ''
     runHook preCheck

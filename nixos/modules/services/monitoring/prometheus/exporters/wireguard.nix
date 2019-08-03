@@ -42,7 +42,8 @@ in {
         ${optionalString cfg.verbose "-v"} \
         ${optionalString cfg.singleSubnetPerField "-s"} \
         ${
-        optionalString (cfg.wireguardConfig != null) "-n ${cfg.wireguardConfig}"
+          optionalString (cfg.wireguardConfig != null)
+          "-n ${cfg.wireguardConfig}"
         }
     '';
 

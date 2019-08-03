@@ -95,19 +95,19 @@ in {
           prettyJSON cfg.configuration
         else
           cfg.configFile;
-        in {
-          ExecStart = "${pkgs.grafana-loki}/bin/loki --config.file=${conf} ${
+      in {
+        ExecStart = "${pkgs.grafana-loki}/bin/loki --config.file=${conf} ${
             escapeShellArgs cfg.extraFlags
-            }";
-          User = cfg.user;
-          Restart = "always";
-          PrivateTmp = true;
-          ProtectHome = true;
-          ProtectSystem = "full";
-          DecvicePolicy = "closed";
-          NoNewPrivileges = true;
-          WorkingDirectory = cfg.dataDir;
-        };
+          }";
+        User = cfg.user;
+        Restart = "always";
+        PrivateTmp = true;
+        ProtectHome = true;
+        ProtectSystem = "full";
+        DecvicePolicy = "closed";
+        NoNewPrivileges = true;
+        WorkingDirectory = cfg.dataDir;
+      };
     };
   };
 }

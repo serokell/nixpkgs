@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     wrapProgram "$out/libexec/mission-control-5" \
       --prefix GIO_EXTRA_MODULES : "${
-      stdenv.lib.getLib gnome3.dconf
+        stdenv.lib.getLib gnome3.dconf
       }/lib/gio/modules" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
   '';

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     substituteInPlace build.properties \
       --replace "openidserver.url=http://localhost:8095/openidserver" \
                 "openidserver.url=http://localhost:${
-      toString port
+                  toString port
                 }/openidserver"
     substituteInPlace crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
       --replace "http://localhost:8095/" \
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   '' + stdenv.lib.optionalString (proxyUrl != null) ''
     sed -i crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
       -e 's,http://localhost:${
-      toString port
+        toString port
       }/openidserver,${proxyUrl}/openidserver,'
   '';
 

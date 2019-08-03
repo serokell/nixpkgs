@@ -91,7 +91,7 @@ in stdenv.mkDerivation rec {
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
       --suffix XDG_DATA_DIRS : '${gnome3.adwaita-icon-theme}/share' \
       --prefix GIO_EXTRA_MODULES : "${
-      stdenv.lib.getLib gnome3.dconf
+        stdenv.lib.getLib gnome3.dconf
       }/lib/gio/modules"
   '';
 

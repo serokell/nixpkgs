@@ -25,10 +25,10 @@ python3Packages.buildPythonApplication rec {
   ];
 
   postInstall = let mapPath = f: x: stdenv.lib.concatStringsSep ":" (map f x);
-    in ''
-      wrapProgram $out/bin/sshuttle \
-        --prefix PATH : "${mapPath (x: "${x}/bin") buildInputs}" \
-    '';
+  in ''
+    wrapProgram $out/bin/sshuttle \
+      --prefix PATH : "${mapPath (x: "${x}/bin") buildInputs}" \
+  '';
 
   meta = with stdenv.lib; {
     homepage = "https://github.com/sshuttle/sshuttle/";

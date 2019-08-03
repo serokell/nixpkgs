@@ -30,7 +30,7 @@ in buildPythonPackage rec {
     unit = if cudaSupport then "gpu" else "cpu";
     key = "${platform}_py_${pyver}_${unit}";
     dls = import (./. + "/tf${version}-hashes.nix");
-    in fetchurl dls.${key};
+  in fetchurl dls.${key};
 
   propagatedBuildInputs = [
     protobuf
@@ -64,11 +64,11 @@ in buildPythonPackage rec {
   postFixup = let
     rpath = stdenv.lib.makeLibraryPath ([ stdenv.cc.cc.lib zlib ]
       ++ lib.optionals cudaSupport [ cudatoolkit_joined cudnn nvidia_x11 ]);
-    in lib.optionalString (stdenv.isLinux) ''
-      rrPath="$out/${python.sitePackages}/tensorflow/:$out/${python.sitePackages}/tensorflow/contrib/tensor_forest/:${rpath}"
-      internalLibPath="$out/${python.sitePackages}/tensorflow/python/_pywrap_tensorflow_internal.so"
-      find $out -name '*${stdenv.hostPlatform.extensions.sharedLibrary}' -exec patchelf --set-rpath "$rrPath" {} \;
-    '';
+  in lib.optionalString (stdenv.isLinux) ''
+    rrPath="$out/${python.sitePackages}/tensorflow/:$out/${python.sitePackages}/tensorflow/contrib/tensor_forest/:${rpath}"
+    internalLibPath="$out/${python.sitePackages}/tensorflow/python/_pywrap_tensorflow_internal.so"
+    find $out -name '*${stdenv.hostPlatform.extensions.sharedLibrary}' -exec patchelf --set-rpath "$rrPath" {} \;
+  '';
 
   meta = with stdenv.lib; {
     description =

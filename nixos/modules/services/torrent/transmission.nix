@@ -167,9 +167,9 @@ in {
 
           ${fullSettings.download-dir}/** rw,
           ${
-          optionalString fullSettings.incomplete-dir-enabled ''
-            ${fullSettings.incomplete-dir}/** rw,
-          ''
+            optionalString fullSettings.incomplete-dir-enabled ''
+              ${fullSettings.incomplete-dir}/** rw,
+            ''
           }
         }
       '')

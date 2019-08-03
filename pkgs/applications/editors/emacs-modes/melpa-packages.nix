@@ -225,11 +225,11 @@ let
       melpaBuild = drv:
         args.melpaBuild (drv // {
           prePatch = let w3m = "${lib.getBin external.w3m}/bin/w3m";
-            in ''
-              substituteInPlace w3m.el \
-                --replace 'defcustom w3m-command nil' \
-                          'defcustom w3m-command "${w3m}"'
-            '';
+          in ''
+            substituteInPlace w3m.el \
+              --replace 'defcustom w3m-command nil' \
+                        'defcustom w3m-command "${w3m}"'
+          '';
         });
     });
   };

@@ -34,14 +34,14 @@ in stdenv.mkDerivation rec {
     cp -R ${modulesSrc}/* $out/modules/
     wrapProgram "$out/prey.sh" \
       --prefix PATH ":" "${
-      stdenv.lib.makeBinPath [
-        xawtv
-        imagemagick
-        curl
-        scrot
-        inetutils
-        coreutils
-      ]
+        stdenv.lib.makeBinPath [
+          xawtv
+          imagemagick
+          curl
+          scrot
+          inetutils
+          coreutils
+        ]
       }" \
       --set CURL_CA_BUNDLE "/etc/ssl/certs/ca-certificates.crt"
   '';

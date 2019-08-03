@@ -252,10 +252,10 @@ in {
             ${optionalString (!cfg.localDiscovery) "--profile=server"}
         else
           ${
-          if cfg.localDiscovery then
-            "ipfs config profile apply local-discovery"
-          else
-            "ipfs config profile apply server"
+            if cfg.localDiscovery then
+              "ipfs config profile apply local-discovery"
+            else
+              "ipfs config profile apply server"
           }
         fi
       '';

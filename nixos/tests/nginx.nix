@@ -37,19 +37,19 @@ import ./make-test.nix ({ pkgs, ... }: {
         '';
       };
     };
-    in {
-      webserver = commonConfig;
+  in {
+    webserver = commonConfig;
 
-      newwebserver = { pkgs, lib, ... }: {
-        imports = [ commonConfig ];
-        services.nginx.virtualHosts.localhost = {
-          root = lib.mkForce (pkgs.runCommand "testdir2" { } ''
-            mkdir "$out"
-            echo hello world > "$out/index.html"
-          '');
-        };
+    newwebserver = { pkgs, lib, ... }: {
+      imports = [ commonConfig ];
+      services.nginx.virtualHosts.localhost = {
+        root = lib.mkForce (pkgs.runCommand "testdir2" { } ''
+          mkdir "$out"
+          echo hello world > "$out/index.html"
+        '');
       };
     };
+  };
 
   testScript = { nodes, ... }:
     let

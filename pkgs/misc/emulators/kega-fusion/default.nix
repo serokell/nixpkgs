@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
     EOF
     else
       sed -i 's,^\(libmpg123path=\).*,\1${
-      lib.getLib mpg123
+        lib.getLib mpg123
       }/lib/libmpg123.so.0,' "$kega_localdir/Fusion.ini"
     fi
 

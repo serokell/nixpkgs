@@ -114,7 +114,7 @@ let
           renames = p:
             lib.concatMapStringsSep "\n" (rename p.goPackagePath)
             p.goPackageAliases;
-          in lib.concatMapStringsSep "\n" renames inputsWithAliases);
+        in lib.concatMapStringsSep "\n" renames inputsWithAliases);
 
         buildPhase = args.buildPhase or ''
           runHook preBuild

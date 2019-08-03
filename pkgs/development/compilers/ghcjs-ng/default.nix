@@ -49,8 +49,8 @@ let
 
   bootGhcjs = haskellLib.justStaticExecutables passthru.bootPkgs.ghcjs;
   libexec = "${bootGhcjs}/libexec/${
-    builtins.replaceStrings [ "darwin" "i686" ] [ "osx" "i386" ]
-    stdenv.buildPlatform.system
+      builtins.replaceStrings [ "darwin" "i686" ] [ "osx" "i386" ]
+      stdenv.buildPlatform.system
     }-${passthru.bootPkgs.ghc.name}/${bootGhcjs.name}";
 
 in stdenv.mkDerivation {

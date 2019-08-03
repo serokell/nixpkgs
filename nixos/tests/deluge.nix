@@ -15,29 +15,29 @@ import ./make-test.nix ({ pkgs, ... }: {
 
     declarative = { ... }:
 
-    {
-      services.deluge = {
-        enable = true;
-        openFirewall = true;
-        declarative = true;
-        config = {
-          allow_remote = true;
-          download_location = "/var/lib/deluge/my-download";
-          daemon_port = 58846;
-          listen_ports = [ 6881 6889 ];
-        };
-        web = {
+      {
+        services.deluge = {
           enable = true;
-          port = 3142;
+          openFirewall = true;
+          declarative = true;
+          config = {
+            allow_remote = true;
+            download_location = "/var/lib/deluge/my-download";
+            daemon_port = 58846;
+            listen_ports = [ 6881 6889 ];
+          };
+          web = {
+            enable = true;
+            port = 3142;
+          };
+          authFile = pkgs.writeText "deluge-auth" ''
+            localclient:a7bef72a890:10
+            andrew:password:10
+            user3:anotherpass:5
+          '';
         };
-        authFile = pkgs.writeText "deluge-auth" ''
-          localclient:a7bef72a890:10
-          andrew:password:10
-          user3:anotherpass:5
-        '';
+        environment.systemPackages = [ pkgs.deluge ];
       };
-      environment.systemPackages = [ pkgs.deluge ];
-    };
 
   };
 

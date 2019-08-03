@@ -71,15 +71,14 @@ in {
         ''));
 
       serviceConfig = let rootRequired = cfg.openclSupport || cfg.cudaSupport;
-        in {
-          ExecStart =
-            "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
-          # xmr-stak generates cpu and/or gpu configuration files
-          WorkingDirectory = "/tmp";
-          PrivateTmp = true;
-          DynamicUser = !rootRequired;
-          LimitMEMLOCK = toString (1024 * 1024);
-        };
+      in {
+        ExecStart = "${pkg}/bin/xmr-stak ${concatStringsSep " " cfg.extraArgs}";
+        # xmr-stak generates cpu and/or gpu configuration files
+        WorkingDirectory = "/tmp";
+        PrivateTmp = true;
+        DynamicUser = !rootRequired;
+        LimitMEMLOCK = toString (1024 * 1024);
+      };
     };
   };
 

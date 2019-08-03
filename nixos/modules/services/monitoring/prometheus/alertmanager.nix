@@ -18,7 +18,7 @@ let
       pkgs.writeText "alertmanager.yml" cfg.configText
     else
       mkConfigFile;
-    in checkedConfig yml;
+  in checkedConfig yml;
 
   cmdlineArgs = cfg.extraFlags ++ [
     "--config.file ${alertmanagerYml}"

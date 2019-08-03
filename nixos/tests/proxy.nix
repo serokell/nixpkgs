@@ -4,13 +4,13 @@ import ./make-test.nix ({ pkgs, ... }:
 
     backend = { pkgs, ... }:
 
-    {
-      services.httpd.enable = true;
-      services.httpd.adminAddr = "foo@example.org";
-      services.httpd.documentRoot =
-        "${pkgs.valgrind.doc}/share/doc/valgrind/html";
-      networking.firewall.allowedTCPPorts = [ 80 ];
-    };
+      {
+        services.httpd.enable = true;
+        services.httpd.adminAddr = "foo@example.org";
+        services.httpd.documentRoot =
+          "${pkgs.valgrind.doc}/share/doc/valgrind/html";
+        networking.firewall.allowedTCPPorts = [ 80 ];
+      };
 
   in {
     name = "proxy";
@@ -19,37 +19,37 @@ import ./make-test.nix ({ pkgs, ... }:
     nodes = {
       proxy = { nodes, ... }:
 
-      {
-        services.httpd.enable = true;
-        services.httpd.adminAddr = "bar@example.org";
-        services.httpd.extraModules =
-          [ "proxy_balancer" "lbmethod_byrequests" ];
+        {
+          services.httpd.enable = true;
+          services.httpd.adminAddr = "bar@example.org";
+          services.httpd.extraModules =
+            [ "proxy_balancer" "lbmethod_byrequests" ];
 
-        services.httpd.extraConfig = ''
-          ExtendedStatus on
+          services.httpd.extraConfig = ''
+            ExtendedStatus on
 
-          <Location /server-status>
-            Require all granted
-            SetHandler server-status
-          </Location>
+            <Location /server-status>
+              Require all granted
+              SetHandler server-status
+            </Location>
 
-          <Proxy balancer://cluster>
-            Require all granted
-            BalancerMember http://${nodes.backend1.config.networking.hostName} retry=0
-            BalancerMember http://${nodes.backend2.config.networking.hostName} retry=0
-          </Proxy>
+            <Proxy balancer://cluster>
+              Require all granted
+              BalancerMember http://${nodes.backend1.config.networking.hostName} retry=0
+              BalancerMember http://${nodes.backend2.config.networking.hostName} retry=0
+            </Proxy>
 
-          ProxyStatus       full
-          ProxyPass         /server-status !
-          ProxyPass         /       balancer://cluster/
-          ProxyPassReverse  /       balancer://cluster/
+            ProxyStatus       full
+            ProxyPass         /server-status !
+            ProxyPass         /       balancer://cluster/
+            ProxyPassReverse  /       balancer://cluster/
 
-          # For testing; don't want to wait forever for dead backend servers.
-          ProxyTimeout      5
-        '';
+            # For testing; don't want to wait forever for dead backend servers.
+            ProxyTimeout      5
+          '';
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
-      };
+          networking.firewall.allowedTCPPorts = [ 80 ];
+        };
 
       backend1 = backend;
       backend2 = backend;

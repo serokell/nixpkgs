@@ -17,17 +17,17 @@ let
 
   baseUrl = "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads";
   sources = name: system:
-  {
-    x86_64-darwin = {
-      url = "${baseUrl}/${name}-darwin-x86_64.tar.gz";
-      sha256 = "1w94c1p8vnp3kf802zpr3i0932f5b5irnfqmxj2p44gfyfmkym1j";
-    };
+    {
+      x86_64-darwin = {
+        url = "${baseUrl}/${name}-darwin-x86_64.tar.gz";
+        sha256 = "1w94c1p8vnp3kf802zpr3i0932f5b5irnfqmxj2p44gfyfmkym1j";
+      };
 
-    x86_64-linux = {
-      url = "${baseUrl}/${name}-linux-x86_64.tar.gz";
-      sha256 = "0pps7csf8d3rxqgd0bv06ga6cgkqhlbsys0k0sy1ipl3i6h5hmpf";
-    };
-  }.${system};
+      x86_64-linux = {
+        url = "${baseUrl}/${name}-linux-x86_64.tar.gz";
+        sha256 = "0pps7csf8d3rxqgd0bv06ga6cgkqhlbsys0k0sy1ipl3i6h5hmpf";
+      };
+    }.${system};
 
 in stdenv.mkDerivation rec {
   name = "google-cloud-sdk-${version}";

@@ -6,20 +6,20 @@ import ./make-test.nix ({ pkgs, ... }: {
 
   machine = { ... }:
 
-  {
-    imports = [ ./common/user-account.nix ];
+    {
+      imports = [ ./common/user-account.nix ];
 
-    services.xserver.enable = true;
+      services.xserver.enable = true;
 
-    services.xserver.displayManager.gdm.enable = false;
-    services.xserver.displayManager.lightdm.enable = true;
-    services.xserver.displayManager.lightdm.autoLogin.enable = true;
-    services.xserver.displayManager.lightdm.autoLogin.user = "alice";
-    services.xserver.desktopManager.gnome3.enable = true;
-    services.xserver.desktopManager.default = "gnome-xorg";
+      services.xserver.displayManager.gdm.enable = false;
+      services.xserver.displayManager.lightdm.enable = true;
+      services.xserver.displayManager.lightdm.autoLogin.enable = true;
+      services.xserver.displayManager.lightdm.autoLogin.user = "alice";
+      services.xserver.desktopManager.gnome3.enable = true;
+      services.xserver.desktopManager.default = "gnome-xorg";
 
-    virtualisation.memorySize = 1024;
-  };
+      virtualisation.memorySize = 1024;
+    };
 
   testScript = ''
     $machine->waitForX;

@@ -78,10 +78,10 @@ let
               mkdir -p $out/bin/
               makeWrapper "${terraform.bin}/bin/terraform" "$out/bin/terraform" \
                 --set NIX_TERRAFORM_PLUGIN_DIR "${
-                buildEnv {
-                  name = "tf-plugin-env";
-                  paths = actualPlugins;
-                }
+                  buildEnv {
+                    name = "tf-plugin-env";
+                    paths = actualPlugins;
+                  }
                 }/bin" \
                 --prefix PATH : "${lib.makeBinPath wrapperInputs}"
             '';
@@ -130,6 +130,6 @@ in rec {
         terraform init
         touch $out
       '';
-    in test;
+  in test;
 
 }

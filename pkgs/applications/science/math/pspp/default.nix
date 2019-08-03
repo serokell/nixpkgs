@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
      --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS" \
      --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
      --prefix GIO_EXTRA_MODULES : "${
-      stdenv.lib.getLib gnome3.dconf
+       stdenv.lib.getLib gnome3.dconf
      }/lib/gio/modules"
   '';
 

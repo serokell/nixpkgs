@@ -16,7 +16,7 @@ in buildPythonPackage rec {
                           --boost-lib-dir=${boost}/lib \
                           --no-use-shipped-boost \
                           --boost-python-libname=boost_python${
-      stdenv.lib.optionalString isPy3k "3"
+                            stdenv.lib.optionalString isPy3k "3"
                           }
   '';
 

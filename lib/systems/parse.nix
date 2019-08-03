@@ -557,73 +557,74 @@ in rec {
     setType "system" components;
 
   mkSkeletonFromList = l:
-  {
-    "1" = if elemAt l 0 == "avr" then {
-      cpu = elemAt l 0;
-      kernel = "none";
-      abi = "unknown";
-    } else
-      throw "Target specification with 1 components is ambiguous";
-    "2" = # We only do 2-part hacks for things Nix already supports
-      if elemAt l 1 == "cygwin" then {
+    {
+      "1" = if elemAt l 0 == "avr" then {
         cpu = elemAt l 0;
-        kernel = "windows";
-        abi = "cygnus";
-      }
-      # MSVC ought to be the default ABI so this case isn't needed. But then it
-      # becomes difficult to handle the gnu* variants for Aarch32 correctly for
-      # minGW. So it's easier to make gnu* the default for the MinGW, but
-      # hack-in MSVC for the non-MinGW case right here.
-      else if elemAt l 1 == "windows" then {
-        cpu = elemAt l 0;
-        kernel = "windows";
-        abi = "msvc";
-      } else if (elemAt l 1) == "elf" then {
-        cpu = elemAt l 0;
-        vendor = "unknown";
         kernel = "none";
-        abi = elemAt l 1;
-      } else {
-        cpu = elemAt l 0;
-        kernel = elemAt l 1;
-      };
-    "3" = # Awkwards hacks, beware!
-      if elemAt l 1 == "apple" then {
-        cpu = elemAt l 0;
-        vendor = "apple";
-        kernel = elemAt l 2;
-      } else if (elemAt l 1 == "linux") || (elemAt l 2 == "gnu") then {
-        cpu = elemAt l 0;
-        kernel = elemAt l 1;
-        abi = elemAt l 2;
-      } else if (elemAt l 2 == "mingw32") # autotools breaks on -gnu for window
-      then {
-        cpu = elemAt l 0;
-        vendor = elemAt l 1;
-        kernel = "windows";
-      } else if (elemAt l 2 == "wasi") then {
-        cpu = elemAt l 0;
-        vendor = elemAt l 1;
-        kernel = "wasi";
-      } else if hasPrefix "netbsd" (elemAt l 2) then {
-        cpu = elemAt l 0;
-        vendor = elemAt l 1;
-        kernel = elemAt l 2;
-      } else if (elem (elemAt l 2) [ "eabi" "eabihf" "elf" ]) then {
-        cpu = elemAt l 0;
-        vendor = "unknown";
-        kernel = elemAt l 1;
-        abi = elemAt l 2;
+        abi = "unknown";
       } else
-        throw "Target specification with 3 components is ambiguous";
-    "4" = {
-      cpu = elemAt l 0;
-      vendor = elemAt l 1;
-      kernel = elemAt l 2;
-      abi = elemAt l 3;
-    };
-  }.${toString (length l)} or (throw
-    "system string has invalid number of hyphen-separated components");
+        throw "Target specification with 1 components is ambiguous";
+      "2" = # We only do 2-part hacks for things Nix already supports
+        if elemAt l 1 == "cygwin" then {
+          cpu = elemAt l 0;
+          kernel = "windows";
+          abi = "cygnus";
+        }
+        # MSVC ought to be the default ABI so this case isn't needed. But then it
+        # becomes difficult to handle the gnu* variants for Aarch32 correctly for
+        # minGW. So it's easier to make gnu* the default for the MinGW, but
+        # hack-in MSVC for the non-MinGW case right here.
+        else if elemAt l 1 == "windows" then {
+          cpu = elemAt l 0;
+          kernel = "windows";
+          abi = "msvc";
+        } else if (elemAt l 1) == "elf" then {
+          cpu = elemAt l 0;
+          vendor = "unknown";
+          kernel = "none";
+          abi = elemAt l 1;
+        } else {
+          cpu = elemAt l 0;
+          kernel = elemAt l 1;
+        };
+      "3" = # Awkwards hacks, beware!
+        if elemAt l 1 == "apple" then {
+          cpu = elemAt l 0;
+          vendor = "apple";
+          kernel = elemAt l 2;
+        } else if (elemAt l 1 == "linux") || (elemAt l 2 == "gnu") then {
+          cpu = elemAt l 0;
+          kernel = elemAt l 1;
+          abi = elemAt l 2;
+        } else if (elemAt l 2
+          == "mingw32") # autotools breaks on -gnu for window
+        then {
+          cpu = elemAt l 0;
+          vendor = elemAt l 1;
+          kernel = "windows";
+        } else if (elemAt l 2 == "wasi") then {
+          cpu = elemAt l 0;
+          vendor = elemAt l 1;
+          kernel = "wasi";
+        } else if hasPrefix "netbsd" (elemAt l 2) then {
+          cpu = elemAt l 0;
+          vendor = elemAt l 1;
+          kernel = elemAt l 2;
+        } else if (elem (elemAt l 2) [ "eabi" "eabihf" "elf" ]) then {
+          cpu = elemAt l 0;
+          vendor = "unknown";
+          kernel = elemAt l 1;
+          abi = elemAt l 2;
+        } else
+          throw "Target specification with 3 components is ambiguous";
+      "4" = {
+        cpu = elemAt l 0;
+        vendor = elemAt l 1;
+        kernel = elemAt l 2;
+        abi = elemAt l 3;
+      };
+    }.${toString (length l)} or (throw
+      "system string has invalid number of hyphen-separated components");
 
   # This should revert the job done by config.guess from the gcc compiler.
   mkSystemFromSkeleton = { cpu, # Optional, but fallback too complex for here.

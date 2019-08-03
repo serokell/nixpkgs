@@ -79,11 +79,12 @@ in stdenv.mkDerivation {
       ${lib.optionalString cvsSupport "--prefix PATH : ${cvs}/bin \\"}
       ${lib.optionalString cvsSupport "--prefix PATH : ${cvsps}/bin \\"}
       ${
-      lib.optionalString subversionSupport
-      "--prefix PATH : ${subversion.out}/bin \\"
+        lib.optionalString subversionSupport
+        "--prefix PATH : ${subversion.out}/bin \\"
       }
       ${
-      lib.optionalString mercurialSupport "--prefix PATH : ${mercurial}/bin \\"
+        lib.optionalString mercurialSupport
+        "--prefix PATH : ${mercurial}/bin \\"
       }
       ${lib.concatMapStrings (x: "--prefix PATH : ${x}/bin ") extraUtils}
     done

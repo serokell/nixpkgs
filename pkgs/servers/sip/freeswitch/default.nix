@@ -77,7 +77,7 @@ let
   modulesConf = let
     lst = builtins.map (mod: mod.path) enabledModules;
     str = lib.strings.concatStringsSep "\n" lst;
-    in builtins.toFile "modules.conf" str;
+  in builtins.toFile "modules.conf" str;
 
 in stdenv.mkDerivation rec {
   name = "freeswitch-1.8.5";

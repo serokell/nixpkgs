@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/schema2ldif \
        --prefix PERL5PATH : "${
-      perlPackages.makePerlPath [ perlPackages.GetoptLong ]
+         perlPackages.makePerlPath [ perlPackages.GetoptLong ]
        }"
   '';
 

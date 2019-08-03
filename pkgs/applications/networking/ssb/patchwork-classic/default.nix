@@ -73,26 +73,26 @@ stdenv.mkDerivation rec {
     libPathNative = lib.makeLibraryPath packages;
     libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
     libPath = "${libPathNative}:${libPath64}";
-    in ''
-      # patch executable
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}:$out/opt/ssb-patchwork-electron" \
-        $out/opt/ssb-patchwork-electron/ssb-patchwork-electron
+  in ''
+    # patch executable
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}:$out/opt/ssb-patchwork-electron" \
+      $out/opt/ssb-patchwork-electron/ssb-patchwork-electron
 
-      # patch libnode
-      patchelf \
-        --set-rpath "${libPath}" \
-        $out/opt/ssb-patchwork-electron/libnode.so
+    # patch libnode
+    patchelf \
+      --set-rpath "${libPath}" \
+      $out/opt/ssb-patchwork-electron/libnode.so
 
-      # libffmpeg is for some reason  not executable
-      chmod a+x $out/opt/ssb-patchwork-electron/libffmpeg.so
+    # libffmpeg is for some reason  not executable
+    chmod a+x $out/opt/ssb-patchwork-electron/libffmpeg.so
 
-      # fix missing libudev
-      ln -s ${systemd.lib}/lib/libudev.so.1 $out/opt/ssb-patchwork-electron/libudev.so.1
-      wrapProgram $out/opt/ssb-patchwork-electron/ssb-patchwork-electron \
-        --prefix LD_LIBRARY_PATH : $out/opt/ssb-patchwork-electron
-    '';
+    # fix missing libudev
+    ln -s ${systemd.lib}/lib/libudev.so.1 $out/opt/ssb-patchwork-electron/libudev.so.1
+    wrapProgram $out/opt/ssb-patchwork-electron/ssb-patchwork-electron \
+      --prefix LD_LIBRARY_PATH : $out/opt/ssb-patchwork-electron
+  '';
 
   meta = with stdenv.lib; {
     description =

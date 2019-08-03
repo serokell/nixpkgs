@@ -243,8 +243,9 @@ let
       key = "${o.key}";
       certificate = "${o.cert}";
       ${
-      concatStringsSep "\n"
-      (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)
+        concatStringsSep "\n"
+        (mapAttrsToList (name: value: "${name} = ${toLua value};")
+          o.extraOptions)
       }
     };
   '';
@@ -477,13 +478,13 @@ in {
       modules_enabled = {
 
         ${
-        lib.concatStringsSep "\n  "
-        (lib.mapAttrsToList (name: val: optionalString val "${toLua name};")
-          cfg.modules)
+          lib.concatStringsSep "\n  "
+          (lib.mapAttrsToList (name: val: optionalString val "${toLua name};")
+            cfg.modules)
         }
         ${
-        lib.concatStringsSep "\n"
-        (map (x: "${toLua x};") cfg.package.communityModules)
+          lib.concatStringsSep "\n"
+          (map (x: "${toLua x};") cfg.package.communityModules)
         }
         ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
       };

@@ -234,7 +234,8 @@ let
     else ''
       key '${k}' is unrecognized; expected one of: 
       	      [${
-        lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)
+               lib.concatMapStringsSep ", " (x: "'${x}'")
+               (lib.attrNames metaTypes)
              }]'';
   checkMeta = meta:
     if shouldCheckMeta then
@@ -287,16 +288,16 @@ let
         reason = "broken-outputs";
         errormsg = "has invalid meta.outputsToInstall";
       } else
-        let res = checkMeta (attrs.meta or { });
-        in if res != [ ] then {
-          valid = false;
-          reason = "unknown-meta";
-          errormsg = "has an invalid meta attrset:${
+      let res = checkMeta (attrs.meta or { });
+      in if res != [ ] then {
+        valid = false;
+        reason = "unknown-meta";
+        errormsg = "has an invalid meta attrset:${
             lib.concatMapStrings (x: "\n	 - " + x) res
           }";
-        } else {
-          valid = true;
-        };
+      } else {
+        valid = true;
+      };
 
   assertValidity = { meta, attrs }:
     let validity = checkValidity attrs;

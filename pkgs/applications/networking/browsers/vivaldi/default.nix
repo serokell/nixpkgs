@@ -115,8 +115,8 @@ in stdenv.mkDerivation rec {
     wrapProgram "$out/bin/vivaldi" \
       --suffix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}/ \
       ${
-      stdenv.lib.optionalString enableWidevine
-      "--suffix LD_LIBRARY_PATH : ${libPath}"
+        stdenv.lib.optionalString enableWidevine
+        "--suffix LD_LIBRARY_PATH : ${libPath}"
       }
   '' + stdenv.lib.optionalString enableWidevine ''
     rm $out/opt/${vivaldiName}/libwidevinecdm.so

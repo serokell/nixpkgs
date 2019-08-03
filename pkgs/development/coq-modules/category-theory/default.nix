@@ -12,11 +12,11 @@ let
       rev = "8049479c5aee00ed0b92e5edc7c8996aebf48208";
       sha256 = "14f9rlwh8vgmcl6njykvsiwxx0jn623375afixk26mzpy12zdcph";
     };
-    in {
-      "8.6" = v20180709;
-      "8.7" = v20180709;
-      "8.8" = v20181016;
-    };
+  in {
+    "8.6" = v20180709;
+    "8.7" = v20180709;
+    "8.8" = v20181016;
+  };
   param = params."${coq.coq-version}";
 
 in stdenv.mkDerivation rec {

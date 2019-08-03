@@ -91,7 +91,7 @@ in rec {
             pnames
           }"
         '';
-      in applyPatches [ "fix-typos" ];
+    in applyPatches [ "fix-typos" ];
     patches = maybePatch_drm_legacy;
     broken = stdenv.lib.versionAtLeast kernel.version "4.18";
   };

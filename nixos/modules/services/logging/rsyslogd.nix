@@ -91,7 +91,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.rsyslog}/sbin/rsyslogd ${
-          toString cfg.extraParams
+            toString cfg.extraParams
           } -f ${syslogConf} -n";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/spool/rsyslog";
         # Prevent syslogd output looping back through journald.

@@ -36,24 +36,24 @@ buildPythonPackage rec {
   preConfigure = let
     libinclude' = pkg: ''"${pkg.out}/lib", "${pkg.out}/include"'';
     libinclude = pkg: ''"${pkg.out}/lib", "${pkg.dev}/include"'';
-    in ''
-      sed -i "setup.py" \
-          -e 's|^FREETYPE_ROOT =.*$|FREETYPE_ROOT = ${libinclude freetype}|g ;
-              s|^JPEG_ROOT =.*$|JPEG_ROOT = ${libinclude libjpeg}|g ;
-              s|^ZLIB_ROOT =.*$|ZLIB_ROOT = ${libinclude zlib}|g ;
-              s|^LCMS_ROOT =.*$|LCMS_ROOT = ${libinclude lcms2}|g ;
-              s|^TIFF_ROOT =.*$|TIFF_ROOT = ${libinclude libtiff}|g ;
-              s|^TCL_ROOT=.*$|TCL_ROOT = ${libinclude' tcl}|g ;
-              s|self\.disable_platform_guessing = None|self.disable_platform_guessing = True|g ;'
-      export LDFLAGS="-L${libwebp}/lib"
-      export CFLAGS="-I${libwebp}/include"
-    ''
-    # Remove impurities
-    + stdenv.lib.optionalString stdenv.isDarwin ''
-      substituteInPlace setup.py \
-        --replace '"/Library/Frameworks",' "" \
-        --replace '"/System/Library/Frameworks"' ""
-    '';
+  in ''
+    sed -i "setup.py" \
+        -e 's|^FREETYPE_ROOT =.*$|FREETYPE_ROOT = ${libinclude freetype}|g ;
+            s|^JPEG_ROOT =.*$|JPEG_ROOT = ${libinclude libjpeg}|g ;
+            s|^ZLIB_ROOT =.*$|ZLIB_ROOT = ${libinclude zlib}|g ;
+            s|^LCMS_ROOT =.*$|LCMS_ROOT = ${libinclude lcms2}|g ;
+            s|^TIFF_ROOT =.*$|TIFF_ROOT = ${libinclude libtiff}|g ;
+            s|^TCL_ROOT=.*$|TCL_ROOT = ${libinclude' tcl}|g ;
+            s|self\.disable_platform_guessing = None|self.disable_platform_guessing = True|g ;'
+    export LDFLAGS="-L${libwebp}/lib"
+    export CFLAGS="-I${libwebp}/include"
+  ''
+  # Remove impurities
+  + stdenv.lib.optionalString stdenv.isDarwin ''
+    substituteInPlace setup.py \
+      --replace '"/Library/Frameworks",' "" \
+      --replace '"/System/Library/Frameworks"' ""
+  '';
 
   meta = with stdenv.lib; {
     homepage = "https://python-pillow.github.io/";

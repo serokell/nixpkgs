@@ -118,7 +118,7 @@ stdenv.mkDerivation {
   LDFLAGS =
     "${concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs)}";
   LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"} ${
-    optionalString (ncurses != null) "-lncurses"
+      optionalString (ncurses != null) "-lncurses"
     }";
   NIX_LDFLAGS = optionalString stdenv.isLinux "-lgcc_s";
   # Determinism: We fix the hashes of str, bytes and datetime objects.

@@ -9,7 +9,7 @@
 else
   map (lang: languages.${lang}) enableLanguages)
 
-  # This argument is obsolete
+# This argument is obsolete
 , enableLanguagesHash ? null }:
 
 let

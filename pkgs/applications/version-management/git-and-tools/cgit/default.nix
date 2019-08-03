@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
 
     for script in $out/lib/cgit/filters/*.sh $out/lib/cgit/filters/html-converters/txt2html; do
       wrapProgram $script --prefix PATH : '${
-      stdenv.lib.makeBinPath [ coreutils gnused ]
+        stdenv.lib.makeBinPath [ coreutils gnused ]
       }'
     done
   '';

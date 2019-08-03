@@ -253,92 +253,91 @@ in {
           k8s-addon = "kubernetes-dashboard.addons.k8s.io";
           "addonmanager.kubernetes.io/mode" = "Reconcile";
         };
-        in (if cfg.rbac.clusterAdmin then {
-          kubernetes-dashboard-crb = {
-            apiVersion = "rbac.authorization.k8s.io/v1";
-            kind = "ClusterRoleBinding";
-            metadata = {
-              name = "kubernetes-dashboard";
-              inherit labels;
-            };
-            roleRef = {
-              apiGroup = "rbac.authorization.k8s.io";
-              kind = "ClusterRole";
-              name = "cluster-admin";
-            };
-            inherit subjects;
+      in (if cfg.rbac.clusterAdmin then {
+        kubernetes-dashboard-crb = {
+          apiVersion = "rbac.authorization.k8s.io/v1";
+          kind = "ClusterRoleBinding";
+          metadata = {
+            name = "kubernetes-dashboard";
+            inherit labels;
           };
-        } else {
-          # Upstream role- and rolebinding as per:
-          # https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/alternative/kubernetes-dashboard.yaml
-          kubernetes-dashboard-role = {
-            apiVersion = "rbac.authorization.k8s.io/v1";
-            kind = "Role";
-            metadata = {
-              name = "kubernetes-dashboard-minimal";
-              namespace = "kube-system";
-              inherit labels;
-            };
-            rules = [
-              # Allow Dashboard to create 'kubernetes-dashboard-key-holder' secret.
-              {
-                apiGroups = [ "" ];
-                resources = [ "secrets" ];
-                verbs = [ "create" ];
-              }
-              # Allow Dashboard to create 'kubernetes-dashboard-settings' config map.
-              {
-                apiGroups = [ "" ];
-                resources = [ "configmaps" ];
-                verbs = [ "create" ];
-              }
-              # Allow Dashboard to get, update and delete Dashboard exclusive secrets.
-              {
-                apiGroups = [ "" ];
-                resources = [ "secrets" ];
-                resourceNames = [ "kubernetes-dashboard-key-holder" ];
-                verbs = [ "get" "update" "delete" ];
-              }
-              # Allow Dashboard to get and update 'kubernetes-dashboard-settings' config map.
-              {
-                apiGroups = [ "" ];
-                resources = [ "configmaps" ];
-                resourceNames = [ "kubernetes-dashboard-settings" ];
-                verbs = [ "get" "update" ];
-              }
-              # Allow Dashboard to get metrics from heapster.
-              {
-                apiGroups = [ "" ];
-                resources = [ "services" ];
-                resourceNames = [ "heapster" ];
-                verbs = [ "proxy" ];
-              }
-              {
-                apiGroups = [ "" ];
-                resources = [ "services/proxy" ];
-                resourceNames =
-                  [ "heapster" "http:heapster:" "https:heapster:" ];
-                verbs = [ "get" ];
-              }
-            ];
+          roleRef = {
+            apiGroup = "rbac.authorization.k8s.io";
+            kind = "ClusterRole";
+            name = "cluster-admin";
           };
+          inherit subjects;
+        };
+      } else {
+        # Upstream role- and rolebinding as per:
+        # https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/alternative/kubernetes-dashboard.yaml
+        kubernetes-dashboard-role = {
+          apiVersion = "rbac.authorization.k8s.io/v1";
+          kind = "Role";
+          metadata = {
+            name = "kubernetes-dashboard-minimal";
+            namespace = "kube-system";
+            inherit labels;
+          };
+          rules = [
+            # Allow Dashboard to create 'kubernetes-dashboard-key-holder' secret.
+            {
+              apiGroups = [ "" ];
+              resources = [ "secrets" ];
+              verbs = [ "create" ];
+            }
+            # Allow Dashboard to create 'kubernetes-dashboard-settings' config map.
+            {
+              apiGroups = [ "" ];
+              resources = [ "configmaps" ];
+              verbs = [ "create" ];
+            }
+            # Allow Dashboard to get, update and delete Dashboard exclusive secrets.
+            {
+              apiGroups = [ "" ];
+              resources = [ "secrets" ];
+              resourceNames = [ "kubernetes-dashboard-key-holder" ];
+              verbs = [ "get" "update" "delete" ];
+            }
+            # Allow Dashboard to get and update 'kubernetes-dashboard-settings' config map.
+            {
+              apiGroups = [ "" ];
+              resources = [ "configmaps" ];
+              resourceNames = [ "kubernetes-dashboard-settings" ];
+              verbs = [ "get" "update" ];
+            }
+            # Allow Dashboard to get metrics from heapster.
+            {
+              apiGroups = [ "" ];
+              resources = [ "services" ];
+              resourceNames = [ "heapster" ];
+              verbs = [ "proxy" ];
+            }
+            {
+              apiGroups = [ "" ];
+              resources = [ "services/proxy" ];
+              resourceNames = [ "heapster" "http:heapster:" "https:heapster:" ];
+              verbs = [ "get" ];
+            }
+          ];
+        };
 
-          kubernetes-dashboard-rb = {
-            apiVersion = "rbac.authorization.k8s.io/v1";
-            kind = "RoleBinding";
-            metadata = {
-              name = "kubernetes-dashboard-minimal";
-              namespace = "kube-system";
-              inherit labels;
-            };
-            roleRef = {
-              apiGroup = "rbac.authorization.k8s.io";
-              kind = "Role";
-              name = "kubernetes-dashboard-minimal";
-            };
-            inherit subjects;
+        kubernetes-dashboard-rb = {
+          apiVersion = "rbac.authorization.k8s.io/v1";
+          kind = "RoleBinding";
+          metadata = {
+            name = "kubernetes-dashboard-minimal";
+            namespace = "kube-system";
+            inherit labels;
           };
-        })))
+          roleRef = {
+            apiGroup = "rbac.authorization.k8s.io";
+            kind = "Role";
+            name = "kubernetes-dashboard-minimal";
+          };
+          inherit subjects;
+        };
+      })))
     ];
   };
 }

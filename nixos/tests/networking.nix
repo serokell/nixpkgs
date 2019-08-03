@@ -69,7 +69,7 @@ let
         '' + flip concatMapStrings vlanIfs (n: ''
           subnet6 fd00:1234:5678:${toString n}::/64 {
             range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${
-            toString n
+              toString n
             }::2;
           }
         '');
@@ -264,25 +264,25 @@ let
             }];
           };
         };
-      in {
-        name = "Bond";
-        nodes.client1 = node "192.168.1.1";
-        nodes.client2 = node "192.168.1.2";
-        testScript = { ... }: ''
-          startAll;
+    in {
+      name = "Bond";
+      nodes.client1 = node "192.168.1.1";
+      nodes.client2 = node "192.168.1.2";
+      testScript = { ... }: ''
+        startAll;
 
-          # Wait for networking to come up
-          $client1->waitForUnit("network.target");
-          $client2->waitForUnit("network.target");
+        # Wait for networking to come up
+        $client1->waitForUnit("network.target");
+        $client2->waitForUnit("network.target");
 
-          # Test bonding
-          $client1->waitUntilSucceeds("ping -c 2 192.168.1.1");
-          $client1->waitUntilSucceeds("ping -c 2 192.168.1.2");
+        # Test bonding
+        $client1->waitUntilSucceeds("ping -c 2 192.168.1.1");
+        $client1->waitUntilSucceeds("ping -c 2 192.168.1.2");
 
-          $client2->waitUntilSucceeds("ping -c 2 192.168.1.1");
-          $client2->waitUntilSucceeds("ping -c 2 192.168.1.2");
-        '';
-      };
+        $client2->waitUntilSucceeds("ping -c 2 192.168.1.1");
+        $client2->waitUntilSucceeds("ping -c 2 192.168.1.2");
+      '';
+    };
     bridge = let
       node = { address, vlan }:
         { pkgs, ... }:
@@ -297,53 +297,53 @@ let
             }];
           };
         };
-      in {
-        name = "Bridge";
-        nodes.client1 = node {
-          address = "192.168.1.2";
-          vlan = 1;
-        };
-        nodes.client2 = node {
-          address = "192.168.1.3";
-          vlan = 2;
-        };
-        nodes.router = { pkgs, ... }:
-          with pkgs.lib; {
-            virtualisation.vlans = [ 1 2 ];
-            networking = {
-              useNetworkd = networkd;
-              useDHCP = false;
-              bridges.bridge.interfaces = [ "eth1" "eth2" ];
-              interfaces.eth1.ipv4.addresses = mkOverride 0 [ ];
-              interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
-              interfaces.bridge.ipv4.addresses = mkOverride 0 [{
-                address = "192.168.1.1";
-                prefixLength = 24;
-              }];
-            };
-          };
-        testScript = { ... }: ''
-          startAll;
-
-          # Wait for networking to come up
-          $client1->waitForUnit("network.target");
-          $client2->waitForUnit("network.target");
-          $router->waitForUnit("network.target");
-
-          # Test bridging
-          $client1->waitUntilSucceeds("ping -c 1 192.168.1.1");
-          $client1->waitUntilSucceeds("ping -c 1 192.168.1.2");
-          $client1->waitUntilSucceeds("ping -c 1 192.168.1.3");
-
-          $client2->waitUntilSucceeds("ping -c 1 192.168.1.1");
-          $client2->waitUntilSucceeds("ping -c 1 192.168.1.2");
-          $client2->waitUntilSucceeds("ping -c 1 192.168.1.3");
-
-          $router->waitUntilSucceeds("ping -c 1 192.168.1.1");
-          $router->waitUntilSucceeds("ping -c 1 192.168.1.2");
-          $router->waitUntilSucceeds("ping -c 1 192.168.1.3");
-        '';
+    in {
+      name = "Bridge";
+      nodes.client1 = node {
+        address = "192.168.1.2";
+        vlan = 1;
       };
+      nodes.client2 = node {
+        address = "192.168.1.3";
+        vlan = 2;
+      };
+      nodes.router = { pkgs, ... }:
+        with pkgs.lib; {
+          virtualisation.vlans = [ 1 2 ];
+          networking = {
+            useNetworkd = networkd;
+            useDHCP = false;
+            bridges.bridge.interfaces = [ "eth1" "eth2" ];
+            interfaces.eth1.ipv4.addresses = mkOverride 0 [ ];
+            interfaces.eth2.ipv4.addresses = mkOverride 0 [ ];
+            interfaces.bridge.ipv4.addresses = mkOverride 0 [{
+              address = "192.168.1.1";
+              prefixLength = 24;
+            }];
+          };
+        };
+      testScript = { ... }: ''
+        startAll;
+
+        # Wait for networking to come up
+        $client1->waitForUnit("network.target");
+        $client2->waitForUnit("network.target");
+        $router->waitForUnit("network.target");
+
+        # Test bridging
+        $client1->waitUntilSucceeds("ping -c 1 192.168.1.1");
+        $client1->waitUntilSucceeds("ping -c 1 192.168.1.2");
+        $client1->waitUntilSucceeds("ping -c 1 192.168.1.3");
+
+        $client2->waitUntilSucceeds("ping -c 1 192.168.1.1");
+        $client2->waitUntilSucceeds("ping -c 1 192.168.1.2");
+        $client2->waitUntilSucceeds("ping -c 1 192.168.1.3");
+
+        $router->waitUntilSucceeds("ping -c 1 192.168.1.1");
+        $router->waitUntilSucceeds("ping -c 1 192.168.1.2");
+        $router->waitUntilSucceeds("ping -c 1 192.168.1.3");
+      '';
+    };
     macvlan = {
       name = "MACVLAN";
       nodes.router = router;
@@ -419,37 +419,37 @@ let
             }];
           };
         };
-      in {
-        name = "Sit";
-        nodes.client1 = node {
-          address4 = "192.168.1.1";
-          remote = "192.168.1.2";
-          address6 = "fc00::1";
-        };
-        nodes.client2 = node {
-          address4 = "192.168.1.2";
-          remote = "192.168.1.1";
-          address6 = "fc00::2";
-        };
-        testScript = { ... }: ''
-          startAll;
-
-          # Wait for networking to be configured
-          $client1->waitForUnit("network.target");
-          $client2->waitForUnit("network.target");
-
-          # Print diagnostic information
-          $client1->succeed("ip addr >&2");
-          $client2->succeed("ip addr >&2");
-
-          # Test ipv6
-          $client1->waitUntilSucceeds("ping -c 1 fc00::1");
-          $client1->waitUntilSucceeds("ping -c 1 fc00::2");
-
-          $client2->waitUntilSucceeds("ping -c 1 fc00::1");
-          $client2->waitUntilSucceeds("ping -c 1 fc00::2");
-        '';
+    in {
+      name = "Sit";
+      nodes.client1 = node {
+        address4 = "192.168.1.1";
+        remote = "192.168.1.2";
+        address6 = "fc00::1";
       };
+      nodes.client2 = node {
+        address4 = "192.168.1.2";
+        remote = "192.168.1.1";
+        address6 = "fc00::2";
+      };
+      testScript = { ... }: ''
+        startAll;
+
+        # Wait for networking to be configured
+        $client1->waitForUnit("network.target");
+        $client2->waitForUnit("network.target");
+
+        # Print diagnostic information
+        $client1->succeed("ip addr >&2");
+        $client2->succeed("ip addr >&2");
+
+        # Test ipv6
+        $client1->waitUntilSucceeds("ping -c 1 fc00::1");
+        $client1->waitUntilSucceeds("ping -c 1 fc00::2");
+
+        $client2->waitUntilSucceeds("ping -c 1 fc00::1");
+        $client2->waitUntilSucceeds("ping -c 1 fc00::2");
+      '';
+    };
     vlan = let
       node = address:
         { pkgs, ... }:
@@ -470,22 +470,22 @@ let
             }];
           };
         };
-      in {
-        name = "vlan";
-        nodes.client1 = node "192.168.1.1";
-        nodes.client2 = node "192.168.1.2";
-        testScript = { ... }: ''
-          startAll;
+    in {
+      name = "vlan";
+      nodes.client1 = node "192.168.1.1";
+      nodes.client2 = node "192.168.1.2";
+      testScript = { ... }: ''
+        startAll;
 
-          # Wait for networking to be configured
-          $client1->waitForUnit("network.target");
-          $client2->waitForUnit("network.target");
+        # Wait for networking to be configured
+        $client1->waitForUnit("network.target");
+        $client2->waitForUnit("network.target");
 
-          # Test vlan is setup
-          $client1->succeed("ip addr show dev vlan >&2");
-          $client2->succeed("ip addr show dev vlan >&2");
-        '';
-      };
+        # Test vlan is setup
+        $client1->succeed("ip addr show dev vlan >&2");
+        $client2->succeed("ip addr show dev vlan >&2");
+      '';
+    };
     virtual = {
       name = "Virtual";
       machine = {

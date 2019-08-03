@@ -87,22 +87,22 @@ in import ./make-test.nix ({ pkgs, lib, ... }:
         content = "some content";
         commit_message = "create a new file";
       });
-      in ''
-        $gitlab->start();
-        $gitlab->waitForUnit("gitaly.service");
-        $gitlab->waitForUnit("gitlab-workhorse.service");
-        $gitlab->waitForUnit("gitlab.service");
-        $gitlab->waitForUnit("gitlab-sidekiq.service");
-        $gitlab->waitForFile("/var/gitlab/state/tmp/sockets/gitlab.socket");
-        $gitlab->waitUntilSucceeds("curl -sSf http://gitlab/users/sign_in");
-        $gitlab->succeed("curl -isSf http://gitlab  | grep -i location | grep -q http://gitlab/users/sign_in");
-        $gitlab->succeed("${pkgs.sudo}/bin/sudo -u gitlab -H gitlab-rake gitlab:check 1>&2");
-        $gitlab->succeed("echo \"Authorization: Bearer \$(curl -X POST -H 'Content-Type: application/json' -d @${auth} http://gitlab/oauth/token | ${pkgs.jq}/bin/jq -r '.access_token')\" >/tmp/headers");
-        $gitlab->succeed("curl -X POST -H 'Content-Type: application/json' -H @/tmp/headers -d @${createProject} http://gitlab/api/v4/projects");
-        $gitlab->succeed("curl -X POST -H 'Content-Type: application/json' -H @/tmp/headers -d @${putFile} http://gitlab/api/v4/projects/1/repository/files/some-file.txt");
-        $gitlab->succeed("curl -H @/tmp/headers http://gitlab/api/v4/projects/1/repository/archive.tar.gz > /tmp/archive.tar.gz");
-        $gitlab->succeed("curl -H @/tmp/headers http://gitlab/api/v4/projects/1/repository/archive.tar.bz2 > /tmp/archive.tar.bz2");
-        $gitlab->succeed("test -s /tmp/archive.tar.gz");
-        $gitlab->succeed("test -s /tmp/archive.tar.bz2");
-      '';
+    in ''
+      $gitlab->start();
+      $gitlab->waitForUnit("gitaly.service");
+      $gitlab->waitForUnit("gitlab-workhorse.service");
+      $gitlab->waitForUnit("gitlab.service");
+      $gitlab->waitForUnit("gitlab-sidekiq.service");
+      $gitlab->waitForFile("/var/gitlab/state/tmp/sockets/gitlab.socket");
+      $gitlab->waitUntilSucceeds("curl -sSf http://gitlab/users/sign_in");
+      $gitlab->succeed("curl -isSf http://gitlab  | grep -i location | grep -q http://gitlab/users/sign_in");
+      $gitlab->succeed("${pkgs.sudo}/bin/sudo -u gitlab -H gitlab-rake gitlab:check 1>&2");
+      $gitlab->succeed("echo \"Authorization: Bearer \$(curl -X POST -H 'Content-Type: application/json' -d @${auth} http://gitlab/oauth/token | ${pkgs.jq}/bin/jq -r '.access_token')\" >/tmp/headers");
+      $gitlab->succeed("curl -X POST -H 'Content-Type: application/json' -H @/tmp/headers -d @${createProject} http://gitlab/api/v4/projects");
+      $gitlab->succeed("curl -X POST -H 'Content-Type: application/json' -H @/tmp/headers -d @${putFile} http://gitlab/api/v4/projects/1/repository/files/some-file.txt");
+      $gitlab->succeed("curl -H @/tmp/headers http://gitlab/api/v4/projects/1/repository/archive.tar.gz > /tmp/archive.tar.gz");
+      $gitlab->succeed("curl -H @/tmp/headers http://gitlab/api/v4/projects/1/repository/archive.tar.bz2 > /tmp/archive.tar.bz2");
+      $gitlab->succeed("test -s /tmp/archive.tar.gz");
+      $gitlab->succeed("test -s /tmp/archive.tar.bz2");
+    '';
   })

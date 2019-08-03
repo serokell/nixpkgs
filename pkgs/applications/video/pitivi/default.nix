@@ -26,8 +26,8 @@ in python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/pitivi/${
-      stdenv.lib.versions.majorMinor version
-    }/${name}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${name}.tar.xz";
     sha256 = "0mxp2p4gg976fp1vj3rb5rmpl5mqfzncm9vw2719irl32f1qlvyb";
   };
 

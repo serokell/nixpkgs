@@ -159,7 +159,7 @@ let
       attrset = filterAttrs (k: v: v != null) config.extraConfig;
       mkLine = k: v: k + optionalString (v != "") "  ${v}";
       lines = mapAttrsToList mkLine attrset;
-      in concatStringsSep "\n" lines;
+    in concatStringsSep "\n" lines;
     config.stanza = ''
       server  ${config.name}
       ${config.text}

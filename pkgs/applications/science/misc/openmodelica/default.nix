@@ -73,7 +73,7 @@ in stdenv.mkDerivation {
       wrapProgram $out/bin/$e \
         --prefix PATH : "${gnumake}/bin" \
         --prefix LIBRARY_PATH : "${
-      stdenv.lib.makeLibraryPath [ liblapack blas ]
+          stdenv.lib.makeLibraryPath [ liblapack blas ]
         }"
     done
   '';

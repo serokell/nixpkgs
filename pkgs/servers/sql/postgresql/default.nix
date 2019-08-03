@@ -8,7 +8,7 @@ let
     # This is important to obtain a version of `libpq` that does not depend on systemd.
     , enableSystemd ? (lib.versionAtLeast version "9.6" && !stdenv.isDarwin)
 
-      # for postgreql.pkgs
+    # for postgreql.pkgs
     , this, self, newScope, buildEnv
 
     # source specification
@@ -81,10 +81,10 @@ let
           "src/common/config_info.c"
         else
           "src/bin/pg_config/pg_config.c";
-        in ''
-          # Hardcode the path to pgxs so pg_config returns the path in $out
-          substituteInPlace "${path}" --replace HARDCODED_PGXS_PATH $out/lib
-        '';
+      in ''
+        # Hardcode the path to pgxs so pg_config returns the path in $out
+        substituteInPlace "${path}" --replace HARDCODED_PGXS_PATH $out/lib
+      '';
 
       postInstall = ''
         moveToOutput "lib/pgxs" "$out" # looks strange, but not deleting it
@@ -128,7 +128,7 @@ let
           scope = { postgresql = this; };
           newSelf = self // scope;
           newSuper = { callPackage = newScope (scope // this.pkgs); };
-          in import ./packages.nix newSelf newSuper;
+        in import ./packages.nix newSelf newSuper;
 
         withPackages = postgresqlWithPackages {
           inherit makeWrapper buildEnv;

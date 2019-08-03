@@ -17,15 +17,15 @@ let
     };
     name = "mantisbt-1.2.19";
     # We have to copy every time; otherwise config won't be found.
-    in pkgs.runCommand name {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    } (''
-      mkdir -p "$out"
-      cd "$out"
-      tar -xf '${src}' --strip-components=1
-      ln -s '${config_inc}' config_inc.php
-    '' + lib.optionalString (!freshInstall) "rm -r admin/");
+  in pkgs.runCommand name {
+    preferLocalBuild = true;
+    allowSubstitutes = false;
+  } (''
+    mkdir -p "$out"
+    cd "$out"
+    tar -xf '${src}' --strip-components=1
+    ln -s '${config_inc}' config_inc.php
+  '' + lib.optionalString (!freshInstall) "rm -r admin/");
 in {
   options.services.mantisbt = {
     enable = mkOption {

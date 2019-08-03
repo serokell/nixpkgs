@@ -78,26 +78,26 @@ stdenv.mkDerivation rec {
         # Exclude build system changes to avoid conflicts.
         excludes = [ "build/*" ];
       } // builtins.removeAttrs args [ "rev" "base" ]));
-    in [
-      # New glpk version has new warnings, filter those out until upstream sage has found a solution
-      # Should be fixed with glpk > 4.65.
-      # https://trac.sagemath.org/ticket/24824
-      ./patches/pari-stackwarn.patch # not actually necessary since the pari upgrade, but necessary for the glpk patch to apply
-      (fetchpatch {
-        url =
-          "https://salsa.debian.org/science-team/sagemath/raw/58bbba93a807ca2933ca317501d093a1bb4b84db/debian/patches/dt-version-glpk-4.65-ignore-warnings.patch";
-        sha256 = "0b9293v73wb4x13wv5zwyjgclc01zn16msccfzzi6znswklgvddp";
-        stripLen = 1;
-      })
+  in [
+    # New glpk version has new warnings, filter those out until upstream sage has found a solution
+    # Should be fixed with glpk > 4.65.
+    # https://trac.sagemath.org/ticket/24824
+    ./patches/pari-stackwarn.patch # not actually necessary since the pari upgrade, but necessary for the glpk patch to apply
+    (fetchpatch {
+      url =
+        "https://salsa.debian.org/science-team/sagemath/raw/58bbba93a807ca2933ca317501d093a1bb4b84db/debian/patches/dt-version-glpk-4.65-ignore-warnings.patch";
+      sha256 = "0b9293v73wb4x13wv5zwyjgclc01zn16msccfzzi6znswklgvddp";
+      stripLen = 1;
+    })
 
-      # https://trac.sagemath.org/ticket/26932
-      (fetchSageDiff {
-        name = "givaro-4.1.0_fflas-ffpack-2.4.0_linbox-1.6.0.patch";
-        base = "8.8.beta4";
-        rev = "c11d9cfa23ff9f77681a8f12742f68143eed4504";
-        sha256 = "0xzra7mbgqvahk9v45bjwir2mqz73hrhhy314jq5nxrb35ysdxyi";
-      })
-    ];
+    # https://trac.sagemath.org/ticket/26932
+    (fetchSageDiff {
+      name = "givaro-4.1.0_fflas-ffpack-2.4.0_linbox-1.6.0.patch";
+      base = "8.8.beta4";
+      rev = "c11d9cfa23ff9f77681a8f12742f68143eed4504";
+      sha256 = "0xzra7mbgqvahk9v45bjwir2mqz73hrhhy314jq5nxrb35ysdxyi";
+    })
+  ];
 
   patches = nixPatches ++ bugfixPatches ++ packageUpgradePatches;
 

@@ -35,44 +35,44 @@ let
     providerSpecificOptions.${provider} or (_: { }) cfg;
 
   allConfig = with cfg;
-  {
-    inherit (cfg) provider scope upstream;
-    approval-prompt = approvalPrompt;
-    basic-auth-password = basicAuthPassword;
-    client-id = clientID;
-    client-secret = clientSecret;
-    custom-templates-dir = customTemplatesDir;
-    email-domain = email.domains;
-    http-address = httpAddress;
-    login-url = loginURL;
-    pass-access-token = passAccessToken;
-    pass-basic-auth = passBasicAuth;
-    pass-host-header = passHostHeader;
-    proxy-prefix = proxyPrefix;
-    profile-url = profileURL;
-    redeem-url = redeemURL;
-    redirect-url = redirectURL;
-    request-logging = requestLogging;
-    skip-auth-regex = skipAuthRegexes;
-    signature-key = signatureKey;
-    validate-url = validateURL;
-    htpasswd-file = htpasswd.file;
-    cookie = {
-      inherit (cookie) domain secure expire name secret refresh;
-      httponly = cookie.httpOnly;
-    };
-    set-xauthrequest = setXauthrequest;
-  } // lib.optionalAttrs (cfg.email.addresses != null) {
-    authenticated-emails-file = authenticatedEmailsFile;
-  } // lib.optionalAttrs (cfg.passBasicAuth) {
-    basic-auth-password = cfg.basicAuthPassword;
-  } // lib.optionalAttrs (cfg.htpasswd.file != null) {
-    display-htpasswd-file = cfg.htpasswd.displayForm;
-  } // lib.optionalAttrs tls.enable {
-    tls-cert = tls.certificate;
-    tls-key = tls.key;
-    https-address = tls.httpsAddress;
-  } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig;
+    {
+      inherit (cfg) provider scope upstream;
+      approval-prompt = approvalPrompt;
+      basic-auth-password = basicAuthPassword;
+      client-id = clientID;
+      client-secret = clientSecret;
+      custom-templates-dir = customTemplatesDir;
+      email-domain = email.domains;
+      http-address = httpAddress;
+      login-url = loginURL;
+      pass-access-token = passAccessToken;
+      pass-basic-auth = passBasicAuth;
+      pass-host-header = passHostHeader;
+      proxy-prefix = proxyPrefix;
+      profile-url = profileURL;
+      redeem-url = redeemURL;
+      redirect-url = redirectURL;
+      request-logging = requestLogging;
+      skip-auth-regex = skipAuthRegexes;
+      signature-key = signatureKey;
+      validate-url = validateURL;
+      htpasswd-file = htpasswd.file;
+      cookie = {
+        inherit (cookie) domain secure expire name secret refresh;
+        httponly = cookie.httpOnly;
+      };
+      set-xauthrequest = setXauthrequest;
+    } // lib.optionalAttrs (cfg.email.addresses != null) {
+      authenticated-emails-file = authenticatedEmailsFile;
+    } // lib.optionalAttrs (cfg.passBasicAuth) {
+      basic-auth-password = cfg.basicAuthPassword;
+    } // lib.optionalAttrs (cfg.htpasswd.file != null) {
+      display-htpasswd-file = cfg.htpasswd.displayForm;
+    } // lib.optionalAttrs tls.enable {
+      tls-cert = tls.certificate;
+      tls-key = tls.key;
+      https-address = tls.httpsAddress;
+    } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig;
 
   mapConfig = key: attr:
     if attr != null && attr != [ ] then

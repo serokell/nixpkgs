@@ -72,7 +72,7 @@ in stdenv.mkDerivation {
     # List of dependencies from currytools/cpm/src/CPM/Main.curry
     wrapProgram $out/pakcs/bin/cypm \
       --prefix PATH ":" "${
-      stdenv.lib.makeBinPath [ curl git unzip gnutar coreutils sqlite ]
+        stdenv.lib.makeBinPath [ curl git unzip gnutar coreutils sqlite ]
       }"
   '';
 

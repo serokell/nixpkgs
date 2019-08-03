@@ -75,7 +75,7 @@ in stdenv.mkDerivation rec {
 
     for i in libnpgoogletalk.so libppgoogletalk.so libppo1d.so; do
       patchelf --set-rpath "${
-      makeLibraryPath [ stdenv.cc.cc xorg.libX11 ]
+        makeLibraryPath [ stdenv.cc.cc xorg.libX11 ]
       }:${stdenv.cc.cc.lib}/lib64" $plugins/$i
     done
 

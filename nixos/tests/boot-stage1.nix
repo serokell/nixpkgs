@@ -64,7 +64,7 @@ import ./make-test.nix ({ pkgs, ... }: {
         module_exit(kcanaryExit);
       '';
 
-      in lib.singleton kcanary;
+    in lib.singleton kcanary;
 
     boot.initrd.kernelModules = [ "kcanary" ];
 
@@ -117,32 +117,32 @@ import ./make-test.nix ({ pkgs, ... }: {
           copy_bin_and_libs "${canary}/bin/${canary.name}"
         '');
 
-      in copyCanaries [
-        # Simple canary process which just sleeps forever and should be killed by
-        # stage 2.
-        (daemonize "canary1" "while (1) sleep(1);")
+    in copyCanaries [
+      # Simple canary process which just sleeps forever and should be killed by
+      # stage 2.
+      (daemonize "canary1" "while (1) sleep(1);")
 
-        # We want this canary process to try mimicking a kthread using a cmdline
-        # with a zero length so we can make sure that the process is properly
-        # killed in stage 1.
-        (mkCmdlineCanary {
-          name = "canary2";
-          source = ''
-            FILE *f;
-            f = fopen("/run/canary2.pid", "w");
-            fprintf(f, "%d\n", getpid());
-            fclose(f);
-          '';
-        })
+      # We want this canary process to try mimicking a kthread using a cmdline
+      # with a zero length so we can make sure that the process is properly
+      # killed in stage 1.
+      (mkCmdlineCanary {
+        name = "canary2";
+        source = ''
+          FILE *f;
+          f = fopen("/run/canary2.pid", "w");
+          fprintf(f, "%d\n", getpid());
+          fclose(f);
+        '';
+      })
 
-        # This canary process mimicks a storage daemon, which we do NOT want to be
-        # killed before going into stage 2. For more on root storage daemons, see:
-        # https://www.freedesktop.org/wiki/Software/systemd/RootStorageDaemons/
-        (mkCmdlineCanary {
-          name = "canary3";
-          cmdline = "@canary3";
-        })
-      ];
+      # This canary process mimicks a storage daemon, which we do NOT want to be
+      # killed before going into stage 2. For more on root storage daemons, see:
+      # https://www.freedesktop.org/wiki/Software/systemd/RootStorageDaemons/
+      (mkCmdlineCanary {
+        name = "canary3";
+        cmdline = "@canary3";
+      })
+    ];
 
     boot.initrd.postMountCommands = ''
       canary1

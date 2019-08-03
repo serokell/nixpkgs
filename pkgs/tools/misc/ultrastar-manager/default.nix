@@ -24,32 +24,32 @@ let
       repo = "UltraStar-Manager";
       inherit rev sha256;
     };
-    in stdenv.mkDerivation {
-      name = "${src.name}-patched";
-      inherit src;
-      phases = [ "unpackPhase" "patchPhase" ];
+  in stdenv.mkDerivation {
+    name = "${src.name}-patched";
+    inherit src;
+    phases = [ "unpackPhase" "patchPhase" ];
 
-      patchPhase = with stdenv.lib; ''
-        # we don’t want prebuild binaries checked into version control!
-        rm -rf lib include
+    patchPhase = with stdenv.lib; ''
+      # we don’t want prebuild binaries checked into version control!
+      rm -rf lib include
 
-        # fix up main project file
-        sed -e 's|-L.*unix.*lbass.*$|-lbass|' \
-            -e "/QMAKE_POST_LINK/d" \
-            -e "s|../include/bass|${getLib libbass}/include|g" \
-            -e "s|../include/taglib|${getLib taglib}/include|g" \
-            -e "s|../include/mediainfo|${getLib libmediainfo}/include|g" \
-            -i src/UltraStar-Manager.pro
+      # fix up main project file
+      sed -e 's|-L.*unix.*lbass.*$|-lbass|' \
+          -e "/QMAKE_POST_LINK/d" \
+          -e "s|../include/bass|${getLib libbass}/include|g" \
+          -e "s|../include/taglib|${getLib taglib}/include|g" \
+          -e "s|../include/mediainfo|${getLib libmediainfo}/include|g" \
+          -i src/UltraStar-Manager.pro
 
-        # if more plugins start depending on ../../../include,
-        # it should be abstracted out for all .pro files
-        sed -e "s|../../../include/taglib|${getLib taglib}/include/taglib|g" \
-            -i src/plugins/audiotag/audiotag.pro
+      # if more plugins start depending on ../../../include,
+      # it should be abstracted out for all .pro files
+      sed -e "s|../../../include/taglib|${getLib taglib}/include/taglib|g" \
+          -i src/plugins/audiotag/audiotag.pro
 
-        mkdir $out
-        mv * $out
-      '';
-    };
+      mkdir $out
+      mv * $out
+    '';
+  };
 
   patchApplicationPath = file: path: ''
     sed -e "s|QCore.*applicationDirPath()|QString(\"${path}\")|" -i "${file}"

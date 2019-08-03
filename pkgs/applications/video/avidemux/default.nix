@@ -52,32 +52,32 @@ stdenv.mkDerivation rec {
       "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib";
     wrapQtApp = wrapWith "wrapQtApp";
     wrapProgram = wrapWith "wrapProgram";
-    in ''
-      unpackPhase
-      cd "$sourceRoot"
-      patchPhase
+  in ''
+    unpackPhase
+    cd "$sourceRoot"
+    patchPhase
 
-      export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${libXext}/lib"
-      ${stdenv.shell} bootStrap.bash \
-        --with-core \
-        ${if withQT then "--with-qt" else "--without-qt"} \
-        ${if withCLI then "--with-cli" else "--without-cli"} \
-        ${if withPlugins then "--with-plugins" else "--without-plugins"}
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${libXext}/lib"
+    ${stdenv.shell} bootStrap.bash \
+      --with-core \
+      ${if withQT then "--with-qt" else "--without-qt"} \
+      ${if withCLI then "--with-cli" else "--without-cli"} \
+      ${if withPlugins then "--with-plugins" else "--without-plugins"}
 
-      mkdir $out
-      cp -R install/usr/* $out
+    mkdir $out
+    cp -R install/usr/* $out
 
-      ${wrapProgram "$out/bin/avidemux3_cli"}
+    ${wrapProgram "$out/bin/avidemux3_cli"}
 
-      ${stdenv.lib.optionalString withQT ''
-        ${wrapQtApp "$out/bin/avidemux3_qt5"}
-        ${wrapQtApp "$out/bin/avidemux3_jobs_qt5"}
-      ''}
+    ${stdenv.lib.optionalString withQT ''
+      ${wrapQtApp "$out/bin/avidemux3_qt5"}
+      ${wrapQtApp "$out/bin/avidemux3_jobs_qt5"}
+    ''}
 
-      ln -s "$out/bin/avidemux3_${default}" "$out/bin/avidemux"
+    ln -s "$out/bin/avidemux3_${default}" "$out/bin/avidemux"
 
-      fixupPhase
-    '';
+    fixupPhase
+  '';
 
   meta = with stdenv.lib; {
     homepage = "http://fixounet.free.fr/avidemux/";

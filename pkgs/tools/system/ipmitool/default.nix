@@ -22,10 +22,10 @@ in stdenv.mkDerivation {
       --infodir=$out/share/info
       --mandir=$out/share/man
       ${
-      if static then
-        "LDFLAGS=-static --enable-static --disable-shared"
-      else
-        "--enable-shared"
+        if static then
+          "LDFLAGS=-static --enable-static --disable-shared"
+        else
+          "--enable-shared"
       }
     )
   '';

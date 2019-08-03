@@ -12,16 +12,16 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = let
     #base = "${jdk}/jre/lib/${jdk.architecture}";
-    in [
-      "-DPORTMIDI_ENABLE_JAVA=0"
-      /* TODO: Fix Java support.
-         "-DJAVA_AWT_LIBRARY=${base}/libawt.so"
-         "-DJAVA_JVM_LIBRARY=${base}/server/libjvm.so"
-      */
-      "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release"
-      "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release"
-      "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release"
-    ];
+  in [
+    "-DPORTMIDI_ENABLE_JAVA=0"
+    /* TODO: Fix Java support.
+       "-DJAVA_AWT_LIBRARY=${base}/libawt.so"
+       "-DJAVA_JVM_LIBRARY=${base}/server/libjvm.so"
+    */
+    "-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY=Release"
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=Release"
+    "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release"
+  ];
 
   # XXX: This is to deactivate Java support.
   patches = stdenv.lib.singleton (fetchurl rec {

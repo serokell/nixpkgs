@@ -40,127 +40,127 @@ with pkgs;
       inherit hasDistutilsCxxPatch pythonForBuild;
     };
 
-  in {
+in {
 
-    python27 = callPackage ./cpython/2.7 {
-      self = python27;
-      sourceVersion = {
-        major = "2";
-        minor = "7";
-        patch = "16";
-        suffix = "";
-      };
-      sha256 = "1mqfcqp5y8r0bfyr7ppl74n0lig45p9mc4b8adlcpvj74rhfy8pj";
-      inherit (darwin) CF configd;
-      inherit passthruFun;
+  python27 = callPackage ./cpython/2.7 {
+    self = python27;
+    sourceVersion = {
+      major = "2";
+      minor = "7";
+      patch = "16";
+      suffix = "";
     };
+    sha256 = "1mqfcqp5y8r0bfyr7ppl74n0lig45p9mc4b8adlcpvj74rhfy8pj";
+    inherit (darwin) CF configd;
+    inherit passthruFun;
+  };
 
-    python35 = callPackage ./cpython {
-      self = python35;
-      sourceVersion = {
-        major = "3";
-        minor = "5";
-        patch = "7";
-        suffix = "";
-      };
-      sha256 = "1p67pnp2ca5przx2s45r8m55dcn6f5hsm0l4s1zp7mglkf4r4n18";
-      inherit (darwin) CF configd;
-      inherit passthruFun;
+  python35 = callPackage ./cpython {
+    self = python35;
+    sourceVersion = {
+      major = "3";
+      minor = "5";
+      patch = "7";
+      suffix = "";
     };
+    sha256 = "1p67pnp2ca5przx2s45r8m55dcn6f5hsm0l4s1zp7mglkf4r4n18";
+    inherit (darwin) CF configd;
+    inherit passthruFun;
+  };
 
-    python36 = callPackage ./cpython {
-      self = python36;
-      sourceVersion = {
-        major = "3";
-        minor = "6";
-        patch = "9";
-        suffix = "";
-      };
-      sha256 = "1nkh70azbv866aw5a9bbxsxarsf40233vrzpjq17z3rz9ramybsy";
-      inherit (darwin) CF configd;
-      inherit passthruFun;
+  python36 = callPackage ./cpython {
+    self = python36;
+    sourceVersion = {
+      major = "3";
+      minor = "6";
+      patch = "9";
+      suffix = "";
     };
+    sha256 = "1nkh70azbv866aw5a9bbxsxarsf40233vrzpjq17z3rz9ramybsy";
+    inherit (darwin) CF configd;
+    inherit passthruFun;
+  };
 
-    python37 = callPackage ./cpython {
-      self = python37;
-      sourceVersion = {
-        major = "3";
-        minor = "7";
-        patch = "4";
-        suffix = "";
-      };
-      sha256 = "0gxiv5617zd7dnqm5k9r4q2188lk327nf9jznwq9j6b8p0s92ygv";
-      inherit (darwin) CF configd;
-      inherit passthruFun;
+  python37 = callPackage ./cpython {
+    self = python37;
+    sourceVersion = {
+      major = "3";
+      minor = "7";
+      patch = "4";
+      suffix = "";
     };
+    sha256 = "0gxiv5617zd7dnqm5k9r4q2188lk327nf9jznwq9j6b8p0s92ygv";
+    inherit (darwin) CF configd;
+    inherit passthruFun;
+  };
 
-    python38 = callPackage ./cpython {
-      self = python38;
-      sourceVersion = {
-        major = "3";
-        minor = "8";
-        patch = "0";
-        suffix = "b2";
-      };
-      sha256 = "1rh9dz5vmc56y45d6j2wfjw4m7x25i6v8vyld4mrqh06s2gn1hbl";
-      inherit (darwin) CF configd;
-      inherit passthruFun;
+  python38 = callPackage ./cpython {
+    self = python38;
+    sourceVersion = {
+      major = "3";
+      minor = "8";
+      patch = "0";
+      suffix = "b2";
     };
+    sha256 = "1rh9dz5vmc56y45d6j2wfjw4m7x25i6v8vyld4mrqh06s2gn1hbl";
+    inherit (darwin) CF configd;
+    inherit passthruFun;
+  };
 
-    pypy27 = callPackage ./pypy {
-      self = pypy27;
-      sourceVersion = {
-        major = "7";
-        minor = "0";
-        patch = "0";
-      };
-      sha256 = "1m6ja79sbkl38p1hs7c0n4kq5xzn01wp7wl5456hsw9q6cwg6894";
-      pythonVersion = "2.7";
-      db = db.override { dbmSupport = true; };
-      python = python27;
-      inherit passthruFun;
+  pypy27 = callPackage ./pypy {
+    self = pypy27;
+    sourceVersion = {
+      major = "7";
+      minor = "0";
+      patch = "0";
     };
+    sha256 = "1m6ja79sbkl38p1hs7c0n4kq5xzn01wp7wl5456hsw9q6cwg6894";
+    pythonVersion = "2.7";
+    db = db.override { dbmSupport = true; };
+    python = python27;
+    inherit passthruFun;
+  };
 
-    pypy35 = callPackage ./pypy {
-      self = pypy35;
-      sourceVersion = {
-        major = "7";
-        minor = "0";
-        patch = "0";
-      };
-      sha256 = "0hbv9ziv8n9lqnr6cndrw70p6g40c00w1ds7lmzgrr153myxkp7w";
-      pythonVersion = "3.5";
-      db = db.override { dbmSupport = true; };
-      python = python27;
-      inherit passthruFun;
+  pypy35 = callPackage ./pypy {
+    self = pypy35;
+    sourceVersion = {
+      major = "7";
+      minor = "0";
+      patch = "0";
     };
+    sha256 = "0hbv9ziv8n9lqnr6cndrw70p6g40c00w1ds7lmzgrr153myxkp7w";
+    pythonVersion = "3.5";
+    db = db.override { dbmSupport = true; };
+    python = python27;
+    inherit passthruFun;
+  };
 
-    pypy27_prebuilt = callPackage ./pypy/prebuilt.nix {
-      # Not included at top-level
-      self = pythonInterpreters.pypy27_prebuilt;
-      sourceVersion = {
-        major = "6";
-        minor = "0";
-        patch = "0";
-      };
-      sha256 = "0rxgnp3fm18b87ln8bbjr13g2fsf4ka4abkaim6m03y9lwmr9gvc"; # linux64
-      pythonVersion = "2.7";
-      inherit passthruFun;
-      ncurses = ncurses5;
+  pypy27_prebuilt = callPackage ./pypy/prebuilt.nix {
+    # Not included at top-level
+    self = pythonInterpreters.pypy27_prebuilt;
+    sourceVersion = {
+      major = "6";
+      minor = "0";
+      patch = "0";
     };
+    sha256 = "0rxgnp3fm18b87ln8bbjr13g2fsf4ka4abkaim6m03y9lwmr9gvc"; # linux64
+    pythonVersion = "2.7";
+    inherit passthruFun;
+    ncurses = ncurses5;
+  };
 
-    pypy35_prebuilt = callPackage ./pypy/prebuilt.nix {
-      # Not included at top-level
-      self = pythonInterpreters.pypy35_prebuilt;
-      sourceVersion = {
-        major = "6";
-        minor = "0";
-        patch = "0";
-      };
-      sha256 = "0j3h08s7wpglghasmym3baycpif5jshvmk9rpav4pwwy5clzmzsc"; # linux64
-      pythonVersion = "3.5";
-      inherit passthruFun;
-      ncurses = ncurses5;
+  pypy35_prebuilt = callPackage ./pypy/prebuilt.nix {
+    # Not included at top-level
+    self = pythonInterpreters.pypy35_prebuilt;
+    sourceVersion = {
+      major = "6";
+      minor = "0";
+      patch = "0";
     };
+    sha256 = "0j3h08s7wpglghasmym3baycpif5jshvmk9rpav4pwwy5clzmzsc"; # linux64
+    pythonVersion = "3.5";
+    inherit passthruFun;
+    ncurses = ncurses5;
+  };
 
-  })
+})

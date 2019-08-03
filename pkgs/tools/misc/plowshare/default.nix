@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
     for fn in plow{del,down,list,mod,probe,up}; do
       wrapProgram "$out/bin/$fn" --prefix PATH : "${
-      stdenv.lib.makeBinPath [ curl recode spidermonkey ]
+        stdenv.lib.makeBinPath [ curl recode spidermonkey ]
       }"
     done
   '';

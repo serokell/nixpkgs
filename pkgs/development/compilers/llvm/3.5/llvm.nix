@@ -29,12 +29,12 @@ in stdenv.mkDerivation rec {
     (
       cd projects/compiler-rt
       patch -p1 < ${
-      fetchpatch {
-        name = "sigaltstack.patch"; # for glibc-2.26
-        url =
-          "https://github.com/llvm-mirror/compiler-rt/commit/8a5e425a68d.diff";
-        sha256 = "0h4y5vl74qaa7dl54b1fcyqalvlpd8zban2d1jxfkxpzyi7m8ifi";
-      }
+        fetchpatch {
+          name = "sigaltstack.patch"; # for glibc-2.26
+          url =
+            "https://github.com/llvm-mirror/compiler-rt/commit/8a5e425a68d.diff";
+          sha256 = "0h4y5vl74qaa7dl54b1fcyqalvlpd8zban2d1jxfkxpzyi7m8ifi";
+        }
       }
 
       sed -i "s,#include <pthread.h>,&\n#include <signal.h>,g" \

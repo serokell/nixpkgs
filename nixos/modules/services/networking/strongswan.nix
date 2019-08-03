@@ -38,10 +38,10 @@ let
       charon {
         ${if managePlugins then "load_modular = no" else ""}
         ${
-        if managePlugins then
-          ("load = " + (concatStringsSep " " enabledPlugins))
-        else
-          ""
+          if managePlugins then
+            ("load = " + (concatStringsSep " " enabledPlugins))
+          else
+            ""
         }
         plugins {
           stroke {

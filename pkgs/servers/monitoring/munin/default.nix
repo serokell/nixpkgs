@@ -118,25 +118,25 @@ stdenv.mkDerivation rec {
         esac
         wrapProgram "$file" \
           --set PERL5LIB "$out/${perlPackages.perl.libPrefix}:${
-      with perlPackages;
-      makePerlPath [
-        LogLog4perl
-        IOSocketInet6
-        Socket6
-        URI
-        DBFile
-        DateManip
-        HTMLTemplate
-        FileCopyRecursive
-        FCGI
-        NetCIDR
-        NetSNMP
-        NetServer
-        ListMoreUtils
-        DBDPg
-        LWP
-        rrdtool
-      ]
+            with perlPackages;
+            makePerlPath [
+              LogLog4perl
+              IOSocketInet6
+              Socket6
+              URI
+              DBFile
+              DateManip
+              HTMLTemplate
+              FileCopyRecursive
+              FCGI
+              NetCIDR
+              NetSNMP
+              NetServer
+              ListMoreUtils
+              DBDPg
+              LWP
+              rrdtool
+            ]
           }"
     done
   '';

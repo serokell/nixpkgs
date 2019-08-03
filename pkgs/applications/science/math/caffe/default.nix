@@ -59,25 +59,25 @@ in stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
 
   propagatedBuildInputs = lib.optionals pythonSupport (
-    # requirements.txt
-      let pp = python.pkgs;
-      in ([
-        pp.numpy
-        pp.scipy
-        pp.scikitimage
-        pp.h5py
-        pp.matplotlib
-        pp.ipython
-        pp.networkx
-        pp.nose
-        pp.pandas
-        pp.dateutil
-        pp.protobuf
-        pp.gflags
-        pp.pyyaml
-        pp.pillow
-        pp.six
-      ] ++ lib.optional leveldbSupport pp.leveldb));
+  # requirements.txt
+    let pp = python.pkgs;
+    in ([
+      pp.numpy
+      pp.scipy
+      pp.scikitimage
+      pp.h5py
+      pp.matplotlib
+      pp.ipython
+      pp.networkx
+      pp.nose
+      pp.pandas
+      pp.dateutil
+      pp.protobuf
+      pp.gflags
+      pp.pyyaml
+      pp.pillow
+      pp.six
+    ] ++ lib.optional leveldbSupport pp.leveldb));
 
   outputs = [ "bin" "out" ];
   propagatedBuildOutputs = [ ]; # otherwise propagates out -> bin cycle

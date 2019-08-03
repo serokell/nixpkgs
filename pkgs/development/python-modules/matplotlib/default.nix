@@ -69,8 +69,8 @@ buildPythonPackage rec {
   postPatch = let
     inherit (stdenv.lib.strings) substring;
     tcl_tk_cache = ''"${tk}/lib", "${tcl}/lib", "${substring 0 3 tk.version}"'';
-    in stdenv.lib.optionalString enableTk
-    "sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py";
+  in stdenv.lib.optionalString enableTk
+  "sed -i '/self.tcl_tk_cache = None/s|None|${tcl_tk_cache}|' setupext.py";
 
   checkPhase = ''
     ${python.interpreter} tests.py

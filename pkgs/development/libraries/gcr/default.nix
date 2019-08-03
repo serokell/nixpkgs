@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "12qn7mcmxb45lz1gq3s3b34rimiyrrshkrpvxdw1fc0w26i4l84m";
   };
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     gpg = gnupg.override {
       guiSupport = false;
     }; # prevent build cycle with pinentry_gnome
-    in [ gpg libgcrypt libtasn1 dbus-glib pango gdk_pixbuf atk ];
+  in [ gpg libgcrypt libtasn1 dbus-glib pango gdk_pixbuf atk ];
 
   propagatedBuildInputs = [ glib gtk3 p11-kit ];
 

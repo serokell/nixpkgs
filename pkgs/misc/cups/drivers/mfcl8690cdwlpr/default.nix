@@ -27,7 +27,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram $filter \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath [ coreutils file ghostscript gnugrep gnused which ]
+        stdenv.lib.makeBinPath [
+          coreutils
+          file
+          ghostscript
+          gnugrep
+          gnused
+          which
+        ]
       }
 
     # need to use i686 glibc here, these are 32bit proprietary binaries

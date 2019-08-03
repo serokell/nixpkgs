@@ -67,9 +67,9 @@ stdenv.mkDerivation rec {
       "--with-systemd=$out/lib/systemd/system"
 
       ${
-      optionalString stdenv.isDarwin ''
-        "--with-bundledir=$out"
-      ''
+        optionalString stdenv.isDarwin ''
+          "--with-bundledir=$out"
+        ''
       }
     )
   '';

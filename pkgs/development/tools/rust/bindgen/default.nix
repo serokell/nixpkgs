@@ -38,11 +38,11 @@ rustPlatform.buildRustPackage rec {
       shift
       exec "$@"
     '';
-    in [
-      rustfmt
-      fakeRustup # the test suite insists in calling `rustup run nightly rustfmt`
-      clang
-    ];
+  in [
+    rustfmt
+    fakeRustup # the test suite insists in calling `rustup run nightly rustfmt`
+    clang
+  ];
   preCheck = ''
     # for the ci folder, notably
     patchShebangs .

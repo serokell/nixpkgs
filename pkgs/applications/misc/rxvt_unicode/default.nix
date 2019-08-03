@@ -20,7 +20,7 @@ let
 in stdenv.mkDerivation (rec {
 
   name = "${pname}${if perlSupport then "-with-perl" else ""}${
-    if unicode3Support then "-with-unicode3" else ""
+      if unicode3Support then "-with-unicode3" else ""
     }-${version}";
 
   src = fetchurl {

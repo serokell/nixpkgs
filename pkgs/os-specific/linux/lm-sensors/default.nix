@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url = "https://github.com/lm-sensors/lm-sensors/archive/V${
-      stdenv.lib.replaceStrings [ "." ] [ "-" ] version
-    }.tar.gz";
+        stdenv.lib.replaceStrings [ "." ] [ "-" ] version
+      }.tar.gz";
     sha256 = "1mdrnb9r01z1xfdm6dpkywvf9yy9a4yzb59paih9sijwmigv19fj";
   };
 

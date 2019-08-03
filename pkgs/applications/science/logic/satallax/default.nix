@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     cp bin/satallax.opt "$out/bin/satallax"
     wrapProgram "$out/bin/satallax" \
       --suffix PATH : "${
-      stdenv.lib.makeBinPath [ coq eprover ]
+        stdenv.lib.makeBinPath [ coq eprover ]
       }:$out/libexec/satallax" \
       --add-flags "-M" --add-flags "$out/lib/satallax/modes"
 

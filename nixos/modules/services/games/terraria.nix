@@ -145,7 +145,7 @@ in {
         Type = "forking";
         GuessMainPID = true;
         ExecStart = "${
-          getBin pkgs.tmux
+            getBin pkgs.tmux
           }/bin/tmux -S /var/lib/terraria/terraria.sock new -d ${pkgs.terraria-server}/bin/TerrariaServer ${
             concatStringsSep " " flags
           }";

@@ -35,8 +35,8 @@ in stdenv.mkDerivation rec {
       --replace @nc@         ${netcat-gnu}/bin/nc \
       --replace @journal@    ${journal} \
       ${
-      lib.optionalString (journal == "y")
-      "--replace @systemdcat@ ${systemd}/bin/systemd-cat"
+        lib.optionalString (journal == "y")
+        "--replace @systemdcat@ ${systemd}/bin/systemd-cat"
       } \
       --replace @test@       ${tester}
 

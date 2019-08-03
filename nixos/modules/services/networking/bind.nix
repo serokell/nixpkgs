@@ -24,7 +24,7 @@ let
     options {
       listen-on { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOn} };
       listen-on-v6 { ${
-      concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6
+        concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6
       } };
       allow-query { cachenetworks; };
       blackhole { badnetworks; };
@@ -43,23 +43,23 @@ let
           type ${if master then "master" else "slave"};
           file "${file}";
           ${
-          if master then ''
-            allow-transfer {
-              ${
-              concatMapStrings (ip: ''
-                ${ip};
-              '') slaves
-              }
-            };
-          '' else ''
-            masters {
-              ${
-              concatMapStrings (ip: ''
-                ${ip};
-              '') masters
-              }
-            };
-          ''
+            if master then ''
+              allow-transfer {
+                ${
+                  concatMapStrings (ip: ''
+                    ${ip};
+                  '') slaves
+                }
+              };
+            '' else ''
+              masters {
+                ${
+                  concatMapStrings (ip: ''
+                    ${ip};
+                  '') masters
+                }
+              };
+            ''
           }
           allow-query { any; };
           ${extraConfig}
@@ -203,7 +203,7 @@ in {
 
       serviceConfig = {
         ExecStart = "${pkgs.bind.out}/sbin/named -u ${bindUser} ${
-          optionalString cfg.ipv4Only "-4"
+            optionalString cfg.ipv4Only "-4"
           } -c ${cfg.configFile} -f";
         ExecReload =
           "${pkgs.bind.out}/sbin/rndc -k '/etc/bind/rndc.key' reload";

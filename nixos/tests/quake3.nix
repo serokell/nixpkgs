@@ -29,27 +29,27 @@ import ./make-test.nix ({ pkgs, ... }:
 
     client = { pkgs, ... }:
 
-    {
-      imports = [ ./common/x11.nix ];
-      hardware.opengl.driSupport = true;
-      environment.systemPackages = [ pkgs.quake3demo ];
-      nixpkgs.config.packageOverrides = overrides;
-      nixpkgs.config.allowUnfreePredicate = unfreePredicate;
-    };
+      {
+        imports = [ ./common/x11.nix ];
+        hardware.opengl.driSupport = true;
+        environment.systemPackages = [ pkgs.quake3demo ];
+        nixpkgs.config.packageOverrides = overrides;
+        nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+      };
 
     nodes = {
       server = { pkgs, ... }:
 
-      {
-        systemd.services."quake3-server" = {
-          wantedBy = [ "multi-user.target" ];
-          script = "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
-            + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
+        {
+          systemd.services."quake3-server" = {
+            wantedBy = [ "multi-user.target" ];
+            script = "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
+              + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
+          };
+          nixpkgs.config.packageOverrides = overrides;
+          nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+          networking.firewall.allowedUDPPorts = [ 27960 ];
         };
-        nixpkgs.config.packageOverrides = overrides;
-        nixpkgs.config.allowUnfreePredicate = unfreePredicate;
-        networking.firewall.allowedUDPPorts = [ 27960 ];
-      };
 
       client1 = client;
       client2 = client;

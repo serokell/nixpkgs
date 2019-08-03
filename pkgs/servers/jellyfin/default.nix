@@ -47,7 +47,12 @@ in stdenv.mkDerivation rec {
 
     makeWrapper "${dotnet-sdk}/bin/dotnet" $out/bin/jellyfin \
       --prefix LD_LIBRARY_PATH : "${
-      stdenv.lib.makeLibraryPath [ sqlite fontconfig freetype stdenv.cc.cc.lib ]
+        stdenv.lib.makeLibraryPath [
+          sqlite
+          fontconfig
+          freetype
+          stdenv.cc.cc.lib
+        ]
       }:$out/opt/jellyfin/runtimes/${runtimeDir}/native/" \
       --add-flags "$out/opt/jellyfin/jellyfin.dll --ffmpeg ${ffmpeg}/bin/ffmpeg"
   '';

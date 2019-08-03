@@ -67,7 +67,7 @@ let
           chmod +w "$f"
           patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker)   "$f" || true
           patchelf --set-rpath ${
-          stdenv.lib.makeLibraryPath [ stdenv.cc.cc ]
+            stdenv.lib.makeLibraryPath [ stdenv.cc.cc ]
           }  "$f" || true
         done
       '';
@@ -102,21 +102,21 @@ let
     hxnodejs_6 = let
       libname = "hxnodejs";
       version = "6.9.0";
-      in stdenv.mkDerivation rec {
-        name = "${libname}-${version}";
-        src = fetchFromGitHub {
-          owner = "HaxeFoundation";
-          repo = "hxnodejs";
-          rev = "cf80c6a";
-          sha256 = "0mdiacr5b2m8jrlgyd2d3vp1fha69lcfb67x4ix7l7zfi8g460gs";
-        };
-        installPhase = installLibHaxe { inherit libname version; };
-        meta = {
-          homepage = "http://lib.haxe.org/p/${libname}";
-          license = stdenv.lib.licenses.bsd2;
-          platforms = stdenv.lib.platforms.all;
-          description = "Extern definitions for node.js 6.9";
-        };
+    in stdenv.mkDerivation rec {
+      name = "${libname}-${version}";
+      src = fetchFromGitHub {
+        owner = "HaxeFoundation";
+        repo = "hxnodejs";
+        rev = "cf80c6a";
+        sha256 = "0mdiacr5b2m8jrlgyd2d3vp1fha69lcfb67x4ix7l7zfi8g460gs";
       };
+      installPhase = installLibHaxe { inherit libname version; };
+      meta = {
+        homepage = "http://lib.haxe.org/p/${libname}";
+        license = stdenv.lib.licenses.bsd2;
+        platforms = stdenv.lib.platforms.all;
+        description = "Extern definitions for node.js 6.9";
+      };
+    };
   };
 in self

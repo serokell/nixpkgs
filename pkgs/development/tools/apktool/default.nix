@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     makeWrapper "${jre}/bin/java" "$out/bin/apktool" \
         --add-flags "-jar $out/libexec/apktool/apktool.jar" \
         --prefix PATH : "${
-      builtins.head build-tools
+          builtins.head build-tools
         }/libexec/android-sdk/build-tools/28.0.3"
   '';
 

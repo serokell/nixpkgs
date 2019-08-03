@@ -175,12 +175,12 @@ in stdenv.mkDerivation {
 
     ruby ${./patch_plist.rb} \
       ${
-      stdenv.lib.escapeShellArg (builtins.toXML {
-        XQUARTZ_DEFAULT_CLIENT = "${xterm}/bin/xterm";
-        XQUARTZ_DEFAULT_SHELL = "${shell}";
-        XQUARTZ_DEFAULT_STARTX = "@STARTX@";
-        FONTCONFIG_FILE = "@FONTCONFIG_FILE@";
-      })
+        stdenv.lib.escapeShellArg (builtins.toXML {
+          XQUARTZ_DEFAULT_CLIENT = "${xterm}/bin/xterm";
+          XQUARTZ_DEFAULT_SHELL = "${shell}";
+          XQUARTZ_DEFAULT_STARTX = "@STARTX@";
+          FONTCONFIG_FILE = "@FONTCONFIG_FILE@";
+        })
       } \
       $out/Applications/XQuartz.app/Contents/Info.plist
     substituteInPlace $out/Applications/XQuartz.app/Contents/Info.plist \

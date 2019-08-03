@@ -48,15 +48,15 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-      stdenv.lib.makeBinPath [
-        unzip
-        unar
-        poppler_utils
-        html2text
-        coreutils
-        curl
-        gnugrep
-      ]
+        stdenv.lib.makeBinPath [
+          unzip
+          unar
+          poppler_utils
+          html2text
+          coreutils
+          curl
+          gnugrep
+        ]
       }"
       --prefix PATH : $out/bin
     )

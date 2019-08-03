@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/gjs/${
-      stdenv.lib.versions.majorMinor version
-    }/${name}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${name}.tar.xz";
     sha256 = "1b5321krn89p3f7s2ik6gpfnc61apzljhlnbqky8c88f7n6832ac";
   };
 
@@ -43,12 +43,12 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$installedTests/libexec/gjs/installed-tests/minijasmine" \
       --prefix GI_TYPELIB_PATH : "${
-      stdenv.lib.makeSearchPath "lib/girepository-1.0" [
-        gtk3
-        atk
-        pango.out
-        gdk_pixbuf
-      ]
+        stdenv.lib.makeSearchPath "lib/girepository-1.0" [
+          gtk3
+          atk
+          pango.out
+          gdk_pixbuf
+        ]
       }:$installedTests/libexec/gjs/installed-tests"
   '';
 

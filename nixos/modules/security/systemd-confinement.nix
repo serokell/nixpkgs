@@ -107,48 +107,48 @@ in {
         rootName = "${mkPathSafeName name}-chroot";
         inherit (config.confinement) binSh fullUnit;
         wantsAPIVFS = lib.mkDefault (config.confinement.mode == "full-apivfs");
-        in lib.mkIf config.confinement.enable {
-          serviceConfig = {
-            RootDirectory = pkgs.runCommand rootName { } ''mkdir "$out"'';
-            TemporaryFileSystem = "/";
-            PrivateMounts = lib.mkDefault true;
+      in lib.mkIf config.confinement.enable {
+        serviceConfig = {
+          RootDirectory = pkgs.runCommand rootName { } ''mkdir "$out"'';
+          TemporaryFileSystem = "/";
+          PrivateMounts = lib.mkDefault true;
 
-            # https://github.com/NixOS/nixpkgs/issues/14645 is a future attempt
-            # to change some of these to default to true.
-            #
-            # If we run in chroot-only mode, having something like PrivateDevices
-            # set to true by default will mount /dev within the chroot, whereas
-            # with "chroot-only" it's expected that there are no /dev, /proc and
-            # /sys file systems available.
-            #
-            # However, if this suddenly becomes true, the attack surface will
-            # increase, so let's explicitly set these options to true/false
-            # depending on the mode.
-            MountAPIVFS = wantsAPIVFS;
-            PrivateDevices = wantsAPIVFS;
-            PrivateTmp = wantsAPIVFS;
-            PrivateUsers = wantsAPIVFS;
-            ProtectControlGroups = wantsAPIVFS;
-            ProtectKernelModules = wantsAPIVFS;
-            ProtectKernelTunables = wantsAPIVFS;
-          };
-          confinement.packages = let
-            execOpts = [
-              "ExecReload"
-              "ExecStart"
-              "ExecStartPost"
-              "ExecStartPre"
-              "ExecStop"
-              "ExecStopPost"
-            ];
-            execPkgs = lib.concatMap (opt:
-              let isSet = config.serviceConfig ? ${opt};
-              in lib.optional isSet config.serviceConfig.${opt}) execOpts;
-            unitAttrs = toplevelConfig.systemd.units."${name}.service";
-            allPkgs = lib.singleton (builtins.toJSON unitAttrs);
-            unitPkgs = if fullUnit then allPkgs else execPkgs;
-            in unitPkgs ++ lib.optional (binSh != null) binSh;
+          # https://github.com/NixOS/nixpkgs/issues/14645 is a future attempt
+          # to change some of these to default to true.
+          #
+          # If we run in chroot-only mode, having something like PrivateDevices
+          # set to true by default will mount /dev within the chroot, whereas
+          # with "chroot-only" it's expected that there are no /dev, /proc and
+          # /sys file systems available.
+          #
+          # However, if this suddenly becomes true, the attack surface will
+          # increase, so let's explicitly set these options to true/false
+          # depending on the mode.
+          MountAPIVFS = wantsAPIVFS;
+          PrivateDevices = wantsAPIVFS;
+          PrivateTmp = wantsAPIVFS;
+          PrivateUsers = wantsAPIVFS;
+          ProtectControlGroups = wantsAPIVFS;
+          ProtectKernelModules = wantsAPIVFS;
+          ProtectKernelTunables = wantsAPIVFS;
         };
+        confinement.packages = let
+          execOpts = [
+            "ExecReload"
+            "ExecStart"
+            "ExecStartPost"
+            "ExecStartPre"
+            "ExecStop"
+            "ExecStopPost"
+          ];
+          execPkgs = lib.concatMap (opt:
+            let isSet = config.serviceConfig ? ${opt};
+            in lib.optional isSet config.serviceConfig.${opt}) execOpts;
+          unitAttrs = toplevelConfig.systemd.units."${name}.service";
+          allPkgs = lib.singleton (builtins.toJSON unitAttrs);
+          unitPkgs = if fullUnit then allPkgs else execPkgs;
+        in unitPkgs ++ lib.optional (binSh != null) binSh;
+      };
     }));
   };
 

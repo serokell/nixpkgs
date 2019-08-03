@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     sed <"frontends/snipe" >"$out/bin/snipe" \
       -e "2i export PATH=\"$out/bin:${
-      stdenv.lib.makeBinPath [ coreutils gawk bash which ]
+        stdenv.lib.makeBinPath [ coreutils gawk bash which ]
       }:\$PATH\""
     chmod 555 "$out/bin/snipe"
   '';

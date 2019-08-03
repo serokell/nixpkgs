@@ -140,7 +140,7 @@ in {
           Group = "xrdp";
           PermissionsStartOnly = true;
           ExecStart = "${cfg.package}/bin/xrdp --nodaemon --port ${
-            toString cfg.port
+              toString cfg.port
             } --config ${confDir}/xrdp.ini";
         };
       };

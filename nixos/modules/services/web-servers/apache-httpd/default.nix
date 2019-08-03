@@ -45,10 +45,10 @@ let
   makeServerInfo = cfg: {
     # Canonical name must not include a trailing slash.
     canonicalNames = let defaultPort = (head (defaultListen cfg)).port;
-      in map (port:
-        (if cfg.enableSSL then "https" else "http") + "://" + cfg.hostName
-        + (if port != defaultPort then ":${toString port}" else ""))
-      (map (x: x.port) (getListen cfg));
+    in map (port:
+      (if cfg.enableSSL then "https" else "http") + "://" + cfg.hostName
+      + (if port != defaultPort then ":${toString port}" else ""))
+    (map (x: x.port) (getListen cfg));
 
     # Admin address: inherit from the main server if not specified for
     # a virtual host.
@@ -73,7 +73,7 @@ let
             import (toString svc.serviceExpression)
           else
             import (toString "${toString ./.}/${
-              if svc ? serviceType then svc.serviceType else svc.serviceName
+                if svc ? serviceType then svc.serviceType else svc.serviceName
               }.nix");
           config = (evalModules {
             modules = [{
@@ -257,14 +257,14 @@ let
       '';
 
       robotsTxt = concatStringsSep "\n" (filter (x: x != "") (
-        # If this is a vhost, the include the entries for the main server as well.
-          (if isMainServer then
-            [ ]
-          else
-            [ mainCfg.robotsEntries ]
-            ++ map (svc: svc.robotsEntries) mainSubservices)
-          ++ [ cfg.robotsEntries ]
-          ++ (map (svc: svc.robotsEntries) subservices)));
+      # If this is a vhost, the include the entries for the main server as well.
+        (if isMainServer then
+          [ ]
+        else
+          [ mainCfg.robotsEntries ]
+          ++ map (svc: svc.robotsEntries) mainSubservices)
+        ++ [ cfg.robotsEntries ]
+        ++ (map (svc: svc.robotsEntries) subservices)));
 
     in ''
       ${concatStringsSep "\n"

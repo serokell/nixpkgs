@@ -75,24 +75,24 @@ let
     };
 
   commonTunOpts = name:
-  {
-    outbound = i2cpOpts name;
-    inbound = i2cpOpts name;
-    crypto.tagsToSend = mkOption {
-      type = types.int;
-      description = "Number of ElGamal/AES tags to send.";
-      default = 40;
-    };
-    destination = mkOption {
-      type = types.str;
-      description = "Remote endpoint, I2P hostname or b32.i2p address.";
-    };
-    keys = mkOption {
-      type = types.str;
-      default = name + "-keys.dat";
-      description = "Keyset used for tunnel identity.";
-    };
-  } // mkEndpointOpt name "127.0.0.1" 0;
+    {
+      outbound = i2cpOpts name;
+      inbound = i2cpOpts name;
+      crypto.tagsToSend = mkOption {
+        type = types.int;
+        description = "Number of ElGamal/AES tags to send.";
+        default = 40;
+      };
+      destination = mkOption {
+        type = types.str;
+        description = "Remote endpoint, I2P hostname or b32.i2p address.";
+      };
+      keys = mkOption {
+        type = types.str;
+        default = name + "-keys.dat";
+        description = "Keyset used for tunnel identity.";
+      };
+    } // mkEndpointOpt name "127.0.0.1" 0;
 
   sec = name:
     ''
@@ -197,7 +197,7 @@ let
                               else
                                 [ ]);
             in (concatStringsSep "\n" protoOpts)));
-    in pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts);
+  in pkgs.writeText "i2pd.conf" (concatStringsSep "\n" opts);
 
   tunnelConf = let
     opts = [
@@ -259,7 +259,7 @@ let
                 [ ]);
         in concatStringsSep "\n" inTunOpts))
     ];
-    in pkgs.writeText "i2pd-tunnels.conf" opts;
+  in pkgs.writeText "i2pd-tunnels.conf" opts;
 
   i2pdSh = pkgs.writeScriptBin "i2pd" ''
     #!/bin/sh

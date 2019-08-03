@@ -120,15 +120,15 @@ stdenv.mkDerivation rec {
       # warning-to-error test policy
       "test___all__"
     ];
-    in ''
-      export TERMINFO="${ncurses.out}/share/terminfo/";
-      export TERM="xterm";
-      export HOME="$TMPDIR";
+  in ''
+    export TERMINFO="${ncurses.out}/share/terminfo/";
+    export TERM="xterm";
+    export HOME="$TMPDIR";
 
-      ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${
-        concatStringsSep " or " disabledTests
-      })' lib-python
-    '';
+    ${pythonForPypy.interpreter} ./pypy/test_all.py --pypy=./${executable}-c -k 'not (${
+      concatStringsSep " or " disabledTests
+    })' lib-python
+  '';
 
   installPhase = ''
     mkdir -p $out/{bin,include,lib,${executable}-c}

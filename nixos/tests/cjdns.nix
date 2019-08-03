@@ -33,24 +33,24 @@ in import ./make-test.nix ({ pkgs, ... }: {
     # Bob explicitly connects to Carol over UDPInterface.
     bob = { ... }:
 
-    {
-      imports = [ basicConfig ];
+      {
+        imports = [ basicConfig ];
 
-      networking.interfaces.eth1.ipv4.addresses = [{
-        address = "192.168.0.2";
-        prefixLength = 24;
-      }];
+        networking.interfaces.eth1.ipv4.addresses = [{
+          address = "192.168.0.2";
+          prefixLength = 24;
+        }];
 
-      services.cjdns = {
-        UDPInterface = {
-          bind = "0.0.0.0:1024";
-          connectTo."192.168.0.1:1024" = {
-            password = carolPassword;
-            publicKey = carolPubKey;
+        services.cjdns = {
+          UDPInterface = {
+            bind = "0.0.0.0:1024";
+            connectTo."192.168.0.1:1024" = {
+              password = carolPassword;
+              publicKey = carolPubKey;
+            };
           };
         };
       };
-    };
 
     # Carol listens on ETHInterface and UDPInterface,
     # but knows neither Alice or Bob.

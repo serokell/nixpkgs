@@ -66,22 +66,22 @@ let
   drvAttrs = config_: platform: kernelPatches: configfile:
     let
       config = let attrName = attr: "CONFIG_" + attr;
-        in {
-          isSet = attr: hasAttr (attrName attr) config;
+      in {
+        isSet = attr: hasAttr (attrName attr) config;
 
-          getValue = attr:
-            if config.isSet attr then getAttr (attrName attr) config else null;
+        getValue = attr:
+          if config.isSet attr then getAttr (attrName attr) config else null;
 
-          isYes = attr: (config.getValue attr) == "y";
+        isYes = attr: (config.getValue attr) == "y";
 
-          isNo = attr: (config.getValue attr) == "n";
+        isNo = attr: (config.getValue attr) == "n";
 
-          isModule = attr: (config.getValue attr) == "m";
+        isModule = attr: (config.getValue attr) == "m";
 
-          isEnabled = attr: (config.isModule attr) || (config.isYes attr);
+        isEnabled = attr: (config.isModule attr) || (config.isYes attr);
 
-          isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
-        } // config_;
+        isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
+      } // config_;
 
       isModular = config.isYes "MODULES";
 

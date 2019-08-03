@@ -144,10 +144,10 @@ in stdenv.mkDerivation rec {
     tools/dev/v8gen.py -vv ${arch}.release -- \
         is_component_build=true               \
         ${
-      if snapshot then
-        "v8_use_external_startup_data=false"
-      else
-        "v8_use_snapshot=false"
+          if snapshot then
+            "v8_use_external_startup_data=false"
+          else
+            "v8_use_snapshot=false"
         } \
         is_clang=false                        \
         linux_use_bundled_binutils=false      \

@@ -82,7 +82,7 @@ else
 
       for i in $out/bin/*; do
         wrapProgram $i --run 'cp ${
-        dotInstall4j "${jre.home}/jre"
+          dotInstall4j "${jre.home}/jre"
         } ~/.install4j' \
                        --run 'chmod u+w ~/.install4j'
       done

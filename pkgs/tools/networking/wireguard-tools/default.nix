@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   '' + optionalString stdenv.isLinux ''
     for f in $out/bin/*; do
       wrapProgram $f --prefix PATH : ${
-      makeBinPath [ procps iproute openresolv ]
+        makeBinPath [ procps iproute openresolv ]
       }
     done
   '' + optionalString stdenv.isDarwin ''

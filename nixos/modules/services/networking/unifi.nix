@@ -6,12 +6,12 @@ let
   cmd = ''
     @${cfg.jrePackage}/bin/java java \
         ${
-      optionalString (cfg.initialJavaHeapSize != null)
-      "-Xms${(toString cfg.initialJavaHeapSize)}m"
+          optionalString (cfg.initialJavaHeapSize != null)
+          "-Xms${(toString cfg.initialJavaHeapSize)}m"
         } \
         ${
-      optionalString (cfg.maximumJavaHeapSize != null)
-      "-Xmx${(toString cfg.maximumJavaHeapSize)}m"
+          optionalString (cfg.maximumJavaHeapSize != null)
+          "-Xmx${(toString cfg.maximumJavaHeapSize)}m"
         } \
         -jar ${stateDir}/lib/ace.jar
   '';

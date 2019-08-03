@@ -10,11 +10,11 @@ in nodePackages // {
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postInstall = let
       pnpmLibPath = stdenv.lib.makeBinPath [ nodejs.passthru.python nodejs ];
-      in ''
-        for prog in $out/bin/*; do
-          wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
-        done
-      '';
+    in ''
+      for prog in $out/bin/*; do
+        wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
+      done
+    '';
   };
 
   stf = nodePackages.stf.override {

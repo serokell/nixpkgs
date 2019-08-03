@@ -104,7 +104,7 @@ in stdenv.mkDerivation rec {
     stdenv.lib.optionalString stdenv.isLinux ''
       find . -type f -perm -0100 -exec patchelf \
           --replace-needed libncurses${
-        stdenv.lib.optionalString stdenv.is64bit "w"
+            stdenv.lib.optionalString stdenv.is64bit "w"
           }.so.5 libncurses.so \
           --replace-needed libtinfo.so libtinfo.so.5 \
           --interpreter ${glibcDynLinker} {} \;
@@ -129,11 +129,11 @@ in stdenv.mkDerivation rec {
       isExecutable = true;
       src = ./gcc-clang-wrapper.sh;
     };
-    in [
-      "--with-gmp-libraries=${stdenv.lib.getLib gmp}/lib"
-      "--with-gmp-includes=${stdenv.lib.getDev gmp}/include"
-    ] ++ stdenv.lib.optional stdenv.isDarwin "--with-gcc=${gcc-clang-wrapper}"
-    ++ stdenv.lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
+  in [
+    "--with-gmp-libraries=${stdenv.lib.getLib gmp}/lib"
+    "--with-gmp-includes=${stdenv.lib.getDev gmp}/include"
+  ] ++ stdenv.lib.optional stdenv.isDarwin "--with-gcc=${gcc-clang-wrapper}"
+  ++ stdenv.lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
   # Stripping combined with patchelf breaks the executables (they die
   # with a segfault or the kernel even refuses the execve). (NIXPKGS-85)

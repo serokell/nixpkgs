@@ -49,15 +49,15 @@ let
       <?php
         define('DB_NAME', '${cfg.database.name}');
         define('DB_HOST', '${cfg.database.host}:${
-        if cfg.database.socket != null then
-          cfg.database.socket
-        else
-          toString cfg.database.port
+          if cfg.database.socket != null then
+            cfg.database.socket
+          else
+            toString cfg.database.port
         }');
         define('DB_USER', '${cfg.database.user}');
         ${
-        optionalString (cfg.database.passwordFile != null)
-        "define('DB_PASSWORD', file_get_contents('${cfg.database.passwordFile}'));"
+          optionalString (cfg.database.passwordFile != null)
+          "define('DB_PASSWORD', file_get_contents('${cfg.database.passwordFile}'));"
         }
         define('DB_CHARSET', 'utf8');
         $table_prefix  = '${cfg.database.tablePrefix}';
@@ -364,7 +364,7 @@ in {
             if ! test -e "${stateDir hostName}/secret-keys.php"; then
               echo "<?php" >> "${stateDir hostName}/secret-keys.php"
               ${pkgs.curl}/bin/curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> "${
-              stateDir hostName
+                stateDir hostName
               }/secret-keys.php"
               echo "?>" >> "${stateDir hostName}/secret-keys.php"
               chmod 440 "${stateDir hostName}/secret-keys.php"

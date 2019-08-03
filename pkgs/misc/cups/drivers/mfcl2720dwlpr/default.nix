@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/lpd/filter_MFCL2720DW \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath [ coreutils ghostscript gnugrep gnused which ]
+        stdenv.lib.makeBinPath [ coreutils ghostscript gnugrep gnused which ]
       }
 
     # need to use i686 glibc here, these are 32bit proprietary binaries

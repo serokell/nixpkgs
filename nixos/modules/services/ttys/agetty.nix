@@ -78,13 +78,13 @@ in {
     systemd.services."serial-getty@" = let
       speeds = concatStringsSep ","
         (map toString config.services.mingetty.serialSpeed);
-      in {
-        serviceConfig.ExecStart = [
-          "" # override upstream default with an empty ExecStart
-          (gettyCmd "%I ${speeds} $TERM")
-        ];
-        restartIfChanged = false;
-      };
+    in {
+      serviceConfig.ExecStart = [
+        "" # override upstream default with an empty ExecStart
+        (gettyCmd "%I ${speeds} $TERM")
+      ];
+      restartIfChanged = false;
+    };
 
     systemd.services."container-getty@" = {
       serviceConfig.ExecStart = [

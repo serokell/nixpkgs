@@ -2687,7 +2687,7 @@ in rec {
         else
           [ ]) ++ (if !(kernel == "windows" || kernel == "darwin" || kernel
             == "ios") then
-              mapFeatures features ([ openssl_0_9_24 ])
+            mapFeatures features ([ openssl_0_9_24 ])
           else
             [ ]) ++ (if kernel == "windows" then
               mapFeatures features ([ schannel_0_1_13 ])

@@ -164,8 +164,9 @@ let
         then
             cd node_modules
             ${
-          stdenv.lib.concatMapStrings
-          (dependency: pinpointDependenciesOfPackage dependency) dependencies
+              stdenv.lib.concatMapStrings
+              (dependency: pinpointDependenciesOfPackage dependency)
+              dependencies
             }
             cd ..
         fi
@@ -184,8 +185,8 @@ let
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
           ${
-        stdenv.lib.optionalString (builtins.substring 0 1 packageName == "@")
-        "cd .."
+            stdenv.lib.optionalString
+            (builtins.substring 0 1 packageName == "@") "cd .."
           }
       fi
     '';
@@ -377,7 +378,7 @@ let
           rm -f npm-shrinkwrap.json
 
           npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${
-        stdenv.lib.optionalString production "--production"
+            stdenv.lib.optionalString production "--production"
           } install
       fi
     '';

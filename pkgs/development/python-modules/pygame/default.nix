@@ -28,7 +28,7 @@ buildPythonPackage rec {
     ${lib.concatMapStrings (dep: ''
       sed \
         -e "/origincdirs =/a\        origincdirs += ['${
-        lib.getDev dep
+          lib.getDev dep
         }/include']" \
         -e "/origlibdirs =/a\        origlibdirs += ['${lib.getLib dep}/lib']" \
         -i buildconfig/config_unix.py

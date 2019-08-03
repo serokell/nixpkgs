@@ -256,7 +256,7 @@ in {
       soPath="$out/${ruby.gemPath}/gems/mathematical-${attrs.version}/lib/mathematical/mathematical.so"
       ${patchelf}/bin/patchelf \
         --set-rpath "${
-        lib.makeLibraryPath [ glib cairo ]
+          lib.makeLibraryPath [ glib cairo ]
         }:$(${patchelf}/bin/patchelf --print-rpath "$soPath")" \
         "$soPath"
     '';
@@ -481,10 +481,10 @@ in {
           "lib/tzinfo/data_sources/zoneinfo_data_source.rb"
         else
           "lib/tzinfo/zoneinfo_data_source.rb";
-        in ''
-          substituteInPlace ${path} \
-            --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
-        '';
+      in ''
+        substituteInPlace ${path} \
+          --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
+      '';
     };
 
   uuid4r = attrs: { buildInputs = [ which libossp_uuid ]; };

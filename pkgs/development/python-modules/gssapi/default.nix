@@ -14,7 +14,7 @@ buildPythonPackage rec {
   postPatch = ''
     substituteInPlace setup.py \
       --replace "get_output('krb5-config gssapi --prefix')" "'${
-      lib.getDev krb5Full
+        lib.getDev krb5Full
       }'"
   '';
 

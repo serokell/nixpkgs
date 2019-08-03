@@ -33,10 +33,10 @@ in pythonPackages.buildPythonApplication {
   '';
 
   postInstall = let sitePackages = "$out/lib/${python.libPrefix}/site-packages";
-    in ''
-      # see https://github.com/NixOS/nixpkgs/issues/4968
-      rm -rf ${sitePackages}/etc ${sitePackages}/usr ${sitePackages}/var;
-    '';
+  in ''
+    # see https://github.com/NixOS/nixpkgs/issues/4968
+    rm -rf ${sitePackages}/etc ${sitePackages}/usr ${sitePackages}/var;
+  '';
 
   meta = with stdenv.lib; {
     homepage = "http://www.fail2ban.org/";

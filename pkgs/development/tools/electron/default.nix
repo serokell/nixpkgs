@@ -62,13 +62,13 @@ let
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${atomEnv.libPath}:${
-        stdenv.lib.makeLibraryPath [ libuuid at-spi2-atk ]
+          stdenv.lib.makeLibraryPath [ libuuid at-spi2-atk ]
         }:$out/lib/electron" \
         $out/lib/electron/electron
 
       wrapProgram $out/lib/electron/electron \
         --prefix LD_PRELOAD : ${
-        stdenv.lib.makeLibraryPath [ libXScrnSaver ]
+          stdenv.lib.makeLibraryPath [ libXScrnSaver ]
         }/libXss.so.1 \
         "''${gappsWrapperArgs[@]}"
     '';

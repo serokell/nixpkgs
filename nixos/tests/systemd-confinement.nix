@@ -94,15 +94,15 @@ import ./make-test.nix {
               got me
             '';
           } ''ln -s "$target" "$out"'';
-          in {
-            description = "check if symlinks are properly bind-mounted";
-            config.confinement.packages = lib.singleton symlink;
-            testScript = ''
-              $machine->fail('chroot-exec test -e /etc');
-              $machine->succeed('chroot-exec cat ${symlink} >&2');
-              $machine->succeed('test "$(chroot-exec cat ${symlink})" = "got me"');
-            '';
-          })
+        in {
+          description = "check if symlinks are properly bind-mounted";
+          config.confinement.packages = lib.singleton symlink;
+          testScript = ''
+            $machine->fail('chroot-exec test -e /etc');
+            $machine->succeed('chroot-exec cat ${symlink} >&2');
+            $machine->succeed('test "$(chroot-exec cat ${symlink})" = "got me"');
+          '';
+        })
         {
           description = "check if StateDirectory works";
           config.serviceConfig.User = "chroot-testuser";

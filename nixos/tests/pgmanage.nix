@@ -19,8 +19,8 @@ import ./make-test.nix ({ pkgs, ... }:
             enable = true;
             connections = {
               "${conn}" = "hostaddr=127.0.0.1 port=${
-                toString config.services.postgresql.port
-              } dbname=postgres";
+                  toString config.services.postgresql.port
+                } dbname=postgres";
             };
           };
         };

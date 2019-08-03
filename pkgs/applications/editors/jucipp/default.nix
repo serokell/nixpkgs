@@ -52,30 +52,30 @@ stdenv.mkDerivation rec {
     p = ''arguments.emplace_back("-I'';
     e = ''");'';
     v = stdenv.lib.getVersion llvmPackages.clang;
-    in p + llvmPackages.libcxx + "/include/c++/v1" + e + p
-    + llvmPackages.clang-unwrapped + "/lib/clang/" + v + "/include/" + e + p
-    + glibc.dev + "/include" + e;
+  in p + llvmPackages.libcxx + "/include/c++/v1" + e + p
+  + llvmPackages.clang-unwrapped + "/lib/clang/" + v + "/include/" + e + p
+  + glibc.dev + "/include" + e;
 
   preConfigure = ''
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt
     sed -i 's|> arguments;|> arguments; ${lintIncludes}|g' src/source_clang.cc
   '';
   cmakeFlags = "-DLIBLLDB_LIBRARIES=${
-    stdenv.lib.makeLibraryPath [ llvmPackages.lldb ]
-  }/liblldb.so";
+      stdenv.lib.makeLibraryPath [ llvmPackages.lldb ]
+    }/liblldb.so";
   postInstall = ''
     mv $out/bin/juci $out/bin/.juci
     makeWrapper "$out/bin/.juci" "$out/bin/juci" \
       --set PATH "${
-      stdenv.lib.makeBinPath [
-        ctags
-        coreutils
-        llvmPackages.clang.cc
-        cmake
-        gnumake
-        llvmPackages.clang.bintools
-        llvmPackages.clang
-      ]
+        stdenv.lib.makeBinPath [
+          ctags
+          coreutils
+          llvmPackages.clang.cc
+          cmake
+          gnumake
+          llvmPackages.clang.bintools
+          llvmPackages.clang
+        ]
       }" \
       --set NO_AT_BRIDGE 1 \
       --set ASPELL_CONF "dict-dir ${aspellDicts.en}/lib/aspell"

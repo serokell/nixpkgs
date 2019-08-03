@@ -47,23 +47,23 @@ let
 
             journalbeat = let
               lt6 = builtins.compareVersions elk.journalbeat.version "6" < 0;
-              in {
-                enable = true;
-                package = elk.journalbeat;
-                extraConfig = mkOptionDefault (''
-                  logging:
-                    to_syslog: true
-                    level: warning
-                    metrics.enabled: false
-                  output.elasticsearch:
-                    hosts: [ "127.0.0.1:9200" ]
-                    ${optionalString lt6 "template.enabled: false"}
-                '' + optionalString (!lt6) ''
-                  journalbeat.inputs:
-                  - paths: []
-                    seek: cursor
-                '');
-              };
+            in {
+              enable = true;
+              package = elk.journalbeat;
+              extraConfig = mkOptionDefault (''
+                logging:
+                  to_syslog: true
+                  level: warning
+                  metrics.enabled: false
+                output.elasticsearch:
+                  hosts: [ "127.0.0.1:9200" ]
+                  ${optionalString lt6 "template.enabled: false"}
+              '' + optionalString (!lt6) ''
+                journalbeat.inputs:
+                - paths: []
+                  seek: cursor
+              '');
+            };
 
             logstash = {
               enable = true;

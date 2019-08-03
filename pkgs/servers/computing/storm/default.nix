@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     zip -d $out/lib/storm-core-${version}.jar defaults.yaml;
     sed -i \
        -e 's|java.library.path: .*|java.library.path: "${jzmq}/lib:${
-      lib.concatStringsSep ":" extraLibraryPaths
+         lib.concatStringsSep ":" extraLibraryPaths
        }"|' \
        -e 's|storm.log4j2.conf.dir: .*|storm.log4j2.conf.dir: "conf/log4j2"|' \
       defaults.yaml

@@ -276,17 +276,17 @@ in {
 
                 if [ -e /tmp/lastExitCode ] && [ "$(cat /tmp/lastExitCode)" = "0" ]; then
                   ${
-                  if data.activationDelay != null then ''
+                    if data.activationDelay != null then ''
 
-                    ${data.preDelay}
+                      ${data.preDelay}
 
-                    if [ -d '${lpath}' ]; then
-                      systemd-run --no-block --on-active='${data.activationDelay}' --unit acme-setlive-${cert}.service
-                    else
-                      systemctl --wait start acme-setlive-${cert}.service
-                    fi
-                  '' else
-                    data.postRun
+                      if [ -d '${lpath}' ]; then
+                        systemd-run --no-block --on-active='${data.activationDelay}' --unit acme-setlive-${cert}.service
+                      else
+                        systemctl --wait start acme-setlive-${cert}.service
+                      fi
+                    '' else
+                      data.postRun
                   }
 
                   # noop ensuring that the "if" block is non-empty even if
@@ -383,13 +383,13 @@ in {
             "acme-certificates.target"
           ];
         };
-        in servicesAttr // (if config.services.nginx.enable then {
-          nginx = injectServiceDep;
+      in servicesAttr // (if config.services.nginx.enable then {
+        nginx = injectServiceDep;
+      } else
+        { }) // (if config.services.lighttpd.enable then {
+          lighttpd = injectServiceDep;
         } else
-          { }) // (if config.services.lighttpd.enable then {
-            lighttpd = injectServiceDep;
-          } else
-            { });
+          { });
 
       systemd.timers = flip mapAttrs' cfg.certs (cert: data:
         nameValuePair ("acme-${cert}") ({

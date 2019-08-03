@@ -14,10 +14,10 @@ let
   last = l: elemAt l ((length l) - 1);
 
   throwIfOldNix = let required = "2.0";
-    in if compareVersions nixVersion required == -1 then
-      throw "nix (v${nixVersion} =< v${required}) is too old for nix-gitignore"
-    else
-      true;
+  in if compareVersions nixVersion required == -1 then
+    throw "nix (v${nixVersion} =< v${required}) is too old for nix-gitignore"
+  else
+    true;
 in rec {
   # [["good/relative/source/file" true] ["bad.tmpfile" false]] -> root -> path
   filterPattern = patterns: root:
@@ -50,12 +50,12 @@ in rec {
               [ ]
             else
               (recurse (substring 1 (stringLength (str)) str)));
-          in str: recurse str;
+        in str: recurse str;
         chars = s: filter (c: c != "" && !isList c) (splitString s);
         escape = s: map (c: "\\" + c) (chars s);
-        in replaceStrings
-        ((chars special) ++ (escape escs) ++ [ "**/" "**" "*" "?" ])
-        ((escape special) ++ (escape escs) ++ [ "(.*/)?" ".*" "[^/]*" "[^/]" ]);
+      in replaceStrings
+      ((chars special) ++ (escape escs) ++ [ "**/" "**" "*" "?" ])
+      ((escape special) ++ (escape escs) ++ [ "(.*/)?" ".*" "[^/]*" "[^/]" ]);
 
       # (regex -> regex) -> regex -> regex
       mapAroundCharclass = f: r: # rl = regex or list

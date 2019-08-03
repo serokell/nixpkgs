@@ -55,20 +55,20 @@ in buildRubyGem rec {
   postInstall = let
     pathAdditions = lib.makeSearchPath "bin" (map (x: "${lib.getBin x}")
       ([ libarchive ] ++ lib.optionals withLibvirt [ libguestfs qemu ]));
-    in ''
-      wrapProgram "$out/bin/vagrant" \
-        --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \
-        --prefix PATH ':' ${pathAdditions}
+  in ''
+    wrapProgram "$out/bin/vagrant" \
+      --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \
+      --prefix PATH ':' ${pathAdditions}
 
-      mkdir -p "$out/vagrant-plugins/plugins.d"
-      echo '{}' > "$out/vagrant-plugins/plugins.json"
-    '' + lib.optionalString withLibvirt ''
-      substitute ${
-        ./vagrant-libvirt.json.in
-      } $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
-        --subst-var-by ruby_version ${ruby.version} \
-        --subst-var-by vagrant_version ${version}
-    '';
+    mkdir -p "$out/vagrant-plugins/plugins.d"
+    echo '{}' > "$out/vagrant-plugins/plugins.json"
+  '' + lib.optionalString withLibvirt ''
+    substitute ${
+      ./vagrant-libvirt.json.in
+    } $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
+      --subst-var-by ruby_version ${ruby.version} \
+      --subst-var-by vagrant_version ${version}
+  '';
 
   installCheckPhase = ''
     if [[ "$("$out/bin/vagrant" --version)" == "Vagrant ${version}" ]]; then

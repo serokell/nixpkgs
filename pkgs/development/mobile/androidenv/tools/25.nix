@@ -63,7 +63,7 @@ deployAndroidPackage {
         wrapProgram $PWD/$i \
           --prefix PATH : ${pkgs.jdk8}/bin \
           --prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ pkgs.xlibs.libX11 pkgs.xlibs.libXtst ]
+            lib.makeLibraryPath [ pkgs.xlibs.libX11 pkgs.xlibs.libXtst ]
           }
     done
 

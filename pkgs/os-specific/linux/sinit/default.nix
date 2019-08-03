@@ -1,14 +1,14 @@
 { stdenv, fetchgit, rcinit ? null, rcshutdown ? null, rcreboot ? null }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "sinit";
-    version = "1.0";
-    name = "${baseName}-${version}";
-    url = "https://git.suckless.org/sinit/";
-    sha256 = "0cf8yylgrrj1wxm5v6jdlbnxpx97m38yxrc9nmv1l8hldjqsj9pc";
-    rev = "refs/tags/v${version}";
-  };
+    rec {
+      baseName = "sinit";
+      version = "1.0";
+      name = "${baseName}-${version}";
+      url = "https://git.suckless.org/sinit/";
+      sha256 = "0cf8yylgrrj1wxm5v6jdlbnxpx97m38yxrc9nmv1l8hldjqsj9pc";
+      rev = "refs/tags/v${version}";
+    };
   buildInputs = [ (stdenv.lib.getOutput "static" stdenv.cc.libc) ];
 in stdenv.mkDerivation {
   inherit (s) name version;

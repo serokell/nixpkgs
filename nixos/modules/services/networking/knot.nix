@@ -75,7 +75,7 @@ in {
       serviceConfig = {
         Type = "notify";
         ExecStart = "${cfg.package}/bin/knotd --config=${
-          knotConfCheck configFile
+            knotConfCheck configFile
           } --socket=${socketFile} ${concatStringsSep " " cfg.extraArgs}";
         ExecReload = "${knot-cli-wrappers}/bin/knotc reload";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE CAP_SETPCAP";

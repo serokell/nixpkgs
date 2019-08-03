@@ -54,7 +54,7 @@ in {
         WorkingDirectory = stateDir;
         PrivateTmp = true;
         ExecStart = "${pkgs.leaps.bin}/bin/leaps -path ${
-          toString cfg.path
+            toString cfg.path
           } -address ${cfg.address}:${toString cfg.port}";
       };
     };

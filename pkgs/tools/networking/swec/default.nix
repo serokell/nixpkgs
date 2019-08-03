@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/swec" \
       --prefix PERL5LIB : ${
-      with perlPackages;
-      makePerlPath [ LWP URI HTMLParser ]
+        with perlPackages;
+        makePerlPath [ LWP URI HTMLParser ]
       }
   '';
 

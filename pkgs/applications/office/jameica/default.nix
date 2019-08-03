@@ -60,8 +60,8 @@ in stdenv.mkDerivation rec {
 
     makeWrapper ${jre}/bin/java $out/bin/jameica \
       --add-flags "-cp $out/share/java/jameica.jar:$out/share/${name}/* ${
-      stdenv.lib.optionalString stdenv.isDarwin
-      ''-Xdock:name="Jameica" -XstartOnFirstThread''
+        stdenv.lib.optionalString stdenv.isDarwin
+        ''-Xdock:name="Jameica" -XstartOnFirstThread''
       } de.willuhn.jameica.Main" \
       --prefix LD_LIBRARY_PATH : ${stdenv.lib.makeLibraryPath buildInputs} \
       --run "cd $out/share/java/"

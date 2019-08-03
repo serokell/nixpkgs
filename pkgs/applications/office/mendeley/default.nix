@@ -90,10 +90,10 @@ in stdenv.mkDerivation {
     wrapProgram $out/bin/mendeleydesktop \
       --add-flags "--unix-distro-build" \
       ${
-      stdenv.lib.optionalString
-      autorunLinkHandler # ignore errors installing the link handler
-      ''
-        --run "$out/bin/install-mendeley-link-handler.sh $out/bin/mendeleydesktop ||:"''
+        stdenv.lib.optionalString
+        autorunLinkHandler # ignore errors installing the link handler
+        ''
+          --run "$out/bin/install-mendeley-link-handler.sh $out/bin/mendeleydesktop ||:"''
       }
 
     # Remove bundled qt bits
@@ -103,7 +103,7 @@ in stdenv.mkDerivation {
     # Patch up link handler script
     wrapProgram $out/bin/install-mendeley-link-handler.sh \
       --prefix PATH ':' ${
-      stdenv.lib.makeBinPath [ which gconf desktop-file-utils ]
+        stdenv.lib.makeBinPath [ which gconf desktop-file-utils ]
       }
   '';
 

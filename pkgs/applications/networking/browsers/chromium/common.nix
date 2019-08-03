@@ -56,7 +56,7 @@ let
       else
         throw "Unsupported type for GN value `${value}'.";
     toFlag = key: value: "${key}=${sanitize value}";
-    in attrs: concatStringsSep " " (attrValues (mapAttrs toFlag attrs));
+  in attrs: concatStringsSep " " (attrValues (mapAttrs toFlag attrs));
 
   gnSystemLibraries = [
     "flac"
@@ -343,7 +343,7 @@ let
       '';
       targets = extraAttrs.buildTargets or [ ];
       commands = map buildCommand targets;
-      in concatStringsSep "\n" commands;
+    in concatStringsSep "\n" commands;
   };
 
   # Remove some extraAttrs we supplied to the base attributes already.

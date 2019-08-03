@@ -43,10 +43,10 @@ let
     # generate the new config by merging with the nixos config options
     NEW_CFG=$(echo "$OLD_CFG" | ${pkgs.jq}/bin/jq -s '.[] as $in | $in * {
       "devices": (${builtins.toJSON devices}${
-      optionalString (!cfg.declarative.overrideDevices) " + $in.devices"
+        optionalString (!cfg.declarative.overrideDevices) " + $in.devices"
       }),
       "folders": (${builtins.toJSON folders}${
-      optionalString (!cfg.declarative.overrideFolders) " + $in.folders"
+        optionalString (!cfg.declarative.overrideFolders) " + $in.folders"
       })
     }')
 
@@ -328,7 +328,7 @@ in {
         default = let
           nixos = config.system.stateVersion;
           cond = versionAtLeast nixos "19.03";
-          in cfg.dataDir + (optionalString cond "/.config/syncthing");
+        in cfg.dataDir + (optionalString cond "/.config/syncthing");
       };
 
       openDefaultPorts = mkOption {

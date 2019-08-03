@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for i in $out/bin/*; do
       wrapProgram $i --prefix PATH : "${
-      stdenv.lib.makeBinPath binDeps
+        stdenv.lib.makeBinPath binDeps
       }:$out/bin"
     done
   '';

@@ -153,7 +153,7 @@ in {
       } // optionalAttrs es6 { ES_PATH_CONF = configDir; };
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/elasticsearch ${
-          toString cfg.extraCmdLineOptions
+            toString cfg.extraCmdLineOptions
           }";
         User = "elasticsearch";
         PermissionsStartOnly = true;

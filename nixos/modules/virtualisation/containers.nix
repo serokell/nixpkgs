@@ -144,17 +144,17 @@ let
       --setenv HOST_PORT="$HOST_PORT" \
       --setenv PATH="$PATH" \
       ${
-      if cfg.additionalCapabilities != null && cfg.additionalCapabilities
-      != [ ] then
-        ''--capability="${concatStringsSep " " cfg.additionalCapabilities}"''
-      else
-        ""
+        if cfg.additionalCapabilities != null && cfg.additionalCapabilities
+        != [ ] then
+          ''--capability="${concatStringsSep " " cfg.additionalCapabilities}"''
+        else
+          ""
       } \
       ${
-      if cfg.tmpfs != null && cfg.tmpfs != [ ] then
-        "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
-      else
-        ""
+        if cfg.tmpfs != null && cfg.tmpfs != [ ] then
+          "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
+        else
+          ""
       } \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
   '';
@@ -476,7 +476,7 @@ in {
                         }];
                       };
                     };
-                    in [ extraConfig ] ++ (map (x: x.value) defs);
+                  in [ extraConfig ] ++ (map (x: x.value) defs);
                   prefix = [ "containers" name ];
                 }).config;
             };
@@ -679,108 +679,105 @@ in {
 
       serviceConfig = serviceDirectives dummyConfig;
     };
-    in {
-      systemd.targets."multi-user".wants = [ "machines.target" ];
+  in {
+    systemd.targets."multi-user".wants = [ "machines.target" ];
 
-      systemd.services = listToAttrs (filter (x: x.value != null) (
-        # The generic container template used by imperative containers
-          [{
-            name = "container@";
-            value = unit;
-          }]
-          # declarative containers
-          ++ (mapAttrsToList (name: cfg:
-            nameValuePair "container@${name}" (let
-              containerConfig = cfg // (if cfg.enableTun then {
-                allowedDevices = cfg.allowedDevices ++ [{
-                  node = "/dev/net/tun";
-                  modifier = "rw";
-                }];
-                additionalCapabilities = cfg.additionalCapabilities
-                  ++ [ "CAP_NET_ADMIN" ];
-              } else
-                { });
-              in unit // {
-                preStart = preStartScript containerConfig;
-                script = startScript containerConfig;
-                postStart = postStartScript containerConfig;
-                serviceConfig = serviceDirectives containerConfig;
-              } // (if containerConfig.autoStart then {
-                wantedBy = [ "machines.target" ];
-                wants = [ "network.target" ];
-                after = [ "network.target" ];
-                restartTriggers = [
-                  containerConfig.path
-                  config.environment.etc."containers/${name}.conf".source
-                ];
-                restartIfChanged = true;
-              } else
-                { }))) config.containers)));
+    systemd.services = listToAttrs (filter (x: x.value != null) (
+    # The generic container template used by imperative containers
+      [{
+        name = "container@";
+        value = unit;
+      }]
+      # declarative containers
+      ++ (mapAttrsToList (name: cfg:
+        nameValuePair "container@${name}" (let
+          containerConfig = cfg // (if cfg.enableTun then {
+            allowedDevices = cfg.allowedDevices ++ [{
+              node = "/dev/net/tun";
+              modifier = "rw";
+            }];
+            additionalCapabilities = cfg.additionalCapabilities
+              ++ [ "CAP_NET_ADMIN" ];
+          } else
+            { });
+        in unit // {
+          preStart = preStartScript containerConfig;
+          script = startScript containerConfig;
+          postStart = postStartScript containerConfig;
+          serviceConfig = serviceDirectives containerConfig;
+        } // (if containerConfig.autoStart then {
+          wantedBy = [ "machines.target" ];
+          wants = [ "network.target" ];
+          after = [ "network.target" ];
+          restartTriggers = [
+            containerConfig.path
+            config.environment.etc."containers/${name}.conf".source
+          ];
+          restartIfChanged = true;
+        } else
+          { }))) config.containers)));
 
-      # Generate a configuration file in /etc/containers for each
-      # container so that container@.target can get the container
-      # configuration.
-      environment.etc = let
-        mkPortStr = p:
-          p.protocol + ":" + (toString p.hostPort) + ":"
-          + (if p.containerPort == null then
-            toString p.hostPort
-          else
-            toString p.containerPort);
-        in mapAttrs' (name: cfg:
-          nameValuePair "containers/${name}.conf" {
-            text = ''
-              SYSTEM_PATH=${cfg.path}
-              ${optionalString cfg.privateNetwork ''
-                PRIVATE_NETWORK=1
-                ${optionalString (cfg.hostBridge != null) ''
-                  HOST_BRIDGE=${cfg.hostBridge}
-                ''}
-                ${optionalString (length cfg.forwardPorts > 0) ''
-                  HOST_PORT=${
-                    concatStringsSep "," (map mkPortStr cfg.forwardPorts)
-                  }
-                ''}
-                ${optionalString (cfg.hostAddress != null) ''
-                  HOST_ADDRESS=${cfg.hostAddress}
-                ''}
-                ${optionalString (cfg.hostAddress6 != null) ''
-                  HOST_ADDRESS6=${cfg.hostAddress6}
-                ''}
-                ${optionalString (cfg.localAddress != null) ''
-                  LOCAL_ADDRESS=${cfg.localAddress}
-                ''}
-                ${optionalString (cfg.localAddress6 != null) ''
-                  LOCAL_ADDRESS6=${cfg.localAddress6}
-                ''}
-              ''}
-              INTERFACES="${toString cfg.interfaces}"
-              MACVLANS="${toString cfg.macvlans}"
-              ${optionalString cfg.autoStart ''
-                AUTO_START=1
-              ''}
-              EXTRA_NSPAWN_FLAGS="${
-                mkBindFlags cfg.bindMounts
-                + optionalString (cfg.extraFlags != [ ])
-                (" " + concatStringsSep " " cfg.extraFlags)
-              }"
-            '';
-          }) config.containers;
-
-      # Generate /etc/hosts entries for the containers.
-      networking.extraHosts = concatStrings (mapAttrsToList (name: cfg:
-        optionalString (cfg.localAddress != null) ''
-          ${head (splitString "/" cfg.localAddress)} ${name}.containers
-        '') config.containers);
-
-      networking.dhcpcd.denyInterfaces = [ "ve-*" "vb-*" ];
-
-      services.udev.extraRules =
-        optionalString config.networking.networkmanager.enable ''
-          # Don't manage interfaces created by nixos-container.
-          ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
+    # Generate a configuration file in /etc/containers for each
+    # container so that container@.target can get the container
+    # configuration.
+    environment.etc = let
+      mkPortStr = p:
+        p.protocol + ":" + (toString p.hostPort) + ":"
+        + (if p.containerPort == null then
+          toString p.hostPort
+        else
+          toString p.containerPort);
+    in mapAttrs' (name: cfg:
+      nameValuePair "containers/${name}.conf" {
+        text = ''
+          SYSTEM_PATH=${cfg.path}
+          ${optionalString cfg.privateNetwork ''
+            PRIVATE_NETWORK=1
+            ${optionalString (cfg.hostBridge != null) ''
+              HOST_BRIDGE=${cfg.hostBridge}
+            ''}
+            ${optionalString (length cfg.forwardPorts > 0) ''
+              HOST_PORT=${concatStringsSep "," (map mkPortStr cfg.forwardPorts)}
+            ''}
+            ${optionalString (cfg.hostAddress != null) ''
+              HOST_ADDRESS=${cfg.hostAddress}
+            ''}
+            ${optionalString (cfg.hostAddress6 != null) ''
+              HOST_ADDRESS6=${cfg.hostAddress6}
+            ''}
+            ${optionalString (cfg.localAddress != null) ''
+              LOCAL_ADDRESS=${cfg.localAddress}
+            ''}
+            ${optionalString (cfg.localAddress6 != null) ''
+              LOCAL_ADDRESS6=${cfg.localAddress6}
+            ''}
+          ''}
+          INTERFACES="${toString cfg.interfaces}"
+          MACVLANS="${toString cfg.macvlans}"
+          ${optionalString cfg.autoStart ''
+            AUTO_START=1
+          ''}
+          EXTRA_NSPAWN_FLAGS="${
+            mkBindFlags cfg.bindMounts + optionalString (cfg.extraFlags != [ ])
+            (" " + concatStringsSep " " cfg.extraFlags)
+          }"
         '';
+      }) config.containers;
 
-      environment.systemPackages = [ pkgs.nixos-container ];
-    });
+    # Generate /etc/hosts entries for the containers.
+    networking.extraHosts = concatStrings (mapAttrsToList (name: cfg:
+      optionalString (cfg.localAddress != null) ''
+        ${head (splitString "/" cfg.localAddress)} ${name}.containers
+      '') config.containers);
+
+    networking.dhcpcd.denyInterfaces = [ "ve-*" "vb-*" ];
+
+    services.udev.extraRules =
+      optionalString config.networking.networkmanager.enable ''
+        # Don't manage interfaces created by nixos-container.
+        ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
+      '';
+
+    environment.systemPackages = [ pkgs.nixos-container ];
+  });
 }

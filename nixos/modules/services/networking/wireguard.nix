@@ -270,10 +270,10 @@ let
           (concatMapStringsSep "\n" (allowedIP:
             "ip route replace ${allowedIP} dev ${interfaceName} table ${interfaceCfg.table}")
             peer.allowedIPs);
-        in ''
-          ${wg_setup}
-          ${route_setup}
-        '';
+      in ''
+        ${wg_setup}
+        ${route_setup}
+      '';
 
       postStop = let
         route_destroy =
@@ -281,10 +281,10 @@ let
           (concatMapStringsSep "\n" (allowedIP:
             "ip route delete ${allowedIP} dev ${interfaceName} table ${interfaceCfg.table}")
             peer.allowedIPs);
-        in ''
-          wg set ${interfaceName} peer ${peer.publicKey} remove
-          ${route_destroy}
-        '';
+      in ''
+        wg set ${interfaceName} peer ${peer.publicKey} remove
+        ${route_destroy}
+      '';
     };
 
   generateInterfaceUnit = name: values:
@@ -378,37 +378,35 @@ in {
     all_peers = flatten (mapAttrsToList (interfaceName: interfaceCfg:
       map (peer: { inherit interfaceName interfaceCfg peer; })
       interfaceCfg.peers) cfg.interfaces);
-    in {
+  in {
 
-      assertions = (attrValues (mapAttrs (name: value: {
-        assertion = (value.privateKey != null)
-          != (value.privateKeyFile != null);
-        message =
-          "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
-      }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
-        assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
-        message =
-          "networking.wireguard.interfaces.${name}.generatePrivateKey must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
-      }) cfg.interfaces)) ++ map ({ interfaceName, peer, ... }: {
-        assertion = (peer.presharedKey == null)
-          || (peer.presharedKeyFile == null);
-        message =
-          "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
-      }) all_peers;
+    assertions = (attrValues (mapAttrs (name: value: {
+      assertion = (value.privateKey != null) != (value.privateKeyFile != null);
+      message =
+        "Either networking.wireguard.interfaces.${name}.privateKey or networking.wireguard.interfaces.${name}.privateKeyFile must be set.";
+    }) cfg.interfaces)) ++ (attrValues (mapAttrs (name: value: {
+      assertion = value.generatePrivateKeyFile -> (value.privateKey == null);
+      message =
+        "networking.wireguard.interfaces.${name}.generatePrivateKey must not be set if networking.wireguard.interfaces.${name}.privateKey is set.";
+    }) cfg.interfaces)) ++ map ({ interfaceName, peer, ... }: {
+      assertion = (peer.presharedKey == null)
+        || (peer.presharedKeyFile == null);
+      message =
+        "networking.wireguard.interfaces.${interfaceName} peer «${peer.publicKey}» has both presharedKey and presharedKeyFile set, but only one can be used.";
+    }) all_peers;
 
-      boot.extraModulePackages = [ kernel.wireguard ];
-      environment.systemPackages = [ pkgs.wireguard-tools ];
+    boot.extraModulePackages = [ kernel.wireguard ];
+    environment.systemPackages = [ pkgs.wireguard-tools ];
 
-      systemd.services = (mapAttrs' generateInterfaceUnit cfg.interfaces)
-        // (listToAttrs (map generatePeerUnit all_peers))
-        // (mapAttrs' generateKeyServiceUnit
-          (filterAttrs (name: value: value.generatePrivateKeyFile)
-            cfg.interfaces));
+    systemd.services = (mapAttrs' generateInterfaceUnit cfg.interfaces)
+      // (listToAttrs (map generatePeerUnit all_peers))
+      // (mapAttrs' generateKeyServiceUnit
+        (filterAttrs (name: value: value.generatePrivateKeyFile)
+          cfg.interfaces));
 
-      systemd.paths = mapAttrs' generatePathUnit
-        (filterAttrs (name: value: value.privateKeyFile != null)
-          cfg.interfaces);
+    systemd.paths = mapAttrs' generatePathUnit
+      (filterAttrs (name: value: value.privateKeyFile != null) cfg.interfaces);
 
-    });
+  });
 
 }

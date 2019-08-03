@@ -70,26 +70,26 @@ stdenv.mkDerivation rec {
     libPathNative = lib.makeLibraryPath packages;
     libPath64 = lib.makeSearchPathOutput "lib" "lib64" packages;
     libPath = "${libPathNative}:${libPath64}";
-    in ''
-      # patch executable
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}:$out/opt/Pencil" \
-        $out/opt/Pencil/pencil
+  in ''
+    # patch executable
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}:$out/opt/Pencil" \
+      $out/opt/Pencil/pencil
 
-      # patch libnode
-      patchelf \
-        --set-rpath "${libPath}" \
-        $out/opt/Pencil/libnode.so
+    # patch libnode
+    patchelf \
+      --set-rpath "${libPath}" \
+      $out/opt/Pencil/libnode.so
 
-      # libffmpeg is for some reason  not executable
-      chmod a+x $out/opt/Pencil/libffmpeg.so
+    # libffmpeg is for some reason  not executable
+    chmod a+x $out/opt/Pencil/libffmpeg.so
 
-      # fix missing libudev
-      ln -s ${systemd.lib}/lib/libudev.so.1 $out/opt/Pencil/libudev.so.1
-      wrapProgram $out/opt/Pencil/pencil \
-        --prefix LD_LIBRARY_PATH : $out/opt/Pencil
-    '';
+    # fix missing libudev
+    ln -s ${systemd.lib}/lib/libudev.so.1 $out/opt/Pencil/libudev.so.1
+    wrapProgram $out/opt/Pencil/pencil \
+      --prefix LD_LIBRARY_PATH : $out/opt/Pencil
+  '';
 
   meta = with stdenv.lib; {
     description = "GUI prototyping/mockup tool";

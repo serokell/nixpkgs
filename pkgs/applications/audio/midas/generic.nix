@@ -28,12 +28,12 @@ stdenv.mkDerivation rec {
       freetype # libfreetype.so.6
       stdenv.cc.cc.lib # libstdc++.so.6
     ];
-    in ''
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}" \
-        $out/bin/${baseName}
-    '';
+  in ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}" \
+      $out/bin/${baseName}
+  '';
 
   meta = with stdenv.lib; {
     inherit homepage;

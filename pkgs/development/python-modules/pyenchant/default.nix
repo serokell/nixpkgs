@@ -14,12 +14,12 @@ buildPythonPackage rec {
   patchPhase = let
     path_hack_script =
       "s|LoadLibrary(e_path)|LoadLibrary('${pkgs.enchant1}/lib/' + e_path)|";
-    in ''
-      sed -i "${path_hack_script}" enchant/_enchant.py
+  in ''
+    sed -i "${path_hack_script}" enchant/_enchant.py
 
-      # They hardcode a bad path for Darwin in their library search code
-      substituteInPlace enchant/_enchant.py --replace '/opt/local/lib/' ""
-    '';
+    # They hardcode a bad path for Darwin in their library search code
+    substituteInPlace enchant/_enchant.py --replace '/opt/local/lib/' ""
+  '';
 
   # dictionaries needed for tests
   doCheck = false;

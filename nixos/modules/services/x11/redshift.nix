@@ -131,26 +131,24 @@ in {
         "${cfg.latitude}:${cfg.longitude}"
       else
         cfg.provider;
-      in {
-        description = "Redshift colour temperature adjuster";
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
-        serviceConfig = {
-          ExecStart = ''
-            ${cfg.package}/bin/redshift \
-              -l ${providerString} \
-              -t ${toString cfg.temperature.day}:${
+    in {
+      description = "Redshift colour temperature adjuster";
+      wantedBy = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = ''
+          ${cfg.package}/bin/redshift \
+            -l ${providerString} \
+            -t ${toString cfg.temperature.day}:${
               toString cfg.temperature.night
-              } \
-              -b ${toString cfg.brightness.day}:${
-              toString cfg.brightness.night
-              } \
-              ${lib.strings.concatStringsSep " " cfg.extraOptions}
-          '';
-          RestartSec = 3;
-          Restart = "always";
-        };
+            } \
+            -b ${toString cfg.brightness.day}:${toString cfg.brightness.night} \
+            ${lib.strings.concatStringsSep " " cfg.extraOptions}
+        '';
+        RestartSec = 3;
+        Restart = "always";
       };
+    };
   };
 
 }

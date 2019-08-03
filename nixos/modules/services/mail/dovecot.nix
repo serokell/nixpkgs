@@ -53,7 +53,7 @@ let
       passdb {
         driver = pam
         args = ${
-        optionalString cfg.showPAMFailure "failure_show_msg=yes"
+          optionalString cfg.showPAMFailure "failure_show_msg=yes"
         } dovecot2
       }
     '')
@@ -61,9 +61,9 @@ let
     (optionalString (cfg.sieveScripts != { }) ''
       plugin {
         ${
-        concatStringsSep "\n"
-        (mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
-          cfg.sieveScripts)
+          concatStringsSep "\n"
+          (mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
+            cfg.sieveScripts)
         }
       }
     '')

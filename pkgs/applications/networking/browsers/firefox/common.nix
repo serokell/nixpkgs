@@ -238,18 +238,18 @@ in stdenv.mkDerivation rec {
       $(< ${stdenv.cc}/nix-support/cc-cflags) \
       ${stdenv.cc.default_cxx_stdlib_compile} \
       ${
-      lib.optionalString stdenv.cc.isClang
-      "-idirafter ${stdenv.cc.cc}/lib/clang/${
-        lib.getVersion stdenv.cc.cc
-      }/include"
+        lib.optionalString stdenv.cc.isClang
+        "-idirafter ${stdenv.cc.cc}/lib/clang/${
+          lib.getVersion stdenv.cc.cc
+        }/include"
       } \
       ${
-      lib.optionalString stdenv.cc.isGNU
-      "-isystem ${stdenv.cc.cc}/include/c++/${
-        lib.getVersion stdenv.cc.cc
-      } -isystem ${stdenv.cc.cc}/include/c++/${
-        lib.getVersion stdenv.cc.cc
-      }/$(cc -dumpmachine)"
+        lib.optionalString stdenv.cc.isGNU
+        "-isystem ${stdenv.cc.cc}/include/c++/${
+          lib.getVersion stdenv.cc.cc
+        } -isystem ${stdenv.cc.cc}/include/c++/${
+          lib.getVersion stdenv.cc.cc
+        }/$(cc -dumpmachine)"
       } \
       $NIX_CFLAGS_COMPILE"
 

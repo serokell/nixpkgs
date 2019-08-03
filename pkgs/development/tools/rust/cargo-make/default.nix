@@ -16,11 +16,11 @@ rustPlatform.buildRustPackage rec {
         "https://gist.githubusercontent.com/xrelkd/e4c9c7738b21f284d97cb7b1d181317d/raw/b6017fd825b52987ac7c3b65620917e5d567312b/cargo-make-Cargo.lock";
       sha256 = "15ajxza58bbviwjxl98c0z89w4430902j0z46b594nbm02kv2ad9";
     };
-    in runCommand "cargo-make-src" { } ''
-      cp -R ${source} $out
-      chmod +w $out
-      cp ${cargo-lock} $out/Cargo.lock
-    '';
+  in runCommand "cargo-make-src" { } ''
+    cp -R ${source} $out
+    chmod +w $out
+    cp ${cargo-lock} $out/Cargo.lock
+  '';
 
   buildInputs = stdenv.lib.optionals stdenv.isDarwin [ Security ];
 

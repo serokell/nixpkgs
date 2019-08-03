@@ -151,21 +151,21 @@ in stdenv.mkDerivation rec {
       dnsmasq
       ebtables
     ] ++ optionals enableIscsi [ openiscsi ];
-    in ''
-        substituteInPlace $out/libexec/libvirt-guests.sh \
-          --replace 'ON_SHUTDOWN=suspend' 'ON_SHUTDOWN=''${ON_SHUTDOWN:-suspend}' \
-          --replace "$out/bin"            '${gettext}/bin' \
-          --replace 'lock/subsys'         'lock' \
-          --replace 'gettext.sh'          'gettext.sh
-      # Added in nixpkgs:
-      gettext() { "${gettext}/bin/gettext" "$@"; }
-      '
-    '' + optionalString stdenv.isLinux ''
-      substituteInPlace $out/lib/systemd/system/libvirtd.service --replace /bin/kill ${coreutils}/bin/kill
-      rm $out/lib/systemd/system/{virtlockd,virtlogd}.*
-      wrapProgram $out/sbin/libvirtd \
-        --prefix PATH : /run/libvirt/nix-emulators:${makeBinPath binPath}
-    '';
+  in ''
+      substituteInPlace $out/libexec/libvirt-guests.sh \
+        --replace 'ON_SHUTDOWN=suspend' 'ON_SHUTDOWN=''${ON_SHUTDOWN:-suspend}' \
+        --replace "$out/bin"            '${gettext}/bin' \
+        --replace 'lock/subsys'         'lock' \
+        --replace 'gettext.sh'          'gettext.sh
+    # Added in nixpkgs:
+    gettext() { "${gettext}/bin/gettext" "$@"; }
+    '
+  '' + optionalString stdenv.isLinux ''
+    substituteInPlace $out/lib/systemd/system/libvirtd.service --replace /bin/kill ${coreutils}/bin/kill
+    rm $out/lib/systemd/system/{virtlockd,virtlogd}.*
+    wrapProgram $out/sbin/libvirtd \
+      --prefix PATH : /run/libvirt/nix-emulators:${makeBinPath binPath}
+  '';
 
   enableParallelBuilding = true;
 

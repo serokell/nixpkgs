@@ -62,7 +62,7 @@ self: super: {
       sha256 = "09ls54zy6gx84fmzwgvx18ssgm740cwq6ds70p0p125phi54agcp";
       stripLen = 1;
     };
-    in appendPatch super.hadoop-rpc patch;
+  in appendPatch super.hadoop-rpc patch;
 
   # stack-1.9.1 needs Cabal 2.4.x, a recent version of hpack, and a non-recent
   # version of yaml. Go figure. We avoid overrideScope here because using it to

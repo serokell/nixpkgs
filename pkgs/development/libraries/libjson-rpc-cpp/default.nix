@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     function fixRunPath {
       p=$(patchelf --print-rpath $1)
       q="$p:${
-      stdenv.lib.makeLibraryPath [ jsoncpp argtable libmicrohttpd curl ]
+        stdenv.lib.makeLibraryPath [ jsoncpp argtable libmicrohttpd curl ]
       }:$out/lib"
       patchelf --set-rpath $q $1
     }

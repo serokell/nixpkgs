@@ -35,7 +35,7 @@ stdenv.mkDerivation (rec {
     cp -v "${automake}/share/"automake-*/texinfo.tex doc
           make install install-doc
        '' else
-      "make install";
+    "make install";
 
   meta = {
     description = "Proof General, an Emacs front-end for proof assistants";

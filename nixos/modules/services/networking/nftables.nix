@@ -119,13 +119,13 @@ in {
             ${rulesScript}
           fi
         '';
-        in {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = checkScript;
-          ExecReload = checkScript;
-          ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
-        };
+      in {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = checkScript;
+        ExecReload = checkScript;
+        ExecStop = "${pkgs.nftables}/bin/nft flush ruleset";
+      };
     };
   };
 }

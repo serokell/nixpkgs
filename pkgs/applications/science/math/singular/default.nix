@@ -11,11 +11,11 @@ stdenv.mkDerivation rec {
     # for example 4.1.1p1 will be in the directory 4-1-1
     baseVersion = builtins.head (lib.splitString "p" version);
     urlVersion = builtins.replaceStrings [ "." ] [ "-" ] baseVersion;
-    in fetchurl {
-      url =
-        "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/${urlVersion}/singular-${version}.tar.gz";
-      sha256 = "07x9kri8vl4galik7lr6pscq3c51n8570pyw64i7gbj0m706f7wf";
-    };
+  in fetchurl {
+    url =
+      "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/${urlVersion}/singular-${version}.tar.gz";
+    sha256 = "07x9kri8vl4galik7lr6pscq3c51n8570pyw64i7gbj0m706f7wf";
+  };
 
   configureFlags = [ "--with-ntl=${ntl}" ]
     ++ lib.optionals enableFactory [ "--enable-factory" ]

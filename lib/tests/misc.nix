@@ -43,7 +43,7 @@ runTests {
       g = self: super: { bar = super.baz or false; };
       f_o_g = composeExtensions f g;
       composed = obj.extend f_o_g;
-      in composed.foo;
+    in composed.foo;
     expected = true;
   };
 
@@ -108,20 +108,20 @@ runTests {
     expr = let
       goodPath =
         "${builtins.storeDir}/d945ibfx9x185xf04b890y4f9g3cbb63-python-2.7.11";
-      in {
-        storePath = isStorePath goodPath;
-        storePathDerivation = isStorePath (import ../.. { }).hello;
-        storePathAppendix = isStorePath "${goodPath}/bin/python";
-        nonAbsolute =
-          isStorePath (concatStrings (tail (stringToCharacters goodPath)));
-        asPath = isStorePath (/. + goodPath);
-        otherPath = isStorePath "/something/else";
-        otherVals = {
-          attrset = isStorePath { };
-          list = isStorePath [ ];
-          int = isStorePath 42;
-        };
+    in {
+      storePath = isStorePath goodPath;
+      storePathDerivation = isStorePath (import ../.. { }).hello;
+      storePathAppendix = isStorePath "${goodPath}/bin/python";
+      nonAbsolute =
+        isStorePath (concatStrings (tail (stringToCharacters goodPath)));
+      asPath = isStorePath (/. + goodPath);
+      otherPath = isStorePath "/something/else";
+      otherVals = {
+        attrset = isStorePath { };
+        list = isStorePath [ ];
+        int = isStorePath 42;
       };
+    };
     expected = {
       storePath = true;
       storePathDerivation = true;
@@ -150,27 +150,27 @@ runTests {
     assoc = f builtins.add;
     # fold with non-associative operator
     nonAssoc = f builtins.sub;
-    in {
-      expr = {
-        assocRight = assoc foldr;
-        # right fold with assoc operator is same as left fold
-        assocRightIsLeft = assoc foldr == assoc foldl;
-        nonAssocRight = nonAssoc foldr;
-        nonAssocLeft = nonAssoc foldl;
-        # with non-assoc operator the fold results are not the same
-        nonAssocRightIsNotLeft = nonAssoc foldl != nonAssoc foldr;
-        # fold is an alias for foldr
-        foldIsRight = nonAssoc fold == nonAssoc foldr;
-      };
-      expected = {
-        assocRight = 5050;
-        assocRightIsLeft = true;
-        nonAssocRight = 50;
-        nonAssocLeft = (-5050);
-        nonAssocRightIsNotLeft = true;
-        foldIsRight = true;
-      };
+  in {
+    expr = {
+      assocRight = assoc foldr;
+      # right fold with assoc operator is same as left fold
+      assocRightIsLeft = assoc foldr == assoc foldl;
+      nonAssocRight = nonAssoc foldr;
+      nonAssocLeft = nonAssoc foldl;
+      # with non-assoc operator the fold results are not the same
+      nonAssocRightIsNotLeft = nonAssoc foldl != nonAssoc foldr;
+      # fold is an alias for foldr
+      foldIsRight = nonAssoc fold == nonAssoc foldr;
     };
+    expected = {
+      assocRight = 5050;
+      assocRightIsLeft = true;
+      nonAssocRight = 50;
+      nonAssocLeft = (-5050);
+      nonAssocRightIsNotLeft = true;
+      foldIsRight = true;
+    };
+  };
 
   testTake = testAllTrue [
     ([ ] == (take 0 [ 1 2 3 ]))
@@ -289,7 +289,7 @@ runTests {
         null = null;
         # float = 42.23; # floats are strange
       };
-      in mapAttrs (const (generators.mkValueStringDefault { })) vals;
+    in mapAttrs (const (generators.mkValueStringDefault { })) vals;
     expected = {
       int = "42";
       string = ''fo"o'';
@@ -361,11 +361,11 @@ runTests {
 
   # right now only invocation check
   testToJSONSimple = let val = { foobar = [ "baz" 1 2 3 ]; };
-    in {
-      expr = generators.toJSON { } val;
-      # trivial implementation
-      expected = builtins.toJSON val;
-    };
+  in {
+    expr = generators.toJSON { } val;
+    # trivial implementation
+    expected = builtins.toJSON val;
+  };
 
   # right now only invocation check
   testToYAMLSimple = let
@@ -373,11 +373,11 @@ runTests {
       list = [ { one = 1; } { two = 2; } ];
       all = 42;
     };
-    in {
-      expr = generators.toYAML { } val;
-      # trivial implementation
-      expected = builtins.toJSON val;
-    };
+  in {
+    expr = generators.toYAML { } val;
+    # trivial implementation
+    expected = builtins.toJSON val;
+  };
 
   testToPretty = {
     expr = mapAttrs (const (generators.toPretty { })) rec {

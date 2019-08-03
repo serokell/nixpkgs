@@ -93,7 +93,8 @@ pythonPackages.buildPythonApplication {
       --with-mimedir=$out/etc/cups
       --enable-policykit
       ${
-      stdenv.lib.optionalString withStaticPPDInstall "--enable-cups-ppd-install"
+        stdenv.lib.optionalString withStaticPPDInstall
+        "--enable-cups-ppd-install"
       }
       --disable-qt4
       ${stdenv.lib.optionalString withQt5 "--enable-qt5"}

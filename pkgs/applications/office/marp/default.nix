@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "${atomEnv.libPath}:${
-      stdenv.lib.makeLibraryPath [ libXScrnSaver gtk2 ]
+        stdenv.lib.makeLibraryPath [ libXScrnSaver gtk2 ]
       }:$out/lib/marp" \
       $out/bin/Marp
   '';

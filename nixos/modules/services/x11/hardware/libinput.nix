@@ -188,10 +188,10 @@ in {
 
     environment.etc = [
       (let cfgPath = "X11/xorg.conf.d/40-libinput.conf";
-        in {
-          source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
-          target = cfgPath;
-        })
+      in {
+        source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
+        target = cfgPath;
+      })
     ];
 
     services.udev.packages = [ pkgs.libinput.out ];
@@ -205,27 +205,27 @@ in {
         Driver "libinput"
         Option "AccelProfile" "${cfg.accelProfile}"
         ${
-        optionalString (cfg.accelSpeed != null)
-        ''Option "AccelSpeed" "${cfg.accelSpeed}"''
+          optionalString (cfg.accelSpeed != null)
+          ''Option "AccelSpeed" "${cfg.accelSpeed}"''
         }
         ${
-        optionalString (cfg.buttonMapping != null)
-        ''Option "ButtonMapping" "${cfg.buttonMapping}"''
+          optionalString (cfg.buttonMapping != null)
+          ''Option "ButtonMapping" "${cfg.buttonMapping}"''
         }
         ${
-        optionalString (cfg.calibrationMatrix != null)
-        ''Option "CalibrationMatrix" "${cfg.calibrationMatrix}"''
+          optionalString (cfg.calibrationMatrix != null)
+          ''Option "CalibrationMatrix" "${cfg.calibrationMatrix}"''
         }
         ${
-        optionalString (cfg.clickMethod != null)
-        ''Option "ClickMethod" "${cfg.clickMethod}"''
+          optionalString (cfg.clickMethod != null)
+          ''Option "ClickMethod" "${cfg.clickMethod}"''
         }
         Option "LeftHanded" "${xorgBool cfg.leftHanded}"
         Option "MiddleEmulation" "${xorgBool cfg.middleEmulation}"
         Option "NaturalScrolling" "${xorgBool cfg.naturalScrolling}"
         ${
-        optionalString (cfg.scrollButton != null)
-        ''Option "ScrollButton" "${toString cfg.scrollButton}"''
+          optionalString (cfg.scrollButton != null)
+          ''Option "ScrollButton" "${toString cfg.scrollButton}"''
         }
         Option "ScrollMethod" "${cfg.scrollMethod}"
         Option "HorizontalScrolling" "${xorgBool cfg.horizontalScrolling}"

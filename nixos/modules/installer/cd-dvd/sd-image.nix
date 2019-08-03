@@ -157,7 +157,7 @@ in {
 
                 start=''${gap}M, size=$firmwareSizeBlocks, type=b
                 start=$((gap + ${
-              toString config.sdImage.firmwareSize
+                  toString config.sdImage.firmwareSize
                 }))M, type=83, bootable
             EOF
 

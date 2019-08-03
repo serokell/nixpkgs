@@ -216,33 +216,33 @@ in {
             utils.escapeSystemdPath interface
           }.device"
         ];
-      in {
-        description = "WPA Supplicant";
+    in {
+      description = "WPA Supplicant";
 
-        after = lib.concatMap deviceUnit ifaces;
-        before = [ "network.target" ];
-        wants = [ "network.target" ];
-        requires = lib.concatMap deviceUnit ifaces;
-        wantedBy = [ "multi-user.target" ];
-        stopIfChanged = false;
+      after = lib.concatMap deviceUnit ifaces;
+      before = [ "network.target" ];
+      wants = [ "network.target" ];
+      requires = lib.concatMap deviceUnit ifaces;
+      wantedBy = [ "multi-user.target" ];
+      stopIfChanged = false;
 
-        path = [ pkgs.wpa_supplicant ];
+      path = [ pkgs.wpa_supplicant ];
 
-        script = ''
-          ${if ifaces == [ ] then ''
-            for i in $(cd /sys/class/net && echo *); do
-              DEVTYPE=
-              source /sys/class/net/$i/uevent
-              if [ "$DEVTYPE" = "wlan" -o -e /sys/class/net/$i/wireless ]; then
-                ifaces="$ifaces''${ifaces:+ -N} -i$i"
-              fi
-            done
-          '' else ''
-            ifaces="${concatStringsSep " -N " (map (i: "-i${i}") ifaces)}"
-          ''}
-          exec wpa_supplicant -s -u -D${cfg.driver} -c ${configFile} $ifaces
-        '';
-      };
+      script = ''
+        ${if ifaces == [ ] then ''
+          for i in $(cd /sys/class/net && echo *); do
+            DEVTYPE=
+            source /sys/class/net/$i/uevent
+            if [ "$DEVTYPE" = "wlan" -o -e /sys/class/net/$i/wireless ]; then
+              ifaces="$ifaces''${ifaces:+ -N} -i$i"
+            fi
+          done
+        '' else ''
+          ifaces="${concatStringsSep " -N " (map (i: "-i${i}") ifaces)}"
+        ''}
+        exec wpa_supplicant -s -u -D${cfg.driver} -c ${configFile} $ifaces
+      '';
+    };
 
     powerManagement.resumeCommands = ''
       ${config.systemd.package}/bin/systemctl try-restart wpa_supplicant

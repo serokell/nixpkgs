@@ -77,20 +77,20 @@ in stdenv.mkDerivation rec {
   '';
 
   installPhase = let jar = "$out/share/jd-gui/${name}.jar";
-    in ''
-      mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}
-      cp build/libs/${name}.jar ${jar}
-      cp src/linux/resources/jd_icon_128.png $out/share/icons/hicolor/128x128/apps/jd-gui.png
+  in ''
+    mkdir -p $out/bin $out/share/{jd-gui,icons/hicolor/128x128/apps}
+    cp build/libs/${name}.jar ${jar}
+    cp src/linux/resources/jd_icon_128.png $out/share/icons/hicolor/128x128/apps/jd-gui.png
 
-      cat > $out/bin/jd-gui <<EOF
-      #!${runtimeShell}
-      export JAVA_HOME=${jre}
-      ${jre}/bin/java -jar ${jar} $@
-      EOF
-      chmod +x $out/bin/jd-gui
+    cat > $out/bin/jd-gui <<EOF
+    #!${runtimeShell}
+    export JAVA_HOME=${jre}
+    ${jre}/bin/java -jar ${jar} $@
+    EOF
+    chmod +x $out/bin/jd-gui
 
-      ${(desktopItem "$out/bin/jd-gui").buildCommand}
-    '';
+    ${(desktopItem "$out/bin/jd-gui").buildCommand}
+  '';
 
   dontStrip = true;
 

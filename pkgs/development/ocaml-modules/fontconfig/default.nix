@@ -12,8 +12,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ ocaml fontconfig ];
   makeFlags = "OCAML_STDLIB_DIR=$(out)/lib/ocaml/${
-    stdenv.lib.getVersion ocaml
-  }/site-lib/ OCAML_HAVE_OCAMLOPT=yes";
+      stdenv.lib.getVersion ocaml
+    }/site-lib/ OCAML_HAVE_OCAMLOPT=yes";
 
   meta = {
     description = "Fontconfig bindings for OCaml";

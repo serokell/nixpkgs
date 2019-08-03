@@ -120,34 +120,34 @@ in {
   };
 
   search-guard = let majorVersion = lib.head (builtins.splitVersion esVersion);
-    in esPlugin rec {
-      name = "elasticsearch-search-guard-${version}";
-      pluginName = "search-guard";
-      version = if esVersion == "7.0.1" then
-        "${esVersion}-35.0.0"
-      else if esVersion == "6.7.2" then
-        "${esVersion}-25.1"
-      else if esVersion == "5.6.16" then
-        "${esVersion}-19.3"
+  in esPlugin rec {
+    name = "elasticsearch-search-guard-${version}";
+    pluginName = "search-guard";
+    version = if esVersion == "7.0.1" then
+      "${esVersion}-35.0.0"
+    else if esVersion == "6.7.2" then
+      "${esVersion}-25.1"
+    else if esVersion == "5.6.16" then
+      "${esVersion}-19.3"
+    else
+      throw "unsupported version ${esVersion} for plugin ${pluginName}";
+    src = fetchurl {
+      url =
+        "mirror://maven/com/floragunn/${pluginName}-${majorVersion}/${version}/${pluginName}-${majorVersion}-${version}.zip";
+      sha256 = if version == "7.0.1-35.0.0" then
+        "0wsiqq7j7ph9g2vhhvjmwrh5a2q1wzlysgr75gc35zcvqz6cq8ha"
+      else if version == "6.7.2-25.1" then
+        "119r1zibi0z40mfxrpkx0zzay0yz6c7syqmmw8i2681wmz4nksda"
+      else if version == "5.6.16-19.3" then
+        "1q70anihh89c53fnk8wlq9z5dx094j0f9a0y0v2zsqx18lz9ikmx"
       else
-        throw "unsupported version ${esVersion} for plugin ${pluginName}";
-      src = fetchurl {
-        url =
-          "mirror://maven/com/floragunn/${pluginName}-${majorVersion}/${version}/${pluginName}-${majorVersion}-${version}.zip";
-        sha256 = if version == "7.0.1-35.0.0" then
-          "0wsiqq7j7ph9g2vhhvjmwrh5a2q1wzlysgr75gc35zcvqz6cq8ha"
-        else if version == "6.7.2-25.1" then
-          "119r1zibi0z40mfxrpkx0zzay0yz6c7syqmmw8i2681wmz4nksda"
-        else if version == "5.6.16-19.3" then
-          "1q70anihh89c53fnk8wlq9z5dx094j0f9a0y0v2zsqx18lz9ikmx"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
-      };
-      meta = with stdenv.lib; {
-        homepage = "https://github.com/floragunncom/search-guard";
-        description =
-          "Elasticsearch plugin that offers encryption, authentication, and authorisation. ";
-        license = licenses.asl20;
-      };
+        throw "unsupported version ${version} for plugin ${pluginName}";
     };
+    meta = with stdenv.lib; {
+      homepage = "https://github.com/floragunncom/search-guard";
+      description =
+        "Elasticsearch plugin that offers encryption, authentication, and authorisation. ";
+      license = licenses.asl20;
+    };
+  };
 }

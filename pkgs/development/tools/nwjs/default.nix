@@ -78,34 +78,34 @@ in stdenv.mkDerivation rec {
   dontPatchELF = true;
 
   installPhase = let ccPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc ];
-    in ''
-      mkdir -p $out/share/nwjs
-      cp -R * $out/share/nwjs
-      find $out/share/nwjs
+  in ''
+    mkdir -p $out/share/nwjs
+    cp -R * $out/share/nwjs
+    find $out/share/nwjs
 
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/share/nwjs/nw
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/share/nwjs/nw
 
-      ln -s ${systemd.lib}/lib/libudev.so $out/share/nwjs/libudev.so.0
+    ln -s ${systemd.lib}/lib/libudev.so $out/share/nwjs/libudev.so.0
 
-      libpath="$out/share/nwjs/lib/"
-      for f in "$libpath"/*.so; do
-        patchelf --set-rpath "${nwEnv}/lib:${ccPath}:$libpath" "$f"
-      done
-      patchelf --set-rpath "${nwEnv}/lib:${nwEnv}/lib64:${ccPath}:$libpath" $out/share/nwjs/nw
-      # check, whether all RPATHs are correct (all dependencies found)
-      checkfile=$(mktemp)
-      for f in "$libpath"/*.so "$out/share/nwjs/nw"; do
-         (echo "$f:";
-          ldd "$f"  ) > "$checkfile"
-      done
-      if <"$checkfile" grep -e "not found"; then
-        cat "$checkfile"
-        exit 1
-      fi
+    libpath="$out/share/nwjs/lib/"
+    for f in "$libpath"/*.so; do
+      patchelf --set-rpath "${nwEnv}/lib:${ccPath}:$libpath" "$f"
+    done
+    patchelf --set-rpath "${nwEnv}/lib:${nwEnv}/lib64:${ccPath}:$libpath" $out/share/nwjs/nw
+    # check, whether all RPATHs are correct (all dependencies found)
+    checkfile=$(mktemp)
+    for f in "$libpath"/*.so "$out/share/nwjs/nw"; do
+       (echo "$f:";
+        ldd "$f"  ) > "$checkfile"
+    done
+    if <"$checkfile" grep -e "not found"; then
+      cat "$checkfile"
+      exit 1
+    fi
 
-      mkdir -p $out/bin
-      ln -s $out/share/nwjs/nw $out/bin
-    '';
+    mkdir -p $out/bin
+    ln -s $out/share/nwjs/nw $out/bin
+  '';
 
   buildInputs = [ makeWrapper ];
 

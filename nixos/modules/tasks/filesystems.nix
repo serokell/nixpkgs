@@ -131,11 +131,11 @@ let
           "-q"
         else
           null;
-      in {
-        options = mkIf config.autoResize [ "x-nixos.autoresize" ];
-        formatOptions =
-          mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
-      };
+    in {
+      options = mkIf config.autoResize [ "x-nixos.autoresize" ];
+      formatOptions =
+        mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
+    };
 
   };
 
@@ -219,26 +219,26 @@ in {
       ls = sep: concatMapStringsSep sep (x: x.mountPoint);
       notAutoResizable = fs:
         fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs");
-      in [
-        {
-          assertion = !(fileSystems' ? "cycle");
-          message =
-            "The ‘fileSystems’ option can't be topologically sorted: mountpoint dependency path ${
-              ls " -> " fileSystems'.cycle
-            } loops to ${ls ", " fileSystems'.loops}";
-        }
-        {
-          assertion = !(any notAutoResizable fileSystems);
-          message = let fs = head (filter notAutoResizable fileSystems);
-            in ''
-              Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
-                if fs.fsType == "auto" then
-                  " fsType has to be explicitly set and"
-                else
-                  ""
-              } only the ext filesystems and f2fs support it.'';
-        }
-      ];
+    in [
+      {
+        assertion = !(fileSystems' ? "cycle");
+        message =
+          "The ‘fileSystems’ option can't be topologically sorted: mountpoint dependency path ${
+            ls " -> " fileSystems'.cycle
+          } loops to ${ls ", " fileSystems'.loops}";
+      }
+      {
+        assertion = !(any notAutoResizable fileSystems);
+        message = let fs = head (filter notAutoResizable fileSystems);
+        in ''
+          Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
+            if fs.fsType == "auto" then
+              " fsType has to be explicitly set and"
+            else
+              ""
+          } only the ext filesystems and f2fs support it.'';
+      }
+    ];
 
     # Export for use in other modules
     system.build.fileSystems = fileSystems;
@@ -262,34 +262,34 @@ in {
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape = string:
         builtins.replaceStrings [ " " "	" ] [ "\\040" "\\011" ] string;
-      in ''
-        # This is a generated file.  Do not edit!
-        #
-        # To make changes, edit the fileSystems and swapDevices NixOS options
-        # in your /etc/nixos/configuration.nix file.
+    in ''
+      # This is a generated file.  Do not edit!
+      #
+      # To make changes, edit the fileSystems and swapDevices NixOS options
+      # in your /etc/nixos/configuration.nix file.
 
-        # Filesystems.
-        ${concatMapStrings (fs:
-          (if fs.device != null then
-            escape fs.device
-          else if fs.label != null then
-            "/dev/disk/by-label/${escape fs.label}"
-          else
-            throw "No device specified for mount point ‘${fs.mountPoint}’.")
-          + " " + escape fs.mountPoint + " " + fs.fsType + " "
-          + builtins.concatStringsSep "," fs.options + " 0" + " "
-          + (if skipCheck fs then
-            "0"
-          else if fs.mountPoint == "/" then
-            "1"
-          else
-            "2") + "\n") fileSystems}
+      # Filesystems.
+      ${concatMapStrings (fs:
+        (if fs.device != null then
+          escape fs.device
+        else if fs.label != null then
+          "/dev/disk/by-label/${escape fs.label}"
+        else
+          throw "No device specified for mount point ‘${fs.mountPoint}’.") + " "
+        + escape fs.mountPoint + " " + fs.fsType + " "
+        + builtins.concatStringsSep "," fs.options + " 0" + " "
+        + (if skipCheck fs then
+          "0"
+        else if fs.mountPoint == "/" then
+          "1"
+        else
+          "2") + "\n") fileSystems}
 
-        # Swap devices.
-        ${flip concatMapStrings config.swapDevices (sw: ''
-          ${sw.realDevice} none swap${prioOption sw.priority}
-        '')}
-      '';
+      # Swap devices.
+      ${flip concatMapStrings config.swapDevices (sw: ''
+        ${sw.realDevice} none swap${prioOption sw.priority}
+      '')}
+    '';
 
     # Provide a target that pulls in all filesystems.
     systemd.targets.fs = {
@@ -326,8 +326,7 @@ in {
           serviceConfig.Type = "oneshot";
         };
 
-      in listToAttrs
-      (map formatDevice (filter (fs: fs.autoFormat) fileSystems));
+    in listToAttrs (map formatDevice (filter (fs: fs.autoFormat) fileSystems));
 
     # Sync mount options with systemd's src/core/mount-setup.c: mount_table.
     boot.specialFileSystems = {

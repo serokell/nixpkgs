@@ -1,13 +1,13 @@
 { stdenv, fetchurl, which, pkgconfig, file, glib, gtk2, gtk3, curl, libXt }:
 let
   srcData = # Generated upstream information
-  rec {
-    baseName = "nspluginwrapper";
-    version = "1.4.4";
-    name = "${baseName}-${version}";
-    hash = "1fxjz9ifhw0drm12havlsl4jpsq1nv930gqa005kgddv5pa99vgj";
-    url = "http://nspluginwrapper.org/download/nspluginwrapper-1.4.4.tar.gz";
-  };
+    rec {
+      baseName = "nspluginwrapper";
+      version = "1.4.4";
+      name = "${baseName}-${version}";
+      hash = "1fxjz9ifhw0drm12havlsl4jpsq1nv930gqa005kgddv5pa99vgj";
+      url = "http://nspluginwrapper.org/download/nspluginwrapper-1.4.4.tar.gz";
+    };
 in stdenv.mkDerivation rec {
   inherit (srcData) name version;
 

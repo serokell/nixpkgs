@@ -126,20 +126,20 @@ in {
           Restart = "always";
         };
       };
-      in listToAttrs (mapAttrsToList (name: value:
-        nameValuePair "iodine-${name}" (createIodineClientService name value))
-        cfg.clients) // {
-          iodined = mkIf (cfg.server.enable) {
-            description = "iodine, ip over dns server daemon";
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
-            script =
-              "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
-                optionalString (cfg.server.passwordFile != "")
-                ''< "${cfg.server.passwordFile}"''
-              } ${cfg.server.ip} ${cfg.server.domain}";
-          };
+    in listToAttrs (mapAttrsToList (name: value:
+      nameValuePair "iodine-${name}" (createIodineClientService name value))
+      cfg.clients) // {
+        iodined = mkIf (cfg.server.enable) {
+          description = "iodine, ip over dns server daemon";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+          script =
+            "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
+              optionalString (cfg.server.passwordFile != "")
+              ''< "${cfg.server.passwordFile}"''
+            } ${cfg.server.ip} ${cfg.server.domain}";
         };
+      };
 
     users.users = singleton {
       name = iodinedUser;

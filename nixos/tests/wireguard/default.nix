@@ -74,10 +74,10 @@ in import ../make-test.nix ({ pkgs, ... }: {
         };
 
         postSetup = let inherit (pkgs) iproute;
-          in ''
-            ${iproute}/bin/ip route replace 10.23.42.1/32 dev wg0
-            ${iproute}/bin/ip route replace fc00::1/128 dev wg0
-          '';
+        in ''
+          ${iproute}/bin/ip route replace 10.23.42.1/32 dev wg0
+          ${iproute}/bin/ip route replace fc00::1/128 dev wg0
+        '';
       };
     };
   };

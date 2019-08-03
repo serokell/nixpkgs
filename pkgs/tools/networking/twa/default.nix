@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/twa" \
       --prefix PATH : ${
-      stdenv.lib.makeBinPath [ curl netcat ncurses host.dnsutils ]
+        stdenv.lib.makeBinPath [ curl netcat ncurses host.dnsutils ]
       }
   '';
 

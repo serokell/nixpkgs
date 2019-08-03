@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
         --with-pid-dir=/run \
         --enable-usb \
         ${
-      stdenv.lib.optionalString enableCgiScripts
-      "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"
+          stdenv.lib.optionalString enableCgiScripts
+          "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"
         }
         "
   '';

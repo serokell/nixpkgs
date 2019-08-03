@@ -33,7 +33,7 @@ in stdenv.mkDerivation rec {
     wrapProgram $out/bin/tuxguitar \
       --set JAVA "${jdk}/bin/java" \
       --prefix LD_LIBRARY_PATH : "$out/lib/:${
-      stdenv.lib.makeLibraryPath [ swt alsaLib ]
+        stdenv.lib.makeLibraryPath [ swt alsaLib ]
       }" \
       --prefix CLASSPATH : "${swt}/jars/swt.jar:$out/lib/tuxguitar.jar:$out/lib/itext.jar"
   '';

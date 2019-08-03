@@ -28,7 +28,7 @@ stdenv.mkDerivation {
 
     patchelf  \
       --set-rpath "${
-      stdenv.lib.makeLibraryPath [ qtbase glew stdenv.cc.cc libGLU_combined ]
+        stdenv.lib.makeLibraryPath [ qtbase glew stdenv.cc.cc libGLU_combined ]
       }" \
       $out/share/openBrf/openBrf
 

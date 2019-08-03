@@ -93,11 +93,11 @@ stdenv.mkDerivation rec {
         patches = [ ./tesseract.patch ];
       });
     };
-    in [ zlib libpng ] ++ optional enableGSL gsl
-    ++ optional enableGhostScript ghostscript
-    ++ optional enableMuPDF mupdf_modded ++ optional enableJPEG2K jasper
-    ++ optional enableDJVU djvulibre ++ optional enableGOCR gocr
-    ++ optionals enableTesseract [ leptonica_modded tesseract_modded ];
+  in [ zlib libpng ] ++ optional enableGSL gsl
+  ++ optional enableGhostScript ghostscript ++ optional enableMuPDF mupdf_modded
+  ++ optional enableJPEG2K jasper ++ optional enableDJVU djvulibre
+  ++ optional enableGOCR gocr
+  ++ optionals enableTesseract [ leptonica_modded tesseract_modded ];
 
   dontUseCmakeBuildDir = true;
 

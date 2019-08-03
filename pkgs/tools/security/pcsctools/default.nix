@@ -21,8 +21,8 @@ in stdenv.mkDerivation rec {
       --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl ]}"
     wrapProgram $out/bin/gscriptor \
       --set PERL5LIB "${
-      with perlPackages;
-      makePerlPath [ pcscperl Glib Gtk2 Pango Cairo ]
+        with perlPackages;
+        makePerlPath [ pcscperl Glib Gtk2 Pango Cairo ]
       }"
     wrapProgram $out/bin/ATR_analysis \
       --set PERL5LIB "${with perlPackages; makePerlPath [ pcscperl ]}"

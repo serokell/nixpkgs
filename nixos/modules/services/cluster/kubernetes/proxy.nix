@@ -52,67 +52,67 @@ in {
       cfg.kubeconfig.keyFile
     ];
 
-    in mkIf cfg.enable {
-      systemd.services.kube-proxy = rec {
-        description = "Kubernetes Proxy Service";
-        wantedBy = [ "kube-node-online.target" ];
-        after = [ "kubelet-online.service" ];
-        before = [ "kube-node-online.target" ];
-        environment.KUBECONFIG =
-          top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig;
-        path = with pkgs; [ iptables conntrack_tools kubectl ];
-        preStart = ''
-          until kubectl auth can-i get nodes/${top.kubelet.hostname} -q 2>/dev/null; do
-            echo kubectl auth can-i get nodes/${top.kubelet.hostname}: exit status $?
-            sleep 2
-          done
-        '';
-        serviceConfig = {
-          Slice = "kubernetes.slice";
-          ExecStart = ''
-            ${top.package}/bin/kube-proxy \
-                      --bind-address=${cfg.bindAddress} \
-                      ${
-              optionalString (top.clusterCidr != null)
-              "--cluster-cidr=${top.clusterCidr}"
-                      } \
-                      ${
-              optionalString (cfg.featureGates != [ ]) "--feature-gates=${
-                concatMapStringsSep "," (feature: "${feature}=true")
-                cfg.featureGates
-              }"
-                      } \
-                      --kubeconfig=${environment.KUBECONFIG} \
-                      ${
-              optionalString (cfg.verbosity != null)
-              "--v=${toString cfg.verbosity}"
-                      } \
-                      ${cfg.extraOpts}
-                    '';
-          WorkingDirectory = top.dataDir;
-          Restart = "on-failure";
-          RestartSec = 5;
-        };
-        unitConfig.ConditionPathExists = proxyPaths;
+  in mkIf cfg.enable {
+    systemd.services.kube-proxy = rec {
+      description = "Kubernetes Proxy Service";
+      wantedBy = [ "kube-node-online.target" ];
+      after = [ "kubelet-online.service" ];
+      before = [ "kube-node-online.target" ];
+      environment.KUBECONFIG = top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig;
+      path = with pkgs; [ iptables conntrack_tools kubectl ];
+      preStart = ''
+        until kubectl auth can-i get nodes/${top.kubelet.hostname} -q 2>/dev/null; do
+          echo kubectl auth can-i get nodes/${top.kubelet.hostname}: exit status $?
+          sleep 2
+        done
+      '';
+      serviceConfig = {
+        Slice = "kubernetes.slice";
+        ExecStart = ''
+          ${top.package}/bin/kube-proxy \
+                    --bind-address=${cfg.bindAddress} \
+                    ${
+                      optionalString (top.clusterCidr != null)
+                      "--cluster-cidr=${top.clusterCidr}"
+                    } \
+                    ${
+                      optionalString (cfg.featureGates != [ ])
+                      "--feature-gates=${
+                        concatMapStringsSep "," (feature: "${feature}=true")
+                        cfg.featureGates
+                      }"
+                    } \
+                    --kubeconfig=${environment.KUBECONFIG} \
+                    ${
+                      optionalString (cfg.verbosity != null)
+                      "--v=${toString cfg.verbosity}"
+                    } \
+                    ${cfg.extraOpts}
+                  '';
+        WorkingDirectory = top.dataDir;
+        Restart = "on-failure";
+        RestartSec = 5;
       };
-
-      systemd.paths.kube-proxy = {
-        wantedBy = [ "kube-proxy.service" ];
-        pathConfig = {
-          PathExists = proxyPaths;
-          PathChanged = proxyPaths;
-        };
-      };
-
-      services.kubernetes.pki.certs = {
-        kubeProxyClient = top.lib.mkCert {
-          name = "kube-proxy-client";
-          CN = "system:kube-proxy";
-          action = "systemctl restart kube-proxy.service";
-        };
-      };
-
-      services.kubernetes.proxy.kubeconfig.server =
-        mkDefault top.apiserverAddress;
+      unitConfig.ConditionPathExists = proxyPaths;
     };
+
+    systemd.paths.kube-proxy = {
+      wantedBy = [ "kube-proxy.service" ];
+      pathConfig = {
+        PathExists = proxyPaths;
+        PathChanged = proxyPaths;
+      };
+    };
+
+    services.kubernetes.pki.certs = {
+      kubeProxyClient = top.lib.mkCert {
+        name = "kube-proxy-client";
+        CN = "system:kube-proxy";
+        action = "systemctl restart kube-proxy.service";
+      };
+    };
+
+    services.kubernetes.proxy.kubeconfig.server =
+      mkDefault top.apiserverAddress;
+  };
 }

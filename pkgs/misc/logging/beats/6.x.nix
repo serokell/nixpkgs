@@ -53,8 +53,8 @@ in {
     '';
     buildInputs = [ systemd.dev ];
     postFixup = let libPath = stdenv.lib.makeLibraryPath [ systemd.lib ];
-      in ''
-        patchelf --set-rpath ${libPath} "$bin/bin/journalbeat"
-      '';
+    in ''
+      patchelf --set-rpath ${libPath} "$bin/bin/journalbeat"
+    '';
   };
 }

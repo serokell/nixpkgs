@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     # The wrapper ensures oraclejre is used
     makeWrapper ${runtimeShell} $out/bin/docear \
       --set _JAVA_OPTIONS "${
-      stdenv.lib.optionalString antialiasFont
-      "-Dswing.aatext=TRUE -Dawt.useSystemAAFontSettings=on"
+        stdenv.lib.optionalString antialiasFont
+        "-Dswing.aatext=TRUE -Dawt.useSystemAAFontSettings=on"
       }" \
       --set JAVA_HOME ${oraclejre.home} \
       --add-flags "$out/share/docear.sh"

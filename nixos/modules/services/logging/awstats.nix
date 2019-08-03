@@ -72,17 +72,17 @@ in {
         else
           throw
           "awstats service doesn't support Apache log format `${cfg-httpd.logFormat}`";
-        in ''
-          sed \
-            -e 's|^\(DirData\)=.*$|\1="${cfg.vardir}"|' \
-            -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
-            -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
-            -e 's|^\(SiteDomain\)=.*$|\1="${cfg-httpd.hostName}"|' \
-            -e 's|^\(LogFile\)=.*$|\1="${cfg-httpd.logDir}/access_log"|' \
-            -e 's|^\(LogFormat\)=.*$|\1=${logFormat}|' \
-            < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
-          echo '${cfg.extraConfig}' >> "$out"
-        '');
+      in ''
+        sed \
+          -e 's|^\(DirData\)=.*$|\1="${cfg.vardir}"|' \
+          -e 's|^\(DirIcons\)=.*$|\1="icons"|' \
+          -e 's|^\(CreateDirDataIfNotExists\)=.*$|\1=1|' \
+          -e 's|^\(SiteDomain\)=.*$|\1="${cfg-httpd.hostName}"|' \
+          -e 's|^\(LogFile\)=.*$|\1="${cfg-httpd.logDir}/access_log"|' \
+          -e 's|^\(LogFormat\)=.*$|\1=${logFormat}|' \
+          < '${package.out}/wwwroot/cgi-bin/awstats.model.conf' > "$out"
+        echo '${cfg.extraConfig}' >> "$out"
+      '');
 
     # The httpd sub-service showing awstats.
     services.httpd.enable = mkIf cfg.service.enable true;
@@ -102,10 +102,10 @@ in {
           </Directory>
         '';
         startupScript = let inherit (serverInfo.serverConfig) user group;
-          in pkgs.writeScript "awstats_startup.sh" ''
-            mkdir -p '${cfg.vardir}'
-            chown '${user}:${group}' '${cfg.vardir}'
-          '';
+        in pkgs.writeScript "awstats_startup.sh" ''
+          mkdir -p '${cfg.vardir}'
+          chown '${user}:${group}' '${cfg.vardir}'
+        '';
       };
     }];
 

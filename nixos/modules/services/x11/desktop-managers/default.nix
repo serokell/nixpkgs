@@ -82,7 +82,7 @@ in {
               start = d.start + optionalString (needBGCond d) ''
                 if [ -e $HOME/.background-image ]; then
                   ${pkgs.feh}/bin/feh --bg-${cfg.wallpaper.mode} ${
-                  optionalString cfg.wallpaper.combineScreens "--no-xinerama"
+                    optionalString cfg.wallpaper.combineScreens "--no-xinerama"
                   } $HOME/.background-image
                 else
                   # Use a solid black background as fallback
@@ -110,14 +110,14 @@ in {
               Default desktop manager (${defaultDM}) not found at evaluation time.
               These are the known valid session names:
                 ${
-                concatMapStringsSep "\n  "
-                (w: ''services.xserver.desktopManager.default = "${w.name}";'')
-                cfg.session.list
+                  concatMapStringsSep "\n  " (w:
+                    ''services.xserver.desktopManager.default = "${w.name}";'')
+                  cfg.session.list
                 }
               It's also possible the default can be found in one of these packages:
                 ${
-                concatMapStringsSep "\n  " (p: p.name)
-                config.services.xserver.displayManager.extraSessionFilePackages
+                  concatMapStringsSep "\n  " (p: p.name)
+                  config.services.xserver.displayManager.extraSessionFilePackages
                 }
             '' defaultDM;
       };

@@ -1,15 +1,15 @@
 { stdenv, fetchurl, fftwSinglePrec, freetype, SDL, SDL_ttf }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "quantumminigolf";
-    version = "1.1.1";
-    name = "${baseName}-${version}";
-    hash = "16av7fk0irhi5nd7y9h9vhb0kf0dk12p6976ai3f60m99qdd8wk3";
-    url =
-      "mirror://sourceforge/project/quantumminigolf/quantumminigolf/1.1.1/quantumminigolf-1.1.1.src.tar.gz";
-    sha256 = "16av7fk0irhi5nd7y9h9vhb0kf0dk12p6976ai3f60m99qdd8wk3";
-  };
+    rec {
+      baseName = "quantumminigolf";
+      version = "1.1.1";
+      name = "${baseName}-${version}";
+      hash = "16av7fk0irhi5nd7y9h9vhb0kf0dk12p6976ai3f60m99qdd8wk3";
+      url =
+        "mirror://sourceforge/project/quantumminigolf/quantumminigolf/1.1.1/quantumminigolf-1.1.1.src.tar.gz";
+      sha256 = "16av7fk0irhi5nd7y9h9vhb0kf0dk12p6976ai3f60m99qdd8wk3";
+    };
   buildInputs = [ fftwSinglePrec freetype SDL SDL_ttf ];
 in stdenv.mkDerivation {
   inherit (s) name version;

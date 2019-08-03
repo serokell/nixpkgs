@@ -1133,152 +1133,152 @@ in {
       used for XAuth authentication as well.
     '';
 
-    in {
+  in {
 
-      eap = mkEapXauthParams;
-      xauth = mkEapXauthParams;
+    eap = mkEapXauthParams;
+    xauth = mkEapXauthParams;
 
-      ntlm = mkPrefixedAttrsOfParams {
-        secret = mkOptionalStrParam ''
-          Value of the NTLM secret, which is the NT Hash of the actual secret,
-          that is, MD4(UTF-16LE(secret)). The resulting 16-byte value may either
-          be given as a hex encoded string with a 0x prefix or as a Base64 encoded
-          string with a 0s prefix.
-        '';
-
-        id = mkPrefixedAttrsOfParam (mkOptionalStrParam "") ''
-          Identity the NTLM secret belongs to. Multiple unique identities may be
-          specified, each having an id prefix, if a secret is shared between
-          multiple users.
-        '';
-      } ''
-        NTLM secret section for a specific secret. Each NTLM secret is defined in
-        a unique section having the <literal>ntlm</literal> prefix. NTLM secrets
-        may only be used for EAP-MSCHAPv2 authentication.
+    ntlm = mkPrefixedAttrsOfParams {
+      secret = mkOptionalStrParam ''
+        Value of the NTLM secret, which is the NT Hash of the actual secret,
+        that is, MD4(UTF-16LE(secret)). The resulting 16-byte value may either
+        be given as a hex encoded string with a 0x prefix or as a Base64 encoded
+        string with a 0s prefix.
       '';
 
-      ike = mkPrefixedAttrsOfParams {
-        secret = mkOptionalStrParam ''
-          Value of the IKE preshared secret. It may either be an ASCII string, a
-          hex encoded string if it has a 0x prefix or a Base64 encoded string if
-          it has a 0s prefix in its value.
-        '';
+      id = mkPrefixedAttrsOfParam (mkOptionalStrParam "") ''
+        Identity the NTLM secret belongs to. Multiple unique identities may be
+        specified, each having an id prefix, if a secret is shared between
+        multiple users.
+      '';
+    } ''
+      NTLM secret section for a specific secret. Each NTLM secret is defined in
+      a unique section having the <literal>ntlm</literal> prefix. NTLM secrets
+      may only be used for EAP-MSCHAPv2 authentication.
+    '';
 
-        id = mkPrefixedAttrsOfParam (mkOptionalStrParam "") ''
-          IKE identity the IKE preshared secret belongs to. Multiple unique
-          identities may be specified, each having an <literal>id</literal>
-          prefix, if a secret is shared between multiple peers.
-        '';
-      } ''
-        IKE preshared secret section for a specific secret. Each IKE PSK is
-        defined in a unique section having the <literal>ike</literal> prefix.
+    ike = mkPrefixedAttrsOfParams {
+      secret = mkOptionalStrParam ''
+        Value of the IKE preshared secret. It may either be an ASCII string, a
+        hex encoded string if it has a 0x prefix or a Base64 encoded string if
+        it has a 0s prefix in its value.
       '';
 
-      ppk = mkPrefixedAttrsOfParams {
-        secret = mkOptionalStrParam ''
-          Value of the PPK. It may either be an ASCII string, a hex encoded string
-          if it has a <literal>0x</literal> prefix or a Base64 encoded string if
-          it has a <literal>0s</literal> prefix in its value. Should have at least
-          256 bits of entropy for 128-bit security.
-        '';
+      id = mkPrefixedAttrsOfParam (mkOptionalStrParam "") ''
+        IKE identity the IKE preshared secret belongs to. Multiple unique
+        identities may be specified, each having an <literal>id</literal>
+        prefix, if a secret is shared between multiple peers.
+      '';
+    } ''
+      IKE preshared secret section for a specific secret. Each IKE PSK is
+      defined in a unique section having the <literal>ike</literal> prefix.
+    '';
 
-        id = mkPrefixedAttrsOfParam (mkOptionalStrParam "") ''
-          PPK identity the PPK belongs to. Multiple unique identities may be
-          specified, each having an <literal>id</literal> prefix, if a secret is
-          shared between multiple peers.
-        '';
-      } ''
-        Postquantum Preshared Key (PPK) section for a specific secret. Each PPK is
-        defined in a unique section having the <literal>ppk</literal> prefix.
+    ppk = mkPrefixedAttrsOfParams {
+      secret = mkOptionalStrParam ''
+        Value of the PPK. It may either be an ASCII string, a hex encoded string
+        if it has a <literal>0x</literal> prefix or a Base64 encoded string if
+        it has a <literal>0s</literal> prefix in its value. Should have at least
+        256 bits of entropy for 128-bit security.
       '';
 
-      private = mkPrefixedAttrsOfParams {
-        file = mkOptionalStrParam ''
-          File name in the private folder for which this passphrase should be used.
-        '';
+      id = mkPrefixedAttrsOfParam (mkOptionalStrParam "") ''
+        PPK identity the PPK belongs to. Multiple unique identities may be
+        specified, each having an <literal>id</literal> prefix, if a secret is
+        shared between multiple peers.
+      '';
+    } ''
+      Postquantum Preshared Key (PPK) section for a specific secret. Each PPK is
+      defined in a unique section having the <literal>ppk</literal> prefix.
+    '';
 
-        secret = mkOptionalStrParam ''
-          Value of decryption passphrase for private key.
-        '';
-      } ''
-        Private key decryption passphrase for a key in the
-        <literal>private</literal> folder.
+    private = mkPrefixedAttrsOfParams {
+      file = mkOptionalStrParam ''
+        File name in the private folder for which this passphrase should be used.
       '';
 
-      rsa = mkPrefixedAttrsOfParams {
-        file = mkOptionalStrParam ''
-          File name in the <literal>rsa</literal> folder for which this passphrase
-          should be used.
-        '';
-        secret = mkOptionalStrParam ''
-          Value of decryption passphrase for RSA key.
-        '';
-      } ''
-        Private key decryption passphrase for a key in the <literal>rsa</literal>
-        folder.
+      secret = mkOptionalStrParam ''
+        Value of decryption passphrase for private key.
+      '';
+    } ''
+      Private key decryption passphrase for a key in the
+      <literal>private</literal> folder.
+    '';
+
+    rsa = mkPrefixedAttrsOfParams {
+      file = mkOptionalStrParam ''
+        File name in the <literal>rsa</literal> folder for which this passphrase
+        should be used.
+      '';
+      secret = mkOptionalStrParam ''
+        Value of decryption passphrase for RSA key.
+      '';
+    } ''
+      Private key decryption passphrase for a key in the <literal>rsa</literal>
+      folder.
+    '';
+
+    ecdsa = mkPrefixedAttrsOfParams {
+      file = mkOptionalStrParam ''
+        File name in the <literal>ecdsa</literal> folder for which this
+        passphrase should be used.
+      '';
+      secret = mkOptionalStrParam ''
+        Value of decryption passphrase for ECDSA key.
+      '';
+    } ''
+      Private key decryption passphrase for a key in the
+      <literal>ecdsa</literal> folder.
+    '';
+
+    pkcs8 = mkPrefixedAttrsOfParams {
+      file = mkOptionalStrParam ''
+        File name in the <literal>pkcs8</literal> folder for which this
+        passphrase should be used.
+      '';
+      secret = mkOptionalStrParam ''
+        Value of decryption passphrase for PKCS#8 key.
+      '';
+    } ''
+      Private key decryption passphrase for a key in the
+      <literal>pkcs8</literal> folder.
+    '';
+
+    pkcs12 = mkPrefixedAttrsOfParams {
+      file = mkOptionalStrParam ''
+        File name in the <literal>pkcs12</literal> folder for which this
+        passphrase should be used.
+      '';
+      secret = mkOptionalStrParam ''
+        Value of decryption passphrase for PKCS#12 container.
+      '';
+    } ''
+      PKCS#12 decryption passphrase for a container in the
+      <literal>pkcs12</literal> folder.
+    '';
+
+    token = mkPrefixedAttrsOfParams {
+      handle = mkOptionalHexParam ''
+        Hex-encoded CKA_ID or handle of the private key on the token or TPM,
+        respectively.
       '';
 
-      ecdsa = mkPrefixedAttrsOfParams {
-        file = mkOptionalStrParam ''
-          File name in the <literal>ecdsa</literal> folder for which this
-          passphrase should be used.
-        '';
-        secret = mkOptionalStrParam ''
-          Value of decryption passphrase for ECDSA key.
-        '';
-      } ''
-        Private key decryption passphrase for a key in the
-        <literal>ecdsa</literal> folder.
+      slot = mkOptionalIntParam ''
+        Optional slot number to access the token.
       '';
 
-      pkcs8 = mkPrefixedAttrsOfParams {
-        file = mkOptionalStrParam ''
-          File name in the <literal>pkcs8</literal> folder for which this
-          passphrase should be used.
-        '';
-        secret = mkOptionalStrParam ''
-          Value of decryption passphrase for PKCS#8 key.
-        '';
-      } ''
-        Private key decryption passphrase for a key in the
-        <literal>pkcs8</literal> folder.
+      module = mkOptionalStrParam ''
+        Optional PKCS#11 module name to access the token.
       '';
 
-      pkcs12 = mkPrefixedAttrsOfParams {
-        file = mkOptionalStrParam ''
-          File name in the <literal>pkcs12</literal> folder for which this
-          passphrase should be used.
-        '';
-        secret = mkOptionalStrParam ''
-          Value of decryption passphrase for PKCS#12 container.
-        '';
-      } ''
-        PKCS#12 decryption passphrase for a container in the
-        <literal>pkcs12</literal> folder.
+      pin = mkOptionalStrParam ''
+        Optional PIN required to access the key on the token. If none is
+        provided the user is prompted during an interactive
+        <literal>--load-creds</literal> call.
       '';
+    } "Definition for a private key that's stored on a token/smartcard/TPM.";
 
-      token = mkPrefixedAttrsOfParams {
-        handle = mkOptionalHexParam ''
-          Hex-encoded CKA_ID or handle of the private key on the token or TPM,
-          respectively.
-        '';
-
-        slot = mkOptionalIntParam ''
-          Optional slot number to access the token.
-        '';
-
-        module = mkOptionalStrParam ''
-          Optional PKCS#11 module name to access the token.
-        '';
-
-        pin = mkOptionalStrParam ''
-          Optional PIN required to access the key on the token. If none is
-          provided the user is prompted during an interactive
-          <literal>--load-creds</literal> call.
-        '';
-      } "Definition for a private key that's stored on a token/smartcard/TPM.";
-
-    };
+  };
 
   pools = mkAttrsOfParams {
     addrs = mkOptionalStrParam ''

@@ -4,21 +4,21 @@
 
 import ./make-test.nix ({ pkgs, ... }:
 
-{
-  name = "gocd-server";
-  meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ swarren83 ]; };
+  {
+    name = "gocd-server";
+    meta = with pkgs.stdenv.lib.maintainers; { maintainers = [ swarren83 ]; };
 
-  nodes = {
-    gocd_server = { ... }: {
-      virtualisation.memorySize = 2046;
-      services.gocd-server.enable = true;
+    nodes = {
+      gocd_server = { ... }: {
+        virtualisation.memorySize = 2046;
+        services.gocd-server.enable = true;
+      };
     };
-  };
 
-  testScript = ''
-    $gocd_server->start;
-    $gocd_server->waitForUnit("gocd-server");
-    $gocd_server->waitForOpenPort("8153");
-    $gocd_server->waitUntilSucceeds("curl -s -f localhost:8153/go");
-  '';
-})
+    testScript = ''
+      $gocd_server->start;
+      $gocd_server->waitForUnit("gocd-server");
+      $gocd_server->waitForOpenPort("8153");
+      $gocd_server->waitUntilSucceeds("curl -s -f localhost:8153/go");
+    '';
+  })

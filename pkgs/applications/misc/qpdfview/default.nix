@@ -2,14 +2,14 @@
 , libspectre, cups, file, ghostscript }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "qpdfview";
-    version = "0.4.16";
-    name = "${baseName}-${version}";
-    url =
-      "https://launchpad.net/qpdfview/trunk/${version}/+download/qpdfview-${version}.tar.gz";
-    sha256 = "0zysjhr58nnmx7ba01q3zvgidkgcqxjdj4ld3gx5fc7wzvl1dm7s";
-  };
+    rec {
+      baseName = "qpdfview";
+      version = "0.4.16";
+      name = "${baseName}-${version}";
+      url =
+        "https://launchpad.net/qpdfview/trunk/${version}/+download/qpdfview-${version}.tar.gz";
+      sha256 = "0zysjhr58nnmx7ba01q3zvgidkgcqxjdj4ld3gx5fc7wzvl1dm7s";
+    };
   nativeBuildInputs = [ qmake pkgconfig ];
   buildInputs =
     [ qtbase qtsvg poppler djvulibre libspectre cups file ghostscript ];

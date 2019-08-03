@@ -6,8 +6,8 @@ in fetchzip rec {
   name = "${pname}-${version}";
 
   url = "mirror://gnome/sources/${pname}/${
-    stdenv.lib.versions.majorMinor version
-  }/${name}.tar.bz2";
+      stdenv.lib.versions.majorMinor version
+    }/${name}.tar.bz2";
 
   postFetch = ''
     tar -xjf $downloadedFile --strip-components=1

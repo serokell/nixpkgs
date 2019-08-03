@@ -15,10 +15,10 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./libpath.patch;
       env = "${
-        buildEnv {
-          name = "wee-slack-env";
-          paths = with pythonPackages; [ websocket_client six ];
-        }
+          buildEnv {
+            name = "wee-slack-env";
+            paths = with pythonPackages; [ websocket_client six ];
+          }
         }/${pythonPackages.python.sitePackages}";
     })
   ];

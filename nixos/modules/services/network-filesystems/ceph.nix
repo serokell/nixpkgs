@@ -15,49 +15,51 @@ let
     }) daemons));
   generateServiceFile =
     (daemonType: daemonId: clusterName: ceph: extraServiceConfig:
-    {
-      enable = true;
-      description = "Ceph ${
-        builtins.replaceStrings lowerChars upperChars daemonType
-      } daemon ${daemonId}";
-      after = [ "network-online.target" "local-fs.target" "time-sync.target" ]
-        ++ optional (daemonType == "osd") "ceph-mon.target";
-      wants = [ "network-online.target" "local-fs.target" "time-sync.target" ];
-      partOf = [ "ceph-${daemonType}.target" ];
-      wantedBy = [ "ceph-${daemonType}.target" ];
+      {
+        enable = true;
+        description = "Ceph ${
+            builtins.replaceStrings lowerChars upperChars daemonType
+          } daemon ${daemonId}";
+        after = [ "network-online.target" "local-fs.target" "time-sync.target" ]
+          ++ optional (daemonType == "osd") "ceph-mon.target";
+        wants =
+          [ "network-online.target" "local-fs.target" "time-sync.target" ];
+        partOf = [ "ceph-${daemonType}.target" ];
+        wantedBy = [ "ceph-${daemonType}.target" ];
 
-      serviceConfig = {
-        LimitNOFILE = 1048576;
-        LimitNPROC = 1048576;
-        Environment = "CLUSTER=${clusterName}";
-        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        PrivateDevices = "yes";
-        PrivateTmp = "true";
-        ProtectHome = "true";
-        ProtectSystem = "full";
-        Restart = "on-failure";
-        StartLimitBurst = "5";
-        StartLimitInterval = "30min";
-        ExecStart = "${ceph.out}/bin/${
-          if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"
-          } -f --cluster ${clusterName} --id ${
-            if daemonType == "rgw" then "client.${daemonId}" else daemonId
-          } --setuser ceph --setgroup ceph";
-      } // extraServiceConfig // optionalAttrs (daemonType == "osd") {
-        ExecStartPre =
-          "${ceph.out}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
-      };
-    } // optionalAttrs (builtins.elem daemonType [ "mds" "mon" "rgw" "mgr" ]) {
-      preStart = ''
-        daemonPath="/var/lib/ceph/${
-          if daemonType == "rgw" then "radosgw" else daemonType
-        }/${clusterName}-${daemonId}"
-        if [ ! -d $daemonPath ]; then
-          mkdir -m 755 -p $daemonPath
-          chown -R ceph:ceph $daemonPath 
-        fi
-      '';
-    } // optionalAttrs (daemonType == "osd") { path = [ pkgs.getopt ]; });
+        serviceConfig = {
+          LimitNOFILE = 1048576;
+          LimitNPROC = 1048576;
+          Environment = "CLUSTER=${clusterName}";
+          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          PrivateDevices = "yes";
+          PrivateTmp = "true";
+          ProtectHome = "true";
+          ProtectSystem = "full";
+          Restart = "on-failure";
+          StartLimitBurst = "5";
+          StartLimitInterval = "30min";
+          ExecStart = "${ceph.out}/bin/${
+              if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"
+            } -f --cluster ${clusterName} --id ${
+              if daemonType == "rgw" then "client.${daemonId}" else daemonId
+            } --setuser ceph --setgroup ceph";
+        } // extraServiceConfig // optionalAttrs (daemonType == "osd") {
+          ExecStartPre =
+            "${ceph.out}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
+        };
+      }
+      // optionalAttrs (builtins.elem daemonType [ "mds" "mon" "rgw" "mgr" ]) {
+        preStart = ''
+          daemonPath="/var/lib/ceph/${
+            if daemonType == "rgw" then "radosgw" else daemonType
+          }/${clusterName}-${daemonId}"
+          if [ ! -d $daemonPath ]; then
+            mkdir -m 755 -p $daemonPath
+            chown -R ceph:ceph $daemonPath 
+          fi
+        '';
+      } // optionalAttrs (daemonType == "osd") { path = [ pkgs.getopt ]; });
   generateTargetFile = (daemonType: {
     "ceph-${daemonType}" = {
       description =
@@ -360,7 +362,7 @@ in {
         "osd" = cfg.osd.extraConfig;
       } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
         cfg.client.extraConfig;
-      in generators.toINI { } totalConfig;
+    in generators.toINI { } totalConfig;
 
     users.users = singleton {
       name = "ceph";
@@ -385,7 +387,7 @@ in {
         (generateDaemonList "rgw" cfg.rgw.daemons { })
         ++ optional cfg.mgr.enable
         (generateDaemonList "mgr" cfg.mgr.daemons { StartLimitBurst = "3"; });
-      in mkMerge services;
+    in mkMerge services;
 
     systemd.targets = let
       targets = [{
@@ -398,7 +400,7 @@ in {
         ++ optional cfg.osd.enable (generateTargetFile "osd")
         ++ optional cfg.rgw.enable (generateTargetFile "rgw")
         ++ optional cfg.mgr.enable (generateTargetFile "mgr");
-      in mkMerge targets;
+    in mkMerge targets;
 
     systemd.tmpfiles.rules = [ "d /run/ceph 0770 ceph ceph -" ];
   };

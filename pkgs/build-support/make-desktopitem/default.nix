@@ -38,20 +38,20 @@ stdenv.mkDerivation {
     mkEntry = { k, v }: k + "=" + v;
     optionalEntriesString = lib.concatMapStringsSep "\n" mkEntry entriesToKeep;
 
-    in ''
-      mkdir -p $out/share/applications
-      cat > $out/share/applications/${name}.desktop <<EOF
-      [Desktop Entry]
-      Type=${type}
-      Exec=${exec}
-      Terminal=${terminal}
-      Name=${desktopName}
-      Categories=${categories}
-      ${optionalEntriesString}
-      ${if extraEntries == null then
-        "EOF"
-      else ''
-        ${extraEntries}
-        EOF''}
-    '';
+  in ''
+    mkdir -p $out/share/applications
+    cat > $out/share/applications/${name}.desktop <<EOF
+    [Desktop Entry]
+    Type=${type}
+    Exec=${exec}
+    Terminal=${terminal}
+    Name=${desktopName}
+    Categories=${categories}
+    ${optionalEntriesString}
+    ${if extraEntries == null then
+      "EOF"
+    else ''
+      ${extraEntries}
+      EOF''}
+  '';
 }

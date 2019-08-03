@@ -130,8 +130,8 @@ in {
         pcm_type.jack {
           libs.native = ${pkgs.alsaPlugins}/lib/alsa-lib/libasound_module_pcm_jack.so ;
           ${
-          lib.optionalString enable32BitAlsaPlugins
-          "libs.32Bit = ${pkgs.pkgsi686Linux.alsaPlugins}/lib/alsa-lib/libasound_module_pcm_jack.so ;"
+            lib.optionalString enable32BitAlsaPlugins
+            "libs.32Bit = ${pkgs.pkgsi686Linux.alsaPlugins}/lib/alsa-lib/libasound_module_pcm_jack.so ;"
           }
         }
         pcm.!default {
@@ -257,7 +257,7 @@ in {
         serviceConfig = {
           User = "jackaudio";
           ExecStart = "${cfg.jackd.package}/bin/jackd ${
-            lib.escapeShellArgs cfg.jackd.extraOptions
+              lib.escapeShellArgs cfg.jackd.extraOptions
             }";
           LimitRTPRIO = 99;
           LimitMEMLOCK = "infinity";

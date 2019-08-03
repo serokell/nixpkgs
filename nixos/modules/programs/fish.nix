@@ -212,11 +212,11 @@ in {
             find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
           fi
         '';
-      in pkgs.buildEnv {
-        name = "system_fish-completions";
-        ignoreCollisions = true;
-        paths = map generateCompletions config.environment.systemPackages;
-      };
+    in pkgs.buildEnv {
+      name = "system_fish-completions";
+      ignoreCollisions = true;
+      paths = map generateCompletions config.environment.systemPackages;
+    };
 
     # include programs that bring their own completions
     environment.pathsToLink = [ ]

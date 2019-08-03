@@ -9,13 +9,12 @@ stdenv.mkDerivation rec {
   version = "1.10.31";
 
   src = let
-    in fetchFromGitHub {
-      sha256 = "0v2mx2idaxlsyv5w66b7pknlill9j9i2gqcs3vq54gak7ix9fj1p";
-      rev = with stdenv.lib;
-        "v" + concatStringsSep "_" (splitString "." version);
-      repo = "workrave";
-      owner = "rcaelers";
-    };
+  in fetchFromGitHub {
+    sha256 = "0v2mx2idaxlsyv5w66b7pknlill9j9i2gqcs3vq54gak7ix9fj1p";
+    rev = with stdenv.lib; "v" + concatStringsSep "_" (splitString "." version);
+    repo = "workrave";
+    owner = "rcaelers";
+  };
 
   nativeBuildInputs = [
     autoconf

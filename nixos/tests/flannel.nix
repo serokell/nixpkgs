@@ -14,28 +14,28 @@ import ./make-test.nix ({ pkgs, ... }: rec {
 
       networking.firewall.allowedUDPPorts = [ 8472 ];
     };
-    in {
-      etcd = { ... }: {
-        services = {
-          etcd = {
-            enable = true;
-            listenClientUrls =
-              [ "http://0.0.0.0:2379" ]; # requires ip-address for binding
-            listenPeerUrls =
-              [ "http://0.0.0.0:2380" ]; # requires ip-address for binding
-            advertiseClientUrls = [ "http://etcd:2379" ];
-            initialAdvertisePeerUrls = [ "http://etcd:2379" ];
-            initialCluster = [ "etcd=http://etcd:2379" ];
-          };
+  in {
+    etcd = { ... }: {
+      services = {
+        etcd = {
+          enable = true;
+          listenClientUrls =
+            [ "http://0.0.0.0:2379" ]; # requires ip-address for binding
+          listenPeerUrls =
+            [ "http://0.0.0.0:2380" ]; # requires ip-address for binding
+          advertiseClientUrls = [ "http://etcd:2379" ];
+          initialAdvertisePeerUrls = [ "http://etcd:2379" ];
+          initialCluster = [ "etcd=http://etcd:2379" ];
         };
-
-        networking.firewall.allowedTCPPorts = [ 2379 ];
       };
 
-      node1 = { ... }: { require = [ flannelConfig ]; };
-
-      node2 = { ... }: { require = [ flannelConfig ]; };
+      networking.firewall.allowedTCPPorts = [ 2379 ];
     };
+
+    node1 = { ... }: { require = [ flannelConfig ]; };
+
+    node2 = { ... }: { require = [ flannelConfig ]; };
+  };
 
   testScript = ''
     startAll;

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     for name in get-{oui,iab}; do
       wrapProgram "$out/bin/$name" --set PERL5LIB "${
-      perlPackages.makePerlPath perlModules
+        perlPackages.makePerlPath perlModules
       }"
     done;
   '';

@@ -19,12 +19,12 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://cairographics.org/${
-      if stdenv.lib.mod (builtins.fromJSON (stdenv.lib.versions.minor version))
-      2 == 0 then
-        "releases"
-      else
-        "snapshots"
-    }/${name}.tar.xz";
+        if stdenv.lib.mod
+        (builtins.fromJSON (stdenv.lib.versions.minor version)) 2 == 0 then
+          "releases"
+        else
+          "snapshots"
+      }/${name}.tar.xz";
     sha256 = "0c930mk5xr2bshbdljv005j3j8zr47gqmkry3q6qgvqky6rjjysy";
   };
 

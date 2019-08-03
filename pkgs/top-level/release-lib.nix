@@ -75,15 +75,15 @@ rec {
           pkgsFor = mkPkgsFor crossSystem;
         });
     native = mkPkgsFor null;
-    in crossSystem:
-    let candidate = examplesByConfig.${crossSystem.config} or null;
-    in if crossSystem == null then
-      native
-    else if candidate != null
-    && lib.matchAttrs crossSystem candidate.crossSystem then
-      candidate.pkgsFor
-    else
-      mkPkgsFor crossSystem; # uncached fallback
+  in crossSystem:
+  let candidate = examplesByConfig.${crossSystem.config} or null;
+  in if crossSystem == null then
+    native
+  else if candidate != null
+  && lib.matchAttrs crossSystem candidate.crossSystem then
+    candidate.pkgsFor
+  else
+    mkPkgsFor crossSystem; # uncached fallback
 
   # Given a list of 'meta.platforms'-style patterns, return the sublist of
   # `supportedSystems` containing systems that matches at least one of the given
@@ -93,12 +93,11 @@ rec {
   supportedMatches = let
     supportedPlatforms =
       map (system: lib.systems.elaborate { inherit system; }) supportedSystems;
-    in metaPatterns:
-    let
-      anyMatch = platform:
-        lib.any (lib.meta.platformMatch platform) metaPatterns;
-      matchingPlatforms = lib.filter anyMatch supportedPlatforms;
-    in map ({ system, ... }: system) matchingPlatforms;
+  in metaPatterns:
+  let
+    anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
+    matchingPlatforms = lib.filter anyMatch supportedPlatforms;
+  in map ({ system, ... }: system) matchingPlatforms;
 
   assertTrue = bool:
     if bool then

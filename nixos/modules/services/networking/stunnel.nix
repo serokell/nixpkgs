@@ -217,7 +217,7 @@ in {
       restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
       serviceConfig = {
         ExecStart = "${pkgs.stunnel}/bin/stunnel ${
-          config.environment.etc."stunnel.cfg".source
+            config.environment.etc."stunnel.cfg".source
           }";
         Type = "forking";
       };

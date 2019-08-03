@@ -89,21 +89,21 @@ in {
           instanceCfg.dataDir
         else
           "/var/lib/errbot/${name}";
-        in {
-          after = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
-          preStart = ''
-            mkdir -p ${dataDir}
-            chown -R errbot:errbot ${dataDir}
-          '';
-          serviceConfig = {
-            User = "errbot";
-            Restart = "on-failure";
-            ExecStart = "${pkgs.errbot}/bin/errbot -c ${
+      in {
+        after = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
+        preStart = ''
+          mkdir -p ${dataDir}
+          chown -R errbot:errbot ${dataDir}
+        '';
+        serviceConfig = {
+          User = "errbot";
+          Restart = "on-failure";
+          ExecStart = "${pkgs.errbot}/bin/errbot -c ${
               mkConfigDir instanceCfg dataDir
-              }/config.py";
-            PermissionsStartOnly = true;
-          };
-        })) cfg.instances;
+            }/config.py";
+          PermissionsStartOnly = true;
+        };
+      })) cfg.instances;
   };
 }

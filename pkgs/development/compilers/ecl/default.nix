@@ -2,15 +2,15 @@
 , noUnicode ? false, gcc, threadSupport ? true, useBoehmgc ? false, boehmgc }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "ecl";
-    version = "16.1.3";
-    name = "${baseName}-${version}";
-    hash = "0m0j24w5d5a9dwwqyrg0d35c0nys16ijb4r0nyk87yp82v38b9bn";
-    url =
-      "https://common-lisp.net/project/ecl/static/files/release/ecl-16.1.3.tgz";
-    sha256 = "0m0j24w5d5a9dwwqyrg0d35c0nys16ijb4r0nyk87yp82v38b9bn";
-  };
+    rec {
+      baseName = "ecl";
+      version = "16.1.3";
+      name = "${baseName}-${version}";
+      hash = "0m0j24w5d5a9dwwqyrg0d35c0nys16ijb4r0nyk87yp82v38b9bn";
+      url =
+        "https://common-lisp.net/project/ecl/static/files/release/ecl-16.1.3.tgz";
+      sha256 = "0m0j24w5d5a9dwwqyrg0d35c0nys16ijb4r0nyk87yp82v38b9bn";
+    };
   buildInputs = [ libtool autoconf automake makeWrapper ];
   propagatedBuildInputs = [
     libffi

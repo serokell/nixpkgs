@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       -e 's|$(uname -m)|i686|' \
       -e 's|export JAVA_HOME=.*|export JAVA_HOME=${jre}|' \
       -e 's|export LD_LIBRARY_PATH=.*|export LD_LIBRARY_PATH=${
-      stdenv.lib.makeLibraryPath [ libXtst glib gtk2 ]
+        stdenv.lib.makeLibraryPath [ libXtst glib gtk2 ]
       }:./x10flasher_lib/linux/lib32|' \
       FlashTool FlashToolConsole
   '';

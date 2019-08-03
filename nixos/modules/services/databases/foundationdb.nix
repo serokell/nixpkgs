@@ -384,27 +384,27 @@ in {
       serviceConfig = let
         rwpaths = [ cfg.dataDir cfg.logDir cfg.pidfile "/etc/foundationdb" ]
           ++ cfg.extraReadWritePaths;
-        in {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = 5;
-          User = cfg.user;
-          Group = cfg.group;
-          PIDFile = "${cfg.pidfile}";
+      in {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = 5;
+        User = cfg.user;
+        Group = cfg.group;
+        PIDFile = "${cfg.pidfile}";
 
-          PermissionsStartOnly = true; # setup needs root perms
-          TimeoutSec = 120; # give reasonable time to shut down
+        PermissionsStartOnly = true; # setup needs root perms
+        TimeoutSec = 120; # give reasonable time to shut down
 
-          # Security options
-          NoNewPrivileges = true;
-          ProtectHome = true;
-          ProtectSystem = "strict";
-          ProtectKernelTunables = true;
-          ProtectControlGroups = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-        };
+        # Security options
+        NoNewPrivileges = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
+      };
 
       path = [ pkg pkgs.coreutils ];
 
@@ -414,7 +414,7 @@ in {
             desc=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
             rand=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
             echo ''${desc}:''${rand}@${initialIpAddr}:${
-          builtins.toString cfg.listenPortStart
+              builtins.toString cfg.listenPortStart
             } > $cf
             chmod 0664 $cf
             touch "${cfg.dataDir}/.first_startup"

@@ -70,7 +70,7 @@ in {
             ${pkgs.gnused}/bin/sed \
               -e "s|^userid=|&${cfg.username}|" \
               -e "s|^passwd=|&${
-            optionalString (cfg.password != "") "$(cat ${cfg.password})"
+                optionalString (cfg.password != "") "$(cat ${cfg.password})"
               }|" \
               -e "s|^server=.*|server=${cfg.server}|" \
               -e "s|^auth_method=.*|auth_method=${authMethod}|" \

@@ -12,15 +12,15 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pkgs.libGLU_combined pkgs.freeglut pillow ];
 
   patchPhase = let ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in ''
-      substituteInPlace OpenGL/platform/glx.py \
-        --replace "'GL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
-        --replace "'GLU'" "'${pkgs.libGLU}/lib/libGLU${ext}'" \
-        --replace "'glut'" "'${pkgs.freeglut}/lib/libglut${ext}'"
-      substituteInPlace OpenGL/platform/darwin.py \
-        --replace "'OpenGL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
-        --replace "'GLUT'" "'${pkgs.freeglut}/lib/libglut${ext}'"
-    '';
+  in ''
+    substituteInPlace OpenGL/platform/glx.py \
+      --replace "'GL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
+      --replace "'GLU'" "'${pkgs.libGLU}/lib/libGLU${ext}'" \
+      --replace "'glut'" "'${pkgs.freeglut}/lib/libglut${ext}'"
+    substituteInPlace OpenGL/platform/darwin.py \
+      --replace "'OpenGL'" "'${pkgs.libGL}/lib/libGL${ext}'" \
+      --replace "'GLUT'" "'${pkgs.freeglut}/lib/libglut${ext}'"
+  '';
 
   # Need to fix test runner
   # Tests have many dependencies

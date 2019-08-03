@@ -101,8 +101,8 @@ in {
             ${optionalString cfg.mathjax "--mathjax"} \
             ${optionalString cfg.emoji "--emoji"} \
             ${
-            optionalString (cfg.allowUploads != null)
-            "--allow-uploads ${cfg.allowUploads}"
+              optionalString (cfg.allowUploads != null)
+              "--allow-uploads ${cfg.allowUploads}"
             } \
             ${cfg.stateDir}
         '';

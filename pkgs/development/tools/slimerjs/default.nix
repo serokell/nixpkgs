@@ -1,15 +1,15 @@
 { stdenv, fetchFromGitHub, zip, unzip, firefox, bash }:
 let
   s = # Generated upstream information
-  rec {
-    baseName = "slimerjs";
-    version = "1.0.0";
-    name = "${baseName}-${version}";
-    owner = "laurentj";
-    repo = "${baseName}";
-    sha256 = "1w4sfrv520isbs7r1rlzl5y3idrpad7znw9fc92yz40jlwz7sxs4";
-    rev = "${version}";
-  };
+    rec {
+      baseName = "slimerjs";
+      version = "1.0.0";
+      name = "${baseName}-${version}";
+      owner = "laurentj";
+      repo = "${baseName}";
+      sha256 = "1w4sfrv520isbs7r1rlzl5y3idrpad7znw9fc92yz40jlwz7sxs4";
+      rev = "${version}";
+    };
   buildInputs = [ unzip zip ];
 in stdenv.mkDerivation {
   inherit (s) name version;

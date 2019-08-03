@@ -26,73 +26,72 @@ let
       + "${config.system.boot.loader.kernelFile}";
     initrdPath = "${config.system.build.initialRamdisk}/"
       + "${config.system.boot.loader.initrdFile}";
-    in ''
-      mkdir $out
+  in ''
+    mkdir $out
 
-      # Containers don't have their own kernel or initrd.  They boot
-      # directly into stage 2.
-      ${optionalString (!config.boot.isContainer) ''
-        if [ ! -f ${kernelPath} ]; then
-          echo "The bootloader cannot find the proper kernel image."
-          echo "(Expecting ${kernelPath})"
-          false
-        fi
+    # Containers don't have their own kernel or initrd.  They boot
+    # directly into stage 2.
+    ${optionalString (!config.boot.isContainer) ''
+      if [ ! -f ${kernelPath} ]; then
+        echo "The bootloader cannot find the proper kernel image."
+        echo "(Expecting ${kernelPath})"
+        false
+      fi
 
-        ln -s ${kernelPath} $out/kernel
-        ln -s ${config.system.modulesTree} $out/kernel-modules
-        ${optionalString
-        (pkgs.stdenv.hostPlatform.platform.kernelDTB or false) ''
-          ln -s ${config.boot.kernelPackages.kernel}/dtbs $out/dtbs
-        ''}
-
-        echo -n "$kernelParams" > $out/kernel-params
-
-        ln -s ${initrdPath} $out/initrd
-
-        ln -s ${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets $out
-
-        ln -s ${config.hardware.firmware}/lib/firmware $out/firmware
+      ln -s ${kernelPath} $out/kernel
+      ln -s ${config.system.modulesTree} $out/kernel-modules
+      ${optionalString (pkgs.stdenv.hostPlatform.platform.kernelDTB or false) ''
+        ln -s ${config.boot.kernelPackages.kernel}/dtbs $out/dtbs
       ''}
 
-      echo "$activationScript" > $out/activate
-      substituteInPlace $out/activate --subst-var out
-      chmod u+x $out/activate
-      unset activationScript
+      echo -n "$kernelParams" > $out/kernel-params
 
-      cp ${config.system.build.bootStage2} $out/init
-      substituteInPlace $out/init --subst-var-by systemConfig $out
+      ln -s ${initrdPath} $out/initrd
 
-      ln -s ${config.system.build.etc}/etc $out/etc
-      ln -s ${config.system.path} $out/sw
-      ln -s "$systemd" $out/systemd
+      ln -s ${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets $out
 
-      echo -n "$configurationName" > $out/configuration-name
-      echo -n "systemd ${
-        toString config.systemd.package.interfaceVersion
-      }" > $out/init-interface-version
-      echo -n "$nixosLabel" > $out/nixos-version
-      echo -n "${pkgs.stdenv.hostPlatform.system}" > $out/system
+      ln -s ${config.hardware.firmware}/lib/firmware $out/firmware
+    ''}
 
-      mkdir $out/fine-tune
-      childCount=0
-      for i in $children; do
-        childCount=$(( childCount + 1 ))
-        ln -s $i $out/fine-tune/child-$childCount
-      done
+    echo "$activationScript" > $out/activate
+    substituteInPlace $out/activate --subst-var out
+    chmod u+x $out/activate
+    unset activationScript
 
-      mkdir $out/bin
-      export localeArchive="${config.i18n.glibcLocales}/lib/locale/locale-archive"
-      substituteAll ${
-        ./switch-to-configuration.pl
-      } $out/bin/switch-to-configuration
-      chmod +x $out/bin/switch-to-configuration
+    cp ${config.system.build.bootStage2} $out/init
+    substituteInPlace $out/init --subst-var-by systemConfig $out
 
-      echo -n "${
-        toString config.system.extraDependencies
-      }" > $out/extra-dependencies
+    ln -s ${config.system.build.etc}/etc $out/etc
+    ln -s ${config.system.path} $out/sw
+    ln -s "$systemd" $out/systemd
 
-      ${config.system.extraSystemBuilderCmds}
-    '';
+    echo -n "$configurationName" > $out/configuration-name
+    echo -n "systemd ${
+      toString config.systemd.package.interfaceVersion
+    }" > $out/init-interface-version
+    echo -n "$nixosLabel" > $out/nixos-version
+    echo -n "${pkgs.stdenv.hostPlatform.system}" > $out/system
+
+    mkdir $out/fine-tune
+    childCount=0
+    for i in $children; do
+      childCount=$(( childCount + 1 ))
+      ln -s $i $out/fine-tune/child-$childCount
+    done
+
+    mkdir $out/bin
+    export localeArchive="${config.i18n.glibcLocales}/lib/locale/locale-archive"
+    substituteAll ${
+      ./switch-to-configuration.pl
+    } $out/bin/switch-to-configuration
+    chmod +x $out/bin/switch-to-configuration
+
+    echo -n "${
+      toString config.system.extraDependencies
+    }" > $out/extra-dependencies
+
+    ${config.system.extraSystemBuilderCmds}
+  '';
 
   # Putting it all together.  This builds a store path containing
   # symlinks to the various parts of the built configuration (the
@@ -103,7 +102,7 @@ let
     name = let
       hn = config.networking.hostName;
       nn = if (hn != "") then hn else "unnamed";
-      in "nixos-system-${nn}-${config.system.nixos.label}";
+    in "nixos-system-${nn}-${config.system.nixos.label}";
     preferLocalBuild = true;
     allowSubstitutes = false;
     buildCommand = systemBuilder;

@@ -94,7 +94,8 @@ let
 
 in let
   fetchResolved = { resolved, integrity, ... }:
-    let args = { url = resolved; } // integrityHash integrity; in fetchurl args;
+    let args = { url = resolved; } // integrityHash integrity;
+    in fetchurl args;
   integrityHash = integrity:
     if hasPrefix "sha1-" integrity then
       integritySHA1 integrity

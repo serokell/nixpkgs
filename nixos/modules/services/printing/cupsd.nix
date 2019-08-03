@@ -345,7 +345,7 @@ in {
         ${optionalString (containsGutenprint cfg.drivers) ''
           if [ -d /var/lib/cups/ppd ]; then
             ${
-            getGutenprint cfg.drivers
+              getGutenprint cfg.drivers
             }/bin/cups-genppdupdate -p /var/lib/cups/ppd
           fi
         ''}

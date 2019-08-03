@@ -54,7 +54,7 @@ in stdenv.mkDerivation rec {
 
     patchelf \
       --set-rpath "$(patchelf --print-rpath $out/bin/.glava-unwrapped):${
-      makeLibraryPath [ libGL ]
+        makeLibraryPath [ libGL ]
       }" \
       $out/bin/.glava-unwrapped
 

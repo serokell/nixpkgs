@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     wrapProgram "$out/bin/docbook2odf" \
       --prefix PATH : "${stdenv.lib.makeBinPath [ zip libxslt ]}" \
       --prefix PERL5PATH : "${
-      perlPackages.makePerlPath [ perlPackages.PerlMagick ]
+        perlPackages.makePerlPath [ perlPackages.PerlMagick ]
       }"
   '';
 

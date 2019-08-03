@@ -17,11 +17,11 @@ in stdenv.mkDerivation rec {
   src = let
     qstring = "package=01&release=${releaseId}&file=02";
     mkURLs = map (base: "${base}/sites/download/download.php?${qstring}");
-    in fetchurl {
-      name = "${name}.tar.gz";
-      urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
-      inherit sha256;
-    };
+  in fetchurl {
+    name = "${name}.tar.gz";
+    urls = mkURLs [ "http://www.aquamaniac.de" "http://www2.aquamaniac.de" ];
+    inherit sha256;
+  };
 
   configureFlags = [
     "--with-openssl-includes=${openssl.dev}/include"
@@ -41,20 +41,20 @@ in stdenv.mkDerivation rec {
         s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
       '';
 
-    in ''
-      sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
-        /^#if/,/^#endif/ {
-          H; /^#endif/ {
-            ${stdenv.lib.concatMapStrings mkSearchPath pluginSearchPaths}
-          }
+  in ''
+    sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
+      /^#if/,/^#endif/ {
+        H; /^#endif/ {
+          ${stdenv.lib.concatMapStrings mkSearchPath pluginSearchPaths}
         }
-      }' src/gwenhywfar.c
+      }
+    }' src/gwenhywfar.c
 
-      # Strip off the effective SO version from the path so that for example
-      # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
-      sed -i -e '/^gwenhywfar_plugindir=/s,/\''${GWENHYWFAR_SO_EFFECTIVE},,' \
-        configure
-    '';
+    # Strip off the effective SO version from the path so that for example
+    # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
+    sed -i -e '/^gwenhywfar_plugindir=/s,/\''${GWENHYWFAR_SO_EFFECTIVE},,' \
+      configure
+  '';
 
   nativeBuildInputs = [ pkgconfig gettext which ];
 

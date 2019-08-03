@@ -96,12 +96,12 @@ with lib; rec {
         }
         gcc \
             ${
-          optionalString (libraries != [ ]) "$(pkg-config --cflags --libs ${
-            concatMapStringsSep " " (pkg:
-              "$(find ${
-                escapeShellArg pkg
-              }/lib/pkgsconfig -name *.pc -exec basename {} ;)") libraries
-          })"
+              optionalString (libraries != [ ]) "$(pkg-config --cflags --libs ${
+                concatMapStringsSep " " (pkg:
+                  "$(find ${
+                    escapeShellArg pkg
+                  }/lib/pkgsconfig -name *.pc -exec basename {} ;)") libraries
+              })"
             } \
             -O \
             -o "$out" \

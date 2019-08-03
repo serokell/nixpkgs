@@ -42,9 +42,9 @@ in buildGoPackage rec {
       "-X ${goPackagePath}/pkg/collector/py.pythonHome=${python}"
       "-r ${python}/lib"
     ];
-    in ''
-      buildFlagsArray=( "-tags" "ec2 systemd cpython process log" "-ldflags" "${ldFlags}")
-    '';
+  in ''
+    buildFlagsArray=( "-tags" "ec2 systemd cpython process log" "-ldflags" "${ldFlags}")
+  '';
 
   # DataDog use paths relative to the agent binary, so fix these.
   postPatch = ''

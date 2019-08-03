@@ -34,8 +34,8 @@ in stdenv.mkDerivation rec {
   '';
   installPhase = "install -Dt $out/bin mosdepth";
   fixupPhase = "patchelf --set-rpath ${
-    stdenv.lib.makeLibraryPath [ stdenv.cc.cc htslib pcre ]
-  } $out/bin/mosdepth";
+      stdenv.lib.makeLibraryPath [ stdenv.cc.cc htslib pcre ]
+    } $out/bin/mosdepth";
 
   meta = with stdenv.lib; {
     description =

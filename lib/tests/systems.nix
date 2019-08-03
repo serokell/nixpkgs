@@ -55,7 +55,7 @@ lib.runTests {
   ];
   testfreebsd = mseteq freebsd [ "i686-freebsd" "x86_64-freebsd" ];
   testgnu = mseteq gnu (linux # ++ kfreebsd ++ ...
-    );
+  );
   testillumos = mseteq illumos [ "x86_64-solaris" ];
   testlinux = mseteq linux [
     "aarch64-linux"

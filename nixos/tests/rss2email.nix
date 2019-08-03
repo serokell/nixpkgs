@@ -46,7 +46,7 @@ import ./make-test.nix {
             status, msg = imap.fetch(refs[0], 'BODY[TEXT]')
             assert status == 'OK'
         '';
-        in [ pkgs.opensmtpd checkMailLanded ];
+      in [ pkgs.opensmtpd checkMailLanded ];
     };
   };
 

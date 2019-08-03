@@ -20,19 +20,19 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/share/kpcli.pl $out/bin/kpcli --set PERL5LIB \
       "${
-      with perlPackages;
-      makePerlPath ([
-        CaptureTiny
-        Clipboard
-        Clone
-        CryptRijndael
-        SortNaturally
-        TermReadKey
-        TermShellUI
-        FileKeePass
-        TermReadLineGnu
-        XMLParser
-      ] ++ stdenv.lib.optional stdenv.isDarwin MacPasteboard)
+        with perlPackages;
+        makePerlPath ([
+          CaptureTiny
+          Clipboard
+          Clone
+          CryptRijndael
+          SortNaturally
+          TermReadKey
+          TermShellUI
+          FileKeePass
+          TermReadLineGnu
+          XMLParser
+        ] ++ stdenv.lib.optional stdenv.isDarwin MacPasteboard)
       }"
   '';
 

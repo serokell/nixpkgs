@@ -15,16 +15,16 @@ stdenv.mkDerivation rec {
     install -D pipework $out/bin/pipework
     wrapProgram $out/bin/pipework --prefix PATH : \
       ${
-      lib.makeBinPath [
-        bridge-utils
-        iproute
-        lxc
-        openvswitch
-        docker
-        busybox
-        dhcpcd
-        dhcp
-      ]
+        lib.makeBinPath [
+          bridge-utils
+          iproute
+          lxc
+          openvswitch
+          docker
+          busybox
+          dhcpcd
+          dhcp
+        ]
       };
   '';
   meta = with lib; {

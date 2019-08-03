@@ -66,16 +66,16 @@ in {
           --web.telemetry-path ${cfg.telemetryPath} \
           --postfix.showq_path ${cfg.showqPath} \
           ${
-          concatStringsSep " \\\n  " (cfg.extraFlags
-            ++ optional cfg.systemd.enable "--systemd.enable"
-            ++ optional cfg.systemd.enable (if cfg.systemd.slice != null then
-              "--systemd.slice ${cfg.systemd.slice}"
-            else
-              "--systemd.unit ${cfg.systemd.unit}") ++ optional
-            (cfg.systemd.enable && (cfg.systemd.journalPath != null))
-            "--systemd.jounal_path ${cfg.systemd.journalPath}"
-            ++ optional (!cfg.systemd.enable)
-            "--postfix.logfile_path ${cfg.logfilePath}")
+            concatStringsSep " \\\n  " (cfg.extraFlags
+              ++ optional cfg.systemd.enable "--systemd.enable"
+              ++ optional cfg.systemd.enable (if cfg.systemd.slice != null then
+                "--systemd.slice ${cfg.systemd.slice}"
+              else
+                "--systemd.unit ${cfg.systemd.unit}") ++ optional
+              (cfg.systemd.enable && (cfg.systemd.journalPath != null))
+              "--systemd.jounal_path ${cfg.systemd.journalPath}"
+              ++ optional (!cfg.systemd.enable)
+              "--postfix.logfile_path ${cfg.logfilePath}")
           }
       '';
     };

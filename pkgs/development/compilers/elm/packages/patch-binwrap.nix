@@ -19,11 +19,11 @@ pkg.override {
   postInstall = let
     binFile = module:
       lib.strings.removeSuffix ("-" + module.version) module.name;
-    in ''
-      ${lib.concatStrings (map (module: ''
-        echo "linking ${binFile module}"
-        ln -sf ${module}/bin/${binFile module} \
-            node_modules/${binFile module}/bin/${binFile module}
-      '') targets)}
-    '';
+  in ''
+    ${lib.concatStrings (map (module: ''
+      echo "linking ${binFile module}"
+      ln -sf ${module}/bin/${binFile module} \
+          node_modules/${binFile module}/bin/${binFile module}
+    '') targets)}
+  '';
 }

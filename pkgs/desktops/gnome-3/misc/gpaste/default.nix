@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
       --subst-var-by typelibPath "${placeholder "out"}/lib/girepository-1.0"
     substituteInPlace src/libgpaste/settings/gpaste-settings.c \
       --subst-var-by gschemasCompiled "${
-      placeholder "out"
+        placeholder "out"
       }/share/gsettings-schemas/${name}/glib-2.0/schemas"
   '';
 

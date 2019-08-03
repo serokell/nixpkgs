@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       --add-flags $out/share/typora \
       "''${gappsWrapperArgs[@]}" \
       --prefix LD_LIBRARY_PATH : "${
-      stdenv.lib.makeLibraryPath [ stdenv.cc.cc ]
+        stdenv.lib.makeLibraryPath [ stdenv.cc.cc ]
       }"
   '';
 

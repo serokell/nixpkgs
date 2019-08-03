@@ -51,22 +51,22 @@ stdenv.mkDerivation rec {
     patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "$(patchelf --print-rpath $out/opt/google/musicmanager/minidump_upload):${
-      stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ]
+        stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ]
       }" \
       $out/opt/google/musicmanager/minidump_upload
 
     patchelf \
       --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath "$(patchelf --print-rpath $out/opt/google/musicmanager/MusicManager):$out/lib:${
-      stdenv.lib.makeLibraryPath [
-        flac
-        expat
-        libidn
-        qtbase
-        qtwebkit
-        libvorbis
-        stdenv.cc.cc.lib
-      ]
+        stdenv.lib.makeLibraryPath [
+          flac
+          expat
+          libidn
+          qtbase
+          qtwebkit
+          libvorbis
+          stdenv.cc.cc.lib
+        ]
       }" \
       $out/opt/google/musicmanager/MusicManager
   '';

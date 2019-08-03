@@ -32,7 +32,7 @@ in writeScript "update-${name}" ''
            sort --version-sort | \
            grep -v "funnelcake" | \
            grep -e "${
-    if isBeta then "b" else ""
+             if isBeta then "b" else ""
            }\([[:digit:]]\|[[:digit:]][[:digit:]]\)$" | ${
              if isBeta then "" else ''grep -v "b" |''
            } \

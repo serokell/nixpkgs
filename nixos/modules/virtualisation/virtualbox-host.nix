@@ -97,18 +97,18 @@ in {
           group = "vboxusers";
           setuid = true;
         };
-        in mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
-          name = x;
-          value = mkSuid x;
-        }) [
-          "VBoxHeadless"
-          "VBoxNetAdpCtl"
-          "VBoxNetDHCP"
-          "VBoxNetNAT"
-          "VBoxSDL"
-          "VBoxVolInfo"
-          "VirtualBoxVM"
-        ]));
+      in mkIf cfg.enableHardening (builtins.listToAttrs (map (x: {
+        name = x;
+        value = mkSuid x;
+      }) [
+        "VBoxHeadless"
+        "VBoxNetAdpCtl"
+        "VBoxNetDHCP"
+        "VBoxNetNAT"
+        "VBoxSDL"
+        "VBoxVolInfo"
+        "VirtualBoxVM"
+      ]));
 
       users.groups.vboxusers.gid = config.ids.gids.vboxusers;
 

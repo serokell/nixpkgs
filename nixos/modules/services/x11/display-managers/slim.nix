@@ -33,10 +33,10 @@ let
       unpackFile ${cfg.theme}
       ln -s * default
     '';
-    in if cfg.theme == null then
-      "${pkgs.slim}/share/slim/themes"
-    else
-      unpackedTheme;
+  in if cfg.theme == null then
+    "${pkgs.slim}/share/slim/themes"
+  else
+    unpackedTheme;
 
 in {
 

@@ -196,25 +196,25 @@ let
         mkdir -p $(dirname $last)
         xinstall "$@"
       '';
-      in mkDerivation {
-        path = "usr.bin/xinstall";
-        version = "8.0";
-        sha256 = "1f6pbz3qv1qcrchdxif8p5lbmnwl8b9nq615hsd3cyl4avd5bfqj";
-        extraPaths = [ mtree.src make.src ];
-        nativeBuildInputs = [ makeMinimal mandoc groff ];
-        skipIncludesPhase = true;
-        buildInputs = [ compat fts ];
-        installPhase = ''
-          runHook preInstall
+    in mkDerivation {
+      path = "usr.bin/xinstall";
+      version = "8.0";
+      sha256 = "1f6pbz3qv1qcrchdxif8p5lbmnwl8b9nq615hsd3cyl4avd5bfqj";
+      extraPaths = [ mtree.src make.src ];
+      nativeBuildInputs = [ makeMinimal mandoc groff ];
+      skipIncludesPhase = true;
+      buildInputs = [ compat fts ];
+      installPhase = ''
+        runHook preInstall
 
-          install -D install.1 $out/share/man/man1/install.1
-          install -D xinstall $out/bin/xinstall
-          install -D -m 0550 ${binstall} $out/bin/binstall
-          ln -s $out/bin/binstall $out/bin/install
+        install -D install.1 $out/share/man/man1/install.1
+        install -D xinstall $out/bin/xinstall
+        install -D -m 0550 ${binstall} $out/bin/binstall
+        ln -s $out/bin/binstall $out/bin/install
 
-          runHook postInstall
-        '';
-      };
+        runHook postInstall
+      '';
+    };
 
     fts = mkDerivation {
       pname = "fts";

@@ -44,7 +44,7 @@
       getCompatibleTools
     else
       (abort "unsupported platform for the pure Linux stdenv"));
-  in files }:
+in files }:
 
 assert crossSystem == localSystem;
 
@@ -392,16 +392,16 @@ in [
         ];
 
       overrides = self: super:
-      {
-        inherit (prevStage)
-          gzip bzip2 xz bash coreutils diffutils findutils gawk gnumake gnused
-          gnutar gnugrep gnupatch patchelf attr acl zlib pcre;
-        ${localSystem.libc} = getLibc prevStage;
-      } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
-        # Need to get rid of these when cross-compiling.
-        inherit (prevStage) binutils binutils-unwrapped;
-        gcc = cc;
-      };
+        {
+          inherit (prevStage)
+            gzip bzip2 xz bash coreutils diffutils findutils gawk gnumake gnused
+            gnutar gnugrep gnupatch patchelf attr acl zlib pcre;
+          ${localSystem.libc} = getLibc prevStage;
+        } // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
+          # Need to get rid of these when cross-compiling.
+          inherit (prevStage) binutils binutils-unwrapped;
+          gcc = cc;
+        };
     };
   })
 

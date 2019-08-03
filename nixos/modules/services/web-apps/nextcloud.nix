@@ -283,18 +283,17 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       assertions = let acfg = cfg.config;
-        in [
-          {
-            assertion = !(acfg.dbpass != null && acfg.dbpassFile != null);
-            message = "Please specify no more than one of dbpass or dbpassFile";
-          }
-          {
-            assertion = ((acfg.adminpass != null || acfg.adminpassFile != null)
-              && !(acfg.adminpass != null && acfg.adminpassFile != null));
-            message =
-              "Please specify exactly one of adminpass or adminpassFile";
-          }
-        ];
+      in [
+        {
+          assertion = !(acfg.dbpass != null && acfg.dbpassFile != null);
+          message = "Please specify no more than one of dbpass or dbpassFile";
+        }
+        {
+          assertion = ((acfg.adminpass != null || acfg.adminpassFile != null)
+            && !(acfg.adminpass != null && acfg.adminpassFile != null));
+          message = "Please specify exactly one of adminpass or adminpassFile";
+        }
+      ];
     }
 
     {
@@ -333,32 +332,33 @@ in {
               'datadirectory' => '${cfg.home}/data',
               'skeletondirectory' => '${cfg.skeletonDirectory}',
               ${
-              optionalString cfg.caching.apcu
-              "'memcache.local' => '\\OC\\Memcache\\APCu',"
+                optionalString cfg.caching.apcu
+                "'memcache.local' => '\\OC\\Memcache\\APCu',"
               }
               'log_type' => 'syslog',
               'log_level' => '${builtins.toString cfg.logLevel}',
               ${
-              optionalString (c.overwriteProtocol != null)
-              "'overwriteprotocol' => '${c.overwriteProtocol}',"
+                optionalString (c.overwriteProtocol != null)
+                "'overwriteprotocol' => '${c.overwriteProtocol}',"
               }
               ${optionalString (c.dbname != null) "'dbname' => '${c.dbname}',"}
               ${optionalString (c.dbhost != null) "'dbhost' => '${c.dbhost}',"}
               ${
-              optionalString (c.dbport != null)
-              "'dbport' => '${toString c.dbport}',"
+                optionalString (c.dbport != null)
+                "'dbport' => '${toString c.dbport}',"
               }
               ${optionalString (c.dbuser != null) "'dbuser' => '${c.dbuser}',"}
               ${
-              optionalString (c.dbtableprefix != null)
-              "'dbtableprefix' => '${toString c.dbtableprefix}',"
+                optionalString (c.dbtableprefix != null)
+                "'dbtableprefix' => '${toString c.dbtableprefix}',"
               }
               ${
-              optionalString (c.dbpass != null) "'dbpassword' => '${c.dbpass}',"
+                optionalString (c.dbpass != null)
+                "'dbpassword' => '${c.dbpass}',"
               }
               ${
-              optionalString (c.dbpassFile != null)
-              "'dbpassword' => nix_read_pwd(),"
+                optionalString (c.dbpassFile != null)
+                "'dbpassword' => nix_read_pwd(),"
               }
               'dbtype' => '${c.dbtype}',
               'trusted_domains' => ${writePhpArrary c.extraTrustedDomains},
@@ -405,38 +405,38 @@ in {
                 "--admin-pass" = adminpass;
                 "--data-dir" = ''"${cfg.home}/data"'';
               });
-            in ''
-              ${occ}/bin/nextcloud-occ maintenance:install \
-                  ${installFlags}
-            '';
+          in ''
+            ${occ}/bin/nextcloud-occ maintenance:install \
+                ${installFlags}
+          '';
           occSetTrustedDomainsCmd = concatStringsSep "\n" (imap0 (i: v: ''
             ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
               ${toString i} --value="${toString v}"
           '') ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains));
 
-          in {
-            wantedBy = [ "multi-user.target" ];
-            before = [ "phpfpm-nextcloud.service" ];
-            script = ''
-              chmod og+x ${cfg.home}
-              ln -sf ${pkgs.nextcloud}/apps ${cfg.home}/
-              mkdir -p ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
-              ln -sf ${overrideConfig} ${cfg.home}/config/override.config.php
+        in {
+          wantedBy = [ "multi-user.target" ];
+          before = [ "phpfpm-nextcloud.service" ];
+          script = ''
+            chmod og+x ${cfg.home}
+            ln -sf ${pkgs.nextcloud}/apps ${cfg.home}/
+            mkdir -p ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
+            ln -sf ${overrideConfig} ${cfg.home}/config/override.config.php
 
-              chown -R nextcloud:nginx ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
+            chown -R nextcloud:nginx ${cfg.home}/config ${cfg.home}/data ${cfg.home}/store-apps
 
-              # Do not install if already installed
-              if [[ ! -e ${cfg.home}/config/config.php ]]; then
-                ${occInstallCmd}
-              fi
+            # Do not install if already installed
+            if [[ ! -e ${cfg.home}/config/config.php ]]; then
+              ${occInstallCmd}
+            fi
 
-              ${occ}/bin/nextcloud-occ upgrade
+            ${occ}/bin/nextcloud-occ upgrade
 
-              ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
-              ${occSetTrustedDomainsCmd}
-            '';
-            serviceConfig.Type = "oneshot";
-          };
+            ${occ}/bin/nextcloud-occ config:system:delete trusted_domains
+            ${occSetTrustedDomainsCmd}
+          '';
+          serviceConfig.Type = "oneshot";
+        };
         "nextcloud-cron" = {
           environment.NEXTCLOUD_CONFIG_DIR = "${cfg.home}/config";
           serviceConfig.Type = "oneshot";
@@ -456,21 +456,21 @@ in {
           phpAdminValues = (toKeyValue (foldr (a: b: a // b) { }
             (mapAttrsToList (k: v: { "php_admin_value[${k}]" = v; })
               phpOptions)));
-          in {
-            phpOptions = phpOptionsExtensions;
-            phpPackage = phpPackage;
-            listen = "/run/phpfpm/nextcloud";
-            extraConfig = ''
-              listen.owner = nginx
-              listen.group = nginx
-              user = nextcloud
-              group = nginx
-              ${cfg.poolConfig}
-              env[NEXTCLOUD_CONFIG_DIR] = ${cfg.home}/config
-              env[PATH] = /run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin
-              ${phpAdminValues}
-            '';
-          };
+        in {
+          phpOptions = phpOptionsExtensions;
+          phpPackage = phpPackage;
+          listen = "/run/phpfpm/nextcloud";
+          extraConfig = ''
+            listen.owner = nginx
+            listen.group = nginx
+            user = nextcloud
+            group = nginx
+            ${cfg.poolConfig}
+            env[NEXTCLOUD_CONFIG_DIR] = ${cfg.home}/config
+            env[PATH] = /run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin
+            ${phpAdminValues}
+          '';
+        };
       };
 
       users.extraUsers.nextcloud = {
@@ -522,21 +522,21 @@ in {
                 extraConfig = "deny all;";
               };
               "~ ^\\/(?:index|remote|public|cron|core/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|ocs-provider\\/.+|ocm-provider\\/.+)\\.php(?:$|\\/)" =
-              {
-                priority = 500;
-                extraConfig = ''
-                  include ${config.services.nginx.package}/conf/fastcgi.conf;
-                  fastcgi_split_path_info ^(.+\.php)(\\/.*)$;
-                  fastcgi_param PATH_INFO $fastcgi_path_info;
-                  fastcgi_param HTTPS ${if cfg.https then "on" else "off"};
-                  fastcgi_param modHeadersAvailable true;
-                  fastcgi_param front_controller_active true;
-                  fastcgi_pass unix:/run/phpfpm/nextcloud;
-                  fastcgi_intercept_errors on;
-                  fastcgi_request_buffering off;
-                  fastcgi_read_timeout 120s;
-                '';
-              };
+                {
+                  priority = 500;
+                  extraConfig = ''
+                    include ${config.services.nginx.package}/conf/fastcgi.conf;
+                    fastcgi_split_path_info ^(.+\.php)(\\/.*)$;
+                    fastcgi_param PATH_INFO $fastcgi_path_info;
+                    fastcgi_param HTTPS ${if cfg.https then "on" else "off"};
+                    fastcgi_param modHeadersAvailable true;
+                    fastcgi_param front_controller_active true;
+                    fastcgi_pass unix:/run/phpfpm/nextcloud;
+                    fastcgi_intercept_errors on;
+                    fastcgi_request_buffering off;
+                    fastcgi_read_timeout 120s;
+                  '';
+                };
               "~ ^\\/(?:updater|ocs-provider|ocm-provider)(?:$|\\/)".extraConfig =
                 ''
                   try_files $uri/ =404;

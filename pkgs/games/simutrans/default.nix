@@ -71,18 +71,18 @@ let
       dontUnpack = true;
       preferLocalBuild = true;
       installPhase = let src = fetchurl { inherit url sha256; };
-        in ''
-          mkdir -p "$out/share/simutrans/${pakName}"
-          cd "$out/share/simutrans/${pakName}"
-          "${unzip}/bin/unzip" "${src}"
-          chmod -R +w . # some zipfiles need that
+      in ''
+        mkdir -p "$out/share/simutrans/${pakName}"
+        cd "$out/share/simutrans/${pakName}"
+        "${unzip}/bin/unzip" "${src}"
+        chmod -R +w . # some zipfiles need that
 
-          set +o pipefail # no idea why it's needed
-          toStrip=`find . -iname '*.pak' | head -n 1 | sed 's|\./\(.*\)/[^/]*$|\1|'`
-          echo "Detected path '$toStrip' to strip"
-          mv ./"$toStrip"/* .
-          rmdir -p "$toStrip"
-        '';
+        set +o pipefail # no idea why it's needed
+        toStrip=`find . -iname '*.pak' | head -n 1 | sed 's|\./\(.*\)/[^/]*$|\1|'`
+        echo "Detected path '$toStrip' to strip"
+        mv ./"$toStrip"/* .
+        rmdir -p "$toStrip"
+      '';
     };
 
   /* The binaries need all data in one directory; the default is directory
@@ -132,16 +132,16 @@ let
       '';
       #TODO: MULTI_THREAD = 1 is "highly recommended",
       # but it's roughly doubling CPU usage for me
-      in ''
-        echo "${config}" > config.default
+    in ''
+      echo "${config}" > config.default
 
-        # Use ~/.simutrans instead of ~/simutrans
-        substituteInPlace simsys.cc --replace '%s/simutrans' '%s/.simutrans'
+      # Use ~/.simutrans instead of ~/simutrans
+      substituteInPlace simsys.cc --replace '%s/simutrans' '%s/.simutrans'
 
-        # use -O2 optimization (defaults are -O or -O3)
-        sed -i -e '/CFLAGS += -O/d' Makefile
-        export CFLAGS+=-O2
-      '';
+      # use -O2 optimization (defaults are -O or -O3)
+      sed -i -e '/CFLAGS += -O/d' Makefile
+      export CFLAGS+=-O2
+    '';
 
     enableParallelBuilding = true;
 

@@ -16,18 +16,18 @@
     "skylake"
     "skylake-avx512"
   ], avx2Support ?
-    builtins.elem (stdenv.hostPlatform.platform.gcc.arch or "default") [
-      "haswell"
-      "broadwell"
-      "skylake"
-      "skylake-avx512"
-    ], fmaSupport ?
-      builtins.elem (stdenv.hostPlatform.platform.gcc.arch or "default") [
-        "haswell"
-        "broadwell"
-        "skylake"
-        "skylake-avx512"
-      ] }:
+  builtins.elem (stdenv.hostPlatform.platform.gcc.arch or "default") [
+    "haswell"
+    "broadwell"
+    "skylake"
+    "skylake-avx512"
+  ], fmaSupport ?
+  builtins.elem (stdenv.hostPlatform.platform.gcc.arch or "default") [
+    "haswell"
+    "broadwell"
+    "skylake"
+    "skylake-avx512"
+  ] }:
 
 assert cudaSupport -> nvidia_x11 != null && cudatoolkit != null && cudnn
   != null;

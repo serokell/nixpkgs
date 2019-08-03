@@ -38,9 +38,9 @@ let
             rocks_trees = {
                  { name = [[system]], root = [[${luarocks}]] }
                ${
-            lib.concatImapStrings
-            (i: dep: ", { name = [[dep${toString i}]], root = [[${dep}]] }")
-            luadeps_
+                 lib.concatImapStrings (i: dep:
+                   ", { name = [[dep${toString i}]], root = [[${dep}]] }")
+                 luadeps_
                }
             };
 
@@ -73,7 +73,7 @@ let
           for p in $out/bin/*; do
             wrapProgram $p \
               --suffix LD_LIBRARY_PATH ';' "${
-            lib.makeLibraryPath runtimeDeps_
+                lib.makeLibraryPath runtimeDeps_
               }" \
               --suffix PATH ';' "${lib.makeBinPath runtimeDeps_}" \
               --suffix LUA_PATH ';' "\"$LUA_PATH\"" \

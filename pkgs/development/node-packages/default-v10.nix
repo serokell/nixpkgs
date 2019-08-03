@@ -20,7 +20,7 @@ in nodePackages // {
     postInstall = ''
       for prog in bower2nix fetch-bower; do
         wrapProgram "$out/bin/$prog" --prefix PATH : ${
-        stdenv.lib.makeBinPath [ pkgs.git pkgs.nix ]
+          stdenv.lib.makeBinPath [ pkgs.git pkgs.nix ]
         }
       done
     '';
@@ -89,11 +89,11 @@ in nodePackages // {
 
     postInstall = let
       pnpmLibPath = stdenv.lib.makeBinPath [ nodejs.passthru.python nodejs ];
-      in ''
-        for prog in $out/bin/*; do
-          wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
-        done
-      '';
+    in ''
+      for prog in $out/bin/*; do
+        wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
+      done
+    '';
   };
 
   ssb-server = nodePackages.ssb-server.override {

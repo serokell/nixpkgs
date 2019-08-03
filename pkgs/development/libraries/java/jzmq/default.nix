@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     ${if stdenv.hostPlatform.system == "x86_64-darwin" then ''
       sed -i -e 's~/Headers~/include~' -e 's~_JNI_INC_SUBDIRS=\".*\"~_JNI_INC_SUBDIRS=\"darwin\"~' configure
            '' else
-        ""}
+      ""}
   '';
 
   meta = {

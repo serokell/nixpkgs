@@ -113,8 +113,8 @@ in py.pkgs.buildPythonApplication rec {
   postPatch = ''
     sed -r -i \
       ${
-      lib.concatStringsSep "\n"
-      (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints)
+        lib.concatStringsSep "\n"
+        (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints)
       }
       setup.py
   '';

@@ -193,10 +193,10 @@ let
           name = "pathogen-plugin-env";
           paths = map (x: "${x}/${rtpPath}") plugins;
         };
-        in ''
-          let &rtp.=(empty(&rtp)?"":',')."${vimPlugins.pathogen.rtp}"
-          execute pathogen#infect('${pluginsEnv}/{}')
-        '');
+      in ''
+        let &rtp.=(empty(&rtp)?"":',')."${vimPlugins.pathogen.rtp}"
+        execute pathogen#infect('${pluginsEnv}/{}')
+      '');
 
       # vim-plug is an extremely popular vim plugin manager.
       plugImpl = lib.optionalString (plug != null) (''
@@ -253,47 +253,46 @@ let
               lib.generators.toPretty { } x
             } into a VimL thing not implemented yet";
 
-        in assert builtins.hasAttr "vim-addon-manager" knownPlugins;
-        ''
-          let g:nix_plugin_locations = {}
-          ${lib.concatMapStrings (plugin: ''
-            let g:nix_plugin_locations['${plugin.pname}'] = "${plugin.rtp}"
-          '') plugins}
-          let g:nix_plugin_locations['vim-addon-manager'] = "${
-            knownPlugins."vim-addon-manager".rtp
-          }"
+      in assert builtins.hasAttr "vim-addon-manager" knownPlugins; ''
+        let g:nix_plugin_locations = {}
+        ${lib.concatMapStrings (plugin: ''
+          let g:nix_plugin_locations['${plugin.pname}'] = "${plugin.rtp}"
+        '') plugins}
+        let g:nix_plugin_locations['vim-addon-manager'] = "${
+          knownPlugins."vim-addon-manager".rtp
+        }"
 
-          let g:vim_addon_manager = {}
+        let g:vim_addon_manager = {}
 
-          if exists('g:nix_plugin_locations')
-            " nix managed config
+        if exists('g:nix_plugin_locations')
+          " nix managed config
 
-            " override default function making VAM aware of plugin locations:
-            fun! NixPluginLocation(name)
-              let path = get(g:nix_plugin_locations, a:name, "")
-              return path == "" ? vam#DefaultPluginDirFromName(a:name) : path
-            endfun
-            let g:vim_addon_manager.plugin_dir_by_name = 'NixPluginLocation'
-            " tell Vim about VAM:
-            let &rtp.=(empty(&rtp)?"":','). g:nix_plugin_locations['vim-addon-manager']
-          else
-            " standalone config
+          " override default function making VAM aware of plugin locations:
+          fun! NixPluginLocation(name)
+            let path = get(g:nix_plugin_locations, a:name, "")
+            return path == "" ? vam#DefaultPluginDirFromName(a:name) : path
+          endfun
+          let g:vim_addon_manager.plugin_dir_by_name = 'NixPluginLocation'
+          " tell Vim about VAM:
+          let &rtp.=(empty(&rtp)?"":','). g:nix_plugin_locations['vim-addon-manager']
+        else
+          " standalone config
 
-            let &rtp.=(empty(&rtp)?"":',').c.plugin_root_dir.'/vim-addon-manager'
-            if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
-              " checkout VAM
-              execute '!git clone --depth=1 https://github.com/MarcWeber/vim-addon-manager '
-                  \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
-            endif
+          let &rtp.=(empty(&rtp)?"":',').c.plugin_root_dir.'/vim-addon-manager'
+          if !isdirectory(c.plugin_root_dir.'/vim-addon-manager/autoload')
+            " checkout VAM
+            execute '!git clone --depth=1 https://github.com/MarcWeber/vim-addon-manager '
+                \       shellescape(c.plugin_root_dir.'/vim-addon-manager', 1)
           endif
+        endif
 
-          " tell vam about which plugins to load when:
-          let l = []
-          ${lib.concatMapStrings (p: ''
-            call add(l, ${toNix p})
-          '') vam.pluginDictionaries}
-          call vam#Scripts(l, {})
-        '');
+        " tell vam about which plugins to load when:
+        let l = []
+        ${lib.concatMapStrings (p: ''
+          call add(l, ${toNix p})
+        '') vam.pluginDictionaries}
+        call vam#Scripts(l, {})
+      '');
 
       nativeImpl = lib.optionalString (packages != null) (let
         link = (packageName: dir: pluginPath:
@@ -325,11 +324,11 @@ let
               (lib.flatten (lib.mapAttrsToList packageLinks packages));
             preferLocalBuild = true;
           });
-        in ''
-          set packpath-=~/.vim/after
-          set packpath+=${packDir packages}
-          set packpath+=~/.vim/after
-        '');
+      in ''
+        set packpath-=~/.vim/after
+        set packpath+=${packDir packages}
+        set packpath+=~/.vim/after
+      '');
 
       # somebody else could provide these implementations
       vundleImpl = "";

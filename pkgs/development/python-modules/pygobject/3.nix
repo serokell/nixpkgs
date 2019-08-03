@@ -9,8 +9,8 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.xz";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1n04dnvq3bx7vk7pgnxlg6kiwnc7xxv9bjabkv7abpmqjkprvj9j";
   };
 

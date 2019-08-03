@@ -27,21 +27,21 @@ let
         </storage>
         <protocolInfo extend="${if cfg.ps3Support then "yes" else "no"}"/>
         ${
-      if cfg.dsmSupport then ''
-        <custom-http-headers>
-          <add header="X-User-Agent: redsonic"/>
-        </custom-http-headers>
+          if cfg.dsmSupport then ''
+            <custom-http-headers>
+              <add header="X-User-Agent: redsonic"/>
+            </custom-http-headers>
 
-        <manufacturerURL>redsonic.com</manufacturerURL>
-        <modelNumber>105</modelNumber>
-      '' else
-        ""
+            <manufacturerURL>redsonic.com</manufacturerURL>
+            <modelNumber>105</modelNumber>
+          '' else
+            ""
         }
         ${
-      if cfg.tg100Support then ''
-        <upnp-string-limit>101</upnp-string-limit>
-      '' else
-        ""
+          if cfg.tg100Support then ''
+            <upnp-string-limit>101</upnp-string-limit>
+          '' else
+            ""
         }
         <extended-runtime-options>
           <mark-played-items enabled="yes" suppress-cds-updates="yes">
@@ -82,16 +82,16 @@ let
             <map from="mkv" to="video/x-matroska"/>
             <map from="mka" to="audio/x-matroska"/>
             ${
-      if cfg.ps3Support then ''
-        <map from="avi" to="video/divx"/>
-      '' else
-        ""
+              if cfg.ps3Support then ''
+                <map from="avi" to="video/divx"/>
+              '' else
+                ""
             }
             ${
-      if cfg.dsmSupport then ''
-        <map from="avi" to="video/avi"/>
-      '' else
-        ""
+              if cfg.dsmSupport then ''
+                <map from="avi" to="video/avi"/>
+              '' else
+                ""
             }
           </extension-mimetype>
           <mimetype-upnpclass>

@@ -12,7 +12,7 @@ let
   extraTrustedKeys = let
     mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
     mkEtcFile = p: nameValuePair (mkName p) { source = p; };
-    in listToAttrs (map mkEtcFile cfg.extraTrustedKeys);
+  in listToAttrs (map mkEtcFile cfg.extraTrustedKeys);
 
   # We cannot include the file in $out and rely on filesInstalledToEtc
   # to install it because it would create a cyclic dependency between

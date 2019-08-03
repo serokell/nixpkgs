@@ -44,15 +44,15 @@ mkDerivation rec {
   '';
 
   installPhase = let qst = "qsyncthingtray";
-    in ''
-      runHook preInstall
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/bin
-      install -m755 QSyncthingTray $out/bin/${qst}
-      ln -s $out/bin/${qst} $out/bin/QSyncthingTray
+    mkdir -p $out/bin
+    install -m755 QSyncthingTray $out/bin/${qst}
+    ln -s $out/bin/${qst} $out/bin/QSyncthingTray
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   enableParallelBuilding = true;
 

@@ -18,7 +18,7 @@ in stdenv.mkDerivation {
     chmod +x $out/bin/asciiquarium
     wrapProgram $out/bin/asciiquarium \
       --set PERL5LIB ${
-      perlPackages.makeFullPerlPath [ perlPackages.TermAnimation ]
+        perlPackages.makeFullPerlPath [ perlPackages.TermAnimation ]
       }
   '';
 

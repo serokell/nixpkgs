@@ -1100,7 +1100,7 @@ in {
 
   inherit (libsForQt5.callPackage
     ../applications/networking/instant-messengers/quaternion { })
-      quaternion quaternion-git;
+    quaternion quaternion-git;
 
   tensor =
     libsForQt5.callPackage ../applications/networking/instant-messengers/tensor
@@ -4222,45 +4222,45 @@ in {
   };
 
   netsurf = recurseIntoAttrs (let callPackage = newScope pkgs.netsurf;
-    in rec {
-      # ui could be gtk, sixel or framebuffer. Note that console display (sixel)
-      # requires a terminal that supports `sixel` capabilities such as mlterm
-      # or xterm -ti 340
-      ui = "sixel";
+  in rec {
+    # ui could be gtk, sixel or framebuffer. Note that console display (sixel)
+    # requires a terminal that supports `sixel` capabilities such as mlterm
+    # or xterm -ti 340
+    ui = "sixel";
 
-      uilib = if ui == "gtk" then "gtk" else "framebuffer";
+    uilib = if ui == "gtk" then "gtk" else "framebuffer";
 
-      SDL =
-        if ui == "gtk" then null else if ui == "sixel" then SDL_sixel else SDL;
+    SDL =
+      if ui == "gtk" then null else if ui == "sixel" then SDL_sixel else SDL;
 
-      buildsystem = callPackage ../applications/misc/netsurf/buildsystem { };
+    buildsystem = callPackage ../applications/misc/netsurf/buildsystem { };
 
-      libwapcaplet = callPackage ../applications/misc/netsurf/libwapcaplet { };
+    libwapcaplet = callPackage ../applications/misc/netsurf/libwapcaplet { };
 
-      nsgenbind = callPackage ../applications/misc/netsurf/nsgenbind { };
+    nsgenbind = callPackage ../applications/misc/netsurf/nsgenbind { };
 
-      libparserutils =
-        callPackage ../applications/misc/netsurf/libparserutils { };
+    libparserutils =
+      callPackage ../applications/misc/netsurf/libparserutils { };
 
-      libcss = callPackage ../applications/misc/netsurf/libcss { };
+    libcss = callPackage ../applications/misc/netsurf/libcss { };
 
-      libhubbub = callPackage ../applications/misc/netsurf/libhubbub { };
+    libhubbub = callPackage ../applications/misc/netsurf/libhubbub { };
 
-      libdom = callPackage ../applications/misc/netsurf/libdom { };
+    libdom = callPackage ../applications/misc/netsurf/libdom { };
 
-      libnsbmp = callPackage ../applications/misc/netsurf/libnsbmp { };
+    libnsbmp = callPackage ../applications/misc/netsurf/libnsbmp { };
 
-      libnsgif = callPackage ../applications/misc/netsurf/libnsgif { };
+    libnsgif = callPackage ../applications/misc/netsurf/libnsgif { };
 
-      libnsfb = callPackage ../applications/misc/netsurf/libnsfb { };
+    libnsfb = callPackage ../applications/misc/netsurf/libnsfb { };
 
-      libnsutils = callPackage ../applications/misc/netsurf/libnsutils { };
+    libnsutils = callPackage ../applications/misc/netsurf/libnsutils { };
 
-      libutf8proc = callPackage ../applications/misc/netsurf/libutf8proc { };
+    libutf8proc = callPackage ../applications/misc/netsurf/libutf8proc { };
 
-      browser = callPackage ../applications/misc/netsurf/browser { };
+    browser = callPackage ../applications/misc/netsurf/browser { };
 
-    });
+  });
 
   netperf = callPackage ../applications/networking/netperf { };
 
@@ -4566,10 +4566,10 @@ in {
   mdsh = callPackage ../development/tools/documentation/mdsh { };
 
   mecab = let mecab-nodic = callPackage ../tools/text/mecab/nodic.nix { };
-    in callPackage ../tools/text/mecab {
-      mecab-ipadic =
-        callPackage ../tools/text/mecab/ipadic.nix { inherit mecab-nodic; };
-    };
+  in callPackage ../tools/text/mecab {
+    mecab-ipadic =
+      callPackage ../tools/text/mecab/ipadic.nix { inherit mecab-nodic; };
+  };
 
   memtier-benchmark = callPackage ../tools/networking/memtier-benchmark { };
 
@@ -4727,19 +4727,19 @@ in {
   mt-st = callPackage ../tools/backup/mt-st { };
 
   multitran = recurseIntoAttrs (let callPackage = newScope pkgs.multitran;
-    in rec {
-      multitrandata = callPackage ../tools/text/multitran/data { };
+  in rec {
+    multitrandata = callPackage ../tools/text/multitran/data { };
 
-      libbtree = callPackage ../tools/text/multitran/libbtree { };
+    libbtree = callPackage ../tools/text/multitran/libbtree { };
 
-      libmtsupport = callPackage ../tools/text/multitran/libmtsupport { };
+    libmtsupport = callPackage ../tools/text/multitran/libmtsupport { };
 
-      libfacet = callPackage ../tools/text/multitran/libfacet { };
+    libfacet = callPackage ../tools/text/multitran/libfacet { };
 
-      libmtquery = callPackage ../tools/text/multitran/libmtquery { };
+    libmtquery = callPackage ../tools/text/multitran/libmtquery { };
 
-      mtutils = callPackage ../tools/text/multitran/mtutils { };
-    });
+    mtutils = callPackage ../tools/text/multitran/mtutils { };
+  });
 
   munge = callPackage ../tools/security/munge { };
 
@@ -8292,15 +8292,15 @@ in {
 
         inherit cc bintools libc;
       } // extraArgs;
-      in self);
+    in self);
 
   wrapCC = cc: wrapCCWith { inherit cc; };
 
   wrapBintoolsWith = { bintools, libc ?
-    if stdenv.targetPlatform != stdenv.hostPlatform then
-      libcCross
-    else
-      stdenv.cc.libc, ... }@extraArgs:
+      if stdenv.targetPlatform != stdenv.hostPlatform then
+        libcCross
+      else
+        stdenv.cc.libc, ... }@extraArgs:
     callPackage ../build-support/bintools-wrapper (let
       self = {
         nativeTools = stdenv.targetPlatform == stdenv.hostPlatform
@@ -8313,7 +8313,7 @@ in {
 
         inherit bintools libc;
       } // extraArgs;
-      in self);
+    in self);
 
   # prolog
   yap = callPackage ../development/compilers/yap { };
@@ -8510,13 +8510,13 @@ in {
     hgOctaveOptions = (removeAttrs defaultOctaveOptions [ "ghostscript" ]) // {
       overridePlatforms = stdenv.lib.platforms.none;
     };
-    in {
-      octave =
-        callPackage ../development/interpreters/octave defaultOctaveOptions;
-      octaveHg = lowPrio
-        (callPackage ../development/interpreters/octave/hg.nix hgOctaveOptions);
-    })
-      octave octaveHg;
+  in {
+    octave =
+      callPackage ../development/interpreters/octave defaultOctaveOptions;
+    octaveHg = lowPrio
+      (callPackage ../development/interpreters/octave/hg.nix hgOctaveOptions);
+  })
+    octave octaveHg;
 
   octaveFull = (lowPrio (octave.override {
     qt = qt4;
@@ -10558,16 +10558,16 @@ in {
   folks = callPackage ../development/libraries/folks { };
 
   makeFontsConf = let fontconfig_ = fontconfig;
-    in { fontconfig ? fontconfig_, fontDirectories }:
-    callPackage ../development/libraries/fontconfig/make-fonts-conf.nix {
-      inherit fontconfig fontDirectories;
-    };
+  in { fontconfig ? fontconfig_, fontDirectories }:
+  callPackage ../development/libraries/fontconfig/make-fonts-conf.nix {
+    inherit fontconfig fontDirectories;
+  };
 
   makeFontsCache = let fontconfig_ = fontconfig;
-    in { fontconfig ? fontconfig_, fontDirectories }:
-    callPackage ../development/libraries/fontconfig/make-fonts-cache.nix {
-      inherit fontconfig fontDirectories;
-    };
+  in { fontconfig ? fontconfig_, fontDirectories }:
+  callPackage ../development/libraries/fontconfig/make-fonts-cache.nix {
+    inherit fontconfig fontDirectories;
+  };
 
   freealut = callPackage ../development/libraries/freealut { };
 
@@ -10926,14 +10926,14 @@ in {
 
   glib = callPackage ../development/libraries/glib
     (let glib-untested = glib.override { doCheck = false; };
-      in {
-        # break dependency cycles
-        # these things are only used for tests, they don't get into the closure
-        shared-mime-info = shared-mime-info.override { glib = glib-untested; };
-        desktop-file-utils =
-          desktop-file-utils.override { glib = glib-untested; };
-        dbus = dbus.override { systemd = null; };
-      });
+    in {
+      # break dependency cycles
+      # these things are only used for tests, they don't get into the closure
+      shared-mime-info = shared-mime-info.override { glib = glib-untested; };
+      desktop-file-utils =
+        desktop-file-utils.override { glib = glib-untested; };
+      dbus = dbus.override { systemd = null; };
+    });
 
   glibmm = callPackage ../development/libraries/glibmm { };
 
@@ -11273,7 +11273,7 @@ in {
       inherit libsForQt5;
       inherit lib fetchurl;
     };
-    in recurseIntoAttrs (makeOverridable mkFrameworks attrs);
+  in recurseIntoAttrs (makeOverridable mkFrameworks attrs);
 
   keybinder = callPackage ../development/libraries/keybinder {
     automake = automake111x;
@@ -15890,7 +15890,7 @@ in {
         src = base.src;
       };
     };
-    in tinyLinuxPackages.kernel;
+  in tinyLinuxPackages.kernel;
 
   # Build a kernel with bcachefs module
   linuxPackages_testing_bcachefs =
@@ -17688,16 +17688,16 @@ in {
   cutecom = libsForQt5.callPackage ../tools/misc/cutecom { };
 
   cutegram = let callpkg = libsForQt56.callPackage;
-    in callpkg
-    ../applications/networking/instant-messengers/telegram/cutegram rec {
-      libqtelegram-aseman-edition = callpkg
-        ../applications/networking/instant-messengers/telegram/libqtelegram-aseman-edition
-        { };
-      telegram-qml = callpkg
-        ../applications/networking/instant-messengers/telegram/telegram-qml {
-          inherit libqtelegram-aseman-edition;
-        };
-    };
+  in callpkg
+  ../applications/networking/instant-messengers/telegram/cutegram rec {
+    libqtelegram-aseman-edition = callpkg
+      ../applications/networking/instant-messengers/telegram/libqtelegram-aseman-edition
+      { };
+    telegram-qml = callpkg
+      ../applications/networking/instant-messengers/telegram/telegram-qml {
+        inherit libqtelegram-aseman-edition;
+      };
+  };
 
   cvs = callPackage ../applications/version-management/cvs { };
 
@@ -19167,7 +19167,7 @@ in {
       inherit lib libsForQt5 fetchurl;
       inherit okteta;
     };
-    in recurseIntoAttrs (makeOverridable mkApplications attrs);
+  in recurseIntoAttrs (makeOverridable mkApplications attrs);
 
   inherit (kdeApplications)
     akonadi akregator ark dolphin dragon ffmpegthumbs filelight gwenview k3b
@@ -21549,43 +21549,43 @@ in {
   retroArchCores = let
     cfg = config.retroarch or { };
     inherit (lib) optional;
-    in with libretro;
-    ([ ] ++ optional (cfg.enable4do or false) _4do
-      ++ optional (cfg.enableBeetlePCEFast or false) beetle-pce-fast
-      ++ optional (cfg.enableBeetlePSX or false) beetle-psx
-      ++ optional (cfg.enableBeetleSaturn or false) beetle-saturn
-      ++ optional (cfg.enableBsnesMercury or false) bsnes-mercury
-      ++ optional (cfg.enableDesmume or false) desmume
-      ++ optional (cfg.enableDolphin or false) dolphin
-      ++ optional (cfg.enableFBA or false) fba
-      ++ optional (cfg.enableFceumm or false) fceumm
-      ++ optional (cfg.enableGambatte or false) gambatte
-      ++ optional (cfg.enableGenesisPlusGX or false) genesis-plus-gx
-      ++ optional (cfg.enableHiganSFC or false) higan-sfc
-      ++ optional (cfg.enableMAME or false) mame
-      ++ optional (cfg.enableMGBA or false) mgba
-      ++ optional (cfg.enableMupen64Plus or false) mupen64plus
-      ++ optional (cfg.enableNestopia or false) nestopia
-      ++ optional (cfg.enableParallelN64 or false) parallel-n64
-      ++ optional (cfg.enablePicodrive or false) picodrive
-      ++ optional (cfg.enablePrboom or false) prboom
-      ++ optional (cfg.enablePPSSPP or false) ppsspp
-      ++ optional (cfg.enableQuickNES or false) quicknes
-      ++ optional (cfg.enableReicast or false) reicast
-      ++ optional (cfg.enableScummVM or false) scummvm
-      ++ optional (cfg.enableSnes9x or false) snes9x
-      ++ optional (cfg.enableSnes9xNext or false) snes9x-next
-      ++ optional (cfg.enableStella or false) stella
-      ++ optional (cfg.enableVbaNext or false) vba-next
-      ++ optional (cfg.enableVbaM or false) vba-m
+  in with libretro;
+  ([ ] ++ optional (cfg.enable4do or false) _4do
+    ++ optional (cfg.enableBeetlePCEFast or false) beetle-pce-fast
+    ++ optional (cfg.enableBeetlePSX or false) beetle-psx
+    ++ optional (cfg.enableBeetleSaturn or false) beetle-saturn
+    ++ optional (cfg.enableBsnesMercury or false) bsnes-mercury
+    ++ optional (cfg.enableDesmume or false) desmume
+    ++ optional (cfg.enableDolphin or false) dolphin
+    ++ optional (cfg.enableFBA or false) fba
+    ++ optional (cfg.enableFceumm or false) fceumm
+    ++ optional (cfg.enableGambatte or false) gambatte
+    ++ optional (cfg.enableGenesisPlusGX or false) genesis-plus-gx
+    ++ optional (cfg.enableHiganSFC or false) higan-sfc
+    ++ optional (cfg.enableMAME or false) mame
+    ++ optional (cfg.enableMGBA or false) mgba
+    ++ optional (cfg.enableMupen64Plus or false) mupen64plus
+    ++ optional (cfg.enableNestopia or false) nestopia
+    ++ optional (cfg.enableParallelN64 or false) parallel-n64
+    ++ optional (cfg.enablePicodrive or false) picodrive
+    ++ optional (cfg.enablePrboom or false) prboom
+    ++ optional (cfg.enablePPSSPP or false) ppsspp
+    ++ optional (cfg.enableQuickNES or false) quicknes
+    ++ optional (cfg.enableReicast or false) reicast
+    ++ optional (cfg.enableScummVM or false) scummvm
+    ++ optional (cfg.enableSnes9x or false) snes9x
+    ++ optional (cfg.enableSnes9xNext or false) snes9x-next
+    ++ optional (cfg.enableStella or false) stella
+    ++ optional (cfg.enableVbaNext or false) vba-next
+    ++ optional (cfg.enableVbaM or false) vba-m
 
-      # added on 2017-02-25 due #23163
-      ++ optional (cfg.enableMednafenPCEFast or false) (throw
-        "nix config option enableMednafenPCEFast has been renamed to enableBeetlePCEFast")
-      ++ optional (cfg.enableMednafenPSX or false) (throw
-        "nix config option enableMednafenPSX has been renamed to enableBeetlePSX")
-      ++ optional (cfg.enableMednafenSaturn or false) (throw
-        "nix config option enableMednafenSaturn has been renamed to enableBeetleSaturn"));
+    # added on 2017-02-25 due #23163
+    ++ optional (cfg.enableMednafenPCEFast or false) (throw
+      "nix config option enableMednafenPCEFast has been renamed to enableBeetlePCEFast")
+    ++ optional (cfg.enableMednafenPSX or false) (throw
+      "nix config option enableMednafenPSX has been renamed to enableBeetlePSX")
+    ++ optional (cfg.enableMednafenSaturn or false) (throw
+      "nix config option enableMednafenSaturn has been renamed to enableBeetleSaturn"));
 
   wrapRetroArch = { retroarch }:
     callPackage ../misc/emulators/retroarch/wrapper.nix {
@@ -21597,39 +21597,38 @@ in {
     callPackage ../applications/video/kodi/wrapper.nix {
       inherit kodi;
       plugins = let inherit (lib) optional optionals;
-        in with kodiPlugins;
-        ([ ] ++ optional (config.kodi.enableAdvancedLauncher or false)
-          advanced-launcher
-          ++ optional (config.kodi.enableAdvancedEmulatorLauncher or false)
-          advanced-emulator-launcher
-          ++ optionals (config.kodi.enableControllers or false)
-          (with controllers; [
-            default
-            dreamcast
-            gba
-            genesis
-            mouse
-            n64
-            nes
-            ps
-            snes
-          ]) ++ optional (config.kodi.enableExodus or false) exodus
-          ++ optionals (config.kodi.enableHyperLauncher or false)
-          (with hyper-launcher; [ plugin service pdfreader ])
-          ++ optional (config.kodi.enableJoystick or false) joystick
-          ++ optional (config.kodi.enableOSMCskin or false) osmc-skin
-          ++ optional (config.kodi.enableSVTPlay or false) svtplay
-          ++ optional (config.kodi.enableSteamController or false)
-          steam-controller
-          ++ optional (config.kodi.enableSteamLauncher or false) steam-launcher
-          ++ optional (config.kodi.enablePVRHTS or false) pvr-hts
-          ++ optional (config.kodi.enablePVRHDHomeRun or false) pvr-hdhomerun
-          ++ optional (config.kodi.enablePVRIPTVSimple or false) pvr-iptvsimple
-          ++ optional (config.kodi.enableInputStreamAdaptive or false)
-          inputstream-adaptive
-          ++ optional (config.kodi.enableVFSSFTP or false) vfs-sftp
-          ++ optional (config.kodi.enableVFSLibarchive or false)
-          vfs-libarchive);
+      in with kodiPlugins;
+      ([ ] ++ optional (config.kodi.enableAdvancedLauncher or false)
+        advanced-launcher
+        ++ optional (config.kodi.enableAdvancedEmulatorLauncher or false)
+        advanced-emulator-launcher
+        ++ optionals (config.kodi.enableControllers or false)
+        (with controllers; [
+          default
+          dreamcast
+          gba
+          genesis
+          mouse
+          n64
+          nes
+          ps
+          snes
+        ]) ++ optional (config.kodi.enableExodus or false) exodus
+        ++ optionals (config.kodi.enableHyperLauncher or false)
+        (with hyper-launcher; [ plugin service pdfreader ])
+        ++ optional (config.kodi.enableJoystick or false) joystick
+        ++ optional (config.kodi.enableOSMCskin or false) osmc-skin
+        ++ optional (config.kodi.enableSVTPlay or false) svtplay
+        ++ optional (config.kodi.enableSteamController or false)
+        steam-controller
+        ++ optional (config.kodi.enableSteamLauncher or false) steam-launcher
+        ++ optional (config.kodi.enablePVRHTS or false) pvr-hts
+        ++ optional (config.kodi.enablePVRHDHomeRun or false) pvr-hdhomerun
+        ++ optional (config.kodi.enablePVRIPTVSimple or false) pvr-iptvsimple
+        ++ optional (config.kodi.enableInputStreamAdaptive or false)
+        inputstream-adaptive
+        ++ optional (config.kodi.enableVFSSFTP or false) vfs-sftp
+        ++ optional (config.kodi.enableVFSLibarchive or false) vfs-libarchive);
     };
 
   wsjtx = qt5.callPackage ../applications/radio/wsjtx { };
@@ -22900,7 +22899,7 @@ in {
       gconf = gnome2.GConf;
       inherit gsettings-desktop-schemas;
     };
-    in recurseIntoAttrs (makeOverridable mkPlasma5 attrs);
+  in recurseIntoAttrs (makeOverridable mkPlasma5 attrs);
 
   inherit (kdeFrameworks) kded kinit frameworkintegration;
 
@@ -24181,14 +24180,14 @@ in {
       extraConfigurations =
         [ ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; }) ];
     });
-    in test:
-    let
-      loadedTest = if builtins.typeOf test == "path" then import test else test;
-      calledTest = if pkgs.lib.isFunction loadedTest then
-        callPackage loadedTest { }
-      else
-        loadedTest;
-    in nixosTesting.makeTest calledTest;
+  in test:
+  let
+    loadedTest = if builtins.typeOf test == "path" then import test else test;
+    calledTest = if pkgs.lib.isFunction loadedTest then
+      callPackage loadedTest { }
+    else
+      loadedTest;
+  in nixosTesting.makeTest calledTest;
 
   nixui =
     callPackage ../tools/package-management/nixui { node_webkit = nwjs_0_12; };
@@ -24279,11 +24278,11 @@ in {
 
   mysql-workbench = callPackage ../applications/misc/mysql-workbench
     (let mysql = mysql57;
-      in {
-        gdal = gdal.override { mysql = mysql // { lib = { dev = mysql; }; }; };
-        mysql = mysql;
-        pcre = pcre-cpp;
-      });
+    in {
+      gdal = gdal.override { mysql = mysql // { lib = { dev = mysql; }; }; };
+      mysql = mysql;
+      pcre = pcre-cpp;
+    });
 
   redis-desktop-manager =
     libsForQt5.callPackage ../applications/misc/redis-desktop-manager { };

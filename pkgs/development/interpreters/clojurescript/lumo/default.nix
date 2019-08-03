@@ -74,7 +74,7 @@ let # packageJSON=./package.json;
        ;; :libs               [ \"src/cljs/bundled\" \"src/js\" ]
        :output-dir         ${if simple then ''\"cljstmp\"'' else ''\"target\"''}
        :output-to          ${
-      if simple then ''\"cljstmp/main.js\"'' else ''\"target/deleteme.js\"''
+         if simple then ''\"cljstmp/main.js\"'' else ''\"target/deleteme.js\"''
        }})
   '');
 

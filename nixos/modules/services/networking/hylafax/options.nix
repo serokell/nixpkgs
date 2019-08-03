@@ -92,7 +92,7 @@ let
     c.commonModemConfig = importDefaultConfig ./modem-default.nix;
     c.faxqConfig = importDefaultConfig ./faxq-default.nix;
     c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
-    in c;
+  in c;
 
   localConfig = let
     c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
@@ -104,7 +104,7 @@ let
         InternationalPrefix = cfg.internationalPrefix;
       };
     c.commonModemConfig = c.faxqConfig;
-    in c;
+  in c;
 
 in {
 

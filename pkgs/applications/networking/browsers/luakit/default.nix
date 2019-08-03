@@ -49,13 +49,13 @@ stdenv.mkDerivation rec {
 
   preFixup = let
     luaKitPath = "$out/share/luakit/lib/?/init.lua;$out/share/luakit/lib/?.lua";
-    in ''
-      gappsWrapperArgs+=(
-        --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
-        --prefix LUA_PATH ';' "${luaKitPath};$NIX_LUA_PATH"
-        --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
-      )
-    '';
+  in ''
+    gappsWrapperArgs+=(
+      --prefix XDG_CONFIG_DIRS : "$out/etc/xdg"
+      --prefix LUA_PATH ';' "${luaKitPath};$NIX_LUA_PATH"
+      --prefix LUA_CPATH ';' "$NIX_LUA_CPATH"
+    )
+  '';
 
   meta = with stdenv.lib; {
     description =

@@ -94,18 +94,18 @@ in stdenv.mkDerivation rec {
 
   postPatch = ''
      ${
-      lib.concatStringsSep "\n" (map (e: ''
-        rm -rf ${e.path}/*
-        cp -r ${e.src}/* ${e.path}/
-      '') modules)
+       lib.concatStringsSep "\n" (map (e: ''
+         rm -rf ${e.path}/*
+         cp -r ${e.src}/* ${e.path}/
+       '') modules)
      }
 
      rm -rf web/api/lib/Cake/Test
 
      ${
-      lib.concatStringsSep "\n" (map (e: ''
-        cp ${e.src} ${e.path}
-      '') addons)
+       lib.concatStringsSep "\n" (map (e: ''
+         cp ${e.src} ${e.path}
+       '') addons)
      }
 
      for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
@@ -123,7 +123,7 @@ in stdenv.mkDerivation rec {
        substituteInPlace $f \
          --replace '/usr/bin/perl' '${perlBin}' \
          --replace '/bin:/usr/bin' "$out/bin:${
-      lib.makeBinPath [ coreutils procps psmisc ]
+           lib.makeBinPath [ coreutils procps psmisc ]
          }"
      done
 

@@ -48,9 +48,9 @@ let
     ip46tables() {
       iptables -w "$@"
       ${
-      optionalString config.networking.enableIPv6 ''
-        ip6tables -w "$@"
-      ''
+        optionalString config.networking.enableIPv6 ''
+          ip6tables -w "$@"
+        ''
       }
     }
   '';

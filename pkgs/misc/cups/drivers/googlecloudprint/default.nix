@@ -37,7 +37,7 @@ in stdenv.mkDerivation rec {
     do
       echo "Wrapping $s..."
       wrapProgram "$out/$s" --set PATH "${
-      lib.makeBinPath [ pythonEnv file ]
+        lib.makeBinPath [ pythonEnv file ]
       }" --prefix PYTHONPATH : "$out/share/cloudprint-cups"
     done
 
@@ -50,7 +50,7 @@ in stdenv.mkDerivation rec {
         o="bin/$(echo $s | sed 's,share/cloudprint-cups/\(.*\).py,\1,')"
         echo "Wrapping $o -> $s..."
         makeWrapper "$out/$s" "$o" --set PATH "${
-      lib.makeBinPath [ pythonEnv file ]
+          lib.makeBinPath [ pythonEnv file ]
         }" --prefix PYTHONPATH : "$out/share/cloudprint-cups"
       fi
     done

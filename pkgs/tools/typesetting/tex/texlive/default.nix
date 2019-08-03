@@ -64,7 +64,7 @@ let
     }); # overrides
 
     # tl =
-    in lib.mapAttrs flatDeps clean;
+  in lib.mapAttrs flatDeps clean;
   # TODO: texlive.infra for web2c config?
 
   flatDeps = pname: attrs:

@@ -17,10 +17,10 @@ import ./make-test.nix ({ pkgs, ... }: {
       c.set('key', 'value')
       assert 'value' == c.get('key')
     '';
-    in ''
-      startAll;
-      $machine->waitForUnit("memcached.service");
-      $machine->waitForOpenPort("11211");
-      $machine->succeed("${testScript}");
-    '';
+  in ''
+    startAll;
+    $machine->waitForUnit("memcached.service");
+    $machine->waitForOpenPort("11211");
+    $machine->succeed("${testScript}");
+  '';
 })

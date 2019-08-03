@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     binrp=$(patchelf --print-rpath $out/share/nylas-mail/nylas)
     patchelf --interpreter $(cat "$NIX_CC"/nix-support/dynamic-linker) \
       --set-rpath $binrp:$out/lib:${stdenv.cc.cc.lib}/lib:${
-      lib.makeLibraryPath propagatedBuildInputs
+        lib.makeLibraryPath propagatedBuildInputs
       } \
       $out/share/nylas-mail/nylas
 

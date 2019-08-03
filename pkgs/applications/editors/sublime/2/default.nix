@@ -32,7 +32,7 @@ in stdenv.mkDerivation rec {
     patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       --set-rpath ${libPath}:${stdenv.cc.cc.lib}/lib${
-      stdenv.lib.optionalString stdenv.is64bit "64"
+        stdenv.lib.optionalString stdenv.is64bit "64"
       } \
       $out/sublime/sublime_text
 

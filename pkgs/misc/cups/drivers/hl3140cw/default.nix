@@ -50,7 +50,7 @@ in stdenv.mkDerivation {
 
     wrapProgram $out/opt/brother/Printers/hl3140cw/lpd/filterhl3140cw \
       --prefix PATH ":" ${
-      stdenv.lib.makeBinPath [ ghostscript a2ps file gnused coreutils ]
+        stdenv.lib.makeBinPath [ ghostscript a2ps file gnused coreutils ]
       }
 
 

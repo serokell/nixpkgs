@@ -30,16 +30,16 @@ in pythonPackages.buildPythonPackage rec {
   postInstall = ''
     wrapProgram $out/bin/telepresence \
       --prefix PATH : ${
-      lib.makeBinPath [
-        sshfs-fuse
-        torsocks
-        conntrack-tools
-        sshuttle-telepresence
-        openssh
-        coreutils
-        iptables
-        bash
-      ]
+        lib.makeBinPath [
+          sshfs-fuse
+          torsocks
+          conntrack-tools
+          sshuttle-telepresence
+          openssh
+          coreutils
+          iptables
+          bash
+        ]
       }
   '';
 

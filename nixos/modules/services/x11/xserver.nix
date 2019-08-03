@@ -71,7 +71,7 @@ let
       name = "multihead${toString num}";
       inherit config;
     };
-    in imap1 mkHead cfg.xrandrHeads;
+  in imap1 mkHead cfg.xrandrHeads;
 
   xrandrDeviceSection = let
     monitors = flip map xrandrHeads (h: ''
@@ -84,7 +84,7 @@ let
       singleton (head monitors) ++ map (m: "  " + m) (tail monitors)
     else
       monitors;
-    in concatStrings monitorsIndented;
+  in concatStrings monitorsIndented;
 
   # Here we chain every monitor from the left to right, so we have:
   # m4 right of m3 right of m2 right of m1   .----.----.----.----.
@@ -98,21 +98,21 @@ let
           Section "Monitor"
             Identifier "${current.name}"
             ${
-            optionalString (current.config.primary) ''
-              Option "Primary" "true"
-            ''
+              optionalString (current.config.primary) ''
+                Option "Primary" "true"
+              ''
             }
             ${
-            optionalString (previous != [ ]) ''
-              Option "RightOf" "${(head previous).name}"
-            ''
+              optionalString (previous != [ ]) ''
+                Option "RightOf" "${(head previous).name}"
+              ''
             }
             ${current.config.monitorConfig}
           EndSection
         '';
       } ++ previous;
     monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
-    in concatMapStrings (getAttr "value") monitors;
+  in concatMapStrings (getAttr "value") monitors;
 
   configFile = pkgs.runCommand "xserver.conf" {
     xfs = optionalString (cfg.useXFS != false)
@@ -583,7 +583,7 @@ in {
       dmconf = cfg.displayManager;
       default = !(dmconf.auto.enable || dmconf.gdm.enable || dmconf.sddm.enable
         || dmconf.slim.enable || dmconf.xpra.enable);
-      in mkIf (default) true;
+    in mkIf (default) true;
 
     hardware.opengl.enable = mkDefault true;
 
@@ -610,13 +610,13 @@ in {
           "X11 requires Polkit to be enabled (‘security.polkit.enable = true’).";
       }
       (let primaryHeads = filter (x: x.primary) cfg.xrandrHeads;
-        in {
-          assertion = length primaryHeads < 2;
-          message = "Only one head is allowed to be primary in "
-            + "‘services.xserver.xrandrHeads’, but there are "
-            + "${toString (length primaryHeads)} heads set to primary: "
-            + concatMapStringsSep ", " (x: x.output) primaryHeads;
-        })
+      in {
+        assertion = length primaryHeads < 2;
+        message = "Only one head is allowed to be primary in "
+          + "‘services.xserver.xrandrHeads’, but there are "
+          + "${toString (length primaryHeads)} heads set to primary: "
+          + concatMapStringsSep ", " (x: x.output) primaryHeads;
+      })
     ];
 
     environment.etc = (optionals cfg.exportConfiguration [
@@ -630,7 +630,7 @@ in {
         target = "X11/xkb";
       }
     ])
-      # localectl looks into 00-keyboard.conf
+    # localectl looks into 00-keyboard.conf
       ++ [{
         text = ''
           Section "InputClass"
@@ -646,10 +646,10 @@ in {
       }]
       # Needed since 1.18; see https://bugs.freedesktop.org/show_bug.cgi?id=89023#c5
       ++ (let cfgPath = "/X11/xorg.conf.d/10-evdev.conf";
-        in [{
-          source = xorg.xf86inputevdev.out + "/share" + cfgPath;
-          target = cfgPath;
-        }]);
+      in [{
+        source = xorg.xf86inputevdev.out + "/share" + cfgPath;
+        target = cfgPath;
+      }]);
 
     environment.systemPackages = [
       xorg.xorgserver.out
@@ -780,9 +780,9 @@ in {
         # Reference the Screen sections for each driver.  This will
         # cause the X server to try each in turn.
         ${
-        flip concatMapStrings cfg.drivers (d: ''
-          Screen "Screen-${d.name}[0]"
-        '')
+          flip concatMapStrings cfg.drivers (d: ''
+            Screen "Screen-${d.name}[0]"
+          '')
         }
       EndSection
 
@@ -811,44 +811,44 @@ in {
           Identifier "Screen-${driver.name}[0]"
           Device "Device-${driver.name}[0]"
           ${
-          optionalString (cfg.monitorSection != "") ''
-            Monitor "Monitor[0]"
-          ''
+            optionalString (cfg.monitorSection != "") ''
+              Monitor "Monitor[0]"
+            ''
           }
 
           ${cfg.screenSection}
           ${driver.screenSection or ""}
 
           ${
-          optionalString (cfg.defaultDepth != 0) ''
-            DefaultDepth ${toString cfg.defaultDepth}
-          ''
+            optionalString (cfg.defaultDepth != 0) ''
+              DefaultDepth ${toString cfg.defaultDepth}
+            ''
           }
 
           ${
-          optionalString (driver.name != "virtualbox" && (cfg.resolutions != [ ]
-            || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null))
-          (let
-            f = depth: ''
-              SubSection "Display"
-                Depth ${toString depth}
-                ${
-                optionalString (cfg.resolutions != [ ]) "Modes ${
-                  concatMapStrings
-                  (res: ''"${toString res.x}x${toString res.y}"'')
-                  cfg.resolutions
-                }"
-                }
-                ${cfg.extraDisplaySettings}
-                ${
-                optionalString (cfg.virtualScreen != null)
-                "Virtual ${toString cfg.virtualScreen.x} ${
-                  toString cfg.virtualScreen.y
-                }"
-                }
-              EndSubSection
-            '';
-            in concatMapStrings f [ 8 16 24 ])
+            optionalString (driver.name != "virtualbox" && (cfg.resolutions
+              != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen
+              != null)) (let
+                f = depth: ''
+                  SubSection "Display"
+                    Depth ${toString depth}
+                    ${
+                      optionalString (cfg.resolutions != [ ]) "Modes ${
+                        concatMapStrings
+                        (res: ''"${toString res.x}x${toString res.y}"'')
+                        cfg.resolutions
+                      }"
+                    }
+                    ${cfg.extraDisplaySettings}
+                    ${
+                      optionalString (cfg.virtualScreen != null)
+                      "Virtual ${toString cfg.virtualScreen.x} ${
+                        toString cfg.virtualScreen.y
+                      }"
+                    }
+                  EndSubSection
+                '';
+              in concatMapStrings f [ 8 16 24 ])
           }
 
         EndSection

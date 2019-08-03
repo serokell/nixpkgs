@@ -16,8 +16,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/groove/groove/${version}/${pname}-${
-      builtins.replaceStrings [ "." ] [ "_" ] version
-    }-bin.zip";
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }-bin.zip";
     sha256 = "1cl3xzl3n8b9a7h5pvnv31bab9j9zaw07ppk8whk8h865dcq1d10";
   };
 

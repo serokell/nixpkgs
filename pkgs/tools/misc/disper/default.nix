@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/disper \
       --prefix "LD_LIBRARY_PATH" : "${
-      stdenv.lib.makeLibraryPath [ xorg.libXrandr xorg.libX11 ]
+        stdenv.lib.makeLibraryPath [ xorg.libXrandr xorg.libX11 ]
       }"
   '';
 

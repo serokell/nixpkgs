@@ -27,18 +27,18 @@ let
     addModuleIf = cond: mod: optionalString cond "load-module ${mod}";
     allAnon = optional cfg.tcp.anonymousClients.allowAll "auth-anonymous=1";
     ipAnon = let a = cfg.tcp.anonymousClients.allowedIpRanges;
-      in optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}";
-    in writeTextFile {
-      name = "default.pa";
-      text = ''
-        .include ${cfg.configFile}
-        ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
-        ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
-        ${addModuleIf cfg.tcp.enable (concatStringsSep " "
-          ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
-        ${cfg.extraConfig}
-      '';
-    };
+    in optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}";
+  in writeTextFile {
+    name = "default.pa";
+    text = ''
+      .include ${cfg.configFile}
+      ${addModuleIf cfg.zeroconf.publish.enable "module-zeroconf-publish"}
+      ${addModuleIf cfg.zeroconf.discovery.enable "module-zeroconf-discover"}
+      ${addModuleIf cfg.tcp.enable (concatStringsSep " "
+        ([ "module-native-protocol-tcp" ] ++ allAnon ++ ipAnon))}
+      ${cfg.extraConfig}
+    '';
+  };
 
   ids = config.ids;
 
@@ -63,8 +63,8 @@ let
     pcm_type.pulse {
       libs.native = ${pkgs.alsaPlugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;
       ${
-      lib.optionalString enable32BitAlsaPlugins
-      "libs.32Bit = ${pkgs.pkgsi686Linux.alsaPlugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;"
+        lib.optionalString enable32BitAlsaPlugins
+        "libs.32Bit = ${pkgs.pkgsi686Linux.alsaPlugins}/lib/alsa-lib/libasound_module_pcm_pulse.so ;"
       }
     }
     pcm.!default {
@@ -74,8 +74,8 @@ let
     ctl_type.pulse {
       libs.native = ${pkgs.alsaPlugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;
       ${
-      lib.optionalString enable32BitAlsaPlugins
-      "libs.32Bit = ${pkgs.pkgsi686Linux.alsaPlugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;"
+        lib.optionalString enable32BitAlsaPlugins
+        "libs.32Bit = ${pkgs.pkgsi686Linux.alsaPlugins}/lib/alsa-lib/libasound_module_ctl_pulse.so ;"
       }
     }
     ctl.!default {
@@ -279,7 +279,7 @@ in {
           (drv: "${drv}/lib/pulse-${overriddenPackage.version}/modules")
           # User-provided extra modules take precedence
           (overriddenModules ++ [ overriddenPackage ]);
-        in lib.concatStringsSep ":" modulePaths;
+      in lib.concatStringsSep ":" modulePaths;
     })
 
     (mkIf hasZeroconf { services.avahi.enable = true; })

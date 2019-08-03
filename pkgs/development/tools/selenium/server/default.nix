@@ -27,8 +27,8 @@ in stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/selenium-server \
       --add-flags "-cp $out/share/lib/${name}/${name}.jar:${htmlunit-driver}/share/lib/${htmlunit-driver.name}/${htmlunit-driver.name}.jar" \
       --add-flags ${
-      optionalString chromeSupport
-      "-Dwebdriver.chrome.driver=${chromedriver}/bin/chromedriver"
+        optionalString chromeSupport
+        "-Dwebdriver.chrome.driver=${chromedriver}/bin/chromedriver"
       } \
       --add-flags "org.openqa.grid.selenium.GridLauncherV3"
   '';

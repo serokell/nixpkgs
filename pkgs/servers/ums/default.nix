@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper "$out/UMS.sh" "$out/bin/ums" \
       --prefix LD_LIBRARY_PATH ":" "${
-      stdenv.lib.makeLibraryPath [ libzen libmediainfo ]
+        stdenv.lib.makeLibraryPath [ libzen libmediainfo ]
       }" \
       --set JAVA_HOME "${jre8}"
   '';

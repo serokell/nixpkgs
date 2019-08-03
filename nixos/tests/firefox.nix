@@ -4,10 +4,10 @@ import ./make-test.nix ({ pkgs, ... }: {
 
   machine = { pkgs, ... }:
 
-  {
-    imports = [ ./common/x11.nix ];
-    environment.systemPackages = [ pkgs.firefox pkgs.xdotool ];
-  };
+    {
+      imports = [ ./common/x11.nix ];
+      environment.systemPackages = [ pkgs.firefox pkgs.xdotool ];
+    };
 
   testScript = ''
     $machine->waitForX;

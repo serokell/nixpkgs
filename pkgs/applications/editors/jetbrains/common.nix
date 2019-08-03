@@ -64,15 +64,15 @@ lib.makeOverridable mkDerivation rec {
 
     makeWrapper "$out/$name/bin/${loName}.sh" "$out/bin/${execName}" \
       --prefix PATH : "$out/libexec/${name}:${
-      stdenv.lib.makeBinPath [ jdk coreutils gnugrep which git ]
+        stdenv.lib.makeBinPath [ jdk coreutils gnugrep which git ]
       }" \
       --prefix LD_LIBRARY_PATH : "${
-      stdenv.lib.makeLibraryPath [
-        # Some internals want libstdc++.so.6
-        stdenv.cc.cc.lib
-        libsecret
-        libnotify
-      ]
+        stdenv.lib.makeLibraryPath [
+          # Some internals want libstdc++.so.6
+          stdenv.cc.cc.lib
+          libsecret
+          libnotify
+        ]
       }" \
       --set JDK_HOME "$jdk" \
       --set ${hiName}_JDK "$jdk" \

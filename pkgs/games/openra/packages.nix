@@ -12,12 +12,12 @@ let
       or the engine and mod package definitions will need to add `...` to the argument list.
   */
   common = let f = import ./common.nix;
-    in f (builtins.intersectAttrs (builtins.functionArgs f) pkgs // {
-      lua = pkgs.lua5_1;
-      # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
-      # rather than having to look to the logs why it is not starting.
-      inherit (pkgs.gnome3) zenity;
-    });
+  in f (builtins.intersectAttrs (builtins.functionArgs f) pkgs // {
+    lua = pkgs.lua5_1;
+    # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
+    # rather than having to look to the logs why it is not starting.
+    inherit (pkgs.gnome3) zenity;
+  });
 
   /* Building a set of engines or mods requires some dependencies as well,
       so the sets will actually be defined as a function instead,

@@ -10,8 +10,8 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/ukoethe/vigra/archive/Version-${
-      stdenv.lib.replaceChars [ "." ] [ "-" ] version
-    }.tar.gz";
+        stdenv.lib.replaceChars [ "." ] [ "-" ] version
+      }.tar.gz";
     sha256 = "03i5wfscv83jb8vnwwhfmm8yfiniwkvk13myzhr1kbwbs9884wdj";
   };
 
@@ -24,7 +24,7 @@ in stdenv.mkDerivation rec {
         "https://github.com/ukoethe/vigra/commit/81958d302494e137f98a8b1d7869841532f90388.patch";
       sha256 = "1i1w6smijgb5z8bg9jaq84ccy00k2sxm87s37lgjpyix901gjlgi";
     };
-    in [ clangPatch ];
+  in [ clangPatch ];
 
   buildInputs = [
     boost

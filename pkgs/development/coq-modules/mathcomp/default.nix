@@ -31,7 +31,7 @@ let
   default-mathcomp-version = let
     v = head (filter (mc: mathcomp-coq-versions."${mc}" coq.coq-version)
       mathcomp-version-preference ++ [ "0.0.0" ]);
-    in if v == "0.0.0" then max-mathcomp-version else v;
+  in if v == "0.0.0" then max-mathcomp-version else v;
 
   # list of core mathcomp packages sorted by dependency order
   mathcomp-packages =

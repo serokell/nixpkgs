@@ -8,8 +8,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
-      stdenv.lib.versions.majorMinor version
-    }/${pname}-${version}.tar.bz2";
+        stdenv.lib.versions.majorMinor version
+      }/${pname}-${version}.tar.bz2";
     sha256 = "eb7c987514a053106ddf03f26544766c751c801d87762909b36415d46bc425c9";
   };
 
@@ -45,14 +45,14 @@ stdenv.mkDerivation rec {
       --prefix MONO_GAC_PREFIX : ${gtk-sharp-2_0} \
       --prefix MONO_GAC_PREFIX : ${gnome-sharp} \
       --prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [
-        glib
-        gnome-sharp
-        gnome2.GConf
-        gtk-sharp-2_0
-        gtk-sharp-2_0.gtk
-        poppler
-      ]
+        lib.makeLibraryPath [
+          glib
+          gnome-sharp
+          gnome2.GConf
+          gtk-sharp-2_0
+          gtk-sharp-2_0.gtk
+          poppler
+        ]
       }
   '';
 

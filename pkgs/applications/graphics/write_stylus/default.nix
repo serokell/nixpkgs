@@ -48,12 +48,12 @@ stdenv.mkDerivation rec {
       stdenv.cc.cc.lib # libstdc++.so.6
       libglvnd # ibGL.so.1
     ];
-    in ''
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}" \
-        $out/Write/Write
-    '';
+  in ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}" \
+      $out/Write/Write
+  '';
 
   meta = with stdenv.lib; {
     homepage = "http://www.styluslabs.com/";

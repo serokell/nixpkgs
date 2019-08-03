@@ -54,7 +54,7 @@ let
       ];
 
       rpath = "${
-        stdenv.lib.makeLibraryPath runtimeDependencies
+          stdenv.lib.makeLibraryPath runtimeDependencies
         }:${stdenv.cc.cc.lib}/lib64";
 
       unpackPhase = ''
@@ -171,25 +171,25 @@ let
       # when not using sandboxing.
       doInstallCheck = false;
       postInstallCheck = let
-        in ''
-          # Smoke test binaries
-          pushd $out/bin
-          for f in *; do
-            case $f in
-              crt)                           continue;;
-              nvcc.profile)                  continue;;
-              nsight_ee_plugins_manage.sh)   continue;;
-              uninstall_cuda_toolkit_6.5.pl) continue;;
-              computeprof|nvvp|nsight)       continue;; # GUIs don't feature "--version"
-              *)                             echo "Executing '$f --version':"; ./$f --version;;
-            esac
-          done
-          popd
-        '';
+      in ''
+        # Smoke test binaries
+        pushd $out/bin
+        for f in *; do
+          case $f in
+            crt)                           continue;;
+            nvcc.profile)                  continue;;
+            nsight_ee_plugins_manage.sh)   continue;;
+            uninstall_cuda_toolkit_6.5.pl) continue;;
+            computeprof|nvvp|nsight)       continue;; # GUIs don't feature "--version"
+            *)                             echo "Executing '$f --version':"; ./$f --version;;
+          esac
+        done
+        popd
+      '';
       passthru = {
         cc = gcc;
         majorVersion = let versionParts = lib.splitString "." version;
-          in "${lib.elemAt versionParts 0}.${lib.elemAt versionParts 1}";
+        in "${lib.elemAt versionParts 0}.${lib.elemAt versionParts 1}";
       };
 
       meta = with stdenv.lib; {

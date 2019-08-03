@@ -18,9 +18,9 @@ in symlinkJoin {
       --set WINGPANEL_INDICATORS_PATH "$out/lib/wingpanel" \
       --set SWITCHBOARD_PLUGS_PATH "${switchboard-with-plugs}/lib/switchboard" \
       --suffix XDG_DATA_DIRS : ${
-      lib.concatMapStringsSep ":"
-      (indicator: "${indicator}/share/gsettings-schemas/${indicator.name}")
-      selectedIndicators
+        lib.concatMapStringsSep ":"
+        (indicator: "${indicator}/share/gsettings-schemas/${indicator.name}")
+        selectedIndicators
       }
   '';
 

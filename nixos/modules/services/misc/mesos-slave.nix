@@ -193,12 +193,12 @@ in {
             --ip=${cfg.ip} \
             --port=${toString cfg.port} \
             ${
-            optionalString (cfg.advertiseIp != null)
-            "--advertise_ip=${cfg.advertiseIp}"
+              optionalString (cfg.advertiseIp != null)
+              "--advertise_ip=${cfg.advertiseIp}"
             } \
             ${
-            optionalString (cfg.advertisePort != null)
-            "--advertise_port=${toString cfg.advertisePort}"
+              optionalString (cfg.advertisePort != null)
+              "--advertise_port=${toString cfg.advertisePort}"
             } \
             --master=${cfg.master} \
             --work_dir=${cfg.workDir} \
@@ -206,16 +206,16 @@ in {
             ${attribsArg} \
             ${optionalString cfg.withHadoop "--hadoop-home=${pkgs.hadoop}"} \
             ${
-            optionalString cfg.withDocker
-            "--docker=${pkgs.docker}/libexec/docker/docker"
+              optionalString cfg.withDocker
+              "--docker=${pkgs.docker}/libexec/docker/docker"
             } \
             ${
-            optionalString (cfg.dockerRegistry != null)
-            "--docker_registry=${cfg.dockerRegistry}"
+              optionalString (cfg.dockerRegistry != null)
+              "--docker_registry=${cfg.dockerRegistry}"
             } \
             --executor_environment_variables=${
-            lib.escapeShellArg
-            (builtins.toJSON cfg.executorEnvironmentVariables)
+              lib.escapeShellArg
+              (builtins.toJSON cfg.executorEnvironmentVariables)
             } \
             ${toString cfg.extraCmdLineOptions}
         '';

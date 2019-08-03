@@ -39,7 +39,7 @@ in stdenv.mkDerivation rec {
 
     wrapQtApp $out/bin/ykman-gui \
       --prefix LD_LIBRARY_PATH : "${
-      stdenv.lib.getLib pcsclite
+        stdenv.lib.getLib pcsclite
       }/lib:${yubikey-personalization}/lib" \
       --prefix PYTHONPATH : "$program_PYTHONPATH"
 

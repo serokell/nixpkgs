@@ -35,7 +35,7 @@ in {
           enginesDrv = filterAttrs (const isDerivation) pkgs.ibus-engines;
           engines = concatStringsSep ", "
             (map (name: "<literal>${name}</literal>") (attrNames enginesDrv));
-          in "Enabled IBus engines. Available engines are: ${engines}.";
+        in "Enabled IBus engines. Available engines are: ${engines}.";
       };
       panel = mkOption {
         type = with types; nullOr path;

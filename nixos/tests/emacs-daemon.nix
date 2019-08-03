@@ -6,18 +6,18 @@ import ./make-test.nix ({ pkgs, ... }: {
 
   machine = { ... }:
 
-  {
-    imports = [ ./common/x11.nix ];
-    services.emacs = {
-      enable = true;
-      defaultEditor = true;
+    {
+      imports = [ ./common/x11.nix ];
+      services.emacs = {
+        enable = true;
+        defaultEditor = true;
+      };
+
+      # Important to get the systemd service running for root
+      environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
+
+      environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
     };
-
-    # Important to get the systemd service running for root
-    environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
-
-    environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
-  };
 
   testScript = ''
     $machine->waitForUnit("multi-user.target");

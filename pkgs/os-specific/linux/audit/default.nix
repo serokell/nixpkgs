@@ -43,14 +43,14 @@ stdenv.mkDerivation rec {
         name = "Add-substitue-functions-for-strndupa-rawmemchr.patch";
         sha256 = "015bvzflg1s1k5viap30nznlpjj44a66khyc8yq0waa68qwvdlsd";
       };
-      in runCommand
-      "Add-substitue-functions-for-strndupa-rawmemchr.patch-fix-copyright-merge-conflict"
-      { } ''
-        cp ${patch} $out
-        substituteInPlace $out --replace \
-            '-* Copyright (c) 2007-09,2011-16,2018 Red Hat Inc., Durham, North Carolina.' \
-            '-* Copyright (c) 2007-09,2011-16 Red Hat Inc., Durham, North Carolina.'
-      '')
+    in runCommand
+    "Add-substitue-functions-for-strndupa-rawmemchr.patch-fix-copyright-merge-conflict"
+    { } ''
+      cp ${patch} $out
+      substituteInPlace $out --replace \
+          '-* Copyright (c) 2007-09,2011-16,2018 Red Hat Inc., Durham, North Carolina.' \
+          '-* Copyright (c) 2007-09,2011-16 Red Hat Inc., Durham, North Carolina.'
+    '')
   ];
 
   prePatch = ''

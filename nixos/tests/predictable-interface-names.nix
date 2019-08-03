@@ -7,7 +7,7 @@ in pkgs.lib.listToAttrs (pkgs.lib.crossLists (predictable: withNetworkd: {
     + pkgs.lib.optionalString withNetworkd "Networkd";
   value = makeTest {
     name = "${if predictable then "" else "un"}predictableInterfaceNames${
-      if withNetworkd then "-with-networkd" else ""
+        if withNetworkd then "-with-networkd" else ""
       }";
     meta = { };
 

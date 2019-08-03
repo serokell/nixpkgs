@@ -15,7 +15,7 @@ stdenv.mkDerivation {
   buildPhase = ''
     $CC -Wall -std=c99 -O3 -fPIC -ldl -shared \
       ${
-      lib.optionalString stdenv.isDarwin "-Wl,-install_name,$out/lib/$libName"
+        lib.optionalString stdenv.isDarwin "-Wl,-install_name,$out/lib/$libName"
       } \
       -o "$libName" \
       libredirect.c

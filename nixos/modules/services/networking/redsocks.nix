@@ -194,8 +194,8 @@ in {
 
           ${optionalString (block.login != null) ''login = "${block.login}";''}
           ${
-          optionalString (block.password != null)
-          ''password = "${block.password}";''
+            optionalString (block.password != null)
+            ''password = "${block.password}";''
           }
 
           disclose_src = ${block.disclose_src};
@@ -250,31 +250,31 @@ in {
           redCond block
         } -j ${chain} 2>/dev/null || true
       '') cfg.redsocks;
-    in mkIf cfg.enable {
-      users.groups.redsocks = { };
-      users.users.redsocks = {
-        description = "Redsocks daemon";
-        group = "redsocks";
-        isSystemUser = true;
-      };
-
-      systemd.services.redsocks = {
-        description = "Redsocks";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        script = "${pkgs.redsocks}/bin/redsocks -c ${configfile}";
-      };
-
-      networking.firewall.extraCommands = iptables;
-
-      networking.firewall.extraStopCommands = concatImapStringsSep "\n"
-        (idx: block:
-          let chain = "REDSOCKS${toString idx}";
-          in optionalString (block.redirectCondition != false)
-          "ip46tables -t nat -D OUTPUT -p tcp ${
-            redCond block
-          } -j ${chain} 2>/dev/null || true") cfg.redsocks;
+  in mkIf cfg.enable {
+    users.groups.redsocks = { };
+    users.users.redsocks = {
+      description = "Redsocks daemon";
+      group = "redsocks";
+      isSystemUser = true;
     };
+
+    systemd.services.redsocks = {
+      description = "Redsocks";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      script = "${pkgs.redsocks}/bin/redsocks -c ${configfile}";
+    };
+
+    networking.firewall.extraCommands = iptables;
+
+    networking.firewall.extraStopCommands = concatImapStringsSep "\n"
+      (idx: block:
+        let chain = "REDSOCKS${toString idx}";
+        in optionalString (block.redirectCondition != false)
+        "ip46tables -t nat -D OUTPUT -p tcp ${
+          redCond block
+        } -j ${chain} 2>/dev/null || true") cfg.redsocks;
+  };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

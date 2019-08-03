@@ -36,7 +36,7 @@ let
         owner = "yquake2";
         repo = data.id;
         rev = "${lib.toUpper id}_${
-          builtins.replaceStrings [ "." ] [ "_" ] version
+            builtins.replaceStrings [ "." ] [ "_" ] version
           }";
       };
 

@@ -25,7 +25,11 @@ stdenv.mkDerivation {
 
     patchelf --set-interpreter ${glibc.out}/lib/ld-linux.so.2 \
              --set-rpath ${
-      stdenv.lib.makeLibraryPath [ stdenv.cc.cc libX11 libGLU_combined ]
+               stdenv.lib.makeLibraryPath [
+                 stdenv.cc.cc
+                 libX11
+                 libGLU_combined
+               ]
              } \
              "$out/res/Tibia"
 

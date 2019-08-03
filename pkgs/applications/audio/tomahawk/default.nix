@@ -49,11 +49,11 @@ stdenv.mkDerivation rec {
   postInstall = let
     pluginPath = stdenv.lib.concatStringsSep ":"
       [ "${phonon-backend-vlc}/lib/kde4/plugins" ];
-    in ''
-      for i in "$out"/bin/*; do
-        wrapProgram "$i" --prefix QT_PLUGIN_PATH : "${pluginPath}"
-      done
-    '';
+  in ''
+    for i in "$out"/bin/*; do
+      wrapProgram "$i" --prefix QT_PLUGIN_PATH : "${pluginPath}"
+    done
+  '';
 
   enableParallelBuilding = true;
 

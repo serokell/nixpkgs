@@ -30,7 +30,7 @@ in buildPythonPackage rec {
     cc -c -fPIC x_ignore_nofocus.c -o x_ignore_nofocus.o
     cc -shared \
       -Wl,${
-      if stdenv.isDarwin then "-install_name" else "-soname"
+        if stdenv.isDarwin then "-install_name" else "-soname"
       },x_ignore_nofocus.so \
       -o x_ignore_nofocus.so \
       x_ignore_nofocus.o

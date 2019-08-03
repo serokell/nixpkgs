@@ -21,9 +21,9 @@ buildPythonPackage rec {
       "nibabel.tests.test_minc1.test_old_namespace"
     ];
     # TODO: Add --with-doctest once all doctests pass
-    in ''
-      nosetests ${lib.concatMapStrings (test: "-e '${test}' ") excludeTests}
-    '';
+  in ''
+    nosetests ${lib.concatMapStrings (test: "-e '${test}' ") excludeTests}
+  '';
 
   meta = with lib; {
     homepage = "https://nipy.org/nibabel/";

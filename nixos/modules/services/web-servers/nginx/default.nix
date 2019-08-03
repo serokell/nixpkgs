@@ -41,9 +41,9 @@ let
     (name: upstream: ''
       upstream ${name} {
         ${
-        toString (flip mapAttrsToList upstream.servers (name: server: ''
-          server ${name} ${optionalString server.backup "backup"};
-        ''))
+          toString (flip mapAttrsToList upstream.servers (name: server: ''
+            server ${name} ${optionalString server.backup "backup"};
+          ''))
         }
         ${upstream.extraConfig}
       }
@@ -69,73 +69,74 @@ let
         include ${cfg.package}/conf/uwsgi_params;
 
         ${
-        optionalString (cfg.resolver.addresses != [ ]) ''
-          resolver ${toString cfg.resolver.addresses} ${
-            optionalString (cfg.resolver.valid != "")
-            "valid=${cfg.resolver.valid}"
-          } ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
-        ''
+          optionalString (cfg.resolver.addresses != [ ]) ''
+            resolver ${toString cfg.resolver.addresses} ${
+              optionalString (cfg.resolver.valid != "")
+              "valid=${cfg.resolver.valid}"
+            } ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
+          ''
         }
         ${upstreamConfig}
 
         ${
-        optionalString (cfg.recommendedOptimisation) ''
-          # optimisation
-          sendfile on;
-          tcp_nopush on;
-          tcp_nodelay on;
-          keepalive_timeout 65;
-          types_hash_max_size 2048;
-        ''
+          optionalString (cfg.recommendedOptimisation) ''
+            # optimisation
+            sendfile on;
+            tcp_nopush on;
+            tcp_nodelay on;
+            keepalive_timeout 65;
+            types_hash_max_size 2048;
+          ''
         }
 
         ssl_protocols ${cfg.sslProtocols};
         ssl_ciphers ${cfg.sslCiphers};
         ${
-        optionalString (cfg.sslDhparam != null) "ssl_dhparam ${cfg.sslDhparam};"
+          optionalString (cfg.sslDhparam != null)
+          "ssl_dhparam ${cfg.sslDhparam};"
         }
 
         ${
-        optionalString (cfg.recommendedTlsSettings) ''
-          ssl_session_cache shared:SSL:42m;
-          ssl_session_timeout 23m;
-          ssl_ecdh_curve secp384r1;
-          ssl_prefer_server_ciphers on;
-          ssl_stapling on;
-          ssl_stapling_verify on;
-        ''
+          optionalString (cfg.recommendedTlsSettings) ''
+            ssl_session_cache shared:SSL:42m;
+            ssl_session_timeout 23m;
+            ssl_ecdh_curve secp384r1;
+            ssl_prefer_server_ciphers on;
+            ssl_stapling on;
+            ssl_stapling_verify on;
+          ''
         }
 
         ${
-        optionalString (cfg.recommendedGzipSettings) ''
-          gzip on;
-          gzip_disable "msie6";
-          gzip_proxied any;
-          gzip_comp_level 5;
-          gzip_types
-            application/atom+xml
-            application/javascript
-            application/json
-            application/xml
-            application/xml+rss
-            image/svg+xml
-            text/css
-            text/javascript
-            text/plain
-            text/xml;
-          gzip_vary on;
-        ''
+          optionalString (cfg.recommendedGzipSettings) ''
+            gzip on;
+            gzip_disable "msie6";
+            gzip_proxied any;
+            gzip_comp_level 5;
+            gzip_types
+              application/atom+xml
+              application/javascript
+              application/json
+              application/xml
+              application/xml+rss
+              image/svg+xml
+              text/css
+              text/javascript
+              text/plain
+              text/xml;
+            gzip_vary on;
+          ''
         }
 
         ${
-        optionalString (cfg.recommendedProxySettings) ''
-          proxy_redirect          off;
-          proxy_connect_timeout   90;
-          proxy_send_timeout      90;
-          proxy_read_timeout      90;
-          proxy_http_version      1.0;
-          include ${recommendedProxyConfig};
-        ''
+          optionalString (cfg.recommendedProxySettings) ''
+            proxy_redirect          off;
+            proxy_connect_timeout   90;
+            proxy_send_timeout      90;
+            proxy_read_timeout      90;
+            proxy_http_version      1.0;
+            include ${recommendedProxyConfig};
+          ''
         }
 
         # $connection_upgrade is used for websocket proxying
@@ -152,22 +153,22 @@ let
         ${vhosts}
 
         ${
-        optionalString cfg.statusPage ''
-          server {
-            listen 80;
-            ${optionalString enableIPv6 "listen [::]:80;"}
+          optionalString cfg.statusPage ''
+            server {
+              listen 80;
+              ${optionalString enableIPv6 "listen [::]:80;"}
 
-            server_name localhost;
+              server_name localhost;
 
-            location /nginx_status {
-              stub_status on;
-              access_log off;
-              allow 127.0.0.1;
-              ${optionalString enableIPv6 "allow ::1;"}
-              deny all;
+              location /nginx_status {
+                stub_status on;
+                access_log off;
+                allow 127.0.0.1;
+                ${optionalString enableIPv6 "allow ::1;"}
+                deny all;
+              }
             }
-          }
-        ''
+          ''
         }
 
         ${cfg.appendHttpConfig}
@@ -228,8 +229,8 @@ let
         optionalString (vhost.enableACME || vhost.useACMEHost != null) ''
           location /.well-known/acme-challenge {
             ${
-            optionalString (vhost.acmeFallbackHost != null)
-            "try_files $uri @acme-fallback;"
+              optionalString (vhost.acmeFallbackHost != null)
+              "try_files $uri @acme-fallback;"
             }
             root ${vhost.acmeRoot};
             auth_basic off;
@@ -248,7 +249,7 @@ let
           ${concatMapStringsSep "\n" listenString redirectListen}
 
           server_name ${vhost.serverName} ${
-          concatStringsSep " " vhost.serverAliases
+            concatStringsSep " " vhost.serverAliases
           };
           ${acmeLocation}
           location / {
@@ -260,40 +261,40 @@ let
       server {
         ${concatMapStringsSep "\n" listenString hostListen}
         server_name ${vhost.serverName} ${
-        concatStringsSep " " vhost.serverAliases
+          concatStringsSep " " vhost.serverAliases
         };
         ${acmeLocation}
         ${optionalString (vhost.root != null) "root ${vhost.root};"}
         ${
-        optionalString (vhost.globalRedirect != null) ''
-          return 301 http${
-            optionalString hasSSL "s"
-          }://${vhost.globalRedirect}$request_uri;
-        ''
+          optionalString (vhost.globalRedirect != null) ''
+            return 301 http${
+              optionalString hasSSL "s"
+            }://${vhost.globalRedirect}$request_uri;
+          ''
         }
         ${
-        optionalString hasSSL ''
-          ssl_certificate ${vhost.sslCertificate};
-          ssl_certificate_key ${vhost.sslCertificateKey};
-        ''
+          optionalString hasSSL ''
+            ssl_certificate ${vhost.sslCertificate};
+            ssl_certificate_key ${vhost.sslCertificateKey};
+          ''
         }
         ${
-        optionalString (hasSSL && vhost.sslTrustedCertificate != null) ''
-          ssl_trusted_certificate ${vhost.sslTrustedCertificate};
-        ''
+          optionalString (hasSSL && vhost.sslTrustedCertificate != null) ''
+            ssl_trusted_certificate ${vhost.sslTrustedCertificate};
+          ''
         }
 
         ${
-        optionalString
-        (vhost.basicAuthFile != null || vhost.basicAuth != { }) ''
-          auth_basic secured;
-          auth_basic_user_file ${
-            if vhost.basicAuthFile != null then
-              vhost.basicAuthFile
-            else
-              mkHtpasswd vhostName vhost.basicAuth
-          };
-        ''
+          optionalString
+          (vhost.basicAuthFile != null || vhost.basicAuth != { }) ''
+            auth_basic secured;
+            auth_basic_user_file ${
+              if vhost.basicAuthFile != null then
+                vhost.basicAuthFile
+              else
+                mkHtpasswd vhostName vhost.basicAuth
+            };
+          ''
         }
 
         ${mkLocations vhost.locations}
@@ -305,36 +306,37 @@ let
     concatStringsSep "\n" (map (config: ''
       location ${config.location} {
         ${
-        optionalString
-        (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
-        "proxy_pass ${config.proxyPass};"
+          optionalString
+          (config.proxyPass != null && !cfg.proxyResolveWhileRunning)
+          "proxy_pass ${config.proxyPass};"
         }
         ${
-        optionalString
-        (config.proxyPass != null && cfg.proxyResolveWhileRunning) ''
-          set $nix_proxy_target "${config.proxyPass}";
-          proxy_pass $nix_proxy_target;
-        ''
+          optionalString
+          (config.proxyPass != null && cfg.proxyResolveWhileRunning) ''
+            set $nix_proxy_target "${config.proxyPass}";
+            proxy_pass $nix_proxy_target;
+          ''
         }
         ${
-        optionalString config.proxyWebsockets ''
-          proxy_http_version 1.1;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection $connection_upgrade;
-        ''
+          optionalString config.proxyWebsockets ''
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+          ''
         }
         ${optionalString (config.index != null) "index ${config.index};"}
         ${
-        optionalString (config.tryFiles != null) "try_files ${config.tryFiles};"
+          optionalString (config.tryFiles != null)
+          "try_files ${config.tryFiles};"
         }
         ${optionalString (config.root != null) "root ${config.root};"}
         ${optionalString (config.alias != null) "alias ${config.alias};"}
         ${optionalString (config.return != null) "return ${config.return};"}
         ${config.extraConfig}
         ${
-        optionalString
-        (config.proxyPass != null && cfg.recommendedProxySettings)
-        "include ${recommendedProxyConfig};"
+          optionalString
+          (config.proxyPass != null && cfg.recommendedProxySettings)
+          "include ${recommendedProxyConfig};"
         }
       }
     '') (sortProperties
@@ -663,40 +665,40 @@ in {
           use config.services.nginx.virtualHosts.<name>.onlySSL instead.
         '';
 
-      in flatten (mapAttrsToList deprecatedSSL virtualHosts);
+    in flatten (mapAttrsToList deprecatedSSL virtualHosts);
 
     assertions = let hostOrAliasIsNull = l: l.root == null || l.alias == null;
-      in [
-        {
-          assertion =
-            all (host: all hostOrAliasIsNull (attrValues host.locations))
-            (attrValues virtualHosts);
-          message =
-            "Only one of nginx root or alias can be specified on a location.";
-        }
+    in [
+      {
+        assertion =
+          all (host: all hostOrAliasIsNull (attrValues host.locations))
+          (attrValues virtualHosts);
+        message =
+          "Only one of nginx root or alias can be specified on a location.";
+      }
 
-        {
-          assertion = all (conf:
-            with conf;
-            !(addSSL && (onlySSL || enableSSL))
-            && !(forceSSL && (onlySSL || enableSSL)) && !(addSSL && forceSSL))
-            (attrValues virtualHosts);
-          message = ''
-            Options services.nginx.service.virtualHosts.<name>.addSSL,
-            services.nginx.virtualHosts.<name>.onlySSL and services.nginx.virtualHosts.<name>.forceSSL
-            are mutually exclusive.
-          '';
-        }
+      {
+        assertion = all (conf:
+          with conf;
+          !(addSSL && (onlySSL || enableSSL))
+          && !(forceSSL && (onlySSL || enableSSL)) && !(addSSL && forceSSL))
+          (attrValues virtualHosts);
+        message = ''
+          Options services.nginx.service.virtualHosts.<name>.addSSL,
+          services.nginx.virtualHosts.<name>.onlySSL and services.nginx.virtualHosts.<name>.forceSSL
+          are mutually exclusive.
+        '';
+      }
 
-        {
-          assertion = all (conf: !(conf.enableACME && conf.useACMEHost != null))
-            (attrValues virtualHosts);
-          message = ''
-            Options services.nginx.service.virtualHosts.<name>.enableACME and
-            services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
-          '';
-        }
-      ];
+      {
+        assertion = all (conf: !(conf.enableACME && conf.useACMEHost != null))
+          (attrValues virtualHosts);
+        message = ''
+          Options services.nginx.service.virtualHosts.<name>.enableACME and
+          services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
+        '';
+      }
+    ];
 
     systemd.services.nginx = {
       description = "Nginx Web Server";
@@ -735,7 +737,7 @@ in {
           '';
         };
       }) acmeEnabledVhosts;
-      in listToAttrs acmePairs);
+    in listToAttrs acmePairs);
 
     users.users = optionalAttrs (cfg.user == "nginx") (singleton {
       name = "nginx";

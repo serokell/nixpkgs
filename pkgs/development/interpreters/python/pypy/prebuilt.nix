@@ -73,10 +73,10 @@ stdenv.mkDerivation {
     modules = [ "ssl" "sys" "curses" ] ++ optionals (!isPy3k) [ "Tkinter" ]
       ++ optionals isPy3k [ "tkinter" ];
     imports = concatMapStringsSep "; " (x: "import ${x}") modules;
-    in ''
-      echo "Testing whether we can import modules"
-      $out/bin/${executable} -c '${imports}'
-    '';
+  in ''
+    echo "Testing whether we can import modules"
+    $out/bin/${executable} -c '${imports}'
+  '';
 
   setupHook = python-setup-hook sitePackages;
 

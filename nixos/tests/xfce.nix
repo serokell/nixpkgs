@@ -4,18 +4,18 @@ import ./make-test.nix ({ pkgs, ... }: {
 
   machine = { pkgs, ... }:
 
-  {
-    imports = [ ./common/user-account.nix ];
+    {
+      imports = [ ./common/user-account.nix ];
 
-    services.xserver.enable = true;
+      services.xserver.enable = true;
 
-    services.xserver.displayManager.auto.enable = true;
-    services.xserver.displayManager.auto.user = "alice";
+      services.xserver.displayManager.auto.enable = true;
+      services.xserver.displayManager.auto.user = "alice";
 
-    services.xserver.desktopManager.xfce.enable = true;
+      services.xserver.desktopManager.xfce.enable = true;
 
-    environment.systemPackages = [ pkgs.xorg.xmessage ];
-  };
+      environment.systemPackages = [ pkgs.xorg.xmessage ];
+    };
 
   testScript = ''
     $machine->waitForX;

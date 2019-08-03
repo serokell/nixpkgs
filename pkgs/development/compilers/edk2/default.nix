@@ -56,39 +56,39 @@ let
 
     passthru = {
       setup = projectDscPath: attrs:
-      {
-        buildInputs = [ pythonEnv ]
-          ++ stdenv.lib.optionals (attrs ? buildInputs) attrs.buildInputs;
+        {
+          buildInputs = [ pythonEnv ]
+            ++ stdenv.lib.optionals (attrs ? buildInputs) attrs.buildInputs;
 
-        configurePhase = ''
-          mkdir -v Conf
+          configurePhase = ''
+            mkdir -v Conf
 
-          cp ${edk2}/BaseTools/Conf/target.template Conf/target.txt
-          sed -i Conf/target.txt \
-            -e 's|Nt32Pkg/Nt32Pkg.dsc|${projectDscPath}|' \
-            -e 's|MYTOOLS|GCC49|' \
-            -e 's|IA32|${targetArch}|' \
-            -e 's|DEBUG|RELEASE|'\
+            cp ${edk2}/BaseTools/Conf/target.template Conf/target.txt
+            sed -i Conf/target.txt \
+              -e 's|Nt32Pkg/Nt32Pkg.dsc|${projectDscPath}|' \
+              -e 's|MYTOOLS|GCC49|' \
+              -e 's|IA32|${targetArch}|' \
+              -e 's|DEBUG|RELEASE|'\
 
-          cp ${edk2}/BaseTools/Conf/tools_def.template Conf/tools_def.txt
-          sed -i Conf/tools_def.txt \
-            -e 's|DEFINE GCC48_IA32_PREFIX       = /usr/bin/|DEFINE GCC48_IA32_PREFIX       = ""|' \
-            -e 's|DEFINE GCC48_X64_PREFIX        = /usr/bin/|DEFINE GCC48_X64_PREFIX        = ""|' \
-            -e 's|DEFINE UNIX_IASL_BIN           = /usr/bin/iasl|DEFINE UNIX_IASL_BIN           = ${iasl}/bin/iasl|'
+            cp ${edk2}/BaseTools/Conf/tools_def.template Conf/tools_def.txt
+            sed -i Conf/tools_def.txt \
+              -e 's|DEFINE GCC48_IA32_PREFIX       = /usr/bin/|DEFINE GCC48_IA32_PREFIX       = ""|' \
+              -e 's|DEFINE GCC48_X64_PREFIX        = /usr/bin/|DEFINE GCC48_X64_PREFIX        = ""|' \
+              -e 's|DEFINE UNIX_IASL_BIN           = /usr/bin/iasl|DEFINE UNIX_IASL_BIN           = ${iasl}/bin/iasl|'
 
-          export WORKSPACE="$PWD"
-          export EFI_SOURCE="$PWD/EdkCompatibilityPkg"
-          ln -sv ${edk2}/BaseTools BaseTools
-          ln -sv ${edk2}/EdkCompatibilityPkg EdkCompatibilityPkg
-          . ${edk2}/edksetup.sh BaseTools
-        '';
+            export WORKSPACE="$PWD"
+            export EFI_SOURCE="$PWD/EdkCompatibilityPkg"
+            ln -sv ${edk2}/BaseTools BaseTools
+            ln -sv ${edk2}/EdkCompatibilityPkg EdkCompatibilityPkg
+            . ${edk2}/edksetup.sh BaseTools
+          '';
 
-        buildPhase = ''
-          build
-        '';
+          buildPhase = ''
+            build
+          '';
 
-        installPhase = "mv -v Build/*/* $out";
-      } // (removeAttrs attrs [ "buildInputs" ]);
+          installPhase = "mv -v Build/*/* $out";
+        } // (removeAttrs attrs [ "buildInputs" ]);
     };
   };
 

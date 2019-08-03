@@ -57,11 +57,11 @@ in mkDerivation rec {
         python27Packages.readline or null
         python27Packages.hglib or null
       ]);
-    in ''
-      for prog in reposurgeon repodiffer repotool; do
-        wrapProgram $out/bin/$prog \
-          --prefix PATH : "${binpath}" \
-          --prefix PYTHONPATH : "${pythonpath}"
-      done
-    '';
+  in ''
+    for prog in reposurgeon repodiffer repotool; do
+      wrapProgram $out/bin/$prog \
+        --prefix PATH : "${binpath}" \
+        --prefix PYTHONPATH : "${pythonpath}"
+    done
+  '';
 }

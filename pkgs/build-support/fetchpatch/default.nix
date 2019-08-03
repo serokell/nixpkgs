@@ -25,10 +25,10 @@ fetchurl ({
         --include={} \
         --strip=${toString stripLen} \
         ${
-      lib.optionalString (extraPrefix != null) ''
-        --addoldprefix=a/${extraPrefix} \
-        --addnewprefix=b/${extraPrefix} \
-      ''
+          lib.optionalString (extraPrefix != null) ''
+            --addoldprefix=a/${extraPrefix} \
+            --addnewprefix=b/${extraPrefix} \
+          ''
         } \
         --clean "$out" > "$tmpfile"
     if [ ! -s "$tmpfile" ]; then
@@ -41,12 +41,12 @@ fetchurl ({
     ${patchutils}/bin/filterdiff \
       -p1 \
       ${
-      builtins.toString
-      (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)
+        builtins.toString
+        (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)
       } \
       ${
-      builtins.toString
-      (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)
+        builtins.toString
+        (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)
       } \
       "$tmpfile" > "$out"
 

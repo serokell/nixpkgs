@@ -25,14 +25,14 @@ with lib; {
     cfg = config.xdg.portal;
     packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
 
-    in mkIf cfg.enable {
+  in mkIf cfg.enable {
 
-      services.dbus.packages = packages;
-      systemd.packages = packages;
-      environment.variables = {
-        GTK_USE_PORTAL = "1";
-        XDG_DESKTOP_PORTAL_PATH =
-          map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
-      };
+    services.dbus.packages = packages;
+    systemd.packages = packages;
+    environment.variables = {
+      GTK_USE_PORTAL = "1";
+      XDG_DESKTOP_PORTAL_PATH =
+        map (p: "${p}/share/xdg-desktop-portal/portals") cfg.extraPortals;
     };
+  };
 }

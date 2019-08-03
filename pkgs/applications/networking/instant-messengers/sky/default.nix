@@ -18,8 +18,8 @@ in stdenv.mkDerivation rec {
   unpackCmd = "ar x $curSrc; tar -xf data.tar.xz";
   src = fetchurl {
     url = "https://tel.red/repos/ubuntu/pool/non-free/sky_${
-      version_major + "-" + version_minor
-    }ubuntu+xenial_amd64.deb";
+        version_major + "-" + version_minor
+      }ubuntu+xenial_amd64.deb";
     sha256 = "0b3j90km3rp5bgaklxw881g0gcy09mqzbhjdfrq4s2np026ql3d9";
   };
   buildInputs = [

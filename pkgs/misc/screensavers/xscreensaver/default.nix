@@ -63,20 +63,20 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${stdenv.lib.makeBinPath [ xorg.appres ]}
     wrapProgram $out/bin/xscreensaver-getimage-file \
       --set PERL5LIB "$out/${perlPackages.perl.libPrefix}:${
-      with perlPackages;
-      makePerlPath [
-        EncodeLocale
-        HTTPDate
-        HTTPMessage
-        IOSocketSSL
-        LWP
-        LWPProtocolHttps
-        MozillaCA
-        NetHTTP
-        NetSSLeay
-        TryTiny
-        URI
-      ]
+        with perlPackages;
+        makePerlPath [
+          EncodeLocale
+          HTTPDate
+          HTTPMessage
+          IOSocketSSL
+          LWP
+          LWPProtocolHttps
+          MozillaCA
+          NetHTTP
+          NetSSLeay
+          TryTiny
+          URI
+        ]
       }"
   '' + stdenv.lib.optionalString forceInstallAllHacks ''
     make -C hacks/glx dnalogo

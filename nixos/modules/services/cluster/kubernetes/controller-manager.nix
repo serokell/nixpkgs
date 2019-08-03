@@ -117,100 +117,102 @@ in {
       cfg.tlsKeyFile
     ];
 
-    in mkIf cfg.enable {
-      systemd.services.kube-controller-manager = rec {
-        description = "Kubernetes Controller Manager Service";
-        wantedBy = [ "kube-control-plane-online.target" ];
-        after = [ "kube-apiserver.service" ];
-        before = [ "kube-control-plane-online.target" ];
-        environment.KUBECONFIG =
-          top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig;
-        preStart = ''
-          until kubectl auth can-i get /api -q 2>/dev/null; do
-            echo kubectl auth can-i get /api: exit status $?
-            sleep 2
-          done
-        '';
-        serviceConfig = {
-          RestartSec = "30s";
-          Restart = "on-failure";
-          Slice = "kubernetes.slice";
-          ExecStart = ''
-            ${top.package}/bin/kube-controller-manager \
-                      --allocate-node-cidrs=${
-              boolToString cfg.allocateNodeCIDRs
-                      } \
-                      --bind-address=${cfg.bindAddress} \
-                      ${
-              optionalString (cfg.clusterCidr != null)
-              "--cluster-cidr=${cfg.clusterCidr}"
-                      } \
-                      ${
-              optionalString (cfg.featureGates != [ ]) "--feature-gates=${
-                concatMapStringsSep "," (feature: "${feature}=true")
-                cfg.featureGates
-              }"
-                      } \
-                      --kubeconfig=${environment.KUBECONFIG} \
-                      --leader-elect=${boolToString cfg.leaderElect} \
-                      ${
-              optionalString (cfg.rootCaFile != null)
-              "--root-ca-file=${cfg.rootCaFile}"
-                      } \
-                      --port=${toString cfg.insecurePort} \
-                      --secure-port=${toString cfg.securePort} \
-                      ${
-              optionalString (cfg.serviceAccountKeyFile != null)
-              "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
-                      } \
-                      ${
-              optionalString (cfg.tlsCertFile != null)
-              "--tls-cert-file=${cfg.tlsCertFile}"
-                      } \
-                      ${
-              optionalString (cfg.tlsKeyFile != null)
-              "--tls-private-key-file=${cfg.tlsKeyFile}"
-                      } \
-                      ${
-              optionalString (elem "RBAC" top.apiserver.authorizationMode)
-              "--use-service-account-credentials"
-                      } \
-                      ${
-              optionalString (cfg.verbosity != null)
-              "--v=${toString cfg.verbosity}"
-                      } \
-                      ${cfg.extraOpts}
-                    '';
-          WorkingDirectory = top.dataDir;
-          User = "kubernetes";
-          Group = "kubernetes";
-        };
-        path = top.path ++ [ pkgs.kubectl ];
-        unitConfig.ConditionPathExists = controllerManagerPaths;
+  in mkIf cfg.enable {
+    systemd.services.kube-controller-manager = rec {
+      description = "Kubernetes Controller Manager Service";
+      wantedBy = [ "kube-control-plane-online.target" ];
+      after = [ "kube-apiserver.service" ];
+      before = [ "kube-control-plane-online.target" ];
+      environment.KUBECONFIG =
+        top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig;
+      preStart = ''
+        until kubectl auth can-i get /api -q 2>/dev/null; do
+          echo kubectl auth can-i get /api: exit status $?
+          sleep 2
+        done
+      '';
+      serviceConfig = {
+        RestartSec = "30s";
+        Restart = "on-failure";
+        Slice = "kubernetes.slice";
+        ExecStart = ''
+          ${top.package}/bin/kube-controller-manager \
+                    --allocate-node-cidrs=${
+                      boolToString cfg.allocateNodeCIDRs
+                    } \
+                    --bind-address=${cfg.bindAddress} \
+                    ${
+                      optionalString (cfg.clusterCidr != null)
+                      "--cluster-cidr=${cfg.clusterCidr}"
+                    } \
+                    ${
+                      optionalString (cfg.featureGates != [ ])
+                      "--feature-gates=${
+                        concatMapStringsSep "," (feature: "${feature}=true")
+                        cfg.featureGates
+                      }"
+                    } \
+                    --kubeconfig=${environment.KUBECONFIG} \
+                    --leader-elect=${boolToString cfg.leaderElect} \
+                    ${
+                      optionalString (cfg.rootCaFile != null)
+                      "--root-ca-file=${cfg.rootCaFile}"
+                    } \
+                    --port=${toString cfg.insecurePort} \
+                    --secure-port=${toString cfg.securePort} \
+                    ${
+                      optionalString (cfg.serviceAccountKeyFile != null)
+                      "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
+                    } \
+                    ${
+                      optionalString (cfg.tlsCertFile != null)
+                      "--tls-cert-file=${cfg.tlsCertFile}"
+                    } \
+                    ${
+                      optionalString (cfg.tlsKeyFile != null)
+                      "--tls-private-key-file=${cfg.tlsKeyFile}"
+                    } \
+                    ${
+                      optionalString
+                      (elem "RBAC" top.apiserver.authorizationMode)
+                      "--use-service-account-credentials"
+                    } \
+                    ${
+                      optionalString (cfg.verbosity != null)
+                      "--v=${toString cfg.verbosity}"
+                    } \
+                    ${cfg.extraOpts}
+                  '';
+        WorkingDirectory = top.dataDir;
+        User = "kubernetes";
+        Group = "kubernetes";
       };
-
-      systemd.paths.kube-controller-manager = {
-        wantedBy = [ "kube-controller-manager.service" ];
-        pathConfig = {
-          PathExists = controllerManagerPaths;
-          PathChanged = controllerManagerPaths;
-        };
-      };
-
-      services.kubernetes.pki.certs = with top.lib; {
-        controllerManager = mkCert {
-          name = "kube-controller-manager";
-          CN = "kube-controller-manager";
-          action = "systemctl restart kube-controller-manager.service";
-        };
-        controllerManagerClient = mkCert {
-          name = "kube-controller-manager-client";
-          CN = "system:kube-controller-manager";
-          action = "systemctl restart kube-controller-manager.service";
-        };
-      };
-
-      services.kubernetes.controllerManager.kubeconfig.server =
-        mkDefault top.apiserverAddress;
+      path = top.path ++ [ pkgs.kubectl ];
+      unitConfig.ConditionPathExists = controllerManagerPaths;
     };
+
+    systemd.paths.kube-controller-manager = {
+      wantedBy = [ "kube-controller-manager.service" ];
+      pathConfig = {
+        PathExists = controllerManagerPaths;
+        PathChanged = controllerManagerPaths;
+      };
+    };
+
+    services.kubernetes.pki.certs = with top.lib; {
+      controllerManager = mkCert {
+        name = "kube-controller-manager";
+        CN = "kube-controller-manager";
+        action = "systemctl restart kube-controller-manager.service";
+      };
+      controllerManagerClient = mkCert {
+        name = "kube-controller-manager-client";
+        CN = "system:kube-controller-manager";
+        action = "systemctl restart kube-controller-manager.service";
+      };
+    };
+
+    services.kubernetes.controllerManager.kubeconfig.server =
+      mkDefault top.apiserverAddress;
+  };
 }

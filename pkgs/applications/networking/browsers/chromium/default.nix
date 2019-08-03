@@ -65,43 +65,43 @@ in stdenv.mkDerivation {
     libPath =
       stdenv.lib.makeLibraryPath ([ ] ++ stdenv.lib.optional useVaapi libva);
 
-    in with stdenv.lib; ''
-      mkdir -p "$out/bin"
+  in with stdenv.lib; ''
+    mkdir -p "$out/bin"
 
-      eval makeWrapper "${browserBinary}" "$out/bin/chromium" \
-        --add-flags ${escapeShellArg (escapeShellArg commandLineArgs)} \
-        ${concatMapStringsSep " " getWrapperFlags chromium.plugins.enabled}
+    eval makeWrapper "${browserBinary}" "$out/bin/chromium" \
+      --add-flags ${escapeShellArg (escapeShellArg commandLineArgs)} \
+      ${concatMapStringsSep " " getWrapperFlags chromium.plugins.enabled}
 
-      ed -v -s "$out/bin/chromium" << EOF
-      2i
+    ed -v -s "$out/bin/chromium" << EOF
+    2i
 
-      if [ -x "/run/wrappers/bin/${sandboxExecutableName}" ]
-      then
-        export CHROME_DEVEL_SANDBOX="/run/wrappers/bin/${sandboxExecutableName}"
-      else
-        export CHROME_DEVEL_SANDBOX="$sandbox/bin/${sandboxExecutableName}"
-      fi
+    if [ -x "/run/wrappers/bin/${sandboxExecutableName}" ]
+    then
+      export CHROME_DEVEL_SANDBOX="/run/wrappers/bin/${sandboxExecutableName}"
+    else
+      export CHROME_DEVEL_SANDBOX="$sandbox/bin/${sandboxExecutableName}"
+    fi
 
-      export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${libPath}"
+    export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:${libPath}"
 
-      # libredirect causes chromium to deadlock on startup
-      export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | tr ':' '\n' | grep -v /lib/libredirect\\\\.so$ | tr '\n' ':')"
+    # libredirect causes chromium to deadlock on startup
+    export LD_PRELOAD="\$(echo -n "\$LD_PRELOAD" | tr ':' '\n' | grep -v /lib/libredirect\\\\.so$ | tr '\n' ':')"
 
-      export XDG_DATA_DIRS=$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH\''${XDG_DATA_DIRS:+:}\$XDG_DATA_DIRS
+    export XDG_DATA_DIRS=$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH\''${XDG_DATA_DIRS:+:}\$XDG_DATA_DIRS
 
-      .
-      w
-      EOF
+    .
+    w
+    EOF
 
-      ln -sv "${chromium.browser.sandbox}" "$sandbox"
+    ln -sv "${chromium.browser.sandbox}" "$sandbox"
 
-      ln -s "$out/bin/chromium" "$out/bin/chromium-browser"
+    ln -s "$out/bin/chromium" "$out/bin/chromium-browser"
 
-      mkdir -p "$out/share"
-      for f in '${chromium.browser}'/share/*; do # hello emacs */
-        ln -s -t "$out/share/" "$f"
-      done
-    '';
+    mkdir -p "$out/share"
+    for f in '${chromium.browser}'/share/*; do # hello emacs */
+      ln -s -t "$out/share/" "$f"
+    done
+  '';
 
   inherit (chromium.browser) packageName;
   meta = chromium.browser.meta // {

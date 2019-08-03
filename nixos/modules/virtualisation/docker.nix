@@ -168,13 +168,13 @@ in {
                 --host=fd:// \
                 --log-driver=${cfg.logDriver} \
                 ${
-                optionalString (cfg.storageDriver != null)
-                "--storage-driver=${cfg.storageDriver}"
+                  optionalString (cfg.storageDriver != null)
+                  "--storage-driver=${cfg.storageDriver}"
                 } \
                 ${optionalString cfg.liveRestore "--live-restore"} \
                 ${
-                optionalString cfg.enableNvidia
-                "--add-runtime nvidia=${pkgs.nvidia-docker}/bin/nvidia-container-runtime"
+                  optionalString cfg.enableNvidia
+                  "--add-runtime nvidia=${pkgs.nvidia-docker}/bin/nvidia-container-runtime"
                 } \
                 ${cfg.extraOptions}
             ''

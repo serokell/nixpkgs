@@ -136,7 +136,7 @@ in with lib; {
           -T template0 -E UTF8 -O meguca meguca || true
         ${pkgs.sudo}/bin/sudo -u meguca ${postgres.package}/bin/psql \
           -c "ALTER ROLE meguca WITH PASSWORD '$(cat ${
-          escapeShellArg cfg.passwordFile
+            escapeShellArg cfg.passwordFile
           })';" || true
       '';
 

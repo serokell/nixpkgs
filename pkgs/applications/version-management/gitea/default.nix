@@ -34,12 +34,12 @@ buildGoPackage rec {
   preBuild = let
     tags = optional pamSupport "pam" ++ optional sqliteSupport "sqlite";
     tagsString = concatStringsSep " " tags;
-    in ''
-      export buildFlagsArray=(
-        -tags="${tagsString}"
-        -ldflags='-X "main.Version=${version}" -X "main.Tags=${tagsString}"'
-      )
-    '';
+  in ''
+    export buildFlagsArray=(
+      -tags="${tagsString}"
+      -ldflags='-X "main.Version=${version}" -X "main.Tags=${tagsString}"'
+    )
+  '';
 
   outputs = [ "bin" "out" "data" ];
 

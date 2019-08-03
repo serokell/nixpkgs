@@ -131,10 +131,10 @@ in {
 
         environment = let
           penv = python.buildEnv.override { extraLibs = [ bepasty gevent ]; };
-          in {
-            BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
-            PYTHONPATH = "${penv}/${python.sitePackages}/";
-          };
+        in {
+          BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
+          PYTHONPATH = "${penv}/${python.sitePackages}/";
+        };
 
         serviceConfig = {
           Type = "simple";

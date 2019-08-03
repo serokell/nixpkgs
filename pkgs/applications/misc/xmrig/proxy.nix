@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     # Set default donation level to 0%. Can be increased at runtime via --donate-level option.
     substituteInPlace src/donate.h \
       --replace "kDefaultDonateLevel = 2;" "kDefaultDonateLevel = ${
-      toString donateLevel
+        toString donateLevel
       };"
 
     # Link dynamically against libuuid instead of statically

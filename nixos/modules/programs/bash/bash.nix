@@ -124,108 +124,108 @@ in {
   };
 
   config = # mkIf cfg.enable
-  {
+    {
 
-    programs.bash = {
+      programs.bash = {
 
-      shellAliases = mapAttrs (name: mkDefault) cfge.shellAliases;
+        shellAliases = mapAttrs (name: mkDefault) cfge.shellAliases;
 
-      shellInit = ''
-        if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]; then
-            . ${config.system.build.setEnvironment}
+        shellInit = ''
+          if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]; then
+              . ${config.system.build.setEnvironment}
+          fi
+
+          ${cfge.shellInit}
+        '';
+
+        loginShellInit = cfge.loginShellInit;
+
+        interactiveShellInit = ''
+          # Check the window size after every command.
+          shopt -s checkwinsize
+
+          # Disable hashing (i.e. caching) of command lookups.
+          set +h
+
+          ${cfg.promptInit}
+          ${bashCompletion}
+          ${bashAliases}
+
+          ${cfge.interactiveShellInit}
+        '';
+
+      };
+
+      environment.etc."profile".text = ''
+        # /etc/profile: DO NOT EDIT -- this file has been generated automatically.
+        # This file is read for login shells.
+
+        # Only execute this file once per shell.
+        if [ -n "$__ETC_PROFILE_SOURCED" ]; then return; fi
+        __ETC_PROFILE_SOURCED=1
+
+        # Prevent this file from being sourced by interactive non-login child shells.
+        export __ETC_PROFILE_DONE=1
+
+        ${cfg.shellInit}
+        ${cfg.loginShellInit}
+
+        # Read system-wide modifications.
+        if test -f /etc/profile.local; then
+            . /etc/profile.local
         fi
 
-        ${cfge.shellInit}
+        if [ -n "''${BASH_VERSION:-}" ]; then
+            . /etc/bashrc
+        fi
       '';
 
-      loginShellInit = cfge.loginShellInit;
+      environment.etc."bashrc".text = ''
+        # /etc/bashrc: DO NOT EDIT -- this file has been generated automatically.
 
-      interactiveShellInit = ''
-        # Check the window size after every command.
-        shopt -s checkwinsize
+        # Only execute this file once per shell.
+        if [ -n "$__ETC_BASHRC_SOURCED" -o -n "$NOSYSBASHRC" ]; then return; fi
+        __ETC_BASHRC_SOURCED=1
 
-        # Disable hashing (i.e. caching) of command lookups.
-        set +h
+        # If the profile was not loaded in a parent process, source
+        # it.  But otherwise don't do it because we don't want to
+        # clobber overridden values of $PATH, etc.
+        if [ -z "$__ETC_PROFILE_DONE" ]; then
+            . /etc/profile
+        fi
 
-        ${cfg.promptInit}
-        ${bashCompletion}
-        ${bashAliases}
+        # We are not always an interactive shell.
+        if [ -n "$PS1" ]; then
+            ${cfg.interactiveShellInit}
+        fi
 
-        ${cfge.interactiveShellInit}
+        # Read system-wide modifications.
+        if test -f /etc/bashrc.local; then
+            . /etc/bashrc.local
+        fi
       '';
+
+      # Configuration for readline in bash. We use "option default"
+      # priority to allow user override using both .text and .source.
+      environment.etc."inputrc".source = mkOptionDefault ./inputrc;
+
+      users.defaultUserShell = mkDefault pkgs.bashInteractive;
+
+      environment.pathsToLink = optionals cfg.enableCompletion [
+        "/etc/bash_completion.d"
+        "/share/bash-completion"
+      ];
+
+      environment.systemPackages =
+        optional cfg.enableCompletion pkgs.nix-bash-completions;
+
+      environment.shells = [
+        "/run/current-system/sw/bin/bash"
+        "/run/current-system/sw/bin/sh"
+        "${pkgs.bashInteractive}/bin/bash"
+        "${pkgs.bashInteractive}/bin/sh"
+      ];
 
     };
-
-    environment.etc."profile".text = ''
-      # /etc/profile: DO NOT EDIT -- this file has been generated automatically.
-      # This file is read for login shells.
-
-      # Only execute this file once per shell.
-      if [ -n "$__ETC_PROFILE_SOURCED" ]; then return; fi
-      __ETC_PROFILE_SOURCED=1
-
-      # Prevent this file from being sourced by interactive non-login child shells.
-      export __ETC_PROFILE_DONE=1
-
-      ${cfg.shellInit}
-      ${cfg.loginShellInit}
-
-      # Read system-wide modifications.
-      if test -f /etc/profile.local; then
-          . /etc/profile.local
-      fi
-
-      if [ -n "''${BASH_VERSION:-}" ]; then
-          . /etc/bashrc
-      fi
-    '';
-
-    environment.etc."bashrc".text = ''
-      # /etc/bashrc: DO NOT EDIT -- this file has been generated automatically.
-
-      # Only execute this file once per shell.
-      if [ -n "$__ETC_BASHRC_SOURCED" -o -n "$NOSYSBASHRC" ]; then return; fi
-      __ETC_BASHRC_SOURCED=1
-
-      # If the profile was not loaded in a parent process, source
-      # it.  But otherwise don't do it because we don't want to
-      # clobber overridden values of $PATH, etc.
-      if [ -z "$__ETC_PROFILE_DONE" ]; then
-          . /etc/profile
-      fi
-
-      # We are not always an interactive shell.
-      if [ -n "$PS1" ]; then
-          ${cfg.interactiveShellInit}
-      fi
-
-      # Read system-wide modifications.
-      if test -f /etc/bashrc.local; then
-          . /etc/bashrc.local
-      fi
-    '';
-
-    # Configuration for readline in bash. We use "option default"
-    # priority to allow user override using both .text and .source.
-    environment.etc."inputrc".source = mkOptionDefault ./inputrc;
-
-    users.defaultUserShell = mkDefault pkgs.bashInteractive;
-
-    environment.pathsToLink = optionals cfg.enableCompletion [
-      "/etc/bash_completion.d"
-      "/share/bash-completion"
-    ];
-
-    environment.systemPackages =
-      optional cfg.enableCompletion pkgs.nix-bash-completions;
-
-    environment.shells = [
-      "/run/current-system/sw/bin/bash"
-      "/run/current-system/sw/bin/sh"
-      "${pkgs.bashInteractive}/bin/bash"
-      "${pkgs.bashInteractive}/bin/sh"
-    ];
-
-  };
 
 }

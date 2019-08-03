@@ -22,7 +22,7 @@ let
         hunspellDicts.${hunspellDict}
       }/share/hunspell" \
       --set LC_MESSAGES "${spellcheckerLanguage}"'' else
-        "");
+      "");
   rpath = lib.makeLibraryPath [
     alsaLib
     atk

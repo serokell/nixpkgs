@@ -90,46 +90,46 @@ in {
     '';
 
     boot.initrd.preLVMCommands = mkBefore (
-      # Search for interface definitions in command line.
-        ''
-          for o in $(cat /proc/cmdline); do
-            case $o in
-              ip=*)
-                ipconfig $o && hasNetwork=1
-                ;;
-            esac
+    # Search for interface definitions in command line.
+      ''
+        for o in $(cat /proc/cmdline); do
+          case $o in
+            ip=*)
+              ipconfig $o && hasNetwork=1
+              ;;
+          esac
+        done
+      ''
+
+      # Otherwise, use DHCP.
+      + optionalString (config.networking.useDHCP || dhcpinterfaces != [ ]) ''
+        if [ -z "$hasNetwork" ]; then
+
+          # Bring up all interfaces.
+          for iface in $(ls /sys/class/net/); do
+            echo "bringing up network interface $iface..."
+            ip link set "$iface" up
           done
-        ''
 
-        # Otherwise, use DHCP.
-        + optionalString (config.networking.useDHCP || dhcpinterfaces != [ ]) ''
-          if [ -z "$hasNetwork" ]; then
-
-            # Bring up all interfaces.
-            for iface in $(ls /sys/class/net/); do
-              echo "bringing up network interface $iface..."
-              ip link set "$iface" up
-            done
-
-            # Acquire DHCP leases.
-            for iface in ${
+          # Acquire DHCP leases.
+          for iface in ${
             if config.networking.useDHCP then
               "$(ls /sys/class/net/ | grep -v ^lo$)"
             else
               lib.concatMapStringsSep " " lib.escapeShellArg dhcpinterfaces
-            }; do
-              echo "acquiring IP address via DHCP on $iface..."
-              udhcpc --quit --now -i $iface -O staticroutes --script ${udhcpcScript} ${udhcpcArgs} && hasNetwork=1
-            done
-          fi
-        ''
+          }; do
+            echo "acquiring IP address via DHCP on $iface..."
+            udhcpc --quit --now -i $iface -O staticroutes --script ${udhcpcScript} ${udhcpcArgs} && hasNetwork=1
+          done
+        fi
+      ''
 
-        + ''
-          if [ -n "$hasNetwork" ]; then
-            echo "networking is up!"
-            ${cfg.postCommands}
-          fi
-        '');
+      + ''
+        if [ -n "$hasNetwork" ]; then
+          echo "networking is up!"
+          ${cfg.postCommands}
+        fi
+      '');
 
   };
 

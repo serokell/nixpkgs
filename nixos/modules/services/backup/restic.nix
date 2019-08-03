@@ -137,7 +137,7 @@ in {
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${resticCmd} backup ${
-            concatStringsSep " " backup.extraBackupArgs
+              concatStringsSep " " backup.extraBackupArgs
             } ${concatStringsSep " " backup.paths}";
           User = backup.user;
         } // optionalAttrs (backup.s3CredentialsFile != null) {

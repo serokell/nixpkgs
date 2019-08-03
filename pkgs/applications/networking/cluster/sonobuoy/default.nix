@@ -9,12 +9,12 @@ in buildGoPackage rec {
   goPackagePath = "github.com/heptio/sonobuoy";
 
   buildFlagsArray = let t = "${goPackagePath}";
-    in ''
-      -ldflags=
-        -s -X ${t}/pkg/buildinfo.Version=${version}
-           -X ${t}/pkg/buildinfo.GitSHA=${rev}
-           -X ${t}/pkg/buildDate=unknown
-    '';
+  in ''
+    -ldflags=
+      -s -X ${t}/pkg/buildinfo.Version=${version}
+         -X ${t}/pkg/buildinfo.GitSHA=${rev}
+         -X ${t}/pkg/buildDate=unknown
+  '';
 
   src = fetchFromGitHub {
     sha256 = "0dkmhmr7calk8mkdxfpy3yjzk10ja4gz1jq8pgk3v8rh04f4h1x5";

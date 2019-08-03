@@ -22,11 +22,11 @@ in {
         rev = "v0.1.2";
         sha256 = "19r9igxm4hrzrhxajlxw2ccq0057h8ipkfiif725x0xqbxjskl6c";
       };
-      in pkgs.runCommandNoCC "ngx_brotli-src" { } ''
-        cp -a ${gitsrc} $out
-        substituteInPlace $out/config \
-          --replace /usr/local ${lib.getDev pkgs.brotli}
-      '';
+    in pkgs.runCommandNoCC "ngx_brotli-src" { } ''
+      cp -a ${gitsrc} $out
+      substituteInPlace $out/config \
+        --replace /usr/local ${lib.getDev pkgs.brotli}
+    '';
     inputs = [ pkgs.brotli ];
   };
 
@@ -222,7 +222,7 @@ in {
         rev = "v0.7.0";
         sha256 = "16jzxhhsyfjaxb50jy5py9ppscidfx1shvc29ihldp0zs6d8khma";
       };
-      in "${src'}/opentracing";
+    in "${src'}/opentracing";
     inputs = [ pkgs.opentracing-cpp ];
   };
 
@@ -247,10 +247,10 @@ in {
       chmod -R +w "$out"
       ln -s "${pkgs.psol}" "$out/psol"
     '';
-    in {
-      src = ngx_pagespeed;
-      inputs = [ pkgs.zlib pkgs.libuuid ]; # psol deps
-    };
+  in {
+    src = ngx_pagespeed;
+    inputs = [ pkgs.zlib pkgs.libuuid ]; # psol deps
+  };
 
   pam = {
     src = fetchFromGitHub {

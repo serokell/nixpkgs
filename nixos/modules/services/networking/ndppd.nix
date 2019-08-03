@@ -16,12 +16,12 @@ let
         timeout ${toString proxy.timeout}
         ttl ${toString proxy.ttl}
         ${
-        render proxy.rules (ruleNetworkName: rule: ''
-          rule ${prefer rule.network ruleNetworkName} {
-            ${rule.method}${
-            if rule.method == "iface" then " ${rule.interface}" else ""
-            }
-          }'')
+          render proxy.rules (ruleNetworkName: rule: ''
+            rule ${prefer rule.network ruleNetworkName} {
+              ${rule.method}${
+                if rule.method == "iface" then " ${rule.interface}" else ""
+              }
+            }'')
         }
       }'')}
   '');

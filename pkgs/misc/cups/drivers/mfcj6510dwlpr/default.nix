@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       --prefix PATH ":" ${stdenv.lib.makeBinPath [ coreutils gnused gawk ]}
     wrapProgram $out/opt/brother/Printers/mfcj6510dw/lpd/filtermfcj6510dw \
       --prefix PATH ":" ${
-      stdenv.lib.makeBinPath [ coreutils gnused file ghostscript a2ps ]
+        stdenv.lib.makeBinPath [ coreutils gnused file ghostscript a2ps ]
       }
   '';
 

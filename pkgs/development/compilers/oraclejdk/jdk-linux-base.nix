@@ -63,12 +63,12 @@ else
           aarch64-linux = "linux-arm64-vfp-hflt";
         }.${stdenv.hostPlatform.system};
         javadlPlatformName = "linux-i586";
-        in fetchurl {
-          url =
-            "http://javadl.oracle.com/webapps/download/GetFile/1.${productVersion}.0_${patchVersion}-b${buildVersion}/${releaseToken}/${javadlPlatformName}/jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
-          curlOpts = "-b oraclelicense=a";
-          sha256 = sha256.${stdenv.hostPlatform.system};
-        };
+      in fetchurl {
+        url =
+          "http://javadl.oracle.com/webapps/download/GetFile/1.${productVersion}.0_${patchVersion}-b${buildVersion}/${releaseToken}/${javadlPlatformName}/jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
+        curlOpts = "-b oraclelicense=a";
+        sha256 = sha256.${stdenv.hostPlatform.system};
+      };
 
       nativeBuildInputs = [ file ] ++ stdenv.lib.optional installjce unzip;
 

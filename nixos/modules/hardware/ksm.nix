@@ -26,8 +26,8 @@ in {
         if [ -e /sys/kernel/mm/ksm ]; then
           echo 1 > /sys/kernel/mm/ksm/run
           ${
-          optionalString (cfg.sleep != null)
-          "echo ${toString cfg.sleep} > /sys/kernel/mm/ksm/sleep_millisecs"
+            optionalString (cfg.sleep != null)
+            "echo ${toString cfg.sleep} > /sys/kernel/mm/ksm/sleep_millisecs"
           }
         fi
       '';

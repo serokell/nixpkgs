@@ -65,28 +65,28 @@ in stdenv.mkDerivation {
       "zoomlinux"
       "zopen"
     ];
-    in ''
-      runHook preInstall
+  in ''
+    runHook preInstall
 
-      packagePath=$out/share/zoom-us
-      mkdir -p $packagePath $out/bin
+    packagePath=$out/share/zoom-us
+    mkdir -p $packagePath $out/bin
 
-      cp -ar ${files} $packagePath
+    cp -ar ${files} $packagePath
 
-      # TODO Patch this somehow; tries to dlopen './libturbojpeg.so' from cwd
-      ln -s $(readlink -e "${libjpeg_turbo.out}/lib/libturbojpeg.so") $packagePath/libturbojpeg.so
+    # TODO Patch this somehow; tries to dlopen './libturbojpeg.so' from cwd
+    ln -s $(readlink -e "${libjpeg_turbo.out}/lib/libturbojpeg.so") $packagePath/libturbojpeg.so
 
-      ln -s ${qtEnv}/bin/qt.conf $packagePath
+    ln -s ${qtEnv}/bin/qt.conf $packagePath
 
-      makeWrapper $packagePath/zoom $out/bin/zoom-us \
-        --prefix PATH : "${
+    makeWrapper $packagePath/zoom $out/bin/zoom-us \
+      --prefix PATH : "${
         makeBinPath [ coreutils glib.dev pciutils procps qttools.dev utillinux ]
-        }" \
-        --prefix LD_PRELOAD : "${libv4l}/lib/libv4l/v4l2convert.so" \
-        --run "cd $packagePath"
+      }" \
+      --prefix LD_PRELOAD : "${libv4l}/lib/libv4l/v4l2convert.so" \
+      --run "cd $packagePath"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   postInstall = (makeDesktopItem {
     name = "zoom-us";

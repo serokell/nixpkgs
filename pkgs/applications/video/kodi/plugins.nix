@@ -90,11 +90,11 @@ let
         # and the non-wrapped kodi lib/... folder before even trying to dlopen
         # them. Symlinking .so, as setting LD_LIBRARY_PATH is of no use
         installPhase = let n = namespace;
-          in ''
-            make install
-            ln -s $out/lib/addons/${n}/${n}.so.${version} $out${pluginDir}/${n}/${n}.so.${version}
-            ${extraInstallPhase}
-          '';
+        in ''
+          make install
+          ln -s $out/lib/addons/${n}/${n}.so.${version} $out${pluginDir}/${n}/${n}.so.${version}
+          ${extraInstallPhase}
+        '';
       } // args));
 
     advanced-launcher = mkKodiPlugin rec {
@@ -181,10 +181,10 @@ let
           inherit version src meta;
         };
       };
-      in (mkController "default") // (mkController "dreamcast")
-      // (mkController "gba") // (mkController "genesis")
-      // (mkController "mouse") // (mkController "n64") // (mkController "nes")
-      // (mkController "ps") // (mkController "snes");
+    in (mkController "default") // (mkController "dreamcast")
+    // (mkController "gba") // (mkController "genesis")
+    // (mkController "mouse") // (mkController "n64") // (mkController "nes")
+    // (mkController "ps") // (mkController "snes");
 
     hyper-launcher = let
       pname = "hyper-launcher";
@@ -201,19 +201,19 @@ let
         description = "A ROM launcher for Kodi that uses HyperSpin assets.";
         maintainers = with maintainers; [ edwtjo ];
       };
-      in {
-        service = mkKodiPlugin {
-          plugin = pname + "-service";
-          version = "1.2.1";
-          namespace = "service.hyper.launcher";
-          inherit src meta;
-        };
-        plugin = mkKodiPlugin {
-          plugin = pname;
-          namespace = "plugin.hyper.launcher";
-          inherit version src meta;
-        };
+    in {
+      service = mkKodiPlugin {
+        plugin = pname + "-service";
+        version = "1.2.1";
+        namespace = "service.hyper.launcher";
+        inherit src meta;
       };
+      plugin = mkKodiPlugin {
+        plugin = pname;
+        namespace = "plugin.hyper.launcher";
+        inherit version src meta;
+      };
+    };
 
     joystick = mkKodiABIPlugin rec {
       namespace = "peripheral.joystick";
@@ -494,9 +494,9 @@ let
       extraRuntimeDependencies = [ glib nspr nss stdenv.cc.cc.lib ];
 
       extraInstallPhase = let n = namespace;
-        in ''
-          ln -s $out/lib/addons/${n}/libssd_wv.so $out/${pluginDir}/${n}/libssd_wv.so
-        '';
+      in ''
+        ln -s $out/lib/addons/${n}/libssd_wv.so $out/${pluginDir}/${n}/libssd_wv.so
+      '';
 
       meta = {
         homepage = "https://github.com/peak3d/inputstream.adaptive";

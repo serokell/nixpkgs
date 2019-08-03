@@ -238,8 +238,8 @@ in {
           -mountdir ${cfg.mountPoint} \
           -confdir ${afsConfig} \
           ${
-          optionalString (!cfg.cache.diskless)
-          "-cachedir ${cfg.cache.directory}"
+            optionalString (!cfg.cache.diskless)
+            "-cachedir ${cfg.cache.directory}"
           } \
           -blocks ${toString cfg.cache.blocks} \
           -chunksize ${toString cfg.cache.chunksize} \

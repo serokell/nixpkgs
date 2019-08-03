@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
       src = ./nix-paths.patch;
       df = "${coreutils}/bin/df";
       libc = let ext = if stdenv.isDarwin then ".dylib" else ".so.6";
-        in "${stdenv.cc.libc}/lib/libc${ext}";
+      in "${stdenv.cc.libc}/lib/libc${ext}";
     })
 
     # Fix build on Python 3.6.

@@ -41,18 +41,18 @@ in stdenv.mkDerivation rec {
     else
       throw
       "other platforms than i686_linux and x86_64-linux are not yet supported";
-    in ''
-      mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"
-      cp src/epson_inkjet_printer_filter "${filterdir}"
+  in ''
+    mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"
+    cp src/epson_inkjet_printer_filter "${filterdir}"
 
-      cd ../${srcdirs.driver}
-      for ppd in ppds/*; do
-          substituteInPlace "$ppd" --replace '/opt/${name}' "$out"
-          gzip -c "$ppd" > "${ppddir}/''${ppd#*/}"
-      done
-      cp COPYING.EPSON README "${docdir}"
-      cp -r resource watermark ${libdir} "$out"
-    '';
+    cd ../${srcdirs.driver}
+    for ppd in ppds/*; do
+        substituteInPlace "$ppd" --replace '/opt/${name}' "$out"
+        gzip -c "$ppd" > "${ppddir}/''${ppd#*/}"
+    done
+    cp COPYING.EPSON README "${docdir}"
+    cp -r resource watermark ${libdir} "$out"
+  '';
 
   meta = {
     description = "Proprietary CUPS drivers for Epson inkjet printers";

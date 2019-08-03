@@ -115,7 +115,7 @@ in stdenv.mkDerivation rec {
       # Wrap preload libXss
       wrapProgram $out/bin/kodestudio \
           --prefix LD_PRELOAD : ${
-        stdenv.lib.makeLibraryPath [ libXScrnSaver ]
+            stdenv.lib.makeLibraryPath [ libXScrnSaver ]
           }/libXss.so.1
     '';
 

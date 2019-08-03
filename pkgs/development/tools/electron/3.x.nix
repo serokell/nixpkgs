@@ -62,7 +62,7 @@ let
 
       wrapProgram $out/lib/electron/electron \
         --prefix LD_PRELOAD : ${
-        stdenv.lib.makeLibraryPath [ libXScrnSaver ]
+          stdenv.lib.makeLibraryPath [ libXScrnSaver ]
         }/libXss.so.1
     '';
   };

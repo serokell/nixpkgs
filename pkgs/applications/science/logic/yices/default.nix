@@ -30,10 +30,10 @@ stdenv.mkDerivation rec {
   installPhase = let
     ver_XdotY = builtins.concatStringsSep "."
       (stdenv.lib.take 2 (stdenv.lib.splitString "." version));
-    in ''
-      make install LDCONFIG=true
-      ln -sfr $out/lib/libyices.so.{${version},${ver_XdotY}}
-    '';
+  in ''
+    make install LDCONFIG=true
+    ln -sfr $out/lib/libyices.so.{${version},${ver_XdotY}}
+  '';
 
   meta = with stdenv.lib; {
     description = "A high-performance theorem prover and SMT solver";

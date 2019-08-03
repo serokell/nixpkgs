@@ -57,10 +57,9 @@ in {
           "-port :${toString cfg.port}"
           "-templates ${cfg.templateDir}"
         ];
-        in {
-          ExecStart =
-            "${pkgs.grafana_reporter.bin}/bin/grafana-reporter ${args}";
-        };
+      in {
+        ExecStart = "${pkgs.grafana_reporter.bin}/bin/grafana-reporter ${args}";
+      };
     };
   };
 }

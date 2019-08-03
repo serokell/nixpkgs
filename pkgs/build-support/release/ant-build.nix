@@ -56,23 +56,23 @@ in stdenv.mkDerivation (
         "-cp '${lib.optionalString (w ? classPath) w.classPath}${
           lib.optionalString (w ? mainClass) ":$out/share/java/*"
         }'";
-      in ''
-        header "Generating jar wrappers"
-      '' + (stdenv.lib.concatMapStrings (w: ''
+    in ''
+      header "Generating jar wrappers"
+    '' + (stdenv.lib.concatMapStrings (w: ''
 
-        mkdir -p $out/bin
-        cat >> $out/bin/${w.name} <<EOF
-        #!${pkgs.runtimeShell}
-        export JAVA_HOME=$jre
-        $jre/bin/java ${cp w} ${
-          if w ? mainClass then w.mainClass else "-jar ${w.jar}"
-        } \$@
-        EOF
+      mkdir -p $out/bin
+      cat >> $out/bin/${w.name} <<EOF
+      #!${pkgs.runtimeShell}
+      export JAVA_HOME=$jre
+      $jre/bin/java ${cp w} ${
+        if w ? mainClass then w.mainClass else "-jar ${w.jar}"
+      } \$@
+      EOF
 
-        chmod a+x $out/bin/${w.name} || exit 1
-      '') jarWrappers) + ''
-        closeNest
-      '';
+      chmod a+x $out/bin/${w.name} || exit 1
+    '') jarWrappers) + ''
+      closeNest
+    '';
 
     buildPhase = ''
       runHook preBuild

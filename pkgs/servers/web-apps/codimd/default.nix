@@ -15,12 +15,12 @@ let
       inherit pkgs;
       system = stdenv.system;
     });
-    in packages // {
-      "js-url-^2.3.0" = packages."js-url-^2.3.0".overrideAttrs (_: {
-        # Don't download chromium (this isn't needed anyway for our case).
-        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "1";
-      });
-    };
+  in packages // {
+    "js-url-^2.3.0" = packages."js-url-^2.3.0".overrideAttrs (_: {
+      # Don't download chromium (this isn't needed anyway for our case).
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "1";
+    });
+  };
 
   addPhantomjs = (pkgs:
     map (pkg:

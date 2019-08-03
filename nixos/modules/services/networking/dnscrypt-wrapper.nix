@@ -165,7 +165,7 @@ in {
         WorkingDirectory = dataDir;
         Restart = "on-failure";
         ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
-          toString daemonArgs
+            toString daemonArgs
           }";
       };
 

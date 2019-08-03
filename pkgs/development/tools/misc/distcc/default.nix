@@ -35,11 +35,17 @@ let
                             CXXFLAGS="-O2 -fno-strict-aliasing"
           --mandir=$out/share/man
                             ${
-        if sysconfDir == "" then "" else "--sysconfdir=${sysconfDir}"
+                              if sysconfDir == "" then
+                                ""
+                              else
+                                "--sysconfdir=${sysconfDir}"
                             }
                             ${if static then "LDFLAGS=-static" else ""}
                             --with${
-        if static == true || popt == null then "" else "out"
+                              if static == true || popt == null then
+                                ""
+                              else
+                                "out"
                             }-included-popt
                             --with${if avahi != null then "" else "out"}-avahi
                             --with${if gtk2 != null then "" else "out"}-gtk

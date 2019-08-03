@@ -18,8 +18,8 @@ let
   };
 
   tarball = "Wavebox_${
-    replaceStrings [ "." ] [ "_" ] (toString version)
-  }_linux_${bits}.tar.gz";
+      replaceStrings [ "." ] [ "_" ] (toString version)
+    }_linux_${bits}.tar.gz";
 
 in stdenv.mkDerivation rec {
   name = "wavebox-${version}";

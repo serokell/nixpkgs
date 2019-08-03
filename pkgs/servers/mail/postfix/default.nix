@@ -94,7 +94,7 @@ in stdenv.mkDerivation rec {
       --prefix PATH ":" ${lib.makeBinPath [ coreutils findutils gnugrep ]}
     wrapProgram $out/libexec/postfix/postfix-script \
       --prefix PATH ":" ${
-      lib.makeBinPath [ coreutils findutils gnugrep gawk gnused ]
+        lib.makeBinPath [ coreutils findutils gnugrep gawk gnused ]
       }
   '';
 

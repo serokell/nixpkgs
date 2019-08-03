@@ -162,41 +162,41 @@ in let
     in {
       "${package}" = let from = src;
 
-        in stdenv.mkDerivation rec {
-          inherit version;
-          name =
-            "coq${coq.coq-version}-mathcomp${ssreflect.version}-${package}-${version}";
+      in stdenv.mkDerivation rec {
+        inherit version;
+        name =
+          "coq${coq.coq-version}-mathcomp${ssreflect.version}-${package}-${version}";
 
-          src = if from == "" then
-            fetchFromGitHub {
-              owner = owner;
-              repo = package;
-              rev = version;
-              sha256 = version-sha256."${version}";
-            }
-          else
-            from;
+        src = if from == "" then
+          fetchFromGitHub {
+            owner = owner;
+            repo = package;
+            rev = version;
+            sha256 = version-sha256."${version}";
+          }
+        else
+          from;
 
-          propagatedBuildInputs = [ coq ] ++ mc-core-deps ++ extra-deps;
+        propagatedBuildInputs = [ coq ] ++ mc-core-deps ++ extra-deps;
 
-          installFlags =
-            "-f Makefile.coq COQLIB=$(out)/lib/coq/${coq.coq-version}/";
+        installFlags =
+          "-f Makefile.coq COQLIB=$(out)/lib/coq/${coq.coq-version}/";
 
-          meta = {
-            inherit description;
-            inherit license;
-            inherit (src.meta) homepage;
-            inherit (ssreflect.meta) platforms;
-            maintainers = [ stdenv.lib.maintainers.vbgl ];
-            broken = (version == "broken");
-          };
-
-          passthru = {
-            inherit version-sha256;
-            compatibleCoqVersions =
-              if meta.broken then _: false else theCompatibleCoqVersions;
-          };
+        meta = {
+          inherit description;
+          inherit license;
+          inherit (src.meta) homepage;
+          inherit (ssreflect.meta) platforms;
+          maintainers = [ stdenv.lib.maintainers.vbgl ];
+          broken = (version == "broken");
         };
+
+        passthru = {
+          inherit version-sha256;
+          compatibleCoqVersions =
+            if meta.broken then _: false else theCompatibleCoqVersions;
+        };
+      };
     };
 
   current-versions = versions."${current-ssreflect.version}" or { };

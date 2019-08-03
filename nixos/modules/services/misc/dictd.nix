@@ -41,33 +41,33 @@ in {
         filename = x;
       }) cfg.DBs;
     };
-    in mkIf cfg.enable {
+  in mkIf cfg.enable {
 
-      # get the command line client on system path to make some use of the service
-      environment.systemPackages = [ pkgs.dict ];
+    # get the command line client on system path to make some use of the service
+    environment.systemPackages = [ pkgs.dict ];
 
-      users.users = singleton {
-        name = "dictd";
-        group = "dictd";
-        description = "DICT.org dictd server";
-        home = "${dictdb}/share/dictd";
-        uid = config.ids.uids.dictd;
-      };
-
-      users.groups = singleton {
-        name = "dictd";
-        gid = config.ids.gids.dictd;
-      };
-
-      systemd.services.dictd = {
-        description = "DICT.org Dictionary Server";
-        wantedBy = [ "multi-user.target" ];
-        environment = {
-          LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
-        };
-        serviceConfig.Type = "forking";
-        script =
-          "${pkgs.dict}/sbin/dictd -s -c ${dictdb}/share/dictd/dictd.conf --locale en_US.UTF-8";
-      };
+    users.users = singleton {
+      name = "dictd";
+      group = "dictd";
+      description = "DICT.org dictd server";
+      home = "${dictdb}/share/dictd";
+      uid = config.ids.uids.dictd;
     };
+
+    users.groups = singleton {
+      name = "dictd";
+      gid = config.ids.gids.dictd;
+    };
+
+    systemd.services.dictd = {
+      description = "DICT.org Dictionary Server";
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
+      };
+      serviceConfig.Type = "forking";
+      script =
+        "${pkgs.dict}/sbin/dictd -s -c ${dictdb}/share/dictd/dictd.conf --locale en_US.UTF-8";
+    };
+  };
 }

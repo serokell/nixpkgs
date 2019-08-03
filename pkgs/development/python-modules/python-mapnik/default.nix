@@ -23,11 +23,11 @@ in buildPythonPackage rec {
   preBuild = let
     pythonVersion = with stdenv.lib.versions;
       "${major python.version}${minor python.version}";
-    in ''
-      export BOOST_PYTHON_LIB="boost_python${pythonVersion}"
-      export BOOST_THREAD_LIB="boost_thread"
-      export BOOST_SYSTEM_LIB="boost_system"
-    '';
+  in ''
+    export BOOST_PYTHON_LIB="boost_python${pythonVersion}"
+    export BOOST_THREAD_LIB="boost_thread"
+    export BOOST_SYSTEM_LIB="boost_system"
+  '';
 
   nativeBuildInputs = [
     mapnik # for mapnik_config

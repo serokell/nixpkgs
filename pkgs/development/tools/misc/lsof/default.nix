@@ -23,13 +23,12 @@ in stdenv.mkDerivation rec {
           false
           true
         ] ++ map (
-      # the tarball is moved after new version is released
-        isOld:
-        "http://www.mirrorservice.org/sites/lsof.itap.purdue.edu/pub/tools/unix/lsof/"
-        + "${stdenv.lib.optionalString isOld "OLD/"}lsof_${version}.tar.bz2") [
-          false
-          true
-        ];
+        # the tarball is moved after new version is released
+          isOld:
+          "http://www.mirrorservice.org/sites/lsof.itap.purdue.edu/pub/tools/unix/lsof/"
+          + "${
+            stdenv.lib.optionalString isOld "OLD/"
+          }lsof_${version}.tar.bz2") [ false true ];
     sha256 = "18sh4hbl9jw2szkf0gvgan8g13f3g4c6s2q9h3zq5gsza9m99nn9";
   };
 

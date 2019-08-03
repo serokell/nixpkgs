@@ -36,7 +36,7 @@ randstructSeed ? ""
 kernelPatches ? [ ], ignoreConfigErrors ? stdenv.hostPlatform.platform.name
   != "pc" || stdenv.hostPlatform != stdenv.buildPlatform, extraMeta ? { }
 
-    # easy overrides to stdenv.hostPlatform.platform members
+  # easy overrides to stdenv.hostPlatform.platform members
 , autoModules ? stdenv.hostPlatform.platform.kernelAutoModules
 , preferBuiltin ? stdenv.hostPlatform.platform.kernelPreferBuiltin or false
 , kernelArch ? stdenv.hostPlatform.platform.kernelArch

@@ -86,37 +86,37 @@ stdenv.mkDerivation rec {
       xorg.libICE
       xorg.libSM
     ];
-    in ''
-      # Install in working directory and then copy
-      make install-squeak install-plugins prefix=$(pwd)/products
+  in ''
+    # Install in working directory and then copy
+    make install-squeak install-plugins prefix=$(pwd)/products
 
-      # Copy binaries & rename from 'squeak' to 'pharo'
-      mkdir -p "$out"
-      cp products/lib/squeak/5.0-*/squeak "$out/pharo"
-      cp -r products/lib/squeak/5.0-*/*.so "$out"
-      ln -s "${pharo-share}/lib/"*.sources "$out"
+    # Copy binaries & rename from 'squeak' to 'pharo'
+    mkdir -p "$out"
+    cp products/lib/squeak/5.0-*/squeak "$out/pharo"
+    cp -r products/lib/squeak/5.0-*/*.so "$out"
+    ln -s "${pharo-share}/lib/"*.sources "$out"
 
-      # Create a shell script to run the VM in the proper environment.
-      #
-      # These wrapper puts all relevant libraries into the
-      # LD_LIBRARY_PATH. This is important because various C code in the VM
-      # and Smalltalk code in the image will search for them there.
-      mkdir -p "$out/bin"
+    # Create a shell script to run the VM in the proper environment.
+    #
+    # These wrapper puts all relevant libraries into the
+    # LD_LIBRARY_PATH. This is important because various C code in the VM
+    # and Smalltalk code in the image will search for them there.
+    mkdir -p "$out/bin"
 
-      # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
-      libs=$out:$(patchelf --print-rpath "$out/pharo"):${
-        stdenv.lib.makeLibraryPath libs
-      }
+    # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
+    libs=$out:$(patchelf --print-rpath "$out/pharo"):${
+      stdenv.lib.makeLibraryPath libs
+    }
 
-      # Create the script
-      cat > "$out/bin/${cmd}" <<EOF
-      #!${runtimeShell}
-      set -f
-      LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$libs" exec $out/pharo "\$@"
-      EOF
-      chmod +x "$out/bin/${cmd}"
-      ln -s ${libgit2}/lib/libgit2.so* "$out/"
-    '';
+    # Create the script
+    cat > "$out/bin/${cmd}" <<EOF
+    #!${runtimeShell}
+    set -f
+    LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$libs" exec $out/pharo "\$@"
+    EOF
+    chmod +x "$out/bin/${cmd}"
+    ln -s ${libgit2}/lib/libgit2.so* "$out/"
+  '';
 
   enableParallelBuilding = true;
 

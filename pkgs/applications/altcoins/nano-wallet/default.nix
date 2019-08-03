@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       Qt5Widgets_INCLUDE_DIRS = "${qtbase.dev}/include/QtWidgets";
     };
     optionToFlag = name: value: "-D${name}=${value}";
-    in lib.mapAttrsToList optionToFlag options;
+  in lib.mapAttrsToList optionToFlag options;
 
   nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ boost libGL qtbase ];

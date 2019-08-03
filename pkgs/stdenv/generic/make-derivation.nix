@@ -215,7 +215,7 @@ in rec {
               # just used for their side-affects. Those might as well since the
               # hash can't be the same. See #32986.
               name = "${
-                attrs.name or "${attrs.pname}-${attrs.version}"
+                  attrs.name or "${attrs.pname}-${attrs.version}"
                 }-${stdenv.hostPlatform.config}";
             } // {
               builder = attrs.realBuilder or stdenv.shell;
@@ -258,17 +258,17 @@ in rec {
 
               # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
               configureFlags = let inherit (lib) optional elem;
-                in (if lib.isString configureFlags then
-                  [ configureFlags ]
-                else if configureFlags == null then
-                  [ ]
-                else
-                  configureFlags) ++ optional (elem "build" configurePlatforms)
-                "--build=${stdenv.buildPlatform.config}"
-                ++ optional (elem "host" configurePlatforms)
-                "--host=${stdenv.hostPlatform.config}"
-                ++ optional (elem "target" configurePlatforms)
-                "--target=${stdenv.targetPlatform.config}";
+              in (if lib.isString configureFlags then
+                [ configureFlags ]
+              else if configureFlags == null then
+                [ ]
+              else
+                configureFlags) ++ optional (elem "build" configurePlatforms)
+              "--build=${stdenv.buildPlatform.config}"
+              ++ optional (elem "host" configurePlatforms)
+              "--host=${stdenv.hostPlatform.config}"
+              ++ optional (elem "target" configurePlatforms)
+              "--target=${stdenv.targetPlatform.config}";
 
               inherit patches;
 
@@ -313,7 +313,7 @@ in rec {
                   ++ [ propagatedSandboxProfile sandboxProfile ];
                 final = lib.concatStringsSep "\n"
                   (lib.filter (x: x != "") (lib.unique profiles));
-                in final;
+              in final;
               __propagatedSandboxProfile = lib.unique
                 (computedPropagatedSandboxProfile
                   ++ [ propagatedSandboxProfile ]);
@@ -344,8 +344,8 @@ in rec {
           #   Services and users should specify outputs explicitly,
           #   unless they are comfortable with this default.
           outputsToInstall = let hasOutput = out: builtins.elem out outputs;
-            in [ (lib.findFirst hasOutput null ([ "bin" "out" ] ++ outputs)) ]
-            ++ lib.optional (hasOutput "man") "man";
+          in [ (lib.findFirst hasOutput null ([ "bin" "out" ] ++ outputs)) ]
+          ++ lib.optional (hasOutput "man") "man";
         } // attrs.meta or { }
           # Fill `meta.position` to identify the source location of the package.
           // lib.optionalAttrs (pos != null) {

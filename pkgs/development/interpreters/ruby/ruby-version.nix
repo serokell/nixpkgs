@@ -23,7 +23,7 @@ let
           ""
           ""
         ] num);
-      in if hasPrefix "p" tail && isPosInt p then p else null;
+    in if hasPrefix "p" tail && isPosInt p then p else null;
 
     # Shortcuts
     majMin = "${major}.${minor}";
@@ -42,12 +42,12 @@ let
 
     # How ruby releases are tagged on github.com/ruby/ruby
     gitTag = let base = "v${major}_${minor}_${tiny}";
-      in if patchLevel != null then
-        "${base}_${patchLevel}"
-      else if tail != "" then
-        "${base}_${tail}"
-      else
-        base;
+    in if patchLevel != null then
+      "${base}_${patchLevel}"
+    else if tail != "" then
+      "${base}_${tail}"
+    else
+      base;
 
     # Implements the builtins.toString interface.
     __toString = self:

@@ -27,7 +27,7 @@ let
         }_libretro${stdenv.hostPlatform.extensions.sharedLibrary} $COREDIR/.
         makeWrapper ${retroarch}/bin/retroarch $out/bin/retroarch-${core} \
           --add-flags "-L $COREDIR/${
-          d2u core
+            d2u core
           }_libretro${stdenv.hostPlatform.extensions.sharedLibrary} $@"
       '';
 
@@ -80,10 +80,10 @@ in with stdenv.lib.licenses;
       description = "Port of Mednafen's PC Engine core to libretro";
       license = gpl2;
     });
-    in der.override {
-      buildPhase = "make";
-      name = "beetle-pce-fast-${der.version}";
-    };
+  in der.override {
+    buildPhase = "make";
+    name = "beetle-pce-fast-${der.version}";
+  };
 
   beetle-psx = let
     der = (mkLibRetroCore rec {
@@ -96,10 +96,10 @@ in with stdenv.lib.licenses;
       description = "Port of Mednafen's PSX Engine core to libretro";
       license = gpl2;
     });
-    in der.override {
-      buildPhase = "make";
-      name = "beetle-psx-${der.version}";
-    };
+  in der.override {
+    buildPhase = "make";
+    name = "beetle-psx-${der.version}";
+  };
 
   beetle-saturn = let
     der = (mkLibRetroCore rec {
@@ -112,23 +112,23 @@ in with stdenv.lib.licenses;
       description = "Port of Mednafen's Saturn core to libretro";
       license = gpl2;
     });
-    in der.override {
-      buildPhase = "make";
-      name = "beetle-saturn-${der.version}";
-      meta.platforms = [ "x86_64-linux" ];
-    };
+  in der.override {
+    buildPhase = "make";
+    name = "beetle-saturn-${der.version}";
+    meta.platforms = [ "x86_64-linux" ];
+  };
 
   bsnes-mercury = let bname = "bsnes-mercury";
-    in (mkLibRetroCore rec {
-      core = bname + "-accuracy";
-      src = fetchRetro {
-        repo = bname;
-        rev = "e89c9a2e0a12d588366ee4f5c76b7d75139d938b";
-        sha256 = "0vkn1f38vwazpp3kbvvv8c467ghak6yfx00s48wkxwvhmak74a3s";
-      };
-      description = "Fork of bsnes with HLE DSP emulation restored";
-      license = gpl3;
-    }).override { buildPhase = "make && cd out"; };
+  in (mkLibRetroCore rec {
+    core = bname + "-accuracy";
+    src = fetchRetro {
+      repo = bname;
+      rev = "e89c9a2e0a12d588366ee4f5c76b7d75139d938b";
+      sha256 = "0vkn1f38vwazpp3kbvvv8c467ghak6yfx00s48wkxwvhmak74a3s";
+    };
+    description = "Fork of bsnes with HLE DSP emulation restored";
+    license = gpl3;
+  }).override { buildPhase = "make && cd out"; };
 
   desmume = (mkLibRetroCore rec {
     core = "desmume";
@@ -299,8 +299,8 @@ in with stdenv.lib.licenses;
     extraBuildInputs = [ libGLU_combined libpng ];
   }).override {
     buildPhase = "make WITH_DYNAREC=${
-      if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "x86"
-    }";
+        if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "x86"
+      }";
   };
 
   nestopia = (mkLibRetroCore rec {
@@ -327,8 +327,8 @@ in with stdenv.lib.licenses;
     extraBuildInputs = [ libGLU_combined libpng ];
   }).override {
     buildPhase = "make WITH_DYNAREC=${
-      if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "x86"
-    }";
+        if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64" else "x86"
+      }";
   };
 
   picodrive = (mkLibRetroCore rec {

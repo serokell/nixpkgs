@@ -5,8 +5,8 @@ with lib;
 let
   cfg = config.services.ethminer;
   poolUrl = escapeShellArg "stratum1+tcp://${cfg.wallet}@${cfg.pool}:${
-    toString cfg.stratumPort
-  }/${cfg.rig}/${cfg.registerMail}";
+      toString cfg.stratumPort
+    }/${cfg.rig}/${cfg.registerMail}";
 
 in {
 
@@ -94,8 +94,8 @@ in {
       serviceConfig = {
         DynamicUser = true;
         ExecStartPost = optional (cfg.toolkit == "cuda") "+${
-          getBin config.boot.kernelPackages.nvidia_x11
-        }/bin/nvidia-smi -pl ${toString cfg.maxPower}";
+            getBin config.boot.kernelPackages.nvidia_x11
+          }/bin/nvidia-smi -pl ${toString cfg.maxPower}";
       };
 
       environment = {

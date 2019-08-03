@@ -60,28 +60,28 @@ let
       $wgSitename = "${config.siteName}";
 
       ${
-      optionalString (config.logo != "") ''
-        $wgLogo = "${config.logo}";
-      ''
+        optionalString (config.logo != "") ''
+          $wgLogo = "${config.logo}";
+        ''
       }
 
       ${
-      optionalString (config.articleUrlPrefix != "") ''
-        $wgArticlePath = "${config.articleUrlPrefix}/$1";
-      ''
+        optionalString (config.articleUrlPrefix != "") ''
+          $wgArticlePath = "${config.articleUrlPrefix}/$1";
+        ''
       }
 
       ${
-      optionalString config.enableUploads ''
-        $wgEnableUploads = true;
-        $wgUploadDirectory = "${config.uploadDir}";
-      ''
+        optionalString config.enableUploads ''
+          $wgEnableUploads = true;
+          $wgUploadDirectory = "${config.uploadDir}";
+        ''
       }
 
       ${
-      optionalString (config.defaultSkin != "") ''
-        $wgDefaultSkin = "${config.defaultSkin}";
-      ''
+        optionalString (config.defaultSkin != "") ''
+          $wgDefaultSkin = "${config.defaultSkin}";
+        ''
       }
 
       ${config.extraConfig}

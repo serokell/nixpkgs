@@ -344,8 +344,8 @@ in {
         ExecStart = ''
           ${cfg.package}/bin/xenconsoled\
             ${
-            optionalString
-            ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"
+              optionalString
+              ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"
             }\
             ${optionalString cfg.trace " --log=all --log-dir=/var/log/xen"}
         '';

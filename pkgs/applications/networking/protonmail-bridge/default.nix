@@ -62,12 +62,12 @@ in stdenv.mkDerivation rec {
       libpulseaudio
       glib
     ];
-    in ''
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${rpath}" \
-        $out/lib/protonmail-bridge
-    '';
+  in ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${rpath}" \
+      $out/lib/protonmail-bridge
+  '';
 
   meta = with stdenv.lib; {
     homepage = "https://www.protonmail.com/bridge";

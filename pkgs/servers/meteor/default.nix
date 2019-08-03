@@ -55,7 +55,7 @@ in stdenv.mkDerivation rec {
       patchelf \
         --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
         --set-rpath "$(patchelf --print-rpath $p):${
-      lib.makeLibraryPath [ stdenv.cc.cc zlib ]
+          lib.makeLibraryPath [ stdenv.cc.cc zlib ]
         }" \
         $p
     done

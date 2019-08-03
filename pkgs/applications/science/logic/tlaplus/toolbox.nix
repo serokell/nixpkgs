@@ -44,7 +44,7 @@ in stdenv.mkDerivation {
       --add-flags "-data ~/.tla-toolbox" \
       --prefix PATH : "${jre}/bin" \
       --prefix LD_LIBRARY_PATH : "${
-      lib.makeLibraryPath [ swt gtk libXtst glib ]
+        lib.makeLibraryPath [ swt gtk libXtst glib ]
       }"
 
     echo -e "\nCreating TLA Toolbox icons..."

@@ -59,9 +59,9 @@ in {
       {
         imports = [ <nixpkgs/nixos/modules/virtualisation/amazon-image.nix> ];
         ${
-        optionalString config.ec2.hvm ''
-          ec2.hvm = true;
-        ''
+          optionalString config.ec2.hvm ''
+            ec2.hvm = true;
+          ''
         }
       }
     '';

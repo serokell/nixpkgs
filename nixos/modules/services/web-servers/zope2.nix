@@ -245,10 +245,10 @@ in {
           serviceConfig.ExecReload = "${ctl} restart";
         };
 
-      in listToAttrs (map (name: {
-        name = "zope2-${name}";
-        value = createZope2Instance (builtins.getAttr name cfg.instances) name;
-      }) (builtins.attrNames cfg.instances));
+    in listToAttrs (map (name: {
+      name = "zope2-${name}";
+      value = createZope2Instance (builtins.getAttr name cfg.instances) name;
+    }) (builtins.attrNames cfg.instances));
 
   };
 

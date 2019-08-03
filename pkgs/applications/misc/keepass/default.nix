@@ -37,8 +37,8 @@ buildDotnetPackage rec {
     loads = lib.concatStrings (map (p:
       replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
       loadTemplate) plugins);
-    in replaceStrings [ "$OUTPUT_LC$" "$DO_LOADS$" ] [ outputLc loads ]
-    patchTemplate;
+  in replaceStrings [ "$OUTPUT_LC$" "$DO_LOADS$" ] [ outputLc loads ]
+  patchTemplate;
 
   passAsFile = [ "pluginLoadPathsPatch" ];
   postPatch = ''

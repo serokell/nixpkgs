@@ -39,11 +39,11 @@ python3Packages.buildPythonApplication rec {
   '';
 
   ASPELL_CONF = "dict-dir ${
-    buildEnv {
-      name = "aspell-all-dicts";
-      paths = lib.collect lib.isDerivation aspellDicts;
-    }
-  }/lib/aspell";
+      buildEnv {
+        name = "aspell-all-dicts";
+        paths = lib.collect lib.isDerivation aspellDicts;
+      }
+    }/lib/aspell";
 
   checkInputs = [ xvfb_run dbus.daemon ]
     ++ (with python3Packages; [ paperwork-backend ]);

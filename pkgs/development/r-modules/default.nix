@@ -732,10 +732,10 @@ let
           sha256 = "0hvazpizziq5ibc9017i1bb45yryfl26wzfsv05vk9mc1575r6xj";
           stripRoot = false;
         };
-        in ''
-          ${attrs.postInstall or ""}
-          cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
-        '';
+      in ''
+        ${attrs.postInstall or ""}
+        cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
+      '';
     });
 
     xml2 = old.xml2.overrideDerivation (attrs: {
