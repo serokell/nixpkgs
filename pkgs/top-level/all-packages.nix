@@ -23005,6 +23005,8 @@ in
 
   vault = callPackage ../tools/security/vault { };
 
+  vault-bin = callPackage ../tools/security/vault/vault-bin.nix { };
+
   vaultenv = haskellPackages.vaultenv;
 
   vbam = callPackage ../misc/emulators/vbam {
