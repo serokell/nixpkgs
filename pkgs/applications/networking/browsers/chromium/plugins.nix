@@ -32,8 +32,8 @@ let
       envList = mapAttrsToList mkEnvVar envVars;
       quoted = map mkSh (flatten ((map mkFlag flags) ++ envList));
     in ''
-      mkdir -p "$${output}/nix-support"
-      echo ${toString quoted} > "$${output}/nix-support/wrapper-flags"
+      mkdir -p "''$${output}/nix-support"
+      echo ${toString quoted} > "''$${output}/nix-support/wrapper-flags"
     '';
 
   widevine = stdenv.mkDerivation {

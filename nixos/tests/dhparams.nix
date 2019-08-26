@@ -86,7 +86,7 @@ in import ./make-test.nix {
         in ''
           $machine->nest('switch to generation ${toString gen}', sub {
             $machine->succeed('${switchCmd}');
-            $main::machine = $${node};
+            $main::machine = ''$${node};
           });
         '';
 

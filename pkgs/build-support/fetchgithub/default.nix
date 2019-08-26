@@ -22,14 +22,14 @@ let
   fetcher = if fetchSubmodules then fetchgit else fetchzip;
   privateAttrs = lib.optionalAttrs private {
     netrcPhase = ''
-      if [ -z "$${varBase}USERNAME" -o -z "$${varBase}PASSWORD" ]; then
+      if [ -z "''$${varBase}USERNAME" -o -z "''$${varBase}PASSWORD" ]; then
         echo "Error: Private fetchFromGitHub requires the nix building process (nix-daemon in multi user mode) to have the ${varBase}USERNAME and ${varBase}PASSWORD env vars set." >&2
         exit 1
       fi
       cat > netrc <<EOF
       machine ${githubBase}
-              login $${varBase}USERNAME
-              password $${varBase}PASSWORD
+              login ''$${varBase}USERNAME
+              password ''$${varBase}PASSWORD
       EOF
     '';
     netrcImpureEnvVars = [ "${varBase}USERNAME" "${varBase}PASSWORD" ];
