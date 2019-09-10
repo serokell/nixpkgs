@@ -9575,6 +9575,7 @@ in
   buck = callPackage ../development/tools/build-managers/buck { };
 
   buildkite-agent = buildkite-agent3;
+  buildkite-agent2 = throw "buildkite-agent2 is not supported anymore, use buildkite-agent instead";
   buildkite-agent3 = callPackage ../development/tools/continuous-integration/buildkite-agent { };
 
   libbpf = callPackage ../os-specific/linux/libbpf { };
