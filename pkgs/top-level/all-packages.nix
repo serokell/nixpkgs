@@ -7831,6 +7831,15 @@ in
   gcc-arm-embedded-8 = callPackage ../development/compilers/gcc-arm-embedded/8 {};
   gcc-arm-embedded = gcc-arm-embedded-8;
 
+  gdc = gdc9;
+  gdc9 = wrapCC (gcc9.cc.override {
+    name = "gdc";
+    langCC = false;
+    langC = false;
+    langD = true;
+    profiledCompiler = false;
+  });
+
   gforth = callPackage ../development/compilers/gforth {};
 
   gtk-server = callPackage ../development/interpreters/gtk-server {};
@@ -8526,7 +8535,7 @@ in
     isGNU = cc.isGNU or false;
     isClang = cc.isClang or false;
 
-    inherit cc bintools libc extraPackages;
+    inherit cc bintools libc extraPackages zlib;
   } // extraArgs; in self);
 
   wrapCC = cc: wrapCCWith {
