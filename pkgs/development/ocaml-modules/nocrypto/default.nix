@@ -1,11 +1,16 @@
 { stdenv, fetchurl, fetchpatch, ocaml, findlib, ocamlbuild, topkg
 , cpuid, ocb-stubblr, sexplib
-, cstruct, zarith, ppx_sexp_conv
+, cstruct, zarith, ppx_sexp_conv, writeScriptBin
 , cstruct-lwt ? null
 }:
 
 with stdenv.lib;
-let withLwt = cstruct-lwt != null; in
+let withLwt = cstruct-lwt != null;
+hack = writeScriptBin "cc" ''
+  set -e
+  $CC "$@"
+'';
+in
 
 stdenv.mkDerivation rec {
   name = "ocaml${ocaml.version}-nocrypto-${version}";
@@ -43,7 +48,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ ocaml findlib ocamlbuild topkg cpuid ocb-stubblr ];
+  nativeBuildInputs = [ ocaml findlib ocamlbuild hack ];
+  buildInputs = [ ocamlbuild findlib topkg cpuid ocb-stubblr ];
   propagatedBuildInputs = [ cstruct ppx_sexp_conv sexplib zarith ] ++ optional withLwt cstruct-lwt;
 
   buildPhase = "${topkg.buildPhase} --with-lwt ${boolToString withLwt}";

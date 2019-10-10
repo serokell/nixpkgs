@@ -17,8 +17,10 @@ stdenv.mkDerivation rec {
 		sha256 = "0bg8x2s3f24c8ia2g293ikd5yg0yjw3hkdgdql59c8k2amqin8f8";
 	};
 
-	buildInputs = [ ocaml findlib dune cmdliner cppo ];
+	nativeBuildInputs = [ ocaml findlib dune cppo ];
+  buildInputs = [ cmdliner ];
 
+  configurePlatforms = [];
 	propagatedBuildInputs = [ yojson ];
 
 	buildPhase = "dune build -p js_of_ocaml-compiler";

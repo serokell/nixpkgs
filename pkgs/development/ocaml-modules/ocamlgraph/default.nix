@@ -9,14 +9,13 @@ stdenv.mkDerivation rec {
     sha256 = "0m9g16wrrr86gw4fz2fazrh8nkqms0n863w7ndcvrmyafgxvxsnr";
   };
 
-  buildInputs = [ ocaml findlib lablgtk ];
+  buildInputs = [ ocaml findlib ];
 
   patches = ./destdir.patch;
 
   postPatch = ''
     sed -i 's@$(DESTDIR)$(OCAMLLIB)/ocamlgraph@$(DESTDIR)/lib/ocaml/${ocaml.version}/site-lib/ocamlgraph@' Makefile.in
     sed -i 's@OCAMLFINDDEST := -destdir $(DESTDIR)@@' Makefile.in
-    sed -i 's@+lablgtk2@${lablgtk}/lib/ocaml/${ocaml.version}/site-lib/lablgtk2 -I ${lablgtk}/lib/ocaml/${ocaml.version}/site-lib/stublibs@' configure Makefile.in editor/Makefile
   '';
 
   createFindlibDestdir = true;
