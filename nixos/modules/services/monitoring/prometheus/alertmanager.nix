@@ -146,7 +146,7 @@ in {
         wantedBy = [ "multi-user.target" ];
         after    = [ "network.target" ];
         preStart = ''
-          (source ${pkgs.stdenv}/setup
+          (source ${(pkgs.substituteAll {}).substitute-lib}
            substituteAll "${alertmanagerYml}" /tmp/alert-manager-substituted.yaml)
         '';
         serviceConfig = {
