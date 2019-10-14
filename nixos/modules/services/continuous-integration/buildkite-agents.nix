@@ -46,7 +46,7 @@ let
 
       userName = mkOption {
         readOnly = true;
-        default = "buildkite-${name}";
+        default = "buildkite-agent-${name}";
         description = ''
           Username of the systemd service this will run as.
         '';
@@ -246,11 +246,11 @@ in {
           BUILDKITE_SHELL = cfg.shell;
         };
 
-        preStart = let
+
+        serviceConfig = let
           sshDir = "${cfg.statePath}/.ssh";
           tagStr = lib.concatStringsSep "," (lib.mapAttrsToList (k: v: "${k}=${v}") cfg.tags);
-        in
-          ''
+          preStart = ''
             ${optionalString (cfg.sshKeyPath != null) ''
               mkdir -p "${sshDir}"
               chmod 700 "${sshDir}"
@@ -267,10 +267,10 @@ in {
             ${cfg.extraConfig}
             EOF
             ${cfg.extraSetup}
-          '';
-
-        serviceConfig =
+            chown -R $USER $HOME
+          ''; in
           { ExecStart = "${cfg.package}/bin/buildkite-agent start --config ${cfg.statePath}/buildkite-agent.cfg";
+            ExecStartPre = "+${pkgs.writeShellScript "bk-agent-prestart" preStart}";
             User = cfg.userName;
             RestartSec = 5;
             Restart = "on-failure";
