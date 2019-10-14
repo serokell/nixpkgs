@@ -54,7 +54,7 @@ let
 
       statePath = mkOption {
         readOnly = true;
-        default = "/var/lib/buildkite-${name}";
+        default = "/var/lib/buildkite-agent-${name}";
         description = ''
           Absolute path to the buildkite-agent's state directory
         '';
@@ -235,7 +235,7 @@ in {
     });
 
   config.systemd.services = mapAgents (name: cfg: {
-    "${name}" =
+    "buildkite-${name}" =
       { description = "Buildkite Agent";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
