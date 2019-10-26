@@ -6652,6 +6652,8 @@ in
 
   txr = callPackage ../tools/misc/txr { stdenv = clangStdenv; };
 
+  txr-copy = callPackage ../tools/misc/txr-copy { stdenv=clangStdenv; };
+
   txt2man = callPackage ../tools/misc/txt2man { };
 
   txt2tags = callPackage ../tools/text/txt2tags { };
