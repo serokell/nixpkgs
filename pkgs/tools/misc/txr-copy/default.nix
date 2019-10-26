@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "225";
 
   src = fetchurl {
-    url = "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2"; sha256 = "07vh0rmvjr2sir15l3ppp2pnp2d849dg17rzykkzqyk3d5rwfxyj";
+    url =
+      "http://www.kylheku.com/cgit/txr/snapshot/${pname}-${version}.tar.bz2";
+    sha256 = "07vh0rmvjr2sir15l3ppp2pnp2d849dg17rzykkzqyk3d5rwfxyj";
   };
 
   nativeBuildInputs = [ bison flex ];
@@ -34,7 +36,7 @@ stdenv.mkDerivation rec {
   meta = with stdenv.lib; {
     description = "Programming language for convenient data munging";
     license = licenses.bsd2;
-    homepage = http://nongnu.org/txr;
+    homepage = "http://nongnu.org/txr";
     maintainers = with stdenv.lib.maintainers; [ dtzWill ];
     platforms = platforms.linux; # Darwin fails although it should work AFAIK
   };
