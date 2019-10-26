@@ -1,6 +1,6 @@
 /* Library of low-level helper functions for nix expressions.
  *
- * lease implement (mostly) exhaustive unit tests
+    * lease implement (mostly) exhaustive unit tests
  * for new functions in `./tests.nix'.
  */
 let
