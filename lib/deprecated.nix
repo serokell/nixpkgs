@@ -49,7 +49,8 @@ rec {
     else if builtins.isList val then []
     else if builtins.isAttrs val then {}
     # else if builtins.isString val then ""
-    else if val == false || val == true then false
+    else if val == false || val == true then
+      false
     else null;
 
 
