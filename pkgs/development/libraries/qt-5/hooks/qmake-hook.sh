@@ -18,6 +18,6 @@ qmakeConfigurePhase() {
     runHook postConfigure
 }
 
-if [ -z "${dontUseQmakeConfigure-}" -a -z "$configurePhase" ]; then
+if [ -z "${dontUseQmakeConfigure-}" -a -z "${configurePhase-}" ]; then
     configurePhase=qmakeConfigurePhase
 fi
