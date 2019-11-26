@@ -31,7 +31,12 @@ let
 
     outputs = [ "out" "dev" "man" ];
 
-    nativeBuildInputs = [ autoconf automake libtool autoreconfHook installShellFiles ];
+    nativeBuildInputs = [ autoconf automake installShellFiles ]
+
+      # TODO: remove on next hash change, libtool is unnecessary with autoreconfHook
+      ++ stdenv.lib.optional (stdenv.targetPlatform == stdenv.hostPlatform) libtool
+
+      ++ [ autoreconfHook ];
     buildInputs = [ libuuid ]
       ++ stdenv.lib.optionals stdenv.isDarwin [ libcxxabi libobjc ]
       ++ stdenv.lib.optional enableTapiSupport libtapi;
