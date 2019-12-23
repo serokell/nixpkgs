@@ -145,6 +145,7 @@ in {
       systemd.services.alertmanager = {
         wantedBy = [ "multi-user.target" ];
         after    = [ "network.target" ];
+        path     = with pkgs; [ gawk ];
         preStart = ''
           (source ${(pkgs.substituteAll {}).substitute-lib}
            substituteAll "${alertmanagerYml}" /tmp/alert-manager-substituted.yaml)
