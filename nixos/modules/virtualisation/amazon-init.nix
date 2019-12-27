@@ -18,9 +18,9 @@ let
       # that as the channel.
       if sed '/^\(#\|SSH_HOST_.*\)/d' < "$userData" | grep -q '\S'; then
         channels="$(grep '^###' "$userData" | sed 's|###\s*||')"
-        printf "%s" "$channels" | while read channel; do
+        while IFS= read -r channel; do
           echo "writing channel: $channel"
-        done
+        done < <(printf "%s\n" "$channels")
 
         if [[ -n "$channels" ]]; then
           printf "%s" "$channels" > /root/.nix-channels
