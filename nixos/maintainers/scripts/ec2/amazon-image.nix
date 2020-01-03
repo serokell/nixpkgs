@@ -17,7 +17,7 @@ in {
     name = mkOption {
       type = types.str;
       description = "The name of the generated derivation";
-      default = "nixos-amazon-image-${config.system.nixos.label}-serokell-${pkgs.stdenv.hostPlatform.system}";
+      default = "nixos-amazon-image-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
     };
 
     contents = mkOption {
@@ -78,7 +78,7 @@ in {
       echo "file ${cfg.format} $diskImage" >> $out/nix-support/hydra-build-products
 
       ${pkgs.jq}/bin/jq -n \
-        --arg label ${lib.escapeShellArg config.system.nixos.label}-serokell \
+        --arg label ${lib.escapeShellArg config.system.nixos.label} \
         --arg system ${lib.escapeShellArg pkgs.stdenv.hostPlatform.system} \
         --arg logical_bytes "$(${pkgs.qemu}/bin/qemu-img info --output json "$diskImage" | ${pkgs.jq}/bin/jq '."virtual-size"')" \
         --arg file "$diskImage" \
