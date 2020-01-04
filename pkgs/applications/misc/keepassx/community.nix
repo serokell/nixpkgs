@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake, makeWrapper, qttools
+{ stdenv, fetchFromGitHub, cmake, makeWrapper, qttools, darwin
 
 , curl
 , glibcLocales
@@ -7,7 +7,6 @@
 , libargon2
 , libgcrypt
 , libgpgerror
-, libmicrohttpd
 , libsodium
 , libyubikey
 , pkg-config
@@ -89,7 +88,6 @@ stdenv.mkDerivation rec {
     libargon2
     libgcrypt
     libgpgerror
-    libmicrohttpd
     libsodium
     libyubikey
     pkg-config
@@ -101,7 +99,8 @@ stdenv.mkDerivation rec {
     zlib
   ]
   ++ stdenv.lib.optional withKeePassKeeShareSecure quazip
-  ++ stdenv.lib.optional stdenv.isDarwin qtmacextras;
+  ++ stdenv.lib.optional stdenv.isDarwin qtmacextras
+  ++ stdenv.lib.optional (stdenv.isDarwin && withKeePassTouchID) darwin.apple_sdk.frameworks.LocalAuthentication;
 
   preFixup = optionalString stdenv.isDarwin ''
     # Make it work without Qt in PATH.
@@ -114,6 +113,6 @@ stdenv.mkDerivation rec {
     homepage = https://keepassxc.org/;
     license = licenses.gpl2;
     maintainers = with maintainers; [ jonafato ];
-    platforms = with platforms; linux ++ darwin;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }
