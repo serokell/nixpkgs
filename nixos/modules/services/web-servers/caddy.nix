@@ -78,6 +78,7 @@ in {
         User = "caddy";
         Group = "caddy";
         Restart = "on-failure";
+        RestartSec = "5m";
         StartLimitInterval = 86400;
         StartLimitBurst = 5;
         AmbientCapabilities = "cap_net_bind_service";
