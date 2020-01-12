@@ -56,7 +56,7 @@ in {
       suffix = "";
     };
     sha256 = "0hds28cg226m8j8sr394nm9yc4gxhvlv109w0avsf2mxrlrz0hsd";
-    inherit (darwin) CF configd;
+    inherit (darwin) configd;
     inherit passthruFun;
   };
 
@@ -69,7 +69,7 @@ in {
       suffix = "";
     };
     sha256 = "0jdh9pvx6m6lfz2liwvvhn7vks7qrysqgwn517fkpxb77b33fjn2";
-    inherit (darwin) CF configd;
+    inherit (darwin) configd;
     inherit passthruFun;
   };
 
@@ -82,7 +82,7 @@ in {
       suffix = "";
     };
     sha256 = "1nkh70azbv866aw5a9bbxsxarsf40233vrzpjq17z3rz9ramybsy";
-    inherit (darwin) CF configd;
+    inherit (darwin) configd;
     inherit passthruFun;
   };
 
@@ -95,7 +95,7 @@ in {
       suffix = "";
     };
     sha256 = "154xc6dxww21qkmphg66pfks8987a17cl3vqq5g4hv1xkzm7cnp8";
-    inherit (darwin) CF configd;
+    inherit (darwin) configd;
     inherit passthruFun;
   };
 
@@ -108,7 +108,7 @@ in {
       suffix = "";
     };
     sha256 = "110d0did9rxn7rg85kf2fwli5hqq44xv2d8bi7d92m7v2d728mmk";
-    inherit (darwin) CF configd;
+    inherit (darwin) configd;
     inherit passthruFun;
   };
 
@@ -131,6 +131,7 @@ in {
     ncurses = null;
     gdbm = null;
     sqlite = null;
+    configd = null;
     stripConfig = true;
     stripIdlelib = true;
     stripTests = true;
