@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, xar, cpio, pkgs, python, pbzx, lib, darwin-stubs, print-reexports }:
+{ stdenv, fetchurl, xar, cpio, pkgs, python3, pbzx, lib, darwin-stubs, print-reexports }:
 
 let
   # sadly needs to be exported because security_tool needs it
@@ -16,7 +16,7 @@ let
       sha256 = "1sggc70rypqwcjwr7ciavw8sczwll16cwqxdxrbw7r2qvy3b0nhx";
     };
 
-    buildInputs = [ xar cpio python pbzx ];
+    nativeBuildInputs = [ xar cpio python3 pbzx ];
 
     phases = [ "unpackPhase" "installPhase" "fixupPhase" ];
     outputs = [ "out" "dev" "man" ];
