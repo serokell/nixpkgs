@@ -15,10 +15,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake makeWrapper ];
   buildInputs = with llvmPackages; [ clang-unwrapped llvm rapidjson ];
 
-  cmakeFlags = [
-    "-DSYSTEM_CLANG=ON"
-    "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.12"
-  ];
+  cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")
