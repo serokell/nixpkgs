@@ -63,6 +63,15 @@ import ./make-test-python.nix ({ pkgs, ...} : {
     $docker->waitForUnit("docker.service");
     $docker->fail("docker volume ls | grep superfluous");
 
+    $docker->succeed("docker volume ls | grep thevolume");
+    $docker->succeed("docker network ls | grep thenetwork");
+
+    $docker->succeed("docker volume create superfluousvolume");
+    $docker->succeed("docker network create superfluousnetwork");
+    $docker->systemctl("restart docker");
+    $docker->waitForUnit("docker.service");
+    $docker->fail("docker volume ls | grep superfluous");
+
     # Must match version twice to ensure client and server versions are correct
     docker.succeed('[ $(docker version | grep ${pkgs.docker.version} | wc -l) = "2" ]')
   '';
