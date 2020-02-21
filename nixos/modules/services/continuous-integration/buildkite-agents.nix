@@ -239,6 +239,7 @@ in
             shell="${cfg.shell}"
             tags="${tagStr}"
             build-path="${cfg.dataDir}/builds"
+            plugins-path="${cfg.dataDir}/plugins"
             hooks-path="${cfg.hooksPath}"
             ${cfg.extraConfig}
             EOF
