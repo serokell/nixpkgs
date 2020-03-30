@@ -24,6 +24,15 @@ stdenv.mkDerivation rec {
     ./configure --prefix=$out --disable-developer --disable-valgrind
   '';
 
+  # https://github.com/ElementsProject/lightning/issues/3610
+  patches = [
+    (fetchpatch {
+      name = "clightning-kirelagin.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/ElementsProject/lightning/pull/3605.diff";
+      sha256 = "sha256-vjULWA6JulsEz8/hdrvDJX0t7ZOh3NVO5stITOf2PKs=";
+    })
+  ];
+
   postPatch = ''
     patchShebangs \
       tools/generate-wire.py \
