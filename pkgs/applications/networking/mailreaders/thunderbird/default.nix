@@ -66,40 +66,100 @@ in stdenv.mkDerivation rec {
       "--disable-alsa"
       "--disable-pulseaudio"
 
-      "--with-system-jpeg"
-      "--with-system-zlib"
-      "--with-system-bz2"
-      "--with-system-nspr"
-      "--with-system-nss"
-      "--with-system-libevent"
-      "--with-system-png" # needs APNG support
-      "--with-system-icu"
-      #"--enable-rust-simd" # not supported since rustc 1.32.0 -> 1.33.0; TODO: probably OK since 68.0.0
-      "--enable-system-ffi"
-      "--enable-system-pixman"
-      "--enable-system-sqlite"
-      #"--enable-system-cairo"
-      "--enable-startup-notification"
-      "--disable-crashreporter"
-      "--disable-tests"
-      "--disable-necko-wifi" # maybe we want to enable this at some point
-      "--disable-updater"
-      "--enable-jemalloc"
-      "--disable-gconf"
-      "--enable-default-toolkit=cairo-gtk${if enableGTK3 then "3" else "2"}"
-      "--enable-js-shell"
-    ]
-      ++ lib.optional enableCalendar "--enable-calendar"
-      ++ (if debugBuild then [ "--enable-debug" "--enable-profiling"]
-                        else [ "--disable-debug" "--enable-release"
-                               "--disable-debug-symbols"
-                               "--enable-optimize" "--enable-strip" ])
-      ++ lib.optional enableOfficialBranding "--enable-official-branding"
-      ++ lib.optionals (lib.versionAtLeast version "56" && !stdenv.hostPlatform.isi686) [
-        # on i686-linux: --with-libclang-path is not available in this configuration
-        "--with-libclang-path=${llvmPackages.libclang}/lib"
-        "--with-clang-path=${llvmPackages.clang}/bin/clang"
-      ];
+  hardeningDisable = [ "format" ];
+
+  preConfigure = ''
+    # remove distributed configuration files
+    rm -f configure
+    rm -f js/src/configure
+    rm -f .mozconfig*
+
+    configureScript="$(realpath ./mach) configure"
+    # AS=as in the environment causes build failure https://bugzilla.mozilla.org/show_bug.cgi?id=1497286
+    unset AS
+
+    export MOZCONFIG=$(pwd)/mozconfig
+
+    # Set C flags for Rust's bindgen program. Unlike ordinary C
+    # compilation, bindgen does not invoke $CC directly. Instead it
+    # uses LLVM's libclang. To make sure all necessary flags are
+    # included we need to look in a few places.
+    # TODO: generalize this process for other use-cases.
+
+    BINDGEN_CFLAGS="$(< ${stdenv.cc}/nix-support/libc-cflags) \
+      $(< ${stdenv.cc}/nix-support/cc-cflags) \
+      ${stdenv.cc.default_cxx_stdlib_compile} \
+      ${
+        lib.optionalString stdenv.cc.isClang
+        "-idirafter ${stdenv.cc.cc}/lib/clang/${
+          lib.getVersion stdenv.cc.cc
+        }/include"
+      } \
+      ${
+        lib.optionalString stdenv.cc.isGNU
+        "-isystem ${stdenv.cc.cc}/include/c++/${
+          lib.getVersion stdenv.cc.cc
+        } -isystem ${stdenv.cc.cc}/include/c++/${
+          lib.getVersion stdenv.cc.cc
+        }/${stdenv.hostPlatform.config}"
+      } \
+      $NIX_CFLAGS_COMPILE"
+
+    echo "ac_add_options BINDGEN_CFLAGS='$BINDGEN_CFLAGS'" >> $MOZCONFIG
+  '';
+
+  configureFlags = let
+    toolkitSlug = if gtk3Support then
+      "3${lib.optionalString waylandSupport "-wayland"}"
+    else
+      "2";
+    toolkitValue = "cairo-gtk${toolkitSlug}";
+  in [
+    "--enable-application=comm/mail"
+
+    "--with-system-bz2"
+    "--with-system-icu"
+    "--with-system-jpeg"
+    "--with-system-libevent"
+    "--with-system-nspr"
+    "--with-system-nss"
+    "--with-system-png" # needs APNG support
+    "--with-system-icu"
+    "--with-system-zlib"
+    "--with-system-webp"
+    "--with-system-libvpx"
+
+    "--enable-rust-simd"
+    "--enable-crashreporter"
+    "--enable-default-toolkit=${toolkitValue}"
+    "--enable-js-shell"
+    "--enable-necko-wifi"
+    "--enable-startup-notification"
+    "--enable-system-ffi"
+    "--enable-system-pixman"
+    "--enable-system-sqlite"
+
+    "--disable-gconf"
+    "--disable-tests"
+    "--disable-updater"
+    "--enable-jemalloc"
+  ] ++ (if debugBuild then [
+    "--enable-debug"
+    "--enable-profiling"
+  ] else [
+    "--disable-debug"
+    "--enable-release"
+    "--disable-debug-symbols"
+    "--enable-optimize"
+    "--enable-strip"
+  ]) ++ lib.optionals (!stdenv.hostPlatform.isi686) [
+    # on i686-linux: --with-libclang-path is not available in this configuration
+    "--with-libclang-path=${llvmPackages.libclang}/lib"
+    "--with-clang-path=${llvmPackages.clang}/bin/clang"
+  ] ++ lib.optional alsaSupport "--enable-alsa"
+  ++ lib.optional calendarSupport "--enable-calendar"
+  ++ lib.optional enableOfficialBranding "--enable-official-branding"
+  ++ lib.optional pulseaudioSupport "--enable-pulseaudio";
 
   enableParallelBuilding = true;
 
