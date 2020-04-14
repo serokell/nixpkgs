@@ -1,4 +1,4 @@
-{ lowPrio, newScope, pkgs, stdenv, cmake, gcc, libstdcxxHook
+{ lowPrio, newScope, pkgs, stdenv, cmake, gcc
 , libxml2, python3, isl, fetchurl, overrideCC, wrapCCWith
 , buildLlvmTools # tools, but from the previous stage, for cross
 , targetLlvmLibraries # libraries, but from the next stage, for cross
@@ -51,9 +51,7 @@ let
 
     libstdcxxClang = wrapCCWith rec {
       cc = tools.clang-unwrapped;
-      extraTools = [
-        libstdcxxHook
-      ];
+      libcxx = null; # libstdcxx is smuggled in with clang.gcc
       extraPackages = [
         targetLlvmLibraries.compiler-rt
       ];
@@ -69,7 +67,6 @@ let
       cc = tools.clang-unwrapped;
       libcxx = targetLlvmLibraries.libcxx;
       extraPackages = [
-        targetLlvmLibraries.libcxx
         targetLlvmLibraries.libcxxabi
         targetLlvmLibraries.compiler-rt
       ];
