@@ -7441,6 +7441,27 @@ in
 
   compcert = callPackage ../development/compilers/compcert { };
 
+  computecpp-unwrapped = callPackage ../development/compilers/computecpp {};
+  computecpp = wrapCCWith rec {
+    cc = computecpp-unwrapped;
+    extraPackages = [
+      llvmPackages.compiler-rt
+    ];
+    extraBuildCommands = ''
+      wrap compute $wrapper $ccPath/compute
+      wrap compute++ $wrapper $ccPath/compute++
+      export named_cc=compute
+      export named_cxx=compute++
+
+      rsrc="$out/resource-root"
+      mkdir -p "$rsrc/lib"
+      ln -s "${cc}/lib" "$rsrc/include"
+      echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
+    '' + stdenv.lib.optionalString (stdenv.targetPlatform.isLinux && cc ? gcc && !(stdenv.targetPlatform.useLLVM or false)) ''
+      echo "--gcc-toolchain=${cc.gcc}" >> $out/nix-support/cc-cflags
+    '';
+  };
+
   cryptol = haskell.lib.justStaticExecutables haskellPackages.cryptol;
 
   inherit (callPackages ../development/compilers/crystal {
@@ -7557,14 +7578,6 @@ in
   gcc_debug = lowPrio (wrapCC (gcc.cc.override {
     stripped = false;
   }));
-
-  libstdcxxHook = makeSetupHook
-    { substitutions = {
-        gcc = gcc-unwrapped;
-        targetConfig = stdenv.targetPlatform.config;
-      };
-    }
-    ../development/compilers/gcc/libstdc++-hook.sh;
 
   crossLibcStdenv = overrideCC stdenv
     (if stdenv.hostPlatform.useLLVM or false
@@ -8514,6 +8527,10 @@ in
       # provide the default choice, avoiding infinite recursion.
       bintools ? if stdenv.targetPlatform.isDarwin then darwin.binutils else binutils
     , libc ? bintools.libc
+    , # libc++ from the default LLVM version is bound at the top level, but we
+      # want the C++ library to be explicitly chosen by the caller, and null by
+      # default.
+      libcxx ? null
     , extraPackages ? stdenv.lib.optional (cc.isGNU or false && stdenv.targetPlatform.isMinGW) threadsCross
     , ...
     } @ extraArgs:
@@ -8526,7 +8543,7 @@ in
     isGNU = cc.isGNU or false;
     isClang = cc.isClang or false;
 
-    inherit cc bintools libc extraPackages;
+    inherit cc bintools libc libcxx extraPackages;
   } // extraArgs; in self);
 
   wrapCC = cc: wrapCCWith {
