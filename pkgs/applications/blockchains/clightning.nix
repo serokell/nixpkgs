@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "clightning-kirelagin.patch";
       url = "https://patch-diff.githubusercontent.com/raw/ElementsProject/lightning/pull/3605.diff";
-      sha256 = "sha256-vjULWA6JulsEz8/hdrvDJX0t7ZOh3NVO5stITOf2PKs=";
+      sha256 = "1arwyvklqj6bwr7dbp51jgnjsz95qfxpdqfgrw25pfl91rc0nddy";
     })
   ];
 
