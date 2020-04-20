@@ -260,7 +260,7 @@ let
           })
         (mkIf (config.script != "")
           { serviceConfig.ExecStart =
-              makeJobScript "${name}-start" (config.script + " " + config.scriptArgs);
+              makeJobScript "${name}-start" config.script + " " + config.scriptArgs;
           })
         (mkIf (config.postStart != "")
           { serviceConfig.ExecStartPost =
