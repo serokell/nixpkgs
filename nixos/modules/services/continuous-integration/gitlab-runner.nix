@@ -124,9 +124,10 @@ in
         ExecStart = ''${cfg.package.bin}/bin/gitlab-runner run \
           --working-directory ${cfg.workDir} \
           --config ${configFile} \
-          --service gitlab-runner \
-          --user gitlab-runner \
+          --service gitlab-runner
         '';
+        User = "gitlab-runner";
+        Group = "gitlab-runner";
 
       } //  optionalAttrs (cfg.gracefulTermination) {
         TimeoutStopSec = "${cfg.gracefulTimeout}";
