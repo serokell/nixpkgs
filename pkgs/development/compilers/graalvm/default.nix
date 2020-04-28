@@ -346,10 +346,17 @@ in rec {
       export MX_GIT_CACHE_DIR=$NIX_BUILD_TOP/mxgitcache
       export JVMCI_VERSION_CHECK='ignore'
       export JAVA_HOME=$NIX_BUILD_TOP/jvmci8
-      # export FASTR_RELEASE=true ## WIP
-      ${makeMxGitCache graal-mxcachegit "$MX_GIT_CACHE_DIR"}
-      cd $NIX_BUILD_TOP/source
-
+      export FASTR_RELEASE=true
+      export PKG_LDFLAGS_OVERRIDE="-L${pcre.out}/lib -L${zlib}/lib -L${gfortran.cc.lib}/lib64"
+      ${lib.optionalString stdenv.isDarwin ''
+        export CC="gcc"
+        export CPP="gcc -E"
+        export NIX_CXXSTDLIB_LINK=""
+        export NIX_CXXSTDLIB_LINK_FOR_TARGET=""
+        export OPENSSL_PREFIX=$(realpath openssl)
+        # this fixes error: impure path 'LibFFIHeaderDirectives' used in link
+        export NIX_ENFORCE_PURITY=0
+      ''}
       ( cd vm
         mx-internal -v --dynamicimports /substratevm,/tools,sulong,/graal-nodejs,graalpython build
       )
