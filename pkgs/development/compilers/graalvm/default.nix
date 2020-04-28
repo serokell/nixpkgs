@@ -349,7 +349,6 @@ in rec {
       # export FASTR_RELEASE=true ## WIP
       ${makeMxGitCache graal-mxcachegit "$MX_GIT_CACHE_DIR"}
       cd $NIX_BUILD_TOP/source
-
       ( cd vm
         mx-internal -v --dynamicimports /substratevm,/tools,sulong,/graal-nodejs,graalpython build
       )
