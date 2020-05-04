@@ -4,11 +4,11 @@
 with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "clightning";
-  version = "0.8.1";
+  version = "0.8.2";
 
   src = fetchurl {
     url = "https://github.com/ElementsProject/lightning/releases/download/v${version}/clightning-v${version}.zip";
-    sha256 = "079d3yx7yr7qrilqgaayvn18lxl8h6a1gwwbsgm5xsyxj4vdlz7r";
+    sha256 = "1w5l3r3pnhnwz3x7mjgd69cw9a18fpyjwj7kmfka7cf9hdgcwp9x";
   };
 
   enableParallelBuilding = true;
@@ -23,15 +23,6 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     ./configure --prefix=$out --disable-developer --disable-valgrind
   '';
-
-  # https://github.com/ElementsProject/lightning/issues/3610
-  patches = [
-    (fetchpatch {
-      name = "clightning-kirelagin.patch";
-      url = "https://patch-diff.githubusercontent.com/raw/ElementsProject/lightning/pull/3605.diff";
-      sha256 = "1arwyvklqj6bwr7dbp51jgnjsz95qfxpdqfgrw25pfl91rc0nddy";
-    })
-  ];
 
   postPatch = ''
     patchShebangs \
