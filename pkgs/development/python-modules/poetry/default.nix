@@ -1,5 +1,6 @@
 { lib, buildPythonPackage, fetchPypi, callPackage
-, isPy27, isPy34
+, isPy27
+, pythonOlder
 , cleo
 , requests
 , cachy
@@ -61,9 +62,11 @@ in buildPythonPackage rec {
     html5lib
     shellingham
     tomlkit
-  ] ++ lib.optionals (isPy27 || isPy34) [ typing pathlib2 glob2 ]
-    ++ lib.optionals isPy27 [ virtualenv functools32 ];
-
+    pexpect
+    keyring
+    lockfile
+  ] ++ lib.optionals isPy27 [ typing pathlib2 glob2 virtualenv functools32 subprocess32 ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
   postInstall = ''
     mkdir -p "$out/share/bash-completion/completions"
     "$out/bin/poetry" completions bash > "$out/share/bash-completion/completions/poetry"

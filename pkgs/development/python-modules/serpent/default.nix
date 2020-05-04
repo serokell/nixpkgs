@@ -4,7 +4,6 @@
 , lib
 , python
 , isPy27
-, isPy33
 , enum34
 }:
 
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "6f8dc4317fb5b5a9629b5e518846bc9fee374b8171533726dc68df52b36ee912";
   };
 
-  propagatedBuildInputs = lib.optionals (isPy27 || isPy33) [ enum34 ];
+  propagatedBuildInputs = lib.optionals isPy27 [ enum34 ];
 
   checkPhase = ''
     ${python.interpreter} setup.py test
