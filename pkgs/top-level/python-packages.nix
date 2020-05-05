@@ -8148,4 +8148,5 @@ in {
 
   zxcvbn = callPackage ../development/python-modules/zxcvbn { };
 
+  pyln-client = callPackage ../development/python-modules/pyln-client { };
 }
