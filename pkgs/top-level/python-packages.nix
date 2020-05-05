@@ -7828,6 +7828,8 @@ in {
 
   userpath = callPackage ../development/python-modules/userpath { };
 
+  pyln-client = callPackage ../development/python-modules/pyln-client { };
+
 });
 
 in fix' (extends overrides packages)
