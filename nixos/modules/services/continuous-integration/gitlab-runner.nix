@@ -121,7 +121,7 @@ in
       requires = optional hasDocker "docker.service";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = ''${cfg.package.bin}/bin/gitlab-runner run \
+        ExecStart = ''${cfg.package}/bin/gitlab-runner run \
           --working-directory ${cfg.workDir} \
           --config ${configFile} \
           --service gitlab-runner
