@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, cmake, doxygen, graphviz, makeWrapper
-, boost, SDL2, python2, freetype, openal, libogg, libvorbis, zlib, libpng, libtiff
+, boost168, SDL2, python2, freetype, openal, libogg, libvorbis, zlib, libpng, libtiff
 , libjpeg, libGLU, libGL, glew, libxslt
 }:
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-	(boost.override { enablePython = true; })
+	(boost168.override { enablePython = true; })
     SDL2 python2 freetype openal libogg libvorbis zlib libpng libtiff libjpeg libGLU libGL glew ];
 
   nativeBuildInputs = [ cmake doxygen graphviz makeWrapper ];
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "A free, open source, turn-based space empire and galactic conquest (4X) computer game";
-    homepage = http://www.freeorion.org;
+    homepage = "http://www.freeorion.org";
     license = with licenses; [ gpl2 cc-by-sa-30 ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ tex ];

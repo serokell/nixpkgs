@@ -45,6 +45,17 @@ installPhase() {
         cp -prd tls "$out/lib/"
     fi
 
+    # Install systemd power management executables
+    if [ -e nvidia-sleep.sh ]; then
+        sed -E 's#(PATH=).*#\1"$PATH"#' nvidia-sleep.sh > nvidia-sleep.sh.fixed
+        install -Dm755 nvidia-sleep.sh.fixed $out/bin/nvidia-sleep.sh
+    fi
+
+    if [ -e nvidia ]; then
+        sed -E "s#/usr(/bin/nvidia-sleep.sh)#$out\\1#" nvidia > nvidia.fixed
+        install -Dm755 nvidia.fixed $out/lib/systemd/system-sleep/nvidia
+    fi
+
     for i in $lib32 $out; do
         rm -f $i/lib/lib{glx,nvidia-wfb}.so.* # handled separately
         rm -f $i/lib/libnvidia-gtk* # built from source
@@ -75,15 +86,21 @@ installPhase() {
             fi
             install -Dm644 nvidia_icd.json.fixed $i/share/vulkan/icd.d/nvidia.json
         fi
+        if [ -e nvidia_layers.json ]; then
+            sed -E "s#(libGLX_nvidia)#$i/lib/\\1#" nvidia_layers.json > nvidia_layers.json.fixed
+            install -Dm644 nvidia_layers.json.fixed $i/share/vulkan/implicit_layer.d/nvidia_layers.json
+        fi
 
         # EGL
         if [ "$useGLVND" = "1" ]; then
             sed -E "s#(libEGL_nvidia)#$i/lib/\\1#" 10_nvidia.json > 10_nvidia.json.fixed
+            sed -E "s#(libnvidia-egl-wayland)#$i/lib/\\1#" 10_nvidia_wayland.json > 10_nvidia_wayland.json.fixed
+
             install -Dm644 10_nvidia.json.fixed $i/share/glvnd/egl_vendor.d/nvidia.json
+            install -Dm644 10_nvidia_wayland.json.fixed $i/share/glvnd/egl_vendor.d/nvidia_wayland.json
         fi
 
     done
-
 
     if [ -n "$bin" ]; then
         # Install the X drivers.
@@ -159,6 +176,5 @@ installPhase() {
         # install -Dm755 nvidia-bug-report.sh $bin/bin/nvidia-bug-report.sh
     fi
 }
-
 
 genericBuild

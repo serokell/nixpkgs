@@ -2,8 +2,9 @@
 , fetchFromGitHub
 # Dynamic libraries
 , dbus, glib, libGL, libX11, libXfixes, libuuid, libxcb, qtbase, qtdeclarative
-, qtimageformats, qtlocation, qtquickcontrols, qtquickcontrols2, qtscript, qtsvg
-, qttools, qtwayland, qtwebchannel, qtwebengine
+, qtgraphicaleffects, qtimageformats, qtlocation, qtquickcontrols
+, qtquickcontrols2, qtscript, qtsvg , qttools, qtwayland, qtwebchannel
+, qtwebengine
 # Runtime
 , coreutils, libjpeg_turbo, pciutils, procps, utillinux
 , pulseaudioSupport ? true, libpulseaudio ? null
@@ -14,11 +15,11 @@ assert pulseaudioSupport -> libpulseaudio != null;
 let
   inherit (stdenv.lib) concatStringsSep makeBinPath optional;
 
-  version = "3.5.352596.0119";
+  version = "5.0.403652.0509";
   srcs = {
     x86_64-linux = fetchurl {
       url = "https://zoom.us/client/${version}/zoom_x86_64.tar.xz";
-      sha256 = "1h8wki0b920k0hcy812w91ara59z4rmfllxx04nbmzsxh0bvsx90";
+      sha256 = "00bprrfc7mmf3yg6jddqm2qr73m2zycr8hy19dxqpzld9gbvyzik";
     };
   };
 
@@ -39,9 +40,9 @@ in mkDerivation {
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [
-    dbus glib libGL libX11 libXfixes libuuid libxcb libjpeg_turbo
-    qtbase qtdeclarative qtlocation qtquickcontrols qtquickcontrols2 qtscript
-    qtwebchannel qtwebengine qtimageformats qtsvg qttools qtwayland
+    dbus glib libGL libX11 libXfixes libuuid libxcb libjpeg_turbo qtbase
+    qtdeclarative qtgraphicaleffects qtlocation qtquickcontrols qtquickcontrols2
+    qtscript qtwebchannel qtwebengine qtimageformats qtsvg qttools qtwayland
   ];
 
   runtimeDependencies = optional pulseaudioSupport libpulseaudio;

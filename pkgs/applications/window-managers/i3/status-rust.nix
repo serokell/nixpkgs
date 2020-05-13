@@ -11,10 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0va6ny1v7lk30hhx4i5qyk9fwg3apy2nmh6kbmxhcf0rs5449ikg";
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
-
-  cargoSha256 = "099hn0pm9ppply3m3dwns3f5p43rdag2d3niaj8jyc1mnavviwjv";
+  cargoSha256 = "1lywr21kk3idjyc10gy4848dmmgyqc2jjf7hpzq0vywkp639bf2x";
 
   nativeBuildInputs = [ pkgconfig ];
 
@@ -25,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Very resource-friendly and feature-rich replacement for i3status";
-    homepage = https://github.com/greshake/i3status-rust;
+    homepage = "https://github.com/greshake/i3status-rust";
     license = licenses.gpl3;
     maintainers = with maintainers; [ backuitist globin ma27 ];
     platforms = platforms.linux;

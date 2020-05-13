@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "libqmi";
-  version = "1.24.2";
+  version = "1.24.10";
 
   src = fetchurl {
     url = "https://www.freedesktop.org/software/libqmi/${pname}-${version}.tar.xz";
-    sha256 = "10mjfmiznaxvfk0f9wr18kyxz3mpdrvnh0qw9g8c1nv0z5vf9r2a";
+    sha256 = "1rzxapr6hb18ccvqh5fizx7zk63l47bs0p3gizycz2ysnm1i44n2";
   };
 
   outputs = [ "out" "dev" "devdoc" ];
@@ -26,10 +26,12 @@ stdenv.mkDerivation rec {
     libmbim
   ];
 
+  enableParallelBuilding = true;
+
   doCheck = true;
 
   meta = with stdenv.lib; {
-    homepage = https://www.freedesktop.org/wiki/Software/libqmi/;
+    homepage = "https://www.freedesktop.org/wiki/Software/libqmi/";
     description = "Modem protocol helper library";
     platforms = platforms.linux;
     license = licenses.gpl2;

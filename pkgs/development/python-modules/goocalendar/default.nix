@@ -14,13 +14,13 @@ with stdenv.lib;
 
 buildPythonPackage rec {
   pname = "GooCalendar";
-  version = "0.6";
+  version = "0.7.1";
 
   disabled = !isPy3k;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "4c22c93e19b933d10d8ea1c67a67f485267af82175ef59419427dd39d1e3af18";
+    sha256 = "1ccvw1w7xinl574h16hqs6dh3fkpm5n1jrqwjqz3ignxvli5sr38";
   };
 
   nativeBuildInputs = [
@@ -42,7 +42,7 @@ buildPythonPackage rec {
 
   meta = with stdenv.lib; {
     description = "A calendar widget for GTK using PyGoocanvas.";
-    homepage = https://goocalendar.tryton.org/;
+    homepage = "https://goocalendar.tryton.org/";
     license = licenses.gpl2;
     maintainers = [ maintainers.udono ];
   };

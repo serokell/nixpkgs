@@ -1,24 +1,32 @@
-{ stdenv, buildGoPackage, fetchFromGitHub
-, gpgme, libgpgerror, lvm2, btrfs-progs, pkgconfig, libselinux, libseccomp
+{ stdenv
+, buildGoPackage
+, fetchFromGitHub
+, installShellFiles
+, pkg-config
+, gpgme
+, libgpgerror
+, lvm2
+, btrfs-progs
+, libselinux
+, libseccomp
 }:
 
 buildGoPackage rec {
   pname = "buildah";
-  version = "1.14.0";
+  version = "1.14.9";
 
   src = fetchFromGitHub {
-    owner  = "containers";
-    repo   = "buildah";
-    rev    = "v${version}";
-    sha256 = "0nbcrhfd0c14d0m9a4mkd01jxk5i503z38kv2qfz5cvfghx517qq";
+    owner = "containers";
+    repo = "buildah";
+    rev = "v${version}";
+    sha256 = "1vp59xp374wr7sbx89aikz4rv8fdg0a40v06saryxww9iqyvk8wp";
   };
 
-  outputs = [ "bin" "man" "out" ];
+  outputs = [ "out" "man" ];
 
   goPackagePath = "github.com/containers/buildah";
-  excludedPackages = [ "tests" ];
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ installShellFiles pkg-config ];
   buildInputs = [ gpgme libgpgerror lvm2 btrfs-progs libselinux libseccomp ];
 
   patches = [ ./disable-go-module-mode.patch ];
@@ -26,19 +34,21 @@ buildGoPackage rec {
   buildPhase = ''
     pushd go/src/${goPackagePath}
     make GIT_COMMIT="unknown"
-    install -Dm755 buildah $bin/bin/buildah
-    install -Dm444 contrib/completions/bash/buildah $bin/share/bash-completion/completions/buildah
+    make -C docs
   '';
 
-  postBuild = ''
+  installPhase = ''
+    install -Dm755 buildah $out/bin/buildah
+    installShellCompletion --bash contrib/completions/bash/buildah
     make -C docs install PREFIX="$man"
   '';
 
   meta = with stdenv.lib; {
     description = "A tool which facilitates building OCI images";
-    homepage = "https://github.com/containers/buildah";
+    homepage = "https://buildah.io/";
     changelog = "https://github.com/containers/buildah/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Profpatsch vdemeester saschagrunert ];
+    maintainers = with maintainers; [ Profpatsch ] ++ teams.podman.members;
+    platforms = platforms.linux;
   };
 }

@@ -3,7 +3,7 @@ let
   generic =
       # dependencies
       { stdenv, lib, fetchurl, makeWrapper
-      , glibc, zlib, readline, openssl, openssl_1_0_2, icu, systemd, libossp_uuid
+      , glibc, zlib, readline, openssl, icu, systemd, libossp_uuid
       , pkgconfig, libxml2, tzdata
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
@@ -32,10 +32,9 @@ let
     setOutputFlags = false; # $out retains configureFlags :-/
 
     buildInputs =
-      [ zlib readline libxml2 makeWrapper ]
+      [ zlib readline openssl libxml2 makeWrapper ]
       ++ lib.optionals icuEnabled [ icu ]
       ++ lib.optionals enableSystemd [ systemd ]
-      ++ [ (if atLeast "9.5" then openssl else openssl_1_0_2) ]
       ++ lib.optionals (!stdenv.isDarwin) [ libossp_uuid ];
 
     nativeBuildInputs = lib.optionals icuEnabled [ pkgconfig ];
@@ -126,7 +125,7 @@ let
     disallowedReferences = [ stdenv.cc ];
 
     passthru = {
-      inherit readline psqlSchema version;
+      inherit readline psqlSchema;
 
       pkgs = let
         scope = { postgresql = this; };
@@ -142,7 +141,7 @@ let
     };
 
     meta = with lib; {
-      homepage    = https://www.postgresql.org;
+      homepage    = "https://www.postgresql.org";
       description = "A powerful, open source object-relational database system";
       license     = licenses.postgresql;
       maintainers = with maintainers; [ ocharles thoughtpolice danbst globin ];

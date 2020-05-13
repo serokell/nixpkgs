@@ -1,5 +1,5 @@
 { stdenv, fetchgit, flex, bison, python, autoconf, automake, gnulib, libtool
-, gettext, ncurses, libusb, freetype, qemu, lvm2, unifont, pkgconfig
+, gettext, ncurses, libusb-compat-0_1, freetype, qemu, lvm2, unifont, pkgconfig
 , fuse # only needed for grub-mount
 , zfs ? null
 , efiSupport ? false
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ bison flex python pkgconfig autoconf automake ];
-  buildInputs = [ ncurses libusb freetype gettext lvm2 fuse libtool ]
+  buildInputs = [ ncurses libusb-compat-0_1 freetype gettext lvm2 fuse libtool ]
     ++ optional doCheck qemu
     ++ optional zfsSupport zfs;
 
@@ -83,12 +83,9 @@ stdenv.mkDerivation rec {
 
       unset CPP # setting CPP intereferes with dependency calculation
 
-      cp -r ${gnulib} $PWD/gnulib
-      chmod u+w -R $PWD/gnulib
-
       patchShebangs .
 
-      ./bootstrap --no-git --gnulib-srcdir=$PWD/gnulib
+      ./bootstrap --no-git --gnulib-srcdir=${gnulib}
 
       substituteInPlace ./configure --replace '/usr/share/fonts/unifont' '${unifont}/share/fonts'
     '';
@@ -128,7 +125,7 @@ stdenv.mkDerivation rec {
          operating system (e.g., GNU).
       '';
 
-    homepage = https://www.gnu.org/software/grub/;
+    homepage = "https://www.gnu.org/software/grub/";
 
     license = licenses.gpl3Plus;
 

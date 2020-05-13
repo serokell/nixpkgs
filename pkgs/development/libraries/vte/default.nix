@@ -18,17 +18,19 @@
 , pcre2
 , fribidi
 , zlib
+, icu
+, systemd
 }:
 
 stdenv.mkDerivation rec {
   pname = "vte";
-  version = "0.58.2";
+  version = "0.60.2";
 
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "1h1bljr090cgnzim00q4pnsmjqblzn1sig3d87wv1hzjn796dj9k";
+    sha256 = "19ccbw0yca78h5qcnm8claj4fg1pj68nj1fsjqqfpzhj7w72i81m";
   };
 
   passthru = {
@@ -51,6 +53,8 @@ stdenv.mkDerivation rec {
     gnutls
     pcre2
     zlib
+    icu
+    systemd
   ];
 
   propagatedBuildInputs = [
@@ -77,7 +81,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    homepage = https://www.gnome.org/;
+    homepage = "https://www.gnome.org/";
     description = "A library implementing a terminal emulator widget for GTK";
     longDescription = ''
       VTE is a library (libvte) implementing a terminal emulator widget for
@@ -88,7 +92,7 @@ stdenv.mkDerivation rec {
       the system's terminfo database.
     '';
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ astsmtl antono lethalman ] ++ gnome3.maintainers;
+    maintainers = with maintainers; [ astsmtl antono lethalman ] ++ teams.gnome.members;
     platforms = platforms.unix;
   };
 }

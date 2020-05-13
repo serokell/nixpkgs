@@ -16,19 +16,16 @@ with rustPlatform;
 
 buildRustPackage rec {
   pname = "ffsend";
-  version = "0.2.58";
+  version = "0.2.61";
 
   src = fetchFromGitLab {
     owner = "timvisee";
     repo = "ffsend";
     rev = "v${version}";
-    sha256 = "0yqigqh5vldzmp7wc1mxi5a4bxzm81xycx5h0ghak74vbjibps49";
+    sha256 = "1d0rx5gcp9z06kxjknqa1r2b4m5c4vrhp4a9spkawvgiky5a9x07";
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
-
-  cargoSha256 = "1wwdnm6a5g4gpd1f89qii8v4f6mcfc1bif1v6mdlcbrpwax5skh4";
+  cargoSha256 = "1bmyhg1y4gz719nsfdfjf4y73f9l6aag17dx9iazfzwnwwaq46m9";
 
   nativeBuildInputs = [ cmake pkgconfig installShellFiles ];
   buildInputs = [ openssl ]
@@ -56,7 +53,7 @@ buildRustPackage rec {
       may be up to 2GB. Others are able to download these files with this tool, or through their
       web browser.
     '';
-    homepage = https://gitlab.com/timvisee/ffsend;
+    homepage = "https://gitlab.com/timvisee/ffsend";
     license = licenses.gpl3;
     maintainers = with maintainers; [ lilyball equirosa ];
     platforms = platforms.unix;

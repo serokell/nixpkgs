@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-taquin";
-  version = "3.34.3";
+  version = "3.36.2";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-taquin/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "0njlcqb316qbi0dm2j39s42ca8gc2fqmk5aqill5gpb57znb4d81";
+    sha256 = "0pi8kxici7p3jys8673ib0kigpif4mfkq0zlq48rsibhdqfhrlij";
   };
 
   passthru = {
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with stdenv.lib; {
-    homepage = https://wiki.gnome.org/Apps/Taquin;
+    homepage = "https://wiki.gnome.org/Apps/Taquin";
     description = "Move tiles so that they reach their places";
-    maintainers = gnome3.maintainers;
+    maintainers = teams.gnome.members;
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

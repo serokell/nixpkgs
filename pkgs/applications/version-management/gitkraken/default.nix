@@ -13,11 +13,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gitkraken";
-  version = "6.5.1";
+  version = "6.6.0";
 
   src = fetchzip {
     url = "https://release.axocdn.com/linux/GitKraken-v${version}.tar.gz";
-    sha256 = "0dwjwismv4rfw58801g2ay51h9qrffcxgbl910frd4i530w0y44p";
+    sha256 = "1k94dyynsnm90mp7q9h6baq6q9zi539b1qszf3mqvd5i0id9kjcw";
   };
 
   dontBuild = true;
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    homepage = https://www.gitkraken.com/;
+    homepage = "https://www.gitkraken.com/";
     description = "The downright luxurious and most popular Git client for Windows, Mac & Linux";
     license = licenses.unfree;
     platforms = platforms.linux;

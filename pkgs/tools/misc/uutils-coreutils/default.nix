@@ -14,17 +14,14 @@ rustPlatform.buildRustPackage {
   # too many impure/platform-dependent tests
   doCheck = false;
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
-
-  cargoSha256 = "0qnpx2xhckb45q8cgn0xh31dg5k73hqp5mz5zg3micmg7as4b621";
+  cargoSha256 = "186hwzdpy7j0gw7491qx02vy4di5md47hipf1xxi1qccvmcfghwh";
 
   makeFlags =
     [ "CARGO=${cargo}/bin/cargo" "PREFIX=$(out)" "PROFILE=release" "INSTALLDIR_MAN=$(out)/share/man/man1" ]
     ++ lib.optional (prefix != null) [ "PROG_PREFIX=${prefix}" ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ cargo sphinx ] ++ lib.optional stdenv.isDarwin Security;
+  nativeBuildInputs = [ cmake cargo sphinx ];
+  buildInputs = lib.optional stdenv.isDarwin Security;
 
   # empty {build,install}Phase to use defaults of `stdenv.mkDerivation` rather than rust defaults
   buildPhase = "";
@@ -36,7 +33,7 @@ rustPlatform.buildRustPackage {
       uutils is an attempt at writing universal (as in cross-platform)
       CLI utils in Rust. This repo is to aggregate the GNU coreutils rewrites.
     '';
-    homepage = https://github.com/uutils/coreutils;
+    homepage = "https://github.com/uutils/coreutils";
     maintainers = with maintainers; [ ];
     license = licenses.mit;
     platforms = platforms.unix;

@@ -2,19 +2,23 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dua";
-  version = "2.1.11";
+  version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "Byron";
     repo = "dua-cli";
     rev = "v${version}";
-    sha256 = "08zgi2yiynb20l1f9rhly4a7zgqnr7lq3cr5vkmh1jnfs6z27dv6";
+    sha256 = "1697z9j0xd4il01bcvz1xwzkcg5mbkpp207mshb9csdhwi9a50wg";
+    # Remove unicode file names which leads to different checksums on HFS+
+    # vs. other filesystems because of unicode normalisation.
+    extraPostFetch = ''
+      rm -r $out/tests/fixtures
+    '';
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
+  cargoSha256 = "1rczq41jpds7kfyf31nxj4v8rk9rccijjixpznhlriam6xhgm90b";
 
-  cargoSha256 = "0hd46h4wwh81hnida0in3142884y8n6ygk7qm09i5wj52g73bivv";
+  doCheck = false;
 
   meta = with lib; {
     description = "A tool to conveniently learn about the disk usage of directories, fast!";

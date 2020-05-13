@@ -6,6 +6,7 @@
 , speechdSupport ? false, speechd ? null
 , pulseSupport ? false, libpulseaudio ? null
 , iceSupport ? false, zeroc-ice ? null
+, nixosTests
 }:
 
 assert jackSupport -> libjack2 != null;
@@ -19,7 +20,8 @@ let
     pname = overrides.type;
     version = source.version;
 
-    patches = (source.patches or []) ++ optional jackSupport ./mumble-jack-support.patch;
+    patches = (source.patches or [])
+      ++ [ ./fix-rnnoise-argument.patch ];
 
     nativeBuildInputs = [ pkgconfig python qt5.qmake ]
       ++ (overrides.nativeBuildInputs or [ ]);
@@ -61,6 +63,8 @@ let
     '';
 
     enableParallelBuilding = true;
+
+    passthru.tests.connectivity = nixosTests.mumble;
 
     meta = {
       description = "Low-latency, high quality voice chat software";

@@ -34,7 +34,7 @@
 , mtools
 , cdrkit
 , libcdio
-, libusb
+, libusb1
 , libarchive
 , acl
 , libgudev
@@ -51,11 +51,11 @@
 
 stdenv.mkDerivation rec {
   pname = "gnome-boxes";
-  version = "3.34.3";
+  version = "3.36.3";
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-boxes/${stdenv.lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
-    sha256 = "1izhqgsb658lzrzj12dw06w47bjhqdpfl0j74aq7bzql7nqsb3wa";
+    sha256 = "18imxv1859gr53z4yay02611p5f1rd2pwnbaq093gmn77l0j9292";
   };
 
   doCheck = true;
@@ -99,7 +99,7 @@ stdenv.mkDerivation rec {
     librsvg
     libsecret
     libsoup
-    libusb
+    libusb1
     libvirt
     libvirt-glib
     libxml2
@@ -133,9 +133,9 @@ stdenv.mkDerivation rec {
 
   meta = with stdenv.lib; {
     description = "Simple GNOME 3 application to access remote or virtual systems";
-    homepage = https://wiki.gnome.org/Apps/Boxes;
+    homepage = "https://wiki.gnome.org/Apps/Boxes";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = gnome3.maintainers;
+    maintainers = teams.gnome.members;
   };
 }

@@ -29,14 +29,14 @@ let
 
 in buildPythonApplication rec {
   pname = "ocrmypdf";
-  version = "9.5.0";
+  version = "9.8.0";
   disabled = ! python3Packages.isPy3k;
 
   src = fetchFromGitHub {
     owner = "jbarlow83";
     repo = "OCRmyPDF";
     rev = "v${version}";
-    sha256 = "0rvwxykyscpcvfgm8zzyvjgzl9x9ddi9cxmqyxrc031mxpc0lzyy";
+    sha256 = "1l4bwnbd3g0wmdx8yv8hi5wm2z2q67y9mwrvrc4xxmkdrb5y8jcd";
   };
 
   nativeBuildInputs = with python3Packages; [

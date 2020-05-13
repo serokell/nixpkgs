@@ -5,6 +5,7 @@
 , libuuid
 , gstreamer, gst-plugins-base, libxml2
 , glib, gtk3, pango, gdk-pixbuf, cairo, atk, at-spi2-atk, at-spi2-core, gnome2
+, libdrm, mesa
 , nss, nspr
 , patchelf, makeWrapper
 , isSnapshot ? false
@@ -17,11 +18,11 @@ let
   vivaldiName = if isSnapshot then "vivaldi-snapshot" else "vivaldi";
 in stdenv.mkDerivation rec {
   pname = "vivaldi";
-  version = "2.11.1811.38-1";
+  version = "2.11.1811.52-1";
 
   src = fetchurl {
     url = "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}_amd64.deb";
-    sha256 = "0nz7yhxp7fxv6pj1i2684di1wgk4k78hw4icfjqzjwmvc3i710jw";
+    sha256 = "0bq9ggk75xzka2nbrnc7vghq8s7jjy9nbfmyrf51kf0nni1zg1fp";
   };
 
   unpackPhase = ''
@@ -37,6 +38,7 @@ in stdenv.mkDerivation rec {
     atk at-spi2-atk at-spi2-core alsaLib dbus cups gtk3 gdk-pixbuf libexif ffmpeg systemd
     freetype fontconfig libXrender libuuid expat glib nss nspr
     gstreamer libxml2 gst-plugins-base pango cairo gnome2.GConf
+    libdrm mesa
   ] ++ stdenv.lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs;
 
   libPath = stdenv.lib.makeLibraryPath buildInputs

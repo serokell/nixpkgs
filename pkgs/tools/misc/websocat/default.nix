@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, pkgconfig, openssl, rustPlatform, Security }:
+{ stdenv, fetchFromGitHub, pkgconfig, openssl, rustPlatform, Security, makeWrapper, bash }:
 
 rustPlatform.buildRustPackage rec {
   pname = "websocat";
@@ -12,13 +12,18 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoBuildFlags = [ "--features=ssl" ];
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
+  cargoSha256 = "09chj0bgf4r8v5cjq0hvb84zvh98nrzrh1m0wdqjy5gi7zc30cis";
 
-  cargoSha256 = "163kwpahrbb9v88kjkrc0jx2np3c068pspr8rqrm9cb8jyl2njrr";
-
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkgconfig makeWrapper ];
   buildInputs = [ openssl ] ++ stdenv.lib.optional stdenv.isDarwin Security;
+
+  # The wrapping is required so that the "sh-c" option of websocat works even
+  # if sh is not in the PATH (as can happen, for instance, when websocat is
+  # started as a systemd service).
+  postInstall = ''
+    wrapProgram $out/bin/websocat \
+      --prefix PATH : ${stdenv.lib.makeBinPath [ bash ]}
+  '';
 
   meta = with stdenv.lib; {
     description = "Command-line client for WebSockets (like netcat/socat)";

@@ -13,12 +13,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0y34a3mpghdmcb2rx4z62q0s351bfmy1287d75mm07ryfgglgsd7";
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
+  cargoSha256 = "0akwb7ak4h1i1zk4wcn27zyqjz6mrchs47014xbzw22rj8h8dx92";
 
-  cargoSha256 = "19j1xscchnckqq1nddx9nr9wxxv124ab40l4mdalqbkli4zd748j";
-
-  patches = [
+  cargoPatches = [
     ./v3.1.1-fix-Cargo.lock.patch
   ];
 
@@ -32,7 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "Data deduplication with compression and public key encryption";
-    homepage = https://github.com/dpc/rdedup;
+    homepage = "https://github.com/dpc/rdedup";
     license = licenses.mpl20;
     maintainers = with maintainers; [ dywedir ];
     platforms = platforms.all;

@@ -1,37 +1,30 @@
-{ config, lib, callPackage, fetchurl, fetchFromGitHub, overrideCC, gccStdenv, gcc6 }:
+{ config, stdenv, lib, callPackage, fetchurl }:
 
 let
-
   common = opts: callPackage (import ./common.nix opts) {};
-
-  # Needed on older branches since rustc: 1.32.0 -> 1.33.0
-  missing-documentation-patch = fetchurl {
-    name = "missing-documentation.patch";
-    url = "https://aur.archlinux.org/cgit/aur.git/plain/deny_missing_docs.patch"
-        + "?h=firefox-esr&id=03bdd01f9cf";
-    sha256 = "1i33n3fgwc8d0v7j4qn7lbdax0an6swar12gay3q2nwrhg3ic4fb";
-  };
 in
 
 rec {
   firefox = common rec {
     pname = "firefox";
-    ffversion = "73.0.1";
+    ffversion = "76.0";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${ffversion}/source/firefox-${ffversion}.source.tar.xz";
-      sha512 = "1vdz711v44xdiry5vm4rrg7fjkrlnyn5jjkaq0bcf98jwrn9bjklmgwblrrnvmpc9pjd2ff3m7354q7vy6gd6c3yh2jhbq91v2w5yl9";
+      sha512 = "3dq9h84w1qqidabbrl34jgyjr8bbmbf5wddjazpr7znfm49fn2xyg8fmm5lx9dakghk3wp8yhfi36gmk08fzlrm47v6h17dm9hkh0hz";
     };
 
     patches = [
-      ./no-buildconfig-ffx65.patch
+      ./no-buildconfig-ffx76.patch
     ];
 
     meta = {
       description = "A web browser built from Firefox source tree";
-      homepage = http://www.mozilla.com/en-US/firefox/;
+      homepage = "http://www.mozilla.com/en-US/firefox/";
       maintainers = with lib.maintainers; [ eelco andir ];
       platforms = lib.platforms.unix;
       badPlatforms = lib.platforms.darwin;
+      broken = stdenv.buildPlatform.is32bit; # since Firefox 60, build on 32-bit platforms fails with "out of memory".
+                                             # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
       license = lib.licenses.mpl20;
     };
     updateScript = callPackage ./update.nix {
@@ -42,10 +35,10 @@ rec {
 
   firefox-esr-68 = common rec {
     pname = "firefox-esr";
-    ffversion = "68.5.0esr";
+    ffversion = "68.8.0esr";
     src = fetchurl {
       url = "mirror://mozilla/firefox/releases/${ffversion}/source/firefox-${ffversion}.source.tar.xz";
-      sha512 = "39i05r7r4rh2jvc8v4m2s2i6d33qaa075a1lc8m9gx7s3rw8yxja2c42cv5hq1imr9zc4dldbk88paz6lv1w8rhncm0dkxw8z6lxkqa";
+      sha512 = "2rl5irkamxi8caa8krj0wng93lb82kk9mf09mgci87mj9hy6fxzcrlmiiffp14s03rv0raagrn4w54pbx1336mylq6saxmfhpf676hk";
     };
 
     patches = [

@@ -1,5 +1,5 @@
 { stdenv
-, buildGoPackage
+, buildGoModule
 , lib
 , fetchFromGitHub
 , rocksdb
@@ -12,24 +12,30 @@
 , lz4
 }:
 
-buildGoPackage rec {
+buildGoModule rec {
   pname = "blockbook";
-  version = "0.3.1";
-
-  goPackagePath = "blockbook";
+  version = "0.3.3";
+  commit = "b6961ca";
 
   src = fetchFromGitHub {
     owner = "trezor";
     repo = "blockbook";
     rev = "v${version}";
-    sha256 = "0qgd1f3b4vavw55mvpvwvlya39dx1c3kjsc7n46nn7kpc152jv1l";
+    sha256 = "01nb4if2dix2h95xvqvafil325jjw2a4v1izb9mad0cjqcf8rk6n";
   };
 
-  goDeps = ./deps.nix;
+  modSha256 = "1zp06mpkxaxykw8pr679fg9dd7039qj13j5lknxp7hr8dga0jvpy";
 
   buildInputs = [ bzip2 zlib snappy zeromq lz4 ];
 
   nativeBuildInputs = [ pkg-config packr ];
+
+  buildFlagsArray = ''
+    -ldflags=
+       -X github.com/trezor/blockbook/common.version=${version}
+       -X github.com/trezor/blockbook/common.gitcommit=${commit}
+       -X github.com/trezor/blockbook/common.buildDate=unknown
+  '';
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     ulimit -n 8192
@@ -39,16 +45,13 @@ buildGoPackage rec {
     packr clean && packr
   '';
 
-  postInstall = ''
-    rm $bin/bin/{scripts,templates,trezor-common}
-  '';
+  subPackages = [ "." ];
 
   meta = with lib; {
     description = "Trezor address/account balance backend";
     homepage = "https://github.com/trezor/blockbook";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ mmahut ];
-    platforms = platforms.all;
+    maintainers = with maintainers; [ mmahut maintainers."1000101" ];
+    platforms = remove "aarch64-linux" platforms.unix;
   };
 }
-

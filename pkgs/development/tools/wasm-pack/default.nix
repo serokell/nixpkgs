@@ -18,10 +18,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1rqyfg6ajxxyfx87ar25nf5ck9hd0p12qgv98dicniqag8l4rvsr";
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
-
-  cargoSha256 = "095gk6lcck5864wjhrkhgnkxn9pzcg82xk5p94br7lmf15y9gc7j";
+  cargoSha256 = "0fw04hgxxqsbp1pylp32yd087r9bb8bpa05v90qdshkgp6znfl9s";
 
   nativeBuildInputs = [ pkgconfig ];
 
@@ -38,7 +35,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with stdenv.lib; {
     description = "A utility that builds rust-generated WebAssembly package";
-    homepage = https://github.com/rustwasm/wasm-pack;
+    homepage = "https://github.com/rustwasm/wasm-pack";
     license = with licenses; [ asl20 /* or */ mit ];
     maintainers = [ maintainers.dhkl ];
     platforms = platforms.all;

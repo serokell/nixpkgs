@@ -11,10 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0l1aalb8ans7scljrza7akhi821jbpqgn6sa8kgd8sys83r93fkj";
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
-
-  cargoSha256 = "0dlbln8nsvmrc9p99bl6yni57fravicias9gbv88fg7az904ilzz";
+  cargoSha256 = "07zkfpw0zyakpsm1mg525ibpsfs9swwmijb0xfsk3nbv66caqd04";
 
   buildInputs = lib.optional stdenv.isDarwin CoreServices;
 
@@ -24,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description = "A Cargo subcommand for watching over Cargo project's source";
-    homepage = https://github.com/passcod/cargo-watch;
+    homepage = "https://github.com/passcod/cargo-watch";
     license = licenses.cc0;
     platforms = platforms.all;
     maintainers = with maintainers; [ xrelkd ivan ];

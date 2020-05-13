@@ -2,19 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-xbuild";
-  version = "0.5.24";
+  version = "0.5.29";
 
   src = fetchFromGitHub {
     owner = "rust-osdev";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1haq8gv4k6qgihyjplf76589d2hbb1720g6yvwk88aksjxmqj4jm";
+    sha256 = "05wg1xx2mcwb9cplmrpg13jimddlzmv7hf5g3vjppjp8kz2gb7zj";
   };
 
-  # Delete this on next update; see #79975 for details
-  legacyCargoFetcher = true;
-
-  cargoSha256 = "011r5n68ay94dvfm37xpd9s8x086l6qsll74iw98hcvw3inxp1ws";
+  cargoSha256 = "1s2xsfld29shvjzyp16y263hnbqxrq8i2557y0g09xmfm5x0jhix";
 
   meta = with stdenv.lib; {
     description = "Automatically cross-compiles the sysroot crates core, compiler_builtins, and alloc";
