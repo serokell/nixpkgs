@@ -12,6 +12,7 @@
 , zlib
 , self
 , configd
+, autoreconfHook
 , python-setup-hook
 , nukeReferences
 # For the Python package set
@@ -52,6 +53,7 @@ let
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
   nativeBuildInputs = [
+    autoreconfHook
     nukeReferences
   ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     buildPackages.stdenv.cc
