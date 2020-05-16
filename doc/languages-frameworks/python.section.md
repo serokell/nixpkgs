@@ -822,8 +822,16 @@ used in `buildPythonPackage`.
 - `pythonRemoveBinBytecode` to remove bytecode from the `/bin` folder.
 - `setuptoolsBuildHook` to build a wheel using `setuptools`.
 - `setuptoolsCheckHook` to run tests with `python setup.py test`.
+<<<<<<< HEAD
 - `venvShellHook` to source a Python 3 `venv` at the `venvDir` location. A `venv` is created if it does not yet exist.
 - `wheelUnpackHook` to move a wheel to the correct folder so it can be installed with the `pipInstallHook`.
+=======
+- `venvShellHook` to source a Python 3 `venv` at the `venvDir` location. A
+  `venv` is created if it does not yet exist. `postVenvCreation` can be used to
+  to run commands only after venv is first created.
+- `wheelUnpackHook` to move a wheel to the correct folder so it can be installed
+  with the `pipInstallHook`.
+>>>>>>> 15b3d9d2773 (python3Packages.venvShellHook: add postVenvCreation (#87850))
 
 ### Development mode
 
@@ -1057,6 +1065,46 @@ stdenv.mkDerivation {
     zlib
   ];
 
+<<<<<<< HEAD
+=======
+  # Run this command, only after creating the virtual environment
+  postVenvCreation = ''
+    unset SOURCE_DATE_EPOCH
+    pip install -r requirements.txt
+  '';
+
+  # Now we can execute any commands within the virtual environment.
+  # This is optional and can be left out to run pip manually.
+  postShellHook = ''
+    # allow pip to install wheels
+    unset SOURCE_DATE_EPOCH
+  '';
+
+}
+```
+
+In case the supplied venvShellHook is insufficient, or when Python 2 support is
+needed, you can define your own shell hook and adapt to your needs like in the
+following example:
+
+```nix
+with import <nixpkgs> { };
+
+let
+  venvDir = "./.venv";
+  pythonPackages = python3Packages;
+in pkgs.mkShell rec {
+  name = "impurePythonEnv";
+  buildInputs = [
+    pythonPackages.python
+    # Needed when using python 2.7
+    # pythonPackages.virtualenv
+    # ...
+  ];
+
+  # This is very close to how venvShellHook is implemented, but
+  # adapted to use 'virtualenv'
+>>>>>>> 15b3d9d2773 (python3Packages.venvShellHook: add postVenvCreation (#87850))
   shellHook = ''
     # set SOURCE_DATE_EPOCH so that we can use python wheels
     SOURCE_DATE_EPOCH=$(date +%s)
