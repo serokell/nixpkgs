@@ -21,6 +21,10 @@ buildPythonPackage rec {
   # Tarball doesn't contain tests
   doCheck = false;
 
+  patches = lib.optionals (isPy27) [
+    ./0001-Check-base_prefix-and-base_exec_prefix-for-Python-2.patch
+  ];
+
   meta = {
     description = "A tool to create isolated Python environments";
     homepage = http://www.virtualenv.org;
