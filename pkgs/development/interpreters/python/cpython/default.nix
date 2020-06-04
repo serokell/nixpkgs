@@ -29,6 +29,7 @@
 , rebuildBytecode ? true
 , stripBytecode ? false
 , includeSiteCustomize ? true
+, enableOptimizations ? true
 }:
 
 assert x11Support -> tcl != null
@@ -144,6 +145,11 @@ in with passthru; stdenv.mkDerivation {
     "--without-ensurepip"
     "--with-system-expat"
     "--with-system-ffi"
+  ] ++ optionals enableOptimizations [
+    "--enable-optimizations"
+  ] ++ optionals (pythonOlder "3.7") [
+    # This is unconditionally true starting in CPython 3.7.
+    "--with-threads"
   ] ++ optionals (sqlite != null && isPy3k) [
     "--enable-loadable-sqlite-extensions"
   ] ++ optionals (openssl != null) [
