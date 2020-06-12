@@ -30,7 +30,9 @@
 , rebuildBytecode ? true
 , stripBytecode ? false
 , includeSiteCustomize ? true
-, enableOptimizations ? true
+# Not using optimizations on Darwin
+# configure: error: llvm-profdata is required for a --enable-optimizations build but could not be found.
+, enableOptimizations ? (!stdenv.isDarwin)
 }:
 
 assert x11Support -> tcl != null
@@ -53,8 +55,9 @@ let
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
-  nativeBuildInputs = [
+  nativeBuildInputs = optionals (!stdenv.isDarwin) [
     autoreconfHook
+  ] ++ [
     nukeReferences
   ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     buildPackages.stdenv.cc
