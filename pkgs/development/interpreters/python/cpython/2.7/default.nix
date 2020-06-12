@@ -22,6 +22,7 @@
 , sha256
 , passthruFun
 , static ? false
+, enableOptimizations ? (!stdenv.isDarwin)
 }:
 
 assert x11Support -> tcl != null
@@ -134,7 +135,9 @@ let
         --replace 'os.popen(comm)' 'os.popen("${coreutils}/bin/nproc")'
     '';
 
-  configureFlags = [
+  configureFlags = optionals enableOptimizations [
+    "--enable-optimizations"
+  ] ++ [
     "--enable-shared"
     "--with-threads"
     "--enable-unicode=ucs${toString ucsEncoding}"
