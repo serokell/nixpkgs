@@ -22,6 +22,10 @@ buildPythonPackage rec {
     sha256 = "e7a31f147974362e6c82d84b91c7f2bdf57e4d3163d3d454e6c3e71944d67135";
   };
 
+  # Remove when solved https://github.com/NixOS/nixpkgs/issues/81441
+  # Also update pkgs/development/interpreters/python/hooks/pip-install-hook.sh accordingly
+  patches = [ ./reproducible.patch ];
+
   nativeBuildInputs = [ bootstrapped-pip ];
 
   # pip detects that we already have bootstrapped_pip "installed", so we need
