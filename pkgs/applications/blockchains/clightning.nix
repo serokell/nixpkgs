@@ -24,6 +24,15 @@ stdenv.mkDerivation rec {
     ./configure --prefix=$out --disable-developer --disable-valgrind
   '';
 
+  # https://github.com/ElementsProject/lightning/pull/3693
+  patches = [
+    (fetchpatch {
+      name = "payment-amounts.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/ElementsProject/lightning/pull/3693.diff";
+      sha256 = "0xcn18bz5wji98sdjjqcl4sqq4gb4my3b1lq9wck7dn61j3r6dmp";
+    })
+  ];
+
   postPatch = ''
     patchShebangs \
       tools/generate-wire.py \
