@@ -4,11 +4,11 @@
 with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "clightning";
-  version = "0.8.2";
+  version = "0.8.2.1";
 
   src = fetchurl {
     url = "https://github.com/ElementsProject/lightning/releases/download/v${version}/clightning-v${version}.zip";
-    sha256 = "1w5l3r3pnhnwz3x7mjgd69cw9a18fpyjwj7kmfka7cf9hdgcwp9x";
+    sha256 = "02incjr59fv75q6hlrln9h4b5gq7ipd778scbz8b8dahj7x1a6i5";
   };
 
   enableParallelBuilding = true;
@@ -23,6 +23,15 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     ./configure --prefix=$out --disable-developer --disable-valgrind
   '';
+
+  # https://github.com/ElementsProject/lightning/pull/3693
+  patches = [
+    (fetchpatch {
+      name = "payment-amounts.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/ElementsProject/lightning/pull/3693.diff";
+      sha256 = "0xcn18bz5wji98sdjjqcl4sqq4gb4my3b1lq9wck7dn61j3r6dmp";
+    })
+  ];
 
   postPatch = ''
     patchShebangs \
