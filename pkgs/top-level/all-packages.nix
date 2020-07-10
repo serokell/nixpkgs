@@ -8215,6 +8215,8 @@ in
 
   llvmPackages_latest = llvmPackages_9; # llvmPackages_10: when out of RC
 
+  llvmPackages_rocm = callPackage ../development/compilers/llvm/rocm { };
+
   lorri = callPackage ../tools/misc/lorri {
     inherit (darwin) cf-private;
     inherit (darwin.apple_sdk.frameworks) CoreServices Security;
