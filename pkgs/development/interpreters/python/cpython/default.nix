@@ -295,6 +295,8 @@ in with passthru; stdenv.mkDerivation {
     pythonForBuild buildPackages.bash
   ];
 
+  separateDebugInfo = true;
+
   inherit passthru;
 
   enableParallelBuilding = true;
