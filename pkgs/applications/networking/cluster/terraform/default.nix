@@ -118,15 +118,22 @@ in rec {
   terraform_0_11-full = terraform_0_11.full;
 
   terraform_0_12 = pluggable (generic {
-    version = "0.12.25";
-    sha256 = "0xq4327386x6isw82d4xyq70pw7xxlh4sgmqas0b2pvyz85jxdch";
+    version = "0.12.28";
+    sha256 = "05ymr6vc0sqh1sia0qawhz0mag8jdrq157mbj9bkdpsnlyv209p3";
     patches = [
         ./provider-path.patch
         (fetchpatch {
             name = "fix-mac-mojave-crashes.patch";
-            url = "https://github.com/hashicorp/terraform/pull/24562.patch";
+            url = "https://github.com/hashicorp/terraform/commit/cd65b28da051174a13ac76e54b7bb95d3051255c.patch";
             sha256 = "1k70kk4hli72x8gza6fy3vpckdm3sf881w61fmssrah3hgmfmbrs";
         }) ];
+    passthru = { inherit plugins; };
+  });
+
+  terraform_0_13 = pluggable (generic {
+    version = "0.13.0-beta3";
+    sha256 = "199rrw0kjp9qwa8llwmihgnqrgs4vr0zrbik5w5bfkrldyqp2ynb";
+    patches = [ ./provider-path.patch ];
     passthru = { inherit plugins; };
   });
 
