@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python }:
+{ lib, stdenv, fetchFromGitHub, cmake, python, ncurses }:
 
 stdenv.mkDerivation {
   name = "libtapi";
@@ -22,7 +22,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake python ];
 
-  buildInputs = [ clang_6.cc ];
+  # ncurses is required here to avoid a reference to bootstrap-tools, which is
+  # not allowed for the stdenv.
+  buildInputs = [ ncurses ];
 
   cmakeFlags = [ "-DLLVM_INCLUDE_TESTS=OFF" ];
 
