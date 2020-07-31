@@ -1,4 +1,4 @@
-{ stdenv, cmake, fetch, libcxx, libunwind, llvm, version }:
+{ stdenv, cmake, fetch, libcxx, libunwind, llvm, version, standalone ? false }:
 
 stdenv.mkDerivation {
   pname = "libc++abi";
@@ -18,7 +18,8 @@ stdenv.mkDerivation {
   '' + stdenv.lib.optionalString stdenv.hostPlatform.isMusl ''
     patch -p1 -d $(ls -d libcxx-*) -i ${../libcxx-0001-musl-hacks.patch}
   '';
-
+  cmakeFlags =
+     stdenv.lib.optional standalone "-DLLVM_ENABLE_LIBCXX=ON";
   installPhase = if stdenv.isDarwin
     then ''
       for file in lib/*.dylib; do
