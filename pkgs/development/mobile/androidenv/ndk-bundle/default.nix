@@ -14,9 +14,7 @@ deployAndroidPackage {
   patchInstructions = lib.optionalString (os == "linux") (''
     patchShebangs .
 
-  '' + lib.optionalString (builtins.compareVersions (lib.getVersion package) "21" > 0) ''
-    patch -p1 \
-      --no-backup-if-mismatch < ${./make_standalone_toolchain.py_18.patch}
+    chmod -R +w .
     wrapProgram $(pwd)/build/tools/make_standalone_toolchain.py --prefix PATH : "${runtime_paths}"
   '' + ''
 
