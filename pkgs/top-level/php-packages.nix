@@ -1,9 +1,9 @@
 { stdenv, lib, pkgs, fetchgit, php, autoconf, pkgconfig, re2c
-, gettext, bzip2, curl, libxml2, openssl, gmp, icu, oniguruma, libsodium
+, gettext, bzip2, curl, libxml2, openssl, gmp, icu64, oniguruma, libsodium
 , html-tidy, libzip, zlib, pcre, pcre2, libxslt, aspell, openldap, cyrus_sasl
 , uwimap, pam, libiconv, enchant1, libXpm, gd, libwebp, libjpeg, libpng
 , freetype, libffi, freetds, postgresql, sqlite, net-snmp, unixODBC, libedit
-, readline, rsync
+, readline, rsync, fetchpatch
 }:
 
 let
@@ -57,12 +57,12 @@ in
     };
 
     composer = mkDerivation rec {
-      version = "1.10.6";
+      version = "1.10.8";
       pname = "composer";
 
       src = pkgs.fetchurl {
         url = "https://getcomposer.org/download/${version}/composer.phar";
-        sha256 = "0yzfzgg9qlc388g91bdg7y7rp1q8vqb5hkwykwmr1n1lv8dsrg99";
+        sha256 = "1rbqa56bsc3wrhk8djxdzh755zx1qrqp3wrdid7x0djzbmzp6h2c";
       };
 
       dontUnpack = true;
@@ -232,12 +232,12 @@ in
     };
 
     phpstan = mkDerivation rec {
-      version = "0.12.25";
+      version = "0.12.32";
       pname = "phpstan";
 
       src = pkgs.fetchurl {
         url = "https://github.com/phpstan/phpstan/releases/download/${version}/phpstan.phar";
-        sha256 = "1a864v7fxpv5kp24nkvczrir3ldl6wxvaq85rd391ppa8ahdhvdd";
+        sha256 = "0sb7yhjjh4wj8wbv4cdf0n1lvhx1ciz7ch8lr73maajj2xbvy1zk";
       };
 
       phases = [ "installPhase" ];
@@ -547,7 +547,7 @@ in
       nativeBuildInputs = [ pkgs.pkgconfig ];
       buildInputs = with pkgs; [
         cyrus_sasl
-        icu
+        icu64
         openssl
         snappy
         zlib
@@ -854,6 +854,9 @@ in
       inherit configureFlags internalDeps buildInputs
         zendExtension doCheck;
 
+      prePatch = "pushd ../..";
+      postPatch = "popd";
+
       preConfigure = ''
         nullglobRestore=$(shopt -p nullglob)
         shopt -u nullglob   # To make ?-globbing work
@@ -944,6 +947,12 @@ in
         enable = lib.versionOlder php.version "7.4"; }
       { name = "gettext";
         buildInputs = [ gettext ];
+        patches = lib.optionals (lib.versionOlder php.version "7.4") [
+          (fetchpatch {
+            url = "https://github.com/php/php-src/commit/632b6e7aac207194adc3d0b41615bfb610757f41.patch";
+            sha256 = "0xn3ivhc4p070vbk5yx0mzj2n7p04drz3f98i77amr51w0vzv046";
+          })
+        ];
         postPhpize = ''substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
         configureFlags = "--with-gettext=${gettext}"; }
       { name = "gmp";
@@ -962,7 +971,13 @@ in
         # uwimap doesn't build on darwin.
         enable = (!stdenv.isDarwin); }
       # interbase (7.3, 7.2)
-      { name = "intl"; buildInputs = [ icu ]; }
+      { name = "intl";
+        buildInputs = [ icu64 ];
+        patches = lib.optional (lib.versionOlder php.version "7.4") (fetchpatch {
+          url = "https://github.com/php/php-src/commit/93a9b56c90c334896e977721bfb3f38b1721cec6.patch";
+          sha256 = "055l40lpyhb0rbjn6y23qkzdhvpp7inbnn6x13cpn4inmhjqfpg4";
+        });
+      }
       { name = "json"; }
       { name = "ldap";
         buildInputs = [ openldap cyrus_sasl ];
@@ -983,14 +998,14 @@ in
         # The configure script doesn't correctly add library link
         # flags, so we add them to the variable used by the Makefile
         # when linking.
-        MYSQLND_SHARED_LIBADD = "-lssl -lcrypto -lz";
+        MYSQLND_SHARED_LIBADD = "-lssl -lcrypto";
         # The configure script builds a config.h which is never
         # included. Let's include it in the main header file
         # included by all .c-files.
         patches = [
           (pkgs.writeText "mysqlnd_config.patch" ''
-            --- a/mysqlnd.h
-            +++ b/mysqlnd.h
+            --- a/ext/mysqlnd/mysqlnd.h
+            +++ b/ext/mysqlnd/mysqlnd.h
             @@ -1,3 +1,6 @@
             +#ifdef HAVE_CONFIG_H
             +#include "config.h"
@@ -998,6 +1013,19 @@ in
              /*
                +----------------------------------------------------------------------+
                | Copyright (c) The PHP Group                                          |
+          '')
+        ] ++ lib.optional (lib.versionOlder php.version "7.4.8") [
+          (pkgs.writeText "mysqlnd_fix_compression.patch" ''
+            --- a/ext/mysqlnd/mysqlnd.h
+            +++ b/ext/mysqlnd/mysqlnd.h
+            @@ -48,7 +48,7 @@
+             #define MYSQLND_DBG_ENABLED 0
+             #endif
+
+            -#if defined(MYSQLND_COMPRESSION_WANTED) && defined(HAVE_ZLIB)
+            +#if defined(MYSQLND_COMPRESSION_WANTED)
+             #define MYSQLND_COMPRESSION_ENABLED 1
+             #endif
           '')
         ];
         postPhpize = lib.optionalString (lib.versionOlder php.version "7.4") ''
@@ -1013,8 +1041,8 @@ in
         # included after the ifdef...
         patches = lib.optional (lib.versionOlder php.version "7.4") [
           (pkgs.writeText "zend_file_cache_config.patch" ''
-            --- a/zend_file_cache.c
-            +++ b/zend_file_cache.c
+            --- a/ext/opcache/zend_file_cache.c
+            +++ b/ext/opcache/zend_file_cache.c
             @@ -27,9 +27,9 @@
              #include "ext/standard/md5.h"
              #endif
@@ -1142,6 +1170,10 @@ in
         doCheck = false; }
       { name = "zlib";
         buildInputs = [ zlib ];
+        patches = lib.optionals (lib.versionOlder php.version "7.4") [
+          # Derived from https://github.com/php/php-src/commit/f16b012116d6c015632741a3caada5b30ef8a699
+          ../development/interpreters/php/zlib-darwin-tests.patch
+        ];
         configureFlags = [ "--with-zlib" ]
           ++ lib.optional (lib.versionOlder php.version "7.4") [ "--with-zlib-dir=${zlib.dev}" ]; }
     ];

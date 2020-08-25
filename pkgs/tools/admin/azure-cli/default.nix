@@ -1,12 +1,12 @@
 { stdenv, lib, python, fetchFromGitHub, installShellFiles }:
 
 let
-  version = "2.5.1";
+  version = "2.10.1";
   src = fetchFromGitHub {
     owner = "Azure";
     repo = "azure-cli";
     rev = "azure-cli-${version}";
-    sha256 = "129v01da0whayqi9nvrfnlrq10mn5j096k43xl72214nk7iliwfy";
+    sha256 = "03mard9cyffn109c1p0hrdi4cjxbwyk98677qrira9yvy6rw04bg";
   };
 
   # put packages that needs to be overriden in the py package scope

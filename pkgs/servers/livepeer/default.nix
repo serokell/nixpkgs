@@ -1,5 +1,5 @@
 { stdenv, fetchFromGitHub, buildGoPackage
-, pkgconfig, ffmpeg
+, pkgconfig, ffmpeg_3
 }:
 
 buildGoPackage rec {
@@ -18,9 +18,7 @@ buildGoPackage rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  buildInputs = [ ffmpeg ];
-
-  enableParallelBuilding = true;
+  buildInputs = [ ffmpeg_3 ];
 
   meta = with stdenv.lib; {
     description = "Official Go implementation of the Livepeer protocol";

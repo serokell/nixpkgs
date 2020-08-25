@@ -247,7 +247,8 @@ in rec {
             (/**/ if lib.isString cmakeFlags then [cmakeFlags]
              else if cmakeFlags == null      then []
              else                                     cmakeFlags)
-          ++ [ "-DCMAKE_SYSTEM_NAME=${lib.findFirst lib.isString "Generic" [ stdenv.hostPlatform.uname.system ]}" ]
+          ++ [ "-DCMAKE_SYSTEM_NAME=${lib.findFirst lib.isString "Generic" (
+               lib.optional (!stdenv.hostPlatform.isRedox) stdenv.hostPlatform.uname.system)}"]
           ++ lib.optional (stdenv.hostPlatform.uname.processor != null) "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
           ++ lib.optional (stdenv.hostPlatform.uname.release != null) "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.release}"
           ++ lib.optional (stdenv.buildPlatform.uname.system != null) "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
@@ -262,7 +263,7 @@ in rec {
               else if isx86_32  then "x86"
               else if isx86_64  then "x86_64"
               else platform.parsed.cpu.family + builtins.toString platform.parsed.cpu.bits;
-            crossFile = builtins.toFile "cross-file.conf" (''
+            crossFile = builtins.toFile "cross-file.conf" ''
               [properties]
               needs_exe_wrapper = true
 
@@ -271,13 +272,7 @@ in rec {
               cpu_family = '${cpuFamily stdenv.targetPlatform}'
               cpu = '${stdenv.targetPlatform.parsed.cpu.name}'
               endian = ${if stdenv.targetPlatform.isLittleEndian then "'little'" else "'big'"}
-            ''
-            # TODO should have target prefix too, issue #86077
-            + ''
-
-              [binaries]
-              pkgconfig = 'pkg-config'
-            '');
+            '';
           in [ "--cross-file=${crossFile}" ] ++ mesonFlags;
         } // lib.optionalAttrs (attrs.enableParallelBuilding or false) {
           enableParallelChecking = attrs.enableParallelChecking or true;

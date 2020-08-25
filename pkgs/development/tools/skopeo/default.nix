@@ -15,18 +15,20 @@
 
 buildGoModule rec {
   pname = "skopeo";
-  version = "1.0.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     rev = "v${version}";
     owner = "containers";
     repo = "skopeo";
-    sha256 = "1zg0agf8x7fa8zdzfzgncm64j363lmxrqjhdzsx6mlig87k17p05";
+    sha256 = "0wkpw8fizxjpfypflp7rs1q128dg4hadwzdvn8k41h7f8cbcb39x";
   };
 
   outputs = [ "out" "man" ];
 
   vendorSha256 = null;
+
+  doCheck = false;
 
   nativeBuildInputs = [ pkg-config go-md2man installShellFiles makeWrapper ];
 
