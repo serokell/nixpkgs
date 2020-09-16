@@ -54,6 +54,9 @@ let
       ./qtbase.patch
       ./qtbase-fixguicmake.patch
       ./qtbase-trayicons.patch # can be removed with 5.12.4 or 5.13
+      # Patch framework detection to support X.framework/X.tbd,
+      # extending the current support for X.framework/X.
+      ./qtbase.patch.d/0015-qtbase-tbd-frameworks.patch
     ];
     qtdeclarative = [ ./qtdeclarative.patch ];
     qtscript = [ ./qtscript.patch ];
