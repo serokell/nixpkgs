@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, xar, cpio, pkgs, python, pbzx, lib }:
+{ stdenv, fetchurl, xar, cpio, pkgs, python, pbzx, lib, darwin-stubs, print-reexports }:
 
 let
   # sadly needs to be exported because security_tool needs it
@@ -38,7 +38,12 @@ let
       rmdir System
 
       pushd lib
-      ln -s -L /usr/lib/libcups*.dylib .
+      cp ${darwin-stubs}/usr/lib/libcups*.tbd .
+      ln -s libcups.2.tbd      libcups.tbd
+      ln -s libcupscgi.1.tbd   libcupscgi.tbd
+      ln -s libcupsimage.2.tbd libcupsimage.tbd
+      ln -s libcupsmime.1.tbd  libcupsmime.tbd
+      ln -s libcupsppdc.1.tbd  libcupsppdc.tbd
       popd
     '';
 
@@ -48,6 +53,12 @@ let
       platforms   = platforms.darwin;
     };
   };
+
+  mkFrameworkSubs = name: deps:
+  let
+    deps' = deps // { "${name}" = placeholder "out"; };
+    substArgs = lib.concatMap (x: [ "--subst-var-by" x deps'."${x}" ]) (lib.attrNames deps');
+  in lib.escapeShellArgs substArgs;
 
   framework = name: deps: stdenv.mkDerivation {
     name = "apple-framework-${name}";
@@ -59,62 +70,86 @@ let
 
     disallowedRequisites = [ sdk ];
 
+    nativeBuildInputs = [ print-reexports ];
+
+    extraTBDFiles = [];
+
     installPhase = ''
       linkFramework() {
         local path="$1"
-        local dest="$out/Library/Frameworks/$path"
+        local nested_path="$1"
+        if [ "$path" == "JavaNativeFoundation.framework" ]; then
+          local nested_path="JavaVM.framework/Versions/A/Frameworks/JavaNativeFoundation.framework"
+        fi
+        if [ "$path" == "JavaRuntimeSupport.framework" ]; then
+          local nested_path="JavaVM.framework/Versions/A/Frameworks/JavaRuntimeSupport.framework"
+        fi
         local name="$(basename "$path" .framework)"
-        local current="$(readlink "/System/Library/Frameworks/$path/Versions/Current")"
+        local current="$(readlink "/System/Library/Frameworks/$nested_path/Versions/Current")"
         if [ -z "$current" ]; then
           current=A
         fi
-
-        mkdir -p "$dest"
-        pushd "$dest" >/dev/null
-
-        # Keep track of if this is a child or a child rescue as with
-        # ApplicationServices in the 10.9 SDK
-        local isChild=0
-
-        if [ -d "${sdk.out}/Library/Frameworks/$path/Versions/$current/Headers" ]; then
-          isChild=1
-          cp -R "${sdk.out}/Library/Frameworks/$path/Versions/$current/Headers" .
+        local dest="$out/Library/Frameworks/$path"
+        mkdir -p "$dest/Versions/$current"
+        pushd "$dest/Versions/$current" >/dev/null
+        if [ -d "${sdk.out}/Library/Frameworks/$nested_path/Versions/$current/Headers" ]; then
+          cp -R "${sdk.out}/Library/Frameworks/$nested_path/Versions/$current/Headers" .
         elif [ -d "${sdk.out}/Library/Frameworks/$name.framework/Versions/$current/Headers" ]; then
           current="$(readlink "/System/Library/Frameworks/$name.framework/Versions/Current")"
           cp -R "${sdk.out}/Library/Frameworks/$name.framework/Versions/$current/Headers" .
         fi
-        ln -s -L "/System/Library/Frameworks/$path/Versions/$current/$name"
-        ln -s -L "/System/Library/Frameworks/$path/Versions/$current/Resources"
-
-        if [ -f "/System/Library/Frameworks/$path/module.map" ]; then
-          ln -s "/System/Library/Frameworks/$path/module.map"
+        local tbd_source=${darwin-stubs}/System/Library/Frameworks/$nested_path/Versions/$current
+        if [ "${name}" != "Kernel" ]; then
+          cp -v $tbd_source/*.tbd .
         fi
-
-        if [ $isChild -eq 1 ]; then
-          pushd "${sdk.out}/Library/Frameworks/$path/Versions/$current" >/dev/null
-        else
-          pushd "${sdk.out}/Library/Frameworks/$name.framework/Versions/$current" >/dev/null
+        if [ -d "$tbd_source/Libraries" ]; then
+          mkdir Libraries
+          cp -v $tbd_source/Libraries/*.tbd Libraries/
         fi
+        ln -s -L "/System/Library/Frameworks/$nested_path/Versions/$current/Resources"
+        if [ -f "/System/Library/Frameworks/$nested_path/module.map" ]; then
+          ln -s "/System/Library/Frameworks/$nested_path/module.map"
+        fi
+        pushd "${sdk.out}/Library/Frameworks/$nested_path/Versions/$current" >/dev/null
         local children=$(echo Frameworks/*.framework)
         popd >/dev/null
-
         for child in $children; do
           childpath="$path/Versions/$current/$child"
           linkFramework "$childpath"
         done
-
-        if [ -d "$dest/Versions/$current" ]; then
-          mv $dest/Versions/$current/* .
-        fi
-
+        pushd ../.. >/dev/null
+        ln -s "$current" Versions/Current
+        ln -s Versions/Current/* .
+        popd >/dev/null
         popd >/dev/null
       }
-
-
       linkFramework "${name}.framework"
+      # linkFramework is recursive, the rest of the processing is not.
+      local tbd_source=${darwin-stubs}/System/Library/Frameworks/${name}.framework
+      for tbd in $extraTBDFiles; do
+        local tbd_dest_dir=$out/Library/Frameworks/${name}.framework/$(dirname "$tbd")
+        mkdir -p "$tbd_dest_dir"
+        cp -v "$tbd_source/$tbd" "$tbd_dest_dir"
+      done
+      # Fix and check tbd re-export references
+      find $out -name '*.tbd' | while read tbd; do
+        echo "Fixing re-exports in $tbd"
+        substituteInPlace "$tbd" ${mkFrameworkSubs name deps}
+        echo "Checking re-exports in $tbd"
+        print-reexports "$tbd" | while read target; do
+          local expected="''${target%.dylib}.tbd"
+          if ! [ -e "$expected" ]; then
+            echo -e "Re-export missing:\n\t$target\n\t(expected $expected)"
+            echo -e "While processing\n\t$tbd"
+            exit 1
+          else
+            echo "Re-exported target $target ok"
+          fi
+        done
+      done
     '';
 
-    propagatedBuildInputs = deps;
+    propagatedBuildInputs = builtins.attrValues deps;
 
     # don't use pure CF for dylibs that depend on frameworks
     setupHook = ./framework-setup-hook.sh;
@@ -132,6 +167,17 @@ let
       maintainers = with maintainers; [ copumpkin ];
       platforms   = platforms.darwin;
     };
+  };
+
+  tbdOnlyFramework = name: { private ? true }: stdenv.mkDerivation {
+    name = "apple-framework-${name}";
+    dontUnpack = true;
+    installPhase = ''
+      mkdir -p $out/Library/Frameworks/
+      cp -r ${darwin-stubs}/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework \
+        $out/Library/Frameworks
+      # NOTE there's no re-export checking here, this is probably wrong
+    '';
   };
 in rec {
   libs = {
@@ -162,7 +208,8 @@ in rec {
       installPhase = ''
         mkdir -p $out/include $out/lib
         ln -s "${lib.getDev sdk}/include/Xplugin.h" $out/include/Xplugin.h
-        ln -s "/usr/lib/libXplugin.1.dylib" $out/lib/libXplugin.dylib
+        cp ${darwin-stubs}/usr/lib/libXplugin.1.tbd $out/lib
+        ln -s libXplugin.1.tbd $out/lib/libXplugin.tbd
       '';
     };
 
@@ -187,6 +234,10 @@ in rec {
       ];
     });
 
+    Carbon = stdenv.lib.overrideDerivation super.Carbon (drv: {
+      extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
+    });
+
     CoreFoundation = stdenv.lib.overrideDerivation super.CoreFoundation (drv: {
       setupHook = ./cf-setup-hook.sh;
     });
@@ -202,6 +253,10 @@ in rec {
         "/System/Library/PrivateFrameworks/"
       ];
       setupHook = ./private-frameworks-setup-hook.sh;
+    });
+
+    IMServicePlugIn = stdenv.lib.overrideDerivation super.IMServicePlugIn (drv: {
+      extraTBDFiles = [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ];
     });
 
     Security = stdenv.lib.overrideDerivation super.Security (drv: {
@@ -222,7 +277,14 @@ in rec {
         cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
       '';
     });
-  };
+
+    WebKit = stdenv.lib.overrideDerivation super.WebKit (drv: {
+      extraTBDFiles = [
+        "Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore.tbd"
+        "Versions/A/Frameworks/WebKitLegacy.framework/Versions/A/WebKitLegacy.tbd"
+      ];
+    });
+  } // lib.genAttrs [ "ContactsPersistence" "UIFoundation" "GameCenter" ] (x: tbdOnlyFramework x {});
 
   bareFrameworks = stdenv.lib.mapAttrs framework (import ./frameworks.nix {
     inherit frameworks libs;
