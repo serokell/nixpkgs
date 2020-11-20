@@ -223,10 +223,12 @@ let
             ${optionalString (vhost.acmeFallbackHost != null) "try_files $uri @acme-fallback;"}
             root ${vhost.acmeRoot};
             auth_basic off;
+            auth_request off;
           }
           ${optionalString (vhost.acmeFallbackHost != null) ''
             location @acme-fallback {
               auth_basic off;
+              auth_request off;
               proxy_pass http://${vhost.acmeFallbackHost};
             }
           ''}
