@@ -41,6 +41,23 @@ let
           type = lib.types.package;
         };
 
+        count = lib.mkOption {
+          default = 1;
+          type = lib.types.int;
+          description = "How many instances of this agent to start";
+        };
+
+        extraServiceConfig = lib.mkOption {
+          default = {};
+          type = lib.types.attrs;
+          description = "Attributes recursively merged into each unit's serviceConfig";
+          example = lib.literalExpression ''
+            {
+              EnvironmentFile = "/run/secrets/buildkite/environment";
+            }
+          '';
+        };
+
         dataDir = lib.mkOption {
           default = "/var/lib/buildkite-agent-${name}";
           description = "The workdir for the agent";
@@ -191,9 +208,9 @@ in
     }
   );
 
-  config.systemd.services = mapAgents (
-    name: cfg: {
-      "buildkite-agent-${name}" = {
+  config.systemd.services = mapAgents (name: cfg:
+    lib.mkMerge ((lib.flip map) (lib.range 1 cfg.count) (n: {
+      "buildkite-agent-${name}-${toString n}" = {
         description = "Buildkite Agent";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
@@ -244,10 +261,9 @@ in
           # set a long timeout to give buildkite-agent a chance to finish current builds
           TimeoutStopSec = "2 min";
           KillMode = "mixed";
-        };
+        } // cfg.extraServiceConfig;
       };
-    }
-  );
+    })));
 
   config.assertions = mapAgents (
     name: cfg: [
