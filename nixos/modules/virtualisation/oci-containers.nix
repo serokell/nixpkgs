@@ -59,6 +59,13 @@ let
         '';
         };
 
+        environmentFile = mkOption {
+          type = with types; nullOr str;
+          default = null;
+          description = "Read in a file of environment variables.";
+          example = "/var/run/secrets/docker/backend.env";
+        };
+
         log-driver = mkOption {
           type = types.str;
           default = "journald";
@@ -236,6 +243,7 @@ let
     ] ++ optional (container.entrypoint != null)
       "--entrypoint=${escapeShellArg container.entrypoint}"
       ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}") container.environment)
+      ++ optional (container.environmentFile != null) "--env-file=${escapeShellArg container.environmentFile}"
       ++ map (p: "-p ${escapeShellArg p}") container.ports
       ++ optional (container.user != null) "-u ${escapeShellArg container.user}"
       ++ map (v: "-v ${escapeShellArg v}") container.volumes
