@@ -11,6 +11,7 @@ let
     "ghc8107BinaryMinimal"
     "ghcjs"
     "ghcjs86"
+    "ghcjs810"
     "integer-simple"
     "native-bignum"
     "ghcHEAD"
@@ -155,12 +156,18 @@ in {
       llvmPackages = pkgs.llvmPackages_10;
       libffi = pkgs.libffi;
     };
-    ghcjs = compiler.ghcjs86;
     ghcjs86 = callPackage ../development/compilers/ghcjs-ng {
       bootPkgs = packages.ghc865;
       ghcjsSrcJson = ../development/compilers/ghcjs-ng/8.6/git.json;
       stage0 = ../development/compilers/ghcjs-ng/8.6/stage0.nix;
       ghcjsDepOverrides = callPackage ../development/compilers/ghcjs-ng/8.6/dep-overrides.nix {};
+    };
+
+    ghcjs = compiler.ghcjs810;
+    ghcjs810 = callPackage ../development/compilers/ghcjs-ng/8.10 {
+      bootPkgs = packages.ghc8107;
+      ghcjsSrcJson = ../development/compilers/ghcjs-ng/8.10/git.json;
+      stage0 = ../development/compilers/ghcjs-ng/8.10/stage0.nix;
     };
 
     # The integer-simple attribute set contains all the GHC compilers
@@ -264,11 +271,18 @@ in {
       ghc = bh.compiler.ghcHEAD;
       compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-head.nix { };
     };
-    ghcjs = packages.ghcjs86;
     ghcjs86 = callPackage ../development/haskell-modules rec {
       buildHaskellPackages = ghc.bootPkgs;
       ghc = bh.compiler.ghcjs86;
       compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-8.6.x.nix { };
+      packageSetConfig = callPackage ../development/haskell-modules/configuration-ghcjs.nix { };
+    };
+
+    ghcjs = packages.ghcjs810;
+    ghcjs810 = callPackage ../development/haskell-modules rec {
+      buildHaskellPackages = ghc.bootPkgs;
+      ghc = bh.compiler.ghcjs810;
+      compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix { };
       packageSetConfig = callPackage ../development/haskell-modules/configuration-ghcjs.nix { };
     };
 
