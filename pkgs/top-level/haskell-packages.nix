@@ -7,6 +7,8 @@ let
     "ghc865Binary"
     "ghc8102Binary"
     "ghc8102BinaryMinimal"
+    "ghc8107Binary"
+    "ghc8107BinaryMinimal"
     "ghcjs"
     "ghcjs86"
     "integer-simple"
@@ -57,6 +59,10 @@ in {
 
     ghc8102BinaryMinimal = callPackage ../development/compilers/ghc/8.10.2-binary.nix {
       llvmPackages = pkgs.llvmPackages_9;
+      minimal = true;
+    };
+    ghc8107BinaryMinimal = callPackage ../development/compilers/ghc/8.10.7-binary.nix {
+      llvmPackages = pkgs.llvmPackages_11;
       minimal = true;
     };
 
@@ -121,6 +127,24 @@ in {
         else
           packages.ghc865Binary;
       inherit (buildPackages.python3Packages) sphinx;
+      buildLlvmPackages = buildPackages.llvmPackages_9;
+      llvmPackages = pkgs.llvmPackages_9;
+    };
+    ghc8107 = callPackage ../development/compilers/ghc/8.10.7.nix {
+      # the oldest ghc with aarch64-darwin support is 8.10.5
+      bootPkgs = if stdenv.isDarwin && stdenv.isAarch64 then
+          packages.ghc8107BinaryMinimal
+        # aarch64 ghc865Binary gets SEGVs due to haskell#15449 or similar
+        # Musl bindists do not exist for ghc 8.6.5, so we use 8.10.* for them
+        else if stdenv.isAarch64 || stdenv.isAarch32 || stdenv.targetPlatform.isMusl then
+          packages.ghc8102BinaryMinimal
+        else
+          packages.ghc865Binary;
+      inherit (buildPackages.python3Packages) sphinx;
+      # Need to use apple's patched xattr until
+      # https://github.com/xattr/xattr/issues/44 and
+      # https://github.com/xattr/xattr/issues/55 are solved.
+      inherit (buildPackages.darwin) xattr autoSignDarwinBinariesHook;
       buildLlvmPackages = buildPackages.llvmPackages_9;
       llvmPackages = pkgs.llvmPackages_9;
     };
@@ -228,6 +252,11 @@ in {
     ghc8104 = callPackage ../development/haskell-modules {
       buildHaskellPackages = bh.packages.ghc8104;
       ghc = bh.compiler.ghc8104;
+      compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix { };
+    };
+    ghc8107 = callPackage ../development/haskell-modules {
+      buildHaskellPackages = bh.packages.ghc8107;
+      ghc = bh.compiler.ghc8107;
       compilerConfig = callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix { };
     };
     ghcHEAD = callPackage ../development/haskell-modules {
