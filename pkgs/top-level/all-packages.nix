@@ -1872,6 +1872,8 @@ with pkgs;
 
   coolreader = libsForQt5.callPackage ../applications/misc/coolreader { };
 
+  copr-cli = callPackage ../tools/package-management/copr-cli {};
+
   corsair = with python3Packages; toPythonApplication corsair-scan;
 
   cosign = callPackage ../tools/security/cosign {
