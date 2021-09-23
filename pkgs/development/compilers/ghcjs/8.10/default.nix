@@ -12,7 +12,7 @@
 , makeWrapper
 , xorg
 , gmp
-, pkgconfig
+, pkg-config
 , gcc
 , lib
 , ghcjsDepOverrides ? (_:_:{})
@@ -72,7 +72,7 @@ in stdenv.mkDerivation {
       makeWrapper
       xorg.lndir
       gmp
-      pkgconfig
+      pkg-config
     ] ++ lib.optionals stdenv.isDarwin [
       gcc # https://github.com/ghcjs/ghcjs/issues/663
     ];
@@ -108,6 +108,7 @@ in stdenv.mkDerivation {
 
     inherit passthru;
 
-    meta.platforms = passthru.bootPkgs.ghc.meta.platforms;
+    # The emscripten is broken on darwin
+    meta.platforms = lib.platforms.linux;
     meta.maintainers = with lib.maintainers; [ obsidian-systems-maintenance ];
   }

@@ -18,7 +18,7 @@ self: super:
   inherit (self.ghc.bootPkgs)
     jailbreak-cabal alex happy gtk2hs-buildtools rehoo hoogle;
 
-  ghcjs-base = dontCheck (self.callPackage ../compilers/ghcjs-ng/ghcjs-base.nix {
+  ghcjs-base = dontCheck (self.callPackage ../compilers/ghcjs/8.10/ghcjs-base.nix {
     fetchgit = pkgs.buildPackages.fetchgit;
   });
 
@@ -34,6 +34,10 @@ self: super:
 
   # nodejs crashes during test
   ChasingBottoms = dontCheck super.ChasingBottoms;
+
+  # need doctest
+  comonad = dontCheck super.comonad;
+  distributive = dontCheck super.distributive;
 
   # doctest doesn't work on ghcjs, but sometimes dontCheck doesn't seem to get rid of the dependency
   doctest = pkgs.lib.warn "ignoring dependency on doctest" null;
@@ -82,11 +86,11 @@ self: super:
     libraryHaskellDepends = removeLibraryHaskellDepends ["jsaddle-webkit2gtk"] (drv.libraryHaskellDepends or []);
   });
 
-  # nodejs crashes during test
-  scientific = dontCheck super.scientific;
-
   # https://github.com/dreixel/syb/issues/21
   syb = dontCheck super.syb;
+
+  # nodejs crashes during test
+  scientific = dontCheck super.scientific;
 
   # Tests use TH which gives error
   tasty-quickcheck = dontCheck super.tasty-quickcheck;
@@ -102,7 +106,7 @@ self: super:
   th-abstraction = dontCheck super.th-abstraction;
 
   # https://github.com/haskell/vector/issues/410
-  vector = appendPatch super.vector (../compilers/ghcjs-ng/patches/vector-ghcjs-storable-set.patch) ;
+  vector = appendPatch super.vector (../compilers/ghcjs/patches/vector-ghcjs-storable-set.patch) ;
 
   # Need hedgehog for tests, which fails to compile due to dep on concurrent-output
   zenc = dontCheck super.zenc;
