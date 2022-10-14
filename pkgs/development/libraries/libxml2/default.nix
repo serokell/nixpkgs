@@ -1,5 +1,5 @@
 { stdenv, lib, fetchurl
-, zlib, xz, python2, ncurses, findXMLCatalogs
+, zlib, xz, python, ncurses, findXMLCatalogs
 , pythonSupport ? stdenv.buildPlatform == stdenv.hostPlatform
 , icuSupport ? false, icu ? null
 , enableShared ? stdenv.hostPlatform.libc != "msvcrt"
@@ -7,7 +7,7 @@
 }:
 
 let
-  python = python2;
+  python = python;
 
 in stdenv.mkDerivation rec {
   pname = "libxml2";
