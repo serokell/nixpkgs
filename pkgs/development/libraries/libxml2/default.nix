@@ -6,10 +6,7 @@
 , enableStatic ? !enableShared,
 }:
 
-let
-  python = python;
-
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "libxml2";
   version = "2.9.9";
 
