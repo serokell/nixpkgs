@@ -122,7 +122,6 @@ in {
       suffix = "";
     };
     sha256 = "0gxiv5617zd7dnqm5k9r4q2188lk327nf9jznwq9j6b8p0s92ygv";
-    inherit (darwin) CF configd;
     inherit passthruFun;
 
     # strip down that python version as much as possible
