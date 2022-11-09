@@ -41,26 +41,11 @@ self: super: {
   unix = null;
   xhtml = null;
 
-  # Hasura 1.3.1
-  # Because of ghc-heap-view, profiling needs to be disabled.
-  graphql-engine = overrideCabal (super.graphql-engine) (drv: {
-     # GHC 8.8.x needs a revert of https://github.com/hasura/graphql-engine/commit/a77bb0570f4210fb826985e17a84ddcc4c95d3ea
-     patches = [ ./patches/hasura-884-compat.patch ];
-  });
-
-  # GHC 8.8.x can build haddock version 2.23.*
-  haddock = self.haddock_2_23_1;
-  haddock-api = self.haddock-api_2_23_1;
-
-  # These builds need Cabal 3.2.x.
-  cabal2spec = super.cabal2spec.override { Cabal = self.Cabal_3_2_0_0; };
-  cabal-install = super.cabal-install.overrideScope (self: super: { Cabal = self.Cabal_3_2_0_0; });
-
   # Ignore overly restrictive upper version bounds.
-  aeson-diff = doJailbreak super.aeson-diff;
   async = doJailbreak super.async;
+  cabal-install = doJailbreak super.cabal-install;
   ChasingBottoms = doJailbreak super.ChasingBottoms;
-  chell = doJailbreak super.chell;
+  cryptohash-sha256 = doJailbreak super.cryptohash-sha256;
   Diff = dontCheck super.Diff;
   doctest = doJailbreak super.doctest;
   hashable = doJailbreak super.hashable;
@@ -72,58 +57,120 @@ self: super: {
   quickcheck-instances = doJailbreak super.quickcheck-instances;
   setlocale = doJailbreak super.setlocale;
   split = doJailbreak super.split;
-  system-fileio = doJailbreak super.system-fileio;
   tasty-expected-failure = doJailbreak super.tasty-expected-failure;
-  tasty-hedgehog = doJailbreak super.tasty-hedgehog;
   test-framework = doJailbreak super.test-framework;
-  th-expand-syns = doJailbreak super.th-expand-syns;
-  # TODO: remove when upstream accepts https://github.com/snapframework/io-streams-haproxy/pull/17
-  io-streams-haproxy = doJailbreak super.io-streams-haproxy; # base >=4.5 && <4.13
-  snap-server = doJailbreak super.snap-server;
-  exact-pi = doJailbreak super.exact-pi;
-  time-compat = doJailbreak super.time-compat;
-  http-media = doJailbreak super.http-media;
-  servant-server = doJailbreak super.servant-server;
+  monad-par = dontCheck super.monad-par;
+
+  # These packages don't work and need patching and/or an update.
+  primitive = overrideSrc (doJailbreak super.primitive) {
+    version = "20180530-git";
+    src = pkgs.fetchFromGitHub {
+      owner = "haskell";
+      repo = "primitive";
+      rev = "97964182881aa0419546e0bb188b2d17e4468324";
+      sha256 = "1p1pinca33vd10iy7hl20c1fc99vharcgcai6z3ngqbq50k2pd3q";
+    };
+  };
+  vector-th-unbox = appendPatch (doJailbreak super.vector-th-unbox) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/vector-th-unbox-0.2.1.6.patch";
+    sha256 = "0169yf9ms1g5mmkc5l6hpffzm34zdrqdng4df02nbdmfgba45h19";
+  });
+  regex-base = overrideCabal (appendPatch super.regex-base (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/regex-base-0.93.2.patch";
+    sha256 = "01d1plrdx6hcspwn2h6y9pyi5366qk926vb5cl5qcl6x4m23l6y1";
+  })) (drv: {
+    preConfigure = "sed -i -e 's/base >=4 && < 4.13,/base,/' regex-base.cabal";
+  });
+  regex-posix = appendPatch super.regex-posix (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/regex-posix-0.95.2.patch";
+    sha256 = "006yli58jpqp786zm1xlncjsilc38iv3a09r4pv94l587sdzasd2";
+  });
+  haskell-src-exts = appendPatch (doJailbreak super.haskell-src-exts) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/haskell-src-exts-1.21.0.patch";
+    sha256 = "0alb28hcsp774c9s73dgrajcb44vgv1xqfg2n5a9y2bpyngqscs3";
+  });
+  optparse-applicative = appendPatch (doJailbreak super.optparse-applicative) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/optparse-applicative-0.14.3.0.patch";
+    sha256 = "068sjj98jqiq3h8h03mg4w2pa11q8lxkx2i4lmxivq77xyhlwq3y";
+  });
+  hackage-security = appendPatch (doJailbreak super.hackage-security) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/hackage-security-0.5.3.0.patch";
+    sha256 = "0l8x0pbsn18fj5ak5q0g5rva4xw1s9yc4d86a1pfyaz467b9i5a4";
+  });
+  happy = appendPatch super.happy (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/happy-1.19.11.patch";
+    sha256 = "16m659kxbq0s87ak2y1pqggfy67yfvcwc0zi3hcphf3v8735xhkk";
+  });
+  hedgehog = appendPatch super.hedgehog (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/hedgehog-0.6.1.patch";
+    sha256 = "04xwznd3lfgracfz68ls6vfm19rhq8fb74r6ii0grpv6cx4rr21i";
+  });
+  easytest = self.easytest_0_3;
+  regex-tdfa = appendPatch super.regex-tdfa (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/regex-tdfa-1.2.3.1.patch";
+    sha256 = "1lhas4s2ms666prb475gaw2bqw1v4y8cxi66sy20j727sx7ppjs7";
+  });
+  attoparsec = appendPatch (doJailbreak super.attoparsec) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/attoparsec-0.13.2.2.patch";
+    sha256 = "13i1p5g0xzxnv966nlyb77mfmxvg9jzbym1d36h1ajn045yf4igl";
+  });
+  cassava = appendPatch super.cassava (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/cassava-0.5.1.0.patch";
+    sha256 = "11scwwjp94si90vb8v5yr291g9qwv5l223z8y0g0lc63932bp63g";
+  });
+  shakespeare = appendPatch super.shakespeare (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/shakespeare-2.0.20.patch";
+    sha256 = "1dgx41ylahj4wk8r422aik0d7qdpawdga4gqz905nvlnhqjla58y";
+  });
+  socks = appendPatch (doJailbreak super.socks) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/socks-0.6.0.patch";
+    sha256 = "1dsqmx0sw62x4glh43c0sbizd2y00v5xybiqadn96v6pmfrap5cp";
+  });
+  #lens = appendPatch (doJailbreak super.lens) (pkgs.fetchpatch {
+  #  url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/lens-4.17.1.patch";
+  #  sha256 = "0w89ipi6dfkx5vlw4a64hh6fd0bm9hg33mwpghliyyxik5jmilv1";
+  #});
+  polyparse = appendPatch (doJailbreak super.polyparse) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/polyparse-1.12.1.patch";
+    sha256 = "01b2gnsq0x4fd9na8zpk6pajym55mbz64hgzawlwxdw0y6681kr5";
+  });
   foundation = dontCheck super.foundation;
-  vault = dontHaddock super.vault;
-
-  # https://github.com/snapframework/snap-core/issues/288
-  snap-core = overrideCabal super.snap-core (drv: { prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''"; });
-
-  # Upstream ships a broken Setup.hs file.
-  csv = overrideCabal super.csv (drv: { prePatch = "rm Setup.hs"; });
-
-  # https://github.com/kowainik/relude/issues/241
-  relude = dontCheck super.relude;
-
-  # The tests for semver-range need to be updated for the MonadFail change in
-  # ghc-8.8:
-  # https://github.com/adnelson/semver-range/issues/15
-  semver-range = dontCheck super.semver-range;
-
-  # The current version 2.14.2 does not compile with ghc-8.8.x or newer because
-  # of issues with Cabal 3.x.
-  darcs = dontDistribute super.darcs;
-
-  # Only 0.7 is compatible with ghc 8.7 https://hackage.haskell.org/package/apply-refact/changelog
-  apply-refact = super.apply-refact_0_7_0_0;
-
-  # The package needs the latest Cabal version.
-  cabal-install-parsers = super.cabal-install-parsers.overrideScope (self: super: { Cabal = self.Cabal_3_2_0_0; });
-
-  # cabal-fmt requires Cabal3
-  cabal-fmt = super.cabal-fmt.override { Cabal = self.Cabal_3_2_0_0; };
-
-  # liquidhaskell does not support ghc version 8.8.x.
-  liquid = markBroken super.liquid;
-  liquid-base = markBroken super.liquid-base;
-  liquid-bytestring = markBroken super.liquid-bytestring;
-  liquid-containers = markBroken super.liquid-containers;
-  liquid-ghc-prim = markBroken super.liquid-ghc-prim;
-  liquid-parallel = markBroken super.liquid-parallel;
-  liquid-platform = markBroken super.liquid-platform;
-  liquid-prelude = markBroken super.liquid-prelude;
-  liquid-vector = markBroken super.liquid-vector;
-  liquidhaskell = markBroken super.liquidhaskell;
-
+  memory = overrideCabal (appendPatch super.memory (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/memory-0.14.18.patch";
+    sha256 = "16ar8921s3bi31y1az9zgyg0iaxxc2wvvwqjnl11a17p03wi6b29";
+  })) (drv: {
+    editedCabalFile = null;
+    preConfigure = ''
+      cp -v ${pkgs.fetchurl {url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/memory-0.14.18.cabal"; sha256 = "1325wny0irnq51rz0f4xgkvm01p6n4z5jid2jgpkhjac8a2sdgwl";}} memory.cabal
+    '';
+  });
+  chell = overrideCabal (doJailbreak super.chell) (_drv: {
+    broken = false;
+  });
+  th-expand-syns = doJailbreak super.th-expand-syns;
+  shelly = overrideCabal (appendPatch (doJailbreak super.shelly) (pkgs.fetchpatch {
+    url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/shelly-1.8.1.patch";
+    sha256 = "1kglbwrr4ra81v9x3bfsk5l6pyl0my2a1zkr3qjjx7acn0dfpgbc";
+  })) (drv: {
+    editedCabalFile = null;
+    preConfigure = ''
+      cp -v ${pkgs.fetchurl {url = "https://raw.githubusercontent.com/hvr/head.hackage/master/patches/shelly-1.8.1.cabal"; sha256 = "0crf0m077wky76f5nav2p9q4fa5q4yhv5l4bq9hd073dzdaywhz0";}} shelly.cabal
+      sed -i -e 's/< 1.9,/< 2,/' shelly.cabal # bump time version
+    '';
+  });
+  system-fileio = doJailbreak super.system-fileio;
+  haskell-src-meta = appendPatch (dontCheck (doJailbreak super.haskell-src-meta)) (pkgs.fetchpatch {
+    url = "https://gitlab.haskell.org/ghc/head.hackage/raw/8be3fb8a6779d0317066d501a3b9dffdf6bb06b0/patches/haskell-src-meta-0.8.2.patch";
+    sha256 = "146im1amywyl29kcldvgrxpwj22lrpzxysl7vc8rmn3hrq130dyc";
+  });
+  asn1-encoding = appendPatch (dontCheck (doJailbreak super.asn1-encoding)) (pkgs.fetchpatch {
+    url = "https://gitlab.haskell.org/ghc/head.hackage/raw/82d0fd9967af0699f0ccb5b38f2f0cbef6ed22de/patches/asn1-encoding-0.9.5.patch";
+    sha256 = "0a3159rnaw6shjzdm46799crd4pxh33s23qy51xa7z6nv5q8wsb5";
+  });
+  tls = self.tls_1_5_1;
+  alex = appendPatch (super.alex) (pkgs.fetchpatch {
+    url = "https://github.com/simonmar/alex/commit/deaae6eddef5186bfd0e42e2c3ced39e26afa4d6.patch";
+    sha256 = "1v40gmnw4lqyk271wngdwz8whpfdhmza58srbkka8icwwwrck3l5";
+  });
+  connection = doJailbreak super.connection;
 }

@@ -26,7 +26,6 @@ self: super: {
   filepath = null;
   ghc-boot = null;
   ghc-boot-th = null;
-  ghc-bignum = null;
   ghc-compact = null;
   ghc-heap = null;
   ghci = null;
@@ -48,7 +47,6 @@ self: super: {
   transformers = null;
   unix = null;
   xhtml = null;
-  exceptions = null;
 
   # https://github.com/tibbe/unordered-containers/issues/214
   unordered-containers = dontCheck super.unordered-containers;
