@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
     "-Dgtk_doc=true"
   ];
 
-  doCheck = !stdenv.isAarch64;
+  doCheck = !(stdenv.isAarch64 || stdenv.isDarwin);
 
   preCheck = ''
     # Our gobject-introspection patches make the shared library paths absolute

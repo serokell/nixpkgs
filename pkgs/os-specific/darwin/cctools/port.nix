@@ -115,6 +115,7 @@ let
       rev    = "43f32a4c61b5ba7fde011e816136c550b1b3146f";
       sha256 = "10yc5smiczzm62q6ijqccc58bwmfhc897f3bwa5i9j98csqsjj0k";
     };
+    configurePlatforms = [ "build" "host" ];
     patches = [ ./949-ld-rpath-nonfinal.patch ./ld-ignore-rpath-link.patch ];
     preConfigure = "";
   };

@@ -133,7 +133,8 @@ stdenv.mkDerivation {
   hardeningDisable = [ "format" "pie" ];
 
   # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
-  configurePlatforms = [ "build" "host" ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
+  configurePlatforms = [ "build" "host" ] ++
+    lib.optional ((stdenv.targetPlatform != stdenv.hostPlatform) && (stdenv.targetPlatform.config != "js-unknown-ghcjs")) "target";
 
   configureFlags =
     (if enableShared then [ "--enable-shared" "--disable-static" ]
