@@ -122,6 +122,7 @@ stdenv.mkDerivation (rec {
      extraPrefix = "utils/haddock/";
      stripLen = 1;
    })
+   ./big_sur.patch
   ];
 
   postPatch = "patchShebangs .";
