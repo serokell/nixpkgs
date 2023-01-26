@@ -58,5 +58,40 @@
       nixosModules = {
         notDetected = ./nixos/modules/installer/scan/not-detected.nix;
       };
+
+      apps.x86_64-linux = let
+        pkgs = self.legacyPackages.x86_64-linux;
+      in {
+        repin = {
+          type = "app";
+          program = builtins.toString (pkgs.writers.writeBash "repin" ''
+            set -eu pipefail
+
+            : ''${REMOTE_BRANCH:="nixos-unstable-small"}
+            : ''${MERGE_BRANCH:="repin"}
+
+            CUR_BRANCH=$(git branch | grep "*" | cut -d " " -f 2)
+            REMOTE_REPO=$(${pkgs.openssl}/bin/openssl rand -base64 12)
+
+            cleanup() {
+              git remote remove "$REMOTE_REPO" 2>/dev/null
+              git checkout "$CUR_BRANCH"
+            }
+
+            trap cleanup SIGINT
+
+            git checkout master
+            git remote add "$REMOTE_REPO" git@github.com:nixos/nixpkgs
+            git fetch "$REMOTE_REPO"
+
+            git checkout -b "$MERGE_BRANCH"
+
+            # in a rebase, ours/theirs are swapped, see `git rebase --help`
+            git rebase "$REMOTE_REPO"/"$REMOTE_BRANCH" -X theirs
+
+            git remote remove "$REMOTE_REPO"
+          '');
+        };
+      };
     };
 }
